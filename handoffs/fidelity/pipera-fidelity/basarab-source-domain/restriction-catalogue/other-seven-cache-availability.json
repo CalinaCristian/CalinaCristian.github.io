@@ -1,0 +1,715 @@
+{
+  "schema": 1,
+  "scope": "Read-only cached-source availability for seven other districts at the recorded data hashes. No dataset was rebuilt or written, no runtime catalogue completeness/interpretation/native acceptance is claimed.",
+  "reports": [
+    {
+      "district": "bucharest-romana",
+      "dataSha256": "5240414e62b4ba2c3a010a1fbb9f0bec37972886f74f68a1aa1be9542b5aa7c2",
+      "sourceDirectory": "/workspace/reality-pass/romana/tiles",
+      "files": [
+        {
+          "file": "buc_44.4250_26.0610_44.4350_26.0770.xml",
+          "sha256": "326469c1c643c9ef294766a22628138f982cf13f37223fa30e5e5929c0f29fb6",
+          "bytes": 5097546
+        },
+        {
+          "file": "buc_44.4250_26.0770_44.4350_26.0930.xml",
+          "sha256": "3dc61e44fd58b38ef0d18d8bf56c2dcd4d41bcc360ae8b36d624f3be95570570",
+          "bytes": 4201904
+        },
+        {
+          "file": "buc_44.4250_26.0930_44.4350_26.1090.xml",
+          "sha256": "dbe86491bd47dfdc2b78988384aeeb7e3ac3c59ee706d4a0918c80c05da589cc",
+          "bytes": 12152142
+        },
+        {
+          "file": "buc_44.4250_26.1090_44.4350_26.1250.xml",
+          "sha256": "85df20eded36f4d37dd0558762385fd6496b0608e5ebf7889c8db1eafd8a9f67",
+          "bytes": 5627461
+        },
+        {
+          "file": "buc_44.4350_26.0610_44.4450_26.0770.xml",
+          "sha256": "a82f4aebf2ba8f2f321cd2144e30a119755b6ded55729eddf1d68a4eaf9afc35",
+          "bytes": 4361066
+        },
+        {
+          "file": "buc_44.4350_26.0770_44.4450_26.0930.xml",
+          "sha256": "6b88c0c9937c78c2264f48d66a1c20e8a18cba4bd9e233e861bf1c82790c0da5",
+          "bytes": 4560635
+        },
+        {
+          "file": "buc_44.4350_26.0930_44.4450_26.1090.xml",
+          "sha256": "8cb50939367e80d82e4f7c7631e71be2b6ff6f6054ebe9b1d31fdfa2fd7976d0",
+          "bytes": 7538229
+        },
+        {
+          "file": "buc_44.4350_26.1090_44.4450_26.1250.xml",
+          "sha256": "79898a15444a3e094a10c571080843a48858b64fdf5804753388b6809a3d1182",
+          "bytes": 5839279
+        },
+        {
+          "file": "buc_44.4450_26.0610_44.4550_26.0770.xml",
+          "sha256": "f9157a53b014b19b40816bd3de157e7fc2f228207157bfb6ca6e04839e145c85",
+          "bytes": 5561807
+        },
+        {
+          "file": "buc_44.4450_26.0770_44.4550_26.0930.xml",
+          "sha256": "0952f73927ba6a9cb20668e31c9fc95f5a43adb8b357aa511506b02ec3252500",
+          "bytes": 5339194
+        },
+        {
+          "file": "buc_44.4450_26.0930_44.4550_26.1090.xml",
+          "sha256": "b71369b02d0153dcc1f1e68d84a9e0ba5ccfa626f3395401d08b890675475d51",
+          "bytes": 5968976
+        },
+        {
+          "file": "buc_44.4450_26.1090_44.4550_26.1250.xml",
+          "sha256": "4ce57b70435a59a68ce36320ee1e707738dc8669dd9f9058e54a5ab9b7e4ce1a",
+          "bytes": 4990155
+        },
+        {
+          "file": "buc_44.4550_26.0610_44.4650_26.0770.xml",
+          "sha256": "9113b5ff010d55d2c56bf7792a454a10753131135c5ec6df930f1355f5b43909",
+          "bytes": 4585166
+        },
+        {
+          "file": "buc_44.4550_26.0770_44.4650_26.0930.xml",
+          "sha256": "de30e05f0ec653a40842727398c60244b089e8f02c4e2b5df88d0714d50323ba",
+          "bytes": 3624716
+        },
+        {
+          "file": "buc_44.4550_26.0930_44.4650_26.1090.xml",
+          "sha256": "546383d1c8ec826097b07108607e821f947c147a64994622e3c32c00f72814ad",
+          "bytes": 4383339
+        },
+        {
+          "file": "buc_44.4550_26.1090_44.4650_26.1250.xml",
+          "sha256": "9a6497ea0c11a04c0a3d8a72530f3eaeeffde40669eccfbd3dc8a572f3e8b1ea",
+          "bytes": 3421470
+        }
+      ],
+      "coreSourcesExactlyAvailable": true,
+      "counts": {
+        "nodes": 257537,
+        "ways": 35442,
+        "relations": 1304,
+        "rawRestrictionRelations": 641,
+        "coreSourceWays": 296,
+        "coreSourceNodes": 935,
+        "retainedRestrictionRelations": 30
+      },
+      "modeTagCounts": {
+        "restriction": 30
+      },
+      "exceptValues": {},
+      "exceptions": []
+    },
+    {
+      "district": "bucharest-floreasca",
+      "dataSha256": "e7c961ee4acc9bd0c6850e7fcce9ba170d1899134f10376c2a3b3f8af5695358",
+      "sourceDirectory": "/workspace/reality-pass/original-districts-refresh/tiles",
+      "files": [
+        {
+          "file": "buc_44.4250_26.0290_44.4350_26.0450.xml",
+          "sha256": "5f6dfc4175e595a80a0207927b135fcdda0ea79cfecdea841b089c91ba0c3343",
+          "bytes": 3620820
+        },
+        {
+          "file": "buc_44.4250_26.0450_44.4350_26.0610.xml",
+          "sha256": "57639f0f940a2ca42f873e5e171b938cf43980f28fede6a30d29ce246b957fa7",
+          "bytes": 4068076
+        },
+        {
+          "file": "buc_44.4250_26.0610_44.4350_26.0770.xml",
+          "sha256": "326469c1c643c9ef294766a22628138f982cf13f37223fa30e5e5929c0f29fb6",
+          "bytes": 5097546
+        },
+        {
+          "file": "buc_44.4250_26.0770_44.4350_26.0930.xml",
+          "sha256": "3dc61e44fd58b38ef0d18d8bf56c2dcd4d41bcc360ae8b36d624f3be95570570",
+          "bytes": 4201904
+        },
+        {
+          "file": "buc_44.4250_26.0930_44.4350_26.1090.xml",
+          "sha256": "dbe86491bd47dfdc2b78988384aeeb7e3ac3c59ee706d4a0918c80c05da589cc",
+          "bytes": 12152142
+        },
+        {
+          "file": "buc_44.4250_26.1090_44.4350_26.1250.xml",
+          "sha256": "85df20eded36f4d37dd0558762385fd6496b0608e5ebf7889c8db1eafd8a9f67",
+          "bytes": 5627461
+        },
+        {
+          "file": "buc_44.4350_26.0290_44.4450_26.0450.xml",
+          "sha256": "1b3433692876dc385b2960f34d06d3f55c96f0c507f9207a9bb449ec7c0b3bcf",
+          "bytes": 2139336
+        },
+        {
+          "file": "buc_44.4350_26.0450_44.4450_26.0610.xml",
+          "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689",
+          "bytes": 2581216
+        },
+        {
+          "file": "buc_44.4350_26.0610_44.4450_26.0770.xml",
+          "sha256": "a82f4aebf2ba8f2f321cd2144e30a119755b6ded55729eddf1d68a4eaf9afc35",
+          "bytes": 4361066
+        },
+        {
+          "file": "buc_44.4350_26.0770_44.4450_26.0930.xml",
+          "sha256": "6b88c0c9937c78c2264f48d66a1c20e8a18cba4bd9e233e861bf1c82790c0da5",
+          "bytes": 4560635
+        },
+        {
+          "file": "buc_44.4350_26.0930_44.4450_26.1090.xml",
+          "sha256": "8cb50939367e80d82e4f7c7631e71be2b6ff6f6054ebe9b1d31fdfa2fd7976d0",
+          "bytes": 7538229
+        },
+        {
+          "file": "buc_44.4350_26.1090_44.4450_26.1250.xml",
+          "sha256": "79898a15444a3e094a10c571080843a48858b64fdf5804753388b6809a3d1182",
+          "bytes": 5839279
+        },
+        {
+          "file": "buc_44.4450_26.0290_44.4550_26.0450.xml",
+          "sha256": "57a0c0e0a2c75f2e0f999b8fa8c5733d669c5bd244490fcd409b1c747593c55f",
+          "bytes": 1316642
+        },
+        {
+          "file": "buc_44.4450_26.0450_44.4550_26.0610.xml",
+          "sha256": "1336a618c3f735263833078499794446ed5f9b8776aeefe914aaaa2eb5ec7732",
+          "bytes": 3534494
+        },
+        {
+          "file": "buc_44.4450_26.0610_44.4550_26.0770.xml",
+          "sha256": "f9157a53b014b19b40816bd3de157e7fc2f228207157bfb6ca6e04839e145c85",
+          "bytes": 5561807
+        },
+        {
+          "file": "buc_44.4450_26.0770_44.4550_26.0930.xml",
+          "sha256": "0952f73927ba6a9cb20668e31c9fc95f5a43adb8b357aa511506b02ec3252500",
+          "bytes": 5339194
+        },
+        {
+          "file": "buc_44.4450_26.0930_44.4550_26.1090.xml",
+          "sha256": "b71369b02d0153dcc1f1e68d84a9e0ba5ccfa626f3395401d08b890675475d51",
+          "bytes": 5968976
+        },
+        {
+          "file": "buc_44.4450_26.1090_44.4550_26.1250.xml",
+          "sha256": "4ce57b70435a59a68ce36320ee1e707738dc8669dd9f9058e54a5ab9b7e4ce1a",
+          "bytes": 4990155
+        },
+        {
+          "file": "buc_44.4550_26.0290_44.4650_26.0450.xml",
+          "sha256": "2d4083c18438e61eebab62d3b67f5a07337d69c2aa84bb8b4d8bb143d2437b85",
+          "bytes": 2104334
+        },
+        {
+          "file": "buc_44.4550_26.0450_44.4650_26.0610.xml",
+          "sha256": "5b4a8f65b7fd6866738854193f910b82c100e3c6ed1effedb800a83f6ed1fd50",
+          "bytes": 3271344
+        },
+        {
+          "file": "buc_44.4550_26.0610_44.4650_26.0770.xml",
+          "sha256": "9113b5ff010d55d2c56bf7792a454a10753131135c5ec6df930f1355f5b43909",
+          "bytes": 4585166
+        },
+        {
+          "file": "buc_44.4550_26.0770_44.4650_26.0930.xml",
+          "sha256": "de30e05f0ec653a40842727398c60244b089e8f02c4e2b5df88d0714d50323ba",
+          "bytes": 3624716
+        },
+        {
+          "file": "buc_44.4550_26.0930_44.4650_26.1090.xml",
+          "sha256": "546383d1c8ec826097b07108607e821f947c147a64994622e3c32c00f72814ad",
+          "bytes": 4383339
+        },
+        {
+          "file": "buc_44.4550_26.1090_44.4650_26.1250.xml",
+          "sha256": "9a6497ea0c11a04c0a3d8a72530f3eaeeffde40669eccfbd3dc8a572f3e8b1ea",
+          "bytes": 3421470
+        },
+        {
+          "file": "buc_44.4650_26.0770_44.4750_26.0930.xml",
+          "sha256": "d81de5647330489b4b20d8240ea8e13d868193b80935b11f24b7a440a67cf45a",
+          "bytes": 2887998
+        },
+        {
+          "file": "buc_44.4650_26.0930_44.4750_26.1090.xml",
+          "sha256": "efc92c6fbbc7be71d701f0c67a0bb262d107e2f42491887b1e9e47c3f45fd814",
+          "bytes": 1961983
+        },
+        {
+          "file": "buc_44.4650_26.1090_44.4750_26.1250.xml",
+          "sha256": "cb31deadad1beb18b66e59790221198dfa7a7740a7b728f7acfc86f6963599ca",
+          "bytes": 2095106
+        },
+        {
+          "file": "buc_44.4750_26.0770_44.4850_26.0930.xml",
+          "sha256": "46d21f3da9ac9c05a2428188fda3d7355396c7fbe968b9fd09bad374a33dd35d",
+          "bytes": 1741574
+        },
+        {
+          "file": "buc_44.4750_26.0930_44.4850_26.1090.xml",
+          "sha256": "53d352aaf79afa5c674f39a2c79c5a7f08956f1c1152e71349426706cb589b61",
+          "bytes": 3204049
+        },
+        {
+          "file": "buc_44.4750_26.1090_44.4850_26.1250.xml",
+          "sha256": "0d93722f7ece93d8971d60cba7ef1a40ed39af5b01ee3183a772ea08a82cd96c",
+          "bytes": 1836594
+        },
+        {
+          "file": "buc_44.4850_26.0770_44.4950_26.0930.xml",
+          "sha256": "5423c00e0b65d93e670941be3a9ceec29bc6bd1e852b349fc6575a4bd5158b35",
+          "bytes": 2982675
+        },
+        {
+          "file": "buc_44.4850_26.0930_44.4950_26.1090.xml",
+          "sha256": "163ad6631147201defb5e51218e6d879217d25a7ba03247e87ac71b3f6390e9d",
+          "bytes": 1410136
+        },
+        {
+          "file": "buc_44.4850_26.1090_44.4950_26.1250.xml",
+          "sha256": "d2f3bb2abb25c9056563855b3398480ca715b0e2fb710864d058a6dd7826c51a",
+          "bytes": 1251941
+        },
+        {
+          "file": "bucx_44.4650_26.1250_44.4750_26.1410.xml",
+          "sha256": "20707ba2b6966213c81c33df31c5d43a644e0293911c330a4b2e37807f3e61df",
+          "bytes": 4366194
+        },
+        {
+          "file": "bucx_44.4750_26.1250_44.4850_26.1410.xml",
+          "sha256": "affb91eaa732c6655f09276bb222d00ff697753947e52f008dcca660c453e8e9",
+          "bytes": 2555489
+        },
+        {
+          "file": "bucx_44.4850_26.1250_44.4950_26.1410.xml",
+          "sha256": "318673c7a8f3af353222ff6c6e04ce3d3fb1a10c1c6e066942b04ad095f8c49b",
+          "bytes": 1333665
+        }
+      ],
+      "coreSourcesExactlyAvailable": true,
+      "counts": {
+        "nodes": 383574,
+        "ways": 55702,
+        "relations": 1830,
+        "rawRestrictionRelations": 991,
+        "coreSourceWays": 143,
+        "coreSourceNodes": 340,
+        "retainedRestrictionRelations": 19
+      },
+      "modeTagCounts": {
+        "restriction": 19
+      },
+      "exceptValues": {
+        "bicycle": [
+          "r1107971"
+        ]
+      },
+      "exceptions": []
+    },
+    {
+      "district": "bucharest-unirii",
+      "dataSha256": "c4d8da3b398d112b64fe4b3ba233eb4fdbad6168e41aa20f50f9abbd84523c12",
+      "sourceDirectory": "/workspace/reality-pass/remaining-ro/unirii/tiles",
+      "files": [
+        {
+          "file": "buc_44.4150_26.0850_44.4250_26.1010.xml",
+          "sha256": "daf81dafc0137aa729fa3324c7ae7ccfc0b7ae4957b8b1ce2cc7e445fa934dd2",
+          "bytes": 5341424
+        },
+        {
+          "file": "buc_44.4150_26.1010_44.4250_26.1170.xml",
+          "sha256": "310d04660f9c91e97f19932a0ef284b4ce53564b496fa21b21f46a25dcc6c7b1",
+          "bytes": 5228197
+        },
+        {
+          "file": "buc_44.4150_26.1170_44.4250_26.1330.xml",
+          "sha256": "74e070ccb66c970c73a276ad1a8a28d4b0f5df8da367a9a45ee5071262f6a9c0",
+          "bytes": 3541990
+        },
+        {
+          "file": "buc_44.4250_26.0850_44.4350_26.1010.xml",
+          "sha256": "659269a337ceceee3a81ad5b354f9f3ad2cceff1c082e9e432ae51a939d27a71",
+          "bytes": 8598218
+        },
+        {
+          "file": "buc_44.4250_26.1010_44.4350_26.1170.xml",
+          "sha256": "65a3f8f4137aa75bf521f67e4ffb26bbaf6a686426294c4bc2ff960d7697cd49",
+          "bytes": 8330219
+        },
+        {
+          "file": "buc_44.4250_26.1170_44.4350_26.1330.xml",
+          "sha256": "1453e5f61cc1fbabcd4d2a2d99139e9c1941f74e3844952e21c03eac4a8b241e",
+          "bytes": 5799006
+        },
+        {
+          "file": "buc_44.4350_26.0850_44.4450_26.1010.xml",
+          "sha256": "e0c803c1d5130a815e1387bb5c54372441366558d17d68922d731f0836a66082",
+          "bytes": 6616105
+        },
+        {
+          "file": "buc_44.4350_26.1010_44.4450_26.1170.xml",
+          "sha256": "e2bb639a0bec459fcb28baba37a6fb652cb5e30ddcf692f3a9c445d771887219",
+          "bytes": 6574477
+        },
+        {
+          "file": "buc_44.4350_26.1170_44.4450_26.1330.xml",
+          "sha256": "aa2ab53720bad126f75d274aae60c0d666aa5b9206b1b9a8666776bbb007f8cd",
+          "bytes": 5884264
+        }
+      ],
+      "coreSourcesExactlyAvailable": true,
+      "counts": {
+        "nodes": 169226,
+        "ways": 21503,
+        "relations": 723,
+        "rawRestrictionRelations": 306,
+        "coreSourceWays": 248,
+        "coreSourceNodes": 889,
+        "retainedRestrictionRelations": 26
+      },
+      "modeTagCounts": {
+        "restriction": 26
+      },
+      "exceptValues": {},
+      "exceptions": []
+    },
+    {
+      "district": "bucharest-otopeni",
+      "dataSha256": "5e1242d5583db482717545ca0ba99e12b45611c25dcda0c04d1ffe45e084a711",
+      "sourceDirectory": "/workspace/reality-pass/remaining-ro/otopeni/tiles",
+      "files": [
+        {
+          "file": "dn1_44.5450_26.0500_44.5600_26.0700.xml",
+          "sha256": "8f865a65a334e9cdcd12339e9b82df43e07857ce38dbf2758727453ccd68a96f",
+          "bytes": 2399963
+        },
+        {
+          "file": "dn1_44.5450_26.0700_44.5600_26.0900.xml",
+          "sha256": "f2dd9355642a5f8e05f7595313af73e8068dde933246d23aed4a50710ce9a378",
+          "bytes": 3110815
+        },
+        {
+          "file": "dn1_44.5600_26.0500_44.5750_26.0700.xml",
+          "sha256": "493be2b0253a73b693bb8333dad5b7ca4c094ba5dac9552b7c88b2f07d536f2e",
+          "bytes": 1528671
+        },
+        {
+          "file": "dn1_44.5600_26.0700_44.5750_26.0900.xml",
+          "sha256": "2e68069ed5264da1dc0641132546bf508e5285ad76d1d3b26634d945fbf0319f",
+          "bytes": 2310192
+        },
+        {
+          "file": "dn1_44.5750_26.0500_44.5900_26.0700.xml",
+          "sha256": "9101b76fd28f2d8b951ba581ae241f45f798b55111f1de209270de5bf3e19abc",
+          "bytes": 932286
+        },
+        {
+          "file": "dn1_44.5750_26.0700_44.5900_26.0900.xml",
+          "sha256": "d3d9de03ca13f2aba6410d9dcd113dc78f7c5493e0950efe863ed3d3607f68a7",
+          "bytes": 1701170
+        }
+      ],
+      "coreSourcesExactlyAvailable": true,
+      "counts": {
+        "nodes": 35162,
+        "ways": 6108,
+        "relations": 79,
+        "rawRestrictionRelations": 6,
+        "coreSourceWays": 172,
+        "coreSourceNodes": 698,
+        "retainedRestrictionRelations": 0
+      },
+      "modeTagCounts": {},
+      "exceptValues": {},
+      "exceptions": []
+    },
+    {
+      "district": "bucharest-pipera",
+      "dataSha256": "235da718f7401114004e5d036e1e360fd01230fa9ae2509c0c77e52edcba373a",
+      "sourceDirectory": "/workspace/reality-pass/pipera/tiles",
+      "files": [
+        {
+          "file": "buc_44.4650_26.0770_44.4750_26.0930.xml",
+          "sha256": "d81de5647330489b4b20d8240ea8e13d868193b80935b11f24b7a440a67cf45a",
+          "bytes": 2887998
+        },
+        {
+          "file": "buc_44.4650_26.0930_44.4750_26.1090.xml",
+          "sha256": "efc92c6fbbc7be71d701f0c67a0bb262d107e2f42491887b1e9e47c3f45fd814",
+          "bytes": 1961983
+        },
+        {
+          "file": "buc_44.4650_26.1090_44.4750_26.1250.xml",
+          "sha256": "cb31deadad1beb18b66e59790221198dfa7a7740a7b728f7acfc86f6963599ca",
+          "bytes": 2095106
+        },
+        {
+          "file": "buc_44.4750_26.0770_44.4850_26.0930.xml",
+          "sha256": "46d21f3da9ac9c05a2428188fda3d7355396c7fbe968b9fd09bad374a33dd35d",
+          "bytes": 1741574
+        },
+        {
+          "file": "buc_44.4750_26.0930_44.4850_26.1090.xml",
+          "sha256": "53d352aaf79afa5c674f39a2c79c5a7f08956f1c1152e71349426706cb589b61",
+          "bytes": 3204049
+        },
+        {
+          "file": "buc_44.4750_26.1090_44.4850_26.1250.xml",
+          "sha256": "0d93722f7ece93d8971d60cba7ef1a40ed39af5b01ee3183a772ea08a82cd96c",
+          "bytes": 1836594
+        },
+        {
+          "file": "buc_44.4850_26.0770_44.4950_26.0930.xml",
+          "sha256": "5423c00e0b65d93e670941be3a9ceec29bc6bd1e852b349fc6575a4bd5158b35",
+          "bytes": 2982675
+        },
+        {
+          "file": "buc_44.4850_26.0930_44.4950_26.1090.xml",
+          "sha256": "163ad6631147201defb5e51218e6d879217d25a7ba03247e87ac71b3f6390e9d",
+          "bytes": 1410136
+        },
+        {
+          "file": "buc_44.4850_26.1090_44.4950_26.1250.xml",
+          "sha256": "d2f3bb2abb25c9056563855b3398480ca715b0e2fb710864d058a6dd7826c51a",
+          "bytes": 1251941
+        },
+        {
+          "file": "bucx_44.4650_26.1250_44.4750_26.1410.xml",
+          "sha256": "20707ba2b6966213c81c33df31c5d43a644e0293911c330a4b2e37807f3e61df",
+          "bytes": 4366194
+        },
+        {
+          "file": "bucx_44.4750_26.1250_44.4850_26.1410.xml",
+          "sha256": "affb91eaa732c6655f09276bb222d00ff697753947e52f008dcca660c453e8e9",
+          "bytes": 2555489
+        },
+        {
+          "file": "bucx_44.4850_26.1250_44.4950_26.1410.xml",
+          "sha256": "318673c7a8f3af353222ff6c6e04ce3d3fb1a10c1c6e066942b04ad095f8c49b",
+          "bytes": 1333665
+        }
+      ],
+      "coreSourcesExactlyAvailable": true,
+      "counts": {
+        "nodes": 70773,
+        "ways": 10940,
+        "relations": 509,
+        "rawRestrictionRelations": 276,
+        "coreSourceWays": 382,
+        "coreSourceNodes": 1120,
+        "retainedRestrictionRelations": 29
+      },
+      "modeTagCounts": {
+        "restriction": 29
+      },
+      "exceptValues": {},
+      "exceptions": [
+        {
+          "sourceId": "r15005032",
+          "reasons": [
+            "missing-to",
+            "missing-via"
+          ]
+        },
+        {
+          "sourceId": "r15422410",
+          "reasons": [
+            "missing-via"
+          ]
+        },
+        {
+          "sourceId": "r21503257",
+          "reasons": [
+            "via-way"
+          ]
+        }
+      ]
+    },
+    {
+      "district": "seattle-seatac",
+      "dataSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+      "sourceDirectory": "/workspace/reality-pass/us-districts/tiles",
+      "files": [
+        {
+          "file": "sea_seatac_47.4300_-122.2900_47.4500_-122.2600.xml",
+          "sha256": "a1fe5a871b06b1cc49ed071114abbe106f315253b859da039bec2e87057dc80a",
+          "bytes": 7522687
+        },
+        {
+          "file": "sea_seatac_47.4300_-122.3200_47.4500_-122.2900.xml",
+          "sha256": "88a5147c09eb4b59c083da818a306b0046537e2d1768a86749de2f0ea042b22f",
+          "bytes": 5966286
+        },
+        {
+          "file": "sea_seatac_47.4500_-122.2900_47.4700_-122.2600.xml",
+          "sha256": "3b50191b3a8389d0075e4760a91baadd1513c78f1e18fb8717f78335848f6bb0",
+          "bytes": 8288803
+        },
+        {
+          "file": "sea_seatac_47.4500_-122.3200_47.4700_-122.2900.xml",
+          "sha256": "a5cf37cdb4a0ff028533793673a8096fd329b604f56ce51851ae608c83d6cdf6",
+          "bytes": 3740754
+        }
+      ],
+      "coreSourcesExactlyAvailable": true,
+      "counts": {
+        "nodes": 81560,
+        "ways": 13781,
+        "relations": 322,
+        "rawRestrictionRelations": 130,
+        "coreSourceWays": 730,
+        "coreSourceNodes": 3251,
+        "retainedRestrictionRelations": 21
+      },
+      "modeTagCounts": {
+        "restriction": 21
+      },
+      "exceptValues": {},
+      "exceptions": [
+        {
+          "sourceId": "r13036370",
+          "reasons": [
+            "via-way"
+          ]
+        }
+      ]
+    },
+    {
+      "district": "seattle-bellevue",
+      "dataSha256": "ce748b6b9982856655927a590b37b1e951716cff15b7efef1cf9cd5a09f5c8cb",
+      "sourceDirectory": "/workspace/reality-pass/us-districts/tiles",
+      "files": [
+        {
+          "file": "sea_bel_47.6000_-122.1950_47.6125_-122.1700.xml",
+          "sha256": "1f7ee46303bb9be7e34b930ac314e533e93d4c0d00b15e1d6333d3ea3f0c06b4",
+          "bytes": 5751479
+        },
+        {
+          "file": "sea_bel_47.6000_-122.2200_47.6125_-122.1950.xml",
+          "sha256": "c113d6407ada41763d91dfb3ef4f85e50d12c74bdaf3ed48eaa3fbe211bad4d7",
+          "bytes": 4897841
+        },
+        {
+          "file": "sea_bel_47.6125_-122.1950_47.6250_-122.1700.xml",
+          "sha256": "eb8de036632d2d3312c5e17db2e4be5321494572f3357c38900b03ed5cfbafdd",
+          "bytes": 7051475
+        },
+        {
+          "file": "sea_bel_47.6125_-122.2200_47.6250_-122.1950.xml",
+          "sha256": "f7e26dde902cb8746bca4a9a8c7d7fafb9d090bb5d680f26a096a97ff12e30cc",
+          "bytes": 7516692
+        },
+        {
+          "file": "sea_bel_47.6250_-122.1950_47.6375_-122.1700.xml",
+          "sha256": "0169421c7eb091029760ddb408dc3db83efa67adb8311d363e2b896aee08baba",
+          "bytes": 3498523
+        },
+        {
+          "file": "sea_bel_47.6250_-122.2200_47.6375_-122.1950.xml",
+          "sha256": "3ddca8284026ec69e352132528090ac2abbc60f600200d85389d638a824e0cce",
+          "bytes": 4242012
+        },
+        {
+          "file": "sea_bel_47.6375_-122.1950_47.6500_-122.1700.xml",
+          "sha256": "d8e5d890c3a4429028c61b69d558cb0b7121d84a5a0c50673029d859700924c1",
+          "bytes": 3178125
+        },
+        {
+          "file": "sea_bel_47.6375_-122.2200_47.6500_-122.1950.xml",
+          "sha256": "defe9eb4dbfd827d5bda1293c228fa301a1f3c90fb1f676ad5d03e4c7a005d64",
+          "bytes": 4692223
+        }
+      ],
+      "coreSourcesExactlyAvailable": true,
+      "counts": {
+        "nodes": 133479,
+        "ways": 22743,
+        "relations": 476,
+        "rawRestrictionRelations": 256,
+        "coreSourceWays": 304,
+        "coreSourceNodes": 806,
+        "retainedRestrictionRelations": 38
+      },
+      "modeTagCounts": {
+        "restriction": 38
+      },
+      "exceptValues": {},
+      "exceptions": [
+        {
+          "sourceId": "r7435930",
+          "reasons": [
+            "missing-via"
+          ]
+        },
+        {
+          "sourceId": "r8192473",
+          "reasons": [
+            "via-way"
+          ]
+        },
+        {
+          "sourceId": "r11208868",
+          "reasons": [
+            "multiple-via",
+            "via-way"
+          ]
+        },
+        {
+          "sourceId": "r11208869",
+          "reasons": [
+            "multiple-via",
+            "via-way"
+          ]
+        },
+        {
+          "sourceId": "r11208870",
+          "reasons": [
+            "multiple-via",
+            "via-way"
+          ]
+        },
+        {
+          "sourceId": "r13036306",
+          "reasons": [
+            "via-way"
+          ]
+        },
+        {
+          "sourceId": "r13036307",
+          "reasons": [
+            "missing-from"
+          ]
+        },
+        {
+          "sourceId": "r14254126",
+          "reasons": [
+            "via-way"
+          ]
+        },
+        {
+          "sourceId": "r14254129",
+          "reasons": [
+            "via-way"
+          ]
+        },
+        {
+          "sourceId": "r14368184",
+          "reasons": [
+            "via-way"
+          ]
+        },
+        {
+          "sourceId": "r14583354",
+          "reasons": [
+            "multiple-via",
+            "via-way"
+          ]
+        }
+      ]
+    }
+  ]
+}

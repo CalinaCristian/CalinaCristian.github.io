@@ -1,0 +1,31 @@
+(node:588233) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/basarab-source-domain/game/src/building-parts.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/basarab-source-domain/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[osm] bucharest 16 tiles
+[osm] parsed nodes=168629 ways=24931 rels=913
+[osm] roads 4916
+[osm] corridor: 0 legs, 5 pieces, 3 circles, area 0.8 km² (game)
+[osm] corridor roads: 4916 ways → 361 clipped pieces → 361 connected
+[osm] graph nodes 1418 segments 1473
+[osm] areas 556
+[osm] research: /workspace/fidelity-workers/basarab-source-domain/game/research/bucharest-grozavesti.json → 463 buildings enriched
+[osm] aerial roofs: 5967 footprints measured (/workspace/fidelity-workers/basarab-source-domain/game/research/roofs-bucharest-grozavesti.json)
+[osm] raw buildings 13790
+[osm] dev-check: 10 buildings overlapping road ribbons retained with source conflicts
+[osm] buildings kept 2932 outside ring: 2664 dropped inside the area: {} aerial roofs: {"used":1941,"shape":1281,"colour":1991}
+[osm] businesses: +0 locator-only, −0 stale, 1 vacant units
+[osm] pois 123
+[osm] aerial trees: 21596 added (3433 on streets / buildings / pitches / duplicates, 0 small ring crowns thinned) from /workspace/fidelity-workers/basarab-source-domain/game/research/trees-bucharest-grozavesti.json
+[osm] osm trees 21647 furniture 13
+[osm] street lamps 0
+[osm] height sanity: 73 untagged footprints re-estimated
+[osm] building courtyards 5 buildings, 7 inner rings
+[osm] building outlines covered by exact ground parts 7
+[osm] building outline/part assemblies 23
+[osm] physical source-solid unions v2 886 locally validated surfaces
+[osm] source roof surface unions 646
+[osm] scenery streets 1256
+[osm] green ground: 259633 cells of 3.41 × 3.40 m (3.02 km²) from /workspace/fidelity-workers/basarab-source-domain/game/research/green-bucharest-grozavesti.json
+[osm] backdrop boxes 3182
+[osm] wrote /workspace/fidelity-workers/basarab-source-domain/game/data/bucharest-grozavesti.json  8.53 MB  roads=361 segments=1473 buildings=2932 pois=123 areas=560 lamps=0 trees=21789 furniture=13 backdrop=3182

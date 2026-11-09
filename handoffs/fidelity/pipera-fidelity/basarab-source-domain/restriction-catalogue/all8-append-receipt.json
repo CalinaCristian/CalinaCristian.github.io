@@ -1,0 +1,845 @@
+{
+  "schema": 1,
+  "scope": "Metadata-only append from verified cached source. No geometry rebuild or runtime permission changes.",
+  "districts": [
+    {
+      "file": "game/data/bucharest-grozavesti.json",
+      "beforeSourceCommit": "99987e15af9417503855019751fafcc5d07f119e",
+      "beforeSha256": "053f75636671ca5fb0e44db38070bd806572697a54c6127e55834b9d86521a75",
+      "afterSha256": "053f75636671ca5fb0e44db38070bd806572697a54c6127e55834b9d86521a75",
+      "allNonmetadataJsonValuesEqual": true,
+      "originalPrefixBytesEqual": true,
+      "metadataAlreadyEqual": true,
+      "catalogueRecords": 33,
+      "coverage": {
+        "schema": 1,
+        "districtId": "grozavesti",
+        "scope": "All raw type=restriction records in these cached OSM tiles touching a retained core source way or positive prepared source node. Includes mode-only, except, conditional, malformed and via-way records unchanged; no permissions inferred. Not a catalogue for any other district or uncached source.",
+        "sourceFiles": [
+          {
+            "file": "buc_44.4250_26.0290_44.4350_26.0450.xml",
+            "sha256": "5f6dfc4175e595a80a0207927b135fcdda0ea79cfecdea841b089c91ba0c3343"
+          },
+          {
+            "file": "buc_44.4250_26.0450_44.4350_26.0610.xml",
+            "sha256": "57639f0f940a2ca42f873e5e171b938cf43980f28fede6a30d29ce246b957fa7"
+          },
+          {
+            "file": "buc_44.4250_26.0610_44.4350_26.0770.xml",
+            "sha256": "1de258735272aa12e444747c50a36372a0337d0bb16821337ba865d5ad600feb"
+          },
+          {
+            "file": "buc_44.4250_26.0770_44.4350_26.0930.xml",
+            "sha256": "1dafbd501669a59407348a2028a6190dbeb129a85c30181bb86e79b05c8a5fb1"
+          },
+          {
+            "file": "buc_44.4350_26.0290_44.4450_26.0450.xml",
+            "sha256": "1b3433692876dc385b2960f34d06d3f55c96f0c507f9207a9bb449ec7c0b3bcf"
+          },
+          {
+            "file": "buc_44.4350_26.0450_44.4450_26.0610.xml",
+            "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689"
+          },
+          {
+            "file": "buc_44.4350_26.0610_44.4450_26.0770.xml",
+            "sha256": "5c526f202084ffa605d5b78bb15b923b10dee7bca10bf65d9438152a465e0624"
+          },
+          {
+            "file": "buc_44.4350_26.0770_44.4450_26.0930.xml",
+            "sha256": "14b1a756654b49a7d62517cddc711bc20056e4684a0a1f10c6a41ee9e6462069"
+          },
+          {
+            "file": "buc_44.4450_26.0290_44.4550_26.0450.xml",
+            "sha256": "57a0c0e0a2c75f2e0f999b8fa8c5733d669c5bd244490fcd409b1c747593c55f"
+          },
+          {
+            "file": "buc_44.4450_26.0450_44.4550_26.0610.xml",
+            "sha256": "1336a618c3f735263833078499794446ed5f9b8776aeefe914aaaa2eb5ec7732"
+          },
+          {
+            "file": "buc_44.4450_26.0610_44.4550_26.0770.xml",
+            "sha256": "1b4248039697685242b9df55183002daee53d1ca728571020f64d9fa4fdb9f2e"
+          },
+          {
+            "file": "buc_44.4450_26.0770_44.4550_26.0930.xml",
+            "sha256": "ee2946108a6f27a83e7b71f558950182e12af5eb1de7b7815b5ec03369a3af6e"
+          },
+          {
+            "file": "buc_44.4550_26.0290_44.4650_26.0450.xml",
+            "sha256": "2d4083c18438e61eebab62d3b67f5a07337d69c2aa84bb8b4d8bb143d2437b85"
+          },
+          {
+            "file": "buc_44.4550_26.0450_44.4650_26.0610.xml",
+            "sha256": "5b4a8f65b7fd6866738854193f910b82c100e3c6ed1effedb800a83f6ed1fd50"
+          },
+          {
+            "file": "buc_44.4550_26.0610_44.4650_26.0770.xml",
+            "sha256": "052b27afee4aef69c907c144db2c38791acddfd572c917584f2136a709698996"
+          },
+          {
+            "file": "buc_44.4550_26.0770_44.4650_26.0930.xml",
+            "sha256": "990ea50aa95587d1a134729a994a2f08db3e64618164a473a852ff298ac1af96"
+          }
+        ],
+        "coreSourceSetSha256": "f1236c136de7e128874504c6512d02a1979a493ca94bfbfc5d4e29ef10a98b1a",
+        "counts": {
+          "nodes": 168629,
+          "ways": 24931,
+          "relations": 913,
+          "rawRestrictionRelations": 466,
+          "coreSourceWays": 351,
+          "coreSourceNodes": 1294,
+          "retainedRestrictionRelations": 33
+        },
+        "missingCoreWays": [],
+        "missingCoreNodes": [],
+        "coreSourceMismatches": [],
+        "modeTagCounts": {
+          "restriction": 33
+        },
+        "exceptValues": {},
+        "exceptions": [
+          {
+            "sourceId": "r21068448",
+            "reasons": [
+              "missing-via"
+            ]
+          },
+          {
+            "sourceId": "r21068490",
+            "reasons": [
+              "missing-from"
+            ]
+          },
+          {
+            "sourceId": "r21068491",
+            "reasons": [
+              "missing-from"
+            ]
+          },
+          {
+            "sourceId": "r21274117",
+            "reasons": [
+              "missing-from"
+            ]
+          },
+          {
+            "sourceId": "r21274119",
+            "reasons": [
+              "missing-to"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "file": "game/data/bucharest-romana.json",
+      "beforeSourceCommit": "99987e15af9417503855019751fafcc5d07f119e",
+      "beforeSha256": "5240414e62b4ba2c3a010a1fbb9f0bec37972886f74f68a1aa1be9542b5aa7c2",
+      "afterSha256": "af976b05482ce0663264cadeb2d1a0d1dd3a67a05cc7b07b1c592ddfa7fa2e6d",
+      "allNonmetadataJsonValuesEqual": true,
+      "originalPrefixBytesEqual": true,
+      "metadataAlreadyEqual": false,
+      "catalogueRecords": 30,
+      "coverage": {
+        "schema": 1,
+        "districtId": "romana",
+        "scope": "All raw type=restriction records in these cached OSM tiles touching a retained core source way or positive prepared source node. Includes mode-only, except, conditional, malformed and via-way records unchanged; no permissions inferred. Not a catalogue for any other district or uncached source.",
+        "sourceFiles": [
+          {
+            "file": "buc_44.4250_26.0610_44.4350_26.0770.xml",
+            "sha256": "326469c1c643c9ef294766a22628138f982cf13f37223fa30e5e5929c0f29fb6"
+          },
+          {
+            "file": "buc_44.4250_26.0770_44.4350_26.0930.xml",
+            "sha256": "3dc61e44fd58b38ef0d18d8bf56c2dcd4d41bcc360ae8b36d624f3be95570570"
+          },
+          {
+            "file": "buc_44.4250_26.0930_44.4350_26.1090.xml",
+            "sha256": "dbe86491bd47dfdc2b78988384aeeb7e3ac3c59ee706d4a0918c80c05da589cc"
+          },
+          {
+            "file": "buc_44.4250_26.1090_44.4350_26.1250.xml",
+            "sha256": "85df20eded36f4d37dd0558762385fd6496b0608e5ebf7889c8db1eafd8a9f67"
+          },
+          {
+            "file": "buc_44.4350_26.0610_44.4450_26.0770.xml",
+            "sha256": "a82f4aebf2ba8f2f321cd2144e30a119755b6ded55729eddf1d68a4eaf9afc35"
+          },
+          {
+            "file": "buc_44.4350_26.0770_44.4450_26.0930.xml",
+            "sha256": "6b88c0c9937c78c2264f48d66a1c20e8a18cba4bd9e233e861bf1c82790c0da5"
+          },
+          {
+            "file": "buc_44.4350_26.0930_44.4450_26.1090.xml",
+            "sha256": "8cb50939367e80d82e4f7c7631e71be2b6ff6f6054ebe9b1d31fdfa2fd7976d0"
+          },
+          {
+            "file": "buc_44.4350_26.1090_44.4450_26.1250.xml",
+            "sha256": "79898a15444a3e094a10c571080843a48858b64fdf5804753388b6809a3d1182"
+          },
+          {
+            "file": "buc_44.4450_26.0610_44.4550_26.0770.xml",
+            "sha256": "f9157a53b014b19b40816bd3de157e7fc2f228207157bfb6ca6e04839e145c85"
+          },
+          {
+            "file": "buc_44.4450_26.0770_44.4550_26.0930.xml",
+            "sha256": "0952f73927ba6a9cb20668e31c9fc95f5a43adb8b357aa511506b02ec3252500"
+          },
+          {
+            "file": "buc_44.4450_26.0930_44.4550_26.1090.xml",
+            "sha256": "b71369b02d0153dcc1f1e68d84a9e0ba5ccfa626f3395401d08b890675475d51"
+          },
+          {
+            "file": "buc_44.4450_26.1090_44.4550_26.1250.xml",
+            "sha256": "4ce57b70435a59a68ce36320ee1e707738dc8669dd9f9058e54a5ab9b7e4ce1a"
+          },
+          {
+            "file": "buc_44.4550_26.0610_44.4650_26.0770.xml",
+            "sha256": "9113b5ff010d55d2c56bf7792a454a10753131135c5ec6df930f1355f5b43909"
+          },
+          {
+            "file": "buc_44.4550_26.0770_44.4650_26.0930.xml",
+            "sha256": "de30e05f0ec653a40842727398c60244b089e8f02c4e2b5df88d0714d50323ba"
+          },
+          {
+            "file": "buc_44.4550_26.0930_44.4650_26.1090.xml",
+            "sha256": "546383d1c8ec826097b07108607e821f947c147a64994622e3c32c00f72814ad"
+          },
+          {
+            "file": "buc_44.4550_26.1090_44.4650_26.1250.xml",
+            "sha256": "9a6497ea0c11a04c0a3d8a72530f3eaeeffde40669eccfbd3dc8a572f3e8b1ea"
+          }
+        ],
+        "coreSourceSetSha256": "231cd045341d316e1c3216bffdaa5efb8184f4e99616eca1849493641c9f8daf",
+        "counts": {
+          "nodes": 257537,
+          "ways": 35442,
+          "relations": 1304,
+          "rawRestrictionRelations": 641,
+          "coreSourceWays": 296,
+          "coreSourceNodes": 935,
+          "retainedRestrictionRelations": 30
+        },
+        "missingCoreWays": [],
+        "missingCoreNodes": [],
+        "coreSourceMismatches": [],
+        "modeTagCounts": {
+          "restriction": 30
+        },
+        "exceptValues": {},
+        "exceptions": []
+      }
+    },
+    {
+      "file": "game/data/bucharest-floreasca.json",
+      "beforeSourceCommit": "99987e15af9417503855019751fafcc5d07f119e",
+      "beforeSha256": "e7c961ee4acc9bd0c6850e7fcce9ba170d1899134f10376c2a3b3f8af5695358",
+      "afterSha256": "a188f2f5b856965191935b5433b756080c711154e8ab00ff8e2f5b28ca77097b",
+      "allNonmetadataJsonValuesEqual": true,
+      "originalPrefixBytesEqual": true,
+      "metadataAlreadyEqual": false,
+      "catalogueRecords": 19,
+      "coverage": {
+        "schema": 1,
+        "districtId": "floreasca",
+        "scope": "All raw type=restriction records in these cached OSM tiles touching a retained core source way or positive prepared source node. Includes mode-only, except, conditional, malformed and via-way records unchanged; no permissions inferred. Not a catalogue for any other district or uncached source.",
+        "sourceFiles": [
+          {
+            "file": "buc_44.4250_26.0290_44.4350_26.0450.xml",
+            "sha256": "5f6dfc4175e595a80a0207927b135fcdda0ea79cfecdea841b089c91ba0c3343"
+          },
+          {
+            "file": "buc_44.4250_26.0450_44.4350_26.0610.xml",
+            "sha256": "57639f0f940a2ca42f873e5e171b938cf43980f28fede6a30d29ce246b957fa7"
+          },
+          {
+            "file": "buc_44.4250_26.0610_44.4350_26.0770.xml",
+            "sha256": "326469c1c643c9ef294766a22628138f982cf13f37223fa30e5e5929c0f29fb6"
+          },
+          {
+            "file": "buc_44.4250_26.0770_44.4350_26.0930.xml",
+            "sha256": "3dc61e44fd58b38ef0d18d8bf56c2dcd4d41bcc360ae8b36d624f3be95570570"
+          },
+          {
+            "file": "buc_44.4250_26.0930_44.4350_26.1090.xml",
+            "sha256": "dbe86491bd47dfdc2b78988384aeeb7e3ac3c59ee706d4a0918c80c05da589cc"
+          },
+          {
+            "file": "buc_44.4250_26.1090_44.4350_26.1250.xml",
+            "sha256": "85df20eded36f4d37dd0558762385fd6496b0608e5ebf7889c8db1eafd8a9f67"
+          },
+          {
+            "file": "buc_44.4350_26.0290_44.4450_26.0450.xml",
+            "sha256": "1b3433692876dc385b2960f34d06d3f55c96f0c507f9207a9bb449ec7c0b3bcf"
+          },
+          {
+            "file": "buc_44.4350_26.0450_44.4450_26.0610.xml",
+            "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689"
+          },
+          {
+            "file": "buc_44.4350_26.0610_44.4450_26.0770.xml",
+            "sha256": "a82f4aebf2ba8f2f321cd2144e30a119755b6ded55729eddf1d68a4eaf9afc35"
+          },
+          {
+            "file": "buc_44.4350_26.0770_44.4450_26.0930.xml",
+            "sha256": "6b88c0c9937c78c2264f48d66a1c20e8a18cba4bd9e233e861bf1c82790c0da5"
+          },
+          {
+            "file": "buc_44.4350_26.0930_44.4450_26.1090.xml",
+            "sha256": "8cb50939367e80d82e4f7c7631e71be2b6ff6f6054ebe9b1d31fdfa2fd7976d0"
+          },
+          {
+            "file": "buc_44.4350_26.1090_44.4450_26.1250.xml",
+            "sha256": "79898a15444a3e094a10c571080843a48858b64fdf5804753388b6809a3d1182"
+          },
+          {
+            "file": "buc_44.4450_26.0290_44.4550_26.0450.xml",
+            "sha256": "57a0c0e0a2c75f2e0f999b8fa8c5733d669c5bd244490fcd409b1c747593c55f"
+          },
+          {
+            "file": "buc_44.4450_26.0450_44.4550_26.0610.xml",
+            "sha256": "1336a618c3f735263833078499794446ed5f9b8776aeefe914aaaa2eb5ec7732"
+          },
+          {
+            "file": "buc_44.4450_26.0610_44.4550_26.0770.xml",
+            "sha256": "f9157a53b014b19b40816bd3de157e7fc2f228207157bfb6ca6e04839e145c85"
+          },
+          {
+            "file": "buc_44.4450_26.0770_44.4550_26.0930.xml",
+            "sha256": "0952f73927ba6a9cb20668e31c9fc95f5a43adb8b357aa511506b02ec3252500"
+          },
+          {
+            "file": "buc_44.4450_26.0930_44.4550_26.1090.xml",
+            "sha256": "b71369b02d0153dcc1f1e68d84a9e0ba5ccfa626f3395401d08b890675475d51"
+          },
+          {
+            "file": "buc_44.4450_26.1090_44.4550_26.1250.xml",
+            "sha256": "4ce57b70435a59a68ce36320ee1e707738dc8669dd9f9058e54a5ab9b7e4ce1a"
+          },
+          {
+            "file": "buc_44.4550_26.0290_44.4650_26.0450.xml",
+            "sha256": "2d4083c18438e61eebab62d3b67f5a07337d69c2aa84bb8b4d8bb143d2437b85"
+          },
+          {
+            "file": "buc_44.4550_26.0450_44.4650_26.0610.xml",
+            "sha256": "5b4a8f65b7fd6866738854193f910b82c100e3c6ed1effedb800a83f6ed1fd50"
+          },
+          {
+            "file": "buc_44.4550_26.0610_44.4650_26.0770.xml",
+            "sha256": "9113b5ff010d55d2c56bf7792a454a10753131135c5ec6df930f1355f5b43909"
+          },
+          {
+            "file": "buc_44.4550_26.0770_44.4650_26.0930.xml",
+            "sha256": "de30e05f0ec653a40842727398c60244b089e8f02c4e2b5df88d0714d50323ba"
+          },
+          {
+            "file": "buc_44.4550_26.0930_44.4650_26.1090.xml",
+            "sha256": "546383d1c8ec826097b07108607e821f947c147a64994622e3c32c00f72814ad"
+          },
+          {
+            "file": "buc_44.4550_26.1090_44.4650_26.1250.xml",
+            "sha256": "9a6497ea0c11a04c0a3d8a72530f3eaeeffde40669eccfbd3dc8a572f3e8b1ea"
+          },
+          {
+            "file": "buc_44.4650_26.0770_44.4750_26.0930.xml",
+            "sha256": "d81de5647330489b4b20d8240ea8e13d868193b80935b11f24b7a440a67cf45a"
+          },
+          {
+            "file": "buc_44.4650_26.0930_44.4750_26.1090.xml",
+            "sha256": "efc92c6fbbc7be71d701f0c67a0bb262d107e2f42491887b1e9e47c3f45fd814"
+          },
+          {
+            "file": "buc_44.4650_26.1090_44.4750_26.1250.xml",
+            "sha256": "cb31deadad1beb18b66e59790221198dfa7a7740a7b728f7acfc86f6963599ca"
+          },
+          {
+            "file": "buc_44.4750_26.0770_44.4850_26.0930.xml",
+            "sha256": "46d21f3da9ac9c05a2428188fda3d7355396c7fbe968b9fd09bad374a33dd35d"
+          },
+          {
+            "file": "buc_44.4750_26.0930_44.4850_26.1090.xml",
+            "sha256": "53d352aaf79afa5c674f39a2c79c5a7f08956f1c1152e71349426706cb589b61"
+          },
+          {
+            "file": "buc_44.4750_26.1090_44.4850_26.1250.xml",
+            "sha256": "0d93722f7ece93d8971d60cba7ef1a40ed39af5b01ee3183a772ea08a82cd96c"
+          },
+          {
+            "file": "buc_44.4850_26.0770_44.4950_26.0930.xml",
+            "sha256": "5423c00e0b65d93e670941be3a9ceec29bc6bd1e852b349fc6575a4bd5158b35"
+          },
+          {
+            "file": "buc_44.4850_26.0930_44.4950_26.1090.xml",
+            "sha256": "163ad6631147201defb5e51218e6d879217d25a7ba03247e87ac71b3f6390e9d"
+          },
+          {
+            "file": "buc_44.4850_26.1090_44.4950_26.1250.xml",
+            "sha256": "d2f3bb2abb25c9056563855b3398480ca715b0e2fb710864d058a6dd7826c51a"
+          },
+          {
+            "file": "bucx_44.4650_26.1250_44.4750_26.1410.xml",
+            "sha256": "20707ba2b6966213c81c33df31c5d43a644e0293911c330a4b2e37807f3e61df"
+          },
+          {
+            "file": "bucx_44.4750_26.1250_44.4850_26.1410.xml",
+            "sha256": "affb91eaa732c6655f09276bb222d00ff697753947e52f008dcca660c453e8e9"
+          },
+          {
+            "file": "bucx_44.4850_26.1250_44.4950_26.1410.xml",
+            "sha256": "318673c7a8f3af353222ff6c6e04ce3d3fb1a10c1c6e066942b04ad095f8c49b"
+          }
+        ],
+        "coreSourceSetSha256": "24477ce9d3af78a372255b24675c96c5090058b4c8c6b84602b33aebdf0106fa",
+        "counts": {
+          "nodes": 383574,
+          "ways": 55702,
+          "relations": 1830,
+          "rawRestrictionRelations": 991,
+          "coreSourceWays": 143,
+          "coreSourceNodes": 340,
+          "retainedRestrictionRelations": 19
+        },
+        "missingCoreWays": [],
+        "missingCoreNodes": [],
+        "coreSourceMismatches": [],
+        "modeTagCounts": {
+          "restriction": 19
+        },
+        "exceptValues": {
+          "bicycle": [
+            "r1107971"
+          ]
+        },
+        "exceptions": []
+      }
+    },
+    {
+      "file": "game/data/bucharest-unirii.json",
+      "beforeSourceCommit": "99987e15af9417503855019751fafcc5d07f119e",
+      "beforeSha256": "c4d8da3b398d112b64fe4b3ba233eb4fdbad6168e41aa20f50f9abbd84523c12",
+      "afterSha256": "e5ec3f964640b500f4fcf0aa2bd38313ce625a594ff915ff599c7c792b5bd887",
+      "allNonmetadataJsonValuesEqual": true,
+      "originalPrefixBytesEqual": true,
+      "metadataAlreadyEqual": false,
+      "catalogueRecords": 26,
+      "coverage": {
+        "schema": 1,
+        "districtId": "unirii",
+        "scope": "All raw type=restriction records in these cached OSM tiles touching a retained core source way or positive prepared source node. Includes mode-only, except, conditional, malformed and via-way records unchanged; no permissions inferred. Not a catalogue for any other district or uncached source.",
+        "sourceFiles": [
+          {
+            "file": "buc_44.4150_26.0850_44.4250_26.1010.xml",
+            "sha256": "daf81dafc0137aa729fa3324c7ae7ccfc0b7ae4957b8b1ce2cc7e445fa934dd2"
+          },
+          {
+            "file": "buc_44.4150_26.1010_44.4250_26.1170.xml",
+            "sha256": "310d04660f9c91e97f19932a0ef284b4ce53564b496fa21b21f46a25dcc6c7b1"
+          },
+          {
+            "file": "buc_44.4150_26.1170_44.4250_26.1330.xml",
+            "sha256": "74e070ccb66c970c73a276ad1a8a28d4b0f5df8da367a9a45ee5071262f6a9c0"
+          },
+          {
+            "file": "buc_44.4250_26.0850_44.4350_26.1010.xml",
+            "sha256": "659269a337ceceee3a81ad5b354f9f3ad2cceff1c082e9e432ae51a939d27a71"
+          },
+          {
+            "file": "buc_44.4250_26.1010_44.4350_26.1170.xml",
+            "sha256": "65a3f8f4137aa75bf521f67e4ffb26bbaf6a686426294c4bc2ff960d7697cd49"
+          },
+          {
+            "file": "buc_44.4250_26.1170_44.4350_26.1330.xml",
+            "sha256": "1453e5f61cc1fbabcd4d2a2d99139e9c1941f74e3844952e21c03eac4a8b241e"
+          },
+          {
+            "file": "buc_44.4350_26.0850_44.4450_26.1010.xml",
+            "sha256": "e0c803c1d5130a815e1387bb5c54372441366558d17d68922d731f0836a66082"
+          },
+          {
+            "file": "buc_44.4350_26.1010_44.4450_26.1170.xml",
+            "sha256": "e2bb639a0bec459fcb28baba37a6fb652cb5e30ddcf692f3a9c445d771887219"
+          },
+          {
+            "file": "buc_44.4350_26.1170_44.4450_26.1330.xml",
+            "sha256": "aa2ab53720bad126f75d274aae60c0d666aa5b9206b1b9a8666776bbb007f8cd"
+          }
+        ],
+        "coreSourceSetSha256": "1e64063825381e83991fc390c2ae358169e874af9924dca0151223189d76c6f1",
+        "counts": {
+          "nodes": 169226,
+          "ways": 21503,
+          "relations": 723,
+          "rawRestrictionRelations": 306,
+          "coreSourceWays": 248,
+          "coreSourceNodes": 889,
+          "retainedRestrictionRelations": 26
+        },
+        "missingCoreWays": [],
+        "missingCoreNodes": [],
+        "coreSourceMismatches": [],
+        "modeTagCounts": {
+          "restriction": 26
+        },
+        "exceptValues": {},
+        "exceptions": []
+      }
+    },
+    {
+      "file": "game/data/bucharest-otopeni.json",
+      "beforeSourceCommit": "99987e15af9417503855019751fafcc5d07f119e",
+      "beforeSha256": "5e1242d5583db482717545ca0ba99e12b45611c25dcda0c04d1ffe45e084a711",
+      "afterSha256": "eea0a6023fd5053b3564f4d5da8a6de96b8f420038ff91cfc9c8d749e5501229",
+      "allNonmetadataJsonValuesEqual": true,
+      "originalPrefixBytesEqual": true,
+      "metadataAlreadyEqual": false,
+      "catalogueRecords": 0,
+      "coverage": {
+        "schema": 1,
+        "districtId": "otopeni",
+        "scope": "All raw type=restriction records in these cached OSM tiles touching a retained core source way or positive prepared source node. Includes mode-only, except, conditional, malformed and via-way records unchanged; no permissions inferred. Not a catalogue for any other district or uncached source.",
+        "sourceFiles": [
+          {
+            "file": "dn1_44.5450_26.0500_44.5600_26.0700.xml",
+            "sha256": "8f865a65a334e9cdcd12339e9b82df43e07857ce38dbf2758727453ccd68a96f"
+          },
+          {
+            "file": "dn1_44.5450_26.0700_44.5600_26.0900.xml",
+            "sha256": "f2dd9355642a5f8e05f7595313af73e8068dde933246d23aed4a50710ce9a378"
+          },
+          {
+            "file": "dn1_44.5600_26.0500_44.5750_26.0700.xml",
+            "sha256": "493be2b0253a73b693bb8333dad5b7ca4c094ba5dac9552b7c88b2f07d536f2e"
+          },
+          {
+            "file": "dn1_44.5600_26.0700_44.5750_26.0900.xml",
+            "sha256": "2e68069ed5264da1dc0641132546bf508e5285ad76d1d3b26634d945fbf0319f"
+          },
+          {
+            "file": "dn1_44.5750_26.0500_44.5900_26.0700.xml",
+            "sha256": "9101b76fd28f2d8b951ba581ae241f45f798b55111f1de209270de5bf3e19abc"
+          },
+          {
+            "file": "dn1_44.5750_26.0700_44.5900_26.0900.xml",
+            "sha256": "d3d9de03ca13f2aba6410d9dcd113dc78f7c5493e0950efe863ed3d3607f68a7"
+          }
+        ],
+        "coreSourceSetSha256": "fa246b8468bca3cb7dc87968a99e5a546df3c5aac9f0e6fdc2e7b85e2452afc5",
+        "counts": {
+          "nodes": 35162,
+          "ways": 6108,
+          "relations": 79,
+          "rawRestrictionRelations": 6,
+          "coreSourceWays": 172,
+          "coreSourceNodes": 698,
+          "retainedRestrictionRelations": 0
+        },
+        "missingCoreWays": [],
+        "missingCoreNodes": [],
+        "coreSourceMismatches": [],
+        "modeTagCounts": {},
+        "exceptValues": {},
+        "exceptions": []
+      }
+    },
+    {
+      "file": "game/data/bucharest-pipera.json",
+      "beforeSourceCommit": "99987e15af9417503855019751fafcc5d07f119e",
+      "beforeSha256": "235da718f7401114004e5d036e1e360fd01230fa9ae2509c0c77e52edcba373a",
+      "afterSha256": "873c974d4c532d9acf08bdbcbc3bbc2fa271bd018b7874a08efc99f4971dd8de",
+      "allNonmetadataJsonValuesEqual": true,
+      "originalPrefixBytesEqual": true,
+      "metadataAlreadyEqual": false,
+      "catalogueRecords": 29,
+      "coverage": {
+        "schema": 1,
+        "districtId": "pipera",
+        "scope": "All raw type=restriction records in these cached OSM tiles touching a retained core source way or positive prepared source node. Includes mode-only, except, conditional, malformed and via-way records unchanged; no permissions inferred. Not a catalogue for any other district or uncached source.",
+        "sourceFiles": [
+          {
+            "file": "buc_44.4650_26.0770_44.4750_26.0930.xml",
+            "sha256": "d81de5647330489b4b20d8240ea8e13d868193b80935b11f24b7a440a67cf45a"
+          },
+          {
+            "file": "buc_44.4650_26.0930_44.4750_26.1090.xml",
+            "sha256": "efc92c6fbbc7be71d701f0c67a0bb262d107e2f42491887b1e9e47c3f45fd814"
+          },
+          {
+            "file": "buc_44.4650_26.1090_44.4750_26.1250.xml",
+            "sha256": "cb31deadad1beb18b66e59790221198dfa7a7740a7b728f7acfc86f6963599ca"
+          },
+          {
+            "file": "buc_44.4750_26.0770_44.4850_26.0930.xml",
+            "sha256": "46d21f3da9ac9c05a2428188fda3d7355396c7fbe968b9fd09bad374a33dd35d"
+          },
+          {
+            "file": "buc_44.4750_26.0930_44.4850_26.1090.xml",
+            "sha256": "53d352aaf79afa5c674f39a2c79c5a7f08956f1c1152e71349426706cb589b61"
+          },
+          {
+            "file": "buc_44.4750_26.1090_44.4850_26.1250.xml",
+            "sha256": "0d93722f7ece93d8971d60cba7ef1a40ed39af5b01ee3183a772ea08a82cd96c"
+          },
+          {
+            "file": "buc_44.4850_26.0770_44.4950_26.0930.xml",
+            "sha256": "5423c00e0b65d93e670941be3a9ceec29bc6bd1e852b349fc6575a4bd5158b35"
+          },
+          {
+            "file": "buc_44.4850_26.0930_44.4950_26.1090.xml",
+            "sha256": "163ad6631147201defb5e51218e6d879217d25a7ba03247e87ac71b3f6390e9d"
+          },
+          {
+            "file": "buc_44.4850_26.1090_44.4950_26.1250.xml",
+            "sha256": "d2f3bb2abb25c9056563855b3398480ca715b0e2fb710864d058a6dd7826c51a"
+          },
+          {
+            "file": "bucx_44.4650_26.1250_44.4750_26.1410.xml",
+            "sha256": "20707ba2b6966213c81c33df31c5d43a644e0293911c330a4b2e37807f3e61df"
+          },
+          {
+            "file": "bucx_44.4750_26.1250_44.4850_26.1410.xml",
+            "sha256": "affb91eaa732c6655f09276bb222d00ff697753947e52f008dcca660c453e8e9"
+          },
+          {
+            "file": "bucx_44.4850_26.1250_44.4950_26.1410.xml",
+            "sha256": "318673c7a8f3af353222ff6c6e04ce3d3fb1a10c1c6e066942b04ad095f8c49b"
+          }
+        ],
+        "coreSourceSetSha256": "1d448c7c5e8aafb3ae402039f0d6f499f1875c94e9899323c63cbc1cef1bcde4",
+        "counts": {
+          "nodes": 70773,
+          "ways": 10940,
+          "relations": 509,
+          "rawRestrictionRelations": 276,
+          "coreSourceWays": 382,
+          "coreSourceNodes": 1120,
+          "retainedRestrictionRelations": 29
+        },
+        "missingCoreWays": [],
+        "missingCoreNodes": [],
+        "coreSourceMismatches": [],
+        "modeTagCounts": {
+          "restriction": 29
+        },
+        "exceptValues": {},
+        "exceptions": [
+          {
+            "sourceId": "r15005032",
+            "reasons": [
+              "missing-to",
+              "missing-via"
+            ]
+          },
+          {
+            "sourceId": "r15422410",
+            "reasons": [
+              "missing-via"
+            ]
+          },
+          {
+            "sourceId": "r21503257",
+            "reasons": [
+              "via-way"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "file": "game/data/seattle-seatac.json",
+      "beforeSourceCommit": "99987e15af9417503855019751fafcc5d07f119e",
+      "beforeSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+      "afterSha256": "f9ee586426661b53b50a7147e525b2a7b8a2534ff1015fae5bc900c25ead144c",
+      "allNonmetadataJsonValuesEqual": true,
+      "originalPrefixBytesEqual": true,
+      "metadataAlreadyEqual": false,
+      "catalogueRecords": 21,
+      "coverage": {
+        "schema": 1,
+        "districtId": "seatac",
+        "scope": "All raw type=restriction records in these cached OSM tiles touching a retained core source way or positive prepared source node. Includes mode-only, except, conditional, malformed and via-way records unchanged; no permissions inferred. Not a catalogue for any other district or uncached source.",
+        "sourceFiles": [
+          {
+            "file": "sea_seatac_47.4300_-122.2900_47.4500_-122.2600.xml",
+            "sha256": "a1fe5a871b06b1cc49ed071114abbe106f315253b859da039bec2e87057dc80a"
+          },
+          {
+            "file": "sea_seatac_47.4300_-122.3200_47.4500_-122.2900.xml",
+            "sha256": "88a5147c09eb4b59c083da818a306b0046537e2d1768a86749de2f0ea042b22f"
+          },
+          {
+            "file": "sea_seatac_47.4500_-122.2900_47.4700_-122.2600.xml",
+            "sha256": "3b50191b3a8389d0075e4760a91baadd1513c78f1e18fb8717f78335848f6bb0"
+          },
+          {
+            "file": "sea_seatac_47.4500_-122.3200_47.4700_-122.2900.xml",
+            "sha256": "a5cf37cdb4a0ff028533793673a8096fd329b604f56ce51851ae608c83d6cdf6"
+          }
+        ],
+        "coreSourceSetSha256": "349fbd0d55582b3827bc3df3933fba87b8a51abb003af002c2d93096ae3d4c91",
+        "counts": {
+          "nodes": 81560,
+          "ways": 13781,
+          "relations": 322,
+          "rawRestrictionRelations": 130,
+          "coreSourceWays": 730,
+          "coreSourceNodes": 3251,
+          "retainedRestrictionRelations": 21
+        },
+        "missingCoreWays": [],
+        "missingCoreNodes": [],
+        "coreSourceMismatches": [],
+        "modeTagCounts": {
+          "restriction": 21
+        },
+        "exceptValues": {},
+        "exceptions": [
+          {
+            "sourceId": "r13036370",
+            "reasons": [
+              "via-way"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "file": "game/data/seattle-bellevue.json",
+      "beforeSourceCommit": "99987e15af9417503855019751fafcc5d07f119e",
+      "beforeSha256": "ce748b6b9982856655927a590b37b1e951716cff15b7efef1cf9cd5a09f5c8cb",
+      "afterSha256": "b6e30458ac8d9f32cf6c1437047fa9f8fb01370997e9ecee1bfc6482d970c2f9",
+      "allNonmetadataJsonValuesEqual": true,
+      "originalPrefixBytesEqual": true,
+      "metadataAlreadyEqual": false,
+      "catalogueRecords": 38,
+      "coverage": {
+        "schema": 1,
+        "districtId": "bellevue",
+        "scope": "All raw type=restriction records in these cached OSM tiles touching a retained core source way or positive prepared source node. Includes mode-only, except, conditional, malformed and via-way records unchanged; no permissions inferred. Not a catalogue for any other district or uncached source.",
+        "sourceFiles": [
+          {
+            "file": "sea_bel_47.6000_-122.1950_47.6125_-122.1700.xml",
+            "sha256": "1f7ee46303bb9be7e34b930ac314e533e93d4c0d00b15e1d6333d3ea3f0c06b4"
+          },
+          {
+            "file": "sea_bel_47.6000_-122.2200_47.6125_-122.1950.xml",
+            "sha256": "c113d6407ada41763d91dfb3ef4f85e50d12c74bdaf3ed48eaa3fbe211bad4d7"
+          },
+          {
+            "file": "sea_bel_47.6125_-122.1950_47.6250_-122.1700.xml",
+            "sha256": "eb8de036632d2d3312c5e17db2e4be5321494572f3357c38900b03ed5cfbafdd"
+          },
+          {
+            "file": "sea_bel_47.6125_-122.2200_47.6250_-122.1950.xml",
+            "sha256": "f7e26dde902cb8746bca4a9a8c7d7fafb9d090bb5d680f26a096a97ff12e30cc"
+          },
+          {
+            "file": "sea_bel_47.6250_-122.1950_47.6375_-122.1700.xml",
+            "sha256": "0169421c7eb091029760ddb408dc3db83efa67adb8311d363e2b896aee08baba"
+          },
+          {
+            "file": "sea_bel_47.6250_-122.2200_47.6375_-122.1950.xml",
+            "sha256": "3ddca8284026ec69e352132528090ac2abbc60f600200d85389d638a824e0cce"
+          },
+          {
+            "file": "sea_bel_47.6375_-122.1950_47.6500_-122.1700.xml",
+            "sha256": "d8e5d890c3a4429028c61b69d558cb0b7121d84a5a0c50673029d859700924c1"
+          },
+          {
+            "file": "sea_bel_47.6375_-122.2200_47.6500_-122.1950.xml",
+            "sha256": "defe9eb4dbfd827d5bda1293c228fa301a1f3c90fb1f676ad5d03e4c7a005d64"
+          }
+        ],
+        "coreSourceSetSha256": "c23a47a6e712e1ad3b8bc00d833aeedd00430ebd9d5c64d9f4fd26a4afa44b2c",
+        "counts": {
+          "nodes": 133479,
+          "ways": 22743,
+          "relations": 476,
+          "rawRestrictionRelations": 256,
+          "coreSourceWays": 304,
+          "coreSourceNodes": 806,
+          "retainedRestrictionRelations": 38
+        },
+        "missingCoreWays": [],
+        "missingCoreNodes": [],
+        "coreSourceMismatches": [],
+        "modeTagCounts": {
+          "restriction": 38
+        },
+        "exceptValues": {},
+        "exceptions": [
+          {
+            "sourceId": "r7435930",
+            "reasons": [
+              "missing-via"
+            ]
+          },
+          {
+            "sourceId": "r8192473",
+            "reasons": [
+              "via-way"
+            ]
+          },
+          {
+            "sourceId": "r11208868",
+            "reasons": [
+              "multiple-via",
+              "via-way"
+            ]
+          },
+          {
+            "sourceId": "r11208869",
+            "reasons": [
+              "multiple-via",
+              "via-way"
+            ]
+          },
+          {
+            "sourceId": "r11208870",
+            "reasons": [
+              "multiple-via",
+              "via-way"
+            ]
+          },
+          {
+            "sourceId": "r13036306",
+            "reasons": [
+              "via-way"
+            ]
+          },
+          {
+            "sourceId": "r13036307",
+            "reasons": [
+              "missing-from"
+            ]
+          },
+          {
+            "sourceId": "r14254126",
+            "reasons": [
+              "via-way"
+            ]
+          },
+          {
+            "sourceId": "r14254129",
+            "reasons": [
+              "via-way"
+            ]
+          },
+          {
+            "sourceId": "r14368184",
+            "reasons": [
+              "via-way"
+            ]
+          },
+          {
+            "sourceId": "r14583354",
+            "reasons": [
+              "multiple-via",
+              "via-way"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

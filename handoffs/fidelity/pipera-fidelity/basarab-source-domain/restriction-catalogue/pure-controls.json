@@ -1,0 +1,13 @@
+{
+  "passed": 8,
+  "cases": [
+    "literal raw tags, member order and source identity survive without a permission inference",
+    "matching a positive retained node preserves a restriction whose member ways are outside core",
+    "mode-only, except, conditional and via-way records stay literal and observable",
+    "missing from/to/via are retained as missing and never reconstructed",
+    "multiple-member restrictions remain explicit, not collapsed to a guessed node rule",
+    "an immutable pre-enrichment snapshot survives later source-object changes",
+    "missing raw nodes/ways and changed original direction/topology cannot claim coverage",
+    "stable ordering and coverage consume no random numbers"
+  ]
+}

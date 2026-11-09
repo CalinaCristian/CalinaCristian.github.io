@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "createdUTC": "2026-11-09T15:04:42.679852+00:00",
+  "metadataImplementationSource": "99987e15af9417503855019751fafcc5d07f119e",
+  "all8DataSource": "0024fdd3e5722ad72bcf6acdb614022cd323a981",
+  "geometrySourceGroz": "7330a2ab46e6e0938a3ca7ab046a036d5b9c6f2b",
+  "nativeAcceptance": "Not run; raw source metadata and CPU parity only",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 4645,
+      "sha256": "2edabea1bd469755d094f4038049541a89038858f0be11ca21c8ced480dfbfbd"
+    },
+    {
+      "path": "all8-append-receipt.json",
+      "bytes": 33789,
+      "sha256": "033187220e81fd68bd84a6d43f23c08dfbddaf5c61acda62d4f5269f072d4f92"
+    },
+    {
+      "path": "all8-catalogues.json",
+      "bytes": 140639,
+      "sha256": "38611909170752ae7d64bb64ed798bae1681f4dbf2dc94f326474870d4c6db1e"
+    },
+    {
+      "path": "cache-availability.mjs",
+      "bytes": 2277,
+      "sha256": "e12bb2eefacd6116dcd0756f37e91bfb4df26d40fcd93dece8272205a73e11ee"
+    },
+    {
+      "path": "groz-compiler-hook.log",
+      "bytes": 2374,
+      "sha256": "d3badaf57e18bb100972daae2246e1e766260976e0dabf85798ad41e76743ae0"
+    },
+    {
+      "path": "groz-metadata-only-parity.json",
+      "bytes": 4516,
+      "sha256": "6e6b8071343bc5680ef78e053eb8184f0e3bcfdeda27f146c0c98509add209eb"
+    },
+    {
+      "path": "literal-limits.mjs",
+      "bytes": 1419,
+      "sha256": "f17b7a734ea7948d2cc1de239fc45c60466221195bd33e666e5444f82ac072f9"
+    },
+    {
+      "path": "literal-road-limits.json",
+      "bytes": 63985,
+      "sha256": "8117faed00a15921006c6d833eb86c037a656055659402fd79e1c2d49c6952e5"
+    },
+    {
+      "path": "other-seven-cache-availability.json",
+      "bytes": 24644,
+      "sha256": "f215ea80b59573fed182ff4da0725c125716f013fa4605e201f95b197498a60f"
+    },
+    {
+      "path": "pure-controls.json",
+      "bytes": 718,
+      "sha256": "69e7e1bea3aab422c446417adf9c9a63be799056472e747667a1bcffaea6a2b4"
+    }
+  ]
+}

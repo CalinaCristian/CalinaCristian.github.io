@@ -1,0 +1,25 @@
+(node:570546) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-guard-diagnosis/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/unirii-guard-diagnosis/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: a genuine straight two-to-one drop retains the unfinished lateral-body wait
++ actual - expected
+
++ null
+- 'lanedrop2'
+
+    at file:///workspace/fidelity-workers/unirii-guard-diagnosis/game/dev/lane-drop-projection.test.mjs:27:8
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: null,
+  expected: 'lanedrop2',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

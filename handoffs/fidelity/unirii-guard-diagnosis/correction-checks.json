@@ -1,0 +1,54 @@
+[
+  {
+    "test": "lane-drop-projection",
+    "exitCode": 0,
+    "lastLine": "To eliminate this warning, add \"type\": \"module\" to /workspace/reality-pass/unirii-underpass/source-395071c2/package.json."
+  },
+  {
+    "test": "lane-drop-chain",
+    "exitCode": 0,
+    "lastLine": "PASS: literal short-edge lookahead, committed bus155, legal pre-line wait and smooth travel-based merge"
+  },
+  {
+    "test": "vehicle-lanes",
+    "exitCode": 0,
+    "lastLine": "PASS: stopped lane/bypass holds, moving steering distance budget, long-body clearance, residual stop and visible/failed recovery holds"
+  },
+  {
+    "test": "solid-vehicle-sensing",
+    "exitCode": 0,
+    "lastLine": "PASS: actual stepVehicle always sees solid bodies, rendered extents, no RNG and camera/mirror recovery gates"
+  },
+  {
+    "test": "turn-lanes-wrong-path-initial",
+    "exitCode": 1,
+    "lastLine": "Node.js v24.22.1",
+    "classification": "Tool launch error; actual suite lives under historical proof, not game/dev."
+  },
+  {
+    "test": "signals",
+    "exitCode": 0,
+    "lastLine": "PASS: signal cycles/conflicts/clearance, queue release, cockpit/props, visible recycling, walking recoveries and stable detours"
+  },
+  {
+    "test": "shared-lanes",
+    "exitCode": 0,
+    "lastLine": "\u2139 duration_ms 19.84463"
+  },
+  {
+    "test": "normal-guard-tolerance",
+    "exitCode": 0,
+    "lastLine": "PASS: actual source931 normal tolerance and strict monotonic recovery remain distinct"
+  },
+  {
+    "test": "vehicle-separation",
+    "exitCode": 0,
+    "lastLine": "PASS: actual short-edge body, back-out, new third contact, turn, pedestrian/player, height and timed-ghost controls"
+  },
+  {
+    "test": "handoffs/fidelity/pipera-fidelity/unirii-462-turn-knot/turn-lanes.test.mjs",
+    "exitCode": 0,
+    "controls": 15,
+    "scope": "Source policy and detached native CPU controls; no new native drive."
+  }
+]

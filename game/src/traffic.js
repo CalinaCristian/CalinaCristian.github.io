@@ -1287,7 +1287,7 @@ export class Traffic {
         const laneDropMax = this.laneDropMax(v, 60);
         if (!v.tram && v.lane > laneDropMax && this.laneFree(v, v.lane - 1)) { v.lane--; v.laneChangeCd = 2; }
         let stopD = Infinity, vCap = Infinity, waitingRed = false, stopWhy = null;
-        let curE = e, curDir = v.dir, D = L - v.s - half, prevNode = null, prevD = 0;
+        let curE = e, curDir = v.dir, curLane = v.lane, curLaneCur = v.laneCur, D = L - v.s - half, prevNode = null, prevD = 0;
         const seenSignals = new Set();
         const maxLook = Math.max(70, v.speed * v.speed / 4 + 30);
         for (let k = -1; k < v.route.length && D < maxLook; k++) {
@@ -1367,12 +1367,12 @@ export class Traffic {
             // instead of being squeezed sideways onto a car in the remaining lane
             if (nxt && !v.tram && !nxt.uturn && D < 60 && !this.keepsTurnLane(curE, curDir, nxt)) {
                 const nl = Math.max(1, lanesDir(nxt.e, nxt.dir));
-                if (v.lane > nl - 1) {
+                if (curLane > nl - 1) {
                     // wait for a gap before the line; already at / past it (or waited long): merge on the move,
                     // car-following and the junction claim keep it off the others (a stop inside the box locks the junction)
                     if (D - rad - 1.5 > -0.5 && v.stuck < 3) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop'; } }
                 } else {
-                    const _d = this.laneDropStop(v, nl, D, rad);
+                    const _d = this.laneDropStop(v, nl, D, rad, curLaneCur);
                     if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop2'; }
                 }
             }
@@ -1385,6 +1385,10 @@ export class Traffic {
             const ns = (v.tram ? (nxt.e.rail ? Math.min(11, edgeSpeed(nxt.e)) : 11) : edgeSpeed(nxt.e) * v.desiredMul);
             if (ns < desired) vCap = Math.min(vCap, Math.sqrt(ns * ns + 2 * 2 * Math.max(0, D)));
             prevNode = node; prevD = D;
+            // A future shape leg uses the lane it will actually inherit at the
+            // handoff, not the index on this vehicle's current wider road.
+            curLane = this.laneOnNext(v, curLane, nxt.e, nxt.dir);
+            curLaneCur = clamp(curLaneCur, 0, (lanesDir(nxt.e, nxt.dir) || 1) - 1);
             D += nxt.e.len; curE = nxt.e; curDir = nxt.dir;
         }
         // trams: stops every few hundred metres
@@ -1533,9 +1537,9 @@ export class Traffic {
     }
     /** Once its body has passed the stop line it must clear the intersection;
      * travel supplies the remaining smooth lateral merge, never a stopped slide. */
-    laneDropStop(v, nextLanes, distance, radius) {
+    laneDropStop(v, nextLanes, distance, radius, laneCur = v.laneCur) {
         const stop = distance - radius - 1.5;
-        return v.laneCur > nextLanes - 1 + 0.25 && distance - radius < 6 && stop > -0.5 ? stop : Infinity;
+        return laneCur > nextLanes - 1 + 0.25 && distance - radius < 6 && stop > -0.5 ? stop : Infinity;
     }
 
     /** path across the junction pad for v going (curE,curDir) → nxt: entry lane point → exit lane point */

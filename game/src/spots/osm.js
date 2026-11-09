@@ -314,7 +314,16 @@ export function buildBuildings(data, ground, o = {}) {
         const r=v.owner,b=v.source,style=r.style,S=facadeStyle(style),pal=PALETTES[style]||(style==='house'?HOUSE_COLS:style==='office'?OFFICE_COLS:style==='brick'?BRICK_COLS:APT_COLS),hcol=b.c?safeCol(b.c):pal[Math.floor(hash2(r.cx,r.cz)*pal.length)],roofcol=b.rc?safeCol(b.rc):style==='office'?'#7d8288':v.owner.profile.shape==='flat'?'#8a8784':['#4a4a4f','#5b4a42','#3f4a52','#6b6660'][Math.floor(hash2(r.cz,r.cx)*4)];
         const shop=urban&&r.minHeight===0&&r.height>7&&(b.shop||b.amenity||style==='mall'||/commercial|retail|mixed|yes/.test(b.k))&&style!=='house'&&style!=='industrial',gf=shop?Math.min(v.h,r.datum+4.3):v.minH;
         const wall=(ring,bands,hole=false)=>{
-            if(shop)add(o.shopStyle||'shop',sourceWallGeometry(ring,bands,facadeStyle(o.shopStyle||'shop'),r.datum,{max:gf,hole}),hcol);
+            if(shop){const g=sourceWallGeometry(ring,bands,facadeStyle(o.shopStyle||'shop'),r.datum,{max:gf,hole});
+                // Authored, source-boundary storefront glazing replaces only
+                // a selected ground-floor face; source volumes/roofs/colliders
+                // and every other face remain in the native source plan.
+                for(const opening of o.wallOpenings||[]){if(hole||opening.source!==b.id)continue;const a=opening.a,z=opening.b,dx=z[0]-a[0],dz=z[1]-a[1],L=Math.hypot(dx,dz),p=g.attributes.position,kept=[];
+                    const lo=opening.foundation?r.bottom:(opening.relative?r.datum:0)+opening.y0,hi=(opening.relative?r.datum:0)+opening.y1;
+                    for(let i=0;i<g.index.count;i+=3){const t=[g.index.getX(i),g.index.getX(i+1),g.index.getX(i+2)],onFace=t.every(j=>Math.abs((p.getX(j)-a[0])*dz-(p.getZ(j)-a[1])*dx)/L<.02&&p.getY(j)>=lo-.02&&p.getY(j)<=hi+.02);
+                        if(!onFace)kept.push(...t);else opening.replacedTriangles=(opening.replacedTriangles||0)+1;}
+                    g.setIndex(kept);}
+                add(o.shopStyle||'shop',g,hcol);}
             add(style,sourceWallGeometry(ring,bands,S,shop?gf:r.datum,{min:shop?gf:-Infinity,hole}),hcol);
         };
         wall(v.ring,v.surface.walls);v.holes.forEach((h,i)=>wall(h,v.holeWalls[i],true));

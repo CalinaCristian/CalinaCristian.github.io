@@ -23,6 +23,7 @@ import { sourceRecord } from '../source-buildings.js';
 import { onActivityCancel } from '../participation.js';
 import { buildOldTownNightlife, OLD_TOWN_FOCUS, nightlifeHours } from './old-town-nightlife.js';
 import { walkBoundary, markVisitExits } from '../walk-boundary.js';
+import {freddoFrontagePlan,oldTownGlazing} from './freddo-look.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -455,9 +456,11 @@ export default {
         if (caruB) { ctx.skipBuildings.add(caruB.id); const b = new GeoBatch(), y = Math.min(...caruB.poly.map(([x, z]) => g.heightAt(x, z))) - 0.2; const fac = classicFacade('caru', [{ t: 'arch', w: 0.36, top: 0.1, bottom: 0.06, rustic: true }, { t: 'arch2', w: 0.34, pil: true }, { t: 'arch', w: 0.26, pil: true, top: 0.3 }, { t: 'small', w: 0.24 }], { bay: 3.2, floor: 4.2, lit: 0.85 }); classicWalls(b, fac, caruB.poly, y, y + 15.5, '#c9b79a', y); b.flat(caruB.poly, y + 15.5, '#6b5f55', 'roofs'); const o = obb(caruB.poly); b.add(new THREE.ConeGeometry(4.5, 5, 4), 'roofs', M(-111, y + 18, -73.5, 0, Math.PI / 4, 0, 1, 1, 0.35), '#5a4f46'); ctx.poly(caruB.poly, { y0: y - 1, y1: y + 22 }); ctx.add(b.build('caru-cu-bere', { matOverrides: { [fac.key]: fac.mat } })); void o; }
         const OT = oldTownFronts(ctx);
         const WB = buildSecretWcpBar(ctx, CA);
+        const FRONT=freddoFrontagePlan(ctx);ctx.extras.freddoFrontage=FRONT;
         // ground: shared-surface grey granite setts over every pedestrian street (no kerbs), slab bands
         ctx.terrainOpts = { bg: '#8f8b84', bgMask: 'cobble', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 700 };
-        bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (OT.decoratedIds.has(bd.id) || bd.k === 'church' ? 'eclectic' : undefined) });
+        bucBackdrop(ctx, { wallOpenings:FRONT?[FRONT.opening]:[],lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (OT.decoratedIds.has(bd.id) || bd.k === 'church' ? 'eclectic' : undefined) });
+        oldTownGlazing(ctx,FRONT);
         for (const w of d.ways) if (['pedestrian', 'living_street'].includes(w.k) && !w.tunnel) ctx.painter.line(w.pts, 11, '#7f7c76', 'cobble');
         // the inn passages (Hanul cu Tei, Pasajul Gabroveni, Intrarea Nicolae Șelari) are paved courtyards between the façades, not lawns
         for (const w of d.ways) if (w.k === 'footway' && /Hanul cu Tei|Pasajul Gabroveni|Nicolae Șelari/.test(w.name || '')) ctx.painter.line(w.pts, 18, '#86827b', 'cobble');
@@ -467,6 +470,7 @@ export default {
         // terraces + shop signs from OSM (bars, restaurants, cafés, shops along the pedestrian lanes)
         const inside = (x, z) => Object.values(d.spots).some((s) => inPoly(x, z, s.extent.polygon));
         const TR = oldTownTerraces(ctx, { inside, seed: 3, prioritySources: ['n1416523788', 'n7613023091', 'n10775260925'] });
+        TR.signs=TR.signs.filter(s=>s.source!=='n1416523788');
         ctx.extras.sourceFrontages = { signs: TR.signs, terraces: TR.terraces };
         ctx.add(TR.group); ctx.lampPoints.push(...TR.lamps.filter((_, i) => i % 2 === 0));
         // Real OSM POIs, on their existing street-facing footprint. Camera-held props only:

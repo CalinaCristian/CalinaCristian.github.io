@@ -8,6 +8,7 @@ import { wallGeometry } from '../osm.js';
 import { activityFlow, activityBlocked, onActivityCancel } from '../participation.js';
 import { clubMusic, CLUB_BEAT } from '../club-music.js';
 import { collide } from '../walker.js';
+import {freddoRoomDetails} from './freddo-look.js';
 
 export const OLD_TOWN_FOCUS = [[-12,-104],[286,-104],[286,-32],[62,-32],[62,89],[-12,89]];
 export const nightlifeHours = hour => ({ open: hour >= 10 || hour < 5, party: hour >= 22 || hour < 5, closes: '05:00' });
@@ -28,9 +29,9 @@ export function buildOldTownNightlife(ctx, venueActivities) {
     const [cx,cz]=centroid(building.poly), dx=10000-cx,dz=8000-cz, floor=ctx.ground.heightAt(entry.x,entry.z)+.05;
     // An exact translated source footprint, never a claim of a measured internal floor plan.
     const polygon=building.poly.map(([x,z])=>[x+dx,z+dz]), b=new GeoBatch(), Q=(x,z)=>[x+dx,z+dz];
-    b.flat(polygon,floor,'#272126','stone');ctx.ground.addPoly(polygon,floor,floor-1,{kind:'freddo-floor'});
+    b.flat(polygon,floor,'#2c2923','wood');ctx.ground.addPoly(polygon,floor,floor-1,{kind:'freddo-floor'});
     const ceiling=reverse(flatGeometry(polygon,floor+4.2));b.add(ceiling,'paint',null,'#151217');ceiling.dispose();
-    const wall=reverse(wallGeometry(polygon,floor,floor+4.2,{bay:3,floor:4.2},floor,'#402533'));b.add(wall,'paint',null,'#402533');wall.dispose();
+    const wall=reverse(wallGeometry(polygon,floor,floor+4.2,{bay:3,floor:4.2},floor,'#332c22'));b.add(wall,'paint',null,'#332c22');wall.dispose();
     for(let i=0;i<polygon.length;i++) { const a=polygon[i],p=polygon[(i+1)%polygon.length];
         ctx.collider({wall:true,ax:a[0],az:a[1],bx:p[0],bz:p[1],x:(a[0]+p[0])/2,z:(a[1]+p[1])/2,r:Math.hypot(a[0]-p[0],a[1]-p[1])/2+.5,y0a:floor-1,y1a:floor+4.2,y0b:floor-1,y1b:floor+4.2,intended:true}); }
     // Furniture layout, lighting and DJ position are explicitly artistic estimates.
@@ -41,26 +42,31 @@ export function buildOldTownNightlife(ctx, venueActivities) {
     for(const x of [-1,1]) {b.cyl(djX+x*.7,floor+1.23,djZ,.28,.03,'#22252e','plastic',16);b.box(djX+x*.27,floor+1.23,djZ,.32,.05,.5,'#414455','metal');}
     for(const [x,z] of [Q(7,52),Q(20,47)]) {b.box(x,floor,z,.75,2.2,.65,'#15171b','plastic');for(const y of [.6,1.5]) b.cyl(x,floor+y,z,.23,.08,'#313238','metal',12);}
     const disco=new THREE.Group();disco.name='freddo-moving-lights';disco.position.set(10000,0,8000);room.add(disco);
-    const colours=['#ff459e','#6f74ff','#40dfd6'];
-    for(let i=0;i<8;i++) { const a=i*Math.PI/4,px=Math.cos(a)*4,pz=Math.sin(a)*3;
-        const strip=new THREE.Mesh(new THREE.BoxGeometry(.07,.09,3.5),new THREE.MeshBasicMaterial({color:colours[i%3],toneMapped:false}));strip.position.set(px,floor+3.65,pz);strip.rotation.y=a;disco.add(strip); }
-    const ball=new THREE.Mesh(new THREE.IcosahedronGeometry(.43,1),new THREE.MeshStandardMaterial({color:'#9fa6b4',metalness:.9,roughness:.2,flatShading:true}));ball.position.set(10000,floor+3.45,8000);room.add(ball);
+    const colours=['#ffd38d','#6d8fe1','#ffcf83'];
+    const ball=new THREE.Mesh(new THREE.IcosahedronGeometry(.28,2),new THREE.MeshStandardMaterial({color:'#b7afa0',metalness:.95,roughness:.12,flatShading:true}));ball.position.set(10000,floor+3.45,8000);room.add(ball);
     for(let i=0;i<3;i++){const light=new THREE.PointLight(colours[i],23,15,2);light.position.set(9997+i*3,floor+3.2,8000);room.add(light);}
-    const sign=signAtlas([{x:djX,y:floor+2.5,z:djZ+.6,yaw:0,w:3,h:.65,text:'FREDDO',bg:'#2f1927',fg:'#ffdfb4',border:false}],{name:'freddo-room-sign',night:.7});if(sign)room.add(sign);
-    room.add(b.build('freddo-room',{castShadow:false}));
+    const sign=signAtlas([{x:djX,y:floor+2.5,z:djZ+.6,yaw:0,w:3,h:.65,text:'Freddo',bg:'#24231f',fg:'#f5edda',font:q=>`italic 700 ${q}px Georgia, serif`,border:false}],{name:'freddo-room-sign',night:.7});if(sign)room.add(sign);
+    const details=freddoRoomDetails(ctx,b,{building,Q,floor,barX,barZ,djX,djZ,front}),staticRoom=b.build('freddo-room',{castShadow:false,matOverrides:details});room.add(staticRoom);
     const random=rng(713), indoor=makeCrowd({max:54,city:'bucharest',season:'summer',rng:random,castShadow:false}), dancers=[];
     indoor.object.name='freddo-disco-crowd';room.add(indoor.object);
     // Preserve all54 guests while leaving a continuous estimated circulation
     // aisle from the doorway through the dance slot to the bar's public side.
-    const aisle=[[22,57],[18.8,56.7],[12.5,58]];
-    for(let z=49.8;z<64;z+=1.1)for(let x=6.5;x<23;x+=1.05){
-        if(dancers.length>=54 || !inPoly(x,z,building.poly) || distPolyline(x,z,[...building.poly,building.poly[0]]).d<.45 ||
-            Math.hypot(x-18.8,z-56.7)<1.7 || distPolyline(x,z,aisle).d<.75 || Math.hypot(x-22,z-57)<1.7 || Math.hypot(x-13,z-49)<1.45 ||
+    const aisle=[[22,57],[18.8,56.7],[12.5,58]],clusters=[[8.2,51.4],[8.6,62],[15.5,51.6],[16,61.5],[21,52.3],[21,61.3],[19,54.2],[18.5,59.3]];
+    for(let attempt=0;attempt<16000&&dancers.length<54;attempt++){const centre=clusters[attempt%clusters.length],angle=random()*Math.PI*2,radius=.35+Math.sqrt(random())*2.1,x=centre[0]+Math.cos(angle)*radius,z=centre[1]+Math.sin(angle)*radius;
+        if(!inPoly(x,z,building.poly) || distPolyline(x,z,[...building.poly,building.poly[0]]).d<.45 ||
+            Math.hypot(x-18.8,z-56.7)<1.2 || distPolyline(x,z,aisle).d<1.05 || Math.hypot(x-22,z-57)<1.4 || Math.hypot(x-13,z-49)<1.45 ||dancers.some(p=>Math.hypot(x+dx-p.x,z+dz-p.z)<.86)||
             collide(ctx.colliders,x+dx,z+dz,.3,floor+.2))continue;
-        dancers.push({x:x+dx,z:z+dz,phase:random()*Math.PI*2,scale:.92+random()*.13});
+        dancers.push({x:x+dx,z:z+dz,phase:random()*Math.PI*2,scale:.92+random()*.13,speed:.82+random()*.35,yaw:Math.atan2(centre[0]-x,centre[1]-z),motion:random()});
     }
     if(dancers.length!==54)throw new Error('Freddo circulation must preserve all54 virtual guests');
-    indoor.count=dancers.length;for(let i=0;i<dancers.length;i++){const outfit=dressFor('bucharest','summer',null,random);outfit.flags=0;indoor.dress(i,outfit);}
+    const outfits=[];indoor.count=dancers.length;for(let i=0;i<dancers.length;i++){const outfit=dressFor('bucharest','summer',null,random);outfit.flags=0;outfit.top=['#161b1d','#eee9dd','#aa927a','#394b50','#80554a','#262726','#9b927c'][i%7];outfit.bottom=['#252a2e','#343638','#3a3028'][i%3];outfits.push(outfit);indoor.dress(i,outfit);}
+    // A source-aligned street view of the same54 virtual guests and furnishings
+    // behind the actual glazed frontage. The portal view is mutually exclusive.
+    const frontage=ctx.extras.freddoFrontage,preview=new THREE.Group(),previewGeometries=[];preview.name='freddo-visible-street-interior';ctx.add(preview);
+    const previewCrowd=makeCrowd({max:54,city:'bucharest',season:'summer',rng:rng(713),castShadow:false});previewCrowd.count=54;preview.add(previewCrowd.object);outfits.forEach((o,i)=>previewCrowd.dress(i,o));
+    if(frontage){const copy=staticRoom.clone(true);copy.traverse(o=>{if(!o.isMesh)return;const g=o.geometry.clone(),pos=g.attributes.position,kept=[];for(let i=0;i<g.index.count;i+=3){const t=[g.index.getX(i),g.index.getX(i+1),g.index.getX(i+2)];let boundary=false;for(let j=0;j<polygon.length;j++){const a=polygon[j],z=polygon[(j+1)%polygon.length],ex=z[0]-a[0],ez=z[1]-a[1],L=Math.hypot(ex,ez);if(t.every(k=>Math.abs((pos.getX(k)-a[0])*ez-(pos.getZ(k)-a[1])*ex)/L<.025)){boundary=true;break;}}if(!boundary)kept.push(...t);}g.setIndex(kept);o.geometry=g;o.userData.shared=true;previewGeometries.push(g);});preview.add(copy);preview.position.set(-dx,frontage.baseY-floor,-dz);
+        const warm=new THREE.PointLight('#ffd395',20,14,2);warm.position.set(cx,frontage.baseY+3.1,cz);ctx.add(warm);
+    }else preview.visible=false;
     const flow=activityFlow(ctx), music=clubMusic(), slot={x:18.8+dx,z:56.7+dz,y:floor}, spawn={x:22+dx,z:57+dz,y:floor};
     let lastSession=null,returnPose=null,mapUpdate=null,dancing=false, disposed=false, localHour=23, clockT=0,danceCamera=null;
     const avatar=makeCrowd({max:1,city:'bucharest',season:'summer',rng:rng(604),castShadow:false});avatar.count=1;avatar.object.name='player-dancing-avatar';avatar.object.visible=false;room.add(avatar.object);
@@ -103,24 +109,25 @@ export function buildOldTownNightlife(ctx, venueActivities) {
         cond:()=>!room.visible,
         use(s){if(!nightlifeHours(localHour).open){s.ui.toast('Freddo is closed','Published opening hours: 10:00–05:00. Try a late evening visit.');return;}lastSession=s;returnPose={...s.position,heading:s.ctl.heading};room.visible=true;
             if(s.map && !mapUpdate){mapUpdate=s.map.update;s.map.update=function(dt,p){return mapUpdate.call(this,dt,room.visible?{...entry,heading:p.heading}:p);};}
-            s.ctl.enter(spawn.x,spawn.z,Math.PI/2,spawn.y);s.ui.toast('Freddo · Smârdan 24','Interior layout is an estimate. DJs nightly; published closing time 05:00.');s.returnFocus?.();}});
+            s.ctl.enter(spawn.x,spawn.z,Math.PI/2,spawn.y);s.ui.toast('Freddo · Smârdan 24','DJs, cocktails and a late dance floor. Closing time: 05:00.');s.returnFocus?.();}});
     ctx.interactables.push({hidden:true,x:spawn.x,z:spawn.z,y:floor,r:1.25,label:'Return to Smârdan',cond:visible,use:leave},
         {x:slot.x,z:slot.z,y:floor,r:2,label:()=>nightlifeHours(localHour).party?'Dance with the crowd':'Dancing starts late · come back after 22:00',cond:visible,use:beginDance},
         {x:barX+1.5,z:barZ,y:floor,r:1.7,label:'Pour a shot · Freddo',cond:visible,use:s=>venueActivities.start(s,'shot',{name:'Freddo',address:'Strada Smârdan 24',activity:'freddo-shot'})});
     const previousObstacles=ctx.extras.obstacles;
-    ctx.extras.obstacles=()=>[...(previousObstacles?.()||[]),...(room.visible?dancers.map(p=>({x:p.x,z:p.z,y:floor,fx:0,fz:1,width:.44,length:.44})):[])];
+    ctx.extras.obstacles=()=>[...(previousObstacles?.()||[]),...(room.visible?dancers.map(p=>({x:p.x,z:p.z,y:floor,fx:0,fz:1,width:.6,length:.54})):[])];
     onActivityCancel(ctx,reason=>{stopDance(lastSession);music.pause();if(room.visible && ['mode','teleport'].includes(reason))leave(lastSession);});
     ctx.onUpdate((dt,s)=>{lastSession=s;clockT-=dt;if(clockT<=0){localHour=s._conditions().hour;clockT=1;}
         const hours=nightlifeHours(localHour),blocked=activityBlocked(s),party=hours.party;
         const distance=Math.hypot(s.position.x-entry.x,s.position.z-entry.z),volume=party&&!blocked?(room.visible ? .82 : Math.max(0,1-distance/55)**2*.6):0;music.update(s.sound,volume,room.visible);
         if(room.visible && !hours.open){leave(s);return;}
-        if(!room.visible)return;
+        preview.visible=!!frontage&&!room.visible;
         ball.rotation.y+=dt*.3;disco.rotation.y=Math.sin(s.t*.18)*.12;
-        for(let i=0;i<dancers.length;i++){const p=dancers[i],beat=s.t/CLUB_BEAT,phase=beat*Math.PI+p.phase;indoor.set(i,{x:p.x+Math.sin(phase)*.065,y:floor+(party?Math.max(0,Math.sin(phase))*.055:0),z:p.z,yaw:Math.PI+.3*Math.sin(phase*.5),phase,amp:party ? .6 : 0,pose:party?(i%3?'cheer':'talk'):'talk',scale:p.scale,prop:null});}
+        for(let i=0;i<dancers.length;i++){const p=dancers[i],phase=s.t/CLUB_BEAT*Math.PI*p.speed+p.phase,pose=!party?'talk':p.motion<.16?'cheer':p.motion<.6?'walk':p.motion<.9?'talk':'phone',values={x:p.x+Math.sin(phase)*.035,y:floor+(party&&p.motion<.6?Math.max(0,Math.sin(phase))*.035:0),z:p.z+Math.cos(phase*.7)*.025,yaw:p.yaw+Math.sin(phase*.5)*.12,phase,amp:party&&p.motion<.6 ? .52 : 0,pose,scale:p.scale,prop:p.motion>.9?'phone':null};indoor.set(i,values);previewCrowd.set(i,values);}
+        if(!room.visible)return;
         if(Math.hypot(s.position.x-10000,s.position.z-8000)>40){room.visible=false;restoreMap();music.pause();}
     });
     const api={room,entry,spawn,slot,polygon,source:{poi:poi.id,building:building.id},interiorEstimated:true,dancers,music,leave,beginDance,get active(){return dancing||room.visible;},cancel(reason){if(flow.active)flow.cancel(reason);stopDance(lastSession);music.pause();},
-        dispose(){if(disposed)return;disposed=true;api.cancel('exit');restoreMap();music.dispose();indoor.dispose();avatar.dispose();}};
+        dispose(){if(disposed)return;disposed=true;api.cancel('exit');restoreMap();music.dispose();indoor.dispose();previewCrowd.dispose();previewGeometries.forEach(g=>g.dispose());avatar.dispose();}};
     (ctx.extras.sceneCleanups||=[]).push(api.dispose);ctx.extras.oldTownNightlife=api;
     return api;
 }

@@ -1,0 +1,5 @@
+loaded {"key":"bucharest-floreasca","city":"bucharest","district":"floreasca","ms":11892,"edges":384,"ribbons":523} elapsed 20 s
+capture 10/21 elapsed 51s aerial-r02-c08
+capture 20/21 elapsed 113s context-northwest
+capture 21/21 elapsed 117s context-northeast
+complete {"frames":21,"elapsedSeconds":116.92,"pageErrors":0,"consoleErrors":0,"source":"bbaffc0d6cdccb6246edeb9478c58590852980d9"}

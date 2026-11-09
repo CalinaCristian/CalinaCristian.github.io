@@ -1,0 +1,5 @@
+loaded {"key":"bucharest-grozavesti","city":"bucharest","district":"grozavesti","ms":19082,"edges":801,"ribbons":1714} elapsed 29 s
+capture 10/26 elapsed 64s aerial-r06-c07
+capture 20/26 elapsed 99s aerial-r08-c07
+capture 26/26 elapsed 123s aerial-r09-c09
+complete {"frames":26,"elapsedSeconds":123.059,"pageErrors":0,"consoleErrors":0,"source":"bbaffc0d6cdccb6246edeb9478c58590852980d9"}

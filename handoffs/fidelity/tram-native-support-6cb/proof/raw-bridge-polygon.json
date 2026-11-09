@@ -1,0 +1,342 @@
+{
+  "sourceId": "w902056192",
+  "type": "way",
+  "tags": {
+    "bridge:structure": "arch",
+    "layer": "1",
+    "man_made": "bridge",
+    "name": "Podul Grozăvești"
+  },
+  "nodeIds": [
+    7782133273,
+    9225393235,
+    8378988398,
+    7782133272,
+    1418266857,
+    1418266862,
+    7782133265,
+    8378988397,
+    8378988396,
+    7782133266,
+    1418266880,
+    1418266879,
+    7782133273
+  ],
+  "nodes": [
+    {
+      "nodeId": 7782133273,
+      "latLon": [
+        44.4432468,
+        26.0609325
+      ],
+      "tags": {},
+      "projectedXZ": [
+        137.69749195686848,
+        -227.46497759945882
+      ]
+    },
+    {
+      "nodeId": 9225393235,
+      "latLon": [
+        44.443242,
+        26.0609614
+      ],
+      "tags": {},
+      "projectedXZ": [
+        139.99443713296404,
+        -226.93154399954219
+      ]
+    },
+    {
+      "nodeId": 8378988398,
+      "latLon": [
+        44.4429161,
+        26.0608565
+      ],
+      "tags": {},
+      "projectedXZ": [
+        131.65708249728883,
+        -190.7136251995433
+      ]
+    },
+    {
+      "nodeId": 7782133272,
+      "latLon": [
+        44.4429191,
+        26.060838
+      ],
+      "tags": {},
+      "projectedXZ": [
+        130.18671966835308,
+        -191.04702119949118
+      ]
+    },
+    {
+      "nodeId": 1418266857,
+      "latLon": [
+        44.4429329,
+        26.0607541
+      ],
+      "tags": {},
+      "projectedXZ": [
+        123.51842554126821,
+        -192.58064280004115
+      ]
+    },
+    {
+      "nodeId": 1418266862,
+      "latLon": [
+        44.4429944,
+        26.0603795
+      ],
+      "tags": {},
+      "projectedXZ": [
+        93.74556523122065,
+        -199.41526080015748
+      ]
+    },
+    {
+      "nodeId": 7782133265,
+      "latLon": [
+        44.4430129,
+        26.0602665
+      ],
+      "tags": {},
+      "projectedXZ": [
+        84.76443011376952,
+        -201.47120279970457
+      ]
+    },
+    {
+      "nodeId": 8378988397,
+      "latLon": [
+        44.4430178,
+        26.060237
+      ],
+      "tags": {},
+      "projectedXZ": [
+        82.41979749457943,
+        -202.01574959975108
+      ]
+    },
+    {
+      "nodeId": 8378988396,
+      "latLon": [
+        44.4433437,
+        26.0603419
+      ],
+      "tags": {},
+      "projectedXZ": [
+        90.75715213025464,
+        -238.23366839974997
+      ]
+    },
+    {
+      "nodeId": 7782133266,
+      "latLon": [
+        44.4433406,
+        26.0603608
+      ],
+      "tags": {},
+      "projectedXZ": [
+        92.25930658801418,
+        -237.8891591996722
+      ]
+    },
+    {
+      "nodeId": 1418266880,
+      "latLon": [
+        44.4433209,
+        26.060481
+      ],
+      "tags": {},
+      "projectedXZ": [
+        101.8126910225995,
+        -235.69985880014596
+      ]
+    },
+    {
+      "nodeId": 1418266879,
+      "latLon": [
+        44.44326,
+        26.0608517
+      ],
+      "tags": {},
+      "projectedXZ": [
+        131.27558295253272,
+        -228.9319200000192
+      ]
+    },
+    {
+      "nodeId": 7782133273,
+      "latLon": [
+        44.4432468,
+        26.0609325
+      ],
+      "tags": {},
+      "projectedXZ": [
+        137.69749195686848,
+        -227.46497759945882
+      ]
+    }
+  ],
+  "rings": [
+    {
+      "role": "outer",
+      "nodeIds": [
+        7782133273,
+        9225393235,
+        8378988398,
+        7782133272,
+        1418266857,
+        1418266862,
+        7782133265,
+        8378988397,
+        8378988396,
+        7782133266,
+        1418266880,
+        1418266879,
+        7782133273
+      ],
+      "projectedXZ": [
+        [
+          137.69749195686848,
+          -227.46497759945882
+        ],
+        [
+          139.99443713296404,
+          -226.93154399954219
+        ],
+        [
+          131.65708249728883,
+          -190.7136251995433
+        ],
+        [
+          130.18671966835308,
+          -191.04702119949118
+        ],
+        [
+          123.51842554126821,
+          -192.58064280004115
+        ],
+        [
+          93.74556523122065,
+          -199.41526080015748
+        ],
+        [
+          84.76443011376952,
+          -201.47120279970457
+        ],
+        [
+          82.41979749457943,
+          -202.01574959975108
+        ],
+        [
+          90.75715213025464,
+          -238.23366839974997
+        ],
+        [
+          92.25930658801418,
+          -237.8891591996722
+        ],
+        [
+          101.8126910225995,
+          -235.69985880014596
+        ],
+        [
+          131.27558295253272,
+          -228.9319200000192
+        ],
+        [
+          137.69749195686848,
+          -227.46497759945882
+        ]
+      ]
+    }
+  ],
+  "holes": [],
+  "parentRelations": [],
+  "provenance": "Literal cached OSM way polygon, raw tags and node coordinates; separate raw input, not a native world collider or measured height. Parent relation members/roles retained without synthetic ring assembly.",
+  "ledger": [
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4250_26.0290_44.4350_26.0450.xml",
+      "bytes": 3620820,
+      "sha256": "5f6dfc4175e595a80a0207927b135fcdda0ea79cfecdea841b089c91ba0c3343"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4250_26.0450_44.4350_26.0610.xml",
+      "bytes": 4068076,
+      "sha256": "57639f0f940a2ca42f873e5e171b938cf43980f28fede6a30d29ce246b957fa7"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4250_26.0610_44.4350_26.0770.xml",
+      "bytes": 5097547,
+      "sha256": "1de258735272aa12e444747c50a36372a0337d0bb16821337ba865d5ad600feb"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4250_26.0770_44.4350_26.0930.xml",
+      "bytes": 4201904,
+      "sha256": "1dafbd501669a59407348a2028a6190dbeb129a85c30181bb86e79b05c8a5fb1"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4350_26.0290_44.4450_26.0450.xml",
+      "bytes": 2139336,
+      "sha256": "1b3433692876dc385b2960f34d06d3f55c96f0c507f9207a9bb449ec7c0b3bcf"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4350_26.0450_44.4450_26.0610.xml",
+      "bytes": 2581216,
+      "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4350_26.0610_44.4450_26.0770.xml",
+      "bytes": 4361067,
+      "sha256": "5c526f202084ffa605d5b78bb15b923b10dee7bca10bf65d9438152a465e0624"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4350_26.0770_44.4450_26.0930.xml",
+      "bytes": 4560635,
+      "sha256": "14b1a756654b49a7d62517cddc711bc20056e4684a0a1f10c6a41ee9e6462069"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0290_44.4550_26.0450.xml",
+      "bytes": 1316642,
+      "sha256": "57a0c0e0a2c75f2e0f999b8fa8c5733d669c5bd244490fcd409b1c747593c55f"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0450_44.4550_26.0610.xml",
+      "bytes": 3534494,
+      "sha256": "1336a618c3f735263833078499794446ed5f9b8776aeefe914aaaa2eb5ec7732"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0610_44.4550_26.0770.xml",
+      "bytes": 5561807,
+      "sha256": "1b4248039697685242b9df55183002daee53d1ca728571020f64d9fa4fdb9f2e"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0770_44.4550_26.0930.xml",
+      "bytes": 5339287,
+      "sha256": "ee2946108a6f27a83e7b71f558950182e12af5eb1de7b7815b5ec03369a3af6e"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4550_26.0290_44.4650_26.0450.xml",
+      "bytes": 2104334,
+      "sha256": "2d4083c18438e61eebab62d3b67f5a07337d69c2aa84bb8b4d8bb143d2437b85"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4550_26.0450_44.4650_26.0610.xml",
+      "bytes": 3271344,
+      "sha256": "5b4a8f65b7fd6866738854193f910b82c100e3c6ed1effedb800a83f6ed1fd50"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4550_26.0610_44.4650_26.0770.xml",
+      "bytes": 4585166,
+      "sha256": "052b27afee4aef69c907c144db2c38791acddfd572c917584f2136a709698996"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4550_26.0770_44.4650_26.0930.xml",
+      "bytes": 3624809,
+      "sha256": "990ea50aa95587d1a134729a994a2f08db3e64618164a473a852ff298ac1af96"
+    }
+  ]
+}

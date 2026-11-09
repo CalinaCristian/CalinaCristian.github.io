@@ -1,0 +1,339 @@
+{
+  "sourceCommit": "ff6b2bff3cfe5b45c5dba9624abbb6672304bfed",
+  "sourceDataSha256": "b0341956c088b9cb142a7005831345eda7bf7aae27f18618181ba8fc535f4175",
+  "scope": "Exact native canonical full-count roof mesh7092/7092 + unculling native detail mesh; no stale index-tail attribution. Generated cornice tops into adjacent source solids, not source-volume deletion.",
+  "sourceBodies": [
+    {
+      "i": 380,
+      "sourceId": "w660503519",
+      "ring": [
+        [
+          -855.8783,
+          140.5153
+        ],
+        [
+          -817.0767,
+          150.4727
+        ],
+        [
+          -814.0803,
+          138.1704
+        ],
+        [
+          -795.514,
+          143.1047
+        ],
+        [
+          -801.9995,
+          168.465
+        ],
+        [
+          -804.6541,
+          178.8003
+        ],
+        [
+          -861.9426,
+          164.1086
+        ],
+        [
+          -859.5185,
+          154.6624
+        ]
+      ],
+      "holes": [],
+      "minH": 0.0,
+      "h": 14.5,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 14.5,
+        "eavesM": 14.5,
+        "riseM": 0,
+        "heightSource": "style estimate",
+        "riseSource": "flat",
+        "axis": [
+          0.24841164324234769,
+          -0.9686545594285079
+        ],
+        "low": -373.08114147594677,
+        "high": -336.06642539566656,
+        "raw": {},
+        "originalOSM": {}
+      }
+    },
+    {
+      "i": 381,
+      "sourceId": "w660503523",
+      "ring": [
+        [
+          -836.2232,
+          74.0917
+        ],
+        [
+          -821.0109,
+          78.1258
+        ],
+        [
+          -812.2364,
+          80.4485
+        ],
+        [
+          -781.0567,
+          88.7167
+        ],
+        [
+          -795.514,
+          143.1047
+        ],
+        [
+          -814.0803,
+          138.1704
+        ],
+        [
+          -850.6883,
+          128.4908
+        ]
+      ],
+      "holes": [],
+      "minH": 0.0,
+      "h": 14.5,
+      "roofProfile": {
+        "version": 1,
+        "shape": "flat",
+        "totalM": 14.5,
+        "eavesM": 14.5,
+        "riseM": 0,
+        "heightSource": "style estimate",
+        "riseSource": "flat",
+        "axis": [
+          -0.256320917736951,
+          0.9665917375658077
+        ],
+        "low": 285.95398467567355,
+        "high": 342.24738189366406,
+        "raw": {},
+        "originalOSM": {}
+      }
+    }
+  ],
+  "nativePairs": [
+    {
+      "a": {
+        "meshId": "34e52ebf-c363-4651-bd64-9c4b5c109b18",
+        "meshName": "detail -4,0",
+        "triangle": 122,
+        "vertices": [
+          [
+            -814.080322265625,
+            14.5,
+            138.17039489746094
+          ],
+          [
+            -795.5139770507812,
+            14.5,
+            143.10470581054688
+          ],
+          [
+            -795.4318237304688,
+            14.5,
+            142.79544067382812
+          ]
+        ]
+      },
+      "b": {
+        "meshId": "8325584b-ec1c-4633-82dc-1dae5ecbd09f",
+        "meshName": "roofs -1,0",
+        "triangle": 766,
+        "vertices": [
+          [
+            -795.5139770507812,
+            14.5,
+            143.10470581054688
+          ],
+          [
+            -781.9454956054688,
+            14.5,
+            90.04769897460938
+          ],
+          [
+            -814.080322265625,
+            14.5,
+            138.17039489746094
+          ]
+        ]
+      },
+      "planeDistanceM": 0,
+      "normalDot": 1,
+      "overlapAreaM2": 3.0731718150200322,
+      "regions": [
+        "politehnica-campus"
+      ]
+    },
+    {
+      "a": {
+        "meshId": "34e52ebf-c363-4651-bd64-9c4b5c109b18",
+        "meshName": "detail -4,0",
+        "triangle": 123,
+        "vertices": [
+          [
+            -814.080322265625,
+            14.5,
+            138.17039489746094
+          ],
+          [
+            -795.4318237304688,
+            14.5,
+            142.79544067382812
+          ],
+          [
+            -813.9981079101562,
+            14.5,
+            137.8611297607422
+          ]
+        ]
+      },
+      "b": {
+        "meshId": "8325584b-ec1c-4633-82dc-1dae5ecbd09f",
+        "meshName": "roofs -1,0",
+        "triangle": 766,
+        "vertices": [
+          [
+            -795.5139770507812,
+            14.5,
+            143.10470581054688
+          ],
+          [
+            -781.9454956054688,
+            14.5,
+            90.04769897460938
+          ],
+          [
+            -814.080322265625,
+            14.5,
+            138.17039489746094
+          ]
+        ]
+      },
+      "planeDistanceM": 0,
+      "normalDot": 1,
+      "overlapAreaM2": 3.056310163497983,
+      "regions": [
+        "politehnica-campus"
+      ]
+    },
+    {
+      "a": {
+        "meshId": "34e52ebf-c363-4651-bd64-9c4b5c109b18",
+        "meshName": "detail -4,0",
+        "triangle": 162,
+        "vertices": [
+          [
+            -795.5139770507812,
+            14.5,
+            143.10470581054688
+          ],
+          [
+            -814.080322265625,
+            14.5,
+            138.17039489746094
+          ],
+          [
+            -814.1624755859375,
+            14.5,
+            138.4796600341797
+          ]
+        ]
+      },
+      "b": {
+        "meshId": "8325584b-ec1c-4633-82dc-1dae5ecbd09f",
+        "meshName": "roofs -1,0",
+        "triangle": 753,
+        "vertices": [
+          [
+            -817.0767211914062,
+            14.5,
+            150.4727020263672
+          ],
+          [
+            -795.5139770507812,
+            14.5,
+            143.10470581054688
+          ],
+          [
+            -814.080322265625,
+            14.5,
+            138.17039489746094
+          ]
+        ]
+      },
+      "planeDistanceM": 0,
+      "normalDot": 1,
+      "overlapAreaM2": 3.072585457441164,
+      "regions": [
+        "politehnica-campus"
+      ]
+    },
+    {
+      "a": {
+        "meshId": "34e52ebf-c363-4651-bd64-9c4b5c109b18",
+        "meshName": "detail -4,0",
+        "triangle": 163,
+        "vertices": [
+          [
+            -795.5139770507812,
+            14.5,
+            143.10470581054688
+          ],
+          [
+            -814.1624755859375,
+            14.5,
+            138.4796600341797
+          ],
+          [
+            -795.59619140625,
+            14.5,
+            143.41397094726562
+          ]
+        ]
+      },
+      "b": {
+        "meshId": "8325584b-ec1c-4633-82dc-1dae5ecbd09f",
+        "meshName": "roofs -1,0",
+        "triangle": 753,
+        "vertices": [
+          [
+            -817.0767211914062,
+            14.5,
+            150.4727020263672
+          ],
+          [
+            -795.5139770507812,
+            14.5,
+            143.10470581054688
+          ],
+          [
+            -814.080322265625,
+            14.5,
+            138.17039489746094
+          ]
+        ]
+      },
+      "planeDistanceM": 0,
+      "normalDot": 1,
+      "overlapAreaM2": 2.9971574818409863,
+      "regions": [
+        "politehnica-campus"
+      ]
+    }
+  ],
+  "ownerByDetailTriangle": {
+    "122": 380,
+    "123": 380,
+    "162": 381,
+    "163": 381
+  },
+  "nativeRangeProof": {
+    "roof": "7092 indices, drawRange7092, sourceIndices7092, updates1",
+    "detail": "1728 indices, unbounded drawRange, no cellFrustum"
+  }
+}

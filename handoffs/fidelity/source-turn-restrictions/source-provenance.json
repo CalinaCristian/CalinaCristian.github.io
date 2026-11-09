@@ -1,0 +1,8 @@
+{
+  "datasetSource": "7330a2ab46e6e0938a3ca7ab046a036d5b9c6f2b",
+  "datasetPath": "game/data/bucharest-grozavesti.json",
+  "datasetBytes": 8516286,
+  "datasetSha256": "194a31ae1bbf01a26e69dfc2e9940aabbeaee6f8eef5eac2f42619e31a8d475f",
+  "runtimeSource": "00c603358ac547b898cb8ad18f3d7ed9b229c10c",
+  "scope": "Exact production Navigator on literal compiled source topology. No native World/mesh/drive acceptance."
+}

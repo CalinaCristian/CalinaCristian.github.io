@@ -1,0 +1,83 @@
+{
+  "reviewedUTC": "2026-11-09T18:21:33.850515+00:00",
+  "rootHeadAtAudit": "0c75caebdc0753dfcd4037b31dce840b8abe3a57",
+  "workerHeadAtAudit": "bea20fba44b9b70f51cfdcfe678470d99963bae1",
+  "scope": "Read-only hook audit; root worktree may contain unrelated in-progress changes. File/method hashes are authoritative for the inspected bytes. No integration.",
+  "files": {
+    "game/src/traffic.js": {
+      "sha256": "b76ade370d5f0f89bae39fea6ed04d3fbd473b7e319cb706258fd4eef077ba6d",
+      "methods": [
+        {
+          "method": "honk(v, reason)",
+          "line": 2010,
+          "sha256": "e084379f733993475fc3450cc60a3cde0d59b7f1be64854dd8ae84ed24dd93b5",
+          "workerMethodByteParity": true
+        },
+        {
+          "method": "playerHonk(px, pz, fx, fz)",
+          "line": 2020,
+          "sha256": "4465eb2cfe55ccce582f56effd2d191220f2e553f03d3e33d49e2fbcafc9f935",
+          "workerMethodByteParity": true
+        },
+        {
+          "method": "bump(v)",
+          "line": 2051,
+          "sha256": "2ad15c9da57256670704c3fdae65b92b012b49bf32d0d1be830957dd3093249f",
+          "workerMethodByteParity": true
+        },
+        {
+          "method": "bubble(v, kind)",
+          "line": 2124,
+          "sha256": "cb01b7598d5124113b09f9e33072ac00a637e86e220026520bca7d2f0c168b1b",
+          "workerMethodByteParity": true
+        },
+        {
+          "method": "say(target, line, cls = '', pri = 2)",
+          "line": 2135,
+          "sha256": "8922068feef6ce813df89f69000291ae2d60aaee3549e09dafac147d725305a0",
+          "workerMethodByteParity": true
+        },
+        {
+          "method": "overlapGuard()",
+          "line": 1716,
+          "sha256": "6b99f28051dda732b47d5bf2fb310436c43c097f5caacbef5bf53bab97615397",
+          "workerMethodByteParity": true
+        }
+      ]
+    },
+    "game/src/main.js": {
+      "sha256": "833062a36445921514cb260335fbe346997563bbc3e2b078fbda055b958d672b",
+      "methods": [
+        {
+          "method": "playerHonk()",
+          "line": 1270,
+          "sha256": "561249d8c08e175c3902dcd707302a0beee9c644e5ac486adeac5a2be79e6c11",
+          "workerMethodByteParity": true
+        },
+        {
+          "method": "vehicleHonk(v)",
+          "line": 1280,
+          "sha256": "c54c358f80d457bc13ab326a79b9806e941310c193533c64b073c9c39680a96e",
+          "workerMethodByteParity": true
+        },
+        {
+          "method": "onCollide(strength, what, v)",
+          "line": 1288,
+          "sha256": "025eed0dcc7105df28609a642be748550ab8190139231897473c717216e6ed67",
+          "workerMethodByteParity": true
+        }
+      ]
+    },
+    "game/src/player.js": {
+      "sha256": "23be3729f855cfe708745f4ceb7eb86a2a8c86f970f07ab10b376fa103e2dea8",
+      "methods": [
+        {
+          "method": "hit(strength, what, v)",
+          "line": 483,
+          "sha256": "3ca2aed84185c02a5952d530e98f42a2cba31680eca37ede0c77b5c7a0789397",
+          "workerMethodByteParity": true
+        }
+      ]
+    }
+  }
+}

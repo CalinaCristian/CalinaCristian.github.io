@@ -43,6 +43,8 @@ async function main(){
    if(m.historicalCollections?.length)await page.locator('[data-cv="collection"]').selectOption('survey');
    const context=page.locator('#perspective-viewer > div > div > details');
    await page.waitForFunction(id=>document.querySelector('#perspective-viewer select')?.value===id,place.id);
+   const expectedContexts=(m.perspectiveCollections||[]).filter(c=>c.captureType==='game-perspective-context'&&c.comparisonCompatible===false).length+(m.streetWalk?.manifest==='street-walk/manifest.json'?1:0);
+   await page.waitForFunction(n=>document.querySelectorAll('#perspective-viewer > div > div > details').length===n,expectedContexts);
    const n=await context.count(),counts=[];
    for(let i=0;i<n;i++){
     const d=context.nth(i);await d.locator('summary').first().click();await d.locator('figure').first().waitFor();

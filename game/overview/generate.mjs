@@ -22,11 +22,12 @@ for (const lm of landmarks) {
     const record = JSON.parse(readFileSync(full, 'utf8'));
     if (record.schemaVersion !== 1 || record.id !== lm.id || record.city !== lm.city) throw new Error(`Landmark evidence identity: ${path}`);
     if (strictEvidence && (!record.sources?.length || !record.captures?.length || !record.checks?.length)) throw new Error(`Incomplete evidence: ${path}`);
-    for (const capture of record.captures || []) {
-        if (!/^assets\/landmarks\/[a-zA-Z0-9_/-]+\.(?:png|jpe?g|webp)$/.test(capture.image || '')) throw new Error(`Unsafe/missing game capture path in ${path}`);
+    const collections = [{...record, captures:record.captures || []}, ...(record.historicalCollections || [])];
+    for (const collection of collections) for (const capture of collection.captures || []) {
+        if (!evidenceAsset(capture.image, {kind:'landmark',id:lm.id})) throw new Error(`Unsafe/missing game capture path in ${path}`);
         const bytes = readFileSync(resolve(root, 'game/overview', capture.image));
         if (createHash('sha256').update(bytes).digest('hex') !== capture.sha256) throw new Error(`Capture hash mismatch: ${capture.image}`);
-        if (!/^[a-f0-9]{40}$/.test(capture.sourceCommit || record.sourceCommit || '')) throw new Error(`Missing capture source: ${capture.image}`);
+        if (!/^[a-f0-9]{40}$/.test(capture.sourceCommit || collection.sourceCommit || '')) throw new Error(`Missing capture source: ${capture.image}`);
     }
     lm.evidence = path;
 }

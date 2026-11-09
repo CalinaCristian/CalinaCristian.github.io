@@ -5,6 +5,7 @@ export function evidenceAsset(value, { kind, id } = {}) {
     if (typeof value !== 'string') return null;
     if (/^assets\/(?:landmarks|spots)\/[a-zA-Z0-9_/-]+\.(?:png|jpe?g|webp)$/.test(value)) {
         if (kind === 'spot' && id && !value.startsWith(`assets/spots/${id}/`)) return null;
+        if (kind === 'landmark' && id && !value.startsWith(`assets/landmarks/${id}/`)) return null;
         return value;
     }
     return kind !== 'landmark' && value.startsWith(proofRoot) && safeTail.test(value.slice(proofRoot.length)) ? value : null;

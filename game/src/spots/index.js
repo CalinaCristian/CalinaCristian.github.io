@@ -741,6 +741,19 @@ export class SpotSession {
         const cv = this.host.r3d?.renderer?.domElement || this.host.r3d?.canvas; try { cv?.focus?.({ preventScroll: true }); } catch { /* ignore */ }
         if (this.input) { this.input.flush?.(); this.input.keys?.clear?.(); this.input.lookAllowed = true; }
     }
+    /** Keep a nearby guide's conversation from swallowing the arrived task's E prompt. */
+    _interactionAt(p) {
+        const T=this.tour, target=T?.state==='arrive'?T.stops[T.i]?.interaction:null;
+        let best=null,bd=Infinity,task=null;
+        for(const it of this.spot.interactables){
+            if(it.cond&&!it.cond(this))continue;
+            const d=Math.hypot(p.x-it.x,p.z-it.z);
+            if(!(d<(it.r||2)&&Math.abs((it.y??p.y)-p.y)<3))continue;
+            if(it===target)task=it;
+            if(d<bd){bd=d;best=it;}
+        }
+        return task&&['guide','talk'].includes(best?.kind)?task:best;
+    }
     /** per-frame: walker, crowd, interactions, scene animations, night, UI, sound */
     update(dt) {
         dt = Math.min(dt, 0.1); this.t += dt;
@@ -771,8 +784,7 @@ export class SpotSession {
         if (!photo && !panel && this.input?.take?.('KeyM')) this.openMap(); // (G is the drone everywhere — round 6 note 14)
         // interactions (nearest within reach)
         if (!photo && !panel && !this.spot.ctx.extras.venueActivities?.active && !this.spot.ctx.extras.participation?.active) {
-            let best = null, bd = 1e9;
-            for (const it of this.spot.interactables) { if (it.cond && !it.cond(this)) continue; const d = Math.hypot(p.x - it.x, p.z - it.z); if (d < (it.r || 2) && d < bd && Math.abs((it.y ?? p.y) - p.y) < 3) { bd = d; best = it; } }
+            const best=this._interactionAt(p);
             this.ui.prompt(best ? `<kbd>E</kbd>${escapeHtml(typeof best.label === 'function' ? best.label(this) : best.label)}` : null);
             this.ui.crosshair(!!best?.aim);
             if (best && this.input?.take?.('KeyE')) {

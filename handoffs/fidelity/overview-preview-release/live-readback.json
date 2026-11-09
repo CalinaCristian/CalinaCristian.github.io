@@ -1,0 +1,96 @@
+{
+  "commit": "e354a500e95a5f741564becf528af1f9445bd265",
+  "checkedAt": "2026-11-09T07:11:32.675820+00:00",
+  "page": "https://cristiancalina.com/game/overview/",
+  "assets": [
+    {
+      "path": "game/overview/index.html",
+      "status": 200,
+      "bytes": 53450,
+      "sha256": "0c9ec90f95519d06f89fbbe941f7a88c902ef46fb476e7e2514c5606f472d585",
+      "exactGitBytes": true,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "path": "game/overview/style.css",
+      "status": 200,
+      "bytes": 25475,
+      "sha256": "8a3e0a1c216601d73fdebce957048b536adae678c5d58bde6834fa5abe341ac6",
+      "exactGitBytes": true,
+      "contentType": "text/css; charset=utf-8"
+    },
+    {
+      "path": "game/overview/inventory.json",
+      "status": 200,
+      "bytes": 202175,
+      "sha256": "228d01db2610cb7fe36e4226d9b38033eb1b85b469227d4133a8f9151136d62f",
+      "exactGitBytes": true,
+      "contentType": "application/json; charset=utf-8"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/aerial-r01-c03.jpg",
+      "status": 200,
+      "bytes": 82484,
+      "sha256": "c5ac9b8e3df4d0effeb799f886cfe9898a26ca731a4137a641182b27640a468c",
+      "exactGitBytes": true,
+      "contentType": "image/jpeg"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/images/aerial-r01-c04.jpg",
+      "status": 200,
+      "bytes": 73193,
+      "sha256": "8f1004dc622185f0aaa40380ef5eed08d792e596b844fb7ff678f1d41a9ba514",
+      "exactGitBytes": true,
+      "contentType": "image/jpeg"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/images/aerial-r01-c07.jpg",
+      "status": 200,
+      "bytes": 61065,
+      "sha256": "511bab5db0da15ad62deec6d4d7a838658302d21f11cc0c9991a05cf96dedaff",
+      "exactGitBytes": true,
+      "contentType": "image/jpeg"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/images/aerial-r01-c06.jpg",
+      "status": 200,
+      "bytes": 75870,
+      "sha256": "770397f1095e2c0ee9fa5ae9543dffc1694276abb3ff2618f251c67a0eff9627",
+      "exactGitBytes": true,
+      "contentType": "image/jpeg"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/images/aerial-r01-c05.jpg",
+      "status": 200,
+      "bytes": 59119,
+      "sha256": "e4d93cd28884957db32fadd22129b4c1734c5f11385928598b54769901aaf458",
+      "exactGitBytes": true,
+      "contentType": "image/jpeg"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/images/aerial-r01-c06.jpg",
+      "status": 200,
+      "bytes": 61260,
+      "sha256": "f6ea27d2aed2bbbe24955ab14bac7af23fe2c4fb9c04969150a6e92d61e5d6a0",
+      "exactGitBytes": true,
+      "contentType": "image/jpeg"
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/images/aerial-r01-c01.jpg",
+      "status": 200,
+      "bytes": 50018,
+      "sha256": "59f30cc99822be6b0668571f63ee2ec664fc5dc59eaded4718f5459c5838b316",
+      "exactGitBytes": true,
+      "contentType": "image/jpeg"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/images/aerial-r01-c03.jpg",
+      "status": 200,
+      "bytes": 75173,
+      "sha256": "98fc0326ee7e4f7281a5d99efb7231bee195adc6d30c2b9a413b04c83a0155c5",
+      "exactGitBytes": true,
+      "contentType": "image/jpeg"
+    }
+  ],
+  "scope": "Live HTTP readback of exact merged HTML/CSS/inventory and one actual game capture per each of eight districts; no external reference imagery or photographic-parity claim."
+}

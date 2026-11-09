@@ -20,3 +20,4 @@ exclude:
   - handoffs/fidelity/tram-native-support-6cb
   - handoffs/fidelity/tram-romana-constructor-6cb
   - handoffs/fidelity/source-controlled-crossing
+  - handoffs/fidelity/overview-preview-release

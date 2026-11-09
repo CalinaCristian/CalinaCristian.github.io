@@ -1,0 +1,100 @@
+{
+  "files": [
+    {
+      "file": "report.json",
+      "bytes": 1250146,
+      "sha256": "0e00a63e6f6833a7ab9dc421bd1bf5035c7c5518706bf8749184017c90f37796"
+    },
+    {
+      "file": "launch.json",
+      "bytes": 1364,
+      "sha256": "1f07feea5df6a518e1078ecf61f54c4529005b89b8f797ddb073975cc4eaf46b"
+    },
+    {
+      "file": "preparation.json",
+      "bytes": 1342,
+      "sha256": "160e4ea153ae493f0ae71a19f75123318fbe856ff0dcab7f30a8ab93ff27441f"
+    },
+    {
+      "file": "source-manifest.json",
+      "bytes": 46571,
+      "sha256": "e17eaaa85233df82b85084cce5e727132d3cdb57305ac46e0badb43d900d99d8"
+    },
+    {
+      "file": "served-files.json",
+      "bytes": 26285,
+      "sha256": "7e6939bf3bdc097e944b3afbbc6da17c81c14aa89cec53a927e2ad574928a75f"
+    },
+    {
+      "file": "post-preflight-source-check.json",
+      "bytes": 400,
+      "sha256": "6b6bed3ae3ba5ae4e356d02ffd093fe5bb536b306b09f3f18824c3dba0dfb6c5"
+    },
+    {
+      "file": "preflight-summary.json",
+      "bytes": 5824,
+      "sha256": "7fb51910d8b755077f55ea87cedf0632f5a6db658f7338ed0c3afbc42a460f5a"
+    },
+    {
+      "file": "assessment.json",
+      "bytes": 2046,
+      "sha256": "8589a9a463aeb67489328b20d4355126bc9d68629ca2a7193c6527de563ae74c"
+    },
+    {
+      "file": "runner.cjs",
+      "bytes": 15804,
+      "sha256": "92ebbd8497602b2176fd4ea64125130b6485da5315ce5dcc55d94eda7099550e"
+    },
+    {
+      "file": "install-observer.cjs",
+      "bytes": 16425,
+      "sha256": "f7c341800069001a30deda2752df9d9719f1cf095f87e4c31a0c4ede1005d51d"
+    },
+    {
+      "file": "geometry-kernel.cjs",
+      "bytes": 7386,
+      "sha256": "0845d75ccc331332f64d30416caea381bb552ff876c68e4e43d8ed9d8183a19b"
+    },
+    {
+      "file": "decode-geometry.cjs",
+      "bytes": 5819,
+      "sha256": "01084af43c317f1fecb002c50e4c808a320ab7ede83dbcd03f1200777ae77411"
+    },
+    {
+      "file": "integration-browser-bounds.cjs",
+      "bytes": 1529,
+      "sha256": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29"
+    },
+    {
+      "file": "grozavesti-constructor-facts.json.gz",
+      "bytes": 2207016,
+      "sha256": "5302ad030f4c9b96666114521530bfd4c0b3776a9127492760c12a430f5c4f09"
+    },
+    {
+      "file": "romana-constructor-facts.json.gz",
+      "bytes": 3282430,
+      "sha256": "f31bd76c6e604437539be14ef2345df2000c702f1d8b2297ea2dbc7266763b78"
+    },
+    {
+      "file": "unirii-constructor-facts.json.gz",
+      "bytes": 3015516,
+      "sha256": "7cbaf9918970519bd599ffa6f6de5c693d8191c7b59bceb57678c05078e5507f"
+    },
+    {
+      "file": "grozavesti-sidewalk-policy.json.gz",
+      "bytes": 10549,
+      "sha256": "2f1768c400eb04692131820c8c969af302efe92c7c0a668ffe96b7dbee5f5990"
+    },
+    {
+      "file": "romana-sidewalk-policy.json.gz",
+      "bytes": 9167,
+      "sha256": "b1e2f35b3fc16082ef1fcdfd673089923f6e12d33304565e02984234d72e202b"
+    },
+    {
+      "file": "unirii-sidewalk-policy.json.gz",
+      "bytes": 8836,
+      "sha256": "9479a24d8f15d227554a16747f8c8d74e13da234f6f6837287d60321dd4200f9"
+    }
+  ],
+  "scope": "Portable EARLYpreview constructor proof. Full snapshot raw/gzip hashes retained in report; larger scene/world files remain stable in external raw directory and follow separate commit. Manifest excludes itself."
+}

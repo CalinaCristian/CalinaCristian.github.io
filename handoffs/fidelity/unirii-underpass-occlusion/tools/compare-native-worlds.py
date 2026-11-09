@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+import argparse,gzip,json,pathlib
+p=argparse.ArgumentParser();p.add_argument('--before',required=True);p.add_argument('--after',required=True);p.add_argument('--out',required=True);q=p.parse_args();pa=pathlib.Path(q.before);pb=pathlib.Path(q.after);a=json.load(gzip.open(pa/'native-world.json.gz'));b=json.load(gzip.open(pb/'native-world.json.gz'));old=a['data'];new=b['data'];same={k:old[k]==new[k] for k in old};assert all(same.values());es={e['id']:e for e in a['allEdges']};ns={e['id']:e for e in b['allEdges']};plan=[];changed=[];pasaj=[]
+for id,e in es.items():
+ f=ns[id]
+ for k in ['road','len','dirx','dirz','nx','nz','wL','wR','publicDrive','throughAccess','tunnel','bridge','layer']:
+  if e.get(k)!=f.get(k):plan.append([id,k,e.get(k),f.get(k)])
+ for k in ['a','b']:
+  for c in ['id','sourceId','x','z']:
+   if e[k].get(c)!=f[k].get(c):plan.append([id,k,c,e[k].get(c),f[k].get(c)])
+ if (e['ya'],e['yb'])!=(f['ya'],f['yb']):changed.append({'id':id,'road':e['road'],'sourceId':old['roadSourceGeometry'].get(str(e['road']),{}).get('sourceId'),'before':[e['ya'],e['yb']],'after':[f['ya'],f['yb']]})
+ if e['road'] in [12,13,213]:
+  assert (e['ya'],e['yb'],e.get('lidded'))==(f['ya'],f['yb'],f.get('lidded'));pasaj.append(id)
+assert not plan
+can=lambda w:[c for c in w['colliders'] if c.get('sourceId')=='w670595374'];ca,cb=can(a),can(b);lost=[c for c in ca if c not in cb];added=[c for c in cb if c not in ca];assert not added;assert len(lost)==2 and all(c.get('kind')=='canopy-support' for c in lost);assert ca[0]==cb[0]
+r1=json.load(open(pa/'report.json'));r2=json.load(open(pb/'report.json'));t1=json.load(gzip.open(pa/'trace-current.json.gz'));t2=json.load(gzip.open(pb/'trace-current.json.gz'))
+physical=lambda t:[{'x':r['player']['x'],'z':r['player']['z'],'surfY':r['player']['surfY'],'heading':r['player']['heading'],'speed':r['player']['speed'],'ctl':r['ctl']} for r in t];assert physical(t1)==physical(t2)
+apdiff=[{'row':i,'field':k,'before':x['ap'].get(k),'after':y['ap'].get(k)} for i,(x,y) in enumerate(zip(t1,t2)) if x.get('ap') and y.get('ap') for k in x['ap'] if x['ap'].get(k)!=y['ap'].get(k)]
+x={'sources':[r1['source'],r2['source']],'allPreexistingDataFieldsEqual':same,'appendedFields':list(set(new)-set(old)),'nativeEdgeCount':[len(es),len(ns)],'capturedNativePlanModeGeometryDifferences':plan,'changedProfileEdges':changed,'truePasajProfileAndLidsExactlyUnchanged':pasaj,'nativeCanopyCapturedRoofColliderPolygonExactlyUnchanged':ca[0],'inferredSupportCountBeforeAfter':[len(ca)-1,len(cb)-1],'removedInferredSupportRecords':lost,'newSupportRecords':added,'supportCause':'Existing estimateSupports eligibility now sees the correctly blocking normal driveway ribbon; previously lidded road91 was omitted from the ribbon guard. No literal support record or canopy footprint removed.','colliderCoverageGap':'Early captured collider records omit h/minH; actual roof band independently decoded from emitted triangles. Local observer records full native fields.','coposuProfilesZero':all(e['ya']==0 and e['yb']==0 for e in b['allEdges'] if e['road'] in [114,198]),'beforeAfterEarly273mPlayerPhysicalControlsExactlyEqual':True,'earlyTraceRows':len(t1),'earlyApScalarDifferences':apdiff,'allActorStateParityClaimed':False,'fullStoryRoutes':[r1['drives'],r2['drives']],'wholeChapterAcceptance':False,'scope':'Fresh native source rows/captured plan fields/profile/canopy and early player controls only. Combined71 also includes root domain/closure corrections; actor/queue state transfer is not assumed. Local driving proof is separately labelled.'};pathlib.Path(q.out).write_text(json.dumps(x,indent=2)+'\n');print(json.dumps({'planDifferences':len(plan),'profileEdgesChanged':len(changed),'truePasajUnchanged':len(pasaj),'inferredSupportCountBeforeAfter':x['inferredSupportCountBeforeAfter'],'allCoposuZero':x['coposuProfilesZero'],'earlyPlayerControlRowsIdentical':len(t1),'apScalarDifferencesRetained':len(apdiff)}))

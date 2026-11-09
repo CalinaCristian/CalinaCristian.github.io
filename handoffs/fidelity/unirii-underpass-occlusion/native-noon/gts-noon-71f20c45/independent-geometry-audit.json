@@ -1,0 +1,275 @@
+{
+  "source": "71f20c4581ae62d12a98e226fbfef476fc27dab9",
+  "worldGzipSha256": "774f82e4cfbad31c9a325692155a49d1e377a39521d8e23d48940a0833307633",
+  "method": "Independent Float32 canonical/native source indices, actual full mesh matrices, triangle winding/material-side/depthWrite and vertical barycentric intersections; no producer support certificate used. Ray-grid samples are geometry witnesses, not a completed drive.",
+  "nativeCanopy": {
+    "sourceId": "w670595374",
+    "bottomTriangles": [
+      {
+        "objectId": 291,
+        "name": "solid 0,-1",
+        "triangle": 949,
+        "vertices": [
+          [
+            156.95440673828125,
+            4.800000190734863,
+            -200.4488067626953
+          ],
+          [
+            145.34019470214844,
+            4.800000190734863,
+            -215.39599609375
+          ],
+          [
+            142.6929931640625,
+            4.800000190734863,
+            -218.80780029296875
+          ]
+        ],
+        "normal": [
+          0.0,
+          -0.0571948082651943,
+          0.0
+        ],
+        "side": 0,
+        "depthWrite": true,
+        "renderOrder": 0
+      },
+      {
+        "objectId": 291,
+        "name": "solid 0,-1",
+        "triangle": 950,
+        "vertices": [
+          [
+            152.03359985351562,
+            4.800000190734863,
+            -226.03140258789062
+          ],
+          [
+            156.2707061767578,
+            4.800000190734863,
+            -229.30979919433594
+          ],
+          [
+            165.99290466308594,
+            4.800000190734863,
+            -216.79629516601562
+          ]
+        ],
+        "normal": [
+          0.0,
+          -84.89426956907846,
+          0.0
+        ],
+        "side": 0,
+        "depthWrite": true,
+        "renderOrder": 0
+      },
+      {
+        "objectId": 291,
+        "name": "solid 0,-1",
+        "triangle": 951,
+        "vertices": [
+          [
+            160.7064971923828,
+            4.800000190734863,
+            -212.70660400390625
+          ],
+          [
+            165.24569702148438,
+            4.800000190734863,
+            -206.8721923828125
+          ],
+          [
+            156.95440673828125,
+            4.800000190734863,
+            -200.4488067626953
+          ]
+        ],
+        "normal": [
+          0.0,
+          -77.53183129127137,
+          0.0
+        ],
+        "side": 0,
+        "depthWrite": true,
+        "renderOrder": 0
+      },
+      {
+        "objectId": 291,
+        "name": "solid 0,-1",
+        "triangle": 952,
+        "vertices": [
+          [
+            156.95440673828125,
+            4.800000190734863,
+            -200.4488067626953
+          ],
+          [
+            142.6929931640625,
+            4.800000190734863,
+            -218.80780029296875
+          ],
+          [
+            152.03359985351562,
+            4.800000190734863,
+            -226.03140258789062
+          ]
+        ],
+        "normal": [
+          0.0,
+          -274.50291760405526,
+          0.0
+        ],
+        "side": 0,
+        "depthWrite": true,
+        "renderOrder": 0
+      },
+      {
+        "objectId": 291,
+        "name": "solid 0,-1",
+        "triangle": 953,
+        "vertices": [
+          [
+            152.03359985351562,
+            4.800000190734863,
+            -226.03140258789062
+          ],
+          [
+            165.99290466308594,
+            4.800000190734863,
+            -216.79629516601562
+          ],
+          [
+            160.7064971923828,
+            4.800000190734863,
+            -212.70660400390625
+          ]
+        ],
+        "normal": [
+          0.0,
+          -105.90978637663648,
+          0.0
+        ],
+        "side": 0,
+        "depthWrite": true,
+        "renderOrder": 0
+      },
+      {
+        "objectId": 291,
+        "name": "solid 0,-1",
+        "triangle": 954,
+        "vertices": [
+          [
+            160.7064971923828,
+            4.800000190734863,
+            -212.70660400390625
+          ],
+          [
+            156.95440673828125,
+            4.800000190734863,
+            -200.4488067626953
+          ],
+          [
+            152.03359985351562,
+            4.800000190734863,
+            -226.03140258789062
+          ]
+        ],
+        "normal": [
+          -0.0,
+          -156.30646664346568,
+          0.0
+        ],
+        "side": 0,
+        "depthWrite": true,
+        "renderOrder": 0
+      }
+    ],
+    "actualUndersideY": [
+      4.800000190734863
+    ],
+    "actualAreaM2": 349.6012331463862,
+    "sourceAreaM2": 349.600527591645,
+    "roadSurfaceY": 0.24,
+    "legalMaxheightM": 4.25,
+    "modelPhysicalOpeningM": 4.56,
+    "dimensionConfidence": "Existing canopy5.2/4.8m dimensions are researched authoring estimates; actual emitted Float32 vertices checked independently."
+  },
+  "coposuSamples": [],
+  "bufferIntegrity": [
+    {
+      "objectId": 282,
+      "name": "area 0,-1",
+      "canonical": true,
+      "sourceTriangles": 41,
+      "localTriangles": 5,
+      "positionBytesSha256": "46338f41ef4f6635b5e3e7602f1e0e23c3b926a798719ceab0a38716a28eab55"
+    },
+    {
+      "objectId": 283,
+      "name": "grass 0,-1",
+      "canonical": true,
+      "sourceTriangles": 14492,
+      "localTriangles": 487,
+      "positionBytesSha256": "4be30819a3aeae20760e5498129461d2e1f97da198476574291440c854b5225c"
+    },
+    {
+      "objectId": 284,
+      "name": "pave 0,-1",
+      "canonical": true,
+      "sourceTriangles": 77,
+      "localTriangles": 9,
+      "positionBytesSha256": "cfaa497ee9d794d37f5fae949b7232ab13dd8049a7c9c106eae7a47f6ebd52d2"
+    },
+    {
+      "objectId": 286,
+      "name": "roofs 0,-1",
+      "canonical": true,
+      "sourceTriangles": 20669,
+      "localTriangles": 299,
+      "positionBytesSha256": "14f6e719a1301e3ba1973a39251293482da8064d42cdbd0833b5ed8a87e29b91"
+    },
+    {
+      "objectId": 287,
+      "name": "ground 0,-1",
+      "canonical": true,
+      "sourceTriangles": 18191,
+      "localTriangles": 3642,
+      "positionBytesSha256": "65375d79151e6e42e46c01e27c72155c356d2249a2639b34658991bcea71e27f"
+    },
+    {
+      "objectId": 288,
+      "name": "road 0,-1",
+      "canonical": true,
+      "sourceTriangles": 574,
+      "localTriangles": 174,
+      "positionBytesSha256": "d26050fa9f73cd6a442a077a43ec6993ce1fcd578b997e6781a58a3c53420a4e"
+    },
+    {
+      "objectId": 289,
+      "name": "junction 0,-1",
+      "canonical": true,
+      "sourceTriangles": 151,
+      "localTriangles": 50,
+      "positionBytesSha256": "1cef6c8da1c5099c39b30f315ea38a62cf42194ae4a21a3ec1fad5ea6ae26c96"
+    },
+    {
+      "objectId": 291,
+      "name": "solid 0,-1",
+      "canonical": true,
+      "sourceTriangles": 25970,
+      "localTriangles": 3391,
+      "positionBytesSha256": "8ea73b5bdd591f8ff1e91399e8fe604c07da247323beb1783f9a7fe765d63adb"
+    },
+    {
+      "objectId": 670,
+      "name": "ground",
+      "canonical": false,
+      "sourceTriangles": 2,
+      "localTriangles": 2,
+      "positionBytesSha256": "3381735666c73fc878f4f1bc9caa17d0011cfd9b2c75a626bb2f8b587e3d2e28"
+    }
+  ],
+  "notCompleted": "Native rush journey stopped on ordinary traffic before reaching Coposu; no cockpit descent/passage acceptance."
+}

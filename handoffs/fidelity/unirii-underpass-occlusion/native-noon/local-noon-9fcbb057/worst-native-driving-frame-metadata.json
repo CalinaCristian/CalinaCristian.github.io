@@ -1,0 +1,8450 @@
+{
+  "triangles": 1078161,
+  "calls": 261,
+  "state": {
+    "simT": 0,
+    "scT": 0,
+    "trafficTime": 0,
+    "frame": 0,
+    "steps": 0,
+    "player": {
+      "x": -634.8578864519126,
+      "z": 323.5955446303808,
+      "y": 0.24,
+      "surfY": 0.24,
+      "heading": 3.0860781288334342,
+      "pitch": 0,
+      "speed": 0,
+      "touching": false,
+      "contactAge": 9,
+      "edge": {
+        "id": 122,
+        "road": 32,
+        "name": "Pia\u021ba Unirii",
+        "dirx": -0.05548601446165891,
+        "dirz": 0.9984594644747281,
+        "nx": -0.9984594644747281,
+        "nz": -0.05548601446165891,
+        "len": 17.908727831933223,
+        "wL": 5.25,
+        "wR": 5.25,
+        "sidewalk": 0.8,
+        "sidewalkLeftM": 0.8,
+        "sidewalkRightM": 0.8,
+        "ya": 0,
+        "yb": 0,
+        "layer": 0,
+        "bridge": false,
+        "tunnel": false,
+        "lidded": false,
+        "anchorH": 0,
+        "L": 0,
+        "main": true,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "a": {
+          "id": 146,
+          "x": -637.5078632358225,
+          "z": 308.20237559934367,
+          "y": 0,
+          "sourceId": 254337787,
+          "pad": true,
+          "radius": 7.5,
+          "edgeIds": [
+            122,
+            152,
+            167
+          ]
+        },
+        "b": {
+          "id": 147,
+          "x": -638.501547167295,
+          "z": 326.0835143998394,
+          "y": 0,
+          "sourceId": 31404735,
+          "pad": true,
+          "radius": 12.75,
+          "edgeIds": [
+            122,
+            123,
+            151
+          ]
+        }
+      }
+    },
+    "ctl": {
+      "throttle": 0,
+      "steer": 0,
+      "brake": false
+    },
+    "ap": null,
+    "counts": {
+      "active": 303,
+      "pool": 179,
+      "peds": 560
+    }
+  },
+  "camera": {
+    "fov": 72,
+    "near": 0.2,
+    "far": 5000,
+    "pixelRatio": 1,
+    "matrixWorld": [
+      -0.9984594644747278,
+      0,
+      -0.055486014461658684,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0.055486014461658684,
+      0,
+      -0.9984594644747278,
+      0,
+      -634.5833173190779,
+      1.6,
+      324.0614971937329,
+      1
+    ],
+    "projection": [
+      0.8602387002944833,
+      0,
+      0,
+      0,
+      0,
+      1.3763819204711734,
+      0,
+      0,
+      0,
+      0,
+      -1.000080003200128,
+      -1,
+      0,
+      0,
+      -0.40001600064002557,
+      0
+    ]
+  },
+  "draws": [
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 960,
+      "objectId": 15,
+      "name": "sky",
+      "geometryId": 17,
+      "instances": null,
+      "material": "",
+      "materialId": 8,
+      "type": "ShaderMaterial",
+      "side": 1,
+      "depthWrite": false,
+      "depthTest": false,
+      "renderOrder": -100,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 2,
+      "objectId": 670,
+      "name": "ground",
+      "geometryId": 2165,
+      "instances": null,
+      "material": "groundPlane",
+      "materialId": 63,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -20,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 35,
+      "objectId": 295,
+      "name": "area -1,0",
+      "geometryId": 1786,
+      "sourceIndexCount": 204,
+      "instances": null,
+      "material": "landuse",
+      "materialId": 54,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.5,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 326,
+      "name": "area -1,-1",
+      "geometryId": 1819,
+      "sourceIndexCount": 549,
+      "instances": null,
+      "material": "landuse",
+      "materialId": 54,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.5,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 319,
+      "name": "grass -2,0",
+      "geometryId": 1810,
+      "sourceIndexCount": 15372,
+      "instances": null,
+      "material": "grass",
+      "materialId": 56,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.2,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 1470,
+      "objectId": 296,
+      "name": "grass -1,0",
+      "geometryId": 1787,
+      "sourceIndexCount": 40749,
+      "instances": null,
+      "material": "grass",
+      "materialId": 56,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.2,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 327,
+      "name": "grass -1,-1",
+      "geometryId": 1820,
+      "sourceIndexCount": 28632,
+      "instances": null,
+      "material": "grass",
+      "materialId": 56,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.2,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 6,
+      "objectId": 297,
+      "name": "pave -1,0",
+      "geometryId": 1788,
+      "sourceIndexCount": 318,
+      "instances": null,
+      "material": "paved-areas",
+      "materialId": 55,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 328,
+      "name": "pave -1,-1",
+      "geometryId": 1821,
+      "sourceIndexCount": 417,
+      "instances": null,
+      "material": "paved-areas",
+      "materialId": 55,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 2513,
+      "objectId": 669,
+      "name": "water-big visible batch",
+      "geometryId": 2164,
+      "instances": null,
+      "material": "water",
+      "materialId": 53,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -18.1,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 246,
+      "objectId": 408,
+      "name": "water -1,0",
+      "geometryId": 1906,
+      "instances": null,
+      "material": "water",
+      "materialId": 53,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -18,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 96,
+      "objectId": 1206,
+      "name": "shadow-proxy",
+      "geometryId": 2466,
+      "instances": null,
+      "material": "",
+      "materialId": 79,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -10,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 17867,
+      "objectId": 45,
+      "name": "",
+      "geometryId": 1082,
+      "instances": null,
+      "material": "landmark-masonry",
+      "materialId": 28,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 22780,
+      "objectId": 264,
+      "name": "treeTrunks near",
+      "geometryId": 1659,
+      "instances": 85,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 5536,
+      "objectId": 268,
+      "name": "lampPosts",
+      "geometryId": 1712,
+      "instances": 173,
+      "material": "",
+      "materialId": 44,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 2076,
+      "objectId": 269,
+      "name": "lampHeads",
+      "geometryId": 1713,
+      "instances": 173,
+      "material": "",
+      "materialId": 45,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 2484,
+      "objectId": 270,
+      "name": "trafficLamps",
+      "geometryId": 1762,
+      "instances": 69,
+      "material": "",
+      "materialId": 46,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 30009,
+      "objectId": 409,
+      "name": "solid -2,0",
+      "geometryId": 1907,
+      "sourceIndexCount": 102021,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 6050,
+      "objectId": 303,
+      "name": "solid -1,0",
+      "geometryId": 1794,
+      "sourceIndexCount": 92523,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 418,
+      "name": "solid -3,-1",
+      "geometryId": 1916,
+      "sourceIndexCount": 64746,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 11759,
+      "objectId": 298,
+      "name": "roofs -1,0",
+      "geometryId": 1789,
+      "sourceIndexCount": 78612,
+      "instances": null,
+      "material": "roofs",
+      "materialId": 58,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 329,
+      "name": "roofs -1,-1",
+      "geometryId": 1822,
+      "sourceIndexCount": 180234,
+      "instances": null,
+      "material": "roofs",
+      "materialId": 58,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 686,
+      "objectId": 305,
+      "name": "signs -1,0",
+      "geometryId": 1796,
+      "instances": null,
+      "material": "",
+      "materialId": 60,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 8935,
+      "objectId": 1193,
+      "name": "crowd-near",
+      "geometryId": 2441,
+      "instances": 5,
+      "material": "",
+      "materialId": 71,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 1512,
+      "objectId": 1194,
+      "name": "crowd-far",
+      "geometryId": 2442,
+      "instances": 12,
+      "material": "",
+      "materialId": 71,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 504,
+      "objectId": 1340,
+      "name": "crowd-far",
+      "geometryId": 2517,
+      "instances": 4,
+      "material": "",
+      "materialId": 71,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 1276,
+      "objectId": 1342,
+      "name": "fleet",
+      "geometryId": 2519,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 1292,
+      "objectId": 1345,
+      "name": "fleet",
+      "geometryId": 2522,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 1280,
+      "objectId": 1343,
+      "name": "fleet",
+      "geometryId": 2520,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 1240,
+      "objectId": 1341,
+      "name": "fleet",
+      "geometryId": 2518,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 156,
+      "objectId": 1344,
+      "name": "fleet",
+      "geometryId": 2521,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 768,
+      "objectId": 262,
+      "name": "treeCrowns near small",
+      "geometryId": 1625,
+      "instances": 3,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 3200,
+      "objectId": 259,
+      "name": "treeCrowns near plane",
+      "geometryId": 1610,
+      "instances": 10,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 7424,
+      "objectId": 261,
+      "name": "treeCrowns near round",
+      "geometryId": 1620,
+      "instances": 29,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 8192,
+      "objectId": 260,
+      "name": "treeCrowns near linden",
+      "geometryId": 1615,
+      "instances": 32,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 2536,
+      "objectId": 404,
+      "name": "ground -2,0",
+      "geometryId": 1899,
+      "sourceIndexCount": 29202,
+      "instances": null,
+      "material": "",
+      "materialId": 49,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 601,
+      "objectId": 299,
+      "name": "ground -1,0",
+      "geometryId": 1790,
+      "sourceIndexCount": 36675,
+      "instances": null,
+      "material": "",
+      "materialId": 49,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 396,
+      "objectId": 263,
+      "name": "treeCrowns near conifer conifer",
+      "geometryId": 1630,
+      "instances": 11,
+      "material": "treeCrowns",
+      "materialId": 85,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 200,
+      "objectId": 405,
+      "name": "road -2,0",
+      "geometryId": 1900,
+      "sourceIndexCount": 618,
+      "instances": null,
+      "material": "road",
+      "materialId": 50,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 2,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 304,
+      "objectId": 300,
+      "name": "road -1,0",
+      "geometryId": 1791,
+      "sourceIndexCount": 1980,
+      "instances": null,
+      "material": "road",
+      "materialId": 50,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 2,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 63,
+      "objectId": 406,
+      "name": "junction -2,0",
+      "geometryId": 1901,
+      "sourceIndexCount": 189,
+      "instances": null,
+      "material": "junction",
+      "materialId": 51,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 3,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 34,
+      "objectId": 301,
+      "name": "junction -1,0",
+      "geometryId": 1792,
+      "sourceIndexCount": 258,
+      "instances": null,
+      "material": "junction",
+      "materialId": 51,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 3,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 1992,
+      "objectId": 407,
+      "name": "marks -2,0",
+      "geometryId": 1902,
+      "sourceIndexCount": 6255,
+      "instances": null,
+      "material": "markings",
+      "materialId": 52,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 4,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 2970,
+      "objectId": 302,
+      "name": "marks -1,0",
+      "geometryId": 1793,
+      "sourceIndexCount": 16095,
+      "instances": null,
+      "material": "markings",
+      "materialId": 52,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 4,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 1907,
+      "objectId": 46,
+      "name": "",
+      "geometryId": 1083,
+      "instances": null,
+      "material": "landmark-fountain-water",
+      "materialId": 37,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 14080,
+      "objectId": 43,
+      "name": "fountain-jets",
+      "geometryId": 1081,
+      "instances": null,
+      "material": "landmark-fountain-jets",
+      "materialId": 36,
+      "type": "MeshLambertMaterial",
+      "side": 1,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": 2,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 14080,
+      "objectId": 43,
+      "name": "fountain-jets",
+      "geometryId": 1081,
+      "instances": null,
+      "material": "landmark-fountain-jets",
+      "materialId": 36,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": 2,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "mirror",
+      "calls": 1,
+      "triangles": 78,
+      "objectId": 334,
+      "name": "shop-spill -1,0",
+      "geometryId": 1827,
+      "instances": null,
+      "material": "shop-spill",
+      "materialId": 48,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": 5,
+      "camera": {
+        "id": 1225,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 17867,
+      "objectId": 45,
+      "name": "",
+      "geometryId": 1082,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 1907,
+      "objectId": 46,
+      "name": "",
+      "geometryId": 1083,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 14080,
+      "objectId": 43,
+      "name": "fountain-jets",
+      "geometryId": 1081,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 2,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 2,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 5536,
+      "objectId": 268,
+      "name": "lampPosts",
+      "geometryId": 1712,
+      "instances": 173,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 275,
+      "name": "roofs -1,1",
+      "geometryId": 1766,
+      "sourceIndexCount": 6621,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 2208,
+      "objectId": 276,
+      "name": "backdrop -1,1",
+      "geometryId": 1767,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 17597,
+      "objectId": 298,
+      "name": "roofs -1,0",
+      "geometryId": 1789,
+      "sourceIndexCount": 78612,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 6050,
+      "objectId": 303,
+      "name": "solid -1,0",
+      "geometryId": 1794,
+      "sourceIndexCount": 92523,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 316,
+      "name": "solid -1,1",
+      "geometryId": 1807,
+      "sourceIndexCount": 45396,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 321,
+      "name": "roofs -2,0",
+      "geometryId": 1812,
+      "sourceIndexCount": 64953,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 329,
+      "name": "roofs -1,-1",
+      "geometryId": 1822,
+      "sourceIndexCount": 180234,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 331,
+      "name": "solid -2,-1",
+      "geometryId": 1824,
+      "sourceIndexCount": 68331,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 10748,
+      "objectId": 360,
+      "name": "solid -2,1",
+      "geometryId": 1855,
+      "sourceIndexCount": 48006,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 26271,
+      "objectId": 409,
+      "name": "solid -2,0",
+      "geometryId": 1907,
+      "sourceIndexCount": 102021,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 485,
+      "name": "solid -2,2",
+      "geometryId": 1985,
+      "sourceIndexCount": 8541,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 3200,
+      "objectId": 259,
+      "name": "treeCrowns near plane",
+      "geometryId": 1610,
+      "instances": 10,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 8192,
+      "objectId": 260,
+      "name": "treeCrowns near linden",
+      "geometryId": 1615,
+      "instances": 32,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 7424,
+      "objectId": 261,
+      "name": "treeCrowns near round",
+      "geometryId": 1620,
+      "instances": 29,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 768,
+      "objectId": 262,
+      "name": "treeCrowns near small",
+      "geometryId": 1625,
+      "instances": 3,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 396,
+      "objectId": 263,
+      "name": "treeCrowns near conifer conifer",
+      "geometryId": 1630,
+      "instances": 11,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 22780,
+      "objectId": 264,
+      "name": "treeTrunks near",
+      "geometryId": 1659,
+      "instances": 85,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 7148,
+      "objectId": 1193,
+      "name": "crowd-near",
+      "geometryId": 2441,
+      "instances": 4,
+      "material": "",
+      "materialId": 72,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 96,
+      "objectId": 1206,
+      "name": "shadow-proxy",
+      "geometryId": 2466,
+      "instances": null,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": -10,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 1292,
+      "objectId": 1345,
+      "name": "fleet",
+      "geometryId": 2522,
+      "instances": 1,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 1016,
+      "objectId": 1350,
+      "name": "fleet",
+      "geometryId": 2527,
+      "instances": 1,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 108,
+      "objectId": 1351,
+      "name": "fleet",
+      "geometryId": 2528,
+      "instances": 1,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 96,
+      "objectId": 1352,
+      "name": "fleet",
+      "geometryId": 2529,
+      "instances": 1,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 1340,
+      "objectId": 1353,
+      "name": "fleet",
+      "geometryId": 2530,
+      "instances": 1,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 1448,
+      "objectId": 1355,
+      "name": "fleet",
+      "geometryId": 2532,
+      "instances": 1,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 1628,
+      "objectId": 1359,
+      "name": "fleet",
+      "geometryId": 2535,
+      "instances": 1,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "true-shadow",
+      "calls": 1,
+      "triangles": 96,
+      "objectId": 1362,
+      "name": "fleet",
+      "geometryId": 2538,
+      "instances": 1,
+      "material": "",
+      "materialId": 4,
+      "type": "MeshDepthMaterial",
+      "side": 1,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 12,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {},
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 960,
+      "objectId": 15,
+      "name": "sky",
+      "geometryId": 17,
+      "instances": null,
+      "material": "",
+      "materialId": 8,
+      "type": "ShaderMaterial",
+      "side": 1,
+      "depthWrite": false,
+      "depthTest": false,
+      "renderOrder": -100,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2,
+      "objectId": 670,
+      "name": "ground",
+      "geometryId": 2165,
+      "instances": null,
+      "material": "groundPlane",
+      "materialId": 63,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -20,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 54,
+      "objectId": 295,
+      "name": "area -1,0",
+      "geometryId": 1786,
+      "sourceIndexCount": 204,
+      "instances": null,
+      "material": "landuse",
+      "materialId": 54,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.5,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 10,
+      "objectId": 273,
+      "name": "area -1,1",
+      "geometryId": 1764,
+      "instances": null,
+      "material": "landuse",
+      "materialId": 54,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.5,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 154,
+      "objectId": 307,
+      "name": "grass 0,0",
+      "geometryId": 1798,
+      "sourceIndexCount": 23997,
+      "instances": null,
+      "material": "grass",
+      "materialId": 56,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.2,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 8019,
+      "objectId": 296,
+      "name": "grass -1,0",
+      "geometryId": 1787,
+      "sourceIndexCount": 40749,
+      "instances": null,
+      "material": "grass",
+      "materialId": 56,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.2,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 1600,
+      "objectId": 319,
+      "name": "grass -2,0",
+      "geometryId": 1810,
+      "sourceIndexCount": 15372,
+      "instances": null,
+      "material": "grass",
+      "materialId": 56,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.2,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 90,
+      "objectId": 477,
+      "name": "grass 0,1",
+      "geometryId": 1977,
+      "instances": null,
+      "material": "grass",
+      "materialId": 56,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.2,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 82,
+      "objectId": 521,
+      "name": "grass -2,1",
+      "geometryId": 2021,
+      "instances": null,
+      "material": "grass",
+      "materialId": 56,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.2,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2490,
+      "objectId": 274,
+      "name": "grass -1,1",
+      "geometryId": 1765,
+      "sourceIndexCount": 7470,
+      "instances": null,
+      "material": "grass",
+      "materialId": 56,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19.2,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 320,
+      "name": "pave -2,0",
+      "geometryId": 1811,
+      "sourceIndexCount": 189,
+      "instances": null,
+      "material": "paved-areas",
+      "materialId": 55,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 0,
+      "objectId": 308,
+      "name": "pave 0,0",
+      "geometryId": 1799,
+      "sourceIndexCount": 258,
+      "instances": null,
+      "material": "paved-areas",
+      "materialId": 55,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 86,
+      "objectId": 297,
+      "name": "pave -1,0",
+      "geometryId": 1788,
+      "sourceIndexCount": 318,
+      "instances": null,
+      "material": "paved-areas",
+      "materialId": 55,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 5,
+      "objectId": 478,
+      "name": "pave 0,1",
+      "geometryId": 1978,
+      "instances": null,
+      "material": "paved-areas",
+      "materialId": 55,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 30,
+      "objectId": 474,
+      "name": "pave -1,1",
+      "geometryId": 1974,
+      "sourceIndexCount": 90,
+      "instances": null,
+      "material": "paved-areas",
+      "materialId": 55,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -19,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 30951,
+      "objectId": 669,
+      "name": "water-big visible batch",
+      "geometryId": 2164,
+      "instances": null,
+      "material": "water",
+      "materialId": 53,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -18.1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 246,
+      "objectId": 408,
+      "name": "water -1,0",
+      "geometryId": 1906,
+      "instances": null,
+      "material": "water",
+      "materialId": 53,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -18,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 96,
+      "objectId": 1206,
+      "name": "shadow-proxy",
+      "geometryId": 2466,
+      "instances": null,
+      "material": "",
+      "materialId": 79,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": -10,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 17867,
+      "objectId": 45,
+      "name": "",
+      "geometryId": 1082,
+      "instances": null,
+      "material": "landmark-masonry",
+      "materialId": 28,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 8244,
+      "objectId": 72,
+      "name": "treeCrowns -3,0 broadleaf far",
+      "geometryId": 1632,
+      "instances": 229,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 15192,
+      "objectId": 66,
+      "name": "treeCrowns -3,1 broadleaf far",
+      "geometryId": 1632,
+      "instances": 422,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 12024,
+      "objectId": 75,
+      "name": "treeCrowns -2,1 broadleaf far",
+      "geometryId": 1632,
+      "instances": 334,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 8640,
+      "objectId": 69,
+      "name": "treeCrowns -4,1 broadleaf far",
+      "geometryId": 1632,
+      "instances": 240,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 8064,
+      "objectId": 130,
+      "name": "treeCrowns -5,1 broadleaf far",
+      "geometryId": 1632,
+      "instances": 224,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 9072,
+      "objectId": 63,
+      "name": "treeCrowns -3,2 broadleaf far",
+      "geometryId": 1632,
+      "instances": 252,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 10764,
+      "objectId": 60,
+      "name": "treeCrowns -2,2 broadleaf far",
+      "geometryId": 1632,
+      "instances": 299,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 9288,
+      "objectId": 128,
+      "name": "treeCrowns -1,2 broadleaf far",
+      "geometryId": 1632,
+      "instances": 258,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 11520,
+      "objectId": 122,
+      "name": "treeCrowns -4,2 broadleaf far",
+      "geometryId": 1632,
+      "instances": 320,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 11664,
+      "objectId": 118,
+      "name": "treeCrowns -5,2 broadleaf far",
+      "geometryId": 1632,
+      "instances": 324,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 8532,
+      "objectId": 110,
+      "name": "treeCrowns -2,3 broadleaf far",
+      "geometryId": 1632,
+      "instances": 237,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 7884,
+      "objectId": 108,
+      "name": "treeCrowns -3,3 broadleaf far",
+      "geometryId": 1632,
+      "instances": 219,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 7884,
+      "objectId": 106,
+      "name": "treeCrowns -4,3 broadleaf far",
+      "geometryId": 1632,
+      "instances": 219,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 11424,
+      "objectId": 71,
+      "name": "treeTrunks -3,0 far",
+      "geometryId": 1668,
+      "instances": 238,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 22780,
+      "objectId": 264,
+      "name": "treeTrunks near",
+      "geometryId": 1659,
+      "instances": 85,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 24960,
+      "objectId": 65,
+      "name": "treeTrunks -3,1 far",
+      "geometryId": 1668,
+      "instances": 520,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 17280,
+      "objectId": 74,
+      "name": "treeTrunks -2,1 far",
+      "geometryId": 1668,
+      "instances": 360,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 12000,
+      "objectId": 68,
+      "name": "treeTrunks -4,1 far",
+      "geometryId": 1668,
+      "instances": 250,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 10752,
+      "objectId": 129,
+      "name": "treeTrunks -5,1 far",
+      "geometryId": 1668,
+      "instances": 224,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 12192,
+      "objectId": 62,
+      "name": "treeTrunks -3,2 far",
+      "geometryId": 1668,
+      "instances": 254,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 14880,
+      "objectId": 59,
+      "name": "treeTrunks -2,2 far",
+      "geometryId": 1668,
+      "instances": 310,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 12384,
+      "objectId": 127,
+      "name": "treeTrunks -1,2 far",
+      "geometryId": 1668,
+      "instances": 258,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 15360,
+      "objectId": 121,
+      "name": "treeTrunks -4,2 far",
+      "geometryId": 1668,
+      "instances": 320,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 15552,
+      "objectId": 117,
+      "name": "treeTrunks -5,2 far",
+      "geometryId": 1668,
+      "instances": 324,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 11376,
+      "objectId": 109,
+      "name": "treeTrunks -2,3 far",
+      "geometryId": 1668,
+      "instances": 237,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 10512,
+      "objectId": 107,
+      "name": "treeTrunks -3,3 far",
+      "geometryId": 1668,
+      "instances": 219,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 10512,
+      "objectId": 105,
+      "name": "treeTrunks -4,3 far",
+      "geometryId": 1668,
+      "instances": 219,
+      "material": "treeTrunks",
+      "materialId": 41,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 5536,
+      "objectId": 268,
+      "name": "lampPosts",
+      "geometryId": 1712,
+      "instances": 173,
+      "material": "",
+      "materialId": 44,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2076,
+      "objectId": 269,
+      "name": "lampHeads",
+      "geometryId": 1713,
+      "instances": 173,
+      "material": "",
+      "materialId": 45,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2484,
+      "objectId": 270,
+      "name": "trafficLamps",
+      "geometryId": 1762,
+      "instances": 69,
+      "material": "",
+      "materialId": 46,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 14058,
+      "objectId": 303,
+      "name": "solid -1,0",
+      "geometryId": 1794,
+      "sourceIndexCount": 92523,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 6288,
+      "objectId": 409,
+      "name": "solid -2,0",
+      "geometryId": 1907,
+      "sourceIndexCount": 102021,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 14667,
+      "objectId": 432,
+      "name": "detail -3,1",
+      "geometryId": 1932,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 3333,
+      "objectId": 421,
+      "name": "detail -4,1",
+      "geometryId": 1919,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 8403,
+      "objectId": 425,
+      "name": "detail -2,1",
+      "geometryId": 1923,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 8506,
+      "objectId": 312,
+      "name": "solid 0,1",
+      "geometryId": 1803,
+      "sourceIndexCount": 46656,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 15132,
+      "objectId": 316,
+      "name": "solid -1,1",
+      "geometryId": 1807,
+      "sourceIndexCount": 45396,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 16002,
+      "objectId": 360,
+      "name": "solid -2,1",
+      "geometryId": 1855,
+      "sourceIndexCount": 48006,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 5797,
+      "objectId": 400,
+      "name": "solid -3,1",
+      "geometryId": 1895,
+      "sourceIndexCount": 19533,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 62,
+      "objectId": 525,
+      "name": "solid -3,2",
+      "geometryId": 2025,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2227,
+      "objectId": 278,
+      "name": "solid -1,2",
+      "geometryId": 1769,
+      "sourceIndexCount": 6681,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2847,
+      "objectId": 485,
+      "name": "solid -2,2",
+      "geometryId": 1985,
+      "sourceIndexCount": 8541,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 17844,
+      "objectId": 482,
+      "name": "solid 0,2",
+      "geometryId": 1982,
+      "sourceIndexCount": 53532,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 3120,
+      "objectId": 545,
+      "name": "solid 0,3",
+      "geometryId": 2057,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 15780,
+      "objectId": 527,
+      "name": "solid 1,3",
+      "geometryId": 2027,
+      "sourceIndexCount": 47340,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 8460,
+      "objectId": 528,
+      "name": "solid 1,4",
+      "geometryId": 2028,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 17040,
+      "objectId": 529,
+      "name": "solid 2,4",
+      "geometryId": 2029,
+      "sourceIndexCount": 51120,
+      "instances": null,
+      "material": "",
+      "materialId": 47,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 241,
+      "objectId": 309,
+      "name": "roofs 0,0",
+      "geometryId": 1800,
+      "sourceIndexCount": 16155,
+      "instances": null,
+      "material": "roofs",
+      "materialId": 58,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 14623,
+      "objectId": 298,
+      "name": "roofs -1,0",
+      "geometryId": 1789,
+      "sourceIndexCount": 78612,
+      "instances": null,
+      "material": "roofs",
+      "materialId": 58,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 5430,
+      "objectId": 321,
+      "name": "roofs -2,0",
+      "geometryId": 1812,
+      "sourceIndexCount": 64953,
+      "instances": null,
+      "material": "roofs",
+      "materialId": 58,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 164,
+      "objectId": 479,
+      "name": "roofs 0,1",
+      "geometryId": 1979,
+      "instances": null,
+      "material": "roofs",
+      "materialId": 58,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2,
+      "objectId": 522,
+      "name": "roofs -2,1",
+      "geometryId": 2022,
+      "instances": null,
+      "material": "roofs",
+      "materialId": 58,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2207,
+      "objectId": 275,
+      "name": "roofs -1,1",
+      "geometryId": 1766,
+      "sourceIndexCount": 6621,
+      "instances": null,
+      "material": "roofs",
+      "materialId": 58,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 636,
+      "objectId": 451,
+      "name": "backdrop -2,0",
+      "geometryId": 1951,
+      "instances": null,
+      "material": "backdrop",
+      "materialId": 59,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2400,
+      "objectId": 480,
+      "name": "backdrop 0,1",
+      "geometryId": 1980,
+      "instances": null,
+      "material": "backdrop",
+      "materialId": 59,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2208,
+      "objectId": 276,
+      "name": "backdrop -1,1",
+      "geometryId": 1767,
+      "instances": null,
+      "material": "backdrop",
+      "materialId": 59,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2124,
+      "objectId": 523,
+      "name": "backdrop -2,1",
+      "geometryId": 2023,
+      "instances": null,
+      "material": "backdrop",
+      "materialId": 59,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 686,
+      "objectId": 305,
+      "name": "signs -1,0",
+      "geometryId": 1796,
+      "instances": null,
+      "material": "",
+      "materialId": 60,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 5600,
+      "objectId": 618,
+      "name": "parked-cars hatch",
+      "geometryId": 2115,
+      "instances": 20,
+      "material": "",
+      "materialId": 61,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 1960,
+      "objectId": 620,
+      "name": "parked-cars suv",
+      "geometryId": 2117,
+      "instances": 7,
+      "material": "",
+      "materialId": 61,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 3080,
+      "objectId": 619,
+      "name": "parked-cars sedan",
+      "geometryId": 2116,
+      "instances": 11,
+      "material": "",
+      "materialId": 61,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 5040,
+      "objectId": 603,
+      "name": "parked-cars suv",
+      "geometryId": 2104,
+      "instances": 18,
+      "material": "",
+      "materialId": 61,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 5320,
+      "objectId": 602,
+      "name": "parked-cars sedan",
+      "geometryId": 2103,
+      "instances": 19,
+      "material": "",
+      "materialId": 61,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 10080,
+      "objectId": 604,
+      "name": "parked-cars hatch",
+      "geometryId": 2105,
+      "instances": 36,
+      "material": "",
+      "materialId": 61,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 840,
+      "objectId": 626,
+      "name": "parked-cars hatch",
+      "geometryId": 2121,
+      "instances": 3,
+      "material": "",
+      "materialId": 61,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 16308,
+      "objectId": 635,
+      "name": "horizon",
+      "geometryId": 2128,
+      "instances": null,
+      "material": "horizon",
+      "materialId": 62,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 8,
+      "objectId": 1358,
+      "name": "fleet-taxi-signs",
+      "geometryId": 2407,
+      "instances": 1,
+      "material": "",
+      "materialId": 65,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": {
+        "start": 0,
+        "count": 24,
+        "materialIndex": 0
+      }
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 4,
+      "objectId": 1358,
+      "name": "fleet-taxi-signs",
+      "geometryId": 2407,
+      "instances": 1,
+      "material": "",
+      "materialId": 66,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": {
+        "start": 24,
+        "count": 12,
+        "materialIndex": 1
+      }
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 378,
+      "objectId": 1340,
+      "name": "crowd-far",
+      "geometryId": 2517,
+      "instances": 3,
+      "material": "",
+      "materialId": 71,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 5292,
+      "objectId": 1194,
+      "name": "crowd-far",
+      "geometryId": 2442,
+      "instances": 42,
+      "material": "",
+      "materialId": 71,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 7148,
+      "objectId": 1193,
+      "name": "crowd-near",
+      "geometryId": 2441,
+      "instances": 4,
+      "material": "",
+      "materialId": 71,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2,
+      "objectId": 1197,
+      "name": "cluster",
+      "geometryId": 2445,
+      "instances": null,
+      "material": "",
+      "materialId": 73,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2,
+      "objectId": 1198,
+      "name": "screen",
+      "geometryId": 2448,
+      "instances": null,
+      "material": "",
+      "materialId": 74,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 12,
+      "objectId": 1199,
+      "name": "screen-bezel",
+      "geometryId": 2449,
+      "instances": null,
+      "material": "",
+      "materialId": 75,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 12,
+      "objectId": 1200,
+      "name": "screen-shell",
+      "geometryId": 2450,
+      "instances": null,
+      "material": "",
+      "materialId": 76,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 1952,
+      "objectId": 1201,
+      "name": "interior",
+      "geometryId": 2455,
+      "instances": null,
+      "material": "",
+      "materialId": 77,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 104,
+      "objectId": 1209,
+      "name": "mirror-housing",
+      "geometryId": 2473,
+      "instances": null,
+      "material": "",
+      "materialId": 77,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 16,
+      "objectId": 1204,
+      "name": "hood",
+      "geometryId": 2464,
+      "instances": null,
+      "material": "",
+      "materialId": 78,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 520,
+      "objectId": 1208,
+      "name": "steering-wheel",
+      "geometryId": 2470,
+      "instances": null,
+      "material": "",
+      "materialId": 80,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 56,
+      "objectId": 1212,
+      "name": "",
+      "geometryId": 2475,
+      "instances": null,
+      "material": "",
+      "materialId": 81,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 56,
+      "objectId": 1215,
+      "name": "",
+      "geometryId": 2477,
+      "instances": null,
+      "material": "",
+      "materialId": 81,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 12,
+      "objectId": 1216,
+      "name": "",
+      "geometryId": 5,
+      "instances": null,
+      "material": "",
+      "materialId": 82,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 12,
+      "objectId": 1220,
+      "name": "",
+      "geometryId": 5,
+      "instances": null,
+      "material": "",
+      "materialId": 82,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2,
+      "objectId": 1226,
+      "name": "",
+      "geometryId": 2478,
+      "instances": null,
+      "material": "",
+      "materialId": 83,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 12,
+      "objectId": 1227,
+      "name": "",
+      "geometryId": 2479,
+      "instances": null,
+      "material": "",
+      "materialId": 84,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 312,
+      "objectId": 76,
+      "name": "treeCrowns -2,1 conifer far",
+      "geometryId": 1633,
+      "instances": 26,
+      "material": "treeCrowns",
+      "materialId": 85,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 1176,
+      "objectId": 67,
+      "name": "treeCrowns -3,1 conifer far",
+      "geometryId": 1633,
+      "instances": 98,
+      "material": "treeCrowns",
+      "materialId": 85,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 24,
+      "objectId": 64,
+      "name": "treeCrowns -3,2 conifer far",
+      "geometryId": 1633,
+      "instances": 2,
+      "material": "treeCrowns",
+      "materialId": 85,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 132,
+      "objectId": 61,
+      "name": "treeCrowns -2,2 conifer far",
+      "geometryId": 1633,
+      "instances": 11,
+      "material": "treeCrowns",
+      "materialId": 85,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 780,
+      "objectId": 1344,
+      "name": "fleet",
+      "geometryId": 2521,
+      "instances": 5,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 1292,
+      "objectId": 1345,
+      "name": "fleet",
+      "geometryId": 2522,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 1016,
+      "objectId": 1350,
+      "name": "fleet",
+      "geometryId": 2527,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 1448,
+      "objectId": 1355,
+      "name": "fleet",
+      "geometryId": 2532,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 1340,
+      "objectId": 1353,
+      "name": "fleet",
+      "geometryId": 2530,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 1628,
+      "objectId": 1359,
+      "name": "fleet",
+      "geometryId": 2535,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 156,
+      "objectId": 1354,
+      "name": "fleet",
+      "geometryId": 2531,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 156,
+      "objectId": 1348,
+      "name": "fleet",
+      "geometryId": 2525,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 216,
+      "objectId": 1346,
+      "name": "fleet",
+      "geometryId": 2523,
+      "instances": 2,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 336,
+      "objectId": 1349,
+      "name": "fleet",
+      "geometryId": 2526,
+      "instances": 2,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 168,
+      "objectId": 1356,
+      "name": "fleet",
+      "geometryId": 2533,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 156,
+      "objectId": 1357,
+      "name": "fleet",
+      "geometryId": 2534,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 108,
+      "objectId": 1351,
+      "name": "fleet",
+      "geometryId": 2528,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 96,
+      "objectId": 1362,
+      "name": "fleet",
+      "geometryId": 2538,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 156,
+      "objectId": 1361,
+      "name": "fleet",
+      "geometryId": 2537,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 312,
+      "objectId": 1360,
+      "name": "fleet",
+      "geometryId": 2536,
+      "instances": 2,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 312,
+      "objectId": 1347,
+      "name": "fleet",
+      "geometryId": 2524,
+      "instances": 2,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 96,
+      "objectId": 1352,
+      "name": "fleet",
+      "geometryId": 2529,
+      "instances": 1,
+      "material": "",
+      "materialId": 101,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 8192,
+      "objectId": 260,
+      "name": "treeCrowns near linden",
+      "geometryId": 1615,
+      "instances": 32,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 7424,
+      "objectId": 261,
+      "name": "treeCrowns near round",
+      "geometryId": 1620,
+      "instances": 29,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 3200,
+      "objectId": 259,
+      "name": "treeCrowns near plane",
+      "geometryId": 1610,
+      "instances": 10,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 768,
+      "objectId": 262,
+      "name": "treeCrowns near small",
+      "geometryId": 1625,
+      "instances": 3,
+      "material": "treeCrowns",
+      "materialId": 40,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 832,
+      "objectId": 299,
+      "name": "ground -1,0",
+      "geometryId": 1790,
+      "sourceIndexCount": 36675,
+      "instances": null,
+      "material": "",
+      "materialId": 49,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 5864,
+      "objectId": 404,
+      "name": "ground -2,0",
+      "geometryId": 1899,
+      "sourceIndexCount": 29202,
+      "instances": null,
+      "material": "",
+      "materialId": 49,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 320,
+      "objectId": 311,
+      "name": "ground 0,1",
+      "geometryId": 1802,
+      "sourceIndexCount": 4938,
+      "instances": null,
+      "material": "",
+      "materialId": 49,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 3417,
+      "objectId": 315,
+      "name": "ground -1,1",
+      "geometryId": 1806,
+      "sourceIndexCount": 14001,
+      "instances": null,
+      "material": "",
+      "materialId": 49,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 840,
+      "objectId": 399,
+      "name": "ground -3,1",
+      "geometryId": 1894,
+      "sourceIndexCount": 3240,
+      "instances": null,
+      "material": "",
+      "materialId": 49,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 1957,
+      "objectId": 356,
+      "name": "ground -2,1",
+      "geometryId": 1851,
+      "sourceIndexCount": 5871,
+      "instances": null,
+      "material": "",
+      "materialId": 49,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 106,
+      "objectId": 481,
+      "name": "ground 0,2",
+      "geometryId": 1981,
+      "instances": null,
+      "material": "",
+      "materialId": 49,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 24,
+      "objectId": 524,
+      "name": "ground -3,2",
+      "geometryId": 2024,
+      "instances": null,
+      "material": "",
+      "materialId": 49,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 642,
+      "objectId": 484,
+      "name": "ground -2,2",
+      "geometryId": 1984,
+      "sourceIndexCount": 1926,
+      "instances": null,
+      "material": "",
+      "materialId": 49,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 566,
+      "objectId": 277,
+      "name": "ground -1,2",
+      "geometryId": 1768,
+      "sourceIndexCount": 1698,
+      "instances": null,
+      "material": "",
+      "materialId": 49,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 396,
+      "objectId": 263,
+      "name": "treeCrowns near conifer conifer",
+      "geometryId": 1630,
+      "instances": 11,
+      "material": "treeCrowns",
+      "materialId": 85,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 330,
+      "objectId": 300,
+      "name": "road -1,0",
+      "geometryId": 1791,
+      "sourceIndexCount": 1980,
+      "instances": null,
+      "material": "road",
+      "materialId": 50,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 2,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 176,
+      "objectId": 405,
+      "name": "road -2,0",
+      "geometryId": 1900,
+      "sourceIndexCount": 618,
+      "instances": null,
+      "material": "road",
+      "materialId": 50,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 2,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 116,
+      "objectId": 454,
+      "name": "road -1,1",
+      "geometryId": 1954,
+      "instances": null,
+      "material": "road",
+      "materialId": 50,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 2,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 18,
+      "objectId": 357,
+      "name": "road -2,1",
+      "geometryId": 1852,
+      "instances": null,
+      "material": "road",
+      "materialId": 50,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 2,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 49,
+      "objectId": 301,
+      "name": "junction -1,0",
+      "geometryId": 1792,
+      "sourceIndexCount": 258,
+      "instances": null,
+      "material": "junction",
+      "materialId": 51,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 3,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 53,
+      "objectId": 406,
+      "name": "junction -2,0",
+      "geometryId": 1901,
+      "sourceIndexCount": 189,
+      "instances": null,
+      "material": "junction",
+      "materialId": 51,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 3,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 50,
+      "objectId": 455,
+      "name": "junction -1,1",
+      "geometryId": 1955,
+      "instances": null,
+      "material": "junction",
+      "materialId": 51,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 3,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 7,
+      "objectId": 358,
+      "name": "junction -2,1",
+      "geometryId": 1853,
+      "instances": null,
+      "material": "junction",
+      "materialId": 51,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 3,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2163,
+      "objectId": 302,
+      "name": "marks -1,0",
+      "geometryId": 1793,
+      "sourceIndexCount": 16095,
+      "instances": null,
+      "material": "markings",
+      "materialId": 52,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 4,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 1891,
+      "objectId": 407,
+      "name": "marks -2,0",
+      "geometryId": 1902,
+      "sourceIndexCount": 6255,
+      "instances": null,
+      "material": "markings",
+      "materialId": 52,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 4,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 572,
+      "objectId": 456,
+      "name": "marks -1,1",
+      "geometryId": 1956,
+      "instances": null,
+      "material": "markings",
+      "materialId": 52,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 4,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 20,
+      "objectId": 359,
+      "name": "marks -2,1",
+      "geometryId": 1854,
+      "instances": null,
+      "material": "markings",
+      "materialId": 52,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 4,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 1907,
+      "objectId": 46,
+      "name": "",
+      "geometryId": 1083,
+      "instances": null,
+      "material": "landmark-fountain-water",
+      "materialId": 37,
+      "type": "MeshStandardMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": 1,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 14080,
+      "objectId": 43,
+      "name": "fountain-jets",
+      "geometryId": 1081,
+      "instances": null,
+      "material": "landmark-fountain-jets",
+      "materialId": 36,
+      "type": "MeshLambertMaterial",
+      "side": 1,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": 2,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 14080,
+      "objectId": 43,
+      "name": "fountain-jets",
+      "geometryId": 1081,
+      "instances": null,
+      "material": "landmark-fountain-jets",
+      "materialId": 36,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": 2,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 78,
+      "objectId": 334,
+      "name": "shop-spill -1,0",
+      "geometryId": 1827,
+      "instances": null,
+      "material": "shop-spill",
+      "materialId": 48,
+      "type": "MeshLambertMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": true,
+      "renderOrder": 5,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 26,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 21,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "save-cockpit-scene-depth",
+      "materialId": 13,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": false,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 21,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2,
+      "objectId": 1292,
+      "name": "",
+      "geometryId": 2445,
+      "instances": null,
+      "material": "cockpit-display-plane-depth",
+      "materialId": 12,
+      "type": "MeshDepthMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 20,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2,
+      "objectId": 1293,
+      "name": "",
+      "geometryId": 2448,
+      "instances": null,
+      "material": "cockpit-display-plane-depth",
+      "materialId": 12,
+      "type": "MeshDepthMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 20,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2,
+      "objectId": 1294,
+      "name": "",
+      "geometryId": 2478,
+      "instances": null,
+      "material": "cockpit-display-plane-depth",
+      "materialId": 12,
+      "type": "MeshDepthMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 20,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 14,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 15,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 15,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 16,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 16,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 17,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 17,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 18,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 18,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 19,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 19,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 20,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 23,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 21,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": false,
+      "depthTest": false,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 23,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 18,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "OutputShader",
+      "materialId": 10,
+      "type": "RawShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 18,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 19,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "unspecified",
+      "materialId": 11,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 19,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 24,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 23,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 24,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 24,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 24,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 24,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "other-explicitly-unattributed",
+      "calls": 1,
+      "triangles": 1,
+      "objectId": 24,
+      "name": "",
+      "geometryId": 15,
+      "instances": null,
+      "material": "",
+      "materialId": 25,
+      "type": "ShaderMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 5,
+        "type": "OrthographicCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 24,
+        "name": "",
+        "type": "Mesh"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2,
+      "objectId": 1292,
+      "name": "",
+      "geometryId": 2445,
+      "instances": null,
+      "material": "",
+      "materialId": 73,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 20,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2,
+      "objectId": 1293,
+      "name": "",
+      "geometryId": 2448,
+      "instances": null,
+      "material": "",
+      "materialId": 74,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 20,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    },
+    {
+      "pass": "main",
+      "calls": 1,
+      "triangles": 2,
+      "objectId": 1294,
+      "name": "",
+      "geometryId": 2478,
+      "instances": null,
+      "material": "",
+      "materialId": 83,
+      "type": "MeshBasicMaterial",
+      "side": 0,
+      "depthWrite": true,
+      "depthTest": true,
+      "renderOrder": 0,
+      "camera": {
+        "id": 25,
+        "type": "PerspectiveCamera",
+        "name": ""
+      },
+      "scene": {
+        "id": 20,
+        "name": "",
+        "type": "Scene"
+      },
+      "environment": {
+        "phase": "day",
+        "pendingJob": false,
+        "fade": 1
+      },
+      "group": null
+    }
+  ],
+  "counterBefore": {
+    "frame": 67,
+    "calls": 97,
+    "triangles": 12673,
+    "points": 0,
+    "lines": 0
+  },
+  "counterAfter": {
+    "frame": 90,
+    "calls": 0,
+    "triangles": 0,
+    "points": 0,
+    "lines": 0
+  }
+}

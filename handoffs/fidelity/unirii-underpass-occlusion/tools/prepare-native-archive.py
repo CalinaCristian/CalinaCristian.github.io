@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import argparse,subprocess,json,pathlib,hashlib,tarfile,io,datetime
-p=argparse.ArgumentParser();p.add_argument('--repo',required=True);p.add_argument('--source',required=True);p.add_argument('--out',required=True);a=p.parse_args();out=pathlib.Path(a.out);out.mkdir(parents=True,exist_ok=False)
+p=argparse.ArgumentParser();p.add_argument('--repo',required=True);p.add_argument('--source',required=True);p.add_argument('--out',required=True);a=p.parse_args();a.source=subprocess.check_output(['git','rev-parse','--verify',a.source+'^{commit}'],cwd=a.repo,text=True).strip();out=pathlib.Path(a.out);out.mkdir(parents=True,exist_ok=False)
 raw=subprocess.check_output(['git','ls-tree','-rz','--full-tree',a.source],cwd=a.repo);rows={}
 for item in raw.split(b'\0'):
  if not item:continue

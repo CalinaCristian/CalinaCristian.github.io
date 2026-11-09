@@ -1,0 +1,1367 @@
+{
+  "sources": [
+    "395071c21079fb14c25af194a9903a5ae5d87b26",
+    "71f20c4581ae62d12a98e226fbfef476fc27dab9"
+  ],
+  "allPreexistingDataFieldsEqual": {
+    "version": true,
+    "city": true,
+    "generated": true,
+    "attribution": true,
+    "proj": true,
+    "q": true,
+    "bounds": true,
+    "classes": true,
+    "styles": true,
+    "roofs": true,
+    "poiKinds": true,
+    "areaKinds": true,
+    "lineKinds": true,
+    "furnKinds": true,
+    "strings": true,
+    "buildingRoofSurfaces": true,
+    "buildingRoofGeometryPoints": true,
+    "nodes": true,
+    "nodeFlags": true,
+    "roads": true,
+    "trams": true,
+    "roadInfo": true,
+    "rampLimits": true,
+    "vacant": true,
+    "buildings": true,
+    "buildingRoofProfiles": true,
+    "buildingDimensions": true,
+    "buildingFootprints": true,
+    "buildingInfo": true,
+    "buildingSourceTags": true,
+    "buildingCanopies": true,
+    "buildingSourceIssues": true,
+    "buildingIds": true,
+    "buildingHoles": true,
+    "buildingAssemblies": true,
+    "buildingUnions": true,
+    "buildingGeometryPoints": true,
+    "pois": true,
+    "areas": true,
+    "areaSourceIds": true,
+    "parkingFootprints": true,
+    "lines": true,
+    "places": true,
+    "lamps": true,
+    "railways": true,
+    "treeCrownRadii": true,
+    "treeRetention": true,
+    "trees": true,
+    "treeInfo": true,
+    "furniture": true,
+    "backdrop": true,
+    "scenery": true,
+    "green": true,
+    "parking": true,
+    "treeCoverage": true,
+    "corridor": true,
+    "brands": true,
+    "buildingGeometryPolicy": true,
+    "buildingSourceSkips": true,
+    "buildingRoadConflicts": true,
+    "buildingPassages": true,
+    "buildingPassageIssues": true,
+    "buildingHoleFootprints": true,
+    "sharedLanes": true,
+    "roadAccess": true,
+    "roadWidths": true,
+    "roadGeometryPolicy": true,
+    "roadNodePositions": true,
+    "roadNodeIds": true,
+    "roadSourceGeometry": true,
+    "scenerySourceGeometry": true,
+    "sceneryAccess": true,
+    "streetTrees": true,
+    "turnLanes": true,
+    "district": true,
+    "tramSources": true,
+    "tramSourceWays": true,
+    "tramRoutes": true,
+    "tramSourceNodeTags": true,
+    "tramSourceCrossings": true
+  },
+  "appendedFields": [
+    "reviewedCoveredRoads"
+  ],
+  "nativeEdgeCount": [
+    1103,
+    1103
+  ],
+  "capturedNativePlanModeGeometryDifferences": [],
+  "changedProfileEdges": [
+    {
+      "id": 371,
+      "road": 91,
+      "sourceId": "w79870041",
+      "before": [
+        -5.236348114591011,
+        -6
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 372,
+      "road": 91,
+      "sourceId": "w79870041",
+      "before": [
+        -6,
+        -6
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 373,
+      "road": 91,
+      "sourceId": "w79870041",
+      "before": [
+        -6,
+        -5.84912429259657
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 374,
+      "road": 92,
+      "sourceId": "w79870042",
+      "before": [
+        -1.8331326246207968,
+        -1.403455349730387
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 375,
+      "road": 92,
+      "sourceId": "w79870042",
+      "before": [
+        -1.403455349730387,
+        -0.8047557571493476
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 376,
+      "road": 92,
+      "sourceId": "w79870042",
+      "before": [
+        -0.8047557571493476,
+        -0.29543716833370015
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 377,
+      "road": 92,
+      "sourceId": "w79870042",
+      "before": [
+        -0.29543716833370015,
+        0
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 440,
+      "road": 114,
+      "sourceId": "w229949119",
+      "before": [
+        -1.8331326246207968,
+        -0.48995285008462885
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 441,
+      "road": 114,
+      "sourceId": "w229949119",
+      "before": [
+        -0.48995285008462885,
+        0
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 700,
+      "road": 167,
+      "sourceId": "w668563017",
+      "before": [
+        -5.225909585444009,
+        -4.302880030520376
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 701,
+      "road": 168,
+      "sourceId": "w668563018",
+      "before": [
+        -3.145981646608295,
+        -4.516423157515204
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 702,
+      "road": 168,
+      "sourceId": "w668563018",
+      "before": [
+        -4.516423157515204,
+        -4.711503086779031
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 703,
+      "road": 168,
+      "sourceId": "w668563018",
+      "before": [
+        -4.711503086779031,
+        -4.9341844799279695
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 704,
+      "road": 168,
+      "sourceId": "w668563018",
+      "before": [
+        -4.9341844799279695,
+        -5.236348114591011
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 750,
+      "road": 184,
+      "sourceId": "w826403111",
+      "before": [
+        -1.3485557092399572,
+        -0.8946115240778454
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 751,
+      "road": 184,
+      "sourceId": "w826403111",
+      "before": [
+        -0.8946115240778454,
+        -0.39255089192173687
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 752,
+      "road": 184,
+      "sourceId": "w826403111",
+      "before": [
+        -0.39255089192173687,
+        0
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 788,
+      "road": 198,
+      "sourceId": "w982816382",
+      "before": [
+        0,
+        -1.3485557092399572
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 789,
+      "road": 198,
+      "sourceId": "w982816382",
+      "before": [
+        -1.3485557092399572,
+        -3.145981646608295
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 790,
+      "road": 198,
+      "sourceId": "w982816382",
+      "before": [
+        -3.145981646608295,
+        -4.302880030520376
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 791,
+      "road": 198,
+      "sourceId": "w982816382",
+      "before": [
+        -4.302880030520376,
+        -1.8331326246207968
+      ],
+      "after": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 860,
+      "road": 223,
+      "sourceId": "w1478497247",
+      "before": [
+        -5.84912429259657,
+        -5.225909585444009
+      ],
+      "after": [
+        0,
+        0
+      ]
+    }
+  ],
+  "truePasajProfileAndLidsExactlyUnchanged": [
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    832,
+    833,
+    834,
+    835,
+    960,
+    961,
+    962,
+    963,
+    964,
+    965,
+    966,
+    967,
+    968,
+    969,
+    970,
+    971,
+    972,
+    973,
+    974,
+    975,
+    976,
+    977,
+    978,
+    979,
+    980,
+    981,
+    982,
+    983,
+    984,
+    985,
+    986,
+    987,
+    988,
+    989,
+    990,
+    991,
+    992,
+    993,
+    994,
+    995,
+    996,
+    997,
+    998,
+    999,
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    1010,
+    1011,
+    1012,
+    1013,
+    1014,
+    1015,
+    1016,
+    1017,
+    1018,
+    1019,
+    1020,
+    1021,
+    1022,
+    1023,
+    1024,
+    1025,
+    1026,
+    1027,
+    1028,
+    1029,
+    1030,
+    1031,
+    1032,
+    1033,
+    1034,
+    1035,
+    1036,
+    1037,
+    1038,
+    1039,
+    1040,
+    1041,
+    1042,
+    1043,
+    1044,
+    1045,
+    1046,
+    1047,
+    1048,
+    1049,
+    1050,
+    1051,
+    1052,
+    1053
+  ],
+  "nativeCanopyCapturedRoofColliderPolygonExactlyUnchanged": {
+    "x": 155.3378166512796,
+    "z": -215.31138797992858,
+    "r": 14.950246258322217,
+    "angle": 0,
+    "sourceId": "w670595374",
+    "poly": [
+      [
+        142.693,
+        -218.8078
+      ],
+      [
+        152.0336,
+        -226.0314
+      ],
+      [
+        156.2707,
+        -229.3098
+      ],
+      [
+        165.9929,
+        -216.7963
+      ],
+      [
+        160.7065,
+        -212.7066
+      ],
+      [
+        165.2457,
+        -206.8722
+      ],
+      [
+        156.9544,
+        -200.4488
+      ],
+      [
+        145.3402,
+        -215.396
+      ]
+    ],
+    "holes": []
+  },
+  "inferredSupportCountBeforeAfter": [
+    7,
+    5
+  ],
+  "removedInferredSupportRecords": [
+    {
+      "x": 152.32815418054778,
+      "z": -225.07576521896604,
+      "r": 0.24748737341529164,
+      "angle": 0,
+      "kind": "canopy-support",
+      "sourceId": "w670595374",
+      "poly": [
+        [
+          152.15315418054777,
+          -225.25076521896605
+        ],
+        [
+          152.5031541805478,
+          -225.25076521896605
+        ],
+        [
+          152.5031541805478,
+          -224.90076521896603
+        ],
+        [
+          152.15315418054777,
+          -224.90076521896603
+        ]
+      ]
+    },
+    {
+      "x": 146.3401641888851,
+      "z": -215.3875370839899,
+      "r": 0.24748737341529164,
+      "angle": 0,
+      "kind": "canopy-support",
+      "sourceId": "w670595374",
+      "poly": [
+        [
+          146.1651641888851,
+          -215.56253708398992
+        ],
+        [
+          146.5151641888851,
+          -215.56253708398992
+        ],
+        [
+          146.5151641888851,
+          -215.2125370839899
+        ],
+        [
+          146.1651641888851,
+          -215.2125370839899
+        ]
+      ]
+    }
+  ],
+  "newSupportRecords": [],
+  "supportCause": "Existing estimateSupports eligibility now sees the correctly blocking normal driveway ribbon; previously lidded road91 was omitted from the ribbon guard. No literal support record or canopy footprint removed.",
+  "colliderCoverageGap": "Early captured collider records omit h/minH; actual roof band independently decoded from emitted triangles. Local observer records full native fields.",
+  "coposuProfilesZero": true,
+  "beforeAfterEarly273mPlayerPhysicalControlsExactlyEqual": true,
+  "earlyTraceRows": 515,
+  "earlyApScalarDifferences": [
+    {
+      "row": 395,
+      "field": "gap",
+      "before": -2.2246089484855087,
+      "after": -1.7449143554889996
+    },
+    {
+      "row": 396,
+      "field": "gap",
+      "before": -2.225278289780176,
+      "after": -1.745583696783667
+    },
+    {
+      "row": 397,
+      "field": "gap",
+      "before": -2.224608948866246,
+      "after": -1.7449143558697369
+    },
+    {
+      "row": 398,
+      "field": "gap",
+      "before": -2.2252782902219064,
+      "after": -1.7455836972253973
+    },
+    {
+      "row": 399,
+      "field": "gap",
+      "before": -2.224608949336057,
+      "after": -1.7449143563395477
+    },
+    {
+      "row": 400,
+      "field": "gap",
+      "before": -2.2252782907043365,
+      "after": -1.7455836977078274
+    },
+    {
+      "row": 401,
+      "field": "gap",
+      "before": -2.224608949824285,
+      "after": -1.7449143568277758
+    },
+    {
+      "row": 402,
+      "field": "gap",
+      "before": -2.2252782911951794,
+      "after": -1.7455836981986703
+    },
+    {
+      "row": 403,
+      "field": "gap",
+      "before": -2.2246089503162647,
+      "after": -1.7449143573197556
+    },
+    {
+      "row": 404,
+      "field": "gap",
+      "before": -2.225278291687614,
+      "after": -1.7455836986911049
+    },
+    {
+      "row": 405,
+      "field": "gap",
+      "before": -2.2246089508089266,
+      "after": -1.7449143578124175
+    },
+    {
+      "row": 406,
+      "field": "gap",
+      "before": -2.2252782921803895,
+      "after": -1.7455836991838805
+    },
+    {
+      "row": 407,
+      "field": "gap",
+      "before": -2.224608951301759,
+      "after": -1.74491435830525
+    },
+    {
+      "row": 408,
+      "field": "gap",
+      "before": -2.225278292673279,
+      "after": -1.7455836996767697
+    },
+    {
+      "row": 409,
+      "field": "gap",
+      "before": -2.2246089517945915,
+      "after": -1.7449143587980824
+    },
+    {
+      "row": 410,
+      "field": "gap",
+      "before": -2.225278293166168,
+      "after": -1.745583700169659
+    },
+    {
+      "row": 411,
+      "field": "gap",
+      "before": -2.224608952287481,
+      "after": -1.7449143592909717
+    },
+    {
+      "row": 412,
+      "field": "gap",
+      "before": -2.2252782936590574,
+      "after": -1.7455837006625483
+    },
+    {
+      "row": 413,
+      "field": "gap",
+      "before": -2.22460895278037,
+      "after": -1.744914359783861
+    },
+    {
+      "row": 414,
+      "field": "gap",
+      "before": -2.22527829415189,
+      "after": -1.7455837011553808
+    },
+    {
+      "row": 415,
+      "field": "gap",
+      "before": -2.2212757078827803,
+      "after": -1.7449143602766934
+    },
+    {
+      "row": 416,
+      "field": "gap",
+      "before": -2.2059777213129745,
+      "after": -1.74558370164827
+    },
+    {
+      "row": 417,
+      "field": "gap",
+      "before": -2.195306394186998,
+      "after": -1.7449143607695827
+    },
+    {
+      "row": 418,
+      "field": "gap",
+      "before": -2.185972971822066,
+      "after": -1.7455837021412162
+    },
+    {
+      "row": 419,
+      "field": "gap",
+      "before": -2.175580320156298,
+      "after": -1.744914361262472
+    },
+    {
+      "row": 420,
+      "field": "gap",
+      "before": -2.169580430361618,
+      "after": -1.7455837026340486
+    },
+    {
+      "row": 421,
+      "field": "gap",
+      "before": -2.165576383243076,
+      "after": -1.7449143617553613
+    },
+    {
+      "row": 422,
+      "field": "gap",
+      "before": -2.1595761479715474,
+      "after": -1.745583703126938
+    },
+    {
+      "row": 423,
+      "field": "gap",
+      "before": -2.155571943441357,
+      "after": -1.7449143622481937
+    },
+    {
+      "row": 424,
+      "field": "gap",
+      "before": -2.149571423462346,
+      "after": -1.7455837036198272
+    },
+    {
+      "row": 425,
+      "field": "gap",
+      "before": -2.1455670914231586,
+      "after": -1.744914362741083
+    },
+    {
+      "row": 426,
+      "field": "gap",
+      "before": -2.139566345588589,
+      "after": -1.7455837041126596
+    },
+    {
+      "row": 427,
+      "field": "gap",
+      "before": -2.1355619149942253,
+      "after": -1.7449143632339155
+    },
+    {
+      "row": 428,
+      "field": "gap",
+      "before": -2.1295610002788816,
+      "after": -1.745583704605549
+    },
+    {
+      "row": 429,
+      "field": "gap",
+      "before": -2.1255564991546816,
+      "after": -1.744914363726748
+    },
+    {
+      "row": 430,
+      "field": "gap",
+      "before": -2.119555470697021,
+      "after": -1.7455837050984382
+    },
+    {
+      "row": 431,
+      "field": "gap",
+      "before": -2.115720014741994,
+      "after": -1.744914364219694
+    },
+    {
+      "row": 432,
+      "field": "gap",
+      "before": -2.1163893561136273,
+      "after": -1.7455837055913275
+    },
+    {
+      "row": 433,
+      "field": "gap",
+      "before": -2.1157200152348263,
+      "after": -1.7449143647125265
+    },
+    {
+      "row": 434,
+      "field": "gap",
+      "before": -2.1163893566065166,
+      "after": -1.7455837060842168
+    },
+    {
+      "row": 435,
+      "field": "gap",
+      "before": -2.1157200157277156,
+      "after": -1.7449143652054158
+    },
+    {
+      "row": 436,
+      "field": "gap",
+      "before": -2.116389357099349,
+      "after": -1.7455837065770492
+    },
+    {
+      "row": 437,
+      "field": "gap",
+      "before": -2.115720016220605,
+      "after": -1.744914365698305
+    },
+    {
+      "row": 438,
+      "field": "gap",
+      "before": -2.1163893575922383,
+      "after": -1.7455837070699385
+    },
+    {
+      "row": 439,
+      "field": "gap",
+      "before": -2.1157200167134373,
+      "after": -1.7449143661911375
+    },
+    {
+      "row": 440,
+      "field": "gap",
+      "before": -2.1163893580851276,
+      "after": -1.7455837075628278
+    },
+    {
+      "row": 441,
+      "field": "gap",
+      "before": -2.11572001720627,
+      "after": -1.74491436668397
+    },
+    {
+      "row": 442,
+      "field": "gap",
+      "before": -2.113054146668828,
+      "after": -1.7455837080556602
+    },
+    {
+      "row": 443,
+      "field": "gap",
+      "before": -2.1057143672397114,
+      "after": -1.7449143671768592
+    },
+    {
+      "row": 444,
+      "field": "gap",
+      "before": -2.096378040797317,
+      "after": -1.7455837085485495
+    },
+    {
+      "row": 445,
+      "field": "gap",
+      "before": -2.085703114655855,
+      "after": -1.7449143676696917
+    },
+    {
+      "row": 446,
+      "field": "gap",
+      "before": -2.046352593076149,
+      "after": -1.7455837090414388
+    },
+    {
+      "row": 447,
+      "field": "gap",
+      "before": -1.9793404864155786,
+      "after": -1.744914368162524
+    },
+    {
+      "row": 448,
+      "field": "gap",
+      "before": -1.9058118881481345,
+      "after": -1.7455837095342712
+    },
+    {
+      "row": 449,
+      "field": "gap",
+      "before": -2.8903012677494484,
+      "after": -1.7449143686553565
+    },
+    {
+      "row": 450,
+      "field": "gap",
+      "before": -2.7706711681302476,
+      "after": -1.7455837100271605
+    },
+    {
+      "row": 451,
+      "field": "gap",
+      "before": -2.6278204012314585,
+      "after": -1.7449143691482458
+    },
+    {
+      "row": 452,
+      "field": "gap",
+      "before": -2.4624118662792807,
+      "after": -1.745583710519993
+    },
+    {
+      "row": 453,
+      "field": "gap",
+      "before": -2.2696992020847073,
+      "after": -1.7449143696410783
+    },
+    {
+      "row": 454,
+      "field": "gap",
+      "before": -2.0707679517671362,
+      "after": -1.7455837110128254
+    },
+    {
+      "row": 455,
+      "field": "gap",
+      "before": -2.8593399210105144,
+      "after": -1.7449143701339107
+    },
+    {
+      "row": 456,
+      "field": "gap",
+      "before": -2.6406650590275103,
+      "after": -1.7255856188679513
+    },
+    {
+      "row": 457,
+      "field": "gap",
+      "before": -2.4247836667179694,
+      "after": -1.7149172269482005
+    },
+    {
+      "row": 458,
+      "field": "gap",
+      "before": -2.2079592415163187,
+      "after": -1.7055875143174557
+    },
+    {
+      "row": 459,
+      "field": "gap",
+      "before": -1.9958216628119612,
+      "after": -1.7015851547679812
+    },
+    {
+      "row": 460,
+      "field": "gap",
+      "before": -2.7745636316310947,
+      "after": -1.6955884578565428
+    },
+    {
+      "row": 461,
+      "field": "gap",
+      "before": -2.570525775654785,
+      "after": -1.6915860973714256
+    },
+    {
+      "row": 462,
+      "field": "gap",
+      "before": -2.366781815536781,
+      "after": -1.6855893986179193
+    },
+    {
+      "row": 463,
+      "field": "gap",
+      "before": -2.168712630605553,
+      "after": -1.6815870372259791
+    },
+    {
+      "row": 464,
+      "field": "gap",
+      "before": -1.9783464560323818,
+      "after": -1.6755903366871916
+    },
+    {
+      "row": 465,
+      "field": "gap",
+      "before": -2.776528433422511,
+      "after": -1.671587974416509
+    },
+    {
+      "row": 466,
+      "field": "gap",
+      "before": -2.587878986093399,
+      "after": -1.665591272147351
+    },
+    {
+      "row": 467,
+      "field": "gap",
+      "before": -2.412313076259677,
+      "after": -1.6615889090249265
+    },
+    {
+      "row": 468,
+      "field": "gap",
+      "before": -2.2481862247806657,
+      "after": -1.6555922050786602
+    },
+    {
+      "row": 469,
+      "field": "gap",
+      "before": -2.0881551865856363,
+      "after": -1.651589841130642
+    },
+    {
+      "row": 470,
+      "field": "gap",
+      "before": -1.9358404013378685,
+      "after": -1.6455931355587676
+    },
+    {
+      "row": 471,
+      "field": "gap",
+      "before": -1.7772413017867006,
+      "after": -1.6415907708105077
+    },
+    {
+      "row": 472,
+      "field": "gap",
+      "before": -1.6365759745780064,
+      "after": -1.6422601121823686
+    },
+    {
+      "row": 473,
+      "field": "gap",
+      "before": -1.500208489966651,
+      "after": -1.6415907713033402
+    },
+    {
+      "row": 474,
+      "field": "gap",
+      "before": -1.3690403059958225,
+      "after": -1.6422601126752578
+    },
+    {
+      "row": 475,
+      "field": "gap",
+      "before": -1.2427519189763938,
+      "after": -1.6415907717961726
+    },
+    {
+      "row": 476,
+      "field": "gap",
+      "before": -1.120912765235671,
+      "after": -1.6422601131680334
+    },
+    {
+      "row": 477,
+      "field": "gap",
+      "before": -1.0035858120599936,
+      "after": -1.641590772289062
+    },
+    {
+      "row": 478,
+      "field": "gap",
+      "before": -0.8960297130759454,
+      "after": -1.6422601136609227
+    },
+    {
+      "row": 479,
+      "field": "gap",
+      "before": -0.8150998990073344,
+      "after": -1.6415907727818944
+    },
+    {
+      "row": 480,
+      "field": "gap",
+      "before": -0.8003221064275134,
+      "after": -1.642260114153812
+    },
+    {
+      "row": 481,
+      "field": "gap",
+      "before": -0.7996527655484282,
+      "after": -1.6415907732747268
+    },
+    {
+      "row": 482,
+      "field": "gap",
+      "before": -0.8003221069203459,
+      "after": -1.6422601146466445
+    },
+    {
+      "row": 483,
+      "field": "gap",
+      "before": -0.7996527660412607,
+      "after": -1.6415907737675592
+    },
+    {
+      "row": 484,
+      "field": "gap",
+      "before": -0.8003221074131783,
+      "after": -1.642260115139477
+    },
+    {
+      "row": 485,
+      "field": "gap",
+      "before": -0.7996527665340931,
+      "after": -1.6415907742603917
+    },
+    {
+      "row": 486,
+      "field": "gap",
+      "before": -0.797267528967593,
+      "after": -1.6422601156323662
+    },
+    {
+      "row": 487,
+      "field": "gap",
+      "before": -0.796598188088451,
+      "after": -1.6415907747532241
+    },
+    {
+      "row": 488,
+      "field": "gap",
+      "before": -0.7972675294604255,
+      "after": -1.6422601161251986
+    },
+    {
+      "row": 489,
+      "field": "gap",
+      "before": -0.7965981885812834,
+      "after": -1.6415907752460566
+    },
+    {
+      "row": 490,
+      "field": "gap",
+      "before": -0.797267529953201,
+      "after": -1.6422601166179742
+    },
+    {
+      "row": 491,
+      "field": "gap",
+      "before": -0.7965981890741158,
+      "after": -1.641590775738889
+    },
+    {
+      "row": 492,
+      "field": "gap",
+      "before": -0.7972675304460903,
+      "after": -1.6422601171108635
+    },
+    {
+      "row": 493,
+      "field": "gap",
+      "before": -0.7965981895669483,
+      "after": -1.6415907762317214
+    },
+    {
+      "row": 494,
+      "field": "gap",
+      "before": -0.7972675309389228,
+      "after": -1.642260117603696
+    },
+    {
+      "row": 495,
+      "field": "gap",
+      "before": -0.7965981900597807,
+      "after": -1.641590776724554
+    },
+    {
+      "row": 496,
+      "field": "gap",
+      "before": -0.7972675314318121,
+      "after": -1.6422601180965852
+    },
+    {
+      "row": 497,
+      "field": "gap",
+      "before": -0.7965981905526132,
+      "after": -1.6415907772173863
+    },
+    {
+      "row": 498,
+      "field": "gap",
+      "before": -0.7972675319246445,
+      "after": -1.6422601185894177
+    },
+    {
+      "row": 499,
+      "field": "gap",
+      "before": -0.7965981910454456,
+      "after": -1.6415907777102188
+    },
+    {
+      "row": 500,
+      "field": "gap",
+      "before": -0.7972675324174769,
+      "after": -1.6422601190822501
+    },
+    {
+      "row": 501,
+      "field": "gap",
+      "before": -0.796598191538278,
+      "after": -1.6415907782030512
+    },
+    {
+      "row": 502,
+      "field": "gap",
+      "before": -0.7972675329103662,
+      "after": -1.6422601195751394
+    },
+    {
+      "row": 503,
+      "field": "gap",
+      "before": -0.7965981920311105,
+      "after": -1.6415907786958837
+    },
+    {
+      "row": 504,
+      "field": "gap",
+      "before": -0.7972675334031418,
+      "after": -1.642260120067915
+    },
+    {
+      "row": 505,
+      "field": "gap",
+      "before": -0.7965981925239429,
+      "after": -1.641590779188716
+    },
+    {
+      "row": 506,
+      "field": "gap",
+      "before": -0.7972675338959743,
+      "after": -1.6422601205607474
+    },
+    {
+      "row": 507,
+      "field": "gap",
+      "before": -0.7965981930167185,
+      "after": -1.6415907796814917
+    },
+    {
+      "row": 508,
+      "field": "gap",
+      "before": -0.796552138749389,
+      "after": -1.6422601210535799
+    },
+    {
+      "row": 509,
+      "field": "gap",
+      "before": -0.7904536489847214,
+      "after": -1.6415907801743241
+    },
+    {
+      "row": 510,
+      "field": "gap",
+      "before": -0.7877331515124251,
+      "after": -1.6422601215464692
+    },
+    {
+      "row": 511,
+      "field": "gap",
+      "before": -0.7832608546279243,
+      "after": -1.6415907806672134
+    },
+    {
+      "row": 512,
+      "field": "gap",
+      "before": -0.7679247576313468,
+      "after": -1.6422601220393016
+    },
+    {
+      "row": 513,
+      "field": "gap",
+      "before": -0.7541838086823827,
+      "after": -1.6415907811600459
+    },
+    {
+      "row": 514,
+      "field": "gap",
+      "before": -0.7279850696650509,
+      "after": -1.642260122532134
+    }
+  ],
+  "allActorStateParityClaimed": false,
+  "fullStoryRoutes": [
+    [
+      {
+        "waypoint": {
+          "x": 686.6005270625429,
+          "z": -399.49800633435274,
+          "label": "GTS-story-native-route",
+          "timeout": 360
+        },
+        "result": {
+          "ok": false,
+          "reason": "observer-stopped-before-reset",
+          "t": 51,
+          "dist": 273,
+          "resets": 0,
+          "remaining": 1612
+        }
+      }
+    ],
+    [
+      {
+        "waypoint": {
+          "x": 686.6005270625429,
+          "z": -399.49800633435274,
+          "label": "GTS-story-native-route",
+          "timeout": 360
+        },
+        "result": {
+          "ok": false,
+          "reason": "observer-stopped-before-reset",
+          "t": 51,
+          "dist": 273,
+          "resets": 0,
+          "remaining": 1612
+        }
+      }
+    ]
+  ],
+  "wholeChapterAcceptance": false,
+  "scope": "Fresh native source rows/captured plan fields/profile/canopy and early player controls only. Combined71 also includes root domain/closure corrections; actor/queue state transfer is not assumed. Local driving proof is separately labelled."
+}

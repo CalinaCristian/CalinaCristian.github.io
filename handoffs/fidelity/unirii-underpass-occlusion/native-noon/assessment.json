@@ -1,0 +1,263 @@
+{
+  "acceptedScope": "Targeted false Coposu underpass visual/source correction only, root full-size before/after review. No full chapter/local exit/MOL/GTS pass.",
+  "targetedFullSizeInspected": [
+    {
+      "run": "local-noon-395071c2",
+      "files": [
+        "coposu-former-descent-05.png",
+        "coposu-former-descent-right-look-06.png",
+        "coposu-former-descent-left-look-07.png",
+        "coposu-deep-location-08.png",
+        "coposu-deep-location-right-look-09.png",
+        "coposu-deep-location-left-look-10.png"
+      ]
+    },
+    {
+      "run": "local-noon-71f20c45",
+      "files": [
+        "coposu-former-descent-05.png",
+        "coposu-former-descent-right-look-06.png",
+        "coposu-former-descent-left-look-07.png",
+        "coposu-deep-location-08.png",
+        "coposu-deep-location-right-look-09.png",
+        "coposu-deep-location-left-look-10.png"
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "run": "gts-noon-395071c2",
+      "source": "395071c21079fb14c25af194a9903a5ae5d87b26",
+      "nativeCounts": {
+        "active": 303,
+        "pool": 179,
+        "peds": 560
+      },
+      "initialFinalIdentityArraysEqual": true,
+      "mapTransitionIdentityArraysEqual": null,
+      "driveResults": [
+        {
+          "waypoint": {
+            "x": 686.6005270625429,
+            "z": -399.49800633435274,
+            "label": "GTS-story-native-route",
+            "timeout": 360
+          },
+          "result": {
+            "ok": false,
+            "reason": "observer-stopped-before-reset",
+            "t": 51,
+            "dist": 273,
+            "resets": 0,
+            "remaining": 1612
+          }
+        }
+      ],
+      "resetMutationsExecuted": 0,
+      "resetRequestsRecorded": 1,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "worstNativeDraws": 340,
+      "worstNativeTriangles": 1408728,
+      "physicalInterpretation": "Observer/AP requested-reset stop is incomplete coverage, not proof of a product geometry failure; direct source/actor/signal state must classify it."
+    },
+    {
+      "run": "gts-noon-71f20c45",
+      "source": "71f20c4581ae62d12a98e226fbfef476fc27dab9",
+      "nativeCounts": {
+        "active": 303,
+        "pool": 179,
+        "peds": 560
+      },
+      "initialFinalIdentityArraysEqual": true,
+      "mapTransitionIdentityArraysEqual": null,
+      "driveResults": [
+        {
+          "waypoint": {
+            "x": 686.6005270625429,
+            "z": -399.49800633435274,
+            "label": "GTS-story-native-route",
+            "timeout": 360
+          },
+          "result": {
+            "ok": false,
+            "reason": "observer-stopped-before-reset",
+            "t": 51,
+            "dist": 273,
+            "resets": 0,
+            "remaining": 1612
+          }
+        }
+      ],
+      "resetMutationsExecuted": 0,
+      "resetRequestsRecorded": 1,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "worstNativeDraws": 340,
+      "worstNativeTriangles": 1341727,
+      "physicalInterpretation": "Observer/AP requested-reset stop is incomplete coverage, not proof of a product geometry failure; direct source/actor/signal state must classify it."
+    },
+    {
+      "run": "local-noon-395071c2",
+      "source": "395071c21079fb14c25af194a9903a5ae5d87b26",
+      "nativeCounts": {
+        "active": 303,
+        "pool": 179,
+        "peds": 560
+      },
+      "initialFinalIdentityArraysEqual": true,
+      "mapTransitionIdentityArraysEqual": true,
+      "driveResults": [
+        {
+          "waypoint": {
+            "x": 686.6005270625429,
+            "z": -399.49800633435274,
+            "label": "GTS-story-native-route",
+            "timeout": 360
+          },
+          "result": {
+            "ok": false,
+            "reason": "observer-stopped-before-reset",
+            "t": 51,
+            "dist": 273,
+            "resets": 0,
+            "remaining": 1612
+          }
+        },
+        {
+          "scope": "Separate continuous local drive after explicit normal public map transition",
+          "waypoint": {
+            "x": 208.63355013808416,
+            "z": -292.93907726912715,
+            "label": "local-Coposu-continuous-exit",
+            "timeout": 100
+          },
+          "result": {
+            "ok": false,
+            "reason": "observer-stopped-before-reset",
+            "t": 38.5,
+            "dist": 135,
+            "resets": 0,
+            "remaining": 52
+          }
+        }
+      ],
+      "resetMutationsExecuted": 0,
+      "resetRequestsRecorded": 2,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "worstNativeDraws": 340,
+      "worstNativeTriangles": 1408728,
+      "physicalInterpretation": "Observer/AP requested-reset stop is incomplete coverage, not proof of a product geometry failure; direct source/actor/signal state must classify it."
+    },
+    {
+      "run": "local-noon-71f20c45",
+      "source": "71f20c4581ae62d12a98e226fbfef476fc27dab9",
+      "nativeCounts": {
+        "active": 303,
+        "pool": 179,
+        "peds": 560
+      },
+      "initialFinalIdentityArraysEqual": true,
+      "mapTransitionIdentityArraysEqual": true,
+      "driveResults": [
+        {
+          "waypoint": {
+            "x": 686.6005270625429,
+            "z": -399.49800633435274,
+            "label": "GTS-story-native-route",
+            "timeout": 360
+          },
+          "result": {
+            "ok": false,
+            "reason": "observer-stopped-before-reset",
+            "t": 51,
+            "dist": 273,
+            "resets": 0,
+            "remaining": 1612
+          }
+        },
+        {
+          "scope": "Separate continuous local drive after explicit normal public map transition",
+          "waypoint": {
+            "x": 208.63355013808416,
+            "z": -292.93907726912715,
+            "label": "local-Coposu-continuous-exit",
+            "timeout": 100
+          },
+          "result": {
+            "ok": false,
+            "reason": "observer-stopped-before-reset",
+            "t": 34.7,
+            "dist": 106,
+            "resets": 0,
+            "remaining": 80
+          }
+        }
+      ],
+      "resetMutationsExecuted": 0,
+      "resetRequestsRecorded": 2,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "worstNativeDraws": 340,
+      "worstNativeTriangles": 1341727,
+      "physicalInterpretation": "Observer/AP requested-reset stop is incomplete coverage, not proof of a product geometry failure; direct source/actor/signal state must classify it."
+    },
+    {
+      "run": "local-noon-9fcbb057",
+      "source": "9fcbb057f1babc4592dab77cefd0afebe21e77ae",
+      "nativeCounts": {
+        "active": 303,
+        "pool": 179,
+        "peds": 560
+      },
+      "initialFinalIdentityArraysEqual": true,
+      "mapTransitionIdentityArraysEqual": true,
+      "driveResults": [
+        {
+          "scope": "Separate continuous local drive after explicit normal public map transition",
+          "waypoint": {
+            "x": 208.63355013808416,
+            "z": -292.93907726912715,
+            "label": "local-Coposu-continuous-exit",
+            "timeout": 100
+          },
+          "result": {
+            "ok": false,
+            "reason": "observer-stopped-before-reset",
+            "t": 38.9,
+            "dist": 136,
+            "resets": 0,
+            "remaining": 50
+          }
+        }
+      ],
+      "resetMutationsExecuted": 0,
+      "resetRequestsRecorded": 1,
+      "pageErrors": [],
+      "consoleErrors": [],
+      "worstNativeDraws": 261,
+      "worstNativeTriangles": 1078161,
+      "physicalInterpretation": "Observer/AP requested-reset stop is incomplete coverage, not proof of a product geometry failure; direct source/actor/signal state must classify it."
+    }
+  ],
+  "scopeLimits": [
+    "No pixel parity: actual cameras/height reflect physical road correction; native light clock advances between runs.",
+    "No all-actor state parity: identities conserved, source71 also has root domain/closure corrections and traffic states differ.",
+    "Earlier noon395 method prose says60step interval; exact executed tool uses90steps/3simseconds plus checkpoints. Raw report unchanged. Rush395 actual interval was60steps.",
+    "JSON serializes native Infinity to null; original raw remains, unbounded/unknown distinctions need source context.",
+    "Earlier noon395 worst capture covers driving before final end-look views; full frame contributions retained separately. Other worst captures include all frames.",
+    "High softwareGL frames do not measure RTX5070/Ultra. Rush395 sampled1,590,878tri/328calls remains a historical budget failure.",
+    "True-DOWN roof/earth ownership is separate;112truePasaj source profiles/lids unchanged by canopy fix.",
+    "Next waiting observer must retain reset requests without executingR and allow safe native red queues through complete cycles; prior stops are not retroactively complete."
+  ],
+  "nativeBodyHeightScope": {
+    "activeSnapshotActors": 303,
+    "actualPrimaryTrolleyModelHeightM": 5.695000112056732,
+    "observedTrolleyCount": 7,
+    "legalCanopyMaxheightM": 4.25,
+    "modeledPhysicalOpeningM": 4.56,
+    "tallModelOnRoad91ObservedAfter71PublicTransition": false,
+    "gate": "Preserving raw legal limit is not universal tall-vehicle routing/admission acceptance. MOL entry/exit was not reached."
+  }
+}

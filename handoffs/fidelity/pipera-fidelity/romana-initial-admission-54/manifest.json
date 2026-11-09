@@ -1,0 +1,147 @@
+{
+  "scope": "Source54 exact native constructor CPU fixture regression for bounded ordinary source-shape support. Final reports explicitly separate invalid rail modes and browser/native publication gates.",
+  "sourceCommit": "54c044421640cfe3569bfc3f72159d2169f87581",
+  "productionSourceSha256": {
+    "game/src/initial-ordinary-source-span.js": "7c5ffffaba6a7b580345f03bc995d4b864e9b08ae9bf3daf0c422f4418b262d5",
+    "game/src/initial-traffic-admission.js": "9127e5f269894d531a99d21921fc2083e360a256fc57b10c27e0fe9247fd35a8",
+    "game/src/initial-vehicle-admission.js": "f1a27dea11a127e4becc9b718d68a2b73dd2e3afc03beaa49c0156ec189e389f",
+    "game/src/tram-trench.js": "755b4ab3acdf101182bcc4eccf9486289f7346b7e6d58fb4c81f92669ad8a018"
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 7188,
+      "sha256": "091e74e14132408a11feda6466f5aa02c4583a0d68d7b3a749844024adcbcfb5"
+    },
+    {
+      "path": "controls/ordinary-span-blocker13.json",
+      "bytes": 7839,
+      "sha256": "ffe65700c61334505130f085c493d9fd0c00c438432e9c3bb68828db80a40e6e"
+    },
+    {
+      "path": "controls/ordinary-span-focused17.log",
+      "bytes": 1838,
+      "sha256": "091416464c1127b62ee795ac6c10bd71e4956085c4904e83cdc0593197a22037"
+    },
+    {
+      "path": "controls/ordinary-span-legacy-adapter13.json",
+      "bytes": 44070,
+      "sha256": "489c0335812dd9f63a9f1d2e18c918772ccfaffb5ea48f05daa4cda4ba8dd11e"
+    },
+    {
+      "path": "controls/ordinary-span-legacy-planner11.json",
+      "bytes": 6325,
+      "sha256": "c15c01757ebb88551751403cde07a55065037c44372185cb822d1cd57eb45b68"
+    },
+    {
+      "path": "diagnosis.json",
+      "bytes": 10962,
+      "sha256": "a93df0c5b63219619b0a3698b3e1a61f424181c86d4477b7f2de1cc5e95e00e8"
+    },
+    {
+      "path": "fixture.json",
+      "bytes": 66815,
+      "sha256": "2971e4616e8db25551a856e3b8dc195609ae8025337dfeeb2e7b9d82aa524195"
+    },
+    {
+      "path": "fixtures/romana/constructor-facts.json.gz",
+      "bytes": 1478164,
+      "sha256": "d566ee2871b0b7c2659c64f3987b5a951bd1ff6598d3e9af44c25f328c6439fd"
+    },
+    {
+      "path": "fixtures/romana/manifest.json",
+      "bytes": 1757,
+      "sha256": "a76a206604f9b31a9fa02c2a4cf9220ac6fd2d07cc9c4657385163a7e2893891"
+    },
+    {
+      "path": "fixtures/romana/world.json.gz",
+      "bytes": 2264010,
+      "sha256": "e2deede5add9e0f1223c5cbb18f443008a418af7e6f7856261932b97b514ca4a"
+    },
+    {
+      "path": "fixtures/unirii/constructor-facts.json.gz",
+      "bytes": 2901098,
+      "sha256": "2508f83192730570926456bdd68e67923135a06d9b3169c83e20cbec0234f4e0"
+    },
+    {
+      "path": "fixtures/unirii/manifest.json",
+      "bytes": 1740,
+      "sha256": "97c14055bb56a916430cc18cc48a34f1cb2cefecf3e2786bb88ebf784cfd26d9"
+    },
+    {
+      "path": "fixtures/unirii/world.json.gz",
+      "bytes": 1856988,
+      "sha256": "a196e9f49ffb7942993ed65de0c97498e286b7a1e8075b6f734dd26532656aec"
+    },
+    {
+      "path": "inspect.mjs",
+      "bytes": 6896,
+      "sha256": "81a6016655d87300b2dd5c3f49c77c236810a719b1fda4d8ddfd655c323ff1e7"
+    },
+    {
+      "path": "intermediate/romana-replay-final.json",
+      "bytes": 92698,
+      "sha256": "93f00cb3e996eec1fdcfa0b68372cea8aaa804359da219c9ecde6df2a6cd10f4"
+    },
+    {
+      "path": "intermediate/romana-replay-final.json.baseline.json",
+      "bytes": 41018,
+      "sha256": "67dcd7d9547bbdfa545e1db9618fbc470bc26dd722691fea63a3ca15a8eed342"
+    },
+    {
+      "path": "intermediate/romana-replay.json",
+      "bytes": 91497,
+      "sha256": "82169512dbb3a4c1ffd169ef3b97b2762da371a14b8cf3892d5d674903888f00"
+    },
+    {
+      "path": "intermediate/romana-replay.json.baseline.json",
+      "bytes": 41018,
+      "sha256": "67dcd7d9547bbdfa545e1db9618fbc470bc26dd722691fea63a3ca15a8eed342"
+    },
+    {
+      "path": "intermediate/unirii-replay.json",
+      "bytes": 359940,
+      "sha256": "db1269cdf324e29d8ae89596c5ee740a59463d708aa12081491f40498260ea0e"
+    },
+    {
+      "path": "intermediate/unirii-replay.json.baseline.json",
+      "bytes": 187015,
+      "sha256": "114e65726037b4492f49d0e891e549f429c28025a98a3f375e85bf8d006f87c9"
+    },
+    {
+      "path": "make-fixture.py",
+      "bytes": 2427,
+      "sha256": "f20c51f46b403a2e6d4417ac4d7e9ee58c2e0bfc1ff5246609858bde3f703dc1"
+    },
+    {
+      "path": "replay-native.mjs",
+      "bytes": 12307,
+      "sha256": "5ec129821f108c5b35eeac4032fbf00c4d0c6b9bd30a971a22270ed31ffb15de"
+    },
+    {
+      "path": "romana-final.json",
+      "bytes": 92698,
+      "sha256": "a32f869988e6684161b17b74057fbe3bff18906d8c565be9408f1827fdc0bd9b"
+    },
+    {
+      "path": "romana-final.json.baseline.json",
+      "bytes": 41018,
+      "sha256": "67dcd7d9547bbdfa545e1db9618fbc470bc26dd722691fea63a3ca15a8eed342"
+    },
+    {
+      "path": "source-span.test.mjs",
+      "bytes": 5056,
+      "sha256": "c50b4808c22859670ce831f43a333f3ee99cf4611cac22f55e2628c3a19b2dd6"
+    },
+    {
+      "path": "unirii-final.json",
+      "bytes": 359940,
+      "sha256": "da2c0079caa5aaba9dd6ef07e7bc380210f90bd69769e81aab09ff8e286ee8cd"
+    },
+    {
+      "path": "unirii-final.json.baseline.json",
+      "bytes": 187015,
+      "sha256": "114e65726037b4492f49d0e891e549f429c28025a98a3f375e85bf8d006f87c9"
+    }
+  ]
+}

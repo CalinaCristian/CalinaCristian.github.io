@@ -1,0 +1,62 @@
+{
+  "base": "208fdc5ef184bf38de4a0321004b7cfe838ed1cb",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 5291,
+      "sha256": "38fad41e5cfea6b589907f433fc4decfc00bec918e46ca6372a37bf790179424"
+    },
+    {
+      "path": "baseline-down-block.js.txt",
+      "bytes": 3941,
+      "sha256": "97c421fa963f72d15dfcc719d5dd30b40d8fe61e815408ff0f14d5be9e075902"
+    },
+    {
+      "path": "baseline-source.json",
+      "bytes": 409,
+      "sha256": "dd6df8cd87c8d98643fee85435c8cfa47e1598e8a9de19ed3435603b7bbc0037"
+    },
+    {
+      "path": "controls.json",
+      "bytes": 1800,
+      "sha256": "41aa3694dbb211757aee04f007f12b8f8f519e47198c49fb1362d70a48b8e2ea"
+    },
+    {
+      "path": "literal-native-replay.json",
+      "bytes": 586956,
+      "sha256": "aa428283c3b95878f26b8709f2c5ffd549e827bd76e7bdfb5940015cb421e28f"
+    },
+    {
+      "path": "native-junction-continuity.json",
+      "bytes": 40022,
+      "sha256": "29029cb51d171d2519fc4b1c0aec2fb85491b8275296be41e89a4441fa4e9dee"
+    },
+    {
+      "path": "native-overhead-fixture.json.gz",
+      "bytes": 161758,
+      "sha256": "4791b928b55810fab7d15f5684a65ee2658cf1269a24d6613405820c28f6fd1e",
+      "decompressedSHA256": "ae568d5d4b6f038f8ecf9bf23d5a643ff838f743ff0e097b1fa84880bb19076a"
+    },
+    {
+      "path": "native-roof-fixture.json",
+      "bytes": 128161,
+      "sha256": "09a5b69c6ae22a222b6eefe404469796299f3dd6d62841d5552c3433b50904f3"
+    },
+    {
+      "path": "portal-boundary-classification.json",
+      "bytes": 6656,
+      "sha256": "3cb15ff25b2650fcd62d57a925c222fd46add590c3c1b998a82b4ea77151e107"
+    },
+    {
+      "path": "tools/extract-overhead.py",
+      "bytes": 2845,
+      "sha256": "eeb40673951f8de931b0291790676e93b3b708ba7b4d3cd879d0e0998f199355"
+    },
+    {
+      "path": "tools/replay-native-down.mjs",
+      "bytes": 7187,
+      "sha256": "870ab84389656ef425399d2fbf0b7cde8fc8990cb81dde934053f37f8c6eebcc"
+    }
+  ],
+  "policy": "CPU structural candidate only; no fresh native acceptance. Complete original 197.7MB packet is on the separate proof-only branch."
+}

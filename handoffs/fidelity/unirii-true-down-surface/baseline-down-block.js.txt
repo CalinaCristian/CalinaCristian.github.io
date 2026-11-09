@@ -1,0 +1,43 @@
+        if (down) {
+            // trench / tunnel walls facing the road, from the road up to street level
+            for (const [o, sgn] of [[wr, -1], [-wl, 1]]) sb.face4(Pm(0, o, Math.min(yA, 0)), Pm(1, o, Math.min(yB, 0)), Pm(1, o, 0.4), Pm(0, o, 0.4), conc, [e.nx * sgn, 0, e.nz * sgn]);
+            // parapet on the trench rim where the collision wall stands above street level (to 1.0 m; play-test note 46: the
+            // 1 m trench wall beside Bd. Iancu de Hunedoara was invisible from the street side) — open / uncovered part only
+            if (!e.lidded) {
+                const fY = (t) => e.ya + (e.yb - e.ya) * t, tAt = (y) => clamp((y - e.ya) / ((e.yb - e.ya) || 1e-6), 0, 1);
+                let p0 = 0, p1 = 1;
+                const cut = (thr, keepBelow) => { if (fY(0) < thr === fY(1) < thr) return (fY(0) < thr) === keepBelow; const tc = tAt(thr); if ((fY(0) < thr) === keepBelow) p1 = Math.min(p1, tc); else p0 = Math.max(p0, tc); return true; };
+                if (cut(-0.35, true) && (!e.tunnel || cut(-4.2, false)) && p1 - p0 > 0.01) {
+                    const Pt = (t, o, y) => P(t * e.len, o, y), cap = rgb('#b4b0a8');
+                    for (const [o, sgn] of [[wr, -1], [-wl, 1]]) {
+                        const oo = o + 0.25 * -sgn;
+                        sb.face4(Pt(p0, o, 0.4), Pt(p1, o, 0.4), Pt(p1, o, 1.0), Pt(p0, o, 1.0), conc, [e.nx * sgn, 0, e.nz * sgn]);
+                        sb.face4(Pt(p1, oo, 0), Pt(p0, oo, 0), Pt(p0, oo, 1.0), Pt(p1, oo, 1.0), conc, [-e.nx * sgn, 0, -e.nz * sgn]);
+                        sb.face4(Pt(p0, oo, 1.0), Pt(p1, oo, 1.0), Pt(p1, o, 1.0), Pt(p0, o, 1.0), cap, [0, 1, 0]);
+                    }
+                }
+            }
+            if (e.tunnel && !e.coveredRoadModel && !e.lidded && Math.min(e.ya, e.yb) < -4.2) { // (play-test note 45) partly deep tunnel edge: the
+                // covered part (deeper than 4.2 m) gets its lid / ceiling and a portal where it opens (the hole in Piața Victoriei)
+                const tY = (y) => clamp((y - e.ya) / ((e.yb - e.ya) || 1e-6), 0, 1), t4 = tY(-4.2);
+                const [t0, t1] = e.ya < e.yb ? [0, t4] : [t4, 1];
+                const Pt = (t, o, y) => P(t * e.len, o, y);
+                const y0c = e.ya + (e.yb - e.ya) * t0 + Y.road + 5.2, y1c = e.ya + (e.yb - e.ya) * t1 + Y.road + 5.2;
+                sb.face4(Pt(t0, wr, y0c), Pt(t1, wr, y1c), Pt(t1, -wl, y1c), Pt(t0, -wl, y0c), dark, [0, -1, 0]);
+                c.ground.face4(Pt(t0, wr + 0.3, 0.06), Pt(t1, wr + 0.3, 0.06), Pt(t1, -wl - 0.3, 0.06), Pt(t0, -wl - 0.3, 0.06), sideCol, [0, 1, 0]);
+                const tp = e.ya < e.yb ? t1 : t0, yp = (tp === t1 ? y1c : y0c), out = e.ya < e.yb ? 1 : -1;
+                sb.face4(Pt(tp, wr + 0.5, yp), Pt(tp, -wl - 0.5, yp), Pt(tp, -wl - 0.5, 1.2), Pt(tp, wr + 0.5, 1.2), rgb('#6b6862'), [e.dirx * out, 0, e.dirz * out]);
+            }
+            if (e.tunnel && e.lidded) { // (shallow 'tunnels' < 4.5 m deep stay open trenches: a lid would lie on the street)
+                const ca = yA + 5.2, cb = yB + 5.2;
+                sb.face4(Pm(0, wr, ca), Pm(1, wr, cb), Pm(1, -wl, cb), Pm(0, -wl, ca), dark, [0, -1, 0]); // ceiling
+                c.ground.face4(Pm(0, wr + 0.3, 0.06), Pm(1, wr + 0.3, 0.06), Pm(1, -wl - 0.3, 0.06), Pm(0, -wl - 0.3, 0.06), sideCol, [0, 1, 0]); // lid at street level (paved, like the square above)
+                // portal facade where the tunnel opens onto a non-tunnel road
+                for (const n of [e.a, e.b]) {
+                    if (n.edges.every(f => f === e || f.virtual || f.lidded)) continue;
+                    const s2 = n === e.a ? 0 : e.len, yc = (n === e.a ? ca : cb);
+                    const out = n === e.a ? -1 : 1;
+                    sb.face4(P(s2, wr + 0.5, yc), P(s2, -wl - 0.5, yc), P(s2, -wl - 0.5, 1.2), P(s2, wr + 0.5, 1.2), rgb('#6b6862'), [e.dirx * out, 0, e.dirz * out]);
+                }
+            }
+        }

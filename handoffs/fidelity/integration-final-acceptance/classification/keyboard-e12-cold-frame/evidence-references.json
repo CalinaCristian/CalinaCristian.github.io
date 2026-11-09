@@ -1,0 +1,29 @@
+{
+  "files": {
+    "/workspace/integration-qa-evidence/headlights-e12abd00-keyboard-high/result.json": {
+      "sha256": "c114c9fa004dcda672aae19f6be7fa998f6423c45e2e0c72d3c95576b516ad68",
+      "bytes": 12315
+    },
+    "/workspace/integration-qa-evidence/headlights-e12abd00-keyboard-high/runner.cjs": {
+      "sha256": "1ff7a7e61889349f3e0dbc8babd2f84ca90f1cd817c399d0f91e90a3a7db681d",
+      "bytes": 10921
+    },
+    "/workspace/integration-qa-evidence/headlights-e12abd00-keyboard-high/source-manifest.json": {
+      "sha256": "8b722ae054978590763227cb2c6d6f2e9d753e0e4d700ece9cb4a84cb2097e0e",
+      "bytes": 30224
+    },
+    "/workspace/integration-qa-evidence/district-c78a5f4-soak/profile.json": {
+      "sha256": "a17b45fff18613aac202c960b49d3aaaf0c135ec2494791b1ac94705c8e49d73",
+      "bytes": 11996546
+    },
+    "/workspace/integration-qa-evidence/default-spawn-fcb60c84-native/report.json": {
+      "sha256": "d1f40e5b76a36c37235484734c8d273661b52eac082a3e2848f776da1a3d83bd",
+      "bytes": 122673
+    }
+  },
+  "portableRefs": [
+    "proof/headlights-e12abd00/keyboard-high/result.json.gz",
+    "proof/soak-c78a5f4/profile.json.gz",
+    "proof/default-spawn-fcb60c84/report.json.gz"
+  ]
+}

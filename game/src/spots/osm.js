@@ -503,8 +503,9 @@ const SHRUB_C = ['#456f35', '#3e6530', '#567d3c', '#3a5c2e'];
 /**
  * instanced trees. list: [{x, z, y?, s?, kind:'broad'|'con'|'shrub', c?}]
  * lod: optional { near = 90, max = 700 } → dynamic LOD: the `max` trees within `near` m of the viewer use the full crown,
- *      all others a low-detail crown + trunk (same season tinting); call update(x, z) with the viewer position.
- * @returns {{ group, crowns[], colliders[], update?(x, z) }}
+ *      all others a low-detail crown + trunk (same season tinting). `force` enables existing low variants for small groups too.
+ *      update(x, z, eyeY?) uses actual emitted crown centres in 3D when eyeY is finite; two arguments preserve legacy XZ.
+ * @returns {{ group, crowns[], colliders[], update?(x, z, eyeY?) }}
  */
 export function buildTrees(list, ground, { seed = 5, collide = true, lod = null } = {}) {
     const G = treeGeos(), r = rng(seed), grp = new THREE.Group(); grp.name = 'trees';
@@ -515,7 +516,7 @@ export function buildTrees(list, ground, { seed = 5, collide = true, lod = null 
     for (const kind of ['broad', 'con', 'shrub', ...SPECIES]) {
         const L = list.filter((t) => (t.kind || 'broad') === kind); if (!L.length) continue;
         const sp = SPECIES.includes(kind);
-        const useLod = !!lod && kind !== 'shrub' && L.length > (lod.max ?? 700) * (sp ? 0.25 : 0.6);
+        const useLod = !!lod && kind !== 'shrub' && (lod.force || L.length > (lod.max ?? 700) * (sp ? 0.25 : 0.6));
         const crownMat = new THREE.MeshLambertMaterial({ color: '#ffffff' }); crownMat.name = 'treeCrowns';
         const trunkMat = new THREE.MeshLambertMaterial({ color: '#5f4632' });
         const hiN = useLod ? Math.min(L.length, Math.round((lod.max ?? 700) * (sp ? 0.3 : 1))) : L.length;
@@ -524,12 +525,13 @@ export function buildTrees(list, ground, { seed = 5, collide = true, lod = null 
         const lowC = useLod ? mk(sp ? G.speciesLow : kind === 'broad' ? G.broadLow : G.conLow, crownMat, L.length, `treeCrowns ${kind === 'con' ? 'conifer' : kind} low`) : null;
         if (lowC) lowC.userData.conifer = crown.userData.conifer;
         const lowT = useLod ? mk(sp ? G.trunk_speciesLow : G.trunkLow, trunkMat, L.length, 'treeTrunks low') : null;
-        const mats = [], cols = [];
+        const mats = [], cols = [], centres = [];
+        if (useLod && !crown.geometry.boundingSphere) crown.geometry.computeBoundingSphere();
         L.forEach((t, i) => {
             const s = t.s || (kind === 'shrub' ? 0.7 + r() * 0.8 : sp ? 0.85 + r() * 0.3 : 0.75 + r() * 0.5), y = t.y ?? ground.heightAt(t.x, t.z) - 0.05;
             m4.compose(new THREE.Vector3(t.x, y, t.z), q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), r() * 6.28), new THREE.Vector3(s * (t.sx || 1), s * (t.sy || 1), s * (t.sx || 1)));
             col.set(t.c || (kind === 'con' ? r.pick(CON_C) : kind === 'shrub' ? r.pick(SHRUB_C) : r.pick(BROAD_C)));
-            if (useLod) { mats.push(m4.clone()); cols.push(col.clone()); }
+            if (useLod) { mats.push(m4.clone()); cols.push(col.clone()); centres.push(crown.geometry.boundingSphere.center.clone().applyMatrix4(m4)); }
             else { crown.setMatrixAt(i, m4); trunk?.setMatrixAt(i, m4); crown.setColorAt(i, col); }
             if (collide && kind !== 'shrub') colliders.push({ x: t.x, z: t.z, r: (sp ? 0.32 : 0.28) * s, hw: (sp ? 0.32 : 0.28) * s, prop: true, h: 6 });
         });
@@ -541,8 +543,9 @@ export function buildTrees(list, ground, { seed = 5, collide = true, lod = null 
         if (useLod) {
             const near2 = (lod.near ?? 90) ** 2;
             const D = { L, mats, cols, crown, trunk, lowC, lowT, hiN, last: null, shell };
-            D.apply = (px, pz) => {
-                const idx = L.map((t, i) => [i, (t.x - px) ** 2 + (t.z - pz) ** 2]).filter((e) => e[1] < near2).sort((a, b2) => a[1] - b2[1]).slice(0, hiN).map((e) => e[0]).reverse(); // (far → near: bare crowns blend in order)
+            D.apply = (px, pz, eyeY) => {
+                const spatial = Number.isFinite(eyeY);
+                const idx = L.map((t, i) => { const p = spatial ? centres[i] : t; return [i, (p.x - px) ** 2 + (p.z - pz) ** 2 + (spatial ? (p.y - eyeY) ** 2 : 0)]; }).filter((e) => e[1] < near2).sort((a, b2) => a[1] - b2[1]).slice(0, hiN).map((e) => e[0]).reverse(); // (far → near: bare crowns blend in order)
                 const hi = new Uint8Array(L.length); let k = 0;
                 for (const i of idx) { hi[i] = 1; crown.setMatrixAt(k, mats[i]); trunk?.setMatrixAt(k, mats[i]); crown.setColorAt(k, cols[i]); k++; }
                 crown.count = k; if (trunk) trunk.count = k; if (D.shell) D.shell.count = k;
@@ -554,8 +557,8 @@ export function buildTrees(list, ground, { seed = 5, collide = true, lod = null 
         } else { crown.instanceMatrix.needsUpdate = true; crown.computeBoundingSphere(); trunk?.computeBoundingSphere(); if (shell) { shell.count = crown.count; shell.computeBoundingSphere(); } }
         for (const m of [crown, trunk, lowC, lowT, shell]) if (m) m.frustumCulled = !useLod;
     }
-    let lx = 1e9, lz = 1e9;
-    const update = dyn.length ? (x, z) => { if (Math.hypot(x - lx, z - lz) < 12) return; lx = x; lz = z; for (const D of dyn) D.apply(x, z); } : null;
+    let lx = 1e9, lz = 1e9, ly;
+    const update = dyn.length ? (x, z, eyeY) => { const spatial = Number.isFinite(eyeY), wasSpatial = Number.isFinite(ly); if (spatial === wasSpatial && Math.hypot(x - lx, z - lz, spatial ? eyeY - ly : 0) < 12) return; lx = x; lz = z; ly = spatial ? eyeY : undefined; for (const D of dyn) D.apply(x, z, eyeY); } : null;
     return { group: grp, crowns, colliders, update };
 }
 /** street trees along motor roads (both sides, skipping building footprints / exclusions) */

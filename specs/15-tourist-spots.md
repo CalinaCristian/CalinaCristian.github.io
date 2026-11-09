@@ -39,6 +39,8 @@ Source-mountain projection: `sourceMountain` retains all mesh/normal/index bytes
 
 Additional source terrain materials belong in `ctx.extras.sourceGroundMaterials`, appended to `vegetation.groundMaterials`. This shares the scene's ground weather/season uniforms without applying grass/tree wind. Absent extras preserve the existing material membership. Seattle source-context loading, visibility and native budget checks remain separate.
 
+Tree detail selection accepts optional `update(x,z,eyeY)`: a finite eye height uses the actual transformed emitted crown bounding-sphere centre in 3D; two arguments retain historical XZ selection exactly. Camera hosts pass world position, including parented walk/ride cameras. Vertical-only travel invalidates the distance cache. Native spot `treeLod.force` uses the existing far variants for small groups as well; Pike/Seattle Center set `cap:Infinity`, retaining every authored/source record and collider. Geometry, dimensions and existing near/far shadow policy remain unchanged. CPU controls include the recorded native Loupe camera matrix; fresh native close/elevated images and actual submitted counters remain required. Historical failed 00c images and load/pass costs are retained separately.
+
 Bonus content: only the most important, must-see tourist places in each city (top 10), e.g. the Fremont Troll and the Gum Wall in Seattle, built as small high-fidelity areas you explore on foot (no driving).
 
 ## Requirements

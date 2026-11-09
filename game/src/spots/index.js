@@ -236,10 +236,10 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         const cap = ctx.treeLod.cap ?? 4500; if (ctx.trees.length > cap) { for (const t of ctx.trees) t._d = dist(t); ctx.trees.sort((a, b) => a._d - b._d); ctx.trees.length = cap; }
     }
     { const cut = globalThis.__spotsLegacy ? [] : ctx.trees.filter((t) => !t.keepOnRoad && ctx.onRoad(t.x, t.z, 0.2)); ctx.trees = ctx.trees.filter((t) => !cut.includes(t)); ctx.extras.clippedOnRoad = { trees: cut.length, treeSamples: cut.slice(0, 6).map((t) => [Math.round(t.x), Math.round(t.z)]) }; }
-    const trees = buildTrees(ctx.trees, ctx.ground, { seed: data.id.length, lod: ctx.treeLod ? { near: ctx.treeLod.near ?? 90, max: ctx.treeLod.max ?? 700 } : null });
+    const trees = buildTrees(ctx.trees, ctx.ground, { seed: data.id.length, lod: ctx.treeLod ? { near: ctx.treeLod.near ?? 90, max: ctx.treeLod.max ?? 700, force: ctx.treeLod.force } : null });
     if (trees.update) {
         const v = new THREE.Vector3();
-        ctx.updaters.push((dt, s) => { s.camera.getWorldPosition(v); trees.update(v.x, v.z); });
+        ctx.updaters.push((dt, s) => { s.camera.getWorldPosition(v); trees.update(v.x, v.z, v.y); });
         const sp0 = Object.values(ctx.spawns)[0] || data.spots[data.members[0]].spawn; trees.update(sp0.x, sp0.z);
     }
     ctx.add(trees.group); ctx.colliders.push(...trees.colliders); ctx.crownMeshes.push(...trees.crowns);

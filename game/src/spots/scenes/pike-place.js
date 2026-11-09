@@ -378,6 +378,7 @@ export default {
         ctx.waterLevel=g.waterY=1-d.origin.elev; // Literal coast mask supplies the actual water mesh.
         // ---- paint
         ctx.terrainOpts = { bg: '#6d6a60', bgMask: 'slab', brickAngle: 0.72, innerPx: 2048, outerPad: 0, skirt: 0 };
+        ctx.treeLod = { cap: Infinity, near: 90, max: 700, force: true };
         ctx.skipBuildings = new Set(['w231357660', 'w1271653801', 'w1271653800', 'w1275882970', 'w1275882966']); // + the covered stretch of Post Alley (open alley here) // hero arcade replaces these footprints
         ctx.exclude.push([...offsetPolyline(PIKE_ST, -11), ...offsetPolyline(PIKE_ST, 11).reverse()]); // no street trees on lower Pike St (open view to the sign)
         ctx.osmBackdrop({ paint: {}, streetTreeOpts: { spacing: 14, prob: 0.5, kinds: ['primary', 'secondary', 'tertiary'] }, lampOpts: { kinds: ['primary', 'secondary', 'tertiary'] }, style: (b) => (/hotel|apartments/.test(b.k) && (b.h || 0) < 25 ? 'brick' : buildingStyle(b, true)) });

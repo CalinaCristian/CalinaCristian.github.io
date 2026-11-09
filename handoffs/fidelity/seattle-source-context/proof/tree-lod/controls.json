@@ -1,0 +1,69 @@
+{
+  "base": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+  "nativeFixtureSource": "00c603358ac547b898cb8ad18f3d7ed9b229c10c",
+  "nativeFixtureSHA256": "b8c62e1fc5484ed312df1eecc3162e31116c17ecab65b72d4ee709c1cd4132da",
+  "checks": 15,
+  "passed": true,
+  "results": [
+    {
+      "name": "two-argument exact emitted geometry/matrices/shadows at 0,0",
+      "passed": true
+    },
+    {
+      "name": "two-argument exact emitted geometry/matrices/shadows at 50,0",
+      "passed": true
+    },
+    {
+      "name": "two-argument exact emitted geometry/matrices/shadows at -100,-50",
+      "passed": true
+    },
+    {
+      "name": "vertical-only elevator motion changes native detail",
+      "passed": true
+    },
+    {
+      "name": "vertical-only elevator motion changes species detail",
+      "passed": true
+    },
+    {
+      "name": "every native crown remains in the far variants",
+      "passed": true
+    },
+    {
+      "name": "every source crown remains in the far variants",
+      "passed": true
+    },
+    {
+      "name": "geometry and colliders survive detail changes exactly",
+      "passed": true
+    },
+    {
+      "name": "actual native child-camera matrix selects no ground near trees at Loupe",
+      "passed": true
+    },
+    {
+      "name": "same native world XZ at ground height selects its source crown",
+      "passed": true
+    },
+    {
+      "name": "world movement follows the actual eye rather than local camera zero",
+      "passed": true
+    },
+    {
+      "name": "tall crown selection uses actual emitted transformed centre",
+      "passed": true
+    },
+    {
+      "name": "same XZ outside actual crown-centre radius returns to far detail",
+      "passed": true
+    },
+    {
+      "name": "scene force selects existing far variants for small groups without dropping records",
+      "passed": true
+    },
+    {
+      "name": "returning to two arguments restores exact historical selection",
+      "passed": true
+    }
+  ]
+}

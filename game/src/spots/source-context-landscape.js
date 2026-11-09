@@ -35,6 +35,6 @@ export function addSourceContextTrees(ctx,data){
         const species=speciesFromOSM([t.tags.species,t.tags.genus,t.tags.leaf_type].filter(Boolean).join(' '))||'generic',height=parseMeasure(t.tags.height),nominal=G.shapes[SPECIES[species].shape].top;
         trees.push({id:t.id,x:t.x,z:t.z,y,s:height>0?height/nominal:1,species});
     }
-    const built=buildSpeciesTrees(trees,{near:110,maxNear:160,chunk:800,cull:6500,castShadow:false,rng:rng(70519)});ctx.add(built.group);ctx.crownMeshes.push(...built.crownMeshes);ctx.onUpdate((dt,s)=>{const p=s.camera?.position||s.ctl?.position;if(p)built.update(p.x,p.z);});built.update(0,0);
+    const built=buildSpeciesTrees(trees,{near:110,maxNear:160,chunk:800,cull:6500,castShadow:false,rng:rng(70519)}),eye=new THREE.Vector3();ctx.add(built.group);ctx.crownMeshes.push(...built.crownMeshes);ctx.onUpdate((dt,s)=>{const p=s.camera?.getWorldPosition?s.camera.getWorldPosition(eye):s.ctl?.position;if(p)built.update(p.x,p.z,p.y);});built.update(0,0);
     state.trees={sourceRecords:data.trees.length,rendered:trees.length,reusedNativeSourceIds:reused,unresolved:unknown,group:built.group,basis:'Literal mapped tree nodes; unique original 0.1m close-up quantization match reuses native tree. Missing dimensions/species use named nominal generic models; all far trees retained in LOD.'};
 }

@@ -293,6 +293,7 @@ export default {
         const plaza = []; for (let i = 0; i < 40; i++) { const a = i / 40 * Math.PI * 2; plaza.push([NEEDLE.x + Math.cos(a) * 34, NEEDLE.z + Math.sin(a) * 34]); }
         g.flatten(plaza, NEEDLE.y, 10);
         ctx.terrainOpts = { bg: '#8f8b82', bgMask: 'slab', innerPx: 2048, outerPad: 0, skirt: 0 };
+        ctx.treeLod = { cap: Infinity, near: 90, max: 700, force: true };
         { const c = []; for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; c.push([NEEDLE.x + Math.cos(a) * 26, NEEDLE.z + Math.sin(a) * 26]); } ctx.exclude.push(c); } // the Needle's OSM parts → hero model
         const needle = buildNeedle(ctx);
         const chi = buildChihuly(ctx);

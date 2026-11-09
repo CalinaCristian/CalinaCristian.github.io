@@ -153,7 +153,7 @@ export function defaultSpecies(cityId, kind, key, h) {
  * Near: one InstancedMesh per crown shape + one trunk mesh (global, refilled when the viewer moves 20 m).
  * Far: per chunk one deciduous low-lobe crown mesh, one conifer low crown mesh, one low trunk mesh; trees that are near
  *      are hidden in the far meshes (zero scale). All crowns are named 'treeCrowns …' (render season hooks), conifers flagged.
- * @returns {{ group, crownMeshes[], trunkMeshes[], update(x, z), count }}
+ * @returns {{ group, crownMeshes[], trunkMeshes[], update(x, z, eyeY?), count }}
  */
 export function buildSpeciesTrees(trees, opts = {}) {
     const G = treeGeometries(), R = opts.rng || Math.random, near = opts.near ?? 110, maxNear = opts.maxNear ?? 520, CH = opts.chunk ?? 750;
@@ -176,7 +176,10 @@ export function buildSpeciesTrees(trees, opts = {}) {
         const nt = new THREE.Matrix4().compose(pV.set(t.x, y, t.z), q, sV.set(s * 0.9, ts, s * 0.9));
         const ft = new THREE.Matrix4().compose(pV.set(t.x, y, t.z), q, sV.set(s * 0.9, ts, s * 0.9));
         const pal = sp.cols || sh.cols; col.set(t.col || pal[Math.floor(R() * pal.length)]).multiplyScalar(0.9 + R() * 0.16);
-        return { t, shape: sp.shape, con: !!sh.conifer, nc, fc, nt, ft, c: col.clone(), chunk: Math.floor(t.x / CH) + ',' + Math.floor(t.z / CH), fi: -1, near: false };
+        // A finite eyeY selects by the emitted crown's actual transformed centre.
+        // The two-argument API deliberately retains its historical trunk-XZ test.
+        const centre = sh.geo.boundingSphere.center.clone().applyMatrix4(nc);
+        return { t, centre, shape: sp.shape, con: !!sh.conifer, nc, fc, nt, ft, c: col.clone(), chunk: Math.floor(t.x / CH) + ',' + Math.floor(t.z / CH), fi: -1, near: false };
     });
     // far chunk meshes
     const chunks = new Map();
@@ -220,14 +223,16 @@ export function buildSpeciesTrees(trees, opts = {}) {
     nearT.name = 'treeTrunks near'; nearT.userData.always = true; nearT.frustumCulled = false; nearT.castShadow = opts.castShadow !== false; nearT.matrixAutoUpdate = false;
     group.add(nearT); trunkMeshes.push(nearT);
     // spatial grid for near queries
-    const GS = 50, grid = new Map();
-    T.forEach((r) => { const k = Math.floor(r.t.x / GS) + ',' + Math.floor(r.t.z / GS); let a = grid.get(k); if (!a) grid.set(k, a = []); a.push(r); });
-    let lx = 1e9, lz = 1e9, cur = [];
-    const update = (x, z) => {
-        if (Math.hypot(x - lx, z - lz) < 20) return; lx = x; lz = z;
+    const GS = 50, grid = new Map(), crownGrid = new Map();
+    T.forEach((r) => { for (const [g, p] of [[grid, r.t], [crownGrid, r.centre]]) { const k = Math.floor(p.x / GS) + ',' + Math.floor(p.z / GS); let a = g.get(k); if (!a) g.set(k, a = []); a.push(r); } });
+    let lx = 1e9, lz = 1e9, ly, cur = [];
+    const update = (x, z, eyeY) => {
+        const spatial = Number.isFinite(eyeY), wasSpatial = Number.isFinite(ly);
+        if (spatial === wasSpatial && Math.hypot(x - lx, z - lz, spatial ? eyeY - ly : 0) < 20) return; lx = x; lz = z; ly = spatial ? eyeY : undefined;
         const cand = []; const K = Math.ceil(near / GS);
         const ix = Math.floor(x / GS), iz = Math.floor(z / GS);
-        for (let i = ix - K; i <= ix + K; i++) for (let j = iz - K; j <= iz + K; j++) { const a = grid.get(i + ',' + j); if (a) for (const r of a) { const d = (r.t.x - x) ** 2 + (r.t.z - z) ** 2; if (d < near * near) cand.push([d, r]); } }
+        const activeGrid = spatial ? crownGrid : grid;
+        for (let i = ix - K; i <= ix + K; i++) for (let j = iz - K; j <= iz + K; j++) { const a = activeGrid.get(i + ',' + j); if (a) for (const r of a) { const p = spatial ? r.centre : r.t, d = (p.x - x) ** 2 + (p.z - z) ** 2 + (spatial ? (p.y - eyeY) ** 2 : 0); if (d < near * near) cand.push([d, r]); } }
         cand.sort((a, b) => a[0] - b[0]);
         const per = {}; const sel = [];
         for (const [, r] of cand) { const m = nearM[r.shape]; if (!m) continue; per[r.shape] = per[r.shape] || 0; if (per[r.shape] >= m.instanceMatrix.count) continue; per[r.shape]++; sel.push(r); if (sel.length >= nearT.instanceMatrix.count) break; }

@@ -45,7 +45,10 @@ async function main(){
    if(m.historicalCollections?.length)await page.locator('[data-cv="collection"]').selectOption('survey');
    const context=page.locator('#perspective-viewer > div > div > details');
    await page.waitForFunction(id=>document.querySelector('#perspective-viewer select')?.value===id,place.id);
-   const expectedContexts=(m.perspectiveCollections||[]).filter(c=>c.captureType==='game-perspective-context'&&c.comparisonCompatible===false).length+(m.streetWalk?.manifest==='street-walk/manifest.json'?1:0);
+   const contextRefs=(m.perspectiveCollections||[]).filter(c=>c.captureType==='game-perspective-context'&&c.comparisonCompatible===false).map(c=>c.manifest);
+   if(m.streetWalk?.manifest==='street-walk/manifest.json')contextRefs.push(m.streetWalk.manifest);
+   for(const ref of contextRefs){const cf=path.resolve(dir,ref),cd=path.dirname(cf),cm=load(cf);for(const item of cm.items){for(const [key,hash]of [['image',item.sha256||item.imageSha256],['thumbnail',item.thumbnailSha256]]){if(!item[key])continue;const file=path.resolve(cd,item[key]);assert(file.startsWith(cd+path.sep),'Context asset escapes collection:'+item[key]);checkImage(file,hash);}}}
+   const expectedContexts=contextRefs.length;
    await page.waitForFunction(n=>document.querySelectorAll('#perspective-viewer > div > div > details').length===n,expectedContexts);
    const n=await context.count(),counts=[];
    for(let i=0;i<n;i++){

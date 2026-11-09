@@ -1,0 +1,19 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Leaving restores the same notification region for later messages
+
+false !== true
+
+    at check (file:///workspace/CalinaCristian.github.io/tools/tourist-flow-state-check.mjs:32:75)
+    at async file:///workspace/CalinaCristian.github.io/tools/tourist-flow-state-check.mjs:128:2 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

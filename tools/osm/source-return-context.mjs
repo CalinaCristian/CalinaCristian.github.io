@@ -5,6 +5,31 @@ import { createHash } from 'node:crypto';
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const require = (ok, reason) => { if (!ok) throw Error('reviewed source context: ' + reason); };
+const publicTags = tags => Object.fromEntries(Object.entries(tags || {}).filter(([key]) => !key.startsWith('__')).sort(([a], [b]) => a.localeCompare(b)));
+
+// A newly admitted nearby road is not new evidence of a building's style or
+// height. Retain an explicitly reviewed earlier fallback only for the identical
+// literal source, including its complete outer/inner rings. Any new source or
+// research annotation wins. This runs before roof and body/cache compilation.
+export function retainedSourceInferredBuildingModel(review, source) {
+    const matches = (review?.inferredBuildingModels || []).filter(r => r.sourceId === source.sourceId);
+    require(matches.length <= 1, 'duplicate prior inferred building model');
+    if (!matches.length) return null;
+    const r = matches[0], ringOK = ring => Array.isArray(ring) && ring.length >= 4 &&
+        ring.every(p => Array.isArray(p) && p.length === 2 && p.every(Number.isFinite)) && same(ring[0], ring.at(-1));
+    require(/^[a-f0-9]{40}$/.test(review.sourceDataCommit || '') && /^[a-f0-9]{64}$/.test(review.sourceDataSha256 || '') &&
+        /^w[1-9]\d*$/.test(r.sourceId || '') && r.sourceTags && typeof r.sourceTags === 'object' && !Array.isArray(r.sourceTags) &&
+        ringOK(r.sourceRingLL) && Array.isArray(r.sourceHolesLL) && r.sourceHolesLL.every(ringOK) &&
+        ['plain', 'house', 'shop', 'bloc', 'eclectic', 'interwar', 'civic', 'glass', 'church'].includes(r.style) &&
+        (r.wallHeightM == null || (Number.isFinite(r.wallHeightM) && r.wallHeightM > 0 && r.wallHeightM <= 320 &&
+            !['height','building:levels','min_height','building:min_level'].some(k => r.sourceTags[k] != null))),
+    'invalid prior inferred building model');
+    const tags = source.tags || {}, raw = tags.__sourceTags || tags.__originalTags || tags;
+    if ((r.wallHeightM != null && Number.isFinite(source.heightM)) || tags.__hRes ||
+        !same(publicTags(raw), publicTags(r.sourceTags)) || !same(publicTags(tags), publicTags(r.modelInputTags || r.sourceTags)) ||
+        !same(source.sourceRingLL, r.sourceRingLL) || !same(source.sourceHolesLL || [], r.sourceHolesLL)) return null;
+    return { style: r.style, ...(r.wallHeightM != null ? {wallHeightM:r.wallHeightM} : {}) };
+}
 
 // A domain promotion can enable a shop band, which otherwise adds a metre to
 // an unchanged mapped storey count. Preserve a reviewed prior MODEL estimate
@@ -36,6 +61,13 @@ export function preserveReviewedSourceContext(doc, review, surveyBytes) {
     require(Array.isArray(review.waterAreas) && Array.isArray(review.measuredCrowns), 'missing explicit retained records');
     const result = { sourceDataCommit: review.sourceDataCommit, sourceDataSha256: review.sourceDataSha256,
         surveySha256: review.surveySha256, waterAreas: [], measuredCrowns: [], physicalClearance: 'unresolved; source records retained' };
+    if (review.inferredBuildingModels?.length) result.inferredBuildingModels = review.inferredBuildingModels.map(r => {
+        const index = doc.buildingIds.indexOf(r.sourceId), row = doc.buildings[index];
+        require(index >= 0 && row, 'reviewed prior inferred-building source absent');
+        return { sourceId: r.sourceId, priorStyle: r.style, actualStyle: doc.styles[row[0]], priorWallHeightM: r.wallHeightM,
+            actualWallHeightM: doc.buildingRoofProfiles?.[index]?.eavesM ?? doc.buildingDimensions?.[index]?.[0] ?? row[1] / 10,
+            basis: 'prior fallback MODEL; identical raw tags/outer/inner rings required; source/research annotations win' };
+    });
     if (review.levelHeightEstimates?.length) result.levelHeightEstimates = review.levelHeightEstimates.map(r => {
         const index = doc.buildingIds.indexOf(r.sourceId), row = doc.buildings[index];
         require(index >= 0 && row, 'reviewed prior storey-model source absent');

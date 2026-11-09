@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { preserveReviewedSourceContext, retainedSourceLevelEstimate } from './source-return-context.mjs';
+import { preserveReviewedSourceContext, retainedSourceLevelEstimate, retainedSourceInferredBuildingModel } from './source-return-context.mjs';
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const reports=[];const test=(name,fn)=>{fn();reports.push(name);};
 const fixture=()=>{
@@ -13,6 +13,54 @@ const fixture=()=>{
             waterAreas:[{sourceId:'w1',kind:'water',name:'Source lake',ringsDm:[[0,0,100,0,0,100]]}],
             measuredCrowns:[{surveyIndex:0,rawSurveyCrown:[0,0,2],packed:[0,0,142],treeInfo:[-1,0,37],crownRadiusDm:20}]}};
 };
+const modelFixture=()=>{
+    const f=fixture(),ring=[[0,0],[0,1],[1,0],[0,0]],tags={building:'yes','roof:shape':'gabled'};
+    f.review.inferredBuildingModels=[{sourceId:'w10',sourceTags:{...tags},sourceRingLL:ring,sourceHolesLL:[],style:'eclectic',wallHeightM:12.8}];
+    return {...f,source:{sourceId:'w10',tags:{...tags},sourceRingLL:ring,sourceHolesLL:[],heightM:NaN}};
+};
+test('new road context cannot change an identical-source fallback building model',()=>{
+    const f=modelFixture(),before=JSON.stringify(f),random=Math.random;Math.random=()=>{throw Error('RNG');};
+    try {assert.deepEqual(retainedSourceInferredBuildingModel(f.review,f.source),{style:'eclectic',wallHeightM:12.8});}
+    finally {Math.random=random;}
+    assert.equal(JSON.stringify(f),before);
+    assert.equal(retainedSourceInferredBuildingModel(f.review,{...f.source,sourceId:'w11'}),null);
+});
+test('literal and new research height/storey/roof annotations win over an old fallback',()=>{
+    const f=modelFixture();
+    for(const tags of [{...f.source.tags,height:'20'},{...f.source.tags,'building:levels':'6'},
+        {...f.source.tags,min_height:'3'},{...f.source.tags,'building:min_level':'1'},
+        {...f.source.tags,__originalTags:f.source.tags,'roof:shape':'flat'},
+        {...f.source.tags,__hRes:2}]) assert.equal(retainedSourceInferredBuildingModel(f.review,{...f.source,tags}),null);
+    assert.equal(retainedSourceInferredBuildingModel(f.review,{...f.source,heightM:11}),null);
+});
+test('identical prior research facade annotation is retained; new annotation wins',()=>{
+    const f=modelFixture(),raw={...f.source.tags};
+    f.review.inferredBuildingModels[0].modelInputTags={...raw,'building:colour':'#cfc1a8'};
+    f.source.tags={...raw,'building:colour':'#cfc1a8',__originalTags:raw};
+    assert.equal(retainedSourceInferredBuildingModel(f.review,f.source).wallHeightM,12.8);
+    f.source.tags['building:colour']='#aabbcc';assert.equal(retainedSourceInferredBuildingModel(f.review,f.source),null);
+});
+test('changed literal tags, outer or courtyard cannot reuse prior fallback',()=>{
+    const f=modelFixture();
+    for(const source of [{...f.source,tags:{...f.source.tags,building:'apartments'}},
+        {...f.source,sourceRingLL:[[0,0],[0,2],[1,0],[0,0]]},
+        {...f.source,sourceHolesLL:[[[.1,.1],[.1,.2],[.2,.1],[.1,.1]]]}])
+        assert.equal(retainedSourceInferredBuildingModel(f.review,source),null);
+});
+test('a prior fallback style cannot replace an unchanged literal height',()=>{
+    const f=modelFixture(),record=f.review.inferredBuildingModels[0];delete record.wallHeightM;
+    record.sourceTags.height='24';f.source.tags.height='24';f.source.heightM=24;
+    assert.deepEqual(retainedSourceInferredBuildingModel(f.review,f.source),{style:'eclectic'});
+    f.source.tags.height='25';assert.equal(retainedSourceInferredBuildingModel(f.review,f.source),null);
+});
+test('malformed, duplicate and unpinned prior building models fail explicitly',()=>{
+    for(const mutate of [f=>{f.review.inferredBuildingModels[0].wallHeightM=Infinity;},
+        f=>{f.review.inferredBuildingModels[0].sourceRingLL.pop();},
+        f=>{f.review.inferredBuildingModels.push(f.review.inferredBuildingModels[0]);},
+        f=>{delete f.review.sourceDataCommit;}]){
+        const f=modelFixture();mutate(f);assert.throws(()=>retainedSourceInferredBuildingModel(f.review,f.source),/prior inferred building model/);
+    }
+});
 test('domain promotion preserves an unchanged source-level MODEL before geometry baking',()=>{
     const f=fixture(),ring=[[0,0],[0,1],[1,0],[0,0]],tags={'building:levels':'5'},record={sourceId:'w10',heightM:14.5,sourceDimensions:{...tags},sourceRingLL:ring};
     f.review.levelHeightEstimates=[record];const source={sourceId:'w10',tags,sourceRingLL:ring},before=JSON.stringify({record,source});

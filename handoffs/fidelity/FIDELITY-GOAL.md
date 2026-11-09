@@ -20,6 +20,10 @@ Current combined blockers: nativebd9 moving-peer correction passes447steps with0
 
 Seven PostHog v2 aggregate queries, saved query/descriptions/membership and dashboard pins match committed definitions on read-only readback. No synthetic events were sent. Predeployment v2 tables correctly have0rows. Final committed runtime stamp, health fixture, deployed release readback, logical master history and deletion of owned branches/worktrees remain pending. Native /goal remains unavailable; root monitors these gates explicitly.
 
+## Latest requested addition · sharp car displays
+
+The owner requests that the instrument cluster and navigation/media screen stay sharp on lower graphics settings. Original owns render.js/vehicles.js/nav.js/display-only helpers on an isolated branch, root owns any minimal main.js hook. Actual native desktop Low/Medium/High/Auto baseline confirms medium FXAA softens display text; mobile DPR3 world PR1 limits cannot be repaired with source texture size alone. Prepare a bounded full-resolution display pass after world upscale with correct cockpit depth, drive/main-only visibility, original picking coordinates, native camera, prewarmed resources, and all added work included in native400call/1.5Mtriangle counts. No new user-facing setting or world-quality increase. Baseline/proposed design only; implementation/native acceptance pending.
+
 ## Current reported failures
 
 1. Dinamo football difficult to find from the air; compare the real running scene, including snow and pitch markings.

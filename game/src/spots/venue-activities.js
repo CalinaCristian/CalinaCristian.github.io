@@ -60,6 +60,7 @@ export function createVenueActivities(ctx) {
         const { s, ctlActive, ui } = run;
         s.ctl.active = ctlActive; s.input?.take?.('KeyE'); s.input?.keys?.delete?.('KeyE');
         s.input?.takeLook?.(); s.input?.take?.('Space');
+        s.ui.setActivityActive?.(false);
         ui.remove(); p.root.visible = false; owner.add(p.root);
         if (ui.contains(document.activeElement)) document.activeElement.blur?.();
         run = null;
@@ -167,7 +168,7 @@ export function createVenueActivities(ctx) {
             note('start');
             run.tourStop = s.captureTourActivity?.();
             s.ctl.active = false; s.input.releaseLock?.(); s.input.take?.('KeyE'); s.ui.prompt(null);
-            s.ui.el.append(ui); button.textContent = steps()[0] + ' (E)'; status.textContent = kind === 'shaorma' ? 'Three bites. Take your time.' : 'Pour, raise, then drink. Three small actions.';
+            s.ui.el.append(ui); s.ui.setActivityActive?.(true, ui); button.textContent = steps()[0] + ' (E)'; status.textContent = kind === 'shaorma' ? 'Three bites. Take your time.' : 'Pour, raise, then drink. Three small actions.';
             button.onclick = act; ui.querySelector('[data-cancel]').onclick = () => cancel('leave');
             p.root.visible = true; s.camera.add(p.root); render(); return true;
         },

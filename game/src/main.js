@@ -16,6 +16,7 @@ const { MiniMap } = MINIMAP;
 const mapFilter = () => globalThis.game?.mapFilter ?? MINIMAP.MAP_FILTER;
 const fkey = (cat) => (cat === 'business' ? 'shop' : cat);
 import { Office } from './office.js';
+import { syncModalControls } from './modal-controls.js';
 import { playFlight } from './flight.js';
 import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDist, stepText, stepArrow, lanesDir, roadSideWidth, roadWidthAt } from './nav.js';
 import { isTouch, clamp, angleDiff, signTexture } from './util.js';
@@ -648,11 +649,7 @@ class Game {
     // ----------------------------------------------------------------------------------
     /** Keep gameplay controls out of every modal, including the hub's early-return frame. */
     syncModalControls() {
-        const modal = !!(!['drive', 'foot', 'office', 'spot'].includes(this.state) || this._pauseOpen || this.mapOpen || this.condOpen || this.hud.panelOpen || this.spot?.ui?.panelOpen || this.explore?.map?.isOpen || this.photo?.active || document.querySelector('#achv-panel.show, #save-gallery.show') || document.body.classList.contains('finale-open'));
-        if (modal === this._controlsModal) return;
-        this._controlsModal = modal; document.body.classList.toggle('ui-modal', modal);
-        for (const el of document.querySelectorAll('#touch, #pause-btn, #explore-bar, .photo-open, #cond-btn, #car-finder, #story-chip, #drone-hud, #minimap-toggle, #spot-ui .sp-prompt, #spot-ui .sp-mini, #spot-ui .sp-tour-controls')) el.inert = modal;
-        if (modal) { this.input.cancelTouch?.(); if (this.photo?.active) this.input.touch.brake = true; }
+        syncModalControls(this);
     }
     fastTravelStatus() {
         const d = this.explore?.destination || (this.navManual && this.nav?.dest) || (!this.chapterDone && this.objective);

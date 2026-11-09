@@ -24,7 +24,7 @@ function sourceSnapshot(T){
     source=plain({id:railQA.sources.length,district:game.district,city:game.city?.id,data:Object.fromEntries(['q','trams','tramSources','tramSourceWays','tramRoutes','tramSourceNodeTags'].map(k=>[k,D[k]])),
         graph:{nodes:(G?.nodes||[]).map(node),edges:(G?.edges||[]).map(edge),allEdges:(G?.allEdges||[]).map(edge),report:G?.report},
         ribbons:(T.world.ribbons||[]).filter(r=>r.e?.bridge&&!r.e.tunnel&&r.poly?.length).map(r=>({poly:r.poly,edge:edge(r.e)})),
-        motorGraph:{nodes:Object.values(T.world.graph.nodes).map(node),edges:T.world.graph.edges.map(edge)}});
+        motorGraph:{nodes:Object.values(T.world.graph.nodes).map(node),edges:T.world.graph.edges.map(edge)},tramMotorCrossings:[...(T.tramMotorCrossings||[])].map(n=>n.id)});
     caches.set(T,source);railQA.sources.push(source);return source;
 }
 railQA.read=function(T,{stage='publication'}={}){

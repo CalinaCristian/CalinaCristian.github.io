@@ -1,0 +1,119 @@
+{
+  "gameSourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+  "district": "floreasca",
+  "expectedLandmarks": [
+    "rosetti",
+    "dinamo",
+    "skytower",
+    "globalworth"
+  ],
+  "actualLandmarks": [
+    {
+      "id": "skytower",
+      "label": "Sky Tower",
+      "x": 74.64093061190351,
+      "z": -1506.4053732005475
+    },
+    {
+      "id": "dinamo",
+      "label": "Stadionul Dinamo",
+      "x": -117.64586487485705,
+      "z": 1030.1269608000969
+    },
+    {
+      "id": "rosetti",
+      "label": "Liceul Teoretic C.A. Rosetti",
+      "x": 185.35102833140857,
+      "z": -306.3353580004251
+    },
+    {
+      "id": "globalworth",
+      "label": "Globalworth Tower",
+      "x": -110.1062966842209,
+      "z": -1649.2099932000765
+    }
+  ],
+  "missingLandmarks": [],
+  "roofProfiles": {
+    "supplied": 3366,
+    "applied": 3366,
+    "rejected": [],
+    "uncertain": [
+      {
+        "source": "w179110758",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w39349666",
+        "issues": [
+          "unsupported roof:shape=saltbox"
+        ]
+      }
+    ],
+    "surfacesApplied": 354,
+    "surfacesRejected": []
+  },
+  "assembliesRejected": [],
+  "unionsRejected": [],
+  "sourceReplacements": [
+    {
+      "landmark": "skytower",
+      "declared": [
+        "w219622660"
+      ],
+      "replaced": [],
+      "unmatched": [
+        "w219622660"
+      ]
+    },
+    {
+      "landmark": "dinamo",
+      "declared": [
+        "w28212482",
+        "w427813551",
+        "w860001496"
+      ],
+      "replaced": [],
+      "unmatched": [
+        "w28212482",
+        "w427813551",
+        "w860001496"
+      ]
+    },
+    {
+      "landmark": "rosetti",
+      "declared": [
+        "w28240279",
+        "w544207404",
+        "w545176891"
+      ],
+      "replaced": [
+        "w28240279",
+        "w544207404",
+        "w545176891"
+      ],
+      "unmatched": []
+    },
+    {
+      "landmark": "globalworth",
+      "declared": [
+        "w547396774"
+      ],
+      "replaced": [],
+      "unmatched": [
+        "w547396774"
+      ]
+    }
+  ],
+  "parkingClearance": {
+    "candidates": 611,
+    "retained": 565,
+    "outsideSourceLot": 32,
+    "raisedSidewalk": 14,
+    "buildingBody": 0,
+    "canopySupport": 0,
+    "measuredLots": []
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "gameSourceCommit": "7294edf843ff029ce82a755a20bd56ff81e6ac2e",
+  "district": "floreasca",
+  "condition": {
+    "season": "winter",
+    "weather": "snow",
+    "time": "day"
+  },
+  "frames": 3,
+  "sheets": 1,
+  "failures": [],
+  "metrics": [
+    {
+      "id": "dinamo-football-drone",
+      "sha256": "938a3c4c26f044c7f9e77f5745eb936e4cb493cf753c797a86e5a2c14a31fcb8",
+      "rgbStddev": [
+        13.739892199738915,
+        13.920504401387024,
+        13.83871353562218
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "dinamo-football-drone-lower",
+      "sha256": "1804703bc7719421b91d076d2373009b48efb2c1fd5887e21b63915fcbe3d622",
+      "rgbStddev": [
+        12.757512216386969,
+        12.523433933275397,
+        12.758794558107347
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "dinamo-football-drone-oblique",
+      "sha256": "f50c5e9131f424339ec93626598b2dd189bc3b0171a848a424c0ccedbbfe257f",
+      "rgbStddev": [
+        15.890624080470268,
+        17.370396062335764,
+        17.65038152899363
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    }
+  ],
+  "rawSourceContactHits": 62,
+  "note": "Capture integrity checks only. Sheets require actual human/model visual review; raw contacts and source/visual gaps are not dismissed by this result. No controller, complete scene-clearance or driving/mirror budget pass claimed."
+}

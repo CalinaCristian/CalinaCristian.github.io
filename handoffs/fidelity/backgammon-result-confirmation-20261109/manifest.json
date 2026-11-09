@@ -1,0 +1,35 @@
+{
+  "recordedUTC": "2026-11-09T18:46:40.964473+00:00",
+  "baseCommit": "57dbb99ef150dd8ec1c8eeeeb6008785bf9585a3",
+  "scope": "Exact CPU-tested source/tool bytes; no browser/World/WebGL/native proof",
+  "files": {
+    "game/src/spots/backgammon-game.js": {
+      "sha256": "605d372ca5749fcdfa01ced22cd322cf3c4fcaa22f69fbc368513b2eeda9cce0",
+      "bytes": 22263
+    },
+    "game/src/spots/backgammon-engine.js": {
+      "sha256": "2fe6d657d3df1c37a80eb2b9e73f3eaca5967be48301ed4fbd2f8bb3c4fea485",
+      "bytes": 8179
+    },
+    "game/src/spots/participation.js": {
+      "sha256": "36a048e11c39b4e7983bf0015e505ef72c33d30dd257bcfe429306e54d00172b",
+      "bytes": 6360
+    },
+    "game/src/spots/index.js": {
+      "sha256": "d19b92e3d01b7968ad61b2c5e9c611aafd03fa8699bbb0170f6c7b29138aa410",
+      "bytes": 92151
+    },
+    "handoffs/fidelity/cismigiu-backgammon/engine-controls.mjs": {
+      "sha256": "619074b328cfbdaf59d9df8047ea557528ce23697da357ba34d00ab4b931f412",
+      "bytes": 8261
+    },
+    "handoffs/fidelity/backgammon-result-confirmation-20261109/controls.mjs": {
+      "sha256": "ff8ab9b7bf3988928d5542fec996e663fac01e8e81e74b10b8f1cf8a480eaa02",
+      "bytes": 13995
+    }
+  },
+  "controllerChecks": 16,
+  "engineChecks": 22,
+  "engineFullSeededGames": 20,
+  "engineUnchanged": true
+}

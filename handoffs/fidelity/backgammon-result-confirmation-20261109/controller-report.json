@@ -1,0 +1,310 @@
+{
+  "passed": true,
+  "scope": "CPU DOM/Three endgame fixtures with actual activityFlow and SpotSession capture/completion/skip; no World/WebGL/browser/native/full-match claim",
+  "domPackage": {
+    "name": "linkedom",
+    "version": "0.18.15"
+  },
+  "checks": [
+    {
+      "name": "opening and rolling actual supplied-die controls never completes a tour or awards",
+      "passed": true
+    },
+    {
+      "name": "human final legal point/off clicks finish actual engine/instances but await result confirmation",
+      "passed": true
+    },
+    {
+      "name": "Escape preserves the exact finished human board and keeps the captured stop unfinished",
+      "passed": true
+    },
+    {
+      "name": "reopening an unconfirmed win resumes its immutable finished board; finished Undo stays disabled",
+      "passed": true
+    },
+    {
+      "name": "actual keyboard result confirmation awards one human win and advances the actual captured SpotSession stop once",
+      "passed": true
+    },
+    {
+      "name": "duplicate removed confirmation/completion cannot reaward or advance the unrelated next tour stop",
+      "passed": true
+    },
+    {
+      "name": "next interaction after confirmed human result starts a full opening match and stale confirm cannot roll it",
+      "passed": true
+    },
+    {
+      "name": "last-checker animation blocks premature confirmation, and cancelling it retains the finished board for resumed confirmation",
+      "passed": true
+    },
+    {
+      "name": "actual opponent update legally bears off checker15 and exposes Confirm match without auto-completion",
+      "passed": true
+    },
+    {
+      "name": "Leave before loss confirmation retains the exact finished board and no tour/award credit",
+      "passed": true
+    },
+    {
+      "name": "actual loss-confirm button closes flow and advances the captured tour stop once with zero win award",
+      "passed": true
+    },
+    {
+      "name": "confirmed loss permits a fresh full match only on next interaction; stale loss controls stay harmless",
+      "passed": true
+    },
+    {
+      "name": "actual tour skip cancels without confirming/awarding the match; skipped stop is never marked participated/done",
+      "passed": true
+    },
+    {
+      "name": "confirming a resumed result after skip cannot advance or complete the unrelated current stop",
+      "passed": true
+    },
+    {
+      "name": "host takeover before confirmation keeps finished loss resumable and earns no tour credit",
+      "passed": true
+    },
+    {
+      "name": "actual flow disposal/exit before confirmation never confirms, awards or advances its captured stop",
+      "passed": true
+    }
+  ],
+  "testedFiles": {
+    "game/src/spots/backgammon-game.js": "605d372ca5749fcdfa01ced22cd322cf3c4fcaa22f69fbc368513b2eeda9cce0",
+    "game/src/spots/backgammon-engine.js": "2fe6d657d3df1c37a80eb2b9e73f3eaca5967be48301ed4fbd2f8bb3c4fea485",
+    "game/src/spots/participation.js": "36a048e11c39b4e7983bf0015e505ef72c33d30dd257bcfe429306e54d00172b",
+    "game/src/spots/index.js": "d19b92e3d01b7968ad61b2c5e9c611aafd03fa8699bbb0170f6c7b29138aa410"
+  },
+  "fixtures": [
+    {
+      "name": "human-final-bearoff",
+      "scope": "Explicit valid near-finished supplied endgame, not a full-opening/fair/native match",
+      "initial": {
+        "points": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          -15,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "bar": [
+          0,
+          0
+        ],
+        "off": [
+          14,
+          0
+        ],
+        "turn": 1,
+        "phase": "move",
+        "dice": [
+          1,
+          1
+        ],
+        "remaining": [
+          1
+        ],
+        "openingDice": [],
+        "winner": 0,
+        "turnNumber": 0
+      },
+      "initialValid": true,
+      "legalFinalMoves": [
+        {
+          "from": 0,
+          "to": "off",
+          "die": 1,
+          "hit": false
+        }
+      ],
+      "transformedModuleSHA256": "167c62c883200e2e9814b218b87876ff7a1cdc19f5b3a4ed0f63ccf1e4a2a063",
+      "final": {
+        "points": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          -15,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "bar": [
+          0,
+          0
+        ],
+        "off": [
+          15,
+          0
+        ],
+        "turn": 1,
+        "phase": "finished",
+        "dice": [
+          1,
+          1
+        ],
+        "remaining": [],
+        "openingDice": [],
+        "winner": 1,
+        "turnNumber": 0
+      },
+      "finalValid": true,
+      "result": {
+        "winner": 1,
+        "points": 2,
+        "kind": "gammon"
+      }
+    },
+    {
+      "name": "Doru-final-bearoff",
+      "scope": "Explicit valid near-finished supplied endgame, not a full-opening/fair/native match",
+      "initial": {
+        "points": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          15,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          -1
+        ],
+        "bar": [
+          0,
+          0
+        ],
+        "off": [
+          0,
+          14
+        ],
+        "turn": -1,
+        "phase": "move",
+        "dice": [
+          1,
+          1
+        ],
+        "remaining": [
+          1
+        ],
+        "openingDice": [],
+        "winner": 0,
+        "turnNumber": 0
+      },
+      "initialValid": true,
+      "legalFinalMoves": [
+        {
+          "from": 23,
+          "to": "off",
+          "die": 1,
+          "hit": false
+        }
+      ],
+      "transformedModuleSHA256": "2e2bc4ed2e494090b5cd5cde5ec07a33cdffb7f8557eee1ea81a5030ee241cb0",
+      "final": {
+        "points": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          15,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "bar": [
+          0,
+          0
+        ],
+        "off": [
+          0,
+          15
+        ],
+        "turn": -1,
+        "phase": "finished",
+        "dice": [
+          1,
+          1
+        ],
+        "remaining": [],
+        "openingDice": [],
+        "winner": -1,
+        "turnNumber": 0
+      },
+      "finalValid": true,
+      "result": {
+        "winner": -1,
+        "points": 2,
+        "kind": "gammon"
+      }
+    }
+  ]
+}

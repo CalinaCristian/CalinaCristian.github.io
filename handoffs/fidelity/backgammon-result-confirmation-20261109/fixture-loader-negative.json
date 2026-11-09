@@ -1,0 +1,15 @@
+{
+  "scope": "CPU fixture-loader failure, not a native/runtime acceptance claim",
+  "recordedUTC": "2026-11-09T18:43:26.009301+00:00",
+  "testedGameSHA256": "605d372ca5749fcdfa01ced22cd322cf3c4fcaa22f69fbc368513b2eeda9cce0",
+  "failedToolSHA256": "a0339ad26e4f0d4509b55feed22059006f300c99297bf833de3a2b0402814ec0",
+  "assertion": {
+    "line": 78,
+    "test": "confirming a resumed result after skip cannot advance or complete the unrelated current stop",
+    "actual": true,
+    "expected": false,
+    "field": "flow.active"
+  },
+  "diagnosis": "The injected constructor fixture flag was reused across separate fixture instances. The later skip fixture therefore started an ordinary opening game; its action rolled instead of confirming a result. This is reconstructed from the loader control flow, not a separately captured phase readback.",
+  "correction": "Reset the injected first-constructor fixture once per test instance, while all subsequent rematches in that instance use the normal production createGame factory. Production source unchanged by this test correction."
+}

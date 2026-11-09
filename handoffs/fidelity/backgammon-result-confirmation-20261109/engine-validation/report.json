@@ -1,0 +1,375 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Initial board has fifteen checkers and167pips each and no automatic completion",
+      "passed": true
+    },
+    {
+      "name": "Opening rolls compare one die each; ties reroll and unequal dice choose the starter",
+      "passed": true
+    },
+    {
+      "name": "All36 ordinary dice pairs expand doubles to four moves",
+      "passed": true
+    },
+    {
+      "name": "A checker on the bar must reenter before an on-board checker moves",
+      "passed": true
+    },
+    {
+      "name": "Closed opponent points block bar entry and all blocked dice force a legal pass",
+      "passed": true
+    },
+    {
+      "name": "Two barred checkers must both enter when the roll permits it",
+      "passed": true
+    },
+    {
+      "name": "Landing on a blot sends exactly one opponent checker to its bar",
+      "passed": true
+    },
+    {
+      "name": "A made point cannot be hit or occupied by the other player",
+      "passed": true
+    },
+    {
+      "name": "The higher playable die is compulsory when only one unequal die can be used",
+      "passed": true
+    },
+    {
+      "name": "The smaller die remains legal when the higher die is blocked",
+      "passed": true
+    },
+    {
+      "name": "The engine filters first moves against the maximum playable dice count",
+      "passed": true
+    },
+    {
+      "name": "Bearing off is forbidden while any own checker remains outside home",
+      "passed": true
+    },
+    {
+      "name": "Oversized bearing off uses the farthest remaining checker",
+      "passed": true
+    },
+    {
+      "name": "Exact bearing off remains legal with farther own checkers",
+      "passed": true
+    },
+    {
+      "name": "Four doubles are individually consumed and an incomplete turn cannot be confirmed",
+      "passed": true
+    },
+    {
+      "name": "The15th checker creates a winner only through a legal final move",
+      "passed": true
+    },
+    {
+      "name": "Gammon and backgammon results inspect the loser bar and actual home occupancy",
+      "passed": true
+    },
+    {
+      "name": "Input positions and their dice never mutate during legal search or AI evaluation",
+      "passed": true
+    },
+    {
+      "name": "Dice cannot be rerolled or extra dice injected during a turn",
+      "passed": true
+    },
+    {
+      "name": "Mirrored positions have exactly mirrored legal moves in both directions",
+      "passed": true
+    },
+    {
+      "name": "AI rules and choice use no random draws or global clock",
+      "passed": true
+    },
+    {
+      "name": "Twenty seeded complete games preserve all30checkers and never skip a legal move",
+      "passed": true
+    }
+  ],
+  "games": [
+    {
+      "seed": 1,
+      "winner": -1,
+      "turns": 51,
+      "plies": 95,
+      "hits": 5,
+      "barEntries": 5,
+      "diceDraws": 102,
+      "result": {
+        "winner": -1,
+        "points": 2,
+        "kind": "gammon"
+      }
+    },
+    {
+      "seed": 2,
+      "winner": -1,
+      "turns": 65,
+      "plies": 116,
+      "hits": 13,
+      "barEntries": 13,
+      "diceDraws": 130,
+      "result": {
+        "winner": -1,
+        "points": 3,
+        "kind": "backgammon"
+      }
+    },
+    {
+      "seed": 3,
+      "winner": -1,
+      "turns": 61,
+      "plies": 122,
+      "hits": 8,
+      "barEntries": 8,
+      "diceDraws": 122,
+      "result": {
+        "winner": -1,
+        "points": 1,
+        "kind": "single"
+      }
+    },
+    {
+      "seed": 4,
+      "winner": -1,
+      "turns": 65,
+      "plies": 118,
+      "hits": 15,
+      "barEntries": 15,
+      "diceDraws": 130,
+      "result": {
+        "winner": -1,
+        "points": 3,
+        "kind": "backgammon"
+      }
+    },
+    {
+      "seed": 5,
+      "winner": 1,
+      "turns": 64,
+      "plies": 132,
+      "hits": 11,
+      "barEntries": 11,
+      "diceDraws": 128,
+      "result": {
+        "winner": 1,
+        "points": 1,
+        "kind": "single"
+      }
+    },
+    {
+      "seed": 6,
+      "winner": 1,
+      "turns": 44,
+      "plies": 78,
+      "hits": 5,
+      "barEntries": 5,
+      "diceDraws": 88,
+      "result": {
+        "winner": 1,
+        "points": 2,
+        "kind": "gammon"
+      }
+    },
+    {
+      "seed": 7,
+      "winner": -1,
+      "turns": 73,
+      "plies": 140,
+      "hits": 19,
+      "barEntries": 19,
+      "diceDraws": 146,
+      "result": {
+        "winner": -1,
+        "points": 1,
+        "kind": "single"
+      }
+    },
+    {
+      "seed": 8,
+      "winner": 1,
+      "turns": 59,
+      "plies": 118,
+      "hits": 15,
+      "barEntries": 15,
+      "diceDraws": 118,
+      "result": {
+        "winner": 1,
+        "points": 2,
+        "kind": "gammon"
+      }
+    },
+    {
+      "seed": 9,
+      "winner": 1,
+      "turns": 67,
+      "plies": 121,
+      "hits": 7,
+      "barEntries": 7,
+      "diceDraws": 134,
+      "result": {
+        "winner": 1,
+        "points": 1,
+        "kind": "single"
+      }
+    },
+    {
+      "seed": 10,
+      "winner": -1,
+      "turns": 72,
+      "plies": 153,
+      "hits": 10,
+      "barEntries": 10,
+      "diceDraws": 146,
+      "result": {
+        "winner": -1,
+        "points": 1,
+        "kind": "single"
+      }
+    },
+    {
+      "seed": 11,
+      "winner": -1,
+      "turns": 104,
+      "plies": 212,
+      "hits": 31,
+      "barEntries": 31,
+      "diceDraws": 210,
+      "result": {
+        "winner": -1,
+        "points": 2,
+        "kind": "gammon"
+      }
+    },
+    {
+      "seed": 12,
+      "winner": -1,
+      "turns": 57,
+      "plies": 128,
+      "hits": 10,
+      "barEntries": 10,
+      "diceDraws": 114,
+      "result": {
+        "winner": -1,
+        "points": 1,
+        "kind": "single"
+      }
+    },
+    {
+      "seed": 13,
+      "winner": -1,
+      "turns": 41,
+      "plies": 90,
+      "hits": 5,
+      "barEntries": 5,
+      "diceDraws": 82,
+      "result": {
+        "winner": -1,
+        "points": 2,
+        "kind": "gammon"
+      }
+    },
+    {
+      "seed": 14,
+      "winner": -1,
+      "turns": 75,
+      "plies": 145,
+      "hits": 11,
+      "barEntries": 11,
+      "diceDraws": 150,
+      "result": {
+        "winner": -1,
+        "points": 1,
+        "kind": "single"
+      }
+    },
+    {
+      "seed": 15,
+      "winner": -1,
+      "turns": 71,
+      "plies": 144,
+      "hits": 17,
+      "barEntries": 17,
+      "diceDraws": 142,
+      "result": {
+        "winner": -1,
+        "points": 1,
+        "kind": "single"
+      }
+    },
+    {
+      "seed": 16,
+      "winner": -1,
+      "turns": 49,
+      "plies": 99,
+      "hits": 2,
+      "barEntries": 2,
+      "diceDraws": 98,
+      "result": {
+        "winner": -1,
+        "points": 1,
+        "kind": "single"
+      }
+    },
+    {
+      "seed": 17,
+      "winner": -1,
+      "turns": 59,
+      "plies": 127,
+      "hits": 8,
+      "barEntries": 8,
+      "diceDraws": 118,
+      "result": {
+        "winner": -1,
+        "points": 1,
+        "kind": "single"
+      }
+    },
+    {
+      "seed": 18,
+      "winner": 1,
+      "turns": 58,
+      "plies": 118,
+      "hits": 12,
+      "barEntries": 12,
+      "diceDraws": 116,
+      "result": {
+        "winner": 1,
+        "points": 2,
+        "kind": "gammon"
+      }
+    },
+    {
+      "seed": 19,
+      "winner": 1,
+      "turns": 41,
+      "plies": 97,
+      "hits": 1,
+      "barEntries": 1,
+      "diceDraws": 82,
+      "result": {
+        "winner": 1,
+        "points": 1,
+        "kind": "single"
+      }
+    },
+    {
+      "seed": 20,
+      "winner": -1,
+      "turns": 38,
+      "plies": 93,
+      "hits": 0,
+      "barEntries": 0,
+      "diceDraws": 76,
+      "result": {
+        "winner": -1,
+        "points": 1,
+        "kind": "single"
+      }
+    }
+  ]
+}

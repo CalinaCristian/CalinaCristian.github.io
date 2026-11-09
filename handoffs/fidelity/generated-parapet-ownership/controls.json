@@ -1,0 +1,2729 @@
+{
+  "passed": true,
+  "source": "8b51e6f38b3e217ac7f8a556949694e5ca62ebdb",
+  "scope": "Exact historical1053native-triangle slice,101cap prisms and234laterfaces, plus material/source/height negatives. No new native render/physical or visual acceptance.",
+  "caps": 101,
+  "inputFaces": 234,
+  "changed": 170,
+  "untouched": 64,
+  "maxAreaIncreaseM2": 0,
+  "remainingInsideAreaM2": 1.2612832606873962e-12,
+  "stats": {
+    "caps": 101,
+    "faces": 234,
+    "untouched": 64,
+    "fullyOwned": 18,
+    "partial": 152,
+    "inputAreaM2": 109.7982042607352,
+    "keptAreaM2": 51.13887505199584,
+    "serializedDegenerates": 0,
+    "maxSerializationErrorM": 0,
+    "constrainedSerializationVertices": 0,
+    "unresolvedSerializationVertices": 0,
+    "owners": [
+      {
+        "emitter": "bridge-parapet",
+        "inferred": true,
+        "sourceId": null,
+        "nativeObject": "solid 0,-2",
+        "nativeTriangle": 36536,
+        "basis": "Unique historical native bridge-cap emission material; per-cap source edge was not exported"
+      }
+    ],
+    "policy": "Only later inferred separation render faces yield inside exact earlier emitted bridge-cap prisms; all physical and mapped guards remain untouched."
+  },
+  "serialization": {
+    "maxCoordinateErrorM": 0.000060756757079616364,
+    "float32CoordinateBoundM": 0.00006103515625,
+    "triangles": 293,
+    "collapsed": 232,
+    "insideAreaAfterSerializationM2": 7.808900864265193e-7,
+    "constrainedVertices": 346,
+    "unresolvedVertices": 98,
+    "note": "Child Float32 rounding is measured separately; fresh native full-size visual acceptance remains required."
+  },
+  "residuals": [],
+  "results": [
+    {
+      "object": "solid 0,-2",
+      "triangle": 39071,
+      "beforeAreaM2": 0.5915488214403914,
+      "keptAreaM2": 0.5913567782991153,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        42
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39072,
+      "beforeAreaM2": 0.5915488214403914,
+      "keptAreaM2": 0.5704239329173675,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        42
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39073,
+      "beforeAreaM2": 0.5915746390969344,
+      "keptAreaM2": 0.00029120647517679073,
+      "changed": true,
+      "parts": 6,
+      "ownerIds": [
+        0,
+        1,
+        41
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39074,
+      "beforeAreaM2": 0.5915746390969344,
+      "keptAreaM2": 0.017084378361212876,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        0,
+        1,
+        41
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39075,
+      "beforeAreaM2": 0.19751670535472576,
+      "keptAreaM2": 0.00044358248622622165,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        0,
+        1,
+        41,
+        42
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39076,
+      "beforeAreaM2": 0.19750097540550002,
+      "keptAreaM2": 0.0000036426730607744447,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        0,
+        1,
+        41,
+        42
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39077,
+      "beforeAreaM2": 0.5915628254252677,
+      "keptAreaM2": 0.5915628254252677,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39078,
+      "beforeAreaM2": 0.5915628254252677,
+      "keptAreaM2": 0.5915628254252677,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39079,
+      "beforeAreaM2": 0.5915628254252677,
+      "keptAreaM2": 0.00016853233370696754,
+      "changed": true,
+      "parts": 5,
+      "ownerIds": [
+        0,
+        2,
+        3
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39080,
+      "beforeAreaM2": 0.5915628254252677,
+      "keptAreaM2": 1.2070479038936752e-8,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        0,
+        2,
+        3
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39081,
+      "beforeAreaM2": 0.19752136576277138,
+      "keptAreaM2": 0.0004273008904458403,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39082,
+      "beforeAreaM2": 0.19752136576277138,
+      "keptAreaM2": 2.6669355933361807e-7,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39083,
+      "beforeAreaM2": 0.591574012242289,
+      "keptAreaM2": 0.591574012242289,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39084,
+      "beforeAreaM2": 0.5915746390969344,
+      "keptAreaM2": 0.5915746390969344,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39085,
+      "beforeAreaM2": 0.591574012242289,
+      "keptAreaM2": 0.00016852922151178005,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        2
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39086,
+      "beforeAreaM2": 0.5915746390969344,
+      "keptAreaM2": 1.1938254661412821e-8,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        2
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39087,
+      "beforeAreaM2": 0.19752529005666195,
+      "keptAreaM2": 0.00034118711752514035,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        2,
+        3
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39088,
+      "beforeAreaM2": 0.19752529005666195,
+      "keptAreaM2": 1.8950228899892434e-7,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        2,
+        3
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39089,
+      "beforeAreaM2": 0.5915621985831405,
+      "keptAreaM2": 0.5915621985831405,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39090,
+      "beforeAreaM2": 0.5915621985831405,
+      "keptAreaM2": 0.5915621985831405,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39091,
+      "beforeAreaM2": 0.5915621985831405,
+      "keptAreaM2": 0.00016850376961928857,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39092,
+      "beforeAreaM2": 0.5915621985831405,
+      "keptAreaM2": 1.2070645316300928e-8,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        2,
+        4,
+        5
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39093,
+      "beforeAreaM2": 0.19752136576277138,
+      "keptAreaM2": 0.0002458701902346026,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39094,
+      "beforeAreaM2": 0.19752136576277138,
+      "keptAreaM2": 1.1068200227755055e-7,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39095,
+      "beforeAreaM2": 0.591574012242289,
+      "keptAreaM2": 0.591574012242289,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39096,
+      "beforeAreaM2": 0.591574012242289,
+      "keptAreaM2": 0.591574012242289,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39097,
+      "beforeAreaM2": 0.591574012242289,
+      "keptAreaM2": 0.0001685479406178835,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        4
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39098,
+      "beforeAreaM2": 0.591574012242289,
+      "keptAreaM2": 1.1934982066192986e-8,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        4
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39099,
+      "beforeAreaM2": 0.19752529809856217,
+      "keptAreaM2": 0.00018909084525357554,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        4,
+        5
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39100,
+      "beforeAreaM2": 0.19752529809856217,
+      "keptAreaM2": 5.530678287684835e-8,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        4,
+        5
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39443,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 0.27644270309742497,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        18
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39444,
+      "beforeAreaM2": 0.5849946669900913,
+      "keptAreaM2": 0.5278054686116482,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        18
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39445,
+      "beforeAreaM2": 0.5850088273858286,
+      "keptAreaM2": 0.5850088273858286,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39446,
+      "beforeAreaM2": 0.5850091373347898,
+      "keptAreaM2": 0.5850091373347898,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39447,
+      "beforeAreaM2": 0.19510952099519702,
+      "keptAreaM2": 0.09218057915262579,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39448,
+      "beforeAreaM2": 0.19508060351563983,
+      "keptAreaM2": 0.1760230253491567,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        16
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39449,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 0.4880514875485374,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        18
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39450,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 0.20533433289839495,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        18
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39451,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 0.5849943570487968,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39452,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 0.5849943570487968,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39453,
+      "beforeAreaM2": 0.19513414264343987,
+      "keptAreaM2": 0.000012466069966648683,
+      "changed": true,
+      "parts": 5,
+      "ownerIds": [
+        17,
+        18,
+        20,
+        22,
+        24
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39454,
+      "beforeAreaM2": 0.19513414264343987,
+      "keptAreaM2": 0.00002633028318004302,
+      "changed": true,
+      "parts": 6,
+      "ownerIds": [
+        16,
+        17,
+        18,
+        20,
+        24
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39455,
+      "beforeAreaM2": 0.5850094472837508,
+      "keptAreaM2": 0.5850094472837508,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39456,
+      "beforeAreaM2": 0.5850088273858286,
+      "keptAreaM2": 0.5850088273858286,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39457,
+      "beforeAreaM2": 0.5850094472837508,
+      "keptAreaM2": 0.5850094472837508,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39458,
+      "beforeAreaM2": 0.5850088273858286,
+      "keptAreaM2": 0.5850088273858286,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39459,
+      "beforeAreaM2": 0.19516621172582407,
+      "keptAreaM2": 0.000020339029436036253,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39460,
+      "beforeAreaM2": 0.19516621172582407,
+      "keptAreaM2": 0.00003831521921831275,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        19,
+        20,
+        22,
+        24
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39461,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0.5849949769313857,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39462,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0.5849949769313857,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39463,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0.42921939024826433,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        19
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39464,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0.5729520879958329,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        19
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39465,
+      "beforeAreaM2": 0.1951912624561114,
+      "keptAreaM2": 0.0000108158133081539,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        19,
+        21,
+        23
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39466,
+      "beforeAreaM2": 0.1951912624561114,
+      "keptAreaM2": 0.0000271985514986309,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        19,
+        21,
+        23
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39467,
+      "beforeAreaM2": 0.5850088273858286,
+      "keptAreaM2": 0.07408363637721917,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        28
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39468,
+      "beforeAreaM2": 0.5850094472837508,
+      "keptAreaM2": 0.3418245012038965,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        28
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39469,
+      "beforeAreaM2": 0.5850088273858286,
+      "keptAreaM2": 0.4535274416162645,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        19,
+        21,
+        26,
+        30
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39470,
+      "beforeAreaM2": 0.5850094472837508,
+      "keptAreaM2": 0.1617950961614583,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        19,
+        21,
+        26,
+        30
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39471,
+      "beforeAreaM2": 0.19522857521265655,
+      "keptAreaM2": 0.000003288970757307244,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        21,
+        23,
+        26,
+        28,
+        30
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39472,
+      "beforeAreaM2": 0.19522857521265655,
+      "keptAreaM2": 0.000004688822486524594,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        19,
+        21,
+        23,
+        26,
+        30
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39473,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0.00029639452479740373,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        28,
+        29
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39474,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 2.776906525927975e-7,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        28,
+        29
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39475,
+      "beforeAreaM2": 0.5849833044161296,
+      "keptAreaM2": 0.5849833044161296,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39476,
+      "beforeAreaM2": 0.5849826845459093,
+      "keptAreaM2": 0.5849826845459093,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39477,
+      "beforeAreaM2": 0.195269353815702,
+      "keptAreaM2": 4.24597783125911e-10,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        25,
+        27,
+        28,
+        29
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39478,
+      "beforeAreaM2": 0.1952550038753503,
+      "keptAreaM2": 0.000016174152193973825,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39503,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 0.010753208714920675,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        32,
+        34
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39504,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 0.14626423844015987,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        32,
+        34
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39505,
+      "beforeAreaM2": 0.5850088273858286,
+      "keptAreaM2": 0.4640212727446929,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        34,
+        36
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39506,
+      "beforeAreaM2": 0.5850088273858286,
+      "keptAreaM2": 0.30808442260158764,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        34,
+        36
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39507,
+      "beforeAreaM2": 0.1952227728026103,
+      "keptAreaM2": 0.0035048994854151743,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        32,
+        34,
+        36
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39508,
+      "beforeAreaM2": 0.19519383294383033,
+      "keptAreaM2": 0.0488119889739196,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        34,
+        36
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39509,
+      "beforeAreaM2": 0.5850088273858286,
+      "keptAreaM2": 0.00029614129612890344,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        32,
+        33
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39510,
+      "beforeAreaM2": 0.5850088273858286,
+      "keptAreaM2": 2.7651669807212293e-7,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        32,
+        33
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39511,
+      "beforeAreaM2": 0.5849826845459093,
+      "keptAreaM2": 0.5849826845459093,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39512,
+      "beforeAreaM2": 0.5849826845459093,
+      "keptAreaM2": 0.5849826845459093,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39513,
+      "beforeAreaM2": 0.1952393324403891,
+      "keptAreaM2": 4.2461104800456793e-10,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        31,
+        33,
+        35,
+        32
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39514,
+      "beforeAreaM2": 0.19525392838404493,
+      "keptAreaM2": 0.00001617406310973097,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        31,
+        33,
+        35,
+        32,
+        34,
+        36
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39515,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0.5591727645323373,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        38
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39516,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 0.3643490729557178,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        38
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39517,
+      "beforeAreaM2": 0.5849977750572231,
+      "keptAreaM2": 0.0005581513763455129,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        37
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39518,
+      "beforeAreaM2": 0.5849971551716692,
+      "keptAreaM2": 2.541467105064679e-7,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        37
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39519,
+      "beforeAreaM2": 0.19532769308788892,
+      "keptAreaM2": 0.0000329459404956684,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        37,
+        38
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39520,
+      "beforeAreaM2": 0.19528438359049213,
+      "keptAreaM2": 1.9001125942754605e-14,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        37,
+        38
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39521,
+      "beforeAreaM2": 0.5849977750572231,
+      "keptAreaM2": 0.5849977750572231,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39522,
+      "beforeAreaM2": 0.5849977750572231,
+      "keptAreaM2": 0.5849977750572231,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39523,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0.0001234533891970727,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        37,
+        39,
+        40
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39524,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 5.099243789225719e-8,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        37,
+        39,
+        40
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39525,
+      "beforeAreaM2": 0.1952847467366419,
+      "keptAreaM2": 0.0000921411978221095,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        37,
+        38,
+        39,
+        40
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39526,
+      "beforeAreaM2": 0.19532805631804082,
+      "keptAreaM2": 8.924692631390942e-9,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        37,
+        38,
+        39,
+        40
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39527,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0.5849949769313857,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39528,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0.5849949769313857,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39529,
+      "beforeAreaM2": 0.5850094472837508,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        39
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39530,
+      "beforeAreaM2": 0.5850094472837508,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        39
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39531,
+      "beforeAreaM2": 0.19531733902910237,
+      "keptAreaM2": 0.00015369092894675063,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        39,
+        40
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39532,
+      "beforeAreaM2": 0.19528838048596442,
+      "keptAreaM2": 1.3010758563311447e-8,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        39,
+        40
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39533,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0.5849949769313857,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39534,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0.5849949769313857,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39535,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        39
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39536,
+      "beforeAreaM2": 0.5849949769313857,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        39
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39537,
+      "beforeAreaM2": 0.19531517185411587,
+      "keptAreaM2": 0.000259441755991792,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        39,
+        40
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39538,
+      "beforeAreaM2": 0.19531517185411587,
+      "keptAreaM2": 5.464865193809758e-8,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        39,
+        40
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39539,
+      "beforeAreaM2": 0.5850088273858286,
+      "keptAreaM2": 0.5850088273858286,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39540,
+      "beforeAreaM2": 0.5850094472837508,
+      "keptAreaM2": 0.5850094472837508,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39541,
+      "beforeAreaM2": 0.5850088273858286,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        39,
+        41,
+        42
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39542,
+      "beforeAreaM2": 0.5850094472837508,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        39,
+        41,
+        42
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39543,
+      "beforeAreaM2": 0.1953199875459587,
+      "keptAreaM2": 0.0003314013202854088,
+      "changed": true,
+      "parts": 5,
+      "ownerIds": [
+        39,
+        40,
+        41,
+        42
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39544,
+      "beforeAreaM2": 0.1953199875459587,
+      "keptAreaM2": 1.2492841141813996e-7,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        39,
+        40,
+        41,
+        42
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39545,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 0.5849943570487968,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39546,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 0.5849943570487968,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39547,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        41
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39548,
+      "beforeAreaM2": 0.5849943570487968,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        41
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39549,
+      "beforeAreaM2": 0.19531517185411587,
+      "keptAreaM2": 0.0004033823281796705,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        41,
+        42
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39550,
+      "beforeAreaM2": 0.19531517185411587,
+      "keptAreaM2": 1.5741684301472998e-7,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        41,
+        42
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39551,
+      "beforeAreaM2": 0.5399993852418227,
+      "keptAreaM2": 0.0006813914190243435,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        43
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39552,
+      "beforeAreaM2": 0.5399993852418227,
+      "keptAreaM2": 3.4784800657930013e-7,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        43
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39553,
+      "beforeAreaM2": 0.5399877127635024,
+      "keptAreaM2": 0.5399877127635024,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39554,
+      "beforeAreaM2": 0.5399877127635024,
+      "keptAreaM2": 0.5399877127635024,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39555,
+      "beforeAreaM2": 0.1803036210502728,
+      "keptAreaM2": 2.19775204894923e-8,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        43,
+        44
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39556,
+      "beforeAreaM2": 0.1802900741640866,
+      "keptAreaM2": 0.000101475657610307,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        43,
+        44
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39557,
+      "beforeAreaM2": 0.5399871405722964,
+      "keptAreaM2": 0.0002719755170954162,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        43,
+        45,
+        46
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39558,
+      "beforeAreaM2": 0.5399877127635024,
+      "keptAreaM2": 1.1408787221395591e-7,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        43,
+        45,
+        46
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39559,
+      "beforeAreaM2": 0.539998813038248,
+      "keptAreaM2": 0.539998813038248,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39560,
+      "beforeAreaM2": 0.5399993852418227,
+      "keptAreaM2": 0.5399993852418227,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39561,
+      "beforeAreaM2": 0.18029060678353226,
+      "keptAreaM2": 3.347740858413007e-8,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        43,
+        45,
+        46
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39562,
+      "beforeAreaM2": 0.18030415368678604,
+      "keptAreaM2": 0.00014061327473094477,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        43,
+        44,
+        46
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39563,
+      "beforeAreaM2": 0.5400132835212379,
+      "keptAreaM2": 0.000006861128036947346,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        45
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39564,
+      "beforeAreaM2": 0.5400132835212379,
+      "keptAreaM2": 1.0599573029306882e-9,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        45
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39565,
+      "beforeAreaM2": 0.539998813038248,
+      "keptAreaM2": 0.539998813038248,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39566,
+      "beforeAreaM2": 0.539998813038248,
+      "keptAreaM2": 0.539998813038248,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39567,
+      "beforeAreaM2": 0.180268139002667,
+      "keptAreaM2": 5.1438253619674645e-8,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        45,
+        46
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39568,
+      "beforeAreaM2": 0.18029449972124348,
+      "keptAreaM2": 0.0001739513265133817,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        45,
+        46
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39569,
+      "beforeAreaM2": 0.539998813038248,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        45
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39570,
+      "beforeAreaM2": 0.539998813038248,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        45
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39571,
+      "beforeAreaM2": 0.5400132835212379,
+      "keptAreaM2": 0.5400132835212379,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39572,
+      "beforeAreaM2": 0.5400132835212379,
+      "keptAreaM2": 0.5400132835212379,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39573,
+      "beforeAreaM2": 0.18029264577116358,
+      "keptAreaM2": 1.1836196733375762e-7,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        45,
+        46
+      ]
+    },
+    {
+      "object": "solid 0,-2",
+      "triangle": 39574,
+      "beforeAreaM2": 0.18026628542267759,
+      "keptAreaM2": 0.00024228158687171556,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        45,
+        46
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3625,
+      "beforeAreaM2": 0.5915621985831405,
+      "keptAreaM2": 0.5915621985831405,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3626,
+      "beforeAreaM2": 0.5915621985831405,
+      "keptAreaM2": 0.5915621985831405,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3627,
+      "beforeAreaM2": 0.5915621985831405,
+      "keptAreaM2": 0.0001685730597890208,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        4,
+        6,
+        7
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3628,
+      "beforeAreaM2": 0.5915621985831405,
+      "keptAreaM2": 1.2079261373207247e-8,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        4,
+        6,
+        7
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3629,
+      "beforeAreaM2": 0.19752136576277138,
+      "keptAreaM2": 0.00012810363983099972,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3630,
+      "beforeAreaM2": 0.19752136576277138,
+      "keptAreaM2": 3.624555457588539e-8,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3631,
+      "beforeAreaM2": 0.591574012242289,
+      "keptAreaM2": 0.591574012242289,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3632,
+      "beforeAreaM2": 0.591574012242289,
+      "keptAreaM2": 0.591574012242289,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3633,
+      "beforeAreaM2": 0.5915481946131034,
+      "keptAreaM2": 0.0001663964567460084,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        6
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3634,
+      "beforeAreaM2": 0.5915481946131034,
+      "keptAreaM2": 1.1940286275767014e-8,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        6
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3635,
+      "beforeAreaM2": 0.19750097540550002,
+      "keptAreaM2": 0.000039728040641281915,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        6,
+        7
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3636,
+      "beforeAreaM2": 0.19751670535472576,
+      "keptAreaM2": 7.992700147401652e-9,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        6,
+        7
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3667,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.6451667465382094,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3668,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.6451667465382094,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3669,
+      "beforeAreaM2": 0.6451549329111945,
+      "keptAreaM2": 0.6451549329111945,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3670,
+      "beforeAreaM2": 0.6451549329111945,
+      "keptAreaM2": 0.6451549329111945,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3671,
+      "beforeAreaM2": 0.21543097131098304,
+      "keptAreaM2": 0.000044011323813221675,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        59,
+        60
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3672,
+      "beforeAreaM2": 0.21541586686402,
+      "keptAreaM2": 0.00002021161837952816,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        59,
+        60
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3673,
+      "beforeAreaM2": 0.6451549329111945,
+      "keptAreaM2": 0.6451549329111945,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3674,
+      "beforeAreaM2": 0.6451549329111945,
+      "keptAreaM2": 0.6451549329111945,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3675,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.6451667465382094,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3676,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.6451667465382094,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3677,
+      "beforeAreaM2": 0.21541586686402,
+      "keptAreaM2": 0.00004536444977137987,
+      "changed": true,
+      "parts": 7,
+      "ownerIds": [
+        59,
+        60,
+        61,
+        62
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3678,
+      "beforeAreaM2": 0.21543097131098304,
+      "keptAreaM2": 0.000023470864404444914,
+      "changed": true,
+      "parts": 6,
+      "ownerIds": [
+        59,
+        60,
+        61,
+        62
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3679,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.6451667465382094,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3680,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.6451667465382094,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3681,
+      "beforeAreaM2": 0.6451527426885943,
+      "keptAreaM2": 0.28379663758704904,
+      "changed": true,
+      "parts": 5,
+      "ownerIds": [
+        61,
+        63,
+        64
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3682,
+      "beforeAreaM2": 0.6451527426885943,
+      "keptAreaM2": 0.5719577736778887,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        61,
+        63,
+        64
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3683,
+      "beforeAreaM2": 0.2153821011209351,
+      "keptAreaM2": 0.000024877370014844403,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        61,
+        62,
+        63,
+        64
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3684,
+      "beforeAreaM2": 0.2154151387914731,
+      "keptAreaM2": 0.00001141058067628336,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        61,
+        62,
+        63,
+        64
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3685,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.3565334244436458,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        64
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3686,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.6026818996216746,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        64
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3687,
+      "beforeAreaM2": 0.6451549329111945,
+      "keptAreaM2": 0.0001803843314179371,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        63
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3688,
+      "beforeAreaM2": 0.6451549329111945,
+      "keptAreaM2": 1.2706172332276923e-8,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        63
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3689,
+      "beforeAreaM2": 0.21539327323830765,
+      "keptAreaM2": 0.000006495701169667058,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        63,
+        64
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3690,
+      "beforeAreaM2": 0.2153781697150167,
+      "keptAreaM2": 3.5449281225706636e-10,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        63,
+        64
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3691,
+      "beforeAreaM2": 0.6451549329111945,
+      "keptAreaM2": 7.742185074066864e-14,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        63,
+        64,
+        66
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3692,
+      "beforeAreaM2": 0.6451549329111945,
+      "keptAreaM2": 1.1843686421057518e-13,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        63,
+        64,
+        66
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3693,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.00018021035952389572,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        63,
+        65,
+        66
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3694,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 1.2515555812559292e-8,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        63,
+        65,
+        66
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3695,
+      "beforeAreaM2": 0.2153781697150167,
+      "keptAreaM2": 1.352403073806088e-14,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        63,
+        64,
+        65,
+        66
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3696,
+      "beforeAreaM2": 0.21539327323830765,
+      "keptAreaM2": 1.1370262888225963e-16,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        63,
+        64,
+        65,
+        66
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3697,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        66
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3698,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        66
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3699,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.00018163939308337486,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        65
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3700,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 1.2681899074301325e-8,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        65
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3701,
+      "beforeAreaM2": 0.2153821011209351,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        65,
+        66
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3702,
+      "beforeAreaM2": 0.2153821011209351,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        65,
+        66
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3703,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.18561194280284546,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        76
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3704,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.5064882038717506,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        76
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3705,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.45967902839295893,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        75
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3706,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.13867856008919213,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        75
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3707,
+      "beforeAreaM2": 0.2153821011209351,
+      "keptAreaM2": 0.000003381811620217951,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        75,
+        76
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3708,
+      "beforeAreaM2": 0.2153821011209351,
+      "keptAreaM2": 0.000002526776184029358,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        75,
+        76
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3709,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.4171230059036689,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        75,
+        76,
+        78
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3710,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.10606972247948972,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        75,
+        76,
+        78
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3711,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.2281567232901686,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        77
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3712,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.5390970236645339,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        77
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3713,
+      "beforeAreaM2": 0.21538425132737998,
+      "keptAreaM2": 0.0000030746293489930164,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        75,
+        76,
+        77,
+        78
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3714,
+      "beforeAreaM2": 0.21538425132737998,
+      "keptAreaM2": 0.000005555251886112008,
+      "changed": true,
+      "parts": 5,
+      "ownerIds": [
+        75,
+        76,
+        77,
+        78
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3715,
+      "beforeAreaM2": 0.6451674301817836,
+      "keptAreaM2": 0.6451674301817836,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3716,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.6451667465382094,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3717,
+      "beforeAreaM2": 0.6451438029787178,
+      "keptAreaM2": 0.11671907376514648,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        77,
+        79,
+        80
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3718,
+      "beforeAreaM2": 0.6451431193601799,
+      "keptAreaM2": 0.005790857186113713,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        77,
+        79,
+        80
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3719,
+      "beforeAreaM2": 0.21540705574545543,
+      "keptAreaM2": 0.00003222822323021957,
+      "changed": true,
+      "parts": 4,
+      "ownerIds": [
+        77,
+        78,
+        79,
+        80
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3720,
+      "beforeAreaM2": 0.21537684851831884,
+      "keptAreaM2": 3.6875088475944534e-7,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        77,
+        78,
+        79,
+        80
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3721,
+      "beforeAreaM2": 0.6451431193601799,
+      "keptAreaM2": 0.1303022060999482,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        80
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3722,
+      "beforeAreaM2": 0.6451438029787178,
+      "keptAreaM2": 0.4495726418606574,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        80
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3723,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.6451667465382094,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3724,
+      "beforeAreaM2": 0.6451674301817836,
+      "keptAreaM2": 0.6451674301817836,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3725,
+      "beforeAreaM2": 0.2153768404468243,
+      "keptAreaM2": 0.000008293812831187239,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        79,
+        80
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3726,
+      "beforeAreaM2": 0.215407047673418,
+      "keptAreaM2": 0.000026497171969463965,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        79,
+        80
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3727,
+      "beforeAreaM2": 0.6451674301817836,
+      "keptAreaM2": 1.808207775918618e-13,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        79,
+        80,
+        82
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3728,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 2.7675991519116394e-13,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        79,
+        80,
+        82
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3729,
+      "beforeAreaM2": 0.6451674301817836,
+      "keptAreaM2": 0.6451674301817836,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3730,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.6451667465382094,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3731,
+      "beforeAreaM2": 0.21538471123464023,
+      "keptAreaM2": 1.623949654879749e-9,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        79,
+        80,
+        81,
+        82
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3732,
+      "beforeAreaM2": 0.21538471123464023,
+      "keptAreaM2": 0.000050252763319498056,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        79,
+        80,
+        81,
+        82
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3733,
+      "beforeAreaM2": 0.6451527426885943,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        82
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3734,
+      "beforeAreaM2": 0.6451534263173295,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        82
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3735,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.6451667465382094,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3736,
+      "beforeAreaM2": 0.6451674301817836,
+      "keptAreaM2": 0.6451674301817836,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3737,
+      "beforeAreaM2": 0.21541774134574188,
+      "keptAreaM2": 2.663823865393383e-14,
+      "changed": true,
+      "parts": 1,
+      "ownerIds": [
+        81,
+        82
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3738,
+      "beforeAreaM2": 0.21538470316344036,
+      "keptAreaM2": 0.000018701404367069782,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        81,
+        82
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3739,
+      "beforeAreaM2": 0.6451674301817836,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        92
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3740,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0,
+      "changed": true,
+      "parts": 0,
+      "ownerIds": [
+        92
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3741,
+      "beforeAreaM2": 0.6451438029787178,
+      "keptAreaM2": 0.2811019996040536,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        91
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3742,
+      "beforeAreaM2": 0.6451431193601799,
+      "keptAreaM2": 0.03986669037767103,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        91
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3743,
+      "beforeAreaM2": 0.21540705574545543,
+      "keptAreaM2": 2.1127090812785412e-10,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        91,
+        92
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3744,
+      "beforeAreaM2": 0.21537684851831884,
+      "keptAreaM2": 0.0000016766525792287972,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        91,
+        92
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3745,
+      "beforeAreaM2": 0.6451291149976885,
+      "keptAreaM2": 0.3819521706131961,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        91,
+        92,
+        94
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3746,
+      "beforeAreaM2": 0.645129798601387,
+      "keptAreaM2": 0.08421122879519938,
+      "changed": true,
+      "parts": 2,
+      "ownerIds": [
+        91,
+        92,
+        94
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3747,
+      "beforeAreaM2": 0.6451667465382094,
+      "keptAreaM2": 0.6451667465382094,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3748,
+      "beforeAreaM2": 0.6451674301817836,
+      "keptAreaM2": 0.6451674301817836,
+      "changed": false,
+      "parts": 1,
+      "ownerIds": []
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3749,
+      "beforeAreaM2": 0.21540987676999201,
+      "keptAreaM2": 0.0000013810139606804813,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        91,
+        92,
+        93,
+        94
+      ]
+    },
+    {
+      "object": "solid 1,-2",
+      "triangle": 3750,
+      "beforeAreaM2": 0.215407047673418,
+      "keptAreaM2": 0.000027505744143688664,
+      "changed": true,
+      "parts": 3,
+      "ownerIds": [
+        91,
+        92,
+        93,
+        94
+      ]
+    }
+  ]
+}

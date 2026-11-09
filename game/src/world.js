@@ -2,6 +2,7 @@ import { buildUnderpassOwnerIndex } from './underpass-ground-owner.js';
 import { underpassRoofModel, underpassRoofFaces, underpassRoofCollider, UNDERPASS_COVER_POLICY } from './underpass-roof.js';
 import { sharedBridgePadSurface } from './bridge-pad-profile.js';
 import { compileSharedBridgeProfile } from './shared-bridge-profile.js';
+import { buildGeneratedParapetOwnership, emitOwnedSeparationQuad } from './generated-parapet-ownership.js';
 import { displaceBridgeSurface } from './bridge-surface-mesh.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landmarkHelpers } from './util.js';
@@ -2162,12 +2163,15 @@ export async function buildWorld(city, renderer, opts = {}) {
     const cornerPolys = [], cornerGrid = new BoxGrid(24); // raised junction corners {p, n, x0..z1}
     let raisedPieces = 0; const cornerSkips = []; // (stats: why a junction corner was left low)
     const SIDE_BACK = 0.3; // the raised top runs this far past the property line (fences / hedges there stand on it)
+    const parapetOwnership = buildGeneratedParapetOwnership();
     for (const e of edges) {
         if (e.virtual) continue; // invisible U-turn connectors
         const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2;
         const c = cellOf(mx, mz);
         const v0g = c.ground.vc, v0m = c.marks.vc, v0s = c.solid.vc, v0p = c.road.vc;
         const i0g = c.ground.ic, i0s = c.solid.ic, i0p = c.road.ic, i0m = c.marks.ic;
+        const bridgeGuardSourceId = data.roadSourceGeometry?.[e.road]?.sourceId;
+        const bridgeGuard = e.bridge && data.roadGeometryPolicy === 'source' && /^w\d+$/.test(bridgeGuardSourceId || '') ? new MeshBuilder() : null;
         const elevated = Math.abs(e.ya) > 0.01 || Math.abs(e.yb) > 0.01;
         if (elevated) raised.push(e);
         const ly = layerY(e);
@@ -2396,6 +2400,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         // bridges: railings
         if (e.bridge) {
+            const sb = bridgeGuard || c.solid;
             for (const s of [1, -1]) {
                 const pa = corner(e, e.a, s, widthAsphalt(e, s) + 0.3, widthAsphalt), pb = corner(e, e.b, s, widthAsphalt(e, s) + 0.3, widthAsphalt);
                 // in ~3 m pieces; a piece standing on another deck / carriageway at this level (two ways mapped side by
@@ -2407,9 +2412,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                     if (coveredByOther(mx, mz, e, yAlong(e, mx, mz), 0.1)) continue;
                     if (tramGrades.excludesInferredObstacle(A, B, { inferred: true, y0a: Y.road + yAlong(e, ...A), y1a: Y.road + yAlong(e, ...A) + 1.1,
                         y0b: Y.road + yAlong(e, ...B), y1b: Y.road + yAlong(e, ...B) + 1.1, kind: 'bridge-guard-visual', sourceId: data.roadSourceGeometry?.[e.road]?.sourceId })) continue;
-                    c.solid.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, e.nx * s, e.nz * s, rgb('#9aa3ad'));
-                    c.solid.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, -e.nx * s, -e.nz * s, rgb('#8a939d'));
-                    c.solid.flatQuad(A[0], A[1], B[0], B[1], B[0] + e.nx * s * 0.3, B[1] + e.nz * s * 0.3, A[0] + e.nx * s * 0.3, A[1] + e.nz * s * 0.3, yR + 1.1, rgb('#b0b8c0'), 0, -1);
+                    sb.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, e.nx * s, e.nz * s, rgb('#9aa3ad'));
+                    sb.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, -e.nx * s, -e.nz * s, rgb('#8a939d'));
+                    sb.flatQuad(A[0], A[1], B[0], B[1], B[0] + e.nx * s * 0.3, B[1] + e.nz * s * 0.3, A[0] + e.nx * s * 0.3, A[1] + e.nz * s * 0.3, yR + 1.1, rgb('#b0b8c0'), 0, -1);
                 }
             }
         }
@@ -2476,6 +2481,12 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (elevated) { const f = (x, z) => yAlong(e, x, z); displace(c.ground, v0g, f, e, i0g); displace(c.road, v0p, f, e, i0p); displace(c.marks, v0m, f, e, i0m); displace(c.solid, v0s, f, e, i0s); }
         railRoadside.apply(c.ground, i0g, e); railRoadside.apply(c.road, i0p, e); railRoadside.apply(c.solid, i0s, e);
+        if(bridgeGuard){
+            if(elevated)displace(bridgeGuard,0,(x,z)=>yAlong(e,x,z),e,0);
+            railRoadside.apply(bridgeGuard,0,e);
+            parapetOwnership.addBuilderCaps(bridgeGuard,{heightM:1.1,owner:{emitter:'bridge-parapet',inferred:true,sourceId:bridgeGuardSourceId,edgeId:e.id}});
+            c.solid.append(bridgeGuard); // same cell/material batch, unchanged earlier guard geometry
+        }
     }
     // ---- turn arrows (OSM turn:lanes) painted in each lane 9 m before the junction a way ends at (R11.3)
     {
@@ -3059,8 +3070,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (w.kind !== 'barrier') continue;
             const ya = w.y0a + 0.45, yb = w.y0b + 0.45, L = Math.hypot(w.bx - w.ax, w.bz - w.az) || 1, px = -(w.bz - w.az) / L * 0.15, pz = (w.bx - w.ax) / L * 0.15;
             const c = cellOf(w.x, w.z);
-            for (const sd of [1, -1]) c.solid.face4([w.ax + px * sd, ya, w.az + pz * sd], [w.bx + px * sd, yb, w.bz + pz * sd], [w.bx + px * sd, yb + 0.9, w.bz + pz * sd], [w.ax + px * sd, ya + 0.9, w.az + pz * sd], shadeRgb(barrierCol, sd > 0 ? 1 : 0.9), [px * sd, 0, pz * sd]);
-            c.solid.face4([w.ax + px, ya + 0.9, w.az + pz], [w.bx + px, yb + 0.9, w.bz + pz], [w.bx - px, yb + 0.9, w.bz - pz], [w.ax - px, ya + 0.9, w.az - pz], shadeRgb(barrierCol, 1.08), [0, 1, 0]);
+            const metadata={inferred:w.inferred===true,emitter:'separation-barrier',sourceId:data.roadSourceGeometry?.[w.edge?.road]?.sourceId,edgeId:w.edge?.id};
+            for (const sd of [1, -1]) emitOwnedSeparationQuad(c.solid,[[w.ax + px * sd, ya, w.az + pz * sd], [w.bx + px * sd, yb, w.bz + pz * sd], [w.bx + px * sd, yb + 0.9, w.bz + pz * sd], [w.ax + px * sd, ya + 0.9, w.az + pz * sd]],shadeRgb(barrierCol,sd>0?1:.9),[px*sd,0,pz*sd],metadata,parapetOwnership);
+            emitOwnedSeparationQuad(c.solid,[[w.ax + px, ya + 0.9, w.az + pz], [w.bx + px, yb + 0.9, w.bz + pz], [w.bx - px, yb + 0.9, w.bz - pz], [w.ax - px, ya + 0.9, w.az - pz]],shadeRgb(barrierCol,1.08),[0,1,0],metadata,parapetOwnership);
         }
     }
     walls.push(...railRoadsideCaps); // exact render-matched new fascia; no invented barrier thickness
@@ -6152,6 +6164,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         group, graph, buildings: allColl, pois, lights, nodeLight, bounds, nearestEdge, edgesInBox, isWater, isPark, waterMesh, sky,
         districts, areas, landmarks, trams, stats, data, spawn, city, allEdges,
         tramGrade: tramGrades.resolveGrade, tramDecks, tramDeckSupportAt, sidewalkWidth, sourceBridgeProfile:sharedBridgeProfile.report, sourceBridgeMeshAudit:sharedBridgeMeshAudit,
+        generatedParapetOwnership:{report:parapetOwnership.report,caps:parapetOwnership.pieces.map(({id,top,heightM,owner,box})=>({id,top,heightM,owner,box}))},
         /** placed trees {x, z, species, con, kind} (read-only; QA detectors) */
         treeSpots: treeList,
         /** chapters: the loaded district {id, name, label, bbox, center, landmarks, congestion, areaKm2, ends:[{x,z,node,edge}] (road-closed

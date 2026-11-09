@@ -1,0 +1,31 @@
+{
+  "nativeSource": "8b51e6f38b3e217ac7f8a556949694e5ca62ebdb",
+  "scope": "CPU exact native feature replay and mesh-builder parity; fresh combined native full-size visuals/physical body/drive/budget remain required.",
+  "files": [
+    {
+      "path": "game/src/generated-parapet-ownership.js",
+      "sha256": "9f5d9982339f87f65139485eb901816bd5a3a47edc19342ef8413f84e6b392dd",
+      "bytes": 8334
+    },
+    {
+      "path": "game/src/world.js",
+      "sha256": "cd9770840ce34600bdc8f6c43c2c9fcefa1ac2c1f67e989ed3edac69e0f47504",
+      "bytes": 552291
+    },
+    {
+      "path": "game/dev/generated-parapet-ownership.test.mjs",
+      "sha256": "fae87f25fa7eef5fe1cff083921a91322435cb21b2386d35a4a19412f156fa21",
+      "bytes": 8175
+    },
+    {
+      "path": "handoffs/fidelity/shared-bridge-native-8b51e6f3/proof/parapet-complete-canonical-source-feature-slice.json.gz",
+      "sha256": "ba9e92d62ea47369484ae9b69e17c392754c945ee10ec7686a92cf45c23edb0c",
+      "bytes": 35255
+    },
+    {
+      "path": "handoffs/fidelity/generated-parapet-ownership/controls.json",
+      "sha256": "d324c19ecb489bd89a39f0df306914a223da22c4ca0a48490ac570b9106fcd34",
+      "bytes": 57190
+    }
+  ]
+}

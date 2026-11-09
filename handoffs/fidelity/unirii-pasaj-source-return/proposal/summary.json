@@ -1,0 +1,46 @@
+{
+  "corridors": [
+    {
+      "id": "unirii-pasaj-north-entry",
+      "legs": 44,
+      "lengthM": 1041.2048582294417,
+      "radiusM": 40,
+      "maxRequiredEnvelopeM": 26.378574510520878,
+      "firstSourceNode": 10961755188,
+      "lastSourceNode": 2351340228
+    },
+    {
+      "id": "unirii-pasaj-south-entry",
+      "legs": 27,
+      "lengthM": 945.249005029332,
+      "radiusM": 40,
+      "maxRequiredEnvelopeM": 28.128574510520878,
+      "firstSourceNode": 257685750,
+      "lastSourceNode": 2687968315
+    },
+    {
+      "id": "unirii-pasaj-north-exit",
+      "legs": 42,
+      "lengthM": 971.4353775921392,
+      "radiusM": 40,
+      "maxRequiredEnvelopeM": 27.628574510520878,
+      "firstSourceNode": 2351340242,
+      "lastSourceNode": 257718107
+    },
+    {
+      "id": "unirii-pasaj-south-exit",
+      "legs": 13,
+      "lengthM": 727.4338400441309,
+      "radiusM": 40,
+      "maxRequiredEnvelopeM": 28.628574510520878,
+      "firstSourceNode": 2687968316,
+      "lastSourceNode": 6242940774
+    }
+  ],
+  "uniqueSourceWays": 30,
+  "selectedSourceNodes": 128,
+  "retainedTouchingRestrictions": 13,
+  "compiledRestrictions": 11,
+  "sourceDuplicateConflicts": 0,
+  "currentNativeAcceptance": false
+}

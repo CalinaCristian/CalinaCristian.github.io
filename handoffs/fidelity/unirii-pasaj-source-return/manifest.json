@@ -1,0 +1,95 @@
+{
+  "source": "2696df66fd0331fc645f7c003cbcca7a5410740b",
+  "scope": "CPU proposal only, no runtime/data changes or native driving acceptance",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 5401,
+      "sha256": "04a368013f471d38c47b2e9f02662f9fb81b33bd059928cdd0fc6f93dd6b6a09"
+    },
+    {
+      "path": "baseline-retention.json",
+      "bytes": 1803,
+      "sha256": "a48b43811dc5bff1fc9d8fe9af064ba2b041fff4ed353b38fc8f5b4e55ebb0e3"
+    },
+    {
+      "path": "module-inputs.json",
+      "bytes": 1212,
+      "sha256": "fd1b5537a6a39f6718cf1885519e8f6aa2c30016e1bf0c3d2be38313da4efb5b"
+    },
+    {
+      "path": "native-incidence-395.json.gz",
+      "bytes": 199541,
+      "sha256": "16a78950a5cb7768ac09870f29be60b7c19d277f0969daf491788a5a1f4011fc",
+      "decompressedSHA256": "30ef892dfbcf7601689b75f410aaf5a4f755c9e9fa91adcbe73698348e641c01"
+    },
+    {
+      "path": "native-profiles-before-9fc.json.gz",
+      "bytes": 160667,
+      "sha256": "e40445a14e9eef579b7c6612bde06065e37aad169dfd281c7f937f8b20671d6a",
+      "decompressedSHA256": "4785da483ae9fafdb5fbc386ea930bd4c177f425d73f78589fed9d5b7145c46e"
+    },
+    {
+      "path": "profile-queries.json.gz",
+      "bytes": 179840,
+      "sha256": "0884e61e4f1bd3d989ce103a62b542d2d290ea7379218e319553656b1bd8cb33",
+      "decompressedSHA256": "89bdf00635b402d12a57cfefcb934687bf970c47f8fa442e82635ce4a6d867a4"
+    },
+    {
+      "path": "profile-sampler-controls.json",
+      "bytes": 381,
+      "sha256": "6b376fa3b121dc55720f7516bed32f140bbd438c6b8a7a61f9f67920d933a2b9"
+    },
+    {
+      "path": "proposal/audit.json",
+      "bytes": 97353,
+      "sha256": "a47d159a83e2b692e2ff4ee678393bda240e822581113ef673d0fe0202d7b34c"
+    },
+    {
+      "path": "proposal/compiled.json",
+      "bytes": 73476,
+      "sha256": "e8e7a03a498eb74b995dd6b736e2c63df9651eb25cc9061adcf15e861b5fded1"
+    },
+    {
+      "path": "proposal/review.json",
+      "bytes": 18675,
+      "sha256": "1dbc861ae5c9943e89e9c27a047f83fad00c2e522317b955eb0f15875dd2ca93"
+    },
+    {
+      "path": "proposal/selected-raw-source.json.gz",
+      "bytes": 4655,
+      "sha256": "a620169c709b30f394f0610eff1b7bb37e090725c8aa6d4d09115d78198397d1",
+      "decompressedSHA256": "2af0c31cfd05f0539616a704f28a84ade0ab755baf087d10d2912b5bc2d14299"
+    },
+    {
+      "path": "proposal/summary.json",
+      "bytes": 1214,
+      "sha256": "2606de1e0e2301b0351741b0b30c5e1d60675e05cfe14a48e41d20044ae7b2a9"
+    },
+    {
+      "path": "retention-and-profile-plan.json",
+      "bytes": 3286,
+      "sha256": "05ff7532e39360018c488ec8257deed866219f3c0a013b27be19d34b0c76a7b0"
+    },
+    {
+      "path": "tools/audit-source-return.mjs",
+      "bytes": 13925,
+      "sha256": "ce4c587106de1894d0625521bfaf95676cf5099a562123849b4d292e962e7409"
+    },
+    {
+      "path": "tools/prepare-profile-queries.py",
+      "bytes": 2819,
+      "sha256": "f3f624220b12a3934b919f1bcf9a181434ed4a95bada3562cb4c9719ffc6e48a"
+    },
+    {
+      "path": "tools/profile-sampler-controls.cjs",
+      "bytes": 2027,
+      "sha256": "ec597b283dbc776600400e25ee40f9b8ea2c86773af79e23842bfa883e94ae03"
+    },
+    {
+      "path": "tools/sample-native-profiles.cjs",
+      "bytes": 2334,
+      "sha256": "5c3e787d3ef43304b40541360fc10caee58f4dd476877b2e5d93dfec69048641"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "source": "2696df66fd0331fc645f7c003cbcca7a5410740b",
+  "sourceDataSHA256": "e5ec3f964640b500f4fcf0aa2bd38313ce625a594ff915ff599c7c792b5bd887",
+  "status": "CPU proposal only; generated prototype is diagnostic, not shipped data",
+  "requiredRetention": [
+    "All old positive original source road nodes and exact XY; synthetic clipped ends may retire only with an explicit literal-ramp replacement record.",
+    "Every old core and scenery source-way identity, raw tags, source node order, literal widths/access, exact existing building footprints/holes/dimensions/roof profiles and canopy models.",
+    "All prior measured source crowns/centres/radii/info and every mapped tree; broad 2D road overlap is not physical exclusion evidence.",
+    "All prior mapped area/water/line/parking/POI/furniture/source records. Additional true source context is listed separately.",
+    "Cache signatures and source ownership geometry regenerated only after retention gates; changed caches and metadata are explicit, not silently considered pixel parity."
+  ],
+  "profileProtocol": {
+    "before": "Actual9fc captured1103core edges, after canopy correction;5515endpoint/quarter queries prepared. Actual endpoint values and reconstructed linear-interior values labelled separately.",
+    "after": "Fresh native world.roadHeight(x,z,explicit source edge), preserving every matching same-source result. No nearest-road/level fallback, zero fill or best-fit height selection.",
+    "coverage": "All retained old core roads, including every Pasaj source station and all ordinary streets, not just a radius sample. Fresh paired exports must additionally capture passive scenery/grade provenance.",
+    "deltaPolicy": "Retain every nonzero height delta. Record interior/source-join changes explicitly and review any unrelated change. No generic depth correction hidden in the domain.",
+    "meaning": [
+      "legal3.5m maxheight",
+      "categorical mapped incline up/down",
+      "estimated road-depth model",
+      "estimated roof/body opening",
+      "outside flat-terrain/model fallback"
+    ]
+  },
+  "mandatoryMOLStep": "After any full rebuild, reapply/revalidate game/research/covered-road-models-bucharest-unirii.json using append-covered-road-models.mjs and exact retained source XML. Otherwise the known false Coposu tunnel seed returns.",
+  "metadataScope": "Unexpanded current compiler keeps all raw rail runs and original source-way records, but enriches route context and changes missingWayIds availability; line/area/node metadata and cached surface geometry also change. These effects require explicit review/native gates, not an unrelated silent update.",
+  "nativeRequired": [
+    "Before/after complete first-publication body/source admission; full native population/IDs and flags recorded.",
+    "Real public source approach/descent/covered passage/exit/return, sides/mirror, no hidden player placement or invented joins.",
+    "Safe ordinary signal waiting through complete cycles; retain observer reset requests without executingR.",
+    "Independent actual mesh/roof/ground/water/body checks and current submitted main/mirror/shadow budgets.",
+    "Bounded source-pinned CPU profile if needed; root owns actual RAF traffic sampling. No extra manual-tick profiler claim."
+  ]
+}

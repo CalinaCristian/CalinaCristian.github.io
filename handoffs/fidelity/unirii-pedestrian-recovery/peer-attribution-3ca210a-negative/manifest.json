@@ -1,0 +1,66 @@
+{
+  "sourceCommit": "3ca210ac24a8fa83a5db84d6ebf65bae3146ebd8",
+  "rawSha256": "f77e434883d2f87e4bfffaeedb5cae9cb5d805e816212638640a131641dd9854",
+  "artifacts": [
+    {
+      "file": "README.md",
+      "bytes": 1682,
+      "sha256": "9fdac0762f506e41d0304d57af85fd916c9456ff41699e28633eb4fe28276cdb"
+    },
+    {
+      "file": "admission-observer.js",
+      "bytes": 3030,
+      "sha256": "f6eb7fbab2a6ce0086ee723e78b6889c8ac87a6d739835ce0ada18fb7b1aada1"
+    },
+    {
+      "file": "classification.json",
+      "bytes": 103245,
+      "sha256": "adac16597f436dab8cc812af51eb2dc5c47bd769c2788076271336836bad8439"
+    },
+    {
+      "file": "execution.log",
+      "bytes": 639,
+      "sha256": "a3170aa2b989646309249839ee48732287fd2b0db53f1aee9215104cea7f59bb"
+    },
+    {
+      "file": "guard-proposal-observer.js",
+      "bytes": 1507,
+      "sha256": "7ce4079ebb06f2b735a52b0655e4961c4cee2b88761cfb5c7d9cbdabc6fabe26"
+    },
+    {
+      "file": "observe-peer-attribution.cjs",
+      "bytes": 19102,
+      "sha256": "37521a5b84d190e1a084a007852f5d9e79a668a0d0c2563c6c327d59771ac79e"
+    },
+    {
+      "file": "peer-observer.js",
+      "bytes": 6463,
+      "sha256": "9cd13f843ae71dfb5e7b4e01df5fa9f3cb5fc1d63e157a08b7efc072f20075e6"
+    },
+    {
+      "file": "player-context-observer.js",
+      "bytes": 3433,
+      "sha256": "35d538f2b1c813ecd66ec2f025c31313dbcc00b55aea7b443efdab54b8989899"
+    },
+    {
+      "file": "report.json.gz",
+      "bytes": 24430391,
+      "sha256": "c3654ae9d7f994daf7bbea97395e5cd50ddf54b6a5ffaccd737b76b9868dfa04"
+    },
+    {
+      "file": "service-pair-observer.js",
+      "bytes": 1546,
+      "sha256": "8fb6659ac7a0423ab5a5333b22be9c524cdef6fb5211c932f811daf9dc51c1f1"
+    },
+    {
+      "file": "unirii-day-chapter-start.png",
+      "bytes": 1199711,
+      "sha256": "0dd972b80ce03b0c5db0e873eb4a50affc94c047bfcb8d9958a2db7337177a8c"
+    },
+    {
+      "file": "unirii-day-first150m.png",
+      "bytes": 1217730,
+      "sha256": "0bb6a7843a08593dbcc75343b71eddbc61ac2e3c703e5b6d02886e0008efb12b"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+LOAD unirii
+{"district":"unirii","label":"day-chapter-start","calls":[260,260],"triangles":[1306570,1306570],"passes":{"mirror":{"calls":54,"triangles":256929},"sun-shadow":{"calls":28,"triangles":191601},"main":{"calls":160,"triangles":858022},"post-or-other":{"calls":18,"triangles":18}}}
+{"district":"unirii","label":"day-first150m","calls":[339,339],"triangles":[1579954,1579954],"passes":{"mirror":{"calls":54,"triangles":258348},"sun-shadow":{"calls":32,"triangles":206182},"main":{"calls":235,"triangles":1115406},"post-or-other":{"calls":18,"triangles":18}}}
+COMPLETE {"errors":0,"consoleErrors":0,"failedRequests":0,"failures":2}

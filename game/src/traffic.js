@@ -27,6 +27,15 @@ const TYPE_MUL = {
     living_street: 0.08, service: 0.08, motorway_link: 0.3, trunk_link: 0.35, primary_link: 0.4, secondary_link: 0.3, tertiary_link: 0.25,
 };
 const trafficMulOf = (e) => e.trafficMul ?? TYPE_MUL[e.type] ?? 0.5;
+// Source sides are relative to edge a→b, independently of travel direction.
+// Keep scalar-only fixture/legacy fallbacks byte-for-byte compatible.
+const sidewalkWidthOf = (world, e, side, fallback = 3) => {
+    const native = world?.sidewalkWidth?.(e, side);
+    if (Number.isFinite(native)) return Math.max(0, native);
+    const explicit = side > 0 ? e.sidewalkRightM : e.sidewalkLeftM;
+    return Number.isFinite(explicit) ? Math.max(0, explicit) : e.sidewalk ?? fallback;
+};
+const sourceSideWidth = (world, e, side) => Number.isFinite(world?.sidewalkWidth?.(e, side)) || Number.isFinite(side > 0 ? e.sidewalkRightM : e.sidewalkLeftM);
 // ---- traffic volume by local hour (relative to midday = 1). Used when the world has no trafficProfile(hour).
 //      Bucharest: TomTom-style peaks 07–10 and 16–19 (×1.6), quiet nights 22–05 (×0.25). Seattle: flatter.
 const HOUR_PROFILE = {
@@ -2151,7 +2160,7 @@ export class Traffic {
             const cx = e.a.x + dx * t, cz = e.a.z + dz * t, d = Math.hypot(x - cx, z - cz), lat = (x - cx) * e.nx + (z - cz) * e.nz, hw = roadSideWidth(e, lat);
             if ((t0 < 0 || t0 > 1) && Math.abs(t0 - t) * e.len > 0.8) continue; // past the edge end: the junction pad decides
             if (d < hw + 0.3) { if (hw - d > depth) { depth = hw - d; car = { e, t, d, lat, hw }; } }
-            else if ((e.sidewalk ?? 0) > 0.6 && d < hw + (e.sidewalk ?? 0) + 1.2 && !walk) walk = { e, t, d, lat, hw };
+            else { const sw = sidewalkWidthOf(this.world, e, lat >= 0 ? 1 : -1, 0); if (sw > 0.6 && d < hw + sw + 1.2 && !walk) walk = { e, t, d, lat, hw }; }
         }
         for (const n of nodes) {
             const d = Math.hypot(x - n.x, z - n.z), rad = n.radius ?? 6;
@@ -2395,6 +2404,7 @@ export class Pedestrians {
                 this.kerbClamp(p);
             } else {
                 const e = pick(); p.e = e; p.dir = this.rng() < 0.5 ? 1 : -1; p.side = this.rng() < 0.5 ? 1 : -1;
+                if (this.width(e, p.side) <= 0) p.side = -p.side; // same original draw; deterministic legal-side repair
                 p.s = this.rng.range(0, e.len); this.placeWalk(p);
             }
             this.list.push(p);
@@ -2405,7 +2415,7 @@ export class Pedestrians {
         this.buildObstacles();
         for (const p of this.list) {
             if (p.state === 'walk') this.placeWalk(p); else this.clearObstacles(p);
-            if (this.inWater(p.x, p.z) && p.e) { p.side = -p.side; p.state = 'walk'; this.placeWalk(p); } // (spawned on water: the other sidewalk; the periodic check moves the rest)
+            if (this.inWater(p.x, p.z) && p.e && this.width(p.e, -p.side) > 0) { p.side = -p.side; p.state = 'walk'; this.placeWalk(p); } // (spawned on water: only an actual other sidewalk)
         }
         // Resolve crossing street mouths before these bodies are admitted to the
         // visible crowd. Live recovery keeps its normal walking-speed limit.
@@ -2507,16 +2517,17 @@ export class Pedestrians {
             if (p.state !== 'down' && Math.hypot(p.x - P.x, p.z - P.z) > far) this.relocate(p, this.t.large ? 120 : 45, this.t.large ? 420 : 200, true);
         }
     }
-    ok(e) { return !isMotorway(e) && !e.tunnel && !e.bridge && e.len > 4 && (e.sidewalk ?? 1) > 0 && e.type !== 'dn' && e.type !== 'service'; }
+    width(e, side, fallback = 3) { return sidewalkWidthOf(this.t.world, e, side, fallback); }
+    ok(e) { return !isMotorway(e) && !e.tunnel && !e.bridge && e.len > 4 && Math.max(this.width(e, 1, 1), this.width(e, -1, 1)) > 0 && e.type !== 'dn' && e.type !== 'service'; }
     // (2026-11-08, owner: "people not even walking on it") district worlds: the walking line is the middle of that side's own
     // sidewalk — halfW (the wider half) put the line metres past the sidewalk on the narrow side of asymmetric streets
     off(e, side = 0) {
         if (!side || !this.t.world?.district) return (e.halfW ?? 6) + 1.5;
-        const w = (side > 0 ? e.wR : e.wL) ?? e.halfW ?? 6, sw = e.sidewalk ?? 3;
-        return w + (sw > 0.3 ? clamp(sw * 0.55, 0.9, 1.6) : 1.5);
+        const w = (side > 0 ? e.wR : e.wL) ?? e.halfW ?? 6, sw = this.width(e, side), old = sw > 0.3 ? clamp(sw * 0.55, 0.9, 1.6) : 1.5;
+        return w + (sourceSideWidth(this.t.world, e, side) ? clamp(old, Math.min(PED_R + .05, sw / 2), Math.max(sw / 2, sw - PED_R - .05)) : old);
     }
     /** how far a walker may drift past its line and still be on the sidewalk (districts; else the legacy 3 m) */
-    maxOut(e, side) { if (!this.t.world?.district || !(e.sidewalk > 0.3)) return 3; const w = (side > 0 ? e.wR : e.wL) ?? e.halfW ?? 6; return Math.max(0.2, w + e.sidewalk - 0.35 - this.off(e, side)); }
+    maxOut(e, side) { const sw = this.width(e, side), known = sourceSideWidth(this.t.world, e, side); if (known && sw <= 0) return 0; if (!this.t.world?.district || (!known && !(e.sidewalk > 0.3))) return 3; const w = (side > 0 ? e.wR : e.wL) ?? e.halfW ?? 6; return Math.max(known ? 0 : 0.2, w + sw - 0.35 - this.off(e, side)); }
     inset(node) { return node.edges.length >= 3 ? (node.radius ?? 6) + 1.2 : 0; }
 
     reach(p) { return this.crowd.reach?.(p.i) || PED_R; }
@@ -2530,7 +2541,7 @@ export class Pedestrians {
         let sides = this._walkSpace.get(e); if (!sides) this._walkSpace.set(e, sides = new Map());
         if (sides.has(side)) return sides.get(side);
         const w = (this.t.world.district ? (side > 0 ? e.wR : e.wL) : null) ?? e.halfW ?? 6;
-        const sw = e.sidewalk ?? 3, gap = 2 * PED_R + 1.2, widthGap = 2 * PED_R + 0.25;
+        const sw = this.width(e, side), gap = 2 * PED_R + 1.2, widthGap = 2 * PED_R + 0.25;
         const lo = Math.min(this.inset(e.a), e.len * 0.45), hi = e.len - Math.min(this.inset(e.b), e.len * 0.45);
         const rows = Math.max(1, Math.floor((hi - lo) / gap)), cols = Math.floor((sw - 0.2) / widthGap), cells = [];
         if (hi - lo >= 2 * PED_R && cols > 0) for (let i = 0; i < rows; i++) for (let j = 0; j < cols; j++) {
@@ -2565,7 +2576,7 @@ export class Pedestrians {
     admitInitialWalk(p) {
         if (p.live || p.state !== 'walk' || !p.e) return false;
         const radius = this.reach(p), vehicleRadius = Math.max(radius, PED_R + 0.4);
-        if (this.freeWalkPoint(p.x, p.z, radius) && this.freeVehiclePoint(p.x, p.z, vehicleRadius) && this.freePersonalSpace(p)) return false;
+        if (this.width(p.e, p.side) > 0 && this.freeWalkPoint(p.x, p.z, radius) && this.freeVehiclePoint(p.x, p.z, vehicleRadius) && this.freePersonalSpace(p)) return false;
         const edges = [...new Set([p.e, ...this.t.index.near(p.x, p.z, 60, [])])].filter(e => this.ok(e));
         const candidates = [];
         for (const e of edges) for (const side of [p.side, -p.side]) {
@@ -2628,7 +2639,7 @@ export class Pedestrians {
             for (const e of this.t.index.near(sx, sz, 16, []).filter(e => this.ok(e))) {
                 const s0 = clamp((sx - e.a.x) * e.dirx + (sz - e.a.z) * e.dirz, 0, e.len);
                 for (const side of [1, -1]) {
-                    const width = (side > 0 ? e.wR : e.wL) ?? e.halfW ?? 6, sw = e.sidewalk ?? 3;
+                    const width = (side > 0 ? e.wR : e.wL) ?? e.halfW ?? 6, sw = this.width(e, side);
                     for (let ds = -8; ds <= 8; ds += 0.55) for (let u = width + radius + 0.08; u <= width + sw - radius - 0.08; u += 0.55) {
                         const s = clamp(s0 + ds, 0, e.len), x = e.a.x + e.dirx * s + e.nx * u * side, z = e.a.z + e.dirz * s + e.nz * u * side;
                         if (Math.hypot(x - sx, z - sz) > 8 || (sideKnown && ((x - root.a.x) * root.nx + (z - root.a.z) * root.nz) * stopSide <= rootWidth)) continue;
@@ -2877,6 +2888,7 @@ export class Pedestrians {
     }
     placeWalk(p) {
         const ox = p.x, oz = p.z;
+        if (this.width(p.e, p.side) <= 0 && this.width(p.e, -p.side) > 0) { p.side = -p.side; p.walkOff = 0; p.dodge = 0; p.dodgeEdge = null; }
         { const mo = this.maxOut(p.e, p.side); if ((p.walkOff || 0) > mo) p.walkOff = Math.max(mo, p.walkOff - 0.03); } // (stay on the sidewalk: back onto it at a walking pace, not in one jump)
         const e = p.e, target = this.dodgeAt(p);
         if (p.dodge === undefined || p.dodgeEdge !== e) p.dodge = target;
@@ -2933,7 +2945,7 @@ export class Pedestrians {
                 const x = oldX + rx * step * side, z = oldZ + rz * step * side;
                 if (p.state === 'walk' && p.e) {
                     const e = p.e, u = ((x - e.a.x) * e.nx + (z - e.a.z) * e.nz) * p.side, w = roadSideWidth(e, p.side);
-                    if (u < w + PED_R + 0.05 || u > w + (e.sidewalk ?? 3) - PED_R - 0.05) continue;
+                    if (u < w + PED_R + 0.05 || u > w + this.width(e, p.side) - PED_R - 0.05) continue;
                 }
                 const physical = correction ? this.peerCorrectionClear(p, x, z, oldX, oldZ) : this.clearWalkStep(x, z, !!(p.onRoad || p.recovery));
                 if (!physical || !this.peerClearStep(p, x, z, oldX, oldZ)) continue;
@@ -3230,13 +3242,13 @@ export class Pedestrians {
                     // the sidewalk line runs through another road here: turn back, then switch sides / move away
                     p.roadHits = (p.roadHits || 0) + 1;
                     if (p.roadHits === 1) { p.dir = -p.dir; p.s = os; }
-                    else if (p.roadHits === 2) { const x = p.x, z = p.z; p.side = -p.side; this.placeWalk(p); this.recoverPose(p, x, z); }
+                    else if (p.roadHits === 2 && this.width(p.e, -p.side) > 0) { const x = p.x, z = p.z; p.side = -p.side; this.placeWalk(p); this.recoverPose(p, x, z); }
                     else { p.roadHits = 0; if (T.large) this.relocate(p, 120, 420, true); else this.relocate(p, 30, 200, true); } // (standing them at the kerb piled them up on one spot)
                 } else p.roadHits = 0;
                 // never in water / a fountain basin (+ 1 m rim; world-visual request, note 17): walkers cross to the other
                 // sidewalk, anyone else is moved back onto a sidewalk around the player
                 if (this.inWater(p.x, p.z)) {
-                    if (p.state === 'walk' && !p.wetFlip) { const x = p.x, z = p.z; p.wetFlip = true; p.side = -p.side; this.placeWalk(p); this.recoverPose(p, x, z); }
+                    if (p.state === 'walk' && !p.wetFlip && this.width(p.e, -p.side) > 0) { const x = p.x, z = p.z; p.wetFlip = true; p.side = -p.side; this.placeWalk(p); this.recoverPose(p, x, z); }
                     else { p.wetFlip = false; this.relocate(p, 30, 200, true); }
                     this.stats.wet = (this.stats.wet || 0) + 1;
                 } else if (p.wetFlip && (p.i + this._fr) % 300 === 0) p.wetFlip = false;
@@ -3454,6 +3466,7 @@ export class Pedestrians {
             p.legs = legs; p.state = 'legs'; p.next = { e: g, dir: og, side: useA ? 1 : -1, s: P2.s };
         };
         const crossLeg = (X, legs, from) => {
+            if (this.width(X, 1) <= 0 || this.width(X, -1) <= 0) return null;
             const cd = Math.min(this.inset(node) + 1.5, X.len * 0.45);
             const A = this.sidePoint(X, node, cd, 1), B = this.sidePoint(X, node, cd, -1);
             const near = Math.hypot(A.x - from.x, A.z - from.z) <= Math.hypot(B.x - from.x, B.z - from.z) ? [A, B] : [B, A];
@@ -3470,6 +3483,7 @@ export class Pedestrians {
         const route = (o, cross, weight) => {
             if (!(weight > 0)) return;
             const legs = [], from = cross ? crossLeg(cross, legs, here) : here;
+            if (!from) return;
             const d = Math.min(this.inset(node), o.g.len * 0.45), A = this.sidePoint(o.g, node, d, 1), B = this.sidePoint(o.g, node, d, -1);
             const side = Math.hypot(A.x - from.x, A.z - from.z) <= Math.hypot(B.x - from.x, B.z - from.z) ? 1 : -1;
             const capacity = this.walkSpace(o.g, side).cells.length, load = this.spaceLoad(o.g, side, p);

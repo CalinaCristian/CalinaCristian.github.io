@@ -6,6 +6,7 @@ import { collideBuildings } from './world.js';
 import { planInitialVehicleAdmission, ordinaryVehicleStations, vehicleVerticalInterval, initialVehicleConflict } from './initial-vehicle-admission.js';
 import { canTravelTram } from './tram-path.js';
 import { validateTramSupportCertificate } from './tram-body-support.js';
+import { ordinarySourceSpan, ordinarySourceBodyPlacement } from './initial-ordinary-source-span.js';
 
 const longBody = v => !!(v.long || v.bus || v.tram || v.length >= 8.5);
 const bodyPose = v => ({ x: v.x, y: v.y, z: v.z, heading: v.heading, s: v.s });
@@ -35,7 +36,8 @@ export function* nativeInitialTrafficCandidates(T, v, { spacingM = 0.25, endMarg
     if (v.parked || v.service) return;
     if (v.edge?.rail && (!v.tram || !canTravelTram(v.edge, v.dir))) return;
     const span = longBody(v) ? T.sSpan(v.edge, v.dir, v.length, true) : null;
-    const stations = longBody(v) ? (span ? rangeStations(v.s, span[0], span[1], spacingM, maxCandidates) : []) : ordinaryVehicleStations(v, { spacingM, endMarginM, maxCandidates });
+    const ordinarySpan = !longBody(v) && ordinarySourceSpan(T, v, { endMarginM });
+    const stations = longBody(v) ? (span ? rangeStations(v.s, span[0], span[1], spacingM, maxCandidates) : []) : ordinarySpan ? rangeStations(v.s, ordinarySpan.lo, ordinarySpan.hi, spacingM, maxCandidates) : ordinaryVehicleStations(v, { spacingM, endMarginM, maxCandidates });
     for (const s of stations) yield previewInitialTrafficPose(T, v, s);
 }
 
@@ -138,6 +140,8 @@ function sourcePlacement(T, v, b, endMarginM) {
         const span = T.sSpan(e, b.dir, b.length, true);
         return span && b.s >= span[0] - 1e-7 && b.s <= span[1] + 1e-7 ? { valid: true } : { valid: false, reason: 'native-long-source-leg-span' };
     }
+    const span = ordinarySourceSpan(T, v, { endMarginM });
+    if (span) return ordinarySourceBodyPlacement(span, b);
     const along = (b.x - e.a.x) * e.dirx + (b.z - e.a.z) * e.dirz, fx = -Math.sin(b.heading), fz = -Math.cos(b.heading);
     const extent = Math.abs(fx * e.dirx + fz * e.dirz) * b.length / 2 + Math.abs(-fz * e.dirx + fx * e.dirz) * b.width / 2;
     return along - extent >= endMarginM - 1e-7 && along + extent <= e.len - endMarginM + 1e-7 ? { valid: true } : { valid: false, reason: 'whole-ordinary-body-source-edge-containment' };

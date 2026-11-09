@@ -1,0 +1,341 @@
+{
+  "sourceCommit": "54c044421640cfe3569bfc3f72159d2169f87581",
+  "producerRawSha256": "e871d1f4689459a8d45e6a278945720aaff5ccdc9aa506e9cad1284cf1f19c5c",
+  "fixtureSha256": "2971e4616e8db25551a856e3b8dc195609ae8025337dfeeb2e7b9d82aa524195",
+  "consumedSourceSha256": {
+    "game/src/traffic.js": "9c32eedf8dc9499415f969ddaca011f5f11c7b2ddc707d0ad1ff6e45eb87eb35",
+    "game/src/initial-traffic-admission.js": "d1fb82060cb69be182c5679ebfd4b26c52f2723224990ec7fc981d5913e01f7f",
+    "game/src/initial-vehicle-admission.js": "f1a27dea11a127e4becc9b718d68a2b73dd2e3afc03beaa49c0156ec189e389f"
+  },
+  "nativeSearch": {
+    "maxDepth": 6,
+    "maxWork": 8192,
+    "work": 377,
+    "candidateTests": 130,
+    "validationCalls": 247,
+    "pairTests": 911,
+    "deepest": 1,
+    "maxReservedBodies": 2,
+    "transactions": 10,
+    "committedTransactions": 2,
+    "rolledBackBranches": 114,
+    "cyclePrunes": 84,
+    "depthPrunes": 0,
+    "workLimitReached": false
+  },
+  "rows": [
+    {
+      "id": 129,
+      "kind": "sedan",
+      "sourceId": "w139713888",
+      "edgeId": 336,
+      "edgeLengthM": 6.07280333464829,
+      "bodyLengthM": 4.85,
+      "endMarginM": 0.05,
+      "permittedStations": {
+        "lo": 2.4749999999999996,
+        "hi": 3.5978033346482903
+      },
+      "stations": [
+        3.036401667324145,
+        2.786401667324145,
+        3.286401667324145,
+        2.536401667324145,
+        3.536401667324145,
+        2.4749999999999996,
+        3.5978033346482903
+      ],
+      "candidates": [
+        {
+          "x": -450.40783905133935,
+          "y": 0.24,
+          "z": -468.34298183475454,
+          "heading": 1.6752961337788506,
+          "s": 3.036401667324145,
+          "pitch": 0,
+          "roll": 0
+        },
+        {
+          "x": -450.15920283580124,
+          "y": 0.24,
+          "z": -468.3690592641306,
+          "heading": 1.6752961337788506,
+          "s": 2.786401667324145,
+          "pitch": 0,
+          "roll": 0
+        },
+        {
+          "x": -450.6564752668775,
+          "y": 0.24,
+          "z": -468.31690440537847,
+          "heading": 1.6752961337788506,
+          "s": 3.286401667324145,
+          "pitch": 0,
+          "roll": 0
+        },
+        {
+          "x": -449.91056662026307,
+          "y": 0.24,
+          "z": -468.39513669350663,
+          "heading": 1.6752961337788506,
+          "s": 2.536401667324145,
+          "pitch": 0,
+          "roll": 0
+        },
+        {
+          "x": -450.9051114824157,
+          "y": 0.24,
+          "z": -468.29082697600245,
+          "heading": 1.6752961337788506,
+          "s": 3.536401667324145,
+          "pitch": 0,
+          "roll": 0
+        },
+        {
+          "x": -449.8494999074982,
+          "y": 0.24,
+          "z": -468.40154148407953,
+          "heading": 1.6752961337788506,
+          "s": 2.4749999999999996,
+          "pitch": 0,
+          "roll": 0
+        },
+        {
+          "x": -450.96617819518053,
+          "y": 0.24,
+          "z": -468.28442218542955,
+          "heading": 1.6752961337788506,
+          "s": 3.5978033346482903,
+          "pitch": 0,
+          "roll": 0
+        }
+      ],
+      "recordedPoseMaxError": 2.220446049250313e-16,
+      "candidateLinearityMaxError": 5.684341886080802e-14,
+      "originalS": 3.036401667324145,
+      "nativeTopLevelAttempts": 14,
+      "nativeAttemptReasons": {
+        "another-planned-body": 14
+      },
+      "nativeCandidateStationsMatchAllRecordedAttempts": true
+    },
+    {
+      "id": 154,
+      "kind": "compact-sedan",
+      "sourceId": "w28869538",
+      "edgeId": 722,
+      "edgeLengthM": 5.1058200195417305,
+      "bodyLengthM": 4.36,
+      "endMarginM": 0.05,
+      "permittedStations": {
+        "lo": 2.23,
+        "hi": 2.8758200195417305
+      },
+      "stations": [
+        2.5529100097708652,
+        2.3029100097708652,
+        2.8029100097708652,
+        2.23,
+        2.8758200195417305
+      ],
+      "candidates": [
+        {
+          "x": 445.63645385213584,
+          "y": 0.24,
+          "z": 124.23038750861141,
+          "heading": 1.018604491691706,
+          "s": 2.5529100097708652,
+          "pitch": 0,
+          "roll": 0
+        },
+        {
+          "x": 445.8492980598702,
+          "y": 0.24,
+          "z": 124.3615261498807,
+          "heading": 1.018604491691706,
+          "s": 2.3029100097708652,
+          "pitch": 0,
+          "roll": 0
+        },
+        {
+          "x": 445.42360964440155,
+          "y": 0.24,
+          "z": 124.09924886734213,
+          "heading": 1.018604491691706,
+          "s": 2.8029100097708652,
+          "pitch": 0,
+          "roll": 0
+        },
+        {
+          "x": 445.9113719529325,
+          "y": 0.24,
+          "z": 124.39977142834584,
+          "heading": 1.018604491691706,
+          "s": 2.23,
+          "pitch": 0,
+          "roll": 0
+        },
+        {
+          "x": 445.36153575133926,
+          "y": 0.24,
+          "z": 124.06100358887699,
+          "heading": 1.018604491691706,
+          "s": 2.8758200195417305,
+          "pitch": 0,
+          "roll": 0
+        }
+      ],
+      "recordedPoseMaxError": 0,
+      "candidateLinearityMaxError": 5.684341886080802e-14,
+      "originalS": 2.5529100097708652,
+      "nativeTopLevelAttempts": 10,
+      "nativeAttemptReasons": {
+        "another-planned-body": 10
+      },
+      "nativeCandidateStationsMatchAllRecordedAttempts": true
+    },
+    {
+      "id": 172,
+      "kind": "compact-sedan",
+      "sourceId": "w178060182",
+      "edgeId": 352,
+      "edgeLengthM": 4.539586758048736,
+      "bodyLengthM": 4.36,
+      "endMarginM": 0.05,
+      "permittedStations": {
+        "lo": 2.23,
+        "hi": 2.3095867580487357
+      },
+      "stations": [
+        2.269793379024368,
+        2.23,
+        2.3095867580487357
+      ],
+      "candidates": [
+        {
+          "x": -451.1603506543323,
+          "y": 0.24,
+          "z": -465.947043043249,
+          "heading": -2.7726591442944417,
+          "s": 2.269793379024368,
+          "pitch": 0,
+          "roll": 0
+        },
+        {
+          "x": -451.1747009788106,
+          "y": 0.24,
+          "z": -465.98415882428003,
+          "heading": -2.7726591442944417,
+          "s": 2.23,
+          "pitch": 0,
+          "roll": 0
+        },
+        {
+          "x": -451.146000329854,
+          "y": 0.24,
+          "z": -465.909927262218,
+          "heading": -2.7726591442944417,
+          "s": 2.3095867580487357,
+          "pitch": 0,
+          "roll": 0
+        }
+      ],
+      "recordedPoseMaxError": 0,
+      "candidateLinearityMaxError": 5.684341886080802e-14,
+      "originalS": 2.269793379024368,
+      "nativeTopLevelAttempts": 6,
+      "nativeAttemptReasons": {
+        "another-planned-body": 6
+      },
+      "nativeCandidateStationsMatchAllRecordedAttempts": true
+    },
+    {
+      "id": 350,
+      "kind": "hatch",
+      "sourceId": "w448266588",
+      "edgeId": 843,
+      "edgeLengthM": 4.305747495501056,
+      "bodyLengthM": 4.28,
+      "endMarginM": 0.05,
+      "permittedStations": {
+        "lo": 2.19,
+        "hi": 2.1157474955010565
+      },
+      "stations": [],
+      "candidates": [],
+      "recordedPoseMaxError": 2.220446049250313e-16,
+      "candidateLinearityMaxError": 0,
+      "originalS": 2.152873747750528,
+      "nativeTopLevelAttempts": 0,
+      "nativeAttemptReasons": {},
+      "nativeCandidateStationsMatchAllRecordedAttempts": true
+    }
+  ],
+  "pairs": [
+    {
+      "a": 129,
+      "b": 172,
+      "originalPenetrationM": 0.9459290392286346,
+      "recordedVerticalOverlapM": 1.574999988079071,
+      "recordedUnknownHeight": false,
+      "aEmptyDomain": false,
+      "bEmptyDomain": false,
+      "corners": [
+        {
+          "aStation": 2.4749999999999996,
+          "bStation": 2.23,
+          "penetrationM": 0.9843392268502544
+        },
+        {
+          "aStation": 2.4749999999999996,
+          "bStation": 2.3095867580487357,
+          "penetrationM": 0.9075188516070392
+        },
+        {
+          "aStation": 3.5978033346482903,
+          "bStation": 2.23,
+          "penetrationM": 0.9843392268502802
+        },
+        {
+          "aStation": 3.5978033346482903,
+          "bStation": 2.3095867580487357,
+          "penetrationM": 0.9075188516070649
+        }
+      ],
+      "continuousStationDomainMinimumPenetrationM": 0.9075188516070392,
+      "providerPairMinimumPenetrationM": 0.9075188516070312,
+      "mathematicalScope": "For each of the four fixed SAT axes, the projected centre difference is affine in the two stations and radii are constant. The maximum absolute affine value on the station rectangle occurs at a corner. Thus the minimum SAT penetration over the entire rectangle is attained among these corners. Positive minimum proves every allowed station pair still overlaps. An empty provider domain holds that actor at its unchanged baseline; no claim that baseline satisfies the candidate margin."
+    },
+    {
+      "a": 154,
+      "b": 350,
+      "originalPenetrationM": 1.1292813609434948,
+      "recordedVerticalOverlapM": 1.5849999785423279,
+      "recordedUnknownHeight": false,
+      "aEmptyDomain": false,
+      "bEmptyDomain": true,
+      "corners": [
+        {
+          "aStation": 2.23,
+          "bStation": 2.152873747750528,
+          "penetrationM": 1.184353941450913
+        },
+        {
+          "aStation": 2.8758200195417305,
+          "bStation": 2.152873747750528,
+          "penetrationM": 1.0742087804360563
+        }
+      ],
+      "continuousStationDomainMinimumPenetrationM": 1.0742087804360563,
+      "providerPairMinimumPenetrationM": 1.0742087804360558,
+      "mathematicalScope": "For each of the four fixed SAT axes, the projected centre difference is affine in the two stations and radii are constant. The maximum absolute affine value on the station rectangle occurs at a corner. Thus the minimum SAT penetration over the entire rectangle is attained among these corners. Positive minimum proves every allowed station pair still overlaps. An empty provider domain holds that actor at its unchanged baseline; no claim that baseline satisfies the candidate margin."
+    }
+  ],
+  "rngCalls": 0,
+  "conclusion": "No work/depth exhaustion: current source-station-only domains cannot clear either retained pair. Blocker movement cannot remove overlap between these two held participants. This proves insufficiency of the present domains, not physical impossibility on the actual mapped road chain. No source, adapter, planner, body, count, lane, direction, tolerance, actor, RNG or live runtime change.",
+  "limitations": [
+    "Only four selected native actors are replayed. No whole-scene static/shared/native-world acceptance.",
+    "Adjacent source-chain support and alternative legal admission domains are not implemented or certified by this proof.",
+    "Recorded vertical intervals come from the original native emitted models; this CPU necessary-condition proof tests their positive XY overlap without replacing their height evidence."
+  ]
+}

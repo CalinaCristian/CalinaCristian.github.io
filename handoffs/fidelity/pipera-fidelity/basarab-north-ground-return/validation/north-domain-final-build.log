@@ -1,0 +1,27 @@
+[osm] bucharest 16 tiles
+[osm] parsed nodes=168629 ways=24931 rels=913
+[osm] roads 4916
+[osm] corridor: 0 legs, 7 pieces, 3 circles, area 0.9 km² (game)
+[osm] corridor roads: 4916 ways → 410 clipped pieces → 410 connected
+[osm] graph nodes 1592 segments 1655
+[osm] areas 572
+[osm] research: /workspace/fidelity-workers/basarab-north-ground-return/game/research/bucharest-grozavesti.json → 463 buildings enriched
+[osm] aerial roofs: 5967 footprints measured (/workspace/fidelity-workers/basarab-north-ground-return/game/research/roofs-bucharest-grozavesti.json)
+[osm] raw buildings 13790
+[osm] dev-check: 11 buildings overlapping road ribbons retained with source conflicts
+[osm] buildings kept 4111 outside ring: 3813 dropped inside the area: {} aerial roofs: {"used":2649,"shape":1713,"colour":2709}
+[osm] businesses: +0 locator-only, −0 stale, 1 vacant units
+[osm] pois 161
+[osm] aerial trees: 23850 added (3779 on streets / buildings / pitches / duplicates, 0 small ring crowns thinned) from /workspace/fidelity-workers/basarab-north-ground-return/game/research/trees-bucharest-grozavesti.json
+[osm] osm trees 23901 furniture 16
+[osm] street lamps 0
+[osm] height sanity: 91 untagged footprints re-estimated
+[osm] building courtyards 7 buildings, 9 inner rings
+[osm] building outlines covered by exact ground parts 7
+[osm] building outline/part assemblies 31
+[osm] physical source-solid unions v2 1141 locally validated surfaces
+[osm] source roof surface unions 835
+[osm] scenery streets 1435
+[osm] green ground: 290178 cells of 3.41 × 3.40 m (3.37 km²) from /workspace/fidelity-workers/basarab-north-ground-return/game/research/green-bucharest-grozavesti.json
+[osm] backdrop boxes 3278
+[osm] wrote /workspace/fidelity-workers/basarab-north-ground-return/game/data/bucharest-grozavesti.json  10.62 MB  roads=410 segments=1655 buildings=4111 pois=161 areas=576 lamps=0 trees=24065 furniture=16 backdrop=3278

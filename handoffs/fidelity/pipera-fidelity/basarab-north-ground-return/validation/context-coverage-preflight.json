@@ -1,0 +1,56 @@
+{
+  "scope": "Exact literal leg/domain+600m context bounding certificate; rectangle containment suffices for complete geometric tile coverage, not surveyed roof/vegetation/parity acceptance.",
+  "tilesLL": [
+    44.425,
+    26.029,
+    44.465,
+    26.093
+  ],
+  "sourceTreeCoverage": [
+    44.428,
+    26.038,
+    44.458,
+    26.079
+  ],
+  "surveyBBox": null,
+  "corridors": [
+    {
+      "id": "basarab-main-north-ground-exit-return",
+      "legs": 84,
+      "sourceBoundsXZ": [
+        279.6550621642665,
+        -1336.7401487998204,
+        1176.5922836547597,
+        -756.2088071994749
+      ],
+      "domainRadiusM": 40,
+      "sourceContextBeyondDomainM": 600,
+      "sourceContextBoundingLL": [
+        44.44224568267646,
+        26.05466616575271,
+        44.45898731732354,
+        26.08205623424729
+      ],
+      "allContextInsideRetained16TileRectangle": true
+    },
+    {
+      "id": "basarab-titulescu-ground-junction",
+      "legs": 9,
+      "sourceBoundsXZ": [
+        864.4064373876757,
+        -1209.7829519999204,
+        1017.5705567239786,
+        -1054.7871516000596
+      ],
+      "domainRadiusM": 40,
+      "sourceContextBeyondDomainM": 600,
+      "sourceContextBoundingLL": [
+        44.44493238267646,
+        26.06202346575271,
+        44.45784491732354,
+        26.08005543424729
+      ],
+      "allContextInsideRetained16TileRectangle": true
+    }
+  ]
+}

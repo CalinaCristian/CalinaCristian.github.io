@@ -1,0 +1,772 @@
+{
+  "scope": "Independent old-to-rebuilt source retention. Synthetic negative boundary cuts may be replaced; all literal positive source nodes, original physical building footprints/courtyards/dimensions, source-road metadata and measured crown records must survive. Native World acceptance remains separate.",
+  "oldSourceCommit": "b8f33f2dac916f0495134c793a88a3d67d30082a",
+  "oldDataSha256": "d223a9189e458e149b5baa694dc6e87a7ab9a44011066ef68a2b3af7a2f7f842",
+  "candidateDataSha256": "59449b8fa617bc716d440a3b62a6fdedda3e6bf5411ea39ed7cc6bb3b41e620b",
+  "positiveNodes": {
+    "old": 1294,
+    "new": 1450,
+    "missing": [],
+    "moved": []
+  },
+  "sourceBuildings": {
+    "old": 2932,
+    "new": 4111,
+    "missingExactFootprintOrHoles": [],
+    "changedDimensions": [
+      {
+        "sourceId": "w119765120",
+        "oldIndex": 1932,
+        "newIndex": 1935,
+        "old": [
+          145,
+          0
+        ],
+        "new": [
+          155,
+          0
+        ]
+      },
+      {
+        "sourceId": "w156815214",
+        "oldIndex": 1937,
+        "newIndex": 1960,
+        "old": [
+          232,
+          0
+        ],
+        "new": [
+          111,
+          0
+        ]
+      },
+      {
+        "sourceId": "w156815581",
+        "oldIndex": 1939,
+        "newIndex": 1964,
+        "old": [
+          290,
+          0
+        ],
+        "new": [
+          111,
+          0
+        ]
+      },
+      {
+        "sourceId": "w156816287",
+        "oldIndex": 1940,
+        "newIndex": 1965,
+        "old": [
+          290,
+          0
+        ],
+        "new": [
+          111,
+          0
+        ]
+      },
+      {
+        "sourceId": "w156816440",
+        "oldIndex": 1943,
+        "newIndex": 1968,
+        "old": [
+          348,
+          0
+        ],
+        "new": [
+          384,
+          0
+        ]
+      },
+      {
+        "sourceId": "w228403580",
+        "oldIndex": 1975,
+        "newIndex": 2044,
+        "old": [
+          290,
+          0
+        ],
+        "new": [
+          177,
+          0
+        ]
+      },
+      {
+        "sourceId": "w441137466",
+        "oldIndex": 2094,
+        "newIndex": 2226,
+        "old": [
+          116,
+          0
+        ],
+        "new": [
+          170,
+          0
+        ]
+      },
+      {
+        "sourceId": "w621211534",
+        "oldIndex": 2564,
+        "newIndex": 2778,
+        "old": [
+          72,
+          0
+        ],
+        "new": [
+          170,
+          0
+        ]
+      },
+      {
+        "sourceId": "w803126215",
+        "oldIndex": 2604,
+        "newIndex": 2819,
+        "old": [
+          7.8297,
+          0
+        ],
+        "new": [
+          18.4297,
+          0
+        ]
+      },
+      {
+        "sourceId": "w803126216",
+        "oldIndex": 2605,
+        "newIndex": 2820,
+        "old": [
+          64,
+          0
+        ],
+        "new": [
+          170,
+          0
+        ]
+      },
+      {
+        "sourceId": "w803126217",
+        "oldIndex": 2606,
+        "newIndex": 2821,
+        "old": [
+          64,
+          0
+        ],
+        "new": [
+          170,
+          0
+        ]
+      },
+      {
+        "sourceId": "w803126218",
+        "oldIndex": 2607,
+        "newIndex": 2822,
+        "old": [
+          7.8073,
+          0
+        ],
+        "new": [
+          160,
+          0
+        ]
+      }
+    ],
+    "changedStyleRoofOrLevels": [
+      {
+        "sourceId": "w156815214",
+        "oldIndex": 1937,
+        "newIndex": 1960,
+        "field": 0,
+        "old": 3,
+        "new": 1
+      },
+      {
+        "sourceId": "w156815214",
+        "oldIndex": 1937,
+        "newIndex": 1960,
+        "field": 6,
+        "old": 0,
+        "new": 3
+      },
+      {
+        "sourceId": "w156815581",
+        "oldIndex": 1939,
+        "newIndex": 1964,
+        "field": 0,
+        "old": 3,
+        "new": 1
+      },
+      {
+        "sourceId": "w156815581",
+        "oldIndex": 1939,
+        "newIndex": 1964,
+        "field": 6,
+        "old": 0,
+        "new": 3
+      },
+      {
+        "sourceId": "w156816287",
+        "oldIndex": 1940,
+        "newIndex": 1965,
+        "field": 0,
+        "old": 3,
+        "new": 1
+      },
+      {
+        "sourceId": "w156816287",
+        "oldIndex": 1940,
+        "newIndex": 1965,
+        "field": 6,
+        "old": 0,
+        "new": 3
+      },
+      {
+        "sourceId": "w156816440",
+        "oldIndex": 1943,
+        "newIndex": 1968,
+        "field": 0,
+        "old": 3,
+        "new": 1
+      },
+      {
+        "sourceId": "w228403580",
+        "oldIndex": 1975,
+        "newIndex": 2044,
+        "field": 6,
+        "old": 0,
+        "new": 5
+      },
+      {
+        "sourceId": "w441137466",
+        "oldIndex": 2094,
+        "newIndex": 2226,
+        "field": 0,
+        "old": 3,
+        "new": 1
+      },
+      {
+        "sourceId": "w621211534",
+        "oldIndex": 2564,
+        "newIndex": 2778,
+        "field": 0,
+        "old": 5,
+        "new": 1
+      },
+      {
+        "sourceId": "w621211534",
+        "oldIndex": 2564,
+        "newIndex": 2778,
+        "field": 3,
+        "old": 2,
+        "new": 0
+      },
+      {
+        "sourceId": "w803126215",
+        "oldIndex": 2604,
+        "newIndex": 2819,
+        "field": 0,
+        "old": 5,
+        "new": 1
+      },
+      {
+        "sourceId": "w803126216",
+        "oldIndex": 2605,
+        "newIndex": 2820,
+        "field": 0,
+        "old": 5,
+        "new": 1
+      },
+      {
+        "sourceId": "w803126217",
+        "oldIndex": 2606,
+        "newIndex": 2821,
+        "field": 0,
+        "old": 5,
+        "new": 1
+      },
+      {
+        "sourceId": "w803126218",
+        "oldIndex": 2607,
+        "newIndex": 2822,
+        "field": 0,
+        "old": 5,
+        "new": 1
+      },
+      {
+        "sourceId": "w803126218",
+        "oldIndex": 2607,
+        "newIndex": 2822,
+        "field": 3,
+        "old": 2,
+        "new": 0
+      }
+    ]
+  },
+  "sourceRoadMetadata": {
+    "old": 351,
+    "new": 397,
+    "missingOrChanged": [],
+    "changedPhysicalProfiles": [
+      {
+        "sourceId": "w23554631",
+        "oldVariants": 1,
+        "newVariants": 1,
+        "old": [
+          "[\"\\u0218oseaua Nicolae Titulescu\", 4, 2, 0, -70, 35, 40, 50, 33, 0, null, {\"conditionalUnresolved\": false, \"key\": null, \"publicDrive\": true, \"reason\": \"OSM road class default; no motorcar restriction mapped\", \"sourceId\": \"w23554631\", \"tags\": {\"oneway\": \"yes\"}, \"throughAccess\": true, \"value\": null}]"
+        ],
+        "new": [
+          "[\"\\u0218oseaua Nicolae Titulescu\", 4, 2, 0, -70, 35, 40, 50, 1, 0, null, {\"conditionalUnresolved\": false, \"key\": null, \"publicDrive\": true, \"reason\": \"OSM road class default; no motorcar restriction mapped\", \"sourceId\": \"w23554631\", \"tags\": {\"oneway\": \"yes\"}, \"throughAccess\": true, \"value\": null}]"
+        ]
+      },
+      {
+        "sourceId": "w125909046",
+        "oldVariants": 1,
+        "newVariants": 1,
+        "old": [
+          "[\"\\u0218oseaua Nicolae Titulescu\", 4, 2, 0, -70, 35, 40, 50, 33, 0, null, {\"conditionalUnresolved\": false, \"key\": null, \"publicDrive\": true, \"reason\": \"OSM road class default; no motorcar restriction mapped\", \"sourceId\": \"w125909046\", \"tags\": {\"oneway\": \"yes\"}, \"throughAccess\": true, \"value\": null}]"
+        ],
+        "new": [
+          "[\"\\u0218oseaua Nicolae Titulescu\", 4, 2, 0, -70, 35, 40, 50, 1, 0, null, {\"conditionalUnresolved\": false, \"key\": null, \"publicDrive\": true, \"reason\": \"OSM road class default; no motorcar restriction mapped\", \"sourceId\": \"w125909046\", \"tags\": {\"oneway\": \"yes\"}, \"throughAccess\": true, \"value\": null}]"
+        ]
+      }
+    ]
+  },
+  "trees": {
+    "old": 21789,
+    "new": 24043,
+    "missingOrChanged": [
+      {
+        "packed": [
+          8493,
+          -9899,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          8570,
+          -9899,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          8698,
+          -9924,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          8630,
+          -10001,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          8306,
+          -10026,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          8544,
+          -10026,
+          280
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 50
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          7871,
+          -10290,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          7853,
+          -10341,
+          192
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 31
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          7939,
+          -10341,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          7734,
+          -10375,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          7973,
+          -10435,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          7717,
+          -10529,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          7649,
+          -10605,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          9193,
+          -11167,
+          280
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 50
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          9431,
+          -11269,
+          192
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 31
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          9789,
+          -11678,
+          336
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 62
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          9431,
+          -11864,
+          192
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 31
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          10659,
+          -12350,
+          276
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 49
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          10241,
+          -12486,
+          210
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 35
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          10130,
+          -12503,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          10958,
+          -12555,
+          184
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 29
+        },
+        "missingCount": 1
+      },
+      {
+        "packed": [
+          10804,
+          -12750,
+          192
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 31
+        },
+        "missingCount": 1
+      }
+    ],
+    "retention": {
+      "policy": "all-measured",
+      "inputCrowns": 44645,
+      "retained": 23992,
+      "rejectedGeometryOrDuplicate": 3637,
+      "outsideSurveyDistrict": 17016,
+      "thinned": 0
+    }
+  },
+  "areas": {
+    "old": 560,
+    "new": 576,
+    "missingSourceIds": [],
+    "carriedWater": [
+      {
+        "sourceId": "r1130828",
+        "unchangedRings": true
+      },
+      {
+        "sourceId": "w174991904",
+        "unchangedRings": true
+      },
+      {
+        "sourceId": "w983903953",
+        "unchangedRings": true
+      },
+      {
+        "sourceId": "w117140697",
+        "unchangedRings": true
+      }
+    ]
+  },
+  "mask": {
+    "oldInsideCells": 2516,
+    "newInsideCells": 2798,
+    "removedOldInsideCells": 0,
+    "addedInsideCells": 282,
+    "cellM": 20
+  },
+  "roadSourceNodeTags": {
+    "2342152612": {
+      "level": "-1"
+    },
+    "2644247956": {
+      "level": "-1"
+    },
+    "2644249162": {
+      "level": "-1w"
+    },
+    "8780483091": {
+      "level": "-1"
+    },
+    "8780483093": {
+      "level": "-1"
+    },
+    "8780483095": {
+      "level": "-1"
+    },
+    "12140907463": {
+      "level": "-2"
+    },
+    "12163380260": {
+      "level": "-2"
+    },
+    "12163380262": {
+      "level": "-2"
+    },
+    "10839993800": {
+      "level": "-1"
+    }
+  },
+  "roadSourceNodeTagCoverage": {
+    "keys": [
+      "ele",
+      "incline",
+      "level"
+    ],
+    "sourceNodeCount": 7082,
+    "missingSourceNodes": [],
+    "scope": "All literal original nodes of retained roadSourceGeometry and scenerySourceGeometry, before clipping; no values inferred."
+  }
+}

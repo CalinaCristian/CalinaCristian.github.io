@@ -1,0 +1,425 @@
+{
+  "baselineCommit": "b8f33f2dac916f0495134c793a88a3d67d30082a",
+  "baselineDataSha256": "d223a9189e458e149b5baa694dc6e87a7ab9a44011066ef68a2b3af7a2f7f842",
+  "surveySha256": "5221f4b82bf2008a46d0ee9e08d3ceca8ad5aa6185b64f8405d4acd31dddc6f0",
+  "records": [
+    {
+      "surveyIndex": 32278,
+      "rawSurveyCrown": [
+        44.450107,
+        26.069886,
+        2.2
+      ],
+      "packed": [
+        8493,
+        -9899,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 32279,
+      "rawSurveyCrown": [
+        44.450107,
+        26.069983,
+        2.2
+      ],
+      "packed": [
+        8570,
+        -9899,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 32309,
+      "rawSurveyCrown": [
+        44.45013,
+        26.070144,
+        2.8
+      ],
+      "packed": [
+        8698,
+        -9924,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 32397,
+      "rawSurveyCrown": [
+        44.450199,
+        26.070058,
+        2.2
+      ],
+      "packed": [
+        8630,
+        -10001,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 32426,
+      "rawSurveyCrown": [
+        44.450222,
+        26.06965,
+        2.2
+      ],
+      "packed": [
+        8306,
+        -10026,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 32427,
+      "rawSurveyCrown": [
+        44.450222,
+        26.06995,
+        5.0
+      ],
+      "packed": [
+        8544,
+        -10026,
+        280
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 50
+    },
+    {
+      "surveyIndex": 32772,
+      "rawSurveyCrown": [
+        44.450459,
+        26.069103,
+        2.8
+      ],
+      "packed": [
+        7871,
+        -10290,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 32843,
+      "rawSurveyCrown": [
+        44.450505,
+        26.069081,
+        3.1
+      ],
+      "packed": [
+        7853,
+        -10341,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 32844,
+      "rawSurveyCrown": [
+        44.450505,
+        26.069189,
+        2.2
+      ],
+      "packed": [
+        7939,
+        -10341,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 32887,
+      "rawSurveyCrown": [
+        44.450536,
+        26.068931,
+        2.2
+      ],
+      "packed": [
+        7734,
+        -10375,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 32956,
+      "rawSurveyCrown": [
+        44.45059,
+        26.069232,
+        2.2
+      ],
+      "packed": [
+        7973,
+        -10435,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 33076,
+      "rawSurveyCrown": [
+        44.450674,
+        26.06891,
+        2.8
+      ],
+      "packed": [
+        7717,
+        -10529,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 33174,
+      "rawSurveyCrown": [
+        44.450743,
+        26.068824,
+        2.2
+      ],
+      "packed": [
+        7649,
+        -10605,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 33923,
+      "rawSurveyCrown": [
+        44.451248,
+        26.070766,
+        5.0
+      ],
+      "packed": [
+        9193,
+        -11167,
+        280
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 50
+    },
+    {
+      "surveyIndex": 34079,
+      "rawSurveyCrown": [
+        44.45134,
+        26.071066,
+        3.1
+      ],
+      "packed": [
+        9431,
+        -11269,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 34601,
+      "rawSurveyCrown": [
+        44.451708,
+        26.071517,
+        6.2
+      ],
+      "packed": [
+        9789,
+        -11678,
+        336
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 62
+    },
+    {
+      "surveyIndex": 34858,
+      "rawSurveyCrown": [
+        44.451876,
+        26.071066,
+        3.1
+      ],
+      "packed": [
+        9431,
+        -11864,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 35556,
+      "rawSurveyCrown": [
+        44.452313,
+        26.072611,
+        4.9
+      ],
+      "packed": [
+        10659,
+        -12350,
+        276
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 49
+    },
+    {
+      "surveyIndex": 35741,
+      "rawSurveyCrown": [
+        44.452435,
+        26.072085,
+        3.5
+      ],
+      "packed": [
+        10241,
+        -12486,
+        210
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 35
+    },
+    {
+      "surveyIndex": 35762,
+      "rawSurveyCrown": [
+        44.452451,
+        26.071946,
+        2.2
+      ],
+      "packed": [
+        10130,
+        -12503,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 35840,
+      "rawSurveyCrown": [
+        44.452497,
+        26.072987,
+        2.9
+      ],
+      "packed": [
+        10958,
+        -12555,
+        184
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 29
+    },
+    {
+      "surveyIndex": 36109,
+      "rawSurveyCrown": [
+        44.452673,
+        26.072794,
+        3.1
+      ],
+      "packed": [
+        10804,
+        -12750,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    }
+  ]
+}

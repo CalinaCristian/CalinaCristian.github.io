@@ -1,0 +1,24 @@
+{
+  "scope": "CPU compiler input observation only; no dataset output/native browser/actor operation",
+  "compilerSha256": "44d4f37b5a2b6a2a69a9d6abe729e6b73912375a53f3bb819b43fa41b6ff4721",
+  "observerSha256": "48877120b189579e23f43885837d82b680b64c4672e38f8da2d7e18604c5c599",
+  "reviewedInputSha256": "a6de14ec1471629da6500cad692006e97a6b33036e363361f38367fa06148c31",
+  "targetIds": [
+    "w119765120",
+    "w156815214",
+    "w156815581",
+    "w156816287",
+    "w156816440",
+    "w228403580",
+    "w441137466",
+    "w621211534",
+    "w803126215",
+    "w803126216",
+    "w803126217",
+    "w803126218"
+  ],
+  "outputSha256": "cae3d684ff086e6587e248bac0b2681b24b08c3ac67019ec67a26d6ec10a054e",
+  "datasetSha256Before": "59449b8fa617bc716d440a3b62a6fdedda3e6bf5411ea39ed7cc6bb3b41e620b",
+  "datasetSha256After": "59449b8fa617bc716d440a3b62a6fdedda3e6bf5411ea39ed7cc6bb3b41e620b",
+  "datasetUnchanged": true
+}

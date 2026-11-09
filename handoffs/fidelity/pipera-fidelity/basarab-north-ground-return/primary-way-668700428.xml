@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="openstreetmap-cgimap 2.1.1 (3512046 spike-06.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <way id="668700428" visible="true" version="7" changeset="188707291" timestamp="2026-09-08T07:40:25Z" user="DanTPG" uid="14332595">
+  <nd ref="257542289"/>
+  <nd ref="2159760169"/>
+  <tag k="bridge" v="yes"/>
+  <tag k="foot" v="no"/>
+  <tag k="highway" v="primary"/>
+  <tag k="layer" v="2"/>
+  <tag k="name" v="Pasajul Basarab"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="turn:lanes" v="through|through|right"/>
+ </way>
+</osm>

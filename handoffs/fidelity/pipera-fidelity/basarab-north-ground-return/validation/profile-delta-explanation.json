@@ -1,0 +1,303 @@
+{
+  "scope": "CPU prepared-data profile audit; no native grade, physical body, lane-count repair or route acceptance. Complete original raw source records are checked separately by check-retention.py.",
+  "acceptedSha256": "d223a9189e458e149b5baa694dc6e87a7ab9a44011066ef68a2b3af7a2f7f842",
+  "candidateSha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+  "deltas": [
+    {
+      "sourceId": "w23554631",
+      "before": {
+        "row": 246,
+        "profile": {
+          "name": "\u0218oseaua Nicolae Titulescu",
+          "profileFields": [
+            4,
+            2,
+            0,
+            -70,
+            35,
+            40,
+            50,
+            33,
+            0
+          ],
+          "width": null,
+          "access": {
+            "sourceId": "w23554631",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "oneway": "yes"
+            }
+          }
+        },
+        "lengthM": 0.0,
+        "nodeIds": [
+          -2000000089,
+          1397135743
+        ],
+        "points": [
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ],
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ]
+        ]
+      },
+      "after": {
+        "row": 246,
+        "profile": {
+          "name": "\u0218oseaua Nicolae Titulescu",
+          "profileFields": [
+            4,
+            2,
+            0,
+            -70,
+            35,
+            40,
+            50,
+            1,
+            0
+          ],
+          "width": null,
+          "access": {
+            "sourceId": "w23554631",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "oneway": "yes"
+            }
+          }
+        },
+        "lengthM": 210.12248332809878,
+        "nodeIds": [
+          1344579108,
+          12007812262,
+          1344579144,
+          647897898,
+          1344579074,
+          1344579061,
+          1344579132,
+          1397135740,
+          1397135743
+        ],
+        "points": [
+          [
+            864.4064373876757,
+            -1054.7871516000596
+          ],
+          [
+            874.3333734600229,
+            -1069.0009343995491
+          ],
+          [
+            881.8759373773621,
+            -1080.0585684000582
+          ],
+          [
+            902.3815379113914,
+            -1106.3968523998903
+          ],
+          [
+            936.1998829777609,
+            -1138.758490799834
+          ],
+          [
+            958.2553254123619,
+            -1157.4175535999448
+          ],
+          [
+            999.4572762525163,
+            -1189.5902676000494
+          ],
+          [
+            1005.1956652392581,
+            -1196.6360363994747
+          ],
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ]
+        ]
+      },
+      "changedPackedColumn": 8,
+      "explanation": "Only inferred tram-nearby bit32 changed. Old clipped endpoints coincide exactly (zero physical extent); restored literal full span is sampled by the unchanged generic tram-nearby estimator. One-way bit1, lanes/width/sidewalk/median/speed/layer/access/raw source geometry are unchanged. This is not a permission to change any prior nonzero-length physical profile."
+    },
+    {
+      "sourceId": "w125909046",
+      "before": {
+        "row": 266,
+        "profile": {
+          "name": "\u0218oseaua Nicolae Titulescu",
+          "profileFields": [
+            4,
+            2,
+            0,
+            -70,
+            35,
+            40,
+            50,
+            33,
+            0
+          ],
+          "width": null,
+          "access": {
+            "sourceId": "w125909046",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "oneway": "yes"
+            }
+          }
+        },
+        "lengthM": 0.0,
+        "nodeIds": [
+          1397135737,
+          -2000000096
+        ],
+        "points": [
+          [
+            1012.1580319319042,
+            -1221.618510000045
+          ],
+          [
+            1012.1580319319042,
+            -1221.618510000045
+          ]
+        ]
+      },
+      "after": {
+        "row": 274,
+        "profile": {
+          "name": "\u0218oseaua Nicolae Titulescu",
+          "profileFields": [
+            4,
+            2,
+            0,
+            -70,
+            35,
+            40,
+            50,
+            1,
+            0
+          ],
+          "width": null,
+          "access": {
+            "sourceId": "w125909046",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "oneway": "yes"
+            }
+          }
+        },
+        "lengthM": 289.31714847522943,
+        "nodeIds": [
+          1397135737,
+          2230811251,
+          1344579072,
+          3020781750,
+          2159760168,
+          3020781751,
+          2159760179,
+          3716138025,
+          3020781755,
+          981544983,
+          2499720073,
+          12007812259,
+          5868407501,
+          6264852753,
+          6264298386,
+          255060445
+        ],
+        "points": [
+          [
+            1012.1580319319042,
+            -1221.618510000045
+          ],
+          [
+            993.8301579665166,
+            -1212.4945728000232
+          ],
+          [
+            981.8765055623701,
+            -1206.3267467998025
+          ],
+          [
+            963.0797050730315,
+            -1195.013509199465
+          ],
+          [
+            943.0430310629531,
+            -1181.4442919996116
+          ],
+          [
+            923.5229710199202,
+            -1167.441659999431
+          ],
+          [
+            907.6033129310878,
+            -1154.528121600133
+          ],
+          [
+            905.1633054254263,
+            -1152.205462799838
+          ],
+          [
+            893.4957776798469,
+            -1140.2254331996046
+          ],
+          [
+            876.7654330584079,
+            -1122.8555015995553
+          ],
+          [
+            857.2135813865511,
+            -1100.2957055996594
+          ],
+          [
+            847.5886657870417,
+            -1088.3267891995556
+          ],
+          [
+            826.7095136155328,
+            -1062.3774671995313
+          ],
+          [
+            811.2746778649222,
+            -1042.7848955995664
+          ],
+          [
+            808.643920587165,
+            -1039.3286903994485
+          ],
+          [
+            800.783440382435,
+            -1029.3268103994324
+          ]
+        ]
+      },
+      "changedPackedColumn": 8,
+      "explanation": "Only inferred tram-nearby bit32 changed. Old clipped endpoints coincide exactly (zero physical extent); restored literal full span is sampled by the unchanged generic tram-nearby estimator. One-way bit1, lanes/width/sidewalk/median/speed/layer/access/raw source geometry are unchanged. This is not a permission to change any prior nonzero-length physical profile."
+    }
+  ],
+  "changedPriorNonzeroLengthProfiles": 0
+}

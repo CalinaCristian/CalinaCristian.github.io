@@ -1,0 +1,5683 @@
+{
+  "scope": "CPU source topology and actual Navigator control with emitted native-builder fleet sedan. No OUT/negative cuts or fabricated joins. No road grade, native Player, actual world geometry, spawned cohorts or driving acceptance. General malformed restriction records remain unresolved.",
+  "beforeSha256": "d223a9189e458e149b5baa694dc6e87a7ab9a44011066ef68a2b3af7a2f7f842",
+  "candidateSha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+  "before": {
+    "sourceGraph": {
+      "nodes": 1021,
+      "edges": 1049,
+      "positiveSourceIdsOnly": true,
+      "virtualOutEdges": 0
+    },
+    "navigatorMain": {
+      "components": 405,
+      "mainNodes": 598,
+      "nodes": 1021,
+      "mainEdges": 628,
+      "edges": 1049
+    },
+    "exactIncidenceReachability": [
+      {
+        "from": 6262162596,
+        "to": 1397135743,
+        "reachable": true
+      },
+      {
+        "from": 1397135743,
+        "to": 32933928,
+        "reachable": false
+      },
+      {
+        "from": 1397135743,
+        "to": 981547574,
+        "reachable": false
+      },
+      {
+        "from": 981547574,
+        "to": 1397135743,
+        "reachable": true
+      }
+    ],
+    "paths": [
+      {
+        "from": 6262162596,
+        "to": 1397135743,
+        "found": true,
+        "lengthM": 511.4114236995025,
+        "startSnapDistanceM": 394.65477144474403,
+        "goalSnapDistanceM": 756.0184575963773,
+        "goalEndpointClassification": {
+          "x": 1009.4239518609638,
+          "z": -1204.5375215994243,
+          "incidents": [
+            {
+              "sourceId": "w668700424",
+              "from": 14161960361,
+              "to": 1397135743,
+              "main": false,
+              "type": "primary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          ],
+          "nearestPublic": {
+            "distanceM": 0,
+            "t": 1,
+            "x": 1009.4239518609638,
+            "z": -1204.5375215994243,
+            "selectedEdge": {
+              "sourceId": "w668700424",
+              "from": 14161960361,
+              "to": 1397135743,
+              "main": false,
+              "type": "primary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "nearestMainClearanceEligible": {
+            "distanceM": 756.0184575963773,
+            "t": 0.9320055328557705,
+            "x": 473.94371509330585,
+            "z": -670.8477013314541,
+            "selectedEdge": {
+              "sourceId": "w668676696",
+              "from": 6261926624,
+              "to": 981563579,
+              "main": true,
+              "type": "secondary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "scope": "Actual Navigator SCC/endpoint selection on this positive-source-only CPU fixture. Negative cut legs/mapEnd nodes and virtual outside are deliberately absent, so a fresh native World SCC may differ."
+        },
+        "points": [
+          [
+            693.184672929999,
+            -581.1203412001219
+          ],
+          [
+            693.184672929999,
+            -581.1203412001219
+          ],
+          [
+            697.961365147574,
+            -577.1529287995575
+          ],
+          [
+            762.9990896313795,
+            -526.721227200069
+          ],
+          [
+            701.7127773383347,
+            -455.97459600007045
+          ],
+          [
+            691.9686431310889,
+            -444.72803759972237
+          ],
+          [
+            663.3323335483155,
+            -473.9557536001557
+          ],
+          [
+            655.9487277748129,
+            -481.50161639989767
+          ],
+          [
+            647.579581510314,
+            -490.04766719948327
+          ],
+          [
+            622.2496013158975,
+            -515.0301408000537
+          ],
+          [
+            617.5205965416993,
+            -519.686571599984
+          ],
+          [
+            600.941262156538,
+            -542.5908767999579
+          ],
+          [
+            564.0232332884603,
+            -579.8645495996601
+          ],
+          [
+            512.2108263580825,
+            -632.4522119998644
+          ],
+          [
+            473.94371509330585,
+            -670.8477013314541
+          ]
+        ],
+        "legs": [
+          {
+            "sourceId": "w23556037",
+            "dir": 1,
+            "from": 6257151356,
+            "to": 255082599
+          },
+          {
+            "sourceId": "w218081606",
+            "dir": -1,
+            "from": 255082599,
+            "to": 13328623445
+          },
+          {
+            "sourceId": "w218081606",
+            "dir": -1,
+            "from": 13328623445,
+            "to": 2273753852
+          },
+          {
+            "sourceId": "w218081605",
+            "dir": 1,
+            "from": 2273753852,
+            "to": 6261060837
+          },
+          {
+            "sourceId": "w218081605",
+            "dir": 1,
+            "from": 6261060837,
+            "to": 5142391359
+          },
+          {
+            "sourceId": "w668588452",
+            "dir": -1,
+            "from": 5142391359,
+            "to": 14178189703
+          },
+          {
+            "sourceId": "w668588452",
+            "dir": -1,
+            "from": 14178189703,
+            "to": 3204791962
+          },
+          {
+            "sourceId": "w668588452",
+            "dir": -1,
+            "from": 3204791962,
+            "to": 257541268
+          },
+          {
+            "sourceId": "w50586387",
+            "dir": -1,
+            "from": 257541268,
+            "to": 2519078588
+          },
+          {
+            "sourceId": "w50586387",
+            "dir": -1,
+            "from": 2519078588,
+            "to": 981549744
+          },
+          {
+            "sourceId": "w84483724",
+            "dir": 1,
+            "from": 981549744,
+            "to": 6261963475
+          },
+          {
+            "sourceId": "w84483724",
+            "dir": 1,
+            "from": 6261963475,
+            "to": 6261926626
+          },
+          {
+            "sourceId": "w84483724",
+            "dir": 1,
+            "from": 6261926626,
+            "to": 6261926624
+          },
+          {
+            "sourceId": "w668676696",
+            "dir": 1,
+            "from": 6261926624,
+            "to": 981563579
+          }
+        ]
+      },
+      {
+        "from": 1397135743,
+        "to": 32933928,
+        "found": false,
+        "lengthM": null,
+        "startSnapDistanceM": null,
+        "goalSnapDistanceM": null,
+        "goalEndpointClassification": {
+          "x": 279.6550621642665,
+          "z": -811.3191659999432,
+          "incidents": [
+            {
+              "sourceId": "w139756123",
+              "from": 2624398738,
+              "to": 32933928,
+              "main": false,
+              "type": "secondary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            },
+            {
+              "sourceId": "w1559926378",
+              "from": 2624398775,
+              "to": 32933928,
+              "main": false,
+              "type": "primary_link",
+              "lanesF": 1,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            },
+            {
+              "sourceId": "w1559926379",
+              "from": 32933928,
+              "to": 14189460270,
+              "main": false,
+              "type": "secondary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          ],
+          "nearestPublic": {
+            "distanceM": 0,
+            "t": 1,
+            "x": 279.6550621642665,
+            "z": -811.3191659999432,
+            "selectedEdge": {
+              "sourceId": "w139756123",
+              "from": 2624398738,
+              "to": 32933928,
+              "main": false,
+              "type": "secondary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "nearestMainClearanceEligible": {
+            "distanceM": 77.42670627946413,
+            "t": 0,
+            "x": 262.74986358472006,
+            "z": -735.7605191997753,
+            "selectedEdge": {
+              "sourceId": "w678037220",
+              "from": 3949397786,
+              "to": 3949397790,
+              "main": true,
+              "type": "service",
+              "lanesF": 1,
+              "lanesB": 1,
+              "oneway": false,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "scope": "Actual Navigator SCC/endpoint selection on this positive-source-only CPU fixture. Negative cut legs/mapEnd nodes and virtual outside are deliberately absent, so a fresh native World SCC may differ."
+        },
+        "points": [],
+        "legs": []
+      },
+      {
+        "from": 1397135743,
+        "to": 981547574,
+        "found": false,
+        "lengthM": null,
+        "startSnapDistanceM": null,
+        "goalSnapDistanceM": null,
+        "goalEndpointClassification": {
+          "x": 430.5381321387446,
+          "z": -695.7529991997106,
+          "incidents": [
+            {
+              "sourceId": "w84482671",
+              "from": 981547574,
+              "to": 5220968639,
+              "main": false,
+              "type": "primary_link",
+              "lanesF": 1,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 5220968642,
+              "to": 981547574,
+              "main": true,
+              "type": "primary_link",
+              "lanesF": 1,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            },
+            {
+              "sourceId": "w668676697",
+              "from": 981547574,
+              "to": 3020483247,
+              "main": true,
+              "type": "secondary",
+              "lanesF": 1,
+              "lanesB": 1,
+              "oneway": false,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          ],
+          "nearestPublic": {
+            "distanceM": 0,
+            "t": 0,
+            "x": 430.5381321387446,
+            "z": -695.7529991997106,
+            "selectedEdge": {
+              "sourceId": "w84482671",
+              "from": 981547574,
+              "to": 5220968639,
+              "main": false,
+              "type": "primary_link",
+              "lanesF": 1,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "nearestMainClearanceEligible": {
+            "distanceM": 0,
+            "t": 1,
+            "x": 430.5381321387446,
+            "z": -695.7529991997106,
+            "selectedEdge": {
+              "sourceId": "w119235186",
+              "from": 5220968642,
+              "to": 981547574,
+              "main": true,
+              "type": "primary_link",
+              "lanesF": 1,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "scope": "Actual Navigator SCC/endpoint selection on this positive-source-only CPU fixture. Negative cut legs/mapEnd nodes and virtual outside are deliberately absent, so a fresh native World SCC may differ."
+        },
+        "points": [],
+        "legs": []
+      },
+      {
+        "from": 981547574,
+        "to": 1397135743,
+        "found": true,
+        "lengthM": 912.4013130023187,
+        "startSnapDistanceM": 0,
+        "goalSnapDistanceM": 756.0184575963773,
+        "goalEndpointClassification": {
+          "x": 1009.4239518609638,
+          "z": -1204.5375215994243,
+          "incidents": [
+            {
+              "sourceId": "w668700424",
+              "from": 14161960361,
+              "to": 1397135743,
+              "main": false,
+              "type": "primary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          ],
+          "nearestPublic": {
+            "distanceM": 0,
+            "t": 1,
+            "x": 1009.4239518609638,
+            "z": -1204.5375215994243,
+            "selectedEdge": {
+              "sourceId": "w668700424",
+              "from": 14161960361,
+              "to": 1397135743,
+              "main": false,
+              "type": "primary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "nearestMainClearanceEligible": {
+            "distanceM": 756.0184575963773,
+            "t": 0.9320055328557705,
+            "x": 473.94371509330585,
+            "z": -670.8477013314541,
+            "selectedEdge": {
+              "sourceId": "w668676696",
+              "from": 6261926624,
+              "to": 981563579,
+              "main": true,
+              "type": "secondary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "scope": "Actual Navigator SCC/endpoint selection on this positive-source-only CPU fixture. Negative cut legs/mapEnd nodes and virtual outside are deliberately absent, so a fresh native World SCC may differ."
+        },
+        "points": [
+          [
+            430.5381321387446,
+            -695.7529991997106
+          ],
+          [
+            430.5381321387446,
+            -695.7529991997106
+          ],
+          [
+            459.42877475154364,
+            -670.2370920000133
+          ],
+          [
+            467.8774000876786,
+            -662.5134179997726
+          ],
+          [
+            491.6813821027883,
+            -640.3425839996842
+          ],
+          [
+            527.1846834923011,
+            -606.8585124000476
+          ],
+          [
+            534.6716120592693,
+            -599.6238191999939
+          ],
+          [
+            558.8809373406823,
+            -575.3748168000985
+          ],
+          [
+            576.8193638540374,
+            -557.4047724001432
+          ],
+          [
+            596.1089345888743,
+            -538.0900307994767
+          ],
+          [
+            617.5205965416993,
+            -519.686571599984
+          ],
+          [
+            622.2496013158975,
+            -515.0301408000537
+          ],
+          [
+            647.579581510314,
+            -490.04766719948327
+          ],
+          [
+            652.8649397873755,
+            -500.594093999546
+          ],
+          [
+            693.184672929999,
+            -581.1203412001219
+          ],
+          [
+            697.961365147574,
+            -577.1529287995575
+          ],
+          [
+            762.9990896313795,
+            -526.721227200069
+          ],
+          [
+            701.7127773383347,
+            -455.97459600007045
+          ],
+          [
+            691.9686431310889,
+            -444.72803759972237
+          ],
+          [
+            663.3323335483155,
+            -473.9557536001557
+          ],
+          [
+            655.9487277748129,
+            -481.50161639989767
+          ],
+          [
+            647.579581510314,
+            -490.04766719948327
+          ],
+          [
+            622.2496013158975,
+            -515.0301408000537
+          ],
+          [
+            617.5205965416993,
+            -519.686571599984
+          ],
+          [
+            600.941262156538,
+            -542.5908767999579
+          ],
+          [
+            564.0232332884603,
+            -579.8645495996601
+          ],
+          [
+            512.2108263580825,
+            -632.4522119998644
+          ],
+          [
+            473.94371509330585,
+            -670.8477013314541
+          ]
+        ],
+        "legs": [
+          {
+            "sourceId": "w119235186",
+            "dir": 1,
+            "from": 5220968642,
+            "to": 981547574
+          },
+          {
+            "sourceId": "w668676697",
+            "dir": 1,
+            "from": 981547574,
+            "to": 3020483247
+          },
+          {
+            "sourceId": "w668676694",
+            "dir": 1,
+            "from": 3020483247,
+            "to": 6261926625
+          },
+          {
+            "sourceId": "w84482712",
+            "dir": 1,
+            "from": 6261926625,
+            "to": 6261963477
+          },
+          {
+            "sourceId": "w668679788",
+            "dir": 1,
+            "from": 6261963477,
+            "to": 3208556810
+          },
+          {
+            "sourceId": "w668679789",
+            "dir": 1,
+            "from": 3208556810,
+            "to": 2295201758
+          },
+          {
+            "sourceId": "w668676693",
+            "dir": 1,
+            "from": 2295201758,
+            "to": 6261926623
+          },
+          {
+            "sourceId": "w668679784",
+            "dir": 1,
+            "from": 6261926623,
+            "to": 14178097945
+          },
+          {
+            "sourceId": "w668679784",
+            "dir": 1,
+            "from": 14178097945,
+            "to": 6261963476
+          },
+          {
+            "sourceId": "w668679784",
+            "dir": 1,
+            "from": 6261963476,
+            "to": 981549744
+          },
+          {
+            "sourceId": "w50586387",
+            "dir": 1,
+            "from": 981549744,
+            "to": 2519078588
+          },
+          {
+            "sourceId": "w50586387",
+            "dir": 1,
+            "from": 2519078588,
+            "to": 257541268
+          },
+          {
+            "sourceId": "w23556037",
+            "dir": 1,
+            "from": 257541268,
+            "to": 6257151356
+          },
+          {
+            "sourceId": "w23556037",
+            "dir": 1,
+            "from": 6257151356,
+            "to": 255082599
+          },
+          {
+            "sourceId": "w218081606",
+            "dir": -1,
+            "from": 255082599,
+            "to": 13328623445
+          },
+          {
+            "sourceId": "w218081606",
+            "dir": -1,
+            "from": 13328623445,
+            "to": 2273753852
+          },
+          {
+            "sourceId": "w218081605",
+            "dir": 1,
+            "from": 2273753852,
+            "to": 6261060837
+          },
+          {
+            "sourceId": "w218081605",
+            "dir": 1,
+            "from": 6261060837,
+            "to": 5142391359
+          },
+          {
+            "sourceId": "w668588452",
+            "dir": -1,
+            "from": 5142391359,
+            "to": 14178189703
+          },
+          {
+            "sourceId": "w668588452",
+            "dir": -1,
+            "from": 14178189703,
+            "to": 3204791962
+          },
+          {
+            "sourceId": "w668588452",
+            "dir": -1,
+            "from": 3204791962,
+            "to": 257541268
+          },
+          {
+            "sourceId": "w50586387",
+            "dir": -1,
+            "from": 257541268,
+            "to": 2519078588
+          },
+          {
+            "sourceId": "w50586387",
+            "dir": -1,
+            "from": 2519078588,
+            "to": 981549744
+          },
+          {
+            "sourceId": "w84483724",
+            "dir": 1,
+            "from": 981549744,
+            "to": 6261963475
+          },
+          {
+            "sourceId": "w84483724",
+            "dir": 1,
+            "from": 6261963475,
+            "to": 6261926626
+          },
+          {
+            "sourceId": "w84483724",
+            "dir": 1,
+            "from": 6261926626,
+            "to": 6261926624
+          },
+          {
+            "sourceId": "w668676696",
+            "dir": 1,
+            "from": 6261926624,
+            "to": 981563579
+          }
+        ]
+      }
+    ],
+    "unresolvedRawRestrictions": [
+      {
+        "sourceId": "r21068448",
+        "reasons": [
+          "missing-or-ambiguous-via-node"
+        ]
+      },
+      {
+        "sourceId": "r21068490",
+        "reasons": [
+          "missing-or-ambiguous-from-way"
+        ]
+      },
+      {
+        "sourceId": "r21068491",
+        "reasons": [
+          "missing-or-ambiguous-from-way"
+        ]
+      },
+      {
+        "sourceId": "r21274117",
+        "reasons": [
+          "missing-or-ambiguous-from-way"
+        ]
+      },
+      {
+        "sourceId": "r21274119",
+        "reasons": [
+          "missing-or-ambiguous-to-way"
+        ]
+      }
+    ]
+  },
+  "candidate": {
+    "sourceGraph": {
+      "nodes": 1166,
+      "edges": 1202,
+      "positiveSourceIdsOnly": true,
+      "virtualOutEdges": 0
+    },
+    "navigatorMain": {
+      "components": 274,
+      "mainNodes": 874,
+      "nodes": 1166,
+      "mainEdges": 916,
+      "edges": 1202
+    },
+    "exactIncidenceReachability": [
+      {
+        "from": 6262162596,
+        "to": 1397135743,
+        "reachable": true
+      },
+      {
+        "from": 1397135743,
+        "to": 32933928,
+        "reachable": true
+      },
+      {
+        "from": 1397135743,
+        "to": 981547574,
+        "reachable": true
+      },
+      {
+        "from": 981547574,
+        "to": 1397135743,
+        "reachable": true
+      }
+    ],
+    "paths": [
+      {
+        "from": 6262162596,
+        "to": 1397135743,
+        "found": true,
+        "lengthM": 1351.3432177002992,
+        "startSnapDistanceM": 0,
+        "goalSnapDistanceM": 0,
+        "goalEndpointClassification": {
+          "x": 1009.4239518609638,
+          "z": -1204.5375215994243,
+          "incidents": [
+            {
+              "sourceId": "w23554631",
+              "from": 1397135740,
+              "to": 1397135743,
+              "main": true,
+              "type": "primary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            },
+            {
+              "sourceId": "w125909047",
+              "from": 1397135743,
+              "to": 358518389,
+              "main": true,
+              "type": "primary",
+              "lanesF": 3,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            },
+            {
+              "sourceId": "w668700424",
+              "from": 14161960361,
+              "to": 1397135743,
+              "main": true,
+              "type": "primary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          ],
+          "nearestPublic": {
+            "distanceM": 0,
+            "t": 1,
+            "x": 1009.4239518609638,
+            "z": -1204.5375215994243,
+            "selectedEdge": {
+              "sourceId": "w23554631",
+              "from": 1397135740,
+              "to": 1397135743,
+              "main": true,
+              "type": "primary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "nearestMainClearanceEligible": {
+            "distanceM": 0,
+            "t": 1,
+            "x": 1009.4239518609638,
+            "z": -1204.5375215994243,
+            "selectedEdge": {
+              "sourceId": "w23554631",
+              "from": 1397135740,
+              "to": 1397135743,
+              "main": true,
+              "type": "primary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "scope": "Actual Navigator SCC/endpoint selection on this positive-source-only CPU fixture. Negative cut legs/mapEnd nodes and virtual outside are deliberately absent, so a fresh native World SCC may differ."
+        },
+        "points": [
+          [
+            774.777888077701,
+            -967.2484751996583
+          ],
+          [
+            774.777888077701,
+            -967.2484751996583
+          ],
+          [
+            797.3737882006125,
+            -984.5183880001179
+          ],
+          [
+            806.9828079858512,
+            -992.6199108000362
+          ],
+          [
+            817.6965868692579,
+            -1001.9549988001565
+          ],
+          [
+            828.0686057440089,
+            -1013.7349907996316
+          ],
+          [
+            837.2245948195673,
+            -1026.0150767994235
+          ],
+          [
+            849.7584444481245,
+            -1046.3633459995335
+          ],
+          [
+            866.3854662763804,
+            -1072.5238187996565
+          ],
+          [
+            873.7531762356123,
+            -1083.3480755998073
+          ],
+          [
+            880.7155429285407,
+            -1092.7165031995278
+          ],
+          [
+            887.6222742710981,
+            -1101.8071007999495
+          ],
+          [
+            895.7688791343953,
+            -1111.4089056000282
+          ],
+          [
+            911.7044330377807,
+            -1127.7341963997142
+          ],
+          [
+            927.7512576416259,
+            -1142.9259407995773
+          ],
+          [
+            950.5379075371977,
+            -1161.3738527995897
+          ],
+          [
+            989.2839550574199,
+            -1189.1235132001223
+          ],
+          [
+            996.6914045524697,
+            -1194.7912452000262
+          ],
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ],
+          [
+            1017.5705567239786,
+            -1209.7829519999204
+          ],
+          [
+            1051.8975678503994,
+            -1233.220690799811
+          ],
+          [
+            1072.3793246625992,
+            -1246.9677192001632
+          ],
+          [
+            1100.6579784221635,
+            -1265.9601779994323
+          ],
+          [
+            1121.6801929229562,
+            -1279.951696799483
+          ],
+          [
+            1125.7256776792779,
+            -1285.719447599766
+          ],
+          [
+            1128.2849037923934,
+            -1289.331237600123
+          ],
+          [
+            1133.1013355457862,
+            -1295.8213464001615
+          ],
+          [
+            1136.7494249430813,
+            -1300.8333995995097
+          ],
+          [
+            1141.4148464599143,
+            -1306.9234331996108
+          ],
+          [
+            1159.7109287967605,
+            -1321.904026800165
+          ],
+          [
+            1171.8314872517378,
+            -1332.1837367994797
+          ],
+          [
+            1176.5922836547597,
+            -1336.5956771997114
+          ],
+          [
+            1162.2701549098758,
+            -1336.7401487998204
+          ],
+          [
+            1124.4778562515442,
+            -1302.8448888001167
+          ],
+          [
+            1123.19029528771,
+            -1301.533531199795
+          ],
+          [
+            1119.7409035700693,
+            -1297.6439112001399
+          ],
+          [
+            1116.8081258191921,
+            -1293.8209703996845
+          ],
+          [
+            1108.1449069891319,
+            -1288.2865967997598
+          ],
+          [
+            1093.4015391633916,
+            -1278.5180940001019
+          ],
+          [
+            1033.7048083070188,
+            -1236.2101416000019
+          ],
+          [
+            1012.1580319319042,
+            -1221.618510000045
+          ],
+          [
+            993.8301579665166,
+            -1212.4945728000232
+          ],
+          [
+            981.8765055623701,
+            -1206.3267467998025
+          ],
+          [
+            963.0797050730315,
+            -1195.013509199465
+          ],
+          [
+            943.0430310629531,
+            -1181.4442919996116
+          ],
+          [
+            923.5229710199202,
+            -1167.441659999431
+          ],
+          [
+            907.6033129310878,
+            -1154.528121600133
+          ],
+          [
+            905.1633054254263,
+            -1152.205462799838
+          ],
+          [
+            893.4957776798469,
+            -1140.2254331996046
+          ],
+          [
+            876.7654330584079,
+            -1122.8555015995553
+          ],
+          [
+            857.2135813865511,
+            -1100.2957055996594
+          ],
+          [
+            847.5886657870417,
+            -1088.3267891995556
+          ],
+          [
+            826.7095136155328,
+            -1062.3774671995313
+          ],
+          [
+            811.2746778649222,
+            -1042.7848955995664
+          ],
+          [
+            808.643920587165,
+            -1039.3286903994485
+          ],
+          [
+            800.783440382435,
+            -1029.3268103994324
+          ],
+          [
+            821.1777702157221,
+            -1015.1797067999323
+          ],
+          [
+            833.8626300808394,
+            -1007.4893724000813
+          ],
+          [
+            840.8249967737678,
+            -1018.2580631995828
+          ],
+          [
+            864.4064373876757,
+            -1054.7871516000596
+          ],
+          [
+            874.3333734600229,
+            -1069.0009343995491
+          ],
+          [
+            881.8759373773621,
+            -1080.0585684000582
+          ],
+          [
+            902.3815379113914,
+            -1106.3968523998903
+          ],
+          [
+            936.1998829777609,
+            -1138.758490799834
+          ],
+          [
+            958.2553254123619,
+            -1157.4175535999448
+          ],
+          [
+            999.4572762525163,
+            -1189.5902676000494
+          ],
+          [
+            1005.1956652392581,
+            -1196.6360363994747
+          ],
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ]
+        ],
+        "legs": [
+          {
+            "sourceId": "w668700429",
+            "dir": 1,
+            "from": 6262162597,
+            "to": 6262162596
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 6262162596,
+            "to": 1330584245
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 1330584245,
+            "to": 3908620612
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 3908620612,
+            "to": 3020483265
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 3020483265,
+            "to": 1330594285
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 1330594285,
+            "to": 2159760176
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2159760176,
+            "to": 2624398780
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2624398780,
+            "to": 1330594288
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 1330594288,
+            "to": 3908620654
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 3908620654,
+            "to": 2159763170
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2159763170,
+            "to": 3908620657
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 3908620657,
+            "to": 2448336874
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2448336874,
+            "to": 2159763173
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2159763173,
+            "to": 2448336883
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2448336883,
+            "to": 2159763169
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2159763169,
+            "to": 255060348
+          },
+          {
+            "sourceId": "w668700424",
+            "dir": 1,
+            "from": 255060348,
+            "to": 14161960361
+          },
+          {
+            "sourceId": "w668700424",
+            "dir": 1,
+            "from": 14161960361,
+            "to": 1397135743
+          },
+          {
+            "sourceId": "w125909047",
+            "dir": 1,
+            "from": 1397135743,
+            "to": 358518389
+          },
+          {
+            "sourceId": "w668700423",
+            "dir": 1,
+            "from": 358518389,
+            "to": 358518409
+          },
+          {
+            "sourceId": "w131484721",
+            "dir": 1,
+            "from": 358518409,
+            "to": 11652166081
+          },
+          {
+            "sourceId": "w131484721",
+            "dir": 1,
+            "from": 11652166081,
+            "to": 255060349
+          },
+          {
+            "sourceId": "w131484721",
+            "dir": 1,
+            "from": 255060349,
+            "to": 255060350
+          },
+          {
+            "sourceId": "w23554680",
+            "dir": 1,
+            "from": 255060350,
+            "to": 6262162593
+          },
+          {
+            "sourceId": "w23554680",
+            "dir": 1,
+            "from": 6262162593,
+            "to": 6262162594
+          },
+          {
+            "sourceId": "w23554680",
+            "dir": 1,
+            "from": 6262162594,
+            "to": 255060448
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 255060448,
+            "to": 6262162585
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 6262162585,
+            "to": 1336468931
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 1336468931,
+            "to": 8378931526
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 8378931526,
+            "to": 6262313721
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 6262313721,
+            "to": 1972639741
+          },
+          {
+            "sourceId": "w205975183",
+            "dir": 1,
+            "from": 1972639741,
+            "to": 255713323
+          },
+          {
+            "sourceId": "w1132179482",
+            "dir": 1,
+            "from": 255713323,
+            "to": 6262162586
+          },
+          {
+            "sourceId": "w1132179482",
+            "dir": 1,
+            "from": 6262162586,
+            "to": 2159763167
+          },
+          {
+            "sourceId": "w882652330",
+            "dir": 1,
+            "from": 2159763167,
+            "to": 10556771544
+          },
+          {
+            "sourceId": "w882652330",
+            "dir": 1,
+            "from": 10556771544,
+            "to": 2746164023
+          },
+          {
+            "sourceId": "w882652327",
+            "dir": 1,
+            "from": 2746164023,
+            "to": 2159763168
+          },
+          {
+            "sourceId": "w882652327",
+            "dir": 1,
+            "from": 2159763168,
+            "to": 255060447
+          },
+          {
+            "sourceId": "w132515651",
+            "dir": 1,
+            "from": 255060447,
+            "to": 255712652
+          },
+          {
+            "sourceId": "w132515651",
+            "dir": 1,
+            "from": 255712652,
+            "to": 1397135737
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 1397135737,
+            "to": 2230811251
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 2230811251,
+            "to": 1344579072
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 1344579072,
+            "to": 3020781750
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 3020781750,
+            "to": 2159760168
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 2159760168,
+            "to": 3020781751
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 3020781751,
+            "to": 2159760179
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 2159760179,
+            "to": 3716138025
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 3716138025,
+            "to": 3020781755
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 3020781755,
+            "to": 981544983
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 981544983,
+            "to": 2499720073
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 2499720073,
+            "to": 12007812259
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 12007812259,
+            "to": 5868407501
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 5868407501,
+            "to": 6264852753
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 6264852753,
+            "to": 6264298386
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 6264298386,
+            "to": 255060445
+          },
+          {
+            "sourceId": "w723496082",
+            "dir": 1,
+            "from": 255060445,
+            "to": 10556623046
+          },
+          {
+            "sourceId": "w723496082",
+            "dir": 1,
+            "from": 10556623046,
+            "to": 255060347
+          },
+          {
+            "sourceId": "w1307769366",
+            "dir": 1,
+            "from": 255060347,
+            "to": 6266464911
+          },
+          {
+            "sourceId": "w1307769366",
+            "dir": 1,
+            "from": 6266464911,
+            "to": 1344579108
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1344579108,
+            "to": 12007812262
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 12007812262,
+            "to": 1344579144
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1344579144,
+            "to": 647897898
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 647897898,
+            "to": 1344579074
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1344579074,
+            "to": 1344579061
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1344579061,
+            "to": 1344579132
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1344579132,
+            "to": 1397135740
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1397135740,
+            "to": 1397135743
+          }
+        ]
+      },
+      {
+        "from": 1397135743,
+        "to": 32933928,
+        "found": true,
+        "lengthM": 2530.0992606326986,
+        "startSnapDistanceM": 0,
+        "goalSnapDistanceM": 77.42670627946413,
+        "goalEndpointClassification": {
+          "x": 279.6550621642665,
+          "z": -811.3191659999432,
+          "incidents": [
+            {
+              "sourceId": "w139756123",
+              "from": 2624398738,
+              "to": 32933928,
+              "main": false,
+              "type": "secondary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            },
+            {
+              "sourceId": "w1559926378",
+              "from": 2624398775,
+              "to": 32933928,
+              "main": false,
+              "type": "primary_link",
+              "lanesF": 1,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            },
+            {
+              "sourceId": "w1559926379",
+              "from": 32933928,
+              "to": 14189460270,
+              "main": false,
+              "type": "secondary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          ],
+          "nearestPublic": {
+            "distanceM": 0,
+            "t": 1,
+            "x": 279.6550621642665,
+            "z": -811.3191659999432,
+            "selectedEdge": {
+              "sourceId": "w139756123",
+              "from": 2624398738,
+              "to": 32933928,
+              "main": false,
+              "type": "secondary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "nearestMainClearanceEligible": {
+            "distanceM": 77.42670627946413,
+            "t": 0,
+            "x": 262.74986358472006,
+            "z": -735.7605191997753,
+            "selectedEdge": {
+              "sourceId": "w678037220",
+              "from": 3949397786,
+              "to": 3949397790,
+              "main": true,
+              "type": "service",
+              "lanesF": 1,
+              "lanesB": 1,
+              "oneway": false,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "scope": "Actual Navigator SCC/endpoint selection on this positive-source-only CPU fixture. Negative cut legs/mapEnd nodes and virtual outside are deliberately absent, so a fresh native World SCC may differ."
+        },
+        "points": [
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ],
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ],
+          [
+            1017.5705567239786,
+            -1209.7829519999204
+          ],
+          [
+            1051.8975678503994,
+            -1233.220690799811
+          ],
+          [
+            1072.3793246625992,
+            -1246.9677192001632
+          ],
+          [
+            1100.6579784221635,
+            -1265.9601779994323
+          ],
+          [
+            1121.6801929229562,
+            -1279.951696799483
+          ],
+          [
+            1125.7256776792779,
+            -1285.719447599766
+          ],
+          [
+            1128.2849037923934,
+            -1289.331237600123
+          ],
+          [
+            1133.1013355457862,
+            -1295.8213464001615
+          ],
+          [
+            1136.7494249430813,
+            -1300.8333995995097
+          ],
+          [
+            1141.4148464599143,
+            -1306.9234331996108
+          ],
+          [
+            1159.7109287967605,
+            -1321.904026800165
+          ],
+          [
+            1171.8314872517378,
+            -1332.1837367994797
+          ],
+          [
+            1176.5922836547597,
+            -1336.5956771997114
+          ],
+          [
+            1162.2701549098758,
+            -1336.7401487998204
+          ],
+          [
+            1124.4778562515442,
+            -1302.8448888001167
+          ],
+          [
+            1123.19029528771,
+            -1301.533531199795
+          ],
+          [
+            1119.7409035700693,
+            -1297.6439112001399
+          ],
+          [
+            1116.8081258191921,
+            -1293.8209703996845
+          ],
+          [
+            1108.1449069891319,
+            -1288.2865967997598
+          ],
+          [
+            1093.4015391633916,
+            -1278.5180940001019
+          ],
+          [
+            1033.7048083070188,
+            -1236.2101416000019
+          ],
+          [
+            1012.1580319319042,
+            -1221.618510000045
+          ],
+          [
+            981.6539641611682,
+            -1200.3367320000807
+          ],
+          [
+            953.8362890182781,
+            -1180.5107831997575
+          ],
+          [
+            938.1391723306476,
+            -1169.1530927996898
+          ],
+          [
+            922.3546286638223,
+            -1156.8285540001684
+          ],
+          [
+            911.3070376784715,
+            -1146.3821459996952
+          ],
+          [
+            899.8382076125467,
+            -1135.2800591994562
+          ],
+          [
+            886.5572547087481,
+            -1121.3329931999249
+          ],
+          [
+            877.2502553966295,
+            -1110.5865287998936
+          ],
+          [
+            870.2402012606066,
+            -1101.9404591999287
+          ],
+          [
+            862.4750959420655,
+            -1091.1162023997779
+          ],
+          [
+            854.3523348003156,
+            -1079.5695875998715
+          ],
+          [
+            844.5366694287105,
+            -1065.8225591995192
+          ],
+          [
+            840.9044758456862,
+            -1061.1216755998591
+          ],
+          [
+            835.1263473231263,
+            -1054.2759443996129
+          ],
+          [
+            829.9919992826249,
+            -1048.8971555999271
+          ],
+          [
+            823.514454927918,
+            -1042.7848955995664
+          ],
+          [
+            815.7811412382008,
+            -1036.1836547998082
+          ],
+          [
+            808.3101084855034,
+            -1030.0158287995878
+          ],
+          [
+            732.6698758184685,
+            -972.0049247999677
+          ],
+          [
+            721.7573992554072,
+            -963.6922511999508
+          ],
+          [
+            661.5202107104417,
+            -919.2172247997946
+          ],
+          [
+            621.597872926845,
+            -889.689452399803
+          ],
+          [
+            599.0576081540223,
+            -872.1194831997852
+          ],
+          [
+            582.5657007480557,
+            -859.2392844000873
+          ],
+          [
+            574.1011795973677,
+            -853.4715335998042
+          ],
+          [
+            562.823099303821,
+            -846.4924439995789
+          ],
+          [
+            456.25755978519373,
+            -782.0692236000397
+          ],
+          [
+            404.62795472019974,
+            -751.0411691998877
+          ],
+          [
+            397.0615470813133,
+            -747.073756800113
+          ],
+          [
+            371.00830733320254,
+            -734.1713316001553
+          ],
+          [
+            363.98235738290884,
+            -730.0927871998714
+          ],
+          [
+            348.7223755904055,
+            -725.5697147999202
+          ],
+          [
+            337.4283994823057,
+            -720.6243407997719
+          ],
+          [
+            326.4523396615968,
+            -714.0008735997542
+          ],
+          [
+            308.633131755978,
+            -701.0428823999367
+          ],
+          [
+            292.92011925379444,
+            -688.5071927995269
+          ],
+          [
+            277.80319979057464,
+            -674.9379755996735
+          ],
+          [
+            264.3076533925683,
+            -661.5576827996588
+          ],
+          [
+            251.4399916623495,
+            -647.6884091994574
+          ],
+          [
+            235.61570845970618,
+            -628.5403655999494
+          ],
+          [
+            222.44602625636728,
+            -611.3149056000093
+          ],
+          [
+            211.05667526207844,
+            -595.2007655996323
+          ],
+          [
+            199.3653037949518,
+            -577.4640984000353
+          ],
+          [
+            189.6370654019768,
+            -561.0943547998298
+          ],
+          [
+            179.78960840154787,
+            -543.0242915994952
+          ],
+          [
+            169.4811727844445,
+            -521.7536267996609
+          ],
+          [
+            159.10915390969356,
+            -498.1158503998017
+          ],
+          [
+            151.66196487854342,
+            -478.9122407996443
+          ],
+          [
+            146.06663822136747,
+            -462.23132759975067
+          ],
+          [
+            143.33255815014473,
+            -453.2185223994483
+          ],
+          [
+            140.89255064476563,
+            -450.2512979995172
+          ],
+          [
+            138.96120919915546,
+            -448.5176387997882
+          ],
+          [
+            135.71051516088724,
+            -446.38390440012165
+          ],
+          [
+            133.31819509860264,
+            -445.405942799748
+          ],
+          [
+            129.21707499190973,
+            -444.9947543996807
+          ],
+          [
+            125.77563118126345,
+            -445.1058863994001
+          ],
+          [
+            122.33418737089956,
+            -445.6282067999765
+          ],
+          [
+            119.14707659027893,
+            -446.82843239978894
+          ],
+          [
+            115.96791371665249,
+            -448.8843744001257
+          ],
+          [
+            113.22588573843558,
+            -451.5959951994387
+          ],
+          [
+            111.04021126279976,
+            -454.78548359959825
+          ],
+          [
+            109.42678610458046,
+            -458.5528583994043
+          ],
+          [
+            108.05974606911028,
+            -463.09815719961523
+          ],
+          [
+            105.46872832717108,
+            -478.0787507993797
+          ],
+          [
+            104.15732364178959,
+            -485.55793439992175
+          ],
+          [
+            98.1407579037572,
+            -522.8204939994941
+          ],
+          [
+            94.4370331560911,
+            -546.024855599816
+          ],
+          [
+            86.95805249639952,
+            -599.1792911995369
+          ],
+          [
+            87.14085436150103,
+            -604.7358911997214
+          ],
+          [
+            88.01512415175536,
+            -610.0924535999371
+          ],
+          [
+            89.98620513346587,
+            -615.9157704000799
+          ],
+          [
+            93.45149266537703,
+            -624.395141999676
+          ],
+          [
+            113.17025038806453,
+            -630.4184963997875
+          ],
+          [
+            239.08099599161736,
+            -670.6816199996806
+          ],
+          [
+            250.22396186315706,
+            -674.4045419997568
+          ],
+          [
+            259.1574095375137,
+            -678.2608223998122
+          ],
+          [
+            266.97815020642577,
+            -682.1615555995974
+          ],
+          [
+            275.07706762634604,
+            -686.8290995996576
+          ],
+          [
+            308.52980896251245,
+            -708.5998583998086
+          ],
+          [
+            315.913414736015,
+            -713.545232399957
+          ],
+          [
+            333.85978915692897,
+            -701.7430139994325
+          ],
+          [
+            335.45731850087753,
+            -700.6872599997291
+          ],
+          [
+            336.9753687729078,
+            -699.6870719998855
+          ],
+          [
+            338.9702934758832,
+            -698.375714399564
+          ],
+          [
+            359.27719633025794,
+            -685.017647999809
+          ],
+          [
+            363.06040014956,
+            -682.3282535999662
+          ],
+          [
+            396.50519357844985,
+            -713.400760799848
+          ],
+          [
+            407.47330549188223,
+            -723.0470183996565
+          ],
+          [
+            391.9113032262587,
+            -732.0487103998289
+          ],
+          [
+            390.52836737623545,
+            -732.848860799704
+          ],
+          [
+            386.12522679670474,
+            -735.3937835994378
+          ],
+          [
+            383.0255429949966,
+            -737.1830087998162
+          ],
+          [
+            372.4150869047731,
+            -743.3174951996472
+          ],
+          [
+            365.4606681191211,
+            -747.3404736000713
+          ],
+          [
+            352.8870789544636,
+            -740.3058179999862
+          ],
+          [
+            352.08434032885106,
+            -739.8612899995293
+          ],
+          [
+            346.1790452915608,
+            -736.9607447995877
+          ],
+          [
+            336.4110673627678,
+            -732.1709555996782
+          ],
+          [
+            333.06499843859297,
+            -730.3595039998297
+          ],
+          [
+            320.3721906661992,
+            -722.4135660001502
+          ],
+          [
+            311.27978484800593,
+            -716.8903055995659
+          ],
+          [
+            304.5002200204613,
+            -712.6784028000925
+          ],
+          [
+            271.61972800171145,
+            -692.6190767994108
+          ],
+          [
+            262.33657241114014,
+            -687.7514951993818
+          ],
+          [
+            256.45512109511475,
+            -684.8620631995702
+          ],
+          [
+            249.5007023094628,
+            -681.7948200000495
+          ],
+          [
+            236.10053079792786,
+            -676.7383139993921
+          ],
+          [
+            203.355153201185,
+            -666.1696607998593
+          ],
+          [
+            201.3840722194745,
+            -672.1596755995812
+          ],
+          [
+            188.29386908805387,
+            -711.9115919998175
+          ],
+          [
+            200.93898941735316,
+            -715.9679099998416
+          ],
+          [
+            215.1975349048717,
+            -720.5354351995226
+          ],
+          [
+            222.9070048730417,
+            -723.0025655999266
+          ],
+          [
+            230.60852693393514,
+            -725.469695999541
+          ],
+          [
+            248.11776645943954,
+            -731.0707487994554
+          ],
+          [
+            262.74986358472006,
+            -735.7605191997753
+          ]
+        ],
+        "legs": [
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1397135740,
+            "to": 1397135743
+          },
+          {
+            "sourceId": "w125909047",
+            "dir": 1,
+            "from": 1397135743,
+            "to": 358518389
+          },
+          {
+            "sourceId": "w668700423",
+            "dir": 1,
+            "from": 358518389,
+            "to": 358518409
+          },
+          {
+            "sourceId": "w131484721",
+            "dir": 1,
+            "from": 358518409,
+            "to": 11652166081
+          },
+          {
+            "sourceId": "w131484721",
+            "dir": 1,
+            "from": 11652166081,
+            "to": 255060349
+          },
+          {
+            "sourceId": "w131484721",
+            "dir": 1,
+            "from": 255060349,
+            "to": 255060350
+          },
+          {
+            "sourceId": "w23554680",
+            "dir": 1,
+            "from": 255060350,
+            "to": 6262162593
+          },
+          {
+            "sourceId": "w23554680",
+            "dir": 1,
+            "from": 6262162593,
+            "to": 6262162594
+          },
+          {
+            "sourceId": "w23554680",
+            "dir": 1,
+            "from": 6262162594,
+            "to": 255060448
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 255060448,
+            "to": 6262162585
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 6262162585,
+            "to": 1336468931
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 1336468931,
+            "to": 8378931526
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 8378931526,
+            "to": 6262313721
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 6262313721,
+            "to": 1972639741
+          },
+          {
+            "sourceId": "w205975183",
+            "dir": 1,
+            "from": 1972639741,
+            "to": 255713323
+          },
+          {
+            "sourceId": "w1132179482",
+            "dir": 1,
+            "from": 255713323,
+            "to": 6262162586
+          },
+          {
+            "sourceId": "w1132179482",
+            "dir": 1,
+            "from": 6262162586,
+            "to": 2159763167
+          },
+          {
+            "sourceId": "w882652330",
+            "dir": 1,
+            "from": 2159763167,
+            "to": 10556771544
+          },
+          {
+            "sourceId": "w882652330",
+            "dir": 1,
+            "from": 10556771544,
+            "to": 2746164023
+          },
+          {
+            "sourceId": "w882652327",
+            "dir": 1,
+            "from": 2746164023,
+            "to": 2159763168
+          },
+          {
+            "sourceId": "w882652327",
+            "dir": 1,
+            "from": 2159763168,
+            "to": 255060447
+          },
+          {
+            "sourceId": "w132515651",
+            "dir": 1,
+            "from": 255060447,
+            "to": 255712652
+          },
+          {
+            "sourceId": "w132515651",
+            "dir": 1,
+            "from": 255712652,
+            "to": 1397135737
+          },
+          {
+            "sourceId": "w227396976",
+            "dir": 1,
+            "from": 1397135737,
+            "to": 2159760180
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760180,
+            "to": 2159760177
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760177,
+            "to": 3020781742
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3020781742,
+            "to": 2159760172
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760172,
+            "to": 3908620666
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3908620666,
+            "to": 2448336882
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2448336882,
+            "to": 2159760170
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760170,
+            "to": 3908620661
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3908620661,
+            "to": 1330594286
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 1330594286,
+            "to": 3908620656
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3908620656,
+            "to": 2159760173
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760173,
+            "to": 2159760178
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760178,
+            "to": 3908620649
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3908620649,
+            "to": 2448336885
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2448336885,
+            "to": 3908620645
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3908620645,
+            "to": 2159760175
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760175,
+            "to": 3908620642
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3908620642,
+            "to": 1340349396
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 1340349396,
+            "to": 1330584266
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 1330584266,
+            "to": 2624398739
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 2624398739,
+            "to": 2624398784
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 2624398784,
+            "to": 2624398769
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 2624398769,
+            "to": 3198155704
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 3198155704,
+            "to": 257542529
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 257542529,
+            "to": 3908619748
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 3908619748,
+            "to": 3908619744
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 3908619744,
+            "to": 981550754
+          },
+          {
+            "sourceId": "w1552024281",
+            "dir": 1,
+            "from": 981550754,
+            "to": 3020483237
+          },
+          {
+            "sourceId": "w1552024281",
+            "dir": 1,
+            "from": 3020483237,
+            "to": 3908619730
+          },
+          {
+            "sourceId": "w1552024281",
+            "dir": 1,
+            "from": 3908619730,
+            "to": 3908619728
+          },
+          {
+            "sourceId": "w1552024281",
+            "dir": 1,
+            "from": 3908619728,
+            "to": 984552354
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 984552354,
+            "to": 2159708684
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 2159708684,
+            "to": 3908621822
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3908621822,
+            "to": 1340349383
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1340349383,
+            "to": 2159708693
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 2159708693,
+            "to": 3020481708
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3020481708,
+            "to": 1418267160
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1418267160,
+            "to": 3020483259
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3020483259,
+            "to": 1330584281
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1330584281,
+            "to": 3020483241
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3020483241,
+            "to": 1418267107
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1418267107,
+            "to": 3020483263
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3020483263,
+            "to": 1330584262
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1330584262,
+            "to": 3020483248
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3020483248,
+            "to": 2159730244
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 2159730244,
+            "to": 3020481730
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3020481730,
+            "to": 1340349374
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1340349374,
+            "to": 1330584274
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1330584274,
+            "to": 4544537067
+          },
+          {
+            "sourceId": "w118842017",
+            "dir": 1,
+            "from": 4544537067,
+            "to": 1330584254
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 1330584254,
+            "to": 14181586262
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 14181586262,
+            "to": 7476801816
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 7476801816,
+            "to": 14180781323
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 14180781323,
+            "to": 14181586261
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 14181586261,
+            "to": 1340349372
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 1340349372,
+            "to": 14181586260
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 14181586260,
+            "to": 1418266983
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 1418266983,
+            "to": 14181586259
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 14181586259,
+            "to": 1330584259
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 1330584259,
+            "to": 14181586258
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 14181586258,
+            "to": 1418266971
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 1418266971,
+            "to": 14181586257
+          },
+          {
+            "sourceId": "w205968328",
+            "dir": 1,
+            "from": 14181586257,
+            "to": 249659922
+          },
+          {
+            "sourceId": "w118284445",
+            "dir": 1,
+            "from": 249659922,
+            "to": 2495091622
+          },
+          {
+            "sourceId": "w118284445",
+            "dir": 1,
+            "from": 2495091622,
+            "to": 3653645089
+          },
+          {
+            "sourceId": "w118284445",
+            "dir": 1,
+            "from": 3653645089,
+            "to": 12676962691
+          },
+          {
+            "sourceId": "w118284445",
+            "dir": 1,
+            "from": 12676962691,
+            "to": 3001224269
+          },
+          {
+            "sourceId": "w118284445",
+            "dir": 1,
+            "from": 3001224269,
+            "to": 3488474488
+          },
+          {
+            "sourceId": "w118284445",
+            "dir": 1,
+            "from": 3488474488,
+            "to": 12319159705
+          },
+          {
+            "sourceId": "w118284445",
+            "dir": 1,
+            "from": 12319159705,
+            "to": 6340365317
+          },
+          {
+            "sourceId": "w118284445",
+            "dir": 1,
+            "from": 6340365317,
+            "to": 255078912
+          },
+          {
+            "sourceId": "w118284445",
+            "dir": 1,
+            "from": 255078912,
+            "to": 255078913
+          },
+          {
+            "sourceId": "w360811525",
+            "dir": 1,
+            "from": 255078913,
+            "to": 3001224276
+          },
+          {
+            "sourceId": "w360811525",
+            "dir": 1,
+            "from": 3001224276,
+            "to": 14181586263
+          },
+          {
+            "sourceId": "w360811525",
+            "dir": 1,
+            "from": 14181586263,
+            "to": 3653645093
+          },
+          {
+            "sourceId": "w360811525",
+            "dir": 1,
+            "from": 3653645093,
+            "to": 14181586265
+          },
+          {
+            "sourceId": "w360811525",
+            "dir": 1,
+            "from": 14181586265,
+            "to": 2230801633
+          },
+          {
+            "sourceId": "w360811525",
+            "dir": 1,
+            "from": 2230801633,
+            "to": 14181586266
+          },
+          {
+            "sourceId": "w360811525",
+            "dir": 1,
+            "from": 14181586266,
+            "to": 6263837332
+          },
+          {
+            "sourceId": "w360811525",
+            "dir": 1,
+            "from": 6263837332,
+            "to": 981579827
+          },
+          {
+            "sourceId": "w295382931",
+            "dir": 1,
+            "from": 981579827,
+            "to": 8407738661
+          },
+          {
+            "sourceId": "w295382931",
+            "dir": 1,
+            "from": 8407738661,
+            "to": 8407738662
+          },
+          {
+            "sourceId": "w295382931",
+            "dir": 1,
+            "from": 8407738662,
+            "to": 8407738659
+          },
+          {
+            "sourceId": "w295382931",
+            "dir": 1,
+            "from": 8407738659,
+            "to": 8407738663
+          },
+          {
+            "sourceId": "w295382931",
+            "dir": 1,
+            "from": 8407738663,
+            "to": 6262920765
+          },
+          {
+            "sourceId": "w295382931",
+            "dir": 1,
+            "from": 6262920765,
+            "to": 981549067
+          },
+          {
+            "sourceId": "w139758830",
+            "dir": 1,
+            "from": 981549067,
+            "to": 6262920763
+          },
+          {
+            "sourceId": "w139758830",
+            "dir": 1,
+            "from": 6262920763,
+            "to": 981554511
+          },
+          {
+            "sourceId": "w153967941",
+            "dir": 1,
+            "from": 981554511,
+            "to": 8407738658
+          },
+          {
+            "sourceId": "w153967941",
+            "dir": 1,
+            "from": 8407738658,
+            "to": 8407738656
+          },
+          {
+            "sourceId": "w153967941",
+            "dir": 1,
+            "from": 8407738656,
+            "to": 8407738657
+          },
+          {
+            "sourceId": "w153967941",
+            "dir": 1,
+            "from": 8407738657,
+            "to": 8407738654
+          },
+          {
+            "sourceId": "w153967941",
+            "dir": 1,
+            "from": 8407738654,
+            "to": 14189436074
+          },
+          {
+            "sourceId": "w153967941",
+            "dir": 1,
+            "from": 14189436074,
+            "to": 981551477
+          },
+          {
+            "sourceId": "w106797418",
+            "dir": 1,
+            "from": 981551477,
+            "to": 8407738653
+          },
+          {
+            "sourceId": "w106797418",
+            "dir": 1,
+            "from": 8407738653,
+            "to": 8407738645
+          },
+          {
+            "sourceId": "w106797418",
+            "dir": 1,
+            "from": 8407738645,
+            "to": 8407738655
+          },
+          {
+            "sourceId": "w106797418",
+            "dir": 1,
+            "from": 8407738655,
+            "to": 6187849503
+          },
+          {
+            "sourceId": "w106797418",
+            "dir": 1,
+            "from": 6187849503,
+            "to": 3208556812
+          },
+          {
+            "sourceId": "w106797418",
+            "dir": 1,
+            "from": 3208556812,
+            "to": 6263837333
+          },
+          {
+            "sourceId": "w106797418",
+            "dir": 1,
+            "from": 6263837333,
+            "to": 981556145
+          },
+          {
+            "sourceId": "w295382943",
+            "dir": 1,
+            "from": 981556145,
+            "to": 6263837342
+          },
+          {
+            "sourceId": "w295382943",
+            "dir": 1,
+            "from": 6263837342,
+            "to": 255079328
+          },
+          {
+            "sourceId": "w295382943",
+            "dir": 1,
+            "from": 255079328,
+            "to": 2448336871
+          },
+          {
+            "sourceId": "w295382943",
+            "dir": 1,
+            "from": 2448336871,
+            "to": 14181586264
+          },
+          {
+            "sourceId": "w295382943",
+            "dir": 1,
+            "from": 14181586264,
+            "to": 1418267162
+          },
+          {
+            "sourceId": "w295382943",
+            "dir": 1,
+            "from": 1418267162,
+            "to": 2517400436
+          },
+          {
+            "sourceId": "w295382943",
+            "dir": 1,
+            "from": 2517400436,
+            "to": 3488474492
+          },
+          {
+            "sourceId": "w341740069",
+            "dir": 1,
+            "from": 3488474492,
+            "to": 14185243950
+          },
+          {
+            "sourceId": "w341740069",
+            "dir": 1,
+            "from": 14185243950,
+            "to": 14185243952
+          },
+          {
+            "sourceId": "w678037220",
+            "dir": -1,
+            "from": 14185243952,
+            "to": 14185243948
+          },
+          {
+            "sourceId": "w678037220",
+            "dir": -1,
+            "from": 14185243948,
+            "to": 3949397793
+          },
+          {
+            "sourceId": "w678037220",
+            "dir": -1,
+            "from": 3949397793,
+            "to": 14185243962
+          },
+          {
+            "sourceId": "w678037220",
+            "dir": -1,
+            "from": 14185243962,
+            "to": 3949397795
+          },
+          {
+            "sourceId": "w678037220",
+            "dir": -1,
+            "from": 3949397795,
+            "to": 3949397790
+          },
+          {
+            "sourceId": "w678037220",
+            "dir": -1,
+            "from": 3949397790,
+            "to": 3949397786
+          }
+        ]
+      },
+      {
+        "from": 1397135743,
+        "to": 981547574,
+        "found": true,
+        "lengthM": 2566.5360430916435,
+        "startSnapDistanceM": 0,
+        "goalSnapDistanceM": 0,
+        "goalEndpointClassification": {
+          "x": 430.5381321387446,
+          "z": -695.7529991997106,
+          "incidents": [
+            {
+              "sourceId": "w84482671",
+              "from": 981547574,
+              "to": 5220968639,
+              "main": true,
+              "type": "primary_link",
+              "lanesF": 1,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 5220968642,
+              "to": 981547574,
+              "main": true,
+              "type": "primary_link",
+              "lanesF": 1,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            },
+            {
+              "sourceId": "w668676697",
+              "from": 981547574,
+              "to": 3020483247,
+              "main": true,
+              "type": "secondary",
+              "lanesF": 1,
+              "lanesB": 1,
+              "oneway": false,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          ],
+          "nearestPublic": {
+            "distanceM": 0,
+            "t": 0,
+            "x": 430.5381321387446,
+            "z": -695.7529991997106,
+            "selectedEdge": {
+              "sourceId": "w84482671",
+              "from": 981547574,
+              "to": 5220968639,
+              "main": true,
+              "type": "primary_link",
+              "lanesF": 1,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "nearestMainClearanceEligible": {
+            "distanceM": 0,
+            "t": 0,
+            "x": 430.5381321387446,
+            "z": -695.7529991997106,
+            "selectedEdge": {
+              "sourceId": "w84482671",
+              "from": 981547574,
+              "to": 5220968639,
+              "main": true,
+              "type": "primary_link",
+              "lanesF": 1,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "scope": "Actual Navigator SCC/endpoint selection on this positive-source-only CPU fixture. Negative cut legs/mapEnd nodes and virtual outside are deliberately absent, so a fresh native World SCC may differ."
+        },
+        "points": [
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ],
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ],
+          [
+            1017.5705567239786,
+            -1209.7829519999204
+          ],
+          [
+            1051.8975678503994,
+            -1233.220690799811
+          ],
+          [
+            1072.3793246625992,
+            -1246.9677192001632
+          ],
+          [
+            1100.6579784221635,
+            -1265.9601779994323
+          ],
+          [
+            1121.6801929229562,
+            -1279.951696799483
+          ],
+          [
+            1125.7256776792779,
+            -1285.719447599766
+          ],
+          [
+            1128.2849037923934,
+            -1289.331237600123
+          ],
+          [
+            1133.1013355457862,
+            -1295.8213464001615
+          ],
+          [
+            1136.7494249430813,
+            -1300.8333995995097
+          ],
+          [
+            1141.4148464599143,
+            -1306.9234331996108
+          ],
+          [
+            1159.7109287967605,
+            -1321.904026800165
+          ],
+          [
+            1171.8314872517378,
+            -1332.1837367994797
+          ],
+          [
+            1176.5922836547597,
+            -1336.5956771997114
+          ],
+          [
+            1162.2701549098758,
+            -1336.7401487998204
+          ],
+          [
+            1124.4778562515442,
+            -1302.8448888001167
+          ],
+          [
+            1123.19029528771,
+            -1301.533531199795
+          ],
+          [
+            1119.7409035700693,
+            -1297.6439112001399
+          ],
+          [
+            1116.8081258191921,
+            -1293.8209703996845
+          ],
+          [
+            1108.1449069891319,
+            -1288.2865967997598
+          ],
+          [
+            1093.4015391633916,
+            -1278.5180940001019
+          ],
+          [
+            1033.7048083070188,
+            -1236.2101416000019
+          ],
+          [
+            1012.1580319319042,
+            -1221.618510000045
+          ],
+          [
+            981.6539641611682,
+            -1200.3367320000807
+          ],
+          [
+            953.8362890182781,
+            -1180.5107831997575
+          ],
+          [
+            938.1391723306476,
+            -1169.1530927996898
+          ],
+          [
+            922.3546286638223,
+            -1156.8285540001684
+          ],
+          [
+            911.3070376784715,
+            -1146.3821459996952
+          ],
+          [
+            899.8382076125467,
+            -1135.2800591994562
+          ],
+          [
+            886.5572547087481,
+            -1121.3329931999249
+          ],
+          [
+            877.2502553966295,
+            -1110.5865287998936
+          ],
+          [
+            870.2402012606066,
+            -1101.9404591999287
+          ],
+          [
+            862.4750959420655,
+            -1091.1162023997779
+          ],
+          [
+            854.3523348003156,
+            -1079.5695875998715
+          ],
+          [
+            844.5366694287105,
+            -1065.8225591995192
+          ],
+          [
+            840.9044758456862,
+            -1061.1216755998591
+          ],
+          [
+            835.1263473231263,
+            -1054.2759443996129
+          ],
+          [
+            829.9919992826249,
+            -1048.8971555999271
+          ],
+          [
+            823.514454927918,
+            -1042.7848955995664
+          ],
+          [
+            815.7811412382008,
+            -1036.1836547998082
+          ],
+          [
+            808.3101084855034,
+            -1030.0158287995878
+          ],
+          [
+            732.6698758184685,
+            -972.0049247999677
+          ],
+          [
+            721.7573992554072,
+            -963.6922511999508
+          ],
+          [
+            661.5202107104417,
+            -919.2172247997946
+          ],
+          [
+            621.597872926845,
+            -889.689452399803
+          ],
+          [
+            599.0576081540223,
+            -872.1194831997852
+          ],
+          [
+            582.5657007480557,
+            -859.2392844000873
+          ],
+          [
+            574.1011795973677,
+            -853.4715335998042
+          ],
+          [
+            562.823099303821,
+            -846.4924439995789
+          ],
+          [
+            456.25755978519373,
+            -782.0692236000397
+          ],
+          [
+            404.62795472019974,
+            -751.0411691998877
+          ],
+          [
+            397.0615470813133,
+            -747.073756800113
+          ],
+          [
+            371.00830733320254,
+            -734.1713316001553
+          ],
+          [
+            363.98235738290884,
+            -730.0927871998714
+          ],
+          [
+            348.7223755904055,
+            -725.5697147999202
+          ],
+          [
+            337.4283994823057,
+            -720.6243407997719
+          ],
+          [
+            326.4523396615968,
+            -714.0008735997542
+          ],
+          [
+            308.633131755978,
+            -701.0428823999367
+          ],
+          [
+            292.92011925379444,
+            -688.5071927995269
+          ],
+          [
+            277.80319979057464,
+            -674.9379755996735
+          ],
+          [
+            264.3076533925683,
+            -661.5576827996588
+          ],
+          [
+            251.4399916623495,
+            -647.6884091994574
+          ],
+          [
+            235.61570845970618,
+            -628.5403655999494
+          ],
+          [
+            222.44602625636728,
+            -611.3149056000093
+          ],
+          [
+            211.05667526207844,
+            -595.2007655996323
+          ],
+          [
+            199.3653037949518,
+            -577.4640984000353
+          ],
+          [
+            189.6370654019768,
+            -561.0943547998298
+          ],
+          [
+            179.78960840154787,
+            -543.0242915994952
+          ],
+          [
+            169.4811727844445,
+            -521.7536267996609
+          ],
+          [
+            159.10915390969356,
+            -498.1158503998017
+          ],
+          [
+            151.66196487854342,
+            -478.9122407996443
+          ],
+          [
+            146.06663822136747,
+            -462.23132759975067
+          ],
+          [
+            143.33255815014473,
+            -453.2185223994483
+          ],
+          [
+            137.80081475033404,
+            -434.2482899996493
+          ],
+          [
+            133.53278859252796,
+            -417.2228675996779
+          ],
+          [
+            128.97863777643715,
+            -398.04148439978024
+          ],
+          [
+            119.48883659921707,
+            -336.36322439994376
+          ],
+          [
+            118.63841053051,
+            -325.1277791997255
+          ],
+          [
+            116.58785047716354,
+            -309.0469787997381
+          ],
+          [
+            111.13558614898878,
+            -277.4743775995397
+          ],
+          [
+            107.27290325776843,
+            -260.471181599828
+          ],
+          [
+            106.00918601576382,
+            -254.49227999944637
+          ],
+          [
+            103.55328269583163,
+            -242.93455199941013
+          ],
+          [
+            101.8126910225995,
+            -235.69985880014596
+          ],
+          [
+            93.74556523122065,
+            -199.41526080015748
+          ],
+          [
+            91.20223493237597,
+            -187.33521239954484
+          ],
+          [
+            101.86832637297056,
+            -184.5013463995929
+          ],
+          [
+            104.76136458774755,
+            -183.7456487994478
+          ],
+          [
+            120.74460593422751,
+            -179.48929319945495
+          ],
+          [
+            123.51842554126821,
+            -192.58064280004115
+          ],
+          [
+            131.27558295253272,
+            -228.9319200000192
+          ],
+          [
+            133.56458022135175,
+            -235.88878319998483
+          ],
+          [
+            136.79937844506688,
+            -246.74637959973566
+          ],
+          [
+            143.22923535667917,
+            -271.82887199989557
+          ],
+          [
+            147.17139731981783,
+            -288.0096911994725
+          ],
+          [
+            148.7848224780371,
+            -293.6218571995166
+          ],
+          [
+            150.53336205854578,
+            -310.29165720007006
+          ],
+          [
+            154.4198886713134,
+            -324.6054587999388
+          ],
+          [
+            158.07592597588499,
+            -337.40786519951723
+          ],
+          [
+            161.20740140613455,
+            -349.5879323997194
+          ],
+          [
+            180.21084748240432,
+            -423.935240399945
+          ],
+          [
+            183.42974989156636,
+            -435.0817799999138
+          ],
+          [
+            186.28304857052538,
+            -444.2279435994057
+          ],
+          [
+            192.16449988655077,
+            -462.10908239990135
+          ],
+          [
+            198.2367009749542,
+            -478.80110879992486
+          ],
+          [
+            205.9779625716656,
+            -497.3379263993968
+          ],
+          [
+            213.17876648006668,
+            -512.2740671994316
+          ],
+          [
+            220.76901784050037,
+            -525.8655107995447
+          ],
+          [
+            231.0138702002385,
+            -543.4465931996924
+          ],
+          [
+            241.53689931154955,
+            -560.0274875999966
+          ],
+          [
+            252.6401256469889,
+            -576.0193823997346
+          ],
+          [
+            264.6971008446009,
+            -591.9001451997533
+          ],
+          [
+            276.88919046421995,
+            -607.1141159998762
+          ],
+          [
+            290.37678895494975,
+            -622.5392376000976
+          ],
+          [
+            303.7054293021253,
+            -636.7863599999768
+          ],
+          [
+            319.8317329776064,
+            -652.5559907994864
+          ],
+          [
+            333.46239379761977,
+            -664.7582843999483
+          ],
+          [
+            350.19273841934125,
+            -680.1167267993906
+          ],
+          [
+            367.3284263070837,
+            -702.7987679999255
+          ],
+          [
+            370.5711724380754,
+            -705.088087199831
+          ],
+          [
+            380.94319131282634,
+            -707.8997267995233
+          ],
+          [
+            389.4077124635144,
+            -709.622272799912
+          ],
+          [
+            394.184404680807,
+            -710.1445931996988
+          ],
+          [
+            402.29127000800383,
+            -710.2334987999482
+          ],
+          [
+            410.08816695536865,
+            -708.6331979994086
+          ],
+          [
+            416.22395130113733,
+            -706.1105015999344
+          ],
+          [
+            422.8525058924042,
+            -701.8430327998117
+          ],
+          [
+            430.5381321387446,
+            -695.7529991997106
+          ]
+        ],
+        "legs": [
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1397135740,
+            "to": 1397135743
+          },
+          {
+            "sourceId": "w125909047",
+            "dir": 1,
+            "from": 1397135743,
+            "to": 358518389
+          },
+          {
+            "sourceId": "w668700423",
+            "dir": 1,
+            "from": 358518389,
+            "to": 358518409
+          },
+          {
+            "sourceId": "w131484721",
+            "dir": 1,
+            "from": 358518409,
+            "to": 11652166081
+          },
+          {
+            "sourceId": "w131484721",
+            "dir": 1,
+            "from": 11652166081,
+            "to": 255060349
+          },
+          {
+            "sourceId": "w131484721",
+            "dir": 1,
+            "from": 255060349,
+            "to": 255060350
+          },
+          {
+            "sourceId": "w23554680",
+            "dir": 1,
+            "from": 255060350,
+            "to": 6262162593
+          },
+          {
+            "sourceId": "w23554680",
+            "dir": 1,
+            "from": 6262162593,
+            "to": 6262162594
+          },
+          {
+            "sourceId": "w23554680",
+            "dir": 1,
+            "from": 6262162594,
+            "to": 255060448
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 255060448,
+            "to": 6262162585
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 6262162585,
+            "to": 1336468931
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 1336468931,
+            "to": 8378931526
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 8378931526,
+            "to": 6262313721
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 6262313721,
+            "to": 1972639741
+          },
+          {
+            "sourceId": "w205975183",
+            "dir": 1,
+            "from": 1972639741,
+            "to": 255713323
+          },
+          {
+            "sourceId": "w1132179482",
+            "dir": 1,
+            "from": 255713323,
+            "to": 6262162586
+          },
+          {
+            "sourceId": "w1132179482",
+            "dir": 1,
+            "from": 6262162586,
+            "to": 2159763167
+          },
+          {
+            "sourceId": "w882652330",
+            "dir": 1,
+            "from": 2159763167,
+            "to": 10556771544
+          },
+          {
+            "sourceId": "w882652330",
+            "dir": 1,
+            "from": 10556771544,
+            "to": 2746164023
+          },
+          {
+            "sourceId": "w882652327",
+            "dir": 1,
+            "from": 2746164023,
+            "to": 2159763168
+          },
+          {
+            "sourceId": "w882652327",
+            "dir": 1,
+            "from": 2159763168,
+            "to": 255060447
+          },
+          {
+            "sourceId": "w132515651",
+            "dir": 1,
+            "from": 255060447,
+            "to": 255712652
+          },
+          {
+            "sourceId": "w132515651",
+            "dir": 1,
+            "from": 255712652,
+            "to": 1397135737
+          },
+          {
+            "sourceId": "w227396976",
+            "dir": 1,
+            "from": 1397135737,
+            "to": 2159760180
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760180,
+            "to": 2159760177
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760177,
+            "to": 3020781742
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3020781742,
+            "to": 2159760172
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760172,
+            "to": 3908620666
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3908620666,
+            "to": 2448336882
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2448336882,
+            "to": 2159760170
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760170,
+            "to": 3908620661
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3908620661,
+            "to": 1330594286
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 1330594286,
+            "to": 3908620656
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3908620656,
+            "to": 2159760173
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760173,
+            "to": 2159760178
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760178,
+            "to": 3908620649
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3908620649,
+            "to": 2448336885
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2448336885,
+            "to": 3908620645
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3908620645,
+            "to": 2159760175
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 2159760175,
+            "to": 3908620642
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 3908620642,
+            "to": 1340349396
+          },
+          {
+            "sourceId": "w23770172",
+            "dir": 1,
+            "from": 1340349396,
+            "to": 1330584266
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 1330584266,
+            "to": 2624398739
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 2624398739,
+            "to": 2624398784
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 2624398784,
+            "to": 2624398769
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 2624398769,
+            "to": 3198155704
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 3198155704,
+            "to": 257542529
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 257542529,
+            "to": 3908619748
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 3908619748,
+            "to": 3908619744
+          },
+          {
+            "sourceId": "w1552024282",
+            "dir": 1,
+            "from": 3908619744,
+            "to": 981550754
+          },
+          {
+            "sourceId": "w1552024281",
+            "dir": 1,
+            "from": 981550754,
+            "to": 3020483237
+          },
+          {
+            "sourceId": "w1552024281",
+            "dir": 1,
+            "from": 3020483237,
+            "to": 3908619730
+          },
+          {
+            "sourceId": "w1552024281",
+            "dir": 1,
+            "from": 3908619730,
+            "to": 3908619728
+          },
+          {
+            "sourceId": "w1552024281",
+            "dir": 1,
+            "from": 3908619728,
+            "to": 984552354
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 984552354,
+            "to": 2159708684
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 2159708684,
+            "to": 3908621822
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3908621822,
+            "to": 1340349383
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1340349383,
+            "to": 2159708693
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 2159708693,
+            "to": 3020481708
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3020481708,
+            "to": 1418267160
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1418267160,
+            "to": 3020483259
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3020483259,
+            "to": 1330584281
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1330584281,
+            "to": 3020483241
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3020483241,
+            "to": 1418267107
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1418267107,
+            "to": 3020483263
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3020483263,
+            "to": 1330584262
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1330584262,
+            "to": 3020483248
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3020483248,
+            "to": 2159730244
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 2159730244,
+            "to": 3020481730
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 3020481730,
+            "to": 1340349374
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1340349374,
+            "to": 1330584274
+          },
+          {
+            "sourceId": "w118284448",
+            "dir": 1,
+            "from": 1330584274,
+            "to": 4544537067
+          },
+          {
+            "sourceId": "w118842017",
+            "dir": 1,
+            "from": 4544537067,
+            "to": 1330584254
+          },
+          {
+            "sourceId": "w118842017",
+            "dir": 1,
+            "from": 1330584254,
+            "to": 6273078057
+          },
+          {
+            "sourceId": "w118842017",
+            "dir": 1,
+            "from": 6273078057,
+            "to": 6273078059
+          },
+          {
+            "sourceId": "w118842017",
+            "dir": 1,
+            "from": 6273078059,
+            "to": 1335934839
+          },
+          {
+            "sourceId": "w118842017",
+            "dir": 1,
+            "from": 1335934839,
+            "to": 255078822
+          },
+          {
+            "sourceId": "w256807105",
+            "dir": 1,
+            "from": 255078822,
+            "to": 7733749973
+          },
+          {
+            "sourceId": "w256807105",
+            "dir": 1,
+            "from": 7733749973,
+            "to": 11978952525
+          },
+          {
+            "sourceId": "w256807105",
+            "dir": 1,
+            "from": 11978952525,
+            "to": 3908701979
+          },
+          {
+            "sourceId": "w256807105",
+            "dir": 1,
+            "from": 3908701979,
+            "to": 304809417
+          },
+          {
+            "sourceId": "w256807105",
+            "dir": 1,
+            "from": 304809417,
+            "to": 3908701977
+          },
+          {
+            "sourceId": "w256807105",
+            "dir": 1,
+            "from": 3908701977,
+            "to": 32934941
+          },
+          {
+            "sourceId": "w84488633",
+            "dir": 1,
+            "from": 32934941,
+            "to": 1418266880
+          },
+          {
+            "sourceId": "w128304847",
+            "dir": 1,
+            "from": 1418266880,
+            "to": 1418266862
+          },
+          {
+            "sourceId": "w128304848",
+            "dir": 1,
+            "from": 1418266862,
+            "to": 32934991
+          },
+          {
+            "sourceId": "w665933043",
+            "dir": 1,
+            "from": 32934991,
+            "to": 13455628567
+          },
+          {
+            "sourceId": "w665933043",
+            "dir": 1,
+            "from": 13455628567,
+            "to": 13455628566
+          },
+          {
+            "sourceId": "w665933043",
+            "dir": 1,
+            "from": 13455628566,
+            "to": 981520486
+          },
+          {
+            "sourceId": "w314447341",
+            "dir": 1,
+            "from": 981520486,
+            "to": 1418266857
+          },
+          {
+            "sourceId": "w128304855",
+            "dir": 1,
+            "from": 1418266857,
+            "to": 1418266879
+          },
+          {
+            "sourceId": "w128304854",
+            "dir": 1,
+            "from": 1418266879,
+            "to": 981520528
+          },
+          {
+            "sourceId": "w237815654",
+            "dir": 1,
+            "from": 981520528,
+            "to": 3908701981
+          },
+          {
+            "sourceId": "w237815654",
+            "dir": 1,
+            "from": 3908701981,
+            "to": 2517400449
+          },
+          {
+            "sourceId": "w237815654",
+            "dir": 1,
+            "from": 2517400449,
+            "to": 6263877278
+          },
+          {
+            "sourceId": "w237815654",
+            "dir": 1,
+            "from": 6263877278,
+            "to": 981520594
+          },
+          {
+            "sourceId": "w668894721",
+            "dir": 1,
+            "from": 981520594,
+            "to": 6263935469
+          },
+          {
+            "sourceId": "w668894718",
+            "dir": 1,
+            "from": 6263935469,
+            "to": 6263935468
+          },
+          {
+            "sourceId": "w668894715",
+            "dir": 1,
+            "from": 6263935468,
+            "to": 6263935467
+          },
+          {
+            "sourceId": "w668894712",
+            "dir": 1,
+            "from": 6263935467,
+            "to": 6263935466
+          },
+          {
+            "sourceId": "w84477811",
+            "dir": 1,
+            "from": 6263935466,
+            "to": 3020519289
+          },
+          {
+            "sourceId": "w84477811",
+            "dir": 1,
+            "from": 3020519289,
+            "to": 6340365316
+          },
+          {
+            "sourceId": "w84477811",
+            "dir": 1,
+            "from": 6340365316,
+            "to": 1418266949
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 1418266949,
+            "to": 981525566
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 981525566,
+            "to": 2159714533
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 2159714533,
+            "to": 6340365315
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 6340365315,
+            "to": 3020481707
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 3020481707,
+            "to": 2159714544
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 2159714544,
+            "to": 3020481701
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 3020481701,
+            "to": 1340349375
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 1340349375,
+            "to": 2230801631
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 2230801631,
+            "to": 3020483260
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 3020483260,
+            "to": 1340349377
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 1340349377,
+            "to": 3020483261
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 3020483261,
+            "to": 2159730249
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 2159730249,
+            "to": 1340349379
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 1340349379,
+            "to": 6273078063
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 6273078063,
+            "to": 2159730253
+          },
+          {
+            "sourceId": "w128304850",
+            "dir": 1,
+            "from": 2159730253,
+            "to": 984551993
+          },
+          {
+            "sourceId": "w1535667121",
+            "dir": 1,
+            "from": 984551993,
+            "to": 6307136271
+          },
+          {
+            "sourceId": "w119235186",
+            "dir": 1,
+            "from": 6307136271,
+            "to": 2624398767
+          },
+          {
+            "sourceId": "w119235186",
+            "dir": 1,
+            "from": 2624398767,
+            "to": 2624398749
+          },
+          {
+            "sourceId": "w119235186",
+            "dir": 1,
+            "from": 2624398749,
+            "to": 5220968641
+          },
+          {
+            "sourceId": "w119235186",
+            "dir": 1,
+            "from": 5220968641,
+            "to": 2624398766
+          },
+          {
+            "sourceId": "w119235186",
+            "dir": 1,
+            "from": 2624398766,
+            "to": 2624398744
+          },
+          {
+            "sourceId": "w119235186",
+            "dir": 1,
+            "from": 2624398744,
+            "to": 2624398782
+          },
+          {
+            "sourceId": "w119235186",
+            "dir": 1,
+            "from": 2624398782,
+            "to": 5220968642
+          },
+          {
+            "sourceId": "w119235186",
+            "dir": 1,
+            "from": 5220968642,
+            "to": 981547574
+          }
+        ]
+      },
+      {
+        "from": 981547574,
+        "to": 1397135743,
+        "found": true,
+        "lengthM": 1811.8160050452254,
+        "startSnapDistanceM": 0,
+        "goalSnapDistanceM": 0,
+        "goalEndpointClassification": {
+          "x": 1009.4239518609638,
+          "z": -1204.5375215994243,
+          "incidents": [
+            {
+              "sourceId": "w23554631",
+              "from": 1397135740,
+              "to": 1397135743,
+              "main": true,
+              "type": "primary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            },
+            {
+              "sourceId": "w125909047",
+              "from": 1397135743,
+              "to": 358518389,
+              "main": true,
+              "type": "primary",
+              "lanesF": 3,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            },
+            {
+              "sourceId": "w668700424",
+              "from": 14161960361,
+              "to": 1397135743,
+              "main": true,
+              "type": "primary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          ],
+          "nearestPublic": {
+            "distanceM": 0,
+            "t": 1,
+            "x": 1009.4239518609638,
+            "z": -1204.5375215994243,
+            "selectedEdge": {
+              "sourceId": "w23554631",
+              "from": 1397135740,
+              "to": 1397135743,
+              "main": true,
+              "type": "primary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "nearestMainClearanceEligible": {
+            "distanceM": 0,
+            "t": 1,
+            "x": 1009.4239518609638,
+            "z": -1204.5375215994243,
+            "selectedEdge": {
+              "sourceId": "w23554631",
+              "from": 1397135740,
+              "to": 1397135743,
+              "main": true,
+              "type": "primary",
+              "lanesF": 2,
+              "lanesB": 0,
+              "oneway": true,
+              "publicDrive": true,
+              "throughAccess": true,
+              "clearance": {
+                "eligible": true,
+                "known": true,
+                "reason": "no-literal-way-dimension-rule",
+                "scope": "No real-world sign-completeness claim"
+              }
+            }
+          },
+          "scope": "Actual Navigator SCC/endpoint selection on this positive-source-only CPU fixture. Negative cut legs/mapEnd nodes and virtual outside are deliberately absent, so a fresh native World SCC may differ."
+        },
+        "points": [
+          [
+            430.5381321387446,
+            -695.7529991997106
+          ],
+          [
+            427.7563646247097,
+            -702.2764476001388
+          ],
+          [
+            426.08730411611936,
+            -706.8439727998198
+          ],
+          [
+            424.87922222420343,
+            -711.9560447995473
+          ],
+          [
+            424.418243607529,
+            -718.0238519993886
+          ],
+          [
+            424.57720175108324,
+            -724.0916592000196
+          ],
+          [
+            425.90450225073545,
+            -730.6484472000478
+          ],
+          [
+            429.5843832768543,
+            -738.6832907999766
+          ],
+          [
+            434.3372317725997,
+            -745.1511731997554
+          ],
+          [
+            446.07629068282085,
+            -757.3979195999472
+          ],
+          [
+            491.7767569889773,
+            -785.7254664001264
+          ],
+          [
+            570.9379125382943,
+            -832.6453967996372
+          ],
+          [
+            579.8475164911038,
+            -837.7130159996348
+          ],
+          [
+            589.9810981503821,
+            -843.036238799461
+          ],
+          [
+            619.555260780775,
+            -858.2279832001137
+          ],
+          [
+            634.0522434837662,
+            -866.3739587997619
+          ],
+          [
+            650.3931406531726,
+            -876.1646879996795
+          ],
+          [
+            668.3236192595335,
+            -888.8337360000685
+          ],
+          [
+            732.240688830618,
+            -935.4424967998912
+          ],
+          [
+            746.9443171205402,
+            -945.977810399824
+          ],
+          [
+            761.8466430898346,
+            -957.3688403994913
+          ],
+          [
+            774.777888077701,
+            -967.2484751996583
+          ],
+          [
+            797.3737882006125,
+            -984.5183880001179
+          ],
+          [
+            806.9828079858512,
+            -992.6199108000362
+          ],
+          [
+            817.6965868692579,
+            -1001.9549988001565
+          ],
+          [
+            828.0686057440089,
+            -1013.7349907996316
+          ],
+          [
+            837.2245948195673,
+            -1026.0150767994235
+          ],
+          [
+            849.7584444481245,
+            -1046.3633459995335
+          ],
+          [
+            866.3854662763804,
+            -1072.5238187996565
+          ],
+          [
+            873.7531762356123,
+            -1083.3480755998073
+          ],
+          [
+            880.7155429285407,
+            -1092.7165031995278
+          ],
+          [
+            887.6222742710981,
+            -1101.8071007999495
+          ],
+          [
+            895.7688791343953,
+            -1111.4089056000282
+          ],
+          [
+            911.7044330377807,
+            -1127.7341963997142
+          ],
+          [
+            927.7512576416259,
+            -1142.9259407995773
+          ],
+          [
+            950.5379075371977,
+            -1161.3738527995897
+          ],
+          [
+            989.2839550574199,
+            -1189.1235132001223
+          ],
+          [
+            996.6914045524697,
+            -1194.7912452000262
+          ],
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ],
+          [
+            1017.5705567239786,
+            -1209.7829519999204
+          ],
+          [
+            1051.8975678503994,
+            -1233.220690799811
+          ],
+          [
+            1072.3793246625992,
+            -1246.9677192001632
+          ],
+          [
+            1100.6579784221635,
+            -1265.9601779994323
+          ],
+          [
+            1121.6801929229562,
+            -1279.951696799483
+          ],
+          [
+            1125.7256776792779,
+            -1285.719447599766
+          ],
+          [
+            1128.2849037923934,
+            -1289.331237600123
+          ],
+          [
+            1133.1013355457862,
+            -1295.8213464001615
+          ],
+          [
+            1136.7494249430813,
+            -1300.8333995995097
+          ],
+          [
+            1141.4148464599143,
+            -1306.9234331996108
+          ],
+          [
+            1159.7109287967605,
+            -1321.904026800165
+          ],
+          [
+            1171.8314872517378,
+            -1332.1837367994797
+          ],
+          [
+            1176.5922836547597,
+            -1336.5956771997114
+          ],
+          [
+            1162.2701549098758,
+            -1336.7401487998204
+          ],
+          [
+            1124.4778562515442,
+            -1302.8448888001167
+          ],
+          [
+            1123.19029528771,
+            -1301.533531199795
+          ],
+          [
+            1119.7409035700693,
+            -1297.6439112001399
+          ],
+          [
+            1116.8081258191921,
+            -1293.8209703996845
+          ],
+          [
+            1108.1449069891319,
+            -1288.2865967997598
+          ],
+          [
+            1093.4015391633916,
+            -1278.5180940001019
+          ],
+          [
+            1033.7048083070188,
+            -1236.2101416000019
+          ],
+          [
+            1012.1580319319042,
+            -1221.618510000045
+          ],
+          [
+            993.8301579665166,
+            -1212.4945728000232
+          ],
+          [
+            981.8765055623701,
+            -1206.3267467998025
+          ],
+          [
+            963.0797050730315,
+            -1195.013509199465
+          ],
+          [
+            943.0430310629531,
+            -1181.4442919996116
+          ],
+          [
+            923.5229710199202,
+            -1167.441659999431
+          ],
+          [
+            907.6033129310878,
+            -1154.528121600133
+          ],
+          [
+            905.1633054254263,
+            -1152.205462799838
+          ],
+          [
+            893.4957776798469,
+            -1140.2254331996046
+          ],
+          [
+            876.7654330584079,
+            -1122.8555015995553
+          ],
+          [
+            857.2135813865511,
+            -1100.2957055996594
+          ],
+          [
+            847.5886657870417,
+            -1088.3267891995556
+          ],
+          [
+            826.7095136155328,
+            -1062.3774671995313
+          ],
+          [
+            811.2746778649222,
+            -1042.7848955995664
+          ],
+          [
+            808.643920587165,
+            -1039.3286903994485
+          ],
+          [
+            800.783440382435,
+            -1029.3268103994324
+          ],
+          [
+            821.1777702157221,
+            -1015.1797067999323
+          ],
+          [
+            833.8626300808394,
+            -1007.4893724000813
+          ],
+          [
+            840.8249967737678,
+            -1018.2580631995828
+          ],
+          [
+            864.4064373876757,
+            -1054.7871516000596
+          ],
+          [
+            874.3333734600229,
+            -1069.0009343995491
+          ],
+          [
+            881.8759373773621,
+            -1080.0585684000582
+          ],
+          [
+            902.3815379113914,
+            -1106.3968523998903
+          ],
+          [
+            936.1998829777609,
+            -1138.758490799834
+          ],
+          [
+            958.2553254123619,
+            -1157.4175535999448
+          ],
+          [
+            999.4572762525163,
+            -1189.5902676000494
+          ],
+          [
+            1005.1956652392581,
+            -1196.6360363994747
+          ],
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ]
+        ],
+        "legs": [
+          {
+            "sourceId": "w84482671",
+            "dir": 1,
+            "from": 981547574,
+            "to": 5220968639
+          },
+          {
+            "sourceId": "w84482671",
+            "dir": 1,
+            "from": 5220968639,
+            "to": 1340349386
+          },
+          {
+            "sourceId": "w84482671",
+            "dir": 1,
+            "from": 1340349386,
+            "to": 5220968640
+          },
+          {
+            "sourceId": "w84482671",
+            "dir": 1,
+            "from": 5220968640,
+            "to": 3208556820
+          },
+          {
+            "sourceId": "w84482671",
+            "dir": 1,
+            "from": 3208556820,
+            "to": 1418267172
+          },
+          {
+            "sourceId": "w84482671",
+            "dir": 1,
+            "from": 1418267172,
+            "to": 3208556822
+          },
+          {
+            "sourceId": "w84482671",
+            "dir": 1,
+            "from": 3208556822,
+            "to": 1340349387
+          },
+          {
+            "sourceId": "w84482671",
+            "dir": 1,
+            "from": 1340349387,
+            "to": 1418267184
+          },
+          {
+            "sourceId": "w84482671",
+            "dir": 1,
+            "from": 1418267184,
+            "to": 2624398781
+          },
+          {
+            "sourceId": "w668700432",
+            "dir": 1,
+            "from": 2624398781,
+            "to": 1340349388
+          },
+          {
+            "sourceId": "w668700431",
+            "dir": 1,
+            "from": 1340349388,
+            "to": 3908619736
+          },
+          {
+            "sourceId": "w668700431",
+            "dir": 1,
+            "from": 3908619736,
+            "to": 3908619738
+          },
+          {
+            "sourceId": "w668700431",
+            "dir": 1,
+            "from": 3908619738,
+            "to": 1330594306
+          },
+          {
+            "sourceId": "w668700431",
+            "dir": 1,
+            "from": 1330594306,
+            "to": 3204878461
+          },
+          {
+            "sourceId": "w668700431",
+            "dir": 1,
+            "from": 3204878461,
+            "to": 3908619752
+          },
+          {
+            "sourceId": "w668700431",
+            "dir": 1,
+            "from": 3908619752,
+            "to": 2159730255
+          },
+          {
+            "sourceId": "w668700431",
+            "dir": 1,
+            "from": 2159730255,
+            "to": 3208556821
+          },
+          {
+            "sourceId": "w668700431",
+            "dir": 1,
+            "from": 3208556821,
+            "to": 257542289
+          },
+          {
+            "sourceId": "w668700428",
+            "dir": 1,
+            "from": 257542289,
+            "to": 2159760169
+          },
+          {
+            "sourceId": "w668700430",
+            "dir": 1,
+            "from": 2159760169,
+            "to": 6262162597
+          },
+          {
+            "sourceId": "w668700429",
+            "dir": 1,
+            "from": 6262162597,
+            "to": 6262162596
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 6262162596,
+            "to": 1330584245
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 1330584245,
+            "to": 3908620612
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 3908620612,
+            "to": 3020483265
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 3020483265,
+            "to": 1330594285
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 1330594285,
+            "to": 2159760176
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2159760176,
+            "to": 2624398780
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2624398780,
+            "to": 1330594288
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 1330594288,
+            "to": 3908620654
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 3908620654,
+            "to": 2159763170
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2159763170,
+            "to": 3908620657
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 3908620657,
+            "to": 2448336874
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2448336874,
+            "to": 2159763173
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2159763173,
+            "to": 2448336883
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2448336883,
+            "to": 2159763169
+          },
+          {
+            "sourceId": "w668700433",
+            "dir": 1,
+            "from": 2159763169,
+            "to": 255060348
+          },
+          {
+            "sourceId": "w668700424",
+            "dir": 1,
+            "from": 255060348,
+            "to": 14161960361
+          },
+          {
+            "sourceId": "w668700424",
+            "dir": 1,
+            "from": 14161960361,
+            "to": 1397135743
+          },
+          {
+            "sourceId": "w125909047",
+            "dir": 1,
+            "from": 1397135743,
+            "to": 358518389
+          },
+          {
+            "sourceId": "w668700423",
+            "dir": 1,
+            "from": 358518389,
+            "to": 358518409
+          },
+          {
+            "sourceId": "w131484721",
+            "dir": 1,
+            "from": 358518409,
+            "to": 11652166081
+          },
+          {
+            "sourceId": "w131484721",
+            "dir": 1,
+            "from": 11652166081,
+            "to": 255060349
+          },
+          {
+            "sourceId": "w131484721",
+            "dir": 1,
+            "from": 255060349,
+            "to": 255060350
+          },
+          {
+            "sourceId": "w23554680",
+            "dir": 1,
+            "from": 255060350,
+            "to": 6262162593
+          },
+          {
+            "sourceId": "w23554680",
+            "dir": 1,
+            "from": 6262162593,
+            "to": 6262162594
+          },
+          {
+            "sourceId": "w23554680",
+            "dir": 1,
+            "from": 6262162594,
+            "to": 255060448
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 255060448,
+            "to": 6262162585
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 6262162585,
+            "to": 1336468931
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 1336468931,
+            "to": 8378931526
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 8378931526,
+            "to": 6262313721
+          },
+          {
+            "sourceId": "w379391760",
+            "dir": 1,
+            "from": 6262313721,
+            "to": 1972639741
+          },
+          {
+            "sourceId": "w205975183",
+            "dir": 1,
+            "from": 1972639741,
+            "to": 255713323
+          },
+          {
+            "sourceId": "w1132179482",
+            "dir": 1,
+            "from": 255713323,
+            "to": 6262162586
+          },
+          {
+            "sourceId": "w1132179482",
+            "dir": 1,
+            "from": 6262162586,
+            "to": 2159763167
+          },
+          {
+            "sourceId": "w882652330",
+            "dir": 1,
+            "from": 2159763167,
+            "to": 10556771544
+          },
+          {
+            "sourceId": "w882652330",
+            "dir": 1,
+            "from": 10556771544,
+            "to": 2746164023
+          },
+          {
+            "sourceId": "w882652327",
+            "dir": 1,
+            "from": 2746164023,
+            "to": 2159763168
+          },
+          {
+            "sourceId": "w882652327",
+            "dir": 1,
+            "from": 2159763168,
+            "to": 255060447
+          },
+          {
+            "sourceId": "w132515651",
+            "dir": 1,
+            "from": 255060447,
+            "to": 255712652
+          },
+          {
+            "sourceId": "w132515651",
+            "dir": 1,
+            "from": 255712652,
+            "to": 1397135737
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 1397135737,
+            "to": 2230811251
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 2230811251,
+            "to": 1344579072
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 1344579072,
+            "to": 3020781750
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 3020781750,
+            "to": 2159760168
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 2159760168,
+            "to": 3020781751
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 3020781751,
+            "to": 2159760179
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 2159760179,
+            "to": 3716138025
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 3716138025,
+            "to": 3020781755
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 3020781755,
+            "to": 981544983
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 981544983,
+            "to": 2499720073
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 2499720073,
+            "to": 12007812259
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 12007812259,
+            "to": 5868407501
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 5868407501,
+            "to": 6264852753
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 6264852753,
+            "to": 6264298386
+          },
+          {
+            "sourceId": "w125909046",
+            "dir": 1,
+            "from": 6264298386,
+            "to": 255060445
+          },
+          {
+            "sourceId": "w723496082",
+            "dir": 1,
+            "from": 255060445,
+            "to": 10556623046
+          },
+          {
+            "sourceId": "w723496082",
+            "dir": 1,
+            "from": 10556623046,
+            "to": 255060347
+          },
+          {
+            "sourceId": "w1307769366",
+            "dir": 1,
+            "from": 255060347,
+            "to": 6266464911
+          },
+          {
+            "sourceId": "w1307769366",
+            "dir": 1,
+            "from": 6266464911,
+            "to": 1344579108
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1344579108,
+            "to": 12007812262
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 12007812262,
+            "to": 1344579144
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1344579144,
+            "to": 647897898
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 647897898,
+            "to": 1344579074
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1344579074,
+            "to": 1344579061
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1344579061,
+            "to": 1344579132
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1344579132,
+            "to": 1397135740
+          },
+          {
+            "sourceId": "w23554631",
+            "dir": 1,
+            "from": 1397135740,
+            "to": 1397135743
+          }
+        ]
+      }
+    ],
+    "unresolvedRawRestrictions": [
+      {
+        "sourceId": "r21068448",
+        "reasons": [
+          "missing-or-ambiguous-via-node"
+        ]
+      },
+      {
+        "sourceId": "r21068490",
+        "reasons": [
+          "missing-or-ambiguous-from-way"
+        ]
+      },
+      {
+        "sourceId": "r21068491",
+        "reasons": [
+          "missing-or-ambiguous-from-way"
+        ]
+      },
+      {
+        "sourceId": "r21274117",
+        "reasons": [
+          "missing-or-ambiguous-from-way"
+        ]
+      },
+      {
+        "sourceId": "r21274119",
+        "reasons": [
+          "missing-or-ambiguous-to-way"
+        ]
+      }
+    ]
+  }
+}

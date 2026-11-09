@@ -1,0 +1,24 @@
+{
+  "scope": "Recorded actual compiler rejection messages, not fabricated raw stderr files. Exact raw records/APIreadback and review legs retained separately. No data was produced by these rejected runs.",
+  "cases": [
+    {
+      "case": "Full105-leg main prelude",
+      "actualCompilerRejected": true,
+      "error": "source return basarab-main-north-ground-exit-return: unresolved source turn:lanes on w668700428",
+      "recordedFrom": "actual terminal compiler stderr; original stdout preserved in external north-domain-first-build.log",
+      "interpretation": "Raw428v7 has3turn tokens/no lanes; existing class default2 unchanged. The new review begins at actually reached crown, with this pre-existing contradiction retained separately."
+    },
+    {
+      "case": "84-leg crown exit before the specific r210review",
+      "actualCompilerRejected": true,
+      "error": "source return basarab-main-north-ground-exit-return: unsupported touching motor restriction r21068448; no via-way assumption",
+      "interpretation": "Raw missingVIA kept; only individually pinned knownFROM irrelevance or unique-source-incidence compliance approved."
+    },
+    {
+      "case": "84-leg exit with r210only",
+      "actualCompilerRejected": true,
+      "error": "source return basarab-main-north-ground-exit-return: unsupported touching motor restriction r21274119; no via-way assumption",
+      "interpretation": "Raw missingTO kept; only zero reviewed knownFROM/VIA arrivals proved, no inferredTO."
+    }
+  ]
+}

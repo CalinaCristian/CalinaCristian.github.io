@@ -1,0 +1,449 @@
+{
+  "scope": "Read-only endpoint/SCC classification on the deliberately positive-source-only CPU graph. No Navigator/flags/access changes and no native World SCC/arrival claim.",
+  "dataSha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+  "navigatorReportSha256": "868ccab1a04880866d2faba467d8d614e4150f1402ffb6a65190cd7a2ce4bc1c",
+  "requestedGoalNode": 32933928,
+  "goalSnapDistanceM": 77.42670627946413,
+  "goalClassification": {
+    "x": 279.6550621642665,
+    "z": -811.3191659999432,
+    "incidents": [
+      {
+        "sourceId": "w139756123",
+        "from": 2624398738,
+        "to": 32933928,
+        "main": false,
+        "type": "secondary",
+        "lanesF": 2,
+        "lanesB": 0,
+        "oneway": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "clearance": {
+          "eligible": true,
+          "known": true,
+          "reason": "no-literal-way-dimension-rule",
+          "scope": "No real-world sign-completeness claim"
+        }
+      },
+      {
+        "sourceId": "w1559926378",
+        "from": 2624398775,
+        "to": 32933928,
+        "main": false,
+        "type": "primary_link",
+        "lanesF": 1,
+        "lanesB": 0,
+        "oneway": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "clearance": {
+          "eligible": true,
+          "known": true,
+          "reason": "no-literal-way-dimension-rule",
+          "scope": "No real-world sign-completeness claim"
+        }
+      },
+      {
+        "sourceId": "w1559926379",
+        "from": 32933928,
+        "to": 14189460270,
+        "main": false,
+        "type": "secondary",
+        "lanesF": 2,
+        "lanesB": 0,
+        "oneway": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "clearance": {
+          "eligible": true,
+          "known": true,
+          "reason": "no-literal-way-dimension-rule",
+          "scope": "No real-world sign-completeness claim"
+        }
+      }
+    ],
+    "nearestPublic": {
+      "distanceM": 0,
+      "t": 1,
+      "x": 279.6550621642665,
+      "z": -811.3191659999432,
+      "selectedEdge": {
+        "sourceId": "w139756123",
+        "from": 2624398738,
+        "to": 32933928,
+        "main": false,
+        "type": "secondary",
+        "lanesF": 2,
+        "lanesB": 0,
+        "oneway": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "clearance": {
+          "eligible": true,
+          "known": true,
+          "reason": "no-literal-way-dimension-rule",
+          "scope": "No real-world sign-completeness claim"
+        }
+      }
+    },
+    "nearestMainClearanceEligible": {
+      "distanceM": 77.42670627946413,
+      "t": 0,
+      "x": 262.74986358472006,
+      "z": -735.7605191997753,
+      "selectedEdge": {
+        "sourceId": "w678037220",
+        "from": 3949397786,
+        "to": 3949397790,
+        "main": true,
+        "type": "service",
+        "lanesF": 1,
+        "lanesB": 1,
+        "oneway": false,
+        "publicDrive": true,
+        "throughAccess": true,
+        "clearance": {
+          "eligible": true,
+          "known": true,
+          "reason": "no-literal-way-dimension-rule",
+          "scope": "No real-world sign-completeness claim"
+        }
+      }
+    },
+    "scope": "Actual Navigator SCC/endpoint selection on this positive-source-only CPU fixture. Negative cut legs/mapEnd nodes and virtual outside are deliberately absent, so a fresh native World SCC may differ."
+  },
+  "outgoingTailContinuation": [
+    {
+      "sourceId": "w50584780",
+      "preparedNodeIds": [
+        14189460270,
+        -2000000084
+      ],
+      "source": {
+        "sourceId": "w50584780",
+        "nodeIds": [
+          14189460270,
+          1953122034,
+          2624398771,
+          10119109341,
+          1953122036,
+          2159708694,
+          2159708687,
+          2159708674,
+          9084003520,
+          257545485,
+          10264226524,
+          6291667172,
+          5258525302,
+          1954347710,
+          1954347712,
+          5258525303,
+          1954347707,
+          10119109334,
+          1954347713,
+          13513849833,
+          257545497,
+          32933935,
+          6291668093,
+          1837982064,
+          1837982047
+        ],
+        "wgs84": [
+          [
+            44.4487132,
+            26.0626202
+          ],
+          [
+            44.449029,
+            26.0624739
+          ],
+          [
+            44.4491288,
+            26.0624215
+          ],
+          [
+            44.4492302,
+            26.0623529
+          ],
+          [
+            44.4492899,
+            26.0623003
+          ],
+          [
+            44.4493968,
+            26.0621823
+          ],
+          [
+            44.4495411,
+            26.0619853
+          ],
+          [
+            44.4497247,
+            26.0617098
+          ],
+          [
+            44.4499197,
+            26.0614347
+          ],
+          [
+            44.4499834,
+            26.0613449
+          ],
+          [
+            44.4500736,
+            26.0612185
+          ],
+          [
+            44.4501472,
+            26.0611037
+          ],
+          [
+            44.4502409,
+            26.0609667
+          ],
+          [
+            44.4507785,
+            26.0601805
+          ],
+          [
+            44.4512461,
+            26.0595262
+          ],
+          [
+            44.4515091,
+            26.059158
+          ],
+          [
+            44.4517341,
+            26.0588426
+          ],
+          [
+            44.4518031,
+            26.0587659
+          ],
+          [
+            44.4520984,
+            26.0584855
+          ],
+          [
+            44.4521595,
+            26.0584329
+          ],
+          [
+            44.452228,
+            26.0583835
+          ],
+          [
+            44.4523371,
+            26.0583206
+          ],
+          [
+            44.4526127,
+            26.0581778
+          ],
+          [
+            44.4526352,
+            26.0581661
+          ],
+          [
+            44.4533815,
+            26.0577958
+          ]
+        ],
+        "projected": [
+          [
+            271.83432149563674,
+            -834.9569423998023
+          ],
+          [
+            260.20653328587537,
+            -870.0524280001082
+          ],
+          [
+            256.0418299215348,
+            -881.1434015994278
+          ],
+          [
+            250.58956559364245,
+            -892.4121864000356
+          ],
+          [
+            246.40896641503122,
+            -899.0467667993936
+          ],
+          [
+            237.03043593827087,
+            -910.9267776000374
+          ],
+          [
+            221.37305878645833,
+            -926.9631251995054
+          ],
+          [
+            199.47657449541157,
+            -947.3669603994751
+          ],
+          [
+            177.6118818331886,
+            -969.0377004000367
+          ],
+          [
+            170.47466118243514,
+            -976.1168087998516
+          ],
+          [
+            160.42850650206924,
+            -986.1409152001274
+          ],
+          [
+            151.30430905533456,
+            -994.3202304001653
+          ],
+          [
+            140.4156762138205,
+            -1004.7332987994591
+          ],
+          [
+            77.92922993585385,
+            -1064.477861999598
+          ],
+          [
+            25.926073233097927,
+            -1116.4431851996362
+          ],
+          [
+            -3.338121017180699,
+            -1145.6709012000697
+          ],
+          [
+            -28.405820274577376,
+            -1170.6756012001101
+          ],
+          [
+            -34.5018650842457,
+            -1178.3437091997012
+          ],
+          [
+            -56.78779682732513,
+            -1211.160988799442
+          ],
+          [
+            -60.96839600593636,
+            -1217.9511539998284
+          ],
+          [
+            -64.89466215452194,
+            -1225.56369599956
+          ],
+          [
+            -69.89389577329882,
+            -1237.6881971999026
+          ],
+          [
+            -81.2435072314873,
+            -1268.316176400117
+          ],
+          [
+            -82.17341237183032,
+            -1270.816646400121
+          ],
+          [
+            -111.60451267293975,
+            -1353.754457999662
+          ]
+        ],
+        "tags": {
+          "highway": "secondary",
+          "lanes": "2",
+          "lit": "yes",
+          "maxspeed": "50",
+          "maxweight": "5",
+          "name": "Calea Giule\u0219ti",
+          "oneway": "yes",
+          "sidewalk": "right",
+          "surface": "asphalt"
+        },
+        "preparedNodeIds": [
+          14189460270,
+          -2000000084
+        ]
+      },
+      "roadAccess": {
+        "sourceId": "w50584780",
+        "publicDrive": true,
+        "throughAccess": true,
+        "key": null,
+        "value": null,
+        "reason": "OSM road class default; no motorcar restriction mapped",
+        "conditionalUnresolved": false,
+        "tags": {
+          "oneway": "yes"
+        }
+      }
+    },
+    {
+      "sourceId": "w1559926379",
+      "preparedNodeIds": [
+        32933928,
+        14189460270
+      ],
+      "source": {
+        "sourceId": "w1559926379",
+        "nodeIds": [
+          32933928,
+          14189460270
+        ],
+        "wgs84": [
+          [
+            44.4485005,
+            26.0627186
+          ],
+          [
+            44.4487132,
+            26.0626202
+          ]
+        ],
+        "projected": [
+          [
+            279.6550621642665,
+            -811.3191659999432
+          ],
+          [
+            271.83432149563674,
+            -834.9569423998023
+          ]
+        ],
+        "tags": {
+          "change:lanes": "no|no",
+          "highway": "secondary",
+          "lanes": "2",
+          "lit": "yes",
+          "maxspeed": "50",
+          "maxweight": "5",
+          "name": "Calea Giule\u0219ti",
+          "oneway": "yes",
+          "sidewalk": "right",
+          "surface": "asphalt"
+        },
+        "preparedNodeIds": [
+          32933928,
+          14189460270
+        ]
+      },
+      "roadAccess": {
+        "sourceId": "w1559926379",
+        "publicDrive": true,
+        "throughAccess": true,
+        "key": null,
+        "value": null,
+        "reason": "OSM road class default; no motorcar restriction mapped",
+        "conditionalUnresolved": false,
+        "tags": {
+          "oneway": "yes"
+        }
+      }
+    }
+  ],
+  "cause": "All exact-goal incidents are public/clearance-eligible but outside the largest SCC of this CPU fixture. The only outgoing positive-source tail reaches14189460270 then w50584780 has a synthetic negative cut. The fixture excludes that leg and has no mapEnd/virtual outside connectivity. Unchanged Navigator.compute prefers a main-SCC endpoint and selects the main service edge77.426706m away rather than the real public incident0m away. A native World includes its own graph/mapEnd/OUT classification; its result must be captured independently."
+}

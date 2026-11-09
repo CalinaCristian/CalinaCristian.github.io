@@ -1,0 +1,363 @@
+{
+  "schema": 1,
+  "recordedUTC": "2026-11-09T17:53:57.998378+00:00",
+  "scope": "CPU source/data proof only. Finite reviewed paths are not general malformed-restriction repairs or native physical/driven acceptance. No browser. Separate shelter runtime draft6e204029 remains HOLD and absent from this ancestry.",
+  "dataCandidateCommit": "4eeb5aeae2e3968b6d04a2a73fc1b4d3b15270cf",
+  "dataPath": "game/data/bucharest-grozavesti.json",
+  "dataBytes": 10618180,
+  "dataSha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+  "baselineCommit": "b8f33f2dac916f0495134c793a88a3d67d30082a",
+  "baselineDataBytes": 8546809,
+  "baselineDataSha256": "d223a9189e458e149b5baa694dc6e87a7ab9a44011066ef68a2b3af7a2f7f842",
+  "rootRuntimeBase": "1a9da7d80c245cfef5593a01fdd20234e845c108",
+  "dependencies": [
+    {
+      "ownAlias": "b8f33f2dac916f0495134c793a88a3d67d30082a",
+      "sourceCommit": "ac360e7707d5c7e9a989c1365841e4df06b2ff7d",
+      "scope": "Literal transit metadata only; no shelter runtime draft"
+    },
+    {
+      "ownAlias": "57abcc2d4ff0d6113ff225809136bdbbf32cad8e",
+      "sourceCommit": "249a02f098f0ee37ca1ca50a40690560f111c452",
+      "scope": "Generic unchanged-evidence prior model retention"
+    },
+    {
+      "ownAlias": "7d083eff30c7e87b62b58915f49a55c76e99c782",
+      "sourceCommit": "3e5ad27df943b07fae4aaec55cf42986b06f5f1b",
+      "scope": "Exact three tools files: known-roof precedence and validated model before profile/cache baking"
+    }
+  ],
+  "nativeHistoricalGuide": {
+    "sourceCommit": "8b51e6f38b3e217ac7f8a556949694e5ca62ebdb",
+    "proofCommit": "d3a316aafb23ef816b0aa34dac1930a7276ea346",
+    "path": "/workspace/integration-qa-evidence/basarab-shared-8b51e6f3-native/public-bridge-retained-exit-path.json",
+    "scope": "Observed main bridge direction only; not new return/descent acceptance"
+  },
+  "rawTileDirectory": "/workspace/reality-pass/grozavesti/tiles",
+  "rawTileLedger": [
+    {
+      "file": "buc_44.4250_26.0290_44.4350_26.0450.xml",
+      "sha256": "5f6dfc4175e595a80a0207927b135fcdda0ea79cfecdea841b089c91ba0c3343"
+    },
+    {
+      "file": "buc_44.4250_26.0450_44.4350_26.0610.xml",
+      "sha256": "57639f0f940a2ca42f873e5e171b938cf43980f28fede6a30d29ce246b957fa7"
+    },
+    {
+      "file": "buc_44.4250_26.0610_44.4350_26.0770.xml",
+      "sha256": "1de258735272aa12e444747c50a36372a0337d0bb16821337ba865d5ad600feb"
+    },
+    {
+      "file": "buc_44.4250_26.0770_44.4350_26.0930.xml",
+      "sha256": "1dafbd501669a59407348a2028a6190dbeb129a85c30181bb86e79b05c8a5fb1"
+    },
+    {
+      "file": "buc_44.4350_26.0290_44.4450_26.0450.xml",
+      "sha256": "1b3433692876dc385b2960f34d06d3f55c96f0c507f9207a9bb449ec7c0b3bcf"
+    },
+    {
+      "file": "buc_44.4350_26.0450_44.4450_26.0610.xml",
+      "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689"
+    },
+    {
+      "file": "buc_44.4350_26.0610_44.4450_26.0770.xml",
+      "sha256": "5c526f202084ffa605d5b78bb15b923b10dee7bca10bf65d9438152a465e0624"
+    },
+    {
+      "file": "buc_44.4350_26.0770_44.4450_26.0930.xml",
+      "sha256": "14b1a756654b49a7d62517cddc711bc20056e4684a0a1f10c6a41ee9e6462069"
+    },
+    {
+      "file": "buc_44.4450_26.0290_44.4550_26.0450.xml",
+      "sha256": "57a0c0e0a2c75f2e0f999b8fa8c5733d669c5bd244490fcd409b1c747593c55f"
+    },
+    {
+      "file": "buc_44.4450_26.0450_44.4550_26.0610.xml",
+      "sha256": "1336a618c3f735263833078499794446ed5f9b8776aeefe914aaaa2eb5ec7732"
+    },
+    {
+      "file": "buc_44.4450_26.0610_44.4550_26.0770.xml",
+      "sha256": "1b4248039697685242b9df55183002daee53d1ca728571020f64d9fa4fdb9f2e"
+    },
+    {
+      "file": "buc_44.4450_26.0770_44.4550_26.0930.xml",
+      "sha256": "ee2946108a6f27a83e7b71f558950182e12af5eb1de7b7815b5ec03369a3af6e"
+    },
+    {
+      "file": "buc_44.4550_26.0290_44.4650_26.0450.xml",
+      "sha256": "2d4083c18438e61eebab62d3b67f5a07337d69c2aa84bb8b4d8bb143d2437b85"
+    },
+    {
+      "file": "buc_44.4550_26.0450_44.4650_26.0610.xml",
+      "sha256": "5b4a8f65b7fd6866738854193f910b82c100e3c6ed1effedb800a83f6ed1fd50"
+    },
+    {
+      "file": "buc_44.4550_26.0610_44.4650_26.0770.xml",
+      "sha256": "052b27afee4aef69c907c144db2c38791acddfd572c917584f2136a709698996"
+    },
+    {
+      "file": "buc_44.4550_26.0770_44.4650_26.0930.xml",
+      "sha256": "990ea50aa95587d1a134729a994a2f08db3e64618164a473a852ff298ac1af96"
+    }
+  ],
+  "externalRawDirectory": "/workspace/reality-pass/basarab-north-ground-return",
+  "sourceInputs": [
+    {
+      "path": "game/research/source-returns-bucharest-grozavesti.json",
+      "bytes": 41179,
+      "sha256": "a6de14ec1471629da6500cad692006e97a6b33036e363361f38367fa06148c31"
+    },
+    {
+      "path": "game/research/source-context-bucharest-grozavesti.json",
+      "bytes": 101707,
+      "sha256": "6982f48348ca709d5146658660bba7e0edadea73f29bd602eccee8ef9411b219"
+    },
+    {
+      "path": "game/research/bucharest-grozavesti.json",
+      "bytes": 929949,
+      "sha256": "fd9bd374672a7ff174b708e0ec69a082162fd2447fda53241583d466edf07359"
+    },
+    {
+      "path": "game/research/roofs-bucharest-grozavesti.json",
+      "bytes": 244500,
+      "sha256": "1fea61dacac7ee6d01321ee910d86856ddf3743b679c68924e52227d75926148"
+    },
+    {
+      "path": "game/research/trees-bucharest-grozavesti.json",
+      "bytes": 1196067,
+      "sha256": "5221f4b82bf2008a46d0ee9e08d3ceca8ad5aa6185b64f8405d4acd31dddc6f0"
+    },
+    {
+      "path": "game/research/green-bucharest-grozavesti.json",
+      "bytes": 349252,
+      "sha256": "fc9eafac376bd693a2e68258d8994ca1d7bdfa43c1e10c56330bfc7e91f89266"
+    }
+  ],
+  "toolSources": [
+    {
+      "path": "tools/osm/build-data.mjs",
+      "sha256": "9f97b3f1a1f8a8c6ebdda67ca804ad4a4c4ed4f317ded309b59c2811afb3582e"
+    },
+    {
+      "path": "tools/osm/source-return-corridors.mjs",
+      "sha256": "c11715e8ab438b71a8a740a5fa3f613b80d6d0badffd0f50d8b6798ec2de907b"
+    },
+    {
+      "path": "tools/osm/source-return-corridors-check.mjs",
+      "sha256": "52760d60f181bfb3dd444f6317729489f869f96f66760d200d5b8e73415cb2d4"
+    },
+    {
+      "path": "tools/osm/source-return-context.mjs",
+      "sha256": "aad40c54ed80cc69889f2573b780af2823f053d1c4cd70229b5b672bbb38751f"
+    },
+    {
+      "path": "tools/osm/source-return-context-check.mjs",
+      "sha256": "f008f6877b4643e6760f1ed7959b6bfb01173b6d7615ce526fb8ab44d9e62ed1"
+    },
+    {
+      "path": "tools/osm/road-source-audit.mjs",
+      "sha256": "39286aad9e1068cbeb32ca2d1d58a664b29791660beebdbc004e8b396785f146"
+    }
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 12642,
+      "sha256": "bc0c38b9719234f18924c4c26e6a96f793e384591e9fac713fff9dffcb264b49"
+    },
+    {
+      "path": "capture-model-inputs.mjs",
+      "bytes": 4014,
+      "sha256": "984ce9a0b3253303dbcf81c52325b20df7447c8823a2b6d898134ce3a4e216e2"
+    },
+    {
+      "path": "check-retention.py",
+      "bytes": 8223,
+      "sha256": "f6348434cbeca05154f6ddd39d6404da5fd95908891068b8118787dc90ba0ce8"
+    },
+    {
+      "path": "explain-endpoint-snap.py",
+      "bytes": 2781,
+      "sha256": "a49eb0e0766bd81e3cc3a6c33c76c7e23563f938e0aacfc2a98d67b81cd6056e"
+    },
+    {
+      "path": "explain-profile-deltas.py",
+      "bytes": 2722,
+      "sha256": "d3a9b77e0f2651e42b4c9be86569343bbc5381efc3a64483ce944dceed213ad7"
+    },
+    {
+      "path": "model-evidence-parity.json",
+      "bytes": 529,
+      "sha256": "bce30de358398be9cd48c50fcc3933bee36320e539a096bc5221602c7c165cea"
+    },
+    {
+      "path": "plan-source-paths.mjs",
+      "bytes": 7177,
+      "sha256": "279f9eb944df428690741cd591647c1c351645681da5d9a72a5654cf7abc1f16"
+    },
+    {
+      "path": "prepare-context-review.mjs",
+      "bytes": 5573,
+      "sha256": "a628795305600457265140d83e525e67bebab48d3135163dab4bb9573cb81c9e"
+    },
+    {
+      "path": "primary-readback-ledger.json",
+      "bytes": 987,
+      "sha256": "acbd142ee3a41cc0a6a2d082e0dab1396fb475de17c8f7b493b0893a125d96ac"
+    },
+    {
+      "path": "primary-relation-21068448.xml",
+      "bytes": 621,
+      "sha256": "a6ef2f2507e1e885d8dc4953dc6fd9dbd41778d54aa57c42210f1b212998c85f"
+    },
+    {
+      "path": "primary-relation-21274119.xml",
+      "bytes": 625,
+      "sha256": "cf714f4fb7471d941fffd94ca365fcf1cc81658414be8bfdfc94b3e3c5545291"
+    },
+    {
+      "path": "primary-way-668700428.xml",
+      "bytes": 711,
+      "sha256": "1ab36d326c3739c4079e9c570876711f9f8adb3a48caf21c3d6bba82b0b95c92"
+    },
+    {
+      "path": "source-retention.json",
+      "bytes": 5438,
+      "sha256": "dbf5c810eefd9d0274a03bed72bb4c81f184e1f3cc6cfca882819b8344f99553"
+    },
+    {
+      "path": "validation/candidate-model-inputs.json",
+      "bytes": 15037,
+      "sha256": "cae3d684ff086e6587e248bac0b2681b24b08c3ac67019ec67a26d6ec10a054e"
+    },
+    {
+      "path": "validation/candidate-model-inputs.json.manifest.json",
+      "bytes": 907,
+      "sha256": "231f7948d77d98252b642f735ab1671e03f5aaad94d3c9a65a1206227dd42038"
+    },
+    {
+      "path": "validation/compiler-rejections.json",
+      "bytes": 1508,
+      "sha256": "41bd14edcad387a62a8a5b6f749da7982dcc4b480953df46fad786a2e4d3d34d"
+    },
+    {
+      "path": "validation/context-coverage-preflight.json",
+      "bytes": 1383,
+      "sha256": "66147aa7efce0bf053db8615e9681ba43767aabcc76dce3640c40ab18424784b"
+    },
+    {
+      "path": "validation/context-prepare.log",
+      "bytes": 164,
+      "sha256": "c1d56942fff37141b8ed88c2c6dd041ea35fe440b0e840d82e4a8112c954ad91"
+    },
+    {
+      "path": "validation/endpoint-snap-classification.json",
+      "bytes": 11001,
+      "sha256": "7a40ae4bba11538a76b6fe045192a9e3d40218a33923eb9bf8b6685dc203d17b"
+    },
+    {
+      "path": "validation/final-road-source-audit.json",
+      "bytes": 1210,
+      "sha256": "3214e61e2046c44da3b203b4bed29d7039b1386f14ed0f4cbe5c34c94a7ea872"
+    },
+    {
+      "path": "validation/final-source-graph-navigator.json",
+      "bytes": 140974,
+      "sha256": "868ccab1a04880866d2faba467d8d614e4150f1402ffb6a65190cd7a2ce4bc1c"
+    },
+    {
+      "path": "validation/final-source-retention.json",
+      "bytes": 5438,
+      "sha256": "dbf5c810eefd9d0274a03bed72bb4c81f184e1f3cc6cfca882819b8344f99553"
+    },
+    {
+      "path": "validation/first-expanded-negative.json.gz",
+      "bytes": 2536200,
+      "sha256": "c6b351aed38e63fbafc733e158bf7c97e180fc4ac10facd471708c249cdb2990",
+      "decodedBytes": 10610422,
+      "decodedSha256": "59449b8fa617bc716d440a3b62a6fdedda3e6bf5411ea39ed7cc6bb3b41e620b"
+    },
+    {
+      "path": "validation/first-source-retention.json",
+      "bytes": 14998,
+      "sha256": "ff36cd2cd3c4e840a67f6a0c4ecfd4b11bd921cffbf4f9a52ea1f2416611c82e"
+    },
+    {
+      "path": "validation/missing-crowns-proposal.json",
+      "bytes": 6507,
+      "sha256": "f7ef0128b9796064e12ffff25df0d7767bc40457559df87af435afa13ecc6ae2"
+    },
+    {
+      "path": "validation/model-evidence-parity.json",
+      "bytes": 529,
+      "sha256": "bce30de358398be9cd48c50fcc3933bee36320e539a096bc5221602c7c165cea"
+    },
+    {
+      "path": "validation/north-domain-final-build.log",
+      "bytes": 1920,
+      "sha256": "fc70963406a5b275327a7241e4361f5f8ade8b1aa4a2841589a7a786c9d00e8d"
+    },
+    {
+      "path": "validation/north-domain-final-build.stderr",
+      "bytes": 498,
+      "sha256": "9b7001115557abdb7a8cee5eaace8a7baec03026147891781e2ad42972d51c00"
+    },
+    {
+      "path": "validation/prior-model-inputs.json",
+      "bytes": 15037,
+      "sha256": "cae3d684ff086e6587e248bac0b2681b24b08c3ac67019ec67a26d6ec10a054e"
+    },
+    {
+      "path": "validation/prior-model-inputs.json.manifest.json",
+      "bytes": 907,
+      "sha256": "a688879809bb51cf680233c34b29aa5a9d008aba4297d7ecf6e89e993816e082"
+    },
+    {
+      "path": "validation/profile-delta-explanation.json",
+      "bytes": 7796,
+      "sha256": "efbfec6617844f46dd8dedf30346e545d3c622d40c203ea3b30a8351fed0a841"
+    },
+    {
+      "path": "validation/raw-directed-search.json.gz",
+      "bytes": 10472,
+      "sha256": "7b85ed92cd82345fd35ec57da67e055204025738bd7eb3c5cb3568e2ccffc8a4",
+      "decodedBytes": 83592,
+      "decodedSha256": "b9713e6b6633e156e5f6f78627cd9addd6b65ca1a053b4fbefa3c7588009a3d7"
+    },
+    {
+      "path": "validation/residual-model-hook-diagnostics.json",
+      "bytes": 36856,
+      "sha256": "c1580086d2b3d498d96fdc4ed6f34d4e2656e2eb7f5e665e7c940160a4b0d94b"
+    },
+    {
+      "path": "validation/retained-source-parity.json",
+      "bytes": 7986,
+      "sha256": "1ffe0280c23f9b65dce380f2b9e7f31dda02572f281e8c321c22e9338fad82e6"
+    },
+    {
+      "path": "validation/source-context-controls-final.json",
+      "bytes": 1334,
+      "sha256": "ad071e79e8a9a25dcd3f74e25ddf4efe52fa0e0b9f8fa87b93f27ef5bf6a8637"
+    },
+    {
+      "path": "validation/source-return-controls.json",
+      "bytes": 2808,
+      "sha256": "4c8044106e58a3699141b3609cf038b500ca17b8aeb611feddb605ec2d0579c0"
+    },
+    {
+      "path": "validation/unchanged-review-baseline-parity.json",
+      "bytes": 461,
+      "sha256": "acd1575e120b08e7214572518f1fa77b724e37aff5613075ab613ff5d6cf2b4a"
+    },
+    {
+      "path": "verify-source-graph.mjs",
+      "bytes": 7001,
+      "sha256": "70705ca9699f5aa166b90f3a86c218a449a59d66a9b5bbeed726aa9f64109799"
+    }
+  ],
+  "heldShelterDraft": {
+    "commit": "6e204029eadb907aa05d88ed8c259308acb8a4c0",
+    "ancestorOfDataCandidate": false,
+    "status": "HOLD: actual motor-roof source/model conflict unresolved"
+  }
+}

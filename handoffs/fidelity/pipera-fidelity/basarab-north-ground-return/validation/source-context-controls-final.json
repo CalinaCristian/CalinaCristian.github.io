@@ -1,0 +1,22 @@
+{
+  "passed": 17,
+  "cases": [
+    "new road context cannot change an identical-source fallback building model",
+    "literal and new research height/storey/roof annotations win over an old fallback",
+    "identical prior research facade annotation is retained; new annotation wins",
+    "changed literal tags, outer or courtyard cannot reuse prior fallback",
+    "a prior fallback style cannot replace an unchanged literal height",
+    "reviewed fallback roof is retained only while source and measured roof remain unknown",
+    "malformed, duplicate and unpinned prior building models fail explicitly",
+    "domain promotion preserves an unchanged source-level MODEL before geometry baking",
+    "prior level MODEL requires immutable provenance and one finite reviewed estimate",
+    "exact prior water rings/name/source identity and measured crown survive",
+    "current source water wins over prior context, without duplicates",
+    "already present measured crown is not counted twice",
+    "current source-tree disagreement fails rather than substituting crown metadata",
+    "survey hash and exact source crown/index are mandatory",
+    "old packed geometry cannot silently move or resize a measured source crown",
+    "projection mismatch cannot move retained context",
+    "absent context preserves legacy compilation"
+  ]
+}

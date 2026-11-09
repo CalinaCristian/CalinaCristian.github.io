@@ -1,0 +1,242 @@
+{
+  "scope": "Independent old-to-rebuilt source retention. Synthetic negative boundary cuts may be replaced; all literal positive source nodes, original physical building footprints/courtyards/dimensions, source-road metadata and measured crown records must survive. Native World acceptance remains separate.",
+  "oldSourceCommit": "b8f33f2dac916f0495134c793a88a3d67d30082a",
+  "oldDataSha256": "d223a9189e458e149b5baa694dc6e87a7ab9a44011066ef68a2b3af7a2f7f842",
+  "candidateDataSha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+  "positiveNodes": {
+    "old": 1294,
+    "new": 1450,
+    "missing": [],
+    "moved": []
+  },
+  "sourceBuildings": {
+    "old": 2932,
+    "new": 4111,
+    "missingExactFootprintOrHoles": [],
+    "changedDimensions": [],
+    "changedStyleRoofOrLevels": [],
+    "changedCompleteRoofProfiles": [],
+    "changedRawSourceTags": [],
+    "priorUnknownStoreyCounts": 2118,
+    "unknownStoreyCountsChangedToKnown": []
+  },
+  "sourceRoadMetadata": {
+    "old": 351,
+    "new": 397,
+    "missingOrChanged": [],
+    "changedPhysicalProfiles": [],
+    "priorZeroLengthStubRecords": [
+      {
+        "sourceId": "w23554631",
+        "oldRoadIndex": 246,
+        "points": [
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ],
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ]
+        ],
+        "flags": 33
+      },
+      {
+        "sourceId": "w125909046",
+        "oldRoadIndex": 266,
+        "points": [
+          [
+            1012.1580319319042,
+            -1221.618510000045
+          ],
+          [
+            1012.1580319319042,
+            -1221.618510000045
+          ]
+        ],
+        "flags": 33
+      },
+      {
+        "sourceId": "w125909047",
+        "oldRoadIndex": 267,
+        "points": [
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ],
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ]
+        ],
+        "flags": 33
+      },
+      {
+        "sourceId": "w132515651",
+        "oldRoadIndex": 271,
+        "points": [
+          [
+            1012.1580319319042,
+            -1221.618510000045
+          ],
+          [
+            1012.1580319319042,
+            -1221.618510000045
+          ]
+        ],
+        "flags": 33
+      },
+      {
+        "sourceId": "w229624959",
+        "oldRoadIndex": 285,
+        "points": [
+          [
+            586.6827166690193,
+            -1219.2402851998902
+          ],
+          [
+            586.6827166690193,
+            -1219.2402851998902
+          ]
+        ],
+        "flags": 0
+      },
+      {
+        "sourceId": "w328681898",
+        "oldRoadIndex": 301,
+        "points": [
+          [
+            1050.927923173956,
+            -864.4736015996641
+          ],
+          [
+            1050.927923173956,
+            -864.4736015996641
+          ]
+        ],
+        "flags": 0
+      },
+      {
+        "sourceId": "w328681900",
+        "oldRoadIndex": 302,
+        "points": [
+          [
+            1050.927923173956,
+            -864.4736015996641
+          ],
+          [
+            1050.927923173956,
+            -864.4736015996641
+          ]
+        ],
+        "flags": 0
+      },
+      {
+        "sourceId": "w668953022",
+        "oldRoadIndex": 334,
+        "points": [
+          [
+            586.6827166690193,
+            -1219.2402851998902
+          ],
+          [
+            586.6827166690193,
+            -1219.2402851998902
+          ]
+        ],
+        "flags": 0
+      }
+    ]
+  },
+  "trees": {
+    "old": 21789,
+    "new": 24065,
+    "missingOrChanged": [],
+    "retention": {
+      "policy": "all-measured",
+      "inputCrowns": 44645,
+      "retained": 24014,
+      "rejectedGeometryOrDuplicate": 3615,
+      "outsideSurveyDistrict": 17016,
+      "thinned": 0
+    }
+  },
+  "areas": {
+    "old": 560,
+    "new": 576,
+    "missingSourceIds": [],
+    "carriedWater": [
+      {
+        "sourceId": "r1130828",
+        "unchangedRings": true
+      },
+      {
+        "sourceId": "w174991904",
+        "unchangedRings": true
+      },
+      {
+        "sourceId": "w983903953",
+        "unchangedRings": true
+      },
+      {
+        "sourceId": "w117140697",
+        "unchangedRings": true
+      }
+    ],
+    "missingOrChangedExactRecords": []
+  },
+  "mask": {
+    "oldInsideCells": 2516,
+    "newInsideCells": 2798,
+    "removedOldInsideCells": 0,
+    "addedInsideCells": 282,
+    "cellM": 20
+  },
+  "unchangedSourceMetadata": {
+    "changedTramSourceWays": [],
+    "changedTramRoutes": [],
+    "changedPriorRoadNodeMetricTags": []
+  },
+  "roadSourceNodeTags": {
+    "2342152612": {
+      "level": "-1"
+    },
+    "2644247956": {
+      "level": "-1"
+    },
+    "2644249162": {
+      "level": "-1w"
+    },
+    "8780483091": {
+      "level": "-1"
+    },
+    "8780483093": {
+      "level": "-1"
+    },
+    "8780483095": {
+      "level": "-1"
+    },
+    "12140907463": {
+      "level": "-2"
+    },
+    "12163380260": {
+      "level": "-2"
+    },
+    "12163380262": {
+      "level": "-2"
+    },
+    "10839993800": {
+      "level": "-1"
+    }
+  },
+  "roadSourceNodeTagCoverage": {
+    "keys": [
+      "ele",
+      "incline",
+      "level"
+    ],
+    "sourceNodeCount": 7082,
+    "missingSourceNodes": [],
+    "scope": "All literal original nodes of retained roadSourceGeometry and scenerySourceGeometry, before clipping; no values inferred."
+  }
+}

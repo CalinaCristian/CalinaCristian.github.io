@@ -1,0 +1,21 @@
+{
+  "scope": "Same review/current compiler baseline, before new domain. Source geometry/counts must be reviewed before final expansion.",
+  "changedFields": [
+    "buildingUnions"
+  ],
+  "counts": {
+    "oldBuildings": 2932,
+    "newBuildings": 2932,
+    "oldRoads": 361,
+    "newRoads": 361,
+    "oldTrees": 21789,
+    "newTrees": 21789
+  },
+  "summaries": [
+    {
+      "key": "buildingUnions",
+      "oldType": "object",
+      "newType": "object"
+    }
+  ]
+}

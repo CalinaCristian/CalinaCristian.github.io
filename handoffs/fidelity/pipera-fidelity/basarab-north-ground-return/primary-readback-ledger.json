@@ -1,0 +1,23 @@
+[
+  {
+    "url": "https://api.openstreetmap.org/api/0.6/relation/21068448",
+    "file": "/workspace/reality-pass/basarab-north-ground-return/primary-relation-21068448.xml",
+    "sha256": "a6ef2f2507e1e885d8dc4953dc6fd9dbd41778d54aa57c42210f1b212998c85f",
+    "bytes": 621,
+    "retrievedUTC": "2026-11-09T16:41:21.981570+00:00"
+  },
+  {
+    "url": "https://api.openstreetmap.org/api/0.6/way/668700428",
+    "file": "/workspace/reality-pass/basarab-north-ground-return/primary-way-668700428.xml",
+    "sha256": "1ab36d326c3739c4079e9c570876711f9f8adb3a48caf21c3d6bba82b0b95c92",
+    "bytes": 711,
+    "retrievedUTC": "2026-11-09T16:41:22.301557+00:00"
+  },
+  {
+    "url": "https://api.openstreetmap.org/api/0.6/relation/21274119",
+    "file": "/workspace/reality-pass/basarab-north-ground-return/primary-relation-21274119.xml",
+    "sha256": "cf714f4fb7471d941fffd94ca365fcf1cc81658414be8bfdfc94b3e3c5545291",
+    "bytes": 625,
+    "retrievedUTC": "2026-11-09T16:52:53.779160+00:00"
+  }
+]

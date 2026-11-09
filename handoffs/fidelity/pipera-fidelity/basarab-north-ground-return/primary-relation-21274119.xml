@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="openstreetmap-cgimap 2.1.1 (3514582 spike-07.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <relation id="21274119" visible="true" version="2" changeset="188655656" timestamp="2026-09-07T07:45:11Z" user="DanTPG" uid="14332595">
+  <member type="way" ref="23770172" role="from"/>
+  <member type="node" ref="2159760180" role="via"/>
+  <tag k="restriction" v="only_right_turn"/>
+  <tag k="type" v="restriction"/>
+ </relation>
+</osm>

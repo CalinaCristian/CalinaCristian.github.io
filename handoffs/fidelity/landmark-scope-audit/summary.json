@@ -1,0 +1,150 @@
+{
+  "head": "7067c24490ce12c69cfd0816e3d5d8d2228a6fe2",
+  "base": "58129abe74a93be2ef52d3c3bf40682768531bc3",
+  "registry": 61,
+  "landmarkRecords": 61,
+  "landmarkCaptures": 183,
+  "landmarkCities": {
+    "bucharest": 37,
+    "seattle": 24
+  },
+  "landmarkRecordSources": {
+    "5b92547699c6053b28050955d619232e18422958": 23,
+    "94508c6c36888591a02d584886da6270e1f6b550": 3,
+    "f75e7c4bd8f598a4476db05a7db155dd6590b50e": 2,
+    "556b252dc9f654b70a28104353f00e60a12a1375": 1,
+    "d5795e20c85e8122a62fc503f33a182d05eceaf0": 1,
+    "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07": 5,
+    "59f953ff63eff92cd00da3f36dc093d8bff317d9": 1,
+    "eaa40092c58da321aae036e508c63f341167d2e9": 1,
+    "727320456f352da453cb2be15c92dad575012cb1": 22,
+    "e29276d19d24a161e66c72cc9088d2f92b3b0c28": 1,
+    "78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce": 1
+  },
+  "landmarkCurrentCaptureSources": {
+    "5b92547699c6053b28050955d619232e18422958": 69,
+    "2235dbfce4286c2f6f24add87ab8e5622a5df306": 6,
+    "94508c6c36888591a02d584886da6270e1f6b550": 3,
+    "f75e7c4bd8f598a4476db05a7db155dd6590b50e": 6,
+    "556b252dc9f654b70a28104353f00e60a12a1375": 3,
+    "d5795e20c85e8122a62fc503f33a182d05eceaf0": 3,
+    "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07": 15,
+    "59f953ff63eff92cd00da3f36dc093d8bff317d9": 3,
+    "eaa40092c58da321aae036e508c63f341167d2e9": 3,
+    "727320456f352da453cb2be15c92dad575012cb1": 66,
+    "e29276d19d24a161e66c72cc9088d2f92b3b0c28": 3,
+    "78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce": 3
+  },
+  "mixedCaptureRecords": [
+    {
+      "id": "bob",
+      "sources": [
+        "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+        "94508c6c36888591a02d584886da6270e1f6b550"
+      ]
+    },
+    {
+      "id": "hermes",
+      "sources": [
+        "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+        "94508c6c36888591a02d584886da6270e1f6b550"
+      ]
+    },
+    {
+      "id": "skytower",
+      "sources": [
+        "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+        "94508c6c36888591a02d584886da6270e1f6b550"
+      ]
+    }
+  ],
+  "directBuilderChanges": {
+    "true": 59,
+    "false": 2
+  },
+  "directBuilderMatchesCapturedSource": {
+    "true": 60,
+    "false": 1
+  },
+  "landmarksWithDistrictInstantiation": 37,
+  "notInEightDistrictLists": [
+    "arcul",
+    "aro",
+    "aviatorilor",
+    "baneasasc",
+    "baneasaterm",
+    "casapresei",
+    "cec",
+    "gara",
+    "grandhotel",
+    "marriott",
+    "mnir",
+    "opera",
+    "romexpo",
+    "univ",
+    "columbia",
+    "greatwheel",
+    "lumen",
+    "mtbaker",
+    "murrowe",
+    "murroww",
+    "smith",
+    "spaceneedle",
+    "spheres",
+    "tmobile"
+  ],
+  "backdrops": [
+    "olympics",
+    "rainier"
+  ],
+  "touristRecords": 24,
+  "touristDistinctScenes": 19,
+  "touristCurrentCaptures": 70,
+  "touristHistoricalCaptures": 100,
+  "touristRouteStatus": {
+    "physically-verified": 21,
+    "unverified": 3
+  },
+  "touristMenuAvailable": {
+    "true": 21,
+    "false": 3
+  },
+  "touristCurrentCaptureSources": {
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8": 67,
+    "472aadfebc80988559fb10bdfb9ac3a2562d9b71": 2,
+    "f056a5e1da18a554af52a147391188d90ddf39b5": 1
+  },
+  "uniqueVerifiedAssets": 380,
+  "sourceCommitsVerified": [
+    "5b92547699c6053b28050955d619232e18422958",
+    "94508c6c36888591a02d584886da6270e1f6b550",
+    "2235dbfce4286c2f6f24add87ab8e5622a5df306",
+    "f75e7c4bd8f598a4476db05a7db155dd6590b50e",
+    "556b252dc9f654b70a28104353f00e60a12a1375",
+    "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+    "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+    "59f953ff63eff92cd00da3f36dc093d8bff317d9",
+    "eaa40092c58da321aae036e508c63f341167d2e9",
+    "727320456f352da453cb2be15c92dad575012cb1",
+    "e29276d19d24a161e66c72cc9088d2f92b3b0c28",
+    "78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce",
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "b533317a289663c8576610d54665f12471ea9744",
+    "60db2819ecc6d175c71031e1f4cef57bc78a636e",
+    "ea89e2cfec191c97c8f9513adfa5ddb4928f85b1",
+    "5508fc3d00ecdd7b228b850872582d27b06dbaef",
+    "c0b1b2c1487149d77f0b1a394e678d5a760abc15",
+    "472aadfebc80988559fb10bdfb9ac3a2562d9b71",
+    "864d706b23a7e78446f891f85dc488ad341470cc",
+    "25653554feab401720cee0eee56f8f6b7e94f5a3",
+    "f056a5e1da18a554af52a147391188d90ddf39b5",
+    "d5a766b7a961e3d4e7166f9b1387779a81012fc4",
+    "f07f69b9492f9af645ace49f59c58048f8866919",
+    "f2e18245aaa4074761df0996c835993659e98725",
+    "96f85d9456967f57a37ca344a20e0187e948c75c",
+    "a007b34aae1ebd2e4afe96d69e9b0ddf50e169ef",
+    "f0de4e44c77aa6ebeeb1f2fd10aeddd2f1237478",
+    "392ac281ffea1d5c72c2f3e0d8916b3af51c1593"
+  ],
+  "failures": []
+}

@@ -20,7 +20,7 @@
     {
       "sourceId": "r1130828",
       "kind": "water",
-      "name": "Lacul Herăstrău",
+      "name": "Lacul Her\u0103str\u0103u",
       "ringsDm": [
         [
           20885,
@@ -3019,6 +3019,1597 @@
         37
       ],
       "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 8872,
+      "rawSurveyCrown": [
+        44.434075,
+        26.054716,
+        5.9
+      ],
+      "packed": [
+        -3564,
+        7918,
+        322
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 59
+    },
+    {
+      "surveyIndex": 8896,
+      "rawSurveyCrown": [
+        44.43409,
+        26.055863,
+        2.2
+      ],
+      "packed": [
+        -2652,
+        7901,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 8940,
+      "rawSurveyCrown": [
+        44.434113,
+        26.0567,
+        6.3
+      ],
+      "packed": [
+        -1987,
+        7876,
+        340
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 63
+    },
+    {
+      "surveyIndex": 9061,
+      "rawSurveyCrown": [
+        44.434182,
+        26.056185,
+        4.2
+      ],
+      "packed": [
+        -2396,
+        7799,
+        244
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 42
+    },
+    {
+      "surveyIndex": 9088,
+      "rawSurveyCrown": [
+        44.434197,
+        26.056475,
+        2.2
+      ],
+      "packed": [
+        -2166,
+        7783,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 9089,
+      "rawSurveyCrown": [
+        44.434197,
+        26.057419,
+        2.8
+      ],
+      "packed": [
+        -1416,
+        7783,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 9109,
+      "rawSurveyCrown": [
+        44.434205,
+        26.056947,
+        2.8
+      ],
+      "packed": [
+        -1791,
+        7774,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 9110,
+      "rawSurveyCrown": [
+        44.434205,
+        26.057076,
+        2.9
+      ],
+      "packed": [
+        -1688,
+        7774,
+        184
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 29
+    },
+    {
+      "surveyIndex": 9150,
+      "rawSurveyCrown": [
+        44.43422,
+        26.056893,
+        2.2
+      ],
+      "packed": [
+        -1834,
+        7757,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 9179,
+      "rawSurveyCrown": [
+        44.434236,
+        26.056207,
+        5.0
+      ],
+      "packed": [
+        -2379,
+        7739,
+        280
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 50
+    },
+    {
+      "surveyIndex": 9188,
+      "rawSurveyCrown": [
+        44.434243,
+        26.058363,
+        3.5
+      ],
+      "packed": [
+        -665,
+        7731,
+        210
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 35
+    },
+    {
+      "surveyIndex": 9391,
+      "rawSurveyCrown": [
+        44.434328,
+        26.056228,
+        2.9
+      ],
+      "packed": [
+        -2362,
+        7637,
+        184
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 29
+    },
+    {
+      "surveyIndex": 9409,
+      "rawSurveyCrown": [
+        44.434335,
+        26.058449,
+        6.3
+      ],
+      "packed": [
+        -597,
+        7629,
+        340
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 63
+    },
+    {
+      "surveyIndex": 9480,
+      "rawSurveyCrown": [
+        44.434366,
+        26.056175,
+        3.1
+      ],
+      "packed": [
+        -2404,
+        7595,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 9495,
+      "rawSurveyCrown": [
+        44.434374,
+        26.05949,
+        2.2
+      ],
+      "packed": [
+        230,
+        7586,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 9514,
+      "rawSurveyCrown": [
+        44.434381,
+        26.055177,
+        2.8
+      ],
+      "packed": [
+        -3197,
+        7578,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 9527,
+      "rawSurveyCrown": [
+        44.434389,
+        26.05669,
+        6.3
+      ],
+      "packed": [
+        -1995,
+        7569,
+        340
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 63
+    },
+    {
+      "surveyIndex": 9618,
+      "rawSurveyCrown": [
+        44.434427,
+        26.057977,
+        4.4
+      ],
+      "packed": [
+        -972,
+        7527,
+        252
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 44
+    },
+    {
+      "surveyIndex": 9837,
+      "rawSurveyCrown": [
+        44.434519,
+        26.056797,
+        3.1
+      ],
+      "packed": [
+        -1910,
+        7425,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 9966,
+      "rawSurveyCrown": [
+        44.434573,
+        26.058449,
+        5.5
+      ],
+      "packed": [
+        -597,
+        7365,
+        304
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 55
+    },
+    {
+      "surveyIndex": 10102,
+      "rawSurveyCrown": [
+        44.434634,
+        26.055488,
+        4.2
+      ],
+      "packed": [
+        -2950,
+        7297,
+        244
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 42
+    },
+    {
+      "surveyIndex": 10137,
+      "rawSurveyCrown": [
+        44.434649,
+        26.056636,
+        2.8
+      ],
+      "packed": [
+        -2038,
+        7280,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 10138,
+      "rawSurveyCrown": [
+        44.434649,
+        26.056722,
+        2.8
+      ],
+      "packed": [
+        -1969,
+        7280,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 10207,
+      "rawSurveyCrown": [
+        44.43468,
+        26.058277,
+        2.9
+      ],
+      "packed": [
+        -734,
+        7246,
+        184
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 29
+    },
+    {
+      "surveyIndex": 10208,
+      "rawSurveyCrown": [
+        44.43468,
+        26.058449,
+        2.2
+      ],
+      "packed": [
+        -597,
+        7246,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 10244,
+      "rawSurveyCrown": [
+        44.434695,
+        26.059125,
+        2.9
+      ],
+      "packed": [
+        -60,
+        7229,
+        184
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 29
+    },
+    {
+      "surveyIndex": 10263,
+      "rawSurveyCrown": [
+        44.434703,
+        26.059554,
+        2.2
+      ],
+      "packed": [
+        281,
+        7220,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 10723,
+      "rawSurveyCrown": [
+        44.434963,
+        26.060166,
+        2.2
+      ],
+      "packed": [
+        768,
+        6931,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 11790,
+      "rawSurveyCrown": [
+        44.435615,
+        26.059501,
+        8.3
+      ],
+      "packed": [
+        239,
+        6207,
+        432
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 83
+    },
+    {
+      "surveyIndex": 12344,
+      "rawSurveyCrown": [
+        44.435975,
+        26.059855,
+        5.5
+      ],
+      "packed": [
+        521,
+        5807,
+        304
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 55
+    },
+    {
+      "surveyIndex": 13051,
+      "rawSurveyCrown": [
+        44.436365,
+        26.059704,
+        2.2
+      ],
+      "packed": [
+        401,
+        5373,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 13816,
+      "rawSurveyCrown": [
+        44.436748,
+        26.059951,
+        7.9
+      ],
+      "packed": [
+        597,
+        4948,
+        414
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 79
+    },
+    {
+      "surveyIndex": 14105,
+      "rawSurveyCrown": [
+        44.436902,
+        26.059973,
+        6.9
+      ],
+      "packed": [
+        614,
+        4776,
+        368
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 69
+    },
+    {
+      "surveyIndex": 14762,
+      "rawSurveyCrown": [
+        44.437277,
+        26.059533,
+        3.1
+      ],
+      "packed": [
+        265,
+        4360,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 15172,
+      "rawSurveyCrown": [
+        44.437507,
+        26.060048,
+        7.1
+      ],
+      "packed": [
+        674,
+        4104,
+        376
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 71
+    },
+    {
+      "surveyIndex": 15775,
+      "rawSurveyCrown": [
+        44.437859,
+        26.05978,
+        4.9
+      ],
+      "packed": [
+        461,
+        3713,
+        276
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 49
+    },
+    {
+      "surveyIndex": 16985,
+      "rawSurveyCrown": [
+        44.438533,
+        26.059865,
+        9.0
+      ],
+      "packed": [
+        529,
+        2964,
+        440
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 90
+    },
+    {
+      "surveyIndex": 17578,
+      "rawSurveyCrown": [
+        44.438924,
+        26.060016,
+        8.4
+      ],
+      "packed": [
+        649,
+        2529,
+        436
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 84
+    },
+    {
+      "surveyIndex": 18539,
+      "rawSurveyCrown": [
+        44.439514,
+        26.060295,
+        2.8
+      ],
+      "packed": [
+        870,
+        1874,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 18693,
+      "rawSurveyCrown": [
+        44.439606,
+        26.059951,
+        2.2
+      ],
+      "packed": [
+        597,
+        1771,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 25565,
+      "rawSurveyCrown": [
+        44.444952,
+        26.06818,
+        2.2
+      ],
+      "packed": [
+        7137,
+        -4170,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 25606,
+      "rawSurveyCrown": [
+        44.444991,
+        26.068116,
+        4.2
+      ],
+      "packed": [
+        7086,
+        -4213,
+        244
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 42
+    },
+    {
+      "surveyIndex": 25629,
+      "rawSurveyCrown": [
+        44.445006,
+        26.068223,
+        2.2
+      ],
+      "packed": [
+        7171,
+        -4230,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 25679,
+      "rawSurveyCrown": [
+        44.445044,
+        26.06818,
+        4.0
+      ],
+      "packed": [
+        7137,
+        -4272,
+        234
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 40
+    },
+    {
+      "surveyIndex": 25692,
+      "rawSurveyCrown": [
+        44.445052,
+        26.068255,
+        2.8
+      ],
+      "packed": [
+        7197,
+        -4281,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 25700,
+      "rawSurveyCrown": [
+        44.44506,
+        26.068051,
+        2.2
+      ],
+      "packed": [
+        7035,
+        -4290,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 25751,
+      "rawSurveyCrown": [
+        44.445098,
+        26.068062,
+        2.8
+      ],
+      "packed": [
+        7043,
+        -4332,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 25759,
+      "rawSurveyCrown": [
+        44.445106,
+        26.067901,
+        4.9
+      ],
+      "packed": [
+        6915,
+        -4341,
+        276
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 49
+    },
+    {
+      "surveyIndex": 25849,
+      "rawSurveyCrown": [
+        44.445175,
+        26.068073,
+        2.8
+      ],
+      "packed": [
+        7052,
+        -4417,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 25901,
+      "rawSurveyCrown": [
+        44.44522,
+        26.067933,
+        2.8
+      ],
+      "packed": [
+        6941,
+        -4468,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 25965,
+      "rawSurveyCrown": [
+        44.445282,
+        26.067719,
+        2.2
+      ],
+      "packed": [
+        6771,
+        -4536,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 25987,
+      "rawSurveyCrown": [
+        44.445297,
+        26.067837,
+        2.8
+      ],
+      "packed": [
+        6865,
+        -4553,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 26121,
+      "rawSurveyCrown": [
+        44.445412,
+        26.067558,
+        2.2
+      ],
+      "packed": [
+        6643,
+        -4681,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26149,
+      "rawSurveyCrown": [
+        44.445427,
+        26.067097,
+        4.4
+      ],
+      "packed": [
+        6276,
+        -4698,
+        252
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 44
+    },
+    {
+      "surveyIndex": 26156,
+      "rawSurveyCrown": [
+        44.445435,
+        26.067526,
+        2.2
+      ],
+      "packed": [
+        6617,
+        -4706,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26172,
+      "rawSurveyCrown": [
+        44.44545,
+        26.06744,
+        3.5
+      ],
+      "packed": [
+        6549,
+        -4723,
+        210
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 35
+    },
+    {
+      "surveyIndex": 26192,
+      "rawSurveyCrown": [
+        44.445466,
+        26.067654,
+        2.2
+      ],
+      "packed": [
+        6719,
+        -4741,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26264,
+      "rawSurveyCrown": [
+        44.445512,
+        26.067204,
+        4.2
+      ],
+      "packed": [
+        6362,
+        -4792,
+        244
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 42
+    },
+    {
+      "surveyIndex": 26364,
+      "rawSurveyCrown": [
+        44.44558,
+        26.067193,
+        2.2
+      ],
+      "packed": [
+        6353,
+        -4868,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26382,
+      "rawSurveyCrown": [
+        44.445596,
+        26.068416,
+        2.8
+      ],
+      "packed": [
+        7325,
+        -4885,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 26385,
+      "rawSurveyCrown": [
+        44.445603,
+        26.067161,
+        2.2
+      ],
+      "packed": [
+        6327,
+        -4893,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26395,
+      "rawSurveyCrown": [
+        44.445611,
+        26.067515,
+        6.2
+      ],
+      "packed": [
+        6609,
+        -4902,
+        336
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 62
+    },
+    {
+      "surveyIndex": 26454,
+      "rawSurveyCrown": [
+        44.445657,
+        26.067086,
+        3.9
+      ],
+      "packed": [
+        6268,
+        -4953,
+        230
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 39
+    },
+    {
+      "surveyIndex": 26477,
+      "rawSurveyCrown": [
+        44.445672,
+        26.067161,
+        4.4
+      ],
+      "packed": [
+        6327,
+        -4970,
+        252
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 44
+    },
+    {
+      "surveyIndex": 26513,
+      "rawSurveyCrown": [
+        44.445703,
+        26.06847,
+        6.0
+      ],
+      "packed": [
+        7368,
+        -5004,
+        326
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 60
+    },
+    {
+      "surveyIndex": 26574,
+      "rawSurveyCrown": [
+        44.445764,
+        26.06715,
+        2.2
+      ],
+      "packed": [
+        6319,
+        -5072,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26587,
+      "rawSurveyCrown": [
+        44.445772,
+        26.067086,
+        2.2
+      ],
+      "packed": [
+        6268,
+        -5081,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26615,
+      "rawSurveyCrown": [
+        44.445787,
+        26.067236,
+        2.2
+      ],
+      "packed": [
+        6387,
+        -5098,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 26715,
+      "rawSurveyCrown": [
+        44.445872,
+        26.067161,
+        6.2
+      ],
+      "packed": [
+        6327,
+        -5192,
+        336
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 62
+    },
+    {
+      "surveyIndex": 26819,
+      "rawSurveyCrown": [
+        44.445948,
+        26.067032,
+        4.9
+      ],
+      "packed": [
+        6225,
+        -5277,
+        276
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 49
+    },
+    {
+      "surveyIndex": 26962,
+      "rawSurveyCrown": [
+        44.446048,
+        26.068609,
+        5.7
+      ],
+      "packed": [
+        7478,
+        -5388,
+        312
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 57
+    },
+    {
+      "surveyIndex": 26975,
+      "rawSurveyCrown": [
+        44.446055,
+        26.068524,
+        4.0
+      ],
+      "packed": [
+        7411,
+        -5395,
+        234
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 40
+    },
+    {
+      "surveyIndex": 27056,
+      "rawSurveyCrown": [
+        44.446109,
+        26.068459,
+        2.2
+      ],
+      "packed": [
+        7359,
+        -5455,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 27114,
+      "rawSurveyCrown": [
+        44.446155,
+        26.068448,
+        2.2
+      ],
+      "packed": [
+        7350,
+        -5507,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 27126,
+      "rawSurveyCrown": [
+        44.446163,
+        26.06833,
+        3.1
+      ],
+      "packed": [
+        7256,
+        -5515,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 27141,
+      "rawSurveyCrown": [
+        44.44617,
+        26.068395,
+        2.8
+      ],
+      "packed": [
+        7308,
+        -5523,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27230,
+      "rawSurveyCrown": [
+        44.446232,
+        26.068266,
+        5.7
+      ],
+      "packed": [
+        7206,
+        -5592,
+        312
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 57
+    },
+    {
+      "surveyIndex": 27332,
+      "rawSurveyCrown": [
+        44.446308,
+        26.068105,
+        2.8
+      ],
+      "packed": [
+        7078,
+        -5677,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27353,
+      "rawSurveyCrown": [
+        44.446323,
+        26.068051,
+        2.8
+      ],
+      "packed": [
+        7035,
+        -5693,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 27419,
+      "rawSurveyCrown": [
+        44.446362,
+        26.067998,
+        2.2
+      ],
+      "packed": [
+        6993,
+        -5737,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 28439,
+      "rawSurveyCrown": [
+        44.447066,
+        26.065133,
+        5.5
+      ],
+      "packed": [
+        4715,
+        -6519,
+        304
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 55
+    }
+  ],
+  "levelHeightEstimates": [
+    {
+      "sourceId": "w458458366",
+      "sourceDimensions": {
+        "building:levels": "5"
+      },
+      "sourceRingLL": [
+        [
+          44.4469194,
+          26.065873
+        ],
+        [
+          44.4470222,
+          26.0660438
+        ],
+        [
+          44.4470053,
+          26.0660638
+        ],
+        [
+          44.4470193,
+          26.0660872
+        ],
+        [
+          44.4469648,
+          26.0661511
+        ],
+        [
+          44.4469321,
+          26.0660884
+        ],
+        [
+          44.4468388,
+          26.0659348
+        ],
+        [
+          44.4468916,
+          26.0658724
+        ],
+        [
+          44.4469034,
+          26.065892
+        ],
+        [
+          44.4469194,
+          26.065873
+        ]
+      ],
+      "heightM": 14.5,
+      "basis": "Retain previous14.5m per-storey model for unchanged literal5levels; district promotion/shop-band flags supply no new physical height evidence."
     }
   ]
 }

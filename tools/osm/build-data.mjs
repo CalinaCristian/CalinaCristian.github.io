@@ -95,7 +95,7 @@ import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, 
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
 import { compileSourceReturns } from './source-return-corridors.mjs';
-import { preserveReviewedSourceContext } from './source-return-context.mjs';
+import { preserveReviewedSourceContext, retainedSourceLevelEstimate } from './source-return-context.mjs';
 import { LANDMARKS } from '../../game/src/landmarks.js';
 import { speciesFromOSM } from '../../game/src/trees.js';
 import { resolveResearchSource } from './research-source.mjs';
@@ -429,6 +429,8 @@ function buildCity(cityId, did = null) {
     const returnFile = ds && path.join(REPO, 'game', 'research', `source-returns-${cityId}-${did}.json`);
     const returnReview = returnFile && args['source-returns'] !== 'none' && fs.existsSync(returnFile) ? JSON.parse(fs.readFileSync(returnFile, 'utf8')) : null;
     const sourceReturns = compileSourceReturns({ roads, pos, ways: W, relations: R, review: returnReview });
+    const contextFile = ds && path.join(REPO, 'game', 'research', `source-context-${cityId}-${did}.json`);
+    const sourceContextReview = contextFile && fs.existsSync(contextFile) ? JSON.parse(fs.readFileSync(contextFile, 'utf8')) : null;
     const corridorCfg = ds ? { ...ds.cfg, sourcePieces: sourceReturns.pieces, sourceReturnNodes: sourceReturns.routeNodes } : corridorConfig(cityId);
     const cor = buildCorridor(roads.filter(r => r.access.publicDrive), pos, (lat, lon) => P(lat, lon), corridorCfg, log);
     const M = (x, z) => cor.margin(x, z);
@@ -1314,6 +1316,7 @@ function buildCity(cityId, did = null) {
             // (2026-11-08) roof:levels = an attic: inside a pitched roof (the roof rise is drawn on top of the walls), a set-back
             // storey only under a flat roof — villas tagged 2 + 1 attic were walls of 3 storeys with the roof on top
             h = lv * (style === 'bloc' ? 2.9 : style === 'glass' ? 3.6 : 3.2) + ((flags & 1) ? 1 : 0) + (roof === 0 ? roofLevels * 2.6 : 0);
+            h = retainedSourceLevelEstimate(sourceContextReview, { sourceId: t.__id, tags: t, sourceRingLL: lls }, h);
         }
         // A literal positive OSM height can describe a low utility structure; the 2.5m fallback is not source truth.
         h = parseMeasure(t.height) > 0 ? parseMeasure(t.height) : Math.max(sourcePart ? 0.01 : 2.5, Math.min(h, 320));
@@ -2031,11 +2034,9 @@ function buildCity(cityId, did = null) {
         doc.district.mask = { x0: gx0, z0: gz0, cell, w, h, rle };
     }
     if (ds) {
-        const contextFile = path.join(REPO, 'game', 'research', `source-context-${cityId}-${did}.json`);
-        if (fs.existsSync(contextFile)) {
-            const context = JSON.parse(fs.readFileSync(contextFile, 'utf8'));
+        if (sourceContextReview) {
             const surveyFile = path.join(REPO, 'game', 'research', `trees-${cityId}-${did}.json`);
-            preserveReviewedSourceContext(doc, context, fs.existsSync(surveyFile) ? fs.readFileSync(surveyFile) : null);
+            preserveReviewedSourceContext(doc, sourceContextReview, fs.existsSync(surveyFile) ? fs.readFileSync(surveyFile) : null);
         }
     }
     const outDir = path.join(REPO, 'game', 'data');

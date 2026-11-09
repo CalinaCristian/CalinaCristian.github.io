@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { preserveReviewedSourceContext } from './source-return-context.mjs';
+import { preserveReviewedSourceContext, retainedSourceLevelEstimate } from './source-return-context.mjs';
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const reports=[];const test=(name,fn)=>{fn();reports.push(name);};
 const fixture=()=>{
@@ -13,6 +13,26 @@ const fixture=()=>{
             waterAreas:[{sourceId:'w1',kind:'water',name:'Source lake',ringsDm:[[0,0,100,0,0,100]]}],
             measuredCrowns:[{surveyIndex:0,rawSurveyCrown:[0,0,2],packed:[0,0,142],treeInfo:[-1,0,37],crownRadiusDm:20}]}};
 };
+test('domain promotion preserves an unchanged source-level MODEL before geometry baking',()=>{
+    const f=fixture(),ring=[[0,0],[0,1],[1,0],[0,0]],tags={'building:levels':'5'},record={sourceId:'w10',heightM:14.5,sourceDimensions:{...tags},sourceRingLL:ring};
+    f.review.levelHeightEstimates=[record];const source={sourceId:'w10',tags,sourceRingLL:ring},before=JSON.stringify({record,source});
+    assert.equal(retainedSourceLevelEstimate(f.review,source,15.5),14.5);
+    assert.equal(JSON.stringify({record,source}),before);
+    assert.equal(retainedSourceLevelEstimate(f.review,{...source,sourceId:'w11'},15.5),15.5);
+    for(const changed of [{...source,tags:{...tags,height:'16'}},{...source,tags:{...tags,height:'16',__originalDimensions:tags}},
+        {...source,tags:{'building:levels':'6'}},{...source,sourceRingLL:[[0,0],[0,2],[1,0],[0,0]]}])
+        assert.equal(retainedSourceLevelEstimate(f.review,changed,16),16);
+    record.sourceDimensions['roof:height']='2';assert.equal(retainedSourceLevelEstimate(f.review,source,16),16);
+});
+test('prior level MODEL requires immutable provenance and one finite reviewed estimate',()=>{
+    const f=fixture(),source={sourceId:'w10',tags:{'building:levels':'5'},sourceRingLL:[]};
+    f.review.levelHeightEstimates=[{sourceId:'w10',heightM:Infinity,sourceDimensions:{'building:levels':'5'},sourceRingLL:[]}];
+    assert.throws(()=>retainedSourceLevelEstimate(f.review,source,15.5),/invalid prior storey model/);
+    f.review.levelHeightEstimates[0].heightM=14.5;f.review.levelHeightEstimates.push(structuredClone(f.review.levelHeightEstimates[0]));
+    assert.throws(()=>retainedSourceLevelEstimate(f.review,source,15.5),/duplicate prior storey model/);
+    f.review.levelHeightEstimates.pop();delete f.review.sourceDataSha256;
+    assert.throws(()=>retainedSourceLevelEstimate(f.review,source,15.5),/invalid prior storey model/);
+});
 test('exact prior water rings/name/source identity and measured crown survive',()=>{
     const f=fixture(),r=preserveReviewedSourceContext(f.doc,f.review,f.survey);
     assert.deepEqual(f.doc.areas,[[0,0,[0,0,100,0,0,100]]]);assert.deepEqual(f.doc.areaSourceIds,['w1']);

@@ -147,7 +147,10 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   Individually reviewed drives beneath mapped fuel roofs keep their surface-road joins; relative source layers
   below a canopy supply no underground metre depth. Roof dimensions remain explicit estimates and legal height limits stay intact.
 - **Mapped return roads.** Grozăvești's reviewed Politehnica–Lukoil return corridors retain the real road segments in both
-  approach directions, extending the finite district through exact source nodes and legal directions. Native boundary,
+  approach directions, extending the finite district through exact source nodes and legal directions. Two further
+  finite source selections retain Basarab's northern exit/return and southern northbound entry; they preserve literal
+  joins, directions, restrictions and the previous source/model bodies and measured crowns. The reverse ramp and GPS
+  restriction handling remain explicit open gates. Native boundary,
   whole-body driving and render checks remain separate acceptance gates for this rebuilt coverage.
   Synthetic district limits share the whole car's finite road/junction support, including retained bridges. Physical
   closure walls and their decoration consume the same finalized cross-sections; mapped source barriers stay intact.

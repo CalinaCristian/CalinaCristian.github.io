@@ -56,9 +56,14 @@ const CSS = `
 #spot-ui .sp-map li{padding:3px 4px;border-radius:6px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #spot-ui .sp-map li:hover,#spot-ui .sp-map li.sel{background:rgba(251,191,36,.18)}
 #spot-ui .sp-map li.done{opacity:.55}
+#spot-ui .sp-map li{white-space:normal;overflow-wrap:anywhere;min-height:36px;box-sizing:border-box;display:flex;align-items:center}
+#spot-ui .sp-map .sp-nav-status{padding:7px 0;color:#b9e4ff;overflow-wrap:anywhere}
+#spot-ui .sp-waypoint{margin-top:7px;color:#b9e4ff;font-size:12px}
+#spot-ui .sp-waypoint button{pointer-events:auto;margin-left:7px;padding:5px 8px;min-height:32px;border:1px solid #64748b;border-radius:6px;background:#263442;color:#fff;cursor:pointer}
 #spot-ui .sp-map .sp-btns button{font:600 13px system-ui;background:#fbbf24;color:#1d160a;border:0;border-radius:8px;padding:7px 12px;cursor:pointer;margin:4px 6px 0 0}
 #spot-ui .sp-map .sp-btns button[data-close]{background:#3a4148;color:#fff}
 #spot-ui .sp-map .sp-tip{position:absolute;pointer-events:none;background:#fff;color:#111;font:600 13px system-ui;padding:4px 8px;border-radius:8px;transform:translate(-50%,-130%);white-space:nowrap;display:none;box-shadow:0 3px 10px rgba(0,0,0,.35)}
+@media(max-width:600px){#spot-ui .sp-map :is(button,li[data-i]),#spot-ui .sp-waypoint button,#spot-ui .sp-tour button{min-height:44px}}
 @media (max-width:600px){#spot-ui .sp-map .sp-side{top:auto;bottom:8px;right:8px;left:8px;width:auto;max-height:42%}}
 #spot-ui .sp-tour{margin-top:6px;font-size:12px;border-top:1px solid rgba(255,255,255,.15);padding-top:5px}
 #spot-ui .sp-tour .sp-dots{letter-spacing:3px;color:#fde68a;font-size:11px}
@@ -133,17 +138,26 @@ export class SpotUI {
             b.onclick = (e) => { e.stopPropagation(); run(); };
         }
     }
+    setWaypoint(t) {
+        let el = this.$('.sp-waypoint');
+        if (!el) { el = document.createElement('div'); el.className = 'sp-waypoint'; this.$('.sp-card').append(el); }
+        if (!t) { el.replaceChildren(); el.hidden = true; return; }
+        el.hidden = false;
+        el.innerHTML = `<span>📍 ${esc(t.direction || '')} ${esc(t.label)} · ${Math.round(t.distance)} m${t.arrived ? ' · Arrived' : t.routed ? ' · Follow the blue route' : ' · No walking route from here'}</span><button type="button" aria-label="Clear waypoint">Clear</button>`;
+        el.querySelector('button').onclick = t.clear;
+    }
     /**
      * full spot map (notes 32/33/67): the map with every objective + legend + checklist + tour button. Same panel
      * discipline as the plaque (closing key consumed, focus back to the game). `map` is the SpotMap; resolves on close.
      */
-    showMap(map, { title = '', items = [], tour = null } = {}) {
+    showMap(map, { title = '', items = [], tour = null, navigate = null } = {}) {
         this.closePanel();
         const p = this.$('.sp-panel'), kinds = MAP_KINDS.filter(([k]) => k === 'you' || k === 'guide' && map.markers.some((m) => m.kind === 'guide') || map.markers.some((m) => m.kind === k));
         p.innerHTML = `<div class="sp-map"><canvas></canvas><div class="sp-tip"></div><div class="sp-side"><h3>${esc(title)}</h3>
+            ${navigate ? '<p>Tap a place or the map to set a waypoint. Blue is your route; gold follows the guide.</p><div class="sp-nav-status" role="status" aria-live="polite"></div>' : ''}
             <div class="sp-legend">${kinds.filter(([k]) => k !== 'you').map(([k, ic, nm]) => `<button data-kind="${k}" aria-pressed="${!map.hidden.has(k)}" title="Show / hide">${ic} ${nm}</button>`).join('')}</div>
             <ul>${items.map((it, i) => `<li data-i="${i}" class="${it.done ? 'done' : ''}">${it.done ? '✓' : it.icon} ${esc(it.label)}</li>`).join('')}</ul>
-            <div class="sp-btns">${tour ? `<button data-tour>${esc(tour.label)}</button>` : ''}<button data-close>Close${document.body.classList.contains('touch') ? '' : ' (M)'}</button></div></div></div>`;
+            <div class="sp-btns">${navigate ? '<button type="button" data-clear-waypoint>Clear waypoint</button>' : ''}${tour ? `<button data-tour>${esc(tour.label)}</button>` : ''}<button data-close>Resume walk${document.body.classList.contains('touch') ? '' : ' (M)'}</button></div></div></div>`;
         const box = p.querySelector('.sp-map'), cv = p.querySelector('canvas'), tip = p.querySelector('.sp-tip');
         p.classList.add('show');
         const fit = () => { const r = box.getBoundingClientRect(), sr = p.querySelector('.sp-side').getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1); cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
@@ -152,15 +166,24 @@ export class SpotUI {
         const pick = (e) => { const r = cv.getBoundingClientRect(), k = cv.width / r.width, m = map.hit((e.clientX - r.left) * k, (e.clientY - r.top) * k, 26 * k);
             if (m !== map.sel) { map.sel = m; map.draw(cv, { full: true }); }
             if (m) { tip.textContent = m.name || m.label; tip.style.left = (m._sx / k) + 'px'; tip.style.top = (m._sy / k) + 'px'; tip.style.display = 'block'; } else tip.style.display = 'none'; };
-        cv.onpointermove = pick; cv.onpointerdown = pick;
+        const go = target => {
+            if (!navigate || !target) return;
+            const result = navigate.set(target);
+            p.querySelector('.sp-nav-status').textContent = result.message;
+            map.draw(cv, { full: true });
+        };
+        cv.onpointermove = pick;
+        cv.onpointerdown = e => { pick(e); const r = cv.getBoundingClientRect(), k = cv.width / r.width; go(map.sel || map.worldAt((e.clientX-r.left)*k,(e.clientY-r.top)*k)); };
         p.querySelectorAll('.sp-legend button').forEach((b) => { b.onclick = () => { const k = b.dataset.kind; if (map.hidden.has(k)) map.hidden.delete(k); else map.hidden.add(k); b.setAttribute('aria-pressed', String(!map.hidden.has(k))); map.draw(cv, { full: true }); }; });
-        p.querySelectorAll('li[data-i]').forEach((li) => { li.onclick = () => { const it = items[+li.dataset.i]; map.sel = it.marker || it.members?.[0] || null; map.focus = it.members || null; p.querySelectorAll('li').forEach((x) => x.classList.toggle('sel', x === li)); map.draw(cv, { full: true }); }; });
+        p.querySelectorAll('li[data-i]').forEach((li) => { li.tabIndex = 0; li.setAttribute('role','button'); li.onclick = () => { const it = items[+li.dataset.i]; map.sel = it.marker || it.members?.[0] || null; map.focus = it.members || null; p.querySelectorAll('li').forEach((x) => x.classList.toggle('sel', x === li)); go(map.sel); map.draw(cv, { full: true }); }; li.onkeydown = e => { if (e.code === 'Enter' || e.code === 'Space') { e.preventDefault(); e.stopPropagation(); li.click(); } }; });
+        const clear = p.querySelector('[data-clear-waypoint]');
+        if (clear) clear.onclick = () => { navigate.clear(); p.querySelector('.sp-nav-status').textContent='Waypoint cleared.'; map.draw(cv,{full:true}); };
         const onResize = () => fit(); window.addEventListener('resize', onResize);
         return new Promise((res) => {
             let keyTimer = null;
             const swallowUp = (e) => { e.preventDefault(); e.stopPropagation(); window.removeEventListener('keyup', swallowUp, true); };
             const close = (e) => { clearTimeout(keyTimer); window.removeEventListener('keydown', key, true); window.removeEventListener('resize', onResize); if (this._closePanel !== close) return; p.classList.remove('show'); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; map.sel = null; map.focus = null; map.pad = null; this._closePanel = null; res(); };
-            const key = (e) => { if (this._closePanel === close && p.classList.contains('show') && ['Escape', 'KeyM', 'KeyE', 'Enter'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
+            const key = (e) => { if (e.target?.closest?.('button,li[data-i]') && ['Enter','Space'].includes(e.code)) return; if (this._closePanel === close && p.classList.contains('show') && ['Escape', 'KeyM', 'KeyE', 'Enter'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
             p.querySelector('[data-close]').onclick = () => close();
             const tb = p.querySelector('[data-tour]'); if (tb) tb.onclick = () => { close(); tour.run(); };
             p.onclick = (e) => { if (e.target === p) close(); };
@@ -173,7 +196,7 @@ export class SpotUI {
     dispose() { this.closePanel(); this.el.remove(); }
 }
 /** map marker kinds: [kind, icon, legend name] */
-export const MAP_KINDS = [['hero', '⭐', 'Landmark'], ['plaque', '📜', 'Plaque'], ['postcard', '📷', 'Postcard photo'], ['activity', '🎯', 'Activity'], ['bike', '🚲', 'Bikes'], ['entrance', '🚪', 'Entrance'], ['view', '👁', 'Viewpoint'], ['guide', '🚩', 'Tour guide'], ['you', '➤', 'You']];
+export const MAP_KINDS = [['hero', '⭐', 'Landmark'], ['plaque', '📜', 'Plaque'], ['postcard', '📷', 'Postcard photo'], ['activity', '🎯', 'Activity'], ['bike', '🚲', 'Bikes'], ['entrance', '🚪', 'Entrance'], ['view', '👁', 'Viewpoint'], ['guide', '🚩', 'Tour guide'], ['waypoint', '📍', 'Waypoint'], ['you', '➤', 'You']];
 const ICON = Object.fromEntries(MAP_KINDS.map(([k, i]) => [k, i]));
 /**
  * Spot map: a top-down image of the scene's ground (the terrain painter: streets, paths, lawns, water, footprints)
@@ -189,26 +212,36 @@ export class SpotMap {
     /** the marker drawn nearest to canvas pixel (px, py) within r (full map), or null */
     hit(px, py, r) { let best = null, bd = r; for (const m of this.markers) { if (m._sx === undefined || this.hidden.has(m.kind)) continue; const d = Math.hypot(m._sx - px, m._sy - py); if (d < bd) { bd = d; best = m; } } return best; }
     setRoute(pts) { this.route = pts; }
+    setWaypoint(marker, route = null) { this.waypoint = marker ? {...marker,kind:'waypoint',icon:'📍',cur:true} : null; this.waypointRoute = route; }
+    worldAt(px,py) {
+        const t=this._full; if(!t || px<0 || py<0 || px>t.AW || py>t.AH)return null;
+        const x=(px-t.W/2)/t.k+t.cx,z=(py-t.H/2)/t.k+t.cz,b=this.b;
+        return x>=b.x0&&x<=b.x1&&z>=b.z0&&z<=b.z1 ? {x,z,label:'Custom waypoint'} : null;
+    }
     update(dt, player) { this.player = player; this.t -= dt; if (this.t > 0) return; this.t = 0.15; this.draw(this.mini, { full: false }); }
     draw(cv, { full }) {
         const c = cv.getContext('2d'), W = cv.width, H = cv.height, b = this.b, p = this.player;
         const pd = (full && this.pad) || { right: 0, bottom: 0 }, AW = W - pd.right, AH = H - pd.bottom; // the side panel's area stays clear
         const span = full ? Math.max(b.x1 - b.x0, b.z1 - b.z0) : this.span, cx0 = full ? (b.x0 + b.x1) / 2 : p.x, cz0 = full ? (b.z0 + b.z1) / 2 : p.z, k = (full ? Math.min(AW, AH) * 1.1 : W) / span;
         const cx = cx0 + (full ? pd.right / 2 / k : 0), cz = cz0 + (full ? pd.bottom / 2 / k : 0);
+        if(full)this._full={W,H,AW,AH,cx,cz,k};
         const T = (x, z) => [(x - cx) * k + W / 2, (z - cz) * k + H / 2];
         c.fillStyle = '#20262b'; c.fillRect(0, 0, W, H);
         if (this.img?.width > 0 && this.img.height > 0) { const iw = this.img.width / (b.x1 - b.x0), [ox, oy] = T(b.x0, b.z0); c.globalAlpha = 0.95; c.drawImage(this.img, ox, oy, (b.x1 - b.x0) * k, (b.z1 - b.z0) * k); c.globalAlpha = 1; void iw; }
         if (this.route?.length > 1) { c.save(); c.strokeStyle = '#fbbf24'; c.lineWidth = Math.max(2.5, W / 220); c.setLineDash([W / 60, W / 90]); c.beginPath(); this.route.forEach(([x, z], i) => { const [u, v] = T(x, z); if (i) c.lineTo(u, v); else c.moveTo(u, v); }); c.stroke(); c.restore(); }
+        if(this.waypointRoute?.length>1){c.save();c.strokeStyle='#38bdf8';c.lineWidth=Math.max(3,W/210);c.beginPath();this.waypointRoute.forEach(([x,z],i)=>{const[u,v]=T(x,z);if(i)c.lineTo(u,v);else c.moveTo(u,v);});c.stroke();c.restore();}
         // icons only; a label only for the selected / hovered marker, the next tour stop and the entrances, never overlapping
         const fs = full ? Math.max(15, Math.round(W / 60)) : 15, rects = []; c.textAlign = 'center'; c.textBaseline = 'middle';
         const icon = (m, u, v) => { c.globalAlpha = m.done ? 0.5 : 1; const hl = m.cur || m === this.sel || this.focus?.includes(m);
-            c.fillStyle = hl ? 'rgba(251,191,36,.95)' : 'rgba(15,18,22,.72)'; c.beginPath(); c.arc(u, v, fs * 0.72, 0, 7); c.fill();
+            c.fillStyle = m.kind === 'waypoint' ? 'rgba(14,116,144,.96)' : hl ? 'rgba(251,191,36,.95)' : 'rgba(15,18,22,.72)'; c.beginPath(); c.arc(u, v, fs * 0.72, 0, 7); c.fill();
             c.font = `${fs}px system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif`; c.fillStyle = '#fff'; c.fillText(m.icon || ICON[m.kind] || '•', u, v + 1); c.globalAlpha = 1; rects.push([u - fs * 0.75, v - fs * 0.75, u + fs * 0.75, v + fs * 0.75]); };
         const label = (m, u, v) => { const t = (m === this.sel ? m.name || m.label : m.short || m.label || '').slice(0, 40); if (!t) return; c.font = `600 ${Math.round(fs * 0.62)}px system-ui`; const w = c.measureText(t).width + 10, h = fs * 0.95;
             for (const dy of [fs * 1.25, -fs * 1.25, fs * 2.3]) { const r = [u - w / 2, v + dy - h / 2, u + w / 2, v + dy + h / 2]; if (rects.some((q) => r[0] < q[2] && r[2] > q[0] && r[1] < q[3] && r[3] > q[1])) continue;
                 rects.push(r); c.fillStyle = 'rgba(15,18,22,.85)'; c.fillRect(r[0], r[1], w, h); c.fillStyle = m === this.sel || m.cur ? '#fde68a' : '#fff'; c.fillText(t, u, v + dy + 1); return; } };
         const vis = [];
-        for (const m of this.markers) {
+        const displayMarkers=this.markers.filter(m=>!this.waypoint||Math.hypot(m.x-this.waypoint.x,m.z-this.waypoint.z)>.1);
+        if(this.waypoint)displayMarkers.push(this.waypoint);
+        for (const m of displayMarkers) {
             m._sx = undefined; if (this.hidden.has(m.kind)) continue;
             let [u, v] = T(m.x, m.z); const off = u < 0 || v < 0 || u > W || v > H; if (off && full) continue;
             if (off) { if (!m.cur) continue; u = clamp(u, 10, W - 10); v = clamp(v, 10, H - 10); } // the current tour stop stays on the minimap edge

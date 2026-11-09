@@ -1,0 +1,15 @@
+// CPU source/profile replay only. No actor construction, pose or live browser.
+import fs from 'node:fs';
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+import {CITIES} from '../../../../game/src/cities.js';
+const [output]=process.argv.slice(2);if(!output)throw Error('OUTPUT_JSON required');
+const root=path.resolve(new URL('../../../..',import.meta.url).pathname),file=root+'/game/src/world.js',source=fs.readFileSync(file,'utf8'),dataBytes=fs.readFileSync(root+'/game/data/bucharest-grozavesti.json'),marker='    //  CELLS (chunked static geometry)';
+if(source.split(marker).length!==2)throw Error('Unique prefix marker required');
+const hook=`    const captureRails=[];
+    for(const way of data.tramSourceWays||[]){if(!['w128304860','w660918285'].includes(way.sourceId))continue;const points=undelta(way.points,0,1/(data.q||10));for(let index=0;index+1<points.length;index++){const a=points[index],b=points[index+1];if(Math.max(a[0],b[0])< -400||Math.min(a[0],b[0])> -360||Math.max(a[1],b[1])<640||Math.min(a[1],b[1])>760)continue;const grade=tramGrades.resolveGrade(way,{index});captureRails.push({sourceId:way.sourceId,index,nodeIds:way.nodeIds.slice(index,index+2),sourcePoints:[a,b],known:!!grade?.known,modelId:grade?.modelId||null,heightAt:grade?.heightAt?[0,.5,1].map(t=>grade.heightAt(t)):null,sourceTags:way.tags});}}
+    return {scope:'CPU actual current World graph/profile prefix; model height only, not a native constructor/body/support/clearance acceptance.',motorEdges:edges.filter(e=>data.roadSourceGeometry?.[e.road]?.sourceId==='w723716274').map(e=>({edgeId:e.id,sourceId:'w723716274',road:e.road,sourceNodes:[e.a.sourceId,e.b.sourceId],a:[e.a.x,e.a.z],b:[e.b.x,e.b.z],len:e.len,lanesF:e.lanesF,lanesB:e.lanesB,laneW:e.laneW,wL:e.wL,wR:e.wR,laneCenterShiftM:e.laneCenterShiftM,sidewalkLeftM:e.sidewalkLeftM,sidewalkRightM:e.sidewalkRightM,ya:e.ya,yb:e.yb,asphalt:asphaltCorners(e,(f,sd)=>sd>0?f.wR:f.wL).map(p=>[p[0],yAlong(e,p[0],p[1])+Y.road,p[1]]),source:data.roadSourceGeometry[e.road]})),nearPlatformRailGrades:captureRails};
+`;
+const derived=source.replace(marker,hook+marker),temporary=root+'/game/src/.shelter-field-'+process.pid+'.mjs';fs.writeFileSync(temporary,derived,{flag:'wx'});const priorFetch=globalThis.fetch;globalThis.fetch=async url=>{if(!String(url).endsWith('/data/bucharest-grozavesti.json'))throw Error('Unexpected source URL');return{json:async()=>JSON.parse(dataBytes)}};
+try{const {buildWorld}=await import(pathToFileURL(temporary).href),r=await buildWorld({...CITIES.bucharest},null,{district:'grozavesti'}),sha=b=>createHash('sha256').update(b).digest('hex');fs.writeFileSync(output,JSON.stringify({worldSha256:sha(source),derivedPrefixSha256:sha(derived),dataSha256:sha(dataBytes),...r},null,2)+'\n');console.log(JSON.stringify({motorEdges:r.motorEdges.length,railSegments:r.nearPlatformRailGrades.length,motorHeightEndpoints:r.motorEdges.map(e=>[e.ya,e.yb])}));}finally{globalThis.fetch=priorFetch;fs.unlinkSync(temporary);}

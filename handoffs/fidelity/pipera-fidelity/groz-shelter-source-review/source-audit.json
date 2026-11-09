@@ -1,0 +1,525 @@
+{
+  "scope": "Literal current649 source/geometry and bounded cached nearby shelter evidence. No absence assertion beyond these cached tagged features, no provider-derived width, no new native actor IDs.",
+  "dataSha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+  "tileLedger": [
+    {
+      "file": "buc_44.4250_26.0290_44.4350_26.0450.xml",
+      "sha256": "5f6dfc4175e595a80a0207927b135fcdda0ea79cfecdea841b089c91ba0c3343"
+    },
+    {
+      "file": "buc_44.4250_26.0450_44.4350_26.0610.xml",
+      "sha256": "57639f0f940a2ca42f873e5e171b938cf43980f28fede6a30d29ce246b957fa7"
+    },
+    {
+      "file": "buc_44.4250_26.0610_44.4350_26.0770.xml",
+      "sha256": "1de258735272aa12e444747c50a36372a0337d0bb16821337ba865d5ad600feb"
+    },
+    {
+      "file": "buc_44.4250_26.0770_44.4350_26.0930.xml",
+      "sha256": "1dafbd501669a59407348a2028a6190dbeb129a85c30181bb86e79b05c8a5fb1"
+    },
+    {
+      "file": "buc_44.4350_26.0290_44.4450_26.0450.xml",
+      "sha256": "1b3433692876dc385b2960f34d06d3f55c96f0c507f9207a9bb449ec7c0b3bcf"
+    },
+    {
+      "file": "buc_44.4350_26.0450_44.4450_26.0610.xml",
+      "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689"
+    },
+    {
+      "file": "buc_44.4350_26.0610_44.4450_26.0770.xml",
+      "sha256": "5c526f202084ffa605d5b78bb15b923b10dee7bca10bf65d9438152a465e0624"
+    },
+    {
+      "file": "buc_44.4350_26.0770_44.4450_26.0930.xml",
+      "sha256": "14b1a756654b49a7d62517cddc711bc20056e4684a0a1f10c6a41ee9e6462069"
+    },
+    {
+      "file": "buc_44.4450_26.0290_44.4550_26.0450.xml",
+      "sha256": "57a0c0e0a2c75f2e0f999b8fa8c5733d669c5bd244490fcd409b1c747593c55f"
+    },
+    {
+      "file": "buc_44.4450_26.0450_44.4550_26.0610.xml",
+      "sha256": "1336a618c3f735263833078499794446ed5f9b8776aeefe914aaaa2eb5ec7732"
+    },
+    {
+      "file": "buc_44.4450_26.0610_44.4550_26.0770.xml",
+      "sha256": "1b4248039697685242b9df55183002daee53d1ca728571020f64d9fa4fdb9f2e"
+    },
+    {
+      "file": "buc_44.4450_26.0770_44.4550_26.0930.xml",
+      "sha256": "ee2946108a6f27a83e7b71f558950182e12af5eb1de7b7815b5ec03369a3af6e"
+    },
+    {
+      "file": "buc_44.4550_26.0290_44.4650_26.0450.xml",
+      "sha256": "2d4083c18438e61eebab62d3b67f5a07337d69c2aa84bb8b4d8bb143d2437b85"
+    },
+    {
+      "file": "buc_44.4550_26.0450_44.4650_26.0610.xml",
+      "sha256": "5b4a8f65b7fd6866738854193f910b82c100e3c6ed1effedb800a83f6ed1fd50"
+    },
+    {
+      "file": "buc_44.4550_26.0610_44.4650_26.0770.xml",
+      "sha256": "052b27afee4aef69c907c144db2c38791acddfd572c917584f2136a709698996"
+    },
+    {
+      "file": "buc_44.4550_26.0770_44.4650_26.0930.xml",
+      "sha256": "990ea50aa95587d1a134729a994a2f08db3e64618164a473a852ff298ac1af96"
+    }
+  ],
+  "stops": [
+    {
+      "poiIndex": 2,
+      "sourceId": "n933659725",
+      "nodeIds": [
+        933659725
+      ],
+      "points": [
+        [
+          -384.02697930026375,
+          705.6437472000074
+        ]
+      ],
+      "tags": {
+        "name": "Bd. Iuliu Maniu",
+        "network": "Societatea de Transport București",
+        "network:short": "STB",
+        "network:wikidata": "Q2280353",
+        "operator": "STB",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "1, 11, 35",
+        "tram": "yes"
+      },
+      "geometryPurpose": "literal vehicle stop point; no roof outline/anchor/dimensions"
+    },
+    {
+      "poiIndex": 17,
+      "sourceId": "n8440717929",
+      "nodeIds": [
+        8440717929
+      ],
+      "points": [
+        [
+          -380.61732711844127,
+          684.7731576001105
+        ]
+      ],
+      "tags": {
+        "name": "Bd. Iuliu Maniu",
+        "network": "TPBI",
+        "operator": "STB",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "1, 11, 35",
+        "tram": "yes",
+        "wheelchair": "yes"
+      },
+      "geometryPurpose": "literal vehicle stop point; no roof outline/anchor/dimensions"
+    }
+  ],
+  "platforms": [
+    {
+      "sourceId": "w909062874",
+      "nodeIds": [
+        8440709464,
+        8440709465
+      ],
+      "points": [
+        [
+          -378.79725637329085,
+          719.646379200188
+        ],
+        [
+          -378.00246565495485,
+          665.2917179998649
+        ]
+      ],
+      "tags": {
+        "bench": "yes",
+        "bin": "yes",
+        "lit": "no",
+        "name": "Bd. Iuliu Maniu",
+        "public_transport": "platform",
+        "railway": "platform",
+        "shelter": "yes"
+      },
+      "closed": false,
+      "lengthM": 54.36047172797402,
+      "missingRoofFields": [
+        "width",
+        "height",
+        "min_height",
+        "roof:height",
+        "building",
+        "building:part",
+        "placement"
+      ]
+    },
+    {
+      "sourceId": "w909062875",
+      "nodeIds": [
+        8440709466,
+        8440709467
+      ],
+      "points": [
+        [
+          -386.47493471263704,
+          719.6797188005776
+        ],
+        [
+          -385.68014399430103,
+          665.0472276001664
+        ]
+      ],
+      "tags": {
+        "bench": "yes",
+        "bin": "yes",
+        "lit": "no",
+        "name": "Bd. Iuliu Maniu",
+        "public_transport": "platform",
+        "railway": "platform",
+        "shelter": "yes"
+      },
+      "closed": false,
+      "lengthM": 54.63827218213404,
+      "missingRoofFields": [
+        "width",
+        "height",
+        "min_height",
+        "roof:height",
+        "building",
+        "building:part",
+        "placement"
+      ]
+    }
+  ],
+  "touchingRelations": [
+    {
+      "sourceId": "r1270050",
+      "tags": {
+        "colour": "#BE1622",
+        "from": "Cartier 16 Februarie",
+        "name": "Tram 11: Cartier 16 Februarie => Zețarilor",
+        "network": "Asociația de Dezvoltare Intercomunitară pentru Transport Public București – Ilfov",
+        "network:short": "TPBI",
+        "network:website": "https://tpbi.ro/",
+        "note": "Temporary suspended due to rail repair.",
+        "public_transport:version": "2",
+        "ref": "11",
+        "route": "tram",
+        "to": "Zețarilor",
+        "type": "route",
+        "wikidata": "Q85980501"
+      },
+      "members": [
+        {
+          "type": "node",
+          "ref": 933659725,
+          "role": "stop"
+        }
+      ],
+      "hasTargetPlatformMember": false
+    },
+    {
+      "sourceId": "r1274386",
+      "tags": {
+        "colour": "#BE1622",
+        "from": "Romprim",
+        "name": "Tram 1: Romprim => Mihai Bravu => Banu Manta => Romprim",
+        "network": "Asociația de Dezvoltare Intercomunitară pentru Transport Public București – Ilfov",
+        "network:short": "TPBI",
+        "network:website": "https://tpbi.ro/",
+        "public_transport:version": "2",
+        "ref": "1",
+        "roundtrip": "yes",
+        "route": "tram",
+        "to": "Romprim",
+        "type": "route",
+        "via": "Pod Mihai Bravu",
+        "wikidata": "Q61085901"
+      },
+      "members": [
+        {
+          "type": "node",
+          "ref": 933659725,
+          "role": "stop"
+        }
+      ],
+      "hasTargetPlatformMember": false
+    },
+    {
+      "sourceId": "r2205113",
+      "tags": {
+        "colour": "#BE1622",
+        "from": "Zețarilor",
+        "name": "Tram 11: Zețarilor => Cartier 16 Februarie",
+        "network": "Asociația de Dezvoltare Intercomunitară pentru Transport Public București – Ilfov",
+        "network:short": "TPBI",
+        "network:website": "https://tpbi.ro/",
+        "note": "Temporary suspended due to rail repair.",
+        "public_transport:version": "2",
+        "ref": "11",
+        "route": "tram",
+        "to": "Cartier 16 Februarie",
+        "type": "route",
+        "wikidata": "Q85980501"
+      },
+      "members": [
+        {
+          "type": "node",
+          "ref": 8440717929,
+          "role": "stop"
+        }
+      ],
+      "hasTargetPlatformMember": false
+    },
+    {
+      "sourceId": "r2212351",
+      "tags": {
+        "colour": "#BE1622",
+        "from": "Romprim",
+        "name": "Tram 10: Romprim=> Banu Manta => Mihai Bravu => Romprim",
+        "network": "Asociația de Dezvoltare Intercomunitară pentru Transport Public București – Ilfov",
+        "network:short": "TPBI",
+        "network:website": "https://tpbi.ro/",
+        "public_transport:version": "2",
+        "ref": "10",
+        "roundtrip": "yes",
+        "route": "tram",
+        "to": "Romprim",
+        "type": "route",
+        "via": "Piața Danny Huwe",
+        "wikidata": "Q61085901"
+      },
+      "members": [
+        {
+          "type": "node",
+          "ref": 8440717929,
+          "role": "stop"
+        }
+      ],
+      "hasTargetPlatformMember": false
+    }
+  ],
+  "currentStopAreas": [
+    {
+      "sourceId": "r7683217",
+      "touchesTargets": false
+    },
+    {
+      "sourceId": "r15315421",
+      "touchesTargets": false
+    },
+    {
+      "sourceId": "r21086775",
+      "touchesTargets": false
+    },
+    {
+      "sourceId": "r21503893",
+      "touchesTargets": false
+    }
+  ],
+  "boundedTaggedRoofOrShelterSearch": {
+    "radiusM": 180,
+    "origin": "n933659725",
+    "matches": [
+      {
+        "sourceId": "w563649482",
+        "tags": {
+          "building": "roof",
+          "layer": "1"
+        },
+        "nodeIds": [
+          5431417757,
+          5431417751,
+          5431417756,
+          7204220575,
+          5431417757
+        ],
+        "distanceToTargetM": 128.3579157502548,
+        "closed": true,
+        "points": [
+          [
+            -493.89090029997135,
+            785.9143907999652
+          ],
+          [
+            -493.8193691353296,
+            793.0157256000398
+          ],
+          [
+            -484.1388181854491,
+            792.8934804001906
+          ],
+          [
+            -484.2421409789147,
+            785.8477115999756
+          ],
+          [
+            -493.89090029997135,
+            785.9143907999652
+          ]
+        ],
+        "preparedBuildingIndices": [
+          207
+        ]
+      }
+    ],
+    "limits": "No tagged roof/shelter match is not proof of real absence. Open platform shelter=yes remains real-existence evidence. Building footprints are untouched and never suppressed by the proposed generic-unit gate."
+  },
+  "motorRoad": {
+    "sourceId": "w723716274",
+    "nodeIds": [
+      933659667,
+      6909034254,
+      3719807257
+    ],
+    "wgs84": [
+      [
+        44.4345666,
+        26.0544759
+      ],
+      [
+        44.4347244,
+        26.0544809
+      ],
+      [
+        44.4350639,
+        26.0544917
+      ]
+    ],
+    "projected": [
+      [
+        -375.46708326338666,
+        737.1830088006059
+      ],
+      [
+        -375.0696879040775,
+        719.646379200188
+      ],
+      [
+        -374.2113139283762,
+        681.9170651998988
+      ]
+    ],
+    "tags": {
+      "highway": "secondary",
+      "lanes": "2",
+      "lit": "yes",
+      "maxspeed": "50",
+      "name": "Bulevardul Doina Cornea",
+      "oneway": "yes",
+      "sidewalk": "right",
+      "smoothness": "excellent",
+      "surface": "asphalt"
+    },
+    "preparedNodeIds": [
+      933659667,
+      6909034254,
+      3719807257
+    ],
+    "numericWidth": null,
+    "placement": null,
+    "numericElevation": null,
+    "estimate": "Current modeled7m pavement centred on literal way,2lanes×3.5m, no reviewed side shift; OSM has no numeric width/placement datum."
+  },
+  "sourceWaysUnchanged": [
+    {
+      "sourceId": "w909062874",
+      "tags": {
+        "bench": "yes",
+        "bin": "yes",
+        "lit": "no",
+        "name": "Bd. Iuliu Maniu",
+        "public_transport": "platform",
+        "railway": "platform",
+        "shelter": "yes"
+      },
+      "nodeIds": [
+        8440709464,
+        8440709465
+      ],
+      "points": [
+        [
+          -378.79725637329085,
+          719.646379200188
+        ],
+        [
+          -378.00246565495485,
+          665.2917179998649
+        ]
+      ]
+    },
+    {
+      "sourceId": "w909062875",
+      "tags": {
+        "bench": "yes",
+        "bin": "yes",
+        "lit": "no",
+        "name": "Bd. Iuliu Maniu",
+        "public_transport": "platform",
+        "railway": "platform",
+        "shelter": "yes"
+      },
+      "nodeIds": [
+        8440709466,
+        8440709467
+      ],
+      "points": [
+        [
+          -386.47493471263704,
+          719.6797188005776
+        ],
+        [
+          -385.68014399430103,
+          665.0472276001664
+        ]
+      ]
+    },
+    {
+      "sourceId": "w723716274",
+      "tags": {
+        "highway": "secondary",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "50",
+        "name": "Bulevardul Doina Cornea",
+        "oneway": "yes",
+        "sidewalk": "right",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      },
+      "nodeIds": [
+        933659667,
+        6909034254,
+        3719807257
+      ],
+      "points": [
+        [
+          -375.46708326338666,
+          737.1830088006059
+        ],
+        [
+          -375.0696879040775,
+          719.646379200188
+        ],
+        [
+          -374.2113139283762,
+          681.9170651998988
+        ]
+      ]
+    }
+  ],
+  "privateAerial": {
+    "provider": "Esri World_Imagery",
+    "root": "/workspace/reality-pass/initial-admission-3f8/private-platform-aerial",
+    "imageryDate": "unknown",
+    "z19NominalGroundMPerPixel": 0.21320167489104977,
+    "fullSizeInspected": [
+      "z19/platform-detail.png",
+      "z19/source-overlay.png"
+    ],
+    "interpretation": "Platform islands are visible. The roof outline, exact station, overhang and lane extents are not reliably separable/calibrated enough for a new physical shelter/road-width model; no dimension/placement measurement adopted. z20 unavailable. All provider pixels stay private."
+  }
+}

@@ -1,0 +1,510 @@
+{
+  "worldSha256": "2e81d1113e25b1ec5cdedff9faebdb418d9cf372a7d003ee951b2a3d92c7abe7",
+  "derivedPrefixSha256": "22e9cf76d311af6beaa8e7618b82efca347212feb325e37c97aa6cdda889ae43",
+  "dataSha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+  "scope": "CPU actual current World graph/profile prefix; model height only, not a native constructor/body/support/clearance acceptance.",
+  "motorEdges": [
+    {
+      "edgeId": 107,
+      "sourceId": "w723716274",
+      "road": 37,
+      "sourceNodes": [
+        933659667,
+        6909034254
+      ],
+      "a": [
+        -375.46708326338666,
+        737.1830088006059
+      ],
+      "b": [
+        -375.0696879040775,
+        719.646379200188
+      ],
+      "len": 17.541131685665352,
+      "lanesF": 2,
+      "lanesB": 0,
+      "laneW": 3.5,
+      "wL": 3.5,
+      "wR": 3.5,
+      "laneCenterShiftM": 0,
+      "ya": 0,
+      "yb": 0,
+      "asphalt": [
+        [
+          -371.8377149843995,
+          0.24,
+          731.513777292237
+        ],
+        [
+          -371.57058978222244,
+          0.24,
+          719.7258292402296
+        ],
+        [
+          -378.5687860259326,
+          0.24,
+          719.5669291601464
+        ],
+        [
+          -378.8359183730236,
+          0.24,
+          731.3551918848065
+        ]
+      ],
+      "source": {
+        "sourceId": "w723716274",
+        "nodeIds": [
+          933659667,
+          6909034254,
+          3719807257
+        ],
+        "wgs84": [
+          [
+            44.4345666,
+            26.0544759
+          ],
+          [
+            44.4347244,
+            26.0544809
+          ],
+          [
+            44.4350639,
+            26.0544917
+          ]
+        ],
+        "projected": [
+          [
+            -375.46708326338666,
+            737.1830088006059
+          ],
+          [
+            -375.0696879040775,
+            719.646379200188
+          ],
+          [
+            -374.2113139283762,
+            681.9170651998988
+          ]
+        ],
+        "tags": {
+          "highway": "secondary",
+          "lanes": "2",
+          "lit": "yes",
+          "maxspeed": "50",
+          "name": "Bulevardul Doina Cornea",
+          "oneway": "yes",
+          "sidewalk": "right",
+          "smoothness": "excellent",
+          "surface": "asphalt"
+        },
+        "preparedNodeIds": [
+          933659667,
+          6909034254,
+          3719807257
+        ]
+      }
+    },
+    {
+      "edgeId": 108,
+      "sourceId": "w723716274",
+      "road": 37,
+      "sourceNodes": [
+        6909034254,
+        3719807257
+      ],
+      "a": [
+        -375.0696879040775,
+        719.646379200188
+      ],
+      "b": [
+        -374.2113139283762,
+        681.9170651998988
+      ],
+      "len": 37.73907710602601,
+      "lanesF": 2,
+      "lanesB": 0,
+      "laneW": 3.5,
+      "wL": 3.5,
+      "wR": 3.5,
+      "laneCenterShiftM": 0,
+      "ya": 0,
+      "yb": 0,
+      "asphalt": [
+        [
+          -371.57058978222244,
+          0.24,
+          719.7258292402296
+        ],
+        [
+          -370.7124573584155,
+          0.24,
+          682.0060317756218
+        ],
+        [
+          -377.71017049833694,
+          0.24,
+          681.8280986241759
+        ],
+        [
+          -378.5687860259326,
+          0.24,
+          719.5669291601464
+        ]
+      ],
+      "source": {
+        "sourceId": "w723716274",
+        "nodeIds": [
+          933659667,
+          6909034254,
+          3719807257
+        ],
+        "wgs84": [
+          [
+            44.4345666,
+            26.0544759
+          ],
+          [
+            44.4347244,
+            26.0544809
+          ],
+          [
+            44.4350639,
+            26.0544917
+          ]
+        ],
+        "projected": [
+          [
+            -375.46708326338666,
+            737.1830088006059
+          ],
+          [
+            -375.0696879040775,
+            719.646379200188
+          ],
+          [
+            -374.2113139283762,
+            681.9170651998988
+          ]
+        ],
+        "tags": {
+          "highway": "secondary",
+          "lanes": "2",
+          "lit": "yes",
+          "maxspeed": "50",
+          "name": "Bulevardul Doina Cornea",
+          "oneway": "yes",
+          "sidewalk": "right",
+          "smoothness": "excellent",
+          "surface": "asphalt"
+        },
+        "preparedNodeIds": [
+          933659667,
+          6909034254,
+          3719807257
+        ]
+      }
+    }
+  ],
+  "nearPlatformRailGrades": [
+    {
+      "sourceId": "w128304860",
+      "index": 24,
+      "nodeIds": [
+        933659666,
+        933659725
+      ],
+      "sourcePoints": [
+        [
+          -382.40000000000003,
+          624.9000000000001
+        ],
+        [
+          -384,
+          705.6
+        ]
+      ],
+      "known": false,
+      "modelId": null,
+      "heightAt": null,
+      "sourceTags": {
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "oneway": "yes",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      }
+    },
+    {
+      "sourceId": "w128304860",
+      "index": 25,
+      "nodeIds": [
+        933659725,
+        7070697815
+      ],
+      "sourcePoints": [
+        [
+          -384,
+          705.6
+        ],
+        [
+          -384.5,
+          719.7
+        ]
+      ],
+      "known": false,
+      "modelId": null,
+      "heightAt": null,
+      "sourceTags": {
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "oneway": "yes",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      }
+    },
+    {
+      "sourceId": "w128304860",
+      "index": 26,
+      "nodeIds": [
+        7070697815,
+        6937009013
+      ],
+      "sourcePoints": [
+        [
+          -384.5,
+          719.7
+        ],
+        [
+          -384.40000000000003,
+          737.4000000000001
+        ]
+      ],
+      "known": false,
+      "modelId": null,
+      "heightAt": null,
+      "sourceTags": {
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "oneway": "yes",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      }
+    },
+    {
+      "sourceId": "w128304860",
+      "index": 27,
+      "nodeIds": [
+        6937009013,
+        6937009014
+      ],
+      "sourcePoints": [
+        [
+          -384.40000000000003,
+          737.4000000000001
+        ],
+        [
+          -384.6,
+          752.5
+        ]
+      ],
+      "known": false,
+      "modelId": null,
+      "heightAt": null,
+      "sourceTags": {
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "oneway": "yes",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      }
+    },
+    {
+      "sourceId": "w128304860",
+      "index": 28,
+      "nodeIds": [
+        6937009014,
+        7070697816
+      ],
+      "sourcePoints": [
+        [
+          -384.6,
+          752.5
+        ],
+        [
+          -385,
+          769.3000000000001
+        ]
+      ],
+      "known": false,
+      "modelId": null,
+      "heightAt": null,
+      "sourceTags": {
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "oneway": "yes",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      }
+    },
+    {
+      "sourceId": "w660918285",
+      "index": 6,
+      "nodeIds": [
+        8828056675,
+        8828056676
+      ],
+      "sourcePoints": [
+        [
+          -381.40000000000003,
+          769.3000000000001
+        ],
+        [
+          -381.3,
+          752.4000000000001
+        ]
+      ],
+      "known": false,
+      "modelId": null,
+      "heightAt": null,
+      "sourceTags": {
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "oneway": "yes",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      }
+    },
+    {
+      "sourceId": "w660918285",
+      "index": 7,
+      "nodeIds": [
+        8828056676,
+        8828056677
+      ],
+      "sourcePoints": [
+        [
+          -381.3,
+          752.4000000000001
+        ],
+        [
+          -381.1,
+          737.3000000000001
+        ]
+      ],
+      "known": false,
+      "modelId": null,
+      "heightAt": null,
+      "sourceTags": {
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "oneway": "yes",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      }
+    },
+    {
+      "sourceId": "w660918285",
+      "index": 8,
+      "nodeIds": [
+        8828056677,
+        8828056678
+      ],
+      "sourcePoints": [
+        [
+          -381.1,
+          737.3000000000001
+        ],
+        [
+          -381,
+          719.7
+        ]
+      ],
+      "known": false,
+      "modelId": null,
+      "heightAt": null,
+      "sourceTags": {
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "oneway": "yes",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      }
+    },
+    {
+      "sourceId": "w660918285",
+      "index": 9,
+      "nodeIds": [
+        8828056678,
+        8440717929
+      ],
+      "sourcePoints": [
+        [
+          -381,
+          719.7
+        ],
+        [
+          -380.6,
+          684.8000000000001
+        ]
+      ],
+      "known": false,
+      "modelId": null,
+      "heightAt": null,
+      "sourceTags": {
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "oneway": "yes",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      }
+    },
+    {
+      "sourceId": "w660918285",
+      "index": 10,
+      "nodeIds": [
+        8440717929,
+        8440717930
+      ],
+      "sourcePoints": [
+        [
+          -380.6,
+          684.8000000000001
+        ],
+        [
+          -379,
+          625.2
+        ]
+      ],
+      "known": false,
+      "modelId": null,
+      "heightAt": null,
+      "sourceTags": {
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "oneway": "yes",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      }
+    }
+  ]
+}

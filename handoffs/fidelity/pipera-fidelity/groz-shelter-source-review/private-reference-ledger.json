@@ -1,0 +1,281 @@
+{
+  "scope": "Private previously fetched Esri references inspected only. No pixels or adopted roof/road-width/placement measurement in Git.",
+  "provider": "Esri World_Imagery",
+  "imageryDate": "unknown",
+  "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+  "originalLedgerGitCommit": "32897501b7d340af7aec42123bfa4a3820823a85",
+  "originalLedgerPath": "handoffs/fidelity/pipera-fidelity/initial-admission-3f8/private-reference-ledger.json",
+  "inspectedFiles": [
+    {
+      "path": "/workspace/reality-pass/initial-admission-3f8/private-platform-aerial/z19/platform-detail.png",
+      "bytes": 596544,
+      "sha256": "76d2d5e2f1164f735aaf6084f47eb75058c6351a21f9819a96291e31867abe1b",
+      "providerPixelsPrivateOnly": true
+    },
+    {
+      "path": "/workspace/reality-pass/initial-admission-3f8/private-platform-aerial/z19/source-overlay.png",
+      "bytes": 1270207,
+      "sha256": "1fd8eab9da6a91392ae569795334a995c80f7b91d3f86e54d3eed531f73da9a8",
+      "providerPixelsPrivateOnly": true
+    },
+    {
+      "path": "/workspace/reality-pass/initial-admission-3f8/private-platform-aerial/z19/platform-mosaic.jpg",
+      "bytes": 349424,
+      "sha256": "72215bb6c5ef61a2c3431917303a8a551a2ce462b86af7ec54ff3165b7129723",
+      "providerPixelsPrivateOnly": true
+    },
+    {
+      "path": "/workspace/reality-pass/initial-admission-3f8/private-platform-aerial/platform-mosaic.jpg",
+      "bytes": 47832,
+      "sha256": "b916e68584cc430128dd43173c23f96f4cad24d449cce036a9c9de39ed17974e",
+      "providerPixelsPrivateOnly": true
+    }
+  ],
+  "tileLedgers": [
+    {
+      "zoom": 20,
+      "px0": 153644800,
+      "py0": 97155328,
+      "w": 768,
+      "h": 1280,
+      "retrievedUTC": "2026-11-09T16:05:27.331448+00:00",
+      "imageryDate": "unknown",
+      "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+      "providerPixelsPrivateOnly": true,
+      "tiles": [
+        {
+          "x": 600175,
+          "y": 379513,
+          "file": "20_600175_379513.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379513/600175",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600176,
+          "y": 379513,
+          "file": "20_600176_379513.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379513/600176",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600177,
+          "y": 379513,
+          "file": "20_600177_379513.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379513/600177",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600175,
+          "y": 379514,
+          "file": "20_600175_379514.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379514/600175",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600176,
+          "y": 379514,
+          "file": "20_600176_379514.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379514/600176",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600177,
+          "y": 379514,
+          "file": "20_600177_379514.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379514/600177",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600175,
+          "y": 379515,
+          "file": "20_600175_379515.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379515/600175",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600176,
+          "y": 379515,
+          "file": "20_600176_379515.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379515/600176",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600177,
+          "y": 379515,
+          "file": "20_600177_379515.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379515/600177",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600175,
+          "y": 379516,
+          "file": "20_600175_379516.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379516/600175",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600176,
+          "y": 379516,
+          "file": "20_600176_379516.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379516/600176",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600177,
+          "y": 379516,
+          "file": "20_600177_379516.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379516/600177",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600175,
+          "y": 379517,
+          "file": "20_600175_379517.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379517/600175",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600176,
+          "y": 379517,
+          "file": "20_600176_379517.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379517/600176",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        },
+        {
+          "x": 600177,
+          "y": 379517,
+          "file": "20_600177_379517.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/20/379517/600177",
+          "sha256": "9eafd300d61393184a4abc1d458564cfd1cd9b6f9c4e9c74687045c0a0e5b858",
+          "bytes": 2521
+        }
+      ],
+      "interpretation": "Private reference only; imageryDate unknown. No roof dimension/lane-shift measurement adopted. z20 unavailable response; z19 source islands inspected."
+    },
+    {
+      "zoom": 19,
+      "px0": 76822272,
+      "py0": 48577536,
+      "w": 768,
+      "h": 1024,
+      "retrievedUTC": "2026-11-09T16:06:10.621831+00:00",
+      "imageryDate": "unknown",
+      "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+      "providerPixelsPrivateOnly": true,
+      "tiles": [
+        {
+          "x": 300087,
+          "y": 189756,
+          "file": "19_300087_189756.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189756/300087",
+          "sha256": "c83ccdb8ae663b9bba7014a420ea699820b19798e1038fdcbc823871a48708ec",
+          "bytes": 15413
+        },
+        {
+          "x": 300088,
+          "y": 189756,
+          "file": "19_300088_189756.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189756/300088",
+          "sha256": "772f8b2f5635014d711f40f2d890429feb0e02cea2137f102910d3b533f941a7",
+          "bytes": 13533
+        },
+        {
+          "x": 300089,
+          "y": 189756,
+          "file": "19_300089_189756.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189756/300089",
+          "sha256": "ee0781363a73d709e94b463d16377380054ce87fb6f12ffc4d04e0a74c378cae",
+          "bytes": 14830
+        },
+        {
+          "x": 300087,
+          "y": 189757,
+          "file": "19_300087_189757.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189757/300087",
+          "sha256": "3ce7bcd0dfe35e2b228974a69ef88496ade5e5b66a90d9f8225e75a57efb5b1f",
+          "bytes": 20614
+        },
+        {
+          "x": 300088,
+          "y": 189757,
+          "file": "19_300088_189757.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189757/300088",
+          "sha256": "8a0581688ec432babfb8e432091297106f3603de02e22effe9df7e24b73d0a3f",
+          "bytes": 16267
+        },
+        {
+          "x": 300089,
+          "y": 189757,
+          "file": "19_300089_189757.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189757/300089",
+          "sha256": "20c695e72bd89e6ecd602e1d3c21b98e1a01f677aa93d9eae78cadecde7b5ad6",
+          "bytes": 15217
+        },
+        {
+          "x": 300087,
+          "y": 189758,
+          "file": "19_300087_189758.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189758/300087",
+          "sha256": "5ac6cc5a0446b219e04ccb74dbd128ea0719057de320e3af5b454d35c05da6bb",
+          "bytes": 12363
+        },
+        {
+          "x": 300088,
+          "y": 189758,
+          "file": "19_300088_189758.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189758/300088",
+          "sha256": "b266d167e8e7ae4129ac87974ce6c14e0c37173f998ad3e8adea19ea978d97fa",
+          "bytes": 12914
+        },
+        {
+          "x": 300089,
+          "y": 189758,
+          "file": "19_300089_189758.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189758/300089",
+          "sha256": "803e272e82d91cb20dc0140891166ec32147b7e99c761b93ac994da28be0c0b5",
+          "bytes": 12537
+        },
+        {
+          "x": 300087,
+          "y": 189759,
+          "file": "19_300087_189759.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189759/300087",
+          "sha256": "0d093178221cc01daf4367788834b0910a820308767f478c0e3a6cee0e30abfa",
+          "bytes": 13204
+        },
+        {
+          "x": 300088,
+          "y": 189759,
+          "file": "19_300088_189759.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189759/300088",
+          "sha256": "ce20fa6790c082ad6d694c01d480b4deb66d58d25f73bd810f37cd02583f2cc1",
+          "bytes": 13901
+        },
+        {
+          "x": 300089,
+          "y": 189759,
+          "file": "19_300089_189759.jpg",
+          "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189759/300089",
+          "sha256": "4508a9d90a8663d3fdcc90dd3c13881ef65bf59c1b70348226e418a6a021796b",
+          "bytes": 13442
+        }
+      ],
+      "interpretation": "Private reference only; imageryDate unknown. No roof dimension/lane-shift measurement adopted. z20 unavailable response; z19 source islands inspected."
+    }
+  ],
+  "limits": "z19 resolves islands but no reliable roof outline/station/dimension or lane boundary measurement was adopted. z20 is unavailable grey-tile response, retained privately. No Street View extraction."
+}

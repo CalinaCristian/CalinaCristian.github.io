@@ -18,3 +18,4 @@ exclude:
   - handoffs/fidelity/root-acceptance-archive
   - handoffs/fidelity/tram-source-metadata
   - handoffs/fidelity/tram-native-support-6cb
+  - handoffs/fidelity/tram-romana-constructor-6cb

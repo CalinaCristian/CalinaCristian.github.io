@@ -21,6 +21,8 @@ import { candleLight } from '../candle-light.js';
 import { photoHunt } from '../photo-hunt.js';
 import { sourceRecord } from '../source-buildings.js';
 import { onActivityCancel } from '../participation.js';
+import { buildOldTownNightlife, OLD_TOWN_FOCUS, nightlifeHours } from './old-town-nightlife.js';
+import { walkBoundary, markVisitExits } from '../walk-boundary.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -405,6 +407,11 @@ export default {
     env: { fogFar: 3000, ambientCity: 0.65, groundAlbedo: 0.15 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, spL = ctx.spot('old-town-lipscani'), spS = ctx.spot('stavropoleos-cec');
+        // A short visit at real scale: Lipscani 28–71 and upper Smârdan.
+        // All prepared streets/buildings remain in the 600 m scenery context.
+        const focused=(x,z)=>inPoly(x,z,OLD_TOWN_FOCUS), plaque=ctx.plaque.bind(ctx), challenge=ctx.challenge.bind(ctx);
+        ctx.plaque=(p,x,z,...args)=>focused(x,z)?plaque(p,x,z,...args):null;
+        ctx.challenge=(id,o={})=>id==='old-town-lipscani' && focused(o.x??spL.photo.iconic.x,o.z??spL.photo.iconic.z)?challenge(id,o):null;
         // a flat old town (bare-earth grid) — smooth the DEM noise
         const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.35);
         // most old-town buildings have no height in OSM: 2–5 storeys (uneven skyline), lantern-lit ground floors
@@ -434,12 +441,13 @@ export default {
         ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; for (const w of d.ways) { if (w.k !== 'pedestrian') continue; x.strokeStyle = 'rgba(205,200,190,0.55)'; x.lineWidth = Math.max(1, 0.9 * k); x.beginPath(); w.pts.forEach(([a, c], i) => { const [px, py] = T(a, c); if (i) x.lineTo(px, py); else x.moveTo(px, py); }); x.stroke(); } });
         // terraces + shop signs from OSM (bars, restaurants, cafés, shops along the pedestrian lanes)
         const inside = (x, z) => Object.values(d.spots).some((s) => inPoly(x, z, s.extent.polygon));
-        const TR = oldTownTerraces(ctx, { inside, seed: 3, prioritySources: ['n1731040881', 'n10775253367'] });
+        const TR = oldTownTerraces(ctx, { inside, seed: 3, prioritySources: ['n1416523788', 'n7613023091', 'n10775260925'] });
         ctx.extras.sourceFrontages = { signs: TR.signs, terraces: TR.terraces };
         ctx.add(TR.group); ctx.lampPoints.push(...TR.lamps.filter((_, i) => i % 2 === 0));
         // Real OSM POIs, on their existing street-facing footprint. Camera-held props only:
         // no invented kiosk/interior, source footprint, terrace or collision changes.
         const VA = createVenueActivities(ctx);
+        const NIGHTLIFE = buildOldTownNightlife(ctx, VA);
         for (const [source, kind, address, label] of [
             ['n1731040881', 'shaorma', 'Strada Franceză 17', 'Eat a shaorma at Dristor Kebap'],
             ['n10775253367', 'shot', 'Strada Șelari 17', 'Pour a shot at Shoteria'],
@@ -519,17 +527,37 @@ export default {
         groups.push({ x: CV.bust.x - 3, z: CV.bust.z - 3.5, r: 0.3, n: 1, act: 'watch', personas: ['vendor'] }, { x: CV.bust.x + 2, z: CV.bust.z - 4, r: 2, n: 4, act: 'photo', look: [CV.bust.x, CV.bust.z], personas: ['tourist_uk', 'tourist_it', 'tourist_us'] });
         groups.push({ x: 60, z: -66, r: 0.3, n: 1, act: 'perform', personas: ['busker'], prop: 'guitar' }, { x: 62, z: -62, r: 2.5, n: 4, act: 'watch', look: [60, -66], personas: ['local_young', 'tourist_uk'] });
         if (MA) groups.push({ x: MA.gate.x + MA.gn.x * 2.5 + MA.gn.z * 2.6, z: MA.gate.z + MA.gn.z * 2.5 - MA.gn.x * 2.6, r: 0.3, n: 1, act: 'watch', yaw: Math.atan2(MA.gn.x, MA.gn.z), personas: ['waiter'] });
+        // Keep the native street crowd concentrated on the selected source ways.
+        // Path points are unscaled source points; splitting the walking itinerary
+        // does not alter or delete a road in the prepared dataset.
+        const paths=[];
+        for(const way of d.ways.filter(w=>['pedestrian','footway','living_street'].includes(w.k))){let run=[];for(const p of way.pts){if(focused(...p))run.push(p);else{if(run.length>1)paths.push(run);run=[];}}if(run.length>1)paths.push(run);}
+        const party=[];
+        for(const path of paths)for(let i=1;i<path.length;i++){const [ax,az]=path[i-1],[bx,bz]=path[i],L=Math.hypot(bx-ax,bz-az);if(L<1)continue;
+            for(let u=1;u<L;u+=4.5)for(const side of [-1,1]){const x=ax+(bx-ax)*u/L+(bz-az)/L*side*2.1,z=az+(bz-az)*u/L-(bx-ax)/L*side*2.1;
+                if(party.length>=64||!focused(x,z)||collide(ctx.colliders,x,z,.45,g.heightAt(x,z)+.3)||party.some(p=>Math.hypot(p.x-x,p.z-z)<1.1)||NIGHTLIFE&&Math.hypot(x-NIGHTLIFE.entry.x,z-NIGHTLIFE.entry.z)<2.2)continue;
+                party.push({x,z,r:0,n:1,act:'talk',party:true,fixedYaw:true,personas:['local_young','tourist_uk','tourist_it','tourist_us']});}}
         ctx.crowdCfg = {
             spots: ['old-town-lipscani', 'stavropoleos-cec'],
             personas: { local_young: 4, tourist_uk: 2.5, tourist_it: 1.8, tourist_us: 1.8, tourist_de: 1.5, tourist_fr: 1.2, local_elder: 1, local_parent: 0.8, kid: 0.4 },
-            walkers: 46, paths: ctx.footLines().concat(d.ways.filter((w) => w.k === 'pedestrian').map((w) => w.pts)), groups,
+            walkers: 92, paths, groups:groups.filter(q=>q.wcpFan||focused(q.x??q.line?.[0]?.[0],q.z??q.line?.[0]?.[1])).concat(party),
         };
+        let partyPeople=null;
+        ctx.onUpdate((dt,s)=>{if(!partyPeople&&s.spot.crowd?.cr)partyPeople=s.spot.crowd.peds.map((p,i)=>({p,i})).filter(({p})=>p.group?.party);
+            if(!partyPeople||!nightlifeHours(s.spot.crowd.cond?.hour??12).party)return;
+            for(const {p,i} of partyPeople){const phase=s.t*Math.PI*2.1+p.phase;s.spot.crowd.cr.set(i,{x:p.x,y:p.y+Math.max(0,Math.sin(phase))*.035,z:p.z,yaw:p.yaw+Math.sin(phase*.5)*.16,phase,scale:p.look.scale,amp:.45,pose:i%3?'talk':'cheer',prop:null});}});
+        ctx.interactables=ctx.interactables.filter(it=>it.hidden||focused(it.x,it.z)||it.x>7000);
         // ambience
         ctx.sound('crowd', 120, -60, 60, 1); ctx.sound('crowd', 200, 120, 50, 0.8); ctx.sound('crowd', -60, -66, 40, 0.6);
         ctx.sound('bell', CV.church?.x ?? 205, CV.church?.z ?? 134, 260, 0.45); ctx.sound('traffic', -240, -60, 120, 0.7); ctx.sound('traffic', 300, 0, 120, 0.5);
         // spawns
         ctx.spawns['old-town-lipscani'] = { x: 128, z: -56.5, heading: headingFromBearing(78) };
-        ctx.spawns['stavropoleos-cec'] = { x: -92, z: -67.5, heading: headingFromBearing(100) };
+        // Legacy ID remains loadable, with the same compact arrival and saves intact.
+        ctx.spawns['stavropoleos-cec'] = { ...ctx.spawns['old-town-lipscani'] };
+        ctx.extras.walkBoundary=walkBoundary(()=>[OLD_TOWN_FOCUS,
+            ...(NIGHTLIFE?.room.visible?[NIGHTLIFE.polygon]:[]),
+            ...(ctx.extras.wcpRoom?.room.visible?[[[7994.2,7999.5],[8005.8,7999.5],[8005.8,8011],[7994.2,8011]]]:[])]);
+        ctx.extras.visitExits=markVisitExits(ctx,OLD_TOWN_FOCUS);
         void balustradeMaterial; void fitDraw;
     },
 };

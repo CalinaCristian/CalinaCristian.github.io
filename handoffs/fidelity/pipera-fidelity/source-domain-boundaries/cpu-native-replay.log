@@ -1,0 +1,113 @@
+(node:522191) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/ordinary-source-span/game/src/district-boundary.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/ordinary-source-span/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "scope": "Exact8e4 native source road/pad support plus original mask and all1736 read-only native body-scan poses. Offline replay of proposed boundary helper; not a fresh native app or driven acceptance. No source geometry/travel rights altered.",
+  "nativeSource": "8e4fb0a63cf672d2adf42d6c71d93435b9ff5f2b",
+  "fixtureRawSha256": "8255c08a76decef5413246b36e7280177b7a32b05a65f2bdeb63770f7a530a4c",
+  "nativeProfileRawSha256": "d10b97e01e9be83b4a7ad00cdbb64d66048f74368aa32c88a721917f9f2f3191",
+  "nativeScanRawSha256": "b7ddf79e3f5b0df9fae1cd5acaf415ece6e46d6019412be45bb0ea528b87e2da",
+  "scanRows": 1736,
+  "oldPositiveRows": 6,
+  "newPositiveRows": 0,
+  "oldWalls": 196,
+  "newWalls": 300,
+  "exactUnrelatedOldWallsRetained": 183,
+  "unrelatedControl": {
+    "ax": -760,
+    "az": 260,
+    "bx": -760,
+    "bz": 340,
+    "nx": 1,
+    "nz": 0,
+    "wall": true,
+    "kind": "boundary",
+    "y0a": -40,
+    "y1a": 80,
+    "y0b": -40,
+    "y1b": 80,
+    "x": -760,
+    "z": 300,
+    "r": 40.3
+  },
+  "body": {
+    "front": 3.42,
+    "rear": 2.36,
+    "width": 1.8,
+    "samples": [
+      [
+        2.52,
+        0,
+        0.9
+      ],
+      [
+        1.5250000000000001,
+        0,
+        0.9
+      ],
+      [
+        0.5300000000000002,
+        0,
+        0.9
+      ],
+      [
+        -0.4649999999999994,
+        0,
+        0.9
+      ],
+      [
+        -1.4599999999999995,
+        0,
+        0.9
+      ],
+      [
+        3.07,
+        0.41500000000000004,
+        0.35
+      ],
+      [
+        3.07,
+        -0.41500000000000004,
+        0.35
+      ],
+      [
+        -2.01,
+        0.55,
+        0.35
+      ],
+      [
+        -2.01,
+        -0.55,
+        0.35
+      ]
+    ]
+  },
+  "helperReport": {
+    "sourceSupports": 1714,
+    "triangles": 3650,
+    "bodyRadiusM": 3.53643888678993,
+    "addedMaskCells": 144,
+    "oldMaskCells": 1698,
+    "clippedClosureSections": 0,
+    "removedClosureSections": 0,
+    "closureBundles": 0,
+    "clippedDecorationPolygons": 0,
+    "unresolved": [],
+    "basis": "Finite whole-body support of kept literal source core roads/pads; no passive scenery, OUT or mapped barrier edits"
+  },
+  "buildMs": 41.768868,
+  "newPositive": [],
+  "nativeGate": "OPEN: this is CPU replay of actual old native data, not a fresh native World/draw or driven trip"
+}
+✔ exact old native six-row wall failure reproduces with current native collision function (1.383539ms)
+✔ all1736 actual source/lane poses with full native nine-disc body clear regenerated mask walls (0.165397ms)
+✔ x640 source continuation is admitted with body margin and unrelated exterior walls remain (3.178884ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 358.843921

@@ -49,3 +49,4 @@ exclude:
   - handoffs/fidelity/combined-native-budget
   - handoffs/fidelity/backgammon-result-confirmation-20261109
   - handoffs/fidelity/staging-pages-headroom-20261109
+  - handoffs/fidelity/source-identity-regression-20261109

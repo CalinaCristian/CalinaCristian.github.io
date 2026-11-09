@@ -1,0 +1,56 @@
+{
+  "baseSource": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+  "before": {
+    "testFiles": 59,
+    "tests": 147,
+    "pass": 144,
+    "fail": 3,
+    "inputFilesHashed": 400,
+    "changedInputs": []
+  },
+  "targetedAfter": {
+    "testFiles": 3,
+    "pass": 3,
+    "fail": 0,
+    "cacheControls": 9,
+    "canopyControls": 19,
+    "cecSourceVolumes": 162,
+    "cecLiteralHeightVolumes": 153,
+    "cecCourtyards": 5
+  },
+  "scope": "Test source-identity migration only. Runtime, geometry, data, rules, numeric tolerances and expected physical clearance remain unchanged. Not a new complete-suite or native visual/route pass.",
+  "historicalFixtures": {
+    "canopy": {
+      "sourceCommit": "71f20c4581ae62d12a98e226fbfef476fc27dab9",
+      "oldRoad91": "w79870041",
+      "oldRoad198": "w982816382",
+      "oldRoad223": "w1478497247",
+      "oldBuilding3326": "w670595374",
+      "currentRoad124": "w79870041",
+      "currentRoad252": "w982816382",
+      "currentRoad287": "w1478497247",
+      "currentBuilding3863": "w670595374"
+    },
+    "cache": {
+      "sourceCommit": "390ddacc",
+      "oldBuilding5": "r15553598",
+      "oldBuilding380": "w660503519",
+      "currentRelationOuters": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "currentMember672": "w660503519"
+    }
+  },
+  "sourceTestSha256": {
+    "game/dev/harness/building-surface-cache.test.mjs": "08368c0f4c8939e3b05b00be570e8b9fa8183b837deaa365ab6b5ade7a2cc79b",
+    "game/dev/harness/landmark-cec-source.test.mjs": "615d12b24e3825e342eacda040ad13b952acd8afe80e8527f60d8f679d21732f",
+    "game/dev/source-canopy-road-models.test.mjs": "b47fa0345680d567d22c92cc49f01806c561f594a50bb949f3d89ec3b8053f8d"
+  }
+}

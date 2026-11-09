@@ -17,16 +17,23 @@ const yaw=source.anchor.yaw,c=Math.cos(yaw),s=Math.sin(yaw),ox=(source.anchor.lo
 const close=(a,b,label)=>assert.ok(Math.abs(a-b)<1e-8,`${label}: ${a} != ${b}`);
 let literals=0;
 for(let i=0;i<volumes.length;i++){
- const v=volumes[i],actual=built.collision[i],raw=data.buildingFootprints[v.sourceIndex];
- assert.equal(v.sourceId,data.buildingIds[v.sourceIndex]);assert.ok(landmark.sourceIds.includes(v.sourceId));
- const row=data.buildings[v.sourceIndex],dimensions=data.buildingDimensions?.[v.sourceIndex];
+ const v=volumes[i],actual=built.collision[i];
+ // sourceIndex records the original bake, not a permanent prepared-array address.
+ // Multipart relations can have several outers under the same OSM identity.
+ const candidates=data.buildingIds.flatMap((id,index)=>id===v.sourceId?[index]:[]).filter(index=>{
+  const ring=data.buildingFootprints[index];return ring.length===actual.poly.length&&ring.every((p,j)=>Math.abs(p[0]-actual.poly[j][0]-ox)<1e-8&&Math.abs(p[1]-actual.poly[j][1]-oz)<1e-8);
+ });
+ assert.equal(candidates.length,1,v.sourceId+': unique complete unchanged source outer');
+ const currentIndex=candidates[0],raw=data.buildingFootprints[currentIndex];
+ assert.equal(v.sourceId,data.buildingIds[currentIndex]);assert.ok(landmark.sourceIds.includes(v.sourceId));
+ const row=data.buildings[currentIndex],dimensions=data.buildingDimensions?.[currentIndex];
  close(v.totalM,dimensions?.[0]??row[1]/10,'compiled source total');
  close(v.minimumM,dimensions?.[1]??row[2]/10,'compiled source minimum');
- assert.deepEqual(v.roofProfile,data.buildingRoofProfiles[v.sourceIndex],'compiled source roof profile');
+ assert.deepEqual(v.roofProfile,data.buildingRoofProfiles[currentIndex],'compiled source roof profile');
  close(actual.y0,v.minimumM,'source minimum');close(actual.y1,v.totalM,'source total');
  assert.equal(actual.sourceId,v.sourceId);assert.equal(actual.poly.length,raw.length);
  for(let j=0;j<raw.length;j++){close(actual.poly[j][0]+ox,raw[j][0],'exact outer x');close(actual.poly[j][1]+oz,raw[j][1],'exact outer z');}
- const holes=data.buildingHoleFootprints[v.sourceIndex]||[];assert.equal(actual.holes.length,holes.length);
+ const holes=data.buildingHoleFootprints[currentIndex]||[];assert.equal(actual.holes.length,holes.length);
  for(let h=0;h<holes.length;h++){assert.equal(actual.holes[h].length,holes[h].length);for(let j=0;j<holes[h].length;j++){close(actual.holes[h][j][0]+ox,holes[h][j][0],'exact hole x');close(actual.holes[h][j][1]+oz,holes[h][j][1],'exact hole z');}}
  const literal=parseMeasure(v.rawTags.height);if(Number.isFinite(literal)){close(v.totalM,literal,'literal OSM total includes roof');literals++;}
 }

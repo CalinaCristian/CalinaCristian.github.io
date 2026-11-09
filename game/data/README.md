@@ -18,6 +18,8 @@ All coordinates are **integers in decimetres** in game space (x = east, z = sout
 city anchor). *delta* arrays are `[x0, z0, dx1, dz1, …]` (each point relative to the previous).
 String fields are indices into `strings` (`-1` = none).
 
+Prepared row indices belong to their exact dataset snapshot. Across source expansions, join audits and compiled-source comparisons by literal OSM identity plus the complete outer and inner rings; a multipolygon may have several outers with the same source ID. Historical `sourceIndex` fields record the bake position and must not address a later dataset blindly.
+
 | key | content |
 |---|---|
 | `proj` | `{lat0, lon0, scale, mPerLat, mPerLon, compress}` — x = (lon−lon0)·mPerLon·scale, z = −dlat·mPerLat·scale; latitudes above `compress.above` are multiplied by `compress.factor` |

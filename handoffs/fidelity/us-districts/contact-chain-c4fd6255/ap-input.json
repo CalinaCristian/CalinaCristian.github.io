@@ -1,0 +1,4975 @@
+{
+  "sourceCommit": "c4fd6255f928101e27874f37776ed5be8d805827",
+  "initial": {
+    "city": "bucharest",
+    "district": "unirii",
+    "start": {
+      "x": -634.8578864519126,
+      "z": 323.5955446303808,
+      "y": 0.24,
+      "surfY": 0.24,
+      "heading": 3.0860781288334342,
+      "fx": -0.05548601446165869,
+      "fz": 0.998459464474728,
+      "speed": 0,
+      "steer": 0,
+      "contactAge": 9,
+      "touching": false,
+      "front": 3.42,
+      "rear": 2.36,
+      "width": 1.8,
+      "contact": null
+    },
+    "target": {
+      "x": -572.1448437959554,
+      "z": 422.4897717217062
+    },
+    "routeTotal": 1894.9240411455582,
+    "vehicles": 624,
+    "peds": 560,
+    "quality": "high"
+  },
+  "representativeSamples": [
+    {
+      "t": 19.500000000000128,
+      "player": {
+        "x": -637.4949487131784,
+        "z": 372.6780125236352,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 3.056622990349078,
+        "fx": -0.08486745552964518,
+        "fz": 0.9963922495643589,
+        "speed": 2.0027819462189207,
+        "steer": 0.2830636231006331,
+        "contactAge": 28.500000000000597,
+        "touching": false,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "contact": null
+      },
+      "ap": {
+        "s": 49.09376582640248,
+        "remaining": 100.90623417359745,
+        "waitT": 5.600000000000001,
+        "stallT": 0,
+        "resets": 0,
+        "dev": 3.49650244522321
+      },
+      "controls": {
+        "throttle": 1,
+        "steer": 0.48715248579746434,
+        "brake": false
+      },
+      "nearVehicles": [
+        {
+          "id": 214,
+          "kind": "truck",
+          "x": -638.0011835651397,
+          "z": 382.47371792733634,
+          "y": 0.24,
+          "heading": 3.0894368562515426,
+          "fx": -0.05076507672515713,
+          "fz": 0.9987106222450469,
+          "rx": -0.9987106222450469,
+          "rz": -0.05076507672515713,
+          "length": 8.9,
+          "width": 2.45,
+          "pitch": 0,
+          "modelHeight": 3.45,
+          "edge": {
+            "id": 124,
+            "sourceId": "w153967352",
+            "name": "Pia\u021ba Unirii",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "dirx": -0.05076507672515713,
+            "dirz": 0.9987106222450469,
+            "nx": -0.9987106222450469,
+            "nz": -0.05076507672515713,
+            "len": 19.417570583561936,
+            "lanesF": 4,
+            "lanesB": 0,
+            "wL": 5.25,
+            "wR": 8.75,
+            "publicDrive": true,
+            "throughAccess": true,
+            "a": {
+              "id": 148,
+              "sourceId": 6225397217,
+              "x": -641.3554074192253,
+              "z": 379.4268743993992,
+              "y": 0,
+              "radius": 9.25,
+              "hasLight": false,
+              "hasCrossing": true,
+              "edges": [
+                {
+                  "id": 123,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            },
+            "b": {
+              "id": 139,
+              "sourceId": 31404739,
+              "x": -642.341141879716,
+              "z": 398.81940839939546,
+              "y": 0,
+              "radius": 11,
+              "hasLight": false,
+              "hasCrossing": false,
+              "edges": [
+                {
+                  "id": 116,
+                  "sourceId": "w113258513",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 142,
+                  "sourceId": "w244601702",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 157,
+                  "sourceId": "w665204215",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 158,
+                  "sourceId": "w665335354",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            }
+          },
+          "dir": 1,
+          "s": 2.869590376085349,
+          "lane": 0,
+          "laneCur": 0.0009876230631150498,
+          "speed": 0,
+          "gap": 7.929930285444322,
+          "leader": {
+            "id": 87,
+            "kind": "compact-sedan"
+          },
+          "leaderCross": false,
+          "stopD": 0.2979802074765885,
+          "stopWhy": "claim",
+          "waitRed": false,
+          "redQ": false,
+          "stuck": 7.799999999999982,
+          "still": 7.799999999999982,
+          "blockT": 0,
+          "jam": 0.9,
+          "jamHold": 0,
+          "transition": -0.033333333333333236,
+          "latBlend": 0,
+          "parked": false,
+          "route": [
+            {
+              "edge": {
+                "id": 158,
+                "sourceId": "w665335354",
+                "name": "Aleea Dealul Mitropoliei",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "dirx": -0.9127560828743477,
+                "dirz": 0.40850499773671894,
+                "nx": -0.40850499773671894,
+                "nz": -0.9127560828743477,
+                "len": 24.64733419612887,
+                "lanesF": 1,
+                "lanesB": 0,
+                "wL": 1.5,
+                "wR": 1.5,
+                "publicDrive": true,
+                "throughAccess": true,
+                "a": {
+                  "id": 139,
+                  "sourceId": 31404739,
+                  "x": -642.341141879716,
+                  "z": 398.81940839939546,
+                  "y": 0,
+                  "radius": 11,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 116,
+                      "sourceId": "w113258513",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 124,
+                      "sourceId": "w153967352",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 142,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 157,
+                      "sourceId": "w665204215",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                },
+                "b": {
+                  "id": 0,
+                  "sourceId": 6227450128,
+                  "x": -664.8381460938696,
+                  "z": 408.88796759940124,
+                  "y": 0,
+                  "radius": 2,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 173,
+                      "sourceId": "w1173658540",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                }
+              },
+              "dir": 1
+            }
+          ],
+          "previous": {
+            "x": -638.0011835651397,
+            "z": 382.47371792733634,
+            "y": 0.24,
+            "heading": 3.0894368562515426,
+            "s": 2.869590376085349,
+            "edge": 124
+          }
+        }
+      ]
+    },
+    {
+      "t": 20.000000000000153,
+      "player": {
+        "x": -637.8125389967894,
+        "z": 374.4445870858239,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 2.8994160951502725,
+        "fx": -0.23981623557786438,
+        "fz": 0.970818300792307,
+        "speed": 4.913328349279093,
+        "steer": 0.15873650966540778,
+        "contactAge": 29.00000000000062,
+        "touching": false,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "contact": null
+      },
+      "ap": {
+        "s": 50.78064109474409,
+        "remaining": 99.21935890525586,
+        "waitT": 4.600000000000005,
+        "stallT": 0,
+        "resets": 0,
+        "dev": 3.302364400838426
+      },
+      "controls": {
+        "throttle": 1,
+        "steer": 0.19693267221780156,
+        "brake": false
+      },
+      "nearVehicles": [
+        {
+          "id": 214,
+          "kind": "truck",
+          "x": -638.0011835651397,
+          "z": 382.47371792733634,
+          "y": 0.24,
+          "heading": 3.0894368562515426,
+          "fx": -0.05076507672515713,
+          "fz": 0.9987106222450469,
+          "rx": -0.9987106222450469,
+          "rz": -0.05076507672515713,
+          "length": 8.9,
+          "width": 2.45,
+          "pitch": 0,
+          "modelHeight": 3.45,
+          "edge": {
+            "id": 124,
+            "sourceId": "w153967352",
+            "name": "Pia\u021ba Unirii",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "dirx": -0.05076507672515713,
+            "dirz": 0.9987106222450469,
+            "nx": -0.9987106222450469,
+            "nz": -0.05076507672515713,
+            "len": 19.417570583561936,
+            "lanesF": 4,
+            "lanesB": 0,
+            "wL": 5.25,
+            "wR": 8.75,
+            "publicDrive": true,
+            "throughAccess": true,
+            "a": {
+              "id": 148,
+              "sourceId": 6225397217,
+              "x": -641.3554074192253,
+              "z": 379.4268743993992,
+              "y": 0,
+              "radius": 9.25,
+              "hasLight": false,
+              "hasCrossing": true,
+              "edges": [
+                {
+                  "id": 123,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            },
+            "b": {
+              "id": 139,
+              "sourceId": 31404739,
+              "x": -642.341141879716,
+              "z": 398.81940839939546,
+              "y": 0,
+              "radius": 11,
+              "hasLight": false,
+              "hasCrossing": false,
+              "edges": [
+                {
+                  "id": 116,
+                  "sourceId": "w113258513",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 142,
+                  "sourceId": "w244601702",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 157,
+                  "sourceId": "w665204215",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 158,
+                  "sourceId": "w665335354",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            }
+          },
+          "dir": 1,
+          "s": 2.869590376085349,
+          "lane": 0,
+          "laneCur": 0.0009876230631150498,
+          "speed": 0,
+          "gap": 7.929930285444322,
+          "leader": {
+            "id": 87,
+            "kind": "compact-sedan"
+          },
+          "leaderCross": false,
+          "stopD": 0.2979802074765885,
+          "stopWhy": "claim",
+          "waitRed": false,
+          "redQ": false,
+          "stuck": 8.299999999999981,
+          "still": 8.299999999999981,
+          "blockT": 0,
+          "jam": 0.9,
+          "jamHold": 0,
+          "transition": -0.033333333333333236,
+          "latBlend": 0,
+          "parked": false,
+          "route": [
+            {
+              "edge": {
+                "id": 158,
+                "sourceId": "w665335354",
+                "name": "Aleea Dealul Mitropoliei",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "dirx": -0.9127560828743477,
+                "dirz": 0.40850499773671894,
+                "nx": -0.40850499773671894,
+                "nz": -0.9127560828743477,
+                "len": 24.64733419612887,
+                "lanesF": 1,
+                "lanesB": 0,
+                "wL": 1.5,
+                "wR": 1.5,
+                "publicDrive": true,
+                "throughAccess": true,
+                "a": {
+                  "id": 139,
+                  "sourceId": 31404739,
+                  "x": -642.341141879716,
+                  "z": 398.81940839939546,
+                  "y": 0,
+                  "radius": 11,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 116,
+                      "sourceId": "w113258513",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 124,
+                      "sourceId": "w153967352",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 142,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 157,
+                      "sourceId": "w665204215",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                },
+                "b": {
+                  "id": 0,
+                  "sourceId": 6227450128,
+                  "x": -664.8381460938696,
+                  "z": 408.88796759940124,
+                  "y": 0,
+                  "radius": 2,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 173,
+                      "sourceId": "w1173658540",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                }
+              },
+              "dir": 1
+            }
+          ],
+          "previous": {
+            "x": -638.0011835651397,
+            "z": 382.47371792733634,
+            "y": 0.24,
+            "heading": 3.0894368562515426,
+            "s": 2.869590376085349,
+            "edge": 124
+          }
+        }
+      ]
+    },
+    {
+      "t": 24.00000000000035,
+      "player": {
+        "x": -637.3142041496596,
+        "z": 372.0229142422498,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 2.838855502061782,
+        "fx": -0.2981339971093976,
+        "fz": 0.9545240278628787,
+        "speed": 0.020080321285140562,
+        "steer": -0.145104440819779,
+        "contactAge": 1.7333333333333354,
+        "touching": false,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "contact": {
+          "type": "vehicle",
+          "id": "veh:214",
+          "kind": "truck",
+          "x": -638,
+          "z": 382.5,
+          "parked": false,
+          "t": 89.91,
+          "px": -637.8,
+          "pz": 374.5,
+          "py": 0.24,
+          "speed": 5.09
+        }
+      },
+      "ap": {
+        "s": 48.48879484235435,
+        "remaining": 97.20869204389906,
+        "waitT": 4.100000000000006,
+        "stallT": 0,
+        "resets": 0,
+        "dev": 0.14005832966906454
+      },
+      "controls": {
+        "throttle": 0,
+        "steer": -0.2798392650097341,
+        "brake": true
+      },
+      "nearVehicles": [
+        {
+          "id": 214,
+          "kind": "truck",
+          "x": -638.0011835651397,
+          "z": 382.47371792733634,
+          "y": 0.24,
+          "heading": 3.0894368562515426,
+          "fx": -0.05076507672515713,
+          "fz": 0.9987106222450469,
+          "rx": -0.9987106222450469,
+          "rz": -0.05076507672515713,
+          "length": 8.9,
+          "width": 2.45,
+          "pitch": 0,
+          "modelHeight": 3.45,
+          "edge": {
+            "id": 124,
+            "sourceId": "w153967352",
+            "name": "Pia\u021ba Unirii",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "dirx": -0.05076507672515713,
+            "dirz": 0.9987106222450469,
+            "nx": -0.9987106222450469,
+            "nz": -0.05076507672515713,
+            "len": 19.417570583561936,
+            "lanesF": 4,
+            "lanesB": 0,
+            "wL": 5.25,
+            "wR": 8.75,
+            "publicDrive": true,
+            "throughAccess": true,
+            "a": {
+              "id": 148,
+              "sourceId": 6225397217,
+              "x": -641.3554074192253,
+              "z": 379.4268743993992,
+              "y": 0,
+              "radius": 9.25,
+              "hasLight": false,
+              "hasCrossing": true,
+              "edges": [
+                {
+                  "id": 123,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            },
+            "b": {
+              "id": 139,
+              "sourceId": 31404739,
+              "x": -642.341141879716,
+              "z": 398.81940839939546,
+              "y": 0,
+              "radius": 11,
+              "hasLight": false,
+              "hasCrossing": false,
+              "edges": [
+                {
+                  "id": 116,
+                  "sourceId": "w113258513",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 142,
+                  "sourceId": "w244601702",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 157,
+                  "sourceId": "w665204215",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 158,
+                  "sourceId": "w665335354",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            }
+          },
+          "dir": 1,
+          "s": 2.869590376085349,
+          "lane": 0,
+          "laneCur": 0.0009876230631150498,
+          "speed": 0,
+          "gap": 7.9369170872031845,
+          "leader": {
+            "id": 87,
+            "kind": "compact-sedan"
+          },
+          "leaderCross": false,
+          "stopD": 0.2979802074765885,
+          "stopWhy": "claim",
+          "waitRed": false,
+          "redQ": false,
+          "stuck": 12.299999999999967,
+          "still": 12.299999999999967,
+          "blockT": 0,
+          "jam": 0.9,
+          "jamHold": 0,
+          "transition": -0.033333333333333236,
+          "latBlend": 0,
+          "parked": false,
+          "route": [
+            {
+              "edge": {
+                "id": 158,
+                "sourceId": "w665335354",
+                "name": "Aleea Dealul Mitropoliei",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "dirx": -0.9127560828743477,
+                "dirz": 0.40850499773671894,
+                "nx": -0.40850499773671894,
+                "nz": -0.9127560828743477,
+                "len": 24.64733419612887,
+                "lanesF": 1,
+                "lanesB": 0,
+                "wL": 1.5,
+                "wR": 1.5,
+                "publicDrive": true,
+                "throughAccess": true,
+                "a": {
+                  "id": 139,
+                  "sourceId": 31404739,
+                  "x": -642.341141879716,
+                  "z": 398.81940839939546,
+                  "y": 0,
+                  "radius": 11,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 116,
+                      "sourceId": "w113258513",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 124,
+                      "sourceId": "w153967352",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 142,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 157,
+                      "sourceId": "w665204215",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                },
+                "b": {
+                  "id": 0,
+                  "sourceId": 6227450128,
+                  "x": -664.8381460938696,
+                  "z": 408.88796759940124,
+                  "y": 0,
+                  "radius": 2,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 173,
+                      "sourceId": "w1173658540",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                }
+              },
+              "dir": 1
+            }
+          ],
+          "previous": {
+            "x": -638.0011835651397,
+            "z": 382.47371792733634,
+            "y": 0.24,
+            "heading": 3.0894368562515426,
+            "s": 2.869590376085349,
+            "edge": 124
+          }
+        }
+      ]
+    },
+    {
+      "t": 30.00000000000065,
+      "player": {
+        "x": -638.4282199790772,
+        "z": 374.4554117751909,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 2.7521562220553157,
+        "fx": -0.37966710519543356,
+        "fz": 0.9251231751677825,
+        "speed": 0.21106353297366262,
+        "steer": 0.02191770708001719,
+        "contactAge": 0,
+        "touching": true,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "contact": {
+          "type": "vehicle",
+          "id": "veh:214",
+          "kind": "truck",
+          "x": -638,
+          "z": 382.5,
+          "parked": false,
+          "t": 89.91,
+          "px": -637.8,
+          "pz": 374.5,
+          "py": 0.24,
+          "speed": 5.09
+        }
+      },
+      "ap": {
+        "s": 50.98517186370035,
+        "remaining": 99.0148281362996,
+        "waitT": 4.333333333333339,
+        "stallT": 1.1333333333333335,
+        "resets": 0,
+        "dev": 2.6622551036921602
+      },
+      "controls": {
+        "throttle": 1,
+        "steer": 0.031134607892136065,
+        "brake": false
+      },
+      "nearVehicles": [
+        {
+          "id": 214,
+          "kind": "truck",
+          "x": -638.0011835651397,
+          "z": 382.47371792733634,
+          "y": 0.24,
+          "heading": 3.0894368562515426,
+          "fx": -0.05076507672515713,
+          "fz": 0.9987106222450469,
+          "rx": -0.9987106222450469,
+          "rz": -0.05076507672515713,
+          "length": 8.9,
+          "width": 2.45,
+          "pitch": 0,
+          "modelHeight": 3.45,
+          "edge": {
+            "id": 124,
+            "sourceId": "w153967352",
+            "name": "Pia\u021ba Unirii",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "dirx": -0.05076507672515713,
+            "dirz": 0.9987106222450469,
+            "nx": -0.9987106222450469,
+            "nz": -0.05076507672515713,
+            "len": 19.417570583561936,
+            "lanesF": 4,
+            "lanesB": 0,
+            "wL": 5.25,
+            "wR": 8.75,
+            "publicDrive": true,
+            "throughAccess": true,
+            "a": {
+              "id": 148,
+              "sourceId": 6225397217,
+              "x": -641.3554074192253,
+              "z": 379.4268743993992,
+              "y": 0,
+              "radius": 9.25,
+              "hasLight": false,
+              "hasCrossing": true,
+              "edges": [
+                {
+                  "id": 123,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            },
+            "b": {
+              "id": 139,
+              "sourceId": 31404739,
+              "x": -642.341141879716,
+              "z": 398.81940839939546,
+              "y": 0,
+              "radius": 11,
+              "hasLight": false,
+              "hasCrossing": false,
+              "edges": [
+                {
+                  "id": 116,
+                  "sourceId": "w113258513",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 142,
+                  "sourceId": "w244601702",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 157,
+                  "sourceId": "w665204215",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 158,
+                  "sourceId": "w665335354",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            }
+          },
+          "dir": 1,
+          "s": 2.869590376085349,
+          "lane": 0,
+          "laneCur": 0.0009876230631150498,
+          "speed": 0,
+          "gap": null,
+          "leader": null,
+          "leaderCross": false,
+          "stopD": 0.2979802074765885,
+          "stopWhy": "claim",
+          "waitRed": false,
+          "redQ": false,
+          "stuck": 18.300000000000068,
+          "still": 18.300000000000068,
+          "blockT": 0,
+          "jam": 0.9,
+          "jamHold": 0,
+          "transition": -0.033333333333333236,
+          "latBlend": 0,
+          "parked": false,
+          "route": [
+            {
+              "edge": {
+                "id": 158,
+                "sourceId": "w665335354",
+                "name": "Aleea Dealul Mitropoliei",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "dirx": -0.9127560828743477,
+                "dirz": 0.40850499773671894,
+                "nx": -0.40850499773671894,
+                "nz": -0.9127560828743477,
+                "len": 24.64733419612887,
+                "lanesF": 1,
+                "lanesB": 0,
+                "wL": 1.5,
+                "wR": 1.5,
+                "publicDrive": true,
+                "throughAccess": true,
+                "a": {
+                  "id": 139,
+                  "sourceId": 31404739,
+                  "x": -642.341141879716,
+                  "z": 398.81940839939546,
+                  "y": 0,
+                  "radius": 11,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 116,
+                      "sourceId": "w113258513",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 124,
+                      "sourceId": "w153967352",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 142,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 157,
+                      "sourceId": "w665204215",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                },
+                "b": {
+                  "id": 0,
+                  "sourceId": 6227450128,
+                  "x": -664.8381460938696,
+                  "z": 408.88796759940124,
+                  "y": 0,
+                  "radius": 2,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 173,
+                      "sourceId": "w1173658540",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                }
+              },
+              "dir": 1
+            }
+          ],
+          "previous": {
+            "x": -638.0011835651397,
+            "z": 382.47371792733634,
+            "y": 0.24,
+            "heading": 3.0894368562515426,
+            "s": 2.869590376085349,
+            "edge": 124
+          }
+        }
+      ]
+    },
+    {
+      "t": 31.500000000000725,
+      "player": {
+        "x": -639.6100585936172,
+        "z": 377.04354706791224,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 2.7834154680547787,
+        "fx": -0.35056768270959604,
+        "fz": 0.9365373990608298,
+        "speed": 5.585272021473569,
+        "steer": -0.06820830219033107,
+        "contactAge": 0.06666666666666667,
+        "touching": true,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "contact": {
+          "type": "vehicle",
+          "id": "veh:214",
+          "kind": "truck",
+          "x": -638,
+          "z": 382.5,
+          "parked": false,
+          "t": 89.91,
+          "px": -637.8,
+          "pz": 374.5,
+          "py": 0.24,
+          "speed": 5.09
+        }
+      },
+      "ap": {
+        "s": 53.455190469790466,
+        "remaining": 96.54480953020948,
+        "waitT": 2.6666666666666696,
+        "stallT": 0.9666666666666666,
+        "resets": 0,
+        "dev": 1.6713899333101212
+      },
+      "controls": {
+        "throttle": 1,
+        "steer": -0.13646791658807778,
+        "brake": false
+      },
+      "nearVehicles": [
+        {
+          "id": 214,
+          "kind": "truck",
+          "x": -638.0011835651397,
+          "z": 382.47371792733634,
+          "y": 0.24,
+          "heading": 3.0894368562515426,
+          "fx": -0.05076507672515713,
+          "fz": 0.9987106222450469,
+          "rx": -0.9987106222450469,
+          "rz": -0.05076507672515713,
+          "length": 8.9,
+          "width": 2.45,
+          "pitch": 0,
+          "modelHeight": 3.45,
+          "edge": {
+            "id": 124,
+            "sourceId": "w153967352",
+            "name": "Pia\u021ba Unirii",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "dirx": -0.05076507672515713,
+            "dirz": 0.9987106222450469,
+            "nx": -0.9987106222450469,
+            "nz": -0.05076507672515713,
+            "len": 19.417570583561936,
+            "lanesF": 4,
+            "lanesB": 0,
+            "wL": 5.25,
+            "wR": 8.75,
+            "publicDrive": true,
+            "throughAccess": true,
+            "a": {
+              "id": 148,
+              "sourceId": 6225397217,
+              "x": -641.3554074192253,
+              "z": 379.4268743993992,
+              "y": 0,
+              "radius": 9.25,
+              "hasLight": false,
+              "hasCrossing": true,
+              "edges": [
+                {
+                  "id": 123,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            },
+            "b": {
+              "id": 139,
+              "sourceId": 31404739,
+              "x": -642.341141879716,
+              "z": 398.81940839939546,
+              "y": 0,
+              "radius": 11,
+              "hasLight": false,
+              "hasCrossing": false,
+              "edges": [
+                {
+                  "id": 116,
+                  "sourceId": "w113258513",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 142,
+                  "sourceId": "w244601702",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 157,
+                  "sourceId": "w665204215",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 158,
+                  "sourceId": "w665335354",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            }
+          },
+          "dir": 1,
+          "s": 2.869590376085349,
+          "lane": 0,
+          "laneCur": 0.0009876230631150498,
+          "speed": 0,
+          "gap": null,
+          "leader": null,
+          "leaderCross": false,
+          "stopD": 0.2979802074765885,
+          "stopWhy": "claim",
+          "waitRed": false,
+          "redQ": false,
+          "stuck": 19.800000000000143,
+          "still": 19.800000000000143,
+          "blockT": 0,
+          "jam": 0.9,
+          "jamHold": 0,
+          "transition": -0.033333333333333236,
+          "latBlend": 0,
+          "parked": false,
+          "route": [
+            {
+              "edge": {
+                "id": 158,
+                "sourceId": "w665335354",
+                "name": "Aleea Dealul Mitropoliei",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "dirx": -0.9127560828743477,
+                "dirz": 0.40850499773671894,
+                "nx": -0.40850499773671894,
+                "nz": -0.9127560828743477,
+                "len": 24.64733419612887,
+                "lanesF": 1,
+                "lanesB": 0,
+                "wL": 1.5,
+                "wR": 1.5,
+                "publicDrive": true,
+                "throughAccess": true,
+                "a": {
+                  "id": 139,
+                  "sourceId": 31404739,
+                  "x": -642.341141879716,
+                  "z": 398.81940839939546,
+                  "y": 0,
+                  "radius": 11,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 116,
+                      "sourceId": "w113258513",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 124,
+                      "sourceId": "w153967352",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 142,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 157,
+                      "sourceId": "w665204215",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                },
+                "b": {
+                  "id": 0,
+                  "sourceId": 6227450128,
+                  "x": -664.8381460938696,
+                  "z": 408.88796759940124,
+                  "y": 0,
+                  "radius": 2,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 173,
+                      "sourceId": "w1173658540",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                }
+              },
+              "dir": 1
+            }
+          ],
+          "previous": {
+            "x": -638.0011835651397,
+            "z": 382.47371792733634,
+            "y": 0.24,
+            "heading": 3.0894368562515426,
+            "s": 2.869590376085349,
+            "edge": 124
+          }
+        }
+      ]
+    },
+    {
+      "t": 38.000000000000405,
+      "player": {
+        "x": -641.0285233898346,
+        "z": 397.5665092959368,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 3.637655449288382,
+        "fx": 0.4759666097722548,
+        "fz": 0.8794633513580348,
+        "speed": -0.020080321285140562,
+        "steer": -0.3204626206885752,
+        "contactAge": 6.4666666666666535,
+        "touching": false,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "contact": {
+          "type": "vehicle",
+          "id": "veh:214",
+          "kind": "truck",
+          "x": -638,
+          "z": 382.5,
+          "parked": false,
+          "t": 89.91,
+          "px": -637.8,
+          "pz": 374.5,
+          "py": 0.24,
+          "speed": 5.09
+        }
+      },
+      "ap": {
+        "s": 74.20617862726499,
+        "remaining": 75.79382137273495,
+        "waitT": 1.633333333333335,
+        "stallT": 0,
+        "resets": 0,
+        "dev": 1.2476705678722324
+      },
+      "controls": {
+        "throttle": 0,
+        "steer": -0.49323520945377525,
+        "brake": true
+      },
+      "nearVehicles": [
+        {
+          "id": 214,
+          "kind": "truck",
+          "x": -638.0067443282991,
+          "z": 382.58023954810346,
+          "y": 0.24,
+          "heading": 3.0894368562515426,
+          "fx": -0.05076507672515713,
+          "fz": 0.9987106222450469,
+          "rx": -0.9987106222450469,
+          "rz": -0.05076507672515713,
+          "length": 8.9,
+          "width": 2.45,
+          "pitch": 0,
+          "modelHeight": 3.45,
+          "edge": {
+            "id": 124,
+            "sourceId": "w153967352",
+            "name": "Pia\u021ba Unirii",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "dirx": -0.05076507672515713,
+            "dirz": 0.9987106222450469,
+            "nx": -0.9987106222450469,
+            "nz": -0.05076507672515713,
+            "len": 19.417570583561936,
+            "lanesF": 4,
+            "lanesB": 0,
+            "wL": 5.25,
+            "wR": 8.75,
+            "publicDrive": true,
+            "throughAccess": true,
+            "a": {
+              "id": 148,
+              "sourceId": 6225397217,
+              "x": -641.3554074192253,
+              "z": 379.4268743993992,
+              "y": 0,
+              "radius": 9.25,
+              "hasLight": false,
+              "hasCrossing": true,
+              "edges": [
+                {
+                  "id": 123,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            },
+            "b": {
+              "id": 139,
+              "sourceId": 31404739,
+              "x": -642.341141879716,
+              "z": 398.81940839939546,
+              "y": 0,
+              "radius": 11,
+              "hasLight": false,
+              "hasCrossing": false,
+              "edges": [
+                {
+                  "id": 116,
+                  "sourceId": "w113258513",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 142,
+                  "sourceId": "w244601702",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 157,
+                  "sourceId": "w665204215",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 158,
+                  "sourceId": "w665335354",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            }
+          },
+          "dir": 1,
+          "s": 2.9762570427520165,
+          "lane": 0,
+          "laneCur": 0.0009876230631150498,
+          "speed": 0,
+          "gap": 7.733806222523129,
+          "leader": "player",
+          "leaderCross": false,
+          "stopD": 0.19131354080991936,
+          "stopWhy": "claim",
+          "waitRed": false,
+          "redQ": false,
+          "stuck": 26.300000000000466,
+          "still": 26.300000000000466,
+          "blockT": 2.533333333333334,
+          "jam": 0.9,
+          "jamHold": 0,
+          "transition": -0.033333333333333236,
+          "latBlend": 0,
+          "parked": false,
+          "route": [
+            {
+              "edge": {
+                "id": 158,
+                "sourceId": "w665335354",
+                "name": "Aleea Dealul Mitropoliei",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "dirx": -0.9127560828743477,
+                "dirz": 0.40850499773671894,
+                "nx": -0.40850499773671894,
+                "nz": -0.9127560828743477,
+                "len": 24.64733419612887,
+                "lanesF": 1,
+                "lanesB": 0,
+                "wL": 1.5,
+                "wR": 1.5,
+                "publicDrive": true,
+                "throughAccess": true,
+                "a": {
+                  "id": 139,
+                  "sourceId": 31404739,
+                  "x": -642.341141879716,
+                  "z": 398.81940839939546,
+                  "y": 0,
+                  "radius": 11,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 116,
+                      "sourceId": "w113258513",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 124,
+                      "sourceId": "w153967352",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 142,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 157,
+                      "sourceId": "w665204215",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                },
+                "b": {
+                  "id": 0,
+                  "sourceId": 6227450128,
+                  "x": -664.8381460938696,
+                  "z": 408.88796759940124,
+                  "y": 0,
+                  "radius": 2,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 173,
+                      "sourceId": "w1173658540",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                }
+              },
+              "dir": 1
+            }
+          ],
+          "previous": {
+            "x": -638.0067443282991,
+            "z": 382.58023954810346,
+            "y": 0.24,
+            "heading": 3.0894368562515426,
+            "s": 2.9762570427520165,
+            "edge": 124
+          }
+        }
+      ]
+    },
+    {
+      "t": 45.00000000000001,
+      "player": {
+        "x": -641.028518304228,
+        "z": 397.5665065433297,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 3.637655464263119,
+        "fx": 0.4759666229419871,
+        "fz": 0.8794633442305598,
+        "speed": -0.020080321285140562,
+        "steer": -0.3204616580566657,
+        "contactAge": 13.46666666666663,
+        "touching": false,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "contact": {
+          "type": "vehicle",
+          "id": "veh:214",
+          "kind": "truck",
+          "x": -638,
+          "z": 382.5,
+          "parked": false,
+          "t": 89.91,
+          "px": -637.8,
+          "pz": 374.5,
+          "py": 0.24,
+          "speed": 5.09
+        }
+      },
+      "ap": {
+        "s": 74.20617562003062,
+        "remaining": 75.79382437996932,
+        "waitT": 8.633333333333313,
+        "stallT": 0,
+        "resets": 0,
+        "dev": 1.2476755071939438
+      },
+      "controls": {
+        "throttle": 0,
+        "steer": -0.4932337292165428,
+        "brake": true
+      },
+      "nearVehicles": [
+        {
+          "id": 214,
+          "kind": "truck",
+          "x": -638.0067443282991,
+          "z": 382.58023954810346,
+          "y": 0.24,
+          "heading": 3.0894368562515426,
+          "fx": -0.05076507672515713,
+          "fz": 0.9987106222450469,
+          "rx": -0.9987106222450469,
+          "rz": -0.05076507672515713,
+          "length": 8.9,
+          "width": 2.45,
+          "pitch": 0,
+          "modelHeight": 3.45,
+          "edge": {
+            "id": 124,
+            "sourceId": "w153967352",
+            "name": "Pia\u021ba Unirii",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "dirx": -0.05076507672515713,
+            "dirz": 0.9987106222450469,
+            "nx": -0.9987106222450469,
+            "nz": -0.05076507672515713,
+            "len": 19.417570583561936,
+            "lanesF": 4,
+            "lanesB": 0,
+            "wL": 5.25,
+            "wR": 8.75,
+            "publicDrive": true,
+            "throughAccess": true,
+            "a": {
+              "id": 148,
+              "sourceId": 6225397217,
+              "x": -641.3554074192253,
+              "z": 379.4268743993992,
+              "y": 0,
+              "radius": 9.25,
+              "hasLight": false,
+              "hasCrossing": true,
+              "edges": [
+                {
+                  "id": 123,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            },
+            "b": {
+              "id": 139,
+              "sourceId": 31404739,
+              "x": -642.341141879716,
+              "z": 398.81940839939546,
+              "y": 0,
+              "radius": 11,
+              "hasLight": false,
+              "hasCrossing": false,
+              "edges": [
+                {
+                  "id": 116,
+                  "sourceId": "w113258513",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 142,
+                  "sourceId": "w244601702",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 157,
+                  "sourceId": "w665204215",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 158,
+                  "sourceId": "w665335354",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            }
+          },
+          "dir": 1,
+          "s": 2.9762570427520165,
+          "lane": 0,
+          "laneCur": 0.0009876230631150498,
+          "speed": 0,
+          "gap": null,
+          "leader": null,
+          "leaderCross": false,
+          "stopD": 0.19131354080991936,
+          "stopWhy": "claim",
+          "waitRed": false,
+          "redQ": false,
+          "stuck": 33.30000000000067,
+          "still": 33.30000000000067,
+          "blockT": 0,
+          "jam": 0.9,
+          "jamHold": 0,
+          "transition": -0.033333333333333236,
+          "latBlend": 0,
+          "parked": false,
+          "route": [
+            {
+              "edge": {
+                "id": 158,
+                "sourceId": "w665335354",
+                "name": "Aleea Dealul Mitropoliei",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "dirx": -0.9127560828743477,
+                "dirz": 0.40850499773671894,
+                "nx": -0.40850499773671894,
+                "nz": -0.9127560828743477,
+                "len": 24.64733419612887,
+                "lanesF": 1,
+                "lanesB": 0,
+                "wL": 1.5,
+                "wR": 1.5,
+                "publicDrive": true,
+                "throughAccess": true,
+                "a": {
+                  "id": 139,
+                  "sourceId": 31404739,
+                  "x": -642.341141879716,
+                  "z": 398.81940839939546,
+                  "y": 0,
+                  "radius": 11,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 116,
+                      "sourceId": "w113258513",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 124,
+                      "sourceId": "w153967352",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 142,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 157,
+                      "sourceId": "w665204215",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                },
+                "b": {
+                  "id": 0,
+                  "sourceId": 6227450128,
+                  "x": -664.8381460938696,
+                  "z": 408.88796759940124,
+                  "y": 0,
+                  "radius": 2,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 173,
+                      "sourceId": "w1173658540",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                }
+              },
+              "dir": 1
+            }
+          ],
+          "previous": {
+            "x": -638.0067443282991,
+            "z": 382.58023954810346,
+            "y": 0.24,
+            "heading": 3.0894368562515426,
+            "s": 2.9762570427520165,
+            "edge": 124
+          }
+        }
+      ]
+    },
+    {
+      "t": 49.99999999999972,
+      "player": {
+        "x": -640.9499498418273,
+        "z": 397.70788665869804,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 3.6575227628678486,
+        "fx": 0.4933441032082913,
+        "fz": 0.8698342346847512,
+        "speed": 0.020080321285140555,
+        "steer": -0.3192750131577839,
+        "contactAge": 18.466666666666743,
+        "touching": false,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "contact": {
+          "type": "vehicle",
+          "id": "veh:214",
+          "kind": "truck",
+          "x": -638,
+          "z": 382.5,
+          "parked": false,
+          "t": 89.91,
+          "px": -637.8,
+          "pz": 374.5,
+          "py": 0.24,
+          "speed": 5.09
+        }
+      },
+      "ap": {
+        "s": 74.34224847329835,
+        "remaining": 75.65775152670159,
+        "waitT": 13.033333333333298,
+        "stallT": 0,
+        "resets": 0,
+        "dev": 1.3326124318519512
+      },
+      "controls": {
+        "throttle": 0,
+        "steer": -0.4914135844108695,
+        "brake": true
+      },
+      "nearVehicles": [
+        {
+          "id": 214,
+          "kind": "truck",
+          "x": -638.0067443282991,
+          "z": 382.58023954810346,
+          "y": 0.24,
+          "heading": 3.0894368562515426,
+          "fx": -0.05076507672515713,
+          "fz": 0.9987106222450469,
+          "rx": -0.9987106222450469,
+          "rz": -0.05076507672515713,
+          "length": 8.9,
+          "width": 2.45,
+          "pitch": 0,
+          "modelHeight": 3.45,
+          "edge": {
+            "id": 124,
+            "sourceId": "w153967352",
+            "name": "Pia\u021ba Unirii",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "dirx": -0.05076507672515713,
+            "dirz": 0.9987106222450469,
+            "nx": -0.9987106222450469,
+            "nz": -0.05076507672515713,
+            "len": 19.417570583561936,
+            "lanesF": 4,
+            "lanesB": 0,
+            "wL": 5.25,
+            "wR": 8.75,
+            "publicDrive": true,
+            "throughAccess": true,
+            "a": {
+              "id": 148,
+              "sourceId": 6225397217,
+              "x": -641.3554074192253,
+              "z": 379.4268743993992,
+              "y": 0,
+              "radius": 9.25,
+              "hasLight": false,
+              "hasCrossing": true,
+              "edges": [
+                {
+                  "id": 123,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            },
+            "b": {
+              "id": 139,
+              "sourceId": 31404739,
+              "x": -642.341141879716,
+              "z": 398.81940839939546,
+              "y": 0,
+              "radius": 11,
+              "hasLight": false,
+              "hasCrossing": false,
+              "edges": [
+                {
+                  "id": 116,
+                  "sourceId": "w113258513",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 142,
+                  "sourceId": "w244601702",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 157,
+                  "sourceId": "w665204215",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 158,
+                  "sourceId": "w665335354",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            }
+          },
+          "dir": 1,
+          "s": 2.9762570427520165,
+          "lane": 0,
+          "laneCur": 0.0009876230631150498,
+          "speed": 0,
+          "gap": 7.886174603150298,
+          "leader": "player",
+          "leaderCross": false,
+          "stopD": 0.19131354080991936,
+          "stopWhy": "claim",
+          "waitRed": false,
+          "redQ": false,
+          "stuck": 38.30000000000039,
+          "still": 38.30000000000039,
+          "blockT": 3.4999999999999973,
+          "jam": 0.9,
+          "jamHold": 0,
+          "transition": -0.033333333333333236,
+          "latBlend": 0,
+          "parked": false,
+          "route": [
+            {
+              "edge": {
+                "id": 158,
+                "sourceId": "w665335354",
+                "name": "Aleea Dealul Mitropoliei",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "dirx": -0.9127560828743477,
+                "dirz": 0.40850499773671894,
+                "nx": -0.40850499773671894,
+                "nz": -0.9127560828743477,
+                "len": 24.64733419612887,
+                "lanesF": 1,
+                "lanesB": 0,
+                "wL": 1.5,
+                "wR": 1.5,
+                "publicDrive": true,
+                "throughAccess": true,
+                "a": {
+                  "id": 139,
+                  "sourceId": 31404739,
+                  "x": -642.341141879716,
+                  "z": 398.81940839939546,
+                  "y": 0,
+                  "radius": 11,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 116,
+                      "sourceId": "w113258513",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 124,
+                      "sourceId": "w153967352",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 142,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 157,
+                      "sourceId": "w665204215",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                },
+                "b": {
+                  "id": 0,
+                  "sourceId": 6227450128,
+                  "x": -664.8381460938696,
+                  "z": 408.88796759940124,
+                  "y": 0,
+                  "radius": 2,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 173,
+                      "sourceId": "w1173658540",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                }
+              },
+              "dir": 1
+            }
+          ],
+          "previous": {
+            "x": -638.0067443282991,
+            "z": 382.58023954810346,
+            "y": 0.24,
+            "heading": 3.0894368562515426,
+            "s": 2.9762570427520165,
+            "edge": 124
+          }
+        }
+      ]
+    },
+    {
+      "t": 55.99999999999938,
+      "player": {
+        "x": -640.7852177354241,
+        "z": 397.9847162424701,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 3.6964752596846573,
+        "fx": 0.526843523440881,
+        "fz": 0.8499622943451067,
+        "speed": 0.020080321285140555,
+        "steer": -0.2868125017754954,
+        "contactAge": 24.46666666666704,
+        "touching": false,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "contact": {
+          "type": "vehicle",
+          "id": "veh:214",
+          "kind": "truck",
+          "x": -638,
+          "z": 382.5,
+          "parked": false,
+          "t": 89.91,
+          "px": -637.8,
+          "pz": 374.5,
+          "py": 0.24,
+          "speed": 5.09
+        }
+      },
+      "ap": {
+        "s": 76.57321954434182,
+        "remaining": 73.42678045565812,
+        "waitT": 17.8333333333334,
+        "stallT": 0,
+        "resets": 0,
+        "dev": 1.4197206196020848
+      },
+      "controls": {
+        "throttle": 0,
+        "steer": -0.4414536756810406,
+        "brake": true
+      },
+      "nearVehicles": [
+        {
+          "id": 214,
+          "kind": "truck",
+          "x": -638.0067443282991,
+          "z": 382.58023954810346,
+          "y": 0.24,
+          "heading": 3.0894368562515426,
+          "fx": -0.05076507672515713,
+          "fz": 0.9987106222450469,
+          "rx": -0.9987106222450469,
+          "rz": -0.05076507672515713,
+          "length": 8.9,
+          "width": 2.45,
+          "pitch": 0,
+          "modelHeight": 3.45,
+          "edge": {
+            "id": 124,
+            "sourceId": "w153967352",
+            "name": "Pia\u021ba Unirii",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "dirx": -0.05076507672515713,
+            "dirz": 0.9987106222450469,
+            "nx": -0.9987106222450469,
+            "nz": -0.05076507672515713,
+            "len": 19.417570583561936,
+            "lanesF": 4,
+            "lanesB": 0,
+            "wL": 5.25,
+            "wR": 8.75,
+            "publicDrive": true,
+            "throughAccess": true,
+            "a": {
+              "id": 148,
+              "sourceId": 6225397217,
+              "x": -641.3554074192253,
+              "z": 379.4268743993992,
+              "y": 0,
+              "radius": 9.25,
+              "hasLight": false,
+              "hasCrossing": true,
+              "edges": [
+                {
+                  "id": 123,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            },
+            "b": {
+              "id": 139,
+              "sourceId": 31404739,
+              "x": -642.341141879716,
+              "z": 398.81940839939546,
+              "y": 0,
+              "radius": 11,
+              "hasLight": false,
+              "hasCrossing": false,
+              "edges": [
+                {
+                  "id": 116,
+                  "sourceId": "w113258513",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 142,
+                  "sourceId": "w244601702",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 157,
+                  "sourceId": "w665204215",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 158,
+                  "sourceId": "w665335354",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            }
+          },
+          "dir": 1,
+          "s": 2.9762570427520165,
+          "lane": 0,
+          "laneCur": 0.0009876230631150498,
+          "speed": 0,
+          "gap": 8.187352521951185,
+          "leader": "player",
+          "leaderCross": false,
+          "stopD": 0.19131354080991936,
+          "stopWhy": "claim",
+          "waitRed": false,
+          "redQ": false,
+          "stuck": 44.30000000000005,
+          "still": 44.30000000000005,
+          "blockT": 9.499999999999977,
+          "jam": 0.9,
+          "jamHold": 0,
+          "transition": -0.033333333333333236,
+          "latBlend": 0,
+          "parked": false,
+          "route": [
+            {
+              "edge": {
+                "id": 158,
+                "sourceId": "w665335354",
+                "name": "Aleea Dealul Mitropoliei",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "dirx": -0.9127560828743477,
+                "dirz": 0.40850499773671894,
+                "nx": -0.40850499773671894,
+                "nz": -0.9127560828743477,
+                "len": 24.64733419612887,
+                "lanesF": 1,
+                "lanesB": 0,
+                "wL": 1.5,
+                "wR": 1.5,
+                "publicDrive": true,
+                "throughAccess": true,
+                "a": {
+                  "id": 139,
+                  "sourceId": 31404739,
+                  "x": -642.341141879716,
+                  "z": 398.81940839939546,
+                  "y": 0,
+                  "radius": 11,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 116,
+                      "sourceId": "w113258513",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 124,
+                      "sourceId": "w153967352",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 142,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 157,
+                      "sourceId": "w665204215",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                },
+                "b": {
+                  "id": 0,
+                  "sourceId": 6227450128,
+                  "x": -664.8381460938696,
+                  "z": 408.88796759940124,
+                  "y": 0,
+                  "radius": 2,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 173,
+                      "sourceId": "w1173658540",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                }
+              },
+              "dir": 1
+            }
+          ],
+          "previous": {
+            "x": -638.0067443282991,
+            "z": 382.58023954810346,
+            "y": 0.24,
+            "heading": 3.0894368562515426,
+            "s": 2.9762570427520165,
+            "edge": 124
+          }
+        }
+      ]
+    },
+    {
+      "t": 56.999999999999325,
+      "player": {
+        "x": -641.0226636880701,
+        "z": 403.4023119771598,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": -2.0921740416904706,
+        "fx": 0.8671337971240487,
+        "fz": 0.4980752733124072,
+        "speed": 3.5610233223111356,
+        "steer": 0.1216204312824736,
+        "contactAge": 9.866666666666664,
+        "touching": false,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "contact": {
+          "type": "vehicle",
+          "id": "veh:214",
+          "kind": "truck",
+          "x": -638,
+          "z": 382.5,
+          "parked": false,
+          "t": 89.91,
+          "px": -637.8,
+          "pz": 374.5,
+          "py": 0.24,
+          "speed": 5.09
+        }
+      },
+      "ap": {
+        "s": 1.7917898136377581,
+        "remaining": 76.16445940246605,
+        "waitT": 0,
+        "stallT": 0,
+        "resets": 1,
+        "dev": 1.7759066666242267
+      },
+      "controls": {
+        "throttle": 0,
+        "steer": 0.2082044933050031,
+        "brake": false
+      },
+      "nearVehicles": [
+        {
+          "id": 214,
+          "kind": "truck",
+          "x": -638.0067443282991,
+          "z": 382.58023954810346,
+          "y": 0.24,
+          "heading": 3.0894368562515426,
+          "fx": -0.05076507672515713,
+          "fz": 0.9987106222450469,
+          "rx": -0.9987106222450469,
+          "rz": -0.05076507672515713,
+          "length": 8.9,
+          "width": 2.45,
+          "pitch": 0,
+          "modelHeight": 3.45,
+          "edge": {
+            "id": 124,
+            "sourceId": "w153967352",
+            "name": "Pia\u021ba Unirii",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "dirx": -0.05076507672515713,
+            "dirz": 0.9987106222450469,
+            "nx": -0.9987106222450469,
+            "nz": -0.05076507672515713,
+            "len": 19.417570583561936,
+            "lanesF": 4,
+            "lanesB": 0,
+            "wL": 5.25,
+            "wR": 8.75,
+            "publicDrive": true,
+            "throughAccess": true,
+            "a": {
+              "id": 148,
+              "sourceId": 6225397217,
+              "x": -641.3554074192253,
+              "z": 379.4268743993992,
+              "y": 0,
+              "radius": 9.25,
+              "hasLight": false,
+              "hasCrossing": true,
+              "edges": [
+                {
+                  "id": 123,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            },
+            "b": {
+              "id": 139,
+              "sourceId": 31404739,
+              "x": -642.341141879716,
+              "z": 398.81940839939546,
+              "y": 0,
+              "radius": 11,
+              "hasLight": false,
+              "hasCrossing": false,
+              "edges": [
+                {
+                  "id": 116,
+                  "sourceId": "w113258513",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 142,
+                  "sourceId": "w244601702",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 157,
+                  "sourceId": "w665204215",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 158,
+                  "sourceId": "w665335354",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            }
+          },
+          "dir": 1,
+          "s": 2.9762570427520165,
+          "lane": 0,
+          "laneCur": 0.0009876230631150498,
+          "speed": 0,
+          "gap": 14.385794350130903,
+          "leader": "player",
+          "leaderCross": false,
+          "stopD": 0.19131354080991936,
+          "stopWhy": "claim",
+          "waitRed": false,
+          "redQ": false,
+          "stuck": 45.29999999999999,
+          "still": 45.29999999999999,
+          "blockT": 8.49999999999998,
+          "jam": 0.9,
+          "jamHold": 0,
+          "transition": -0.033333333333333236,
+          "latBlend": 0,
+          "parked": false,
+          "route": [
+            {
+              "edge": {
+                "id": 158,
+                "sourceId": "w665335354",
+                "name": "Aleea Dealul Mitropoliei",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "dirx": -0.9127560828743477,
+                "dirz": 0.40850499773671894,
+                "nx": -0.40850499773671894,
+                "nz": -0.9127560828743477,
+                "len": 24.64733419612887,
+                "lanesF": 1,
+                "lanesB": 0,
+                "wL": 1.5,
+                "wR": 1.5,
+                "publicDrive": true,
+                "throughAccess": true,
+                "a": {
+                  "id": 139,
+                  "sourceId": 31404739,
+                  "x": -642.341141879716,
+                  "z": 398.81940839939546,
+                  "y": 0,
+                  "radius": 11,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 116,
+                      "sourceId": "w113258513",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 124,
+                      "sourceId": "w153967352",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 142,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 157,
+                      "sourceId": "w665204215",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                },
+                "b": {
+                  "id": 0,
+                  "sourceId": 6227450128,
+                  "x": -664.8381460938696,
+                  "z": 408.88796759940124,
+                  "y": 0,
+                  "radius": 2,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 158,
+                      "sourceId": "w665335354",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 173,
+                      "sourceId": "w1173658540",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                }
+              },
+              "dir": 1
+            }
+          ],
+          "previous": {
+            "x": -638.0067443282991,
+            "z": 382.58023954810346,
+            "y": 0.24,
+            "heading": 3.0894368562515426,
+            "s": 2.9762570427520165,
+            "edge": 124
+          }
+        }
+      ]
+    }
+  ],
+  "firstContact": {
+    "t": 20.000000000000153,
+    "step": 601,
+    "before": {
+      "x": -637.8547551062645,
+      "z": 374.60896426076874,
+      "y": 0.24,
+      "surfY": 0.24,
+      "heading": 2.8902011816205047,
+      "fx": -0.2487519337839394,
+      "fz": 0.9685672281461678,
+      "speed": 5.091350507268298,
+      "steer": 0.14556619583991107,
+      "contactAge": 29.00000000000062,
+      "touching": false,
+      "front": 3.42,
+      "rear": 2.36,
+      "width": 1.8,
+      "contact": null
+    },
+    "after": {
+      "x": -637.8480414524146,
+      "z": 374.4803579402165,
+      "y": 0.24,
+      "surfY": 0.24,
+      "heading": 2.8902011816205047,
+      "fx": -0.2487519337839394,
+      "fz": 0.9685672281461678,
+      "speed": 2.346501740117709,
+      "steer": 0.14556619583991107,
+      "contactAge": 0,
+      "touching": true,
+      "front": 3.42,
+      "rear": 2.36,
+      "width": 1.8,
+      "contact": {
+        "type": "vehicle",
+        "id": "veh:214",
+        "kind": "truck",
+        "x": -638,
+        "z": 382.5,
+        "parked": false,
+        "t": 89.91,
+        "px": -637.8,
+        "pz": 374.5,
+        "py": 0.24,
+        "speed": 5.09
+      }
+    },
+    "collider": {
+      "type": "vehicle",
+      "id": "veh:214",
+      "kind": "truck",
+      "x": -638,
+      "z": 382.5,
+      "parked": false,
+      "t": 89.91,
+      "px": -637.8,
+      "pz": 374.5,
+      "py": 0.24,
+      "speed": 5.09
+    },
+    "nearVehicles": [
+      {
+        "id": 214,
+        "kind": "truck",
+        "x": -638.0011835651397,
+        "z": 382.47371792733634,
+        "y": 0.24,
+        "heading": 3.0894368562515426,
+        "fx": -0.05076507672515713,
+        "fz": 0.9987106222450469,
+        "rx": -0.9987106222450469,
+        "rz": -0.05076507672515713,
+        "length": 8.9,
+        "width": 2.45,
+        "pitch": 0,
+        "modelHeight": 3.45,
+        "edge": {
+          "id": 124,
+          "sourceId": "w153967352",
+          "name": "Pia\u021ba Unirii",
+          "layer": 0,
+          "bridge": false,
+          "tunnel": false,
+          "dirx": -0.05076507672515713,
+          "dirz": 0.9987106222450469,
+          "nx": -0.9987106222450469,
+          "nz": -0.05076507672515713,
+          "len": 19.417570583561936,
+          "lanesF": 4,
+          "lanesB": 0,
+          "wL": 5.25,
+          "wR": 8.75,
+          "publicDrive": true,
+          "throughAccess": true,
+          "a": {
+            "id": 148,
+            "sourceId": 6225397217,
+            "x": -641.3554074192253,
+            "z": 379.4268743993992,
+            "y": 0,
+            "radius": 9.25,
+            "hasLight": false,
+            "hasCrossing": true,
+            "edges": [
+              {
+                "id": 123,
+                "sourceId": "w153967352",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 124,
+                "sourceId": "w153967352",
+                "ya": 0,
+                "yb": 0
+              }
+            ]
+          },
+          "b": {
+            "id": 139,
+            "sourceId": 31404739,
+            "x": -642.341141879716,
+            "z": 398.81940839939546,
+            "y": 0,
+            "radius": 11,
+            "hasLight": false,
+            "hasCrossing": false,
+            "edges": [
+              {
+                "id": 116,
+                "sourceId": "w113258513",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 124,
+                "sourceId": "w153967352",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 142,
+                "sourceId": "w244601702",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 157,
+                "sourceId": "w665204215",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 158,
+                "sourceId": "w665335354",
+                "ya": 0,
+                "yb": 0
+              }
+            ]
+          }
+        },
+        "dir": 1,
+        "s": 2.869590376085349,
+        "lane": 0,
+        "laneCur": 0.0009876230631150498,
+        "speed": 0,
+        "gap": 7.929930285444322,
+        "leader": {
+          "id": 87,
+          "kind": "compact-sedan"
+        },
+        "leaderCross": false,
+        "stopD": 0.2979802074765885,
+        "stopWhy": "claim",
+        "waitRed": false,
+        "redQ": false,
+        "stuck": 8.299999999999981,
+        "still": 8.299999999999981,
+        "blockT": 0,
+        "jam": 0.9,
+        "jamHold": 0,
+        "transition": -0.033333333333333236,
+        "latBlend": 0,
+        "parked": false,
+        "route": [
+          {
+            "edge": {
+              "id": 158,
+              "sourceId": "w665335354",
+              "name": "Aleea Dealul Mitropoliei",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": -0.9127560828743477,
+              "dirz": 0.40850499773671894,
+              "nx": -0.40850499773671894,
+              "nz": -0.9127560828743477,
+              "len": 24.64733419612887,
+              "lanesF": 1,
+              "lanesB": 0,
+              "wL": 1.5,
+              "wR": 1.5,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 139,
+                "sourceId": 31404739,
+                "x": -642.341141879716,
+                "z": 398.81940839939546,
+                "y": 0,
+                "radius": 11,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 116,
+                    "sourceId": "w113258513",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 124,
+                    "sourceId": "w153967352",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 142,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 157,
+                    "sourceId": "w665204215",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 158,
+                    "sourceId": "w665335354",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 0,
+                "sourceId": 6227450128,
+                "x": -664.8381460938696,
+                "z": 408.88796759940124,
+                "y": 0,
+                "radius": 2,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 158,
+                    "sourceId": "w665335354",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 173,
+                    "sourceId": "w1173658540",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          }
+        ],
+        "previous": {
+          "x": -638.0011835651397,
+          "z": 382.47371792733634,
+          "y": 0.24,
+          "heading": 3.0894368562515426,
+          "s": 2.869590376085349,
+          "edge": 124
+        }
+      }
+    ]
+  },
+  "scope": "Unmodified selected native observations from raw32fc3a; all claims and other actors retained losslessly in native-observation.json.gz.",
+  "firstContactSnapshot": {
+    "label": "first-contact-post-collision",
+    "t": 20.000000000000153,
+    "simT": 20.000000000000153,
+    "step": 601,
+    "player": {
+      "x": -637.8480414524146,
+      "z": 374.4803579402165,
+      "y": 0.24,
+      "surfY": 0.24,
+      "heading": 2.8902011816205047,
+      "fx": -0.2487519337839394,
+      "fz": 0.9685672281461678,
+      "speed": 2.346501740117709,
+      "steer": 0.14556619583991107,
+      "contactAge": 0,
+      "touching": true,
+      "front": 3.42,
+      "rear": 2.36,
+      "width": 1.8,
+      "contact": {
+        "type": "vehicle",
+        "id": "veh:214",
+        "kind": "truck",
+        "x": -638,
+        "z": 382.5,
+        "parked": false,
+        "t": 89.91,
+        "px": -637.8,
+        "pz": 374.5,
+        "py": 0.24,
+        "speed": 5.09
+      }
+    },
+    "controls": {
+      "throttle": 1,
+      "steer": 0.17680237708444516,
+      "brake": false
+    },
+    "ap": {
+      "s": 50.94151062638489,
+      "remaining": 99.05848937361506,
+      "waitT": 4.5333333333333385,
+      "stallT": 0,
+      "resets": 0,
+      "dev": 3.271638192724985
+    },
+    "nearVehicles": [
+      {
+        "id": 87,
+        "kind": "compact-sedan",
+        "x": -637.8271417233595,
+        "z": 397.1826767413957,
+        "y": 0.24,
+        "heading": 3.6627992544658734,
+        "fx": 0.9041680626463942,
+        "fz": 0.427176912403124,
+        "rx": -0.427176912403124,
+        "rz": 0.9041680626463942,
+        "length": 4.36,
+        "width": 1.73,
+        "pitch": 0,
+        "modelHeight": 1.52,
+        "edge": {
+          "id": 142,
+          "sourceId": "w244601702",
+          "name": "Pia\u021ba Unirii",
+          "layer": 0,
+          "bridge": false,
+          "tunnel": false,
+          "dirx": 0.9041680626463942,
+          "dirz": 0.427176912403124,
+          "nx": -0.427176912403124,
+          "nz": 0.9041680626463942,
+          "len": 18.392923802972543,
+          "lanesF": 3,
+          "lanesB": 0,
+          "wL": 5.25,
+          "wR": 5.25,
+          "publicDrive": true,
+          "throughAccess": true,
+          "a": {
+            "id": 139,
+            "sourceId": 31404739,
+            "x": -642.341141879716,
+            "z": 398.81940839939546,
+            "y": 0,
+            "radius": 11,
+            "hasLight": false,
+            "hasCrossing": false,
+            "edges": [
+              {
+                "id": 116,
+                "sourceId": "w113258513",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 124,
+                "sourceId": "w153967352",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 142,
+                "sourceId": "w244601702",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 157,
+                "sourceId": "w665204215",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 158,
+                "sourceId": "w665335354",
+                "ya": 0,
+                "yb": 0
+              }
+            ]
+          },
+          "b": {
+            "id": 167,
+            "sourceId": 2687992834,
+            "x": -625.7108475983796,
+            "z": 406.6764407996152,
+            "y": 0,
+            "radius": 5.75,
+            "hasLight": false,
+            "hasCrossing": false,
+            "edges": [
+              {
+                "id": 142,
+                "sourceId": "w244601702",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 143,
+                "sourceId": "w244601702",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 160,
+                "sourceId": "w665335355",
+                "ya": 0,
+                "yb": 0
+              }
+            ]
+          }
+        },
+        "dir": 1,
+        "s": 1.0997560391378767,
+        "lane": 1,
+        "laneCur": 1.000009277834872,
+        "speed": 0,
+        "gap": 6.063872611830339,
+        "leader": {
+          "id": 423,
+          "kind": "estate"
+        },
+        "leaderCross": false,
+        "stopD": null,
+        "stopWhy": null,
+        "waitRed": false,
+        "redQ": false,
+        "stuck": 0.5333333333333333,
+        "still": 0.5333333333333333,
+        "blockT": 0,
+        "jam": 0.9,
+        "jamHold": 3.9470523492743608,
+        "transition": -0.033333333333333236,
+        "latBlend": 0,
+        "parked": false,
+        "route": [
+          {
+            "edge": {
+              "id": 143,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.9183778540588513,
+              "dirz": 0.3957045832110857,
+              "nx": -0.3957045832110857,
+              "nz": 0.9183778540588513,
+              "len": 7.695176981122389,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 167,
+                "sourceId": 2687992834,
+                "x": -625.7108475983796,
+                "z": 406.6764407996152,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 142,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 143,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 160,
+                    "sourceId": "w665335355",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 168,
+                "sourceId": 2687992827,
+                "x": -618.6437674758533,
+                "z": 409.72145759966577,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 143,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 144,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          },
+          {
+            "edge": {
+              "id": 144,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.9384438073064378,
+              "dirz": 0.3454319332780303,
+              "nx": -0.3454319332780303,
+              "nz": 0.9384438073064378,
+              "len": 12.418351595016363,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 168,
+                "sourceId": 2687992827,
+                "x": -618.6437674758533,
+                "z": 409.72145759966577,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 143,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 144,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 169,
+                "sourceId": 2687992831,
+                "x": -606.9898423245562,
+                "z": 414.0111527992586,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 144,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 145,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          },
+          {
+            "edge": {
+              "id": 145,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.950078707938388,
+              "dirz": 0.3120103343194312,
+              "nx": -0.3120103343194312,
+              "nz": 0.950078707938388,
+              "len": 15.52947023734862,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 169,
+                "sourceId": 2687992831,
+                "x": -606.9898423245562,
+                "z": 414.0111527992586,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 144,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 145,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 170,
+                "sourceId": 2687992838,
+                "x": -592.2356233064884,
+                "z": 418.8565079998174,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 145,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 146,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          },
+          {
+            "edge": {
+              "id": 146,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.972707735374835,
+              "dirz": 0.2320337508681881,
+              "nx": -0.2320337508681881,
+              "nz": 0.972707735374835,
+              "len": 6.178423590562756,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 170,
+                "sourceId": 2687992838,
+                "x": -592.2356233064884,
+                "z": 418.8565079998174,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 145,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 146,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 171,
+                "sourceId": 14230268196,
+                "x": -586.2258228875256,
+                "z": 420.29011079998816,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 146,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 147,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          },
+          {
+            "edge": {
+              "id": 147,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.9802853792688422,
+              "dirz": 0.19758688011035055,
+              "nx": -0.19758688011035055,
+              "nz": 0.9802853792688422,
+              "len": 6.130664137547003,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 171,
+                "sourceId": 14230268196,
+                "x": -586.2258228875256,
+                "z": 420.29011079998816,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 146,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 147,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 172,
+                "sourceId": 2687968293,
+                "x": -580.2160224682805,
+                "z": 421.5014495999305,
+                "y": 0,
+                "radius": 12.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 147,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 695,
+                    "sourceId": "w665110039",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          }
+        ],
+        "previous": {
+          "x": -637.8271417233595,
+          "z": 397.1826767413957,
+          "y": 0.24,
+          "heading": 3.6627992544658734,
+          "s": 1.0997560391378767,
+          "edge": 142
+        }
+      },
+      {
+        "id": 214,
+        "kind": "truck",
+        "x": -638.0011835651397,
+        "z": 382.47371792733634,
+        "y": 0.24,
+        "heading": 3.0894368562515426,
+        "fx": -0.05076507672515713,
+        "fz": 0.9987106222450469,
+        "rx": -0.9987106222450469,
+        "rz": -0.05076507672515713,
+        "length": 8.9,
+        "width": 2.45,
+        "pitch": 0,
+        "modelHeight": 3.45,
+        "edge": {
+          "id": 124,
+          "sourceId": "w153967352",
+          "name": "Pia\u021ba Unirii",
+          "layer": 0,
+          "bridge": false,
+          "tunnel": false,
+          "dirx": -0.05076507672515713,
+          "dirz": 0.9987106222450469,
+          "nx": -0.9987106222450469,
+          "nz": -0.05076507672515713,
+          "len": 19.417570583561936,
+          "lanesF": 4,
+          "lanesB": 0,
+          "wL": 5.25,
+          "wR": 8.75,
+          "publicDrive": true,
+          "throughAccess": true,
+          "a": {
+            "id": 148,
+            "sourceId": 6225397217,
+            "x": -641.3554074192253,
+            "z": 379.4268743993992,
+            "y": 0,
+            "radius": 9.25,
+            "hasLight": false,
+            "hasCrossing": true,
+            "edges": [
+              {
+                "id": 123,
+                "sourceId": "w153967352",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 124,
+                "sourceId": "w153967352",
+                "ya": 0,
+                "yb": 0
+              }
+            ]
+          },
+          "b": {
+            "id": 139,
+            "sourceId": 31404739,
+            "x": -642.341141879716,
+            "z": 398.81940839939546,
+            "y": 0,
+            "radius": 11,
+            "hasLight": false,
+            "hasCrossing": false,
+            "edges": [
+              {
+                "id": 116,
+                "sourceId": "w113258513",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 124,
+                "sourceId": "w153967352",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 142,
+                "sourceId": "w244601702",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 157,
+                "sourceId": "w665204215",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 158,
+                "sourceId": "w665335354",
+                "ya": 0,
+                "yb": 0
+              }
+            ]
+          }
+        },
+        "dir": 1,
+        "s": 2.869590376085349,
+        "lane": 0,
+        "laneCur": 0.0009876230631150498,
+        "speed": 0,
+        "gap": 7.929930285444322,
+        "leader": {
+          "id": 87,
+          "kind": "compact-sedan"
+        },
+        "leaderCross": false,
+        "stopD": 0.2979802074765885,
+        "stopWhy": "claim",
+        "waitRed": false,
+        "redQ": false,
+        "stuck": 8.299999999999981,
+        "still": 8.299999999999981,
+        "blockT": 0,
+        "jam": 0.9,
+        "jamHold": 0,
+        "transition": -0.033333333333333236,
+        "latBlend": 0,
+        "parked": false,
+        "route": [
+          {
+            "edge": {
+              "id": 158,
+              "sourceId": "w665335354",
+              "name": "Aleea Dealul Mitropoliei",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": -0.9127560828743477,
+              "dirz": 0.40850499773671894,
+              "nx": -0.40850499773671894,
+              "nz": -0.9127560828743477,
+              "len": 24.64733419612887,
+              "lanesF": 1,
+              "lanesB": 0,
+              "wL": 1.5,
+              "wR": 1.5,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 139,
+                "sourceId": 31404739,
+                "x": -642.341141879716,
+                "z": 398.81940839939546,
+                "y": 0,
+                "radius": 11,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 116,
+                    "sourceId": "w113258513",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 124,
+                    "sourceId": "w153967352",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 142,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 157,
+                    "sourceId": "w665204215",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 158,
+                    "sourceId": "w665335354",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 0,
+                "sourceId": 6227450128,
+                "x": -664.8381460938696,
+                "z": 408.88796759940124,
+                "y": 0,
+                "radius": 2,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 158,
+                    "sourceId": "w665335354",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 173,
+                    "sourceId": "w1173658540",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          }
+        ],
+        "previous": {
+          "x": -638.0011835651397,
+          "z": 382.47371792733634,
+          "y": 0.24,
+          "heading": 3.0894368562515426,
+          "s": 2.869590376085349,
+          "edge": 124
+        }
+      }
+    ],
+    "leaderChain": [
+      {
+        "id": 87,
+        "kind": "compact-sedan",
+        "x": -637.8271417233595,
+        "z": 397.1826767413957,
+        "y": 0.24,
+        "heading": 3.6627992544658734,
+        "fx": 0.9041680626463942,
+        "fz": 0.427176912403124,
+        "rx": -0.427176912403124,
+        "rz": 0.9041680626463942,
+        "length": 4.36,
+        "width": 1.73,
+        "pitch": 0,
+        "modelHeight": 1.52,
+        "edge": {
+          "id": 142,
+          "sourceId": "w244601702",
+          "name": "Pia\u021ba Unirii",
+          "layer": 0,
+          "bridge": false,
+          "tunnel": false,
+          "dirx": 0.9041680626463942,
+          "dirz": 0.427176912403124,
+          "nx": -0.427176912403124,
+          "nz": 0.9041680626463942,
+          "len": 18.392923802972543,
+          "lanesF": 3,
+          "lanesB": 0,
+          "wL": 5.25,
+          "wR": 5.25,
+          "publicDrive": true,
+          "throughAccess": true,
+          "a": {
+            "id": 139,
+            "sourceId": 31404739,
+            "x": -642.341141879716,
+            "z": 398.81940839939546,
+            "y": 0,
+            "radius": 11,
+            "hasLight": false,
+            "hasCrossing": false,
+            "edges": [
+              {
+                "id": 116,
+                "sourceId": "w113258513",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 124,
+                "sourceId": "w153967352",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 142,
+                "sourceId": "w244601702",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 157,
+                "sourceId": "w665204215",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 158,
+                "sourceId": "w665335354",
+                "ya": 0,
+                "yb": 0
+              }
+            ]
+          },
+          "b": {
+            "id": 167,
+            "sourceId": 2687992834,
+            "x": -625.7108475983796,
+            "z": 406.6764407996152,
+            "y": 0,
+            "radius": 5.75,
+            "hasLight": false,
+            "hasCrossing": false,
+            "edges": [
+              {
+                "id": 142,
+                "sourceId": "w244601702",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 143,
+                "sourceId": "w244601702",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 160,
+                "sourceId": "w665335355",
+                "ya": 0,
+                "yb": 0
+              }
+            ]
+          }
+        },
+        "dir": 1,
+        "s": 1.0997560391378767,
+        "lane": 1,
+        "laneCur": 1.000009277834872,
+        "speed": 0,
+        "gap": 6.063872611830339,
+        "leader": {
+          "id": 423,
+          "kind": "estate"
+        },
+        "leaderCross": false,
+        "stopD": null,
+        "stopWhy": null,
+        "waitRed": false,
+        "redQ": false,
+        "stuck": 0.5333333333333333,
+        "still": 0.5333333333333333,
+        "blockT": 0,
+        "jam": 0.9,
+        "jamHold": 3.9470523492743608,
+        "transition": -0.033333333333333236,
+        "latBlend": 0,
+        "parked": false,
+        "route": [
+          {
+            "edge": {
+              "id": 143,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.9183778540588513,
+              "dirz": 0.3957045832110857,
+              "nx": -0.3957045832110857,
+              "nz": 0.9183778540588513,
+              "len": 7.695176981122389,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 167,
+                "sourceId": 2687992834,
+                "x": -625.7108475983796,
+                "z": 406.6764407996152,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 142,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 143,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 160,
+                    "sourceId": "w665335355",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 168,
+                "sourceId": 2687992827,
+                "x": -618.6437674758533,
+                "z": 409.72145759966577,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 143,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 144,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          },
+          {
+            "edge": {
+              "id": 144,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.9384438073064378,
+              "dirz": 0.3454319332780303,
+              "nx": -0.3454319332780303,
+              "nz": 0.9384438073064378,
+              "len": 12.418351595016363,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 168,
+                "sourceId": 2687992827,
+                "x": -618.6437674758533,
+                "z": 409.72145759966577,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 143,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 144,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 169,
+                "sourceId": 2687992831,
+                "x": -606.9898423245562,
+                "z": 414.0111527992586,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 144,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 145,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          },
+          {
+            "edge": {
+              "id": 145,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.950078707938388,
+              "dirz": 0.3120103343194312,
+              "nx": -0.3120103343194312,
+              "nz": 0.950078707938388,
+              "len": 15.52947023734862,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 169,
+                "sourceId": 2687992831,
+                "x": -606.9898423245562,
+                "z": 414.0111527992586,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 144,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 145,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 170,
+                "sourceId": 2687992838,
+                "x": -592.2356233064884,
+                "z": 418.8565079998174,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 145,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 146,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          },
+          {
+            "edge": {
+              "id": 146,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.972707735374835,
+              "dirz": 0.2320337508681881,
+              "nx": -0.2320337508681881,
+              "nz": 0.972707735374835,
+              "len": 6.178423590562756,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 170,
+                "sourceId": 2687992838,
+                "x": -592.2356233064884,
+                "z": 418.8565079998174,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 145,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 146,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 171,
+                "sourceId": 14230268196,
+                "x": -586.2258228875256,
+                "z": 420.29011079998816,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 146,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 147,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          },
+          {
+            "edge": {
+              "id": 147,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.9802853792688422,
+              "dirz": 0.19758688011035055,
+              "nx": -0.19758688011035055,
+              "nz": 0.9802853792688422,
+              "len": 6.130664137547003,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 171,
+                "sourceId": 14230268196,
+                "x": -586.2258228875256,
+                "z": 420.29011079998816,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 146,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 147,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 172,
+                "sourceId": 2687968293,
+                "x": -580.2160224682805,
+                "z": 421.5014495999305,
+                "y": 0,
+                "radius": 12.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 147,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 695,
+                    "sourceId": "w665110039",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          }
+        ],
+        "previous": {
+          "x": -637.8271417233595,
+          "z": 397.1826767413957,
+          "y": 0.24,
+          "heading": 3.6627992544658734,
+          "s": 1.0997560391378767,
+          "edge": 142
+        }
+      },
+      {
+        "id": 423,
+        "kind": "estate",
+        "x": -633.3675729004843,
+        "z": 406.94476671951975,
+        "y": 0.24,
+        "heading": 4.278975656958645,
+        "fx": 0.9041680626463942,
+        "fz": 0.427176912403124,
+        "rx": -0.427176912403124,
+        "rz": 0.9041680626463942,
+        "length": 4.69,
+        "width": 1.83,
+        "pitch": 0,
+        "modelHeight": 1.47,
+        "edge": {
+          "id": 142,
+          "sourceId": "w244601702",
+          "name": "Pia\u021ba Unirii",
+          "layer": 0,
+          "bridge": false,
+          "tunnel": false,
+          "dirx": 0.9041680626463942,
+          "dirz": 0.427176912403124,
+          "nx": -0.427176912403124,
+          "nz": 0.9041680626463942,
+          "len": 18.392923802972543,
+          "lanesF": 3,
+          "lanesB": 0,
+          "wL": 5.25,
+          "wR": 5.25,
+          "publicDrive": true,
+          "throughAccess": true,
+          "a": {
+            "id": 139,
+            "sourceId": 31404739,
+            "x": -642.341141879716,
+            "z": 398.81940839939546,
+            "y": 0,
+            "radius": 11,
+            "hasLight": false,
+            "hasCrossing": false,
+            "edges": [
+              {
+                "id": 116,
+                "sourceId": "w113258513",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 124,
+                "sourceId": "w153967352",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 142,
+                "sourceId": "w244601702",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 157,
+                "sourceId": "w665204215",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 158,
+                "sourceId": "w665335354",
+                "ya": 0,
+                "yb": 0
+              }
+            ]
+          },
+          "b": {
+            "id": 167,
+            "sourceId": 2687992834,
+            "x": -625.7108475983796,
+            "z": 406.6764407996152,
+            "y": 0,
+            "radius": 5.75,
+            "hasLight": false,
+            "hasCrossing": false,
+            "edges": [
+              {
+                "id": 142,
+                "sourceId": "w244601702",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 143,
+                "sourceId": "w244601702",
+                "ya": 0,
+                "yb": 0
+              },
+              {
+                "id": 160,
+                "sourceId": "w665335355",
+                "ya": 0,
+                "yb": 0
+              }
+            ]
+          }
+        },
+        "dir": 1,
+        "s": 14.302350271681588,
+        "lane": 2,
+        "laneCur": 2,
+        "speed": 0,
+        "gap": -1.9100194290855979,
+        "leader": "ped",
+        "leaderCross": false,
+        "stopD": null,
+        "stopWhy": null,
+        "waitRed": false,
+        "redQ": false,
+        "stuck": 1.1,
+        "still": 1.1,
+        "blockT": 0,
+        "jam": 0.9,
+        "jamHold": 2.5688397381454755,
+        "transition": -0.033333333333333236,
+        "latBlend": 0,
+        "parked": false,
+        "route": [
+          {
+            "edge": {
+              "id": 143,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.9183778540588513,
+              "dirz": 0.3957045832110857,
+              "nx": -0.3957045832110857,
+              "nz": 0.9183778540588513,
+              "len": 7.695176981122389,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 167,
+                "sourceId": 2687992834,
+                "x": -625.7108475983796,
+                "z": 406.6764407996152,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 142,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 143,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 160,
+                    "sourceId": "w665335355",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 168,
+                "sourceId": 2687992827,
+                "x": -618.6437674758533,
+                "z": 409.72145759966577,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 143,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 144,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          },
+          {
+            "edge": {
+              "id": 144,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.9384438073064378,
+              "dirz": 0.3454319332780303,
+              "nx": -0.3454319332780303,
+              "nz": 0.9384438073064378,
+              "len": 12.418351595016363,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 168,
+                "sourceId": 2687992827,
+                "x": -618.6437674758533,
+                "z": 409.72145759966577,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 143,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 144,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 169,
+                "sourceId": 2687992831,
+                "x": -606.9898423245562,
+                "z": 414.0111527992586,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 144,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 145,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          },
+          {
+            "edge": {
+              "id": 145,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.950078707938388,
+              "dirz": 0.3120103343194312,
+              "nx": -0.3120103343194312,
+              "nz": 0.950078707938388,
+              "len": 15.52947023734862,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 169,
+                "sourceId": 2687992831,
+                "x": -606.9898423245562,
+                "z": 414.0111527992586,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 144,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 145,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 170,
+                "sourceId": 2687992838,
+                "x": -592.2356233064884,
+                "z": 418.8565079998174,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 145,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 146,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          },
+          {
+            "edge": {
+              "id": 146,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.972707735374835,
+              "dirz": 0.2320337508681881,
+              "nx": -0.2320337508681881,
+              "nz": 0.972707735374835,
+              "len": 6.178423590562756,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 170,
+                "sourceId": 2687992838,
+                "x": -592.2356233064884,
+                "z": 418.8565079998174,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 145,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 146,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 171,
+                "sourceId": 14230268196,
+                "x": -586.2258228875256,
+                "z": 420.29011079998816,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 146,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 147,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          },
+          {
+            "edge": {
+              "id": 147,
+              "sourceId": "w244601702",
+              "name": "Pia\u021ba Unirii",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "dirx": 0.9802853792688422,
+              "dirz": 0.19758688011035055,
+              "nx": -0.19758688011035055,
+              "nz": 0.9802853792688422,
+              "len": 6.130664137547003,
+              "lanesF": 3,
+              "lanesB": 0,
+              "wL": 5.25,
+              "wR": 5.25,
+              "publicDrive": true,
+              "throughAccess": true,
+              "a": {
+                "id": 171,
+                "sourceId": 14230268196,
+                "x": -586.2258228875256,
+                "z": 420.29011079998816,
+                "y": 0,
+                "radius": 5.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 146,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 147,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              },
+              "b": {
+                "id": 172,
+                "sourceId": 2687968293,
+                "x": -580.2160224682805,
+                "z": 421.5014495999305,
+                "y": 0,
+                "radius": 12.75,
+                "hasLight": false,
+                "hasCrossing": false,
+                "edges": [
+                  {
+                    "id": 147,
+                    "sourceId": "w244601702",
+                    "ya": 0,
+                    "yb": 0
+                  },
+                  {
+                    "id": 695,
+                    "sourceId": "w665110039",
+                    "ya": 0,
+                    "yb": 0
+                  }
+                ]
+              }
+            },
+            "dir": 1
+          }
+        ],
+        "previous": {
+          "x": -633.3675729004843,
+          "z": 406.94476671951975,
+          "y": 0.24,
+          "heading": 4.278975656958645,
+          "s": 14.302350271681588,
+          "edge": 142
+        }
+      },
+      {
+        "pedestrianCone": [
+          {
+            "gap": -1.9100194290855979,
+            "forward": 1.0349805709144022,
+            "lateral": 1.6461564410863234,
+            "ped": {
+              "i": 73,
+              "x": -633.1349765486398,
+              "z": 408.8752886043501,
+              "footY": 0.2,
+              "heading": 0.0964084466057131,
+              "scale": 0.9301813935535029,
+              "speed": 1.443564520101063,
+              "onRoad": true,
+              "state": "legs",
+              "e": {
+                "id": 143,
+                "sourceId": "w244601702",
+                "name": "Pia\u021ba Unirii",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "dirx": 0.9183778540588513,
+                "dirz": 0.3957045832110857,
+                "nx": -0.3957045832110857,
+                "nz": 0.9183778540588513,
+                "len": 7.695176981122389,
+                "lanesF": 3,
+                "lanesB": 0,
+                "wL": 5.25,
+                "wR": 5.25,
+                "publicDrive": true,
+                "throughAccess": true,
+                "a": {
+                  "id": 167,
+                  "sourceId": 2687992834,
+                  "x": -625.7108475983796,
+                  "z": 406.6764407996152,
+                  "y": 0,
+                  "radius": 5.75,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 142,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 143,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 160,
+                      "sourceId": "w665335355",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                },
+                "b": {
+                  "id": 168,
+                  "sourceId": 2687992827,
+                  "x": -618.6437674758533,
+                  "z": 409.72145759966577,
+                  "y": 0,
+                  "radius": 5.75,
+                  "hasLight": false,
+                  "hasCrossing": false,
+                  "edges": [
+                    {
+                      "id": 143,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    },
+                    {
+                      "id": 144,
+                      "sourceId": "w244601702",
+                      "ya": 0,
+                      "yb": 0
+                    }
+                  ]
+                }
+              },
+              "dir": -1,
+              "side": 1,
+              "s": 3.462829641505075,
+              "waitT": 0,
+              "blockT": 0,
+              "legStall": 0.06666666666666667,
+              "progressT": 1.400000000000001,
+              "downT": 0,
+              "recovery": {
+                "x": -633.1438522346082,
+                "z": 408.7835106470327,
+                "state": "legs",
+                "onRoad": false
+              },
+              "legs": [
+                {
+                  "x": -633.1438522346082,
+                  "z": 408.7835106470327,
+                  "cross": true,
+                  "started": true,
+                  "node": null,
+                  "edge": null
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "controller": {
+          "id": 139,
+          "sourceId": 31404739,
+          "x": -642.341141879716,
+          "z": 398.81940839939546,
+          "y": 0,
+          "radius": 11,
+          "hasLight": false,
+          "hasCrossing": false,
+          "edges": [
+            {
+              "id": 116,
+              "sourceId": "w113258513",
+              "ya": 0,
+              "yb": 0
+            },
+            {
+              "id": 124,
+              "sourceId": "w153967352",
+              "ya": 0,
+              "yb": 0
+            },
+            {
+              "id": 142,
+              "sourceId": "w244601702",
+              "ya": 0,
+              "yb": 0
+            },
+            {
+              "id": 157,
+              "sourceId": "w665204215",
+              "ya": 0,
+              "yb": 0
+            },
+            {
+              "id": 158,
+              "sourceId": "w665335354",
+              "ya": 0,
+              "yb": 0
+            }
+          ]
+        },
+        "claims": [
+          {
+            "vehicle": {
+              "id": 187,
+              "kind": "hatch"
+            },
+            "p0x": -657.8938167009879,
+            "p0z": 401.52798845244394,
+            "p1x": -631.9554927299533,
+            "p1z": 407.59710124763484,
+            "from": 157,
+            "to": 142,
+            "outDir": 1,
+            "lane": 2,
+            "laneIn": 2,
+            "t": 1.5333333333333348,
+            "t0": 0.03333333333333333,
+            "entered": true,
+            "clearOdo": 30.20760612123871,
+            "internalEdges": [],
+            "clearEdges": [
+              142,
+              143,
+              144,
+              145,
+              146,
+              147,
+              695,
+              696,
+              697,
+              698
+            ],
+            "segments": [
+              {
+                "p0x": -657.8938167009879,
+                "p0z": 401.52798845244394,
+                "p1x": -631.9554927299533,
+                "p1z": 407.59710124763484,
+                "from": 157,
+                "to": 142
+              }
+            ]
+          },
+          {
+            "vehicle": {
+              "id": 87,
+              "kind": "compact-sedan"
+            },
+            "p0x": -641.6720581684784,
+            "p0z": 385.6564023982057,
+            "p1x": -630.4242068140366,
+            "p1z": 404.4496001048686,
+            "from": 124,
+            "to": 142,
+            "outDir": 1,
+            "lane": 1,
+            "laneIn": 1,
+            "t": 16.16666666666663,
+            "t0": 14.566666666666626,
+            "entered": true,
+            "clearOdo": 56.61609051418283,
+            "internalEdges": [],
+            "clearEdges": [
+              142,
+              143,
+              144,
+              145,
+              146,
+              147,
+              695,
+              696,
+              697,
+              698
+            ],
+            "segments": [
+              {
+                "p0x": -641.6720581684784,
+                "p0z": 385.6564023982057,
+                "p1x": -630.4242068140366,
+                "p1z": 404.4496001048686,
+                "from": 124,
+                "to": 142
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

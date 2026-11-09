@@ -1,0 +1,86 @@
+{
+  "scope": "Only named scene-object presence and three explicit WeakRef typed edges are exported; no heap bytes or unrelated browser data.",
+  "targets": [],
+  "nodeCount": 660121,
+  "edgeCount": 2231072,
+  "sceneClassCounts": {
+    "WeakRef": 10,
+    "SpotSession": 2,
+    "Group": 1,
+    "OnFootController": 2,
+    "InstancedMesh": 1,
+    "Mesh": 1
+  },
+  "weakRefHolderIndex": 2438178,
+  "weakRefs": [
+    {
+      "edgeType": "property",
+      "label": "board",
+      "targetIndex": 3563886,
+      "targetType": "object",
+      "targetName": "WeakRef",
+      "internals": [
+        {
+          "edgeType": "property",
+          "label": "__proto__",
+          "targetIndex": 3563904,
+          "targetType": "object",
+          "targetName": "WeakRef"
+        },
+        {
+          "edgeType": "internal",
+          "label": "map",
+          "targetIndex": 3563880,
+          "targetType": "object shape",
+          "targetName": "system / Map"
+        }
+      ]
+    },
+    {
+      "edgeType": "property",
+      "label": "checkers",
+      "targetIndex": 3563892,
+      "targetType": "object",
+      "targetName": "WeakRef",
+      "internals": [
+        {
+          "edgeType": "property",
+          "label": "__proto__",
+          "targetIndex": 3563904,
+          "targetType": "object",
+          "targetName": "WeakRef"
+        },
+        {
+          "edgeType": "internal",
+          "label": "map",
+          "targetIndex": 3563880,
+          "targetType": "object shape",
+          "targetName": "system / Map"
+        }
+      ]
+    },
+    {
+      "edgeType": "property",
+      "label": "elder",
+      "targetIndex": 3563898,
+      "targetType": "object",
+      "targetName": "WeakRef",
+      "internals": [
+        {
+          "edgeType": "property",
+          "label": "__proto__",
+          "targetIndex": 3563904,
+          "targetType": "object",
+          "targetName": "WeakRef"
+        },
+        {
+          "edgeType": "internal",
+          "label": "map",
+          "targetIndex": 3563880,
+          "targetType": "object shape",
+          "targetName": "system / Map"
+        }
+      ]
+    }
+  ]
+}

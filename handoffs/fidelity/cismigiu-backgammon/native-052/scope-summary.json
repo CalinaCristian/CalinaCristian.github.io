@@ -1,0 +1,81 @@
+{
+  "source": "052bf912e70c5d254ee40285a0ea209c82b0d27a",
+  "browserClosedUtc": "2026-11-09T14:38:55.229Z",
+  "sourceFilesVerifiedBefore": 250,
+  "sourceFilesVerifiedAfter": 250,
+  "servedUniqueGitFiles": 142,
+  "rawComplete": false,
+  "rawErrors": 4,
+  "pageConsoleErrors": 0,
+  "httpErrors": 0,
+  "desktop": {
+    "scheduler": "Manual native SpotSession updates plus explicit host transitions; not an untouched RAF run.",
+    "continuousPublicKeyboardApproachM": 208.72021718363416,
+    "approachSteps": 3734,
+    "faceDotTable": 0.9999999999948403,
+    "fairLossesBeforeWin": 1,
+    "humanMovesAcrossGames": 117,
+    "winningGameTurns": 54,
+    "off": [
+      15,
+      13
+    ],
+    "awards": 1,
+    "confirmedAchievement": true,
+    "gameplayPass": true
+  },
+  "phone": {
+    "quality": "Auto native observed low+ level4; no hardware/evolvedAutoFPS claim",
+    "viewports": [
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ]
+    ],
+    "visualPass": false,
+    "fullMatchPass": false,
+    "reason": "Real explore-bar intercepted native legal destination point16 after17 observed fair-game states at turn4. No forced input.",
+    "tour": "Actual public itinerary has hero+plaque, so positive backgammon tour completion is not native-covered."
+  },
+  "memory": {
+    "naturalUnmodifiedRAF": true,
+    "firstOneGCAfterNextTask": {
+      "state": "menu",
+      "spot": false,
+      "ui": false,
+      "bodyMode": "spot",
+      "refs": {
+        "board": true,
+        "checkers": true,
+        "elder": true
+      },
+      "renderer": {
+        "sceneNull": true,
+        "playerNull": true,
+        "sourceBackdrops": 0
+      },
+      "memory": {
+        "geometries": 14,
+        "textures": 21
+      }
+    },
+    "laterHeapTargetsPresent": [],
+    "laterWeakRefsHaveTargets": false,
+    "classification": "Original oneGC readback retained objects; all3 WeakRef targets had collected by the subsequent private heap job/snapshot. Persistent product retention is not established. No manual app-reference clearing or lifecycle source fix."
+  },
+  "errorClassification": [
+    "Observer assumed hidden pause button; resumed through actual host Escape/Leave.",
+    "Observer skipped host mode/modal prefix before phone map; actual native host transition restored controls, revealing true toolbar overlap.",
+    "Actual phone tap blocked by native explore-bar (product finding).",
+    "Initial natural observer expected retired optional parks details; corrected fresh natural context performed resource check."
+  ],
+  "remaining": [
+    "Fixed-source complete phone fair win/touch UI/lifecycle",
+    "Native positive backgammon captured-tour once completion",
+    "Exact final all8/mobile15/phone37/headlights and synchronized overview"
+  ]
+}

@@ -17,6 +17,8 @@ R19.5 Fast loop: subset flags (`--city`, `--chapter`, `--from/--to`, `--no-aeria
 ## Definition of done (any requirement in any spec)
 The driving caller must sense the actual asymmetric player body as well as the planned path. Its bounded swept corridor follows native bicycle steering/lag and uses emitted vertical bounds where available; it must brake for the recorded Unirii truck214 approach while retaining a clear curved lane change. Preserve native physics, signal/target behavior and watchdogs. Focused reconstruction is separate from whole-route acceptance.
 
+For combined root acceptance, `handoffs/fidelity/root-acceptance-archive/prepare-root-acceptance.py` prepares exact committed runtime, current game Node tests and their reviewed dependencies without copying comparison galleries. Keep the native foot/a runner in its archived path because its server root derives from `__dirname`; use the recorded external output directory. Verify the complete archive's file set, Git blobs and SHA hashes before and after tests. Archive preparation controls never count as executed game tests or browser acceptance.
+
 1. Acceptance criteria met, evidence in the spec's progress log.
 2. Logic harness: 0 high; no new medium issues in the area touched.
 3. Visual QA: detectors clean in the area touched; review.md has no medium+ defect in the area touched.

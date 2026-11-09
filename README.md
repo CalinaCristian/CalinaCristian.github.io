@@ -178,6 +178,7 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
   invisible walls, people inside props, lamps on roads…).
 - `npm run harness:visual` — visual QA: route surveys from the driver's seat, defect detectors, contact sheets and a
   review report (`game/dev/harness/visual/README.md`).
+- `python handoffs/fidelity/root-acceptance-archive/prepare-root-acceptance.py prepare <commit> <new-directory>` — prepare a small immutable archive with the current Node tests and foot/a runner; its recorded commands run inside that archive, with output kept outside it. The `verify` command checks the exact file set and Git/SHA hashes before and after testing.
 - `node game/dev/harness/football-check.mjs` — deterministic drone-football checks (contact, both goals, post/crossbar
   rebounds, resets and invalid approaches).
 - `node game/dev/harness/courtyard-check.mjs` — mapped courtyard openings and inner/outer wall collision checks.

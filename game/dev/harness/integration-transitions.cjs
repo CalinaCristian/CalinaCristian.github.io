@@ -1,10 +1,12 @@
 // Real-browser lifecycle regression. Usage: node game/dev/harness/district-transitions.cjs ROOT OUT.json [high|auto] [chromium|webkit]
-// Integration variant: two cycles Floreasca ↔ Grozăvești/Pipera/SeaTac/Bellevue; actual resource counters, retired-world weakrefs and failed-load Continue.
+// Integration variant: initial Floreasca + two cycles of the other seven districts; actual resources, initial native bodies, weakrefs and failed-load Continue.
 const fs = require('fs');
 const http = require('http');
 const path = require('path');
 const crypto = require('node:crypto');
 const { chromium, webkit } = require('playwright');
+const { createInitialBodyAuditToolkit } = require('./integration-initial-body-audit.cjs');
+const initialBodyAuditMarker='__integration_initial_body_audit__';
 const root = path.resolve(process.argv[2] || path.join(__dirname, '../../..'));
 const out = path.resolve(process.argv[3] || '/tmp/district-transitions.json');
 const quality = process.argv[4] || 'auto';
@@ -18,7 +20,9 @@ const server = http.createServer((q,r)=> {let p=decodeURIComponent(q.url.split('
 async function run(){
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  let browser;
- const result={root,quality,browserKind,checksEnabled:!!process.env.PROBE_CHECKS,errors:[],consoleErrors:[],lost:[],navigations:[],stages:[],fetchStages:[],bridgeTargetProvenance:bridgeTargetsFile?{file:bridgeTargetsFile,sha256:crypto.createHash('sha256').update(fs.readFileSync(bridgeTargetsFile)).digest('hex')}:null};
+ const auditFile=out.replace(/\.json$/,'.initial-body-audit.json');
+ const result={root,quality,browserKind,checksEnabled:!!process.env.PROBE_CHECKS,errors:[],consoleErrors:[],lost:[],navigations:[],stages:[],fetchStages:[],initialBodyAudit:{file:auditFile,helperSha256:crypto.createHash('sha256').update(fs.readFileSync(require.resolve('./integration-initial-body-audit.cjs'))).digest('hex'),thresholds:createInitialBodyAuditToolkit().thresholds,records:[]},bridgeTargetProvenance:bridgeTargetsFile?{file:bridgeTargetsFile,sha256:crypto.createHash('sha256').update(fs.readFileSync(bridgeTargetsFile)).digest('hex')}:null};
+ const retainInitialAudit=record=>{if(!result.initialBodyAudit.records.some(r=>r.serial===record.serial))result.initialBodyAudit.records.push(record);fs.writeFileSync(auditFile,JSON.stringify(result.initialBodyAudit,null,2));};
  try{
  if(bridgeDump&&process.env.PROBE_CHECKS&&!bridgeTargets)throw Error('Final bridge dumps require explicit historical target records');
  browser = await (browserKind==='webkit'?webkit:chromium).launch({headless:true,...(browserKind==='chromium'?{executablePath:process.env.CHROMIUM_PATH || '/usr/bin/chromium',args:['--mute-audio','--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader','--enable-webgl','--js-flags=--expose-gc','--enable-precise-memory-info']}:{})});
@@ -27,7 +31,7 @@ async function run(){
  const cdp=browserKind==='chromium'?await context.newCDPSession(page):null;
  if (cdp && process.env.PROBE_CPU_RATE) await cdp.send('Emulation.setCPUThrottlingRate',{rate:+process.env.PROBE_CPU_RATE});
  page.on('pageerror',e=>result.errors.push(e.message)); page.on('crash',()=>result.errors.push('PAGE_CRASH'));
- page.on('console',m=>{if(m.type()==='error')result.consoleErrors.push(m.text());for(const argument of m.args())argument.dispose().catch(()=>{});});
+ page.on('console',m=>{const text=m.text();if(text.startsWith(initialBodyAuditMarker)){try{retainInitialAudit(JSON.parse(text.slice(initialBodyAuditMarker.length)));}catch(e){result.initialBodyAudit.persistenceError=String(e.stack||e);}}else if(m.type()==='error')result.consoleErrors.push(text);for(const argument of m.args())argument.dispose().catch(()=>{});});
  page.on('framenavigated',f=>{if(f===page.mainFrame())result.navigations.push(f.url())});
  await page.addInitScript(()=>{
   window.__generation=(+(sessionStorage.__probeGeneration||0))+1;sessionStorage.__probeGeneration=window.__generation;
@@ -49,13 +53,17 @@ async function run(){
  await page.goto('http://127.0.0.1:'+server.address().port+'/game/',{waitUntil:'domcontentloaded',timeout:60000});
  await page.waitForFunction(()=>window.game?.r3d,null,{timeout:90000});
  await page.evaluate(q=>{const g=game;g.loop=()=>{};g.r3d.setQuality(q);g.quality=q;g.opts.quality=q;window.__retiredWorlds=[];const load=g.loadCity;g.loadCity=function(...args){if(this.world)window.__retiredWorlds.push({district:this.district,ref:new WeakRef(this.world)});return load.apply(this,args)};window.__fetchStages=[];const orig=window.fetch;window.fetch=function(...a){if(/data\/(bucharest|seattle)-.*\.json/.test(String(a[0]))){window.__fetchStages.push({url:String(a[0]),oldWorld:g.world?.district?.id||null,navWorld:g.nav?.world?.district?.id||null,trafficWorld:g.traffic?.world?.district?.id||null,playerWorld:g.player?.world?.district?.id||null,rendererScene:g.r3d.scene===g.scene,rendererMemory:{...g.renderer.info.memory},gl:{...window.__glLive},heap:performance.memory?.usedJSHeapSize})}return orig.apply(this,a)}} ,quality);
+ await page.addScriptTag({content:`window.__initialBodyAudit=(${createInitialBodyAuditToolkit.toString()})().install(window.game,record=>console.info(${JSON.stringify(initialBodyAuditMarker)}+JSON.stringify(record)));`});
+ const drainInitialAudit=async()=>{const seen=result.initialBodyAudit.records.map(r=>r.serial);for(const record of await page.evaluate(seen=>window.__initialBodyAudit.records.filter(r=>!seen.includes(r.serial)),seen))retainInitialAudit(record);};
  const cycles=process.env.PROBE_CYCLES?+process.env.PROBE_CYCLES:2;
- const cycle=['grozavesti','floreasca','pipera','floreasca','seatac','bellevue','floreasca'];
+ if(process.env.PROBE_CHECKS&&cycles!==2)throw Error('Final transition acceptance requires exactly two seven-district cycles plus initial Floreasca (15 loads/all8 districts)');
+ const cycle=['grozavesti','pipera','romana','unirii','otopeni','seatac','bellevue'];
  const sequence=['floreasca',...Array.from({length:cycles},()=>cycle).flat()];result.sequence=sequence;
- for(const district of sequence){
+ for(const [sequenceIndex,district] of sequence.entries()){
   const t=Date.now();
-  const stage=await page.evaluate(async({district,quality})=>{
+  const stage=await page.evaluate(async({district,quality,sequenceIndex})=>{
    const g=game; const started=performance.now();
+   window.__initialBodyAudit.request={kind:'sequence',sequenceIndex,district};
    await g.startFreeRoam(district,{tod:'noon',weather:'clear',season:'summer'});
    g.r3d.setQuality(quality);
    for(let i=0;i<3;i++){g.r3d.frame(1/60);g.player.renderMirror(g.renderer,g.scene)}
@@ -63,8 +71,9 @@ async function run(){
    let materials=new Set(),textures=new Set(),geometry=new Set(),arrayBytes=0,arrays=new Set(),instances=0;
    g.scene.traverse(o=>{if(o.geometry){geometry.add(o.geometry);for(const a of Object.values(o.geometry.attributes)){if(a.array&&!arrays.has(a.array)){arrays.add(a.array);arrayBytes+=a.array.byteLength}}}if(o.isInstancedMesh){instances++;for(const a of [o.instanceMatrix,o.instanceColor])if(a?.array&&!arrays.has(a.array)){arrays.add(a.array);arrayBytes+=a.array.byteLength}}for(const m of (!o.material?[]:Array.isArray(o.material)?o.material:[o.material])){materials.add(m);for(const t of Object.values(m))if(t?.isTexture)textures.add(t)}});
    const gl=g.renderer.getContext();
-   return {district,ms:performance.now()-started,generation:window.__generation,state:g.state,dpr:devicePixelRatio,pixelRatio:g.renderer.getPixelRatio(),quality:g.r3d.stats.quality,stats:{...g.r3d.stats},rendererMemory:{...g.renderer.info.memory},programs:g.renderer.info.programs.length,gl:{...window.__glLive},heap:performance.memory?.usedJSHeapSize,scene:{materials:materials.size,textures:textures.size,geometry:geometry.size,arrayBytes,instances},contextLost:gl.isContextLost(),contextEvents:window.__contextEvents.slice(),savedDistrict:g.save?.session?.district};
-  },{district,quality});
+   return {district,ms:performance.now()-started,generation:window.__generation,state:g.state,dpr:devicePixelRatio,pixelRatio:g.renderer.getPixelRatio(),quality:g.r3d.stats.quality,stats:{...g.r3d.stats},rendererMemory:{...g.renderer.info.memory},programs:g.renderer.info.programs.length,gl:{...window.__glLive},heap:performance.memory?.usedJSHeapSize,initialAuditRetention:{records:window.__initialBodyAudit.records.length,approxJsonBytes:JSON.stringify(window.__initialBodyAudit.records).length,scope:'Intentionally retained plain observation records; no scene/model/actor references. Heap readings include this observer overhead.'},scene:{materials:materials.size,textures:textures.size,geometry:geometry.size,arrayBytes,instances},contextLost:gl.isContextLost(),contextEvents:window.__contextEvents.slice(),savedDistrict:g.save?.session?.district};
+  },{district,quality,sequenceIndex});
+  await drainInitialAudit();stage.initialBodyAuditSerials=result.initialBodyAudit.records.filter(r=>r.request?.kind==='sequence'&&r.request.sequenceIndex===sequenceIndex).map(r=>r.serial);
   if(cdp){await cdp.send('Runtime.discardConsoleEntries');await cdp.send('HeapProfiler.collectGarbage');stage.collectedHeap=await cdp.send('Runtime.getHeapUsage');stage.retiredWorlds=await page.evaluate(()=>window.__retiredWorlds.map(w=>({district:w.district,alive:!!w.ref.deref()})));}
   if(bridgeDump&&['pipera','bellevue','seatac'].includes(district)&&!result.bridgeDumps?.[district]){
    const targets=bridgeTargets?.[district]||[];if(!Array.isArray(targets))throw Error('Invalid bridge target records for '+district);
@@ -105,6 +114,7 @@ async function run(){
   await page.route(asset,r=>{failedFetches++;return r.fulfill({status:200,contentType:'application/json',body:'{ invalid JSON'});});
   const injectedConsoleStart=result.consoleErrors.length;
   result.failedTravel=await page.evaluate(async()=>{
+   window.__initialBodyAudit.request={kind:'malformed-destination-fixture',district:'grozavesti'};
    const g=game;g.fuel=0;const before=g.save.capture();const ok=await g.startFreeRoam('grozavesti');
    return {ok,before,state:g.state,generation:window.__generation,loading:document.querySelector('#loading').classList.contains('show'),saved:g.save.session,continueVisible:!document.querySelector('#continue').hidden};
   });
@@ -112,7 +122,8 @@ async function run(){
   result.expectedConsoleErrors=result.consoleErrors.slice(injectedConsoleStart).map((text,index)=>({index:injectedConsoleStart+index,text,reason:'Explicit malformed destination JSON fixture'}));
   if(result.expectedConsoleErrors.length!==1||!result.expectedConsoleErrors.every(e=>e.text.startsWith('[world] district load failed')&&/JSON|SyntaxError|position|property/i.test(e.text)))throw Error('Malformed destination produced unexpected console errors');
   if(result.failedTravel.ok!==false||result.failedTravel.state!=='menu'||result.failedTravel.loading||!result.failedTravel.continueVisible||result.failedTravel.saved.district!==result.failedTravel.before.district||result.failedTravel.saved.fuel!==0||failedFetches!==1)throw Error('Failed travel did not preserve the stable session');
-  result.continue=await page.evaluate(async()=>{const g=game,ok=await g.save.restore();g.r3d.frame(1/60);return{ok,state:g.state,district:g.district,fuel:g.fuel,x:g.player.x,z:g.player.z,generation:window.__generation}});
+  result.continue=await page.evaluate(async()=>{window.__initialBodyAudit.request={kind:'empty-fuel-Continue'};const g=game,ok=await g.save.restore();g.r3d.frame(1/60);return{ok,state:g.state,district:g.district,fuel:g.fuel,x:g.player.x,z:g.player.z,generation:window.__generation}});
+  await drainInitialAudit();
   if(!result.continue.ok||result.continue.district!==result.failedTravel.before.district||result.continue.fuel!==0||result.continue.generation!==result.failedTravel.generation)throw Error('Continue failed after rejected destination');
   result.qualityRelease=await page.evaluate(()=>{
    const g=game;g.r3d.setQuality('high');g.r3d.frame(1/60);const high={...g.renderer.info.memory};
@@ -127,6 +138,12 @@ async function run(){
  if(process.env.PROBE_CHECKS&&result.retiredWorlds?.some(w=>w.alive))throw Error('A retired district remained reachable after garbage collection');
  await page.evaluate(()=>game.r3d.frame(1/60));
  await require('./integration-browser-bounds.cjs').captureViewport(page,out.replace(/\.json$/,'.png'));
+ await drainInitialAudit();
+ const records=result.initialBodyAudit.records;
+ result.initialBodyAudit.coverage=sequence.map((district,sequenceIndex)=>{const rows=records.filter(r=>r.request?.kind==='sequence'&&r.request.sequenceIndex===sequenceIndex);return{district,sequenceIndex,attach:rows.filter(r=>r.phase==='before-attachWorldRender').length,firstDraw:rows.filter(r=>r.phase==='before-first-world-draw').length,actualDistricts:[...new Set(rows.map(r=>r.district))],matchesRequestedDistrict:rows.every(r=>r.district===district)};});
+ result.initialBodyAudit.failedRecords=records.filter(r=>!r.pass).map(r=>({serial:r.serial,request:r.request,phase:r.phase,genuineVehiclePairs:r.pairAudit?.genuineIntersections.length,genuinePlayerPairs:r.player?.genuineIntersections.length,unclassifiedPlayerPairs:r.player?.unclassifiedIntersections.length,unknownActiveBodies:r.invalidActiveBodies,auditError:r.auditError,invalidState:r.invalidState}));
+ fs.writeFileSync(auditFile,JSON.stringify(result.initialBodyAudit,null,2));
+ if(result.initialBodyAudit.persistenceError||result.initialBodyAudit.coverage.some(r=>r.attach!==1||r.firstDraw!==1||!r.matchesRequestedDistrict)||result.initialBodyAudit.failedRecords.length)throw Error('Constructor/first-world-draw body audit failed or lacks complete load coverage; all initial/raw positives retained in '+auditFile);
  const expectedConsoleIndices=new Set((result.expectedConsoleErrors||[]).map(e=>e.index));
  result.unexpectedConsoleErrors=result.consoleErrors.filter((_,index)=>!expectedConsoleIndices.has(index));
  if(result.errors.length||result.lost.length||result.unexpectedConsoleErrors.length)throw Error('Browser error, unexpected console error or WebGL context loss');

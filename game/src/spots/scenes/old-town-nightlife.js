@@ -51,7 +51,7 @@ export function buildOldTownNightlife(ctx, venueActivities) {
     indoor.object.name='freddo-disco-crowd';room.add(indoor.object);
     // Preserve all54 guests while leaving a continuous estimated circulation
     // aisle from the doorway through the dance slot to the bar's public side.
-    const aisle=[[22,57],[18.8,56.7],[18.8,59.5],[16,60.8],[12.5,58]],clusters=[[8.2,51.4],[8.6,62],[15.5,51.6],[16,56.8],[21,52.3],[21,61.3],[19,54.2],[15,63]];
+    const aisle=[[22,57],[18.8,56.7],[18.8,59.5],[16,60.8],[12.5,58]],clusters=[[8.6,60.7],[15.2,54.4],[14.5,58.3],[19.5,52.5],[18.5,61.5],[17.3,55.2],[20.5,54.8],[16,51.5]];
     for(let attempt=0;attempt<16000&&dancers.length<54;attempt++){const centre=clusters[attempt%clusters.length],angle=random()*Math.PI*2,radius=.35+Math.sqrt(random())*2.1,x=centre[0]+Math.cos(angle)*radius,z=centre[1]+Math.sin(angle)*radius;
         if(!inPoly(x,z,building.poly) || distPolyline(x,z,[...building.poly,building.poly[0]]).d<.45 ||
             Math.hypot(x-18.8,z-56.7)<1.2 || distPolyline(x,z,aisle).d<1.05 || Math.hypot(x-22,z-57)<1.4 || Math.hypot(x-13,z-49)<1.45 ||dancers.some(p=>Math.hypot(x+dx-p.x,z+dz-p.z)<.86)||
@@ -122,7 +122,7 @@ export function buildOldTownNightlife(ctx, venueActivities) {
         if(room.visible && !hours.open){leave(s);return;}
         preview.visible=!!frontage&&!room.visible;
         ball.rotation.y+=dt*.3;disco.rotation.y=Math.sin(s.t*.18)*.12;
-        for(let i=0;i<dancers.length;i++){const p=dancers[i],phase=s.t/CLUB_BEAT*Math.PI*p.speed+p.phase,pose=!party?'talk':p.motion<.16?'cheer':p.motion<.6?'walk':p.motion<.9?'talk':'phone',values={x:p.x+Math.sin(phase)*.035,y:floor+(party&&p.motion<.6?Math.max(0,Math.sin(phase))*.035:0),z:p.z+Math.cos(phase*.7)*.025,yaw:p.yaw+Math.sin(phase*.5)*.12,phase,amp:party&&p.motion<.6 ? .52 : 0,pose,scale:p.scale,prop:p.motion>.9?'phone':null};indoor.set(i,values);previewCrowd.set(i,values);}
+        for(let i=0;i<dancers.length;i++){const p=dancers[i],beatPhase=s.t/CLUB_BEAT*Math.PI*p.speed+p.phase,pose=!party?'talk':p.motion<.045?'cheer':p.motion<.2?'wave':p.motion<.65?'walk':p.motion<.93?'talk':'phone',groove=party&&pose==='walk',values={x:p.x+Math.sin(beatPhase)*.035,y:floor+(groove?Math.max(0,Math.sin(beatPhase))*.035:0),z:p.z+Math.cos(beatPhase*.7)*.025,yaw:p.yaw+Math.sin(beatPhase*.5)*.12,phase:groove?beatPhase:p.phase,amp:groove ? .48 : 0,pose,scale:p.scale,prop:p.motion>.93?'phone':null};indoor.set(i,values);previewCrowd.set(i,values);}
         if(!room.visible)return;
         if(Math.hypot(s.position.x-10000,s.position.z-8000)>40){room.visible=false;restoreMap();music.pause();}
     });

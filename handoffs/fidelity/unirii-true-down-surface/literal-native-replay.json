@@ -1,7 +1,7 @@
 {
   "source": "CPU candidate using actual historical native395 geometry; not a fresh native world",
-  "runtimeWorldSHA256": "799db84dd55019f1f038fc5a5df4e7c902b6ec8a9a50c3eb9ea83060045ebf58",
-  "literalProductionDownBlockSHA256": "7b0d48d79d3c078c7872654c15af22e79b87bf496ed59b6591598ba2cd3a6798",
+  "runtimeWorldSHA256": "f57e216523a2f58a5860d374e27e0c1f328a2265f01af9efa46a493f1b7b75be",
+  "literalProductionDownBlockSHA256": "3dc8d4b7ddffd2f1c374e4c2aebeb5e7ffe60389fe0a01dc626d452ce0d8a98b",
   "baselineBlockSHA256": "97c421fa963f72d15dfcc719d5dd30b40d8fe61e815408ff0f14d5be9e075902",
   "historicalNativeSource": "395071c21079fb14c25af194a9903a5ae5d87b26",
   "actualOverheadGzipSHA256": "4791b928b55810fab7d15f5684a65ee2658cf1269a24d6613405820c28f6fd1e",

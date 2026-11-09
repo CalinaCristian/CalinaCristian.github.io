@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { underpassRoofModel, underpassRoofFaces, underpassRoofBand, underpassRoofCollider, UNDERPASS_COVER_POLICY } from '../src/underpass-roof.js';
 import { MeshBuilder } from '../src/geobuild.js';
 import { buildUnderpassOwnerIndex } from '../src/underpass-ground-owner.js';
@@ -46,8 +47,9 @@ test('actual native mitred portal beam and underside share exact Float32 endpoin
     }
 });
 test('each proposed native slab is closed at roof, sides and buried endpoint height steps', () => {
-    for (const id of [30, 39, 835, 1005]) {
-        const e = byId.get(id), m = underpassRoofModel(e, { sourceTags: e.sourceTags }), f = underpassRoofFaces(m, { pointAt: nativePoint(e), rightM: nativeWidth(e, 1), leftM: nativeWidth(e, -1) });
+    for (const e of edges.filter(e => [12, 13, 213].includes(e.road))) {
+        const m = underpassRoofModel(e, { sourceTags: e.sourceTags }), f = underpassRoofFaces(m, { pointAt: nativePoint(e), rightM: nativeWidth(e, 1), leftM: nativeWidth(e, -1) });
+        assert.equal(f.known, true);
         const tris = [...f.bottom, ...f.top, ...f.fascia.map(q => q.vertices)].flatMap(q => [[q[0], q[1], q[2]], [q[0], q[2], q[3]]]);
         const counts = new Map();
         for (const t of tris) for (let k = 0; k < 3; k++) {
@@ -90,6 +92,7 @@ test('malformed source profiles and nonpositive slab inputs are refused', () => 
     assert.equal(underpassRoofModel({ ...generic, ya: NaN }).known, false);
     assert.equal(underpassRoofModel(generic, { minThicknessM: 0 }).known, false);
     assert.equal(underpassRoofFaces(underpassRoofModel(generic), { pointAt: () => [NaN, 0, 0], rightM: 3, leftM: 3 }).known, false);
+    assert.equal(underpassRoofFaces(underpassRoofModel(generic), { pointAt: (t, o, y) => [o * (t < .5 ? 1 : -1), y, t * 10], rightM: 3, leftM: 3 }).reason, 'invalid-native-roof-footprint');
 });
 test('earth roof occluder preserves source color and blocks later underground bodies only inside its covered footprint', () => {
     assert.equal(UNDERPASS_COVER_POLICY.colorWrite, false); assert.equal(UNDERPASS_COVER_POLICY.depthWrite, true);
@@ -155,5 +158,12 @@ test('malformed native surface data is reported instead of becoming a clearance 
     const index = buildUnderpassOwnerIndex([{ mesh: null, id: 'missing' }], { fallbackM: -.3 }); assert.equal(index.report.malformed, 1);
     assert.equal(index.forPolygon(footprint).reason, 'malformed-native-surface-data');
     assert.equal(index.forPolygon([[NaN, 0], [0, 1], [1, 1]]).known, false);
+});
+test('actual World final graph renumber refreshes roof source-edge provenance', () => {
+    const source = fs.readFileSync(new URL('../src/world.js', import.meta.url), 'utf8'), start = source.indexOf('    driv.forEach((e, i) => { e.id = i; });'), end = source.indexOf('\n    for (const n of nodeArr)', start);
+    assert.ok(start >= 0 && end > start);
+    const a = { id: 900 }, b = { id: 600 }, colliders = [{ sourceEdgeId: 900 }, { sourceEdgeId: 600 }];
+    new Function('driv', 'rest', 'underpassColl', 'underpassCollEdges', source.slice(start, end))([b, a], [], colliders, [a, b]);
+    assert.deepEqual(colliders.map(c => c.sourceEdgeId), [1, 0]);
 });
 console.log(JSON.stringify({ passed: tests.length, tests, historicalNativeSource: fixture.source, currentNativeVisualAcceptance: false }, null, 2));

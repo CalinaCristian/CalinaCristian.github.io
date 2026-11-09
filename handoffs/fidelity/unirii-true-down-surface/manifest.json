@@ -3,8 +3,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 5291,
-      "sha256": "38fad41e5cfea6b589907f433fc4decfc00bec918e46ca6372a37bf790179424"
+      "bytes": 5425,
+      "sha256": "e4853ac37c28034f745d405429c0fab3a2623645f3ebf6cf34e2ee6260fb229a"
     },
     {
       "path": "baseline-down-block.js.txt",
@@ -18,13 +18,13 @@
     },
     {
       "path": "controls.json",
-      "bytes": 1800,
-      "sha256": "41aa3694dbb211757aee04f007f12b8f8f519e47198c49fb1362d70a48b8e2ea"
+      "bytes": 1879,
+      "sha256": "f50a8e0f6f5f0e6706623687bdd6be8988426c0606d734242fe7d5fdc5da7944"
     },
     {
       "path": "literal-native-replay.json",
       "bytes": 586956,
-      "sha256": "aa428283c3b95878f26b8709f2c5ffd549e827bd76e7bdfb5940015cb421e28f"
+      "sha256": "466447216567660ddaf5141a97d578f784fd37dd971ec561262a1859d5fe9548"
     },
     {
       "path": "native-junction-continuity.json",
@@ -54,8 +54,8 @@
     },
     {
       "path": "tools/replay-native-down.mjs",
-      "bytes": 7187,
-      "sha256": "870ab84389656ef425399d2fbf0b7cde8fc8990cb81dde934053f37f8c6eebcc"
+      "bytes": 7217,
+      "sha256": "99a173dbd5cb621ad00f07ec8ff59b794dd76373940353e9b5650994e553b27e"
     }
   ],
   "policy": "CPU structural candidate only; no fresh native acceptance. Complete original 197.7MB packet is on the separate proof-only branch."

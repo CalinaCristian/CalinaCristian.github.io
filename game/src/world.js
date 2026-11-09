@@ -2516,7 +2516,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     // structures under / beside elevated and sunken roads
-    const pierSpots = [], pierColl = [], underpassColl = [], underpassRoofAudit = [], underpassCover = new MeshBuilder();
+    const pierSpots = [], pierColl = [], underpassColl = [], underpassCollEdges = [], underpassRoofAudit = [], underpassCover = new MeshBuilder();
     for (const e of edges) e.lidded = !!e.tunnel && !e.coveredRoadModel && !e.virtual && Math.max(e.ya, e.yb) < -4.5;
     const underpassRegions = edges.filter(e => e.tunnel && !e.virtual && !e.coveredRoadModel && Math.min(e.ya, e.yb) < -4.2).map(e => {
         const width = (f, side) => widthSide(f, side) + .3, points = [1, -1].flatMap(side => [e.a, e.b].map(n => corner(e, n, side, width(e, side), width)));
@@ -2577,7 +2577,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 for (const face of roofFaces.fascia) sb.face4(...face.vertices, conc, face.out);
                 for (const q of roofFaces.top) underpassCover.face4(...q, conc, [0, 1, 0]);
                 const collider = underpassRoofCollider(roof, roofFaces, source?.sourceId);
-                if (collider) underpassColl.push(collider);
+                if (collider) { underpassColl.push(collider); underpassCollEdges.push(e); }
             }
             // The covered wall meets its actual underside, not a floating street-
             // level strip. Uncovered ramp retaining walls keep their prior rim.
@@ -6098,6 +6098,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const allEdges = edges;
     const driv = edges.filter(e => e.drivable), rest = edges.filter(e => !e.drivable);
     driv.forEach((e, i) => { e.id = i; }); rest.forEach((e, i) => { e.id = driv.length + i; });
+    underpassColl.forEach((c, i) => { c.sourceEdgeId = underpassCollEdges[i].id; });
     for (const n of nodeArr) if (n.edges.length) { n.allEdges = n.edges; n.edges = n.edges.filter(e => e.drivable); }
     for (const id of Object.keys(nodes)) if (!nodes[id].drivable) delete nodes[id];
     graph.edges = driv;

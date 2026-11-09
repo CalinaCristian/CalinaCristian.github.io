@@ -1,0 +1,10 @@
+# Sports-room Hagi programme
+
+Selected on 9 November 2026 for the owner's request for official Gică Hagi highlights on repeat.
+
+- **YouTube:** [Hagi & Romania | Every Goal | 1994 FIFA World Cup](https://www.youtube.com/watch?v=rx8GxxrkJEc), indexed publisher FIFA, published 9 May 2026. The public Yahoo search result identifies the exact video/title, publisher and approximately five-minute duration. Search: `"Gheorghe Hagi" "FIFA" "youtube.com/watch"`. Search-index attribution is not a successful direct publisher/player verification.
+- **Verified official alternative:** [Gheorghe Hagi | Romania | Classic Players](https://www.fifa.com/en/watch/2h1DNc78yJkeazIDAsjWuv). FIFA's public article [Hagi's Romania shine in the States](https://www.fifa.com/en/articles/100-great-world-cup-moments-85-romania-hagi-usa-1994-fifa-world-cup-qatar-2022), published 28 August 2022, directly includes that Classic Players video alongside the Colombia goal and Romania–Argentina highlights. The article and watch-page metadata were retrieved from FIFA's ordinary public website/API. No private API key, stream URL or video file is stored here.
+
+The runtime uses the publisher's normal YouTube iframe/API, native controls, muted start and a single-video loop playlist. Playback starts only after the player chooses Watch at the bar. The main 3D screen is a programme title until focused; it is not claimed to contain continuously projected broadcast footage. The independent Dinamo TV keeps its original local game recording.
+
+**Verification limits:** this environment's proxy rejects YouTube CONNECT requests with HTTP403. Do not work around that block, download/rehost footage, substitute an unverified upload or claim successful playback. FIFA's watch page is SAMEORIGIN/frame-ancestors restricted, so it is an ordinary external fallback link, not an iframe. `tools/hagi-tv-state-check.mjs` checks the real UI, repeat/mute/error and cleanup paths with a clearly mocked publisher API. Actual YouTube upload/embedding/playback and the in-scene public approach remain open native acceptance gates.

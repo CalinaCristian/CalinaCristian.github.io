@@ -5,26 +5,22 @@ import { GeoBatch, M, canvas, canvasTexture, obb, polyArea, offsetPolyline, flat
 import { bucActivity, signAtlas } from '../buc.js';
 import { wallGeometry } from '../osm.js';
 import { addDinamoHintTV } from './dinamo-hint-tv.js';
+import { officialHagiTV } from '../official-hagi-tv.js';
 import { dressFor } from '../../crowd.js';
 const grow = (poly, d) => { const o = offsetPolyline([...poly, poly[0], poly[1]], polyArea(poly) > 0 ? -d : d); return o.slice(1, poly.length + 1); };
 function ringWalls(ctx, poly, y0, y1) { for (let i=0; i<poly.length; i++) { const [ax,az]=poly[i], [bx,bz]=poly[(i+1)%poly.length]; ctx.collider({ wall:true, ax,az,bx,bz, y0a:y0,y1a:y1,y0b:y0,y1b:y1, x:(ax+bx)/2,z:(az+bz)/2,r:Math.hypot(bx-ax,bz-az)/2+.5 }); } }
 const WCP_URL = 'https://wcpredictions.cristiancalina.com/';
 const WCP_PAGES = ['home', 'matches', 'standings', 'bracket', 'today', 'guide'];
 const NATIONS = [['#002b7f', '#fcd116', '#ce1126'], ['#000000', '#dd0000', '#ffce00'], ['#0055a4', '#ffffff', '#ef4135'], ['#009246', '#ffffff', '#ce2b37'], ['#74acdf', '#ffffff', '#74acdf'], ['#009c3b', '#ffdf00', '#002776'], ['#c60b1e', '#ffc400', '#c60b1e'], ['#ff6600', '#ffffff', '#21468b'], ['#006600', '#ff0000', '#ffcc00'], ['#ffffff', '#cf142b', '#ffffff'], ['#000000', '#ffd700', '#e00000'], ['#006847', '#ffffff', '#ce1126']];
-function pitchCanvas() {
-    const c = canvas(512, 288), x = c.getContext('2d');
-    const P = Array.from({ length: 22 }, (_, i) => ({ x: 60 + (i % 11) * 36 + (i < 11 ? 0 : 20), y: 50 + ((i * 37) % 190), t: i < 11 ? 0 : 1 })), ball = { x: 256, y: 144, vx: 2.4, vy: 1.3 };
-    let score = [0, 0], tm = 0;
-    const draw = (t) => {
-        x.fillStyle = '#2f7d32'; x.fillRect(0, 0, 512, 288); for (let i = 0; i < 8; i++) { x.fillStyle = i % 2 ? '#2b752e' : '#338537'; x.fillRect(16 + i * 60, 16, 60, 256); }
-        x.strokeStyle = 'rgba(255,255,255,0.85)'; x.lineWidth = 2; x.strokeRect(16, 16, 480, 256); x.beginPath(); x.moveTo(256, 16); x.lineTo(256, 272); x.stroke(); x.beginPath(); x.arc(256, 144, 36, 0, 7); x.stroke(); x.strokeRect(16, 84, 60, 120); x.strokeRect(436, 84, 60, 120);
-        ball.x += ball.vx; ball.y += ball.vy; if (ball.y < 22 || ball.y > 266) ball.vy *= -1; if (ball.x < 20 || ball.x > 492) { if (ball.y > 110 && ball.y < 178) score[ball.x < 20 ? 1 : 0]++; ball.x = 256; ball.y = 144; ball.vx = (Math.random() < 0.5 ? -1 : 1) * (1.8 + Math.random()); ball.vy = (Math.random() - 0.5) * 3; }
-        for (const p of P) { p.x += (ball.x - p.x) * 0.012 + Math.sin(t * 1.3 + p.y) * 0.6; p.y += (ball.y - p.y) * 0.01 + Math.cos(t + p.x) * 0.5; x.fillStyle = p.t ? '#f2f2f2' : '#c8102e'; x.beginPath(); x.arc(p.x, p.y, 4.5, 0, 7); x.fill(); }
-        x.fillStyle = '#ffffff'; x.beginPath(); x.arc(ball.x, ball.y, 3, 0, 7); x.fill();
-        x.fillStyle = 'rgba(0,0,0,0.65)'; x.fillRect(12, 6, 150, 22); x.fillStyle = '#fff'; x.font = '700 15px Helvetica, Arial'; x.fillText(`RED ${score[0]} – ${score[1]} WHT  ${String(Math.floor(tm / 60) % 90).padStart(2, '0')}'`, 18, 22);
-    };
-    draw(0);
-    return { c, step(dt, t) { tm += dt * 6; draw(t); } };
+function hagiTitleCanvas() {
+    const c = canvas(768, 432), x = c.getContext('2d');
+    x.fillStyle = '#0a1118'; x.fillRect(0, 0, 768, 432);
+    for (const [i, col] of ['#002b7f', '#fcd116', '#ce1126'].entries()) { x.fillStyle = col; x.fillRect(i * 256, 0, 256, 12); }
+    x.fillStyle = '#e8ddbc'; x.textAlign = 'center'; x.font = '700 27px Helvetica, Arial'; x.fillText('ROMÂNIA · USA 1994', 384, 95);
+    x.fillStyle = '#fff'; x.font = '800 78px Helvetica, Arial'; x.fillText('HAGI', 384, 205);
+    x.fillStyle = '#fcd116'; x.font = '700 31px Helvetica, Arial'; x.fillText('Every goal · Official FIFA highlights', 384, 274);
+    x.fillStyle = '#c2cbd0'; x.font = '25px Helvetica, Arial'; x.fillText('Watch the TV · repeating highlights', 384, 358);
+    return c;
 }
 // note 84: the kiosk opens a panel about the project (facts only from the site's own home / guide pages), with a screenshot
 // carousel and "Open the site"; same panel container + close rules as the spot plaques (Esc / E / Close, focus back to the game)
@@ -100,14 +96,16 @@ function buildRoom(ctx, B) {
     NATIONS.forEach((n, i) => { const side = i % 2 ? 1 : -1, v = 0.8 + (i >> 1) * Math.max(0.6, (depth - 1.6) / 6); if (side === 1 && Math.abs(v - 4.6) < 1.9) return; const [x, z] = P(side * (door.L / 2 - 0.36), v); for (let k = 0; k < 3; k++) b.box(x, y + 2.3 + k * 0.42, z, 0.03, 0.42, 1.0, n[k], 'fabric', yaw); });
     for (let row = 0; row < 3; row++) { const v = 1.2 + row * (depth - 2) / 3, n = 16; for (let k = 0; k < n; k++) { const u = -half + k * (half * 2) / (n - 1), [x, z] = P(u, v), col = NATIONS[(k + row * 5) % NATIONS.length][k % 3]; b.add(new THREE.ConeGeometry(0.12, 0.26, 3), 'fabric', M(x, y + H - 0.32, z, Math.PI, yaw, 0), col); } }
     for (let k = 0; k < 5; k++) { const [x, z] = P(-half + 0.3 + k * 0.5, cv - 0.02); b.box(x, y + 1.6, z, 0.18, 0.9, 0.02, NATIONS[k * 2][k % 2], 'fabric', yaw); } // scarves hung on the bar front
-    // TVs: three screens on the side walls + one over the bar, all showing the same animated generic match
-    const pc = pitchCanvas(), tvTex = canvasTexture(pc.c), tvMat = new THREE.MeshBasicMaterial({ map: tvTex, color: new THREE.Color(0.8, 0.8, 0.8), toneMapped: false }); tvMat.name = 'wcp-tv';
+    // Main sports TV: enter the official repeating Hagi player from the floor before the bar.
+    const hagi = officialHagiTV(ctx), tvTex = canvasTexture(hagiTitleCanvas()), tvMat = new THREE.MeshBasicMaterial({ map: tvTex, color: new THREE.Color(0.8, 0.8, 0.8), toneMapped: false }); tvMat.name = 'wcp-tv';
     const tvs = [];
-    const tv = (u, v, ry, w = 1.6) => { const [x, z] = P(u, v); b.box(x, y + 2.1, z, w + 0.08, w * 0.5625 + 0.08, 0.06, '#111', 'plastic', ry); const m = new THREE.Mesh(new THREE.PlaneGeometry(w, w * 0.5625), tvMat); m.position.set(x + Math.sin(ry) * 0.035, y + 2.1 + (w * 0.5625 + 0.08) / 2, z + Math.cos(ry) * 0.035); m.rotation.y = ry; ctx.add(m); tvs.push(m); };
+    const tv = (u, v, ry, w = 1.6) => { const [x, z] = P(u, v); b.box(x, y + 2.1, z, w + 0.08, w * 0.5625 + 0.08, 0.06, '#111', 'plastic', ry); const m = new THREE.Mesh(new THREE.PlaneGeometry(w, w * 0.5625), tvMat); m.position.set(x + Math.sin(ry) * 0.035, y + 2.1 + (w * 0.5625 + 0.08) / 2, z + Math.cos(ry) * 0.035); m.rotation.y = ry; m.name = 'hagi-highlights-tv'; ctx.add(m); tvs.push(m); };
     tv(0, depth - 0.3, Math.PI, 2.6);
     const [hx, hz] = P(half - 0.03, 4.6);
     const hint = addDinamoHintTV(ctx, { x: hx, y: y + 2.6, z: hz, yaw: -Math.PI / 2, w: 2.6 });
-    let acc = 0; ctx.onUpdate((dt, s) => { const pp = s.position; if (!ctx.room.visible || s.ui.panelOpen || s.host.photo?.active || document.hidden) return; acc += dt; if (acc < 0.08) return; pc.step(acc, s.t); acc = 0; tvTex.needsUpdate = true; });
+    const [watchX, watchZ] = P(0, cv - 1.0);
+    ctx.interactables.push({ hidden: true, x: watchX, z: watchZ, y, r: 2.0, label: 'Watch Hagi highlights · FIFA', cond: () => ctx.room.visible, use: s => hagi.open(s) });
+    ctx.extras.hagiTV = hagi;
     // the World Cup Predictions kiosk (owner's project): a standing screen cycling through the site previews; E = next page
     const kv = Math.min(1.6, depth * 0.3), [kx, kz] = P(-(half - 0.5), kv), kyaw = yaw + Math.PI / 2 * 0 + Math.atan2(0, 1) + Math.PI * 0 + (Math.PI / 2); void kyaw;
     const kioskYaw = Math.PI / 2; // faces +u (into the room from the left wall)

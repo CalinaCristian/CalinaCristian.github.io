@@ -49,7 +49,7 @@ const byId = new Map(ACHIEVEMENTS.map(a => [a.id, a]));
 let liveActs = new Set();
 let availableSpots = MENU_AVAILABLE;
 /** does activity key '<spot>:<id>' satisfy achievement a ('*:<id>' = any spot) */
-const actMatch = (a, key) => !!a.activity && (a.activity === key || (a.activity.startsWith('*:') && key.endsWith(':' + a.activity.slice(2))));
+const actMatch = (a, key) => !!a.activity && (a.activity === key || a.activityAliases?.includes(key) || (a.activity.startsWith('*:') && key.endsWith(':' + a.activity.slice(2))));
 const liveAct = (a) => activityAvailable(a, availableSpots) && (a.live === true || [...liveActs].some(k => actMatch(a, k)));
 /** the activity achievements of the Landmarks category ("Done it all" counts these) */
 const lmActs = () => ACHIEVEMENTS.filter(a => a.cat === 'landmarks' && a.activity && liveAct(a));

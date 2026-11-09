@@ -29,6 +29,15 @@ try{
  });
  const stages=[];
  const check=async(name,fn)=>{const result=await page.evaluate(fn);assert.equal(result,true,name);stages.push(name);};
+ await check('Current activity completion excludes chess and retains combined Glasshouse progress',async()=>{
+  const [{Progression,activeAchievements},{activityAvailable},{ACHIEVEMENTS}]=await Promise.all([import('/game/src/achievements.js'),import('/game/src/spot-availability.js'),import('/game/src/data.js')]);
+  const p=Object.create(Progression.prototype),unlocked=new Set();
+  Object.assign(p,{game:{},state:{sets:{roam:[],spots:[],activities:['chihuly:lm-chihuly-glasshouse']},counters:{photos:0},unlocked:{}},count:()=>0,spotData:()=>({postcards:[],list:[]}),checkMilestones(){},refreshUi(){},unlock:id=>{unlocked.add(id);p.state.unlocked[id]=1;},addTo:(set,key)=>{if(!p.state.sets[set].includes(key))p.state.sets[set].push(key);}});
+  p.evaluate();if(!unlocked.has('lm-chihuly-glasshouse'))return false;
+  for(const [spot,id] of [['old-town-lipscani','freddo-dance'],['old-town-lipscani','freddo-shot'],['cismigiu','backgammon']])p.onActivity({spot,id});
+  const active=new Set(activeAchievements().map(a=>a.id));
+  return ['lm-freddo-dance','lm-freddo-shot','lm-cismigiu-backgammon','lm-chihuly-glasshouse'].every(id=>unlocked.has(id)&&active.has(id))&&!active.has('lm-cismigiu-chess')&&!activityAvailable(ACHIEVEMENTS.find(a=>a.id==='lm-cismigiu-chess'));
+ });
  await check('Opening a modal activity preserves the active itinerary',()=>{const f=fixture,T=f.s.tour;return f.begin()&&f.s.tour===T&&f.s.tour.i===0&&!T.stops[0].participated;});
  await check('Cancellation restores walking without completing or restarting the stop',()=>{const f=fixture,T=f.s.tour;f.flow.cancel('leave');return f.s.tour===T&&T.i===0&&!T.stops[0].participated&&f.s.ctl.active&&f.counts().cancels===1;});
  await check('Actual flow completion advances exactly once even before guide arrival',()=>{const f=fixture;f.begin();f.flow.complete();f.flow.complete();return f.s.tour.i===1&&f.counts().awards===1;});

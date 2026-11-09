@@ -1,0 +1,248 @@
+{
+  "passed": true,
+  "scope": "CPU actual original027/new methods with synthetic bounded actor/camera/HUD/clock/audio fixtures; no actual native audio/world/crowd/render/photo proof",
+  "base": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+  "checks": [
+    {
+      "name": "actual027/new player horn RNG, reacted/rage, movement/replies and downstream tails match {}",
+      "passed": true
+    },
+    {
+      "name": "actual027/new player horn RNG, reacted/rage, movement/replies and downstream tails match {\"saturated\":true}",
+      "passed": true
+    },
+    {
+      "name": "actual027/new player horn RNG, reacted/rage, movement/replies and downstream tails match {\"silence\":true}",
+      "passed": true
+    },
+    {
+      "name": "actual027/new player horn RNG, reacted/rage, movement/replies and downstream tails match {\"saturated\":true,\"silence\":true}",
+      "passed": true
+    },
+    {
+      "name": "actual027/new player horn RNG, reacted/rage, movement/replies and downstream tails match {\"level\":4.3}",
+      "passed": true
+    },
+    {
+      "name": "actual027/new player horn RNG, reacted/rage, movement/replies and downstream tails match {\"level\":3}",
+      "passed": true
+    },
+    {
+      "name": "synthetic Traffic.playerHonk convenience calls consume legacy behavior but emit no fake horn dialogue",
+      "passed": true
+    },
+    {
+      "name": "Main actual player horn emits <=2new known library lines with natural gloss and preserves old audio/achievement authority",
+      "passed": true
+    },
+    {
+      "name": "Main NPC distance/rate gates create no event until actual audio submission, then source/witness lines only",
+      "passed": true
+    },
+    {
+      "name": "actual Main player vehicle contact uses confirmed vehicle facts with no fault/Bobita inference or duplicate legacy text",
+      "passed": true
+    },
+    {
+      "name": "actual Main pedestrian contact speaks concern only and does not fabricate a horn or medical outcome",
+      "passed": true
+    },
+    {
+      "name": "actual static contact dispatches no invented NPC-NPC accident or owner fault",
+      "passed": true
+    },
+    {
+      "name": "same-level eligibility rejects unknown/elevated pedestrians without filtering actor population",
+      "passed": true
+    },
+    {
+      "name": "new real speech anchors follow known below-grade speaker feet while legacy RNG layout remains separate",
+      "passed": true
+    },
+    {
+      "name": "actual E/ambient Main hooks use truthful new library while old random selection remains consumed",
+      "passed": true
+    },
+    {
+      "name": "actual E/ambient original/new global random tails and actor talk state remain identical",
+      "passed": true
+    },
+    {
+      "name": "source locality requires exact native retained IDs/rings and excludes holes/unknown names",
+      "passed": true
+    },
+    {
+      "name": "positively known simulation weather/date/hour cannot infer falling snow from ground cover or heat from calendar",
+      "passed": true
+    },
+    {
+      "name": "actual HUD rejection never commits a new offer; compatibility can preserve legacy boolean independently",
+      "passed": true
+    },
+    {
+      "name": "simulation-admission consumer preserves original parking-style boolean/RNG despite actual HUD refusal",
+      "passed": true
+    },
+    {
+      "name": "actual Seattle/Bellevue Main horns remain in the correct locale without Romanian fallback",
+      "passed": true
+    },
+    {
+      "name": "many actual emitted NPC horn hooks keep compatibility/governor state bounded with no actor loss",
+      "passed": true
+    },
+    {
+      "name": "Traffic disposal clears pending reply timers, bounded layout/governor and owned HUD references",
+      "passed": true
+    }
+  ],
+  "parity": [
+    {
+      "options": {},
+      "rngCalls": 134,
+      "randomCalls": 12,
+      "tail": [
+        0.9563197086099535,
+        0.9459941098466516,
+        0.5058174442965537,
+        0.2155381510965526,
+        0.35558778140693903,
+        0.8936894135549664,
+        0.6783378184773028,
+        0.15332058514468372,
+        0.6471389282960445,
+        0.8812291012145579,
+        0.2940225477796048,
+        0.045436557149514556
+      ]
+    },
+    {
+      "options": {
+        "saturated": true
+      },
+      "rngCalls": 134,
+      "randomCalls": 12,
+      "tail": [
+        0.9563197086099535,
+        0.9459941098466516,
+        0.5058174442965537,
+        0.2155381510965526,
+        0.35558778140693903,
+        0.8936894135549664,
+        0.6783378184773028,
+        0.15332058514468372,
+        0.6471389282960445,
+        0.8812291012145579,
+        0.2940225477796048,
+        0.045436557149514556
+      ]
+    },
+    {
+      "options": {
+        "silence": true
+      },
+      "rngCalls": 134,
+      "randomCalls": 12,
+      "tail": [
+        0.9563197086099535,
+        0.9459941098466516,
+        0.5058174442965537,
+        0.2155381510965526,
+        0.35558778140693903,
+        0.8936894135549664,
+        0.6783378184773028,
+        0.15332058514468372,
+        0.6471389282960445,
+        0.8812291012145579,
+        0.2940225477796048,
+        0.045436557149514556
+      ]
+    },
+    {
+      "options": {
+        "saturated": true,
+        "silence": true
+      },
+      "rngCalls": 134,
+      "randomCalls": 12,
+      "tail": [
+        0.9563197086099535,
+        0.9459941098466516,
+        0.5058174442965537,
+        0.2155381510965526,
+        0.35558778140693903,
+        0.8936894135549664,
+        0.6783378184773028,
+        0.15332058514468372,
+        0.6471389282960445,
+        0.8812291012145579,
+        0.2940225477796048,
+        0.045436557149514556
+      ]
+    },
+    {
+      "options": {
+        "level": 4.3
+      },
+      "rngCalls": 118,
+      "randomCalls": 10,
+      "tail": [
+        0.8403126336634159,
+        0.6736820251680911,
+        0.6098299962468445,
+        0.22007392928935587,
+        0.0806249335873872,
+        0.99284871481359,
+        0.43759502191096544,
+        0.5407512253150344,
+        0.671530531719327,
+        0.8671529982239008,
+        0.67926149466075,
+        0.2666714037768543
+      ]
+    },
+    {
+      "options": {
+        "level": 3
+      },
+      "rngCalls": 134,
+      "randomCalls": 12,
+      "tail": [
+        0.9563197086099535,
+        0.9459941098466516,
+        0.5058174442965537,
+        0.2155381510965526,
+        0.35558778140693903,
+        0.8936894135549664,
+        0.6783378184773028,
+        0.15332058514468372,
+        0.6471389282960445,
+        0.8812291012145579,
+        0.2940225477796048,
+        0.045436557149514556
+      ]
+    }
+  ],
+  "testedFiles": {
+    "game/src/main.js": "fecaa5b8573f5669ae6d08f3b695a9a873c52cb5adf54fe6ac65d9f42f5d9f59",
+    "game/src/traffic.js": "4a13111591980e0b943457cff76811777233cb37b595a1dedfa74bcfca4521aa",
+    "game/src/situational-dialogue-context.js": "371fcd223dfb38ae3ebc3252baaa5263447d923ddd34193ea971a83adfb7e0a1",
+    "game/src/situational-dialogue-traffic.js": "9554e71d40c60019d614db914a6abc0c61eff3ffc516d5d90f7df6c1b6158866"
+  },
+  "originalMethods": {
+    "trafficSHA256": "b76ade370d5f0f89bae39fea6ed04d3fbd473b7e319cb706258fd4eef077ba6d",
+    "mainSHA256": "833062a36445921514cb260335fbe346997563bbc3e2b078fbda055b958d672b"
+  },
+  "integration": {
+    "wiredEvents": [
+      "player-honk",
+      "npc-honk",
+      "collision",
+      "ambient",
+      "greeting"
+    ],
+    "nativeProvedEvents": [],
+    "collisionAuthority": "actual Player.hit→Main.onCollide only; NPC-NPC impacts not wired",
+    "mode": "existing city traffic in drive/foot"
+  }
+}

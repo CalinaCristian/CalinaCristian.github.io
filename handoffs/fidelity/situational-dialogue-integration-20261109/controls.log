@@ -1,0 +1,2 @@
+[save] IndexedDB unavailable, fallback: memory no indexedDB
+{"passed":true,"checks":23,"parityCases":6}

@@ -1,0 +1,40 @@
+{
+  "recordedUTC": "2026-11-09T19:54:11.298713+00:00",
+  "base": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+  "scope": "CPU actual method/hook/consumer comparisons and source-context fixtures only; no World/WebGL/browser/native or actual sound proof",
+  "sourceFiles": {
+    "game/src/main.js": {
+      "bytes": 217630,
+      "sha256": "fecaa5b8573f5669ae6d08f3b695a9a873c52cb5adf54fe6ac65d9f42f5d9f59"
+    },
+    "game/src/traffic.js": {
+      "bytes": 256227,
+      "sha256": "4a13111591980e0b943457cff76811777233cb37b595a1dedfa74bcfca4521aa"
+    },
+    "game/src/situational-dialogue-context.js": {
+      "bytes": 4962,
+      "sha256": "371fcd223dfb38ae3ebc3252baaa5263447d923ddd34193ea971a83adfb7e0a1"
+    },
+    "game/src/situational-dialogue-traffic.js": {
+      "bytes": 5834,
+      "sha256": "9554e71d40c60019d614db914a6abc0c61eff3ffc516d5d90f7df6c1b6158866"
+    },
+    "game/src/situational-dialogue.js": {
+      "bytes": 11637,
+      "sha256": "b2e4ddd6042c8f59d6c6b665a4e6e07b9b309eef3aa5cb209ff05cb5cc53b520"
+    },
+    "game/src/situational-dialogue-library.js": {
+      "bytes": 31247,
+      "sha256": "2342a347b8604f56aec72abcb37bfab201fb47158cb9c3d6790d198ee9f9d153"
+    },
+    "handoffs/fidelity/situational-dialogue-integration-20261109/controls.mjs": {
+      "bytes": 17221,
+      "sha256": "ffce086430dac884ddd38c6cbe9ec500b43ab99d4545288ee4bab24f97204288"
+    }
+  },
+  "integrationControls": 23,
+  "libraryControls": 19,
+  "rngMethodComparisonCases": 6,
+  "nativeProvedEvents": [],
+  "omittedAssetDirectoriesRemainAbsent": true
+}

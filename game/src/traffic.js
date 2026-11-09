@@ -1462,13 +1462,21 @@ export class Traffic {
     /** undo this frame's step of v (incl. edge changes); false when it cannot (respawned / not stepped) */
     revert(v) {
         if (v._f !== this._frame || v._resp) return false;
+        const x = v.x, z = v.z;
         if (v._sh && v._sh.length) { while (v._sh.length) v.route.unshift(v._sh.pop()); }
         if (v.hist && v.hist.length > v._hl0) v.hist.length = v._hl0;
         v.edge = v._e0; v.dir = v._d0; v.lane = v._ln0; v.layer = v._ly0; v.y = v._y0; v.latBlend = v._lb0;
         v.s = v._s0; v.odo = v._odo0; v.x = v._x0; v.z = v._z0; v.heading = v._h0; v.laneCur = v._lc0; v.latExtraCur = v._le0;
         v.fx = v._fx0; v.fz = v._fz0; v.rx = v._rx0; v.rz = v._rz0; v.transition = v._tr0;
         v.mesh.position.set(v.x, v.y, v.z); v.mesh.rotation.y = v.heading;
+        this.refreshVehicleCell(v, x, z);
         return true;
+    }
+
+    /** Later guards must still find a body that a correction moved across a hash boundary. */
+    refreshVehicleCell(v, oldX, oldZ) {
+        const c = this.grid.cell;
+        if (c && (Math.floor(v.x / c) !== Math.floor(oldX / c) || Math.floor(v.z / c) !== Math.floor(oldZ / c))) this.grid.build(this.vehicles);
     }
 
     /** A recovery translation must actually separate the drawn bodies. The
@@ -1494,9 +1502,11 @@ export class Traffic {
             if (pedestrianPen(v, p, x, z) > Math.max(0, pedestrianPen(v, p)) + 1e-6) clear = false;
         });
         if (!clear) return false;
+        const oldX = v.x, oldZ = v.z;
         v.x = x; v.z = z; v.s += distance; v.odo += distance;
         v._separateLeft -= Math.abs(distance);
         v.mesh.position.set(v.x, v.y, v.z);
+        this.refreshVehicleCell(v, oldX, oldZ);
         return true;
     }
 
@@ -1578,7 +1588,9 @@ export class Traffic {
             const hx = -Math.sin(v.heading), hz = -Math.cos(v.heading);
             const sg = (v.x - P.x) * hx + (v.z - P.z) * hz >= 0 ? 1 : -1, d = Math.min(pen + 0.05, 0.5) * sg;
             if (v.s + d < 0.2 || v.s + d > v.edge.len - 0.2) continue;
+            const oldX = v.x, oldZ = v.z;
             v.s += d; v.odo += d; v.x += hx * d; v.z += hz * d; v.speed = 0; v.mesh.position.set(v.x, v.y, v.z);
+            this.refreshVehicleCell(v, oldX, oldZ);
         }
     }
 

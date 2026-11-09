@@ -1,0 +1,50 @@
+{
+  "privateRawDirectory": "/workspace/reality-pass/us-districts/seatac/structure-2b2b970/collider-all8",
+  "files": [
+    {
+      "file": "bucharest-floreasca.json",
+      "bytes": 226755,
+      "sha256": "a031fbf1bfd244f3a0c05fe5a217d05b66dab1a03108bc72363208c3920a94ef"
+    },
+    {
+      "file": "bucharest-grozavesti.json",
+      "bytes": 954167,
+      "sha256": "228d0b8062eb8676fe74d7db22de713048cdeace6e350cd90ebc8089ad6a8fff"
+    },
+    {
+      "file": "bucharest-otopeni.json",
+      "bytes": 426093,
+      "sha256": "ae5c13c28d0b2a22cec7ee6b699e2d9f214d2c08f1398b019d508cd86bf0a253"
+    },
+    {
+      "file": "bucharest-pipera.json",
+      "bytes": 818779,
+      "sha256": "739ddd860cd09944d365dfd7e156b8ff607d5febb68bba395b308ea9cc0e230d"
+    },
+    {
+      "file": "bucharest-romana.json",
+      "bytes": 654172,
+      "sha256": "07136657385244ea7ab105b03b8bf1c58a4f13db67158a1c5e0222d47655dd9c"
+    },
+    {
+      "file": "bucharest-unirii.json",
+      "bytes": 683271,
+      "sha256": "ccf2e2809de23796d6b234eb8fba4522ee02131e4f9d38d094836e8cd50fa23d"
+    },
+    {
+      "file": "report.json",
+      "bytes": 3720,
+      "sha256": "26704df727cc1ee3f88c8db899310dc99c1b66f5554a90873ad59acd3a2da514"
+    },
+    {
+      "file": "seattle-bellevue.json",
+      "bytes": 544147,
+      "sha256": "48a35c9e2876fc85b900e4fbb237cefa16601fe77d9fe647604ab473ecfafac6"
+    },
+    {
+      "file": "seattle-seatac.json",
+      "bytes": 2110360,
+      "sha256": "3d456454fcf332eea1cc80bbc89ef12ba4e0c6c21c95d3b9e0310c72b33ede22"
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 6120,
+      "sha256": "51a3e7724423f2f7515b6979cd48ef65f96920a53c2c65baf8ce91def511a281"
+    },
+    {
+      "file": "actual-car-skybridge-check.json",
+      "bytes": 1358,
+      "sha256": "37016ab1e767abe979273858bb79c3f17b482914faf02b7a14b246dd69013f02"
+    },
+    {
+      "file": "all8-generated-separator-deltas.json",
+      "bytes": 142897,
+      "sha256": "ad2d5d3b68b9dc14f7aa0764284757b9170e0aa5a2718c7fec3e7ce6b842f812"
+    },
+    {
+      "file": "collider-snapshots/baseline-c78-raw-snapshot-ledger.json",
+      "bytes": 1542,
+      "sha256": "16fc7c0c1d311dc56fd1b0adb2b3f84e107344443be5c4b0d86dea78665d259a"
+    },
+    {
+      "file": "collider-snapshots/baseline-c78-report.json",
+      "bytes": 3720,
+      "sha256": "53b9486f36d1ef85e5a7fcaa326503791d2ce4c96382e081f6e19940f2915f51"
+    },
+    {
+      "file": "collider-snapshots/current-2b-raw-snapshot-ledger.json",
+      "bytes": 1541,
+      "sha256": "329dbcbd8c9fb92c1ebcfddacfbfd5cb2db4949fffb7f89bab61b2eed54b0a05"
+    },
+    {
+      "file": "collider-snapshots/current-2b-report.json",
+      "bytes": 3720,
+      "sha256": "26704df727cc1ee3f88c8db899310dc99c1b66f5554a90873ad59acd3a2da514"
+    },
+    {
+      "file": "estimated-bridge-profiles-native.json",
+      "bytes": 3282,
+      "sha256": "1f663ceae9eda819eb10682df37154f2ad65ecf23cb9a7b1588b0010381798e4"
+    },
+    {
+      "file": "lower-arrivals-full-vehicle-clearance.json",
+      "bytes": 1481,
+      "sha256": "37c1892804bd0b10d3957a08b62cb08e36ff9c2d6829c2e562ac3b3ed5061a5d"
+    },
+    {
+      "file": "model-impact-bounds.json",
+      "bytes": 4626,
+      "sha256": "f822cf5a16a43bfccdc8e908ebf8a237b97f7e828808d499cd245026c89d471a"
+    },
+    {
+      "file": "model-studies/capture.log",
+      "bytes": 135,
+      "sha256": "5027262e5af9fa068b10e98773d73ca64eae857fff8de56a549360c73c12540b"
+    },
+    {
+      "file": "model-studies/captures.json",
+      "bytes": 9589,
+      "sha256": "17caa7e72ce2839c157ead0033e4b355f06a596415d0da217046628a12f404f5"
+    },
+    {
+      "file": "model-studies/input-manifest.json",
+      "bytes": 964,
+      "sha256": "d9cdfb7592c76897d1df20d362b5bb4957ac05e16bbbf1c38d0a7358f5545db5"
+    },
+    {
+      "file": "model-studies/review-sheet.jpg",
+      "bytes": 105268,
+      "sha256": "74fde9e1f35792bcb023685c04b62ee9530dbe8ac6c10a6dce099196389ac6e1"
+    },
+    {
+      "file": "model-studies/seagarage/front.png",
+      "bytes": 25125,
+      "sha256": "9054724d0c3bb9e860649a7797b106bb29dfaad2aa8b5f6e970607415fe27600"
+    },
+    {
+      "file": "model-studies/seagarage/oblique.png",
+      "bytes": 49308,
+      "sha256": "b30477ead4d4ade239ea8e647369bf12a60944dfad753d60bf4fe15193330fb5"
+    },
+    {
+      "file": "model-studies/seagarage/top.png",
+      "bytes": 34304,
+      "sha256": "2051fdc2135262b4ff6e25b4423fe1672f8bd06fec7067a618b252f7de5377e0"
+    },
+    {
+      "file": "model-studies/seatac/front.png",
+      "bytes": 11990,
+      "sha256": "0358cc4a13e0f70c03bf561b72e43ea2342f63b2a07d5f3c2b38bcd8ce0ed863"
+    },
+    {
+      "file": "model-studies/seatac/oblique.png",
+      "bytes": 39350,
+      "sha256": "eeab2e76c7e3d1caebbb7096b2211b387aae05e67d73348d15746ca2f70686b9"
+    },
+    {
+      "file": "model-studies/seatac/top.png",
+      "bytes": 46108,
+      "sha256": "bee5cd58fb986fda6da08097f3cbab5af000e9d7e506633683ea056a6ee88fe8"
+    },
+    {
+      "file": "native-79/report.json",
+      "bytes": 479227,
+      "sha256": "8d67e872c84d7d12149162974ac9f1242cffc872487f0b92b14d78b88c4d972b"
+    },
+    {
+      "file": "native-79-headroom-replay/report.json",
+      "bytes": 533867,
+      "sha256": "6f755cb1f83a2e150b05aa7a0a20e7d29a10e1eabc1e77f9f18dff4573b639d1"
+    },
+    {
+      "file": "native-79-headroom-replay/structure-native-spawn.jpg",
+      "bytes": 93592,
+      "sha256": "c05ab172c86ac200fec0b505622db8ddbf7a48efc8a2c41b79372627d6925d04"
+    },
+    {
+      "file": "native-approaches/covered-departures-lane-1.jpg",
+      "bytes": 91352,
+      "sha256": "f79e93d8fcf637cb7773e5a2568fd08161f4546de45be21c494023d27ce3c0be"
+    },
+    {
+      "file": "native-approaches/garage-helix-residual.jpg",
+      "bytes": 85115,
+      "sha256": "18e6b953303407527f24ba4679bcee3c1689e8c0e3f794fc3adc31e515cfc150"
+    },
+    {
+      "file": "native-approaches/garage-source-aisle.jpg",
+      "bytes": 79236,
+      "sha256": "719b6182f8a5eb48fcd2f0d13ab5baad74f5a98e1649f9c7ebe6a720c659413f"
+    },
+    {
+      "file": "native-approaches/report.json",
+      "bytes": 94525,
+      "sha256": "d53bb821884b6b41f8fe77e2ce12a28e02afda037a44e15f931506941d491654"
+    },
+    {
+      "file": "native-approaches-complete-bundle/covered-departures-lane-1.jpg",
+      "bytes": 91162,
+      "sha256": "7cb50d51c0644d30aad308fc30dd1cdd94f7035aca28f29143c4d45565374514"
+    },
+    {
+      "file": "native-approaches-complete-bundle/garage-helix-residual.jpg",
+      "bytes": 85222,
+      "sha256": "6fb17cafec43f29b3a33f43ae767b3cd6c40e2aa625b2275bd945ec2a231a75c"
+    },
+    {
+      "file": "native-approaches-complete-bundle/garage-source-aisle.jpg",
+      "bytes": 79292,
+      "sha256": "492a94ec80fb5cc532bf3659b9e546bc1487df3b9943fdeac0eaf43eb73e1006"
+    },
+    {
+      "file": "native-approaches-complete-bundle/report.json",
+      "bytes": 99032,
+      "sha256": "ca5d886798c00fe2f9d6b8c9a3cd43dc5ce270fd4ce1fa18d105cc6d893e7881"
+    },
+    {
+      "file": "native-approaches-complete-bundle/review-sheet.jpg",
+      "bytes": 164942,
+      "sha256": "72fc01d9363f46f4577da3ece540d03e628ca9698c952e2f45c7ab72ab87d70e"
+    },
+    {
+      "file": "native-perspective-publication-input.json",
+      "bytes": 8921,
+      "sha256": "66effc10c9034df9b028d6565b85c07d65b7d2e98c3ecc6827b6a431d8585c37"
+    },
+    {
+      "file": "old-trace-counterfactual-bridge-check.json",
+      "bytes": 1245,
+      "sha256": "1cf248d40640336be333cf002c6bf32fa34916c6c0a4ac4305b7728454ddc299"
+    },
+    {
+      "file": "pure-checks/final-aircraft-check.txt",
+      "bytes": 1798,
+      "sha256": "d3c191f338d740bea8ec6fe8bc1d3b4a442f0cba4b0adcdcbc73e9658dd4e144"
+    },
+    {
+      "file": "pure-checks/final-all61-geometry-check.txt",
+      "bytes": 662,
+      "sha256": "157649aff58b8b969acce9e020dfcd08a9b0ec4abe4387088bcf0f3612cb969d"
+    },
+    {
+      "file": "pure-checks/final-facade-check.txt",
+      "bytes": 1880,
+      "sha256": "dea0b3f692fbf320c1364b92e1fcb85d22fb33694a5483ebade2942e4ea8563d"
+    },
+    {
+      "file": "pure-checks/final-structure-check.txt",
+      "bytes": 15140,
+      "sha256": "b8b497cda74e4bd7dea19f0263db2ec346c5ac9a5e1ff747b6d8392aca5f6f4c"
+    },
+    {
+      "file": "pure-checks/final-us-source-check.txt",
+      "bytes": 1382,
+      "sha256": "aa683403edcb5971cba4d7596dfd7b722e48522a6fa1c53777b6378d7a417eef"
+    },
+    {
+      "file": "retained-attempt-review.jpg",
+      "bytes": 70771,
+      "sha256": "fa21742fe15fadb84fc8a498db8d870c67b92789fbce6fa0c28bd5f6dff94b3b"
+    },
+    {
+      "file": "separator-delta-validation.log",
+      "bytes": 2400,
+      "sha256": "bd38750e332625a7d297ffd8e7840ba6f02672c6233bf8d87c479fb9cbfb6672"
+    }
+  ]
+}

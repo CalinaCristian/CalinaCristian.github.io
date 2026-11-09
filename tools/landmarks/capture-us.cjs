@@ -10,7 +10,7 @@ const inputHashes={};for(const file of ['game/src/landmarks.js','game/src/landma
  if(!served.equals(expected))throw new Error('Capture server differs from source commit: '+file);inputHashes[file]=createHash('sha256').update(served).digest('hex');}
 fs.writeFileSync(path.join(out,'input-manifest.json'),JSON.stringify({captureToolSha256:createHash('sha256').update(fs.readFileSync(__filename)).digest('hex'),sourceCommit,verifiedAt:new Date().toISOString(),inputHashes},null,2));
 if(get('verify-only','0')==='1')return;
-const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox','--mute-audio','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});const page=await browser.newPage({viewport:{width:640,height:640}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox','--mute-audio','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});const page=await browser.newPage({viewport:{width:640,height:640}});page.setDefaultTimeout(180000);const errors=[];page.on('pageerror',e=>errors.push(e.message));
 await page.goto(base+'/game/dev/landmarks.html?id=spaceneedle&clean=1');await page.waitForFunction(()=>window.__ready);const ids=await page.evaluate(()=>import('/game/src/landmarks.js').then(x=>x.LANDMARKS.filter(l=>l.city==='seattle').map(l=>l.id)));
 const selected=get('ids','').split(',').filter(Boolean);
 const front={greatwheel:-58,mtbaker:90,lincoln:270,onelincoln:270,lincolnsouth:270,sonic:270,bellevue600:90,seagarage:270,sealink:90,bellevuesq:90,rainier:180,olympics:90,murroww:90,murrowe:90};const records=[];

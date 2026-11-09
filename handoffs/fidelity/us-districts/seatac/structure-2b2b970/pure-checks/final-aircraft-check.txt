@@ -1,0 +1,52 @@
+(node:314538) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-us-districts/game/src/landmarks.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-us-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "aircraft": [
+    {
+      "id": "apron-c11",
+      "sourceGate": "n673353306",
+      "sourceAprons": [
+        "w1166127691"
+      ],
+      "planSpanM": 33.199252317904396,
+      "sourceBuildingContacts": [],
+      "districtBodyContacts": []
+    },
+    {
+      "id": "apron-c9",
+      "sourceGate": "n673353303",
+      "sourceAprons": [
+        "w1166127691"
+      ],
+      "planSpanM": 37.112401495392504,
+      "sourceBuildingContacts": [],
+      "districtBodyContacts": []
+    },
+    {
+      "id": "apron-b7",
+      "sourceGate": "n673355956",
+      "sourceAprons": [
+        "w1165970115"
+      ],
+      "planSpanM": 36.34095557281037,
+      "sourceBuildingContacts": [],
+      "districtBodyContacts": []
+    },
+    {
+      "id": "apron-a4",
+      "sourceGate": "n405122819",
+      "sourceAprons": [
+        "w1165957120"
+      ],
+      "planSpanM": 33.5734419809975,
+      "sourceBuildingContacts": [],
+      "districtBodyContacts": []
+    }
+  ],
+  "collisionSha256": "fd952cfd4f173c0a3acfa3adbd3577a1d606b41c08dbb35f05b96472090d4f6d",
+  "triangles": 42507,
+  "note": "Complete terminal rings, vertical envelope and road geometry retained; covered-curb structural collision is checked separately. Aircraft pose/plan measured independently; vertical shape and subtype remain estimates."
+}

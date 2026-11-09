@@ -1,0 +1,61 @@
+(node:314531) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-us-districts/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-us-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "short": {
+    "edge": 49,
+    "lengthM": 7.660939890117924,
+    "y": 13,
+    "distanceM": 1.9299996513709203,
+    "glass": true,
+    "color": [
+      0.10461648553609848,
+      0.20507873594760895,
+      0.28744083642959595
+    ]
+  },
+  "negatives": [
+    {
+      "edge": 16,
+      "lengthM": 0.9219544457292765,
+      "y": 13,
+      "distanceM": 2.0000043031309085,
+      "glass": false,
+      "color": [
+        0.6795424818992615,
+        0.7011018991470337,
+        0.7083757519721985
+      ]
+    },
+    {
+      "edge": 49,
+      "lengthM": 7.660939890117924,
+      "y": 8.5,
+      "distanceM": 1.9999979783580517,
+      "glass": false,
+      "color": [
+        0.6795424818992615,
+        0.7011018991470337,
+        0.7083757519721985
+      ]
+    },
+    {
+      "edge": 49,
+      "lengthM": 7.660939890117924,
+      "y": 16,
+      "distanceM": 2.0000002451227763,
+      "glass": false,
+      "color": [
+        0.6795424818992615,
+        0.7011018991470337,
+        0.7083757519721985
+      ]
+    }
+  ],
+  "collisionSha256": "fd952cfd4f173c0a3acfa3adbd3577a1d606b41c08dbb35f05b96472090d4f6d",
+  "triangles": 42507,
+  "addedTriangles": 27960,
+  "note": "Facade bands and 2 m detail cutoff remain procedural estimates. Source rings and envelopes remain unchanged; the separately checked source-supported covered-curb structure replaces the old full solid."
+}

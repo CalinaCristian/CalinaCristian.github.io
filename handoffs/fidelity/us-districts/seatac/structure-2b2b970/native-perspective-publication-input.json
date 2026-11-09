@@ -1,0 +1,349 @@
+{
+  "schemaVersion": 1,
+  "city": "seattle",
+  "district": "seatac",
+  "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+  "referenceImageryTracked": false,
+  "scope": "Three normal native-controller views after explicit source-edge start fixtures; separate from historical street walk and aerial atlas.",
+  "captureReport": "native-approaches-complete-bundle/report.json",
+  "captures": [
+    {
+      "id": "garage-source-aisle",
+      "image": "garage-source-aisle.jpg",
+      "sha256": "492a94ec80fb5cc532bf3659b9e546bc1487df3b9943fdeac0eaf43eb73e1006",
+      "capturedAt": "2026-11-09T01:24:36.624Z",
+      "transport": "Native canvas immediately after full-traffic/mirror draw",
+      "player": {
+        "x": -1153.5467752476814,
+        "z": 718.7914466119939,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 1.5777102559544336
+      },
+      "camera": {
+        "position": [
+          -1153.9946903299576,
+          1.600258815149671,
+          719.0945506849941
+        ],
+        "quaternion": [
+          0.00011732525106155827,
+          0.7095469844069567,
+          -0.00011813924673154206,
+          0.7046581080189865
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 72.47369985987788,
+        "aspect": 1.7777777777777777,
+        "far": 5000,
+        "near": 0.2,
+        "projection": "perspective",
+        "frame": "Actual native world metres, x east, z south"
+      },
+      "condition": {
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0.2,
+          "fresh": 0,
+          "doy": 195
+        },
+        "seasonOverride": "summer",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794187449718,
+          "climate": null
+        },
+        "weatherOverride": "clear",
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "quality": "high",
+        "mirror": true,
+        "traffic": true
+      },
+      "renderer": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "normalFog": true,
+      "perf": {
+        "triangles": 525615,
+        "drawCalls": 184
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "state": "drive"
+    },
+    {
+      "id": "garage-helix-residual",
+      "image": "garage-helix-residual.jpg",
+      "sha256": "6fb17cafec43f29b3a33f43ae767b3cd6c40e2aa625b2275bd945ec2a231a75c",
+      "capturedAt": "2026-11-09T01:24:53.465Z",
+      "transport": "Native canvas immediately after full-traffic/mirror draw",
+      "player": {
+        "x": -1006.193173288745,
+        "z": 773.5124097880266,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 1.4753119597804987
+      },
+      "camera": {
+        "position": [
+          -1006.6697691145669,
+          1.6002291850073698,
+          773.7685983754731
+        ],
+        "quaternion": [
+          0.00023893497743675344,
+          0.6641457985908499,
+          1.3815722409485025e-05,
+          0.747603037001138
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 72.46176470442049,
+        "aspect": 1.7777777777777777,
+        "far": 5000,
+        "near": 0.2,
+        "projection": "perspective",
+        "frame": "Actual native world metres, x east, z south"
+      },
+      "condition": {
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0.2,
+          "fresh": 0,
+          "doy": 195
+        },
+        "seasonOverride": "summer",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794187449718,
+          "climate": null
+        },
+        "weatherOverride": "clear",
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "quality": "high",
+        "mirror": true,
+        "traffic": true
+      },
+      "renderer": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "normalFog": true,
+      "perf": {
+        "triangles": 619546,
+        "drawCalls": 203
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "state": "drive"
+    },
+    {
+      "id": "covered-departures-lane-1",
+      "image": "covered-departures-lane-1.jpg",
+      "sha256": "7cb50d51c0644d30aad308fc30dd1cdd94f7035aca28f29143c4d45565374514",
+      "capturedAt": "2026-11-09T01:25:21.784Z",
+      "transport": "Native canvas immediately after full-traffic/mirror draw",
+      "player": {
+        "x": -1123.6173840609845,
+        "z": 878.7469316182473,
+        "y": 11.24,
+        "surfY": 11.24,
+        "heading": -2.3670425959294343
+      },
+      "camera": {
+        "position": [
+          -1123.0882357753158,
+          12.599686446065835,
+          878.8587443611713
+        ],
+        "quaternion": [
+          -6.189860348209017e-05,
+          0.9259415754800857,
+          -0.0001517557081004768,
+          -0.37766674719416954
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 72.45570863314917,
+        "aspect": 1.7777777777777777,
+        "far": 5000,
+        "near": 0.2,
+        "projection": "perspective",
+        "frame": "Actual native world metres, x east, z south"
+      },
+      "condition": {
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0.2,
+          "fresh": 0,
+          "doy": 195
+        },
+        "seasonOverride": "summer",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794187449718,
+          "climate": null
+        },
+        "weatherOverride": "clear",
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "quality": "high",
+        "mirror": true,
+        "traffic": true
+      },
+      "renderer": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "normalFog": true,
+      "perf": {
+        "triangles": 729915,
+        "drawCalls": 208
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "state": "drive"
+    }
+  ],
+  "routeResults": [
+    {
+      "id": "garage-source-aisle",
+      "source": "w344201644",
+      "start": {
+        "x": -1073.0296140747823,
+        "z": 718.2347477930199,
+        "y": 0.24,
+        "heading": 1.5777102559538496,
+        "sourceId": "w344201644",
+        "edge": 394,
+        "layer": 2,
+        "lane": 0,
+        "initialPlacement": true
+      },
+      "result": {
+        "ok": true,
+        "reason": "arrived",
+        "t": 13.5,
+        "dist": 81,
+        "resets": 0,
+        "remaining": 0
+      },
+      "placements": 0,
+      "stopped": null
+    },
+    {
+      "id": "garage-helix-residual",
+      "source": "w430434890",
+      "start": {
+        "x": -1012.3832126528191,
+        "z": 791.3979530970911,
+        "y": 0.24,
+        "heading": -2.218312202253977,
+        "sourceId": "w430434890",
+        "edge": 678,
+        "layer": 0,
+        "lane": 0,
+        "initialPlacement": true
+      },
+      "result": {
+        "ok": true,
+        "reason": "arrived",
+        "t": 7.3,
+        "dist": 38,
+        "resets": 0,
+        "remaining": 0
+      },
+      "placements": 0,
+      "stopped": null
+    },
+    {
+      "id": "covered-departures-lane-1",
+      "source": "w37017723",
+      "start": {
+        "x": -1197.541164124627,
+        "z": 803.194295142583,
+        "y": 11.24,
+        "heading": -2.3670389634790876,
+        "sourceId": "w37017723",
+        "edge": 2348,
+        "layer": 2,
+        "lane": 1,
+        "initialPlacement": true
+      },
+      "result": {
+        "ok": true,
+        "reason": "arrived",
+        "t": 23.5,
+        "dist": 106,
+        "resets": 0,
+        "remaining": 0
+      },
+      "placements": 0,
+      "stopped": null
+    }
+  ]
+}

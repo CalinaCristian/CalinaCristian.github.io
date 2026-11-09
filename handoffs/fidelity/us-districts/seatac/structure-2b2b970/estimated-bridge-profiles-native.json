@@ -1,0 +1,138 @@
+{
+  "baselineSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "method": "Exact native high-quality source-edge endpoint profile, total deckwidth asphalt+sidewalk, existing1.1m road underside, full7.3m bridge roof width sampled every0.2% of each exact sourcefootway;0.15m separation estimate. No source road is moved or assigned height from layer.",
+  "garageLevel4DatumM": 7.85,
+  "clearInteriorM": 2.3,
+  "roofThicknessM": 0.2,
+  "floorThicknessM": 0.25,
+  "upperRoadSlabThicknessM": 1.1,
+  "separationMarginM": 0.15,
+  "profiles": [
+    {
+      "sourceId": "w37017724",
+      "garageIndex": 1,
+      "garage": [
+        -64.8,
+        -143
+      ],
+      "terminal": [
+        -88,
+        -166.6
+      ],
+      "lengthM": 33.09380606699688,
+      "garageFloorM": 7.85,
+      "terminalFloorM": 7.14,
+      "gradient": 0.02145416573006555,
+      "firstUpperDeckOverlapFraction": 0.678,
+      "upperSourceRoads": [
+        "w963677010"
+      ],
+      "lowerArrivalsClearanceM": 6.77
+    },
+    {
+      "sourceId": "w37017725",
+      "garageIndex": 0,
+      "garage": [
+        -111.2,
+        -97.1
+      ],
+      "terminal": [
+        -134.1,
+        -120.8
+      ],
+      "lengthM": 32.95603131446504,
+      "garageFloorM": 7.85,
+      "terminalFloorM": 7.15,
+      "gradient": 0.021240421618751035,
+      "firstUpperDeckOverlapFraction": 0.69,
+      "upperSourceRoads": [
+        "w37017723"
+      ],
+      "lowerArrivalsClearanceM": 6.78
+    },
+    {
+      "sourceId": "w37017726",
+      "garageIndex": 0,
+      "garage": [
+        -153.8,
+        -53.2
+      ],
+      "terminal": [
+        -184.2,
+        -68
+      ],
+      "lengthM": 33.81124073440664,
+      "garageFloorM": 7.85,
+      "terminalFloorM": 7.16,
+      "gradient": 0.02040741436908729,
+      "firstUpperDeckOverlapFraction": 0.696,
+      "upperSourceRoads": [
+        "w37017723"
+      ],
+      "lowerArrivalsClearanceM": 6.79
+    },
+    {
+      "sourceId": "w37017727",
+      "garageIndex": 1,
+      "garage": [
+        -154,
+        -21.6
+      ],
+      "terminal": [
+        -184.1,
+        -6.6
+      ],
+      "lengthM": 33.6304921165302,
+      "garageFloorM": 7.85,
+      "terminalFloorM": 7.17,
+      "gradient": 0.020219745748702955,
+      "firstUpperDeckOverlapFraction": 0.706,
+      "upperSourceRoads": [
+        "w37017723"
+      ],
+      "lowerArrivalsClearanceM": 6.8
+    },
+    {
+      "sourceId": "w37017728",
+      "garageIndex": 0,
+      "garage": [
+        -112.6,
+        22
+      ],
+      "terminal": [
+        -136,
+        46.4
+      ],
+      "lengthM": 33.80709984603826,
+      "garageFloorM": 7.85,
+      "terminalFloorM": 7.18,
+      "gradient": 0.01981832227701469,
+      "firstUpperDeckOverlapFraction": 0.726,
+      "upperSourceRoads": [
+        "w37017723"
+      ],
+      "lowerArrivalsClearanceM": 6.81
+    },
+    {
+      "sourceId": "w37017729",
+      "garageIndex": 1,
+      "garage": [
+        -29.5,
+        106.5
+      ],
+      "terminal": [
+        -54.6,
+        137.5
+      ],
+      "lengthM": 39.88746670321393,
+      "garageFloorM": 7.85,
+      "terminalFloorM": 7.07,
+      "gradient": 0.01955501475698257,
+      "firstUpperDeckOverlapFraction": 0.62,
+      "upperSourceRoads": [
+        "w37017723"
+      ],
+      "lowerArrivalsClearanceM": 6.7
+    }
+  ]
+}

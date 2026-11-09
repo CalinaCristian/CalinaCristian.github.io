@@ -1,0 +1,125 @@
+{
+  "passed": true,
+  "districts": [
+    {
+      "key": "seattle-seatac",
+      "before": 155,
+      "after": 145,
+      "removed": 14,
+      "added": 4,
+      "sourceIds": [
+        "w1165162671",
+        "w31928834",
+        "w344201642",
+        "w369422790",
+        "w430442189",
+        "w722292911",
+        "w722314207",
+        "w906096010",
+        "w955297074",
+        "w964279964"
+      ],
+      "bounds": [
+        -1117.929373700675,
+        688.7328177553494,
+        -858.993499091952,
+        1004.2747551495581
+      ]
+    },
+    {
+      "key": "seattle-bellevue",
+      "before": 50,
+      "after": 47,
+      "removed": 8,
+      "added": 5,
+      "sourceIds": [
+        "w1295951545",
+        "w1295951546",
+        "w427906916",
+        "w55481043"
+      ],
+      "bounds": [
+        -508.76252374171645,
+        -491.88762567222557,
+        438.58178003314043,
+        -296.28489544049063
+      ]
+    },
+    {
+      "key": "bucharest-romana",
+      "before": 88,
+      "after": 88,
+      "removed": 0,
+      "added": 0,
+      "sourceIds": [],
+      "bounds": null
+    },
+    {
+      "key": "bucharest-floreasca",
+      "before": 0,
+      "after": 0,
+      "removed": 0,
+      "added": 0,
+      "sourceIds": [],
+      "bounds": null
+    },
+    {
+      "key": "bucharest-grozavesti",
+      "before": 217,
+      "after": 216,
+      "removed": 2,
+      "added": 1,
+      "sourceIds": [
+        "w668894712",
+        "w84477811"
+      ],
+      "bounds": [
+        163.25024236437116,
+        -422.99420064375255,
+        184.18313903532797,
+        -342.1979825736305
+      ]
+    },
+    {
+      "key": "bucharest-pipera",
+      "before": 150,
+      "after": 150,
+      "removed": 1,
+      "added": 1,
+      "sourceIds": [
+        "w1284446132"
+      ],
+      "bounds": [
+        -894.0779662149773,
+        15.583768020230549,
+        -892.4418127120709,
+        16.878817332791694
+      ]
+    },
+    {
+      "key": "bucharest-unirii",
+      "before": 157,
+      "after": 156,
+      "removed": 1,
+      "added": 0,
+      "sourceIds": [
+        "w826403111"
+      ],
+      "bounds": [
+        110.39200376300438,
+        -211.01767388864369,
+        110.99170785378932,
+        -210.06978068822687
+      ]
+    },
+    {
+      "key": "bucharest-otopeni",
+      "before": 3,
+      "after": 3,
+      "removed": 0,
+      "added": 0,
+      "sourceIds": [],
+      "bounds": null
+    }
+  ]
+}

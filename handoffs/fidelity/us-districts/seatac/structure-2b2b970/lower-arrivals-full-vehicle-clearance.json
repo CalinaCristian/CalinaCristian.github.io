@@ -1,0 +1,56 @@
+{
+  "modelSourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+  "roadProfileSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "vehicleHeightM": 3.6576,
+  "method": "Complete exact source bridge span sampled against actual native Arrivals Drive asphalt width and exact hinted endpoint elevation profile; modelfloor/roof datums remain estimates.",
+  "results": [
+    {
+      "sourceId": "w37017724",
+      "sourceArrivalsWays": [
+        "w1119615396"
+      ],
+      "samples": 286,
+      "clearanceAboveFull12ftVehicleM": 3.3561666666666663
+    },
+    {
+      "sourceId": "w37017725",
+      "sourceArrivalsWays": [
+        "w124272605"
+      ],
+      "samples": 477,
+      "clearanceAboveFull12ftVehicleM": 3.225066666666667
+    },
+    {
+      "sourceId": "w37017726",
+      "sourceArrivalsWays": [
+        "w124272605"
+      ],
+      "samples": 467,
+      "clearanceAboveFull12ftVehicleM": 3.2842
+    },
+    {
+      "sourceId": "w37017727",
+      "sourceArrivalsWays": [
+        "w124272605"
+      ],
+      "samples": 478,
+      "clearanceAboveFull12ftVehicleM": 3.337333333333333
+    },
+    {
+      "sourceId": "w37017728",
+      "sourceArrivalsWays": [
+        "w124272605"
+      ],
+      "samples": 466,
+      "clearanceAboveFull12ftVehicleM": 3.310966666666666
+    },
+    {
+      "sourceId": "w37017729",
+      "sourceArrivalsWays": [
+        "w1119615395"
+      ],
+      "samples": 318,
+      "clearanceAboveFull12ftVehicleM": 3.3804000000000003
+    }
+  ]
+}

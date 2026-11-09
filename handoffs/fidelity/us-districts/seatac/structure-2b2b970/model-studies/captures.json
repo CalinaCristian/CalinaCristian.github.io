@@ -1,0 +1,338 @@
+{
+  "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+  "inputHashes": {
+    "game/src/landmarks.js": "41ff84c1c18f291b9fd7f98c5fcf47a91e964bbf10d1ac1dc0c28295ee034121",
+    "game/src/landmark-seatac-structure.js": "babdf7e471ad949ca982a737701280785005a950b18227205bd047d32e418bb5",
+    "game/src/landmark-seatac-aircraft.js": "23bd2be82947f78042858f2632a0f41a76ce30fe606fc3150d6c1ad08e51d1c5",
+    "game/src/landmark-us-source.js": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888",
+    "game/src/landmark-us-geometry.js": "5314a5e92a86b9a9612c3de013927a5d281d0c051944562347d39086930848aa",
+    "game/src/landmark-us-terrain.js": "cfca62d53bfeaf34f736b6ce345045dbbe50337544111fb6b676c4d237042879",
+    "game/dev/landmarks.html": "4637a3856f22273cfc668348e7d0764abbbafae628a66d01fdb94583854201c8"
+  },
+  "records": [
+    {
+      "id": "seatac",
+      "view": "front",
+      "image": "seatac/front.png",
+      "sha256": "0358cc4a13e0f70c03bf561b72e43ea2342f63b2a07d5f3c2b38bcd8ce0ed863",
+      "width": 640,
+      "height": 640,
+      "stats": {
+        "id": "seatac",
+        "triangles": 42507,
+        "height": 36.5,
+        "w": 704.6339882876954,
+        "d": 1028.2714226742476,
+        "ms": 253.5,
+        "drawCalls": 3,
+        "sourceIds": [
+          "w23772634",
+          "w23772637",
+          "w734002404",
+          "w869951038"
+        ],
+        "pose": {
+          "position": [
+            6.113379338270818,
+            14.600000000000001,
+            1553.5856573274796
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "quaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "projection": "perspective",
+          "fov": 45,
+          "target": [
+            6.113379338270818,
+            14.600000000000001,
+            -0.9738686385154551
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        }
+      },
+      "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+      "capturedAt": "2026-11-09T01:35:32.737Z",
+      "url": "/game/dev/landmarks.html?id=seatac&view=34&clean=1&az=0&el=0"
+    },
+    {
+      "id": "seatac",
+      "view": "top",
+      "image": "seatac/top.png",
+      "sha256": "bee5cd58fb986fda6da08097f3cbab5af000e9d7e506633683ea056a6ee88fe8",
+      "width": 640,
+      "height": 640,
+      "stats": {
+        "id": "seatac",
+        "triangles": 42507,
+        "height": 36.5,
+        "w": 704.6339882876954,
+        "d": 1028.2714226742476,
+        "ms": 325.70000000298023,
+        "drawCalls": 3,
+        "sourceIds": [
+          "w23772634",
+          "w23772637",
+          "w734002404",
+          "w869951038"
+        ],
+        "pose": {
+          "position": [
+            6.113379338270818,
+            1233.294850302127,
+            -0.9738686385154551
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "quaternion": [
+            -0.7071067811865474,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "projection": "orthographic",
+          "groundSquareM": 1196.794850302127,
+          "orientation": "north-up",
+          "target": [
+            6.113379338270818,
+            0,
+            -0.9738686385154551
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        }
+      },
+      "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+      "capturedAt": "2026-11-09T01:35:33.935Z",
+      "url": "/game/dev/landmarks.html?id=seatac&view=top&clean=1&az=35&el=26"
+    },
+    {
+      "id": "seatac",
+      "view": "oblique",
+      "image": "seatac/oblique.png",
+      "sha256": "eeab2e76c7e3d1caebbb7096b2211b387aae05e67d73348d15746ca2f70686b9",
+      "width": 640,
+      "height": 640,
+      "stats": {
+        "id": "seatac",
+        "triangles": 42507,
+        "height": 36.5,
+        "w": 704.6339882876954,
+        "d": 1028.2714226742476,
+        "ms": 388.30000000447035,
+        "drawCalls": 3,
+        "sourceIds": [
+          "w23772634",
+          "w23772637",
+          "w734002404",
+          "w869951038"
+        ],
+        "pose": {
+          "position": [
+            807.5309219126816,
+            696.0740421495977,
+            1143.568997357293
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "quaternion": [
+            -0.21453963361642955,
+            0.29299872934427457,
+            0.0676440866458011,
+            0.929273247087327
+          ],
+          "projection": "perspective",
+          "fov": 45,
+          "target": [
+            6.113379338270818,
+            14.600000000000001,
+            -0.9738686385154551
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        }
+      },
+      "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+      "capturedAt": "2026-11-09T01:35:35.326Z",
+      "url": "/game/dev/landmarks.html?id=seatac&view=34&clean=1&az=35&el=26"
+    },
+    {
+      "id": "seagarage",
+      "view": "front",
+      "image": "seagarage/front.png",
+      "sha256": "9054724d0c3bb9e860649a7797b106bb29dfaad2aa8b5f6e970607415fe27600",
+      "width": 640,
+      "height": 640,
+      "stats": {
+        "id": "seagarage",
+        "triangles": 17668,
+        "height": 24.549999237060547,
+        "w": 343.8976745605469,
+        "d": 366.59999084472656,
+        "ms": 122.20000000298023,
+        "drawCalls": 3,
+        "sourceIds": [
+          "r15763840",
+          "w37017724",
+          "w37017725",
+          "w37017726",
+          "w37017727",
+          "w37017728",
+          "w37017729"
+        ],
+        "pose": {
+          "position": [
+            -570.0232973117969,
+            9.819999694824219,
+            0.000007629394429082414
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "quaternion": [
+            0,
+            -0.7071067811865476,
+            0,
+            0.7071067811865475
+          ],
+          "projection": "perspective",
+          "fov": 45,
+          "target": [
+            -13.848861694335938,
+            9.819999694824219,
+            0.00000762939453125
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        }
+      },
+      "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+      "capturedAt": "2026-11-09T01:35:36.378Z",
+      "url": "/game/dev/landmarks.html?id=seagarage&view=34&clean=1&az=270&el=0"
+    },
+    {
+      "id": "seagarage",
+      "view": "top",
+      "image": "seagarage/top.png",
+      "sha256": "2051fdc2135262b4ff6e25b4423fe1672f8bd06fec7067a618b252f7de5377e0",
+      "width": 640,
+      "height": 640,
+      "stats": {
+        "id": "seagarage",
+        "triangles": 17668,
+        "height": 24.549999237060547,
+        "w": 343.8976745605469,
+        "d": 366.59999084472656,
+        "ms": 124,
+        "drawCalls": 3,
+        "sourceIds": [
+          "r15763840",
+          "w37017724",
+          "w37017725",
+          "w37017726",
+          "w37017727",
+          "w37017728",
+          "w37017729"
+        ],
+        "pose": {
+          "position": [
+            -13.848861694335938,
+            453.80598861694335,
+            0.00000762939453125
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "projection": "orthographic",
+          "groundSquareM": 429.2559893798828,
+          "orientation": "north-up",
+          "target": [
+            -13.848861694335938,
+            0,
+            0.00000762939453125
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        }
+      },
+      "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+      "capturedAt": "2026-11-09T01:35:37.294Z",
+      "url": "/game/dev/landmarks.html?id=seagarage&view=top&clean=1&az=35&el=26"
+    },
+    {
+      "id": "seagarage",
+      "view": "oblique",
+      "image": "seagarage/oblique.png",
+      "sha256": "b30477ead4d4ade239ea8e647369bf12a60944dfad753d60bf4fe15193330fb5",
+      "width": 640,
+      "height": 640,
+      "stats": {
+        "id": "seagarage",
+        "triangles": 17668,
+        "height": 24.549999237060547,
+        "w": 343.8976745605469,
+        "d": 366.59999084472656,
+        "ms": 117,
+        "drawCalls": 3,
+        "sourceIds": [
+          "r15763840",
+          "w37017724",
+          "w37017725",
+          "w37017726",
+          "w37017727",
+          "w37017728",
+          "w37017729"
+        ],
+        "pose": {
+          "position": [
+            272.8741244571802,
+            253.63082485121848,
+            409.4828687888292
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "quaternion": [
+            -0.21453963361642958,
+            0.2929987293442745,
+            0.0676440866458011,
+            0.929273247087327
+          ],
+          "projection": "perspective",
+          "fov": 45,
+          "target": [
+            -13.848861694335938,
+            9.819999694824219,
+            0.00000762939453125
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        }
+      },
+      "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+      "capturedAt": "2026-11-09T01:35:38.411Z",
+      "url": "/game/dev/landmarks.html?id=seagarage&view=34&clean=1&az=35&el=26"
+    }
+  ],
+  "errors": []
+}

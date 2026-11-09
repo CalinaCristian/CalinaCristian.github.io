@@ -78,8 +78,21 @@ try{
  };
  await activityLayout('Phone tour Skip/End stay above the real activity panel',390,844);
  await activityLayout('Landscape activity fits below the compact tour card',844,390);
+ await page.evaluate(()=>fixture.s.ui.toast('Activity reached','A long arrival message '.repeat(12)));
+ for(const [width,height]of [[390,844],[844,390]]){
+  await page.setViewportSize({width,height});
+  await check(`Activity notification stays below controls at ${width}x${height}`,()=>{
+   const panel=document.querySelector('.sp-participation'),region=document.querySelector('.sp-toasts'),toast=document.querySelector('.sp-toast'),nav=panel.querySelector('nav').getBoundingClientRect(),skip=document.querySelector('[data-tour-skip]').getBoundingClientRect();
+   const t=toast.getBoundingClientRect();return panel.contains(region)&&t.top>=nav.bottom&&t.top>=skip.bottom&&t.right<=innerWidth;
+  });
+  await page.screenshot({path:path.join(out,`activity-notification-${width}x${height}.png`)});
+ }
  await page.locator('[data-tour-skip]').click();
  await check('Skipping an active modal cancels it and releases its layout observer',()=>!fixture.flow.active&&!fixture.s.ui.el.classList.contains('sp-participating')&&!fixture.s.ui._activityLayout&&fixture.s.ctl.active);
+ await check('Leaving restores the same notification region for later messages',()=>{
+  const ui=fixture.s.ui,region=ui.$('.sp-toasts');if(!region||region.parentElement!==ui.el||!region.querySelector('.sp-toast'))return false;
+  ui.toast('Walk resumed','The notification region survives activity removal.');return region.querySelectorAll('.sp-toast').length===2;
+ });
  assert.deepEqual(errors,[]);
  const report={passed:true,scope:'Actual native DOM/Input/SpotSession/modal-flow state with explicit synthetic stops, flat ground and stub route provider. No physical access, scene beauty, or hardware FPS claim.',checks:stages,errors};
  await writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report));

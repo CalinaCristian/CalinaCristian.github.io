@@ -1,0 +1,463 @@
+{
+  "sourceCommit": "c4fd6255f928101e27874f37776ed5be8d805827",
+  "overallPass": false,
+  "complete": false,
+  "terminalFatal": "Error: A retired district remained reachable after garbage collection\n    at run (/workspace/integration-qa-evidence/transitions-c4fd6255-native/runner.cjs:144:76)",
+  "successfulNormalLoads": 15,
+  "actualDistricts": [
+    "bellevue",
+    "floreasca",
+    "grozavesti",
+    "otopeni",
+    "pipera",
+    "romana",
+    "seatac",
+    "unirii"
+  ],
+  "nativePublicationSnapshots": 32,
+  "publicationAllPass": true,
+  "sequenceCoverage": [
+    {
+      "sequenceIndex": 0,
+      "district": "floreasca",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 150,
+        "parked": 2,
+        "active": 154,
+        "pool": 10
+      },
+      "people": 260,
+      "maxVehicles": 170,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 1,
+      "district": "grozavesti",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 105,
+        "parked": 3,
+        "active": 110,
+        "pool": 63
+      },
+      "people": 260,
+      "maxVehicles": 170,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 2,
+      "district": "pipera",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 105,
+        "parked": 3,
+        "active": 112,
+        "pool": 63
+      },
+      "people": 260,
+      "maxVehicles": 170,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 3,
+      "district": "romana",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 105,
+        "parked": 8,
+        "active": 115,
+        "pool": 63
+      },
+      "people": 260,
+      "maxVehicles": 170,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 4,
+      "district": "unirii",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 105,
+        "parked": 6,
+        "active": 113,
+        "pool": 63
+      },
+      "people": 260,
+      "maxVehicles": 170,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 2,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 5,
+      "district": "otopeni",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 105,
+        "parked": 0,
+        "active": 107,
+        "pool": 63
+      },
+      "people": 260,
+      "maxVehicles": 170,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 6,
+      "district": "seatac",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 94,
+        "parked": 0,
+        "active": 96,
+        "pool": 0
+      },
+      "people": 90,
+      "maxVehicles": 50,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 7,
+      "district": "bellevue",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 94,
+        "parked": 0,
+        "active": 96,
+        "pool": 0
+      },
+      "people": 90,
+      "maxVehicles": 50,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 8,
+      "district": "grozavesti",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 105,
+        "parked": 3,
+        "active": 110,
+        "pool": 63
+      },
+      "people": 260,
+      "maxVehicles": 170,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 9,
+      "district": "pipera",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 105,
+        "parked": 3,
+        "active": 112,
+        "pool": 63
+      },
+      "people": 260,
+      "maxVehicles": 170,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 10,
+      "district": "romana",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 105,
+        "parked": 8,
+        "active": 115,
+        "pool": 63
+      },
+      "people": 260,
+      "maxVehicles": 170,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 11,
+      "district": "unirii",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 105,
+        "parked": 6,
+        "active": 113,
+        "pool": 63
+      },
+      "people": 260,
+      "maxVehicles": 170,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 2,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 12,
+      "district": "otopeni",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 105,
+        "parked": 0,
+        "active": 107,
+        "pool": 63
+      },
+      "people": 260,
+      "maxVehicles": 170,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 13,
+      "district": "seatac",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 94,
+        "parked": 0,
+        "active": 96,
+        "pool": 0
+      },
+      "people": 90,
+      "maxVehicles": 50,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    },
+    {
+      "sequenceIndex": 14,
+      "district": "bellevue",
+      "phases": [
+        "before-attachWorldRender",
+        "before-first-world-draw"
+      ],
+      "counts": {
+        "moving": 94,
+        "parked": 0,
+        "active": 96,
+        "pool": 0
+      },
+      "people": 90,
+      "maxVehicles": 50,
+      "allModelVertexBounds": true,
+      "rawXYPositives": 0,
+      "genuinePairs": 0
+    }
+  ],
+  "continueSnapshots": 2,
+  "retention": {
+    "textureDelta": 0,
+    "bufferDelta": 0,
+    "geometryDelta": 0
+  },
+  "retiredWorlds": [
+    {
+      "district": "floreasca",
+      "alive": false
+    },
+    {
+      "district": "grozavesti",
+      "alive": false
+    },
+    {
+      "district": "pipera",
+      "alive": false
+    },
+    {
+      "district": "romana",
+      "alive": false
+    },
+    {
+      "district": "unirii",
+      "alive": true
+    },
+    {
+      "district": "otopeni",
+      "alive": false
+    },
+    {
+      "district": "seatac",
+      "alive": false
+    },
+    {
+      "district": "bellevue",
+      "alive": false
+    },
+    {
+      "district": "grozavesti",
+      "alive": false
+    },
+    {
+      "district": "pipera",
+      "alive": false
+    },
+    {
+      "district": "romana",
+      "alive": false
+    },
+    {
+      "district": "unirii",
+      "alive": true
+    },
+    {
+      "district": "otopeni",
+      "alive": false
+    },
+    {
+      "district": "seatac",
+      "alive": false
+    },
+    {
+      "district": "bellevue",
+      "alive": false
+    }
+  ],
+  "resourceOwnershipFixture": {
+    "persistentGeo": 0,
+    "persistentMat": 0,
+    "base": 0,
+    "ownedGeo": 1,
+    "ownedMat": 1,
+    "ownedTex": 1,
+    "hiddenTex": 1,
+    "wrapper": 1,
+    "fleet": 1,
+    "tree": 1,
+    "retainedDetached": true,
+    "sceneEmpty": true,
+    "baseAttributes": 24,
+    "wrapperOwnedOnly": true
+  },
+  "failedTravelPreserved": true,
+  "emptyFuelContinue": {
+    "ok": true,
+    "state": "drive",
+    "district": "bellevue",
+    "fuel": 0,
+    "x": 576.894,
+    "z": -326.813,
+    "generation": 1
+  },
+  "qualityRelease": {
+    "high": {
+      "geometries": 164,
+      "textures": 31
+    },
+    "auto": {
+      "geometries": 164,
+      "textures": 17
+    },
+    "tier": "low+",
+    "bloomReleased": true,
+    "smaaReleased": true,
+    "shadowReleased": true,
+    "lamps": 4,
+    "gl": {
+      "textures": 21,
+      "buffers": 988,
+      "framebuffers": 7,
+      "renderbuffers": 5,
+      "bufferBytes": 44648321,
+      "peakBufferBytes": 62818479,
+      "peakTextures": 35
+    }
+  },
+  "errors": [],
+  "contextEvents": [],
+  "expectedMalformedDestinationConsoleErrors": [
+    {
+      "index": 0,
+      "text": "[world] district load failed SyntaxError: Expected property name or '}' in JSON at position 2 (line 1 column 3)",
+      "reason": "Explicit malformed destination JSON fixture"
+    }
+  ],
+  "unexpectedConsoleErrorsFromRetainedAccounting": [],
+  "bridgeSummaries": {
+    "pipera": {
+      "file": "/workspace/integration-qa-evidence/transitions-c4fd6255-native/report.bridge-pipera.json",
+      "recomputedStatsMatchNative": true,
+      "unresolvedPairs": 0,
+      "requestedPairs": 1,
+      "blockedRequestedPairs": 0,
+      "missingSourcePairs": 0
+    },
+    "seatac": {
+      "file": "/workspace/integration-qa-evidence/transitions-c4fd6255-native/report.bridge-seatac.json",
+      "recomputedStatsMatchNative": true,
+      "unresolvedPairs": 9,
+      "requestedPairs": 15,
+      "blockedRequestedPairs": 1,
+      "missingSourcePairs": 0
+    },
+    "bellevue": {
+      "file": "/workspace/integration-qa-evidence/transitions-c4fd6255-native/report.bridge-bellevue.json",
+      "recomputedStatsMatchNative": true,
+      "unresolvedPairs": 0,
+      "requestedPairs": 13,
+      "blockedRequestedPairs": 0,
+      "missingSourcePairs": 0
+    }
+  },
+  "captureGap": "Mandatory retired-world assertion failed before terminal PNG/completion/final audit summary; no replacement PNG created.",
+  "nextGates": "Fresh37/headlights NOT started; root candidate fix/freeze required. Telemetry awaits stamp.",
+  "processedUtc": "2026-11-09T03:33:03.005579+00:00"
+}

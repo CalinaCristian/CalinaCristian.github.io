@@ -126,7 +126,7 @@ export class SpotUI {
     setTour(t) {
         const el = this.$('.sp-tour'); if (!t) { el.innerHTML = ''; el.style.display = 'none'; return; }
         el.style.display = '';
-        el.innerHTML = `<b>🚩 ${esc(t.title)}${t.done ? '' : ` · ${Math.min(t.i + 1, t.n)}/${t.n}`}</b><div class="sp-dots">${(t.dots || []).map((d) => (d === 1 ? '●' : d === 2 ? '◉' : d === 3 ? '×' : '○')).join('')}</div>${t.stop ? `<div class="sp-stop">▶ ${esc(t.stop)}</div>` : ''}${t.text ? `<div class="sp-narr">${esc(t.text)}</div>` : ''}${t.skip || t.end ? `<div class="sp-tour-controls">${t.skip ? '<button data-tour-skip>Skip stop</button>' : ''}${t.end ? `<button data-tour-end>${t.done ? 'Close' : 'End tour'}</button>` : ''}</div>` : ''}`;
+        el.innerHTML = `<b>🚩 ${esc(t.title)}${t.done ? '' : ` · ${Math.min(t.i + 1, t.n)}/${t.n}`}</b><div class="sp-dots">${(t.dots || []).map((d) => (d === 1 ? '●' : d === 2 ? '◉' : d === 3 ? '×' : '○')).join('')}</div>${t.stop ? `<div class="sp-stop">▶ ${esc(t.stop)}</div>` : ''}${t.text ? `<div class="sp-narr">${esc(t.text)}</div>` : ''}${t.skip || t.end ? `<div class="sp-tour-controls">${t.skip ? '<button type="button" data-tour-skip aria-keyshortcuts="J" title="Skip this tour step (J)">Skip step (J)</button>' : ''}${t.end ? `<button data-tour-end>${t.done ? 'Close' : 'End tour'}</button>` : ''}</div>` : ''}`;
         for (const [selector, run] of [['[data-tour-skip]', t.skip], ['[data-tour-end]', t.end]]) {
             const b = el.querySelector(selector); if (!b) continue;
             b.onpointerdown = (e) => e.stopPropagation();

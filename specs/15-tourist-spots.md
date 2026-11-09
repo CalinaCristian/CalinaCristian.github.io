@@ -1,5 +1,14 @@
 # 15 — Tourist spots (walk-only bonus scenes)
 
+## Current seven-visit focus · 2026-11-09 playtest
+
+The owner capped visits at three per Bucharest/Seattle/Bellevue and six to eight total. MENU_AVAILABLE now contains seven: Old Town, Cișmigiu, Arcul de Triumf; Pike Place, combined Space Needle/Chihuly; Meydenbauer, Downtown Park. Retired source/evidence records and earned history remain; they are excluded from current visit/activity completion. MoPOP has no current visit or objective. This menu change is not acceptance of scene quality: the user found severe Seattle terrain/context/camera failures, and actual corrections/recaptures remain required.
+
+Opening a participatory modal no longer ends the tour. The owning flow captures its exact current stop, completion advances it once, cancellation keeps it unfinished. Named compound Freddo completions satisfy the street door stop only after a real dance/shot; entering the doorway alone does not. J and the visible Skip step button skip without a tour award. `tools/tourist-flow-state-check.mjs` exercises actual native DOM/input/session/flow code with explicit synthetic stop/route fixtures; it is not a physical scene or visual-quality pass.
+
+Old Town's visit boundary is enforced after native controller movement and crowd push-out, preserving the exact source streets/buildings as surrounding scenery. Freddo hours and the source anchor are recorded in `game/research/old-town-nightlife.md`; the interior layout and music are authored game content. Native dance, shot, hidden sports-room access and mobile checks are separate gates.
+
+
 Owner role: **spots** (new agent, after research). Inputs: research dossiers (spec 20), `OnFootController` (spec 14), `PhotoMode` (spec 16), landmarks.js.
 
 Bonus content: only the most important, must-see tourist places in each city (top 10), e.g. the Fremont Troll and the Gum Wall in Seattle, built as small high-fidelity areas you explore on foot (no driving).

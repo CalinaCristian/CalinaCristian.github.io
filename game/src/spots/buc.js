@@ -514,6 +514,7 @@ export function floodlight(root, colour = '#ffd9a0', k = 0.35) {
 // ---------------------------------------------------------------------------- activities (note 57; contract 01 *Activities*)
 /** report a finished spot activity (achievements listen to `dmcv:activity`) and show its toast */
 export function bucActivity(s, spot, id, title, body) {
+    s.recordTourActivity?.(spot, id);
     s._bucDone = s._bucDone || new Set(); s._bucDone.add(spot + ':' + id);
     try {
         if (typeof window.game?.emit === 'function') window.game.emit('activity', { spot, id });

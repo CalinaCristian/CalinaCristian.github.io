@@ -5408,7 +5408,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (const layer of ['area', 'grass', 'pave', 'sport', 'roof', 'backdrop', 'ground', 'road', 'pad', 'marks', 'water', 'solid', 'detail']) {
             if (c[layer].empty) continue;
             const o = superOf(c, layer);
-            if (layer === 'solid' || layer === 'roof') {
+            if (['solid', 'roof', 'area', 'grass', 'pave', 'sport', 'ground', 'road', 'pad', 'marks'].includes(layer)) {
                 const mb = c[layer], box = new THREE.Box3().setFromArray(mb.p.subarray(0, mb.vc * 3));
                 (o.parts ||= []).push({ start: o.mb?.ic || 0, count: mb.ic, bounds: [...box.min.toArray(), ...box.max.toArray()] });
             }
@@ -5420,7 +5420,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const addSuper = (o, mat, cast, name) => {
         cx = o.I * o.K + o.K / 2 - 0.5; cz = o.J * o.K + o.K / 2 - 0.5; // (addMesh centres at (cx + 0.5) · CELL)
         const m = addMesh(o.mb, mat, cast, `${name} ${o.I},${o.J}`); if (!m) return null;
-        if (o.parts) cullMergedCells(m, o.parts);
+        if (o.parts) cullMergedCells(m, o.parts, { blockTriangles: o.layer === 'ground' || o.layer === 'grass' ? 64 : 0 });
         const extra = CELL * (o.K - 1) * 0.71; m.userData.cull = (m.userData.cull || cullR) + extra;
         return m;
     };

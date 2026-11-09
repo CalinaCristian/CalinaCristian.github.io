@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import { subtractTramTrench, uncoveredTramTrenchWall } from '../../game/src/tram-trench.js';
+const area = p => Math.abs(p.reduce((s, a, i) => { const b = p[(i + 1) % p.length]; return s + a[0] * b[2] - b[0] * a[2]; }, 0) / 2);
+const rectangle = [[0, 0, 0, 0], [10, 0, 0, 10], [10, 0, 2, 12], [0, 0, 2, 2]], hole = [[4, -.5], [6, -.5], [6, 2.5], [4, 2.5]];
+const cut = subtractTramTrench(rectangle, hole);
+assert.ok(Math.abs(cut.reduce((s, p) => s + area(p), 0) - 16) < 1e-9, 'exact exterior area retained');
+for (const p of cut) for (const v of p) assert.ok(Math.abs(v[3] - v[0] - v[2]) < 1e-9, 'all attributes interpolate at cut vertices');
+assert.equal(subtractTramTrench(rectangle, [[20, 20], [21, 20], [21, 21], [20, 21]]).reduce((s, p) => s + area(p), 0), 20, 'unrelated source surface remains');
+assert.equal(subtractTramTrench(rectangle, [[-1, -1], [11, -1], [11, 3], [-1, 3]]).length, 0, 'fully contained open trench is cut');
+assert.ok(Math.abs(subtractTramTrench(rectangle, hole.slice().reverse()).reduce((s, p) => s + area(p), 0) - 16) < 1e-9, 'both polygon orientations agree');
+const floor = { poly: [[2, 0], [8, 0], [8, 2], [2, 2]], band: () => ({ top: -7.4 }) }, support = { inBox: () => [floor] };
+const exterior = uncoveredTramTrenchWall([0, -7.4, 1], [10, -7.4, 1], [0, 1], support, 'shared');
+assert.deepEqual(exterior, [[0, .2], [.8, 1]], 'shared compartment interior wall is exactly clipped, exterior intervals retained');
+assert.deepEqual(uncoveredTramTrenchWall([0, -3, 1], [10, -3, 1], [0, 1], support, 'shared'), [[0, 1]], 'different floor height does not remove physical retaining wall');
+console.log(JSON.stringify({ passed: true, scope: 'exact convex render-ground subtraction and interpolated attributes; native render/physical gate remains separate' }));

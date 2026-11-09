@@ -1,0 +1,7 @@
+{
+  "browserStarted": false,
+  "scope": "Tool source guard correctly rejected a mistyped full source argument before launching Chromium. No native or GPU observation ran.",
+  "actualArchiveSource": "2696df66fd0331fc645f7c003cbcca7a5410740b",
+  "rejectedArgument": "2696df6657feb6c84fb38e24d2c3d9f80afc8a0b",
+  "error": "source mismatch"
+}

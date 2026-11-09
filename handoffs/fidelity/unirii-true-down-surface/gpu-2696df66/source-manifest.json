@@ -1,0 +1,35 @@
+{
+  "source": "2696df66fd0331fc645f7c003cbcca7a5410740b",
+  "createdAt": "2026-11-09T15:32:30.390188+00:00",
+  "scope": "Only7 exact source files needed for isolated32px Three/material/order/model GPU controls. No native World/app/harness/data/population archive claim.",
+  "files": {
+    "game/vendor/three.module.min.js": {
+      "bytes": 691648,
+      "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7"
+    },
+    "game/src/geobuild.js": {
+      "bytes": 11773,
+      "sha256": "28e535a8934df3d3d249f13180ce04db1b86d47318530e74344a532a2a0fb2d3"
+    },
+    "game/src/underpass-roof.js": {
+      "bytes": 9375,
+      "sha256": "d1cc7dabf82d602959959f53bca26be699b62142e29ab0ab44e5b9936cec56b3"
+    },
+    "game/src/underpass-ground-owner.js": {
+      "bytes": 4811,
+      "sha256": "52d8e943ede3199ad485f06e455fa88c7b4d48a5d327f91837b7a73a9fdf37f2"
+    },
+    "game/src/bridge-profile-geometry.js": {
+      "bytes": 7754,
+      "sha256": "65b83df1cf242f632861d405c138f136facbfba5d3786ed4a85abb639f07982e"
+    },
+    "game/src/tram-trench.js": {
+      "bytes": 6044,
+      "sha256": "755b4ab3acdf101182bcc4eccf9486289f7346b7e6d58fb4c81f92669ad8a018"
+    },
+    "game/src/world.js": {
+      "bytes": 565206,
+      "sha256": "f57e216523a2f58a5860d374e27e0c1f328a2265f01af9efa46a493f1b7b75be"
+    }
+  }
+}

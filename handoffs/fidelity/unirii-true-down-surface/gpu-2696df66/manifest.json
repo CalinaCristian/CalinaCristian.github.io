@@ -1,0 +1,70 @@
+{
+  "files": [
+    {
+      "path": "actual-model-ceiling-from-below.png",
+      "bytes": 142,
+      "sha256": "8213ddaca92cd918cdd685dc78597b4ec9738c86c025c0f837e49f5d5919faf3"
+    },
+    {
+      "path": "actual-model-thickness-from-side.png",
+      "bytes": 159,
+      "sha256": "2cb3953424af990e37a72b9f6decf83aa0fd5da3c1bad393327957d450087406"
+    },
+    {
+      "path": "assessment.json",
+      "bytes": 836,
+      "sha256": "eaee7b081152e87fe311ca5d4ae1f984b2e425bab9bd74d139a31d73e3c1a4af"
+    },
+    {
+      "path": "executed-tool.cjs",
+      "bytes": 11216,
+      "sha256": "a3f9baf62a85327863a59ff3a1a87862a5782f798c9e056357bac628d5025979"
+    },
+    {
+      "path": "ground-no-mask-positive-control.png",
+      "bytes": 159,
+      "sha256": "ae1474452f98508102f26f4cb7ab5711c9237f559ca74fd64529204cd80bd1be"
+    },
+    {
+      "path": "opaque-mask-transparent-water-failure-control.png",
+      "bytes": 139,
+      "sha256": "74226347265142b57b41e09e8cce2516c105b83e5adc1cb0a863a3d0e2332dc1"
+    },
+    {
+      "path": "r1-pre-browser-rejected.json",
+      "bytes": 339,
+      "sha256": "3c4e4efde87ea5a7b5f197e29b93da7edb14e7185145c48ebb23eec64cd9fef5"
+    },
+    {
+      "path": "refused-new-mask-water-policy-only.png",
+      "bytes": 132,
+      "sha256": "9fbb2b43b1bf1006212e2c9530e3d8b7c12a7742c40d9cc8d15ba3ac100a2feb"
+    },
+    {
+      "path": "report.json",
+      "bytes": 11736,
+      "sha256": "d5a13d98bf4d53aa870cedeb50f3f02dd7a9a627ce3f1ccb16bcf8fd41570ff1"
+    },
+    {
+      "path": "source-grass-with-physical-roof.png",
+      "bytes": 128,
+      "sha256": "122e3ea59b99180b55d26b77e92feee6b17e5bb0a084c3525b71c60190f745c5"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 1328,
+      "sha256": "e58d62e340d673552a995447bee09eebeceed715a30fe3b34580e2a552e5d46a"
+    },
+    {
+      "path": "source-overlying-road-with-physical-roof.png",
+      "bytes": 129,
+      "sha256": "0f1d65044860913f541f56e74ef3d3c38e8d2cf2a24e549e839f6879324cae8c"
+    },
+    {
+      "path": "source-paving-with-physical-roof.png",
+      "bytes": 132,
+      "sha256": "9fbb2b43b1bf1006212e2c9530e3d8b7c12a7742c40d9cc8d15ba3ac100a2feb"
+    }
+  ],
+  "source": "2696df66fd0331fc645f7c003cbcca7a5410740b"
+}

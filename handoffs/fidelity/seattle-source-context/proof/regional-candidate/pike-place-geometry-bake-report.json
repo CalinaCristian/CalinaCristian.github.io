@@ -1,0 +1,25 @@
+{
+  "output": "/workspace/reality-pass/seattle-regional-terrain/pike-place-render-lod2.bin.gz",
+  "compressedBytes": 31633922,
+  "compressedSHA256": "048903980e3dbd92553bdcc1f1d713e03e02137522b59ea9fe71e7fd4c4fa0a1",
+  "uncompressedBytes": 63524304,
+  "uncompressedSHA256": "ac70ade1cc793d94284511bf2a1e539edbc5a09feef2257d2723aa6784894143",
+  "elapsedSeconds": 547.0104121990007,
+  "triangles": {
+    "terrain": 512766,
+    "water": 292940,
+    "shore": 527206
+  },
+  "measurements": {
+    "sourceTinTriangles": 272976,
+    "classified": {
+      "dry": 242510,
+      "wet": 19666,
+      "boundary": 10800
+    },
+    "landDroppedSerialization": 405,
+    "waterDroppedSerialization": 2062,
+    "landMaximumWeldDifferenceM": 0.00552460877224803,
+    "waterMaximumWeldDifferenceM": 0.005524355918169022
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "scope": "Actual cache prepare/manifest/kernel/native-frame validation with file-read Response adapter, warm OS cache, no browser/GL/network/visit acceptance",
+  "passed": true,
+  "numericRegionalSourceNotFetchedOrParsed": true,
+  "fetches": 23,
+  "results": [
+    {
+      "id": "seattle-center",
+      "nodeFileAdapterLoadAndValidationMs": 8656.443602,
+      "triangles": 1337188,
+      "rendered": false,
+      "sourceDataSHA256": "fac026f3bfe5241d675763c5421e2fea6824a162e02f44ac3e64c27a46bfa61d"
+    },
+    {
+      "id": "pike-place",
+      "nodeFileAdapterLoadAndValidationMs": 5509.871800999999,
+      "triangles": 1332912,
+      "rendered": false,
+      "sourceDataSHA256": "fac026f3bfe5241d675763c5421e2fea6824a162e02f44ac3e64c27a46bfa61d"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "path": "seattle-regional-pike-place.bin.gz",
+  "bytes": 22753405,
+  "sha256": "83e1aacfbdc74e3bc549d416041148b733554c8c24d402d835544760e81cab53",
+  "uncompressedBytes": 63525872,
+  "uncompressedSHA256": "804b6515a7f06750c3b385453c1697f574f4271bf351e11cd9ed3e53b5ab46d3",
+  "originalInput": "/workspace/reality-pass/seattle-regional-terrain/pike-place-render-lod2.bin.gz",
+  "restoredNumericBlocksSHA256": "ed33365fb37aed153699c08b16f2746522938ac9d85ecdd6931588e103391c99",
+  "originalNumericBlocksSHA256": "ed33365fb37aed153699c08b16f2746522938ac9d85ecdd6931588e103391c99",
+  "allOriginalNumericBytesIdentical": true,
+  "originalCompressedBytes": 31633922,
+  "sourceDataSHA256": "fac026f3bfe5241d675763c5421e2fea6824a162e02f44ac3e64c27a46bfa61d",
+  "nativeSceneDataSHA256": "484a00735a54b5aa60e07e20567e6a3cbd4142a78945ec463c6c5c9ee236c0d8",
+  "transport": {
+    "codec": "axis-xor-byteplanes-v2",
+    "packerSHA256": "4b4e75c5718927a4fd8883338f59cbc5e8f0dcd7dea13a70f59d86a5ee71a849",
+    "helperSHA256": "58895f7d1e1a7d8e9818bbf0f9fe7f6863bedfe45020b298f1c974118546a75e",
+    "originalUncompressedSHA256": "ac70ade1cc793d94284511bf2a1e539edbc5a09feef2257d2723aa6784894143",
+    "originalNumericBlocksSHA256": "ed33365fb37aed153699c08b16f2746522938ac9d85ecdd6931588e103391c99",
+    "originalConsumerHashes": {
+      "game/src/spots/source-regional-terrain.js": "9b2a8bacbcf7c5052aea2ea659b07692ee12d5774f2170c80345b25e7b0e846f",
+      "game/src/spots/source-terrain-projection.js": "c7a2d65a816261cd0616ffa72f6dffc33005a5ea324c96539c744ebd3516d9a6",
+      "game/src/spots/source-terrain-visibility.js": "560c399aa8a6af4a33c64e1f37b7c123834c54936a07d71e7fad1c65b9ecc4df",
+      "game/src/spots/source-geographic-frame.js": "7a2b9cb43bae39da7dc800dbf3f7c59a1a597ec961cfc4d560fdb489ac81628d",
+      "game/src/spots/context-array-codec.js": "2f0a5c32cacedb5b605341a57a4d6191738028ad4bb3424a013eee75aa373282",
+      "game/src/spots/source-context-landscape.js": "4f2a4d405075d344f1d00774c513af56c4cbbc75e337e80a89728b67682953e9",
+      "game/src/spots/source-context-surface.js": "8c6bc6d0081bf6031f8bc32f363a2f0857d6483429b54f7a7b64baf71d160386",
+      "game/src/spots/ground.js": "f269ad5471ffaa0098620bcd8a6056c604a9b89d22fb7fbd24bfd9c7ac6b1489"
+    },
+    "basis": "Only the transport/loader changes; every original typed numeric bit and triangle order is retained. Original source/compiler/projection pins remain."
+  }
+}

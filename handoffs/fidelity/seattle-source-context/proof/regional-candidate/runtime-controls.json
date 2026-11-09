@@ -1,0 +1,41 @@
+{
+  "scope": "CPU geometry/state controls only; no native image, shader-driver, performance or activity acceptance",
+  "passed": true,
+  "checks": 8,
+  "views": 24,
+  "visibleTriangleFixtures": 24460,
+  "results": [
+    {
+      "name": "WGS84 equator/poles and exact origin controls",
+      "passed": true
+    },
+    {
+      "name": "entire native rectangle has exact unchanged LL/height coordinates",
+      "passed": true
+    },
+    {
+      "name": "ENU transition is continuous in position and first derivative",
+      "passed": true
+    },
+    {
+      "name": "physical fog restores source distance and raw elevation; idempotent and original hook retained",
+      "passed": true
+    },
+    {
+      "name": "chunk partition preserves every original index exactly once",
+      "passed": true
+    },
+    {
+      "name": "actual camera matrices never cull a triangle intersecting five clip halfspaces, including beyond far plane",
+      "passed": true
+    },
+    {
+      "name": "normal override geometry retains altitude and morph attributes without a material-specific vertex displacement",
+      "passed": true
+    },
+    {
+      "name": "unknown source and invalid frames fail explicitly",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "scope": "Full typed-array bit parity in the actual JavaScript decoder; no native shader-driver/cold-load/budget/image acceptance",
+  "passed": true,
+  "originalFileSHA256": "abf9a754d39fa25f5ca38c9f48a1bc035866f237c62d8434b095468c8e955c0f",
+  "packedFileSHA256": "8710b5593912abc1ec904344f3d47bd96a873241e11dd19ed1c23abb048986cd",
+  "arrays": 15,
+  "bytes": 63378900,
+  "allOriginalTypedBitsAndIndexOrderIdentical": true,
+  "originalSourceBufferUnchanged": true,
+  "rawContainerCompatibility": true,
+  "malformedHeaderControls": true,
+  "nodeDecodeAndHashTimeMs": 2079.1374470000005
+}

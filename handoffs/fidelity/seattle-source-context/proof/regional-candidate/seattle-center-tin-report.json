@@ -1,0 +1,118 @@
+{
+  "scene": "seattle-center",
+  "sourceCandidates": 479559,
+  "vertices": 142524,
+  "triangles": 276345,
+  "sourceSampleAngleErrorBoundRad": 0.0005,
+  "errorScope": "Retained source sample residual before collinear boundary recovery; not an all-interior geodesy bound or native visual acceptance",
+  "eyeHorizontalBoundM": 1000,
+  "elapsedSeconds": 201.23289042599208,
+  "producerSHA256": "416bf01c36c488afb225ca28da27c9ae8f597dccf0f5ce5f631bf5bf05b85b40",
+  "boundarySHA256": "e28020b679aa4a086af87d641fb29e45a9188be10e9e5182249edf30d12152fe",
+  "tiles": [
+    {
+      "tile": [
+        0,
+        0
+      ],
+      "sourceCandidates": 43437,
+      "boundaryPoints": 999,
+      "retainedVertices": 14482,
+      "triangles": 27963,
+      "sourceSampleMaxErrorM": 72.96247510622874,
+      "sourceSampleAngleErrorRad": 0.0004994299713324192,
+      "iterations": 30
+    },
+    {
+      "tile": [
+        1,
+        0
+      ],
+      "sourceCandidates": 58389,
+      "boundaryPoints": 1129,
+      "retainedVertices": 20033,
+      "triangles": 38935,
+      "sourceSampleMaxErrorM": 35.35598993589953,
+      "sourceSampleAngleErrorRad": 0.0004997518891784652,
+      "iterations": 40
+    },
+    {
+      "tile": [
+        2,
+        0
+      ],
+      "sourceCandidates": 32667,
+      "boundaryPoints": 870,
+      "retainedVertices": 16718,
+      "triangles": 32564,
+      "sourceSampleMaxErrorM": 65.9391583769842,
+      "sourceSampleAngleErrorRad": 0.0004999897939578425,
+      "iterations": 33
+    },
+    {
+      "tile": [
+        0,
+        1
+      ],
+      "sourceCandidates": 24587,
+      "boundaryPoints": 1153,
+      "retainedVertices": 6386,
+      "triangles": 11617,
+      "sourceSampleMaxErrorM": 62.83888560741152,
+      "sourceSampleAngleErrorRad": 0.0004991217997511455,
+      "iterations": 13
+    },
+    {
+      "tile": [
+        2,
+        1
+      ],
+      "sourceCandidates": 15384,
+      "boundaryPoints": 1009,
+      "retainedVertices": 8931,
+      "triangles": 16851,
+      "sourceSampleMaxErrorM": 52.467435456839524,
+      "sourceSampleAngleErrorRad": 0.0004988904331358255,
+      "iterations": 17
+    },
+    {
+      "tile": [
+        0,
+        2
+      ],
+      "sourceCandidates": 68491,
+      "boundaryPoints": 1179,
+      "retainedVertices": 16314,
+      "triangles": 31447,
+      "sourceSampleMaxErrorM": 86.9037358205373,
+      "sourceSampleAngleErrorRad": 0.0004997200323778703,
+      "iterations": 33
+    },
+    {
+      "tile": [
+        1,
+        2
+      ],
+      "sourceCandidates": 55014,
+      "boundaryPoints": 1298,
+      "retainedVertices": 19667,
+      "triangles": 38034,
+      "sourceSampleMaxErrorM": 67.98670339049184,
+      "sourceSampleAngleErrorRad": 0.0004997281500151081,
+      "iterations": 40
+    },
+    {
+      "tile": [
+        2,
+        2
+      ],
+      "sourceCandidates": 108177,
+      "boundaryPoints": 1050,
+      "retainedVertices": 39993,
+      "triangles": 78934,
+      "sourceSampleMaxErrorM": 86.5271672657118,
+      "sourceSampleAngleErrorRad": 0.0004999727697798423,
+      "iterations": 80
+    }
+  ]
+}

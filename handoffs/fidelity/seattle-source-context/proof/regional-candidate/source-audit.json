@@ -1,0 +1,56 @@
+{
+  "scope": "Raw source, exact coverage and independent geodesy controls; no native visual, water-level survey or performance acceptance",
+  "sourceUncompressedSHA256": "fac026f3bfe5241d675763c5421e2fea6824a162e02f44ac3e64c27a46bfa61d",
+  "sourceCompressedSHA256": "cdffea5185f8cafd2aa60cb1fecde781b90b4125c8f7981ff85be72f921b521e",
+  "sourceFeatures": 3977,
+  "sourcePoints": 1053918,
+  "unresolvedGeometries": 90,
+  "passed": true,
+  "checks": [
+    {
+      "name": "Every retained NHD coordinate bit, ring order, attribute and supplying response SHA matches raw official response",
+      "features": 3977,
+      "points": 1053918,
+      "passed": true
+    },
+    {
+      "name": "Original returned GeoTIFF Float32 bits and actual PixelIsArea centres",
+      "id": "regional-513",
+      "samples": 162621,
+      "passed": true
+    },
+    {
+      "name": "Original returned GeoTIFF Float32 bits and actual PixelIsArea centres",
+      "id": "rainier-257",
+      "samples": 59367,
+      "passed": true
+    },
+    {
+      "name": "All existing mapped trees are inside detailed OSM coverage, excluded from regional extensions",
+      "sourceTrees": 5808,
+      "outsideDetailedCoverage": 0,
+      "passed": true
+    },
+    {
+      "name": "Independent installed PROJ EPSG4979\u21924978 vs consumer WGS84 formula",
+      "fixtures": 507,
+      "maxPositionDifferenceM": 0.0,
+      "verticalDatumConversion": false,
+      "passed": true
+    },
+    {
+      "name": "Exact regional extension polygon intersection with original detailed OSM coverage",
+      "scene": "seattle-center",
+      "records": 23,
+      "intersectionAreaM2": 0.0,
+      "passed": true
+    },
+    {
+      "name": "Exact regional extension polygon intersection with original detailed OSM coverage",
+      "scene": "pike-place",
+      "records": 4,
+      "intersectionAreaM2": 0.0,
+      "passed": true
+    }
+  ]
+}

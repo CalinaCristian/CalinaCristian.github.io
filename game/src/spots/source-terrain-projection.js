@@ -62,14 +62,18 @@ export function terrainProjectionRadialDerivative(radius,eyeRadius,policy=REGION
 
 /** Restore true source distance/height before the shared aerial-perspective fog. */
 export function installSourceTerrainFog(material){
+    if(material.userData.sourceTerrainFog)return material;
+    material.userData.sourceTerrainFog=true;
     const original=material.onBeforeCompile,cacheKey=material.customProgramCacheKey.bind(material);
     material.onBeforeCompile=function(shader,...args){
         original.call(this,shader,...args);
-        shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute float sourceTerrainScale;')
+        shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute float sourceTerrainScale;\nattribute float sourceTerrainAltitude;')
             .replace('#include <fog_vertex>',`#include <fog_vertex>
             #if defined(USE_FOG) && defined(FOG_EXP2)
                 vFogV /= sourceTerrainScale;
-                vFogH = cameraPosition.y + (vFogH - cameraPosition.y) / sourceTerrainScale;
+                // Geographic ENU includes curvature; atmospheric altitude is
+                // the original source elevation relative to the native origin.
+                vFogH = sourceTerrainAltitude;
             #endif`);
     };
     material.customProgramCacheKey=()=>cacheKey()+'|source-terrain-physical-fog-v1';

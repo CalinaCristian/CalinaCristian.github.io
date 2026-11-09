@@ -38,6 +38,7 @@ async function packet(){
 }
 export async function prepareSourceContext(ctx,{heroSourceIds=[],replaceNativeSourceIds=[]}={}){
     const p=await packet(),f=p.source.frame,sameFrame=f.origin.lat===ctx.data.origin.lat&&f.origin.lon===ctx.data.origin.lon&&f.origin.elev===ctx.data.origin.elev&&f.projection.mLat===ctx.data.projection.mLat&&f.projection.mLon===ctx.data.projection.mLon;
+    if(ctx.extras.regionalTerrain&&ctx.extras.regionalTerrain.sourceContextDataSHA256!==p.sourceSHA256)throw Error('Regional/local source dataset mismatch');
     const field=sameFrame?p.field:sourceTerrainField(p.source.terrain,ctx.data.origin,ctx.data.projection);
     ctx.ground.sourceTerrain={heightAt:field.heightAt,sourceSHA256:p.source.terrain.sourceSHA256,basis:field.basis,transitionM:ctx.data.terrain.d};
     const nativeIds=new Set(ctx.data.buildings.map(b=>b.id));

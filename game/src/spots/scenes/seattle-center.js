@@ -16,6 +16,7 @@ import { photoHunt } from '../photo-hunt.js';
 import { activityFlow } from '../participation.js';
 import { facadeMaterial } from '../osm.js';
 import {prepareSourceContext,addSourceContext} from '../source-context.js';
+import {prepareRegionalTerrain,addRegionalTerrain} from '../source-regional-terrain.js';
 
 const NEEDLE = { x: 0.3, z: 0.7, y: 1.5 };
 const MONO = [[-46, -86], [-23, -87], [-8, -87], [10, -88], [37, -89], [49, -88], [56, -87], [64, -86], [71, -83], [78, -80], [96, -62], [102, -54], [105, -50], [109, -43], [115, -39], [124, -30], [129, -10], [129, 60], [126, 160], [126, 300]];
@@ -287,6 +288,7 @@ function buildMonorail(ctx) {
 export default {
     env: { fogFar: 4200 },
     async build(ctx) {
+        await prepareRegionalTerrain(ctx);
         await prepareSourceContext(ctx,{replaceNativeSourceIds:['r20085315']});
         const g = ctx.ground, d = ctx.data;
         // plaza level around the Needle base (flat), gentle elsewhere
@@ -307,7 +309,8 @@ export default {
         { const fw = d.areas.find((a) => a.id === 'w241876412'); if (fw) { const c = centroid(fw.poly), w = new THREE.Mesh(new THREE.CircleGeometry(4.2, 32), new THREE.MeshStandardMaterial({ color: '#3d6f80', roughness: 0.05, metalness: 0.3 })); w.rotation.x = -Math.PI / 2; w.position.set(c[0], g.heightAt(c[0], c[1]) + 0.06, c[1]); ctx.add(w); } }
         // the city around the grounds (seen from the deck: 360°) — real towers, blocks, ground, Elliott Bay + ferries, mountains
         addSourceContext(ctx);
-        ctx.extras.seaBackdrop = seaBackdrop(ctx, { needle: false, towers: false, bay: false, clear: 380, eyeY: 1.6 });
+        ctx.extras.seaBackdrop = seaBackdrop(ctx, { needle: false, towers: false, bay: false, rainier:false,olympics:false,clear: 380, eyeY: 1.6 });
+        addRegionalTerrain(ctx);
         // 5th Ave / Broad St traffic
         addTraffic(ctx, { lanes: [{ pts: [[129, 160], [129, -20], [129, -174], [130, -219], [124, -305]], n: 3, speed: 10 }, { pts: [[124, -305], [130, -219], [129, -174], [129, -20], [129, 160]].map(([x, z]) => [x - 5, z]), n: 3, speed: 10 }, { pts: [[7, 120], [18, 108], [40, 83], [79, 34], [103, 6], [129, -20]], n: 2, speed: 10 }] });
         // ---- plaques (Needle 5, Chihuly 3) with artist / architect credits

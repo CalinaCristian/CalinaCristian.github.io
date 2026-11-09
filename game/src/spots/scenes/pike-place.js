@@ -18,6 +18,7 @@ import { seaActivity, seaWheel, seaBackdrop, signAtlas } from './sea-common.js';
 import { coinDrop } from '../coin-drop.js';
 import { activityBlocked, onActivityCancel } from '../participation.js';
 import {prepareSourceContext,addSourceContext} from '../source-context.js';
+import {prepareRegionalTerrain,addRegionalTerrain} from '../source-regional-terrain.js';
 
 // ---------------------------------------------------------------------------- street profile (OSM centrelines, research elevations)
 const PIKE_PLACE = [[-50, 33], [-60, 25], [-76, 10], [-91, -3], [-95, -6], [-103, -14], [-126, -34], [-141, -48], [-148, -53], [-151, -56], [-172, -75], [-179, -81], [-263, -155], [-270, -161]];
@@ -363,6 +364,7 @@ function buildSteinbrueck(ctx) {
 export default {
     env: { fogFar: 3200 },
     async build(ctx) {
+        await prepareRegionalTerrain(ctx);
         await prepareSourceContext(ctx,{heroSourceIds:['w12903132']}); // The existing source-named Needle model is already visible across the city.
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('pike-place');
         // ---- ground: Pike Place, Pike St, Post Alley at their real levels; Elliott Bay below the bluff
@@ -429,7 +431,8 @@ export default {
         { const w = ctx.ll(47.60617, -122.3425), wh = seaWheel(w.x, -33.5, w.z, -0.35, { spin: true }); ctx.add(wh.group); ctx.onUpdate((dt, s) => wh.update(dt, s.nightK, s.t)); }
         // the city + bay context: downtown towers beyond the OSM extract, ferries on the Bainbridge run, port cranes, the Olympics
         addSourceContext(ctx);
-        ctx.extras.seaBackdrop = seaBackdrop(ctx, { clear: 330, needle: true, towers: false, bay: false, eyeY: 1.6 });
+        ctx.extras.seaBackdrop = seaBackdrop(ctx, { clear: 330, needle: true, towers: false, bay: false, rainier:false,olympics:false,eyeY: 1.6 });
+        addRegionalTerrain(ctx);
         // MarketFront viewpoint railing
         { const b = new GeoBatch(); railing(b, [[-268, -98], [-262, -72], [-250, -50], [-238, -36]], (x, z) => g.heightAt(x, z)); ctx.add(b.build('marketfront-rail')); }
         // 1st Ave traffic (Pike Place itself is car-free)

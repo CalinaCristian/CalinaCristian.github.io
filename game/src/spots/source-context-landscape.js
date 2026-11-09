@@ -14,6 +14,12 @@ export function prepareContextWater(ctx,data,box){
         const y=literal!=null&&Number.isFinite(literal)?literal-ctx.data.origin.elev:samples[Math.floor(samples.length/2)];
         records.push({...a,y,sourceIds:[a.id],estimated:!Number.isFinite(literal),heightBasis:Number.isFinite(literal)?'Literal OSM ele in metres; source datum/time unknown; no datum conversion':'Median USGS boundary samples; unmeasured water-level estimate'});
     }
+    // Additional source water is admitted only by the validated regional cache,
+    // outside the original detailed OSM coverage. Existing source records stay.
+    for(const r of ctx.extras.regionalTerrain?.waterExtensionRecords||[]){
+        if(!r.regionalExtension||!Number.isFinite(r.y)||r.poly.length<3||![r.poly,...(r.holes||[])].flat().every(p=>p.length===2&&p.every(Number.isFinite)))throw Error('Invalid regional source-water extension');
+        records.push({...r,holes:r.holes||[]});
+    }
     const triangles=[];
     for(const r of records){const points=[r.poly,...(r.holes||[])],flat=points.flat(),indices=THREE.ShapeUtils.triangulateShape(r.poly.map(p=>new THREE.Vector2(...p)),(r.holes||[]).map(h=>h.map(p=>new THREE.Vector2(...p))));r.triangles=indices.map(ids=>ids.map(i=>flat[i].map(Math.fround)));triangles.push(...r.triangles);r.bounds=polyBox(r.poly);}
     const compiled=compileSourceWaterFaces(triangles),waterAt=(x,z)=>{for(const r of records){const b=r.bounds;if(x>=b.x0&&x<=b.x1&&z>=b.z0&&z<=b.z1&&inPoly(x,z,r.poly)&&!(r.holes||[]).some(h=>inPoly(x,z,h)))return r.y;}return null;};
@@ -21,8 +27,11 @@ export function prepareContextWater(ctx,data,box){
 }
 export function addSourceContextWater(ctx){
     const state=ctx.extras.sourceContext,w=state.water,group=new THREE.Group();group.name='literal-source-water';
-    for(const r of w.records){const positions=[];for(const points of r.triangles){const[a,b,c]=points,flip=(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0])>0;for(const p of flip?[a,c,b]:points)positions.push(p[0],r.y,p[1]);}
-        const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.computeVertexNormals();worldUV(g);const m=new THREE.Mesh(g,waterMaterial(ctx,{name:'source-water-'+r.id,color:r.id==='r2793813'?'#22383f':'#203540'}));m.name='water-source:'+r.id;m.userData.noFloor=true;m.userData.sourceIds=r.sourceIds;m.userData.heightBasis=r.heightBasis;m.receiveShadow=false;group.add(m);}
+    const batches=new Map();
+    for(const r of w.records){const key=r.mergeGroup||r.id,b=batches.get(key)||{key,positions:[],sourceIds:[],bases:[],color:r.id==='r2793813'?'#22383f':'#203540'};batches.set(key,b);b.sourceIds.push(...(r.sourceIds||[]));b.bases.push(r.heightBasis);
+        for(const points of r.triangles){const[a,c,d]=points,flip=(c[0]-a[0])*(d[1]-a[1])-(c[1]-a[1])*(d[0]-a[0])>0;for(const p of flip?[a,d,c]:points)b.positions.push(p[0],r.y,p[1]);}}
+    for(const b of batches.values()){
+        const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(b.positions,3));g.computeVertexNormals();worldUV(g);const m=new THREE.Mesh(g,waterMaterial(ctx,{name:'source-water-'+b.key,color:b.color}));m.name='water-source:'+b.key;m.userData.noFloor=true;m.userData.sourceIds=[...new Set(b.sourceIds)];const bases=[...new Set(b.bases)];m.userData.heightBasis=bases.length===1?bases[0]:bases;m.receiveShadow=false;group.add(m);}
     ctx.add(group);state.water.group=group;
 }
 export function addSourceContextTrees(ctx,data){

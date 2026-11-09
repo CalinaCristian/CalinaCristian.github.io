@@ -1,0 +1,7 @@
+0 272976 {'dry': 0, 'wet': 0, 'boundary': 0} 17.74
+/workspace/fidelity-workers/seattle-source-context/tools/osm/compile-regional-cache.py:110: DeprecationWarning: Arrays of 2-dimensional vectors are deprecated. Use arrays of 3-dimensional vectors instead. (deprecated in NumPy 2.0)
+  den=np.cross(xy[1]-xy[0],xy[2]-xy[0]);assert den!=0
+2000 272976 {'dry': 1333, 'wet': 294, 'boundary': 373} 124.5
+Warning 1: OGR_G_Area() called against non-surface geometry type.
+4000 272976 {'dry': 2876, 'wet': 456, 'boundary': 668} 181.28
+6000 272976 {'dry': 4474, 'wet': 576, 'boundary': 950} 256.33

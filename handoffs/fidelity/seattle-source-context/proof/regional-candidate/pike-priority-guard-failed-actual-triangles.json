@@ -1,0 +1,120 @@
+{
+  "scope": "Actual cache triangles vs actual native kernel segment; convex point-to-triangle distance bounds the complete segment. No geometry adjustment or widened clearance.",
+  "cacheSHA256": "3cc2625b0ab41e26a087e4ea0f4e4070ab1eb40742d9a2872de4f342f39fdad4",
+  "oldAlongAxisCoverageFailureRetained": true,
+  "segments": [
+    {
+      "gap": {
+        "side": "west",
+        "lo": -2369.167236328125,
+        "hi": -2369.1669921875,
+        "lengthM": 0.000244140625
+      },
+      "nearSegmentEndpoints": [
+        [
+          -4000.0,
+          -33.1292230838419,
+          -2369.167236328125
+        ],
+        [
+          -4000.0,
+          -33.129241943359375,
+          -2369.1669921875
+        ]
+      ],
+      "candidateTriangles": 1,
+      "actualSurfaceWitness": {
+        "triangle": 165542,
+        "vertices": [
+          [
+            -4000.0,
+            -32.89623260498047,
+            -2372.183349609375
+          ],
+          [
+            -4007.787353515625,
+            -33.050228118896484,
+            -2372.540283203125
+          ],
+          [
+            -4000.0,
+            -33.12923049926758,
+            -2369.167236328125
+          ]
+        ],
+        "closestEndpoints": [
+          [
+            -4000.0,
+            -33.12923045527689,
+            -2369.167236897576
+          ],
+          [
+            -4000.0,
+            -33.12923049926758,
+            -2369.167236328125
+          ]
+        ],
+        "maxEndpointDistanceM": 0.00024440869872499615
+      },
+      "convexDistanceBoundsWholeSegment": true,
+      "withinCalculatedSerializationBound": true
+    },
+    {
+      "gap": {
+        "side": "north",
+        "lo": -182.76783752441406,
+        "hi": -181.8182373046875,
+        "lengthM": 0.9496002197265625
+      },
+      "nearSegmentEndpoints": [
+        [
+          -182.76783752441406,
+          -30.27965487085787,
+          -3600.0
+        ],
+        [
+          -181.8182373046875,
+          -30.337202072143555,
+          -3600.0
+        ]
+      ],
+      "candidateTriangles": 1,
+      "actualSurfaceWitness": {
+        "triangle": 87245,
+        "vertices": [
+          [
+            -182.9851531982422,
+            -30.2664852142334,
+            -3600.0
+          ],
+          [
+            -182.76783752441406,
+            -30.27965545654297,
+            -3600.0
+          ],
+          [
+            -183.07717895507812,
+            -30.281843185424805,
+            -3600.819091796875
+          ]
+        ],
+        "closestEndpoints": [
+          [
+            -182.76783755977914,
+            -30.279655454399695,
+            -3600.0
+          ],
+          [
+            -182.76783752441406,
+            -30.27965545654297,
+            -3600.0
+          ]
+        ],
+        "maxEndpointDistanceM": 0.9513423097244321
+      },
+      "convexDistanceBoundsWholeSegment": true,
+      "withinCalculatedSerializationBound": false
+    }
+  ],
+  "passed": false
+}

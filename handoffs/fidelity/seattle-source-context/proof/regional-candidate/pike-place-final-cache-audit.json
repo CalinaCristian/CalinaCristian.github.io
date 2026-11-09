@@ -1,0 +1,53 @@
+{
+  "scope": "Actual typed assets and CPU emitted near-frame seam; calculated Float32/projection envelope. Native shader-driver, images, walking, total-pass and cold-load gates remain open.",
+  "cacheSHA256": "83e1aacfbdc74e3bc549d416041148b733554c8c24d402d835544760e81cab53",
+  "uncompressedSHA256": "804b6515a7f06750c3b385453c1697f574f4271bf351e11cd9ed3e53b5ab46d3",
+  "restoredContainerSHA256": "cb61efd262ec6256b17abdf37fb830d5f7a4e2cce4363c5f273d94f2a259fac3",
+  "sourceSHA256": "fac026f3bfe5241d675763c5421e2fea6824a162e02f44ac3e64c27a46bfa61d",
+  "currentConsumerHashesMatch": true,
+  "triangles": {
+    "terrain": 512766,
+    "water": 292940,
+    "shore": 527206
+  },
+  "seam": {
+    "nearSegments": 491,
+    "heightComparisons": 3813,
+    "coveredLengthSumM": 18850.97038269043,
+    "maximumHeightDifferenceM": 4.299245774763705e-05,
+    "maximumUncoveredIntervalM": 0.000244140625,
+    "calculatedSerializationBoundM": 0.001953125,
+    "uncovered": [
+      {
+        "side": "west",
+        "lo": -2369.167236328125,
+        "hi": -2369.1669921875,
+        "lengthM": 0.000244140625
+      }
+    ],
+    "passed": true
+  },
+  "shorelineLOD": {
+    "policy": {
+      "exactCollarM": 12000.0,
+      "eyeHorizontalBoundM": 1000.0,
+      "physicalHeightPx": 2160.0,
+      "aspectMax": 2.4,
+      "fovMinDeg": 20.0,
+      "fovMaxDeg": 90.0,
+      "targetAdditionalErrorPx": 0.4,
+      "acceptancePx": 0.5,
+      "enuHorizontalLowerScale": 0.95,
+      "enuLipschitz": 1.04,
+      "enuSecondDerivativeBoundPerM": 1e-06
+    },
+    "sourcePoints": 830529,
+    "renderPoints": 262946,
+    "revertedFeatures": 1,
+    "maximumGeometricAdditionalPixelError": 0.320199520568568,
+    "maximumCalculatedNumericPixelError": 0.05470236228463666,
+    "combinedAdditionalPixelBound": 0.37490188285320464,
+    "passed": true
+  },
+  "passed": true
+}

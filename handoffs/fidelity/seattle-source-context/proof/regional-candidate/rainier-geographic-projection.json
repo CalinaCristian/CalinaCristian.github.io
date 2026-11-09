@@ -1,0 +1,47 @@
+{
+  "scope": "WGS84 projection model using unchanged input numeric elevation; no local datum conversion; not native image acceptance",
+  "frame": {
+    "origin": {
+      "lat": 47.6205063,
+      "lon": -122.3493043,
+      "elev": 40.5
+    },
+    "projection": {
+      "mLat": 111182.94,
+      "mLon": 75171.03
+    }
+  },
+  "sourcePoint": {
+    "lat": 46.85162337662337,
+    "lon": -121.76103896103895,
+    "height": 4375.7841796875
+  },
+  "nativeEye": [
+    15.389047024857273,
+    155.75,
+    9.364909686871892
+  ],
+  "flat": [
+    44220.511443001335,
+    4335.2841796875,
+    85486.66393680844
+  ],
+  "enu": [
+    44894.753576697265,
+    3606.0069918315203,
+    85366.80434012829
+  ],
+  "verticalCoordinateDifferenceM": -729.2771878559797,
+  "sourceElevationAngleDeg": {
+    "flat": 2.486917301559319,
+    "enu": 2.049020199805581
+  },
+  "policy": {
+    "nearM": 6000,
+    "fullM": 12000,
+    "ellipsoid": "WGS84",
+    "semiMajorM": 6378137,
+    "inverseFlattening": 298.257223563,
+    "verticalDatumConversion": false
+  }
+}

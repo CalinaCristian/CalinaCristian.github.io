@@ -1,0 +1,27 @@
+{
+  "scope": "CPU continuous-boundary/error/topology controls; native source-camera/material/frame gates remain open",
+  "passed": true,
+  "checks": 7,
+  "results": [
+    "Exact near collar and original source bytes unchanged",
+    "Far reduction retains ordered components/holes and continuous <=.5px certificate",
+    "Original source edges entering the collar remain, no replacement chord cuts through collar",
+    "Reverse Hausdorff guarantee includes a backtracking original chain",
+    "A genuine unsampled-between-endpoints spike is retained",
+    "Long straight source chain receives curvature-bounded render subdivision",
+    "Small separate island is retained; invalid topology would revert the full feature"
+  ],
+  "policy": {
+    "exactCollarM": 12000.0,
+    "eyeHorizontalBoundM": 1000.0,
+    "physicalHeightPx": 2160.0,
+    "aspectMax": 2.4,
+    "fovMinDeg": 20.0,
+    "fovMaxDeg": 90.0,
+    "targetAdditionalErrorPx": 0.4,
+    "acceptancePx": 0.5,
+    "enuHorizontalLowerScale": 0.95,
+    "enuLipschitz": 1.04,
+    "enuSecondDerivativeBoundPerM": 1e-06
+  }
+}

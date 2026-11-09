@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "status": "Bounded render candidate; no native cold-load, High/Ultra submitted-budget, picture/activity or overview acceptance",
+  "packageCreatedAt": "2026-11-09T19:10:36.155672+00:00",
+  "sourceCommitBase": "8219915e90bc0238216a7e0c7b8d61e7ad097613",
+  "attribution": "USGS3DEP/NHD public-domain numeric source; \u00a9OpenStreetMap contributors, ODbL1.0",
+  "source": {
+    "path": "seattle-regional-source.json.gz",
+    "bytes": 10260213,
+    "sha256": "cdffea5185f8cafd2aa60cb1fecde781b90b4125c8f7981ff85be72f921b521e",
+    "uncompressedBytes": 26070401,
+    "uncompressedSHA256": "fac026f3bfe5241d675763c5421e2fea6824a162e02f44ac3e64c27a46bfa61d"
+  },
+  "scenes": {
+    "seattle-center": {
+      "path": "seattle-regional-seattle-center.bin.gz",
+      "bytes": 22819279,
+      "sha256": "8710b5593912abc1ec904344f3d47bd96a873241e11dd19ed1c23abb048986cd",
+      "uncompressedBytes": 63663924,
+      "uncompressedSHA256": "d67ca4439513935ce4ebb1562f7e52155077c3fffec12b94cd4af8bfa6fc9eb1"
+    },
+    "pike-place": {
+      "path": "seattle-regional-pike-place.bin.gz",
+      "bytes": 22753405,
+      "sha256": "83e1aacfbdc74e3bc549d416041148b733554c8c24d402d835544760e81cab53",
+      "uncompressedBytes": 63525872,
+      "uncompressedSHA256": "804b6515a7f06750c3b385453c1697f574f4271bf351e11cd9ed3e53b5ab46d3"
+    }
+  },
+  "waterModelReport": {
+    "path": "seattle-regional-water-model.json",
+    "bytes": 183702,
+    "sha256": "bed175c378b03e1cf23350c2b2d0677cdb6ce0e36652d1ef03ee0c48b034e2f6"
+  },
+  "assets": [
+    {
+      "path": "seattle-regional-source.json.gz",
+      "bytes": 10260213,
+      "sha256": "cdffea5185f8cafd2aa60cb1fecde781b90b4125c8f7981ff85be72f921b521e",
+      "uncompressedBytes": 26070401,
+      "uncompressedSHA256": "fac026f3bfe5241d675763c5421e2fea6824a162e02f44ac3e64c27a46bfa61d"
+    },
+    {
+      "path": "seattle-regional-seattle-center.bin.gz",
+      "bytes": 22819279,
+      "sha256": "8710b5593912abc1ec904344f3d47bd96a873241e11dd19ed1c23abb048986cd",
+      "uncompressedBytes": 63663924,
+      "uncompressedSHA256": "d67ca4439513935ce4ebb1562f7e52155077c3fffec12b94cd4af8bfa6fc9eb1"
+    },
+    {
+      "path": "seattle-regional-pike-place.bin.gz",
+      "bytes": 22753405,
+      "sha256": "83e1aacfbdc74e3bc549d416041148b733554c8c24d402d835544760e81cab53",
+      "uncompressedBytes": 63525872,
+      "uncompressedSHA256": "804b6515a7f06750c3b385453c1697f574f4271bf351e11cd9ed3e53b5ab46d3"
+    },
+    {
+      "path": "seattle-regional-water-model.json",
+      "bytes": 183702,
+      "sha256": "bed175c378b03e1cf23350c2b2d0677cdb6ce0e36652d1ef03ee0c48b034e2f6"
+    }
+  ],
+  "totalAssetBytes": 56016599,
+  "netReplacedAssets": [],
+  "numericSourceLoadedForRendering": false,
+  "preservesExistingContextManifest": "seattle-context-manifest.json",
+  "sourceCoverage": {
+    "marineBay": [
+      -124.2,
+      46.25,
+      -120.8,
+      48.35
+    ],
+    "lakeReservoirEstuary": [
+      -123,
+      47.1,
+      -121.9,
+      48
+    ],
+    "detailedOSMPriority": [
+      -122.375,
+      47.596,
+      -122.31,
+      47.645
+    ]
+  },
+  "sourceCounts": {
+    "waterFeatures": 3977,
+    "originalFloat64WaterPoints": 1053918,
+    "unavailableWaterGeometries": 90,
+    "unsupportedWaterLevelModels": 3518
+  },
+  "scope": {
+    "renderOnly": true,
+    "newFloorsOrColliders": false,
+    "rawSourcePreservedLosslessly": true,
+    "originalOSMAndCloseupPriority": true,
+    "exactWaterBoundaryCollarM": 12000,
+    "additionalShorelineLODErrorEnvelope": {
+      "eyeHorizontalM": 1000,
+      "eyeYMinM": -100,
+      "eyeYMaxM": 500,
+      "effectiveVerticalFovDeg": [
+        20,
+        90
+      ],
+      "physicalImageHeightPxMax": 2160,
+      "aspectMax": 2.4,
+      "additionalErrorPxMax": 0.5
+    },
+    "terrainLODError": "0.0005rad source-sample residual before collinear-boundary recovery; separate from shoreline LOD, not a whole-interior/native quality certificate",
+    "verticalDatumConversion": false
+  },
+  "retainedFailuresAndUnknowns": [
+    "Rejected false-dry-coast hypothesis and incomplete-marine evidence",
+    "Stopped exact-boundary bake costs",
+    "Original Pike NHD/OSM priority seam failure and actual-triangle witness; corrected guarded cache is separate",
+    "FTYPE312 bay/inlet alone does not prove marine1m height; candidate labels remain unmeasured, not source-proven",
+    "90 unavailable lake geometries,3518 unsupported levels, unselected hydro classes and source/date/datum uncertainty",
+    "All rejected00c images/cold loads/main-shadow-post totals; no new native picture claim"
+  ],
+  "acceptance": {
+    "sourceAndCacheCPUControls": "See handoffs/fidelity/seattle-source-context/proof/regional-candidate/",
+    "nativeImages": "pending coordinated combined-source run",
+    "coldLoads": "pending",
+    "submittedHighAndUltraBudgets": "pending <=1500000 triangles/400drawcalls including allpasses",
+    "actualWalkingAndActivities": "pending",
+    "overviewSynchronization": "pending actual current-source capture"
+  }
+}

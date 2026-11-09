@@ -1,0 +1,25 @@
+{
+  "output": "/workspace/reality-pass/seattle-regional-terrain/seattle-center-render-lod1.bin.gz",
+  "compressedBytes": 31749503,
+  "compressedSHA256": "abf9a754d39fa25f5ca38c9f48a1bc035866f237c62d8434b095468c8e955c0f",
+  "uncompressedBytes": 63662356,
+  "uncompressedSHA256": "d5b79ddd0149ac0c2ca0f2557962e5ea335777978655b9323e4909f285aba857",
+  "elapsedSeconds": 840.4042071930016,
+  "triangles": {
+    "terrain": 516722,
+    "water": 292181,
+    "shore": 528285
+  },
+  "measurements": {
+    "sourceTinTriangles": 276345,
+    "classified": {
+      "dry": 246537,
+      "wet": 20031,
+      "boundary": 9777
+    },
+    "landDroppedSerialization": 467,
+    "waterDroppedSerialization": 2087,
+    "landMaximumWeldDifferenceM": 0.003906726837158203,
+    "waterMaximumWeldDifferenceM": 0.003906369209289551
+  }
+}

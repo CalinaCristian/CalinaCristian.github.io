@@ -1,0 +1,20 @@
+{
+  "scope": "Exact set-containment proof: every far model already differs the inner rectangle; subtracting a strict subset is a no-op for Needle. No geometry/pixel restamping. Original exact executed compiler is preserved.",
+  "needleDetailedCoverageNative": {
+    "x0": -1931.572235570999,
+    "x1": 2954.54471442883,
+    "z0": -2723.281577478081,
+    "z1": 2724.682482522652
+  },
+  "needleInner": [
+    -4000,
+    -3600,
+    4000,
+    3600
+  ],
+  "coverageIsStrictSubsetOfExcludedInner": true,
+  "originalProducerSHA256": "9cc42e713393e5a87a2ca695e64521eb51289cce0b971939450811ff03d688b8",
+  "originalExecutedToolFile": "compile-regional-cache-lod1.py",
+  "followupProducerSHA256": "89df83d7378cc27b3c12d0a8648e1657c718146c923d1825fc115ab0119fac33",
+  "passed": true
+}

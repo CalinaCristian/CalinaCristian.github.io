@@ -1,0 +1,82 @@
+{
+  "scope": "CPU projection/morph/normal-shader controls only; drone coordinates are bounded controller-domain fixtures, not native flight captures; native moving/Ultra/fog/images remain open",
+  "checks": 7,
+  "passed": true,
+  "sourcePoints": 3216,
+  "eyeFixtures": [
+    [
+      0,
+      1.65,
+      0
+    ],
+    [
+      15.389047024857273,
+      155.75,
+      9.364909686871892
+    ],
+    [
+      700,
+      28,
+      -1283
+    ],
+    [
+      -100,
+      121.9,
+      200
+    ],
+    [
+      2100,
+      500,
+      -1200
+    ],
+    [
+      -2100,
+      -100,
+      1200
+    ]
+  ],
+  "maxRaySineError": 2.221684773816393e-16,
+  "maxStoredFloat32PositionErrorM": 0.0007300838186472836,
+  "bounds": {
+    "min": [
+      -14237.44140625,
+      -4500.00048828125,
+      -14237.44140625
+    ],
+    "max": [
+      14237.44140625,
+      4500.00048828125,
+      14237.44140625
+    ]
+  },
+  "results": [
+    {
+      "name": "all source rays preserved across bounded ground/elevator/drone-domain fixtures",
+      "passed": true
+    },
+    {
+      "name": "entire local6000m boundary is exactly1:1 for every native eye",
+      "passed": true
+    },
+    {
+      "name": "C1 transition and positive radial derivative throughout2500m eye domain",
+      "passed": true
+    },
+    {
+      "name": "native Three mesh and normal override use identical standard relative morph geometry",
+      "passed": true
+    },
+    {
+      "name": "outward bounds include exact stored, fused and non-fusedFloat32 camera-domain corners",
+      "passed": true
+    },
+    {
+      "name": "input source coordinates/heights remain byte-for-byte unchanged",
+      "passed": true
+    },
+    {
+      "name": "invalid source and camera inputs remain explicit failures",
+      "passed": true
+    }
+  ]
+}

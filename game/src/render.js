@@ -1285,8 +1285,8 @@ export class Renderer3D {
         this._worldPixelRatio = pr;
         const outputPR = displayPixelRatio(pr, globalThis.devicePixelRatio, this.width, this.height, this.cockpitDisplays.active);
         if (r.getPixelRatio() !== outputPR) r.setPixelRatio(outputPR);
-        r.getSize(this._tmp.v2);
-        if (this._tmp.v2.x !== this.width || this._tmp.v2.y !== this.height) r.setSize(this.width, this.height, false);
+        const cssSize = r.getSize(this._bufferCSSSize ||= new THREE.Vector2());
+        if (cssSize.x !== this.width || cssSize.y !== this.height) r.setSize(this.width, this.height, false);
         this.composer.setPixelRatio(pr);
         this.composer.setSize(this.width, this.height);
         this.cockpitDisplays.resize(this.width, this.height, pr);

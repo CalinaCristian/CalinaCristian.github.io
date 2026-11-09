@@ -21,19 +21,25 @@ const plan = { sourceCommit: commit, sourceGitTree: git(['rev-parse', commit + '
 if (args['dry-run']) { console.log(JSON.stringify(plan, null, 2)); process.exit(0); }
 if (missingInterfaces.length) throw Error('Combined source is not ready: missing ' + missingInterfaces.join(','));
 if (!args.archive || !args.out) throw Error('Use --source FULLSHA --archive NEWPATH --out NEWPATH [--districts grozavesti,romana]');
-const archive = path.resolve(args.archive), out = path.resolve(args.out); if (fs.existsSync(archive) || fs.existsSync(out)) throw Error('Refuse to overwrite earlier source/output evidence');
-fs.mkdirSync(archive, { recursive: true }); fs.mkdirSync(out, { recursive: true }); const files = {};
+const archive = path.resolve(args.archive), out = path.resolve(args.out); if (fs.existsSync(out) || (fs.existsSync(archive) && !args['reuse-archive'])) throw Error('Refuse to overwrite earlier source/output evidence');
+if (!args['reuse-archive']) fs.mkdirSync(archive, { recursive: true }); fs.mkdirSync(out, { recursive: true }); const files = {};
 const sha = b => crypto.createHash('sha256').update(b).digest('hex');
+const existing = args['reuse-archive'] ? JSON.parse(fs.readFileSync(path.join(archive, 'qa-source-manifest.json'))) : null;
+if (existing && (existing.commit !== commit || JSON.stringify(Object.keys(existing.files).sort()) !== JSON.stringify(listing.map(r => r.name).sort()))) throw Error('Existing archive source/file inventory differs from requested exact Git source');
 for (const r of listing) {
     if (r.type !== 'blob' || r.mode === '120000') throw Error('Unsupported source entry ' + r.name);
-    const b = git(['show', commit + ':' + r.name]), target = path.join(archive, r.name); fs.mkdirSync(path.dirname(target), { recursive: true }); fs.writeFileSync(target, b);
+    const target = path.join(archive, r.name), b = existing ? fs.readFileSync(target) : git(['show', commit + ':' + r.name]);
+    if (existing) {
+        const blob = crypto.createHash('sha1').update(Buffer.concat([Buffer.from('blob ' + b.length + '\0'), b])).digest('hex');
+        if (blob !== r.gitBlobSha1 || sha(b) !== existing.files[r.name].sha256) throw Error('Existing archive changed: ' + r.name);
+    } else { fs.mkdirSync(path.dirname(target), { recursive: true }); fs.writeFileSync(target, b); }
     files[r.name] = { bytes: b.length, sha256: sha(b), gitBlobSha1: r.gitBlobSha1 };
 }
-const manifest = { commit, gitTree: plan.sourceGitTree, districts, preparedUtc: new Date().toISOString(), policy: plan.policy, files };
-fs.writeFileSync(path.join(archive, 'qa-source-manifest.json'), JSON.stringify(manifest, null, 2) + '\n'); fs.copyFileSync(path.join(archive, 'qa-source-manifest.json'), path.join(out, 'source-manifest.json'));
+const manifest = existing || { commit, gitTree: plan.sourceGitTree, districts, preparedUtc: new Date().toISOString(), policy: plan.policy, files };
+if (!existing) fs.writeFileSync(path.join(archive, 'qa-source-manifest.json'), JSON.stringify(manifest, null, 2) + '\n'); fs.copyFileSync(path.join(archive, 'qa-source-manifest.json'), path.join(out, 'source-manifest.json'));
 const tools = ['runner.cjs', 'geometry-kernel.cjs', 'decode-geometry.cjs', 'install-observer.cjs']; for (const f of tools) fs.copyFileSync(path.join(here, f), path.join(out, f));
 const bounds = git(['show', commit + ':game/dev/harness/integration-browser-bounds.cjs']); fs.writeFileSync(path.join(out, 'integration-browser-bounds.cjs'), bounds);
 const toolHashes = Object.fromEntries([...tools, 'integration-browser-bounds.cjs'].map(f => [f, sha(fs.readFileSync(path.join(out, f)))]));
 fs.writeFileSync(path.join(out, 'preparation.json'), JSON.stringify({ ...plan, runtimeBlobs: undefined, archive, out, copiedBytes: Object.values(files).reduce((n, f) => n + f.bytes, 0),
-    preparedUtc: new Date().toISOString(), toolHashes, preparationToolSha256: sha(fs.readFileSync(fileURLToPath(import.meta.url))), browserLaunched: false, networkUsed: false }, null, 2) + '\n');
+    preparedUtc: new Date().toISOString(), reusedVerifiedArchive: !!existing, toolHashes, preparationToolSha256: sha(fs.readFileSync(fileURLToPath(import.meta.url))), browserLaunched: false, networkUsed: false }, null, 2) + '\n');
 console.log(JSON.stringify({ sourceCommit: commit, archive, out, copiedFiles: listing.length, copiedMiB: Object.values(files).reduce((n, f) => n + f.bytes, 0) / 1048576, browserLaunched: false }));

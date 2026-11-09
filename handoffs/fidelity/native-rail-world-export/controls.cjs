@@ -48,6 +48,11 @@ test('buffer integrity hashes exact bytes independently of producer certificate 
     const k = factory(), g = geo(); k.geometry(g); const records = D.integrity({ geometries: k.geometries }); assert.equal(records.length, 1);
     assert.equal(records[0].sha256, crypto.createHash('sha256').update(Buffer.from(g.attributes.position.array.buffer)).digest('hex'));
 });
+test('deep native graph references stay explicit IDs instead of overflowing transport depth', () => {
+    const k = factory(), nodes = Array.from({ length: 1200 }, (_, id) => ({ id, sourceId: id + 5000, x: id, z: 0, edges: [] }));
+    const edges = nodes.slice(1).map((b, i) => { const e = { id: i, a: nodes[i], b, len: 1 }; e.a.edges.push(e); e.b.edges.push(e); return e; });
+    const result = k.safe({ ends: [{ node: nodes[0], edge: edges[0] }] }); assert.equal(result.ends[0].node.$nativeNodeRef.id, 0); assert.equal(result.ends[0].edge.$nativeEdgeRef.id, 0); assert.ok(JSON.stringify(result).length < 1000);
+});
 const report = { complete: true, controls: checks, browserLaunched: false, networkUsed: false, scope: 'Lossless native geometry encoding/independent decoding CPU controls. No regenerated-world or physical support acceptance.' };
 if (process.argv[2]) { fs.mkdirSync(path.dirname(path.resolve(process.argv[2])), { recursive: true }); fs.writeFileSync(process.argv[2], JSON.stringify(report, null, 2) + '\n'); }
 console.log('PASS ' + checks.length + ' pure geometry controls; no browser/network');

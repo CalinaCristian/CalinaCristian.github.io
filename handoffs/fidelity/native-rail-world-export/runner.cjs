@@ -35,12 +35,16 @@ let server, browser;
             __railObserver.snapshot('after-native-public-entry-before-first-explicit-world-draw'); if (result) { game.r3d.frame(1 / 60); __railObserver.snapshot('after-first-explicit-native-world-draw'); }
             return { result, district: game.district, state: game.state, nativeTime: game.traffic?.time ?? null, frozenNowDate: game.nowDate().toISOString(), quality: game.quality, touch: game.touch }; }, district);
         stage.lifecycle = lifecycle; persist();
-        if (!lifecycle.result) { save(district + '-partial-facts', await page.evaluate(() => __railObserver.facts())); throw Error('Native load failed; retained partial constructor facts for ' + district); }
-        const world = await page.evaluate(() => __railObserver.world());
+        const early = JSON.parse(await page.evaluate(() => JSON.stringify(__railObserver.facts({ includeGeometryCatalog: true }))));
+        stage.earlyFacts = save(district + '-constructor-facts', early);
+        stage.earlySummary = early.snapshots.map(s => ({ phase: s.phase, activeIds: s.active.map(v => v.id), poolIds: s.pool.map(v => v.id), tramIds: [...s.active, ...s.pool].filter(v => v.tramDetected).map(v => v.id),
+            initialTramBinding: s.initialTramBinding, initialAdmission: s.initialAdmission })); persist(); console.log(JSON.stringify({ district, phase: 'early-constructor-facts-stable', earlyFacts: stage.earlyFacts, summary: stage.earlySummary.map(s => ({ phase: s.phase, trams: s.tramIds, binding: s.initialTramBinding, admissionPassed: s.initialAdmission?.passed })) }));
+        if (!lifecycle.result) throw Error('Native load failed; retained partial constructor facts for ' + district);
+        const world = JSON.parse(await page.evaluate(() => JSON.stringify(__railObserver.world())));
         const sourceData = JSON.parse(fs.readFileSync(path.join(root, 'game/data/bucharest-' + district + '.json'))); assert.equal(JSON.stringify(world.data), JSON.stringify(sourceData), 'native world.data mismatch');
         stage.world = save(district + '-world', world);
-        const scene = await page.evaluate(() => __railObserver.scene()); stage.scene = save(district + '-scene', scene);
-        const facts = await page.evaluate(() => __railObserver.facts()); delete facts.geometryCatalog; stage.facts = save(district + '-facts', facts);
+        const scene = JSON.parse(await page.evaluate(() => JSON.stringify(__railObserver.scene()))); stage.scene = save(district + '-scene', scene);
+        const facts = JSON.parse(await page.evaluate(() => JSON.stringify(__railObserver.facts()))); stage.facts = save(district + '-facts', facts);
         const inventory = require('./decode-geometry.cjs').integrity(scene); stage.bufferIntegrity = save(district + '-buffer-integrity', inventory);
         stage.snapshots = facts.snapshots.map(s => ({ phase: s.phase, nativeTime: s.nativeTime, active: s.active.length, pool: s.pool.length, pedestrians: s.pedestrians?.length ?? null,
             tramIds: [...s.active, ...s.pool].filter(v => v.tramDetected).map(v => v.id), bindingPassedProducerOnly: s.initialTramBinding?.passed ?? null }));

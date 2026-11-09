@@ -1,0 +1,28 @@
+{
+  "sourceCommit": "cbf885a7da5337330411b4214f2c86e28d2f9964",
+  "reviewedAt": "2026-11-09T02:41:00.859653+00:00",
+  "imagesInspected": [
+    {
+      "path": "focused-mobile/landmark-notes-mobile.png",
+      "observation": "Full40SHA wraps within the evidence note; source text remains complete."
+    },
+    {
+      "path": "focused-mobile/destination-mobile.png",
+      "observation": "Focused text/layout check did not await lazy capture image decoding; this screenshot is not an image-delivery acceptance record."
+    },
+    {
+      "path": "attempt-01/overview-desktop.png",
+      "observation": "Current Bellevue gallery, thumbnails and labels render within desktop layout. White aerial pane is the intercepted tiny cache fixture, not provider imagery."
+    },
+    {
+      "path": "attempt-01/overview-mobile.png",
+      "observation": "Actual previously decoded tourist image/card stays inside390px. Its people/post obstruction is retained study content, not a new postcard/parity claim."
+    }
+  ],
+  "result": "PASS for recorded local UI/image delivery, scoped source-note wrapping, selector sizes and mocked cache persistence/expiry.",
+  "limitations": [
+    "Mocked official aerial response is not live-provider browser proof; cloud Chromium TLS limitation retained; no trust change.",
+    "199 legacy Roman\u0103 thumbnail hashes absent from original ledgers remain explicit gaps; actual retained bytes were hashed/decoded.",
+    "No photographic parity, physical-phone, game-WebGL, frame budget or hardware-FPS claim."
+  ]
+}

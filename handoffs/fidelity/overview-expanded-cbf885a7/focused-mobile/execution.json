@@ -1,0 +1,24 @@
+{
+  "sourceCommit": "cbf885a7da5337330411b4214f2c86e28d2f9964",
+  "toolSha256": "8fb80b40618f1eee3619d275c1c69c19b210922df0dc8da3e33d2a0eedb4ad39",
+  "argv": [
+    "node",
+    "/workspace/fidelity-workers/overview-final-80f183/handoffs/fidelity/overview-expanded-80f183/check-mobile.cjs",
+    "/workspace/reality-pass/overview-expanded-cbf885a7/source",
+    "/workspace/reality-pass/overview-expanded-cbf885a7/focused-mobile",
+    "cbf885a7da5337330411b4214f2c86e28d2f9964"
+  ],
+  "wrapperSha256": "9ad4beeb54064469bc4b6d32c779860c184cc0e90c63d63efdd38bdfcf8e9dea",
+  "cwd": "/workspace/reality-pass/overview-expanded-cbf885a7/source",
+  "browserEnvironment": {
+    "NODE_PATH": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules",
+    "NODE_OPTIONS": "--require=/workspace/.environment/drive-my-cv/use-system-chromium.cjs"
+  },
+  "startedAt": "2026-11-09T02:38:00.861238+00:00",
+  "wrapperPid": 344778,
+  "scope": "Sequential static-page browsers; previous browser process closes before next; external aerial is a mocked cache fixture.",
+  "toolPid": 344781,
+  "endedAt": "2026-11-09T02:38:07.512318+00:00",
+  "elapsedSeconds": 6.651115430999198,
+  "exitCode": 0
+}

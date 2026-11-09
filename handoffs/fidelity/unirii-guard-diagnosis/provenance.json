@@ -1,0 +1,48 @@
+{
+  "source": "395071c21079fb14c25af194a9903a5ae5d87b26",
+  "inputs": [
+    {
+      "path": "/workspace/reality-pass/unirii-underpass/local-noon-395071c2/report.json",
+      "bytes": 6868216,
+      "sha256": "a1cb76c527b29de67ab513bb35cb3f08ad0bbc01b70f9df6cd12e2c42edf5f71"
+    },
+    {
+      "path": "/workspace/reality-pass/unirii-underpass/local-noon-395071c2/block-dependencies.json.gz",
+      "bytes": 959747,
+      "sha256": "104744b0c66d73f3a89f8bac0e6f035b78aad3579e0508f4beb4540e41a542bc"
+    },
+    {
+      "path": "/workspace/reality-pass/unirii-underpass/local-noon-395071c2/native-world.json.gz",
+      "bytes": 9482987,
+      "sha256": "6ae0a93ce846592021db85958d472c50854c0a96947af1a64f2f71f887ba19dd"
+    },
+    {
+      "path": "game/src/traffic.js",
+      "bytes": 250909,
+      "sha256": "d6be84871ef506efc27dd03414b0a92a7b0111b575e4d7862a06afde7004d125",
+      "gitBlob": "ef2075d810a08d6a9dcd90f971a23fdf69bf7d9e",
+      "verifiedGitBytes": true
+    },
+    {
+      "path": "game/src/nav.js",
+      "bytes": 33276,
+      "sha256": "7d1553ad46fa656ee7773d82bf5ef9b8a2af4bb0fb29d8c0131ed9154bac8617",
+      "gitBlob": "59ee41e7892c736edcaf524c198cae73ecc50ea4",
+      "verifiedGitBytes": true
+    },
+    {
+      "path": "game/src/util.js",
+      "bytes": 11132,
+      "sha256": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5",
+      "gitBlob": "aa71f2d8f078b8490e7b3c2746eb4168435534ad",
+      "verifiedGitBytes": true
+    },
+    {
+      "path": "game/src/turn-lanes.js",
+      "bytes": 4090,
+      "sha256": "0911880d096c4efe126fc4f53a7df1559d8f6ee01cb52635afeb939648dece54",
+      "gitBlob": "b1ffc4757367ef75f8f04c7f4c1369c9ac6e9e16",
+      "verifiedGitBytes": true
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "estateNearest": {
+    "id": 47,
+    "kind": "compact-sedan",
+    "penetrationM": 0.0452595920692449
+  },
+  "firstStep": {
+    "transition": 0,
+    "speed": 0.1,
+    "before": {
+      "id": 35,
+      "kind": "estate",
+      "x": -401.0383307152724,
+      "z": 430.51581083635983,
+      "heading": -0.30693953848197447,
+      "speed": 0,
+      "s": 20.779727266005455,
+      "lane": 2,
+      "laneCur": 1.9999936987164335,
+      "stuck": 36.366666666667165,
+      "still": 36.366666666667165,
+      "zeroWhy": "guard",
+      "gap": null,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "redQ": false
+    },
+    "after": {
+      "id": 35,
+      "kind": "estate",
+      "x": -401.04154816599817,
+      "z": 430.5175455184456,
+      "heading": -0.31076855444240686,
+      "speed": 0.1,
+      "s": 20.78306059933879,
+      "lane": 2,
+      "laneCur": 1.9999936987164335,
+      "stuck": 36.366666666667165,
+      "still": 36.366666666667165,
+      "zeroWhy": "guard",
+      "gap": null,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "redQ": false
+    },
+    "distanceM": 0.0036552853666046623,
+    "headingDeltaRad": -0.0038290159604323915,
+    "hits": [
+      {
+        "id": 47,
+        "p0": 0.0452595920692449,
+        "p": 0.05278136397560029,
+        "apart": false,
+        "guardReject": true
+      }
+    ]
+  },
+  "vanDuplicate": {
+    "k": 0,
+    "edgeId": 559,
+    "sourceId": "w252342142",
+    "nodeId": 606,
+    "nodeSourceId": 9088160149,
+    "nextEdgeId": 558,
+    "nextSourceId": "w252342142",
+    "nextDirection": -1,
+    "currentLanes": 1,
+    "nextLanes": 1,
+    "retainedOriginalLane": 1,
+    "distanceM": 5.190648510732343,
+    "radiusM": 4,
+    "stopM": -0.309351489267657,
+    "keepsTurnLane": false,
+    "branch": "lanedrop",
+    "legacyStops": true
+  },
+  "projected": [
+    {
+      "edgeId": 441,
+      "nextEdgeId": 559,
+      "incomingLane": 1,
+      "outgoingLane": 0,
+      "incomingLanes": 2,
+      "outgoingLanes": 1
+    },
+    {
+      "edgeId": 559,
+      "nextEdgeId": 558,
+      "incomingLane": 0,
+      "outgoingLane": 0,
+      "incomingLanes": 1,
+      "outgoingLanes": 1
+    },
+    {
+      "edgeId": 558,
+      "nextEdgeId": 557,
+      "incomingLane": 0,
+      "outgoingLane": 0,
+      "incomingLanes": 1,
+      "outgoingLanes": 1
+    },
+    {
+      "edgeId": 557,
+      "nextEdgeId": 762,
+      "incomingLane": 0,
+      "outgoingLane": 0,
+      "incomingLanes": 1,
+      "outgoingLanes": 1
+    }
+  ],
+  "checks": "4causal assertions PASS"
+}
+(node:569990) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/reality-pass/unirii-underpass/source-395071c2/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/reality-pass/unirii-underpass/source-395071c2/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

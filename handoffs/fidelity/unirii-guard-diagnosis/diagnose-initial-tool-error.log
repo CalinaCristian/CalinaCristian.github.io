@@ -1,0 +1,9 @@
+file:///workspace/reality-pass/unirii-underpass/source-395071c2/game/src/turn-lanes.js:34
+    for (const e of edges || []) {
+                          ^
+
+TypeError: (edges || []) is not iterable
+    at buildTurnLaneRules (file:///workspace/reality-pass/unirii-underpass/source-395071c2/game/src/turn-lanes.js:34:27)
+    at file:///workspace/fidelity-workers/unirii-guard-diagnosis/handoffs/fidelity/unirii-guard-diagnosis/diagnose.mjs:32:54
+
+Node.js v24.22.1

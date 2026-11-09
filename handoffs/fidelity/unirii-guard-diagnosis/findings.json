@@ -1,0 +1,944 @@
+{
+  "source": "395071c21079fb14c25af194a9903a5ae5d87b26",
+  "scope": "Detached CPU diagnostic; original native post-tick reset-request states retained, no native step/geometry acceptance claim. Some unrecorded transient fields are bracketed explicitly.",
+  "coverageGaps": [
+    "No fresh native replay; detached exact395 placeOnLane method plus independently calculated SAT.",
+    "Transient transition omitted by original observer; both0and1 branches bracketed. Initial latBlend assumed0 at s>12 where native clears it.",
+    "Native edge export omitted lane parameters; reconstructed from exact prepared source rows and width policy; no alternative actual mutable lane alignment claimed.",
+    "Original null gap/stopD were JSON Infinity or missing; no conversion to finite0.",
+    "No per-tick guard hit/old pose exported, so no assertion that the replay exactly reproduces the original rejected tick."
+  ],
+  "estate": {
+    "time": 51.466666666666306,
+    "original": {
+      "id": 35,
+      "kind": "estate",
+      "x": -401.0383307152724,
+      "z": 430.51581083635983,
+      "heading": -0.30693953848197447,
+      "speed": 0,
+      "s": 20.779727266005455,
+      "lane": 2,
+      "laneCur": 1.9999936987164335,
+      "stuck": 36.366666666667165,
+      "still": 36.366666666667165,
+      "zeroWhy": "guard",
+      "gap": null,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "redQ": false
+    },
+    "near": [
+      {
+        "id": 47,
+        "kind": "compact-sedan",
+        "penetrationM": 0.0452595920692449
+      },
+      {
+        "id": 224,
+        "kind": "compact-sedan",
+        "penetrationM": -0.08876671076455711
+      },
+      {
+        "id": 4,
+        "kind": "stb-bus",
+        "penetrationM": -1.5982302288800945
+      },
+      {
+        "id": 13,
+        "kind": "sedan",
+        "penetrationM": -2.240420838292813
+      },
+      {
+        "id": 234,
+        "kind": "estate",
+        "penetrationM": -3.925567863058256
+      },
+      {
+        "id": 293,
+        "kind": "compact-sedan",
+        "penetrationM": -5.702263322511348
+      },
+      {
+        "id": 122,
+        "kind": "sedan",
+        "penetrationM": -5.795988982698846
+      },
+      {
+        "id": 148,
+        "kind": "compact-sedan",
+        "penetrationM": -7.7985339090817005
+      }
+    ],
+    "steps": [
+      {
+        "transition": 0,
+        "speed": 0.1,
+        "before": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.0383307152724,
+          "z": 430.51581083635983,
+          "heading": -0.30693953848197447,
+          "speed": 0,
+          "s": 20.779727266005455,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "after": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.04154816599817,
+          "z": 430.5175455184456,
+          "heading": -0.31076855444240686,
+          "speed": 0.1,
+          "s": 20.78306059933879,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "distanceM": 0.0036552853666046623,
+        "headingDeltaRad": -0.0038290159604323915,
+        "hits": [
+          {
+            "id": 47,
+            "p0": 0.0452595920692449,
+            "p": 0.05278136397560029,
+            "apart": false,
+            "guardReject": true
+          }
+        ]
+      },
+      {
+        "transition": 0,
+        "speed": 0.2,
+        "before": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.0383307152724,
+          "z": 430.51581083635983,
+          "heading": -0.30693953848197447,
+          "speed": 0,
+          "s": 20.779727266005455,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "after": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.04476561672385,
+          "z": 430.51928020053134,
+          "heading": -0.31455526126708905,
+          "speed": 0.2,
+          "s": 20.786393932672123,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "distanceM": 0.007310570733132314,
+        "headingDeltaRad": -0.007615722785114576,
+        "hits": [
+          {
+            "id": 47,
+            "p0": 0.0452595920692449,
+            "p": 0.060240484252393145,
+            "apart": false,
+            "guardReject": true
+          }
+        ]
+      },
+      {
+        "transition": 0,
+        "speed": 0.5,
+        "before": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.0383307152724,
+          "z": 430.51581083635983,
+          "heading": -0.30693953848197447,
+          "speed": 0,
+          "s": 20.779727266005455,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "after": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.054417968901,
+          "z": 430.5244842467887,
+          "heading": -0.32566617615006793,
+          "speed": 0.5,
+          "s": 20.79639393267212,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "distanceM": 0.018276426832896268,
+        "headingDeltaRad": -0.01872663766809346,
+        "hits": [
+          {
+            "id": 47,
+            "p0": 0.0452595920692449,
+            "p": 0.08224550012582243,
+            "apart": false,
+            "guardReject": true
+          }
+        ]
+      },
+      {
+        "transition": 0,
+        "speed": 1,
+        "before": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.0383307152724,
+          "z": 430.51581083635983,
+          "heading": -0.30693953848197447,
+          "speed": 0,
+          "s": 20.779727266005455,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "after": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.0705052225296,
+          "z": 430.5331576572175,
+          "heading": -0.343380816372987,
+          "speed": 1,
+          "s": 20.81306059933879,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "distanceM": 0.03655285366576556,
+        "headingDeltaRad": -0.036441277891012536,
+        "hits": [
+          {
+            "id": 47,
+            "p0": 0.0452595920692449,
+            "p": 0.11770194591364325,
+            "apart": false,
+            "guardReject": true
+          }
+        ]
+      },
+      {
+        "transition": 0,
+        "speed": 2,
+        "before": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.0383307152724,
+          "z": 430.51581083635983,
+          "heading": -0.30693953848197447,
+          "speed": 0,
+          "s": 20.779727266005455,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "after": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.1026797297868,
+          "z": 430.5505044780752,
+          "heading": -0.37598990458483456,
+          "speed": 2,
+          "s": 20.84639393267212,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "distanceM": 0.07310570733155809,
+        "headingDeltaRad": -0.06905036610286008,
+        "hits": [
+          {
+            "id": 47,
+            "p0": 0.0452595920692449,
+            "p": 0.18422757309197868,
+            "apart": false,
+            "guardReject": true
+          }
+        ]
+      },
+      {
+        "transition": 1,
+        "speed": 0.1,
+        "before": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.0383307152724,
+          "z": 430.51581083635983,
+          "heading": -0.30693953848197447,
+          "speed": 0,
+          "s": 20.779727266005455,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "after": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.04154816599817,
+          "z": 430.5175455184456,
+          "heading": -0.31076855444240686,
+          "speed": 0.1,
+          "s": 20.78306059933879,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "distanceM": 0.0036552853666046623,
+        "headingDeltaRad": -0.0038290159604323915,
+        "hits": [
+          {
+            "id": 47,
+            "p0": 0.0452595920692449,
+            "p": 0.05278136397560029,
+            "apart": false,
+            "guardReject": true
+          }
+        ]
+      },
+      {
+        "transition": 1,
+        "speed": 0.2,
+        "before": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.0383307152724,
+          "z": 430.51581083635983,
+          "heading": -0.30693953848197447,
+          "speed": 0,
+          "s": 20.779727266005455,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "after": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.04476561672385,
+          "z": 430.51928020053134,
+          "heading": -0.31455526126708905,
+          "speed": 0.2,
+          "s": 20.786393932672123,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "distanceM": 0.007310570733132314,
+        "headingDeltaRad": -0.007615722785114576,
+        "hits": [
+          {
+            "id": 47,
+            "p0": 0.0452595920692449,
+            "p": 0.060240484252393145,
+            "apart": false,
+            "guardReject": true
+          }
+        ]
+      },
+      {
+        "transition": 1,
+        "speed": 0.5,
+        "before": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.0383307152724,
+          "z": 430.51581083635983,
+          "heading": -0.30693953848197447,
+          "speed": 0,
+          "s": 20.779727266005455,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "after": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.054417968901,
+          "z": 430.5244842467887,
+          "heading": -0.32566617615006793,
+          "speed": 0.5,
+          "s": 20.79639393267212,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "distanceM": 0.018276426832896268,
+        "headingDeltaRad": -0.01872663766809346,
+        "hits": [
+          {
+            "id": 47,
+            "p0": 0.0452595920692449,
+            "p": 0.08224550012582243,
+            "apart": false,
+            "guardReject": true
+          }
+        ]
+      },
+      {
+        "transition": 1,
+        "speed": 1,
+        "before": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.0383307152724,
+          "z": 430.51581083635983,
+          "heading": -0.30693953848197447,
+          "speed": 0,
+          "s": 20.779727266005455,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "after": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.0705052225296,
+          "z": 430.5331576572175,
+          "heading": -0.343380816372987,
+          "speed": 1,
+          "s": 20.81306059933879,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "distanceM": 0.03655285366576556,
+        "headingDeltaRad": -0.036441277891012536,
+        "hits": [
+          {
+            "id": 47,
+            "p0": 0.0452595920692449,
+            "p": 0.11770194591364325,
+            "apart": false,
+            "guardReject": true
+          }
+        ]
+      },
+      {
+        "transition": 1,
+        "speed": 2,
+        "before": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.0383307152724,
+          "z": 430.51581083635983,
+          "heading": -0.30693953848197447,
+          "speed": 0,
+          "s": 20.779727266005455,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "after": {
+          "id": 35,
+          "kind": "estate",
+          "x": -401.1026797297868,
+          "z": 430.5505044780752,
+          "heading": -0.37598990458483456,
+          "speed": 2,
+          "s": 20.84639393267212,
+          "lane": 2,
+          "laneCur": 1.9999936987164335,
+          "stuck": 36.366666666667165,
+          "still": 36.366666666667165,
+          "zeroWhy": "guard",
+          "gap": null,
+          "stopD": null,
+          "stopWhy": null,
+          "waitRed": false,
+          "redQ": false
+        },
+        "distanceM": 0.07310570733155809,
+        "headingDeltaRad": -0.06905036610286008,
+        "hits": [
+          {
+            "id": 47,
+            "p0": 0.0452595920692449,
+            "p": 0.18422757309197868,
+            "apart": false,
+            "guardReject": true
+          }
+        ]
+      }
+    ]
+  },
+  "van": {
+    "time": 89.96666666666412,
+    "original": {
+      "id": 244,
+      "kind": "delivery-van",
+      "x": 187.34143509448919,
+      "z": -275.95389795639625,
+      "heading": -0.40330598230003206,
+      "speed": 0,
+      "s": 7.466712004358849,
+      "lane": 1,
+      "laneCur": 0.994926841964071,
+      "stuck": 0.9999999999999999,
+      "still": 0.9999999999999999,
+      "gap": null,
+      "stopD": -0.309351489267657,
+      "stopWhy": "lanedrop",
+      "waitRed": false,
+      "redQ": false
+    },
+    "drop": [
+      {
+        "k": -1,
+        "edgeId": 441,
+        "sourceId": "w229949119",
+        "nodeId": 496,
+        "nodeSourceId": 134860939,
+        "nextEdgeId": 559,
+        "nextSourceId": "w252342142",
+        "nextDirection": -1,
+        "currentLanes": 2,
+        "nextLanes": 1,
+        "retainedOriginalLane": 1,
+        "distanceM": 0.10913242869668593,
+        "radiusM": 7.5,
+        "stopM": -8.890867571303314,
+        "keepsTurnLane": true,
+        "branch": "lanedrop",
+        "legacyStops": false
+      },
+      {
+        "k": 0,
+        "edgeId": 559,
+        "sourceId": "w252342142",
+        "nodeId": 606,
+        "nodeSourceId": 9088160149,
+        "nextEdgeId": 558,
+        "nextSourceId": "w252342142",
+        "nextDirection": -1,
+        "currentLanes": 1,
+        "nextLanes": 1,
+        "retainedOriginalLane": 1,
+        "distanceM": 5.190648510732343,
+        "radiusM": 4,
+        "stopM": -0.309351489267657,
+        "keepsTurnLane": false,
+        "branch": "lanedrop",
+        "legacyStops": true
+      },
+      {
+        "k": 1,
+        "edgeId": 558,
+        "sourceId": "w252342142",
+        "nodeId": 605,
+        "nodeSourceId": 9088160153,
+        "nextEdgeId": 557,
+        "nextSourceId": "w252342142",
+        "nextDirection": -1,
+        "currentLanes": 1,
+        "nextLanes": 1,
+        "retainedOriginalLane": 1,
+        "distanceM": 8.40760925126928,
+        "radiusM": 4,
+        "stopM": 2.90760925126928,
+        "keepsTurnLane": false,
+        "branch": "lanedrop",
+        "legacyStops": true
+      },
+      {
+        "k": 2,
+        "edgeId": 557,
+        "sourceId": "w252342142",
+        "nodeId": 604,
+        "nodeSourceId": 9088160159,
+        "nextEdgeId": 762,
+        "nextSourceId": "w982816371",
+        "nextDirection": -1,
+        "currentLanes": 1,
+        "nextLanes": 1,
+        "retainedOriginalLane": 1,
+        "distanceM": 15.033586809211728,
+        "radiusM": 7.5,
+        "stopM": 6.033586809211728,
+        "keepsTurnLane": false,
+        "branch": "lanedrop",
+        "legacyStops": true
+      },
+      {
+        "k": 3,
+        "edgeId": 762,
+        "sourceId": "w982816371",
+        "nodeId": 797,
+        "nodeSourceId": 3288320534,
+        "nextEdgeId": 761,
+        "nextSourceId": "w982816371",
+        "nextDirection": -1,
+        "currentLanes": 1,
+        "nextLanes": 1,
+        "retainedOriginalLane": 1,
+        "distanceM": 25.7383263806623,
+        "radiusM": 4,
+        "stopM": 20.2383263806623,
+        "keepsTurnLane": false,
+        "branch": "lanedrop",
+        "legacyStops": true
+      },
+      {
+        "k": 4,
+        "edgeId": 761,
+        "sourceId": "w982816371",
+        "nodeId": 260,
+        "nodeSourceId": 248729665,
+        "nextEdgeId": 761,
+        "nextSourceId": "w982816371",
+        "nextDirection": 1,
+        "currentLanes": 1,
+        "nextLanes": 1,
+        "retainedOriginalLane": 1,
+        "distanceM": 40.49896693365862,
+        "radiusM": 4,
+        "stopM": 34.99896693365862,
+        "keepsTurnLane": false,
+        "branch": "lanedrop",
+        "legacyStops": true
+      },
+      {
+        "k": 5,
+        "edgeId": 761,
+        "sourceId": "w982816371",
+        "nodeId": 797,
+        "nodeSourceId": 3288320534,
+        "nextEdgeId": 762,
+        "nextSourceId": "w982816371",
+        "nextDirection": 1,
+        "currentLanes": 1,
+        "nextLanes": 1,
+        "retainedOriginalLane": 1,
+        "distanceM": 55.25960748665494,
+        "radiusM": 4,
+        "stopM": 49.75960748665494,
+        "keepsTurnLane": false,
+        "branch": "lanedrop",
+        "legacyStops": true
+      },
+      {
+        "k": 6,
+        "edgeId": 762,
+        "sourceId": "w982816371",
+        "nodeId": 604,
+        "nodeSourceId": 9088160159,
+        "nextEdgeId": 557,
+        "nextSourceId": "w252342142",
+        "nextDirection": 1,
+        "currentLanes": 1,
+        "nextLanes": 1,
+        "retainedOriginalLane": 1,
+        "distanceM": 65.96434705810552,
+        "radiusM": 7.5,
+        "stopM": 56.96434705810552,
+        "keepsTurnLane": false,
+        "branch": "lanedrop",
+        "legacyStops": true
+      }
+    ],
+    "projected": [
+      {
+        "edgeId": 441,
+        "nextEdgeId": 559,
+        "incomingLane": 1,
+        "outgoingLane": 0,
+        "incomingLanes": 2,
+        "outgoingLanes": 1
+      },
+      {
+        "edgeId": 559,
+        "nextEdgeId": 558,
+        "incomingLane": 0,
+        "outgoingLane": 0,
+        "incomingLanes": 1,
+        "outgoingLanes": 1
+      },
+      {
+        "edgeId": 558,
+        "nextEdgeId": 557,
+        "incomingLane": 0,
+        "outgoingLane": 0,
+        "incomingLanes": 1,
+        "outgoingLanes": 1
+      },
+      {
+        "edgeId": 557,
+        "nextEdgeId": 762,
+        "incomingLane": 0,
+        "outgoingLane": 0,
+        "incomingLanes": 1,
+        "outgoingLanes": 1
+      }
+    ],
+    "nativeNodes": [
+      {
+        "id": 604,
+        "sourceId": 9088160159,
+        "x": 181.79646267623514,
+        "z": -291.5881416002293,
+        "y": 0,
+        "hasLight": true,
+        "stop": false,
+        "approaches": [
+          {
+            "edgeId": 557,
+            "road": 135,
+            "state": "red"
+          },
+          {
+            "edgeId": 705,
+            "road": 169,
+            "state": "red"
+          },
+          {
+            "edgeId": 762,
+            "road": 190,
+            "state": "red"
+          },
+          {
+            "edgeId": 770,
+            "road": 192,
+            "state": "red"
+          }
+        ]
+      },
+      {
+        "id": 605,
+        "sourceId": 9088160153,
+        "x": 185.13524068686414,
+        "z": -285.86484360046575,
+        "y": 0,
+        "hasLight": false,
+        "stop": false,
+        "approaches": [
+          {
+            "edgeId": 557,
+            "road": 135,
+            "state": "green"
+          },
+          {
+            "edgeId": 558,
+            "road": 135,
+            "state": "green"
+          }
+        ]
+      },
+      {
+        "id": 606,
+        "sourceId": 9088160149,
+        "x": 186.75693286346342,
+        "z": -283.0865436003735,
+        "y": 0,
+        "hasLight": false,
+        "stop": false,
+        "approaches": [
+          {
+            "edgeId": 558,
+            "road": 135,
+            "state": "green"
+          },
+          {
+            "edgeId": 559,
+            "road": 135,
+            "state": "green"
+          }
+        ]
+      },
+      {
+        "id": 496,
+        "sourceId": 134860939,
+        "x": 189.31666267155583,
+        "z": -278.6968296004015,
+        "y": 0,
+        "hasLight": true,
+        "stop": false,
+        "approaches": [
+          {
+            "edgeId": 441,
+            "road": 114,
+            "state": "red"
+          },
+          {
+            "edgeId": 498,
+            "road": 123,
+            "state": "red"
+          },
+          {
+            "edgeId": 500,
+            "road": 124,
+            "state": "red"
+          },
+          {
+            "edgeId": 559,
+            "road": 135,
+            "state": "red"
+          }
+        ]
+      },
+      {
+        "id": 495,
+        "sourceId": 9088160140,
+        "x": 181.08101024550712,
+        "z": -272.11781520011357,
+        "y": -0.48995285008462885,
+        "hasLight": false,
+        "stop": false,
+        "controllerId": 495,
+        "approaches": [
+          {
+            "edgeId": 440,
+            "road": 114,
+            "state": "green"
+          },
+          {
+            "edgeId": 441,
+            "road": 114,
+            "state": "green"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -2723,10 +2723,19 @@ export async function buildWorld(city, renderer, opts = {}) {
         // final rule: no wall piece may stand on another carriageway / junction pad at its own height band (junction
         // mouths, merging ramps, overlapping ribbons stay open). Walls are cut into 1.5 m pieces and re-joined.
         blocksLane = (w, x, z, f) => {
-            const mg = w.kind === 'barrier' ? 0 : 0.3, y0 = w.y0a + (w.y0b - w.y0a) * f - mg, y1 = w.y1a + (w.y1b - w.y1a) * f + mg;
+            const mg = w.kind === 'barrier' || !w.edge ? 0 : 0.3, y0 = w.y0a + (w.y0b - w.y0a) * f - mg, y1 = w.y1a + (w.y1b - w.y1a) * f + mg;
             let hit = false;
             ribGrid.each(x - 0.6, z - 0.6, x + 0.6, z + 0.6, (rb) => {
-                if (hit || rb.e === w.edge) return;
+                if (hit || (w.edge && rb.e === w.edge)) return;
+                if (!w.edge) {
+                    // Source rail compartments have no fabricated motor edge.
+                    // Audit their actual vertical band against the road body.
+                    if (pointInPolygon(x, z, rb.poly)) {
+                        const h = Y.road + (rb.e ? yAlong(rb.e, x, z) : padHeightAt(rb.node, x, z));
+                        if (h < y1 && h + 2 > y0) hit = true;
+                    }
+                    return;
+                }
                 if (w.node && (rb.node === w.node || (rb.e && (rb.e.a === w.node || rb.e.b === w.node)))) return; // a pad-rim barrier vs its own junction / approaches
                 if (rb.node && !w.node && (rb.node === w.edge.a || rb.node === w.edge.b)) { // its own junction: keep the wall along the edge proper
                     const e = w.edge, sAl = (x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz;
@@ -5939,7 +5948,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     if (b.kind === 'closure' || b.kind === 'boundary') continue; // map edge: across the road on purpose
                     for (const t of [0.1, 0.3, 0.5, 0.7, 0.9]) {
                         const x = b.ax + (b.bx - b.ax) * t, z = b.az + (b.bz - b.az) * t;
-                        if (blocksLane(b, x, z, t)) { const rb = onRibbon(x, z, 0, (r) => r.e !== b.edge); out.walls.push({ kind: b.kind, road: b.edge.name, x: R(x), z: R(z), other: rb?.e ? rb.e.name : 'junction' }); break; }
+                        if (blocksLane(b, x, z, t)) { const rb = onRibbon(x, z, 0, (r) => r.e !== b.edge); out.walls.push({ kind: b.kind, road: b.edge?.name || b.sourceId || b.kind, x: R(x), z: R(z), other: rb?.e ? rb.e.name : 'junction' }); break; }
                         continue;
                         const yw = Y.road + b.edge.ya + (b.edge.yb - b.edge.ya) * clamp(((x - b.edge.a.x) * b.edge.dirx + (z - b.edge.a.z) * b.edge.dirz) / b.edge.len, 0, 1); // its road's level here
                         // (a wall between two parallel carriageways at different levels is a separation / median wall: fine)

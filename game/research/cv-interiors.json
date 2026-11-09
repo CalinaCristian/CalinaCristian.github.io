@@ -27,6 +27,11 @@
       "id": "rosetti-tour",
       "url": "https://tours.toe.hubproedus.ro/0050/index.htm",
       "identity": "Provider locale explicitly identifies two Sal\u0103 de clas\u0103 scenes at L.T.C.A.Rosetti; self-hosted TDV media, not Google panoramas."
+    },
+    {
+      "id": "upb-official-tour",
+      "url": "https://turvirtual.upb.ro/",
+      "identity": "Official university tour credits Zafiu Andrei; public project metadata identifies Rectorat cupola scene5fbfeaa526b7495fa9272e9e."
     }
   ],
   "privatelyInspectedAssets": [
@@ -145,6 +150,39 @@
       "fetchedUTC": "2026-11-09T16:32:05.172300+00:00",
       "sourcePageId": "rosetti-tour",
       "usage": "Private self-hosted tour reference only; no source pixels shipped. Capture date/floor/CV-era unknown."
+    },
+    {
+      "name": "upb-cupola-L1-f.jpg",
+      "url": "https://turvirtual.upb.ro/uploads/vr/5f8de2aba48ccc091f0e9fb9/pano/vtour/5fbfeaa526b7495fa9272e9e/pc/f/l1/1/l1_f_1_1.jpg",
+      "status": 200,
+      "bytes": 128063,
+      "sha256": "9236a6150e24c961b0bd859e869565a6e259ac08f7bc4393d85a1cdfb2e237fe",
+      "fetchedUTC": "2026-11-09T16:48:01.045652+00:00",
+      "sourcePageId": "upb-official-tour",
+      "identity": "Actual Rectorat cupola interior cube face, named in public university scene metadata; no photographic date established.",
+      "usage": "Private comparison only; no reused pixels or measured room geometry."
+    },
+    {
+      "name": "upb-cupola-L1-r.jpg",
+      "url": "https://turvirtual.upb.ro/uploads/vr/5f8de2aba48ccc091f0e9fb9/pano/vtour/5fbfeaa526b7495fa9272e9e/pc/r/l1/1/l1_r_1_1.jpg",
+      "status": 200,
+      "bytes": 127329,
+      "sha256": "8ffc24ca078d1b545d32823524d056fb27714d1e140a9d9e1a29f3bebfe69236",
+      "fetchedUTC": "2026-11-09T16:48:00.651789+00:00",
+      "sourcePageId": "upb-official-tour",
+      "identity": "Actual Rectorat cupola interior cube face, named in public university scene metadata; no photographic date established.",
+      "usage": "Private comparison only; no reused pixels or measured room geometry."
+    },
+    {
+      "name": "upb-cupola-L1-b.jpg",
+      "url": "https://turvirtual.upb.ro/uploads/vr/5f8de2aba48ccc091f0e9fb9/pano/vtour/5fbfeaa526b7495fa9272e9e/pc/b/l1/1/l1_b_1_1.jpg",
+      "status": 200,
+      "bytes": 119468,
+      "sha256": "930c9cd7367b750dd9ab5e8b1e907ffd33cd048f86de74ba110bf72ea7e59f2f",
+      "fetchedUTC": "2026-11-09T16:48:00.850849+00:00",
+      "sourcePageId": "upb-official-tour",
+      "identity": "Actual Rectorat cupola interior cube face, named in public university scene metadata; no photographic date established.",
+      "usage": "Private comparison only; no reused pixels or measured room geometry."
     }
   ],
   "implementations": {
@@ -175,12 +213,23 @@
       ],
       "layoutUse": "Original paired desk arrangement with clear central path; no claimed survey or exact room/floor/date. Full window run preserved with rolled shade hardware only; no blinds hide the live view.",
       "CVContent": "Board formula/Pascal text is original CV-related illustration, not traced source handwriting or a historical2009classroom claim."
+    },
+    "upb": {
+      "character": "Red brick lower walls; rose/grey generated terrazzo with original dark bands/inlays; warm timber gallery fronts; white/wood fins; fine horizontal rails.",
+      "estimatedVolumeM": [
+        18,
+        22,
+        7
+      ],
+      "coverage": "Selected ground hall in existing estimated bounds, not the whole surveyed multi-storey atrium. Upper architecture is visual only; actual stairs, portraits/busts and complete roof/cupola are omitted pending appropriate geometry/movement scope.",
+      "CVExhibit": "BEST2017 trophy fact remains an original CV display; its estimated placement is not claimed to exist in the real Rectorat.",
+      "window": "Full pre-existing right window run retained for root live district adapter; no facade bearing/floor assignment inferred from interior photographs."
     }
   },
   "usage": "Public access is not a reuse licence. All provider images remain private; game art is original procedural geometry and generated material patterns. TECTO architectural design credits are retained in cv-interiors.md.",
   "sourceDistinctions": {
     "rosetti": "Actual self-hosted PROEDUS classrooms privately reviewed, source-led runtime implemented. Acquisition date/floor/2009appearance remain unknown.",
-    "upb": "Official tour credits Zafiu Andrei. Its scene merely named Rectorat was privately inspected and rejected as an aerial exterior, not an interior. Rectorat cupola thumbnail shows actual interior hall; full faces still under review. No aerial is used to infer interior geometry.",
+    "upb": "Official tour credits Zafiu Andrei. Rectorat scene606eb2b87fdee03ebe1053e3 was privately inspected and rejected as aerial exterior. Separate Rectorat cupola5fbfeaa526b7495fa9272e9e supplies authenticated interior faces; selected ground-hall runtime implemented. Date, dimensions, exact floor/facade and whole-atrium reconstruction remain unknown/unclaimed.",
     "gts": "OPC Foundation supports Global Intelligence address; GTS Telecom and Global Technical Systems/Hermes evidence is not interchangeable and is rejected for interiors. No authenticated interior.",
     "luxoft": "Official location is Hermes; generic careers images are Bra\u0219ov/Library exteriors. Noblesse project/photo/era/building authentication remains open.",
     "uipath-buc": "1722 portfolio is CGI/designed proposal, not verified as-built; no authored-photo status inferred.",

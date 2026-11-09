@@ -2,7 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeCanvasTexture, clamp, damp, angleLerp } from './util.js';
 import { drawFitText } from './canvasText.js';
 import { makeCrowd } from './crowd.js';
-import {buildArniaInterior,buildDBInterior,buildRosettiInterior} from './office-interior-details.js';
+import {buildArniaInterior,buildDBInterior,buildRosettiInterior,buildUPBInterior,makeUPBFloor} from './office-interior-details.js';
 import {captureOfficeResources} from './office-resources.js';
 
 const SANS = (w) => (px) => `${w} ${px}px "Helvetica Neue", Helvetica, Arial, sans-serif`;
@@ -144,7 +144,7 @@ const THEMES = {
         npc: { title: 'Form teacher', persona: 'teacher', look: { top: '#5a4636', bottom: '#2f3237', skin: '#e8bc9a', hair: '#5a4030' }, at: [-2.6, -3.6], yaw: 0.35 },
         // Virtual classmates occupy the paired desks of the estimated photo-led room.
         mates: [[-3.5, 0.65, 'sit', 0], [-2.7, 2.25, 'sit', 0], [2.9, 2.25, 'sit', 0], [4.4, 4.0, 'phone', -0.4]], tone: 'room' },
-    upb: { W: 18, D: 22, H: 7, floor: () => stone('#d8d4cc', 'rgba(120,110,100,0.25)', 128), wallLow: '#b9b2a6', wall: '#e6e0d4', ceil: '#efe9df', view: 'bucharest', props: 'rectorat',
+    upb: { W: 18, D: 22, H: 7, photoLed:true, floorRoughness:.48, floor:makeUPBFloor, wallLow: '#aaa49a', wall: '#e6e3da', ceil: '#eeeee7', view: 'bucharest', props: 'rectorat',
         npc: { title: 'Professor', persona: 'professor', look: { top: '#3a3d44', bottom: '#2f3237', skin: '#e8bc9a', hair: '#9a9a96' }, at: [2.5, -6], yaw: -0.4 },
         mates: [[-4, -2, 'talk'], [-3.2, -1.2, 'talk'], [5, 3, 'phone'], [-6, 5, 'walk']], tone: 'hall' },
     gts: { W: 9, D: 9, H: 2.9, floor: () => parquet('#b39470'), wallLow: '#f2f2ef', wall: '#f2f2ef', ceil: '#f7f7f5', view: 'bucharest', props: 'startup',
@@ -247,7 +247,7 @@ export class Office {
         this.box = box; this.mat = mat;
         // floor / ceiling / walls (lower band + upper)
         const ft = T.floor(); ft.wrapS = ft.wrapT = THREE.RepeatWrapping; ft.repeat.set(W / 3, D / 3);
-        const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), new THREE.MeshStandardMaterial({ map: ft, roughness: 0.45, metalness: 0.05 }));
+        const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), new THREE.MeshStandardMaterial({ map: ft, roughness: T.floorRoughness ?? (T.photoLed ? .93 : .45), metalness: T.photoLed?0:.05 }));
         floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; this.scene.add(floor);
         const ceil = new THREE.Mesh(new THREE.PlaneGeometry(W, D), mat(T.ceil, { roughness: 0.95 })); ceil.rotation.x = Math.PI / 2; ceil.position.y = H; this.scene.add(ceil);
         const wallM = mat(T.wall, { roughness: 0.9 }), lowM = mat(T.wallLow, { roughness: 0.6 });
@@ -497,21 +497,8 @@ function makeRngLite(seed) { let s = seed || 1; return () => (s = (s * 16807) % 
 const PROPS = {
     /** Privately compared Rosetti school tour; exact2009room appearance is unknown. */
     classroom(o,d) { return buildRosettiInterior(o,d); },
-    /** Rectorat hall: columns, benches, glass case with the BEST hackathon trophy, notice board of the faculty */
-    rectorat(o, { W, D, H, accent }) {
-        const { box, mat } = o, col = mat('#ece6da', { roughness: 0.5 }), wood = mat('#6e4a2c', { roughness: 0.5 });
-        for (const x of [-W / 2 + 3, W / 2 - 3]) for (let z = -D / 2 + 4; z < D / 2 - 2; z += 5) { const c = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.48, H, 16), col); c.position.set(x, H / 2, z); c.castShadow = true; o.scene.add(c); o.addBox(x, z, 1, 1); box(1.2, 0.3, 1.2, x, 0.15, z, col); }
-        for (let r = 0; r < 3; r++) box(6, 0.45, 0.6, -2, 0.23 + r * 0.3, 4 + r * 1.2, wood, true); // tiered benches
-        box(1.2, 1.0, 1.2, 4, 0.5, -3, mat('#2b2e33'), true);
-        const glass = new THREE.Mesh(BOXG, new THREE.MeshStandardMaterial({ color: '#cfe3ea', roughness: 0.05, metalness: 0.1, transparent: true, opacity: 0.25 })); glass.scale.set(1.1, 1.0, 1.1); glass.position.set(4, 1.5, -3); o.scene.add(glass);
-        const cup = new THREE.Mesh(new THREE.LatheGeometry([[0, 0], [0.12, 0], [0.05, 0.08], [0.04, 0.3], [0.16, 0.5], [0.18, 0.66], [0, 0.66]].map(([x, y]) => new THREE.Vector2(x, y)), 18), mat('#d4a62a', { roughness: 0.25, metalness: 0.9 }));
-        cup.position.set(4, 1.02, -3); o.scene.add(cup);
-        const lbl = makeCanvasTexture(512, 128, (ctx) => { ctx.fillStyle = '#1b1d22'; ctx.fillRect(0, 0, 512, 128); ctx.fillStyle = '#e8d9a8'; ctx.textAlign = 'center'; drawFitText(ctx, 'BEST Engineering Marathon · 1st place · 2017', 256, 64, 480, { maxSize: 34, minSize: 14, font: (sz) => `600 ${sz}px Georgia, serif`, label: 'trophy plaque' }); });
-        const pl = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 0.27), new THREE.MeshBasicMaterial({ map: lbl })); pl.position.set(4, 0.7, -2.38); o.scene.add(pl);
-        for (let z = -D / 2 + 4; z < D / 2 - 2; z += 6) { const ch = new THREE.Mesh(new THREE.SphereGeometry(0.5, 12, 8), new THREE.MeshStandardMaterial({ color: '#fff4d6', emissive: '#fff0c8', emissiveIntensity: 1.2 })); ch.position.set(0, H - 1.2, z); o.scene.add(ch); }
-        box(W - 2, 0.12, 0.3, 0, H - 0.6, -D / 2 + 0.25, mat('#cbb68a', { metalness: 0.5, roughness: 0.4 })); // gilt cornice
-        void accent;
-    },
+    /** Official tour's Rectorat cupola ground-hall character; layout remains estimated. */
+    rectorat(o,d) { return buildUPBInterior(o,d); },
     /** small startup office near Hala Traian: four desks with laptops + LCDs, whiteboard with sticky notes, bean bag, kitchenette */
     startup(o, { W, D, H, accent }) {
         const { box, mat } = o, white = mat('#f4f4f2', { roughness: 0.5 }), leg = mat('#9aa0a6', { metalness: 0.6, roughness: 0.4 });

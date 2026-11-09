@@ -77,6 +77,7 @@
 // ============================================================================
 import fs from 'node:fs';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { parseFiles, parseInto } from './parse-osm.mjs';
@@ -96,6 +97,7 @@ import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
 import { compileSourceReturns } from './source-return-corridors.mjs';
 import { preserveReviewedSourceContext, retainedSourceLevelEstimate } from './source-return-context.mjs';
+import { snapshotRoadRestrictionSources, roadRestrictionCatalogue } from './road-restrictions.mjs';
 import { LANDMARKS } from '../../game/src/landmarks.js';
 import { speciesFromOSM } from '../../game/src/trees.js';
 import { resolveResearchSource } from './research-source.mjs';
@@ -289,6 +291,7 @@ function buildCity(cityId, did = null) {
     const files = fs.readdirSync(TILES).filter(f => f.endsWith('.xml') && C.prefixes.some(p => f.startsWith(p)) && near(f)).sort().map(f => path.join(TILES, f));
     log(cityId, files.length, 'tiles');
     const osm = parseFiles(files);
+    const rawRoadRestrictions = ds ? snapshotRoadRestrictionSources(osm) : null;
     const { nodes: N, ntags, ways: W, rels: R } = osm;
     log(`parsed nodes=${N.size} ways=${W.size} rels=${R.size}`);
     const P = makeProj(C);
@@ -2034,6 +2037,8 @@ function buildCity(cityId, did = null) {
         doc.district.mask = { x0: gx0, z0: gz0, cell, w, h, rle };
     }
     if (ds) {
+        const sourceFiles = files.map(file => ({ file: path.basename(file), sha256: createHash('sha256').update(fs.readFileSync(file)).digest('hex') }));
+        Object.assign(doc, roadRestrictionCatalogue(doc, rawRoadRestrictions, sourceFiles, did));
         if (sourceContextReview) {
             const surveyFile = path.join(REPO, 'game', 'research', `trees-${cityId}-${did}.json`);
             preserveReviewedSourceContext(doc, sourceContextReview, fs.existsSync(surveyFile) ? fs.readFileSync(surveyFile) : null);

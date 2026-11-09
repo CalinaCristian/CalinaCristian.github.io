@@ -252,3 +252,8 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
   release metadata, and verify with the same command without `--write`. Diagnostics then include the runtime fingerprint.
   Dashboard definitions and reproducible validation live in [tools/telemetry](tools/telemetry/README.md). Seven health tables
   distinguish requests, build/first-frame outcomes, frame tails, resources, first headlight responses, recovery and activities.
+
+
+## Technical overview and comparisons
+
+Browse [the game overview](https://cristiancalina.com/game/overview/) for the architecture, simulation, controls and spec-driven AI development, plus inline comparisons for eight districts, 61 landmark entries and 24 tourist destinations. This guide previews the ongoing fidelity work; each capture retains its actual source and date. The game update is still being tested.

@@ -30,5 +30,6 @@ const overlap={...side,z:.9};assert.equal(C.vehicleStepClearsPerson(forward,over
 const toward=simple({heading:-1.4});const towardPerson={i:3,x:1,z:1.3,onRoad:true};
 assert.equal(C.vehicleStepClearsPerson(toward,towardPerson,1/30),false,'native heading recovery sweeping toward the side cannot be released');
 assert.equal(C.vehicleStepClearsPerson({...V,y:-5.76},P,1/30),false,'another grade cannot acquire this street-level release');
-C.crowd.reach=()=>1;assert.equal(C.vehicleStepClearsPerson(V,P,1/30),false,'carried-body reach remains part of physical clearance');C.crowd.reach=()=>.3;
+const hfx=-Math.sin(V.heading),hfz=-Math.cos(V.heading),carried={...P,x:P.x+hfz*.285974,z:P.z-hfx*.285974};
+C.crowd.reach=()=>.55;assert.equal(C.vehicleStepClearsPerson(V,carried,1/30),false,'actual umbrella reach remains protected when the torso alone would be clear');C.crowd.reach=()=>.3;assert.equal(C.vehicleStepClearsPerson(V,carried,1/30),true,'the carried control challenges an otherwise separating torso pose');
 console.log('PASS: native87/325 forward separation, unchanged comfort refusal, preview isolation, front/side/turn/overlap/grade/carried controls');

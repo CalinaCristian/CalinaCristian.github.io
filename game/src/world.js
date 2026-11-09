@@ -1,3 +1,4 @@
+import { sourceTransitShelterDecision } from './source-transit-shelter.js';
 import { projectCoveredWater, prepareFinalWaterGeometry, prepareSmallWaterGroups, consumePreparedSmallWater, waterOwnerSurface, landmarkWaterSurfaces, combineUnderpassWaterOwners } from './final-water-topology.js';
 import { buildUnderpassOwnerIndex } from './underpass-ground-owner.js';
 import { underpassRoofModel, underpassRoofFaces, underpassRoofCollider, UNDERPASS_COVER_POLICY } from './underpass-roof.js';
@@ -4674,13 +4675,15 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress('Opening the shops…'); await tick();
     const P = props();
     const fuelLog = []; // fuel forecourts: where the canopy went (or why not) — world.stats.fuel
-    for (const r of data.pois) {
+    const transitShelterAudit = [];
+    for (const [poiIndex, r] of data.pois.entries()) {
         const kind = data.poiKinds[r[0]];
         const x = r[1] / 10, z = r[2] / 10, name = str(r[3]), brand = str(r[4]), sub = str(r[5]), bIdx = buildingIndex(r[6], x, z);
         const ks = KIND_STYLE[kind] || KIND_STYLE.landmark;
         const label = name || brand || (kind === 'busstop' ? (sub.startsWith('tram') ? (US ? 'Streetcar stop' : 'Stație tramvai') : (US ? 'Bus stop' : 'Stație autobuz')) : kind === 'metro' ? (US ? 'Link station' : 'Metrou') : kind);
         const poi = { id: 'osm' + pois.length, kind, sub, label, brand, x, z, doorX: x, doorZ: z, color: ks.color, icon: sub.startsWith('cafe') ? '☕' : ks.icon, visited: false, h: 4, w: 4, d: 4, interactive: false, building: bIdx };
         pois.push(poi);
+        if (kind === 'busstop') { poi.shelterModel = sourceTransitShelterDecision(data, poiIndex); transitShelterAudit.push({ poiId: poi.id, ...poi.shelterModel }); }
         if (kind === 'fuel') { // the pump is reached from the street: door at the kerb of the nearest drivable lane
             const okLane = (q) => q.drivable && !q.virtual && !q.tunnel && !/motorway|_link/.test(q.type) && Math.abs(q.ya) < 0.3 && Math.abs(q.yb) < 0.3;
             const dn = nearestEdge(x, z, (q) => okLane(q) && q.type !== 'service', 60) || nearestEdge(x, z, okLane, 150); // a street, not the forecourt's own service lane
@@ -4769,6 +4772,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             continue;
         }
         if (kind === 'busstop') {
+            if (!poi.shelterModel.emitInferred) continue; // no guessed unit/colliders; source owners and POI remain intact
             const sideW = side > 0 ? e.wR : e.wL;
             if (ne.d > sideW + 12) continue;
             let off = sideW + shoulderOf(e) + Math.max(1.3, Math.min(e.sidewalk, 3) * 0.6);
@@ -6143,6 +6147,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
     stats.districtBoundary = boundarySupport.report;
+    stats.transitShelters = { schema: 1, records: transitShelterAudit, withheldUnknown: transitShelterAudit.filter(r => r.status === 'unknown-shelter-geometry').length, literalNo: transitShelterAudit.filter(r => r.status === 'literal-no-shelter').length, legacyUnreviewed: transitShelterAudit.filter(r => r.status === 'legacy-unreviewed').length, limits: 'Inferred generic-unit decisions only; no real shelter absence, mapped geometry removal or constructor/route clearance acceptance.' };
     stats.waterShore = waterShoreAudit;
     stats.waterChannels = waterChannelAudit;
     stats.waterLines = waterLineAudit;

@@ -1,0 +1,9 @@
+{
+  "scope": "Baseline57db and source-gate candidate CPU World-prefix field comparison, never fresh native IDs/binding.",
+  "sameDataSha256": true,
+  "baseWorldSha256": "d28a64ad2892b877a6d1140bccdf0ba96826c6c04b8f386770366c488731e680",
+  "candidateWorldSha256": "2e81d1113e25b1ec5cdedff9faebdb418d9cf372a7d003ee951b2a3d92c7abe7",
+  "motorEdgesEqual": true,
+  "nearPlatformSpecializedGradeQueriesEqual": true,
+  "ordinaryGroundTrackMeaning": "A null specialized bridge-grade result is not itself a failed source binding or missing support certificate."
+}

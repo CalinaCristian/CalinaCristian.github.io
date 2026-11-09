@@ -1,0 +1,48 @@
+{
+  "scope": "Historical actual3f motor source-profile compared with actual57db CPU prefix by literal node pair, never numeric edge/actor identity. No fresh native constructor or body acceptance.",
+  "historicalSource": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+  "historicalFixtureSha256": "ef1b5c1994043588ac1fb42833e6bb5e8e8c07fde45eb882689e1f0729b29e4b",
+  "currentRoot": "57dbb99ef150dd8ec1c8eeeeb6008785bf9585a3",
+  "currentDataSha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+  "pairs": [
+    {
+      "sourceNodes": [
+        933659667,
+        6909034254
+      ],
+      "historicalNativeEdgeId": 105,
+      "currentCpuPrefixEdgeId": 107,
+      "unchangedFields": {
+        "ya": 0,
+        "yb": 0,
+        "wL": 3.5,
+        "wR": 3.5,
+        "laneW": 3.5,
+        "lanesF": 2,
+        "lanesB": 0,
+        "laneCenterShiftM": 0
+      },
+      "unchangedExactXY": true
+    },
+    {
+      "sourceNodes": [
+        6909034254,
+        3719807257
+      ],
+      "historicalNativeEdgeId": 106,
+      "currentCpuPrefixEdgeId": 108,
+      "unchangedFields": {
+        "ya": 0,
+        "yb": 0,
+        "wL": 3.5,
+        "wR": 3.5,
+        "laneW": 3.5,
+        "lanesF": 2,
+        "lanesB": 0,
+        "laneCenterShiftM": 0
+      },
+      "unchangedExactXY": true
+    }
+  ],
+  "railGradeResolverMeaning": "The specialized bridge/tunnel grade resolver returns no grade for the ordinary ground-source track segments here. This is not itself a current failed binding or proof of missing support. Fresh native binding poses/actor IDs remain pending."
+}

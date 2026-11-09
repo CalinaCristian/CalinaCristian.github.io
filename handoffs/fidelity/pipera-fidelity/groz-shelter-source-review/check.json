@@ -1,0 +1,977 @@
+{
+  "scope": "Pure source decision and actual legacy World shelter-block ownership controls. No native constructor/mesh/body/route/visual/performance acceptance. Existing historical3f native rail and motor opposite witnesses stay HOLD.",
+  "baseCommit": "57dbb99ef150dd8ec1c8eeeeb6008785bf9585a3",
+  "dataSha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+  "worldSha256": "2e81d1113e25b1ec5cdedff9faebdb418d9cf372a7d003ee951b2a3d92c7abe7",
+  "helperSha256": "bb9e91306ba74d3184c975fc0b3842eb82bca07ab0886f56ddde114bc722764b",
+  "passed": 15,
+  "cases": [
+    "a vehicle stop_position never supplies a generic roof/pole anchor",
+    "literal shelter=yes retains existence but does not manufacture roof geometry",
+    "literal own-source shelter=no wins",
+    "valid ordinary passenger stop literal negative also wins",
+    "ordinary passenger-stop model stays explicitly legacy/unreviewed",
+    "absent source metadata preserves legacy behavior",
+    "stale point/identity, malformed point and unverified provenance cannot authorize a source gate",
+    "same-name/open platform shelter availability never becomes a centroid or half-arclength model station",
+    "literal stop-area membership improves association evidence only, not roof dimensions",
+    "one platform negative does not invent a global vehicle-stop shelter absence",
+    "deterministic source decision consumes no RNG and mutates no source/fleet input",
+    "the entire legacy shelter emitter is byte-identical apart from one source decision gate",
+    "actual World gate emits zero whole-unit triangles/colliders/signs while preexisting mapped roof geometry stays byte-identical",
+    "legacy control still emits the original8boxes/96triangles/4colliders/2signquads",
+    "exact649 source data and all34POIs unchanged; current target stops remain UNKNOWN, no actor IDs assumed"
+  ],
+  "sourcePoiCount": 34,
+  "counts": {
+    "legacy-unreviewed": 14,
+    "unknown-shelter-geometry": 11,
+    "literal-no-shelter": 9
+  },
+  "decisions": [
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 0,
+      "sourceId": "n3067743633",
+      "reason": "ordinary-passenger-stop-generic-model-unreviewed",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": false,
+      "status": "unknown-shelter-geometry",
+      "poiIndex": 2,
+      "sourceId": "n933659725",
+      "sourcePoint": [
+        -384.02697930026375,
+        705.6437472000074
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "vehicle-stop-position",
+      "literalShelter": null,
+      "shelterExistence": "nearby-or-associated-platform-yes-see-association-certainty",
+      "associations": [
+        {
+          "platformSourceId": "n1625385460",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "yes",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n2091974062",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "yes",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "w909062874",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "yes",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "w909062875",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "yes",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "vehicle-stop-does-not-locate-generic-shelter-roof-or-pole",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "unknown-shelter-geometry",
+      "poiIndex": 3,
+      "sourceId": "n981543153",
+      "sourcePoint": [
+        94.40524152754968,
+        -151.27287839978484
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "vehicle-stop-position",
+      "literalShelter": null,
+      "shelterExistence": "unknown",
+      "associations": [
+        {
+          "platformSourceId": "n3273882865",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "vehicle-stop-does-not-locate-generic-shelter-roof-or-pole",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "literal-no-shelter",
+      "poiIndex": 4,
+      "sourceId": "n1725252704",
+      "sourcePoint": [
+        -287.65065679100354,
+        757.375693200477
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "literal-passenger-stop-negative",
+      "literalShelter": "no",
+      "shelterExistence": "literal-no",
+      "associations": [
+        {
+          "platformSourceId": "n1725252704",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "literal-shelter-no",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 8,
+      "sourceId": "n3052742435",
+      "reason": "ordinary-passenger-stop-generic-model-unreviewed",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 9,
+      "sourceId": "n3052742436",
+      "reason": "ordinary-passenger-stop-generic-model-unreviewed",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": false,
+      "status": "literal-no-shelter",
+      "poiIndex": 10,
+      "sourceId": "n3067737433",
+      "sourcePoint": [
+        -869.3420877488049,
+        740.0835540005473
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "literal-passenger-stop-negative",
+      "literalShelter": "no",
+      "shelterExistence": "literal-no",
+      "associations": [
+        {
+          "platformSourceId": "n3067737433",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n3067737434",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "yes",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "literal-shelter-no",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 11,
+      "sourceId": "n3067737434",
+      "reason": "ordinary-passenger-stop-generic-model-unreviewed",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": false,
+      "status": "unknown-shelter-geometry",
+      "poiIndex": 17,
+      "sourceId": "n8440717929",
+      "sourcePoint": [
+        -380.61732711844127,
+        684.7731576001105
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "vehicle-stop-position",
+      "literalShelter": null,
+      "shelterExistence": "nearby-or-associated-platform-yes-see-association-certainty",
+      "associations": [
+        {
+          "platformSourceId": "w909062874",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "yes",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "w909062875",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "yes",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "vehicle-stop-does-not-locate-generic-shelter-roof-or-pole",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "unknown-shelter-geometry",
+      "poiIndex": 31,
+      "sourceId": "n981543129",
+      "sourcePoint": [
+        287.5870735336383,
+        -658.0014587999514
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "vehicle-stop-position",
+      "literalShelter": null,
+      "shelterExistence": "unknown",
+      "associations": [],
+      "reason": "vehicle-stop-does-not-locate-generic-shelter-roof-or-pole",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 34,
+      "sourceId": "n2517400445",
+      "reason": "ordinary-passenger-stop-generic-model-unreviewed",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": false,
+      "status": "literal-no-shelter",
+      "poiIndex": 35,
+      "sourceId": "n2517400448",
+      "sourcePoint": [
+        70.42640555433265,
+        -131.9359103996483
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "literal-passenger-stop-negative",
+      "literalShelter": "no",
+      "shelterExistence": "literal-no",
+      "associations": [
+        {
+          "platformSourceId": "n2517400448",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "literal-shelter-no",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "literal-no-shelter",
+      "poiIndex": 36,
+      "sourceId": "n2958417154",
+      "sourcePoint": [
+        -205.4931402337263,
+        -330.45100199955164
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "literal-passenger-stop-negative",
+      "literalShelter": "no",
+      "shelterExistence": "literal-no",
+      "associations": [
+        {
+          "platformSourceId": "n2958417154",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "literal-shelter-no",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "literal-no-shelter",
+      "poiIndex": 63,
+      "sourceId": "n1625385453",
+      "sourcePoint": [
+        149.77831087602775,
+        -270.9287027996414
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "literal-passenger-stop-negative",
+      "literalShelter": "no",
+      "shelterExistence": "literal-no",
+      "associations": [
+        {
+          "platformSourceId": "n1625385453",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "literal-shelter-no",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "unknown-shelter-geometry",
+      "poiIndex": 64,
+      "sourceId": "n1775175278",
+      "sourcePoint": [
+        763.6905575565323,
+        -980.1064475998861
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "vehicle-stop-position",
+      "literalShelter": null,
+      "shelterExistence": "unknown",
+      "associations": [
+        {
+          "platformSourceId": "w620826242",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "w620826243",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "vehicle-stop-does-not-locate-generic-shelter-roof-or-pole",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "literal-no-shelter",
+      "poiIndex": 75,
+      "sourceId": "n8388113816",
+      "sourcePoint": [
+        80.59177884215246,
+        -563.4170136001248
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "literal-passenger-stop-negative",
+      "literalShelter": "no",
+      "shelterExistence": "literal-no",
+      "associations": [
+        {
+          "platformSourceId": "n8388113816",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "literal-shelter-no",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "literal-no-shelter",
+      "poiIndex": 81,
+      "sourceId": "n580978012",
+      "sourcePoint": [
+        780.8898287019224,
+        -1058.176677599398
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "literal-passenger-stop-negative",
+      "literalShelter": "no",
+      "shelterExistence": "literal-no",
+      "associations": [
+        {
+          "platformSourceId": "n580978012",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n580978013",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n10556623047",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "yes",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "literal-shelter-no",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "literal-no-shelter",
+      "poiIndex": 86,
+      "sourceId": "n2517400437",
+      "sourcePoint": [
+        235.96541637563848,
+        -679.3388027997753
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "literal-passenger-stop-negative",
+      "literalShelter": "no",
+      "shelterExistence": "literal-no",
+      "associations": [
+        {
+          "platformSourceId": "n2517400437",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "literal-shelter-no",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 87,
+      "sourceId": "n2517400438",
+      "reason": "ordinary-passenger-stop-generic-model-unreviewed",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 88,
+      "sourceId": "n2519078589",
+      "reason": "ordinary-passenger-stop-generic-model-unreviewed",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": false,
+      "status": "literal-no-shelter",
+      "poiIndex": 90,
+      "sourceId": "n2990819618",
+      "sourcePoint": [
+        417.8135327378094,
+        -778.8686219997503
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "literal-passenger-stop-negative",
+      "literalShelter": "no",
+      "shelterExistence": "literal-no",
+      "associations": [
+        {
+          "platformSourceId": "n2990819618",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "literal-shelter-no",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 91,
+      "sourceId": "n2990819619",
+      "reason": "ordinary-passenger-stop-generic-model-unreviewed",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 94,
+      "sourceId": null,
+      "reason": "source-metadata-unavailable",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": false,
+      "status": "unknown-shelter-geometry",
+      "poiIndex": 107,
+      "sourceId": "n6187848834",
+      "sourcePoint": [
+        457.7597142429533,
+        -770.0336279999465
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "vehicle-stop-position",
+      "literalShelter": null,
+      "shelterExistence": "unknown",
+      "associations": [
+        {
+          "platformSourceId": "n2990819618",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "vehicle-stop-does-not-locate-generic-shelter-roof-or-pole",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "unknown-shelter-geometry",
+      "poiIndex": 108,
+      "sourceId": "n6187848865",
+      "sourcePoint": [
+        454.0480415880107,
+        -778.4018675998232
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "vehicle-stop-position",
+      "literalShelter": null,
+      "shelterExistence": "unknown",
+      "associations": [
+        {
+          "platformSourceId": "n2990819618",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "vehicle-stop-does-not-locate-generic-shelter-roof-or-pole",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "unknown-shelter-geometry",
+      "poiIndex": 109,
+      "sourceId": "n6187848881",
+      "sourcePoint": [
+        643.8122735052826,
+        -895.4460899999563
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "vehicle-stop-position",
+      "literalShelter": null,
+      "shelterExistence": "unknown",
+      "associations": [
+        {
+          "platformSourceId": "n1531915628",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n2517408900",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n2517418576",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n8326974550",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "w982234612",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "w982234613",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "vehicle-stop-does-not-locate-generic-shelter-roof-or-pole",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "unknown-shelter-geometry",
+      "poiIndex": 110,
+      "sourceId": "n6187888840",
+      "sourcePoint": [
+        1158.1928785247303,
+        -1283.6635055994293
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "vehicle-stop-position",
+      "literalShelter": null,
+      "shelterExistence": "nearby-or-associated-platform-yes-see-association-certainty",
+      "associations": [
+        {
+          "platformSourceId": "w1132179485",
+          "association": "literal-stop-area-member",
+          "relationSourceId": "r15315421",
+          "shelter": "yes",
+          "geometry": "Platform geometry is retained, not a validated shelter roof footprint/station/dimensions."
+        },
+        {
+          "platformSourceId": "w1132179484",
+          "association": "literal-stop-area-member",
+          "relationSourceId": "r15315421",
+          "shelter": "yes",
+          "geometry": "Platform geometry is retained, not a validated shelter roof footprint/station/dimensions."
+        },
+        {
+          "platformSourceId": "n2389847191",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "yes",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n2389894036",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": "no",
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "vehicle-stop-does-not-locate-generic-shelter-roof-or-pole",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": false,
+      "status": "unknown-shelter-geometry",
+      "poiIndex": 116,
+      "sourceId": "n7622859953",
+      "sourcePoint": [
+        677.1219525118831,
+        -980.0286551997667
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "vehicle-stop-position",
+      "literalShelter": null,
+      "shelterExistence": "unknown",
+      "associations": [
+        {
+          "platformSourceId": "n1531915628",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n2517408900",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n2517418576",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n8326974550",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "w982234612",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "w982234613",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "vehicle-stop-does-not-locate-generic-shelter-roof-or-pole",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 117,
+      "sourceId": "n8326974550",
+      "reason": "ordinary-passenger-stop-generic-model-unreviewed",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 118,
+      "sourceId": "n8378931525",
+      "reason": "ordinary-passenger-stop-generic-model-unreviewed",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 119,
+      "sourceId": "n8378931527",
+      "reason": "ordinary-passenger-stop-generic-model-unreviewed",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": false,
+      "status": "unknown-shelter-geometry",
+      "poiIndex": 120,
+      "sourceId": "n9084090059",
+      "sourcePoint": [
+        668.9673997415919,
+        -905.4924227997024
+      ],
+      "sourceSetSha256": "4034b0dc6838b016d542342cd9f1e6659974ec1f118c9fa4a83983ddd0c41368",
+      "sourcePurpose": "vehicle-stop-position",
+      "literalShelter": null,
+      "shelterExistence": "unknown",
+      "associations": [
+        {
+          "platformSourceId": "n1531915628",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n2517408900",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n2517418576",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "n8326974550",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "w982234612",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        },
+        {
+          "platformSourceId": "w982234613",
+          "association": "nearby-same-name-association-unverified",
+          "shelter": null,
+          "geometry": "No nearest-platform, centroid or half-arclength placement is adopted."
+        }
+      ],
+      "reason": "vehicle-stop-does-not-locate-generic-shelter-roof-or-pole",
+      "withheldUnit": [
+        "roof",
+        "glass",
+        "bench",
+        "pole",
+        "sign",
+        "matching-inferred-colliders"
+      ],
+      "ownership": "No mapped shelter/roof/building/platform/stop geometry is owned or removed here. Validated dedicated geometry must be emitted by its separate source owner.",
+      "limits": "Unknown real shelter geometry is not absence, a real-world clearance certificate, a constructor/cohort pass or a route fix."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 121,
+      "sourceId": "n10556623047",
+      "reason": "ordinary-passenger-stop-generic-model-unreviewed",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    },
+    {
+      "emitInferred": true,
+      "status": "legacy-unreviewed",
+      "poiIndex": 159,
+      "sourceId": "w839372104",
+      "reason": "source-poi-anchor-unverified",
+      "ownership": "This decision controls only the unmapped generic shelter unit; mapped source geometry remains independently owned."
+    }
+  ],
+  "actualWorldBlockControls": {
+    "unknown": {
+      "boxes": 0,
+      "addedTriangles": 0,
+      "addedInferredColliders": 0,
+      "signs": 0,
+      "mappedRoofOwnerRetained": true,
+      "sourceRoofBytesUnchanged": true
+    },
+    "legacy": {
+      "boxes": 8,
+      "addedTriangles": 96,
+      "addedInferredColliders": 4,
+      "signs": 2,
+      "mappedRoofOwnerRetained": true,
+      "sourceRoofBytesUnchanged": true
+    }
+  },
+  "sourceBodiesPreserved": 4111,
+  "newActorIds": "PENDING fresh immutable native constructor",
+  "historicalHeldDraft": "6e204029eadb907aa05d88ed8c259308acb8a4c0"
+}

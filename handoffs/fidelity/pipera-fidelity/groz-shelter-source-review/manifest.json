@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "recordedUTC": "2026-11-09T18:48:54.026616+00:00",
+  "baseCommit": "57dbb99ef150dd8ec1c8eeeeb6008785bf9585a3",
+  "scope": "Source-owned generic shelter decision, unchanged source road field and whole-unit/mapped-owner CPU controls. No new native constructor/actor IDs, real shelter geometry, full route/visual/budget acceptance.",
+  "sourceModules": [
+    {
+      "path": "game/src/world.js",
+      "sha256": "2e81d1113e25b1ec5cdedff9faebdb418d9cf372a7d003ee951b2a3d92c7abe7"
+    },
+    {
+      "path": "game/src/source-transit-shelter.js",
+      "sha256": "bb9e91306ba74d3184c975fc0b3842eb82bca07ab0886f56ddde114bc722764b"
+    }
+  ],
+  "data": {
+    "path": "game/data/bucharest-grozavesti.json",
+    "sha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+    "byteIdenticalToBase": true,
+    "buildings": 4111,
+    "transportPois": 34
+  },
+  "unchangedProductionScopes": [
+    "Traffic",
+    "initial admission/planner/span",
+    "Nav/clearance",
+    "tram/shared/road grade",
+    "Main/index",
+    "all source data and mapped buildings/roofs/platforms/stops"
+  ],
+  "historicalEvidence": {
+    "proofCommit": "32897501b7d340af7aec42123bfa4a3820823a85",
+    "nativeSource": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+    "nativeRawDirectory": "/workspace/integration-qa-evidence/basarab-shared-3f8f86be-native",
+    "fullCanonicalAndBodyFixture": "held initial-admission-3f8/native-fixture, source manifest retained",
+    "placementDraft": "6e204029eadb907aa05d88ed8c259308acb8a4c0",
+    "placementDraftStatus": "HOLD; not ancestor of this candidate",
+    "limits": "Old485/483/484 and other IDs never relabelled current; old positives retained"
+  },
+  "privateProviderPixelsInGit": false,
+  "newNativeConstructor": "PENDING exact combined freeze/Bridge preflight",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 7091,
+      "sha256": "abb594ff7aed7ae45dd64a21568fc5ae582d3708048c9b5f7a404b56b176e051"
+    },
+    {
+      "path": "audit-source.mjs",
+      "bytes": 5550,
+      "sha256": "3fcef790d033d13c9a251123a8b079b9da0e3c5592fcc60a3431f4ddca472323"
+    },
+    {
+      "path": "candidate-field.json",
+      "bytes": 10297,
+      "sha256": "270d4875ecc839f5778450effb71bb941389a514809b72558e0ec052df2d6ee3"
+    },
+    {
+      "path": "check.json",
+      "bytes": 39084,
+      "sha256": "f1984dd5427452d1b051ab88102c039f1b739a4d176704e951b754cbb55cc196"
+    },
+    {
+      "path": "check.mjs",
+      "bytes": 8766,
+      "sha256": "c77e2e5c1bae7490b4a1e8bec529d93b7e6dfa85a81c60e317c267b60c9b10be"
+    },
+    {
+      "path": "current-field-57db.json",
+      "bytes": 10297,
+      "sha256": "3f49d1bc14935a66cae1117d24b3fa225c17efc3f17f57b09a1092896bdcd1fc"
+    },
+    {
+      "path": "current-field.mjs",
+      "bytes": 3043,
+      "sha256": "58ebe8cd5b9f73ffb862a3a3dea925ebf853c081a601db39fd921ebbecd64ecf"
+    },
+    {
+      "path": "field-parity.json",
+      "bytes": 555,
+      "sha256": "62f24fac15ab4083ee14fe49a87b0535c98c3247c63b8fdd908e227eff808228"
+    },
+    {
+      "path": "historical-actual-native-bodies.json.gz",
+      "bytes": 4715,
+      "sha256": "c8fa3ba1511632663721b244a4a470b71d8ae54606fcd3cc12d2f133e54f2e01",
+      "decodedBytes": 54746,
+      "decodedSha256": "6e71291918071ff87b79516e8b0c5e697e86a701c3d81b4bd113343728d97693"
+    },
+    {
+      "path": "historical-current-road-parity.json",
+      "bytes": 1585,
+      "sha256": "4165a31d959a3326669939ce85a7bcd7df826e1ffb1b22cde5ef98b8affbfd98"
+    },
+    {
+      "path": "historical-failed-stop-projection-actual.json.gz",
+      "bytes": 17432,
+      "sha256": "021f59b960afe6d0c3a7745a86addb37e91c5d8f8dc56fb3a80049a5e01720b3",
+      "decodedBytes": 217924,
+      "decodedSha256": "3190b34b998b57a1ef3a12d330e90e852c076afc74149bc48f771b1865f38869"
+    },
+    {
+      "path": "historical-motor-shelter-check.json.gz",
+      "bytes": 1713,
+      "sha256": "dfcfb54a9b105612836b2673164e57cc902375b5b6ed5ca2f7639b26bdd74935",
+      "decodedBytes": 42107,
+      "decodedSha256": "272491dbff19d1672c0b05933cc77002d2ca71e700231340b9a0991947b5b159"
+    },
+    {
+      "path": "private-reference-ledger.json",
+      "bytes": 12122,
+      "sha256": "83dae6ceaeb22c868125e55ed030ffc4c98dc9207c92dc5f17e3ae53e9fad4d1"
+    },
+    {
+      "path": "source-audit.json",
+      "bytes": 13774,
+      "sha256": "bf34dedb519fb4996b0f042a86e5ac617060f4b0b10951db69a1959b4521ac74"
+    }
+  ]
+}

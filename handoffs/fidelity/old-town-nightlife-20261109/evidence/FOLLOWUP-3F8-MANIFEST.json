@@ -1,0 +1,332 @@
+{
+  "version": 1,
+  "scope": "Exact additional closed-run game PNG/report copies; no provider/reference photos or runtime archives. Source metadata, failed assertion and original bytes retained. These are historical runtime sources, not later6ca correction pictures.",
+  "directories": [
+    {
+      "directory": "full-44578b37",
+      "source": "44578b379347c0f60809aee1b506c30ddd2c2e8a",
+      "captureUTC": "2026-11-09T14:06:09.384Z",
+      "toolScriptSHA256": "fb134bc2128a23fa6a36700a3fb0f3a69f9f7491dede103f42cf123e8019db9c",
+      "complete": true,
+      "totalChecks": 78,
+      "passedChecks": 78,
+      "failure": null
+    },
+    {
+      "directory": "full-3f8f86be",
+      "source": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+      "captureUTC": "2026-11-09T15:24:52.030Z",
+      "toolScriptSHA256": "e51a87104de1be2930cc067829b36fc06bc546e82a693b31373a93121a153980",
+      "complete": null,
+      "totalChecks": 75,
+      "passedChecks": 74,
+      "failure": "Error: phone production host gating preserves tour controls and blocks launchers\n    at check (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:5:133)\n    at /workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:72:917"
+    },
+    {
+      "directory": "phone-3f8f86be-corrected",
+      "source": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+      "captureUTC": "2026-11-09T15:35:01.048Z",
+      "toolScriptSHA256": "030574ce19b0ade1cffa60c2d01d8db46a50b57d4e912ca09d8d80d59e8fd3cb",
+      "complete": true,
+      "totalChecks": 31,
+      "passedChecks": 31,
+      "failure": null
+    }
+  ],
+  "files": [
+    {
+      "path": "full-44578b37/SCOPE.md",
+      "bytes": 545,
+      "sha256": "f0f082e870832c11695f6e371d2f505ddd9e0647b6613541dd43bc1d29b6d19b",
+      "originalMtimeUTC": "2026-11-09T15:50:09.519845+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-avatar-start.png",
+      "bytes": 1024484,
+      "sha256": "71e8f2675945bd67ca4cd96723a30b1bde882c7b26eed55c9324ec4e2344d7fd",
+      "originalMtimeUTC": "2026-11-09T14:08:52.351582+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-carusel-atrium-day.png",
+      "bytes": 1208342,
+      "sha256": "b1b6495935e6a6b312504de057eefedc22d365b4af4c6b31ac40f2657e7b2a08",
+      "originalMtimeUTC": "2026-11-09T14:07:38.364729+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-carusel-atrium-night.png",
+      "bytes": 1193544,
+      "sha256": "f60012767e0328375e116c2715b5556151580fcea2d862bfe62933485de0fcfd",
+      "originalMtimeUTC": "2026-11-09T14:07:22.100912+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-carusel-ground-floor.png",
+      "bytes": 1150781,
+      "sha256": "4831087a214355981bc399acc29c34bbac5177b188756447ff8ca000c5ebf844",
+      "originalMtimeUTC": "2026-11-09T14:07:11.349028+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-carusel-side-door.png",
+      "bytes": 1149025,
+      "sha256": "bfb19d395f314541d073fca45c39f73456386813dc75197dd5f3e55c3203344a",
+      "originalMtimeUTC": "2026-11-09T14:07:46.052643+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-carusel-top-gallery.png",
+      "bytes": 1101516,
+      "sha256": "5cca28db166ec7b4f02f67157fdb4c9aad72449c5b2e5779f40a421a7148290c",
+      "originalMtimeUTC": "2026-11-09T14:08:08.688393+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-carusel-visible-entrance.png",
+      "bytes": 1139412,
+      "sha256": "8d71364c98a35cafd1696ac6800047968044732d07776843aa22aff60f414f6d",
+      "originalMtimeUTC": "2026-11-09T14:07:05.525091+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-day-arrival.png",
+      "bytes": 1159449,
+      "sha256": "da5e3496599bd160cfebafec09fdd2bfd40168ba21dbd2b838100c6d3160ab0e",
+      "originalMtimeUTC": "2026-11-09T14:09:15.951277+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-hidden-sports-room.png",
+      "bytes": 1137041,
+      "sha256": "83ee23ef4dac8f81859167d742e9be27c1174e0fdb0abf0ddba53ef6e084453b",
+      "originalMtimeUTC": "2026-11-09T14:07:56.304530+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-left-animation.png",
+      "bytes": 1056687,
+      "sha256": "69e8bbae6542042aef9efc63b39cfebf4c835132d0eeeb959bdb40d4e3d3cb6d",
+      "originalMtimeUTC": "2026-11-09T14:08:55.187549+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-night-arrival.png",
+      "bytes": 1210694,
+      "sha256": "19e16732ba8374cdd0b657d91bd3435a3740104c3162ebcaf6052cc34db9f832",
+      "originalMtimeUTC": "2026-11-09T14:06:41.197351+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-shot-animation.png",
+      "bytes": 1023811,
+      "sha256": "3d0aa3e648435e0f77cebf6622481b584a76c069235e83285d06bb8655c28b8f",
+      "originalMtimeUTC": "2026-11-09T14:09:07.171393+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-spin-animation.png",
+      "bytes": 1059396,
+      "sha256": "a4a8615c74f3d1e69a853261df5dab70fc2ad0a3939e1975e972a4f5ebf27b79",
+      "originalMtimeUTC": "2026-11-09T14:08:59.559491+00:00"
+    },
+    {
+      "path": "full-44578b37/desktop-visit-edge.png",
+      "bytes": 1126155,
+      "sha256": "19ec7e7bc7513f4f8894ec48e24a883a5a280bfee53ca834b16365a74034593b",
+      "originalMtimeUTC": "2026-11-09T14:09:19.799225+00:00"
+    },
+    {
+      "path": "full-44578b37/phone-avatar-start.png",
+      "bytes": 315525,
+      "sha256": "ee88759c2d8642d701c6e814042c92dfbb11b0c80e9086dec4b84db7670a5d2a",
+      "originalMtimeUTC": "2026-11-09T14:10:08.926567+00:00"
+    },
+    {
+      "path": "full-44578b37/phone-left-animation.png",
+      "bytes": 349525,
+      "sha256": "bfe8f8e89143f72ab1f0d89a16e0cb5648b220b5b1d296a2adb0cb77506cb890",
+      "originalMtimeUTC": "2026-11-09T14:10:10.650543+00:00"
+    },
+    {
+      "path": "full-44578b37/phone-night-arrival.png",
+      "bytes": 427138,
+      "sha256": "3edec1f9e8164af1c02f3cc2e15299e32b4dea59d51efa2a7dd8d8b2e7fae04d",
+      "originalMtimeUTC": "2026-11-09T14:10:03.466642+00:00"
+    },
+    {
+      "path": "full-44578b37/phone-spin-animation.png",
+      "bytes": 350807,
+      "sha256": "daf2fa152c826b279202c739b4127a1a7268a372894203aaace318140552eb21",
+      "originalMtimeUTC": "2026-11-09T14:10:13.206508+00:00"
+    },
+    {
+      "path": "full-44578b37/report.json",
+      "bytes": 355605,
+      "sha256": "b2f30842fdf3d31b89109fb79119efe1f4a9521e0c2f38ae4aa301ae5be644fc",
+      "originalMtimeUTC": "2026-11-09T14:10:14.994484+00:00"
+    },
+    {
+      "path": "full-3f8f86be/SCOPE.md",
+      "bytes": 751,
+      "sha256": "cac0218cd2041841adb5878e835fc7b60d091d6a28b78604f45ed93e4f40d9a5",
+      "originalMtimeUTC": "2026-11-09T15:34:04.273141+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-avatar-start.png",
+      "bytes": 1032752,
+      "sha256": "91344775d923a9e9910edb49e9268ca5d75a793011375ef649495667625b3094",
+      "originalMtimeUTC": "2026-11-09T15:28:09.479835+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-carusel-atrium-day.png",
+      "bytes": 1374264,
+      "sha256": "24e86652876895b3379afe8262d7698fcc68c6a7f7a8b222d862b2e6855b9c02",
+      "originalMtimeUTC": "2026-11-09T15:26:09.649158+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-carusel-atrium-night.png",
+      "bytes": 1372727,
+      "sha256": "b8529637545346eaf500197111336a9a5d5e782afd5e1cae33de5bd77cea058e",
+      "originalMtimeUTC": "2026-11-09T15:25:57.809285+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-carusel-first-gallery-day.png",
+      "bytes": 1316175,
+      "sha256": "4faeb81dc516b26be1cc5038b748bb59913758b609052377a52f0f1d559ace53",
+      "originalMtimeUTC": "2026-11-09T15:26:35.952864+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-carusel-ground-floor.png",
+      "bytes": 1194696,
+      "sha256": "21c8328c3813dac5de9588c34472098e85a230898804b33a06af29b8158c15c5",
+      "originalMtimeUTC": "2026-11-09T15:25:48.333384+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-carusel-side-door.png",
+      "bytes": 1182292,
+      "sha256": "8b9aaa0ff48a4b83d4a789a9cc5ac9f48241a51c9452cd40bcfce1a799bfe541",
+      "originalMtimeUTC": "2026-11-09T15:26:21.981018+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-carusel-street-window-day.png",
+      "bytes": 1145160,
+      "sha256": "c52d6c58cd233570b71364231da789a0de2c58ffc4765734136c1d2ac114e8e0",
+      "originalMtimeUTC": "2026-11-09T15:26:56.820634+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-carusel-top-gallery.png",
+      "bytes": 1356840,
+      "sha256": "c4a66673b20fd2ea5ba981b1433beb13fdf8b3401c53f49e266f2ffb1badcd13",
+      "originalMtimeUTC": "2026-11-09T15:26:45.132763+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-carusel-visible-entrance.png",
+      "bytes": 1166865,
+      "sha256": "dc9be3232892ca9274733f1c6210ea98e7cfbb9f4fa4c66147ea2c827ced496e",
+      "originalMtimeUTC": "2026-11-09T15:25:43.045439+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-day-arrival.png",
+      "bytes": 1165773,
+      "sha256": "7ef314f06c668609a6cc9691f0db28861564725015b816f51a9af6b4029219ff",
+      "originalMtimeUTC": "2026-11-09T15:28:47.831417+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-hidden-sports-room.png",
+      "bytes": 1140756,
+      "sha256": "9784b27dc6efdd8a7f90d9622ec5a8960232320bc1bd6b639cc61f7ebad025f1",
+      "originalMtimeUTC": "2026-11-09T15:26:27.120961+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-left-animation.png",
+      "bytes": 1065685,
+      "sha256": "c0fd4085600153fba89c0e7134cf07dc9cf3ee12f37633448a7f15cbd754e81b",
+      "originalMtimeUTC": "2026-11-09T15:28:14.751777+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-night-arrival.png",
+      "bytes": 1210281,
+      "sha256": "dcbba27630f3c276f51b550da1386d3c796f3991c8c91793b32cbd9ce9a38fd5",
+      "originalMtimeUTC": "2026-11-09T15:25:21.669670+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-shot-animation.png",
+      "bytes": 997876,
+      "sha256": "b24e2fc046dc5d8d4e37eeccdce9c75ab8aa4702f9a967f2200c685284c138e9",
+      "originalMtimeUTC": "2026-11-09T15:28:31.431594+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-spin-animation.png",
+      "bytes": 1062677,
+      "sha256": "baca018c5a221ec5e4ce57e0477432f0f1d33adee369edeb166e9f89bcc78bfb",
+      "originalMtimeUTC": "2026-11-09T15:28:21.359704+00:00"
+    },
+    {
+      "path": "full-3f8f86be/desktop-visit-edge.png",
+      "bytes": 1130476,
+      "sha256": "134d217eb8893e72875c4140fcb0db703b265ceed0a63223cd6ee652d4e50c6b",
+      "originalMtimeUTC": "2026-11-09T15:28:52.423367+00:00"
+    },
+    {
+      "path": "full-3f8f86be/failure.png",
+      "bytes": 326520,
+      "sha256": "35f601c35d927860262f2685d4757ab3eeaa5e40e7af1184b6aad07b10c66cbf",
+      "originalMtimeUTC": "2026-11-09T15:29:24.763026+00:00"
+    },
+    {
+      "path": "full-3f8f86be/phone-avatar-start.png",
+      "bytes": 322798,
+      "sha256": "e3d799ac64fd36ab5ae21f9a0e961f6be6c04290ff04efb07a1a31e329ed5765",
+      "originalMtimeUTC": "2026-11-09T15:29:23.707037+00:00"
+    },
+    {
+      "path": "full-3f8f86be/phone-night-arrival.png",
+      "bytes": 423577,
+      "sha256": "2d760e9e56f00f0927fd9bada82e24b5422218434332cf74363e9ebc3d7ede65",
+      "originalMtimeUTC": "2026-11-09T15:29:18.387098+00:00"
+    },
+    {
+      "path": "full-3f8f86be/report.json",
+      "bytes": 560765,
+      "sha256": "fd092daf90feb311f61dc4180b289c72866bc945b9504bfc12dd441ad17e1362",
+      "originalMtimeUTC": "2026-11-09T15:29:24.967023+00:00"
+    },
+    {
+      "path": "phone-3f8f86be-corrected/SCOPE.md",
+      "bytes": 903,
+      "sha256": "b230c7d8a74a05f09a10852d7af1fc061057ebcfbff6762a0fde194cfbe5327e",
+      "originalMtimeUTC": "2026-11-09T15:49:27.034847+00:00"
+    },
+    {
+      "path": "phone-3f8f86be-corrected/phone-avatar-start.png",
+      "bytes": 326612,
+      "sha256": "654511b426524c21369a6c307b7f9f788217321a68199d4f9acabfc131c051a4",
+      "originalMtimeUTC": "2026-11-09T15:35:46.554308+00:00"
+    },
+    {
+      "path": "phone-3f8f86be-corrected/phone-left-animation.png",
+      "bytes": 347149,
+      "sha256": "5d8dc340ea5214375e9fe18f856df783a68151da061fbd4566e0687c018dd871",
+      "originalMtimeUTC": "2026-11-09T15:35:48.342283+00:00"
+    },
+    {
+      "path": "phone-3f8f86be-corrected/phone-night-arrival.png",
+      "bytes": 423740,
+      "sha256": "e1aa074bfb9b919655ee80ba867b6a8ca0208266098b1438ad8b01ea8c52ee2e",
+      "originalMtimeUTC": "2026-11-09T15:35:40.710390+00:00"
+    },
+    {
+      "path": "phone-3f8f86be-corrected/phone-shot-drink.png",
+      "bytes": 290661,
+      "sha256": "853f3da75b86d57f0f912a4c77c90373b05d6ce67652d1282de03c8d2081d0d2",
+      "originalMtimeUTC": "2026-11-09T15:35:56.794167+00:00"
+    },
+    {
+      "path": "phone-3f8f86be-corrected/phone-shot-pour.png",
+      "bytes": 300171,
+      "sha256": "a738caa487743c07d7adb97ad7ce51baed3edd6d68ae10dc32e9e44619ec977f",
+      "originalMtimeUTC": "2026-11-09T15:35:55.366186+00:00"
+    },
+    {
+      "path": "phone-3f8f86be-corrected/phone-spin-animation.png",
+      "bytes": 354214,
+      "sha256": "87bb44034cd282adb497604d522bcb765fb3435a6823691873b75752aa6096b7",
+      "originalMtimeUTC": "2026-11-09T15:35:51.162244+00:00"
+    },
+    {
+      "path": "phone-3f8f86be-corrected/report.json",
+      "bytes": 96675,
+      "sha256": "f3f3ad8bf781e2243293e6c8a46ee4bdf2e1a128aa0a516fb14179a8f03cf593",
+      "originalMtimeUTC": "2026-11-09T15:35:57.130162+00:00"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 6087,
+      "sha256": "047ed787e11221d8c5e8c4153a1e9d8fd2036801712aab60d3b6647332b43e25"
+    },
+    {
+      "file": "controls.cjs",
+      "bytes": 6245,
+      "sha256": "886f57aca83fd5f95e7db1489272f867e11979ca801fa2643763b6661e464a6b"
+    },
+    {
+      "file": "decode-geometry.cjs",
+      "bytes": 4193,
+      "sha256": "2bfd6f289442a5e86b6a31c491ec78e1be8a51101f7e04a49196e0e50854f800"
+    },
+    {
+      "file": "geometry-kernel.cjs",
+      "bytes": 6823,
+      "sha256": "22ab8f10fe5a7127eb4ab677356d11a6d09526578a11a24f1b9e72ef12f98680"
+    },
+    {
+      "file": "install-observer.cjs",
+      "bytes": 14110,
+      "sha256": "2f9cea639363817242988bedbea0d0542c94a6db4057b581d0fc906e4554a902"
+    },
+    {
+      "file": "preparation/controls-final.json",
+      "bytes": 1521,
+      "sha256": "92137cea259c2ede5e00a1c7b92ab5f8c006c8238d8732ef2e44616856e0d295"
+    },
+    {
+      "file": "preparation/controls-final.log",
+      "bytes": 901,
+      "sha256": "31f3b6348f836d8fb839d4eb24bbb8f7dc6c64034b05e190406363449e7a6ba9"
+    },
+    {
+      "file": "preparation/dry-plan.json",
+      "bytes": 40670,
+      "sha256": "1e4bf4447f7d29f0ee83d88e7d635cbcba32d26bed6bd0dc18b457a238ccb94d"
+    },
+    {
+      "file": "preparation/syntax-and-preparation.json",
+      "bytes": 1016,
+      "sha256": "f07a00bcace5195f382b7a7563a79e807df1eca488478de87085087a8ff94288"
+    },
+    {
+      "file": "prepare.mjs",
+      "bytes": 4935,
+      "sha256": "a4bc526e50bcf18e5e9661bd3f7112502dee2d00325733bc1f4f44a3e7ed012a"
+    },
+    {
+      "file": "runner.cjs",
+      "bytes": 9263,
+      "sha256": "f376d04b2af68556ea9a03ba847c06e9bab2e691040afb4c4f318ca990048bd4"
+    }
+  ],
+  "scope": "Preparation only. No native source archive/capture exists in this proof; manifest excludes itself."
+}

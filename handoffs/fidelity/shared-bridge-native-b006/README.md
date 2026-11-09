@@ -1,0 +1,18 @@
+# Basarab native b006 — failed drive retained
+
+Exact source `b006000f7bae6e6c64103b9548438082026c14eb`; 242 immutable copied files verified before/after and every served Git blob verified. One Chromium1440×900 High clear-summer/noon app. Closed2026-11-09T14:14:47Z. No app/console/HTTP errors. Two tool-wire errors (PTY4096-byte truncation, then missing helper) were retained; chunked helper injection corrected them. No source substitution, actor removal, density change or RNG override.
+
+This is **not** physical/native/visual acceptance:
+
+- Shared profile admitted without unresolved source constraints. Native10568 input→31224 output triangles, max sampled chord error3.84052mm and57 capped leaves **failed** the2mm target. Earlier focused3117-triangle CPU fixture did not cover all native emitted surfaces.
+- Tram376 remained unbound on originalw277315765/e296,78rejected candidates. Other3trams bound; 377vehicle identities across238active/139pool and560peds retained.
+- Read-only1736legal northbound lane/body-disc queries:0static hits/0exceptions; oldx640 mask wall cleared. Player endpoint interpolation differed from shared field by up to30.30mm. No actual full-body/path pass follows from this scan.
+- Public FastTravel could not route to the source ramp ground join. A normal arrival then actual DOM-key approach drove21.80m and stopped at the visible synthetic closure ofw139758829/e768. Source-domain connectivity remains a blocking separate issue; no47m routing join was invented.
+- Root then authorized **one labelled local geometry fixture** via originalnativePlayer.place atouter source n6261926624. Thereafter499ticks/16.63s of uninterrupted actual input/physics ascended about98.23m to n981547574, where the junction-slab query stopped the car. No reset during either drive.
+- The stopped16-part/3436-triangle cockpit has0contacts with actual native pad top/underside/exterior-fascia triangles. Reconstructed original pre-collide XYZ under recorded rig orientation also has0contacts/17bounding candidates; this reconstruction is distinct from a published native pose. Complete original collision inputs/outputs and exact raw model buffers remain in the fixture.
+- Original scalar probe height reproduces0.413087724m push in CPU. Candidate actual pitched body interval gives0push against the **unchanged** slab; unknown body retains original push and a real overhead slab still pushes0.409328775m. Fresh native correction/continuous exit still required.
+- Two complete warm frames at the stopped actual cockpit, with native mirror/shadow/reflection work observed:207calls/668575triangles, native counters agree. This is High scene scope, not a hardware FPS claim or all-view budget pass.
+
+All copied PNGs were inspected full-size. Initial camera locations for two fork diagnostics intersected mapped buildings and were retained externally as invalid views. An early fixture “driver” image retained a diagnostic camera offset; its corrected actual-cockpit image is copied here. Those tool mistakes do not alter the physical drive records. No four-fork coverage or full visual pass is claimed.
+
+`native-manifest.json` pins the complete external raw scene/world/facts and source archive. Canonical topology was observed through the existing native raycast swap with complete index/byte/range restoration. In this capture the canonical record is `object.canonical`: its `canonicalIndex` is the exact typed-array record, requiring `{itemSize:1,count:sourceIndices,array:canonicalIndex}` when consumed as an attribute. Never use stale selected index tails as full topology.

@@ -3,6 +3,7 @@ import { makeCockpit } from './vehicles.js';
 import { collideBuildings } from './world.js';
 import { clamp, damp, lerp } from './util.js';
 import { roadWidthAt } from './nav.js';
+import { playerBodySampler } from './player-body-interval.js';
 
 const GROUND_Y = 0.24;   // road surface top at street level (world Y.road)
 const MAX_STEP = 0.9;    // bigger height jumps between frames = deck edge / trench wall (not drivable)
@@ -66,7 +67,7 @@ export class Player {
         if (edge && edge.ya !== undefined) {
             const dx = edge.b.x - edge.a.x, dz = edge.b.z - edge.a.z, L2 = dx * dx + dz * dz || 1;
             const t = clamp(((x - edge.a.x) * dx + (z - edge.a.z) * dz) / L2, 0, 1);
-            this.surfY = GROUND_Y + edge.ya + (edge.yb - edge.ya) * t; this.supportEdge = edge;
+            this.surfY = GROUND_Y + (edge.sourceBridgeGrade?.known ? edge.sourceBridgeGrade.heightAtWorld(x, z) : edge.ya + (edge.yb - edge.ya) * t); this.supportEdge = edge;
         } else if (this.world) { this._placeHeading = heading; const s0 = this.surfaceAt(x, z, null); this._placeHeading = undefined; this.surfY = s0.h; this.supportEdge = s0.edge; }
         this.updateRig(0);
     }
@@ -202,7 +203,7 @@ export class Player {
             // past the ends: the junction pad (node radius) counts as part of the ribbon
             const lim = tr < 0 ? Math.max(hw, (e.a.radius ?? 0) + 0.8) : tr > 1 ? Math.max(hw, (e.b.radius ?? 0) + 0.8) : hw;
             if (d > lim) return;
-            const h = GROUND_Y + e.ya + (e.yb - e.ya) * t;
+            const h = GROUND_Y + (e.sourceBridgeGrade?.known ? e.sourceBridgeGrade.heightAtWorld(x, z) : e.ya + (e.yb - e.ya) * t);
             if (h < GROUND_Y - 0.3 && !e.tunnel) ground = false; // open trench / portal ramp: no ground surface here (a covered tunnel keeps the ground above it)
             if (yRef != null) {
                 const dh = Math.abs(h - yRef);
@@ -282,7 +283,7 @@ export class Player {
         let contact = false;
         const w = this.world;
         if (w && w.buildings) {
-            const one = this._one || (this._one = [null]);
+            const one = this._one || (this._one = [null]);let bodySampler;
             for (let pass = 0; pass < 2; pass++) {
                 let any = false;
                 // three 1 m circles along the axis + (2026-11-08, owner: "collision happens after part of my car went inside")
@@ -298,10 +299,16 @@ export class Player {
                     const px = this.x + this.fx * o + lx * l, pz = this.z + this.fz * o + lz * l;
                     let sx = 0, sz = 0, hit = null;
                     const test = (b) => {
-                        if (!this.atLevel(b)) return;
+                        // A pitched cockpit has a different vertical band at
+                        // each forward/rear probe. Keep the actual slab query;
+                        // do not replace it with the road under the probe.
                         const dx = px - b.x, dz = pz - b.z, rr = (b.r ?? 0) + rad;
                         if (dx * dx + dz * dz > rr * rr) return;
-                        one[0] = b; const r = collideBuildings(one, px, pz, rad, this.surfY ?? GROUND_Y);
+                        const band = b.roadDeck && this.supportEdge?.sourceBridgeGrade?.known ? (bodySampler ||= playerBodySampler(this))(px, pz, rad) : null;
+                        if (band?.known) {
+                            if ((b.y0 !== undefined && band.max < b.y0) || (b.y1 !== undefined && band.min > b.y1)) return;
+                        } else if (!this.atLevel(b)) return;
+                        one[0] = b; const r = collideBuildings(one, px, pz, rad, band?.known ? band.min : this.surfY ?? GROUND_Y, band?.known ? band.max - band.min : 2);
                         if (r) { sx += r.px; sz += r.pz; hit = b; }
                     };
                     if (w.buildings.query) w.buildings.query(px, pz, 3, test); else for (const b of w.buildings) test(b);
@@ -310,7 +317,7 @@ export class Player {
                     if (wr) { sx += wr.px; sz += wr.pz; hit = wr.wall; }
                     if (!hit) continue;
                     const pl = Math.hypot(sx, sz); if (pl < 1e-5) continue;
-                    this.x += sx * 1.01; this.z += sz * 1.01; any = contact = true;
+                    this.x += sx * 1.01; this.z += sz * 1.01; bodySampler = null; any = contact = true;
                     const vn = this.speed * ((this.fx * sx + this.fz * sz) / pl);
                     if (vn < -0.05 || !this.debug.lastCollider || this.debug.lastCollider.ref !== hit) {
                         const info = hit.__wall ? { type: 'wall', id: hit.id ?? null, x: +hit.ax.toFixed(1), z: +hit.az.toFixed(1), x2: +hit.bx.toFixed(1), z2: +hit.bz.toFixed(1) } : this.describe(hit);

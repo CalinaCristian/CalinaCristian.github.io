@@ -1,0 +1,296 @@
+{
+  "source": "b006000f7bae6e6c64103b9548438082026c14eb",
+  "files": {
+    "stopped-centre-height-parity.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/stopped-centre-height-parity.json",
+      "bytes": 3901,
+      "sha256": "5fcf20311d81ce427671aa5186819c271075ddb03fb9894c0330423f755a3804"
+    },
+    "geometry-kernel.cjs": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/geometry-kernel.cjs",
+      "bytes": 7386,
+      "sha256": "0845d75ccc331332f64d30416caea381bb552ff876c68e4e43d8ed9d8183a19b"
+    },
+    "southern-ramp-diagnostic.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/southern-ramp-diagnostic.png",
+      "bytes": 1553679,
+      "sha256": "e91cf63b28b94477052a0a491c6b1e24e2b8476c70380c43ad0efbd7f51191ff"
+    },
+    "native-spawn.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/native-spawn.png",
+      "bytes": 1568035,
+      "sha256": "acda677eddc094d7e3309e42a43d9c624b0d982ff4239577963783a14c9fc0ef"
+    },
+    "fork-981550754-underside-diagnostic.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/fork-981550754-underside-diagnostic.png",
+      "bytes": 1538056,
+      "sha256": "3477920e859d0f5ea0296e2357fe408e1725603a8475b79cb8a685b76118b582"
+    },
+    "after-local-fixture-facts.json.gz": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/after-local-fixture-facts.json.gz",
+      "bytes": 1851878,
+      "sha256": "9c7ff3c125a241d015a9b3865267ee8811b2801782786caa46a9701a0948a1f2"
+    },
+    "fork-6307136271-underside-diagnostic-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/fork-6307136271-underside-diagnostic-facts.json",
+      "bytes": 110425,
+      "sha256": "4d7b1fcc1085a16a13818b3d32e0e4818f1b75082393dc170d24a7960e15adf4"
+    },
+    "normal-approach-attempt-end.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/normal-approach-attempt-end.png",
+      "bytes": 1570237,
+      "sha256": "94528e75ac77e097204f33f77c95590e8af746c8fc610690c6aa56f98d23653d"
+    },
+    "install-observer.cjs": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/install-observer.cjs",
+      "bytes": 16425,
+      "sha256": "f7c341800069001a30deda2752df9d9719f1cf095f87e4c31a0c4ede1005d51d"
+    },
+    "local-fixture-initialization.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-initialization.json",
+      "bytes": 451,
+      "sha256": "cfcdc743ac44a5bf62863808bb69db8f7d7fa5e4aec3233ad691100e2c248dbc"
+    },
+    "local-fixture-stopped-left-view.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-stopped-left-view.png",
+      "bytes": 1521881,
+      "sha256": "adc02a82bc97c1f2ccb03b6b524c4376bbe35be0d0a4e5bfa66da9efb1d7af7b"
+    },
+    "local-fixture-approach-deck-driver-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-approach-deck-driver-facts.json",
+      "bytes": 118588,
+      "sha256": "14fccdccede475cb0b7ceda1d0d69a9d4bf5b4d542888b68b883ddd771d8c74f"
+    },
+    "local-fixture-stopped-actual-cockpit-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-stopped-actual-cockpit-facts.json",
+      "bytes": 118480,
+      "sha256": "0f0b48b929edd28efff43353f7fad21078e719bfcebd715adce16733c1e15534"
+    },
+    "southern-ramp-diagnostic-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/southern-ramp-diagnostic-facts.json",
+      "bytes": 92013,
+      "sha256": "f046077ae876105d94ed80b627268bede335d08a07752cbb92f1d3f82e340332"
+    },
+    "native-world.json.gz": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/native-world.json.gz",
+      "bytes": 7138197,
+      "sha256": "aaea544db6ad5de5a84e79d54e8a59f7fd68230a62062363e53d211497528cc0"
+    },
+    "fork-984551993-underside-diagnostic.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/fork-984551993-underside-diagnostic.png",
+      "bytes": 1414579,
+      "sha256": "748042f78ff59a5ac8ee62766af896e719da930ab2f97761f5ed00c6b2d52873"
+    },
+    "decode-geometry.cjs": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/decode-geometry.cjs",
+      "bytes": 5819,
+      "sha256": "01084af43c317f1fecb002c50e4c808a320ab7ede83dbcd03f1200777ae77411"
+    },
+    "constructor-facts.json.gz": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/constructor-facts.json.gz",
+      "bytes": 1120214,
+      "sha256": "b9d8a6eaa26feb9d2c3219f43625f2b963d869fcdc70d3354892dbb5d94275a7"
+    },
+    "fork-2624398781-underside-openstreet-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/fork-2624398781-underside-openstreet-facts.json",
+      "bytes": 97446,
+      "sha256": "36e391390d298397940c58de6566d8913a561307adc2a548b7ef9a10b421c094"
+    },
+    "local-fixture-approach-driver-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-approach-driver-facts.json",
+      "bytes": 51436,
+      "sha256": "c856b4dfc251fa2cded2684104a28189d93f1bd2f991cbb731b2a40dfd9097a7"
+    },
+    "fork-2624398781-underside-diagnostic-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/fork-2624398781-underside-diagnostic-facts.json",
+      "bytes": 110662,
+      "sha256": "73a251fd53d58274274817554b4f738c07e2e8e2610823979867942842e2f9a7"
+    },
+    "fork-2624398781-underside-openstreet.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/fork-2624398781-underside-openstreet.png",
+      "bytes": 1537922,
+      "sha256": "6fb8b962e5857c184f29c0a4d9f9ae3f4f9e73e11dc2d2447a891245be24db0b"
+    },
+    "stopped-player-components.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/stopped-player-components.json",
+      "bytes": 7699,
+      "sha256": "42a6a3302125bc2cc79ce59977c17ab178640c13d5f2a4b330b50e0fdac8f61a"
+    },
+    "normal-approach-attempt.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/normal-approach-attempt.json",
+      "bytes": 11956,
+      "sha256": "ffdf4fe7575ef7389f7408b540e53138813cc1fbb6f617044851e935b5ed692d"
+    },
+    "local-fixture-approach-driver.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-approach-driver.png",
+      "bytes": 1537611,
+      "sha256": "8cd7865b4a9c7100f1838993b7aa63698df8c2b6a24fa09491401852c66cc857"
+    },
+    "local-fixture-literal-path.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-literal-path.json",
+      "bytes": 11930,
+      "sha256": "4c0841a7ef49ef59a84f8d0f2001a42310c71f835cc16ab032a8b871064c4ea9"
+    },
+    "fork-984551993-underside-openstreet.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/fork-984551993-underside-openstreet.png",
+      "bytes": 1489462,
+      "sha256": "c44ac095a42076e76d5ccbd2f1605026c779d722f5f0273de23fb94a46c3cb50"
+    },
+    "source-manifest.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/source-manifest.json",
+      "bytes": 52431,
+      "sha256": "4e7b79a63e8b04235beb5dffb186403b5120360205c020226c57c595a453198b"
+    },
+    "boot-summary.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/boot-summary.json",
+      "bytes": 308010,
+      "sha256": "d5c9f9bac9e07bd712d5b92afa4ca199b68b4faad3dee781906efe5a82e2cf1e"
+    },
+    "native-canonical-scene.json.gz": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/native-canonical-scene.json.gz",
+      "bytes": 32176525,
+      "sha256": "b3350ddd4c3b780f0bdc154ef21fde07ffd873df1f79c8ab6d5a038c1cfb926e"
+    },
+    "local-fixture-stopped-actual-cockpit.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-stopped-actual-cockpit.png",
+      "bytes": 1498354,
+      "sha256": "c51c1a82e6ccc9a1b415de863e2b839b067f05319699b5ea0a2fb885cac47b96"
+    },
+    "local-fixture-approach-drive.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-approach-drive.json",
+      "bytes": 84888,
+      "sha256": "a179201ce6589b8963abf5e34b7824ae7f39d6ec8e363cd0c1786693b275d447"
+    },
+    "live-report.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/live-report.json",
+      "bytes": 37846,
+      "sha256": "e90237a22c3e12518b3c44537aca2be120c3a6417234a1638fe0cd414eae79e2"
+    },
+    "runner.cjs": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/runner.cjs",
+      "bytes": 15804,
+      "sha256": "92ebbd8497602b2176fd4ea64125130b6485da5315ce5dcc55d94eda7099550e"
+    },
+    "native-spawn-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/native-spawn-facts.json",
+      "bytes": 91872,
+      "sha256": "9dcf4ebb817957fb4f7452661251f83540959bf103b5efd5638130a28f37ce78"
+    },
+    "preparation.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/preparation.json",
+      "bytes": 1324,
+      "sha256": "b35e74af188d337937dd79718cf6aec2d6a1af9383815b6dac63f9683bc1f503"
+    },
+    "native-main-static-scan.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/native-main-static-scan.json",
+      "bytes": 622636,
+      "sha256": "80ee57db3fe61b4b641bded430c461a7b5312f0908aa038d6f27287d53d3fbfa"
+    },
+    "native-fasttravel-approach.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/native-fasttravel-approach.png",
+      "bytes": 1544818,
+      "sha256": "71d14c8fcd91c8f80c9803d90fe1cf87a0ee722b6a7bcb78e907e1f591c9912c"
+    },
+    "approach-route-options.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/approach-route-options.json",
+      "bytes": 5095,
+      "sha256": "a186c2268558045c0936506a34bc57bb16b9fa3d49f231da0131a7a107456c9a"
+    },
+    "local-fixture-stopped-left-view-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-stopped-left-view-facts.json",
+      "bytes": 118996,
+      "sha256": "d99bcef22b5d24b0d0ba66cc98589a1592c118ac6dbad521a16a21d08f8cc499"
+    },
+    "fork-984551993-underside-diagnostic-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/fork-984551993-underside-diagnostic-facts.json",
+      "bytes": 110665,
+      "sha256": "73dc58c9276c83ff635662ba917f0d2059628c01d812a5e37a855015c3577573"
+    },
+    "local-fixture-stopped-right-view-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-stopped-right-view-facts.json",
+      "bytes": 119072,
+      "sha256": "d70d62fd662f8d826addab8d989762175ac3ddeb5938d428a01672abc8032409"
+    },
+    "stopped-pad-body-native.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/stopped-pad-body-native.json",
+      "bytes": 177172050,
+      "sha256": "ea86f3e1b91c1373b6cc7c709a301e34ba4e6c500ab45653ab360bdbcfc92a56"
+    },
+    "literal-approach-path.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/literal-approach-path.json",
+      "bytes": 38,
+      "sha256": "78bf93e0d087cb08ab55c0666c7c15b0e11d91ad6e422e005182f4093b8b2d27"
+    },
+    "stopped-complete-frame-budget.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/stopped-complete-frame-budget.json",
+      "bytes": 35153,
+      "sha256": "62022af35b0f4dbc6d861befc32608e4d1e67e5b66a64af29b73f68bda11feea"
+    },
+    "precontact-body-pad-triangle-check.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/precontact-body-pad-triangle-check.json",
+      "bytes": 4497,
+      "sha256": "80bf9617c2b7dbd0a703b8dbe236f931b913ee359d0543f9f997111c204e5da5"
+    },
+    "stopped-body-pad-triangle-check.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/stopped-body-pad-triangle-check.json",
+      "bytes": 4406,
+      "sha256": "69bf36ff85127c8ff428d79d1a18818c56c80679120680cdf2bff40857d9c6d1"
+    },
+    "fork-984551993-underside-openstreet-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/fork-984551993-underside-openstreet-facts.json",
+      "bytes": 97320,
+      "sha256": "1e772eab56cc5408db97578c3d17d37b27b2e523845fabf45e18c62d2db78f2b"
+    },
+    "one-more-native-contact-observation.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/one-more-native-contact-observation.json",
+      "bytes": 15484,
+      "sha256": "7023f89059bd08d2c3144d01d1bd0b97556ca992bc01bb7ccd6bdefefb8890fd"
+    },
+    "integration-browser-bounds.cjs": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/integration-browser-bounds.cjs",
+      "bytes": 1529,
+      "sha256": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29"
+    },
+    "local-fixture-approach-deck-driver.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-approach-deck-driver.png",
+      "bytes": 1482795,
+      "sha256": "e2b1982ff978ac0db39814053ab8dc07c2dce8cc0559df18c1653f218e066fcd"
+    },
+    "normal-approach-attempt-end-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/normal-approach-attempt-end-facts.json",
+      "bytes": 97230,
+      "sha256": "463659c14da3129388e069720bd7987c44cca5363f7d2d78cc19e16d322eedc8"
+    },
+    "fork-981550754-underside-diagnostic-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/fork-981550754-underside-diagnostic-facts.json",
+      "bytes": 110588,
+      "sha256": "7ad8bbf0701073cade32ffdc3902e1043343d1c2b591843e0201e7bb8133c061"
+    },
+    "approach-source-context.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/approach-source-context.json",
+      "bytes": 11761,
+      "sha256": "7b6d88e349cc9c33f7f177dd6d8a008644ac5befbd9f122b139e8858c96e3e4f"
+    },
+    "fork-2624398781-underside-diagnostic.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/fork-2624398781-underside-diagnostic.png",
+      "bytes": 1367996,
+      "sha256": "d18bdc8ad67bf6535de2835c8b72bd39c6afd6262cb140d39e8fde1ff41ba4e6"
+    },
+    "local-fixture-stopped-right-view.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/local-fixture-stopped-right-view.png",
+      "bytes": 1568540,
+      "sha256": "893bf71df416f240544c8192856957779e02522771b3e2270183ca9d3c25650f"
+    },
+    "fork-6307136271-underside-diagnostic.png": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/fork-6307136271-underside-diagnostic.png",
+      "bytes": 1479269,
+      "sha256": "36ab9598abbc7a438d60a782d645ece9a87d6440338c3220bf61f084cea2039f"
+    },
+    "native-fasttravel-approach-facts.json": {
+      "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/native-fasttravel-approach-facts.json",
+      "bytes": 110302,
+      "sha256": "c98c7b7a1cb5207ec550b02f9016bf89070a7140ef1684be40db0633a5777f87"
+    }
+  },
+  "scope": "External complete immutable native archive; selected fixture/proof/PNG copied here. Not a native pass."
+}

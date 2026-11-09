@@ -19,7 +19,9 @@
         "sha256": "c8862dc5ee76b37b8e5eb66e48def5d2963e7330fe4fcffe4f3d660bde1a1fe5",
         "count": 15
       }
-    }
+    },
+    "payloadGitBlob": "7cde0638df9a91a155ea3c0ecb3a7ffe3a1b5585",
+    "payloadSha256": "c2e7eef358380da722f7fe991f99722f05b007d080a6f1f877324595eade0a0d"
   },
   "pipera": [
     {

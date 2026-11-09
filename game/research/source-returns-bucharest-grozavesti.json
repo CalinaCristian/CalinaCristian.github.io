@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "scope": "Reviewed finite public source road return corridors from both literal Doina Cornea travel directions to the mapped Lukoil. Domain radius is an explicit gameplay boundary buffer, not a road-width measurement; no source geometry or travel rights are changed.",
+  "scope": "Reviewed finite public source road return corridors from both literal Doina Cornea travel directions to the mapped Lukoil. Domain radius is an explicit gameplay boundary buffer, not a road-width measurement; no source geometry or travel rights are changed. Reviewed Basarab source bridge access additionally retains the literal northern exit/return and southern northbound entry; no source join, direction, or physical dimension is changed.",
   "destination": {
     "sourceId": "w256806132",
     "osm": "https://www.openstreetmap.org/way/256806132",
     "name": "Lukoil",
-    "address": "Șoseaua Orhideelor 4",
+    "address": "\u0218oseaua Orhideelor 4",
     "requiredTags": {
       "amenity": "fuel",
       "brand": "Lukoil"
@@ -831,6 +831,240 @@
           "sourceId": "w118284445",
           "from": 12676962691,
           "to": 3001224269
+        }
+      ]
+    },
+    {
+      "id": "basarab-north-source-exit-return",
+      "destinationSourceId": "w458458361",
+      "radiusM": 40,
+      "legs": [
+        {
+          "sourceId": "w668676697",
+          "from": 981547574,
+          "to": 3020483247
+        },
+        {
+          "sourceId": "w668676694",
+          "from": 3020483247,
+          "to": 6261926625
+        },
+        {
+          "sourceId": "w84482712",
+          "from": 6261926625,
+          "to": 6261963477
+        },
+        {
+          "sourceId": "w668679788",
+          "from": 6261963477,
+          "to": 3208556810
+        },
+        {
+          "sourceId": "w668679789",
+          "from": 3208556810,
+          "to": 2295201758
+        },
+        {
+          "sourceId": "w668676693",
+          "from": 2295201758,
+          "to": 6261926623
+        },
+        {
+          "sourceId": "w668679784",
+          "from": 6261926623,
+          "to": 14178097945
+        },
+        {
+          "sourceId": "w668679784",
+          "from": 14178097945,
+          "to": 6261963476
+        },
+        {
+          "sourceId": "w668679784",
+          "from": 6261963476,
+          "to": 981549744
+        },
+        {
+          "sourceId": "w50586387",
+          "from": 981549744,
+          "to": 2519078588
+        },
+        {
+          "sourceId": "w50586387",
+          "from": 2519078588,
+          "to": 257541268
+        },
+        {
+          "sourceId": "w23556037",
+          "from": 257541268,
+          "to": 6257151356
+        },
+        {
+          "sourceId": "w23556037",
+          "from": 6257151356,
+          "to": 255082599
+        },
+        {
+          "sourceId": "w218081606",
+          "from": 255082599,
+          "to": 13328623445
+        },
+        {
+          "sourceId": "w218081606",
+          "from": 13328623445,
+          "to": 2273753852
+        },
+        {
+          "sourceId": "w218081605",
+          "from": 2273753852,
+          "to": 6261060837
+        },
+        {
+          "sourceId": "w218081605",
+          "from": 6261060837,
+          "to": 5142391359
+        },
+        {
+          "sourceId": "w668588452",
+          "from": 5142391359,
+          "to": 14178189703
+        },
+        {
+          "sourceId": "w668588452",
+          "from": 14178189703,
+          "to": 3204791962
+        },
+        {
+          "sourceId": "w668588452",
+          "from": 3204791962,
+          "to": 257541268
+        },
+        {
+          "sourceId": "w50586387",
+          "from": 257541268,
+          "to": 2519078588
+        },
+        {
+          "sourceId": "w50586387",
+          "from": 2519078588,
+          "to": 981549744
+        },
+        {
+          "sourceId": "w84483724",
+          "from": 981549744,
+          "to": 6261963475
+        },
+        {
+          "sourceId": "w84483724",
+          "from": 6261963475,
+          "to": 6261926626
+        },
+        {
+          "sourceId": "w84483724",
+          "from": 6261926626,
+          "to": 6261926624
+        },
+        {
+          "sourceId": "w668676696",
+          "from": 6261926624,
+          "to": 981563579
+        }
+      ]
+    },
+    {
+      "id": "basarab-south-source-entry",
+      "destinationSourceId": "w458458361",
+      "radiusM": 40,
+      "legs": [
+        {
+          "sourceId": "w198350132",
+          "from": 6909034247,
+          "to": 3067740833
+        },
+        {
+          "sourceId": "w198350132",
+          "from": 3067740833,
+          "to": 9810372019
+        },
+        {
+          "sourceId": "w198350132",
+          "from": 9810372019,
+          "to": 2159891788
+        },
+        {
+          "sourceId": "w723726654",
+          "from": 2159891788,
+          "to": 1725252732
+        },
+        {
+          "sourceId": "w723726654",
+          "from": 1725252732,
+          "to": 9810364009
+        },
+        {
+          "sourceId": "w723726654",
+          "from": 9810364009,
+          "to": 2250245623
+        },
+        {
+          "sourceId": "w302795167",
+          "from": 2250245623,
+          "to": 3201061286
+        },
+        {
+          "sourceId": "w302795167",
+          "from": 3201061286,
+          "to": 286836527
+        },
+        {
+          "sourceId": "w239653290",
+          "from": 286836527,
+          "to": 286837118
+        },
+        {
+          "sourceId": "w28050353",
+          "from": 286837118,
+          "to": 286836866
+        },
+        {
+          "sourceId": "w302798182",
+          "from": 286836866,
+          "to": 1341209718
+        },
+        {
+          "sourceId": "w302798182",
+          "from": 1341209718,
+          "to": 286837968
+        },
+        {
+          "sourceId": "w665933058",
+          "from": 286837968,
+          "to": 4365246377
+        },
+        {
+          "sourceId": "w665933058",
+          "from": 4365246377,
+          "to": 981599610
+        },
+        {
+          "sourceId": "w32070436",
+          "from": 981599610,
+          "to": 14161960362
+        },
+        {
+          "sourceId": "w32070436",
+          "from": 14161960362,
+          "to": 2159714520
+        },
+        {
+          "sourceId": "w314448326",
+          "from": 2159714520,
+          "to": 1340349368
+        },
+        {
+          "sourceId": "w314448326",
+          "from": 1340349368,
+          "to": 4544537057
         }
       ]
     }

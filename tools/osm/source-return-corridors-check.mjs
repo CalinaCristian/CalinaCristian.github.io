@@ -59,6 +59,26 @@ test('touching conditional/via-way restrictions remain unresolved, never guessed
     assert.throws(()=>compile(f=>f.relations.set(71,{tags:{type:'restriction','restriction:conditional':'no_right_turn @ (Mo-Fr)'},members})),/conditional motor restriction/);
     assert.throws(()=>compile(f=>f.relations.set(72,{tags:{type:'restriction',restriction:'no_right_turn'},members:members.map(m=>m.role==='via'?{...m,type:'way'}:m)})),/unsupported touching motor restriction/);
 });
+test('missing-from only-straight is obeyed universally without inventing the absent member',()=>{
+    const f=fixture(),r={tags:{type:'restriction',restriction:'only_straight_on'},members:[{type:'node',ref:2,role:'via'},{type:'way',ref:2,role:'to'}]};
+    f.relations.set(73,r);const before=JSON.stringify(r),out=compileSourceReturns(f);
+    assert.equal(JSON.stringify(r),before);assert.deepEqual(out.restrictions[0].members,r.members);
+    assert.equal(out.restrictions[0].reviewValidation.basis,'missing-from-universal-known-exit');
+    // Replacing the incoming identity cannot evade the universal rule.
+    f.roads[0].id=8;f.ways.set(8,f.ways.get(1));f.ways.delete(1);f.review.corridors[0].legs[0].sourceId='w8';
+    assert.equal(compileSourceReturns(f).restrictions[0].reviewValidation.requiredExit,'w2');
+    r.members[1].ref=3;assert.throws(()=>compileSourceReturns(f),/requires its known sole exit/);
+});
+test('incomplete only-straight does not excuse a different exit or an unobserved boundary',()=>{
+    const missing={tags:{type:'restriction',restriction:'only_straight_on'},members:[{type:'node',ref:2,role:'via'},{type:'way',ref:2,role:'to'}]};
+    assert.throws(()=>compile(f=>{f.relations.set(74,missing);f.review.corridors[0].legs=f.review.corridors[0].legs.slice(0,1);}),/unsupported touching motor restriction|requires its known sole exit/);
+    assert.throws(()=>compile(f=>{f.relations.set(74,{...missing,members:[{type:'node',ref:5,role:'via'},missing.members[1]]});}),/requires its known sole exit/);
+});
+test('incomplete conditional, via-way, unknown exit and ambiguous exits stay rejected',()=>{
+    const base={tags:{type:'restriction',restriction:'only_straight_on'},members:[{type:'node',ref:2,role:'via'},{type:'way',ref:2,role:'to'}]};
+    for(const mutate of [r=>r.tags['restriction:conditional']='only_straight_on @ (Mo-Fr)',r=>r.members[0].type='way',r=>r.members.pop(),r=>r.members.push({type:'way',ref:3,role:'to'}),r=>r.members.push({type:'node',ref:1,role:'from'}),r=>r.tags.restriction='no_right_turn'])
+        assert.throws(()=>compile(f=>{const r=structuredClone(base);mutate(r);f.relations.set(75,r);}),/unsupported touching motor restriction|conditional motor restriction/);
+});
 test('terminal source turn lanes require an actually permitted lane',()=>{
     assert.throws(()=>compile(f=>{
         f.ways.get(1).tags['turn:lanes']='right';f.pos.set(6,[-100,100]);

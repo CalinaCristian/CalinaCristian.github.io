@@ -33,8 +33,13 @@ function restrictionsFor(legs, relations, id) {
     const used = new Set(legs.map(l => +l.sourceId.slice(1))), retained = [];
     for (const [rid, relation] of relations) {
         const { tags, members } = relation;
-        if (tags.type !== 'restriction' || !members.some(m => m.type === 'way' && used.has(m.ref))) continue;
-        retained.push({ sourceId: 'r' + rid, tags: { ...tags }, members: members.map(m => ({ ...m })) });
+        if (tags.type !== 'restriction') continue;
+        const missingFromAtVisitedNode = !members.some(m => m.role === 'from') &&
+            members.some(m => m.role === 'via' && m.type === 'node' &&
+                legs.some(l => l.from === m.ref || l.to === m.ref));
+        if (!missingFromAtVisitedNode && !members.some(m => m.type === 'way' && used.has(m.ref))) continue;
+        const record = { sourceId: 'r' + rid, tags: { ...tags }, members: members.map(m => ({ ...m })) };
+        retained.push(record);
         if (String(tags.except || '').split(';').some(s => ['motorcar', 'motor_vehicle', 'vehicle'].includes(s.trim()))) continue;
         const kind = tags['restriction:motorcar'] ?? tags['restriction:motor_vehicle'] ?? tags.restriction;
         const conditional = Object.keys(tags).some(k => /^(restriction(?::motorcar|:motor_vehicle)?):conditional$/.test(k));
@@ -42,6 +47,23 @@ function restrictionsFor(legs, relations, id) {
         const from = members.filter(m => m.role === 'from' && m.type === 'way');
         const to = members.filter(m => m.role === 'to' && m.type === 'way');
         const via = members.filter(m => m.role === 'via');
+        // An incomplete only-straight relation with a known node/sole exit can
+        // still be obeyed for EVERY possible incoming way. Do not reconstruct
+        // its missing member or assert a permission: require that exact exit
+        // universally at the recorded node, for this finite reviewed path.
+        if (kind === 'only_straight_on' && !conditional && members.length === 2 &&
+            !members.some(m => m.role === 'from') && to.length === 1 && via.length === 1 &&
+            via[0].type === 'node' && positiveId(via[0].ref) && positiveId(to[0].ref)) {
+            const exits = legs.filter(l => l.from === via[0].ref);
+            if (!exits.length || legs.at(-1).to === via[0].ref ||
+                exits.some(l => +l.sourceId.slice(1) !== to[0].ref))
+                fail(id, `incomplete motor restriction r${rid} requires its known sole exit`);
+            record.reviewValidation = { basis: 'missing-from-universal-known-exit',
+                scope: 'these reviewed legs only; raw missing member remains absent',
+                via: via[0].ref, requiredExit: 'w' + to[0].ref,
+                inspectedExits: exits.map(l => ({ sourceId: l.sourceId, from: l.from, to: l.to })) };
+            continue;
+        }
         if (from.length !== 1 || to.length !== 1 || via.length !== 1 || via[0].type !== 'node')
             fail(id, `unsupported touching motor restriction r${rid}; no via-way assumption`);
         for (let i = 1; i < legs.length; i++) {

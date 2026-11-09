@@ -240,7 +240,6 @@
     "sourceId": "r15763840",
     "literalLevels": "7",
     "mappedHoles": 8,
-    "existingModelFloorSpacingM": 3.05,
     "deckThicknessM": 0.35,
     "spandrelDepthM": 0.8,
     "existingExteriorPostPitchM": 9.5,
@@ -248,8 +247,27 @@
     "existingExteriorPostDepthM": 0.3,
     "operationalEntranceLimitM": 2.0828,
     "operationalLimitMeaning": "Official6ft10in garage entrance vehicle limit, not a calibrated slab/beam soffit height or a terminal clearance.",
-    "dimensionsStatus": "MODEL estimates. Existing floor interval and exterior post arrangement retained; deck/spandrel dimensions bound the open structural representation without a new floor-elevation claim.",
-    "unknownInteriorColumns": "No positions are invented. Interior column layout remains an explicit fidelity/collision-detail gap."
+    "dimensionsStatus": "MODEL estimates: roof/envelope unchanged; Level4 is the fourth physical model deck, with nonuniform lower/upper intervals constrained by official garage headroom and upper-road/bridge separation. No floor/layer-to-metres rule.",
+    "unknownInteriorColumns": "No positions are invented. Interior column layout remains an explicit fidelity/collision-detail gap.",
+    "floorDatumsM": [
+      0,
+      2.6,
+      5.2,
+      7.8,
+      11.1875,
+      14.575,
+      17.9625,
+      21.35
+    ],
+    "level4WalkSurfaceM": 7.85,
+    "intervals": 7,
+    "lowerSpandrelDepthM": 0.35,
+    "postPitchM": 9.5,
+    "postWidthM": 0.7,
+    "postDepthM": 0.3,
+    "dimensions": "MODEL estimates constrained by the official Level4 connection,8-level relationship, unchanged21.35m roof datum and6ft10in entrance limit. No source floor or layer becomes a metre elevation; absolute road-floor alignment and interior columns remain unknown.",
+    "originalFloorSpacingM": 3.05,
+    "entryPosts": "Estimated exterior posts are interrupted only within exact mapped skybridge mouths at the entry storey; rendered and physical supports below/above remain."
   },
   "uncertainties": [
     "OSM building:levels=7 is retained. Current official parking pages name Levels1\u20138; the roof/level counting and any historical changes are not resolved by replacing the OSM tag.",
@@ -260,5 +278,149 @@
     "Terminal covered-curb footprint, facade/column line and canopy soffit above the actual Departures road profile"
   ],
   "retainedFailures": "All79 originalc78 capsule contacts remain immutable in handoffs/fidelity/us-districts/native-c78a5f4; candidate native positive/negative checks are independent.",
-  "acceptance": "Candidate only until exact native79-point/full-car and real solid/post/slab/above/below controls, approaches and visual review pass. This is not surveyed or complete photographic parity."
+  "acceptance": "Combined candidate pending native all79,3actualsourcecar routes, skybridge2.2m pedestrian-headroom/solid/road-separation controls and inspected images. The originalc78 and firste606failedglass proof remain unchanged.",
+  "skybridgeStructure": {
+    "baselineSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+    "method": "Exact native high-quality source-edge endpoint profile, total deckwidth asphalt+sidewalk, existing1.1m road underside, full7.3m bridge roof width sampled every0.2% of each exact sourcefootway;0.15m separation estimate. No source road is moved or assigned height from layer.",
+    "garageLevel4DatumM": 7.85,
+    "clearInteriorM": 2.3,
+    "roofThicknessM": 0.2,
+    "floorThicknessM": 0.25,
+    "upperRoadSlabThicknessM": 1.1,
+    "separationMarginM": 0.15,
+    "profiles": [
+      {
+        "sourceId": "w37017724",
+        "garageIndex": 1,
+        "garage": [
+          -64.8,
+          -143
+        ],
+        "terminal": [
+          -88,
+          -166.6
+        ],
+        "lengthM": 33.09380606699688,
+        "garageFloorM": 7.85,
+        "terminalFloorM": 7.14,
+        "gradient": 0.02145416573006555,
+        "firstUpperDeckOverlapFraction": 0.678,
+        "upperSourceRoads": [
+          "w963677010"
+        ],
+        "lowerArrivalsClearanceM": 6.77
+      },
+      {
+        "sourceId": "w37017725",
+        "garageIndex": 0,
+        "garage": [
+          -111.2,
+          -97.1
+        ],
+        "terminal": [
+          -134.1,
+          -120.8
+        ],
+        "lengthM": 32.95603131446504,
+        "garageFloorM": 7.85,
+        "terminalFloorM": 7.15,
+        "gradient": 0.021240421618751035,
+        "firstUpperDeckOverlapFraction": 0.69,
+        "upperSourceRoads": [
+          "w37017723"
+        ],
+        "lowerArrivalsClearanceM": 6.78
+      },
+      {
+        "sourceId": "w37017726",
+        "garageIndex": 0,
+        "garage": [
+          -153.8,
+          -53.2
+        ],
+        "terminal": [
+          -184.2,
+          -68
+        ],
+        "lengthM": 33.81124073440664,
+        "garageFloorM": 7.85,
+        "terminalFloorM": 7.16,
+        "gradient": 0.02040741436908729,
+        "firstUpperDeckOverlapFraction": 0.696,
+        "upperSourceRoads": [
+          "w37017723"
+        ],
+        "lowerArrivalsClearanceM": 6.79
+      },
+      {
+        "sourceId": "w37017727",
+        "garageIndex": 1,
+        "garage": [
+          -154,
+          -21.6
+        ],
+        "terminal": [
+          -184.1,
+          -6.6
+        ],
+        "lengthM": 33.6304921165302,
+        "garageFloorM": 7.85,
+        "terminalFloorM": 7.17,
+        "gradient": 0.020219745748702955,
+        "firstUpperDeckOverlapFraction": 0.706,
+        "upperSourceRoads": [
+          "w37017723"
+        ],
+        "lowerArrivalsClearanceM": 6.8
+      },
+      {
+        "sourceId": "w37017728",
+        "garageIndex": 0,
+        "garage": [
+          -112.6,
+          22
+        ],
+        "terminal": [
+          -136,
+          46.4
+        ],
+        "lengthM": 33.80709984603826,
+        "garageFloorM": 7.85,
+        "terminalFloorM": 7.18,
+        "gradient": 0.01981832227701469,
+        "firstUpperDeckOverlapFraction": 0.726,
+        "upperSourceRoads": [
+          "w37017723"
+        ],
+        "lowerArrivalsClearanceM": 6.81
+      },
+      {
+        "sourceId": "w37017729",
+        "garageIndex": 1,
+        "garage": [
+          -29.5,
+          106.5
+        ],
+        "terminal": [
+          -54.6,
+          137.5
+        ],
+        "lengthM": 39.88746670321393,
+        "garageFloorM": 7.85,
+        "terminalFloorM": 7.07,
+        "gradient": 0.01955501475698257,
+        "firstUpperDeckOverlapFraction": 0.62,
+        "upperSourceRoads": [
+          "w37017723"
+        ],
+        "lowerArrivalsClearanceM": 6.7
+      }
+    ]
+  },
+  "terminalBridgeEntries": {
+    "basis": "Exact mapped public source footway spans clipped inside the unchanged terminal source polygon. Only their estimated entry-storey bands are open; complete source solids remain below/above. No corridor extends beyond a source way endpoint.",
+    "clearInteriorM": 2.3,
+    "clearanceTests": "Full native2.2m-body queries planned at<=1m along every mapped span, with real floor/roof/side negatives. These are explicit query fixtures, not a claim of elevated walking/navigation support."
+  },
+  "generatedSeparatorCorrection": "Existing final narrow-separator continuation and road-height gates now use the complete2m driving-body interval, matching the prior exact-junction branch. No source barrier, road join, width or geometry exemption is invented. All8native collider/source deltas must be recorded."
 }

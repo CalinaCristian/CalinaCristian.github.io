@@ -2734,10 +2734,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                 // narrow separation barriers: only where the lane continues on both sides (a lane merely ending at the line keeps it)
                 if (!pointInPolygon(x + w.nx * 0.9, z + w.nz * 0.9, rb.poly) || !pointInPolygon(x - w.nx * 0.9, z - w.nz * 0.9, rb.poly)) return;
                 // and a car pushed through the gap would really land on a surface at this level (same test as roadHeight)
-                let cont = false; surfacesAt(x - w.nx * 0.6, z - w.nz * 0.6, (hh) => { if (hh >= y0 && hh <= y1) cont = true; }, null, false, w.edge);
+                let cont = false; surfacesAt(x - w.nx * 0.6, z - w.nz * 0.6, (hh) => { if (hh + 2 > y0 && hh < y1) cont = true; }, null, false, w.edge);
                 if (!cont) return;
                 const h = Y.road + (rb.e ? rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1) : padHeightAt(rb.node, x, z));
-                if (h >= y0 && h <= y1) hit = true;
+                if (h + 2 > y0 && h < y1) hit = true; // full native driving body, as in the exact-junction branch above
             });
             return hit;
         };

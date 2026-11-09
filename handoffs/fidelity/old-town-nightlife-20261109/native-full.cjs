@@ -25,7 +25,7 @@ async function go(target,label){const route=await page.evaluate(async({target,la
    for(const offset of [0,.6,-.6,1.2,-1.2,1.8,-1.8,Math.PI]){const h=base+offset,x=c.x-Math.sin(h)*.6,z=c.z-Math.cos(h)*.6;if(s.spot.ctx.extras.walkBoundary?.inside(x,z)===false)continue;if(Number.isFinite(walkHeight(s.spot.ground,cols,x,z))){direction=h;break;}}
    if(direction===null)break;escapes.push({x:c.x,z:c.z,heading:direction});c.auto={fwd:1,heading:direction};for(let i=0;i<28;i++)one();p=null;if(escapes.length>30)break;continue;}
   while(wi<p.length&&Math.hypot(c.x-p[wi][0],c.z-p[wi][1])<.25)wi++;
-  if(wi>=p.length){p=null;continue;}const q=p[wi],d=Math.hypot(q[0]-c.x,q[1]-c.z);c.auto={fwd:1,heading:Math.atan2(c.x-q[0],c.z-q[1])};one();if(d>=lastDist-.00005)blocked++;else blocked=0;lastDist=d;
+  if(wi>=p.length){c.auto={fwd:1,heading:Math.atan2(c.x-target.x,c.z-target.z)};one();p=null;continue;}const q=p[wi],d=Math.hypot(q[0]-c.x,q[1]-c.z);c.auto={fwd:1,heading:Math.atan2(c.x-q[0],c.z-q[1])};one();if(d>=lastDist-.00005)blocked++;else blocked=0;lastDist=d;
  }
  c.auto=null;for(let i=0;i<20;i++)s.update(1/60);return{label,start,end:{...s.position},paths,ticks,maxStep,trace,escapes,ok:Math.hypot(c.x-target.x,c.z-target.z)<(target.radius??.6)+.8,blocked};},{target,label});R.routes.push(route);check(label,route.ok,route);}
 async function use(phone=false){if(phone){const button=page.locator('[data-spot-use]');await button.tap();await tick(2);}else await key('KeyE');}

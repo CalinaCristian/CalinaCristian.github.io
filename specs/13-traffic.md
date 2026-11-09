@@ -9,6 +9,7 @@ R13.3 Transit with real liveries/routes from research: STB trams (red/yellow, ar
 R13.4 Pedestrians: never inside cars, never on the carriageway except crossings; density by area/hour; tourists with cameras at landmarks.
 R13.5 Zero NPC–NPC and NPC–player overlaps visible (harness ≤ 5 minor).
 R13.6 District boundaries: vehicles despawn/respawn out of view at the edges.
+R13.7 A side/rear pedestrian yield may release only when the emitted vehicle body is already clear and its native proposed motion monotonically increases clearance through the step. Include the pedestrian's actual carried reach; preserve front crossing yields, collision guards, source lanes, identities and clocks.
 
 ## Acceptance
 - [ ] Harness: vehicle-overlap ≤ 5, ped-in-vehicle 0, vehicle-overlaps-player 0, scenario i passes.

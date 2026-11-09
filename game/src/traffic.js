@@ -1145,7 +1145,7 @@ export class Traffic {
                 }
             }
         }
-        const pg = this.peds.obstacleGap(v, look);
+        const pg = this.peds.obstacleGap(v, look, dt);
         if (pg < gap) { gap = pg; leader = 'ped'; leaderSpeed = 0; leaderCross = false; }
         if (leader === P && P && Math.abs(P.speed) < 1.2 && gap < 14) v.blockT += dt; else v.blockT = Math.max(0, v.blockT - dt * 2);
 
@@ -2795,14 +2795,44 @@ export class Pedestrians {
     }
     crossingAt(node) { return (this.crossCount.get(node) || 0) > 0; }
     near(x, z, r) { const out = []; this.grid.query(x, z, r, (p) => { if (Math.hypot(p.x - x, p.z - z) < r) out.push(p); }); return out; }
+    /** A road-axis side/rear yield must not prevent a physically clear body
+     * from moving away from the waiting person. Preview the actual native
+     * placement, including its unfinished heading/turn, without moving it. */
+    vehicleStepClearsPerson(v, p, dt) {
+        if (!streetLevel(v) || !v.edge || !this.t.placeOnLane) return false;
+        const radius = Math.max(PED_R, this.reach(p)), fx = -Math.sin(v.heading), fz = -Math.cos(v.heading);
+        if ((p.x - v.x) * fx + (p.z - v.z) * fz > v.length / 2) return false; // retain genuine front crossing yield
+        const distance = (x, z, h) => { const fx = -Math.sin(h), fz = -Math.cos(h), dx = p.x - x, dz = p.z - z; return Math.max(Math.abs(dx * fx + dz * fz) - v.length / 2, Math.abs(-dx * fz + dz * fx) - v.width / 2); };
+        const before = distance(v.x, v.z, v.heading); if (before <= radius + 1e-6) return false;
+        dt = Math.min(.05, Math.max(1e-4, dt));
+        const accel = v.tram ? 1.2 : v.bus || v.kind === 'truck' ? 1.6 : (this.t.buc ? 3 : 2.4), speed = Math.max(v.speed || 0, accel * dt);
+        if (v.s + speed * dt >= v.edge.len) return false; // edge admission/advance remains the normal controller's decision
+        if (!this._yieldView) {
+            this._yieldView = Object.create(this.t);
+            for (const key of ['_t', '_pf', '_pr', '_pc', '_pa', '_pb']) this._yieldView[key] = undefined;
+            this._yieldMesh = { position: { set() {} }, rotation: { set() {} } };
+            this._yieldVehicle = {};
+        }
+        const proposal = Object.assign(this._yieldVehicle, v); proposal.mesh = this._yieldMesh; proposal.speed = speed; proposal.s = v.s + speed * dt;
+        this._yieldView.placeOnLane(proposal, false, dt);
+        let previous = before;
+        for (let i = 1; i <= 4; i++) {
+            const f = i / 4, next = distance(v.x + (proposal.x - v.x) * f, v.z + (proposal.z - v.z) * f, angleLerp(v.heading, proposal.heading, f));
+            if (next < previous - 1e-6 || next <= radius + 1e-6) return false;
+            previous = next;
+        }
+        return previous > before + 1e-6;
+    }
     /** gap from vehicle front to the nearest pedestrian on the carriageway in its path */
-    obstacleGap(v, look) {
+    obstacleGap(v, look, dt = 1 / 30) {
         let gap = Infinity; const half = v.length / 2;
         this.grid.query(v.x + v.fx * look * 0.5, v.z + v.fz * look * 0.5, look * 0.5 + 2, (p) => {
             if (!p.onRoad) return;
             const dx = p.x - v.x, dz = p.z - v.z; const f = dx * v.fx + dz * v.fz; if (f <= 0) return;
             const l = dx * v.rx + dz * v.rz; if (Math.abs(l) > v.width * 0.5 + 1.2) return;
-            const g = f - half - 0.6; if (g < gap) gap = g;
+            const g = f - half - 0.6;
+            if (g < 0 && this.vehicleStepClearsPerson(v, p, dt)) return;
+            if (g < gap) gap = g;
         });
         return gap;
     }

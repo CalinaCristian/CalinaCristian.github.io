@@ -674,9 +674,11 @@ export class SpotSession {
     update(dt) {
         dt = Math.min(dt, 0.1); this.t += dt;
         const photo = this.host.photo?.active, panel = this.ui.panelOpen;
+        const walkBefore = { x: this.ctl.x, z: this.ctl.z };
         if (!panel) this.ctl.update(photo ? 0 : dt);
         if (this.ctl.active !== false && this.ctl.rig) this.ctl.rig.rotation.z = 0; // the walker camera stays level on slopes
         if (this.ctl.active !== false) this._pushOut();
+        this.spot.ctx.extras.walkBoundary?.constrain(this.ctl, walkBefore, this);
         const p = this.ctl.position, pl = { x: p.x, z: p.z, y: p.y, speed: this.ctl.speed || 0, heading: this.ctl.heading };
         // night factor (lamps, windows, neon)
         const tgt = this.r3d.nightLights ? 1 : 0; this.nightK += Math.sign(tgt - this.nightK) * Math.min(Math.abs(tgt - this.nightK), dt / 1.5);

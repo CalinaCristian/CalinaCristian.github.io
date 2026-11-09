@@ -1,9 +1,9 @@
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),crypto=require('node:crypto');
 const {chromium}=require('playwright');
-const [rootArg,outArg,sourceCommit]=process.argv.slice(2),root=path.resolve(rootArg||''),out=path.resolve(outArg||'');
+const [rootArg,outArg,sourceCommit,districtArg]=process.argv.slice(2),root=path.resolve(rootArg||''),out=path.resolve(outArg||'');
 if(!rootArg||!outArg||!/^[a-f0-9]{40}$/.test(sourceCommit||''))throw Error('ROOT OUT EXACT40SHA');
 fs.mkdirSync(out,{recursive:true});const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
-const districts=['unirii'];
+const district=districtArg||'unirii',districts=[district];
 const report={schemaVersion:1,sourceCommit,root,startedAt:new Date().toISOString(),complete:false,plannedDistricts:districts,conditions:{tod:'rush',weather:'clear',season:'summer',quality:'high',viewport:{width:1280,height:720},pixelRatio:1,mirror:'native full'},
  purpose:'Zero-simulation isolated native constructor candidate provider/static/shared fixture; no controller drive or pose application by observer.',sourceFiles:[],observerFiles:[],districts:[],errors:[],consoleErrors:[],failedRequests:[],failures:[]};
 const walk=dir=>{for(const d of fs.readdirSync(dir,{withFileTypes:true})){const f=path.join(dir,d.name);if(d.isDirectory())walk(f);else report.sourceFiles.push({path:path.relative(root,f),sha256:sha(fs.readFileSync(f))});}};
@@ -16,8 +16,8 @@ page.on('pageerror',e=>{report.errors.push(e.message);save();});page.on('console
 await page.goto(base+'game/index.html?notrack',{waitUntil:'load',timeout:600000});await page.waitForFunction(()=>window.game);await page.addScriptTag({url:base+'game/dev/harness/page/index.js',type:'module'});await page.waitForFunction(()=>window.harness);
 await page.evaluate(()=>{const H=harness.H;H.noShots=true;H.renderEvery=0;H.renderFrame=()=>{H._renderNow=true;try{game.drawFrame({mirror:true});const gl=game.renderer.getContext();gl.readPixels(0,0,1,1,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array(4));}finally{H._renderNow=false;}};game.quality='high';game.r3d.setQuality('high');if(game.player)game.player.mirrorEnabled=true;game.audio?.setMuted?.(true);});
 for(const file of ['admission-fixture-observer.js'])await page.addScriptTag({type:'module',content:fs.readFileSync(path.join(__dirname,file),'utf8').replaceAll('__BASE__',base)});
-console.log('LOAD unirii exact constructor fixture');
-const loaded=await page.evaluate(()=>game.startFreeRoam('unirii',{tod:'rush',weather:'clear',season:'summer'}));if(!loaded)throw Error('Native Unirii load failed');
+console.log('LOAD',district,'exact constructor fixture');
+const loaded=await page.evaluate(district=>game.startFreeRoam(district,{tod:'rush',weather:'clear',season:'summer'}),district);if(!loaded)throw Error('Native district load failed '+district);
 const fixture=await page.evaluate(()=>admissionFixtureQA.fixture);if(!fixture)throw Error('Missing constructor fixture');
 report.fixtureFile='fixture.json';fs.writeFileSync(path.join(out,'fixture.json'),JSON.stringify(fixture,null,2)+'\n');report.fixtureSha256=sha(fs.readFileSync(path.join(out,'fixture.json')));report.actorCount=fixture.actorCount;report.livePoseRouteIdentityUnchanged=fixture.livePoseRouteIdentityUnchanged;report.nativePhysicalTimeAfterLoad=await page.evaluate(()=>game.traffic.time);
 console.log('FIXTURE',JSON.stringify({actors:fixture.actorCount,providers:fixture.providers.length,candidates:fixture.providers.reduce((n,p)=>n+p.candidates.length,0),unchanged:fixture.livePoseRouteIdentityUnchanged}));

@@ -6,8 +6,9 @@ import {canTravel,lanesDir} from '__BASE__game/src/nav.js';
 import {ambientTrafficAccess} from '__BASE__game/src/road-access.js';
 window.admissionFixtureQA={fixture:null};
 const link=r=>({edgeId:r.e.id,dir:r.dir,uturn:!!r.uturn});
-const edge=e=>({id:e.id,access:e.access,sourceId:e.access?.sourceId,name:e.name,type:e.type,len:e.len,dirx:e.dirx,dirz:e.dirz,nx:e.nx,nz:e.nz,wL:e.wL,wR:e.wR,lanesF:e.lanesF,lanesB:e.lanesB,sharedLane:!!e.sharedLane,oneway:!!e.oneway,publicDrive:e.publicDrive,mapEnds:!!(e.a.mapEnd||e.b.mapEnd),tram:!!e.tram,layer:e.layer,ya:e.ya,yb:e.yb,
- a:{id:e.a.id,sourceId:e.a.sourceId,x:e.a.x,z:e.a.z,y:e.a.y},b:{id:e.b.id,sourceId:e.b.sourceId,x:e.b.x,z:e.b.z,y:e.b.y}});
+const node=n=>({id:n.id,sourceId:n.sourceId,x:n.x,z:n.z,y:n.y,radius:n.radius,mapEnd:!!n.mapEnd,hasLight:!!n.hasLight,crossing:!!n.crossing,zebra:!!n.zebra,stop:!!n.stop,flags:n.flags,orderedEdgeIds:n.edges.map(e=>e.id)});
+const edge=e=>({id:e.id,road:e.road,access:e.access,sourceId:e.access?.sourceId,name:e.name,type:e.type,len:e.len,dirx:e.dirx,dirz:e.dirz,nx:e.nx,nz:e.nz,wL:e.wL,wR:e.wR,median:e.median,laneW:e.laneW,laneCenterShiftM:e.laneCenterShiftM,sidewalk:e.sidewalk,lanesF:e.lanesF,lanesB:e.lanesB,sharedLane:!!e.sharedLane,sharedLaneWidthM:e.sharedLaneWidthM,sharedLaneSource:e.sharedLaneSource,roadWidthSource:e.roadWidthSource,oneway:!!e.oneway,publicDrive:e.publicDrive,throughAccess:e.throughAccess,maxspeed:e.maxspeed,mapEnds:!!(e.a.mapEnd||e.b.mapEnd),tram:!!e.tram,bridge:!!e.bridge,tunnel:!!e.tunnel,layer:e.layer,ya:e.ya,yb:e.yb,
+ a:node(e.a),b:node(e.b)});
 const record=v=>({id:v.id,kind:v.kind,x:v.x,y:v.y,z:v.z,heading:v.heading,s:v.s,length:v.length,width:v.width,metadataHeight:v.mesh.userData.height,verticalInterval:vehicleVerticalInterval(v),pitch:v.mesh.rotation.x,roll:v.mesh.rotation.z,dir:v.dir,lane:v.lane,laneCur:v.laneCur,latBlend:v.latBlend,latExtraCur:v.latExtraCur,lateralExtra:v.lateralExtra,layer:v.layer,long:!!v.long,bus:!!v.bus,tram:!!v.tram,parked:!!v.parked,service:!!v.service,canAdjust:!v.parked&&!v.service,edge:edge(v.edge),route:v.route.map(link),hist:v.hist?.map(link)||[]});
 const sourceValid=(T,v,b)=>{
  const e=b.edge,long=v.long||v.bus||v.tram||v.length>=8.5;
@@ -26,12 +27,12 @@ Traffic.prototype.spawnAll=function(...args){
  for(const v of this.vehicles){
   const entries=[];for(const pose of nativeInitialTrafficCandidates(view,v)){
    const body={...v,...pose},source=sourceValid(view,v,body),physical=source.valid?initialTrafficStaticClearance(this.world,body):{valid:false,reason:'source-rejected-before-static'},shared=source.valid&&this.sharedLanes.canPlace(v.edge,v.dir,this.vehicles,v,body);
-   entries.push({pose:{...pose,verticalInterval:vehicleVerticalInterval(body)},validation:{valid:source.valid&&physical.valid&&shared,source,physical,shared:{valid:shared,against:'complete original484 bodies',changedContextNeedsNativeRecheck:!!v.edge.sharedLane}}});
+   entries.push({pose:{...pose,verticalInterval:vehicleVerticalInterval(body)},validation:{valid:source.valid&&physical.valid&&shared,source,physical,shared:{valid:shared,against:`complete original${this.vehicles.length} bodies`,changedContextNeedsNativeRecheck:!!v.edge.sharedLane}}});
   }
   providers.push({id:v.id,edgeId:v.edge.id,long:!!(v.long||v.bus||v.tram||v.length>=8.5),nativeSpan:(v.long||v.bus||v.tram||v.length>=8.5)?view.sSpan(v.edge,v.dir,v.length,true):null,candidates:entries});
  }
  const after=this.vehicles.map(record);
- admissionFixtureQA.fixture={stage:'Exact PRE-admission spawnAll input at physicaltime0; no pose updates applied',actorCount:original.length,bodies:original,providers,
-  livePoseRouteIdentityUnchanged:JSON.stringify(original)===JSON.stringify(after),rngChannels:'All isolated native preview RNG entry points throw; no call occurred',scope:'Static/source outputs are immutable native validations. Shared-lane output is native base-population validation; only nonshared-edge results remain invariant when bodies move. Planner must retain complete484 collision checks and source/dir/lane/identity.'};
+ admissionFixtureQA.fixture={stage:'Exact PRE-admission spawnAll input at physicaltime0; no pose updates applied',actorCount:original.length,bodies:original,providers,nativeGraph:{nodes:Object.values(this.world.graph.nodes).map(node),edges:this.world.graph.edges.map(edge)},
+  livePoseRouteIdentityUnchanged:JSON.stringify(original)===JSON.stringify(after),rngChannels:'All isolated native preview RNG entry points throw; no call occurred',scope:`Static/source outputs are immutable native validations. Shared-lane output is native base-population validation; only nonshared-edge results remain invariant when bodies move. Planner must retain complete${original.length} collision checks and source/dir/lane/identity. Native graph preserves exact ordered adjacency, source widths/alignment, geometry and heights; no graph joins are added.`};
  return result;
 };

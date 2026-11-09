@@ -565,7 +565,13 @@ class Builder {
             g.setAttribute('color', new THREE.Float32BufferAttribute(b.c, 3));
             g.computeBoundingSphere(); g.computeBoundingBox();
             const mesh = new THREE.Mesh(g, k === 'fw' ? fountainMaterials().water : MT[k]);
-            if (k === 'fw') { mesh.onBeforeRender = (r) => fountainTick(r); mesh.renderOrder = 1; FOUNTAIN_WATER.add(mesh); }
+            if (k === 'fw') {
+                mesh.onBeforeRender = (r) => fountainTick(r); mesh.renderOrder = 1; FOUNTAIN_WATER.add(mesh);
+                // Basin geometry belongs to this scene; the material/animation system is shared.
+                // Releasing its geometry must also release the registry's strong scene reference.
+                const releaseBasin = () => { FOUNTAIN_WATER.delete(mesh); g.removeEventListener('dispose', releaseBasin); };
+                g.addEventListener('dispose', releaseBasin);
+            }
             mesh.castShadow = k !== 'w' && k !== 'f' && k !== 'e' && k !== 'fw'; mesh.receiveShadow = k !== 'f' && k !== 'e' && k !== 'fw';
             group.add(mesh);
             tris += b.p.length / 9;

@@ -16,6 +16,7 @@ const { MiniMap } = MINIMAP;
 const mapFilter = () => globalThis.game?.mapFilter ?? MINIMAP.MAP_FILTER;
 const fkey = (cat) => (cat === 'business' ? 'shop' : cat);
 import { Office } from './office.js';
+import { createOfficeWindowService } from './office-window-service.js';
 import { syncModalControls } from './modal-controls.js';
 import { playFlight } from './flight.js';
 import { Navigator, CarScreen, canTravel, edgeSpeed, isMotorway, roadName, fmtDist, stepText, stepArrow, lanesDir, roadSideWidth, roadWidthAt } from './nav.js';
@@ -350,6 +351,7 @@ class Game {
     // ----------------------------------------------------------------------------------
     /** Release the outgoing district before fetching/building its replacement. The cockpit and render rig survive. */
     disposeCity() {
+        if (this.officeReturn) this.restoreOfficeReturn();
         this.endFoot();
         this.football?.dispose(); this.football = null;
         this.basketball?.dispose(); this.basketball = null;
@@ -681,7 +683,7 @@ class Game {
         if (this._pauseOpen) { // paused: nothing moves; the scene keeps being drawn behind the menu
             if (this.input.take('Escape')) this.togglePause(false);
             this.input.flush();
-            if (this.state === 'office') this.office?.render(); else if (this.state === 'spot') this.r3d.frame(); else if (this.scene) this.drawFrame();
+            if (this.state === 'office') this.renderOffice(); else if (this.state === 'spot') this.r3d.frame(); else if (this.scene) this.drawFrame();
             return;
         }
         if ((this.state === 'drive' || this.state === 'foot') && !this.photo?.active && !this.mapOpen && !this.hud?.panelOpen) this.football?.update(dt);
@@ -2664,12 +2666,35 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
         this.basketball?.cancel('office');
         this.explore?.hooks?.abortDrone?.();
         this.photo?.close?.();
-        if (this.state === 'foot') { this.officeFromFoot = true; this.foot.exit(); }
+        // Preserve the physical street pose; the virtual room never relocates the player/car.
+        this.camera.updateWorldMatrix(true, false);
+        const entryCamera = this.camera.clone();
+        entryCamera.position.setFromMatrixPosition(this.camera.matrixWorld);
+        entryCamera.quaternion.setFromRotationMatrix(this.camera.matrixWorld); entryCamera.scale.set(1, 1, 1); entryCamera.updateMatrixWorld(true);
+        this.officeFromFoot = this.state === 'foot';
+        this.officeReturn = { camera: entryCamera, driveRigShown: this.player.driveRigShown !== false,
+            carParent: this.carBody?.parent || null, carBox: this.carBox, bubblesDisplay: $('#bubbles').style.display,
+            foot: this.officeFromFoot ? { x: this.foot.x, y: this.foot.y, z: this.foot.z, heading: this.foot.heading, pitch: this.foot.pitch } : null };
+        if (this.officeFromFoot) this.foot.exit();
+        else {
+            this.player.speed = 0;
+            if (!this.carBody) { this.carBody = makeVehicle('hatch', '#1e3a8a', { instanced: true, city: this.city.id }); this.carBody.userData.parked = true; }
+            const p = this.player;
+            this.carBody.position.set(p.x, p.surfY ?? 0.24, p.z); this.carBody.rotation.set(0, p.heading, 0); this.scene.add(this.carBody);
+            this.carBox = { x: p.x, z: p.z, fx: p.fx, fz: p.fz, length: this.carBody.userData.length || 4.2, width: this.carBody.userData.width || 1.8 };
+        }
+        this.setDriveRigShown(false);
+        $('#bubbles').style.display = 'none'; this._officePresentedAt = null; this._officeFPSAcc = this._officeFPSN = 0;
         this.state = 'office';
         this.audio.stopEngine(); this.audio.blip(520, 0.15, 0.1);
         $('#hud').classList.add('in-office');
         this.player.resetLook();
-        this.office = new Office(this.renderer, this.camera, stop, this.hud, this.input, this.audio);
+        try {
+            this.office = new Office(this.renderer, this.camera, stop, this.hud, this.input, this.audio);
+            this.officeWindow = createOfficeWindowService({ renderer: this.renderer, r3d: this.r3d, world: this.world, scene: this.scene, traffic: this.traffic, office: this.office, entryCamera });
+        } catch (error) {
+            this.restoreOfficeReturn(); this.hud.toast('Room unavailable', 'The street state has been restored.', 'warn'); console.warn('[office] enter', error); return;
+        }
         this.hud.toast(`${stop.icon} ${stop.company}`, stop.tagline);
         this.hud.setStreet(stop.company, stop.address);
         this.hud.prompt(null);
@@ -2678,25 +2703,59 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
     updateOffice(dt) {
         const o = this.office;
         o.update(dt);
+        this.frame++; this.updateClock(dt);
+        if (this.frame % 30 === 0) this.pollWeather();
+        this.officeWindow.prepare(dt);
+        this.traffic.setHour(this.trafficHours()); this.traffic.update(dt);
+        this.carBody?.userData.setLights?.(((this.clock.date?.getTime?.() ?? performance.now()) / 400 | 0) % 2 === 0);
+        this.officeWindow.capture();
         this.hud.update(dt, this.camera, this.city.id);
-        o.render();
+        this.renderOffice();
         if (o.done) this.leaveOffice();
     }
-    leaveOffice() {
-        this.photo?.close?.();
-        const o = this.office; const stop = o.stop;
-        o.dispose(); this.office = null;
+    renderOffice() {
+        if (!this.office) return;
+        try { this.office.render(); }
+        finally {
+            // Include all submitted environment, portal, shadow and room work before reset.
+            const now = performance.now(), visible = document.visibilityState !== 'hidden', elapsed = visible && this._officePresentedAt != null ? now - this._officePresentedAt : 0;
+            this._officePresentedAt = visible ? now : null;
+            Object.assign(this.r3d.stats, { drawCalls: this.renderer.info.render.calls, triangles: this.renderer.info.render.triangles });
+            if (!visible) { this._officeFPSAcc = this._officeFPSN = 0; this.r3d.stats.fps = this.r3d.stats.frameMs = 0; }
+            if (elapsed > 0) {
+                this.r3d.stats.frameMs = Math.round(elapsed * 10) / 10; this._officeFPSAcc += elapsed; this._officeFPSN++;
+                if (this._officeFPSAcc >= 500) { this.r3d.stats.fps = Math.round(10000 * this._officeFPSN / this._officeFPSAcc) / 10; this._officeFPSAcc = this._officeFPSN = 0; }
+            }
+            this.renderer.info.reset();
+        }
+    }
+    restoreOfficeReturn() {
+        if (!this.officeReturn && !this.office && !this.officeWindow) return;
+        const restore = this.officeReturn;
+        this.officeWindow?.dispose(); this.officeWindow = null;
+        this.office?.dispose(); this.office = null; this.officeReturn = null; this._officePresentedAt = null;
+        this.r3d._lastStatsNow = null; // mode boundary: no office-duration gap in the next driving FPS sample
+        if (restore) $('#bubbles').style.display = restore.bubblesDisplay;
         $('#hud').classList.remove('in-office');
         this.player.camHolder.add(this.camera); this.camera.position.set(0, 0, 0); this.camera.rotation.set(0, 0, 0);
         this.player.resetLook();
         this.state = 'drive';
-        if (this.officeFromFoot) { // walked in: walk out of the door
-            this.officeFromFoot = false;
-            const p = stop.poiRef, dx = p.doorX ?? p.x, dz = p.doorZ ?? p.z, ne = this.nav.index.nearest(dx, dz, 60);
-            const hd = ne ? Math.atan2(-(ne.cx - dx), -(ne.cz - dz)) : this.foot.heading;
-            this.foot.enter(dx + (ne ? (ne.cx - dx) * 0.15 : 0), dz + (ne ? (ne.cz - dz) * 0.15 : 0), hd);
-            this.state = 'foot';
+        if (restore?.camera) {
+            for (const key of ['fov', 'aspect', 'near', 'far', 'zoom', 'filmGauge', 'filmOffset']) this.camera[key] = restore.camera[key];
+            this.camera.updateProjectionMatrix();
         }
+        if (this.officeFromFoot && restore?.foot) {
+            const f = restore.foot; this.foot.enter(f.x, f.z, f.heading, f.y); this.foot.pitch = f.pitch; this.foot.place(); this.state = 'foot';
+        } else if (restore) {
+            if (!restore.carParent) this.carBody?.removeFromParent(); else restore.carParent.add(this.carBody);
+            this.carBox = restore.carBox; this.setDriveRigShown(restore.driveRigShown);
+        }
+        this.officeFromFoot = false;
+    }
+    leaveOffice() {
+        this.photo?.close?.();
+        const o = this.office, stop = o.stop;
+        this.restoreOfficeReturn();
         if (this.freeRoam) { // free roam (R10.10): the CV content, no story progress
             if (o.read.size === 0) this.hud.toast('💬 Nobody asked', 'Walk up to your host and press E to talk.');
             else this.hud.toast(`${stop.icon} ${stop.short}`, 'Free roam: keep going (M → world map: districts and tourist spots).');

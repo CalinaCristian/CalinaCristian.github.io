@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+  "scope": "CPU reviewed3-room retained-world adapter;5unfinished bindings; no browser/native/GPU/wholeapp pass",
+  "nativeAcceptance": "OPEN",
+  "files": {
+    "README.md": {
+      "sha256": "bcd6160223168f39fe21ff6118086cb7e860c521cbf621d35af0aa399e4e8352",
+      "bytes": 53289
+    },
+    "game/overview/index.html": {
+      "sha256": "eae121b31a5b226c809cd8a2a04ece0f197d31ea92639adcefdcb8ebe935325f",
+      "bytes": 64305
+    },
+    "game/research/cv-window-bindings.md": {
+      "sha256": "9de95f3e5525f142f26a4e807f98593370e20f506242550ac7c4112a23b3aa03",
+      "bytes": 7134
+    },
+    "game/src/main.js": {
+      "sha256": "d1036a8ad8eca1205c0c7b53df55ba36bf922a6c1a4311a5299f73652acc823e",
+      "bytes": 220608
+    },
+    "game/src/office-window-binding.js": {
+      "sha256": "162bf701c3d34769b986533915cc016844f1cebbc646825cb82fcb2cc592fc6b",
+      "bytes": 14680
+    },
+    "game/src/office-window-service.js": {
+      "sha256": "4fca79f28e1e2b247a73e0ccd1757fccd23c872850624830eb18d509c71fc5a0",
+      "bytes": 7136
+    },
+    "game/src/office-window-target.js": {
+      "sha256": "9bbbd934f486c3c803e0e480c14f6809b82c171e07addaa4559db959ea0fc840",
+      "bytes": 4811
+    },
+    "game/src/office.js": {
+      "sha256": "c2a47fe446a970aab51310ff4476dff9f04e4fd8142416f7d68e91d3b2566e07",
+      "bytes": 50168
+    },
+    "game/src/traffic.js": {
+      "sha256": "50d9ea753d5a31ed2154832371715c4cedab2d185c43aff33f11dc7756a74473",
+      "bytes": 254360
+    },
+    "handoffs/fidelity/live-office-windows/README.md": {
+      "sha256": "8eb12bb8b97a2b92da60c187c9b21e114272f22cc457d7fbe4dd85647cb8e292",
+      "bytes": 7069
+    },
+    "handoffs/fidelity/live-office-windows/actual-bindings.json": {
+      "sha256": "bac17d985ad1a67c214e36688d512e6fd1fce222c5c40574b764dcc1534c57e6",
+      "bytes": 360048
+    },
+    "handoffs/fidelity/live-office-windows/actual-bindings.mjs": {
+      "sha256": "b7d14585f58929debad41014e001911db58137995faa00a6f1e5b39b9a2e781c",
+      "bytes": 6179
+    },
+    "handoffs/fidelity/live-office-windows/controls.json": {
+      "sha256": "07003f9dbaae21ab7834622292eaaca423a0d036dd779d97cc28f295462b139f",
+      "bytes": 1253
+    },
+    "handoffs/fidelity/live-office-windows/controls.mjs": {
+      "sha256": "b965ddc6f33a719ec430887857ad76000973444ea922e474ac0ae370bfb0b19a",
+      "bytes": 19775
+    },
+    "handoffs/fidelity/live-office-windows/foundation-controls.json": {
+      "sha256": "da49f786399ba2d5dc53e1bc1ef8fe1a818b8281a7d5bf3070e0212fa2ed7496",
+      "bytes": 2013
+    },
+    "handoffs/fidelity/live-office-windows/ledger-controls.json": {
+      "sha256": "e196e3a6c532dc814417a1b732a53ff55597846dfa5cb5eb301d3963fdf27a6b",
+      "bytes": 2022
+    },
+    "specs/01-architecture.md": {
+      "sha256": "5b9266d2984bc3a95c62bb9551eed27b602597ff4b4d9706f9d10d4694a76159",
+      "bytes": 81528
+    }
+  },
+  "unchangedSourceInputs": {
+    "game/data/bucharest-floreasca.json": {
+      "commit": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+      "sha256": "a188f2f5b856965191935b5433b756080c711154e8ab00ff8e2f5b28ca77097b",
+      "bytes": 4437499
+    },
+    "game/data/bucharest-grozavesti.json": {
+      "commit": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+      "sha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+      "bytes": 10618180
+    },
+    "game/data/bucharest-pipera.json": {
+      "commit": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+      "sha256": "873c974d4c532d9acf08bdbcbc3bbc2fa271bd018b7874a08efc99f4971dd8de",
+      "bytes": 4172013
+    },
+    "game/data/bucharest-romana.json": {
+      "commit": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+      "sha256": "af976b05482ce0663264cadeb2d1a0d1dd3a67a05cc7b07b1c592ddfa7fa2e6d",
+      "bytes": 21921196
+    },
+    "game/data/bucharest-unirii.json": {
+      "commit": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+      "sha256": "e94dc563fc82efe0f6dac21e7e20ac8e34ea5a7e20eb38bf97e829abebe9657d",
+      "bytes": 33593010
+    },
+    "game/data/seattle-bellevue.json": {
+      "commit": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+      "sha256": "b6e30458ac8d9f32cf6c1437047fa9f8fb01370997e9ecee1bfc6482d970c2f9",
+      "bytes": 5004574
+    },
+    "game/research/cv-window-bindings.json": {
+      "commit": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+      "sha256": "e776796ecf0c24cfd1012dcc8825d2c373f07dc894ea0f50d82a22ea3e15861e",
+      "bytes": 156775
+    },
+    "game/src/landmarks.js": {
+      "commit": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+      "sha256": "322010a764d0b380d3ca183a5a41359c4852be9b202d6503c55de3dc366e4b21",
+      "bytes": 360681
+    },
+    "game/vendor/three.module.min.js": {
+      "commit": "027b681bf08e2b9000c5685fd5f5345f0792d31a",
+      "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+      "bytes": 691648
+    }
+  },
+  "checks": {
+    "integration": 10,
+    "foundation": 9,
+    "ledger": 17
+  },
+  "dataGeometryActorsCreationQualityModified": false
+}

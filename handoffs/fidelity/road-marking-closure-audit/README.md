@@ -43,6 +43,20 @@ explicit non-affine height exception retains the previous point policy.
 Generated central-median render is deferred until its actual collision
 intervals have survived the existing lane cuts. Real OSM barriers are untouched.
 
+The first native candidate `4e6361949fa7b81513c86d0ef63dd5ab8cf7bbbf`
+repaired the degenerate native SeaTac ribbons and preserved the complete
+source dataset, source widths/layers and profile report. Inspection of its
+matched Bellevue views exposed another paint defect: source-station dashes
+could enter the stop/zebra envelope that the old restarted gap had hidden.
+The follow-up reserves each actually emitted stop/zebra envelope, including
+the chosen crossing setback, before emitting longitudinal paint. Pads remove
+their complete mouth footprint, avoiding small paint fragments in their rim.
+This first candidate remains intermediate evidence, not final acceptance.
+
+Root reassigned the remaining closure-decoration work (the worksite/props and
+backdrop strip clipping) to the Pipera boundary lane. This branch does not
+claim that the Bellevue closure cluster or all outer guard fragments are fixed.
+
 `controls.mjs` includes actual complete native SeaTac/Bellevue source-corner
 replays and focused continuity, clipping, winding, area, level, priority,
 non-affine, source-identity and short-leg controls. This CPU replay is not a

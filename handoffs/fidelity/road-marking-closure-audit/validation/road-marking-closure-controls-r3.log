@@ -1,0 +1,5 @@
+(node:524391) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/road-markings-closures/game/src/road-joins.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/road-markings-closures/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"passed":true,"checks":18,"audit":[{"district":"seatac","newBevelPads":48,"baselineDegenerate":3,"candidateDegenerate":0},{"district":"bellevue","newBevelPads":12,"baselineDegenerate":0,"candidateDegenerate":0}]}

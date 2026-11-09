@@ -28,7 +28,7 @@ import { emittedTramClearance } from './tram-clearance.js';
 import { buildRailRoadsideClearance } from './rail-roadside.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
 import { roadMiter, needsRoadBevelPad } from './road-joins.js';
-import { markingArea, clipMarkingConvex, subtractMarkingConvex, clipAffineMarkingRange, buildMarkingStations, markingDashIntervals } from './road-markings.js';
+import { markingArea, clipMarkingHalfPlane, clipMarkingConvex, subtractMarkingConvex, clipAffineMarkingRange, buildMarkingStations, markingDashIntervals } from './road-markings.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -2102,18 +2102,21 @@ export async function buildWorld(city, renderer, opts = {}) {
     });
     const markProxy = (mb, e) => ({
         flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, y, col, uvS) {
-            const input=[[x0,z0],[x1,z1],[x2,z2],[x3,z3]], own=ribPoly.get(e), area=markingArea(input);
+            this.flatPolygon([[x0,z0],[x1,z1],[x2,z2],[x3,z3]],y,col,uvS);
+        },
+        flatPolygon(input,y,col,uvS) {
+            const own=ribPoly.get(e), area=markingArea(input);
             const kept=own?clipMarkingConvex(input,own):input, ownedArea=markingArea(kept), blockers=[], seen=new Set();
             if(kept.length){
                 const xs=kept.map(p=>p[0]),zs=kept.map(p=>p[1]);let unsupported=false;
                 surfGrid.each(Math.min(...xs),Math.min(...zs),Math.max(...xs),Math.max(...zs),o=>{
                     if(o.e===e||seen.has(o))return;seen.add(o);
-                    const region=clipMarkingConvex(kept,o.poly,.15);if(!region.length)return;
-                    const low=o.e?(markWins(e,o.e)?.01:-.01):-1;
+                    const region=clipMarkingConvex(kept,o.poly,o.e ? .15 : 0);if(!region.length)return;
+                    const low=o.e?(markWins(e,o.e) ? .01 : -.01):-1;
                     const blocked=clipAffineMarkingRange(region,p=>o.h(p[0],p[1])-yAlong(e,p[0],p[1]),low,1);
                     if(blocked===null)unsupported=true;else if(blocked.length)blockers.push(blocked);
                 });
-                if(unsupported){e._mkFragmentFallback=(e._mkFragmentFallback||0)+1;legacyMarkProxy(mb,e).flatQuad(x0,z0,x1,z1,x2,z2,x3,z3,y,col,uvS);return;}
+                if(unsupported){e._mkFragmentFallback=(e._mkFragmentFallback||0)+1;const legacy=legacyMarkProxy(mb,e);for(let i=1;i<input.length-1;i++){const[a,b,q]=[input[0],input[i],input[i+1]];legacy.flatQuad(...a,...b,...q,...q,y,col,uvS);}return;}
             }
             let fragments=kept.length?[kept]:[];
             for(const blocker of blockers)fragments=fragments.flatMap(p=>subtractMarkingConvex(p,blocker));
@@ -2247,8 +2250,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (e.b.pad) { pushPad(e.b, 'road', bR); pushPad(e.b, 'road', bL); }
         // ---- markings
         const s0 = retract(e, e.a), s1 = e.len - retract(e, e.b);
+        const sourceMarks=markProxy(c.marks,e),pendingLongitudinal=[],longM={flatQuad(...q){pendingLongitudinal.push(q);}};
+        let longStart=-Infinity,longEnd=Infinity;
+        const reserveControl=(end,sa,sb)=>{if(end===e.a)longStart=Math.max(longStart,sa,sb);else longEnd=Math.min(longEnd,sa,sb);};
         if (s1 - s0 > 1 && !e.unpaved && e.type !== 'service') {
-            const m = markProxy(c.marks, e), hw = 0.07;
+            const m = sourceMarks, hw = 0.07;
             const minor = e.type === 'residential' || e.type === 'living_street' || e.type === 'unclassified' || e.type === 'service';
             const med2 = e.median / 2, shift = e.laneCenterShiftM || 0;
             // a one-way carriageway built wider than its lane count is marked evenly over its real width (see the dividers)
@@ -2257,12 +2263,12 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (e.busLane && !/motorway|trunk/.test(e.type)) {
                 if (realPass) { // (2026-11-08, Street View walk of Calea Floreasca) plain asphalt behind a wide solid line, not red paint (red only on the boulevards that have it)
                     const wl = rgb('#ecebe6');
-                    if (evenLanes) { const o = -e.wL + Wc * (nEff - 1) / nEff; band(m, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); } // (on the last divider of the evenly marked lanes)
-                    else if (e.lanesF > 1) { const o = shift + med2 + e.laneW * (e.lanesF - 1); band(m, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); }
-                    if (e.lanesB > 1) { const o = shift - (med2 + e.laneW * (e.lanesB - 1)); band(m, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); }
+                    if (evenLanes) { const o = -e.wL + Wc * (nEff - 1) / nEff; band(longM, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); } // (on the last divider of the evenly marked lanes)
+                    else if (e.lanesF > 1) { const o = shift + med2 + e.laneW * (e.lanesF - 1); band(longM, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); }
+                    if (e.lanesB > 1) { const o = shift - (med2 + e.laneW * (e.lanesB - 1)); band(longM, e, s0, s1, o - 0.13, o + 0.13, yM - 0.002, wl); }
                 } else {
-                    if (e.lanesF > 1) band(m, e, s0, s1, shift + med2 + e.laneW * (e.lanesF - 1), shift + med2 + e.laneW * e.lanesF, yM - 0.004, busCol);
-                    if (e.lanesB > 1) band(m, e, s0, s1, shift - (med2 + e.laneW * (e.lanesB - 1)), shift - (med2 + e.laneW * e.lanesB), yM - 0.004, busCol);
+                    if (e.lanesF > 1) band(longM, e, s0, s1, shift + med2 + e.laneW * (e.lanesF - 1), shift + med2 + e.laneW * e.lanesF, yM - 0.004, busCol);
+                    if (e.lanesB > 1) band(longM, e, s0, s1, shift - (med2 + e.laneW * (e.lanesB - 1)), shift - (med2 + e.laneW * e.lanesB), yM - 0.004, busCol);
                 }
             }
             // surface texture: transverse joints on concrete motorways (US, ~4.6 m panels); patched asphalt (repair
@@ -2286,29 +2292,29 @@ export async function buildWorld(city, renderer, opts = {}) {
             // built wider than its lane count (lanes tag < the real width) left a whole unmarked lane: mark the lanes evenly
             // over the real width instead
             if (evenLanes) {
-                for (let i = 1; i < nEff; i++) if (!(e.busLane && realPass && i === nEff - 1)) dashLine(m, e, s0, s1, -e.wL + Wc * i / nEff, yM, white, dash[0], dash[1], hw);
+                for (let i = 1; i < nEff; i++) if (!(e.busLane && realPass && i === nEff - 1)) dashLine(longM, e, s0, s1, -e.wL + Wc * i / nEff, yM, white, dash[0], dash[1], hw);
             } else if (!minor || e.lanesF > 1 || e.lanesB > 1) {
-                for (let i = 1; i < e.lanesF; i++) dashLine(m, e, s0, s1, shift + med2 + e.laneW * i, yM, white, dash[0], dash[1], hw * (/motorway/.test(e.type) ? 1.4 : 1));
-                for (let i = 1; i < e.lanesB; i++) dashLine(m, e, s0, s1, shift - (med2 + e.laneW * i), yM, white, dash[0], dash[1], hw);
+                for (let i = 1; i < e.lanesF; i++) dashLine(longM, e, s0, s1, shift + med2 + e.laneW * i, yM, white, dash[0], dash[1], hw * (/motorway/.test(e.type) ? 1.4 : 1));
+                for (let i = 1; i < e.lanesB; i++) dashLine(longM, e, s0, s1, shift - (med2 + e.laneW * i), yM, white, dash[0], dash[1], hw);
             }
             // centre
             if (!e.oneway && !e.sharedLane) {
                 const cc = US ? yellow : white;
                 if (e.median > 0.5) {
                     // median: tram bed or concrete divider
-                    band(m, e, s0, s1, shift - med2 + 0.15, shift + med2 - 0.15, yM - 0.006, e.tramMedian ? ballastCol : rgb('#8d8a84'));
-                    solidLine(m, e, s0, s1, shift + med2, yM, cc, hw); solidLine(m, e, s0, s1, shift - med2, yM, cc, hw);
-                } else if (US && !minor) { solidLine(m, e, s0, s1, shift + (0.13), yM, cc, 0.06); solidLine(m, e, s0, s1, shift + (-0.13), yM, cc, 0.06); }
+                    band(longM, e, s0, s1, shift - med2 + 0.15, shift + med2 - 0.15, yM - 0.006, e.tramMedian ? ballastCol : rgb('#8d8a84'));
+                    solidLine(longM, e, s0, s1, shift + med2, yM, cc, hw); solidLine(longM, e, s0, s1, shift - med2, yM, cc, hw);
+                } else if (US && !minor) { solidLine(longM, e, s0, s1, shift + (0.13), yM, cc, 0.06); solidLine(longM, e, s0, s1, shift + (-0.13), yM, cc, 0.06); }
                 else if (!US && !minor) {
-                    if (e.lanesF + e.lanesB >= 4) { solidLine(m, e, s0, s1, shift + (0.12), yM, cc, 0.06); solidLine(m, e, s0, s1, shift + (-0.12), yM, cc, 0.06); }
-                    else if (e.lanesF + e.lanesB >= 3) solidLine(m, e, s0, s1, shift + (0), yM, cc, hw);
-                    else dashLine(m, e, s0, s1, shift + (0), yM, cc, dash[0], dash[1], hw);
+                    if (e.lanesF + e.lanesB >= 4) { solidLine(longM, e, s0, s1, shift + (0.12), yM, cc, 0.06); solidLine(longM, e, s0, s1, shift + (-0.12), yM, cc, 0.06); }
+                    else if (e.lanesF + e.lanesB >= 3) solidLine(longM, e, s0, s1, shift + (0), yM, cc, hw);
+                    else dashLine(longM, e, s0, s1, shift + (0), yM, cc, dash[0], dash[1], hw);
                 }
             }
             // edge lines
             if (!minor) {
-                solidLine(m, e, s0, s1, e.wR - 0.15, yM, white, 0.08);
-                solidLine(m, e, s0, s1, -(e.wL - 0.15), yM, (US && e.oneway && /motorway|trunk/.test(e.type)) ? yellow : white, 0.08);
+                solidLine(longM, e, s0, s1, e.wR - 0.15, yM, white, 0.08);
+                solidLine(longM, e, s0, s1, -(e.wL - 0.15), yM, (US && e.oneway && /motorway|trunk/.test(e.type)) ? yellow : white, 0.08);
             }
             // stop lines at lights / stop signs
             for (const end of [e.a, e.b]) {
@@ -2318,6 +2324,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (!incoming) continue;
                 const r = retract(e, end) + 0.8;
                 const s = atA ? r : e.len - r;
+                reserveControl(end,s-.25,s+.25);
                 const wIn = atA ? -e.wL : e.wR;
                 const o0 = shift + (atA ? -Math.max(0, med2) : (e.oneway ? med2 : Math.max(0, med2)));
                 if (end.giveWay && !end.hasLight) { for (let k = 0; k < 6; k++) { const oo = o0 + (wIn - o0) * (k + 0.5) / 6; band(m, e, s - 0.25, s + 0.25, oo - 0.25, oo + 0.25, yM + 0.002, white); } }
@@ -2339,6 +2346,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                         zebraRects.push({ e, rect }); sc = s2; break;
                     }
                     if (sc === null) continue;
+                    reserveControl(end,sc-1.5,sc+1.5);
                     for (let k = -e.wL + 0.4; k < e.wR - 0.3; k += 1.0) band(m, e, sc - 1.4, sc + 1.4, k, k + 0.5, yM + 0.004, white);
                 }
             }
@@ -2346,7 +2354,17 @@ export async function buildWorld(city, renderer, opts = {}) {
         // zebra at degree-2 crossing nodes (drawn once by the edge leaving the node)
         if (e.a.zebra && e.a.edges.length === 2 && e.a.edges[0] === e && !e.unpaved) { // (on this edge's own ribbon: markings are clipped to it)
             const z0 = e.len > 4 ? 0.1 : -1.4, z1 = e.len > 4 ? 2.9 : 1.4;
-            for (let k = -e.wL + 0.4; k < e.wR - 0.3; k += 1.0) band(markProxy(c.marks, e), e, z0, z1, k, k + 0.5, yM + 0.004, white);
+            reserveControl(e.a,z0,z1);
+            for (let k = -e.wL + 0.4; k < e.wR - 0.3; k += 1.0) band(sourceMarks, e, z0, z1, k, k + 0.5, yM + 0.004, white);
+        }
+        // Preserve the actual stop/zebra envelope, including its chosen setback.
+        // The source-connected dash phase must never run through these controls.
+        for(const q of pendingLongitudinal){
+            let polygon=[[q[0],q[1]],[q[2],q[3]],[q[4],q[5]],[q[6],q[7]]];
+            const station=p=>(p[0]-e.a.x)*e.dirx+(p[1]-e.a.z)*e.dirz;
+            if(Number.isFinite(longStart))polygon=clipMarkingHalfPlane(polygon,p=>station(p)-longStart);
+            if(Number.isFinite(longEnd))polygon=clipMarkingHalfPlane(polygon,p=>longEnd-station(p));
+            if(polygon.length)sourceMarks.flatPolygon(polygon,q[8],q[9],q[10]);
         }
         // bridges: railings
         if (e.bridge) {

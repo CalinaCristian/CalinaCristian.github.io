@@ -5,7 +5,7 @@ import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 import {roadMiter,needsRoadBevelPad} from '../../../game/src/road-joins.js';
-import {markingArea,clipMarkingConvex,subtractMarkingConvex,clipAffineMarkingRange,buildMarkingStations,markingDashIntervals} from '../../../game/src/road-markings.js';
+import {markingArea,clipMarkingHalfPlane,clipMarkingConvex,subtractMarkingConvex,clipAffineMarkingRange,buildMarkingStations,markingDashIntervals} from '../../../game/src/road-markings.js';
 const here=path.dirname(fileURLToPath(import.meta.url)),out=process.argv[2]||here,checks=[],audit=[];
 const check=(name,fn)=>{fn();checks.push({name,passed:true});},near=(a,b,tol=1e-7)=>assert.ok(Math.abs(a-b)<=tol,`${a} != ${b}`);
 const N=(id,x,z)=>({id,x,z,edges:[],pad:false}),E=(id,a,b,props={})=>{const len=Math.hypot(b.x-a.x,b.z-a.z),e={id,a,b,len,dirx:(b.x-a.x)/len,dirz:(b.z-a.z)/len,nx:-(b.z-a.z)/len,nz:(b.x-a.x)/len,access:{sourceId:'w1'},type:'primary',lanesF:2,lanesB:0,wL:3.5,wR:3.5,laneW:3.5,median:0,oneway:true,...props};a.edges.push(e);b.edges.push(e);return e;};
@@ -21,6 +21,8 @@ check('Exact height-band clipping preserves distinct bridge levels',()=>{near(ma
 check('Priority threshold cuts only its actual winning height region',()=>{near(markingArea(clipAffineMarkingRange(square,p=>p[0]/100,-.01,1)),100);near(markingArea(clipAffineMarkingRange(square,p=>p[0]/100,.01,1)),90);});
 check('Non-affine/clamped pad height is explicit rather than silently flattened',()=>assert.equal(clipAffineMarkingRange(square,p=>Math.max(0,p[0]-5),-1,1),null));
 check('Degenerate native ribbon never invents marking geometry',()=>assert.deepEqual(clipMarkingConvex(square,[[0,0],[0,0],[2,2],[2,2]]),[]));
+check('A selected stop/zebra envelope clips only longitudinal paint beyond its actual setback',()=>{let p=[[-1,-.07],[12,-.07],[12,.07],[-1,.07]];p=clipMarkingHalfPlane(p,a=>a[0]-4.8);p=clipMarkingHalfPlane(p,a=>10-a[0]);near(markingArea(p),(10-4.8)*.14);assert.ok(p.every(a=>a[0]>=4.8-1e-9&&a[0]<=10+1e-9));});
+check('Pads remove the whole actual mouth without leaving an inset paint sliver',()=>{const stripe=[[-1,0],[2,0],[2,.14],[-1,.14]],mouth=[[0,-1],[3,-1],[3,1],[0,1]],clip=clipMarkingConvex(stripe,mouth);near(subtractMarkingConvex(stripe,clip).reduce((s,p)=>s+markingArea(p),0),.14);});
 check('An infeasible short width-transition miter requires full-width bevel geometry',()=>{const a=N(0,-12,0),n=N(1,0,0),b=N(2,12,1),e=E(0,a,n,{wR:9.25,wL:5.55}),f=E(1,n,b,{wR:7.4,wL:7.4});assert.equal(needsRoadBevelPad(e,f,n,(x,s)=>s>0?x.wR:x.wL),true);const p=[0,9.25],q=[n.x+f.nx*7.4,n.z+f.nz*7.4];assert.equal(roadMiter(e,f,n,p,q,9.25).feasible,false);});
 check('A normal equal-width shallow bend retains its exact shared miter',()=>{const a=N(0,-30,0),n=N(1,0,0),b=N(2,30,3),e=E(0,a,n),f=E(1,n,b);assert.equal(needsRoadBevelPad(e,f,n,(x,s)=>s>0?x.wR:x.wL),false);const p=[0,3.5],q=[f.nx*3.5,f.nz*3.5],A=roadMiter(e,f,n,p,q,3.5),B=roadMiter(f,e,n,q,p,3.5);near(A.point[0],B.point[0]);near(A.point[1],B.point[1]);});
 const rawDir=process.argv[3];

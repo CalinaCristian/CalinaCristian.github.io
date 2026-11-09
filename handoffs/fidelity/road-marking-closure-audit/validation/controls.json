@@ -45,6 +45,14 @@
       "passed": true
     },
     {
+      "name": "A selected stop/zebra envelope clips only longitudinal paint beyond its actual setback",
+      "passed": true
+    },
+    {
+      "name": "Pads remove the whole actual mouth without leaving an inset paint sliver",
+      "passed": true
+    },
+    {
       "name": "An infeasible short width-transition miter requires full-width bevel geometry",
       "passed": true
     },

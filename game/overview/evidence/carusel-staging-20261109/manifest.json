@@ -1,0 +1,194 @@
+{
+  "schema": 1,
+  "title": "C\u0103rture\u0219ti Carusel \u00b7 dated staging walkthrough",
+  "status": "Dated staging evidence,9November2026; not current live pictures or final visual acceptance.",
+  "sourceCommit": "19b2298de4a8cf84de383a578d22520affdfb399",
+  "sourceRef": "refs/fidelity/retained-oldtown-source/19b2298d",
+  "captureRunUTC": "2026-11-09T15:57:44.940Z",
+  "rawReportSHA256": "d951ef786165ff0a33c219e2246abab39d7b15b5b49f9be011dfeadc3f9c6bb4",
+  "observerSHA256": "6da296c42b649e68d1cc25328d629cde70769dc3ad7d386567ebc38ce8c708fe",
+  "rawEvidenceRef": {
+    "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
+    "branch": "fidelity/old-town-nightlife-20261109",
+    "artifactCommit": "7f5d1310b1969998aa47185d00fd2462be77b26c",
+    "path": "handoffs/fidelity/old-town-nightlife-20261109/evidence/carusel-after-19b2298d/"
+  },
+  "modelScope": "Mapped Carusel outer footprint/frontage retained; selected gallery/stair layout and internal dimensions are explicitly estimated from private source comparison, not a measured floor plan. Source19b is a dated integrated staging candidate.",
+  "selectionScope": "Three useful original game frames selected from the bounded run. Other frames, full traces, original failed resource assertion and all prior dated evidence remain in the raw artifact branch. No provider/reference images are included.",
+  "frames": [
+    {
+      "file": "carusel-public-entry-night.png",
+      "title": "At the bookshop doorway",
+      "caption": "Normal street approach at 23:00. The central door and glazed ground front reveal the modeled hall.",
+      "sha256": "88afd58fadc93f8a468bac6c7e27f4b4ce56cb621375aad1ba30782597d03e4d",
+      "bytes": 1169600,
+      "sourceCommit": "19b2298de4a8cf84de383a578d22520affdfb399",
+      "captureUTC": "2026-11-09T15:58:44.543Z",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "camera": {
+        "position": [
+          162.8933278145785,
+          1.3956652266758938,
+          -56.47882132340767
+        ],
+        "quaternion": [
+          0,
+          -0.05883649084441813,
+          0,
+          0.9982676331250627
+        ],
+        "fov": 72,
+        "aspect": 1.7777777777777777
+      },
+      "body": {
+        "x": 162.8933278145785,
+        "z": -56.47882132340767,
+        "y": -0.2543347755536144,
+        "heading": -0.11774097973537918
+      },
+      "gameConditions": {
+        "hour": 23,
+        "month": 10,
+        "day": 9,
+        "tempC": 22,
+        "kind": "clear",
+        "snowCm": 0,
+        "seasonOverride": "summer",
+        "dateLocal": "2026-11-09",
+        "monthMeaning": "zero-based JavaScript month;10=November"
+      },
+      "renderer": {
+        "quality": "high",
+        "post": "full",
+        "pixelRatio": 1,
+        "triangles": 674101,
+        "drawCalls": 89
+      },
+      "nativeSourceCounts": {
+        "streetActors": 281,
+        "clubGuests": 54
+      },
+      "scope": "Actual unchanged full-size PNG. Production controller followed the street/door/stair route; camera turned through native look/turn controls. Deterministic1/60updates between sampled renders. No body fixture or actor thinning for these approaches. No FPS/whole-world/final acceptance claim.",
+      "rawEvidenceGitBlob": "e5a283e09280c1832c445d969fa4f13f2ed12814"
+    },
+    {
+      "file": "carusel-first-gallery-day.png",
+      "title": "From the first gallery",
+      "caption": "Reached by the visible stair. The continuous hall, white rails, finished stair and timber floor are visible at 12:00.",
+      "sha256": "6fa69197d17522ffec0b67a8cea09ffa359f594c21a2cb36f570a0f7a3f13481",
+      "bytes": 1302634,
+      "sourceCommit": "19b2298de4a8cf84de383a578d22520affdfb399",
+      "captureUTC": "2026-11-09T15:59:22.849Z",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "camera": {
+        "position": [
+          166.7855360681708,
+          4.754277486897403,
+          -85.02112257487775
+        ],
+        "quaternion": [
+          0.005430667290616456,
+          0.9943844837734125,
+          -0.08372531126342782,
+          0.06449867081812406
+        ],
+        "fov": 72,
+        "aspect": 1.7777777777777777
+      },
+      "body": {
+        "x": 166.7855360681708,
+        "z": -85.02112257487775,
+        "y": 3.1042770521342757,
+        "heading": -3.2711370031746307
+      },
+      "gameConditions": {
+        "hour": 12,
+        "month": 10,
+        "day": 9,
+        "tempC": 22,
+        "kind": "clear",
+        "snowCm": 0,
+        "seasonOverride": "summer",
+        "dateLocal": "2026-11-09",
+        "monthMeaning": "zero-based JavaScript month;10=November"
+      },
+      "renderer": {
+        "quality": "high",
+        "post": "full",
+        "pixelRatio": 1,
+        "triangles": 1075856,
+        "drawCalls": 198
+      },
+      "nativeSourceCounts": {
+        "streetActors": 281,
+        "clubGuests": 54
+      },
+      "scope": "Actual unchanged full-size PNG. Production controller followed the street/door/stair route; camera turned through native look/turn controls. Deterministic1/60updates between sampled renders. No body fixture or actor thinning for these approaches. No FPS/whole-world/final acceptance claim.",
+      "rawEvidenceGitBlob": "9876963a89aa9595b165063ef2167858490a32ff"
+    },
+    {
+      "file": "phone-carusel-ground-interior.png",
+      "title": "Inside on a phone",
+      "caption": "390 \u00d7 844 ground-floor view at 23:00 after the normal street and doorway approach.",
+      "sha256": "0c5e112d08d70634a8a1784b9f552578186741c95951234ebeeffdbc59785e19",
+      "bytes": 442134,
+      "sourceCommit": "19b2298de4a8cf84de383a578d22520affdfb399",
+      "captureUTC": "2026-11-09T16:00:51.794Z",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "camera": {
+        "position": [
+          163.5842321291081,
+          1.6543956537859328,
+          -61.78548209587052
+        ],
+        "quaternion": [
+          0,
+          -0.06363270423443214,
+          0,
+          0.9979733858935386
+        ],
+        "fov": 72,
+        "aspect": 0.46208530805687204
+      },
+      "body": {
+        "x": 163.5842321291081,
+        "z": -61.78548209587052,
+        "y": 0.0042770521342754345,
+        "heading": -0.1273514508468065
+      },
+      "gameConditions": {
+        "hour": 23,
+        "month": 10,
+        "day": 9,
+        "tempC": 22,
+        "kind": "clear",
+        "snowCm": 0,
+        "seasonOverride": "summer",
+        "dateLocal": "2026-11-09",
+        "monthMeaning": "zero-based JavaScript month;10=November"
+      },
+      "renderer": {
+        "quality": "high",
+        "post": "full",
+        "pixelRatio": 1,
+        "triangles": 663307,
+        "drawCalls": 85
+      },
+      "nativeSourceCounts": {
+        "streetActors": 281,
+        "clubGuests": 54
+      },
+      "scope": "Actual unchanged full-size PNG. Production controller followed the street/door/stair route; camera turned through native look/turn controls. Deterministic1/60updates between sampled renders. No body fixture or actor thinning for these approaches. No FPS/whole-world/final acceptance claim.",
+      "rawEvidenceGitBlob": "4780d4fe2c7071a2c7ececf9661eb642889b5259"
+    }
+  ]
+}

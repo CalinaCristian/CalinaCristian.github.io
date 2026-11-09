@@ -9,7 +9,7 @@
   <link rel="icon" href="../../public/favicon.ico">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="comparison-viewer.css">
-  <script type="module" src="overview.js"></script>
+  <script type="module" src="overview.js?v=20261109-carusel"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to overview</a>
@@ -24,7 +24,7 @@
       <p class="intro">An interactive résumé, built from mapped streets and procedural geometry. This is the technical map of its data, simulation, rendering, controls, and AI-assisted development.</p>
       <div class="hero-actions"><a class="button mint" href="#pipeline">Follow the data <span aria-hidden="true">↓</span></a><a class="button outline" href="#coverage">Explore the evidence <span aria-hidden="true">→</span></a></div>
       <p class="hero-meta">Source review · 09 Nov 2026 <span aria-hidden="true">/</span> <a id="hero-sha" href="#sources">Loading source…</a></p>
-      <p class="notice" role="note"><strong>Fidelity work preview.</strong> An interim game update is available for testing. Combined fidelity, mobile and performance validation continues; each comparison capture retains its actual date and source revision. Known issues and historical captures remain visible. Rail/body clearance and Bellevue’s covered street still have open findings.</p>
+      <p class="notice" role="note"><strong>Fidelity rebuild in progress.</strong> The live game remains the earlier preview. The target is seven activity visits across Bucharest, Seattle and Bellevue, alongside improved offices, bridges and underpasses. The dated Carusel gallery below shows original staging captures with their actual source and conditions. Combined visual, mobile, clearance and performance checks remain open.</p>
     </div>
     <div class="hero-map" aria-hidden="true">
       <svg viewBox="0 0 560 530" role="presentation">
@@ -146,10 +146,12 @@
         <p class="source-line" data-sources="game/src/cities.js,game/src/landmarks.js,game/data/README.md,specs/12-buildings-streetscape.md"></p>
       </section>
       <section id="tourist" class="chapter" data-search>
-        <div class="section-heading"><span class="section-number">08</span><div><p class="eyebrow">Scenes beyond the drive</p><h2>Twenty-four destinations.<br>Nineteen physical scenes.</h2></div></div>
+        <div class="section-heading"><span class="section-number">08</span><div><p class="eyebrow">Scenes beyond the drive</p><h2>Seven selected visits.<br>A rebuild in progress.</h2></div></div>
         <p>Ten Bucharest, ten Seattle and four Bellevue entries exist in <code>SPOTS_ALL</code>. They are separately loaded walk-only scenes, not extensions of a continuous city. District and tourist versions of a place can have different models and levels of detail.</p>
         <div class="callout amber"><span class="tag target">Review status</span><p><b>The menu offers <span data-inventory-count="menuAvailable">21</span> destinations with accepted selected activity approaches.</b> Troll, cathedral and Old Town lead the recommendations; quieter parks and gardens have a separate group. Ballard Locks, Herăstrău and Village Museum remain developer-loadable while their activity approaches need verification. The historical 12-entry READY list is retained separately; neither menu access nor an older review flag certifies every real-world detail.</p></div>
         <details open><summary>Destination inventory, scene sharing and source gate</summary><div class="detail-body"><p>Current access follows the shared menu-availability list. Historical READY records an earlier visual review independently. “Developer only” entries remain directly loadable for inspection. Dedicated evidence records show actual checks and remaining gaps.</p><div id="spot-table" class="table-wrap"></div></div></details>
+        <div id="carusel-staging-evidence"></div>
+        <p>The selected rebuild portfolio is Old Town, Cișmigiu and Arcul de Triumf; Pike Place and combined Seattle Center; Meydenbauer and Bellevue Downtown Park. The existing 24-entry source and evidence catalogue below remains historical. Availability, a successful load and old review flags do not certify the new activities or their visual quality.</p>
         <div id="spot-evidence" class="comparisons-block" tabindex="-1"><p class="eyebrow">Individual destination evidence</p><h3>Inspect a visit.</h3><p>Every destination has a shareable scene and activity record. Source references, game captures, physical access checks and remaining estimates are separate from historical menu visibility.</p><div id="spot-evidence-viewer"></div></div>
         <details><summary>Tours, maps, activities and what is actually complete</summary><div class="detail-body"><p>A SpotSession hosts the walker, scene weather/clock, crowds, plaques, spot map, objectives, interaction prompts, postcard challenge and tour UI. Short tours choose an available activity first and use at most three stops and 180 m of walkable routing. If no safe short route exists, the tour does not start. Skip and End tour return to exploration without awarding skipped progress.</p><p>Activities include rowing, cycling, garden/bridge walks, viewpoint access and location-specific interactions; eligibility can change by scene and conditions. A postcard requires a qualifying camera frame. Completing dialogue or hearing a guide does not substitute for performing the activity.</p><p>Recent geometry and activity fixes are reviewed independently. The catalogue, historical flags and performance targets should not be read as a blanket “100% fidelity” result for all 24 entries.</p></div></details>
         <p class="source-line" data-sources="game/src/spots/index.js,game/src/spots/tour.js,game/src/spots/bike.js,specs/15-tourist-spots.md"></p>

@@ -1,4 +1,5 @@
 'use strict';
+import {mountCaruselStagingEvidence} from './evidence/carusel-staging-20261109/component.js';
 const $ = s => document.querySelector(s);
 const normal = value => String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 const repo = 'https://github.com/CalinaCristian/CalinaCristian.github.io';
@@ -95,3 +96,5 @@ document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#landma
 const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){document.querySelectorAll('#toc a').forEach(a=>a.classList.toggle('active',a.hash===`#${entry.target.id}`));}},{rootMargin:'-8% 0px -65% 0px'});
 sections.forEach(s=>observer.observe(s));
 initInventory().then(revealHash);
+
+mountCaruselStagingEvidence(document.getElementById('carusel-staging-evidence')).catch(error=>{const host=document.getElementById('carusel-staging-evidence');if(host)host.textContent='Dated Carusel evidence could not load in this copy.';console.error('Carusel dated evidence:',error);});

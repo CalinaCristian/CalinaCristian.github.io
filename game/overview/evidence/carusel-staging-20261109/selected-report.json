@@ -1,0 +1,123 @@
+{
+  "schema": 1,
+  "scope": "Selected observations from the unchanged raw19b report; not a rerun or complete report. Full data stays at manifest.rawEvidenceRef.",
+  "sourceCommit": "19b2298de4a8cf84de383a578d22520affdfb399",
+  "rawReportSHA256": "d951ef786165ff0a33c219e2246abab39d7b15b5b49f9be011dfeadc3f9c6bb4",
+  "runChecks": {
+    "total": 28,
+    "passed": 27,
+    "failed": 1
+  },
+  "selectedChecks": [
+    {
+      "name": "actual native street walk to Carusel source front",
+      "ok": true
+    },
+    {
+      "name": "actual native central doorway into ground floor",
+      "ok": true
+    },
+    {
+      "name": "actual native central hall approach",
+      "ok": true
+    },
+    {
+      "name": "complete timber floor clears final analytic and emitted terrain",
+      "ok": true,
+      "detail": {
+        "scope": "Read-only final analytic and actual emitted terrain queries; no fixture or terrain edits",
+        "floorY": 0.0042770521342754345,
+        "minAnalyticClearance": 0.04334018597006784,
+        "minRenderedClearance": 0.05327163724467564,
+        "body": {
+          "x": 163.94423639886833,
+          "z": -73.51497078013425,
+          "y": 0.0042770521342754345,
+          "heading": -0.2888285853456068
+        }
+      }
+    },
+    {
+      "name": "actual native closed stair climb to the first gallery",
+      "ok": true
+    },
+    {
+      "name": "actual native rear gallery platform walk",
+      "ok": true
+    },
+    {
+      "name": "native map target above same ground coordinates rejects ground shortcut and cross-floor arrival",
+      "ok": true,
+      "detail": {
+        "body": {
+          "x": 161.89757983046877,
+          "z": -85.24429164382707,
+          "y": 3.1042770521342757,
+          "heading": -3.000536250089729
+        },
+        "waypoint": {
+          "x": 161.8944307202277,
+          "z": -85.23492391288103,
+          "floorY": 0.0042770521342754345,
+          "label": "Walk the visible stairs to the top gallery",
+          "radius": 1.8000000000000003
+        },
+        "route": null,
+        "status": "Waypoint: Walk the visible stairs to the top gallery. No walking route on this level. Use the stairs or choose another approach.",
+        "HUD": "\ud83d\udccd \u2197 Walk the visible stairs to the top gallery \u00b7 0 m \u00b7 No walking route on this levelClear"
+      }
+    },
+    {
+      "name": "actual native first-gallery stair descent",
+      "ok": true
+    },
+    {
+      "name": "actual native ground floor and source doorway exit",
+      "ok": true
+    },
+    {
+      "name": "phone native source-street approach",
+      "ok": true
+    },
+    {
+      "name": "phone native physical doorway entry",
+      "ok": true
+    },
+    {
+      "name": "zero browser/runtime/resource errors",
+      "ok": false,
+      "detail": {
+        "errors": [
+          "Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ],
+        "http": [
+          "/favicon.ico",
+          "/favicon.ico",
+          "/favicon.ico"
+        ]
+      }
+    }
+  ],
+  "retainedFailure": {
+    "rawFailure": "Error: zero browser/runtime/resource errors\n    at check (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-carusel-after.cjs:5:133)\n    at /workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-carusel-after.cjs:64:2",
+    "resourceURLs": [
+      "/favicon.ico",
+      "/favicon.ico",
+      "/favicon.ico"
+    ],
+    "consoleMessages": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "classification": "Observer source archive omitted tracked public/favicon.ico, causing exactly3favicon404s and the final zero-resource assertion failure. No JavaScript exception/game-asset failure. Failure frame was captured after scene disposal and is not selected as an access witness."
+  },
+  "remainingGates": [
+    "Final visual/source comparison acceptance",
+    "Normal phone arrival hint overlaps title card outside activities (retained in an unselected entry frame)",
+    "Whole-current-source WCP/top-gallery/club/Main-lifecycle/FIFA proof not repeated in this bounded capture",
+    "Cross-floor map safely refuses a route; no connected stair navigation graph claimed"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "pid": 394390,
+  "sourceCommit": "6cbf82b61de8267f662bf50239c37ccc1764635c",
+  "sourceGitTree": "69419e78c1dc1200853278672418342ed6a13d41",
+  "startedUtc": "2026-11-09T05:15:47.576264+00:00",
+  "argv": [
+    "node",
+    "/workspace/integration-qa-evidence/groz-support-6cb-native/runner.cjs",
+    "/workspace/integration-qa-evidence/groz-support-6cb-source",
+    "/workspace/integration-qa-evidence/groz-support-6cb-native"
+  ],
+  "scope": "One bounded Groz native structural/support export only; no movement steps/all8/contact/budget acceptance.",
+  "toolHashes": {
+    "runner.cjs": "fa3401599ee7a0ed41d5eeebc82916b5996702419f2375f7233b6cc0a5edcbcd",
+    "native-support-dump.cjs": "beba71c71b81d8e071be49a7128bcd76edeac6da30214ede99ed4d70d7cea645",
+    "integration-browser-bounds.cjs": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29",
+    "raw-bridge-polygon.json": "60a3d2506a627e2e905b13219d43ec70e8a0fdc44dc390c0805198acd58c84fd",
+    "source-manifest.json": "ecd984b2364c2b5e123295bfaf567141838d133da857e80a882275bbe4215be4"
+  }
+}

@@ -3,7 +3,7 @@
   "locations": [
     {
       "id": "romana",
-      "label": "Romană & Victoriei",
+      "label": "Roman\u0103 & Victoriei",
       "manifest": "romana/manifest.json"
     },
     {
@@ -13,7 +13,7 @@
     },
     {
       "id": "grozavesti",
-      "label": "Grozăvești & Politehnica",
+      "label": "Groz\u0103ve\u0219ti & Politehnica",
       "manifest": "grozavesti/manifest.json"
     },
     {
@@ -25,6 +25,21 @@
       "id": "otopeni",
       "label": "Otopeni Airport",
       "manifest": "otopeni/manifest.json"
+    },
+    {
+      "id": "pipera",
+      "label": "Pipera & Dimitrie Pompeiu",
+      "manifest": "pipera/manifest.json"
+    },
+    {
+      "id": "seatac",
+      "label": "SeaTac Airport",
+      "manifest": "seatac/manifest.json"
+    },
+    {
+      "id": "bellevue",
+      "label": "Bellevue",
+      "manifest": "bellevue/manifest.json"
     }
   ]
 }

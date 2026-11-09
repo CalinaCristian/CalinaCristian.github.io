@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+import fs from 'node:fs';
+import path from 'node:path';
+import zlib from 'node:zlib';
+import crypto from 'node:crypto';
+import {createRequire} from 'node:module';
+import {fileURLToPath} from 'node:url';
+import {prepareRecordedContext} from './recorded-context.mjs';
+const require=createRequire(import.meta.url),args={};for(let i=2;i<process.argv.length;i++)if(process.argv[i].startsWith('--'))args[process.argv[i].slice(2)]=process.argv[++i];
+if(!args.world||!args.scene||!args.facts||!args.decoder||!args.archive||!args.out)throw Error('--world FILE --scene FILE --facts FILE --decoder QA_DECODE.cjs --archive EXACT_SOURCE --out NEW_FILE required; no browser is opened');
+if(fs.existsSync(args.out))throw Error('Refuse to overwrite an existing raw audit');
+const hash=b=>crypto.createHash('sha256').update(b).digest('hex'),inputs=[];
+const load=input=>{const file=input instanceof URL?fileURLToPath(input):input,bytes=fs.readFileSync(file),raw=file.endsWith('.gz')?zlib.gunzipSync(bytes):bytes;inputs.push({path:path.resolve(file),bytes:bytes.length,sha256:hash(bytes),rawBytes:raw.length,rawSha256:hash(raw)});return JSON.parse(raw);};
+const world=load(args.world),scene=load(args.scene),facts=load(args.facts),catalogue=load(args.models||new URL('./reviewed-models.json',import.meta.url));
+const modelPins=catalogue.sources.map(s=>{const rel=s.path.slice(s.path.indexOf('game/src/')),file=path.join(args.archive,rel),actual=hash(fs.readFileSync(file));return{path:rel,expected:s.sha256,actual,passed:actual===s.sha256};});
+const decoder=require(path.resolve(args.decoder)),context=prepareRecordedContext({world,scene,facts,reviewedModels:catalogue.models,decoder,modelPinsVerified:modelPins.every(s=>s.passed)});
+const phases=facts.snapshots.filter(s=>!['after-original-spawnAll-before-binding','before-original-source-binding','after-original-source-binding-before-initial-admission'].includes(s.phase)).map(s=>context.auditPhase(s));
+const report={passed:phases.length>0&&phases.every(p=>p.passed),complete:true,browserOpened:false,sourceArchive:path.resolve(args.archive),reviewedCatalogueSource:catalogue.sourceCommit,modelPins,inputs,decoder:{path:path.resolve(args.decoder),sha256:hash(fs.readFileSync(args.decoder))},bufferIntegrity:decoder.integrity(scene),context:context.summary,phases,scope:'Independent complete native typed-geometry/source support/body/static audit at the recorded publication poses only. Producer certificates are diagnostics, not accepted as proof. No evolving red-stop/dwell/resume or all8/native route acceptance is inferred.'};
+fs.mkdirSync(path.dirname(path.resolve(args.out)),{recursive:true});fs.writeFileSync(args.out,JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify({passed:report.passed,worldMeshes:context.summary.worldMeshCount,worldTriangles:context.summary.worldTriangles,pieces:context.summary.independentSupportPieces,contextGaps:context.summary.gaps,phases:phases.map(p=>({phase:p.phase,passed:p.passed,issues:p.issues,coverageGaps:p.coverageGaps,actors:p.checks.map(v=>({id:v.id,bodyPassed:v.body?.passed,bodyIssues:v.body?.issues,bodyGaps:v.body?.coverageGaps,witnesses:v.body?.witnesses?.slice(0,3)}))}))},null,2));

@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "controls": 6,
+  "results": [
+    {
+      "name": "lossless QA typed buffers reconstruct actual support and current emitted body through independent source checks",
+      "detail": {
+        "summary": {
+          "complete": true,
+          "worldMeshCount": 1,
+          "decodedMeshCount": 1,
+          "worldTriangles": 12,
+          "largeTrianglesAlwaysQueried": 0,
+          "rawSupportPieces": 1,
+          "independentSupportPieces": 1,
+          "gaps": [],
+          "declarationGaps": [],
+          "exclusions": []
+        },
+        "body": {
+          "passed": true,
+          "issues": [],
+          "coverageGaps": [],
+          "witnesses": [],
+          "contactCounters": {
+            "continuousViolatingEdgeConstraints": 0,
+            "renderedViolatingClipVertices": 0,
+            "worldTriangleContactPairs": 0
+          },
+          "rigidPose": {
+            "expectedY": 0.24,
+            "expectedPitch": 0,
+            "baselineY": 0.24,
+            "bogieChordY": 0.24,
+            "independentLiftM": 0,
+            "actualSupportMinY": 0,
+            "actualWheelFrontZ": -2,
+            "actualWheelRearZ": 2,
+            "yErrorM": 0,
+            "orientationMatrixError": 0
+          },
+          "bodyTriangles": 12,
+          "testedSupportEdges": 36,
+          "minimumClearanceM": 0.03999999999999998,
+          "bounds": {
+            "min": [
+              -1,
+              0.24,
+              -2
+            ],
+            "max": [
+              1,
+              2.24,
+              2
+            ]
+          },
+          "producerCertificateAccepted": false,
+          "nativeStaticQuery": {
+            "meshes": 0,
+            "triangles": 0,
+            "completeWorldMeshCount": 1,
+            "completeWorldTriangleCount": 12
+          }
+        }
+      }
+    },
+    {
+      "name": "decoder/source adapter rejects changed native pose despite unchanged producer certificates"
+    },
+    {
+      "name": "an omitted native solid buffer and an unverified reviewed-model pin remain explicit gaps"
+    },
+    {
+      "name": "actual crossing registration metadata is required and never inferred from rail nodes"
+    },
+    {
+      "name": "bounded index retains huge and cross-cell triangles instead of dropping their contacts"
+    },
+    {
+      "name": "unrecorded native direction arrays remain a coverage gap even when current raw-source legality and body are clear"
+    }
+  ],
+  "browserOpened": false,
+  "productionHelpersImported": false,
+  "scope": "Real native typed geometry encoding/decoding and independent source/body composition on controlled CPU scene only; full QA native source exports remain separate."
+}

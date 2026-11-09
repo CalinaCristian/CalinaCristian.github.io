@@ -1,0 +1,1664 @@
+{
+  "touch": true,
+  "sourceCommit": "60db2819ecc6d175c71031e1f4cef57bc78a636e",
+  "spots": [
+    {
+      "id": "pioneer-square",
+      "key": "pioneerTotem",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 108,
+          "width": 358,
+          "height": 249.953125,
+          "top": 108,
+          "right": 374,
+          "bottom": 357.953125,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 300.953125,
+            "width": 143.28125,
+            "height": 44,
+            "top": 300.953125,
+            "right": 174.28125,
+            "bottom": 344.953125,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 300.953125,
+            "width": 68.890625,
+            "height": 44,
+            "top": 300.953125,
+            "right": 251.171875,
+            "bottom": 344.953125,
+            "left": 182.28125
+          }
+        ]
+      },
+      "setup": "Initial pose beside the source activity; native looking/capture proof, not a claim of arrival-route access.",
+      "nativeLooks": [
+        5,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "views": [
+        {
+          "file": "pioneer-square-pioneerTotem-1.webp",
+          "visibility": {
+            "label": "Raven with the moon in his beak",
+            "clear": true,
+            "targetDistance": 12.508864151980466,
+            "surfaceTolerance": 0.8250000000000001,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 29.199999999254942,
+            "meshCount": 80
+          },
+          "triangles": 356475,
+          "calls": 27,
+          "cameraPose": {
+            "position": [
+              9.4,
+              2.131903427839279,
+              -34.599999999999994
+            ],
+            "bearing": 69.9921033348819,
+            "pitch": 74.1422337516752
+          }
+        },
+        {
+          "file": "pioneer-square-pioneerTotem-2.webp",
+          "visibility": {
+            "label": "A woman holding her frog child",
+            "clear": true,
+            "targetDistance": 10.221260930454175,
+            "surfaceTolerance": 0.8250000000000001,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 289.8999999985099,
+            "meshCount": 80
+          },
+          "triangles": 356190,
+          "calls": 30,
+          "cameraPose": {
+            "position": [
+              9.4,
+              2.131903427839279,
+              -34.599999999999994
+            ],
+            "bearing": 47.99052400185826,
+            "pitch": 70.46357613296884
+          }
+        },
+        {
+          "file": "pioneer-square-pioneerTotem-3.webp",
+          "visibility": {
+            "label": "Her frog husband",
+            "clear": true,
+            "targetDistance": 8.408846548424883,
+            "surfaceTolerance": 0.8250000000000001,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 135.30000000074506,
+            "meshCount": 80
+          },
+          "triangles": 356190,
+          "calls": 30,
+          "cameraPose": {
+            "position": [
+              9.4,
+              2.131903427839279,
+              -34.599999999999994
+            ],
+            "bearing": 47.99052400185826,
+            "pitch": 70.46357613296884
+          }
+        },
+        {
+          "file": "pioneer-square-pioneerTotem-4.webp",
+          "visibility": {
+            "label": "Mink",
+            "clear": true,
+            "targetDistance": 7.0210025472765665,
+            "surfaceTolerance": 0.8250000000000001,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 177.80000000074506,
+            "meshCount": 80
+          },
+          "triangles": 356190,
+          "calls": 30,
+          "cameraPose": {
+            "position": [
+              9.4,
+              2.131903427839279,
+              -34.599999999999994
+            ],
+            "bearing": 46.344649020551685,
+            "pitch": 60.867414882384146
+          }
+        },
+        {
+          "file": "pioneer-square-pioneerTotem-5.webp",
+          "visibility": {
+            "label": "Raven",
+            "clear": true,
+            "targetDistance": 5.677100656087459,
+            "surfaceTolerance": 0.8250000000000001,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 150.39999999850988,
+            "meshCount": 80
+          },
+          "triangles": 356190,
+          "calls": 30,
+          "cameraPose": {
+            "position": [
+              9.4,
+              2.131903427839279,
+              -34.599999999999994
+            ],
+            "bearing": 46.344649020551685,
+            "pitch": 52.981223790203465
+          }
+        },
+        {
+          "file": "pioneer-square-pioneerTotem-6.webp",
+          "visibility": {
+            "label": "Whale holding a seal",
+            "clear": true,
+            "targetDistance": 4.254199774629116,
+            "surfaceTolerance": 0.8250000000000001,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 191.39999999850988,
+            "meshCount": 80
+          },
+          "triangles": 358103,
+          "calls": 31,
+          "cameraPose": {
+            "position": [
+              9.4,
+              2.131903427839279,
+              -34.599999999999994
+            ],
+            "bearing": 46.344649020551685,
+            "pitch": 36.538870417790484
+          }
+        },
+        {
+          "file": "pioneer-square-pioneerTotem-7.webp",
+          "visibility": {
+            "label": "Raven-at-the-Head-of-Nass",
+            "clear": true,
+            "targetDistance": 3.418207944425945,
+            "surfaceTolerance": 0.8250000000000001,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 83.89999999850988,
+            "meshCount": 80
+          },
+          "triangles": 358337,
+          "calls": 38,
+          "cameraPose": {
+            "position": [
+              9.4,
+              2.131903427839279,
+              -34.599999999999994
+            ],
+            "bearing": 46.344649020551685,
+            "pitch": 1.3363434849527005
+          }
+        }
+      ],
+      "targets": [
+        {
+          "label": "Raven with the moon in his beak",
+          "x": 11.872977587397441,
+          "y": 14.164717462062836,
+          "z": -36.95954458375436,
+          "radius": 0.55,
+          "maxDistance": 40
+        },
+        {
+          "label": "A woman holding her frog child",
+          "x": 11.872977587397441,
+          "y": 11.764717462062835,
+          "z": -36.95954458375436,
+          "radius": 0.55,
+          "maxDistance": 40
+        },
+        {
+          "label": "Her frog husband",
+          "x": 11.872977587397441,
+          "y": 9.814717462062836,
+          "z": -36.95954458375436,
+          "radius": 0.55,
+          "maxDistance": 40
+        },
+        {
+          "label": "Mink",
+          "x": 11.872977587397441,
+          "y": 8.264717462062835,
+          "z": -36.95954458375436,
+          "radius": 0.55,
+          "maxDistance": 40
+        },
+        {
+          "label": "Raven",
+          "x": 11.872977587397441,
+          "y": 6.6647174620628356,
+          "z": -36.95954458375436,
+          "radius": 0.55,
+          "maxDistance": 40
+        },
+        {
+          "label": "Whale holding a seal",
+          "x": 11.872977587397441,
+          "y": 4.6647174620628356,
+          "z": -36.95954458375436,
+          "radius": 0.55,
+          "maxDistance": 40
+        },
+        {
+          "label": "Raven-at-the-Head-of-Nass",
+          "x": 11.872977587397441,
+          "y": 2.164717462062836,
+          "z": -36.95954458375436,
+          "radius": 0.55,
+          "maxDistance": 40
+        }
+      ],
+      "perf": {
+        "visibility": {
+          "label": "Raven-at-the-Head-of-Nass",
+          "clear": true,
+          "targetDistance": 3.418207944425945,
+          "surfaceTolerance": 0.8250000000000001,
+          "hitDistance": null,
+          "hitPoint": null,
+          "sourceSurface": null,
+          "blocker": null,
+          "raycastMs": 83.89999999850988,
+          "meshCount": 80
+        },
+        "triangles": 358337,
+        "calls": 38,
+        "cameraPose": {
+          "position": [
+            9.4,
+            2.131903427839279,
+            -34.599999999999994
+          ],
+          "bearing": 46.344649020551685,
+          "pitch": 1.3363434849527005
+        }
+      },
+      "captures": [
+        {
+          "label": "Raven with the moon in his beak",
+          "position": {
+            "x": 9.4,
+            "z": -34.599999999999994,
+            "y": 0.481903427839279,
+            "heading": 5.061592653589794
+          }
+        },
+        {
+          "label": "A woman holding her frog child",
+          "position": {
+            "x": 9.4,
+            "z": -34.599999999999994,
+            "y": 0.481903427839279,
+            "heading": 5.445592653589794
+          }
+        },
+        {
+          "label": "Her frog husband",
+          "position": {
+            "x": 9.4,
+            "z": -34.599999999999994,
+            "y": 0.481903427839279,
+            "heading": 5.445592653589794
+          }
+        },
+        {
+          "label": "Mink",
+          "position": {
+            "x": 9.4,
+            "z": -34.599999999999994,
+            "y": 0.481903427839279,
+            "heading": 5.474318591089794
+          }
+        },
+        {
+          "label": "Raven",
+          "position": {
+            "x": 9.4,
+            "z": -34.599999999999994,
+            "y": 0.481903427839279,
+            "heading": 5.474318591089794
+          }
+        },
+        {
+          "label": "Whale holding a seal",
+          "position": {
+            "x": 9.4,
+            "z": -34.599999999999994,
+            "y": 0.481903427839279,
+            "heading": 5.474318591089794
+          }
+        },
+        {
+          "label": "Raven-at-the-Head-of-Nass",
+          "position": {
+            "x": 9.4,
+            "z": -34.599999999999994,
+            "y": 0.481903427839279,
+            "heading": 5.474318591089794
+          }
+        }
+      ]
+    },
+    {
+      "id": "pioneer-square",
+      "key": "pioneerPublicHistory",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 108,
+          "width": 358,
+          "height": 273.75,
+          "top": 108,
+          "right": 374,
+          "bottom": 381.75,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 324.75,
+            "width": 143.28125,
+            "height": 44,
+            "top": 324.75,
+            "right": 174.28125,
+            "bottom": 368.75,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 324.75,
+            "width": 68.890625,
+            "height": 44,
+            "top": 324.75,
+            "right": 251.171875,
+            "bottom": 368.75,
+            "left": 182.28125
+          }
+        ]
+      },
+      "setup": "Initial pose beside the source activity; native looking/capture proof, not a claim of arrival-route access.",
+      "nativeLooks": [
+        1,
+        5,
+        2
+      ],
+      "views": [
+        {
+          "file": "pioneer-square-pioneerPublicHistory-1.webp",
+          "visibility": {
+            "label": "The cast-iron pergola",
+            "clear": true,
+            "targetDistance": 9.601352942252838,
+            "surfaceTolerance": 2.0999999999999996,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 182.29999999701977,
+            "meshCount": 80
+          },
+          "triangles": 301506,
+          "calls": 39,
+          "cameraPose": {
+            "position": [
+              19.1,
+              2.1726408338546754,
+              -30.4
+            ],
+            "bearing": 173.35194160758397,
+            "pitch": 17.252748458832247
+          }
+        },
+        {
+          "file": "pioneer-square-pioneerPublicHistory-2.webp",
+          "visibility": {
+            "label": "The Chief Seattle bust",
+            "clear": true,
+            "targetDistance": 7.195323115986492,
+            "surfaceTolerance": 0.8,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 110.39999999850988,
+            "meshCount": 80
+          },
+          "triangles": 290330,
+          "calls": 33,
+          "cameraPose": {
+            "position": [
+              19.1,
+              2.1726408338546754,
+              -30.4
+            ],
+            "bearing": 65.2248583581146,
+            "pitch": 5.766618777516886
+          }
+        },
+        {
+          "file": "pioneer-square-pioneerPublicHistory-3.webp",
+          "visibility": {
+            "label": "The white terracotta Smith Tower",
+            "clear": true,
+            "targetDistance": 172.11471631096074,
+            "surfaceTolerance": 2,
+            "hitDistance": 150.58993726369073,
+            "hitPoint": [
+              164.96495028195397,
+              39.46969144078175,
+              -33.510546631980155
+            ],
+            "sourceSurface": "w52781661",
+            "blocker": null,
+            "raycastMs": 67.89999999850988,
+            "meshCount": 80
+          },
+          "triangles": 285498,
+          "calls": 39,
+          "cameraPose": {
+            "position": [
+              19.1,
+              2.1726408338546754,
+              -30.4
+            ],
+            "bearing": 88.77835878462531,
+            "pitch": 14.339848933318237
+          }
+        }
+      ],
+      "targets": [
+        {
+          "label": "The cast-iron pergola",
+          "x": 20.161538461538463,
+          "y": 5.020281127990174,
+          "z": -21.292307692307688,
+          "radius": 1.4
+        },
+        {
+          "label": "The Chief Seattle bust",
+          "x": 25.6,
+          "y": 2.8956033110618593,
+          "z": -33.4,
+          "radius": 0.5
+        },
+        {
+          "label": "The white terracotta Smith Tower",
+          "x": 185.81435683999172,
+          "y": 44.80079648017883,
+          "z": -33.95515687743344,
+          "radius": 5,
+          "maxDistance": 300,
+          "surfaceTolerance": 2,
+          "surface": {
+            "source": "w52781661",
+            "poly": [
+              [
+                159.9,
+                -41.8
+              ],
+              [
+                171.8,
+                -49.1
+              ],
+              [
+                172.9,
+                -47.3
+              ],
+              [
+                177.9,
+                -50.4
+              ],
+              [
+                176.9,
+                -52.1
+              ],
+              [
+                190.8,
+                -60.6
+              ],
+              [
+                200.7,
+                -44.4
+              ],
+              [
+                198.8,
+                -43.3
+              ],
+              [
+                201.8,
+                -38.3
+              ],
+              [
+                203.6,
+                -39.4
+              ],
+              [
+                211.1,
+                -27.1
+              ],
+              [
+                197.7,
+                -17.5
+              ],
+              [
+                174.6,
+                -17.4
+              ]
+            ],
+            "holes": [],
+            "bottom": 4.800796480178831,
+            "top": 79.80079648017883
+          }
+        }
+      ],
+      "perf": {
+        "visibility": {
+          "label": "The white terracotta Smith Tower",
+          "clear": true,
+          "targetDistance": 172.11471631096074,
+          "surfaceTolerance": 2,
+          "hitDistance": 150.58993726369073,
+          "hitPoint": [
+            164.96495028195397,
+            39.46969144078175,
+            -33.510546631980155
+          ],
+          "sourceSurface": "w52781661",
+          "blocker": null,
+          "raycastMs": 67.89999999850988,
+          "meshCount": 80
+        },
+        "triangles": 285498,
+        "calls": 39,
+        "cameraPose": {
+          "position": [
+            19.1,
+            2.1726408338546754,
+            -30.4
+          ],
+          "bearing": 88.77835878462531,
+          "pitch": 14.339848933318237
+        }
+      },
+      "captures": [
+        {
+          "label": "The cast-iron pergola",
+          "position": {
+            "x": 19.1,
+            "z": -30.4,
+            "y": 0.5226408338546754,
+            "heading": 3.257623161402293
+          }
+        },
+        {
+          "label": "The Chief Seattle bust",
+          "position": {
+            "x": 19.1,
+            "z": -30.4,
+            "y": 0.5226408338546754,
+            "heading": 5.1447967746835435
+          }
+        },
+        {
+          "label": "The white terracotta Smith Tower",
+          "position": {
+            "x": 19.1,
+            "z": -30.4,
+            "y": 0.5226408338546754,
+            "heading": 4.733710641871044
+          }
+        }
+      ]
+    },
+    {
+      "id": "old-town-lipscani",
+      "key": "curteaVecheVisit",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 108,
+          "width": 358,
+          "height": 230.359375,
+          "top": 108,
+          "right": 374,
+          "bottom": 338.359375,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 281.359375,
+            "width": 143.28125,
+            "height": 44,
+            "top": 281.359375,
+            "right": 174.28125,
+            "bottom": 325.359375,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 281.359375,
+            "width": 68.890625,
+            "height": 44,
+            "top": 281.359375,
+            "right": 251.171875,
+            "bottom": 325.359375,
+            "left": 182.28125
+          }
+        ]
+      },
+      "setup": "Initial pose beside the source activity; native looking/capture proof, not a claim of arrival-route access.",
+      "nativeLooks": [
+        9,
+        9,
+        3
+      ],
+      "views": [
+        {
+          "file": "old-town-lipscani-curteaVecheVisit-1.webp",
+          "visibility": {
+            "label": "Vlad III bust",
+            "clear": true,
+            "targetDistance": 5.7552453770735195,
+            "surfaceTolerance": 0.8,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 329.5999999977648,
+            "meshCount": 180
+          },
+          "triangles": 763610,
+          "calls": 108,
+          "cameraPose": {
+            "position": [
+              139.8,
+              -2.1459027646163427,
+              156.1
+            ],
+            "bearing": 308.70923909818816,
+            "pitch": 10.609732542636698
+          }
+        },
+        {
+          "file": "old-town-lipscani-curteaVecheVisit-2.webp",
+          "visibility": {
+            "label": "Old Court church tower",
+            "clear": true,
+            "targetDistance": 72.78442653860924,
+            "surfaceTolerance": 4,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 656.3000000007451,
+            "meshCount": 180
+          },
+          "triangles": 708635,
+          "calls": 69,
+          "cameraPose": {
+            "position": [
+              139.8,
+              -2.1459027646163427,
+              156.1
+            ],
+            "bearing": 71.7046006315245,
+            "pitch": 13.190392642931991
+          }
+        },
+        {
+          "file": "old-town-lipscani-curteaVecheVisit-3.webp",
+          "visibility": {
+            "label": "Old Court brick remains",
+            "clear": true,
+            "targetDistance": 7.947986831306204,
+            "surfaceTolerance": 1.7999999999999998,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 250.39999999850988,
+            "meshCount": 180
+          },
+          "triangles": 721132,
+          "calls": 74,
+          "cameraPose": {
+            "position": [
+              139.8,
+              -2.1459027646163427,
+              156.1
+            ],
+            "bearing": 11.793429928049818,
+            "pitch": -3.2159852466726604
+          }
+        }
+      ],
+      "targets": [
+        {
+          "label": "Vlad III bust",
+          "x": 135.8,
+          "y": -1.0862569038090104,
+          "z": 152.1,
+          "radius": 0.4
+        },
+        {
+          "label": "Old Court church tower",
+          "x": 207.0820324687103,
+          "z": 133.85459078541626,
+          "y": 14.462607773939856,
+          "radius": 1.6,
+          "surfaceTolerance": 4
+        },
+        {
+          "label": "Old Court brick remains",
+          "x": 141.42188150891,
+          "y": -2.591785072597183,
+          "z": 148.33204119416803,
+          "radius": 1.2
+        }
+      ],
+      "perf": {
+        "visibility": {
+          "label": "Old Court brick remains",
+          "clear": true,
+          "targetDistance": 7.947986831306204,
+          "surfaceTolerance": 1.7999999999999998,
+          "hitDistance": null,
+          "hitPoint": null,
+          "sourceSurface": null,
+          "blocker": null,
+          "raycastMs": 250.39999999850988,
+          "meshCount": 180
+        },
+        "triangles": 721132,
+        "calls": 74,
+        "cameraPose": {
+          "position": [
+            139.8,
+            -2.1459027646163427,
+            156.1
+          ],
+          "bearing": 11.793429928049818,
+          "pitch": -3.2159852466726604
+        }
+      },
+      "captures": [
+        {
+          "label": "Vlad III bust",
+          "position": {
+            "x": 139.8,
+            "z": 156.1,
+            "y": -3.7959027646163426,
+            "heading": 0.8951926535897927
+          }
+        },
+        {
+          "label": "Old Court church tower",
+          "position": {
+            "x": 139.8,
+            "z": 156.1,
+            "y": -3.7959027646163426,
+            "heading": -1.2514813698477074
+          }
+        },
+        {
+          "label": "Old Court brick remains",
+          "position": {
+            "x": 139.8,
+            "z": 156.1,
+            "y": -3.7959027646163426,
+            "heading": -0.20583418234770756
+          }
+        }
+      ]
+    },
+    {
+      "id": "athenaeum-revolution",
+      "key": "photoHunt",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 108,
+          "width": 358,
+          "height": 230.359375,
+          "top": 108,
+          "right": 374,
+          "bottom": 338.359375,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 281.359375,
+            "width": 143.28125,
+            "height": 44,
+            "top": 281.359375,
+            "right": 174.28125,
+            "bottom": 325.359375,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 281.359375,
+            "width": 68.890625,
+            "height": 44,
+            "top": 281.359375,
+            "right": 251.171875,
+            "bottom": 325.359375,
+            "left": 182.28125
+          }
+        ]
+      },
+      "setup": "Initial pose beside the source activity; native looking/capture proof, not a claim of arrival-route access.",
+      "nativeLooks": [
+        6,
+        1,
+        1
+      ],
+      "views": [
+        {
+          "file": "athenaeum-revolution-photoHunt-1.webp",
+          "visibility": {
+            "label": "An Ionic portico column",
+            "clear": true,
+            "targetDistance": 50.50766458598008,
+            "surfaceTolerance": 2.0999999999999996,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 33.19999999925494,
+            "meshCount": 76
+          },
+          "triangles": 396726,
+          "calls": 49,
+          "cameraPose": {
+            "position": [
+              -79.99616849815052,
+              1.6341354259299803,
+              -4.747093440363869
+            ],
+            "bearing": 59.590639831717056,
+            "pitch": 8.442219774958467
+          }
+        },
+        {
+          "file": "athenaeum-revolution-photoHunt-2.webp",
+          "visibility": {
+            "label": "ATHENEUL ROMAN above the portico",
+            "clear": true,
+            "targetDistance": 51.31807522286559,
+            "surfaceTolerance": 1.7999999999999998,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 56.69999999925494,
+            "meshCount": 76
+          },
+          "triangles": 404920,
+          "calls": 41,
+          "cameraPose": {
+            "position": [
+              -79.99616849815052,
+              1.6341354259299803,
+              -4.747093440363869
+            ],
+            "bearing": 45.6884892487256,
+            "pitch": 15.50112247822905
+          }
+        },
+        {
+          "file": "athenaeum-revolution-photoHunt-3.webp",
+          "visibility": {
+            "label": "The ribbed dome",
+            "clear": true,
+            "targetDistance": 75.59074225166917,
+            "surfaceTolerance": 2,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 88,
+            "meshCount": 76
+          },
+          "triangles": 431436,
+          "calls": 42,
+          "cameraPose": {
+            "position": [
+              -79.99616849815052,
+              1.6341354259299803,
+              -4.747093440363869
+            ],
+            "bearing": 48.2492547324548,
+            "pitch": 25.77218324915014
+          }
+        }
+      ],
+      "targets": [
+        {
+          "label": "An Ionic portico column",
+          "x": -36.90878423002147,
+          "z": -30.035773060513787,
+          "y": 9.049267382265302,
+          "radius": 1.4
+        },
+        {
+          "label": "ATHENEUL ROMAN above the portico",
+          "x": -44.611107271296454,
+          "z": -39.29180999690532,
+          "y": 15.349267382265303,
+          "radius": 1.2
+        },
+        {
+          "label": "The ribbed dome",
+          "x": -29.211344471117826,
+          "z": -50.07546919488791,
+          "y": 34.500536417798294,
+          "radius": 1.6,
+          "surfaceTolerance": 2
+        }
+      ],
+      "perf": {
+        "visibility": {
+          "label": "The ribbed dome",
+          "clear": true,
+          "targetDistance": 75.59074225166917,
+          "surfaceTolerance": 2,
+          "hitDistance": null,
+          "hitPoint": null,
+          "sourceSurface": null,
+          "blocker": null,
+          "raycastMs": 88,
+          "meshCount": 76
+        },
+        "triangles": 431436,
+        "calls": 42,
+        "cameraPose": {
+          "position": [
+            -79.99616849815052,
+            1.6341354259299803,
+            -4.747093440363869
+          ],
+          "bearing": 48.2492547324548,
+          "pitch": 25.77218324915014
+        }
+      },
+      "captures": [
+        {
+          "label": "An Ionic portico column",
+          "position": {
+            "x": -79.99616849815052,
+            "z": -4.747093440363869,
+            "y": -0.015864574070019552,
+            "heading": 5.243132438746044
+          }
+        },
+        {
+          "label": "ATHENEUL ROMAN above the portico",
+          "position": {
+            "x": -79.99616849815052,
+            "z": -4.747093440363869,
+            "y": -0.015864574070019552,
+            "heading": 5.485770739527294
+          }
+        },
+        {
+          "label": "The ribbed dome",
+          "position": {
+            "x": -79.99616849815052,
+            "z": -4.747093440363869,
+            "y": -0.015864574070019552,
+            "heading": 5.441076950464794
+          }
+        }
+      ]
+    },
+    {
+      "id": "spring-palace",
+      "key": "photoHunt",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 108,
+          "width": 358,
+          "height": 230.359375,
+          "top": 108,
+          "right": 374,
+          "bottom": 338.359375,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 281.359375,
+            "width": 143.28125,
+            "height": 44,
+            "top": 281.359375,
+            "right": 174.28125,
+            "bottom": 325.359375,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 281.359375,
+            "width": 68.890625,
+            "height": 44,
+            "top": 281.359375,
+            "right": 251.171875,
+            "bottom": 325.359375,
+            "left": 182.28125
+          }
+        ]
+      },
+      "setup": "Initial pose beside the source activity; native looking/capture proof, not a claim of arrival-route access.",
+      "nativeLooks": [
+        1,
+        2,
+        6
+      ],
+      "views": [
+        {
+          "file": "spring-palace-photoHunt-1.webp",
+          "visibility": {
+            "label": "The entrance gate finial",
+            "clear": true,
+            "targetDistance": 9.587181773434295,
+            "surfaceTolerance": 0.8999999999999999,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 7.5,
+            "meshCount": 135
+          },
+          "triangles": 305489,
+          "calls": 73,
+          "cameraPose": {
+            "position": [
+              -23.18625,
+              1.6739673164680018,
+              -69.525
+            ],
+            "bearing": 160.9920669555089,
+            "pitch": 7.427386185264096
+          }
+        },
+        {
+          "file": "spring-palace-photoHunt-2.webp",
+          "visibility": {
+            "label": "The Romanian flag by the gate",
+            "clear": true,
+            "targetDistance": 10.878023354773857,
+            "surfaceTolerance": 1.35,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 25.900000002235174,
+            "meshCount": 135
+          },
+          "triangles": 301380,
+          "calls": 68,
+          "cameraPose": {
+            "position": [
+              -23.18625,
+              1.6739673164680018,
+              -69.525
+            ],
+            "bearing": 117.69648654716798,
+            "pitch": 23.50993101480046
+          }
+        },
+        {
+          "file": "spring-palace-photoHunt-3.webp",
+          "visibility": {
+            "label": "The residence cornice",
+            "clear": true,
+            "targetDistance": 20.636298258543995,
+            "surfaceTolerance": 2.4000000000000004,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 34.599999997764826,
+            "meshCount": 135
+          },
+          "triangles": 299163,
+          "calls": 57,
+          "cameraPose": {
+            "position": [
+              -23.18625,
+              1.6739673164680018,
+              -69.525
+            ],
+            "bearing": 197.28562862667707,
+            "pitch": 18.767626487994264
+          }
+        }
+      ],
+      "targets": [
+        {
+          "label": "The entrance gate finial",
+          "x": -20.089913365693853,
+          "z": -60.53662907697353,
+          "y": 2.913298569207429,
+          "radius": 0.6
+        },
+        {
+          "label": "The Romanian flag by the gate",
+          "x": -14.354121288028603,
+          "z": -64.88871929223707,
+          "y": 6.013298569207429,
+          "radius": 0.9
+        },
+        {
+          "label": "The residence cornice",
+          "x": -28.992005236258095,
+          "z": -50.868384753159404,
+          "y": 8.31329856920743,
+          "radius": 1.6
+        }
+      ],
+      "perf": {
+        "visibility": {
+          "label": "The residence cornice",
+          "clear": true,
+          "targetDistance": 20.636298258543995,
+          "surfaceTolerance": 2.4000000000000004,
+          "hitDistance": null,
+          "hitPoint": null,
+          "sourceSurface": null,
+          "blocker": null,
+          "raycastMs": 34.599999997764826,
+          "meshCount": 135
+        },
+        "triangles": 299163,
+        "calls": 57,
+        "cameraPose": {
+          "position": [
+            -23.18625,
+            1.6739673164680018,
+            -69.525
+          ],
+          "bearing": 197.28562862667707,
+          "pitch": 18.767626487994264
+        }
+      },
+      "captures": [
+        {
+          "label": "The entrance gate finial",
+          "position": {
+            "x": -23.18625,
+            "z": -69.525,
+            "y": 0.023967316468001855,
+            "heading": 3.473343669214793
+          }
+        },
+        {
+          "label": "The Romanian flag by the gate",
+          "position": {
+            "x": -23.18625,
+            "z": -69.525,
+            "y": 0.023967316468001855,
+            "heading": 4.228994098902293
+          }
+        },
+        {
+          "label": "The residence cornice",
+          "position": {
+            "x": -23.18625,
+            "z": -69.525,
+            "y": 0.023967316468001855,
+            "heading": 2.8399015207772926
+          }
+        }
+      ]
+    },
+    {
+      "id": "palace-parliament",
+      "key": "photoHunt",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 108,
+          "width": 358,
+          "height": 230.359375,
+          "top": 108,
+          "right": 374,
+          "bottom": 338.359375,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 281.359375,
+            "width": 143.28125,
+            "height": 44,
+            "top": 281.359375,
+            "right": 174.28125,
+            "bottom": 325.359375,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 281.359375,
+            "width": 68.890625,
+            "height": 44,
+            "top": 281.359375,
+            "right": 251.171875,
+            "bottom": 325.359375,
+            "left": 182.28125
+          }
+        ]
+      },
+      "setup": "Initial pose beside the source activity; native looking/capture proof, not a claim of arrival-route access.",
+      "nativeLooks": [
+        6,
+        2,
+        2
+      ],
+      "views": [
+        {
+          "file": "palace-parliament-photoHunt-1.webp",
+          "visibility": {
+            "label": "The central balcony over the boulevard",
+            "clear": true,
+            "targetDistance": 191.18741942403648,
+            "surfaceTolerance": 6,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 289.19999999925494,
+            "meshCount": 145
+          },
+          "triangles": 608897,
+          "calls": 116,
+          "cameraPose": {
+            "position": [
+              44.3838,
+              1.7844647999999999,
+              -16
+            ],
+            "bearing": 265.8061593987921,
+            "pitch": 7.699720187262216
+          }
+        },
+        {
+          "file": "palace-parliament-photoHunt-2.webp",
+          "visibility": {
+            "label": "The north wing",
+            "clear": true,
+            "targetDistance": 221.29771172884378,
+            "surfaceTolerance": 7.5,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 217.60000000149012,
+            "meshCount": 145
+          },
+          "triangles": 582728,
+          "calls": 66,
+          "cameraPose": {
+            "position": [
+              44.3838,
+              1.7844647999999999,
+              -16
+            ],
+            "bearing": 289.2692846855864,
+            "pitch": 6.9076955601493415
+          }
+        },
+        {
+          "file": "palace-parliament-photoHunt-3.webp",
+          "visibility": {
+            "label": "The south wing",
+            "clear": true,
+            "targetDistance": 225.1414604563594,
+            "surfaceTolerance": 7.5,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 922.8000000007451,
+            "meshCount": 145
+          },
+          "triangles": 611397,
+          "calls": 117,
+          "cameraPose": {
+            "position": [
+              44.3838,
+              1.7844647999999999,
+              -16
+            ],
+            "bearing": 248.06855435829596,
+            "pitch": 6.789214154842173
+          }
+        }
+      ],
+      "targets": [
+        {
+          "label": "The central balcony over the boulevard",
+          "x": -145,
+          "y": 27.4,
+          "z": -10.5,
+          "radius": 4
+        },
+        {
+          "label": "The north wing",
+          "x": -163,
+          "y": 28.4,
+          "z": -88.5,
+          "radius": 5
+        },
+        {
+          "label": "The south wing",
+          "x": -163,
+          "y": 28.4,
+          "z": 67.5,
+          "radius": 5
+        }
+      ],
+      "perf": {
+        "visibility": {
+          "label": "The south wing",
+          "clear": true,
+          "targetDistance": 225.1414604563594,
+          "surfaceTolerance": 7.5,
+          "hitDistance": null,
+          "hitPoint": null,
+          "sourceSurface": null,
+          "blocker": null,
+          "raycastMs": 922.8000000007451,
+          "meshCount": 145
+        },
+        "triangles": 611397,
+        "calls": 117,
+        "cameraPose": {
+          "position": [
+            44.3838,
+            1.7844647999999999,
+            -16
+          ],
+          "bearing": 248.06855435829596,
+          "pitch": 6.789214154842173
+        }
+      },
+      "captures": [
+        {
+          "label": "The central balcony over the boulevard",
+          "position": {
+            "x": 44.3838,
+            "z": -16,
+            "y": 0.1344648,
+            "heading": 1.6439926535897929
+          }
+        },
+        {
+          "label": "The north wing",
+          "position": {
+            "x": 44.3838,
+            "z": -16,
+            "y": 0.1344648,
+            "heading": 1.2344838645272929
+          }
+        },
+        {
+          "label": "The south wing",
+          "position": {
+            "x": 44.3838,
+            "z": -16,
+            "y": 0.1344648,
+            "heading": 1.9535722629647927
+          }
+        }
+      ]
+    },
+    {
+      "id": "arcul-de-triumf",
+      "key": "photoHunt",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 108,
+          "width": 358,
+          "height": 230.359375,
+          "top": 108,
+          "right": 374,
+          "bottom": 338.359375,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 281.359375,
+            "width": 143.28125,
+            "height": 44,
+            "top": 281.359375,
+            "right": 174.28125,
+            "bottom": 325.359375,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 281.359375,
+            "width": 68.890625,
+            "height": 44,
+            "top": 281.359375,
+            "right": 251.171875,
+            "bottom": 325.359375,
+            "left": 182.28125
+          }
+        ]
+      },
+      "setup": "Initial pose beside the source activity; native looking/capture proof, not a claim of arrival-route access.",
+      "nativeLooks": [
+        11,
+        3,
+        3
+      ],
+      "views": [
+        {
+          "file": "arcul-de-triumf-photoHunt-1.webp",
+          "visibility": {
+            "label": "The central arch opening",
+            "clear": true,
+            "targetDistance": 19.006577808748215,
+            "surfaceTolerance": 3,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 33.20000000298023,
+            "meshCount": 114
+          },
+          "triangles": 284249,
+          "calls": 48,
+          "cameraPose": {
+            "position": [
+              -23.866849860598737,
+              1.5297913502166327,
+              -80.72318006467148
+            ],
+            "bearing": 337.31129223111884,
+            "pitch": 26.56505388425739
+          }
+        },
+        {
+          "file": "arcul-de-triumf-photoHunt-2.webp",
+          "visibility": {
+            "label": "The western sculpted pier",
+            "clear": true,
+            "targetDistance": 20.300000000000004,
+            "surfaceTolerance": 2.7,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 12.900000002235174,
+            "meshCount": 114
+          },
+          "triangles": 277362,
+          "calls": 43,
+          "cameraPose": {
+            "position": [
+              -23.866849860598737,
+              1.5297913502166327,
+              -80.72318006467148
+            ],
+            "bearing": 16.41484259819981,
+            "pitch": 41.684217181725415
+          }
+        },
+        {
+          "file": "arcul-de-triumf-photoHunt-3.webp",
+          "visibility": {
+            "label": "The eastern sculpted pier",
+            "clear": true,
+            "targetDistance": 20.3,
+            "surfaceTolerance": 2.7,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 24.5,
+            "meshCount": 114
+          },
+          "triangles": 275575,
+          "calls": 43,
+          "cameraPose": {
+            "position": [
+              -23.866849860598737,
+              1.5297913502166327,
+              -80.72318006467148
+            ],
+            "bearing": 310.410104599129,
+            "pitch": 41.684217181725415
+          }
+        }
+      ],
+      "targets": [
+        {
+          "label": "The central arch opening",
+          "x": -29.681620469978885,
+          "y": 10.029791350216632,
+          "z": -96.69779876936327,
+          "radius": 2
+        },
+        {
+          "label": "The western sculpted pier",
+          "x": -19.582651807199422,
+          "z": -95.26572616359273,
+          "y": 15.029791350216632,
+          "radius": 1.8
+        },
+        {
+          "label": "The eastern sculpted pier",
+          "x": -36.49695396510838,
+          "z": -89.10891022424904,
+          "y": 15.029791350216632,
+          "radius": 1.8
+        }
+      ],
+      "perf": {
+        "visibility": {
+          "label": "The eastern sculpted pier",
+          "clear": true,
+          "targetDistance": 20.3,
+          "surfaceTolerance": 2.7,
+          "hitDistance": null,
+          "hitPoint": null,
+          "sourceSurface": null,
+          "blocker": null,
+          "raycastMs": 24.5,
+          "meshCount": 114
+        },
+        "triangles": 275575,
+        "calls": 43,
+        "cameraPose": {
+          "position": [
+            -23.866849860598737,
+            1.5297913502166327,
+            -80.72318006467148
+          ],
+          "bearing": 310.410104599129,
+          "pitch": 41.684217181725415
+        }
+      },
+      "captures": [
+        {
+          "label": "The central arch opening",
+          "position": {
+            "x": -23.866849860598737,
+            "z": -80.72318006467148,
+            "y": -0.12020864978336726,
+            "heading": 0.3959926535897927
+          }
+        },
+        {
+          "label": "The western sculpted pier",
+          "position": {
+            "x": -23.866849860598737,
+            "z": -80.72318006467148,
+            "y": -0.12020864978336726,
+            "heading": -0.28649304953520727
+          }
+        },
+        {
+          "label": "The eastern sculpted pier",
+          "position": {
+            "x": -23.866849860598737,
+            "z": -80.72318006467148,
+            "y": -0.12020864978336726,
+            "heading": 0.8655069504647925
+          }
+        }
+      ]
+    }
+  ]
+}

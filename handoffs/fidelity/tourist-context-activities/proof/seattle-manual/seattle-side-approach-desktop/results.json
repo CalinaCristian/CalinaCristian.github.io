@@ -1,0 +1,222 @@
+{
+  "sourceCommit": "d5a766b7a961e3d4e7166f9b1387779a81012fc4",
+  "touch": false,
+  "setup": "Initial feature-adjacent poses isolate controls; public arrival routes require separate verification.",
+  "cases": [
+    {
+      "id": "mopop",
+      "key": "monorailFraming",
+      "title": "Frame the Monorail passing MoPOP",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 465.640625,
+          "width": 390,
+          "height": 230.359375,
+          "top": 465.640625,
+          "right": 406,
+          "bottom": 696,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 639,
+            "width": 143.28125,
+            "height": 44,
+            "top": 639,
+            "right": 174.28125,
+            "bottom": 683,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 639,
+            "width": 68.890625,
+            "height": 44,
+            "top": 639,
+            "right": 251.171875,
+            "bottom": 683,
+            "left": 182.28125
+          }
+        ]
+      },
+      "frames": [
+        {
+          "file": "mopop-1.webp",
+          "visibility": {
+            "label": "The moving leading car at the museum passage",
+            "clear": true,
+            "targetDistance": 32.25470824390214,
+            "surfaceTolerance": 0.5,
+            "hitDistance": 30.674629765796247,
+            "hitPoint": [
+              41.22992475715068,
+              6.27536328317329,
+              -89.1696956658037
+            ],
+            "sourceSurface": "monorail-leading-car",
+            "blocker": null,
+            "raycastMs": 92.69999999925494,
+            "meshCount": 155
+          },
+          "position": {
+            "x": 29.6,
+            "z": -61.4,
+            "y": -1.2501591651141637,
+            "heading": 5.906392653589792
+          },
+          "camera": {
+            "position": [
+              29.6,
+              0.3998408348858362,
+              -61.4
+            ],
+            "bearing": 21.588628802230062,
+            "pitch": 11.138299537343208
+          },
+          "triangles": 1088974,
+          "calls": 230
+        }
+      ],
+      "nativeLooks": [
+        {
+          "looks": 5,
+          "waits": []
+        }
+      ],
+      "idleAward": false,
+      "cancelAward": false,
+      "waitFrames": 1454,
+      "complete": true,
+      "captures": [
+        {
+          "label": "The moving leading car at the museum passage",
+          "position": {
+            "x": 29.6,
+            "z": -61.4,
+            "y": -1.2501591651141637,
+            "heading": 5.906392653589792
+          }
+        }
+      ]
+    },
+    {
+      "id": "kerry-park",
+      "key": "kerryNightFraming",
+      "title": "Frame the city lights at dusk",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 485.234375,
+          "width": 390,
+          "height": 210.765625,
+          "top": 485.234375,
+          "right": 406,
+          "bottom": 696,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 639,
+            "width": 143.28125,
+            "height": 44,
+            "top": 639,
+            "right": 174.28125,
+            "bottom": 683,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 639,
+            "width": 68.890625,
+            "height": 44,
+            "top": 639,
+            "right": 251.171875,
+            "bottom": 683,
+            "left": 182.28125
+          }
+        ]
+      },
+      "frames": [
+        {
+          "file": "kerry-park-1.webp",
+          "visibility": {
+            "label": "The Needle’s illuminated top house",
+            "clear": true,
+            "targetDistance": 1277.94343783093,
+            "surfaceTolerance": 0.8,
+            "hitDistance": 1257.5429960125464,
+            "hitPoint": [
+              798.6365297852576,
+              89.08403812271851,
+              984.0838540257563
+            ],
+            "sourceSurface": "kerry-framed-needle",
+            "blocker": "needle-tophouse",
+            "raycastMs": 25,
+            "meshCount": 109
+          },
+          "position": {
+            "x": 12.8,
+            "z": 6.2,
+            "y": 0.15,
+            "heading": 3.820792653589793
+          },
+          "camera": {
+            "position": [
+              12.8,
+              1.7999999999999998,
+              6.2
+            ],
+            "bearing": 141.08470655471456,
+            "pitch": 3.987786254110529
+          },
+          "triangles": 685548,
+          "calls": 105
+        }
+      ],
+      "nativeLooks": [
+        {
+          "looks": 6,
+          "waits": []
+        }
+      ],
+      "idleAward": false,
+      "cancelAward": false,
+      "complete": true,
+      "captures": [
+        {
+          "label": "The Needle’s illuminated top house",
+          "position": {
+            "x": 12.8,
+            "z": 6.2,
+            "y": 0.15,
+            "heading": 3.820792653589793
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "persisted": [
+    {
+      "id": "lm-chihuly-glasshouse",
+      "unlocked": false
+    },
+    {
+      "id": "lm-needle-loupe",
+      "unlocked": false
+    },
+    {
+      "id": "lm-mopop-monorail",
+      "unlocked": true
+    },
+    {
+      "id": "lm-kerry-blue-hour",
+      "unlocked": true
+    }
+  ],
+  "passed": true
+}

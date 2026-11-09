@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "title": "Pipera aerial comparisons",
+  "generatedDate": "2026-11-09",
+  "generatedAt": "2026-11-09T02:04:37.213Z",
+  "defaultTile": "aerial-r04-c06",
+  "tileMetres": 250,
+  "orientation": "north-up",
+  "atlasScopeCounts": {
+    "core-touches": 2
+  },
+  "publishedBaseline": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+  "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+  "capture": {
+    "startedAt": "2026-11-09T02:04:13.092Z",
+    "endedAt": "2026-11-09T02:04:37.213Z",
+    "elapsedSeconds": 24.121,
+    "source": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+    "captureToolSha256": "82a44ab184afd4f5d9c032642d3d513a594993c3c7301af8029c6976dd26458b",
+    "sourceDatasetSha256": "def0b7515341ac654650799a5f819a2a7a80c627e865c06845c41688c7f2cbb9",
+    "loaded": {
+      "key": "bucharest-pipera",
+      "city": "bucharest",
+      "district": "pipera",
+      "ms": 11006,
+      "edges": 1260,
+      "ribbons": 1665
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+    "frameCounts": 2,
+    "coverageClaim": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim.",
+    "scopeCounts": {
+      "core-touches": 2
+    },
+    "validation": {
+      "framesVerified": 2,
+      "sourceFilesVerified": 9318,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "failedRequests": 0,
+      "failures": []
+    },
+    "perfMaxima": {
+      "triangles": 390635,
+      "drawCalls": 130,
+      "note": "World-only high-quality top-down captures, moving traffic hidden, mirror excluded. Separate maxima need not occur in one frame; not a driving frame-budget acceptance test."
+    }
+  },
+  "locations": [],
+  "coverage": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim.",
+  "boundarySource": "boundary-source.json",
+  "items": [
+    {
+      "id": "aerial-r04-c06",
+      "label": "Row 4 \u00b7 Column 6",
+      "row": 4,
+      "column": 6,
+      "lat": 44.48112478853975,
+      "lon": 26.101983493901137,
+      "x": -875.0000000001247,
+      "z": -125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        -1000,
+        -250,
+        -750,
+        0
+      ],
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 130,
+        "triangles": 390635,
+        "renderMs": 37.899999998509884,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-09T02:04:28.832Z",
+      "gamePath": "images/aerial-r04-c06.jpg",
+      "image": "images/aerial-r04-c06.jpg",
+      "thumbnail": "thumbs/aerial-r04-c06.jpg",
+      "sha256": "3b66046909e3febbcf72807b330eaa86cc04032b2ca778a8aed0b41f760717d4",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 5666,
+      "dataset": "atlas",
+      "thumbnailSha256": "0bd3890cfaaa3c410fda002e9e7411ef8b754fc3498a63a375f1953807ce6388",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.48,
+        26.10040970731559,
+        44.48224957707951,
+        26.10355728048669
+      ]
+    },
+    {
+      "id": "aerial-r05-c06",
+      "label": "Row 5 \u00b7 Column 6",
+      "row": 5,
+      "column": 6,
+      "lat": 44.47887521146024,
+      "lon": 26.101983493901137,
+      "x": -875.0000000001247,
+      "z": 125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        -1000,
+        0,
+        -750,
+        250
+      ],
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 126,
+        "triangles": 361030,
+        "renderMs": 8.399999998509884,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 306
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-09T02:04:34.500Z",
+      "gamePath": "images/aerial-r05-c06.jpg",
+      "image": "images/aerial-r05-c06.jpg",
+      "thumbnail": "thumbs/aerial-r05-c06.jpg",
+      "sha256": "f80a26d53491f87c32cbdeef2412be96532a4efaa920483b362f41e8c12d3414",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 2712,
+      "dataset": "atlas",
+      "thumbnailSha256": "eabaf23189bd6d0a7c26ce7ee3e12228d8937b0c22da1c7458759f25686b0012",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.47775042292049,
+        26.10040970731559,
+        44.48,
+        26.10355728048669
+      ]
+    }
+  ]
+}

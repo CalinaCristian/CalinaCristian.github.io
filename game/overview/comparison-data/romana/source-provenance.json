@@ -1,0 +1,20 @@
+{
+  "gameSourceCommit": null,
+  "sourceSnapshots": [
+    {
+      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "treeSha256": "397f0afa1691f0edf844186d2336a0218d9d055765677789a89aa8a8b6a5c7de",
+      "manifest": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/manifest.json",
+      "manifestSha256": "0fa9d10879d00ae5647440b5a041ec09fa73e46dc0a5051ff1c892a459fe0d87",
+      "frames": 116
+    },
+    {
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "treeSha256": "66f9f028f585068faa58be093124c55da842e4a17da3e2142c0cc629b708b3f3",
+      "manifest": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
+      "manifestSha256": "32dd981b0621737209218e149e8fdff23560ed730919814d5cddc9a46083d126",
+      "frames": 13
+    }
+  ],
+  "note": "Every retained frame carries its actual immutable capture SHA. Full original source and capture records are preserved under provenance/."
+}

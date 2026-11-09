@@ -1,0 +1,29 @@
+{
+  "startedAt": "2026-11-09T00:43:04.735Z",
+  "endedAt": "2026-11-09T00:44:34.272Z",
+  "elapsedSeconds": 89.537,
+  "source": "a62514e15f35b78f0c388d7dd292a7c12c0fdc74c580829cb9ff98e7505175a6",
+  "loaded": {
+    "key": "bucharest-pipera",
+    "city": "bucharest",
+    "district": "pipera",
+    "ms": 7557,
+    "edges": 1260,
+    "ribbons": 1665
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "frameCounts": 35,
+  "coverageClaim": "Targeted35 water-overlap retakes from the conservative source-intersection mask. Completes the existing133-frame atlas when joined with98 original c78a5f4 frames; this subset is not a complete atlas capture.",
+  "scopeCounts": {
+    "ring-touches": 31,
+    "core-touches": 4
+  }
+}

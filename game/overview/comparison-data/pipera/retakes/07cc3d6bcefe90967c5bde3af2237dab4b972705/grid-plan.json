@@ -1,0 +1,23 @@
+{
+  "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+  "city": "bucharest",
+  "district": "pipera",
+  "grid": {
+    "x0": -2250,
+    "z0": -1000,
+    "columns": 16,
+    "rows": 11,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "core-touches": 2
+  },
+  "locations": [],
+  "coverage": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim.",
+  "captureType": "mixed-source-pose-plan",
+  "atlasSourceCounts": {
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 98,
+    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
+  },
+  "note": "Geometric coverage plan is unchanged. Per-pose source SHA records 35 current retakes and 98 original frames; this is not 133 fresh captures."
+}

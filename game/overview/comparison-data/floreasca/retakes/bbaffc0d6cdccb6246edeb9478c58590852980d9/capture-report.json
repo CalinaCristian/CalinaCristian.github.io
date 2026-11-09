@@ -1,0 +1,33 @@
+{
+  "startedAt": "2026-11-09T00:34:57.187Z",
+  "endedAt": "2026-11-09T00:36:54.107Z",
+  "elapsedSeconds": 116.92,
+  "source": "6b2317f5651c21e5f38c7feda7cee8ae04f4e539883a777a183138e439f998a7",
+  "captureToolSha256": "16a1e573ce8cd5a87661b6891c328d27bfe189e9e2c8356c014a0740fab2bfc2",
+  "sourceDatasetSha256": "e7c961ee4acc9bd0c6850e7fcce9ba170d1899134f10376c2a3b3f8af5695358",
+  "loaded": {
+    "key": "bucharest-floreasca",
+    "city": "bucharest",
+    "district": "floreasca",
+    "ms": 11892,
+    "edges": 384,
+    "ribbons": 523
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+  "frameCounts": 21,
+  "coverageClaim": "Targeted unchanged-ground-pose subset for removed overlapping estimated water ribbons and exact Dinamo paint footprint. Full original atlas is retained separately; this is capture scope, not a fidelity score.",
+  "scopeCounts": {
+    "ring-touches": 14,
+    "core-touches": 5,
+    "outside-ring": 2
+  }
+}

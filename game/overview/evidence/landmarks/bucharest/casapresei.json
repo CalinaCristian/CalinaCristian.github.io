@@ -1,0 +1,309 @@
+{
+  "schemaVersion": 1,
+  "id": "casapresei",
+  "city": "bucharest",
+  "name": "Casa Presei Libere",
+  "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4815236,
+    "lon": 26.0709515
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/relation/15922160",
+      "label": "OpenStreetMap r15922160 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:levels": "13",
+        "height": "104"
+      }
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Casa_Presei_Libere",
+      "label": "Independent historical and architectural reference",
+      "type": "independent"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/b203c38abf3651dd3d472c491238ad36089a633a",
+      "label": "Accepted source-book/topology sync; recorded 456 checks across 33 models (b203c38a)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/b203c38abf3651dd3d472c491238ad36089a633a/handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json",
+      "label": "Existing recorded source-book/topology result; not a new execution",
+      "type": "validation"
+    }
+  ],
+  "sourceIds": [
+    "r15922160",
+    "w1177639730",
+    "w1177639731",
+    "w1177639732",
+    "w1177639733",
+    "w1177639734",
+    "w1177639735",
+    "w1177639736",
+    "w1177639737",
+    "w1177639744",
+    "w1177639745",
+    "w1177639746",
+    "w1177639747",
+    "w1177639748",
+    "w1177639749",
+    "w1186238106",
+    "w1186238107",
+    "w1186238108",
+    "w1186238109",
+    "w1186238110",
+    "w1186238111",
+    "w1186238112",
+    "w1186238113",
+    "w1186238114",
+    "w1186238115",
+    "w1188643012",
+    "w1188643013",
+    "w1188643014",
+    "w1188643015",
+    "w1188643016",
+    "w1188643017",
+    "w202520870",
+    "w421276047",
+    "w421276048",
+    "w421276049",
+    "w421276050",
+    "w421276051",
+    "w421276052",
+    "w421276055",
+    "w421276059",
+    "w421276061",
+    "w421276063"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Refreshed the full source complex and its three courtyards at centimetre precision.",
+    "Courtyards remain open in collision; the documented 104 m antenna envelope is retained."
+  ],
+  "remainingGaps": [
+    "The complex has many mapped height parts; their individual facade and roof profiles remain simplified despite the correct overall 104 m envelope.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Historical source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "Historical source-boundary evidence: tools/landmarks/bucharest-source-check.mjs: 4 authored source rings; explicit replacement IDs match the source ledger. The earlier run across 33 models recorded 306 checks. The later accepted source-book update b203c38abf3651dd3d472c491238ad36089a633a records 456 checks across 33 models, including this entry, in handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json. This wording update cites that existing proof; no tests were rerun and no images were recaptured."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": true,
+      "details": "Private exterior visual comparison inspected. No Street View attributes were extracted and no Google imagery is published. Actual pano pose was not independently metadata-verified."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/casapresei/front.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "193046d981a6c4d22059ef44477f3c27a68774161e0fcf77dc5caa0ecc91f969",
+      "capturedAt": "2026-11-08T16:47:35.533439Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=casapresei&clean=1&fountains=on&view=street&az=20.001746168867328",
+        "anchor": {
+          "lat": 44.4815236,
+          "lon": 26.0709515,
+          "rotation": -1.2217
+        },
+        "camera": {
+          "position": [
+            105.4155982858899,
+            1.3,
+            289.7375374402508
+          ],
+          "quaternion": [
+            0.07207195719530003,
+            0.17319749908127055,
+            -0.012709363001608848,
+            0.9821643097721101
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 6167.147698377471,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -177.15603510074925,
+            0,
+            -171.75039059191474
+          ],
+          "max": [
+            177.0406960478427,
+            104,
+            171.70957574723525
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/casapresei/top.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "c1dcdd6d6ee339014e9fd885049585ee02de0eb565b2ca4461d6b4fdc0b01bed",
+      "capturedAt": "2026-11-08T16:47:37.065422Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=casapresei&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4815236,
+          "lon": 26.0709515,
+          "rotation": -1.2217
+        },
+        "camera": {
+          "position": [
+            -0.057669526453281605,
+            585.5632955768908,
+            0.5651560684249612
+          ],
+          "quaternion": [
+            -0.7067531394223399,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 1.1711271767173212,
+          "far": 11711.271767173212,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -177.15603510074925,
+            0,
+            -171.75039059191474
+          ],
+          "max": [
+            177.0406960478427,
+            104,
+            171.70957574723525
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/casapresei/oblique.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "1f3fd8a8e19524e7e1af6bd751cb2991b303ee92d225ae7f3b5577b1af0c72ca",
+      "capturedAt": "2026-11-08T16:47:38.333409Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=casapresei&clean=1&fountains=on&view=oblique&az=55.00174616886733&el=28",
+        "anchor": {
+          "lat": 44.4815236,
+          "lon": 26.0709515,
+          "rotation": -1.2217
+        },
+        "camera": {
+          "position": [
+            388.6779585431923,
+            293.9218866155377,
+            272.15755423787897
+          ],
+          "quaternion": [
+            -0.2145856399400957,
+            0.44804582093428835,
+            0.11171036971577948,
+            0.8606559932823237
+          ],
+          "fov": 45,
+          "near": 1.0749187240148672,
+          "far": 10749.187240148673,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -177.15603510074925,
+            0,
+            -171.75039059191474
+          ],
+          "max": [
+            177.0406960478427,
+            104,
+            171.70957574723525
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 7943,
+    "drawCalls": 3,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  },
+  "historicalImplementationNotes": [
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "supersededAt": "2026-11-09",
+      "field": "checks[0]",
+      "priorValue": {
+        "label": "Full source boundary and replacement-identity checks",
+        "passed": true,
+        "details": "tools/landmarks/bucharest-source-check.mjs: 4 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+      },
+      "replacementScope": "Historical source-boundary evidence: tools/landmarks/bucharest-source-check.mjs: 4 authored source rings; explicit replacement IDs match the source ledger. The earlier run across 33 models recorded 306 checks. The later accepted source-book update b203c38abf3651dd3d472c491238ad36089a633a records 456 checks across 33 models, including this entry, in handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json. This wording update cites that existing proof; no tests were rerun and no images were recaptured.",
+      "acceptedImplementationCommits": [
+        "b203c38abf3651dd3d472c491238ad36089a633a"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+}

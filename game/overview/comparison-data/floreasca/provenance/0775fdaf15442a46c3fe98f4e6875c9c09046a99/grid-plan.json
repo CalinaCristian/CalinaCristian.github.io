@@ -1,0 +1,17 @@
+{
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "city": "bucharest",
+  "district": "floreasca",
+  "grid": {
+    "x0": -1000,
+    "z0": -1250,
+    "columns": 8,
+    "rows": 13,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "water-recapture": 25
+  },
+  "locations": [],
+  "coverage": "Conservative source-water render recapture subset; merge with original frozen dry frames to retain the complete district atlas."
+}

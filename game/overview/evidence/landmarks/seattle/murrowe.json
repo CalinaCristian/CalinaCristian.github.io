@@ -1,0 +1,234 @@
+{
+  "schemaVersion": 1,
+  "id": "murrowe",
+  "city": "seattle",
+  "name": "Murrow Bridge — east high-rise arches",
+  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 47.5892424,
+    "lon": -122.2554
+  },
+  "sourceIds": [],
+  "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/123889285",
+      "label": "OSM w123889285 · version 19 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13609631.629257647%2C6038636.904544735%2C-13609320.26018471%2C6038948.273617674&bboxSR=3857&imageSR=3857&size=1024%2C1024&format=jpg&f=image",
+      "label": "Independent georeferenced Esri aerial · privately viewed · acquisition date unknown · image not published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13",
+      "label": "Accepted production explicit-ID source replacement; implementation scope only (2c73f3d9)",
+      "type": "implementation"
+    }
+  ],
+  "improvements": [
+    "Moved the east arch approximately 45 m east onto the actual span on mapped I-90 way123889285.",
+    "Measured approximately 66 m rib-seat extent (±3 m) in independent georeferenced aerial imagery; a shared 68 m span is rendered.",
+    "Replaced three crown openings with the observed six; the driving centreline stays open and the bridge deck is not replaced."
+  ],
+  "remainingGaps": [
+    "Arch height 13.5 m, rib thickness, hanger spacing, concrete finish and vertical fit to the bridge road deck remain estimates.",
+    "Only the arch structure is modelled; this record does not claim reconstruction of floating pontoons, bridge deck or seismic joints.",
+    "Aerial acquisition date is unknown and crown parallax is not converted into a height measurement.",
+    "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+    "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings."
+  ],
+  "checks": [
+    {
+      "label": "Historical Bucharest foot,a regression",
+      "passed": true,
+      "details": "Historical branch evidence only. Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models. The statement about subsequent US-only changes belongs to that recorded branch stage; it does not describe all later integrated ROOT changes or constitute a new root regression."
+    },
+    {
+      "label": "Current source identity and topology review",
+      "passed": true,
+      "details": "All 24 US registry entries checked; 0 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates. Production explicit-ID replacement is now implemented by 2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13; this records implementation, not a new integrated placement, clearance or performance pass."
+    },
+    {
+      "label": "Independent visual and actual model review",
+      "passed": true,
+      "details": "Actual front, top and oblique game renders inspected against source plans and independently viewed aerial context; only game renders are published. Height/facade limits and source conflicts are listed."
+    },
+    {
+      "label": "Geometry and meaningful collision checks",
+      "passed": true,
+      "details": "All61 shared geometry invariants and the US source-scope/total-height/court/pitch/portal/bridge-clearance regression checks pass. No FPS claim is inferred from geometry counts."
+    },
+    {
+      "label": "Immutable game-only capture provenance",
+      "passed": true,
+      "details": "Each lossless WebP is RGB pixel-verified against its actual game screenshot and carries its own source commit, camera pose and SHA256."
+    },
+    {
+      "label": "Complete measured visual parity",
+      "passed": false,
+      "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Isolated model study · front elevation",
+      "image": "assets/landmarks/murrowe/front.webp",
+      "kind": "front",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "66633908eaadee7856e46f0130b3e69ba79b2ff7462c86e90e5e7317fcfca116",
+      "capturedAt": "2026-11-08T17:08:32.280Z",
+      "pose": {
+        "position": [
+          113.25371976607354,
+          6.379999923706055,
+          6.934790270152665e-15
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          0,
+          0.7071067811865475,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          0,
+          6.379999923706055,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "top",
+      "label": "Isolated model study · orthographic north-up plan",
+      "image": "assets/landmarks/murrowe/top.webp",
+      "kind": "top",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "83a0e221aeb0757b30e9a54dd8a1f4015cc3ab4b979b37f9d8f4b65c32c8bcca",
+      "capturedAt": "2026-11-08T17:08:33.448Z",
+      "pose": {
+        "position": [
+          0,
+          104.69723659473561,
+          0
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "orthographic",
+        "groundSquareM": 88.74723678547048,
+        "orientation": "north-up",
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Isolated model study · oblique overview",
+      "image": "assets/landmarks/murrowe/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "817a0dad13a0a661b93243220134676ff092e566c33579ac0ffd169c3c3d7832",
+      "capturedAt": "2026-11-08T17:08:34.785Z",
+      "pose": {
+        "position": [
+          58.385360139836195,
+          56.02716293568852,
+          83.38293570662756
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          -0.2145396336164296,
+          0.2929987293442745,
+          0.06764408664580113,
+          0.929273247087327
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          0,
+          6.379999923706055,
+          0
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 1800,
+    "drawCalls": 2,
+    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+  },
+  "historicalImplementationNotes": [
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "remainingGaps[4]",
+      "priorValue": "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy.",
+      "replacementScope": "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings.",
+      "acceptedImplementationCommits": [
+        "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "checks[0]",
+      "priorValue": {
+        "label": "Bucharest foot,a regression",
+        "passed": true,
+        "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+      },
+      "replacementScope": "Historical branch evidence only. Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models. The statement about subsequent US-only changes belongs to that recorded branch stage; it does not describe all later integrated ROOT changes or constitute a new root regression.",
+      "acceptedImplementationCommits": [],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "checks[1]",
+      "priorValue": {
+        "label": "Current source identity and topology review",
+        "passed": true,
+        "details": "All 24 US registry entries checked; 0 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+      },
+      "replacementScope": "All 24 US registry entries checked; 0 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates. Production explicit-ID replacement is now implemented by 2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13; this records implementation, not a new integrated placement, clearance or performance pass.",
+      "acceptedImplementationCommits": [
+        "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+}

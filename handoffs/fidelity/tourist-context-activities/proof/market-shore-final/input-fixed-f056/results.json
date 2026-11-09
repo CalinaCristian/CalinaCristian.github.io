@@ -1,0 +1,456 @@
+{
+  "sourceCommit": "f056a5e1da18a554af52a147391188d90ddf39b5",
+  "touch": true,
+  "setup": "Explicit nearby setup for each interaction, actual CDP look/action touches afterwards; no source/collider/crowd changes.",
+  "cases": [
+    {
+      "name": "fish-immediate-pause-cancellation",
+      "setup": {
+        "position": {
+          "x": -56.871645523098664,
+          "z": 26.222058734034498,
+          "y": -6.4,
+          "heading": 0
+        },
+        "kind": "fish",
+        "label": "Ask the fishmongers to throw you a salmon"
+      },
+      "controls": {
+        "x": 249,
+        "y": 807,
+        "width": 46,
+        "height": 46
+      },
+      "inFlight": {
+        "label": "Catch!",
+        "award": false
+      },
+      "paused": {
+        "open": true,
+        "label": "Ask the fishmongers to throw you a salmon",
+        "award": false
+      },
+      "passed": true
+    },
+    {
+      "name": "fish-native-timing-and-completion",
+      "setup": {
+        "position": {
+          "x": -56.871645523098664,
+          "z": 26.222058734034498,
+          "y": -6.4,
+          "heading": 0
+        },
+        "kind": "fish",
+        "label": "Ask the fishmongers to throw you a salmon"
+      },
+      "complete": {
+        "award": true,
+        "count": 1,
+        "events": [
+          {
+            "spot": "pike-place",
+            "id": "fish"
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "name": "gum-native-aim-and-physical-wall-placement",
+      "setup": {
+        "position": {
+          "x": -42.45237580292875,
+          "z": 57.91582661072324,
+          "y": -8.224181295225565,
+          "heading": 0
+        },
+        "wall": {
+          "x": -40.751666105378725,
+          "y": -6.574181295225564,
+          "z": 56.86340724342743
+        },
+        "sky": {
+          "x": -38.45237580292875,
+          "y": 3.4258187047744357,
+          "z": 57.91582661072324
+        }
+      },
+      "skyDrags": 6,
+      "wallDrags": 2,
+      "complete": {
+        "award": true,
+        "count": 1,
+        "position": {
+          "x": -42.45237580292875,
+          "z": 57.91582661072324,
+          "y": -8.224181295225565,
+          "heading": -1.01665927734375
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "pier-actual-arrival-source-centreline-and-terminal-award",
+      "arrival": {
+        "capturedAt": "2026-11-09T00:18:13.638Z",
+        "position": {
+          "x": 22,
+          "z": -21,
+          "y": 3.000899735713793,
+          "heading": 2.9909261469919177
+        },
+        "pose": {
+          "position": [
+            22,
+            4.650899735713793,
+            -21
+          ],
+          "bearing": 188.63255494203824,
+          "pitch": 0
+        },
+        "triangles": 616428,
+        "calls": 143
+      },
+      "plan": {
+        "source": "w688415225",
+        "arc": [
+          [
+            47.9,
+            15.5
+          ],
+          [
+            47.1,
+            20.5
+          ],
+          [
+            46.1,
+            24.1
+          ],
+          [
+            44.7,
+            27.3
+          ],
+          [
+            41.8,
+            32.3
+          ],
+          [
+            37.7,
+            38.3
+          ],
+          [
+            33.7,
+            43.1
+          ],
+          [
+            30,
+            46.7
+          ],
+          [
+            22.7,
+            52.6
+          ],
+          [
+            16.1,
+            56.1
+          ],
+          [
+            12.6,
+            58.2
+          ],
+          [
+            6.9,
+            60.8
+          ],
+          [
+            -2,
+            62.8
+          ],
+          [
+            -11.2,
+            63.5
+          ],
+          [
+            -19.3,
+            63.1
+          ],
+          [
+            -25.4,
+            62.1
+          ],
+          [
+            -32.2,
+            60.3
+          ],
+          [
+            -37.9,
+            58.2
+          ],
+          [
+            -46.8,
+            53.8
+          ],
+          [
+            -55.8,
+            47
+          ],
+          [
+            -58.8,
+            44.1
+          ]
+        ],
+        "prefix": [
+          [
+            22,
+            -21
+          ],
+          [
+            42.25,
+            -18.75
+          ],
+          [
+            49.75,
+            -8.25
+          ],
+          [
+            51.25,
+            -3.75
+          ],
+          [
+            48.25,
+            15.75
+          ],
+          [
+            47.9,
+            15.5
+          ]
+        ],
+        "surfacePath": null,
+        "surfacePlan": "corridor",
+        "corridor": {
+          "rows": 10,
+          "remaining": 0,
+          "total": 135.08334179087632,
+          "halfWidth": 1.2,
+          "clearanceRadius": 0.34,
+          "sampledSource": "w688415225"
+        },
+        "arrival": {
+          "x": 22,
+          "z": -21,
+          "y": 3.000899735713793,
+          "heading": 2.9909261469919177
+        },
+        "people": 34,
+        "buildings": 65,
+        "colliders": 1405,
+        "award": false
+      },
+      "passed": false,
+      "failure": {
+        "message": "No planned physical approach to the pier terminal",
+        "stack": "AssertionError [ERR_ASSERTION]: No planned physical approach to the pier terminal\n    at /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:98:166\n    at async test (/workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:38:110)\n    at async /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:61:13"
+      }
+    },
+    {
+      "name": "stone-native-release-cancellation-and-three-flights",
+      "setup": {
+        "position": {
+          "x": -20.93905495023671,
+          "z": -30.8052073624069,
+          "y": 0.7346608027159323,
+          "heading": 0
+        },
+        "kind": "skip",
+        "label": "Practise three stone skips"
+      },
+      "controls": {
+        "x": 249,
+        "y": 807,
+        "width": 46,
+        "height": 46
+      },
+      "buttons": [
+        {
+          "width": 151.75,
+          "height": 44
+        },
+        {
+          "width": 68.890625,
+          "height": 44
+        }
+      ],
+      "partial": {
+        "phase": "flight",
+        "throws": 0,
+        "skips": 0,
+        "throwSkips": 1,
+        "stone": [
+          -28.5838974708566,
+          1.706704718536597,
+          -18.31234279687108
+        ],
+        "ripples": 0
+      },
+      "throws": [
+        {
+          "phase": "flight",
+          "throws": 0,
+          "skips": 0,
+          "throwSkips": 4,
+          "stone": [
+            -28.5838974708566,
+            1.706704718536597,
+            -18.31234279687108
+          ],
+          "ripples": 0
+        },
+        {
+          "phase": "flight",
+          "throws": 1,
+          "skips": 4,
+          "throwSkips": 1,
+          "stone": [
+            -28.5838974708566,
+            1.706704718536597,
+            -18.31234279687108
+          ],
+          "ripples": 2
+        },
+        {
+          "phase": "flight",
+          "throws": 2,
+          "skips": 5,
+          "throwSkips": 1,
+          "stone": [
+            -28.5838974708566,
+            1.706704718536597,
+            -18.31234279687108
+          ],
+          "ripples": 2
+        }
+      ],
+      "complete": {
+        "active": false,
+        "debug": null,
+        "events": [
+          {
+            "spot": "bel-meydenbauer",
+            "id": "skip"
+          }
+        ]
+      },
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "captures": [
+    {
+      "name": "fish-in-flight",
+      "capturedAt": "2026-11-09T00:18:02.809Z",
+      "position": {
+        "x": -56.871645523098664,
+        "z": 26.222058734034498,
+        "y": -6.4,
+        "heading": 0
+      },
+      "pose": {
+        "position": [
+          -56.871645523098664,
+          -4.75,
+          26.222058734034498
+        ],
+        "bearing": 0,
+        "pitch": 0
+      },
+      "triangles": 424669,
+      "calls": 57
+    },
+    {
+      "name": "gum-placed-on-wall",
+      "capturedAt": "2026-11-09T00:18:05.123Z",
+      "position": {
+        "x": -42.45237580292875,
+        "z": 57.91582661072324,
+        "y": -8.224181295225565,
+        "heading": -1.01665927734375
+      },
+      "pose": {
+        "position": [
+          -42.45237580292875,
+          -6.574181295225564,
+          57.91582661072324
+        ],
+        "bearing": 58.25028579461707,
+        "pitch": 2.1938464450903794
+      },
+      "triangles": 275253,
+      "calls": 48
+    },
+    {
+      "name": "pier-public-arrival",
+      "capturedAt": "2026-11-09T00:18:13.638Z",
+      "position": {
+        "x": 22,
+        "z": -21,
+        "y": 3.000899735713793,
+        "heading": 2.9909261469919177
+      },
+      "pose": {
+        "position": [
+          22,
+          4.650899735713793,
+          -21
+        ],
+        "bearing": 188.63255494203824,
+        "pitch": 0
+      },
+      "triangles": 616428,
+      "calls": 143
+    },
+    {
+      "name": "stone-in-flight-cancelled",
+      "capturedAt": "2026-11-09T00:18:15.849Z",
+      "position": {
+        "x": -20.93905495023671,
+        "z": -30.8052073624069,
+        "y": 0.7346608027159323,
+        "heading": 2.6016860685741348
+      },
+      "pose": {
+        "position": [
+          -20.93905495023671,
+          2.384660802715932,
+          -30.8052073624069
+        ],
+        "bearing": 210.9343686527184,
+        "pitch": -4.479174140659254
+      },
+      "triangles": 579007,
+      "calls": 52
+    },
+    {
+      "name": "stone-second-flight",
+      "capturedAt": "2026-11-09T00:18:16.606Z",
+      "position": {
+        "x": -20.93905495023671,
+        "z": -30.8052073624069,
+        "y": 0.7346608027159323,
+        "heading": 2.6016860685741348
+      },
+      "pose": {
+        "position": [
+          -20.93905495023671,
+          2.384660802715932,
+          -30.8052073624069
+        ],
+        "bearing": 210.9343686527184,
+        "pitch": -4.479174140659254
+      },
+      "triangles": 579167,
+      "calls": 56
+    }
+  ],
+  "checked": true
+}

@@ -1,0 +1,48 @@
+{
+  "gameSourceCommit": null,
+  "priorCurrentSourceProvenance": {
+    "path": "historical/full-before-07cc3d6b-ff026d44/source-provenance.json",
+    "sha256": "c56c42d2f2f3dd19f062ee54254b2e68f554b52654fc07a674b18f63d3cb9e60"
+  },
+  "sourceSnapshots": [
+    {
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "treeSha256": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+      "manifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "manifestSha256": "350f0e645203323bc4c5a3258612774a2ba53d302bf5d94bdb42174a29eeceb3",
+      "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
+      "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
+      "frames": 5
+    }
+  ],
+  "sourceCaptureManifests": [
+    {
+      "path": "historical/c78a5f4/capture-manifest.json",
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "frames": 78
+    },
+    {
+      "path": "retakes/338300a9/manifest.json",
+      "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
+      "sha256": "a2036091fa5b218f7a4d562120b5329e6904de3fee658d9442e20c8922108eed",
+      "frames": 4
+    },
+    {
+      "path": "historical/full-before-07cc3d6b-ff026d44/manifest.json",
+      "sha256": "ff026d4487d7cc831cb8b8a8b4b5980e30acf83fba4f1e4f4131155548299b3b",
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 78,
+        "338300a95a79a2cabf3d7256ff745c6a1bac0372": 4
+      },
+      "frames": 82,
+      "note": "Previous complete current manifest with actual per-frame source dates; its original raw capture ledger is also archived."
+    },
+    {
+      "path": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "sha256": "350f0e645203323bc4c5a3258612774a2ba53d302bf5d94bdb42174a29eeceb3",
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "frames": 5
+    }
+  ],
+  "note": "Prior raw source inventories remain immutable in their archives; the new subset carries its actual07cc source tree."
+}

@@ -1,0 +1,3389 @@
+{
+  "parkingClearance": {
+    "candidates": 750,
+    "retained": 592,
+    "outsideSourceLot": 37,
+    "raisedSidewalk": 120,
+    "buildingBody": 1,
+    "canopySupport": 0,
+    "measuredLots": [
+      "w276643612"
+    ]
+  },
+  "phases": [
+    [
+      "Loading OpenStreetMap data…",
+      150
+    ],
+    [
+      "Building the road network…",
+      3738
+    ],
+    [
+      "Parks, rivers and lakes…",
+      165
+    ],
+    [
+      "Paving the streets…",
+      2152
+    ],
+    [
+      "Raising the buildings…",
+      1920
+    ],
+    [
+      "Opening the shops…",
+      24
+    ],
+    [
+      "Planting trees…",
+      411
+    ],
+    [
+      "Finishing…",
+      2742
+    ]
+  ],
+  "railways": {
+    "sourceWays": 16,
+    "renderedWays": 2,
+    "renderedMetres": 2193,
+    "ties": 3134,
+    "unresolved": [
+      {
+        "source": "w34746781",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w38798904",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w38798906",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w164665648",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w260383054",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w260383057",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w335285051",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w911020383",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w911020385",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w911020386",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w911020387",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w916372227",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w165240082",
+        "reason": "unknown-gauge-or-vertical-placement"
+      },
+      {
+        "source": "w165240083",
+        "reason": "unknown-gauge-or-vertical-placement"
+      }
+    ]
+  },
+  "network": {
+    "scc": 1209,
+    "mainNodes": 2260,
+    "nodesOutside": 1220,
+    "edgesOff": 1306,
+    "weakComponents": 6,
+    "laneAligned": 100
+  },
+  "edges": 3734,
+  "walls": 1373,
+  "wallPiecesCut": 1806,
+  "piers": 6,
+  "furniture": 56,
+  "roadSigns": 108,
+  "roofAds": 0,
+  "roofAdList": [],
+  "backdrop": 1543,
+  "sceneryStreets": 850,
+  "kerbParked": 0,
+  "marksDropped": [
+    {
+      "name": "Airport Expressway",
+      "type": "motorway",
+      "id": 26,
+      "lanes": [
+        4,
+        0
+      ],
+      "oneway": true,
+      "x": -1142,
+      "z": 49,
+      "len": 12,
+      "cover": 0,
+      "out": 1
+    },
+    {
+      "name": "Exit → South 170th Street",
+      "type": "tertiary_link",
+      "id": 3514,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -1194,
+      "z": -69,
+      "len": 11,
+      "cover": 1,
+      "out": 0
+    },
+    {
+      "name": "International Boulevard",
+      "type": "primary",
+      "id": 1967,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -681,
+      "z": -553,
+      "len": 12,
+      "cover": 0.97,
+      "out": 0
+    },
+    {
+      "name": "South 170th Street",
+      "type": "tertiary",
+      "id": 2157,
+      "lanes": [
+        1,
+        2
+      ],
+      "oneway": false,
+      "x": -833,
+      "z": -74,
+      "len": 14,
+      "cover": 0.85,
+      "out": 0.11
+    },
+    {
+      "name": "Ramp",
+      "type": "primary_link",
+      "id": 119,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -843,
+      "z": 693,
+      "len": 21,
+      "cover": 0.96,
+      "out": 0
+    },
+    {
+      "name": "Exit → Rental Car Return",
+      "type": "motorway_link",
+      "id": 13,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -885,
+      "z": 180,
+      "len": 72,
+      "cover": 0.95,
+      "out": 0
+    },
+    {
+      "name": "Ramp",
+      "type": "motorway_link",
+      "id": 619,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -872,
+      "z": 781,
+      "len": 23,
+      "cover": 0.88,
+      "out": 0.02
+    },
+    {
+      "name": "Ramp",
+      "type": "motorway_link",
+      "id": 1228,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -947,
+      "z": 27,
+      "len": 12,
+      "cover": 0.13,
+      "out": 0.74
+    },
+    {
+      "name": "Exit → Air Cargo Road",
+      "type": "motorway_link",
+      "id": 1835,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -1178,
+      "z": -418,
+      "len": 32,
+      "cover": 0.85,
+      "out": 0.01
+    },
+    {
+      "name": "Exit → Return to Terminal",
+      "type": "motorway_link",
+      "id": 2363,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -920,
+      "z": 971,
+      "len": 8,
+      "cover": 0.84,
+      "out": 0
+    },
+    {
+      "name": "Exit → Rental Car Return",
+      "type": "motorway_link",
+      "id": 2298,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -1155,
+      "z": -193,
+      "len": 23,
+      "cover": 0.83,
+      "out": 0.01
+    },
+    {
+      "name": "International Boulevard",
+      "type": "primary",
+      "id": 2182,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -691,
+      "z": -557,
+      "len": 11,
+      "cover": 0.83,
+      "out": 0
+    },
+    {
+      "name": "International Boulevard",
+      "type": "primary",
+      "id": 542,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": -832,
+      "z": 1058,
+      "len": 11,
+      "cover": 0.83,
+      "out": 0
+    },
+    {
+      "name": "Exit → Terminal",
+      "type": "motorway_link",
+      "id": 1680,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -1193,
+      "z": -218,
+      "len": 22,
+      "cover": 0.22,
+      "out": 0.57
+    },
+    {
+      "name": "South 170th Street",
+      "type": "tertiary",
+      "id": 2152,
+      "lanes": [
+        1,
+        2
+      ],
+      "oneway": false,
+      "x": -784,
+      "z": -74,
+      "len": 16,
+      "cover": 0.76,
+      "out": 0
+    },
+    {
+      "name": "Ramp",
+      "type": "motorway_link",
+      "id": 1451,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -1167,
+      "z": -13,
+      "len": 45,
+      "cover": 0.76,
+      "out": 0
+    },
+    {
+      "name": "International Boulevard",
+      "type": "primary",
+      "id": 590,
+      "lanes": [
+        4,
+        0
+      ],
+      "oneway": true,
+      "x": -833,
+      "z": 1049,
+      "len": 8,
+      "cover": 0.75,
+      "out": 0
+    },
+    {
+      "name": "Ramp",
+      "type": "motorway_link",
+      "id": 1230,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -967,
+      "z": 4,
+      "len": 13,
+      "cover": 0.69,
+      "out": 0.04
+    },
+    {
+      "name": "South 176th Street",
+      "type": "tertiary",
+      "id": 1064,
+      "lanes": [
+        3,
+        1
+      ],
+      "oneway": false,
+      "x": -848,
+      "z": 528,
+      "len": 13,
+      "cover": 0.72,
+      "out": 0
+    },
+    {
+      "name": "SeaTac Airport Arrivals",
+      "type": "primary",
+      "id": 543,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": -825,
+      "z": 1064,
+      "len": 15,
+      "cover": 0.71,
+      "out": 0
+    },
+    {
+      "name": "Ramp",
+      "type": "motorway_link",
+      "id": 621,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -872,
+      "z": 690,
+      "len": 58,
+      "cover": 0.67,
+      "out": 0.01
+    },
+    {
+      "name": "Ramp",
+      "type": "primary_link",
+      "id": 1790,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -750,
+      "z": -376,
+      "len": 22,
+      "cover": 0.67,
+      "out": 0
+    },
+    {
+      "name": "Exit → Terminal",
+      "type": "motorway_link",
+      "id": 1789,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": -1183,
+      "z": -622,
+      "len": 103,
+      "cover": 0.65,
+      "out": 0
+    },
+    {
+      "name": "Exit → Terminal",
+      "type": "motorway_link",
+      "id": 1654,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": -1147,
+      "z": -508,
+      "len": 66,
+      "cover": 0.63,
+      "out": 0
+    },
+    {
+      "name": "Exit → Air Cargo Road",
+      "type": "motorway_link",
+      "id": 2311,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -1129,
+      "z": -79,
+      "len": 16,
+      "cover": 0.63,
+      "out": 0
+    },
+    {
+      "name": "Exit → Rental Car Return",
+      "type": "motorway_link",
+      "id": 14,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -881,
+      "z": 139,
+      "len": 10,
+      "cover": 0.27,
+      "out": 0.35
+    },
+    {
+      "name": "Arrivals Drive",
+      "type": "secondary",
+      "id": 722,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -948,
+      "z": 998,
+      "len": 25,
+      "cover": 0.53,
+      "out": 0.01
+    },
+    {
+      "name": "Exit → Terminal",
+      "type": "motorway_link",
+      "id": 1567,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -1243,
+      "z": -222,
+      "len": 27,
+      "cover": 0.52,
+      "out": 0.02
+    },
+    {
+      "name": "Exit → Air Cargo Road",
+      "type": "motorway_link",
+      "id": 2300,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": -1141,
+      "z": -156,
+      "len": 22,
+      "cover": 0.5,
+      "out": 0.03
+    },
+    {
+      "name": "International Boulevard",
+      "type": "primary",
+      "id": 635,
+      "lanes": [
+        4,
+        0
+      ],
+      "oneway": true,
+      "x": -855,
+      "z": 522,
+      "len": 11,
+      "cover": 0.51,
+      "out": 0.01
+    }
+  ],
+  "raisedSidewalk": {
+    "pieces": 25264,
+    "corners": 858,
+    "joins": 654,
+    "skipped": [
+      {
+        "x": -1026,
+        "z": 945,
+        "why": "median"
+      },
+      {
+        "x": -1026,
+        "z": 945,
+        "why": "median"
+      },
+      {
+        "x": -1026,
+        "z": 945,
+        "why": "median"
+      },
+      {
+        "x": -1026,
+        "z": 945,
+        "why": "median"
+      },
+      {
+        "x": -983,
+        "z": 971,
+        "why": "covered"
+      },
+      {
+        "x": -983,
+        "z": 971,
+        "why": "covered"
+      },
+      {
+        "x": -983,
+        "z": 971,
+        "why": "median"
+      },
+      {
+        "x": -983,
+        "z": 971,
+        "why": "covered"
+      },
+      {
+        "x": -970,
+        "z": 981,
+        "why": "median"
+      },
+      {
+        "x": -970,
+        "z": 981,
+        "why": "covered"
+      },
+      {
+        "x": -970,
+        "z": 981,
+        "why": "covered"
+      },
+      {
+        "x": -970,
+        "z": 981,
+        "why": "median"
+      },
+      {
+        "x": -896,
+        "z": 1039,
+        "why": "median"
+      },
+      {
+        "x": -896,
+        "z": 1039,
+        "why": "median"
+      },
+      {
+        "x": -896,
+        "z": 1039,
+        "why": "median"
+      },
+      {
+        "x": -896,
+        "z": 1039,
+        "why": "median"
+      },
+      {
+        "x": -896,
+        "z": 1039,
+        "why": "median"
+      },
+      {
+        "x": -713,
+        "z": 216,
+        "why": "covered"
+      },
+      {
+        "x": -713,
+        "z": 216,
+        "why": "self-crossing"
+      },
+      {
+        "x": -713,
+        "z": 216,
+        "why": "covered"
+      },
+      {
+        "x": -713,
+        "z": 216,
+        "why": "self-crossing"
+      },
+      {
+        "x": -713,
+        "z": 216,
+        "why": "covered"
+      },
+      {
+        "x": -712,
+        "z": 131,
+        "why": "covered"
+      },
+      {
+        "x": -712,
+        "z": 131,
+        "why": "self-crossing"
+      },
+      {
+        "x": -712,
+        "z": 131,
+        "why": "covered"
+      },
+      {
+        "x": -775,
+        "z": 74,
+        "why": "covered"
+      },
+      {
+        "x": -775,
+        "z": 74,
+        "why": "self-crossing"
+      },
+      {
+        "x": -775,
+        "z": 74,
+        "why": "covered"
+      },
+      {
+        "x": -815,
+        "z": 74,
+        "why": "median"
+      },
+      {
+        "x": -815,
+        "z": 74,
+        "why": "covered"
+      },
+      {
+        "x": -815,
+        "z": 74,
+        "why": "covered"
+      },
+      {
+        "x": -815,
+        "z": 74,
+        "why": "median"
+      },
+      {
+        "x": -815,
+        "z": 74,
+        "why": "covered"
+      },
+      {
+        "x": -815,
+        "z": 74,
+        "why": "covered"
+      },
+      {
+        "x": -847,
+        "z": 72,
+        "why": "covered"
+      },
+      {
+        "x": -847,
+        "z": 72,
+        "why": "covered"
+      },
+      {
+        "x": -847,
+        "z": 72,
+        "why": "median"
+      },
+      {
+        "x": -847,
+        "z": 72,
+        "why": "covered"
+      },
+      {
+        "x": -847,
+        "z": 72,
+        "why": "covered"
+      },
+      {
+        "x": -847,
+        "z": 72,
+        "why": "median"
+      },
+      {
+        "x": -892,
+        "z": 859,
+        "why": "covered"
+      },
+      {
+        "x": -892,
+        "z": 859,
+        "why": "covered"
+      },
+      {
+        "x": -892,
+        "z": 859,
+        "why": "covered"
+      },
+      {
+        "x": -853,
+        "z": 158,
+        "why": "covered"
+      },
+      {
+        "x": -853,
+        "z": 158,
+        "why": "covered"
+      },
+      {
+        "x": -853,
+        "z": 158,
+        "why": "covered"
+      },
+      {
+        "x": -853,
+        "z": 158,
+        "why": "median"
+      },
+      {
+        "x": -853,
+        "z": 158,
+        "why": "covered"
+      },
+      {
+        "x": -853,
+        "z": 158,
+        "why": "covered"
+      },
+      {
+        "x": -853,
+        "z": 158,
+        "why": "self-crossing"
+      },
+      {
+        "x": -853,
+        "z": 158,
+        "why": "median"
+      },
+      {
+        "x": -803,
+        "z": 158,
+        "why": "self-crossing"
+      },
+      {
+        "x": -803,
+        "z": 158,
+        "why": "covered"
+      },
+      {
+        "x": -803,
+        "z": 158,
+        "why": "self-crossing"
+      },
+      {
+        "x": -847,
+        "z": 659,
+        "why": "covered"
+      },
+      {
+        "x": -847,
+        "z": 659,
+        "why": "covered"
+      },
+      {
+        "x": -847,
+        "z": 659,
+        "why": "self-crossing"
+      },
+      {
+        "x": -847,
+        "z": 659,
+        "why": "covered"
+      },
+      {
+        "x": -847,
+        "z": 659,
+        "why": "median"
+      },
+      {
+        "x": -835,
+        "z": 674,
+        "why": "self-crossing"
+      }
+    ]
+  },
+  "greenQuads": 21220,
+  "fenceM": 0,
+  "bollards": 0,
+  "pitchesDressed": 1,
+  "fuel": [
+    {
+      "name": "Shell",
+      "x": -812,
+      "z": -57,
+      "canopy": false,
+      "sourceFootprint": false,
+      "reason": "No reviewed mapped canopy at this source POI; canopy/pumps/pylon dimensions and fuel grades are unknown"
+    },
+    {
+      "name": "76",
+      "x": -788,
+      "z": -109,
+      "canopy": true,
+      "source": "w433205179",
+      "sourceFootprint": true,
+      "topM": 4,
+      "clearanceM": 3.65,
+      "topSource": "estimate",
+      "clearanceSource": "estimate",
+      "supports": 1,
+      "supportSource": "estimate"
+    }
+  ],
+  "buildingRoofProfiles": {
+    "supplied": 1858,
+    "applied": 1858,
+    "rejected": [],
+    "uncertain": [],
+    "surfacesApplied": 25,
+    "surfacesRejected": [
+      "w333014990",
+      "w688101298",
+      "w734002402",
+      "w734002403",
+      "w939575460",
+      "w1166103696",
+      "w1167133006",
+      "w1167138987",
+      "w1167169467",
+      "w1340862557"
+    ],
+    "canopies": {
+      "native": [
+        {
+          "sourceId": "w276667216",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3.65
+        },
+        {
+          "sourceId": "w276667217",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3.65
+        },
+        {
+          "sourceId": "w364221558",
+          "shape": "flat",
+          "totalM": 3.2,
+          "eavesM": 3.2,
+          "minimumM": 2.85
+        },
+        {
+          "sourceId": "w364221559",
+          "shape": "flat",
+          "totalM": 3.2,
+          "eavesM": 3.2,
+          "minimumM": 2.85
+        },
+        {
+          "sourceId": "w469766789",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3.65
+        },
+        {
+          "sourceId": "w647214513",
+          "shape": "flat",
+          "totalM": 3.2,
+          "eavesM": 3.2,
+          "minimumM": 2.85
+        },
+        {
+          "sourceId": "w647566517",
+          "shape": "flat",
+          "totalM": 3.2,
+          "eavesM": 3.2,
+          "minimumM": 2.85
+        },
+        {
+          "sourceId": "w1167138987",
+          "shape": "flat",
+          "totalM": 3.2,
+          "eavesM": 3.2,
+          "minimumM": 2.85
+        },
+        {
+          "sourceId": "w433205179",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3.65
+        },
+        {
+          "sourceId": "w439263875",
+          "shape": "flat",
+          "totalM": 3.2,
+          "eavesM": 3.2,
+          "minimumM": 2.85
+        },
+        {
+          "sourceId": "w439265090",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3.65
+        },
+        {
+          "sourceId": "w647566814",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3.65
+        },
+        {
+          "sourceId": "w647569414",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3.65
+        },
+        {
+          "sourceId": "w737770102",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3.65
+        },
+        {
+          "sourceId": "w865527423",
+          "shape": "flat",
+          "totalM": 4,
+          "eavesM": 4,
+          "minimumM": 3.65
+        }
+      ],
+      "legacyFlat": []
+    }
+  },
+  "profile": {
+    "merge": {
+      "overlapsBefore": 92,
+      "overlapsAfter": 41,
+      "crossBefore": 42,
+      "crossAfter": 37,
+      "goreBefore": 6,
+      "goreAfter": 6,
+      "goreCross": [
+        37,
+        39
+      ],
+      "deck": {
+        "chains": 9,
+        "targets": 262,
+        "ground": 2723,
+        "raised": 217,
+        "maxY": 11
+      },
+      "final": {
+        "ramps": 186,
+        "liveDecks": 9,
+        "ground": 2907,
+        "lowered": 246,
+        "raised": 53,
+        "overheadCaps": 2,
+        "maxY": 11
+      },
+      "tunnelApproach": {
+        "constraints": 0,
+        "turningPads": 0,
+        "lowered": 0,
+        "maxDrop": 0,
+        "kept": false
+      },
+      "gore": {
+        "lowered": 223,
+        "rounds": 8,
+        "left": 1023,
+        "maxDrop": 4.5
+      }
+    },
+    "crossings": 71,
+    "overlaps": 796,
+    "clearanceViolations": 22,
+    "overlapSteps": 23,
+    "gradeResidual": 5.291,
+    "hardNodes": 2352,
+    "nanAt": null
+  },
+  "buildingPassages": [
+    {
+      "sourceRoadId": "w906096010",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        3509537869,
+        13683396594,
+        8394508318,
+        8394508319,
+        8394508320,
+        8394508321,
+        8394508322,
+        8394508323,
+        10902652794,
+        8394508324,
+        8394508325,
+        8394508326,
+        8394508327,
+        8394508328,
+        8394508329,
+        14215729332,
+        4604964852
+      ],
+      "sourceCentreline": [
+        [
+          -1038.975987007102,
+          645.8213916005388
+        ],
+        [
+          -1041.2418637186797,
+          644.1321852005397
+        ],
+        [
+          -1116.6782442333488,
+          643.6987704002125
+        ],
+        [
+          -1116.7083555510678,
+          661.768833600547
+        ],
+        [
+          -1116.7083555510678,
+          680.3723304000087
+        ],
+        [
+          -1067.4612942475324,
+          680.8168584004655
+        ],
+        [
+          -1067.6645456477522,
+          699.3870156003271
+        ],
+        [
+          -1115.827599487728,
+          698.9758272002598
+        ],
+        [
+          -1115.8351273168905,
+          709.155518399985
+        ],
+        [
+          -1115.9781560795325,
+          720.3687371999434
+        ],
+        [
+          -1067.4763499069268,
+          720.1242468002449
+        ],
+        [
+          -1067.626906499801,
+          736.4050848002009
+        ],
+        [
+          -1115.616820258346,
+          736.3828583999413
+        ],
+        [
+          -1115.9555725909759,
+          771.4005516001278
+        ],
+        [
+          -1068.5076625631407,
+          809.118752400287
+        ],
+        [
+          -1069.2604455243022,
+          875.5423488003031
+        ],
+        [
+          -1069.0647219543148,
+          885.3330780002207
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "oneway": "yes",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/906096010"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review.",
+      "accepted": false
+    },
+    {
+      "sourceRoadId": "w909581584",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        10837713017,
+        8394491316
+      ],
+      "sourceCentreline": [
+        [
+          -954.8826024422831,
+          581.6760012002983
+        ],
+        [
+          -966.4152374035999,
+          571.5296496001731
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "oneway": "yes",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/909581584"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review.",
+      "accepted": false
+    },
+    {
+      "sourceRoadId": "w1202709961",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        3509537869,
+        11149569865,
+        13683396599,
+        8394508317
+      ],
+      "sourceCentreline": [
+        [
+          -1038.975987007102,
+          645.8213916005388
+        ],
+        [
+          -1035.362628794168,
+          640.1981124003648
+        ],
+        [
+          -1021.3156987428706,
+          626.4621972001426
+        ],
+        [
+          -1002.5337638681984,
+          608.1143040005095
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1202709961"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review.",
+      "accepted": false
+    },
+    {
+      "sourceRoadId": "w1493252870",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        3509537869,
+        13683396592,
+        13683396593
+      ],
+      "sourceCentreline": [
+        [
+          -1038.975987007102,
+          645.8213916005388
+        ],
+        [
+          -1045.8714789284334,
+          649.6221059999449
+        ],
+        [
+          -1067.3709602922358,
+          670.9149972000389
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "oneway": "yes",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1493252870"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review.",
+      "accepted": false
+    },
+    {
+      "sourceRoadId": "w1493252871",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        8414390365,
+        10821997081,
+        8414390364,
+        8414390363,
+        8394491315,
+        8414390361,
+        8394491316,
+        8394508317
+      ],
+      "sourceCentreline": [
+        [
+          -1090.383535407524,
+          569.0402928002989
+        ],
+        [
+          -1090.180284008374,
+          569.5626132000857
+        ],
+        [
+          -1089.2694166262456,
+          569.7293112004544
+        ],
+        [
+          -1086.303451759782,
+          569.7070848001947
+        ],
+        [
+          -1081.4705851508786,
+          569.7515375999245
+        ],
+        [
+          -1077.4808354573636,
+          569.8071036005739
+        ],
+        [
+          -966.4152374035999,
+          571.5296496001731
+        ],
+        [
+          -1002.5337638681984,
+          608.1143040005095
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "oneway": "yes",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1493252871"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review.",
+      "accepted": false
+    },
+    {
+      "sourceRoadId": "w1493252872",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        8394508319,
+        13683396595,
+        13683396593,
+        8394508321
+      ],
+      "sourceCentreline": [
+        [
+          -1116.7083555510678,
+          661.768833600547
+        ],
+        [
+          -1067.2881541671713,
+          662.2133616002144
+        ],
+        [
+          -1067.3709602922358,
+          670.9149972000389
+        ],
+        [
+          -1067.4612942475324,
+          680.8168584004655
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "oneway": "yes",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1493252872"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review.",
+      "accepted": false
+    },
+    {
+      "sourceRoadId": "w1493252873",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        8394508317,
+        13683396596,
+        13683396597,
+        13683396598,
+        13683396599
+      ],
+      "sourceCentreline": [
+        [
+          -1002.5337638681984,
+          608.1143040005095
+        ],
+        [
+          -1099.8083780782301,
+          606.7029276005984
+        ],
+        [
+          -1106.749036978814,
+          614.2154507999508
+        ],
+        [
+          -1106.7866761267653,
+          625.27308480046
+        ],
+        [
+          -1021.3156987428706,
+          626.4621972001426
+        ]
+      ],
+      "tags": {
+        "access": "no",
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "oneway": "yes",
+        "rideshare": "designated",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1493252873"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review.",
+      "accepted": false
+    },
+    {
+      "sourceRoadId": "w1562262127",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        8414390365,
+        14215729330,
+        14215729331,
+        14215729332
+      ],
+      "sourceCentreline": [
+        [
+          -1090.383535407524,
+          569.0402928002989
+        ],
+        [
+          -1216.3768195780642,
+          693.7526232000232
+        ],
+        [
+          -1215.985372438089,
+          722.6358300003787
+        ],
+        [
+          -1069.2604455243022,
+          875.5423488003031
+        ]
+      ],
+      "tags": {
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "motor_vehicle": "private",
+        "oneway": "yes",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1562262127"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review.",
+      "accepted": false
+    },
+    {
+      "sourceRoadId": "w1562297012",
+      "reason": "absolute-passage-base-unknown",
+      "baseUnknown": true,
+      "status": "unsupported without a physical vertical datum",
+      "classificationSource": "OSM tunnel=building_passage",
+      "buildingIds": [
+        "r15763840"
+      ],
+      "sourceNodeIds": [
+        4604964850,
+        8414390362,
+        8414390365
+      ],
+      "sourceCentreline": [
+        [
+          -1084.3085769130246,
+          563.6948436002131
+        ],
+        [
+          -1089.7737812100743,
+          568.0289916003253
+        ],
+        [
+          -1090.383535407524,
+          569.0402928002989
+        ]
+      ],
+      "tags": {
+        "highway": "service",
+        "layer": "1",
+        "level": "3",
+        "motor_vehicle": "private",
+        "oneway": "yes",
+        "tunnel": "building_passage"
+      },
+      "evidence": [
+        "https://www.openstreetmap.org/way/1562297012"
+      ],
+      "dimensionNote": "Relative source layer/level/bridge ordering does not establish metres above local ground. No ground void is cut; source identities and complete horizontal geometry are retained for review.",
+      "accepted": false
+    },
+    {
+      "source": "r5186200",
+      "road": "w333925965",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 3,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "r6655365",
+      "road": "w690496106",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "r6655365",
+      "road": "w690496108",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w54139654",
+      "road": "w333014992",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 3.7,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w246328436",
+      "road": "w333925964",
+      "accepted": true,
+      "clearanceM": 3.5528000000000004,
+      "ceilingM": 3.7928000000000006,
+      "widthM": 6,
+      "clearanceSource": "estimate:legal maxheight plus0.2m",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w314940617",
+      "road": "w369422784",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 6,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w314940622",
+      "road": "w1203876021",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 6,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w442000783",
+      "road": "w1203876623",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w647216787",
+      "road": "w735826688",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w647567422",
+      "road": "w1185430933",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 3,
+      "clearanceSource": "estimate:3.1m covered passenger-vehicle service passage; vertical dimension untagged",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w374790721",
+      "road": "w566445076",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 6,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w433205177",
+      "road": "w526111446",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 3,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w433205180",
+      "road": "w894964159",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 3,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w434683860",
+      "road": "w722017345",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w434683860",
+      "road": "w722017347",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    }
+  ],
+  "treesOSM": 11083,
+  "treesRows": 0,
+  "heightFixes": 0,
+  "heightFixSamples": [],
+  "buildingsShrunk": 0,
+  "buildingClearance": [
+    {
+      "source": "r5186200",
+      "before": 10160.804324484954,
+      "after": 10160.804324484954,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "r15763840",
+      "before": 59112.63564707461,
+      "after": 59112.63564707461,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w54139654",
+      "before": 3039.170085699996,
+      "after": 3039.170085699996,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w246328436",
+      "before": 2452.4100391050015,
+      "after": 2452.4100391050015,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w314940617",
+      "before": 2604.1213141147164,
+      "after": 2604.1213141147164,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w314940622",
+      "before": 4501.413983985112,
+      "after": 4501.413983985112,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w333014990",
+      "before": 593.7110788449936,
+      "after": 593.7110788449936,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w348004784",
+      "before": 5202.121756580018,
+      "after": 5202.121756580018,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w348004787",
+      "before": 1064.1198846400366,
+      "after": 1064.1198846400366,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w364221558",
+      "before": 960.44331711001,
+      "after": 960.44331711001,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w364221559",
+      "before": 139.4730298949289,
+      "after": 139.4730298949289,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647215818",
+      "before": 296.0452136051026,
+      "after": 296.0452136051026,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647566418",
+      "before": 627.6940508399857,
+      "after": 627.6940508399857,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647566466",
+      "before": 1239.9790118399906,
+      "after": 1239.9790118399906,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647566517",
+      "before": 475.15636532002827,
+      "after": 475.15636532002827,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647566856",
+      "before": 1331.5559026400078,
+      "after": 1331.5559026400078,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647567422",
+      "before": 876.2948634000204,
+      "after": 876.2948634000204,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647567572",
+      "before": 1661.4167585250034,
+      "after": 1661.4167585250034,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647568031",
+      "before": 913.814910559995,
+      "after": 913.814910559995,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647568473",
+      "before": 634.6894308350165,
+      "after": 634.6894308350165,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647568474",
+      "before": 466.61380344000645,
+      "after": 466.61380344000645,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647569674",
+      "before": 569.3948269699758,
+      "after": 569.3948269699758,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w734002404",
+      "before": 15770.634288194473,
+      "after": 15770.634288194473,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w1064205117",
+      "before": 741.4892865350121,
+      "after": 741.4892865350121,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w1167133008",
+      "before": 41.738436610088684,
+      "after": 41.738436610088684,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w1167169467",
+      "before": 60.161892244941555,
+      "after": 60.161892244941555,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w171269627",
+      "before": 169.42319375999796,
+      "after": 169.42319375999796,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w374790721",
+      "before": 1623.2905128550337,
+      "after": 1623.2905128550337,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w433205177",
+      "before": 458.58178204498836,
+      "after": 458.58178204498836,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w433205180",
+      "before": 75.20860006001021,
+      "after": 75.20860006001021,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w439265092",
+      "before": 2144.56404672988,
+      "after": 2144.56404672988,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647568827",
+      "before": 836.7458667449828,
+      "after": 836.7458667449828,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647569318",
+      "before": 156.29825360999894,
+      "after": 156.29825360999894,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647569375",
+      "before": 227.60118051001336,
+      "after": 227.60118051001336,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647569640",
+      "before": 479.11667500500334,
+      "after": 479.11667500500334,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w647569852",
+      "before": 403.0118223200261,
+      "after": 403.0118223200261,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    }
+  ],
+  "buildingsDropped": 0,
+  "buildingsCovered": [],
+  "buildingAssemblies": [
+    {
+      "mode": "parts",
+      "outline": "w53199557",
+      "parts": [
+        "w1199936806",
+        "w1199936807"
+      ],
+      "residualArea": 0,
+      "residualHeight": 71,
+      "residualHeightSource": "adjacent-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    }
+  ],
+  "buildingAssembliesRejected": [],
+  "buildingUnions": [
+    {
+      "source": "w439263873",
+      "neighbours": 1
+    },
+    {
+      "source": "w439263874",
+      "neighbours": 1
+    },
+    {
+      "source": "w1199936806",
+      "neighbours": 1
+    },
+    {
+      "source": "w1199936807",
+      "neighbours": 1
+    }
+  ],
+  "buildingUnionsRejected": [],
+  "landmarkSourceReplacements": [
+    {
+      "landmark": "seatac",
+      "declared": [
+        "w23772634",
+        "w23772637",
+        "w734002404",
+        "w869951038"
+      ],
+      "replaced": [
+        "w23772634",
+        "w23772637",
+        "w734002404",
+        "w869951038"
+      ],
+      "unmatched": []
+    },
+    {
+      "landmark": "seatower",
+      "declared": [
+        "w53199557",
+        "w1199936806",
+        "w1199936807"
+      ],
+      "replaced": [
+        "w53199557",
+        "w1199936806",
+        "w1199936807"
+      ],
+      "unmatched": []
+    },
+    {
+      "landmark": "seagarage",
+      "declared": [
+        "r15763840",
+        "w37017724",
+        "w37017725",
+        "w37017726",
+        "w37017727",
+        "w37017728",
+        "w37017729"
+      ],
+      "replaced": [
+        "r15763840"
+      ],
+      "unmatched": [
+        "w37017724",
+        "w37017725",
+        "w37017726",
+        "w37017727",
+        "w37017728",
+        "w37017729"
+      ]
+    },
+    {
+      "landmark": "sealink",
+      "declared": [
+        "w54139654"
+      ],
+      "replaced": [
+        "w54139654"
+      ],
+      "unmatched": []
+    }
+  ],
+  "landmarkBoxesTrimmed": 1,
+  "landmarkBoxesDropped": 0,
+  "lampsMovedToKerb": 5,
+  "lampsInWater": 0,
+  "shoreTris": 72378,
+  "vacantUnits": 0,
+  "channelM": 0,
+  "unitSigns": 5,
+  "unitSignSpots": [
+    [
+      -729,
+      954,
+      3
+    ],
+    [
+      -730,
+      -339,
+      3
+    ],
+    [
+      -682,
+      -451,
+      3
+    ],
+    [
+      -766,
+      1062,
+      3
+    ],
+    [
+      -723,
+      -290,
+      3
+    ]
+  ],
+  "crossings": 71,
+  "corridorKm2": 2.16,
+  "nodes": 2259,
+  "buildings": 1849,
+  "pois": 211,
+  "trees": 12300,
+  "parked": 592,
+  "lights": 20,
+  "lamps": 157,
+  "osmLamps": 22,
+  "cells": 254,
+  "triangles": 1915192,
+  "meshes": 646,
+  "signPages": 1,
+  "buildMs": 11303,
+  "scenerySource": {
+    "precisePieces": 850,
+    "literalWidthPieces": 0,
+    "reviewedWidthPieces": 0,
+    "estimatedWidthPieces": 850,
+    "fallbackPieces": 0,
+    "resolvedWidths": [],
+    "issues": [],
+    "bridges": {
+      "policy": "MODEL estimate: exact source connectivity; final core ties; 5.2m road clearance, 0.4m slab, 8% approaches / 2.8% decks; river/rail-only bridges at grade",
+      "bridgePieces": 13,
+      "approachPieces": 21,
+      "coreTies": 7,
+      "crossings": 21,
+      "unresolved": [
+        {
+          "sourceId": "w428056673",
+          "lowerSourceId": "w4856725",
+          "x": -371.61066971055646,
+          "z": -1477.2951192438436,
+          "requiredDisplacementM": 5.6000000000000005,
+          "actualDisplacementM": 5.299177579244356,
+          "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+        },
+        {
+          "sourceId": "w37017434",
+          "lowerSourceId": "w124272629",
+          "x": -936.5227707050664,
+          "z": -1082.1481820196298,
+          "requiredDisplacementM": 5.6000000000000005,
+          "actualDisplacementM": 2.2890135352777605,
+          "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+        },
+        {
+          "sourceId": "w104034227",
+          "lowerSourceId": "w273078320",
+          "x": -480.9478377598115,
+          "z": -1239.7701804323374,
+          "requiredDisplacementM": 6.655910676075598,
+          "actualDisplacementM": 6.2643755714728355,
+          "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+        },
+        {
+          "sourceId": "w104034227",
+          "lowerSourceId": "w273078327",
+          "x": -520.1288871207773,
+          "z": -1194.7986777022186,
+          "requiredDisplacementM": 5.6000000000000005,
+          "actualDisplacementM": 4.580682441662746,
+          "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+        },
+        {
+          "sourceId": "w104034227",
+          "lowerSourceId": "w273078328",
+          "x": -523.7655592896479,
+          "z": -1191.1949413054215,
+          "requiredDisplacementM": 5.6000000000000005,
+          "actualDisplacementM": 4.437328182648766,
+          "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+        },
+        {
+          "sourceId": "w165056067",
+          "lowerSourceId": "w273078320",
+          "x": -486.2481392494635,
+          "z": -1237.35943793685,
+          "requiredDisplacementM": 6.588028460529312,
+          "actualDisplacementM": 6.142624024385874,
+          "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+        },
+        {
+          "sourceId": "w428045909",
+          "lowerSourceId": "w23563703",
+          "x": -973.5913267524701,
+          "z": -1106.1111662836634,
+          "requiredDisplacementM": 5.6000000000000005,
+          "actualDisplacementM": 2.8518308823825094,
+          "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+        },
+        {
+          "sourceId": "w985351051",
+          "lowerSourceId": "w273078327",
+          "x": -524.5002049643033,
+          "z": -1200.351762005546,
+          "requiredDisplacementM": 5.6000000000000005,
+          "actualDisplacementM": 3.082446998282827,
+          "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+        },
+        {
+          "sourceId": "w985351051",
+          "lowerSourceId": "w273078328",
+          "x": -528.5295259045002,
+          "z": -1196.2336290122466,
+          "requiredDisplacementM": 5.6000000000000005,
+          "actualDisplacementM": 3.243767939658258,
+          "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+        }
+      ],
+      "pieces": [
+        {
+          "piece": 507,
+          "sourceId": "w23723885",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 4.658983058022976,
+          "coreTies": 0,
+          "renderedSegments": 28,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 511,
+          "sourceId": "w52735007",
+          "bridge": false,
+          "minDisplacementM": 2.215324663582932,
+          "maxDisplacementM": 4.389861649343245,
+          "coreTies": 0,
+          "renderedSegments": 5,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 524,
+          "sourceId": "w428056673",
+          "bridge": true,
+          "minDisplacementM": 4.389861649343245,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 16,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 525,
+          "sourceId": "w433205295",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 2.215324663582932,
+          "coreTies": 0,
+          "renderedSegments": 21,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 526,
+          "sourceId": "w433205297",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 2.215324663582932,
+          "coreTies": 0,
+          "renderedSegments": 8,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 615,
+          "sourceId": "w6329914",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 5.049102428731009,
+          "coreTies": 0,
+          "renderedSegments": 36,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 619,
+          "sourceId": "w6509980",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 1.8921815949022265,
+          "coreTies": 0,
+          "renderedSegments": 3,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 621,
+          "sourceId": "w23565025",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 5.201732646452501,
+          "coreTies": 1,
+          "renderedSegments": 34,
+          "alreadyRenderedCoreSegments": 3,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 622,
+          "sourceId": "w23723882",
+          "bridge": true,
+          "minDisplacementM": 5.049102428731009,
+          "maxDisplacementM": 8.202540508701386,
+          "coreTies": 0,
+          "renderedSegments": 21,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 623,
+          "sourceId": "w23723884",
+          "bridge": true,
+          "minDisplacementM": 4.658983058022976,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 11,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 625,
+          "sourceId": "w37017434",
+          "bridge": true,
+          "minDisplacementM": 2.2180882406796907,
+          "maxDisplacementM": 3.162148567832169,
+          "coreTies": 0,
+          "renderedSegments": 7,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 630,
+          "sourceId": "w37017720",
+          "bridge": true,
+          "minDisplacementM": 5.170795644667282,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 15,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 631,
+          "sourceId": "w37017721",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 5.172155494625477,
+          "coreTies": 1,
+          "renderedSegments": 30,
+          "alreadyRenderedCoreSegments": 2,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 632,
+          "sourceId": "w65584412",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 1.964761511816625,
+          "coreTies": 0,
+          "renderedSegments": 4,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 633,
+          "sourceId": "w65588356",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 4.389861649343245,
+          "coreTies": 0,
+          "renderedSegments": 27,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 638,
+          "sourceId": "w104034223",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 1.6209595954472658,
+          "coreTies": 0,
+          "renderedSegments": 37,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 639,
+          "sourceId": "w104034224",
+          "bridge": true,
+          "minDisplacementM": 3.7286623778882846,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 13,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 641,
+          "sourceId": "w104034227",
+          "bridge": true,
+          "minDisplacementM": 3.947776351254798,
+          "maxDisplacementM": 6.435651807029541,
+          "coreTies": 0,
+          "renderedSegments": 27,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 644,
+          "sourceId": "w124940472",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 4.389861649343245,
+          "coreTies": 0,
+          "renderedSegments": 7,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 646,
+          "sourceId": "w133397784",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 5.034955079812635,
+          "coreTies": 0,
+          "renderedSegments": 14,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 647,
+          "sourceId": "w165056067",
+          "bridge": true,
+          "minDisplacementM": 5.821415690716648,
+          "maxDisplacementM": 6.383665427708754,
+          "coreTies": 0,
+          "renderedSegments": 11,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 656,
+          "sourceId": "w273078320",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 2.9755065614867506,
+          "coreTies": 0,
+          "renderedSegments": 17,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 657,
+          "sourceId": "w273078321",
+          "bridge": true,
+          "minDisplacementM": 4.4362517126568255,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 11,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 668,
+          "sourceId": "w273078333",
+          "bridge": true,
+          "minDisplacementM": 5.2704193921055875,
+          "maxDisplacementM": 6.080493811263471,
+          "coreTies": 0,
+          "renderedSegments": 20,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 669,
+          "sourceId": "w273078860",
+          "bridge": false,
+          "minDisplacementM": 3.4283004038680005,
+          "maxDisplacementM": 3.7286623778882846,
+          "coreTies": 0,
+          "renderedSegments": 1,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 671,
+          "sourceId": "w273078862",
+          "bridge": false,
+          "minDisplacementM": 2.37219037122405,
+          "maxDisplacementM": 3.4283004038680005,
+          "coreTies": 0,
+          "renderedSegments": 2,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 673,
+          "sourceId": "w346501602",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 3.4283004038680005,
+          "coreTies": 0,
+          "renderedSegments": 21,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 682,
+          "sourceId": "w364969435",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 5.302439622841415,
+          "coreTies": 0,
+          "renderedSegments": 15,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 693,
+          "sourceId": "w428045909",
+          "bridge": true,
+          "minDisplacementM": 1.8921815949022265,
+          "maxDisplacementM": 2.8870235946077285,
+          "coreTies": 0,
+          "renderedSegments": 6,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 699,
+          "sourceId": "w428045915",
+          "bridge": true,
+          "minDisplacementM": 1.964761511816625,
+          "maxDisplacementM": 2.2180882406796907,
+          "coreTies": 0,
+          "renderedSegments": 1,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 736,
+          "sourceId": "w481592458",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 3.947776351254798,
+          "coreTies": 0,
+          "renderedSegments": 12,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 806,
+          "sourceId": "w819472433",
+          "bridge": false,
+          "minDisplacementM": 5.087703677448785,
+          "maxDisplacementM": 5.700018367714214,
+          "coreTies": 0,
+          "renderedSegments": 1,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 817,
+          "sourceId": "w985351050",
+          "bridge": false,
+          "minDisplacementM": 2.436338305944247,
+          "maxDisplacementM": 4.447030263785145,
+          "coreTies": 0,
+          "renderedSegments": 7,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 818,
+          "sourceId": "w985351051",
+          "bridge": true,
+          "minDisplacementM": 2.9755065614867506,
+          "maxDisplacementM": 3.751284115420577,
+          "coreTies": 0,
+          "renderedSegments": 8,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        }
+      ],
+      "continuations": [
+        {
+          "kind": "source bridge mouth with named parallel approach fork",
+          "sourceNodeId": 490756658,
+          "x": -382.26318755637266,
+          "z": -1446.6163571998893,
+          "nodeDegree": 4,
+          "incomingSourceId": "w428056673",
+          "approachSourceId": "w65588356",
+          "approachName": "International Boulevard",
+          "bridgeOutward": [
+            0.3280163580938159,
+            -0.9446720429984523
+          ],
+          "approachOutward": [
+            [
+              -0.5157354295177736,
+              0.8567479015090248
+            ],
+            [
+              -0.16820159461171458,
+              0.9857526178357713
+            ]
+          ]
+        },
+        {
+          "kind": "source bridge mouth with named parallel approach fork",
+          "sourceNodeId": 490756658,
+          "x": -382.26318755637266,
+          "z": -1446.6163571998893,
+          "nodeDegree": 4,
+          "incomingSourceId": "w428056673",
+          "approachSourceId": "w124940472",
+          "approachName": "International Boulevard",
+          "bridgeOutward": [
+            0.3280163580938159,
+            -0.9446720429984523
+          ],
+          "approachOutward": [
+            [
+              -0.5157354295177736,
+              0.8567479015090248
+            ],
+            [
+              -0.16820159461171458,
+              0.9857526178357713
+            ]
+          ]
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 2779761986,
+          "x": -445.1807874306245,
+          "z": -1281.2963939994045,
+          "nodeDegree": 3,
+          "incomingSourceId": "w65588356",
+          "approachSourceId": "w65588356"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 4745072079,
+          "x": -789.0068770024058,
+          "z": -1240.588742399844,
+          "nodeDegree": 3,
+          "incomingSourceId": "w6329914",
+          "approachSourceId": "w6329914"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779778065,
+          "x": -746.1434152072108,
+          "z": -1214.5838543999598,
+          "nodeDegree": 3,
+          "incomingSourceId": "w273078860",
+          "approachSourceId": "w273078862"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779778065,
+          "x": -746.1434152072108,
+          "z": -1214.5838543999598,
+          "nodeDegree": 3,
+          "incomingSourceId": "w273078860",
+          "approachSourceId": "w346501602"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779778075,
+          "x": -736.5077933081925,
+          "z": -1223.6077727996026,
+          "nodeDegree": 2,
+          "incomingSourceId": "w273078862",
+          "approachSourceId": "w346501602"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 8067390485,
+          "x": -742.7709475424474,
+          "z": -1211.3832527996706,
+          "nodeDegree": 2,
+          "incomingSourceId": "w346501602",
+          "approachSourceId": "w346501602"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 8067390284,
+          "x": -733.3611605311357,
+          "z": -1220.551642799422,
+          "nodeDegree": 2,
+          "incomingSourceId": "w346501602",
+          "approachSourceId": "w346501602"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779778067,
+          "x": -729.3864664970151,
+          "z": -1198.102978800035,
+          "nodeDegree": 2,
+          "incomingSourceId": "w346501602",
+          "approachSourceId": "w346501602"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779778073,
+          "x": -679.424261381339,
+          "z": -1169.2197719996796,
+          "nodeDegree": 3,
+          "incomingSourceId": "w346501602",
+          "approachSourceId": "w273078861"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779778073,
+          "x": -679.424261381339,
+          "z": -1169.2197719996796,
+          "nodeDegree": 3,
+          "incomingSourceId": "w346501602",
+          "approachSourceId": "w346501602"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 11158493404,
+          "x": -690.3998369514818,
+          "z": -1160.2514195998965,
+          "nodeDegree": 2,
+          "incomingSourceId": "w346501602",
+          "approachSourceId": "w346501602"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779778083,
+          "x": -666.980759036824,
+          "z": -1167.9306407996178,
+          "nodeDegree": 2,
+          "incomingSourceId": "w273078861",
+          "approachSourceId": "w273078861"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779778072,
+          "x": -679.4016778917126,
+          "z": -1165.041208799806,
+          "nodeDegree": 2,
+          "incomingSourceId": "w346501602",
+          "approachSourceId": "w346501602"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779778068,
+          "x": -684.6485751302178,
+          "z": -1159.851344399959,
+          "nodeDegree": 3,
+          "incomingSourceId": "w346501602",
+          "approachSourceId": "w273078861"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 11158507905,
+          "x": -648.6354382792405,
+          "z": -1149.7938983992935,
+          "nodeDegree": 3,
+          "incomingSourceId": "w273078861",
+          "approachSourceId": "w273078861"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 11158507905,
+          "x": -648.6354382792405,
+          "z": -1149.7938983992935,
+          "nodeDegree": 3,
+          "incomingSourceId": "w273078861",
+          "approachSourceId": "w1090072138"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779778078,
+          "x": -657.4655824108213,
+          "z": -1133.0129663998105,
+          "nodeDegree": 2,
+          "incomingSourceId": "w273078861",
+          "approachSourceId": "w273078861"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779778081,
+          "x": -644.668272075352,
+          "z": -1145.782033199789,
+          "nodeDegree": 3,
+          "incomingSourceId": "w273078861",
+          "approachSourceId": "w1090072140"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 11158493402,
+          "x": -644.909162622453,
+          "z": -1153.4501411993801,
+          "nodeDegree": 2,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072138"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 11158493403,
+          "x": -640.1816856282404,
+          "z": -1149.9494831995326,
+          "nodeDegree": 2,
+          "incomingSourceId": "w1090072140",
+          "approachSourceId": "w1090072140"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057723,
+          "x": -635.0552336638206,
+          "z": -1163.4853607997861,
+          "nodeDegree": 2,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072138"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057746,
+          "x": -630.6966203210266,
+          "z": -1159.3290239993828,
+          "nodeDegree": 2,
+          "incomingSourceId": "w1090072140",
+          "approachSourceId": "w1090072140"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057724,
+          "x": -647.5213194968924,
+          "z": -1175.898805199557,
+          "nodeDegree": 2,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072138"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057745,
+          "x": -619.9544074677527,
+          "z": -1148.6603519994708,
+          "nodeDegree": 2,
+          "incomingSourceId": "w1090072140",
+          "approachSourceId": "w1090072140"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057725,
+          "x": -634.8820935834594,
+          "z": -1188.6123059996758,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072138"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057725,
+          "x": -634.8820935834594,
+          "z": -1188.6123059996758,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072149"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057744,
+          "x": -607.563599931653,
+          "z": -1161.462758399839,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072140",
+          "approachSourceId": "w1090072140"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057726,
+          "x": -622.1073667365467,
+          "z": -1201.3480332000543,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072138"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057726,
+          "x": -622.1073667365467,
+          "z": -1201.3480332000543,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072148"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057743,
+          "x": -595.2029037132722,
+          "z": -1174.7430323994743,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072140",
+          "approachSourceId": "w1090072140"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057727,
+          "x": -608.7379413505089,
+          "z": -1214.9394767993779,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072138"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057727,
+          "x": -608.7379413505089,
+          "z": -1214.9394767993779,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072147"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057742,
+          "x": -581.8259504970023,
+          "z": -1188.701211599925,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072140",
+          "approachSourceId": "w1090072140"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057728,
+          "x": -595.5943508521777,
+          "z": -1227.6196379998967,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072138"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057728,
+          "x": -595.5943508521777,
+          "z": -1227.6196379998967,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072146"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057741,
+          "x": -569.6609778486091,
+          "z": -1200.7701467996183,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072140",
+          "approachSourceId": "w1090072140"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057729,
+          "x": -582.7142343916438,
+          "z": -1240.6665347999635,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072138"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057729,
+          "x": -582.7142343916438,
+          "z": -1240.6665347999635,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072145"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057740,
+          "x": -556.1485236999292,
+          "z": -1213.516987199337,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072140",
+          "approachSourceId": "w1090072140"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057730,
+          "x": -569.9395075447311,
+          "z": -1253.4022619995524,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072138"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057730,
+          "x": -569.9395075447311,
+          "z": -1253.4022619995524,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072144"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057739,
+          "x": -543.2006567726554,
+          "z": -1226.841713999492,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072140",
+          "approachSourceId": "w1090072140"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057731,
+          "x": -556.6829996025466,
+          "z": -1266.8603471996864,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072138"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 9985057731,
+          "x": -556.6829996025466,
+          "z": -1266.8603471996864,
+          "nodeDegree": 3,
+          "incomingSourceId": "w1090072138",
+          "approachSourceId": "w1090072143"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 2779762261,
+          "x": -567.6585751726894,
+          "z": -1140.8811119993704,
+          "nodeDegree": 3,
+          "incomingSourceId": "w481592458",
+          "approachSourceId": "w481592458"
+        },
+        {
+          "kind": "short mapped bridge-to-source-building entry; floor elevation unknown",
+          "sourceNodeId": 7652825303,
+          "x": -502.7762117704689,
+          "z": -1264.5043487997914,
+          "nodeDegree": 3,
+          "incomingSourceId": "w273078333",
+          "approachSourceId": "w819472433",
+          "sourceBuildingId": "w439263874"
+        },
+        {
+          "kind": "same source way through merge",
+          "sourceNodeId": 1200609516,
+          "x": -878.0987404273271,
+          "z": -1112.6646971997004,
+          "nodeDegree": 3,
+          "incomingSourceId": "w104034223",
+          "approachSourceId": "w104034223"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779762097,
+          "x": -495.51185619771917,
+          "z": -1229.3644103997558,
+          "nodeDegree": 3,
+          "incomingSourceId": "w273078320",
+          "approachSourceId": "w273078320"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779762001,
+          "x": -489.512175999122,
+          "z": -1235.5544627994464,
+          "nodeDegree": 2,
+          "incomingSourceId": "w273078320",
+          "approachSourceId": "w273078320"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 3689973571,
+          "x": -485.0105338936859,
+          "z": -1238.0438195993206,
+          "nodeDegree": 2,
+          "incomingSourceId": "w273078320",
+          "approachSourceId": "w273078320"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779761998,
+          "x": -479.4399399819453,
+          "z": -1240.4109311993454,
+          "nodeDegree": 2,
+          "incomingSourceId": "w273078320",
+          "approachSourceId": "w273078320"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779761995,
+          "x": -474.8027969430294,
+          "z": -1242.9669671999989,
+          "nodeDegree": 2,
+          "incomingSourceId": "w273078320",
+          "approachSourceId": "w273078320"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 5608328389,
+          "x": -470.0527364591904,
+          "z": -1246.1897951997582,
+          "nodeDegree": 2,
+          "incomingSourceId": "w273078320",
+          "approachSourceId": "w273078320"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779761992,
+          "x": -468.2912243314414,
+          "z": -1247.378907599441,
+          "nodeDegree": 2,
+          "incomingSourceId": "w273078320",
+          "approachSourceId": "w273078320"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 3689973572,
+          "x": -465.3854821014857,
+          "z": -1250.1460943994032,
+          "nodeDegree": 2,
+          "incomingSourceId": "w273078320",
+          "approachSourceId": "w273078320"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 3689973573,
+          "x": -462.78838088644073,
+          "z": -1253.8801295996093,
+          "nodeDegree": 2,
+          "incomingSourceId": "w273078320",
+          "approachSourceId": "w273078320"
+        },
+        {
+          "kind": "same positive source layer continuation; elevation estimated",
+          "sourceNodeId": 2779761990,
+          "x": -457.0070077463879,
+          "z": -1263.0040667996311,
+          "nodeDegree": 2,
+          "incomingSourceId": "w273078320",
+          "approachSourceId": "w273078320"
+        }
+      ],
+      "ordering": {
+        "converged": true,
+        "iterations": 2,
+        "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+      }
+    }
+  },
+  "waterShore": [
+    {
+      "mesh": "water -2,1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "w5885430",
+        "w37023590",
+        "w37023588",
+        "w291558711",
+        "w479818861"
+      ],
+      "sourceSegments": 260,
+      "vertices": 4704,
+      "faces": 1568,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water -1,1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "w5885430",
+        "w37023590",
+        "w37023588",
+        "w291558711",
+        "w479818861"
+      ],
+      "sourceSegments": 260,
+      "vertices": 28623,
+      "faces": 9541,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water -3,1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "w5885430",
+        "w37023590",
+        "w37023588",
+        "w291558711",
+        "w479818861"
+      ],
+      "sourceSegments": 260,
+      "vertices": 3801,
+      "faces": 1267,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water-big",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "w5885430",
+        "w37023590",
+        "w37023588",
+        "w291558711",
+        "w479818861"
+      ],
+      "sourceSegments": 260,
+      "vertices": 180006,
+      "faces": 60002,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 108,
+      "coarseFoamOmittedFaceRanges": [
+        [
+          59838,
+          71
+        ],
+        [
+          59910,
+          6
+        ],
+        [
+          59917,
+          9
+        ],
+        [
+          59927,
+          11
+        ],
+        [
+          59944,
+          2
+        ],
+        [
+          59948,
+          1
+        ],
+        [
+          59953,
+          1
+        ],
+        [
+          59957,
+          1
+        ],
+        [
+          59959,
+          1
+        ],
+        [
+          59962,
+          1
+        ],
+        [
+          59964,
+          1
+        ],
+        [
+          59966,
+          1
+        ],
+        [
+          59970,
+          1
+        ],
+        [
+          59995,
+          1
+        ]
+      ],
+      "fallbackBySource": {
+        "w5885430": 108
+      },
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    }
+  ],
+  "waterChannels": [
+    {
+      "sourceId": "w5885430",
+      "name": "Angle Lake",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w37023590",
+      "name": "",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w37023588",
+      "name": "Bow Lake",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w291558711",
+      "name": "",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w479818861",
+      "name": "",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    }
+  ],
+  "waterLines": []
+}

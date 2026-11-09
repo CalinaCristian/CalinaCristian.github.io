@@ -159,3 +159,8 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
   Will Martin, Donna Walter and Ross Whitehead; glass by Dale Chihuly). Romanian buildings are modelled without photo
   textures; research reference photos are not part of the repository.
 - Analytics: cookieless PostHog (EU), production only, respects Do Not Track / Global Privacy Control.
+
+
+## Technical overview and comparisons
+
+Browse [the game overview](https://cristiancalina.com/game/overview/) for the architecture, simulation, controls and spec-driven AI development, plus inline comparisons for eight districts, 61 landmark entries and 24 tourist destinations. This guide previews the ongoing fidelity work; each capture retains its actual source and date. The game update is still being tested.

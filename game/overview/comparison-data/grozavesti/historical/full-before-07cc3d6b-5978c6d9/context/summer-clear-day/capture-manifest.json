@@ -1,0 +1,2435 @@
+{
+  "schemaVersion": 1,
+  "captureType": "game-perspective-context",
+  "comparisonCompatible": false,
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "district": "grozavesti",
+  "season": "summer",
+  "weather": "clear",
+  "time": "day",
+  "quality": "high",
+  "traffic": true,
+  "mirror": false,
+  "scope": "Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.",
+  "loaded": {
+    "key": "bucharest-grozavesti",
+    "city": "bucharest",
+    "district": "grozavesti",
+    "ms": 21103,
+    "edges": 801,
+    "ribbons": 1714
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "items": [
+    {
+      "id": "cathedral-context",
+      "label": "Catedrala Mântuirii Neamului in district context",
+      "kind": "landmark-context",
+      "landmark": "cathedral",
+      "x": 1951.6245715853224,
+      "z": 1874.4121773802494,
+      "y": 102.58250198364259,
+      "target": [
+        1830.6799819413443,
+        57.22650137329102,
+        1696.5524867273407
+      ],
+      "fov": 70,
+      "cameraY": 102.58250198364259,
+      "groundY": 0,
+      "heading": 325.78429786756254,
+      "pitch": -11.907761247345356,
+      "aspect": 1.5,
+      "pose": {
+        "x": 1951.6245715853224,
+        "y": 102.58250198364259,
+        "z": 1874.4121773802494,
+        "heading": 325.78429786756254,
+        "pitch": -11.907761247345356,
+        "fov": 70,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.09913822584562985,
+          0.29258444714624554,
+          0.03051377153617661,
+          0.9505971087747663
+        ]
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 133,
+        "triangles": 389697,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": false,
+      "distanceFromFlightDomainM": 2480.6347379569984,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.424333461312855,
+      "lon": 26.083755200840763,
+      "image": "images/cathedral-context.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:00:36.816Z",
+      "sha256": "10211470ab29c2f8b6667c6eeca79643f453cd357a91b4cfbcf7252f25a49f18",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "cathedral-opposite",
+      "label": "Catedrala Mântuirii Neamului in district context",
+      "kind": "landmark-context",
+      "landmark": "cathedral",
+      "x": 1709.7353922973662,
+      "z": 1518.692796074432,
+      "y": 102.58250198364259,
+      "target": [
+        1830.6799819413443,
+        57.22650137329102,
+        1696.5524867273407
+      ],
+      "fov": 70,
+      "cameraY": 102.58250198364259,
+      "groundY": 0,
+      "heading": 145.7842978675626,
+      "pitch": -11.907761247345352,
+      "aspect": 1.5,
+      "pose": {
+        "x": 1709.7353922973662,
+        "y": 102.58250198364259,
+        "z": 1518.692796074432,
+        "heading": 145.7842978675626,
+        "pitch": -11.907761247345352,
+        "fov": 70,
+        "aspect": 1.5,
+        "quaternion": [
+          0.030513771536176612,
+          0.9505971087747662,
+          0.09913822584562985,
+          -0.29258444714624554
+        ]
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 32,
+        "triangles": 98695,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": false,
+      "distanceFromFlightDomainM": 2086.6300378242963,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.427534333980546,
+      "lon": 26.080711768479283,
+      "image": "images/cathedral-opposite.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:00:40.890Z",
+      "sha256": "82edcc8ad31d2edcb4355b3da4b347487aa50331dd85901b325ba814160cee13",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "politehnica-context",
+      "label": "Rectoratul Politehnicii in district context",
+      "kind": "landmark-context",
+      "landmark": "politehnica",
+      "x": -554.2096031916898,
+      "z": 389.87882079791234,
+      "y": 42.68500099182129,
+      "target": [
+        -611.1405632746976,
+        15.759000686645507,
+        306.156820675842
+      ],
+      "fov": 70,
+      "cameraY": 42.68500099182129,
+      "groundY": 0,
+      "heading": 325.7842978675626,
+      "pitch": -14.893047191160223,
+      "aspect": 1.5,
+      "pose": {
+        "x": -554.2096031916898,
+        "y": 42.68500099182129,
+        "z": 389.87882079791234,
+        "heading": 325.7842978675626,
+        "pitch": -14.893047191160223,
+        "fov": 70,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.12386629824529939,
+          0.2916903261425418,
+          0.038124829181170834,
+          0.9476921394597356
+        ]
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 144,
+        "triangles": 574297,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.43769175016379,
+      "lon": 26.052226974392315,
+      "image": "images/politehnica-context.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:01:03.299Z",
+      "sha256": "7fcd791abd8d1de2f6deeeed22d6396e4f2b8f1bf051371f4cced9f96a98ea33",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "politehnica-opposite",
+      "label": "Rectoratul Politehnicii in district context",
+      "kind": "landmark-context",
+      "landmark": "politehnica",
+      "x": -668.0715233577054,
+      "z": 222.43482055377171,
+      "y": 42.68500099182129,
+      "target": [
+        -611.1405632746976,
+        15.759000686645507,
+        306.156820675842
+      ],
+      "fov": 70,
+      "cameraY": 42.68500099182129,
+      "groundY": 0,
+      "heading": 145.7842978675626,
+      "pitch": -14.893047191160218,
+      "aspect": 1.5,
+      "pose": {
+        "x": -668.0715233577054,
+        "y": 42.68500099182129,
+        "z": 222.43482055377171,
+        "heading": 145.7842978675626,
+        "pitch": -14.893047191160218,
+        "fov": 70,
+        "aspect": 1.5,
+        "quaternion": [
+          0.038124829181170834,
+          0.9476921394597355,
+          0.12386629824529939,
+          -0.29169032614254187
+        ]
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 168,
+        "triangles": 649119,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.439198462903995,
+      "lon": 26.050794371852618,
+      "image": "images/politehnica-opposite.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:01:22.572Z",
+      "sha256": "5c88b0a042db548a89aad419254d492f97697861666409c56a6f9afe5e3f90a0",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "politehnica-street",
+      "label": "Rectoratul Politehnicii from its actual public street",
+      "kind": "street",
+      "landmark": "politehnica",
+      "sourceEdge": 71,
+      "x": -347.6382666365447,
+      "z": 433.4918943915657,
+      "y": 1.7,
+      "target": [
+        -611.1543228877347,
+        7.704400335693359,
+        307.9467720003049
+      ],
+      "fov": 85,
+      "cameraY": 1.7,
+      "groundY": 0,
+      "heading": 295.47420630452166,
+      "pitch": 1.1784343547584333,
+      "aspect": 1.5,
+      "pose": {
+        "x": -347.6382666365447,
+        "y": 1.7,
+        "z": 433.4918943915657,
+        "heading": 295.47420630452166,
+        "pitch": 1.1784343547584333,
+        "fov": 85,
+        "aspect": 1.5,
+        "quaternion": [
+          0.008695889943024478,
+          0.5337766430296664,
+          -0.005489434950209236,
+          0.845562973975331
+        ]
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 148,
+        "triangles": 584163,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": -363.0822423076305,
+          "z": 470.1362776820194,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -362.69297830358363,
+          "z": 469.298655618033,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -357.885425901073,
+          "z": 485.22017264712326,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -322.1966797432633,
+          "z": 436.20751325565345,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w277315765"
+        },
+        {
+          "x": -349.84939850520715,
+          "z": 475.0732344762621,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717662"
+        },
+        {
+          "x": -328.3338568218815,
+          "z": 395.3083669056147,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -326.11609055297816,
+          "z": 412.6467971215736,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -367.9829481276503,
+          "z": 483.2685671323648,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -337.93837568786194,
+          "z": 435.68471412803154,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -350.8261889489425,
+          "z": 466.6258903230591,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -337.63577546017154,
+          "z": 444.9641053068155,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717662"
+        },
+        {
+          "x": -320.3164892532523,
+          "z": 409.8202371390815,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w277315765"
+        },
+        {
+          "x": -346.9380527392388,
+          "z": 466.8524291206601,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717662"
+        },
+        {
+          "x": -352.4709944843052,
+          "z": 470.9376554323986,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -346.84135874900164,
+          "z": 430.6566971877131,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -342.44871763454995,
+          "z": 455.662779107974,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717662"
+        },
+        {
+          "x": -352.36906097161904,
+          "z": 482.1880385439606,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717662"
+        },
+        {
+          "x": -320.8969107333182,
+          "z": 402.99829796446215,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        }
+      ],
+      "vehiclesWithin60m": 10,
+      "lat": 44.4372993062809,
+      "lon": 26.054826040181357,
+      "image": "images/politehnica-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:01:43.406Z",
+      "sha256": "9fec7fe90f136ad751bd791826d09c1649467ba1aecd37bfb920b926ee5e7bab",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "signal-1",
+      "label": "Actual runtime traffic signal and sidewalk activity",
+      "kind": "signals-pedestrians",
+      "sourceNodeId": 981551477,
+      "sourceSignalMapped": false,
+      "sourceRoadId": "w139788054",
+      "x": 360.8980245110802,
+      "z": -750.0853158877017,
+      "y": 1.7,
+      "target": [
+        369.7539345743366,
+        3.37,
+        -754.7299748581229
+      ],
+      "fov": 80,
+      "cameraY": 1.7,
+      "groundY": 0,
+      "heading": 62.32433869979667,
+      "pitch": 9.480903617950833,
+      "aspect": 1.5,
+      "pose": {
+        "x": 360.8980245110802,
+        "y": 1.7,
+        "z": -750.0853158877017,
+        "heading": 62.32433869979667,
+        "pitch": 9.480903617950833,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          0.07071737682122703,
+          -0.5156920369664885,
+          0.042764172952276275,
+          0.8527789872743033
+        ]
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 146,
+        "triangles": 801022,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 381.30578700509835,
+          "z": -749.5710968337719,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 373.42141995840126,
+          "z": -756.5970013714775,
+          "state": "wait",
+          "onRoad": false,
+          "sourceRoadId": "w153967941"
+        },
+        {
+          "x": 328.86834983902486,
+          "z": -714.5300395433669,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w295382931"
+        },
+        {
+          "x": 353.1127266666276,
+          "z": -698.5286752941233,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w295382931"
+        },
+        {
+          "x": 379.38163901644253,
+          "z": -704.4531984025365,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139758830"
+        },
+        {
+          "x": 415.87959933307013,
+          "z": -768.0318587711084,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 336.9623218651116,
+          "z": -762.700934745127,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139756123"
+        },
+        {
+          "x": 303.28335747129506,
+          "z": -737.4209722364983,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w23770526"
+        },
+        {
+          "x": 340.30345699510957,
+          "z": -728.086205696785,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797418"
+        },
+        {
+          "x": 394.0672621249161,
+          "z": -739.9280727065737,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w153967941"
+        },
+        {
+          "x": 331.9545011547893,
+          "z": -753.6896257606437,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139756123"
+        },
+        {
+          "x": 327.90138007284753,
+          "z": -715.0940443454048,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w295382931"
+        },
+        {
+          "x": 339.8689571345807,
+          "z": -728.4996643396902,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797418"
+        },
+        {
+          "x": 398.6239307059848,
+          "z": -722.0559442367427,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139758830"
+        },
+        {
+          "x": 366.8474696938286,
+          "z": -758.6477131306804,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 327.6672589407771,
+          "z": -714.3671612502661,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w295382931"
+        },
+        {
+          "x": 372.99968534302377,
+          "z": -757.2304177737916,
+          "state": "wait",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 403.91646029551055,
+          "z": -732.4762605369243,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w906667150"
+        },
+        {
+          "x": 406.0475010379547,
+          "z": -731.7676859459366,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w906667150"
+        },
+        {
+          "x": 354.13045491775387,
+          "z": -755.4154653568921,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w139756123"
+        },
+        {
+          "x": 357.1350593099802,
+          "z": -748.5168571139533,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w106797418"
+        },
+        {
+          "x": 398.44972753036063,
+          "z": -703.4685443622203,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139758830"
+        },
+        {
+          "x": 380.8739512887275,
+          "z": -749.9870102949568,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 350.1601731568782,
+          "z": -700.470891993287,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w295382931"
+        },
+        {
+          "x": 308.3631280138549,
+          "z": -730.7049682010828,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w23770526"
+        }
+      ],
+      "vehiclesWithin60m": 10,
+      "lat": 44.44794949893719,
+      "lon": 26.0637407931443,
+      "image": "images/signal-1.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:01:59.868Z",
+      "sha256": "38d4874b45e6e9c088141192ed609246b641e611f759ce2ef82a9a170c976301",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "signal-2",
+      "label": "Actual runtime traffic signal and sidewalk activity",
+      "kind": "signals-pedestrians",
+      "sourceNodeId": 981520486,
+      "sourceSignalMapped": false,
+      "sourceRoadId": "w241717664",
+      "x": 125.78723208872482,
+      "z": -181.6725869413786,
+      "y": 1.7,
+      "target": [
+        123.93189184137634,
+        3.37,
+        -171.84620853595533
+      ],
+      "fov": 80,
+      "cameraY": 1.7,
+      "groundY": 0,
+      "heading": 190.69226878797562,
+      "pitch": 9.480903617950835,
+      "aspect": 1.5,
+      "pose": {
+        "x": 125.78723208872482,
+        "y": 1.7,
+        "z": -181.6725869413786,
+        "heading": 190.69226878797562,
+        "pitch": 9.480903617950835,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          0.00769995844815232,
+          0.9922441674096651,
+          -0.08228263797827795,
+          0.0928535964232562
+        ]
+      },
+      "perf": {
+        "fps": 11,
+        "frameMs": 0,
+        "drawCalls": 212,
+        "triangles": 941402,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 110.32348985183432,
+          "z": -154.41602502920583,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717664"
+        },
+        {
+          "x": 181.59796512544278,
+          "z": -171.56512252975006,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w27758242"
+        },
+        {
+          "x": 98.60796263940708,
+          "z": -190.795075792736,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w665933043"
+        },
+        {
+          "x": 129.50912082721388,
+          "z": -187.80733037564417,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w314447341"
+        },
+        {
+          "x": 138.3997647348882,
+          "z": -228.6672648531386,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w128304854"
+        },
+        {
+          "x": 76.44368059204305,
+          "z": -196.70325295620577,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w128304851"
+        },
+        {
+          "x": 167.38268620773647,
+          "z": -221.87821558765174,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w668720099"
+        },
+        {
+          "x": 75.3789164477578,
+          "z": -152.20233860157654,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w314447339"
+        },
+        {
+          "x": 92.59746395191354,
+          "z": -172.59926248266598,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w314447339"
+        },
+        {
+          "x": 86.25181089223243,
+          "z": -141.55131526023015,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w665896757"
+        },
+        {
+          "x": 171.11626364259382,
+          "z": -173.68818060949977,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w27758242"
+        },
+        {
+          "x": 122.6025853261816,
+          "z": -162.60106545893504,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717664"
+        },
+        {
+          "x": 79.56293663648144,
+          "z": -156.62144221258455,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w314447339"
+        },
+        {
+          "x": 107.78265127699112,
+          "z": -236.68573585602732,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w665700250"
+        },
+        {
+          "x": 115.49066955638175,
+          "z": -187.73982108977478,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w314447341"
+        },
+        {
+          "x": 96.67544136228138,
+          "z": -186.23180184801276,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w665933043"
+        },
+        {
+          "x": 124.73237151997175,
+          "z": -173.1361838861647,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w241717664"
+        },
+        {
+          "x": 161.65355174692525,
+          "z": -175.6048433745399,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w27758242"
+        },
+        {
+          "x": 112.88619874069873,
+          "z": -165.89172139219514,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717664"
+        },
+        {
+          "x": 105.89841167168666,
+          "z": -234.76235605875027,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w84488633"
+        }
+      ],
+      "vehiclesWithin60m": 7,
+      "lat": 44.442834745950236,
+      "lon": 26.060782645961787,
+      "image": "images/signal-2.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:02:16.660Z",
+      "sha256": "24ea26c9d7dbea96d77954a499955151c79a6be11e9cc469a1e6e60f6b42df65",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "signal-3",
+      "label": "Actual runtime traffic signal and sidewalk activity",
+      "kind": "signals-pedestrians",
+      "sourceNodeId": 32934991,
+      "sourceSignalMapped": false,
+      "sourceRoadId": "w128304848",
+      "x": 84.44305195375557,
+      "z": -185.81024165297947,
+      "y": 1.7,
+      "target": [
+        86.50328258956884,
+        3.37,
+        -195.5957130124622
+      ],
+      "fov": 80,
+      "cameraY": 1.7,
+      "groundY": 0,
+      "heading": 11.889394769569094,
+      "pitch": 9.48090361795082,
+      "aspect": 1.5,
+      "pose": {
+        "x": 84.44305195375557,
+        "y": 1.7,
+        "z": -185.81024165297947,
+        "heading": 11.889394769569094,
+        "pitch": 9.48090361795082,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          0.08219770875969595,
+          -0.1032142116108074,
+          0.008559120715575895,
+          0.9912200081963599
+        ]
+      },
+      "perf": {
+        "fps": 11,
+        "frameMs": 0,
+        "drawCalls": 194,
+        "triangles": 949146,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 109.99472249563509,
+          "z": -152.94381943839565,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717664"
+        },
+        {
+          "x": 99.09263280772588,
+          "z": -191.56350717039754,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w128304848"
+        },
+        {
+          "x": 129.22490728031062,
+          "z": -186.465952986037,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w314447341"
+        },
+        {
+          "x": 77.80295420572182,
+          "z": -196.32775644529013,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w128304851"
+        },
+        {
+          "x": 69.96533409050718,
+          "z": -129.09142495753525,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w665896757"
+        },
+        {
+          "x": 74.44937300649921,
+          "z": -151.5580549852057,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w665896757"
+        },
+        {
+          "x": 90.80472234751196,
+          "z": -172.9986396929618,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w314447339"
+        },
+        {
+          "x": 86.48508447795565,
+          "z": -142.59567128162337,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w665896757"
+        },
+        {
+          "x": 71.42899459783288,
+          "z": -135.32322078656003,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w665896757"
+        },
+        {
+          "x": 122.91347052728248,
+          "z": -163.99319555497635,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717664"
+        },
+        {
+          "x": 80.97805653518837,
+          "z": -156.30531617398094,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w314447339"
+        },
+        {
+          "x": 70.87067768568564,
+          "z": -133.32425097330884,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w665896757"
+        },
+        {
+          "x": 108.47113225044849,
+          "z": -236.65626038153596,
+          "state": "wait",
+          "onRoad": false,
+          "sourceRoadId": "w665700250"
+        },
+        {
+          "x": 115.764197768206,
+          "z": -189.03076785413012,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w314447341"
+        },
+        {
+          "x": 97.2110917048527,
+          "z": -187.7178662217009,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w665933043"
+        },
+        {
+          "x": 124.57248832277246,
+          "z": -172.7113054029997,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w241717664"
+        },
+        {
+          "x": 70.7390154523294,
+          "z": -139.0602028926625,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w665896757"
+        },
+        {
+          "x": 69.0428630166583,
+          "z": -128.72652338313105,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w665896757"
+        },
+        {
+          "x": 113.13548588340497,
+          "z": -167.008018123878,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717664"
+        },
+        {
+          "x": 105.89841167168666,
+          "z": -234.76235605875027,
+          "state": "legs",
+          "onRoad": true,
+          "sourceRoadId": "w84488633"
+        }
+      ],
+      "vehiclesWithin60m": 8,
+      "lat": 44.44287197784305,
+      "lon": 26.060262456442967,
+      "image": "images/signal-3.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:02:37.867Z",
+      "sha256": "878292f02cf3f3a9aacce49b16923a8bd85ee8f0d6498cc57f6e51eeb0d90a1d",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "parking-1",
+      "label": "Actual source parking area and complete parked car placement",
+      "kind": "parking",
+      "parkingSourceId": "w289369482",
+      "parkedCars": 42,
+      "x": 539.794196817212,
+      "z": -884.3706578317606,
+      "y": 28.351157954099442,
+      "target": [
+        523.4430388631125,
+        0,
+        -904.8096052743849
+      ],
+      "fov": 80,
+      "cameraY": 28.351157954099442,
+      "groundY": 0,
+      "heading": 321.3401917459099,
+      "pitch": -47.28589183384698,
+      "aspect": 1.5,
+      "pose": {
+        "x": 539.794196817212,
+        "y": 28.351157954099442,
+        "z": -884.3706578317606,
+        "heading": 321.3401917459099,
+        "pitch": -47.28589183384698,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.3784287167033091,
+          0.30322301037362814,
+          0.13274562613675536,
+          0.8644224147347187
+        ]
+      },
+      "perf": {
+        "fps": 11,
+        "frameMs": 0,
+        "drawCalls": 116,
+        "triangles": 659695,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 550.9604671739113,
+          "z": -843.4758310267423,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 567.103963746715,
+          "z": -831.1166121149768,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 551.240014092322,
+          "z": -843.0131791711505,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 577.4126530242143,
+          "z": -858.9313739202395,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        }
+      ],
+      "vehiclesWithin60m": 0,
+      "lat": 44.4491578398466,
+      "lon": 26.06599165199522,
+      "image": "images/parking-1.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:02:50.654Z",
+      "sha256": "e8c6b07e723ad0691fcbce0535d05a2665b19c35b9252300692b7b6087adac8c",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "parking-2",
+      "label": "Actual source parking area and complete parked car placement",
+      "kind": "parking",
+      "parkingSourceId": "w128304861",
+      "parkedCars": 31,
+      "x": 363.3785393240455,
+      "z": -282.0910797731701,
+      "y": 80,
+      "target": [
+        227.57454821002344,
+        0,
+        -451.8460686656977
+      ],
+      "fov": 80,
+      "cameraY": 80,
+      "groundY": 0,
+      "heading": 321.3401917459099,
+      "pitch": -20.20351672727447,
+      "aspect": 1.5,
+      "pose": {
+        "x": 363.3785393240455,
+        "y": 80,
+        "z": -282.0910797731701,
+        "heading": 321.3401917459099,
+        "pitch": -20.20351672727447,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.165509519356083,
+          0.32587560484685796,
+          0.05805760453359532,
+          0.9290000020043238
+        ]
+      },
+      "perf": {
+        "fps": 11,
+        "frameMs": 0,
+        "drawCalls": 182,
+        "triangles": 899936,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 85.28018669950458,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.44373834250957,
+      "lon": 26.06377200280435,
+      "image": "images/parking-2.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:03:09.458Z",
+      "sha256": "1549c9d87488d87fd8da58cb6dea8fe7114fe45303307d7928c02d7812b91b8e",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "parking-3",
+      "label": "Actual source parking area and complete parked car placement",
+      "kind": "parking",
+      "parkingSourceId": "w1217744678",
+      "parkedCars": 21,
+      "x": -611.3108654097722,
+      "z": 390.6878176642888,
+      "y": 47.43616098943184,
+      "target": [
+        -646.7470263992041,
+        0,
+        346.392616427499
+      ],
+      "fov": 80,
+      "cameraY": 47.43616098943184,
+      "groundY": 0,
+      "heading": 321.3401917459099,
+      "pitch": -39.90371603999291,
+      "aspect": 1.5,
+      "pose": {
+        "x": -611.3108654097722,
+        "y": 47.43616098943184,
+        "z": 390.6878176642888,
+        "heading": 321.3401917459099,
+        "pitch": -39.90371603999291,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.32199472453027983,
+          0.3111397944858268,
+          0.11294965057848734,
+          0.8869914329328015
+        ]
+      },
+      "perf": {
+        "fps": 14,
+        "frameMs": 0,
+        "drawCalls": 144,
+        "triangles": 567960,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 1,
+      "lat": 44.437684470560555,
+      "lon": 26.05150853039318,
+      "image": "images/parking-3.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:03:35.474Z",
+      "sha256": "3af47990ea248b19f5d693471193c3168b89bdc53d260778a4c561fc2b3293b4",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "drone-edge-west",
+      "label": "Outward west view at 149 m from actual flight-domain boundary",
+      "kind": "drone-edge",
+      "boundaryPoint": [
+        -760,
+        300
+      ],
+      "boundarySource": "runtime playable source mask and declared landmark flight areas",
+      "x": -909,
+      "z": 300,
+      "y": 120,
+      "target": [
+        -1129,
+        25,
+        300
+      ],
+      "fov": 75,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraY": 120,
+      "groundY": 0,
+      "heading": 270,
+      "pitch": -23.355564859286012,
+      "aspect": 1.5,
+      "pose": {
+        "x": -909,
+        "y": 120,
+        "z": 300,
+        "heading": 270,
+        "pitch": -23.355564859286012,
+        "fov": 75,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.14312376328182674,
+          0.6924706408101701,
+          0.14312376328182674,
+          0.6924706408101701
+        ]
+      },
+      "perf": {
+        "fps": 14,
+        "frameMs": 0,
+        "drawCalls": 101,
+        "triangles": 354543,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 149,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.43850050750459,
+      "lon": 26.047763026983144,
+      "image": "images/drone-edge-west.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:03:50.906Z",
+      "sha256": "954b99e2b95f0cf2a9ffb270aa5f08cfb433c17e32a34cbf4faa276767c462ce",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "drone-edge-east",
+      "label": "Outward east view at 149 m from actual flight-domain boundary",
+      "kind": "drone-edge",
+      "boundaryPoint": [
+        660,
+        -820
+      ],
+      "boundarySource": "runtime playable source mask and declared landmark flight areas",
+      "x": 809,
+      "z": -820,
+      "y": 120,
+      "target": [
+        1029,
+        25,
+        -820
+      ],
+      "fov": 75,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraY": 120,
+      "groundY": 0,
+      "heading": 90,
+      "pitch": -23.355564859286012,
+      "aspect": 1.5,
+      "pose": {
+        "x": 809,
+        "y": 120,
+        "z": -820,
+        "heading": 90,
+        "pitch": -23.355564859286012,
+        "fov": 75,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.14312376328182674,
+          -0.6924706408101701,
+          -0.14312376328182674,
+          0.6924706408101701
+        ]
+      },
+      "perf": {
+        "fps": 14,
+        "frameMs": 0,
+        "drawCalls": 100,
+        "triangles": 481810,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 149,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.44857861282079,
+      "lon": 26.069378780165717,
+      "image": "images/drone-edge-east.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:04:09.206Z",
+      "sha256": "32786705593488904d4f3880ebd859c6aff9a6426b1f216477ca84c2ac74df5c",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "drone-edge-north",
+      "label": "Outward north view at 149 m from actual flight-domain boundary",
+      "kind": "drone-edge",
+      "boundaryPoint": [
+        500,
+        -980
+      ],
+      "boundarySource": "runtime playable source mask and declared landmark flight areas",
+      "x": 500,
+      "z": -1129,
+      "y": 120,
+      "target": [
+        500,
+        25,
+        -1349
+      ],
+      "fov": 75,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraY": 120,
+      "groundY": 0,
+      "heading": 0,
+      "pitch": -23.355564859286012,
+      "aspect": 1.5,
+      "pose": {
+        "x": 500,
+        "y": 120,
+        "z": -1129,
+        "heading": 0,
+        "pitch": -23.355564859286012,
+        "fov": 75,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.2024075671310358,
+          0,
+          0,
+          0.9793013717789305
+        ]
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 88,
+        "triangles": 490813,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 149,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.45135909009107,
+      "lon": 26.065490964255698,
+      "image": "images/drone-edge-north.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:04:24.819Z",
+      "sha256": "31597cb8986fee18c524bf6f9c1687f0ce4d18f8b8d935c06b36a443679a2325",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "drone-edge-south",
+      "label": "Outward south view at 149 m from actual flight-domain boundary",
+      "kind": "drone-edge",
+      "boundaryPoint": [
+        -300,
+        580
+      ],
+      "boundarySource": "runtime playable source mask and declared landmark flight areas",
+      "x": -300,
+      "z": 729,
+      "y": 120,
+      "target": [
+        -300,
+        25,
+        949
+      ],
+      "fov": 75,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraY": 120,
+      "groundY": 0,
+      "heading": 180,
+      "pitch": -23.355564859286012,
+      "aspect": 1.5,
+      "pose": {
+        "x": -300,
+        "y": 120,
+        "z": 729,
+        "heading": 180,
+        "pitch": -23.355564859286012,
+        "fov": 75,
+        "aspect": 1.5,
+        "quaternion": [
+          0,
+          0.9793013717789306,
+          0.20240756713103578,
+          0
+        ]
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 102,
+        "triangles": 349282,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 149,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.43464023323615,
+      "lon": 26.055425421446582,
+      "image": "images/drone-edge-south.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:04:40.679Z",
+      "sha256": "962e282c6fbefe568efc92e4c20783782c04729c314a03557b0d724c635b478d",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "chapter-upb-street",
+      "chapterId": "upb",
+      "label": "upb actual chapter start street view",
+      "kind": "street",
+      "x": 492.77024538696793,
+      "z": -810.1522799997306,
+      "y": 1.7,
+      "target": [
+        448.62286574402157,
+        1.7,
+        -786.678701860436
+      ],
+      "fov": 80,
+      "cameraY": 1.7,
+      "groundY": 0,
+      "heading": 242,
+      "pitch": 0,
+      "aspect": 1.5,
+      "pose": {
+        "x": 492.77024538696793,
+        "y": 1.7,
+        "z": -810.1522799997306,
+        "heading": 242,
+        "pitch": 0,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          0,
+          0.8571673007021123,
+          0,
+          0.5150380749100542
+        ]
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 253,
+        "triangles": 1204159,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 510.00808063380686,
+          "z": -795.6515075383434,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 542.8390011549872,
+          "z": -838.4457559931197,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 443.10706128729385,
+          "z": -793.5864088918964,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 471.1358219071093,
+          "z": -760.0808920576359,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 449.38954516536575,
+          "z": -798.9416187396929,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 462.4346563109958,
+          "z": -766.7026523332579,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 464.9628871481426,
+          "z": -807.7660453867604,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 467.4535892101599,
+          "z": -795.7563254370406,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 454.36567394374276,
+          "z": -800.9139118285343,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 448.5249698749808,
+          "z": -796.5236162452603,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 450.55958749267546,
+          "z": -786.7846294531877,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 459.11586969967766,
+          "z": -802.3150979332478,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 458.6037788578136,
+          "z": -790.3450306150205,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 450.4327048993625,
+          "z": -786.020775522232,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 517.0197806945009,
+          "z": -835.2439749497928,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 453.2984106976953,
+          "z": -788.1914471340845,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 443.4247722756282,
+          "z": -794.3073727922251,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 459.2430707452785,
+          "z": -790.5787042036238,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 514.6095115872546,
+          "z": -798.8122646792589,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 456.7319368339663,
+          "z": -802.1054266905951,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 444.7497212703605,
+          "z": -795.6282608072576,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 536.0493398926523,
+          "z": -800.0293923295158,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 446.83730107295986,
+          "z": -784.1655482096285,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 453.5976775871946,
+          "z": -799.8580004433753,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 522.5413269847555,
+          "z": -803.6933923004883,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 478.81969321547734,
+          "z": -813.6297749074123,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 458.3628798603069,
+          "z": -802.0784173602849,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 450.81216557075203,
+          "z": -785.5560635072391,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 457.0994131296611,
+          "z": -801.3328030338749,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 476.71517741550855,
+          "z": -812.7097928700298,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 437.45922577351973,
+          "z": -790.6621349656594,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 437.4462175634254,
+          "z": -791.2471963918638,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 445.60259175715044,
+          "z": -795.5716631271243,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 466.39523611674576,
+          "z": -757.1631700017814,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 443.76023529368115,
+          "z": -783.6874364047438,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 476.84280890285993,
+          "z": -812.096492413316,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 467.99863238387724,
+          "z": -758.1500237071598,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 469.52008539758975,
+          "z": -808.5881844073109,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 459.71697701141176,
+          "z": -789.9846204707902,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 474.4678735428528,
+          "z": -811.2705256627875,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 479.53454079084077,
+          "z": -814.0173147709795,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 452.373893053801,
+          "z": -787.0859108641329,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 462.65660554776264,
+          "z": -792.2755391403105,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 485.53327550078916,
+          "z": -817.2694050223696,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 444.7134177274731,
+          "z": -795.0703686863651,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 445.5330290449857,
+          "z": -783.7341755008866,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 456.5181180494798,
+          "z": -801.4123483524071,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 441.16532104220903,
+          "z": -781.2893268674595,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 440.3043134258171,
+          "z": -793.3613355852018,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 451.9882941363496,
+          "z": -799.6677536104933,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 478.0939920308053,
+          "z": -813.3320949564668,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 458.20079090797253,
+          "z": -790.7837402785921,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 459.4771689319043,
+          "z": -764.8823865396449,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 456.1914327551875,
+          "z": -762.8600911237464,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 468.0543164680337,
+          "z": -795.7928254231053,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 464.7455174887974,
+          "z": -794.9045511241856,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 507.3227883999322,
+          "z": -794.6572189889299,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 451.14199541685997,
+          "z": -799.2717885645636,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 446.8399441727248,
+          "z": -784.7495386418392,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 443.16573626477265,
+          "z": -783.3724822389794,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 523.1267470054671,
+          "z": -804.0536515463119,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 448.6728623559335,
+          "z": -785.7220871641791,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 467.79555594823546,
+          "z": -807.6532663484777,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 436.1186629635377,
+          "z": -790.6640556634089,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 450.149824152257,
+          "z": -798.9354734110173,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 454.13312663940917,
+          "z": -788.6933219569179,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 485.32159926931513,
+          "z": -805.5521580852593,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 462.8973074019243,
+          "z": -793.179525361046,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 530.7362522338893,
+          "z": -831.4155693344572,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 464.01825352812034,
+          "z": -805.1505576594612,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 447.86404504886076,
+          "z": -796.3619191205406,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 464.9496419862594,
+          "z": -807.0763653336925,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 444.3108853379873,
+          "z": -783.5213479288554,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 442.5215960107318,
+          "z": -793.6360376969262,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 445.67249828350396,
+          "z": -794.9788172402357,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 463.6306919061913,
+          "z": -805.7071788905993,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 446.0186086420193,
+          "z": -783.2352534340874,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 477.8174480725217,
+          "z": -764.1932800396079,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 480.5364867918446,
+          "z": -814.5604991223195,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 452.4582107750452,
+          "z": -788.4168683778095,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 473.4486046563677,
+          "z": -810.7233773316991,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 444.27442170953117,
+          "z": -795.9441706945607,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 463.06240717244253,
+          "z": -805.5123787880002,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 458.875879949192,
+          "z": -764.5123069325278,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 442.56798463172254,
+          "z": -783.0483017573317,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 448.32206901765926,
+          "z": -784.8324047794961,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 445.0937847308701,
+          "z": -783.3234712605451,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 457.4013685699807,
+          "z": -802.2278117023059,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        }
+      ],
+      "vehiclesWithin60m": 5,
+      "lat": 44.44849,
+      "lon": 26.0654,
+      "image": "images/chapter-upb-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:05:10.169Z",
+      "sha256": "1ac1a470729bb71916560989f05ba8d69e513ab3ec09c8b0ab2cf3fb8f476921",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,513 @@
+{
+  "schemaVersion": 1,
+  "id": "cec",
+  "city": "bucharest",
+  "name": "Palatul CEC",
+  "sourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4320212,
+    "lon": 26.0964749
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/973712798",
+      "label": "OpenStreetMap w973712798 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/CEC_Palace",
+      "label": "Independent historical and architectural reference",
+      "type": "independent"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://api.openstreetmap.org/api/0.6/relation/13104090/full",
+      "label": "Raw full OSM multipolygon part r13104090; all outers/inners retained",
+      "type": "osm"
+    },
+    {
+      "url": "https://api.openstreetmap.org/api/0.6/relation/13104091/full",
+      "label": "Raw full OSM multipolygon part r13104091; all outers/inners retained",
+      "type": "osm"
+    },
+    {
+      "url": "https://api.openstreetmap.org/api/0.6/relation/13104092/full",
+      "label": "Raw full OSM multipolygon part r13104092; all outers/inners retained",
+      "type": "osm"
+    },
+    {
+      "url": "https://api.openstreetmap.org/api/0.6/relation/13104229/full",
+      "label": "Raw full OSM multipolygon part r13104229; all outers/inners retained",
+      "type": "osm"
+    },
+    {
+      "url": "https://api.openstreetmap.org/api/0.6/relation/13104230/full",
+      "label": "Raw full OSM multipolygon part r13104230; all outers/inners retained",
+      "type": "osm"
+    },
+    {
+      "url": "https://api.openstreetmap.org/api/0.6/relation/13104231/full",
+      "label": "Raw full OSM multipolygon part r13104231; all outers/inners retained",
+      "type": "osm"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/bb32f06f2b84080edf7efef90e361498f4227e12",
+      "label": "Accepted exact CEC outer/courtyard association in the tourist scene (bb32f06f)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/052ecc8d02358782b5e191050842952d529db853",
+      "label": "Accepted native Old Town collider bands; obsolete blanket caps removed (052ecc8d)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/29f4533895e1abba65f342ebffed735791c1e301/game/overview/evidence/spots/stavropoleos-cec.json",
+      "label": "Current selected Stavropoleos/CEC source-stamped primary-route record",
+      "type": "validation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/29f4533895e1abba65f342ebffed735791c1e301/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "label": "Existing 93b0d864 native scene/phone/primary-route report; scope remains limited",
+      "type": "validation"
+    }
+  ],
+  "sourceIds": [
+    "r13104090",
+    "r13104091",
+    "r13104092",
+    "r13104229",
+    "r13104230",
+    "r13104231",
+    "w657898053",
+    "w657898056",
+    "w657898065",
+    "w657898068",
+    "w657898070",
+    "w657898072",
+    "w657898074",
+    "w657898077",
+    "w657898079",
+    "w657898081",
+    "w657898083",
+    "w657898085",
+    "w657898086",
+    "w657898087",
+    "w657898088",
+    "w657898089",
+    "w657898090",
+    "w657898091",
+    "w657898092",
+    "w657898093",
+    "w657898094",
+    "w657898095",
+    "w657898096",
+    "w657898097",
+    "w657898098",
+    "w657898099",
+    "w657898100",
+    "w657898101",
+    "w657898114",
+    "w657898115",
+    "w657898116",
+    "w657898117",
+    "w657898118",
+    "w657898119",
+    "w657898120",
+    "w657898121",
+    "w657898122",
+    "w657898123",
+    "w657898124",
+    "w657898125",
+    "w657898126",
+    "w657898127",
+    "w657898128",
+    "w657898129",
+    "w657898130",
+    "w657898131",
+    "w657898132",
+    "w657898133",
+    "w657898134",
+    "w657898136",
+    "w657898137",
+    "w657898138",
+    "w657898139",
+    "w657898140",
+    "w657898141",
+    "w657898142",
+    "w657898143",
+    "w657898144",
+    "w657898145",
+    "w657898147",
+    "w657898148",
+    "w657898149",
+    "w657898150",
+    "w657898151",
+    "w657898152",
+    "w657898153",
+    "w657898154",
+    "w657898155",
+    "w657898156",
+    "w657898158",
+    "w657898159",
+    "w657898160",
+    "w657898161",
+    "w657898162",
+    "w657898163",
+    "w657898164",
+    "w657898165",
+    "w657898166",
+    "w657898167",
+    "w657898169",
+    "w657898170",
+    "w657898171",
+    "w657898172",
+    "w657898173",
+    "w657898174",
+    "w657898175",
+    "w657898176",
+    "w657898177",
+    "w657898178",
+    "w657898179",
+    "w657898180",
+    "w657898181",
+    "w657898182",
+    "w657898183",
+    "w657898184",
+    "w657898185",
+    "w657898186",
+    "w657898187",
+    "w657898188",
+    "w657898189",
+    "w657898190",
+    "w657898191",
+    "w657898192",
+    "w657898193",
+    "w657898194",
+    "w657898197",
+    "w657898198",
+    "w657898199",
+    "w657898200",
+    "w657898201",
+    "w657898202",
+    "w657898205",
+    "w657898206",
+    "w657898207",
+    "w657898208",
+    "w657898209",
+    "w657898210",
+    "w657898211",
+    "w657898212",
+    "w657898213",
+    "w657898214",
+    "w657898215",
+    "w657898216",
+    "w657898217",
+    "w657898218",
+    "w657898219",
+    "w657898220",
+    "w657898221",
+    "w657898222",
+    "w657898223",
+    "w657898224",
+    "w657898225",
+    "w657898226",
+    "w657898227",
+    "w657898228",
+    "w657898229",
+    "w657898230",
+    "w657898231",
+    "w657898232",
+    "w657898233",
+    "w657898234",
+    "w657898235",
+    "w657898236",
+    "w657898237",
+    "w657898238",
+    "w657898239",
+    "w657898240",
+    "w657898241",
+    "w657898242",
+    "w657898243",
+    "w657898244",
+    "w657898245",
+    "w657898246",
+    "w657898247",
+    "w973712798"
+  ],
+  "sourceLedger": "../../../../research/landmark-cec-source-assemblies.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Canonical model now represents all 162 mapped source volumes (155 previously registered volumes and seven restored relation outers), across 161 real OSM identities.",
+    "Every exact outer ring, five inner rings and all 153 literal source total heights are preserved. Body surfaces are unioned at every source vertical band; visible roof surfaces are clipped against the complete source assembly.",
+    "The six real restored relation IDs now have model coverage before replacement association; the two outers of r13104229 are retained separately. Exact model collision retains all 162 source polygons and holes.",
+    "Canonical CEC, including both prepared r13104229 outers, is associated in Old Town and uses native per-solid polygon/hole/height bands without the obsolete blanket parent collider (bb32f06f2b84080edf7efef90e361498f4227e12, 052ecc8d02358782b5e191050842952d529db853)."
+  ],
+  "remainingGaps": [
+    "Nine source total heights and absent roof rises remain estimates. The literal mapped maximum is 37.5 m; literal total heights include their roofs.",
+    "56 profiles retain unsupported or nonstandard roof tags, notably sloped with compass-valued roof:orientation and onion. The current native approximation visibly differs from rounded historic roof forms; these studies establish source-volume coverage, not complete architectural parity.",
+    "Many source decorative parts have literal total heights and no minimum height. Their ground-based bands remain source-first, even where the resulting vertical faces appear stronger than the actual roof structure. No contradictory source tag is silently rewritten.",
+    "Facade windows, cornices, clock, columns and absent material colours remain explicit architectural estimates.",
+    "Shaped-roof collision retains each complete source total-height band rather than a pointwise curved roof height. Canonical association and removal of obsolete blanket parent caps are integrated; complete independent courtyard/frontage, neighbouring-MNIR, public-access and crowd-behaviour comparison remains separate from the recorded primary candle approach.",
+    "Matched exterior Street View comparison and complete district traffic/mirror budgets are separate checks; isolated model captures do not establish those passes."
+  ],
+  "checks": [
+    {
+      "label": "Independent source-volume and literal-height regression",
+      "passed": true,
+      "details": "game/dev/harness/landmark-cec-source.test.mjs: all 162 source volumes and exact colliders match the independently loaded Unirii dataset, including seven restored relation outers, five inner rings, 153 literal total heights and a 37.5 m maximum."
+    },
+    {
+      "label": "Canonical union and duplicate-surface checks",
+      "passed": true,
+      "details": "Source-body deficit <=2.81e-15 m², derived outside area 0 m² (1e-8 m² tolerance); zero duplicate canonical roof triangles at 1e-7 m coordinate precision. All source volume records remain retained separately."
+    },
+    {
+      "label": "Actual rendered game studies",
+      "passed": true,
+      "details": "Three native game development-viewer captures from immutable 556b252, inspected front/top/oblique. Each model has 24,156 triangles; zero page errors. Orthographic top study is north-up. Raw source geometry and unsupported forms remain visible."
+    },
+    {
+      "label": "Complete tourist-scene context and access (separate gate)",
+      "passed": false,
+      "details": "Canonical association and obsolete blanket parent-cap removal are implemented in accepted bb32f06f2b84080edf7efef90e361498f4227e12 and 052ecc8d02358782b5e191050842952d529db853. Existing source93b0d8649e7c3a1217ae5b009f124347c41da6a8 tourist evidence records the physical 26.095 m primary candle approach with ordinary source solids/crowd enabled. This broad complete-context gate remains open: that route does not establish matched frontage/courtyard/adjacent-MNIR fidelity, all public approaches or all crowd behaviour. No new browser or test execution accompanies this wording update."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": false,
+      "details": "No newly verified matched exterior Street View comparison is claimed by this source-volume update."
+    },
+    {
+      "label": "Complete world / traffic / mirror budget",
+      "passed": false,
+      "details": "Isolated viewer only. Full district and tourist-scene checks remain separately recorded."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/cec/front.webp",
+      "sourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+      "sha256": "d95a1e61b9bfccba67f3e0a7bd8fe9db86fb73edf7ef7ebba45cd5a3575d7b66",
+      "capturedAt": "2026-11-08T21:22:05.307Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=cec&clean=1&fountains=on&view=street&az=78.00226376996056",
+        "anchor": {
+          "lat": 44.4320212,
+          "lon": 26.0964749,
+          "rotation": -0.2094
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            78.52134557674881,
+            1.3,
+            16.661308814516843
+          ],
+          "quaternion": [
+            0.07453557231987204,
+            0.6264344577463428,
+            -0.06036015443319049,
+            0.7735508841464768
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 1601.4094786519786,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -28.484425364690534,
+            0,
+            -34.40223052901153
+          ],
+          "max": [
+            28.884317206529154,
+            37.5,
+            34.435861886737115
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only native viewer. Top is orthographic and north-up; no reference image, adjacent scene or public-path acceptance is included."
+      }
+    },
+    {
+      "id": "top",
+      "label": "North-up orthographic source model study",
+      "kind": "top",
+      "image": "assets/landmarks/cec/top.webp",
+      "sourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+      "sha256": "fdb0e5ba2fd3545282f9cbf72a196226e5bccea4196a8d2a98e2721a98b03a35",
+      "capturedAt": "2026-11-08T21:22:06.793Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=cec&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4320212,
+          "lon": 26.0964749,
+          "rotation": -0.2094
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            0.19994592091931018,
+            121.35218720226842,
+            0.016815678862791117
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 2427.0437440453684,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -55.90145813484561,
+          "right": 55.90145813484561,
+          "top": 41.92609360113421,
+          "bottom": -41.92609360113421,
+          "zoom": 1,
+          "groundSquareM": 111.80291626969122,
+          "groundWidthM": 111.80291626969122,
+          "groundDepthM": 83.85218720226842,
+          "orientation": "north-up"
+        },
+        "bounds": {
+          "min": [
+            -28.484425364690534,
+            0,
+            -34.40223052901153
+          ],
+          "max": [
+            28.884317206529154,
+            37.5,
+            34.435861886737115
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only native viewer. Top is orthographic and north-up; no reference image, adjacent scene or public-path acceptance is included."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique source model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/cec/oblique.webp",
+      "sourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+      "sha256": "722e774288990e2796901ead0319cfbad623f9ba87873a0b145f5a8a84c36672",
+      "capturedAt": "2026-11-08T21:22:07.949Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=cec&clean=1&fountains=on&view=oblique&az=113.00226376996056&el=28",
+        "anchor": {
+          "lat": 44.4320212,
+          "lon": 26.0964749,
+          "rotation": -0.2094
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            87.07123898116754,
+            65.18013799551446,
+            -36.86191127923343
+          ],
+          "quaternion": [
+            -0.13352165640842228,
+            0.8091264288942631,
+            0.20173787656384146,
+            0.5355261137370243
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 2137.728543034238,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -28.484425364690534,
+            0,
+            -34.40223052901153
+          ],
+          "max": [
+            28.884317206529154,
+            37.5,
+            34.435861886737115
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only native viewer. Top is orthographic and north-up; no reference image, adjacent scene or public-path acceptance is included."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 24158,
+    "drawCalls": 3,
+    "modelTriangles": 24156,
+    "note": "Isolated development viewer including its ground; excludes district, traffic, mirrors and tourist-scene population."
+  },
+  "historicalImplementationNotes": [
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+      "supersededAt": "2026-11-09",
+      "field": "remainingGaps[4]",
+      "priorValue": "Shaped-roof collision retains each complete source total-height band rather than a pointwise curved roof height. Tourist-scene placement and public approach need the scene owner’s native context check after canonical association.",
+      "replacementScope": "Shaped-roof collision retains each complete source total-height band rather than a pointwise curved roof height. Canonical association and removal of obsolete blanket parent caps are integrated; complete independent courtyard/frontage, neighbouring-MNIR, public-access and crowd-behaviour comparison remains separate from the recorded primary candle approach.",
+      "acceptedImplementationCommits": [
+        "bb32f06f2b84080edf7efef90e361498f4227e12",
+        "052ecc8d02358782b5e191050842952d529db853"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+      "supersededAt": "2026-11-09",
+      "field": "checks[3]",
+      "priorValue": {
+        "label": "Tourist-scene native placement and access",
+        "passed": false,
+        "details": "Pending scene owner canonical association and removal of obsolete blanket parent collider. Isolated model views do not test adjacent MNIR, public approaches or crowd behavior."
+      },
+      "replacementScope": "Canonical association and obsolete blanket parent-cap removal are implemented in accepted bb32f06f2b84080edf7efef90e361498f4227e12 and 052ecc8d02358782b5e191050842952d529db853. Existing source93b0d8649e7c3a1217ae5b009f124347c41da6a8 tourist evidence records the physical 26.095 m primary candle approach with ordinary source solids/crowd enabled. This broad complete-context gate remains open: that route does not establish matched frontage/courtyard/adjacent-MNIR fidelity, all public approaches or all crowd behaviour. No new browser or test execution accompanies this wording update.",
+      "acceptedImplementationCommits": [
+        "bb32f06f2b84080edf7efef90e361498f4227e12",
+        "052ecc8d02358782b5e191050842952d529db853"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+}

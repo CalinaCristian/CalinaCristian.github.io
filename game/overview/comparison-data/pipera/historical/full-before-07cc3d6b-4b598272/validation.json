@@ -1,0 +1,33 @@
+{
+  "frames": 133,
+  "atlasSourceCounts": {
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 98,
+    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
+  },
+  "retakesReviewed": 35,
+  "retainedEarlierReviewed": 98,
+  "scopeCounts": {
+    "ring-touches": 91,
+    "core-touches": 38,
+    "outside-ring": 4
+  },
+  "archiveFilesByteIdentical": 275,
+  "archiveImagesVerified": 133,
+  "currentImagesVerified": 133,
+  "currentThumbnailsVerified": 133,
+  "sourceInventoriesVerified": [
+    {
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "path": "historical/c78a5f4/source-provenance.json",
+      "sha256": "bedee6790e941fd84d4a7409c4a34d9744e7ffb6077b35a24e8722e52aee2850",
+      "filesVerified": 2580
+    },
+    {
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+      "path": "retakes/bc9a3ff3/source-provenance.json",
+      "sha256": "8903d3205876f09e9a2f7f8eb380658ac4bf83e8c48e797db425039e7c60db3b",
+      "filesVerified": 8211
+    }
+  ],
+  "failures": []
+}

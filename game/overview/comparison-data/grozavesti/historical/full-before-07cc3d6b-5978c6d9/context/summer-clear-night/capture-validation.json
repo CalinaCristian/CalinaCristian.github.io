@@ -1,0 +1,82 @@
+{
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "district": "grozavesti",
+  "condition": {
+    "season": "summer",
+    "weather": "clear",
+    "time": "night"
+  },
+  "frames": 6,
+  "sheets": 1,
+  "failures": [],
+  "metrics": [
+    {
+      "id": "politehnica-street",
+      "sha256": "27e318a38439da6dfdc44f394005176f5b3e69a270b2713e2f915584eeaa1c08",
+      "rgbStddev": [
+        39.62792849184472,
+        30.834903981628024,
+        24.905617057928335
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": true
+    },
+    {
+      "id": "drone-edge-west",
+      "sha256": "f5a1e7fa945900e003c07f286d4c64704901342d43423df64ebc65afe51b6bac",
+      "rgbStddev": [
+        32.07177985988904,
+        23.816261637267775,
+        19.42850110234833
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-east",
+      "sha256": "9390efba7c057e368b91dfa4e4660926d775ed4d041519f561d4af5d6650b7bb",
+      "rgbStddev": [
+        34.41405314747466,
+        26.65830509116121,
+        20.797505762940265
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-north",
+      "sha256": "e0ad2ba3ce782fe810683f7fce796b12d899c6ca9a9115d32790c6395d2ff978",
+      "rgbStddev": [
+        31.11544981610138,
+        23.318046781647467,
+        18.993227268990164
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-south",
+      "sha256": "44837f4433c95fb82b84b5d0acf652c93dc58e6b938b3d6af03cce14caa05103",
+      "rgbStddev": [
+        34.03322840277695,
+        26.853292529343626,
+        22.672562683663923
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "chapter-upb-street",
+      "sha256": "bd8d3c7fd7445073e2c9898329fd398dca7078642e2e64fa3b7173203439a74a",
+      "rgbStddev": [
+        35.60604612748648,
+        31.759516366677836,
+        26.63933820428764
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    }
+  ],
+  "rawSourceContactHits": 59,
+  "note": "Capture integrity checks only. Sheets require actual human/model visual review; raw contacts and source/visual gaps are not dismissed by this result. No controller, complete scene-clearance or driving/mirror budget pass claimed."
+}

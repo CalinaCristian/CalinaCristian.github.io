@@ -1,0 +1,742 @@
+{
+  "schemaVersion": 1,
+  "id": "bel-lincoln-square",
+  "city": "seattle",
+  "name": "Lincoln Square & Bellevue Square (UiPath)",
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Lincoln_Square_(Bellevue)"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://www.businesswire.com/news/home/20180403005065/en/"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://www.cppinvestments.com/wp-content/uploads/migrated/documents/451/CPPIB_release_-_Lincoln_Square_Sept_10_2015_kYQ62NU.pdf"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Bellevue_Square"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Bellevue_Arts_Museum"
+    },
+    {
+      "label": "Lincoln Square North office tower (2005), 700 Bellevue Way NE — UiPath Bellevue, Suite 2000",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/604028609"
+    },
+    {
+      "label": "UiPath Bellevue entrance / lobby / signage",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/7945526075"
+    },
+    {
+      "label": "One Lincoln Tower (Westin Bellevue hotel + condominiums, 2005)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/604028611"
+    },
+    {
+      "label": "One Lincoln Tower (Westin Bellevue hotel + condominiums, 2005)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/328017119"
+    },
+    {
+      "label": "Lincoln Square retail podium (2005) + Chihuly glass",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/161929514"
+    },
+    {
+      "label": "Lincoln Square retail podium (2005) + Chihuly glass",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/11212853758"
+    },
+    {
+      "label": "Lincoln Square retail podium (2005) + Chihuly glass",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/11214221844"
+    },
+    {
+      "label": "Lincoln Square South (2017): office tower + W Bellevue/Avalon tower + podium",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1326151866"
+    },
+    {
+      "label": "Lincoln Square South (2017): office tower + W Bellevue/Avalon tower + podium",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1326151868"
+    },
+    {
+      "label": "Lincoln Square South (2017): office tower + W Bellevue/Avalon tower + podium",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1326151818"
+    },
+    {
+      "label": "Bellevue Square (1946; Kemper Development)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/29234887"
+    },
+    {
+      "label": "Bellevue Square (1946; Kemper Development)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/33106348"
+    },
+    {
+      "label": "Bellevue Square (1946; Kemper Development)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/497738386"
+    },
+    {
+      "label": "Bellevue Square (1946; Kemper Development)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/497739259"
+    },
+    {
+      "label": "Skybridges",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/43872832"
+    },
+    {
+      "label": "Skybridges",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/43872826"
+    },
+    {
+      "label": "Skybridges",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1222676052"
+    },
+    {
+      "label": "Skybridges",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/29234890"
+    },
+    {
+      "label": "Skybridges",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/497738385"
+    },
+    {
+      "label": "Skybridges",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/516915099"
+    },
+    {
+      "label": "Bellevue Arts Museum building (2001, Steven Holl) — sale to KidsQuest Children's Museum announced Oct 2025",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/33613449"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Native phone walk around the retained visitor",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/lincoln-crowd-touch/results.json"
+    },
+    {
+      "label": "Native desktop source-facade shutters",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/lincoln-front-desktop/results.json"
+    }
+  ],
+  "improvements": [
+    "Current native scene retains 97 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Physical entry approach; three source-facade shutters; actual touch walk 2.106 m around the retained obstructing visitor, same opaque gate, persistence",
+    "The selected primary activity approach is accepted separately from full-scene comparison."
+  ],
+  "remainingGaps": [
+    "No private office visit; complete architecture comparison remains open",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+  ],
+  "checks": [
+    {
+      "label": "Current native scene load and warm cache",
+      "passed": true,
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts."
+    },
+    {
+      "label": "Native phone condition controls",
+      "passed": true,
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
+    },
+    {
+      "label": "Selected primary activity entry",
+      "passed": true,
+      "details": "4.705m actual-controller arrival; no pose writes after entry. Completion of every secondary activity is not inferred."
+    },
+    {
+      "label": "High-quality selected native views",
+      "passed": true,
+      "details": "Maximum 302148 rendered triangles / 222 calls. Software-GL capture is not a hardware FPS benchmark."
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/bel-lincoln-square-arrival.webp",
+      "sha256": "cfebe36a631dc7236b57942af454250f0c6760e05896a9651e6afee4fb56a062",
+      "bytes": 35030,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:03:32.666Z",
+      "pose": {
+        "position": [
+          -3,
+          1.712446380779147,
+          -3
+        ],
+        "bearing": 135,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.61755,
+          "lon": -122.20195,
+          "elev": 49.5
+        },
+        "projection": {
+          "mLat": 111182.88,
+          "mLon": 75175.27
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open."
+      ],
+      "metrics": {
+        "triangles": 302148,
+        "drawCalls": 222
+      },
+      "simulationDate": "2026-11-09T00:03:31.465Z"
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Physical approach to the selected activity",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/bel-lincoln-square-approach.webp",
+      "sha256": "484e2497d2fa95046dac59ae2bca4644c1d53b26a38fb3ea9526c89e9f2f2300",
+      "bytes": 32270,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:03:35.730Z",
+      "pose": {
+        "position": [
+          -2.049824776823238,
+          1.6541427227668315,
+          1.7508761158838115
+        ],
+        "bearing": 168.69006752597977,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.61755,
+          "lon": -122.20195,
+          "elev": 49.5
+        },
+        "projection": {
+          "mLat": 111182.88,
+          "mLon": 75175.27
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": true,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Physical arrival at the interaction coordinate does not complete the activity or certify a surveyed legal pedestrian itinerary."
+      ],
+      "metrics": {
+        "triangles": 283460,
+        "drawCalls": 110
+      },
+      "simulationDate": "2026-11-09T00:03:34.530Z"
+    },
+    {
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/bel-lincoln-square-phone.webp",
+      "sha256": "54eb19a3cf468efdb5e79a32a32953f5f73be54f368506787e86760f032a95ef",
+      "bytes": 11998,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:03:37.522Z",
+      "pose": {
+        "position": [
+          -2.017062295168123,
+          1.6326436210425619,
+          1.9146885241593865
+        ],
+        "bearing": 168.69006752597977,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.61755,
+          "lon": -122.20195,
+          "elev": 49.5
+        },
+        "projection": {
+          "mLat": 111182.88,
+          "mLon": 75175.27
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison."
+      ],
+      "metrics": {
+        "triangles": 266561,
+        "drawCalls": 101
+      },
+      "simulationDate": "2026-11-09T00:03:37.526Z"
+    }
+  ],
+  "perf": {
+    "triangles": 302148,
+    "drawCalls": 222,
+    "maxRenderedTriangles": 302148,
+    "maxDrawCalls": 222,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
+  },
+  "sceneId": "bel-lincoln-square",
+  "sourceGeometry": {
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "11895b188712c549ad47d55770543b00a64c7f0c268a6a9b00298d0913015a2d",
+    "activeSourceRecords": 82,
+    "renderedVolumes": 77,
+    "literalHeights": 55,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 27,
+    "heroReplacements": [
+      "w161929514",
+      "w604028609",
+      "w1364249504",
+      "w328017119",
+      "w604028611",
+      "w1474737770",
+      "w604028603",
+      "w1326151866",
+      "w1326151868",
+      "w1391221517",
+      "w29234887",
+      "w33106348",
+      "w497738386",
+      "w497739259",
+      "w497733469"
+    ],
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": -3,
+      "z": -3,
+      "y": 0.06244638077914703,
+      "heading": -2.356194490192345
+    },
+    "primaryActivity": "Lincoln Square camera challenge",
+    "primaryRouteStatus": "physically-verified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": true,
+    "nativeWalk": {
+      "passed": true,
+      "walked": 4.7054622824983126,
+      "steps": 22,
+      "maxStep": 0.2299961586088182,
+      "maxRise": 0.004306079881683557,
+      "position": {
+        "x": -2.049824776823238,
+        "z": 1.7508761158838115,
+        "y": -0.010229880744409212,
+        "heading": -2.9441970937399122
+      },
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+    }
+  },
+  "rawAudit": {
+    "status": "historical-only",
+    "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "counts": {
+      "zfight": 33,
+      "phantom": 4
+    },
+    "collection": "previous-context-gallery"
+  },
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical entry approach; three source-facade shutters; actual touch walk 2.106 m around the retained obstructing visitor, same opaque gate, persistence No private office visit; complete architecture comparison remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "historicalCollections": [
+    {
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "updatedAt": "2026-11-08T19:35:04.845Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Lincoln Square & Bellevue Square (UiPath) — arrival",
+          "image": "assets/spots/bel-lincoln-square/arrival.webp",
+          "sha256": "44bce21b1c7340025976dfe141af2411516e69ca0670f017c7cd934335f88183",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:25:24.734Z",
+          "pose": {
+            "position": [
+              -3,
+              1.712446380779147,
+              -3
+            ],
+            "bearing": 135,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.61755,
+              "lon": -122.20195,
+              "elev": 49.5
+            },
+            "projection": {
+              "mLat": 111182.88,
+              "mLon": 75175.27
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Lincoln Square & Bellevue Square (UiPath) — public walk",
+          "image": "assets/spots/bel-lincoln-square/public-walk.webp",
+          "sha256": "df11385a600598a39c4fd512ba89659831070298146ac5f63bb58bb16043f05e",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:25:27.182Z",
+          "pose": {
+            "position": [
+              27.874839448737855,
+              0.9128293067946849,
+              30.584473367410865
+            ],
+            "bearing": 93.04503342578147,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.61755,
+              "lon": -122.20195,
+              "elev": 49.5
+            },
+            "projection": {
+              "mLat": 111182.88,
+              "mLon": 75175.27
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Lincoln Square & Bellevue Square (UiPath) — postcard",
+          "image": "assets/spots/bel-lincoln-square/postcard.webp",
+          "sha256": "135a41851c2075de577c44125490b48ab840555ca95c5f917dfbc261f3f676fc",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:25:29.433Z",
+          "pose": {
+            "position": [
+              -2,
+              1.6365544399246572,
+              2
+            ],
+            "bearing": 145,
+            "pitch": 18.000000000000004,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.61755,
+              "lon": -122.20195,
+              "elev": 49.5
+            },
+            "projection": {
+              "mLat": 111182.88,
+              "mLon": 75175.27
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Lincoln Square & Bellevue Square (UiPath) — activity approach",
+          "image": "assets/spots/bel-lincoln-square/activity-approach.webp",
+          "sha256": "101de037530bd2ea1cf0d0d689b042f1ecee7184765254809cabe1b229a0face",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:25:31.561Z",
+          "pose": {
+            "position": [
+              -2,
+              1.5911212239414452,
+              6
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.61755,
+              "lon": -122.20195,
+              "elev": 49.5
+            },
+            "projection": {
+              "mLat": 111182.88,
+              "mLon": 75175.27
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "bel-lincoln-square; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "82 active source records, 77 physical volumes, 9 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "45.9 m walked toward UiPath in Bellevue; planned endpoint reached using native movement and collision."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "231546 unique geometry triangles; max 371314 rendered triangles / 244 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "zfight: 33; phantom: 4"
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        },
+        {
+          "label": "Participatory activity controls",
+          "passed": true,
+          "details": "Native desktop mouse and actual CDP touch camera drags align all three targets and operate 44px shutter controls; cancellation clears incomplete progress. Separate portable photo-hunt results are recorded in ROUND-3.md."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 284991,
+        "uniqueGeometryTriangles": 231546,
+        "geometryObjects": 108,
+        "maxRenderedTriangles": 371314,
+        "maxDrawCalls": 244
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "7dd5bac6e13d07294fa793c46817a448bc6c0092935c23e7adf88e0ffc06cfed",
+        "activeSourceRecords": 82,
+        "renderedVolumes": 77,
+        "literalHeights": 55,
+        "levelHeightEstimates": 0,
+        "typeHeightEstimates": 27,
+        "heroReplacements": [
+          "w161929514",
+          "w604028609",
+          "w1364249504",
+          "w328017119",
+          "w604028611",
+          "w1474737770",
+          "w604028603",
+          "w1326151866",
+          "w1326151868",
+          "w1391221517",
+          "w29234887",
+          "w33106348",
+          "w497738386",
+          "w497739259",
+          "w497733469"
+        ],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": -3,
+          "z": -3,
+          "y": 0.06244638077914703,
+          "heading": -2.356194490192345
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              -3,
+              -3
+            ],
+            [
+              28.599999999999998,
+              30.6
+            ]
+          ],
+          "length": 46.12504742544987,
+          "target": "UiPath in Bellevue"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 595,
+          "walked": 45.904960396566466,
+          "target": "UiPath in Bellevue",
+          "plannedLength": 46.12504742544987,
+          "position": {
+            "x": 27.874099968375177,
+            "z": 30.58440446069874,
+            "y": -0.7372845077433102,
+            "heading": -1.6239421859080656
+          },
+          "error": null
+        }
+      },
+      "rawAudit": {
+        "zfight": 33,
+        "phantom": 4
+      },
+      "improvements": [
+        "Unverified Suite 2000 interior, elevator, physical directory and private-office teleport claims were removed; the real source office address and building remain.",
+        "Three public facade/skybridge camera tasks require actual mouse or touch aiming and explicit shutter input.",
+        "Source towers, elevated parts and literal heights remain represented by exact volumes and shared roofs."
+      ],
+      "remainingGaps": [
+        "The three-target public camera exercise passed; its final skybridge framing still needs a full-size independent visibility/source comparison.",
+        "Crowds stand close to the public plaque endpoint; nearby entrances, plaza edges and skybridge access need whole-scene comparison.",
+        "Private office and suite access remain unavailable because they have not been verified; four raw phantom findings require physical review.",
+        "Raw audit findings remain for physical review: zfight 33, phantom 4."
+      ],
+      "review": "Inspected all four GAME context captures and the earlier touch exercise. This verifies public participation, not a private UiPath interior.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": true,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-09T00:03:32.666Z",
+    "2026-11-09T00:03:37.522Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": true,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The selected activity coordinate is physically reached; this is not completion of every activity.",
+      "cases": [
+        "bel-lincoln-square"
+      ]
+    },
+    {
+      "label": "Native phone walk around the retained visitor",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/lincoln-crowd-touch/results.json",
+      "sha256": "176e66f2e3a43900cd23a716a5533a9aabeaa7237af7c1036ed0f057415357b1",
+      "sourceCommit": "c0b1b2c1487149d77f0b1a394e678d5a760abc15",
+      "passed": true,
+      "scope": "The original skybridge ray correctly blocks on a visitor. Actual thumbstick/look walks 2.106 m west; the same opaque gate clears, all three shutters complete and completion persists. Population, buildings and colliders remain.",
+      "cases": [
+        "bel-lincoln-square"
+      ]
+    },
+    {
+      "label": "Native desktop source-facade shutters",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/lincoln-front-desktop/results.json",
+      "sha256": "aa34d61eb9782c1eabec3f45cfdd5669e089ba5f256f338e711ca0cada00a39a",
+      "sourceCommit": "60db2819ecc6d175c71031e1f4cef57bc78a636e",
+      "passed": true,
+      "scope": "Three manually aimed shutters on the corrected facade edge and skybridge; completed reload and zero errors. Exterior practice, no private office visit.",
+      "cases": [
+        "bel-lincoln-square"
+      ]
+    }
+  ]
+}

@@ -37,3 +37,29 @@ day/night/detail pictures and source comparison; read-only full-scene body/terra
 approach, race win/loss/cancel and baguette win/miss/cancel; root registry/achievement/tour once-only behavior; actual warm
 High/Ultra/pass accounting, lifecycle and phone layout; refresh all affected overview images/provenance after acceptance.
 No reference-provider image is committed. Private source-layout plotting is based only on retained OSM coordinates.
+
+## First actual app probe and C3 checkpoint
+
+Exact integrated runtime0a4cce8e745cf6e8f3f5cec14ab39c48196f37fc loads from the ordinary tourist menu with0page/console/HTTP
+errors, actual39ambient people +2race opponents +28cars, nativeTime0, FOV72/near.25/far9000. All249copied source files
+before/after and144served files are verified. Two complete actual warm frames each195calls/511520triangles reconcile
+their raw counters; first raw292/524193 contains directly observed97/12673pre-draw carry. Player/actors/time remain unchanged.
+The actual first-person PNGs/raw report/all1770complete-scene static samples are retained in `native-first-0a4/`.
+
+**The actual full-scene course fails16samples.** Every native push vector is exactly reproduced (maximum difference0)
+by the .08m posts of authored plaques1/2/4 at their original scene positions. Their complete circle fits independently
+have residual below6e−14; no mapped furniture/source IDs are blamed or removed. `native-plaque-cause.json` retains the
+actual negative vectors and the CPU replay. The C3 placement search keeps all5posts and their complete projected tilted
+plates clear of *every* course segment, active carriageways, reader approach and retained static bodies. The literal race
+course is unchanged. The CPU prediction clears all16old generated-post positives; this is not a fresh native pass.
+
+The first actual picture also exposes the old duplicate14m mast through the public passage. Official source node
+11056553808/version2 (2023-07-23) explicitly has height31/min_height27 at its literal geographic point. Its raw XML and
+review are under `source/`. C3 moves the model's old estimated off-centre mast to the proper27→31m roof band/source point
+and removes the second ground mast. The original furniture record remains. The27part colliders plus1raised pole collider
+retain exact bands, and the public floor stays open. A normal bounded spawn pitch.5 frames the upper monument.
+
+C3 has15focused CPU tests passing (`cpu-activities-c3.log`), including the genuine plaque counterexample, complete readable
+plate/course/road clearance and literal rooftop pole support. Its full native static/visual/input/phone/activity/award/tour
+and overview gates are still OPEN. Root redirected the lane to the higher-priority Basarab source-domain connectivity
+blocker after this checkpoint; no additional Arc browser is launched while Bridge/RO own the slots.

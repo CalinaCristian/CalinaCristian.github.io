@@ -11,7 +11,7 @@ import { US_FOOTPRINTS as U, US_SOURCE_TAGS as UT } from './landmark-us-source.j
 import { emitUSLandmarkTerrain } from './landmark-us-terrain.js';
 import { sourceProfile, sourceSlope, sourceSurfaceText } from './landmark-us-geometry.js';
 import { makeDinamoPaintTexture, makeDinamoPaintMesh } from './landmark-pitch-paint.js';
-import { emitArcGround, emitArcSourceColliders } from './landmark-arcul-source.js';
+import { emitArcGround, emitArcSourceColliders, ARC_SOURCE_FLAGPOLE } from './landmark-arcul-source.js';
 
 // ============================================================================
 //  Drive My CV — procedural models of the real landmarks of Bucharest and
@@ -899,8 +899,9 @@ function bArcul(b) {
     b.box(0, 21.4, 0, W - 0.2, 1.2, D - 0.2, S2);
     b.box(0, 24.6, 0, W - 1.2, 2.4, D - 1.2, S);
     for (const s of [-1, 1]) for (let i = 0; i < 6; i++) b.box(-9.4 + i * 3.76, 27, s * (D / 2 - 0.8), 0.9, 0.8, 0.9, TR);
-    b.cyl(-6, 27, 0, 0.07, 0.1, 7, '#dddddd', 5);
-    flag(b, -6, 33.8, 0, 1.8);
+    const fp = ARC_SOURCE_FLAGPOLE;
+    b.cyl(fp.point[0], fp.minimumM, fp.point[1], .05, .05, fp.heightM - fp.minimumM, '#dddddd', 6);
+    flag(b, fp.point[0], fp.heightM - .05, fp.point[1], 1.8);
     // The scene/district owns mapped bollards; do not duplicate them with an
     // invented ellipse inside the actual public pedestrian walks.
     emitArcSourceColliders(b); // exact27 source parts retain their tagged vertical intervals

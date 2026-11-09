@@ -1,5 +1,25 @@
 import { compileRaceCourse } from '../race-course.js';
 import { carriagewayTest } from '../osm.js';
+import { distPolyline } from '../kit.js';
+
+// Actual native bronze plaque: .62x.42x.03m plate, tilted-.4rad. The complete
+// projected plate, rather than only its .08m post collider, must clear racers.
+export const ARC_PLAQUE_RADIUS=Math.hypot(.62/2,.42/2*Math.sin(.4)+.03/2*Math.cos(.4));
+export function arcPlaquePlacements(course,center,count,{inside,activeRoad,blocked}) {
+    const out=[],deltas=[0,Math.PI/6,-Math.PI/6,Math.PI/3,-Math.PI/3,Math.PI/2,-Math.PI/2,2*Math.PI/3,-2*Math.PI/3,Math.PI];
+    for(let i=0;i<count;i++){
+        const anchor=course.at(22+i*28),angle=Math.atan2(anchor.z-center.z,anchor.x-center.x);let best=null;
+        search:for(const radius of [1.2,1.6,2,2.4,3])for(const delta of deltas){
+            const x=anchor.x+Math.cos(angle+delta)*radius,z=anchor.z+Math.sin(angle+delta)*radius,
+                clearance=distPolyline(x,z,course.points).d,yaw=Math.atan2(anchor.x-x,anchor.z-z),reader={x:x+Math.sin(yaw)*.8,z:z+Math.cos(yaw)*.8};
+            if(clearance<ARC_PLAQUE_RADIUS+.3+.1||!inside(x,z)||activeRoad(x,z,ARC_PLAQUE_RADIUS)||activeRoad(reader.x,reader.z,.3)||blocked(x,z,ARC_PLAQUE_RADIUS+.05))continue;
+            if(out.some(p=>Math.hypot(p.x-x,p.z-z)<ARC_PLAQUE_RADIUS*2+.2))continue;
+            best={x,z,yaw,reader,courseClearanceM:clearance,plateRadiusM:ARC_PLAQUE_RADIUS,offsetM:radius};out.push(best);break search;
+        }
+        if(!best)throw Error('No physically clear game information plaque placement '+i);
+    }
+    return out;
+}
 
 // A public walking apron can be mapped as a service way with access=no plus
 // an explicit foot=yes exception and motor_vehicle=no. Keep those literal

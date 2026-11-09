@@ -1,0 +1,5 @@
+ENTRY {"time":0,"people":39,"racers":2,"cars":28,"camera":{"fov":72,"near":0.25,"far":9000}}
+FRAME native-entry-0 {"calls":195,"triangles":511520}
+FRAME native-entry-1 {"calls":195,"triangles":511520}
+BODY {"rows":1770,"positive":16,"heightUnknown":0}
+CLOSED true 

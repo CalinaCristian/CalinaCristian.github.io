@@ -3,13 +3,14 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import * as THREE from '../../vendor/three.module.min.js';
-import { arcRaceCourse,arcRoundabout,arcActiveCarriageway } from '../../src/spots/scenes/arcul-layout.js';
+import { arcRaceCourse,arcRoundabout,arcActiveCarriageway,arcPlaquePlacements,ARC_PLAQUE_RADIUS } from '../../src/spots/scenes/arcul-layout.js';
 import { createRace } from '../../src/spots/race-course.js';
 import { createBaguetteGame } from '../../src/spots/baguette-game.js';
-import { ARC_SOURCE_PARTS,ARC_SOURCE_SHA256 } from '../../src/landmark-arcul-source.js';
+import { ARC_SOURCE_PARTS,ARC_SOURCE_SHA256,ARC_SOURCE_FLAGPOLE } from '../../src/landmark-arcul-source.js';
 import { LANDMARKS,buildLandmark } from '../../src/landmarks.js';
 import { collideBuildings } from '../../src/world.js';
 import { translatedLandmarkCollider } from '../../src/spots/landmark-colliders.js';
+import { offsetPolyline,inPoly,distPolyline } from '../../src/spots/kit.js';
 
 const data=JSON.parse(fs.readFileSync(new URL('../../data/spots/arcul-de-triumf.json',import.meta.url))),course=arcRaceCourse(data),dt=1/30;
 const source=fs.readFileSync(new URL('../../../game/research/landmark-source-bucharest.json',import.meta.url));
@@ -36,7 +37,22 @@ test('real emitted monument has its .01m public floor, not a1.3m passage plinth'
     const r=buildLandmark(LANDMARKS.find(l=>l.id==='arcul'),{realScale:true});r.mesh.updateMatrixWorld(true);
     const ray=new THREE.Raycaster(new THREE.Vector3(0,4,0),new THREE.Vector3(0,-1,0));
     const hits=ray.intersectObject(r.mesh,true);assert.ok(hits.length);assert.ok(Math.abs(hits[0].point.y-.01)<1e-6);
-    assert.equal(r.collision.length,27);assert.equal(r.mesh.userData.sourceMassAudit.sourceIds.length,27);
+    assert.equal(r.collision.length,28);assert.equal(r.mesh.userData.sourceMassAudit.sourceIds.length,27);
+});
+test('flagpole source31/27 heights retain its geographic point and leave the public floor clear',()=>{
+    const raw=fs.readFileSync(new URL('../../../handoffs/fidelity/pipera-fidelity/arcul-rebuild/source/node-11056553808.xml',import.meta.url));
+    assert.equal(crypto.createHash('sha256').update(raw).digest('hex'),ARC_SOURCE_FLAGPOLE.sourceSha256);
+    assert.ok(raw.toString().includes('k="min_height" v="27"'));assert.ok(raw.toString().includes('k="height" v="31"'));
+    const r=buildLandmark(LANDMARKS.find(l=>l.id==='arcul'),{realScale:true}),pole=r.collision.find(c=>c.sourceId===ARC_SOURCE_FLAGPOLE.id);
+    assert.equal(pole.y0,27);assert.equal(pole.y1,31);assert.equal(collideBuildings([pole],0,0,.3,.2),null);
+});
+test('whole readable game plaques clear every course leg, preserving all5posts',()=>{
+    const center={x:-29.681620469978885,z:-96.69779876936327},island=offsetPolyline(arcRoundabout(data).points,-6.25),road=arcActiveCarriageway(data);
+    const sites=arcPlaquePlacements(course,center,5,{inside:(x,z)=>inPoly(x,z,island),activeRoad:road,blocked:()=>false});
+    assert.equal(sites.length,5);for(const s of sites){assert.ok(distPolyline(s.x,s.z,course.points).d>=.3+ARC_PLAQUE_RADIUS+.1);assert.equal(road(s.reader.x,s.reader.z,.3),false);}
+    // Exact native0a4 failure: the old radial1.2m placement intersects a second
+    // leg of the tight U walk. A single anchor-distance check misses it.
+    const old={x:-19.811601720903816,z:-83.59570367860294};assert.ok(distPolyline(old.x,old.z,course.points).d<.38);
 });
 test('entire source course clears native27-part body collision and actual carriageways',()=>{
     const lm=LANDMARKS.find(l=>l.id==='arcul'),r=buildLandmark(lm,{realScale:true}),anchor={x:(lm.lon-data.origin.lon)*data.projection.mLon,z:-(lm.lat-data.origin.lat)*data.projection.mLat};

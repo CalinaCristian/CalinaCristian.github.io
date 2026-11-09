@@ -14,3 +14,7 @@ exclude:
   - handoffs/fidelity/integration-final-acceptance
   - handoffs/fidelity/us-districts
   - handoffs/fidelity/unirii-pedestrian-recovery
+  - handoffs/fidelity/cockpit-sharp-displays
+  - handoffs/fidelity/root-acceptance-archive
+  - handoffs/fidelity/tram-source-metadata
+  - handoffs/fidelity/tram-native-support-6cb

@@ -231,5 +231,14 @@
   ],
   "finishedUTC": "2026-11-09T16:12:25.027240+00:00",
   "verifiedFreedAllocatedBytes": 1702158336,
-  "deletedCount": 8
+  "deletedCount": 8,
+  "postCleanupAudit": {
+    "allProtectedSourceRefsResolve": true,
+    "allDeletedDirectoriesAbsent": true,
+    "allPerFileManifestHashesMatch": true,
+    "retainedEvidenceFilesHashVerified": 139,
+    "rawEvidenceFilesHashVerified": 139,
+    "verificationScriptSHA256": "79867cca238cd976b3f6d1f22d5dbb76db444d66c12b96c6516ff488b58aa3d1",
+    "scope": "Source refs are local protected Git refs, not remote publication; raw capture artifacts and manifests are already retained on the worker remote branch. No Git object, capture, report, reference or worktree was deleted."
+  }
 }

@@ -1,7 +1,7 @@
 // Photo-led authored reconstruction, not a surveyed interior floor plan.
 // Outer volume/door remain in buc-old-town.js on source w658009149.
 import * as THREE from '../../../vendor/three.module.min.js';
-import {GeoBatch,flatGeometry,inPoly,polyArea,offsetPolyline,rng} from '../kit.js';
+import {GeoBatch,flatGeometry,inPoly,polyArea,polyBox,offsetPolyline,rng} from '../kit.js';
 import {caruselBooks,caruselTimber} from './carusel-look.js';
 
 const WHITE='#f4f2eb',LEVELS=[0,3.1,6.6,10.0,13.6];
@@ -10,7 +10,13 @@ function shape(poly,hole){const s=new THREE.Shape(poly.map(([x,z])=>new THREE.Ve
 
 export function buildCaruselInterior(ctx,{poly,o,front,datum,height}){
     const g=ctx.ground,b=new GeoBatch(),shelves=new GeoBatch(),inner=inset(poly,.22);
-    const floorY=Math.max(...poly.map(([x,z])=>g.heightAt(x,z)))+.035;
+    // Sample the final settled terrain throughout the source footprint, not
+    // just its lower boundary vertices. No terrain or exterior datum is moved.
+    const bb=polyBox(poly);let highest=-Infinity;
+    const sample=(x,z)=>{highest=Math.max(highest,g.heightAt(x,z));};
+    for(let z=bb.z0;z<=bb.z1;z+=.5)for(let x=bb.x0;x<=bb.x1;x+=.5)if(inPoly(x,z,poly))sample(x,z);
+    for(let i=0;i<poly.length;i++){const a=poly[i],c=poly[(i+1)%poly.length],n=Math.ceil(Math.hypot(c[0]-a[0],c[1]-a[1])/.5);for(let j=0;j<=n;j++)sample(a[0]+(c[0]-a[0])*j/n,a[1]+(c[1]-a[1])*j/n);}
+    const floorY=highest+.04;
     const P=(r,s)=>[o.cx+o.uz*r+o.ux*s,o.cz-o.ux*r+o.uz*s],yaw=Math.atan2(o.ux,o.uz);
     const local=(x,z)=>({r:(x-o.cx)*o.uz-(z-o.cz)*o.ux,s:(x-o.cx)*o.ux+(z-o.cz)*o.uz});
     const holes=[],gallerySurfaces=[],path=[],landings=[],railRecords=[],timber=caruselTimber();
@@ -19,7 +25,7 @@ export function buildCaruselInterior(ctx,{poly,o,front,datum,height}){
     const slab=(p,hole,y,thick=.17,wood=true)=>{const geo=new THREE.ExtrudeGeometry(shape(p,hole),{depth:thick,bevelEnabled:false,curveSegments:4});geo.rotateX(-Math.PI/2);geo.translate(0,y-thick,0);b.add(geo,'paint',null,WHITE);geo.dispose();if(wood)top(p,hole,y);};
     const wall=(a,c,ya,yc,h=1.04)=>{const dx=c[0]-a[0],dz=c[1]-a[1],L=Math.hypot(dx,dz);if(L<.005)return;const w={wall:true,ax:a[0],az:a[1],bx:c[0],bz:c[1],x:(a[0]+c[0])/2,z:(a[1]+c[1])/2,r:L/2+.5,nx:dz/L,nz:-dx/L,y0a:ya-.12,y1a:ya+h,y0b:yc-.12,y1b:yc+h,kind:'carusel-gallery-rail',interiorEstimated:true};ctx.collider(w);railRecords.push(w);};
     const rail=(a,c,ya,yc,{iron=false,physical=true}={})=>{
-        const L=Math.hypot(c[0]-a[0],c[1]-a[1]);if(L<.005)return;const col=iron?'#29362d':WHITE;
+        const L=Math.hypot(c[0]-a[0],c[1]-a[1]);if(L<.005)return;const col=WHITE;
         b.rod([a[0],ya+1.04,a[1]],[c[0],yc+1.04,c[1]],iron?.023:.022,col,'paint',6);
         b.rod([a[0],ya+.09,a[1]],[c[0],yc+.09,c[1]],.012,col,'paint',5);
         const n=Math.max(1,Math.ceil(L/(iron?.19:.13)));
@@ -73,8 +79,8 @@ export function buildCaruselInterior(ctx,{poly,o,front,datum,height}){
     const flight=(r,s0,s1,y0,y1,level)=>{for(let j=0;j<n;j++){const t=(j+.5)/n,s=s0+(s1-s0)*t,y=y0+(y1-y0)*(j+1)/n,[x,z]=P(r,s),rise=(y1-y0)/n;
             b.box(x,y-rise,z,1.2,rise,.32,WHITE,'paint',yaw);g.addBox(x,z,.6,.16,yaw,y-rise,y,{kind:'carusel-stair'});addPath(r,s,y,{level,tread:true});}
         const L=P(r-.6,s0),R=P(r+.6,s0),C=P(r-.6,s1),D=P(r+.6,s1),bottom0=y0-.22,bottom1=y1-.22;
-        b.quad([L[0],bottom0,L[1]],[R[0],bottom0,R[1]],[D[0],bottom1,D[1]],[C[0],bottom1,C[1]],WHITE,'paint');
-        for(const side of [-1,1]){const p=P(r+side*.6,s0),q=P(r+side*.6,s1);b.quad([p[0],bottom0,p[1]],[q[0],bottom1,q[1]],[q[0],y1,q[1]],[p[0],y0,p[1]],WHITE,'paint');rail(p,q,y0,y1);}};
+        const underside=[[L[0],bottom0,L[1]],[R[0],bottom0,R[1]],[D[0],bottom1,D[1]],[C[0],bottom1,C[1]]];if(s1<s0)underside.reverse();b.quad(...underside,WHITE,'paint');
+        for(const side of [-1,1]){const p=P(r+side*.6,s0),q=P(r+side*.6,s1),face=[[p[0],bottom0,p[1]],[q[0],bottom1,q[1]],[q[0],y1,q[1]],[p[0],y0,p[1]]];if((s1>s0&&side>0)||(s1<s0&&side<0))face.reverse();b.quad(...face,WHITE,'paint');rail(p,q,y0,y1);}};
     rearLanding(floorY);
     for(let k=0;k<LEVELS.length-1;k++){const lo=floorY+LEVELS[k],hi=floorY+LEVELS[k+1],mid=(lo+hi)/2;addPath(A,-11.55,lo,{level:k,landing:true});flight(A,back,midS,lo,mid,k);
         const turn=[P(centreR-1.45,midS-.3),P(centreR+1.45,midS-.3)];for(let j=0;j<=24;j++){const a=j/24*Math.PI;turn.push(P(centreR+Math.cos(a)*1.45,midS+Math.sin(a)*1.45));}slab(turn,null,mid,.2,false);g.addPoly(turn,mid,mid-.22,{kind:'carusel-stair-landing'});

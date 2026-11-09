@@ -32,15 +32,19 @@ const targets = [
             const q = await page.locator(selector).evaluate(el => { const r = el.getBoundingClientRect(), x = r.x + r.width / 2, y = r.y + r.height / 2; if (!el.contains(document.elementFromPoint(x, y))) throw Error('Obstructed actual touch target'); return { x, y, width: r.width, height: r.height }; });
             await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: q.x, y: q.y, id: 1 }] }); await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); return q;
         };
-        for (const [id, preferred] of targets.filter(([id]) => !process.env.ONLY_SPOTS || process.env.ONLY_SPOTS.split(',').includes(id))) {
+        for (const [id, defaultPreferred] of targets.filter(([id]) => !process.env.ONLY_SPOTS || process.env.ONLY_SPOTS.split(',').includes(id))) {
+            const preferred = process.env.PREFERRED || defaultPreferred;
             const record = { id }; report.records.push(record); save();
             try {
                 await page.setViewportSize({ width: 1280, height: 720 }); await page.evaluate(() => game.resize());
-                record.expectedConditions = await page.evaluate(() => game.travelConditions());
+                record.expectedConditions = await page.evaluate(() => game.travelConditions()); record.expectedAt = Date.now();
                 await page.evaluate(id => game.enterSpot(id), id);
                 record.initial = await page.evaluate(() => { const s = game.spot, S = s.spot; step(); return { entry: S.entry.id, city: S.city, walker: s.walkerKind, arrival: { ...s.position }, conditions: game.travelConditions(), timeZone: s.r3d.clock.timeZone, sourceGeometry: S.ctx.extras.buildings.sourceGeometry, people: S.crowd.count, buildings: S.data.buildings.length, colliders: S.colliders.length }; });
                 assert.equal(record.initial.entry, id); assert.equal(record.initial.walker, 'OnFootController'); assert.equal(record.initial.conditions.weather, 'clear'); assert.equal(record.initial.conditions.season, 'summer');
-                assert.equal(record.initial.conditions.tod, record.expectedConditions.tod);
+                if (/^h/.test(record.initial.conditions.tod) && /^h/.test(record.expectedConditions.tod)) {
+                    const delta = Math.abs(((+record.initial.conditions.tod.slice(1) - +record.expectedConditions.tod.slice(1) + 12) % 24 + 24) % 24 - 12);
+                    assert.ok(delta < .04 + (Date.now() - record.expectedAt) / 3600000, 'Selected local hour drifted beyond real elapsed time');
+                } else assert.equal(record.initial.conditions.tod, record.expectedConditions.tod);
                 assert.equal(record.initial.timeZone, record.initial.city === 'bucharest' ? 'Europe/Bucharest' : 'America/Los_Angeles');
                 record.arrivalView = await capture(`${id}-arrival`); save();
                 record.plan = await page.evaluate(preferred => {
@@ -48,8 +52,12 @@ const targets = [
                     const matches = it => it.kind === preferred || String(label(it)).startsWith(preferred);
                     const it = s.spot.interactables.find(it => matches(it) && (!it.cond || it.cond(s)) && Math.abs((it.y ?? s.position.y) - s.position.y) < 3);
                     if (!it) return { found: false, error: `No current ground-level ${preferred}` };
-                    const path = s._navPath(s.position.x, s.position.z, it.x, it.z, { radius: it.kind === 'stairs' ? .25 : Math.min(it.r || 2, 1.2), maxLength: 1400 });
-                    return { found: true, label: label(it), kind: it.kind || 'activity', target: { x: it.x, z: it.z, y: it.y, r: it.r }, source: it.source || null, path, arrival: { ...s.position } };
+                    // The production A* uses a 1.5 m grid. A .25 m goal circle
+                    // can exclude every grid centre even at a reachable stair.
+                    // Stay within the actual interaction radius for every kind.
+                    const radius = Math.min(it.r || 2, 1.2);
+                    const path = s._navPath(s.position.x, s.position.z, it.x, it.z, { radius, maxLength: 1400 });
+                    return { found: true, label: label(it), kind: it.kind || 'activity', target: { x: it.x, z: it.z, y: it.y, r: it.r }, pathRadius: radius, source: it.source || null, path, arrival: { ...s.position } };
                 }, preferred); save();
                 if (record.plan.path) {
                     await page.evaluate(path => { window.routeRun = { path, i: 1, frames: 0, walked: 0, previous: { ...game.spot.position }, best: Infinity, noProgress: 0, maxStep: 0, maxRise: 0, trace: [] }; }, record.plan.path);

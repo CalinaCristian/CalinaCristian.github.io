@@ -1,0 +1,165 @@
+{
+  "source": "be12cd87cf988a097c7c54011f0b816694119db7",
+  "scope": "Actual normal GTS/noon native public-MAP transition; parked van484 remained on Pasaj south ramp. Read-only constructor eligibility fixture, not a new native driving result.",
+  "reportSHA256": "9d4c06a19f3a88af1f4ccb73293465a77b142f90e93eba22384a31a338257502",
+  "worldGzipSHA256": "60dcfe9ac763b2fde291ae77cbf3ff85bbc6a07b60928f1f1a87e66197fbbb61",
+  "datasetSHA256": "e94dc563fc82efe0f6dac21e7e20ac8e34ea5a7e20eb38bf97e829abebe9657d",
+  "vehicle": {
+    "actualEmittedModelBounds": {
+      "min": [
+        -1.065000057220459,
+        -0.06499999761581421,
+        -2.190999984741211
+      ],
+      "max": [
+        1.065000057220459,
+        1.809999942779541,
+        2.2060000896453857
+      ],
+      "vertices": 2352
+    },
+    "id": 484,
+    "kind": "van",
+    "x": -383.04908502435353,
+    "z": 590.7111454450785,
+    "y": -2.9835711684478072,
+    "heading": 0.003406874976538143,
+    "fx": -0.0034068683860575314,
+    "fz": -0.9999941966070602,
+    "speed": 0,
+    "length": 4.36,
+    "width": 1.75,
+    "dir": 1,
+    "s": 76.1086738234115,
+    "lane": 1,
+    "laneCur": 1,
+    "latExtraCur": 0,
+    "lateralExtra": 1.9250000000000003,
+    "odo": 0,
+    "stuck": 0,
+    "still": 0,
+    "gap": null,
+    "waitRed": false,
+    "ghost": 0,
+    "ovT": 0,
+    "touchT": 0,
+    "parked": true,
+    "tram": false,
+    "bus": false,
+    "trolley": false,
+    "dwell": 0,
+    "edge": {
+      "id": 9,
+      "road": 6,
+      "name": "Pasajul Unirii",
+      "dirx": -0.0034068683860575314,
+      "dirz": -0.9999941966070602,
+      "nx": 0.9999941966070602,
+      "nz": -0.0034068683860575314,
+      "len": 123.66840729651265,
+      "wL": 3.5,
+      "wR": 3.5,
+      "sidewalk": 0.5,
+      "sidewalkLeftM": 0,
+      "sidewalkRightM": 0,
+      "ya": 0,
+      "yb": -5.237956361371655,
+      "layer": 0,
+      "bridge": false,
+      "tunnel": false,
+      "lidded": false,
+      "anchorH": 0,
+      "L": 0,
+      "main": true,
+      "drivable": true,
+      "publicDrive": true,
+      "throughAccess": true,
+      "a": {
+        "id": 27,
+        "x": -384.5397826336622,
+        "z": 666.8253395996253,
+        "y": 0,
+        "sourceId": 257684208,
+        "pad": false,
+        "radius": 4,
+        "edgeIds": [
+          8,
+          9
+        ]
+      },
+      "b": {
+        "id": 28,
+        "x": -384.96110462083476,
+        "z": 543.1576499994744,
+        "y": -5.237956361371655,
+        "sourceId": 257684209,
+        "pad": false,
+        "radius": 4,
+        "edgeIds": [
+          9,
+          83
+        ]
+      }
+    },
+    "route": [],
+    "hist": []
+  },
+  "sourceRoad": {
+    "sourceId": "w4045772",
+    "nodeIds": [
+      257685484,
+      257684208,
+      257684209
+    ],
+    "wgs84": [
+      [
+        44.4224755,
+        26.1041562
+      ],
+      [
+        44.4236997,
+        26.1041627
+      ],
+      [
+        44.4248125,
+        26.1041574
+      ]
+    ],
+    "projected": [
+      [
+        -385.05649827826517,
+        802.873133999947
+      ],
+      [
+        -384.5397826336622,
+        666.8253395996253
+      ],
+      [
+        -384.96110462083476,
+        543.1576499994744
+      ]
+    ],
+    "tags": {
+      "foot": "no",
+      "highway": "primary",
+      "incline": "down",
+      "int_ref": "E 85",
+      "lanes": "2",
+      "lit": "yes",
+      "maxspeed": "40",
+      "name": "Pasajul Unirii",
+      "nat_ref": "DN4",
+      "oneway": "yes",
+      "ref": "DN4",
+      "shoulder": "no",
+      "sidewalk": "no",
+      "smoothness": "excellent",
+      "surface": "asphalt"
+    },
+    "preparedNodeIds": [
+      257685484,
+      257684208,
+      257684209
+    ]
+  }
+}

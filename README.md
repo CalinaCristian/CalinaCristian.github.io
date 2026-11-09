@@ -221,6 +221,8 @@ testing: `?hour=8.5` (traffic hour), `?jam=1`, `?season=winter`, `?fountains=on`
 
 Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `game/dev/render.html`.
 
+Generated NPC parking is checked before the actor is first shown: literal parking rules, actual model support, road and pedestrian corridors, static bodies and peers must permit the pose. A refused parking choice keeps the same newly generated car driving on its original source lane, with its original identity and random sequence.
+
 ## Tests and QA
 - `npm run harness` — logic harness (Playwright + software GL): drives every chapter, free roam, on foot, the tourist
   spots, rush hour and the finale; checks placement, routing, overlaps, timings and page errors.

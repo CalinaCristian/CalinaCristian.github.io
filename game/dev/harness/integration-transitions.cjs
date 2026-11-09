@@ -74,6 +74,12 @@ async function run(){
    return {district,ms:performance.now()-started,generation:window.__generation,state:g.state,dpr:devicePixelRatio,pixelRatio:g.renderer.getPixelRatio(),quality:g.r3d.stats.quality,stats:{...g.r3d.stats},rendererMemory:{...g.renderer.info.memory},programs:g.renderer.info.programs.length,gl:{...window.__glLive},heap:performance.memory?.usedJSHeapSize,initialAuditRetention:{records:window.__initialBodyAudit.records.length,approxJsonBytes:JSON.stringify(window.__initialBodyAudit.records).length,scope:'Intentionally retained plain observation records; no scene/model/actor references. Heap readings include this observer overhead.'},scene:{materials:materials.size,textures:textures.size,geometry:geometry.size,arrayBytes,instances},contextLost:gl.isContextLost(),contextEvents:window.__contextEvents.slice(),savedDistrict:g.save?.session?.district};
   },{district,quality,sequenceIndex});
   await drainInitialAudit();stage.initialBodyAuditSerials=result.initialBodyAudit.records.filter(r=>r.request?.kind==='sequence'&&r.request.sequenceIndex===sequenceIndex).map(r=>r.serial);
+  const publicationRows=result.initialBodyAudit.records.filter(r=>stage.initialBodyAuditSerials.includes(r.serial));
+  if(result.initialBodyAudit.persistenceError||publicationRows.some(r=>!r.pass||r.district!==district)||publicationRows.filter(r=>r.phase==='before-attachWorldRender').length!==1||publicationRows.filter(r=>r.phase==='before-first-world-draw').length!==1){
+   stage.initialPublicationFailed=true;result.stages.push(stage);result.initialBodyAudit.stoppedAt={sequenceIndex,district,serials:stage.initialBodyAuditSerials,reason:'First bounded destination publication failed; do not continue unrelated later gates'};
+   result.fetchStages=await page.evaluate(()=>window.__fetchStages);fs.writeFileSync(auditFile,JSON.stringify(result.initialBodyAudit,null,2));
+   throw Error('Initial destination publication audit failed at '+district+'; native records retained and remaining loads/gates stopped');
+  }
   if(cdp){await cdp.send('Runtime.discardConsoleEntries');await cdp.send('HeapProfiler.collectGarbage');stage.collectedHeap=await cdp.send('Runtime.getHeapUsage');stage.retiredWorlds=await page.evaluate(()=>window.__retiredWorlds.map(w=>({district:w.district,alive:!!w.ref.deref()})));}
   if(bridgeDump&&['pipera','bellevue','seatac'].includes(district)&&!result.bridgeDumps?.[district]){
    const targets=bridgeTargets?.[district]||[];if(!Array.isArray(targets))throw Error('Invalid bridge target records for '+district);

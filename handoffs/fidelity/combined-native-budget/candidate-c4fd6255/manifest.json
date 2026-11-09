@@ -1,0 +1,29 @@
+{
+  "sourceCommit": "c4fd6255f928101e27874f37776ed5be8d805827",
+  "rawOriginalDirectory": "/workspace/reality-pass/combined-native-budget/candidate-c4fd6255",
+  "originalRawPayloadsPreserved": true,
+  "portableReportsLosslesslyGzipped": true,
+  "filesSha256": {
+    "README.md": "844af8174e6773f0fec6391bc0180e570335f1e05aa08d043fa046da8c407511",
+    "actual-run/browser-preload.cjs": "219f060a91bc160d845c04b6c8f8287f29c9730cd8b01f50756ddbf403a9455e",
+    "actual-run/candidate-scope.json": "9391dd0e56c8346d4d48b4613ea1910a1074e06fda9ff5ceb92b26361fb8005c",
+    "actual-run/chapter-start.png": "593c6b01c9479748e82c068d8677ad35e182ca50715ce6320713cff2e6532e65",
+    "actual-run/counter-accounting.cjs": "3c645f7c7fb1dbd2349e565ebd80a9402a0d30f6249893576e3a0969b2c60aa8",
+    "actual-run/native-first150m.png": "1e0d1bede7bd89252386e27720ea3a19346d4dc75e580187ab04216428ef03ee",
+    "actual-run/probe.cjs": "7b39f09c66bf31f94e0f99e9def4df23f35948489d16a486f2fdeeba3262160c",
+    "actual-run/report.json.gz": "33ad8bbb3e574bb9a94f3d52c659798d974d45228c44c22f443201cacfc50d8c",
+    "actual-run/source-provenance.json.gz": "f61e4cbef18b71d0939bd299bbb2f59167e10c8937b9d5bb8c86c997b7ecc18f",
+    "actual-run/summer-back.png": "9fa90a21141cecb8d1f81aacadbf97da1851eeb3d82f3d896d9c80d93e9a801c",
+    "actual-run/summer-forward.png": "1625073df2db70e8c3607adb37e8cb1406dc0120d5a32f7483fb485b2b0860ac",
+    "actual-run/summer-left.png": "d08f7c070f2e6c776633a70f27d08a43508600fe4cc7cffdd3838de6fd2972e2",
+    "actual-run/summer-reflection-sample.png": "d66765f4040d2298f8e5542c36129150c8f7820d798aef4b7eb3d814abe25864",
+    "actual-run/summer-right.png": "5e2300058825b1c4ed7e58d38dd33099777cb03fcd8e753fa7797c7f3c0e8001",
+    "actual-run/winter-back.png": "4642f101172157814b3175216c33ed0c86ac8e5161523eae634023a2c2dae1dd",
+    "actual-run/winter-forward.png": "13db3bc5e98fbc7cec5d47a611f07db2f864158eabcfe83825936b783735d447",
+    "actual-run/winter-left.png": "65732ca36edc217f2fc5f26acada362336a62b3cd32f036c3bd364dadd4657c8",
+    "actual-run/winter-reflection-sample.png": "9630628e99a4ae101264554f550a55760e754d0724229e552a23c50c7db3da1b",
+    "actual-run/winter-right.png": "4056783340fffe3e4b0602ceee09ab290c7fe67223edb6df6e6b7d8148cc3a89",
+    "run.log": "a11643d42922a8e39d0dba026bc9485a7340f8c216879c37498766008abee4a4",
+    "summary.json": "3d8960d5bc2e8578e9ce9d33b1a777c59a4aac68ddb48c41ae825dce5533cbb3"
+  }
+}

@@ -1,6 +1,6 @@
 # Combined native budget probe
 
-**Final acceptance remains on hold.** The retained [d981 diagnostic](diagnostic-d981eee7/README.md) passes rendering limits but fails native movement because of two recovery resets. Await the final combined immutable source SHA and rerun; neither that diagnostic nor earlier c78 numbers accept the later runtime and its evolved actors.
+**Final acceptance remains on hold.** The latest [c4fd6255 candidate](candidate-c4fd6255/README.md) passes all rendering limits but fails native movement with one recovery reset and 127 contact-flag samples. The earlier [d981 diagnostic](diagnostic-d981eee7/README.md) also passes rendering limits and has two recovery resets. Await root's next source decision and reset-free rerun; these captures do not accept a later runtime or its evolved actors.
 
 `probe.cjs ROOT OUTPUT FULL40SHA [GIT_REPO]` serves the exact archived production files. Before boot it verifies every archive file against the supplied Git tree, recording SHA256 and Git blob identities. It hashes each file actually served and verifies the entire archive again after the run. A nonempty output directory is rejected so an incomplete attempt cannot be overwritten.
 

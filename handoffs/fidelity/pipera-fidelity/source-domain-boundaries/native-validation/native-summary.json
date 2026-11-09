@@ -1,0 +1,630 @@
+{
+  "nativePhysicalAndBudgetSource": "fd31352ef2b0bdcaa562af5e56339a2157a46a48",
+  "finalStaticSignSource": "a119e3727db7de739dce805f07f7ae05702cc648",
+  "groz": {
+    "readOnlyBodyRows": 1736,
+    "staticPositiveRows": 0,
+    "surfaceErrors": 0,
+    "doinaToLiteralLukoil": "61/61",
+    "driveAccepted": false,
+    "blockedBy": [
+      {
+        "id": 376,
+        "before": {
+          "sourceId": "w277315765",
+          "edgeId": 296,
+          "dir": -1,
+          "s": 26.857421457425964,
+          "x": -6.875981813102801,
+          "z": 58.05196962780424,
+          "heading": 2.3854995751816293
+        },
+        "reason": "no-local-source-legal-static-clear-rail-placement",
+        "candidateCount": 78
+      }
+    ],
+    "population": {
+      "active": 517,
+      "pool": 0,
+      "peds": 560,
+      "constructorCount": 377
+    },
+    "measuredCompleteWarmFrames": [
+      {
+        "measuredCompleteFrame": {
+          "calls": 334,
+          "triangles": 914730
+        },
+        "passes": {
+          "mirror": {
+            "calls": 48,
+            "triangles": 77442
+          },
+          "true-shadow": {
+            "calls": 24,
+            "triangles": 90946
+          },
+          "main": {
+            "calls": 243,
+            "triangles": 746323
+          },
+          "other": {
+            "calls": 19,
+            "triangles": 19
+          }
+        },
+        "observedPriorCounterCarry": {
+          "calls": 97,
+          "triangles": 12673
+        },
+        "nativeRawStats": {
+          "calls": 431,
+          "triangles": 927403
+        },
+        "expectedNativeRawStats": {
+          "calls": 431,
+          "triangles": 927403
+        },
+        "rawStatsAgreement": true,
+        "productionEndResetObserved": true,
+        "measuredFrameOverBudget": false,
+        "rawStatsOverBudget": true,
+        "method": "Complete-frame work is the sum of individually observed draw deltas, including warm/reflection work. Raw stats and observed prior carry remain separate; no historical or inferred setup count is subtracted."
+      },
+      {
+        "measuredCompleteFrame": {
+          "calls": 334,
+          "triangles": 914730
+        },
+        "passes": {
+          "mirror": {
+            "calls": 48,
+            "triangles": 77442
+          },
+          "true-shadow": {
+            "calls": 24,
+            "triangles": 90946
+          },
+          "main": {
+            "calls": 243,
+            "triangles": 746323
+          },
+          "other": {
+            "calls": 19,
+            "triangles": 19
+          }
+        },
+        "observedPriorCounterCarry": {
+          "calls": 0,
+          "triangles": 0
+        },
+        "nativeRawStats": {
+          "calls": 334,
+          "triangles": 914730
+        },
+        "expectedNativeRawStats": {
+          "calls": 334,
+          "triangles": 914730
+        },
+        "rawStatsAgreement": true,
+        "productionEndResetObserved": true,
+        "measuredFrameOverBudget": false,
+        "rawStatsOverBudget": false,
+        "method": "Complete-frame work is the sum of individually observed draw deltas, including warm/reflection work. Raw stats and observed prior carry remain separate; no historical or inferred setup count is subtracted."
+      }
+    ],
+    "directObservedSetupDraws": {
+      "calls": 97,
+      "triangles": 12673
+    }
+  },
+  "otopeni": {
+    "result": {
+      "ok": true,
+      "reason": "arrived",
+      "t": 12.4,
+      "dist": 151,
+      "resets": 0,
+      "remaining": 9
+    },
+    "contacts": 0,
+    "resetAttempts": [],
+    "issues": [
+      {
+        "id": 1,
+        "type": "perf-traffic-update",
+        "severity": "low",
+        "scenario": "source-domain-public-start",
+        "city": "bucharest",
+        "t": 2,
+        "msg": "traffic.update averaging 47.4 ms (> 8 ms budget) on this machine",
+        "x": -615.7,
+        "z": 987.1,
+        "lat": 44.556118,
+        "lon": 26.069237,
+        "street": "DN1 \u2014 Calea Bucure\u0219tilor",
+        "edge": 68,
+        "count": 1,
+        "data": {
+          "updateMs": 47.4,
+          "vehicles": 243
+        }
+      }
+    ],
+    "population": {
+      "active": 243,
+      "pool": 0,
+      "peds": 560,
+      "constructorCount": 229
+    },
+    "measuredCompleteFrames": [
+      {
+        "measuredCompleteFrame": {
+          "calls": 303,
+          "triangles": 647433
+        },
+        "passes": {
+          "mirror": {
+            "calls": 43,
+            "triangles": 69231
+          },
+          "true-shadow": {
+            "calls": 22,
+            "triangles": 64044
+          },
+          "main": {
+            "calls": 219,
+            "triangles": 514139
+          },
+          "other": {
+            "calls": 19,
+            "triangles": 19
+          }
+        },
+        "observedPriorCounterCarry": {
+          "calls": 97,
+          "triangles": 12673
+        },
+        "nativeRawStats": {
+          "calls": 400,
+          "triangles": 660106
+        },
+        "expectedNativeRawStats": {
+          "calls": 400,
+          "triangles": 660106
+        },
+        "rawStatsAgreement": true,
+        "productionEndResetObserved": true,
+        "measuredFrameOverBudget": false,
+        "rawStatsOverBudget": false,
+        "method": "Complete-frame work is the sum of individually observed draw deltas, including warm/reflection work. Raw stats and observed prior carry remain separate; no historical or inferred setup count is subtracted."
+      },
+      {
+        "measuredCompleteFrame": {
+          "calls": 303,
+          "triangles": 647433
+        },
+        "passes": {
+          "mirror": {
+            "calls": 43,
+            "triangles": 69231
+          },
+          "true-shadow": {
+            "calls": 22,
+            "triangles": 64044
+          },
+          "main": {
+            "calls": 219,
+            "triangles": 514139
+          },
+          "other": {
+            "calls": 19,
+            "triangles": 19
+          }
+        },
+        "observedPriorCounterCarry": {
+          "calls": 0,
+          "triangles": 0
+        },
+        "nativeRawStats": {
+          "calls": 303,
+          "triangles": 647433
+        },
+        "expectedNativeRawStats": {
+          "calls": 303,
+          "triangles": 647433
+        },
+        "rawStatsAgreement": true,
+        "productionEndResetObserved": true,
+        "measuredFrameOverBudget": false,
+        "rawStatsOverBudget": false,
+        "method": "Complete-frame work is the sum of individually observed draw deltas, including warm/reflection work. Raw stats and observed prior carry remain separate; no historical or inferred setup count is subtracted."
+      },
+      {
+        "measuredCompleteFrame": {
+          "calls": 270,
+          "triangles": 569550
+        },
+        "passes": {
+          "mirror": {
+            "calls": 43,
+            "triangles": 49330
+          },
+          "true-shadow": {
+            "calls": 17,
+            "triangles": 43687
+          },
+          "main": {
+            "calls": 191,
+            "triangles": 476514
+          },
+          "other": {
+            "calls": 19,
+            "triangles": 19
+          }
+        },
+        "observedPriorCounterCarry": {
+          "calls": 0,
+          "triangles": 0
+        },
+        "nativeRawStats": {
+          "calls": 270,
+          "triangles": 569550
+        },
+        "expectedNativeRawStats": {
+          "calls": 270,
+          "triangles": 569550
+        },
+        "rawStatsAgreement": true,
+        "productionEndResetObserved": true,
+        "measuredFrameOverBudget": false,
+        "rawStatsOverBudget": false,
+        "method": "Complete-frame work is the sum of individually observed draw deltas, including warm/reflection work. Raw stats and observed prior carry remain separate; no historical or inferred setup count is subtracted."
+      }
+    ]
+  },
+  "physicalSignFixParity": [
+    {
+      "district": "grozavesti",
+      "closureSections": 91,
+      "physicalClosureWalls": 91,
+      "physicalWallsOutlineClosureMetadataExactAcrossSignFix": true
+    },
+    {
+      "district": "otopeni",
+      "closureSections": 39,
+      "physicalClosureWalls": 39,
+      "physicalWallsOutlineClosureMetadataExactAcrossSignFix": true
+    },
+    {
+      "district": "bellevue",
+      "closureSections": 65,
+      "physicalClosureWalls": 65,
+      "physicalWallsOutlineClosureMetadataExactAcrossSignFix": true
+    },
+    {
+      "district": "seatac",
+      "closureSections": 56,
+      "physicalClosureWalls": 56,
+      "physicalWallsOutlineClosureMetadataExactAcrossSignFix": true
+    }
+  ],
+  "uniqueInspectedFinalStaticViews": [
+    {
+      "district": "grozavesti",
+      "file": "closures-a119e372/grozavesti-old-x640-boundary.png",
+      "camera": {
+        "id": "old-x640-boundary",
+        "x": 638,
+        "y": 53,
+        "z": -828,
+        "tx": 638,
+        "ty": 11.24,
+        "tz": -867,
+        "file": "grozavesti-old-x640-boundary.png",
+        "sha256": "d56a698670ae06850489ceb569992c8109cba38f31588426aebc8793ef8e2670",
+        "view": {
+          "camera": [
+            638,
+            53,
+            -827.9999999999999
+          ],
+          "quaternion": [
+            -0.3984076443832475,
+            -3.177397052471599e-16,
+            -6.05218486185067e-17,
+            0.9172084544404242
+          ],
+          "fov": 72,
+          "far": 5000,
+          "actorPlayerTimeUnchanged": true,
+          "nativeTime": 0
+        }
+      },
+      "scope": "Static explicit camera; not a driving/budget frame"
+    },
+    {
+      "district": "grozavesti",
+      "file": "closures-a119e372/grozavesti-closure-edge-7.png",
+      "camera": {
+        "id": "closure-edge-7",
+        "x": -849.019227076688,
+        "y": 17.24,
+        "z": 746.262553434658,
+        "tx": -877.0149660356394,
+        "ty": 0.24,
+        "tz": 746.7510205699389,
+        "edgeId": 7,
+        "bundleId": 0,
+        "file": "grozavesti-closure-edge-7.png",
+        "sha256": "7b4881c03f15ad6590d092d2b6b4cd1fdaf2ee9607e94ee6d686765f8c9a3608",
+        "view": {
+          "camera": [
+            -849.0192270766881,
+            17.24,
+            746.2625534346583
+          ],
+          "quaternion": [
+            -0.18886451226779455,
+            0.6868669369104466,
+            0.1921885490735185,
+            0.6749870877210352
+          ],
+          "fov": 72,
+          "far": 5000,
+          "actorPlayerTimeUnchanged": true,
+          "nativeTime": 0
+        }
+      },
+      "scope": "Static explicit camera; not a driving/budget frame"
+    },
+    {
+      "district": "otopeni",
+      "file": "closures-a119e372/otopeni-closure-edge-0.png",
+      "camera": {
+        "id": "closure-edge-0",
+        "x": -481.20889476531846,
+        "y": 17.24,
+        "z": 1036.8094237900766,
+        "tx": -453.2180613124504,
+        "ty": 0.24,
+        "tz": 1037.5258333194681,
+        "edgeId": 0,
+        "bundleId": 0,
+        "file": "otopeni-closure-edge-0.png",
+        "sha256": "aa2db93278dd0402aeb46e41397d5d98911f1b0fe4fe9b6c4eedf084004fc77d",
+        "view": {
+          "camera": [
+            -481.2088947653184,
+            17.24,
+            1036.8094237900766
+          ],
+          "quaternion": [
+            -0.188080481583726,
+            -0.6896093477282578,
+            -0.19295588831743224,
+            0.6721850229934249
+          ],
+          "fov": 72,
+          "far": 5000,
+          "actorPlayerTimeUnchanged": true,
+          "nativeTime": 0
+        }
+      },
+      "scope": "Static explicit camera; not a driving/budget frame"
+    },
+    {
+      "district": "otopeni",
+      "file": "closures-a119e372/otopeni-closure-edge-3.png",
+      "camera": {
+        "id": "closure-edge-3",
+        "x": -708.3059774099506,
+        "y": 17.24,
+        "z": 1071.7658741123296,
+        "tx": -736.2993013134807,
+        "ty": 0.24,
+        "tz": 1071.1544684924254,
+        "edgeId": 3,
+        "bundleId": 1,
+        "file": "otopeni-closure-edge-3.png",
+        "sha256": "a7e50cdefa2ffb298bf615b9ba34487ed6b5544d2f654d88e9f7ae2fad009fba",
+        "view": {
+          "camera": [
+            -708.3059774099506,
+            17.24,
+            1071.7658741123296
+          ],
+          "quaternion": [
+            -0.19260278570956066,
+            0.673477269976989,
+            0.18844205827270302,
+            0.6883473864519326
+          ],
+          "fov": 72,
+          "far": 5000,
+          "actorPlayerTimeUnchanged": true,
+          "nativeTime": 0
+        }
+      },
+      "scope": "Static explicit camera; not a driving/budget frame"
+    },
+    {
+      "district": "otopeni",
+      "file": "closures-a119e372/otopeni-closure-edge-27.png",
+      "camera": {
+        "id": "closure-edge-27",
+        "x": -627.7457004921432,
+        "y": 17.24,
+        "z": 1133.0335547572924,
+        "tx": -628.5790551717386,
+        "ty": 0.24,
+        "tz": 1161.0211505807638,
+        "edgeId": 27,
+        "bundleId": 2,
+        "file": "otopeni-closure-edge-27.png",
+        "sha256": "404aa0bdaafda269fa4d0229630414dc92cfb50668944994a78af8546c77ded6",
+        "view": {
+          "camera": [
+            -627.7457004921432,
+            17.24,
+            1133.0335547572924
+          ],
+          "quaternion": [
+            -0.004010300682683004,
+            0.9629061932349039,
+            0.26942561102755325,
+            0.014332502947148261
+          ],
+          "fov": 72,
+          "far": 5000,
+          "actorPlayerTimeUnchanged": true,
+          "nativeTime": 0
+        }
+      },
+      "scope": "Static explicit camera; not a driving/budget frame"
+    },
+    {
+      "district": "bellevue",
+      "file": "closures-a119e372/bellevue-103rd-closure.png",
+      "camera": {
+        "id": "103rd-closure",
+        "x": -603.81475,
+        "y": 2.74,
+        "z": -452.5295,
+        "tx": -603.81475,
+        "ty": 2.74,
+        "tz": -502.5295,
+        "file": "bellevue-103rd-closure.png",
+        "sha256": "de23c3ea9947a648b986024e8e350f07ed2e91e13308774c6a5051954b9b2931",
+        "view": {
+          "camera": [
+            -603.8147500000002,
+            2.74,
+            -452.5295
+          ],
+          "quaternion": [
+            0,
+            -2.4841240175987878e-15,
+            0,
+            1
+          ],
+          "fov": 72,
+          "far": 5000,
+          "actorPlayerTimeUnchanged": true,
+          "nativeTime": 0
+        }
+      },
+      "scope": "Static explicit camera; not a driving/budget frame"
+    },
+    {
+      "district": "bellevue",
+      "file": "closures-a119e372/bellevue-avenue-square-closure.png",
+      "camera": {
+        "id": "avenue-square-closure",
+        "x": -509.6814,
+        "y": 2.74,
+        "z": -437.4378,
+        "tx": -511.4264,
+        "ty": 7.97,
+        "tz": -487.4073,
+        "file": "bellevue-avenue-square-closure.png",
+        "sha256": "b23b149b8eb5a5e788fab16ce1b8ef6f1c187cd18751d24274ebc74c26ca8b4e",
+        "view": {
+          "camera": [
+            -509.68139999999994,
+            2.74,
+            -437.43780000000004
+          ],
+          "quaternion": [
+            0.05207902883796806,
+            0.01742898124349198,
+            -0.0009090566832017976,
+            0.9984904501216098
+          ],
+          "fov": 72,
+          "far": 5000,
+          "actorPlayerTimeUnchanged": true,
+          "nativeTime": 0
+        }
+      },
+      "scope": "Static explicit camera; not a driving/budget frame"
+    },
+    {
+      "district": "bellevue",
+      "file": "closures-a119e372/bellevue-closure-edge-0.png",
+      "camera": {
+        "id": "closure-edge-0",
+        "x": 486.68541610425245,
+        "y": 17.24,
+        "z": -220.4464130670303,
+        "tx": 486.95009150959226,
+        "ty": 0.24,
+        "tz": -192.44766404265766,
+        "edgeId": 0,
+        "bundleId": 0,
+        "file": "bellevue-closure-edge-0.png",
+        "sha256": "cf3f7d22aa700fe6eb7cabf17988a206a69cba7cc34bf83af45c1da776db04ea",
+        "view": {
+          "camera": [
+            486.6854161042525,
+            17.24,
+            -220.4464130670303
+          ],
+          "quaternion": [
+            0.0012735540794402657,
+            0.9630020979729843,
+            0.26945244561729675,
+            -0.004551583295424941
+          ],
+          "fov": 72,
+          "far": 5000,
+          "actorPlayerTimeUnchanged": true,
+          "nativeTime": 0
+        }
+      },
+      "scope": "Static explicit camera; not a driving/budget frame"
+    },
+    {
+      "district": "seatac",
+      "file": "closures-a119e372/seatac-closure-edge-792.png",
+      "camera": {
+        "id": "closure-edge-792",
+        "x": -580.0956411635781,
+        "y": 17.24,
+        "z": 798.4113744016784,
+        "tx": -565.0614751636258,
+        "ty": 0.24,
+        "tz": 822.0328445651944,
+        "edgeId": 792,
+        "bundleId": 8,
+        "file": "seatac-closure-edge-792.png",
+        "sha256": "5653645d17369cc3f9d73b35a4ec40f4ffca71d03578db4beac347d4d6185ec4",
+        "view": {
+          "camera": [
+            -580.0956411635782,
+            17.24,
+            798.4113744016786
+          ],
+          "quaternion": [
+            0.07534546609449637,
+            0.9245986502680514,
+            0.2587069831452935,
+            -0.2692788397430467
+          ],
+          "fov": 72,
+          "far": 5000,
+          "actorPlayerTimeUnchanged": true,
+          "nativeTime": 0
+        }
+      },
+      "scope": "Static explicit camera; not a driving/budget frame"
+    }
+  ],
+  "retainedLimitations": [
+    "Groz native preflight rejects tram376; no Groz driving success is claimed.",
+    "First Groz attempt stops before body scan; its pre-frame carry is recorded but individual setup draw rows were not persisted. Corrected replay retains all97.",
+    "Each static camera run has11 render records and9 unique views: SeaTac split edge792 repeats one identical camera3times and overwrites its PNG. Original reports remain unchanged; only final matching records are indexed. Observer now deduplicates this camera.",
+    "The sign-only follow-up is checked with fresh native static exports. Its physical walls, boundary outline and closure metadata equal fd313 in all4districts. The fd313 drive/budget capture is not relabelled as a119.",
+    "No full district visual acceptance, published overview synchronization, latest-root paint/Ultra, global physical matrix or final23-frame budget pass is claimed."
+  ]
+}

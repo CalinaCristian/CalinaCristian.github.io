@@ -1,0 +1,10 @@
+PUBLIC {"district":"otopeni","population":{"active":243,"pool":0,"peds":560,"constructorCount":229},"preflightPassed":true,"boundary":{"sourceSupports":924,"triangles":2006,"bodyRadiusM":3.53643888678993,"addedMaskCells":0,"oldMaskCells":1933,"clippedClosureSections":4,"removedClosureSections":0,"closureBundles":35,"clippedDecorationPolygons":480,"rejectedDiscreteProps":34,"unresolved":[],"basis":"Finite whole-body support of kept literal source core roads/pads; no passive scenery, OUT or mapped barrier edits"}}
+FRAME native-start-warm {"calls":303,"triangles":647433}
+FRAME native-start-sample {"calls":303,"triangles":647433}
+DRIVE {"done":false,"time":2.7,"pose":{"x":-615.4271409001968,"z":979.145265946746,"heading":-0.03076936929844969,"y":0.24,"speed":12.465028186650478,"inside":true}}
+DRIVE {"done":false,"time":5.366666666666657,"pose":{"x":-614.3167065169623,"z":943.0667700252725,"heading":-0.03075489172828216,"y":0.24,"speed":13.655673896580636,"inside":true}}
+DRIVE {"done":false,"time":8.033333333333315,"pose":{"x":-613.2786435003502,"z":906.7708443768763,"heading":-0.026804666053455606,"y":0.24,"speed":13.644279813751321,"inside":true}}
+DRIVE {"done":false,"time":9.366666666666644,"pose":{"x":-612.7930128737898,"z":888.6225982221617,"heading":-0.0268936759168612,"y":0.24,"speed":13.557862235917769,"inside":true}}
+DRIVE {"done":false,"time":12.033333333333301,"pose":{"x":-611.6858553171966,"z":852.3262880873741,"heading":-0.03256564634802936,"y":0.24,"speed":13.545898181825663,"inside":true}}
+DRIVE {"done":true,"time":12.4333333333333,"pose":{"x":-611.5085877412217,"z":846.8903710584223,"heading":-0.032621267495189135,"y":0.24,"speed":13.282972045254825,"inside":true},"result":{"ok":true,"reason":"arrived","t":12.4,"dist":151,"resets":0,"remaining":9}}
+FRAME native-driven-endpoint {"calls":270,"triangles":569550}

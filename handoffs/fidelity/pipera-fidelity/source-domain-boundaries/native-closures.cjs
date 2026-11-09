@@ -41,7 +41,9 @@ let server,browser;
   const poses=[];
   if(district==='grozavesti')poses.push({id:'old-x640-boundary',x:638,y:53,z:-828,tx:638,ty:11.24,tz:-867});
   if(district==='bellevue')poses.push({id:'103rd-closure',x:-603.81475,y:2.74,z:-452.5295,tx:-603.81475,ty:2.74,tz:-502.5295},{id:'avenue-square-closure',x:-509.6814,y:2.74,z:-437.4378,tx:-511.4264,ty:7.97,tz:-487.4073});
-  const preferred=district==='seatac'?facts.closures.filter(c=>c.edge.id===792):[];
+  // Split physical sections of one edge share this inspection camera. Capture
+  // that camera once rather than overwriting one filename for every section.
+  const preferred=district==='seatac'?facts.closures.filter(c=>c.edge.id===792).slice(0,1):[];
   const selected=preferred.length?preferred:facts.closures.filter(c=>c.bundlePrimary).sort((a,b)=>a.bundleId-b.bundleId).slice(0,district==='otopeni'?3:1);
   for(const c of selected){const e=c.edge,a=e.a,b=e.b,L=Math.hypot(b.x-a.x,b.z-a.z),sgn=c.node.id===a.id?1:-1,ix=(b.x-a.x)/L*sgn,iz=(b.z-a.z)/L*sgn;
    poses.push({id:'closure-edge-'+e.id,x:c.x+ix*28,y:c.y+17,z:c.z+iz*28,tx:c.x,ty:c.y,tz:c.z,edgeId:e.id,bundleId:c.bundleId});}

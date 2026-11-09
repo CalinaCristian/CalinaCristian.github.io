@@ -1,0 +1,9 @@
+# Expanded Carusel physical controls ·9November2026
+
+CPU-only extension of the actual-source geometry regression after the19b bounded native capture. Runtime geometry is unchanged. The run records exact completedUTC, tested source commit, proof-tool SHA256 and hashes of the actual interior/controller/walker/ground modules. The original8-control report and every native capture remain unchanged as dated evidence.
+
+Nine physical controls pass. The real OnFootController follows all132stair targets upward and all132in reverse, returns to ground floor+.004277m, and never moves more than.028242m in a descent step. Descent support stays within.03m of each target after settlement. Four explicit CPU body fixtures test their own actual gallery levels against the corresponding curved holes: each stays on its closed side/height and retains≈.300m closest rail clearance. These fixtures are not native public-access witnesses or additional earned activity completions.
+
+The initial extension retained a first-gallery-only magic distance of3.8m from the void centre. That assertion was invalid for the narrower curved third gallery; outside-void and same-level support had already passed. The corrected fixture measures distance from each actual gallery-hole segment (.20–.45m accepted body clearance), rather than assigning every floor the same room half-width. No runtime geometry, collider, controller, actor count, floor support or nav tolerance was changed to make this pass. The prior direct unguarded ground-planner observation was removed from this physical-only report; actual19b map pointer evidence already proves the root’s cross-floor route/Arrived rejection.
+
+No browser/source copy was created. Native full-current-source top-gallery/WCP/club gates, final visual acceptance and live appearance remain separate/open as documented in CURRENT.md. The small overview package is independently dated19b and its original PNGs are never relabeled by these CPU controls.

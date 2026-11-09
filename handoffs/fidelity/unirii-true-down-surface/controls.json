@@ -1,5 +1,5 @@
 {
-  "passed": 18,
+  "passed": 19,
   "tests": [
     "all 15 actual native inverted-roof witnesses become positive slabs; literal 3.5m remains separate",
     "all 112 true Pasaj road profiles and legal tags remain exact",
@@ -18,7 +18,8 @@
     "source-ground coverage gaps use the unchanged native base-plane datum and stay explicit",
     "the sunken road cannot become its own overhead earth owner",
     "lower transparent water remains unresolved regardless of opaque renderOrder; no guessed top shift",
-    "malformed native surface data is reported instead of becoming a clearance certificate"
+    "malformed native surface data is reported instead of becoming a clearance certificate",
+    "actual World final graph renumber refreshes roof source-edge provenance"
   ],
   "historicalNativeSource": "395071c21079fb14c25af194a9903a5ae5d87b26",
   "currentNativeVisualAcceptance": false

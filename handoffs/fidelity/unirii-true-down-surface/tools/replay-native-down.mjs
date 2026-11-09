@@ -20,7 +20,7 @@ const worldBytes = fs.readFileSync(new URL('../../../../game/src/world.js', impo
 const start = source.indexOf('        if (down) {'), end = source.indexOf('    // raised junction corners', start);
 let block = source.slice(start, end).trimEnd(); block = block.slice(0, block.lastIndexOf('\n    }'));
 const args = ['down', 'c', 'sb', 'e', 'wr', 'wl', 'P', 'Pm', 'yA', 'yB', 'conc', 'dark', 'Y', 'sideCol', 'rgb', 'clamp', 'data', 'underpassOwners',
-    'underpassRoofModel', 'underpassRoofFaces', 'underpassRoofCollider', 'underpassRoofAudit', 'underpassColl', 'underpassCover'];
+    'underpassRoofModel', 'underpassRoofFaces', 'underpassRoofCollider', 'underpassRoofAudit', 'underpassColl', 'underpassCover', 'underpassCollEdges'];
 const before = new Function(...args, oldBlock), after = new Function(...args, block);
 const audit = [], colliders = [], cover = new MeshBuilder(), counts = { beforeSolid: 0, beforeLid: 0, afterSolid: 0 };
 const originalEdges = JSON.stringify(fixture.edges);
@@ -29,7 +29,7 @@ for (const e of edges.filter(e => [12, 13, 213].includes(e.road))) {
     for (const [run, next] of [[before, false], [after, true]]) {
         const c = { solid: new MeshBuilder(true), ground: new MeshBuilder() }, sb = c.solid;
         run(true, c, sb, e, nativeWidth(e, 1), nativeWidth(e, -1), P, Pm, e.ya + .24, e.yb + .24, rgb('#a9a69e'), rgb('#55524d'), { road: .24 }, rgb('#b6b1aa'), rgb,
-            (v, a, b) => Math.max(a, Math.min(b, v)), data, owners, underpassRoofModel, underpassRoofFaces, underpassRoofCollider, audit, colliders, cover);
+            (v, a, b) => Math.max(a, Math.min(b, v)), data, owners, underpassRoofModel, underpassRoofFaces, underpassRoofCollider, audit, colliders, cover, []);
         if (next) counts.afterSolid += sb.ic / 3;
         else { counts.beforeSolid += sb.ic / 3; counts.beforeLid += c.ground.ic / 3; }
     }
@@ -48,7 +48,7 @@ for (const [label, changes, owner] of [
     for (const run of [before, after]) {
         const c = { solid: new MeshBuilder(true), ground: new MeshBuilder() }, localAudit = [], localColliders = [], localCover = new MeshBuilder();
         run(true, c, c.solid, e, nativeWidth(e, 1), nativeWidth(e, -1), P, Pm, e.ya + .24, e.yb + .24, rgb('#a9a69e'), rgb('#55524d'), { road: .24 }, rgb('#b6b1aa'), rgb,
-            (v, a, b) => Math.max(a, Math.min(b, v)), data, owner, underpassRoofModel, underpassRoofFaces, underpassRoofCollider, localAudit, localColliders, localCover);
+            (v, a, b) => Math.max(a, Math.min(b, v)), data, owner, underpassRoofModel, underpassRoofFaces, underpassRoofCollider, localAudit, localColliders, localCover, []);
         const serialize = mb => JSON.stringify(Object.fromEntries(['p', 'n', 'u', 'c', 't', 'i'].map(key => [key, Array.from(mb[key]?.subarray(0, key === 'i' ? mb.ic : mb.vc * (key === 'u' ? 2 : key === 't' ? 1 : 3)) || [])])));
         results.push({ solid: serialize(c.solid), ground: serialize(c.ground), masks: localCover.ic, colliders: localColliders.length, known: localAudit.some(r => r.known) });
     }

@@ -69,6 +69,14 @@ export function underpassRoofFaces(model, { pointAt, rightM, leftM, outerM = .3,
         const q = pointAt(t, 0, 0), r = pointAt(model.span[1 - end], 0, 0);
         fascia.push({ vertices: [pointAt(t, R, y), pointAt(t, L, y), pointAt(t, L, model.topM), pointAt(t, R, model.topM)], out: [q[0] - r[0], 0, q[2] - r[2]] });
     }
+    const outline = [top[0][0], top.at(-1)[1], top.at(-1)[2], top[0][3]], signs = [];
+    for (let k = 0; k < 4; k++) {
+        const a = outline[k], b = outline[(k + 1) % 4], c = outline[(k + 2) % 4];
+        const cross = (b[0] - a[0]) * (c[2] - b[2]) - (b[2] - a[2]) * (c[0] - b[0]);
+        if (Math.abs(cross) > EPS) signs.push(Math.sign(cross));
+    }
+    if (!signs.length || signs.some(s => s !== signs[0])) return { known: false, reason: 'invalid-native-roof-footprint' };
+    if (![...bottom.flat(2), ...top.flat(2), ...fascia.flatMap(f => [...f.vertices.flat(), ...f.out])].every(Number.isFinite)) return { known: false, reason: 'invalid-native-roof-points' };
     return { known: true, bottom, top, fascia, sections, outerRightM: R, outerLeftM: -L };
 }
 

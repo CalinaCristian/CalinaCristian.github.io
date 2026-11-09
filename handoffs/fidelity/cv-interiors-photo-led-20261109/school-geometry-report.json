@@ -1,0 +1,57 @@
+{
+  "scope": "CPU scene/controller/ownership controls only; no native render, real street window, photographic fidelity or measured-plan acceptance",
+  "passed": true,
+  "checks": [
+    "every legacy stop builds with intact topic indices, doorway and complete window run",
+    "rosetti actual room controller follows a furniture-clear entrance-to-NPC path",
+    "rosetti batched photo-led furniture stays bounded and finite with explicit material release",
+    "arnia actual room controller follows a furniture-clear entrance-to-NPC path",
+    "arnia batched photo-led furniture stays bounded and finite with explicit material release",
+    "db actual room controller follows a furniture-clear entrance-to-NPC path",
+    "db batched photo-led furniture stays bounded and finite with explicit material release"
+  ],
+  "details": [
+    {
+      "id": "rosetti",
+      "triangles": 3512,
+      "staticMeshes": 25,
+      "boxes": 39,
+      "routePoints": 23,
+      "controllerSteps": 161,
+      "maxStep": 0.053333305438012284,
+      "estimatedVolume": {
+        "W": 10,
+        "D": 10,
+        "H": 3.4
+      }
+    },
+    {
+      "id": "arnia",
+      "triangles": 4242,
+      "staticMeshes": 27,
+      "boxes": 34,
+      "routePoints": 19,
+      "controllerSteps": 128,
+      "maxStep": 0.05333333248604006,
+      "estimatedVolume": {
+        "W": 14,
+        "D": 14,
+        "H": 3.2
+      }
+    },
+    {
+      "id": "db",
+      "triangles": 6318,
+      "staticMeshes": 28,
+      "boxes": 20,
+      "routePoints": 33,
+      "controllerSteps": 231,
+      "maxStep": 0.053333332221702376,
+      "estimatedVolume": {
+        "W": 16,
+        "D": 18,
+        "H": 3.8
+      }
+    }
+  ]
+}

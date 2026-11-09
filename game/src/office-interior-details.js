@@ -26,8 +26,8 @@ function builder(o,id){
  const plant=(x,z,h=1.35)=>{b.cyl(x,0,z,.21,.42,'#9b9f99','finish',10,.85);for(let i=0;i<7;i++){const a=i*Math.PI*2/7,tip=[x+Math.sin(a)*.35,h-.16*(i%3),z+Math.cos(a)*.35];b.rod([x,.35,z],tip,.012,'#697b55','finish',5);b.sphere(tip[0],tip[1],tip[2],.12,.24,.035,i%2?'#4b6c4a':'#617b52','finish',5,4);}body(x,z,.5,.5);};
  const roundTable=(x,z,r=.38,h=.61)=>{b.cyl(x,h-.035,z,r,.035,'#c6b397','finish',16);b.cyl(x,.04,z,.028,h-.075,'#c1c6c4','metal',6);b.cyl(x,0,z,r*.46,.035,'#a1a8a7','metal',12);body(x,z,r*2,r*2);};
  const pendant=(x,z,y,w=1.65,col='#267e78')=>{box(x,y,z,w,.10,.18,col,'finish');box(x,y-.014,z,w-.05,.014,.12,'#fff5da','glow');for(const dx of[-w*.35,w*.35])b.rod([x+dx,y+.1,z],[x+dx,y+.38,z],.004,'#b6b9b3','metal',4);};
- const finish=()=>{const group=b.build('office-photo-led-'+id,{matOverrides:materials});group.userData.sourceInterpretation=id;group.userData.estimatedLayout=true;o.scene.add(group);const ownedMaterials=new Set(Object.values(materials)),ownedTextures=new Set([fabric]);let disposed=false;return{group,estimatedLayout:true,ownedMaterials,ownedTextures,dispose(){if(disposed)return;disposed=true;for(const t of ownedTextures)t.dispose();for(const m of ownedMaterials)m.dispose();ownedTextures.clear();ownedMaterials.clear();},get disposed(){return disposed;}};};
- return{b,box,body,chair,plant,roundTable,pendant,finish};
+ const finish=()=>{const group=b.build('office-photo-led-'+id,{matOverrides:materials});group.userData.sourceInterpretation=id;group.userData.estimatedLayout=true;o.scene.add(group);const ownedMaterials=new Set(Object.values(materials)),ownedTextures=new Set([fabric,...Object.values(materials).flatMap(m=>Object.values(m).filter(v=>v?.isTexture))]);let disposed=false;return{group,estimatedLayout:true,ownedMaterials,ownedTextures,dispose(){if(disposed)return;disposed=true;for(const t of ownedTextures)t.dispose();for(const m of ownedMaterials)m.dispose();ownedTextures.clear();ownedMaterials.clear();},get disposed(){return disposed;}};};
+ return{b,box,body,chair,plant,roundTable,pendant,materials,finish};
 }
 function meetingRoom(q,{x,z,w,d,H}){
  const{box,body,b}=q,h=Math.min(H-.18,2.8),door=1.1;
@@ -94,5 +94,32 @@ export function buildDBInterior(o,{W,D,H}){
  // Brick accents are procedural masonry, not sampled photo pixels.
  for(let row=0;row<10;row++)for(let col=0;col<12;col++){const x=W/2-3.0+(col%12)*.20+(row%2)*.10;box(x,.06+row*.105,-D/2+.13,.19,.095,.025,['#a68d6c','#8d785b','#b49d7a'][(row+col)%3]);}
  plant(-W/2+.8,-D/2+1,1.65);plant(W/2-1,5.9,1.5);
+ return q.finish();
+}
+
+/** PROEDUS Rosetti classroom character; acquisition date/CV-era fit unknown. */
+export function buildRosettiInterior(o,{W,D,H}){
+ const q=builder(o,'rosetti-proedus-classroom'),{b,box,body}=q,blue='#238ab1',metal='#8f9898',wood='#bb9b6f';
+ for(const[x,z,w,d,yaw]of[[-W/2+.13,0,.04,D-.25,0],[0,D/2-.13,W-.25,.04,0],[0,-D/2+.13,W-.25,.04,0]]){box(x,1.02,z,w,1.25,d,blue);box(x,.94,z,w,.08,d,DARK);box(x,2.27,z,w,.08,d,DARK);}
+ const ink=makeCanvasTexture(1024,320,c=>{c.fillStyle='#edf0ec';c.fillRect(0,0,1024,320);c.fillStyle='#253d52';c.textAlign='center';c.font='38px sans-serif';c.fillText('Matematică · Informatică',512,82);c.font='31px monospace';c.fillText('f(x) = x² − 4x + 3',512,168);c.font='25px monospace';c.fillText("program p; begin writeln('Hello'); end.",512,246);});
+ q.materials.board=new THREE.MeshStandardMaterial({map:ink,vertexColors:true,roughness:.7});
+ box(0,1.12,-D/2+.17,4.9,1.45,.04,'#4f5958');b.quad([-2.35,1.19,-D/2+.197],[2.35,1.19,-D/2+.197],[2.35,2.48,-D/2+.197],[-2.35,2.48,-D/2+.197],'#ffffff','board');
+ box(0,2.74,-D/2+.22,5.0,.075,.09,'#3b4142');box(0,1.1,-D/2+.25,4.9,.045,.12,WHITE);
+ o.signMesh.position.set(-W/2+.15,2.75,-1.4);o.signMesh.rotation.y=Math.PI/2;o.signMesh.scale.setScalar(.47);
+ box(-2.6,.74,-3.1,1.35,.055,.68,'#bdc3bf');body(-2.6,-3.1,1.35,.68);for(const x of[-3.18,-2.02])box(x,.02,-3.1,.045,.72,.58,metal,'metal');
+ // Paired individual desks flank a continuous clear entrance aisle. Their
+ // count/spacing is an authored selection, not a traced classroom plan.
+ for(let r=0;r<4;r++)for(const x of[-3.6,-2.65,2.65,3.6]){const z=-1.4+r*1.6;box(x,.72,z,.84,.045,.52,'#69abc2');body(x,z,.84,.52);
+  for(const dx of[-.34,.34]){box(x+dx,.04,z,.035,.68,.40,metal,'metal');box(x+dx,.02,z+.07,.035,.035,.57,metal,'metal');}
+  box(x,.42,z+.52,.38,.035,.39,wood);box(x,.47,z+.70,.38,.36,.032,wood);for(const dx of[-.15,.15]){box(x+dx,.02,z+.55,.025,.42,.33,metal,'metal');box(x+dx,.42,z+.7,.025,.4,.025,metal,'metal');}body(x,z+.55,.43,.48);
+ }
+ const lx=-W/2+1.15,lz=D/2-.4;box(lx,0,lz,1.75,1.88,.48,'#a2abaa');body(lx,lz,1.75,.48);
+ for(let row=0;row<3;row++)for(let col=0;col<3;col++){const x=lx-.56+col*.56,y=.04+row*.60;box(x,y,lz-.25,.53,.57,.025,(row+col)%3===0?'#73a0b0':(row+col)%3===1?'#b6bfba':'#858f8d');b.cyl(x+.17,y+.28,lz-.267,.018,.018,'#454e4d','metal',6,1,Math.PI/2);}
+ // Keep the full glass run clear; only the physical radiator/rolled shade
+ // hardware observed below/above it is represented.
+ box(W/2-.24,.15,0,.12,.55,D*.5,'#e1e3da');for(let z=-D*.23;z<D*.25;z+=.13)box(W/2-.30,.17,z,.03,.51,.045,'#bfc6be');
+ const winH=Math.min(H-1.2,2.2+(H>5?H*.4:0));for(let z=-D/2+1.4;z<D/2-.6;z+=2.2)b.rod([W/2-.13,.95+winH,z-.95],[W/2-.13,.95+winH,z+.95],.055,'#c4c9c1','finish',8);
+ for(const z of[-2.25,2.25])box(0,H-.25,z,W,.25,.3,WHITE);
+ for(const z of[-2.8,.7,3.6]){box(0,H-.08,z,1.3,.06,.25,'#dddeda');box(0,H-.095,z,1.22,.015,.18,'#fffaf1','glow');}
  return q.finish();
 }

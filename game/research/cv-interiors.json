@@ -22,6 +22,11 @@
       "id": "db-company-night",
       "url": "https://www.noapteacompaniilor.ro/bucuresti/dbglobaltechnology-2024/",
       "identity": "BOB Tower Entrance A at6A Dimitrie Pompeiu."
+    },
+    {
+      "id": "rosetti-tour",
+      "url": "https://tours.toe.hubproedus.ro/0050/index.htm",
+      "identity": "Provider locale explicitly identifies two Sal\u0103 de clas\u0103 scenes at L.T.C.A.Rosetti; self-hosted TDV media, not Google panoramas."
     }
   ],
   "privatelyInspectedAssets": [
@@ -96,6 +101,50 @@
       "bytes": 78562,
       "width": 1280,
       "height": 852
+    },
+    {
+      "name": "rosetti-classA-f.jpg",
+      "url": "https://tours.toe.hubproedus.ro/0050/media/panorama_76F91969_6D2E_E6F7_41CF_24D5DC5666AA_0/f/2/0_0.jpg",
+      "resolved": "https://tours.toe.hubproedus.ro/0050/media/panorama_76F91969_6D2E_E6F7_41CF_24D5DC5666AA_0/f/2/0_0.jpg",
+      "status": 200,
+      "bytes": 62307,
+      "sha256": "20c6b72a161cf206cd14bee72e03e90420fae21e42de137f9a789fab96c2f278",
+      "fetchedUTC": "2026-11-09T16:32:02.801851+00:00",
+      "sourcePageId": "rosetti-tour",
+      "usage": "Private self-hosted tour reference only; no source pixels shipped. Capture date/floor/CV-era unknown."
+    },
+    {
+      "name": "rosetti-classA-r.jpg",
+      "url": "https://tours.toe.hubproedus.ro/0050/media/panorama_76F91969_6D2E_E6F7_41CF_24D5DC5666AA_0/r/2/0_0.jpg",
+      "resolved": "https://tours.toe.hubproedus.ro/0050/media/panorama_76F91969_6D2E_E6F7_41CF_24D5DC5666AA_0/r/2/0_0.jpg",
+      "status": 200,
+      "bytes": 64392,
+      "sha256": "6b3a5b255b3dad133d94b29376840d7a302fdcce32d5fe257251aad922ffe5b2",
+      "fetchedUTC": "2026-11-09T16:32:05.167421+00:00",
+      "sourcePageId": "rosetti-tour",
+      "usage": "Private self-hosted tour reference only; no source pixels shipped. Capture date/floor/CV-era unknown."
+    },
+    {
+      "name": "rosetti-classA-b.jpg",
+      "url": "https://tours.toe.hubproedus.ro/0050/media/panorama_76F91969_6D2E_E6F7_41CF_24D5DC5666AA_0/b/2/0_0.jpg",
+      "resolved": "https://tours.toe.hubproedus.ro/0050/media/panorama_76F91969_6D2E_E6F7_41CF_24D5DC5666AA_0/b/2/0_0.jpg",
+      "status": 200,
+      "bytes": 57704,
+      "sha256": "c318fea5eb50b70b0baa5787f8e36c461006b4ca719d46925835d02c209fc2e8",
+      "fetchedUTC": "2026-11-09T16:32:07.369957+00:00",
+      "sourcePageId": "rosetti-tour",
+      "usage": "Private self-hosted tour reference only; no source pixels shipped. Capture date/floor/CV-era unknown."
+    },
+    {
+      "name": "rosetti-classB-f.jpg",
+      "url": "https://tours.toe.hubproedus.ro/0050/media/panorama_76FB2527_6D2E_EE7B_41B3_7EE67205C127_0/f/2/0_0.jpg",
+      "resolved": "https://tours.toe.hubproedus.ro/0050/media/panorama_76FB2527_6D2E_EE7B_41B3_7EE67205C127_0/f/2/0_0.jpg",
+      "status": 200,
+      "bytes": 61320,
+      "sha256": "f4c7789547e8d2dd9e130ef2d67ce58059f6862cc7d17a5089a4733d745639cf",
+      "fetchedUTC": "2026-11-09T16:32:05.172300+00:00",
+      "sourcePageId": "rosetti-tour",
+      "usage": "Private self-hosted tour reference only; no source pixels shipped. Capture date/floor/CV-era unknown."
     }
   ],
   "implementations": {
@@ -116,12 +165,22 @@
         3.8
       ],
       "exclusions": "No copied mural/portrait or identifiable people; no generic banking lobby/turnstile claim. Room height is an authored estimate, not a measured ceiling."
+    },
+    "rosetti": {
+      "character": "Blue classroom band/grey lower wall; blue individual desks and timber chairs on grey floor; lockers, whiteboard/projector bar, ceiling beams/fluorescent fittings and radiator.",
+      "estimatedVolumeM": [
+        10,
+        10,
+        3.4
+      ],
+      "layoutUse": "Original paired desk arrangement with clear central path; no claimed survey or exact room/floor/date. Full window run preserved with rolled shade hardware only; no blinds hide the live view.",
+      "CVContent": "Board formula/Pascal text is original CV-related illustration, not traced source handwriting or a historical2009classroom claim."
     }
   },
   "usage": "Public access is not a reuse licence. All provider images remain private; game art is original procedural geometry and generated material patterns. TECTO architectural design credits are retained in cv-interiors.md.",
   "sourceDistinctions": {
-    "rosetti": "Self-hosted PROEDUS/HubProedus school tour; two classroom cube-face references privately inspected9Nov2026. Acquisition date/floor/2009 appearance unknown. Blue/yellow desks, grey lower wall, whiteboard, lockers, ceiling beams. Runtime follow-up pending.",
-    "upb": "Official turvirtual.upb.ro credits Zafiu Andrei. Metadata215scenes inspected; exact Rectorat scene discovered. Interior face selection/review pending.",
+    "rosetti": "Actual self-hosted PROEDUS classrooms privately reviewed, source-led runtime implemented. Acquisition date/floor/2009appearance remain unknown.",
+    "upb": "Official tour credits Zafiu Andrei. Its scene merely named Rectorat was privately inspected and rejected as an aerial exterior, not an interior. Rectorat cupola thumbnail shows actual interior hall; full faces still under review. No aerial is used to infer interior geometry.",
     "gts": "OPC Foundation supports Global Intelligence address; GTS Telecom and Global Technical Systems/Hermes evidence is not interchangeable and is rejected for interiors. No authenticated interior.",
     "luxoft": "Official location is Hermes; generic careers images are Bra\u0219ov/Library exteriors. Noblesse project/photo/era/building authentication remains open.",
     "uipath-buc": "1722 portfolio is CGI/designed proposal, not verified as-built; no authored-photo status inferred.",

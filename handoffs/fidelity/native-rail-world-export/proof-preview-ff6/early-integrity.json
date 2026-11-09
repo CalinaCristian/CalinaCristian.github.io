@@ -37,8 +37,8 @@
     },
     {
       "file": "assessment.json",
-      "bytes": 2046,
-      "sha256": "8589a9a463aeb67489328b20d4355126bc9d68629ca2a7193c6527de563ae74c"
+      "bytes": 2621,
+      "sha256": "26966b6dd545175989c37eaa8ca2ba9f771b729914f17c3f3b175183b03d2a7d"
     },
     {
       "file": "runner.cjs",

@@ -1,0 +1,180 @@
+{
+  "files": [
+    {
+      "file": "assessment.json",
+      "bytes": 2621,
+      "sha256": "26966b6dd545175989c37eaa8ca2ba9f771b729914f17c3f3b175183b03d2a7d"
+    },
+    {
+      "file": "decode-geometry.cjs",
+      "bytes": 5819,
+      "sha256": "01084af43c317f1fecb002c50e4c808a320ab7ede83dbcd03f1200777ae77411"
+    },
+    {
+      "file": "early-integrity.json",
+      "bytes": 3261,
+      "sha256": "67758015e528ab51e089bae2b2a1c1a6ebae3e4cdd4313d6621ad2fb7fad4f02"
+    },
+    {
+      "file": "geometry-kernel.cjs",
+      "bytes": 7386,
+      "sha256": "0845d75ccc331332f64d30416caea381bb552ff876c68e4e43d8ed9d8183a19b"
+    },
+    {
+      "file": "grozavesti-buffer-integrity.json.gz",
+      "bytes": 108098,
+      "sha256": "e04cc41dc51070b9dc65aa3aaa22a1b77ba95edcae29ada9dd9b858991a705dd"
+    },
+    {
+      "file": "grozavesti-constructor-facts.json.gz",
+      "bytes": 2207016,
+      "sha256": "5302ad030f4c9b96666114521530bfd4c0b3776a9127492760c12a430f5c4f09"
+    },
+    {
+      "file": "grozavesti-facts.json.gz",
+      "bytes": 1780505,
+      "sha256": "9b68f14287304908f44f8bf0deead7b33616db95f3f314b1df17c6684b8e0767"
+    },
+    {
+      "file": "grozavesti-native.png",
+      "bytes": 1545721,
+      "sha256": "78e8cd0021953faf516e656f2f68441ff03dc778a61b6ecc4d9577a341ad1bbf"
+    },
+    {
+      "file": "grozavesti-scene.json.gz",
+      "bytes": 23389857,
+      "sha256": "439d231c125527105f3a17cb0bd95203f543071c118c8d64524cb0563d62fab9"
+    },
+    {
+      "file": "grozavesti-sidewalk-policy.json.gz",
+      "bytes": 10549,
+      "sha256": "2f1768c400eb04692131820c8c969af302efe92c7c0a668ffe96b7dbee5f5990"
+    },
+    {
+      "file": "grozavesti-world.json.gz",
+      "bytes": 5800079,
+      "sha256": "77f63a144edabc09ab8108e1dace083c297342fc9783dbe6a9d094a3e5e411e8"
+    },
+    {
+      "file": "install-observer.cjs",
+      "bytes": 16425,
+      "sha256": "f7c341800069001a30deda2752df9d9719f1cf095f87e4c31a0c4ede1005d51d"
+    },
+    {
+      "file": "integration-browser-bounds.cjs",
+      "bytes": 1529,
+      "sha256": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29"
+    },
+    {
+      "file": "launch.json",
+      "bytes": 1364,
+      "sha256": "1f07feea5df6a518e1078ecf61f54c4529005b89b8f797ddb073975cc4eaf46b"
+    },
+    {
+      "file": "post-preflight-source-check.json",
+      "bytes": 400,
+      "sha256": "6b6bed3ae3ba5ae4e356d02ffd093fe5bb536b306b09f3f18824c3dba0dfb6c5"
+    },
+    {
+      "file": "preflight-summary.json",
+      "bytes": 5824,
+      "sha256": "7fb51910d8b755077f55ea87cedf0632f5a6db658f7338ed0c3afbc42a460f5a"
+    },
+    {
+      "file": "preparation.json",
+      "bytes": 1342,
+      "sha256": "160e4ea153ae493f0ae71a19f75123318fbe856ff0dcab7f30a8ab93ff27441f"
+    },
+    {
+      "file": "report.json",
+      "bytes": 1250146,
+      "sha256": "0e00a63e6f6833a7ab9dc421bd1bf5035c7c5518706bf8749184017c90f37796"
+    },
+    {
+      "file": "romana-buffer-integrity.json.gz",
+      "bytes": 125153,
+      "sha256": "c9858b9afb7b3b14e1fa778758d04be8857104a5d2c80dde4e1fe021a9776848"
+    },
+    {
+      "file": "romana-constructor-facts.json.gz",
+      "bytes": 3282430,
+      "sha256": "f31bd76c6e604437539be14ef2345df2000c702f1d8b2297ea2dbc7266763b78"
+    },
+    {
+      "file": "romana-facts.json.gz",
+      "bytes": 2778997,
+      "sha256": "676f4465bb4437806d405ff83381cde1fadc6372afa5f105f3f8b4fbd4883146"
+    },
+    {
+      "file": "romana-native.png",
+      "bytes": 1539643,
+      "sha256": "b5d1b9f5d071f1091c2b03ef9746936950957de39cf1370d0759835a698e501b"
+    },
+    {
+      "file": "romana-scene.json.gz",
+      "bytes": 29745973,
+      "sha256": "3ea2d11f71e1315129677be00d43db9f01fef58a290523f4e491e6726595890b"
+    },
+    {
+      "file": "romana-sidewalk-policy.json.gz",
+      "bytes": 9167,
+      "sha256": "b1e2f35b3fc16082ef1fcdfd673089923f6e12d33304565e02984234d72e202b"
+    },
+    {
+      "file": "romana-world.json.gz",
+      "bytes": 12313654,
+      "sha256": "7d73ff0efda6f39437136553176cf0ae437564e8e61ac8ed2d7176ef52227593"
+    },
+    {
+      "file": "runner.cjs",
+      "bytes": 15804,
+      "sha256": "92ebbd8497602b2176fd4ea64125130b6485da5315ce5dcc55d94eda7099550e"
+    },
+    {
+      "file": "runner.log",
+      "bytes": 65180,
+      "sha256": "9567aa65fef496ac7f7d7b9212a94e2b9616b519f351809f739225a10e47c5d8"
+    },
+    {
+      "file": "served-files.json",
+      "bytes": 26285,
+      "sha256": "7e6939bf3bdc097e944b3afbbc6da17c81c14aa89cec53a927e2ad574928a75f"
+    },
+    {
+      "file": "source-manifest.json",
+      "bytes": 46571,
+      "sha256": "e17eaaa85233df82b85084cce5e727132d3cdb57305ac46e0badb43d900d99d8"
+    },
+    {
+      "file": "unirii-buffer-integrity.json.gz",
+      "bytes": 10703,
+      "sha256": "ed4ca66f206320b104cdea41b372d5a0ff5b23205b877024b148d47b142edee7"
+    },
+    {
+      "file": "unirii-constructor-facts.json.gz",
+      "bytes": 3015516,
+      "sha256": "7cbaf9918970519bd599ffa6f6de5c693d8191c7b59bceb57678c05078e5507f"
+    },
+    {
+      "file": "unirii-facts.json.gz",
+      "bytes": 3015516,
+      "sha256": "7cbaf9918970519bd599ffa6f6de5c693d8191c7b59bceb57678c05078e5507f"
+    },
+    {
+      "file": "unirii-native.png",
+      "bytes": 1540398,
+      "sha256": "1d5a8f3fb2b2d45b245db518cffd79000a3b796a7fa37ea0dbead4bf2c8f3424"
+    },
+    {
+      "file": "unirii-sidewalk-policy.json.gz",
+      "bytes": 8836,
+      "sha256": "9479a24d8f15d227554a16747f8c8d74e13da234f6f6837287d60321dd4200f9"
+    },
+    {
+      "file": "unirii-world.json.gz",
+      "bytes": 12341532,
+      "sha256": "e9c1279467a7ba57e027535564edd2d995525f820cb3f43a0568e27768dff80e"
+    }
+  ],
+  "scope": "Complete exact ff6 immutable early proof and fresh world/scene snapshots; manifest excludes itself. All raw/gzip source hashes retained in report."
+}

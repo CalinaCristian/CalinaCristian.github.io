@@ -3,7 +3,7 @@
   "toolCommit": "eb9932f1254a0abd005d0b91604521e2d2262cca",
   "collectionComplete": true,
   "previewPreflightPassed": true,
-  "independentBodyAcceptance": "Root/RO report remaining actual contacts259/490; source classification pending in separate independent proof. Preview constructor flags alone are not physical acceptance.",
+  "independentBodyAcceptance": "Negative separate RO observation:259 has375 ground triangle-pairs and490 has114; other4tramspawns clear.1077source supports/native directions independentlycovered. Source classification/final corrected source still pending.",
   "finalAcceptance": false,
   "sourceFilesGitShaVerified": 215,
   "servedFilesGitShaVerified": 119,
@@ -20,13 +20,23 @@
     "Native CPU geometry/transforms/buffers retain actualdrawranges/groups/instances; GPUshader deformation requires separate interpretation."
   ],
   "captureReview": {
-    "reviewed": false,
+    "reviewed": true,
+    "reviewedUtc": "2026-11-09T09:23:42.872277+00:00",
     "files": [
-      "grozavesti-native.png",
-      "romana-native.png",
-      "unirii-native.png"
+      {
+        "file": "grozavesti-native.png",
+        "finding": "Actual native High/rush cockpit under the bridge, original HUD/toasts and source streetscape visible; no camera/actor edits."
+      },
+      {
+        "file": "romana-native.png",
+        "finding": "Actual native High/rush cockpit/street view with tram on left; no camera/actor edits."
+      },
+      {
+        "file": "unirii-native.png",
+        "finding": "Actual native High/rush cockpit/plaza/trolleybus scene; no camera/actor edits."
+      }
     ],
-    "scope": "Actual native first-scene PNGs; visual review recorded separately after inspection."
+    "scope": "Native first-scene capture review only, not close bridge/tunnel parity, dynamic contacts or full physical acceptance."
   },
   "rawDirectory": "/workspace/integration-qa-evidence/preview-ff6b2bff-native",
   "physicalAcceptance": false

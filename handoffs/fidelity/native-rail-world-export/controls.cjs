@@ -53,6 +53,15 @@ test('deep native graph references stay explicit IDs instead of overflowing tran
     const edges = nodes.slice(1).map((b, i) => { const e = { id: i, a: nodes[i], b, len: 1 }; e.a.edges.push(e); e.b.edges.push(e); return e; });
     const result = k.safe({ ends: [{ node: nodes[0], edge: edges[0] }] }); assert.equal(result.ends[0].node.$nativeNodeRef.id, 0); assert.equal(result.ends[0].edge.$nativeEdgeRef.id, 0); assert.ok(JSON.stringify(result).length < 1000);
 });
+test('safe local repeated polygon point resolves within the property root and preserves functions as metadata', () => {
+    const k = factory(), first = [1, 2], polygon = [first, [4, 2], [3, 5], first], encoded = k.safe(polygon), decoded = D.rehydrateSafeLocal(encoded);
+    assert.equal(encoded[3].$ref, '$.0'); assert.deepEqual(decoded, polygon); assert.strictEqual(decoded[0], decoded[3]);
+    assert.deepEqual(D.rehydrateSafeLocal({ $function: 'closure is unavailable' }), { $function: 'closure is unavailable' });
+});
+test('unknown or ambiguous safe references fail explicitly without guessing a closure or graph', () => {
+    assert.throws(() => D.rehydrateSafeLocal([{ $ref: '$.99' }]), /Unknown or ambiguous/);
+    assert.throws(() => D.rehydrateSafeLocal({ 'a.b': [1], a: { b: [2] }, ref: { $ref: '$.a.b' } }), /Unknown or ambiguous/);
+});
 const report = { complete: true, controls: checks, browserLaunched: false, networkUsed: false, scope: 'Lossless native geometry encoding/independent decoding CPU controls. No regenerated-world or physical support acceptance.' };
 if (process.argv[2]) { fs.mkdirSync(path.dirname(path.resolve(process.argv[2])), { recursive: true }); fs.writeFileSync(process.argv[2], JSON.stringify(report, null, 2) + '\n'); }
 console.log('PASS ' + checks.length + ' pure geometry controls; no browser/network');

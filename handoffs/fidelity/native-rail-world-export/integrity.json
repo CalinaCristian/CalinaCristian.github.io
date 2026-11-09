@@ -2,18 +2,18 @@
   "files": [
     {
       "file": "README.md",
-      "bytes": 11104,
-      "sha256": "8d3d8651c1424ee969b3f24d6ff831184af0adcaca39c011a1d2a391048402ad"
+      "bytes": 13878,
+      "sha256": "b3bb4a1e1b8e8ee2393af2d7dfe2a3d7072ecd7de386c77a7638fa53e470fcb8"
     },
     {
       "file": "controls.cjs",
-      "bytes": 6862,
-      "sha256": "995c88e02488f8b848be0afa35418e596b0490ced7d0af3eb36ba43cf72fc7ce"
+      "bytes": 7711,
+      "sha256": "343aae80587f998a2394568fd2cfa21e8f376627b57c71d8f40d6153382bc137"
     },
     {
       "file": "decode-geometry.cjs",
-      "bytes": 4193,
-      "sha256": "2bfd6f289442a5e86b6a31c491ec78e1be8a51101f7e04a49196e0e50854f800"
+      "bytes": 5819,
+      "sha256": "01084af43c317f1fecb002c50e4c808a320ab7ede83dbcd03f1200777ae77411"
     },
     {
       "file": "geometry-kernel.cjs",
@@ -22,8 +22,8 @@
     },
     {
       "file": "install-observer.cjs",
-      "bytes": 15789,
-      "sha256": "b3a5d4b822effcd95befe5173e36484823bbf6f61218aef8f6d0d04b0666323a"
+      "bytes": 16169,
+      "sha256": "882cafd248d69aac358936794e06a1d3ef464fc84613787992579a1b0b944cef"
     },
     {
       "file": "preparation/controls-final.json",
@@ -54,6 +54,21 @@
       "file": "preparation/syntax-and-preparation.json",
       "bytes": 1016,
       "sha256": "f07a00bcace5195f382b7a7563a79e807df1eca488478de87085087a8ff94288"
+    },
+    {
+      "file": "preparation/unirii-zero54-controls.json",
+      "bytes": 1947,
+      "sha256": "ea70e4f10f690a5b5670e6106c3bf91430707f9dfaeb277514f4f1005f7a0e83"
+    },
+    {
+      "file": "preparation/unirii-zero54-controls.log",
+      "bytes": 1195,
+      "sha256": "d7a426370f16567af8b70a96002f6d5e73d7442a281e2efd762dab2037756fef"
+    },
+    {
+      "file": "prepare-external.mjs",
+      "bytes": 4526,
+      "sha256": "aec4d6106bb4167be5db27a34e77722a395b33a618b16ce99f2ac31963881b30"
     },
     {
       "file": "prepare.mjs",
@@ -192,8 +207,8 @@
     },
     {
       "file": "runner.cjs",
-      "bytes": 10027,
-      "sha256": "d3de477990de103c1db71fd96c20aadd3354dcb2ed0422b16bec038f4cc1d694"
+      "bytes": 10527,
+      "sha256": "493aa0e89be6b12e9744ef4843653368262ad8dad086f445dc306240b6f75d8f"
     },
     {
       "file": "transport-diagnostic-54c/decode-geometry.cjs",
@@ -246,5 +261,5 @@
       "sha256": "c68455b598549deb182ca91ec529165a1132c7eb5657c15cf745ecbc8fc9dd85"
     }
   ],
-  "scope": "Current future tooling plus original failed transport and complete negative54r2 native raw proof. Each executed version is separately pinned. Manifest excludes itself."
+  "scope": "Current generic tooling plus exact historical/proof executed tools, manifest excludes itself."
 }

@@ -15,6 +15,8 @@ Owner role: **spots** (new agent, after research). Inputs: research dossiers (sp
 
 Ground continuity contract (2026-11-09): `Ground.settle` adds its residual beneath the existing authored modifiers; never switch a multi-metre residual using a small height-difference threshold. `Ground.corridor` joins nearby segment profiles continuously while retaining the exact source/profile centreline anchors and straight grades. Once terrain is emitted, `terrainHeightAt`, walking and aircraft terrain support use the emitted Float32 triangles and their actual diagonal. `heightAt` retains the analytic shaping field. Reachable solid/deck, overhead, deep-water and unsupported-outside-terrain rules remain explicit. CPU counterexamples and native picture/walking scope live in `handoffs/fidelity/seattle-visit-source/`; numeric continuity does not establish architectural or photographic parity.
 
+Seattle Center scene membership (2026-11-09): the current visit/activity owner is `space-needle`, including Chihuly's `lm-chihuly-glasshouse`. MoPOP has no scene-created activity, challenge, plaque or visitor spawn. Preserve its literal mapped parent/part geometry as context; do not leave a void or substitute unsupported sculptural masses. Current map/tour labels follow the combined entry; old `chihuly`/`mopop` evidence stays historical.
+
 Bonus content: only the most important, must-see tourist places in each city (top 10), e.g. the Fremont Troll and the Gum Wall in Seattle, built as small high-fidelity areas you explore on foot (no driving).
 
 ## Requirements

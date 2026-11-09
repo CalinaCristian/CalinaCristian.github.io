@@ -4,7 +4,13 @@ module.exports=async function scanMainBridge(g,{sourceCommit}){
  const before=JSON.stringify({x:P.x,y:P.y,z:P.z,heading:P.heading,surfY:P.surfY,speed:P.speed}),edges=W.allEdges.filter(e=>allowed.includes(e.access?.sourceId)),used=new Set(),chain=[];let node=edges.flatMap(e=>[e.a,e.b]).find(n=>n.sourceId===4544537057)?.id;if(node==null)throw Error('Missing literal start source node4544537057');
  for(let i=0;i<1000;i++){const opts=edges.filter(e=>!used.has(e.id)&&(e.a.id===node||e.b.id===node));if(!opts.length)break;if(opts.length!==1)throw Error('Ambiguous literal source join at '+node);const e=opts[0],dir=e.a.id===node?1:-1;if(!canTravel(e,dir))throw Error('Illegal literal source direction on '+e.access?.sourceId);used.add(e.id);chain.push({e,dir});node=dir===1?e.b.id:e.a.id;}
  if(!chain.length)throw Error('Missing literal source main bridge');
- const samples=(P._colS||[]).map(s=>s.slice());if(!samples.length)throw Error('Actual current player collision samples unavailable');
+ const originalCache=P._colS;let bodyCache=P._colS,cacheBasis='actual-live-native-cache';
+ if(!bodyCache?.length){
+  // Native lazy body initializer, isolated from all live collision/motion state.
+  const isolated=Object.create(P);Object.assign(isolated,{x:P.x,z:P.z,heading:P.heading,world:{buildings:[]},traffic:null,deckContact:false,_colS:null,_one:null,contactAge:0});
+  P.collide.call(isolated,0);bodyCache=isolated._colS;cacheBasis='unchanged-native-collide-on-isolated-empty-query-receiver';
+ }
+ const samples=(bodyCache||[]).map(s=>s.slice());if(!samples.length)throw Error('Actual current player collision samples unavailable');
  const rows=[],colliders=[],ids=new WeakMap();let station=0;
  const collider=b=>{if(ids.has(b))return ids.get(b);const i=colliders.length;ids.set(b,i);colliders.push({index:W.buildings.indexOf(b),kind:b.kind,syntheticMaskBoundary:b.wall&&b.kind==='boundary'&&b.y0a===-40&&b.y1a===80,actual:Object.fromEntries(['wall','ax','az','bx','bz','y0a','y1a','y0b','y1b','nx','nz','x','z','r','hw','hd','angle','poly','holes','y','h','top','kind'].filter(k=>b[k]!==undefined).map(k=>[k,b[k]]))});return i;};
  const candidate=Object.create(P);Object.assign(candidate,{_surf:null,_own:null,_rhWorld:null,_rhMode:null,_wallSrc:null,_wallLen:0,_walls:null});
@@ -18,6 +24,6 @@ module.exports=async function scanMainBridge(g,{sourceCommit}){
    rows.push({station:station+s,edgeId:e.id,sourceId:e.access?.sourceId,dir,lane,x,z,heading,sourceProfileSurface:surf,actualPlayerSurface:actualSurface,nativeRoadHeight,gradeBumpM:gradeBump,expectedDeltaM:actualSurface?actualSurface.h-surf:null,inside:W.district.inside(x,z),surfaceError,hits});if(actualSurface)previous.set(lane,{h:actualSurface.h});
   }
  }station+=e.len;}
- const after=JSON.stringify({x:P.x,y:P.y,z:P.z,heading:P.heading,surfY:P.surfY,speed:P.speed});if(before!==after)throw Error('Read-only scan changed actual player pose');
- return{captureKind:'source-domain-native-main-bridge',source:sourceCommit,scope:'Read-only2m station scan on literal northbound Basarab main source chain, every legal lane, actual current asymmetric native collision discs and native static collider/atLevel queries. No simulated trip/actor pose writes. Raw positives retained; synthetic mask walls separate.',stepMaxM:2,body:{front:P.front,rear:P.rear,width:P.width,samples},actualPlayerUnchanged:true,playerWorldEqualsGame:P.world===W,wallsInBuildings:P.wallsInBuildings(),lengthM:station,chain:chain.map(({e,dir})=>({id:e.id,sourceId:e.access?.sourceId,dir,from:dir===1?e.a.id:e.b.id,to:dir===1?e.b.id:e.a.id})),rows,colliders};
+ const after=JSON.stringify({x:P.x,y:P.y,z:P.z,heading:P.heading,surfY:P.surfY,speed:P.speed});if(before!==after||P._colS!==originalCache)throw Error('Read-only scan changed actual player pose/cache');
+ return{captureKind:'source-domain-native-main-bridge',source:sourceCommit,scope:'Read-only2m station scan on literal northbound Basarab main source chain, every legal lane, actual current asymmetric native collision discs and native static collider/atLevel queries. No simulated trip/actor pose writes. Raw positives retained; synthetic mask walls separate.',stepMaxM:2,body:{front:P.front,rear:P.rear,width:P.width,samples,cacheBasis},actualPlayerUnchanged:true,actualCacheUnchanged:true,playerWorldEqualsGame:P.world===W,wallsInBuildings:P.wallsInBuildings(),lengthM:station,chain:chain.map(({e,dir})=>({id:e.id,sourceId:e.access?.sourceId,dir,from:dir===1?e.a.id:e.b.id,to:dir===1?e.b.id:e.a.id})),rows,colliders};
 };

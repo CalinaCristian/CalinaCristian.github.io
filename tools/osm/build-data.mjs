@@ -96,7 +96,7 @@ import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, 
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
 import { compileSourceReturns } from './source-return-corridors.mjs';
-import { preserveReviewedSourceContext, retainedSourceLevelEstimate } from './source-return-context.mjs';
+import { preserveReviewedSourceContext, retainedSourceLevelEstimate, retainedSourceInferredBuildingModel } from './source-return-context.mjs';
 import { snapshotRoadRestrictionSources, roadRestrictionCatalogue } from './road-restrictions.mjs';
 import { LANDMARKS } from '../../game/src/landmarks.js';
 import { speciesFromOSM } from '../../game/src/trees.js';
@@ -1309,6 +1309,9 @@ function buildCity(cityId, did = null) {
             else if (rs === 'flat') setRoof(0);
         }
         if (/glass/.test(t['building:material'] || '') && !['church', 'house'].includes(style)) style = 'glass';
+        const retainedInferredModel = retainedSourceInferredBuildingModel(sourceContextReview,
+            { sourceId: t.__id, tags: t, sourceRingLL: lls, sourceHolesLL: rb.holesLL || [], heightM: h });
+        if (retainedInferredModel) style = retainedInferredModel.style;
         // Reality passes need evidence of a trading ground floor: a boulevard, embassy, museum or school is not a
         // shop. Named business POIs assigned to the footprint also enable the band below, after POI matching.
         const mappedTrading = (shop && !/^(no|vacant|disused)$/.test(shop)) ||
@@ -1320,6 +1323,7 @@ function buildCity(cityId, did = null) {
             // storey only under a flat roof — villas tagged 2 + 1 attic were walls of 3 storeys with the roof on top
             h = lv * (style === 'bloc' ? 2.9 : style === 'glass' ? 3.6 : 3.2) + ((flags & 1) ? 1 : 0) + (roof === 0 ? roofLevels * 2.6 : 0);
             h = retainedSourceLevelEstimate(sourceContextReview, { sourceId: t.__id, tags: t, sourceRingLL: lls }, h);
+            if (Number.isFinite(retainedInferredModel?.wallHeightM)) h = retainedInferredModel.wallHeightM;
         }
         // A literal positive OSM height can describe a low utility structure; the 2.5m fallback is not source truth.
         h = parseMeasure(t.height) > 0 ? parseMeasure(t.height) : Math.max(sourcePart ? 0.01 : 2.5, Math.min(h, 320));

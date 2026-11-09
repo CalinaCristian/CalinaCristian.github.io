@@ -1,64 +1,65 @@
 {
   "schemaVersion": 1,
   "title": "Pipera aerial comparisons",
-  "generatedDate": "2026-11-08",
-  "generatedAt": "2026-11-08T23:17:43.466Z",
-  "defaultTile": "aerial-r03-c10",
-  "tileMetres": 250,
-  "orientation": "north-up",
+  "generatedDate": "2026-11-09",
+  "generatedAt": "2026-11-09T00:44:34.272Z",
+  "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+  "publishedBaseline": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+  "captureType": "mixed-source-survey",
+  "atlasSourceCounts": {
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 98,
+    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
+  },
+  "sourceCaptureManifests": [
+    {
+      "path": "historical/c78a5f4/capture-manifest.json",
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "frames": 98
+    },
+    {
+      "path": "retakes/bc9a3ff3/manifest.json",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+      "sha256": "85245cb4df7a9b626117254380c15baea205bfb7496cb0373f2b499c5ebdbb13",
+      "frames": 35
+    }
+  ],
   "atlasScopeCounts": {
     "ring-touches": 91,
     "core-touches": 38,
     "outside-ring": 4
   },
-  "publishedBaseline": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
-  "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
-  "capture": {
-    "startedAt": "2026-11-08T22:59:17.646Z",
-    "endedAt": "2026-11-08T23:17:43.466Z",
-    "elapsedSeconds": 1105.832,
-    "source": "e01bd5cf026fb1b5badb2e9f30dc9cf98fae105fe31ac97ea2b80538426b033d",
-    "loaded": {
-      "key": "bucharest-pipera",
-      "city": "bucharest",
-      "district": "pipera",
-      "ms": 27584,
-      "edges": 1260,
-      "ribbons": 1665
-    },
-    "pageErrors": [],
-    "consoleErrors": [],
-    "failedRequests": [],
-    "traffic": false,
-    "quality": "high",
-    "weather": "clear",
-    "season": "summer",
-    "time": "day",
-    "mirror": false,
-    "frameCounts": 133,
-    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
-    "scopeCounts": {
-      "ring-touches": 91,
-      "core-touches": 38,
-      "outside-ring": 4
-    },
-    "validation": {
-      "framesVerified": 133,
-      "sourceFilesVerified": 2580,
-      "pageErrors": 0,
-      "consoleErrors": 0,
-      "failedRequests": 0,
-      "failures": []
-    },
-    "perfMaxima": {
-      "triangles": 504164,
-      "drawCalls": 131,
-      "note": "World-only high-quality top-down captures, moving traffic hidden, mirror excluded. Separate maxima need not occur in one frame; not a driving frame-budget acceptance test."
-    }
-  },
-  "locations": [],
   "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
-  "boundarySource": "boundary-source.json",
+  "capture": {
+    "type": "mixed-source-atlas",
+    "frameCounts": 133,
+    "originalFullCapture": {
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "manifest": "historical/c78a5f4/capture-manifest.json",
+      "frames": 133
+    },
+    "targetedRetakeCapture": {
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+      "manifest": "retakes/bc9a3ff3/manifest.json",
+      "frames": 35,
+      "startedAt": "2026-11-09T00:43:04.735Z",
+      "endedAt": "2026-11-09T00:44:34.272Z"
+    },
+    "note": "Per-frame SHA and capturedAt are authoritative. Original and retake capture metadata remain immutable.",
+    "sourceInventoriesVerified": [
+      {
+        "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+        "path": "historical/c78a5f4/source-provenance.json",
+        "sha256": "bedee6790e941fd84d4a7409c4a34d9744e7ffb6077b35a24e8722e52aee2850",
+        "filesVerified": 2580
+      },
+      {
+        "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+        "path": "retakes/bc9a3ff3/source-provenance.json",
+        "sha256": "8903d3205876f09e9a2f7f8eb380658ac4bf83e8c48e797db425039e7c60db3b",
+        "filesVerified": 8211
+      }
+    ]
+  },
   "items": [
     {
       "id": "aerial-r01-c06",
@@ -121,7 +122,10 @@
         26.10040970731559,
         44.48899830831803,
         26.10355728048669
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r01-c07",
@@ -184,7 +188,10 @@
         26.10355728048669,
         44.48899830831803,
         26.106704853657792
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r01-c08",
@@ -247,7 +254,10 @@
         26.106704853657792,
         44.48899830831803,
         26.109852426828898
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r01-c09",
@@ -310,7 +320,10 @@
         26.109852426828898,
         44.48899830831803,
         26.113
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r01-c10",
@@ -373,7 +386,10 @@
         26.113,
         44.48899830831803,
         26.1161475731711
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r01-c11",
@@ -436,7 +452,10 @@
         26.1161475731711,
         44.48899830831803,
         26.119295146342207
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c02",
@@ -499,7 +518,10 @@
         26.087819414631177,
         44.48674873123852,
         26.09096698780228
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c03",
@@ -562,7 +584,10 @@
         26.09096698780228,
         44.48674873123852,
         26.09411456097338
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c04",
@@ -625,7 +650,10 @@
         26.09411456097338,
         44.48674873123852,
         26.097262134144483
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c05",
@@ -688,7 +716,10 @@
         26.097262134144483,
         44.48674873123852,
         26.10040970731559
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c06",
@@ -751,7 +782,10 @@
         26.10040970731559,
         44.48674873123852,
         26.10355728048669
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c07",
@@ -814,7 +848,10 @@
         26.10355728048669,
         44.48674873123852,
         26.106704853657792
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c08",
@@ -877,7 +914,10 @@
         26.106704853657792,
         44.48674873123852,
         26.109852426828898
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c09",
@@ -940,7 +980,10 @@
         26.109852426828898,
         44.48674873123852,
         26.113
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c10",
@@ -1003,7 +1046,10 @@
         26.113,
         44.48674873123852,
         26.1161475731711
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c11",
@@ -1066,7 +1112,10 @@
         26.1161475731711,
         44.48674873123852,
         26.119295146342207
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c12",
@@ -1129,7 +1178,10 @@
         26.119295146342207,
         44.48674873123852,
         26.12244271951331
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c13",
@@ -1192,7 +1244,10 @@
         26.12244271951331,
         44.48674873123852,
         26.12559029268441
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c14",
@@ -1255,7 +1310,10 @@
         26.12559029268441,
         44.48674873123852,
         26.128737865855516
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r02-c15",
@@ -1318,7 +1376,10 @@
         26.128737865855516,
         44.48674873123852,
         26.131885439026618
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c01",
@@ -1381,7 +1442,10 @@
         26.08467184146007,
         44.48449915415902,
         26.087819414631177
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c02",
@@ -1444,7 +1508,10 @@
         26.087819414631177,
         44.48449915415902,
         26.09096698780228
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c03",
@@ -1507,7 +1574,10 @@
         26.09096698780228,
         44.48449915415902,
         26.09411456097338
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c04",
@@ -1570,7 +1640,10 @@
         26.09411456097338,
         44.48449915415902,
         26.097262134144483
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c05",
@@ -1633,7 +1706,10 @@
         26.097262134144483,
         44.48449915415902,
         26.10040970731559
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c06",
@@ -1696,7 +1772,10 @@
         26.10040970731559,
         44.48449915415902,
         26.10355728048669
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c07",
@@ -1759,7 +1838,10 @@
         26.10355728048669,
         44.48449915415902,
         26.106704853657792
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c08",
@@ -1822,7 +1904,10 @@
         26.106704853657792,
         44.48449915415902,
         26.109852426828898
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c09",
@@ -1885,7 +1970,10 @@
         26.109852426828898,
         44.48449915415902,
         26.113
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c10",
@@ -1948,7 +2036,10 @@
         26.113,
         44.48449915415902,
         26.1161475731711
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c11",
@@ -2011,7 +2102,10 @@
         26.1161475731711,
         44.48449915415902,
         26.119295146342207
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c12",
@@ -2074,7 +2168,10 @@
         26.119295146342207,
         44.48449915415902,
         26.12244271951331
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c13",
@@ -2137,7 +2234,10 @@
         26.12244271951331,
         44.48449915415902,
         26.12559029268441
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c14",
@@ -2200,7 +2300,10 @@
         26.12559029268441,
         44.48449915415902,
         26.128737865855516
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c15",
@@ -2263,7 +2366,10 @@
         26.128737865855516,
         44.48449915415902,
         26.131885439026618
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r03-c16",
@@ -2326,7 +2432,10 @@
         26.131885439026618,
         44.48449915415902,
         26.13503301219772
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c01",
@@ -2389,7 +2498,10 @@
         26.08467184146007,
         44.48224957707951,
         26.087819414631177
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c02",
@@ -2452,7 +2564,10 @@
         26.087819414631177,
         44.48224957707951,
         26.09096698780228
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c03",
@@ -2515,7 +2630,10 @@
         26.09096698780228,
         44.48224957707951,
         26.09411456097338
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c04",
@@ -2578,7 +2696,10 @@
         26.09411456097338,
         44.48224957707951,
         26.097262134144483
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c05",
@@ -2641,7 +2762,10 @@
         26.097262134144483,
         44.48224957707951,
         26.10040970731559
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c06",
@@ -2704,7 +2828,10 @@
         26.10040970731559,
         44.48224957707951,
         26.10355728048669
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c07",
@@ -2767,7 +2894,10 @@
         26.10355728048669,
         44.48224957707951,
         26.106704853657792
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c08",
@@ -2830,7 +2960,10 @@
         26.106704853657792,
         44.48224957707951,
         26.109852426828898
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c09",
@@ -2893,7 +3026,10 @@
         26.109852426828898,
         44.48224957707951,
         26.113
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c10",
@@ -2956,7 +3092,10 @@
         26.113,
         44.48224957707951,
         26.1161475731711
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c11",
@@ -3019,7 +3158,10 @@
         26.1161475731711,
         44.48224957707951,
         26.119295146342207
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c12",
@@ -3082,7 +3224,10 @@
         26.119295146342207,
         44.48224957707951,
         26.12244271951331
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c13",
@@ -3145,7 +3290,10 @@
         26.12244271951331,
         44.48224957707951,
         26.12559029268441
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c14",
@@ -3208,7 +3356,10 @@
         26.12559029268441,
         44.48224957707951,
         26.128737865855516
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c15",
@@ -3271,7 +3422,10 @@
         26.128737865855516,
         44.48224957707951,
         26.131885439026618
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r04-c16",
@@ -3334,7 +3488,10 @@
         26.131885439026618,
         44.48224957707951,
         26.13503301219772
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c01",
@@ -3397,7 +3554,10 @@
         26.08467184146007,
         44.48,
         26.087819414631177
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c02",
@@ -3460,7 +3620,10 @@
         26.087819414631177,
         44.48,
         26.09096698780228
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c03",
@@ -3523,7 +3686,10 @@
         26.09096698780228,
         44.48,
         26.09411456097338
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c04",
@@ -3586,7 +3752,10 @@
         26.09411456097338,
         44.48,
         26.097262134144483
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c05",
@@ -3649,7 +3818,10 @@
         26.097262134144483,
         44.48,
         26.10040970731559
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c06",
@@ -3712,7 +3884,10 @@
         26.10040970731559,
         44.48,
         26.10355728048669
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c07",
@@ -3775,7 +3950,10 @@
         26.10355728048669,
         44.48,
         26.106704853657792
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c08",
@@ -3838,7 +4016,10 @@
         26.106704853657792,
         44.48,
         26.109852426828898
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c09",
@@ -3901,7 +4082,10 @@
         26.109852426828898,
         44.48,
         26.113
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c10",
@@ -3964,7 +4148,10 @@
         26.113,
         44.48,
         26.1161475731711
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c11",
@@ -4027,7 +4214,10 @@
         26.1161475731711,
         44.48,
         26.119295146342207
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c12",
@@ -4090,7 +4280,10 @@
         26.119295146342207,
         44.48,
         26.12244271951331
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c13",
@@ -4153,7 +4346,10 @@
         26.12244271951331,
         44.48,
         26.12559029268441
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c14",
@@ -4216,7 +4412,10 @@
         26.12559029268441,
         44.48,
         26.128737865855516
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c15",
@@ -4279,7 +4478,10 @@
         26.128737865855516,
         44.48,
         26.131885439026618
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r05-c16",
@@ -4342,7 +4544,10 @@
         26.131885439026618,
         44.48,
         26.13503301219772
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c01",
@@ -4367,13 +4572,13 @@
         -2000,
         500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 65,
-        "triangles": 158201,
-        "renderMs": 18.899999998509884,
+        "drawCalls": 63,
+        "triangles": 122182,
+        "renderMs": 28,
         "quality": "high"
       },
       "traffic": {
@@ -4389,23 +4594,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:08:34.070Z",
+      "capturedAt": "2026-11-09T00:43:16.046Z",
       "gamePath": "images/aerial-r06-c01.jpg",
       "image": "images/aerial-r06-c01.jpg",
       "thumbnail": "thumbs/aerial-r06-c01.jpg",
-      "sha256": "59871f31bb7438410a236f7c5b85d21c34def172aaac56a05a2ce666ce04c936",
+      "sha256": "282351fcd022505b35df82456e36aba71e28abbfc37e2290ae0ba90323df7c1a",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6618,
+      "captureWallMs": 4698,
       "dataset": "atlas",
-      "thumbnailSha256": "1b10ce303b67cc4eeac0ea712e20a8ee8bc893a843ad067f9ed7bc0be8c4c386",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "c1a0cb4fef3069a585952799939845e3c57c3d9955e85329e2e62420f42f58f3",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.475500845840976,
         26.08467184146007,
         44.47775042292049,
         26.087819414631177
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r06-c02",
@@ -4430,13 +4638,13 @@
         -1750,
         500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 83,
-        "triangles": 277839,
-        "renderMs": 3.800000000745058,
+        "drawCalls": 81,
+        "triangles": 242547,
+        "renderMs": 5.399999998509884,
         "quality": "high"
       },
       "traffic": {
@@ -4452,23 +4660,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:08:40.688Z",
+      "capturedAt": "2026-11-09T00:43:20.744Z",
       "gamePath": "images/aerial-r06-c02.jpg",
       "image": "images/aerial-r06-c02.jpg",
       "thumbnail": "thumbs/aerial-r06-c02.jpg",
-      "sha256": "907bb127b7da9d24c02bdb700b518f218748285916f59b030ad0d8879b0b219f",
+      "sha256": "ca8632128ac46539855505be549f9d399ed31912cf0c6557138c65b7546f4425",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9753,
+      "captureWallMs": 2845,
       "dataset": "atlas",
-      "thumbnailSha256": "367cfba1e05f87eebecf6fb0075a4f1deeb4bfc01e085b3fac57ee8b6ccd84ea",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "6cdd86b2ce6212e677ce817c8fb909b55ae62ca705d1a441dfdd961605a8d991",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.475500845840976,
         26.087819414631177,
         44.47775042292049,
         26.09096698780228
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r06-c03",
@@ -4531,7 +4742,10 @@
         26.09096698780228,
         44.47775042292049,
         26.09411456097338
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c04",
@@ -4594,7 +4808,10 @@
         26.09411456097338,
         44.47775042292049,
         26.097262134144483
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c05",
@@ -4657,7 +4874,10 @@
         26.097262134144483,
         44.47775042292049,
         26.10040970731559
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c06",
@@ -4720,7 +4940,10 @@
         26.10040970731559,
         44.47775042292049,
         26.10355728048669
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c07",
@@ -4783,7 +5006,10 @@
         26.10355728048669,
         44.47775042292049,
         26.106704853657792
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c08",
@@ -4846,7 +5072,10 @@
         26.106704853657792,
         44.47775042292049,
         26.109852426828898
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c09",
@@ -4909,7 +5138,10 @@
         26.109852426828898,
         44.47775042292049,
         26.113
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c10",
@@ -4972,7 +5204,10 @@
         26.113,
         44.47775042292049,
         26.1161475731711
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c11",
@@ -5035,7 +5270,10 @@
         26.1161475731711,
         44.47775042292049,
         26.119295146342207
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c12",
@@ -5098,7 +5336,10 @@
         26.119295146342207,
         44.47775042292049,
         26.12244271951331
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c13",
@@ -5161,7 +5402,10 @@
         26.12244271951331,
         44.47775042292049,
         26.12559029268441
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r06-c14",
@@ -5186,13 +5430,13 @@
         1250,
         500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 89,
-        "triangles": 386501,
-        "renderMs": 5.199999999254942,
+        "drawCalls": 87,
+        "triangles": 304913,
+        "renderMs": 4.5,
         "quality": "high"
       },
       "traffic": {
@@ -5208,23 +5452,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:10:26.457Z",
+      "capturedAt": "2026-11-09T00:43:23.589Z",
       "gamePath": "images/aerial-r06-c14.jpg",
       "image": "images/aerial-r06-c14.jpg",
       "thumbnail": "thumbs/aerial-r06-c14.jpg",
-      "sha256": "007cb59e9713e9fa70ccd5d30c11dc6c96f8bc61e8b42a7bc263452b280f443e",
+      "sha256": "b4818b193a84c7b7666d91be19f3104a3723802f956781098c28028c89674af4",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8396,
+      "captureWallMs": 3031,
       "dataset": "atlas",
-      "thumbnailSha256": "19c1a2463b9ed85517060a465ad4329ad5883f128973a5e51e826432e1a69312",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "48f6ffe30fd750b4a6f0a34553badeda107e1f3e16b1057fb60279650ee7f71f",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.475500845840976,
         26.12559029268441,
         44.47775042292049,
         26.128737865855516
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r06-c15",
@@ -5249,13 +5496,13 @@
         1500,
         500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 76,
-        "triangles": 285519,
-        "renderMs": 71.69999999925494,
+        "triangles": 251005,
+        "renderMs": 3.7000000029802322,
         "quality": "high"
       },
       "traffic": {
@@ -5271,23 +5518,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:10:34.854Z",
+      "capturedAt": "2026-11-09T00:43:26.620Z",
       "gamePath": "images/aerial-r06-c15.jpg",
       "image": "images/aerial-r06-c15.jpg",
       "thumbnail": "thumbs/aerial-r06-c15.jpg",
-      "sha256": "b5f18ce05067b1364d92387b979d99ef12482989328fc998c69c136c263758e3",
+      "sha256": "a4bd7e75993b92a8a4f329cc89ccc71e5e606452949b1bc2e1dc42cce2f67a05",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9314,
+      "captureWallMs": 1782,
       "dataset": "atlas",
-      "thumbnailSha256": "f0a0217bb4f907f372fc4cceac137c1f77ac89d61e5fe731267f9783898a9c00",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "9899779af2f9edbb1aec90b9521cb864ac41389a152b3fbab7df07089fea1aec",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.475500845840976,
         26.128737865855516,
         44.47775042292049,
         26.131885439026618
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r06-c16",
@@ -5312,13 +5562,13 @@
         1750,
         500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 66,
-        "triangles": 228205,
-        "renderMs": 18.100000001490116,
+        "triangles": 201435,
+        "renderMs": 3.7999999970197678,
         "quality": "high"
       },
       "traffic": {
@@ -5334,23 +5584,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:10:44.168Z",
+      "capturedAt": "2026-11-09T00:43:28.402Z",
       "gamePath": "images/aerial-r06-c16.jpg",
       "image": "images/aerial-r06-c16.jpg",
       "thumbnail": "thumbs/aerial-r06-c16.jpg",
-      "sha256": "dd25f4c6f39c7c0a3ff5afc0e7fcb2dc1cdb9acab58838641f6117973ffc0f47",
+      "sha256": "5261c57d2627e76cf33e0edfc802902f848e66f314f751ba9b9189bd1287fa8e",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9207,
+      "captureWallMs": 1874,
       "dataset": "atlas",
-      "thumbnailSha256": "e632586ef300fb7a13db7f220e7e2db0fc81e677cbfec0582962a18ee40f8946",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "8cf583c1c4e22dc1d37c9cfa1130e4d8ad2b56a9c5c21b99620ebf26054808cc",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.475500845840976,
         26.131885439026618,
         44.47775042292049,
         26.13503301219772
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c01",
@@ -5375,13 +5628,13 @@
         -2000,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 48,
-        "triangles": 91441,
-        "renderMs": 2.400000002235174,
+        "drawCalls": 46,
+        "triangles": 63782,
+        "renderMs": 2.8000000044703484,
         "quality": "high"
       },
       "traffic": {
@@ -5397,23 +5650,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:10:53.376Z",
+      "capturedAt": "2026-11-09T00:43:30.276Z",
       "gamePath": "images/aerial-r07-c01.jpg",
       "image": "images/aerial-r07-c01.jpg",
       "thumbnail": "thumbs/aerial-r07-c01.jpg",
-      "sha256": "0be90ea1fbcddbc64956950abfc0b6d6eb65ab8b2a032c310820d363b17a3319",
+      "sha256": "1c9110c05e4d0c92e6712ae6a87c85e17f1e488db51529e48d2b033bbf037e37",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5990,
+      "captureWallMs": 1319,
       "dataset": "atlas",
-      "thumbnailSha256": "1df2737e789389ae65ca366d67bfbf15e79ad7cef20888b7f1bfdf17ecc8051b",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "f14cc7ed8a9411306947d5ef90aeef0bc2e6f8e638d7b9d3f4fe686b277a2c72",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.08467184146007,
         44.475500845840976,
         26.087819414631177
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c02",
@@ -5438,13 +5694,13 @@
         -1750,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 69,
-        "triangles": 169883,
-        "renderMs": 15.599999997764826,
+        "drawCalls": 68,
+        "triangles": 143422,
+        "renderMs": 2.9000000059604645,
         "quality": "high"
       },
       "traffic": {
@@ -5460,23 +5716,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:10:59.370Z",
+      "capturedAt": "2026-11-09T00:43:31.595Z",
       "gamePath": "images/aerial-r07-c02.jpg",
       "image": "images/aerial-r07-c02.jpg",
       "thumbnail": "thumbs/aerial-r07-c02.jpg",
-      "sha256": "c0f441fc01c943188fc90fede8d3d79d6f1c2956f3c7442aef731ee06c26dd8a",
+      "sha256": "02d48108ae802eba6445de405741f8ad74b26275f0070ea29e4b590a5089c902",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7624,
+      "captureWallMs": 1773,
       "dataset": "atlas",
-      "thumbnailSha256": "a558dd78d6c8a5f41aec1470ef8adf1a895f99da2bfb455b24647f7d5c6a3b1b",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "53a365c1ae6b83030ba1f157ff496cf31779ab4678c659d8e38c0d210d1c1f3c",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.087819414631177,
         44.475500845840976,
         26.09096698780228
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c03",
@@ -5501,13 +5760,13 @@
         -1500,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 76,
-        "triangles": 228961,
-        "renderMs": 19,
+        "drawCalls": 75,
+        "triangles": 198689,
+        "renderMs": 2.2999999970197678,
         "quality": "high"
       },
       "traffic": {
@@ -5523,23 +5782,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:11:06.994Z",
+      "capturedAt": "2026-11-09T00:43:33.368Z",
       "gamePath": "images/aerial-r07-c03.jpg",
       "image": "images/aerial-r07-c03.jpg",
       "thumbnail": "thumbs/aerial-r07-c03.jpg",
-      "sha256": "a2ad26436cdf3e527e52163280c3ae6aef1a76deccdb5983bd27366d439dcc6c",
+      "sha256": "c9604394491efbe4211740568a506ff42a2cb3907a129be5b93320daa28850e4",
       "width": 640,
       "height": 640,
-      "captureWallMs": 10193,
+      "captureWallMs": 1975,
       "dataset": "atlas",
-      "thumbnailSha256": "db9fa5b402481d7ff8d4d7da8a9c247f527749fa6631ff0ad5b7d1af40fa57bc",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "e90d3f0a36adf0b7e9bab6d8634e9bc75a9af5c99f7dfcb189a6687a1cb5a40c",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.09096698780228,
         44.475500845840976,
         26.09411456097338
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c04",
@@ -5564,13 +5826,13 @@
         -1250,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 79,
-        "triangles": 223421,
-        "renderMs": 3.300000000745058,
+        "drawCalls": 78,
+        "triangles": 182128,
+        "renderMs": 7.5,
         "quality": "high"
       },
       "traffic": {
@@ -5586,23 +5848,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:11:17.188Z",
+      "capturedAt": "2026-11-09T00:43:35.343Z",
       "gamePath": "images/aerial-r07-c04.jpg",
       "image": "images/aerial-r07-c04.jpg",
       "thumbnail": "thumbs/aerial-r07-c04.jpg",
-      "sha256": "3ed97149f13411f1ffedfdd1e08bd733ab9d9252057a29a2e4c02898763d0c9e",
+      "sha256": "dd28187d643c09613a925a52bc884c9a2fe838f4cbc92136fa8f2c32575de8d1",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7818,
+      "captureWallMs": 1715,
       "dataset": "atlas",
-      "thumbnailSha256": "4b3f412f67ade46a09b0be8ee98e2d2f1357e1d200a44d481eaa217d46e91921",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "0078dd09fc92149b56666af683c65952aa9930bc7b38d18f0f3e6af7ca2c3a33",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.09411456097338,
         44.475500845840976,
         26.097262134144483
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c05",
@@ -5627,13 +5892,13 @@
         -1000,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 87,
-        "triangles": 273274,
-        "renderMs": 3.899999998509884,
+        "drawCalls": 86,
+        "triangles": 217492,
+        "renderMs": 2.3000000044703484,
         "quality": "high"
       },
       "traffic": {
@@ -5649,23 +5914,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:11:25.006Z",
+      "capturedAt": "2026-11-09T00:43:37.059Z",
       "gamePath": "images/aerial-r07-c05.jpg",
       "image": "images/aerial-r07-c05.jpg",
       "thumbnail": "thumbs/aerial-r07-c05.jpg",
-      "sha256": "f009ba89d4ccf7cdb63402b253d1c3e7c41722e8e944b920f7ac5ebece7969f4",
+      "sha256": "47e0cf4d35f323a470edd17ca7d226a8e08812236e65e3285cf2453e58cced94",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8262,
+      "captureWallMs": 1745,
       "dataset": "atlas",
-      "thumbnailSha256": "fb898ea3d440e742b0d9cea4bac31044c73a65867db30ee823a34693dc620577",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "6765cbae9c71a5733781689c5ae5a10a9cb1d1d0db4d513d379024661e4c99b1",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.097262134144483,
         44.475500845840976,
         26.10040970731559
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c06",
@@ -5728,7 +5996,10 @@
         26.10040970731559,
         44.475500845840976,
         26.10355728048669
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r07-c07",
@@ -5753,13 +6024,13 @@
         -500,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 94,
-        "triangles": 394532,
-        "renderMs": 12,
+        "triangles": 330848,
+        "renderMs": 5.600000001490116,
         "quality": "high"
       },
       "traffic": {
@@ -5775,23 +6046,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:11:40.884Z",
+      "capturedAt": "2026-11-09T00:43:38.805Z",
       "gamePath": "images/aerial-r07-c07.jpg",
       "image": "images/aerial-r07-c07.jpg",
       "thumbnail": "thumbs/aerial-r07-c07.jpg",
-      "sha256": "4fc61867c433b39e2303c00198b52fb81b4ba9624564a7ba484974695dbbcac8",
+      "sha256": "9fa691304b37c034d8c068fee83f39d1e07046fc2747ad681337ea42a4a8829d",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9508,
+      "captureWallMs": 2206,
       "dataset": "atlas",
-      "thumbnailSha256": "f946117f1a850747a56707d02923147b5915ab2b6ce9bab56667d404b44057b8",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "55c8e095dd584a849d6a46fbd2e1a8d76d1a3258317f25db9a1ff51f92e9df58",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.10355728048669,
         44.475500845840976,
         26.106704853657792
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c08",
@@ -5816,13 +6090,13 @@
         -250,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 94,
-        "triangles": 322648,
-        "renderMs": 11.800000000745058,
+        "drawCalls": 93,
+        "triangles": 268540,
+        "renderMs": 7.100000001490116,
         "quality": "high"
       },
       "traffic": {
@@ -5838,23 +6112,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:11:50.393Z",
+      "capturedAt": "2026-11-09T00:43:41.011Z",
       "gamePath": "images/aerial-r07-c08.jpg",
       "image": "images/aerial-r07-c08.jpg",
       "thumbnail": "thumbs/aerial-r07-c08.jpg",
-      "sha256": "fbf006509b2b496d275ec108233b54e6de0aa05634340615c4f38295ea9207c6",
+      "sha256": "96fb14cfd4aa4fdcf6552faa6cc0601a1611ee4ea93420fc001d93e378c51b58",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6294,
+      "captureWallMs": 1960,
       "dataset": "atlas",
-      "thumbnailSha256": "911fe9ecfee54c9c03acd523d9fcfd341eb6c2d32436b144034a7864c8274fe5",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "d76849b2c9f5dcd95647d70dc0c54971d219b0469dc19e873ffa27759cb24c64",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.106704853657792,
         44.475500845840976,
         26.109852426828898
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c09",
@@ -5879,13 +6156,13 @@
         0,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 102,
-        "triangles": 325766,
-        "renderMs": 4.699999999254942,
+        "drawCalls": 100,
+        "triangles": 250019,
+        "renderMs": 2.899999998509884,
         "quality": "high"
       },
       "traffic": {
@@ -5901,23 +6178,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:11:56.688Z",
+      "capturedAt": "2026-11-09T00:43:42.971Z",
       "gamePath": "images/aerial-r07-c09.jpg",
       "image": "images/aerial-r07-c09.jpg",
       "thumbnail": "thumbs/aerial-r07-c09.jpg",
-      "sha256": "14c2187e1ab0acb7c7c8d8bd81048cf1012a0c76120aed408987d08d6def50ab",
+      "sha256": "00ed39c89d177500091e3ac44a1ce67b54b06cb6a0d78b9fb3e830ec15d00775",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6234,
+      "captureWallMs": 2086,
       "dataset": "atlas",
-      "thumbnailSha256": "d40031b002968bf2c380e7f668e6ad959332c92c5951bbf8dc126e3ef0211f57",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "b21f4a10850c9bdd3be062a47b1f4fc3237ee707a08e492fbbd2c3b63837f4b8",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.109852426828898,
         44.475500845840976,
         26.113
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c10",
@@ -5942,13 +6222,13 @@
         250,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 93,
-        "triangles": 313248,
-        "renderMs": 2.199999999254942,
+        "drawCalls": 91,
+        "triangles": 237144,
+        "renderMs": 5.800000004470348,
         "quality": "high"
       },
       "traffic": {
@@ -5964,23 +6244,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:12:02.923Z",
+      "capturedAt": "2026-11-09T00:43:45.057Z",
       "gamePath": "images/aerial-r07-c10.jpg",
       "image": "images/aerial-r07-c10.jpg",
       "thumbnail": "thumbs/aerial-r07-c10.jpg",
-      "sha256": "8bbb57a11708a0148b7ecd5755be18bda0eb759b520ff5f1144c607ed7d48a0e",
+      "sha256": "3a010b1c6c64ad9f8806b1f243fa41bd4e242a287ffb9ea3c4100c04e83d3301",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7756,
+      "captureWallMs": 1833,
       "dataset": "atlas",
-      "thumbnailSha256": "45004e574b0cae960e04b5050d8820cd3f54c0c211baeab1169cb71d26a5d6cd",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "759b220c94b5318ec0a56c5fbadfd3f39a666d334feb582b6e66f9a581e7e8fc",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.113,
         44.475500845840976,
         26.1161475731711
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c11",
@@ -6005,13 +6288,13 @@
         500,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 89,
-        "triangles": 358121,
-        "renderMs": 2.5,
+        "drawCalls": 88,
+        "triangles": 272359,
+        "renderMs": 1.7999999970197678,
         "quality": "high"
       },
       "traffic": {
@@ -6027,23 +6310,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:12:10.680Z",
+      "capturedAt": "2026-11-09T00:43:46.891Z",
       "gamePath": "images/aerial-r07-c11.jpg",
       "image": "images/aerial-r07-c11.jpg",
       "thumbnail": "thumbs/aerial-r07-c11.jpg",
-      "sha256": "13e0a480add5f61e6c9f07aea0c1d7087c4094ebb2cae16526fb3bf282aef3ae",
+      "sha256": "bd7f896897b1aee6d3331503304abe89b2610bf40a1f180bdcbe4b181528798c",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6904,
+      "captureWallMs": 1768,
       "dataset": "atlas",
-      "thumbnailSha256": "f4e41d48138725fb08ecf08d42e6e4a090d18995591e9e4b44aee432bba6d275",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "9d9addae7ff69cd5228569e4ff44884a315755d581bdf3a91a6c822ebb777969",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.1161475731711,
         44.475500845840976,
         26.119295146342207
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c12",
@@ -6106,7 +6392,10 @@
         26.119295146342207,
         44.475500845840976,
         26.12244271951331
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r07-c13",
@@ -6131,13 +6420,13 @@
         1000,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 97,
-        "triangles": 432692,
-        "renderMs": 6.300000000745058,
+        "drawCalls": 96,
+        "triangles": 362401,
+        "renderMs": 7.200000002980232,
         "quality": "high"
       },
       "traffic": {
@@ -6153,23 +6442,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:12:26.418Z",
+      "capturedAt": "2026-11-09T00:43:48.659Z",
       "gamePath": "images/aerial-r07-c13.jpg",
       "image": "images/aerial-r07-c13.jpg",
       "thumbnail": "thumbs/aerial-r07-c13.jpg",
-      "sha256": "2c6efcc5d0cd3aa9d875c1df43b708fbf46174528c28d5b04478f118075686b7",
+      "sha256": "0092e1617d4864d7deec0abafb11d859f069f4a75a4e461d96cd814dc2468166",
       "width": 640,
       "height": 640,
-      "captureWallMs": 11285,
+      "captureWallMs": 2343,
       "dataset": "atlas",
-      "thumbnailSha256": "18c2e82399287fe7d9e853cef0da33c628b5799d979d926c9fc16562a793750d",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "1946d4982f6a273a81a64c8f6308a540067d161d111c13ed7ce1afac78612ebc",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.12244271951331,
         44.475500845840976,
         26.12559029268441
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c14",
@@ -6194,13 +6486,13 @@
         1250,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 97,
-        "triangles": 450124,
-        "renderMs": 24.299999997019768,
+        "drawCalls": 96,
+        "triangles": 377249,
+        "renderMs": 3.2000000029802322,
         "quality": "high"
       },
       "traffic": {
@@ -6216,23 +6508,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:12:37.704Z",
+      "capturedAt": "2026-11-09T00:43:51.002Z",
       "gamePath": "images/aerial-r07-c14.jpg",
       "image": "images/aerial-r07-c14.jpg",
       "thumbnail": "thumbs/aerial-r07-c14.jpg",
-      "sha256": "09443619d56ba85c1270b4c58028c17ac63213d8489713f3b50d23fd117cd50e",
+      "sha256": "c2572e26ea632265c91d477f5853c7e90a4121d40994a5043e931c591b1e098d",
       "width": 640,
       "height": 640,
-      "captureWallMs": 15580,
+      "captureWallMs": 2802,
       "dataset": "atlas",
-      "thumbnailSha256": "23113a222361e1337a50a8a10ef6ab453a1c319520e1dfe78fba1c9b678a5daf",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "13b22c5e8b638a24d1de74b7552235baa1254e8f7b049b0c923b6a0e9558fbda",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.12559029268441,
         44.475500845840976,
         26.128737865855516
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c15",
@@ -6257,13 +6552,13 @@
         1500,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 82,
-        "triangles": 323690,
-        "renderMs": 4.299999997019768,
+        "drawCalls": 81,
+        "triangles": 286472,
+        "renderMs": 3.3000000044703484,
         "quality": "high"
       },
       "traffic": {
@@ -6279,23 +6574,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:12:53.284Z",
+      "capturedAt": "2026-11-09T00:43:53.804Z",
       "gamePath": "images/aerial-r07-c15.jpg",
       "image": "images/aerial-r07-c15.jpg",
       "thumbnail": "thumbs/aerial-r07-c15.jpg",
-      "sha256": "f35da382a60ea8c7ef74fc102443ee209d974412dbd87637dbd7433cd7f87019",
+      "sha256": "70c814d8675617930bd14f5ae1c3d459d034fe5e2b520313aa5cfe9366e6dd65",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8558,
+      "captureWallMs": 2001,
       "dataset": "atlas",
-      "thumbnailSha256": "b08ef21f972819afcc23473fcd719e5e0233873de38b0d77d47b8fe32fe8d62d",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "c3979c623c590fb0207f40a963829b87e145d3a30052deb00686a131c7e1ff9a",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.128737865855516,
         44.475500845840976,
         26.131885439026618
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r07-c16",
@@ -6320,13 +6618,13 @@
         1750,
         750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 64,
-        "triangles": 177033,
-        "renderMs": 11.800000004470348,
+        "drawCalls": 63,
+        "triangles": 141546,
+        "renderMs": 12.5,
         "quality": "high"
       },
       "traffic": {
@@ -6342,23 +6640,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:13:01.843Z",
+      "capturedAt": "2026-11-09T00:43:55.805Z",
       "gamePath": "images/aerial-r07-c16.jpg",
       "image": "images/aerial-r07-c16.jpg",
       "thumbnail": "thumbs/aerial-r07-c16.jpg",
-      "sha256": "95273fb14000a45a8f0f9a826a0efa68715cf6d6a4e20fc64bb83de93be587d0",
+      "sha256": "b6fb2d58775d96f1f4e19ae0dbb4cb00700abea95f884975cdb9ea9d6022c2ac",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6842,
+      "captureWallMs": 1498,
       "dataset": "atlas",
-      "thumbnailSha256": "43a359d8a448637bc62c24be05d3636e3c620e6d8f3f159e3406ded4ac348e09",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "0d10f4c562c82145e10ddcdd2224e86ce404ba527c1a25972d760f75a723831a",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47325126876147,
         26.131885439026618,
         44.475500845840976,
         26.13503301219772
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r08-c03",
@@ -6421,7 +6722,10 @@
         26.09096698780228,
         44.47325126876147,
         26.09411456097338
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r08-c04",
@@ -6446,13 +6750,13 @@
         -1250,
         1000
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 68,
-        "triangles": 146976,
-        "renderMs": 9,
+        "drawCalls": 66,
+        "triangles": 113842,
+        "renderMs": 4.5,
         "quality": "high"
       },
       "traffic": {
@@ -6468,23 +6772,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:13:14.306Z",
+      "capturedAt": "2026-11-09T00:43:57.303Z",
       "gamePath": "images/aerial-r08-c04.jpg",
       "image": "images/aerial-r08-c04.jpg",
       "thumbnail": "thumbs/aerial-r08-c04.jpg",
-      "sha256": "97708e8b9a2b0a74a556745e9b0da7cf1d69657cdbe516bc1f5227d1b4436714",
+      "sha256": "73d823331c528d751506ec342512a9e91433d1365db9fa5bf4dce06690d3cf80",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5602,
+      "captureWallMs": 1296,
       "dataset": "atlas",
-      "thumbnailSha256": "7e0d244a5bf1fdd0e008947eb4c8d60a60922c681d0c50b641ef3940b7eeb0a3",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "074c3ce3f3d3e8880f02ba0c4ecf3d8639255b5b77617ee033e2490bf33c1940",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47100169168196,
         26.09411456097338,
         44.47325126876147,
         26.097262134144483
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r08-c05",
@@ -6509,13 +6816,13 @@
         -1000,
         1000
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 72,
-        "triangles": 148243,
-        "renderMs": 16.099999994039536,
+        "drawCalls": 70,
+        "triangles": 114689,
+        "renderMs": 3.5,
         "quality": "high"
       },
       "traffic": {
@@ -6531,23 +6838,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:13:19.908Z",
+      "capturedAt": "2026-11-09T00:43:58.599Z",
       "gamePath": "images/aerial-r08-c05.jpg",
       "image": "images/aerial-r08-c05.jpg",
       "thumbnail": "thumbs/aerial-r08-c05.jpg",
-      "sha256": "54f32a0d01e9c482e7e8e4b01ac1552b2c34570bdee554f610e2f41b34ced154",
+      "sha256": "36eb4b7dc650c39ce0f3847b54e63d75fbe83d2f0589e3569072f09e19870c31",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7092,
+      "captureWallMs": 1517,
       "dataset": "atlas",
-      "thumbnailSha256": "07746a5d89ae862c5852e33e90f83ef6aa7615bf8a83061ad34d8afcd46d5a79",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "7ee18f74ddcbf47565ac703c0cb6fc7f0e345ff6c44d68f077b8e9141b703059",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47100169168196,
         26.097262134144483,
         44.47325126876147,
         26.10040970731559
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r08-c06",
@@ -6572,13 +6882,13 @@
         -750,
         1000
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 73,
-        "triangles": 205581,
-        "renderMs": 10.399999998509884,
+        "drawCalls": 70,
+        "triangles": 173089,
+        "renderMs": 3.2999999970197678,
         "quality": "high"
       },
       "traffic": {
@@ -6594,23 +6904,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:13:27.000Z",
+      "capturedAt": "2026-11-09T00:44:00.117Z",
       "gamePath": "images/aerial-r08-c06.jpg",
       "image": "images/aerial-r08-c06.jpg",
       "thumbnail": "thumbs/aerial-r08-c06.jpg",
-      "sha256": "0a455a1b212c0093c3b0caac20f4790fe5a800a80b13ee2b6e700450af7aeff4",
+      "sha256": "7d798bec6189668779c95627d2912b01fc02e5467d27e2d5cd6b2d2cc7772e61",
       "width": 640,
       "height": 640,
-      "captureWallMs": 9408,
+      "captureWallMs": 1941,
       "dataset": "atlas",
-      "thumbnailSha256": "31ed7b3ca8e1b3f41cfa1586bd42ab199358ee4a2d3f1200648edaf92da542d0",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "811e178be48ccc7cb61aed7bf1d3c9fbd8ec30eb4a802d295aec88a62ad7fefb",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47100169168196,
         26.10040970731559,
         44.47325126876147,
         26.10355728048669
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r08-c07",
@@ -6635,13 +6948,13 @@
         -500,
         1000
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 79,
-        "triangles": 276220,
-        "renderMs": 3.100000001490116,
+        "drawCalls": 78,
+        "triangles": 238357,
+        "renderMs": 3.8000000044703484,
         "quality": "high"
       },
       "traffic": {
@@ -6657,23 +6970,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:13:36.408Z",
+      "capturedAt": "2026-11-09T00:44:02.058Z",
       "gamePath": "images/aerial-r08-c07.jpg",
       "image": "images/aerial-r08-c07.jpg",
       "thumbnail": "thumbs/aerial-r08-c07.jpg",
-      "sha256": "b5dec21d07ea16800f6a441ac22fcbbd0208c4890ddc7d93e4cfe8a1207c1e01",
+      "sha256": "b13bdcaed4e52328677d3f04eea5d98400faf8a6c602e889c4781a82765451c7",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8509,
+      "captureWallMs": 1883,
       "dataset": "atlas",
-      "thumbnailSha256": "2cef9e2c1c3ea8cc37ba4dccccedc473f7db4d31762ea67c86543d9f8d3103bf",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "71454344922fb90e573b4538f267e656b9a1ad75f8926568af5e3b8cc243ad63",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47100169168196,
         26.10355728048669,
         44.47325126876147,
         26.106704853657792
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r08-c08",
@@ -6698,13 +7014,13 @@
         -250,
         1000
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 78,
-        "triangles": 242162,
-        "renderMs": 2.5,
+        "drawCalls": 77,
+        "triangles": 214873,
+        "renderMs": 3.8000000044703484,
         "quality": "high"
       },
       "traffic": {
@@ -6720,23 +7036,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:13:44.917Z",
+      "capturedAt": "2026-11-09T00:44:03.941Z",
       "gamePath": "images/aerial-r08-c08.jpg",
       "image": "images/aerial-r08-c08.jpg",
       "thumbnail": "thumbs/aerial-r08-c08.jpg",
-      "sha256": "5b0c4fc7295ad5af3737eb8a12105dc5e7e9e4a96844975053e6b25d14b8befa",
+      "sha256": "8831184475f0e35e1d2d493d6c3c793bb65ccef7dc331a729f966a0a66da4381",
       "width": 640,
       "height": 640,
-      "captureWallMs": 10348,
+      "captureWallMs": 1851,
       "dataset": "atlas",
-      "thumbnailSha256": "f37948020279e48c9db0a100757c5e791377fe45e8841a1da175738511d26d88",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "2de62f57e2f03d99d6017e96f5b770f4bc4ccc41940b4e1ec65aaa5e52a4ebe0",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47100169168196,
         26.106704853657792,
         44.47325126876147,
         26.109852426828898
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r08-c09",
@@ -6761,13 +7080,13 @@
         0,
         1000
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 91,
-        "triangles": 237063,
-        "renderMs": 11.899999998509884,
+        "drawCalls": 89,
+        "triangles": 191536,
+        "renderMs": 4.5,
         "quality": "high"
       },
       "traffic": {
@@ -6783,23 +7102,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:13:55.266Z",
+      "capturedAt": "2026-11-09T00:44:05.793Z",
       "gamePath": "images/aerial-r08-c09.jpg",
       "image": "images/aerial-r08-c09.jpg",
       "thumbnail": "thumbs/aerial-r08-c09.jpg",
-      "sha256": "4c16785e2f798151ee14d8e14d6c76a0974027e14d38eb88c976535f0b475d35",
+      "sha256": "5e86bdf9f9108bb9652511f45855254787d2ce1d27b1be45a7560e531796219e",
       "width": 640,
       "height": 640,
-      "captureWallMs": 12387,
+      "captureWallMs": 1832,
       "dataset": "atlas",
-      "thumbnailSha256": "ebf0f8c1480d7f8fa35090d14360222ddc36a226d48d3f40e1e55d3e76ef0b58",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "a3196caa7c2588b25ac0377072d7598314a92e24f35dd957c3f97bbb0271e1a1",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47100169168196,
         26.109852426828898,
         44.47325126876147,
         26.113
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r08-c10",
@@ -6824,13 +7146,13 @@
         250,
         1000
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 91,
-        "triangles": 307604,
-        "renderMs": 28.899999998509884,
+        "drawCalls": 88,
+        "triangles": 253433,
+        "renderMs": 3.3000000044703484,
         "quality": "high"
       },
       "traffic": {
@@ -6846,23 +7168,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:14:07.653Z",
+      "capturedAt": "2026-11-09T00:44:07.625Z",
       "gamePath": "images/aerial-r08-c10.jpg",
       "image": "images/aerial-r08-c10.jpg",
       "thumbnail": "thumbs/aerial-r08-c10.jpg",
-      "sha256": "7f07bf864261c6036dbe65a48c323d3379a16a9dd2d2d17c9e7b5bc592471c96",
+      "sha256": "509f64e3dc20e9f8824efd5c83c3463bb4d67fa67abcf18683547eaf926d2b12",
       "width": 640,
       "height": 640,
-      "captureWallMs": 15584,
+      "captureWallMs": 2078,
       "dataset": "atlas",
-      "thumbnailSha256": "fd68c7fb518cae00d7d4fe2c68b75316f5826d5ca17dd12c848d24942f951452",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "cb9f94d6c354b1d21219413052ad3ea9db666efdddeb24fa69ee5456694b868e",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47100169168196,
         26.113,
         44.47325126876147,
         26.1161475731711
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r08-c11",
@@ -6887,13 +7212,13 @@
         500,
         1000
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 75,
-        "triangles": 235542,
-        "renderMs": 14.899999998509884,
+        "drawCalls": 73,
+        "triangles": 183082,
+        "renderMs": 3.600000001490116,
         "quality": "high"
       },
       "traffic": {
@@ -6909,23 +7234,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:14:23.237Z",
+      "capturedAt": "2026-11-09T00:44:09.703Z",
       "gamePath": "images/aerial-r08-c11.jpg",
       "image": "images/aerial-r08-c11.jpg",
       "thumbnail": "thumbs/aerial-r08-c11.jpg",
-      "sha256": "944976d7c5ab22abc7ac6e87e8a56129e2c53863452b92b0df6007f9912a512a",
+      "sha256": "a8ce92d14672dca239f2dbe74a2fdd2e8352365e23585e70c78b391d9f48257e",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8131,
+      "captureWallMs": 1728,
       "dataset": "atlas",
-      "thumbnailSha256": "f7cf2c227bb96a96cd263ddedb0bc31e6c50699018a6bc7c8c0b4dd68aa07c48",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "037b9092935d667bf5e2f648a79e1f694fdc1966602db16ea17ec6e2b3639efa",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47100169168196,
         26.1161475731711,
         44.47325126876147,
         26.119295146342207
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r08-c12",
@@ -6988,7 +7316,10 @@
         26.119295146342207,
         44.47325126876147,
         26.12244271951331
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r08-c13",
@@ -7013,13 +7344,13 @@
         1000,
         1000
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 100,
-        "triangles": 409689,
-        "renderMs": 25.899999998509884,
+        "drawCalls": 98,
+        "triangles": 354966,
+        "renderMs": 2.7000000029802322,
         "quality": "high"
       },
       "traffic": {
@@ -7035,23 +7366,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:14:41.666Z",
+      "capturedAt": "2026-11-09T00:44:11.432Z",
       "gamePath": "images/aerial-r08-c13.jpg",
       "image": "images/aerial-r08-c13.jpg",
       "thumbnail": "thumbs/aerial-r08-c13.jpg",
-      "sha256": "09ee021965e9e99b62a0f60e93f2c63d19b8676db4a0ce2aba2f8ce54e184077",
+      "sha256": "98b3d7b3cf3b1522d23b228d2c6895c46500962767cc79b27fcfd4703bebc4f3",
       "width": 640,
       "height": 640,
-      "captureWallMs": 12223,
+      "captureWallMs": 2256,
       "dataset": "atlas",
-      "thumbnailSha256": "1953c2f3c39aaab285556c6c408cd56845078844175c7e7c8399af89b45ff373",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "74d3718dc88e6f2c0651f606d62fac149e72cd971fbf7d2b17061ac74622facc",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.47100169168196,
         26.12244271951331,
         44.47325126876147,
         26.12559029268441
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r08-c14",
@@ -7114,7 +7448,10 @@
         26.12559029268441,
         44.47325126876147,
         26.128737865855516
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r08-c15",
@@ -7177,7 +7514,10 @@
         26.128737865855516,
         44.47325126876147,
         26.131885439026618
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r08-c16",
@@ -7240,7 +7580,10 @@
         26.131885439026618,
         44.47325126876147,
         26.13503301219772
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r09-c10",
@@ -7303,7 +7646,10 @@
         26.113,
         44.47100169168196,
         26.1161475731711
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r09-c11",
@@ -7328,13 +7674,13 @@
         500,
         1250
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 74,
-        "triangles": 204549,
-        "renderMs": 6.899999998509884,
+        "drawCalls": 72,
+        "triangles": 152003,
+        "renderMs": 6.700000002980232,
         "quality": "high"
       },
       "traffic": {
@@ -7350,23 +7696,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:15:28.452Z",
+      "capturedAt": "2026-11-09T00:44:13.689Z",
       "gamePath": "images/aerial-r09-c11.jpg",
       "image": "images/aerial-r09-c11.jpg",
       "thumbnail": "thumbs/aerial-r09-c11.jpg",
-      "sha256": "c3ec7c678af800e6ff8fcf2d978186e7fc5ca246d546dc1fb8374302dd055a89",
+      "sha256": "a110518cd12f9b5ce387423548fc5ec4e7d45c4ba9ddfb92770231e7a834c706",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7721,
+      "captureWallMs": 1838,
       "dataset": "atlas",
-      "thumbnailSha256": "1b0343b97cc0ab91e6e1efb10a13c083ca68602655031547448131d4e16acdb9",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "98352c17b118ec4230362f77564ff0fe84fc088b34363eeaa75fbf30e10eba80",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.46875211460245,
         26.1161475731711,
         44.47100169168196,
         26.119295146342207
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r09-c12",
@@ -7429,7 +7778,10 @@
         26.119295146342207,
         44.47100169168196,
         26.12244271951331
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r09-c13",
@@ -7454,13 +7806,13 @@
         1000,
         1250
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 86,
-        "triangles": 295366,
-        "renderMs": 7.799999997019768,
+        "drawCalls": 85,
+        "triangles": 238920,
+        "renderMs": 25.600000001490116,
         "quality": "high"
       },
       "traffic": {
@@ -7476,23 +7828,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:15:46.618Z",
+      "capturedAt": "2026-11-09T00:44:15.528Z",
       "gamePath": "images/aerial-r09-c13.jpg",
       "image": "images/aerial-r09-c13.jpg",
       "thumbnail": "thumbs/aerial-r09-c13.jpg",
-      "sha256": "791107869973d6fae545ade85031e3b43555729b5da266aee25a6a7bb444812c",
+      "sha256": "c86e99b8c579c533865965beefdddc6df1a18151a40349ea9404c1b7271aecf4",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8158,
+      "captureWallMs": 3481,
       "dataset": "atlas",
-      "thumbnailSha256": "74ef2c013e86b401345b71ca685665868f91eabd89d5cdf313e02de88813b220",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "6fb79bbcaa21b8ce1692bd97601b2003833e2f6f4718fa15769c5ef47f8d8281",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.46875211460245,
         26.12244271951331,
         44.47100169168196,
         26.12559029268441
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r09-c14",
@@ -7555,7 +7910,10 @@
         26.12559029268441,
         44.47100169168196,
         26.128737865855516
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r09-c15",
@@ -7618,7 +7976,10 @@
         26.128737865855516,
         44.47100169168196,
         26.131885439026618
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r09-c16",
@@ -7681,7 +8042,10 @@
         26.131885439026618,
         44.47100169168196,
         26.13503301219772
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r10-c11",
@@ -7706,13 +8070,13 @@
         500,
         1500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 63,
-        "triangles": 134490,
-        "renderMs": 21.5,
+        "drawCalls": 61,
+        "triangles": 86523,
+        "renderMs": 4.799999997019768,
         "quality": "high"
       },
       "traffic": {
@@ -7728,23 +8092,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:16:20.640Z",
+      "capturedAt": "2026-11-09T00:44:19.009Z",
       "gamePath": "images/aerial-r10-c11.jpg",
       "image": "images/aerial-r10-c11.jpg",
       "thumbnail": "thumbs/aerial-r10-c11.jpg",
-      "sha256": "ab710c7119c47c2b89588a9813938ff14f3b8707e00cb2eb4402805aadd4e97e",
+      "sha256": "254b1ee5908af35073d9a465066a15a728f80cda4f2160ae463a757852a7ca04",
       "width": 640,
       "height": 640,
-      "captureWallMs": 6411,
+      "captureWallMs": 1807,
       "dataset": "atlas",
-      "thumbnailSha256": "a7f12705d1d8190bd5f333ef43c39cd909444d06b43fc90adba31fa527d6305c",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "49ad7e459b90f922cf3b6d75ee0aad7f3f664d4f731974d9a8dc7f562ed7e5f0",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.46650253752294,
         26.1161475731711,
         44.46875211460245,
         26.119295146342207
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r10-c12",
@@ -7769,13 +8136,13 @@
         750,
         1500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 68,
-        "triangles": 199147,
-        "renderMs": 7.200000002980232,
+        "drawCalls": 65,
+        "triangles": 146142,
+        "renderMs": 6.5,
         "quality": "high"
       },
       "traffic": {
@@ -7791,23 +8158,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:16:27.051Z",
+      "capturedAt": "2026-11-09T00:44:20.816Z",
       "gamePath": "images/aerial-r10-c12.jpg",
       "image": "images/aerial-r10-c12.jpg",
       "thumbnail": "thumbs/aerial-r10-c12.jpg",
-      "sha256": "521100967efe78efe1099b0f8ec63d87fc7f98e49d0266de590ade26e05547be",
+      "sha256": "1474a20ab068126f67525f7823958367ea1c116962ef1c0103e3741cd42a7d8b",
       "width": 640,
       "height": 640,
-      "captureWallMs": 13150,
+      "captureWallMs": 3358,
       "dataset": "atlas",
-      "thumbnailSha256": "2b466e45e51fd042e43f3b172e56ae71027a0d4c8ac4c4ca73cafe3784b77810",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "9dc25216394afa03826aff4fecaff0c55a2d45f401de988477598a9fd4049f54",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.46650253752294,
         26.119295146342207,
         44.46875211460245,
         26.12244271951331
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r10-c13",
@@ -7832,13 +8202,13 @@
         1000,
         1500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 71,
-        "triangles": 201637,
-        "renderMs": 7.5,
+        "drawCalls": 68,
+        "triangles": 147966,
+        "renderMs": 2.5,
         "quality": "high"
       },
       "traffic": {
@@ -7854,23 +8224,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:16:40.201Z",
+      "capturedAt": "2026-11-09T00:44:24.174Z",
       "gamePath": "images/aerial-r10-c13.jpg",
       "image": "images/aerial-r10-c13.jpg",
       "thumbnail": "thumbs/aerial-r10-c13.jpg",
-      "sha256": "e8a51bf96ac940094074968ef6dd3baaa081a8e7d6f53dc25c77e307d036efce",
+      "sha256": "a1031bc314a13c573fe06d137792cafa440e3fd8b0f49d31c771a5e43d3128df",
       "width": 640,
       "height": 640,
-      "captureWallMs": 8194,
+      "captureWallMs": 3153,
       "dataset": "atlas",
-      "thumbnailSha256": "143b37d3f84052a4daa9090c514fff3ff84dd12b81264cce7622ee9b3be6e955",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "f0e7db02d712409ec3f191c9f6189a2c32c54b345ddd6c1b480fa8be911d45f7",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.46650253752294,
         26.12244271951331,
         44.46875211460245,
         26.12559029268441
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r10-c14",
@@ -7933,7 +8306,10 @@
         26.12559029268441,
         44.46875211460245,
         26.128737865855516
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r10-c15",
@@ -7996,7 +8372,10 @@
         26.128737865855516,
         44.46875211460245,
         26.131885439026618
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "aerial-r11-c12",
@@ -8021,13 +8400,13 @@
         750,
         1750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 52,
-        "triangles": 78372,
-        "renderMs": 14.299999997019768,
+        "drawCalls": 51,
+        "triangles": 52762,
+        "renderMs": 2.5,
         "quality": "high"
       },
       "traffic": {
@@ -8043,23 +8422,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:17:03.709Z",
+      "capturedAt": "2026-11-09T00:44:27.328Z",
       "gamePath": "images/aerial-r11-c12.jpg",
       "image": "images/aerial-r11-c12.jpg",
       "thumbnail": "thumbs/aerial-r11-c12.jpg",
-      "sha256": "317488add438dec28508e27155f7e47c734996392bee7975b536c165b307eeb9",
+      "sha256": "c41a62417d5f4b8721a512542f33ba421dff938e1ebab3d70e5b59e693e15679",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4130,
+      "captureWallMs": 2985,
       "dataset": "atlas",
-      "thumbnailSha256": "3962255f7e5b78b606a8b6efafeff67bcd5c227dc440f1d6bb58d733a655cad4",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "e7aac80842c0fba8942653977a899eee47a4f9bda227a0eac431ec2b0e367265",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.46425296044343,
         26.119295146342207,
         44.46650253752294,
         26.12244271951331
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r11-c13",
@@ -8084,13 +8466,13 @@
         1000,
         1750
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
-        "drawCalls": 68,
-        "triangles": 117156,
-        "renderMs": 2,
+        "drawCalls": 67,
+        "triangles": 91154,
+        "renderMs": 3.2000000029802322,
         "quality": "high"
       },
       "traffic": {
@@ -8106,23 +8488,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:17:07.839Z",
+      "capturedAt": "2026-11-09T00:44:30.315Z",
       "gamePath": "images/aerial-r11-c13.jpg",
       "image": "images/aerial-r11-c13.jpg",
       "thumbnail": "thumbs/aerial-r11-c13.jpg",
-      "sha256": "ed33273a27c40fc61f609f867178356fa10ac10448bde1653f88af7166958861",
+      "sha256": "244b614fb40cf97cf4cbb549d4d4c04542f0c04a17e3917bbbb12b46c6db00c8",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4204,
+      "captureWallMs": 3957,
       "dataset": "atlas",
-      "thumbnailSha256": "f4bbc98b530c38a420265720b2c77a160e71ccf78c07eff1d317fb7979e4988c",
-      "captureType": "game-topdown",
+      "thumbnailSha256": "694c2b9bf5c0963d946bbb8e2e2e507d704c2b3759831217f3e0809336badd23",
+      "captureType": "source-snapshot",
       "boundsWgs84": [
         44.46425296044343,
         26.12244271951331,
         44.46650253752294,
         26.12559029268441
-      ]
+      ],
+      "sourceNote": "Targeted water retake bc9a3ff3. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/bc9a3ff3/manifest.json",
+      "reviewSourceManifest": "retakes/bc9a3ff3/paired-review.json"
     },
     {
       "id": "aerial-r11-c14",
@@ -8185,7 +8570,10 @@
         26.12559029268441,
         44.46650253752294,
         26.128737865855516
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "context-northwest",
@@ -8248,7 +8636,10 @@
         26.08467184146007,
         44.48899830831803,
         26.087819414631177
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "context-northeast",
@@ -8311,7 +8702,10 @@
         26.131885439026618,
         44.48899830831803,
         26.13503301219772
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "context-southwest",
@@ -8374,7 +8768,10 @@
         26.08467184146007,
         44.46650253752294,
         26.087819414631177
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     },
     {
       "id": "context-southeast",
@@ -8437,7 +8834,10 @@
         26.131885439026618,
         44.46650253752294,
         26.13503301219772
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted water revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json",
+      "reviewSourceManifest": "historical/c78a5f4/review.json"
     }
   ]
 }

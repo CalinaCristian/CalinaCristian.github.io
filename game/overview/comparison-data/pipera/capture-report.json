@@ -1,30 +1,31 @@
 {
-  "startedAt": "2026-11-08T22:59:17.646Z",
-  "endedAt": "2026-11-08T23:17:43.466Z",
-  "elapsedSeconds": 1105.832,
-  "source": "e01bd5cf026fb1b5badb2e9f30dc9cf98fae105fe31ac97ea2b80538426b033d",
-  "loaded": {
-    "key": "bucharest-pipera",
-    "city": "bucharest",
-    "district": "pipera",
-    "ms": 27584,
-    "edges": 1260,
-    "ribbons": 1665
-  },
-  "pageErrors": [],
-  "consoleErrors": [],
-  "failedRequests": [],
-  "traffic": false,
-  "quality": "high",
-  "weather": "clear",
-  "season": "summer",
-  "time": "day",
-  "mirror": false,
+  "type": "mixed-source-atlas",
   "frameCounts": 133,
-  "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
-  "scopeCounts": {
-    "ring-touches": 91,
-    "core-touches": 38,
-    "outside-ring": 4
-  }
+  "originalFullCapture": {
+    "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+    "manifest": "historical/c78a5f4/capture-manifest.json",
+    "frames": 133
+  },
+  "targetedRetakeCapture": {
+    "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+    "manifest": "retakes/bc9a3ff3/manifest.json",
+    "frames": 35,
+    "startedAt": "2026-11-09T00:43:04.735Z",
+    "endedAt": "2026-11-09T00:44:34.272Z"
+  },
+  "note": "Per-frame SHA and capturedAt are authoritative. Original and retake capture metadata remain immutable.",
+  "sourceInventoriesVerified": [
+    {
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "path": "historical/c78a5f4/source-provenance.json",
+      "sha256": "bedee6790e941fd84d4a7409c4a34d9744e7ffb6077b35a24e8722e52aee2850",
+      "filesVerified": 2580
+    },
+    {
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+      "path": "retakes/bc9a3ff3/source-provenance.json",
+      "sha256": "8903d3205876f09e9a2f7f8eb380658ac4bf83e8c48e797db425039e7c60db3b",
+      "filesVerified": 8211
+    }
+  ]
 }

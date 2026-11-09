@@ -1,0 +1,6 @@
+loaded {"key":"bucharest-pipera","city":"bucharest","district":"pipera","ms":7557,"edges":1260,"ribbons":1665} elapsed 11 s
+capture 10/35 elapsed 34s aerial-r07-c05
+capture 20/35 elapsed 54s aerial-r08-c04
+capture 30/35 elapsed 74s aerial-r09-c13
+capture 35/35 elapsed 90s aerial-r11-c13
+complete {"frames":35,"elapsedSeconds":89.537,"pageErrors":0,"consoleErrors":0,"source":"bc9a3ff3058799a4ec9ac450f3efbdc050b79c58"}

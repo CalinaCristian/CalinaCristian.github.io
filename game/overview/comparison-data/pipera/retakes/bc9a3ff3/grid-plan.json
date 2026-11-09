@@ -1,0 +1,20 @@
+{
+  "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+  "city": "bucharest",
+  "district": "pipera",
+  "grid": {
+    "x0": -2250,
+    "z0": -1000,
+    "columns": 16,
+    "rows": 11,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 31,
+    "core-touches": 4
+  },
+  "locations": [],
+  "coverage": "Targeted35 water-overlap retakes from the conservative source-intersection mask. Completes the existing133-frame atlas when joined with98 original c78a5f4 frames; this subset is not a complete atlas capture.",
+  "retakeMaskSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+  "retakeMaskSha256": "405b3b611c8f3e53f2561ff2692d6a382639f13f23822428b32e7066a24b2ddd"
+}

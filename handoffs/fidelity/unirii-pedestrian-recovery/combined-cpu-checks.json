@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-09T00:20:28.322210+00:00",
+  "testedRuntimeSha256": "511c00cbc2f47e610946be490b713770c7129e38324bcf0c921728b84395cf10",
+  "checks": [
+    {
+      "command": "node --input-type=module --check < game/src/traffic.js",
+      "result": "pass"
+    },
+    {
+      "command": "node game/dev/pedestrian-admission.test.mjs --baseline=/workspace/reality-pass/remaining-ro/source-c78a5f4",
+      "result": "pass"
+    },
+    {
+      "command": "node game/dev/vehicle-separation.test.mjs --baseline=/workspace/reality-pass/remaining-ro/source-c78a5f4",
+      "result": "pass"
+    },
+    {
+      "command": "node game/dev/crowd-flow.test.mjs",
+      "result": "pass"
+    }
+  ],
+  "scope": "Actual production methods; full560/180 controlled source-like constructors preserve exact future RNG. Native final combined proof remains separate and pending.",
+  "sourceFixture": "game/dev/fixtures/unirii-short-edge-pair.json",
+  "sourceFixtureSha256": "e8c1c6aa69872243ccbcc7d13c36b9e5e918766d906ad6a70df3ec094dee7609"
+}

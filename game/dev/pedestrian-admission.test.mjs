@@ -49,6 +49,29 @@ p.live=false; const count=C.list.length; C.freeWalkPoint=()=>false;
 assert.equal(C.admitInitialWalk(p),false,'genuinely exhausted capacity remains an explicit diagnostic');
 assert.equal(C.stats.initialWalkUnresolved,1); assert.equal(C.list.length,count); assert.equal(p.hidden,undefined);
 
+// Bus-stop groups retain their stop and standing state. Repair physical bench
+// or peer contacts, but a clear group and an overhead shelter stay exact.
+const stopEdge=edge(node(0,0),node(40,0));
+const S=walkers([stopEdge]); S.stops=[{x:10,z:4.375}];
+const waiter={i:0,x:10,z:4.375,state:'stand',heading:.7,scale:1}; S.list=[waiter];
+S.t.world.buildings=[{x:10,z:4.375,r:1,hw:.6,hd:.3,angle:0,prop:true,kind:'bench',h:.8}];
+assert.equal(S.admitInitialStand(waiter),true,'an initial physical bench contact moves to a source-sidewalk slot at the same stop');
+assert.equal(waiter.state,'stand'); assert.equal(waiter.heading,.7);
+assert.ok(Math.hypot(waiter.x-10,waiter.z-4.375)<=8);
+assert.equal(S.freeWalkPoint(waiter.x,waiter.z,.3),true);
+const standingPose={x:waiter.x,z:waiter.z};
+S.list.push({i:1,x:waiter.x+.7,z:waiter.z,state:'stand'});
+assert.equal(S.admitInitialStand(waiter),false,'a physically clear waiting group is retained');
+assert.deepEqual({x:waiter.x,z:waiter.z},standingPose);
+S.list[1].x=waiter.x; assert.equal(S.admitInitialStand(waiter),true,'a real peer-body overlap is repaired before visibility');
+waiter.live=true; S.list[1].x=waiter.x; S.list[1].z=waiter.z;
+assert.equal(S.admitInitialStand(waiter),false,'no later standing teleport');
+const roof=walkers([stopEdge]); roof.stops=S.stops;
+const underRoof={i:0,x:10,z:4.375,state:'stand',heading:0};roof.list=[underRoof];
+roof.t.world.buildings=[{x:10,z:4.375,r:2,hw:2,hd:1,angle:0,prop:true,minH:3,h:3.2,kind:'shelter-roof'}];
+assert.equal(roof.admitInitialStand(underRoof),false,'the native height-aware collider permits open air under an overhead shelter');
+assert.deepEqual([underRoof.x,underRoof.z],[10,4.375]);
+
 // Reproduce a committed crossing already blocked for three seconds by a stopped
 // sedan. The native update must keep prospective body rejection while its
 // existing timeout returns to the starting kerb, without a position snap.

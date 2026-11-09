@@ -1431,6 +1431,29 @@ export class Traffic {
         return true;
     }
 
+    /** A recovery translation must actually separate the drawn bodies. The
+     * source path alone cannot tell which way is outward at a short bend. */
+    separateVehicleStep(v, other, distance) {
+        const x = v.x - Math.sin(v.heading) * distance, z = v.z - Math.cos(v.heading) * distance;
+        if (vvPen(v, other, x, z) >= vvPen(v, other) - 1e-6) return false;
+        let clear = true;
+        this.grid.query(x, z, v.length / 2 + 24, o => {
+            if (!clear || o === v || o.inactive || Math.abs(o.y - v.y) > 2) return;
+            const pen = vvPen(v, o, x, z);
+            if (pen > 0 && pen > Math.max(0, vvPen(v, o)) + 1e-6) clear = false;
+        });
+        const P = this.player;
+        if (clear && P && Math.abs((P.y ?? 0.24) - v.y) <= 2.5 &&
+            vpPen({ ...v, x, z }, P) > Math.max(0, vpPen(v, P)) + 1e-6) clear = false;
+        if (clear && streetLevel(v)) this.peds?.grid.query(x, z, v.length / 2 + 2, p => {
+            if (pedestrianPen(v, p, x, z) > Math.max(0, pedestrianPen(v, p)) + 1e-6) clear = false;
+        });
+        if (!clear) return false;
+        v.x = x; v.z = z; v.s += distance; v.odo += distance;
+        v.mesh.position.set(v.x, v.y, v.z);
+        return true;
+    }
+
     /**
      * Vehicles never drive into each other: a vehicle whose step this frame made it overlap another one more than
      * before takes the step back (same edge) and stops; the normal car-following then resolves the queue.
@@ -1446,22 +1469,17 @@ export class Traffic {
             this.grid.query(v.x, v.z, vl + 9, (o) => {
                 if (o === v || o.inactive || Math.abs(o.y - v.y) > 2) return;
                 const p = vvPen(v, o); if (p <= 0.05) return;
-                if (stepped && v.ghost <= 0 && o.ghost <= 0) {
+                if (stepped) {
                     const p0 = vvPen(v, o, v._x0, v._z0, v._h0);
-                    // (two cars already inside each other separate by moving apart: a step that takes the centres
-                    // apart is allowed even if the box overlap grows a hair while turning — else both freeze forever)
-                    const apart = p0 > 0.05 && p < p0 + 0.04 && Math.hypot(v.x - o.x, v.z - o.z) > Math.hypot(v._x0 - o.x, v._z0 - o.z) + 0.005;
-                    if (p > p0 + 0.002 && !apart) worse = true;
+                    if (p > Math.max(0, p0) + 1e-6) worse = true;
                 }
                 if (p > hp) { hp = p; hit = o; }
             });
             // 1) this frame's step made it worse: take it back
             if (worse && this.revert(v)) {
                 v.speed = 0; v.zeroWhy = 'guard'; this.stats.guard = (this.stats.guard || 0) + 1;
-                // held back every frame for 1.5 s (two cars converging on a merge, a car squeezed between two others):
-                // nobody's car-following sees the other as a leader, so nobody yields -> let this one through
+                // A long wait cannot make another rendered body passable.
                 v.revT = (v.revT || 0) + dt;
-                if (v.revT > 1.5) { v.revT = 0; v.ghost = 1.5; this.stats.revGhost = (this.stats.revGhost || 0) + 1; }
                 continue;
             }
             if (v.revT) v.revT = Math.max(0, v.revT - dt * 0.5);
@@ -1477,31 +1495,21 @@ export class Traffic {
                 continue;
             }
             const other = fol === v ? hit : v;
-            if (fol.knotT > 0) { fol.knotT -= dt; continue; } // driving out of a knot (see 3): don't freeze it again every frame
             fol.speed = 0; fol.zeroWhy = 'ovFol:' + (other.kind || '') + '#' + other.id; fol.ovT = (fol.ovT || 0) + dt;
-            const back = Math.min(hp + 0.05, 0.25);
+            const back = Math.min(hp + 0.05, 0.8 * dt);
             if (fol.s - back > 0.3 && !fol.tram && !(P && Math.hypot(P.x - fol.x, P.z - fol.z) < 12 && vpPen(fol, P) > -0.4 && (P.x - fol.x) * -Math.sin(fol.heading) + (P.z - fol.z) * -Math.cos(fol.heading) < 0)) {
-                const hx = -Math.sin(fol.heading), hz = -Math.cos(fol.heading);
-                fol.s -= back; fol.odo -= back; fol.x -= hx * back; fol.z -= hz * back;
-                fol.mesh.position.set(fol.x, fol.y, fol.z);
-                this.stats.separate = (this.stats.separate || 0) + 1;
+                if (this.separateVehicleStep(fol, other, -back)) this.stats.separate = (this.stats.separate || 0) + 1;
             } else if (other.speed < 0.3 && !other.parked && !other.tram && other.s + 0.25 < other.edge.len - 0.5 && !(P && vpPen(other, P) > -0.3)) {
                 // the follower cannot back up (start of its edge): nudge the one in front forward instead
-                const hx = -Math.sin(other.heading), hz = -Math.cos(other.heading);
-                other.s += 0.25; other.odo += 0.25; other.x += hx * 0.25; other.z += hz * 0.25; other.mesh.position.set(other.x, other.y, other.z);
+                this.separateVehicleStep(other, fol, Math.min(0.25, 0.8 * dt));
             }
             // 3) stuck together for a while and out of the player's sight: move the follower elsewhere
             if (fol.ovT > 0.4) {
                 let hidden = true;
                 if (P) { const dx = fol.x - P.x, dz = fol.z - P.z, d = Math.hypot(dx, dz); hidden = d > 70 || (d > 30 && dx * P.fx + dz * P.fz < 0); } // (a swap 70 m away goes unnoticed; two cars stuck in each other would not)
                 if (hidden) { fol.ovT = 0; if (!(this.large && this.relocate(fol, 250, this.bubble, true))) this.respawn(fol); this.stats.unstuck = (this.stats.unstuck || 0) + 1; }
-                else if (fol.ovT > 3) {
-                    // a knot in view: first let it drive through (ghost); still knotted the second time → take it out
-                    // (respawn elsewhere): a short pop beats a junction locked for minutes (Bellevue finale, NE 8th)
-                    fol.knotN = (fol.knotN || 0) + 1; fol.ovT = 0;
-                    if (fol.knotN >= 2) { fol.knotN = 0; fol.knotT = 0; if (!(this.large && this.relocate(fol, 250, this.bubble, true))) this.respawn(fol); this.stats.unknot = (this.stats.unknot || 0) + 1; }
-                    else { fol.ghost = 4; fol.knotT = 4; }
-                } // (a 3-car knot in a junction box froze the finale for minutes)
+                // Visible knots keep their physical pose and bounded separating
+                // steps. A timeout never enables penetration or a visible swap.
             }
         }
         // 4) nothing may end the frame inside the player's car: slide such an NPC out along its own axis
@@ -2168,6 +2176,7 @@ export class Pedestrians {
         // Resolve crossing street mouths before these bodies are admitted to the
         // visible crowd. Live recovery keeps its normal walking-speed limit.
         for (const p of this.list) this.admitInitialWalk(p);
+        for (const p of this.list) this.admitInitialStand(p);
         this._m = new THREE.Matrix4(); this._q = new THREE.Quaternion(); this._p = new THREE.Vector3(); this._s = new THREE.Vector3(); this._e = new THREE.Euler(0, 0, 0, 'YXZ');
         this.buildGrid();
         this.writeMatrices(0);
@@ -2322,7 +2331,7 @@ export class Pedestrians {
     admitInitialWalk(p) {
         if (p.live || p.state !== 'walk' || !p.e) return false;
         const radius = this.reach(p), vehicleRadius = Math.max(radius, PED_R + 0.4);
-        if (this.freeWalkPoint(p.x, p.z, radius) && this.freeVehiclePoint(p.x, p.z, vehicleRadius)) return false;
+        if (this.freeWalkPoint(p.x, p.z, radius) && this.freeVehiclePoint(p.x, p.z, vehicleRadius) && this.freePersonalSpace(p)) return false;
         const edges = [...new Set([p.e, ...this.t.index.near(p.x, p.z, 60, [])])].filter(e => this.ok(e));
         const candidates = [];
         for (const e of edges) for (const side of [p.side, -p.side]) {
@@ -2345,6 +2354,31 @@ export class Pedestrians {
         // Preserve the actor and its source pose if nearby physical capacity is
         // genuinely exhausted; keep that exceptional admission observable.
         this.stats.initialWalkUnresolved = (this.stats.initialWalkUnresolved || 0) + 1;
+        return false;
+    }
+    /** Keep waiting groups at their source stop, repairing only real initial
+     * body/prop contacts. This runs before any standing actor becomes visible. */
+    admitInitialStand(p) {
+        if (p.live || p.state !== 'stand') return false;
+        const radius = this.reach(p), vehicleRadius = Math.max(radius, PED_R + 0.4);
+        const peersClear = (x, z) => !this.list.some(o => o !== p && !o.hidden &&
+            Math.hypot(o.x - x, o.z - z) < radius + this.reach(o) + (o.state === 'stand' ? 0.02 : 0.35));
+        if (this.freeWalkPoint(p.x, p.z, radius) && this.freeVehiclePoint(p.x, p.z, vehicleRadius) && peersClear(p.x, p.z)) return false;
+        const stop = this.stops[p.i % this.stops.length], sx = stop?.x ?? stop?.doorX, sz = stop?.z ?? stop?.doorZ;
+        const near = Number.isFinite(sx) && Number.isFinite(sz) ? this.t.index.nearest(sx, sz, 12, e => this.ok(e)) : null;
+        const e = near?.edge;
+        if (e) {
+            const side = ((sx - e.a.x) * e.nx + (sz - e.a.z) * e.nz) >= 0 ? 1 : -1;
+            const cells = this.walkSpace(e, side).cells.filter(c => Math.hypot(c.x - sx, c.z - sz) <= 8);
+            cells.sort((a, b) => Math.hypot(a.x - p.x, a.z - p.z) - Math.hypot(b.x - p.x, b.z - p.z));
+            for (const c of cells) {
+                if (!this.freeWalkPoint(c.x, c.z, radius) || !this.freeVehiclePoint(c.x, c.z, vehicleRadius) || !peersClear(c.x, c.z)) continue;
+                p.x = c.x; p.z = c.z;
+                this.stats.initialStandRepairs = (this.stats.initialStandRepairs || 0) + 1;
+                return true;
+            }
+        }
+        this.stats.initialStandUnresolved = (this.stats.initialStandUnresolved || 0) + 1;
         return false;
     }
     /** A blocked recovery must not keep aiming through a pole or a crowd.

@@ -2600,6 +2600,7 @@ export class Pedestrians {
     }
     /** a pedestrian ends every step outside every obstacle; walkers shift their sidewalk line instead of being dragged back */
     clearObstacles(p) {
+        const oldX = p.x, oldZ = p.z;
         const push = this.obsClamp(p); if (!push) return false;
         // a waiter pushed off a shelter / pole into the road: back to the kerb, else another free spot close by
         if (p.state !== 'walk' && !p.onRoad && this.roadAt(p.x, p.z, 0.4)) {
@@ -2608,6 +2609,14 @@ export class Pedestrians {
                 const a = this.rng() * 6.283, r = 0.8 + this.rng() * 2.2, x = p.x + Math.cos(a) * r, z = p.z + Math.sin(a) * r;
                 if (!this.roadAt(x, z, 0.5) && this.obsDepth(x, z) < 0.01) { p.x = x; p.z = z; break; }
             }
+        }
+        if (p.live && !p.relocating) {
+            const dt = this._stepDt || 1 / 30;
+            if (p._obsPushFrame !== this._fr || !Number.isFinite(p._obsPushLeft)) { p._obsPushFrame = this._fr; p._obsPushLeft = 1.45 * dt; }
+            const dx = p.x - oldX, dz = p.z - oldZ, d = Math.hypot(dx, dz), step = Math.min(d, p._obsPushLeft);
+            if (d > 0) { p.x = oldX + dx * step / d; p.z = oldZ + dz * step / d; }
+            this.guardPeerStep(p, oldX, oldZ, dt, true, true);
+            p._obsPushLeft -= Math.hypot(p.x - oldX, p.z - oldZ);
         }
         if (p.state === 'walk' && p.e) this.syncWalkPose(p);
         this.stats.obsPush = (this.stats.obsPush || 0) + 1;
@@ -2713,7 +2722,74 @@ export class Pedestrians {
         const fromA = g.a === node; const s = fromA ? d : g.len - d; const o = this.off(g, side) * side;
         return { x: g.a.x + g.dirx * s + g.nx * o, z: g.a.z + g.dirz * s + g.nz * o, s };
     }
-    buildGrid() { this.grid.build(this.list); }
+    buildGrid() { this.grid.build(this.list); this._peerGridDirty = false; }
+    ensurePeerGrid(force = false) {
+        if (force || this._peerGridDirty) { this.grid.build?.(this.list); this._peerGridDirty = false; }
+    }
+    notePeerMove(p, oldX, oldZ) {
+        const c = this.grid.cell;
+        if (c && (Math.floor(p.x / c) !== Math.floor(oldX / c) || Math.floor(p.z / c) !== Math.floor(oldZ / c))) this._peerGridDirty = true;
+    }
+    /** Normal movement and corrections may not enter another person's body.
+     * An existing contact may still take a small, monotonically outward step. */
+    peerClearStep(p, x, z, oldX, oldZ) {
+        let clear = true;
+        const W = this.t.world, top = W.walkTop?.(x, z), y = top == null ? 0.2 : top + 0.01;
+        const check = q => {
+            if (!clear || q === p || q.hidden || q.state === 'down') return;
+            const d = Math.hypot(x - q.x, z - q.z); if (d >= 2 * PED_R - 1e-6) return;
+            const qt = W.walkTop?.(q.x, q.z), qy = qt == null ? 0.2 : qt + 0.01;
+            if (y + 1.75 * (p.scale || 1) <= qy || qy + 1.75 * (q.scale || 1) <= y) return;
+            if (d <= Math.hypot(oldX - q.x, oldZ - q.z) + 1e-6) clear = false;
+        };
+        // A correction can cross a cell while a separation query is in flight.
+        // Keep that query's chains stable; scan the full population until the
+        // next safe refresh between actors, rather than miss a moved body.
+        if (this._peerGridDirty || !this.grid.items) { for (const q of this.list) check(q); }
+        else this.grid.query(x, z, 2 * PED_R + 0.2, check);
+        return clear;
+    }
+    /** Refuse a prospective body incursion before admitting the step. A
+     * source-clear sidestep supplies bounded passing motion instead of a snap. */
+    guardPeerStep(p, oldX, oldZ, dt = this._stepDt || 1 / 30, sidestep = false, correction = false) {
+        const dx = p.x - oldX, dz = p.z - oldZ, distance = Math.hypot(dx, dz);
+        if (!p.live || p.relocating || p.state === 'down' || distance < 1e-10) { this.notePeerMove(p, oldX, oldZ); return true; }
+        if (this.peerClearStep(p, p.x, p.z, oldX, oldZ) && (!correction || this.peerCorrectionClear(p, p.x, p.z, oldX, oldZ))) { this.notePeerMove(p, oldX, oldZ); return true; }
+        p.x = oldX; p.z = oldZ;
+        if (sidestep) {
+            const step = Math.min(1.3 * dt, distance), rx = -dz / distance, rz = dx / distance;
+            for (const side of [1, -1]) {
+                const x = oldX + rx * step * side, z = oldZ + rz * step * side;
+                if (p.state === 'walk' && p.e) {
+                    const e = p.e, u = ((x - e.a.x) * e.nx + (z - e.a.z) * e.nz) * p.side, w = roadSideWidth(e, p.side);
+                    if (u < w + PED_R + 0.05 || u > w + (e.sidewalk ?? 3) - PED_R - 0.05) continue;
+                }
+                const physical = correction ? this.peerCorrectionClear(p, x, z, oldX, oldZ) : this.clearWalkStep(x, z, !!(p.onRoad || p.recovery));
+                if (!physical || !this.peerClearStep(p, x, z, oldX, oldZ)) continue;
+                p.x = x; p.z = z; p.heading = Math.atan2(oldX - x, oldZ - z); p.passT = 1.2;
+                break;
+            }
+        }
+        if (p.state === 'walk' && p.e) this.syncWalkPose(p);
+        this.notePeerMove(p, oldX, oldZ);
+        this.stats.peerBlocked = (this.stats.peerBlocked || 0) + 1;
+        return false;
+    }
+    /** A separating correction may not trade a peer contact for a solid body. */
+    peerCorrectionClear(p, x, z, oldX, oldZ) {
+        const W = this.t.world, height = (a, b) => { const h = W.walkTop?.(a, b); return h == null ? 0.2 : h + 0.01; };
+        const depth = (a, b) => { const c = collideBuildings(W.buildings || [], a, b, PED_R, height(a, b)); return c ? Math.hypot(c.px, c.pz) : 0; };
+        if (this.inWater(x, z) || depth(x, z) > depth(oldX, oldZ) + 1e-6) return false;
+        if (!p.onRoad && !this.roadAt(oldX, oldZ, PED_R) && this.roadAt(x, z, PED_R)) return false;
+        let clear = true;
+        if (this.t.grid?.items) this.t.grid.query(x, z, 12, v => {
+            if (!clear || v.inactive || !streetLevel(v)) return;
+            const fx = -Math.sin(v.heading), fz = -Math.cos(v.heading);
+            const pen = (a, b) => Math.min(v.length / 2 + PED_R - Math.abs((a - v.x) * fx + (b - v.z) * fz), v.width / 2 + PED_R - Math.abs(-(a - v.x) * fz + (b - v.z) * fx));
+            const after = pen(x, z); if (after > 0 && after > pen(oldX, oldZ) + 1e-6) clear = false;
+        });
+        return clear;
+    }
     crossingAt(node) { return (this.crossCount.get(node) || 0) > 0; }
     near(x, z, r) { const out = []; this.grid.query(x, z, r, (p) => { if (Math.hypot(p.x - x, p.z - z) < r) out.push(p); }); return out; }
     /** gap from vehicle front to the nearest pedestrian on the carriageway in its path */
@@ -2830,7 +2906,11 @@ export class Pedestrians {
         const T = this.t;
         this._stepDt = dt;
         this._fr = (this._fr || 0) + 1;
+        this.ensurePeerGrid(true);
         for (const p of this.list) {
+            this.ensurePeerGrid();
+            const frameX = p.x, frameZ = p.z;
+            try {
             if (p.progressX === undefined || p.relocating || p.state === 'down' || p.state === 'stand' || p.state === 'wait' || p.talkT > 0 || p.agent || p.react) {
                 p.progressX = p.x; p.progressZ = p.z; p.progressT = 0;
             } else {
@@ -2843,6 +2923,7 @@ export class Pedestrians {
             if (p.recovery && p.state !== 'down') {
                 const q = p.recovery, ox = p.x, oz = p.z, dx = q.x - ox, dz = q.z - oz, d = Math.hypot(dx, dz), step = Math.min(d, 1.45 * dt);
                 if (d > 0.001) { p.x += dx / d * step; p.z += dz / d * step; p.heading = Math.atan2(-dx, -dz); }
+                this.guardPeerStep(p, ox, oz, dt, true);
                 this.clearObstacles(p); this.avoidVehicles(p, ox, oz, true);
                 if (p.recovery === q && Math.hypot(q.x - p.x, q.z - p.z) < 0.08) { p.state = q.state; p.onRoad = q.onRoad; p.legs = q.legs; p.recovery = null; if (p.state === 'walk' && p.e) this.syncWalkPose(p); }
                 continue;
@@ -2886,8 +2967,10 @@ export class Pedestrians {
                 const endNode = p.dir > 0 ? e.b : e.a;
                 const ins = Math.min(this.inset(endNode), e.len * 0.45);
                 const sEnd = p.dir > 0 ? e.len - ins : ins;
-                if ((p.dir > 0 && p.s >= sEnd) || (p.dir < 0 && p.s <= sEnd)) { p.s = sEnd; this.placeWalk(p); this.planNode(p, endNode); }
-                else this.placeWalk(p);
+                if ((p.dir > 0 && p.s >= sEnd) || (p.dir < 0 && p.s <= sEnd)) {
+                    p.s = sEnd; this.placeWalk(p);
+                    if (this.guardPeerStep(p, ox, oz, dt, true)) this.planNode(p, endNode);
+                } else { this.placeWalk(p); this.guardPeerStep(p, ox, oz, dt, true); }
                 p.onRoad = false; moved = true;
             } else if (p.state === 'legs' || p.state === 'wait') {
                 const leg = p.legs[0];
@@ -2908,7 +2991,7 @@ export class Pedestrians {
                         // step to the queue spot (a few small steps, walking animation)
                         const sl = leg.slot, sx = sl.x - p.x, sz = sl.z - p.z, sd = Math.hypot(sx, sz);
                         if (sd > 0.08 && p.waitT > 3) { sl.x = p.x; sl.z = p.z; } // (someone stands in the way: wait here)
-                        p.shuffle = sd > 0.08 && p.waitT <= 3; if (p.shuffle) { const k = Math.min(sd, 0.9 * dt) / sd; p.x += sx * k; p.z += sz * k; }
+                        p.shuffle = sd > 0.08 && p.waitT <= 3; if (p.shuffle) { const k = Math.min(sd, 0.9 * dt) / sd; p.x += sx * k; p.z += sz * k; this.guardPeerStep(p, ox, oz, dt, true); }
                         p.heading = Math.atan2(-(leg.x - p.x), -(leg.z - p.z));
                         // waiting at the kerb: never in a carriageway (a push by a car, a corner inside another road)
                         if ((p.i + this._fr) % 30 === 0) this.kerbClamp(p);
@@ -2926,10 +3009,15 @@ export class Pedestrians {
                 if (!leg.cross) { if (p.legBest === undefined || d < p.legBest - 0.15) { p.legBest = d; p.legStall = 0; } else p.legStall = (p.legStall || 0) + dt; }
                 const stalled = !leg.cross && p.legStall > 2.5;
                 if (d < sp * dt + 0.05 || stalled) {
-                    if (!stalled) { p.x = leg.x; p.z = leg.z; } p.legs.shift(); p.legBest = undefined; p.legStall = 0;
-                    if (!p.legs.length) { const qx = p.x, qz = p.z; p.state = 'walk'; p.onRoad = false; p.e = p.next.e; p.dir = p.next.dir; p.side = p.next.side; p.s = p.next.s; this.placeWalk(p); this.adoptLine(p, qx, qz); }
+                    let reached = true;
+                    if (!stalled) { p.x = leg.x; p.z = leg.z; reached = this.guardPeerStep(p, ox, oz, dt, true); }
+                    if (reached) {
+                        p.legs.shift(); p.legBest = undefined; p.legStall = 0;
+                        if (!p.legs.length) { const qx = p.x, qz = p.z; p.state = 'walk'; p.onRoad = false; p.e = p.next.e; p.dir = p.next.dir; p.side = p.next.side; p.s = p.next.s; this.placeWalk(p); this.adoptLine(p, qx, qz); }
+                    }
                 } else {
                     p.x += dx / d * sp * dt; p.z += dz / d * sp * dt; p.heading = Math.atan2(-dx, -dz);
+                    this.guardPeerStep(p, ox, oz, dt, true);
                 }
                 moved = true;
             }
@@ -2984,11 +3072,17 @@ export class Pedestrians {
                     p.legs.length = 1; p.next = { e: p.e, dir: -p.dir, side: p.side, s: p.s };
                 }
             }
+            } finally { this.guardPeerStep(p, frameX, frameZ, dt); }
         }
+        this.ensurePeerGrid(true);
         this.separate(dt);
         // Crowd separation also changes the physical pose. A sidestep must not
         // finish inside a pole/car that was cleared earlier in this update.
-        for (const p of this.list) if (p.state !== 'down') { this.avoidVehicles(p, p.x, p.z, false); this.clearObstacles(p); }
+        for (const p of this.list) if (p.state !== 'down') {
+            this.ensurePeerGrid(); const x = p.x, z = p.z;
+            this.avoidVehicles(p, p.x, p.z, false); this.clearObstacles(p); this.guardPeerStep(p, x, z, dt);
+        }
+        this.ensurePeerGrid();
         if (this._fr % 15 === 0) this.countObstacleOverlaps();
         this.writeMatrices(dt);
     }
@@ -3006,6 +3100,7 @@ export class Pedestrians {
         for (const p of this.list) { p._ov = 0; p.sepLeft = 1.3 * dt; if (p.passT > 0) p.passT -= dt; }
         for (const p of this.list) {
             if (p.state === 'down') continue;
+            this.ensurePeerGrid();
             grid.query(p.x, p.z, 1.1, (q) => {
                 if (q.i <= p.i || q.state === 'down') return;
                 const D = (p.reach || PED_R) + (q.reach || PED_R);
@@ -3082,6 +3177,7 @@ export class Pedestrians {
     }
     sepPush(p, px, pz, other) {
         if (!px && !pz) return;
+        const oldX = p.x, oldZ = p.z;
         const push = Math.hypot(px, pz), step = Math.min(push, p.sepLeft ?? 1.3 / 30);
         if (step <= 0) return;
         px *= step / push; pz *= step / push; p.sepLeft = Math.max(0, (p.sepLeft ?? 1.3 / 30) - step);
@@ -3105,6 +3201,8 @@ export class Pedestrians {
             p.passT = 1.2; // (no drifting back onto the line while passing)
             this.placeWalk(p);
         } else { p.x += px; p.z += pz; }
+        if (p.live && !this.peerCorrectionClear(p, p.x, p.z, oldX, oldZ)) { p.x = oldX; p.z = oldZ; if (p.state === 'walk' && p.e) this.syncWalkPose(p); }
+        this.guardPeerStep(p, oldX, oldZ, this._stepDt || 1 / 30);
     }
 
     /** a pedestrian busy with the player's parked car: an officer walking up / standing by it, a passer-by reacting */

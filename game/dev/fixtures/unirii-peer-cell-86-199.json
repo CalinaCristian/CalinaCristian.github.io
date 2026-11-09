@@ -1,0 +1,105 @@
+{
+  "sourceCommit": "3ca210ac24a8fa83a5db84d6ebf65bae3146ebd8",
+  "rawProof": "peer-attribution-3ca210a",
+  "frame": 32,
+  "trafficTime": 1.0666666666666667,
+  "cell": 8,
+  "actors": [
+    {
+      "id": 86,
+      "x": -295.9852932365209,
+      "z": 18.430839084998706,
+      "state": "walk",
+      "edge": 442,
+      "source": {
+        "sourceId": "w231106203",
+        "publicDrive": true,
+        "throughAccess": true,
+        "key": null,
+        "value": null,
+        "reason": "OSM road class default; no motorcar restriction mapped",
+        "conditionalUnresolved": false,
+        "tags": {
+          "oneway": "yes"
+        }
+      },
+      "dir": -1,
+      "side": 1,
+      "s": 58.99387253844432,
+      "walkOff": -0.14688138129999434,
+      "passT": 1.2,
+      "sepLeft": 0,
+      "ovT": 0.1,
+      "unpiled": false,
+      "recovery": false,
+      "scale": 0.9264405182749034,
+      "heading": -1.0316322169110543,
+      "live": true,
+      "reach": 0.3,
+      "model": {
+        "x": -296.026181498442,
+        "y": 0.4081104439046599,
+        "z": 18.455302284864203,
+        "yaw": -1.0316322169110543,
+        "phase": 7.4971687198534465,
+        "amp": 1,
+        "scale": 0.9264405182749034,
+        "pose": 0,
+        "prop": null
+      }
+    },
+    {
+      "id": 199,
+      "x": -296.03405393159125,
+      "z": 18.117686588205107,
+      "state": "walk",
+      "edge": 442,
+      "source": {
+        "sourceId": "w231106203",
+        "publicDrive": true,
+        "throughAccess": true,
+        "key": null,
+        "value": null,
+        "reason": "OSM road class default; no motorcar restriction mapped",
+        "conditionalUnresolved": false,
+        "tags": {
+          "oneway": "yes"
+        }
+      },
+      "dir": 1,
+      "side": 1,
+      "s": 58.87493755224837,
+      "walkOff": 0.14688138129999434,
+      "passT": 1.2,
+      "sepLeft": 0,
+      "ovT": 0.1,
+      "unpiled": false,
+      "recovery": false,
+      "scale": 1.0827700383868069,
+      "heading": 2.109960436678739,
+      "live": true,
+      "reach": 0.3,
+      "model": {
+        "x": -295.9944312592562,
+        "y": 0.4090774066064999,
+        "z": 18.093980582936204,
+        "yaw": 2.109960436678739,
+        "phase": 7.605337131287456,
+        "amp": 1,
+        "scale": 1.0827700383868069,
+        "pose": 0,
+        "prop": null
+      }
+    }
+  ],
+  "indexed": [
+    {
+      "x": -296.026181498442,
+      "z": 18.455302284864203
+    },
+    {
+      "x": -295.9944312592562,
+      "z": 18.093980582936204
+    }
+  ]
+}

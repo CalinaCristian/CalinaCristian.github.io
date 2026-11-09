@@ -1,0 +1,44 @@
+{
+  "base": "80c9e28900836dd5434eabcdeab45fa352ce6d12",
+  "nativeNegative": "984ded5ad3f07b78e61cee1bb3bbc43a813fa914",
+  "independentGeometryProof": "f854783fd292c32039e9af02372bd65e3c0fadcc",
+  "scope": "Complete inferred road-sign source-rail emission guard; fresh native acceptance pending",
+  "files": {
+    "README.md": {
+      "bytes": 53925,
+      "sha256": "e702c0d4233b7c8ef91fc13553eb3d8f51673da3e39bf5a465461ce067d7a5ed"
+    },
+    "specs/12-buildings-streetscape.md": {
+      "bytes": 110546,
+      "sha256": "d240d47da7447c8a86d2ba5b16056b1090e88c28fb06a829db8622259ea45fb1"
+    },
+    "game/src/world.js": {
+      "bytes": 570126,
+      "sha256": "f4a8e10a452d385b84fe4042df3f5147374f31561c8804ab154dde09ed177a1e"
+    },
+    "game/src/inferred-road-sign.js": {
+      "bytes": 1886,
+      "sha256": "2391bfb08e32f6bc871f50bf4483acdf6d684f927cc00eeb3592ad2934eac2ce"
+    },
+    "game/dev/inferred-road-sign.test.mjs": {
+      "bytes": 7790,
+      "sha256": "687fc9fa5ea72dd0fb3b126ca8265a5a8b1c8be4910ec8b2990dc8c9c208b25e"
+    },
+    "game/dev/fixtures/inferred-noentry-tram490-984.json": {
+      "bytes": 39915,
+      "sha256": "8e761057a387dbde4595b817a48d46dcb9671d98f8940341afffcffeb540cb9f"
+    },
+    "game/dev/fixtures/tram490-contact-kernel.mjs": {
+      "bytes": 4098,
+      "sha256": "8f625bcf060f25f5d0c2696a82676309a77c56e55293950d9a1ccc010f3bdd30"
+    },
+    "handoffs/fidelity/inferred-road-sign-native-984/controls.json": {
+      "bytes": 33697,
+      "sha256": "bc53315a56973a961f19cc599502a30571a8de0dfb3d25b24718b7117672fc8c"
+    },
+    "handoffs/fidelity/inferred-road-sign-native-984/README.md": {
+      "bytes": 3298,
+      "sha256": "76621d1896476f0db56b49d92078d674ecf1c9e737c1645e53d7924a9e586fc2"
+    }
+  }
+}

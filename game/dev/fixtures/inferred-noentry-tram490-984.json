@@ -1,0 +1,1666 @@
+{
+  "sourceCommit": "984ded5ad3f07b78e61cee1bb3bbc43a813fa914",
+  "inputs": [
+    {
+      "name": "native-canonical-before-drive.json.gz",
+      "bytes": 39576977,
+      "sha256": "9f96cf6dc9958c16d89a79e46bd6b178a17baf8714ef143c3853250bc13f869f",
+      "rawBytes": 256074436,
+      "rawSHA256": "b09a03f30845c3f94709358f242c06f6968719889abccb828dc3c78dde540377"
+    },
+    {
+      "name": "constructor-facts.json.gz",
+      "bytes": 2557116,
+      "sha256": "5c7516b27e14fd6f6856ee436c9d6851a6389d6ee3246b04759831a037ae4ab5",
+      "rawBytes": 29863035,
+      "rawSHA256": "c9a379c0ef7229409926a89390a23d526abf54a9553a32b59db244b2107fb6a1"
+    },
+    {
+      "name": "tram490-all-source-candidate-reasons.json",
+      "bytes": 50110,
+      "sha256": "6377ba2fdcec4099d9de9c64e9110d545a0ff40f0684596e756e19eb5213e342",
+      "rawBytes": 50110,
+      "rawSHA256": "6377ba2fdcec4099d9de9c64e9110d545a0ff40f0684596e756e19eb5213e342"
+    },
+    {
+      "name": "native-world-before-drive.json.gz",
+      "bytes": 10258872,
+      "sha256": "7390802baeab59f94e602a488e950918a89a2f47581190678438b4d4d89971af",
+      "rawBytes": 82666437,
+      "rawSHA256": "ccb268746f45de50709adcfe3cf5e0d4a705db583a92f63b2cb4cee2a161caf9"
+    }
+  ],
+  "candidate": {
+    "sourceId": "w128304860",
+    "edgeId": "rail:w128304860:12",
+    "nodeIds": [
+      933659698,
+      12329244826
+    ],
+    "dir": 1,
+    "s": 120.58778020488995,
+    "pose": {
+      "x": -89.35455051087578,
+      "y": 0.24,
+      "z": 136.8648221170035,
+      "heading": 2.406705173047473,
+      "s": 120.58778020488995,
+      "pitch": 0,
+      "roll": 0,
+      "railSupport": {
+        "known": true,
+        "y": 0.24,
+        "pitch": 0,
+        "verticalOffsetM": 0,
+        "basis": "unchanged-native-source-pose-outside-shared-slab-model"
+      }
+    },
+    "grade": {
+      "known": true,
+      "basis": "existing-unsurveyed-flat-local-ground-datum",
+      "estimated": true,
+      "ya": 0,
+      "yb": 0
+    }
+  },
+  "sourceUnit": {
+    "creator": "World.placeSign procedural road-sign unit",
+    "sourceId": "w80013062",
+    "edgeId": 254,
+    "road": 87,
+    "icon": "no-entry",
+    "call": {
+      "along": 40.27097346026956,
+      "side": -1,
+      "faceSign": 1
+    },
+    "nativeSidewalkWidth": {
+      "leftM": 0,
+      "rightM": 3.5
+    },
+    "rawSidewalk": "right",
+    "post": {
+      "baseY": 0.15,
+      "topY": 2.4499999999999997,
+      "width": 0.07,
+      "depth": 0.07,
+      "expectedFloat32Corners": [
+        [
+          -84.0391616821289,
+          0.15000000596046448,
+          130.30995178222656
+        ],
+        [
+          -84.08599090576172,
+          0.15000000596046448,
+          130.3619842529297
+        ],
+        [
+          -84.0391616821289,
+          2.450000047683716,
+          130.30995178222656
+        ],
+        [
+          -84.08599090576172,
+          2.450000047683716,
+          130.3619842529297
+        ],
+        [
+          -83.98713684082031,
+          0.15000000596046448,
+          130.35679626464844
+        ],
+        [
+          -84.03396606445312,
+          0.15000000596046448,
+          130.4088134765625
+        ],
+        [
+          -83.98713684082031,
+          2.450000047683716,
+          130.35679626464844
+        ],
+        [
+          -84.03396606445312,
+          2.450000047683716,
+          130.4088134765625
+        ]
+      ]
+    },
+    "plates": {
+      "width": 0.75,
+      "height": 0.75,
+      "centreY": 2.15,
+      "frontOffset": 0.06,
+      "backOffset": 0.04,
+      "expectedFloat32": [
+        {
+          "side": 1,
+          "thick": 0.06,
+          "points": [
+            [
+              -84.35542297363281,
+              1.774999976158142,
+              130.15309143066406
+            ],
+            [
+              -84.35542297363281,
+              2.5250000953674316,
+              130.15309143066406
+            ],
+            [
+              -83.79798889160156,
+              1.774999976158142,
+              130.6548614501953
+            ],
+            [
+              -83.79798889160156,
+              2.5250000953674316,
+              130.6548614501953
+            ]
+          ]
+        },
+        {
+          "side": -1,
+          "thick": 0.04,
+          "points": [
+            [
+              -83.73108673095703,
+              1.774999976158142,
+              130.58053588867188
+            ],
+            [
+              -83.73108673095703,
+              2.5250000953674316,
+              130.58053588867188
+            ],
+            [
+              -84.28852081298828,
+              1.774999976158142,
+              130.07876586914062
+            ],
+            [
+              -84.28852081298828,
+              2.5250000953674316,
+              130.07876586914062
+            ]
+          ]
+        }
+      ]
+    },
+    "exactUnitTriangles": [
+      {
+        "object": "signs -1,0",
+        "triangle": 224,
+        "vertices": [
+          [
+            -84.35542297363281,
+            1.774999976158142,
+            130.15309143066406
+          ],
+          [
+            -83.79798889160156,
+            1.774999976158142,
+            130.6548614501953
+          ],
+          [
+            -83.79798889160156,
+            2.5250000953674316,
+            130.6548614501953
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "30fadb8f-6ef8-4886-929e-47de4f69ab8e",
+            "name": "",
+            "type": "MeshBasicMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "signs -1,0",
+        "triangle": 225,
+        "vertices": [
+          [
+            -84.35542297363281,
+            1.774999976158142,
+            130.15309143066406
+          ],
+          [
+            -83.79798889160156,
+            2.5250000953674316,
+            130.6548614501953
+          ],
+          [
+            -84.35542297363281,
+            2.5250000953674316,
+            130.15309143066406
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "30fadb8f-6ef8-4886-929e-47de4f69ab8e",
+            "name": "",
+            "type": "MeshBasicMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "signs -1,0",
+        "triangle": 226,
+        "vertices": [
+          [
+            -83.73108673095703,
+            1.774999976158142,
+            130.58053588867188
+          ],
+          [
+            -84.28852081298828,
+            1.774999976158142,
+            130.07876586914062
+          ],
+          [
+            -84.28852081298828,
+            2.5250000953674316,
+            130.07876586914062
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "30fadb8f-6ef8-4886-929e-47de4f69ab8e",
+            "name": "",
+            "type": "MeshBasicMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "signs -1,0",
+        "triangle": 227,
+        "vertices": [
+          [
+            -83.73108673095703,
+            1.774999976158142,
+            130.58053588867188
+          ],
+          [
+            -84.28852081298828,
+            2.5250000953674316,
+            130.07876586914062
+          ],
+          [
+            -83.73108673095703,
+            2.5250000953674316,
+            130.58053588867188
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "30fadb8f-6ef8-4886-929e-47de4f69ab8e",
+            "name": "",
+            "type": "MeshBasicMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "solid -1,0",
+        "triangle": 1687,
+        "vertices": [
+          [
+            -84.03396606445312,
+            2.450000047683716,
+            130.4088134765625
+          ],
+          [
+            -84.03396606445312,
+            0.15000000596046448,
+            130.4088134765625
+          ],
+          [
+            -83.98713684082031,
+            2.450000047683716,
+            130.35679626464844
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "solid -1,0",
+        "triangle": 1688,
+        "vertices": [
+          [
+            -84.03396606445312,
+            0.15000000596046448,
+            130.4088134765625
+          ],
+          [
+            -83.98713684082031,
+            0.15000000596046448,
+            130.35679626464844
+          ],
+          [
+            -83.98713684082031,
+            2.450000047683716,
+            130.35679626464844
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "solid -1,0",
+        "triangle": 1689,
+        "vertices": [
+          [
+            -84.0391616821289,
+            2.450000047683716,
+            130.30995178222656
+          ],
+          [
+            -84.0391616821289,
+            0.15000000596046448,
+            130.30995178222656
+          ],
+          [
+            -84.08599090576172,
+            2.450000047683716,
+            130.3619842529297
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "solid -1,0",
+        "triangle": 1690,
+        "vertices": [
+          [
+            -84.0391616821289,
+            0.15000000596046448,
+            130.30995178222656
+          ],
+          [
+            -84.08599090576172,
+            0.15000000596046448,
+            130.3619842529297
+          ],
+          [
+            -84.08599090576172,
+            2.450000047683716,
+            130.3619842529297
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "solid -1,0",
+        "triangle": 1691,
+        "vertices": [
+          [
+            -84.0391616821289,
+            2.450000047683716,
+            130.30995178222656
+          ],
+          [
+            -84.08599090576172,
+            2.450000047683716,
+            130.3619842529297
+          ],
+          [
+            -83.98713684082031,
+            2.450000047683716,
+            130.35679626464844
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "solid -1,0",
+        "triangle": 1692,
+        "vertices": [
+          [
+            -84.08599090576172,
+            2.450000047683716,
+            130.3619842529297
+          ],
+          [
+            -84.03396606445312,
+            2.450000047683716,
+            130.4088134765625
+          ],
+          [
+            -83.98713684082031,
+            2.450000047683716,
+            130.35679626464844
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "solid -1,0",
+        "triangle": 1693,
+        "vertices": [
+          [
+            -84.08599090576172,
+            0.15000000596046448,
+            130.3619842529297
+          ],
+          [
+            -84.0391616821289,
+            0.15000000596046448,
+            130.30995178222656
+          ],
+          [
+            -84.03396606445312,
+            0.15000000596046448,
+            130.4088134765625
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "solid -1,0",
+        "triangle": 1694,
+        "vertices": [
+          [
+            -84.0391616821289,
+            0.15000000596046448,
+            130.30995178222656
+          ],
+          [
+            -83.98713684082031,
+            0.15000000596046448,
+            130.35679626464844
+          ],
+          [
+            -84.03396606445312,
+            0.15000000596046448,
+            130.4088134765625
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "solid -1,0",
+        "triangle": 1695,
+        "vertices": [
+          [
+            -84.08599090576172,
+            2.450000047683716,
+            130.3619842529297
+          ],
+          [
+            -84.08599090576172,
+            0.15000000596046448,
+            130.3619842529297
+          ],
+          [
+            -84.03396606445312,
+            2.450000047683716,
+            130.4088134765625
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "solid -1,0",
+        "triangle": 1696,
+        "vertices": [
+          [
+            -84.08599090576172,
+            0.15000000596046448,
+            130.3619842529297
+          ],
+          [
+            -84.03396606445312,
+            0.15000000596046448,
+            130.4088134765625
+          ],
+          [
+            -84.03396606445312,
+            2.450000047683716,
+            130.4088134765625
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "solid -1,0",
+        "triangle": 1697,
+        "vertices": [
+          [
+            -83.98713684082031,
+            2.450000047683716,
+            130.35679626464844
+          ],
+          [
+            -83.98713684082031,
+            0.15000000596046448,
+            130.35679626464844
+          ],
+          [
+            -84.0391616821289,
+            2.450000047683716,
+            130.30995178222656
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      },
+      {
+        "object": "solid -1,0",
+        "triangle": 1698,
+        "vertices": [
+          [
+            -83.98713684082031,
+            0.15000000596046448,
+            130.35679626464844
+          ],
+          [
+            -84.0391616821289,
+            0.15000000596046448,
+            130.30995178222656
+          ],
+          [
+            -84.0391616821289,
+            2.450000047683716,
+            130.30995178222656
+          ]
+        ],
+        "materials": [
+          {
+            "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+            "name": "",
+            "type": "MeshStandardMaterial",
+            "visible": true,
+            "side": 0,
+            "transparent": false,
+            "opacity": 1,
+            "depthTest": true,
+            "depthWrite": true,
+            "wireframe": false
+          }
+        ]
+      }
+    ],
+    "postTriangles": 12,
+    "plateTriangles": 4
+  },
+  "sourceOwner": {
+    "edgeId": 254,
+    "road": 87,
+    "sourceId": "w80013062",
+    "name": "Bulevardul Doina Cornea",
+    "alongM": 40.27097346026956,
+    "side": -1,
+    "errorM": 3.552713678800501e-15,
+    "x": -84.03656514874275,
+    "z": 130.3593870735157,
+    "offsetM": 4.25,
+    "dirx": -0.6690241461058339,
+    "dirz": 0.7432406689137507,
+    "nx": -0.7432406689137507,
+    "nz": -0.6690241461058339,
+    "sidewalkScalar": 3.5,
+    "nativeSidewalkWidth": {
+      "leftM": 0,
+      "rightM": 3.5
+    },
+    "sidewalkLeftM": 0,
+    "sidewalkRightM": 3.5,
+    "sidewalkSource": {
+      "rightM": 3.5,
+      "leftM": 0,
+      "explicit": true,
+      "sourceId": "w80013062",
+      "sourceForward": 1,
+      "basis": "literal original-source sidewalk side tags"
+    },
+    "sourceTags": {
+      "highway": "secondary",
+      "lanes": "2",
+      "lit": "yes",
+      "maxspeed": "50",
+      "name": "Bulevardul Doina Cornea",
+      "oneway": "yes",
+      "sidewalk": "right",
+      "sidewalk:right:surface": "asphalt",
+      "smoothness": "excellent",
+      "surface": "asphalt"
+    },
+    "a": {
+      "id": 287,
+      "sourceId": 32934945,
+      "x": -60.25308435951865,
+      "z": 97.58500920014725,
+      "radius": 4,
+      "hasLight": false,
+      "crossing": false,
+      "zebra": false,
+      "stop": false,
+      "flags": 0,
+      "comp": 172,
+      "drivable": true,
+      "y": 0,
+      "yFixed": false,
+      "yPin": false,
+      "pad": true,
+      "tags": {
+        "$undefined": true
+      },
+      "edgeIds": [
+        254,
+        473,
+        1590
+      ],
+      "motorNodeId": null,
+      "sourceSignal": null,
+      "lightCluster": null
+    },
+    "b": {
+      "id": 288,
+      "sourceId": 8377933425,
+      "x": -91.54399494131411,
+      "z": 132.34709880050528,
+      "radius": 4,
+      "hasLight": false,
+      "crossing": false,
+      "zebra": false,
+      "stop": false,
+      "flags": 0,
+      "comp": 172,
+      "drivable": true,
+      "y": 0,
+      "yFixed": false,
+      "yPin": false,
+      "pad": true,
+      "tags": {
+        "$undefined": true
+      },
+      "edgeIds": [
+        254,
+        255,
+        1857
+      ],
+      "motorNodeId": null,
+      "sourceSignal": null,
+      "lightCluster": null
+    },
+    "len": 46.77097346026955,
+    "wL": 3.5,
+    "wR": 3.5,
+    "type": "secondary",
+    "oneway": true
+  },
+  "contacts": [
+    {
+      "object": "solid -1,0",
+      "objectUuid": "cc7f614a-3bcd-4448-bd90-20e74a73fd00",
+      "geometryId": "781f2e27-70d3-4ef1-93c6-9f0794f09c4b@capture-175",
+      "nativeTriangle": 1687,
+      "bodyTriangle": 787,
+      "point": [
+        -84.03396606445312,
+        0.5400000119209287,
+        130.4088134765625
+      ],
+      "coplanar": false,
+      "worldVertices": [
+        [
+          -84.03396606445312,
+          2.450000047683716,
+          130.4088134765625
+        ],
+        [
+          -84.03396606445312,
+          0.15000000596046448,
+          130.4088134765625
+        ],
+        [
+          -83.98713684082031,
+          2.450000047683716,
+          130.35679626464844
+        ]
+      ],
+      "bodyVertices": [
+        [
+          -84.2857366526336,
+          0.540000011920929,
+          129.466526431873
+        ],
+        [
+          -82.50516169513777,
+          0.540000011920929,
+          131.0757353302148
+        ],
+        [
+          -88.3133997078996,
+          0.540000011920929,
+          137.50249767496445
+        ]
+      ],
+      "materials": [
+        {
+          "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "visible": true,
+          "side": 0,
+          "transparent": false,
+          "opacity": 1,
+          "depthTest": true,
+          "depthWrite": true,
+          "wireframe": false
+        }
+      ],
+      "renderOrder": 0
+    },
+    {
+      "object": "solid -1,0",
+      "objectUuid": "cc7f614a-3bcd-4448-bd90-20e74a73fd00",
+      "geometryId": "781f2e27-70d3-4ef1-93c6-9f0794f09c4b@capture-175",
+      "nativeTriangle": 1688,
+      "bodyTriangle": 787,
+      "point": [
+        -83.98713684082031,
+        0.540000011920929,
+        130.35679626464844
+      ],
+      "coplanar": false,
+      "worldVertices": [
+        [
+          -84.03396606445312,
+          0.15000000596046448,
+          130.4088134765625
+        ],
+        [
+          -83.98713684082031,
+          0.15000000596046448,
+          130.35679626464844
+        ],
+        [
+          -83.98713684082031,
+          2.450000047683716,
+          130.35679626464844
+        ]
+      ],
+      "bodyVertices": [
+        [
+          -84.2857366526336,
+          0.540000011920929,
+          129.466526431873
+        ],
+        [
+          -82.50516169513777,
+          0.540000011920929,
+          131.0757353302148
+        ],
+        [
+          -88.3133997078996,
+          0.540000011920929,
+          137.50249767496445
+        ]
+      ],
+      "materials": [
+        {
+          "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "visible": true,
+          "side": 0,
+          "transparent": false,
+          "opacity": 1,
+          "depthTest": true,
+          "depthWrite": true,
+          "wireframe": false
+        }
+      ],
+      "renderOrder": 0
+    },
+    {
+      "object": "solid -1,0",
+      "objectUuid": "cc7f614a-3bcd-4448-bd90-20e74a73fd00",
+      "geometryId": "781f2e27-70d3-4ef1-93c6-9f0794f09c4b@capture-175",
+      "nativeTriangle": 1689,
+      "bodyTriangle": 787,
+      "point": [
+        -84.0391616821289,
+        0.5400000119209287,
+        130.30995178222656
+      ],
+      "coplanar": false,
+      "worldVertices": [
+        [
+          -84.0391616821289,
+          2.450000047683716,
+          130.30995178222656
+        ],
+        [
+          -84.0391616821289,
+          0.15000000596046448,
+          130.30995178222656
+        ],
+        [
+          -84.08599090576172,
+          2.450000047683716,
+          130.3619842529297
+        ]
+      ],
+      "bodyVertices": [
+        [
+          -84.2857366526336,
+          0.540000011920929,
+          129.466526431873
+        ],
+        [
+          -82.50516169513777,
+          0.540000011920929,
+          131.0757353302148
+        ],
+        [
+          -88.3133997078996,
+          0.540000011920929,
+          137.50249767496445
+        ]
+      ],
+      "materials": [
+        {
+          "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "visible": true,
+          "side": 0,
+          "transparent": false,
+          "opacity": 1,
+          "depthTest": true,
+          "depthWrite": true,
+          "wireframe": false
+        }
+      ],
+      "renderOrder": 0
+    },
+    {
+      "object": "solid -1,0",
+      "objectUuid": "cc7f614a-3bcd-4448-bd90-20e74a73fd00",
+      "geometryId": "781f2e27-70d3-4ef1-93c6-9f0794f09c4b@capture-175",
+      "nativeTriangle": 1690,
+      "bodyTriangle": 787,
+      "point": [
+        -84.08599090576172,
+        0.540000011920929,
+        130.3619842529297
+      ],
+      "coplanar": false,
+      "worldVertices": [
+        [
+          -84.0391616821289,
+          0.15000000596046448,
+          130.30995178222656
+        ],
+        [
+          -84.08599090576172,
+          0.15000000596046448,
+          130.3619842529297
+        ],
+        [
+          -84.08599090576172,
+          2.450000047683716,
+          130.3619842529297
+        ]
+      ],
+      "bodyVertices": [
+        [
+          -84.2857366526336,
+          0.540000011920929,
+          129.466526431873
+        ],
+        [
+          -82.50516169513777,
+          0.540000011920929,
+          131.0757353302148
+        ],
+        [
+          -88.3133997078996,
+          0.540000011920929,
+          137.50249767496445
+        ]
+      ],
+      "materials": [
+        {
+          "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "visible": true,
+          "side": 0,
+          "transparent": false,
+          "opacity": 1,
+          "depthTest": true,
+          "depthWrite": true,
+          "wireframe": false
+        }
+      ],
+      "renderOrder": 0
+    },
+    {
+      "object": "solid -1,0",
+      "objectUuid": "cc7f614a-3bcd-4448-bd90-20e74a73fd00",
+      "geometryId": "781f2e27-70d3-4ef1-93c6-9f0794f09c4b@capture-175",
+      "nativeTriangle": 1695,
+      "bodyTriangle": 787,
+      "point": [
+        -84.08599090576172,
+        0.5400000119209287,
+        130.3619842529297
+      ],
+      "coplanar": false,
+      "worldVertices": [
+        [
+          -84.08599090576172,
+          2.450000047683716,
+          130.3619842529297
+        ],
+        [
+          -84.08599090576172,
+          0.15000000596046448,
+          130.3619842529297
+        ],
+        [
+          -84.03396606445312,
+          2.450000047683716,
+          130.4088134765625
+        ]
+      ],
+      "bodyVertices": [
+        [
+          -84.2857366526336,
+          0.540000011920929,
+          129.466526431873
+        ],
+        [
+          -82.50516169513777,
+          0.540000011920929,
+          131.0757353302148
+        ],
+        [
+          -88.3133997078996,
+          0.540000011920929,
+          137.50249767496445
+        ]
+      ],
+      "materials": [
+        {
+          "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "visible": true,
+          "side": 0,
+          "transparent": false,
+          "opacity": 1,
+          "depthTest": true,
+          "depthWrite": true,
+          "wireframe": false
+        }
+      ],
+      "renderOrder": 0
+    },
+    {
+      "object": "solid -1,0",
+      "objectUuid": "cc7f614a-3bcd-4448-bd90-20e74a73fd00",
+      "geometryId": "781f2e27-70d3-4ef1-93c6-9f0794f09c4b@capture-175",
+      "nativeTriangle": 1696,
+      "bodyTriangle": 787,
+      "point": [
+        -84.03396606445312,
+        0.540000011920929,
+        130.4088134765625
+      ],
+      "coplanar": false,
+      "worldVertices": [
+        [
+          -84.08599090576172,
+          0.15000000596046448,
+          130.3619842529297
+        ],
+        [
+          -84.03396606445312,
+          0.15000000596046448,
+          130.4088134765625
+        ],
+        [
+          -84.03396606445312,
+          2.450000047683716,
+          130.4088134765625
+        ]
+      ],
+      "bodyVertices": [
+        [
+          -84.2857366526336,
+          0.540000011920929,
+          129.466526431873
+        ],
+        [
+          -82.50516169513777,
+          0.540000011920929,
+          131.0757353302148
+        ],
+        [
+          -88.3133997078996,
+          0.540000011920929,
+          137.50249767496445
+        ]
+      ],
+      "materials": [
+        {
+          "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "visible": true,
+          "side": 0,
+          "transparent": false,
+          "opacity": 1,
+          "depthTest": true,
+          "depthWrite": true,
+          "wireframe": false
+        }
+      ],
+      "renderOrder": 0
+    },
+    {
+      "object": "solid -1,0",
+      "objectUuid": "cc7f614a-3bcd-4448-bd90-20e74a73fd00",
+      "geometryId": "781f2e27-70d3-4ef1-93c6-9f0794f09c4b@capture-175",
+      "nativeTriangle": 1697,
+      "bodyTriangle": 787,
+      "point": [
+        -83.98713684082031,
+        0.5400000119209287,
+        130.35679626464844
+      ],
+      "coplanar": false,
+      "worldVertices": [
+        [
+          -83.98713684082031,
+          2.450000047683716,
+          130.35679626464844
+        ],
+        [
+          -83.98713684082031,
+          0.15000000596046448,
+          130.35679626464844
+        ],
+        [
+          -84.0391616821289,
+          2.450000047683716,
+          130.30995178222656
+        ]
+      ],
+      "bodyVertices": [
+        [
+          -84.2857366526336,
+          0.540000011920929,
+          129.466526431873
+        ],
+        [
+          -82.50516169513777,
+          0.540000011920929,
+          131.0757353302148
+        ],
+        [
+          -88.3133997078996,
+          0.540000011920929,
+          137.50249767496445
+        ]
+      ],
+      "materials": [
+        {
+          "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "visible": true,
+          "side": 0,
+          "transparent": false,
+          "opacity": 1,
+          "depthTest": true,
+          "depthWrite": true,
+          "wireframe": false
+        }
+      ],
+      "renderOrder": 0
+    },
+    {
+      "object": "solid -1,0",
+      "objectUuid": "cc7f614a-3bcd-4448-bd90-20e74a73fd00",
+      "geometryId": "781f2e27-70d3-4ef1-93c6-9f0794f09c4b@capture-175",
+      "nativeTriangle": 1698,
+      "bodyTriangle": 787,
+      "point": [
+        -84.0391616821289,
+        0.540000011920929,
+        130.30995178222656
+      ],
+      "coplanar": false,
+      "worldVertices": [
+        [
+          -83.98713684082031,
+          0.15000000596046448,
+          130.35679626464844
+        ],
+        [
+          -84.0391616821289,
+          0.15000000596046448,
+          130.30995178222656
+        ],
+        [
+          -84.0391616821289,
+          2.450000047683716,
+          130.30995178222656
+        ]
+      ],
+      "bodyVertices": [
+        [
+          -84.2857366526336,
+          0.540000011920929,
+          129.466526431873
+        ],
+        [
+          -82.50516169513777,
+          0.540000011920929,
+          131.0757353302148
+        ],
+        [
+          -88.3133997078996,
+          0.540000011920929,
+          137.50249767496445
+        ]
+      ],
+      "materials": [
+        {
+          "uuid": "41163f57-2562-4638-aab0-6cc2885d557d",
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "visible": true,
+          "side": 0,
+          "transparent": false,
+          "opacity": 1,
+          "depthTest": true,
+          "depthWrite": true,
+          "wireframe": false
+        }
+      ],
+      "renderOrder": 0
+    }
+  ],
+  "data": {
+    "q": 10,
+    "trams": [
+      [
+        1045,
+        -1964,
+        -26,
+        119,
+        -27,
+        120,
+        -48,
+        212,
+        -45,
+        271,
+        -24,
+        155,
+        -26,
+        282,
+        -30,
+        170,
+        -47,
+        140,
+        -81,
+        153,
+        -115,
+        157,
+        -29,
+        28,
+        -632,
+        631,
+        -986,
+        1091,
+        -268,
+        293,
+        -1487,
+        1629,
+        -160,
+        209,
+        -156,
+        248,
+        -222,
+        441,
+        -105,
+        233,
+        -106,
+        278,
+        -67,
+        215,
+        -79,
+        311,
+        -70,
+        446,
+        -33,
+        381,
+        -16,
+        807,
+        -5,
+        141,
+        1,
+        177,
+        -2,
+        151,
+        -4,
+        168
+      ]
+    ],
+    "tramSources": [
+      {
+        "sourceId": "w128304860",
+        "nodeIds": [
+          1418266859,
+          13455628567,
+          6910175739,
+          981543153,
+          6187777587,
+          933659707,
+          981609336,
+          3150862535,
+          933659703,
+          2159714537,
+          933659730,
+          6234008735,
+          933659698,
+          12329244826,
+          6187777598,
+          933659727,
+          6570499866,
+          933659662,
+          933659677,
+          6570499864,
+          933659685,
+          6570499867,
+          933659710,
+          933659751,
+          933659666,
+          933659725,
+          7070697815,
+          6937009013,
+          6937009014,
+          7070697816
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      }
+    ],
+    "tramSourceWays": [
+      {
+        "sourceId": "w128304860",
+        "nodeIds": [
+          1418266859,
+          13455628567,
+          6910175739,
+          981543153,
+          6187777587,
+          933659707,
+          981609336,
+          3150862535,
+          933659703,
+          2159714537,
+          933659730,
+          6234008735,
+          933659698,
+          12329244826,
+          6187777598,
+          933659727,
+          6570499866,
+          933659662,
+          933659677,
+          6570499864,
+          933659685,
+          6570499867,
+          933659710,
+          933659751,
+          933659666,
+          933659725,
+          7070697815,
+          6937009013,
+          6937009014,
+          7070697816,
+          933659748,
+          933659745,
+          6802278162,
+          933659753
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        },
+        "points": [
+          1045,
+          -1964,
+          -26,
+          119,
+          -27,
+          120,
+          -48,
+          212,
+          -45,
+          271,
+          -24,
+          155,
+          -26,
+          282,
+          -30,
+          170,
+          -47,
+          140,
+          -81,
+          153,
+          -115,
+          157,
+          -29,
+          28,
+          -632,
+          631,
+          -986,
+          1091,
+          -268,
+          293,
+          -1487,
+          1629,
+          -160,
+          209,
+          -156,
+          248,
+          -222,
+          441,
+          -105,
+          233,
+          -106,
+          278,
+          -67,
+          215,
+          -79,
+          311,
+          -70,
+          446,
+          -33,
+          381,
+          -16,
+          807,
+          -5,
+          141,
+          1,
+          177,
+          -2,
+          151,
+          -4,
+          168,
+          -37,
+          2430,
+          101,
+          3167,
+          20,
+          197,
+          15,
+          154
+        ]
+      }
+    ],
+    "tramSourceNodeTags": {
+      "933659725": {
+        "name": "Bd. Iuliu Maniu",
+        "network": "Societatea de Transport Bucure\u0219ti",
+        "network:short": "STB",
+        "network:wikidata": "Q2280353",
+        "operator": "STB",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "1, 11, 35",
+        "tram": "yes"
+      },
+      "933659745": {
+        "name": "Bd. Timi\u0219oara",
+        "network": "Societatea de Transport Bucure\u0219ti",
+        "network:short": "STB",
+        "network:wikidata": "Q2280353",
+        "operator": "STB",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "1, 11, 35",
+        "tram": "yes"
+      },
+      "933659753": {
+        "railway": "switch"
+      },
+      "981543153": {
+        "name": "Pod Groz\u0103ve\u0219ti",
+        "network": "TPBI",
+        "operator": "STB",
+        "public_transport": "stop_position",
+        "railway": "tram_stop",
+        "ref": "1, 11, 35",
+        "tram": "yes"
+      },
+      "2159714537": {
+        "crossing:barrier": "no",
+        "railway": "level_crossing"
+      },
+      "6234008735": {
+        "crossing": "traffic_signals",
+        "railway": "crossing"
+      },
+      "6802278162": {
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "railway": "tram_crossing"
+      },
+      "6910175739": {
+        "railway": "crossing"
+      },
+      "6937009013": {
+        "railway": "tram_level_crossing"
+      },
+      "6937009014": {
+        "railway": "tram_level_crossing"
+      },
+      "7070697815": {
+        "railway": "tram_crossing"
+      },
+      "7070697816": {
+        "railway": "tram_crossing"
+      },
+      "12329244826": {
+        "railway": "tram_level_crossing"
+      },
+      "13455628567": {
+        "crossing:barrier": "no",
+        "railway": "level_crossing"
+      }
+    }
+  },
+  "baselineWorldSHA256": "2e81d1113e25b1ec5cdedff9faebdb418d9cf372a7d003ee951b2a3d92c7abe7",
+  "baselinePlaceSign": "        const placeSign = (e, along, sd, faceSign, icon) => { // faceSign: +1 faces along +dir, -1 against\n            const w = (sd > 0 ? e.wR : e.wL) + shoulderOf(e);\n            const o = e.sidewalk >= 1.2 ? w + Math.min(0.6, e.sidewalk * 0.4) : w + 0.7;\n            const x = e.a.x + e.dirx * along + e.nx * o * sd, z = e.a.z + e.dirz * along + e.nz * o * sd;\n            if (onRibbon(x, z, 0.2) || buildingAt(x, z)) return false;\n            const s = signs.icon(icon.key, icon.draw); if (!s) return false;\n            const c = cellOf(x, z), y0 = 0.15 + yAlong(e, x, z) + (raisedTop(x, z) !== null ? DY_SIDE : 0);\n            const ang = Math.atan2(e.dirx * faceSign, e.dirz * faceSign);\n            c.solid.box(x, y0, z, 0.07, 2.3, 0.07, ang, rgb('#8d939a'));\n            addSignQuad(c, x, z, ang, 1, icon.w || 0.75, icon.h || 0.75, y0 + 2.0, s, 0.06);\n            const back = signs.icon('back', (ctx, X, Y2, S2) => { ctx.fillStyle = '#9aa0a6'; ctx.beginPath(); ctx.arc(X + S2 / 2, Y2 + S2 / 2, S2 / 2 - 2, 0, 7); ctx.fill(); });\n            if (back) addSignQuad(c, x, z, ang, -1, icon.w || 0.75, icon.h || 0.75, y0 + 2.0, back, 0.04);\n            addPropColl(x, z, 0.1, 'sign'); signCount++;\n            return true;\n        };\n"
+}

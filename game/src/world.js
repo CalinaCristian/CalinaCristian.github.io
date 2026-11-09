@@ -37,6 +37,7 @@ import { buildTramTunnelGrades } from './tram-tunnel-grade.js';
 import { buildTramTrenchCutter, uncoveredTramTrenchWall } from './tram-trench.js';
 import { sourceSidewalkSides, sidewalkWidth } from './sidewalk-source.js';
 import { emittedTramClearance } from './tram-clearance.js';
+import { inferredRoadSignUnit } from './inferred-road-sign.js';
 import { bridgeJunctionSlab, inferredBridgeFasciaUpstand } from './bridge-junction.js';
 import { buildRailRoadsideClearance } from './rail-roadside.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
@@ -5240,16 +5241,22 @@ export async function buildWorld(city, renderer, opts = {}) {
     // road signs: speed limits where the limit changes, one-way at one-way entries, no-entry at one-way exits
     let signCount = 0;
     {
+        const signRailAudit = tramGrades.report.inferredRoadSigns = { checked: 0, refused: 0, bySource: {}, samples: [], scope: 'Complete inferred post/front/back-plate unit only; mapped signs unchanged; unknown source grades not certified.' };
         const kmh = (e) => Math.round(e.maxspeed * 3.6);
         const label = (e) => US ? Math.round(kmh(e) / 1.609 / 5) * 5 : Math.round(kmh(e) / 10) * 10;
         const placeSign = (e, along, sd, faceSign, icon) => { // faceSign: +1 faces along +dir, -1 against
             const w = (sd > 0 ? e.wR : e.wL) + shoulderOf(e);
-            const o = e.sidewalk >= 1.2 ? w + Math.min(0.6, e.sidewalk * 0.4) : w + 0.7;
+            const sw = sidewalkWidth(e, sd), o = sw >= 1.2 ? w + Math.min(0.6, sw * 0.4) : w + 0.7;
             const x = e.a.x + e.dirx * along + e.nx * o * sd, z = e.a.z + e.dirz * along + e.nz * o * sd;
             if (onRibbon(x, z, 0.2) || buildingAt(x, z)) return false;
+            const y0 = 0.15 + yAlong(e, x, z) + (raisedTop(x, z) !== null ? DY_SIDE : 0), ang = Math.atan2(e.dirx * faceSign, e.dirz * faceSign);
+            const unit = inferredRoadSignUnit({ grades:tramGrades, envelope:tramPropEnvelope, x, z, angle:ang, baseY:y0, width:icon.w||.75, height:icon.h||.75, sourceId:data.roadSourceGeometry?.[e.road]?.sourceId||e.access?.sourceId||null });
+            signRailAudit.checked++;
+            const signSource = data.roadSourceGeometry?.[e.road]?.sourceId||e.access?.sourceId||null, sourceAudit = signRailAudit.bySource[signSource||'unattributed'] ||= { checked:0, refused:0 };
+            sourceAudit.checked++;
+            if (!unit.allowed) { signRailAudit.refused++; sourceAudit.refused++; if(signRailAudit.samples.length<200)signRailAudit.samples.push({ sourceId:signSource, edgeId:e.id, along, side:sd, icon:icon.key, x, z, baseY:y0, ...unit }); return false; }
             const s = signs.icon(icon.key, icon.draw); if (!s) return false;
-            const c = cellOf(x, z), y0 = 0.15 + yAlong(e, x, z) + (raisedTop(x, z) !== null ? DY_SIDE : 0);
-            const ang = Math.atan2(e.dirx * faceSign, e.dirz * faceSign);
+            const c = cellOf(x, z);
             c.solid.box(x, y0, z, 0.07, 2.3, 0.07, ang, rgb('#8d939a'));
             addSignQuad(c, x, z, ang, 1, icon.w || 0.75, icon.h || 0.75, y0 + 2.0, s, 0.06);
             const back = signs.icon('back', (ctx, X, Y2, S2) => { ctx.fillStyle = '#9aa0a6'; ctx.beginPath(); ctx.arc(X + S2 / 2, Y2 + S2 / 2, S2 / 2 - 2, 0, 7); ctx.fill(); });

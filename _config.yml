@@ -54,3 +54,5 @@ exclude:
   - handoffs/fidelity/unirii-initial-parking
   - handoffs/fidelity/root-combined-984d-regression
   - handoffs/fidelity/overview-carusel-progress-publication
+  - handoffs/fidelity/tram490-native-984
+  - handoffs/fidelity/inferred-road-sign-native-984

@@ -88,6 +88,7 @@ that chapter of the CV.
   photography, walking and secrets. The weighted score appears in the menu, map and pause screens. Tourist totals and
   activity requirements follow the available menu destinations; unavailable activities and retired save keys do not inflate completion.
   Cycling becomes active after its first use.
+- New districts check initial car and bus bodies across road segments before showing them, keeping the fleet and source lanes. Constructor and full rush-hour publication checks are separate gates.
 - Pedestrian placement checks physical obstacles and neighbours before becoming visible; vehicle guards keep their spatial lookup current after movement and collision corrections. Walkers check other bodies before stepping and use continuous passing steps; live crowd stress testing remains the release gate.
 - **A living city.** Country-specific traffic (taxis, delivery vans, police; STB trams, trolleybuses and buses; King
   County Metro buses) driven by real lanes, one-ways, signals and speed limits, with traffic density by hour, rush-hour

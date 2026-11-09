@@ -9,6 +9,7 @@ import { assignSignalPhases, signalState } from './signals.js';
 import { collideBuildings } from './world.js';
 import { SharedLaneGate } from './shared-lanes.js';
 import { ambientTrafficAccess } from './road-access.js';
+import { admitInitialTraffic } from './initial-traffic-admission.js';
 
 // ============================================================================
 //  TRAFFIC — vehicles + pedestrians on the road graph.
@@ -196,6 +197,7 @@ export class Traffic {
         this.setupTransit();
         this.buildBusStops();
         this.spawnAll();
+        this.initialAdmission = admitInitialTraffic(this);
         this.base = { moving: this.vehicles.filter(v => this.cls(v) === 'moving').length, parked: this.vehicles.filter(v => v.parked).length };
         this.peds = new Pedestrians(this, opts.maxPeds ?? (this.buc ? 250 : 60));
         if (opts.hour != null) this.setHour(opts.hour, true);

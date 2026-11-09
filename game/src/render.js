@@ -524,7 +524,7 @@ export class Renderer3D {
         for (const o of retained) o.removeFromParent();
         for (const k of ['rain', 'snow']) if (this[k]) { this[k].mesh.removeFromParent(); this[k].dispose(); this[k] = null; }
         this._wxGen++; this._wxBusy = false; this._wxLoc = ''; // discard the old response; setClock refreshes the new place
-        this._crowns = []; this._nightMats = []; this._lampHead = null;
+        this._crowns = []; this._nightMats = []; this._sourceBackdrops = []; this._lampHead = null;
         this.lamps = this._lampDens = this._lampTint = this._lampReal = null; this._lampNear = [];
         for (const sl of this._lampSlots) { sl.lamp = -1; sl.w = sl.target = 0; sl.light.intensity = 0; }
         this.scene = null; this.player = null; this.renderPass.scene = null;

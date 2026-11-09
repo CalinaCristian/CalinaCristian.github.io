@@ -16,11 +16,12 @@ async function main(){
  try{
   const page=await browser.newPage({viewport:{width:1365,height:900}});page.setDefaultTimeout(45000);
   page.on('pageerror',e=>result.errors.push(e.message));
+  result.consoleErrors=[];page.on('console',m=>{if(m.type()==='error')result.consoleErrors.push(m.text());});
   const base=`http://127.0.0.1:${server.address().port}`;let cacheRequests=0;
   const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jWZkAAAAASUVORK5CYII=','base64');
   await page.route(/https:\/\/.*(?:arcgisonline|arcgis)\.com\//,r=>{if(new URL(r.request().url()).searchParams.get('size')==='1,1')cacheRequests++;return r.fulfill({contentType:'image/png',body:png,headers:{'Access-Control-Allow-Origin':'*'}});});
   await page.goto(base+'/game/overview/',{waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>document.querySelectorAll('[data-cv="location"] option').length===8&&document.querySelectorAll('#spot-evidence-viewer select option').length===24);
+  try { await page.waitForFunction(()=>[...document.querySelectorAll('[data-cv="location"] option')].filter(o=>o.value).length===8&&document.querySelectorAll('#spot-evidence-viewer select option').length===24); } catch(e) { result.initial=await page.evaluate(()=>({locations:document.querySelectorAll('[data-cv="location"] option').length,spots:document.querySelectorAll('#spot-evidence-viewer select option').length,body:document.body.innerText.slice(-7000)}));await page.screenshot({path:path.join(out,'initial-failure.png')});throw e; }
   assert.equal(await page.locator('#district-comparison-cards article').count(),8);
   const images=new Map();
   function checkImage(file,hash){const bytes=fs.readFileSync(file);assert.equal(sha(bytes),hash,file);images.set('/'+path.relative(root,file).split(path.sep).join('/'),true);}

@@ -4,6 +4,8 @@
 
 The primary new goal is [Seven exceptional tourist visits](TOURIST-REBUILD-GOAL.md): rebuild seven source-backed visits with convincing visuals, substantial activities, clear maps/tours and continuously synchronized overview captures. Maximum three per Bucharest/Seattle/Bellevue, seven total. The exact portfolio, user regression cases, full backgammon/Hagi/club requirements and actual desktop/phone/performance acceptance gates are in that goal. All are still in progress. The older checkpoints below are historical evidence, not acceptance of the new goal.
 
+The owner also added every enterable CV office, the high school and university: research actual interior photos and usage rights, improve the rooms, and make windows show the geographically correct live district subsection/floor with shared weather/time/season/traffic. See the goal's interior/window acceptance section. This is additional open work.
+
 Owner-authorized scope (2026-11-08): reference comparisons for the game, remaining district/landmark/location work, removal of fabricated gameplay places everywhere, and fixes for the reported visual/gameplay defects. The owner authorizes tested integration to master and deletion of the task branches. Commit identity: `CalinaCristian <cristycalina@gmail.com>`.
 
 The native `/goal` control is not exposed to this session. This file is the tracked goal, not a claim that an external background goal was registered. Root monitors live workers through integration and acceptance.

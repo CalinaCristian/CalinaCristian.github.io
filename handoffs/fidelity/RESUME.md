@@ -2,6 +2,8 @@
 
 Current primary goal: read [TOURIST-REBUILD-GOAL.md](TOURIST-REBUILD-GOAL.md) and [PLAYTEST-20261109.md](PLAYTEST-20261109.md). Owner explicitly requires rebuilding all seven selected visits to excellent source-backed visuals and meaningful activities, iterating on native playthroughs and updating all affected overview images/material. Backgammon replaces Cișmigiu chess, sports TV should loop official Gică Hagi highlights, and Carusel/Old Town require a cohesive rebuild. Root6ec has seven-menu/tour-modal/Jskip candidate; only scoped native DOM state fixtures passed, no seven-visit beauty/access acceptance. Live24ceb unchanged.
 
+Owner latest added offices + high school + college interiors: actual public photo research/appropriate permitted image use; windows must show the actual corresponding live district subsection at correct source building/facade/floor, synchronized weather/time/season/traffic, bounded render work and coherent shared lifecycle. Root owns this new interior/window architecture and source ledger until reassigned. No implementation or photo verification is claimed yet.
+
 The owner authorizes autonomous completion, separate worker branches, tested integration to master, logical commits, and deletion of this effort's branches at the end. Author: CalinaCristian <cristycalina@gmail.com>. Root owns global docs, overview catalog/inventory, final integration/release and branch cleanup. Never force-push master except the owner-authorized one-time signature-removal rewrite documented in `history-unsigned-20261109/`. Do not publish environment configuration.
 
 ## Latest live preview · 2026-11-09

@@ -1,4 +1,4 @@
-# Seven exceptional tourist visits
+# Seven exceptional tourist visits and source-backed CV interiors
 
 Owner instruction, 9 November 2026: rebuild the selected tourist visits with good graphics, convincing source-backed scenery, substantial activities and a clear map/tour flow. Iterate until the actual player experience is excellent. Keep the published overview synchronized, including its images. This is an active tracked goal; no external background goal service has been registered.
 
@@ -17,6 +17,18 @@ At most three visits per Bucharest, Seattle and Bellevue; seven total. One menu 
 | Bellevue — Downtown Park | Recognizable promenade/canal/waterfall and skyline; actual NPC race around the loop | New race and scene rebuild open |
 
 The sports room is an explicitly authored game interior. Real club addresses/opening hours need current sources; do not present an estimated interior as a survey. Club music must be original or appropriately licensed. Hagi highlights must use an official rights-holder player/embed with repeat and audio controls; non-commercial use is not a copyright exemption. Do not download/rehost an unlicensed broadcast.
+
+## Added owner scope: offices, high school and university
+
+Rebuild every enterable CV office interior, Liceul C. A. Rosetti and the university/Politehnica interior with the same visual-quality standard. Find actual public interior photographs for the specific institution/company and location; record source URL, identity, date when available, evidence scope and usage rights. Use verified appropriate photos directly where permission/license allows; otherwise use them as references for the modeled room and keep protected source pixels out of the repository. Do not substitute photographs from an unrelated branch, tenant or building. The setting may represent the CV period; distinguish historical and current sources.
+
+For every window, show the actual corresponding district subsection from that building's geographic position, facade orientation and floor/eye height. Preserve real neighboring buildings, streets, foliage and occlusion/parallax rather than a generic generated skyline or a disconnected panorama. Keep unmeasured floor/interior placement explicit in the evidence.
+
+The exterior must use the shared current weather, time of day, season, lighting, traffic and pedestrian state. Day/night and season/weather changes while inside must update the view coherently. Pause freezes it consistently; entering/leaving must not reset the district, duplicate actors or create a second independently simulated world. Respect each window's frame, glass, furniture and interior occlusion. No exterior drawn over a wall, visible under floors, or clipping at a mismatched height.
+
+Render only the visible source-backed exterior subsection/frusta with bounded work. Reuse the live district and shared resources where possible, avoid one full-world copy/pass per window, and measure actual interior plus window-pass counters/resources. Test multiple windows, walking/parallax, looking away, repeated enter/leave and desktop/phone conditions changes. Verify outside geometry/traffic agree with the same district when the visitor exits.
+
+Maintain a per-location photo/reference and window-anchor ledger, native visual/playthrough evidence and updated overview office/school/university records and captures. No-photo locations remain explicit gaps, never fabricated reference claims. This additional scope is open and does not count as completed because it has been added to the goal.
 
 ## Definition of an accepted visit
 

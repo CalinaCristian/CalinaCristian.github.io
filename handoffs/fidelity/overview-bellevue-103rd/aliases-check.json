@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "rawRequests": 4,
+  "displayedExactCaptures": 3,
+  "pixelDateSourceMismatchesRetained": true,
+  "unrelatedDuplicateIdsRetained": true,
+  "readableCompassCaption": true
+}

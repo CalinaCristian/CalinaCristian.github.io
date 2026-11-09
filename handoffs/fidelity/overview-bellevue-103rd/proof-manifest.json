@@ -1,0 +1,132 @@
+{
+  "publishedBase": "e354a500e95a5f741564becf528af1f9445bd265",
+  "captureSourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+  "scope": "Overview-only presentation plus new known-issue game captures; current World grade remains unresolved; no full realism claim.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 15622,
+      "sha256": "38e31d3f3bdc5379929ff7b75825f93f625556d6c7d2d4e4a935000e7ba29595"
+    },
+    {
+      "path": "specs/19-qa-harness.md",
+      "bytes": 18155,
+      "sha256": "e08ac9e79cb765388e953a5e2ccadf1a60e80b314006c25857e2bbd6d0942fce"
+    },
+    {
+      "path": "game/overview/index.html",
+      "bytes": 53491,
+      "sha256": "078160bda5c8ef860b8313961c3cdf6ba4d700d1674441a39b24562018e1c7a5"
+    },
+    {
+      "path": "game/overview/perspective-viewer.js",
+      "bytes": 12075,
+      "sha256": "46ac4cb52747b5ae6c39c9645c2b17cd739de8c236522c1031137234d8042304"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/manifest.json",
+      "bytes": 217740,
+      "sha256": "4f2d3a1527a4c7c048be450ca5e72b5cd7b811f86310453e14e88727036ead3e"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/street-walk/retakes/aabd17ad/capture-manifest.json",
+      "bytes": 691893,
+      "sha256": "ededaa58aeebbd6f110e41e7f36662e08a8ade65bb3d2771585cef35d6044a88"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/street-walk/retakes/aabd17ad/images/103rd-Avenue-Northeast-0-L-left.jpg",
+      "bytes": 26194,
+      "sha256": "e40b34b682e1ec182e72c1a0f304c943907b1a0128075ff0de0005916f866072"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/street-walk/retakes/aabd17ad/images/103rd-Avenue-Northeast-0-R-fwd.jpg",
+      "bytes": 32695,
+      "sha256": "6997b19a1186ba0a2c9602af9f5c86d9d894be5bf3cc34d1adbde99bca10c1d6"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/street-walk/retakes/aabd17ad/images/103rd-Avenue-Northeast-0-R-right.jpg",
+      "bytes": 29850,
+      "sha256": "01a63f91840f44fd910cd6199fb45579d96cb7aa3fb2e38dafe66a1d172983f7"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/street-walk/retakes/aabd17ad/manifest.json",
+      "bytes": 17172,
+      "sha256": "d662818d0e7162052fbb4de2f9174c7c05e302b6a756c20161242e6ead541620"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/street-walk/retakes/aabd17ad/source-provenance.json",
+      "bytes": 41321,
+      "sha256": "8390781076161bc99f321a587ae0cce866e6e13e6bc1cd75a66da94ce478e725"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/street-walk/retakes/aabd17ad/thumbs/103rd-Avenue-Northeast-0-L-left.jpg",
+      "bytes": 6970,
+      "sha256": "a9771b304bd8d38707627c07b9ee39a380799b37297184683b2be88ea454301c"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/street-walk/retakes/aabd17ad/thumbs/103rd-Avenue-Northeast-0-R-fwd.jpg",
+      "bytes": 8748,
+      "sha256": "fa8b6e5894a9c98d081ca645e7529146cf6c56b82f58fe2e54cbd07d4d992c5e"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/street-walk/retakes/aabd17ad/thumbs/103rd-Avenue-Northeast-0-R-right.jpg",
+      "bytes": 7878,
+      "sha256": "53dd1e6c2fe3c12f01a918a027453b21513fade0ac76fb3815b14d32781f80aa"
+    },
+    {
+      "path": "handoffs/fidelity/overview-bellevue-103rd/README.md",
+      "bytes": 3170,
+      "sha256": "193d94f9ca9dadcb02c41099e1c1360b800c0a045f19101c3aeb3d9ffbef8c8d"
+    },
+    {
+      "path": "handoffs/fidelity/overview-bellevue-103rd/aliases-check.json",
+      "bytes": 192,
+      "sha256": "317a2c3e605713ac6b3db573613b75ca77fd5128e9c49434c22c374252f4e474"
+    },
+    {
+      "path": "handoffs/fidelity/overview-bellevue-103rd/capture.cjs",
+      "bytes": 6496,
+      "sha256": "842ded9dd159c690bef965b48603fbb33a81e46e8ece401f79725948a9be66d9"
+    },
+    {
+      "path": "handoffs/fidelity/overview-bellevue-103rd/check-aliases.mjs",
+      "bytes": 1137,
+      "sha256": "716fe02a2df7f2cc8e2295b7cb1fddaa3c771a3e964f35f24413e59d6b13895b"
+    },
+    {
+      "path": "handoffs/fidelity/overview-bellevue-103rd/check-viewer.cjs",
+      "bytes": 4546,
+      "sha256": "8fcf28e2ba4f240395baefda3879c82b82cc589ef5323f0603ed02ff17d1b505"
+    },
+    {
+      "path": "handoffs/fidelity/overview-bellevue-103rd/historical/capture-first-tool-failure.log",
+      "bytes": 461,
+      "sha256": "9beaf2a4d1b8b80649f3a64461404abdf518a83b1ffe682e2840504259469ec5"
+    },
+    {
+      "path": "handoffs/fidelity/overview-bellevue-103rd/historical/capture-first-tool.cjs",
+      "bytes": 5899,
+      "sha256": "1fb62c5800723587c4624adce710836429d572b8fec0bdfcef11b6610354e294"
+    },
+    {
+      "path": "handoffs/fidelity/overview-bellevue-103rd/integrity.json",
+      "bytes": 367,
+      "sha256": "912aeaaca4e8f0ceaf645bbb690c76cacdc32013de4a65c32391700eb4e8bd8b"
+    },
+    {
+      "path": "handoffs/fidelity/overview-bellevue-103rd/ui-report.json",
+      "bytes": 16075,
+      "sha256": "17d04ed8d35714c2479b2392a57c472d9a907e8e78095825e59b31f714fa7806"
+    },
+    {
+      "path": "handoffs/fidelity/overview-bellevue-103rd/ui-viewer-1280.png",
+      "bytes": 370319,
+      "sha256": "cc3bd75444f5e5d5f55cd1048920a79f6a37ef66e07026867934a726c5d06936"
+    },
+    {
+      "path": "handoffs/fidelity/overview-bellevue-103rd/ui-viewer-390.png",
+      "bytes": 344495,
+      "sha256": "f2749b1a1be383ce730a34556caa2adfe99d65b7c0daed95503bad14584aa33c"
+    }
+  ]
+}

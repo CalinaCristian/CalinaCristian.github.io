@@ -1,0 +1,7 @@
+loaded {"key":"seattle-bellevue","city":"seattle","district":"bellevue","ms":7463,"edges":917,"ribbons":1131}
+BROWSER_CLOSED
+page.evaluate: TypeError: W.groundAt is not a function
+    at eval (eval at evaluate (:311:30), <anonymous>:3:198)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at /workspace/fidelity-workers/remaining-us-districts/handoffs/fidelity/overview-bellevue-103rd/capture.cjs:19:23

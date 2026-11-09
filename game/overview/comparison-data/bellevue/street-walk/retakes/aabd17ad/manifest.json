@@ -1,0 +1,475 @@
+{
+  "schemaVersion": 1,
+  "district": "bellevue",
+  "label": "Recorded road-height issue \u00b7 103rd Avenue Northeast",
+  "gameSourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+  "generatedAt": "2026-11-09T08:16:22.805Z",
+  "referenceImageryTracked": false,
+  "scope": "Four original requested Bellevue poses, three unique camera captures. Game pixels only. No source changes, no cropped geometry; reference imagery remains private.",
+  "viewPoses": 4,
+  "uniqueImages": 3,
+  "collectionStatus": "known-issue",
+  "presentationNote": "New captures confirm the road-height problem shown in the earlier pictures. Camera locations and directions are unchanged.",
+  "captureIssues": [
+    {
+      "id": "103rd-modeled-road-height",
+      "poseIds": [
+        "103rd-Avenue-Northeast-0-R-right",
+        "103rd-Avenue-Northeast-0-R-fwd",
+        "103rd-Avenue-Northeast-0-L-left",
+        "103rd-Avenue-Northeast-0-L-fwd"
+      ],
+      "description": "Known game issue: this street is modeled below the surrounding buildings. These pictures record the error; a corrected capture is pending."
+    },
+    {
+      "id": "103rd-game-map-boundary",
+      "poseIds": [
+        "103rd-Avenue-Northeast-0-R-fwd",
+        "103rd-Avenue-Northeast-0-L-fwd"
+      ],
+      "description": "The orange barrier marks the game-map boundary, not a real street closure."
+    }
+  ],
+  "items": [
+    {
+      "id": "103rd-Avenue-Northeast-0-R-right",
+      "street": "103rd Avenue Northeast",
+      "side": "R",
+      "kind": "right",
+      "sourceEdge": 454,
+      "sourceLayer": 0,
+      "lat": 47.618572,
+      "lon": -122.2030463,
+      "clat": 47.6185445,
+      "clon": -122.2030496,
+      "heading": 90,
+      "pitch": 6,
+      "fov": 90,
+      "h": 2.5,
+      "pano": "UuSMK0XGk4RAE9wo8KhOIA",
+      "date": "2018-07",
+      "plat": 47.61857198177813,
+      "plon": -122.2030462529899,
+      "metadataSourceEdge": 454,
+      "sourceRoadId": "w6422057",
+      "sourceSampleDistanceM": 0.003713695775632464,
+      "sourceGeometryValidatedAgainst": "Original OSM source centreline at clat/clon and original source layer; exact same raw node IDs/tags/projected coordinates in metadata and final datasets",
+      "finalSourceSampleDistanceM": 0.00371369577561257,
+      "comparisonSeason": "summer",
+      "x": -603.8147540047518,
+      "z": -452.5295040000824,
+      "cameraBaseY": -3.870048669780161,
+      "cameraY": -1.3700486697801608,
+      "cameraSourceEdge": 454,
+      "cameraLevelAmbiguity": null,
+      "perf": {
+        "triangles": 0,
+        "drawCalls": 0
+      },
+      "reference": {
+        "provider": "Google Street View",
+        "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=UuSMK0XGk4RAE9wo8KhOIA&heading=90&pitch=6&fov=90",
+        "date": "2018-07",
+        "altitude": "Not supplied by panorama metadata; source road level ambiguities remain explicitly flagged.",
+        "use": "Visual comparison only. No reference image or extracted building attributes are published."
+      },
+      "cameraSourceWay": "w6422057",
+      "cameraSourceLayer": 0,
+      "groundAt": null,
+      "surfaces": [
+        -3.8700486697801613,
+        -3.810334205728477,
+        -3.810334205728477
+      ],
+      "renderer": {
+        "width": 640,
+        "height": 400
+      },
+      "gameSourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+      "inputPoseProvenance": {
+        "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+        "capturedAt": "2026-11-08T20:17:05.874Z"
+      },
+      "captureSettings": {
+        "quality": "high",
+        "traffic": false,
+        "mirror": false,
+        "fog": "normal",
+        "far": 5000,
+        "seasonOverride": "summer",
+        "appliedSeason": "summer",
+        "renderer": {
+          "width": 640,
+          "height": 400,
+          "pixelRatio": 1
+        }
+      },
+      "capturedAt": "2026-11-09T08:16:21.165Z",
+      "image": "images/103rd-Avenue-Northeast-0-R-right.jpg",
+      "imageSha256": "01a63f91840f44fd910cd6199fb45579d96cb7aa3fb2e38dafe66a1d172983f7",
+      "captureType": "game-street-comparison",
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraSelection": "Exact recorded source way/layer at original source sample; fixed original panorama XY/heading/pitch/FOV and 2.5m modeled-road-relative height. No nearest unrelated surface, manual vertical offset or geometry avoidance.",
+      "nativeSourceEdge": {
+        "id": 454,
+        "sourceId": "w6422057",
+        "a": {
+          "id": 456,
+          "sourceId": 11332315028,
+          "x": -604.0323773577991,
+          "y": -4.65935206464527,
+          "z": -445.6615464003661
+        },
+        "b": {
+          "id": 457,
+          "sourceId": 11332315026,
+          "x": -604.0849071327829,
+          "y": -4.050334205728477,
+          "z": -453.27408840009764
+        },
+        "ya": -4.65935206464527,
+        "yb": -4.050334205728477,
+        "layer": 0,
+        "bridge": false,
+        "tunnel": false,
+        "len": 7.612723236459909,
+        "name": "103rd Avenue Northeast",
+        "road": 133
+      },
+      "thumbnail": "thumbs/103rd-Avenue-Northeast-0-R-right.jpg",
+      "thumbnailSha256": "53dd1e6c2fe3c12f01a918a027453b21513fade0ac76fb3815b14d32781f80aa"
+    },
+    {
+      "id": "103rd-Avenue-Northeast-0-R-fwd",
+      "street": "103rd Avenue Northeast",
+      "side": "R",
+      "kind": "fwd",
+      "sourceEdge": 454,
+      "sourceLayer": 0,
+      "lat": 47.618572,
+      "lon": -122.2030463,
+      "clat": 47.6185445,
+      "clon": -122.2030496,
+      "heading": 360,
+      "pitch": 0,
+      "fov": 80,
+      "h": 2.5,
+      "pano": "UuSMK0XGk4RAE9wo8KhOIA",
+      "date": "2018-07",
+      "plat": 47.61857198177813,
+      "plon": -122.2030462529899,
+      "metadataSourceEdge": 454,
+      "sourceRoadId": "w6422057",
+      "sourceSampleDistanceM": 0.003713695775632464,
+      "sourceGeometryValidatedAgainst": "Original OSM source centreline at clat/clon and original source layer; exact same raw node IDs/tags/projected coordinates in metadata and final datasets",
+      "finalSourceSampleDistanceM": 0.00371369577561257,
+      "comparisonSeason": "summer",
+      "x": -603.8147540047518,
+      "z": -452.5295040000824,
+      "cameraBaseY": -3.870048669780161,
+      "cameraY": -1.3700486697801608,
+      "cameraSourceEdge": 454,
+      "cameraLevelAmbiguity": null,
+      "perf": {
+        "triangles": 0,
+        "drawCalls": 0
+      },
+      "reference": {
+        "provider": "Google Street View",
+        "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=UuSMK0XGk4RAE9wo8KhOIA&heading=360&pitch=0&fov=80",
+        "date": "2018-07",
+        "altitude": "Not supplied by panorama metadata; source road level ambiguities remain explicitly flagged.",
+        "use": "Visual comparison only. No reference image or extracted building attributes are published."
+      },
+      "cameraSourceWay": "w6422057",
+      "cameraSourceLayer": 0,
+      "groundAt": null,
+      "surfaces": [
+        -3.8700486697801613,
+        -3.810334205728477,
+        -3.810334205728477
+      ],
+      "renderer": {
+        "width": 640,
+        "height": 400
+      },
+      "gameSourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+      "inputPoseProvenance": {
+        "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+        "capturedAt": "2026-11-08T20:17:09.166Z"
+      },
+      "captureSettings": {
+        "quality": "high",
+        "traffic": false,
+        "mirror": false,
+        "fog": "normal",
+        "far": 5000,
+        "seasonOverride": "summer",
+        "appliedSeason": "summer",
+        "renderer": {
+          "width": 640,
+          "height": 400,
+          "pixelRatio": 1
+        }
+      },
+      "capturedAt": "2026-11-09T08:16:22.105Z",
+      "image": "images/103rd-Avenue-Northeast-0-R-fwd.jpg",
+      "imageSha256": "6997b19a1186ba0a2c9602af9f5c86d9d894be5bf3cc34d1adbde99bca10c1d6",
+      "captureType": "game-street-comparison",
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraSelection": "Exact recorded source way/layer at original source sample; fixed original panorama XY/heading/pitch/FOV and 2.5m modeled-road-relative height. No nearest unrelated surface, manual vertical offset or geometry avoidance.",
+      "nativeSourceEdge": {
+        "id": 454,
+        "sourceId": "w6422057",
+        "a": {
+          "id": 456,
+          "sourceId": 11332315028,
+          "x": -604.0323773577991,
+          "y": -4.65935206464527,
+          "z": -445.6615464003661
+        },
+        "b": {
+          "id": 457,
+          "sourceId": 11332315026,
+          "x": -604.0849071327829,
+          "y": -4.050334205728477,
+          "z": -453.27408840009764
+        },
+        "ya": -4.65935206464527,
+        "yb": -4.050334205728477,
+        "layer": 0,
+        "bridge": false,
+        "tunnel": false,
+        "len": 7.612723236459909,
+        "name": "103rd Avenue Northeast",
+        "road": 133
+      },
+      "thumbnail": "thumbs/103rd-Avenue-Northeast-0-R-fwd.jpg",
+      "thumbnailSha256": "fa8b6e5894a9c98d081ca645e7529146cf6c56b82f58fe2e54cbd07d4d992c5e"
+    },
+    {
+      "id": "103rd-Avenue-Northeast-0-L-left",
+      "street": "103rd Avenue Northeast",
+      "side": "L",
+      "kind": "left",
+      "sourceEdge": 454,
+      "sourceLayer": 0,
+      "lat": 47.618572,
+      "lon": -122.2030463,
+      "clat": 47.6185445,
+      "clon": -122.2030496,
+      "heading": 270,
+      "pitch": 6,
+      "fov": 90,
+      "h": 2.5,
+      "pano": "UuSMK0XGk4RAE9wo8KhOIA",
+      "date": "2018-07",
+      "plat": 47.61857198177813,
+      "plon": -122.2030462529899,
+      "metadataSourceEdge": 454,
+      "sourceRoadId": "w6422057",
+      "sourceSampleDistanceM": 0.003713695775632464,
+      "sourceGeometryValidatedAgainst": "Original OSM source centreline at clat/clon and original source layer; exact same raw node IDs/tags/projected coordinates in metadata and final datasets",
+      "finalSourceSampleDistanceM": 0.00371369577561257,
+      "comparisonSeason": "summer",
+      "x": -603.8147540047518,
+      "z": -452.5295040000824,
+      "cameraBaseY": -3.870048669780161,
+      "cameraY": -1.3700486697801608,
+      "cameraSourceEdge": 454,
+      "cameraLevelAmbiguity": null,
+      "perf": {
+        "triangles": 0,
+        "drawCalls": 0
+      },
+      "reference": {
+        "provider": "Google Street View",
+        "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=UuSMK0XGk4RAE9wo8KhOIA&heading=270&pitch=6&fov=90",
+        "date": "2018-07",
+        "altitude": "Not supplied by panorama metadata; source road level ambiguities remain explicitly flagged.",
+        "use": "Visual comparison only. No reference image or extracted building attributes are published."
+      },
+      "cameraSourceWay": "w6422057",
+      "cameraSourceLayer": 0,
+      "groundAt": null,
+      "surfaces": [
+        -3.8700486697801613,
+        -3.810334205728477,
+        -3.810334205728477
+      ],
+      "renderer": {
+        "width": 640,
+        "height": 400
+      },
+      "gameSourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+      "inputPoseProvenance": {
+        "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+        "capturedAt": "2026-11-08T20:17:12.430Z"
+      },
+      "captureSettings": {
+        "quality": "high",
+        "traffic": false,
+        "mirror": false,
+        "fog": "normal",
+        "far": 5000,
+        "seasonOverride": "summer",
+        "appliedSeason": "summer",
+        "renderer": {
+          "width": 640,
+          "height": 400,
+          "pixelRatio": 1
+        }
+      },
+      "capturedAt": "2026-11-09T08:16:22.805Z",
+      "image": "images/103rd-Avenue-Northeast-0-L-left.jpg",
+      "imageSha256": "e40b34b682e1ec182e72c1a0f304c943907b1a0128075ff0de0005916f866072",
+      "captureType": "game-street-comparison",
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraSelection": "Exact recorded source way/layer at original source sample; fixed original panorama XY/heading/pitch/FOV and 2.5m modeled-road-relative height. No nearest unrelated surface, manual vertical offset or geometry avoidance.",
+      "nativeSourceEdge": {
+        "id": 454,
+        "sourceId": "w6422057",
+        "a": {
+          "id": 456,
+          "sourceId": 11332315028,
+          "x": -604.0323773577991,
+          "y": -4.65935206464527,
+          "z": -445.6615464003661
+        },
+        "b": {
+          "id": 457,
+          "sourceId": 11332315026,
+          "x": -604.0849071327829,
+          "y": -4.050334205728477,
+          "z": -453.27408840009764
+        },
+        "ya": -4.65935206464527,
+        "yb": -4.050334205728477,
+        "layer": 0,
+        "bridge": false,
+        "tunnel": false,
+        "len": 7.612723236459909,
+        "name": "103rd Avenue Northeast",
+        "road": 133
+      },
+      "thumbnail": "thumbs/103rd-Avenue-Northeast-0-L-left.jpg",
+      "thumbnailSha256": "a9771b304bd8d38707627c07b9ee39a380799b37297184683b2be88ea454301c"
+    },
+    {
+      "id": "103rd-Avenue-Northeast-0-L-fwd",
+      "street": "103rd Avenue Northeast",
+      "side": "L",
+      "kind": "fwd",
+      "sourceEdge": 454,
+      "sourceLayer": 0,
+      "lat": 47.618572,
+      "lon": -122.2030463,
+      "clat": 47.6185445,
+      "clon": -122.2030496,
+      "heading": 360,
+      "pitch": 0,
+      "fov": 80,
+      "h": 2.5,
+      "pano": "UuSMK0XGk4RAE9wo8KhOIA",
+      "date": "2018-07",
+      "plat": 47.61857198177813,
+      "plon": -122.2030462529899,
+      "metadataSourceEdge": 454,
+      "sourceRoadId": "w6422057",
+      "sourceSampleDistanceM": 0.003713695775632464,
+      "sourceGeometryValidatedAgainst": "Original OSM source centreline at clat/clon and original source layer; exact same raw node IDs/tags/projected coordinates in metadata and final datasets",
+      "finalSourceSampleDistanceM": 0.00371369577561257,
+      "comparisonSeason": "summer",
+      "x": -603.8147540047518,
+      "z": -452.5295040000824,
+      "cameraBaseY": -3.870048669780161,
+      "cameraY": -1.3700486697801608,
+      "cameraSourceEdge": 454,
+      "cameraLevelAmbiguity": null,
+      "perf": {
+        "triangles": 0,
+        "drawCalls": 0
+      },
+      "reference": {
+        "provider": "Google Street View",
+        "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=UuSMK0XGk4RAE9wo8KhOIA&heading=360&pitch=0&fov=80",
+        "date": "2018-07",
+        "altitude": "Not supplied by panorama metadata; source road level ambiguities remain explicitly flagged.",
+        "use": "Visual comparison only. No reference image or extracted building attributes are published."
+      },
+      "cameraSourceWay": "w6422057",
+      "cameraSourceLayer": 0,
+      "groundAt": null,
+      "surfaces": [
+        -3.8700486697801613,
+        -3.810334205728477,
+        -3.810334205728477
+      ],
+      "renderer": {
+        "width": 640,
+        "height": 400
+      },
+      "gameSourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+      "inputPoseProvenance": {
+        "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+        "capturedAt": "2026-11-08T20:17:09.166Z"
+      },
+      "captureSettings": {
+        "quality": "high",
+        "traffic": false,
+        "mirror": false,
+        "fog": "normal",
+        "far": 5000,
+        "seasonOverride": "summer",
+        "appliedSeason": "summer",
+        "renderer": {
+          "width": 640,
+          "height": 400,
+          "pixelRatio": 1
+        }
+      },
+      "capturedAt": "2026-11-09T08:16:22.105Z",
+      "image": "images/103rd-Avenue-Northeast-0-R-fwd.jpg",
+      "imageSha256": "6997b19a1186ba0a2c9602af9f5c86d9d894be5bf3cc34d1adbde99bca10c1d6",
+      "captureType": "game-street-comparison",
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraSelection": "Exact recorded source way/layer at original source sample; fixed original panorama XY/heading/pitch/FOV and 2.5m modeled-road-relative height. No nearest unrelated surface, manual vertical offset or geometry avoidance.",
+      "duplicateOf": "103rd-Avenue-Northeast-0-R-fwd",
+      "captureReuse": "Identical requested camera pose; same captured frame, not a second render.",
+      "nativeSourceEdge": {
+        "id": 454,
+        "sourceId": "w6422057",
+        "a": {
+          "id": 456,
+          "sourceId": 11332315028,
+          "x": -604.0323773577991,
+          "y": -4.65935206464527,
+          "z": -445.6615464003661
+        },
+        "b": {
+          "id": 457,
+          "sourceId": 11332315026,
+          "x": -604.0849071327829,
+          "y": -4.050334205728477,
+          "z": -453.27408840009764
+        },
+        "ya": -4.65935206464527,
+        "yb": -4.050334205728477,
+        "layer": 0,
+        "bridge": false,
+        "tunnel": false,
+        "len": 7.612723236459909,
+        "name": "103rd Avenue Northeast",
+        "road": 133
+      },
+      "thumbnail": "thumbs/103rd-Avenue-Northeast-0-R-fwd.jpg",
+      "thumbnailSha256": "fa8b6e5894a9c98d081ca645e7529146cf6c56b82f58fe2e54cbd07d4d992c5e"
+    }
+  ],
+  "captureLedger": "capture-manifest.json",
+  "sourceProvenance": "source-provenance.json"
+}

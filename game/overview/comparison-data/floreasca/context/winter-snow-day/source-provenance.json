@@ -1,0 +1,22 @@
+{
+  "gameSourceCommit": null,
+  "sourceSnapshots": [
+    {
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "manifest": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
+      "manifestSha256": "e0a8bd9f44376d9a0a3aa77beb3ebc3ddcb715524b64bd34e15be9ee540dbf73",
+      "sourceProvenance": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-provenance.json",
+      "sourceProvenanceSha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429",
+      "frames": 11
+    },
+    {
+      "gameSourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "manifest": "provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/manifest.json",
+      "manifestSha256": "99d081a8fc31f850f65a52772ac587088f2c18d072da9d01728f4569235589cf",
+      "sourceProvenance": "provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/source-provenance.json",
+      "sourceProvenanceSha256": "50ebd384f16ca78942d341b0c6413335e8ac32d804d23a5f9170fe4396ea0df4",
+      "frames": 3
+    }
+  ],
+  "delivery": "Per-source immutable captures and complete source-file inventories retained under provenance/; no original image relabelled."
+}

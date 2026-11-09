@@ -1,3 +1,7 @@
+# Context queue completed (2026-11-09)
+
+All PIDs and running steps below are historical recovery information. Every lane browser has closed. All9 collections are installed/reviewed:129 GAME perspective frames separate from306 north-up atlas frames and694 archived frames. Final Floreasca25+11 use mixed0775/d5795e20 provenance with only their exact-pose Dinamo elevated view refreshed; all34 untouched frame identities remain unchanged. Failed0775/097 paint, first duplicate Flo and first unreadable Rom attempts are preserved, not promoted. See README.md and installed-atlas-validation.json.
+
 # Running context capture recovery (2026-11-08)
 
 Source is the immutable0775 capture-source under `/workspace/reality-pass/original-districts-refresh/final-0775fda/`. Atlas306+six694-frame historical collections are committed in d8a0979. Grozday16 context is14af72e; FloNight10 is6025a31. Both are reviewed/complete and separate from atlas items. Exact native S160 outside-flight classification is743e58c; independent1647-file native snapshot verification530fa84. Unique IDs/public-road body-clear camera planning/actual conditions and publication guards are23eab2a+2aa377a.

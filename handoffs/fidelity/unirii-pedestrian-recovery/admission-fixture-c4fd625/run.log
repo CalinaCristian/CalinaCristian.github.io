@@ -1,0 +1,3 @@
+LOAD unirii exact constructor fixture
+FIXTURE {"actors":484,"providers":484,"candidates":48294,"unchanged":true}
+COMPLETE {"sourceCommit":"c4fd6255f928101e27874f37776ed5be8d805827","passedAllEight":false,"districts":0,"failures":0,"errors":0,"consoleErrors":0,"failedRequests":0}

@@ -33,6 +33,7 @@ OPTIONAL_BASELINE = {
     'pedestrian-admission': 'c1a3916be321839821c5d05c81ffd5c30eeb334d9c36353e73dae2d4c559d074',
     'pedestrian-motion': '7568b8ec67af9743c996dc75ba322697befbaf56aed141708f5720444629743e',
     'pedestrian-side-yield': '20665544c8aebfa233eeb471ddad538e104bc89d73499ff65b5f419c04c31cb6',
+    'pedestrian-source-sides': 'c906d3d20b2e742bf1b40f0e558df8752898e620810eb54ba1f34873b580a541',
     'solid-vehicle-sensing': '4edf586daa225edc922572902413533d1ee779a33d46fd22b64cc4cd54f45da1',
     'vehicle-cell-boundary': 'ea5778e3fddcce902fa072212f3a6e25db4be0f76756efc6848e9b74263236af',
     'vehicle-separation': '3ede9845b53abee994c031ef5e6ed3c7f744ab8c2296f2e2096e4b377cc0421f',

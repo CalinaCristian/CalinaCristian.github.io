@@ -1,7 +1,7 @@
 // Owner-requested fictional Easter egg (feedback 79 / 84), reached from the existing enterable bookshop lobby.
 // Keep this room separate from the source street frontage and the normal tourist itinerary.
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, M, canvas, canvasTexture, obb, polyArea, offsetPolyline, flatGeometry } from '../kit.js';
+import { GeoBatch, M, canvas, canvasTexture, obb, polyArea, offsetPolyline, flatGeometry,distPolyline } from '../kit.js';
 import { bucActivity, signAtlas } from '../buc.js';
 import { wallGeometry } from '../osm.js';
 import { addDinamoHintTV } from './dinamo-hint-tv.js';
@@ -148,7 +148,16 @@ export function buildSecretWcpBar(ctx, carusel) {
     if (!carusel) return { groups: [] };
     // An unmarked interior door in the existing lobby. No exterior venue name or real-world claim.
     const f = carusel.front;
-    const entry = { x: f.x - f.nx * 8 + f.nz * 3.5, z: f.z - f.nz * 8 - f.nx * 3.5, y: carusel.y0 };
+    const oldEntry={x:f.x-f.nx*8+f.nz*3.5,z:f.z-f.nz*8-f.nx*3.5};
+    const wall=distPolyline(oldEntry.x,oldEntry.z,[...carusel.poly,carusel.poly[0]]), vx=oldEntry.x-wall.cx,vz=oldEntry.z-wall.cz,L=Math.hypot(vx,vz),ix=vx/L,iz=vz/L;
+    // Put the fictional side door on the modeled interior wall, with its Use
+    // position1.25m in front of the wall, rather than an unmarked point in the atrium.
+    const entry = { x:wall.cx+ix*1.25,z:wall.cz+iz*1.25,y:carusel.y0 };
+    const portal=new GeoBatch(),doorYaw=Math.atan2(ix,iz);
+    portal.box(wall.cx+ix*.6,carusel.y0,wall.cz+iz*.6,1.08,2.25,.12,'#2f352c','wood',doorYaw);
+    portal.box(wall.cx+ix*.68,carusel.y0+.95,wall.cz+iz*.68,.07,.07,.035,'#b69a60','chrome',doorYaw);
+    ctx.box(wall.cx+ix*.6,wall.cz+iz*.6,.54,.06,doorYaw,{prop:true,y0:carusel.y0,y1:carusel.y0+2.25});
+    ctx.add(portal.build('carusel-unmarked-fictional-side-door',{castShadow:false}));
     const room = new THREE.Group(); room.name = 'wcp-secret-interior'; room.visible = false; ctx.add(room);
     // A remote enclosed interior keeps source building colliders/roofs completely intact.
     const x = 8000, z = 8000, y = ctx.ground.heightAt(x, z) + .03;
@@ -169,15 +178,17 @@ export function buildSecretWcpBar(ctx, carusel) {
         s.ctl.enter(dest.x, dest.z, dest.heading ?? 0, dest.y); s.returnFocus();
     };
     ctx.interactables.push({ hidden:true, x:entry.x,z:entry.z,y:entry.y,r:1.6,label:'Open the unmarked side door',use:(s)=>{
-        returnPose = { ...s.position, heading:s.ctl.heading }; lastSession = s; s.endTour(); room.visible = true;
+        returnPose = { ...s.position, heading:s.ctl.heading }; lastSession = s; room.visible = true;
         if (!mapUpdate && s.map) { mapUpdate = s.map.update; s.map.update = function(dt,p) { return mapUpdate.call(this,dt,room.visible ? {...entry,heading:p.heading} : p); }; }
         s.ctl.enter(x,z+1.1,Math.PI,y); s.returnFocus();
     }});
     ctx.interactables.push({ hidden:true, x,z:z+.6,y,r:1.2,label:'Return to the bookshop',cond:()=>room.visible,use:leave });
+    let hinted=false;
     ctx.onUpdate((dt,s)=>{ lastSession=s;
+        if(!hinted&&!room.visible&&Math.hypot(s.position.x-f.x,s.position.z-f.z)<13&&s.ctl.active){hinted=true;s.ui.toast('A little Carusel secret','Walk through the central bookshop doorway. On the ground floor, look for the unmarked dark side door.');}
         if (!fans && s.spot.crowd?.cr) { fans = s.spot.crowd.peds.map((p,i)=>({p,i})).filter(({p})=>p.group?.wcpFan); fans.forEach(({p,i})=>{p.look.prop='none';s.spot.crowd.cr.dress(i,dressFor('bucharest','summer',null,Math.random,'fan'));}); }
         if (room.visible && fans) fans.forEach(({p,i})=>s.spot.crowd.cr.set(i,{x:p.x,y:p.y,z:p.z,yaw:p.yaw+Math.PI,phase:p.phase,scale:p.look.scale,amp:0,pose:p.act==='sit'?'sit':i%3===0?'cheer':'stand',prop:i%4===0?'flag':null})); if(room.visible && Math.hypot(s.position.x-x,s.position.z-z)>30) {room.visible=false;ctx.extras.wcpHint.pause();restoreMap();} });
-    ctx.extras.wcpRoom = { room,entry,spawn:{x,z:z+1.1,y},leave, get session(){return lastSession;} };
+    ctx.extras.wcpRoom = { room,entry,sideDoor:{x:wall.cx,z:wall.cz,y:carusel.y0},spawn:{x,z:z+1.1,y},leave, get session(){return lastSession;} };
     // No rendering of a second world during TV playback. Scene removal releases video and textures.
     return B;
 }

@@ -169,7 +169,12 @@ function buildCarusel(ctx) {
     const ux = (B[0] - A[0]) / FW, uz = (B[1] - A[1]) / FW; let nx = uz, nz = -ux; if (nz < 0) { nx = -nx; nz = -nz; } // outward normal (toward the street)
     const yaw = Math.atan2(nx, nz), H = 19.5, b = new GeoBatch(), WH = '#e9e2d2';
     const fac = classicFacade('carusel-side', [{ t: 'blank', rustic: true }, { t: 'rect', w: 0.3 }, { t: 'rect', w: 0.3 }, { t: 'small', w: 0.26 }], { bay: 3.4, floor: 4.9, lit: 0.5 });
-    classicWalls(b, fac, p, y0, y0 + H, WH, y0);
+    // The custom front elevation owns this exact face. Keep the other source
+    // faces in the shell, so an opaque duplicate cannot cover the open door.
+    const sides=wallGeometry(p,y0,y0+H,fac.S,y0,WH), vertices=sides.attributes.position, kept=[];
+    for(let i=0;i<sides.index.count;i+=3){const tri=[sides.index.getX(i),sides.index.getX(i+1),sides.index.getX(i+2)];
+        if(tri.every(j=>Math.abs((vertices.getX(j)-fx)*nx+(vertices.getZ(j)-fzz)*nz)<.01))continue;kept.push(...tri);}
+    sides.setIndex(kept);b.add(sides,fac.key,null,WH);sides.dispose();
     // the street front: a canvas elevation (no photo): rustication, giant arch with 3 arched lights, sign band, door
     const fc = canvas(512, 768), x = fc.getContext('2d'), S = 512 / FW, PX = (m) => m * S, PY = (m) => 768 - m * (768 / (H + 0.5));
     x.fillStyle = '#ebe5d8'; x.fillRect(0, 0, 512, 768);
@@ -190,9 +195,15 @@ function buildCarusel(ctx) {
     x.fillStyle = '#2a2a28'; x.fillRect(ax0 + aw * 0.44, PY(4.0), aw * 0.12, PY(0.4) - PY(4.0)); // door
     x.fillStyle = 'rgba(255,255,255,0.7)'; x.beginPath(); x.arc(256, aTop - 4, 22, 0, 7); x.fill(); x.fillStyle = '#8a3a2a'; x.fillRect(244, aTop - 2, 24, 8); // cartouche
     x.fillStyle = 'rgba(90,80,65,0.5)'; x.fillRect(0, PY(H - 0.4), 512, 6); // cornice shadow
+    // Match the existing physical entrance gap with a visibly open central
+    // doorway. Its detailed size is an estimate, not a surveyed portal plan.
+    x.clearRect(PX(FW/2-1.15),PY(3.1),PX(2.3),PY(0)-PY(3.1)+2);
     const ft = canvasTexture(fc);
-    const fm = new THREE.MeshStandardMaterial({ map: ft, roughness: 0.75, emissive: new THREE.Color('#ffe7c2'), emissiveMap: ft, emissiveIntensity: 0 }); fm.userData.dayGlow = 0; fm.userData.nightGlow = 0.45;
+    const fm = new THREE.MeshStandardMaterial({ map: ft, alphaTest:.5, side:THREE.DoubleSide, roughness: 0.75, emissive: new THREE.Color('#ffe7c2'), emissiveMap: ft, emissiveIntensity: 0 }); fm.userData.dayGlow = 0; fm.userData.nightGlow = 0.45;
     const front = new THREE.Mesh(new THREE.PlaneGeometry(FW, H + 0.5), fm); front.position.set(fx + nx * 0.06, y0 + (H + 0.5) / 2, fzz + nz * 0.06); front.rotation.y = yaw; front.name = 'carusel-front'; ctx.add(front);
+    for(const side of [-1,1])b.box(fx+ux*side*1.2,y0,fzz+uz*side*1.2,.1,3.15,.15,'#34332d','wood',yaw);
+    b.box(fx,y0+3.1,fzz,2.5,.12,.15,'#34332d','wood',yaw);
+    ctx.extras.caruselDoor={x:fx,z:fzz,y:y0,nx,nz,width:2.3,estimatedPortal:true};
     // cornice, attic aedicule with urns, glass mansard
     b.box(fx + nx * 0.3, y0 + H - 0.2, fzz + nz * 0.3, 0.9, 0.9, FW + 0.6, '#f1ece2', 'stone', yaw + Math.PI / 2);
     b.box(fx - nx * 0.6, y0 + H + 0.7, fzz - nz * 0.6, 1.2, 5.6, 4.2, WH, 'stone', yaw + Math.PI / 2);
@@ -246,7 +257,7 @@ function buildCarusel(ctx) {
         iw.box(x,top-.18,z,1.5,.18,1.05,WHITE,'paint',-a);g.addBox(x,z,.75,.525,-a,top-.18,top,{kind:'carusel-landing'});
     }
     // walls (enter through the shop door): wall colliders round the outline with a door gap on the front
-    ringWalls(ctx, p, y0 - 1, y0 + H + 6, [{ x: fx, z: fzz, w: 3.2 }]);
+    ringWalls(ctx, p, y0 - 1, y0 + H + 6, [{ x: fx, z: fzz, w: 2.3 }]);
     ctx.extras.caruselFloor = () => ctx.painter.poly(innerP, '#ebe8e1', 'slab');
     ctx.add(iw.build('carusel-interior', { castShadow: false }));
     ctx.add(shelves.build('carusel-shelves', { castShadow: false, matOverrides: { shelf } }));
@@ -266,7 +277,7 @@ function buildCarusel(ctx) {
     });
     ctx.interactables.push({kind:'stairs',x:stairPath[0].x,z:stairPath[0].z,y:y0,r:2.2,tourAvailable:()=>false,label:'Walk the visible stairs to the top gallery',use:s=>s.ui.toast('📚 Walk up the stairs','Use the movement controls on the visible treads. Reaching the top after a continuous climb completes the activity; E does not move you between floors. Stair dimensions are estimates.')});
     ctx.extras.caruselStairs={path:stairPath,climb,well:stairWell,estimatedLayout:true};
-    return { front: { x: fx, z: fzz, nx, nz, yaw }, y0, LV, ecx, ecz, along, stair };
+    return { front: { x: fx, z: fzz, nx, nz, yaw }, y0, LV, ecx, ecz, along, stair,poly:p };
 }
 
 // ---------------------------------------------------------------------------- Hanul lui Manuc

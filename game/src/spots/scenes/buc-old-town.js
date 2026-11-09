@@ -198,9 +198,18 @@ function buildCarusel(ctx) {
     // Match the existing physical entrance gap with a visibly open central
     // doorway. Its detailed size is an estimate, not a surveyed portal plan.
     x.clearRect(PX(FW/2-1.15),PY(3.1),PX(2.3),PY(0)-PY(3.1)+2);
+    // The two ground-floor shop windows transmit the modeled interior; only
+    // these existing glazed openings lose opaque paint, not the source piers.
+    x.globalCompositeOperation='destination-out';
+    for(const start of [.04,.6]){const gx=ax0+aw*start,gy=PY(4.9),gw=aw*.36,gh=PY(.5)-PY(4.9);x.beginPath();x.moveTo(gx,gy+gh);x.lineTo(gx,gy+gw/2);x.arc(gx+gw/2,gy+gw/2,gw/2,Math.PI,0);x.lineTo(gx+gw,gy+gh);x.closePath();x.fill();}
+    x.globalCompositeOperation='source-over';
     const ft = canvasTexture(fc);
     const fm = new THREE.MeshStandardMaterial({ map: ft, alphaTest:.5, side:THREE.DoubleSide, roughness: 0.75, emissive: new THREE.Color('#ffe7c2'), emissiveMap: ft, emissiveIntensity: 0 }); fm.userData.dayGlow = 0; fm.userData.nightGlow = 0.45;
     const front = new THREE.Mesh(new THREE.PlaneGeometry(FW, H + 0.5), fm); front.position.set(fx + nx * 0.06, y0 + (H + 0.5) / 2, fzz + nz * 0.06); front.rotation.y = yaw; front.name = 'carusel-front'; ctx.add(front);
+    const glazing=new GeoBatch(),glassMat=new THREE.MeshStandardMaterial({color:'#a4c3c8',transparent:true,opacity:.13,roughness:.16,metalness:.04,depthWrite:false,side:THREE.DoubleSide});
+    for(const start of [.04,.6]){const centre=(1.6+((FW-3.2)*start)+(FW-3.2)*.18)-FW/2,px=fx+ux*centre+nx*.025,pz=fzz+uz*centre+nz*.025,w=(FW-3.2)*.36;
+        glazing.quad([px-ux*w/2,y0+.5,pz-uz*w/2],[px+ux*w/2,y0+.5,pz+uz*w/2],[px+ux*w/2,y0+4.9,pz+uz*w/2],[px-ux*w/2,y0+4.9,pz-uz*w/2],'#ffffff','caruselGlass');}
+    ctx.add(glazing.build('carusel-source-front-glazing',{castShadow:false,matOverrides:{caruselGlass:glassMat}}));
     for(const side of [-1,1])b.box(fx+ux*side*1.2,y0,fzz+uz*side*1.2,.1,3.15,.15,'#34332d','wood',yaw);
     b.box(fx,y0+3.1,fzz,2.5,.12,.15,'#34332d','wood',yaw);
     ctx.extras.caruselDoor={x:fx,z:fzz,y:y0,nx,nz,width:2.3,estimatedPortal:true};
@@ -228,7 +237,9 @@ function buildCarusel(ctx) {
             iw.add(sg, 'paint', null, WHITE, { emissive: '#ffffff', emissiveIntensity: 0.28, roughness: 0.5 }); sg.dispose();
             // undulating balustrade round the hole + walk surface + wall collider at this level
             const e = ell(k), pos = [], idx = [];
-            for (let i = 0; i <= e.length; i++) { const [a, c] = e[i % e.length], hh = 1.05 + 0.12 * Math.sin(i / e.length * Math.PI * 10 + k); pos.push(a, ly - 0.38, c, a, ly + hh, c); if (i) { const j = (i - 1) * 2; idx.push(j, j + 1, j + 2, j + 1, j + 3, j + 2); } }
+            // ExtrudeGeometry already owns the slab's vertical hole wall.
+            // Start the railing above the slab to avoid a duplicate coplanar skirt.
+            for (let i = 0; i <= e.length; i++) { const [a, c] = e[i % e.length], hh = 1.05 + 0.12 * Math.sin(i / e.length * Math.PI * 10 + k); pos.push(a, ly + .003, c, a, ly + hh, c); if (i) { const j = (i - 1) * 2; idx.push(j, j + 1, j + 2, j + 1, j + 3, j + 2); } }
             const bg = new THREE.BufferGeometry(); bg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); bg.setIndex(idx); bg.computeVertexNormals();
             iw.add(bg, 'paint', null, '#fbfaf7', { emissive: '#ffffff', emissiveIntensity: 0.35, roughness: 0.4, side: THREE.DoubleSide }); bg.dispose();
             for (let i = 0; i < e.length; i++) { const [a, c] = e[i], [a2, c2] = e[(i + 1) % e.length]; wallSeg(ctx, a, c, a2, c2, ly - 0.2, ly + 1.1); }

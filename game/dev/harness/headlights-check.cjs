@@ -27,6 +27,7 @@ await page.evaluate(()=>{game.setRoamWeather('fog');game.updateClock(0)});await 
 await page.keyboard.press('l');await page.evaluate(()=>{game.updateDrive(1/30);game.updateDrive(1/30)});await capture('fog-manual-off');
 await page.evaluate(()=>{game.headlights='auto';game._hlSent=undefined;game.updateClock(0)});await capture('fog-auto-before-travel');
 await page.evaluate(async()=>{await game.loadCity('bucharest',{district:'floreasca'});game.updateClock(0);document.body.dataset.mode=game.state;game.syncModalControls?.();});await capture('fog-auto-after-travel');
+if(process.env.HEADLIGHTS_TRAVEL_PROBE==='1')partialReport.travelOcclusion=await require('./integration-headlight-occlusion.cjs').probe(page,out);
 await page.evaluate(()=>{game.headlights=false;game._hlSent=undefined;game.updateClock(0);document.body.dataset.mode=game.state;game.syncModalControls?.()});
 await page.locator('#pause-btn').click();await page.locator('#pause-menu [data-pa="settings"]').click();await page.locator('#pause-menu [data-set="quality"]').selectOption('medium');await page.locator('#pause-menu [data-pa="resume"]').click();await capture('settings-manual-off');
 const source=Object.fromEntries(['game/src/vehicles.js','game/src/render.js','game/src/main.js','game/src/traffic.js','game/src/sceneResources.js'].map(file=>[file,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')]));

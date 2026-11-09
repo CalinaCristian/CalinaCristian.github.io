@@ -33,4 +33,7 @@ delete a.mesh.userData.height;globalQA.models.delete(1);row=globalQA.sample(1/30
 a.mesh.userData.height=4;a.x=15.99;b.x=16.01;
 assert.equal(JSON.stringify(game.traffic.vehicles),before,'sampling never mutates native actors or production hashes');
 game.traffic.group.matrixWorld.elements[12]=2;row=globalQA.sample(1/30);assert.equal(row.coverageGaps.length,1,'a nonidentity parent remains an explicit unsupported world-transform gap');
+game.traffic.group.matrixWorld.elements[12]=0;globalQA.railSourceRequired=true;delete globalThis.railQA;row=globalQA.sample(1/30);assert.equal(row.railSource.passed,false);assert.equal(row.coverageGaps.length,1,'required source observer cannot silently disappear');
+globalThis.railQA={read:()=>({passed:false,issues:[{type:'initial-tram-binding-failed'}]})};row=globalQA.sample(1/30);assert.equal(row.coverageGaps.length,1,'false binding becomes an explicit global source gap');
+globalThis.railQA={read:()=>({passed:true,issues:[],coverageGaps:[]})};row=globalQA.sample(1/30);assert.equal(row.coverageGaps.length,0,'positive rail proof preserves the independent body audit');
 console.log('PASS: all-actor observer actual-height/cross-layer positives, separate-height negatives, cross-cell independent indexing and explicit model/down gaps');

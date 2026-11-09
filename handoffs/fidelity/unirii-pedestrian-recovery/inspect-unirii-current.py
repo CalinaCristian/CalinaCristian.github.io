@@ -41,6 +41,9 @@ hm = [x for x in issues if x['severity'] in ('high', 'medium')]
 unknown = {key: sum(len(row[key]) for row in rows) for key in ['unknownVehicleHeights', 'unknownPedestrianModels', 'coverageGaps']}
 first_pop = rows[0]['population']
 population_changes = sum(row['population'] != first_pop for row in rows)
+rail_rows = [row['railSource'] for row in rows if 'railSource' in row]
+approach_passed = r['drive']['result']['ok'] and not r['drive']['result']['resets'] and not o['contacts'] and not hm and not any(unknown.values()) and not population_changes and not(r['errors'] or r['consoleErrors'] or r['httpErrors'])
+clearance_passed = not peer_pairs and not any(p['above5cmSamples'] for p in vehicle_pairs.values()) and not any(unknown.values())
 target_325 = [x for x in o['pedGapCalls'] if any(c['ped']['i'] == 325 for c in x['candidates'])]
 caller_214 = [x for x in o['callerSteps'] if x['after']['caller']['ap'] and (x['after']['caller']['ap'].get('leaderInfo') or {}).get('id') == 214]
 summary = {
@@ -55,13 +58,16 @@ summary = {
     'initial': {'vehicles': r['initial']['vehicles'], 'peds': r['initial']['peds'], 'quality': r['initial']['quality'], 'initialAdmissionPassed': r['initial']['initialAdmission']['passed']},
     'warm': {k: r['warm'][k] for k in ['requestedSeconds', 'simT', 'scT', 'steps', 'issues']},
     'drive': r['drive'],
-    'global': {'physicalSamples': len(rows), 'physicalDeltaSource': 'Actual native trafficTime deltas; wrapper optional dt argument was undefined and omitted from raw JSON', 'physicalDeltaMin': min(physical_deltas), 'physicalDeltaMax': max(physical_deltas), 'physicalSeconds': sum(physical_deltas), 'population': first_pop, 'populationChanges': population_changes, 'unknownOrGapCounts': unknown, 'downPedestrianSamples': sum(len(x['downPedestrians']) for x in rows), 'vehiclePairs': list(vehicle_pairs.values()), 'peerPairs': list(peer_pairs.values())},
+    'global': {'physicalSamples': len(rows), 'physicalDeltaSource': 'Actual native trafficTime deltas; optional raw dt field is used only as supplemental metadata', 'physicalDeltaMin': min(physical_deltas), 'physicalDeltaMax': max(physical_deltas), 'physicalSeconds': sum(physical_deltas), 'population': first_pop, 'populationChanges': population_changes, 'unknownOrGapCounts': unknown, 'downPedestrianSamples': sum(len(x['downPedestrians']) for x in rows), 'vehiclePairs': list(vehicle_pairs.values()), 'peerPairs': list(peer_pairs.values())},
+    'sourceRail': {'observedSamples': len(rail_rows), 'failedSamples': sum(not x['passed'] for x in rail_rows), 'maximumTramActors': max((len(x.get('actors',[])) for x in rail_rows),default=0), 'scope': 'A no-tram native district is not a challenged source-rail/station/crossing-motion acceptance run'},
     'directCaller': {'steps': len(o['callerSteps']), 'actualPaths': len(o['paths']), 'pathRegistries': o['paths'], 'truck214LeaderSteps': len(caller_214), 'firstTruck214Leader': caller_214[0] if caller_214 else None, 'lastTruck214Leader': caller_214[-1] if caller_214 else None},
     'dependency325': {'actualRoadConeSamples': len(target_325), 'first': target_325[0] if target_325 else None, 'last': target_325[-1] if target_325 else None, 'scope': 'Only actual naturally encountered native samples; an absent325/87 encounter is not a challenged dynamic regression.'},
     'contacts': len(o['contacts']), 'impacts': len(o['impacts']), 'placements': o['placements'], 'resets': o['preResets'],
     'issuesBySeverity': dict(Counter(x['severity'] for x in issues)), 'highMediumIssues': hm,
     'frames': [{'label': x['label'], 'camera': x['camera'], 'conditions': x['conditions'], 'calls': x['calls'], 'triangles': x['triangles'], 'passes': x['passes']} for x in o['captures']],
-    'acceptedBoundedApproach': r['drive']['result']['ok'] and not r['drive']['result']['resets'] and not o['contacts'] and not hm and not peer_pairs and not any(p['above5cmSamples'] for p in vehicle_pairs.values()) and not any(unknown.values()) and not population_changes and not(r['errors'] or r['consoleErrors'] or r['httpErrors']),
+    'nativeApproachControllerPassed': approach_passed,
+    'allActorClearancePassed': clearance_passed,
+    'acceptedBoundedApproach': approach_passed and clearance_passed,
     'scope': 'Native public Unirii first150m plus exact warm-up only. No all-eight, season matrix, corrected rail graph, final display or900s acceptance.',
 }
 out.write_text(json.dumps(summary, indent=2) + '\n')

@@ -47,7 +47,7 @@ export function backgammonGame(ctx,{x,y,z,source,onDone}) {
     elder.set(0,{x:x-.95,y:y-.8,z,yaw:-Math.PI/2,pose:'sit',amp:0,phase:1.4,scale:.98});ctx.add(elder.object);elder.object.name='Doru-fictional-park-regular';elder.object.userData.fictional=true;
     ctx.circle(x-.95,z,.28,1.3);(ctx.extras.sceneCleanups||=[]).push(()=>elder.dispose());
 
-    let match=createGame(),turnStart=match,undo=[],selectedFrom=null,selectedDie=null,awarded=false,winConfirmed=false,aiWait=.6,rollTime=0,animationTime=1,fromPositions=[],toPositions=[],lastLine='Doru: “Shall we play a full game?”';
+    let match=createGame(),turnStart=match,undo=[],selectedFrom=null,selectedDie=null,awarded=false,resultConfirmed=false,resultClosed=false,aiWait=.6,rollTime=0,animationTime=1,fromPositions=[],toPositions=[],lastLine='Doru: “Shall we play a full game?”';
     let moveCachePosition=null,moveCache=[];
     const movesFor=()=>{if(moveCachePosition!==match){moveCachePosition=match;moveCache=legalMoves(match);}return moveCache;};
     const events=[],record=(action,detail={})=>events.push({action,...detail,state:match});
@@ -76,7 +76,7 @@ export function backgammonGame(ctx,{x,y,z,source,onDone}) {
     const eventMove=(m,p)=>{record('move',{player:p,move:{...m}});lastLine=`${playerName(p)}: ${moveLabel(m)}`;};
     const resetSelection=()=>{const moves=movesFor();if(!moves.some(m=>m.die===selectedDie))selectedDie=moves[0]?.die??null;selectedFrom=match.turn===1&&moves.some(m=>m.from==='bar')?'bar':null;};
     const roll=()=>{const a=die(),b=die();match=rollDice(match,a,b);record('roll',{dice:[a,b]});rollTime=.45;turnStart=match;undo=[];aiWait=.75;resetSelection();renderDice();};
-    const resetMatch=()=>{match=createGame();turnStart=match;undo=[];selectedFrom=null;selectedDie=null;awarded=false;winConfirmed=false;aiWait=.6;record('new-match');lastLine='Doru: “Your white checkers move toward points 1–6.”';renderCheckers(match);};
+    const resetMatch=()=>{match=createGame();turnStart=match;undo=[];selectedFrom=null;selectedDie=null;awarded=false;resultConfirmed=false;resultClosed=false;aiWait=.6;record('new-match');lastLine='Doru: “Your white checkers move toward points 1–6.”';renderCheckers(match);};
     const changeMove=(m,human)=>{const before=match;if(human)undo.push(before);match=applyMove(match,m);eventMove(m,before.turn);renderCheckers(match,true);resetSelection();};
     const current=()=>flow.run?.backgammon===true?flow.run:null;
     const readyForPoint=()=>current()&&!activityBlocked(current().s)&&match.turn===1&&match.phase==='move'&&animationTime>=1&&rollTime<=0;
@@ -103,9 +103,9 @@ export function backgammonGame(ctx,{x,y,z,source,onDone}) {
         }
         r.bar.textContent=`Your bar: ${match.bar[0]} · Doru: ${match.bar[1]}`;r.bar.disabled=!readyForPoint()||!chosen.some(m=>m.from==='bar');r.bar.setAttribute('aria-pressed',String(selectedFrom==='bar'));
         r.off.textContent=`Bear off · ${match.off[0]}/15`;r.off.disabled=!readyForPoint()||!chosen.some(m=>m.from===selectedFrom&&m.to==='off');
-        r.undo.disabled=!human||!undo.length||transition;r.busy=transition||(!human&&match.phase!=='finished')||(human&&match.phase==='move'&&moves.length>0);
+        r.undo.disabled=!human||match.phase==='finished'||!undo.length||transition;r.busy=transition||(!human&&match.phase!=='finished')||(human&&match.phase==='move'&&moves.length>0);
         if(match.phase==='opening'){r.button.textContent='Roll opening dice';r.status.textContent=match.openingDice.length?'A tie. Roll one die each again.':'Highest opening die starts and uses both numbers.';}
-        else if(match.phase==='finished'){r.busy=transition;r.button.textContent=human?'Confirm match win':'Play again';r.status.textContent=human?'You bore off all fifteen checkers. You won!':'Doru wins this game. A rematch starts from the full opening position.';}
+        else if(match.phase==='finished'){r.busy=transition;r.button.textContent=human?'Confirm match win':'Confirm match';r.status.textContent=human?'You bore off all fifteen checkers. You won! Confirm the result to finish.':'Doru won this match. Confirm the result to finish; you can start a new match next time.';}
         else if(!human){r.button.textContent='Doru is playing…';r.status.textContent=match.phase==='roll'?'Doru is rolling his dice.':`Doru is considering ${match.remaining.join(', ')||'the end of his turn'}.`;}
         else if(match.phase==='roll'){r.button.textContent='Roll dice';r.status.textContent='Your turn. Roll both dice.';}
         else if(!moves.length){r.button.textContent=match.remaining.length?'Confirm blocked turn':'Confirm turn';r.status.textContent=match.remaining.length?'No remaining die has a legal move. Confirm to pass.':'Both dice have been played. Confirm, or undo before handing over.';}
@@ -114,22 +114,26 @@ export function backgammonGame(ctx,{x,y,z,source,onDone}) {
     }
 
     ctx.interactables.push({kind:'backgammon',source,x:x+.95,z,r:1.8,label:'Play backgammon with Doru',use:s=>{
+        let activityRun=null;
         return flow.begin(s,{title:'Backgammon at La Șahiști',help:'Choose a die, a white checker and its green destination. Use both dice if possible; if only one can be played, use the higher. Enter from the bar first. Get all fifteen home (points 1–6), then bear off.',action:'Roll opening dice',focus:{x:x-.95,y:y+.35,z},
             started(s,r){
-                if(awarded)resetMatch();
+                activityRun=r;if(resultClosed)resetMatch();
                 r.backgammon=true;r.ui.classList.add('bg-game');if(!document.getElementById('backgammon-game-css')){const st=document.createElement('style');st.id='backgammon-game-css';st.textContent=CSS;document.head.append(st);}
                 r.summary=document.createElement('p');r.summary.className='bg-summary';r.dice=document.createElement('div');r.dice.className='bg-dice';r.dice.setAttribute('aria-label','Available dice');
                 const board=document.createElement('div');board.className='bg-board';board.setAttribute('role','group');board.setAttribute('aria-label','Backgammon board. White home points are 1 to 6.');r.points=Array(24);
                 for(const half of [[12,13,14,15,16,17,11,10,9,8,7,6],[18,19,20,21,22,23,5,4,3,2,1,0]]){const section=document.createElement('div');section.className='bg-half';for(const i of half){const b=document.createElement('button');b.className='bg-point';b.type='button';b.dataset.point=i;if(i<12)b.dataset.bottom='';const number=document.createElement('span');number.className='bg-number';number.textContent=i+1;b.stack=document.createElement('span');b.stack.className='bg-stack';b.append(number,b.stack);b.onclick=()=>clickPoint(i,r);r.points[i]=b;section.append(b);}board.append(section);}
                 const trays=document.createElement('div');trays.className='bg-trays';r.bar=document.createElement('button');r.bar.type='button';r.bar.onclick=()=>{if(current()===r&&readyForPoint()){selectedFrom='bar';refresh();}};r.off=document.createElement('button');r.off.type='button';r.off.onclick=()=>{if(current()!==r||!readyForPoint())return;const m=movesFor().find(m=>m.from===selectedFrom&&m.to==='off'&&m.die===selectedDie);if(m){changeMove(m,true);refresh();}};trays.append(r.bar,r.off);
                 r.log=document.createElement('p');r.log.className='bg-log';r.log.setAttribute('aria-live','polite');const nav=r.ui.querySelector('nav');r.ui.insertBefore(r.summary,r.progress);r.ui.insertBefore(r.dice,nav);r.ui.insertBefore(board,nav);r.ui.insertBefore(trays,nav);r.ui.insertBefore(r.log,nav);
-                r.undo=document.createElement('button');r.undo.type='button';r.undo.className='bg-undo';r.undo.textContent='Undo move';r.undo.onclick=()=>{if(current()!==r||activityBlocked(s)||match.turn!==1||!undo.length||animationTime<1||rollTime>0)return;match=undo.pop();record('undo');resetSelection();renderCheckers(match);refresh();};nav.insertBefore(r.undo,nav.querySelector('[data-leave]'));
+                r.undo=document.createElement('button');r.undo.type='button';r.undo.className='bg-undo';r.undo.textContent='Undo move';r.undo.onclick=()=>{if(current()!==r||activityBlocked(s)||match.phase==='finished'||match.turn!==1||!undo.length||animationTime<1||rollTime>0)return;match=undo.pop();record('undo');resetSelection();renderCheckers(match);refresh();};nav.insertBefore(r.undo,nav.querySelector('[data-leave]'));
                 resetSelection();record('begin');refresh();
             },
             actioned(s,r){
+                if(current()!==r||r!==activityRun)return;
                 if(match.phase==='finished'){
-                    if(match.winner===1){winConfirmed=true;record('confirm-win');flow.complete();}
-                    else{resetMatch();refresh();}return;
+                    if(resultConfirmed||resultClosed)return;
+                    resultConfirmed=true;record('confirm-result',{winner:match.winner});
+                    if(match.winner===1)record('confirm-win');
+                    flow.complete();return;
                 }
                 if(match.phase==='opening'||(match.phase==='roll'&&match.turn===1)){roll();refresh();return;}
                 if(match.turn===1&&match.phase==='move'&&!movesFor().length){match=confirmTurn(match);undo=[];turnStart=match;record('confirm-turn');aiWait=.6;selectedFrom=null;refresh();}
@@ -141,10 +145,14 @@ export function backgammonGame(ctx,{x,y,z,source,onDone}) {
                 if(match.phase==='move'){const plan=chooseTurn(match);if(plan.length){changeMove(plan[0],false);aiWait=.55;}else{match=confirmTurn(match);record('opponent-confirm');turnStart=match;undo=[];aiWait=.6;resetSelection();}refresh();}
             },
             cancel(s,reason){
-                if(match.turn===1&&undo.length){match=turnStart;undo=[];renderCheckers(match);resetSelection();}
-                winConfirmed=false;record('cancel',{reason});
+                if(match.phase!=='finished'&&match.turn===1&&undo.length){match=turnStart;undo=[];renderCheckers(match);resetSelection();}
+                resultConfirmed=false;record('cancel',{reason});
             },
-            complete(s){if(!winConfirmed||match.winner!==1)return;awarded=true;winConfirmed=false;record('awarded');onDone?.(s,gameResult(match));},
+            complete(s){
+                if(!resultConfirmed||resultClosed||match.phase!=='finished')return;
+                resultClosed=true;record('result-closed',{winner:match.winner});
+                if(match.winner===1&&!awarded){awarded=true;record('awarded');onDone?.(s,gameResult(match));}
+            },
         });
     }});
     ctx.onUpdate(dt=>{
@@ -156,6 +164,6 @@ export function backgammonGame(ctx,{x,y,z,source,onDone}) {
         // checker/die matrices alone advance through the intervening frames.
         if(controlsChanged)refresh();
     });
-    ctx.extras.backgammon={source,table:{x,y,z,boardRotationY:Math.PI/2},opponent:{name:'Doru',fictional:true,x:x-.95,y:y-.8,z,yaw:-Math.PI/2},state:()=>match,legalMoves:()=>movesFor().map(m=>({...m})),events:()=>events.map(e=>({...e})),checkers,diceMesh,pips};
+    ctx.extras.backgammon={source,table:{x,y,z,boardRotationY:Math.PI/2},opponent:{name:'Doru',fictional:true,x:x-.95,y:y-.8,z,yaw:-Math.PI/2},state:()=>match,result:()=>Object.freeze({confirmed:resultConfirmed,closed:resultClosed,awarded}),legalMoves:()=>movesFor().map(m=>({...m})),events:()=>events.map(e=>({...e})),checkers,diceMesh,pips};
     return root;
 }

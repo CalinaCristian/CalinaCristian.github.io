@@ -1,0 +1,142 @@
+{
+  "schema": 1,
+  "recordedUTC": "2026-11-09T18:22:16.425893+00:00",
+  "baseCommit": "720a460a8a1d3dc9ad9f601081196a8d3d22162d",
+  "scope": "CPU late World-prefix and isolated literal final-water path parity plus complete locally captured native small-water buffer. No browser/new native passage/global scene/visual/budget acceptance.",
+  "candidateWorldSha256": "17c0aa5c94a58505c45c6c5d98c067dc41efd75810be2ebd134dc81f4652c517",
+  "oldWorldSha256": "6e75d09f721b8e729b826636ebcf6e5aca79dddf7e2230512135415b0ff4b207",
+  "dataset": {
+    "path": "game/data/bucharest-unirii.json",
+    "sha256": "e94dc563fc82efe0f6dac21e7e20ac8e34ea5a7e20eb38bf97e829abebe9657d",
+    "unchangedFromBase": true,
+    "unchangedFromNativeBe12Archive": true
+  },
+  "sourceModules": [
+    {
+      "path": "game/src/world.js",
+      "sha256": "17c0aa5c94a58505c45c6c5d98c067dc41efd75810be2ebd134dc81f4652c517"
+    },
+    {
+      "path": "game/src/final-water-topology.js",
+      "sha256": "f293186ad02f941f2822214ea494d5bed1af8bf7a092c6090f26638b0b02a9e9"
+    },
+    {
+      "path": "game/src/water.js",
+      "sha256": "7a7cea86bdb0dc2cf135b95c9cd7aec81d16e8e48a4bf0b125449d91931df3ae"
+    },
+    {
+      "path": "game/src/water-shore.js",
+      "sha256": "6705b456454df3ac85ada90a96ff66280706ad306de401dea25896b8d379315e"
+    },
+    {
+      "path": "game/src/water-batch.js",
+      "sha256": "cd1a0fb7e59ff1c621eadc77acbd58c61d81cce09c5dbf9b74125268b41b5543"
+    },
+    {
+      "path": "game/src/geobuild.js",
+      "sha256": "28e535a8934df3d3d249f13180ce04db1b86d47318530e74344a532a2a0fb2d3"
+    },
+    {
+      "path": "game/src/underpass-ground-owner.js",
+      "sha256": "52d8e943ede3199ad485f06e455fa88c7b4d48a5d327f91837b7a73a9fdf37f2"
+    },
+    {
+      "path": "game/src/underpass-roof.js",
+      "sha256": "d1cc7dabf82d602959959f53bca26be699b62142e29ab0ab44e5b9936cec56b3"
+    },
+    {
+      "path": "game/src/road-joins.js",
+      "sha256": "5836ac682164076ddb8e5ef46b25977b870761f7b69623f8b5df454b67ab5a33"
+    }
+  ],
+  "nativeProducer": {
+    "proofCommit": "0c964062429644fc54f8ccd35425715e3b162fe1",
+    "sourceCommit": "be12cd87cf988a097c7c54011f0b816694119db7",
+    "localSmallGzipSha256": "f51643a06f798bf18877cc818f89f761725ff9ef7b4c54ac135e5e05c7d6983b",
+    "witnessesSha256": "f4e1c7e36234e318059fca72334e493ad259172c620ffcbc6a216fac5de333c8",
+    "captureFilter": "whole mesh bbox intersects Pasaj x[-500,-320],z[-150,850]; full far groups not captured",
+    "bigCanonicalCapture": "unsupported; raw big-water remains conservative roof hold"
+  },
+  "externalCPUOutputs": "/workspace/reality-pass/final-water-underpass-index",
+  "heldShelterDraft": "6e204029eadb907aa05d88ed8c259308acb8a4c0: HOLD; not included",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 7782,
+      "sha256": "c3214110e5bc0fe666901de7813af472f9bc10faed0b51022328b3b50d21e205"
+    },
+    {
+      "path": "candidate-late-water.json.gz",
+      "bytes": 112407,
+      "sha256": "242b42bcffbfc220d8ba9062ed05893c5d420cd94554bc93f038073a288bce58",
+      "decodedBytes": 759447,
+      "decodedSha256": "2bd676c85e6d828833e3d93b63ce9cc53935ac5d48ff5747374d5658e5238559"
+    },
+    {
+      "path": "capture-late-water.mjs",
+      "bytes": 5319,
+      "sha256": "a9b6193675a37035d3e0355e1619ac1ef6f87cd3456afc5450e69323c0ccaaea"
+    },
+    {
+      "path": "capture-raw-water.mjs",
+      "bytes": 2764,
+      "sha256": "238f9672a230c54e9855692eca9350929063423315c9d1697686359401e76790"
+    },
+    {
+      "path": "check.json",
+      "bytes": 5986,
+      "sha256": "e1dc6cb3535c787a5e8aa70fc78918389ae2ca077ae3ded668e43e187ba5a256"
+    },
+    {
+      "path": "check.mjs",
+      "bytes": 11650,
+      "sha256": "f42161df10b3efc9b41bb2aca4277f6687d3628f714cc3fd08b2bcc3ec44563c"
+    },
+    {
+      "path": "final-assembly-parity.json",
+      "bytes": 3923,
+      "sha256": "82c891b7b4472be04550d22b71f44496f4d6a3275946d4ea4f2616cb2028f237"
+    },
+    {
+      "path": "fixture-float-control-correction.json",
+      "bytes": 408,
+      "sha256": "09a08cc558809f4b43838e77a613cfc74046803199a5d1e143827c89bc14cb4a"
+    },
+    {
+      "path": "native-complete-small-water.json.gz",
+      "bytes": 1010,
+      "sha256": "f51643a06f798bf18877cc818f89f761725ff9ef7b4c54ac135e5e05c7d6983b",
+      "decodedBytes": 12518,
+      "decodedSha256": "95d745d6e1c238096e95dd122a0316007c0156ea8fa513120c3f37053030360e"
+    },
+    {
+      "path": "observer-full-world-limitation.json",
+      "bytes": 730,
+      "sha256": "ae10ea9363815aa5186809b85b93d9132978e8e73899e4ad3e2d6d896f7657b5"
+    },
+    {
+      "path": "old-late-water.json.gz",
+      "bytes": 112240,
+      "sha256": "ef97832d7c312af2933153fffdad941859f8e270303740720b2920e3dfabb9e2",
+      "decodedBytes": 750449,
+      "decodedSha256": "16624f811c65b5f34dac0cb68015159832fba54179520cfcd3d9819695679e82"
+    },
+    {
+      "path": "raw-water-prefix.json.gz",
+      "bytes": 18946,
+      "sha256": "5e5448676489aa6ad04610c8f16b97ba5727c43c60dfb444fe28fe1b94a350ca",
+      "decodedBytes": 68327,
+      "decodedSha256": "2bbb48c36b246323f0e2543e47455840cd79d694b21cf96537219c87a60bb12b"
+    },
+    {
+      "path": "replay-final-assembly.mjs",
+      "bytes": 6815,
+      "sha256": "9a068171f32406a2784841d510f495394f3a0317a2b19e36b0f434f82d7b4e57"
+    },
+    {
+      "path": "ro-be12-witnesses.json",
+      "bytes": 24344,
+      "sha256": "f4e1c7e36234e318059fca72334e493ad259172c620ffcbc6a216fac5de333c8"
+    }
+  ]
+}

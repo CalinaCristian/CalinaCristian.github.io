@@ -1,3 +1,4 @@
+import { projectCoveredWater, prepareFinalWaterGeometry, prepareSmallWaterGroups, consumePreparedSmallWater, waterOwnerSurface, landmarkWaterSurfaces, combineUnderpassWaterOwners } from './final-water-topology.js';
 import { buildUnderpassOwnerIndex } from './underpass-ground-owner.js';
 import { underpassRoofModel, underpassRoofFaces, underpassRoofCollider, UNDERPASS_COVER_POLICY } from './underpass-roof.js';
 import { sharedBridgePadSurface } from './bridge-pad-profile.js';
@@ -2522,10 +2523,15 @@ export async function buildWorld(city, renderer, opts = {}) {
         const width = (f, side) => widthSide(f, side) + .3, points = [1, -1].flatMap(side => [e.a, e.b].map(n => corner(e, n, side, width(e, side), width)));
         return { x0: Math.min(...points.map(p => p[0])), x1: Math.max(...points.map(p => p[0])), z0: Math.min(...points.map(p => p[1])), z1: Math.max(...points.map(p => p[1])) };
     });
-    const underpassOwners = buildUnderpassOwnerIndex(underpassRegions.length ? [
-        ...[...cells].flatMap(([key, c]) => ['area', 'grass', 'pave', 'sport', 'ground', 'road', 'pad', 'water'].map(layer => ({ mesh: c[layer], id: layer + ':' + key, water: layer === 'water' }))),
+    const underpassOwnerOptions = { fallbackM: -.3, regions: underpassRegions }; // exact unchanged emitted groundPlane datum
+    const underpassGroundOwners = buildUnderpassOwnerIndex(underpassRegions.length ? [
+        ...[...cells].flatMap(([key, c]) => ['area', 'grass', 'pave', 'sport', 'ground', 'road', 'pad'].map(layer => ({ mesh: c[layer], id: layer + ':' + key }))),
         { mesh: bigWater, id: 'water-big', water: true },
-    ] : [], { fallbackM: -.3, regions: underpassRegions }); // exact unchanged emitted groundPlane datum
+    ] : [], underpassOwnerOptions);
+    let underpassOwners = combineUnderpassWaterOwners(underpassGroundOwners, buildUnderpassOwnerIndex(underpassRegions.length ?
+        [...cells].map(([key, c]) => ({ mesh: c.water, id: 'water:' + key, water: true })) : [], underpassOwnerOptions));
+    const deferredUnderpassDown = [], coveredWater = projectCoveredWater(city, { us: US });
+    let WATER_API = null, preparedSmallWater = null;
     for (const e of raised) {
         const c = cellOf((e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2);
         const sb = c.solid, roadsideSolidStart = sb.ic, roadsideSolidVertexStart = sb.vc;
@@ -2561,6 +2567,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if(shared)displace(sb,roadsideSolidVertexStart,(x,z,y)=>yAlong(e,x,z)*clamp(y/Y.road,0,1),e,roadsideSolidStart);
         }
         if (down) {
+            const emitDown = () => {
             const source = data.roadSourceGeometry?.[e.road];
             let roof = source?.sourceId && source.tags?.tunnel && source.tags.tunnel !== 'no' ? underpassRoofModel(e, { sourceTags: source.tags }) : { known: false, reason: 'source-tunnel-context-missing' };
             const roofPoint = (t, o, y) => { const a = Pm(0, o, y), b = Pm(1, o, y); return [a[0] + (b[0] - a[0]) * t, y, a[2] + (b[2] - a[2]) * t]; };
@@ -2627,6 +2634,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                     sb.face4(P(s2, wr + 0.5, yc), P(s2, -wl - 0.5, yc), P(s2, -wl - 0.5, 1.2), P(s2, wr + 0.5, 1.2), rgb('#6b6862'), [e.dirx * out, 0, e.dirz * out]);
                 }
             }
+            };
+            const sourceTunnel = data.roadSourceGeometry?.[e.road]?.tags?.tunnel;
+            if (e.tunnel && sourceTunnel && sourceTunnel !== 'no') deferredUnderpassDown.push(emitDown); else emitDown();
         }
     }
     // raised junction corners (realPass): between two neighbouring sidewalk ends round a pad, a quad from one end (asphalt
@@ -3599,6 +3609,21 @@ export async function buildWorld(city, renderer, opts = {}) {
                 a.ownedBy = lm.id;
             }
         }
+    }
+    // All raw water edits (including landmark-owned pool collapse) are complete.
+    // The cap-sensitive grouped topology is prepared once and later consumed by
+    // normal final assembly only after exact source-buffer equality.
+    if (deferredUnderpassDown.length) {
+        try {
+            WATER_API = await import('./water.js');
+            preparedSmallWater = prepareSmallWaterGroups(cells, { subdivide: WATER_API.subdivideWater, covered: coveredWater });
+        } catch (error) { console.warn('Final water owner preparation unavailable; raw water remains unresolved', error); }
+        if (preparedSmallWater) {
+            const retainedWater = [...preparedSmallWater.values()].map(entry => waterOwnerSurface(entry.geometry, 'water-final:' + entry.key));
+            retainedWater.push(...landmarkWaterSurfaces(landmarks));
+            underpassOwners = combineUnderpassWaterOwners(underpassGroundOwners, buildUnderpassOwnerIndex(retainedWater, underpassOwnerOptions));
+        }
+        for (const emitDown of deferredUnderpassDown) emitDown();
     }
     // landmark collision boxes must not reach into a carriageway (e.g. the squashed SeaTac / OTP terminals over their drives)
     let lmTrim = 0, lmDrop = 0;
@@ -5434,36 +5459,22 @@ export async function buildWorld(city, renderer, opts = {}) {
     // shared water material from render's water.js (Fresnel env reflection, ripples, flow, night light streaks — note 11);
     // the old flat vertex-colour material stays as the fallback if the module is missing
     let waterMat = null;
-    let WATER_API = null;
-    try { const W2 = WATER_API = await import('./water.js'); waterMat = W2.makeWaterMaterial({ deep: US ? '#1d3340' : '#2b3a33', shallow: US ? '#3a5563' : '#46564a', flow: [0.25, 0.08] }); waterMat.depthWrite = false; } catch (err) { console.warn('water.js unavailable', err); }
+    try { const W2 = WATER_API = WATER_API || await import('./water.js'); waterMat = W2.makeWaterMaterial({ deep: US ? '#1d3340' : '#2b3a33', shallow: US ? '#3a5563' : '#46564a', flow: [0.25, 0.08] }); waterMat.depthWrite = false; } catch (err) { console.warn('water.js unavailable', err); }
     if (!waterMat) waterMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.18, metalness: 0.15, depthWrite: false });
     // shoreline foam / shallow tint / wet edges (water.js): every water mesh is re-tessellated (≤ 6 m edges) and gets
     // its per-vertex distance to the shore; all-or-nothing, since the shared material then expects `aShore` everywhere
     let shoreTris = 0;
     const sourceShoreSampler = WATER_API?.makeSourceShoreSampler?.(areas.filter(a => a.kind === 'water'), { maxD: 30 });
     const waterShoreAudit = [];
-    // rivers running underground (OSM tunnel=yes): the Dambovita is covered under Piata Unirii, but its riverbank polygon
-    // is mapped straight across the square — water triangles over the covered stretch are dropped (after round 6)
-    const COVERED = US ? [] : [{ r: 34, pts: [[44.4288061, 26.1010674], [44.4285939, 26.1013182], [44.4262866, 26.1035491], [44.4261682, 26.1037764], [44.4261085, 26.1040376], [44.4260752, 26.1043771]] }]
-        .map((c) => ({ r: c.r, pts: c.pts.map(([la, lo]) => { const q = city.proj(la, lo); return [q.x, q.z]; }) }));
-    const coveredAt = (x, z) => COVERED.some((c) => { for (let i = 1; i < c.pts.length; i++) { const [ax, az] = c.pts[i - 1], [bx, bz] = c.pts[i], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / L2)); if (Math.hypot(x - ax - dx * t, z - az - dz * t) < c.r) return true; } return false; });
-    const dropCovered = (g) => {
-        if (!COVERED.length) return g; const P = g.attributes.position; if (g.index || P.count % 3) return g;
-        const keep = []; for (let i = 0; i < P.count; i += 3) { const x = (P.getX(i) + P.getX(i + 1) + P.getX(i + 2)) / 3, z = (P.getZ(i) + P.getZ(i + 1) + P.getZ(i + 2)) / 3; if (!coveredAt(x, z)) keep.push(i); }
-        if (keep.length * 3 === P.count) return g;
-        const out = new THREE.BufferGeometry();
-        for (const k of Object.keys(g.attributes)) { const A = g.attributes[k], n = A.itemSize, arr = new A.array.constructor(keep.length * 3 * n); keep.forEach((i, j) => { for (let v = 0; v < 3; v++) for (let c = 0; c < n; c++) arr[(j * 3 + v) * n + c] = A.array[(i + v) * n + c]; }); out.setAttribute(k, new THREE.BufferAttribute(arr, n)); }
-        g.dispose(); return out;
-    };
-    const shoreFoam = (m) => {
-        if (!WATER_API || !m.geometry) return;
-        try { const g2 = dropCovered(WATER_API.subdivideWater(m.geometry, 6, 60000)); const sd = WATER_API.computeShoreDistance(g2, { maxD: 30, material: waterMat, sourceSampler: sourceShoreSampler });
+    const shoreFoam = (m, prepared = null) => {
+        if (!WATER_API || !m.geometry) { if (prepared) throw Error('Prepared water lost its final assembly API'); return; }
+        try { const g2 = prepared ? consumePreparedSmallWater(prepared, m.geometry) : prepareFinalWaterGeometry(m.geometry, { subdivide: WATER_API.subdivideWater, covered: coveredWater }); const sd = WATER_API.computeShoreDistance(g2, { maxD: 30, material: waterMat, sourceSampler: sourceShoreSampler });
             // (after round 6) a big lake that hit the triangle cap keeps only shore vertices: distance 0 everywhere read as
             // salt-and-pepper foam over the whole of Lake Floreasca — such a mesh gets calm open water instead
             if (!sourceShoreSampler) { let near = 0; for (let i = 0; i < sd.length; i++) if (sd[i] < 1.5) near++; if (near > sd.length * 0.6 && sd.length > 200) sd.fill(30); }
             if (g2.userData.sourceShoreAudit) waterShoreAudit.push({ mesh: m.name, ...g2.userData.sourceShoreAudit });
             m.geometry.dispose(); m.geometry = g2; shoreTris += g2.attributes.position.count / 3; }
-        catch (err) { console.warn('shore foam failed', err); }
+        catch (err) { if (prepared) throw err; console.warn('shore foam failed', err); }
     };
     const areaMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); areaMat.name = 'landuse';
     const paveMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, depthWrite: false }); paveMat.name = 'paved-areas';
@@ -5838,13 +5849,14 @@ export async function buildWorld(city, renderer, opts = {}) {
             case 'road': { const m = addSuper(o, roadMat, false, 'road'); if (m) m.renderOrder = 2; break; }
             case 'pad': { const m = addSuper(o, padMat, false, 'junction'); if (m) m.renderOrder = 3; break; }
             case 'marks': { const m = addSuper(o, marksMat, false, 'marks'); if (m) m.renderOrder = 4; break; }
-            case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) { m.renderOrder = -18; shoreFoam(m); } break; }
+            case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) { m.renderOrder = -18; shoreFoam(m, preparedSmallWater?.get(o.I + ',' + o.J)); } break; }
             case 'solid': addSuper(o, solidMat, true, 'solid'); break;
             case 'detail': { const m = addSuper(o, solidMat, false, 'detail'); if (m) { m.userData.cull = 110 + CELL * 0.71; m.layers.set(2); } break; } // (main view only) // near LOD only // (2026-11-08: no shadow pass — pickets, wires, nets: the frame budget)
             case 'signs': addSuper(o, signMats[o.page], false, 'signs'); break;
             case 'spill': { const m = addSuper(o, spillMat, false, 'shop-spill'); if (m) { m.renderOrder = 5; m.castShadow = m.receiveShadow = false; } break; }
         }
     }
+    if (preparedSmallWater && [...preparedSmallWater.values()].some(entry => !entry.consumed)) throw Error('A certified small-water group was not assembled');
     // ---- kerbside parking (district worlds, Bucharest): mapped parking keeps its location / orientation; legacy yes
     //      flags alone cannot authorize sidewalk cars. Untagged residential / unclassified streets (and tertiary streets
     //      with one lane each way) retain the parallel-kerb fallback where the sidewalk is ≥ 2.2 m. Clear of junctions,

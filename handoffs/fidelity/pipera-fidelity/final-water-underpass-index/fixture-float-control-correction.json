@@ -1,0 +1,6 @@
+{
+  "scope": "Test expectation correction only; production helper unchanged.",
+  "initialControlFailure": "Expected literal3.105000004172325, actual3.1049999967217445 on a translated Float32 .105m vertex.",
+  "correction": "Compute the expected Y from the emitted source Float32 vertex plus actual3m transform, preserving its exact native value. No physical tolerance was added.",
+  "finalControl": "PASS"
+}

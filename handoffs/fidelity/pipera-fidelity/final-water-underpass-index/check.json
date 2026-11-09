@@ -1,0 +1,137 @@
+{
+  "scope": "CPU actual World late-water replay and frozen legacy kernel parity, with one locally captured native small-water buffer. No browser, global native geometry, pixel, driving or release acceptance.",
+  "sourceDataSha256": "e94dc563fc82efe0f6dac21e7e20ac8e34ea5a7e20eb38bf97e829abebe9657d",
+  "oldWorldSha256": "6e75d09f721b8e729b826636ebcf6e5aca79dddf7e2230512135415b0ff4b207",
+  "candidateWorldSha256": "17c0aa5c94a58505c45c6c5d98c067dc41efd75810be2ebd134dc81f4652c517",
+  "legacyCoveredKernelSha256": "aac6b37c511acae7044ddd11f13c8a926f85215baf2d12c3d479d8b00b6aeb21",
+  "passed": 13,
+  "cases": [
+    "literal covered projection unchanged; US exclusion unchanged",
+    "actual late pool edits, all source water builders and insertion order unchanged",
+    "4x4 grouping preserves negative floor, Map order and original cell buffers",
+    "every actual late small-water group matches legacy topology, shore attributes and audit bytes",
+    "complete source-replayed big-water final kernel/shore bytes unchanged; raw-big roof HOLD retained",
+    "all738 positions of complete locally captured native246-triangle small-water object match source replay exactly",
+    "six actual native raw-water positives become zero retained final-small intersections without changing the water cut",
+    "all106 previous complete roof models and ground bands deep-identical; six source-held models alone become known in CPU replay",
+    "real60000 cap shared across4x4 group; late pool collapse changes topology and cannot reuse a pre-collapse certificate",
+    "changed final source buffers and duplicate consumption fail closed",
+    "any actual retained-water intersection still refuses a roof",
+    "original raw-big intersection remains HOLD even when final-small index is empty",
+    "explicit landmark-water membership carries full parent/model transform; unrelated transparency is not water"
+  ],
+  "allSmallGroups": [
+    {
+      "key": "-2,0",
+      "triangles": 76,
+      "geometryAndShoreSha256": "0125840f39428363e1c92dab7f5de43bd022509fc4b8a16753884bc610be41fa",
+      "exactAllAttributes": true
+    },
+    {
+      "key": "-1,-1",
+      "triangles": 235,
+      "geometryAndShoreSha256": "caf8f7a9ee7b7ba41afa2c7f6c68dde9bfdccd3f240bdcba82098894986a04ff",
+      "exactAllAttributes": true
+    },
+    {
+      "key": "-1,0",
+      "triangles": 246,
+      "geometryAndShoreSha256": "964bc98faf90e95d350baa658a6414e58f2ee7ceae48b74c403810aaf9f3d60f",
+      "exactAllAttributes": true
+    },
+    {
+      "key": "0,0",
+      "triangles": 14,
+      "geometryAndShoreSha256": "94a3a8be26748efa0114fe0d39ac56fc96535722927c24979a46bb61dc8f7a11",
+      "exactAllAttributes": true
+    },
+    {
+      "key": "9,3",
+      "triangles": 19536,
+      "geometryAndShoreSha256": "f60498b9c01e79b700a57a99200e74acd5b026628977896dc071f44f34d36e7f",
+      "exactAllAttributes": true
+    },
+    {
+      "key": "10,3",
+      "triangles": 13456,
+      "geometryAndShoreSha256": "6eec93534443e518e8d7e2bce3c03413c20d275c60765255c040113b386c6137",
+      "exactAllAttributes": true
+    },
+    {
+      "key": "11,3",
+      "triangles": 1920,
+      "geometryAndShoreSha256": "e85ffedfc7d3db18788e06036752a829cccef05584804df1bcc1ee5919137ea7",
+      "exactAllAttributes": true
+    },
+    {
+      "key": "12,3",
+      "triangles": 13568,
+      "geometryAndShoreSha256": "a82b7e1e43796dca21e339d5b62d21c2fac8ee28f26af881efee60db217aa33a",
+      "exactAllAttributes": true
+    },
+    {
+      "key": "13,3",
+      "triangles": 1984,
+      "geometryAndShoreSha256": "007c647e70403f95b9607899b203bc5be6fd8aab42c7a68a06677d1f80ab104b",
+      "exactAllAttributes": true
+    }
+  ],
+  "bigWater": {
+    "triangles": 59797,
+    "geometryAndShoreSha256": "f6e008b805b12e4c2c163a88bdf35a95a9e008a3a31db342a256cbc797d83e81",
+    "exactAllAttributes": true,
+    "nativeCanonicalCaptureClaim": false
+  },
+  "locallyCapturedNativeSmall": {
+    "name": "water -1,0",
+    "triangles": 246,
+    "allPositionBytesEqual": true,
+    "captureScope": "whole mesh bounding box intersects Pasaj corridor x[-500,-320],z[-150,850]; other far small-water groups are source replay only"
+  },
+  "oldKnownRoofsUnchanged": 106,
+  "candidateKnownRoofs": 112,
+  "six": [
+    {
+      "edgeId": 1210,
+      "rawPositiveIntersections": 1,
+      "finalWaterIntersections": 0,
+      "scope": "exact reconstructed native query polygon; actual raw positives and complete captured local final246 agree with source replay"
+    },
+    {
+      "edgeId": 1211,
+      "rawPositiveIntersections": 2,
+      "finalWaterIntersections": 0,
+      "scope": "exact reconstructed native query polygon; actual raw positives and complete captured local final246 agree with source replay"
+    },
+    {
+      "edgeId": 1212,
+      "rawPositiveIntersections": 1,
+      "finalWaterIntersections": 0,
+      "scope": "exact reconstructed native query polygon; actual raw positives and complete captured local final246 agree with source replay"
+    },
+    {
+      "edgeId": 1213,
+      "rawPositiveIntersections": 1,
+      "finalWaterIntersections": 0,
+      "scope": "exact reconstructed native query polygon; actual raw positives and complete captured local final246 agree with source replay"
+    },
+    {
+      "edgeId": 1239,
+      "rawPositiveIntersections": 1,
+      "finalWaterIntersections": 0,
+      "scope": "exact reconstructed native query polygon; actual raw positives and complete captured local final246 agree with source replay"
+    },
+    {
+      "edgeId": 1240,
+      "rawPositiveIntersections": 2,
+      "finalWaterIntersections": 0,
+      "scope": "exact reconstructed native query polygon; actual raw positives and complete captured local final246 agree with source replay"
+    }
+  ],
+  "lateCollapseCapWitness": {
+    "beforeTriangles": 60002,
+    "afterTriangles": 60002,
+    "beforeSha256": "f0f9c95e33d0b7bd2589f58f1194db5df13fc1abfa2e939ce3917c2ad52e2a13",
+    "afterSha256": "e795f3a01e36a69a175a6592a39e530a8f2e1342b4ce30802c734dff7df8a1a9"
+  }
+}

@@ -56,6 +56,8 @@ The exact candidate Basarab carriageway source chains, independently connected t
 
 These are structural association candidates, not rail route joins. The proof includes complete source road tags/XY. Do not assume equal normalized whole-way station is homologous chainage, or that identical source `layer` guarantees equal physical height.
 
+`cross-sections.py` verifies these12original-node joins and tests correspondence at≤0.5m over both complete source bridge ways. `source-cross-sections.json` retains a useful negative control: constant per-leg normals uniquely bracket both chains at2432/2432 and2447/2447samples, but changing normal at a curved source vertex jumps the corresponding road station. Independently resolved leg endpoints could therefore disagree. `source-continuous-sections.json` uses one normalized bisector frame at each source vertex and interpolates only that comparison frame along the unchanged source segment. It retains all unique opposite-side brackets and monotonic chainage on both sides (centreline separation13.469–29.844m). This proves source correspondence under that explicit frame, not native support/grade. A runtime implementation must share one rail-node grade across source-way boundaries too; this source-only script has not resolved approaches or assigned any elevation.
+
 QA's exact6cb metadata/native-world8cc support export is pending. Source-only evidence here does not certify native support, moving trams, crossings, collision or budgets.
 
 Reproduce from the scratch cache (writes only the output proof):
@@ -68,4 +70,11 @@ python handoffs/fidelity/us-districts/rail-bridge-grade/audit.py \
   --structures 902056192 \
   --road-names 'Pasajul Basarab' 'Podul Grozăvești' \
   --out /tmp/rail-bridge-source-audit.json
+
+python handoffs/fidelity/us-districts/rail-bridge-grade/cross-sections.py \
+  --audit /tmp/rail-bridge-source-audit.json \
+  --side-a w458458361 w1535667121 w1535667122 w668700432 w668700431 w668700428 w668700430 w668700429 w668700433 \
+  --side-b w23770172 w1552024282 w1552024281 w1552024280 w1552024279 \
+  --rails w118416425 w205971103 --step .5 \
+  --frame-mode vertex-bisector --out /tmp/rail-bridge-continuous-sections.json
 ```

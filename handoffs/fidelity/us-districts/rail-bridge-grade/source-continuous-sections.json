@@ -1,0 +1,335 @@
+{
+  "schema": 1,
+  "classification": "source-only-no-height-assignment",
+  "sourceAuditSha256": "94956349da2cf83b3a275a9209c576b4cf1c25aca73fdff2606dd69eaf681452",
+  "maxStepM": 0.5,
+  "frameMode": "vertex-bisector",
+  "sideSourceIds": [
+    [
+      "w458458361",
+      "w1535667121",
+      "w1535667122",
+      "w668700432",
+      "w668700431",
+      "w668700428",
+      "w668700430",
+      "w668700429",
+      "w668700433"
+    ],
+    [
+      "w23770172",
+      "w1552024282",
+      "w1552024281",
+      "w1552024280",
+      "w1552024279"
+    ]
+  ],
+  "verifiedOriginalSourceNodeJoins": [
+    {
+      "from": "w458458361",
+      "to": "w1535667121",
+      "a": 984551993,
+      "b": 984551993
+    },
+    {
+      "from": "w1535667121",
+      "to": "w1535667122",
+      "a": 6307136271,
+      "b": 6307136271
+    },
+    {
+      "from": "w1535667122",
+      "to": "w668700432",
+      "a": 2624398781,
+      "b": 2624398781
+    },
+    {
+      "from": "w668700432",
+      "to": "w668700431",
+      "a": 1340349388,
+      "b": 1340349388
+    },
+    {
+      "from": "w668700431",
+      "to": "w668700428",
+      "a": 257542289,
+      "b": 257542289
+    },
+    {
+      "from": "w668700428",
+      "to": "w668700430",
+      "a": 2159760169,
+      "b": 2159760169
+    },
+    {
+      "from": "w668700430",
+      "to": "w668700429",
+      "a": 6262162597,
+      "b": 6262162597
+    },
+    {
+      "from": "w668700429",
+      "to": "w668700433",
+      "a": 6262162596,
+      "b": 6262162596
+    },
+    {
+      "from": "w23770172",
+      "to": "w1552024282",
+      "a": 1330584266,
+      "b": 1330584266
+    },
+    {
+      "from": "w1552024282",
+      "to": "w1552024281",
+      "a": 981550754,
+      "b": 981550754
+    },
+    {
+      "from": "w1552024281",
+      "to": "w1552024280",
+      "a": 984552354,
+      "b": 984552354
+    },
+    {
+      "from": "w1552024280",
+      "to": "w1552024279",
+      "a": 981602937,
+      "b": 981602937
+    }
+  ],
+  "railSections": [
+    {
+      "sourceId": "w118416425",
+      "totalSamples": 2432,
+      "uniqueBracketSamples": 2432,
+      "unresolvedSamples": [],
+      "centrelineSpacingRangeM": [
+        13.470405599555313,
+        29.843712547195036
+      ],
+      "sourceUsageBySide": [
+        {
+          "w458458361": 802,
+          "w1535667121": 8,
+          "w1535667122": 189,
+          "w668700432": 111,
+          "w668700431": 575,
+          "w668700428": 37,
+          "w668700430": 38,
+          "w668700429": 33,
+          "w668700433": 639
+        },
+        {
+          "w1552024280": 829,
+          "w1552024281": 215,
+          "w1552024282": 686,
+          "w23770172": 702
+        }
+      ],
+      "chainageBySide": [
+        {
+          "minM": 421.72313712794374,
+          "maxM": 1600.862300665265,
+          "monotonicIncreasing": true,
+          "monotonicDecreasing": false
+        },
+        {
+          "minM": 0.4732223998112927,
+          "maxM": 1196.050100900125,
+          "monotonicIncreasing": false,
+          "monotonicDecreasing": true
+        }
+      ],
+      "endpointSections": [
+        {
+          "segment": 0,
+          "t": 0.0,
+          "point": [
+            154.34835750667162,
+            -393.6851099994082
+          ],
+          "sides": [
+            [
+              {
+                "sourceId": "w458458361",
+                "t": 0.4327761822021121,
+                "normalDistanceM": 11.31185369243778,
+                "chainStationM": 421.72313712794374,
+                "point": [
+                  165.31961475441943,
+                  -390.93019650478453
+                ]
+              }
+            ],
+            [
+              {
+                "sourceId": "w1552024280",
+                "t": 0.9244896173179418,
+                "normalDistanceM": -18.5243631460706,
+                "chainStationM": 1196.050100900125,
+                "point": [
+                  136.38175725245273,
+                  -398.1965737610493
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "segment": 43,
+          "t": 1.0,
+          "point": [
+            986.5578228934737,
+            -1192.6686239996998
+          ],
+          "sides": [
+            [
+              {
+                "sourceId": "w668700433",
+                "t": 0.9967577975141735,
+                "normalDistanceM": 4.469503652288445,
+                "chainStationM": 1600.862300665265,
+                "point": [
+                  989.1583325258339,
+                  -1189.033543182191
+                ]
+              }
+            ],
+            [
+              {
+                "sourceId": "w23770172",
+                "t": 0.013853199654399033,
+                "normalDistanceM": -9.09060253653304,
+                "chainStationM": 0.4732223998112927,
+                "point": [
+                  981.2686003534926,
+                  -1200.0620791730119
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "sourceId": "w205971103",
+      "totalSamples": 2447,
+      "uniqueBracketSamples": 2447,
+      "unresolvedSamples": [],
+      "centrelineSpacingRangeM": [
+        13.469564070620898,
+        29.823452837081486
+      ],
+      "sourceUsageBySide": [
+        {
+          "w668700433": 641,
+          "w668700429": 33,
+          "w668700430": 37,
+          "w668700428": 37,
+          "w668700431": 575,
+          "w668700432": 109,
+          "w1535667122": 188,
+          "w1535667121": 10,
+          "w458458361": 817
+        },
+        {
+          "w23770172": 704,
+          "w1552024282": 685,
+          "w1552024281": 216,
+          "w1552024280": 842
+        }
+      ],
+      "chainageBySide": [
+        {
+          "minM": 423.8553988715202,
+          "maxM": 1600.856189346935,
+          "monotonicIncreasing": false,
+          "monotonicDecreasing": true
+        },
+        {
+          "minM": 0.4789388074266858,
+          "maxM": 1194.8611334995094,
+          "monotonicIncreasing": true,
+          "monotonicDecreasing": false
+        }
+      ],
+      "endpointSections": [
+        {
+          "segment": 0,
+          "t": 0.0,
+          "point": [
+            984.0701279450001,
+            -1196.1359423999477
+          ],
+          "sides": [
+            [
+              {
+                "sourceId": "w668700433",
+                "t": 0.996629565143911,
+                "normalDistanceM": -8.736928682971227,
+                "chainStationM": 1600.856189346935,
+                "point": [
+                  989.1533640283221,
+                  -1189.0299847774636
+                ]
+              }
+            ],
+            [
+              {
+                "sourceId": "w23770172",
+                "t": 0.014020542823347812,
+                "normalDistanceM": 4.823190901811726,
+                "chainStationM": 0.4789388074266858,
+                "point": [
+                  981.2639452555813,
+                  -1200.0587614359122
+                ]
+              }
+            ]
+          ]
+        },
+        {
+          "segment": 45,
+          "t": 1.0,
+          "point": [
+            144.11145305421005,
+            -397.73031480009206
+          ],
+          "sides": [
+            [
+              {
+                "sourceId": "w458458361",
+                "t": 0.4684153127592526,
+                "normalDistanceM": -22.17559255354685,
+                "chainStationM": 423.8553988715202,
+                "point": [
+                  165.77934005679808,
+                  -393.0123090832665
+                ]
+              }
+            ],
+            [
+              {
+                "sourceId": "w1552024280",
+                "t": 0.8656062654551905,
+                "normalDistanceM": 7.647860283534636,
+                "chainStationM": 1194.8611334995094,
+                "point": [
+                  136.6386889314446,
+                  -399.3574482555824
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Reviewed source structure association is an input, not a geometric nearest-road inference.",
+    "Sampled normal brackets establish source correspondence, not native support or surveyed heights.",
+    "A vertex-bisector frame changes only the comparison cross-section direction; every source rail XY remains exact.",
+    "Different source layers, underground crossings and source-connected approaches need separate grade constraints."
+  ]
+}

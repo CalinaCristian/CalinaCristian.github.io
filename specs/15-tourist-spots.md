@@ -294,3 +294,7 @@ Full spot map: icons only; a label only for the hovered / tapped / next-tour obj
 ### 2026-11-09 — apply actual tourist camera projection
 
 Spot entry now executes the intended near=.25m, far>=9000m (or finite scene cameraFarM) and updateProjectionMatrix calls as separate statements. Previously far/update were accidentally swallowed by the near-line comment, leaving public app and dev cameras inconsistent. This is a projection correctness fix; source-backed mountain placement and weather far-culling are still independently reviewed.
+
+### Official Hagi sports TV · 2026-11-09
+
+The main fictional sports-room screen replaces its generic dot match with a Hagi programme title and a floor-level Watch interaction. Focus opens FIFA’s YouTube `rx8GxxrkJEc` with a matching single-video repeat playlist, native controls and muted autoplay. No broadcast pixels or stream files are rehosted. Global mute/volume constrain the external player; close, pause/host takeover, page hide, room exit and scene removal release it. Opening grants no award. Keep the Dinamo hint TV separate. Selection/metadata and embedding-test limits are recorded in `game/research/hagi-highlights.md`; `tools/hagi-tv-state-check.mjs` verifies actual UI/lifecycle with an explicitly mocked publisher API, not real playback. Native bar access and actual provider playback remain independent gates.

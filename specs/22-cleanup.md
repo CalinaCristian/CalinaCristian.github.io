@@ -12,6 +12,7 @@ R22.3 **Remove dead code and duplicates**: old rain in main.js (render owns weat
 R22.4 **Single sources of truth**: city/district/chapter config only in cities.js; CV content only in data.js; styles only in style.css; magic numbers (lane widths, heights, clearances, grades) in one constants module.
 R22.5 **Keep behaviour identical**: no visual or gameplay change except bug fixes found along the way (log them).
 R22.6 Document the final module map in `01-architecture.md` and a short `game/README.md` for future contributors.
+R22.7 Before effort-branch cleanup, retain all local/fetched-remote tips, detached worktree HEADs and recorded source commits in an immutable evidence archive. Expose missing objects/provenance, preserve the exact accepted source tree and original capture dates, verify the remote archive, and preserve dirty-file backups. Never rewrite existing master history.
 
 ## Acceptance
 - [ ] Logic harness and visual QA results before vs after: no new issues, no new review defects (attach both summaries).
@@ -19,3 +20,5 @@ R22.6 Document the final module map in `01-architecture.md` and a short `game/RE
 - [ ] No file in `game/src/` > 60 KB except vendored code; no unused exports (simple script check).
 
 ## Progress log
+
+- 2026-11-09 07:40 UTC — Archive utility accounts for all local heads, fetched remote heads and detached worktree sources with explicit provenance. Six temporary-Git controls pass, including actual ref/worktree removal and garbage-collection survival. Final remote fetch/tag/readback/cleanup remain pending; internal proof-reference expansion is a separate follow-up.

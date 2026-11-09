@@ -257,3 +257,5 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
 ## Technical overview and comparisons
 
 Browse [the game overview](https://cristiancalina.com/game/overview/) for the architecture, simulation, controls and spec-driven AI development, plus inline comparisons for eight districts, 61 landmark entries and 24 tourist destinations. This guide previews the ongoing fidelity work; each capture retains its actual source and date. The game update is still being tested.
+
+For release evidence, `tools/fidelity/archive-evidence.py` retains all local branch tips, fetched remote-tracking tips and worktree HEADs, plus recorded capture, implementation and prior-source links. Its JSON plan records provenance and missing objects. Dry runs are read-only; explicit `--write-tag` creates a new immutable annotated archive with the selected source tree and evidence dates unchanged. Fetch every remote branch head before final archival and verify the pushed archive before branch cleanup.

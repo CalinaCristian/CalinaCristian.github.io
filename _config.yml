@@ -21,3 +21,6 @@ exclude:
   - handoffs/fidelity/tram-romana-constructor-6cb
   - handoffs/fidelity/source-controlled-crossing
   - handoffs/fidelity/overview-preview-release
+  - handoffs/fidelity/native-rail-world-export
+  - handoffs/fidelity/independent-rail-body-observer
+  - handoffs/fidelity/archive-reachability

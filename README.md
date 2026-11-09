@@ -172,6 +172,7 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
 ## Tests and QA
 - `npm run harness` — logic harness (Playwright + software GL): drives every chapter, free roam, on foot, the tourist
   spots, rush hour and the finale; checks placement, routing, overlaps, timings and page errors.
+  Its driver checks both the planned route and the car's current full body through a short steering corridor, so lane changes retain obstacle sensing before the car reaches the new lane.
 - `npm run harness:spots` — loads every tourist spot, walks from the spawn and runs the spot audit (z-fighting,
   invisible walls, people inside props, lamps on roads…).
 - `npm run harness:visual` — visual QA: route surveys from the driver's seat, defect detectors, contact sheets and a

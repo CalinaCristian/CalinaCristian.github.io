@@ -1,0 +1,489 @@
+{
+  "sourceCommit": "c4fd6255f928101e27874f37776ed5be8d805827",
+  "rawSha256": "32fc3a6423cf4923b51783595d0537b26340e2c18ed4f1a52cc14c1e1ce5d652",
+  "causalIndexSha256": "4006afc9b3823e44a1c3bb659d6cc76ef78b07fa911bafe9ac0a3d7cbad9f9d1",
+  "reconstructionSha256": "c720d621019af9e6a154bab75f0fd6c3bd60fba997656d103a99d4e7f12dc50b",
+  "scope": "Recorded native player/NPC214 poses and controls. Target-lane path reconstructed from source plus unchanged native road-profile capture; AP flags/path were not recorded. The isolated truck test is not the observed full-world sensed leader.",
+  "reconstructedPath": {
+    "points": [
+      [
+        -638.3524945775741,
+        323.401343579765
+      ],
+      [
+        -638.501547167295,
+        326.0835143998394
+      ],
+      [
+        -641.3554074192253,
+        379.4268743993992
+      ],
+      [
+        -642.341141879716,
+        398.81940839939546
+      ],
+      [
+        -625.7108475983796,
+        406.6764407996152
+      ],
+      [
+        -618.6437674758533,
+        409.72145759966577
+      ],
+      [
+        -606.9898423245562,
+        414.0111527992586
+      ],
+      [
+        -592.2356233064884,
+        418.8565079998174
+      ],
+      [
+        -586.2258228875256,
+        420.29011079998816
+      ],
+      [
+        -580.2160224682805,
+        421.5014495999305
+      ],
+      [
+        -572.1448437959554,
+        422.4897717217062
+      ]
+    ],
+    "total": 149.99999999999994,
+    "edges": [
+      {
+        "id": 122,
+        "sourceId": "w153967348",
+        "dir": 1
+      },
+      {
+        "id": 123,
+        "sourceId": "w153967352",
+        "dir": 1
+      },
+      {
+        "id": 124,
+        "sourceId": "w153967352",
+        "dir": 1
+      },
+      {
+        "id": 142,
+        "sourceId": "w244601702",
+        "dir": 1
+      },
+      {
+        "id": 143,
+        "sourceId": "w244601702",
+        "dir": 1
+      },
+      {
+        "id": 144,
+        "sourceId": "w244601702",
+        "dir": 1
+      },
+      {
+        "id": 145,
+        "sourceId": "w244601702",
+        "dir": 1
+      },
+      {
+        "id": 146,
+        "sourceId": "w244601702",
+        "dir": 1
+      },
+      {
+        "id": 147,
+        "sourceId": "w244601702",
+        "dir": 1
+      },
+      {
+        "id": 695,
+        "sourceId": "w665110039",
+        "dir": 1
+      }
+    ]
+  },
+  "baselineSensorFixtures": [
+    {
+      "lane": 0,
+      "shift": 0,
+      "pathTotal": 145.69748688625342,
+      "projected": {
+        "s": 50.93428083743841,
+        "dev": 0.22835584529661376,
+        "pi": 1
+      },
+      "truckOnlySensor": {
+        "gap": 0.15774658377359607,
+        "speed": 0,
+        "what": "truck",
+        "info": {
+          "id": 214,
+          "kind": "truck",
+          "parked": false,
+          "speed": 0
+        }
+      },
+      "scope": "Exact native H.obstacleAhead on reconstructed source path and recorded isolated truck; not an observed full-world sensed-leader flag."
+    },
+    {
+      "lane": 1,
+      "shift": 0,
+      "pathTotal": 149.99999999999994,
+      "projected": {
+        "s": 50.94151062638489,
+        "dev": 3.2716381927249465,
+        "pi": 1
+      },
+      "truckOnlySensor": {
+        "gap": null,
+        "speed": 0,
+        "what": null,
+        "info": null
+      },
+      "scope": "Exact native H.obstacleAhead on reconstructed source path and recorded isolated truck; not an observed full-world sensed-leader flag."
+    }
+  ],
+  "samples": [
+    {
+      "t": 19.500000000000128,
+      "player": {
+        "x": -637.4949487131784,
+        "z": 372.6780125236352,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 3.056622990349078,
+        "fx": -0.08486745552964518,
+        "fz": 0.9963922495643589,
+        "speed": 2.0027819462189207,
+        "steer": 0.2830636231006331,
+        "contactAge": 28.500000000000597,
+        "touching": false,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "contact": null
+      },
+      "truck": {
+        "id": 214,
+        "kind": "truck",
+        "x": -638.0011835651397,
+        "z": 382.47371792733634,
+        "y": 0.24,
+        "heading": 3.0894368562515426,
+        "fx": -0.05076507672515713,
+        "fz": 0.9987106222450469,
+        "length": 8.9,
+        "width": 2.45,
+        "pitch": 0,
+        "modelHeight": 3.45,
+        "speed": 0
+      },
+      "recordedAP": {
+        "s": 49.09376582640248,
+        "remaining": 100.90623417359745,
+        "waitT": 5.600000000000001,
+        "stallT": 0,
+        "resets": 0,
+        "dev": 3.49650244522321
+      },
+      "recordedControls": {
+        "throttle": 1,
+        "steer": 0.48715248579746434,
+        "brake": false
+      }
+    },
+    {
+      "t": 20.000000000000153,
+      "player": {
+        "x": -637.8125389967894,
+        "z": 374.4445870858239,
+        "y": 0.24,
+        "surfY": 0.24,
+        "heading": 2.8994160951502725,
+        "fx": -0.23981623557786438,
+        "fz": 0.970818300792307,
+        "speed": 4.913328349279093,
+        "steer": 0.15873650966540778,
+        "contactAge": 29.00000000000062,
+        "touching": false,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "contact": null
+      },
+      "truck": {
+        "id": 214,
+        "kind": "truck",
+        "x": -638.0011835651397,
+        "z": 382.47371792733634,
+        "y": 0.24,
+        "heading": 3.0894368562515426,
+        "fx": -0.05076507672515713,
+        "fz": 0.9987106222450469,
+        "length": 8.9,
+        "width": 2.45,
+        "pitch": 0,
+        "modelHeight": 3.45,
+        "speed": 0
+      },
+      "recordedAP": {
+        "s": 50.78064109474409,
+        "remaining": 99.21935890525586,
+        "waitT": 4.600000000000005,
+        "stallT": 0,
+        "resets": 0,
+        "dev": 3.302364400838426
+      },
+      "recordedControls": {
+        "throttle": 1,
+        "steer": 0.19693267221780156,
+        "brake": false
+      }
+    }
+  ],
+  "firstPreSolveContact": {
+    "player": {
+      "x": -637.8547551062645,
+      "z": 374.60896426076874,
+      "y": 0.24,
+      "surfY": 0.24,
+      "heading": 2.8902011816205047,
+      "fx": -0.2487519337839394,
+      "fz": 0.9685672281461678,
+      "speed": 5.091350507268298,
+      "steer": 0.14556619583991107,
+      "contactAge": 29.00000000000062,
+      "touching": false,
+      "front": 3.42,
+      "rear": 2.36,
+      "width": 1.8,
+      "contact": null
+    },
+    "truck": {
+      "id": 214,
+      "kind": "truck",
+      "x": -638.0011835651397,
+      "z": 382.47371792733634,
+      "y": 0.24,
+      "heading": 3.0894368562515426,
+      "fx": -0.05076507672515713,
+      "fz": 0.9987106222450469,
+      "rx": -0.9987106222450469,
+      "rz": -0.05076507672515713,
+      "length": 8.9,
+      "width": 2.45,
+      "pitch": 0,
+      "modelHeight": 3.45,
+      "edge": {
+        "id": 124,
+        "sourceId": "w153967352",
+        "name": "Pia\u021ba Unirii",
+        "layer": 0,
+        "bridge": false,
+        "tunnel": false,
+        "dirx": -0.05076507672515713,
+        "dirz": 0.9987106222450469,
+        "nx": -0.9987106222450469,
+        "nz": -0.05076507672515713,
+        "len": 19.417570583561936,
+        "lanesF": 4,
+        "lanesB": 0,
+        "wL": 5.25,
+        "wR": 8.75,
+        "publicDrive": true,
+        "throughAccess": true,
+        "a": {
+          "id": 148,
+          "sourceId": 6225397217,
+          "x": -641.3554074192253,
+          "z": 379.4268743993992,
+          "y": 0,
+          "radius": 9.25,
+          "hasLight": false,
+          "hasCrossing": true,
+          "edges": [
+            {
+              "id": 123,
+              "sourceId": "w153967352",
+              "ya": 0,
+              "yb": 0
+            },
+            {
+              "id": 124,
+              "sourceId": "w153967352",
+              "ya": 0,
+              "yb": 0
+            }
+          ]
+        },
+        "b": {
+          "id": 139,
+          "sourceId": 31404739,
+          "x": -642.341141879716,
+          "z": 398.81940839939546,
+          "y": 0,
+          "radius": 11,
+          "hasLight": false,
+          "hasCrossing": false,
+          "edges": [
+            {
+              "id": 116,
+              "sourceId": "w113258513",
+              "ya": 0,
+              "yb": 0
+            },
+            {
+              "id": 124,
+              "sourceId": "w153967352",
+              "ya": 0,
+              "yb": 0
+            },
+            {
+              "id": 142,
+              "sourceId": "w244601702",
+              "ya": 0,
+              "yb": 0
+            },
+            {
+              "id": 157,
+              "sourceId": "w665204215",
+              "ya": 0,
+              "yb": 0
+            },
+            {
+              "id": 158,
+              "sourceId": "w665335354",
+              "ya": 0,
+              "yb": 0
+            }
+          ]
+        }
+      },
+      "dir": 1,
+      "s": 2.869590376085349,
+      "lane": 0,
+      "laneCur": 0.0009876230631150498,
+      "speed": 0,
+      "gap": 7.929930285444322,
+      "leader": {
+        "id": 87,
+        "kind": "compact-sedan"
+      },
+      "leaderCross": false,
+      "stopD": 0.2979802074765885,
+      "stopWhy": "claim",
+      "waitRed": false,
+      "redQ": false,
+      "stuck": 8.299999999999981,
+      "still": 8.299999999999981,
+      "blockT": 0,
+      "jam": 0.9,
+      "jamHold": 0,
+      "transition": -0.033333333333333236,
+      "latBlend": 0,
+      "parked": false,
+      "route": [
+        {
+          "edge": {
+            "id": 158,
+            "sourceId": "w665335354",
+            "name": "Aleea Dealul Mitropoliei",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "dirx": -0.9127560828743477,
+            "dirz": 0.40850499773671894,
+            "nx": -0.40850499773671894,
+            "nz": -0.9127560828743477,
+            "len": 24.64733419612887,
+            "lanesF": 1,
+            "lanesB": 0,
+            "wL": 1.5,
+            "wR": 1.5,
+            "publicDrive": true,
+            "throughAccess": true,
+            "a": {
+              "id": 139,
+              "sourceId": 31404739,
+              "x": -642.341141879716,
+              "z": 398.81940839939546,
+              "y": 0,
+              "radius": 11,
+              "hasLight": false,
+              "hasCrossing": false,
+              "edges": [
+                {
+                  "id": 116,
+                  "sourceId": "w113258513",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 124,
+                  "sourceId": "w153967352",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 142,
+                  "sourceId": "w244601702",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 157,
+                  "sourceId": "w665204215",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 158,
+                  "sourceId": "w665335354",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            },
+            "b": {
+              "id": 0,
+              "sourceId": 6227450128,
+              "x": -664.8381460938696,
+              "z": 408.88796759940124,
+              "y": 0,
+              "radius": 2,
+              "hasLight": false,
+              "hasCrossing": false,
+              "edges": [
+                {
+                  "id": 158,
+                  "sourceId": "w665335354",
+                  "ya": 0,
+                  "yb": 0
+                },
+                {
+                  "id": 173,
+                  "sourceId": "w1173658540",
+                  "ya": 0,
+                  "yb": 0
+                }
+              ]
+            }
+          },
+          "dir": 1
+        }
+      ],
+      "previous": {
+        "x": -638.0011835651397,
+        "z": 382.47371792733634,
+        "y": 0.24,
+        "heading": 3.0894368562515426,
+        "s": 2.869590376085349,
+        "edge": 124
+      }
+    },
+    "expectedNativeSATPenetration": 0.1187814382354988
+  }
+}

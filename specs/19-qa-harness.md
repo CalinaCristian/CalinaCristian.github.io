@@ -15,6 +15,8 @@ R19.4 Tourist spots and on-foot routes included when they exist (spec 14/15).
 R19.5 Fast loop: subset flags (`--city`, `--chapter`, `--from/--to`, `--no-aerial`, `--viewports`); full run < 15 min in software GL.
 
 ## Definition of done (any requirement in any spec)
+The driving caller must sense the actual asymmetric player body as well as the planned path. Its bounded swept corridor follows native bicycle steering/lag and uses emitted vertical bounds where available; it must brake for the recorded Unirii truck214 approach while retaining a clear curved lane change. Preserve native physics, signal/target behavior and watchdogs. Focused reconstruction is separate from whole-route acceptance.
+
 1. Acceptance criteria met, evidence in the spec's progress log.
 2. Logic harness: 0 high; no new medium issues in the area touched.
 3. Visual QA: detectors clean in the area touched; review.md has no medium+ defect in the area touched.

@@ -14,6 +14,50 @@ const SEV_ORDER = { high: 0, medium: 1, low: 2 };
 // issue types whose screenshot rarely helps (remote / transient): never spend a software-GL frame on them
 const NO_SHOT = new Set(['vehicle-overlap', 'vehicle-overlap-ghost', 'ped-in-vehicle', 'vehicle-off-road', 'ped-on-carriageway']);
 
+// Read the emitted body vertices once. Keeping this in the caller avoids a
+// dependency on a particular game's admission/physics implementation.
+const BODY_MODELS = new WeakMap();
+function bodyInterval(body, player = false) {
+    if (body.verticalInterval?.known) return body.verticalInterval;
+    const root = player ? body.cockpit : body.mesh, pose = player ? body.rig : root;
+    const geo = root?.userData?._model?.geo, key = geo || root;
+    if (key && pose) {
+        let model = BODY_MODELS.get(key);
+        if (!model) {
+            const points = [], add = (a, chain = []) => {
+                for (let i = 0; i < a.count; i++) {
+                    let x = a.getX(i), y = a.getY(i), z = a.getZ(i);
+                    for (const o of chain) { const e = o.matrix.elements, xx = x; const yy = y; x = e[0] * xx + e[4] * yy + e[8] * z + e[12]; y = e[1] * xx + e[5] * yy + e[9] * z + e[13]; z = e[2] * xx + e[6] * yy + e[10] * z + e[14]; }
+                    points.push(x, y, z);
+                }
+            };
+            if (geo?.attributes?.position) add(geo.attributes.position);
+            else root.traverse?.(o => {
+                if (!o.isMesh || !o.geometry?.attributes?.position) return;
+                const chain = []; for (let p = o; p && p !== pose; p = p.parent) { p.updateMatrix?.(); chain.push(p); }
+                add(o.geometry.attributes.position, chain);
+            });
+            model = { points, ranges: new Map() }; BODY_MODELS.set(key, model);
+        }
+        const pitch = body.pitch ?? pose.rotation.x, roll = body.roll ?? pose.rotation.z, scale = pose.scale;
+        // Native Traffic/player parents are identity. A transformed parent
+        // must not cause an unknown body to be silently excluded by height.
+        pose.parent?.updateWorldMatrix?.(true, false);
+        const parent = pose.parent?.matrixWorld?.elements;
+        const identityParent = !parent || parent.every((n, i) => Math.abs(n - (i % 5 === 0 ? 1 : 0)) < 1e-9);
+        if (identityParent && model.points.length && [body.y, pitch, roll, scale.x, scale.y, scale.z].every(Number.isFinite)) {
+            const cacheKey = [pitch, roll, scale.x, scale.y, scale.z].join(','); let range = model.ranges.get(cacheKey);
+            if (!range) {
+                const cx = Math.cos(pitch), sx = Math.sin(pitch), cz = Math.cos(roll), sz = Math.sin(roll); let min = Infinity, max = -Infinity;
+                for (let i = 0; i < model.points.length; i += 3) { const y = cx * sz * model.points[i] * scale.x + cx * cz * model.points[i + 1] * scale.y - sx * model.points[i + 2] * scale.z; min = Math.min(min, y); max = Math.max(max, y); }
+                range = { min, max }; if (model.ranges.size >= 32) model.ranges.clear(); model.ranges.set(cacheKey, range);
+            }
+            return { min: body.y + range.min, max: body.y + range.max, known: true, source: 'emitted-body-vertices-YXZ' };
+        }
+    }
+    return { known: false, source: 'unavailable-emitted-body-or-transformed-parent' };
+}
+
 export class Harness {
     constructor(game) {
         this.g = game;
@@ -335,7 +379,7 @@ export class Harness {
         }
         // obstacles on the path (vehicles, pedestrians)
         const plannedVt = vt; // road/turn/light/target intent before a vehicle makes us wait
-        const obs = this.obstacleAhead(path, bs, 55);
+        const obs = this.obstacleAhead(path, bs, 55, steer);
         ap.gap = obs.gap; ap.leader = obs.what; ap.leaderInfo = obs.info;
         if (obs.gap < Infinity) {
             const vg = Math.min(Math.max(0, obs.speed) + Math.max(0, obs.gap - 5) * 0.7, Math.sqrt(2 * 4 * Math.max(0, obs.gap - 2.5)));
@@ -407,9 +451,43 @@ export class Harness {
         for (let v = best; v && typeof v === 'object' && !seen.has(v) && out.length < 8; v = v.leader) { seen.add(v); out.push(`${v.kind}#${v.id}:${r1(v.speed)}:${v.stopWhy || '-'}${v.leader === P ? ':P' : typeof v.leader === 'string' ? ':' + v.leader : ''}${v.jamHold > 0 ? ':hold' : ''}${v.dwell ? ':dwell' : ''}${v.stuck > 3 ? ':st' + Math.round(v.stuck) : ''}${Number.isFinite(v.stopD) ? ':d' + Math.round(v.stopD) : ''}${v.ghost > 0 ? ':ghost' : ''}${v.zeroWhy ? ':z=' + v.zeroWhy : ''}`); v.zeroWhy = null; }
         return out.length ? ` Q[${out.join(' > ')}]` : '';
     }
-    obstacleAhead(path, s0, look) {
+    obstacleAhead(path, s0, look, steering = null) {
         const g = this.g, P = g.player; let gap = Infinity, speed = 0, what = null, info = null;
         const T = g.traffic; if (!T) return { gap, speed, what };
+        const py = bodyInterval(P, true), corridor = this._bodyCorridor || (this._bodyCorridor = []);
+        const av = Math.abs(P.speed || 0), reach = Math.min(14, Math.max(4, av * .6 + av * av / 8));
+        const grip = clamp(P.grip ?? 1, .3, 1), lock = (.65 + (.22 - .65) * clamp(av / 30, 0, 1)) * (1 + (.55 + .45 * grip - 1) * clamp(av / 12, 0, 1));
+        const targetSteer = steering == null ? (P.steer || 0) : steering * lock;
+        let x = P.x, z = P.z, heading = P.heading ?? Math.atan2(-P.fx, -P.fz), wheel = P.steer || 0, count = 0;
+        // Follow the native bicycle curvature and steering lag over a bounded
+        // braking corridor. A straight cone would trap a clear lane change.
+        for (let s = 0; s <= reach + 1e-9; s += .25) {
+            const p = corridor[count] || (corridor[count] = {}); Object.assign(p, { x, z, heading, s }); count++;
+            wheel += (targetSteer - wheel) * (1 - Math.exp(-8 * .25 / Math.max(2, av)));
+            heading -= Math.tan(wheel) / 2.7 * .25; x -= Math.sin(heading) * .25; z -= Math.cos(heading) * .25;
+        }
+        corridor.length = count;
+        const bodyGap = (v, vfx, vfz) => {
+            const co = ((P.front ?? P.length / 2) - (P.rear ?? P.length / 2)) / 2, pl = (P.length || 4.4) / 2, pw = (P.width || 1.8) / 2;
+            for (let i = 0; i < corridor.length - 1; i++) {
+                const a = corridor[i], b = corridor[i + 1], h = (a.heading + b.heading) / 2, fx = -Math.sin(h), fz = -Math.cos(h), rx = -fz, rz = fx;
+                const ax = a.x - Math.sin(a.heading) * co, az = a.z - Math.cos(a.heading) * co;
+                const dx = b.x - Math.sin(b.heading) * co - ax, dz = b.z - Math.cos(b.heading) * co - az;
+                // The angular margin covers the body between sampled headings;
+                // translation is continuous SAT, so a thin corner cannot fall
+                // between the quarter-metre samples.
+                const margin = .05 + Math.hypot(pl, pw) * Math.abs(b.heading - a.heading) / 2;
+                let enter = 0, exit = 1;
+                for (const [ux, uz] of [[fx, fz], [rx, rz], [vfx, vfz], [-vfz, vfx]]) {
+                    const r = Math.abs(fx * ux + fz * uz) * pl + Math.abs(rx * ux + rz * uz) * pw + Math.abs(vfx * ux + vfz * uz) * v.length / 2 + Math.abs(-vfz * ux + vfx * uz) * v.width / 2 + margin;
+                    const d = (v.x - ax) * ux + (v.z - az) * uz, move = dx * ux + dz * uz;
+                    if (Math.abs(move) < 1e-10) { if (Math.abs(d) > r) { exit = -1; break; } }
+                    else { const t0 = (d - r) / move, t1 = (d + r) / move; enter = Math.max(enter, Math.min(t0, t1)); exit = Math.min(exit, Math.max(t0, t1)); if (enter > exit) break; }
+                }
+                if (enter <= exit) return a.s + (b.s - a.s) * enter;
+            }
+            return Infinity;
+        };
         const i0 = Math.max(0, this.ap.pi), segs = [];
         for (let i = i0; i < path.pts.length - 1 && path.cum[i] < s0 + look; i++) segs.push(i);
         const test = (x, z, ax, az, halfW, halfL, sp, label, obj) => {
@@ -427,10 +505,14 @@ export class Harness {
             }
         };
         for (const v of T.near(P.x + P.fx * look * 0.5, P.z + P.fz * look * 0.5, look * 0.6 + 16)) {
-            if (Math.abs((v.y ?? 0.24) - (P.y ?? 0.24)) > 3) continue;
+            const vy = bodyInterval(v);
+            if (py.known && vy.known && Math.min(py.max, vy.max) <= Math.max(py.min, vy.min)) continue;
+            if ((!py.known || !vy.known) && Math.abs((v.y ?? .24) - (P.y ?? .24)) > 3) continue;
             const fx = Number.isFinite(v.heading) ? -Math.sin(v.heading) : v.fx, fz = Number.isFinite(v.heading) ? -Math.cos(v.heading) : v.fz;
             const along = fx * P.fx + fz * P.fz;
             test(v.x, v.z, fx, fz, v.width / 2, v.length / 2, v.speed * along, v.parked ? 'parked car' : (v.kind || 'car'), { id: v.id, kind: v.kind, parked: !!v.parked, speed: r1(v.speed) });
+            const currentBodyGap = bodyGap(v, fx, fz);
+            if (currentBodyGap < gap) { gap = currentBodyGap; speed = v.speed * along; what = v.parked ? 'parked car' : (v.kind || 'car'); info = { id: v.id, kind: v.kind, parked: !!v.parked, speed: r1(v.speed), bodyCorridor: true, playerYSource: py.source, vehicleYSource: vy.source }; }
         }
         for (const p of (T.nearPeds && !this.ap.ignorePeds) ? T.nearPeds(P.x + P.fx * 15, P.z + P.fz * 15, 22) : []) if (p.state !== 'down') test(p.x, p.z, 1, 0, 0.4, 0, 0, 'pedestrian', null);
         return { gap, speed, what, info };

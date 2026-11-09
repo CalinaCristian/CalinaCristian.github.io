@@ -13,13 +13,13 @@
     },
     {
       "path": "seattle-context-render.bin.gz",
-      "bytes": 23887638,
-      "sha256": "86426ad9023f354e00617513cb65077aa4066f77cf01d33d39f027b855445f11",
+      "bytes": 23887661,
+      "sha256": "7af4d78ceec697587d90c7604a94225d79e18ba8b368318d386ef1777a4d2e28",
       "uncompressedBytes": 105377008,
-      "uncompressedSHA256": "f48e7c3261d303accff3a9d2f525b6bb307946b1d0ec02b7c586747941b3ff6d"
+      "uncompressedSHA256": "a46264e5d064f702517e188ef4eb59691fb24a5963a994921b94a1ffd9c25a03"
     }
   ],
-  "totalBytes": 28271583,
+  "totalBytes": 28271606,
   "sourceCoverage": [
     -122.375,
     47.596,
@@ -4499,7 +4499,7 @@
     "retrievedAt": "2026-11-09T12:21:58.983731+00:00"
   },
   "nativeGeometryConsumerHashes": {
-    "game/src/spots/osm.js": "2e89035ddef78ddc15cdb2cc4c507eb4f92e21149728674f4f4d06617cdad8cc",
+    "game/src/spots/osm.js": "6578c0627324db7ae12e42f3d3b612b65575ddd0387da6dc25b649ac091d4360",
     "game/src/spots/source-buildings.js": "4d51ef45abbedb9f4b04627cb97c4b388ccd332e1737486005d4a327e2182362",
     "game/src/spots/kit.js": "382f5353be67766e36183babd4a321dc4e709c709429167fc461968a033cffcc",
     "game/src/building-parts.js": "d3844e4f67e0c29a28a7e9880bfcc6f5d9011cd0440e0b2eeba001838751fc5a",
@@ -4829,7 +4829,8 @@
     "Source cache is exact native geometry with lossless vertex sharing, binary transport and whole-source spatial chunks; no source thinning.",
     "Every original close-up DEM query is preserved; measured surround applies outside. New water cuts/floor queries use the same emitted Float32 faces. Serialization-invalid derived shore fragments are reported separately.",
     "Pike retains the existing source-named Needle hero instead of a second generic tower; source identities retained. SeattleCenter replaces only malformed concatenated relation r20085315 with its two actual source outer components.",
-    "No native graphics-quality, target-load, submitted-budget, route or full-parity acceptance is implied by CPU controls."
+    "No native graphics-quality, target-load, submitted-budget, route or full-parity acceptance is implied by CPU controls.",
+    "Closed 00c native run failed cold loads, some render budgets, the Gum Wall route and visual acceptance; original full-size pictures/source dates remain historical. The tree eye-distance follow-up requires new native captures and overview synchronization."
   ],
   "historicalCacheVersions": [
     {
@@ -4843,7 +4844,20 @@
         "uncompressedSHA256": "2343118c1de9362c180b7daac8acc6d811e9945ae2fddd92fcab12fe1bca3f5f"
       },
       "proofRoot": "handoffs/fidelity/seattle-source-context/proof/runtime-candidate/"
+    },
+    {
+      "implementationCommit": "b6969c4a7f2fceb22f789afad067c911571b6986",
+      "kernelBase": "76db0c4afbed5ff7c43c33c3e43efdb15baebb5e",
+      "nativeCaptureSourceCommit": "00c603358ac547b898cb8ad18f3d7ed9b229c10c",
+      "asset": {
+        "path": "seattle-context-render.bin.gz",
+        "bytes": 23887638,
+        "sha256": "86426ad9023f354e00617513cb65077aa4066f77cf01d33d39f027b855445f11",
+        "uncompressedBytes": 105377008,
+        "uncompressedSHA256": "f48e7c3261d303accff3a9d2f525b6bb307946b1d0ec02b7c586747941b3ff6d"
+      },
+      "proofRoot": "handoffs/fidelity/seattle-source-context/proof/native-00c/"
     }
   ],
-  "cacheKernelSourceCommit": "76db0c4afbed5ff7c43c33c3e43efdb15baebb5e"
+  "cacheKernelSourceCommit": "ab6478f080ff5433a6a9c193f2e5faae3c6dc732"
 }

@@ -1,0 +1,24 @@
+{
+  "output": "/workspace/reality-pass/seattle-source-context/tree-lod-render.bin.gz",
+  "bytes": 23887661,
+  "uncompressedBytes": 105377008,
+  "batches": 8,
+  "triangles": 863151,
+  "colliders": 17278,
+  "sourceRecords": 17021,
+  "losslessBinaryRoundtrip": true,
+  "controls": [
+    {
+      "scene": "seattle-center",
+      "matchedNativeSourceIds": 110,
+      "triangleAttributeStreamsIdentical": true,
+      "triangles": 854091
+    },
+    {
+      "scene": "pike-place",
+      "matchedNativeSourceIds": 147,
+      "triangleAttributeStreamsIdentical": true,
+      "triangles": 855446
+    }
+  ]
+}

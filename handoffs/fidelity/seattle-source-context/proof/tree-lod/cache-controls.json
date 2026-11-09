@@ -1,0 +1,63 @@
+{
+  "binaryAndMalformedCacheControls": 8,
+  "sourceDataSHA256": "19afb36376e615e7075dcf5eb5f8d70e7c95d351b3759848dff271d2c793cea8",
+  "bytes": 105377008,
+  "reports": [
+    {
+      "scene": "seattle-center",
+      "modeledSourceRecords": 17021,
+      "reusedNativeSourceIds": 112,
+      "heroReplacementSourceIds": [],
+      "nativeSourceCorrections": [
+        {
+          "sourceId": "r20085315",
+          "oldRecordRetained": true,
+          "reason": "Separate source outer rings were concatenated into one invalid native polygon",
+          "componentIds": [
+            "r20085315:outer0",
+            "r20085315:outer1"
+          ]
+        }
+      ],
+      "contextTriangles": 854091,
+      "chunks": 267,
+      "physicalVolumes": 17169,
+      "chunkAttributesShared": true,
+      "indexedBoundsContainAllCheckedVertices": true,
+      "buildMs": 544.8777319999999
+    },
+    {
+      "scene": "pike-place",
+      "modeledSourceRecords": 17021,
+      "reusedNativeSourceIds": 148,
+      "heroReplacementSourceIds": [
+        "w12903132",
+        "r19745997",
+        "w394254329",
+        "w394254331",
+        "w394254332",
+        "w394254333",
+        "w394254334",
+        "w394254335",
+        "w394254336",
+        "w394254337",
+        "w394254484",
+        "w394254485",
+        "w394254486",
+        "w394254487",
+        "w394254488",
+        "w394956342",
+        "w394956343",
+        "w394956344"
+      ],
+      "nativeSourceCorrections": [],
+      "contextTriangles": 855047,
+      "chunks": 267,
+      "physicalVolumes": 17128,
+      "chunkAttributesShared": true,
+      "indexedBoundsContainAllCheckedVertices": true,
+      "buildMs": 634.9967149999993
+    }
+  ],
+  "scope": "CPU exact numeric/cache/chunk controls; no native render, load, image or frame-budget pass"
+}

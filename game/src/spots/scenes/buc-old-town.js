@@ -264,7 +264,12 @@ function buildCarusel(ctx) {
         iw.cyl(x,y0,z,.2,16.1,WHITE,'paint',16);iw.cyl(x,y0,z,.23,.18,WHITE,'paint',16);for(const h of LV.slice(1)){iw.cyl(x,y0+h-.35,z,.24,.2,WHITE,'paint',16);iw.cyl(x,y0+h-.15,z,.31,.1,WHITE,'paint',16);iw.box(x,y0+h-.05,z,.64,.08,.64,WHITE,'paint');for(let j=0;j<8;j++){const a=j*Math.PI/4;iw.sphere(x+Math.cos(a)*.235,y0+h-.22,z+Math.sin(a)*.235,.07,.1,.07,WHITE,'paint',5,4);}}ctx.circle(x,z,.23,16.1,{y:y0});}
     // ground floor tables of books + the white stair
     const r = rng(8);
-    for (let i = 0; i < 6; i++) { const t = (i + 0.5) / 6 - 0.5, px = oc.cx + oc.ux * t * oc.len * 0.6, pz = oc.cz + oc.uz * t * oc.len * 0.6; iw.box(px + (r() - 0.5), y0, pz, 1.3, 0.8, 0.8, '#d8d2c4', 'wood', along); ctx.box(px, pz, 0.7, 0.45, along, { prop: true, h: 0.8 }); }
+    const covers=['#e2d8bd','#9d7054','#5a6a63','#404f58','#8b7f73','#cfb18d'];
+    for(let i=0;i<6;i++){const t=(i+.5)/6-.5,px=oc.cx+oc.ux*t*oc.len*.6+(r()-.5),pz=oc.cz+oc.uz*t*oc.len*.6;
+        iw.box(px,y0,pz,1.3,.8,.8,'#d8d2c4','wood',along);ctx.box(px,pz,.7,.45,along,{prop:true,h:.8});
+        for(let j=0;j<6;j++){const u=(j%3-1)*.35,v=(Math.floor(j/3)-.5)*.35,x=px+u*Math.cos(along)+v*Math.sin(along),z=pz-u*Math.sin(along)+v*Math.cos(along);let top=y0+.8;
+            for(let k=0;k<2+(i+j)%3;k++){const h=.025+((i+j+k)%3)*.012,colour=covers[(i*3+j+k)%covers.length];iw.box(x,top,z,.29,.003,.21,colour,'paint',along);iw.box(x,top+.003,z,.28,h-.006,.2,'#d9d2bf','paint',along);iw.box(x,top+h-.003,z,.29,.003,.21,colour,'paint',along);top+=h;}}
+    }
     // Continuous walkable version of the existing estimated stair. The real
     // bookstore has stairs and galleries; this reconstruction's exact curve,
     // tread sizes and landings are estimates, not a measured interior plan.
@@ -289,7 +294,12 @@ function buildCarusel(ctx) {
     const shell=b.build('carusel', { matOverrides: { [fac.key]: fac.mat,darkglass:roofGlass } });
     // The same estimated shell encloses the modeled interior. Its real walls
     // and roof must remain visible from the galleries as well as the street.
-    const insideMaterials=new Map();shell.traverse(o=>{if(!o.isMesh)return;const inward=m=>{if(m===roofGlass)return m;if(!insideMaterials.has(m)){const copy=m.clone();copy.side=THREE.DoubleSide;copy.userData={...m.userData,shared:true};insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);
+    // Exterior window art belongs on the street-facing surface. The inward
+    // face is white plaster, as in the private bookshop photo comparison.
+    const insideMaterials=new Map(),plaster=new THREE.Group();plaster.name='carusel-white-interior-walls';
+    const plasterMat=new THREE.MeshStandardMaterial({color:'#ece8de',side:THREE.BackSide,roughness:.88,emissive:'#fff4df',emissiveIntensity:.025});
+    shell.traverse(o=>{if(!o.isMesh)return;if(o.material===fac.mat){const wall=new THREE.Mesh(o.geometry.clone(),plasterMat);wall.name='carusel-inward-plaster';wall.receiveShadow=true;plaster.add(wall);}
+        const inward=m=>{if(m===roofGlass)return m;if(!insideMaterials.has(m)){const copy=m.clone();copy.side=m===fac.mat?THREE.FrontSide:THREE.DoubleSide;copy.userData={...m.userData,shared:true};insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);ctx.add(plaster);
     // The inward clones own their material programs; their cached facade maps
     // remain shared. Generic scene disposal must not discard those shared maps.
     (ctx.extras.sceneCleanups||=[]).push(()=>{for(const m of insideMaterials.values())m.dispose();});

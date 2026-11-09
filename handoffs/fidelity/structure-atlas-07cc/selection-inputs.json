@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+  "files": {
+    "tools/fidelity/atlas-structure-impact.mjs": "99a977857c219c7695e422ab0cf36085faa0ce5c7bcfa3359da876debd93e602",
+    "handoffs/fidelity/us-districts/seatac/structure-2b2b970/all8-generated-separator-deltas.json": "ad2d5d3b68b9dc14f7aa0764284757b9170e0aa5a2718c7fec3e7ce6b842f812",
+    "handoffs/fidelity/us-districts/seatac/structure-2b2b970/model-impact-bounds.json": "f822cf5a16a43bfccdc8e908ebf8a237b97f7e828808d499cd245026c89d471a"
+  },
+  "note": "Committed read-only conservative selector and source-delta/model-bound inputs; source records are not edited by these atlas retakes."
+}

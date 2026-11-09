@@ -1,0 +1,14 @@
+{
+  "cases": [
+    {
+      "case": "unreviewed capture rejected before mutation",
+      "passed": true
+    },
+    {
+      "case": "changed camera height rejected before mutation",
+      "passed": true
+    }
+  ],
+  "originalManifestUnchanged": true,
+  "failures": []
+}

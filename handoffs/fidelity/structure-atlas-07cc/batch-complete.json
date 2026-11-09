@@ -1,0 +1,47 @@
+{
+  "sourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+  "oneBrowser": true,
+  "browserClosed": true,
+  "results": [
+    {
+      "district": "seatac",
+      "frames": 20,
+      "source": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "district": "bellevue",
+      "frames": 5,
+      "source": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "district": "grozavesti",
+      "frames": 1,
+      "source": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "district": "pipera",
+      "frames": 2,
+      "source": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "district": "unirii",
+      "frames": 1,
+      "source": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  ]
+}

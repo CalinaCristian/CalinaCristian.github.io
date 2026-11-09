@@ -1,0 +1,52 @@
+{
+  "checks": [
+    {
+      "name": "all source bodies/roads/POIs/terrain/projection and IDs preserved",
+      "passed": true
+    },
+    {
+      "name": "both legacy member IDs retained; exact compact extent and historical extents preserved",
+      "passed": true
+    },
+    {
+      "name": "real Freddo/Beluga/Carusel/Starbucks71 source points inside focus",
+      "passed": true
+    },
+    {
+      "name": "official Freddo closing05:00 and party22:00–05:00 boundaries",
+      "passed": true
+    },
+    {
+      "name": "original loop finite stereo, no clipping and32beat duration",
+      "passed": true
+    },
+    {
+      "name": "music uses existing output; pause/mute path and idempotent full node disposal",
+      "passed": true
+    },
+    {
+      "name": "build real source-anchored estimated interior with exact source footprint and >=30 dancing bodies",
+      "passed": true
+    },
+    {
+      "name": "interior disposal unregisters crowds/audio/activity and visibility listeners",
+      "passed": true
+    }
+  ],
+  "source": "406a53f1 + working candidate",
+  "scope": "CPU/source/audio lifecycle controls; not native visual or physical participation acceptance",
+  "passed": true,
+  "audio": {
+    "seconds": 15.238095238095237,
+    "peak": 0.503704845905304,
+    "rms": 0.08524253015890042,
+    "sampleRate": 22050
+  },
+  "interior": {
+    "dancers": 54,
+    "source": {
+      "poi": "n1416523788",
+      "building": "w657568283"
+    }
+  }
+}

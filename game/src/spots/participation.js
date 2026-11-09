@@ -54,6 +54,7 @@ export function activityFlow(ctx) {
     };
     const key = e => {
         if (!run) return;
+        if (run.opts.key?.(e, run)) { e.preventDefault(); e.stopImmediatePropagation(); return; }
         if (run.ui.contains(e.target) && ['Enter', 'Space'].includes(e.code)) { e.stopImmediatePropagation(); return; }
         if (!['KeyE', 'Escape'].includes(e.code)) return;
         e.preventDefault(); e.stopImmediatePropagation();

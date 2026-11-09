@@ -15,6 +15,7 @@ a = p.parse_args()
 read = lambda p: json.loads(p.read_text())
 sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
 old, new = read(a.baseline / 'manifest.json'), read(a.recapture / 'manifest.json')
+baseline_source_commit = old['gameSourceCommit']
 old_review, new_review = read(a.baseline_review), read(a.recapture_review)
 assert new_review['pitchVisibilityAccepted'] is True, 'Actual new paint visibility must be reviewed before replacement'
 assert not a.out.exists(), 'Preserve existing merged evidence'
@@ -92,9 +93,9 @@ review = dict(old_review, gameSourceCommit=None, sourceCounts=dict(counts), publ
 for entry in review['entries']:
     if 'football' in entry['id'] and entry['id'] not in replacements:
         entry['sourceCaptureObservation'] = entry['observations']
-        entry['observations'] = 'Retained ' + old['gameSourceCommit'][:8] + ' walking-height frame before the paint correction. See the fresh ' + new['gameSourceCommit'][:8] + ' elevated pitch view for current marking visibility.'
+        entry['observations'] = 'Retained ' + baseline_source_commit[:8] + ' walking-height frame before the paint correction. See the fresh ' + new['gameSourceCommit'][:8] + ' elevated pitch view for current marking visibility.'
         entry['status'] = 'retained_before_paint_correction'
-        entry['displayLabel'] = 'Dinamo walking-height view · retained ' + old['gameSourceCommit'][:8] + ' before paint correction'
+        entry['displayLabel'] = 'Dinamo walking-height view · retained ' + baseline_source_commit[:8] + ' before paint correction'
 write = lambda name, value: (a.out / name).write_text(json.dumps(value, indent=2) + '\n')
 write('manifest.json', old)
 write('review.json', review)

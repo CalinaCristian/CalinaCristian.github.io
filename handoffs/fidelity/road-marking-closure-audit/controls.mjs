@@ -1,0 +1,40 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import zlib from 'node:zlib';
+import crypto from 'node:crypto';
+import assert from 'node:assert/strict';
+import {fileURLToPath} from 'node:url';
+import {roadMiter,needsRoadBevelPad} from '../../../game/src/road-joins.js';
+import {markingArea,clipMarkingConvex,subtractMarkingConvex,clipAffineMarkingRange,buildMarkingStations,markingDashIntervals} from '../../../game/src/road-markings.js';
+const here=path.dirname(fileURLToPath(import.meta.url)),out=process.argv[2]||here,checks=[],audit=[];
+const check=(name,fn)=>{fn();checks.push({name,passed:true});},near=(a,b,tol=1e-7)=>assert.ok(Math.abs(a-b)<=tol,`${a} != ${b}`);
+const N=(id,x,z)=>({id,x,z,edges:[],pad:false}),E=(id,a,b,props={})=>{const len=Math.hypot(b.x-a.x,b.z-a.z),e={id,a,b,len,dirx:(b.x-a.x)/len,dirz:(b.z-a.z)/len,nx:-(b.z-a.z)/len,nz:(b.x-a.x)/len,access:{sourceId:'w1'},type:'primary',lanesF:2,lanesB:0,wL:3.5,wR:3.5,laneW:3.5,median:0,oneway:true,...props};a.edges.push(e);b.edges.push(e);return e;};
+check('Short source legs preserve the continuous 3m/9m phase',()=>{const nodes=Array.from({length:9},(_,i)=>N(i,i*3,0)),edges=nodes.slice(1).map((n,i)=>E(i,nodes[i],n)),S=buildMarkingStations(edges),spans=edges.flatMap(e=>markingDashIntervals(0,e.len,3,9,S.get(e)).map(([a,b])=>[S.get(e).offset+a,S.get(e).offset+b]));assert.deepEqual(spans,[[4.5,6],[6,7.5],[16.5,18],[18,19.5]]);near(spans.reduce((s,[a,b])=>s+b-a,0),6);});
+check('Reversed native edge orientation preserves the same physical phase',()=>{const a=N(0,0,0),b=N(1,8,0),c=N(2,16,0),e=E(0,a,b,{oneway:false,lanesF:1,lanesB:1}),f=E(1,c,b,{oneway:false,lanesF:1,lanesB:1}),S=buildMarkingStations([e,f]);assert.equal(S.get(f).direction,-1);near(S.get(f).offset,16);assert.deepEqual(markingDashIntervals(0,8,3,9,S.get(f)),[]);});
+check('Source identity, branches, pads, controls and width transitions stop continuation',()=>{for(const flag of ['pad','hasLight','zebra','crossing','stop','giveWay','source','width','branch']){const a=N(0,0,0),b=N(1,8,0),c=N(2,16,0),e=E(0,a,b),f=E(1,b,c);if(flag==='source')f.access={sourceId:'w2'};else if(flag==='width')f.wR+=.1;else if(flag==='branch')E(2,b,N(3,8,8));else b[flag]=true;const S=buildMarkingStations([e,f,...b.edges.filter(x=>x!==e&&x!==f)]);assert.equal(S.get(f).offset,0,flag);}});
+check('A literal source cycle terminates deterministically without RNG',()=>{const a=N(0,0,0),b=N(1,10,0),c=N(2,10,10),edges=[E(0,a,b),E(1,b,c),E(2,c,a)],before=JSON.stringify(edges.map(e=>[e.id,e.len]));const S=buildMarkingStations(edges);assert.equal(S.size,3);assert.equal(JSON.stringify(edges.map(e=>[e.id,e.len])),before);});
+const square=[[0,0],[10,0],[10,10],[0,10]];
+check('An outside centre retains the exact in-ribbon stripe end',()=>{const p=[[-5,2],[1,2],[1,3],[-5,3]],q=clipMarkingConvex(p,square);near(markingArea(q),1);assert.ok(q.every(([x])=>x>=-1e-9));});
+check('Convex subtraction preserves every exterior fragment and area',()=>{const cut=[[4,-1],[6,-1],[6,11],[4,11]],outside=subtractMarkingConvex(square,cut);near(outside.reduce((s,p)=>s+markingArea(p),0),80);assert.equal(outside.length,2);near(markingArea(clipMarkingConvex(square,cut)),20);});
+check('Inset uses metres and either polygon winding',()=>{const a=clipMarkingConvex(square,square,.15),b=clipMarkingConvex(square,[...square].reverse(),.15);near(markingArea(a),9.7**2);near(markingArea(a),markingArea(b));});
+check('Exact height-band clipping preserves distinct bridge levels',()=>{near(markingArea(clipAffineMarkingRange(square,p=>p[0]-5,-1,1)),20);assert.deepEqual(clipAffineMarkingRange(square,()=>8,-1,1),[]);near(markingArea(clipAffineMarkingRange(square,()=>0,-1,1)),100);});
+check('Priority threshold cuts only its actual winning height region',()=>{near(markingArea(clipAffineMarkingRange(square,p=>p[0]/100,-.01,1)),100);near(markingArea(clipAffineMarkingRange(square,p=>p[0]/100,.01,1)),90);});
+check('Non-affine/clamped pad height is explicit rather than silently flattened',()=>assert.equal(clipAffineMarkingRange(square,p=>Math.max(0,p[0]-5),-1,1),null));
+check('Degenerate native ribbon never invents marking geometry',()=>assert.deepEqual(clipMarkingConvex(square,[[0,0],[0,0],[2,2],[2,2]]),[]));
+check('An infeasible short width-transition miter requires full-width bevel geometry',()=>{const a=N(0,-12,0),n=N(1,0,0),b=N(2,12,1),e=E(0,a,n,{wR:9.25,wL:5.55}),f=E(1,n,b,{wR:7.4,wL:7.4});assert.equal(needsRoadBevelPad(e,f,n,(x,s)=>s>0?x.wR:x.wL),true);const p=[0,9.25],q=[n.x+f.nx*7.4,n.z+f.nz*7.4];assert.equal(roadMiter(e,f,n,p,q,9.25).feasible,false);});
+check('A normal equal-width shallow bend retains its exact shared miter',()=>{const a=N(0,-30,0),n=N(1,0,0),b=N(2,30,3),e=E(0,a,n),f=E(1,n,b);assert.equal(needsRoadBevelPad(e,f,n,(x,s)=>s>0?x.wR:x.wL),false);const p=[0,3.5],q=[f.nx*3.5,f.nz*3.5],A=roadMiter(e,f,n,p,q,3.5),B=roadMiter(f,e,n,q,p,3.5);near(A.point[0],B.point[0]);near(A.point[1],B.point[1]);});
+const rawDir=process.argv[3];
+if(rawDir)for(const district of ['seatac','bellevue']){
+    const bytes=fs.readFileSync(path.join(rawDir,district+'-native.json.gz')),d=JSON.parse(zlib.gunzipSync(bytes)),nodes=new Map();
+    for(const e of d.edges)for(const n of [e.a,e.b])if(!nodes.has(n.id))nodes.set(n.id,{...n,edges:[],beforePad:n.pad});
+    const edges=d.edges.map(e=>({...e,a:nodes.get(e.a.id),b:nodes.get(e.b.id)}));for(const e of edges){e.a.edges.push(e);e.b.edges.push(e);}
+    const shoulder=e=>(e.roadWidthSource&&(e.roadWidthSource.source==='OSM width'||e.roadWidthSource.review))?0:/motorway|trunk/.test(e.type)?(e.type.endsWith('_link')?.6:1.2):.15,width=(e,s)=>(s>0?e.wR:e.wL)+shoulder(e);
+    const newPads=[];for(const n of nodes.values())if(!n.pad&&n.edges.length===2&&!n.edges.some(e=>e.virtual)&&needsRoadBevelPad(...n.edges,n,width)){n.pad=true;newPads.push(n.id);}
+    const retract=(e,n)=>n.pad&&n.edges.length>=2?Math.min(n.radius,e.len*.45):0;
+    const corner=(e,n,s)=>{const out=e.a===n?1:-1,r=retract(e,n),w=width(e,s),p=[n.x+e.dirx*out*r+e.nx*s*w,n.z+e.dirz*out*r+e.nz*s*w];if(n.pad||n.edges.length!==2)return p;const f=n.edges.find(f=>f!==e),same=(e.b===n&&f.a===n)||(e.a===n&&f.b===n),sf=same?s:-s,wf=width(f,sf),q=[n.x+f.nx*sf*wf,n.z+f.nz*sf*wf],m=roadMiter(e,f,n,p,q,Math.max(w,wf));return m.feasible?m.point:[(p[0]+q[0])/2,(p[1]+q[1])/2];};
+    const footprints=edges.filter(e=>!e.virtual).map(e=>({id:e.id,poly:[corner(e,e.a,1),corner(e,e.b,1),corner(e,e.b,-1),corner(e,e.a,-1)]})),degenerate=footprints.filter(f=>markingArea(f.poly)<1e-7),baselineDegenerate=d.ribbons.filter(r=>r.e!==undefined&&r.e!==null&&markingArea(r.poly)<1e-7);
+    check(district+' actual source legs retain nondegenerate replacement footprints',()=>assert.equal(degenerate.length,0,JSON.stringify(degenerate.slice(0,4))));
+    if(district==='seatac')check('Actual Airport Expressway e24–28 remains joined and e26 has real area',()=>{const focus=footprints.filter(f=>f.id>=24&&f.id<=28);assert.equal(focus.length,5);assert.ok(focus.every(f=>markingArea(f.poly)>1));assert.ok(newPads.includes(32));assert.ok(baselineDegenerate.some(r=>r.e===26));});
+    audit.push({district,nativeSource:'406a53f1f1f1397a1667ea1bc77df78289a5667a',nativeRawSha256:crypto.createHash('sha256').update(bytes).digest('hex'),scope:'CPU source-corner replay from actual complete native allEdges; not a native candidate result',sourceEdges:edges.length,newBevelPads:newPads,baselineDegenerate:baselineDegenerate.map(r=>r.e),candidateDegenerate:degenerate.map(r=>r.id),focusFootprints:footprints.filter(f=>district==='seatac'?f.id>=24&&f.id<=28:[67,73,288].includes(f.id))});
+}
+fs.mkdirSync(out,{recursive:true});const report={checks,passed:checks.every(c=>c.passed),nativeSourceReplay:audit};fs.writeFileSync(path.join(out,'controls.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({passed:report.passed,checks:checks.length,audit:audit.map(a=>({district:a.district,newBevelPads:a.newBevelPads.length,baselineDegenerate:a.baselineDegenerate.length,candidateDegenerate:a.candidateDegenerate.length}))}));

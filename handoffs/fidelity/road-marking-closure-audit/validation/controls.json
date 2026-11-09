@@ -1,0 +1,329 @@
+{
+  "checks": [
+    {
+      "name": "Short source legs preserve the continuous 3m/9m phase",
+      "passed": true
+    },
+    {
+      "name": "Reversed native edge orientation preserves the same physical phase",
+      "passed": true
+    },
+    {
+      "name": "Source identity, branches, pads, controls and width transitions stop continuation",
+      "passed": true
+    },
+    {
+      "name": "A literal source cycle terminates deterministically without RNG",
+      "passed": true
+    },
+    {
+      "name": "An outside centre retains the exact in-ribbon stripe end",
+      "passed": true
+    },
+    {
+      "name": "Convex subtraction preserves every exterior fragment and area",
+      "passed": true
+    },
+    {
+      "name": "Inset uses metres and either polygon winding",
+      "passed": true
+    },
+    {
+      "name": "Exact height-band clipping preserves distinct bridge levels",
+      "passed": true
+    },
+    {
+      "name": "Priority threshold cuts only its actual winning height region",
+      "passed": true
+    },
+    {
+      "name": "Non-affine/clamped pad height is explicit rather than silently flattened",
+      "passed": true
+    },
+    {
+      "name": "Degenerate native ribbon never invents marking geometry",
+      "passed": true
+    },
+    {
+      "name": "An infeasible short width-transition miter requires full-width bevel geometry",
+      "passed": true
+    },
+    {
+      "name": "A normal equal-width shallow bend retains its exact shared miter",
+      "passed": true
+    },
+    {
+      "name": "seatac actual source legs retain nondegenerate replacement footprints",
+      "passed": true
+    },
+    {
+      "name": "Actual Airport Expressway e24–28 remains joined and e26 has real area",
+      "passed": true
+    },
+    {
+      "name": "bellevue actual source legs retain nondegenerate replacement footprints",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "nativeSourceReplay": [
+    {
+      "district": "seatac",
+      "nativeSource": "406a53f1f1f1397a1667ea1bc77df78289a5667a",
+      "nativeRawSha256": "6c213f3479727d1402264b6a5751fc3ccd32ee4e0195705ceff1238f702c369d",
+      "scope": "CPU source-corner replay from actual complete native allEdges; not a native candidate result",
+      "sourceEdges": 3734,
+      "newBevelPads": [
+        7,
+        27,
+        32,
+        107,
+        428,
+        430,
+        432,
+        439,
+        571,
+        574,
+        584,
+        585,
+        675,
+        678,
+        686,
+        697,
+        717,
+        869,
+        909,
+        965,
+        974,
+        988,
+        997,
+        1216,
+        1308,
+        1310,
+        1314,
+        1407,
+        1408,
+        1409,
+        1468,
+        1694,
+        1701,
+        1777,
+        1778,
+        2382,
+        2393,
+        2458,
+        2677,
+        2862,
+        2909,
+        2916,
+        2928,
+        3132,
+        3192,
+        3203,
+        3204,
+        3302
+      ],
+      "baselineDegenerate": [
+        26,
+        222,
+        2761
+      ],
+      "candidateDegenerate": [],
+      "focusFootprints": [
+        {
+          "id": 24,
+          "poly": [
+            [
+              -1165.4891676499578,
+              24.02116501858745
+            ],
+            [
+              -1160.1888656931499,
+              36.32216917708628
+            ],
+            [
+              -1144.5526875767846,
+              29.144903836825463
+            ],
+            [
+              -1149.4677216641778,
+              17.738033956415872
+            ]
+          ]
+        },
+        {
+          "id": 25,
+          "poly": [
+            [
+              -1160.1888656931499,
+              36.32216917708628
+            ],
+            [
+              -1154.2301984327914,
+              48.538492256182515
+            ],
+            [
+              -1138.9353957759913,
+              40.661346771066626
+            ],
+            [
+              -1144.5526875767846,
+              29.144903836825463
+            ]
+          ]
+        },
+        {
+          "id": 26,
+          "poly": [
+            [
+              -1154.2301984327914,
+              48.538492256182515
+            ],
+            [
+              -1150.9625239264058,
+              54.55743968571759
+            ],
+            [
+              -1135.846503848031,
+              46.35098265541682
+            ],
+            [
+              -1138.9353957759913,
+              40.661346771066626
+            ]
+          ]
+        },
+        {
+          "id": 27,
+          "poly": [
+            [
+              -1143.3211948350995,
+              63.543993142605274
+            ],
+            [
+              -1139.6227619898975,
+              68.966654151578
+            ],
+            [
+              -1125.5312787454857,
+              59.101862649464344
+            ],
+            [
+              -1129.111504349191,
+              53.85251769793339
+            ]
+          ]
+        },
+        {
+          "id": 28,
+          "poly": [
+            [
+              -1139.6227619898975,
+              68.966654151578
+            ],
+            [
+              -1132.3131995755057,
+              79.14165482483997
+            ],
+            [
+              -1118.5981875396624,
+              68.75281077573607
+            ],
+            [
+              -1125.5312787454857,
+              59.101862649464344
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "district": "bellevue",
+      "nativeSource": "406a53f1f1f1397a1667ea1bc77df78289a5667a",
+      "nativeRawSha256": "9f25ebc485c987ead2cf30db208f7560cf0641d1f55a71fda3bd216115976594",
+      "scope": "CPU source-corner replay from actual complete native allEdges; not a native candidate result",
+      "sourceEdges": 948,
+      "newBevelPads": [
+        230,
+        399,
+        455,
+        473,
+        480,
+        629,
+        636,
+        712,
+        717,
+        722,
+        728,
+        832
+      ],
+      "baselineDegenerate": [],
+      "candidateDegenerate": [],
+      "focusFootprints": [
+        {
+          "id": 67,
+          "poly": [
+            [
+              309.04086032050486,
+              -306.4803736655099
+            ],
+            [
+              311.16407416346783,
+              -306.43143583776924
+            ],
+            [
+              311.32876694525373,
+              -313.72957696217367
+            ],
+            [
+              309.2090758264401,
+              -313.77843529470726
+            ]
+          ]
+        },
+        {
+          "id": 73,
+          "poly": [
+            [
+              290.88126028396846,
+              -330.91453619996264
+            ],
+            [
+              285.8647115330694,
+              -330.9879096361872
+            ],
+            [
+              285.7095297912267,
+              -320.1890249264734
+            ],
+            [
+              290.7233123663781,
+              -320.1156912406474
+            ]
+          ]
+        },
+        {
+          "id": 288,
+          "poly": [
+            [
+              97.78328970707682,
+              -311.0930299567497
+            ],
+            [
+              97.96134898015272,
+              -306.82600141833245
+            ],
+            [
+              112.24663443310396,
+              -307.4725783938332
+            ],
+            [
+              112.07086189229479,
+              -311.689084528233
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

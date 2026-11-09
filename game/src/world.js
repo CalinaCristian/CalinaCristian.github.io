@@ -27,6 +27,8 @@ import { sourceSidewalkSides, sidewalkWidth } from './sidewalk-source.js';
 import { emittedTramClearance } from './tram-clearance.js';
 import { buildRailRoadsideClearance } from './rail-roadside.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
+import { roadMiter, needsRoadBevelPad } from './road-joins.js';
+import { markingArea, clipMarkingConvex, subtractMarkingConvex, clipAffineMarkingRange, buildMarkingStations, markingDashIntervals } from './road-markings.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -1946,7 +1948,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const [e1, e2] = n.edges;
         const d1x = e1.b === n ? e1.dirx : -e1.dirx, d1z = e1.b === n ? e1.dirz : -e1.dirz; // e1 travelling into n
         const d2x = e2.a === n ? e2.dirx : -e2.dirx, d2z = e2.a === n ? e2.dirz : -e2.dirz; // e2 leaving n
-        return d1x * d2x + d1z * d2z < 0.35; // sharp turn → pad
+        return d1x * d2x + d1z * d2z < 0.35 || needsRoadBevelPad(e1, e2, n, (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e)); // sharp turn / infeasible width transition → bevel pad
     }
     for (const n of nodeArr) n.pad = n.edges.length ? isPadNode(n) : false;
     function retract(e, n) { return ((n.pad ?? isPadNode(n)) && (n.allEdges || n.edges).length >= 2 ? Math.min(n.radius, e.len * 0.45) : 0); }
@@ -1966,13 +1968,10 @@ export async function buildWorld(city, renderer, opts = {}) {
         const sf = same ? s : -s;
         const wf = wOtherFn(f, sf);
         const qx = n.x + f.nx * sf * wf, qz = n.z + f.nz * sf * wf;
-        // intersect p + t*e.dir and q + u*f.dir
-        const cr = e.dirx * f.dirz - e.dirz * f.dirx;
-        if (Math.abs(cr) < 0.02) return [(px + qx) / 2, (pz + qz) / 2];
-        const t = ((qx - px) * f.dirz - (qz - pz) * f.dirx) / cr;
-        const ix = px + e.dirx * t, iz = pz + e.dirz * t;
-        if (Math.hypot(ix - n.x, iz - n.z) > Math.max(w, wf) * 2.5 + 1) return [(px + qx) / 2, (pz + qz) / 2];
-        return [ix, iz];
+        const join = roadMiter(e, f, n, [px, pz], [qx, qz], Math.max(w, wf));
+        // Asphalt infeasibility is handled by the shared pad above, retaining
+        // full source cross-sections. Wider sidewalk bands retain their bevel.
+        return join.feasible ? join.point : [(px + qx) / 2, (pz + qz) / 2];
     }
     function asphaltCorners(e, width) {
         const aR = corner(e, e.a, 1, width(e, 1), width), aL = corner(e, e.a, -1, width(e, -1), width);
@@ -1989,12 +1988,13 @@ export async function buildWorld(city, renderer, opts = {}) {
     const widthKerb = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + 0.28;
     const padCorners = new Map(); // node -> {road:[], side:[]}
     const pushPad = (n, kind, p) => { let o = padCorners.get(n); if (!o) padCorners.set(n, o = { road: [], side: [], y: 0 }); o[kind].push(p); };
+    const markingStations = buildMarkingStations(edges, e => data.roadSourceGeometry?.[e.road]?.sourceId || e.access?.sourceId);
 
     const dashLine = (mb, e, s0, s1, off, y, col, dash, gap, hw) => {
         const step = dash + gap;
-        for (let s = s0 + gap * 0.5; s < s1; s += step) {
-            const sEnd = Math.min(s1, s + dash);
-            if (sEnd - s < 0.3) continue;
+        const spans = gap > 0 ? markingDashIntervals(s0, s1, dash, gap, markingStations.get(e)) : Array.from({length:Math.ceil((s1-s0)/step)}, (_, i) => [s0+i*step, Math.min(s1,s0+i*step+dash)]);
+        for (const [s, sEnd] of spans) {
+            if (sEnd - s < 1e-7) continue;
             let ax = e.a.x + e.dirx * s + e.nx * off, az = e.a.z + e.dirz * s + e.nz * off;
             let bx = e.a.x + e.dirx * sEnd + e.nx * off, bz = e.a.z + e.dirz * sEnd + e.nz * off;
             // continuous lines follow the mitred strip: at a plain bend (degree-2, no pad) end on the mitre line
@@ -2078,12 +2078,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         });
         return hit;
     };
-    /** a MeshBuilder proxy for edge e's markings: quads whose centre lies on another surface (pad, touching carriageway) are dropped */
-    //   (2026-11-07) and every corner must lie on the edge's own carriageway (± 5 cm): pieces that stick out of it
-    //   (edge lines over the sidewalk past a mitre, bus bands where the ribbon narrows) are halved along their
-    //   length until they fit or are shorter than 0.5 m (then dropped)
+    // Retain the prior point policy for non-affine pad/profile exceptions. The
+    // usual affine or flat surfaces below are clipped as polygons, so a centre
+    // outside the ribbon cannot discard the valid end of a line or zebra stripe.
     const onOwn = (e, x, z, tol = 0.05) => { const p = ribPoly.get(e); return !p || pointInPolygon(x, z, p) || polyDist(x, z, p) < tol; };
-    const markProxy = (mb, e) => ({
+    const legacyMarkProxy = (mb, e) => ({
         flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, y, col, uvS, depth = 0) {
             const cx = (x0 + x1 + x2 + x3) / 4, cz = (z0 + z1 + z2 + z3) / 4;
             const qa = depth ? 0 : Math.abs((x2 - x0) * (z3 - z1) - (x3 - x1) * (z2 - z0)) / 2; if (qa) e._mkAll = (e._mkAll || 0) + qa; // (stats: share dropped per edge)
@@ -2099,6 +2098,28 @@ export async function buildWorld(city, renderer, opts = {}) {
                 return;
             }
             mb.flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, y, col, uvS);
+        },
+    });
+    const markProxy = (mb, e) => ({
+        flatQuad(x0, z0, x1, z1, x2, z2, x3, z3, y, col, uvS) {
+            const input=[[x0,z0],[x1,z1],[x2,z2],[x3,z3]], own=ribPoly.get(e), area=markingArea(input);
+            const kept=own?clipMarkingConvex(input,own):input, ownedArea=markingArea(kept), blockers=[], seen=new Set();
+            if(kept.length){
+                const xs=kept.map(p=>p[0]),zs=kept.map(p=>p[1]);let unsupported=false;
+                surfGrid.each(Math.min(...xs),Math.min(...zs),Math.max(...xs),Math.max(...zs),o=>{
+                    if(o.e===e||seen.has(o))return;seen.add(o);
+                    const region=clipMarkingConvex(kept,o.poly,.15);if(!region.length)return;
+                    const low=o.e?(markWins(e,o.e)?.01:-.01):-1;
+                    const blocked=clipAffineMarkingRange(region,p=>o.h(p[0],p[1])-yAlong(e,p[0],p[1]),low,1);
+                    if(blocked===null)unsupported=true;else if(blocked.length)blockers.push(blocked);
+                });
+                if(unsupported){e._mkFragmentFallback=(e._mkFragmentFallback||0)+1;legacyMarkProxy(mb,e).flatQuad(x0,z0,x1,z1,x2,z2,x3,z3,y,col,uvS);return;}
+            }
+            let fragments=kept.length?[kept]:[];
+            for(const blocker of blockers)fragments=fragments.flatMap(p=>subtractMarkingConvex(p,blocker));
+            const emittedArea=fragments.reduce((sum,p)=>sum+markingArea(p),0);
+            e._mkAll=(e._mkAll||0)+area;e._mkOut=(e._mkOut||0)+Math.max(0,area-ownedArea);e._mkDrop=(e._mkDrop||0)+Math.max(0,ownedArea-emittedArea);
+            for(const polygon of fragments)mb.flatFan(polygon,y,col,uvS);
         },
     });
     // (2026-11-08, owner: "parked cars look sunk", then "do the sidewalks") realPass districts: sidewalks at the kerb's height
@@ -2739,12 +2760,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             // median barrier on two-way motorways / trunk roads with a central reservation
             if (/^(motorway|trunk)$/.test(e.type) && !e.oneway && e.median > 0.5 && !e.tramMedian && t1 - t0 > 0.05) {
-                const c = cellOf((e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2), v0 = c.solid.vc;
-                const s0 = t0 * e.len, s1 = t1 * e.len;
-                for (const sd of [1, -1]) { const o = (e.laneCenterShiftM || 0) + 0.3 * sd; c.solid.wall(e.a.x + e.dirx * s0 + e.nx * o, e.a.z + e.dirz * s0 + e.nz * o, e.a.x + e.dirx * s1 + e.nx * o, e.a.z + e.dirz * s1 + e.nz * o, Y.road, Y.road + 0.8, e.nx * sd, e.nz * sd, rgb('#b9b6ae')); }
-                c.solid.flatQuad(e.a.x + e.dirx * s0 + e.nx * ((e.laneCenterShiftM || 0) + 0.3), e.a.z + e.dirz * s0 + e.nz * ((e.laneCenterShiftM || 0) + 0.3), e.a.x + e.dirx * s1 + e.nx * ((e.laneCenterShiftM || 0) + 0.3), e.a.z + e.dirz * s1 + e.nz * ((e.laneCenterShiftM || 0) + 0.3), e.a.x + e.dirx * s1 + e.nx * ((e.laneCenterShiftM || 0) - 0.3), e.a.z + e.dirz * s1 + e.nz * ((e.laneCenterShiftM || 0) - 0.3), e.a.x + e.dirx * s0 + e.nx * ((e.laneCenterShiftM || 0) - 0.3), e.a.z + e.dirz * s0 + e.nz * ((e.laneCenterShiftM || 0) - 0.3), Y.road + 0.8, rgb('#cfccc4'), 0, -1);
-                if (Math.abs(e.ya) > 0.01 || Math.abs(e.yb) > 0.01) displace(c.solid, v0, (x, z) => yAlong(e, x, z));
+                const first = walls.length;
                 add(e, 1, e.laneCenterShiftM || 0, 'guard', t0, t1);
+                for (let i = first; i < walls.length; i++) walls[i].generatedMedian = true;
             }
         }
         // final rule: no wall piece may stand on another carriageway / junction pad at its own height band (junction
@@ -2918,6 +2936,17 @@ export async function buildWorld(city, renderer, opts = {}) {
         walls.length = 0; walls.push(...railClearWalls);
         // draw the concrete separation barriers that survived
         for (const w of walls) {
+            if (w.generatedMedian) {
+                // Exactly the final surviving collision intervals, including
+                // openings at pads and crossing ribbons. Real OSM barriers use
+                // their separate existing source-emission path.
+                const L = Math.hypot(w.bx-w.ax,w.bz-w.az), px = -(w.bz-w.az)/L*.3, pz = (w.bx-w.ax)/L*.3, ya = w.y1a-.85, yb = w.y1b-.85, c = cellOf(w.x,w.z);
+                const a=[w.ax+px,ya,w.az+pz],b=[w.bx+px,yb,w.bz+pz],d=[w.ax-px,ya,w.az-pz],q=[w.bx-px,yb,w.bz-pz],up=p=>[p[0],p[1]+.8,p[2]];
+                c.solid.face4(a,b,up(b),up(a),barrierCol,[px,0,pz]);c.solid.face4(q,d,up(d),up(q),barrierCol,[-px,0,-pz]);
+                c.solid.face4(up(a),up(b),up(q),up(d),rgb('#cfccc4'),[0,1,0]);
+                c.solid.face4(d,a,up(a),up(d),barrierCol,[-w.edge.dirx,0,-w.edge.dirz]);c.solid.face4(b,q,up(q),up(b),barrierCol,[w.edge.dirx,0,w.edge.dirz]);
+                continue;
+            }
             if (w.kind !== 'barrier') continue;
             const ya = w.y0a + 0.45, yb = w.y0b + 0.45, L = Math.hypot(w.bx - w.ax, w.bz - w.az) || 1, px = -(w.bz - w.az) / L * 0.15, pz = (w.bx - w.ax) / L * 0.15;
             const c = cellOf(w.x, w.z);

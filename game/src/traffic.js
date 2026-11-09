@@ -1496,10 +1496,15 @@ export class Traffic {
             const vl = v.length / 2;
             this.grid.query(v.x, v.z, vl + 9, (o) => {
                 if (o === v || o.inactive || Math.abs(o.y - v.y) > 2) return;
-                const p = vvPen(v, o); if (p <= 1e-6) return;
+                const p = vvPen(v, o); if (p <= 0.05) return;
                 if (stepped) {
                     const p0 = vvPen(v, o, v._x0, v._z0, v._h0);
-                    if (p > Math.max(0, p0) + 1e-6) worse = true;
+                    // Preserve the established normal-motion tolerances. The
+                    // recovery translations below use their stricter contact
+                    // checks; tiny enclosing-box corner contact must not turn
+                    // ordinary junction travel into an indefinite wait.
+                    const apart = p0 > 0.05 && p < p0 + 0.04 && Math.hypot(v.x - o.x, v.z - o.z) > Math.hypot(v._x0 - o.x, v._z0 - o.z) + 0.005;
+                    if (p > p0 + 0.002 && !apart) worse = true;
                 }
                 if (p > hp) { hp = p; hit = o; }
             });

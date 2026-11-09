@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-11-09T00:53:27.293100+00:00",
-  "testedRuntimeSha256": "44aeb2d50d2496f2264589fb18a388c58d4b96e852fa68bad85650d443b61ec0",
+  "recordedAt": "2026-11-09T01:12:37.349427+00:00",
+  "testedRuntimeSha256": "bfb4512040aa71f0352af131119d2cc3256f27f3b8bfe9419fe249a0ec306d7a",
   "checks": [
     {
       "command": "node --input-type=module --check < game/src/traffic.js",
@@ -29,6 +29,10 @@
     },
     {
       "command": "node game/dev/harness-body-sensing.test.mjs",
+      "result": "pass"
+    },
+    {
+      "command": "node game/dev/normal-guard-tolerance.test.mjs --strict-source=/workspace/reality-pass/unirii-pedestrian-recovery/source-96ad697",
       "result": "pass"
     }
   ],

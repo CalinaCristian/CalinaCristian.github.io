@@ -1,0 +1,10 @@
+{
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "complete": true,
+  "checks": 37,
+  "passed": 37,
+  "browserExceptions": 0,
+  "consoleErrors": 0,
+  "inspectedImages": 8,
+  "scope": "Native phone DOM/input/layout/recovery/map and tour controls. Later menu availability requires its own current-source validation. Tour canvas deliberately suppressed; no tourist3D fidelity or full rendering/performance claim."
+}

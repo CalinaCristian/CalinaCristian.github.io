@@ -1,0 +1,168 @@
+{
+  "dataFile": "/workspace/fidelity-workers/source-controlled-crossing/game/data/bucharest-romana.json",
+  "osmDir": "/workspace/reality-pass/romana/tiles",
+  "inputSha256": "7ac05b291e4f691936b844a7fae4763a047353e8ba8a33c84e29315e6b3bfb1a",
+  "outputSha256": "5240414e62b4ba2c3a010a1fbb9f0bec37972886f74f68a1aa1be9542b5aa7c2",
+  "written": true,
+  "cachedInputsReverified": true,
+  "sourceSelection": "Existing parse-osm first occurrence from sorted cached XML; no network or source synthesis",
+  "generatedUnchanged": true,
+  "existingFieldsUnchanged": true,
+  "originalPrefixBytesUnchanged": true,
+  "renderedTrams": 7,
+  "renderedTramsSha256": "fbf2c9ac402446cdb93c6856784787411ad7f11440d3d3e380e2873c40ef9116",
+  "addedFields": [
+    "tramSourceCrossings"
+  ],
+  "sourceWays": 0,
+  "routes": 0,
+  "taggedNodes": 0,
+  "missingNodeWays": [],
+  "routeMissingWays": [],
+  "renderSources": [],
+  "ledger": [
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4250_26.0610_44.4350_26.0770.xml",
+      "bytes": 5097546,
+      "sha256": "326469c1c643c9ef294766a22628138f982cf13f37223fa30e5e5929c0f29fb6"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4250_26.0770_44.4350_26.0930.xml",
+      "bytes": 4201904,
+      "sha256": "3dc61e44fd58b38ef0d18d8bf56c2dcd4d41bcc360ae8b36d624f3be95570570"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4250_26.0930_44.4350_26.1090.xml",
+      "bytes": 12152142,
+      "sha256": "dbe86491bd47dfdc2b78988384aeeb7e3ac3c59ee706d4a0918c80c05da589cc"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4250_26.1090_44.4350_26.1250.xml",
+      "bytes": 5627461,
+      "sha256": "85df20eded36f4d37dd0558762385fd6496b0608e5ebf7889c8db1eafd8a9f67"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4350_26.0610_44.4450_26.0770.xml",
+      "bytes": 4361066,
+      "sha256": "a82f4aebf2ba8f2f321cd2144e30a119755b6ded55729eddf1d68a4eaf9afc35"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4350_26.0770_44.4450_26.0930.xml",
+      "bytes": 4560635,
+      "sha256": "6b88c0c9937c78c2264f48d66a1c20e8a18cba4bd9e233e861bf1c82790c0da5"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4350_26.0930_44.4450_26.1090.xml",
+      "bytes": 7538229,
+      "sha256": "8cb50939367e80d82e4f7c7631e71be2b6ff6f6054ebe9b1d31fdfa2fd7976d0"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4350_26.1090_44.4450_26.1250.xml",
+      "bytes": 5839279,
+      "sha256": "79898a15444a3e094a10c571080843a48858b64fdf5804753388b6809a3d1182"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4450_26.0610_44.4550_26.0770.xml",
+      "bytes": 5561807,
+      "sha256": "f9157a53b014b19b40816bd3de157e7fc2f228207157bfb6ca6e04839e145c85"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4450_26.0770_44.4550_26.0930.xml",
+      "bytes": 5339194,
+      "sha256": "0952f73927ba6a9cb20668e31c9fc95f5a43adb8b357aa511506b02ec3252500"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4450_26.0930_44.4550_26.1090.xml",
+      "bytes": 5968976,
+      "sha256": "b71369b02d0153dcc1f1e68d84a9e0ba5ccfa626f3395401d08b890675475d51"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4450_26.1090_44.4550_26.1250.xml",
+      "bytes": 4990155,
+      "sha256": "4ce57b70435a59a68ce36320ee1e707738dc8669dd9f9058e54a5ab9b7e4ce1a"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4550_26.0610_44.4650_26.0770.xml",
+      "bytes": 4585166,
+      "sha256": "9113b5ff010d55d2c56bf7792a454a10753131135c5ec6df930f1355f5b43909"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4550_26.0770_44.4650_26.0930.xml",
+      "bytes": 3624716,
+      "sha256": "de30e05f0ec653a40842727398c60244b089e8f02c4e2b5df88d0714d50323ba"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4550_26.0930_44.4650_26.1090.xml",
+      "bytes": 4383339,
+      "sha256": "546383d1c8ec826097b07108607e821f947c147a64994622e3c32c00f72814ad"
+    },
+    {
+      "file": "/workspace/reality-pass/romana/tiles/buc_44.4550_26.1090_44.4650_26.1250.xml",
+      "bytes": 3421470,
+      "sha256": "9a6497ea0c11a04c0a3d8a72530f3eaeeffde40669eccfbd3dc8a572f3e8b1ea"
+    }
+  ],
+  "crossingsOnly": true,
+  "sourceCrossings": 2,
+  "crossingContexts": [
+    {
+      "sourceId": "w668566857",
+      "nodeIds": [
+        6260859915,
+        3583960526,
+        8544117706,
+        11256879887,
+        11256879888,
+        8544117709,
+        12572079156,
+        6260859914,
+        8544117708,
+        11256879886,
+        3583959432,
+        6260859913
+      ],
+      "railNodeIds": [
+        8544117709,
+        6260859914
+      ],
+      "roadIncidences": [
+        {
+          "nodeId": 3583960526,
+          "sourceId": "w1435080781"
+        },
+        {
+          "nodeId": 3583959432,
+          "sourceId": "w3118247"
+        }
+      ],
+      "missingNodeIds": []
+    },
+    {
+      "sourceId": "w669158565",
+      "nodeIds": [
+        6266169072,
+        3759186610,
+        6266169071,
+        6266169070,
+        8544165115,
+        12572079153,
+        6266169069,
+        6266169068,
+        6266169067,
+        4078520089,
+        6266169066
+      ],
+      "railNodeIds": [
+        8544165115,
+        6266169069
+      ],
+      "roadIncidences": [
+        {
+          "nodeId": 3759186610,
+          "sourceId": "w235436166"
+        }
+      ],
+      "missingNodeIds": []
+    }
+  ]
+}

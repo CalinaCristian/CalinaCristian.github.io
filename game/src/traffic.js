@@ -12,6 +12,7 @@ import { ambientTrafficAccess } from './road-access.js';
 import { admitInitialTraffic, previewInitialTrafficPose, initialTrafficStaticClearance, initialBodyCover } from './initial-traffic-admission.js';
 import { buildTramNetwork, canTravelTram, tramContinuations, sampleTramPath, tramSpan, tramPathPolyline, projectTramStations } from './tram-path.js';
 import { buildTurnLaneRules, laneTurnAllowed, preservesTurnLane } from './turn-lanes.js';
+import { buildTramSourceSignals, tramSourceSignalState } from './tram-source-signals.js';
 
 // ============================================================================
 //  TRAFFIC — vehicles + pedestrians on the road graph.
@@ -216,7 +217,7 @@ export class Traffic {
 
     /** Derived physical crossing ownership; motor routing nodes/edges stay intact. */
     isJunction(node) { return isJunction(node) || this.tramMotorCrossings?.has(node) || !!node.motorNode; }
-    boxController(node) { const physical = node.motorNode || node; return physical.lightCluster || physical; }
+    boxController(node) { const physical = node.motorNode || node.sourceSignal?.node || node; return physical.lightCluster || physical; }
 
     railBodyInside(body) {
         const inside = this.world.district?.inside;
@@ -231,6 +232,15 @@ export class Traffic {
         const actors = this.vehicles.filter(v => v.tram), summary = { passed: true, bindings: [], unresolved: [], rngDraws: 0 };
         if (!actors.length) return summary;
         this.tramNetwork = buildTramNetwork(this.world.data, { motorNodes: nodeList(this.world.graph), resolveGrade: this.world.tramGrade });
+        const sourceSignals = buildTramSourceSignals(this.world.data, this.tramNetwork, this.world);
+        for (const { railNode, sourceSignal } of sourceSignals.associations) { railNode.sourceSignal = sourceSignal; railNode.hasLight = true; }
+        for (const issue of sourceSignals.unresolved) {
+            const node = this.tramNetwork.bySourceNode.get(String(issue.railSourceNodeId));
+            if (node) { node.sourceSignal = { unresolved: true }; node.hasLight = true; }
+        }
+        const { associations, ...signalReport } = sourceSignals; this.tramSourceSignals = signalReport;
+        summary.sourceSignals = signalReport;
+        if (!sourceSignals.passed) summary.passed = false;
         this.tramIndex = new EdgeIndex(this.tramNetwork.edges);
         this.tramMotorCrossings = new Set(this.tramNetwork.nodes.filter(n => n.edges.length && n.motorNode).map(n => n.motorNode));
         summary.source = this.tramNetwork.report;
@@ -424,6 +434,8 @@ export class Traffic {
 
     /** 'green' | 'yellow' | 'red' for vehicles on `edge` approaching `node` */
     lightState(node, edge) {
+        const source = tramSourceSignalState(this.world, node, edge, this.time, this.cycle);
+        if (source !== null) return source;
         if (!node.hasLight) return 'green';
         if (this.world.lightState) return this.world.lightState(node.id, edge, this.time, this.cycle);
         // The small legacy worlds use the same conservative phase rules.
@@ -1548,7 +1560,7 @@ export class Traffic {
     reservationPath(v, curE, curDir, nxt, node, rad) {
         const path = this.boxPath(v, curE, curDir, nxt, rad);
         path.segments = path.railSegments || [{ ...path }]; path.internalEdges = new Set(); path.entryRad = rad; path.exitRad = rad;
-        path.phase = this.world.nodeLight?.[node.id]?.approaches.find(a => a.edge === curE)?.phase;
+        path.phase = node.sourceSignal?.phase ?? this.world.nodeLight?.[node.id]?.approaches.find(a => a.edge === curE)?.phase;
         const cl = node.lightCluster;
         let step = nxt, i = 0, exitIndex = 0;
         while (cl && step && i < v.route.length) {

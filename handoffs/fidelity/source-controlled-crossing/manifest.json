@@ -1,0 +1,168 @@
+{
+  "base": "81c78e35167ef871d8e48f49be8e29118a1a2ec2",
+  "worldContractDependency": "6a045054",
+  "historicalSourceEvidence": "920fe6e5817bb8c54ce11297daa1bdd1d5ada0fa",
+  "browserOpened": false,
+  "networkUsed": false,
+  "runtimeScope": [
+    "new tram-source-signals.js",
+    "Traffic import, initial source-signal setup, lightState/boxController/reservation phase hooks only"
+  ],
+  "checks": {
+    "legacyMetadataCompilerControls": 12,
+    "newMetadataControls": 8,
+    "sourceSignalNativeMethodControls": 14,
+    "unchangedNativeMotionAndClaimSuites": 2,
+    "syntax": true,
+    "diffCheck": true,
+    "independentRawAudit": true
+  },
+  "pending": "Combined immutable native publication/render/full-actor/rail-grade/crossing and final acceptance; no browser in this task. Existing general builder source metadata remains four-field; new context uses explicit append-only cached CLI.",
+  "files": [
+    {
+      "path": "game/data/bucharest-grozavesti.json",
+      "bytes": 5814201,
+      "sha256": "b0341956c088b9cb142a7005831345eda7bf7aae27f18618181ba8fc535f4175"
+    },
+    {
+      "path": "game/data/bucharest-pipera.json",
+      "bytes": 4163026,
+      "sha256": "235da718f7401114004e5d036e1e360fd01230fa9ae2509c0c77e52edcba373a"
+    },
+    {
+      "path": "game/data/bucharest-romana.json",
+      "bytes": 21911444,
+      "sha256": "5240414e62b4ba2c3a010a1fbb9f0bec37972886f74f68a1aa1be9542b5aa7c2"
+    },
+    {
+      "path": "game/data/bucharest-unirii.json",
+      "bytes": 25489517,
+      "sha256": "72ab092e065ffb13c3f3caa6f31d7a73130b60ac8df50b100aeacde95e7dc7dd"
+    },
+    {
+      "path": "game/src/traffic.js",
+      "bytes": 248198,
+      "sha256": "d395762b1ab8726d3e46100daa4b4796ebffea2ef852adc3fc29af209f3c88db"
+    },
+    {
+      "path": "game/src/tram-source-signals.js",
+      "bytes": 8456,
+      "sha256": "9dbb138de09aea1bb8666f3b54b5967b3772a9081d1324e24d75ea31a2b1406d"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/README.md",
+      "bytes": 5285,
+      "sha256": "d3de3018082bcdf67897224b4cccdb5c7068fcd31f38e73e000bd94c7dd6cb97"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/audit-metadata.py",
+      "bytes": 5196,
+      "sha256": "646fd4a9303abda2b9289e02588d761a06693e86848150ab934f6c8ddff7f6e7"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/groz-motor98-input.json",
+      "bytes": 8328,
+      "sha256": "edbd4bff2f5e01cf382812065f3b21da068f93eb4870de2256a2671f4c5faef4"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/grozavesti-metadata-write.json",
+      "bytes": 7251,
+      "sha256": "6bd31570c36607c42d5f7f1e4b5592483476499b590ce1ad5fc2b66861b6ce47"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/historical-crossing-context-920fe6e.json",
+      "bytes": 5548,
+      "sha256": "5b96d9f297748a6aa9a68f194f39a69e63700d9a15a95ba891ce50be108dfed1"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/independent-metadata-audit.json",
+      "bytes": 24051,
+      "sha256": "c5da67d73e5fbbf852383eb501d1e58d58d3d92d73ef10021574cb332e56d77a"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/legacy-source-controls.json",
+      "bytes": 5488,
+      "sha256": "82986b1bea636d4cb0b7d82ce1a06404883c3af001c2084bbfed699140e45b67"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/legacy-source-controls.log",
+      "bytes": 1187,
+      "sha256": "6fafeae3d8caadcf5af3a5ed3dd92706462973b9650ed3dc0baecf9e45876c5b"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/metadata-controls.log",
+      "bytes": 795,
+      "sha256": "918cb5792405a22e9b4e7ae6b5e397ea38452d6a9de91e2f311c958f8bae478e"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/native-regressions/crossing.log",
+      "bytes": 923,
+      "sha256": "5ae02e7ba65436060f69af5b3f24eb420e1eadf874bec149f1475fe1b22ba6b9"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/native-regressions/motion.log",
+      "bytes": 1091,
+      "sha256": "390172c8b81f5edc0cb744aeda30dee907d7003f704e827e0d84a8b61fdf637b"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/native-regressions/provenance.json",
+      "bytes": 711,
+      "sha256": "91e61b5a913a268ae20514dec3992f9d9c6a0f76e846bfa13489323f86881f5f"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/native-regressions/test-native-crossing.mjs",
+      "bytes": 2970,
+      "sha256": "cf319584f62d8c1a111c3d123a99ec3b3eefe22d04fef72f99f6235bc87b0825"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/native-regressions/test-native-motion.mjs",
+      "bytes": 3064,
+      "sha256": "5bc025629d580166c9cc6ceffc894f6bd2bc75a42ceac270c502d041b873deb2"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/pipera-metadata-write.json",
+      "bytes": 4810,
+      "sha256": "3117a70b0c972318f1f107e759aa8597c1b1a83c5587b7cf6e06e9b59db3a096"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/romana-metadata-write.json",
+      "bytes": 5552,
+      "sha256": "9d54e26b7680d913cf1f87f02724c24269bab3d57f28e25ac141d7990f549d0d"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/signal-controls.json",
+      "bytes": 3791,
+      "sha256": "6b5a7ce456ba1f51f0174436138917b223a84fb56b4d91938e00f8e33b3f5ed6"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/signal-controls.log",
+      "bytes": 1819,
+      "sha256": "ec5dd043e529813fff3993d35dbc794e548d3b3481faaa5de02d6f75d54fb995"
+    },
+    {
+      "path": "handoffs/fidelity/source-controlled-crossing/unirii-metadata-write.json",
+      "bytes": 9859,
+      "sha256": "8a387756c98d4c468a79b269179c4c74bed850e090af8219a7c365819e984510"
+    },
+    {
+      "path": "tools/osm/add-tram-source-metadata.mjs",
+      "bytes": 4361,
+      "sha256": "9f6f715a2ae20e39f1a7371a7c4cb5da6ffbe777e8918e48a0758f867e857d21"
+    },
+    {
+      "path": "tools/osm/tram-crossings.test.mjs",
+      "bytes": 4979,
+      "sha256": "7a364e7c40e68c2c1e06c67f6bc31c9aea416de395c26bddf5fb51adba85c929"
+    },
+    {
+      "path": "tools/osm/tram-source-signals.test.mjs",
+      "bytes": 13254,
+      "sha256": "cc2e157b6afad3247412e25f250e5aaa029f63328eb2e84f8d16b5493627da35"
+    },
+    {
+      "path": "tools/osm/tram-sources.mjs",
+      "bytes": 13202,
+      "sha256": "808d5dc8dceea67003a54f9e88bf6ad44971f1021cf8b7e818b09346df24214f"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 // Pure source metadata only. Rendered lines, motor roads, dates and native geometry are never rewritten here.
 export const TRAM_SOURCE_FIELDS = ['tramSources', 'tramSourceWays', 'tramRoutes', 'tramSourceNodeTags'];
+export const TRAM_CROSSING_FIELDS = ['tramSourceCrossings'];
 const copyTags = tags => Object.fromEntries(Object.entries(tags || {}));
 const tramWay = tags => tags?.railway === 'tram' || (['construction', 'disused', 'abandoned', 'proposed', 'razed'].includes(tags?.railway) && [tags[tags.railway], tags[`${tags.railway}:railway`]].includes('tram'));
 const tramRelation = tags => tags?.route === 'tram' || tags?.route_master === 'tram';
@@ -105,6 +106,58 @@ export function extractTramMetadata(doc, osm) {
     const snapshot = snapshotTramSources(osm), project = tramProjection(doc.proj), q = doc.q;
     const runs = alignTramRuns(doc.trams, snapshot, { project, q });
     return tramMetadataFromRuns(snapshot, runs, { project, q });
+}
+
+/** Literal crossing-way context only: no proximity join or flood through a curb.
+ * A source road incidence must survive in the prepared graph, not merely occur
+ * somewhere on the complete raw road way. */
+export function extractTramCrossingMetadata(doc, osm) {
+    if (!doc.trams?.length) return {};
+    if (!(doc.q > 0) || !Number.isFinite(doc.q)) throw Error('Missing exact dataset quantization');
+    if (!Array.isArray(doc.tramSources) || doc.tramSources.length !== doc.trams.length) throw Error('Crossing context requires existing exact rendered rail identities');
+    const railNodes = new Set(doc.tramSources.flatMap(r => r.nodeIds).map(key));
+    const preparedNodes = new Set((doc.roadNodeIds || []).filter(id => id != null).map(key));
+    const crossings = [...osm.ways].filter(([, w]) => (w.tags?.highway === 'footway' || w.tags?.footway === 'crossing') && w.nodes.some(n => railNodes.has(key(n))));
+    const crossingNodes = new Set(crossings.flatMap(([, w]) => w.nodes).map(key));
+    const roadsByNode = new Map();
+    for (const [index, road] of Object.entries(doc.roadSourceGeometry || {})) {
+        const nativeNodes = new Set((doc.roads?.[Number(index)] || []).slice(10).map(i => key(doc.roadNodeIds?.[i])));
+        // An unrelated road outside these cached crossing ways is not needed
+        // coverage. Every candidate incidence still requires its raw road.
+        if (!road.nodeIds?.some(n => crossingNodes.has(key(n)) && nativeNodes.has(key(n)))) continue;
+        const raw = osm.ways.get(Number(String(road.sourceId).replace(/^w/, '')));
+        if (!raw) throw Error('Cached crossing source road unavailable: ' + road.sourceId);
+        for (const id of raw.nodes) if (preparedNodes.has(key(id)) && nativeNodes.has(key(id))) {
+            let ways = roadsByNode.get(key(id)); if (!ways) roadsByNode.set(key(id), ways = new Set());
+            ways.add(road.sourceId);
+        }
+    }
+    const project = tramProjection(doc.proj), q = doc.q, tramSourceCrossings = [];
+    for (const [id, way] of crossings) {
+        const railNodeIds = way.nodes.filter(n => railNodes.has(key(n))), roadIncidences = [];
+        for (const nodeId of way.nodes) for (const sourceId of roadsByNode.get(key(nodeId)) || []) roadIncidences.push({ nodeId, sourceId });
+        if (!railNodeIds.length || !roadIncidences.length) continue;
+        const missingNodeIds = way.nodes.filter(n => !(osm.nodes.get(n)?.length >= 2) || !osm.nodes.get(n).slice(0, 2).every(Number.isFinite));
+        const nodeTags = Object.fromEntries(way.nodes.map(n => [key(n), copyTags(osm.ntags?.get(n))]));
+        tramSourceCrossings.push({ sourceId: 'w' + id, nodeIds: [...way.nodes], tags: copyTags(way.tags),
+            points: missingNodeIds.length ? null : tramDelta(way.nodes.map(n => project(...osm.nodes.get(n))), q), nodeTags,
+            railNodeIds, roadIncidences, ...(missingNodeIds.length ? { missingNodeIds } : {}) });
+    }
+    tramSourceCrossings.sort((a, b) => Number(a.sourceId.slice(1)) - Number(b.sourceId.slice(1)));
+    return { tramSourceCrossings };
+}
+
+export function appendTramCrossingMetadata(original, metadata) {
+    const doc = JSON.parse(original);
+    if (!doc.trams?.length) return original;
+    if (!TRAM_SOURCE_FIELDS.every(k => Object.hasOwn(doc, k))) throw Error('Existing source rail metadata required before crossing append');
+    if (Object.hasOwn(doc, 'tramSourceCrossings')) throw Error('Crossing metadata already exists; refuse to overwrite an existing dataset value');
+    if (!Array.isArray(metadata.tramSourceCrossings)) throw Error('Incomplete crossing metadata contract');
+    const end = original.match(/}\s*$/); if (!end) throw Error('Expected JSON object dataset');
+    const updated = original.slice(0, end.index) + ',"tramSourceCrossings":' + JSON.stringify(metadata.tramSourceCrossings) + end[0];
+    const check = JSON.parse(updated); delete check.tramSourceCrossings;
+    if (JSON.stringify(check) !== JSON.stringify(doc)) throw Error('An existing dataset value changed');
+    return updated;
 }
 
 /** Append only new fields to the original JSON bytes; no existing values, formatting or date is regenerated. */

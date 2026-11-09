@@ -1,0 +1,246 @@
+{
+  "complete": true,
+  "controls": [
+    {
+      "name": "clipped render runs map to original per-vertex IDs while full source ways stay complete",
+      "pass": true,
+      "details": {
+        "render": {
+          "sourceId": "w101",
+          "nodeIds": [
+            2,
+            3
+          ],
+          "tags": {
+            "railway": "tram",
+            "oneway": "yes",
+            "gauge": "1435",
+            "operator": "test",
+            "frequency": "0"
+          }
+        },
+        "complete": {
+          "sourceId": "w101",
+          "nodeIds": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "tags": {
+            "railway": "tram",
+            "oneway": "yes",
+            "gauge": "1435",
+            "operator": "test",
+            "frequency": "0"
+          },
+          "points": [
+            0,
+            0,
+            10,
+            0,
+            10,
+            0,
+            10,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "name": "shared source nodes include continuation/service/status ways but a geometric crossing does not join",
+      "pass": true,
+      "details": [
+        "w101",
+        "w102",
+        "w104",
+        "w105",
+        "w106"
+      ]
+    },
+    {
+      "name": "every raw way/node tag and ordered relation role/ref/status survives unchanged",
+      "pass": true,
+      "details": {
+        "orderedMembers": [
+          {
+            "type": "node",
+            "ref": 50,
+            "role": "stop"
+          },
+          {
+            "type": "way",
+            "ref": 101,
+            "role": ""
+          },
+          {
+            "type": "way",
+            "ref": 102,
+            "role": "forward"
+          },
+          {
+            "type": "way",
+            "ref": 777,
+            "role": ""
+          }
+        ],
+        "note": "Temporarily suspended; preserve literal note"
+      }
+    },
+    {
+      "name": "missing complete-way coordinates stay null with all node refs and unavailable route ways explicit",
+      "pass": true,
+      "details": {
+        "sourceId": "w106",
+        "nodeIds": [
+          5,
+          999,
+          9
+        ],
+        "tags": {
+          "railway": "tram"
+        },
+        "points": null,
+        "missingNodeIds": [
+          999
+        ]
+      }
+    },
+    {
+      "name": "invalid coordinate records remain unavailable rather than inventing projected points",
+      "pass": true,
+      "details": {
+        "sourceId": "w106",
+        "nodeIds": [
+          5,
+          999,
+          9
+        ],
+        "tags": {
+          "railway": "tram"
+        },
+        "points": null,
+        "missingNodeIds": [
+          999
+        ]
+      }
+    },
+    {
+      "name": "raw snapshot is independent of later builder tag/node decoration",
+      "pass": true,
+      "details": [
+        {
+          "sourceId": "w101",
+          "nodeIds": [
+            2,
+            3
+          ],
+          "tags": {
+            "railway": "tram",
+            "oneway": "yes",
+            "gauge": "1435",
+            "operator": "test",
+            "frequency": "0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "unknown directions/grades remain literal and layer/bridge never become invented metre heights",
+      "pass": true,
+      "details": {
+        "bridge": {
+          "sourceId": "w102",
+          "nodeIds": [
+            4,
+            5
+          ],
+          "tags": {
+            "railway": "tram",
+            "bridge": "yes",
+            "layer": "1"
+          },
+          "points": [
+            30,
+            0,
+            0,
+            -10
+          ]
+        },
+        "groundTags": {
+          "railway": "tram",
+          "oneway": "yes",
+          "gauge": "1435",
+          "operator": "test",
+          "frequency": "0"
+        }
+      }
+    },
+    {
+      "name": "reverse-render coverage and source oneway=-1 do not rewrite original source order or travel tags",
+      "pass": true,
+      "details": {
+        "renderNodeIds": [
+          3,
+          2
+        ],
+        "rawOneway": "-1"
+      }
+    },
+    {
+      "name": "ambiguous/coincident IDs and unmatched lines fail instead of guessing a rail identity",
+      "pass": true,
+      "details": {
+        "ambiguousRejected": true,
+        "unmatchedRejected": true
+      }
+    },
+    {
+      "name": "existing bytes, field values, render arrays and generated date survive append-only metadata",
+      "pass": true,
+      "details": {
+        "prefixBytes": 77,
+        "originalDate": "2001-01-01"
+      }
+    },
+    {
+      "name": "dataset projection/compression/q match the existing delta convention without resampling",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          21,
+          -9
+        ]
+      }
+    },
+    {
+      "name": "actual changed builder clipping emits byte-equivalent render arrays to the baseline compiler",
+      "pass": true,
+      "details": {
+        "old": [
+          [
+            10,
+            0,
+            10,
+            0
+          ]
+        ],
+        "current": [
+          [
+            10,
+            0,
+            10,
+            0
+          ]
+        ]
+      }
+    }
+  ],
+  "browserLaunched": false,
+  "networkUsed": false,
+  "baseCommit": "8ccab8b8f2e207aed8ceaca7fd6485590f1c7be7",
+  "contractCommit": "29f25970",
+  "scope": "Pure source metadata/compiler clipping controls, not runtime rail or native district acceptance."
+}

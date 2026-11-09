@@ -1,0 +1,97 @@
+{
+  "source": "19b2298de4a8cf84de383a578d22520affdfb399",
+  "scope": "Exact closed after-capture copies; no provider/reference imagery. Raw failure and hashes unchanged.",
+  "files": [
+    {
+      "path": "SCOPE.md",
+      "bytes": 1618,
+      "sha256": "76b5ebb261805c5f05305e1d3fcd7c231266d030bb2485387d2cb09bf2ce7ee9",
+      "originalMtimeUTC": "2026-11-09T16:02:52.625001+00:00"
+    },
+    {
+      "path": "SOURCE-MANIFEST.json",
+      "bytes": 3926715,
+      "sha256": "79e00ff75ab56a66056c00d5b809b2dbc13f6971aed00b6c1c35c6eca60375ac",
+      "originalMtimeUTC": "2026-11-09T16:02:59.116624+00:00"
+    },
+    {
+      "path": "carusel-atrium-day.png",
+      "bytes": 1368975,
+      "sha256": "00b08f68a98c117be70b978e889d3f8e88a0e73059db1b3ccbee8c850ef74b85",
+      "originalMtimeUTC": "2026-11-09T15:59:13.265534+00:00"
+    },
+    {
+      "path": "carusel-atrium-night.png",
+      "bytes": 1363013,
+      "sha256": "1883c1a9f58ddfd6a91f8ee27e441c40cfea5a94336a8556395a82cb8585ab94",
+      "originalMtimeUTC": "2026-11-09T15:59:00.901644+00:00"
+    },
+    {
+      "path": "carusel-first-gallery-day.png",
+      "bytes": 1302634,
+      "sha256": "6fa69197d17522ffec0b67a8cea09ffa359f594c21a2cb36f570a0f7a3f13481",
+      "originalMtimeUTC": "2026-11-09T15:59:23.445444+00:00"
+    },
+    {
+      "path": "carusel-gallery-map-target.png",
+      "bytes": 456167,
+      "sha256": "b1f8a34351e540e350245b6cc2b549e8a0201dade9799b36a67dc7be55b20652",
+      "originalMtimeUTC": "2026-11-09T15:59:30.237376+00:00"
+    },
+    {
+      "path": "carusel-gallery-no-ground-shortcut.png",
+      "bytes": 1187113,
+      "sha256": "a7ac268251eaf475297ead58d527348ad695330ac0ff8aa91b440bbdb7885435",
+      "originalMtimeUTC": "2026-11-09T15:59:36.545305+00:00"
+    },
+    {
+      "path": "carusel-ground-entry-night.png",
+      "bytes": 1233515,
+      "sha256": "11e9f8a4c1826dbb447cd6556143bc8cf0573d4e5744d962a4c1429417a2c7bc",
+      "originalMtimeUTC": "2026-11-09T15:58:51.477748+00:00"
+    },
+    {
+      "path": "carusel-public-entry-night.png",
+      "bytes": 1169600,
+      "sha256": "88afd58fadc93f8a468bac6c7e27f4b4ce56cb621375aad1ba30782597d03e4d",
+      "originalMtimeUTC": "2026-11-09T15:58:45.009820+00:00"
+    },
+    {
+      "path": "carusel-street-window-day.png",
+      "bytes": 1153108,
+      "sha256": "465706e593042e009ff6aba4f47907d09b203f9367fdf8453fd9828ec744cd10",
+      "originalMtimeUTC": "2026-11-09T15:59:44.829216+00:00"
+    },
+    {
+      "path": "failure.png",
+      "bytes": 194396,
+      "sha256": "96b388f986d7326d0ae8c06770fddeb010c32c26262876388ff6b37e9b535fa8",
+      "originalMtimeUTC": "2026-11-09T16:00:52.860480+00:00"
+    },
+    {
+      "path": "phone-carusel-ground-interior.png",
+      "bytes": 442134,
+      "sha256": "0c5e112d08d70634a8a1784b9f552578186741c95951234ebeeffdbc59785e19",
+      "originalMtimeUTC": "2026-11-09T16:00:52.040489+00:00"
+    },
+    {
+      "path": "phone-carusel-source-entry.png",
+      "bytes": 409600,
+      "sha256": "a3cd9a617590090df365481ecb347580a22278d9b025495a579d67759293119c",
+      "originalMtimeUTC": "2026-11-09T16:00:48.416528+00:00"
+    },
+    {
+      "path": "report.json",
+      "bytes": 882558,
+      "sha256": "d951ef786165ff0a33c219e2246abab39d7b15b5b49f9be011dfeadc3f9c6bb4",
+      "originalMtimeUTC": "2026-11-09T16:00:53.212476+00:00"
+    },
+    {
+      "path": "observer-used.cjs",
+      "bytes": 20341,
+      "sha256": "6da296c42b649e68d1cc25328d629cde70769dc3ad7d386567ebc38ce8c708fe",
+      "originalMtimeUTC": "2026-11-09T16:03:17.400685+00:00",
+      "scope": "Exact observer source matching raw report hash; reconstructed reversibly before this artifact commit from future-guard addition, byte hash verified"
+    }
+  ]
+}

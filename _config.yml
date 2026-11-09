@@ -35,3 +35,12 @@ exclude:
   - handoffs/fidelity/root-duplicate-source-cleanup
   - handoffs/fidelity/root-foot-a-4cd4
   - handoffs/fidelity/pedestrian-relocation-performance
+
+  - handoffs/fidelity/shared-bridge-native-8b51e6f3
+  - handoffs/fidelity/basarab-north-descent
+  - handoffs/fidelity/generated-parapet-ownership
+  - handoffs/fidelity/bridge-closure-hud-8b51
+  - handoffs/fidelity/unirii-pasaj-source-return
+  - handoffs/fidelity/cv-interiors-photo-led-20261109
+  - handoffs/fidelity/cv-window-bindings-20261109
+  - handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109

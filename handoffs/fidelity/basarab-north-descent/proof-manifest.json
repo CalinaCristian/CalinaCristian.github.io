@@ -1,0 +1,106 @@
+{
+  "source": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+  "frozenNativeDriveSource": "8b51e6f38b3e217ac7f8a556949694e5ca62ebdb",
+  "scope": "CPU candidate evidence only; future native ground profiles/domain/geometry and complete evolving fleet/visual/drive gates pending.",
+  "files": {
+    "native-before-fixture.json.gz": {
+      "bytes": 7237,
+      "sha256": "18f83a8c5aee44f33f15e197bc49a27fad72cef5ed4021643d1d6bdfebf6949c"
+    },
+    "controls.json": {
+      "bytes": 14469,
+      "sha256": "39c287bd8b493a82cd6fe3506ea3ab27d52b1b6f51a7b43105d1642501334693"
+    },
+    "negative-first-fit-body-constraints.json.gz": {
+      "bytes": 1909553,
+      "sha256": "86656fa1817c7e9d6c86508aba9942a067b7716ab17e5292321ab1d3f0adb127"
+    },
+    "rejected-prospective-fixture-no-median.mjs.gz": {
+      "bytes": 2100,
+      "sha256": "406fb1173a384201eb617474c3cb521bb831abbf164538d8be832cf8025eae44"
+    },
+    "rejected-no-median-body-replay.json.gz": {
+      "bytes": 3384,
+      "sha256": "386d279f0b3e03b9eda67d1575f64ca4751d88d49e0c5412c59c79aa0784ae4b"
+    },
+    "surface-controls.json": {
+      "bytes": 44225,
+      "sha256": "11042eb515836cc7d6a80bf6981393a8244e1e6120e8a30a2d35b9c83449aad3"
+    },
+    "README.md": {
+      "bytes": 5448,
+      "sha256": "98e82db4896dd9c61fe0e3bce348102b69bceba4e50974bf5839ac1f2ca98413"
+    },
+    "north-ground-exit-audit.json": {
+      "bytes": 29137,
+      "sha256": "65a040934c3e260ccb8e75e81f44de7f69e6f9182c9e8a2218925e246620457b"
+    },
+    "rejected-no-median-erratum.json": {
+      "bytes": 379,
+      "sha256": "007c95409bbdc7c7495e3b55129233268c6f6310db7e2b333c0baadb82949420"
+    },
+    "north-ground-exit-source.osm": {
+      "bytes": 212125,
+      "sha256": "6e7c37b2f2133bddccb92ba2fc9536f56bc112424f759c6c1dde66fae249b28e"
+    },
+    "surface-replay.mjs": {
+      "bytes": 1664,
+      "sha256": "30e8029aab4e8980c7c9da7f23d90d4fc7b71f2775604aa4611f0ed54c54e62f"
+    },
+    "body-replay.mjs": {
+      "bytes": 7018,
+      "sha256": "87aa7439dd7004053cddda5bbf4d7b278a713c68e2faa30e0725fe1a9686b63a"
+    },
+    "native-placement-function-parity.json": {
+      "bytes": 1424,
+      "sha256": "dcfe7ede1070c8ab722db96b5e7cfff8e6fa6ada31da9e28c6e54e2fcc182218"
+    },
+    "contact-classification.mjs": {
+      "bytes": 3165,
+      "sha256": "7910fb3bc8805a7911b527db25a5791b9414a5c5cb1e65f6b3596543a72399d1"
+    },
+    "final-body-replay.json.gz": {
+      "bytes": 3985,
+      "sha256": "efbb6d40acf7d2ae04a0dd4253b0ee2b23841575993930bd90529e09720dc4bd"
+    },
+    "negative-contact-classification.json.gz": {
+      "bytes": 702986,
+      "sha256": "67521483b6337a5de99914e73934838316a25cc15297f445659888d974ec5be8"
+    },
+    "cached-tram-exclusion.json": {
+      "bytes": 2506,
+      "sha256": "3a3b1293fa4c11a600bf87681a8d3653ff20bc5f01edc2cd71a9d8de4cc7fdbf"
+    },
+    "native-ribbon-slice.json.gz": {
+      "bytes": 12677,
+      "sha256": "42ef43311a24c0a3f62816d5f053f691322e64a87000b4f1dabd282b3dc5c2e5"
+    },
+    "rejected-flat-sections-as-bridge-solids.json.gz": {
+      "bytes": 1910460,
+      "sha256": "52304b2ee0da1893e63ea2761131b0a0c1ab239416012af19f033f71c5f84112"
+    }
+  },
+  "provisionalCompiledGroundSource": {
+    "path": "/workspace/fidelity-workers/basarab-north-ground-return/game/data/bucharest-grozavesti.json",
+    "sha256AtRead": "59449b8fa617bc716d440a3b62a6fdedda3e6bf5411ea39ed7cc6bb3b41e620b",
+    "stable": false,
+    "decodedRows": {
+      "w23554631": {
+        "lanesF": 2,
+        "lanesB": 0,
+        "medianM": -7,
+        "laneWidthM": 3.5,
+        "sidewalkM": 4,
+        "sourceNodes": 9
+      },
+      "w125909047": {
+        "lanesF": 3,
+        "lanesB": 0,
+        "medianM": -10.5,
+        "laneWidthM": 3.5,
+        "sidewalkM": 4,
+        "sourceNodes": 2
+      }
+    }
+  }
+}

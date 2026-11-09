@@ -1,0 +1,47 @@
+{
+  "scope": "Cached actual primary indexed-mesh bounds from3126source support sweep;3067valid/59literal endunknown. No valid emitted bound enters the new north-source grade box x>765,z<-958, conservatively wider than actual433 footprint. Rail geometry fields are compared below against frozen8b. This is a bounded cached source/model replay, not fresh new-domain whole-world acceptance.",
+  "cachedInput": {
+    "path": "source-fixture.json.gz",
+    "sha256": "92990482640d455e03fea7033b55ebd6f661270477f5f3c9139eda76e7a334cb",
+    "sourceCommit": {
+      "nativeCommit": "8e4fb0a6",
+      "nativeProfileSha256": "d9d54a9f834e5725e62a833c77c3f5380a4b6c802eddbea06dafcc17aa2f4dbf",
+      "sourceDataCommit": "c7185127d31c4f1d14cadcf8cbe0ed2f2e44d46d",
+      "sourceDataSha256": "fa12eda6365d369c79222ed8af0a068f5173899d71698a7f94cd70682dac4685"
+    }
+  },
+  "cachedFileSha256": "74098efdbaa9fe628301ece8b83a1cefa9657dba0d1cec5e499dbe4cb0375ebc",
+  "summary": {
+    "poses": 3126,
+    "passed": 3067,
+    "failed": 0,
+    "excludedOutsideLegalSpan": 59,
+    "maxVerticalOffsetM": 0.9280282767298034,
+    "maxSupportLiftM": 0.9280282767298034,
+    "maxSourceErrorM": 0,
+    "totalCpuMs": 59638.528218
+  },
+  "potentialBounds": [],
+  "sourceFieldEqualityToFrozen8b": {
+    "q": true,
+    "trams": true,
+    "tramSources": true,
+    "tramSourceWays": true,
+    "tramSourceNodeTags": true,
+    "tramRoutes": true,
+    "tramSourceCrossings": true
+  },
+  "cachedModulePins": {
+    "world.js": "38dd96b7734535c6c041817dd6b77d06ecdc0250f36381230b1f8e5ae78cb72f",
+    "traffic.js": "fa0bce51149f9cae479c6735787bd80a19c0ebd7a5535765fb3fdad7ef921eea",
+    "tram-grade.js": "2129fa2c5037c0d4b21bfbb7d881084868d7b0f7a55aad0ef8e4c73fbc782ffa",
+    "tram-body-support.js": "f78a8df825d19b269e7d642a83e792d0bd0f614cb9e42537d049f7383ca26976",
+    "shared-bridge-profile.js": "02287b60713933284be944d3ae8a93f548fecf8d8900d389cbb02f37000406a1",
+    "shared-bridge-models.js": "f3dcd036006873cf332580309037bc5f2c00bd48ab5e2d3b3591e14c3f12f653",
+    "bridge-profile-geometry.js": "65b83df1cf242f632861d405c138f136facbfba5d3786ed4a85abb639f07982e",
+    "bridge-pad-profile.js": "fc41d864ea1adeb0f24569114f0d0206ea99ab201e85283e5f00349f74d2a74c",
+    "bridge-surface-mesh.js": "bd70267f78fa36e1b47f2f5d77ecd1c8b88a8e4541eac958009c4e9a439b9d93",
+    "bridge-junction.js": "f5db8b54b8c05ff42e2816140cb6bee36b84d09148c25b7cb8a41a02a0e361e1",
+    "vehicles.js": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df"
+  }
+}

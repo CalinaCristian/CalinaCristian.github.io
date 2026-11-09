@@ -3,6 +3,8 @@ import { underpassRoofModel, underpassRoofFaces, underpassRoofCollider, UNDERPAS
 import { sharedBridgePadSurface } from './bridge-pad-profile.js';
 import { compileSharedBridgeProfile } from './shared-bridge-profile.js';
 import { buildGeneratedParapetOwnership, emitOwnedSeparationQuad } from './generated-parapet-ownership.js';
+
+import { compileSourceBridgeDescents } from './source-bridge-descents.js';
 import { displaceBridgeSurface } from './bridge-surface-mesh.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landmarkHelpers } from './util.js';
@@ -1537,6 +1539,15 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (const e of edges) { const grade=sharedBridgeProfile.roadGrades.get(e.id); if(!grade)continue;e.sourceBridgeGrade=grade;e.a.y=grade.ya;e.b.y=grade.yb; }
         for (const e of edges) {e.ya=e.a.y;e.yb=e.b.y;}
     }
+    const sourceBridgeDescents = compileSourceBridgeDescents(data, { coreEdges: edges,
+        lanePolygon: e => asphaltCorners(e, (f, sd) => sd > 0 ? f.wR : f.wL),
+        structuralPolygon: e => asphaltCorners(e, (f, sd) => (sd > 0 ? f.wR : f.wL) + shoulderOf(f) + sidewalkWidth(f,sd)),
+        padLanePolygon: (n, incident) => convexHull(incident.flatMap(e => [corner(e,n,1,e.wR,(f,sd)=>sd>0?f.wR:f.wL),corner(e,n,-1,e.wL,(f,sd)=>sd>0?f.wR:f.wL)])) });
+    if(sourceBridgeDescents.known){
+        for(const e of edges){const grade=sourceBridgeDescents.roadGrades.get(e.id);if(!grade)continue;e.sourceBridgeGrade=grade;e.a.y=grade.ya;e.b.y=grade.yb;}
+        for(const e of edges){e.ya=e.a.y;e.yb=e.b.y;}
+    }
+    sharedBridgeProfile.report.sourceDescents = sourceBridgeDescents.report;
     const sharedBridgeMeshAudit={inputTriangles:0,outputTriangles:0,maxLeafControlErrorM:0,depthLimit:0,limitSamples:[],worstControl:null};
     if(profileStats)profileStats.sharedBridge=sharedBridgeProfile.report;
     const yAlong = (e, x, z) => { if(e.sourceBridgeGrade?.known)return e.sourceBridgeGrade.heightAtWorld(x,z); const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.ya + (e.yb - e.ya) * t; };
@@ -1547,7 +1558,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const railRoadside = buildRailRoadsideClearance(tramGrades, tramPropEnvelope), railRoadsideCaps = [];
     const bridgeJunctionDecks = [], bridgeJunctionAudit = { sourceForks: [], unresolved: [], undersideTriangles: 0, fasciaTriangles: 0 };
     /** height of junction n's pad at (x, z): the profile of the nearest approach there (n.y on flat junctions) */
-    const padHeightAt = (n, x, z) => { const shared=sharedBridgeProfile.known&&sharedBridgeProfile.padHeightAt(n,x,z);if(shared!==false&&shared!=null)return shared; let best = null, bd = Infinity; for (const e of n.edges) { if (e.virtual) continue; const d = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z).d; if (d < bd) { bd = d; best = e; } } return best ? yAlong(best, x, z) : n.y; };
+    const padHeightAt = (n, x, z) => { const descent=sourceBridgeDescents.padHeightAt?.(n,x,z);if(descent!=null)return descent;const shared=sharedBridgeProfile.known&&sharedBridgeProfile.padHeightAt(n,x,z);if(shared!==false&&shared!=null)return shared; let best = null, bd = Infinity; for (const e of n.edges) { if (e.virtual) continue; const d = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z).d; if (d < bd) { bd = d; best = e; } } return best ? yAlong(best, x, z) : n.y; };
 
     // ---- traffic lights: move stop-line signals onto the junction they control, then cluster
     for (const n of nodeArr) {
@@ -2004,10 +2015,10 @@ export async function buildWorld(city, renderer, opts = {}) {
     const widthSide = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + sidewalkWidth(e, s);
     const widthKerb = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + 0.28;
     const sharedPadSurfaces=new Map();
-    if(sharedBridgeProfile.known)for(const n of nodeArr){
+    if(sharedBridgeProfile.known||sourceBridgeDescents.known)for(const n of nodeArr){
         if(!n.pad||!n.edges.some(e=>e.sourceBridgeGrade?.known))continue;
         const es=n.edges.filter(e=>!e.virtual),hull=convexHull(es.flatMap(e=>[corner(e,n,1,widthAsphalt(e,1),widthAsphalt),corner(e,n,-1,widthAsphalt(e,-1),widthAsphalt)])),surface=sharedBridgePadSurface(n,hull,es,(e,p)=>yAlong(e,...p));
-        if(surface){sharedPadSurfaces.set(n.id,surface);sharedBridgeProfile.bindPadSurface(n,surface);}
+        if(surface){sharedPadSurfaces.set(n.id,surface);sharedBridgeProfile.bindPadSurface?.(n,surface);sourceBridgeDescents.bindPadSurface?.(n,surface);}
     }
     const padCorners = new Map(); // node -> {road:[], side:[]}
     const pushPad = (n, kind, p) => { let o = padCorners.get(n); if (!o) padCorners.set(n, o = { road: [], side: [], y: 0 }); o[kind].push(p); };

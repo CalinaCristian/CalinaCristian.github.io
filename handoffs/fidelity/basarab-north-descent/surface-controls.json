@@ -1,0 +1,1838 @@
+{
+  "source": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+  "scope": "Actual captured native asphalt footprints through literal Float32 MeshBuilder and unchanged finite18-depth/2mm surface compiler. Fresh full World mesh target remains pending.",
+  "inputTriangles": 74,
+  "outputTriangles": 298,
+  "maxLeafControlErrorM": 0.0019785917877417347,
+  "depthLimit": 0,
+  "results": [
+    {
+      "edgeId": 1516,
+      "sourceId": "w668700424",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 0,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": null
+    },
+    {
+      "edgeId": 1517,
+      "sourceId": "w668700424",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 0,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": null
+    },
+    {
+      "edgeId": 1530,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 24,
+      "maxLeafControlErrorM": 0.0017690235416054634,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 4,
+        "errorM": 0.0017690235416054634,
+        "vertices": [
+          {
+            "position": [
+              780.7601928710938,
+              0.23999999463558197,
+              -967.2266845703125
+            ],
+            "heightDisplacement": 10.975362177788208,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              782.6432495117188,
+              0.23999999463558197,
+              -968.6658935546875
+            ],
+            "heightDisplacement": 10.94444990020941,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              781.5350341796875,
+              0.23999999463558197,
+              -970.1159057617188
+            ],
+            "heightDisplacement": 10.943755883310509,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1531,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 13,
+      "maxLeafControlErrorM": 0.0016670102282354549,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 3,
+        "errorM": 0.0016670102282354549,
+        "vertices": [
+          {
+            "position": [
+              798.6107177734375,
+              0.23999999463558197,
+              -987.9483032226562
+            ],
+            "heightDisplacement": 10.026248665905934,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              795.087890625,
+              0.23999999463558197,
+              -987.3652954101562
+            ],
+            "heightDisplacement": 10.169143171312687,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              797.373779296875,
+              0.23999999463558197,
+              -984.5184326171875
+            ],
+            "heightDisplacement": 10.169142879470808,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1532,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 11,
+      "maxLeafControlErrorM": 0.0017498796472725786,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 3,
+        "errorM": 0.0017498796472725786,
+        "vertices": [
+          {
+            "position": [
+              804.6075439453125,
+              0.23999999463558197,
+              -995.39111328125
+            ],
+            "heightDisplacement": 9.602835884304616,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              807.1287841796875,
+              0.23999999463558197,
+              -995.1676025390625
+            ],
+            "heightDisplacement": 9.517024941277697,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              807.2747192382812,
+              0.23999999463558197,
+              -997.7152099609375
+            ],
+            "heightDisplacement": 9.431218560226146,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1533,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 12,
+      "maxLeafControlErrorM": 0.0017743192541086472,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 4,
+        "errorM": 0.0017743192541086472,
+        "vertices": [
+          {
+            "position": [
+              817.6298828125,
+              0.23999999463558197,
+              -1007.4026489257812
+            ],
+            "heightDisplacement": 8.773634472585078,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              816.373291015625,
+              0.23999999463558197,
+              -1005.9754638671875
+            ],
+            "heightDisplacement": 8.866411017159427,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              817.6632080078125,
+              0.23999999463558197,
+              -1004.6788330078125
+            ],
+            "heightDisplacement": 8.868096832486245,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1534,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 11,
+      "maxLeafControlErrorM": 0.0018796900871755895,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 3,
+        "errorM": 0.0018796900871755895,
+        "vertices": [
+          {
+            "position": [
+              825.2311401367188,
+              0.23999999463558197,
+              -1016.03564453125
+            ],
+            "heightDisplacement": 8.255358430112155,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              827.772216796875,
+              0.23999999463558197,
+              -1016.390625
+            ],
+            "heightDisplacement": 8.163767955660527,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              827.4757690429688,
+              0.23999999463558197,
+              -1019.0462036132812
+            ],
+            "heightDisplacement": 8.0721811987314,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1535,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 11,
+      "maxLeafControlErrorM": 0.0011252352185708858,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 2,
+        "errorM": 0.0011252352185708858,
+        "vertices": [
+          {
+            "position": [
+              838.2947998046875,
+              0.23999999463558197,
+              -1034.712158203125
+            ],
+            "heightDisplacement": 7.207393800540025,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              836.248291015625,
+              0.23999999463558197,
+              -1031.3896484375
+            ],
+            "heightDisplacement": 7.384848814184236,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              839.2711181640625,
+              0.23999999463558197,
+              -1029.337646484375
+            ],
+            "heightDisplacement": 7.389350256448916,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1536,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 0.0019785917877417347,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 0.0019785917877417347,
+        "vertices": [
+          {
+            "position": [
+              852.8525390625,
+              0.23999999463558197,
+              -1044.42724609375
+            ],
+            "heightDisplacement": 6.488357817731896,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              856.9956665039062,
+              0.23999999463558197,
+              -1050.945556640625
+            ],
+            "heightDisplacement": 6.1366045808198315,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              850.834716796875,
+              0.23999999463558197,
+              -1054.861328125
+            ],
+            "heightDisplacement": 6.14177909617025,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1537,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 15,
+      "maxLeafControlErrorM": 0.0019756521605982513,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 4,
+        "errorM": 0.0019756521605982513,
+        "vertices": [
+          {
+            "position": [
+              869.4351196289062,
+              0.23999999463558197,
+              -1070.5174560546875
+            ],
+            "heightDisplacement": 5.091694948422121,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              871.25830078125,
+              0.23999999463558197,
+              -1073.196044921875
+            ],
+            "heightDisplacement": 4.939700377172751,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              869.77099609375,
+              0.23999999463558197,
+              -1074.254150390625
+            ],
+            "heightDisplacement": 4.939702229245706,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1538,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 13,
+      "maxLeafControlErrorM": 0.0013831728338074,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 4,
+        "errorM": 0.0013831728338074,
+        "vertices": [
+          {
+            "position": [
+              876.7279052734375,
+              0.23999999463558197,
+              -1081.231689453125
+            ],
+            "heightDisplacement": 4.50171727642494,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              878.4542846679688,
+              0.23999999463558197,
+              -1083.5546875
+            ],
+            "heightDisplacement": 4.367025125780392,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              876.995361328125,
+              0.23999999463558197,
+              -1084.651123046875
+            ],
+            "heightDisplacement": 4.367019841386568,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1539,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 13,
+      "maxLeafControlErrorM": 0.0017487909847693217,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 4,
+        "errorM": 0.0017487909847693217,
+        "vertices": [
+          {
+            "position": [
+              883.6334838867188,
+              0.23999999463558197,
+              -1090.5238037109375
+            ],
+            "heightDisplacement": 3.975794146220742,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              885.3424072265625,
+              0.23999999463558197,
+              -1092.77294921875
+            ],
+            "heightDisplacement": 3.8432159331596525,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              883.9189453125,
+              0.23999999463558197,
+              -1093.916259765625
+            ],
+            "heightDisplacement": 3.8432137480068915,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1540,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 22,
+      "maxLeafControlErrorM": 0.0018061996462872543,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 5,
+        "errorM": 0.0018061996462872543,
+        "vertices": [
+          {
+            "position": [
+              887.622314453125,
+              0.23999999463558197,
+              -1101.80712890625
+            ],
+            "heightDisplacement": 3.461378650304364,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              889.0457153320312,
+              0.23999999463558197,
+              -1100.663818359375
+            ],
+            "heightDisplacement": 3.4613825928624236,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              889.3705444335938,
+              0.23999999463558197,
+              -1102.457275390625
+            ],
+            "heightDisplacement": 3.3866455128161013,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1541,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 11,
+      "maxLeafControlErrorM": 0.0017042440347223575,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 3,
+        "errorM": 0.0017042440347223575,
+        "vertices": [
+          {
+            "position": [
+              898.46923828125,
+              0.23999999463558197,
+              -1114.17529296875
+            ],
+            "heightDisplacement": 2.7198223073416017,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              898.469482421875,
+              0.23999999463558197,
+              -1111.5628662109375
+            ],
+            "heightDisplacement": 2.8034473624014407,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              901.0811767578125,
+              0.23999999463558197,
+              -1111.625732421875
+            ],
+            "heightDisplacement": 2.718849834934854,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1542,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 11,
+      "maxLeafControlErrorM": 0.001764189962703,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 3,
+        "errorM": 0.001764189962703,
+        "vertices": [
+          {
+            "position": [
+              914.405029296875,
+              0.23999999463558197,
+              -1130.2908935546875
+            ],
+            "heightDisplacement": 1.6985214398219632,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              914.3355712890625,
+              0.23999999463558197,
+              -1127.7119140625
+            ],
+            "heightDisplacement": 1.7786005667346458,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              916.9144287109375,
+              0.23999999463558197,
+              -1127.6402587890625
+            ],
+            "heightDisplacement": 1.6944998129466846,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1543,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 17,
+      "maxLeafControlErrorM": 0.001776844825283952,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 3,
+        "errorM": 0.001776844825283952,
+        "vertices": [
+          {
+            "position": [
+              937.6434936523438,
+              0.23999999463558197,
+              -1146.2384033203125
+            ],
+            "heightDisplacement": 0.42559542512291415,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              934.623779296875,
+              0.23999999463558197,
+              -1146.141845703125
+            ],
+            "heightDisplacement": 0.5361548201844393,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              933.9006958007812,
+              0.23999999463558197,
+              -1143.208251953125
+            ],
+            "heightDisplacement": 0.6450518856314034,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1544,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 2.296829393344524e-12,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 2.296829393344524e-12,
+        "vertices": [
+          {
+            "position": [
+              952.7507934570312,
+              0.23999999463558197,
+              -1158.4691162109375
+            ],
+            "heightDisplacement": 3.062439191126032e-12,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              960.412353515625,
+              0.23999999463558197,
+              -1163.956298828125
+            ],
+            "heightDisplacement": 0,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              956.161865234375,
+              0.23999999463558197,
+              -1169.8912353515625
+            ],
+            "heightDisplacement": 0,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1791,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 24,
+      "maxLeafControlErrorM": 0.0016406664811796645,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 3,
+        "errorM": 0.0016406664811796645,
+        "vertices": [
+          {
+            "position": [
+              786.0758056640625,
+              0.23999999463558197,
+              -975.8834228515625
+            ],
+            "heightDisplacement": 10.772227585072246,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              785.301025390625,
+              0.23999999463558197,
+              -972.9942626953125
+            ],
+            "heightDisplacement": 10.842990057777518,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              788.2922973632812,
+              0.23999999463558197,
+              -972.9833984375
+            ],
+            "heightDisplacement": 10.775019387197267,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1792,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 0.0010740450056339057,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 0.0010740450056339057,
+        "vertices": [
+          {
+            "position": [
+              792.0582885742188,
+              0.23999999463558197,
+              -975.8617553710938
+            ],
+            "heightDisplacement": 10.598794821786674,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              799.65966796875,
+              0.23999999463558197,
+              -981.6715087890625
+            ],
+            "heightDisplacement": 10.16914436215205,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              795.087890625,
+              0.23999999463558197,
+              -987.3652954101562
+            ],
+            "heightDisplacement": 10.169143171312687,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1793,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 1.7763568394002505e-15,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 1.7763568394002505e-15,
+        "vertices": [
+          {
+            "position": [
+              814.7374877929688,
+              0.23999999463558197,
+              -994.5355224609375
+            ],
+            "heightDisplacement": 9.29357839137283,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              820.2764282226562,
+              0.23999999463558197,
+              -999.3616943359375
+            ],
+            "heightDisplacement": 8.962560024877332,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              815.11669921875,
+              0.23999999463558197,
+              -1004.5482788085938
+            ],
+            "heightDisplacement": 8.962558853808916,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1794,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 8.43021989993531e-8,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 8.43021989993531e-8,
+        "vertices": [
+          {
+            "position": [
+              825.6220703125,
+              0.23999999463558197,
+              -1005.4329833984375
+            ],
+            "heightDisplacement": 8.615641785588792,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              830.9061279296875,
+              0.23999999463558197,
+              -1011.434326171875
+            ],
+            "heightDisplacement": 8.255357010177967,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              825.2311401367188,
+              0.23999999463558197,
+              -1016.03564453125
+            ],
+            "heightDisplacement": 8.255358430112155,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1795,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 2.970998380646961e-8,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 2.970998380646961e-8,
+        "vertices": [
+          {
+            "position": [
+              835.57275390625,
+              0.23999999463558197,
+              -1017.6932983398438
+            ],
+            "heightDisplacement": 7.917558415620426,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              840.2474975585938,
+              0.23999999463558197,
+              -1023.9630737304688
+            ],
+            "heightDisplacement": 7.565176138880549,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              834.2017211914062,
+              0.23999999463558197,
+              -1028.067138671875
+            ],
+            "heightDisplacement": 7.565175902416919,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1796,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 3.552713678800501e-15,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 3.552713678800501e-15,
+        "vertices": [
+          {
+            "position": [
+              844.5103149414062,
+              0.23999999463558197,
+              -1030.883544921875
+            ],
+            "heightDisplacement": 7.205078490062029,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              848.688232421875,
+              0.23999999463558197,
+              -1037.6663818359375
+            ],
+            "heightDisplacement": 6.846135849189849,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              842.4727783203125,
+              0.23999999463558197,
+              -1041.494873046875
+            ],
+            "heightDisplacement": 6.848454363609072,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1797,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 1.2988669695346289e-8,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 1.2988669695346289e-8,
+        "vertices": [
+          {
+            "position": [
+              848.688232421875,
+              0.23999999463558197,
+              -1037.6663818359375
+            ],
+            "heightDisplacement": 6.846135849189849,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              852.8525390625,
+              0.23999999463558197,
+              -1044.42724609375
+            ],
+            "heightDisplacement": 6.488357817731896,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              846.6643676757812,
+              0.23999999463558197,
+              -1048.2994384765625
+            ],
+            "heightDisplacement": 6.488354997332265,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1798,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 3.552713678800501e-15,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 3.552713678800501e-15,
+        "vertices": [
+          {
+            "position": [
+              856.9956665039062,
+              0.23999999463558197,
+              -1050.945556640625
+            ],
+            "heightDisplacement": 6.1366045808198315,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              854.9915161132812,
+              0.23999999463558197,
+              -1061.4014892578125
+            ],
+            "heightDisplacement": 5.792610736113885,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              850.834716796875,
+              0.23999999463558197,
+              -1054.861328125
+            ],
+            "heightDisplacement": 6.14177909617025,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1799,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 2.6645352591003757e-15,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 2.6645352591003757e-15,
+        "vertices": [
+          {
+            "position": [
+              861.1524047851562,
+              0.23999999463558197,
+              -1057.4857177734375
+            ],
+            "heightDisplacement": 5.7874377324423705,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              865.3091430664062,
+              0.23999999463558197,
+              -1064.02587890625
+            ],
+            "heightDisplacement": 5.438270884064909,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              859.1482543945312,
+              0.23999999463558197,
+              -1067.9415283203125
+            ],
+            "heightDisplacement": 5.443448483280562,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1800,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 1.7763568394002505e-15,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 1.7763568394002505e-15,
+        "vertices": [
+          {
+            "position": [
+              865.3091430664062,
+              0.23999999463558197,
+              -1064.02587890625
+            ],
+            "heightDisplacement": 5.438270884064909,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              863.3358154296875,
+              0.23999999463558197,
+              -1074.5301513671875
+            ],
+            "heightDisplacement": 5.091693806033664,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              859.1482543945312,
+              0.23999999463558197,
+              -1067.9415283203125
+            ],
+            "heightDisplacement": 5.443448483280562,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1801,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 3.9968028886505635e-15,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 3.9968028886505635e-15,
+        "vertices": [
+          {
+            "position": [
+              903.6926879882812,
+              0.23999999463558197,
+              -1114.3011474609375
+            ],
+            "heightDisplacement": 2.5481207009545663,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              903.7806396484375,
+              0.23999999463558197,
+              -1124.842041015625
+            ],
+            "heightDisplacement": 2.2119693606671085,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              898.4688110351562,
+              0.23999999463558197,
+              -1119.4002685546875
+            ],
+            "heightDisplacement": 2.554610296527315,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1802,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 5.979169470649026e-8,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 5.979169470649026e-8,
+        "vertices": [
+          {
+            "position": [
+              909.0045166015625,
+              0.23999999463558197,
+              -1119.742919921875
+            ],
+            "heightDisplacement": 2.20547976509436,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              909.142822265625,
+              0.23999999463558197,
+              -1130.3353271484375
+            ],
+            "heightDisplacement": 1.866082687412165,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              903.7806396484375,
+              0.23999999463558197,
+              -1124.842041015625
+            ],
+            "heightDisplacement": 2.2119693606671085,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1803,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 3.552713678800501e-15,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 3.552713678800501e-15,
+        "vertices": [
+          {
+            "position": [
+              919.562744140625,
+              0.23999999463558197,
+              -1130.1474609375
+            ],
+            "heightDisplacement": 1.5278282807144805,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              924.9116821289062,
+              0.23999999463558197,
+              -1135.21142578125
+            ],
+            "heightDisplacement": 1.195943032191705,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              919.8929443359375,
+              0.23999999463558197,
+              -1140.5125732421875
+            ],
+            "heightDisplacement": 1.2086923487063004,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1804,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 1.6844991623798933e-8,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 0,
+        "errorM": 1.6844991623798933e-8,
+        "vertices": [
+          {
+            "position": [
+              924.9116821289062,
+              0.23999999463558197,
+              -1135.21142578125
+            ],
+            "heightDisplacement": 1.195943032191705,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              930.1578979492188,
+              0.23999999463558197,
+              -1140.1781005859375
+            ],
+            "heightDisplacement": 0.8704325719234394,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              925.3446044921875,
+              0.23999999463558197,
+              -1145.673828125
+            ],
+            "heightDisplacement": 0.8704323212702327,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1805,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 24,
+      "maxLeafControlErrorM": 0.001755964558108225,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 4,
+        "errorM": 0.001755964558108225,
+        "vertices": [
+          {
+            "position": [
+              937.2457275390625,
+              0.23999999463558197,
+              -1150.612548828125
+            ],
+            "heightDisplacement": 0.3294702628661721,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              939.1445922851562,
+              0.23999999463558197,
+              -1152.14990234375
+            ],
+            "heightDisplacement": 0.24205977285944869,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              936.0973510742188,
+              0.23999999463558197,
+              -1152.031005859375
+            ],
+            "heightDisplacement": 0.3315504372223206,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1806,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 24,
+      "maxLeafControlErrorM": 0.0017941732747219774,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": {
+        "depth": 3,
+        "errorM": 0.0017941732747219774,
+        "vertices": [
+          {
+            "position": [
+              946.7820434570312,
+              0.23999999463558197,
+              -1158.3331298828125
+            ],
+            "heightDisplacement": 0.026305237576901064,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              947.5535278320312,
+              0.23999999463558197,
+              -1161.305908203125
+            ],
+            "heightDisplacement": 0.006576027563960807,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          },
+          {
+            "position": [
+              944.4853515625,
+              0.23999999463558197,
+              -1161.169921875
+            ],
+            "heightDisplacement": 0.02749231769280769,
+            "color": [
+              23,
+              22,
+              19
+            ],
+            "materialTag": -1
+          }
+        ]
+      }
+    },
+    {
+      "edgeId": 1807,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 0,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": null
+    },
+    {
+      "edgeId": 1808,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 0,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": null
+    },
+    {
+      "edgeId": 1809,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 0,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": null
+    },
+    {
+      "edgeId": 1810,
+      "sourceId": "w668700433",
+      "inputTriangles": 2,
+      "outputTriangles": 2,
+      "maxLeafControlErrorM": 0,
+      "depthLimit": 0,
+      "limitSamples": [],
+      "worstControl": null
+    }
+  ],
+  "passed": true
+}

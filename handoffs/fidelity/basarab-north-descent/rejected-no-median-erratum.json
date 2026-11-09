@@ -1,0 +1,5 @@
+{
+  "reason": "Prospective one-way fixture omitted native median=-lanes*3.5, shifting Traffic lane positions3.5m outward.1352-pose no-overlap output invalidated beforeREADY. Production/source untouched.",
+  "fixtureSha256": "4e1233ed66b3e21ed9d9c8c0e722b73f5b9433fd0a918488f21654dba6632e6b",
+  "reportSha256": "6bbc4dc7cf7c7e682f9faaf0fe1188d8526d1711a3088cf4d590f74696f5d5e5"
+}

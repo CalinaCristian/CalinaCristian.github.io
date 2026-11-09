@@ -2,7 +2,7 @@
 import {Pedestrians} from '__BASE__game/src/traffic.js';
 import {obbPen,vObb} from '__BASE__game/dev/harness/page/util.js';
 import {vehicleVerticalInterval} from '__BASE__game/src/initial-vehicle-admission.js';
-window.globalQA={models:new Map(),rows:[],population:null};
+window.globalQA={models:new Map(),rows:[],population:null,railSourceRequired:false};
 const write=Pedestrians.prototype.writeMatrices;
 Pedestrians.prototype.writeMatrices=function(dt){
     if(globalQA.population!==this.list){
@@ -30,6 +30,7 @@ globalQA.sample=function(dt){
     const matrix=T.group?.matrixWorld?.elements,identity=[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1];
     row.trafficParent={matrix:matrix?Array.from(matrix):null,identity:!!matrix&&identity.every((v,i)=>Math.abs(matrix[i]-v)<1e-9),intervalDependency:'c4 vehicleVerticalInterval emitted-model YXZ; native identity Traffic parent required'};
     if(!row.trafficParent.identity){row.coverageGaps.push('Missing/nonidentity Traffic parent: local pose/intervals are not certified world bodies');globalQA.rows.push(row);return row;}
+    if(globalQA.railSourceRequired){row.railSource=window.railQA?.read(T,{stage:'motion'})||{passed:false,issues:[{type:'missing-rail-source-observer'}]};if(!row.railSource.passed)row.coverageGaps.push('Native rail source binding/pose/direction/grade gate failed; see railSource');}
     cars.reset();let largest=0;
     for(const v of vs){const iv=vehicleVerticalInterval(v);verticalCache.set(v,iv);if(!iv.known)row.unknownVehicleHeights.push(carState(v));let b=bodyCache.get(v);if(!b)bodyCache.set(v,b={});Object.assign(b,vObb(v));cars.add(v,v.x,v.z);largest=Math.max(largest,Math.hypot(v.length,v.width)/2);}
     for(const v of vs){const iv=verticalCache.get(v);if(!iv.known)continue;cars.query(v.x,v.z,Math.hypot(v.length,v.width)/2+largest,o=>{

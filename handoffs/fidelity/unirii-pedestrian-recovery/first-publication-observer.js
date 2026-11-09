@@ -34,7 +34,7 @@ publicationQA.read=function(T,stage,owner=game){
         for(const v of active){const p=obbPen(vObb(v),box);if(p>1e-6)playerPairs.push({vehicle:v.id,orientedXZPenetrationM:p,npcVertical:v.verticalInterval,playerGroundAnchor:P.surfY,scope:'Actual asymmetric native player footprint; player full emitted vertical body is audited separately by QA'});}
     }
     return{stage,district:owner.district,city:owner.city?.id,trafficTime:T.time,trafficFrame:T._frame||0,state:owner.state,
-        trafficParent:{identity,matrix,dependency:'vehicleVerticalInterval emitted primary vertices YXZ; native identity Traffic parent'},admission:plain(T.initialAdmission),actors,
+        trafficParent:{identity,matrix,dependency:'vehicleVerticalInterval emitted primary vertices YXZ; native identity Traffic parent'},admission:plain(T.initialAdmission),railSource:window.railQA?.read(T,{stage:T.initialTramBinding?'publication':'pre-binding'})||{passed:false,issues:[{type:'missing-rail-source-observer'}]},actors,
         population:{activeVehicles:active.length,pooledVehicles:T.pool?.length||0,allVehicleIds:actors.map(v=>v.id).sort((a,b)=>a-b),people:people.length,pedestrianIds:people.map(p=>p.id)},
         vehicleBodyContacts:pairs,unknownVehicleModels:unknown,people,peerBodyEnvelopes:peers,pedestrianVehicleBodies:pedVehicles,unknownPeople,minimumPeerCentresM:Number.isFinite(minPeer)?minPeer:null,player,playerOBBXZProxies:playerPairs};
 };

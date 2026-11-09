@@ -30,17 +30,39 @@ let server, browser;
     await page.evaluate(require('./install-observer.cjs'), { allActorGeometry: !!args['all-actor-geometry'] });
     await page.selectOption('#quality', 'high');
     await page.evaluate(nativeClock => { const g = game; g.loop = () => {}; if (!nativeClock) g.nowDate = () => new Date('2026-06-21T09:00:00Z'); }, !!args['native-clock']);
+    await page.evaluate(() => { window.__railDeferred = {}; });
     for (const district of manifest.districts) {
         const stage = { district, startedUtc: new Date().toISOString(), complete: false }; report.stages.push(stage); persist();
         const lifecycle = await page.evaluate(async ({ district, tod, nativeClock }) => { __railObserver.reset(); const result = await game.startFreeRoam(district, { tod, weather: 'clear', season: 'summer' });
             __railObserver.snapshot('after-native-public-entry-before-first-explicit-world-draw'); if (result) { game.r3d.frame(1 / 60); __railObserver.snapshot('after-first-explicit-native-world-draw'); }
-            return { result, district: game.district, state: game.state, nativeTime: game.traffic?.time ?? null, observedNowDate: game.nowDate().toISOString(), clockFrozen: !nativeClock, conditions: { tod, weather: 'clear', season: 'summer' }, quality: game.quality, touch: game.touch }; }, { district, tod: args.tod || 'noon', nativeClock: !!args['native-clock'] });
+            const text = result ? JSON.stringify(game.world.data) : '', digest = result ? await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)) : null;
+            return { result, district: game.district, state: game.state, nativeTime: game.traffic?.time ?? null, nativeDataCanonicalSha256: digest ? [...new Uint8Array(digest)].map(v => v.toString(16).padStart(2, '0')).join('') : null,
+                observedNowDate: game.nowDate().toISOString(), clockFrozen: !nativeClock, conditions: { tod, weather: 'clear', season: 'summer' }, quality: game.quality, touch: game.touch }; }, { district, tod: args.tod || 'noon', nativeClock: !!args['native-clock'] });
         stage.lifecycle = lifecycle; persist();
+        const sourceDataBeforeHeavy = JSON.parse(fs.readFileSync(path.join(root, 'game/data/bucharest-' + district + '.json')));
+        assert.equal(lifecycle.nativeDataCanonicalSha256, hash(Buffer.from(JSON.stringify(sourceDataBeforeHeavy))).sha256, 'native data before-heavy mismatch'); stage.sourceDataCanonicalVerified = true;
         const early = JSON.parse(await page.evaluate(() => JSON.stringify(__railObserver.facts({ includeGeometryCatalog: true }))));
         stage.earlyFacts = save(district + '-constructor-facts', early);
         stage.earlySummary = early.snapshots.map(s => ({ phase: s.phase, activeIds: s.active.map(v => v.id), poolIds: s.pool.map(v => v.id), tramIds: [...s.active, ...s.pool].filter(v => v.tramDetected).map(v => v.id),
             initialTramBinding: s.initialTramBinding, initialAdmission: s.initialAdmission })); persist(); console.log(JSON.stringify({ district, phase: 'early-constructor-facts-stable', earlyFacts: stage.earlyFacts, summary: stage.earlySummary.map(s => ({ phase: s.phase, trams: s.tramIds, binding: s.initialTramBinding, admissionPassed: s.initialAdmission?.passed })) }));
+        const last = early.snapshots.at(-1), all = [...last.active, ...last.pool], ids = new Set(all.map(v => v.id));
+        stage.preflight = { initialTramBinding: last.initialTramBinding?.passed === true, bindingUnresolved: last.initialTramBinding?.unresolved || [], initialAdmission: last.initialAdmission?.passed === true,
+            admissionUnresolved: last.initialAdmission?.unresolved || [], invalidRailModes: last.initialAdmission?.invalidRailModes || [], primaryGeometryUnknownIds: all.filter(v => v.actualPrimaryVerticalInterval?.known !== true).map(v => v.id),
+            hiddenActiveIds: last.active.filter(v => v.mesh?.visible === false).map(v => v.id), lostConstructorIds: early.snapshots[0].active.filter(v => !ids.has(v.id)).map(v => v.id), duplicateIds: all.length !== ids.size,
+            maxVehicles: last.maxVehicles, pedestrians: last.pedestrians?.length ?? null, nativeTime: last.nativeTime, active: last.active.length, pool: last.pool.length, tramIds: all.filter(v => v.tramDetected).map(v => v.id), observerErrors: early.observerErrors };
+        const check = stage.preflight; check.passed = check.initialTramBinding && check.initialAdmission && !check.bindingUnresolved.length && !check.admissionUnresolved.length && !check.invalidRailModes.length && !check.primaryGeometryUnknownIds.length && !check.hiddenActiveIds.length && !check.lostConstructorIds.length && !check.duplicateIds && !check.observerErrors.length && check.maxVehicles === 480 && check.pedestrians === 560 && early.snapshots.every(s => s.nativeTime === 0);
+        const widths = await page.evaluate(() => game.world.allEdges.map(e => ({ edgeId: e.id, sourceId: e.access?.sourceId || game.world.data.roadSourceGeometry?.[e.road]?.sourceId || null, sidewalkLeftM: e.sidewalkLeftM, sidewalkRightM: e.sidewalkRightM, sidewalkSource: e.sidewalkSource,
+            nativeLeftM: game.world.sidewalkWidth(e, -1), nativeRightM: game.world.sidewalkWidth(e, 1) })));
+        stage.sidewalkPolicy = save(district + '-sidewalk-policy', widths); stage.preflightSavedUtc = new Date().toISOString(); persist(); console.log(JSON.stringify({ district, phase: 'PREVIEW-PREFLIGHT', preflight: stage.preflight }));
         if (!lifecycle.result) throw Error('Native load failed; retained partial constructor facts for ' + district);
+        if (args['defer-heavy']) {
+            await require('./integration-browser-bounds.cjs').captureViewport(page, path.join(out, district + '-native.png')); stage.capture = district + '-native.png';
+            const heavyScene = district !== 'unirii';
+            stage.deferredCapture = await page.evaluate(({ district, heavyScene }) => { const began = new Date().toISOString(), world = JSON.stringify(__railObserver.world()), scene = heavyScene ? JSON.stringify(__railObserver.scene()) : null,
+                facts = JSON.stringify(__railObserver.facts({ includeGeometryCatalog: !heavyScene })); window.__railDeferred[district] = { world, scene, facts };
+                return { beganUtc: began, capturedUtc: new Date().toISOString(), worldCharacters: world.length, sceneCharacters: scene?.length || 0, factsCharacters: facts.length, heavyScene }; }, { district, heavyScene });
+            persist(); continue;
+        }
         const world = JSON.parse(await page.evaluate(() => JSON.stringify(__railObserver.world())));
         const sourceData = JSON.parse(fs.readFileSync(path.join(root, 'game/data/bucharest-' + district + '.json'))); assert.equal(JSON.stringify(world.data), JSON.stringify(sourceData), 'native world.data mismatch');
         stage.world = save(district + '-world', world);
@@ -53,6 +75,18 @@ let server, browser;
         stage.observerErrors = facts.observerErrors; stage.meshes = scene ? scene.objects.length : null; stage.wholeSceneOmitted = !!args['skip-scene']; stage.geometries = Object.keys(geometrySource.geometries).length; stage.sourceDataCanonicalVerified = true;
         stage.capture = district + '-native.png'; await require('./integration-browser-bounds.cjs').captureViewport(page, path.join(out, stage.capture)); stage.complete = true; stage.endedUtc = new Date().toISOString(); persist();
         console.log(JSON.stringify({ district, meshes: stage.meshes, geometries: stage.geometries, snapshots: stage.snapshots, observerErrors: stage.observerErrors }));
+    }
+    if (args['defer-heavy']) {
+        report.previewPreflightPassed = report.stages.every(s => s.preflight?.passed); report.allPreflightFactsSavedUtc = new Date().toISOString(); persist(); console.log(JSON.stringify({ phase: 'ALL-PREVIEW-PREFLIGHT-FACTS-STABLE', passed: report.previewPreflightPassed }));
+        for (const stage of report.stages) {
+            const district = stage.district, world = JSON.parse(await page.evaluate(id => __railDeferred[id].world, district)); stage.world = save(district + '-world', world);
+            const sceneText = await page.evaluate(id => __railDeferred[id].scene, district), scene = sceneText ? JSON.parse(sceneText) : null;
+            if (scene) stage.scene = save(district + '-scene', scene);
+            const facts = JSON.parse(await page.evaluate(id => __railDeferred[id].facts, district)); stage.facts = save(district + '-facts', facts);
+            const geometries = scene?.geometries || facts.geometryCatalog; stage.bufferIntegrity = save(district + '-buffer-integrity', require('./decode-geometry.cjs').integrity({ geometries }));
+            stage.observerErrors = facts.observerErrors; stage.meshes = scene?.objects.length ?? null; stage.geometries = Object.keys(geometries).length; stage.wholeSceneOmitted = !scene; stage.complete = true; stage.endedUtc = new Date().toISOString();
+            await page.evaluate(id => { delete __railDeferred[id]; }, district); persist();
+        }
     }
     await page.evaluate(() => __railObserver.restore());
     for (const [f, expected] of Object.entries(manifest.files)) assert.deepEqual(hash(fs.readFileSync(path.join(root, f))), { sha256: expected.sha256, gitBlobSha1: expected.gitBlobSha1 }, f);

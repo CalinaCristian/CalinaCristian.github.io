@@ -1,0 +1,12 @@
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(result.mobile.scrollWidth<=391)
+
+    at main (/workspace/reality-pass/overview-expanded-80f183/source/game/dev/harness/overview-current-check.cjs:85:3) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

@@ -1,0 +1,23 @@
+{
+  "sourceCommit": "80f18372804cc083359260d06c1c950319feb7b4",
+  "toolSha256": "0ef59a6f93354d9c1ae197d1d6b6214ccfc60798ff4294fc2d36c3d622d78ce5",
+  "argv": [
+    "node",
+    "/workspace/reality-pass/overview-expanded-80f183/source/game/dev/harness/overview-current-check.cjs",
+    "/workspace/reality-pass/overview-expanded-80f183/source",
+    "/workspace/reality-pass/overview-expanded-80f183/attempt-01",
+    "80f18372804cc083359260d06c1c950319feb7b4"
+  ],
+  "cwd": "/workspace/reality-pass/overview-expanded-80f183/source",
+  "browserEnvironment": {
+    "NODE_PATH": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules",
+    "NODE_OPTIONS": "--require=/workspace/.environment/drive-my-cv/use-system-chromium.cjs"
+  },
+  "startedAt": "2026-11-09T02:29:26.683740+00:00",
+  "wrapperPid": 340946,
+  "scope": "One static-page browser; committed tool unchanged; external aerial is an intercepted cache fixture only.",
+  "toolPid": 340949,
+  "endedAt": "2026-11-09T02:30:50.568534+00:00",
+  "elapsedSeconds": 83.8848443120005,
+  "exitCode": 1
+}

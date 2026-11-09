@@ -13,6 +13,8 @@ Old Town's visit boundary is enforced after native controller movement and crowd
 
 Owner role: **spots** (new agent, after research). Inputs: research dossiers (spec 20), `OnFootController` (spec 14), `PhotoMode` (spec 16), landmarks.js.
 
+Ground continuity contract (2026-11-09): `Ground.settle` adds its residual beneath the existing authored modifiers; never switch a multi-metre residual using a small height-difference threshold. `Ground.corridor` joins nearby segment profiles continuously while retaining the exact source/profile centreline anchors and straight grades. Once terrain is emitted, `terrainHeightAt`, walking and aircraft terrain support use the emitted Float32 triangles and their actual diagonal. `heightAt` retains the analytic shaping field. Reachable solid/deck, overhead, deep-water and unsupported-outside-terrain rules remain explicit. CPU counterexamples and native picture/walking scope live in `handoffs/fidelity/seattle-visit-source/`; numeric continuity does not establish architectural or photographic parity.
+
 Bonus content: only the most important, must-see tourist places in each city (top 10), e.g. the Fremont Troll and the Gum Wall in Seattle, built as small high-fidelity areas you explore on foot (no driving).
 
 ## Requirements

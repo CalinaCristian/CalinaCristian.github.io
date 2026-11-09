@@ -254,7 +254,7 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
   diagnostics identify load attempts, renderer stalls/resources and recoveries. A 15-minute per-tab sessionStorage
   breadcrumb can survive reload; it carries fixed place/action IDs, not a persistent visitor identity or precise position.
   Interrupted loads are labelled as possible interruptions, not confirmed operating-system crashes.
-  Before a master deployment, commit runtime changes, run `node tools/telemetry/stamp-release.mjs --write`, commit its
+  Before a master deployment, commit runtime changes, run `node tools/telemetry/stamp-release.mjs --write` (or `--source=<commit>` for a curated commit with identical runtime bytes), commit its
   release metadata, and verify with the same command without `--write`. Diagnostics then include the runtime fingerprint.
   Dashboard definitions and reproducible validation live in [tools/telemetry](tools/telemetry/README.md). Seven health tables
   distinguish requests, build/first-frame outcomes, frame tails, resources, first headlight responses, recovery and activities.

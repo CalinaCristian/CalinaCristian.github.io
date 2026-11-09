@@ -19,7 +19,8 @@ if (!process.argv.includes('--write')) {
     console.log(JSON.stringify({ valid, releaseId, files: sources.length }));
     if (!valid) process.exitCode = 1;
 } else {
-    const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
+    const requestedSource = process.argv.find(arg => arg.startsWith('--source='))?.slice(9) || 'HEAD';
+    const sourceCommit = execFileSync('git', ['rev-parse', '--verify', `${requestedSource}^{commit}`], { cwd: root, encoding: 'utf8' }).trim();
     for (const source of sources) {
         const committed = execFileSync('git', ['show', `${sourceCommit}:${source.path}`], { cwd: root, maxBuffer: 32 * 1024 * 1024 });
         if (hash(canonical(source.path, committed)) !== source.sha256) throw new Error(`Commit ${source.path} before stamping the release.`);

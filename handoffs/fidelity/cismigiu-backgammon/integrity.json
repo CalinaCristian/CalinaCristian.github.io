@@ -1,0 +1,50 @@
+{
+  "base": "7423ec24553528f29a5042472939dc498ebce46e",
+  "scope": "CPU source/controller only; native pending",
+  "files": {
+    "handoffs/fidelity/cismigiu-backgammon/README.md": {
+      "bytes": 4031,
+      "sha256": "acd67b39db54f350a84695ebd6019fbd762275ebf3ad4e106d02b77f9a176b79"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/controller-controls.mjs": {
+      "bytes": 8956,
+      "sha256": "ff70db1025a66da72d768ce57e2b586d96122990c347ebcd17fae1f40bf9e532"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/engine-controls.mjs": {
+      "bytes": 8261,
+      "sha256": "619074b328cfbdaf59d9df8047ea557528ce23697da357ba34d00ab4b931f412"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/validation/controller-report.json": {
+      "bytes": 797674,
+      "sha256": "a0a87b1054ffb0ce7675aee8a780c80a2d652082f499a0ff7b26215498557c30"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/validation/controller.log": {
+      "bytes": 566,
+      "sha256": "6c2469f46deeb384bc763523aefcf6e8c66e5b47f6b9d1c3d54d304a8bffa20c"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/validation/engine-initial-invalid-fixture.log": {
+      "bytes": 1721,
+      "sha256": "f165f888897f5129773b27621c8f5da691d97ab238a80530975eb97a43da0f80"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/validation/engine-report.json": {
+      "bytes": 7652,
+      "sha256": "8bda9d73541a29d1b3243bf3cba18cf3668badaab3f9d29b1df6649b45d68d5d"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/validation/engine.log": {
+      "bytes": 579,
+      "sha256": "b57b308a45c0f80381cbc9b5fc3fe222da8fb7aa3fe033fe2277f3f235440500"
+    },
+    "game/src/spots/backgammon-engine.js": {
+      "bytes": 8179,
+      "sha256": "2fe6d657d3df1c37a80eb2b9e73f3eaca5967be48301ed4fbd2f8bb3c4fea485"
+    },
+    "game/src/spots/backgammon-game.js": {
+      "bytes": 21162,
+      "sha256": "cdf2e54a29fbd719ae27e1cc57c8e31463ae153b793a485f0572d10e8c3d3f10"
+    },
+    "game/src/spots/scenes/cismigiu.js": {
+      "bytes": 22445,
+      "sha256": "5139163f56c8a2d782ff816b52e65dd121a24758013ed75a853024a8aa85c6eb"
+    }
+  }
+}

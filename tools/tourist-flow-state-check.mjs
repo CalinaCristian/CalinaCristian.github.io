@@ -74,6 +74,21 @@ try{
  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>fixture.reset());
  const phone=await page.locator('[data-tour-skip]').boundingBox();assert(phone&&phone.x>=0&&phone.x+phone.width<=390);
  await page.screenshot({path:path.join(out,'tour-step-phone.png')});
+ await page.evaluate(()=>{
+  fixture.s.ui.setTitle('A long visit name with an activity and a saved itinerary','City and country');
+  fixture.s.ui.setTour({title:'Three stops through the visit',i:0,n:3,stop:'Complete the full activity with the park regular',text:'Long guide narration '.repeat(14),skip:()=>fixture.s.skipTourStop(),end:()=>fixture.s.endTour()});
+  fixture.begin();
+ });
+ const activityLayout=async(label,width,height)=>{
+  await page.setViewportSize({width,height});
+  await page.waitForFunction(()=>{const c=document.querySelector('.sp-card').getBoundingClientRect(),a=document.querySelector('.sp-participation').getBoundingClientRect();return a.top>=c.bottom+7&&a.bottom<=innerHeight-10;});
+  await check(label,()=>{const c=document.querySelector('.sp-card').getBoundingClientRect(),a=document.querySelector('.sp-participation').getBoundingClientRect(),skip=document.querySelector('[data-tour-skip]').getBoundingClientRect();return a.top>=c.bottom+7&&skip.height>=44&&skip.bottom<=a.top&&a.right<=innerWidth;});
+  await page.screenshot({path:path.join(out,`tour-activity-${width}x${height}.png`)});
+ };
+ await activityLayout('Phone tour Skip/End stay above the real activity panel',390,844);
+ await activityLayout('Landscape activity fits below the compact tour card',844,390);
+ await page.locator('[data-tour-skip]').click();
+ await check('Skipping an active modal cancels it and releases its layout observer',()=>!fixture.flow.active&&!fixture.s.ui.el.classList.contains('sp-participating')&&!fixture.s.ui._activityLayout&&fixture.s.ctl.active);
  assert.deepEqual(errors,[]);
  const report={passed:true,scope:'Actual native DOM/Input/SpotSession/modal-flow state with explicit synthetic stops, flat ground and stub route provider. No physical access, scene beauty, or hardware FPS claim.',checks:stages,errors};
  await writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report));

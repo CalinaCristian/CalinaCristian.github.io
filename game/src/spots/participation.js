@@ -24,6 +24,7 @@ export function activityFlow(ctx) {
         if (!run) return null;
         const old = run; run = null;
         old.ui.remove(); old.s.ctl.active = old.active;
+        old.s.ui.setActivityActive?.(false);
         old.s.input?.take?.('KeyE'); old.s.input?.keys?.delete?.('KeyE'); old.s.input?.takeLook?.();
         return old;
     };
@@ -48,6 +49,7 @@ export function activityFlow(ctx) {
             s.input?.releaseLock?.(); s.input?.take?.('KeyE'); s.ui.prompt(null);
             if (opts.lockWalker !== false) s.ctl.active = false;
             s.ui.el.append(ui);
+            s.ui.setActivityActive?.(true);
             if(opts.focus){const dx=opts.focus.x-p.x,dz=opts.focus.z-p.z;s.ctl.heading=Math.atan2(-dx,-dz);s.ctl.pitch=Math.atan2(opts.focus.y-p.y-1.65,Math.hypot(dx,dz));s.ctl.place?.();}
             opts.started?.(s, run); return true;
         },

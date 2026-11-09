@@ -8,6 +8,16 @@ Environment reattachment has ended model-agent sessions twice while OS jobs and 
 
 Managed browser runtime: NODE_PATH=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules and NODE_OPTIONS=--require=/workspace/.environment/drive-my-cv/use-system-chromium.cjs; /usr/bin/chromium, muted. Playwright's downloaded browser is absent. Software GL timings do not prove hardware FPS.
 
+## Latest integration checkpoint · 2026-11-09 04:42 UTC
+
+ROOT8ccab8b8 includes bounded initial packingc2acc8d5, fountain registry disposal06d/native memory pass9242ccf6, actual-body side/rear pedestrian yield43648763 (worker452b), caller swept current-body sensingda08c8ae (worker0e), actual .55m carried negativea3a6a4c4, source-bound contact proof060ace28, C2 Unirii/Groz proof46211271, and minimal runtime freezer62b4643d/8ccab8b8. New focused actor tests and all12 freezer controls pass. Native combined route acceptance remains pending; RO now owns bounded Unirii caller/87-325 replay at exact46211271. No all8 or final900 restart until actual remaining source/display changes settle.
+
+C2 native high/full initial admission passes Unirii484constructor→624public/560peds/0contacts. Groz263constructor→374public fails six contacts; bounded helper exhausts8192work, not evidence of impossible legal space. Pipera exact263/30,459candidate replay proves repeated heldtram261→bus231 cycles consume7857work; observation-only held-first/longest-blocker ordering succeeds2221work without source/tolerance/limit changes. Pure regression implementation pending. US independent raw OSM audit proves tram actors259–262 are materially off separately mapped legal one-way tracks128304860/660918285; source data/model placement correction must precede final all8 acceptance. Do not relax motor-road direction gates to excuse reverse rail traffic. Source rendered rail lines already match raw rails within.058m; motor graph and painted track geometry remain preserved.
+
+Latest owner requirement R17.display-clarity: all important car displays remain sharp on Low/Medium/Auto, including phone DPR3. Original12case native baselinee2170fa7 confirms world PR1/FXAA blur. Display-only output-resolution prototype51195e02 is NOTREADY: Lowsharp, Mediumdepthspeckle; now correcting actual GL depth-write-mask state and same-resolution packed-depth reference. Preserve bounded worldquality/AA/camera/picking, proper wheel/bezel/world occlusion, mirror/exterior visibility, prewarm and native full pass counters. No main.js edits required so far. Await actual12case/occluder/budget acceptance.
+
+Current master unchangeddf9b2e2c; fresh04:39fetch has no unseen commits. No final release/stamp/deploy. Only staging branch backup permitted now; keep all failed raw/source hashes unchanged. The historical checkpoint below remains evidence of prior state, not current acceptance.
+
 ## Current checkpoint · 2026-11-09 03:45 UTC
 
 ROOT989d76b0 integrates source initial planner945(aliasf388), adapter4b626(aliasbd7), minimalTrafficimport+afterspawnAll/beforebase/Pedestrians hookc4fd6255f928101e27874f37776ed5be8d805827; bd9peer already06e6. QAnewactualvertex/fullparent firstpublicationauditorfec(aliasa201)+stop1124(alias9feed) andROsampler e7(aliasc8c) integrated. c4 EXACT currentappcode baseline (laterROOTonlyfountainlifecyclefix below plus testtools/docs). No finalnativeacceptance.

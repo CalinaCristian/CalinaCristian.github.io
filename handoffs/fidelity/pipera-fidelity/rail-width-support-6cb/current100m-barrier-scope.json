@@ -1,0 +1,181 @@
+{
+  "scope": "Later100m-rise poses, independently projected from grade-worker exact world-vertex export. Historical pre100m artifacts remain separate. This is not a production width/guardrail change or negative physical certificate.",
+  "nativeExportSha256": "a1dcca3b1a573028b7f659787b2c7db34dd874b0a28b6697d34593be6f417bb3",
+  "consumedSourcesSha256": {
+    "/workspace/fidelity-workers/remaining-us-districts/game/src/traffic.js": "7355f504cdee91fa5d251d08552e7995450b12b124c4765b47842ae4e6613482",
+    "/workspace/fidelity-workers/remaining-us-districts/game/src/vehicles.js": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+    "/workspace/fidelity-workers/remaining-us-districts/game/src/tram-path.js": "fb7df0729546dc08c924725f6d889ee5ddecfdc03fd6e0911bccf6b250e1012a",
+    "/workspace/fidelity-workers/remaining-us-districts/game/vendor/three.module.min.js": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+    "/workspace/fidelity-workers/rail-bridge-model/game/src/tram-grade.js": "d993b46c7c228c2c398dda26039384c4c014ae49a749c03bf874a146e01fcaee",
+    "/workspace/fidelity-workers/rail-bridge-model/game/src/tram-grade-models.js": "bc2f44e47e3b1988d18d7f984380193e2c7e1ad179f9461fbccfe60ccfecd461"
+  },
+  "gradeWorkerCurrentPositiveProofSha256": "d4f4d5314af41b6dcd4bd7ce06861178042a6430198f5f7722b696900562cbcc",
+  "bodyCases": [
+    {
+      "fixture": {
+        "source": "w205971103",
+        "segment": 20,
+        "t": 0.8431372549019608
+      },
+      "kind": "tram-v3a",
+      "actualNativePose": {
+        "x": 582.5764705882352,
+        "y": 11.24,
+        "z": -854.856862745098,
+        "heading": 2.121432050286921,
+        "pitch": 0
+      },
+      "mostRoadwardVertexLateralM": -2.0188335891156584,
+      "currentNativeTriangleContactsAtLeast": 30,
+      "firstContact": [
+        {
+          "point": [
+            581.5759862334727,
+            11.54000001192093,
+            -853.7850528181096
+          ],
+          "bodyTriangle": 794,
+          "contextMesh": "solid 1,-2",
+          "contextTriangle": 648,
+          "contextVertices": [
+            [
+              581.0740356445312,
+              11.239999771118164,
+              -853.4430541992188
+            ],
+            [
+              581.8907470703125,
+              11.239999771118164,
+              -853.99951171875
+            ],
+            [
+              581.8907470703125,
+              12.34000015258789,
+              -853.99951171875
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": {
+        "source": "w205971103",
+        "segment": 20,
+        "t": 0.8431372549019608
+      },
+      "kind": "tram-imperio",
+      "actualNativePose": {
+        "x": 582.5764705882352,
+        "y": 11.24,
+        "z": -854.856862745098,
+        "heading": 2.121884146398434,
+        "pitch": 0
+      },
+      "mostRoadwardVertexLateralM": -2.011615624995228,
+      "currentNativeTriangleContactsAtLeast": 30,
+      "firstContact": [
+        {
+          "point": [
+            567.8904043401484,
+            12.139999976158142,
+            -845.0631550341926
+          ],
+          "bodyTriangle": 31,
+          "contextMesh": "solid 1,-2",
+          "contextTriangle": 703,
+          "contextVertices": [
+            [
+              568.5708618164062,
+              11.239999771118164,
+              -845.4629516601562
+            ],
+            [
+              568.5708618164062,
+              12.34000015258789,
+              -845.4629516601562
+            ],
+            [
+              566.688720703125,
+              12.34000015258789,
+              -844.3571166992188
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": {
+        "source": "w205971103",
+        "segment": 27,
+        "t": 0.8181818181818182
+      },
+      "kind": "tram-v3a",
+      "actualNativePose": {
+        "x": 359.77272727272725,
+        "y": 11.24,
+        "z": -723.0454545454545,
+        "heading": 2.121431311985205,
+        "pitch": 0
+      },
+      "mostRoadwardVertexLateralM": -2.0503087883434645,
+      "currentNativeTriangleContactsAtLeast": 0,
+      "firstContact": []
+    },
+    {
+      "fixture": {
+        "source": "w205971103",
+        "segment": 27,
+        "t": 0.8181818181818182
+      },
+      "kind": "tram-imperio",
+      "actualNativePose": {
+        "x": 359.77272727272725,
+        "y": 11.24,
+        "z": -723.0454545454545,
+        "heading": 2.128377117206056,
+        "pitch": 0
+      },
+      "mostRoadwardVertexLateralM": -1.962450635524032,
+      "currentNativeTriangleContactsAtLeast": 0,
+      "firstContact": []
+    }
+  ],
+  "guardrail": {
+    "source": "generated native bridge guardrail; no specific OSM barrier identity in context",
+    "nativeRoadEdge": 1150,
+    "nativeLeftExtentM": 3.5,
+    "points": [
+      {
+        "x": 581.074,
+        "z": -853.443,
+        "sourceLateralM": -3.949993302130336
+      },
+      {
+        "x": 581.891,
+        "z": -853.999,
+        "sourceLateralM": -3.9505769941627897
+      },
+      {
+        "x": 581.576,
+        "z": -853.785,
+        "sourceLateralM": -3.9500464778153868
+      }
+    ]
+  },
+  "sourceBarrierAudit": {
+    "scope": "Cached raw OSM barrier ways within100m of north205971103segment20; absence in this tile is not proof no physical barrier exists.",
+    "tile": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0610_44.4550_26.0770.xml",
+    "tileSha256": "1b4248039697685242b9df55183002daee53d1ca728571020f64d9fa4fdb9f2e",
+    "pointXZ": [
+      582.5765,
+      -854.8569
+    ],
+    "nearbyBarrierWays": []
+  },
+  "findings": [
+    "The later100m grade removes fork triangle positives in the supplied four-case proof; north actual guardrail contacts remain.",
+    "The generated guardrail sits about0.45m rail-side of the native road left extent.",
+    "A1.5m asphalt left extent would imply a guardrail near-1.95m, leaving only centimetres against an approximately-2.01m whole-body bound before uncertainty. That is not a defensible selected passing width.",
+    "Aerial asphalt edges do not establish the physical guardrail line or its height. No nearby mapped barrier is not evidence of absence."
+  ]
+}

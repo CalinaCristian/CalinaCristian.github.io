@@ -28,6 +28,8 @@ The first site's measured asymmetry may explain its false road footprint overlap
 
 While this audit was being packaged, the grade worker's later 100 m rise cleared its fork triangle tests and left a north guardrail intersection. That is a separate model and pose; the old vertex arrays here remain historical evidence. Asphalt-edge measurements are not guardrail measurements: the visible north parapet/strip is further toward the rail than the asphalt edge, roughly 0.5–1 m. Do not automatically move a barrier to the measured asphalt edge to make clearance pass. A separate barrier-band/registration and current-body check is still needed.
 
+`current100m-barrier-scope.json` adds the later exact world-vertex export and keeps it separate. Its north body limits are still −2.01883/−2.01162 m; both retain 30 recorded native triangle contacts with the generated guardrail. The supplied guardrail endpoints project to −3.9500 m, 0.45 m beyond the default left extent. Selecting left=1.5 m would put that generated line near −1.95 m, leaving only centimeters against the whole-body bounds before image/registration uncertainty. That is not an acceptable clearance-derived width choice. A cached raw OSM search found no mapped barrier way within 100 m, which does not prove physical absence or authorize removal.
+
 Reproduce the numeric audit from this folder:
 
 ```sh

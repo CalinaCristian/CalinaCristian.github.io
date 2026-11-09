@@ -1455,6 +1455,7 @@ section.search-match {
 :is(#landmark-evidence-viewer,#spot-evidence-viewer)>label{display:grid;gap:8px;font-size:14px;font-weight:650}
 :is(#landmark-evidence-viewer,#spot-evidence-viewer) select{width:100%;max-width:100%;padding:12px;border:1px solid var(--line);background:white;color:var(--ink);font:inherit;border-radius:8px;min-height:48px}
 .lm-heading{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-top:24px}
+.lm-evidence{overflow-wrap:anywhere}
 .lm-evidence h4{font-size:28px;line-height:1.3;margin:8px 0}
 .lm-evidence h5{font-size:17px;margin:24px 0 8px}
 .lm-captures{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;margin:24px 0}

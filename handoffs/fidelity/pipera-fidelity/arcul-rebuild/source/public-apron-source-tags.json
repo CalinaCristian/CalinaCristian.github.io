@@ -1,0 +1,64 @@
+{
+  "fetchedUtc": "2026-11-09",
+  "ways": [
+    {
+      "id": "w1191723271",
+      "version": 4,
+      "sourceModifiedUtc": "2024-03-25T06:32:39Z",
+      "url": "https://api.openstreetmap.org/api/0.6/way/1191723271/full",
+      "sha256": "d2db3bf890c1800075c23c81c7b0a6b5b0cd3cab904f932a19f7a72b1fc432f0",
+      "tags": {
+        "access": "no",
+        "foot": "yes",
+        "highway": "service",
+        "lit": "yes",
+        "motor_vehicle": "no",
+        "surface": "asphalt"
+      },
+      "nodeIds": [
+        11064418461,
+        11064294536
+      ]
+    },
+    {
+      "id": "w1191738377",
+      "version": 3,
+      "sourceModifiedUtc": "2024-03-25T06:32:42Z",
+      "url": "https://api.openstreetmap.org/api/0.6/way/1191738377/full",
+      "sha256": "cc95b4ea02e6cac395acb76706447a15a7a268919e395bd3f708ac4d79adf288",
+      "tags": {
+        "access": "no",
+        "foot": "yes",
+        "highway": "service",
+        "lit": "yes",
+        "motor_vehicle": "no",
+        "surface": "asphalt"
+      },
+      "nodeIds": [
+        11064294535,
+        11064418460
+      ]
+    },
+    {
+      "id": "w1191738378",
+      "version": 3,
+      "sourceModifiedUtc": "2024-03-25T06:32:45Z",
+      "url": "https://api.openstreetmap.org/api/0.6/way/1191738378/full",
+      "sha256": "e3f7d31f95a2747c3da4adf9a05dfa498d49b21eabbd2c6eae14b4a005d23277",
+      "tags": {
+        "access": "no",
+        "foot": "yes",
+        "highway": "service",
+        "layer": "-1",
+        "lit": "yes",
+        "motor_vehicle": "no",
+        "surface": "paving_stones",
+        "tunnel": "yes"
+      },
+      "nodeIds": [
+        11064418460,
+        11064418461
+      ]
+    }
+  ]
+}

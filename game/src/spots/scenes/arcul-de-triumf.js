@@ -52,7 +52,7 @@ export default {
         // of one-way Kiseleff is replaced by another lane on the actual way.
         ctx.extras.arcAmbientTraffic=addTraffic(ctx,{lanes:[{pts:roundabout.points,n:7,speed:8},{pts:offsetPolyline(roundabout.points,-3.1),n:5,speed:7},
             {pts:way('w281701377'),n:6,speed:12},{pts:offsetPolyline(way('w281701377'),3.2),n:6,speed:12},
-            {pts:offsetPolyline(way('w229373804'),-4.8),n:4,speed:12}]});
+            {pts:offsetPolyline(way('w229373804'),4.8),n:4,speed:12}]});
         const credits=[null,null,'Architect Petre Antonescu; sculptors Ion Jalea, Constantin Baraschi, Mac Constantinescu, Dimitrie Paciurea (1935–36).','Medallions of King Ferdinand and Queen Maria restored after 1989.',null];
         // Game interpretation plaques sit beside the mapped walks, outside the
         // actual race centreline and carriageway; they claim no surveyed signs.

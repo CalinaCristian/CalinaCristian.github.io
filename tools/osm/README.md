@@ -130,6 +130,15 @@ The current canopy emitter supports flat open roofs. An explicit non-flat OSM ro
 
 Road-overlap developer audits use each solid body's vertical band and courtyard holes. A reviewed canopy clears a ground road only when its underside is above the two-metre vehicle envelope; a low underside or a source wing still reports an overlap. Visual QA also respects the existing explicit `userData.noAudit` marker on action UI pins/rings; physical fuel columns/pumps remain audited. Raw pre-fix findings are retained in the district evidence ledger.
 
+After a full district rebuild, re-append its finite covered-road review from cached raw source rather than inferring a metre depth from `layer`. For Unirii's reviewed MOL source canopy:
+
+```sh
+node tools/osm/append-covered-road-models.mjs game/data/bucharest-unirii.json game/research/covered-road-models-bucharest-unirii.json /path/to/cached-source.xml
+node tools/osm/source-canopy-compiler-check.mjs game/data/bucharest-unirii.json game/research/covered-road-models-bucharest-unirii.json /path/to/cached-source.xml
+```
+
+The append command supports the existing building/part class and the separate fuel-canopy class, snapshots complete raw ways/tags/node order, validates the actual prepared cover and both source ground-join chains, and refuses stale or contradictory records. It replaces only the final review metadata field and preserves the original source-data byte prefix. Fuel-canopy reviews do not derive building-passage cuts or alter the existing canopy's geometry/dimensions. The regular district builder does not automatically invent/review these associations.
+
 
 District rebuilds optionally export source `railways` for rail, disused and abandoned ways touching the exact600m source ring, preserving full node IDs and raw tags. Tram rendering stays in its existing field. Run `node tools/osm/rail-tree-check.mjs --data=game/data/<district>.json --osm=<tiles>` to verify every selected source way, exact tags, full node order, coordinate quantization and measured-crown accounting. `_retention: "all-measured"` disables the legacy small-ring crown thinning for a reviewed survey; `treeCrownRadii` carries the independent radius measurement into the renderer. Tree heights and untagged species remain estimates. New data fields gate all new rendering; no old dataset is mutated by runtime defaults.
 

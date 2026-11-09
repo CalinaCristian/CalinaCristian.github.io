@@ -15,8 +15,12 @@ export function compileCoveredRoadModels(data, review, raw, sourceXmlSha256) {
     };
     const records = review.models.map(rule => {
         const ids = new Set([rule.sourceRoadId, ...rule.groundJoins.flatMap(j => [j.anchorRoadId, ...j.ways.map(w => w[0])])]);
-        return { ...rule, schemaVersion: 1, classification: 'reviewed-source-building-covered-road', reviewedAt: review.reviewedAt, sourceXmlSha256,
-            sourceWays: [...ids].map(snapshot), sourceBodies: [rule.sourceBuildingId, ...rule.sourcePartIds].map(snapshot) };
+        const classification = rule.classification || 'reviewed-source-building-covered-road';
+        if (!['reviewed-source-building-covered-road', 'reviewed-source-fuel-canopy-covered-road'].includes(classification)) throw Error('Unknown reviewed source cover classification');
+        return { ...rule, schemaVersion: 1, classification, reviewedAt: review.reviewedAt, sourceXmlSha256,
+            sourceWays: [...ids].map(snapshot), ...(classification === 'reviewed-source-fuel-canopy-covered-road'
+                ? { sourceCanopy: snapshot(rule.sourceCanopyId) }
+                : { sourceBodies: [rule.sourceBuildingId, ...rule.sourcePartIds].map(snapshot) }) };
     });
     const validation = buildCoveredRoadModels({ ...data, reviewedCoveredRoads: records });
     if (validation.report.unresolved.length || validation.report.models.length !== records.length) throw Error(JSON.stringify(validation.report));

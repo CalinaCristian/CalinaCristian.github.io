@@ -138,6 +138,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   addresses, and street trees are species-specific. The Dâmbovița runs in its concrete channel.
   Individually reviewed drives beneath mapped fuel roofs keep their surface-road joins; relative source layers
   below a canopy supply no underground metre depth. Roof dimensions remain explicit estimates and legal height limits stay intact.
+  A cached-source append command revalidates these finite cover reviews after a district rebuild.
 - **Floreasca, rebuilt street by street against reality.** Every real building footprint in the playable area and in a
   600 m ring around it (real streets too — no empty belt or lonely boxes past the closures); roof shapes and colours,
   tree crowns and gardens measured on aerial imagery; villas vs 1950s–60s blocks decided from those measurements; raised

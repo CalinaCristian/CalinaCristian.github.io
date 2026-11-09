@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "allOriginalSourceBytesRetained": true,
+  "unchangedBaseSha256": "aa239608e5e1f02fd6ec48d4d0173f2058972ca8093a31b6581b9d562d18a015",
+  "shippedDatasetSha256Unchanged": true,
+  "nativeRuntimeModelInputUnchanged": {
+    "sourceRoadId": "w79870041",
+    "sourceCanopyId": "w670595374",
+    "model": {
+      "estimated": true,
+      "floorY": 0,
+      "basis": "Reviewed literal open MOL canopy and exact same-source-node connections to ordinary Coposu surface carriageway. Raw layer\u22121 is relative ordering beneath layer1 canopy, not6m underground elevation. Existing4.8m canopy underside/5.2m top remain model estimates."
+    }
+  },
+  "cli": "{\"models\":1,\"originalSourcePrefixSha256\":\"aa239608e5e1f02fd6ec48d4d0173f2058972ca8093a31b6581b9d562d18a015\",\"sourceXmlSha256\":\"85df20eded36f4d37dd0558762385fd6496b0608e5ebf7889c8db1eafd8a9f67\",\"datasetBytes\":25494581}"
+}

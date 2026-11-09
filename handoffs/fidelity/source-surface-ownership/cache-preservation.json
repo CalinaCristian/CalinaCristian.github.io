@@ -1,0 +1,17 @@
+{
+  "scope": "Exact prepared Groz source-field preservation; cache-only candidate, native visual proof pending",
+  "inputSource": "406a53f1f1f1397a1667ea1bc77df78289a5667a",
+  "inputSha256": "b0341956c088b9cb142a7005831345eda7bf7aae27f18618181ba8fc535f4175",
+  "outputSha256": "c298b7d316e02ed4e442791a4328abc3bf2a602327780ea058038127b44e12af",
+  "sourceRecords": 2416,
+  "changedFields": [
+    "buildingGeometryPoints",
+    "buildingUnions"
+  ],
+  "allOtherFieldsEqual": true,
+  "originalGeometryPointPrefixPreserved": true,
+  "sources": 733,
+  "surfaces": 733,
+  "generatedUtc": "2026-11-09T11:37:27.477268+00:00",
+  "nativeAcceptance": false
+}

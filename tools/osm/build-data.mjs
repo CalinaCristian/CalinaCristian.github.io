@@ -81,7 +81,8 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { parseFiles, parseInto } from './parse-osm.mjs';
 import { snapshotTramSources, tramMetadataFromRuns, snapshotTramCrossingSources, extractTramCrossingMetadata } from './tram-sources.mjs';
-import { footprintCoverage, simpleFootprint, uncrossFootprint, bakeAssembly, bakeSurface, touchingSolids, assemblySignature } from '../../game/src/building-parts.js';
+import { footprintCoverage, simpleFootprint, uncrossFootprint, bakeAssembly, touchingSolids, assemblySignature } from '../../game/src/building-parts.js';
+import { buildSourceSurfaceCache } from '../../game/src/building-surface-cache.js';
 import { sourceRing } from './source-footprints.mjs';
 import { sourcePartHeightReview } from './source-height-review.mjs';
 import { parseMeasure, makeRoofProfile, roofMesh, visibleRoofMesh, roofSignature } from '../../game/src/building-roofs.js';
@@ -1832,27 +1833,14 @@ function buildCity(cityId, did = null) {
     // Union physical surfaces independently of OSM containment. An ambiguous
     // part is retained as its own source solid, but must not draw a duplicate
     // coplanar face through the building it touches.
-    const physical = buildings.map((b, i) => ({ i, ring: preparedRing(b, i), holes: b.holes, h: b.roofProfile?.eavesM ?? b.h, minH: b.minH, part: !!isPart(b), assembly: false }));
+    const physical = buildings.map((b, i) => ({ i, sourceId: b.t?.__id, ring: preparedRing(b, i), holes: outBuildingHoleFootprints[i] || b.holes.map(h => h.map(p => p.map(v => Math.round(v * 10) / 10))), h: b.roofProfile?.eavesM ?? b.h, minH: b.minH, passages: mappedPassages.records[i], roofProfile: b.roofProfile, heightSourceCode: b.hSrc, canopy: b.canopy, aircraft: b.aircraft }));
     for (const key of Object.keys(outBuildingCoveredBy)) physical[+key].suppressed = true;
     for (const [key, spec] of Object.entries(outBuildingAssemblies)) {
-        const base = physical[+key]; base.suppressed = spec.mode === 'parts'; base.assembly = true;
-        for (const i of spec.parts) physical[i].assembly = true;
-        for (const r of spec.geometry.residuals) physical.push({ i: physical.length, ring: r.ring, holes: [], h: r.h, minH: 0, assembly: true });
+        const base = physical[+key]; base.suppressed = spec.mode === 'parts';
+        for (const r of spec.geometry.residuals) physical.push({ ...base, suppressed: false, i: physical.length, ring: r.ring, holes: [], h: r.h, minH: 0, roofProfile: null });
     }
-    const active = physical.filter(b => !b.suppressed && !b.holes.length), neighbours = new Map(active.map(b => [b.i, []])), spatial = new Map();
-    for (const b of active) {
-        const bb = bounds(b.ring), seen = new Set();
-        for (let x = Math.floor(bb[0] / 40); x <= Math.floor(bb[2] / 40); x++) for (let z = Math.floor(bb[1] / 40); z <= Math.floor(bb[3] / 40); z++) {
-            const key = x + ',' + z, cell = spatial.get(key) || [];
-            for (const other of cell) if (!seen.has(other.i)) { seen.add(other.i); if (touchingSolids(b, other)) { neighbours.get(b.i).push(other); neighbours.get(other.i).push(b); } }
-            cell.push(b); spatial.set(key, cell);
-        }
-    }
-    const unionBodies = active.filter(b => neighbours.get(b.i).length && (b.part || b.assembly || neighbours.get(b.i).some(p => p.part || p.assembly)));
-    const required = new Set(unionBodies.flatMap(b => [b.i, ...neighbours.get(b.i).map(p => p.i)]));
-    const outBuildingUnions = { sources: active.filter(b => required.has(b.i)).map(b => ({ i: b.i, signature: assemblySignature(b, []) })),
-        surfaces: unionBodies.map(b => ({ i: b.i, neighbours: neighbours.get(b.i).map(p => p.i), surface: bakeSurface(b, [b, ...neighbours.get(b.i)]) })) };
-    if (unionBodies.length) log('physical source-solid unions', unionBodies.length, 'locally validated surfaces');
+    const outBuildingUnions = buildSourceSurfaceCache(physical);
+    if (outBuildingUnions.surfaces.length) log('physical source-solid unions v2', outBuildingUnions.surfaces.length, 'locally validated surfaces');
     // Reuse identical derived vertices without rounding. Source records and
     // signatures remain independently readable; only the offline cap meshes
     // use this lossless indexed representation.
@@ -1971,7 +1959,7 @@ function buildCity(cityId, did = null) {
         bounds: [minX, minZ, maxX, maxZ],
         classes: ROAD_CLASSES, styles: STYLES, roofs: ROOFS, poiKinds: POI_KINDS, areaKinds: AREA_KINDS, lineKinds: LINE_KINDS, furnKinds: FURN_KINDS,
         strings, ...(Object.keys(outBuildingRoofSurfaces).length ? { buildingRoofSurfaces: outBuildingRoofSurfaces, buildingRoofGeometryPoints: roofGeometryPoints } : {}),
-        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(ds ? { buildingRoofProfiles: outBuildingRoofProfiles } : {}), ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(Object.keys(outBuildingSourceTags).length ? { buildingSourceTags: outBuildingSourceTags } : {}), ...(Object.keys(outBuildingCanopies).length ? { buildingCanopies: outBuildingCanopies } : {}), ...(Object.keys(outBuildingSourceIssues).length ? { buildingSourceIssues: outBuildingSourceIssues } : {}), ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(unionBodies.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, ...(ds ? { areaSourceIds: areaRings.map(a => a.sourceId || '') } : {}), ...(Object.keys(parkingFootprints).length ? { parkingFootprints } : {}), ...(Object.keys(parkingLayouts).length ? { parkingLayouts } : {}), ...(parkingLayoutAudit.length ? { parkingLayoutAudit } : {}), lines: outLines, ...(lineSources.length ? { lineSources } : {}), places, lamps,
+        nodes: outNodes, nodeFlags, roads: outRoads, trams: outT, roadInfo, rampLimits, vacant, buildings: outB, ...(ds ? { buildingRoofProfiles: outBuildingRoofProfiles } : {}), ...(Object.keys(outBuildingDimensions).length ? { buildingDimensions: outBuildingDimensions } : {}), ...(Object.keys(outBuildingFootprints).length ? { buildingFootprints: outBuildingFootprints } : {}), buildingInfo: outBInfo, ...(Object.keys(outBuildingSourceTags).length ? { buildingSourceTags: outBuildingSourceTags } : {}), ...(Object.keys(outBuildingCanopies).length ? { buildingCanopies: outBuildingCanopies } : {}), ...(Object.keys(outBuildingSourceIssues).length ? { buildingSourceIssues: outBuildingSourceIssues } : {}), ...(ds ? { buildingIds: buildings.map(b => b.t?.__id || '') } : {}), ...(Object.keys(outBuildingHoles).length ? { buildingHoles: outBuildingHoles } : {}), ...(Object.keys(outBuildingCoveredBy).length ? { buildingCoveredBy: outBuildingCoveredBy } : {}), ...(Object.keys(outBuildingAssemblies).length ? { buildingAssemblies: outBuildingAssemblies } : {}), ...(outBuildingUnions.surfaces.length ? { buildingUnions: outBuildingUnions } : {}), ...(geometryPoints.length ? { buildingGeometryPoints: geometryPoints } : {}), pois: outP, areas: outA, ...(ds ? { areaSourceIds: areaRings.map(a => a.sourceId || '') } : {}), ...(Object.keys(parkingFootprints).length ? { parkingFootprints } : {}), ...(Object.keys(parkingLayouts).length ? { parkingLayouts } : {}), ...(parkingLayoutAudit.length ? { parkingLayoutAudit } : {}), lines: outLines, ...(lineSources.length ? { lineSources } : {}), places, lamps,
         ...(rawRailways.length ? { railways: rawRailways.map(r => ({ id: r.id, nodeIds: r.nodeIds, tags: r.tags, points: delta(r.pts) })) } : {}),
         ...(ds && Object.keys(areaSourceTags).length ? { areaSourceTags } : {}),
         ...(outTreeCrownRadii.some(r => r > 0) ? { treeCrownRadii: outTreeCrownRadii } : {}), ...(treeRetention ? { treeRetention } : {}),

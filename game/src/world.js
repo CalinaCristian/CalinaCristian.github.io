@@ -3,6 +3,8 @@ import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landma
 import { makeTextures, emitFacadeSlab } from './buildings.js';
 import { footprintCells, insetFootprint, assemblySignature, geometryRing, geometrySurface } from './building-parts.js';
 import { validRoofProfile, roofMesh, roofSignature } from './building-roofs.js';
+import { sourceSurfaceEligible, validateSourceSurface } from './building-surface-cache.js';
+import { clipBuildingDetailRange } from './building-detail-range.js';
 import { sourceTreeCentrePolicy, treeCentreDuplicate, treeCentreWater } from './source-tree-centres.js';
 import { canopyGeometry } from './building-canopies.js';
 import { makeVehicle, CAR_COLORS, makeParkedCars, vehicleSize } from './vehicles.js';
@@ -3122,7 +3124,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const c = centroid(ring);
         const sourceHeight = data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minimum = data.buildingDimensions?.[i]?.[1] ?? b[2] / 10;
         const roofProfile = validRoofProfile(data.buildingRoofProfiles?.[i], sourceHeight, minimum) ? data.buildingRoofProfiles[i] : null;
-        return { i, style: data.styles[b[0]], h: data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, holes, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
+        return { i, sourceId: data.buildingIds?.[i], heightSourceCode: data.buildingInfo?.[i * 5 + 4], style: data.styles[b[0]], h: data.buildingDimensions?.[i]?.[0] ?? b[1] / 10, minH: data.buildingDimensions?.[i]?.[1] ?? b[2] / 10, roof: data.roofs[b[3]], name: str(b[4]), flags: b[5], ring, holes, c, x0, z0, x1, z1, area: Math.abs(signedArea(ring)), skip: false,
             roofProfile, canopy: data.buildingCanopies?.[i] || null, levels: B_OFF === 9 ? b[6] : 0, colour: B_OFF === 9 ? str(b[7]) : '', roofColour: B_OFF === 9 ? str(b[8]) : '' };
     });
     for (const b of bRecs) b.aircraft = data.buildingAircraft?.[b.i] || null;
@@ -3313,16 +3315,6 @@ export async function buildWorld(city, renderer, opts = {}) {
         bRecs.push(...residuals);
         assemblyAudit.push({ mode: spec.mode, outline: data.buildingIds?.[base.i] || base.i, parts: indices.map(i => data.buildingIds?.[i] || i), residualArea: residuals.reduce((sum, p) => sum + p.area, 0), residualHeight: residualH, residualHeightSource: spec.residualHeightSource, residualHeights: [...new Set(residuals.map(p => p.h))].sort((a, b) => a - b), cells: residuals.length });
     }
-    const physicalUnionAudit = [], physicalUnionRejected = [];
-    const unionSources = new Map((data.buildingUnions?.sources || []).map(s => { const b = bRecs[s.i]; return [s.i, !!b && !b.skip && !b.holes.length && s.signature === assemblySignature(b, [])]; }));
-    for (const spec of data.buildingUnions?.surfaces || []) {
-        const indices = [spec.i, ...spec.neighbours], b = bRecs[spec.i];
-        if (!indices.every(i => unionSources.get(i)) || spec.surface?.walls?.length !== b?.ring.length) {
-            physicalUnionRejected.push({ source: data.buildingIds?.[b?.derivedFrom ?? spec.i] || spec.i, reason: 'prepared-geometry-mismatch' }); continue;
-        }
-        b.assembly ||= indices.map(i => bRecs[i]); b.assemblySurface = geometrySurface(spec.surface, data.buildingGeometryPoints);
-        physicalUnionAudit.push({ source: data.buildingIds?.[b.derivedFrom ?? b.i] || b.i, neighbours: spec.neighbours.length });
-    }
     for(const b of bRecs)if(b.derivedFrom!==undefined)configurePassages(b);
     const buildingIndex = (index, x, z) => {
         const b = bRecs[index];
@@ -3452,6 +3444,39 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
             landmarks.push({ id: lm.id, label: lm.name, x: p.x, z: p.z, clear: res.clear || R, radius: R, mesh: res.mesh });
         } catch (err) { console.warn('landmark failed', lm.id, err); }
+    }
+    // Validate physical visibility after authored replacements, without changing
+    // source assembly membership or suppressing legitimate exterior details.
+    const physicalUnionAudit = [], physicalUnionRejected = [];
+    const unionSources = new Map((data.buildingUnions?.sources || []).map(s => [s.i, s]));
+    for (const spec of data.buildingUnions?.surfaces || []) {
+        const b = bRecs[spec.i], reason = validateSourceSurface(spec, unionSources, bRecs, { requireAuthority: data.buildingUnions.version >= 2, points: data.buildingGeometryPoints });
+        if (reason) { physicalUnionRejected.push({ source: data.buildingIds?.[b?.derivedFrom ?? spec.i] || spec.i, reason }); continue; }
+        b.sourceSurface = geometrySurface(spec.surface, data.buildingGeometryPoints);
+        physicalUnionAudit.push({ source: data.buildingIds?.[b.derivedFrom ?? b.i] || b.i, neighbours: spec.neighbours.length });
+    }
+    const inferredDetailAudit = { ranges: 0, clippedAreaM2: 0, issues: [] }, detailRoofs = new Map();
+    function completeDetailRoof(b) {
+        if (detailRoofs.has(b.i)) return detailRoofs.get(b.i);
+        let mesh = null;
+        if (sourceSurfaceEligible(b)) {
+            if (b.roofProfile) mesh = roofMesh(b.ring, b.holes, b.roofProfile, triangulate);
+            else if (b.roof === 'flat') { const { pts, tris } = triangulate(b.ring, b.holes); mesh = { faces: tris.map(t => t.map(i => [pts[i][0], b.h, pts[i][1]])) }; }
+        }
+        const result = mesh ? { i: b.i, sourceId: b.sourceId, minH: b.minH, mesh } : null;
+        detailRoofs.set(b.i, result); return result;
+    }
+    function clipBuildingDetails(builder, start, owner) {
+        if (data.buildingGeometryPolicy !== 'source' || builder.ic === start.ic) return;
+        const result = clipBuildingDetailRange(builder, start, owner, faces => {
+            let x0=Infinity,z0=Infinity,x1=-Infinity,z1=-Infinity;
+            for(const f of faces)for(const p of f){x0=Math.min(x0,p[0]);z0=Math.min(z0,p[2]);x1=Math.max(x1,p[0]);z1=Math.max(z1,p[2]);}
+            const neighbours=[];
+            bGrid.each(x0,z0,x1,z1,b=>{if(b!==owner&&!b.skip){const roof=completeDetailRoof(b);if(roof)neighbours.push(roof);else if(b.x0<=x1&&b.x1>=x0&&b.z0<=z1&&b.z1>=z0)neighbours.push({i:b.i,sourceId:b.sourceId,minH:b.minH});}});
+            return neighbours;
+        });
+        inferredDetailAudit.ranges++; inferredDetailAudit.clippedAreaM2 += result.clippedAreaM2;
+        for(const issue of result.issues)if(inferredDetailAudit.issues.length<100)inferredDetailAudit.issues.push({owner:owner.sourceId,...issue});
     }
     // landmarks that model their own water (the Unirii fountains: basins drained Nov–Apr by landmarks.js's
     // fountainSchedule) replace the OSM water polygons inside them: those are collapsed (no doubled / always-full basins)
@@ -3847,8 +3872,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(p => Math.hypot(p[0] - b.c[0], p[1] - b.c[1]))), poly: ring, holes: b.holes, sourceId: data.buildingIds?.[b.i], minH: b.minH, h: b.h, ...(sourceRoof ? { y0: b.minH, y1: b.h, roofHeightAt: sourceRoof.heightAt } : {}), angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, canopy: true });
             continue;
         }
+        const surface = b.sourceSurface || b.assemblySurface;
         const brng = makeRng(b.i * 7919 + 13);
-        const AR = !b.roofProfile && !b.assembly && !b.holes.length && !b.passages?.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(b.i * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
+        const AR = !b.roofProfile && !b.assembly && !b.sourceSurface && !b.holes.length && !b.passages?.length && b.arch && ARCH ? ARCH.emit(b, c, makeRng(b.i * 7919 + 17)) : null; // archetype roofs do not yet support courtyards
         // (2026-11-08) Bucharest villas keep the interwar facade tiles but the villa quarter's warmer plasters (cream, ochre,
         // pale yellow, salmon, off-white, sage — Floreasca / Dorobanți), not the interwar blocks' greys
         const pal = (b.villa && VILLA_PAL) || palette[b.style] || palette.plain;
@@ -3902,13 +3928,20 @@ export async function buildWorld(city, renderer, opts = {}) {
             // (after round 6) whole window bays per wall, restarting at every corner: windows were sliced at the corners of
             // narrow houses (the bays ran on round the perimeter); a wall too short for a bay shows plain wall
             const nbay = Math.round(L / bayW), u0 = k * 5, u1 = nbay > 0 ? u0 + nbay / gc : u0 + 0.02 / gc;
-            if (b.assembly || b.passages?.length) {
-                const faces=clipPassageWall([ax,az],[bx,bz],b.assembly?b.assemblySurface.walls[k]:[{t0:0,t1:1,y0,y1:wallTop}],b.passages||[]);
+            const sourceWall=surface?.walls[k], wholeSourceWall=sourceWall?.length===1&&sourceWall[0].t0===0&&sourceWall[0].t1===1&&Math.abs(sourceWall[0].y0-y0)<1e-7&&Math.abs(sourceWall[0].y1-wallTop)<1e-7;
+            if (surface && (!b.sourceSurface || !wholeSourceWall) || b.passages?.length) {
+                const faces=clipPassageWall([ax,az],[bx,bz],surface?surface.walls[k]:[{t0:0,t1:1,y0,y1:wallTop}],b.passages||[]);
                 for (const face of faces) {
                     const lerp = t => [ax + (bx - ax) * t, az + (bz - az) * t];
                     const a = lerp(face.t0), p = lerp(face.t1);
-                    mb.wall(a[0], a[1], p[0], p[1], face.y0, face.y1, nx, nz, wallCol, u0 + (u1 - u0) * face.t0, u0 + (u1 - u0) * face.t1, (face.y0 - y0) / (floorH * gr), (face.y1 - y0) / (floorH * gr), tile);
+                    if (b.sourceSurface && !b.assembly && shop && !(b.shopFaces && !b.shopFaces[k])) {
+                        const split=Math.min(face.y1,yShop);
+                        if(split>face.y0)mb.wall(a[0],a[1],p[0],p[1],face.y0,split,nx,nz,distId?mixRgb(wallCol,[255,255,255],.45):rgb('#ffffff'),(perim+L*face.t0)/16,(perim+L*face.t1)/16,(face.y0-y0)/(yShop-y0),(split-y0)/(yShop-y0),TILE.shop+(b.i%2)*8);
+                        const lower=Math.max(face.y0,yShop);
+                        if(face.y1>lower)mb.wall(a[0],a[1],p[0],p[1],lower,face.y1,nx,nz,wallCol,u0+(u1-u0)*face.t0,u0+(u1-u0)*face.t1,(lower-yShop)/(floorH*gr),(face.y1-yShop)/(floorH*gr),tile);
+                    } else mb.wall(a[0], a[1], p[0], p[1], face.y0, face.y1, nx, nz, wallCol, u0 + (u1 - u0) * face.t0, u0 + (u1 - u0) * face.t1, (face.y0 - (b.sourceSurface&&!b.assembly&&shop?yShop:y0)) / (floorH * gr), (face.y1 - (b.sourceSurface&&!b.assembly&&shop?yShop:y0)) / (floorH * gr), tile);
                 }
+                if(b.sourceSurface&&!b.assembly)perim += L;
                 continue;
             }
             if (shop && !(b.shopFaces && !b.shopFaces[k])) { // (researched shopfronts: street faces only)
@@ -3939,15 +3972,15 @@ export async function buildWorld(city, renderer, opts = {}) {
             wallTris += shop ? 4 : 2;
             perim += L;
         }
-        if (!AR && !b.assembly && !b.passages?.length) addDetail(b, h > 40 ? mb : c.detail, brng, wallCol, h, y0, shop, yShop, floorH, ccw); // (cornices / balconies / mullions: near LOD only, except towers' silhouettes)
-        for (const hole of b.holes) {
+        if (!AR && !b.assembly && !b.passages?.length) { const target=h>40?mb:c.detail,start={ic:target.ic,vc:target.vc}; addDetail(b,target,brng,wallCol,h,y0,shop,yShop,floorH,ccw); clipBuildingDetails(target,start,b); } // (cornices / balconies / mullions: near LOD only, except towers' silhouettes)
+        for (const [holeIndex, hole] of b.holes.entries()) {
             const ccwHole = signedArea(hole) > 0;
             for (let i = 0; i < hole.length; i++) {
                 const a = hole[i], p = hole[(i + 1) % hole.length], length = Math.hypot(p[0] - a[0], p[1] - a[1]);
                 if (length < 0.05) continue;
                 const sign = ccwHole ? -1 : 1, nx = sign * (p[1] - a[1]) / length, nz = -sign * (p[0] - a[0]) / length;
                 const [columns, rows] = TILE_GRID[tile] || [1, 1];
-                for(const face of clipPassageWall(a,p,[{t0:0,t1:1,y0,y1:wallTop}],b.passages||[])){
+                for(const face of clipPassageWall(a,p,surface?.holeWalls?.[holeIndex]?.[i]||[{t0:0,t1:1,y0,y1:wallTop}],b.passages||[])){
                     const lo=[a[0]+(p[0]-a[0])*face.t0,a[1]+(p[1]-a[1])*face.t0],hi=[a[0]+(p[0]-a[0])*face.t1,a[1]+(p[1]-a[1])*face.t1];
                     mb.wall(lo[0],lo[1],hi[0],hi[1],face.y0,face.y1,nx,nz,wallCol,0,Math.max(1,Math.round(length/bayW))/columns,0,(face.y1-face.y0)/(floorH*rows),tile);
                 }
@@ -3977,7 +4010,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const flatRoofCol = b.roofColour ? rgb(b.roofColour) : rgb(roofCols.flat[Math.floor(brng() * roofCols.flat.length)]);
         const pitchCol = b.roofColour ? rgb(b.roofColour) : rgb(roofCols.pitched[Math.floor(brng() * roofCols.pitched.length)]);
         const quad4 = ring.length === 4 || (ring.length === 5 && Math.hypot(ring[0][0] - ring[4][0], ring[0][1] - ring[4][1]) < 0.3);
-        if (b.assembly) for (const underside of b.assemblySurface.underside) {
+        if (surface) for (const underside of surface.underside) {
             const { pts, tris } = triangulate(underside);
             for (const tri of tris) mb.face3(...tri.map(i => [pts[i][0], b.minH, pts[i][1]]), shadeRgb(wallCol, 0.75), [0, -1, 0]);
         }
@@ -3992,12 +4025,12 @@ export async function buildWorld(city, renderer, opts = {}) {
             else for (const [i, face] of sourceRoof.walls.entries()) {
                 mb.face4(...face, wallCol, sourceRoof.wallNormals[i]);
             }
-            if (!b.assembly && b.minH > 0) {
+            if (!surface && b.minH > 0) {
                 const underside = triangulate(ring, b.holes);
                 for (const tri of underside.tris) mb.face3(...tri.map(i => [underside.pts[i][0], b.minH, underside.pts[i][1]]), shadeRgb(wallCol, 0.75), [0, -1, 0]);
             }
-        } else if (b.assembly && b.roof === 'flat') {
-            for (const roof of b.assemblySurface.roof) {
+        } else if (surface && b.roof === 'flat') {
+            for (const roof of surface.roof) {
                 const { pts, tris } = triangulate(roof);
                 if (tris.length) rmb.flatPoly(pts, tris, h, flatRoofCol, 0.1, -1);
             }
@@ -4104,7 +4137,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             mb.box(b.c[0], h, b.c[1], r * 2, r * 2.4, r * 2, 0, wallCol, tile);
             mb.geo(props().sphere, b.c[0], h + r * 2.4, b.c[1], 0, r * 1.05, r * 1.4, r * 1.05, rgb('#6f8f86'));
         }
-        if (!b.assembly && !b.passages?.length && h >= 5 && b.style !== 'church' && !AR && !(b.flags & 32)) addNearDetail(b, c.detail, brng, wallCol, h, y0, shop, yShop, floorH, bayW, ccw, flatRoofCol); // (flags 32: the scenery ring outside the playable area — no street-level clutter)
+        if (!b.assembly && !b.passages?.length && h >= 5 && b.style !== 'church' && !AR && !(b.flags & 32)) { const start={ic:c.detail.ic,vc:c.detail.vc}; addNearDetail(b,c.detail,brng,wallCol,h,y0,shop,yShop,floorH,bayW,ccw,flatRoofCol); clipBuildingDetails(c.detail,start,b); } // (flags 32: the scenery ring outside the playable area — no street-level clutter)
         // collision
         collision.push({ x: b.c[0], z: b.c[1], r: Math.max(...ring.map(([x, z]) => Math.hypot(x - b.c[0], z - b.c[1]))), poly: ring, holes: b.holes, passageSolids: b.passageSolids, sourceId: data.buildingIds?.[b.derivedFrom ?? b.i], derived: b.derivedFrom !== undefined, minH: b.minH, angle: 0, hw: (b.x1 - b.x0) / 2, hd: (b.z1 - b.z0) / 2, h: sourceRoof ? b.h : h, ...(sourceRoof ? { y0: b.minH, y1: b.h, roofHeightAt: sourceRoof.heightAt } : {}), poi: b.cv || undefined });
         // facade sign
@@ -5923,7 +5956,7 @@ export async function buildWorld(city, renderer, opts = {}) {
 
     setProgress(''); const phases = PHASES.splice(0);
     const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
-        buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
+        buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
     stats.waterShore = waterShoreAudit;
     stats.waterChannels = waterChannelAudit;

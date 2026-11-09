@@ -17,7 +17,8 @@ module.exports = async function installRailObserver(options = {}) {
         lightCluster: controller(n.lightCluster) } : null;
     const edgeRef = e => e ? (!e.a || !e.b ? { unknownEdgeReference: K.safe(e) } : { ...scalar(e), a: nodeRef(e.a), b: nodeRef(e.b), sourceNodeIds: e.sourceNodeIds || [e.a.sourceId ?? null, e.b.sourceId ?? null],
         railDirections: K.safe(e.railDirections), grade: K.safe(e.grade), gradeNativeSamples: typeof e.grade?.heightAt === 'function' ? [0, .137, .389, .613, .877, 1].map(t => { try { return { t, displacementY: K.safe(e.grade.heightAt(t)) }; } catch (error) { return { t, error: String(error) }; } }) : null,
-        access: K.safe(e.access) }) : null;
+        access: K.safe(e.access), sidewalkSource: K.safe(e.sidewalkSource),
+        nativeSidewalkWidth: typeof g.world?.sidewalkWidth === 'function' ? { leftM: g.world.sidewalkWidth(e, -1), rightM: g.world.sidewalkWidth(e, 1) } : { unknown: 'native sidewalkWidth interface unavailable' } }) : null;
     function renderBindings(v) {
         const found = [], model = v.mesh.userData._model;
         if (!model) return found;

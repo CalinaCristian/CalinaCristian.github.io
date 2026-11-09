@@ -801,7 +801,25 @@ export class Traffic {
     inView(v) {
         const P = this.walker?.active ? this.walker : this.player; if (!P) return false;
         const dx = v.x - P.x, dz = v.z - P.z, d = Math.hypot(dx, dz);
-        return d < 70 || (d < 230 && dx * P.fx + dz * P.fz > -2);
+        if (d < 70 || (d < 230 && dx * P.fx + dz * P.fz > -2)) return true;
+        const G = globalThis.game;
+        if (G?.traffic !== this) return false;
+        if (!this._recoveryViews || this._recoveryViewFrame !== this._frame) {
+            this._recoveryViewFrame = this._frame; this._recoveryViews = [];
+            const cameras = [G.camera];
+            if (!this.walker?.active && this.player?.mirrorEnabled) cameras.push(this.player.mirrorCam);
+            for (const camera of cameras) if (camera) {
+                camera.updateWorldMatrix(true, false);
+                const matrix = new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+                this._recoveryViews.push(new THREE.Frustum().setFromProjectionMatrix(matrix));
+            }
+        }
+        const sphere = this._recoverySphere || (this._recoverySphere = new THREE.Sphere());
+        sphere.center.set(v.x, (v.y ?? 0.24) + 1, v.z);
+        // Include the model and the fleet renderer's frustum padding. This only
+        // guards a relocation; camera planes, LODs and draw population stay native.
+        sphere.radius = (v.mesh?.userData?._model?.radius ?? Math.hypot(v.length || 5, v.width || 2, 4) / 2) + 8;
+        return this._recoveryViews.some(frustum => frustum.intersectsSphere(sphere));
     }
     savePose(v) {
         const keys = ['edge', 'dir', 's', 'lane', 'laneCur', 'lateralExtra', 'latExtraCur', 'layer', 'speed', 'x', 'z', 'y', 'heading', 'fx', 'fz', 'rx', 'rz', 'latBlend', 'transition', 'stuck', 'still', 'touchT', 'blockT', 'ghost', 'bypass', 'served', 'dwell'];
@@ -1068,19 +1086,20 @@ export class Traffic {
         const useH = inJunction || v.transition > 0 || Math.abs(v.latBlend || 0) > 0.3;
         const fx = useH ? -Math.sin(v.heading) : v.fx, fz = useH ? -Math.cos(v.heading) : v.fz, rx = -fz, rz = fx;
         if (v.ghost > 0) v.ghost -= dt;
-        else {
+        {
             this.grid.query(v.x + fx * look * 0.5, v.z + fz * look * 0.5, look * 0.5 + 8, (o) => {
                 if (o === v || o === v.bypass) return;
                 const dx = o.x - v.x, dz = o.z - v.z;
                 const f = dx * fx + dz * fz; if (f <= 0 || f > look + o.length * 0.5) return;
                 if (o.layer !== v.layer) return;
                 const l = dx * rx + dz * rz;
-                const ol = Math.abs(o.fx * rx + o.fz * rz) * o.length * 0.5 + Math.abs(o.rx * rx + o.rz * rz) * o.width * 0.5;
+                const ofx = -Math.sin(o.heading), ofz = -Math.cos(o.heading), orx = -ofz, orz = ofx;
+                const ol = Math.abs(ofx * rx + ofz * rz) * o.length * 0.5 + Math.abs(orx * rx + orz * rz) * o.width * 0.5;
                 if (Math.abs(l) > v.width * 0.5 + ol + 0.3) return;
-                const hd = o.fx * fx + o.fz * fz;
+                const hd = ofx * fx + ofz * fz;
                 if (hd < -0.3) return; // oncoming
                 if (o.leader === v && v.speed < 0.5 && o.speed < 0.5 && v.id < o.id) return; // each waiting for the other (merge / box): the lower id goes
-                const of = Math.abs(o.fx * fx + o.fz * fz) * o.length * 0.5 + Math.abs(o.rx * fx + o.rz * fz) * o.width * 0.5;
+                const of = Math.abs(ofx * fx + ofz * fz) * o.length * 0.5 + Math.abs(orx * fx + orz * fz) * o.width * 0.5;
                 let g = f - half - of;
                 const cross = hd < 0.5;
                 if (cross) {
@@ -1262,7 +1281,6 @@ export class Traffic {
             if (!waitingRed && !sharedWait && leader !== P && leader !== 'ped') {
                 const dP = P ? Math.hypot(P.x - v.x, P.z - v.z) : 1e9;
                 if (v.stuck > 12 && dP > 150) { this.respawn(v); return; }
-                if (v.stuck > 14 && leader && leaderCross) { v.ghost = 2.5; v.stuck = 8; }
             }
         } else { v.stuck = 0; v.still = 0; }
 
@@ -1665,6 +1683,7 @@ export class Traffic {
         let n = 0;
         for (const v of this.near(P.x, P.z, 34)) {
             if (v.parked || v.tram || v.service || v.inactive || v.speed > 0.3 || (v.stuck || 0) < 12 || v.waitRed || v.redQ) continue;
+            if (this.inView(v)) continue;
             if (Math.abs((v.y ?? 0.24) - (P.y ?? P.surfY ?? 0.24)) > 2.5) continue;
             const dx = v.x - P.x, dz = v.z - P.z, f = dx * P.fx + dz * P.fz, l = Math.abs(dx * -P.fz + dz * P.fx);
             if (f < 0) continue;
@@ -1682,21 +1701,12 @@ export class Traffic {
             if (v.parked || v.still < 18) continue;
             let h = v; const seen = this._seen || (this._seen = new Set()); seen.clear(); seen.add(v);
             while (h.leader && typeof h.leader === 'object' && h.leader !== P && !h.leader.parked && !h.leader.inactive && h.leader.still > 2 && !seen.has(h.leader)) { h = h.leader; seen.add(h); }
-            let inView = false;
-            if (P) { const dx = h.x - P.x, dz = h.z - P.z, d = Math.hypot(dx, dz); inView = d < 170 && (dx * P.fx + dz * P.fz) > 0.2 * d; }
-            // in the player's view: let the head (and whatever holds it) squeeze through first; only when that did
-            // not clear the queue after a few tries is the head recycled anyway (a car vanishing beats a dead street)
+            // A visible queue keeps its solid bodies and bounded physical
+            // recovery. Waiting never blinds the cone or admits a visible swap.
+            const inView = this.inView(h);
             if (h.dlTries && h.odo - (h.dlOdo ?? h.odo) > 15) h.dlTries = 0; // it got going since the last try
-            if (inView && (h.dlTries || 0) < 3 && h.leader !== P) {
-                h.dlOdo = h.odo;
-                h.ghost = 2.5; // (its own scan / the overlap guard / a stale claim were holding it)
-                if (h.leader && typeof h.leader === 'object' && h.leader !== P) h.leader.ghost = 2.5;
-                h.dlTries = (h.dlTries || 0) + 1; this.stats.deadlockGhosts = (this.stats.deadlockGhosts || 0) + 1;
-                for (const s of seen) s.still = Math.min(s.still, 12);
-                continue;
-            }
-            if (h.inactive || (inView && h.leader === P)) { for (const s of seen) s.still = Math.min(s.still, 12); continue; }
-            if (!(this.large && this.relocate(h, 300, this.bubble, true))) this.respawn(h);
+            if (h.inactive || inView) continue;
+            if (!(this.large && this.relocate(h, 300, this.bubble, true)) && !this.respawn(h)) continue;
             h.still = 0; h.dlTries = 0; this.stats.deadlocks = (this.stats.deadlocks || 0) + 1;
             for (const s of seen) s.still = Math.min(s.still, 10);
         }

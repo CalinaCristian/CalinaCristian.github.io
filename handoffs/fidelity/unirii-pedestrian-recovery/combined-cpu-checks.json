@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-11-09T01:12:37.349427+00:00",
-  "testedRuntimeSha256": "bfb4512040aa71f0352af131119d2cc3256f27f3b8bfe9419fe249a0ec306d7a",
+  "recordedAt": "2026-11-09T01:34:45.371303+00:00",
+  "testedRuntimeSha256": "be82654a6eb7877dd052a03560391520148fff5c3d5264c851b0963577d5306f",
   "checks": [
     {
       "command": "node --input-type=module --check < game/src/traffic.js",
@@ -33,6 +33,10 @@
     },
     {
       "command": "node game/dev/normal-guard-tolerance.test.mjs --strict-source=/workspace/reality-pass/unirii-pedestrian-recovery/source-96ad697",
+      "result": "pass"
+    },
+    {
+      "command": "node game/dev/solid-vehicle-sensing.test.mjs --baseline=/workspace/reality-pass/unirii-pedestrian-recovery/source-4a90b00",
       "result": "pass"
     }
   ],

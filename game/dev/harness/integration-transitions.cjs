@@ -69,7 +69,7 @@ async function run(){
   if(bridgeDump&&['pipera','bellevue','seatac'].includes(district)&&!result.bridgeDumps?.[district]){
    const targets=bridgeTargets?.[district]||[];if(!Array.isArray(targets))throw Error('Invalid bridge target records for '+district);
    const dump=await page.evaluate(bridgeDump,targets),file=out.replace(/\.json$/,'.bridge-'+district+'.json');
-   fs.writeFileSync(file,JSON.stringify(dump,null,2));result.bridgeDumps||={};result.bridgeDumps[district]={file,recomputedStatsMatchNative:dump.recomputedStatsMatchNative,unresolvedPairs:dump.unresolvedPairs.length,requestedPairs:dump.requestedPairs.length,blockedRequestedPairs:dump.requestedPairs.filter(p=>p.productionBodyQueries.some(q=>q.blocked)).length};
+   fs.writeFileSync(file,JSON.stringify(dump,null,2));result.bridgeDumps||={};result.bridgeDumps[district]={file,recomputedStatsMatchNative:dump.recomputedStatsMatchNative,unresolvedPairs:dump.unresolvedPairs.length,requestedPairs:dump.requestedPairs.length,blockedRequestedPairs:dump.requestedPairs.filter(p=>p.productionBodyQueries.some(q=>q.blocked)).length,missingSourcePairs:dump.requestedPairs.filter(p=>!(p.upper.core.length||p.upper.scenery.length)||!(p.lower.core.length||p.lower.scenery.length)).length};
    if(dump.requestedPairs.length!==targets.length)throw Error('Native bridge dump lost historical target records for '+district);
    if(!dump.recomputedStatsMatchNative)throw Error('Read-only bridge profile dump differs from the actual native world');
   }

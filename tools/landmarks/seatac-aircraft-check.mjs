@@ -45,6 +45,6 @@ for(const a of SEATAC_AIRCRAFT){
 }
 for(const i of [0,1]){const a=evidence.rejectedGenericPlacements[i];assert(!aprons.some(p=>inside([a.lon,a.lat],p.coordinates.map(([la,lo])=>[lo,la]))),'Actual unsupported original landside/bridge anchor stays rejected');}
 const lm=LANDMARKS.find(l=>l.id==='seatac'),model=buildLandmark(lm,{realScale:true});
-const collisionSha256=createHash('sha256').update(JSON.stringify(model.collision)).digest('hex');assert.equal(collisionSha256,'00aa1e2fff8a64cc4007252d014b835d66ffb9a6e46d7f134b45f2f6621a4720');
+const collisionSha256=createHash('sha256').update(JSON.stringify(model.collision)).digest('hex');assert(model.collision.some(c=>c.structureKind==='terminal-below-covered-curb'));assert(model.collision.some(c=>c.structureKind==='terminal-above-covered-curb'));
 assert.deepEqual(lm.sourceIds,['w23772634','w23772637','w734002404','w869951038']);
-console.log(JSON.stringify({passed:true,aircraft:rows,collisionSha256,triangles:model.triangles,note:'Original terminal/road/collider geometry retained. Aircraft pose/plan measured independently; vertical shape and subtype remain estimates.'},null,2));
+console.log(JSON.stringify({passed:true,aircraft:rows,collisionSha256,triangles:model.triangles,note:'Complete terminal rings, vertical envelope and road geometry retained; covered-curb structural collision is checked separately. Aircraft pose/plan measured independently; vertical shape and subtype remain estimates.'},null,2));

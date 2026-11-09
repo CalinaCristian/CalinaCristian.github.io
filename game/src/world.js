@@ -3228,6 +3228,10 @@ export async function buildWorld(city, renderer, opts = {}) {
             });
             for (const cb of res.collision || []) {
                 const baseY = res.mesh.position.y || 0.12, bands = { h: cb.h === undefined ? 20 : cb.h + baseY };
+                // Explicit structural bands use the complete native body height.
+                // Legacy authored colliders have no minH and retain their exact bands.
+                if (cb.minH !== undefined) bands.minH = cb.minH + baseY;
+                if (cb.structureKind) { bands.structureKind = cb.structureKind; bands.sourceId = cb.sourceId; }
                 if (cb.y0 !== undefined) bands.y0 = cb.y0 + baseY;
                 if (cb.y1 !== undefined) bands.y1 = cb.y1 + baseY;
                 if (cb.poly?.length >= 3) {

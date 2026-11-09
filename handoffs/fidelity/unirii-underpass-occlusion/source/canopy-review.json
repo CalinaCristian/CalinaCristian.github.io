@@ -1,0 +1,441 @@
+{
+  "schemaVersion": 1,
+  "id": "unirii-mol-coposu-source-canopy-cover",
+  "classification": "reviewed-source-fuel-canopy-covered-road",
+  "sourceRoadId": "w79870041",
+  "sourceCanopyId": "w670595374",
+  "sourceXmlSha256": "85df20eded36f4d37dd0558762385fd6496b0608e5ebf7889c8db1eafd8a9f67",
+  "evidence": [
+    "https://www.openstreetmap.org/way/79870041",
+    "https://www.openstreetmap.org/way/670595374",
+    "https://www.openstreetmap.org/way/668563018",
+    "https://www.openstreetmap.org/way/668563017",
+    "https://www.openstreetmap.org/way/1478497247",
+    "https://www.openstreetmap.org/way/982816382"
+  ],
+  "sourceWays": [
+    {
+      "sourceId": "w79870041",
+      "nodeIds": [
+        6260825651,
+        932331515,
+        932331520,
+        13563618634
+      ],
+      "wgs84": [
+        [
+          44.4316382,
+          26.1108283
+        ],
+        [
+          44.4316934,
+          26.1109203
+        ],
+        [
+          44.4317178,
+          26.11092
+        ],
+        [
+          44.4317339,
+          26.1109125
+        ]
+      ],
+      "projected": [
+        [
+          145.34018658936134,
+          -215.39604240055533
+        ],
+        [
+          152.6537003267279,
+          -221.53052880038626
+        ],
+        [
+          152.62985191237027,
+          -224.24214960048891
+        ],
+        [
+          152.03364155343024,
+          -226.03137480007769
+        ]
+      ],
+      "tags": {
+        "covered": "yes",
+        "highway": "service",
+        "layer": "-1",
+        "lit": "yes",
+        "maxheight": "4.25",
+        "maxspeed": "RO:urban",
+        "oneway": "yes",
+        "service": "driveway",
+        "tunnel": "yes"
+      },
+      "nodeTags": {}
+    },
+    {
+      "sourceId": "w668563018",
+      "nodeIds": [
+        9088160162,
+        932331503,
+        13563618633,
+        932331504,
+        6260825651
+      ],
+      "wgs84": [
+        [
+          44.4317588,
+          26.1105602
+        ],
+        [
+          44.4316546,
+          26.110719
+        ],
+        [
+          44.4316458,
+          26.1107471
+        ],
+        [
+          44.431639,
+          26.1107808
+        ],
+        [
+          44.4316382,
+          26.1108283
+        ]
+      ],
+      "projected": [
+        [
+          124.02765362154118,
+          -228.79856160004005
+        ],
+        [
+          136.65141429023578,
+          -217.2186072005337
+        ],
+        [
+          138.88521576886845,
+          -216.24064560016012
+        ],
+        [
+          141.56418764874886,
+          -215.484948000015
+        ],
+        [
+          145.34018658936134,
+          -215.39604240055533
+        ]
+      ],
+      "tags": {
+        "highway": "service",
+        "lit": "yes",
+        "maxspeed": "RO:urban",
+        "oneway": "yes",
+        "service": "driveway"
+      },
+      "nodeTags": {}
+    },
+    {
+      "sourceId": "w668563017",
+      "nodeIds": [
+        7367150680,
+        9088160161
+      ],
+      "wgs84": [
+        [
+          44.4317972,
+          26.1108704
+        ],
+        [
+          44.4318885,
+          26.1108013
+        ]
+      ],
+      "projected": [
+        [
+          148.6869140712546,
+          -233.06603040016276
+        ],
+        [
+          143.1938292966124,
+          -243.21238200028796
+        ]
+      ],
+      "tags": {
+        "highway": "service",
+        "lit": "yes",
+        "maxspeed": "RO:urban",
+        "oneway": "yes",
+        "service": "driveway"
+      },
+      "nodeTags": {}
+    },
+    {
+      "sourceId": "w1478497247",
+      "nodeIds": [
+        13563618634,
+        7367150680
+      ],
+      "wgs84": [
+        [
+          44.4317339,
+          26.1109125
+        ],
+        [
+          44.4317972,
+          26.1108704
+        ]
+      ],
+      "projected": [
+        [
+          152.03364155343024,
+          -226.03137480007769
+        ],
+        [
+          148.6869140712546,
+          -233.06603040016276
+        ]
+      ],
+      "tags": {
+        "covered": "yes",
+        "highway": "service",
+        "lit": "yes",
+        "maxheight": "4.25",
+        "maxspeed": "RO:urban",
+        "oneway": "yes",
+        "service": "driveway"
+      },
+      "nodeTags": {}
+    },
+    {
+      "sourceId": "w982816382",
+      "nodeIds": [
+        2308464871,
+        9088160137,
+        9088160179,
+        9088160163,
+        9088160162,
+        9088160161,
+        9088160178
+      ],
+      "wgs84": [
+        [
+          44.4312138,
+          26.1095124
+        ],
+        [
+          44.4312869,
+          26.1096596
+        ],
+        [
+          44.4314365,
+          26.109961
+        ],
+        [
+          44.4316373,
+          26.1103343
+        ],
+        [
+          44.4317588,
+          26.1105602
+        ],
+        [
+          44.4318885,
+          26.1108013
+        ],
+        [
+          44.4320542,
+          26.111113
+        ]
+      ],
+      "projected": [
+        [
+          40.73309172899591,
+          -168.23162160055628
+        ],
+        [
+          52.434713709008314,
+          -176.35537080073436
+        ],
+        [
+          76.3944206705222,
+          -192.98071799997862
+        ],
+        [
+          106.06979760772577,
+          -215.29602360017614
+        ],
+        [
+          124.02765362154118,
+          -228.79856160004005
+        ],
+        [
+          143.1938292966124,
+          -243.21238200028796
+        ],
+        [
+          167.97233181811382,
+          -261.62695440070024
+        ]
+      ],
+      "tags": {
+        "destination": "C\u0103l\u0103ra\u0219i;Urziceni",
+        "highway": "secondary",
+        "lanes": "3",
+        "lit": "yes",
+        "maxspeed": "50",
+        "name": "Bulevardul Corneliu Coposu",
+        "oneway": "yes",
+        "sidewalk": "right",
+        "smoothness": "excellent",
+        "source": "survey",
+        "surface": "asphalt"
+      },
+      "nodeTags": {
+        "2308464871": {
+          "button_operated": "no",
+          "crossing": "traffic_signals",
+          "highway": "traffic_signals",
+          "traffic_signals:direction": "backward",
+          "traffic_signals:sound": "no",
+          "traffic_signals:vibration": "no"
+        }
+      }
+    }
+  ],
+  "sourceCanopy": {
+    "sourceId": "w670595374",
+    "nodeIds": [
+      932331440,
+      13563618634,
+      6260825652,
+      7367150678,
+      7367150679,
+      6279709930,
+      6279709931,
+      6260825651,
+      932331440
+    ],
+    "wgs84": [
+      [
+        44.4316689,
+        26.110795
+      ],
+      [
+        44.4317339,
+        26.1109125
+      ],
+      [
+        44.4317634,
+        26.1109658
+      ],
+      [
+        44.4316508,
+        26.1110881
+      ],
+      [
+        44.431614,
+        26.1110216
+      ],
+      [
+        44.4315615,
+        26.1110787
+      ],
+      [
+        44.4315037,
+        26.1109744
+      ],
+      [
+        44.4316382,
+        26.1108283
+      ],
+      [
+        44.4316689,
+        26.110795
+      ]
+    ],
+    "projected": [
+      [
+        142.69301259510277,
+        -218.80779480015374
+      ],
+      [
+        152.03364155343024,
+        -226.03137480007769
+      ],
+      [
+        156.27070983810142,
+        -229.30976880048658
+      ],
+      [
+        165.9929134261505,
+        -216.7963056003365
+      ],
+      [
+        160.70651490946247,
+        -212.70664800071242
+      ],
+      [
+        165.2456631095182,
+        -206.87221800043977
+      ],
+      [
+        156.9543643832076,
+        -200.44878840039078
+      ],
+      [
+        145.34018658936134,
+        -215.39604240055533
+      ]
+    ],
+    "tags": {
+      "addr:city": "Bucure\u0219ti",
+      "addr:housenumber": "14",
+      "addr:postcode": "030603",
+      "addr:street": "Bulevardul Corneliu Coposu",
+      "amenity": "fuel",
+      "brand": "MOL",
+      "brand:wikidata": "Q549181",
+      "brand:wikipedia": "en:MOL (company)",
+      "building": "roof",
+      "compressed_air": "yes",
+      "layer": "1",
+      "name": "MOL",
+      "opening_hours": "Mo-Su 00:00-24:00",
+      "operator": "MOL"
+    },
+    "nodeTags": {},
+    "closedSourceNodeOrderRetained": true
+  },
+  "groundJoins": [
+    {
+      "portalNodeId": 6260825651,
+      "anchorRoadId": "w982816382",
+      "anchorNodeId": 9088160162,
+      "ways": [
+        [
+          "w668563018",
+          1
+        ]
+      ]
+    },
+    {
+      "portalNodeId": 13563618634,
+      "anchorRoadId": "w982816382",
+      "anchorNodeId": 9088160161,
+      "ways": [
+        [
+          "w668563017",
+          -1
+        ],
+        [
+          "w1478497247",
+          -1
+        ]
+      ]
+    }
+  ],
+  "model": {
+    "estimated": true,
+    "floorY": 0,
+    "basis": "Reviewed literal open MOL canopy and exact same-source-node connections to ordinary Coposu surface carriageway. Raw layer\u22121 is relative ordering beneath layer1 canopy, not6m underground elevation. Existing4.8m canopy underside/5.2m top remain model estimates."
+  }
+}

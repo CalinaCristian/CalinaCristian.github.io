@@ -1,0 +1,1458 @@
+{
+  "source": "395071c21079fb14c25af194a9903a5ae5d87b26",
+  "worldGzipSha256": "53dd09dddce4dc934fb89eca84aa3cf32748aafb2e5c6dfab162eee2c08f0c0a",
+  "method": "Independent Float32 canonical/native source indices, actual full mesh matrices, triangle winding/material-side/depthWrite and vertical barycentric intersections; no producer support certificate used. Ray-grid samples are geometry witnesses, not a completed drive.",
+  "nativeCanopy": {
+    "sourceId": "w670595374",
+    "bottomTriangles": [
+      {
+        "objectId": 291,
+        "name": "solid 0,-1",
+        "triangle": 1175,
+        "vertices": [
+          [
+            156.95440673828125,
+            4.800000190734863,
+            -200.4488067626953
+          ],
+          [
+            145.34019470214844,
+            4.800000190734863,
+            -215.39599609375
+          ],
+          [
+            142.6929931640625,
+            4.800000190734863,
+            -218.80780029296875
+          ]
+        ],
+        "normal": [
+          0.0,
+          -0.0571948082651943,
+          0.0
+        ],
+        "side": 0,
+        "depthWrite": true,
+        "renderOrder": 0
+      },
+      {
+        "objectId": 291,
+        "name": "solid 0,-1",
+        "triangle": 1176,
+        "vertices": [
+          [
+            152.03359985351562,
+            4.800000190734863,
+            -226.03140258789062
+          ],
+          [
+            156.2707061767578,
+            4.800000190734863,
+            -229.30979919433594
+          ],
+          [
+            165.99290466308594,
+            4.800000190734863,
+            -216.79629516601562
+          ]
+        ],
+        "normal": [
+          0.0,
+          -84.89426956907846,
+          0.0
+        ],
+        "side": 0,
+        "depthWrite": true,
+        "renderOrder": 0
+      },
+      {
+        "objectId": 291,
+        "name": "solid 0,-1",
+        "triangle": 1177,
+        "vertices": [
+          [
+            160.7064971923828,
+            4.800000190734863,
+            -212.70660400390625
+          ],
+          [
+            165.24569702148438,
+            4.800000190734863,
+            -206.8721923828125
+          ],
+          [
+            156.95440673828125,
+            4.800000190734863,
+            -200.4488067626953
+          ]
+        ],
+        "normal": [
+          0.0,
+          -77.53183129127137,
+          0.0
+        ],
+        "side": 0,
+        "depthWrite": true,
+        "renderOrder": 0
+      },
+      {
+        "objectId": 291,
+        "name": "solid 0,-1",
+        "triangle": 1178,
+        "vertices": [
+          [
+            156.95440673828125,
+            4.800000190734863,
+            -200.4488067626953
+          ],
+          [
+            142.6929931640625,
+            4.800000190734863,
+            -218.80780029296875
+          ],
+          [
+            152.03359985351562,
+            4.800000190734863,
+            -226.03140258789062
+          ]
+        ],
+        "normal": [
+          0.0,
+          -274.50291760405526,
+          0.0
+        ],
+        "side": 0,
+        "depthWrite": true,
+        "renderOrder": 0
+      },
+      {
+        "objectId": 291,
+        "name": "solid 0,-1",
+        "triangle": 1179,
+        "vertices": [
+          [
+            152.03359985351562,
+            4.800000190734863,
+            -226.03140258789062
+          ],
+          [
+            165.99290466308594,
+            4.800000190734863,
+            -216.79629516601562
+          ],
+          [
+            160.7064971923828,
+            4.800000190734863,
+            -212.70660400390625
+          ]
+        ],
+        "normal": [
+          0.0,
+          -105.90978637663648,
+          0.0
+        ],
+        "side": 0,
+        "depthWrite": true,
+        "renderOrder": 0
+      },
+      {
+        "objectId": 291,
+        "name": "solid 0,-1",
+        "triangle": 1180,
+        "vertices": [
+          [
+            160.7064971923828,
+            4.800000190734863,
+            -212.70660400390625
+          ],
+          [
+            156.95440673828125,
+            4.800000190734863,
+            -200.4488067626953
+          ],
+          [
+            152.03359985351562,
+            4.800000190734863,
+            -226.03140258789062
+          ]
+        ],
+        "normal": [
+          -0.0,
+          -156.30646664346568,
+          0.0
+        ],
+        "side": 0,
+        "depthWrite": true,
+        "renderOrder": 0
+      }
+    ],
+    "actualUndersideY": [
+      4.800000190734863
+    ],
+    "actualAreaM2": 349.6012331463862,
+    "sourceAreaM2": 349.600527591645,
+    "roadSurfaceY": 0.24,
+    "legalMaxheightM": 4.25,
+    "modelPhysicalOpeningM": 4.56,
+    "dimensionConfidence": "Existing canopy5.2/4.8m dimensions are researched authoring estimates; actual emitted Float32 vertices checked independently."
+  },
+  "coposuSamples": [
+    {
+      "edgeId": 440,
+      "sourceRoad": "w229949119",
+      "u": 0.2,
+      "x": 170.59406750359247,
+      "z": -263.7251265605829,
+      "roadSurfaceY": -1.3244966697135632,
+      "driverEyeY": 0.03550333028643693,
+      "earthAbove": [
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998506,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998506,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 289,
+          "name": "junction 0,-1",
+          "triangle": 84,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 3,
+          "y": -1.4144090717737743,
+          "normalY": 108.51113208383322
+        },
+        {
+          "objectId": 287,
+          "name": "ground 0,-1",
+          "triangle": 9485,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 1,
+          "y": -1.4681177936336627,
+          "normalY": 15.370420451276004
+        }
+      ]
+    },
+    {
+      "edgeId": 440,
+      "sourceRoad": "w229949119",
+      "u": 0.5,
+      "x": 174.52667103181045,
+      "z": -266.8723848004069,
+      "roadSurfaceY": -0.9215427373527129,
+      "driverEyeY": 0.43845726264728724,
+      "earthAbove": [
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999849,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999849,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 288,
+          "name": "road 0,-1",
+          "triangle": 289,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 2,
+          "y": -0.9215551603256702,
+          "normalY": 67.82708987640217
+        }
+      ]
+    },
+    {
+      "edgeId": 440,
+      "sourceRoad": "w229949119",
+      "u": 0.8,
+      "x": 178.45927456002846,
+      "z": -270.0196430402309,
+      "roadSurfaceY": -0.5185888049918623,
+      "driverEyeY": 0.8414111950081378,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 2634,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 104.59165453910828
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998467,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 2634,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 104.59165453910828
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998467,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 288,
+          "name": "road 0,-1",
+          "triangle": 288,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 2,
+          "y": -0.5186532649137958,
+          "normalY": 67.80311426054686
+        }
+      ]
+    },
+    {
+      "edgeId": 441,
+      "sourceRoad": "w229949119",
+      "u": 0.2,
+      "x": 182.72814073071686,
+      "z": -273.43361808017113,
+      "roadSurfaceY": -0.15196228006770307,
+      "driverEyeY": 1.208037719932297,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 2622,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 127.8342040143907
+        },
+        {
+          "objectId": 288,
+          "name": "road 0,-1",
+          "triangle": 291,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 2,
+          "y": -0.15195198016842962,
+          "normalY": 42.33316608564928
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998445,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 2622,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 127.8342040143907
+        },
+        {
+          "objectId": 288,
+          "name": "road 0,-1",
+          "triangle": 291,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 2,
+          "y": -0.15195198016842962,
+          "normalY": 42.33316608564928
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998445,
+          "normalY": 3820413600.0
+        }
+      ]
+    },
+    {
+      "edgeId": 441,
+      "sourceRoad": "w229949119",
+      "u": 0.5,
+      "x": 185.19883645853147,
+      "z": -275.4073224002575,
+      "roadSurfaceY": -0.004976425042314436,
+      "driverEyeY": 1.3550235749576856,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 2622,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 127.8342040143907
+        },
+        {
+          "objectId": 288,
+          "name": "road 0,-1",
+          "triangle": 290,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 2,
+          "y": -0.004976430499631368,
+          "normalY": 42.309641579166055
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998433,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 2622,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 127.8342040143907
+        },
+        {
+          "objectId": 288,
+          "name": "road 0,-1",
+          "triangle": 290,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 2,
+          "y": -0.004976430499631368,
+          "normalY": 42.309641579166055
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998433,
+          "normalY": 3820413600.0
+        }
+      ]
+    },
+    {
+      "edgeId": 441,
+      "sourceRoad": "w229949119",
+      "u": 0.8,
+      "x": 187.6695321863461,
+      "z": -277.3810267203439,
+      "roadSurfaceY": 0.14200942998307425,
+      "driverEyeY": 1.5020094299830744,
+      "earthAbove": [
+        {
+          "objectId": 289,
+          "name": "junction 0,-1",
+          "triangle": 88,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 3,
+          "y": 0.11715972107963715,
+          "normalY": 78.12297542067245
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999842,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 289,
+          "name": "junction 0,-1",
+          "triangle": 88,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 3,
+          "y": 0.11715972107963715,
+          "normalY": 78.12297542067245
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999842,
+          "normalY": 3820413600.0
+        }
+      ]
+    },
+    {
+      "edgeId": 788,
+      "sourceRoad": "w982816382",
+      "u": 0.2,
+      "x": 82.32949605796291,
+      "z": -197.44377912001812,
+      "roadSurfaceY": -0.02971114184799145,
+      "driverEyeY": 1.3302888581520087,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 214,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 139.4548799819313
+        },
+        {
+          "objectId": 289,
+          "name": "junction 0,-1",
+          "triangle": 63,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 3,
+          "y": -0.031037551815786185,
+          "normalY": 159.716399515979
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999891,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 214,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 139.4548799819313
+        },
+        {
+          "objectId": 289,
+          "name": "junction 0,-1",
+          "triangle": 63,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 3,
+          "y": -0.031037551815786185,
+          "normalY": 159.716399515979
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999891,
+          "normalY": 3820413600.0
+        }
+      ]
+    },
+    {
+      "edgeId": 788,
+      "sourceRoad": "w982816382",
+      "u": 0.5,
+      "x": 91.23210913912399,
+      "z": -204.13837080007738,
+      "roadSurfaceY": -0.4342778546199786,
+      "driverEyeY": 0.9257221453800215,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 192,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 139.4548799819313
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999887,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 192,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 139.4548799819313
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999887,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 288,
+          "name": "road 0,-1",
+          "triangle": 175,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 2,
+          "y": -0.4342778573794796,
+          "normalY": 238.99886274780147
+        },
+        {
+          "objectId": 287,
+          "name": "ground 0,-1",
+          "triangle": 4937,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 1,
+          "y": -0.5242778392880132,
+          "normalY": 250.06349622970447
+        }
+      ]
+    },
+    {
+      "edgeId": 788,
+      "sourceRoad": "w982816382",
+      "u": 0.8,
+      "x": 100.13472222028506,
+      "z": -210.83296248013664,
+      "roadSurfaceY": -0.8388445673919658,
+      "driverEyeY": 0.5211554326080343,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 164,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 34.8638761844486
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998833,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 164,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 34.8638761844486
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998833,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 289,
+          "name": "junction 0,-1",
+          "triangle": 58,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 3,
+          "y": -0.7800051462794806,
+          "normalY": 161.99610900052357
+        }
+      ]
+    },
+    {
+      "edgeId": 789,
+      "sourceRoad": "w982816382",
+      "u": 0.2,
+      "x": 109.66136881048885,
+      "z": -217.99653120014892,
+      "roadSurfaceY": -1.4680408967136247,
+      "driverEyeY": -0.1080408967136246,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 150,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 139.4555047377944
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999879,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 150,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 139.4555047377944
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999879,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 289,
+          "name": "junction 0,-1",
+          "triangle": 57,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 3,
+          "y": -1.53370298141613,
+          "normalY": 162.00214593333658
+        }
+      ]
+    },
+    {
+      "edgeId": 789,
+      "sourceRoad": "w982816382",
+      "u": 0.5,
+      "x": 115.04872561463347,
+      "z": -222.0472926001081,
+      "roadSurfaceY": -2.007268677924126,
+      "driverEyeY": -0.6472686779241259,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 135,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 116.2126949474914
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999876,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 135,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 116.2126949474914
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999876,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 288,
+          "name": "road 0,-1",
+          "triangle": 177,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 2,
+          "y": -2.0072687194492222,
+          "normalY": 80.65254499274306
+        },
+        {
+          "objectId": 287,
+          "name": "ground 0,-1",
+          "triangle": 4987,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 1,
+          "y": -2.0972687077560836,
+          "normalY": 84.38640163466334
+        }
+      ]
+    },
+    {
+      "edgeId": 789,
+      "sourceRoad": "w982816382",
+      "u": 0.8,
+      "x": 120.4360824187781,
+      "z": -226.09805400006726,
+      "roadSurfaceY": -2.5464964591346275,
+      "driverEyeY": -1.1864964591346274,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 121,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 139.45553072355688
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999874,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 121,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 139.45553072355688
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999874,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 289,
+          "name": "junction 0,-1",
+          "triangle": 48,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 3,
+          "y": -2.7033112230124203,
+          "normalY": 91.60813432955183
+        }
+      ]
+    },
+    {
+      "edgeId": 790,
+      "sourceRoad": "w982816382",
+      "u": 0.2,
+      "x": 127.86088875655543,
+      "z": -231.68132568008963,
+      "roadSurfaceY": -3.137361323390711,
+      "driverEyeY": -1.7773613233907108,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 110,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 104.59113400080241
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998705,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 110,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 104.59113400080241
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998705,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 289,
+          "name": "junction 0,-1",
+          "triangle": 47,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 3,
+          "y": -3.199249805447474,
+          "normalY": 161.99656578770373
+        }
+      ]
+    },
+    {
+      "edgeId": 790,
+      "sourceRoad": "w982816382",
+      "u": 0.5,
+      "x": 133.6107414590768,
+      "z": -236.005471800164,
+      "roadSurfaceY": -3.484430838564335,
+      "driverEyeY": -2.1244308385643347,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 81,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 58.10645164549351
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999868,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 81,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 58.10645164549351
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999868,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 288,
+          "name": "road 0,-1",
+          "triangle": 179,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 2,
+          "y": -3.484430849323788,
+          "normalY": 96.99761341884732
+        },
+        {
+          "objectId": 287,
+          "name": "ground 0,-1",
+          "triangle": 5005,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 1,
+          "y": -3.5744307953321335,
+          "normalY": 101.48816087516025
+        }
+      ]
+    },
+    {
+      "edgeId": 790,
+      "sourceRoad": "w982816382",
+      "u": 0.8,
+      "x": 139.36059416159816,
+      "z": -240.32961792023838,
+      "roadSurfaceY": -3.831500353737959,
+      "driverEyeY": -2.4715003537379587,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 68,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 46.48494267021306
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999865,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 68,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 46.48494267021306
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999865,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 289,
+          "name": "junction 0,-1",
+          "triangle": 46,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 3,
+          "y": -3.8170822672019193,
+          "normalY": 161.55885073379613
+        }
+      ]
+    },
+    {
+      "edgeId": 791,
+      "sourceRoad": "w982816382",
+      "u": 0.2,
+      "x": 148.1495298009127,
+      "z": -246.8952964803704,
+      "roadSurfaceY": -3.5689305493404597,
+      "driverEyeY": -2.20893054934046,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 43,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 197.56107131252065
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999861,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 43,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 197.56107131252065
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999861,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 289,
+          "name": "junction 0,-1",
+          "triangle": 45,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 3,
+          "y": -3.4839010608300494,
+          "normalY": 162.22324264538474
+        }
+      ]
+    },
+    {
+      "edgeId": 791,
+      "sourceRoad": "w982816382",
+      "u": 0.5,
+      "x": 155.5830805573631,
+      "z": -252.4196682004941,
+      "roadSurfaceY": -2.828006327570586,
+      "driverEyeY": -1.468006327570586,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 2698,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 151.07675348967314
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999858,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 2698,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 151.07675348967314
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.2999999999999858,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 288,
+          "name": "road 0,-1",
+          "triangle": 371,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 2,
+          "y": -2.8280063002434415,
+          "normalY": 171.41603931272402
+        },
+        {
+          "objectId": 287,
+          "name": "ground 0,-1",
+          "triangle": 11007,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 1,
+          "y": -2.918006318864345,
+          "normalY": 179.35213796561584
+        }
+      ]
+    },
+    {
+      "edgeId": 791,
+      "sourceRoad": "w982816382",
+      "u": 0.8,
+      "x": 163.01663131381355,
+      "z": -257.9440399206178,
+      "roadSurfaceY": -2.0870821058007123,
+      "driverEyeY": -0.7270821058007122,
+      "earthAbove": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 2685,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 58.10650361701846
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998544,
+          "normalY": 3820413600.0
+        }
+      ],
+      "frontFacingCeilingAbove": [],
+      "allVerticalFaces": [
+        {
+          "objectId": 283,
+          "name": "grass 0,-1",
+          "triangle": 2685,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -19.2,
+          "y": 0.04899999871850014,
+          "normalY": 58.10650361701846
+        },
+        {
+          "objectId": 671,
+          "name": "ground",
+          "triangle": 0,
+          "side": 0,
+          "depthWrite": false,
+          "renderOrder": -20,
+          "y": -0.29999999999998544,
+          "normalY": 3820413600.0
+        },
+        {
+          "objectId": 289,
+          "name": "junction 0,-1",
+          "triangle": 85,
+          "side": 0,
+          "depthWrite": true,
+          "renderOrder": 3,
+          "y": -2.1028922100367793,
+          "normalY": 163.35957389557734
+        }
+      ]
+    }
+  ],
+  "bufferIntegrity": [
+    {
+      "objectId": 282,
+      "name": "area 0,-1",
+      "canonical": true,
+      "sourceTriangles": 41,
+      "localTriangles": 5,
+      "positionBytesSha256": "46338f41ef4f6635b5e3e7602f1e0e23c3b926a798719ceab0a38716a28eab55"
+    },
+    {
+      "objectId": 283,
+      "name": "grass 0,-1",
+      "canonical": true,
+      "sourceTriangles": 14492,
+      "localTriangles": 487,
+      "positionBytesSha256": "4be30819a3aeae20760e5498129461d2e1f97da198476574291440c854b5225c"
+    },
+    {
+      "objectId": 284,
+      "name": "pave 0,-1",
+      "canonical": true,
+      "sourceTriangles": 77,
+      "localTriangles": 9,
+      "positionBytesSha256": "cfaa497ee9d794d37f5fae949b7232ab13dd8049a7c9c106eae7a47f6ebd52d2"
+    },
+    {
+      "objectId": 286,
+      "name": "roofs 0,-1",
+      "canonical": true,
+      "sourceTriangles": 20669,
+      "localTriangles": 299,
+      "positionBytesSha256": "14f6e719a1301e3ba1973a39251293482da8064d42cdbd0833b5ed8a87e29b91"
+    },
+    {
+      "objectId": 287,
+      "name": "ground 0,-1",
+      "canonical": true,
+      "sourceTriangles": 18152,
+      "localTriangles": 3603,
+      "positionBytesSha256": "da4dafe366b9a2d94f4b14b4df19ffc90a34eb8aaf6fe6469c49988f74dc21a6"
+    },
+    {
+      "objectId": 288,
+      "name": "road 0,-1",
+      "canonical": true,
+      "sourceTriangles": 574,
+      "localTriangles": 174,
+      "positionBytesSha256": "241b67511b044124661b2947b32cb955b855aa320e3ac8ac14f2bb74668a71db"
+    },
+    {
+      "objectId": 289,
+      "name": "junction 0,-1",
+      "canonical": true,
+      "sourceTriangles": 151,
+      "localTriangles": 50,
+      "positionBytesSha256": "b687b41ef308fe1076106d17b763d417698c0360b52ae42071491465ca71d32e"
+    },
+    {
+      "objectId": 291,
+      "name": "solid 0,-1",
+      "canonical": true,
+      "sourceTriangles": 31844,
+      "localTriangles": 3737,
+      "positionBytesSha256": "367eeb8f58ec957b868e78926a37d2515faa2341d603e43cee94750542934c96"
+    },
+    {
+      "objectId": 671,
+      "name": "ground",
+      "canonical": false,
+      "sourceTriangles": 2,
+      "localTriangles": 2,
+      "positionBytesSha256": "3381735666c73fc878f4f1bc9caa17d0011cfd9b2c75a626bb2f8b587e3d2e28"
+    }
+  ],
+  "notCompleted": "Native rush journey stopped on ordinary traffic before reaching Coposu; no cockpit descent/passage acceptance."
+}

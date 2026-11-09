@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "4e707c61de9b5f5a57945725d6cdbcde0038dcdb",
+  "sourceSha": "71154bb154012f7e8b462a887a7765e4e6a39d14",
   "reviewedOn": "2026-11-09",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -1061,12 +1061,16 @@
   ],
   "sources": [
     {
+      "path": "game/dev/landmarks.html",
+      "sha256": "4637a3856f22273cfc668348e7d0764abbbafae628a66d01fdb94583854201c8"
+    },
+    {
       "path": "AGENTS.md",
       "sha256": "18cdd6e84f92fd5eba60c56878be4b9dd66a3cc77e373a7849c8bcc9ad9874ef"
     },
     {
       "path": "README.md",
-      "sha256": "c1982c1f8e2865ea1eb339044a90e66e8836fa903b20f426b2a4a2484bb4130c"
+      "sha256": "611834a7c873273a9c3f4afda8bcd040dbcaba6dc85fb5aa73a70b3253921bfd"
     },
     {
       "path": "specs/README.md",
@@ -1082,11 +1086,11 @@
     },
     {
       "path": "specs/STATUS.md",
-      "sha256": "7c484d42c3b5062a91c154df67f251eae8a061f6f53276f963389abe52549fa1"
+      "sha256": "70fba23d000875f39aac326c63fa24fdc218f440255acc3698fd03627985b820"
     },
     {
       "path": "specs/12-buildings-streetscape.md",
-      "sha256": "0ce6bdfd2cc4d2b969ef6e207165090478bcfd1f69cb429ec093c1323be4063d"
+      "sha256": "ea6bc888b1301a9e1e6968652d36505f88f17b759ecc14eb8f133683c7b0d10f"
     },
     {
       "path": "specs/13-traffic.md",
@@ -1126,7 +1130,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "5e5e2f504f83fbfcca19aa1b652c0a03206eeba937c93d1302476015e456f305"
+      "sha256": "eff89252875041058d439b8837ca34e3d1838bd07fefdbf7d9486280ede7d94e"
     },
     {
       "path": "game/src/cities.js",
@@ -1146,7 +1150,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "4f15abb4176ef5fd82ee50e64827b0ce45f313faac8913d88eefb2eeeaa9ac92"
+      "sha256": "8b7cb0125571c3563daaf325b8040ee88df844a991b0101424401917cf8c465d"
     },
     {
       "path": "game/src/render.js",
@@ -1343,6 +1347,10 @@
     {
       "path": "game/src/landmark-seatac-aircraft.js",
       "sha256": "23bd2be82947f78042858f2632a0f41a76ce30fe606fc3150d6c1ad08e51d1c5"
+    },
+    {
+      "path": "game/src/landmark-seatac-structure.js",
+      "sha256": "babdf7e471ad949ca982a737701280785005a950b18227205bd047d32e418bb5"
     },
     {
       "path": "game/src/landmark-source-identities.js",
@@ -3682,7 +3690,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/seagarage.json",
-      "sha256": "0f2de77bc3dd5916f2853a6e304c2e6fc5711c46dac65400b90cc0b34c47d3ad"
+      "sha256": "93512c3a7a23b0ce1ca6d264f24a3e5605bd14ae76708c31bd1ef422751077f1"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/sealink.json",
@@ -3690,7 +3698,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/seatac.json",
-      "sha256": "3bdfff784cf6c68749da4a8184edd36a81236f1d735d72ad82d7b067d5263698"
+      "sha256": "badc7e865dcf183ce50983e7b40e9af70a1135eb551181e31002cea962dc0c1c"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/seatower.json",
@@ -3818,7 +3826,7 @@
     },
     {
       "path": "game/overview/generate.mjs",
-      "sha256": "99c6050e8f94261253d6be6566d62ef649a446a9f0dcbc9de206427c7f98327c"
+      "sha256": "5fd28fbea496e6dcc43c9ba9759b05c0193d00e270994c590ea2b48df13ec767"
     },
     {
       "path": "game/overview/index.html",
@@ -3830,7 +3838,7 @@
     },
     {
       "path": "game/overview/overview.js",
-      "sha256": "e9f78a953a940530fbb3c0b906c6f936872dcc54fd98e598adfabf8c64001862"
+      "sha256": "d325d6780e969e9d7a945f29c00a86befe8fe09db6e6ec4950091f036bef8e4d"
     },
     {
       "path": "game/overview/perspective-viewer.js",

@@ -1,0 +1,101 @@
+{
+  "sourceCommit": "c4fd6255f928101e27874f37776ed5be8d805827",
+  "sourceTrafficSha256": "63efd8681e374baa876f8c56682ddfef59d95a00ee3fb0706cfc31867c965b9c",
+  "inputSha256": "3f65cb81e1b1839b0a2a34067949596f14607b84c4f2fcf74ed8109ef404849e",
+  "nativeMethodHashes": {
+    "obstacleGap": "24c4436edc2d815cc0b6d33b03287ccb0c5fe39da1fabe2e742fe46c59c91317",
+    "avoidVehicles": "5f99b776b68d1a0e228353b0f6f14bd31f79c44e01efb4ec8b515cb53516178e",
+    "peerClearStep": "144a5239eea50b3ab1d9cb1485e3997e82c9dca9d77885e8c52e2a0929ddf385"
+  },
+  "sampleTime": 55.99999999999938,
+  "actualRoadAxisGap": -2.662097042017208,
+  "drawnBody": {
+    "forward": 0.6653101624636666,
+    "lateral": 1.6009741260326114,
+    "signedRectangleDistance": 0.7359741260326114,
+    "physicalDiscOverlap": false
+  },
+  "returnProposal": {
+    "dt": 0.03333333333333333,
+    "distance": 0.0471059508107525,
+    "pose": {
+      "x": -635.282339498561,
+      "z": 404.04477492440765
+    },
+    "metrics": {
+      "forward": 0.6494827833061954,
+      "lateral": 1.5566067430718205,
+      "signedRectangleDistance": 0.6916067430718205,
+      "physicalDiscOverlap": false
+    }
+  },
+  "nativeAvoidVehicles": {
+    "blocked": true,
+    "result": {
+      "x": -635.3017408231517,
+      "z": 404.08769996611886
+    },
+    "pushes": 0,
+    "metrics": {
+      "forward": 0.6653101624636666,
+      "lateral": 1.6009741260326114,
+      "signedRectangleDistance": 0.7359741260326114,
+      "physicalDiscOverlap": false
+    }
+  },
+  "controls": {
+    "movingAway": {
+      "blocked": false,
+      "result": {
+        "x": -635.3211421477424,
+        "z": 404.1306250078301
+      },
+      "pushes": 0,
+      "metrics": {
+        "forward": 0.6811375416211378,
+        "lateral": 1.6453415089934027,
+        "signedRectangleDistance": 0.7803415089934027,
+        "physicalDiscOverlap": false
+      }
+    },
+    "separateTunnelLevel": {
+      "blocked": false,
+      "result": {
+        "x": -635.282339498561,
+        "z": 404.04477492440765
+      },
+      "pushes": 0,
+      "metrics": {
+        "forward": 0.6494827833061954,
+        "lateral": 1.5566067430718205,
+        "signedRectangleDistance": 0.6916067430718205,
+        "physicalDiscOverlap": false
+      }
+    },
+    "unchangedRecordedPeerPositionsClear": true,
+    "syntheticNewPeerIncursionRejected": true,
+    "smallRoadForwardVehicleMovement": {
+      "distance": 0.05,
+      "metrics": {
+        "forward": 0.6179403199827571,
+        "lateral": 1.6169771889685216,
+        "signedRectangleDistance": 0.7519771889685216,
+        "physicalDiscOverlap": false
+      }
+    }
+  },
+  "controlsPassed": [
+    "observedGapReproduced",
+    "returnRejected",
+    "returnPoseRestored",
+    "outwardAllowed",
+    "otherLevelAllowed",
+    "physicalBodyClear",
+    "marginCrossed",
+    "recordedPeersClear",
+    "genuinePeerIncursionRejected",
+    "forwardGeometrySeparates"
+  ],
+  "passed": true,
+  "scope": "Unchanged native methods run only on CPU fixture objects. Vehicle87 alone is a sufficient blocker for this recorded return proposal; proposal remains outside actual body + .3m physical pedestrian radius but enters the .7m avoid margin. The exact recorded callback proves negative road-axis gap. Selected nearest peers cannot block this proposal; all peers within physical .6m are guaranteed within the observer local radius, and XY tests return before any peer height comparison. Per-ped static callbacks and the complete runtime order of each guard were not observed. The small forward movement is a geometric control, not authorization to move an actual car or bypass prospective collision guards."
+}

@@ -213,7 +213,7 @@ export function tramSpan(edge, dir, length) {
         let e = edge, d = dir, n = forward ? (d > 0 ? e.b : e.a) : (d > 0 ? e.a : e.b), total = 0;
         for (let guard = 0; guard < 256 && total < length; guard++) {
             const choices = n.edges.filter(q => q !== e).map(q => ({ e: q, dir: forward ? (q.a === n ? 1 : -1) : (q.b === n ? 1 : -1) })).filter(r => canTravelTram(r.e, r.dir));
-            if (n.motorNode || n.tags?.railway === 'signal' || n.tags?.highway === 'traffic_signals') return total - (n.radius || 0) - 1.5;
+            if (n.motorNode || n.hasLight || n.sourceSignal || n.tags?.railway === 'signal' || n.tags?.highway === 'traffic_signals') return total - (n.radius || 0) - 1.5;
             if (choices.length !== 1) break;
             e = choices[0].e; d = choices[0].dir; total += e.len; n = forward ? (d > 0 ? e.b : e.a) : (d > 0 ? e.a : e.b);
         }

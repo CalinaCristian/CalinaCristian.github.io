@@ -1,0 +1,22 @@
+{
+  "execution.log": {
+    "sha256": "a56e9f4be8dc848e367bb01c836172418b7250bdedcdabab895cc44de3aa7817",
+    "bytes": 2190
+  },
+  "runner-executed.cjs": {
+    "sha256": "c6c726945d81fb7bda14012370fa897eb701e15d6b0bd646355c3b9dc6e1db7e",
+    "bytes": 18557
+  },
+  "report.json.gz": {
+    "sha256": "e6e0ff64262904474dba968a75cb48bbe4996c98275b0035e14d211ff045ccf2",
+    "bytes": 11073083
+  },
+  "classification.json": {
+    "sha256": "27b4c07deedf1b2341484403943ff4e39d80dafdaea9899cce4f881390e67b95",
+    "bytes": 188238
+  },
+  "unirii-day-public-approach-pre-reset-0.png": {
+    "sha256": "fcb6faf82a0357e66a0a5e3030fde6dc7819d1d74e956b1f42ce1933326fdd3e",
+    "bytes": 1749665
+  }
+}

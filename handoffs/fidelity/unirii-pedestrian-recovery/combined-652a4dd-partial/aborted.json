@@ -1,0 +1,41 @@
+{
+  "sourceCommit": "652a4dd8bf3f571f77285546385d891ec1cf378e",
+  "complete": false,
+  "abortedAt": "2026-11-09T02:12:49.776123+00:00",
+  "reason": "Root authorized stopping superseded entry-only source at saved checkpoint; actual Grid three-body regression reproduces a within-guard cross-cell rollback omission, fixed in3ca210ac. Partial diagnostic only; no final acceptance claim. SIGINT exit130 after saved night-first150m checkpoint.",
+  "rawSha256": "e7cb731ddd0ca6d4b5620ec98603a0050403efc1c0e8844ea25beb769e01724e",
+  "savedCases": [
+    {
+      "condition": {
+        "id": "day",
+        "tod": "rush",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "captures": [
+        "day-chapter-start",
+        "day-first150m",
+        "day-public-approach"
+      ],
+      "drives": [
+        "first150m",
+        "public-approach"
+      ]
+    },
+    {
+      "condition": {
+        "id": "night",
+        "tod": "night",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "captures": [
+        "night-chapter-start",
+        "night-first150m"
+      ],
+      "drives": [
+        "first150m"
+      ]
+    }
+  ]
+}

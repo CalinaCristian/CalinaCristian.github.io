@@ -1,0 +1,78 @@
+{
+  "sourceCommit": "652a4dd8bf3f571f77285546385d891ec1cf378e",
+  "complete": false,
+  "kind": "Partial superseded entry-only diagnostic; no release acceptance claim",
+  "rawSha256": "e7cb731ddd0ca6d4b5620ec98603a0050403efc1c0e8844ea25beb769e01724e",
+  "artifacts": [
+    {
+      "path": "aborted.json",
+      "bytes": 1152,
+      "sha256": "218d7a50d238d00e705daa2354d825768d5d83d25ba2f38ede323901d3f86df4"
+    },
+    {
+      "path": "admission-observer.js",
+      "bytes": 3030,
+      "sha256": "f6eb7fbab2a6ce0086ee723e78b6889c8ac87a6d739835ce0ada18fb7b1aada1"
+    },
+    {
+      "path": "execution.log",
+      "bytes": 1319,
+      "sha256": "285251b4dc492a7a76f503fa3e7a218c6ea439f97fcad1b2d1bc7f1752ba537d"
+    },
+    {
+      "path": "guard-proposal-observer.js",
+      "bytes": 1507,
+      "sha256": "7ce4079ebb06f2b735a52b0655e4961c4cee2b88761cfb5c7d9cbdabc6fabe26"
+    },
+    {
+      "path": "observe-combined-native.cjs",
+      "bytes": 18893,
+      "sha256": "c2461226e41cb2e8265d84b5a35c305e5e43374cda954e325e95bb1c87fb88f9"
+    },
+    {
+      "path": "player-context-observer.js",
+      "bytes": 3433,
+      "sha256": "35d538f2b1c813ecd66ec2f025c31313dbcc00b55aea7b443efdab54b8989899"
+    },
+    {
+      "path": "report.json.gz",
+      "bytes": 3437333,
+      "sha256": "bc97a6b1c34669279370b5a28b31005d6cf613e317c3441befd0bda67c317a21"
+    },
+    {
+      "path": "runner-executed.cjs",
+      "bytes": 18893,
+      "sha256": "c2461226e41cb2e8265d84b5a35c305e5e43374cda954e325e95bb1c87fb88f9"
+    },
+    {
+      "path": "service-pair-observer.js",
+      "bytes": 1546,
+      "sha256": "8fb6659ac7a0423ab5a5333b22be9c524cdef6fb5211c932f811daf9dc51c1f1"
+    },
+    {
+      "path": "unirii-day-chapter-start.png",
+      "bytes": 1195964,
+      "sha256": "83127f3fd70b56ab7801b81e6e8ca9723b15dee3157ab55f236d0966d78f9eda"
+    },
+    {
+      "path": "unirii-day-first150m.png",
+      "bytes": 1200164,
+      "sha256": "fe64f05e48421e9e0a4afcb733854c4ab39d35ada8bf2259f87bb822762314f8"
+    },
+    {
+      "path": "unirii-day-public-approach.png",
+      "bytes": 1199840,
+      "sha256": "f7542987a99db17026c274565733f10a7c66d6ecc1761d1dcf5372fb425edede"
+    },
+    {
+      "path": "unirii-night-chapter-start.png",
+      "bytes": 1198874,
+      "sha256": "9e1f207dee21070385ce96200d750fefa1a32f91a6313ce487de04c9a4137a8c"
+    },
+    {
+      "path": "unirii-night-first150m.png",
+      "bytes": 1221861,
+      "sha256": "b7924084971ed3e1bb4bc498b93e28cc944083ed5be538cb3c0a754264c4fb67"
+    }
+  ]
+}

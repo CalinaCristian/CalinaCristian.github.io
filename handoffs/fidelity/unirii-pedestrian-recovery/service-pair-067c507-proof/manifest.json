@@ -1,0 +1,52 @@
+{
+  "sourceCommit": "067c507db0f35614aa21c3b04a49f9b4f214d81a",
+  "rawSha256": "23cb7da6329223b6240ffe81e6271d470d9f0e5ea4f313629f27e670db8bd3d7",
+  "kind": "Complete unchanged-source negative native diagnostic, retained without issue suppression",
+  "artifacts": [
+    {
+      "path": "admission-observer.js",
+      "bytes": 3030,
+      "sha256": "f6eb7fbab2a6ce0086ee723e78b6889c8ac87a6d739835ce0ada18fb7b1aada1"
+    },
+    {
+      "path": "classification.json",
+      "bytes": 32517,
+      "sha256": "d1898efd6a63ae7945ff826083b8ebcd8759a04a603c68b6eb2eca9cfb34f8c0"
+    },
+    {
+      "path": "execution.log",
+      "bytes": 2190,
+      "sha256": "e6b972e6db436c56602dc6bd7bd3219dfb42639ef64730ae7af6117f59ede24e"
+    },
+    {
+      "path": "guard-proposal-observer.js",
+      "bytes": 1507,
+      "sha256": "7ce4079ebb06f2b735a52b0655e4961c4cee2b88761cfb5c7d9cbdabc6fabe26"
+    },
+    {
+      "path": "observe-service-pair.cjs",
+      "bytes": 19215,
+      "sha256": "4dd89a935d89cef25877cbd6a5897c2c85d4724f2b47c8c3a3aa175627f41a2f"
+    },
+    {
+      "path": "player-context-observer.js",
+      "bytes": 3433,
+      "sha256": "35d538f2b1c813ecd66ec2f025c31313dbcc00b55aea7b443efdab54b8989899"
+    },
+    {
+      "path": "report.json.gz",
+      "bytes": 10443959,
+      "sha256": "2bfc27ebf483f74129d2ba0f04c6f92a5e64d3ca3b125ae3b6fe83b9285c87cb"
+    },
+    {
+      "path": "service-pair-observer.js",
+      "bytes": 1546,
+      "sha256": "8fb6659ac7a0423ab5a5333b22be9c524cdef6fb5211c932f811daf9dc51c1f1"
+    },
+    {
+      "path": "unirii-winter-first150m-pre-reset-0.png",
+      "bytes": 1799124,
+      "sha256": "8075048cb0a299981339db73ef9dc61686d782704576e177d81eae17cabcfaca"
+    }
+  ]
+}

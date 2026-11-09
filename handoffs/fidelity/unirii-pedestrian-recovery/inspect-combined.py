@@ -34,6 +34,21 @@ def intervals(rows, predicate):
     if active:result.append(active)
     return result
 
+def service_pair(rows):
+    active=[r for r in rows if all(not v.get('inactive') for v in r['afterGuard']['actors'])]
+    deep=[];cur=None
+    for row in rows:
+        a,b=row['afterGuard']['actors'];vertical=min(a['y']+a['height'],b['y']+b['height'])-max(a['y'],b['y'])
+        contact=not a.get('inactive') and not b.get('inactive') and vertical>0 and row['afterGuard']['penetrationM']>.5
+        if contact:
+            if cur is None:cur={'firstTrafficTime':row['trafficTime'],'firstFrame':row['frame'],'steps':0,'peakPenetrationM':0}
+            cur['steps']+=1;cur['lastTrafficTime']=row['trafficTime'];cur['peakPenetrationM']=max(cur['peakPenetrationM'],row['afterGuard']['penetrationM'])
+        elif cur:cur['physicalSeconds']=cur['steps']/30;deep.append(cur);cur=None
+    if cur:cur['physicalSeconds']=cur['steps']/30;deep.append(cur)
+    return {'ids':[593,609],'physicalSteps':len(rows),'activeSteps':len(active),
+            'maxActiveAfterGuardXZPenetrationM':max((r['afterGuard']['penetrationM'] for r in active),default=None),
+            'trueDeepIntervals':deep}
+
 for d in j['districts']:
     init=d['initialAdmission'];initial=d['initialPopulation'];actors=init['actors']
     for source in j['sourceFiles']:
@@ -60,8 +75,21 @@ for d in j['districts']:
             assert pop['allVehicleIds']==initial['allVehicleIds'] and pop['pedIds']==initial['pedIds']
         for capture in case['captures']:
             assert hashlib.sha256((a.directory/capture['file']).read_bytes()).hexdigest()==capture['sha256']
+            poses=[]
+            for f in capture['frames']:
+                vs=f['vehiclePositions'];ps=f['pedestrianPositions']
+                assert sorted(v['id'] for v in vs)==initial['allVehicleIds']
+                assert sorted(p['id'] for p in ps)==sorted(initial['pedIds'])
+                assert all(all(math.isfinite(v[k]) for k in ['x','z','y','heading','speed']) for v in vs)
+                assert all(all(math.isfinite(p[k]) for k in ['x','z']) for p in ps)
+                signature=json.dumps({'vehicles':vs,'pedestrians':ps},sort_keys=True,separators=(',',':')).encode()
+                poses.append({'allVehicleIds':len(vs),'activeVehicles':sum(not v.get('inactive') for v in vs),
+                              'allPedestrianIds':len(ps),'physicalPoseSha256':hashlib.sha256(signature).hexdigest()})
+            assert capture['frames'][0]['vehiclePositions']==capture['frames'][1]['vehiclePositions']
+            assert capture['frames'][0]['pedestrianPositions']==capture['frames'][1]['pedestrianPositions']
             D['renderFrames'].append({'label':capture['label'],'file':capture['file'],'sha256':capture['sha256'],
-                                      'frames':[{'calls':f['calls'],'triangles':f['triangles'],'passes':f['passes'],'pose':f['pose'],'camera':f['camera']} for f in capture['frames']]})
+                                      'physicalPoses':poses,
+                                      'frames':[{'calls':f['calls'],'triangles':f['triangles'],'passes':f['passes'],'pose':f['pose'],'camera':f['camera'],'conditions':f['conditions'],'heavy':f['heavy']} for f in capture['frames']]})
         for drive in case['drives']:
             rows=drive['pairSteps']
             for row in rows:
@@ -76,8 +104,14 @@ for d in j['districts']:
                              'bodyDiscContactIntervals':intervals(rows,lambda r:any(v['bodyDiscPenetrationM']>1e-6 and abs((v['y'] or .24)-(r['after']['peds'][k].get('y') or .24))<2 for v in r['after']['peds'][k]['nearVehicles'])),
                              'legitimateCrossingSteps':sum(r['after']['peds'][k]['detector']['atLegitimateCrossing'] for r in rows)})
             active=[r for r in rows if not any(v.get('inactive') for v in r['after']['actors'])]
+            piles=[r['after']['crowdMetrics'] for r in rows if r['after'].get('crowdMetrics')]
             D['drives'].append({'condition':case['condition'],'phase':drive['phase'],'result':drive['drive'],'contacts':drive['contacts'],
                                 'physicalSeconds':sum(r['dt'] for r in rows),'steps':len(rows),'pedestrians':peds,'issues':drive['issues'],
+                                'crowdMetrics':{'samples':len(piles),'maxBodyOverlapPairs':max((x['bodyOverlapPairs'] for x in piles),default=0),
+                                                'maxCarriedOverlapPairs':max((x['carriedOverlapPairs'] for x in piles),default=0),
+                                                'minimumSampledPeerDistanceM':min((x['minDistanceM'] for x in piles),default=None),
+                                                'note':'Dynamic proximity metrics are retained separately from the complete previsible body/carried/static admission gate.'},
+                                'pair593609':service_pair(drive.get('servicePair',[])),
                                 'pair148461':{'activeSteps':len(active),'maxActiveXZPenetrationM':max((r['after']['overlap']['orientedXZPenetrationM'] for r in active),default=None),
                                               'intervalsAboveHalfMetre':intervals(rows,lambda r:not any(v.get('inactive') for v in r['after']['actors']) and r['after']['overlap']['orientedXZPenetrationM']>.5 and r['after']['overlap']['verticalOverlapM']>0)}})
     summary['districts'].append(D)

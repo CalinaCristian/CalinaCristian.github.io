@@ -1,0 +1,22 @@
+{
+  "execution.log": {
+    "sha256": "e6b972e6db436c56602dc6bd7bd3219dfb42639ef64730ae7af6117f59ede24e",
+    "bytes": 2190
+  },
+  "runner-executed.cjs": {
+    "sha256": "51d0e05f444a31f1bd25afdaa469632da10abb7b978e5edfcc58059f9d965e13",
+    "bytes": 18623
+  },
+  "report.json.gz": {
+    "sha256": "38f34d26804729110cb78b1b62fa17723b9eb3d17d73d69d04fd10a34179c4ce",
+    "bytes": 7603361
+  },
+  "classification.json": {
+    "sha256": "6a03dadf72e7679af7ad3c928d3880cacef294697b652ca83cd8915e00527a3f",
+    "bytes": 273818
+  },
+  "unirii-winter-first150m-pre-reset-0.png": {
+    "sha256": "69784d5fdd2ee2e1ac71d9c73ac1c5592cfadd5f327522e8dcf7304e40d102ea",
+    "bytes": 1799099
+  }
+}

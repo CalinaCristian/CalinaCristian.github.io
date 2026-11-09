@@ -1,0 +1,6 @@
+LOAD unirii
+{"district":"unirii","label":"day-chapter-start","calls":[260,260],"triangles":[1306570,1306570],"passes":{"mirror":{"calls":54,"triangles":256929},"sun-shadow":{"calls":28,"triangles":191601},"main":{"calls":160,"triangles":858022},"post-or-other":{"calls":18,"triangles":18}}}
+{"district":"unirii","label":"day-first150m","calls":[340,340],"triangles":[1581150,1581150],"passes":{"mirror":{"calls":55,"triangles":259700},"sun-shadow":{"calls":32,"triangles":206182},"main":{"calls":235,"triangles":1115250},"post-or-other":{"calls":18,"triangles":18}}}
+{"district":"unirii","label":"day-public-approach","calls":[219,219],"triangles":[721008,721008],"passes":{"mirror":{"calls":53,"triangles":141597},"sun-shadow":{"calls":25,"triangles":109135},"main":{"calls":123,"triangles":470258},"post-or-other":{"calls":18,"triangles":18}}}
+{"district":"unirii","label":"night-chapter-start","calls":[215,211],"triangles":[1051152,1051144],"passes":{"mirror":{"calls":42,"triangles":221678},"post-or-other":{"calls":21,"triangles":1014},"main":{"calls":148,"triangles":828452}}}
+{"district":"unirii","label":"night-first150m","calls":[289,290],"triangles":[1269439,1269451],"passes":{"mirror":{"calls":42,"triangles":228278},"post-or-other":{"calls":26,"triangles":1074},"main":{"calls":222,"triangles":1040099}}}

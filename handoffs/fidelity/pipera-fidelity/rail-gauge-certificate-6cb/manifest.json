@@ -1,0 +1,28 @@
+{
+  "scope": "Exact native inferred wall inside source running gauge; no width/body/aerial dependency.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3673,
+      "sha256": "810134366fdd4dfe2d977b2b8b27bc6095b46b99740f17d3844dba4c10d011c1"
+    },
+    {
+      "path": "certificate.py",
+      "bytes": 6495,
+      "sha256": "6d158271145917bc2b83fcf328b1fa03ece478f05bc18e5ec0a5196388505042"
+    },
+    {
+      "path": "inputs.json",
+      "bytes": 45623,
+      "sha256": "2fc1d9690b70cd9dce1e286b726bc813fa5ef3a882a7c8a2215815677938f28c"
+    },
+    {
+      "path": "report.json",
+      "bytes": 8919,
+      "sha256": "0fd2f6acb4d290d2f16f0ea09259c68e32142396d502f445528d97faac4ad106"
+    }
+  ],
+  "productionFilesChanged": false,
+  "browserStarted": false,
+  "referenceImageryCommitted": false
+}

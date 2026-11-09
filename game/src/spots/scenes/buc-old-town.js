@@ -24,7 +24,7 @@ import { onActivityCancel } from '../participation.js';
 import { buildOldTownNightlife, OLD_TOWN_FOCUS, nightlifeHours } from './old-town-nightlife.js';
 import { walkBoundary, markVisitExits } from '../walk-boundary.js';
 import {freddoFrontagePlan,oldTownGlazing} from './freddo-look.js';
-import {caruselBooks} from './carusel-look.js';
+import {buildCaruselInterior} from './carusel-interior.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -227,102 +227,32 @@ function buildCarusel(ctx) {
     for(const su of [-1,1])for(const sv of [-1,1])b.rod(roofPoint(su*(oc.len-.6)/2,sv*(oc.wid-.6)/2,y0+H+.02),roofPoint(su*(oc.len-.6)*.35,sv*(oc.wid-.6)*.35,y0+H+4.62),.03,'#59605a','metal',5);
     void roofP;
     // ---- interior: levels, atrium, balustrades, shelves
-    const LV = [0, 4.6, 8.4, 12.2, 16.0], stair={x:oc.cx-oc.ux*oc.len*.38,z:oc.cz-oc.uz*oc.len*.38}, stairWell=Array.from({length:32},(_,i)=>[stair.x+Math.cos(i/32*Math.PI*2)*2.45,stair.z+Math.sin(i/32*Math.PI*2)*2.45]), innerP = grow(p, -0.35), ecx = oc.cx + (fx - oc.cx) * 0.08, ecz = oc.cz + (fzz - oc.cz) * 0.08;
-    const along = Math.atan2(oc.ux, oc.uz); // long axis direction
-    const ell = (k, rxK = 1) => { const pts = []; for (let i = 0; i < 48; i++) { const a = i / 48 * Math.PI * 2, wob = 1 + 0.07 * Math.sin(a * 5 + k * 1.3), rx = (3.1 - k * 0.1) * wob * rxK, rz = (8.2 - k * 0.35) * wob * rxK; const lx = Math.cos(a) * rx, lz = Math.sin(a) * rz; pts.push([ecx + lx * Math.cos(along) + lz * Math.sin(along), ecz - lx * Math.sin(along) + lz * Math.cos(along)]); } return pts; };
-    const iw = new GeoBatch(), WHITE = '#f6f5f1';
-    const shelf=caruselBooks();
-    const shelves = new GeoBatch();
-    for (let k = 0; k < LV.length; k++) {
-        const ly = y0 + LV[k];
-        if (k > 0) { // slab with the atrium hole (white, slightly self-lit so the interior reads bright)
-            const sh = new THREE.Shape(innerP.map(([a, c]) => new THREE.Vector2(a, -c))); sh.holes.push(new THREE.Path(ell(k).map(([a, c]) => new THREE.Vector2(a, -c))));sh.holes.push(new THREE.Path(stairWell.map(([a,c])=>new THREE.Vector2(a,-c))));
-            const sg = new THREE.ExtrudeGeometry(sh, { depth: 0.2, bevelEnabled: false, curveSegments: 4 }); sg.rotateX(-Math.PI / 2); sg.translate(0, ly - 0.2, 0);
-            iw.add(sg, 'paint', null, WHITE, { emissive: '#ffffff', emissiveIntensity: 0.08, roughness: 0.58 }); sg.dispose();
-            // undulating balustrade round the hole + walk surface + wall collider at this level
-            const e=ell(k),railColour=k===2?'#242a27':WHITE;
-            // Open, fine white rails instead of a metre-high solid opaque band.
-            for(let i=0;i<e.length;i++){const a=e[i],c=e[(i+1)%e.length],L=Math.hypot(c[0]-a[0],c[1]-a[1]),h0=1.03+.1*Math.sin(i/e.length*Math.PI*10+k),h1=1.03+.1*Math.sin((i+1)/e.length*Math.PI*10+k);
-                iw.rod([a[0],ly+h0,a[1]],[c[0],ly+h1,c[1]],.026,railColour,'paint',6);iw.rod([a[0],ly+.09,a[1]],[c[0],ly+.09,c[1]],.014,railColour,'paint',5);
-                const n=Math.max(1,Math.ceil(L/.23));for(let j=0;j<n;j++){const t=j/n,x=a[0]+(c[0]-a[0])*t,z=a[1]+(c[1]-a[1])*t; iw.rod([x,ly+.08,z],[x,ly+h0+(h1-h0)*t,z],.011,railColour,'paint',5);}
-                wallSeg(ctx,a[0],a[1],c[0],c[1],ly-.2,ly+1.1);
-            }
-            const holeE = ell(k);
-            g.surfaces.push({ kind: 'carusel', x: oc.cx, z: oc.cz, r: oc.len / 2 + 2, bottom: ly - 0.6, contains: (px, pz) => inPoly(px, pz, innerP) && !inPoly(px, pz, holeE) && !inPoly(px,pz,stairWell), top: () => ly });
-        }
-        // White bookcase joinery, six shelves, bindings at0.03–0.08m scale.
-        for(let i=0;i<innerP.length;i++){const [ax,az]=innerP[i],[bx,bz]=innerP[(i+1)%innerP.length],L=Math.hypot(bx-ax,bz-az);if(L<6)continue;const mx=(ax+bx)/2,mz=(az+bz)/2;if(Math.hypot(mx-fx,mz-fzz)<3)continue;
-            const a=Math.atan2(bx-ax,bz-az),ux=(bx-ax)/L,uz=(bz-az)/L,nx=-uz,nz=ux,margin=.35,w=L-margin*2,P=(u,y)=>[ax+ux*u+nx*.225,y,az+uz*u+nz*.225];
-            iw.box(mx,ly,mz,.4,3.12,L-.65,WHITE,'paint',a);
-            shelves.quad(P(margin,ly+.12),P(L-margin,ly+.12),P(L-margin,ly+2.96),P(margin,ly+2.96),'#ffffff','shelf',[0,0,w/1.4,0,w/1.4,1,0,1]);
-            for(let j=0;j<=6;j++)iw.box(mx+nx*.015,ly+.1+j*2.86/6,mz+nz*.015,.43,.035,L-.65,WHITE,'paint',a);
-            for(let u=margin;u<L-margin;u+=1.4)iw.box(ax+ux*u,ly,az+uz*u,.43,3.12,.035,WHITE,'paint',a);
-        }
-    }
-    // Slender gallery supports; their positions are reconstruction estimates.
-    for(const t of [-5.5,0,4.2])for(const side of [-1,1]){const x=oc.cx+oc.ux*t-oc.uz*side*4.45,z=oc.cz+oc.uz*t+oc.ux*side*4.45;
-        iw.cyl(x,y0,z,.2,16.1,WHITE,'paint',16);iw.cyl(x,y0,z,.23,.18,WHITE,'paint',16);for(const h of LV.slice(1)){iw.cyl(x,y0+h-.35,z,.24,.2,WHITE,'paint',16);iw.cyl(x,y0+h-.15,z,.31,.1,WHITE,'paint',16);iw.box(x,y0+h-.05,z,.64,.08,.64,WHITE,'paint');for(let j=0;j<8;j++){const a=j*Math.PI/4;iw.sphere(x+Math.cos(a)*.235,y0+h-.22,z+Math.sin(a)*.235,.07,.1,.07,WHITE,'paint',5,4);}}ctx.circle(x,z,.23,16.1,{y:y0});}
-    // ground floor tables of books + the white stair
-    const r = rng(8);
-    const covers=['#e2d8bd','#9d7054','#5a6a63','#404f58','#8b7f73','#cfb18d'];
-    for(let i=0;i<6;i++){const t=(i+.5)/6-.5,px=oc.cx+oc.ux*t*oc.len*.6+(r()-.5),pz=oc.cz+oc.uz*t*oc.len*.6;
-        iw.box(px,y0,pz,1.3,.8,.8,'#d8d2c4','wood',along);ctx.box(px,pz,.7,.45,along,{prop:true,h:.8});
-        for(let j=0;j<6;j++){const u=(j%3-1)*.35,v=(Math.floor(j/3)-.5)*.35,x=px+u*Math.cos(along)+v*Math.sin(along),z=pz-u*Math.sin(along)+v*Math.cos(along);let top=y0+.8;
-            for(let k=0;k<2+(i+j)%3;k++){const h=.025+((i+j+k)%3)*.012,colour=covers[(i*3+j+k)%covers.length];iw.box(x,top,z,.29,.003,.21,colour,'paint',along);iw.box(x,top+.003,z,.28,h-.006,.2,'#d9d2bf','paint',along);iw.box(x,top+h-.003,z,.29,.003,.21,colour,'paint',along);top+=h;}}
-    }
-    // Continuous walkable version of the existing estimated stair. The real
-    // bookstore has stairs and galleries; this reconstruction's exact curve,
-    // tread sizes and landings are estimates, not a measured interior plan.
-    const stairPath=[];
-    for(let k=0;k<LV.length-1;k++){
-        const rise=LV[k+1]-LV[k];
-        for(let j=0;j<10;j++){
-            const a=(k+j/10)*Math.PI,x=stair.x+Math.cos(a)*1.7,z=stair.z+Math.sin(a)*1.7,top=y0+LV[k]+rise*(j+1)/10;
-            iw.box(x,top-.18,z,1.2,.18,.62,WHITE,'paint',-a);
-            g.addBox(x,z,.6,.31,-a,top-.18,top,{kind:'carusel-stair'});stairPath.push({x,z,y:top});
-            for(const rr of [1.06,2.34])if(j>0&&j<8){const p0=[stair.x+Math.cos(a)*rr,top+1,stair.z+Math.sin(a)*rr],a1=a+Math.PI/10,p1=[stair.x+Math.cos(a1)*rr,top+rise/10+1,stair.z+Math.sin(a1)*rr];iw.rod(p0,p1,.035,WHITE,'paint',6);wallSeg(ctx,p0[0],p0[2],p1[0],p1[2],top-.1,top+1);}
-        }
-        const a=(k+.9)*Math.PI,x=stair.x+Math.cos(a)*2.3,z=stair.z+Math.sin(a)*2.3,top=y0+LV[k+1];
-        iw.box(x,top-.18,z,1.5,.18,1.05,WHITE,'paint',-a);g.addBox(x,z,.75,.525,-a,top-.18,top,{kind:'carusel-landing'});
-    }
-    // walls (enter through the shop door): wall colliders round the outline with a door gap on the front
-    ringWalls(ctx, p, y0 - 1, y0 + H + 6, [{ x: fx, z: fzz, w: 2.3 }]);
-    ctx.extras.caruselFloor = () => ctx.painter.poly(innerP, '#9b8062', 'wood');
-    ctx.add(iw.build('carusel-interior', { castShadow: false }));
-    ctx.add(shelves.build('carusel-shelves', { castShadow: false, matOverrides: { shelf } }));
+    const interior=buildCaruselInterior(ctx,{poly:p,o:oc,front:{x:fx,z:fzz,nx,nz,yaw},datum:y0,height:H});
+    const floorY=interior.floorY,LV=interior.levels,ecx=oc.cx,ecz=oc.cz,along=Math.atan2(oc.ux,oc.uz),stairPath=interior.path;
+    ctx.extras.caruselDoor.y=floorY;
+    // The source outline and the existing2.3m door stay physically exact.
+    ringWalls(ctx,p,y0-1,y0+H+6,[{x:fx,z:fzz,w:2.3}]);
+    ctx.extras.caruselFloor=()=>ctx.painter.poly(p,'#9b8062','wood');
     const roofGlass=new THREE.MeshStandardMaterial({color:'#b9ced0',transparent:true,opacity:.2,roughness:.16,metalness:.06,depthWrite:false,side:THREE.DoubleSide});roofGlass.name='carusel-skylight-glass';
-    const shell=b.build('carusel', { matOverrides: { [fac.key]: fac.mat,darkglass:roofGlass } });
-    // The same estimated shell encloses the modeled interior. Its real walls
-    // and roof must remain visible from the galleries as well as the street.
-    // Exterior window art belongs on the street-facing surface. The inward
-    // face is white plaster, as in the private bookshop photo comparison.
-    const insideMaterials=new Map(),plaster=new THREE.Group();plaster.name='carusel-white-interior-walls';
+    const shell=b.build('carusel',{matOverrides:{[fac.key]:fac.mat,darkglass:roofGlass}}),insideMaterials=new Map(),plaster=new THREE.Group();plaster.name='carusel-white-interior-walls';
     const plasterMat=new THREE.MeshStandardMaterial({color:'#ece8de',side:THREE.BackSide,roughness:.88,emissive:'#fff4df',emissiveIntensity:.025});
     shell.traverse(o=>{if(!o.isMesh)return;if(o.material===fac.mat){const finish=o.geometry.clone(),pos=finish.attributes.position,normal=finish.attributes.normal;
-            // Real attached source buildings share this exact outer plane.
-            // A2.5cm inward plaster finish avoids coplanar neighbour facade art.
             for(let i=0;i<pos.count;i++)pos.setXYZ(i,pos.getX(i)-normal.getX(i)*.025,pos.getY(i),pos.getZ(i)-normal.getZ(i)*.025);finish.computeBoundingSphere();
             const wall=new THREE.Mesh(finish,plasterMat);wall.name='carusel-inward-plaster';wall.receiveShadow=true;plaster.add(wall);}
         const inward=m=>{if(m===roofGlass)return m;if(!insideMaterials.has(m)){const copy=m.clone();copy.side=m===fac.mat?THREE.FrontSide:THREE.DoubleSide;copy.userData={...m.userData,shared:true};insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);ctx.add(plaster);
-    // The inward clones own their material programs; their cached facade maps
-    // remain shared. Generic scene disposal must not discard those shared maps.
     (ctx.extras.sceneCleanups||=[]).push(()=>{for(const m of insideMaterials.values())m.dispose();});
-    // Upper-storey fixtures must not become tall outdoor lamps whose pooled
-    // ground spill shines through every gallery and burns out the shop floor.
-    // One bounded reading light supplements the self-lit estimated interior.
-    const readingLight=new THREE.PointLight('#fff1db',24,7,2);readingLight.name='carusel-reading-light';readingLight.position.set(ecx,y0+3.1,ecz);ctx.add(readingLight);
     const climb={previous:null,distance:0,ascent:0,done:false};
-    onActivityCancel(ctx, () => { climb.previous = null; climb.distance = 0; climb.ascent = 0; });
+    onActivityCancel(ctx,()=>{climb.previous=null;climb.distance=0;climb.ascent=0;});
     ctx.onUpdate((dt,s,pl)=>{if(!pl||climb.done)return;const previous=climb.previous;climb.previous={x:pl.x,y:pl.y,z:pl.z};if(!previous)return;
         const d=Math.hypot(pl.x-previous.x,pl.z-previous.z),dy=pl.y-previous.y;
         if(!s.ctl.active||d>Math.max(.8,dt*6)||Math.abs(dy)>.75){climb.distance=0;climb.ascent=0;return;}
-        if(!inPoly(pl.x,pl.z,innerP)){climb.distance=0;climb.ascent=0;return;}
+        if(!inPoly(pl.x,pl.z,p)){climb.distance=0;climb.ascent=0;return;}
         climb.distance+=d;climb.ascent+=Math.max(0,dy);
-        if(pl.y>=y0+LV.at(-1)-.15&&climb.distance>=18&&climb.ascent>=14){climb.done=true;bucActivity(s,'old-town-lipscani','carusel','📚 Carusel stair climb','Top gallery reached. Enjoy the view down into the bookshop atrium.');}
+        if(pl.y>=floorY+LV.at(-1)-.15&&climb.distance>=18&&climb.ascent>=LV.at(-1)*.86){climb.done=true;bucActivity(s,'old-town-lipscani','carusel','📚 Carusel stair climb','Top gallery reached. Enjoy the view down into the bookshop atrium.');}
     });
-    ctx.interactables.push({kind:'stairs',x:stairPath[0].x,z:stairPath[0].z,y:y0,r:2.2,tourAvailable:()=>false,label:'Walk the visible stairs to the top gallery',use:s=>s.ui.toast('📚 Walk up the stairs','Follow the visible treads and galleries to the top. Keep climbing to complete the stair walk.')});
-    ctx.extras.caruselStairs={path:stairPath,climb,well:stairWell,estimatedLayout:true};
-    return { front: { x: fx, z: fzz, nx, nz, yaw }, y0, LV, ecx, ecz, along, stair,poly:p };
+    ctx.interactables.push({kind:'stairs',x:stairPath[0].x,z:stairPath[0].z,y:floorY,r:2.2,tourAvailable:()=>false,label:'Walk the visible stairs to the top gallery',use:s=>s.ui.toast('📚 Walk up the stairs','Follow the visible treads and galleries to the top. Keep climbing to complete the stair walk.')});
+    ctx.extras.caruselStairs={path:stairPath,climb,landings:interior.landings,holes:interior.holes,gallerySurfaces:interior.gallerySurfaces,estimatedLayout:true};
+    return {front:{x:fx,z:fzz,nx,nz,yaw},y0:floorY,sourceDatum:y0,LV,ecx,ecz,along,stair:stairPath[0],poly:p,interior};
 }
 
 // ---------------------------------------------------------------------------- Hanul lui Manuc

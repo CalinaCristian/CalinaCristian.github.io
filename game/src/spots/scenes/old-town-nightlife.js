@@ -9,6 +9,7 @@ import { activityFlow, activityBlocked, onActivityCancel } from '../participatio
 import { clubMusic, CLUB_BEAT } from '../club-music.js';
 import { collide } from '../walker.js';
 import {freddoRoomDetails} from './freddo-look.js';
+import {danceViewFit} from '../dance-camera.js';
 
 export const OLD_TOWN_FOCUS = [[-12,-104],[286,-104],[286,-32],[62,-32],[62,89],[-12,89]];
 export const nightlifeHours = hour => ({ open: hour >= 10 || hour < 5, party: hour >= 22 || hour < 5, closes: '05:00' });
@@ -79,6 +80,9 @@ export function buildOldTownNightlife(ctx, venueActivities) {
         if(s?.ctl.rig)s.ctl.rig.rotation.z=0;s?.ctl.place?.();};
     const restoreMap=()=>{if(mapUpdate && lastSession?.map){lastSession.map.update=mapUpdate;mapUpdate=null;}};
     const leave=s=>{s.cancelActivities?.('club-exit');stopDance(s);room.visible=false;restoreMap();music.pause();const p=returnPose||entry;s.ctl.enter(p.x,p.z,p.heading??0,p.y);s.returnFocus?.();};
+    const frameAvatar=(s,r,position,upper)=>{if(!(document.body.classList.contains('touch')||innerWidth<=600||innerHeight<=500))return;
+        const fit=danceViewFit({width:innerWidth,height:innerHeight,panel:r.ui.getBoundingClientRect(),position:{x:spawn.x,y:floor+2.05,z:spawn.z+.8},target:slot,avatar:{...position,upper},fov:s.camera.fov});r.cameraFit=fit;
+        s.camera.position.y=fit.positionY;s.camera.lookAt(fit.look.x,fit.look.y,fit.look.z);};
     const beginDance=s=>{
         if(!room.visible || !nightlifeHours(localHour).party || Math.hypot(s.position.x-slot.x,s.position.z-slot.z)>2.1)return false;
         const sequence=['left','right','left','right','spin','left','right','spin'];
@@ -90,17 +94,18 @@ export function buildOldTownNightlife(ctx, venueActivities) {
         return flow.begin(s,{title:'Find your rhythm',help:'Follow LEFT / RIGHT / SPIN on a gold pulse. A / D / Space, or tap the matching move.',action:'← Left · A / E',cameraRide:true,
             started(_s,r){r.moves=0;r.stepT=0;r.elapsed=0;r.inputs=[];r.sequence=sequence;dancing=true;avatar.object.visible=true;
                 avatar.set(0,{x:slot.x,y:floor,z:slot.z,yaw:Math.atan2(spawn.x-slot.x,spawn.z-slot.z),phase:0,amp:0,pose:'stand',scale:1,prop:null});
-                const compact=document.body.classList.contains('touch')||s.camera.aspect<.75;
+                const compact=document.body.classList.contains('touch')||innerWidth<=600||innerHeight<=500||s.camera.aspect<.75;
                 if(compact){r.ui.querySelector('[data-help]').textContent='Match LEFT, RIGHT or SPIN on a gold pulse.';r.button.textContent='← Left';}
                 danceCamera={parent:s.camera.parent,position:s.camera.position.clone(),quaternion:s.camera.quaternion.clone()};ctx.scene.add(s.camera);s.camera.position.set(spawn.x,floor+2.05,spawn.z+.8);s.camera.lookAt(slot.x,floor+(compact?1.4:1),slot.z);
                 const nav=r.ui.querySelector('nav');for(const [move,label] of [['right',compact?'Right →':'Right → · D'],['spin',compact?'Spin ↻':'Spin ↻ · Space']]){const button=document.createElement('button');button.type='button';button.textContent=label;button.dataset.move=move;button.onclick=()=>attempt(move,r);nav.insertBefore(button,nav.querySelector('[data-leave]'));}
-                r.status.textContent='Next: LEFT · find the pulse';r.pulse=document.createElement('div');r.pulse.style.cssText='height:7px;border-radius:5px;margin:8px 0;background:#665f4e';r.ui.querySelector('nav').before(r.pulse);},
+                r.status.textContent='Next: LEFT · find the pulse';r.pulse=document.createElement('div');r.pulse.style.cssText='height:7px;border-radius:5px;margin:8px 0;background:#665f4e';r.ui.querySelector('nav').before(r.pulse);frameAvatar(s,r,{x:slot.x,y:floor,z:slot.z},1.95);},
             actioned(_s,r){attempt('left',r);},
             key(e,r){if(!['KeyA','KeyD','Space'].includes(e.code))return false;if(e.type==='keydown'&&!e.repeat)attempt(e.code==='KeyA'?'left':e.code==='KeyD'?'right':'spin',r);return true;},
             update(dt,_s,r){r.elapsed+=dt;const beat=music.beat??r.elapsed/CLUB_BEAT;r.beatPhase=beat-Math.floor(beat);const onBeat=Math.min(r.beatPhase,1-r.beatPhase)<.3;r.pulse.style.background=onBeat?'#ffd36b':'#665f4e';r.pulse.style.boxShadow=onBeat?'0 0 12px #ffd36b66':'none';
                 let t=0,side=0,yaw=Math.atan2(spawn.x-slot.x,spawn.z-slot.z);
                 if(r.busy){r.stepT+=dt;t=Math.min(1,r.stepT/(CLUB_BEAT*(r.move==='spin'?4:2)));side=r.move==='left'?-1:r.move==='right'?1:0;if(r.move==='spin')yaw+=Math.PI*2*t;}
-                avatar.set(0,{x:slot.x+side*Math.sin(t*Math.PI)*.42,y:floor+Math.max(0,Math.sin(t*Math.PI*4))*.05,z:slot.z+Math.sin(t*Math.PI)*.08,yaw,phase:t*Math.PI*4,amp:r.busy ? .95 : .08,pose:r.move==='spin'&&r.busy?'cheer':'walk',scale:1,prop:null});
+                const facing=Math.atan2(spawn.x-slot.x,spawn.z-slot.z),step=Math.sin(t*Math.PI),x=slot.x+side*step*.42*Math.cos(facing)+step*.08*Math.sin(facing),z=slot.z-side*step*.42*Math.sin(facing)+step*.08*Math.cos(facing),y=floor+Math.max(0,Math.sin(t*Math.PI*4))*.05;
+                avatar.set(0,{x,y,z,yaw,phase:t*Math.PI*4,amp:r.busy ? .95 : .08,pose:r.move==='spin'&&r.busy?'cheer':'walk',scale:1,prop:null});frameAvatar(s,r,{x,y,z},r.move==='spin'&&r.busy?2.32:1.95);
                 r.progress.value=(r.moves+t)/8;
                 for(const button of r.ui.querySelectorAll('[data-move]'))button.disabled=r.busy;
                 if(r.busy&&t>=1){r.moves++;r.busy=false;r.status.textContent=`${r.moves}/8 · next: ${(sequence[r.moves]||'finished').toUpperCase()} · gold pulse`;if(r.moves===8)flow.complete();}},

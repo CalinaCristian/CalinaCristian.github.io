@@ -1,0 +1,193 @@
+{
+  "total_count": 3,
+  "jobs": [
+    {
+      "id": 129386019919,
+      "run_id": 42684060641,
+      "workflow_name": "pages build and deployment",
+      "head_branch": "master",
+      "run_url": "https://api.github.com/repos/CalinaCristian/CalinaCristian.github.io/actions/runs/42684060641",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOEGgql88AAAAeIAH8Tw",
+      "head_sha": "bd3a657dec87469523737950c268c0950bf19645",
+      "url": "https://api.github.com/repos/CalinaCristian/CalinaCristian.github.io/actions/jobs/129386019919",
+      "html_url": "https://github.com/CalinaCristian/CalinaCristian.github.io/actions/runs/42684060641/job/129386019919",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-09T19:30:55Z",
+      "started_at": "2026-11-09T19:30:57Z",
+      "completed_at": "2026-11-09T19:32:23Z",
+      "name": "build",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-09T19:30:58Z",
+          "completed_at": "2026-11-09T19:30:59Z"
+        },
+        {
+          "name": "Pull ghcr.io/actions/jekyll-build-pages:v1.0.13",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-09T19:30:59Z",
+          "completed_at": "2026-11-09T19:31:06Z"
+        },
+        {
+          "name": "Checkout",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-09T19:31:06Z",
+          "completed_at": "2026-11-09T19:31:36Z"
+        },
+        {
+          "name": "Build with Jekyll",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-09T19:31:36Z",
+          "completed_at": "2026-11-09T19:31:59Z"
+        },
+        {
+          "name": "Upload artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-09T19:31:59Z",
+          "completed_at": "2026-11-09T19:32:21Z"
+        },
+        {
+          "name": "Post Checkout",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-09T19:32:21Z",
+          "completed_at": "2026-11-09T19:32:21Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-09T19:32:21Z",
+          "completed_at": "2026-11-09T19:32:21Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/CalinaCristian/CalinaCristian.github.io/check-runs/129386019919",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000433,
+      "runner_name": "GitHub Actions 1000000433",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 129386851081,
+      "run_id": 42684060641,
+      "workflow_name": "pages build and deployment",
+      "head_branch": "master",
+      "run_url": "https://api.github.com/repos/CalinaCristian/CalinaCristian.github.io/actions/runs/42684060641",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOEGgql88AAAAeIA6rCQ",
+      "head_sha": "bd3a657dec87469523737950c268c0950bf19645",
+      "url": "https://api.github.com/repos/CalinaCristian/CalinaCristian.github.io/actions/jobs/129386851081",
+      "html_url": "https://github.com/CalinaCristian/CalinaCristian.github.io/actions/runs/42684060641/job/129386851081",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-09T19:32:23Z",
+      "started_at": "2026-11-09T19:32:27Z",
+      "completed_at": "2026-11-09T19:42:55Z",
+      "name": "deploy",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-09T19:32:28Z",
+          "completed_at": "2026-11-09T19:32:29Z"
+        },
+        {
+          "name": "Deploy to GitHub Pages",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 2,
+          "started_at": "2026-11-09T19:32:29Z",
+          "completed_at": "2026-11-09T19:42:52Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-09T19:42:53Z",
+          "completed_at": "2026-11-09T19:42:53Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/CalinaCristian/CalinaCristian.github.io/check-runs/129386851081",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000435,
+      "runner_name": "GitHub Actions 1000000435",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 129386851166,
+      "run_id": 42684060641,
+      "workflow_name": "pages build and deployment",
+      "head_branch": "master",
+      "run_url": "https://api.github.com/repos/CalinaCristian/CalinaCristian.github.io/actions/runs/42684060641",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOEGgql88AAAAeIA6rXg",
+      "head_sha": "bd3a657dec87469523737950c268c0950bf19645",
+      "url": "https://api.github.com/repos/CalinaCristian/CalinaCristian.github.io/actions/jobs/129386851166",
+      "html_url": "https://github.com/CalinaCristian/CalinaCristian.github.io/actions/runs/42684060641/job/129386851166",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-09T19:32:23Z",
+      "started_at": "2026-11-09T19:32:26Z",
+      "completed_at": "2026-11-09T19:32:29Z",
+      "name": "report-build-status",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-09T19:32:26Z",
+          "completed_at": "2026-11-09T19:32:26Z"
+        },
+        {
+          "name": "Report Build Status",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-09T19:32:27Z",
+          "completed_at": "2026-11-09T19:32:28Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-09T19:32:28Z",
+          "completed_at": "2026-11-09T19:32:28Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/CalinaCristian/CalinaCristian.github.io/check-runs/129386851166",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000434,
+      "runner_name": "GitHub Actions 1000000434",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

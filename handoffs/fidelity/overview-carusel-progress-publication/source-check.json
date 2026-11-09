@@ -1,0 +1,20 @@
+{
+  "candidate": "bd3a657dec87469523737950c268c0950bf19645",
+  "base": "24ceb55e546862babe36af849613cff221bb357e",
+  "changedPaths": [
+    "README.md",
+    "game/overview/evidence/carusel-staging-20261109/README.md",
+    "game/overview/evidence/carusel-staging-20261109/carusel-first-gallery-day.png",
+    "game/overview/evidence/carusel-staging-20261109/carusel-public-entry-night.png",
+    "game/overview/evidence/carusel-staging-20261109/component.js",
+    "game/overview/evidence/carusel-staging-20261109/manifest.json",
+    "game/overview/evidence/carusel-staging-20261109/phone-carusel-ground-interior.png",
+    "game/overview/evidence/carusel-staging-20261109/selected-report.json",
+    "game/overview/index.html",
+    "game/overview/overview.js",
+    "specs/17-cockpit-ui.md"
+  ],
+  "runtimeDataUnchanged": true,
+  "unsigned": true,
+  "browserReportSHA256": "fea887d0cdf9639fb32fd0713451fadbbf9f256a589965334985ee20666f7601"
+}

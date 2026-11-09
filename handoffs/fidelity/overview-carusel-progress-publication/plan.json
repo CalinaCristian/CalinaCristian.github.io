@@ -1,0 +1,19 @@
+{
+  "base": "24ceb55e546862babe36af849613cff221bb357e",
+  "candidateCommit": "bd3a657dec87469523737950c268c0950bf19645",
+  "candidateTree": "020bf30b7af66b8d64eaeb07717bc50fc10c82e5",
+  "candidateRef": "refs/heads/fidelity/overview-carusel-progress-20261109",
+  "assetsFrom": "984ded5ad3f07b78e61cee1bb3bbc43a813fa914",
+  "historicalGameFrames": "19b2298de4a8cf84de383a578d22520affdfb399",
+  "newAssets": [
+    "game/overview/evidence/carusel-staging-20261109/README.md",
+    "game/overview/evidence/carusel-staging-20261109/carusel-first-gallery-day.png",
+    "game/overview/evidence/carusel-staging-20261109/carusel-public-entry-night.png",
+    "game/overview/evidence/carusel-staging-20261109/component.js",
+    "game/overview/evidence/carusel-staging-20261109/manifest.json",
+    "game/overview/evidence/carusel-staging-20261109/phone-carusel-ground-interior.png",
+    "game/overview/evidence/carusel-staging-20261109/selected-report.json"
+  ],
+  "scope": "Unsigned direct descendant of current master; overview/docs/evidence only, not deployed or accepted until candidate browser/assets/source checks pass.",
+  "draftCandidateRetained": "7abdba1629d5636571961697f506db4531a84124"
+}

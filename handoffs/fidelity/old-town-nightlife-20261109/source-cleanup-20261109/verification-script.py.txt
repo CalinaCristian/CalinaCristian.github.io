@@ -1,0 +1,74 @@
+import os,sys,json,hashlib,gzip,subprocess,datetime,pathlib,shutil,stat
+repo=pathlib.Path('/workspace/fidelity-workers/old-town-nightlife')
+base=pathlib.Path('/workspace/old-town-nightlife-evidence')
+out=repo/'handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109';out.mkdir(parents=True,exist_ok=True)
+refbase='refs/fidelity/retained-oldtown-source/'
+now=lambda:datetime.datetime.now(datetime.timezone.utc).isoformat()
+def git(*args):return subprocess.check_output(['git','-C',str(repo),*args])
+def scan(directory):
+ hits=[];unreadable=[];count=0
+ for p in pathlib.Path('/proc').iterdir():
+  if not p.name.isdigit():continue
+  try:
+   st=(p/'stat').read_text();state=st.split(') ',1)[1].split()[0]
+   if state=='Z':continue
+   count+=1;cmd=(p/'cmdline').read_bytes().split(b'\0');args=[x.decode(errors='replace')for x in cmd if x]
+   try:cwd=os.readlink(p/'cwd')
+   except (FileNotFoundError,PermissionError):cwd=None
+   exact=str(directory);matches=[i for i,x in enumerate(args)if exact in x];incwd=cwd==exact or bool(cwd and cwd.startswith(exact+'/'))
+   if matches or incwd:hits.append({'pid':int(p.name),'executable':pathlib.Path(args[0]).name if args else None,'argumentIndexes':matches,'cwd':cwd if incwd else None})
+  except FileNotFoundError:pass
+  except PermissionError:unreadable.append(int(p.name))
+ return{'UTC':now(),'nonZombieProcessesScanned':count,'unreadableCmdlinePIDs':unreadable,'matches':hits}
+receipt={'scope':'Owner-authorized narrow reclamation of verified closed Git-archive source duplicates only. Captures/reports/references/worktrees and all Git objects remain. Per-file manifests compare actual blob SHA1 and SHA256 against exact retained source commit.','startedUTC':now(),'evidenceDurableRef':'origin refs/heads/fidelity/old-town-nightlife-20261109 at '+git('ls-remote','origin','refs/heads/fidelity/old-town-nightlife-20261109').decode().split()[0],'evidenceCatalog':'handoffs/fidelity/old-town-nightlife-20261109/CURRENT.md','directories':[]}
+receiptpath=out/'RECEIPT.json'
+def save():
+ receiptpath.write_text(json.dumps(receipt,indent=2)+'\n')
+ with receiptpath.open('rb')as f:os.fsync(f.fileno())
+for directory in sorted(base.glob('source-*')):
+ record={'directory':str(directory),'startedUTC':now()};receipt['directories'].append(record);save()
+ if not directory.is_dir()or directory.is_symlink()or directory.parent!=base or (directory/'.git').exists():record['skipped']='not a plain snapshot directory';save();continue
+ prefix=directory.name.removeprefix('source-')
+ try:commit=git('rev-parse','--verify',prefix+'^{commit}').decode().strip()
+ except subprocess.CalledProcessError:record['skipped']='unresolvable source';save();continue
+ record['sourceCommit']=commit;record['retainedGitRef']=refbase+prefix
+ raw=git('ls-tree','-rz',commit);tree={}
+ for entry in raw.split(b'\0'):
+  if not entry:continue
+  meta,rel=entry.split(b'\t',1);mode,typ,blob=meta.decode().split();tree[rel.decode()]={'mode':mode,'type':typ,'blob':blob}
+ check=scan(directory);record['preVerificationProcessScan']=check
+ if check['matches']or check['unreadableCmdlinePIDs']:record['skipped']='process safety check did not prove closed';save();continue
+ records=[];mismatches=[];allocated=0;logical=0
+ for parent,dirs,names in os.walk(directory,followlinks=False):
+  allocated+=os.lstat(parent).st_blocks*512
+  for name in names:
+   p=pathlib.Path(parent)/name;rel=p.relative_to(directory).as_posix();info=os.lstat(p);allocated+=info.st_blocks*512
+   item=tree.get(rel);size=info.st_size
+   if stat.S_ISLNK(info.st_mode):data=os.readlink(p).encode();sha1=hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest();sha256=hashlib.sha256(data).hexdigest();kind='symlink'
+   elif stat.S_ISREG(info.st_mode):
+    sha1hash=hashlib.sha1(b'blob '+str(size).encode()+b'\0');sha256hash=hashlib.sha256();kind='file'
+    with p.open('rb')as f:
+     while chunk:=f.read(1024*1024):sha1hash.update(chunk);sha256hash.update(chunk)
+    sha1=sha1hash.hexdigest();sha256=sha256hash.hexdigest()
+   else:mismatches.append({'path':rel,'reason':'nonregular snapshot entry'});continue
+   logical+=size;match=bool(item and item['type']=='blob'and item['blob']==sha1 and ((item['mode']=='120000')==(kind=='symlink')))
+   row={'path':rel,'bytes':size,'allocatedBytes':info.st_blocks*512,'gitBlob':item['blob']if item else None,'actualGitBlobSHA1':sha1,'sha256':sha256,'matchesExactSource':match};records.append(row)
+   if not match:mismatches.append(row)
+  # An archive symlink would appear as a directory only with a trailing slash; refuse it.
+  for name in dirs:
+   if (pathlib.Path(parent)/name).is_symlink():mismatches.append({'path':str((pathlib.Path(parent)/name).relative_to(directory)),'reason':'directory symlink not traversed'})
+ manifest=out/(directory.name+'.jsonl.gz')
+ with gzip.open(manifest,'wt',encoding='utf-8')as f:
+  f.write(json.dumps({'sourceCommit':commit,'originalDirectory':str(directory),'retainedGitRef':record['retainedGitRef'],'verifiedUTC':now(),'scope':'Every actual snapshot file verified against exact Git blob; missing files are not presumed present. Captures remain separate.'})+'\n')
+  for row in records:f.write(json.dumps(row,separators=(',',':'))+'\n')
+ with manifest.open('rb')as f:os.fsync(f.fileno())
+ record.update({'fileCount':len(records),'logicalBytes':logical,'allocatedBytes':allocated,'manifest':str(manifest.relative_to(repo)),'manifestSHA256':hashlib.sha256(manifest.read_bytes()).hexdigest(),'mismatches':mismatches})
+ if mismatches:record['skipped']='at least one file differs from exact Git source';save();print(json.dumps({'directory':directory.name,'skipped':len(mismatches)}),flush=True);continue
+ subprocess.check_call(['git','-C',str(repo),'update-ref',record['retainedGitRef'],commit])
+ assert git('rev-parse',record['retainedGitRef']).decode().strip()==commit
+ finalscan=scan(directory);record['preDeletionProcessScan']=finalscan
+ if finalscan['matches']or finalscan['unreadableCmdlinePIDs']:record['skipped']='process closure changed before deletion';save();continue
+ record['verifiedBeforeDeletion']=True;record['deletionStartedUTC']=now();save()
+ assert directory.resolve().parent==base and directory.name.startswith('source-')
+ shutil.rmtree(directory);record['deletedUTC']=now();record['directoryAbsent']=not directory.exists();save();print(json.dumps({'directory':directory.name,'deleted':True,'files':len(records),'allocatedBytes':allocated}),flush=True)
+receipt['finishedUTC']=now();receipt['verifiedFreedAllocatedBytes']=sum(x.get('allocatedBytes',0)for x in receipt['directories']if x.get('directoryAbsent'));receipt['deletedCount']=sum(bool(x.get('directoryAbsent'))for x in receipt['directories']);save();print(json.dumps({'receipt':str(receiptpath),'freed':receipt['verifiedFreedAllocatedBytes'],'deleted':receipt['deletedCount']}),flush=True)

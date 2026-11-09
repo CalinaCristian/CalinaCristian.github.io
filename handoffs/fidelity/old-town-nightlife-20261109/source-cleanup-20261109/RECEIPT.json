@@ -1,0 +1,235 @@
+{
+  "scope": "Owner-authorized narrow reclamation of verified closed Git-archive source duplicates only. Captures/reports/references/worktrees and all Git objects remain. Per-file manifests compare actual blob SHA1 and SHA256 against exact retained source commit.",
+  "startedUTC": "2026-11-09T16:12:04.358660+00:00",
+  "evidenceDurableRef": "origin refs/heads/fidelity/old-town-nightlife-20261109 at 7f5d1310b1969998aa47185d00fd2462be77b26c",
+  "evidenceCatalog": "handoffs/fidelity/old-town-nightlife-20261109/CURRENT.md",
+  "directories": [
+    {
+      "directory": "/workspace/old-town-nightlife-evidence/source-07c0bff8",
+      "startedUTC": "2026-11-09T16:12:05.015506+00:00",
+      "sourceCommit": "07c0bff8915a8400f6778fd901c6b57e1a122fb6",
+      "retainedGitRef": "refs/fidelity/retained-oldtown-source/07c0bff8",
+      "preVerificationProcessScan": {
+        "UTC": "2026-11-09T16:12:05.318869+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "fileCount": 215,
+      "logicalBytes": 119060790,
+      "allocatedBytes": 119578624,
+      "manifest": "handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109/source-07c0bff8.jsonl.gz",
+      "manifestSHA256": "c113ee793e9e5938d6319186adc2097d2373fb8edd31916f7d9300adf9565ff1",
+      "mismatches": [],
+      "preDeletionProcessScan": {
+        "UTC": "2026-11-09T16:12:06.446681+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "verifiedBeforeDeletion": true,
+      "deletionStartedUTC": "2026-11-09T16:12:06.446702+00:00",
+      "deletedUTC": "2026-11-09T16:12:06.518473+00:00",
+      "directoryAbsent": true
+    },
+    {
+      "directory": "/workspace/old-town-nightlife-evidence/source-19b2298d",
+      "startedUTC": "2026-11-09T16:12:06.519692+00:00",
+      "sourceCommit": "19b2298de4a8cf84de383a578d22520affdfb399",
+      "retainedGitRef": "refs/fidelity/retained-oldtown-source/19b2298d",
+      "preVerificationProcessScan": {
+        "UTC": "2026-11-09T16:12:06.811424+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "fileCount": 13371,
+      "logicalBytes": 803385331,
+      "allocatedBytes": 833617920,
+      "manifest": "handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109/source-19b2298d.jsonl.gz",
+      "manifestSHA256": "3424f403a79f7c4fe3630013258b561a509f71d1aa2fc75355e98a085b09179e",
+      "mismatches": [],
+      "preDeletionProcessScan": {
+        "UTC": "2026-11-09T16:12:15.197667+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "verifiedBeforeDeletion": true,
+      "deletionStartedUTC": "2026-11-09T16:12:15.197685+00:00",
+      "deletedUTC": "2026-11-09T16:12:16.328801+00:00",
+      "directoryAbsent": true
+    },
+    {
+      "directory": "/workspace/old-town-nightlife-evidence/source-3f8f86be",
+      "startedUTC": "2026-11-09T16:12:16.330022+00:00",
+      "sourceCommit": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+      "retainedGitRef": "refs/fidelity/retained-oldtown-source/3f8f86be",
+      "preVerificationProcessScan": {
+        "UTC": "2026-11-09T16:12:16.570559+00:00",
+        "nonZombieProcessesScanned": 70,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "fileCount": 250,
+      "logicalBytes": 150472641,
+      "allocatedBytes": 151060480,
+      "manifest": "handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109/source-3f8f86be.jsonl.gz",
+      "manifestSHA256": "adb70b636e69b6fdba425be5bb81da1d9c2f276c46d5440460ba9929bfe82bd7",
+      "mismatches": [],
+      "preDeletionProcessScan": {
+        "UTC": "2026-11-09T16:12:17.896178+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "verifiedBeforeDeletion": true,
+      "deletionStartedUTC": "2026-11-09T16:12:17.896196+00:00",
+      "deletedUTC": "2026-11-09T16:12:17.997608+00:00",
+      "directoryAbsent": true
+    },
+    {
+      "directory": "/workspace/old-town-nightlife-evidence/source-44578b37",
+      "startedUTC": "2026-11-09T16:12:17.999251+00:00",
+      "sourceCommit": "44578b379347c0f60809aee1b506c30ddd2c2e8a",
+      "retainedGitRef": "refs/fidelity/retained-oldtown-source/44578b37",
+      "preVerificationProcessScan": {
+        "UTC": "2026-11-09T16:12:18.189594+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "fileCount": 215,
+      "logicalBytes": 119064693,
+      "allocatedBytes": 119582720,
+      "manifest": "handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109/source-44578b37.jsonl.gz",
+      "manifestSHA256": "29a5936b0596fa0b029a3e888aa920f7158b2fd1421cfdeac44a65dd7fefc601",
+      "mismatches": [],
+      "preDeletionProcessScan": {
+        "UTC": "2026-11-09T16:12:19.077555+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "verifiedBeforeDeletion": true,
+      "deletionStartedUTC": "2026-11-09T16:12:19.077573+00:00",
+      "deletedUTC": "2026-11-09T16:12:19.197695+00:00",
+      "directoryAbsent": true
+    },
+    {
+      "directory": "/workspace/old-town-nightlife-evidence/source-512cf403",
+      "startedUTC": "2026-11-09T16:12:19.203038+00:00",
+      "sourceCommit": "512cf403b18476c2c38718df48febbfd97c6d573",
+      "retainedGitRef": "refs/fidelity/retained-oldtown-source/512cf403",
+      "preVerificationProcessScan": {
+        "UTC": "2026-11-09T16:12:19.425460+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "fileCount": 215,
+      "logicalBytes": 119063442,
+      "allocatedBytes": 119578624,
+      "manifest": "handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109/source-512cf403.jsonl.gz",
+      "manifestSHA256": "a7bb04c46a6a2bed0ae262d2f9402b521a21c97ecf04d9c8999e3c0d9220784d",
+      "mismatches": [],
+      "preDeletionProcessScan": {
+        "UTC": "2026-11-09T16:12:20.515766+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "verifiedBeforeDeletion": true,
+      "deletionStartedUTC": "2026-11-09T16:12:20.515783+00:00",
+      "deletedUTC": "2026-11-09T16:12:20.610835+00:00",
+      "directoryAbsent": true
+    },
+    {
+      "directory": "/workspace/old-town-nightlife-evidence/source-55b608ff",
+      "startedUTC": "2026-11-09T16:12:20.612348+00:00",
+      "sourceCommit": "55b608ff7e02591833f913afbc07bf3982568526",
+      "retainedGitRef": "refs/fidelity/retained-oldtown-source/55b608ff",
+      "preVerificationProcessScan": {
+        "UTC": "2026-11-09T16:12:20.807248+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "fileCount": 215,
+      "logicalBytes": 119064236,
+      "allocatedBytes": 119582720,
+      "manifest": "handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109/source-55b608ff.jsonl.gz",
+      "manifestSHA256": "cf7fe987ecd033ab5851eb56a97cc79c4831a02c6c18866e31259b7d9319d1ad",
+      "mismatches": [],
+      "preDeletionProcessScan": {
+        "UTC": "2026-11-09T16:12:21.785922+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "verifiedBeforeDeletion": true,
+      "deletionStartedUTC": "2026-11-09T16:12:21.785939+00:00",
+      "deletedUTC": "2026-11-09T16:12:21.893329+00:00",
+      "directoryAbsent": true
+    },
+    {
+      "directory": "/workspace/old-town-nightlife-evidence/source-9ccb84bb",
+      "startedUTC": "2026-11-09T16:12:21.895157+00:00",
+      "sourceCommit": "9ccb84bb43b0f343a86a5fbe098ff8dbfeab7ce3",
+      "retainedGitRef": "refs/fidelity/retained-oldtown-source/9ccb84bb",
+      "preVerificationProcessScan": {
+        "UTC": "2026-11-09T16:12:22.162712+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "fileCount": 215,
+      "logicalBytes": 119062375,
+      "allocatedBytes": 119578624,
+      "manifest": "handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109/source-9ccb84bb.jsonl.gz",
+      "manifestSHA256": "1ca93988aa181e06bbebfe22b594b8afa11a0c80aa08e61a8939db130edcfcd8",
+      "mismatches": [],
+      "preDeletionProcessScan": {
+        "UTC": "2026-11-09T16:12:23.353666+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "verifiedBeforeDeletion": true,
+      "deletionStartedUTC": "2026-11-09T16:12:23.353685+00:00",
+      "deletedUTC": "2026-11-09T16:12:23.415272+00:00",
+      "directoryAbsent": true
+    },
+    {
+      "directory": "/workspace/old-town-nightlife-evidence/source-bbcb1c90",
+      "startedUTC": "2026-11-09T16:12:23.417402+00:00",
+      "sourceCommit": "bbcb1c90ea27a1c6c7db1f0bf8817a36503195ea",
+      "retainedGitRef": "refs/fidelity/retained-oldtown-source/bbcb1c90",
+      "preVerificationProcessScan": {
+        "UTC": "2026-11-09T16:12:23.680556+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "fileCount": 215,
+      "logicalBytes": 119060450,
+      "allocatedBytes": 119578624,
+      "manifest": "handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109/source-bbcb1c90.jsonl.gz",
+      "manifestSHA256": "36ab959593debcf6ae1e04410b4b8d9086cd86717d54c39ae12e5bae82465306",
+      "mismatches": [],
+      "preDeletionProcessScan": {
+        "UTC": "2026-11-09T16:12:24.989041+00:00",
+        "nonZombieProcessesScanned": 68,
+        "unreadableCmdlinePIDs": [],
+        "matches": []
+      },
+      "verifiedBeforeDeletion": true,
+      "deletionStartedUTC": "2026-11-09T16:12:24.989059+00:00",
+      "deletedUTC": "2026-11-09T16:12:25.025821+00:00",
+      "directoryAbsent": true
+    }
+  ],
+  "finishedUTC": "2026-11-09T16:12:25.027240+00:00",
+  "verifiedFreedAllocatedBytes": 1702158336,
+  "deletedCount": 8
+}

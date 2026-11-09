@@ -1,0 +1,329 @@
+{
+  "scope": "Manual visible asphalt edge ranges in orthorectified aerial source frame; no image pixels or reference imagery included. Source acquisition date is unknown. No width selected for production.",
+  "checkedUtc": "2026-11-09T06:00:27.191374+00:00",
+  "imagerySource": "Esri World Imagery / Maxar / Earthstar Geographics / GIS User Community",
+  "acquisitionDate": "unknown",
+  "sourceRegistrationUncertaintyM": [
+    0.5,
+    1.0
+  ],
+  "nominalSourceMetresPerPixel": 0.21315,
+  "profiles": [
+    {
+      "id": "north",
+      "railSource": "w205971103",
+      "sourceSegment": 20,
+      "nativeRoadEdge": 1150,
+      "calibration": {
+        "edgeId": 1150,
+        "centerXZ": [
+          580.5337739979433,
+          -857.8547232500304
+        ],
+        "normal": [
+          -0.5631026299622838,
+          -0.8263869723861571
+        ],
+        "along": [
+          -0.8263869723861571,
+          0.5631026299622838
+        ],
+        "metresPerOutputPixel": 0.1,
+        "originOutputPx": [
+          120,
+          200
+        ],
+        "sourceCenterInputPx": [
+          281.1534702926874,
+          286.3526981174946
+        ],
+        "bboxSizeM": [
+          24,
+          40
+        ],
+        "sourceImageMeta": {
+          "z": 19,
+          "px0": 76826880,
+          "py0": 48570368,
+          "w": 512,
+          "h": 512,
+          "bbox": [
+            44.44862,
+            26.06615,
+            44.44916,
+            26.0669
+          ],
+          "mPerPx": 0.21315044681211526,
+          "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community"
+        },
+        "image": "/workspace/reality-pass/pipera-rail-width-audit/north19.jpg"
+      },
+      "outputMetresPerPixelAfter2xDisplay": 0.05,
+      "manualReadings": [
+        {
+          "displayYPx": 200,
+          "alongRoadM": -10.0,
+          "leftEdgeXPxRange": [
+            205,
+            216
+          ],
+          "rightEdgeXPxRange": [
+            336,
+            352
+          ],
+          "leftExtentMRange": [
+            1.2000000000000002,
+            1.75
+          ],
+          "rightExtentMRange": [
+            4.800000000000001,
+            5.6000000000000005
+          ]
+        },
+        {
+          "displayYPx": 400,
+          "alongRoadM": 0.0,
+          "leftEdgeXPxRange": [
+            202,
+            216
+          ],
+          "rightEdgeXPxRange": [
+            336,
+            352
+          ],
+          "leftExtentMRange": [
+            1.2000000000000002,
+            1.9000000000000001
+          ],
+          "rightExtentMRange": [
+            4.800000000000001,
+            5.6000000000000005
+          ]
+        },
+        {
+          "displayYPx": 600,
+          "alongRoadM": 10.0,
+          "leftEdgeXPxRange": [
+            196,
+            210
+          ],
+          "rightEdgeXPxRange": [
+            338,
+            356
+          ],
+          "leftExtentMRange": [
+            1.5,
+            2.2
+          ],
+          "rightExtentMRange": [
+            4.9,
+            5.800000000000001
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fork",
+      "railSource": "w205971103",
+      "sourceSegment": 27,
+      "nativeRoadEdge": 915,
+      "calibration": {
+        "edgeId": 915,
+        "centerXZ": [
+          357.8017772927112,
+          -726.0847691834139
+        ],
+        "normal": [
+          -0.5440948919783383,
+          -0.8390236877008183
+        ],
+        "along": [
+          -0.8390236877008183,
+          0.5440948919783383
+        ],
+        "metresPerOutputPixel": 0.1,
+        "originOutputPx": [
+          120,
+          200
+        ],
+        "sourceCenterInputPx": [
+          260.3437465876341,
+          137.5913230329752
+        ],
+        "bboxSizeM": [
+          24,
+          40
+        ],
+        "sourceImageMeta": {
+          "z": 19,
+          "px0": 76825856,
+          "py0": 48571136,
+          "w": 512,
+          "h": 512,
+          "bbox": [
+            44.447435,
+            26.063352,
+            44.447975,
+            26.064107
+          ],
+          "mPerPx": 0.2131547711755731,
+          "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community"
+        },
+        "image": "/workspace/reality-pass/pipera-rail-width-audit/fork19.jpg"
+      },
+      "outputMetresPerPixelAfter2xDisplay": 0.05,
+      "manualReadings": [
+        {
+          "displayYPx": 200,
+          "alongRoadM": -10.0,
+          "leftEdgeXPxRange": [
+            172,
+            188
+          ],
+          "rightEdgeXPxRange": [
+            328,
+            346
+          ],
+          "leftExtentMRange": [
+            2.6,
+            3.4000000000000004
+          ],
+          "rightExtentMRange": [
+            4.4,
+            5.300000000000001
+          ]
+        },
+        {
+          "displayYPx": 400,
+          "alongRoadM": 0.0,
+          "leftEdgeXPxRange": [
+            174,
+            190
+          ],
+          "rightEdgeXPxRange": [
+            334,
+            352
+          ],
+          "leftExtentMRange": [
+            2.5,
+            3.3000000000000003
+          ],
+          "rightExtentMRange": [
+            4.7,
+            5.6000000000000005
+          ]
+        },
+        {
+          "displayYPx": 600,
+          "alongRoadM": 10.0,
+          "leftEdgeXPxRange": [
+            182,
+            198
+          ],
+          "rightEdgeXPxRange": [
+            344,
+            364
+          ],
+          "leftExtentMRange": [
+            2.1,
+            2.9000000000000004
+          ],
+          "rightExtentMRange": [
+            5.2,
+            6.2
+          ]
+        }
+      ]
+    }
+  ],
+  "referenceInputs": [
+    {
+      "tile": "19_300101_189731.jpg",
+      "bytes": 15127,
+      "sha256": "103d9e9744104e7b58517e0c98ee5f58a91004e8ce7f2adb8709ad171b3ce185",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189731/300101",
+      "retrievedUtc": "2026-11-09T05:53:55.787584+00:00"
+    },
+    {
+      "tile": "19_300101_189732.jpg",
+      "bytes": 15845,
+      "sha256": "f919bbe68b4cfe9c1cbfabf10e5f1e8efd61197e9e474032c4a4eb786d94a3ef",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189732/300101",
+      "retrievedUtc": "2026-11-09T05:53:56.326007+00:00"
+    },
+    {
+      "tile": "19_300102_189731.jpg",
+      "bytes": 14528,
+      "sha256": "20dfe6a4676338041079ead90190784cf51055b158b2a8dc6c7a209d82bc0dd8",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189731/300102",
+      "retrievedUtc": "2026-11-09T05:53:56.066668+00:00"
+    },
+    {
+      "tile": "19_300102_189732.jpg",
+      "bytes": 14278,
+      "sha256": "257af3c575ece02a6e0a8ca34a5ec3246412f3dcda93faee1e387995db8036ca",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189732/300102",
+      "retrievedUtc": "2026-11-09T05:53:56.483057+00:00"
+    },
+    {
+      "tile": "19_300105_189728.jpg",
+      "bytes": 13762,
+      "sha256": "9c5fe9e6afe973c21ede6afa63fd907c356219a5307bad36c6b361e4d8fb8790",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189728/300105",
+      "retrievedUtc": "2026-11-09T05:51:43.119106+00:00"
+    },
+    {
+      "tile": "19_300105_189729.jpg",
+      "bytes": 13041,
+      "sha256": "84622bfd8114c43b50eed7c7a2040cbcdf8e2c2fa2a1fda4c10999bff2ea7f87",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189729/300105",
+      "retrievedUtc": "2026-11-09T05:51:43.420872+00:00"
+    },
+    {
+      "tile": "19_300106_189728.jpg",
+      "bytes": 16667,
+      "sha256": "ef412ab591e0bc765d38914e20442761d1f7364513e97845dafc82bd1b270566",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189728/300106",
+      "retrievedUtc": "2026-11-09T05:51:43.264915+00:00"
+    },
+    {
+      "tile": "19_300106_189729.jpg",
+      "bytes": 14434,
+      "sha256": "fe9a7cd771970c1f21dabf1de0d85cd0ec5ad84dd9ca201cbd8f865380f7bfb5",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/19/189729/300106",
+      "retrievedUtc": "2026-11-09T05:51:43.541306+00:00"
+    },
+    {
+      "privatePath": "/workspace/reality-pass/grozavesti/m18.json",
+      "bytes": 218,
+      "sha256": "8d98be3e2a82b8fca6a542d5e06e816b570fc01584f502fa0dfd82245c145c03"
+    },
+    {
+      "privatePath": "/workspace/reality-pass/grozavesti/m18.jpg",
+      "bytes": 22444832,
+      "sha256": "f587d960f925d4e5d5b9e6149797aecf4bad6482617bc4c8b43a172149f8b795"
+    },
+    {
+      "privatePath": "/workspace/reality-pass/pipera-rail-width-audit/north19.json",
+      "bytes": 224,
+      "sha256": "5f49f886d1b75a45a3b414d26fad817e8d5e9b91459c079788f071ce342f6813"
+    },
+    {
+      "privatePath": "/workspace/reality-pass/pipera-rail-width-audit/north19.jpg",
+      "bytes": 74957,
+      "sha256": "6b468d1735925b2f9d783d9cd232917f438bdbb5c55215d58e7ab54446a364d3"
+    },
+    {
+      "privatePath": "/workspace/reality-pass/pipera-rail-width-audit/fork19.json",
+      "bytes": 228,
+      "sha256": "5a7e468be4ddb8b907a62693b2158988ba219b2df52a481a2dcece2c34cd3e85"
+    },
+    {
+      "privatePath": "/workspace/reality-pass/pipera-rail-width-audit/fork19.jpg",
+      "bytes": 77634,
+      "sha256": "75f4c3b55114ea9e6d6860574251d6563298349db51195b17fcf1613ed7ecb76"
+    }
+  ],
+  "z20Unavailable": true,
+  "z20Reason": "Official tiles show Map data not yet available placeholders; not measurements."
+}

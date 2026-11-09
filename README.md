@@ -101,6 +101,7 @@ that chapter of the CV.
   the gas stations mapped in OpenStreetMap (driving and fast travel in a district without one burn no fuel; no invented
   stations), mapped speed/red-light cameras, turn-by-turn navigation on the car's screen and fast travel. The car collides with its whole visible body
   (bonnet to boot).
+  Compiled tram sources retain actual way and node identities, directional/access tags, ordered route relations and stop/signal node tags alongside unchanged rendered track coordinates; source metadata and native movement validation are separate checks.
 - **Real light and weather.** Sun and moon from each place's real position and local time, street lights,
   headlights, lit windows and shops at night, live weather (Open-Meteo, with a 1991–2020 climate fallback) with rain,
   snow and fog, weather-driven visibility (snow settles on streets, roofs, lawns, sports grounds and the landmarks

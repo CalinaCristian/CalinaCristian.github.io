@@ -94,6 +94,8 @@ import { resolveParkingLayout } from '../../game/src/parking-layout.js';
 import { distPointSeg, pointInPolygon, polyArea, polyCentroid, footprintMargin, simplifyIdx, simplifyRing, Grid, assembleRings } from './geom.mjs';
 import { buildCorridor } from './corridors.mjs';
 import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
+import { compileSourceReturns } from './source-return-corridors.mjs';
+import { preserveReviewedSourceContext } from './source-return-context.mjs';
 import { LANDMARKS } from '../../game/src/landmarks.js';
 import { speciesFromOSM } from '../../game/src/trees.js';
 import { resolveResearchSource } from './research-source.mjs';
@@ -424,7 +426,11 @@ function buildCity(cityId, did = null) {
     for (const r of roads) for (const n of r.nodes) if (!pos.has(n)) pos.set(n, pt(n));
 
     // ---- corridors: keep only what the story drives (+ buffers); see corridors.mjs
-    const cor = buildCorridor(roads.filter(r => r.access.publicDrive), pos, (lat, lon) => P(lat, lon), ds ? ds.cfg : corridorConfig(cityId), log);
+    const returnFile = ds && path.join(REPO, 'game', 'research', `source-returns-${cityId}-${did}.json`);
+    const returnReview = returnFile && args['source-returns'] !== 'none' && fs.existsSync(returnFile) ? JSON.parse(fs.readFileSync(returnFile, 'utf8')) : null;
+    const sourceReturns = compileSourceReturns({ roads, pos, ways: W, relations: R, review: returnReview });
+    const corridorCfg = ds ? { ...ds.cfg, sourcePieces: sourceReturns.pieces, sourceReturnNodes: sourceReturns.routeNodes } : corridorConfig(cityId);
+    const cor = buildCorridor(roads.filter(r => r.access.publicDrive), pos, (lat, lon) => P(lat, lon), corridorCfg, log);
     const M = (x, z) => cor.margin(x, z);
     const stat = { roadsBefore: roads.length };
     const cutIds = new Map(); let cutNext = -2e9;
@@ -1987,6 +1993,20 @@ function buildCity(cityId, did = null) {
         doc.roadSourceGeometry = roadSourceGeometry;
         doc.scenerySourceGeometry = scenerySourceGeometry;
         doc.sceneryAccess = sceneryAccess;
+        const roadSourceNodeTags = {}, roadSourceNodes = new Set();
+        for (const source of [...Object.values(roadSourceGeometry), ...Object.values(scenerySourceGeometry)]) {
+            for (const id of source.nodeIds) {
+                roadSourceNodes.add(id);
+                const tags = ntags.get(id);
+                if (!tags) continue;
+                const vertical = Object.fromEntries(['ele', 'incline', 'level'].filter(k => tags[k] != null).map(k => [k, tags[k]]));
+                if (Object.keys(vertical).length) roadSourceNodeTags[id] = vertical;
+            }
+        }
+        doc.roadSourceNodeTags = roadSourceNodeTags;
+        doc.roadSourceNodeTagCoverage = { keys: ['ele', 'incline', 'level'], sourceNodeCount: roadSourceNodes.size,
+            missingSourceNodes: [...roadSourceNodes].filter(id => !N.has(id)),
+            scope: 'All literal original nodes of retained roadSourceGeometry and scenerySourceGeometry, before clipping; no values inferred.' };
     }
     if (ds && outT.length) Object.assign(doc, extractTramCrossingMetadata(doc, tramCrossingRawSnapshot));
     if (ds) doc.streetTrees = streetTrees;
@@ -1996,6 +2016,9 @@ function buildCity(cityId, did = null) {
             geometry: { pieces: cor.pieces, circles: cor.circles, polys: cor.polys },
             polys: cor.polys.map(pl => pl.map(([x, z]) => [Math.round(x * 10) / 10, Math.round(z * 10) / 10])),
             ends: [...cutIds.values()].filter(id => keptIndex.has(id)).map(id => keptIndex.get(id)) };
+        if (sourceReturns.corridors.length) doc.district.sourceReturns = { schema: 1,
+            envelope: sourceReturns.envelope, evidence: sourceReturns.evidence,
+            corridors: sourceReturns.corridors, restrictions: sourceReturns.restrictions };
         // where the player may drive: cells within 25 m of the cut (road ends get their barrier first), RLE rows
         const cell = 20, gx0 = Math.floor((minX / 10 - 150) / cell) * cell, gz0 = Math.floor((minZ / 10 - 150) / cell) * cell;
         const w = Math.ceil((maxX / 10 + 150 - gx0) / cell), h = Math.ceil((maxZ / 10 + 150 - gz0) / cell);
@@ -2006,6 +2029,14 @@ function buildCity(cityId, did = null) {
         }
         rle.push(run);
         doc.district.mask = { x0: gx0, z0: gz0, cell, w, h, rle };
+    }
+    if (ds) {
+        const contextFile = path.join(REPO, 'game', 'research', `source-context-${cityId}-${did}.json`);
+        if (fs.existsSync(contextFile)) {
+            const context = JSON.parse(fs.readFileSync(contextFile, 'utf8'));
+            const surveyFile = path.join(REPO, 'game', 'research', `trees-${cityId}-${did}.json`);
+            preserveReviewedSourceContext(doc, context, fs.existsSync(surveyFile) ? fs.readFileSync(surveyFile) : null);
+        }
     }
     const outDir = path.join(REPO, 'game', 'data');
     fs.mkdirSync(outDir, { recursive: true });

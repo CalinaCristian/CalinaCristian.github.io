@@ -1,0 +1,25 @@
+{
+  "3259668": {
+    "tags": {
+      "restriction": "only_straight_on",
+      "type": "restriction"
+    },
+    "members": [
+      {
+        "type": "way",
+        "ref": "198350034",
+        "role": "from"
+      },
+      {
+        "type": "node",
+        "ref": "933659667",
+        "role": "via"
+      },
+      {
+        "type": "way",
+        "ref": "723716274",
+        "role": "to"
+      }
+    ]
+  }
+}

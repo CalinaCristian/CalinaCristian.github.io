@@ -102,3 +102,7 @@ The shared zero-normal guard used vViewPosition in smooth MeshNormalMaterial, al
 ### 2026-11-09 — finite source backdrop bounds
 
 setScene caches only source-projection group references; fog culling preserves each effectively visible group's finite geometry/camera-domain far requirement. Hidden groups/ancestors release it and ordinary weather trimming resumes. The original4% projection hysteresis stays. Actual Renderer3D method controls cover visible/hidden/parent-hidden transitions; native public-app elevated/day/weather images and budget gates remain required.
+
+### 2026-11-09 — actual visible frame cadence diagnostics
+
+Renderer FPS/last-frame milliseconds now use monotonic elapsed intervals independently of the capped effects dt. Explicit1/60test stepping cannot manufacture60fps; a15sforeground gap reports15000ms/0.07fps. Three controls execute the actual Renderer3D.frame/_adapt orchestration with only GPU work stubbed: long stalls, unequal elapsed interval weighting, manual/explicitdt, Auto input preservation,60Hz, hidden-tab reset and no-scene calls. These are diagnostic CPU controls, not native GPU or hardware FPS. Existing effects/physics dt, Auto policy and all presets remain unchanged. New-scene diagnostic boundaries reset separately. Fresh combined native Ultra/repeated-flight gates remain open.

@@ -509,7 +509,7 @@ export class Renderer3D {
 
         // adaptive quality state
         this._ema = 16.7; this._slowT = 0; this._fastT = 0; this._settle = 2; this._dts = []; this._block = {}; this._backoff = {};
-        this._fpsAcc = 0; this._fpsN = 0;
+        this._fpsAcc = 0; this._fpsN = 0; this._lastStatsNow = null;
         this._pmrem = new THREE.PMREMGenerator(r);
         this._tmp = { v: new THREE.Vector3(), v2: new THREE.Vector3(), v3: new THREE.Vector3(), m: new THREE.Matrix4(), cam: new THREE.Vector3(), vel: new THREE.Vector3() };
         this.setQuality(opts.quality || 'auto');
@@ -582,6 +582,8 @@ export class Renderer3D {
         if (this.gtaoPass) { this.gtaoPass.scene = scene; this.gtaoPass.camera = camera; }
         else if (this.tier?.ao) this._buildPasses();
         this._settle = 2;
+        this._lastStatsNow = null;
+        this._fpsAcc = 0; this._fpsN = 0; this.stats.fps = 0; this.stats.frameMs = 0;
     }
 
     // ------------------------------------------------------------------ time of day
@@ -1364,11 +1366,15 @@ export class Renderer3D {
     }
 
     // ------------------------------------------------------------------ frame
-    /** Render one frame. dt in seconds; omit it to use an internal clock. */
+    /** Render one frame. dt advances effects; diagnostics use actual visible frame cadence. */
     frame(dt) {
         const { scene, camera } = this;
         if (!scene || !camera) return;
         const now = performance.now();
+        const visible = typeof document === 'undefined' || document.visibilityState !== 'hidden';
+        const elapsed = visible && this._lastStatsNow != null ? (now - this._lastStatsNow) / 1000 : 0;
+        this._lastStatsNow = visible ? now : null;
+        if (!visible) { this._fpsAcc = 0; this._fpsN = 0; this.stats.fps = 0; this.stats.frameMs = 0; }
         if (dt === undefined) dt = this._lastNow ? Math.min(0.1, (now - this._lastNow) / 1000) : 1 / 60;
         this._lastNow = now;
         this.time += dt;
@@ -1428,8 +1434,15 @@ export class Renderer3D {
         const info = this._renderer.info;
         this.stats.drawCalls = info.render.calls; this.stats.triangles = info.render.triangles;
         info.reset();
-        this._fpsAcc += dt; this._fpsN++;
-        if (this._fpsAcc > 0.5) { this.stats.fps = Math.round(this._fpsN / this._fpsAcc); this._fpsAcc = 0; this._fpsN = 0; }
+        if (elapsed > 0 && Number.isFinite(elapsed)) {
+            this.stats.frameMs = Math.round(elapsed * 10000) / 10;
+            this._fpsAcc += elapsed; this._fpsN++;
+            if (this._fpsAcc >= 0.5) {
+                const rate = this._fpsN / this._fpsAcc, precision = rate < 1 ? 100 : rate < 10 ? 10 : 1;
+                this.stats.fps = Math.round(rate * precision) / precision;
+                this._fpsAcc = 0; this._fpsN = 0;
+            }
+        }
         this._adapt(dt);
     }
 
@@ -1526,7 +1539,6 @@ export class Renderer3D {
         const ms = dt * 1000;
         const a = 1 - Math.exp(-dt / 0.4);
         this._ema += (ms - this._ema) * a;
-        this.stats.frameMs = Math.round(this._ema * 10) / 10;
         // display refresh estimate (10th percentile of recent intervals, clamped to 59..144 Hz)
         const d = this._dts; d.push(ms); if (d.length > 120) d.shift();
         const sorted = [...d].sort((x, y) => x - y);

@@ -10,6 +10,24 @@ const catalog=load(path.join(publicDir,'comparison-data/catalog.json'));
 const result={toolSha256:sha(fs.readFileSync(__filename)),snapshotRoot:root,snapshotSourceCommit:process.argv[4]||null,sourceInventory:inventory.sourceSha,scope:'Actual published local game images and UI; official aerial response intercepted for cache tests only. No visual parity or physical-phone claim.',districts:[],landmarks:[],spots:[],errors:[]};
 const mime={'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.jpg':'image/jpeg','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml'};
 const server=http.createServer((req,res)=>{let f;try{f=path.resolve(root,'.'+decodeURIComponent(req.url.split('?')[0]));if(!f.startsWith(root+path.sep))throw Error();if(fs.statSync(f).isDirectory())f=path.join(f,'index.html');}catch{res.writeHead(404).end();return;}fs.readFile(f,(e,b)=>{if(e){res.writeHead(404).end();return;}res.writeHead(200,{'content-type':mime[path.extname(f)]||'application/octet-stream','cache-control':'no-store'});res.end(b);});});
+function retakeAliases(manifest,file){
+ const byId=new Map();for(const item of manifest.items){assert(item.id&&!byId.has(item.id),'Missing/repeated retake ID:'+file);byId.set(item.id,item);}
+ const groups=new Set(),aliases=[];
+ for(const item of manifest.items){
+  assert.equal(item.gameSourceCommit,manifest.gameSourceCommit,'Retake source differs from collection:'+item.id);
+  if(!item.duplicateOf){groups.add(item.id);continue;}
+  const original=byId.get(item.duplicateOf);assert(original&&original!==item,'Missing/self retake alias:'+item.id);
+  assert.match(item.imageSha256||'',/^[a-f0-9]{64}$/);assert.match(item.gameSourceCommit||'',/^[a-f0-9]{40}$/);
+  assert.equal(item.imageSha256,original.imageSha256,'Alias pixels differ:'+item.id);
+  assert(Number.isFinite(Date.parse(item.capturedAt)),'Alias capture date missing:'+item.id);
+  assert.equal(item.capturedAt,original.capturedAt,'Alias dates differ:'+item.id);
+  assert.equal(item.gameSourceCommit,original.gameSourceCommit,'Alias sources differ:'+item.id);
+  for(const key of ['lat','lon','x','z','cameraBaseY','cameraY','pitch','fov','h','sourceRoadId','sourceLayer','cameraSourceEdge'])assert.deepEqual(item[key],original[key],'Alias camera differs:'+key+':'+item.id);
+  const heading=v=>Number.isFinite(v)?((v%360)+360)%360:v;assert.equal(heading(item.heading),heading(original.heading),'Alias heading differs:'+item.id);
+  groups.add(original.id);aliases.push({id:item.id,duplicateOf:original.id,imageSha256:item.imageSha256});
+ }
+ return{rawRequests:manifest.items.length,displayedPictures:groups.size,aliases};
+}
 async function main(){
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const browser=await chromium.launch({headless:true,args:['--mute-audio']});
@@ -23,9 +41,10 @@ async function main(){
   await page.goto(base+'/game/overview/',{waitUntil:'domcontentloaded'});
   try { await page.waitForFunction(()=>[...document.querySelectorAll('[data-cv="location"] option')].filter(o=>o.value).length===8&&document.querySelectorAll('#spot-evidence-viewer select option').length===24); } catch(e) { result.initial=await page.evaluate(()=>({locations:document.querySelectorAll('[data-cv="location"] option').length,spots:document.querySelectorAll('#spot-evidence-viewer select option').length,body:document.body.innerText.slice(-7000)}));await page.screenshot({path:path.join(out,'initial-failure.png')});throw e; }
   assert.equal(await page.locator('#district-comparison-cards article').count(),8);
-  const images=new Map(),reports=new Map();
+  const images=new Map(),reports=new Map(),retakeDelivery=new Map();result.retakes=[];
   result.legacyHashGaps=[];
-  function checkImage(file,hash,historical=false){const bytes=fs.readFileSync(file),actual=sha(bytes),url='/'+path.relative(root,file).split(path.sep).join('/');if(hash)assert.equal(actual,hash,file);else{assert(historical,'Current image hash missing:'+file);result.legacyHashGaps.push({path:url,observedSha256:actual,note:'Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged.'});}images.set(url,true);}
+  function checkImage(file,hash,historical=false){const bytes=fs.readFileSync(file),actual=sha(bytes),url='/'+path.relative(root,file).split(path.sep).join('/');if(hash)assert.equal(actual,hash,file);else{assert(historical,'Current image hash missing:'+file);result.legacyHashGaps.push({path:url,observedSha256:actual,note:'Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged.'});}images.set(url,true);return{url,sha256:actual};}
+  function retakeFile(file,expected){const bytes=fs.readFileSync(file),actual=sha(bytes),url='/'+path.relative(root,file).split(path.sep).join('/');if(expected)assert.equal(actual,expected,'Retake file hash:'+file);retakeDelivery.set(url,actual);return bytes;}
   for(const place of catalog.locations){
    const file=path.join(publicDir,'comparison-data',place.manifest),m=load(file),dir=path.dirname(file);
    await page.locator('[data-cv="location"]').selectOption(place.id);
@@ -45,9 +64,27 @@ async function main(){
    if(m.historicalCollections?.length)await page.locator('[data-cv="collection"]').selectOption('survey');
    const context=page.locator('#perspective-viewer > div > div > details');
    await page.waitForFunction(id=>document.querySelector('#perspective-viewer select')?.value===id,place.id);
-   const contextRefs=(m.perspectiveCollections||[]).filter(c=>c.captureType==='game-perspective-context'&&c.comparisonCompatible===false).map(c=>c.manifest);
-   if(m.streetWalk?.manifest==='street-walk/manifest.json')contextRefs.push(m.streetWalk.manifest);
-   for(const ref of contextRefs){const cf=path.resolve(dir,ref),cd=path.dirname(cf),cm=load(cf);for(const item of cm.items){for(const [key,hash]of [['image',item.sha256||item.imageSha256],['thumbnail',item.thumbnailSha256]]){if(!item[key])continue;const file=path.resolve(cd,item[key]);assert(file.startsWith(cd+path.sep),'Context asset escapes collection:'+item[key]);checkImage(file,hash);}}}
+   const contextRefs=(m.perspectiveCollections||[]).filter(c=>c.captureType==='game-perspective-context'&&c.comparisonCompatible===false).map(c=>({...c,retake:false}));
+   if(m.streetWalk?.manifest==='street-walk/manifest.json'){
+    contextRefs.unshift({manifest:m.streetWalk.manifest,retake:false});
+    const retakes=m.streetWalk.retakes||[];
+    for(const entry of [...retakes].reverse()){assert.match(entry.manifest||'',/^street-walk\/retakes\/[a-zA-Z0-9_-]+\/manifest\.json$/,'Invalid public retake manifest');contextRefs.unshift({...entry,retake:true});}
+   }
+   for(const ref of contextRefs){
+    const cf=path.resolve(dir,ref.manifest),cd=path.dirname(cf),cm=load(cf);ref.data=cm;
+    if(ref.retake){
+     assert.equal(cm.referenceImageryTracked,false,'Retake must remain game-only');assert.match(cm.gameSourceCommit||'',/^[a-f0-9]{40}$/);assert.equal(ref.gameSourceCommit,cm.gameSourceCommit,'Retake registry source differs');
+     ref.aliasAudit=retakeAliases(cm,cf);retakeFile(cf);
+     for(const key of ['captureLedger','sourceProvenance'])if(cm[key]){
+      assert.equal(typeof cm[key],'string');const file=path.resolve(cd,cm[key]);assert(file.startsWith(cd+path.sep),'Retake metadata escapes collection:'+cm[key]);
+      const record=JSON.parse(retakeFile(file,cm[key+'Sha256']));assert.equal(record.sourceCommit,cm.gameSourceCommit,'Retake metadata source differs:'+file);
+      if(key==='captureLedger'){assert.deepEqual(record.items.map(item=>item.id).sort(),cm.items.map(item=>item.id).sort(),'Raw retake requests lost');for(const item of cm.items){const raw=record.items.find(r=>r.id===item.id);assert.equal(raw.imageSha256,item.imageSha256);assert.equal(raw.capturedAt,item.capturedAt);assert.equal(raw.duplicateOf,item.duplicateOf);}}
+     }
+     const issues=ref.captureIssues||cm.captureIssues||[];if(/known-issue/.test(ref.status||cm.collectionStatus||'')){assert(issues.length,'Known-issue retake lacks issue metadata');for(const issue of issues){assert(issue.description&&issue.poseIds?.length);assert(issue.poseIds.every(id=>cm.items.some(item=>item.id===id)),'Issue references missing retake pose');}}
+     result.retakes.push({district:place.id,manifest:ref.manifest,sourceCommit:cm.gameSourceCommit,status:ref.status||cm.collectionStatus,...ref.aliasAudit});
+    }
+    for(const item of cm.items)for(const [key,hash]of [['image',item.sha256||item.imageSha256],['thumbnail',item.thumbnailSha256]]){if(!item[key])continue;const file=path.resolve(cd,item[key]);assert(file.startsWith(cd+path.sep),'Context asset escapes collection:'+item[key]);const checked=checkImage(file,hash);if(ref.retake)retakeDelivery.set(checked.url,checked.sha256);}
+   }
    const expectedContexts=contextRefs.length;
    await page.waitForFunction(n=>document.querySelectorAll('#perspective-viewer > div > div > details').length===n,expectedContexts);
    const n=await context.count(),counts=[];
@@ -55,9 +92,10 @@ async function main(){
     const d=context.nth(i);await d.locator('summary').first().click();await d.locator('figure').first().waitFor();
     let more=d.getByRole('button',{name:'Show next 24 captures',exact:true});
     while(await more.count())await more.click();
-    const num=await d.locator('figure').count();assert(num>0);counts.push(num);
+    const num=await d.locator('figure').count();assert(num>0);counts.push(num);const ref=contextRefs[i];
+    if(ref.retake){assert.equal(num,ref.aliasAudit.displayedPictures,'Retake alias display count');const records=await d.locator('figure pre').evaluateAll(nodes=>nodes.map(n=>JSON.parse(n.textContent)));assert.deepEqual(records.flatMap(r=>r.recordedRequests||[]).sort(),ref.data.items.map(item=>item.id).sort(),'UI lost raw retake request aliases');for(const issue of ref.captureIssues||ref.data.captureIssues||[])assert(await d.locator('figure').getByText(issue.description,{exact:true}).count()>0,'Known issue not displayed');}
     const first=d.locator('figure img').first();await first.evaluate(async i=>{await i.decode();if(!i.naturalWidth)throw Error('Undecoded perspective capture');});
-    assert.equal(await d.locator('figure').first().locator('summary').textContent(),'Camera, conditions and exercise coverage');
+    assert(['Camera and capture details','Camera, conditions and exercise coverage'].includes(await d.locator('figure').first().locator('summary').textContent()),'Capture metadata details missing');
     await d.locator('summary').first().click();
    }
    result.districts.push({id:place.id,current:m.items.length,historical:collections.slice(1).map(c=>c.data.items.length),contextCounts:counts});
@@ -86,6 +124,7 @@ async function main(){
   // Decode every distinct current/historical game image without retaining GPU bitmaps.
   for(let i=0;i<urls.length;i+=24)await page.evaluate(async paths=>{await Promise.all(paths.map(async path=>{const r=await fetch(path);if(!r.ok)throw Error(path+':'+r.status);const b=await createImageBitmap(await r.blob());if(!b.width||!b.height)throw Error('Empty image:'+path);b.close();}));},urls.slice(i,i+24));
   result.uniqueGameImagesDecoded=urls.length;
+  for(const [url,hash]of retakeDelivery){const response=await page.request.get(base+url);assert.equal(response.status(),200,'Retake asset unavailable:'+url);const bytes=await response.body();assert.equal(sha(bytes),hash,'Retake HTTP bytes differ:'+url);if(url.endsWith('.json'))JSON.parse(bytes);}result.retakeHTTPAssetsChecked=retakeDelivery.size;
   for(const url of reports.keys()){const response=await page.request.get(base+url);assert.equal(response.status(),200,'Native report unavailable:'+url);await response.json();}result.uniqueEvidenceReportsChecked=reports.size;
   await page.locator('#comparisons').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,'overview-desktop.png')});
   await page.setViewportSize({width:390,height:844});await page.locator('#spot-evidence').scrollIntoViewIfNeeded();

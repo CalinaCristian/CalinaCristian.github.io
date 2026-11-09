@@ -13,7 +13,7 @@
       "passed": true
     },
     {
-      "name": "official Freddo closing05:00 and party22:00–05:00 boundaries",
+      "name": "official Freddo closing05:00 and party22:00\u201305:00 boundaries",
       "passed": true
     },
     {
@@ -29,6 +29,10 @@
       "passed": true
     },
     {
+      "name": "selected source glazing replaces only2 lower-front triangles; source members and physical bodies remain exact",
+      "passed": true
+    },
+    {
       "name": "build real source-anchored estimated interior with exact source footprint and >=30 dancing bodies",
       "passed": true
     },
@@ -41,7 +45,7 @@
       "passed": true
     }
   ],
-  "source": "406a53f1 + working candidate",
+  "source": "bbcb1c90ea27a1c6c7db1f0bf8817a36503195ea",
   "scope": "CPU/source/audio lifecycle controls; not native visual or physical participation acceptance",
   "passed": true,
   "audio": {
@@ -56,5 +60,6 @@
       "poi": "n1416523788",
       "building": "w657568283"
     }
-  }
+  },
+  "sourceContextBaseline": "406a53f1f1f1397a1667ea1bc77df78289a5667a"
 }

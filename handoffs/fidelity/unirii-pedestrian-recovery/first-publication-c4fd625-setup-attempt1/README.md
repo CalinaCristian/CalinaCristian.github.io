@@ -1,0 +1,1 @@
+Observer setup attempt only. Menu has no player yet; premature mirror assignment raised TypeError before any district load. Browser closed; zero candidate physical coverage. The original raw error report and executed tools are retained unchanged. The corrected independent run is first-publication-c4fd625-negative.

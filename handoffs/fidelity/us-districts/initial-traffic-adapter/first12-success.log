@@ -1,0 +1,8 @@
+(node:353903) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-us-districts/game/src/initial-traffic-admission.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-us-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"passed":true,"tests":12,"updates":[{"id":423,"before":{"x":-649.1185876608115,"y":0.24,"z":394.2632662313776,"heading":3.09080574715197,"s":15.211360558981841},"after":{"x":-648.9028360847295,"y":0.24,"z":390.01874608683613,"heading":3.09080574715197,"s":10.961360558981841}},{"id":461,"before":{"x":-707.3773964688576,"y":0.24,"z":325.23106412529495,"heading":-1.634901317157708,"s":4.683910066035614},"after":{"x":-705.1320180168772,"y":0.24,"z":325.37520158531794,"heading":-1.6349013171577083,"s":6.933910066035614}}],"longCandidates":49}
+(node:353903) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/reality-pass/combined-native-budget/source-d981eee7/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/reality-pass/combined-native-budget/source-d981eee7/package.json.

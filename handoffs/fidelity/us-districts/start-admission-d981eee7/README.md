@@ -60,3 +60,8 @@ node handoffs/fidelity/us-districts/start-admission-d981eee7/admission-check.mjs
 ```
 
 The browser observer command is recorded in the tool usage header; preserve earlier output directories and coordinate the shared browser slot before any authorized replay. Native scene/capture/source gaps remain explicit. No full parity or combined release pass is asserted.
+
+
+## Constructor-count correction and adapter continuation
+
+Subsequent inspection distinguishes **484 actors immediately after spawnAll** from **624 before attach/first publication**. The later140 rush actors are added through rebalance→spawn→placeInHot→spawnClear. The full captured native start remains624/560, and the raw per-phase counts in native-observation-report.json are authoritative. Earlier informal text calling the constructor gate a full624 gate was imprecise. Initial adapter hook is after spawnAll (484 identities); the independent first-publication gate must separately cover all624. No second runtime/live admission is implied. New unhooked native adapter and focused controls are separately recorded under ../initial-traffic-adapter/.

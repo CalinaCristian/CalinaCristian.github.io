@@ -1,0 +1,665 @@
+{
+  "schema": 1,
+  "checkpointUTC": "2026-11-09T15:16:05.455022+00:00",
+  "status": "INTERRUPTED FOR PRIORITY CONSTRUCTOR DIAGNOSIS; research incomplete,explicit per-stop gaps",
+  "runtimeBase": "19031c27752516e2d4bd1e1f189a08279ea2fdec",
+  "scope": "Read-only provider verification and private image review. No office/runtime edits,no browser,no Google/StreetView extraction,no provider pixels in Git.",
+  "privateRoot": "/workspace/reality-pass/cv-interior-research",
+  "stops": [
+    {
+      "stop": "rosetti",
+      "site": "Liceul C.A.Rosetti,Garibaldi11",
+      "status": "Tour provider verified; interior image extraction/inspection pending at interruption",
+      "sources": [
+        {
+          "id": "rosetti-tour",
+          "url": "https://tours.toe.hubproedus.ro/0050/index.htm",
+          "resolved": "https://tours.toe.hubproedus.ro/0050/index.htm",
+          "status": 200,
+          "sha256": "5d52e84008612656d2fa189b35baf1a9e0d4c1cf269a2f77be2a0c20970a61a0",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/rosetti-tour.html",
+          "substantiates": "PROEDUS hosted tour explicitly titled L.T.C.A.Rosetti; viewer links its own media/script_general.js, not Google panoramas."
+        }
+      ],
+      "assets": [],
+      "gaps": [
+        "No room/face selected or inspected yet.",
+        "Tour viewer version timestamp is not a photographic capture date.",
+        "Floor/façade/2009 era not established."
+      ],
+      "credit": "PROEDUS/HubProedus virtual tour; photographer/licence not located."
+    },
+    {
+      "stop": "upb",
+      "site": "Politehnica București campus",
+      "status": "Official tour verified; room/photo selection pending",
+      "sources": [
+        {
+          "id": "upb-tour",
+          "url": "https://turvirtual.upb.ro/",
+          "resolved": "https://turvirtual.upb.ro/",
+          "status": 200,
+          "sha256": "28efc6b43ac773e6638487bbc60bd565687cd45f914215927951652bd7d826f1",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/upb-tour.html",
+          "substantiates": "Official university subdomain. Page explicitly credits copyright Zafiu Andrei; self-hosted Lapentor tour."
+        }
+      ],
+      "assets": [],
+      "gaps": [
+        "No interior room image inspected yet.",
+        "Tour campus identity does not establish the exact CV building/floor.",
+        "Public tour does not grant reuse licence."
+      ],
+      "credit": "Zafiu Andrei, as credited in official tour description."
+    },
+    {
+      "stop": "gts",
+      "site": "GTS Global Intelligence,Calea Călărașilor101",
+      "status": "Correct company/address source found; no authenticated interior",
+      "sources": [
+        {
+          "id": "gts-opc",
+          "url": "https://opcfoundation.org/members/view/4363",
+          "resolved": "https://opcfoundation.org/members/view/4363",
+          "status": 200,
+          "sha256": "2585c0662806d2335c926bbaa178c620a7bd8e05d0462dbc2d63c11a84fabd21",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/gts-opc.html",
+          "substantiates": "OPC Foundation member record names GTS Global Intelligence SRL at Calea Calarasilor101,Bucuresti,030613."
+        }
+      ],
+      "assets": [],
+      "gaps": [
+        "No authenticated interior photo found.",
+        "gts.ro data centre/contact results are GTS Telecom and must be rejected.",
+        "Global Technical Systems Hermes relocation is a different company/name and not sufficient."
+      ],
+      "credit": "OPC Foundation member directory; company identity/address only."
+    },
+    {
+      "stop": "luxoft",
+      "site": "Hermes Business Campus,DimitriePompeiu5–7",
+      "status": "Official location verified; provider images inspected and rejected as interior references",
+      "sources": [
+        {
+          "id": "luxoft-romania",
+          "url": "https://career.luxoft.com/locations/romania/",
+          "resolved": "https://career.luxoft.com/locations/romania",
+          "status": 200,
+          "sha256": "84f47b072ab2c02ed93a7682366525602b5f9067150db4a7cf72162e1e9ea9a0",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/luxoft-romania.html",
+          "substantiates": "Official employer page lists Hermes Business Campus5–7 and NovoE6; does not tie all generic imagery to either office."
+        }
+      ],
+      "assets": [
+        {
+          "id": "luxoft-romania-official",
+          "url": "https://career.luxoft.com/files/locations/romania/Romania-main.jpg",
+          "sourcePageId": "luxoft-romania",
+          "path": "/workspace/reality-pass/cv-interior-research/private/images/luxoft-romania-official.jpg",
+          "sha256": "9eb8e353dc362c9c49505d83055b4fa64387ef517cdfab393ecd35e06871590b",
+          "bytes": 92140,
+          "width": 887,
+          "height": 350,
+          "exif": {
+            "DateTime": "2024:05:06 22:43:08"
+          },
+          "reviewStatus": "REJECT: inspected exterior of Brașov",
+          "substantiates": "Shows Brașov old town, not an office interior.",
+          "gaps": [
+            "Wrong location/type for requested reference."
+          ],
+          "reuse": "Private reference only. No publication/texture licence inferred from public access."
+        },
+        {
+          "id": "luxoft-romania-preview",
+          "url": "https://career.luxoft.com/files/locations/2024/04/Romania.jpg",
+          "sourcePageId": "luxoft-romania",
+          "path": "/workspace/reality-pass/cv-interior-research/private/images/luxoft-romania-preview.jpg",
+          "sha256": "ce74e0621e4adf693c5952303b0332e1544855e53f4da1b604cfcffef64c5402",
+          "bytes": 102208,
+          "width": 870,
+          "height": 600,
+          "exif": {},
+          "reviewStatus": "REJECT: inspected exterior",
+          "substantiates": "Shows CarolI Central University Library exterior, not Luxoft interior.",
+          "gaps": [
+            "Wrong building and type."
+          ],
+          "reuse": "Private reference only. No publication/texture licence inferred from public access."
+        }
+      ],
+      "gaps": [
+        "Noblesse Luxoft project found but building/floor and photo-vs-render not yet verified/inspected.",
+        "2013 office-tour search result predates Hermes occupancy and cannot be assigned automatically."
+      ],
+      "credit": "Luxoft corporate careers page; no reusable image licence located."
+    },
+    {
+      "stop": "db",
+      "site": "DB Global Technology,BOB Tower,DimitriePompeiu6A",
+      "status": "Useful actual interior inspected; exact floor/era unresolved",
+      "sources": [
+        {
+          "id": "db-careers-romania",
+          "url": "https://careers.db.com/explore-the-bank/locations/emea/romania?language_id=1",
+          "resolved": "https://careers.db.com/explore-the-bank/locations/emea/romania?language_id=1",
+          "status": 200,
+          "sha256": "f05471510592afed0eed146d1dd58bc1d721c11f5cbeb0e040b26f747eb616a2",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/db-careers-romania.html",
+          "substantiates": "Official DB Bucharest technology-centre page gives6A DimitriePompeiu office address and labels image Education Plaza Bucharest comfortable chairs and coffee tables."
+        },
+        {
+          "id": "db-company-night",
+          "url": "https://www.noapteacompaniilor.ro/bucuresti/dbglobaltechnology-2024/",
+          "resolved": "https://www.noapteacompaniilor.ro/bucuresti/dbglobaltechnology-2024/",
+          "status": 200,
+          "sha256": "8c45b6793aa10306ddbc40765dee0b4ab1eb05a33a139a811a7585078e06910b",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/db-company-night.html",
+          "substantiates": "2024 event provider explicitly identifies DB at BOB Tower,EntranceA,6A DimitriePompeiu."
+        }
+      ],
+      "assets": [
+        {
+          "id": "db-education-plaza",
+          "url": "https://careers.db.com/contentAsset/image/eaec4188-4b7a-49ba-82a8-c671e9760303/fileAsset/filter/Resize,Webp/resize_w/1280/8ee1f06c-fac0-4db2-a496-f0714af2788a.webp",
+          "sourcePageId": "db-careers-romania",
+          "path": "/workspace/reality-pass/cv-interior-research/private/images/db-education-plaza.webp",
+          "sha256": "e9ca8c2b087ee43f5c0f60fda49725ed725e7e1badb569f9ee202097af24328d",
+          "bytes": 142790,
+          "width": 1280,
+          "height": 849,
+          "exif": {},
+          "reviewStatus": "INSPECTED: actual interior photograph",
+          "substantiates": "Grey/orange/yellow lounge seating, round tables, graphic murals and exposed services/linear lighting in labelled Education Plaza.",
+          "gaps": [
+            "Specific floor, façade orientation and photo date not stated.",
+            "Not a whole-office floor-plan certificate."
+          ],
+          "reuse": "Private reference only. No publication/texture licence inferred from public access."
+        }
+      ],
+      "gaps": [
+        "Other DB gallery photos downloaded but not full-size reviewed at interruption."
+      ],
+      "credit": "Deutsche Bank careers location gallery; ©2026Deutsche Bank AG,Frankfurt am Main; photographer not named on page."
+    },
+    {
+      "stop": "arnia",
+      "site": "EuropeHouse,LascărCatargiu47–53",
+      "status": "Strong authentic photo+plan source; selected photos inspected",
+      "sources": [
+        {
+          "id": "arnia-design",
+          "url": "https://www.uar-bna.ro/2021/proiecte/162/",
+          "resolved": "https://www.uar-bna.ro/2021/proiecte/162/",
+          "status": 200,
+          "sha256": "c7d78f006b1406de06acf24d6abfc221037b65a60fb5ff0a9c2fdc68113fafdd",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/arnia-design.html",
+          "substantiates": "UAR National Architecture Biennale2021 Arnia Offices explicitly names EuropeHouse and TECTO; describes reception/lounge/cafeteria,open office,meeting rooms and yellow/blue/grey palette."
+        },
+        {
+          "id": "arnia-building",
+          "url": "https://www.arnia.com/arnia-brand-new-building/",
+          "resolved": "https://www.arnia.com/arnia-brand-new-building/",
+          "status": 200,
+          "sha256": "c9ff98937d360de129057735619137f03294dd970054b146f7d877ac2b2d2c99",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/arnia-building.html",
+          "substantiates": "Arnia primary company article confirms1,500m² lease in EuropeHouse; footer gives47–53LascarCatargiu."
+        }
+      ],
+      "assets": [
+        {
+          "id": "arnia-009",
+          "url": "https://www.uar-bna.ro/f/bna2021/ver/cos-arnia-software-009.jpg-d2.jpg",
+          "sourcePageId": "arnia-design",
+          "path": "/workspace/reality-pass/cv-interior-research/private/images/arnia-009.jpg",
+          "sha256": "c9fa57cf14dbbdf2008f5fd5d0cafa41be2f4e77c86b3e6288e9369f0e5ffc22",
+          "bytes": 443947,
+          "width": 1920,
+          "height": 1280,
+          "exif": {},
+          "reviewStatus": "INSPECTED: actual interior photograph",
+          "substantiates": "Window-side high counter/yellow stools, white kitchenette, light wood floor and yellow/grey circulation edge.",
+          "gaps": [
+            "Exact numbered floor/date/façade bearing not stated."
+          ],
+          "reuse": "Private reference only. No publication/texture licence inferred from public access."
+        },
+        {
+          "id": "arnia-006",
+          "url": "https://www.uar-bna.ro/f/bna2021/ver/cos-arnia-software-006.jpg-d2.jpg",
+          "sourcePageId": "arnia-design",
+          "path": "/workspace/reality-pass/cv-interior-research/private/images/arnia-006.jpg",
+          "sha256": "f55feb38cec91c544e3926d84eb332e07173681dbd98fa3af595e831e19c132a",
+          "bytes": 482280,
+          "width": 1920,
+          "height": 1080,
+          "exif": {},
+          "reviewStatus": "INSPECTED: actual interior photograph",
+          "substantiates": "Glass-fronted meeting room, yellow/grey wayfinding floor, white dropped ceiling and circuit-board wall graphic.",
+          "gaps": [
+            "Image artwork cannot be copied as a game texture.",
+            "No exact floor assignment."
+          ],
+          "reuse": "Private reference only. No publication/texture licence inferred from public access."
+        }
+      ],
+      "gaps": [
+        "Published floor-plan image downloaded but not yet inspected full size.",
+        "2021 exhibition edition is not necessarily photo capture date; CV stop2019 fit remains unproven."
+      ],
+      "credit": "TECTO Arhitectura; project authors SergiuPetrea,SabrinaEne-Butnariu,DanRoșu,DianaFusea,SebastianȘ.Apostol,CristinaPintilie,TaniaBăncilă; hosted by UAR/BNA. Photographer not separately named."
+    },
+    {
+      "stop": "uipath-buc",
+      "site": "TheLandmark,4VasileAlecsandri/11DanielConstantin",
+      "status": "Correct-building design portfolio inspected; images are renders,not as-built photos",
+      "sources": [
+        {
+          "id": "uipath-buc-design",
+          "url": "https://1722studiolab.ro/portfolio-item/uipath-rebranding/",
+          "resolved": "https://1722studiolab.ro/portfolio-item/uipath-rebranding/",
+          "status": 200,
+          "sha256": "a99b0b13f6288afa6277eb4c9e5dff14216b444c655374e49d0af807574d8acd",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/uipath-buc-design.html",
+          "substantiates": "1722portfolio UiPath HQ explicitly identifies The Landmark and address; datedJanuary4,2021."
+        },
+        {
+          "id": "uipath-offices",
+          "url": "https://www.uipath.com/about-us/offices",
+          "resolved": "https://www.uipath.com/about-us/offices",
+          "status": 200,
+          "sha256": "d6dabfeaf3cfd1415346576c553d36ebaa451fedddecc1411a1b14cfef7dc8c3",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/uipath-offices.html",
+          "substantiates": "Official UiPath directory confirms current Bucharest address4VasileAlecsandri and11ConstantinDaniel,BuildingA."
+        }
+      ],
+      "assets": [
+        {
+          "id": "uipath-buc-01",
+          "url": "https://1722studiolab.ro/wp-content/uploads/2021/01/01.-UiPath-HQ.webp",
+          "sourcePageId": "uipath-buc-design",
+          "path": "/workspace/reality-pass/cv-interior-research/private/images/uipath-buc-01.webp",
+          "sha256": "752270ab67c6c42d968adb962bb5de22f840ba6bc746c790810411e76e7b4f37",
+          "bytes": 113080,
+          "width": 1920,
+          "height": 1080,
+          "exif": {
+            "DateTime": "2024:08:20 19:07:17"
+          },
+          "reviewStatus": "INSPECTED: architectural visualisation",
+          "substantiates": "Designer-proposed backlit UI arc motifs, monochrome zigzag floor, tall tables and red wayfinding.",
+          "gaps": [
+            "Not as-built photographic evidence.",
+            "No floor-façade assignment established."
+          ],
+          "reuse": "Private reference only. No publication/texture licence inferred from public access."
+        },
+        {
+          "id": "uipath-buc-03",
+          "url": "https://1722studiolab.ro/wp-content/uploads/2021/01/03.-UiPath-HQ.webp",
+          "sourcePageId": "uipath-buc-design",
+          "path": "/workspace/reality-pass/cv-interior-research/private/images/uipath-buc-03.webp",
+          "sha256": "12b070da10595eeb56c69b2ec1dd1ebd334b5d2ac21409de3f1ad0aca2ed7134",
+          "bytes": 192254,
+          "width": 1920,
+          "height": 1080,
+          "exif": {
+            "DateTime": "2024:08:20 19:10:46"
+          },
+          "reviewStatus": "INSPECTED: obvious architectural visualisation",
+          "substantiates": "Proposed stepped amphitheatre, wood seating/red pads, dark ribbed ceiling and lit edge strips.",
+          "gaps": [
+            "Translucent CGI people make render classification clear.",
+            "Cannot certify built interior/2020 appearance."
+          ],
+          "reuse": "Private reference only. No publication/texture licence inferred from public access."
+        }
+      ],
+      "gaps": [
+        "A separate workspaces.ro UiPath2023 project was found in search but not fetched/verified at interruption."
+      ],
+      "credit": "1722STUDIOLAB; footer©2024All rights reserved."
+    },
+    {
+      "stop": "uipath-bel",
+      "site": "Current LincolnSquareNorth700BellevueWayNE,Suite2000; historical PlazaCenter",
+      "status": "Current address verified; authentic historic photo inspected,NOT current building",
+      "sources": [
+        {
+          "id": "uipath-offices",
+          "url": "https://www.uipath.com/about-us/offices",
+          "resolved": "https://www.uipath.com/about-us/offices",
+          "status": 200,
+          "sha256": "d6dabfeaf3cfd1415346576c553d36ebaa451fedddecc1411a1b14cfef7dc8c3",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/uipath-offices.html",
+          "substantiates": "Official directory lists LincolnSquareNorth700BellevueWayNE Suite2000."
+        },
+        {
+          "id": "geekwire-uipath-move",
+          "url": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/",
+          "resolved": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/",
+          "status": 200,
+          "sha256": "7197baed3c99aabf5790bf75692e531cdd152156c7fb3755845c6e0bab06f10b",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/geekwire-uipath-move.html",
+          "substantiates": "Aug25,2025 report says move to LincolnSquare inSeptember2025; two floors/44,735sqft/210employees."
+        },
+        {
+          "id": "uipath-bellevue-design",
+          "url": "https://www.jpcarchitects.com/techgaming/uipath-immersion-lab/",
+          "resolved": "https://www.jpcarchitects.com/techgaming/uipath-immersion-lab/",
+          "status": 200,
+          "sha256": "0ed516ca398a28d355da62a5f972864409254d71d9e8f9d6c89583136d89e5f1",
+          "privatePath": "/workspace/reality-pass/cv-interior-research/private/pages/uipath-bellevue-design.html",
+          "substantiates": "JPC explicitly identifies ImmersionLab on4th floor ofPlazaCenter,approximately2,200sqft; authentic historic office project,not Lincoln."
+        }
+      ],
+      "assets": [
+        {
+          "id": "uipath-bel-PLAZA-1",
+          "url": "https://images.squarespace-cdn.com/content/v1/5fa9cc8768aef57ff2689a96/4ecfe76c-825f-4531-ac49-aebd58b7c225/UiPath+Immersion+Lab+%2810%29.jpg",
+          "sourcePageId": "uipath-bellevue-design",
+          "path": "/workspace/reality-pass/cv-interior-research/private/images/uipath-bel-PLAZA-1.jpg",
+          "sha256": "5619c79882af04226dd3d72f7f4cb578a56557780f5372ba9aa9755c17ddc5b5",
+          "bytes": 630687,
+          "width": 2500,
+          "height": 1667,
+          "exif": {},
+          "reviewStatus": "INSPECTED: actual HISTORICAL PlazaCenter photograph",
+          "substantiates": "White exposed services, grey/orange lounge, monitors/demo stations and brand graphics in named ImmersionLab.",
+          "gaps": [
+            "DO NOTassign to LincolnSquare/current Suite2000.",
+            "Photographic date not stated; page asset path indicates2023upload only."
+          ],
+          "reuse": "Private reference only. No publication/texture licence inferred from public access."
+        }
+      ],
+      "gaps": [
+        "No authenticated current LincolnSquare interior photo inspected/found yet.",
+        "LinkedIn/X opening posts found but not fetched/inspected."
+      ],
+      "credit": "JPCArchitects; photograph credited ClearyO’Farrell Photography. No reuse licence on project page."
+    }
+  ],
+  "pageFetchLedger": [
+    {
+      "name": "arnia-building",
+      "url": "https://www.arnia.com/arnia-brand-new-building/",
+      "resolved": "https://www.arnia.com/arnia-brand-new-building/",
+      "status": 200,
+      "sha256": "c9ff98937d360de129057735619137f03294dd970054b146f7d877ac2b2d2c99",
+      "bytes": 569002,
+      "error": null
+    },
+    {
+      "name": "arnia-design",
+      "url": "https://www.uar-bna.ro/2021/proiecte/162/",
+      "resolved": "https://www.uar-bna.ro/2021/proiecte/162/",
+      "status": 200,
+      "sha256": "c7d78f006b1406de06acf24d6abfc221037b65a60fb5ff0a9c2fdc68113fafdd",
+      "bytes": 17377,
+      "error": null
+    },
+    {
+      "name": "db-careers-romania",
+      "url": "https://careers.db.com/explore-the-bank/locations/emea/romania?language_id=1",
+      "resolved": "https://careers.db.com/explore-the-bank/locations/emea/romania?language_id=1",
+      "status": 200,
+      "sha256": "f05471510592afed0eed146d1dd58bc1d721c11f5cbeb0e040b26f747eb616a2",
+      "bytes": 141084,
+      "error": null
+    },
+    {
+      "name": "db-company-night",
+      "url": "https://www.noapteacompaniilor.ro/bucuresti/dbglobaltechnology-2024/",
+      "resolved": "https://www.noapteacompaniilor.ro/bucuresti/dbglobaltechnology-2024/",
+      "status": 200,
+      "sha256": "8c45b6793aa10306ddbc40765dee0b4ab1eb05a33a139a811a7585078e06910b",
+      "bytes": 135440,
+      "error": null
+    },
+    {
+      "name": "geekwire-uipath-move",
+      "url": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/",
+      "resolved": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/",
+      "status": 200,
+      "sha256": "7197baed3c99aabf5790bf75692e531cdd152156c7fb3755845c6e0bab06f10b",
+      "bytes": 151370,
+      "error": null
+    },
+    {
+      "name": "gts-global-gi-site",
+      "url": "https://globalintelligence.ro/",
+      "resolved": null,
+      "status": null,
+      "sha256": null,
+      "bytes": null,
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "name": "gts-global-site",
+      "url": "https://www.gtsint.ro/",
+      "resolved": null,
+      "status": null,
+      "sha256": null,
+      "bytes": null,
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "name": "gts-opc",
+      "url": "https://opcfoundation.org/members/view/4363",
+      "resolved": "https://opcfoundation.org/members/view/4363",
+      "status": 200,
+      "sha256": "2585c0662806d2335c926bbaa178c620a7bd8e05d0462dbc2d63c11a84fabd21",
+      "bytes": 65089,
+      "error": null
+    },
+    {
+      "name": "luxoft-global",
+      "url": "https://www.luxoft.com/global-presence",
+      "resolved": "https://www.luxoft.com/global-presence",
+      "status": 200,
+      "sha256": "aa52149186e5a7a1bb01e2ef165d966d3b7a09a0845aa5c68af002c7d9b8c188",
+      "bytes": 109876,
+      "error": null
+    },
+    {
+      "name": "luxoft-hbc-2020",
+      "url": "https://www.economica.net/mi-cari-de-trupe-pe-piata-birourilor-luxoft-prelungeste-pe-5-600-mp-in-hermes-business-campus-iar_189848.html",
+      "resolved": "https://www.economica.net/mi-cari-de-trupe-pe-piata-birourilor-luxoft-prelungeste-pe-5-600-mp-in-hermes-business-campus-iar_189848.html",
+      "status": 200,
+      "sha256": "24bf59f380ccc0f0ac3a452c9c768ba2909c4befb2f8f47ab0252ead6ce0d1b7",
+      "bytes": 131671,
+      "error": null
+    },
+    {
+      "name": "luxoft-noblesse",
+      "url": "https://noblesse-group.com/proiect/proiect-de-amenajare-office-luxoft/",
+      "resolved": "https://noblesse-group.com/proiect/proiect-de-amenajare-office-luxoft/",
+      "status": 200,
+      "sha256": "9a5b502d06cfcdfca96ed22e2c9c5fe6f50823cf157e8bc42864219025ef8986",
+      "bytes": 207840,
+      "error": null
+    },
+    {
+      "name": "luxoft-romania",
+      "url": "https://career.luxoft.com/locations/romania/",
+      "resolved": "https://career.luxoft.com/locations/romania",
+      "status": 200,
+      "sha256": "84f47b072ab2c02ed93a7682366525602b5f9067150db4a7cf72162e1e9ea9a0",
+      "bytes": 31783,
+      "error": null
+    },
+    {
+      "name": "rosetti-general",
+      "url": "https://tours.toe.hubproedus.ro/0050/script_general.js?v=1591359049331",
+      "resolved": "https://tours.toe.hubproedus.ro/0050/script_general.js?v=1591359049331",
+      "status": 200,
+      "sha256": "2903a9adfc7a8052513105a2bdb1358e03026177912929f8034a8757b9d5c2c6",
+      "bytes": 100028,
+      "error": null
+    },
+    {
+      "name": "rosetti-script",
+      "url": "https://tours.toe.hubproedus.ro/0050/script.js?v=1591359049331",
+      "resolved": "https://tours.toe.hubproedus.ro/0050/script.js?v=1591359049331",
+      "status": 200,
+      "sha256": "a2a95bfdb045fd9be63bc8364341a1d673499be4fb2d4586b89941e9321cfe31",
+      "bytes": 71597,
+      "error": null
+    },
+    {
+      "name": "rosetti-tour",
+      "url": "https://tours.toe.hubproedus.ro/0050/index.htm",
+      "resolved": "https://tours.toe.hubproedus.ro/0050/index.htm",
+      "status": 200,
+      "sha256": "5d52e84008612656d2fa189b35baf1a9e0d4c1cf269a2f77be2a0c20970a61a0",
+      "bytes": 13292,
+      "error": null
+    },
+    {
+      "name": "search-db-education",
+      "url": "https://search.yahoo.com/search?p=%22DB%22+%22Education+Plaza%22+%22BOB%22",
+      "resolved": "https://search.yahoo.com/search?p=%22DB%22+%22Education+Plaza%22+%22BOB%22",
+      "status": 200,
+      "sha256": "56316bdff717aeefc9de0cf2c15ed468786aff2782f1b5a88e1f3ba3dc2052fd",
+      "bytes": 87188,
+      "error": null
+    },
+    {
+      "name": "search-db-office-design",
+      "url": "https://search.yahoo.com/search?p=Deutsche+Bank+BOB+Tower+office+interior+design+Bucharest",
+      "resolved": "https://search.yahoo.com/search?p=Deutsche+Bank+BOB+Tower+office+interior+design+Bucharest",
+      "status": 200,
+      "sha256": "ef4a42966041ce7172401894448d70eda535937eabcf2e82bc14c363af59fed9",
+      "bytes": 313744,
+      "error": null
+    },
+    {
+      "name": "search-gts-actual",
+      "url": "https://search.yahoo.com/search?p=%22GTS+Global+Intelligence%22+%22Calarasilor%22",
+      "resolved": "https://search.yahoo.com/search?p=%22GTS+Global+Intelligence%22+%22Calarasilor%22",
+      "status": 200,
+      "sha256": "1775ecaabf5e37ed2dc8eb9b008b945d82d54b73c748d4f161ec94218793f7e5",
+      "bytes": 102193,
+      "error": null
+    },
+    {
+      "name": "search-gts-photos",
+      "url": "https://search.yahoo.com/search?p=%22GTS+Global+Intelligence%22+office+photos",
+      "resolved": "https://search.yahoo.com/search?p=%22GTS+Global+Intelligence%22+office+photos",
+      "status": 200,
+      "sha256": "69483e65454924c28ee28a7223ac7788021ccbf14b3881053e907cde632bd27a",
+      "bytes": 120400,
+      "error": null
+    },
+    {
+      "name": "search-lincoln-opening",
+      "url": "https://search.yahoo.com/search?p=UiPath+Bellevue+new+office+September+2025+photos+interior",
+      "resolved": "https://search.yahoo.com/search?p=UiPath+Bellevue+new+office+September+2025+photos+interior",
+      "status": 200,
+      "sha256": "fcb27698812e9da8ca5543190c6f5b50e171e1435467a12bdd518d5da13945c9",
+      "bytes": 143056,
+      "error": null
+    },
+    {
+      "name": "search-lincoln-uipath-interior",
+      "url": "https://search.yahoo.com/search?p=%22UiPath%22+%22Lincoln%22+%22interior%22",
+      "resolved": "https://search.yahoo.com/search?p=%22UiPath%22+%22Lincoln%22+%22interior%22",
+      "status": 200,
+      "sha256": "30ab7c64c15ddb5b670bb8066264f16e42c7987d49090673656dd844f3f58c2d",
+      "bytes": 181326,
+      "error": null
+    },
+    {
+      "name": "search-luxoft-interior",
+      "url": "https://search.yahoo.com/search?p=Luxoft+Bucuresti+Hermes+birou+interior+fotografii",
+      "resolved": "https://search.yahoo.com/search?p=Luxoft+Bucuresti+Hermes+birou+interior+fotografii",
+      "status": 200,
+      "sha256": "4ab6fc998c0d749a4450aacc5c8738b484b89f1ea00527822b286d2d0063b8c5",
+      "bytes": 137814,
+      "error": null
+    },
+    {
+      "name": "search-uipath-buc-asbuilt",
+      "url": "https://search.yahoo.com/search?p=UiPath+Bucharest+office+interior+Office+Snapshots",
+      "resolved": "https://search.yahoo.com/search?p=UiPath+Bucharest+office+interior+Office+Snapshots",
+      "status": 200,
+      "sha256": "fa04c27afdce53b5b77bd01c2eaecc8247745f068a2ace1c378926e3691dde7f",
+      "bytes": 121320,
+      "error": null
+    },
+    {
+      "name": "search-uipath-real-buc",
+      "url": "https://search.yahoo.com/search?p=%22UiPath%22+%22Bucharest%22+%22office%22+photos+-site%3Aforum.uipath.com+-site%3Adocs.uipath.com",
+      "resolved": "https://search.yahoo.com/search?p=%22UiPath%22+%22Bucharest%22+%22office%22+photos+-site%3Aforum.uipath.com+-site%3Adocs.uipath.com",
+      "status": 200,
+      "sha256": "239f29ba6d316f31dd2ace81ce6d36cc8bad18a13afaedf537d4945c90e7439d",
+      "bytes": 106523,
+      "error": null
+    },
+    {
+      "name": "uipath-bellevue-design",
+      "url": "https://www.jpcarchitects.com/techgaming/uipath-immersion-lab/",
+      "resolved": "https://www.jpcarchitects.com/techgaming/uipath-immersion-lab/",
+      "status": 200,
+      "sha256": "0ed516ca398a28d355da62a5f972864409254d71d9e8f9d6c89583136d89e5f1",
+      "bytes": 204303,
+      "error": null
+    },
+    {
+      "name": "uipath-buc-design",
+      "url": "https://1722studiolab.ro/portfolio-item/uipath-rebranding/",
+      "resolved": "https://1722studiolab.ro/portfolio-item/uipath-rebranding/",
+      "status": 200,
+      "sha256": "a99b0b13f6288afa6277eb4c9e5dff14216b444c655374e49d0af807574d8acd",
+      "bytes": 146204,
+      "error": null
+    },
+    {
+      "name": "uipath-offices",
+      "url": "https://www.uipath.com/about-us/offices",
+      "resolved": "https://www.uipath.com/about-us/offices",
+      "status": 200,
+      "sha256": "d6dabfeaf3cfd1415346576c553d36ebaa451fedddecc1411a1b14cfef7dc8c3",
+      "bytes": 416470,
+      "error": null
+    },
+    {
+      "name": "upb-app",
+      "url": "https://turvirtual.upb.ro/dist/scripts.min.js?v=132",
+      "resolved": "https://turvirtual.upb.ro/dist/scripts.min.js?v=132",
+      "status": 200,
+      "sha256": "e88d454d74a77bb95e3baf8782a7f894389a778243811c20bbd3b63a9becd90b",
+      "bytes": 373189,
+      "error": null
+    },
+    {
+      "name": "upb-gallery",
+      "url": "https://upb.ro/media/galerie-foto/",
+      "resolved": "https://upb.ro/media/galerie-foto/",
+      "status": 200,
+      "sha256": "39df87d42f4bc441cea8e37eb6fae8cf5df4448e0e4195d855d20fe6c186806f",
+      "bytes": 262743,
+      "error": null
+    },
+    {
+      "name": "upb-offline",
+      "url": "https://turvirtual.upb.ro/offline.js",
+      "resolved": "https://turvirtual.upb.ro/offline.js",
+      "status": 200,
+      "sha256": "5efc6754f6e589b065a35eb688cf11c0a0097b9635a71c4917aae34432195d16",
+      "bytes": 96,
+      "error": null
+    },
+    {
+      "name": "upb-tour",
+      "url": "https://turvirtual.upb.ro/",
+      "resolved": "https://turvirtual.upb.ro/",
+      "status": 200,
+      "sha256": "28efc6b43ac773e6638487bbc60bd565687cd45f914215927951652bd7d826f1",
+      "bytes": 4840,
+      "error": null
+    }
+  ]
+}

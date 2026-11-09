@@ -1,0 +1,126 @@
+{
+  "README.md": {
+    "bytes": 7404,
+    "sha256": "1c059b9b5dfb51953f7f85e6612e2c8f91cdbfbb3af6b19fa359a910459c09e5"
+  },
+  "images/pike-place-gum-wall.jpg": {
+    "bytes": 413793,
+    "sha256": "69070b57a5a5ac80fe835af5962052f5263c9ae7c4a962a4eee2602307fa3a3c"
+  },
+  "images/pike-place-market-sign.jpg": {
+    "bytes": 302116,
+    "sha256": "c6df8b8881185fe2728004c8c04d4adb41980684a8d57b8fcb7c3ace77ff469b"
+  },
+  "images/pike-place-phone-full-ui.png": {
+    "bytes": 440464,
+    "sha256": "97ef50ba8a87af021290b50169fea055a0eb1203dd4358c382336946480f209c"
+  },
+  "images/pike-place-phone-market-sign.jpg": {
+    "bytes": 113196,
+    "sha256": "9c0d83e97565e88fa66fe57622a5ce406de0b1ff7195b07a95add4bddf64421e"
+  },
+  "images/pike-place-source-paving-counterexample.jpg": {
+    "bytes": 206458,
+    "sha256": "ff7856da75cc931c6bbd2edcca72a5bf0e40b3b28a0147a541258478c3e2a95d"
+  },
+  "images/pike-place-spawn.jpg": {
+    "bytes": 280682,
+    "sha256": "88b23cac28cd42f0d46bdc26a7b8b851af0e807d98ae1b7be949bcd8abf511ac"
+  },
+  "images/pike-place-stalls.jpg": {
+    "bytes": 285886,
+    "sha256": "099fac0695c594643e4a7e2bfe17aac06d4feb209420555e7c69231e8f9a4b36"
+  },
+  "images/pike-place-walk-end.jpg": {
+    "bytes": 367165,
+    "sha256": "5ae55ea1bd7e65bde432f91debe78d3928cb6e4b373da9c2bce34a6aac313e50"
+  },
+  "images/space-needle-elevator-approach.jpg": {
+    "bytes": 222849,
+    "sha256": "718b212acc8c71793469b73056ad4aee0e93d847758feb95fa8593009c33eae5"
+  },
+  "images/space-needle-elevator-arrival.jpg": {
+    "bytes": 211676,
+    "sha256": "19fbf9e4db681f0fce566a6b6d76aaddf7cdb587bf89635367a6a0296e6a0d7e"
+  },
+  "images/space-needle-elevator-lower.jpg": {
+    "bytes": 252170,
+    "sha256": "4852211754c4f350e5564ad56180d808ef0f689db459586d617e455c43fae042"
+  },
+  "images/space-needle-elevator-middle.jpg": {
+    "bytes": 221434,
+    "sha256": "54d52a63806077d60b91e9f700790fcd5e4ffa8e0fd45fdeac54c0ccfa6655ee"
+  },
+  "images/space-needle-loupe-capitol-hill.jpg": {
+    "bytes": 214505,
+    "sha256": "7f1c16447d219e8977f92727816059d9cdac75fd99c8e6e420ed49bde9670296"
+  },
+  "images/space-needle-loupe-downtown-night.jpg": {
+    "bytes": 281449,
+    "sha256": "d3de994bc4e693e041d0ed293170a9c6b1519b24cecb4df663ddf6c869703ac8"
+  },
+  "images/space-needle-loupe-downtown-rain.jpg": {
+    "bytes": 180800,
+    "sha256": "baedcd67635b078b86125920c1686949bf02ca9267d8eec2a980b13d1570a4cd"
+  },
+  "images/space-needle-loupe-downtown-winter.jpg": {
+    "bytes": 219338,
+    "sha256": "5e3c88390f55c00b1ff08a5aaba9a9898bf91e4a8b8bc07bee8ad401dd4a7cc8"
+  },
+  "images/space-needle-loupe-downtown.jpg": {
+    "bytes": 220891,
+    "sha256": "9b7d9f8701b9b91adc25fa2b207067e2cc74c57a052d53d11a59159141643f45"
+  },
+  "images/space-needle-loupe-elliott-bay.jpg": {
+    "bytes": 199421,
+    "sha256": "c1cda0aeb8ede609dd2e305df4e2229554002dc81879e348d90a9512144ddf78"
+  },
+  "images/space-needle-loupe-lake-union.jpg": {
+    "bytes": 223660,
+    "sha256": "713d696fd46b5ec70342a8b876a807b3503bbcce067fc51c5bc3827790d1639f"
+  },
+  "images/space-needle-phone-full-ui.png": {
+    "bytes": 386486,
+    "sha256": "1e4b619e0d9bd400613e1d7acb1ba2d1b108dfbe9ee6c62bf6110e9305ed4888"
+  },
+  "images/space-needle-phone-loupe-downtown.jpg": {
+    "bytes": 79213,
+    "sha256": "de7595dbfa999769549a29bbacdb5a3c42f0c9ebb4a4104f342a6c7ab2b3b37c"
+  },
+  "images/space-needle-spawn.jpg": {
+    "bytes": 222188,
+    "sha256": "68a9fbb53b8fa90a60e9e9569b4ea13d49b9ec43c56a505ba46e88e8ac39b768"
+  },
+  "native-report.json.gz": {
+    "bytes": 139576,
+    "sha256": "0ad5e4f057d36613ab9f3fd88ae56c27d7688e2e57b8049f375f3aebdbf26870"
+  },
+  "pike-place-cpu-profile.json.gz": {
+    "bytes": 56587,
+    "sha256": "4ad2aaaa95124af71890571632aee85f87e312e762209f7dc7a9770b4350c32e"
+  },
+  "profile-report.json.gz": {
+    "bytes": 46650,
+    "sha256": "be535a0aead117357835b8daddbc7a06c59511fba9e04331c4d7c172682ed914"
+  },
+  "profile-summary.json": {
+    "bytes": 213174,
+    "sha256": "02e22843dddd20167246bdf6359cfb4f249939344765ec97da5794756c913df3"
+  },
+  "rainier-occlusion-reconstruction.json.gz": {
+    "bytes": 865,
+    "sha256": "6df3c780b7dd5cfa0b6db83edc39e19b19cfe1bb66006512aadddbcff12a6471"
+  },
+  "rainier-projection-reconstruction.json.gz": {
+    "bytes": 895,
+    "sha256": "95e7ce12d35193a2c2eadf835fdafdc23144779ede1b576e6afae5e4f78d4934"
+  },
+  "source-manifest.json.gz": {
+    "bytes": 20284,
+    "sha256": "de6ef875f75d051c24fe56b4d1fe6e9d89ed264e0f223279ac9ec67414a01d51"
+  },
+  "space-needle-cpu-profile.json.gz": {
+    "bytes": 58198,
+    "sha256": "6543f99be1e09e490a471332ccadda93e160db07796c42e15e0e57f86f605812"
+  }
+}

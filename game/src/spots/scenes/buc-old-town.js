@@ -298,7 +298,11 @@ function buildCarusel(ctx) {
     // face is white plaster, as in the private bookshop photo comparison.
     const insideMaterials=new Map(),plaster=new THREE.Group();plaster.name='carusel-white-interior-walls';
     const plasterMat=new THREE.MeshStandardMaterial({color:'#ece8de',side:THREE.BackSide,roughness:.88,emissive:'#fff4df',emissiveIntensity:.025});
-    shell.traverse(o=>{if(!o.isMesh)return;if(o.material===fac.mat){const wall=new THREE.Mesh(o.geometry.clone(),plasterMat);wall.name='carusel-inward-plaster';wall.receiveShadow=true;plaster.add(wall);}
+    shell.traverse(o=>{if(!o.isMesh)return;if(o.material===fac.mat){const finish=o.geometry.clone(),pos=finish.attributes.position,normal=finish.attributes.normal;
+            // Real attached source buildings share this exact outer plane.
+            // A2.5cm inward plaster finish avoids coplanar neighbour facade art.
+            for(let i=0;i<pos.count;i++)pos.setXYZ(i,pos.getX(i)-normal.getX(i)*.025,pos.getY(i),pos.getZ(i)-normal.getZ(i)*.025);finish.computeBoundingSphere();
+            const wall=new THREE.Mesh(finish,plasterMat);wall.name='carusel-inward-plaster';wall.receiveShadow=true;plaster.add(wall);}
         const inward=m=>{if(m===roofGlass)return m;if(!insideMaterials.has(m)){const copy=m.clone();copy.side=m===fac.mat?THREE.FrontSide:THREE.DoubleSide;copy.userData={...m.userData,shared:true};insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);ctx.add(plaster);
     // The inward clones own their material programs; their cached facade maps
     // remain shared. Generic scene disposal must not discard those shared maps.

@@ -1,3 +1,5 @@
+import { buildUnderpassOwnerIndex } from './underpass-ground-owner.js';
+import { underpassRoofModel, underpassRoofFaces, underpassRoofCollider, UNDERPASS_COVER_POLICY } from './underpass-roof.js';
 import { sharedBridgePadSurface } from './bridge-pad-profile.js';
 import { compileSharedBridgeProfile } from './shared-bridge-profile.js';
 import { displaceBridgeSurface } from './bridge-surface-mesh.js';
@@ -2514,8 +2516,16 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     // structures under / beside elevated and sunken roads
-    const pierSpots = [], pierColl = [];
+    const pierSpots = [], pierColl = [], underpassColl = [], underpassRoofAudit = [], underpassCover = new MeshBuilder();
     for (const e of edges) e.lidded = !!e.tunnel && !e.coveredRoadModel && !e.virtual && Math.max(e.ya, e.yb) < -4.5;
+    const underpassRegions = edges.filter(e => e.tunnel && !e.virtual && !e.coveredRoadModel && Math.min(e.ya, e.yb) < -4.2).map(e => {
+        const width = (f, side) => widthSide(f, side) + .3, points = [1, -1].flatMap(side => [e.a, e.b].map(n => corner(e, n, side, width(e, side), width)));
+        return { x0: Math.min(...points.map(p => p[0])), x1: Math.max(...points.map(p => p[0])), z0: Math.min(...points.map(p => p[1])), z1: Math.max(...points.map(p => p[1])) };
+    });
+    const underpassOwners = buildUnderpassOwnerIndex(underpassRegions.length ? [
+        ...[...cells].flatMap(([key, c]) => ['area', 'grass', 'pave', 'sport', 'ground', 'road', 'pad', 'water'].map(layer => ({ mesh: c[layer], id: layer + ':' + key, water: layer === 'water' }))),
+        { mesh: bigWater, id: 'water-big', water: true },
+    ] : [], { fallbackM: -.3, regions: underpassRegions }); // exact unchanged emitted groundPlane datum
     for (const e of raised) {
         const c = cellOf((e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2);
         const sb = c.solid, roadsideSolidStart = sb.ic, roadsideSolidVertexStart = sb.vc;
@@ -2551,8 +2561,33 @@ export async function buildWorld(city, renderer, opts = {}) {
             if(shared)displace(sb,roadsideSolidVertexStart,(x,z,y)=>yAlong(e,x,z)*clamp(y/Y.road,0,1),e,roadsideSolidStart);
         }
         if (down) {
-            // trench / tunnel walls facing the road, from the road up to street level
-            for (const [o, sgn] of [[wr, -1], [-wl, 1]]) sb.face4(Pm(0, o, Math.min(yA, 0)), Pm(1, o, Math.min(yB, 0)), Pm(1, o, 0.4), Pm(0, o, 0.4), conc, [e.nx * sgn, 0, e.nz * sgn]);
+            const source = data.roadSourceGeometry?.[e.road];
+            let roof = source?.sourceId && source.tags?.tunnel && source.tags.tunnel !== 'no' ? underpassRoofModel(e, { sourceTags: source.tags }) : { known: false, reason: 'source-tunnel-context-missing' };
+            const roofPoint = (t, o, y) => { const a = Pm(0, o, y), b = Pm(1, o, y); return [a[0] + (b[0] - a[0]) * t, y, a[2] + (b[2] - a[2]) * t]; };
+            const roofFootprint = roof.known ? [roofPoint(roof.span[0], wr + .3, 0), roofPoint(roof.span[1], wr + .3, 0), roofPoint(roof.span[1], -wl - .3, 0), roofPoint(roof.span[0], -wl - .3, 0)].map(p => [p[0], p[2]]) : null;
+            const owner = roofFootprint ? underpassOwners.forPolygon(roofFootprint) : null;
+            if (owner?.known) roof = underpassRoofModel(e, { sourceTags: source?.tags || {}, topM: owner.topM });
+            const roofFaces = roof.known && owner?.known ? underpassRoofFaces(roof, { pointAt: roofPoint, rightM: wr, leftM: wl,
+                portals: [true, true] /* close buried slab steps too; never a street-height parapet */ }) : null;
+            const closedRoof = roofFaces?.known;
+            if (e.tunnel && !e.coveredRoadModel && Math.min(e.ya, e.yb) < -4.2) underpassRoofAudit.push({ edge: e, sourceId: source?.sourceId, known: !!closedRoof, reason: owner?.reason || roofFaces?.reason || roof.reason, groundOwner: owner,
+                estimated: true, minClearanceM: roof.minClearanceM, legalMaxheightM: roof.legalMaxheightM, span: roof.span, topM: roof.topM, minThicknessM: roof.minThicknessM });
+            if (closedRoof) {
+                for (const q of roofFaces.bottom) sb.face4(...q, dark, [0, -1, 0]);
+                for (const face of roofFaces.fascia) sb.face4(...face.vertices, conc, face.out);
+                for (const q of roofFaces.top) underpassCover.face4(...q, conc, [0, 1, 0]);
+                const collider = underpassRoofCollider(roof, roofFaces, source?.sourceId);
+                if (collider) underpassColl.push(collider);
+            }
+            // The covered wall meets its actual underside, not a floating street-
+            // level strip. Uncovered ramp retaining walls keep their prior rim.
+            const wallStations = closedRoof ? [...new Set([0, ...roof.stations, 1])].sort((a, b) => a - b) : [0, 1];
+            for (let k = 1; k < wallStations.length; k++) {
+                const a = wallStations[k - 1], b = wallStations[k], mid = (a + b) / 2;
+                const covered = closedRoof && mid >= roof.span[0] && mid <= roof.span[1];
+                const top = t => covered ? roof.ceilingAt(t) : .4;
+                for (const [o, sgn] of [[wr, -1], [-wl, 1]]) sb.face4(roofPoint(a, o, Math.min(yA + (yB - yA) * a, 0)), roofPoint(b, o, Math.min(yA + (yB - yA) * b, 0)), roofPoint(b, o, top(b)), roofPoint(a, o, top(a)), conc, [e.nx * sgn, 0, e.nz * sgn]);
+            }
             // parapet on the trench rim where the collision wall stands above street level (to 1.0 m; play-test note 46: the
             // 1 m trench wall beside Bd. Iancu de Hunedoara was invisible from the street side) — open / uncovered part only
             if (!e.lidded) {
@@ -2569,7 +2604,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     }
                 }
             }
-            if (e.tunnel && !e.coveredRoadModel && !e.lidded && Math.min(e.ya, e.yb) < -4.2) { // (play-test note 45) partly deep tunnel edge: the
+            if (!closedRoof && e.tunnel && !e.coveredRoadModel && !e.lidded && Math.min(e.ya, e.yb) < -4.2) { // (play-test note 45) partly deep tunnel edge: the
                 // covered part (deeper than 4.2 m) gets its lid / ceiling and a portal where it opens (the hole in Piața Victoriei)
                 const tY = (y) => clamp((y - e.ya) / ((e.yb - e.ya) || 1e-6), 0, 1), t4 = tY(-4.2);
                 const [t0, t1] = e.ya < e.yb ? [0, t4] : [t4, 1];
@@ -2580,7 +2615,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const tp = e.ya < e.yb ? t1 : t0, yp = (tp === t1 ? y1c : y0c), out = e.ya < e.yb ? 1 : -1;
                 sb.face4(Pt(tp, wr + 0.5, yp), Pt(tp, -wl - 0.5, yp), Pt(tp, -wl - 0.5, 1.2), Pt(tp, wr + 0.5, 1.2), rgb('#6b6862'), [e.dirx * out, 0, e.dirz * out]);
             }
-            if (e.tunnel && e.lidded) { // (shallow 'tunnels' < 4.5 m deep stay open trenches: a lid would lie on the street)
+            if (!closedRoof && e.tunnel && e.lidded) { // (shallow 'tunnels' < 4.5 m deep stay open trenches: a lid would lie on the street)
                 const ca = yA + 5.2, cb = yB + 5.2;
                 sb.face4(Pm(0, wr, ca), Pm(1, wr, cb), Pm(1, -wl, cb), Pm(0, -wl, ca), dark, [0, -1, 0]); // ceiling
                 c.ground.face4(Pm(0, wr + 0.3, 0.06), Pm(1, wr + 0.3, 0.06), Pm(1, -wl - 0.3, 0.06), Pm(0, -wl - 0.3, 0.06), sideCol, [0, 1, 0]); // lid at street level (paved, like the square above)
@@ -5383,6 +5418,14 @@ export async function buildWorld(city, renderer, opts = {}) {
     })();
     const noise = noiseTexture();
     const groundMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise });
+    if (!underpassCover.empty) {
+        const material = new THREE.MeshBasicMaterial({ colorWrite: UNDERPASS_COVER_POLICY.colorWrite, depthWrite: UNDERPASS_COVER_POLICY.depthWrite, depthTest: UNDERPASS_COVER_POLICY.depthTest });
+        material.name = 'underpass-earth-cover';
+        const mesh = new THREE.Mesh(underpassCover.build(), material);
+        mesh.name = 'underpass-earth-cover'; mesh.renderOrder = UNDERPASS_COVER_POLICY.renderOrder;
+        mesh.matrixAutoUpdate = false; mesh.updateMatrix(); mesh.castShadow = mesh.receiveShadow = false;
+        group.add(mesh);
+    }
     // strict layering (spec R11.2): ground/sidewalks (0) < carriageways (-1) < junction pads (-2) < markings (-4); each also has
     // its own renderOrder, so coplanar pieces resolve the same way every frame (no z-fighting / flicker)
     const roadMat = new THREE.MeshLambertMaterial({ vertexColors: true, map: noise, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -2 }); roadMat.name = 'road';
@@ -5728,7 +5771,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     const cellsGroup = new THREE.Group(); cellsGroup.name = 'cells'; group.add(cellsGroup);
-    let tris = 0;
+    let tris = underpassCover.ic / 3;
     // Destination guides are gameplay markers, including at doors reached from a sidewalk.
     // Keep their exact paint/material while batching them separately from physical carriageway markings.
     if (!poiDoorGuides.empty) {
@@ -6022,7 +6065,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const b = poly[(i + 1) % poly.length]; return { ax: a[0], az: a[1], bx: b[0], bz: b[1] };
             }))),
     } : null;
-    const allColl = collision.concat(collisionBoxes, propColl, pierColl, walls);
+    const allColl = collision.concat(collisionBoxes, propColl, pierColl, underpassColl, walls);
     const collGrid = new BoxGrid(32);
     for (const b of allColl) collGrid.insert(b.x - b.r, b.z - b.r, b.x + b.r, b.z + b.r, b);
     Object.defineProperty(allColl, 'query', { value: (x, z, r, cb) => { const seen = new Set(); collGrid.each(x - r, z - r, x + r, z + r, (b) => { if (!seen.has(b)) { seen.add(b); cb(b); } }); }, enumerable: false });
@@ -6073,6 +6116,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramTrench = tramTrench.report;
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.coveredRoadModels = coveredRoadModels.report;
+    stats.underpassRoofs = { estimated: true, ownerIndex: underpassOwners.report, roofTriangles: underpassCover.ic / 3, colliders: underpassColl.length,
+        models: underpassRoofAudit.map(({ edge, ...record }) => ({ ...record, edgeId: edge.id })) };
     stats.sidewalkSource = { explicitEdges: edges.filter(e => e.sidewalkSource.explicit).length,
         directionalEdges: edges.filter(e => e.sidewalkRightM !== e.sidewalkLeftM).length,
         unresolved: edges.filter(e => e.sidewalkSource.unresolved).map(e => ({ edge: e.id, sourceId: e.sidewalkSource.sourceId, reason: e.sidewalkSource.unresolved })) };

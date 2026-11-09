@@ -1,0 +1,25 @@
+{
+  "passed": 18,
+  "tests": [
+    "all 15 actual native inverted-roof witnesses become positive slabs; literal 3.5m remains separate",
+    "all 112 true Pasaj road profiles and legal tags remain exact",
+    "actual native mitred portal beam and underside share exact Float32 endpoints",
+    "each proposed native slab is closed at roof, sides and buried endpoint height steps",
+    "cap-to-native-clearance transition is split at the true kink, not interpolated above the slab",
+    "partly covered literal tunnel retains an open ramp and closes only its old covered interval",
+    "ordinary surface, source canopy, elevated bridge and open ramp get no roof",
+    "literal height above available opening stays unresolved; roof is not lifted",
+    "missing and non-metric legal tags stay explicit, never become measured clearance",
+    "literal physical opening wins over the generic estimate when the positive slab can contain it",
+    "malformed source profiles and nonpositive slab inputs are refused",
+    "earth roof occluder preserves source color and blocks later underground bodies only inside its covered footprint",
+    "roof collider follows actual Float32 slab planes and permits the literal 3.5m body below",
+    "roof top follows actual native grass/pave bands without lifting or recoloring their vertices",
+    "source-ground coverage gaps use the unchanged native base-plane datum and stay explicit",
+    "the sunken road cannot become its own overhead earth owner",
+    "lower transparent water remains unresolved regardless of opaque renderOrder; no guessed top shift",
+    "malformed native surface data is reported instead of becoming a clearance certificate"
+  ],
+  "historicalNativeSource": "395071c21079fb14c25af194a9903a5ae5d87b26",
+  "currentNativeVisualAcceptance": false
+}

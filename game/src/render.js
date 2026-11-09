@@ -11,7 +11,7 @@ import { Rain, Snow, solarPosition, dirFromElAz, skyState, classifyWMO, fetchLiv
 import { setVehicleEnvMap, setVehicleSnow } from './vehicles.js';
 import { setWaterEnv, tickWater } from './water.js';
 import { progressivePMREM, supportsProgressivePMREM } from './progressive-pmrem.js';
-import { CockpitDisplays } from './cockpit-displays.js';
+import { CockpitDisplays, displayPixelRatio } from './cockpit-displays.js';
 
 // ============================================================================
 //  Renderer3D — WebGL renderer + sky + sun/shadows + post-processing + weather
@@ -1283,8 +1283,10 @@ export class Renderer3D {
         const r = this._renderer;
         const pr = Math.min(typeof devicePixelRatio !== 'undefined' ? devicePixelRatio : 1, t.pr);
         this._worldPixelRatio = pr;
-        r.setPixelRatio(pr);
-        r.setSize(this.width, this.height, false);
+        const outputPR = displayPixelRatio(pr, globalThis.devicePixelRatio, this.width, this.height, this.cockpitDisplays.active);
+        if (r.getPixelRatio() !== outputPR) r.setPixelRatio(outputPR);
+        r.getSize(this._tmp.v2);
+        if (this._tmp.v2.x !== this.width || this._tmp.v2.y !== this.height) r.setSize(this.width, this.height, false);
         this.composer.setPixelRatio(pr);
         this.composer.setSize(this.width, this.height);
         this.cockpitDisplays.resize(this.width, this.height, pr);

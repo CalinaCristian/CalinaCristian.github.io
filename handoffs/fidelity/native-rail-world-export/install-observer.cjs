@@ -16,7 +16,7 @@ module.exports = async function installRailObserver() {
             raw: K.safe(Object.fromEntries(Object.entries(n.sourceSignal).filter(([k]) => !['node', 'controller', 'approaches', 'edge', 'railEdges'].includes(k)))) } : null,
         lightCluster: controller(n.lightCluster) } : null;
     const edgeRef = e => e ? (!e.a || !e.b ? { unknownEdgeReference: K.safe(e) } : { ...scalar(e), a: nodeRef(e.a), b: nodeRef(e.b), sourceNodeIds: e.sourceNodeIds || [e.a.sourceId ?? null, e.b.sourceId ?? null],
-        grade: K.safe(e.grade), gradeNativeSamples: typeof e.grade?.heightAt === 'function' ? [0, .137, .389, .613, .877, 1].map(t => { try { return { t, displacementY: K.safe(e.grade.heightAt(t)) }; } catch (error) { return { t, error: String(error) }; } }) : null,
+        railDirections: K.safe(e.railDirections), grade: K.safe(e.grade), gradeNativeSamples: typeof e.grade?.heightAt === 'function' ? [0, .137, .389, .613, .877, 1].map(t => { try { return { t, displacementY: K.safe(e.grade.heightAt(t)) }; } catch (error) { return { t, error: String(error) }; } }) : null,
         access: K.safe(e.access) }) : null;
     function renderBindings(v) {
         const found = [], model = v.mesh.userData._model;
@@ -55,7 +55,7 @@ module.exports = async function installRailObserver() {
                 approach = motorNode && motorEdge ? T.world.nodeLight?.[motorNode.id]?.approaches.find(a => a.edge === motorEdge) : null;
             const row = { railSourceNodeId: n.sourceId, railNodeId: n.id, railEdgeId: e.id, motorNodeId: motorNode?.id ?? null, motorEdgeId: motorEdge?.id ?? null,
                 trafficTime: T.time, cycle: T.cycle, phase: signal?.phase ?? null, controllerIdentity: controller(T.boxController?.(n) || n.lightCluster || n)?.identity,
-                sourceDirections: K.safe(e.directions), atRailEnd: e.a === n ? 'a' : 'b', publicTram: e.publicTram, throughTram: e.throughTram,
+                railDirections: K.safe(e.railDirections), atRailEnd: e.a === n ? 'a' : 'b', publicTram: e.publicTram, throughTram: e.throughTram,
                 actualRendererApproachState: approach?.state ?? null, actualRendererApproachPhase: approach?.phase ?? null,
                 scope: 'Direct native query at observed undriven time; renderer approach state is separately retained and may lag. No red-stop/green-resume challenge is implied.' };
             try { row.railState = T.lightState(n, e); row.motorState = motorNode && motorEdge ? T.lightState(motorNode, motorEdge) : null; }

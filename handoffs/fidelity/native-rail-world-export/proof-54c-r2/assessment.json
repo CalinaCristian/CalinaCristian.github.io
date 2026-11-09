@@ -1,0 +1,63 @@
+{
+  "sourceCommit": "54c044421640cfe3569bfc3f72159d2169f87581",
+  "sourceGitTree": "63bb5eb0dbefa2691ae5bc8ebbd46ffe7c16eb2d",
+  "toolCommit": "dbb4d568077abb14c52490a825cf8b751dc201ff",
+  "runComplete": true,
+  "physicalAcceptance": false,
+  "scope": "Fresh native geometry/constructor extraction only; exact binding/admission failures retained, independent RO body/support analysis pending.",
+  "copiedGitShaVerified": 211,
+  "servedGitShaVerified": 115,
+  "nativeDataCanonicalVerified": true,
+  "browserClosedUtc": "2026-11-09T07:19:30.537Z",
+  "pid": 437391,
+  "pidTerminalState": "Z",
+  "freshWorldCounts": [
+    {
+      "district": "grozavesti",
+      "meshes": 624,
+      "geometryRecords": 422,
+      "colliders": 27990,
+      "supportPieces": 444,
+      "floorDecks": 444,
+      "railRoofs": 0,
+      "tramTrenchWalls": 0,
+      "nativeBandUnknownPieces": 0,
+      "nativeBandQueryErrors": 0
+    },
+    {
+      "district": "romana",
+      "meshes": 727,
+      "geometryRecords": 495,
+      "colliders": 37278,
+      "supportPieces": 633,
+      "floorDecks": 633,
+      "railRoofs": 84,
+      "tramTrenchWalls": 636,
+      "nativeBandUnknownPieces": 0,
+      "nativeBandQueryErrors": 0
+    }
+  ],
+  "knownGaps": [
+    "Native declared e.railDirections arrays were not recorded: executed exporter asked e.directions. Raw source tags/IDs and actual nodes/poses remain, but source-tag reconstruction is separate and cannot establish recorded native direction parity. RO reported gap; no rerun/relabel.",
+    "All production binding candidate rejection traces are absent beyond production summary reason/count. Failed actual actors retain their original motor source and no fake successful rail pose.",
+    "After-bind wrapper pose record precedes caller assignment to initialTramBinding; the actual assigned summary appears in before-attach/publication stages.",
+    "Geometry records preserve native CPU emitted buffers/transforms and all draw ranges/groups/instances. GPU shader deformations, skinning and active morphs require explicit separate interpretation; no complete GPU deformation or architectural parity claim.",
+    "Producer support/certificate/static diagnostics are not independent proof. RO owns triangle-vs-band/static validation. Direct undriven signal queries do not challenge red-stop/green-resume.",
+    "Frozen nowDate09:00Z is12:00local and supersedes native noon offset. Zero traffic updates; no movement/contacts/budget/all8/15load acceptance.",
+    "Original54 first-run transport failure remains separately archived; this freshOUT/source-verified retry is not a relabeled capture."
+  ],
+  "captureReview": {
+    "reviewed": true,
+    "files": [
+      {
+        "file": "grozavesti-native.png",
+        "finding": "Actual native High cockpit/source scene under bridge visible; no camera or actor edits. This front view does not certify every bridge profile."
+      },
+      {
+        "file": "romana-native.png",
+        "finding": "Actual native High cockpit/street scene and yellow tram visible; no camera or actor edits. This front view does not certify tunnel/static or source placement."
+      }
+    ]
+  },
+  "rawDirectory": "/workspace/integration-qa-evidence/rail-world-54c04442-native-r2"
+}

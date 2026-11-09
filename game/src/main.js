@@ -1740,7 +1740,7 @@ class Game {
             if (c.worker && Number.isFinite(c.worker.x)) { x = c.worker.x; z = c.worker.z; y = Number.isFinite(c.worker.y) ? c.worker.y : y; } // world-visual: behind the barrier, clear of the sign plates (note 6)
             crew.dress(i, dressFor(city.id, crew.season, null, Math.random, 'worker'));
             crew.set(i, { x, y, z, yaw: Math.atan2(-ix, -iz), amp: 0, phase: i }); // facing into the map (the traffic coming from inside)
-            this.workers.push({ x, z, nextT: 0 });
+            this.workers.push({ x, z, levelBand: c, nextT: 0 });
         });
         this.scene.add(crew.object);
     }
@@ -1759,6 +1759,7 @@ class Game {
         if (!this.closures?.length) return null;
         const P = this.player, now = performance.now(); let prompt = null;
         for (const c of this.closures) {
+            if (!P.atLevel(c)) continue;
             const dx = c.x - P.x, dz = c.z - P.z, d = Math.hypot(dx, dz);
             if (d < 40 && d > 0.5 && (dx * P.fx + dz * P.fz) / d > 0.6 && now - c.toastT > 30000 && now - (this._closureToastT || 0) > 8000) { c.toastT = now; this._closureToastT = now; const [t, b] = this.closureText(c); this.hud.toast(t, b, 'warn'); }
         }
@@ -1768,6 +1769,7 @@ class Game {
             if (this.input.take('KeyU')) { this.uTurn(); prompt = null; }
         }
         for (const w of this.workers || []) {
+            if (w.levelBand && !P.atLevel(w.levelBand)) continue;
             if (now < w.nextT) continue;
             const d = Math.hypot(w.x - P.x, w.z - P.z);
             if (d < 35) { const L = ROADWORKS[this.city.id] || ROADWORKS.bucharest; const l = L[Math.floor(Math.random() * L.length)]; this.hud.say(w, l.text, l.en); w.nextT = now + 9000 + Math.random() * 7000; }

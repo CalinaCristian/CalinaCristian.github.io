@@ -5179,7 +5179,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             // driver's sight line to the kerb signs (the sign plate no longer sits in front of the worker's head — note 6)
             const [wx, wz] = at(-1.4, half * 0.7); // (between the barrier and the work-site mesh)
             const worker = m.bundlePrimary && boundarySupport.clearCircle(wx, wz, .6, { ownerEdges: m.ownerEdges, y0: y - .3, y1: y + 2 }) ? { x: wx, z: wz, y, yaw: Math.atan2(ix, iz) } : false;
-            closures.push({ x: m.x, z: m.z, heading: m.heading, edge: e, node: m.node, kind, leadsTo,
+            closures.push({ x: m.x, z: m.z, y, top: y + m.barrierHeight, heading: m.heading, edge: e, node: m.node, kind, leadsTo,
                 l0: m.l0, l1: m.l1, half: m.half, bundleId: m.bundleId, bundlePrimary: m.bundlePrimary, worker });
             for (const mb of closureBuilders()) if (mb.ic > (starts.get(mb) || 0))
                 boundarySupport.applyMesh(mb, starts.get(mb) || 0, clipOptions);

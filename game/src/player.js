@@ -279,7 +279,7 @@ export class Player {
 
     /** within 25 m of a district-edge closure (main sets `softZones` = world.closures): its cones, boards and
      *  barriers stop the car softly, without damage or fines (spec R10.9) */
-    nearClosure() { const zs = this.softZones; if (!zs || !zs.length) return false; for (const z of zs) if (Math.abs(z.x - this.x) < 25 && Math.abs(z.z - this.z) < 25) return true; return false; }
+    nearClosure() { const zs = this.softZones; if (!zs || !zs.length) return false; for (const z of zs) if (Math.abs(z.x - this.x) < 25 && Math.abs(z.z - this.z) < 25 && this.atLevel(z)) return true; return false; }
     collide(dt) {
         // Penetration is resolved fully (minimum translation), speed is damped by the impact angle instead of
         // being killed, and moving away from an obstacle is never damped -> you can always reverse / steer out.

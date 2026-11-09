@@ -3,8 +3,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 5710,
-      "sha256": "306e159683877ba170553bdf3b94b30b2d98ebe5ec7aa790823edf7a0ac45d07"
+      "bytes": 6385,
+      "sha256": "8bca701a341120ff6c31f9be0209df528f344a49923adff828690ab0752dec85"
     },
     {
       "path": "analyze.py",
@@ -17,9 +17,19 @@
       "sha256": "bcac05fa5625670fe905fe697fb0a777fb6a2d693e5fa577725dc1021ba10b94"
     },
     {
+      "path": "current100m-barrier-scope.json",
+      "bytes": 6172,
+      "sha256": "42011cf6be0af74e96e9fc437a36a955a4e727c924d1915d38aa09e717bf1be5"
+    },
+    {
       "path": "fixtures/actual-body-vertices.json.gz",
       "bytes": 139087,
       "sha256": "f2f3e550155ceadac154a92b04c1a1e06a7534d37ab94adbfdd8e879afa450b9"
+    },
+    {
+      "path": "fixtures/current100m-world-vertices.json.gz",
+      "bytes": 87512,
+      "sha256": "e27e40b4ddb13c994e3d81c1f0b945e63d28c933954e37a86548024a29bdfee4"
     },
     {
       "path": "fixtures/native-subset.json.gz",
@@ -55,5 +65,6 @@
   "referenceImagesCommitted": false,
   "noBrowserStarted": true,
   "sourceGeometryEdited": false,
-  "bodyModelScope": "Pinned historical pre-100m-rise poses; later100m profiles require new body evidence."
+  "bodyModelScope": "Pinned historical pre-100m-rise poses; later100m profiles require new body evidence.",
+  "later100mEvidence": "Separate current100m-barrier-scope.json and compressed world vertices; historical pre100m records unchanged."
 }

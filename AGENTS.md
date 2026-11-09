@@ -5,6 +5,7 @@ the next agent needs, add it here (short, imperative) or in the relevant spec, a
 
 ## The repo in one minute
 - Continuing the long fidelity task: read `handoffs/fidelity/RESUME.md` and `handoffs/fidelity/FIDELITY-GOAL.md` before assuming a release or restarting jobs. Environment handovers can end agent sessions while Node/Chromium jobs survive; Node may have process name `MainThread`. Check saved progress and argv/PIDs before starting duplicate browsers. A surviving PID can also be a zombie: check its state and the report's terminal fields.
+- Current primary tourist scope: read `handoffs/fidelity/TOURIST-REBUILD-GOAL.md`. Rebuild seven activity-led visits (maximum three per Bucharest/Seattle/Bellevue), inspect actual desktop/phone playthroughs and source-backed full-size visuals, and synchronize every affected overview capture. Scene loading or synthetic tests alone do not satisfy this goal.
 - Static CV site (`index.html`) + **Drive My CV**, a first-person 3D game in `game/` (Three.js, vanilla ES modules, **no build
   step**). Deployed by **GitHub Pages from `master`** → https://cristiancalina.com/game/. Work on your feature branch; nothing is
   live until it is merged into master, and merging is the owner's call (ask, never merge on your own).

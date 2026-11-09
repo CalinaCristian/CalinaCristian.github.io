@@ -1,0 +1,37 @@
+{
+  "scope": "Extended immutable source-record preservation, no new runtime or native acceptance.",
+  "candidateCommit": "c7185127d31c4f1d14cadcf8cbe0ed2f2e44d46d",
+  "candidateDataSha256": "fa12eda6365d369c79222ed8af0a068f5173899d71698a7f94cd70682dac4685",
+  "areasExactSemanticRowsMissing": [],
+  "lineRowsMissing": [],
+  "tramSourceWays": {
+    "old": 131,
+    "new": 131,
+    "missingOrChanged": []
+  },
+  "railways": {
+    "old": 110,
+    "new": 112,
+    "missingOrChanged": []
+  },
+  "tramRoutes": {
+    "old": 18,
+    "new": 18,
+    "missingOrChangedTagsOrMembers": []
+  },
+  "tramSourceNodeTags": {
+    "old": 549,
+    "new": 549,
+    "missingOrChanged": []
+  },
+  "renderedTramSourceSegments": {
+    "old": 211,
+    "new": 226,
+    "missing": []
+  },
+  "parkingFootprints": {
+    "old": 96,
+    "new": 110,
+    "missingOrChanged": []
+  }
+}

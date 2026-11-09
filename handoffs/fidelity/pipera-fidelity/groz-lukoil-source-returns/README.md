@@ -9,6 +9,9 @@ World, Traffic, actor, source coordinate, direction or physical tolerance.
 all affected overview captures and native render/population gates remain open.** In particular the old all-height mask
 wall across a forced retained Basarab bridge is not fixed by claiming the two reviewed return paths are in-mask.
 
+Candidate implementation/data commit: `c7185127d31c4f1d14cadcf8cbe0ed2f2e44d46d`; dataset SHA256
+`fa12eda6365d369c79222ed8af0a068f5173899d71698a7f94cd70682dac4685`.
+
 ## Exact facts
 
 QA8e4 native readback gives Lukoil's actual public curb at `(95.61743476365,-571.36829378971)`, source roof
@@ -57,6 +60,8 @@ Compared with accepted source data `406a53f1f1f1397a1667ea1bc77df78289a5667a` (s
 - The expanded compiler would filter61 already retained measured crowns near inferred carriageways. They match the
   exact original survey SHA/index/value and are kept. Their broad filter witnesses are recorded; this is **not** a trunk
   clearance certificate or a collision waiver. Those source/model contradictions remain for native review.
+- Extended source retention also preserves every old area geometry/name, line row,131 complete tram source ways,18 raw route
+  member lists,549 tagged rail nodes,211 rendered source rail segments,110 railway ways and96 parking polygons exactly.
 - The same mask union adds360 occupied20m cells and removes zero old occupied cells. Every reviewed literal leg appears
   exactly once in the rebuilt directed graph; every≤0.5m centreline sample is inside its rebuilt mask.
 - Production Navigator on the exact compiled XY/direction/access graph changes0/52 old Doina legs→fuel to69/69 rebuilt

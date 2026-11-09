@@ -574,5 +574,298 @@
         "bel-botanical-garden"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "bel-botanical-garden",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/bel-botanical-garden/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:20:05.397Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": 200.080744013379,
+          "z": 229.410791060295,
+          "y": -20.50424937027438,
+          "heading": 2.1504
+        },
+        "pose": {
+          "position": [
+            200.080744013379,
+            -18.85424937027438,
+            229.410791060295
+          ],
+          "bearing": 236.79115573506778,
+          "pitch": -6.000002840028045
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:20:04.024Z",
+        "triangles": 638112,
+        "drawCalls": 67,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "a2cdfaeb7519340e479297a0c07412d9a8d0a477586f9ed8b654c726e14ddf8f",
+        "bytes": 36864,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 0,
+            "z": 3,
+            "y": -0.18721023569814868,
+            "heading": -3.141592653589793
+          },
+          "viewpoint": {
+            "view": [
+              157.3,
+              259.7
+            ],
+            "id": "bel-botanical-garden",
+            "x": 200.080744013379,
+            "z": 229.410791060295,
+            "bearing": 234.70111176729984,
+            "pitch": -6,
+            "fov": 60,
+            "text": "The Ravine Experience suspension bridge disappearing into ferns and firs",
+            "r": 10,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 200.080744013379,
+            "z": 229.410791060295,
+            "y": -20.50424937027438,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "bel-botanical-garden",
+          "origin": {
+            "lat": 47.6088,
+            "lon": -122.1793,
+            "elev": 69.3
+          },
+          "projection": {
+            "mLat": 111182.71,
+            "mLon": 75187.81
+          }
+        },
+        "label": "The ravine suspension bridge",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/bel-botanical-garden/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:25:27.409Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 200.080744013379,
+          "z": 229.410791060295,
+          "y": -20.50424937027438,
+          "heading": 2.1868781835937496
+        },
+        "pose": {
+          "position": [
+            200.080744013379,
+            -18.85424937027438,
+            229.410791060295
+          ],
+          "bearing": 234.70110977084255,
+          "pitch": -6.000002840028045
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:25:26.079Z",
+        "triangles": 650143,
+        "drawCalls": 160,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "450f315bc45b753bbc7289deaaaa6b5070140af06eef4c19eaae96a8ed3b99af",
+        "bytes": 44923,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": 0,
+            "z": 3,
+            "y": -0.18721023569814868,
+            "heading": -3.141592653589793
+          },
+          "viewpoint": {
+            "view": [
+              157.3,
+              259.7
+            ],
+            "id": "bel-botanical-garden",
+            "x": 200.080744013379,
+            "z": 229.410791060295,
+            "bearing": 234.70111176729984,
+            "pitch": -6,
+            "fov": 60,
+            "text": "The Ravine Experience suspension bridge disappearing into ferns and firs",
+            "r": 10,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 200.080744013379,
+            "z": 229.410791060295,
+            "y": -20.50424937027438,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "bel-botanical-garden",
+          "origin": {
+            "lat": 47.6088,
+            "lon": -122.1793,
+            "elev": 69.3
+          },
+          "projection": {
+            "mLat": 111182.71,
+            "mLon": 75187.81
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/bel-botanical-garden/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:20:09.465Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 200.080744013379,
+          "z": 229.410791060295,
+          "y": -20.50424937027438,
+          "heading": 2.1504
+        },
+        "pose": {
+          "position": [
+            200.080744013379,
+            -18.85424937027438,
+            229.410791060295
+          ],
+          "bearing": 236.79115573506778,
+          "pitch": -6.000002840028045
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:20:08.092Z",
+        "triangles": 637470,
+        "drawCalls": 63,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "fa6c7a9c6f276b12b5472f43bb6b1cdb02b67467f23ba9fe207537b4a4af3fb6",
+        "bytes": 45027,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 0,
+            "z": 3,
+            "y": -0.18721023569814868,
+            "heading": -3.141592653589793
+          },
+          "viewpoint": {
+            "view": [
+              157.3,
+              259.7
+            ],
+            "id": "bel-botanical-garden",
+            "x": 200.080744013379,
+            "z": 229.410791060295,
+            "bearing": 234.70111176729984,
+            "pitch": -6,
+            "fov": 60,
+            "text": "The Ravine Experience suspension bridge disappearing into ferns and firs",
+            "r": 10,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 200.080744013379,
+            "z": 229.410791060295,
+            "y": -20.50424937027438,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "bel-botanical-garden",
+          "origin": {
+            "lat": 47.6088,
+            "lon": -122.1793,
+            "elev": 69.3
+          },
+          "projection": {
+            "mLat": 111182.71,
+            "mLon": 75187.81
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:25:27.409Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

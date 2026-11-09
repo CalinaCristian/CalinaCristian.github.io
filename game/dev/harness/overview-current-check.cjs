@@ -23,7 +23,7 @@ async function main(){
   await page.goto(base+'/game/overview/',{waitUntil:'domcontentloaded'});
   try { await page.waitForFunction(()=>[...document.querySelectorAll('[data-cv="location"] option')].filter(o=>o.value).length===8&&document.querySelectorAll('#spot-evidence-viewer select option').length===24); } catch(e) { result.initial=await page.evaluate(()=>({locations:document.querySelectorAll('[data-cv="location"] option').length,spots:document.querySelectorAll('#spot-evidence-viewer select option').length,body:document.body.innerText.slice(-7000)}));await page.screenshot({path:path.join(out,'initial-failure.png')});throw e; }
   assert.equal(await page.locator('#district-comparison-cards article').count(),8);
-  const images=new Map();
+  const images=new Map(),reports=new Map();
   result.legacyHashGaps=[];
   function checkImage(file,hash,historical=false){const bytes=fs.readFileSync(file),actual=sha(bytes),url='/'+path.relative(root,file).split(path.sep).join('/');if(hash)assert.equal(actual,hash,file);else{assert(historical,'Current image hash missing:'+file);result.legacyHashGaps.push({path:url,observedSha256:actual,note:'Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged.'});}images.set(url,true);}
   for(const place of catalog.locations){
@@ -65,20 +65,28 @@ async function main(){
   for(const kind of ['landmark','spot'])for(const entry of inventory[kind==='spot'?'spots':'landmarks']){
    const record=load(path.join(publicDir,entry.evidence)),selector=`#${kind}-evidence-viewer`;
    await page.locator(selector+' select').selectOption(entry.id);
-   await page.waitForFunction(([selector,id])=>document.querySelector(selector+' article .eyebrow')?.textContent.startsWith(id+' ·'),[selector,entry.id]);
+   await page.waitForFunction(([selector,id])=>document.querySelector(selector+' article')?.dataset.evidenceId===id,[selector,entry.id]);
    const collections=[record,...(record.historicalCollections||[])];
    const expected=collections.reduce((n,c)=>n+(c.captures||[]).length,0);
    assert.equal(await page.locator(selector+' .lm-captures figure > a > img').count(),expected);
-   await page.locator(selector+' .lm-captures figure > a > img').evaluateAll(async imgs=>{for(const i of imgs){i.loading='eager';await i.decode();if(!i.naturalWidth)throw Error('Undecoded dedicated evidence');}});
+   const primaryVisitor=record.visitorGallery?.captures||[],retainedVisitor=record.visitorGallery?.retainedIllustrations||[],visitor=[...primaryVisitor,...retainedVisitor];
+   assert.equal(await page.locator(selector+' .visit-primary figure > a > img').count(),primaryVisitor.length);
+   assert.equal(await page.locator(selector+' .visit-retained figure > a > img').count(),retainedVisitor.length);
+   if(visitor.length){assert.equal(kind,'spot');assert.equal(await page.locator(selector+' .visit-validation:not([open])').count(),1);assert.equal(await page.locator(selector+' .visit-preview .notice').getByText('Staging game preview.',{exact:true}).count(),1);}
+   await page.locator(selector+' .lm-captures figure > a > img,'+selector+' .visit-gallery figure > a > img').evaluateAll(async imgs=>{for(const i of imgs){i.loading='eager';await i.decode();if(!i.naturalWidth)throw Error('Undecoded dedicated evidence');if(i.parentElement.getAttribute('href')!==i.getAttribute('src'))throw Error('Image link differs from image');}});
    for(const c of collections)for(const i of c.captures||[])checkImage(path.resolve(publicDir,i.image),i.sha256);
+   for(const i of visitor)checkImage(path.resolve(publicDir,i.image),i.sha256);
+   for(const proof of [...(record.nativeProofs||[]),...(record.visitorGallery?.reports||[]),...(record.visitorGallery?.report?[{report:record.visitorGallery.report,sha256:record.visitorGallery.reportSha256}]:[])]){const file=path.resolve(publicDir,proof.report),bytes=fs.readFileSync(file);assert.equal(sha(bytes),proof.sha256,'Native/capture report hash:'+file);JSON.parse(bytes);reports.set('/'+path.relative(root,file).split(path.sep).join('/'),true);assert.equal(await page.locator(selector+' a[href="'+proof.report+'"]').count(),1);}
    const native=(record.nativeProofs||[]).length;
    if(native)assert.equal(await page.locator(selector+' article').getByText('Native activity and access evidence',{exact:true}).count(),1);
-   result[kind==='spot'?'spots':'landmarks'].push({id:entry.id,current:record.captures.length,historical:expected-record.captures.length,nativeReports:native});
+   assert.equal(new URL(page.url()).searchParams.get(kind),entry.id);assert.equal(new URL(page.url()).hash,'#'+kind+'-evidence');
+   result[kind==='spot'?'spots':'landmarks'].push({id:entry.id,visitor:primaryVisitor.length,retainedVisitor:retainedVisitor.length,current:record.captures.length,historical:expected-record.captures.length,nativeReports:native});
   }
   const urls=[...images.keys()];
   // Decode every distinct current/historical game image without retaining GPU bitmaps.
   for(let i=0;i<urls.length;i+=24)await page.evaluate(async paths=>{await Promise.all(paths.map(async path=>{const r=await fetch(path);if(!r.ok)throw Error(path+':'+r.status);const b=await createImageBitmap(await r.blob());if(!b.width||!b.height)throw Error('Empty image:'+path);b.close();}));},urls.slice(i,i+24));
   result.uniqueGameImagesDecoded=urls.length;
+  for(const url of reports.keys()){const response=await page.request.get(base+url);assert.equal(response.status(),200,'Native report unavailable:'+url);await response.json();}result.uniqueEvidenceReportsChecked=reports.size;
   await page.locator('#comparisons').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,'overview-desktop.png')});
   await page.setViewportSize({width:390,height:844});await page.locator('#spot-evidence').scrollIntoViewIfNeeded();
   result.mobile=await page.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth,selectHeights:[...document.querySelectorAll('#spot-evidence-viewer select,#landmark-evidence-viewer select')].map(e=>e.getBoundingClientRect().height)}));

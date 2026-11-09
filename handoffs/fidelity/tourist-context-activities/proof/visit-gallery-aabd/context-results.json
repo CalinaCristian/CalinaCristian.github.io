@@ -1,0 +1,338 @@
+{
+  "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+  "overviewBase": "e354a500e95a5f741564becf528af1f9445bd265",
+  "startedAt": "2026-11-09T08:29:01.600Z",
+  "sourceFilesVerifiedBefore": 230,
+  "purpose": "Visitor scene illustrations from staging, not released gameplay, public-route proof or a matched reference comparison.",
+  "setup": "Native destination entry, then explicit production-controller setup. Ballard retains its authored north-bank position and turns toward the chamber. Cathedral uses the exact mapped footway w1364230355 point [-655,286.5] south of the building. Original authored postcard views remain recorded. Both desktop and portrait framing use native CDP touch look; no free camera, scene edits or route claim.",
+  "records": [
+    {
+      "id": "ballard-locks",
+      "captures": [
+        {
+          "kind": "scene-context",
+          "image": "assets/spots/ballard-locks/visit-aabd/scene-context.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:29:12.819Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 91.97229627058839,
+            "z": 100.50567922767456,
+            "y": 0.6,
+            "heading": 1.8815999999999997
+          },
+          "pose": {
+            "position": [
+              91.97229627058839,
+              2.25,
+              100.50567922767456
+            ],
+            "bearing": 252.19226126818432,
+            "pitch": -19.999998276178218
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:29:10.810Z",
+          "triangles": 462371,
+          "drawCalls": 80,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "a3a65d1524f9235375fbe1ba568c9119745b8682678a19befddd93464775122e",
+          "bytes": 36284,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-context",
+          "image": "assets/spots/ballard-locks/visit-aabd/phone-context.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:29:18.386Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 91.97229627058839,
+            "z": 100.50567922767456,
+            "y": 0.6,
+            "heading": 1.9198621874999997
+          },
+          "pose": {
+            "position": [
+              91.97229627058839,
+              2.25,
+              100.50567922767456
+            ],
+            "bearing": 249.99999940949613,
+            "pitch": -19.99999827617822
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:29:16.376Z",
+          "triangles": 458341,
+          "drawCalls": 43,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "0b8f93139c263733f3e11f6e7bee498f6a9c3c494224d3d436556fe649f984a8",
+          "bytes": 41649,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 0,
+          "z": 0,
+          "y": 0.2098590035364024,
+          "heading": -3.141592653589793
+        },
+        "originalViewpoint": {
+          "view": null,
+          "id": "ballard-locks",
+          "x": 91.97229627058839,
+          "z": 100.50567922767456,
+          "bearing": 290,
+          "pitch": -10,
+          "fov": 60,
+          "text": "Large lock full of boats from the north wall with the gates and control tower",
+          "r": 16,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "viewpoint": {
+          "view": null,
+          "id": "ballard-locks",
+          "x": 91.97229627058839,
+          "z": 100.50567922767456,
+          "bearing": 250,
+          "pitch": -20,
+          "fov": 60,
+          "text": "At the authored north-bank viewpoint, turn toward the large lock chamber.",
+          "r": 16,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": 91.97229627058839,
+          "z": 100.50567922767456,
+          "y": 0.6,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "ballard-locks",
+        "origin": {
+          "lat": 47.6664,
+          "lon": -122.397,
+          "elev": 8.5
+        },
+        "projection": {
+          "mLat": 111183.83,
+          "mLon": 75105.22
+        }
+      },
+      "look": {
+        "drags": 7,
+        "residualInputPixels": {
+          "x": -15.942573830734682,
+          "y": 0.00001253598576796596
+        }
+      },
+      "phoneLook": {
+        "drags": 1,
+        "residualInputPixels": {
+          "x": 0.000004294265683787065,
+          "y": 0.00001253598576796596
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "peoples-salvation-cathedral",
+      "captures": [
+        {
+          "kind": "scene-context",
+          "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/scene-context.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:29:28.040Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -655,
+            "z": 286.97,
+            "y": 18.17033382468106,
+            "heading": -0.017453203125
+          },
+          "pose": {
+            "position": [
+              -655,
+              19.820333824681057,
+              286.97
+            ],
+            "bearing": 0.9999948780470618,
+            "pitch": 24.99999952381006
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:29:24.869Z",
+          "triangles": 584510,
+          "drawCalls": 85,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "398edf0ec3543dc63d2e3027f2cc8aa8b4fde89e051432af792adaa7fce641c3",
+          "bytes": 56624,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-context",
+          "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/phone-context.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:29:32.304Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -655,
+            "z": 286.97,
+            "y": 18.17033382468106,
+            "heading": -0.01745326171875
+          },
+          "pose": {
+            "position": [
+              -655,
+              19.820333824681057,
+              286.97
+            ],
+            "bearing": 0.9999982352215966,
+            "pitch": 24.999999523810054
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:29:29.133Z",
+          "triangles": 395754,
+          "drawCalls": 38,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "7ad28f0b7ab3e01c7871bdbfd736afcd09c784bcd307da168ae5bb80fc6869ff",
+          "bytes": 60559,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -732,
+          "z": 169,
+          "y": 14,
+          "heading": -1.4835298641951802
+        },
+        "originalViewpoint": {
+          "view": [
+            -653.1034357889633,
+            157.82457397694287
+          ],
+          "id": "peoples-salvation-cathedral",
+          "x": -731,
+          "z": 165,
+          "bearing": 85,
+          "pitch": 28,
+          "fov": 70,
+          "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+          "r": 6,
+          "tol": 28,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "viewpoint": {
+          "view": [
+            -653.1034357889633,
+            157.82457397694287
+          ],
+          "id": "peoples-salvation-cathedral",
+          "x": -655,
+          "z": 286.5,
+          "bearing": 1,
+          "pitch": 25,
+          "fov": 70,
+          "text": "South facade from exact mapped footway w1364230355 point [-655,286.5]. Explicit native on-foot setup, not a walked route.",
+          "r": 6,
+          "tol": 28,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": -655,
+          "z": 286.97,
+          "y": 18.15027886238136,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "buc-parliament",
+        "origin": {
+          "lat": 44.42735,
+          "lon": 26.0905,
+          "elev": 70.8
+        },
+        "projection": {
+          "mLat": 111120.59,
+          "mLon": 79628.31
+        }
+      },
+      "look": {
+        "drags": 1,
+        "residualInputPixels": {
+          "x": 0.00003724789291818335,
+          "y": -0.00000346295099077724
+        }
+      },
+      "phoneLook": {
+        "drags": 1,
+        "residualInputPixels": {
+          "x": 0.000012833830294785761,
+          "y": -0.00000346295099077724
+        }
+      },
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "complete": true,
+  "endedAt": "2026-11-09T08:29:32.922Z",
+  "sourceFilesVerifiedAfter": 230
+}

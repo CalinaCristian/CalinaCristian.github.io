@@ -657,5 +657,289 @@
         "gas-works"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "gas-works",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/gas-works/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:21:44.660Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": 82.6,
+          "z": 100.1,
+          "y": -2.978620171546936,
+          "heading": 0.5235989062499999
+        },
+        "pose": {
+          "position": [
+            82.6,
+            -1.3286201715469361,
+            100.1
+          ],
+          "bearing": 329.99999251420894,
+          "pitch": 11.99999896570693
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:21:43.571Z",
+        "triangles": 644347,
+        "drawCalls": 60,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "ddb41e80fa0935bd40effee1ef297bfa4a64d11fc8da0ec0f7922cc5758d0aea",
+        "bytes": 43154,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 0,
+            "z": 0,
+            "y": 0.3717435399070379,
+            "heading": -2.792526803190927
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "gas-works",
+            "x": 82.6,
+            "z": 100.1,
+            "bearing": 330,
+            "pitch": 12,
+            "fov": 55,
+            "text": "Rusty towers against the sky",
+            "r": 14,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 82.6,
+            "z": 100.1,
+            "y": -2.978620171546936,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "gas-works",
+          "origin": {
+            "lat": 47.6456,
+            "lon": -122.3356,
+            "elev": 10.9
+          },
+          "projection": {
+            "mLat": 111183.42,
+            "mLon": 75135.05
+          }
+        },
+        "label": "The preserved industrial towers",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/gas-works/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:26:22.211Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 82.6,
+          "z": 100.1,
+          "y": -2.978620171546936,
+          "heading": 0.5235987890625
+        },
+        "pose": {
+          "position": [
+            82.6,
+            -1.3286201715469361,
+            100.1
+          ],
+          "bearing": 329.99999922855807,
+          "pitch": 11.999998965706927
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:26:21.531Z",
+        "triangles": 650843,
+        "drawCalls": 140,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "5af367ed7201005c6efdf6ca34d0c8c31b7b2453e7bf9c2ef62f03905d9649ce",
+        "bytes": 49000,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": 0,
+            "z": 0,
+            "y": 0.3717435399070379,
+            "heading": -2.792526803190927
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "gas-works",
+            "x": 82.6,
+            "z": 100.1,
+            "bearing": 330,
+            "pitch": 12,
+            "fov": 55,
+            "text": "Rusty towers against the sky",
+            "r": 14,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 82.6,
+            "z": 100.1,
+            "y": -2.978620171546936,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "gas-works",
+          "origin": {
+            "lat": 47.6456,
+            "lon": -122.3356,
+            "elev": 10.9
+          },
+          "projection": {
+            "mLat": 111183.42,
+            "mLon": 75135.05
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/gas-works/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:21:50.453Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 82.6,
+          "z": 100.1,
+          "y": -2.978620171546936,
+          "heading": 0.5235989062499999
+        },
+        "pose": {
+          "position": [
+            82.6,
+            -1.3286201715469361,
+            100.1
+          ],
+          "bearing": 329.99999251420894,
+          "pitch": 11.99999896570693
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:21:49.364Z",
+        "triangles": 638170,
+        "drawCalls": 43,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "1a6bf7031cad4f7d54293beda050afab04dbfd7db197d75d347c5537200f7e84",
+        "bytes": 48991,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 0,
+            "z": 0,
+            "y": 0.3717435399070379,
+            "heading": -2.792526803190927
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "gas-works",
+            "x": 82.6,
+            "z": 100.1,
+            "bearing": 330,
+            "pitch": 12,
+            "fov": 55,
+            "text": "Rusty towers against the sky",
+            "r": 14,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 82.6,
+            "z": 100.1,
+            "y": -2.978620171546936,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "gas-works",
+          "origin": {
+            "lat": 47.6456,
+            "lon": -122.3356,
+            "elev": 10.9
+          },
+          "projection": {
+            "mLat": 111183.42,
+            "mLon": 75135.05
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:26:22.211Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

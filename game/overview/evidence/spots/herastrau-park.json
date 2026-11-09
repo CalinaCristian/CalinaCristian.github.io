@@ -868,5 +868,298 @@
         "herastrau-park"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "herastrau-park",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/herastrau-park/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:21:59.229Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": 235.5,
+          "z": 114,
+          "y": 2.553881935259905,
+          "heading": 0.17453296875000002
+        },
+        "pose": {
+          "position": [
+            235.5,
+            4.203881935259905,
+            114
+          ],
+          "bearing": 349.9999975047363,
+          "pitch": -11.99999896570693
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:21:56.970Z",
+        "triangles": 682768,
+        "drawCalls": 54,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "eca489888f77470c99a1b495551e495e4aa4e7e816486d51ad1a49d6bc2f2bae",
+        "bytes": 51654,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 232.3,
+            "z": 139.8,
+            "y": 2.4804715772859374,
+            "heading": -6.1086523819801535
+          },
+          "viewpoint": {
+            "view": [
+              236.3,
+              109.8
+            ],
+            "id": "herastrau-park",
+            "x": 235.5,
+            "z": 114,
+            "bearing": 350,
+            "pitch": -12,
+            "fov": 65,
+            "text": "The Sleeping Nymph with the park and Lake Herăstrău behind",
+            "r": 8,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 235.5,
+            "z": 114,
+            "y": 2.553881935259905,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-herastrau",
+          "origin": {
+            "lat": 44.471,
+            "lon": 26.08,
+            "elev": 84.2
+          },
+          "projection": {
+            "mLat": 111121.44,
+            "mLon": 79569.03
+          }
+        },
+        "label": "The park sculpture and tree-lined lawn",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/herastrau-park/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:26:27.846Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 235.5,
+          "z": 114,
+          "y": 2.553881935259905,
+          "heading": 0.17453296875000002
+        },
+        "pose": {
+          "position": [
+            235.5,
+            4.203881935259905,
+            114
+          ],
+          "bearing": 349.9999975047363,
+          "pitch": -11.99999896570693
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:26:26.367Z",
+        "triangles": 691150,
+        "drawCalls": 140,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "c31a79a96bf82f0440f51953bc0c41205aa351776e9544eabad7f16539af6d58",
+        "bytes": 50504,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": 232.3,
+            "z": 139.8,
+            "y": 2.4804715772859374,
+            "heading": -6.1086523819801535
+          },
+          "viewpoint": {
+            "view": [
+              236.3,
+              109.8
+            ],
+            "id": "herastrau-park",
+            "x": 235.5,
+            "z": 114,
+            "bearing": 350,
+            "pitch": -12,
+            "fov": 65,
+            "text": "The Sleeping Nymph with the park and Lake Herăstrău behind",
+            "r": 8,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 235.5,
+            "z": 114,
+            "y": 2.553881935259905,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-herastrau",
+          "origin": {
+            "lat": 44.471,
+            "lon": 26.08,
+            "elev": 84.2
+          },
+          "projection": {
+            "mLat": 111121.44,
+            "mLon": 79569.03
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/herastrau-park/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:22:04.906Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 235.5,
+          "z": 114,
+          "y": 2.553881935259905,
+          "heading": 0.17453296875000002
+        },
+        "pose": {
+          "position": [
+            235.5,
+            4.203881935259905,
+            114
+          ],
+          "bearing": 349.9999975047363,
+          "pitch": -11.99999896570693
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:22:02.646Z",
+        "triangles": 678477,
+        "drawCalls": 43,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "7968f1320a10b85bac85a9846b38eb9bf50efed9e9ab60c6e43a66b4805b2bfc",
+        "bytes": 50536,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 232.3,
+            "z": 139.8,
+            "y": 2.4804715772859374,
+            "heading": -6.1086523819801535
+          },
+          "viewpoint": {
+            "view": [
+              236.3,
+              109.8
+            ],
+            "id": "herastrau-park",
+            "x": 235.5,
+            "z": 114,
+            "bearing": 350,
+            "pitch": -12,
+            "fov": 65,
+            "text": "The Sleeping Nymph with the park and Lake Herăstrău behind",
+            "r": 8,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 235.5,
+            "z": 114,
+            "y": 2.553881935259905,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-herastrau",
+          "origin": {
+            "lat": 44.471,
+            "lon": 26.08,
+            "elev": 84.2
+          },
+          "projection": {
+            "mLat": 111121.44,
+            "mLon": 79569.03
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:26:27.846Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

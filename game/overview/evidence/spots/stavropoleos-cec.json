@@ -1401,5 +1401,298 @@
         "stavropoleos-cec"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "stavropoleos-cec",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/stavropoleos-cec/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:24:02.919Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -70.1,
+          "z": -68.9,
+          "y": 1.1552824208695978,
+          "heading": -2.0943951562499996
+        },
+        "pose": {
+          "position": [
+            -70.1,
+            2.805282420869598,
+            -68.9
+          ],
+          "bearing": 120.00000308576756,
+          "pitch": 10.000002495263686
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:23:58.757Z",
+        "triangles": 751992,
+        "drawCalls": 144,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "57a43e133a405cea757b21c54ae54bfdbe87613ca19490c2108159a5ff4f38bf",
+        "bytes": 68040,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -92,
+            "z": -67.5,
+            "y": 1.1196192387755073,
+            "heading": -1.7453292519943295
+          },
+          "viewpoint": {
+            "view": [
+              -53.307692307692314,
+              -54.03846153846156
+            ],
+            "id": "stavropoleos-cec",
+            "x": -70.1,
+            "z": -68.9,
+            "bearing": 120,
+            "pitch": 10,
+            "fov": 65,
+            "text": "From Str. Stavropoleos at the north-west corner of the church looking south-east at the west porch with its carved stone columns and painted upper walls (OSM: long axis E-W, altar to the east); alt: CEC Palace from the Calea Victoriei crossing at [44.43160,26.09690] heading 320.",
+            "r": 7,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -70.1,
+            "z": -68.9,
+            "y": 1.1552824208695978,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-old-town",
+          "origin": {
+            "lat": 44.4313,
+            "lon": 26.0995,
+            "elev": 86.7
+          },
+          "projection": {
+            "mLat": 111120.67,
+            "mLon": 79622.95
+          }
+        },
+        "label": "Stavropoleos church from the street",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/stavropoleos-cec/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:27:48.052Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -70.1,
+          "z": -68.9,
+          "y": 1.1552824208695978,
+          "heading": -2.0544
+        },
+        "pose": {
+          "position": [
+            -70.1,
+            2.805282420869598,
+            -68.9
+          ],
+          "bearing": 117.70844943167629,
+          "pitch": 9.999995780914528
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:27:45.540Z",
+        "triangles": 736715,
+        "drawCalls": 196,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "e9047c66e8f02e40ee2c89c1e03c443d14f706e4c0586593f0a4ec3d095469df",
+        "bytes": 63521,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": -92,
+            "z": -67.5,
+            "y": 1.1196192387755073,
+            "heading": -1.7453292519943295
+          },
+          "viewpoint": {
+            "view": [
+              -53.307692307692314,
+              -54.03846153846156
+            ],
+            "id": "stavropoleos-cec",
+            "x": -70.1,
+            "z": -68.9,
+            "bearing": 120,
+            "pitch": 10,
+            "fov": 65,
+            "text": "From Str. Stavropoleos at the north-west corner of the church looking south-east at the west porch with its carved stone columns and painted upper walls (OSM: long axis E-W, altar to the east); alt: CEC Palace from the Calea Victoriei crossing at [44.43160,26.09690] heading 320.",
+            "r": 7,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -70.1,
+            "z": -68.9,
+            "y": 1.1552824208695978,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-old-town",
+          "origin": {
+            "lat": 44.4313,
+            "lon": 26.0995,
+            "elev": 86.7
+          },
+          "projection": {
+            "mLat": 111120.67,
+            "mLon": 79622.95
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/stavropoleos-cec/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:24:09.658Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -70.1,
+          "z": -68.9,
+          "y": 1.1552824208695978,
+          "heading": -2.0943951562499996
+        },
+        "pose": {
+          "position": [
+            -70.1,
+            2.805282420869598,
+            -68.9
+          ],
+          "bearing": 120.00000308576756,
+          "pitch": 10.000002495263686
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:24:05.497Z",
+        "triangles": 723412,
+        "drawCalls": 99,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "1d28240df1b359152efe41aa3ed29dfdd64300b82515326ca431943247a5f441",
+        "bytes": 63462,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -92,
+            "z": -67.5,
+            "y": 1.1196192387755073,
+            "heading": -1.7453292519943295
+          },
+          "viewpoint": {
+            "view": [
+              -53.307692307692314,
+              -54.03846153846156
+            ],
+            "id": "stavropoleos-cec",
+            "x": -70.1,
+            "z": -68.9,
+            "bearing": 120,
+            "pitch": 10,
+            "fov": 65,
+            "text": "From Str. Stavropoleos at the north-west corner of the church looking south-east at the west porch with its carved stone columns and painted upper walls (OSM: long axis E-W, altar to the east); alt: CEC Palace from the Calea Victoriei crossing at [44.43160,26.09690] heading 320.",
+            "r": 7,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -70.1,
+            "z": -68.9,
+            "y": 1.1552824208695978,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-old-town",
+          "origin": {
+            "lat": 44.4313,
+            "lon": 26.0995,
+            "elev": 86.7
+          },
+          "projection": {
+            "mLat": 111120.67,
+            "mLon": 79622.95
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:27:48.052Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

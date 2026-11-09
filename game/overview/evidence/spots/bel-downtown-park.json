@@ -594,5 +594,298 @@
         "bel-downtown-park"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "bel-downtown-park",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/bel-downtown-park/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:20:15.644Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -93,
+          "z": 131,
+          "y": -3.8999999999999995,
+          "heading": 1.4056476562499998
+        },
+        "pose": {
+          "position": [
+            -93,
+            -2.2499999999999996,
+            131
+          ],
+          "bearing": 279.46232181441906,
+          "pitch": 1.0000015923962011
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:20:14.216Z",
+        "triangles": 551160,
+        "drawCalls": 43,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "94bcd32fb2919e33bf7696a77fd84a1323d97c96f3fbbb345a816d6f40494346",
+        "bytes": 43562,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 6,
+            "z": -6,
+            "y": 0.687159805578802,
+            "heading": -3.490658503988659
+          },
+          "viewpoint": {
+            "view": [
+              -150,
+              121.5
+            ],
+            "id": "bel-downtown-park",
+            "x": -93,
+            "z": 131,
+            "bearing": 279.4623222080256,
+            "pitch": 1,
+            "fov": 65,
+            "text": "Along the 240-ft waterfall spilling into the reflecting pool",
+            "r": 14,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -93,
+            "z": 131,
+            "y": -3.8999999999999995,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "bel-downtown-park",
+          "origin": {
+            "lat": 47.6133,
+            "lon": -122.2034,
+            "elev": 39.8
+          },
+          "projection": {
+            "mLat": 111182.8,
+            "mLon": 75181.36
+          }
+        },
+        "label": "The reflecting pool and waterfall",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/bel-downtown-park/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:25:33.185Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -93,
+          "z": 131,
+          "y": -3.8999999999999995,
+          "heading": 1.4056476562499998
+        },
+        "pose": {
+          "position": [
+            -93,
+            -2.2499999999999996,
+            131
+          ],
+          "bearing": 279.46232181441906,
+          "pitch": 1.0000015923962011
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:25:32.295Z",
+        "triangles": 561237,
+        "drawCalls": 130,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "264b19996739bea588c86e8110e85e9dc60bcc06aefaeba758d4155f8c409e41",
+        "bytes": 46280,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": 6,
+            "z": -6,
+            "y": 0.687159805578802,
+            "heading": -3.490658503988659
+          },
+          "viewpoint": {
+            "view": [
+              -150,
+              121.5
+            ],
+            "id": "bel-downtown-park",
+            "x": -93,
+            "z": 131,
+            "bearing": 279.4623222080256,
+            "pitch": 1,
+            "fov": 65,
+            "text": "Along the 240-ft waterfall spilling into the reflecting pool",
+            "r": 14,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -93,
+            "z": 131,
+            "y": -3.8999999999999995,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "bel-downtown-park",
+          "origin": {
+            "lat": 47.6133,
+            "lon": -122.2034,
+            "elev": 39.8
+          },
+          "projection": {
+            "mLat": 111182.8,
+            "mLon": 75181.36
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/bel-downtown-park/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:20:19.138Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -93,
+          "z": 131,
+          "y": -3.8999999999999995,
+          "heading": 1.4056476562499998
+        },
+        "pose": {
+          "position": [
+            -93,
+            -2.2499999999999996,
+            131
+          ],
+          "bearing": 279.46232181441906,
+          "pitch": 1.0000015923962011
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:20:17.710Z",
+        "triangles": 548564,
+        "drawCalls": 33,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "1235497483ce479e0e0783f4e8b5aea08be9fa2a2b5a39444bc8613099902016",
+        "bytes": 46266,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 6,
+            "z": -6,
+            "y": 0.687159805578802,
+            "heading": -3.490658503988659
+          },
+          "viewpoint": {
+            "view": [
+              -150,
+              121.5
+            ],
+            "id": "bel-downtown-park",
+            "x": -93,
+            "z": 131,
+            "bearing": 279.4623222080256,
+            "pitch": 1,
+            "fov": 65,
+            "text": "Along the 240-ft waterfall spilling into the reflecting pool",
+            "r": 14,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -93,
+            "z": 131,
+            "y": -3.8999999999999995,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "bel-downtown-park",
+          "origin": {
+            "lat": 47.6133,
+            "lon": -122.2034,
+            "elev": 39.8
+          },
+          "projection": {
+            "mLat": 111182.8,
+            "mLon": 75181.36
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:25:33.185Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

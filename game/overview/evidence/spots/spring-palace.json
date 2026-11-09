@@ -599,5 +599,298 @@
         "spring-palace"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "spring-palace",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/spring-palace/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:23:48.441Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": 30,
+          "z": -35,
+          "y": 0.013298569207428937,
+          "heading": 1.59684046875
+        },
+        "pose": {
+          "position": [
+            30,
+            1.663298569207429,
+            -35
+          ],
+          "bearing": 268.50778058493296,
+          "pitch": 7.999999310471287
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:23:47.662Z",
+        "triangles": 306091,
+        "drawCalls": 131,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "693da227a7ed47a882deb75f3b341ecca3e4313c9661dfdddfa35d05eda8a313",
+        "bytes": 52186,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -23.18625,
+            "z": -69.525,
+            "y": 0.023967316468001855,
+            "heading": -2.488791289792414
+          },
+          "viewpoint": {
+            "view": [
+              -15.78869300683543,
+              -33.807204236460606
+            ],
+            "id": "spring-palace",
+            "x": 30,
+            "z": -35,
+            "bearing": 268.50778203495156,
+            "pitch": 8,
+            "fov": 60,
+            "text": "The Spring Palace from its garden",
+            "r": 12,
+            "tol": 34,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 30,
+            "z": -35,
+            "y": 0.013298569207428937,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "spring-palace",
+          "origin": {
+            "lat": 44.4685,
+            "lon": 26.09235,
+            "elev": 86.9
+          },
+          "projection": {
+            "mLat": 111121.39,
+            "mLon": 79572.43
+          }
+        },
+        "label": "The palace facade and garden",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/spring-palace/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:27:39.726Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 30,
+          "z": -35,
+          "y": 0.013298569207428937,
+          "heading": 1.5968404687499997
+        },
+        "pose": {
+          "position": [
+            30,
+            1.663298569207429,
+            -35
+          ],
+          "bearing": 268.507780584933,
+          "pitch": 7.999999310471287
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:27:39.329Z",
+        "triangles": 309798,
+        "drawCalls": 177,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "1338b0ce43bbbc7f302d01f21e3ef09f79a464d3a2c255e83e367c0e688ba424",
+        "bytes": 50632,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": -23.18625,
+            "z": -69.525,
+            "y": 0.023967316468001855,
+            "heading": -2.488791289792414
+          },
+          "viewpoint": {
+            "view": [
+              -15.78869300683543,
+              -33.807204236460606
+            ],
+            "id": "spring-palace",
+            "x": 30,
+            "z": -35,
+            "bearing": 268.50778203495156,
+            "pitch": 8,
+            "fov": 60,
+            "text": "The Spring Palace from its garden",
+            "r": 12,
+            "tol": 34,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 30,
+            "z": -35,
+            "y": 0.013298569207428937,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "spring-palace",
+          "origin": {
+            "lat": 44.4685,
+            "lon": 26.09235,
+            "elev": 86.9
+          },
+          "projection": {
+            "mLat": 111121.39,
+            "mLon": 79572.43
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/spring-palace/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:23:52.909Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 30,
+          "z": -35,
+          "y": 0.013298569207428937,
+          "heading": 1.59684046875
+        },
+        "pose": {
+          "position": [
+            30,
+            1.663298569207429,
+            -35
+          ],
+          "bearing": 268.50778058493296,
+          "pitch": 7.999999310471287
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:23:52.131Z",
+        "triangles": 297125,
+        "drawCalls": 80,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "04855b08306b66547bec59856d5a0680f50b7d9e2f9a5ca98d0c3cecc6c60700",
+        "bytes": 50683,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -23.18625,
+            "z": -69.525,
+            "y": 0.023967316468001855,
+            "heading": -2.488791289792414
+          },
+          "viewpoint": {
+            "view": [
+              -15.78869300683543,
+              -33.807204236460606
+            ],
+            "id": "spring-palace",
+            "x": 30,
+            "z": -35,
+            "bearing": 268.50778203495156,
+            "pitch": 8,
+            "fov": 60,
+            "text": "The Spring Palace from its garden",
+            "r": 12,
+            "tol": 34,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 30,
+            "z": -35,
+            "y": 0.013298569207428937,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "spring-palace",
+          "origin": {
+            "lat": 44.4685,
+            "lon": 26.09235,
+            "elev": 86.9
+          },
+          "projection": {
+            "mLat": 111121.39,
+            "mLon": 79572.43
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:27:39.726Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

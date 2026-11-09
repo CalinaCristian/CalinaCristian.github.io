@@ -631,5 +631,298 @@
         "arcul-de-triumf"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "arcul-de-triumf",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/arcul-de-triumf/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:19:30.219Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -13.274371973762545,
+          "z": -45.71971323598915,
+          "y": -0.08562885447913324,
+          "heading": 0.3490659375
+        },
+        "pose": {
+          "position": [
+            -13.274371973762545,
+            1.5643711455208666,
+            -45.71971323598915
+          ],
+          "bearing": 339.9999950094726,
+          "pitch": 10.999997373310727
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:19:28.561Z",
+        "triangles": 287503,
+        "drawCalls": 108,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "bd80427a68639691d7e6c5775ed7afe90edaf4dd1fde7d64da888f0d185f494f",
+        "bytes": 42222,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -25.651450004398864,
+            "z": -79.7254556439903,
+            "y": -0.12020864978336726,
+            "heading": -5.934119456780721
+          },
+          "viewpoint": {
+            "view": [
+              -32.4275,
+              -98.34250000000002
+            ],
+            "id": "arcul-de-triumf",
+            "x": -13.274371973762545,
+            "z": -45.71971323598915,
+            "bearing": 340,
+            "pitch": 11,
+            "fov": 60,
+            "text": "From the south side of the roundabout on the Kiseleff axis, ~90 m south of the arch, looking NNW through the opening at the south face with Ferdinand & Maria medallions.",
+            "r": 12,
+            "tol": 24,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -13.274371973762545,
+            "z": -45.71971323598915,
+            "y": -0.08562885447913324,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "arcul-de-triumf",
+          "origin": {
+            "lat": 44.46632,
+            "lon": 26.0785,
+            "elev": 90.4
+          },
+          "projection": {
+            "mLat": 111121.35,
+            "mLon": 79575.39
+          }
+        },
+        "label": "The arch and its surrounding streets",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/arcul-de-triumf/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:25:03.419Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -13.274371973762545,
+          "z": -45.71971323598915,
+          "y": -0.08562885447913324,
+          "heading": 0.34906587890624996
+        },
+        "pose": {
+          "position": [
+            -13.274371973762545,
+            1.5643711455208666,
+            -45.71971323598915
+          ],
+          "bearing": 339.9999983666472,
+          "pitch": 10.999997373310729
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:25:01.937Z",
+        "triangles": 295320,
+        "drawCalls": 184,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "edde39f588016dc106a86ba2ee4f801f9995f949c8935ed90ae18c7dc223acbb",
+        "bytes": 50280,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": -25.651450004398864,
+            "z": -79.7254556439903,
+            "y": -0.12020864978336726,
+            "heading": -5.934119456780721
+          },
+          "viewpoint": {
+            "view": [
+              -32.4275,
+              -98.34250000000002
+            ],
+            "id": "arcul-de-triumf",
+            "x": -13.274371973762545,
+            "z": -45.71971323598915,
+            "bearing": 340,
+            "pitch": 11,
+            "fov": 60,
+            "text": "From the south side of the roundabout on the Kiseleff axis, ~90 m south of the arch, looking NNW through the opening at the south face with Ferdinand & Maria medallions.",
+            "r": 12,
+            "tol": 24,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -13.274371973762545,
+            "z": -45.71971323598915,
+            "y": -0.08562885447913324,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "arcul-de-triumf",
+          "origin": {
+            "lat": 44.46632,
+            "lon": 26.0785,
+            "elev": 90.4
+          },
+          "projection": {
+            "mLat": 111121.35,
+            "mLon": 79575.39
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/arcul-de-triumf/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:19:34.853Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -13.274371973762545,
+          "z": -45.71971323598915,
+          "y": -0.08562885447913324,
+          "heading": 0.3490659375
+        },
+        "pose": {
+          "position": [
+            -13.274371973762545,
+            1.5643711455208666,
+            -45.71971323598915
+          ],
+          "bearing": 339.9999950094726,
+          "pitch": 10.999997373310727
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:19:33.193Z",
+        "triangles": 282647,
+        "drawCalls": 87,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "adf92a3f727a767d53b989e579f121fc51db38be8c680af0a8c8ff114c40475c",
+        "bytes": 50328,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -25.651450004398864,
+            "z": -79.7254556439903,
+            "y": -0.12020864978336726,
+            "heading": -5.934119456780721
+          },
+          "viewpoint": {
+            "view": [
+              -32.4275,
+              -98.34250000000002
+            ],
+            "id": "arcul-de-triumf",
+            "x": -13.274371973762545,
+            "z": -45.71971323598915,
+            "bearing": 340,
+            "pitch": 11,
+            "fov": 60,
+            "text": "From the south side of the roundabout on the Kiseleff axis, ~90 m south of the arch, looking NNW through the opening at the south face with Ferdinand & Maria medallions.",
+            "r": 12,
+            "tol": 24,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -13.274371973762545,
+            "z": -45.71971323598915,
+            "y": -0.08562885447913324,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "arcul-de-triumf",
+          "origin": {
+            "lat": 44.46632,
+            "lon": 26.0785,
+            "elev": 90.4
+          },
+          "projection": {
+            "mLat": 111121.35,
+            "mLon": 79575.39
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:25:03.419Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

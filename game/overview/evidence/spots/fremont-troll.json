@@ -698,5 +698,289 @@
         "fremont-troll"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "fremont-troll",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/fremont-troll/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:21:33.711Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -2.3,
+          "z": -27.8,
+          "y": 2.2639801597100586,
+          "heading": -0.06981304687499999
+        },
+        "pose": {
+          "position": [
+            -2.3,
+            3.9139801597100585,
+            -27.8
+          ],
+          "bearing": 3.9999929408865,
+          "pitch": 7.999999310471285
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:21:24.929Z",
+        "triangles": 351788,
+        "drawCalls": 103,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "c18df18fc468e804cad0964fd5da4118b3ab3b7886dce87cbea0f66d7ada45bc",
+        "bytes": 49710,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -1.2,
+            "z": 0,
+            "y": -0.12456653673201748,
+            "heading": -0.03490658503988659
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "fremont-troll",
+            "x": -2.3,
+            "z": -27.8,
+            "bearing": 4,
+            "pitch": 8,
+            "fov": 70,
+            "text": "Troll head-on framed by the concrete arch, splayed hand left, Beetle under the left hand on the right, stairs at right edge",
+            "r": 9,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -2.3,
+            "z": -27.8,
+            "y": 2.2639801597100586,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "fremont-troll",
+          "origin": {
+            "lat": 47.6506,
+            "lon": -122.34722,
+            "elev": 33.1
+          },
+          "projection": {
+            "mLat": 111183.52,
+            "mLon": 75127.88
+          }
+        },
+        "label": "The Troll beneath the bridge",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/fremont-troll/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:26:15.650Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -2.3,
+          "z": -27.8,
+          "y": 2.2639801597100586,
+          "heading": -0.06981316406249999
+        },
+        "pose": {
+          "position": [
+            -2.3,
+            3.9139801597100585,
+            -27.8
+          ],
+          "bearing": 3.9999996552356265,
+          "pitch": 7.999999310471285
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:26:12.486Z",
+        "triangles": 353838,
+        "drawCalls": 176,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "4f0c48009bb508a7bc57680d3cbb1e4a0ed2570775eabcf35976210d8bb1ac61",
+        "bytes": 52319,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": -1.2,
+            "z": 0,
+            "y": -0.12456653673201748,
+            "heading": -0.03490658503988659
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "fremont-troll",
+            "x": -2.3,
+            "z": -27.8,
+            "bearing": 4,
+            "pitch": 8,
+            "fov": 70,
+            "text": "Troll head-on framed by the concrete arch, splayed hand left, Beetle under the left hand on the right, stairs at right edge",
+            "r": 9,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -2.3,
+            "z": -27.8,
+            "y": 2.2639801597100586,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "fremont-troll",
+          "origin": {
+            "lat": 47.6506,
+            "lon": -122.34722,
+            "elev": 33.1
+          },
+          "projection": {
+            "mLat": 111183.52,
+            "mLon": 75127.88
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/fremont-troll/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:21:37.777Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -2.3,
+          "z": -27.8,
+          "y": 2.2639801597100586,
+          "heading": -0.06981304687499999
+        },
+        "pose": {
+          "position": [
+            -2.3,
+            3.9139801597100585,
+            -27.8
+          ],
+          "bearing": 3.9999929408865,
+          "pitch": 7.999999310471285
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:21:28.995Z",
+        "triangles": 341165,
+        "drawCalls": 79,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "630aec76a4069ae10847c3db14d10e43abc2ac52401d106460e2c1acfde7799a",
+        "bytes": 52307,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -1.2,
+            "z": 0,
+            "y": -0.12456653673201748,
+            "heading": -0.03490658503988659
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "fremont-troll",
+            "x": -2.3,
+            "z": -27.8,
+            "bearing": 4,
+            "pitch": 8,
+            "fov": 70,
+            "text": "Troll head-on framed by the concrete arch, splayed hand left, Beetle under the left hand on the right, stairs at right edge",
+            "r": 9,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -2.3,
+            "z": -27.8,
+            "y": 2.2639801597100586,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "fremont-troll",
+          "origin": {
+            "lat": 47.6506,
+            "lon": -122.34722,
+            "elev": 33.1
+          },
+          "projection": {
+            "mLat": 111183.52,
+            "mLon": 75127.88
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:26:15.650Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

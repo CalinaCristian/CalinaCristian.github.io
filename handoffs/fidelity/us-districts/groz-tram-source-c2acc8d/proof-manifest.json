@@ -1,0 +1,140 @@
+{
+  "sourceCommit": "c2acc8d59cab1ca5f8da4f1f44bbdc5706f56f76",
+  "sourceBindingsSha256": {
+    "game/src/traffic.js": "63efd8681e374baa876f8c56682ddfef59d95a00ee3fb0706cfc31867c965b9c",
+    "game/src/world.js": "eff89252875041058d439b8837ca34e3d1838bd07fefdbf7d9486280ede7d94e",
+    "game/src/initial-traffic-admission.js": "9de5fc5acfd852297bfb641bc631f78231f31bd873455877b20337d04be29ed5",
+    "game/data/bucharest-grozavesti.json": "1acea9d80dcf07527fae98446d8edc05edb1a75677b72ee0c88e95241f394f03",
+    "tools/osm/build-data.mjs": "effc3db0f6b0952e85c379f1ee0bafa5a2b2465aece95b776bc20fa59d479466",
+    "specs/13-traffic.md": "e696ee840477f8d11225f87acdd875b89d9fea367d69cd4e48a9a64ce9a48f5d"
+  },
+  "fixture": {
+    "sha256": "8f6cb9e27941445c0d8515a79a1fb715797f6b86ab2af2e1952473aa8cf8ee9c",
+    "bytes": 45418884,
+    "rawRetained": true
+  },
+  "tileLedger": [
+    {
+      "name": "buc_44.4250_26.0290_44.4350_26.0450.xml",
+      "bytes": 3620820,
+      "sha256": "5f6dfc4175e595a80a0207927b135fcdda0ea79cfecdea841b089c91ba0c3343"
+    },
+    {
+      "name": "buc_44.4250_26.0450_44.4350_26.0610.xml",
+      "bytes": 4068076,
+      "sha256": "57639f0f940a2ca42f873e5e171b938cf43980f28fede6a30d29ce246b957fa7"
+    },
+    {
+      "name": "buc_44.4250_26.0610_44.4350_26.0770.xml",
+      "bytes": 5097547,
+      "sha256": "1de258735272aa12e444747c50a36372a0337d0bb16821337ba865d5ad600feb"
+    },
+    {
+      "name": "buc_44.4250_26.0770_44.4350_26.0930.xml",
+      "bytes": 4201904,
+      "sha256": "1dafbd501669a59407348a2028a6190dbeb129a85c30181bb86e79b05c8a5fb1"
+    },
+    {
+      "name": "buc_44.4350_26.0290_44.4450_26.0450.xml",
+      "bytes": 2139336,
+      "sha256": "1b3433692876dc385b2960f34d06d3f55c96f0c507f9207a9bb449ec7c0b3bcf"
+    },
+    {
+      "name": "buc_44.4350_26.0450_44.4450_26.0610.xml",
+      "bytes": 2581216,
+      "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689"
+    },
+    {
+      "name": "buc_44.4350_26.0610_44.4450_26.0770.xml",
+      "bytes": 4361067,
+      "sha256": "5c526f202084ffa605d5b78bb15b923b10dee7bca10bf65d9438152a465e0624"
+    },
+    {
+      "name": "buc_44.4350_26.0770_44.4450_26.0930.xml",
+      "bytes": 4560635,
+      "sha256": "14b1a756654b49a7d62517cddc711bc20056e4684a0a1f10c6a41ee9e6462069"
+    },
+    {
+      "name": "buc_44.4450_26.0290_44.4550_26.0450.xml",
+      "bytes": 1316642,
+      "sha256": "57a0c0e0a2c75f2e0f999b8fa8c5733d669c5bd244490fcd409b1c747593c55f"
+    },
+    {
+      "name": "buc_44.4450_26.0450_44.4550_26.0610.xml",
+      "bytes": 3534494,
+      "sha256": "1336a618c3f735263833078499794446ed5f9b8776aeefe914aaaa2eb5ec7732"
+    },
+    {
+      "name": "buc_44.4450_26.0610_44.4550_26.0770.xml",
+      "bytes": 5561807,
+      "sha256": "1b4248039697685242b9df55183002daee53d1ca728571020f64d9fa4fdb9f2e"
+    },
+    {
+      "name": "buc_44.4450_26.0770_44.4550_26.0930.xml",
+      "bytes": 5339287,
+      "sha256": "ee2946108a6f27a83e7b71f558950182e12af5eb1de7b7815b5ec03369a3af6e"
+    },
+    {
+      "name": "buc_44.4550_26.0290_44.4650_26.0450.xml",
+      "bytes": 2104334,
+      "sha256": "2d4083c18438e61eebab62d3b67f5a07337d69c2aa84bb8b4d8bb143d2437b85"
+    },
+    {
+      "name": "buc_44.4550_26.0450_44.4650_26.0610.xml",
+      "bytes": 3271344,
+      "sha256": "5b4a8f65b7fd6866738854193f910b82c100e3c6ed1effedb800a83f6ed1fd50"
+    },
+    {
+      "name": "buc_44.4550_26.0610_44.4650_26.0770.xml",
+      "bytes": 4585166,
+      "sha256": "052b27afee4aef69c907c144db2c38791acddfd572c917584f2136a709698996"
+    },
+    {
+      "name": "buc_44.4550_26.0770_44.4650_26.0930.xml",
+      "bytes": 3624809,
+      "sha256": "990ea50aa95587d1a134729a994a2f08db3e64618164a473a852ff298ac1af96"
+    }
+  ],
+  "checks": {
+    "all24RenderedLinesMapToRawSource": true,
+    "zeroDuplicateSourceConflicts": true,
+    "all6NativeTramTrackCentersOutsideBodyEnvelope": true,
+    "nativeMotorTopologyNotEdited": true,
+    "browserOpened": false,
+    "networkUsed": false
+  },
+  "files": {
+    "PROPOSAL.md": {
+      "bytes": 5416,
+      "sha256": "3e95560bd64262e0df7ea0865449910401bb341d63d778790f13ca89297de311"
+    },
+    "README.md": {
+      "bytes": 5228,
+      "sha256": "2c860283c0c3f4273db553ca7d2ac5e2016f428a1782d7d3f46bc15c903e43ae"
+    },
+    "alignment-findings.json": {
+      "bytes": 39160,
+      "sha256": "5be14a6176db5dc502afbffd0e1c41f85e82f75a75b14b4b8a04bfe1df3efb58"
+    },
+    "all-tram-source-ways.json": {
+      "bytes": 231723,
+      "sha256": "e34077f99b921b03f12c550ba14d2144ace529baf4c0c783b62c15a9361fc4d8"
+    },
+    "analyse-alignment.py": {
+      "bytes": 5139,
+      "sha256": "e7d1aac92c0441b20e1056fdb83f87390ba52be513c26dc5ebbd8418e2a0906b"
+    },
+    "audit-raw.py": {
+      "bytes": 5485,
+      "sha256": "442d0085dd6121dffbf7cc6966c529e6f97a385600a032755136758b5da32d18"
+    },
+    "raw-audit.json": {
+      "bytes": 180855,
+      "sha256": "8b82d54a45681b43b36f8a8e6bf0c8b8f554f9a29217b987c8e5f30337955e50"
+    },
+    "source-body-map.svg": {
+      "bytes": 3975,
+      "sha256": "b74e9c206e90d679e546201f1e6347b91a29e1492bdf92a04d2e6428d67b9dc7"
+    }
+  }
+}

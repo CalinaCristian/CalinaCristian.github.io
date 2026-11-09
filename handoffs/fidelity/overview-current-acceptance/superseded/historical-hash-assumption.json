@@ -1,0 +1,11 @@
+{
+  "sourceInventory": "250051fde303974e3b0043d3e2a34415012f0220",
+  "scope": "Actual published local game images and UI; official aerial response intercepted for cache tests only. No visual parity or physical-phone claim.",
+  "districts": [],
+  "landmarks": [],
+  "spots": [],
+  "errors": [],
+  "consoleErrors": [],
+  "complete": false,
+  "failure": "AssertionError [ERR_ASSERTION]: /tmp/drivecv-overview-7067c244/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c01.jpg\n+ actual - expected\n\n+ '03d7c600d49e1f01821f1941a005554e23a2f25e76198b22575b3f29ff3924bd'\n- undefined\n\n    at checkImage (/workspace/CalinaCristian.github.io/game/dev/harness/overview-current-check.cjs:27:75)\n    at main (/workspace/CalinaCristian.github.io/game/dev/harness/overview-current-check.cjs:43:124)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:541:9)"
+}

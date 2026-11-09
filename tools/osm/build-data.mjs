@@ -80,7 +80,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { parseFiles, parseInto } from './parse-osm.mjs';
-import { snapshotTramSources, tramMetadataFromRuns } from './tram-sources.mjs';
+import { snapshotTramSources, tramMetadataFromRuns, snapshotTramCrossingSources, extractTramCrossingMetadata } from './tram-sources.mjs';
 import { footprintCoverage, simpleFootprint, uncrossFootprint, bakeAssembly, bakeSurface, touchingSolids, assemblySignature } from '../../game/src/building-parts.js';
 import { sourceRing } from './source-footprints.mjs';
 import { sourcePartHeightReview } from './source-height-review.mjs';
@@ -318,6 +318,7 @@ function buildCity(cityId, did = null) {
     }
 
     const tramRawSnapshot = snapshotTramSources(osm); // raw tags/IDs before general builder decoration
+    const tramCrossingRawSnapshot = snapshotTramCrossingSources(osm);
     const pt = (id) => { const ll = N.get(id); return ll ? P(ll[0], ll[1]) : null; };
     const strings = [], strIdx = new Map();
     const S = (s) => { if (!s) return -1; let i = strIdx.get(s); if (i === undefined) { i = strings.length; strings.push(s); strIdx.set(s, i); } return i; };
@@ -1999,6 +2000,7 @@ function buildCity(cityId, did = null) {
         doc.scenerySourceGeometry = scenerySourceGeometry;
         doc.sceneryAccess = sceneryAccess;
     }
+    if (ds && outT.length) Object.assign(doc, extractTramCrossingMetadata(doc, tramCrossingRawSnapshot));
     if (ds) doc.streetTrees = streetTrees;
     if (turnLanes.length) doc.turnLanes = turnLanes;
     if (ds) { // district boundary (game metres): the polygons and the corridor field are the same margin() → sample its outline

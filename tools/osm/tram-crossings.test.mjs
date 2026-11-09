@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
-import { extractTramCrossingMetadata, appendTramCrossingMetadata, TRAM_SOURCE_FIELDS } from './tram-sources.mjs';
+import { extractTramCrossingMetadata, appendTramCrossingMetadata, snapshotTramCrossingSources, TRAM_SOURCE_FIELDS } from './tram-sources.mjs';
 const results = [], test = (name, fn) => { fn(); results.push(name); console.log('PASS ' + name); };
 const fixture = () => {
     const tags = { crossing: 'traffic_signals', highway: 'crossing', 'traffic_signals:sound': 'no' };
@@ -20,6 +20,14 @@ test('literal complete crossing preserves raw references/order/all tags/delta an
 });
 test('sharing a curb never pulls in an adjacent crossing transitively', () => {
     const { doc, osm } = fixture(); assert.deepEqual(extractTramCrossingMetadata(doc, osm).tramSourceCrossings.map(c => c.sourceId), ['w11']);
+});
+test('compiler snapshot retains complete source context across mutable clipping and decoration', () => {
+    const { doc, osm } = fixture(), expected = extractTramCrossingMetadata(doc, osm), snapshot = snapshotTramCrossingSources(osm);
+    osm.ways.get(11).nodes.splice(1, 2); osm.ways.get(11).tags.surface = 'changed';
+    osm.ways.get(20).nodes.splice(1, 1); osm.ways.get(20).tags.highway = 'service';
+    osm.nodes.get(3)[0] = 999; osm.ntags.get(2).crossing = 'uncontrolled';
+    assert.deepEqual(extractTramCrossingMetadata(doc, snapshot), expected);
+    assert.deepEqual(doc.tramSources[0].nodeIds, [3, 4]);
 });
 test('coincident geometry with distinct rail IDs creates no crossing identity', () => {
     const { doc, osm } = fixture(); doc.tramSources[0].nodeIds = [30, 40]; assert.deepEqual(extractTramCrossingMetadata(doc, osm).tramSourceCrossings, []);

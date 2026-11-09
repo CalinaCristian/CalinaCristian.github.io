@@ -23,6 +23,23 @@ export function snapshotTramSources(osm) {
     return { ways, routes, nodes, nodeTags };
 }
 
+/** Preserve crossing source input before the general compiler decorates and
+ * clips its mutable OSM records. Road references remain complete; coordinates
+ * are needed only for the literal pedestrian crossing ways. */
+export function snapshotTramCrossingSources(osm) {
+    const ways = new Map(), neededNodes = new Set();
+    for (const [id, way] of osm.ways) if (way.tags?.highway || way.tags?.footway === 'crossing') {
+        ways.set(id, { nodes: [...way.nodes], tags: copyTags(way.tags) });
+        if (way.tags?.highway === 'footway' || way.tags?.footway === 'crossing') for (const n of way.nodes) neededNodes.add(n);
+    }
+    const nodes = new Map(), ntags = new Map();
+    for (const n of neededNodes) {
+        const ll = osm.nodes.get(n); if (ll) nodes.set(n, [...ll]);
+        if (osm.ntags?.has(n)) ntags.set(n, copyTags(osm.ntags.get(n)));
+    }
+    return { ways, nodes, ntags };
+}
+
 export function tramProjection(proj) {
     if (![proj?.lat0, proj?.lon0, proj?.scale, proj?.mPerLat, proj?.mPerLon].every(Number.isFinite)) throw Error('Missing exact dataset projection');
     return (lat, lon) => {

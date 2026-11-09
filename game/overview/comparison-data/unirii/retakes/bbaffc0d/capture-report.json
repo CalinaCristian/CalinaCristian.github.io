@@ -1,0 +1,32 @@
+{
+  "startedAt": "2026-11-09T00:35:09.292Z",
+  "endedAt": "2026-11-09T00:37:30.400Z",
+  "elapsedSeconds": 141.108,
+  "source": "5851c4243f98bca223374b6688d6fe38f3114b6f8f3548bf33d9df3b00b7e485",
+  "captureToolSha256": "16a1e573ce8cd5a87661b6891c328d27bfe189e9e2c8356c014a0740fab2bfc2",
+  "sourceDatasetSha256": "9797d9f5b1a4f2593528ce6c8c4ad04ec38fb953c9770bf32f6d7d5c7c54f26c",
+  "loaded": {
+    "key": "bucharest-unirii",
+    "city": "bucharest",
+    "district": "unirii",
+    "ms": 15629,
+    "edges": 1054,
+    "ribbons": 1263
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+  "frameCounts": 17,
+  "coverageClaim": "Targeted 17-frame water overlap retake only, using original full-survey poses. Not a new whole-district acceptance result.",
+  "scopeCounts": {
+    "ring-touches": 11,
+    "core-touches": 6
+  }
+}

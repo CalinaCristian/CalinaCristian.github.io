@@ -1,0 +1,301 @@
+{
+  "schemaVersion": 1,
+  "id": "ateneu",
+  "city": "bucharest",
+  "name": "Ateneul Român",
+  "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.441344,
+    "lon": 26.0973695
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/16291602",
+      "label": "OpenStreetMap w16291602 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "amenity": "theatre",
+        "building:levels": "2",
+        "height": "41",
+        "roof:shape": "mixed"
+      }
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Romanian_Athenaeum",
+      "label": "Independent historical and architectural reference",
+      "type": "independent"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/b203c38abf3651dd3d472c491238ad36089a633a",
+      "label": "Accepted source-book/topology sync; recorded 456 checks across 33 models (b203c38a)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/b203c38abf3651dd3d472c491238ad36089a633a/handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json",
+      "label": "Existing recorded source-book/topology result; not a new execution",
+      "type": "validation"
+    }
+  ],
+  "sourceIds": [
+    "w1192148712",
+    "w1493065626",
+    "w1493065627",
+    "w1493065628",
+    "w1493065629",
+    "w1493065630",
+    "w1493065631",
+    "w1493065632",
+    "w1493065633",
+    "w1493065634",
+    "w1493065635",
+    "w1493065636",
+    "w1493065637",
+    "w1493065638",
+    "w1493065639",
+    "w1493065640",
+    "w1493111073",
+    "w1493111074",
+    "w1493111075",
+    "w1493111076",
+    "w1493111077",
+    "w1493111078",
+    "w1493111079",
+    "w1493111080",
+    "w1493111081",
+    "w1493111082",
+    "w1493111083",
+    "w1493111084",
+    "w1493112469",
+    "w1493204404",
+    "w1493204405",
+    "w16291602"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Reduced the previously estimated 47.4 m dome and lantern to the OSM 41 m total envelope.",
+    "Preserved the portico and rotunda; exact source polygon collision replaces footprint strips."
+  ],
+  "remainingGaps": [
+    "The 41 m envelope is source-backed; allocation of height among dome, lantern and drum and the detailed sculptural ornament remain estimates.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Historical source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "Historical source-boundary evidence: tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. The earlier run across 33 models recorded 306 checks. The later accepted source-book update b203c38abf3651dd3d472c491238ad36089a633a records 456 checks across 33 models, including this entry, in handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json. This wording update cites that existing proof; no tests were rerun and no images were recaptured."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": false,
+      "details": "Requested outdoor panorama did not reliably provide a matched visible exterior (wrong nearby view, indoor imagery, occlusion or unavailable coverage); this is not treated as an exterior pass."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/ateneu/front.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "dfcfd8c7562185a63761c7e10c206d137a2e782610606ae38a5ab173e2f22dd6",
+      "capturedAt": "2026-11-08T16:47:57.117203Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=ateneu&clean=1&fountains=on&view=street&az=-54.99842921375745",
+        "anchor": {
+          "lat": 44.441344,
+          "lon": 26.0973695,
+          "rotation": -2.5307
+        },
+        "camera": {
+          "position": [
+            -76.74482675487232,
+            1.3,
+            53.740441828309116
+          ],
+          "quaternion": [
+            0.08077467855253398,
+            -0.45981798984712763,
+            0.04204722889907164,
+            0.8833317033026669
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 1859.7986421787962,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -43.0671036164497,
+            0,
+            -39.83324387003636
+          ],
+          "max": [
+            41.92031151972506,
+            41,
+            40.63628319619241
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/ateneu/top.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "fb19b4a00e151a491c45d223e5df1529d0424ebf1a447fd87eda2c626046767e",
+      "capturedAt": "2026-11-08T16:47:58.301191Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=ateneu&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.441344,
+          "lon": 26.0973695,
+          "rotation": -2.5307
+        },
+        "camera": {
+          "position": [
+            -0.5733960483623193,
+            158.60339122968918,
+            0.5601231071755227
+          ],
+          "quaternion": [
+            -0.7067531394223399,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 3172.0694106283563,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -43.0671036164497,
+            0,
+            -39.83324387003636
+          ],
+          "max": [
+            41.92031151972506,
+            41,
+            40.63628319619241
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/ateneu/oblique.webp",
+      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "sha256": "df211af133a502f347df0c61b88008c5756ea5caeb7fe2816a0cb3d565bdfada",
+      "capturedAt": "2026-11-08T16:47:59.765175Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=ateneu&clean=1&fountains=on&view=oblique&az=-19.998429213757447&el=28",
+        "anchor": {
+          "lat": 44.441344,
+          "lon": 26.0973695,
+          "rotation": -2.5307
+        },
+        "camera": {
+          "position": [
+            -40.20722458468277,
+            78.01996104847005,
+            109.30385805942659
+          ],
+          "quaternion": [
+            -0.23824713423823765,
+            -0.16847698619603588,
+            -0.042006030493295744,
+            0.9555570634722785
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 2625.0774672191474,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -43.0671036164497,
+            0,
+            -39.83324387003636
+          ],
+          "max": [
+            41.92031151972506,
+            41,
+            40.63628319619241
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 7484,
+    "drawCalls": 3,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  },
+  "historicalImplementationNotes": [
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "5b92547699c6053b28050955d619232e18422958",
+      "supersededAt": "2026-11-09",
+      "field": "checks[0]",
+      "priorValue": {
+        "label": "Full source boundary and replacement-identity checks",
+        "passed": true,
+        "details": "tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+      },
+      "replacementScope": "Historical source-boundary evidence: tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. The earlier run across 33 models recorded 306 checks. The later accepted source-book update b203c38abf3651dd3d472c491238ad36089a633a records 456 checks across 33 models, including this entry, in handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json. This wording update cites that existing proof; no tests were rerun and no images were recaptured.",
+      "acceptedImplementationCommits": [
+        "b203c38abf3651dd3d472c491238ad36089a633a"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+}

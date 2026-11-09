@@ -1,0 +1,664 @@
+{
+  "schemaVersion": 1,
+  "id": "ballard-locks",
+  "city": "seattle",
+  "name": "Ballard Locks & fish ladder",
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Ballard_Locks"
+    },
+    {
+      "label": "Large lock (1917)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/164115502"
+    },
+    {
+      "label": "Large lock (1917)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/472179860"
+    },
+    {
+      "label": "Small lock",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/164115503"
+    },
+    {
+      "label": "Fish ladder (rebuilt 1976) + viewing room",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3413278212"
+    },
+    {
+      "label": "Fish ladder (rebuilt 1976) + viewing room",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3211770269"
+    },
+    {
+      "label": "Administration Building (1915), Operating Houses (1914), Control Tower (1969)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/51475867"
+    },
+    {
+      "label": "Administration Building (1915), Operating Houses (1914), Control Tower (1969)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/285289605"
+    },
+    {
+      "label": "Administration Building (1915), Operating Houses (1914), Control Tower (1969)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/285289606"
+    },
+    {
+      "label": "Administration Building (1915), Operating Houses (1914), Control Tower (1969)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/223562285"
+    },
+    {
+      "label": "Carl S. English Jr. Botanical Garden (1917)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/51475864"
+    },
+    {
+      "label": "U.S. Army Corps of Engineers — Chittenden Locks",
+      "type": "Official reference",
+      "url": "https://www.nws.usace.army.mil/Missions/Civil-Works/Locks-and-Dams/Chittenden-Locks/"
+    },
+    {
+      "label": "Mapped public north bank/access source",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/60973303"
+    },
+    {
+      "label": "Mapped public north bank/access source",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/472179831"
+    },
+    {
+      "label": "Mapped public north bank/access source",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/60973302"
+    },
+    {
+      "label": "Mapped public north bank/access source",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1305390459"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Historical native desktop action controls",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json"
+    },
+    {
+      "label": "Historical native touch action controls",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json"
+    }
+  ],
+  "improvements": [
+    "Current native scene retains 107 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Native lock-phase observation controls; final load/cache/phone/budget checks",
+    "Current phone conditions and scene budgets pass; the selected primary activity entry remains unverified."
+  ],
+  "remainingGaps": [
+    "Integrated entry-to-lock-observation route returned no planner path; it remains unverified",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+  ],
+  "checks": [
+    {
+      "label": "Current native scene load and warm cache",
+      "passed": true,
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts."
+    },
+    {
+      "label": "Native phone condition controls",
+      "passed": true,
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
+    },
+    {
+      "label": "Selected primary activity entry",
+      "passed": false,
+      "details": "The generic planner returned no path to the selected activity. Native activity access remains unverified; ordinary scene entry still loads."
+    },
+    {
+      "label": "High-quality selected native views",
+      "passed": true,
+      "details": "Maximum 483163 rendered triangles / 167 calls. Software-GL capture is not a hardware FPS benchmark."
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/ballard-locks-arrival.webp",
+      "sha256": "57624d3410b78e5bb74d7aeca4b808e4084b01ec378c87bad351ace5e99a874f",
+      "bytes": 25466,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:02:31.041Z",
+      "pose": {
+        "position": [
+          0,
+          1.8598590035364024,
+          0
+        ],
+        "bearing": 180,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6664,
+          "lon": -122.397,
+          "elev": 8.5
+        },
+        "projection": {
+          "mLat": 111183.83,
+          "mLon": 75105.22
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "The selected primary activity route returned no planner path; this is an arrival view, not successful activity access."
+      ],
+      "metrics": {
+        "triangles": 483163,
+        "drawCalls": 167
+      },
+      "simulationDate": "2026-11-09T00:02:30.205Z"
+    },
+    {
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/ballard-locks-phone.webp",
+      "sha256": "0ee13dd1e6e84cd3566871712c12c48715e325171636e6561e913187e6e426c4",
+      "bytes": 8252,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:02:41.296Z",
+      "pose": {
+        "position": [
+          0,
+          1.8598590035364024,
+          0
+        ],
+        "bearing": 180,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6664,
+          "lon": -122.397,
+          "elev": 8.5
+        },
+        "projection": {
+          "mLat": 111183.83,
+          "mLon": 75105.22
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison.",
+        "The selected primary activity route returned no planner path; this is an arrival view, not successful activity access."
+      ],
+      "metrics": {
+        "triangles": 465899,
+        "drawCalls": 50
+      },
+      "simulationDate": "2026-11-09T00:02:41.297Z"
+    }
+  ],
+  "perf": {
+    "triangles": 483163,
+    "drawCalls": 167,
+    "maxRenderedTriangles": 483163,
+    "maxDrawCalls": 167,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
+  },
+  "sceneId": "ballard-locks",
+  "sourceGeometry": {
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "630f8536a71fa433405aa27b09f87bb5247b7f8fd81278fa0a73f6fdb4c58aa3",
+    "activeSourceRecords": 107,
+    "renderedVolumes": 107,
+    "literalHeights": 12,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 95,
+    "heroReplacements": [],
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 0,
+      "z": 0,
+      "y": 0.2098590035364024,
+      "heading": -3.141592653589793
+    },
+    "primaryActivity": "Watch a lock cycle from the public walkway",
+    "primaryRouteStatus": "unverified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": false,
+    "nativeWalk": {
+      "passed": false,
+      "walked": null,
+      "steps": null,
+      "maxStep": null,
+      "maxRise": null,
+      "position": null,
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+    }
+  },
+  "rawAudit": {
+    "status": "historical-only",
+    "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+    "counts": {
+      "phantom": 1
+    },
+    "collection": "previous-context-gallery"
+  },
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Native lock-phase observation controls; final load/cache/phone/budget checks Integrated entry-to-lock-observation route returned no planner path; it remains unverified Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "publicPathProof": {
+    "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+    "priorSourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "membershipUnchanged": true,
+    "proofDirectory": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths",
+    "runtimeSourceChanged": true,
+    "allSceneBodiesRetained": true
+  },
+  "historicalCollections": [
+    {
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "updatedAt": "2026-11-08T20:12:56.740Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Ballard Locks & fish ladder — arrival",
+          "image": "assets/spots/ballard-locks/arrival.webp",
+          "sha256": "a343e142766061947309d6c6fbb666b00c8e376927d8f374db353d962be219b7",
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "capturedAt": "2026-11-08T20:09:40.683Z",
+          "placement": "Posed native ground camera; separate actual walking proof recorded",
+          "pose": {
+            "position": [
+              0,
+              1.8598590035364024,
+              0
+            ],
+            "bearing": 180,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6664,
+              "lon": -122.397,
+              "elev": 8.5
+            },
+            "projection": {
+              "mLat": 111183.83,
+              "mLon": 75105.22
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Ballard Locks & fish ladder — public walk",
+          "image": "assets/spots/ballard-locks/public-walk.webp",
+          "sha256": "331570d311f620df23b6318aa5bcdbcff86125bf4904a11855d0be5cf5b5b008",
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "capturedAt": "2026-11-08T20:07:31.196Z",
+          "placement": "Actual native walk endpoint; no XYZ writes during the walk",
+          "pose": {
+            "position": [
+              -33.35672477195162,
+              2.250025005914649,
+              49.6065374023543
+            ],
+            "bearing": 111.44720418924828,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6664,
+              "lon": -122.397,
+              "elev": 8.5
+            },
+            "projection": {
+              "mLat": 111183.83,
+              "mLon": 75105.22
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Ballard Locks & fish ladder — postcard",
+          "image": "assets/spots/ballard-locks/postcard.webp",
+          "sha256": "e8815e4e0df69185f67040385a71054306c6eec5bfcf257a1a554ed86eb1457f",
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "capturedAt": "2026-11-08T20:09:47.295Z",
+          "placement": "Posed native ground camera; separate actual walking proof recorded",
+          "pose": {
+            "position": [
+              91.97229627058839,
+              2.25,
+              100.50567922767456
+            ],
+            "bearing": 289.99999999999994,
+            "pitch": -10,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6664,
+              "lon": -122.397,
+              "elev": 8.5
+            },
+            "projection": {
+              "mLat": 111183.83,
+              "mLon": 75105.22
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Ballard Locks & fish ladder — activity approach",
+          "image": "assets/spots/ballard-locks/activity-approach.webp",
+          "sha256": "d0196feddd4becb50f5e47ddba719e60006a0495e351ba0d300b5a4dea240bbc",
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "capturedAt": "2026-11-08T20:09:53.027Z",
+          "placement": "Posed native ground camera; separate actual walking proof recorded",
+          "pose": {
+            "position": [
+              2.6248532322724225,
+              2.25,
+              66.88388093671279
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6664,
+              "lon": -122.397,
+              "elev": 8.5
+            },
+            "projection": {
+              "mLat": 111183.83,
+              "mLon": 75105.22
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "ballard-locks; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "107 active source records, 107 physical volumes, 0 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": false,
+          "details": "The changed mapped path grade correctly invalidates the old cache; 107 exact source volumes were recomputed with 0 dropped / 0 inset. Final cache rebake remains pending."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "180.5m actual native walking from the garden to Lakes lowered at y 0.6. A continuous six-target walk reaches all 4 plaques, lock observation and postcard at walkway grade; the 180m context-planner limit alone returns no path."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "252187 unique geometry triangles; max 720111 rendered triangles/235 calls across context and actual public walks. Software GL is not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "phantom 1. Raw counts retain both initial context and post-walk observations; see explicit proof scopes."
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        },
+        {
+          "label": "Participatory activity controls",
+          "passed": true,
+          "details": "Desktop and touch controls require all four animated lockage stages and reject idle/early completion; proof/actions-desktop.json and proof/actions-touch.json."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 460380,
+        "uniqueGeometryTriangles": 252187,
+        "geometryObjects": 65,
+        "maxRenderedTriangles": 720111,
+        "maxDrawCalls": 235
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "0f40f8a30d285596a57159ca20781a1fcbb5af4fefc28f3701adadf0848fe52d",
+        "activeSourceRecords": 107,
+        "renderedVolumes": 107,
+        "literalHeights": 12,
+        "levelHeightEstimates": 0,
+        "typeHeightEstimates": 95,
+        "heroReplacements": [],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": 0,
+          "z": 0,
+          "y": 0.2098590035364024,
+          "heading": -3.141592653589793
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              0,
+              0
+            ],
+            [
+              -96.9074398235195,
+              12.75
+            ],
+            [
+              -99.9074398235195,
+              23.25
+            ],
+            [
+              -86.4074398235195,
+              27.75
+            ],
+            [
+              -80.4074398235195,
+              27.75
+            ],
+            [
+              -69.9074398235195,
+              32.25
+            ],
+            [
+              -62.407439823519496,
+              38.25
+            ],
+            [
+              -33.15743982351949,
+              49.684825781289824
+            ]
+          ],
+          "length": 181.32704883329833,
+          "target": "Lakes lowered"
+        },
+        "captureProvenance": {
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "servedFrom": "Immutable git archive of the stated source commit",
+          "captureWorktreeDirty": true,
+          "dirtyReason": "Only untracked generated tools/aerial/__pycache__ existed in the capture metadata worktree; served archive contains tracked source only."
+        },
+        "staticPlannerAttempt": {
+          "walker": "OnFootController",
+          "arrival": {
+            "x": 0,
+            "z": 0,
+            "y": 0.2098590035364024,
+            "heading": -3.141592653589793
+          },
+          "arrivalDry": true,
+          "nearestPlaquePath": null
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 2127,
+          "walked": 180.51152950759646,
+          "target": "Lakes lowered",
+          "plannedLength": 181.32704883329833,
+          "position": {
+            "x": -33.35672477195162,
+            "z": 49.6065374023543,
+            "y": 0.6,
+            "heading": -1.9451206552448
+          },
+          "error": null,
+          "waypointTolerance": 0.35,
+          "stepLimit": 2891,
+          "plannerMaxLength": 450,
+          "readOnlyCrowdObstacles": false,
+          "proof": "../../../../handoffs/fidelity/remaining-ro-districts/tourist-public-paths/ballard-locks-native-targets.json"
+        }
+      },
+      "rawAudit": {
+        "phantom": 1
+      },
+      "improvements": [
+        "Lock observation now requires identifying four visible water/boat stages using explicit controls; visitors do not operate the real lock equipment.",
+        "Source buildings retain exact footprints, courtyard holes and shared native roofs. Mathematical capsule-pole degenerates were removed without dropping boats.",
+        "Mapped north-bank public ways w60973303/w472179831 and mapped western access/steps retain exact XY and now connect at the existing coping grade. Width/grade are explicit unmeasured estimates.",
+        "The fourth board reader and lock-observation point follow the mapped path bend. All4 boards, observation and postcard are reached in one continuous native walk; source membership remains unchanged."
+      ],
+      "remainingGaps": [
+        "Gate/walkway widths, fish-ladder placement, garden paths and water datums need matched source and official reference comparisons.",
+        "The public path grade 0.6m, width 3.2m and western steps width 2.6m are estimates aligned with the existing authored coping, not field or aerial height/width measurements.",
+        "The context harness180m planning bound returns no route; the independently bounded native 181m plan completes.",
+        "The changed terrain signature invalidates the old source-geometry cache; 107 volumes are correctly recomputed. Final cache rebake remains pending.",
+        "Raw post-walk audit reports 1phantom on the unchanged long south lock wall. Direct native mesh rays confirm its handrail; the auditor excludes long triangle boxes above 120m. Raw finding is retained for owner review."
+      ],
+      "review": "Refreshed GAME context and six actual public-walk endpoints inspected. All 107 source buildings / 713 colliders / 450 trees / 55 people retained, source membership hash unchanged; no XYZ writes during the continuous walk. Estimated grade, pending cache and raw long-wall finding remain explicit. Full matched source comparison remains open.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": false,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-09T00:02:31.041Z",
+    "2026-11-09T00:02:41.296Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": false,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The generic selected activity route returned no planner path; it is not accepted by this report.",
+      "cases": [
+        "ballard-locks"
+      ]
+    },
+    {
+      "label": "Historical native desktop action controls",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json",
+      "sha256": "9010ef09825df780e858b57cc28a7f8b733eb794f0984bc8c9816f01a9fd9eed",
+      "sourceCommit": null,
+      "passed": null,
+      "scope": "Original historical report omits its source SHA. It records real animated actions, negative idle/Leave cases and completion; touch Troll movement still used keyboard. This is not a current-source or full-entry certificate.",
+      "provenance": "historical-source-unrecorded",
+      "cases": [
+        "ballard-locks"
+      ]
+    },
+    {
+      "label": "Historical native touch action controls",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json",
+      "sha256": "d714a91af57d54c287fd9357c6e753f377c093645a4e60db59d7f7203241ef48",
+      "sourceCommit": null,
+      "passed": null,
+      "scope": "Original historical report omits its source SHA. It records real animated actions, negative idle/Leave cases and completion; touch Troll movement still used keyboard. This is not a current-source or full-entry certificate.",
+      "provenance": "historical-source-unrecorded",
+      "cases": [
+        "ballard-locks"
+      ]
+    }
+  ]
+}

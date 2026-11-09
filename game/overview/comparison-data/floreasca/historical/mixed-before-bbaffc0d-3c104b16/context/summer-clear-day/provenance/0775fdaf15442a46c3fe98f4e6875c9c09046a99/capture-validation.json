@@ -1,0 +1,291 @@
+{
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "district": "floreasca",
+  "condition": {
+    "season": "summer",
+    "weather": "clear",
+    "time": "day"
+  },
+  "frames": 25,
+  "sheets": 5,
+  "failures": [],
+  "metrics": [
+    {
+      "id": "skytower-context",
+      "sha256": "11d62678aef973a53e5ba3861fa40db940f08ff189db62a274bde62edda3baf7",
+      "rgbStddev": [
+        29.9864400452366,
+        30.699336956879737,
+        39.51024421792619
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "skytower-opposite",
+      "sha256": "f99bb637b9aea8156103c51a959387d6f339b9328564de96d41203ac2605cc7d",
+      "rgbStddev": [
+        35.493607788620494,
+        35.149794226030636,
+        41.143203004268315
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "dinamo-context",
+      "sha256": "69f6289baaf666a10d4bc43dfe62c59ac4ee5e325a365bede30e7f5bacb8b36e",
+      "rgbStddev": [
+        35.4019497394668,
+        36.031941112776614,
+        50.69762868723841
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "dinamo-opposite",
+      "sha256": "5a3620a3d6c089635b9df7f429753c1f4afeb0a365069c6fb605b2c7bb784249",
+      "rgbStddev": [
+        42.04606079721296,
+        42.57186945346906,
+        56.80579347201611
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "dinamo-street",
+      "sha256": "57292830489414a973681ccd42d93afd8ec18e43edab0fa3206ea237aa047945",
+      "rgbStddev": [
+        37.336292280544946,
+        39.85848642559986,
+        57.59207183780702
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": true
+    },
+    {
+      "id": "dinamo-football",
+      "sha256": "0fa6a7db9b7d547ff5f587d290dc505521755740862046f3322604a4260d7a06",
+      "rgbStddev": [
+        38.77360282740835,
+        27.57212193324083,
+        64.2683601431565
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "dinamo-football-drone",
+      "sha256": "144b3d7b5c8798947a2c5dc591b89e345bf65a913ce03277512c2af2f7d640fb",
+      "rgbStddev": [
+        45.01861646001881,
+        35.406823601785824,
+        32.18761104444749
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "rosetti-context",
+      "sha256": "fe35e712a8e7cf094038fffe548394945423aa9a5ecb9dd65ee23e35289ca78d",
+      "rgbStddev": [
+        41.833880246907086,
+        43.29721942650573,
+        63.46879684461006
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "rosetti-opposite",
+      "sha256": "84b45e8c4d75730249d788a0a317e36e16ddf658ce387a40aed5094b22eb2b1e",
+      "rgbStddev": [
+        40.75423158570112,
+        45.43140000701906,
+        59.080440837484744
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "rosetti-street",
+      "sha256": "5563584d926c6ea7b2ea6ddc6ec5491c7a11b900682b31dacf35c8419972b08c",
+      "rgbStddev": [
+        44.0885731310091,
+        47.60373604053408,
+        63.5859257761692
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": true
+    },
+    {
+      "id": "rosetti-basketball-0",
+      "sha256": "01cfb081734e9094ee97cdd33c696ac145a3ca33317d0b61a974ba044f5308a0",
+      "rgbStddev": [
+        50.617201865486074,
+        38.08358185000479,
+        65.52840093761074
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "rosetti-basketball-1",
+      "sha256": "ae521649ff52e0daf71f93c7fa2f7795a3f252bc3b8b826f8fed0786a5c46643",
+      "rgbStddev": [
+        46.096748376828444,
+        36.98102553761044,
+        64.39669413129256
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "globalworth-context",
+      "sha256": "1d4aac2a9796b3ccf76f0dee0f90c03bebe57178c34639e21a97067fc66b9f06",
+      "rgbStddev": [
+        29.97636160766422,
+        32.18907766819015,
+        41.00329235557493
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "globalworth-opposite",
+      "sha256": "f478eaaf2f9e05e79eda7060796dbca6b7f2a183053638ad2f0bdb487aedb6ae",
+      "rgbStddev": [
+        36.22201504892588,
+        36.61960512521202,
+        42.525580829297475
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "signal-1",
+      "sha256": "e8e27e73655ec67fc40d623c1c27354d14857dfa6dad3f02ff25fb57bd697f48",
+      "rgbStddev": [
+        46.24105602887703,
+        46.00511244031082,
+        62.607895141057014
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "signal-2",
+      "sha256": "cd69e815e30057c04e384bc2cbc46f9064c784de6868ec265edb9cca94d516b6",
+      "rgbStddev": [
+        48.07410836570843,
+        50.25303206686345,
+        63.893696199006484
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "signal-3",
+      "sha256": "b4ebdbca3697550056c32c321163f0808ad32746ea37901fd603d36230286177",
+      "rgbStddev": [
+        51.39402107233463,
+        52.11760065650544,
+        66.37791496046574
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "parking-1",
+      "sha256": "dbeca17bbe6457cd521bde8bcdff8ace8ce4be96eed403180d3633bdca03a185",
+      "rgbStddev": [
+        44.78963797038851,
+        34.875961364884816,
+        36.05384744642874
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "parking-2",
+      "sha256": "3a4d427c62c9e2a863a30a18afc3c309893f34dc079c92e8a6a82fcbcb8ac795",
+      "rgbStddev": [
+        42.176816164566304,
+        36.02802602483677,
+        38.61257565002392
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "parking-3",
+      "sha256": "271308fbe6ab9beda642ed1343b8303de18f802dbf2414bbe4360cfb6d060b2f",
+      "rgbStddev": [
+        55.68484361693526,
+        55.95411547921942,
+        49.254251190242535
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-west",
+      "sha256": "5718586a6d5cb303eba325806474a22b87f1d476440ca2892fcf4e7ca1cd2dfd",
+      "rgbStddev": [
+        36.065881806051195,
+        34.76911412147414,
+        45.94829797648306
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-east",
+      "sha256": "0fcc77aa2165af0676611a4a5b04031414f7a370a8aa2d743bf445f35ea86aba",
+      "rgbStddev": [
+        35.569532414009736,
+        32.05691911713017,
+        48.160381442486965
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-north",
+      "sha256": "270f84602826e1b6c615eea2322e7b7c9c1c7be45c3e820ec3a27e3b99d47699",
+      "rgbStddev": [
+        34.86773158185537,
+        30.837007390933664,
+        45.68330194302163
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-south",
+      "sha256": "dfa3f8db420f673e0d143c01d023713e746d3b3b78a38861b8271e7b0db7d84c",
+      "rgbStddev": [
+        37.613482088630434,
+        37.87959806040809,
+        47.55672124417873
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "chapter-rosetti-street",
+      "sha256": "206ea207feb86f61412b88debf7092cf202becbb4f97565021a4929949709bc3",
+      "rgbStddev": [
+        49.206638131770056,
+        47.885676203390815,
+        57.86319291258162
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    }
+  ],
+  "rawSourceContactHits": 62,
+  "note": "Capture integrity checks only. Sheets require actual human/model visual review; raw contacts and source/visual gaps are not dismissed by this result. No controller, complete scene-clearance or driving/mirror budget pass claimed."
+}

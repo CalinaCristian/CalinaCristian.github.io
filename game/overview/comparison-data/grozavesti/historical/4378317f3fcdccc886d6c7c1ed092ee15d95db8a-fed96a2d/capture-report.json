@@ -1,0 +1,30 @@
+{
+  "startedAt": "2026-11-08T21:54:04.466Z",
+  "endedAt": "2026-11-08T22:06:13.178Z",
+  "elapsedSeconds": 728.711,
+  "source": "397f0afa1691f0edf844186d2336a0218d9d055765677789a89aa8a8b6a5c7de",
+  "loaded": {
+    "key": "bucharest-grozavesti",
+    "city": "bucharest",
+    "district": "grozavesti",
+    "ms": 32506,
+    "edges": 801,
+    "ribbons": 1714
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "frameCounts": 100,
+  "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "scopeCounts": {
+    "ring-touches": 72,
+    "core-touches": 23,
+    "outside-ring": 5
+  }
+}

@@ -1,0 +1,668 @@
+{
+  "schemaVersion": 1,
+  "id": "cismigiu",
+  "city": "bucharest",
+  "name": "Cișmigiu Gardens",
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://ro.wikipedia.org/wiki/Parcul_Ci%C8%99migiu"
+    },
+    {
+      "label": "Lacul Cișmigiu",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/16292044"
+    },
+    {
+      "label": "Rotonda Scriitorilor (1943)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/473428600"
+    },
+    {
+      "label": "\"La Șahiști\" chess corner",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/473428599"
+    },
+    {
+      "label": "\"La Șahiști\" chess corner",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/10877390595"
+    },
+    {
+      "label": "Monumentul Eroilor Francezi",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/473428601"
+    },
+    {
+      "label": "Izvorul Sissi Stefanidi",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/2315300547"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Historical native desktop action controls",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json"
+    },
+    {
+      "label": "Historical native touch action controls",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json"
+    }
+  ],
+  "improvements": [
+    "Current native scene retains 756 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Physical 205.549 m rowing approach; earlier native rowing and moving chess opening",
+    "The selected primary activity approach is accepted separately from full-scene comparison."
+  ],
+  "remainingGaps": [
+    "Actual twelve-bust Rotunda walk, completed boat reload and whole-park comparison remain unverified",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+  ],
+  "checks": [
+    {
+      "label": "Current native scene load and warm cache",
+      "passed": true,
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts."
+    },
+    {
+      "label": "Native phone condition controls",
+      "passed": true,
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
+    },
+    {
+      "label": "Selected primary activity entry",
+      "passed": true,
+      "details": "205.549m actual-controller arrival; no pose writes after entry. Completion of every secondary activity is not inferred."
+    },
+    {
+      "label": "High-quality selected native views",
+      "passed": true,
+      "details": "Maximum 573635 rendered triangles / 142 calls. Software-GL capture is not a hardware FPS benchmark."
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/cismigiu-arrival.webp",
+      "sha256": "6e9ec7de88c23d00aa0dfb0a1f1b29f2888c479c505e2123bb6fa6db516ad0b9",
+      "bytes": 28490,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:04:45.199Z",
+      "pose": {
+        "position": [
+          -0.8630312298909688,
+          2.3273180583153494,
+          -71.07983521630418
+        ],
+        "bearing": 298.6104596659652,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.437,
+          "lon": 26.0912,
+          "elev": 74.8
+        },
+        "projection": {
+          "mLat": 111120.78,
+          "mLon": 79615.21
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open."
+      ],
+      "metrics": {
+        "triangles": 573635,
+        "drawCalls": 142
+      },
+      "simulationDate": "2026-11-09T00:04:43.199Z"
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Physical approach to the selected activity",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/cismigiu-approach.webp",
+      "sha256": "c74c25c334d6b19ca2c24f8d7806c5f00283eabbed05d6b216ab378ab7e5a2a1",
+      "bytes": 19398,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:04:49.534Z",
+      "pose": {
+        "position": [
+          -16.202947973151076,
+          1.078450734577004,
+          100.47689776394523
+        ],
+        "bearing": 153.58682668477047,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.437,
+          "lon": 26.0912,
+          "elev": 74.8
+        },
+        "projection": {
+          "mLat": 111120.78,
+          "mLon": 79615.21
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": true,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Physical arrival at the interaction coordinate does not complete the activity or certify a surveyed legal pedestrian itinerary."
+      ],
+      "metrics": {
+        "triangles": 559755,
+        "drawCalls": 67
+      },
+      "simulationDate": "2026-11-09T00:04:47.534Z"
+    },
+    {
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/cismigiu-phone.webp",
+      "sha256": "5c2ee8c071960ad45c49f1f9312f885b0477572aaa90c7965bffa625c58bb956",
+      "bytes": 9020,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:04:50.760Z",
+      "pose": {
+        "position": [
+          -16.12863311870024,
+          1.0998085937301911,
+          100.62651768226779
+        ],
+        "bearing": 153.58682668477047,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 44.437,
+          "lon": 26.0912,
+          "elev": 74.8
+        },
+        "projection": {
+          "mLat": 111120.78,
+          "mLon": 79615.21
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison."
+      ],
+      "metrics": {
+        "triangles": 559341,
+        "drawCalls": 56
+      },
+      "simulationDate": "2026-11-09T00:04:50.760Z"
+    }
+  ],
+  "perf": {
+    "triangles": 573635,
+    "drawCalls": 142,
+    "maxRenderedTriangles": 573635,
+    "maxDrawCalls": 142,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
+  },
+  "sceneId": "cismigiu",
+  "sourceGeometry": {
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "6d0dbd2555d4ab5695dcac725032cf0ef4651543a385ac093b2a8b915723c4b5",
+    "activeSourceRecords": 756,
+    "renderedVolumes": 1351,
+    "literalHeights": 154,
+    "levelHeightEstimates": 167,
+    "typeHeightEstimates": 435,
+    "heroReplacements": [],
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": -0.8630312298909688,
+      "z": -71.07983521630418,
+      "y": 0.6773180583153496,
+      "heading": -5.21173570206482
+    },
+    "primaryActivity": "Row a boat from Debarcader (warm season)",
+    "primaryRouteStatus": "physically-verified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": true,
+    "nativeWalk": {
+      "passed": true,
+      "walked": 205.54856037728467,
+      "steps": 897,
+      "maxStep": 0.23000000000000717,
+      "maxRise": 0.1725032720146021,
+      "position": {
+        "x": -16.202947973151076,
+        "z": 100.47689776394523,
+        "y": -0.5426908411042428,
+        "heading": -2.6805958133391314
+      },
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+    }
+  },
+  "rawAudit": {
+    "status": "historical-only",
+    "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+    "counts": {
+      "badGeometry": 1,
+      "zfight": 1,
+      "phantom": 1
+    },
+    "collection": "previous-context-gallery"
+  },
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical 205.549 m rowing approach; earlier native rowing and moving chess opening Actual twelve-bust Rotunda walk, completed boat reload and whole-park comparison remain unverified Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "publicPathProof": {
+    "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+    "priorSourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "membershipUnchanged": true,
+    "proofDirectory": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths",
+    "runtimeSourceChanged": false,
+    "allSceneBodiesRetained": true
+  },
+  "historicalCollections": [
+    {
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "updatedAt": "2026-11-08T20:12:56.715Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Cișmigiu Gardens — arrival",
+          "image": "assets/spots/cismigiu/arrival.webp",
+          "sha256": "8fa7345761c2310b17e64527f22d93c7f3b77ae4b0fe9922dabd234c4b0298f7",
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "capturedAt": "2026-11-08T20:08:29.908Z",
+          "placement": "Posed native ground camera; separate actual walking proof recorded",
+          "pose": {
+            "position": [
+              -0.8630312298909688,
+              2.3273180583153494,
+              -71.07983521630418
+            ],
+            "bearing": 298.6104596659652,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.437,
+              "lon": 26.0912,
+              "elev": 74.8
+            },
+            "projection": {
+              "mLat": 111120.78,
+              "mLon": 79615.21
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Cișmigiu Gardens — public walk",
+          "image": "assets/spots/cismigiu/public-walk.webp",
+          "sha256": "90337c9fb5afb10b2f42d1c1c85a0c4df546d21d4e4b0d7348e11f56a1add8d9",
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "capturedAt": "2026-11-08T20:08:38.072Z",
+          "placement": "Actual native walk endpoint",
+          "pose": {
+            "position": [
+              -38.65981188390628,
+              1.3769939673590441,
+              39.736054606708876
+            ],
+            "bearing": 207.9739086864084,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.437,
+              "lon": 26.0912,
+              "elev": 74.8
+            },
+            "projection": {
+              "mLat": 111120.78,
+              "mLon": 79615.21
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Cișmigiu Gardens — postcard",
+          "image": "assets/spots/cismigiu/postcard.webp",
+          "sha256": "78a93f140180c88587e1a2f181470b157f3e393d6f4259329f70269fc1fcc91b",
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "capturedAt": "2026-11-08T20:08:41.727Z",
+          "placement": "Posed native ground camera; separate actual walking proof recorded",
+          "pose": {
+            "position": [
+              -10.640205413017927,
+              2.0007886550101515,
+              -49.15501588057138
+            ],
+            "bearing": 320,
+            "pitch": 5.000000000000001,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.437,
+              "lon": 26.0912,
+              "elev": 74.8
+            },
+            "projection": {
+              "mLat": 111120.78,
+              "mLon": 79615.21
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Cișmigiu Gardens — activity approach",
+          "image": "assets/spots/cismigiu/activity-approach.webp",
+          "sha256": "c1962e728ea4e9e378be29566430394200f8a8f66d2364d851db74d76588d0c5",
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "capturedAt": "2026-11-08T20:08:46.259Z",
+          "placement": "Posed native ground camera; separate actual walking proof recorded",
+          "pose": {
+            "position": [
+              -131.1,
+              1.5903473693307046,
+              82.1
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.437,
+              "lon": 26.0912,
+              "elev": 74.8
+            },
+            "projection": {
+              "mLat": 111120.78,
+              "mLon": 79615.21
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "cismigiu; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "756 active source records, 1351 physical volumes, 7 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "144.4m actual native walking to Swans and pelicans. The unchanged bridge route completes with 0.45m corner tolerance and a route-length-derived step bound; previous failure cut a corner."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "254860 unique geometry triangles; max 1100790 rendered triangles/141 calls across context and actual public walks. Software GL is not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "badGeometry 1, zfight 1, phantom 1. Raw counts retain both initial context and post-walk observations; see explicit proof scopes."
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        },
+        {
+          "label": "Participatory activity controls",
+          "passed": true,
+          "details": "Exact native host rowing checks cover player strokes, no idle award, Leave/Esc/map/photo/pause/travel/visibility cancellation, shore restoration and portrait/landscape 44px controls. Native desktop/touch chess tests cover the three visible moves, cancellation/reset and complete-only awards."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 562657,
+        "uniqueGeometryTriangles": 254860,
+        "geometryObjects": 92,
+        "maxRenderedTriangles": 1100790,
+        "maxDrawCalls": 141
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "3ab54df816af94165657dc4b5d79a26dff6118fb99aa385026a5f415338723e7",
+        "activeSourceRecords": 756,
+        "renderedVolumes": 1351,
+        "literalHeights": 154,
+        "levelHeightEstimates": 167,
+        "typeHeightEstimates": 435,
+        "heroReplacements": [],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": -0.8630312298909688,
+          "z": -71.07983521630418,
+          "y": 0.6773180583153496,
+          "heading": -5.21173570206482
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              -0.8630312298909688,
+              -71.07983521630418
+            ],
+            [
+              -21.55000000000001,
+              -74.82983521630416
+            ],
+            [
+              -23.05000000000001,
+              -76.32983521630416
+            ],
+            [
+              -35.05000000000001,
+              -61.32983521630416
+            ],
+            [
+              -35.05000000000001,
+              -44.82983521630416
+            ],
+            [
+              -33.55000000000001,
+              -41.82983521630416
+            ],
+            [
+              -33.55000000000001,
+              -16.32983521630416
+            ],
+            [
+              -32.05000000000001,
+              -13.329835216304161
+            ],
+            [
+              -35.05000000000001,
+              33.17016478369584
+            ],
+            [
+              -38.8,
+              40
+            ]
+          ],
+          "length": 145.45128771492145,
+          "target": "Swans and pelicans"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 1711,
+          "stepLimit": 2278,
+          "waypointTolerance": 0.45,
+          "walked": 144.37765939488298,
+          "target": "Swans and pelicans",
+          "plannedLength": 145.45128771492145,
+          "position": {
+            "x": -38.65946304730267,
+            "z": 39.73539781912161,
+            "y": -0.2732673053740018,
+            "heading": 2.6533558423597245
+          },
+          "error": null
+        },
+        "captureProvenance": {
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "servedFrom": "Immutable git archive of the stated source commit",
+          "captureWorktreeDirty": true,
+          "dirtyReason": "Only untracked generated tools/aerial/__pycache__ existed in the capture metadata worktree; served archive contains tracked source only."
+        }
+      },
+      "rawAudit": {
+        "badGeometry": 1,
+        "zfight": 1,
+        "phantom": 1
+      },
+      "improvements": [
+        "Rowing moved to the actual mapped Debarcader n473428602; the former trigger was about 250 m away. A dry bank approach and short source-validated course avoid the bridge.",
+        "Rowing requires player strokes with visible oar animation and progress; it has completion-only awards and exact shore restoration on cancellation.",
+        "Chess now shows all 32 pieces and three legal animated opening moves rather than awarding a random result on one click.",
+        "Source footprints, holes and valid parts remain represented through exact shared geometry.",
+        "The unchanged source bridge route is now proven using actual native movement with tighter corner tracking and a route-length-derived capture bound."
+      ],
+      "remainingGaps": [
+        "The La Șahiști table layout is explicitly estimated around a source-backed chess location; exact table placement and the Writers' Rotunda context need matched references.",
+        "One degenerate mesh and one phantom finding remain; the park is not a clean physical-audit pass.",
+        "The generic activity-approach image shows an empty chessboard before play; the separate action proof captures actual animated pieces.",
+        "Raw audit findings remain for physical review: badGeometry 1, zfight 1, phantom 1."
+      ],
+      "review": "All four refreshed GAME views inspected. The reported bridge block was a capture corner-tracking failure;144.4m native movement passes. Raw geometry and phantom findings remain, and full matched scene comparison remains open.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": true,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-09T00:04:45.199Z",
+    "2026-11-09T00:04:50.760Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": true,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The selected activity coordinate is physically reached; this is not completion of every activity.",
+      "cases": [
+        "cismigiu"
+      ]
+    },
+    {
+      "label": "Historical native desktop action controls",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json",
+      "sha256": "9010ef09825df780e858b57cc28a7f8b733eb794f0984bc8c9816f01a9fd9eed",
+      "sourceCommit": null,
+      "passed": null,
+      "scope": "Original historical report omits its source SHA. It records real animated actions, negative idle/Leave cases and completion; touch Troll movement still used keyboard. This is not a current-source or full-entry certificate.",
+      "provenance": "historical-source-unrecorded",
+      "cases": [
+        "cismigiu"
+      ]
+    },
+    {
+      "label": "Historical native touch action controls",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json",
+      "sha256": "d714a91af57d54c287fd9357c6e753f377c093645a4e60db59d7f7203241ef48",
+      "sourceCommit": null,
+      "passed": null,
+      "scope": "Original historical report omits its source SHA. It records real animated actions, negative idle/Leave cases and completion; touch Troll movement still used keyboard. This is not a current-source or full-entry certificate.",
+      "provenance": "historical-source-unrecorded",
+      "cases": [
+        "cismigiu"
+      ]
+    }
+  ]
+}

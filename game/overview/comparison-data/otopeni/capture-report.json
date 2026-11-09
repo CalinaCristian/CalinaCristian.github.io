@@ -1,0 +1,30 @@
+{
+  "startedAt": "2026-11-08T22:25:03.107Z",
+  "endedAt": "2026-11-08T22:43:05.379Z",
+  "elapsedSeconds": 1082.27,
+  "source": "b7e132441e0dab1e6158541c3dde25d7b620ca2ff7f263531048647dcfbc4e9c",
+  "loaded": {
+    "key": "bucharest-otopeni",
+    "city": "bucharest",
+    "district": "otopeni",
+    "ms": 29613,
+    "edges": 365,
+    "ribbons": 924
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "frameCounts": 107,
+  "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "scopeCounts": {
+    "ring-touches": 77,
+    "core-touches": 26,
+    "outside-ring": 4
+  }
+}

@@ -1,0 +1,691 @@
+{
+  "schemaVersion": 1,
+  "id": "pioneer-square",
+  "city": "seattle",
+  "name": "Pioneer Square & Smith Tower",
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Pioneer_Square_pergola"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Pioneer_Square_totem_pole"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Pioneer_Building_(Seattle)"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Smith_Tower"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Occidental_Park"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Seattle_Underground"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_-_Pioneer_Square_Pergola_-_2020-04-24.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pergola_Pioneer_Square,_Seattle,_WA.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "http://creativecommons.org/licenses/by-sa/3.0/"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pioneer_Square_Pergola_detail_01.jpg"
+    },
+    {
+      "label": "Pioneer Square Pergola (1909, Julian F. Everett; rebuilt 2002)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/52782041"
+    },
+    {
+      "label": "Pioneer Square totem pole (replica 1938–40, carved by Charles Brown et al.)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3211770116"
+    },
+    {
+      "label": "Chief Seattle Fountain (James Wehn, 1909)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3211770115"
+    },
+    {
+      "label": "Pioneer Building (1892, Elmer Fisher)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/52782046"
+    },
+    {
+      "label": "Smith Tower (1914, Gaggin & Gaggin)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/52781661"
+    },
+    {
+      "label": "Occidental Square + Occidental Ave S mall",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/174692555"
+    },
+    {
+      "label": "Occidental Square + Occidental Ave S mall",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3211770100"
+    },
+    {
+      "label": "Occidental Square + Occidental Ave S mall",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3211770101"
+    },
+    {
+      "label": "Occidental Square + Occidental Ave S mall",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3211770102"
+    },
+    {
+      "label": "Occidental Square + Occidental Ave S mall",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3211770103"
+    },
+    {
+      "label": "Occidental Square + Occidental Ave S mall",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/2998927033"
+    },
+    {
+      "label": "Sinking Ship Garage (1961)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/52781697"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Native desktop manually aimed exterior shutters",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-b533317-desktop/results.json"
+    },
+    {
+      "label": "Native touch manually aimed exterior shutters",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-60db281-touch/results.json"
+    }
+  ],
+  "improvements": [
+    "Current native scene retains 157 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Physical approach; seven pole figures and three public details with actual desktop/touch look and shutters",
+    "The selected primary activity approach is accepted separately from full-scene comparison."
+  ],
+  "remainingGaps": [
+    "Independent artwork/frontage accuracy remains open",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+  ],
+  "checks": [
+    {
+      "label": "Current native scene load and warm cache",
+      "passed": true,
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts."
+    },
+    {
+      "label": "Native phone condition controls",
+      "passed": true,
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
+    },
+    {
+      "label": "Selected primary activity entry",
+      "passed": true,
+      "details": "38.975m actual-controller arrival; no pose writes after entry. Completion of every secondary activity is not inferred."
+    },
+    {
+      "label": "High-quality selected native views",
+      "passed": true,
+      "details": "Maximum 435111 rendered triangles / 184 calls. Software-GL capture is not a hardware FPS benchmark."
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/pioneer-square-arrival.webp",
+      "sha256": "e54ba66270220e5e36ebd8ee7a4c737555ba155bebc2015f78af1e07b1145ba3",
+      "bytes": 43124,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:02:01.927Z",
+      "pose": {
+        "position": [
+          1,
+          1.6571952110622077,
+          4
+        ],
+        "bearing": 20,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.60166,
+          "lon": -122.3342,
+          "elev": 7.9
+        },
+        "projection": {
+          "mLat": 111182.57,
+          "mLon": 75198.04
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open."
+      ],
+      "metrics": {
+        "triangles": 435111,
+        "drawCalls": 184
+      },
+      "simulationDate": "2026-11-09T00:01:53.775Z"
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Physical approach to the selected activity",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/pioneer-square-approach.webp",
+      "sha256": "c24663cd1528e651f37cb4e7493778bf5be3916baecd4d24d01d95f93a119909",
+      "bytes": 37882,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:02:07.775Z",
+      "pose": {
+        "position": [
+          9.317398110032734,
+          2.155830837839556,
+          -34.22042464848374
+        ],
+        "bearing": 12.277098051107942,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.60166,
+          "lon": -122.3342,
+          "elev": 7.9
+        },
+        "projection": {
+          "mLat": 111182.57,
+          "mLon": 75198.04
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": true,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Physical arrival at the interaction coordinate does not complete the activity or certify a surveyed legal pedestrian itinerary."
+      ],
+      "metrics": {
+        "triangles": 382337,
+        "drawCalls": 65
+      },
+      "simulationDate": "2026-11-09T00:01:59.579Z"
+    },
+    {
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/pioneer-square-phone.webp",
+      "sha256": "b6497b7d9c1f3a658a3899c8b906f1a9eefa2eea8225181d75ef9376b38c4956",
+      "bytes": 19260,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:02:11.649Z",
+      "pose": {
+        "position": [
+          9.352921576182112,
+          2.127632505707241,
+          -34.383663433408266
+        ],
+        "bearing": 12.277098051107942,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.60166,
+          "lon": -122.3342,
+          "elev": 7.9
+        },
+        "projection": {
+          "mLat": 111182.57,
+          "mLon": 75198.04
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison."
+      ],
+      "metrics": {
+        "triangles": 349598,
+        "drawCalls": 38
+      },
+      "simulationDate": "2026-11-09T00:02:11.649Z"
+    }
+  ],
+  "perf": {
+    "triangles": 435111,
+    "drawCalls": 184,
+    "maxRenderedTriangles": 435111,
+    "maxDrawCalls": 184,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
+  },
+  "sceneId": "pioneer-square",
+  "sourceGeometry": {
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "35e333841f5d86a9ec9d25043c6f13484ef9c15948ff474766d5914d6e059c85",
+    "activeSourceRecords": 154,
+    "renderedVolumes": 154,
+    "literalHeights": 116,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 38,
+    "heroReplacements": [
+      "w52781661",
+      "w418140384",
+      "w418140386"
+    ],
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 1,
+      "z": 4,
+      "y": 0.007195211062207779,
+      "heading": -0.3490658503988659
+    },
+    "primaryActivity": "Frame the seven pole figures",
+    "primaryRouteStatus": "physically-verified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": true,
+    "nativeWalk": {
+      "passed": true,
+      "walked": 38.97545636101664,
+      "steps": 171,
+      "maxStep": 0.23000000000000057,
+      "maxRise": 0.004266348666478015,
+      "position": {
+        "x": 9.317398110032734,
+        "z": -34.22042464848374,
+        "y": 0.47477414924785427,
+        "heading": -0.21427578358201219
+      },
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+    }
+  },
+  "rawAudit": {
+    "status": "historical-only",
+    "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "counts": {
+      "zfight": 13
+    },
+    "collection": "previous-context-gallery"
+  },
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical approach; seven pole figures and three public details with actual desktop/touch look and shutters Independent artwork/frontage accuracy remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "historicalCollections": [
+    {
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "updatedAt": "2026-11-08T19:35:04.622Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Pioneer Square & Smith Tower — arrival",
+          "image": "assets/spots/pioneer-square/arrival.webp",
+          "sha256": "becfa1ebb4622c9983f9321c33ee36de2ebfbe454e8bcd4ed16433305154d56e",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:23:19.547Z",
+          "pose": {
+            "position": [
+              1,
+              1.6571952110622077,
+              4
+            ],
+            "bearing": 20,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.60166,
+              "lon": -122.3342,
+              "elev": 7.9
+            },
+            "projection": {
+              "mLat": 111182.57,
+              "mLon": 75198.04
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Pioneer Square & Smith Tower — public walk",
+          "image": "assets/spots/pioneer-square/public-walk.webp",
+          "sha256": "45162ded8b5a6c12ccdc9d80c31f47d13dd2da0fac9eb7bb4bcbc6e2715364ce",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:23:26.499Z",
+          "pose": {
+            "position": [
+              11.628027443162965,
+              1.7794606981975198,
+              8.95974614014271
+            ],
+            "bearing": 115.01689347810043,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.60166,
+              "lon": -122.3342,
+              "elev": 7.9
+            },
+            "projection": {
+              "mLat": 111182.57,
+              "mLon": 75198.04
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Pioneer Square & Smith Tower — postcard",
+          "image": "assets/spots/pioneer-square/postcard.webp",
+          "sha256": "6a4537818d3b2f3d0fbefb51cc9625f3d19adcd532f7de47558a7c0b2277b29c",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:23:32.263Z",
+          "pose": {
+            "position": [
+              0,
+              1.6555083465296774,
+              0
+            ],
+            "bearing": 20,
+            "pitch": 8,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.60166,
+              "lon": -122.3342,
+              "elev": 7.9
+            },
+            "projection": {
+              "mLat": 111182.57,
+              "mLon": 75198.04
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Pioneer Square & Smith Tower — activity approach",
+          "image": "assets/spots/pioneer-square/activity-approach.webp",
+          "sha256": "c74675064e03e28d1d27c8a1d4acaf640f0fb3847069fc0d6b87b521fc9e263f",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:23:37.199Z",
+          "pose": {
+            "position": [
+              9.4,
+              2.0684525632858275,
+              -30.599999999999994
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.60166,
+              "lon": -122.3342,
+              "elev": 7.9
+            },
+            "projection": {
+              "mLat": 111182.57,
+              "mLon": 75198.04
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "pioneer-square; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "154 active source records, 154 physical volumes, 6 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "11.6 m walked toward Purple glass; planned endpoint reached using native movement and collision."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "283207 unique geometry triangles; max 644658 rendered triangles / 149 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "zfight: 13"
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 398204,
+        "uniqueGeometryTriangles": 283207,
+        "geometryObjects": 81,
+        "maxRenderedTriangles": 644658,
+        "maxDrawCalls": 149
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "e27ff2b4f5020e86428becbdd988a185542eb3af1b2997959f4da51b50d17a79",
+        "activeSourceRecords": 154,
+        "renderedVolumes": 154,
+        "literalHeights": 116,
+        "levelHeightEstimates": 0,
+        "typeHeightEstimates": 38,
+        "heroReplacements": [
+          "w52781661",
+          "w418140384",
+          "w418140386"
+        ],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": 1,
+          "z": 4,
+          "y": 0.007195211062207779,
+          "heading": -0.3490658503988659
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              1,
+              4
+            ],
+            [
+              12.25,
+              9.25
+            ]
+          ],
+          "length": 12.414709017935138,
+          "target": "Purple glass"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 139,
+          "walked": 11.598973002984401,
+          "target": "Purple glass",
+          "plannedLength": 12.414709017935138,
+          "position": {
+            "x": 11.627353534732432,
+            "z": 8.959431649541795,
+            "y": 0.1296758261200153,
+            "heading": -2.0074234866084453
+          },
+          "error": null
+        }
+      },
+      "rawAudit": {
+        "zfight": 13
+      },
+      "improvements": [
+        "The guide no longer starts on an invisible car roof: floor probing honours hidden ancestors and no-floor objects, and the car starts at its actual pose.",
+        "Exact source polygons, uncovered strips and courtyard holes replace the former overlap-drop and inset heuristics; valid surrounding buildings remain."
+      ],
+      "remainingGaps": [
+        "The completed native Purple glass approach produces an almost fully occluded camera view. The endpoint, plaque sight line and nearby crowd/props require direct inspection.",
+        "The Underground handler still fabricates an interior and an automatic camera descent; public access and a real interior have not been established. Replace this with a source-backed outdoor challenge.",
+        "The totem-reading handler still awards for passive waiting; it needs an input-driven activity while preserving cultural attribution and real geometry.",
+        "Pergola details, source-building heights, street furniture and the Chief Seattle fountain require matched independent whole-scene comparison.",
+        "Raw audit findings remain for physical review: zfight 13."
+      ],
+      "review": "Inspected all four GAME context views and the full-size occluded public-walk image. The former floating-origin volumes are absent; this does not resolve the newly visible access/activity gaps.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": true,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-09T00:02:01.927Z",
+    "2026-11-09T00:02:11.649Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": true,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The selected activity coordinate is physically reached; this is not completion of every activity.",
+      "cases": [
+        "pioneer-square"
+      ]
+    },
+    {
+      "label": "Native desktop manually aimed exterior shutters",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-b533317-desktop/results.json",
+      "sha256": "dd3821c3d019587410e622095b68e934a256d9f398dbdca557faf38816d44f2e",
+      "sourceCommit": "b533317a289663c8576610d54665f12471ea9744",
+      "passed": true,
+      "scope": "This destination completes its listed manual-look/shutter cases with finite opaque visibility. The overall seven-destination run later stops at Lincoln; final whole-run reload/error assertions were not reached. Nearby initial setup is not the entry route.",
+      "cases": [
+        "pioneer-square"
+      ]
+    },
+    {
+      "label": "Native touch manually aimed exterior shutters",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-60db281-touch/results.json",
+      "sha256": "bc4e7c0baeedf20273c98b949c2881dab343499a48f561b3584029d10887154e",
+      "sourceCommit": "60db2819ecc6d175c71031e1f4cef57bc78a636e",
+      "passed": true,
+      "scope": "This destination completes its listed manual-look/shutter cases with finite opaque visibility. The overall seven-destination run later stops at Lincoln; final whole-run reload/error assertions were not reached. Nearby initial setup is not the entry route.",
+      "cases": [
+        "pioneer-square"
+      ]
+    }
+  ]
+}

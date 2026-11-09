@@ -1,0 +1,904 @@
+{
+  "schemaVersion": 1,
+  "id": "pike-place",
+  "city": "seattle",
+  "name": "Pike Place Market & the Gum Wall",
+  "sourceCommit": "f056a5e1da18a554af52a147391188d90ddf39b5",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Pike_Place_Market"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Pike_Place_Fish_Market"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://www.pikeplacemarket.org/pike-place-market-clock-upgrade/"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://www.kiro7.com/news/local/pike-place-market-sign-clock-undergoing-restoration/3SQ5SGFAP5GCTNGZ4RNAO7SFWI/"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Rachel_(Gerber)"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Gum_Wall"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Original_Starbucks"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Victor_Steinbrueck_Park"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Public_Market_Center_Sign,_Seattle,_United_States_(Unsplash).jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Public_Market_Center_sign_at_Pike_Place.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_clock_at_4%CB%9038.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by/2.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_at_night.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Back_of_Pike_Place_%27Public_Market_Center%27_sign_01.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_Entrance.JPG"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pine_Street_entrance_at_Pike_Place_Market_(0286).jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Gum_wall,_Seattle,_Washington,_Estados_Unidos,_2017-09-02,_DD_19-21_HDR.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:The_Gum_Wall,_Seattle,_Washington,_2025.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Gum_Wall_Close_Up.JPG"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Gum_Wall_in_2022.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pike_Place_Fish_0.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:02_Pike_Place_Fish_Market_main_sign.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Justin_preparing_to_catch_a_fish_Pike_Place_Fish_Market_Seattle.JPG"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Starbucks_Seattle_PikePlace_1912.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Original_Starbucks_(2021).jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Original_Starbucks_sign.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_-_Leland_Hotel.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/2.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Pike_Place_Market_veggie_stalls.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Buiobuione_Fish_market_at_Pike_Place_in_Seattle.jpg"
+    },
+    {
+      "label": "Main Arcade (incl. 1900 Leland Hotel, 1907/1914 Goodwin & Willatsen)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/231357660"
+    },
+    {
+      "label": "Main Arcade (incl. 1900 Leland Hotel, 1907/1914 Goodwin & Willatsen)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1271653801"
+    },
+    {
+      "label": "Main Arcade (incl. 1900 Leland Hotel, 1907/1914 Goodwin & Willatsen)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1271653800"
+    },
+    {
+      "label": "\"PUBLIC MARKET CENTER\" neon sign and clock",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/4217400413"
+    },
+    {
+      "label": "Rachel the Piggy Bank (Georgia Gerber, 1986)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3559896932"
+    },
+    {
+      "label": "Gum Wall (Market Theater, Post Alley)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/2443738130"
+    },
+    {
+      "label": "Gum Wall (Market Theater, Post Alley)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/2397493563"
+    },
+    {
+      "label": "Original Starbucks (1912 Pike Place)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/2397461017"
+    },
+    {
+      "label": "Corner Market (1912) & Sanitary Market (1910/1942) east of Pike Place",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/206858876"
+    },
+    {
+      "label": "Corner Market (1912) & Sanitary Market (1910/1942) east of Pike Place",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/206858888"
+    },
+    {
+      "label": "Corner Market (1912) & Sanitary Market (1910/1942) east of Pike Place",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/relation/5402577"
+    },
+    {
+      "label": "MarketFront (2017) + viewpoints over Elliott Bay",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/184870424"
+    },
+    {
+      "label": "MarketFront (2017) + viewpoints over Elliott Bay",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/12223598541"
+    },
+    {
+      "label": "MarketFront (2017) + viewpoints over Elliott Bay",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/12223870944"
+    },
+    {
+      "label": "Victor Steinbrueck Park + two Haida-style poles (James Bender)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/14026690"
+    },
+    {
+      "label": "Victor Steinbrueck Park + two Haida-style poles (James Bender)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3211770167"
+    },
+    {
+      "label": "Victor Steinbrueck Park + two Haida-style poles (James Bender)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/3211770169"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Historical native desktop action controls",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json"
+    },
+    {
+      "label": "Historical native touch action controls",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json"
+    },
+    {
+      "label": "Native phone fish/gum inputs",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/market-shore-final/input-fixed-f056/results.json"
+    }
+  ],
+  "improvements": [
+    "Current native scene retains 148 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Physical Rachel approach, animated coin controls; actual phone timed fish catch/early rejection/immediate pause; native aimed gum ray",
+    "The selected primary activity approach is accepted separately from full-scene comparison."
+  ],
+  "remainingGaps": [
+    "Whole-market frontage/artwork accuracy and full fish trajectory framing remain open",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+  ],
+  "checks": [
+    {
+      "label": "Current native scene load and warm cache",
+      "passed": true,
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts. Native warm-cache follow-up for this changed scene also passes on472aadf with identical cache/data objects."
+    },
+    {
+      "label": "Native phone condition controls",
+      "passed": true,
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
+    },
+    {
+      "label": "Selected primary activity entry",
+      "passed": true,
+      "details": "49.998m actual-controller arrival; no pose writes after entry. Completion of every secondary activity is not inferred."
+    },
+    {
+      "label": "High-quality selected native views",
+      "passed": true,
+      "details": "Maximum 507798 rendered triangles / 245 calls. Software-GL capture is not a hardware FPS benchmark."
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/pike-place-arrival.webp",
+      "sha256": "c36bde0eb6707aea97579c77e50d476d3d48465c3d95661f7f672b5bd3b7db9c",
+      "bytes": 36092,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-08T23:56:04.286Z",
+      "pose": {
+        "position": [
+          -9.5,
+          0.5303293773326112,
+          13.5
+        ],
+        "bearing": 240,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.60897,
+          "lon": -122.33987,
+          "elev": 36.8
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.56
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open."
+      ],
+      "metrics": {
+        "triangles": 507798,
+        "drawCalls": 245
+      },
+      "simulationDate": "2026-11-08T23:56:00.508Z"
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Physical approach to the selected activity",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/pike-place-approach.webp",
+      "sha256": "191f170220f806548a7ad13c0ab6b3288c2b1eb7b4ac12361147845b7a982729",
+      "bytes": 17328,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-08T23:56:17.249Z",
+      "pose": {
+        "position": [
+          -53.81981909788599,
+          -4.718555648055781,
+          35.939034427940356
+        ],
+        "bearing": 264.0242437932585,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.60897,
+          "lon": -122.33987,
+          "elev": 36.8
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.56
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": true,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Physical arrival at the interaction coordinate does not complete the activity or certify a surveyed legal pedestrian itinerary."
+      ],
+      "metrics": {
+        "triangles": 484606,
+        "drawCalls": 93
+      },
+      "simulationDate": "2026-11-08T23:56:13.471Z"
+    },
+    {
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/pike-place-phone.webp",
+      "sha256": "e59728ec3c73ec5851221b842cefff1f988b0af7f854383038bd208cac433f26",
+      "bytes": 3948,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-08T23:56:27.815Z",
+      "pose": {
+        "position": [
+          -53.98597058546402,
+          -4.744465022140792,
+          35.95642690624439
+        ],
+        "bearing": 264.0242437932585,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.60897,
+          "lon": -122.33987,
+          "elev": 36.8
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.56
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison."
+      ],
+      "metrics": {
+        "triangles": 441791,
+        "drawCalls": 53
+      },
+      "simulationDate": "2026-11-08T23:56:27.816Z"
+    },
+    {
+      "kind": "activity",
+      "label": "Native phone placement through the actual Gum Wall ray",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/market-shore-final/input-fixed-f056/gum-placed-on-wall.webp",
+      "sha256": "dff8ce51b39b31e8f74fd6213aa476607f4366917cbbc2482d1caf9fd3f6ef9f",
+      "bytes": 63352,
+      "sourceCommit": "f056a5e1da18a554af52a147391188d90ddf39b5",
+      "capturedAt": "2026-11-09T00:18:05.123Z",
+      "pose": {
+        "position": [
+          -42.45237580292875,
+          -6.574181295225564,
+          57.91582661072324
+        ],
+        "bearing": 58.25028579461707,
+        "pitch": 2.1938464450903794,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.60897,
+          "lon": -122.33987,
+          "elev": 36.8
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.56
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Native runner setup; not repeated in this capture record",
+      "controllerExercised": true,
+      "limitations": [
+        "Nearby interaction setup; not the public market arrival route.",
+        "Fish cancellation/timing proof is linked separately; this image documents only the aimed gum wall."
+      ],
+      "metrics": {
+        "triangles": 275253,
+        "drawCalls": 48
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 507798,
+    "drawCalls": 245,
+    "maxRenderedTriangles": 507798,
+    "maxDrawCalls": 245,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
+  },
+  "sceneId": "pike-place",
+  "sourceGeometry": {
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "e0ae9c7e93d108df045aa7798fe73029b62d6567f2dfd0ef0c2970e12b490d73",
+    "activeSourceRecords": 143,
+    "renderedVolumes": 159,
+    "literalHeights": 105,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 38,
+    "heroReplacements": [
+      "w231357660",
+      "w1271653801",
+      "w1271653800",
+      "w1275882970",
+      "w1275882966"
+    ],
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": -9.5,
+      "z": 13.5,
+      "y": -1.1196706226673887,
+      "heading": -4.1887902047863905
+    },
+    "primaryActivity": "Drop a coin in Rachel",
+    "primaryRouteStatus": "physically-verified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": true,
+    "nativeWalk": {
+      "passed": true,
+      "walked": 49.99770568180506,
+      "steps": 219,
+      "maxStep": 0.23000000000000112,
+      "maxRise": 0.4146846289048616,
+      "position": {
+        "x": -53.81981909788599,
+        "z": 35.939034427940356,
+        "y": -6.400979327726629,
+        "heading": 1.675092947899023
+      },
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+    }
+  },
+  "rawAudit": {
+    "status": "historical-only",
+    "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "counts": {
+      "zfight": 35,
+      "signTilted": 1
+    },
+    "collection": "previous-context-gallery"
+  },
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical Rachel approach, animated coin controls; actual phone timed fish catch/early rejection/immediate pause; native aimed gum ray Whole-market frontage/artwork accuracy and full fish trajectory framing remain open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "historicalCollections": [
+    {
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "updatedAt": "2026-11-08T19:35:04.232Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Pike Place Market & the Gum Wall — arrival",
+          "image": "assets/spots/pike-place/arrival.webp",
+          "sha256": "2c92ed7331a941a4b4f586029d9ab1fc78db0d925cd853e468cce1a82d28c196",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:20:11.416Z",
+          "pose": {
+            "position": [
+              -9.5,
+              0.5303293773326112,
+              13.5
+            ],
+            "bearing": 240,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.60897,
+              "lon": -122.33987,
+              "elev": 36.8
+            },
+            "projection": {
+              "mLat": 111182.71,
+              "mLon": 75187.56
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Pike Place Market & the Gum Wall — public walk",
+          "image": "assets/spots/pike-place/public-walk.webp",
+          "sha256": "54412c1c1368aef7f0ff803f054bd0cb0bba9bf9a98b98f415243d4dd8e3e6a5",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:20:14.716Z",
+          "pose": {
+            "position": [
+              -24.213151128615642,
+              -1.3486624699647949,
+              21.415667391579
+            ],
+            "bearing": 247.3254819038906,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.60897,
+              "lon": -122.33987,
+              "elev": 36.8
+            },
+            "projection": {
+              "mLat": 111182.71,
+              "mLon": 75187.56
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Pike Place Market & the Gum Wall — postcard",
+          "image": "assets/spots/pike-place/postcard.webp",
+          "sha256": "7f0e40d105fc45c50bf95de6d448d26c4700611c4e86c0195da3c21d3c042d7d",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:20:17.924Z",
+          "pose": {
+            "position": [
+              -19.622449085792063,
+              -0.4748124068135158,
+              17.0575347537532
+            ],
+            "bearing": 228.99999999999997,
+            "pitch": 12.000000000000002,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.60897,
+              "lon": -122.33987,
+              "elev": 36.8
+            },
+            "projection": {
+              "mLat": 111182.71,
+              "mLon": 75187.56
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Pike Place Market & the Gum Wall — activity approach",
+          "image": "assets/spots/pike-place/activity-approach.webp",
+          "sha256": "28a9eecd3fdc2f53d67e29d3714f9d97adb0325c00b9845be2f173bc69704e78",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:20:22.740Z",
+          "pose": {
+            "position": [
+              -42.70290129230073,
+              -6.971728574014949,
+              62.07085476008709
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.60897,
+              "lon": -122.33987,
+              "elev": 36.8
+            },
+            "projection": {
+              "mLat": 111182.71,
+              "mLon": 75187.56
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "pike-place; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "143 active source records, 159 physical volumes, 15 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "16.6 m walked toward Since 1907; planned endpoint reached using native movement and collision."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "443345 unique geometry triangles; max 860166 rendered triangles / 269 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "zfight: 35; signTilted: 1"
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        },
+        {
+          "label": "Participatory activity controls",
+          "passed": true,
+          "details": "Native desktop and 390px touch Rachel tests cover idle, mid-arc visibility, Leave/cancel, completed drop and 44px controls; proof/actions-desktop.json and proof/actions-touch.json."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 500766,
+        "uniqueGeometryTriangles": 443345,
+        "geometryObjects": 162,
+        "maxRenderedTriangles": 860166,
+        "maxDrawCalls": 269
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "f7f343a9d33b3b3a1fe61757e8f6ea611c66cc32b62a8a8478ec3fbc0401c759",
+        "activeSourceRecords": 143,
+        "renderedVolumes": 159,
+        "literalHeights": 105,
+        "levelHeightEstimates": 0,
+        "typeHeightEstimates": 38,
+        "heroReplacements": [
+          "w231357660",
+          "w1271653801",
+          "w1271653800",
+          "w1275882970",
+          "w1275882966"
+        ],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": -9.5,
+          "z": 13.5,
+          "y": -1.1196706226673887,
+          "heading": -4.1887902047863905
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              -9.5,
+              13.5
+            ],
+            [
+              -24.894846254612066,
+              21.700468774464213
+            ]
+          ],
+          "length": 17.442734284627104,
+          "target": "Since 1907"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 201,
+          "walked": 16.64264200874494,
+          "target": "Since 1907",
+          "plannedLength": 17.442734284627104,
+          "position": {
+            "x": -24.212464931941252,
+            "z": 21.415380701905722,
+            "y": -2.9984815664170466,
+            "heading": 1.966541323875042
+          },
+          "error": null
+        }
+      },
+      "rawAudit": {
+        "zfight": 35,
+        "signTilted": 1
+      },
+      "improvements": [
+        "Exact source building outlines, inner rings and uncovered building-part strips now survive the tourist renderer; no scenery mask removes a building.",
+        "Rachel now receives a visible player-triggered coin arc and awards completion after the drop; idle time and cancellation do not award it."
+      ],
+      "remainingGaps": [
+        "The full-size postcard shows PUBLIC MARKET CENTER lettering and clock. Arcade soffits, market roof edges and surrounding frontage proportions still need matched independent street and aerial comparisons.",
+        "Nearby crowds can obscure the market approach; the tilted-sign audit finding still needs physical inspection.",
+        "Fish and gum-wall handlers have not received the same complete participation and cancellation review as Rachel.",
+        "Raw audit findings remain for physical review: zfight 35, signTilted 1."
+      ],
+      "review": "Inspected arrival, native public-path walk, postcard and activity approach at clean 94ef228; also inspected the full-size postcard. Existing Starbucks frontage is retained; the secret room remains the owner's explicit fiction exception.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": true,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "f056a5e1da18a554af52a147391188d90ddf39b5"
+  ],
+  "captureRange": [
+    "2026-11-08T23:56:04.286Z",
+    "2026-11-09T00:18:05.123Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": true,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The selected activity coordinate is physically reached; this is not completion of every activity.",
+      "cases": [
+        "pike-place"
+      ]
+    },
+    {
+      "label": "Historical native desktop action controls",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json",
+      "sha256": "9010ef09825df780e858b57cc28a7f8b733eb794f0984bc8c9816f01a9fd9eed",
+      "sourceCommit": null,
+      "passed": null,
+      "scope": "Original historical report omits its source SHA. It records real animated actions, negative idle/Leave cases and completion; touch Troll movement still used keyboard. This is not a current-source or full-entry certificate.",
+      "provenance": "historical-source-unrecorded",
+      "cases": [
+        "pike-place"
+      ]
+    },
+    {
+      "label": "Historical native touch action controls",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json",
+      "sha256": "d714a91af57d54c287fd9357c6e753f377c093645a4e60db59d7f7203241ef48",
+      "sourceCommit": null,
+      "passed": null,
+      "scope": "Original historical report omits its source SHA. It records real animated actions, negative idle/Leave cases and completion; touch Troll movement still used keyboard. This is not a current-source or full-entry certificate.",
+      "provenance": "historical-source-unrecorded",
+      "cases": [
+        "pike-place"
+      ]
+    },
+    {
+      "label": "Native phone fish/gum inputs",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/market-shore-final/input-fixed-f056/results.json",
+      "sha256": "9d10e18e056e9dd97032a8046d23c959f0dd982ba524f6eed2e506cc84153f56",
+      "sourceCommit": "f056a5e1da18a554af52a147391188d90ddf39b5",
+      "passed": true,
+      "scope": "Only the named cases pass: real native inputs, negative early/idle/cancel behavior and finite completion. The separate pier planner in this raw run fails and is not accepted. Nearby initial setup is explicit.",
+      "cases": [
+        "fish-immediate-pause-cancellation",
+        "fish-native-timing-and-completion",
+        "gum-native-aim-and-physical-wall-placement"
+      ]
+    }
+  ]
+}

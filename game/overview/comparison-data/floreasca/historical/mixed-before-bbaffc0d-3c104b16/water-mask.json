@@ -1,0 +1,312 @@
+{
+  "district": "bucharest-floreasca",
+  "dataSha256": "e7c961ee4acc9bd0c6850e7fcce9ba170d1899134f10376c2a3b3f8af5695358",
+  "posesSha256": "32bf15f2483d0010f608eaccf3a19157743d3c1dbd6a6c8795b104be4b338fcf",
+  "totalFrames": 90,
+  "waterReviewFrames": 25,
+  "unaffectedFrames": 65,
+  "tiles": [
+    {
+      "id": "aerial-r01-c04",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -250,
+        -1250,
+        0,
+        -1000
+      ]
+    },
+    {
+      "id": "aerial-r01-c05",
+      "sourceWaterIds": [
+        "w117140697",
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        0,
+        -1250,
+        250,
+        -1000
+      ]
+    },
+    {
+      "id": "aerial-r01-c06",
+      "sourceWaterIds": [
+        "w117140697"
+      ],
+      "groundBoundsXZ": [
+        250,
+        -1250,
+        500,
+        -1000
+      ]
+    },
+    {
+      "id": "aerial-r01-c07",
+      "sourceWaterIds": [
+        "w117140697"
+      ],
+      "groundBoundsXZ": [
+        500,
+        -1250,
+        750,
+        -1000
+      ]
+    },
+    {
+      "id": "aerial-r02-c02",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -750,
+        -1000,
+        -500,
+        -750
+      ]
+    },
+    {
+      "id": "aerial-r02-c03",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -500,
+        -1000,
+        -250,
+        -750
+      ]
+    },
+    {
+      "id": "aerial-r02-c04",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -250,
+        -1000,
+        0,
+        -750
+      ]
+    },
+    {
+      "id": "aerial-r02-c05",
+      "sourceWaterIds": [
+        "w117140697",
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        0,
+        -1000,
+        250,
+        -750
+      ]
+    },
+    {
+      "id": "aerial-r02-c06",
+      "sourceWaterIds": [
+        "w117140697"
+      ],
+      "groundBoundsXZ": [
+        250,
+        -1000,
+        500,
+        -750
+      ]
+    },
+    {
+      "id": "aerial-r02-c07",
+      "sourceWaterIds": [
+        "w117140697"
+      ],
+      "groundBoundsXZ": [
+        500,
+        -1000,
+        750,
+        -750
+      ]
+    },
+    {
+      "id": "aerial-r02-c08",
+      "sourceWaterIds": [
+        "w117140697"
+      ],
+      "groundBoundsXZ": [
+        750,
+        -1000,
+        1000,
+        -750
+      ]
+    },
+    {
+      "id": "aerial-r03-c02",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -750,
+        -750,
+        -500,
+        -500
+      ]
+    },
+    {
+      "id": "aerial-r03-c03",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -500,
+        -750,
+        -250,
+        -500
+      ]
+    },
+    {
+      "id": "aerial-r03-c04",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -250,
+        -750,
+        0,
+        -500
+      ]
+    },
+    {
+      "id": "aerial-r03-c05",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        0,
+        -750,
+        250,
+        -500
+      ]
+    },
+    {
+      "id": "aerial-r03-c08",
+      "sourceWaterIds": [
+        "w117140697"
+      ],
+      "groundBoundsXZ": [
+        750,
+        -750,
+        1000,
+        -500
+      ]
+    },
+    {
+      "id": "aerial-r04-c02",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -750,
+        -500,
+        -500,
+        -250
+      ]
+    },
+    {
+      "id": "aerial-r04-c03",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -500,
+        -500,
+        -250,
+        -250
+      ]
+    },
+    {
+      "id": "aerial-r04-c04",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -250,
+        -500,
+        0,
+        -250
+      ]
+    },
+    {
+      "id": "aerial-r05-c02",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -750,
+        -250,
+        -500,
+        0
+      ]
+    },
+    {
+      "id": "aerial-r05-c03",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -500,
+        -250,
+        -250,
+        0
+      ]
+    },
+    {
+      "id": "aerial-r10-c06",
+      "sourceWaterIds": [
+        "w1170530109"
+      ],
+      "groundBoundsXZ": [
+        250,
+        1000,
+        500,
+        1250
+      ]
+    },
+    {
+      "id": "aerial-r11-c06",
+      "sourceWaterIds": [
+        "w1170530109"
+      ],
+      "groundBoundsXZ": [
+        250,
+        1250,
+        500,
+        1500
+      ]
+    },
+    {
+      "id": "context-northwest",
+      "sourceWaterIds": [
+        "w983903953"
+      ],
+      "groundBoundsXZ": [
+        -1000,
+        -1250,
+        -750,
+        -1000
+      ]
+    },
+    {
+      "id": "context-northeast",
+      "sourceWaterIds": [
+        "w117140697"
+      ],
+      "groundBoundsXZ": [
+        750,
+        -1250,
+        1000,
+        -1000
+      ]
+    }
+  ]
+}

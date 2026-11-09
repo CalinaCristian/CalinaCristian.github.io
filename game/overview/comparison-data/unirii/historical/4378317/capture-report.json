@@ -1,0 +1,30 @@
+{
+  "startedAt": "2026-11-08T21:30:20.842Z",
+  "endedAt": "2026-11-08T21:44:07.898Z",
+  "elapsedSeconds": 827.055,
+  "source": "397f0afa1691f0edf844186d2336a0218d9d055765677789a89aa8a8b6a5c7de",
+  "loaded": {
+    "key": "bucharest-unirii",
+    "city": "bucharest",
+    "district": "unirii",
+    "ms": 36308,
+    "edges": 1054,
+    "ribbons": 1263
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "frameCounts": 98,
+  "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "scopeCounts": {
+    "ring-touches": 66,
+    "core-touches": 26,
+    "outside-ring": 6
+  }
+}

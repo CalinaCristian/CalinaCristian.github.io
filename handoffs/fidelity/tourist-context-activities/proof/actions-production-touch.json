@@ -1,0 +1,340 @@
+{
+  "touch": true,
+  "frames": [
+    {
+      "name": "rachel-coin",
+      "triangles": 313238,
+      "calls": 46
+    },
+    {
+      "name": "candle-light",
+      "triangles": 558932,
+      "calls": 53
+    },
+    {
+      "name": "candle-place",
+      "triangles": 558948,
+      "calls": 54
+    },
+    {
+      "name": "kite-launch",
+      "triangles": 624045,
+      "calls": 28
+    },
+    {
+      "name": "locks-at-lake-level",
+      "triangles": 457998,
+      "calls": 40
+    },
+    {
+      "name": "wheel-cabin",
+      "triangles": 326223,
+      "calls": 63
+    },
+    {
+      "name": "chess-piece-in-motion",
+      "triangles": 592857,
+      "calls": 61
+    },
+    {
+      "name": "troll-native-hand-pose",
+      "triangles": 315141,
+      "calls": 56
+    }
+  ],
+  "actions": [
+    {
+      "label": "Drop a coin in Rachel",
+      "position": {
+        "x": -54.14768236141362,
+        "z": 35.97335325679389,
+        "y": -6.4,
+        "heading": 0
+      },
+      "walker": "OnFootController"
+    },
+    {
+      "label": "Drop a coin in Rachel",
+      "position": {
+        "x": -54.14768236141362,
+        "z": 35.97335325679389,
+        "y": -6.4,
+        "heading": 0
+      },
+      "walker": "OnFootController"
+    },
+    {
+      "label": "Light and place a candle",
+      "position": {
+        "x": -742,
+        "z": 192.6,
+        "y": 14.862269686084337,
+        "heading": 0
+      },
+      "walker": "OnFootController"
+    },
+    {
+      "label": "Light and place a candle",
+      "position": {
+        "x": -742,
+        "z": 192.6,
+        "y": 14.862269686084337,
+        "heading": 0
+      },
+      "walker": "OnFootController"
+    },
+    {
+      "label": "Fly a kite on Kite Hill",
+      "position": {
+        "x": -58,
+        "z": 31,
+        "y": 11.790604137860722,
+        "heading": 0
+      },
+      "walker": "OnFootController"
+    },
+    {
+      "label": "Fly a kite on Kite Hill",
+      "position": {
+        "x": -58,
+        "z": 31,
+        "y": 11.790604137860722,
+        "heading": 0
+      },
+      "walker": "OnFootController"
+    },
+    {
+      "label": "Watch a lock cycle from the public walkway",
+      "position": {
+        "x": 1.6650714996612817,
+        "z": 65.05672753142552,
+        "y": -6.1,
+        "heading": 0
+      },
+      "walker": "OnFootController"
+    },
+    {
+      "label": "Ride the Seattle Great Wheel (3 turns, ≈ 4½ min)",
+      "position": {
+        "x": -44.400000000000006,
+        "z": 62.224999999999994,
+        "y": 3.48,
+        "heading": 0
+      },
+      "walker": "OnFootController"
+    },
+    {
+      "label": "Ride the Seattle Great Wheel (3 turns, ≈ 4½ min)",
+      "position": {
+        "x": -44.400000000000006,
+        "z": 62.224999999999994,
+        "y": 3.48,
+        "heading": 0
+      },
+      "walker": "OnFootController"
+    },
+    {
+      "label": "Play a chess opening at La Șahiști",
+      "position": {
+        "x": -131.1,
+        "z": 78.1,
+        "y": -0.08036403891776547,
+        "heading": 0
+      },
+      "walker": "OnFootController"
+    },
+    {
+      "label": "Play a chess opening at La Șahiști",
+      "position": {
+        "x": -131.1,
+        "z": 78.1,
+        "y": -0.08036403891776547,
+        "heading": 0
+      },
+      "walker": "OnFootController"
+    },
+    {
+      "label": "Climb onto the hand",
+      "position": {
+        "x": -6.4,
+        "z": -44.8,
+        "y": 4,
+        "heading": 0
+      },
+      "walker": "OnFootController"
+    }
+  ],
+  "coinMid": {
+    "visible": true,
+    "progress": 0.3333333333333333
+  },
+  "lockStages": [
+    {
+      "frames": 459,
+      "phase": {
+        "phase": "fill",
+        "timer": 3.049999999999997,
+        "level": -8.678490358400001
+      },
+      "stage": 0
+    },
+    {
+      "frames": 499,
+      "phase": {
+        "phase": "high",
+        "timer": 3.049999999999997,
+        "level": -3.5
+      },
+      "stage": 1
+    },
+    {
+      "frames": 499,
+      "phase": {
+        "phase": "drain",
+        "timer": 3.049999999999997,
+        "level": -3.7215096415999995
+      },
+      "stage": 2
+    },
+    {
+      "frames": 499,
+      "phase": {
+        "phase": "low",
+        "timer": 3.049999999999997,
+        "level": -8.9
+      },
+      "stage": 3
+    }
+  ],
+  "wheelRestore": {
+    "before": {
+      "x": -44.400000000000006,
+      "z": 62.224999999999994,
+      "y": 3.48,
+      "heading": 0
+    },
+    "after": {
+      "x": -44.400000000000006,
+      "z": 62.224999999999994,
+      "y": 3.48,
+      "heading": 0
+    }
+  },
+  "wheelComplete": {
+    "frames": 5401,
+    "award": true,
+    "active": false,
+    "walker": true
+  },
+  "chessStart": [
+    {
+      "label": "White: e2–e4",
+      "position": [
+        -131.0625,
+        0.7619186043739319,
+        76.61250305175781
+      ]
+    },
+    {
+      "label": "Black: e7–e5",
+      "position": [
+        -131.0625,
+        0.7619186043739319,
+        76.98750305175781
+      ]
+    },
+    {
+      "label": "White: Ng1–f3",
+      "position": [
+        -130.91250610351562,
+        0.7619186043739319,
+        76.5374984741211
+      ]
+    }
+  ],
+  "chessMid": [
+    {
+      "label": "White: e2–e4",
+      "position": [
+        -131.0625,
+        0.8919185996055603,
+        76.6875
+      ]
+    },
+    {
+      "label": "Black: e7–e5",
+      "position": [
+        -131.0625,
+        0.7619186043739319,
+        76.98750305175781
+      ]
+    },
+    {
+      "label": "White: Ng1–f3",
+      "position": [
+        -130.91250610351562,
+        0.7619186043739319,
+        76.5374984741211
+      ]
+    }
+  ],
+  "troll": {
+    "frames": 39,
+    "goal": {
+      "x": -6.3,
+      "z": -47.4,
+      "y": 4.90174862742424
+    },
+    "samples": [
+      {
+        "n": 0,
+        "p": {
+          "x": -6.398714608308141,
+          "z": -44.83342018398834,
+          "y": 4.1955,
+          "heading": -0.03844259002118817
+        },
+        "busy": true
+      },
+      {
+        "n": 10,
+        "p": {
+          "x": -6.377955627429017,
+          "z": -45.37315368684558,
+          "y": 4.803,
+          "heading": -0.0384425900211886
+        },
+        "busy": true
+      },
+      {
+        "n": 20,
+        "p": {
+          "x": -6.349021512890834,
+          "z": -45.96121112032432,
+          "y": 4.1955,
+          "heading": -0.03623717665179839
+        },
+        "busy": true
+      },
+      {
+        "n": 30,
+        "p": {
+          "x": -6.319487968087326,
+          "z": -46.718554335414176,
+          "y": 5.010688411235809,
+          "heading": -0.029089899581068814
+        },
+        "busy": true
+      }
+    ],
+    "position": {
+      "x": -6.3017069221184,
+      "z": -47.18852424526634,
+      "y": 4.874491110037685,
+      "heading": -0.026185403165855454
+    },
+    "busy": false,
+    "walker": "OnFootController"
+  },
+  "errors": []
+}

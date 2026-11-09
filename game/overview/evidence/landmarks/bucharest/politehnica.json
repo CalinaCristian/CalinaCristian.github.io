@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "id": "politehnica",
+  "city": "bucharest",
+  "name": "Rectoratul Politehnicii",
+  "sourceCommit": "eaa40092c58da321aae036e508c63f341167d2e9",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 44.438429,
+    "lon": 26.0515105
+  },
+  "sourceIds": [
+    "w28240552",
+    "w1217715300"
+  ],
+  "replacementScope": "Only the Rectorat body and its mapped dome roof part. Adjacent Corp AN w1217713450 and every other campus source identity remain separate.",
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/28240552",
+      "label": "osm",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1217715300",
+      "label": "OSM dome roof part; raw levels/min_level/layer retained",
+      "type": "osm"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Politehnica_University_of_Bucharest.jpg",
+      "label": "commons-front-2024",
+      "type": "photograph"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Politehnica_University_of_Bucharest_04.jpg",
+      "label": "commons-oblique-2024",
+      "type": "photograph"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Politehnica_University_of_Bucharest_at_night_02.jpg",
+      "label": "commons-night-2024",
+      "type": "photograph"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "esri-z18",
+      "type": "aerial"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/6e4160cce21d5dcd682e436f216dd8b46fc17e3d",
+      "label": "Accepted exact Rectorat body/dome replacement identities; Corp AN excluded (6e4160cc)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13",
+      "label": "Accepted integrated explicit-ID production source replacement (2c73f3d9)",
+      "type": "implementation"
+    }
+  ],
+  "improvements": [
+    "Retained the existing square body outline within 0.4 m of the OSM vertices.",
+    "Reworked the main facade with red infill, dark glazing, pale projecting fins/sills, brick lower facade and recessed glazed upper floor from independent 2024 photographs.",
+    "Retained a 39.2 m authored dome within the independent aerial estimate of 40 ± 4 m; source diameter is not a surveyed height.",
+    "Declared exact body and dome source identities for the shared source-only landmark replacement policy.",
+    "Production now combines the exact body/dome declarations from 6e4160cce21d5dcd682e436f216dd8b46fc17e3d with the integrated explicit-ID replacement path 2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13; Corp AN and other undeclared source identities remain separate."
+  ],
+  "remainingGaps": [
+    "No independently published metre height is established; storey heights, fin depth, bay count and palette are authored estimates.",
+    "Partly exposed lower level and individually altered facade bays are simplified.",
+    "Roof part raw building:levels=7, min_level=6, roof:levels=1 and layer=1 are not converted into metric clearance.",
+    "The eaa40092 captures retain their original pre-policy provenance. Exact body/dome-only replacement is now implemented and excludes Corp AN w1217713450; the old isolated views do not independently certify every current campus placement, body clearance or whole-campus comparison.",
+    "Legacy strip colliders approximate the landmark; the full body/roof collision has not been surveyed.",
+    "These elevated front/top/oblique summer captures do not establish matched street-eye, seasonal or whole-campus parity."
+  ],
+  "checks": [
+    {
+      "label": "Independent source review",
+      "passed": true,
+      "details": "OSM plus January/April 2024 Commons photographs and local aerial plan measurement. No Street View measurements were extracted."
+    },
+    {
+      "label": "Exact replacement declaration",
+      "passed": true,
+      "details": "Registry sourceIds are exactly w28240552 and w1217715300; adjacent w1217713450 is excluded. Accepted declarations 6e4160cce21d5dcd682e436f216dd8b46fc17e3d and production replacement 2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13 are integrated; this implementation note does not recapture the eaa40092 studies or establish whole-campus parity."
+    },
+    {
+      "label": "Immutable three-view captures",
+      "passed": true,
+      "details": "All three captures serve git-archived eaa40092c58da321aae036e508c63f341167d2e9 files; lossless WebP RGB and hashes verified."
+    },
+    {
+      "label": "Bucharest foot,a regression",
+      "passed": true,
+      "details": "Immutable eaa source: 0 high, 0 medium, 1 low software-GL performance finding."
+    },
+    {
+      "label": "Surveyed metre height and full parity",
+      "passed": false,
+      "details": "Height and detailed bay/fin measurements remain unavailable; complex geometry and complete campus/reference parity remain open. Exact source-policy implementation is already integrated and is not the unresolved gate."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "North/front facade · wide view at 15 m",
+      "image": "assets/landmarks/politehnica/front.webp",
+      "kind": "front",
+      "sourceCommit": "eaa40092c58da321aae036e508c63f341167d2e9",
+      "sha256": "68e6fda796699859a87ba29484485f1ad35cf13ad725a66a7021e361076bc201",
+      "capturedAt": "2026-11-08T16:40:53.361Z",
+      "pose": {
+        "lat": 44.4389,
+        "lon": 26.0515,
+        "heading": 180,
+        "pitch": 0,
+        "h": 15,
+        "fov": 100,
+        "x": -612,
+        "z": 256,
+        "cameraBaseY": 0,
+        "cameraY": 15
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": false,
+        "mirror": false
+      },
+      "perf": {
+        "triangles": 529422,
+        "drawCalls": 342
+      },
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "id": "top",
+      "label": "North-up roof plan · 85 m",
+      "image": "assets/landmarks/politehnica/top.webp",
+      "kind": "top",
+      "sourceCommit": "eaa40092c58da321aae036e508c63f341167d2e9",
+      "sha256": "8e273d874bbd273264d32bdb368d34217d7482b87022d7aa1b25e8ea32b32342",
+      "capturedAt": "2026-11-08T16:33:48.747Z",
+      "pose": {
+        "lat": 44.438429,
+        "lon": 26.0515105,
+        "heading": 0,
+        "pitch": -90,
+        "h": 85,
+        "fov": 65,
+        "x": -611,
+        "z": 308,
+        "cameraBaseY": 0,
+        "cameraY": 85
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": false,
+        "mirror": false
+      },
+      "perf": {
+        "triangles": 345755,
+        "drawCalls": 101
+      },
+      "width": 720,
+      "height": 720,
+      "comparison": {
+        "lat": 44.438429,
+        "lon": 26.0515105,
+        "size": 108.30194433727384,
+        "orientation": "north-up"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "North-east oblique · 32 m",
+      "image": "assets/landmarks/politehnica/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "eaa40092c58da321aae036e508c63f341167d2e9",
+      "sha256": "0b0d2e5b758618c4283b96c912d27a5878e6d5208cc27226675c63ccf54c011b",
+      "capturedAt": "2026-11-08T16:33:51.677Z",
+      "pose": {
+        "lat": 44.4389,
+        "lon": 26.0521,
+        "heading": 223,
+        "pitch": -12,
+        "h": 32,
+        "fov": 65,
+        "x": -564,
+        "z": 256,
+        "cameraBaseY": 0,
+        "cameraY": 32
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": false,
+        "mirror": false
+      },
+      "perf": {
+        "triangles": 418473,
+        "drawCalls": 121
+      },
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "perf": {
+    "triangles": 529422,
+    "drawCalls": 342,
+    "note": "Separate whole-district frame maxima across these three high-quality model views; moving traffic and mirrors disabled. See district driving evidence for traffic+mirror acceptance."
+  },
+  "historicalImplementationNotes": [
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "eaa40092c58da321aae036e508c63f341167d2e9",
+      "supersededAt": "2026-11-09",
+      "field": "remainingGaps[3]",
+      "priorValue": "The captured branch predates the shared exact source-only replacement policy. Integration must verify that Corp AN remains and only the declared body/dome are replaced.",
+      "replacementScope": "The eaa40092 captures retain their original pre-policy provenance. Exact body/dome-only replacement is now implemented and excludes Corp AN w1217713450; the old isolated views do not independently certify every current campus placement, body clearance or whole-campus comparison.",
+      "acceptedImplementationCommits": [
+        "6e4160cce21d5dcd682e436f216dd8b46fc17e3d",
+        "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "eaa40092c58da321aae036e508c63f341167d2e9",
+      "supersededAt": "2026-11-09",
+      "field": "checks[1]",
+      "priorValue": {
+        "label": "Exact replacement declaration",
+        "passed": true,
+        "details": "Registry sourceIds are exactly w28240552 and w1217715300; adjacent w1217713450 is excluded."
+      },
+      "replacementScope": "Registry sourceIds are exactly w28240552 and w1217715300; adjacent w1217713450 is excluded. Accepted declarations 6e4160cce21d5dcd682e436f216dd8b46fc17e3d and production replacement 2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13 are integrated; this implementation note does not recapture the eaa40092 studies or establish whole-campus parity.",
+      "acceptedImplementationCommits": [
+        "6e4160cce21d5dcd682e436f216dd8b46fc17e3d",
+        "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "eaa40092c58da321aae036e508c63f341167d2e9",
+      "supersededAt": "2026-11-09",
+      "field": "checks[4]",
+      "priorValue": {
+        "label": "Surveyed metre height and full parity",
+        "passed": false,
+        "details": "Height and detailed bay/fin measurements remain unavailable; complex geometry and source-policy integration remain open."
+      },
+      "replacementScope": "Height and detailed bay/fin measurements remain unavailable; complex geometry and complete campus/reference parity remain open. Exact source-policy implementation is already integrated and is not the unresolved gate.",
+      "acceptedImplementationCommits": [
+        "6e4160cce21d5dcd682e436f216dd8b46fc17e3d",
+        "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+}

@@ -1,0 +1,345 @@
+{
+  "sourceCommit": "c0b1b2c1487149d77f0b1a394e678d5a760abc15",
+  "touch": false,
+  "setup": "Initial feature-adjacent poses isolate controls; public arrival routes require separate verification.",
+  "cases": [
+    {
+      "id": "chihuly",
+      "key": "chihulyFraming",
+      "title": "Frame the suspended sculpture",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 485.234375,
+          "width": 390,
+          "height": 210.765625,
+          "top": 485.234375,
+          "right": 406,
+          "bottom": 696,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 639,
+            "width": 143.28125,
+            "height": 44,
+            "top": 639,
+            "right": 174.28125,
+            "bottom": 683,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 639,
+            "width": 68.890625,
+            "height": 44,
+            "top": 639,
+            "right": 251.171875,
+            "bottom": 683,
+            "left": 182.28125
+          }
+        ]
+      },
+      "frames": [
+        {
+          "file": "chihuly-1.webp",
+          "visibility": {
+            "label": "North hanging forms",
+            "clear": true,
+            "targetDistance": 11.080826917797957,
+            "surfaceTolerance": 1.2,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 91.19999999925494,
+            "meshCount": 155
+          },
+          "position": {
+            "x": -50.75,
+            "z": -13.2,
+            "y": 1.6860856557637458,
+            "heading": 0.4391926535897932
+          },
+          "camera": {
+            "position": [
+              -50.75,
+              3.3360856557637457,
+              -13.2
+            ],
+            "bearing": 334.8361145561537,
+            "pitch": 31.902290032884235
+          },
+          "triangles": 1174708,
+          "calls": 163
+        },
+        {
+          "file": "chihuly-2.webp",
+          "visibility": {
+            "label": "Central hanging forms",
+            "clear": true,
+            "targetDistance": 7.084795352174667,
+            "surfaceTolerance": 1.2,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 149.80000000074506,
+            "meshCount": 155
+          },
+          "position": {
+            "x": -50.75,
+            "z": -13.2,
+            "y": 1.6860856557637458,
+            "heading": 1.571992653589793
+          },
+          "camera": {
+            "position": [
+              -50.75,
+              3.3360856557637457,
+              -13.2
+            ],
+            "bearing": 269.93145552373403,
+            "pitch": 55.691497686716026
+          },
+          "triangles": 1176986,
+          "calls": 127
+        },
+        {
+          "file": "chihuly-3.webp",
+          "visibility": {
+            "label": "South hanging forms",
+            "clear": true,
+            "targetDistance": 11.080826917797957,
+            "surfaceTolerance": 1.2,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 151.80000000074506,
+            "meshCount": 155
+          },
+          "position": {
+            "x": -50.75,
+            "z": -13.2,
+            "y": 1.6860856557637458,
+            "heading": 2.704792653589793
+          },
+          "camera": {
+            "position": [
+              -50.75,
+              3.3360856557637457,
+              -13.2
+            ],
+            "bearing": 205.02679649131437,
+            "pitch": 31.902290032884252
+          },
+          "triangles": 1207904,
+          "calls": 207
+        }
+      ],
+      "nativeLooks": [
+        5,
+        3,
+        3
+      ],
+      "idleAward": false,
+      "cancelAward": false,
+      "complete": true,
+      "captures": [
+        {
+          "label": "North hanging forms",
+          "position": {
+            "x": -50.75,
+            "z": -13.2,
+            "y": 1.6860856557637458,
+            "heading": 0.4391926535897932
+          }
+        },
+        {
+          "label": "Central hanging forms",
+          "position": {
+            "x": -50.75,
+            "z": -13.2,
+            "y": 1.6860856557637458,
+            "heading": 1.571992653589793
+          }
+        },
+        {
+          "label": "South hanging forms",
+          "position": {
+            "x": -50.75,
+            "z": -13.2,
+            "y": 1.6860856557637458,
+            "heading": 2.704792653589793
+          }
+        }
+      ]
+    },
+    {
+      "id": "space-needle",
+      "key": "loupeLook",
+      "title": "Look down through the glass floor",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 485.234375,
+          "width": 390,
+          "height": 210.765625,
+          "top": 485.234375,
+          "right": 406,
+          "bottom": 696,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 639,
+            "width": 143.28125,
+            "height": 44,
+            "top": 639,
+            "right": 174.28125,
+            "bottom": 683,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 639,
+            "width": 68.890625,
+            "height": 44,
+            "top": 639,
+            "right": 251.171875,
+            "bottom": 683,
+            "left": 182.28125
+          }
+        ]
+      },
+      "frames": [
+        {
+          "file": "space-needle-1.webp",
+          "visibility": {
+            "label": "The view beneath the revolving glass",
+            "clear": true,
+            "targetDistance": 1.9166844321643388,
+            "surfaceTolerance": 0.15,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 177,
+            "meshCount": 155
+          },
+          "position": {
+            "x": 0.5539249605480074,
+            "z": 18.29816814655466,
+            "y": 154.1,
+            "heading": 4.125592653589792
+          },
+          "camera": {
+            "position": [
+              0.5518773189905612,
+              155.75,
+              18.2981975729385
+            ],
+            "bearing": 123.62095295912707,
+            "pitch": -61.741932003297535
+          },
+          "triangles": 1104284,
+          "calls": 274
+        }
+      ],
+      "nativeLooks": [
+        7
+      ],
+      "idleAward": false,
+      "cancelAward": false,
+      "complete": true,
+      "captures": [
+        {
+          "label": "The view beneath the revolving glass",
+          "position": {
+            "x": 0.5539249605480074,
+            "z": 18.29816814655466,
+            "y": 154.1,
+            "heading": 4.125592653589792
+          }
+        }
+      ]
+    },
+    {
+      "id": "mopop",
+      "key": "monorailFraming",
+      "title": "Frame the Monorail passing MoPOP",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 465.640625,
+          "width": 390,
+          "height": 230.359375,
+          "top": 465.640625,
+          "right": 406,
+          "bottom": 696,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 639,
+            "width": 143.28125,
+            "height": 44,
+            "top": 639,
+            "right": 174.28125,
+            "bottom": 683,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 639,
+            "width": 68.890625,
+            "height": 44,
+            "top": 639,
+            "right": 251.171875,
+            "bottom": 683,
+            "left": 182.28125
+          }
+        ]
+      },
+      "frames": [],
+      "nativeLooks": [],
+      "idleAward": false,
+      "cancelAward": false,
+      "waitFrames": 0
+    }
+  ],
+  "errors": [],
+  "failure": {
+    "message": "Native aiming did not obtain a clear, steady feature view",
+    "stack": "Error: Native aiming did not obtain a clear, steady feature view\n    at aim (/workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-seattle-participation-check.cjs:83:19)\n    at async /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-seattle-participation-check.cjs:109:38",
+    "state": {
+      "position": {
+        "x": 29.6,
+        "z": -85.7,
+        "y": -2.4741476565599427,
+        "heading": 3.6671926535898036
+      },
+      "visibility": {
+        "label": "The moving leading car at the museum passage",
+        "clear": false,
+        "targetDistance": 201.54967066563023,
+        "surfaceTolerance": 0.5,
+        "hitDistance": 132.91160274952657,
+        "hitPoint": [
+          95.8981397991891,
+          4.001276385256013,
+          29.39459625643508
+        ],
+        "sourceSurface": null,
+        "blocker": "osm-buildings:f-apartment",
+        "raycastMs": 80.10000000149012,
+        "meshCount": 155
+      },
+      "active": true
+    }
+  }
+}

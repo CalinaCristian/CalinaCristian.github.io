@@ -1,0 +1,22 @@
+{
+  "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+  "city": "bucharest",
+  "district": "grozavesti",
+  "grid": {
+    "x0": -1500,
+    "z0": -1750,
+    "columns": 11,
+    "rows": 12,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 18,
+    "core-touches": 8
+  },
+  "locations": [],
+  "coverage": "Targeted unchanged-ground-pose subset for removed overlapping estimated water ribbons and exact Dinamo paint footprint. Full original atlas is retained separately; this is capture scope, not a fidelity score.",
+  "sourceCounts": {
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 81,
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 19
+  }
+}

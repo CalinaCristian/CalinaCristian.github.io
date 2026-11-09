@@ -1,0 +1,30 @@
+{
+  "gameSourceCommit": null,
+  "city": "bucharest",
+  "district": "pipera",
+  "grid": {
+    "x0": -2250,
+    "z0": -1000,
+    "columns": 16,
+    "rows": 11,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 91,
+    "core-touches": 38,
+    "outside-ring": 4
+  },
+  "locations": [],
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "captureType": "mixed-source-pose-plan",
+  "atlasSourceCounts": {
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 98,
+    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
+  },
+  "note": "Geometric coverage plan is unchanged. Per-pose source SHA records 35 current retakes and 98 original frames; this is not 133 fresh captures.",
+  "sourceCounts": {
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 96,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 2,
+    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "locations": [
+    {
+      "id": "romana",
+      "label": "Roman\u0103 & Victoriei",
+      "manifest": "romana/manifest.json"
+    },
+    {
+      "id": "floreasca",
+      "label": "Floreasca",
+      "manifest": "floreasca/manifest.json"
+    },
+    {
+      "id": "grozavesti",
+      "label": "Groz\u0103ve\u0219ti & Politehnica",
+      "manifest": "grozavesti/manifest.json"
+    },
+    {
+      "id": "unirii",
+      "label": "Unirii & Parliament",
+      "manifest": "unirii/manifest.json"
+    },
+    {
+      "id": "otopeni",
+      "label": "Otopeni Airport",
+      "manifest": "otopeni/manifest.json"
+    },
+    {
+      "id": "pipera",
+      "label": "Pipera & Dimitrie Pompeiu",
+      "manifest": "pipera/manifest.json"
+    },
+    {
+      "id": "seatac",
+      "label": "SeaTac Airport",
+      "manifest": "seatac/manifest.json"
+    },
+    {
+      "id": "bellevue",
+      "label": "Bellevue",
+      "manifest": "bellevue/manifest.json"
+    }
+  ]
+}

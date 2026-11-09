@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 1,
+  "id": "columbia",
+  "city": "seattle",
+  "name": "Columbia Center",
+  "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 47.6045425,
+    "lon": -122.3307183
+  },
+  "sourceIds": [
+    "r4648083",
+    "w107124288",
+    "w331293871",
+    "w418132520",
+    "w418132515",
+    "w418132517",
+    "w418132525"
+  ],
+  "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/relation/4648083",
+      "label": "OSM r4648083 · version 6 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/107124288",
+      "label": "OSM w107124288 · version 22 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/331293871",
+      "label": "OSM w331293871 · version 10 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/418132520",
+      "label": "OSM w418132520 · version 5 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/418132515",
+      "label": "OSM w418132515 · version 4 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/418132517",
+      "label": "OSM w418132517 · version 4 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/418132525",
+      "label": "OSM w418132525 · version 5 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13617926.752397265%2C6041181.672451879%2C-13617659.786665522%2C6041448.638183621&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+      "label": "Independent georeferenced Esri aerial · privately viewed · acquisition date unknown · image not published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13",
+      "label": "Accepted production explicit-ID source replacement; implementation scope only (2c73f3d9)",
+      "type": "implementation"
+    }
+  ],
+  "improvements": [
+    "Refreshed the parent and all five mapped tower/podium part contours without centroid shrinking.",
+    "Preserved the existing 286 m tiered silhouette and changed collision to source polygons with separate height bands.",
+    "Shared tourist skyline views now reuse this same tiered model."
+  ],
+  "remainingGaps": [
+    "Individual facade bays and roof plant are procedural, and the roof/chamfer junction detail is simplified.",
+    "The parent relation remains one complete authored building scope. Production replacement uses declared identities and preserves separate neighbouring source identities; these isolated studies do not survey all neighbour clearances.",
+    "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+    "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings."
+  ],
+  "checks": [
+    {
+      "label": "Historical Bucharest foot,a regression",
+      "passed": true,
+      "details": "Historical branch evidence only. Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models. The statement about subsequent US-only changes belongs to that recorded branch stage; it does not describe all later integrated ROOT changes or constitute a new root regression."
+    },
+    {
+      "label": "Current source identity and topology review",
+      "passed": true,
+      "details": "All 24 US registry entries checked; 7 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates. Production explicit-ID replacement is now implemented by 2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13; this records implementation, not a new integrated placement, clearance or performance pass."
+    },
+    {
+      "label": "Independent visual and actual model review",
+      "passed": true,
+      "details": "Actual front, top and oblique game renders inspected against source plans and independently viewed aerial context; only game renders are published. Height/facade limits and source conflicts are listed."
+    },
+    {
+      "label": "Geometry and meaningful collision checks",
+      "passed": true,
+      "details": "All61 shared geometry invariants and the US source-scope/total-height/court/pitch/portal/bridge-clearance regression checks pass. No FPS claim is inferred from geometry counts."
+    },
+    {
+      "label": "Immutable game-only capture provenance",
+      "passed": true,
+      "details": "Each lossless WebP is RGB pixel-verified against its actual game screenshot and carries its own source commit, camera pose and SHA256."
+    },
+    {
+      "label": "Complete measured visual parity",
+      "passed": false,
+      "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Isolated model study · front elevation",
+      "image": "assets/landmarks/columbia/front.webp",
+      "kind": "front",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "ee9f2344814cf2951b1f60b1142cda74f203ab3a3d09f019c885c09e07e6bd3b",
+      "capturedAt": "2026-11-08T17:04:23.394Z",
+      "pose": {
+        "position": [
+          -0.015905810563864975,
+          114.4,
+          499.35844115883515
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          -0.015905810563864975,
+          114.4,
+          0.06889879054940451
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "top",
+      "label": "Isolated model study · orthographic north-up plan",
+      "image": "assets/landmarks/columbia/top.webp",
+      "kind": "top",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "8399e8eedd3eb8025c98753b0ae5c01ed8110fc6522d6c26fc4682a7705bb721",
+      "capturedAt": "2026-11-08T17:04:28.139Z",
+      "pose": {
+        "position": [
+          -0.015905810563864975,
+          407.755810189138,
+          0.06889879054940451
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "quaternion": [
+          -0.7071067811865474,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "orthographic",
+        "groundSquareM": 121.755810189138,
+        "orientation": "north-up",
+        "target": [
+          -0.015905810563864975,
+          0,
+          0.06889879054940451
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Isolated model study · oblique overview",
+      "image": "assets/landmarks/columbia/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "sha256": "cc10123152cf45475f27478563dbe8803d897b6e356cdb15abef956c00e77eb5",
+      "capturedAt": "2026-11-08T17:04:31.891Z",
+      "pose": {
+        "position": [
+          257.3813770816749,
+          333.2741292677791,
+          367.6703152939363
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          -0.21453963361642958,
+          0.2929987293442745,
+          0.0676440866458011,
+          0.929273247087327
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          -0.015905810563864975,
+          114.4,
+          0.06889879054940451
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 5388,
+    "drawCalls": 3,
+    "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+  },
+  "historicalImplementationNotes": [
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "remainingGaps[3]",
+      "priorValue": "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy.",
+      "replacementScope": "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings.",
+      "acceptedImplementationCommits": [
+        "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "checks[0]",
+      "priorValue": {
+        "label": "Bucharest foot,a regression",
+        "passed": true,
+        "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+      },
+      "replacementScope": "Historical branch evidence only. Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models. The statement about subsequent US-only changes belongs to that recorded branch stage; it does not describe all later integrated ROOT changes or constitute a new root regression.",
+      "acceptedImplementationCommits": [],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "checks[1]",
+      "priorValue": {
+        "label": "Current source identity and topology review",
+        "passed": true,
+        "details": "All 24 US registry entries checked; 7 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+      },
+      "replacementScope": "All 24 US registry entries checked; 7 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates. Production explicit-ID replacement is now implemented by 2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13; this records implementation, not a new integrated placement, clearance or performance pass.",
+      "acceptedImplementationCommits": [
+        "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "remainingGaps[1]",
+      "priorValue": "The parent relation is treated as one complete authored building scope; integrated replacement must preserve all separate neighbouring identities.",
+      "replacementScope": "The parent relation remains one complete authored building scope. Production replacement uses declared identities and preserves separate neighbouring source identities; these isolated studies do not survey all neighbour clearances.",
+      "acceptedImplementationCommits": [
+        "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+}

@@ -1,0 +1,216 @@
+{
+  "touch": false,
+  "sourceCommit": "60db2819ecc6d175c71031e1f4cef57bc78a636e",
+  "spots": [
+    {
+      "id": "bel-lincoln-square",
+      "key": "photoHunt",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 485.234375,
+          "width": 390,
+          "height": 210.765625,
+          "top": 485.234375,
+          "right": 406,
+          "bottom": 696,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 639,
+            "width": 143.28125,
+            "height": 44,
+            "top": 639,
+            "right": 174.28125,
+            "bottom": 683,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 639,
+            "width": 68.890625,
+            "height": 44,
+            "top": 639,
+            "right": 251.171875,
+            "bottom": 683,
+            "left": 182.28125
+          }
+        ]
+      },
+      "setup": "Initial pose beside the source activity; native looking/capture proof, not a claim of arrival-route access.",
+      "nativeLooks": [
+        1,
+        2,
+        1
+      ],
+      "views": [
+        {
+          "file": "bel-lincoln-square-photoHunt-1.webp",
+          "visibility": {
+            "label": "Lincoln Square North: the office tower",
+            "clear": true,
+            "targetDistance": 76.20792072625679,
+            "surfaceTolerance": 2,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 169.89999999850988,
+            "meshCount": 138
+          },
+          "triangles": 322010,
+          "calls": 162,
+          "cameraPose": {
+            "position": [
+              -2,
+              1.6365544399246572,
+              2
+            ],
+            "bearing": 127.05869972991201,
+            "pitch": 47.165885695169365
+          }
+        },
+        {
+          "file": "bel-lincoln-square-photoHunt-2.webp",
+          "visibility": {
+            "label": "The west end of the Bellevue Way skybridge",
+            "clear": true,
+            "targetDistance": 94.65578844213667,
+            "surfaceTolerance": 3,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 159.5,
+            "meshCount": 138
+          },
+          "triangles": 374068,
+          "calls": 231,
+          "cameraPose": {
+            "position": [
+              -2,
+              1.6365544399246572,
+              2
+            ],
+            "bearing": 176.83727297087785,
+            "pitch": 5.912924445750095
+          }
+        },
+        {
+          "file": "bel-lincoln-square-photoHunt-3.webp",
+          "visibility": {
+            "label": "Lincoln Square North: the crown",
+            "clear": true,
+            "targetDistance": 129.6449682976809,
+            "surfaceTolerance": 2,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 142.69999999925494,
+            "meshCount": 138
+          },
+          "triangles": 322516,
+          "calls": 158,
+          "cameraPose": {
+            "position": [
+              -2,
+              1.6365544399246572,
+              2
+            ],
+            "bearing": 127.05869972991195,
+            "pitch": 66.41726761156504
+          }
+        }
+      ],
+      "targets": [
+        {
+          "label": "Lincoln Square North: the office tower",
+          "x": 39.362500000000004,
+          "y": 57.43949589617262,
+          "z": 33.35,
+          "radius": 3,
+          "surfaceTolerance": 2
+        },
+        {
+          "label": "The west end of the Bellevue Way skybridge",
+          "x": 3,
+          "y": 6.469595470428467,
+          "z": 96.4,
+          "radius": 2
+        },
+        {
+          "label": "Lincoln Square North: the crown",
+          "x": 39.362500000000004,
+          "y": 120.43949589617262,
+          "z": 33.35,
+          "radius": 3,
+          "surfaceTolerance": 2
+        }
+      ],
+      "perf": {
+        "visibility": {
+          "label": "Lincoln Square North: the crown",
+          "clear": true,
+          "targetDistance": 129.6449682976809,
+          "surfaceTolerance": 2,
+          "hitDistance": null,
+          "hitPoint": null,
+          "sourceSurface": null,
+          "blocker": null,
+          "raycastMs": 142.69999999925494,
+          "meshCount": 138
+        },
+        "triangles": 322516,
+        "calls": 158,
+        "cameraPose": {
+          "position": [
+            -2,
+            1.6365544399246572,
+            2
+          ],
+          "bearing": 127.05869972991195,
+          "pitch": 66.41726761156504
+        }
+      },
+      "captures": [
+        {
+          "label": "Lincoln Square North: the office tower",
+          "position": {
+            "x": -2,
+            "z": 2,
+            "y": -0.013445560075342715,
+            "heading": 4.065592653589793
+          }
+        },
+        {
+          "label": "The west end of the Bellevue Way skybridge",
+          "position": {
+            "x": -2,
+            "z": 2,
+            "y": -0.013445560075342715,
+            "heading": 3.196792653589793
+          }
+        },
+        {
+          "label": "Lincoln Square North: the crown",
+          "position": {
+            "x": -2,
+            "z": 2,
+            "y": -0.013445560075342715,
+            "heading": 4.065592653589793
+          }
+        }
+      ]
+    }
+  ],
+  "persisted": [
+    {
+      "id": "lm-bel-badge",
+      "unlocked": true
+    }
+  ],
+  "errors": []
+}

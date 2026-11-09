@@ -1,0 +1,479 @@
+{
+  "sourceCommit": "d5a766b7a961e3d4e7166f9b1387779a81012fc4",
+  "touch": true,
+  "setup": "Initial feature-adjacent poses isolate controls; public arrival routes require separate verification.",
+  "cases": [
+    {
+      "id": "chihuly",
+      "key": "chihulyFraming",
+      "title": "Frame the suspended sculpture",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 108,
+          "width": 358,
+          "height": 230.359375,
+          "top": 108,
+          "right": 374,
+          "bottom": 338.359375,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 281.359375,
+            "width": 143.28125,
+            "height": 44,
+            "top": 281.359375,
+            "right": 174.28125,
+            "bottom": 325.359375,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 281.359375,
+            "width": 68.890625,
+            "height": 44,
+            "top": 281.359375,
+            "right": 251.171875,
+            "bottom": 325.359375,
+            "left": 182.28125
+          }
+        ]
+      },
+      "frames": [
+        {
+          "file": "chihuly-1.webp",
+          "visibility": {
+            "label": "North hanging forms",
+            "clear": true,
+            "targetDistance": 11.080826917797957,
+            "surfaceTolerance": 1.2,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 38.79999999701977,
+            "meshCount": 155
+          },
+          "position": {
+            "x": -50.75,
+            "z": -13.2,
+            "y": 1.6860856557637458,
+            "heading": 0.4389377707772927
+          },
+          "camera": {
+            "position": [
+              -50.75,
+              3.3360856557637457,
+              -13.2
+            ],
+            "bearing": 334.8507182655804,
+            "pitch": 31.851636982808454
+          },
+          "triangles": 908090,
+          "calls": 46
+        },
+        {
+          "file": "chihuly-2.webp",
+          "visibility": {
+            "label": "Central hanging forms",
+            "clear": true,
+            "targetDistance": 7.084795352174667,
+            "surfaceTolerance": 1.2,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 44.79999999701977,
+            "meshCount": 155
+          },
+          "position": {
+            "x": -50.75,
+            "z": -13.2,
+            "y": 1.6860856557637458,
+            "heading": 1.5707963449960425
+          },
+          "camera": {
+            "position": [
+              -50.75,
+              3.3360856557637457,
+              -13.2
+            ],
+            "bearing": 269.99999895715115,
+            "pitch": 55.626220784166094
+          },
+          "triangles": 910897,
+          "calls": 45
+        },
+        {
+          "file": "chihuly-3.webp",
+          "visibility": {
+            "label": "South hanging forms",
+            "clear": true,
+            "targetDistance": 11.080826917797957,
+            "surfaceTolerance": 1.2,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 44.400000002235174,
+            "meshCount": 155
+          },
+          "position": {
+            "x": -50.75,
+            "z": -13.2,
+            "y": 1.6860856557637458,
+            "heading": 2.7026548606210423
+          },
+          "camera": {
+            "position": [
+              -50.75,
+              3.3360856557637457,
+              -13.2
+            ],
+            "bearing": 205.1492830058965,
+            "pitch": 31.851636982808458
+          },
+          "triangles": 904776,
+          "calls": 44
+        }
+      ],
+      "nativeLooks": [
+        {
+          "looks": 13,
+          "waits": []
+        },
+        {
+          "looks": 5,
+          "waits": []
+        },
+        {
+          "looks": 5,
+          "waits": []
+        }
+      ],
+      "idleAward": false,
+      "cancelAward": false,
+      "complete": true,
+      "captures": [
+        {
+          "label": "North hanging forms",
+          "position": {
+            "x": -50.75,
+            "z": -13.2,
+            "y": 1.6860856557637458,
+            "heading": 0.4389377707772927
+          }
+        },
+        {
+          "label": "Central hanging forms",
+          "position": {
+            "x": -50.75,
+            "z": -13.2,
+            "y": 1.6860856557637458,
+            "heading": 1.5707963449960425
+          }
+        },
+        {
+          "label": "South hanging forms",
+          "position": {
+            "x": -50.75,
+            "z": -13.2,
+            "y": 1.6860856557637458,
+            "heading": 2.7026548606210423
+          }
+        }
+      ]
+    },
+    {
+      "id": "space-needle",
+      "key": "loupeLook",
+      "title": "Look down through the glass floor",
+      "controls": {
+        "panel": {
+          "x": 16,
+          "y": 108,
+          "width": 358,
+          "height": 210.765625,
+          "top": 108,
+          "right": 374,
+          "bottom": 318.765625,
+          "left": 16
+        },
+        "buttons": [
+          {
+            "x": 31,
+            "y": 261.765625,
+            "width": 143.28125,
+            "height": 44,
+            "top": 261.765625,
+            "right": 174.28125,
+            "bottom": 305.765625,
+            "left": 31
+          },
+          {
+            "x": 182.28125,
+            "y": 261.765625,
+            "width": 68.890625,
+            "height": 44,
+            "top": 261.765625,
+            "right": 251.171875,
+            "bottom": 305.765625,
+            "left": 182.28125
+          }
+        ]
+      },
+      "frames": [
+        {
+          "file": "space-needle-1.webp",
+          "visibility": {
+            "label": "The view beneath the revolving glass",
+            "clear": true,
+            "targetDistance": 1.9190812737362535,
+            "surfaceTolerance": 0.15,
+            "hitDistance": null,
+            "hitPoint": null,
+            "sourceSurface": null,
+            "blocker": null,
+            "raycastMs": 138.5,
+            "meshCount": 155
+          },
+          "position": {
+            "x": 0.5477820256732285,
+            "z": 18.298255710943444,
+            "y": 154.1,
+            "heading": 4.140408317652293
+          },
+          "camera": {
+            "position": [
+              0.5457343739687863,
+              155.75,
+              18.298284422563764
+            ],
+            "bearing": 122.77207793766212,
+            "pitch": -61.27329728920825
+          },
+          "triangles": 737517,
+          "calls": 110
+        }
+      ],
+      "nativeLooks": [
+        {
+          "looks": 6,
+          "waits": []
+        }
+      ],
+      "idleAward": false,
+      "cancelAward": false
+    }
+  ],
+  "errors": [],
+  "elevator": {
+    "cancels": [
+      {
+        "mode": "leave",
+        "active": false,
+        "ride": null,
+        "position": {
+          "x": -0.7,
+          "z": 18.9,
+          "y": 1.5,
+          "heading": 3.141592653589793
+        },
+        "walker": true,
+        "award": false
+      },
+      {
+        "mode": "escape",
+        "active": false,
+        "ride": null,
+        "position": {
+          "x": -0.7,
+          "z": 18.9,
+          "y": 1.5,
+          "heading": 3.141592653589793
+        },
+        "walker": true,
+        "award": false
+      },
+      {
+        "mode": "pause",
+        "active": false,
+        "ride": null,
+        "position": {
+          "x": -0.7,
+          "z": 18.9,
+          "y": 1.5,
+          "heading": 3.141592653589793
+        },
+        "walker": true,
+        "award": false
+      },
+      {
+        "mode": "conditions",
+        "active": false,
+        "ride": null,
+        "position": {
+          "x": -0.7,
+          "z": 18.9,
+          "y": 1.5,
+          "heading": 3.141592653589793
+        },
+        "walker": true,
+        "award": false
+      },
+      {
+        "mode": "photo",
+        "active": false,
+        "ride": null,
+        "position": {
+          "x": -0.7,
+          "z": 18.9,
+          "y": 1.5,
+          "heading": 3.141592653589793
+        },
+        "walker": true,
+        "award": false
+      },
+      {
+        "mode": "map",
+        "active": false,
+        "ride": null,
+        "position": {
+          "x": -0.7,
+          "z": 18.9,
+          "y": 1.5,
+          "heading": 3.141592653589793
+        },
+        "walker": true,
+        "award": false
+      },
+      {
+        "mode": "hidden",
+        "active": false,
+        "ride": null,
+        "position": {
+          "x": -0.7,
+          "z": 18.9,
+          "y": 1.5,
+          "heading": 3.141592653589793
+        },
+        "walker": true,
+        "award": false
+      }
+    ],
+    "controls": {
+      "panel": {
+        "x": 16,
+        "y": 108,
+        "width": 358,
+        "height": 191.171875,
+        "top": 108,
+        "right": 374,
+        "bottom": 299.171875,
+        "left": 16
+      },
+      "buttons": [
+        {
+          "x": 31,
+          "y": 242.171875,
+          "width": 199.3125,
+          "height": 44,
+          "top": 242.171875,
+          "right": 230.3125,
+          "bottom": 286.171875,
+          "left": 31
+        },
+        {
+          "x": 238.3125,
+          "y": 242.171875,
+          "width": 68.890625,
+          "height": 44,
+          "top": 242.171875,
+          "right": 307.203125,
+          "bottom": 286.171875,
+          "left": 238.3125
+        }
+      ]
+    },
+    "midpoint": {
+      "file": "elevator-moving.webp",
+      "position": {
+        "x": -0.7,
+        "z": 18.9,
+        "y": 1.5,
+        "heading": 3.141592653589793
+      },
+      "camera": {
+        "position": [
+          6.015767664977295,
+          76.57664166219273,
+          3.999999999999999
+        ],
+        "bearing": 120,
+        "pitch": -2.8647889756541156
+      },
+      "triangles": 731707,
+      "calls": 57
+    },
+    "complete": {
+      "active": false,
+      "ride": null,
+      "position": {
+        "x": 15.373900930265807,
+        "z": 9.39123183124991,
+        "y": 154.1,
+        "heading": -2.0943951023931953
+      },
+      "walker": true,
+      "award": true,
+      "retiredDeckAward": false
+    },
+    "arrival": {
+      "file": "elevator-loupe-arrival.webp",
+      "position": {
+        "x": 15.373900930265807,
+        "z": 9.39123183124991,
+        "y": 154.1,
+        "heading": -2.0943951023931953
+      },
+      "camera": {
+        "position": [
+          15.372889557485294,
+          155.75,
+          9.392985700428289
+        ],
+        "bearing": 120,
+        "pitch": 0
+      },
+      "triangles": 724195,
+      "calls": 43
+    }
+  },
+  "failure": {
+    "message": "locator.tap: Timeout 120000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.sp-participation [data-action]')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-action=\"\">Take the picture</button>\u001b[22m\n\u001b[2m  - attempting tap action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - performing tap action\u001b[22m\n\u001b[2m      - <canvas id=\"gl\" width=\"390\" height=\"844\" tabindex=\"-1\" data-engine=\"three.js r170\"></canvas> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying tap action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - performing tap action\u001b[22m\n\u001b[2m      - <canvas id=\"gl\" width=\"390\" height=\"844\" tabindex=\"-1\" data-engine=\"three.js r170\"></canvas> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying tap action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    182 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m        - element is visible, enabled and stable\u001b[22m\n\u001b[2m        - scrolling into view if needed\u001b[22m\n\u001b[2m        - done scrolling\u001b[22m\n\u001b[2m        - performing tap action\u001b[22m\n\u001b[2m        - <canvas id=\"gl\" width=\"390\" height=\"844\" tabindex=\"-1\" data-engine=\"three.js r170\"></canvas> intercepts pointer events\u001b[22m\n\u001b[2m      - retrying tap action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n",
+    "stack": "locator.tap: Timeout 120000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.sp-participation [data-action]')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-action=\"\">Take the picture</button>\u001b[22m\n\u001b[2m  - attempting tap action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - performing tap action\u001b[22m\n\u001b[2m      - <canvas id=\"gl\" width=\"390\" height=\"844\" tabindex=\"-1\" data-engine=\"three.js r170\"></canvas> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying tap action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - performing tap action\u001b[22m\n\u001b[2m      - <canvas id=\"gl\" width=\"390\" height=\"844\" tabindex=\"-1\" data-engine=\"three.js r170\"></canvas> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying tap action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    182 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m        - element is visible, enabled and stable\u001b[22m\n\u001b[2m        - scrolling into view if needed\u001b[22m\n\u001b[2m        - done scrolling\u001b[22m\n\u001b[2m        - performing tap action\u001b[22m\n\u001b[2m        - <canvas id=\"gl\" width=\"390\" height=\"844\" tabindex=\"-1\" data-engine=\"three.js r170\"></canvas> intercepts pointer events\u001b[22m\n\u001b[2m      - retrying tap action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n\n    at tap (/workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-seattle-participation-check.cjs:32:64)\n    at /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-seattle-participation-check.cjs:155:23",
+    "state": {
+      "position": {
+        "x": 0.5477820256732285,
+        "z": 18.298255710943444,
+        "y": 154.1,
+        "heading": 4.140408317652293
+      },
+      "visibility": {
+        "label": "The view beneath the revolving glass",
+        "clear": true,
+        "targetDistance": 1.9190812737362535,
+        "surfaceTolerance": 0.15,
+        "hitDistance": null,
+        "hitPoint": null,
+        "sourceSurface": null,
+        "blocker": null,
+        "raycastMs": 138.5,
+        "meshCount": 155
+      },
+      "active": true
+    }
+  }
+}

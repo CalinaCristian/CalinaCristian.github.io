@@ -1,0 +1,28 @@
+{
+  "startedAt": "2026-11-08T22:27:22.305Z",
+  "endedAt": "2026-11-08T22:32:53.004Z",
+  "elapsedSeconds": 330.698,
+  "source": "66f9f028f585068faa58be093124c55da842e4a17da3e2142c0cc629b708b3f3",
+  "loaded": {
+    "key": "bucharest-floreasca",
+    "city": "bucharest",
+    "district": "floreasca",
+    "ms": 44675,
+    "edges": 384,
+    "ribbons": 523
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "frameCounts": 25,
+  "coverageClaim": "Conservative source-water render recapture subset; merge with original frozen dry frames to retain the complete district atlas.",
+  "scopeCounts": {
+    "water-recapture": 25
+  }
+}

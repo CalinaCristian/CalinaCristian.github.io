@@ -1,0 +1,3309 @@
+{
+  "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "framesReviewed": 133,
+  "complete": true,
+  "scopeCounts": {
+    "ring-touches": 91,
+    "core-touches": 38,
+    "outside-ring": 4
+  },
+  "status": "Complete133-frame source-bound capture and paired aerial review with recorded modelling limits and unresolved source contradictions. This is not full visual parity or a driving-budget acceptance claim.",
+  "reviewedAt": "2026-11-08T23:20:01.664148+00:00",
+  "method": "Manual visual inspection of all17private paired sheets. First120frames were reviewed during capture; all15corresponding preview sheets are byte-identical to the final sheets. Last13frames reviewed after completion. Every current image and reference hash is reconciled with the completed133pair ledger.",
+  "privateSheetsSha256": {
+    "sheets/paired-01.jpg": "45e98b052a9d05757333b7160178a4d5e8f3444e057f8db580cdd904a84496d0",
+    "sheets/paired-02.jpg": "7fb89bc2968f1cbd25058e0eee4309ba75282ba6c02cfd6cb4036ec88fe67b9f",
+    "sheets/paired-03.jpg": "e8c0acf10315cb3169e660118a423b463802f3ee15cd7e0214ffaf9c0eb17f0e",
+    "sheets/paired-04.jpg": "071beaa051535ad246be99479a0663724b1fb66431218b0786958e4bc42bc437",
+    "sheets/paired-05.jpg": "05ba42eec6d2694cc533aa08376e03b1ec5c05b79390211c27060ce2c36a7223",
+    "sheets/paired-06.jpg": "821a610bf438db2a305e905ad1867734b0ff947c31f660da6d7b3407c291319a",
+    "sheets/paired-07.jpg": "fa852d45b7b39c0fdb1aecb7909e1ddee01ba0b4524c2c4f52a20d5b1b7495e4",
+    "sheets/paired-08.jpg": "d8881435fedc1eedc46fa56463d8f9576e24633315670654fef2f73af48286e2",
+    "sheets/paired-09.jpg": "e51ae160c13ac5f05e6571016f59cee3ebf14886d3e7278669197687204429ff",
+    "sheets/paired-10.jpg": "fed5d2dea186b97b9462dc19bfa059319f57e1eacb3c712c5655665c6adcba9b",
+    "sheets/paired-11.jpg": "d6b08e53a28f0f65c30932fdf1986b10079550661c01e6c03286e127b9133822",
+    "sheets/paired-12.jpg": "849d0bf076a1a8313519ff8fab3e4f2075a30820869cb8112f74c4863fbb516f",
+    "sheets/paired-13.jpg": "67f79eaaabcce237ceffa62755c2d4b3fc56bd5f2448e639db131cd30bc51600",
+    "sheets/paired-14.jpg": "fff6396e29826c76100306c64c83812cd7aae028919ff405478a991a9f4170a0",
+    "sheets/paired-15.jpg": "70fa6d3349c9a306c573aa65b67cfd7f0dac58fa69d94bf93ff127fa7dc288b3",
+    "sheets/paired-16.jpg": "33e9616080177f6aea842503ff384e5a72b1c8b2a5a6deb5c59e6341e70e31a0",
+    "sheets/paired-17.jpg": "fd4c9b09360b48ca84c0b16757bd0029600a7a9b62a0a3095c349622723e130f"
+  },
+  "pairedSourceLedgerSha256": "246b7e6f1d52e0f32b8bcc608383f8524a904b4b81c137aa0c26edbd91016ab4",
+  "reference": {
+    "referenceProvider": "Esri World Imagery",
+    "referenceSourceUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+    "referenceAccessDate": "2026-11-08",
+    "referenceAcquisitionDate": null,
+    "referenceManifestSha256": "9150c38e70aed32365b0aafb48dc87bda98ef91c7e357d06048a6f90ee2fe986",
+    "mosaicSha256": "fe16afc036f230efe87e004955fc8b7b1c80af053a104de6fd69d9cac6512751"
+  },
+  "findings": [
+    {
+      "ids": [
+        "aerial-r01-c06",
+        "aerial-r01-c07",
+        "aerial-r01-c08",
+        "aerial-r01-c09",
+        "aerial-r01-c10",
+        "aerial-r01-c11"
+      ],
+      "status": "scope-limit",
+      "finding": "Boundary tiles include land beyond the600m source ring. The aerial continues into dense city and rail context where the game has deliberately sparse outer context; coverage does not extend the source-detail guarantee to the whole tile."
+    },
+    {
+      "ids": [
+        "aerial-r02-c07",
+        "aerial-r02-c08",
+        "aerial-r03-c07",
+        "aerial-r03-c08"
+      ],
+      "status": "reference-date-unknown",
+      "finding": "Some source-backed completed structures and paved areas occupy reference construction/excavation zones. Retain source geometry and the unknown aerial acquisition date; the reference alone cannot date the discrepancy."
+    },
+    {
+      "ids": [
+        "aerial-r02-c11",
+        "aerial-r02-c12",
+        "aerial-r02-c14",
+        "aerial-r02-c15"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Industrial/rail sidings, excavation texture, temporary stockpiles and fine yard equipment are simplified or absent. Actual source building identities remain separately audited."
+    },
+    {
+      "ids": [
+        "aerial-r02-c13",
+        "aerial-r03-c13"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Large source nursery/greenhouse bodies are present, while repetitive glass/panel/grid roof detail and yard ground texture remain simplified."
+    },
+    {
+      "ids": [
+        "aerial-r03-c14",
+        "aerial-r03-c15",
+        "aerial-r03-c16"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Canopy survey retains crown locations, but scrub, saplings and ground cover remain coarse; this is not a one-to-one vegetation replica."
+    },
+    {
+      "ids": [
+        "aerial-r04-c07",
+        "aerial-r04-c08",
+        "aerial-r04-c09",
+        "aerial-r04-c10",
+        "aerial-r04-c11",
+        "aerial-r04-c12"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Office source bodies and mapped openings are present. Roof plant, photovoltaic arrays, glass atrium articulation and literal facade detail remain approximate or absent; perspective roof displacement remains visible."
+    },
+    {
+      "ids": [
+        "aerial-r04-c14",
+        "aerial-r04-c15",
+        "aerial-r04-c16",
+        "aerial-r05-c01"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Mapped meadow/canopy extents are present, but scrub density, paths, fine court covers and minor land-use texture remain generalized."
+    },
+    {
+      "ids": [
+        "aerial-r05-c06",
+        "aerial-r05-c07",
+        "aerial-r05-c10",
+        "aerial-r05-c11",
+        "aerial-r05-c12"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Tall office and retail roofs have large perspective displacement in this216.5m camera. Rooftop technical equipment, mall skylight/panel detail and fine facade articulation are not a literal replica."
+    },
+    {
+      "ids": [
+        "aerial-r05-c09"
+      ],
+      "status": "source-control-observed",
+      "finding": "The museum aircraft source planforms are visible in their source layout. All23source identities/planforms are audited separately; vertical dimensions remain recorded estimates."
+    },
+    {
+      "ids": [
+        "aerial-r05-c14",
+        "aerial-r05-c16"
+      ],
+      "status": "source-control-observed",
+      "finding": "Source overpass alignment and the river crossing remain present; comparison is top-down only and does not establish driving clearance or traffic behavior."
+    },
+    {
+      "ids": [
+        "aerial-r06-c01",
+        "aerial-r06-c02",
+        "aerial-r06-c03",
+        "aerial-r06-c04",
+        "aerial-r06-c05"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Source lake/shore shapes are present, with simplified banks and docks. Blue water differs from the dark green reference appearance; colour, season and acquisition date are not a physical bathymetry or water-quality measurement."
+    },
+    {
+      "ids": [
+        "aerial-r06-c05"
+      ],
+      "status": "reference-date-unknown",
+      "finding": "The reference shows white covers over some sports courts; the game retains mapped open courts. Temporary/seasonal cover state is not resolved from an undated aerial."
+    },
+    {
+      "ids": [
+        "aerial-r06-c06",
+        "aerial-r06-c07",
+        "aerial-r06-c08",
+        "aerial-r06-c09",
+        "aerial-r06-c10",
+        "aerial-r06-c11",
+        "aerial-r06-c12"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Office roof plant, fine podium/courtyard surfaces and active construction detail remain simplified. Source road/building contradictions on w27750597/w176791388 and w176792203 remain separately unresolved; this atlas does not close them."
+    },
+    {
+      "ids": [
+        "aerial-r06-c14",
+        "aerial-r06-c15",
+        "aerial-r06-c16",
+        "aerial-r07-c01",
+        "aerial-r07-c02",
+        "aerial-r07-c03",
+        "aerial-r07-c04",
+        "aerial-r07-c05",
+        "aerial-r07-c06",
+        "aerial-r07-c07",
+        "aerial-r07-c08",
+        "aerial-r07-c09",
+        "aerial-r07-c10",
+        "aerial-r07-c11",
+        "aerial-r07-c12"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Lake edges, islands and separately mapped ponds remain present. Fine shoreline walls, shore paths, piers, yard detail and water appearance are simplified; undated aerials do not resolve seasonal bank/vegetation or construction changes."
+    },
+    {
+      "ids": [
+        "aerial-r07-c13",
+        "aerial-r07-c14",
+        "aerial-r07-c15",
+        "aerial-r07-c16",
+        "aerial-r08-c03",
+        "aerial-r08-c04",
+        "aerial-r08-c05",
+        "aerial-r08-c06"
+      ],
+      "status": "scope-and-detail-limit",
+      "finding": "Source lake/bridge and shoreline settlement remain present. Outer ring boundary tiles can include large areas beyond the detailed source footprint; small docks, bank paths, courtyard detail and dense garden vegetation remain simplified."
+    },
+    {
+      "ids": [
+        "aerial-r08-c07",
+        "aerial-r08-c08",
+        "aerial-r08-c09",
+        "aerial-r08-c10",
+        "aerial-r08-c11",
+        "aerial-r08-c12",
+        "aerial-r08-c13",
+        "aerial-r08-c14",
+        "aerial-r08-c15",
+        "aerial-r08-c16",
+        "aerial-r09-c10",
+        "aerial-r09-c11",
+        "aerial-r09-c12",
+        "aerial-r09-c13",
+        "aerial-r09-c14",
+        "aerial-r09-c15"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Source shoreline, small residential/office bodies, mapped sports/pool areas and road bends are visible. Roof tile/panel texture, private garden/terrace details, bank structures and occupancy remain generalized; ground beyond the600m source ring is sparse. No completeness claim is made for temporary court covers or untagged structures seen only in the reference."
+    },
+    {
+      "ids": [
+        "aerial-r09-c16",
+        "aerial-r10-c11",
+        "aerial-r10-c12",
+        "aerial-r10-c13",
+        "aerial-r10-c14",
+        "aerial-r10-c15",
+        "aerial-r11-c12",
+        "aerial-r11-c13",
+        "aerial-r11-c14",
+        "context-northwest",
+        "context-northeast",
+        "context-southwest",
+        "context-southeast"
+      ],
+      "status": "scope-and-detail-limit",
+      "finding": "Southern ring and four distant context tiles retain source-backed water and small bodies. Bank structures, parking/occupancy, small garden/cemetery detail and dense vegetation are simplified. The four outside-ring views deliberately contain sparse distant context and do not claim600m-detail fidelity."
+    }
+  ],
+  "reviewed": [
+    {
+      "id": "aerial-r01-c06",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1000,
+        -1000,
+        -750,
+        -750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "f6ea27d2aed2bbbe24955ab14bac7af23fe2c4fb9c04969150a6e92d61e5d6a0",
+      "gameCapturedAt": "2026-11-08T22:59:56.060Z",
+      "referenceSha256": "9b235cb8c425e41b949b1729621867b64b6e90a79c6a53df639ee55278ef20a2",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3261.0149792283773,
+        425.77449622377753,
+        3847.765145532787,
+        1013.596587613225
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-01.jpg"
+    },
+    {
+      "id": "aerial-r01-c07",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -750,
+        -1000,
+        -500,
+        -750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "2783e6d122cc4a70157dab29a7a2cea5c0db03713b99e3b091a79ff3e9557149",
+      "gameCapturedAt": "2026-11-08T23:00:07.705Z",
+      "referenceSha256": "5a7effc1e566d7090cec2ac8efcd2cd39381dde602174a3057dfa7e8cfd36e59",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3847.765145532787,
+        425.77449622377753,
+        4434.515311837196,
+        1013.596587613225
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-01.jpg"
+    },
+    {
+      "id": "aerial-r01-c08",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -500,
+        -1000,
+        -250,
+        -750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "987ff1848ac4c090eb88109882e69dc455e225c858d03c11666e4df3804da54a",
+      "gameCapturedAt": "2026-11-08T23:00:11.051Z",
+      "referenceSha256": "2c76fc0ef77b67d1858c50988a74d7cd149fcc1d7f65f84b191658a1af52dd1b",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        4434.515311837196,
+        425.77449622377753,
+        5021.265478141606,
+        1013.596587613225
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-01.jpg"
+    },
+    {
+      "id": "aerial-r01-c09",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -250,
+        -1000,
+        0,
+        -750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "c8061103319b7a65eeed3e6ed085c9b8485330ca936450eb55d6a125f5e07d86",
+      "gameCapturedAt": "2026-11-08T23:00:14.124Z",
+      "referenceSha256": "2d3ee67eebd1c8f38d5bc3fe4dc39d8e8be6d0863826a9de753af0e5b5a319f4",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5021.265478141606,
+        425.77449622377753,
+        5608.015644446015,
+        1013.596587613225
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-01.jpg"
+    },
+    {
+      "id": "aerial-r01-c10",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        0,
+        -1000,
+        250,
+        -750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "d286e90c24faa2a2b903571a8ea0044bc00fd272acb3c96901cd0738efee00b3",
+      "gameCapturedAt": "2026-11-08T23:00:17.209Z",
+      "referenceSha256": "d334e688d0de29b8a36b66718585e60c5803e96e2f10e4d7a996abf37663a5df",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5608.015644446015,
+        425.77449622377753,
+        6194.765810750425,
+        1013.596587613225
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-01.jpg"
+    },
+    {
+      "id": "aerial-r01-c11",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        250,
+        -1000,
+        500,
+        -750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "d9c7a6dcaae56a56c57e78a9d26617ceb1516dfcca8572753819d8423b94ff9b",
+      "gameCapturedAt": "2026-11-08T23:00:20.035Z",
+      "referenceSha256": "08af5de6878fd30eb832e1ef3c8d7a58034f17b73b868c9b71fec98fec9c9055",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6194.765810750425,
+        425.77449622377753,
+        6781.515977054834,
+        1013.596587613225
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-01.jpg"
+    },
+    {
+      "id": "aerial-r02-c02",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -2000,
+        -750,
+        -1750,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "ee18823c5c5a004e41b9af972ece8963f519d3509316896b4b9d167b628080fb",
+      "gameCapturedAt": "2026-11-08T23:00:23.443Z",
+      "referenceSha256": "a885dd18d544590e9727172e21ea5b14ff714e92036fb6c6efd38ed0fe9b295b",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        914.0143140107393,
+        1013.5965876057744,
+        1500.7644803151488,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-01.jpg"
+    },
+    {
+      "id": "aerial-r02-c03",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1750,
+        -750,
+        -1500,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "b4c9fbc64783fcb83de86db319dd178736a98e301b5bb4ce27351db5f60067f6",
+      "gameCapturedAt": "2026-11-08T23:00:25.710Z",
+      "referenceSha256": "bbdf966fea085055f5c66ee46a04000db41271585f66ed9719b1671ef723efe5",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        1500.7644803151488,
+        1013.5965876057744,
+        2087.5146466195583,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-01.jpg"
+    },
+    {
+      "id": "aerial-r02-c04",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1500,
+        -750,
+        -1250,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "b41d350263ea98431ecdfa31f69143dd0f77d58c680f50cc6c557c725c7bdbd5",
+      "gameCapturedAt": "2026-11-08T23:00:28.837Z",
+      "referenceSha256": "9da4d23578f02873b5fa8a29b5e471504880a6df711b9fed47a2968dcf56987f",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2087.5146466121078,
+        1013.5965876057744,
+        2674.264812923968,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-02.jpg"
+    },
+    {
+      "id": "aerial-r02-c05",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1250,
+        -750,
+        -1000,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "eceb1b67f9f2f914d933589ba058e02be6656ecf6c68e064b5c6f24b7072190b",
+      "gameCapturedAt": "2026-11-08T23:00:32.314Z",
+      "referenceSha256": "c239639429b5909216b2748706ccedca82b56b75f6b68fd3767d49bb42b0769b",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2674.2648129165173,
+        1013.5965876057744,
+        3261.0149792283773,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-02.jpg"
+    },
+    {
+      "id": "aerial-r02-c06",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1000,
+        -750,
+        -750,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "307aadf12cacec15ca2fbd5d3d50007546244797800daff8774fd80c5bdb5464",
+      "gameCapturedAt": "2026-11-08T23:00:36.142Z",
+      "referenceSha256": "0340dcdbd7ca5dc1a9e07f69e430660c293ff42363cb59541f7c1892b23365c9",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3261.0149792283773,
+        1013.5965876057744,
+        3847.765145532787,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-02.jpg"
+    },
+    {
+      "id": "aerial-r02-c07",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -750,
+        -750,
+        -500,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "8b6506708b8d11b8206d0556d56c911825484a99b9de305945d8cdf21d7de093",
+      "gameCapturedAt": "2026-11-08T23:00:39.654Z",
+      "referenceSha256": "0c6b4a163176a73d429454039e185f6cbf7c9aa07b52998486132ffc7c9d273a",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3847.765145532787,
+        1013.5965876057744,
+        4434.515311837196,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-02.jpg"
+    },
+    {
+      "id": "aerial-r02-c08",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -500,
+        -750,
+        -250,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "6e262de2fc79ab738196a22e2066a078c13114ce66f0f1c3639474d9d34d6093",
+      "gameCapturedAt": "2026-11-08T23:00:42.828Z",
+      "referenceSha256": "d3046ca02adea4bd66154d46b257f5c770c1e365fb1aeab8d6e0ca976bff72be",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        4434.515311837196,
+        1013.5965876057744,
+        5021.265478141606,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-02.jpg"
+    },
+    {
+      "id": "aerial-r02-c09",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -250,
+        -750,
+        0,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "349548c4ec0facdf4aa0a770ba7743f68f2d2f858735e733a37c3625d413a246",
+      "gameCapturedAt": "2026-11-08T23:00:49.028Z",
+      "referenceSha256": "0a70292b7570817fc04162ae0c0dcc3c38c115935e52cc18dd32d9da01bde7ae",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5021.265478141606,
+        1013.5965876057744,
+        5608.015644446015,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-02.jpg"
+    },
+    {
+      "id": "aerial-r02-c10",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        0,
+        -750,
+        250,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "233b797acd0fe19dce53fd0e51fc1acc3f47faf9921a20d03c7c512088b1254e",
+      "gameCapturedAt": "2026-11-08T23:00:53.853Z",
+      "referenceSha256": "23a6d2b22d30585d0da0327c22bc7a3593de8b6ba735c051838bedff4cffe27a",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5608.015644446015,
+        1013.5965876057744,
+        6194.765810750425,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-02.jpg"
+    },
+    {
+      "id": "aerial-r02-c11",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        250,
+        -750,
+        500,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "eca8229a98f46d8605aca7a6d71efb97983995dcbf23d00347bffde9529c1624",
+      "gameCapturedAt": "2026-11-08T23:01:00.278Z",
+      "referenceSha256": "19589ecea8faf87067887b7f90230105aa19452f5e5020869731d3a1a7d4e15a",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6194.765810750425,
+        1013.5965876057744,
+        6781.515977054834,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-02.jpg"
+    },
+    {
+      "id": "aerial-r02-c12",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        500,
+        -750,
+        750,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "300031d3338433b76c733e9ed4744afea8af29d1700155d370cb8d3b86dbc9be",
+      "gameCapturedAt": "2026-11-08T23:01:07.329Z",
+      "referenceSha256": "1c099384e37fc52f59268cbc870a214b159a63328fefa736c1bd9e3d89813f93",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6781.515977054834,
+        1013.5965876057744,
+        7368.266143359244,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-03.jpg"
+    },
+    {
+      "id": "aerial-r02-c13",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        750,
+        -750,
+        1000,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "a5a3f547bf8cfb64af881a82cc2e8d134583ff5a6d47bbd8dde36d716d7b6af9",
+      "gameCapturedAt": "2026-11-08T23:01:14.891Z",
+      "referenceSha256": "8e442935ba87a5193a3e51c31822effe618d8dcce71b961b12ceb771bd0a3aa6",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7368.266143359244,
+        1013.5965876057744,
+        7955.016309663653,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-03.jpg"
+    },
+    {
+      "id": "aerial-r02-c14",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1000,
+        -750,
+        1250,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "4cd50c2cf798a80e96495242b502094edbb869e1206fc33be127d5961fe1433a",
+      "gameCapturedAt": "2026-11-08T23:01:20.918Z",
+      "referenceSha256": "e4cd146509094591d28023643fd44152f1b0a88486c36d2adcf2e5b36967ae5c",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7955.016309663653,
+        1013.5965876057744,
+        8541.766475968063,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-03.jpg"
+    },
+    {
+      "id": "aerial-r02-c15",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1250,
+        -750,
+        1500,
+        -500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "0f6a4b4f99c89f1e7f9052ad9217d9afce426fe14b76e232e609634cb19e3582",
+      "gameCapturedAt": "2026-11-08T23:01:25.522Z",
+      "referenceSha256": "8349cd8ec9541e4565522f177d2a5c1682e2cd23f029c53ca0eba1b4ec8636b4",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        8541.766475960612,
+        1013.5965876057744,
+        9128.516642272472,
+        1601.396009877324
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-03.jpg"
+    },
+    {
+      "id": "aerial-r03-c01",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -2250,
+        -500,
+        -2000,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "7bf193079923365f77b673e8deed6ff409c70c2d92788c098836437c050a130c",
+      "gameCapturedAt": "2026-11-08T23:01:29.003Z",
+      "referenceSha256": "2efc5ef9ef5c580d063f0b1fce4baf62a670803c86d59e0142a528795f2b50f4",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        327.2641477063298,
+        1601.396009877324,
+        914.0143140107393,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-03.jpg"
+    },
+    {
+      "id": "aerial-r03-c02",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -2000,
+        -500,
+        -1750,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "9007a4f039f0633a8c784807661675c0ae49450251df8b93bfe31b888c93ce3a",
+      "gameCapturedAt": "2026-11-08T23:01:32.438Z",
+      "referenceSha256": "4ca88fbbc3b5d9f1c1ab35f418f842e20d08dd181427b69b426b5b81b71369c2",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        914.0143140107393,
+        1601.396009877324,
+        1500.7644803151488,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-03.jpg"
+    },
+    {
+      "id": "aerial-r03-c03",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1750,
+        -500,
+        -1500,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "63101f4c5cf9b5296e936e9adbce42749dcd1599d4645c0ce1ed0a879580f460",
+      "gameCapturedAt": "2026-11-08T23:01:38.789Z",
+      "referenceSha256": "76fc19bcfb3a6940a0f86a5056dae0e7fedea3e4a4151d2d24d30f605bf18799",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        1500.7644803151488,
+        1601.396009877324,
+        2087.5146466195583,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-03.jpg"
+    },
+    {
+      "id": "aerial-r03-c04",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1500,
+        -500,
+        -1250,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "044540a7e03e04cf45a18ee4e63ae22619a6a367e77474110fdfdb6f6b0f8311",
+      "gameCapturedAt": "2026-11-08T23:01:45.620Z",
+      "referenceSha256": "41de84f6d21c8d3dbf217310e93c3be02873211274c618780b232836a20856db",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2087.5146466121078,
+        1601.396009877324,
+        2674.264812923968,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-03.jpg"
+    },
+    {
+      "id": "aerial-r03-c05",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1250,
+        -500,
+        -1000,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "f31eb0ece95e29df337a994052d5246d8154b12abe62c647ee4c320cd285731d",
+      "gameCapturedAt": "2026-11-08T23:01:52.490Z",
+      "referenceSha256": "5ce11241af2038366fee65ff956c84b06f32bd5fbaf9a27f47dfb091e3665013",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2674.2648129165173,
+        1601.396009877324,
+        3261.0149792283773,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-04.jpg"
+    },
+    {
+      "id": "aerial-r03-c06",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1000,
+        -500,
+        -750,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "aa7a605c1152146c63434a37c716babd9fa0db71d7627c2d0ea181e75a34d5f5",
+      "gameCapturedAt": "2026-11-08T23:01:59.618Z",
+      "referenceSha256": "65e460b7df661ab26cdc0ddf18c626f4324c51bee8b8baec3bf2e8781985ed8d",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3261.0149792283773,
+        1601.396009877324,
+        3847.765145532787,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-04.jpg"
+    },
+    {
+      "id": "aerial-r03-c07",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -750,
+        -500,
+        -500,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "4a1b24f9ac2c26896958d42eb8320e03dfd827430ca79ccdf24293317ec58fbe",
+      "gameCapturedAt": "2026-11-08T23:02:05.317Z",
+      "referenceSha256": "65504212f87a08cd566a60260a98d6985a9f99e44176937ad25e0ce83ba97de4",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3847.765145532787,
+        1601.396009877324,
+        4434.515311837196,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-04.jpg"
+    },
+    {
+      "id": "aerial-r03-c08",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -500,
+        -500,
+        -250,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "dbf8e6c3f12a4d7316a0dd6173d14b1071175c880765bfb423fd3d7352c66ae0",
+      "gameCapturedAt": "2026-11-08T23:02:10.707Z",
+      "referenceSha256": "8f8a783af208a328c1c528181280a37706059f12509ee22c50a0faa705d08b40",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        4434.515311837196,
+        1601.396009877324,
+        5021.265478141606,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-04.jpg"
+    },
+    {
+      "id": "aerial-r03-c09",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -250,
+        -500,
+        0,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "7cb4bf176bb23f423d9626cfb7831494e322efef3e8336f07c5c43cf8461c1df",
+      "gameCapturedAt": "2026-11-08T23:02:16.476Z",
+      "referenceSha256": "78f9b0b6dc63fad1630b4022aba579aadea07ff0e38f7972b0921f061158fc80",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5021.265478141606,
+        1601.396009877324,
+        5608.015644446015,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-04.jpg"
+    },
+    {
+      "id": "aerial-r03-c10",
+      "scope": "core-touches",
+      "boundsXZ": [
+        0,
+        -500,
+        250,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "b4466a7152546cf60410370afeec11774aaee7fbfbcc0e6a568203009e015145",
+      "gameCapturedAt": "2026-11-08T23:02:24.496Z",
+      "referenceSha256": "b6d91bc5d8001a771a82b8feb62ea029e67effd6f4b48dc998f1e6d7790cee0b",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5608.015644446015,
+        1601.396009877324,
+        6194.765810750425,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-04.jpg"
+    },
+    {
+      "id": "aerial-r03-c11",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        250,
+        -500,
+        500,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "a90a3921897fa8a66eab4a0c44f58f5d596d21b970278b1437033b53b8fc52bc",
+      "gameCapturedAt": "2026-11-08T23:02:31.072Z",
+      "referenceSha256": "4e3b8c78926abdc51f983f7145f50d9f9b105e3c424fdc3fe0dfa99cbb74bb85",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6194.765810750425,
+        1601.396009877324,
+        6781.515977054834,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-04.jpg"
+    },
+    {
+      "id": "aerial-r03-c12",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        500,
+        -500,
+        750,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "bed9f1fa54fe4c40acb74cb7f1a8b1ec80afd2cc3d6da510108788374c966e81",
+      "gameCapturedAt": "2026-11-08T23:02:37.689Z",
+      "referenceSha256": "676c681f449f7d509483b19f9ee09d305b30e822a51f4b3f9a7ed14f544281b7",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6781.515977054834,
+        1601.396009877324,
+        7368.266143359244,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-04.jpg"
+    },
+    {
+      "id": "aerial-r03-c13",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        750,
+        -500,
+        1000,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "98c1522668239eff4dd320c5cd4f339ec0f30307957d9eca64219da27be9289f",
+      "gameCapturedAt": "2026-11-08T23:02:44.437Z",
+      "referenceSha256": "90ec17f16e3f4b9774aac0375e14367fb594d29465ddf53261d7ddb0edb31ded",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7368.266143359244,
+        1601.396009877324,
+        7955.016309663653,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-05.jpg"
+    },
+    {
+      "id": "aerial-r03-c14",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1000,
+        -500,
+        1250,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "6242c8378c921b32c11c4cbed08c57e5bc5bbef98aa8f035f08da1a758189114",
+      "gameCapturedAt": "2026-11-08T23:02:51.061Z",
+      "referenceSha256": "bac710b0229f273c22a0eb795d3e69567b3b28cdfb9ec1f81839bc08f2555edb",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7955.016309663653,
+        1601.396009877324,
+        8541.766475968063,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-05.jpg"
+    },
+    {
+      "id": "aerial-r03-c15",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1250,
+        -500,
+        1500,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "07e42e2f24fc49df81fa2bf293634deb817c1580807677cf16d1f2ffbcd03bff",
+      "gameCapturedAt": "2026-11-08T23:03:00.773Z",
+      "referenceSha256": "06c7837b84eb569b19ee099f94f1939a36fe57abb71b6ab89dd223c6608d1b39",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        8541.766475960612,
+        1601.396009877324,
+        9128.516642272472,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-05.jpg"
+    },
+    {
+      "id": "aerial-r03-c16",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1500,
+        -500,
+        1750,
+        -250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "ea0a1c73a1bbf3293a37887762c9916dafc4ccefee437c8960c00dc59bbcc537",
+      "gameCapturedAt": "2026-11-08T23:03:09.444Z",
+      "referenceSha256": "79ff6c0e45fc650e5000763294f7ca1219729f9be9f5b1bd14eeb39b9eff9ece",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        9128.516642265022,
+        1601.396009877324,
+        9715.266808576882,
+        2189.1727656833827
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-05.jpg"
+    },
+    {
+      "id": "aerial-r04-c01",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -2250,
+        -250,
+        -2000,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "a5740c4ff9d9d7519294a6f7e05f5ee55e78d8d5330e76801de5f0bd4a306255",
+      "gameCapturedAt": "2026-11-08T23:03:15.718Z",
+      "referenceSha256": "f714d40db626a5be72d48ef2758dc7b2fa6f64b7bb84518f7154305f8fab439f",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        327.2641477063298,
+        2189.1727656833827,
+        914.0143140107393,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-05.jpg"
+    },
+    {
+      "id": "aerial-r04-c02",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -2000,
+        -250,
+        -1750,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "2d650f1700afe47c27183b1f68c017bcc1369dbf7fb29a361f4a1cf6c63dc717",
+      "gameCapturedAt": "2026-11-08T23:03:24.317Z",
+      "referenceSha256": "f2dc2a4ff5535ac7fe1e1a0d081700bcea038d579fb00b2f7d4cee0a95121d4b",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        914.0143140107393,
+        2189.1727656833827,
+        1500.7644803151488,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-05.jpg"
+    },
+    {
+      "id": "aerial-r04-c03",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -1750,
+        -250,
+        -1500,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "f75612806c62806994368f6aa71734ad8c550bc8afe1ef72e5e302c94b870190",
+      "gameCapturedAt": "2026-11-08T23:03:33.277Z",
+      "referenceSha256": "9d2d842a3334684504ff85c0266b282aa3f80f8d2c166d8c9508c8c3aeb49b1d",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        1500.7644803151488,
+        2189.1727656833827,
+        2087.5146466195583,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-05.jpg"
+    },
+    {
+      "id": "aerial-r04-c04",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -1500,
+        -250,
+        -1250,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "77d239460397dbd8c1267349de84072a58395bd3f60da28255f986fe5e36316d",
+      "gameCapturedAt": "2026-11-08T23:03:46.120Z",
+      "referenceSha256": "854118a4f9c5d700d778090ffe43be3ec53b2cf0f47d710c41daac6331c2d4ae",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2087.5146466121078,
+        2189.1727656833827,
+        2674.264812923968,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-05.jpg"
+    },
+    {
+      "id": "aerial-r04-c05",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -1250,
+        -250,
+        -1000,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "00c713b953060db7c897a80ef58de06ce0c5194a46f4eca1ab073b8f81142d11",
+      "gameCapturedAt": "2026-11-08T23:04:01.315Z",
+      "referenceSha256": "d40d334bd910b8c97140ad48b7aa27eb100247bd86cc045a96a0e1cb8e426969",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2674.2648129165173,
+        2189.1727656833827,
+        3261.0149792283773,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-06.jpg"
+    },
+    {
+      "id": "aerial-r04-c06",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -1000,
+        -250,
+        -750,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "c11129c475ba988df572dbede8dc3c7f20ec036cab2bbc8dd3108fbd97b6c082",
+      "gameCapturedAt": "2026-11-08T23:04:14.815Z",
+      "referenceSha256": "e597153aa25bbd502a85a946b9c96e21ec5f83856a528e282f778b423f7db641",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3261.0149792283773,
+        2189.1727656833827,
+        3847.765145532787,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-06.jpg"
+    },
+    {
+      "id": "aerial-r04-c07",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -750,
+        -250,
+        -500,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "7535643d877caa5439091e97b0654f8b22c960edb174ae569277d2f699174340",
+      "gameCapturedAt": "2026-11-08T23:04:25.436Z",
+      "referenceSha256": "34a2979efeb028803296fec317c67e620940103e04f089b507ce52155e08e5d3",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3847.765145532787,
+        2189.1727656833827,
+        4434.515311837196,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-06.jpg"
+    },
+    {
+      "id": "aerial-r04-c08",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -500,
+        -250,
+        -250,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "aa490dc49fa63973f2acdb013719996e9f457a1d878374626ca468daa209c0e4",
+      "gameCapturedAt": "2026-11-08T23:04:38.969Z",
+      "referenceSha256": "860b6e1f5d06c51e4cee0b442c4aa1f042c980eb46d527affd72bb49233c132f",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        4434.515311837196,
+        2189.1727656833827,
+        5021.265478141606,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-06.jpg"
+    },
+    {
+      "id": "aerial-r04-c09",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -250,
+        -250,
+        0,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "09802c8ab073bf756f3345529ad902225ba66916dee0fc072b64cefe70f0ba1a",
+      "gameCapturedAt": "2026-11-08T23:04:48.044Z",
+      "referenceSha256": "fd65d300ac544109198c16b9759c64625de6d4c2642b4e6d90991d03dba0ae45",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5021.265478141606,
+        2189.1727656833827,
+        5608.015644446015,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-06.jpg"
+    },
+    {
+      "id": "aerial-r04-c10",
+      "scope": "core-touches",
+      "boundsXZ": [
+        0,
+        -250,
+        250,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "7c62305a27cd149127d9db03ac74c0f01dfdc2bca13f933bbd97394ef10c7e75",
+      "gameCapturedAt": "2026-11-08T23:05:00.247Z",
+      "referenceSha256": "4298cb0f74df594af061d84480550ab0517cf7b1094d14afc466721095cd7a88",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5608.015644446015,
+        2189.1727656833827,
+        6194.765810750425,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-06.jpg"
+    },
+    {
+      "id": "aerial-r04-c11",
+      "scope": "core-touches",
+      "boundsXZ": [
+        250,
+        -250,
+        500,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "72c03ec9386fff923a6b506a6bc767350ad7e9ded202b467ea71bbae70c4767a",
+      "gameCapturedAt": "2026-11-08T23:05:08.873Z",
+      "referenceSha256": "f94688db186609c92c0e986ae43f47b4099dce5a88ca347c610aa42e4b46160f",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6194.765810750425,
+        2189.1727656833827,
+        6781.515977054834,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-06.jpg"
+    },
+    {
+      "id": "aerial-r04-c12",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        500,
+        -250,
+        750,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "eff2ac6c6f6aa706c4b7bec3a4779f03eb754c541f282b467494944c1155c13a",
+      "gameCapturedAt": "2026-11-08T23:05:17.096Z",
+      "referenceSha256": "bef960db98acf64fe5d506a5be61b81017fe1a90dee94f37f194e1ffedd001c0",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6781.515977054834,
+        2189.1727656833827,
+        7368.266143359244,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-06.jpg"
+    },
+    {
+      "id": "aerial-r04-c13",
+      "scope": "core-touches",
+      "boundsXZ": [
+        750,
+        -250,
+        1000,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "bb4238f98248b3b02db4412458d06fd788317994e9ae9292c755d4a20d741b9a",
+      "gameCapturedAt": "2026-11-08T23:05:27.103Z",
+      "referenceSha256": "0ffdc705adf75c40038378820ea4af694f9f326fd555fce18bb29875aae44a77",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7368.266143359244,
+        2189.1727656833827,
+        7955.016309663653,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-07.jpg"
+    },
+    {
+      "id": "aerial-r04-c14",
+      "scope": "core-touches",
+      "boundsXZ": [
+        1000,
+        -250,
+        1250,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "a62acdda0b68fe52847a1083c4017f01088d378753f1297a91f9a4ef6f71acc3",
+      "gameCapturedAt": "2026-11-08T23:05:37.522Z",
+      "referenceSha256": "580a5eacd4229e4be9d82fd08e6ff0f0248d822da94c0184636b2f517f0244df",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7955.016309663653,
+        2189.1727656833827,
+        8541.766475968063,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-07.jpg"
+    },
+    {
+      "id": "aerial-r04-c15",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1250,
+        -250,
+        1500,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "f325ac0714ca1e6a3bffbd118b40aef7b1a281b5c2a01281e42b9e44c7b6bef7",
+      "gameCapturedAt": "2026-11-08T23:05:47.025Z",
+      "referenceSha256": "3c1098a60f5aaf386427a9f85731cc0234b900b437dcdf4cb6f1c9986971ca45",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        8541.766475960612,
+        2189.1727656833827,
+        9128.516642272472,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-07.jpg"
+    },
+    {
+      "id": "aerial-r04-c16",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1500,
+        -250,
+        1750,
+        0
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "0c20fdae6b0c66547907454f1ef3bd3b71eb58680f393c98a01f4a1a037cbfb5",
+      "gameCapturedAt": "2026-11-08T23:05:55.243Z",
+      "referenceSha256": "0330fc197b90de80c0d0729977b4e1a7114818d36f2fcdbc09f2f4173ded9ab3",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        9128.516642265022,
+        2189.1727656833827,
+        9715.266808576882,
+        2776.9268576800823
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-07.jpg"
+    },
+    {
+      "id": "aerial-r05-c01",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -2250,
+        0,
+        -2000,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "65f93743d1198a042d0adbc8d4d1862da232f592b307790759fc5aea071605cf",
+      "gameCapturedAt": "2026-11-08T23:06:02.382Z",
+      "referenceSha256": "f9cccc11ead913ae64a62f1f2254b88c045cfd950f8f5a44f96a0057c1dc424c",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        327.2641477063298,
+        2776.9268576800823,
+        914.0143140107393,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-07.jpg"
+    },
+    {
+      "id": "aerial-r05-c02",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -2000,
+        0,
+        -1750,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "d3f49fac32d4c4c229823d13e314d4caaf17067b785f33bca24eb778078d6d45",
+      "gameCapturedAt": "2026-11-08T23:06:08.589Z",
+      "referenceSha256": "cee476939055e2216d41d007d066d46b0e1e4f7f7f2e68cc66c4b52ec9a32d3f",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        914.0143140107393,
+        2776.9268576800823,
+        1500.7644803151488,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-07.jpg"
+    },
+    {
+      "id": "aerial-r05-c03",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -1750,
+        0,
+        -1500,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "17fe97b32173d1cb3281dcdd64e1e0a11740bd8d03af736c9f3570b40646fda3",
+      "gameCapturedAt": "2026-11-08T23:06:15.706Z",
+      "referenceSha256": "4a6803ffd0f6478c22001651f0d7734eb9d3375965fb1d5e973aec23a169b502",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        1500.7644803151488,
+        2776.9268576800823,
+        2087.5146466195583,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-07.jpg"
+    },
+    {
+      "id": "aerial-r05-c04",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -1500,
+        0,
+        -1250,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "4a0f50f2f904e8cbccdbfe566cf4cde91940c8aed30d7a84df7245e81d9638b6",
+      "gameCapturedAt": "2026-11-08T23:06:24.773Z",
+      "referenceSha256": "945c6e00f2f2a47af16042a685feba333352f790d181ba0c36a63d4b519a96d8",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2087.5146466121078,
+        2776.9268576800823,
+        2674.264812923968,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-07.jpg"
+    },
+    {
+      "id": "aerial-r05-c05",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -1250,
+        0,
+        -1000,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "01ed9e92bc86e96e40c9da27c6f7edee558320a69b1cc2be83d82ead08e1624e",
+      "gameCapturedAt": "2026-11-08T23:06:35.006Z",
+      "referenceSha256": "c1fe1d7c476f06f47b9da563f7af2eb4000560a3700ba592e3ec6660c46917f4",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2674.2648129165173,
+        2776.9268576800823,
+        3261.0149792283773,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-08.jpg"
+    },
+    {
+      "id": "aerial-r05-c06",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -1000,
+        0,
+        -750,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "9a841d9a786046a71cca0d6f52c6173584b7f7d4d6358166ed31d17477d18995",
+      "gameCapturedAt": "2026-11-08T23:06:44.978Z",
+      "referenceSha256": "7263681a4b0f2859b661a018c0d059a64bae7bbe3a4916bf2e9c645bb49ca71f",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3261.0149792283773,
+        2776.9268576800823,
+        3847.765145532787,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-08.jpg"
+    },
+    {
+      "id": "aerial-r05-c07",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -750,
+        0,
+        -500,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "aec6b4641c06086ff224d2edca561c1ff2cb92381052ec97e892e325cc4ff11a",
+      "gameCapturedAt": "2026-11-08T23:06:54.776Z",
+      "referenceSha256": "c0e1cd897fdce36858254fc76eb50ec257b2830398d039e9d26c80d671889eae",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3847.765145532787,
+        2776.9268576800823,
+        4434.515311837196,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-08.jpg"
+    },
+    {
+      "id": "aerial-r05-c08",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -500,
+        0,
+        -250,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "62375ba7f2aefc7989fb1506c89acd4f29497aa356426db7cfe615492b664283",
+      "gameCapturedAt": "2026-11-08T23:07:03.422Z",
+      "referenceSha256": "ee4216ce3bb89fb5228eff0aaffe454ef15ddd565c0e8a0168c839d965ab7c4e",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        4434.515311837196,
+        2776.9268576800823,
+        5021.265478141606,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-08.jpg"
+    },
+    {
+      "id": "aerial-r05-c09",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -250,
+        0,
+        0,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "2532ba1663e8abb9a406e4b01bdaa78a9d5c1a95fd1b2bb07a74dd3f725dcf45",
+      "gameCapturedAt": "2026-11-08T23:07:12.988Z",
+      "referenceSha256": "244b6ba769d5b3fc0f593a2c060ceafeaedda0169bb02637ee06f1b3996e89ac",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5021.265478141606,
+        2776.9268576800823,
+        5608.015644446015,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-08.jpg"
+    },
+    {
+      "id": "aerial-r05-c10",
+      "scope": "core-touches",
+      "boundsXZ": [
+        0,
+        0,
+        250,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "a07b3c2a8cac38e8a8fa63bc8e4058cee1c0fd3536c8a8d6d9352df395893990",
+      "gameCapturedAt": "2026-11-08T23:07:23.186Z",
+      "referenceSha256": "a339afb9a98eec4ed461845f317f0f39511f4d3276b1dad3acc07e23ff94051e",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5608.015644446015,
+        2776.9268576800823,
+        6194.765810750425,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-08.jpg"
+    },
+    {
+      "id": "aerial-r05-c11",
+      "scope": "core-touches",
+      "boundsXZ": [
+        250,
+        0,
+        500,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "7f8096b5196b3821d8eeda17d054de75a1e6d26a9b009346e6142727bcb6c602",
+      "gameCapturedAt": "2026-11-08T23:07:34.487Z",
+      "referenceSha256": "c8993249d70b42848e74588dc8b22ec7f7e543b5beeb7b4564e94d88ddc66aba",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6194.765810750425,
+        2776.9268576800823,
+        6781.515977054834,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-08.jpg"
+    },
+    {
+      "id": "aerial-r05-c12",
+      "scope": "core-touches",
+      "boundsXZ": [
+        500,
+        0,
+        750,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "0315dd03417b9760e3873701fa68df10b7770e355ab12bbc811d89efa8d43719",
+      "gameCapturedAt": "2026-11-08T23:07:42.884Z",
+      "referenceSha256": "ddd46da455cea9f716172393dff2f5b19284f49ce74972b3b4b5be9660486956",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6781.515977054834,
+        2776.9268576800823,
+        7368.266143359244,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-08.jpg"
+    },
+    {
+      "id": "aerial-r05-c13",
+      "scope": "core-touches",
+      "boundsXZ": [
+        750,
+        0,
+        1000,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "eb25513ae5285b193934a5c82dea7e80e0f53e6bbf64ca53556e0aaeb1447d8e",
+      "gameCapturedAt": "2026-11-08T23:07:54.222Z",
+      "referenceSha256": "d7f5c8f8c944fba48470a0e8f9236608686ea0a3828024b0478ccb55329d9ee9",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7368.266143359244,
+        2776.9268576800823,
+        7955.016309663653,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-09.jpg"
+    },
+    {
+      "id": "aerial-r05-c14",
+      "scope": "core-touches",
+      "boundsXZ": [
+        1000,
+        0,
+        1250,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "2940694124811bdefab8a96f77971782325b3fafbfce8999d45b19e26e2425fe",
+      "gameCapturedAt": "2026-11-08T23:08:04.845Z",
+      "referenceSha256": "af2390f3ee729d4afc4ce11927b79eab8cfc54fd8be67f5e3990b463f360bc1e",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7955.016309663653,
+        2776.9268576800823,
+        8541.766475968063,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-09.jpg"
+    },
+    {
+      "id": "aerial-r05-c15",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1250,
+        0,
+        1500,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "5f096816a35adc67b272458eea5dc56148232f0c510a4e7cf3203edb38e3c58f",
+      "gameCapturedAt": "2026-11-08T23:08:14.768Z",
+      "referenceSha256": "8aeec625086d9b78b5007a865a401e2509344140db9b70f0106f0bcdcec848ab",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        8541.766475960612,
+        2776.9268576800823,
+        9128.516642272472,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-09.jpg"
+    },
+    {
+      "id": "aerial-r05-c16",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1500,
+        0,
+        1750,
+        250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "8bdfdc12beaac1ae522a1df992ea11d8d135f55444464577d23e1d68cdb81e24",
+      "gameCapturedAt": "2026-11-08T23:08:25.503Z",
+      "referenceSha256": "1d915f530df1505d4eb0483b37956ed6aef99d171fc2eca964e83328f8b8e4ac",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        9128.516642265022,
+        2776.9268576800823,
+        9715.266808576882,
+        3364.658288523555
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-09.jpg"
+    },
+    {
+      "id": "aerial-r06-c01",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -2250,
+        250,
+        -2000,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "59871f31bb7438410a236f7c5b85d21c34def172aaac56a05a2ce666ce04c936",
+      "gameCapturedAt": "2026-11-08T23:08:34.070Z",
+      "referenceSha256": "ccfe5fd5cf8cb9956a05c444a9472c552935fd26abc933641312726fe7fdb280",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        327.2641477063298,
+        3364.658288523555,
+        914.0143140107393,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-09.jpg"
+    },
+    {
+      "id": "aerial-r06-c02",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -2000,
+        250,
+        -1750,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "907bb127b7da9d24c02bdb700b518f218748285916f59b030ad0d8879b0b219f",
+      "gameCapturedAt": "2026-11-08T23:08:40.688Z",
+      "referenceSha256": "1f7155443f66e649e0009342e14a615d2fccc56081b47cd4763edcfe23334c2f",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        914.0143140107393,
+        3364.658288523555,
+        1500.7644803151488,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-09.jpg"
+    },
+    {
+      "id": "aerial-r06-c03",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1750,
+        250,
+        -1500,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "927ce129b1679f87a208286712241ab18ba59e11eac16023549ab9c4e150d5fc",
+      "gameCapturedAt": "2026-11-08T23:08:50.444Z",
+      "referenceSha256": "aecb2e755c18f7d1ae1d2d89d8899ff368213e1441e01704af01efdb7633d1ca",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        1500.7644803151488,
+        3364.658288523555,
+        2087.5146466195583,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-09.jpg"
+    },
+    {
+      "id": "aerial-r06-c04",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1500,
+        250,
+        -1250,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "59ddfc402e41e701f0565fb3b63e1ab728550beabc131ed986c66d5e309777ba",
+      "gameCapturedAt": "2026-11-08T23:08:58.893Z",
+      "referenceSha256": "ceef6f077d04fcc5c2dea9b870ea80b84a8f94c37d26fdf9869ceb7490efae35",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2087.5146466121078,
+        3364.658288523555,
+        2674.264812923968,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-09.jpg"
+    },
+    {
+      "id": "aerial-r06-c05",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1250,
+        250,
+        -1000,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "19fe5b6048fea9ab51f027e607520a47339e49b3df3bcfff25f5071b844ff7cd",
+      "gameCapturedAt": "2026-11-08T23:09:08.437Z",
+      "referenceSha256": "c15731322c52dbe3ad96c229415883aa936baf70ff39f3845d6d8d4ab7859439",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2674.2648129165173,
+        3364.658288523555,
+        3261.0149792283773,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-10.jpg"
+    },
+    {
+      "id": "aerial-r06-c06",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1000,
+        250,
+        -750,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "7452f424004aac5087b66eb76248d64f8ec507399e7461c9f4584a86c11557d6",
+      "gameCapturedAt": "2026-11-08T23:09:15.862Z",
+      "referenceSha256": "f5c42212f28b2b435335fac450be48f9d3cc63e39c604ada7d8b1271d2e8d099",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3261.0149792283773,
+        3364.658288523555,
+        3847.765145532787,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-10.jpg"
+    },
+    {
+      "id": "aerial-r06-c07",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -750,
+        250,
+        -500,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "9573922109655f21d836ad3ee535be2e6be50fcab671514f71a337fb55bbec06",
+      "gameCapturedAt": "2026-11-08T23:09:26.723Z",
+      "referenceSha256": "6415ab6f72c074124ab5dd2ee0909edf3ffadb8621f6bcbfe3229043b108751f",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3847.765145532787,
+        3364.658288523555,
+        4434.515311837196,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-10.jpg"
+    },
+    {
+      "id": "aerial-r06-c08",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -500,
+        250,
+        -250,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "f4d8db5da0df690bdc994ce2c856d048f2536797f229593b92a6548c969aa88d",
+      "gameCapturedAt": "2026-11-08T23:09:34.380Z",
+      "referenceSha256": "330b11a12623c24c7bb874355b03b282ad909a008afdc5ba983a6b2b33607c25",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        4434.515311837196,
+        3364.658288523555,
+        5021.265478141606,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-10.jpg"
+    },
+    {
+      "id": "aerial-r06-c09",
+      "scope": "core-touches",
+      "boundsXZ": [
+        -250,
+        250,
+        0,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "a266aad25178afeb2b12c2dc41ef7dd6c8c3e12744820344dc7d0a4a62313688",
+      "gameCapturedAt": "2026-11-08T23:09:42.404Z",
+      "referenceSha256": "afe3363c507074fe3d3ef99c095c23dda80a4777d1c4ec5820e0608836d4f4cd",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5021.265478141606,
+        3364.658288523555,
+        5608.015644446015,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-10.jpg"
+    },
+    {
+      "id": "aerial-r06-c10",
+      "scope": "core-touches",
+      "boundsXZ": [
+        0,
+        250,
+        250,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "8dc83d680377aa957ae4d220b05bc818f302730cc13f1c0f9ced01d37af1672b",
+      "gameCapturedAt": "2026-11-08T23:09:50.420Z",
+      "referenceSha256": "7fa3bce77354e76938e403c8950d2dd2379a065171e2a9e5470e0d2c3c589f8c",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5608.015644446015,
+        3364.658288523555,
+        6194.765810750425,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-10.jpg"
+    },
+    {
+      "id": "aerial-r06-c11",
+      "scope": "core-touches",
+      "boundsXZ": [
+        250,
+        250,
+        500,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "a667d44192189394d2753565cfaceec3e7855825e109b64e788d9eebe36bb87c",
+      "gameCapturedAt": "2026-11-08T23:09:57.598Z",
+      "referenceSha256": "1da7f76f3529c5f7615ea8f54957998bd60e8f0420ab32451422d682e4c722de",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6194.765810750425,
+        3364.658288523555,
+        6781.515977054834,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-10.jpg"
+    },
+    {
+      "id": "aerial-r06-c12",
+      "scope": "core-touches",
+      "boundsXZ": [
+        500,
+        250,
+        750,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "9e3f8f4e10deb4ee363f8a30158d9d75d6e487018242af8fe68b19436bd5c0ff",
+      "gameCapturedAt": "2026-11-08T23:10:06.460Z",
+      "referenceSha256": "c2ec467c3e1a06213907fb460cf36e8011df28003fa787963130e193aadec9ee",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6781.515977054834,
+        3364.658288523555,
+        7368.266143359244,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-10.jpg"
+    },
+    {
+      "id": "aerial-r06-c13",
+      "scope": "core-touches",
+      "boundsXZ": [
+        750,
+        250,
+        1000,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "6bcb84051184d155bd97afd5cc52d239801d7daebc422606d55cf67dd31a04e5",
+      "gameCapturedAt": "2026-11-08T23:10:15.621Z",
+      "referenceSha256": "ec9d62079d10d636fd2a71c28c130818bbf22f7b835eee2e0a1f2ebc8bebb816",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7368.266143359244,
+        3364.658288523555,
+        7955.016309663653,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-11.jpg"
+    },
+    {
+      "id": "aerial-r06-c14",
+      "scope": "core-touches",
+      "boundsXZ": [
+        1000,
+        250,
+        1250,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "007cb59e9713e9fa70ccd5d30c11dc6c96f8bc61e8b42a7bc263452b280f443e",
+      "gameCapturedAt": "2026-11-08T23:10:26.457Z",
+      "referenceSha256": "f0e422063a0ad57f1927c3c3e91afd5abe8b3133527d7b8266372d0e5b5dd6b4",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7955.016309663653,
+        3364.658288523555,
+        8541.766475968063,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-11.jpg"
+    },
+    {
+      "id": "aerial-r06-c15",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1250,
+        250,
+        1500,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "b5f18ce05067b1364d92387b979d99ef12482989328fc998c69c136c263758e3",
+      "gameCapturedAt": "2026-11-08T23:10:34.854Z",
+      "referenceSha256": "e485485ad2c1b2b12a9dc6564e1604ba28863a9e78004e21785b2bfb641d48f9",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        8541.766475960612,
+        3364.658288523555,
+        9128.516642272472,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-11.jpg"
+    },
+    {
+      "id": "aerial-r06-c16",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1500,
+        250,
+        1750,
+        500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "dd25f4c6f39c7c0a3ff5afc0e7fcb2dc1cdb9acab58838641f6117973ffc0f47",
+      "gameCapturedAt": "2026-11-08T23:10:44.168Z",
+      "referenceSha256": "ceab0e8824b79e7d764fe2920808c3358c4b5116da3c78be84ee281d9000d9eb",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        9128.516642265022,
+        3364.658288523555,
+        9715.266808576882,
+        3952.367060866207
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-11.jpg"
+    },
+    {
+      "id": "aerial-r07-c01",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -2250,
+        500,
+        -2000,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "0be90ea1fbcddbc64956950abfc0b6d6eb65ab8b2a032c310820d363b17a3319",
+      "gameCapturedAt": "2026-11-08T23:10:53.376Z",
+      "referenceSha256": "970ff3c30d2ecafae6e4f1710a4cb7eca4545e20f82c973c5e117de85e6cdf4b",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        327.2641477063298,
+        3952.367060866207,
+        914.0143140107393,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-11.jpg"
+    },
+    {
+      "id": "aerial-r07-c02",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -2000,
+        500,
+        -1750,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "c0f441fc01c943188fc90fede8d3d79d6f1c2956f3c7442aef731ee06c26dd8a",
+      "gameCapturedAt": "2026-11-08T23:10:59.370Z",
+      "referenceSha256": "2cbde1f03588ea2357819ea8b7034e1054e6ad366cd32a960d0c77cc645206e3",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        914.0143140107393,
+        3952.367060866207,
+        1500.7644803151488,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-11.jpg"
+    },
+    {
+      "id": "aerial-r07-c03",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1750,
+        500,
+        -1500,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "a2ad26436cdf3e527e52163280c3ae6aef1a76deccdb5983bd27366d439dcc6c",
+      "gameCapturedAt": "2026-11-08T23:11:06.994Z",
+      "referenceSha256": "1f7833427ca98fe2ad53da674801a1e51b538bf6bfb856fcabe27fa9f5d946ec",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        1500.7644803151488,
+        3952.367060866207,
+        2087.5146466195583,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-11.jpg"
+    },
+    {
+      "id": "aerial-r07-c04",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1500,
+        500,
+        -1250,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "3ed97149f13411f1ffedfdd1e08bd733ab9d9252057a29a2e4c02898763d0c9e",
+      "gameCapturedAt": "2026-11-08T23:11:17.188Z",
+      "referenceSha256": "05b83c77bc4020671396a988595c681692847a4c1934b9ee0d9de208c095702c",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2087.5146466121078,
+        3952.367060866207,
+        2674.264812923968,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-11.jpg"
+    },
+    {
+      "id": "aerial-r07-c05",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1250,
+        500,
+        -1000,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "f009ba89d4ccf7cdb63402b253d1c3e7c41722e8e944b920f7ac5ebece7969f4",
+      "gameCapturedAt": "2026-11-08T23:11:25.006Z",
+      "referenceSha256": "a2d4c56f7ede8ff3df36ec2f2048a5dbd11d19a141d3b28402112b3a6f32fbed",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2674.2648129165173,
+        3952.367060866207,
+        3261.0149792283773,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-12.jpg"
+    },
+    {
+      "id": "aerial-r07-c06",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1000,
+        500,
+        -750,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "bab8e8dc0537f74b2d66bd45247bad8986c5a203d80b60a46134144e61185bf6",
+      "gameCapturedAt": "2026-11-08T23:11:33.268Z",
+      "referenceSha256": "5ede3a98cce359cbe4ae603df9d16ea8d7fc3ae959ad02fb12d2ecd8962fd8fb",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3261.0149792283773,
+        3952.367060866207,
+        3847.765145532787,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-12.jpg"
+    },
+    {
+      "id": "aerial-r07-c07",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -750,
+        500,
+        -500,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "4fc61867c433b39e2303c00198b52fb81b4ba9624564a7ba484974695dbbcac8",
+      "gameCapturedAt": "2026-11-08T23:11:40.884Z",
+      "referenceSha256": "172149074016a00723b91224e4aef0f7da0d4fd11fa1b1d4eb53daf86de1b94d",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3847.765145532787,
+        3952.367060866207,
+        4434.515311837196,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-12.jpg"
+    },
+    {
+      "id": "aerial-r07-c08",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -500,
+        500,
+        -250,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "fbf006509b2b496d275ec108233b54e6de0aa05634340615c4f38295ea9207c6",
+      "gameCapturedAt": "2026-11-08T23:11:50.393Z",
+      "referenceSha256": "f1b1ac4bdfdf1d7c423eb25e8aad72e75e30825588d54be06f967a9932e967b5",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        4434.515311837196,
+        3952.367060866207,
+        5021.265478141606,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-12.jpg"
+    },
+    {
+      "id": "aerial-r07-c09",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -250,
+        500,
+        0,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "14c2187e1ab0acb7c7c8d8bd81048cf1012a0c76120aed408987d08d6def50ab",
+      "gameCapturedAt": "2026-11-08T23:11:56.688Z",
+      "referenceSha256": "b2e3fdb809cfdef2e553c9d3e5ebf0e48d0f8260c31be0dd4315c0011edc1101",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5021.265478141606,
+        3952.367060866207,
+        5608.015644446015,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-12.jpg"
+    },
+    {
+      "id": "aerial-r07-c10",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        0,
+        500,
+        250,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "8bbb57a11708a0148b7ecd5755be18bda0eb759b520ff5f1144c607ed7d48a0e",
+      "gameCapturedAt": "2026-11-08T23:12:02.923Z",
+      "referenceSha256": "6ac98b947ec6c3db263309e850d90ddd85a64d127ad80ba87de179df497c4525",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5608.015644446015,
+        3952.367060866207,
+        6194.765810750425,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-12.jpg"
+    },
+    {
+      "id": "aerial-r07-c11",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        250,
+        500,
+        500,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "13e0a480add5f61e6c9f07aea0c1d7087c4094ebb2cae16526fb3bf282aef3ae",
+      "gameCapturedAt": "2026-11-08T23:12:10.680Z",
+      "referenceSha256": "63cec583d48cef450ba58c8e836f7c6babda36603220347b9e5d850f155d3990",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6194.765810750425,
+        3952.367060866207,
+        6781.515977054834,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-12.jpg"
+    },
+    {
+      "id": "aerial-r07-c12",
+      "scope": "core-touches",
+      "boundsXZ": [
+        500,
+        500,
+        750,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "4b5d085da0ceff2882ca41cd9ce39518fcffb939662c6af68a6847b1afea21e4",
+      "gameCapturedAt": "2026-11-08T23:12:17.584Z",
+      "referenceSha256": "806d4a8f197eaabb5d2ea51d0d339b8b90e0658e5a936723b4c7bebae5905eeb",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6781.515977054834,
+        3952.367060866207,
+        7368.266143359244,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-12.jpg"
+    },
+    {
+      "id": "aerial-r07-c13",
+      "scope": "core-touches",
+      "boundsXZ": [
+        750,
+        500,
+        1000,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "2c6efcc5d0cd3aa9d875c1df43b708fbf46174528c28d5b04478f118075686b7",
+      "gameCapturedAt": "2026-11-08T23:12:26.418Z",
+      "referenceSha256": "5695ee1300031901b6c4a31c62e7cdc476a1ecb2a3d4eb5236f0fb06e7c279ae",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7368.266143359244,
+        3952.367060866207,
+        7955.016309663653,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-13.jpg"
+    },
+    {
+      "id": "aerial-r07-c14",
+      "scope": "core-touches",
+      "boundsXZ": [
+        1000,
+        500,
+        1250,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "09443619d56ba85c1270b4c58028c17ac63213d8489713f3b50d23fd117cd50e",
+      "gameCapturedAt": "2026-11-08T23:12:37.704Z",
+      "referenceSha256": "d6a204abd4b618c04a0498549efc3eabf5b697cbeb4025c8e1e44a08c6ee4b4e",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7955.016309663653,
+        3952.367060866207,
+        8541.766475968063,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-13.jpg"
+    },
+    {
+      "id": "aerial-r07-c15",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1250,
+        500,
+        1500,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "f35da382a60ea8c7ef74fc102443ee209d974412dbd87637dbd7433cd7f87019",
+      "gameCapturedAt": "2026-11-08T23:12:53.284Z",
+      "referenceSha256": "ed7bf703230de076c7c831e22ec0ca3010b096ac4908565ae21e0c396387e0e3",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        8541.766475960612,
+        3952.367060866207,
+        9128.516642272472,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-13.jpg"
+    },
+    {
+      "id": "aerial-r07-c16",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1500,
+        500,
+        1750,
+        750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "95273fb14000a45a8f0f9a826a0efa68715cf6d6a4e20fc64bb83de93be587d0",
+      "gameCapturedAt": "2026-11-08T23:13:01.843Z",
+      "referenceSha256": "c8044f916f424b5c2a553047f51ad91d6aced541ccf2cc7fdf298c147940e012",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        9128.516642265022,
+        3952.367060866207,
+        9715.266808576882,
+        4540.05317735672
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-13.jpg"
+    },
+    {
+      "id": "aerial-r08-c03",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1750,
+        750,
+        -1500,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "be85da082b6ea50f210804de9c58258ec8a26cd609713cac1b76fab11ae5711a",
+      "gameCapturedAt": "2026-11-08T23:13:08.685Z",
+      "referenceSha256": "6f3fec1c7249cb929de8d5e5a71231ed98f6c0f617b85c3845b62130241e1726",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        1500.7644803151488,
+        4540.05317735672,
+        2087.5146466195583,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-13.jpg"
+    },
+    {
+      "id": "aerial-r08-c04",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1500,
+        750,
+        -1250,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "97708e8b9a2b0a74a556745e9b0da7cf1d69657cdbe516bc1f5227d1b4436714",
+      "gameCapturedAt": "2026-11-08T23:13:14.306Z",
+      "referenceSha256": "4dd719830078939adc9cae41cf944a6af442c2c4d85c3682a0dd376bc6900bd2",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2087.5146466121078,
+        4540.05317735672,
+        2674.264812923968,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-13.jpg"
+    },
+    {
+      "id": "aerial-r08-c05",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1250,
+        750,
+        -1000,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "54f32a0d01e9c482e7e8e4b01ac1552b2c34570bdee554f610e2f41b34ced154",
+      "gameCapturedAt": "2026-11-08T23:13:19.908Z",
+      "referenceSha256": "8f4af81d8b5dd0b0d8cabf8549130ed28b28f21012f5afc17ca0f010def685e8",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        2674.2648129165173,
+        4540.05317735672,
+        3261.0149792283773,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-13.jpg"
+    },
+    {
+      "id": "aerial-r08-c06",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -1000,
+        750,
+        -750,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "0a455a1b212c0093c3b0caac20f4790fe5a800a80b13ee2b6e700450af7aeff4",
+      "gameCapturedAt": "2026-11-08T23:13:27.000Z",
+      "referenceSha256": "810bb8d0d205895c009e4695fe81c47ccaf9f745475817bf3fdc2020c473c7cc",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3261.0149792283773,
+        4540.05317735672,
+        3847.765145532787,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-13.jpg"
+    },
+    {
+      "id": "aerial-r08-c07",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -750,
+        750,
+        -500,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "b5dec21d07ea16800f6a441ac22fcbbd0208c4890ddc7d93e4cfe8a1207c1e01",
+      "gameCapturedAt": "2026-11-08T23:13:36.408Z",
+      "referenceSha256": "8bc8f91478600e6e53dd035c47563288a4f7ed013fe3fe1e1245448ff9598390",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        3847.765145532787,
+        4540.05317735672,
+        4434.515311837196,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-14.jpg"
+    },
+    {
+      "id": "aerial-r08-c08",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -500,
+        750,
+        -250,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "5b0c4fc7295ad5af3737eb8a12105dc5e7e9e4a96844975053e6b25d14b8befa",
+      "gameCapturedAt": "2026-11-08T23:13:44.917Z",
+      "referenceSha256": "0ce430b932ea3b8a3d8e1d72b3e4edbf3cf358ba3b58e60760a1853a583f961d",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        4434.515311837196,
+        4540.05317735672,
+        5021.265478141606,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-14.jpg"
+    },
+    {
+      "id": "aerial-r08-c09",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        -250,
+        750,
+        0,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "4c16785e2f798151ee14d8e14d6c76a0974027e14d38eb88c976535f0b475d35",
+      "gameCapturedAt": "2026-11-08T23:13:55.266Z",
+      "referenceSha256": "90a2a2bfdb0e91b4b9969ce3557f1df9eb03ffff6e475ae2c92afeb2d6995343",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5021.265478141606,
+        4540.05317735672,
+        5608.015644446015,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-14.jpg"
+    },
+    {
+      "id": "aerial-r08-c10",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        0,
+        750,
+        250,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "7f07bf864261c6036dbe65a48c323d3379a16a9dd2d2d17c9e7b5bc592471c96",
+      "gameCapturedAt": "2026-11-08T23:14:07.653Z",
+      "referenceSha256": "00517b31719eead6b555dea937ee45af9e2bf518ac16be5d260e3c2106cb99f6",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5608.015644446015,
+        4540.05317735672,
+        6194.765810750425,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-14.jpg"
+    },
+    {
+      "id": "aerial-r08-c11",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        250,
+        750,
+        500,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "944976d7c5ab22abc7ac6e87e8a56129e2c53863452b92b0df6007f9912a512a",
+      "gameCapturedAt": "2026-11-08T23:14:23.237Z",
+      "referenceSha256": "7267c553b36f777821f179143547c96ee9bce2a0ae889e7c12073f7ad9a9d12d",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6194.765810750425,
+        4540.05317735672,
+        6781.515977054834,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-14.jpg"
+    },
+    {
+      "id": "aerial-r08-c12",
+      "scope": "core-touches",
+      "boundsXZ": [
+        500,
+        750,
+        750,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "4142e3f6b1a72fa360c312fc480789d36a90324f997e97b06b1e4802f452f5a2",
+      "gameCapturedAt": "2026-11-08T23:14:31.374Z",
+      "referenceSha256": "dfac6569208d1bcdec46dbc1d9c4b05c2c54540e1dd3d475ad81ea0df138817d",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6781.515977054834,
+        4540.05317735672,
+        7368.266143359244,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-14.jpg"
+    },
+    {
+      "id": "aerial-r08-c13",
+      "scope": "core-touches",
+      "boundsXZ": [
+        750,
+        750,
+        1000,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "09ee021965e9e99b62a0f60e93f2c63d19b8676db4a0ce2aba2f8ce54e184077",
+      "gameCapturedAt": "2026-11-08T23:14:41.666Z",
+      "referenceSha256": "2c1c74ce18abe911d883a168e11b19c0f1193153a1b279b127f674a1980866d2",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7368.266143359244,
+        4540.05317735672,
+        7955.016309663653,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-14.jpg"
+    },
+    {
+      "id": "aerial-r08-c14",
+      "scope": "core-touches",
+      "boundsXZ": [
+        1000,
+        750,
+        1250,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "fb57c0b3d9603d36db0a217503a6ce3861000aab38958c34941a4a9b7b4a2a24",
+      "gameCapturedAt": "2026-11-08T23:14:53.896Z",
+      "referenceSha256": "e9429cb4488455dbd4d8bf0f85bc4e16824cbe5bba54f2b7ec7de73000a6bd74",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7955.016309663653,
+        4540.05317735672,
+        8541.766475968063,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-14.jpg"
+    },
+    {
+      "id": "aerial-r08-c15",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1250,
+        750,
+        1500,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "7e47a4e595217cfaf36a8f1a8ca4224688dab553e2b211ca7fa917cddd1e3a58",
+      "gameCapturedAt": "2026-11-08T23:15:05.368Z",
+      "referenceSha256": "dc680b6259ded03bffbae1792ca94b3c371238b7ba20b3e45caefef79474f5b6",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        8541.766475960612,
+        4540.05317735672,
+        9128.516642272472,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-15.jpg"
+    },
+    {
+      "id": "aerial-r08-c16",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1500,
+        750,
+        1750,
+        1000
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "eada7b5615c041c68e91bdeff8a2406c6f7f82c6acf341a5d89295d43c22188b",
+      "gameCapturedAt": "2026-11-08T23:15:14.277Z",
+      "referenceSha256": "859a401f93e343fff6712e7e17b0766be573bf7808b661bc9b8612bd7c2b1d11",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        9128.516642265022,
+        4540.05317735672,
+        9715.266808576882,
+        5127.716640654951
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-15.jpg"
+    },
+    {
+      "id": "aerial-r09-c10",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        0,
+        1000,
+        250,
+        1250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "57e4189e6b48cdfe480cd2176696c2e97ea2428143f595162642e7dcf7e47fac",
+      "gameCapturedAt": "2026-11-08T23:15:21.590Z",
+      "referenceSha256": "e393f125da6364c67a6cda576c97391db2f73819d85c7b1f92a99e8722b2982d",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        5608.015644446015,
+        5127.716640654951,
+        6194.765810750425,
+        5715.357453405857
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-15.jpg"
+    },
+    {
+      "id": "aerial-r09-c11",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        250,
+        1000,
+        500,
+        1250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "c3ec7c678af800e6ff8fcf2d978186e7fc5ca246d546dc1fb8374302dd055a89",
+      "gameCapturedAt": "2026-11-08T23:15:28.452Z",
+      "referenceSha256": "c2d062ebca9e91317ab112c330bb10843c1bc6b9a0823c998f015bae484d5d23",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6194.765810750425,
+        5127.716640654951,
+        6781.515977054834,
+        5715.357453405857
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-15.jpg"
+    },
+    {
+      "id": "aerial-r09-c12",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        500,
+        1000,
+        750,
+        1250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "b84ef54ec1b62a80abd3cf606809015c63e3c2a4d5eea8b49c523829e391fcbb",
+      "gameCapturedAt": "2026-11-08T23:15:36.174Z",
+      "referenceSha256": "ec3f8b5ebe1be67b12deb6b3ab67a9914622d537cd33bc942d005631e04cfcb3",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6781.515977054834,
+        5127.716640654951,
+        7368.266143359244,
+        5715.357453405857
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-15.jpg"
+    },
+    {
+      "id": "aerial-r09-c13",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        750,
+        1000,
+        1000,
+        1250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "791107869973d6fae545ade85031e3b43555729b5da266aee25a6a7bb444812c",
+      "gameCapturedAt": "2026-11-08T23:15:46.618Z",
+      "referenceSha256": "89dafc0bf88b5b4d8cc476f24c1449887d67788d8adf05c5a031843c6c7cce8d",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7368.266143359244,
+        5127.716640654951,
+        7955.016309663653,
+        5715.357453405857
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-15.jpg"
+    },
+    {
+      "id": "aerial-r09-c14",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1000,
+        1000,
+        1250,
+        1250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "62700e13841454a602b0b3722bd93a7c10ba4b5a98769e861cae01f60e7dc552",
+      "gameCapturedAt": "2026-11-08T23:15:54.779Z",
+      "referenceSha256": "6663ec39eeb48533420769546957dd0e0b08225acfc22298cb0a339bfee80880",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7955.016309663653,
+        5127.716640654951,
+        8541.766475968063,
+        5715.357453405857
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-15.jpg"
+    },
+    {
+      "id": "aerial-r09-c15",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1250,
+        1000,
+        1500,
+        1250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "06227fe87d5f20aa1f076bfcc25662d9cc13730e4e50afc32d72d315ed7cb8da",
+      "gameCapturedAt": "2026-11-08T23:16:07.379Z",
+      "referenceSha256": "43d20c3cc711942499ef1929a8dcb49c6c44eab251bb074c48497016d02c3862",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        8541.766475960612,
+        5127.716640654951,
+        9128.516642272472,
+        5715.357453405857
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-15.jpg"
+    },
+    {
+      "id": "aerial-r09-c16",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1500,
+        1000,
+        1750,
+        1250
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "0bca735b28571f00757371d8e279b52dc6819f7e775c3b5655de7fde93a14bb6",
+      "gameCapturedAt": "2026-11-08T23:16:13.426Z",
+      "referenceSha256": "8c1e96d6b9daf7baed6283115d938e3767da4e61554a6cae3f18b2f72f7f229a",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        9128.516642265022,
+        5127.716640654951,
+        9715.266808576882,
+        5715.357453405857
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-16.jpg"
+    },
+    {
+      "id": "aerial-r10-c11",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        250,
+        1250,
+        500,
+        1500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "ab710c7119c47c2b89588a9813938ff14f3b8707e00cb2eb4402805aadd4e97e",
+      "gameCapturedAt": "2026-11-08T23:16:20.640Z",
+      "referenceSha256": "6d9506ebb63a529a87dded1be3b87590f242207bf3ebcde28f7aa5ed4821e2d5",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6194.765810750425,
+        5715.357453405857,
+        6781.515977054834,
+        6302.9756182692945
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-16.jpg"
+    },
+    {
+      "id": "aerial-r10-c12",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        500,
+        1250,
+        750,
+        1500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "521100967efe78efe1099b0f8ec63d87fc7f98e49d0266de590ade26e05547be",
+      "gameCapturedAt": "2026-11-08T23:16:27.051Z",
+      "referenceSha256": "9882ca636472fc20038c5c35a4a72a6cfa0e03e3d5499edf3c0f69e30b9858c9",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6781.515977054834,
+        5715.357453405857,
+        7368.266143359244,
+        6302.9756182692945
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-16.jpg"
+    },
+    {
+      "id": "aerial-r10-c13",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        750,
+        1250,
+        1000,
+        1500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "e8a51bf96ac940094074968ef6dd3baaa081a8e7d6f53dc25c77e307d036efce",
+      "gameCapturedAt": "2026-11-08T23:16:40.201Z",
+      "referenceSha256": "45b0dbf7a687184e7ecda8290ae5c73ab740c8aa7ddcb92b45766321e0b5f5ee",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7368.266143359244,
+        5715.357453405857,
+        7955.016309663653,
+        6302.9756182692945
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-16.jpg"
+    },
+    {
+      "id": "aerial-r10-c14",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1000,
+        1250,
+        1250,
+        1500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "ba330e12a4a4279548f34397fd9a734c037616572917f595ffa555f27190f686",
+      "gameCapturedAt": "2026-11-08T23:16:48.396Z",
+      "referenceSha256": "15d04a56c27731eb92ad6a824b3846cdf74bff5fd391c6a98d0f4d51dca59534",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7955.016309663653,
+        5715.357453405857,
+        8541.766475968063,
+        6302.9756182692945
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-16.jpg"
+    },
+    {
+      "id": "aerial-r10-c15",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1250,
+        1250,
+        1500,
+        1500
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "4f7dadd20c7586f627d2194e67ff0f4506d33aeb6aeff5d7bea8fe9bcc01a5bb",
+      "gameCapturedAt": "2026-11-08T23:16:58.056Z",
+      "referenceSha256": "72fc73518bf79b2f4de33864b016aa8b0ce116769390b421ca511f9d780dd201",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        8541.766475960612,
+        5715.357453405857,
+        9128.516642272472,
+        6302.9756182692945
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-16.jpg"
+    },
+    {
+      "id": "aerial-r11-c12",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        500,
+        1500,
+        750,
+        1750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "317488add438dec28508e27155f7e47c734996392bee7975b536c165b307eeb9",
+      "gameCapturedAt": "2026-11-08T23:17:03.709Z",
+      "referenceSha256": "5b52719110c5d7a6aa6f807571a62dbcf956337408ce65da823139876123aa96",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        6781.515977054834,
+        6302.9756182692945,
+        7368.266143359244,
+        6890.57113789022
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-16.jpg"
+    },
+    {
+      "id": "aerial-r11-c13",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        750,
+        1500,
+        1000,
+        1750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "ed33273a27c40fc61f609f867178356fa10ac10448bde1653f88af7166958861",
+      "gameCapturedAt": "2026-11-08T23:17:07.839Z",
+      "referenceSha256": "7348c8a3220f14e1abde99b9d159484eabc905dd344c9552f0cb59cc974728e4",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7368.266143359244,
+        6302.9756182692945,
+        7955.016309663653,
+        6890.57113789022
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-16.jpg"
+    },
+    {
+      "id": "aerial-r11-c14",
+      "scope": "ring-touches",
+      "boundsXZ": [
+        1000,
+        1500,
+        1250,
+        1750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "48132cae2bb82d9d3a9f922c96251ea4c4f8fe1f9eeda305ab86b4eb7f03d186",
+      "gameCapturedAt": "2026-11-08T23:17:12.043Z",
+      "referenceSha256": "826e0d56a44e13f772859baf644778838c51e8f56db72511c112443ee5cda56f",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        7955.016309663653,
+        6302.9756182692945,
+        8541.766475968063,
+        6890.57113789022
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-17.jpg"
+    },
+    {
+      "id": "context-northwest",
+      "scope": "outside-ring",
+      "boundsXZ": [
+        -2250,
+        -1000,
+        -2000,
+        -750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "d4bcd91a3a712cf7bf0591648ad230f068088cdec7abd3ad309e7f2da161dca7",
+      "gameCapturedAt": "2026-11-08T23:17:18.177Z",
+      "referenceSha256": "db64ee8422a1cec84bfbf73124ba5555258bbf8ec2903b81233cc7329540e2fb",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        327.2641477063298,
+        425.77449622377753,
+        914.0143140107393,
+        1013.596587613225
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-17.jpg"
+    },
+    {
+      "id": "context-northeast",
+      "scope": "outside-ring",
+      "boundsXZ": [
+        1500,
+        -1000,
+        1750,
+        -750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "fbacc3b428af50229c6e61b35793e26ef010ea2b3444cb8a2f607f71f5f5ea39",
+      "gameCapturedAt": "2026-11-08T23:17:24.577Z",
+      "referenceSha256": "b3f79120403bb0df28493ba2d4540c70ac755a4652d7f49e6c9aff08e9a3ec3e",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        9128.516642265022,
+        425.77449622377753,
+        9715.266808576882,
+        1013.596587613225
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-17.jpg"
+    },
+    {
+      "id": "context-southwest",
+      "scope": "outside-ring",
+      "boundsXZ": [
+        -2250,
+        1500,
+        -2000,
+        1750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "aaa654c9868aa3a1883008f6e4e42eeb0e9c8c2729de54cd8e3483d5f043f5da",
+      "gameCapturedAt": "2026-11-08T23:17:31.791Z",
+      "referenceSha256": "76ffa822805c4a768efd30135b19552538ce39f51d1d904cc6e4d8a3227bc23f",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        327.2641477063298,
+        6302.9756182692945,
+        914.0143140107393,
+        6890.57113789022
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-17.jpg"
+    },
+    {
+      "id": "context-southeast",
+      "scope": "outside-ring",
+      "boundsXZ": [
+        1500,
+        1500,
+        1750,
+        1750
+      ],
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSha256": "9b6f80aabf593204f98e24005c7f512e3fa3d67496cf01995dcf81e77ab6f26b",
+      "gameCapturedAt": "2026-11-08T23:17:38.265Z",
+      "referenceSha256": "087c43990e51634908a0d15802c32603e3fef94e3e5688e9c2b882b5e0eb5699",
+      "referenceCoverageFraction": 1.0,
+      "referencePixelBox": [
+        9128.516642265022,
+        6302.9756182692945,
+        9715.266808576882,
+        6890.57113789022
+      ],
+      "referenceAcquisitionDate": null,
+      "reviewSheet": "sheets/paired-17.jpg"
+    }
+  ],
+  "limits": "Private comparison only. Game is a perspective north-up ground-square capture; roofs project beyond their source footprints. Reference acquisition date, season and registration are not known. Reference images and paired sheets remain outside the checkout."
+}

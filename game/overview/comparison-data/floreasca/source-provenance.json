@@ -1,0 +1,29 @@
+{
+  "gameSourceCommit": null,
+  "sourceSnapshots": [
+    {
+      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "treeSha256": "397f0afa1691f0edf844186d2336a0218d9d055765677789a89aa8a8b6a5c7de",
+      "manifest": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/manifest.json",
+      "manifestSha256": "d73932484aeac2f13321a8498300fd407010532b3e6bbe80191c0e4375b0adc8",
+      "frames": 90
+    },
+    {
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "treeSha256": "66f9f028f585068faa58be093124c55da842e4a17da3e2142c0cc629b708b3f3",
+      "manifest": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
+      "manifestSha256": "24381f85b46d3e632bc29297841a8bca3098778e7d3a071b309f0e41ec036402",
+      "frames": 25
+    },
+    {
+      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "treeSha256": "6b2317f5651c21e5f38c7feda7cee8ae04f4e539883a777a183138e439f998a7",
+      "manifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
+      "manifestSha256": "6d4c222603986ac43aeb06d871304b1e028cd0d6f42a3cb1f64611efbff1bef0",
+      "sourceProvenance": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/source-provenance.json",
+      "sourceProvenanceSha256": "f05664c4657ca87bf793d3d9ff188af55049ec4cb6790cf10c6b45efb39b5bc1",
+      "frames": 21
+    }
+  ],
+  "note": "Original source inventories and fresh immutable retake inputs remain attached to their actual captures."
+}

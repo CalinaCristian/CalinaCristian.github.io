@@ -1,0 +1,346 @@
+{
+  "schemaVersion": 1,
+  "id": "victoria",
+  "city": "bucharest",
+  "name": "Palatul Victoria",
+  "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4528232,
+    "lon": 26.0874287
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/23554419",
+      "label": "OpenStreetMap w23554419 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1516914665",
+      "label": "OpenStreetMap w1516914665 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:part": "yes",
+        "height": "20",
+        "roof:colour": "#dcdcdc"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1516952164",
+      "label": "OpenStreetMap w1516952164 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:part": "yes",
+        "height": "23"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1516952165",
+      "label": "OpenStreetMap w1516952165 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:part": "yes",
+        "height": "30",
+        "roof:colour": "#8fbc8f"
+      }
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Victoria_Palace",
+      "label": "Independent historical and architectural reference",
+      "type": "independent"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/b203c38abf3651dd3d472c491238ad36089a633a",
+      "label": "Accepted source-book/topology sync; recorded 456 checks across 33 models (b203c38a)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/b203c38abf3651dd3d472c491238ad36089a633a/handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json",
+      "label": "Existing recorded source-book/topology result; not a new execution",
+      "type": "validation"
+    }
+  ],
+  "sourceIds": [
+    "w1516914665",
+    "w1516914666",
+    "w1516914667",
+    "w1516914668",
+    "w1516914669",
+    "w1516952163",
+    "w1516952164",
+    "w1516952165",
+    "w1516952166",
+    "w1516952167",
+    "w1516952168",
+    "w1516952169",
+    "w1516952170",
+    "w1516952171",
+    "w1516952172",
+    "w1516952173",
+    "w1516952174",
+    "w1516952175",
+    "w1516977740",
+    "w1516977741",
+    "w1516977742",
+    "w1516977743",
+    "w1516977744",
+    "w1516977745",
+    "w1516977746",
+    "w1516977747",
+    "w1517060718",
+    "w1517169340",
+    "w1517169341",
+    "w1517169342",
+    "w1517169343",
+    "w1517169344",
+    "w1517169345",
+    "w1517169346",
+    "w1517169347",
+    "w1517169348",
+    "w1517169349",
+    "w1517169350",
+    "w1517169351",
+    "w1517169352",
+    "w1517169353",
+    "w1517169354",
+    "w1517169355",
+    "w1517169356",
+    "w1517313480",
+    "w1517313481",
+    "w1517384034",
+    "w1517384035",
+    "w1517384036",
+    "w1517384037",
+    "w23554419"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Replaced the rectangular green roof and estimated upper blocks with the complete mapped building-part envelopes.",
+    "Preserved exact concave outlines, courtyard recesses, 20/23/30/33/34 m levels and elevated bridge bands.",
+    "Interval unions remove coincident internal roof caps."
+  ],
+  "remainingGaps": [
+    "Source part outlines and height envelopes are represented; the one-metre gabled roof rises are currently rendered as their height envelope.",
+    "Green roof pitches and detailed front colonnade dimensions remain approximate.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Historical source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "Historical source-boundary evidence: tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. The earlier run across 33 models recorded 306 checks. The later accepted source-book update b203c38abf3651dd3d472c491238ad36089a633a records 456 checks across 33 models, including this entry, in handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json. This wording update cites that existing proof; no tests were rerun and no images were recaptured."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": false,
+      "details": "Requested outdoor panorama did not reliably provide a matched visible exterior (wrong nearby view, indoor imagery, occlusion or unavailable coverage); this is not treated as an exterior pass."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/victoria/front.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "e69b77fd2ebed5738ef58333719390a3ba65251a5eaa3a677d87700873691b48",
+      "capturedAt": "2026-11-08T17:05:59.804914Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=victoria&clean=1&fountains=on&view=street&az=-86.00096504913657",
+        "anchor": {
+          "lat": 44.4528232,
+          "lon": 26.0874287,
+          "rotation": -1.501
+        },
+        "camera": {
+          "position": [
+            -120.93671479186959,
+            1.3,
+            8.459683345194462
+          ],
+          "quaternion": [
+            0.05035681636591107,
+            -0.6803859124962606,
+            0.04695928382392639,
+            0.7296122441303085
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 2343.22223229048,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -44.7279664756111,
+            0,
+            -50.65490750623078
+          ],
+          "max": [
+            36.6062382407489,
+            39,
+            51.232719328455566
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/victoria/top.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "2de9d6820f30cee322948dcbacd39c5698123f6d35533c2689706e392a4c1317",
+      "capturedAt": "2026-11-08T17:06:04.536854Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=victoria&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4528232,
+          "lon": 26.0874287,
+          "rotation": -1.501
+        },
+        "camera": {
+          "position": [
+            -4.060864117431098,
+            179.4517841676213,
+            0.46835775509729194
+          ],
+          "quaternion": [
+            -0.7067531394223399,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 3589.037477871015,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -44.7279664756111,
+            0,
+            -50.65490750623078
+          ],
+          "max": [
+            36.6062382407489,
+            39,
+            51.232719328455566
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/victoria/oblique.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "6cc51085631ec7ed4328f62196a7a5d2324f8621a8eaebf7e48033a0582f9587",
+      "capturedAt": "2026-11-08T17:06:09.436794Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=victoria&clean=1&fountains=on&view=oblique&az=-51.00096504913657&el=28",
+        "anchor": {
+          "lat": 44.4528232,
+          "lon": 26.0874287,
+          "rotation": -1.501
+        },
+        "camera": {
+          "position": [
+            -111.62388060205751,
+            89.19169724666531,
+            87.3887195169102
+          ],
+          "quaternion": [
+            -0.21835426580796968,
+            -0.4177304527935755,
+            -0.10415189952179976,
+            0.8757711260588225
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 3135.086470838186,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -44.7279664756111,
+            0,
+            -50.65490750623078
+          ],
+          "max": [
+            36.6062382407489,
+            39,
+            51.232719328455566
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 3464,
+    "drawCalls": 2,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  },
+  "historicalImplementationNotes": [
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "supersededAt": "2026-11-09",
+      "field": "checks[0]",
+      "priorValue": {
+        "label": "Full source boundary and replacement-identity checks",
+        "passed": true,
+        "details": "tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+      },
+      "replacementScope": "Historical source-boundary evidence: tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. The earlier run across 33 models recorded 306 checks. The later accepted source-book update b203c38abf3651dd3d472c491238ad36089a633a records 456 checks across 33 models, including this entry, in handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json. This wording update cites that existing proof; no tests were rerun and no images were recaptured.",
+      "acceptedImplementationCommits": [
+        "b203c38abf3651dd3d472c491238ad36089a633a"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+}

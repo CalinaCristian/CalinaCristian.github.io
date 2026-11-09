@@ -4,6 +4,7 @@
 const fs = require('node:fs'), path = require('node:path'), http = require('node:http');
 const crypto = require('node:crypto'), cp = require('node:child_process');
 const { chromium } = require('playwright');
+const { summarizeDraws, accountFrame } = require('./counter-accounting.cjs');
 const [rootArg, outArg, sourceCommit, repoArg] = process.argv.slice(2);
 if (!rootArg || !outArg || !/^[a-f0-9]{40}$/.test(sourceCommit || '')) throw Error('ROOT OUTPUT FULL40SHA [GIT_REPO]');
 const root = fs.realpathSync(rootArg), out = path.resolve(outArg), repo = path.resolve(repoArg || process.cwd());
@@ -38,7 +39,8 @@ const report = {
     sourceOverrides: [], cameraOverrides: [], qualitySelection: 'Normal #quality select change to high before native public start',
     runnerSha256: hash(fs.readFileSync(__filename)), sourceProvenanceSha256: hash(fs.readFileSync(path.join(out, 'source-provenance.json'))),
     runtime: { node: process.version, chromium: '/usr/bin/chromium', graphics: 'SwiftShader software GL; no hardware FPS claim', preloads: process.execArgv.flatMap((s, i) => s === '--require' ? [{ path: process.execArgv[i + 1], sha256: hash(fs.readFileSync(process.execArgv[i + 1])) }] : []) },
-    frames: [], reflectionControls: [], errors: [], consoleErrors: [], failedRequests: [], failures: [], servedFiles: {},
+    frames: [], reflectionControls: [], rawCounterAlerts: [], errors: [], consoleErrors: [], failedRequests: [], failures: [], servedFiles: {},
+    counterAccountingHelperSha256: hash(fs.readFileSync(path.join(__dirname, 'counter-accounting.cjs'))),
 };
 const save = () => fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2) + '\n');
 const mime = { '.js': 'text/javascript', '.json': 'application/json', '.html': 'text/html', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp' };
@@ -72,8 +74,7 @@ let browser;
     await page.goto(base + 'game/index.html?notrack'); await page.waitForFunction(() => window.game);
     await page.addScriptTag({ type: 'module', url: base + 'game/dev/harness/page/index.js' });
     await page.waitForFunction(() => window.harness);
-    await page.selectOption('#quality', 'high');
-    await page.evaluate(() => {
+    await page.evaluate(async () => {
         const H = harness.H; H.noShots = true; H.renderEvery = 0;
         // Replace only the harness's reduced-far/half-resolution screenshot
         // scheduler. The production draw path and all native settings survive.
@@ -82,8 +83,33 @@ let browser;
             try { game.drawFrame({ mirror: true }); const gl = game.renderer.getContext(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4)); }
             finally { H._renderNow = false; }
         };
+        // Observe loading/PMREM setup as well as complete frames. Never reset
+        // counters: native stats include any real prior setup carry until the
+        // production reset at the end of a complete frame.
+        const g = game, renderer = g.renderer, draw = renderer.renderBufferDirect;
+        const S = window.BUDGET = { THREE: await import('/game/vendor/three.module.min.js'), draws: [], unframedDraws: [], count: false, stage: 'native-load-setup', drawSequence: 0 };
+        S.counters = () => ({ ...renderer.info.render });
+        S.setupPreCounters = S.counters();
+        renderer.renderBufferDirect = function (camera, scene, geometry, material, object, group) {
+            const before = S.counters();
+            const value = draw.call(this, camera, scene, geometry, material, object, group);
+            const after = S.counters(), calls = after.calls - before.calls, triangles = after.triangles - before.triangles;
+            if (calls) {
+                const envScene = S.envScene || g.r3d._envJob?.scene;
+                const pass = camera === g.camera ? 'main' : camera === g.player?.mirrorCam ? 'mirror' : camera === g.r3d.sun?.shadow.camera ? 'true-shadow' : material.name === 'SphericalGaussianBlur' ? 'reflection-blur' : (envScene && scene === envScene) || material.name === 'PMREM.Background' ? 'reflection' : 'other';
+                const row = { sequence: S.drawSequence++, stage: S.stage, pass, calls, triangles, countersBefore: before, countersAfter: after, camera: { id: camera.id, type: camera.type, name: camera.name, near: camera.near, far: camera.far, fov: camera.fov }, object: { id: object.id, name: object.name, type: object.type, instances: object.isInstancedMesh ? object.count : null, castShadow: object.castShadow, cellFrustum: object.userData.cellFrustum ? { ...object.userData.cellFrustum } : null }, material: { id: material.id, name: material.name, type: material.type, side: material.side, transparent: material.transparent }, geometry: { id: geometry.id, vertices: geometry.attributes.position?.count, indices: geometry.index?.count, drawRange: { ...geometry.drawRange }, group: group ? { ...group } : null } };
+                (S.count ? S.draws : S.unframedDraws).push(row);
+            }
+            return value;
+        };
     });
+    await page.selectOption('#quality', 'high');
     await page.evaluate(() => game.startFreeRoam('unirii', { tod: 'rush', weather: 'clear', season: 'summer' }));
+    report.nativeLoadSetup = await page.evaluate(() => ({ preObservationCounters: BUDGET.setupPreCounters, postLoadCounters: BUDGET.counters(), nativeStatsAfterLoad: { ...game.r3d.stats }, draws: BUDGET.unframedDraws.slice(), scope: 'Observed native high-quality selection and public-start loading, including synchronous PMREM setup. Pre-observation counters are retained as observed and are not attributed to specific draws.' }));
+    Object.assign(report.nativeLoadSetup, summarizeDraws(report.nativeLoadSetup.draws));
+    report.nativeLoadSetup.expectedPostLoadCounters = { calls: report.nativeLoadSetup.preObservationCounters.calls + report.nativeLoadSetup.measured.calls, triangles: report.nativeLoadSetup.preObservationCounters.triangles + report.nativeLoadSetup.measured.triangles };
+    report.nativeLoadSetup.counterAgreement = report.nativeLoadSetup.postLoadCounters.calls === report.nativeLoadSetup.expectedPostLoadCounters.calls && report.nativeLoadSetup.postLoadCounters.triangles === report.nativeLoadSetup.expectedPostLoadCounters.triangles;
+    save();
     report.initial = await page.evaluate(async () => {
         const g = game, H = harness.H, P = g.player, T = g.traffic, THREE = await import('/game/vendor/three.module.min.js');
         H.begin('combined-native-first150m');
@@ -93,7 +119,8 @@ let browser;
         if (!route?.points?.length || route.total < 150) throw Error('Native first150m route unavailable');
         let k = 0; while (k < route.cum.length - 2 && route.cum[k + 1] < 150) k++;
         const a = route.points[k], b = route.points[k + 1], t = (150 - route.cum[k]) / (route.cum[k + 1] - route.cum[k]);
-        const S = window.BUDGET = { THREE, draws: [], count: false, trace: [], contacts: [], vehicles: [...T.vehicles, ...T.pool], pedestrians: [...T.peds.list], target: { x: a[0] + (b[0] - a[0]) * t, z: a[1] + (b[1] - a[1]) * t } };
+        const S = window.BUDGET;
+        Object.assign(S, { trace: [], contacts: [], vehicles: [...T.vehicles, ...T.pool], pedestrians: [...T.peds.list], target: { x: a[0] + (b[0] - a[0]) * t, z: a[1] + (b[1] - a[1]) * t }, stage: 'between-frames' });
         S.actors = () => JSON.stringify({ vehicles: [...T.vehicles, ...T.pool].map(v => [v.id, v.x, v.z, v.y, v.heading, v.speed, v.live, v.inactive, v.parked, v.dir, v.s]), activeIds: T.vehicles.map(v => v.id), poolIds: T.pool.map(v => v.id), people: T.peds.list.map(p => [p.i, p.x, p.z, p.y, p.heading, p.speed, p.state, p.onRoad, p.live, p.dir, p.side, p.s, p.waitT, p.downT, p.legs?.map(l => [l.x, l.z, l.cross, l.started, l.len])]) });
         S.population = () => ({ activeVehicleIds: T.vehicles.map(v => v.id), poolVehicleIds: T.pool.map(v => v.id), combinedVehicleIds: [...T.vehicles, ...T.pool].map(v => v.id).sort((a, b) => a - b), pedestrianIds: T.peds.list.map(p => p.i), activeVehicles: T.vehicles.length, poolVehicles: T.pool.length, people: T.peds.list.length, originalVehicleObjects: [...T.vehicles, ...T.pool].every(v => S.vehicles.includes(v)), originalPedestrianObjects: T.peds.list.every(p => S.pedestrians.includes(p)) });
         S.pose = () => ({ x: P.x, z: P.z, y: P.surfY, heading: P.heading, speed: P.speed });
@@ -101,27 +128,21 @@ let browser;
         S.environment = () => ({ pending: !!g.r3d._envJob, scene: g.r3d._envJob?.scene.id ?? null, fade: g.r3d._envFade, rendererTime: g.r3d.time, sunElevation: g.r3d.sunElevation, season: g.r3d._seasonOverride, clock: { date: g.clock.date?.toISOString?.(), hours: g.clock.hours } });
         const step = H.stepOnce.bind(H);
         H.stepOnce = function (dt) { step(dt); if (H.mon.steps % 15 === 0) S.trace.push({ t: H.scT, ...S.pose(), touching: P.touching, contactAge: P.contactAge }); if (P.contactAge === 0 && P.touching) S.contacts.push({ t: H.scT, ...S.pose() }); };
-        const renderer = g.renderer, draw = renderer.renderBufferDirect;
-        renderer.renderBufferDirect = function (camera, scene, geometry, material, object, group) {
-            const before = { calls: renderer.info.render.calls, triangles: renderer.info.render.triangles };
-            const value = draw.call(this, camera, scene, geometry, material, object, group);
-            if (!S.count) return value;
-            const calls = renderer.info.render.calls - before.calls, triangles = renderer.info.render.triangles - before.triangles;
-            if (calls) S.draws.push({ pass: camera === g.camera ? 'main' : camera === P.mirrorCam ? 'mirror' : camera === g.r3d.sun.shadow.camera ? 'true-shadow' : scene === S.envScene || material.name === 'PMREM.Background' ? 'reflection' : 'other', calls, triangles, camera: { id: camera.id, type: camera.type, name: camera.name, near: camera.near, far: camera.far, fov: camera.fov }, object: { id: object.id, name: object.name, type: object.type, instances: object.isInstancedMesh ? object.count : null, castShadow: object.castShadow, cellFrustum: object.userData.cellFrustum ? { ...object.userData.cellFrustum } : null }, material: { id: material.id, name: material.name, type: material.type, side: material.side, transparent: material.transparent }, geometry: { id: geometry.id, vertices: geometry.attributes.position?.count, indices: geometry.index?.count, drawRange: { ...geometry.drawRange }, group: group ? { ...group } : null } });
-            return value;
-        };
         return { start: S.pose(), target: S.target, routeTotal: route.total, population: S.population(), quality: g.quality, camera: S.camera(g.camera), mirrorCamera: S.camera(P.mirrorCam), publicStartOnly: true, extraPlacementOrPopulationWrites: false };
     }); save(); console.log('LOADED', report.initial.population.activeVehicles, report.initial.population.people);
     async function frame(label, scope, screenshot = false) {
         const row = await page.evaluate(({ label, scope }) => {
             const g = game, S = BUDGET, before = S.actors(), environmentBefore = S.environment();
-            S.draws = []; S.envScene = g.r3d._envJob?.scene; S.count = true;
-            try { harness.H.renderFrame(); } finally { S.count = false; }
-            return { label, scope, draws: S.draws, pose: S.pose(), camera: S.camera(g.camera), mirrorCamera: S.camera(g.player.mirrorCam), population: S.population(), npcStateBefore: before, npcStateAfter: S.actors(), npcStateUnchanged: before === S.actors(), environmentBefore, environmentAfter: S.environment(), quality: g.quality, stats: { ...g.r3d.stats }, renderer: { width: g.renderer.domElement.width, height: g.renderer.domElement.height, pixelRatio: g.renderer.getPixelRatio() }, mirrorEnabled: g.player.mirrorEnabled, lookBack: g.player.lookBack };
+            S.draws = []; S.envScene = g.r3d._envJob?.scene; S.stage = label;
+            const preDrawCounters = S.counters(), preDrawNativeStats = { ...g.r3d.stats }; S.count = true;
+            try { harness.H.renderFrame(); } finally { S.count = false; S.stage = 'between-frames'; }
+            const postDrawCounters = S.counters(), nativeRawStats = { calls: g.r3d.stats.drawCalls, triangles: g.r3d.stats.triangles };
+            return { label, scope, preDrawCounters, preDrawNativeStats, postDrawCounters, nativeRawStats, counterAutoReset: g.renderer.info.autoReset, draws: S.draws, pose: S.pose(), camera: S.camera(g.camera), mirrorCamera: S.camera(g.player.mirrorCam), population: S.population(), npcStateBefore: before, npcStateAfter: S.actors(), npcStateUnchanged: before === S.actors(), environmentBefore, environmentAfter: S.environment(), quality: g.quality, stats: { ...g.r3d.stats }, renderer: { width: g.renderer.domElement.width, height: g.renderer.domElement.height, pixelRatio: g.renderer.getPixelRatio() }, mirrorEnabled: g.player.mirrorEnabled, lookBack: g.player.lookBack };
         }, { label, scope });
-        row.logical = row.draws.reduce((a, d) => ({ calls: a.calls + d.calls, triangles: a.triangles + d.triangles }), { calls: 0, triangles: 0 });
-        row.passes = {};
-        for (const d of row.draws) { const p = row.passes[d.pass] ||= { calls: 0, triangles: 0 }; p.calls += d.calls; p.triangles += d.triangles; }
+        row.counterAccounting = accountFrame(row.preDrawCounters, row.postDrawCounters, row.nativeRawStats, row.draws);
+        row.logical = row.counterAccounting.measuredCompleteFrame; row.passes = row.counterAccounting.passes;
+        if (!row.counterAccounting.rawStatsAgreement || !row.counterAccounting.productionEndResetObserved) report.failures.push({ label, kind: 'raw-counter-reconciliation', accounting: row.counterAccounting });
+        if (row.counterAccounting.rawStatsOverBudget) report.rawCounterAlerts.push({ label, nativeRawStats: row.nativeRawStats, preDrawCounters: row.preDrawCounters, measuredCompleteFrame: row.logical, rawStatsAgreement: row.counterAccounting.rawStatsAgreement, note: 'Retain for explicit classification. Actual frame work is independently measured per draw; no historical setup amount is assumed or subtracted.' });
         row.npcStateBeforeSha256 = hash(Buffer.from(row.npcStateBefore)); row.npcStateAfterSha256 = hash(Buffer.from(row.npcStateAfter));
         delete row.npcStateBefore; delete row.npcStateAfter;
         const sameIds = JSON.stringify(row.population.combinedVehicleIds) === JSON.stringify(report.initial.population.combinedVehicleIds) && JSON.stringify(row.population.pedestrianIds) === JSON.stringify(report.initial.population.pedestrianIds);
@@ -165,12 +186,14 @@ let browser;
     }
     report.finalInvariants = await page.evaluate(() => ({ npcStateUnchangedThroughOrientationQa: BUDGET.qaNpcState === BUDGET.actors(), population: BUDGET.population(), headingRestored: game.player.heading === BUDGET.qaHeading, rigRestored: JSON.stringify(game.player.rig.rotation.toArray()) === JSON.stringify(BUDGET.qaRigRotation), cameraFovNearFarUnchanged: game.camera.fov === BUDGET.qaCamera.fov && game.camera.near === BUDGET.qaCamera.near && game.camera.far === BUDGET.qaCamera.far }));
     if (!report.finalInvariants.npcStateUnchangedThroughOrientationQa || !report.finalInvariants.headingRestored || !report.finalInvariants.rigRestored || !report.finalInvariants.cameraFovNearFarUnchanged) report.failures.push({ kind: 'stationary-qa-invariants', ...report.finalInvariants });
-    report.maxima = { calls: Math.max(...report.frames.map(f => f.logical.calls)), triangles: Math.max(...report.frames.map(f => f.logical.triangles)), scope: 'All recorded complete frames including warm frames, main, mirror, actual true shadows, native reflection work and post processing; separate maxima may occur in different frames.' };
+    report.unframedNativeWork = await page.evaluate(() => ({ draws: BUDGET.unframedDraws, finalCounters: BUDGET.counters(), scope: 'All observed native draws outside explicitly counted complete frames, including initial setup and any synchronous reflection-builder work. Never discarded or inferred from historical runs.' }));
+    Object.assign(report.unframedNativeWork, summarizeDraws(report.unframedNativeWork.draws));
+    report.maxima = { calls: Math.max(...report.frames.map(f => f.logical.calls)), triangles: Math.max(...report.frames.map(f => f.logical.triangles)), rawNativeStats: { calls: Math.max(...report.frames.map(f => f.nativeRawStats.calls)), triangles: Math.max(...report.frames.map(f => f.nativeRawStats.triangles)) }, scope: 'All recorded complete frames including warm frames, main, mirror, actual true shadows, native reflection work and post processing. Raw native stats, observed prior carry and unframed setup are retained separately; separate maxima may occur in different frames.' };
     await context.close(); await browser.close(); browser = null;
     for (const f of files) if (hash(fs.readFileSync(path.join(root, f.path))) !== f.sha256) report.failures.push({ kind: 'source-mutated-after-run', path: f.path });
     report.sourceFilesVerifiedAfterRun = files.length;
     report.complete = true; report.endedAt = new Date().toISOString(); save();
-    console.log('COMPLETE', JSON.stringify({ sourceCommit, maxima: report.maxima, failures: report.failures.length, errors: report.errors.length, consoleErrors: report.consoleErrors.length, failedRequests: report.failedRequests.length }));
+    console.log('COMPLETE', JSON.stringify({ sourceCommit, maxima: report.maxima, rawCounterAlerts: report.rawCounterAlerts.length, failures: report.failures.length, errors: report.errors.length, consoleErrors: report.consoleErrors.length, failedRequests: report.failedRequests.length }));
 })().catch(error => { report.fatal = error.stack || String(error); process.exitCode = 1; }).finally(async () => {
     save(); await browser?.close(); await new Promise(resolve => server.close(resolve));
     if (report.errors.length || report.consoleErrors.length || report.failedRequests.length || report.failures.length) process.exitCode = 1;

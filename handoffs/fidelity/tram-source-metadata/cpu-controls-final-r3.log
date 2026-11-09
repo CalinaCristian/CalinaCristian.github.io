@@ -1,0 +1,13 @@
+PASS clipped render runs map to original per-vertex IDs while full source ways stay complete
+PASS shared source nodes include continuation/service/status ways but a geometric crossing does not join
+PASS every raw way/node tag and ordered relation role/ref/status survives unchanged
+PASS missing complete-way coordinates stay null with all node refs and unavailable route ways explicit
+PASS invalid coordinate records remain unavailable rather than inventing projected points
+PASS raw snapshot is independent of later builder tag/node decoration
+PASS unknown directions/grades remain literal and layer/bridge never become invented metre heights
+PASS reverse-render coverage and source oneway=-1 do not rewrite original source order or travel tags
+PASS ambiguous/coincident IDs and unmatched lines fail instead of guessing a rail identity
+PASS existing bytes, field values, render arrays and generated date survive append-only metadata
+PASS dataset projection/compression/q match the existing delta convention without resampling
+PASS actual changed builder clipping emits byte-equivalent render arrays to the baseline compiler
+PASS 12 source metadata/compiler controls; no browser/network

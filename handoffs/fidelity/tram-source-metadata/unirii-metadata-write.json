@@ -1,0 +1,458 @@
+{
+  "dataFile": "/workspace/fidelity-workers/tram-source-metadata/game/data/bucharest-unirii.json",
+  "osmDir": "/workspace/reality-pass/original-districts-refresh/tiles",
+  "inputSha256": "9797d9f5b1a4f2593528ce6c8c4ad04ec38fb953c9770bf32f6d7d5c7c54f26c",
+  "outputSha256": "6229110b67092ebd714c8db6a38ac41bebc69d86e80abc4b54912d78b2416a5f",
+  "written": true,
+  "cachedInputsReverified": true,
+  "sourceSelection": "Existing parse-osm first occurrence from sorted cached XML; no network or source synthesis",
+  "generatedUnchanged": true,
+  "existingFieldsUnchanged": true,
+  "originalPrefixBytesUnchanged": true,
+  "renderedTrams": 4,
+  "renderedTramsSha256": "b8468bd1e89ad9580dd4e824da323e3fe173dc55052f4ef01aec31a0743965a7",
+  "addedFields": [
+    "tramSources",
+    "tramSourceWays",
+    "tramRoutes",
+    "tramSourceNodeTags"
+  ],
+  "sourceWays": 8,
+  "routes": 12,
+  "taggedNodes": 10,
+  "missingNodeWays": [],
+  "routeMissingWays": [
+    {
+      "sourceId": "r1247193",
+      "missingWayIds": [
+        891057604,
+        244581690,
+        905383381,
+        85071412,
+        893361218,
+        27015278,
+        1225294394,
+        1225294395,
+        1225294396,
+        1225294397,
+        1225294383,
+        1225192541,
+        1225192533
+      ]
+    },
+    {
+      "sourceId": "r1270330",
+      "missingWayIds": [
+        550861988,
+        550861980,
+        132573785,
+        121412966,
+        892415037,
+        893361212,
+        892445521,
+        892415034,
+        892415035,
+        983032280,
+        983032279,
+        1225192542,
+        1225192533
+      ]
+    },
+    {
+      "sourceId": "r1271108",
+      "missingWayIds": [
+        1225192534,
+        1225192536,
+        1159323709,
+        368131021,
+        983032281,
+        28112712,
+        892415036,
+        892423606,
+        892423605,
+        892445518,
+        244795547,
+        85076131,
+        85126161,
+        755543800,
+        892445514,
+        85125325,
+        902665732,
+        85125324,
+        23570396,
+        1428338203
+      ]
+    },
+    {
+      "sourceId": "r1271500",
+      "missingWayIds": [
+        1225192534,
+        1225192536,
+        1159323709,
+        368131021,
+        983032283,
+        241368968,
+        983032287,
+        899314651,
+        899314650,
+        899314658,
+        899302218,
+        899302220,
+        899302219,
+        1484394069,
+        899314660,
+        27845527,
+        899293863,
+        85220053,
+        668676120,
+        85248023,
+        23708476
+      ]
+    },
+    {
+      "sourceId": "r1925788",
+      "missingWayIds": [
+        1225192534,
+        1225192538,
+        1225192540,
+        1225294385,
+        1225294384,
+        1225294398,
+        1225294399,
+        1225294400,
+        1225294401,
+        1225294402,
+        1225294403,
+        1225294404,
+        1225294393,
+        905997043,
+        905997046,
+        487564963,
+        905631392
+      ]
+    },
+    {
+      "sourceId": "r1936712",
+      "missingWayIds": [
+        905630483,
+        902665731,
+        902665730,
+        311502842,
+        892445517,
+        899293847,
+        1106531669,
+        899293848,
+        892445515,
+        892423604,
+        85076134,
+        23650304,
+        892415034,
+        892415035,
+        983032280,
+        983032279,
+        1225192542,
+        1225192533,
+        1428338209
+      ]
+    },
+    {
+      "sourceId": "r1936801",
+      "missingWayIds": [
+        1225192534,
+        1225192536,
+        1159323709,
+        368131021,
+        983032281,
+        28112712,
+        892415036,
+        85076132,
+        85076133,
+        85071411,
+        893361217,
+        132573786,
+        892415039,
+        892415038,
+        550861981,
+        550861975
+      ]
+    },
+    {
+      "sourceId": "r2211465",
+      "missingWayIds": [
+        893583719,
+        244801454,
+        899293861,
+        899293862,
+        899293858,
+        899293857,
+        1484394071,
+        86299926,
+        172851021,
+        78414345,
+        241369583,
+        241369345,
+        28112998,
+        899314652,
+        983032286,
+        983032285,
+        983032282,
+        983032279,
+        1225192542,
+        1225192533
+      ]
+    }
+  ],
+  "renderSources": [
+    {
+      "sourceId": "w1225192532",
+      "nodeIds": [
+        11361818678,
+        11361818677,
+        11361818676,
+        11361818675,
+        11361818710,
+        11361794666
+      ]
+    },
+    {
+      "sourceId": "w1225192535",
+      "nodeIds": [
+        11361794667,
+        11361818709
+      ]
+    },
+    {
+      "sourceId": "w227699544",
+      "nodeIds": [
+        11361794666,
+        11361818674,
+        2363414884,
+        11374440562,
+        11361818673,
+        2363414862,
+        2363414901,
+        2363414905,
+        13379281373,
+        2363414860,
+        2363414951,
+        2363414864,
+        2363414866,
+        13379281322,
+        13379231780,
+        2363414822,
+        2363414808,
+        2363414858,
+        2363414888,
+        13379231782,
+        13379231777,
+        13379281342,
+        2363414815,
+        13379231796,
+        2363414827,
+        2363414801,
+        11374440560,
+        2363414803,
+        2363414930,
+        2363414931,
+        2363414846,
+        13121701802,
+        11374440557,
+        11374440559,
+        11374440558,
+        11374440561,
+        296126231,
+        2389982916
+      ]
+    },
+    {
+      "sourceId": "w540758132",
+      "nodeIds": [
+        2389982916,
+        11361818711,
+        11361794667
+      ]
+    }
+  ],
+  "ledger": [
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4250_26.0290_44.4350_26.0450.xml",
+      "bytes": 3620820,
+      "sha256": "5f6dfc4175e595a80a0207927b135fcdda0ea79cfecdea841b089c91ba0c3343"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4250_26.0450_44.4350_26.0610.xml",
+      "bytes": 4068076,
+      "sha256": "57639f0f940a2ca42f873e5e171b938cf43980f28fede6a30d29ce246b957fa7"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4250_26.0610_44.4350_26.0770.xml",
+      "bytes": 5097546,
+      "sha256": "326469c1c643c9ef294766a22628138f982cf13f37223fa30e5e5929c0f29fb6"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4250_26.0770_44.4350_26.0930.xml",
+      "bytes": 4201904,
+      "sha256": "3dc61e44fd58b38ef0d18d8bf56c2dcd4d41bcc360ae8b36d624f3be95570570"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4250_26.0930_44.4350_26.1090.xml",
+      "bytes": 12152142,
+      "sha256": "dbe86491bd47dfdc2b78988384aeeb7e3ac3c59ee706d4a0918c80c05da589cc"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4250_26.1090_44.4350_26.1250.xml",
+      "bytes": 5627461,
+      "sha256": "85df20eded36f4d37dd0558762385fd6496b0608e5ebf7889c8db1eafd8a9f67"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4350_26.0290_44.4450_26.0450.xml",
+      "bytes": 2139336,
+      "sha256": "1b3433692876dc385b2960f34d06d3f55c96f0c507f9207a9bb449ec7c0b3bcf"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4350_26.0450_44.4450_26.0610.xml",
+      "bytes": 2581216,
+      "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4350_26.0610_44.4450_26.0770.xml",
+      "bytes": 4361066,
+      "sha256": "a82f4aebf2ba8f2f321cd2144e30a119755b6ded55729eddf1d68a4eaf9afc35"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4350_26.0770_44.4450_26.0930.xml",
+      "bytes": 4560635,
+      "sha256": "6b88c0c9937c78c2264f48d66a1c20e8a18cba4bd9e233e861bf1c82790c0da5"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4350_26.0930_44.4450_26.1090.xml",
+      "bytes": 7538229,
+      "sha256": "8cb50939367e80d82e4f7c7631e71be2b6ff6f6054ebe9b1d31fdfa2fd7976d0"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4350_26.1090_44.4450_26.1250.xml",
+      "bytes": 5839279,
+      "sha256": "79898a15444a3e094a10c571080843a48858b64fdf5804753388b6809a3d1182"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4450_26.0290_44.4550_26.0450.xml",
+      "bytes": 1316642,
+      "sha256": "57a0c0e0a2c75f2e0f999b8fa8c5733d669c5bd244490fcd409b1c747593c55f"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4450_26.0450_44.4550_26.0610.xml",
+      "bytes": 3534494,
+      "sha256": "1336a618c3f735263833078499794446ed5f9b8776aeefe914aaaa2eb5ec7732"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4450_26.0610_44.4550_26.0770.xml",
+      "bytes": 5561807,
+      "sha256": "f9157a53b014b19b40816bd3de157e7fc2f228207157bfb6ca6e04839e145c85"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4450_26.0770_44.4550_26.0930.xml",
+      "bytes": 5339194,
+      "sha256": "0952f73927ba6a9cb20668e31c9fc95f5a43adb8b357aa511506b02ec3252500"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4450_26.0930_44.4550_26.1090.xml",
+      "bytes": 5968976,
+      "sha256": "b71369b02d0153dcc1f1e68d84a9e0ba5ccfa626f3395401d08b890675475d51"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4450_26.1090_44.4550_26.1250.xml",
+      "bytes": 4990155,
+      "sha256": "4ce57b70435a59a68ce36320ee1e707738dc8669dd9f9058e54a5ab9b7e4ce1a"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4550_26.0290_44.4650_26.0450.xml",
+      "bytes": 2104334,
+      "sha256": "2d4083c18438e61eebab62d3b67f5a07337d69c2aa84bb8b4d8bb143d2437b85"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4550_26.0450_44.4650_26.0610.xml",
+      "bytes": 3271344,
+      "sha256": "5b4a8f65b7fd6866738854193f910b82c100e3c6ed1effedb800a83f6ed1fd50"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4550_26.0610_44.4650_26.0770.xml",
+      "bytes": 4585166,
+      "sha256": "9113b5ff010d55d2c56bf7792a454a10753131135c5ec6df930f1355f5b43909"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4550_26.0770_44.4650_26.0930.xml",
+      "bytes": 3624716,
+      "sha256": "de30e05f0ec653a40842727398c60244b089e8f02c4e2b5df88d0714d50323ba"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4550_26.0930_44.4650_26.1090.xml",
+      "bytes": 4383339,
+      "sha256": "546383d1c8ec826097b07108607e821f947c147a64994622e3c32c00f72814ad"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4550_26.1090_44.4650_26.1250.xml",
+      "bytes": 3421470,
+      "sha256": "9a6497ea0c11a04c0a3d8a72530f3eaeeffde40669eccfbd3dc8a572f3e8b1ea"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4650_26.0770_44.4750_26.0930.xml",
+      "bytes": 2887998,
+      "sha256": "d81de5647330489b4b20d8240ea8e13d868193b80935b11f24b7a440a67cf45a"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4650_26.0930_44.4750_26.1090.xml",
+      "bytes": 1961983,
+      "sha256": "efc92c6fbbc7be71d701f0c67a0bb262d107e2f42491887b1e9e47c3f45fd814"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4650_26.1090_44.4750_26.1250.xml",
+      "bytes": 2095106,
+      "sha256": "cb31deadad1beb18b66e59790221198dfa7a7740a7b728f7acfc86f6963599ca"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4750_26.0770_44.4850_26.0930.xml",
+      "bytes": 1741574,
+      "sha256": "46d21f3da9ac9c05a2428188fda3d7355396c7fbe968b9fd09bad374a33dd35d"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4750_26.0930_44.4850_26.1090.xml",
+      "bytes": 3204049,
+      "sha256": "53d352aaf79afa5c674f39a2c79c5a7f08956f1c1152e71349426706cb589b61"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4750_26.1090_44.4850_26.1250.xml",
+      "bytes": 1836594,
+      "sha256": "0d93722f7ece93d8971d60cba7ef1a40ed39af5b01ee3183a772ea08a82cd96c"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4850_26.0770_44.4950_26.0930.xml",
+      "bytes": 2982675,
+      "sha256": "5423c00e0b65d93e670941be3a9ceec29bc6bd1e852b349fc6575a4bd5158b35"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4850_26.0930_44.4950_26.1090.xml",
+      "bytes": 1410136,
+      "sha256": "163ad6631147201defb5e51218e6d879217d25a7ba03247e87ac71b3f6390e9d"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4850_26.1090_44.4950_26.1250.xml",
+      "bytes": 1251941,
+      "sha256": "d2f3bb2abb25c9056563855b3398480ca715b0e2fb710864d058a6dd7826c51a"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/bucx_44.4650_26.1250_44.4750_26.1410.xml",
+      "bytes": 4366194,
+      "sha256": "20707ba2b6966213c81c33df31c5d43a644e0293911c330a4b2e37807f3e61df"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/bucx_44.4750_26.1250_44.4850_26.1410.xml",
+      "bytes": 2555489,
+      "sha256": "affb91eaa732c6655f09276bb222d00ff697753947e52f008dcca660c453e8e9"
+    },
+    {
+      "file": "/workspace/reality-pass/original-districts-refresh/tiles/bucx_44.4850_26.1250_44.4950_26.1410.xml",
+      "bytes": 1333665,
+      "sha256": "318673c7a8f3af353222ff6c6e04ce3d3fb1a10c1c6e066942b04ad095f8c49b"
+    }
+  ]
+}

@@ -36,6 +36,8 @@
 //               64 toll, 128 unpaved/cobbles, 256 tram in the median, 512 bike lane, 1024 cycle track,
 //               2048 lit, 4096 lit=no
 //    trams: [delta, ...]                             railway=tram centre lines
+//    tramSources / tramSourceWays / tramRoutes / tramSourceNodeTags: original source identity/topology/tags;
+//      clipped trams stay unchanged, complete ways use the same delta/q convention, no height or motor-path inference
 //    buildings: [[style, heightDm, minHeightDm, roof, name, flags, levels, colour, roofColour, ...delta ring], ...]
 //    buildingHoles: { buildingIndex: [deltaRing, ...] } optional mapped courtyards; same dm coordinates, no header
 //    buildingCoveredBy: { baseIndex: coveringPartIndex } exact full-footprint, full-height ground part; both records kept
@@ -78,6 +80,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { parseFiles, parseInto } from './parse-osm.mjs';
+import { snapshotTramSources, tramMetadataFromRuns } from './tram-sources.mjs';
 import { footprintCoverage, simpleFootprint, uncrossFootprint, bakeAssembly, bakeSurface, touchingSolids, assemblySignature } from '../../game/src/building-parts.js';
 import { sourceRing } from './source-footprints.mjs';
 import { sourcePartHeightReview } from './source-height-review.mjs';
@@ -314,6 +317,7 @@ function buildCity(cityId, did = null) {
         if (xml) parseInto(xml, osm);
     }
 
+    const tramRawSnapshot = snapshotTramSources(osm); // raw tags/IDs before general builder decoration
     const pt = (id) => { const ll = N.get(id); return ll ? P(ll[0], ll[1]) : null; };
     const strings = [], strIdx = new Map();
     const S = (s) => { if (!s) return -1; let i = strIdx.get(s); if (i === undefined) { i = strings.length; strings.push(s); strIdx.set(s, i); } return i; };
@@ -509,13 +513,16 @@ function buildCity(cityId, did = null) {
     };
 
     // ---- tram tracks
-    const tramLines = [];
-    for (const w of W.values()) {
+    const tramLines = [], tramLineSources = new WeakMap();
+    for (const [id, w] of W) {
         const t = w.tags;
         if (t.railway !== 'tram') continue;
         if (t.service === 'yard' || t.service === 'siding' || t.usage === 'depot') continue;
         const pts = w.nodes.map(pt).filter(Boolean);
-        if (pts.length >= 2) tramLines.push(pts);
+        if (pts.length >= 2) {
+            tramLines.push(pts);
+            tramLineSources.set(pts, { sourceId: 'w' + id, nodeIds: w.nodes.filter(n => !!pt(n)), tags: tramRawSnapshot.ways.get(String(id)).tags });
+        }
     }
     const tramGrid = new Grid(40);
     for (const pl of tramLines) for (let i = 0; i < pl.length - 1; i++) {
@@ -1946,15 +1953,18 @@ function buildCity(cityId, did = null) {
             if (result.layout) parkingLayouts[i] = { sourceId: a.sourceId, ...result.layout };
         }
     }
-    const outT = [];
+    const outT = [], outTramSources = [];
     for (const pl of tramLines) { // clip to the corridors
-        let run = [];
-        const flush = () => { if (run.length >= 2) outT.push(delta(run)); run = []; };
-        for (const p of pl) { if (M(p[0], p[1]) <= 30 && nearNetwork(p[0], p[1], 40)) run.push(p); else flush(); }
+        const source = tramLineSources.get(pl);
+        let run = [], runNodeIds = [];
+        const flush = () => { if (run.length >= 2) { outT.push(delta(run)); outTramSources.push({ sourceId: source.sourceId, nodeIds: runNodeIds, tags: source.tags }); } run = []; runNodeIds = []; };
+        for (const [i, p] of pl.entries()) { if (M(p[0], p[1]) <= 30 && nearNetwork(p[0], p[1], 40)) { run.push(p); runNodeIds.push(source.nodeIds[i]); } else flush(); }
         flush();
     }
+    const outTramMetadata = outT.length ? tramMetadataFromRuns(tramRawSnapshot, outTramSources, { project: P, q: 10 }) : {};
     const doc = {
         version: 2, city: cityId, generated: new Date().toISOString().slice(0, 10),
+        ...outTramMetadata,
         attribution: '© OpenStreetMap contributors (ODbL)',
         proj: P.params, q: 10,
         bounds: [minX, minZ, maxX, maxZ],

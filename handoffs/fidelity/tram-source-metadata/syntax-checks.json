@@ -1,0 +1,57 @@
+{
+  "checkedAtUtc": "2026-11-09T05:05:22.758211+00:00",
+  "checks": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "tools/osm/build-data.mjs"
+      ],
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "tools/osm/tram-sources.mjs"
+      ],
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "tools/osm/add-tram-source-metadata.mjs"
+      ],
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "tools/osm/tram-sources.test.mjs"
+      ],
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": "Python ast.parse tools/osm/tram-source-audit.py",
+      "pass": true
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "pass": true,
+  "browserLaunched": false,
+  "networkUsed": false
+}

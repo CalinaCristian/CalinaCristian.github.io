@@ -15,6 +15,7 @@
 // ============================================================================
 import { ACHIEVEMENTS, STOPS, PROFILE } from './data.js';
 import { save as SAVE } from './save.js'; // note 73: IndexedDB autosave / Continue / gallery
+import { MENU_AVAILABLE, activityAvailable, touristTarget } from './spot-availability.js';
 
 const KEY = 'dmcv.progression.v1';
 const SPOTS_KEY = 'dmcv.spots.v1';      // spots/index.js (read-only here)
@@ -36,7 +37,7 @@ export const CATEGORIES = [
 ];
 const MILESTONES = [25, 50, 75, 100];
 const BUC_OFFICES = ['rosetti', 'upb', 'gts', 'luxoft', 'db', 'arnia', 'uipath-buc'];
-const N_CHAPTERS = 10, N_SPOTS = 24;
+const N_CHAPTERS = 10, N_SPOTS = MENU_AVAILABLE.size;
 const N_SCREENS = STOPS.reduce((n, s) => n + (s.stations?.length || 0), 0);
 /** peak-hour hotspots (CITIES[…].districts[…].congestion notes) for `rush-hour` */
 const HOTSPOTS = [['victoriei', /^Piața Victoriei/], ['unirii', /^Piața Unirii/], ['pompeiu', /Dimitrie Pompeiu/], ['i405', /I-405/]];
@@ -46,9 +47,10 @@ const byId = new Map(ACHIEVEMENTS.map(a => [a.id, a]));
 /** Landmarks (note 57): an activity achievement counts (panel, completion %) only once its activity exists in the game:
  *  `live: true` in data.js, or listed by the spots module (`spotsMod.ACTIVITIES` = [{spot, id}]) — see 01-architecture *Activities* */
 let liveActs = new Set();
+let availableSpots = MENU_AVAILABLE;
 /** does activity key '<spot>:<id>' satisfy achievement a ('*:<id>' = any spot) */
 const actMatch = (a, key) => !!a.activity && (a.activity === key || (a.activity.startsWith('*:') && key.endsWith(':' + a.activity.slice(2))));
-const liveAct = (a) => a.live === true || [...liveActs].some(k => actMatch(a, k));
+const liveAct = (a) => activityAvailable(a, availableSpots) && (a.live === true || [...liveActs].some(k => actMatch(a, k)));
 /** the activity achievements of the Landmarks category ("Done it all" counts these) */
 const lmActs = () => ACHIEVEMENTS.filter(a => a.cat === 'landmarks' && a.activity && liveAct(a));
 const isLive = (a) => a.cat !== 'landmarks' || (a.id === 'landmarks-all' ? lmActs().length > 0 : a.activity ? liveAct(a) : a.live === true);
@@ -128,13 +130,13 @@ export class Progression {
     }
     /** all spot data as {SPOTS, postcards} */
     spotData() {
-        const list = this.game.spotsMod?.SPOTS_ALL || this.game.spotsMod?.SPOTS || null; // SPOTS is review-gated (note 61): totals use SPOTS_ALL
+        const list = this.game.spotsMod?.SPOTS || this.game.spotsMod?.SPOTS_ALL || null;
         const prog = this.game.spotsMod?.spotProgress?.() || readJSON(SPOTS_KEY);
         return { list, postcards: Object.keys(prog.postcards || {}) };
     }
     /** counter value of an achievement with a target */
     count(id) {
-        const s = this.state, sd = this.spotData(), ids = sd.list ? new Set(sd.list.map(x => x.id)) : null;
+        const s = this.state, sd = this.spotData(), ids = sd.list ? new Set(sd.list.map(x => x.id)) : MENU_AVAILABLE;
         const visited = s.sets.spots.filter(x => !ids || ids.has(x));
         const city = (c) => sd.list ? visited.filter(x => sd.list.find(y => y.id === x)?.city === c).length : 0;
         const tours = (c) => { const done = new Set((s.sets.activities || []).filter(k => k.endsWith(':tour')).map(k => k.slice(0, -5))); return sd.list ? sd.list.filter(y => y.city === c && done.has(y.id)).length : 0; };
@@ -167,7 +169,7 @@ export class Progression {
             if (this.state.sets.spots.length) this.unlock('spot-first');
             if (this.spotData().postcards.length) this.unlock('postcard-first');
             if (this.state.counters.photos > 0) this.unlock('photo-first');
-            for (const a of ACHIEVEMENTS) if (a.target && this.count(a.id) >= a.target) this.unlock(a.id);
+            for (const a of ACHIEVEMENTS) { const target = touristTarget(a.id, a.target, this.spotData().list); if (target > 0 && this.count(a.id) >= target) this.unlock(a.id); }
             // activities done before their achievement shipped (or before a reload)
             for (const a of ACHIEVEMENTS) if (a.activity && (this.state.sets.activities || []).some(k => actMatch(a, k))) this.unlock(a.id);
             { const L = lmActs(); if (L.length && L.every(a => this.state.unlocked[a.id])) this.unlock('landmarks-all'); }
@@ -178,7 +180,7 @@ export class Progression {
 
     // ------------------------------------------------------------------ completion %
     completion() {
-        const s = this.state, g = this.game, sd = this.spotData(), ids = sd.list ? new Set(sd.list.map(x => x.id)) : null;
+        const s = this.state, g = this.game, sd = this.spotData(), ids = sd.list ? new Set(sd.list.map(x => x.id)) : MENU_AVAILABLE;
         const done = g.progress?.done || new Set(readJSON(CHAPTERS_KEY).done || []);
         const chapters = g.chapters || [];
         const nCh = chapters.length || N_CHAPTERS, nSpots = sd.list?.length || N_SPOTS;
@@ -273,7 +275,7 @@ export class Progression {
         addEventListener('dmcv:drone', (e) => this.onDrone(e.detail || {}));
         // office NPC dialogue (note 37): every answer heard = one CV topic (`<stop>:<index>`, the same keys as the old screens)
         addEventListener('cv-answer', (e) => { const d = e.detail || {}; if (d.stop && Number.isInteger(d.index) && this.addTo('screens', `${d.stop}:${d.index}`)) this.evaluate(); });
-        const refresh = () => { const L = g.spotsMod?.ACTIVITIES; if (Array.isArray(L)) liveActs = new Set(L.map(x => `${x.spot}:${x.id}`)); };
+        const refresh = () => { const L = g.spotsMod?.ACTIVITIES; if (Array.isArray(L)) liveActs = new Set(L.map(x => `${x.spot}:${x.id}`)); if (Array.isArray(g.spotsMod?.SPOTS)) availableSpots = new Set(g.spotsMod.SPOTS.map(s => s.id)); };
         refresh(); g.loadSpotsModule?.()?.then?.(() => { refresh(); this.evaluate(); });
     }
     onDrone(d) {
@@ -500,7 +502,7 @@ export class Progression {
         const cards = list.map(a => {
             const on = !!s.unlocked[a.id], secret = a.hidden && !on;
             let prog = '';
-            const target = a.id === 'landmarks-all' ? lmActs().length : a.target;
+            const target = a.id === 'landmarks-all' ? lmActs().length : touristTarget(a.id, a.target, this.spotData().list);
             if (target && !on) { const n = Math.min(this.count(a.id), target); prog = `<div class="prog"><span class="bar"><i style="width:${(n / target * 100).toFixed(1)}%"></i></span><small>${a.unit === 'm' ? `${n} / ${target} m` : `${n}/${target}`}</small></div>`; }
             return `<li class="achv-card${on ? ' on' : ''}${secret ? ' secret' : ''}"><span class="ic" aria-hidden="true">${secret ? '❓' : a.icon}</span><div><b>${secret ? '???' : esc(a.title)}</b><p>${secret ? 'A secret. Keep exploring.' : esc(a.desc)}</p>${prog}${on ? `<small class="when">✓ ${fmtDate(s.unlocked[a.id])}</small>` : ''}</div></li>`;
         }).join('');

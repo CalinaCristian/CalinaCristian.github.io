@@ -9,6 +9,8 @@
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
 import { CITIES } from '../cities.js';
+import { MENU_ORDER, MENU_AVAILABLE, RECOMMENDED_SPOTS, PARK_WALKS } from '../spot-availability.js';
+export { MENU_AVAILABLE } from '../spot-availability.js';
 import { Ground, Painter, buildTerrain } from './ground.js';
 import { paintOSM, buildBuildings, buildTrees, buildLamps, buildFurniture, roadLampPoints, streetTrees, areaTrees, waterPlane, polyCollider, streetBands, carriagewayTest } from './osm.js';
 import { Crowd } from './people.js';
@@ -55,28 +57,28 @@ export const DEV_SPOTS = [
  */
 export const ACTIVITIES = [
     ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'chess', 'Play a chess opening'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
-    ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['village-museum', 'farmhouse', 'Step into a farmhouse'],
+    ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['village-museum', 'farmhouse', 'Collect a virtual household passport'],
     ['old-town-lipscani', 'wcp-bar', 'Hidden project'],
     ['old-town-lipscani', 'carusel', 'Climb Cărturești Carusel'], ['old-town-lipscani', 'curtea-veche', 'Old Princely Court'],
     ['old-town-lipscani', 'dristor-shaorma', 'Eat a shaorma at Dristor Kebap'], ['old-town-lipscani', 'shoteria-shot', 'Pour, toast and drink at Shoteria'],
-    ['palace-parliament', 'balcony', 'Frame the Palace facade'], ['palace-parliament', 'pace', 'Pace the esplanade'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
+    ['palace-parliament', 'balcony', 'Frame the Palace facade'], ['palace-parliament', 'pace', 'Walk the public Palace sidewalk'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
     ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],
     ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-lincoln-square', 'badge-in', 'Frame Lincoln Square'],
 ].map(([spot, id, title]) => ({ spot, id, title }));
 /**
- * Review gate (owner note 61): a spot is listed in SPOTS (game menu, world map, explore pins, achievements) only once
- * its scene passed the side-by-side review against real photos (day / night, spawn, postcard, 3 walk poses). Scene
- * lanes ask for the flip in spec 15 Requests → spots-core. Every spot stays loadable by id (spotById, dev page); a
+ * READY retains historical side-by-side review records. MENU_AVAILABLE separately
+ * lists current native access/control checks; it is not an architectural parity flag.
+ * Every spot stays loadable by id (spotById, dev page); a
  * reviewer lists all with `?spots=all` in the URL or localStorage `dmcv.spots.showAll` = '1'.
  */
-export const READY = new Set([ // round 5 review (2026-11-07): passed the side-by-side review + audit gate
+export const READY = new Set([ // Historical round5 review (2026-11-07); not the current menu-access gate.
     'palace-parliament', 'peoples-salvation-cathedral', 'arcul-de-triumf', 'athenaeum-revolution', 'cismigiu', 'village-museum', 'herastrau-park',
     'bel-lincoln-square', 'bel-meydenbauer', 'bel-downtown-park',
     'kerry-park', 'gas-works',
 ]);
 const showAll = (() => { try { return /[?&]spots=all\b/.test(globalThis.location?.search || '') || globalThis.localStorage?.getItem('dmcv.spots.showAll') === '1'; } catch { return false; } })();
-for (const s of SPOTS_ALL) s.ready = READY.has(s.id);
-export const SPOTS = SPOTS_ALL.filter((s) => s.ready || showAll);
+for (const s of SPOTS_ALL) { s.ready = READY.has(s.id); s.available = MENU_AVAILABLE.has(s.id); s.menuTier = RECOMMENDED_SPOTS.has(s.id) ? 'recommended' : PARK_WALKS.has(s.id) ? 'parks' : 'views'; }
+export const SPOTS = SPOTS_ALL.filter((s) => s.available || showAll).sort((a,b) => (MENU_ORDER.indexOf(a.id) < 0 ? Infinity : MENU_ORDER.indexOf(a.id)) - (MENU_ORDER.indexOf(b.id) < 0 ? Infinity : MENU_ORDER.indexOf(b.id)));
 export const spotById = (id) => SPOTS_ALL.find((s) => s.id === id) || DEV_SPOTS.find((s) => s.id === id) || null;
 
 const DATA_URL = (scene) => new URL(`../../data/spots/${scene}.json`, import.meta.url).href;

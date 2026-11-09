@@ -48,15 +48,17 @@ that chapter of the CV.
   The pilot marker uses the same seasonal character system as pedestrians.
   At Rosetti’s existing basketball court, pick up the ball, aim along its predicted dotted arc and throw. A real basket
   unlocks a secret achievement; desktop and mobile actions are supported. Pause, map, camera, drone or leaving cancels the aim.
-- **Tourist spots (bonus).** 24 walk-only destinations across 19 scenes (each is listed in the menu once it passes a side-by-side
-  review against the real place) — Bucharest's top 10 (Palace of the Parliament, People's
+- **Tourist spots (bonus).** 24 walk-only destinations across 19 scenes, with 21 currently offered in the menu.
+  The Troll, cathedral and Old Town lead the recommendations; quieter parks and gardens have their own expandable group.
+  Ballard Locks, Herăstrău and the Village Museum remain developer-loadable while their activity approaches need verification.
+  The full catalogue includes Bucharest's ten (Palace of the Parliament, People's
   Salvation Cathedral, Old Town & Cărturești Carusel, Stavropoleos & CEC, the Athenaeum, Arcul de Triumf, Herăstrău,
   the Village Museum, the Spring Palace, Cișmigiu), Seattle's top 10 (Pike Place, the Space Needle, Chihuly Garden and
   Glass, MoPOP, the Fremont Troll, Kerry Park, the waterfront, Pioneer Square, the Ballard Locks, Gas Works Park) and
   4 in Bellevue. Each has crowds chatting in culture-researched lines (Romanian with English underneath), info plaques,
   a spot map with objectives, an optional short guided tour, a postcard photo challenge and activities — ride the Space
   Needle elevator to the revolving Loupe, catch a fish at Pike Place, row in Cișmigiu, frame the Arc de Triumf memorial,
-  rent a bike in Herăstrău, and more. Short tours select an available activity first and use at most three stops / 180 m
+  and frame historic details in Pioneer Square. Herăstrău cycling remains in its development scene. Short tours select an available activity first and use at most three stops / 180 m
   of walkable route, with **Skip** and **End tour** controls. Activities and postcards require participation; narration
   alone never completes them. Seasonal Cișmigiu rowing starts at the mapped Debarcader: use the visible oars to propel
   the boat along a short return course. Idle time grants no progress. Pause, map, photo mode, drone launch or leaving
@@ -67,7 +69,7 @@ that chapter of the CV.
   Narrow desktop windows keep the keyboard-help footer above the lower HUD; touch screens use their dedicated action buttons.
   Source-backed tourist activities can declare a narrow drone launch/approach area outside their original scene focus. The same 150 m flight margin applies; this does not open an entire park or lake.
   Disposing a tourist water material removes it from shared environment updates, so later travel does not retain retired water materials.
-  Dinamo pitch paint has a small depth separation from the grass for stable high drone views.
+  Dinamo pitch paint uses filtered alpha coverage at its real 12 cm width, keeping lines continuous from higher drone views.
   The unsupported Needle deck-stair and botanical label-reading awards are retired; older saves retain earned history without counting these in completion.
   The overview includes separate shareable evidence views for every landmark and tourist destination, with game captures, source links and explicit remaining estimates.
   District galleries retain dated historical collections separately from current surveys. Game-only street, weather and drone context has its own gallery and exact camera metadata; only square north-up surveys are paired with aerial imagery. Available collections load inline, and official aerial images keep their original 15-minute browser cache expiry across reloads.
@@ -80,8 +82,10 @@ that chapter of the CV.
   kept in the in-game gallery, and you save (or share) only the ones you want, from the print or the gallery. Leave the
   car somewhere illegal and passers-by react — then the ticket, the clamp or the tow truck.
 - **Saves.** Progress, position and photos persist in IndexedDB; **Continue** resumes exactly where you left off.
-- **Achievements and completion %.** 114 catalogue entries (113 initially active; the cycling activity becomes active after bike use), covering story, explorer, driver, local colour, landmarks and activities,
-  photographer, on foot and a few secrets) and one weighted completion score shown in the menu, map and pause screens.
+- **Achievements and completion %.** 114 catalogue entries cover story, exploration, driving, local colour, activities,
+  photography, walking and secrets. The weighted score appears in the menu, map and pause screens. Tourist totals and
+  activity requirements follow the available menu destinations; unavailable activities and retired save keys do not inflate completion.
+  Cycling becomes active after its first use.
 - **A living city.** Country-specific traffic (taxis, delivery vans, police; STB trams, trolleybuses and buses; King
   County Metro buses) driven by real lanes, one-ways, signals and speed limits, with traffic density by hour, rush-hour
   standstills at real hotspots (Piața Victoriei, Piața Unirii, Bd. Dimitrie Pompeiu, I-405), honking and angry chat

@@ -5,6 +5,10 @@ Owner role: **progression** (`game/src/achievements.js`, new). Hooks in gameplay
 ## Why
 Give players a reason to explore everything the game offers (story, free roam, tourist spots, photo mode, on foot) and show how much of it they have seen.
 
+## Current completion scope
+
+Use `spot-availability.js` as the shared pure menu/completion contract. `SPOTS` is the current ordered menu list, while `SPOTS_ALL` preserves all development scenes and `READY` preserves historical visual-review flags. City visits, postcards and distinct guided-tour targets enumerate the available destinations. Activity achievements outside that set are excluded before and after the async scene registry loads. Old saved visits/unlocks remain stored and count only when their entries are currently available. A hidden development show-all option may intentionally expand this scope. Older dated request notes below describe superseded totals.
+
 ## Requirements
 R23.1 **Catalogue** of ~40–60 achievements in categories, each with id, icon, title, description, category, optional `hidden` (shown as "???" until unlocked) and optional counter target (e.g. 7/10):
 - **Story**: each chapter completed, Bucharest done, the flight, story complete.
@@ -110,4 +114,4 @@ R23.8 **Dinamo drone football secret** (owner, 2026-11-08): a football starts on
 
 ### Fidelity integration: retired unsupported activities
 
-Remove `lm-needle-360` (`space-needle:deck`) and `lm-bbg-plants` (`bel-botanical-garden:plants`) from the active catalogue. The unmodelled deck stair teleport and invented botanical label-count award were removed from scene participation. Keep the animated Needle elevator/Loupe and the physical garden bridge. Existing saved unlock/activity keys remain historical data: completion and the all-activities award enumerate the current catalogue, so retired keys add neither a requirement nor progress. Current catalogue114, initially active113.
+Remove `lm-needle-360` (`space-needle:deck`) and `lm-bbg-plants` (`bel-botanical-garden:plants`) from the active catalogue. The unmodelled deck stair teleport and invented botanical label-count award were removed from scene participation. Keep the animated Needle elevator/Loupe and the physical garden bridge. Existing saved unlock/activity keys remain historical data: completion and the all-activities award enumerate the current catalogue, so retired keys add neither a requirement nor progress. Current catalogue contains 114 entries. Active activity requirements and city/postcard/tour targets follow the current menu availability; cycling activates on first use. Preserve old earned keys without counting unavailable or retired entries toward progress.

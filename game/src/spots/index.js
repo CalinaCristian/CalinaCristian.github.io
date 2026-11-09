@@ -338,7 +338,9 @@ export class SpotSession {
     }
     async start() {
         const { spot, host } = this, r3d = this.r3d, cam = this.camera;
-        cam.near = 0.25; // on foot: render's depth-precision test (note 55) cam.far = Math.max(cam.far, 9000); cam.updateProjectionMatrix();
+        cam.near = 0.25; // on foot: render's depth-precision test (note 55)
+        cam.far = Math.max(cam.far, Number.isFinite(spot.env.cameraFarM) ? spot.env.cameraFarM : 9000);
+        cam.updateProjectionMatrix();
         const T = [performance.now()];
         if (host.season !== undefined) r3d.setSeason(host.season === 'auto' ? null : host.season);
         r3d.setScene(spot.scene, cam, spot.env, { units: spot.units, vegetation: spot.vegetation,

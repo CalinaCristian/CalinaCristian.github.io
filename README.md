@@ -106,7 +106,8 @@ that chapter of the CV.
   SeaTac keeps four representative airside aircraft at independently measured aerial positions, bearings and plan dimensions;
   their generic vertical shapes and details remain estimates.
   The source SeaTac garage uses open structural decks and visible support collisions; the mapped covered departures curb
-  keeps the terminal solid above and below it. Floor alignment, slab/post dimensions and unmeasured interior columns remain explicit estimates.
+  keeps the terminal solid above and below it. Mapped skybridges retain2.3m interiors and connect the estimated fourth deck below the upper roadway.
+  Floor alignment, slab/post dimensions and unmeasured interior columns remain explicit estimates.
   every other building comes from OSM footprints with researched heights, facade colours and styles by era. ~600
   researched non-residential buildings get their real type (curtain-wall offices, malls, supermarkets, hotels, parking
   garages, schools, warehouses), fuel stations keep their sourced locations with canopy decoration only where it fits,

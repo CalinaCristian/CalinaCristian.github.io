@@ -5,7 +5,7 @@ import { BUCHAREST_SOURCE_MASSES } from './landmark-source-masses.js';
 import { OTP_ROOF_ZONES, OTP_ARRIVALS_PROFILE } from './landmark-otp-roofs.js';
 import { CEC_SOURCE_MASSES } from './landmark-cec-source.js';
 import { SEATAC_AIRCRAFT } from './landmark-seatac-aircraft.js';
-import { DEPARTURES_CURB, GARAGE_STRUCTURE, structureCollider, boundaryBand, garagePosts, coveredCurbCells, coveredCurbPosts } from './landmark-seatac-structure.js';
+import { DEPARTURES_CURB, GARAGE_STRUCTURE, structureCollider, boundaryBand, garagePosts, coveredCurbCells, coveredCurbPosts, emitGarageSkybridges, terminalBridgeEntries, emitTerminalLowerStructure } from './landmark-seatac-structure.js';
 import { footprintCells } from './building-parts.js';
 import { US_FOOTPRINTS as U, US_SOURCE_TAGS as UT } from './landmark-us-source.js';
 import { emitUSLandmarkTerrain } from './landmark-us-terrain.js';
@@ -2299,7 +2299,7 @@ function bSeaTac(b) {
     // The source polygon is the roof projection, including the covered public curb.
     // Preserve all of it below/above the bounded mapped-road opening; no terminal lift.
     const curb=coveredCurbCells(p),lo=DEPARTURES_CURB.modelVoidBottomLocalM,hi=DEPARTURES_CURB.modelSoffitLocalM;
-    b.prism(p,0,lo,'#d7dadb');b.prism(p,hi,17,'#d7dadb',{topCol:'#c4c8ca',bottom:true});
+    emitTerminalLowerStructure(b,p,lo,'#d7dadb');b.prism(p,hi,17,'#d7dadb',{topCol:'#c4c8ca',bottom:true});
     for(const q of curb.solid)b.prism(q,lo,hi,'#d7dadb',{top:false});
     coveredCurbPosts(b,p,'#d7dadb');
     // The mapped curved frontage is split into short edges (including 7.66 m).
@@ -2307,7 +2307,7 @@ function bSeaTac(b) {
     // the inter-storey wall and roof edge remain plain. Official curbside context:
     // https://www.portseattle.org/projects/sea-gateway-project (Arrivals Drive accessible door portals).
     b.windows(p, 0, 17, 8.5, GL, { bay: 12, wf: 0.92, hf: 0.55, start: 2.5, mat: 'g', minL: 2,
-        skip:(i,j,f,k)=>{if(f!==1)return false;const a=p[i],c=p[(i+1)%p.length],t=(j+.5)/k;return curb.contains(a[0]+(c[0]-a[0])*t,a[1]+(c[1]-a[1])*t);} });
+        skip:(i,j,f,k)=>{const a=p[i],c=p[(i+1)%p.length],t=(j+.5)/k,x=a[0]+(c[0]-a[0])*t,z=a[1]+(c[1]-a[1])*t;return f===1?curb.contains(x,z):terminalBridgeEntries(p).contains(x,z);} });
     b.cornice(p, 16.4, 1.2, 1.2, WH);
     b.prism(offset(p, -6), 17, 19.5, WH);
     b.text('SEATTLE-TACOMA INTERNATIONAL AIRPORT', -120, 11, zAt([p], -120)[0] - 1.25, Math.PI, 3.2, '#1f3550');
@@ -2336,7 +2336,6 @@ function bSeaTac(b) {
         airliner(b, 0, 0, 0, a.livery, a.lengthM);
         b.pop();
     }
-    structureCollider(b,p,[],0,lo,'w23772634','terminal-below-covered-curb');
     structureCollider(b,p,[],hi,19.5,'w23772634','terminal-above-covered-curb');
     for(const q of curb.solid)structureCollider(b,q,[],lo,hi,'w23772634','terminal-solid-beside-covered-curb');
     b.colPolygon(iaf, { y1: 36.5 }); b.colPolygon(ss, { y1: 14.6 });
@@ -2697,21 +2696,21 @@ function bMurrow(b) {
 // "North America's largest parking structure under one roof". Precast decks with light-grey spandrel bands #a9a8a2 and
 // open sides; eight round light wells / helices (OSM inner rings). Level 4 connects to the terminal by the six enclosed
 // Skybridges 1-6 over Arrivals / Departures Drive (OSM w37017724-29, level 4, ~33-40 m) and to the Link station.
-// Floor-to-floor3.05m remains an estimate; mapped source road-floor datums are unresolved.
+// Individual deck datums remain estimates; mapped source road-floor datums are unresolved.
 // Src: game/research/seattle-seatac.json landmarks[sea-garage] ; en.wikipedia.org/wiki/Seattle–Tacoma_International_Airport ;
 //      OSM rel 15763840, w37017724-w37017729 ; Commons "SeaTacAerial.jpg" (Bernstea, CC BY-SA 4.0, reference only)
 function bSeaGarage(b) {
     const source=U.r15763840, outer=source.find(q=>q.role==='outer').poly, holes=source.filter(q=>q.role==='inner').map(q=>q.poly), G1 = '#a9a8a2', IN = '#4a4c4f', FH = 3.05;
     // Official Port records/photos and mapped aisles establish open parking decks.
-    // Keep exact source outer/eight holes, complete roof and existing floor interval.
-    // Thickness/spandrel/post dimensions remain explicit estimates, bounded by the
+    // Keep exact source outer/eight holes and complete roof; explicit deck datums support the source Level4 connection.
+    // Datums/thickness/spandrel/post dimensions remain explicit estimates, bounded by the
     // garage's official6ft10in entrance limit; no source layer is converted to metres.
     const profile=GARAGE_STRUCTURE;
     for(let k=0;k<=7;k++){
-        const y=k*FH,y0=Math.max(0,y-profile.deckThicknessM),y1=y+.05;
+        const y=profile.floorDatumsM[k],y0=Math.max(0,y-profile.deckThicknessM),y1=y+.05;
         b.prism(outer,y0,y1,IN,{holes,topCol:k===7?'#8d8c88':G1,bottom:true});
         structureCollider(b,outer,holes,y0,y1,'r15763840','garage-deck');
-        const sp0=Math.max(0,y-profile.spandrelDepthM);
+        const sp0=Math.max(0,y-(k<=3?profile.lowerSpandrelDepthM:profile.spandrelDepthM));
         b.ring(offset(outer,.12),sp0,y1,G1);boundaryBand(b,outer,sp0,y1,.3,'r15763840','garage-edge-spandrel');
         for(const h of holes){b.ring(offset(h,-.1),sp0,y1,'#9d9c97',{inward:true});boundaryBand(b,h,sp0,y1,.2,'r15763840','garage-inner-spandrel');}
     }
@@ -2722,14 +2721,9 @@ function bSeaGarage(b) {
         b.box(x,7*FH,z,9,3.2,7,'#9fa09c');
         structureCollider(b,[[x-4.5,z-3.5],[x+4.5,z-3.5],[x+4.5,z+3.5],[x-4.5,z+3.5]],[],7*FH,7*FH+3.2,'r15763840','garage-existing-roof-core');
     }
-    // Skybridges 1-6 (level 4) from the garage face to the terminal
-    const SKY = [[-88.0, -166.6, -64.8, -143.0], [-111.2, -97.1, -134.1, -120.8], [-153.8, -53.2, -184.2, -68.0], [-184.1, -6.6, -154.0, -21.6], [-112.6, 22.0, -136.0, 46.4], [-54.6, 137.5, -29.5, 106.5]];
-    const y = 3 * FH;
-    for (const [x0, z0, x1, z1] of SKY) {
-        b.strut([x0, y + 2.1, z0], [x1, y + 2.1, z1], 6.5, 3.6, '#7f9fb3', 'g');
-        b.strut([x0, y - 0.45, z0], [x1, y - 0.45, z1], 7, 0.9, '#e1e3e4');
-        b.strut([x0, y + 4.25, z0], [x1, y + 4.25, z1], 7.3, 0.7, '#e1e3e4');
-    }
+    // Exact mapped Skybridges1–6 connect the estimated Level4 deck to the terminal,
+    // beneath the actual upper-road underside; source XY and the garage envelope stay fixed.
+    emitGarageSkybridges(b);
 }
 
 // SeaTac/Airport Link light-rail station (Sound Transit 1 Line, opened 2009-12-19) — island platform elevated 60 ft

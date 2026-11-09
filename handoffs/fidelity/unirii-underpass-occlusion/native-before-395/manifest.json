@@ -1,0 +1,166 @@
+{
+  "source": "395071c21079fb14c25af194a9903a5ae5d87b26",
+  "files": [
+    {
+      "path": "executed-tools/canonical-index.cjs",
+      "bytes": 3756,
+      "sha256": "060bf3d4ff5917386fd96eb46487ea24db61ebf76901f6fed33f84f7c385acf0"
+    },
+    {
+      "path": "executed-tools/observe-gts-r2.cjs",
+      "bytes": 14416,
+      "sha256": "1f94c374af3471b7817cff8c7eba30c7671d79e842f8cc8ea7a87983a8cfdba6"
+    },
+    {
+      "path": "executed-tools/observe-gts-tool-failed.cjs",
+      "bytes": 13999,
+      "sha256": "25cd86ccf2327c896ea328dd23083f9607415c5cee5da931ff0ef81f72487df9"
+    },
+    {
+      "path": "executed-tools/observe-main-pasaj-first.cjs",
+      "bytes": 13940,
+      "sha256": "3140c6fd00b4a2aa19796dd59a229ff6ca121340cb7f13a991e5854c9b855079"
+    },
+    {
+      "path": "executed-tools/prepare-native-archive.py",
+      "bytes": 2256,
+      "sha256": "e6b45a247498565f94afc54f728873b961b1a056ad1eb068f43001a673e662ce"
+    },
+    {
+      "path": "gts-rush-r2/drive-end-GTS-story-native-route-02.json.gz",
+      "bytes": 7415,
+      "sha256": "7adbbd1729f43c05e9a927b4321e83e27cacc86d2a837696e7ac6383ae285046"
+    },
+    {
+      "path": "gts-rush-r2/drive-end-GTS-story-native-route-02.png",
+      "bytes": 1608965,
+      "sha256": "23b1cc53078d131e6c0bf32a55c55618a96fb44fe16e35e021f6169d39bbeb44"
+    },
+    {
+      "path": "gts-rush-r2/native-left-look-04.json.gz",
+      "bytes": 7977,
+      "sha256": "bc55fcd3ffaaf4b48394de65fbb21af0ff848b26130d91dc140ae3e02db81510"
+    },
+    {
+      "path": "gts-rush-r2/native-left-look-04.png",
+      "bytes": 1563650,
+      "sha256": "77c38165d8d286bc347638f5a2d5f73af4834c0e315b7bffbbdc8e3930e2322e"
+    },
+    {
+      "path": "gts-rush-r2/native-right-look-03.json.gz",
+      "bytes": 7109,
+      "sha256": "acb2b041d7de36d8d3640ec9665433de2d4fe6994a4cb39e495702a094c627bc"
+    },
+    {
+      "path": "gts-rush-r2/native-right-look-03.png",
+      "bytes": 1592633,
+      "sha256": "11afc73926479f5d7c7ee5189ff968095450c04bdf89a05f046cb9cc37b96310"
+    },
+    {
+      "path": "gts-rush-r2/native-world.json.gz",
+      "bytes": 9340406,
+      "sha256": "53dd09dddce4dc934fb89eca84aa3cf32748aafb2e5c6dfab162eee2c08f0c0a"
+    },
+    {
+      "path": "gts-rush-r2/public-start-00.json.gz",
+      "bytes": 6335,
+      "sha256": "c0c94983788518bcd56edc292ebf1f41aa3d056cd1a0ddc2348e25cf62d288df"
+    },
+    {
+      "path": "gts-rush-r2/public-start-00.png",
+      "bytes": 1580537,
+      "sha256": "900a5d6fcb1bec4fa607b6741b5aeb137c5510d3e78cb94ac8400f3468d28e51"
+    },
+    {
+      "path": "gts-rush-r2/report.json",
+      "bytes": 815842,
+      "sha256": "61cafb20e703cf2ad253d6aecf4af19ae364f0fb1544e813ac08b53ef0769722"
+    },
+    {
+      "path": "gts-rush-r2/reset-request-blocked-by-traffic-01.json.gz",
+      "bytes": 7615,
+      "sha256": "f90afb58a2eee13acb0a76f1b129f728ac3be56d1f249a7f1d6fe63d57e559de"
+    },
+    {
+      "path": "gts-rush-r2/reset-request-blocked-by-traffic-01.png",
+      "bytes": 1611713,
+      "sha256": "e76ccf4f0fd08cd590c004a47e9434ed70b021a4df92e2eccd73e9ddaabfde56"
+    },
+    {
+      "path": "gts-rush-r2/trace-current.json.gz",
+      "bytes": 52806,
+      "sha256": "d11a0dc1b8940f42b070c1064d6ba3bbd55c6a0b28d4c437d5f3e4cd10c8519f"
+    },
+    {
+      "path": "gts-tool-serialization-failure/public-start-00.json.gz",
+      "bytes": 6335,
+      "sha256": "c0c94983788518bcd56edc292ebf1f41aa3d056cd1a0ddc2348e25cf62d288df"
+    },
+    {
+      "path": "gts-tool-serialization-failure/public-start-00.png",
+      "bytes": 1576922,
+      "sha256": "0b97972176541cf1f0172e21349ca1d03a4ec70cd914081d0e5a1b070b33c9a6"
+    },
+    {
+      "path": "gts-tool-serialization-failure/report.json",
+      "bytes": 333220,
+      "sha256": "b0b52ab27f6c1a53423100e8c55e165217ce052db9624f582e2fde43c960e43e"
+    },
+    {
+      "path": "main-pasaj-route-probe/drive-end-south-approach-01.json.gz",
+      "bytes": 6603,
+      "sha256": "12065b08ce194a9699453a31f5d11424bd41b222d59ce413908ccc89030800c8"
+    },
+    {
+      "path": "main-pasaj-route-probe/drive-end-south-approach-01.png",
+      "bytes": 1584748,
+      "sha256": "b06ede4885d91f3844a8193566506722fc9830e22f899a129ac54ddd8c4710c1"
+    },
+    {
+      "path": "main-pasaj-route-probe/native-left-look-03.json.gz",
+      "bytes": 6609,
+      "sha256": "490a6ab2b59311e07cdb5511a95f95c319f8c94d0e5d38b1b81dc2ab3edb07eb"
+    },
+    {
+      "path": "main-pasaj-route-probe/native-left-look-03.png",
+      "bytes": 1567541,
+      "sha256": "7ab0b4c89d11a71d794a589cdd60054ae9ba85d1286728d00e051f525a39c79a"
+    },
+    {
+      "path": "main-pasaj-route-probe/native-right-look-02.json.gz",
+      "bytes": 6793,
+      "sha256": "636da6920aa5912c9499be2b5f5ed795d3395ae645a002224279ce2d68e76d57"
+    },
+    {
+      "path": "main-pasaj-route-probe/native-right-look-02.png",
+      "bytes": 1587044,
+      "sha256": "44013ed7d0910a320adb903ae84fbd20597e672cfa1b5e3d460d48809617c6fc"
+    },
+    {
+      "path": "main-pasaj-route-probe/public-start-00.json.gz",
+      "bytes": 6309,
+      "sha256": "1390e47fc1cc3604f40b387cf5acfb97f8de079415dc4d4e32f5e5b8e0b64c72"
+    },
+    {
+      "path": "main-pasaj-route-probe/public-start-00.png",
+      "bytes": 1586662,
+      "sha256": "929eb027a2a969f1afdbeda59f52e00302fd91dbf748aa9e8b8531313bf33c1e"
+    },
+    {
+      "path": "main-pasaj-route-probe/report.json",
+      "bytes": 648704,
+      "sha256": "c8d3325602b56565df28eb6fe06b70dee9d67832c2a3649e0f717e5f5aa3e38c"
+    },
+    {
+      "path": "main-pasaj-route-probe/trace-current.json.gz",
+      "bytes": 677,
+      "sha256": "20508e586a4935ceda16aa938a86277dce17d8fdd50ac0eb611c54c03eebea86"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 44924,
+      "sha256": "fcc22e70d3c76c42c3546d81323d1ac4e2777f1b7848d35f2a885b23e4a8497e"
+    }
+  ],
+  "scope": "Historical negative/source geometry evidence; native AFTER and continuous Coposu drive remain unaccepted. The unrelated main-Pasaj full geometry stays in its original raw directory, with original report hash retained."
+}

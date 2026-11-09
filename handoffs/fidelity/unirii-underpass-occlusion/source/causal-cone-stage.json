@@ -1,0 +1,249 @@
+{
+  "passed": true,
+  "scope": "Literal initial negative/positive cone solve stage extracted from immutable395 world.js, detached native395 graph. Actual final395 profile retained separately. Subsequent profile passes and fresh native AFTER remain required.",
+  "models": {
+    "estimated": true,
+    "models": [
+      {
+        "id": "unirii-mol-coposu-source-canopy-cover",
+        "sourceRoadId": "w79870041",
+        "sourceCanopyId": "w670595374",
+        "roadIndices": [
+          91
+        ],
+        "floorModel": {
+          "estimated": true,
+          "floorY": 0,
+          "basis": "Reviewed literal open MOL canopy and exact same-source-node connections to ordinary Coposu surface carriageway. Raw layer−1 is relative ordering beneath layer1 canopy, not6m underground elevation. Existing4.8m canopy underside/5.2m top remain model estimates."
+        },
+        "profileOnly": true,
+        "lengthM": 14.143320580354333,
+        "coveredM": 14.143320580354333,
+        "clearanceM": 4.56,
+        "clearanceSource": "existing emitted source-canopy underside minus native0.24m road surface; roof dimensions remain explicit estimates",
+        "legalMaxheightM": 4.25,
+        "nativeUndersideM": 4.8,
+        "nativeTopM": 5.2,
+        "sourceGroundJoins": [
+          {
+            "portalNodeId": 6260825651,
+            "anchorRoadId": "w982816382",
+            "anchorNodeId": 9088160162,
+            "ways": [
+              [
+                "w668563018",
+                1
+              ]
+            ]
+          },
+          {
+            "portalNodeId": 13563618634,
+            "anchorRoadId": "w982816382",
+            "anchorNodeId": 9088160161,
+            "ways": [
+              [
+                "w668563017",
+                -1
+              ],
+              [
+                "w1478497247",
+                -1
+              ]
+            ]
+          }
+        ],
+        "sourceXmlSha256": "85df20eded36f4d37dd0558762385fd6496b0608e5ebf7889c8db1eafd8a9f67",
+        "evidence": [
+          "https://www.openstreetmap.org/way/79870041",
+          "https://www.openstreetmap.org/way/670595374",
+          "https://www.openstreetmap.org/way/668563018",
+          "https://www.openstreetmap.org/way/668563017",
+          "https://www.openstreetmap.org/way/1478497247",
+          "https://www.openstreetmap.org/way/982816382"
+        ],
+        "dimensionNote": "Raw layer/tunnel tags preserved. Individually reviewed relative under-canopy ordering with literal ground joins; no layer-to-metre conversion, new ceiling, wall, opening or source-volume removal."
+      }
+    ],
+    "unresolved": [],
+    "basis": "reviewed source cover and literal ground joins; not measured elevation"
+  },
+  "affectedCoposuNodes": [
+    {
+      "nativeId": 421,
+      "sourceNodeId": 9088160178,
+      "initialConeBeforeY": -1.312274202698395,
+      "initialConeAfterY": 0,
+      "actual395FinalY": -1.8331326246207968
+    },
+    {
+      "nativeId": 495,
+      "sourceNodeId": 9088160140,
+      "initialConeBeforeY": 0,
+      "initialConeAfterY": 0,
+      "actual395FinalY": -0.48995285008462885
+    },
+    {
+      "nativeId": 496,
+      "sourceNodeId": 134860939,
+      "initialConeBeforeY": 0,
+      "initialConeAfterY": 0,
+      "actual395FinalY": 0
+    },
+    {
+      "nativeId": 741,
+      "sourceNodeId": 9088160161,
+      "initialConeBeforeY": -4.090740034335421,
+      "initialConeAfterY": 0,
+      "actual395FinalY": -4.302880030520376
+    },
+    {
+      "nativeId": 742,
+      "sourceNodeId": 9088160162,
+      "initialConeBeforeY": -2.789229352434334,
+      "initialConeAfterY": 0,
+      "actual395FinalY": -3.145981646608295
+    },
+    {
+      "nativeId": 754,
+      "sourceNodeId": 9088160137,
+      "initialConeBeforeY": 0,
+      "initialConeAfterY": 0,
+      "actual395FinalY": 0
+    },
+    {
+      "nativeId": 788,
+      "sourceNodeId": 9088160163,
+      "initialConeBeforeY": -0.7671251728949544,
+      "initialConeAfterY": 0,
+      "actual395FinalY": -1.3485557092399572
+    },
+    {
+      "nativeId": 816,
+      "sourceNodeId": 2308464871,
+      "initialConeBeforeY": 0,
+      "initialConeAfterY": 0,
+      "actual395FinalY": 0
+    },
+    {
+      "nativeId": 817,
+      "sourceNodeId": 9088160179,
+      "initialConeBeforeY": 0,
+      "initialConeAfterY": 0,
+      "actual395FinalY": 0
+    }
+  ],
+  "truePasajEdgesUnchanged": [
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    832,
+    833,
+    834,
+    835,
+    960,
+    961,
+    962,
+    963,
+    964,
+    965,
+    966,
+    967,
+    968,
+    969,
+    970,
+    971,
+    972,
+    973,
+    974,
+    975,
+    976,
+    977,
+    978,
+    979,
+    980,
+    981,
+    982,
+    983,
+    984,
+    985,
+    986,
+    987,
+    988,
+    989,
+    990,
+    991,
+    992,
+    993,
+    994,
+    995,
+    996,
+    997,
+    998,
+    999,
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    1010,
+    1011,
+    1012,
+    1013,
+    1014,
+    1015,
+    1016,
+    1017,
+    1018,
+    1019,
+    1020,
+    1021,
+    1022,
+    1023,
+    1024,
+    1025,
+    1026,
+    1027,
+    1028,
+    1029,
+    1030,
+    1031,
+    1032,
+    1033,
+    1034,
+    1035,
+    1036,
+    1037,
+    1038,
+    1039,
+    1040,
+    1041,
+    1042,
+    1043,
+    1044,
+    1045,
+    1046,
+    1047,
+    1048,
+    1049,
+    1050,
+    1051,
+    1052,
+    1053
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "report.json.gz": {
+    "sha256": "f75c035dd6090cc8061168fa4bfffde9ded6dbd4356d79b217bbc5ad76b7d08e",
+    "bytes": 2705657
+  },
+  "classification.json": {
+    "sha256": "5527eeb03e8da1856539139311bfc88fb4a94cf06bd7803520fe34affe251163",
+    "bytes": 60853
+  },
+  "winter-body-classification.png": {
+    "sha256": "78a47d655acd8ae12266b480111de34a735f4e6672c96e2d927863809c92fd42",
+    "bytes": 107869
+  },
+  "execution.log": {
+    "sha256": "f0724976919e1dd8f09fee992d0ddba60ae2c626e9ccf5d3dbffc5f6323cfa72",
+    "bytes": 2189
+  }
+}

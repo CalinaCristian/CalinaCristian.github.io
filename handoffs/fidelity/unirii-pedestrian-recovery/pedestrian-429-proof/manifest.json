@@ -1,0 +1,22 @@
+{
+  "summary.json": {
+    "sha256": "b49c030a8c85b56440ba3d2dceafa84fb986611b673a051e18759df36f364f42",
+    "bytes": 696862
+  },
+  "unirii-first150m-observed.png": {
+    "sha256": "2073507412a8ad1d1d426879efec504d6df52684000c5a52951c7df6256b7ab7",
+    "bytes": 1215903
+  },
+  "report.json.gz": {
+    "sha256": "66a597eaadd603b7928e7b911d16bb36c35dbe5f1d444fae4a4a71492916a1f3",
+    "bytes": 651115
+  },
+  "pedestrian-physical-traces.png": {
+    "sha256": "8a64620e75105a54c5f1e3ce895963bf7709b4d51a5c9699543f4b29835267fe",
+    "bytes": 113782
+  },
+  "HANDOFF.md": {
+    "sha256": "478d4325b12b5a96cca825f162433178c26ceaef3d5ddb4976d89bbedfd8097f",
+    "bytes": 1420
+  }
+}

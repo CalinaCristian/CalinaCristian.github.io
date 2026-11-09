@@ -3471,8 +3471,15 @@ export async function buildWorld(city, renderer, opts = {}) {
         const result = clipBuildingDetailRange(builder, start, owner, faces => {
             let x0=Infinity,z0=Infinity,x1=-Infinity,z1=-Infinity;
             for(const f of faces)for(const p of f){x0=Math.min(x0,p[0]);z0=Math.min(z0,p[2]);x1=Math.max(x1,p[0]);z1=Math.max(z1,p[2]);}
-            const neighbours=[];
-            bGrid.each(x0,z0,x1,z1,b=>{if(b!==owner&&!b.skip){const roof=completeDetailRoof(b);if(roof)neighbours.push(roof);else if(b.x0<=x1&&b.x1>=x0&&b.z0<=z1&&b.z1>=z0)neighbours.push({i:b.i,sourceId:b.sourceId,minH:b.minH});}});
+            const neighbours=[],seen=new Set();
+            bGrid.each(x0,z0,x1,z1,b=>{
+                if(seen.has(b.i))return;seen.add(b.i);
+                // BoxGrid visits each occupied cell. Query each actual source
+                // once, and reject disjoint bounds in the emitted Float32 frame.
+                if(b===owner||b.skip||Math.min(b.x0,Math.fround(b.x0))>x1||Math.max(b.x1,Math.fround(b.x1))<x0||Math.min(b.z0,Math.fround(b.z0))>z1||Math.max(b.z1,Math.fround(b.z1))<z0)return;
+                const roof=completeDetailRoof(b);
+                if(roof)neighbours.push(roof);else neighbours.push({i:b.i,sourceId:b.sourceId,minH:b.minH});
+            });
             return neighbours;
         });
         inferredDetailAudit.ranges++; inferredDetailAudit.clippedAreaM2 += result.clippedAreaM2;

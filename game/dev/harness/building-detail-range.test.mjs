@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import * as THREE from '../../vendor/three.module.min.js';
 import { MeshBuilder } from '../../src/geobuild.js';
+import { clipInferredBuildingDetail } from '../../src/building-detail-visibility.js';
 import { clipBuildingDetailRange } from '../../src/building-detail-range.js';
 import { roofMesh } from '../../src/building-roofs.js';
 const fixture=JSON.parse(fs.readFileSync(new URL('../../../handoffs/fidelity/campus-building-parts/cf-ck-native-fixture.json',import.meta.url)));
@@ -17,7 +18,8 @@ for(const pair of fixture.nativePairs){
     assert(result.clippedAreaM2+1e-7>=pair.overlapAreaM2);assert.equal(result.issues.length,0);
     for(const [key,values]of Object.entries(prefix))assert.deepEqual([...mb[key].slice(0,values.length)],values,`${key} source prefix changed`);
     for(let k=start.vc;k<mb.vc;k++){assert.equal(mb.p[k*3],mb.u[k*2]);assert.equal(mb.p[k*3+2],mb.u[k*2+1]);assert.deepEqual([...mb.c.slice(k*3,k*3+3)],[100,130,170]);assert.equal(mb.t[k],-1);assert.deepEqual([...mb.n.slice(k*3,k*3+3)],[0,1,0]);}
+    const other=bodies.find(b=>b!==owner),single=clipInferredBuildingDetail([pair.a.vertices],owner,[other],{inferred:true}),repeated=clipInferredBuildingDetail([pair.a.vertices],owner,Array(12).fill(other),{inferred:true});assert.deepEqual(single,repeated,'native BoxGrid duplicate-query elimination changed actual campus geometry');
     nativePairs++;
 }
 const mb=new MeshBuilder(true);mb.wall(0,0,10,0,0,10,0,-1,[50,100,150],0,2,0,3,7);const start={ic:mb.ic,vc:mb.vc};mb.wall(20,20,30,20,0,10,0,-1,[50,100,150],0,2,0,3,7);const before={i:[...mb.i.slice(0,mb.ic)],p:[...mb.p.slice(0,mb.vc*3)]};const result=clipBuildingDetailRange(mb,start,{i:1,sourceId:'w1'},[]);assert.equal(result.clippedAreaM2,0);assert.deepEqual([...mb.i.slice(0,mb.ic)],before.i);assert.deepEqual([...mb.p.slice(0,mb.vc*3)],before.p);
-console.log(JSON.stringify({passed:true,nativeCampusRangePairs:nativePairs,controls:['source-index-and-all-attribute-prefixes','new-UV-colour-normal-tile-interpolation','no-op-native-indices-unchanged'],browserOpened:false}));
+console.log(JSON.stringify({passed:true,nativeCampusRangePairs:nativePairs,controls:['source-index-and-all-attribute-prefixes','new-UV-colour-normal-tile-interpolation','no-op-native-indices-unchanged','actual-native-duplicate-query-geometry-parity'],browserOpened:false}));

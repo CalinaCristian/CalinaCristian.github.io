@@ -50,9 +50,9 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   The pilot marker uses the same seasonal character system as pedestrians.
   At Rosetti’s existing basketball court, pick up the ball, aim along its predicted dotted arc and throw. A real basket
   unlocks a secret achievement; desktop and mobile actions are supported. Pause, map, camera, drone or leaving cancels the aim.
-- **Tourist spots (bonus).** 24 walk-only destinations across 19 scenes, with 21 currently offered in the menu.
-  The Troll, cathedral and Old Town lead the recommendations; quieter parks and gardens have their own expandable group.
-  Ballard Locks, Herăstrău and the Village Museum remain developer-loadable while their activity approaches need verification.
+- **Tourist spots (bonus).** Seven primary visits: Old Town, Cișmigiu and Arcul de Triumf in Bucharest; Pike Place and one combined Space Needle–Chihuly visit in Seattle; Meydenbauer and Downtown Park in Bellevue.
+  The older 24-entry catalogue retains its source/evidence history and saved progress. Retired visits do not count toward current completion. The seven-visit scenery and activity quality pass remains in progress.
+  Old Town uses a compact Lipscani–Smârdan focus with a source-anchored Freddo entrance, an estimated club interior, a visible dance avatar with timed left/right/spin inputs, and a three-stage virtual shot. Original house music uses the existing audio context and volume controls. The sports room and Carusel remain accessible.
   The full catalogue includes Bucharest's ten (Palace of the Parliament, People's
   Salvation Cathedral, Old Town & Cărturești Carusel, Stavropoleos & CEC, the Athenaeum, Arcul de Triumf, Herăstrău,
   the Village Museum, the Spring Palace, Cișmigiu), Seattle's top 10 (Pike Place, the Space Needle, Chihuly Garden and
@@ -61,7 +61,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   a spot map with objectives, an optional short guided tour, a postcard photo challenge and activities — ride the Space
   Needle elevator to the revolving Loupe, catch a fish at Pike Place, row in Cișmigiu, frame the Arc de Triumf memorial,
   and frame historic details in Pioneer Square. Herăstrău cycling remains in its development scene. Short tours select an available activity first and use at most three stops / 180 m
-  of walkable route, with **Skip** and **End tour** controls. Activities and postcards require participation; narration
+  of walkable route, with **Skip step (J)** and **End tour** controls. Modal activities preserve the current itinerary; completing one advances its matching step, while cancellation leaves it unfinished. Activities and postcards require participation; narration
   alone never completes them. Seasonal Cișmigiu rowing starts at the mapped Debarcader: use the visible oars to propel
   the boat along a short return course. Idle time grants no progress. Pause, map, photo mode, drone launch or leaving
   cancels an unfinished activity and restores the walker safely to shore. Explicit local time, weather and season choices also follow travel into tourist scenes; K and Pause → Settings open their conditions panel. A hidden sports room reached through Carusel retains the World Cup Predictions Easter egg;

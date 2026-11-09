@@ -128,8 +128,9 @@ export function createVenueActivities(ctx) {
                 run.step++; run.animating = false;
                 note('step');
                 if (run.step === 3) {
-                    const { kind, venue } = run; restore();
+                    const { kind, venue, tourStop } = run; restore();
                     bucActivity(s, 'old-town-lipscani', venue.activity || (kind === 'shaorma' ? 'dristor-shaorma' : 'shoteria-shot'), kind === 'shaorma' ? '🥙 Poftă bună!' : '🥂 Noroc!', kind === 'shaorma' ? 'Shaorma finished at Dristor Kebap, Strada Franceză 17.' : `Poured, raised and finished a virtual shot at ${venue.name}, ${venue.address}.`);
+                    s.completeTourActivity?.(tourStop);
                     return;
                 }
                 run.status.textContent = `${run.step}/3 · ${run.kind === 'shaorma' ? 'A little less shaorma, a little more Old Town.' : run.step === 1 ? 'Glass filled. Time for a toast.' : 'A toast to the Old Town.'}`;
@@ -164,7 +165,8 @@ export function createVenueActivities(ctx) {
             const button = ui.querySelector('[data-act]'), status = ui.querySelector('p'), progress = ui.querySelector('progress');
             run = { s, kind, venue, spot: s.spot.id, x: s.position.x, z: s.position.z, step: 0, t: 0, intro: .4, animating: false, ctlActive: s.ctl.active, ui, button, status, progress, began: performance.now(), token: globalThis.crypto?.randomUUID?.() || String(performance.now()) };
             note('start');
-            s.endTour?.(); s.ctl.active = false; s.input.releaseLock?.(); s.input.take?.('KeyE'); s.ui.prompt(null);
+            run.tourStop = s.captureTourActivity?.();
+            s.ctl.active = false; s.input.releaseLock?.(); s.input.take?.('KeyE'); s.ui.prompt(null);
             s.ui.el.append(ui); button.textContent = steps()[0] + ' (E)'; status.textContent = kind === 'shaorma' ? 'Three bites. Take your time.' : 'Pour, raise, then drink. Three small actions.';
             button.onclick = act; ui.querySelector('[data-cancel]').onclick = () => cancel('leave');
             p.root.visible = true; s.camera.add(p.root); render(); return true;

@@ -24,7 +24,7 @@ import { countTris, disposeTree, headingFromBearing, inPoly, polyBox, DEG, rng, 
 export const SPOTS_ALL = [
     { id: 'pike-place', city: 'seattle', name: 'Pike Place Market & the Gum Wall', lat: 47.60897, lon: -122.33987, kind: 'walk', scene: 'pike-place', blurb: 'Seattle\'s 1907 public market under the red PUBLIC MARKET CENTER neon sign: flying fish, Rachel the bronze pig, the original Starbucks and the Gum Wall in Post Alley.' },
     { id: 'chihuly', city: 'seattle', name: 'Chihuly Garden and Glass', lat: 47.6204, lon: -122.3504, kind: 'walk', scene: 'seattle-center', blurb: 'Dale Chihuly\'s glass art at the foot of the Space Needle: the Glasshouse with its 100-ft red-orange-yellow suspended sculpture and a garden of glass among plants.' },
-    { id: 'space-needle', city: 'seattle', name: 'Space Needle & Seattle Center', lat: 47.61995, lon: -122.34935, kind: 'walk', scene: 'seattle-center', blurb: 'The 605-ft (184 m) 1962 World\'s Fair tower with its flying-saucer top and the Seattle Center grounds at its feet.' },
+    { id: 'space-needle', city: 'seattle', name: 'Seattle Center · Space Needle & Chihuly', lat: 47.61995, lon: -122.34935, kind: 'walk', scene: 'seattle-center', blurb: 'One Seattle Center visit: ride the Space Needle elevator, explore the observation deck and discover the Chihuly garden.' },
     { id: 'fremont-troll', city: 'seattle', name: 'Fremont Troll', lat: 47.6506, lon: -122.34722, kind: 'walk', scene: 'fremont-troll', blurb: 'An 18-ft (5.5 m) concrete troll crouching under the north end of the Aurora Bridge, crushing a real Volkswagen Beetle in its left hand.' },
     { id: 'kerry-park', city: 'seattle', name: 'Kerry Park viewpoint', lat: 47.6295, lon: -122.3601, kind: 'walk', scene: 'kerry-park', blurb: 'A small terrace on Queen Anne Hill with Seattle\'s postcard view: the Space Needle in front of downtown, Elliott Bay, and Mount Rainier on clear days.' },
     { id: 'mopop', city: 'seattle', name: 'Museum of Pop Culture (MoPOP)', lat: 47.6216, lon: -122.3474, kind: 'walk', scene: 'seattle-center', blurb: 'Frank Gehry\'s "smashed guitar" of 21,000 stainless-steel and painted-aluminium shingles, with the Monorail gliding straight through it.' },
@@ -38,7 +38,7 @@ export const SPOTS_ALL = [
     // ---- Bucharest (research: game/research/bucharest-spots.json; scenes share a module when adjacent)
     { id: 'palace-parliament', city: 'bucharest', name: 'Palace of the Parliament & Piața Constituției', lat: 44.42741, lon: 26.09205, kind: 'walk', scene: 'buc-parliament', blurb: 'The heaviest building on Earth, seen from the vast square at the head of Bulevardul Unirii: 270 m of cream stone façade, 84 m tall, built 1984–97.' },
     { id: 'peoples-salvation-cathedral', city: 'bucharest', name: 'People\'s Salvation Cathedral', lat: 44.42528, lon: 26.08135, kind: 'walk', scene: 'buc-parliament', blurb: 'The tallest Orthodox church in the world (127 m), white stone and gilded domes on the hill behind the Palace of the Parliament; consecrated 2018–2025.' },
-    { id: 'old-town-lipscani', city: 'bucharest', name: 'Old Town: Lipscani & Cărturești Carusel', lat: 44.43218, lon: 26.10100, kind: 'walk', scene: 'buc-old-town', blurb: 'The pedestrian medieval core: guild-named lanes full of terraces, the white "carousel" bookshop, the 1808 Manuc\'s Inn and Vlad the Impaler\'s princely court.' },
+    { id: 'old-town-lipscani', city: 'bucharest', name: 'Old Town · clubs, Carusel & a hidden bar', lat: 44.43218, lon: 26.10100, kind: 'walk', scene: 'buc-old-town', blurb: 'A short Lipscani–Smârdan night out: dance at Freddo, pour a virtual shot, browse Carusel and find the secret sports room.' },
     { id: 'stavropoleos-cec', city: 'bucharest', name: 'Stavropoleos, Caru\' cu Bere & CEC Palace', lat: 44.43212, lon: 26.09830, kind: 'walk', scene: 'buc-old-town', blurb: 'A tiny 1724 Brâncovenesc jewel of a church between a neo-Gothic beer hall, the domed CEC Palace and the National History Museum.' },
     { id: 'athenaeum-revolution', city: 'bucharest', name: 'Romanian Athenaeum & Piața Revoluției', lat: 44.44085, lon: 26.09765, kind: 'walk', scene: 'athenaeum-revolution', blurb: 'The domed 1888 concert hall in its garden, and the square where the December 1989 revolution began under the Central Committee balcony.' },
     { id: 'arcul-de-triumf', city: 'bucharest', name: 'Arcul de Triumf', lat: 44.46632, lon: 26.07850, kind: 'walk', scene: 'arcul-de-triumf', blurb: 'Bucharest\'s 27 m granite triumphal arch (1936) for the First World War and the 1918 union, in a busy roundabout on Șoseaua Kiseleff.' },
@@ -59,6 +59,7 @@ export const ACTIVITIES = [
     ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'chess', 'Play a chess opening'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
     ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['village-museum', 'farmhouse', 'Collect a virtual household passport'],
     ['old-town-lipscani', 'wcp-bar', 'Hidden project'],
+    ['old-town-lipscani', 'freddo-dance', 'Find your rhythm at Freddo'], ['old-town-lipscani', 'freddo-shot', 'Pour, toast and drink at Freddo'],
     ['old-town-lipscani', 'carusel', 'Climb Cărturești Carusel'], ['old-town-lipscani', 'curtea-veche', 'Old Princely Court'],
     ['old-town-lipscani', 'dristor-shaorma', 'Eat a shaorma at Dristor Kebap'], ['old-town-lipscani', 'shoteria-shot', 'Pour, toast and drink at Shoteria'],
     ['palace-parliament', 'balcony', 'Frame the Palace facade'], ['palace-parliament', 'pace', 'Walk the public Palace sidewalk'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
@@ -380,18 +381,19 @@ export class SpotSession {
     /** everything worth finding in this scene: { kind, x, z, label, done, icon? } (landmarks, plaques, postcard, activities, entrances) */
     objectives() {
         const S = this.spot, out = [], P = this.progress, read = P.plaques || {};
-        for (const mid of S.data.members || []) { const e = spotById(mid), d = S.data.spots[mid]; if (!e || !d) continue;
+        for (const mid of S.data.members || []) { const e = spotById(mid), d = S.data.spots[mid]; if (!e || !d || mid !== S.id && !e.available) continue;
             const ch = S.challenges.find((c) => c.id === mid), ext = d.extent?.polygon?.length ? polyBox(d.extent.polygon) : null;
             // the spot itself (its extent centre, else the postcard stand / spawn) — not ch.view, the point the postcard
             // looks AT (Kerry Park: downtown, 1.2 km away — the tour walked you into the city; after round 6)
             const hx = ext ? (ext.x0 + ext.x1) / 2 : ch?.x ?? d.spawn?.x ?? 0, hz = ext ? (ext.z0 + ext.z1) / 2 : ch?.z ?? d.spawn?.z ?? 0;
             out.push({ kind: 'hero', id: mid, x: hx, z: hz, label: e.name, blurb: e.blurb, done: !!this._seen?.has('hero:' + mid) }); }
-        for (const [k, sp] of Object.entries(S.spawns || {})) if (Object.keys(S.spawns).length > 1) out.push({ kind: 'entrance', x: sp.x, z: sp.z, label: 'Entrance: ' + (spotById(k)?.name || k), done: true, noTour: true });
+        const entrances = Object.entries(S.spawns || {}).filter(([k]) => k === S.id || spotById(k)?.available);
+        for (const [k, sp] of entrances) if (entrances.length > 1) out.push({ kind: 'entrance', x: sp.x, z: sp.z, label: 'Entrance: ' + (spotById(k)?.name || k), done: true, noTour: true });
         for (const pl of S.plaques) out.push({ kind: 'plaque', x: pl.x, z: pl.z, label: pl.title, text: pl.text, done: !!read[S.sceneId + ':' + pl.title], plaque: pl });
-        for (const c of S.challenges) out.push({ kind: 'postcard', id: c.id, challenge: c, x: c.x, z: c.z, label: 'Postcard photo: ' + (spotById(c.id)?.name || 'the iconic view'), text: c.text, done: !!P.postcards?.[c.id] });
+        for (const c of S.challenges) if (c.id === S.id || spotById(c.id)?.available) out.push({ kind: 'postcard', id: c.id, challenge: c, x: c.x, z: c.z, label: 'Postcard photo: ' + (spotById(c.id)?.name || 'the iconic view'), text: c.text, done: !!P.postcards?.[c.id] });
         const acts = [];
         for (const it of S.interactables) { if (it.kind === 'plaque' || it.kind === 'guide' || it.kind === 'talk' || it.hidden) continue; const lb = typeof it.label === 'function' ? it.label(this) : it.label; if (!lb) continue;
-            acts.push({ kind: it.kind === 'bike' ? 'bike' : 'activity', interaction: it, x: it.x, z: it.z, full: lb, done: false }); }
+            acts.push({ kind: it.kind === 'bike' ? 'bike' : 'activity', interaction: it, noTour: !!it.noTour, x: it.x, z: it.z, full: lb, done: false }); }
         // short labels; activities sharing a "Verb: name" prefix (≥ 3, e.g. the Village Museum houses) become one group objective
         const pre = (l) => (/^([^:—]{3,40}):\s*(.+)$/.exec(l) || null), count = {};
         for (const a of acts) { const m = pre(a.full); if (m) count[m[1]] = (count[m[1]] || 0) + 1; }
@@ -510,7 +512,25 @@ export class SpotSession {
         if (this.guide) { this.guide.speed = 0; this.guide.sayCd = 5; }
         this.tour = null; this._tourUI(); this._routeLine(); this._refreshMarkers();
     }
-    skipTourStop() { if (!this.tour || this.tour.state === 'done') return; this.tour.stops[this.tour.i].skipped = true; this.tour.skipped++; this._nextTourStop(); }
+    /** An activity keeps the itinerary; its owning flow retains this exact stop until completion. */
+    captureTourActivity() {
+        const st = this.tour?.stops[this.tour.i];
+        return this.tour?.state !== 'done' && st?.interaction && st.interaction === this._usingInteraction ? st : null;
+    }
+    recordTourActivity(spot, id) {
+        const st = this.tour?.stops[this.tour.i];
+        if (spot === this.spot.id && st?.interaction?.tourActivityIds?.includes(id)) this.completeTourActivity(st);
+    }
+    completeTourActivity(st) {
+        if (!st || this.tour?.state === 'done' || this.tour?.stops[this.tour.i] !== st) return;
+        st.participated = true;
+        this._nextTourStop();
+    }
+    skipTourStop() {
+        if (!this.tour || this.tour.state === 'done') return;
+        this.cancelActivities('tour-skip');
+        this.tour.stops[this.tour.i].skipped = true; this.tour.skipped++; this._nextTourStop();
+    }
     _nextTourStop() {
         const T = this.tour; if (!T) return;
         T.stops[T.i].done = !T.stops[T.i].skipped; T.i++; T.said = false; T.t = 0; T.wait = 0;
@@ -536,7 +556,9 @@ export class SpotSession {
         this.map?.setRoute(route);
     }
     _updateTour(dt, p) {
-        const T = this.tour, G = this.guide; if (!T || !G || T.state === 'done' || T.state === 'blocked' || dt <= 0) return;
+        const T = this.tour, G = this.guide; if (!T || !G || T.state === 'done' || dt <= 0) return;
+        if (T.stops[T.i]?.participated) { this._nextTourStop(); return; }
+        if (T.state === 'blocked') return;
         const st = T.stops[T.i]; T.t += dt;
         let dP = Math.hypot(p.x - G.x, p.z - G.z), dS = Math.hypot(st.tx - G.x, st.tz - G.z);
         const pS = Math.hypot(st.tx - p.x, st.tz - p.z); // player → stop
@@ -695,6 +717,7 @@ export class SpotSession {
             else if (this.guide) this.guide.speed = 0;
             if (this.map && !photo) { /* (the drone's position while it flies — note 43) */ const dr = this.host.explore?.drone, flying = dr?.active && dr.phase === 'fly'; this.map.update(dt, flying ? { x: dr.pos.x, z: dr.pos.z, heading: dr.yaw } : { x: p.x, z: p.z, heading: this.ctl.heading }); if (this.guide && (this._mkT = (this._mkT ?? 0) - dt) <= 0) { this._mkT = 1; this._refreshMarkers(); } }
         } catch (e) { if (!this._mapErr) { this._mapErr = true; console.warn('[spots] map/tour', e); } }
+        if (this.input?.take?.('KeyJ') && !photo && !panel && !this.host.explore?.drone?.active) this.skipTourStop();
         if (!photo && !panel && this.input?.take?.('KeyM')) this.openMap(); // (G is the drone everywhere — round 6 note 14)
         // interactions (nearest within reach)
         if (!photo && !panel && !this.spot.ctx.extras.venueActivities?.active && !this.spot.ctx.extras.participation?.active) {
@@ -703,8 +726,12 @@ export class SpotSession {
             this.ui.prompt(best ? `<kbd>E</kbd>${escapeHtml(typeof best.label === 'function' ? best.label(this) : best.label)}` : null);
             this.ui.crosshair(!!best?.aim);
             if (best && this.input?.take?.('KeyE')) {
-                best.use(this, best);
-                const st = this.tour?.stops[this.tour.i]; if (st?.interaction === best) st.participated = true;
+                const st = this.tour?.stops[this.tour.i];
+                this._usingInteraction = best;
+                try { best.use(this, best); } finally { this._usingInteraction = null; }
+                // Modal flows report completion themselves. Merely opening or cancelling one never completes its stop.
+                if (st && this.tour?.stops[this.tour.i] === st && st.interaction === best &&
+                    !best.tourActivityIds?.length && !this.spot.ctx.extras.participation?.active && !this.spot.ctx.extras.venueActivities?.active) st.participated = true;
             }
             else this.input?.take?.('KeyE');
             // reset if fallen out of the world

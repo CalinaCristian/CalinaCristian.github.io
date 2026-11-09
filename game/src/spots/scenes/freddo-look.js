@@ -1,7 +1,7 @@
 // Primary photo references: freddo.ro freddo-hero.jpeg, DSC_9986 and DSC00466.
 // All geometry/textures below are procedural; no reference pixels are shipped.
 import * as THREE from '../../../vendor/three.module.min.js';
-import {GeoBatch,canvas,canvasTexture,distPolyline,inPoly,polyArea,rng,centroid} from '../kit.js';
+import {GeoBatch,canvas,canvasTexture,distPolyline,inPoly,polyArea,rng} from '../kit.js';
 import {facadeToward,signAtlas} from '../buc.js';
 import {sourceRecord} from '../source-buildings.js';
 
@@ -50,7 +50,7 @@ export function freddoRoomDetails(ctx,b,{building,Q,floor,barX,barZ,djX,djZ,fron
     for(const x of [10,18]){const A=Q(x,51),B=Q(x,60);b.rod([A[0],floor+3.78,A[1]],[B[0],floor+3.78,B[1]],.13,'#55534b','freddoDuct',10);}
     for(const x of [11.5,16.5])for(let j=0;j<11;j++){const z=49.9+j*1.18;if(!inPoly(x,z,p))continue;const [px,pz]=Q(x,z);b.sphere(px,floor+3.55-.08*Math.sin(j*.7),pz,.025,.035,.025,'#f2cc85','freddoGlow',6,4);if(j){const [ax,az]=Q(x,z-1.18);b.rod([ax,floor+3.65,az],[px,floor+3.65,pz],.006,'#272a24','metal',3);}}
     for(let i=0;i<15;i++){const x=13.4+(i%5)*.22,z=53.5+Math.floor(i/5)*.22,h=.58+(i*7%6)*.12,[px,pz]=Q(x,z);b.cyl(px,floor+4.05-h,pz,.055,h,'#b69450','freddoGold',8);b.cyl(px,floor+4.05-h-.025,pz,.051,.025,'#f2c57c','freddoGlow',8);}
-    for(const [x,z] of [[8.2,56],[8.6,61],[20.5,50.4]])if(inPoly(x,z,p)){const [px,pz]=Q(x,z);b.cyl(px,floor,pz,.055,1.03,'#252725','metal',8);b.cyl(px,floor+1.03,pz,.46,.055,'#6f4d30','wood',16);ctx.circle(px,pz,.46,1.1,{y:floor});}
+    for(const [x,z] of [[8.6,61],[15.2,54.4],[14.5,58.3],[19.5,52.5],[18.5,61.5]])if(inPoly(x,z,p)){const [px,pz]=Q(x,z);b.cyl(px,floor,pz,.055,1.03,'#252725','metal',8);b.cyl(px,floor+1.03,pz,.46,.055,'#795634','wood',16);for(const side of [-1,1]){b.cyl(px+side*.18,floor+1.09,pz,.035,.16,'#92704d','glass',8);b.cyl(px+side*.18,floor+1.25,pz,.039,.015,'#c1b18e','glass',8);}ctx.circle(px,pz,.46,1.1,{y:floor});}
     for(const h of [1.5,2.15]){b.box(barX-.15,floor+h,barZ,.3,.055,5.5,'#302a21','wood',.25);for(let i=0;i<16;i++){const z=barZ-2.45+i*.32;b.cyl(barX-.16,floor+h+.05,z,.036,.22,['#64522c','#454c34','#836643','#343f40'][i%4],'glass',6);b.cyl(barX-.16,floor+h+.27,z,.018,.065,'#b69f63','metal',6);}}
     for(let i=0;i<15;i++)b.box(djX-1.8+i*.25,floor,djZ+.53,.075,1.18,.045,'#775230','wood');
     for(const [x,z]of[[7.5,54],[8,61],[19.8,48.5]])for(let i=0;i<12;i++){const a=i*2.4,r=.12+(i%3)*.1,[px,pz]=Q(x+Math.cos(a)*r,z+Math.sin(a)*r);b.sphere(px,floor+3.3-(i%5)*.1,pz,.14,.08,.2,['#294a37','#345941','#46684a'][i%3],'paint',5,4);}

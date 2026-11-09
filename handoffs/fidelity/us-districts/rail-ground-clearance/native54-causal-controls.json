@@ -1,0 +1,186 @@
+{
+  "passed": true,
+  "scope": "literal emitted fleet bounds and native54 causal source/prop controls; regenerated native geometry and admission remain separate",
+  "envelope": {
+    "halfWidthM": 1.2230000495910645,
+    "minY": 0.008273792453110218,
+    "maxY": 5.789999961853027,
+    "tiltedMinY": -1.305430097007053,
+    "tiltedMaxY": 6.114165825284409,
+    "maxGrade": 0.08,
+    "kinds": [
+      "tram-v3a",
+      "tram-imperio"
+    ],
+    "basis": "literal native emitted tram component vertices; fixed paint, no instanced/live actors; no clearance padding"
+  },
+  "sidewalks": [
+    {
+      "edge": 74,
+      "rightM": 3.5,
+      "leftM": 0,
+      "explicit": true,
+      "sourceId": "w80013062",
+      "sourceForward": 1,
+      "basis": "literal original-source sidewalk side tags"
+    },
+    {
+      "edge": 133,
+      "rightM": 3.5,
+      "leftM": 0,
+      "explicit": true,
+      "sourceId": "w241717662",
+      "sourceForward": 1,
+      "basis": "literal original-source sidewalk side tags"
+    }
+  ],
+  "exclusions": {
+    "count": 3,
+    "byKind": {
+      "inferred": 3
+    },
+    "samples": [
+      {
+        "kind": "inferred",
+        "inferredRoadSourceId": null,
+        "railSourceId": "w660918285",
+        "railSourceNodeIds": [
+          12329244827,
+          6187777608
+        ],
+        "a": [
+          -56.13144268668565,
+          102.63021216000384
+        ],
+        "b": [
+          -56.13144268668565,
+          102.63021216000384
+        ],
+        "closestDistanceM": 1.0657035712778675,
+        "literalGaugeHalfM": 0.7175,
+        "vehicleCorridorHalfM": 1.2230000495910645,
+        "railBaseY": 0.24,
+        "actualBodyEnvelope": [
+          0.008273792453110218,
+          5.789999961853027
+        ],
+        "obstacleBandM": [
+          0.15,
+          8.15
+        ]
+      },
+      {
+        "kind": "inferred",
+        "inferredRoadSourceId": null,
+        "railSourceId": "w128304860",
+        "railSourceNodeIds": [
+          6234008735,
+          933659698
+        ],
+        "a": [
+          6.213559204714579,
+          30.165882690628223
+        ],
+        "b": [
+          0.22224460109196809,
+          36.773104207855425
+        ],
+        "closestDistanceM": 1.3576242123566336,
+        "literalGaugeHalfM": 0.7175,
+        "vehicleCorridorHalfM": 1.2230000495910645,
+        "railBaseY": 0.24,
+        "actualBodyEnvelope": [
+          0.008273792453110218,
+          5.789999961853027
+        ],
+        "obstacleBandM": [
+          1.2547676976314928,
+          2.604767697631493
+        ]
+      },
+      {
+        "kind": "inferred",
+        "inferredRoadSourceId": null,
+        "railSourceId": "w128304860",
+        "railSourceNodeIds": [
+          6234008735,
+          933659698
+        ],
+        "a": [
+          -0.1807970547911415,
+          37.21757853064921
+        ],
+        "b": [
+          -6.172111658413751,
+          43.82480004787641
+        ],
+        "closestDistanceM": 0.8852871404172012,
+        "literalGaugeHalfM": 0.7175,
+        "vehicleCorridorHalfM": 1.2230000495910645,
+        "railBaseY": 0.24,
+        "actualBodyEnvelope": [
+          0.008273792453110218,
+          5.789999961853027
+        ],
+        "obstacleBandM": [
+          0.79,
+          2.14
+        ]
+      }
+    ],
+    "policy": "Only inferred emission candidates; actual source rails and emitted fleet clearance, compatible absolute model height. Mapped barriers are untouched."
+  },
+  "romana": {
+    "lamp": {
+      "colliderIndex": 25695,
+      "x": 66.47109643024487,
+      "z": -475.1006646464794,
+      "r": 0.18,
+      "hw": 0.18,
+      "hd": 0.18,
+      "angle": 0,
+      "poly": null,
+      "h": 3,
+      "prop": true,
+      "kind": "lamp"
+    },
+    "exclusions": {
+      "count": 1,
+      "byKind": {
+        "inferred": 1
+      },
+      "samples": [
+        {
+          "kind": "inferred",
+          "inferredRoadSourceId": null,
+          "railSourceId": "w920117620",
+          "railSourceNodeIds": [
+            8544117710,
+            8544117713
+          ],
+          "a": [
+            66.47109643024487,
+            -475.1006646464794
+          ],
+          "b": [
+            66.47109643024487,
+            -475.1006646464794
+          ],
+          "closestDistanceM": 0.44026134217480384,
+          "literalGaugeHalfM": 0.7175,
+          "vehicleCorridorHalfM": 1.2230000495910645,
+          "railBaseY": 0.24,
+          "actualBodyEnvelope": [
+            -1.305430097007053,
+            6.114165825284409
+          ],
+          "obstacleBandM": [
+            0.15,
+            8.15
+          ]
+        }
+      ],
+      "policy": "Only inferred emission candidates; actual source rails and emitted fleet clearance, compatible absolute model height. Mapped barriers are untouched."
+    }
+  }
+}

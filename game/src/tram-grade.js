@@ -186,23 +186,25 @@ export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MOD
             const a = points[i - 1], b = points[i];
             const halfWidthM = Math.max(gauge / 2000, 1.2) + .5;
             corridors.push({ a, b, sourceId: source.sourceId, sourceNodeIds: source.nodeIds.slice(i - 1, i + 1), gaugeM: gauge / 1000,
-                heightAt: grade.heightAt || (t => grade.ya + (grade.yb - grade.ya) * t), halfWidthM,
+                heightAt: grade.heightAt || (t => grade.ya + (grade.yb - grade.ya) * t), halfWidthM, maxGrade: grade.maxGrade || 0,
                 x0: Math.min(a[0], b[0]) - halfWidthM, x1: Math.max(a[0], b[0]) + halfWidthM, z0: Math.min(a[1], b[1]) - halfWidthM, z1: Math.max(a[1], b[1]) + halfWidthM });
         }
     }
-    const excludesInferredObstacle = (a, b, { inferred = false, y0a, y1a, y0b = y0a, y1b = y1a, radiusM = .35, kind = 'inferred', sourceId = null } = {}) => {
+    const excludesInferredObstacle = (a, b, { inferred = false, y0a, y1a, y0b = y0a, y1b = y1a, radiusM = .35, kind = 'inferred', sourceId = null, bodyEnvelope = null } = {}) => {
         if (!inferred) return false;
         for (const c of corridors) {
             if (Math.max(a[0], b[0]) < c.x0 - radiusM || Math.min(a[0], b[0]) > c.x1 + radiusM || Math.max(a[1], b[1]) < c.z0 - radiusM || Math.min(a[1], b[1]) > c.z1 + radiusM) continue;
-            const q = closestSegments(a, b, c.a, c.b); if (q.distance > c.halfWidthM + radiusM) continue;
+            const halfWidthM = bodyEnvelope ? Math.max(c.gaugeM / 2, bodyEnvelope.halfWidthM) : c.halfWidthM;
+            const q = closestSegments(a, b, c.a, c.b); if (q.distance > halfWidthM + radiusM) continue;
             const base = .24 + c.heightAt(q.u), low = y0a + (y0b - y0a) * q.t, high = y1a + (y1b - y1a) * q.t;
             // Literal fleet envelope at the8% cap: the36m low body can reach
             //1.44m below its anchor; its5.79m pantograph is only4.3m off centre,
             //so the true upper pitch reach is<.35m, not another1.44m.
-            if (![base, low, high].every(Number.isFinite) || base - 1.44 > high || base + 5.79 + .35 < low) continue;
+            const lower = bodyEnvelope ? (c.maxGrade ? bodyEnvelope.tiltedMinY : bodyEnvelope.minY) : -1.44, upper = bodyEnvelope ? (c.maxGrade ? bodyEnvelope.tiltedMaxY : bodyEnvelope.maxY) : 5.79 + .35;
+            if (![base, low, high, lower, upper].every(Number.isFinite) || base + lower > high || base + upper < low) continue;
             const stats = report.inferredObstacleExclusions; stats.count++; stats.byKind[kind] = (stats.byKind[kind] || 0) + 1;
             if (stats.samples.length < 200) stats.samples.push({ kind, inferredRoadSourceId: sourceId, railSourceId: c.sourceId, railSourceNodeIds: c.sourceNodeIds,
-                a, b, closestDistanceM: q.distance, literalGaugeHalfM: c.gaugeM / 2, vehicleCorridorHalfM: c.halfWidthM, railBaseY: base, obstacleBandM: [low, high] });
+                a, b, closestDistanceM: q.distance, literalGaugeHalfM: c.gaugeM / 2, vehicleCorridorHalfM: halfWidthM, railBaseY: base, actualBodyEnvelope: bodyEnvelope ? [lower, upper] : null, obstacleBandM: [low, high] });
             return true;
         }
         return false;

@@ -8,6 +8,22 @@ Environment reattachment has ended model-agent sessions twice while OS jobs and 
 
 Managed browser runtime: NODE_PATH=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules and NODE_OPTIONS=--require=/workspace/.environment/drive-my-cv/use-system-chromium.cjs; /usr/bin/chromium, muted. Playwright's downloaded browser is absent. Software GL timings do not prove hardware FPS.
 
+## Current checkpoint · 9 November, 00:45 UTC
+
+Root branch fix/dinamo-and-ambasador now b4d6b19c, backed up to the same remote (verify push terminal). Master still df9b2e2c; fresh fetch has0unseencommits. Rootclean. Integrated final paintAA d5795e20/39cbba2d with actual9inspectedviews/753compat+2113geometry, all8currentatlas865, BV4waterretakes008, cache93b/fishf056/Mey472+proof6605, phone37a228, c78strictphysical90003f and explicitnewfreezesverifier5c7. MENU21(62d7): recommendationsTroll/cathedral/OldTown, quieterparkscollapsed, completion sameavailability, historicalREADY12 retained. Rootd53 introduces publicsafeportableproofassets/history/nativeProofs renderer; touristagentowns24currentrecords pending.
+
+Water338 clipping affectsFlo19+Groz26+UN17+Pip35+BV4. RootUN17done141s/0errors, all17pairsinspected, mixed81old0775+17bbaffc plus complete98oldarchive; allhashes300servedsourcefilesverified. Original ownsFlo21(includes2paintAAtiles)+Groz26 on bbaffc,47totalrunning/reviewing; Pipera35afteroptimizer. BV4alreadyinstalled. Mask handoffs/fidelity/water-ribbon-overlap/recapture-mask-bbaffc.json. RootUNbrowserclosed.
+
+PiperaR4 final8pairs exact0pixels, same624/560states/physical/284attrs;334calls1,486,993summer, pending342/1,488,049, wintermax1,461,009. CPU26controls, packedextra1,389,544B; nativecallbackmedian.95ms andunlogged.2ms(softwaretimingsnotFPS). PackagingREADYpending. Integrateworld~5400+cell-frustum only.
+
+ROcombined09c3fda initial560admissionclear(173walking+19waitingrepairs,0unresolved/bag/peer/static); actualdaymatrixFAILED19SUVcontactstarts +1autopilotresetpublicapproach. Preservefailedmatrix; agentdiagnosingunchangedsource beforeanynewpatch. Guardremovalcannottradepenetrationforgridlock. NOTREADY. Newcombinedphysical900 required; c78historicalproofnotrelabelled.
+
+US e606214 candidate openspropergarage8slabs/terminalmappedcanopywithscopedminHhook~3194. No data/roads/layeraltered,59otherlandmarkcollisionarraysbyteidentical, US224+61geometrypassed. Native78/79corecapsulesclear; residual68w430434890 hitsgeneratedseparatorownedtunnelw722292911(edge1116), no immediate sharednode. Agenttracingactualnativehelix ratherthanremovingrealbarrier. CandidateNOTREADY.
+
+QAonebrowser owns currentd53menu21/recommendations/mobile44px/oldsavecompletionfixture. Finalheads/15load/telemetrystillHOLDcombinedphysical/renderfreeze. Touristowns24overviewrecords/current72+finalfish/Mey images reuseportableproofprefix, old100history, explicit21routes/3gaps. Rootgeneratorallows sourceunknown historicalnativeproof ONLY sourceCommit:null/passed:null/provenance:historical-source-unrecorded; allcurrentproofrequires40SHA. Rootmustbrowsercheckallactual8galleries/archives/streetpagination/61+24instances afterrecordsready andregenerateinventoryaftercommittedupdates.
+
+Rootfinalrequiredfoot,a + combinedhotspot + new900 + finalphone/heads/15 +release/telemetry/staginghistorycuration/masterpush/branchcleanup NOTDONE. tools/fidelity/archive-evidence.py committedplanningtool preservesallcaptureparents viaannotatedarchive tag. No environmentpublish.
+
 ## Latest integration (supersedes older checkpoint below)
 
 Root8097171 contains optimizer5b, retainingda3 + exactRomanadelta bf7, e9/25/ed source bridge chain/proofs, f58 CECbook, allUS READY through17d/fbf/829, all205 UN/OTP current0775 plus histories, original306 mixed437/0775 plus full694archiveframes, QAtools30/9c/14/420/b94/45/ac7/7ef/c9/f55/e93, and the tourist23production chain through03b plus6eb/e678/54fe. Native district freeze is **c78a5f4c522723fb2f4e640999e3ac5d164fc724**, immutable snapshots owned by each lane. Only tourist activity candidates remain pending; originalc78source/dates must stay on captures. No master push yet; latestfetch still0unseenmastercommits, work branch is alreadyancestorofmaster. Rootfirst23pureunitchecks passed; one CarScreen fixture missedbrowserenv then passed on explicitsystemChromium, all original logs retained. All61modelgeometry/33ROsource/24USsource + football/basketball/courtyard +5privacycontrols pass against currentroot. These are scoped, not whole-world photographic parity.

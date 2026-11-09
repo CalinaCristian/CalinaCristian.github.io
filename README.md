@@ -164,3 +164,5 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
 ## Technical overview and comparisons
 
 Browse [the game overview](https://cristiancalina.com/game/overview/) for the architecture, simulation, controls and spec-driven AI development, plus inline comparisons for eight districts, 61 landmark entries and 24 tourist destinations. This guide previews the ongoing fidelity work; each capture retains its actual source and date. The game update is still being tested.
+
+Street screenshots use readable street and direction captions, estimated camera heights and explicit labels for known game geometry or boundary issues. New captures retain their exact source revision; earlier images and records remain available. Identical camera requests share a displayed picture only when the recorded pixels, date and source match.

@@ -12,6 +12,7 @@ export function withMovingBodies(staticColliders, bodies, ignorePed = null) {
 }
 
 export function walkHeight(ground, colliders, x, z) {
+    if(ground.walkInside&&!ground.walkInside(x,z))return NaN;
     const base = ground.heightAt(x, z), y = ground.groundAt(x, z, base + 1.2);
     if (!Number.isFinite(y) || y > base + 40 || (ground.waterY != null && y < ground.waterY + 0.03) || collide(colliders || [], x, z, 0.34, y + 0.3)) return NaN;
     return y;

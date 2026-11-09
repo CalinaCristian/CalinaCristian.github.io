@@ -445,7 +445,7 @@ export class SpotSession {
             if (m.group) { let g = groups.get(m.group); if (!g) { g = { icon: ICONS[m.kind] || '•', label: m.group, members: [], kind: m.kind }; groups.set(m.group, g); items.push(g); } g.members.push(m); continue; }
             items.push({ icon: ICONS[m.kind] || '•', label: m.short || m.label, done: m.done, kind: m.kind, marker: m }); }
         for (const g of groups.values()) { const d = g.members.filter((m) => m.done).length; g.label = `${g.label} (${d}/${g.members.length})`; g.done = d === g.members.length; }
-        await this.ui.showMap(this.map, { title: this.spot.name, items, tour: this.guide ? { label: this.tour && this.tour.state !== 'done' ? 'End the guided tour' : '🚩 Short guided tour · up to 3 stops', run: () => { if (this.tour && this.tour.state !== 'done') this.endTour(); else { this.endTour(); this.startTour(); } } } : null });
+        await this.ui.showMap(this.map, { title: this.spot.name, items, navigate: {set: target => this.setWaypoint(target),clear:()=>this.clearWaypoint()}, tour: this.guide ? { label: this.tour && this.tour.state !== 'done' ? 'End the guided tour' : '🚩 Short guided tour · up to 3 stops', run: () => { if (this.tour && this.tour.state !== 'done') this.endTour(); else { this.endTour(); this.startTour(); } } } : null });
         if (this.input) { this.input.lookAllowed = true; this.input.flush?.(); this.input.keys?.clear?.(); }
         this.returnFocus();
     }
@@ -463,7 +463,29 @@ export class SpotSession {
         const bodies=[...(this.spot.crowd?.obstacles((ax+bx)/2,(az+bz)/2,range)||[]),...(this.spot.ctx.extras.obstacles?.()||[])];
         return withMovingBodies(this.spot.colliders,bodies,this.guide);
     }
-    _navPath(ax, az, bx, bz, opts = {}) { return findWalkPath(this.spot.ground, this._navColliders(ax,az,bx,bz), ax, az, bx, bz, opts); }
+    _navigationGround() {
+        const g=this.spot.ground,boundary=this.spot.ctx.extras.walkBoundary;
+        if(!boundary)return g;
+        const view=Object.create(g);view.walkInside=(x,z)=>boundary.inside(x,z);return view;
+    }
+    _navPath(ax, az, bx, bz, opts = {}) { return findWalkPath(this._navigationGround(), this._navColliders(ax,az,bx,bz), ax, az, bx, bz, opts); }
+    setWaypoint(target) {
+        if(!Number.isFinite(target?.x)||!Number.isFinite(target?.z))return{message:'Choose a point on the map.'};
+        this.waypoint={x:target.x,z:target.z,label:target.name||target.label||'Custom waypoint',radius:target.interaction?Math.max(.4,(target.interaction.r||2)-.4):1.5};
+        this._waypointFrom=null;this._updateWaypoint(true);
+        return{message:`Waypoint: ${this.waypoint.label}. ${this._waypointPath?'Follow the blue route.':'No walking route from your current level; choose another point or approach.'}`};
+    }
+    clearWaypoint(){this.waypoint=null;this._waypointPath=null;this.map?.setWaypoint(null);this.ui.setWaypoint(null);}
+    _updateWaypoint(force=false){
+        const w=this.waypoint;if(!w)return;const p=this.position,d=Math.hypot(w.x-p.x,w.z-p.z),arrived=d<=w.radius+1;
+        if(force||!this._waypointFrom||Math.hypot(p.x-this._waypointFrom.x,p.z-this._waypointFrom.z)>3){
+            this._waypointFrom={x:p.x,z:p.z};
+            this._waypointPath=arrived?null:this._navPath(p.x,p.z,w.x,w.z,{radius:w.radius,maxLength:600});
+            this.map?.setWaypoint(w,this._waypointPath);
+        }
+        const turn=Math.atan2(-(w.x-p.x),-(w.z-p.z))-(this.ctl.heading||0),direction=['↑','↖','←','↙','↓','↘','→','↗'][(Math.round(turn/(Math.PI/4))%8+8)%8];
+        this.ui.setWaypoint({...w,direction,distance:d,arrived,routed:!!this._waypointPath,clear:()=>this.clearWaypoint()});
+    }
     /** Optional quick visit: one activity first, a nearby fact, then this spot's postcard; all content remains on the map. */
     startTour() {
         if (!this.guide || this.tour) return;
@@ -504,7 +526,7 @@ export class SpotSession {
         const T = this.tour; if (!T) return this.ui.setTour(null);
         const st = T.stops[T.i], done = T.state === 'done';
         this.ui.setTour({ title: done ? (T.skipped ? 'Tour ended' : 'Tour complete') : 'Short guided tour', i: T.i, n: T.stops.length, done,
-            stop: st ? (st.short || shortLabel(st.label)) : '', text: T.narr || '', dots: T.stops.map((m, k) => (m.skipped ? 3 : k < T.i ? 1 : k === T.i ? 2 : 0)),
+            stop: st ? st.label : '', text: T.narr || '', dots: T.stops.map((m, k) => (m.skipped ? 3 : k < T.i ? 1 : k === T.i ? 2 : 0)),
             skip: done ? null : () => this.skipTourStop(), end: () => this.endTour() });
     }
     endTour() {
@@ -574,7 +596,7 @@ export class SpotSession {
                 if (wp) while (st.wi < wp.length - 1 && Math.hypot(wp[st.wi][0] - G.x, wp[st.wi][1] - G.z) < 0.35) st.wi++;
                 const tgx = wp ? wp[st.wi][0] : st.tx, tgz = wp ? wp[st.wi][1] : st.tz, dT = Math.hypot(tgx - G.x, tgz - G.z) || 1;
                 let dx = (tgx - G.x) / dT, dz = (tgz - G.z) / dT; const step = Math.min(v * dt, dT);
-                const cols = this._navColliders(G.x,G.z,G.x,G.z,12), ground = this.spot.ground; let nx = G.x, nz = G.z, moved = false;
+                const cols = this._navColliders(G.x,G.z,G.x,G.z,12), ground = this._navigationGround(); let nx = G.x, nz = G.z, moved = false;
                 for (const turn of [0, 0.7, -0.7, 1.4, -1.4]) {
                     const c = Math.cos(turn), s2 = Math.sin(turn), ex = dx * c - dz * s2, ez = dx * s2 + dz * c, tx = G.x + ex * step, tz = G.z + ez * step;
                     if (walkSegment(ground, cols, [G.x, G.z], [tx, tz])) { nx = tx; nz = tz; dx = ex; dz = ez; moved = true; break; }
@@ -716,6 +738,7 @@ export class SpotSession {
             if (this.tour && !panel && !photo && !drone?.active && this.ctl.active !== false) this._updateTour(dt, p);
             else if (this.guide) this.guide.speed = 0;
             if (this.map && !photo) { /* (the drone's position while it flies — note 43) */ const dr = this.host.explore?.drone, flying = dr?.active && dr.phase === 'fly'; this.map.update(dt, flying ? { x: dr.pos.x, z: dr.pos.z, heading: dr.yaw } : { x: p.x, z: p.z, heading: this.ctl.heading }); if (this.guide && (this._mkT = (this._mkT ?? 0) - dt) <= 0) { this._mkT = 1; this._refreshMarkers(); } }
+            if(this.waypoint&&!panel&&!photo&&(this._waypointTick=(this._waypointTick||0)-dt)<=0){this._waypointTick=.5;this._updateWaypoint();}
         } catch (e) { if (!this._mapErr) { this._mapErr = true; console.warn('[spots] map/tour', e); } }
         if (this.input?.take?.('KeyJ') && !photo && !panel && !this.host.explore?.drone?.active) this.skipTourStop();
         if (!photo && !panel && this.input?.take?.('KeyM')) this.openMap(); // (G is the drone everywhere — round 6 note 14)
@@ -758,6 +781,7 @@ export class SpotSession {
     teleport(spotId) {
         const s = this.spot.spawns[spotId], entry = spotById(spotId); if (!s || !entry) return;
         this.cancelActivities('teleport');
+        this.clearWaypoint();
         this.endTour(); this.ctl.teleport(s.x, s.z, s.heading);
         Object.assign(this.spot, { id: spotId, name: entry.name, entry, spawn: s });
         this.ui.setTitle(this.spot.name, `${placeLabel(this.spot)} · walk-only bonus`);

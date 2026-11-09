@@ -37,6 +37,31 @@ try{
  await page.evaluate(()=>fixture.reset());await page.keyboard.press('j');await page.evaluate(()=>fixture.s.update(0));
  await check('Native J shortcut reaches session skip logic',()=>fixture.s.tour.i===1&&fixture.s.tour.skipped===1);
  await check('Compound club entry waits for its named completed activity',()=>{const f=fixture;f.reset();const st=f.s.tour.stops[0];st.interaction.tourActivityIds=['freddo-dance'];f.s.recordTourActivity('old-town-lipscani','unrelated');if(f.s.tour.i!==0)return false;f.s.recordTourActivity('old-town-lipscani','freddo-dance');return f.s.tour.i===1;});
+ await page.evaluate(async()=>{
+  const {SpotMap}=await import('/game/src/spots/ui.js'),s=fixture.s,img=document.createElement('canvas');img.width=img.height=400;
+  delete s._navPath;s._navColliders=()=>[];s.spot.colliders=[];
+  const c=img.getContext('2d');c.fillStyle='#617242';c.fillRect(0,0,400,400);
+  const map=new SpotMap(s.ui,{image:img,bounds:{x0:-100,z0:-100,x1:100,z1:100}}),marker={kind:'activity',x:15,z:10,label:'A complete destination name that should remain readable on a small phone'};
+  map.setMarkers([marker]);s.map=map;fixture.map=map;
+  void s.ui.showMap(map,{title:'Waypoint input fixture',items:[{icon:'🎯',label:marker.label,marker}],navigate:{set:t=>s.setWaypoint(t),clear:()=>s.clearWaypoint()}});
+ });
+ await page.locator('li[data-i]').click();
+ await check('Selecting a destination sets a persistent named waypoint',()=>fixture.s.waypoint?.x===15&&fixture.map.waypoint?.kind==='waypoint'&&document.querySelector('.sp-nav-status').textContent.includes('complete destination'));
+ const custom=await page.evaluate(()=>{const t=fixture.map._full;return{px:(-25-t.cx)*t.k+t.W/2,py:(-25-t.cz)*t.k+t.H/2};});
+ // Convert using the actual device-pixel canvas ratio, not an assumed DPR.
+ const click=await page.evaluate(({px,py})=>{const c=document.querySelector('.sp-map canvas'),r=c.getBoundingClientRect();return{x:r.x+px*r.width/c.width,y:r.y+py*r.height/c.height};},custom);
+ await page.mouse.click(click.x,click.y);
+ await check('Clicking empty map ground sets the inverse-projected custom waypoint',()=>Math.abs(fixture.s.waypoint.x+25)<1&&Math.abs(fixture.s.waypoint.z+25)<1&&fixture.s.waypoint.label==='Custom waypoint');
+ await page.locator('[data-clear-waypoint]').click();
+ await check('Clear removes both route and waypoint',()=>!fixture.s.waypoint&&!fixture.map.waypoint&&!fixture.map.waypointRoute);
+ await page.locator('li[data-i]').focus();await page.keyboard.press('Enter');
+ await check('Keyboard destination selection stays in the map and sets a waypoint',()=>fixture.s.ui.panelOpen&&fixture.s.waypoint?.x===15);
+ await page.screenshot({path:path.join(out,'waypoint-map-desktop.png')});
+ await page.setViewportSize({width:390,height:844});
+ await page.evaluate(()=>document.body.classList.add('touch'));
+ const targets=await page.locator('.sp-map button,.sp-map li[data-i]').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().height));assert(targets.every(h=>h>=44));
+ await page.screenshot({path:path.join(out,'waypoint-map-phone.png')});
+ await page.locator('[data-close]').click();
  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>fixture.reset());
  const phone=await page.locator('[data-tour-skip]').boundingBox();assert(phone&&phone.x>=0&&phone.x+phone.width<=390);
  await page.screenshot({path:path.join(out,'tour-step-phone.png')});

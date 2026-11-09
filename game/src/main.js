@@ -1821,19 +1821,14 @@ class Game {
     /** buttons for a list of SPOTS entries grouped Bucharest / Seattle / Bellevue (whatever SPOTS holds) */
     spotGroupsHtml(list, { heading = 'h4', button = null } = {}) {
         const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-        const ordinary = s => s.menuTier !== 'recommended' && s.menuTier !== 'parks';
-        const groups = [['Recommended', s => s.menuTier === 'recommended'],
-            ['București', s => ordinary(s) && s.city === 'bucharest'], ['Seattle', s => ordinary(s) && s.city === 'seattle' && s.area !== 'bellevue'], ['Bellevue', s => ordinary(s) && s.area === 'bellevue'],
-            ['More', s => ordinary(s) && s.city !== 'bucharest' && s.city !== 'seattle'], ['Quieter parks & gardens', s => s.menuTier === 'parks']];
+        const groups = [['București', s => s.city === 'bucharest'], ['Seattle', s => s.city === 'seattle' && s.area !== 'bellevue'], ['Bellevue', s => s.area === 'bellevue']];
         const done = this.spotsMod?.spotProgress?.()?.postcards || {};
         let html = '';
         for (const [label, f] of groups) {
             const items = list.filter(f); if (!items.length) continue;
-            if (label === 'Quieter parks & gardens') html += '<details class="spot-parks"><summary>🌳 Quieter parks & gardens</summary>';
-            else html += `<${heading} class="spot-group">📷 ${label}</${heading}>`;
+            html += `<${heading} class="spot-group">${label}</${heading}>`;
             if (button) html += items.map(s => `<div class="nav-item"><span>${done[s.id] ? '✓ ' : ''}${esc(s.name)}</span><button data-spot="${esc(s.id)}" title="${esc(s.blurb)}">${button}</button></div>`).join('');
             else html += `<div class="chs">${items.map(s => `<button data-spot="${esc(s.id)}" title="${esc(s.blurb)}">${done[s.id] ? '✓ ' : ''}${esc(s.name)}</button>`).join('')}</div>`;
-            if (label === 'Quieter parks & gardens') html += '</details>';
         }
         return html;
     }

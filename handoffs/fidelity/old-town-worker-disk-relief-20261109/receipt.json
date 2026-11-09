@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "completedUTC": "2026-11-09T19:04:10.033789+00:00",
+  "sourceCommit": "31ed79e0d89ef131a701b1c7ec04c0155f64f18b",
+  "retainedSourceRef": "refs/fidelity/retained-worker-source/old-town-before-sparse-31ed79e0",
+  "pushedBranchVerificationBeforeRemoval": "31ed79e0d89ef131a701b1c7ec04c0155f64f18b\trefs/heads/fidelity/backgammon-result-confirmation-20261109",
+  "method": "Per-file verified unlink + own linked-worktree index skip-worktree bits; no shared sparse config, branch/worktree deletion or staged source deletion",
+  "verifiedManifestSHA256": "749f49991c06130493a8daf60e9caaca7f5e8ed3654b88226bc7ddfc71614bae",
+  "removedManifestSHA256": "6da6ed10b2795b7475246a5dbc270887aa0178b1ede08fd1d1ec435b08402cc9",
+  "removedFiles": 12331,
+  "reclaimedFileLogicalBytes": 740915567,
+  "reclaimedFileAllocatedBytes": 766849024,
+  "targetAllocatedBefore": {
+    "game/data": 150183936,
+    "game/overview/comparison-data": 618139648
+  },
+  "targetAllocatedAfter": {
+    "game/data": 57344,
+    "game/overview/comparison-data": 1417216
+  },
+  "actualTargetDuReductionBytes": 766849024,
+  "globalFreeBytesBefore": 922255360,
+  "globalFreeBytesAfter": 1689022464,
+  "globalFreeDeltaBytesWithConcurrentLanes": 766767104,
+  "preservedCanonicalOrGitMismatches": [
+    {
+      "path": "game/data/README.md",
+      "reason": "Git/local/canonical SHA or stat mismatch"
+    }
+  ],
+  "preservedChangedFiles": [],
+  "latePreservedFiles": [],
+  "processBefore": {
+    "atUTC": "2026-11-09T19:03:52.388562+00:00",
+    "nonAuditReaders": [],
+    "excludedOwnAuditAncestorIds": [
+      609,
+      659062,
+      659064,
+      659065,
+      659066
+    ]
+  },
+  "processImmediatelyBeforeRemoval": {
+    "atUTC": "2026-11-09T19:04:07.429829+00:00",
+    "nonAuditReaders": [],
+    "excludedOwnAuditAncestorIds": [
+      609,
+      659062,
+      659064,
+      659065,
+      659066
+    ]
+  },
+  "processAfter": {
+    "atUTC": "2026-11-09T19:04:09.975259+00:00",
+    "nonAuditReaders": [],
+    "excludedOwnAuditAncestorIds": [
+      609,
+      659062,
+      659064,
+      659065,
+      659066
+    ]
+  },
+  "trackedStatusAfter": "",
+  "allHandoffRawProofDirectoriesPreserved": true,
+  "canonicalRootFilesUnchangedByReclamation": true,
+  "untrackedOriginalsRemoved": 0,
+  "gitObjectsOrRefsRemoved": 0
+}

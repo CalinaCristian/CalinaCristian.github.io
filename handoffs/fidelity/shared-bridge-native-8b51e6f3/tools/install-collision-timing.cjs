@@ -1,0 +1,6 @@
+module.exports=async function(g,{sourceCommit}){
+ const {playerBodySampler}=await import('/game/src/player-body-interval.js'),P=g.player,old=P.collide;
+ window.__collisionTiming={sourceCommit,rows:[],scope:'Exact original native Player.collide elapsed CPU; actual movement/contacts retained. Helper stationary samples do not mutate physical poses.'};
+ P.collide=function(...args){const t=performance.now(),r=old.apply(this,args),ms=performance.now()-t;if(__collisionTiming.rows.length<12000)__collisionTiming.rows.push({ms,x:this.x,y:this.y,z:this.z,heading:this.heading,speed:this.speed,source:this.supportEdge?.access?.sourceId,marked:!!this.supportEdge?.sourceBridgeGrade?.known,time:g.traffic.time,contactCount:this.debug.count});return r;};
+ window.__samplerTiming=()=>{const R=[];for(let i=0;i<8;i++){const t=performance.now(),sample=playerBodySampler(P),built=performance.now(),queries=(P._colS||[[2.52,0,.9],[3.07,.415,.35],[3.07,-.415,.35],[-2.01,.55,.35],[-2.01,-.55,.35]]).map(([o,l,r])=>sample(P.x+P.fx*o-P.fz*l,P.z+P.fz*o+P.fx*l,r));R.push({iteration:i,buildMs:built-t,queriesMs:performance.now()-built,known:queries.every(q=>q.known)});}return R;};return {installed:true,sourceCommit};
+};

@@ -1,0 +1,352 @@
+{
+  "source": "8b51e6f38b3e217ac7f8a556949694e5ca62ebdb",
+  "moving": {
+    "ticks": 4380,
+    "seconds": 146.0,
+    "successfulChunks": 6,
+    "sampledPoses": 876,
+    "contacts": 0,
+    "outsideSampleCount": 0,
+    "directPlayerPosePlacements": 0,
+    "normalPublicFastTravel": 1,
+    "lastSample": {
+      "i": 175,
+      "time": 145.86666666666096,
+      "x": 1007.1243585070184,
+      "y": 9.42679255265988,
+      "z": -1205.0025174342236,
+      "heading": -0.9248282303606075,
+      "speed": 8.127490640102366,
+      "surfY": 9.391706796427412,
+      "edgeId": 1517,
+      "sourceId": "w668700424",
+      "input": {
+        "throttle": 1,
+        "steer": 0,
+        "brake": false
+      },
+      "station": 1063.1047772774498,
+      "pathLength": 1064.9190823658214,
+      "inside": true,
+      "touching": false,
+      "contactCount": 0,
+      "lastCollider": null
+    },
+    "allCollide": {
+      "calls": 4380,
+      "sumMs": 2492.899999886751,
+      "medianMs": 0.09999999403953552,
+      "p95Ms": 4.5,
+      "maxMs": 82.09999999403954
+    },
+    "markedCollide": {
+      "calls": 1785,
+      "sumMs": 2110.6999999582767,
+      "medianMs": 0.10000000894069672,
+      "p95Ms": 6.5999999940395355,
+      "maxMs": 82.09999999403954
+    },
+    "unmarkedCollide": {
+      "calls": 2595,
+      "sumMs": 382.1999999284744,
+      "medianMs": 0.09999999403953552,
+      "p95Ms": 0.29999999701976776,
+      "maxMs": 65.5
+    }
+  },
+  "stationaryProfile": {
+    "before": {
+      "x": 1007.9875073688847,
+      "y": 9.343509484926813,
+      "z": -1205.639618293369,
+      "speed": 8.116269579370657,
+      "source": "w668700424",
+      "edge": 1517,
+      "inside": true,
+      "contacts": 0,
+      "last": null,
+      "time": 145.9999999999943
+    },
+    "afterBrake": {
+      "x": 1010.2452929281382,
+      "y": 9.271942092752647,
+      "z": -1207.274860281214,
+      "speed": -0.021322038392048714,
+      "source": "w668700424",
+      "edge": 1517,
+      "inside": true,
+      "contacts": 0,
+      "last": null,
+      "time": 146.73333333332758
+    },
+    "after": {
+      "x": 1010.2452930618196,
+      "y": 9.271939262024324,
+      "z": -1207.2748603777654,
+      "speed": -0.020080321285140562,
+      "source": "w668700424",
+      "edge": 1517,
+      "inside": true,
+      "contacts": 0,
+      "last": null,
+      "time": 150.73333333332735
+    },
+    "brakingTicks": 22,
+    "stationaryTicks": 120,
+    "stoppedReason": null,
+    "fullActorCountsBefore": [
+      306,
+      179,
+      560
+    ],
+    "fullActorCountsAfter": [
+      306,
+      179,
+      560
+    ],
+    "summary": {
+      "braking:Player.ownSurface": {
+        "calls": 66,
+        "sumMs": 2.7000000029802322,
+        "medianMs": 0,
+        "p95Ms": 0.20000000298023224,
+        "maxMs": 0.5
+      },
+      "braking:Player.followSurface": {
+        "calls": 22,
+        "sumMs": 2.2000000178813934,
+        "medianMs": 0.09999999403953552,
+        "p95Ms": 0.30000001192092896,
+        "maxMs": 0.5
+      },
+      "braking:Player.collide": {
+        "calls": 22,
+        "sumMs": 5.600000038743019,
+        "medianMs": 0.10000000894069672,
+        "p95Ms": 1,
+        "maxMs": 1.9000000059604645
+      },
+      "braking:Player.update": {
+        "calls": 22,
+        "sumMs": 11.300000011920929,
+        "medianMs": 0.20000000298023224,
+        "p95Ms": 2.4000000059604645,
+        "maxMs": 2.9000000059604645
+      },
+      "braking:Traffic.placeOnLane": {
+        "calls": 6669,
+        "sumMs": 1186.0999999195337,
+        "medianMs": 0,
+        "p95Ms": 0.29999999701976776,
+        "maxMs": 511.8999999910593
+      },
+      "braking:sourceBridgeGrade.heightAtWorld": {
+        "calls": 9172,
+        "sumMs": 256.8999999910593,
+        "medianMs": 0,
+        "p95Ms": 0.09999999403953552,
+        "maxMs": 55.20000000298023
+      },
+      "braking:World.roadHeight": {
+        "calls": 3540,
+        "sumMs": 834.5999998748302,
+        "medianMs": 0,
+        "p95Ms": 0.29999999701976776,
+        "maxMs": 510.09999999403954
+      },
+      "braking:Traffic.update": {
+        "calls": 22,
+        "sumMs": 3938.6000000089407,
+        "medianMs": 77,
+        "p95Ms": 472.20000000298023,
+        "maxMs": 1379.2999999970198
+      },
+      "braking:updateDrive": {
+        "calls": 22,
+        "sumMs": 4030.7999999970198,
+        "medianMs": 83.6000000089407,
+        "p95Ms": 483.29999999701977,
+        "maxMs": 1396
+      },
+      "stationary-player-evolving-traffic:Player.ownSurface": {
+        "calls": 360,
+        "sumMs": 35.899999901652336,
+        "medianMs": 0,
+        "p95Ms": 0.09999999403953552,
+        "maxMs": 24.5
+      },
+      "stationary-player-evolving-traffic:Player.followSurface": {
+        "calls": 120,
+        "sumMs": 33.400000005960464,
+        "medianMs": 0,
+        "p95Ms": 0.4000000059604645,
+        "maxMs": 24.799999997019768
+      },
+      "stationary-player-evolving-traffic:Player.collide": {
+        "calls": 120,
+        "sumMs": 14.399999976158142,
+        "medianMs": 0.09999999403953552,
+        "p95Ms": 0.29999999701976776,
+        "maxMs": 1.4000000059604645
+      },
+      "stationary-player-evolving-traffic:Player.update": {
+        "calls": 120,
+        "sumMs": 63.49999997019768,
+        "medianMs": 0.20000000298023224,
+        "p95Ms": 1,
+        "maxMs": 26.80000001192093
+      },
+      "stationary-player-evolving-traffic:Traffic.placeOnLane": {
+        "calls": 36368,
+        "sumMs": 2026.2000000923872,
+        "medianMs": 0,
+        "p95Ms": 0.20000000298023224,
+        "maxMs": 111.90000000596046
+      },
+      "stationary-player-evolving-traffic:sourceBridgeGrade.heightAtWorld": {
+        "calls": 49441,
+        "sumMs": 815.3999998420477,
+        "medianMs": 0,
+        "p95Ms": 0.09999999403953552,
+        "maxMs": 109.59999999403954
+      },
+      "stationary-player-evolving-traffic:World.roadHeight": {
+        "calls": 19024,
+        "sumMs": 1459.0000006854534,
+        "medianMs": 0,
+        "p95Ms": 0.20000000298023224,
+        "maxMs": 109.59999999403954
+      },
+      "stationary-player-evolving-traffic:Traffic.update": {
+        "calls": 120,
+        "sumMs": 11885.800000101328,
+        "medianMs": 68.40000000596046,
+        "p95Ms": 214.29999999701977,
+        "maxMs": 1176.3999999910593
+      },
+      "stationary-player-evolving-traffic:updateDrive": {
+        "calls": 120,
+        "sumMs": 12250.20000000298,
+        "medianMs": 70.09999999403954,
+        "p95Ms": 217.5,
+        "maxMs": 1187.2999999970198
+      }
+    },
+    "scope": "Inclusive elapsed method wrappers; nested sums overlap; software browser scheduling applies; no exclusive V8 or hardwareFPS claim."
+  },
+  "nativeMesh": {
+    "inputTriangles": 10528,
+    "outputTriangles": 30824,
+    "maxLeafControlErrorM": 0.0019997509885243403,
+    "depthLimit": 0,
+    "limitSamples": [],
+    "worstControl": {
+      "depth": 4,
+      "errorM": 0.0019997509885243403,
+      "vertices": [
+        {
+          "position": [
+            530.03369140625,
+            0.15000000596046448,
+            -826.669921875
+          ],
+          "heightDisplacement": 11,
+          "color": [
+            87,
+            81,
+            67
+          ],
+          "materialTag": -1
+        },
+        {
+          "position": [
+            527.984375,
+            0.15000000596046448,
+            -825.4310302734375
+          ],
+          "heightDisplacement": 10.994070651266949,
+          "color": [
+            87,
+            81,
+            67
+          ],
+          "materialTag": -1
+        },
+        {
+          "position": [
+            529.135498046875,
+            0.15000000596046448,
+            -823.52685546875
+          ],
+          "heightDisplacement": 10.99387001798933,
+          "color": [
+            87,
+            81,
+            67
+          ],
+          "materialTag": -1
+        }
+      ],
+      "edgeId": 1844,
+      "sourceId": "w1552024282"
+    }
+  },
+  "initialBindingPassed": false,
+  "unresolvedBindings": [
+    {
+      "id": 483,
+      "before": {
+        "sourceId": "w723716274",
+        "edgeId": 106,
+        "dir": 1,
+        "s": 29.50066886675127,
+        "x": -372.94907134801866,
+        "z": 690.1863223603264,
+        "heading": -0.02274692625493923
+      },
+      "reason": "no-local-source-legal-static-clear-rail-placement",
+      "candidateCount": 82
+    },
+    {
+      "id": 484,
+      "before": {
+        "sourceId": "w723716274",
+        "edgeId": 106,
+        "dir": -1,
+        "s": 13.340881738065741,
+        "x": -375.96437669701294,
+        "z": 695.221515450784,
+        "heading": 3.1184719269345416
+      },
+      "reason": "no-local-source-legal-static-clear-rail-placement",
+      "candidateCount": 77
+    }
+  ],
+  "initialAdmissionPassed": false,
+  "renderBudget": [
+    {
+      "calls": 129,
+      "triangles": 287151,
+      "elapsedMs": 11017.29999999702,
+      "scope": "Actual held final camera High1440x900 with native mirror and full submitted passes; softwareGPU elapsed, not FPS."
+    },
+    {
+      "calls": 129,
+      "triangles": 287151,
+      "elapsedMs": 9387.20000000298,
+      "scope": "Actual held final camera High1440x900 with native mirror and full submitted passes; softwareGPU elapsed, not FPS."
+    }
+  ],
+  "remaining": [
+    "Northern retained source ramp ends atY9.03194; no ground-exit acceptance",
+    "Off road/false Floreasca road-closed HUD on supported passive source bridge",
+    "Right parapet overlapping generated render faces",
+    "Trams483/484 initial source binding and initial admission failures"
+  ],
+  "errata": [
+    "Two private driver helper calls omitted points and threw before any native update; then corrected new-file helper performed successful chunks. These two errors remain in live-report.errors. App console/HTTP errors0.",
+    "drive2 JSON/PNG repeated the earlier held pose after failed helper calls; not new drive progress and not included as a unique moving phase.",
+    "retained-exit-core-membership-correction contained erroneous wording that graph was absent; direct final identity query establishes World.graph is present and exit edges are passive.",
+    "Malformed temporary retained-exit-legality diagnostic was superseded by complete retained-exit-restriction-input and actual-source restriction audit. No source/routing behavior changed."
+  ]
+}

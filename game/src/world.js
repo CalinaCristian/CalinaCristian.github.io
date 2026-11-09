@@ -4861,6 +4861,17 @@ export async function buildWorld(city, renderer, opts = {}) {
                 }
                 return true;
             };
+            // A readable sign and its post are one discrete object. Clipping
+            // its glyph quad into pieces can leave misleading partial words.
+            const wholePrimitive = emit => {
+                const before = new Map(closureBuilders().map(mb => [mb, { vc: mb.vc, ic: mb.ic }]));
+                emit();
+                const touched = closureBuilders().filter(mb => mb.ic > (before.get(mb)?.ic || 0));
+                if (touched.every(mb => boundarySupport.clearMeshRange(mb, before.get(mb)?.ic || 0, clipOptions))) return true;
+                for (const mb of touched) { const old = before.get(mb); mb.vc = old?.vc || 0; mb.ic = old?.ic || 0; }
+                boundarySupport.report.rejectedDiscreteProps++; return false;
+            };
+            const closureSign = (...args) => wholePrimitive(() => sign(...args));
             // Immutable spans are shared by the physical wall and every visible
             // barrier; source scenery supplies the real continuation beyond it.
             const half = (m.l1 - m.l0) / 2, lc = (m.l0 + m.l1) / 2;
@@ -4951,18 +4962,20 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (kind !== 'small' && m.bundlePrimary) { // one arrow board per local street bundle
                 for (let j = -1; j <= 1; j++) { const [x, z] = at(1.0, j * 2.05 - half * 0.35);
                     discrete(c.solid, () => c.solid.geo(jerseyG, x, y, z, ang, 1, 1, 1, [255, 255, 255]), x, z, 1.05, false); }
-                const [bx, bz] = at(-0.6, half * 0.5); c.solid.box(bx, y, bz, 0.1, 1.2, 0.1, 0, postCol); c.solid.box(bx, y + 1.25, bz, 2.2, 1.1, 0.12, ang + Math.PI / 2, dark);
-                const ab = signs.get(US ? '<<<<' : '◄◄◄', '#141414', '#ffb300', null, true); if (ab) addSignQuad(c, bx, bz, face, 1, 2.0, 0.9, y + 1.8, ab, 0.08);
+                wholePrimitive(() => {
+                    const [bx, bz] = at(-0.6, half * 0.5); c.solid.box(bx, y, bz, 0.1, 1.2, 0.1, 0, postCol); c.solid.box(bx, y + 1.25, bz, 2.2, 1.1, 0.12, ang + Math.PI / 2, dark);
+                    const ab = signs.get(US ? '<<<<' : '◄◄◄', '#141414', '#ffb300', null, true); if (ab) addSignQuad(c, bx, bz, face, 1, 2.0, 0.9, y + 1.8, ab, 0.08);
+                });
             }
             // signs on the kerb
             const [sx, sz] = at(5, half + 0.7), [tx, tz] = at(9, -(half + 0.7)); // (on the kerb, just off the asphalt)
             if (US) {
-                sign(c, sx, sz, y, face, 'ROAD CLOSED', '#ffffff', '#111111', null, 1.8);
-                sign(c, tx, tz, y, face, kind === 'highway' ? 'RAMP CLOSED' : k % 2 ? 'LOCAL TRAFFIC ONLY' : 'DETOUR →', kind === 'highway' ? '#ff6a13' : k % 2 ? '#ffffff' : '#ff6a13', '#111111', null, 1.7);
-                if (kind === 'highway') { const [hx, hz] = at(12, half + 0.7); sign(c, hx, hz, y, face, 'CLOSED FOR BRIDGE MAINTENANCE', '#ff6a13', '#111111', null, 2.6); }
+                closureSign(c, sx, sz, y, face, 'ROAD CLOSED', '#ffffff', '#111111', null, 1.8);
+                closureSign(c, tx, tz, y, face, kind === 'highway' ? 'RAMP CLOSED' : k % 2 ? 'LOCAL TRAFFIC ONLY' : 'DETOUR →', kind === 'highway' ? '#ff6a13' : k % 2 ? '#ffffff' : '#ff6a13', '#111111', null, 1.7);
+                if (kind === 'highway') { const [hx, hz] = at(12, half + 0.7); closureSign(c, hx, hz, y, face, 'CLOSED FOR BRIDGE MAINTENANCE', '#ff6a13', '#111111', null, 2.6); }
             } else {
-                sign(c, sx, sz, y, face, 'DRUM ÎNCHIS', '#ffffff', '#c62828', '#c62828', 1.6);
-                sign(c, tx, tz, y, face, k % 2 ? 'DEVIERE →' : 'LUCRĂRI', '#f5c400', '#111111', null, 1.5);
+                closureSign(c, sx, sz, y, face, 'DRUM ÎNCHIS', '#ffffff', '#c62828', '#c62828', 1.6);
+                closureSign(c, tx, tz, y, face, k % 2 ? 'DEVIERE →' : 'LUCRĂRI', '#f5c400', '#111111', null, 1.5);
             }
             // one character prop per closure (deterministic): excavator / police car (RO), flagger (US)
             const pick = (e.id * 7 + k) % 3;

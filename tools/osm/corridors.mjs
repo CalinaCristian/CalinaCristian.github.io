@@ -115,6 +115,10 @@ export function buildCorridor(roads, pos, P, cfg, log = () => { }) {
         for (let i = 0; i < list.length - 1; i++) routeLeg(list[i], list[i + 1], list[i + 1].r ?? list[i].legR ?? rRoute, `${tag}: ${list[i].name || i} → ${list[i + 1].name || i + 1}`);
     };
     chain(cfg.route || [], false, "route");
+    // These pieces have already passed literal source direction/access/turn
+    // validation. They select finite coverage, never a synthetic graph edge.
+    for (const p of cfg.sourcePieces || []) pieces.push({ ...p, pts: p.pts.map(q => [...q]) });
+    for (const n of cfg.sourceReturnNodes || []) routeNodes.add(n);
     // bands: fixed polylines [[lat, lon], …] with a half-width r (e.g. 250 m either side of I-90); their road nodes are kept
     for (const b of cfg.bands || []) {
         const pts = b.line.map(([lat, lon]) => P(lat, lon)); pieces.push({ pts, r: b.r });

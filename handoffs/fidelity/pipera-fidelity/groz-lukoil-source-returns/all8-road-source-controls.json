@@ -1,0 +1,70 @@
+{
+  "districts": [
+    {
+      "district": "grozavesti",
+      "wholeWays": 5,
+      "sourceVertices": 12,
+      "shortStubs": 1,
+      "privatePhysical": 2,
+      "issues": 0
+    },
+    {
+      "district": "unirii",
+      "wholeWays": 5,
+      "sourceVertices": 12,
+      "shortStubs": 1,
+      "privatePhysical": 2,
+      "issues": 0
+    },
+    {
+      "district": "romana",
+      "wholeWays": 5,
+      "sourceVertices": 12,
+      "shortStubs": 1,
+      "privatePhysical": 2,
+      "issues": 0
+    },
+    {
+      "district": "floreasca",
+      "wholeWays": 5,
+      "sourceVertices": 12,
+      "shortStubs": 1,
+      "privatePhysical": 2,
+      "issues": 0
+    },
+    {
+      "district": "pipera",
+      "wholeWays": 5,
+      "sourceVertices": 12,
+      "shortStubs": 1,
+      "privatePhysical": 2,
+      "issues": 0
+    },
+    {
+      "district": "otopeni",
+      "wholeWays": 5,
+      "sourceVertices": 12,
+      "shortStubs": 1,
+      "privatePhysical": 2,
+      "issues": 0
+    },
+    {
+      "district": "seatac",
+      "wholeWays": 5,
+      "sourceVertices": 12,
+      "shortStubs": 1,
+      "privatePhysical": 2,
+      "issues": 0
+    },
+    {
+      "district": "bellevue",
+      "wholeWays": 5,
+      "sourceVertices": 12,
+      "shortStubs": 1,
+      "privatePhysical": 2,
+      "issues": 0
+    }
+  ],
+  "ghostConnectorRoutesChecked": 2,
+  "issues": 0
+}

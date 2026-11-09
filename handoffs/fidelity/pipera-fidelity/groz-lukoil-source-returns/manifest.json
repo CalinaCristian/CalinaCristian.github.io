@@ -1,0 +1,236 @@
+{
+  "scope": "Bounded offline data/compiler proof; no native World/browser/driving/23frame acceptance. Raw tool negatives retained.",
+  "nativeSourceCommit": "ff6b2bff3cfe5b45c5dba9624abbb6672304bfed",
+  "currentNativePoiReadbackSource": "8e4fb0a63cf672d2adf42d6c71d93435b9ff5f2b",
+  "candidateDataSha256": "fa12eda6365d369c79222ed8af0a068f5173899d71698a7f94cd70682dac4685",
+  "nativeSourceHashes": {
+    "game/src/nav.js": "7d1553ad46fa656ee7773d82bf5ef9b8a2af4bb0fb29d8c0131ed9154bac8617",
+    "game/src/road-access.js": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee"
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 11122,
+      "sha256": "7eebd90efeb0288b3610b6367ad550de0c6d42231cfb7530709ee4073e13d9ac"
+    },
+    {
+      "path": "all8-road-source-controls.json",
+      "bytes": 1365,
+      "sha256": "542036848edebabc55db6ce57c14793ebcf4a41373e0e6f06f4dcffd18cf36b9"
+    },
+    {
+      "path": "all8-road-source-controls.stderr",
+      "bytes": 476,
+      "sha256": "cdc8d528b9c15ca17cb7421f7aab995347d5b1d310ebada32430758ad8eab555"
+    },
+    {
+      "path": "audit-preserved-context.py",
+      "bytes": 3628,
+      "sha256": "6e7f5f25f145716dc50bcca74ecffe5bb56d693812fc38ff17705d010b3b80c7"
+    },
+    {
+      "path": "candidate-building-audit-r2.log",
+      "bytes": 2376,
+      "sha256": "505cbe962c36279e9f2726aa498d2a31f079bf22f2034d00007334f5046565f6"
+    },
+    {
+      "path": "candidate-building-audit.json.gz",
+      "bytes": 101891,
+      "sha256": "ced34868d43d0dbef9b8a9afbd957e1bc8bd3d04e60963ef593e533329104159",
+      "rawBytes": 1650126,
+      "rawSha256": "559cb970517342e9f07241b63761b891854ebecef54cb8ea99b22c51ff3850ba"
+    },
+    {
+      "path": "candidate-building-audit.log",
+      "bytes": 668,
+      "sha256": "2e944aa047c4a6687f2e15951c063f245d5aa95ad281ac39af2b1b4c88586346"
+    },
+    {
+      "path": "candidate-preservation-audit.json",
+      "bytes": 2620,
+      "sha256": "2569fe27caf09a49e1be37fa301fc541a455c36ea77dafae2d6e283789d2ab0e"
+    },
+    {
+      "path": "candidate-road-source-audit.json",
+      "bytes": 1109,
+      "sha256": "9f04c45219c9f14c59d222ccf06fe302ae6c450fb0234d088e121c06f1186329"
+    },
+    {
+      "path": "certify-gaps.py",
+      "bytes": 6997,
+      "sha256": "5822bccc8d18b01a3ce8ec9f70094195b5bf8d19bdea5588372109661bd4560f"
+    },
+    {
+      "path": "check-compiled-return-routes.mjs",
+      "bytes": 3520,
+      "sha256": "d428ad05afe9ff083b2bdbaf29907a6f18cb12a592c50898477213683ae02bfa"
+    },
+    {
+      "path": "compare-source-preservation.py",
+      "bytes": 5144,
+      "sha256": "9babedb2ee3d8a35f428ddfcaab06498737be2802e8ef7e110c400781a1079ea"
+    },
+    {
+      "path": "compiled-route-check.json.gz",
+      "bytes": 15498,
+      "sha256": "05fea99e369c0592042818921189a025c30c671cd060b58df430b0aac5a4aa90",
+      "rawBytes": 767585,
+      "rawSha256": "ea11813cfd0abcf13fe77606ab5feeca045ae4e570e2c6a27cdb0b9ca9ec4278"
+    },
+    {
+      "path": "connectivity-ff6.mjs",
+      "bytes": 4105,
+      "sha256": "5438c98f37d69d23138405cb63f8b79f5367577008b87120d2b7158e2a48d1e6"
+    },
+    {
+      "path": "context-check.json",
+      "bytes": 582,
+      "sha256": "bd383c034c52f9676900118e971e1177afabd7705cf715b39dc42aee90d46f32"
+    },
+    {
+      "path": "ff6-connectivity.json.gz",
+      "bytes": 5365,
+      "sha256": "83a054e1c95a5aa0d332d2e06e757a72ddbbb0792d9f4992868668c787ac68d2",
+      "rawBytes": 213307,
+      "rawSha256": "bcc6cb0a640980e5da5e9e7438adb41a13cc34d8c0ec1516e5a934c26fcf9d06"
+    },
+    {
+      "path": "ff6-initial.json.gz",
+      "bytes": 8193,
+      "sha256": "f40a409f8961af498690e11b94c2fa8f39158430cc660e8717c0cbe1a3285b4c",
+      "rawBytes": 281071,
+      "rawSha256": "cd1ba4afa74bae23e8acbe37dfca0fab05c60e4ddcd16da75d4b224e856262e1"
+    },
+    {
+      "path": "helper-check.json",
+      "bytes": 1394,
+      "sha256": "10d0670fcc879b7c4b296f0b647b7d99eb81cb67395abbd9ba49541567c3d54f"
+    },
+    {
+      "path": "inspect-ff6.mjs",
+      "bytes": 4863,
+      "sha256": "38e23a681cb6f3cab11cfe9a94e2fb8619c58bb21a9b66417bc891238e3849e0"
+    },
+    {
+      "path": "lukoil-native-8e4-small.json",
+      "bytes": 4053,
+      "sha256": "199b3f207e4ac7bde8e5d780a5bb8169e2f96d4d7b31edd071a4321ac6197d44"
+    },
+    {
+      "path": "measure-return-corridors.py",
+      "bytes": 7624,
+      "sha256": "894190ef8dcf21a9c14d99ee7e66b1cc28c82d09261c2beb6965bc7339039247"
+    },
+    {
+      "path": "original-406a-grozavesti.json.gz",
+      "bytes": 1419010,
+      "sha256": "36a872efafeae48bdfd80fba14c3896376eb610fd769fd112eb2c8e47f57bee7",
+      "rawBytes": 5814201,
+      "rawSha256": "b0341956c088b9cb142a7005831345eda7bf7aae27f18618181ba8fc535f4175"
+    },
+    {
+      "path": "raw-osm-route.py",
+      "bytes": 6278,
+      "sha256": "a0a8fa0ec47cb6bc111741e2626fdf5c97cb3ed3600034b4f5cff43be8eb0431"
+    },
+    {
+      "path": "raw-osm-routes.json.gz",
+      "bytes": 15782,
+      "sha256": "b9f564507715cbbd6ec8fcc8ab4bb5a4254706cfed35070e92e9029a36273a04",
+      "rawBytes": 205882,
+      "rawSha256": "01a5c7c7f9c51acedf5bb0c0ee93cceab1d8c215b29eae2d2f0636cfd86c8365"
+    },
+    {
+      "path": "rebuild-baseline-grozavesti.json.gz",
+      "bytes": 1416544,
+      "sha256": "9358f1684b84af579f9d372d288ec2d688e3a570bfe18ba933fd5d7d09f6a635",
+      "rawBytes": 5809302,
+      "rawSha256": "1a72b8d9884d652b15f122538ebf69d7f579e578369f4234d754f02d4b17e0fa"
+    },
+    {
+      "path": "rebuild-baseline.log",
+      "bytes": 2357,
+      "sha256": "77ae6bf3c871d0a169911b96082cd2ca22226226892942e09bd18123bb4e8109"
+    },
+    {
+      "path": "rebuild-candidate-r2.log",
+      "bytes": 2361,
+      "sha256": "e026964e4aaa10bae73831e92d1a855c978b4e9a77f0b296cef1bbc9c7b5908d"
+    },
+    {
+      "path": "rebuild-candidate-r3.log",
+      "bytes": 2361,
+      "sha256": "f22ca5917323d2444cfb8372be2ac0e3ae709a995229c5d49aa150fdc707e3e5"
+    },
+    {
+      "path": "rebuild-candidate-r4.log",
+      "bytes": 2361,
+      "sha256": "e99fbb1fe5872062ab1c8dbc02223fe0894257dcbef2ae3a1f3f6a5f4272c840"
+    },
+    {
+      "path": "rebuild-candidate.log",
+      "bytes": 1766,
+      "sha256": "3001a2abf116ecc29728c72d47c6ee931e4be0bc9203098859667c82a34370d4"
+    },
+    {
+      "path": "replay-final.log",
+      "bytes": 101,
+      "sha256": "21221b96a721a8a9de823141f9cbc17a89799d8b4b3f5ff85b35a6b872638a1e"
+    },
+    {
+      "path": "reproduce.py",
+      "bytes": 3027,
+      "sha256": "ce3f5daa4bc048972a2523f69380ef464743423b0bdca6866d51823011bbd7bd"
+    },
+    {
+      "path": "return-corridor-coverage.json",
+      "bytes": 4686,
+      "sha256": "0b1df8c322d96a5757f1ed68df30621fae31b7cae35e96bdc633e494a79806fc"
+    },
+    {
+      "path": "road-access-controls.json",
+      "bytes": 163,
+      "sha256": "a2873b19bbf69002fca935db56251a06486fe5bffbff71ac492d75f0aa89fe60"
+    },
+    {
+      "path": "road-access-controls.stderr",
+      "bytes": 481,
+      "sha256": "9b82fff460fb66efe34f6ce09e8b6a3b85be87de7d1cf92048f75499d03da074"
+    },
+    {
+      "path": "source-context-preservation.json.gz",
+      "bytes": 9377,
+      "sha256": "660d401fa8197f36db51e53870586be7e1cc126e20720dde2772b4727b412aff",
+      "rawBytes": 87575,
+      "rawSha256": "921733f25a76c037e58a9687af4738083bfb5efb884404c8d163557dbdbb6c81"
+    },
+    {
+      "path": "source-gap-certificate.json.gz",
+      "bytes": 18188,
+      "sha256": "51656e12d553e380a7929379ff4345b33f250456e5b5fe3cf06fe0220b0de97e",
+      "rawBytes": 232227,
+      "rawSha256": "22682de6eba70e98057c9ff4e30a2e5e468a89f51d968f7dfa90734f2845b406"
+    },
+    {
+      "path": "source-route-mask.png",
+      "bytes": 161092,
+      "sha256": "63a5db1e81f44a70b8fff38658bbcef5dafbdeb315eb45f247d199d800df1e85"
+    },
+    {
+      "path": "touching-source-restrictions.json",
+      "bytes": 406,
+      "sha256": "f2f3795ef9887781c21755e651b70e22a24d4b861fd6b0096f6bd5cb0368428b"
+    }
+  ],
+  "baselineSourceCommit": "406a53f1f1f1397a1667ea1bc77df78289a5667a",
+  "candidateCodeBase": "406a53f1f1f1397a1667ea1bc77df78289a5667a",
+  "candidateSourceFiles": {
+    "game/data/bucharest-grozavesti.json": "fa12eda6365d369c79222ed8af0a068f5173899d71698a7f94cd70682dac4685",
+    "game/research/source-returns-bucharest-grozavesti.json": "75ade705afb2eb95649c15db2fcc4ccd96739a975263a2e3ab9dc2969193af95",
+    "game/research/source-context-bucharest-grozavesti.json": "4a4e4500867a4fff5f2f35f1071724a162f2e1b03fc88d51498d24812b5e521e",
+    "tools/osm/build-data.mjs": "fe2df83fc6ce6eaff0db7917ca32be957a79401e00435b22dae644268a672b3d",
+    "tools/osm/corridors.mjs": "35609c3a4146419a576b8029bca18a837487f63deabc47314f1ce4520f7a94b2",
+    "tools/osm/source-return-corridors.mjs": "b399664e2ed77fa617b24a5d939303609d417ba40b3be5d70ef6f76281c023c9",
+    "tools/osm/source-return-context.mjs": "63fc19f1f71fd3e86f381ca4ca59bb5cf82c88feebaf5a4dfd37ad8baffb4277"
+  }
+}

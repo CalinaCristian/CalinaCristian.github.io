@@ -1,0 +1,7 @@
+{
+  "unitCases": 15,
+  "routerChecks": 5,
+  "builderChecks": 10,
+  "restrictedPhysicalRoadsRetained": true,
+  "sourceFixture": "/tmp/road-access-fixture-wN55oi"
+}

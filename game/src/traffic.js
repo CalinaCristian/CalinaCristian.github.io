@@ -2779,6 +2779,7 @@ export class Pedestrians {
     peerCorrectionClear(p, x, z, oldX, oldZ) {
         const W = this.t.world, height = (a, b) => { const h = W.walkTop?.(a, b); return h == null ? 0.2 : h + 0.01; };
         const depth = (a, b) => { const c = collideBuildings(W.buildings || [], a, b, PED_R, height(a, b)); return c ? Math.hypot(c.px, c.pz) : 0; };
+        if (this.obsDepth(x, z, PED_R) > this.obsDepth(oldX, oldZ, PED_R) + 1e-6) return false;
         if (this.inWater(x, z) || depth(x, z) > depth(oldX, oldZ) + 1e-6) return false;
         if (!p.onRoad && !this.roadAt(oldX, oldZ, PED_R) && this.roadAt(x, z, PED_R)) return false;
         let clear = true;

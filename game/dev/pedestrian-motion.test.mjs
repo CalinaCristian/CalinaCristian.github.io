@@ -91,6 +91,24 @@ assert.ok(Math.hypot(s.x-wait.x,s.z-wait.z)>=.6-1e-6,'static correction never mo
 assert.ok(solid.C.obsDepth(s.x,s.z)<oldDepth,'a blocked direct push still makes partial physical escape around the peer');
 assert.ok(Math.hypot(first.x-10,first.z-4.6)>0);
 
+// Exercise the actual pedestrian obstacle index independently of the world's
+// building list: both the circle and the rotated OBB must block a separation.
+for (const obstacle of [
+    {x:3.54,z:4.6,r:.15,box:false},
+    {x:3.56,z:4.6,r:.2,box:true,hw:.1,hd:.08,c:Math.cos(.4),s:Math.sin(.4)}
+]) {
+    const props=scene(),a=props.person(1,4.01),b=props.person(2,4.4);a.state=b.state='stand';props.C.list=[a,b];
+    props.C.obs=[obstacle];props.C.obsGrid.build(props.C.obs);props.C.buildGrid();
+    assert.equal(props.C.obsDepth(a.x,a.z),0);assert.ok(props.C.obsDepth(a.x-.04,a.z)>0);
+    props.C.sepPush(a,-.04,0,b);
+    assert.deepEqual([a.x,a.z],[4.01,4.6],'separation cannot enter the indexed prop while world.buildings is empty');
+    assert.equal(props.C.obsDepth(a.x,a.z),0);
+}
+const indexedEscape=scene(),ie=indexedEscape.person(1,4),ib=indexedEscape.person(2,3.7);ie.state=ib.state='stand';indexedEscape.C.list=[ie,ib];
+indexedEscape.C.obs=[{x:3.6,z:4.6,r:.15,box:false}];indexedEscape.C.obsGrid.build(indexedEscape.C.obs);indexedEscape.C.buildGrid();
+const indexedDepth=indexedEscape.C.obsDepth(ie.x,ie.z);assert.ok(indexedDepth>0);
+indexedEscape.C.sepPush(ie,.02,0,ib);assert.ok(ie.x>4);assert.ok(indexedEscape.C.obsDepth(ie.x,ie.z)<indexedDepth,'an already overlapping indexed prop still permits partial outward escape');
+
 const wall=scene();wall.C.list=[wall.person(1,10),wall.person(2,13,-1)];
 const slab={x:20,z:5.8,r:30,poly:[[0,5.4],[100,5.4],[100,6.5],[0,6.5]],h:3};wall.C.t.world.buildings=[slab];
 const w=run(wall.C,240);assert.ok(w.minimum>=.6-1e-6);

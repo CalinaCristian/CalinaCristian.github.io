@@ -13,7 +13,7 @@ for(const place of catalog.locations){
  for(const wall of [...(delta?.removedOrReplaced||[]),...(delta?.addedOrShortened||[])]){
   const b=wall.renderedBoundsXZ,y=wall.renderedYRange;
   const pad=Math.max(20,3*(y[1]-y[0])+5);
-  boxes.push({kind:'generated-separator',sourceId:wall.sourceId||wall.sourceRoadId||null,boundsXZ:[b[0]-pad,b[1]-pad,b[2]+pad,b[3]+pad],paddingM:pad});
+  boxes.push({kind:'generated-separator',sourceId:wall.sourceOwnership?.sourceId||wall.edge?.sourceId||wall.sourceId||wall.sourceRoadId||null,boundsXZ:[b[0]-pad,b[1]-pad,b[2]+pad,b[3]+pad],paddingM:pad});
  }
  if(place.id==='seatac')for(const model of models.models){
   const b=model.conservativeChangedStructuralBoundsXZ,extent=model.wholeRenderedModelBounds;

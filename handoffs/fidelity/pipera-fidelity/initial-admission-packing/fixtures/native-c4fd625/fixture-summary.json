@@ -1,0 +1,782 @@
+{
+  "sourceCommit": "c4fd6255f928101e27874f37776ed5be8d805827",
+  "stage": "Exact PRE-admission spawnAll input at physicaltime0; no pose updates applied",
+  "actorCount": 484,
+  "providerCount": 484,
+  "candidateCount": 48294,
+  "nativePhysicalTimeAfterLoad": 0,
+  "livePoseRouteIdentityUnchanged": true,
+  "targetActors": [
+    {
+      "body": {
+        "id": 47,
+        "kind": "taxi",
+        "x": -398.6680293421824,
+        "y": -5.76,
+        "z": 452.15101553170234,
+        "heading": -3.100669156406587,
+        "s": 4.7993640649551566,
+        "length": 4.36,
+        "width": 1.73,
+        "metadataHeight": 1.52,
+        "verticalInterval": {
+          "min": -5.824999997615814,
+          "max": -4.189999947547912,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "pitch": 0,
+        "roll": 0,
+        "dir": 1,
+        "lane": 1,
+        "laneCur": 1,
+        "latExtraCur": 0,
+        "lateralExtra": 0,
+        "layer": -2,
+        "long": false,
+        "bus": false,
+        "tram": false,
+        "parked": false,
+        "service": false,
+        "canAdjust": true,
+        "edge": {
+          "id": 38,
+          "access": {
+            "sourceId": "w241368617",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "foot": "no",
+              "layer": "-1",
+              "oneway": "yes",
+              "tunnel": "yes"
+            }
+          },
+          "sourceId": "w241368617",
+          "name": "Pasajul Unirii",
+          "type": "primary",
+          "len": 9.598728129910313,
+          "dirx": 0.040912075487041275,
+          "dirz": 0.9991627505463475,
+          "nx": -0.9991627505463475,
+          "nz": 0.040912075487041275,
+          "wL": 3.5,
+          "wR": 3.5,
+          "lanesF": 2,
+          "lanesB": 0,
+          "sharedLane": false,
+          "oneway": true,
+          "publicDrive": true,
+          "mapEnds": false,
+          "tram": false,
+          "layer": -1,
+          "ya": -6,
+          "yb": -6,
+          "a": {
+            "id": 60,
+            "sourceId": 2687968316,
+            "x": -397.11584647364157,
+            "z": 447.2840735995861,
+            "y": -6
+          },
+          "b": {
+            "id": 1005,
+            "x": -396.72314258381107,
+            "z": 456.87476519961393,
+            "y": -6
+          }
+        },
+        "route": [],
+        "hist": []
+      },
+      "provider": {
+        "id": 47,
+        "edgeId": 38,
+        "long": false,
+        "nativeSpan": null
+      },
+      "candidateCount": 23,
+      "validSourceStaticSharedCandidates": 23
+    },
+    {
+      "body": {
+        "id": 61,
+        "kind": "stb-bus",
+        "x": -397.8826215625215,
+        "y": -5.76,
+        "z": 471.3323987317579,
+        "heading": -3.1006691564065854,
+        "s": 4.7993640649551566,
+        "length": 12,
+        "width": 2.55,
+        "metadataHeight": 3.1,
+        "verticalInterval": {
+          "min": -5.824999997615814,
+          "max": -2.379999885559082,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "pitch": 0,
+        "roll": 0,
+        "dir": 1,
+        "lane": 1,
+        "laneCur": 1,
+        "latExtraCur": 0,
+        "lateralExtra": 0,
+        "layer": -2,
+        "long": true,
+        "bus": true,
+        "tram": false,
+        "parked": false,
+        "service": false,
+        "canAdjust": true,
+        "edge": {
+          "id": 998,
+          "access": {
+            "sourceId": "w241368617",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "foot": "no",
+              "layer": "-1",
+              "oneway": "yes",
+              "tunnel": "yes"
+            }
+          },
+          "sourceId": "w241368617",
+          "name": "Pasajul Unirii",
+          "type": "primary",
+          "len": 9.598728129910313,
+          "dirx": 0.040912075487041275,
+          "dirz": 0.9991627505463475,
+          "nx": -0.9991627505463475,
+          "nz": 0.040912075487041275,
+          "wL": 3.5,
+          "wR": 3.5,
+          "lanesF": 2,
+          "lanesB": 0,
+          "sharedLane": false,
+          "oneway": true,
+          "publicDrive": true,
+          "mapEnds": false,
+          "tram": false,
+          "layer": -1,
+          "ya": -6,
+          "yb": -6,
+          "a": {
+            "id": 1006,
+            "x": -396.3304386939806,
+            "z": 466.4654567996417,
+            "y": -6
+          },
+          "b": {
+            "id": 1007,
+            "x": -395.9377348041501,
+            "z": 476.0561483996695,
+            "y": -6
+          }
+        },
+        "route": [],
+        "hist": []
+      },
+      "provider": {
+        "id": 61,
+        "edgeId": 998,
+        "long": true,
+        "nativeSpan": [
+          0.5,
+          9.098728129910313
+        ]
+      },
+      "candidateCount": 37,
+      "validSourceStaticSharedCandidates": 37
+    },
+    {
+      "body": {
+        "id": 127,
+        "kind": "hatch",
+        "x": -397.489917672691,
+        "y": -5.76,
+        "z": 480.9230903317857,
+        "heading": -3.100669156406587,
+        "s": 4.7993640649551566,
+        "length": 4.28,
+        "width": 1.79,
+        "metadataHeight": 1.46,
+        "verticalInterval": {
+          "min": -5.824999997615814,
+          "max": -4.240000019073486,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "pitch": 0,
+        "roll": 0,
+        "dir": 1,
+        "lane": 1,
+        "laneCur": 1,
+        "latExtraCur": 0,
+        "lateralExtra": 0,
+        "layer": -2,
+        "long": false,
+        "bus": false,
+        "tram": false,
+        "parked": false,
+        "service": false,
+        "canAdjust": true,
+        "edge": {
+          "id": 999,
+          "access": {
+            "sourceId": "w241368617",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "foot": "no",
+              "layer": "-1",
+              "oneway": "yes",
+              "tunnel": "yes"
+            }
+          },
+          "sourceId": "w241368617",
+          "name": "Pasajul Unirii",
+          "type": "primary",
+          "len": 9.598728129910313,
+          "dirx": 0.040912075487041275,
+          "dirz": 0.9991627505463475,
+          "nx": -0.9991627505463475,
+          "nz": 0.040912075487041275,
+          "wL": 3.5,
+          "wR": 3.5,
+          "lanesF": 2,
+          "lanesB": 0,
+          "sharedLane": false,
+          "oneway": true,
+          "publicDrive": true,
+          "mapEnds": false,
+          "tram": false,
+          "layer": -1,
+          "ya": -6,
+          "yb": -6,
+          "a": {
+            "id": 1007,
+            "x": -395.9377348041501,
+            "z": 476.0561483996695,
+            "y": -6
+          },
+          "b": {
+            "id": 1008,
+            "x": -395.5450309143197,
+            "z": 485.64683999969725,
+            "y": -6
+          }
+        },
+        "route": [],
+        "hist": []
+      },
+      "provider": {
+        "id": 127,
+        "edgeId": 999,
+        "long": false,
+        "nativeSpan": null
+      },
+      "candidateCount": 23,
+      "validSourceStaticSharedCandidates": 23
+    },
+    {
+      "body": {
+        "id": 140,
+        "kind": "hatch",
+        "x": -402.81825168699805,
+        "y": -5.76,
+        "z": 372.8195474196932,
+        "heading": -3.0885976683372145,
+        "s": 4.977469497384423,
+        "length": 4.28,
+        "width": 1.79,
+        "metadataHeight": 1.46,
+        "verticalInterval": {
+          "min": -5.824999997615814,
+          "max": -4.240000019073486,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "pitch": 0,
+        "roll": 0,
+        "dir": 1,
+        "lane": 1,
+        "laneCur": 1,
+        "latExtraCur": 0,
+        "lateralExtra": 0,
+        "layer": -2,
+        "long": false,
+        "bus": false,
+        "tram": false,
+        "parked": false,
+        "service": false,
+        "canAdjust": true,
+        "edge": {
+          "id": 989,
+          "access": {
+            "sourceId": "w241368617",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "foot": "no",
+              "layer": "-1",
+              "oneway": "yes",
+              "tunnel": "yes"
+            }
+          },
+          "sourceId": "w241368617",
+          "name": "Pasajul Unirii",
+          "type": "primary",
+          "len": 9.954938994768845,
+          "dirx": 0.052970182944872934,
+          "dirz": 0.998596094383904,
+          "nx": -0.998596094383904,
+          "nz": 0.052970182944872934,
+          "wL": 3.5,
+          "wR": 3.5,
+          "lanesF": 2,
+          "lanesB": 0,
+          "sharedLane": false,
+          "oneway": true,
+          "publicDrive": true,
+          "mapEnds": false,
+          "tram": false,
+          "layer": -1,
+          "ya": -6,
+          "yb": -6,
+          "a": {
+            "id": 997,
+            "x": -401.3343659917052,
+            "z": 367.75636799953656,
+            "y": -6
+          },
+          "b": {
+            "id": 998,
+            "x": -400.80705105194727,
+            "z": 377.69733119954276,
+            "y": -6
+          }
+        },
+        "route": [],
+        "hist": []
+      },
+      "provider": {
+        "id": 140,
+        "edgeId": 989,
+        "long": false,
+        "nativeSpan": null
+      },
+      "candidateCount": 25,
+      "validSourceStaticSharedCandidates": 25
+    },
+    {
+      "body": {
+        "id": 145,
+        "kind": "van",
+        "x": -404.4001965062719,
+        "y": -5.76,
+        "z": 342.9966578196746,
+        "heading": -3.0885976683372145,
+        "s": 4.977469497384423,
+        "length": 4.36,
+        "width": 1.75,
+        "metadataHeight": 1.81,
+        "verticalInterval": {
+          "min": -5.824999997615814,
+          "max": -3.9500000572204588,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "pitch": 0,
+        "roll": 0,
+        "dir": 1,
+        "lane": 1,
+        "laneCur": 1,
+        "latExtraCur": 0,
+        "lateralExtra": 0,
+        "layer": -2,
+        "long": false,
+        "bus": false,
+        "tram": false,
+        "parked": false,
+        "service": false,
+        "canAdjust": true,
+        "edge": {
+          "id": 986,
+          "access": {
+            "sourceId": "w241368617",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "foot": "no",
+              "layer": "-1",
+              "oneway": "yes",
+              "tunnel": "yes"
+            }
+          },
+          "sourceId": "w241368617",
+          "name": "Pasajul Unirii",
+          "type": "primary",
+          "len": 9.954938994768845,
+          "dirx": 0.052970182944872934,
+          "dirz": 0.998596094383904,
+          "nx": -0.998596094383904,
+          "nz": 0.052970182944872934,
+          "wL": 3.5,
+          "wR": 3.5,
+          "lanesF": 2,
+          "lanesB": 0,
+          "sharedLane": false,
+          "oneway": true,
+          "publicDrive": true,
+          "mapEnds": false,
+          "tram": false,
+          "layer": -1,
+          "ya": -6,
+          "yb": -6,
+          "a": {
+            "id": 994,
+            "x": -402.9163108109791,
+            "z": 337.933478399518,
+            "y": -6
+          },
+          "b": {
+            "id": 995,
+            "x": -402.38899587122114,
+            "z": 347.8744415995242,
+            "y": -6
+          }
+        },
+        "route": [],
+        "hist": []
+      },
+      "provider": {
+        "id": 145,
+        "edgeId": 986,
+        "long": false,
+        "nativeSpan": null
+      },
+      "candidateCount": 23,
+      "validSourceStaticSharedCandidates": 23
+    },
+    {
+      "body": {
+        "id": 155,
+        "kind": "stb-bus",
+        "x": -403.87288156651397,
+        "y": -5.76,
+        "z": 352.9376210196808,
+        "heading": -3.088597668337217,
+        "s": 4.977469497384423,
+        "length": 12,
+        "width": 2.55,
+        "metadataHeight": 3.1,
+        "verticalInterval": {
+          "min": -5.824999997615814,
+          "max": -2.379999885559082,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "pitch": 0,
+        "roll": 0,
+        "dir": 1,
+        "lane": 1,
+        "laneCur": 1,
+        "latExtraCur": 0,
+        "lateralExtra": 0,
+        "layer": -2,
+        "long": true,
+        "bus": true,
+        "tram": false,
+        "parked": false,
+        "service": false,
+        "canAdjust": true,
+        "edge": {
+          "id": 987,
+          "access": {
+            "sourceId": "w241368617",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "foot": "no",
+              "layer": "-1",
+              "oneway": "yes",
+              "tunnel": "yes"
+            }
+          },
+          "sourceId": "w241368617",
+          "name": "Pasajul Unirii",
+          "type": "primary",
+          "len": 9.954938994768845,
+          "dirx": 0.052970182944872934,
+          "dirz": 0.998596094383904,
+          "nx": -0.998596094383904,
+          "nz": 0.052970182944872934,
+          "wL": 3.5,
+          "wR": 3.5,
+          "lanesF": 2,
+          "lanesB": 0,
+          "sharedLane": false,
+          "oneway": true,
+          "publicDrive": true,
+          "mapEnds": false,
+          "tram": false,
+          "layer": -1,
+          "ya": -6,
+          "yb": -6,
+          "a": {
+            "id": 995,
+            "x": -402.38899587122114,
+            "z": 347.8744415995242,
+            "y": -6
+          },
+          "b": {
+            "id": 996,
+            "x": -401.8616809314632,
+            "z": 357.81540479953037,
+            "y": -6
+          }
+        },
+        "route": [],
+        "hist": []
+      },
+      "provider": {
+        "id": 155,
+        "edgeId": 987,
+        "long": true,
+        "nativeSpan": [
+          0.5,
+          9.454938994768845
+        ]
+      },
+      "candidateCount": 37,
+      "validSourceStaticSharedCandidates": 37
+    },
+    {
+      "body": {
+        "id": 315,
+        "kind": "stb-bus",
+        "x": -403.345566626756,
+        "y": -5.76,
+        "z": 362.878584219687,
+        "heading": -3.088597668337217,
+        "s": 4.977469497384423,
+        "length": 12,
+        "width": 2.55,
+        "metadataHeight": 3.1,
+        "verticalInterval": {
+          "min": -5.824999997615814,
+          "max": -2.379999885559082,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "pitch": 0,
+        "roll": 0,
+        "dir": 1,
+        "lane": 1,
+        "laneCur": 1,
+        "latExtraCur": 0,
+        "lateralExtra": 0,
+        "layer": -2,
+        "long": true,
+        "bus": true,
+        "tram": false,
+        "parked": false,
+        "service": false,
+        "canAdjust": true,
+        "edge": {
+          "id": 988,
+          "access": {
+            "sourceId": "w241368617",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "foot": "no",
+              "layer": "-1",
+              "oneway": "yes",
+              "tunnel": "yes"
+            }
+          },
+          "sourceId": "w241368617",
+          "name": "Pasajul Unirii",
+          "type": "primary",
+          "len": 9.954938994768845,
+          "dirx": 0.052970182944872934,
+          "dirz": 0.998596094383904,
+          "nx": -0.998596094383904,
+          "nz": 0.052970182944872934,
+          "wL": 3.5,
+          "wR": 3.5,
+          "lanesF": 2,
+          "lanesB": 0,
+          "sharedLane": false,
+          "oneway": true,
+          "publicDrive": true,
+          "mapEnds": false,
+          "tram": false,
+          "layer": -1,
+          "ya": -6,
+          "yb": -6,
+          "a": {
+            "id": 996,
+            "x": -401.8616809314632,
+            "z": 357.81540479953037,
+            "y": -6
+          },
+          "b": {
+            "id": 997,
+            "x": -401.3343659917052,
+            "z": 367.75636799953656,
+            "y": -6
+          }
+        },
+        "route": [],
+        "hist": []
+      },
+      "provider": {
+        "id": 315,
+        "edgeId": 988,
+        "long": true,
+        "nativeSpan": [
+          0.5,
+          9.454938994768845
+        ]
+      },
+      "candidateCount": 37,
+      "validSourceStaticSharedCandidates": 37
+    },
+    {
+      "body": {
+        "id": 366,
+        "kind": "stb-bus",
+        "x": -398.2753254523519,
+        "y": -5.76,
+        "z": 461.74170713173015,
+        "heading": -3.100669156406586,
+        "s": 4.7993640649551566,
+        "length": 12,
+        "width": 2.55,
+        "metadataHeight": 3.1,
+        "verticalInterval": {
+          "min": -5.824999997615814,
+          "max": -2.379999885559082,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "pitch": 0,
+        "roll": 0,
+        "dir": 1,
+        "lane": 1,
+        "laneCur": 1,
+        "latExtraCur": 0,
+        "lateralExtra": 0,
+        "layer": -2,
+        "long": true,
+        "bus": true,
+        "tram": false,
+        "parked": false,
+        "service": false,
+        "canAdjust": true,
+        "edge": {
+          "id": 997,
+          "access": {
+            "sourceId": "w241368617",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "foot": "no",
+              "layer": "-1",
+              "oneway": "yes",
+              "tunnel": "yes"
+            }
+          },
+          "sourceId": "w241368617",
+          "name": "Pasajul Unirii",
+          "type": "primary",
+          "len": 9.598728129910313,
+          "dirx": 0.040912075487041275,
+          "dirz": 0.9991627505463475,
+          "nx": -0.9991627505463475,
+          "nz": 0.040912075487041275,
+          "wL": 3.5,
+          "wR": 3.5,
+          "lanesF": 2,
+          "lanesB": 0,
+          "sharedLane": false,
+          "oneway": true,
+          "publicDrive": true,
+          "mapEnds": false,
+          "tram": false,
+          "layer": -1,
+          "ya": -6,
+          "yb": -6,
+          "a": {
+            "id": 1005,
+            "x": -396.72314258381107,
+            "z": 456.87476519961393,
+            "y": -6
+          },
+          "b": {
+            "id": 1006,
+            "x": -396.3304386939806,
+            "z": 466.4654567996417,
+            "y": -6
+          }
+        },
+        "route": [],
+        "hist": []
+      },
+      "provider": {
+        "id": 366,
+        "edgeId": 997,
+        "long": true,
+        "nativeSpan": [
+          0.5,
+          9.098728129910313
+        ]
+      },
+      "candidateCount": 37,
+      "validSourceStaticSharedCandidates": 37
+    }
+  ],
+  "coverage": {
+    "fullNavGraph": false,
+    "baselineOriginStationProviders": true,
+    "changedSharedContextNeedsNativeRecheck": true,
+    "complete484BodyPlannerCollisionCheckStillRequired": true
+  }
+}

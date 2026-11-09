@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "c4fd6255f928101e27874f37776ed5be8d805827",
+  "proofKind": "zero-simulation native PRE-admission constructor candidate fixture",
+  "fixture": {
+    "file": "fixture.json.gz",
+    "uncompressedBytes": 69281411,
+    "uncompressedSha256": "99cdc37345694ca7fff252f94dfe1adce7cb7caad63beb27459d37126f6dba0a"
+  },
+  "verifiedSourceFiles": 191,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2991,
+      "sha256": "07ca76d8955a1cdaee19528b60a60fb6bec92a73a29ffbb1e6c463ab81b77090"
+    },
+    {
+      "path": "admission-fixture-observer.js",
+      "bytes": 4422,
+      "sha256": "8e7e5914146a8f4587e9c00f9e3c931e9cda35540e0c8ce0906f677184f03004"
+    },
+    {
+      "path": "fixture-summary.json",
+      "bytes": 20391,
+      "sha256": "7c8caa9b01cf31775d73c4d1ae08c9bf2c97821134edde714c8dfbb628b7155a"
+    },
+    {
+      "path": "fixture.json.gz",
+      "bytes": 1936444,
+      "sha256": "5eb0ea4953959ea72f2fa0254dcec7cf035fcd9736d94e7082f440066f510a85"
+    },
+    {
+      "path": "observe-admission-fixture.cjs",
+      "bytes": 5532,
+      "sha256": "9b7e9f31b6a9c856ac3590f47431a098166a46d8bf709fc2f3af83b1905e4d2c"
+    },
+    {
+      "path": "report.json",
+      "bytes": 28584,
+      "sha256": "7f4818f2d0646eacc056b0a967f4008b39f30ac8db68cfaf68360a893834eebd"
+    },
+    {
+      "path": "run.log",
+      "bytes": 280,
+      "sha256": "acc3b5b98ab041d01dacadf70fc9e87ef77065b177eacec58da8994482c7557f"
+    }
+  ]
+}

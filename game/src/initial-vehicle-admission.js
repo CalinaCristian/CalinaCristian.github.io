@@ -89,6 +89,11 @@ const canBeNear = (a, b, margin) => Math.abs(a.x - b.x) <= (a.length + a.width +
  * canAdjust defaults to ordinary cars: a constrained long body may instead
  * cause its earlier ordinary peer to move. Callers may enable long-body plans
  * with their native connected-leg candidate/validation semantics.
+ * Direct repairs retain their existing candidate order. If none is clear, a
+ * bounded transaction reserves a candidate and recursively repairs its flexible
+ * blockers. Reservations prevent cycles; continuations backtrack earlier blocker
+ * choices when a later body cannot fit. Failed branches roll back planned bodies,
+ * updates and tentative records. No input/live body is applied during the search.
  *
  * Updates retain the original vehicle reference. Only the caller applies an
  * accepted pose before the first draw, then rebuilds its actual spatial grid.
@@ -96,13 +101,15 @@ const canBeNear = (a, b, margin) => Math.abs(a.x - b.x) <= (a.length + a.width +
 export function planInitialVehicleAdmission(vehicles, {
     candidates, validateCandidate, canAdjust = ordinary, interval = vehicleVerticalInterval,
     clearanceM = 0.05, maxCandidatesPerVehicle = 256, maxPasses = 2,
+    maxSearchDepth = 6, maxSearchWork = 8192,
 } = {}) {
     if (typeof candidates !== 'function' || typeof validateCandidate !== 'function') throw new Error('Exact native candidates and static/source/shared-lane validator required');
-    if (!(clearanceM >= 0) || !Number.isInteger(maxCandidatesPerVehicle) || maxCandidatesPerVehicle < 1 || !Number.isInteger(maxPasses) || maxPasses < 1) throw new Error('Invalid admission bounds');
+    if (!(clearanceM >= 0) || !Number.isInteger(maxCandidatesPerVehicle) || maxCandidatesPerVehicle < 1 || !Number.isInteger(maxPasses) || maxPasses < 1 || !Number.isInteger(maxSearchDepth) || maxSearchDepth < 0 || !Number.isInteger(maxSearchWork) || maxSearchWork < 1) throw new Error('Invalid admission bounds');
     const ids = new Set(vehicles.map(v => v.id)); if (ids.size !== vehicles.length) throw new Error('Every original vehicle needs a unique ID');
     const bodies = vehicles.map(v => ({ ...v })), updates = new Map(), attempts = [], initial = [];
     const invalidBodies = vehicles.filter(v => !validBody(v)).map(v => ({ id: v.id, reason: 'missing-or-invalid-native-body-pose-or-dimensions' }));
-    const conflict = (a, b) => initialVehicleConflict(a, b, { clearanceM, interval });
+    const search = { maxDepth: maxSearchDepth, maxWork: maxSearchWork, work: 0, candidateTests: 0, validationCalls: 0, pairTests: 0, deepest: 0, maxReservedBodies: 0, transactions: 0, committedTransactions: 0, rolledBackBranches: 0, cyclePrunes: 0, depthPrunes: 0, workLimitReached: false };
+    const conflict = (a, b) => { search.pairTests++; return initialVehicleConflict(a, b, { clearanceM, interval }); };
     function pairs() {
         const result = [];
         for (let i = 0; i < bodies.length; i++) for (let j = i + 1; j < bodies.length; j++) {
@@ -112,30 +119,111 @@ export function planInitialVehicleAdmission(vehicles, {
         return result;
     }
     initial.push(...pairs());
-    function adjust(index, peerIndex) {
+    const trail = [], validationPeers = new Map();
+    const checkpoint = () => ({ trail: trail.length, records: attempts.length });
+    function reserve(index, body) {
+        trail.push({ kind: 'body', index, body: bodies[index] });
+        bodies[index] = body;
+    }
+    function recordUpdate(index, pose, previous, peerIndex) {
+        const vehicle = vehicles[index], id = vehicle.id;
+        trail.push({ kind: 'update', id, update: updates.get(id), hadUpdate: updates.has(id), peer: validationPeers.get(id), hadPeer: validationPeers.has(id) });
+        updates.set(id, { vehicle, pose, previous: updates.get(id)?.previous || previous });
+        validationPeers.set(id, peerIndex);
+    }
+    function rollback(mark) {
+        while (trail.length > mark.trail) {
+            const old = trail.pop();
+            if (old.kind === 'body') bodies[old.index] = old.body;
+            else {
+                if (old.hadUpdate) updates.set(old.id, old.update); else updates.delete(old.id);
+                if (old.hadPeer) validationPeers.set(old.id, old.peer); else validationPeers.delete(old.id);
+            }
+        }
+        attempts.length = mark.records; search.rolledBackBranches++;
+    }
+    function work() {
+        if (search.work >= maxSearchWork) { search.workLimitReached = true; return false; }
+        search.work++; return true;
+    }
+    const contextFor = (index, peerIndex) => ({ bodies, index, peerIndex, conflict: conflict(bodies[index], bodies[peerIndex]) });
+    function validate(index, body, peerIndex) {
+        if (!work()) return { valid: false, reason: 'search-work-limit' };
+        search.validationCalls++;
+        return validateCandidate(vehicles[index], body, contextFor(index, peerIndex));
+    }
+    const accepted = validation => validation === true || validation?.valid === true;
+    const rejection = validation => typeof validation?.reason === 'string' ? validation.reason : 'source-static-or-reservation-rejected';
+    function firstBlocker(index, body) {
+        for (let k = 0; k < bodies.length; k++) if (k !== index && canBeNear(body, bodies[k], clearanceM)) {
+            const hit = conflict(body, bodies[k]); if (hit.conflict) return { index: k, hit };
+        }
+        return null;
+    }
+    function revalidateUpdates() {
+        for (const [id] of updates) {
+            const index = vehicles.findIndex(v => v.id === id);
+            if (!accepted(validate(index, bodies[index], validationPeers.get(id)))) return false;
+        }
+        return true;
+    }
+    function relocate(index, peerIndex, held, finish) {
+        const depth = held.size;
+        if (held.has(index)) { search.cyclePrunes++; return false; }
+        if (depth > maxSearchDepth) { search.depthPrunes++; return false; }
         const vehicle = vehicles[index], before = bodies[index]; if (!canAdjust(vehicle)) return false;
-        const context = { bodies, index, peerIndex, conflict: conflict(before, bodies[peerIndex]) };
+        search.deepest = Math.max(search.deepest, depth);
+        const blocked = [], context = contextFor(index, peerIndex);
+        function tryPose(pose, body, allowBlockers) {
+            const mark = checkpoint(); reserve(index, body);
+            const locked = new Set(held); locked.add(index); search.maxReservedBodies = Math.max(search.maxReservedBodies, locked.size);
+            function clear(lockedBodies) {
+                const blocker = firstBlocker(index, body);
+                if (blocker) {
+                    if (!allowBlockers || lockedBodies.has(blocker.index)) { if (lockedBodies.has(blocker.index)) search.cyclePrunes++; return false; }
+                    return relocate(blocker.index, index, lockedBodies, clear);
+                }
+                recordUpdate(index, pose, { x: before.x, y: before.y, z: before.z, heading: before.heading, s: before.s }, peerIndex);
+                attempts.push({ id: vehicle.id, s: body.s, reason: 'accepted' });
+                return finish(lockedBodies);
+            }
+            try { if (clear(locked)) return true; }
+            catch (error) { rollback(mark); throw error; }
+            rollback(mark); return false;
+        }
         let tested = 0;
         for (const proposed of candidates(vehicle, before, context) || []) {
-            if (++tested > maxCandidatesPerVehicle) break;
+            if (++tested > maxCandidatesPerVehicle || !work()) break;
+            search.candidateTests++;
             const pose = {}; for (const key of poseKeys) if (proposed[key] !== undefined) pose[key] = proposed[key];
             const validPose = ['x', 'y', 'z', 'heading', 's'].every(k => finite(pose[k] ?? before[k]));
             // A callback cannot replace source identity, lane/direction, fleet ID or dimensions.
             const changesContract = ['edge', 'dir', 'lane', 'laneCur', 'id', 'kind', 'length', 'width'].some(k => proposed[k] !== undefined && proposed[k] !== before[k]);
             if (!validPose || changesContract) { attempts.push({ id: vehicle.id, s: pose.s, reason: 'invalid-pose-or-source-fleet-contract-change' }); continue; }
-            const body = { ...before, ...pose }, validation = validateCandidate(vehicle, body, context);
-            const ok = validation === true || validation?.valid === true;
-            if (!ok) { attempts.push({ id: vehicle.id, s: body.s, reason: typeof validation?.reason === 'string' ? validation.reason : 'source-static-or-reservation-rejected' }); continue; }
-            let blocker = null;
-            for (let k = 0; k < bodies.length; k++) if (k !== index && canBeNear(body, bodies[k], clearanceM)) {
-                const hit = conflict(body, bodies[k]); if (hit.conflict) { blocker = hit; break; }
-            }
-            if (blocker) { attempts.push({ id: vehicle.id, s: body.s, reason: 'another-planned-body', blocker }); continue; }
+            const body = { ...before, ...pose }, validation = validate(index, body, peerIndex);
+            if (!accepted(validation)) { attempts.push({ id: vehicle.id, s: body.s, reason: rejection(validation) }); continue; }
+            const blocker = firstBlocker(index, body);
+            if (blocker) { attempts.push({ id: vehicle.id, s: body.s, reason: 'another-planned-body', blocker: blocker.hit }); blocked.push({ pose, body }); continue; }
             if (!interval(body).known) { attempts.push({ id: vehicle.id, s: body.s, reason: 'unknown-model-height' }); continue; }
-            bodies[index] = body; updates.set(vehicle.id, { vehicle, pose, previous: updates.get(vehicle.id)?.previous || { x: before.x, y: before.y, z: before.z, heading: before.heading, s: before.s } });
-            attempts.push({ id: vehicle.id, s: body.s, reason: 'accepted' }); return true;
+            if (tryPose(pose, body, false)) return true;
         }
+        // Prefer the existing direct repair before enlisting any neighbour.
+        // Revisit blocked exact candidates in their original deterministic order.
+        if (depth < maxSearchDepth) for (const { pose, body } of blocked) {
+            if (!interval(body).known) continue;
+            const validation = validate(index, body, peerIndex);
+            if (!accepted(validation)) continue;
+            if (tryPose(pose, body, true)) return true;
+        }
+        else if (blocked.length) search.depthPrunes++;
         return false;
+    }
+    function adjust(index, peerIndex) {
+        search.transactions++;
+        const result = relocate(index, peerIndex, new Set(), revalidateUpdates);
+        if (result) search.committedTransactions++;
+        trail.length = 0;
+        return result;
     }
     for (let pass = 0; pass < maxPasses; pass++) {
         let changed = false;
@@ -148,5 +236,5 @@ export function planInitialVehicleAdmission(vehicles, {
         if (!changed) break;
     }
     const unresolved = pairs(), unknownHeights = bodies.filter(v => !interval(v).known).map(v => ({ id: v.id, interval: interval(v) }));
-    return { passed: unresolved.length === 0 && unknownHeights.length === 0 && invalidBodies.length === 0, invalidBodies, updates: [...updates.values()], bodies, initialConflicts: initial, unresolved, unknownHeights, attempts, originalIds: vehicles.map(v => v.id), rngDraws: 0, applied: false };
+    return { passed: unresolved.length === 0 && unknownHeights.length === 0 && invalidBodies.length === 0, invalidBodies, updates: [...updates.values()], bodies, initialConflicts: initial, unresolved, unknownHeights, attempts, search, originalIds: vehicles.map(v => v.id), rngDraws: 0, applied: false };
 }

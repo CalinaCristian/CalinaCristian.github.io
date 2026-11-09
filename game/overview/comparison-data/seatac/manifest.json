@@ -217,7 +217,7 @@
   "items": [
     {
       "id": "aerial-r01-c01",
-      "label": "Row 1 \u00b7 Column 1",
+      "label": "Row 1 · Column 1",
       "row": 1,
       "column": 1,
       "lat": 47.4623726739373,
@@ -283,7 +283,7 @@
     },
     {
       "id": "aerial-r01-c02",
-      "label": "Row 1 \u00b7 Column 2",
+      "label": "Row 1 · Column 2",
       "row": 1,
       "column": 2,
       "lat": 47.4623726739373,
@@ -349,7 +349,7 @@
     },
     {
       "id": "aerial-r01-c03",
-      "label": "Row 1 \u00b7 Column 3",
+      "label": "Row 1 · Column 3",
       "row": 1,
       "column": 3,
       "lat": 47.4623726739373,
@@ -415,7 +415,7 @@
     },
     {
       "id": "aerial-r01-c04",
-      "label": "Row 1 \u00b7 Column 4",
+      "label": "Row 1 · Column 4",
       "row": 1,
       "column": 4,
       "lat": 47.4623726739373,
@@ -481,7 +481,7 @@
     },
     {
       "id": "aerial-r01-c05",
-      "label": "Row 1 \u00b7 Column 5",
+      "label": "Row 1 · Column 5",
       "row": 1,
       "column": 5,
       "lat": 47.4623726739373,
@@ -547,7 +547,7 @@
     },
     {
       "id": "aerial-r01-c06",
-      "label": "Row 1 \u00b7 Column 6",
+      "label": "Row 1 · Column 6",
       "row": 1,
       "column": 6,
       "lat": 47.4623726739373,
@@ -613,7 +613,7 @@
     },
     {
       "id": "aerial-r01-c07",
-      "label": "Row 1 \u00b7 Column 7",
+      "label": "Row 1 · Column 7",
       "row": 1,
       "column": 7,
       "lat": 47.4623726739373,
@@ -679,7 +679,7 @@
     },
     {
       "id": "aerial-r01-c08",
-      "label": "Row 1 \u00b7 Column 8",
+      "label": "Row 1 · Column 8",
       "row": 1,
       "column": 8,
       "lat": 47.4623726739373,
@@ -745,7 +745,7 @@
     },
     {
       "id": "aerial-r01-c09",
-      "label": "Row 1 \u00b7 Column 9",
+      "label": "Row 1 · Column 9",
       "row": 1,
       "column": 9,
       "lat": 47.4623726739373,
@@ -811,7 +811,7 @@
     },
     {
       "id": "aerial-r02-c01",
-      "label": "Row 2 \u00b7 Column 1",
+      "label": "Row 2 · Column 1",
       "row": 2,
       "column": 1,
       "lat": 47.46012309685779,
@@ -877,7 +877,7 @@
     },
     {
       "id": "aerial-r02-c02",
-      "label": "Row 2 \u00b7 Column 2",
+      "label": "Row 2 · Column 2",
       "row": 2,
       "column": 2,
       "lat": 47.46012309685779,
@@ -943,7 +943,7 @@
     },
     {
       "id": "aerial-r02-c03",
-      "label": "Row 2 \u00b7 Column 3",
+      "label": "Row 2 · Column 3",
       "row": 2,
       "column": 3,
       "lat": 47.46012309685779,
@@ -1009,7 +1009,7 @@
     },
     {
       "id": "aerial-r02-c04",
-      "label": "Row 2 \u00b7 Column 4",
+      "label": "Row 2 · Column 4",
       "row": 2,
       "column": 4,
       "lat": 47.46012309685779,
@@ -1075,7 +1075,7 @@
     },
     {
       "id": "aerial-r02-c05",
-      "label": "Row 2 \u00b7 Column 5",
+      "label": "Row 2 · Column 5",
       "row": 2,
       "column": 5,
       "lat": 47.46012309685779,
@@ -1141,7 +1141,7 @@
     },
     {
       "id": "aerial-r02-c06",
-      "label": "Row 2 \u00b7 Column 6",
+      "label": "Row 2 · Column 6",
       "row": 2,
       "column": 6,
       "lat": 47.46012309685779,
@@ -1207,7 +1207,7 @@
     },
     {
       "id": "aerial-r02-c07",
-      "label": "Row 2 \u00b7 Column 7",
+      "label": "Row 2 · Column 7",
       "row": 2,
       "column": 7,
       "lat": 47.46012309685779,
@@ -1273,7 +1273,7 @@
     },
     {
       "id": "aerial-r02-c08",
-      "label": "Row 2 \u00b7 Column 8",
+      "label": "Row 2 · Column 8",
       "row": 2,
       "column": 8,
       "lat": 47.46012309685779,
@@ -1339,7 +1339,7 @@
     },
     {
       "id": "aerial-r02-c09",
-      "label": "Row 2 \u00b7 Column 9",
+      "label": "Row 2 · Column 9",
       "row": 2,
       "column": 9,
       "lat": 47.46012309685779,
@@ -1405,7 +1405,7 @@
     },
     {
       "id": "aerial-r02-c10",
-      "label": "Row 2 \u00b7 Column 10",
+      "label": "Row 2 · Column 10",
       "row": 2,
       "column": 10,
       "lat": 47.46012309685779,
@@ -1471,7 +1471,7 @@
     },
     {
       "id": "aerial-r03-c01",
-      "label": "Row 3 \u00b7 Column 1",
+      "label": "Row 3 · Column 1",
       "row": 3,
       "column": 1,
       "lat": 47.45787351977828,
@@ -1537,7 +1537,7 @@
     },
     {
       "id": "aerial-r03-c02",
-      "label": "Row 3 \u00b7 Column 2",
+      "label": "Row 3 · Column 2",
       "row": 3,
       "column": 2,
       "lat": 47.45787351977828,
@@ -1603,7 +1603,7 @@
     },
     {
       "id": "aerial-r03-c03",
-      "label": "Row 3 \u00b7 Column 3",
+      "label": "Row 3 · Column 3",
       "row": 3,
       "column": 3,
       "lat": 47.45787351977828,
@@ -1669,7 +1669,7 @@
     },
     {
       "id": "aerial-r03-c04",
-      "label": "Row 3 \u00b7 Column 4",
+      "label": "Row 3 · Column 4",
       "row": 3,
       "column": 4,
       "lat": 47.45787351977828,
@@ -1735,7 +1735,7 @@
     },
     {
       "id": "aerial-r03-c05",
-      "label": "Row 3 \u00b7 Column 5",
+      "label": "Row 3 · Column 5",
       "row": 3,
       "column": 5,
       "lat": 47.45787351977828,
@@ -1801,7 +1801,7 @@
     },
     {
       "id": "aerial-r03-c06",
-      "label": "Row 3 \u00b7 Column 6",
+      "label": "Row 3 · Column 6",
       "row": 3,
       "column": 6,
       "lat": 47.45787351977828,
@@ -1867,7 +1867,7 @@
     },
     {
       "id": "aerial-r03-c07",
-      "label": "Row 3 \u00b7 Column 7",
+      "label": "Row 3 · Column 7",
       "row": 3,
       "column": 7,
       "lat": 47.45787351977828,
@@ -1933,7 +1933,7 @@
     },
     {
       "id": "aerial-r03-c08",
-      "label": "Row 3 \u00b7 Column 8",
+      "label": "Row 3 · Column 8",
       "row": 3,
       "column": 8,
       "lat": 47.45787351977828,
@@ -1999,7 +1999,7 @@
     },
     {
       "id": "aerial-r03-c09",
-      "label": "Row 3 \u00b7 Column 9",
+      "label": "Row 3 · Column 9",
       "row": 3,
       "column": 9,
       "lat": 47.45787351977828,
@@ -2065,7 +2065,7 @@
     },
     {
       "id": "aerial-r03-c10",
-      "label": "Row 3 \u00b7 Column 10",
+      "label": "Row 3 · Column 10",
       "row": 3,
       "column": 10,
       "lat": 47.45787351977828,
@@ -2131,7 +2131,7 @@
     },
     {
       "id": "aerial-r04-c01",
-      "label": "Row 4 \u00b7 Column 1",
+      "label": "Row 4 · Column 1",
       "row": 4,
       "column": 1,
       "lat": 47.45562394269878,
@@ -2197,7 +2197,7 @@
     },
     {
       "id": "aerial-r04-c02",
-      "label": "Row 4 \u00b7 Column 2",
+      "label": "Row 4 · Column 2",
       "row": 4,
       "column": 2,
       "lat": 47.45562394269878,
@@ -2263,7 +2263,7 @@
     },
     {
       "id": "aerial-r04-c03",
-      "label": "Row 4 \u00b7 Column 3",
+      "label": "Row 4 · Column 3",
       "row": 4,
       "column": 3,
       "lat": 47.45562394269878,
@@ -2329,7 +2329,7 @@
     },
     {
       "id": "aerial-r04-c04",
-      "label": "Row 4 \u00b7 Column 4",
+      "label": "Row 4 · Column 4",
       "row": 4,
       "column": 4,
       "lat": 47.45562394269878,
@@ -2395,7 +2395,7 @@
     },
     {
       "id": "aerial-r04-c05",
-      "label": "Row 4 \u00b7 Column 5",
+      "label": "Row 4 · Column 5",
       "row": 4,
       "column": 5,
       "lat": 47.45562394269878,
@@ -2463,7 +2463,7 @@
     },
     {
       "id": "aerial-r04-c06",
-      "label": "Row 4 \u00b7 Column 6",
+      "label": "Row 4 · Column 6",
       "row": 4,
       "column": 6,
       "lat": 47.45562394269878,
@@ -2529,7 +2529,7 @@
     },
     {
       "id": "aerial-r04-c07",
-      "label": "Row 4 \u00b7 Column 7",
+      "label": "Row 4 · Column 7",
       "row": 4,
       "column": 7,
       "lat": 47.45562394269878,
@@ -2595,7 +2595,7 @@
     },
     {
       "id": "aerial-r04-c08",
-      "label": "Row 4 \u00b7 Column 8",
+      "label": "Row 4 · Column 8",
       "row": 4,
       "column": 8,
       "lat": 47.45562394269878,
@@ -2661,7 +2661,7 @@
     },
     {
       "id": "aerial-r04-c09",
-      "label": "Row 4 \u00b7 Column 9",
+      "label": "Row 4 · Column 9",
       "row": 4,
       "column": 9,
       "lat": 47.45562394269878,
@@ -2727,7 +2727,7 @@
     },
     {
       "id": "aerial-r04-c10",
-      "label": "Row 4 \u00b7 Column 10",
+      "label": "Row 4 · Column 10",
       "row": 4,
       "column": 10,
       "lat": 47.45562394269878,
@@ -2793,7 +2793,7 @@
     },
     {
       "id": "aerial-r05-c01",
-      "label": "Row 5 \u00b7 Column 1",
+      "label": "Row 5 · Column 1",
       "row": 5,
       "column": 1,
       "lat": 47.45337436561927,
@@ -2859,7 +2859,7 @@
     },
     {
       "id": "aerial-r05-c02",
-      "label": "Row 5 \u00b7 Column 2",
+      "label": "Row 5 · Column 2",
       "row": 5,
       "column": 2,
       "lat": 47.45337436561927,
@@ -2925,7 +2925,7 @@
     },
     {
       "id": "aerial-r05-c03",
-      "label": "Row 5 \u00b7 Column 3",
+      "label": "Row 5 · Column 3",
       "row": 5,
       "column": 3,
       "lat": 47.45337436561927,
@@ -2991,7 +2991,7 @@
     },
     {
       "id": "aerial-r05-c04",
-      "label": "Row 5 \u00b7 Column 4",
+      "label": "Row 5 · Column 4",
       "row": 5,
       "column": 4,
       "lat": 47.45337436561927,
@@ -3057,7 +3057,7 @@
     },
     {
       "id": "aerial-r05-c05",
-      "label": "Row 5 \u00b7 Column 5",
+      "label": "Row 5 · Column 5",
       "row": 5,
       "column": 5,
       "lat": 47.45337436561927,
@@ -3125,7 +3125,7 @@
     },
     {
       "id": "aerial-r05-c06",
-      "label": "Row 5 \u00b7 Column 6",
+      "label": "Row 5 · Column 6",
       "row": 5,
       "column": 6,
       "lat": 47.45337436561927,
@@ -3191,7 +3191,7 @@
     },
     {
       "id": "aerial-r05-c07",
-      "label": "Row 5 \u00b7 Column 7",
+      "label": "Row 5 · Column 7",
       "row": 5,
       "column": 7,
       "lat": 47.45337436561927,
@@ -3257,7 +3257,7 @@
     },
     {
       "id": "aerial-r05-c08",
-      "label": "Row 5 \u00b7 Column 8",
+      "label": "Row 5 · Column 8",
       "row": 5,
       "column": 8,
       "lat": 47.45337436561927,
@@ -3323,7 +3323,7 @@
     },
     {
       "id": "aerial-r05-c09",
-      "label": "Row 5 \u00b7 Column 9",
+      "label": "Row 5 · Column 9",
       "row": 5,
       "column": 9,
       "lat": 47.45337436561927,
@@ -3389,7 +3389,7 @@
     },
     {
       "id": "aerial-r05-c10",
-      "label": "Row 5 \u00b7 Column 10",
+      "label": "Row 5 · Column 10",
       "row": 5,
       "column": 10,
       "lat": 47.45337436561927,
@@ -3455,7 +3455,7 @@
     },
     {
       "id": "aerial-r06-c01",
-      "label": "Row 6 \u00b7 Column 1",
+      "label": "Row 6 · Column 1",
       "row": 6,
       "column": 1,
       "lat": 47.45112478853976,
@@ -3521,7 +3521,7 @@
     },
     {
       "id": "aerial-r06-c02",
-      "label": "Row 6 \u00b7 Column 2",
+      "label": "Row 6 · Column 2",
       "row": 6,
       "column": 2,
       "lat": 47.45112478853976,
@@ -3587,7 +3587,7 @@
     },
     {
       "id": "aerial-r06-c03",
-      "label": "Row 6 \u00b7 Column 3",
+      "label": "Row 6 · Column 3",
       "row": 6,
       "column": 3,
       "lat": 47.45112478853976,
@@ -3653,7 +3653,7 @@
     },
     {
       "id": "aerial-r06-c04",
-      "label": "Row 6 \u00b7 Column 4",
+      "label": "Row 6 · Column 4",
       "row": 6,
       "column": 4,
       "lat": 47.45112478853976,
@@ -3719,7 +3719,7 @@
     },
     {
       "id": "aerial-r06-c05",
-      "label": "Row 6 \u00b7 Column 5",
+      "label": "Row 6 · Column 5",
       "row": 6,
       "column": 5,
       "lat": 47.45112478853976,
@@ -3785,7 +3785,7 @@
     },
     {
       "id": "aerial-r06-c06",
-      "label": "Row 6 \u00b7 Column 6",
+      "label": "Row 6 · Column 6",
       "row": 6,
       "column": 6,
       "lat": 47.45112478853976,
@@ -3851,7 +3851,7 @@
     },
     {
       "id": "aerial-r06-c07",
-      "label": "Row 6 \u00b7 Column 7",
+      "label": "Row 6 · Column 7",
       "row": 6,
       "column": 7,
       "lat": 47.45112478853976,
@@ -3917,7 +3917,7 @@
     },
     {
       "id": "aerial-r06-c08",
-      "label": "Row 6 \u00b7 Column 8",
+      "label": "Row 6 · Column 8",
       "row": 6,
       "column": 8,
       "lat": 47.45112478853976,
@@ -3983,7 +3983,7 @@
     },
     {
       "id": "aerial-r06-c09",
-      "label": "Row 6 \u00b7 Column 9",
+      "label": "Row 6 · Column 9",
       "row": 6,
       "column": 9,
       "lat": 47.45112478853976,
@@ -4049,7 +4049,7 @@
     },
     {
       "id": "aerial-r06-c10",
-      "label": "Row 6 \u00b7 Column 10",
+      "label": "Row 6 · Column 10",
       "row": 6,
       "column": 10,
       "lat": 47.45112478853976,
@@ -4115,7 +4115,7 @@
     },
     {
       "id": "aerial-r07-c01",
-      "label": "Row 7 \u00b7 Column 1",
+      "label": "Row 7 · Column 1",
       "row": 7,
       "column": 1,
       "lat": 47.44887521146025,
@@ -4181,7 +4181,7 @@
     },
     {
       "id": "aerial-r07-c02",
-      "label": "Row 7 \u00b7 Column 2",
+      "label": "Row 7 · Column 2",
       "row": 7,
       "column": 2,
       "lat": 47.44887521146025,
@@ -4247,7 +4247,7 @@
     },
     {
       "id": "aerial-r07-c03",
-      "label": "Row 7 \u00b7 Column 3",
+      "label": "Row 7 · Column 3",
       "row": 7,
       "column": 3,
       "lat": 47.44887521146025,
@@ -4313,7 +4313,7 @@
     },
     {
       "id": "aerial-r07-c04",
-      "label": "Row 7 \u00b7 Column 4",
+      "label": "Row 7 · Column 4",
       "row": 7,
       "column": 4,
       "lat": 47.44887521146025,
@@ -4379,7 +4379,7 @@
     },
     {
       "id": "aerial-r07-c05",
-      "label": "Row 7 \u00b7 Column 5",
+      "label": "Row 7 · Column 5",
       "row": 7,
       "column": 5,
       "lat": 47.44887521146025,
@@ -4445,7 +4445,7 @@
     },
     {
       "id": "aerial-r07-c06",
-      "label": "Row 7 \u00b7 Column 6",
+      "label": "Row 7 · Column 6",
       "row": 7,
       "column": 6,
       "lat": 47.44887521146025,
@@ -4511,7 +4511,7 @@
     },
     {
       "id": "aerial-r07-c07",
-      "label": "Row 7 \u00b7 Column 7",
+      "label": "Row 7 · Column 7",
       "row": 7,
       "column": 7,
       "lat": 47.44887521146025,
@@ -4577,7 +4577,7 @@
     },
     {
       "id": "aerial-r07-c08",
-      "label": "Row 7 \u00b7 Column 8",
+      "label": "Row 7 · Column 8",
       "row": 7,
       "column": 8,
       "lat": 47.44887521146025,
@@ -4643,7 +4643,7 @@
     },
     {
       "id": "aerial-r07-c09",
-      "label": "Row 7 \u00b7 Column 9",
+      "label": "Row 7 · Column 9",
       "row": 7,
       "column": 9,
       "lat": 47.44887521146025,
@@ -4709,7 +4709,7 @@
     },
     {
       "id": "aerial-r07-c10",
-      "label": "Row 7 \u00b7 Column 10",
+      "label": "Row 7 · Column 10",
       "row": 7,
       "column": 10,
       "lat": 47.44887521146025,
@@ -4775,7 +4775,7 @@
     },
     {
       "id": "aerial-r08-c01",
-      "label": "Row 8 \u00b7 Column 1",
+      "label": "Row 8 · Column 1",
       "row": 8,
       "column": 1,
       "lat": 47.44662563438074,
@@ -4841,7 +4841,7 @@
     },
     {
       "id": "aerial-r08-c02",
-      "label": "Row 8 \u00b7 Column 2",
+      "label": "Row 8 · Column 2",
       "row": 8,
       "column": 2,
       "lat": 47.44662563438074,
@@ -4907,7 +4907,7 @@
     },
     {
       "id": "aerial-r08-c03",
-      "label": "Row 8 \u00b7 Column 3",
+      "label": "Row 8 · Column 3",
       "row": 8,
       "column": 3,
       "lat": 47.44662563438074,
@@ -4976,7 +4976,7 @@
     },
     {
       "id": "aerial-r08-c04",
-      "label": "Row 8 \u00b7 Column 4",
+      "label": "Row 8 · Column 4",
       "row": 8,
       "column": 4,
       "lat": 47.44662563438074,
@@ -5045,7 +5045,7 @@
     },
     {
       "id": "aerial-r08-c05",
-      "label": "Row 8 \u00b7 Column 5",
+      "label": "Row 8 · Column 5",
       "row": 8,
       "column": 5,
       "lat": 47.44662563438074,
@@ -5114,7 +5114,7 @@
     },
     {
       "id": "aerial-r08-c06",
-      "label": "Row 8 \u00b7 Column 6",
+      "label": "Row 8 · Column 6",
       "row": 8,
       "column": 6,
       "lat": 47.44662563438074,
@@ -5183,7 +5183,7 @@
     },
     {
       "id": "aerial-r08-c07",
-      "label": "Row 8 \u00b7 Column 7",
+      "label": "Row 8 · Column 7",
       "row": 8,
       "column": 7,
       "lat": 47.44662563438074,
@@ -5249,7 +5249,7 @@
     },
     {
       "id": "aerial-r08-c08",
-      "label": "Row 8 \u00b7 Column 8",
+      "label": "Row 8 · Column 8",
       "row": 8,
       "column": 8,
       "lat": 47.44662563438074,
@@ -5315,7 +5315,7 @@
     },
     {
       "id": "aerial-r08-c09",
-      "label": "Row 8 \u00b7 Column 9",
+      "label": "Row 8 · Column 9",
       "row": 8,
       "column": 9,
       "lat": 47.44662563438074,
@@ -5381,7 +5381,7 @@
     },
     {
       "id": "aerial-r08-c10",
-      "label": "Row 8 \u00b7 Column 10",
+      "label": "Row 8 · Column 10",
       "row": 8,
       "column": 10,
       "lat": 47.44662563438074,
@@ -5447,7 +5447,7 @@
     },
     {
       "id": "aerial-r09-c01",
-      "label": "Row 9 \u00b7 Column 1",
+      "label": "Row 9 · Column 1",
       "row": 9,
       "column": 1,
       "lat": 47.44437605730123,
@@ -5513,7 +5513,7 @@
     },
     {
       "id": "aerial-r09-c02",
-      "label": "Row 9 \u00b7 Column 2",
+      "label": "Row 9 · Column 2",
       "row": 9,
       "column": 2,
       "lat": 47.44437605730123,
@@ -5579,7 +5579,7 @@
     },
     {
       "id": "aerial-r09-c03",
-      "label": "Row 9 \u00b7 Column 3",
+      "label": "Row 9 · Column 3",
       "row": 9,
       "column": 3,
       "lat": 47.44437605730123,
@@ -5648,7 +5648,7 @@
     },
     {
       "id": "aerial-r09-c04",
-      "label": "Row 9 \u00b7 Column 4",
+      "label": "Row 9 · Column 4",
       "row": 9,
       "column": 4,
       "lat": 47.44437605730123,
@@ -5717,7 +5717,7 @@
     },
     {
       "id": "aerial-r09-c05",
-      "label": "Row 9 \u00b7 Column 5",
+      "label": "Row 9 · Column 5",
       "row": 9,
       "column": 5,
       "lat": 47.44437605730123,
@@ -5789,7 +5789,7 @@
     },
     {
       "id": "aerial-r09-c06",
-      "label": "Row 9 \u00b7 Column 6",
+      "label": "Row 9 · Column 6",
       "row": 9,
       "column": 6,
       "lat": 47.44437605730123,
@@ -5860,7 +5860,7 @@
     },
     {
       "id": "aerial-r09-c07",
-      "label": "Row 9 \u00b7 Column 7",
+      "label": "Row 9 · Column 7",
       "row": 9,
       "column": 7,
       "lat": 47.44437605730123,
@@ -5926,7 +5926,7 @@
     },
     {
       "id": "aerial-r09-c08",
-      "label": "Row 9 \u00b7 Column 8",
+      "label": "Row 9 · Column 8",
       "row": 9,
       "column": 8,
       "lat": 47.44437605730123,
@@ -5992,7 +5992,7 @@
     },
     {
       "id": "aerial-r09-c09",
-      "label": "Row 9 \u00b7 Column 9",
+      "label": "Row 9 · Column 9",
       "row": 9,
       "column": 9,
       "lat": 47.44437605730123,
@@ -6058,7 +6058,7 @@
     },
     {
       "id": "aerial-r09-c10",
-      "label": "Row 9 \u00b7 Column 10",
+      "label": "Row 9 · Column 10",
       "row": 9,
       "column": 10,
       "lat": 47.44437605730123,
@@ -6124,7 +6124,7 @@
     },
     {
       "id": "aerial-r10-c01",
-      "label": "Row 10 \u00b7 Column 1",
+      "label": "Row 10 · Column 1",
       "row": 10,
       "column": 1,
       "lat": 47.442126480221724,
@@ -6190,7 +6190,7 @@
     },
     {
       "id": "aerial-r10-c02",
-      "label": "Row 10 \u00b7 Column 2",
+      "label": "Row 10 · Column 2",
       "row": 10,
       "column": 2,
       "lat": 47.442126480221724,
@@ -6256,7 +6256,7 @@
     },
     {
       "id": "aerial-r10-c03",
-      "label": "Row 10 \u00b7 Column 3",
+      "label": "Row 10 · Column 3",
       "row": 10,
       "column": 3,
       "lat": 47.442126480221724,
@@ -6325,7 +6325,7 @@
     },
     {
       "id": "aerial-r10-c04",
-      "label": "Row 10 \u00b7 Column 4",
+      "label": "Row 10 · Column 4",
       "row": 10,
       "column": 4,
       "lat": 47.442126480221724,
@@ -6394,7 +6394,7 @@
     },
     {
       "id": "aerial-r10-c05",
-      "label": "Row 10 \u00b7 Column 5",
+      "label": "Row 10 · Column 5",
       "row": 10,
       "column": 5,
       "lat": 47.442126480221724,
@@ -6465,7 +6465,7 @@
     },
     {
       "id": "aerial-r10-c06",
-      "label": "Row 10 \u00b7 Column 6",
+      "label": "Row 10 · Column 6",
       "row": 10,
       "column": 6,
       "lat": 47.442126480221724,
@@ -6534,7 +6534,7 @@
     },
     {
       "id": "aerial-r10-c07",
-      "label": "Row 10 \u00b7 Column 7",
+      "label": "Row 10 · Column 7",
       "row": 10,
       "column": 7,
       "lat": 47.442126480221724,
@@ -6600,7 +6600,7 @@
     },
     {
       "id": "aerial-r10-c08",
-      "label": "Row 10 \u00b7 Column 8",
+      "label": "Row 10 · Column 8",
       "row": 10,
       "column": 8,
       "lat": 47.442126480221724,
@@ -6666,7 +6666,7 @@
     },
     {
       "id": "aerial-r10-c09",
-      "label": "Row 10 \u00b7 Column 9",
+      "label": "Row 10 · Column 9",
       "row": 10,
       "column": 9,
       "lat": 47.442126480221724,
@@ -6732,7 +6732,7 @@
     },
     {
       "id": "aerial-r10-c10",
-      "label": "Row 10 \u00b7 Column 10",
+      "label": "Row 10 · Column 10",
       "row": 10,
       "column": 10,
       "lat": 47.442126480221724,
@@ -6798,7 +6798,7 @@
     },
     {
       "id": "aerial-r11-c01",
-      "label": "Row 11 \u00b7 Column 1",
+      "label": "Row 11 · Column 1",
       "row": 11,
       "column": 1,
       "lat": 47.43987690314221,
@@ -6864,7 +6864,7 @@
     },
     {
       "id": "aerial-r11-c02",
-      "label": "Row 11 \u00b7 Column 2",
+      "label": "Row 11 · Column 2",
       "row": 11,
       "column": 2,
       "lat": 47.43987690314221,
@@ -6930,7 +6930,7 @@
     },
     {
       "id": "aerial-r11-c03",
-      "label": "Row 11 \u00b7 Column 3",
+      "label": "Row 11 · Column 3",
       "row": 11,
       "column": 3,
       "lat": 47.43987690314221,
@@ -6999,7 +6999,7 @@
     },
     {
       "id": "aerial-r11-c04",
-      "label": "Row 11 \u00b7 Column 4",
+      "label": "Row 11 · Column 4",
       "row": 11,
       "column": 4,
       "lat": 47.43987690314221,
@@ -7068,7 +7068,7 @@
     },
     {
       "id": "aerial-r11-c05",
-      "label": "Row 11 \u00b7 Column 5",
+      "label": "Row 11 · Column 5",
       "row": 11,
       "column": 5,
       "lat": 47.43987690314221,
@@ -7137,7 +7137,7 @@
     },
     {
       "id": "aerial-r11-c06",
-      "label": "Row 11 \u00b7 Column 6",
+      "label": "Row 11 · Column 6",
       "row": 11,
       "column": 6,
       "lat": 47.43987690314221,
@@ -7206,7 +7206,7 @@
     },
     {
       "id": "aerial-r11-c07",
-      "label": "Row 11 \u00b7 Column 7",
+      "label": "Row 11 · Column 7",
       "row": 11,
       "column": 7,
       "lat": 47.43987690314221,
@@ -7272,7 +7272,7 @@
     },
     {
       "id": "aerial-r11-c08",
-      "label": "Row 11 \u00b7 Column 8",
+      "label": "Row 11 · Column 8",
       "row": 11,
       "column": 8,
       "lat": 47.43987690314221,
@@ -7338,7 +7338,7 @@
     },
     {
       "id": "aerial-r11-c09",
-      "label": "Row 11 \u00b7 Column 9",
+      "label": "Row 11 · Column 9",
       "row": 11,
       "column": 9,
       "lat": 47.43987690314221,
@@ -7404,7 +7404,7 @@
     },
     {
       "id": "aerial-r11-c10",
-      "label": "Row 11 \u00b7 Column 10",
+      "label": "Row 11 · Column 10",
       "row": 11,
       "column": 10,
       "lat": 47.43987690314221,
@@ -7470,7 +7470,7 @@
     },
     {
       "id": "aerial-r12-c01",
-      "label": "Row 12 \u00b7 Column 1",
+      "label": "Row 12 · Column 1",
       "row": 12,
       "column": 1,
       "lat": 47.4376273260627,
@@ -7536,7 +7536,7 @@
     },
     {
       "id": "aerial-r12-c02",
-      "label": "Row 12 \u00b7 Column 2",
+      "label": "Row 12 · Column 2",
       "row": 12,
       "column": 2,
       "lat": 47.4376273260627,
@@ -7602,7 +7602,7 @@
     },
     {
       "id": "aerial-r12-c03",
-      "label": "Row 12 \u00b7 Column 3",
+      "label": "Row 12 · Column 3",
       "row": 12,
       "column": 3,
       "lat": 47.4376273260627,
@@ -7671,7 +7671,7 @@
     },
     {
       "id": "aerial-r12-c04",
-      "label": "Row 12 \u00b7 Column 4",
+      "label": "Row 12 · Column 4",
       "row": 12,
       "column": 4,
       "lat": 47.4376273260627,
@@ -7740,7 +7740,7 @@
     },
     {
       "id": "aerial-r12-c05",
-      "label": "Row 12 \u00b7 Column 5",
+      "label": "Row 12 · Column 5",
       "row": 12,
       "column": 5,
       "lat": 47.4376273260627,
@@ -7809,7 +7809,7 @@
     },
     {
       "id": "aerial-r12-c06",
-      "label": "Row 12 \u00b7 Column 6",
+      "label": "Row 12 · Column 6",
       "row": 12,
       "column": 6,
       "lat": 47.4376273260627,
@@ -7878,7 +7878,7 @@
     },
     {
       "id": "aerial-r12-c07",
-      "label": "Row 12 \u00b7 Column 7",
+      "label": "Row 12 · Column 7",
       "row": 12,
       "column": 7,
       "lat": 47.4376273260627,
@@ -7944,7 +7944,7 @@
     },
     {
       "id": "aerial-r12-c08",
-      "label": "Row 12 \u00b7 Column 8",
+      "label": "Row 12 · Column 8",
       "row": 12,
       "column": 8,
       "lat": 47.4376273260627,
@@ -8010,7 +8010,7 @@
     },
     {
       "id": "aerial-r12-c09",
-      "label": "Row 12 \u00b7 Column 9",
+      "label": "Row 12 · Column 9",
       "row": 12,
       "column": 9,
       "lat": 47.4376273260627,
@@ -8076,7 +8076,7 @@
     },
     {
       "id": "aerial-r12-c10",
-      "label": "Row 12 \u00b7 Column 10",
+      "label": "Row 12 · Column 10",
       "row": 12,
       "column": 10,
       "lat": 47.4376273260627,
@@ -8142,7 +8142,7 @@
     },
     {
       "id": "aerial-r13-c01",
-      "label": "Row 13 \u00b7 Column 1",
+      "label": "Row 13 · Column 1",
       "row": 13,
       "column": 1,
       "lat": 47.43537774898319,
@@ -8208,7 +8208,7 @@
     },
     {
       "id": "aerial-r13-c02",
-      "label": "Row 13 \u00b7 Column 2",
+      "label": "Row 13 · Column 2",
       "row": 13,
       "column": 2,
       "lat": 47.43537774898319,
@@ -8274,7 +8274,7 @@
     },
     {
       "id": "aerial-r13-c03",
-      "label": "Row 13 \u00b7 Column 3",
+      "label": "Row 13 · Column 3",
       "row": 13,
       "column": 3,
       "lat": 47.43537774898319,
@@ -8340,7 +8340,7 @@
     },
     {
       "id": "aerial-r13-c04",
-      "label": "Row 13 \u00b7 Column 4",
+      "label": "Row 13 · Column 4",
       "row": 13,
       "column": 4,
       "lat": 47.43537774898319,
@@ -8406,7 +8406,7 @@
     },
     {
       "id": "aerial-r13-c05",
-      "label": "Row 13 \u00b7 Column 5",
+      "label": "Row 13 · Column 5",
       "row": 13,
       "column": 5,
       "lat": 47.43537774898319,
@@ -8472,7 +8472,7 @@
     },
     {
       "id": "aerial-r13-c06",
-      "label": "Row 13 \u00b7 Column 6",
+      "label": "Row 13 · Column 6",
       "row": 13,
       "column": 6,
       "lat": 47.43537774898319,
@@ -8538,7 +8538,7 @@
     },
     {
       "id": "aerial-r13-c07",
-      "label": "Row 13 \u00b7 Column 7",
+      "label": "Row 13 · Column 7",
       "row": 13,
       "column": 7,
       "lat": 47.43537774898319,
@@ -8604,7 +8604,7 @@
     },
     {
       "id": "aerial-r13-c08",
-      "label": "Row 13 \u00b7 Column 8",
+      "label": "Row 13 · Column 8",
       "row": 13,
       "column": 8,
       "lat": 47.43537774898319,
@@ -8670,7 +8670,7 @@
     },
     {
       "id": "aerial-r13-c09",
-      "label": "Row 13 \u00b7 Column 9",
+      "label": "Row 13 · Column 9",
       "row": 13,
       "column": 9,
       "lat": 47.43537774898319,
@@ -8736,7 +8736,7 @@
     },
     {
       "id": "aerial-r14-c02",
-      "label": "Row 14 \u00b7 Column 2",
+      "label": "Row 14 · Column 2",
       "row": 14,
       "column": 2,
       "lat": 47.43312817190368,
@@ -8802,7 +8802,7 @@
     },
     {
       "id": "aerial-r14-c03",
-      "label": "Row 14 \u00b7 Column 3",
+      "label": "Row 14 · Column 3",
       "row": 14,
       "column": 3,
       "lat": 47.43312817190368,
@@ -8868,7 +8868,7 @@
     },
     {
       "id": "aerial-r14-c04",
-      "label": "Row 14 \u00b7 Column 4",
+      "label": "Row 14 · Column 4",
       "row": 14,
       "column": 4,
       "lat": 47.43312817190368,
@@ -8934,7 +8934,7 @@
     },
     {
       "id": "aerial-r14-c05",
-      "label": "Row 14 \u00b7 Column 5",
+      "label": "Row 14 · Column 5",
       "row": 14,
       "column": 5,
       "lat": 47.43312817190368,
@@ -9000,7 +9000,7 @@
     },
     {
       "id": "aerial-r14-c06",
-      "label": "Row 14 \u00b7 Column 6",
+      "label": "Row 14 · Column 6",
       "row": 14,
       "column": 6,
       "lat": 47.43312817190368,
@@ -9066,7 +9066,7 @@
     },
     {
       "id": "aerial-r14-c07",
-      "label": "Row 14 \u00b7 Column 7",
+      "label": "Row 14 · Column 7",
       "row": 14,
       "column": 7,
       "lat": 47.43312817190368,
@@ -9132,7 +9132,7 @@
     },
     {
       "id": "aerial-r14-c08",
-      "label": "Row 14 \u00b7 Column 8",
+      "label": "Row 14 · Column 8",
       "row": 14,
       "column": 8,
       "lat": 47.43312817190368,
@@ -9198,7 +9198,7 @@
     },
     {
       "id": "aerial-r14-c09",
-      "label": "Row 14 \u00b7 Column 9",
+      "label": "Row 14 · Column 9",
       "row": 14,
       "column": 9,
       "lat": 47.43312817190368,
@@ -9264,7 +9264,7 @@
     },
     {
       "id": "context-northeast",
-      "label": "Distant context \u00b7 northeast",
+      "label": "Distant context · northeast",
       "row": 1,
       "column": 10,
       "lat": 47.4623726739373,
@@ -9330,7 +9330,7 @@
     },
     {
       "id": "context-southwest",
-      "label": "Distant context \u00b7 southwest",
+      "label": "Distant context · southwest",
       "row": 14,
       "column": 1,
       "lat": 47.43312817190368,
@@ -9396,7 +9396,7 @@
     },
     {
       "id": "context-southeast",
-      "label": "Distant context \u00b7 southeast",
+      "label": "Distant context · southeast",
       "row": 14,
       "column": 10,
       "lat": 47.43312817190368,
@@ -9975,7 +9975,7 @@
           "pairsReviewed": 18,
           "sheetSha256": "c55835d38fd069147fe5fa61fbc4006e6e0d3f401562da02ecb68bc795e37533",
           "inspectedAt": "2026-11-08T22:25:48.286990+00:00",
-          "finding": "All pair cells inspected. Terminal/garage curb details, open lobby and canopy piers, retaining structures, elevated transit context and facade modulation remain simplified. Sheet13 exact Arrivals-Drive-50-R-right shows independently audited landside-aircraft counterexample; correction tracked separately after437. Source imagery dates mix2011\u20132026."
+          "finding": "All pair cells inspected. Terminal/garage curb details, open lobby and canopy piers, retaining structures, elevated transit context and facade modulation remain simplified. Sheet13 exact Arrivals-Drive-50-R-right shows independently audited landside-aircraft counterexample; correction tracked separately after437. Source imagery dates mix2011–2026."
         },
         {
           "sheet": 10,
@@ -10002,7 +10002,7 @@
           "pairsReviewed": 18,
           "sheetSha256": "ffc1ebc88e49c5c6e044256ac0440b9eaab576f9f692eae41dc10deece9e8fd5",
           "inspectedAt": "2026-11-08T22:25:48.289198+00:00",
-          "finding": "All pair cells inspected. Terminal/garage curb details, open lobby and canopy piers, retaining structures, elevated transit context and facade modulation remain simplified. Sheet13 exact Arrivals-Drive-50-R-right shows independently audited landside-aircraft counterexample; correction tracked separately after437. Source imagery dates mix2011\u20132026."
+          "finding": "All pair cells inspected. Terminal/garage curb details, open lobby and canopy piers, retaining structures, elevated transit context and facade modulation remain simplified. Sheet13 exact Arrivals-Drive-50-R-right shows independently audited landside-aircraft counterexample; correction tracked separately after437. Source imagery dates mix2011–2026."
         },
         {
           "sheet": 11,
@@ -10029,7 +10029,7 @@
           "pairsReviewed": 18,
           "sheetSha256": "4d819cc8c0e0744a91619f77e92324761dbfd408ac26c30bc9570e68e5533150",
           "inspectedAt": "2026-11-08T22:25:48.307161+00:00",
-          "finding": "All pair cells inspected. Terminal/garage curb details, open lobby and canopy piers, retaining structures, elevated transit context and facade modulation remain simplified. Sheet13 exact Arrivals-Drive-50-R-right shows independently audited landside-aircraft counterexample; correction tracked separately after437. Source imagery dates mix2011\u20132026."
+          "finding": "All pair cells inspected. Terminal/garage curb details, open lobby and canopy piers, retaining structures, elevated transit context and facade modulation remain simplified. Sheet13 exact Arrivals-Drive-50-R-right shows independently audited landside-aircraft counterexample; correction tracked separately after437. Source imagery dates mix2011–2026."
         },
         {
           "sheet": 12,
@@ -10056,7 +10056,7 @@
           "pairsReviewed": 18,
           "sheetSha256": "2e8b2744326079a262703b2e0f796961367f5d68433f74253a2539b47f3056ed",
           "inspectedAt": "2026-11-08T22:25:48.314627+00:00",
-          "finding": "All pair cells inspected. Terminal/garage curb details, open lobby and canopy piers, retaining structures, elevated transit context and facade modulation remain simplified. Sheet13 exact Arrivals-Drive-50-R-right shows independently audited landside-aircraft counterexample; correction tracked separately after437. Source imagery dates mix2011\u20132026."
+          "finding": "All pair cells inspected. Terminal/garage curb details, open lobby and canopy piers, retaining structures, elevated transit context and facade modulation remain simplified. Sheet13 exact Arrivals-Drive-50-R-right shows independently audited landside-aircraft counterexample; correction tracked separately after437. Source imagery dates mix2011–2026."
         },
         {
           "sheet": 13,
@@ -10083,7 +10083,7 @@
           "pairsReviewed": 18,
           "sheetSha256": "54282144c11e7da179dcc42b4c2b974c0185c6b6c8d75de72e2a8d02cf5e2b19",
           "inspectedAt": "2026-11-08T22:25:48.316865+00:00",
-          "finding": "All pair cells inspected. Terminal/garage curb details, open lobby and canopy piers, retaining structures, elevated transit context and facade modulation remain simplified. Sheet13 exact Arrivals-Drive-50-R-right shows independently audited landside-aircraft counterexample; correction tracked separately after437. Source imagery dates mix2011\u20132026."
+          "finding": "All pair cells inspected. Terminal/garage curb details, open lobby and canopy piers, retaining structures, elevated transit context and facade modulation remain simplified. Sheet13 exact Arrivals-Drive-50-R-right shows independently audited landside-aircraft counterexample; correction tracked separately after437. Source imagery dates mix2011–2026."
         },
         {
           "sheet": 14,
@@ -10110,7 +10110,7 @@
           "pairsReviewed": 18,
           "sheetSha256": "363ff04317a6d456a8c686b55527b1b3df5fcee661489af76f710daafa53b83a",
           "inspectedAt": "2026-11-08T22:25:48.323166+00:00",
-          "finding": "All pair cells inspected. Terminal/garage curb details, open lobby and canopy piers, retaining structures, elevated transit context and facade modulation remain simplified. Sheet13 exact Arrivals-Drive-50-R-right shows independently audited landside-aircraft counterexample; correction tracked separately after437. Source imagery dates mix2011\u20132026."
+          "finding": "All pair cells inspected. Terminal/garage curb details, open lobby and canopy piers, retaining structures, elevated transit context and facade modulation remain simplified. Sheet13 exact Arrivals-Drive-50-R-right shows independently audited landside-aircraft counterexample; correction tracked separately after437. Source imagery dates mix2011–2026."
         },
         {
           "sheet": 15,
@@ -11771,7 +11771,7 @@
         "South-176th-Street-10-L-fwd"
       ]
     },
-    "streetWalkLabel": "Before aircraft and source-grade integration \u00b7 4378317",
+    "streetWalkLabel": "Before aircraft and source-grade integration · 4378317",
     "streetWalkSourceNote": "These762 GAME frames are historical BEFORE evidence from4378317. They predate independently measured airside aircraft and integrated source-grade/performance changes. Current aerial/aircraft/native evidence has its own c78a5f4 revision; the earlier walk is not relabelled as current.",
     "acceptanceNote": "Complete capture and inspection coverage does not resolve source-height, roof/facade, terrain/grade, imagery-date, occupancy or sparse exterior-detail limits. Native current controls are a separate ledger; no photographic parity claim.",
     "structureRetakeReview": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
@@ -11819,7 +11819,7 @@
     "note": "Derived current mixed-source ledger; all exact original and retake capture ledgers remain separately retained."
   },
   "streetWalk": {
-    "label": "Before aircraft and source-grade integration \u00b7 4378317",
+    "label": "Before aircraft and source-grade integration · 4378317",
     "sourceNote": "These762 GAME frames are historical BEFORE evidence from4378317. They predate independently measured airside aircraft and integrated source-grade/performance changes. Current aerial/aircraft/native evidence has its own c78a5f4 revision; the earlier walk is not relabelled as current.",
     "manifest": "street-walk/manifest.json",
     "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
@@ -11875,5 +11875,16 @@
     "mask": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/recapture-mask.json",
     "maskSha256": "d1af9424e3f545a1b4cda35f84b6ff2acdbf841a07b7456c9a3627105ad56b79",
     "unchangedDistrictDataSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171"
-  }
+  },
+  "perspectiveCollections": [
+    {
+      "manifest": "context/structure-2b2b970/manifest.json",
+      "label": "SeaTac covered roads and parking access · 9 November",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "gameSourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+      "count": 3,
+      "note": "Actual native controller approaches with full traffic and mirrors; exact source-edge start fixtures, camera, route, condition and renderer metadata. Structural datums and facade estimates remain explicit. Separate from the aerial atlas and historical street walk."
+    }
+  ]
 }

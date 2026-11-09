@@ -1,0 +1,2383 @@
+{
+  "schema": 1,
+  "scope": "Read-only exact literal way-tag inventory from retained core roadSourceGeometry. No numeric/conditional/unit assumptions or routing/admission changes. Node-mounted signs and real-world completeness are outside scope.",
+  "districts": [
+    {
+      "dataFile": "game/data/bucharest-floreasca.json",
+      "dataSha256": "a188f2f5b856965191935b5433b756080c711154e8ab00ff8e2f5b28ca77097b",
+      "district": "floreasca",
+      "sourceWayRecords": []
+    },
+    {
+      "dataFile": "game/data/bucharest-grozavesti.json",
+      "dataSha256": "053f75636671ca5fb0e44db38070bd806572697a54c6127e55834b9d86521a75",
+      "district": "grozavesti",
+      "sourceWayRecords": [
+        {
+          "sourceId": "w665933043",
+          "roadIndices": [
+            138
+          ],
+          "literalLimits": {
+            "maxheight:signed": "no"
+          },
+          "sourceTags": {
+            "highway": "secondary",
+            "lanes": "3",
+            "maxheight:signed": "no",
+            "maxspeed": "RO:urban",
+            "name": "Splaiul Independenței",
+            "oneway": "yes",
+            "smoothness": "excellent",
+            "surface": "asphalt",
+            "turn:lanes": "left|through|through"
+          },
+          "sourceNodeIds": [
+            32934991,
+            13455628567,
+            13455628566,
+            981520486
+          ]
+        }
+      ]
+    },
+    {
+      "dataFile": "game/data/bucharest-otopeni.json",
+      "dataSha256": "eea0a6023fd5053b3564f4d5da8a6de96b8f420038ff91cfc9c8d749e5501229",
+      "district": "otopeni",
+      "sourceWayRecords": [
+        {
+          "sourceId": "w218248938",
+          "roadIndices": [
+            2
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "foot": "yes",
+            "highway": "trunk",
+            "int_ref": "E 60",
+            "lanes": "3",
+            "lit": "yes",
+            "maxheight": "default",
+            "maxspeed": "70",
+            "name": "Calea Bucureștilor",
+            "nat_ref": "DN1",
+            "oneway": "yes",
+            "ref": "DN1",
+            "sidewalk": "right",
+            "smoothness": "good",
+            "source": "survey",
+            "surface": "asphalt",
+            "surface_survey": "2016DEC_RRQM sync"
+          },
+          "sourceNodeIds": [
+            577368547,
+            577368546,
+            2522857231,
+            11067331903,
+            12236190061,
+            577368545,
+            3080800706,
+            3080800661,
+            7866400804,
+            1329582702,
+            2290108296,
+            8527850830,
+            577368543,
+            5274669876,
+            2290108291,
+            9661675251,
+            2522849384,
+            581993002,
+            581992997,
+            577368538,
+            577368537,
+            581992920,
+            2294683196,
+            2290108302,
+            577368535,
+            577368536,
+            577368534,
+            2975590210,
+            577368533,
+            2294683159,
+            9173425030,
+            2521966067,
+            577368532,
+            2975590211,
+            2294683085,
+            2294683138,
+            2294683071,
+            577368531,
+            2294683157,
+            2294683080,
+            12814987622,
+            577368530
+          ]
+        },
+        {
+          "sourceId": "w715324181",
+          "roadIndices": [
+            9
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "foot": "yes",
+            "highway": "trunk",
+            "int_ref": "E 60",
+            "lanes": "3",
+            "lit": "yes",
+            "maxheight": "default",
+            "maxspeed": "70",
+            "name": "Calea Bucureștilor",
+            "nat_ref": "DN1",
+            "oneway": "yes",
+            "ref": "DN1",
+            "sidewalk": "right",
+            "sidewalk:right:surface": "paving_stones",
+            "smoothness": "excellent",
+            "source": "survey",
+            "surface": "asphalt",
+            "surface_survey": "22MAI2010_Pinnutz@motocilism.ro;drum fara gropi sau petece (radare fixe - 70 km/h in localitati"
+          },
+          "sourceNodeIds": [
+            299023892,
+            8527850826,
+            307978282,
+            8527850829,
+            2289697194,
+            2522849383,
+            9661675250,
+            1493322463,
+            1493322471,
+            8553017570,
+            8553017571,
+            117261424
+          ]
+        },
+        {
+          "sourceId": "w1122904650",
+          "roadIndices": [
+            14
+          ],
+          "literalLimits": {
+            "maxheight": "default",
+            "maxheight:signed": "no"
+          },
+          "sourceTags": {
+            "foot": "yes",
+            "highway": "trunk",
+            "int_ref": "E 60",
+            "lanes": "3",
+            "lit": "yes",
+            "maxheight": "default",
+            "maxheight:signed": "no",
+            "maxspeed": "70",
+            "name": "Calea Bucureștilor",
+            "nat_ref": "DN1",
+            "oneway": "yes",
+            "ref": "DN1",
+            "sidewalk": "right",
+            "sidewalk:right:surface": "paving_stones",
+            "smoothness": "excellent",
+            "source": "survey",
+            "surface": "asphalt",
+            "surface_survey": "22MAI2010_Pinnutz@motocilism.ro;drum fara gropi sau petece (radare fixe - 70 km/h in localitati"
+          },
+          "sourceNodeIds": [
+            257704409,
+            2294700163,
+            13202487831,
+            307977627,
+            307978318,
+            12814673511,
+            299023431,
+            307978288,
+            4148848330,
+            299021720,
+            10048596708,
+            117261423,
+            299023892
+          ]
+        },
+        {
+          "sourceId": "w19750498",
+          "roadIndices": [
+            19
+          ],
+          "literalLimits": {
+            "maxheight": "3.5"
+          },
+          "sourceTags": {
+            "highway": "tertiary",
+            "lanes": "2",
+            "maxheight": "3.5",
+            "maxspeed": "50",
+            "noname": "yes",
+            "oneway": "yes",
+            "parking:both": "no",
+            "smoothness": "excellent",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            205414605,
+            12236348626,
+            4868552883,
+            205414607,
+            12236348627,
+            12236348628,
+            683798381,
+            205414608,
+            205414609,
+            1904815630,
+            1904815628,
+            205414612,
+            205414640,
+            205414616,
+            13942593826
+          ]
+        },
+        {
+          "sourceId": "w319077389",
+          "roadIndices": [
+            43
+          ],
+          "literalLimits": {
+            "maxheight": "default",
+            "maxheight:signed": "no"
+          },
+          "sourceTags": {
+            "covered": "yes",
+            "highway": "service",
+            "maxheight": "default",
+            "maxheight:signed": "no",
+            "oneway": "yes",
+            "surface": "paving_stones"
+          },
+          "sourceNodeIds": [
+            3254951535,
+            1493322447
+          ]
+        },
+        {
+          "sourceId": "w180050587",
+          "roadIndices": [
+            74
+          ],
+          "literalLimits": {
+            "maxheight": "default",
+            "maxheight:signed": "no"
+          },
+          "sourceTags": {
+            "highway": "service",
+            "maxheight": "default",
+            "maxheight:signed": "no",
+            "maxspeed": "5",
+            "service": "driveway",
+            "surface": "paving_stones"
+          },
+          "sourceNodeIds": [
+            1904815601,
+            1904815705
+          ]
+        },
+        {
+          "sourceId": "w180050601",
+          "roadIndices": [
+            79
+          ],
+          "literalLimits": {
+            "maxheight": "default",
+            "maxheight:signed": "no"
+          },
+          "sourceTags": {
+            "highway": "service",
+            "maxheight": "default",
+            "maxheight:signed": "no",
+            "maxspeed": "5",
+            "service": "driveway",
+            "surface": "paving_stones"
+          },
+          "sourceNodeIds": [
+            1904815649,
+            1904815622
+          ]
+        },
+        {
+          "sourceId": "w1529676125",
+          "roadIndices": [
+            175
+          ],
+          "literalLimits": {
+            "maxheight": "3.5"
+          },
+          "sourceTags": {
+            "highway": "tertiary",
+            "lanes": "2",
+            "maxheight": "3.5",
+            "maxspeed": "50",
+            "noname": "yes",
+            "oneway": "yes",
+            "parking:both": "no",
+            "smoothness": "excellent",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            13477096796,
+            13542631983,
+            13477096795,
+            13542631976,
+            13477096794,
+            13542631977,
+            13477096798,
+            13542631978,
+            13477096793,
+            13477096797,
+            5448473657
+          ]
+        },
+        {
+          "sourceId": "w1529771672",
+          "roadIndices": [
+            176
+          ],
+          "literalLimits": {
+            "maxheight": "3.5"
+          },
+          "sourceTags": {
+            "highway": "tertiary",
+            "lanes": "2",
+            "maxheight": "3.5",
+            "maxspeed": "50",
+            "noname": "yes",
+            "oneway": "yes",
+            "parking:both": "no",
+            "sidewalk:right": "separate",
+            "smoothness": "excellent",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            13942593826,
+            205414366,
+            3193448142,
+            3193448153,
+            13477096796
+          ]
+        }
+      ]
+    },
+    {
+      "dataFile": "game/data/bucharest-pipera.json",
+      "dataSha256": "873c974d4c532d9acf08bdbcbc3bbc2fa271bd018b7874a08efc99f4971dd8de",
+      "district": "pipera",
+      "sourceWayRecords": [
+        {
+          "sourceId": "w162054806",
+          "roadIndices": [
+            52
+          ],
+          "literalLimits": {
+            "maxheight": "4.7",
+            "maxheight:signed": "no"
+          },
+          "sourceTags": {
+            "foot": "no",
+            "highway": "secondary",
+            "lanes": "4",
+            "lit": "yes",
+            "maxheight": "4.7",
+            "maxheight:signed": "no",
+            "maxspeed": "RO:urban",
+            "name": "Calea Floreasca",
+            "oneway": "no",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            1450415450,
+            1450415442
+          ]
+        },
+        {
+          "sourceId": "w350999211",
+          "roadIndices": [
+            90
+          ],
+          "literalLimits": {
+            "maxheight": "2 m"
+          },
+          "sourceTags": {
+            "highway": "service",
+            "maxheight": "2 m",
+            "maxspeed": "30",
+            "oneway": "yes",
+            "service": "driveway",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            3567183370,
+            3567183371,
+            3567188438,
+            3567188439,
+            3567183373
+          ]
+        },
+        {
+          "sourceId": "w467560480",
+          "roadIndices": [
+            95
+          ],
+          "literalLimits": {
+            "maxheight": "2.05"
+          },
+          "sourceTags": {
+            "access": "destination",
+            "addr:city": "București",
+            "highway": "service",
+            "lanes": "2",
+            "layer": "-1",
+            "level": "0",
+            "maxheight": "2.05",
+            "maxspeed": "10",
+            "service": "parking_aisle",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            4621661079,
+            4621661072,
+            4621661078
+          ]
+        },
+        {
+          "sourceId": "w467560865",
+          "roadIndices": [
+            96
+          ],
+          "literalLimits": {
+            "maxheight": "2.05"
+          },
+          "sourceTags": {
+            "access": "destination",
+            "highway": "service",
+            "lanes": "1",
+            "layer": "-1",
+            "maxheight": "2.05",
+            "maxspeed": "10",
+            "oneway": "yes",
+            "service": "parking_aisle",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            4621661082,
+            4621661078
+          ]
+        },
+        {
+          "sourceId": "w668546555",
+          "roadIndices": [
+            119
+          ],
+          "literalLimits": {
+            "maxheight:signed": "no"
+          },
+          "sourceTags": {
+            "foot": "no",
+            "highway": "primary",
+            "lanes": "3",
+            "maxheight:signed": "no",
+            "maxspeed": "50",
+            "maxweight": "7.5",
+            "name": "Strada Căpitan Aviator Alexandru Șerbănescu",
+            "oneway": "yes",
+            "smoothness": "excellent",
+            "surface": "asphalt",
+            "turn:lanes": "left|through|through"
+          },
+          "sourceNodeIds": [
+            2128199304,
+            2128199316
+          ]
+        },
+        {
+          "sourceId": "w668549587",
+          "roadIndices": [
+            121
+          ],
+          "literalLimits": {
+            "maxheight:signed": "no"
+          },
+          "sourceTags": {
+            "foot": "no",
+            "highway": "primary",
+            "lanes": "3",
+            "maxheight:signed": "no",
+            "maxspeed": "50",
+            "name": "Strada Căpitan Aviator Alexandru Șerbănescu",
+            "oneway": "yes",
+            "smoothness": "excellent",
+            "surface": "asphalt",
+            "turn:lanes": "left|through|through"
+          },
+          "sourceNodeIds": [
+            2128199323,
+            2128199309
+          ]
+        },
+        {
+          "sourceId": "w764616770",
+          "roadIndices": [
+            128
+          ],
+          "literalLimits": {
+            "maxheight": "2.05"
+          },
+          "sourceTags": {
+            "access": "destination",
+            "highway": "service",
+            "lanes": "1",
+            "layer": "-1",
+            "maxheight": "2.05",
+            "maxspeed": "10",
+            "oneway": "yes",
+            "service": "parking_aisle",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            4621661074,
+            4621661065
+          ]
+        },
+        {
+          "sourceId": "w764616771",
+          "roadIndices": [
+            129
+          ],
+          "literalLimits": {
+            "maxheight": "2.05"
+          },
+          "sourceTags": {
+            "access": "destination",
+            "highway": "service",
+            "lanes": "1",
+            "layer": "-1",
+            "maxheight": "2.05",
+            "maxspeed": "10",
+            "oneway": "yes",
+            "service": "parking_aisle",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            4621661078,
+            4621661074
+          ]
+        },
+        {
+          "sourceId": "w545008069",
+          "roadIndices": [
+            222
+          ],
+          "literalLimits": {
+            "maxheight": "none"
+          },
+          "sourceTags": {
+            "highway": "service",
+            "horse": "no",
+            "lanes": "2",
+            "maxheight": "none",
+            "maxspeed": "30",
+            "motor_vehicle": "permissive",
+            "oneway": "no",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            5267908366,
+            6892947717,
+            5267908367,
+            10113600231,
+            10113600232,
+            6429260815,
+            5267908368,
+            5267908377,
+            9225231543,
+            5267908369,
+            10113598769,
+            5267908370,
+            10113598770,
+            5267908371,
+            10113598768,
+            5267908384,
+            6429260830,
+            5267908376
+          ]
+        }
+      ]
+    },
+    {
+      "dataFile": "game/data/bucharest-romana.json",
+      "dataSha256": "af976b05482ce0663264cadeb2d1a0d1dd3a67a05cc7b07b1c592ddfa7fa2e6d",
+      "district": "romana",
+      "sourceWayRecords": [
+        {
+          "sourceId": "w241374324",
+          "roadIndices": [
+            122
+          ],
+          "literalLimits": {
+            "maxheight": "4.5"
+          },
+          "sourceTags": {
+            "highway": "primary",
+            "lanes": "2",
+            "layer": "-1",
+            "maxheight": "4.5",
+            "maxspeed": "50",
+            "name": "Pasajul Victoria",
+            "oneway": "yes",
+            "shoulder": "no",
+            "smoothness": "excellent",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            6272105932,
+            296039012,
+            3758479011,
+            2360460513
+          ]
+        },
+        {
+          "sourceId": "w241374325",
+          "roadIndices": [
+            123
+          ],
+          "literalLimits": {
+            "maxheight": "4.5"
+          },
+          "sourceTags": {
+            "highway": "primary",
+            "lanes": "2",
+            "layer": "-1",
+            "lit": "yes",
+            "maxheight": "4.5",
+            "maxspeed": "50",
+            "name": "Pasajul Victoria",
+            "oneway": "yes",
+            "shoulder": "no",
+            "smoothness": "excellent",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            2360460509,
+            296038935,
+            3758479839,
+            6272105933,
+            6272105929
+          ]
+        },
+        {
+          "sourceId": "w669751868",
+          "roadIndices": [
+            179
+          ],
+          "literalLimits": {
+            "maxheight": "4.5"
+          },
+          "sourceTags": {
+            "foot": "no",
+            "highway": "primary",
+            "lanes": "2",
+            "layer": "-1",
+            "lit": "yes",
+            "maxheight": "4.5",
+            "maxspeed": "50",
+            "name": "Pasajul Victoria",
+            "oneway": "yes",
+            "shoulder": "no",
+            "sidewalk": "no",
+            "smoothness": "excellent",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            6272105929,
+            296038936
+          ]
+        },
+        {
+          "sourceId": "w669751870",
+          "roadIndices": [
+            180
+          ],
+          "literalLimits": {
+            "maxheight": "4.5"
+          },
+          "sourceTags": {
+            "foot": "no",
+            "highway": "primary",
+            "lanes": "2",
+            "layer": "-1",
+            "lit": "yes",
+            "maxheight": "4.5",
+            "maxspeed": "50",
+            "name": "Pasajul Victoria",
+            "oneway": "yes",
+            "shoulder": "no",
+            "sidewalk": "no",
+            "smoothness": "excellent",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            296039011,
+            6272105931
+          ]
+        },
+        {
+          "sourceId": "w669751871",
+          "roadIndices": [
+            181
+          ],
+          "literalLimits": {
+            "maxheight": "4.5"
+          },
+          "sourceTags": {
+            "foot": "no",
+            "highway": "primary",
+            "lanes": "2",
+            "layer": "-1",
+            "lit": "yes",
+            "maxheight": "4.5",
+            "maxspeed": "50",
+            "name": "Pasajul Victoria",
+            "oneway": "yes",
+            "shoulder": "no",
+            "sidewalk": "no",
+            "smoothness": "excellent",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            6272105931,
+            3057329506,
+            6272105932
+          ]
+        },
+        {
+          "sourceId": "w23647432",
+          "roadIndices": [
+            219
+          ],
+          "literalLimits": {
+            "maxheight:signed": "no"
+          },
+          "sourceTags": {
+            "highway": "service",
+            "is_in:city": "București",
+            "maxheight:signed": "no",
+            "maxspeed": "RO:urban",
+            "motor_vehicle": "private",
+            "name": "Intrarea Alexandru Macedonski",
+            "oneway": "no",
+            "service": "alley",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            256193766,
+            7312238285,
+            602215427,
+            256193765
+          ]
+        },
+        {
+          "sourceId": "w229193339",
+          "roadIndices": [
+            248
+          ],
+          "literalLimits": {
+            "maxheight": "3.8"
+          },
+          "sourceTags": {
+            "covered": "yes",
+            "highway": "service",
+            "maxheight": "3.8",
+            "surface": "asphalt",
+            "tunnel": "building_passage"
+          },
+          "sourceNodeIds": [
+            2378171627,
+            7293845663
+          ]
+        }
+      ]
+    },
+    {
+      "dataFile": "game/data/bucharest-unirii.json",
+      "dataSha256": "e5ec3f964640b500f4fcf0aa2bd38313ce625a594ff915ff599c7c792b5bd887",
+      "district": "unirii",
+      "sourceWayRecords": [
+        {
+          "sourceId": "w241368617",
+          "roadIndices": [
+            12
+          ],
+          "literalLimits": {
+            "maxheight": "3.5"
+          },
+          "sourceTags": {
+            "foot": "no",
+            "highway": "primary",
+            "int_ref": "E 85",
+            "lanes": "2",
+            "layer": "-1",
+            "lit": "yes",
+            "maxheight": "3.5",
+            "maxspeed": "40",
+            "name": "Pasajul Unirii",
+            "nat_ref": "DN4",
+            "oneway": "yes",
+            "ref": "DN4",
+            "shoulder": "no",
+            "sidewalk": "no",
+            "smoothness": "excellent",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            2351340244,
+            2351340228,
+            6564974882,
+            5550936831,
+            2351340239,
+            6564974884,
+            2351340234,
+            2351340216,
+            2687968316,
+            257684144
+          ]
+        },
+        {
+          "sourceId": "w241368618",
+          "roadIndices": [
+            13
+          ],
+          "literalLimits": {
+            "maxheight": "3.5"
+          },
+          "sourceTags": {
+            "foot": "no",
+            "highway": "primary",
+            "int_ref": "E 85",
+            "lanes": "2",
+            "layer": "-1",
+            "lit": "yes",
+            "maxheight": "3.5",
+            "maxspeed": "40",
+            "name": "Pasajul Unirii",
+            "nat_ref": "DN4",
+            "oneway": "yes",
+            "ref": "DN4",
+            "shoulder": "no",
+            "sidewalk": "no",
+            "smoothness": "excellent",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            257684209,
+            2687968315,
+            2351340240,
+            2351340218,
+            12943575360,
+            12804813384
+          ]
+        },
+        {
+          "sourceId": "w79870041",
+          "roadIndices": [
+            91
+          ],
+          "literalLimits": {
+            "maxheight": "4.25"
+          },
+          "sourceTags": {
+            "covered": "yes",
+            "highway": "service",
+            "layer": "-1",
+            "lit": "yes",
+            "maxheight": "4.25",
+            "maxspeed": "RO:urban",
+            "oneway": "yes",
+            "service": "driveway",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            6260825651,
+            932331515,
+            932331520,
+            13563618634
+          ]
+        },
+        {
+          "sourceId": "w226274205",
+          "roadIndices": [
+            111
+          ],
+          "literalLimits": {
+            "maxheight": "3.5"
+          },
+          "sourceTags": {
+            "highway": "primary",
+            "lanes": "3",
+            "lit": "yes",
+            "maxheight": "3.5",
+            "maxspeed": "50",
+            "name": "Bulevardul Dimitrie Cantemir",
+            "oneway": "yes",
+            "smoothness": "excellent",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            31404741,
+            6225649426,
+            2583013725
+          ]
+        },
+        {
+          "sourceId": "w826403112",
+          "roadIndices": [
+            185
+          ],
+          "literalLimits": {
+            "maxheight": "4.25"
+          },
+          "sourceTags": {
+            "covered": "yes",
+            "highway": "service",
+            "lit": "yes",
+            "maxheight": "4.25",
+            "maxspeed": "10",
+            "oneway": "yes",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            9844451329,
+            9844451327,
+            7715933702
+          ]
+        },
+        {
+          "sourceId": "w1383050305",
+          "roadIndices": [
+            213
+          ],
+          "literalLimits": {
+            "maxheight": "3.5"
+          },
+          "sourceTags": {
+            "foot": "no",
+            "highway": "primary",
+            "int_ref": "E 85",
+            "lanes": "2",
+            "layer": "-1",
+            "lit": "yes",
+            "maxheight": "3.5",
+            "maxspeed": "40",
+            "name": "Pasajul Unirii",
+            "nat_ref": "DN4",
+            "oneway": "yes",
+            "ref": "DN4",
+            "shoulder": "no",
+            "sidewalk": "right",
+            "smoothness": "excellent",
+            "surface": "asphalt",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            12804813384,
+            2351340226,
+            6564974881,
+            2351340242,
+            2351340230
+          ]
+        },
+        {
+          "sourceId": "w1478497247",
+          "roadIndices": [
+            223
+          ],
+          "literalLimits": {
+            "maxheight": "4.25"
+          },
+          "sourceTags": {
+            "covered": "yes",
+            "highway": "service",
+            "lit": "yes",
+            "maxheight": "4.25",
+            "maxspeed": "RO:urban",
+            "oneway": "yes",
+            "service": "driveway"
+          },
+          "sourceNodeIds": [
+            13563618634,
+            7367150680
+          ]
+        }
+      ]
+    },
+    {
+      "dataFile": "game/data/seattle-bellevue.json",
+      "dataSha256": "b6e30458ac8d9f32cf6c1437047fa9f8fb01370997e9ecee1bfc6482d970c2f9",
+      "district": "bellevue",
+      "sourceWayRecords": [
+        {
+          "sourceId": "w623957745",
+          "roadIndices": [
+            0
+          ],
+          "literalLimits": {
+            "maxheight": "default",
+            "maxheight:signed": "no"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "bus:lanes": "designated|||",
+            "hgv": "designated",
+            "highway": "motorway",
+            "hov": "yes",
+            "hov:lanes": "designated|||",
+            "hov:minimum": "2",
+            "lanes": "4",
+            "maxheight": "default",
+            "maxheight:signed": "no",
+            "maxspeed": "60 mph",
+            "motorcycle:lanes": "yes|||",
+            "motor_vehicle:lanes": "no|||",
+            "oneway": "yes",
+            "ref": "I 405",
+            "surface": "concrete"
+          },
+          "sourceNodeIds": [
+            338517544,
+            30830837,
+            30830838,
+            30830839,
+            2933637238
+          ]
+        },
+        {
+          "sourceId": "w880540177",
+          "roadIndices": [
+            1
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "bus:lanes": "designated|||",
+            "hgv": "designated",
+            "highway": "motorway",
+            "hov": "yes",
+            "hov:lanes": "designated|||",
+            "hov:minimum": "2",
+            "lanes": "4",
+            "maxheight": "default",
+            "maxspeed": "60 mph",
+            "motorcycle:lanes": "yes|||",
+            "motor_vehicle:lanes": "no|||",
+            "oneway": "yes",
+            "ref": "I 405",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            288663683,
+            288663823,
+            288663685,
+            2508538782
+          ]
+        },
+        {
+          "sourceId": "w6334468",
+          "roadIndices": [
+            2
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "destination": "Everett",
+            "destination:ref": "I 405 North",
+            "highway": "motorway_link",
+            "lanes": "1",
+            "maxheight": "default",
+            "oneway": "yes",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            697224788,
+            1739483925,
+            387123474,
+            5759981124,
+            53043189,
+            387123475,
+            53043192,
+            2508547075,
+            53043194,
+            387123476,
+            3700498308,
+            53043196,
+            3700498304,
+            387123477,
+            53043198,
+            2508547074,
+            387123478,
+            387123479,
+            53043199,
+            387123480,
+            387123481,
+            53043202,
+            387123482,
+            3700498310,
+            53043203,
+            387123483,
+            53043204
+          ]
+        },
+        {
+          "sourceId": "w6334476",
+          "roadIndices": [
+            3
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "destination": "Northeast 8th Street East",
+            "highway": "motorway_link",
+            "lanes": "1",
+            "maxheight": "default",
+            "oneway": "yes",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            288908415,
+            288917106,
+            53041676,
+            53043238,
+            53043237,
+            53043236,
+            2508547078,
+            53043234,
+            2508547055,
+            53043233,
+            1835841979,
+            1835841982,
+            2508547062,
+            1739483922,
+            2508547072,
+            2508547053,
+            53043231,
+            2508547073,
+            3700498319,
+            697224789
+          ]
+        },
+        {
+          "sourceId": "w26370149",
+          "roadIndices": [
+            7
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "highway": "motorway_link",
+            "lanes": "1",
+            "maxheight": "default",
+            "oneway": "yes",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            288908435,
+            288908448,
+            1454255491
+          ]
+        },
+        {
+          "sourceId": "w26371191",
+          "roadIndices": [
+            8
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "destination:ref": "I 405 South",
+            "highway": "motorway_link",
+            "lanes": "1",
+            "maxheight": "default",
+            "oneway": "yes",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            269452308,
+            288919723,
+            1835833517,
+            1835833511,
+            1835833520,
+            1835833516
+          ]
+        },
+        {
+          "sourceId": "w30614989",
+          "roadIndices": [
+            10
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "destination": "Northeast 4th Street",
+            "highway": "motorway_link",
+            "junction:ref": "13A",
+            "lanes": "1",
+            "maxheight": "default",
+            "oneway": "yes",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            288663683,
+            288918168,
+            288918919,
+            288918587,
+            338516905
+          ]
+        },
+        {
+          "sourceId": "w30615045",
+          "roadIndices": [
+            11
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "bus": "designated",
+            "highway": "motorway_link",
+            "hov:lanes": "designated",
+            "hov:minimum": "2",
+            "lanes": "1",
+            "maxheight": "default",
+            "motorcycle": "yes",
+            "oneway": "yes",
+            "surface": "concrete"
+          },
+          "sourceNodeIds": [
+            1388978441,
+            11234366927,
+            1388978443,
+            1722444703,
+            1722444712,
+            1722444710,
+            1722444705
+          ]
+        },
+        {
+          "sourceId": "w428073561",
+          "roadIndices": [
+            50
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "bus": "designated",
+            "destination": "Northeast 6th Street",
+            "highway": "motorway_link",
+            "hov:lanes": "designated",
+            "hov:minimum": "2",
+            "lanes": "1",
+            "maxheight": "default",
+            "motorcycle": "yes",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "turn:lanes": "right"
+          },
+          "sourceNodeIds": [
+            338517516,
+            11234366926,
+            13692142641,
+            1388978442
+          ]
+        },
+        {
+          "sourceId": "w531651939",
+          "roadIndices": [
+            72
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "destination": "Northeast 8th Street West",
+            "highway": "motorway_link",
+            "lanes": "1",
+            "maxheight": "default",
+            "oneway": "yes",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            288908415,
+            288908332,
+            288908417,
+            53043204
+          ]
+        },
+        {
+          "sourceId": "w531665400",
+          "roadIndices": [
+            73
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "destination:lanes": "none|Northeast 8th Street East",
+            "highway": "motorway_link",
+            "lanes": "2",
+            "maxheight": "default",
+            "oneway": "yes",
+            "turn:lanes": "none|right"
+          },
+          "sourceNodeIds": [
+            288917944,
+            269452308
+          ]
+        },
+        {
+          "sourceId": "w622462903",
+          "roadIndices": [
+            84
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "bus:lanes": "designated|||",
+            "destination:lanes": "none|none|none|none;Northeast 4th Street",
+            "hgv": "designated",
+            "highway": "motorway",
+            "hov": "yes",
+            "hov:lanes": "designated|||",
+            "hov:minimum": "2",
+            "lanes": "4",
+            "maxheight": "default",
+            "maxspeed": "60 mph",
+            "motorcycle:lanes": "yes|||",
+            "motor_vehicle:lanes": "no|||",
+            "oneway": "yes",
+            "ref": "I 405",
+            "surface": "asphalt",
+            "turn:lanes": "none|none|none|through;slight_right"
+          },
+          "sourceNodeIds": [
+            338517516,
+            288663821,
+            11234366925,
+            288663683
+          ]
+        },
+        {
+          "sourceId": "w736892506",
+          "roadIndices": [
+            94
+          ],
+          "literalLimits": {
+            "maxheight": "default",
+            "maxheight:signed": "no"
+          },
+          "sourceTags": {
+            "bicycle": "no",
+            "bus:lanes": "designated||||",
+            "destination:lanes": "|||none;Seattle|Redmond",
+            "hgv": "designated",
+            "highway": "motorway",
+            "hov": "yes",
+            "hov:lanes": "designated||||",
+            "hov:minimum": "2",
+            "lanes": "5",
+            "maxheight": "default",
+            "maxheight:signed": "no",
+            "maxspeed": "60 mph",
+            "motorcycle:lanes": "yes||||",
+            "motor_vehicle:lanes": "no||||",
+            "oneway": "yes",
+            "ref": "I 405",
+            "surface": "concrete",
+            "toll:hov": "no",
+            "turn:lanes": "|||through;slight_right|slight_right"
+          },
+          "sourceNodeIds": [
+            2933637238,
+            11234366928,
+            2933637215,
+            30830842,
+            2933637256,
+            12397475157
+          ]
+        },
+        {
+          "sourceId": "w161929521",
+          "roadIndices": [
+            143
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "highway": "service",
+            "maxheight": "default",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            4245960166,
+            7863656213,
+            10964267849,
+            6113553076,
+            6113553079,
+            1738808305,
+            1738808306,
+            1738808308
+          ]
+        },
+        {
+          "sourceId": "w425272687",
+          "roadIndices": [
+            163
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "2",
+            "maxheight": "default",
+            "maxspeed": "30 mph",
+            "name": "Bellevue Way Northeast",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            4245960172,
+            4245960171,
+            4245960166,
+            7863434601,
+            7863434598,
+            4245960162,
+            9649185273
+          ]
+        },
+        {
+          "sourceId": "w427906901",
+          "roadIndices": [
+            172
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "cycleway:right": "no",
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "2",
+            "lit": "yes",
+            "maxheight": "default",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "smoothness": "excellent",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            4270714551,
+            4270714552
+          ]
+        },
+        {
+          "sourceId": "w436485311",
+          "roadIndices": [
+            187
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "highway": "service",
+            "maxheight": "default",
+            "name": "Northeast 7th Street",
+            "surface": "asphalt",
+            "tunnel": "building_passage"
+          },
+          "sourceNodeIds": [
+            13529035503,
+            7945538996,
+            13529035504
+          ]
+        },
+        {
+          "sourceId": "w513503500",
+          "roadIndices": [
+            204
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "5",
+            "maxheight": "default",
+            "maxspeed": "30 mph",
+            "name": "Northeast 8th Street",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+            "surface": "asphalt",
+            "turn:lanes": "left|left|||right"
+          },
+          "sourceNodeIds": [
+            5019371990,
+            9649104193,
+            7945539009,
+            7625804230
+          ]
+        },
+        {
+          "sourceId": "w652027893",
+          "roadIndices": [
+            234
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "highway": "service",
+            "layer": "-1",
+            "maxheight": "default",
+            "tunnel": "yes"
+          },
+          "sourceNodeIds": [
+            1738808308,
+            6113553081
+          ]
+        },
+        {
+          "sourceId": "w652027894",
+          "roadIndices": [
+            235
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "highway": "service",
+            "maxheight": "default",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            6113553081,
+            1738808311,
+            6113553080,
+            1738808313,
+            10964296991,
+            7863656218,
+            5019299029
+          ]
+        },
+        {
+          "sourceId": "w1049983327",
+          "roadIndices": [
+            271
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "hgv": "designated",
+            "highway": "primary",
+            "lanes": "3",
+            "maxheight": "default",
+            "maxspeed": "30 mph",
+            "name": "Bellevue Way Northeast",
+            "oneway": "yes",
+            "sidewalk:both": "separate",
+            "surface": "asphalt",
+            "turn:lanes": "left||"
+          },
+          "sourceNodeIds": [
+            9649185273,
+            4727207880,
+            4270714534
+          ]
+        }
+      ]
+    },
+    {
+      "dataFile": "game/data/seattle-seatac.json",
+      "dataSha256": "f9ee586426661b53b50a7147e525b2a7b8a2534ff1015fae5bc900c25ead144c",
+      "district": "seatac",
+      "sourceWayRecords": [
+        {
+          "sourceId": "w6329486",
+          "roadIndices": [
+            0
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "cycleway:right": "no",
+            "destination": "Return To Terminal;Parking;Overheight Vehicle Parking",
+            "destination:ref": "SR 99",
+            "destination:ref:to": "I 5;I 405;SR 509",
+            "destination:street": "International Boulevard",
+            "expressway": "yes",
+            "fixme": "verify bicycle=yes",
+            "highway": "secondary",
+            "lanes": "2",
+            "maxheight": "12'0\"",
+            "maxspeed": "20 mph",
+            "name": "Arrivals Drive",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "tiger:county": "King, WA"
+          },
+          "sourceNodeIds": [
+            357686093,
+            4602685156,
+            8461317745
+          ]
+        },
+        {
+          "sourceId": "w6330202",
+          "roadIndices": [
+            1
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "cycleway:right": "no",
+            "expressway": "yes",
+            "fixme": "verify bicycle=yes",
+            "highway": "secondary",
+            "lanes": "2",
+            "maxheight": "12'0\"",
+            "name": "Arrivals Drive",
+            "oneway": "yes",
+            "smoothness": "good",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            357680871,
+            357680872,
+            2621703458,
+            2621703339,
+            256348326
+          ]
+        },
+        {
+          "sourceId": "w31929140",
+          "roadIndices": [
+            12
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "destination:ref": "SR 99",
+            "destination:street": "International Boulevard",
+            "expressway": "yes",
+            "fixme": "verify bicycle=yes",
+            "highway": "secondary",
+            "lanes": "1",
+            "maxheight": "12'0\"",
+            "name": "Arrivals Drive",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "tiger:cfcc": "A63",
+            "tiger:county": "King, WA"
+          },
+          "sourceNodeIds": [
+            357686093,
+            2621703477,
+            2621703399,
+            357704018,
+            357704019,
+            2386658919,
+            10848238520,
+            10848238518,
+            10848238519,
+            357680871
+          ]
+        },
+        {
+          "sourceId": "w124272605",
+          "roadIndices": [
+            47
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "fixme": "verify bicycle=yes",
+            "highway": "secondary",
+            "lanes": "5",
+            "maxheight": "12'0\"",
+            "maxspeed": "20 mph",
+            "name": "Arrivals Drive",
+            "note": "arrivals",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "tiger:cfcc": "A11",
+            "tiger:county": "King, WA",
+            "turn:lanes": "through|through|through||"
+          },
+          "sourceNodeIds": [
+            10240294413,
+            1139491487,
+            53184862,
+            1139491473,
+            2386658878,
+            2621703456,
+            2386658897,
+            53184864,
+            2621703473,
+            2621703406,
+            1139491465,
+            2386658917,
+            53184865,
+            2386658896,
+            1139491591,
+            10240294412
+          ]
+        },
+        {
+          "sourceId": "w124272637",
+          "roadIndices": [
+            49
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "destination": "Arrivals;Parking",
+            "destination:lanes": "Parking;Arrivals|Arrivals",
+            "expressway": "yes",
+            "fixme": "verify bicycle=yes",
+            "foot": "no",
+            "highway": "trunk",
+            "lanes": "2",
+            "maxheight": "12'0\"",
+            "maxspeed": "20 mph",
+            "name": "Arrivals Drive",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "tiger:cfcc": "A11",
+            "tiger:county": "King, WA",
+            "tiger:name_base": "Sea Tac Arpt Entrance",
+            "turn:lanes": "slight_left;slight_right|slight_right"
+          },
+          "sourceNodeIds": [
+            255158329,
+            5581672256,
+            3732132302,
+            2387852476,
+            13987165034,
+            2505957943
+          ]
+        },
+        {
+          "sourceId": "w256231543",
+          "roadIndices": [
+            53
+          ],
+          "literalLimits": {
+            "maxheight:signed": "no"
+          },
+          "sourceTags": {
+            "highway": "motorway",
+            "lanes": "4",
+            "maxheight:signed": "no",
+            "maxspeed": "30 mph",
+            "name": "Airport Expressway",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "tiger:cfcc": "A63",
+            "tiger:county": "King, WA"
+          },
+          "sourceNodeIds": [
+            357685639,
+            10840216490,
+            10840216491,
+            824050497
+          ]
+        },
+        {
+          "sourceId": "w333925964",
+          "roadIndices": [
+            73
+          ],
+          "literalLimits": {
+            "maxheight": "11'0\""
+          },
+          "sourceTags": {
+            "access": "customers",
+            "highway": "service",
+            "maxheight": "11'0\"",
+            "surface": "concrete",
+            "tunnel": "building_passage"
+          },
+          "sourceNodeIds": [
+            3409740185,
+            3409740184
+          ]
+        },
+        {
+          "sourceId": "w369418215",
+          "roadIndices": [
+            95
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "destination": "Arrivals",
+            "expressway": "yes",
+            "fixme": "verify bicycle=yes",
+            "foot": "no",
+            "highway": "trunk",
+            "lanes": "3",
+            "maxheight": "12'0\"",
+            "maxspeed": "20 mph",
+            "name": "Arrivals Drive",
+            "note": "arrivals",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "tiger:cfcc": "A11",
+            "tiger:county": "King, WA",
+            "tiger:name_base": "Sea Tac Arpt Entrance"
+          },
+          "sourceNodeIds": [
+            2505957943,
+            10840257760,
+            2621703482,
+            430538373,
+            2621703467,
+            4602704685
+          ]
+        },
+        {
+          "sourceId": "w427909575",
+          "roadIndices": [
+            125
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "destination:lanes": "International Boulevard North|International Boulevard North;none|International Boulevard South",
+            "expressway": "yes",
+            "fixme": "verify bicycle=yes",
+            "highway": "secondary",
+            "lanes": "3",
+            "maxheight": "12'0\"",
+            "name": "Arrivals Drive",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "turn:lanes": "left|left;through|right"
+          },
+          "sourceNodeIds": [
+            256348326,
+            2621703353,
+            357681396,
+            1341951482
+          ]
+        },
+        {
+          "sourceId": "w428003811",
+          "roadIndices": [
+            128
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "cycleway:right": "no",
+            "destination:lanes": "Return To Terminal|International Boulevard|International Boulevard",
+            "fixme": "verify bicycle=yes",
+            "highway": "secondary",
+            "lanes": "3",
+            "lit": "yes",
+            "maxheight": "12'0\"",
+            "maxspeed": "20 mph",
+            "name": "Arrivals Drive",
+            "note": "arrivals",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "tiger:cfcc": "A11",
+            "tiger:county": "King, WA",
+            "turn:lanes": "through|through|through"
+          },
+          "sourceNodeIds": [
+            4270735389,
+            2621703387,
+            2621703285,
+            2621703393,
+            2621703433,
+            357686093
+          ]
+        },
+        {
+          "sourceId": "w428067868",
+          "roadIndices": [
+            138
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "alt_name": "Pacific Highway South",
+            "bus:lanes": "|||designated",
+            "highway": "primary",
+            "hov": "yes",
+            "hov:lanes": "|||designated",
+            "lanes": "4",
+            "lanes:bus:forward": "1",
+            "lit": "yes",
+            "maxheight": "default",
+            "maxspeed": "40 mph",
+            "name": "International Boulevard",
+            "old_ref": "US 99;PSH 1",
+            "oneway": "yes",
+            "ref": "SR 99",
+            "shoulder": "no",
+            "sidewalk": "right",
+            "surface": "asphalt",
+            "turn:lanes": "reverse;left|||"
+          },
+          "sourceNodeIds": [
+            4272162022,
+            4052149091,
+            6775706369,
+            6775706367,
+            1341951487
+          ]
+        },
+        {
+          "sourceId": "w428095058",
+          "roadIndices": [
+            145
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "fixme": "verify bicycle=yes",
+            "highway": "secondary",
+            "lanes": "3",
+            "maxheight": "12'0\"",
+            "maxspeed": "20 mph",
+            "name": "Arrivals Drive",
+            "note": "arrivals",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "tiger:cfcc": "A11",
+            "tiger:county": "King, WA",
+            "tiger:name_base": "Sea Tac Arpt Entrance",
+            "turn:lanes": "through|through|through"
+          },
+          "sourceNodeIds": [
+            4272365634,
+            1139491546
+          ]
+        },
+        {
+          "sourceId": "w444493484",
+          "roadIndices": [
+            159
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "cycleway:right": "no",
+            "destination:ref": "SR 99",
+            "destination:street": "International Boulevard",
+            "expressway": "yes",
+            "fixme": "verify bicycle=yes",
+            "highway": "secondary",
+            "lanes": "1",
+            "maxheight": "12'0\"",
+            "name": "Arrivals Drive",
+            "oneway": "yes",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            53027177,
+            357680868,
+            10848238517,
+            357680871
+          ]
+        },
+        {
+          "sourceId": "w479818878",
+          "roadIndices": [
+            261
+          ],
+          "literalLimits": {
+            "maxheight": "default"
+          },
+          "sourceTags": {
+            "alt_name": "Pacific Highway South",
+            "hgv": "designated",
+            "hgv:national_network": "yes",
+            "highway": "primary",
+            "lanes": "3",
+            "lanes:bus:forward": "1",
+            "maxheight": "default",
+            "maxspeed": "40 mph",
+            "name": "International Boulevard",
+            "old_ref": "US 99;PSH 1",
+            "oneway": "yes",
+            "ref": "SR 99",
+            "sidewalk": "right",
+            "source:hgv:national_network": "https://www.ecfr.gov/current/title-23/chapter-I/subchapter-G/part-658;https://hepgis-usdot.hub.arcgis.com/apps/usdot::national-network-conventional-combination-trucks-map",
+            "surface": "asphalt",
+            "turn:lanes": "||merge_to_left"
+          },
+          "sourceNodeIds": [
+            1341951488,
+            6775706366,
+            4052149092,
+            4728618714
+          ]
+        },
+        {
+          "sourceId": "w952961192",
+          "roadIndices": [
+            330
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "cycleway:right": "no",
+            "destination": "Return to Terminal;Overheight Vehicle Parking",
+            "destination:lanes": "Return To Terminal;Overheight Vehicle Parking|Return To Terminal;Overheight Vehicle Parking;International Boulevard",
+            "destination:ref": "SR 99",
+            "destination:ref:to": "I 5;I 405;SR 509",
+            "destination:street": "International Boulevard",
+            "expressway": "yes",
+            "fixme": "verify bicycle=yes",
+            "highway": "secondary",
+            "lanes": "2",
+            "maxheight": "12'0\"",
+            "maxspeed": "20 mph",
+            "name": "Arrivals Drive",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "tiger:county": "King, WA",
+            "turn:lanes": "slight_left|slight_left;slight_right"
+          },
+          "sourceNodeIds": [
+            8461317745,
+            53027177
+          ]
+        },
+        {
+          "sourceId": "w1119615395",
+          "roadIndices": [
+            353
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "fixme": "verify bicycle=yes",
+            "highway": "secondary",
+            "lanes": "4",
+            "maxheight": "12'0\"",
+            "maxspeed": "20 mph",
+            "name": "Arrivals Drive",
+            "note": "arrivals",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "tiger:cfcc": "A11",
+            "tiger:county": "King, WA",
+            "turn:lanes": "through|through|through|"
+          },
+          "sourceNodeIds": [
+            10240294412,
+            1139491582,
+            2621703345,
+            4270735389
+          ]
+        },
+        {
+          "sourceId": "w1119615396",
+          "roadIndices": [
+            354
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "fixme": "verify bicycle=yes",
+            "highway": "secondary",
+            "lanes": "3",
+            "maxheight": "12'0\"",
+            "maxspeed": "20 mph",
+            "name": "Arrivals Drive",
+            "note": "arrivals",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "tiger:cfcc": "A11",
+            "tiger:county": "King, WA",
+            "turn:lanes": "through|through|through"
+          },
+          "sourceNodeIds": [
+            1139491546,
+            10240294413
+          ]
+        },
+        {
+          "sourceId": "w1165462578",
+          "roadIndices": [
+            386
+          ],
+          "literalLimits": {
+            "maxheight": "6'10\""
+          },
+          "sourceTags": {
+            "covered": "yes",
+            "destination": "Alaska American Southwest;all other Airlines",
+            "highway": "service",
+            "lanes": "1",
+            "layer": "1",
+            "maxheight": "6'10\"",
+            "name": "General Parking",
+            "oneway": "yes",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            10840274846,
+            10840274847,
+            10840274848,
+            10840274843,
+            10840274844,
+            10840274845,
+            10840274841,
+            10840274855,
+            10840274842
+          ]
+        },
+        {
+          "sourceId": "w1165462579",
+          "roadIndices": [
+            387
+          ],
+          "literalLimits": {
+            "maxheight": "6'10\""
+          },
+          "sourceTags": {
+            "covered": "yes",
+            "destination": "Alaska American Southwest;all other Airlines",
+            "highway": "service",
+            "lanes": "1",
+            "layer": "1",
+            "maxheight": "6'10\"",
+            "name": "General Parking",
+            "oneway": "yes",
+            "surface": "asphalt"
+          },
+          "sourceNodeIds": [
+            10840274849,
+            10840274850,
+            10840274851,
+            10840274852,
+            10840274853,
+            10840274854,
+            10840274855
+          ]
+        },
+        {
+          "sourceId": "w1208271581",
+          "roadIndices": [
+            428
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "destination": "Arrivals",
+            "expressway": "yes",
+            "fixme": "verify bicycle=yes",
+            "foot": "no",
+            "highway": "trunk",
+            "lanes": "2",
+            "maxheight": "12'0\"",
+            "maxspeed": "20 mph",
+            "name": "Arrivals Drive",
+            "note": "arrivals",
+            "oneway": "yes",
+            "surface": "asphalt",
+            "tiger:cfcc": "A11",
+            "tiger:county": "King, WA",
+            "tiger:name_base": "Sea Tac Arpt Entrance"
+          },
+          "sourceNodeIds": [
+            4602704685,
+            2621703359
+          ]
+        },
+        {
+          "sourceId": "w1208271582",
+          "roadIndices": [
+            429
+          ],
+          "literalLimits": {
+            "maxheight": "12'0\""
+          },
+          "sourceTags": {
+            "bicycle": "yes",
+            "destination": "Arrivals",
+            "fixme": "verify bicycle=yes",
+            "highway": "secondary",
+            "lanes": "2",
+            "maxheight": "12'0\"",
+            "maxspeed": "20 mph",
+            "name": "Arrivals Drive",
+            "note": "arrivals",
+            "oneway": "yes",
+            "tiger:cfcc": "A11",
+            "tiger:county": "King, WA",
+            "tiger:name_base": "Sea Tac Arpt Entrance"
+          },
+          "sourceNodeIds": [
+            2621703359,
+            4272365634
+          ]
+        },
+        {
+          "sourceId": "w926139374",
+          "roadIndices": [
+            681
+          ],
+          "literalLimits": {
+            "maxheight": "13'0\""
+          },
+          "sourceTags": {
+            "covered": "yes",
+            "highway": "service",
+            "maxheight": "13'0\""
+          },
+          "sourceNodeIds": [
+            8594619782,
+            8594619781
+          ]
+        },
+        {
+          "sourceId": "w926139376",
+          "roadIndices": [
+            683
+          ],
+          "literalLimits": {
+            "maxheight": "13'0\""
+          },
+          "sourceTags": {
+            "covered": "yes",
+            "highway": "service",
+            "maxheight": "13'0\""
+          },
+          "sourceNodeIds": [
+            8594619784,
+            8594619783
+          ]
+        },
+        {
+          "sourceId": "w926139378",
+          "roadIndices": [
+            685
+          ],
+          "literalLimits": {
+            "maxheight": "13'0\""
+          },
+          "sourceTags": {
+            "covered": "yes",
+            "highway": "service",
+            "maxheight": "13'0\""
+          },
+          "sourceNodeIds": [
+            8594619785,
+            8594619786
+          ]
+        },
+        {
+          "sourceId": "w926139380",
+          "roadIndices": [
+            687
+          ],
+          "literalLimits": {
+            "maxheight": "13'0\""
+          },
+          "sourceTags": {
+            "covered": "yes",
+            "highway": "service",
+            "maxheight": "13'0\""
+          },
+          "sourceNodeIds": [
+            8594619787,
+            8594619788
+          ]
+        }
+      ]
+    }
+  ]
+}

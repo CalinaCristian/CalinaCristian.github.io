@@ -154,11 +154,19 @@ export function planInitialVehicleAdmission(vehicles, {
     }
     const accepted = validation => validation === true || validation?.valid === true;
     const rejection = validation => typeof validation?.reason === 'string' ? validation.reason : 'source-static-or-reservation-rejected';
-    function firstBlocker(index, body) {
+    function firstBlocker(index, body, held) {
+        let blocker = null;
         for (let k = 0; k < bodies.length; k++) if (k !== index && canBeNear(body, bodies[k], clearanceM)) {
-            const hit = conflict(body, bodies[k]); if (hit.conflict) return { index: k, hit };
+            const hit = conflict(body, bodies[k]); if (!hit.conflict) continue;
+            // A held collision cannot be repaired within this transaction.
+            // Otherwise try the longer body first: resolving an easy short
+            // neighbour must not repeatedly hide a constrained long blocker.
+            // Equal lengths retain original fleet order; all candidates still
+            // use the same complete native validation and rollback path.
+            const locked = held.has(k), previousLocked = blocker && held.has(blocker.index);
+            if (!blocker || (locked && !previousLocked) || (locked === previousLocked && bodies[k].length > bodies[blocker.index].length)) blocker = { index: k, hit };
         }
-        return null;
+        return blocker;
     }
     function revalidateUpdates() {
         for (const [id] of updates) {
@@ -178,7 +186,7 @@ export function planInitialVehicleAdmission(vehicles, {
             const mark = checkpoint(); reserve(index, body);
             const locked = new Set(held); locked.add(index); search.maxReservedBodies = Math.max(search.maxReservedBodies, locked.size);
             function clear(lockedBodies) {
-                const blocker = firstBlocker(index, body);
+                const blocker = firstBlocker(index, body, lockedBodies);
                 if (blocker) {
                     if (!allowBlockers || lockedBodies.has(blocker.index)) { if (lockedBodies.has(blocker.index)) search.cyclePrunes++; return false; }
                     return relocate(blocker.index, index, lockedBodies, clear);
@@ -202,7 +210,7 @@ export function planInitialVehicleAdmission(vehicles, {
             if (!validPose || changesContract) { attempts.push({ id: vehicle.id, s: pose.s, reason: 'invalid-pose-or-source-fleet-contract-change' }); continue; }
             const body = { ...before, ...pose }, validation = validate(index, body, peerIndex);
             if (!accepted(validation)) { attempts.push({ id: vehicle.id, s: body.s, reason: rejection(validation) }); continue; }
-            const blocker = firstBlocker(index, body);
+            const blocker = firstBlocker(index, body, held);
             if (blocker) { attempts.push({ id: vehicle.id, s: body.s, reason: 'another-planned-body', blocker: blocker.hit }); blocked.push({ pose, body }); continue; }
             if (!interval(body).known) { attempts.push({ id: vehicle.id, s: body.s, reason: 'unknown-model-height' }); continue; }
             if (tryPose(pose, body, false)) return true;

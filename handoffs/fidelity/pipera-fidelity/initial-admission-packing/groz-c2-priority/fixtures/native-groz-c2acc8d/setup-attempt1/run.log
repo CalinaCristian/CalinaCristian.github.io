@@ -1,0 +1,3 @@
+LOAD grozavesti exact constructor fixture
+Error: Native district load failed grozavesti
+    at /workspace/fidelity-workers/unirii-pedestrian-recovery/handoffs/fidelity/unirii-pedestrian-recovery/observe-admission-fixture.cjs:20:145

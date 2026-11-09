@@ -90,6 +90,7 @@ that chapter of the CV.
   activity requirements follow the available menu destinations; unavailable activities and retired save keys do not inflate completion.
   Cycling becomes active after its first use.
 - New districts check initial car and bus bodies across road segments before showing them, keeping the fleet and source lanes. A bounded placement search can make room between neighbouring vehicles before first display; constructor and full rush-hour publication checks are separate gates.
+  This search resolves held conflicts and constrained longer vehicles first, within fixed work limits.
 - Pedestrian placement checks physical obstacles and neighbours before becoming visible; vehicle guards keep their spatial lookup current after movement and collision corrections. Walkers check other bodies before stepping and use continuous passing steps; live crowd stress testing remains the release gate.
 - A vehicle waiting beside a crossing pedestrian can move away only when its actual next body position increases clearance throughout the step, including the person's carried items. Front crossing yields remain in place.
 - **A living city.** Country-specific traffic (taxis, delivery vans, police; STB trams, trolleybuses and buses; King

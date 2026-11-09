@@ -10,6 +10,7 @@ R13.4 Pedestrians: never inside cars, never on the carriageway except crossings;
 R13.5 Zero NPC–NPC and NPC–player overlaps visible (harness ≤ 5 minor).
 R13.6 District boundaries: vehicles despawn/respawn out of view at the edges.
 R13.7 A side/rear pedestrian yield may release only when the emitted vehicle body is already clear and its native proposed motion monotonically increases clearance through the step. Include the pedestrian's actual carried reach; preserve front crossing yields, collision guards, source lanes, identities and clocks.
+R13.8 Before first publication, bounded initial placement transactions reject conflicts with held bodies first, then resolve longer blocking bodies with stable fleet-order ties. Keep all original work/depth limits and native source/static/shared/body validation. Fixture success does not accept incorrect source assignment or replace native constructor/publication checks.
 
 ## Acceptance
 - [ ] Harness: vehicle-overlap ≤ 5, ped-in-vehicle 0, vehicle-overlaps-player 0, scenario i passes.

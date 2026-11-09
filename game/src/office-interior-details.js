@@ -123,3 +123,39 @@ export function buildRosettiInterior(o,{W,D,H}){
  for(const z of[-2.8,.7,3.6]){box(0,H-.08,z,1.3,.06,.25,'#dddeda');box(0,H-.095,z,1.22,.015,.18,'#fffaf1','glow');}
  return q.finish();
 }
+
+/** Original generated terrazzo colours, never sampled tour pixels. */
+export function makeUPBFloor(){return makeCanvasTexture(256,256,c=>{c.fillStyle='#b7a292';c.fillRect(0,0,256,256);let seed=41;for(let i=0;i<12000;i++){seed=(seed*16807)%2147483647;const x=seed%256;seed=(seed*16807)%2147483647;const y=seed%256;c.fillStyle=['#807a73','#d1beb0','#aa9384','#c8b6a6'][i%4];c.fillRect(x,y,1,1);}});}
+/** Selected Rectorat cupola ground-hall character, not a complete surveyed atrium. */
+export function buildUPBInterior(o,{W,D,H}){
+ const q=builder(o,'upb-rectorat-cupola'),{b,box,body}=q,wood='#a87943',stone='#aaa296',rail='#a3a6a0';
+ // The source has broad dark floor bands and small dark inlays. This simple
+ // authored arrangement is not a trace of its decorative floor artwork.
+ for(const x of[-W/2+1.2,W/2-1.2])box(x,.003,0,.15,.004,D-2,'#303731');
+ for(const z of[-D/2+1.0,D/2-1.0])box(0,.003,z,W-2.3,.004,.15,'#303731');
+ for(let x=-W/2+2.1;x<W/2-1;x+=1.4)for(let z=-D/2+1.8;z<D/2-1;z+=1.4)box(x,.004,z,.075,.003,.075,'#454b44','finish',Math.PI/4);
+ const bricks=(side,ymax)=>{for(let row=0;row<Math.floor(ymax/.10);row++){const yy=.04+row*.10,offset=(row%2)*.14;if(side==='back'){for(let x=-W/2+.15;x<W/2-.3;x+=.28){const a=x+offset,c=Math.min(a+.265,W/2-.15),z=-D/2+.145;if(c>a)b.quad([a,yy,z],[c,yy,z],[c,yy+.085,z],[a,yy+.085,z],['#a76d50','#955e45','#b17b5d'][Math.abs(row+Math.floor(x*7))%3],'finish');}}
+  else for(let z=-D/2+.15;z<D/2-.3;z+=.28){const a=z+offset,c=Math.min(a+.265,D/2-.15),x=side==='left'?-W/2+.145:W/2-.145,col=['#a76d50','#955e45','#b17b5d'][Math.abs(row+Math.floor(z*7))%3];if(c>a){const points=[[x,yy,c],[x,yy,a],[x,yy+.085,a],[x,yy+.085,c]];if(side==='right')points.reverse();b.quad(...points,col,'finish');}}}};
+ bricks('left',2.25);bricks('back',2.25);bricks('right',.85);
+ // Upper architecture is visible but not advertised as an accessible floor:
+ // this Office controller's supported walking plane remains the ground floor.
+ const y=2.9,edgeX=-W/2+1.35,edgeZ=-D/2+1.35;
+ box(-W/2+.73,y-.17,0,1.4,.17,D-.5,stone);box(0,y-.17,-D/2+.73,W-1.0,.17,1.4,stone);
+ box(edgeX,2.45,0,.08,.38,D-.6,wood);box(0,2.45,edgeZ,W-1.0,.38,.08,wood);
+ for(const h of[.26,.57,.88]){b.rod([edgeX,y+h,-D/2+1.4],[edgeX,y+h,D/2-.4],.012,rail,'metal',6);b.rod([-W/2+1.4,y+h,edgeZ],[W/2-.4,y+h,edgeZ],.012,rail,'metal',6);}
+ b.rod([edgeX,y+.96,-D/2+1.4],[edgeX,y+.96,D/2-.4],.026,wood,'finish',8);b.rod([-W/2+1.4,y+.96,edgeZ],[W/2-.4,y+.96,edgeZ],.026,wood,'finish',8);
+ for(let z=-D/2+1.5;z<D/2-.2;z+=1.25)b.rod([edgeX,y,z],[edgeX,y+.96,z],.014,rail,'metal',6);
+ for(let x=-W/2+1.5;x<W/2-.2;x+=1.25)b.rod([x,y,edgeZ],[x,y+.96,edgeZ],.014,rail,'metal',6);
+ // White fins with timber lower sections, over the masonry/gallery bays.
+ for(let z=-D/2+.5;z<D/2-.3;z+=.45){box(-W/2+.35,4.2,z,.075,H-4.23,.07,WHITE);box(-W/2+.35,4.0+(Math.round(z*2)%3)*.07,z,.10,.48,.10,wood);}
+ for(let x=-W/2+.5;x<W/2-.3;x+=.45){box(x,4.2,-D/2+.35,.07,H-4.23,.075,WHITE);box(x,4.02+(Math.round(x*2)%3)*.07,-D/2+.35,.1,.48,.1,wood);}
+ for(const z of[-D/2+.8,D/2-.8]){box(0,H-.10,z,W-.4,.07,.15,WHITE);box(0,H-.115,z,W-.7,.012,.07,'#fff1d3','glow');}
+ // An authored CV exhibit retains the real CV trophy fact; its placement is
+ // explicitly not evidence of a trophy cabinet installed in the real Rectorat.
+ const tx=-W/2+2.25,tz=3.3;box(tx,0,tz,1.15,.82,1.15,'#8b8172');body(tx,tz,1.2,1.2);box(tx,.84,tz,1.08,.95,1.08,'#ffffff','glass');
+ const cup=new THREE.LatheGeometry([[0,0],[.12,0],[.065,.08],[.045,.31],[.17,.50],[.18,.65],[0,.65]].map(p=>new THREE.Vector2(...p)),16),m=new THREE.Matrix4().makeTranslation(tx,.86,tz);b.add(cup,'metal',m,'#bfa34e');cup.dispose();
+ const label=makeCanvasTexture(512,128,c=>{c.fillStyle='#29312e';c.fillRect(0,0,512,128);c.fillStyle='#e3d2a7';c.textAlign='center';c.font='23px sans-serif';c.fillText('CV · BEST Engineering Marathon',256,49);c.fillText('1st place · 2017',256,88);});q.materials.exhibit=new THREE.MeshBasicMaterial({map:label,vertexColors:true});
+ b.quad([tx-.54,.29,tz+.585],[tx+.54,.29,tz+.585],[tx+.54,.56,tz+.585],[tx-.54,.56,tz+.585],'#ffffff','exhibit');
+ q.plant(-W/2+1.1,-D/2+1.0,1.2);
+ return q.finish();
+}

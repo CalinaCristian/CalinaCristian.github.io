@@ -289,7 +289,7 @@ function buildCarusel(ctx) {
     const shell=b.build('carusel', { matOverrides: { [fac.key]: fac.mat,darkglass:roofGlass } });
     // The same estimated shell encloses the modeled interior. Its real walls
     // and roof must remain visible from the galleries as well as the street.
-    const insideMaterials=new Map();shell.traverse(o=>{if(!o.isMesh)return;const inward=m=>{if(m===roofGlass)return m;if(!insideMaterials.has(m)){const copy=m.clone();copy.side=THREE.DoubleSide;insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);
+    const insideMaterials=new Map();shell.traverse(o=>{if(!o.isMesh)return;const inward=m=>{if(m===roofGlass)return m;if(!insideMaterials.has(m)){const copy=m.clone();copy.side=THREE.DoubleSide;copy.userData={...m.userData,shared:true};insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);
     // The inward clones own their material programs; their cached facade maps
     // remain shared. Generic scene disposal must not discard those shared maps.
     (ctx.extras.sceneCleanups||=[]).push(()=>{for(const m of insideMaterials.values())m.dispose();});
@@ -304,9 +304,9 @@ function buildCarusel(ctx) {
         if(!s.ctl.active||d>Math.max(.8,dt*6)||Math.abs(dy)>.75){climb.distance=0;climb.ascent=0;return;}
         if(!inPoly(pl.x,pl.z,innerP)){climb.distance=0;climb.ascent=0;return;}
         climb.distance+=d;climb.ascent+=Math.max(0,dy);
-        if(pl.y>=y0+LV.at(-1)-.15&&climb.distance>=18&&climb.ascent>=14){climb.done=true;bucActivity(s,'old-town-lipscani','carusel','📚 Carusel stair climb','You walked the modeled stair to the top gallery. The interior layout and stair dimensions remain an estimated reconstruction.');}
+        if(pl.y>=y0+LV.at(-1)-.15&&climb.distance>=18&&climb.ascent>=14){climb.done=true;bucActivity(s,'old-town-lipscani','carusel','📚 Carusel stair climb','Top gallery reached. Enjoy the view down into the bookshop atrium.');}
     });
-    ctx.interactables.push({kind:'stairs',x:stairPath[0].x,z:stairPath[0].z,y:y0,r:2.2,tourAvailable:()=>false,label:'Walk the visible stairs to the top gallery',use:s=>s.ui.toast('📚 Walk up the stairs','Use the movement controls on the visible treads. Reaching the top after a continuous climb completes the activity; E does not move you between floors. Stair dimensions are estimates.')});
+    ctx.interactables.push({kind:'stairs',x:stairPath[0].x,z:stairPath[0].z,y:y0,r:2.2,tourAvailable:()=>false,label:'Walk the visible stairs to the top gallery',use:s=>s.ui.toast('📚 Walk up the stairs','Follow the visible treads and galleries to the top. Keep climbing to complete the stair walk.')});
     ctx.extras.caruselStairs={path:stairPath,climb,well:stairWell,estimatedLayout:true};
     return { front: { x: fx, z: fzz, nx, nz, yaw }, y0, LV, ecx, ecz, along, stair,poly:p };
 }

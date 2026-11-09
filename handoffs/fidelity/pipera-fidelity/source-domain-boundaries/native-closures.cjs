@@ -29,10 +29,10 @@ let server,browser;
    const W=game.world,T=game.traffic,P=game.player;
    window.__inspectionActors=()=>JSON.stringify({time:T.time,player:[P.x,P.z,P.heading,P.surfY,P.speed],vehicles:[...T.vehicles,...T.pool].map(v=>[v.id,v.x,v.z,v.y,v.heading,v.s,v.speed]),peds:T.peds.list.map(p=>[p.i,p.x,p.z,p.y,p.state])});
    window.__inspectionBefore=__inspectionActors();
-   const edge=e=>e?{id:e.id,sourceId:e.access?.sourceId,road:e.road,a:{x:e.a.x,z:e.a.z,sourceId:e.a.sourceId},b:{x:e.b.x,z:e.b.z,sourceId:e.b.sourceId}}:null;
+   const edge=e=>e?{id:e.id,sourceId:e.access?.sourceId,road:e.road,a:{id:e.a.id,x:e.a.x,z:e.a.z,sourceId:e.a.sourceId},b:{id:e.b.id,x:e.b.x,z:e.b.z,sourceId:e.b.sourceId}}:null;
    return{district:game.district,population:{active:T.vehicles.length,pool:T.pool.length,peds:T.peds.list.length,ids:[...T.vehicles,...T.pool].map(v=>v.id)},nativeTime:T.time,
     initialAdmissionPassed:T.initialAdmission?.passed,initialTramBinding:T.initialTramBinding,boundary:W.stats.districtBoundary,
-    closures:W.closures.map(c=>({...c,edge:edge(c.edge),node:{id:c.node.id,x:c.node.x,z:c.node.z,sourceId:c.node.sourceId}})),
+    closures:W.closures.map(c=>({...c,y:W.walls.find(w=>w.kind==='closure'&&w.edge===c.edge&&w.l0===c.l0&&w.l1===c.l1)?.y0a,edge:edge(c.edge),node:{id:c.node.id,x:c.node.x,z:c.node.z,sourceId:c.node.sourceId}})),
     physicalClosureWalls:W.walls.filter(w=>w.kind==='closure').map(w=>({ax:w.ax,az:w.az,bx:w.bx,bz:w.bz,y0a:w.y0a,y1a:w.y1a,bundleId:w.bundleId,l0:w.l0,l1:w.l1,edge:edge(w.edge)})),
     sourceWalls:W.walls.filter(w=>w.kind==='boundary').map(w=>({ax:w.ax,az:w.az,bx:w.bx,bz:w.bz})),
     bounds:W.bounds,mask:{x0:W.district.mask.x0,z0:W.district.mask.z0,w:W.district.mask.w,h:W.district.mask.h,cell:W.district.mask.cell}};
@@ -43,8 +43,8 @@ let server,browser;
   if(district==='bellevue')poses.push({id:'103rd-closure',x:-603.81475,y:2.74,z:-452.5295,tx:-603.81475,ty:2.74,tz:-502.5295},{id:'avenue-square-closure',x:-509.6814,y:2.74,z:-437.4378,tx:-511.4264,ty:7.97,tz:-487.4073});
   const preferred=district==='seatac'?facts.closures.filter(c=>c.edge.id===792):[];
   const selected=preferred.length?preferred:facts.closures.filter(c=>c.bundlePrimary).sort((a,b)=>a.bundleId-b.bundleId).slice(0,district==='otopeni'?3:1);
-  for(const c of selected){const e=c.edge,a=e.a,b=e.b,L=Math.hypot(b.x-a.x,b.z-a.z),sgn=c.node.sourceId===a.sourceId?1:-1,ix=(b.x-a.x)/L*sgn,iz=(b.z-a.z)/L*sgn;
-   poses.push({id:'closure-edge-'+e.id,x:c.x+ix*28,y:(c.worker?.y??0)+17,z:c.z+iz*28,tx:c.x,ty:c.worker?.y??0,tz:c.z,edgeId:e.id,bundleId:c.bundleId});}
+  for(const c of selected){const e=c.edge,a=e.a,b=e.b,L=Math.hypot(b.x-a.x,b.z-a.z),sgn=c.node.id===a.id?1:-1,ix=(b.x-a.x)/L*sgn,iz=(b.z-a.z)/L*sgn;
+   poses.push({id:'closure-edge-'+e.id,x:c.x+ix*28,y:c.y+17,z:c.z+iz*28,tx:c.x,ty:c.y,tz:c.z,edgeId:e.id,bundleId:c.bundleId});}
   for(const p of poses){
    const view=await page.evaluate(p=>{const g=game,C=g.camera,V=INSPECT_THREE.Vector3;C.position.copy(C.parent.worldToLocal(new V(p.x,p.y,p.z)));C.lookAt(new V(p.tx,p.ty,p.tz));C.updateMatrixWorld(true);harness.H._renderNow=true;try{g.drawFrame({mirror:true});}finally{harness.H._renderNow=false;}return{camera:C.getWorldPosition(new V()).toArray(),quaternion:C.getWorldQuaternion(new INSPECT_THREE.Quaternion()).toArray(),fov:C.fov,far:C.far,actorPlayerTimeUnchanged:__inspectionBefore===__inspectionActors(),nativeTime:g.traffic.time};},p);
    const file=district+'-'+p.id+'.png';await page.screenshot({path:path.join(out,file)});stage.captures.push({...p,file,sha256:sha(fs.readFileSync(path.join(out,file))),view});save();

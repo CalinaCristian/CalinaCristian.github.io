@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "reviewedUTC": "2026-11-09",
+  "scope": "Original room geometry/materials from private visual comparison; provider images/plan pixels are not shipped. None of these sources establishes measured room dimensions, photo date, facade bearing or numbered office floor.",
+  "primaryPages": [
+    {
+      "id": "arnia-design",
+      "url": "https://www.uar-bna.ro/2021/proiecte/162/",
+      "identity": "Arnia Offices; Europe House; TECTO; UAR/BNA2021 edition is not a photo date."
+    },
+    {
+      "id": "arnia-building",
+      "url": "https://www.arnia.com/arnia-brand-new-building/",
+      "identity": "Arnia primary article confirms Europe House occupancy/address."
+    },
+    {
+      "id": "db-careers-romania",
+      "url": "https://careers.db.com/explore-the-bank/locations/emea/romania?language_id=1",
+      "identity": "DB Bucharest technology centre and labelled Education Plaza photograph."
+    },
+    {
+      "id": "db-company-night",
+      "url": "https://www.noapteacompaniilor.ro/bucuresti/dbglobaltechnology-2024/",
+      "identity": "BOB Tower Entrance A at6A Dimitrie Pompeiu."
+    }
+  ],
+  "privatelyInspectedAssets": [
+    {
+      "id": "arnia-001",
+      "url": "https://www.uar-bna.ro/f/bna2021/ver/cos-arnia-software-001.jpg-d2.jpg",
+      "sourcePageId": "arnia-design",
+      "sha256": "6be9eb18cf67c6faddbc04e7ce482378a495f53a04b52a9aee50eabafb643015",
+      "bytes": 375900,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "id": "arnia-006",
+      "url": "https://www.uar-bna.ro/f/bna2021/ver/cos-arnia-software-006.jpg-d2.jpg",
+      "sourcePageId": "arnia-design",
+      "sha256": "f55feb38cec91c544e3926d84eb332e07173681dbd98fa3af595e831e19c132a",
+      "bytes": 482280,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "id": "arnia-009",
+      "url": "https://www.uar-bna.ro/f/bna2021/ver/cos-arnia-software-009.jpg-d2.jpg",
+      "sourcePageId": "arnia-design",
+      "sha256": "c9fa57cf14dbbdf2008f5fd5d0cafa41be2f4e77c86b3e6288e9369f0e5ffc22",
+      "bytes": 443947,
+      "width": 1920,
+      "height": 1280
+    },
+    {
+      "id": "arnia-015",
+      "url": "https://www.uar-bna.ro/f/bna2021/ver/cos-arnia-software-015.jpg-d2.jpg",
+      "sourcePageId": "arnia-design",
+      "sha256": "85da605da279084eba1bd5008def5a4ebfad36c717fbe7747debe4464d489602",
+      "bytes": 452379,
+      "width": 1920,
+      "height": 1280
+    },
+    {
+      "id": "arnia-plan",
+      "url": "https://www.uar-bna.ro/f/bna2021/ver/A.12.5%20MOBILARE_pages-to-jpg-0001.jpg-d2.jpg",
+      "sourcePageId": "arnia-design",
+      "sha256": "c859bad77504ededaf60afadb12de06900253255864160a3d0fd6e63e5b3cb22",
+      "bytes": 115036,
+      "width": 1920,
+      "height": 1358
+    },
+    {
+      "id": "db-education-plaza",
+      "url": "https://careers.db.com/contentAsset/image/eaec4188-4b7a-49ba-82a8-c671e9760303/fileAsset/filter/Resize,Webp/resize_w/1280/8ee1f06c-fac0-4db2-a496-f0714af2788a.webp",
+      "sourcePageId": "db-careers-romania",
+      "sha256": "e9ca8c2b087ee43f5c0f60fda49725ed725e7e1badb569f9ee202097af24328d",
+      "bytes": 142790,
+      "width": 1280,
+      "height": 849
+    },
+    {
+      "id": "db-whiteboard",
+      "url": "https://careers.db.com/contentAsset/image/30a7b854-6664-4a7f-9cd3-0ac75598a34e/fileAsset/filter/Resize,Webp/resize_w/1280/ceb5c52d-6c84-4504-a5c0-064e1f01d4de.webp",
+      "sourcePageId": "db-careers-romania",
+      "sha256": "1a1ed3721c5bb5ffd4def57bae55bd254f7846de516d6249e6adf018410ec81c",
+      "bytes": 71688,
+      "width": 1280,
+      "height": 960
+    },
+    {
+      "id": "db-two-colleagues",
+      "url": "https://careers.db.com/contentAsset/image/54c45cc4-5080-4088-951c-876c7422a86d/fileAsset/filter/Resize,Webp/resize_w/1280/f059eb68-181a-4734-a6f3-cdf6dbb9b7b6.webp",
+      "sourcePageId": "db-careers-romania",
+      "sha256": "690a6cbe1d041955a0a8973ab28b0e5883416e3e2a01bb8a5c2bfeba4db92246",
+      "bytes": 78562,
+      "width": 1280,
+      "height": 852
+    }
+  ],
+  "implementations": {
+    "arnia": {
+      "character": "Yellow-grey modular carpet circulation; white benches and black chairs; yellow-grey acoustic panels; glazed meeting room; white kitchenette/window-side counter/yellow stools; modular waiting furniture and round ottomans.",
+      "estimatedVolumeM": [
+        14,
+        14,
+        3.2
+      ],
+      "planUse": "Published plan supports broad functional zoning only; no plan tracing or dimension/floor/facade inference. Original selected-room arrangement, not the complete1500m2 office."
+    },
+    "db": {
+      "character": "Grey rounded-shell chairs with orange/yellow upholstery; pale round tables; carpet lounge; original nonfigurative wall shapes; exposed services, linear light bars, timber ceiling blades and masonry accent.",
+      "estimatedVolumeM": [
+        16,
+        18,
+        3.8
+      ],
+      "exclusions": "No copied mural/portrait or identifiable people; no generic banking lobby/turnstile claim. Room height is an authored estimate, not a measured ceiling."
+    }
+  },
+  "usage": "Public access is not a reuse licence. All provider images remain private; game art is original procedural geometry and generated material patterns. TECTO architectural design credits are retained in cv-interiors.md.",
+  "sourceDistinctions": {
+    "rosetti": "Self-hosted PROEDUS/HubProedus school tour; two classroom cube-face references privately inspected9Nov2026. Acquisition date/floor/2009 appearance unknown. Blue/yellow desks, grey lower wall, whiteboard, lockers, ceiling beams. Runtime follow-up pending.",
+    "upb": "Official turvirtual.upb.ro credits Zafiu Andrei. Metadata215scenes inspected; exact Rectorat scene discovered. Interior face selection/review pending.",
+    "gts": "OPC Foundation supports Global Intelligence address; GTS Telecom and Global Technical Systems/Hermes evidence is not interchangeable and is rejected for interiors. No authenticated interior.",
+    "luxoft": "Official location is Hermes; generic careers images are Bra\u0219ov/Library exteriors. Noblesse project/photo/era/building authentication remains open.",
+    "uipath-buc": "1722 portfolio is CGI/designed proposal, not verified as-built; no authored-photo status inferred.",
+    "uipath-bel": "JPC/Cleary O\u2019Farrell photographs show historical Plaza Center immersion lab. No current Lincoln Square interior established."
+  }
+}

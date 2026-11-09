@@ -1,3 +1,4 @@
+import { clipConvex, polygonArea } from './bridge-profile-geometry.js';
 // Rigid tram proxy support over the shared source rail slab. No geometry,
 // source path, actor collection, RNG or world mutation. Horizontal source pose
 // remains the caller's; only physically required pitch/vertical anchoring fits.
@@ -96,9 +97,10 @@ function edgeMaximum(a, b, piece) {
  * of a one-dimensional quadratic also meets the polygon boundary). */
 export function minimumTramSupportLift(points, indices, pieces) {
     let required = -Infinity, witness = null, tested = 0;
-    const catalogue = pieces.flatMap(piece => [[0, 1, 2], [0, 2, 3]].map(index => {
-        const top = index.map(i => piece.top[i]);
-        return { piece, top, poly: top.map(p => [p[0], p[2]]), bounds: bounds(top), maxTop: Math.max(...piece.top.map(p => p[1])) };
+    const catalogue = pieces.flatMap(piece => [[0, 1, 2], [0, 2, 3]].flatMap(index => {
+        const top = index.map(i => piece.top[i]), poly=top.map(p=>[p[0],p[2]]),maxTop=Math.max(...piece.top.map(p=>p[1]));
+        if(!piece.regions)return [{piece,top,poly,bounds:bounds(top),maxTop}];
+        return piece.regions.map(region=>({piece:{...piece,band:region.band},top,poly:clipConvex(poly,region.poly),bounds:bounds(top),maxTop:Math.max(maxTop,region.maxTop)})).filter(e=>polygonArea(e.poly)>1e-10);
     }));
     for (let i = 0; i < indices.length; i += 3) {
         const triangle = [points[indices[i]], points[indices[i + 1]], points[indices[i + 2]]], box = bounds(triangle), minY = Math.min(...triangle.map(p => p[1]));

@@ -471,7 +471,7 @@
               "group": "native-trees",
               "calls": 6,
               "triangles": 100960,
-              "wrappedCPUms": 84.00000001490116
+              "wrappedCPUms": 83.80000001192093
             },
             {
               "group": "source-building-context",
@@ -483,7 +483,7 @@
               "group": "source-trees",
               "calls": 6,
               "triangles": 33732,
-              "wrappedCPUms": 0.7999999970197678
+              "wrappedCPUms": 1.0
             },
             {
               "group": "source-water",
@@ -2529,9 +2529,9 @@
             },
             {
               "group": "native-trees",
-              "calls": 11,
-              "triangles": 422704,
-              "wrappedCPUms": 21.5
+              "calls": 10,
+              "triangles": 422448,
+              "wrappedCPUms": 21.399999991059303
             },
             {
               "group": "other-native-and-post",
@@ -2541,9 +2541,9 @@
             },
             {
               "group": "source-trees",
-              "calls": 29,
-              "triangles": 219376,
-              "wrappedCPUms": 1.699999988079071
+              "calls": 30,
+              "triangles": 219632,
+              "wrappedCPUms": 1.7999999970197678
             },
             {
               "group": "native-terrain",
@@ -4589,14 +4589,14 @@
           "byCategory": [
             {
               "group": "native-trees",
-              "calls": 11,
-              "triangles": 422704,
+              "calls": 10,
+              "triangles": 422448,
               "wrappedCPUms": 1.1000000089406967
             },
             {
               "group": "source-trees",
-              "calls": 44,
-              "triangles": 350872,
+              "calls": 45,
+              "triangles": 351128,
               "wrappedCPUms": 0.5
             },
             {

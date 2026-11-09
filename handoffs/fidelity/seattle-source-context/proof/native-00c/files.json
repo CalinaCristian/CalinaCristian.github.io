@@ -1,7 +1,7 @@
 {
   "README.md": {
     "bytes": 7404,
-    "sha256": "1c059b9b5dfb51953f7f85e6612e2c8f91cdbfbb3af6b19fa359a910459c09e5"
+    "sha256": "43c370b9bf3bce1bc86098dd7a90ac469fa8b4942cab70cd39ba05afe4d2c93a"
   },
   "images/pike-place-gum-wall.jpg": {
     "bytes": 413793,
@@ -105,7 +105,7 @@
   },
   "profile-summary.json": {
     "bytes": 213174,
-    "sha256": "02e22843dddd20167246bdf6359cfb4f249939344765ec97da5794756c913df3"
+    "sha256": "10ef78dd39f8405aff9b0ef03103bb59764187c933b7903bf22774b1d8769c14"
   },
   "rainier-occlusion-reconstruction.json.gz": {
     "bytes": 865,

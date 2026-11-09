@@ -28,7 +28,7 @@ def draw_category(d):
     if n.startswith('source-context:'): return 'source-building-context'
     if n.startswith('water-source:'): return 'source-water'
     if 'tree' in n.lower():
-        return 'source-trees' if n.endswith(' near') or n.endswith(' far') else 'native-trees'
+        return 'source-trees' if n.endswith(' near') or n.startswith('treeCrowns near ') or n.endswith(' far') else 'native-trees'
     if 'literal-source-' in ' '.join(d['ancestors']): return 'source-ground-context'
     if n.startswith('terrain-'): return 'native-terrain'
     return 'other-native-and-post'

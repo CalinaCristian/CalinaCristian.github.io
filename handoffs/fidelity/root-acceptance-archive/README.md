@@ -25,3 +25,5 @@ Bounded fixture controls, without running actual game tests:
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python handoffs/fidelity/root-acceptance-archive/test_archive_preparation.py
 ```
+
+[Retained source29f25970 static controls](controls-29f25970/README.md) pass for the full265-file preparation and all six fixture controls. Its temporary source and OUT were removed; actual game tests/browser acceptance remain unrun.

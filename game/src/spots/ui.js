@@ -31,6 +31,8 @@ const CSS = `
 #spot-ui .sp-plaque .sp-src a{color:#ffd98a}
 #spot-ui .sp-plaque button{margin-top:12px;font:600 14px system-ui;background:#a8894f;color:#1d160a;border:0;border-radius:8px;padding:8px 16px;cursor:pointer}
 #spot-ui .sp-toasts{position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:8px;align-items:flex-end;max-width:min(340px,calc(100vw - 24px))}
+#spot-ui .sp-participation .sp-toasts{position:static;max-width:none;align-items:stretch}
+#spot-ui .sp-participation .sp-toasts:not(:empty){margin-top:8px}
 #spot-ui .sp-toast{background:rgba(15,18,22,.78);border-left:3px solid #fbbf24;border-radius:8px;padding:8px 12px;transform:translateX(30px);opacity:0;transition:all .3s}
 #spot-ui .sp-toast.show{transform:none;opacity:1}
 #spot-ui .sp-toast b{display:block}
@@ -101,6 +103,10 @@ export class SpotUI {
     /** Keep the current step and Skip/End accessible above a phone activity. */
     setActivityActive(active) {
         this._activityLayout?.disconnect(); this._activityLayout = null;
+        // Notifications stay in the activity's scrollable flow, clear of its
+        // buttons and the compact tour card. Restore before removing that panel.
+        const toasts = this.$('.sp-toasts');
+        if (toasts) (active ? this.$('.sp-participation') || this.el : this.el).append(toasts);
         this.el.classList.toggle('sp-participating', active);
         if (!active) { this.el.style.removeProperty('--sp-activity-top'); return; }
         const card = this.$('.sp-card'), measure = () => {

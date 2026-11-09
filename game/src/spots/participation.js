@@ -23,8 +23,8 @@ export function activityFlow(ctx) {
     const restore = () => {
         if (!run) return null;
         const old = run; run = null;
-        old.ui.remove(); old.s.ctl.active = old.active;
         old.s.ui.setActivityActive?.(false);
+        old.ui.remove(); old.s.ctl.active = old.active;
         old.s.input?.take?.('KeyE'); old.s.input?.keys?.delete?.('KeyE'); old.s.input?.takeLook?.();
         return old;
     };

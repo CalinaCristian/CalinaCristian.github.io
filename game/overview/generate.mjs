@@ -6,6 +6,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const read = p => readFileSync(resolve(root, p), 'utf8');
+const { evidenceAsset, evidenceReport } = await import('data:text/javascript;base64,' + Buffer.from(read('game/overview/evidence-paths.js')).toString('base64'));
 const sourceSha = process.argv.find(x => x.startsWith('--source='))?.slice(9) || execFileSync('git', ['rev-parse','HEAD'], {cwd:root, encoding:'utf8'}).trim();
 const citySource = read('game/src/cities.js');
 const { CITIES, CHAPTERS } = await import('data:text/javascript;base64,' + Buffer.from(citySource).toString('base64'));
@@ -44,11 +45,17 @@ for (const spot of spots) {
     const record = JSON.parse(readFileSync(full, 'utf8'));
     if (record.schemaVersion !== 1 || record.id !== spot.id || record.city !== spot.city || record.name !== spot.name) throw new Error(`Destination evidence identity: ${recordPath}`);
     if (strictEvidence && (!record.sources?.length || !record.captures?.length || !record.checks?.length)) throw new Error(`Incomplete destination evidence: ${recordPath}`);
-    for (const capture of record.captures || []) {
-        if (!/^assets\/spots\/[a-zA-Z0-9_/-]+\.(?:png|jpe?g|webp)$/.test(capture.image || '') || !capture.image.startsWith(`assets/spots/${spot.id}/`)) throw new Error(`Unsafe/missing game capture path in ${recordPath}`);
+    const collections = [{...record, captures:record.captures || []}, ...(record.historicalCollections || [])];
+    for (const collection of collections) for (const capture of collection.captures || []) {
+        if (!evidenceAsset(capture.image, {kind:'spot',id:spot.id})) throw new Error(`Unsafe/missing game capture path in ${recordPath}`);
         const bytes = readFileSync(resolve(root, 'game/overview', capture.image));
         if (createHash('sha256').update(bytes).digest('hex') !== capture.sha256) throw new Error(`Capture hash mismatch: ${capture.image}`);
-        if (!/^[a-f0-9]{40}$/.test(capture.sourceCommit || record.sourceCommit || '')) throw new Error(`Missing capture source: ${capture.image}`);
+        if (!/^[a-f0-9]{40}$/.test(capture.sourceCommit || collection.sourceCommit || '')) throw new Error(`Missing capture source: ${capture.image}`);
+    }
+    for (const proof of record.nativeProofs || []) {
+        if (!evidenceReport(proof.report) || !existsSync(resolve(root,'game/overview',proof.report))) throw new Error(`Unsafe/missing native proof in ${recordPath}`);
+        const explicitlyUnknown = proof.sourceCommit === null && proof.passed === null && proof.provenance === 'historical-source-unrecorded';
+        if (!explicitlyUnknown && !/^[a-f0-9]{40}$/.test(proof.sourceCommit || '')) throw new Error(`Missing native proof source in ${recordPath}`);
     }
     spot.evidence = recordPath;
 }

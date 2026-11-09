@@ -71,7 +71,7 @@ that chapter of the CV.
   Disposing a tourist water material removes it from shared environment updates, so later travel does not retain retired water materials.
   Dinamo pitch paint uses filtered alpha coverage at its real 12 cm width, keeping lines continuous from higher drone views.
   The unsupported Needle deck-stair and botanical label-reading awards are retired; older saves retain earned history without counting these in completion.
-  The overview includes separate shareable evidence views for every landmark and tourist destination, with game captures, source links and explicit remaining estimates.
+  The overview includes separate shareable evidence views for every landmark and tourist destination, with game captures, source links and explicit remaining estimates. Current tourist views link to scoped native access/activity reports and retain earlier captures separately with their original revisions.
   District galleries retain dated historical collections separately from current surveys. Game-only street, weather and drone context has its own gallery and exact camera metadata; only square north-up surveys are paired with aerial imagery. Available collections load inline, and official aerial images keep their original 15-minute browser cache expiry across reloads.
 - **Offices you can talk in.** Each CV stop is a distinct interior (a 2009 classroom, the Politehnica rectorate,
   turnstile lobbies, the UiPath robot floor…) with a teacher, professor or manager who answers A–D questions about that

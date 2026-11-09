@@ -115,5 +115,52 @@ export function buildCoveredRoadModels(data) {
         for (const [index, list] of passages) passages.set(index, list.filter(p => !invalid.has(p.modelId)));
         return invalid.size === 0;
     };
-    return { report, passages, accepted, validateProfile, isCovered: edge => !edge.virtual && roadIndices.has(edge.road) };
+    // Called after the normal renderer has built its actual mitred asphalt.
+    // The lane/class width estimate does not include the renderer's shoulder;
+    // independently sweeping that estimate leaves real asphalt inside solids.
+    const useNativeRibbons = ribbons => {
+        for (const model of accepted) {
+            const entry = report.models.find(m => m.id === model.id), sourceWays = new Map(model.sourceWays.map(w => [w.sourceId, w]));
+            // Only the literal reviewed portal chains may complete the mouths;
+            // their ground anchors and unrelated nearby roads are not opened.
+            const sourceIds = new Set([model.road.sourceId, ...model.groundJoins.flatMap(j => j.ways.map(([id]) => id))]);
+            const sourceIndices = new Set([...sourceIds].flatMap(id => (roadById.get(id) || []).map(r => r.index)));
+            const selected = ribbons.filter(rb => rb.e && !rb.e.virtual && sourceIndices.has(rb.e.road)), next = [], spans = new Map();
+            let reason = entry.floorModelVerified ? null : 'covered-native-ribbon-floor-unverified';
+            for (const rb of selected) {
+                const e = rb.e;
+                const way = sourceWays.get(data.roadSourceGeometry[e.road]?.sourceId);
+                if (!way) { reason = 'covered-native-ribbon-source-way-missing'; break; }
+                let matched = null;
+                for (let i = 1; i < way.projected.length; i++) {
+                    const a = way.projected[i - 1], b = way.projected[i], dx = b[0] - a[0], dz = b[1] - a[1], len2 = dx * dx + dz * dz;
+                    if (len2 < 1e-8) continue;
+                    const project = n => { const t = ((n.x - a[0]) * dx + (n.z - a[1]) * dz) / len2; return { t, d: Math.hypot(n.x - a[0] - t * dx, n.z - a[1] - t * dz) }; };
+                    const aa = project(e.a), bb = project(e.b);
+                    if (aa.d < 1e-6 && bb.d < 1e-6 && Math.min(aa.t, bb.t) >= -1e-7 && Math.max(aa.t, bb.t) <= 1 + 1e-7) { matched = { index: i - 1, a, b, lo: Math.min(aa.t, bb.t), hi: Math.max(aa.t, bb.t) }; break; }
+                }
+                if (!matched || !Array.isArray(rb.poly) || rb.poly.length < 3 || rb.poly.some(p => p.length !== 2 || !p.every(Number.isFinite)) || ![e.ya, e.yb].every(y => Number.isFinite(y) && Math.abs(y - model.model.floorY) <= 1e-6)) { reason = 'covered-native-ribbon-source-or-profile-mismatch'; break; }
+                const dx = e.b.x - e.a.x, dz = e.b.z - e.a.z, len = Math.hypot(dx, dz), lateral = rb.poly.map(p => (-(p[0] - e.a.x) * dz + (p[1] - e.a.z) * dx) / len), nativeAsphaltWidthM = Math.max(...lateral) - Math.min(...lateral);
+                const literalWidth = parseMeasure(way.tags.width);
+                if (literalWidth > 0 && nativeAsphaltWidthM > literalWidth + 1e-6) { reason = 'literal-source-width-versus-native-asphalt-contradiction'; break; }
+                const original = (passages.get(model.bodies[0].index) || []).find(p => p.modelId === model.id);
+                if (!original) { reason = 'covered-native-ribbon-source-passage-missing'; break; }
+                next.push({ ...original, sourceRoadId: way.sourceId, sourceSegment: matched.index, sourceNodeIds: way.nodeIds.slice(matched.index, matched.index + 2), sourceCentreline: [matched.a, matched.b], roadIndices: roadById.get(way.sourceId).map(r => r.index), tags: way.tags,
+                    ring: rb.poly.map(p => p.slice()), sourcePreparedEdgeId: e.id, nativeAsphaltWidthM, sourceRole: way.sourceId === model.road.sourceId ? 'covered-source-road' : 'reviewed-exact-ground-join', geometryBasis: 'Exact native rendered asphalt ribbon, including existing shoulder and mitred joins; source lane/class estimate retained separately.' });
+                const key = way.sourceId + '/' + matched.index;
+                if (!spans.has(key)) spans.set(key, []);
+                spans.get(key).push([matched.lo, matched.hi]);
+            }
+            for (const id of sourceIds) for (let i = 1; i < sourceWays.get(id).projected.length; i++) {
+                let end = 0;
+                for (const [lo, hi] of (spans.get(id + '/' + (i - 1)) || []).sort((a, b) => a[0] - b[0])) { if (lo > end + 1e-7) reason ||= 'covered-native-ribbon-source-span-gap'; end = Math.max(end, hi); }
+                if (end < 1 - 1e-7) reason ||= 'covered-native-ribbon-source-span-gap';
+            }
+            for (const body of model.bodies) passages.set(body.index, (passages.get(body.index) || []).filter(p => p.modelId !== model.id).concat(reason ? [] : next));
+            entry.nativePassage = { accepted: !reason, sourceLaneWidthM: model.widthM, nativeAsphaltWidthsM: [...new Set(next.map(p => Math.round(p.nativeAsphaltWidthM * 1e6) / 1e6))], sourceRoadIds: [...sourceIds], preparedEdges: next.map(p => ({ id: p.sourcePreparedEdgeId, sourceRoadId: p.sourceRoadId, sourceSegment: p.sourceSegment, sourceRole: p.sourceRole })), geometryBasis: 'Shared native asphalt polygons; covered source and exact reviewed ground-join chains only, clipped to reviewed parent/part; no extra clearance padding.' };
+            if (reason) report.unresolved.push({ modelId: model.id, sourceRoadId: model.road.sourceId, reason });
+        }
+        return report.unresolved.length === 0;
+    };
+    return { report, passages, accepted, validateProfile, useNativeRibbons, isCovered: edge => !edge.virtual && roadIndices.has(edge.road) };
 }

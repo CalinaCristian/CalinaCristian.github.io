@@ -1,0 +1,1767 @@
+{
+  "sourceCommit": "7bd9eae1a9de9c6b6d0ab3959d44b979b4f99d79",
+  "comparisonSourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+  "scope": "Matching literal source way, original endpoint IDs AND exact endpoint XZ rounded1e-6; old split-source IDs alone are not unique. Historical baseline; unmatched resampled edges explicitly excluded.",
+  "changedEdges": [
+    {
+      "id": 453,
+      "sourceId": "w6422057",
+      "road": 133,
+      "name": "103rd Avenue Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 455,
+        "sourceId": 3514287876,
+        "x": -604.0548901192681,
+        "z": -443.4166800001905,
+        "y": 0
+      },
+      "b": {
+        "id": 456,
+        "sourceId": 11332315028,
+        "x": -604.0323773577991,
+        "z": -445.6615464003661,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -4.838950407249047,
+        "yb": -4.65935206464527
+      },
+      "deltaYa": 4.838950407249047,
+      "deltaYb": 4.65935206464527
+    },
+    {
+      "id": 454,
+      "sourceId": "w6422057",
+      "road": 133,
+      "name": "103rd Avenue Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 456,
+        "sourceId": 11332315028,
+        "x": -604.0323773577991,
+        "z": -445.6615464003661,
+        "y": 0
+      },
+      "b": {
+        "id": 457,
+        "sourceId": 11332315026,
+        "x": -604.0849071327829,
+        "z": -453.27408840009764,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -4.65935206464527,
+        "yb": -4.050334205728477
+      },
+      "deltaYa": 4.65935206464527,
+      "deltaYb": 4.050334205728477
+    },
+    {
+      "id": 455,
+      "sourceId": "w6422057",
+      "road": 133,
+      "name": "103rd Avenue Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 457,
+        "sourceId": 11332315026,
+        "x": -604.0849071327829,
+        "z": -453.27408840009764,
+        "y": 0
+      },
+      "b": {
+        "id": 458,
+        "sourceId": 11265916546,
+        "x": -604.1674539223478,
+        "z": -464.54287319991585,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -4.050334205728477,
+        "yb": -3.1488072349964193
+      },
+      "deltaYa": 4.050334205728477,
+      "deltaYb": 3.1488072349964193
+    },
+    {
+      "id": 456,
+      "sourceId": "w6422057",
+      "road": 133,
+      "name": "103rd Avenue Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 458,
+        "sourceId": 11265916546,
+        "x": -604.1674539223478,
+        "z": -464.54287319991585,
+        "y": 0
+      },
+      "b": {
+        "id": 459,
+        "sourceId": -2000000042,
+        "x": -604.1880701231671,
+        "z": -467.08372639414404,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -3.1488072349964193,
+        "yb": -2.945532288465674
+      },
+      "deltaYa": 3.1488072349964193,
+      "deltaYb": 2.945532288465674
+    },
+    {
+      "id": 503,
+      "sourceId": "w243441994",
+      "road": 144,
+      "name": "Bellevue Way Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 513,
+        "sourceId": 4270714562,
+        "x": -508.4281870344521,
+        "z": -440.2160783999011,
+        "y": 0
+      },
+      "b": {
+        "id": 514,
+        "sourceId": 7957458411,
+        "x": -508.488221062548,
+        "z": -434.04825239968056,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 5.25,
+      "wL": 5.25,
+      "sidewalk": 4,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -3.502270685552843,
+        "yb": -3.557018798535071
+      },
+      "deltaYa": 3.502270685552843,
+      "deltaYb": 3.557018798535071
+    },
+    {
+      "id": 504,
+      "sourceId": "w243441994",
+      "road": 144,
+      "name": "Bellevue Way Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 514,
+        "sourceId": 7957458411,
+        "x": -508.488221062548,
+        "z": -434.04825239968056,
+        "y": 0
+      },
+      "b": {
+        "id": 515,
+        "sourceId": 3648303872,
+        "x": -508.5857763594035,
+        "z": -423.5018256004075,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 5.25,
+      "wL": 5.25,
+      "sidewalk": 4,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -3.557018798535071,
+        "yb": -2.882493975535516
+      },
+      "deltaYa": 3.557018798535071,
+      "deltaYb": 2.882493975535516
+    },
+    {
+      "id": 505,
+      "sourceId": "w243441994",
+      "road": 144,
+      "name": "Bellevue Way Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 515,
+        "sourceId": 3648303872,
+        "x": -508.5857763594035,
+        "z": -423.5018256004075,
+        "y": 0
+      },
+      "b": {
+        "id": 516,
+        "sourceId": 12008718869,
+        "x": -508.80339971245076,
+        "z": -399.50842680034066,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 5.25,
+      "wL": 5.25,
+      "sidewalk": 4,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -2.882493975535516,
+        "yb": -0.9629431182310819
+      },
+      "deltaYa": 2.882493975535516,
+      "deltaYb": 0.9629431182310819
+    },
+    {
+      "id": 506,
+      "sourceId": "w243441994",
+      "road": 144,
+      "name": "Bellevue Way Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 516,
+        "sourceId": 12008718869,
+        "x": -508.80339971245076,
+        "z": -399.50842680034066,
+        "y": 0
+      },
+      "b": {
+        "id": 517,
+        "sourceId": 3514287796,
+        "x": -508.96849329051423,
+        "z": -381.72730680022414,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 7,
+      "wL": 3.5,
+      "sidewalk": 4,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -0.9629431182310819,
+        "yb": 0
+      },
+      "deltaYa": 0.9629431182310819,
+      "deltaYb": 0
+    },
+    {
+      "id": 588,
+      "sourceId": "w427906792",
+      "road": 171,
+      "name": "Bellevue Way Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 607,
+        "sourceId": -2000000054,
+        "x": -507.5064423617881,
+        "z": -502.5577658404983,
+        "y": 0
+      },
+      "b": {
+        "id": 608,
+        "sourceId": 12008699367,
+        "x": -508.0829913710346,
+        "z": -459.1418579999703,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 5.25,
+      "wL": 5.25,
+      "sidewalk": 4,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": 0,
+        "yb": -1.9878949408005757
+      },
+      "deltaYa": 0,
+      "deltaYb": 1.9878949408005757
+    },
+    {
+      "id": 589,
+      "sourceId": "w427906792",
+      "road": 171,
+      "name": "Bellevue Way Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 608,
+        "sourceId": 12008699367,
+        "x": -508.0829913710346,
+        "z": -459.1418579999703,
+        "y": 0
+      },
+      "b": {
+        "id": 609,
+        "sourceId": 3648303871,
+        "x": -508.30061472408187,
+        "z": -451.7738063999373,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 5.25,
+      "wL": 5.25,
+      "sidewalk": 4,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -1.9878949408005757,
+        "yb": -2.5775961223739685
+      },
+      "deltaYa": 1.9878949408005757,
+      "deltaYb": 2.5775961223739685
+    },
+    {
+      "id": 590,
+      "sourceId": "w427906792",
+      "road": 171,
+      "name": "Bellevue Way Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 609,
+        "sourceId": 3648303871,
+        "x": -508.30061472408187,
+        "z": -451.7738063999373,
+        "y": 0
+      },
+      "b": {
+        "id": 513,
+        "sourceId": 4270714562,
+        "x": -508.4281870344521,
+        "z": -440.2160783999011,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 5.25,
+      "wL": 5.25,
+      "sidewalk": 4,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -2.5775961223739685,
+        "yb": -3.502270685552843
+      },
+      "deltaYa": 2.5775961223739685,
+      "deltaYb": 3.502270685552843
+    },
+    {
+      "id": 820,
+      "sourceId": "w1063028569",
+      "road": 274,
+      "name": "",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 818,
+        "sourceId": 9765227214,
+        "x": -549.5514965296688,
+        "z": -423.72408959984637,
+        "y": 0
+      },
+      "b": {
+        "id": 819,
+        "sourceId": 9765227216,
+        "x": -518.5439208299263,
+        "z": -423.54627840013734,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 1,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": 0,
+        "yb": -2.0858338231308293
+      },
+      "deltaYa": 0,
+      "deltaYb": 2.0858338231308293
+    },
+    {
+      "id": 821,
+      "sourceId": "w1063028569",
+      "road": 274,
+      "name": "",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 819,
+        "sourceId": 9765227216,
+        "x": -518.5439208299263,
+        "z": -423.54627840013734,
+        "y": 0
+      },
+      "b": {
+        "id": 820,
+        "sourceId": 7953726235,
+        "x": -514.9418791228453,
+        "z": -423.5240519998776,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 1,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -2.0858338231308293,
+        "yb": -2.37400264556567
+      },
+      "deltaYa": 2.0858338231308293,
+      "deltaYb": 2.37400264556567
+    },
+    {
+      "id": 822,
+      "sourceId": "w1063028569",
+      "road": 274,
+      "name": "",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 820,
+        "sourceId": 7953726235,
+        "x": -514.9418791228453,
+        "z": -423.5240519998776,
+        "y": 0
+      },
+      "b": {
+        "id": 515,
+        "sourceId": 3648303872,
+        "x": -508.5857763594035,
+        "z": -423.5018256004075,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 1,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -2.37400264556567,
+        "yb": -2.882493975535516
+      },
+      "deltaYa": 2.37400264556567,
+      "deltaYb": 2.882493975535516
+    },
+    {
+      "id": 823,
+      "sourceId": "w1063028570",
+      "road": 275,
+      "name": "",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 817,
+        "sourceId": 9765227215,
+        "x": -519.039201565183,
+        "z": -381.79398600021375,
+        "y": 0
+      },
+      "b": {
+        "id": 819,
+        "sourceId": 9765227216,
+        "x": -518.5439208299263,
+        "z": -423.54627840013734,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 1.5,
+      "wL": 1.5,
+      "sidewalk": 1,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": 0,
+        "yb": -2.0858338231308293
+      },
+      "deltaYa": 0,
+      "deltaYb": 2.0858338231308293
+    },
+    {
+      "id": 827,
+      "sourceId": "w1215911152",
+      "road": 282,
+      "name": "",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 1,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 458,
+        "sourceId": 11265916546,
+        "x": -604.1674539223478,
+        "z": -464.54287319991585,
+        "y": 0
+      },
+      "b": {
+        "id": 824,
+        "sourceId": 11298698310,
+        "x": -599.4998082093667,
+        "z": -464.6095523999054,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 1,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -3.1488072349964193,
+        "yb": -2.775357478331911
+      },
+      "deltaYa": 3.1488072349964193,
+      "deltaYb": 2.775357478331911
+    },
+    {
+      "id": 828,
+      "sourceId": "w1215911152",
+      "road": 282,
+      "name": "",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 1,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 824,
+        "sourceId": 11298698310,
+        "x": -599.4998082093667,
+        "z": -464.6095523999054,
+        "y": 0
+      },
+      "b": {
+        "id": 825,
+        "sourceId": 11265916547,
+        "x": -597.3385831851182,
+        "z": -464.64289200029503,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 1,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -2.775357478331911,
+        "yb": -2.6024389054135844
+      },
+      "deltaYa": 2.775357478331911,
+      "deltaYb": 2.6024389054135844
+    },
+    {
+      "id": 833,
+      "sourceId": "w1221905228",
+      "road": 285,
+      "name": "",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 457,
+        "sourceId": 11332315026,
+        "x": -604.0849071327829,
+        "z": -453.27408840009764,
+        "y": 0
+      },
+      "b": {
+        "id": 829,
+        "sourceId": 11332315027,
+        "x": -611.7392457613962,
+        "z": -453.21852240023793,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 1,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -4.050334205728477,
+        "yb": -3.4379709805919036
+      },
+      "deltaYa": 4.050334205728477,
+      "deltaYb": 3.4379709805919036
+    },
+    {
+      "id": 834,
+      "sourceId": "w1221905229",
+      "road": 286,
+      "name": "",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 456,
+        "sourceId": 11332315028,
+        "x": -604.0323773577991,
+        "z": -445.6615464003661,
+        "y": 0
+      },
+      "b": {
+        "id": 830,
+        "sourceId": 11332315029,
+        "x": -609.4729611871801,
+        "z": -445.6393200001064,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 1,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -4.65935206464527,
+        "yb": -4.2241017262521785
+      },
+      "deltaYa": 4.65935206464527,
+      "deltaYb": 4.2241017262521785
+    },
+    {
+      "id": 835,
+      "sourceId": "w1222672054",
+      "road": 287,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": true,
+      "layer": -1,
+      "modelLayer": 0,
+      "coveredRoadModel": "avenue-square-covered-street",
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 831,
+        "sourceId": 11363157407,
+        "x": -594.689581678725,
+        "z": -443.08328400024266,
+        "y": 0
+      },
+      "b": {
+        "id": 832,
+        "sourceId": 11340656341,
+        "x": -593.5489351385047,
+        "z": -443.994566399837,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -5.883202461901922,
+        "yb": -6
+      },
+      "deltaYa": 5.883202461901922,
+      "deltaYb": 6
+    },
+    {
+      "id": 836,
+      "sourceId": "w1222672054",
+      "road": 287,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": true,
+      "layer": -1,
+      "modelLayer": 0,
+      "coveredRoadModel": "avenue-square-covered-street",
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 832,
+        "sourceId": 11340656341,
+        "x": -593.5489351385047,
+        "z": -443.994566399837,
+        "y": 0
+      },
+      "b": {
+        "id": 833,
+        "sourceId": 11340656340,
+        "x": -586.3073304555833,
+        "z": -445.528188000387,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -6,
+        "yb": -6
+      },
+      "deltaYa": 6,
+      "deltaYb": 6
+    },
+    {
+      "id": 837,
+      "sourceId": "w1222672054",
+      "road": 287,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": true,
+      "layer": -1,
+      "modelLayer": 0,
+      "coveredRoadModel": "avenue-square-covered-street",
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 833,
+        "sourceId": 11340656340,
+        "x": -586.3073304555833,
+        "z": -445.528188000387,
+        "y": 0
+      },
+      "b": {
+        "id": 834,
+        "sourceId": 11340656339,
+        "x": -578.6454875727915,
+        "z": -445.2725843997689,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -6,
+        "yb": -6
+      },
+      "deltaYa": 6,
+      "deltaYb": 6
+    },
+    {
+      "id": 838,
+      "sourceId": "w1222672054",
+      "road": 287,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": true,
+      "layer": -1,
+      "modelLayer": 0,
+      "coveredRoadModel": "avenue-square-covered-street",
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 834,
+        "sourceId": 11340656339,
+        "x": -578.6454875727915,
+        "z": -445.2725843997689,
+        "y": 0
+      },
+      "b": {
+        "id": 835,
+        "sourceId": 11340656338,
+        "x": -571.0586872264524,
+        "z": -442.4720580002065,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -6,
+        "yb": -6
+      },
+      "deltaYa": 6,
+      "deltaYb": 6
+    },
+    {
+      "id": 839,
+      "sourceId": "w1222672054",
+      "road": 287,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": true,
+      "layer": -1,
+      "modelLayer": 0,
+      "coveredRoadModel": "avenue-square-covered-street",
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 835,
+        "sourceId": 11340656338,
+        "x": -571.0586872264524,
+        "z": -442.4720580002065,
+        "y": 0
+      },
+      "b": {
+        "id": 836,
+        "sourceId": 11340656337,
+        "x": -566.9688690372268,
+        "z": -440.2605312004206,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -6,
+        "yb": -6
+      },
+      "deltaYa": 6,
+      "deltaYb": 6
+    },
+    {
+      "id": 840,
+      "sourceId": "w1222672054",
+      "road": 287,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": true,
+      "layer": -1,
+      "modelLayer": 0,
+      "coveredRoadModel": "avenue-square-covered-street",
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 836,
+        "sourceId": 11340656337,
+        "x": -566.9688690372268,
+        "z": -440.2605312004206,
+        "y": 0
+      },
+      "b": {
+        "id": 837,
+        "sourceId": 11340706750,
+        "x": -564.064722910093,
+        "z": -439.9382483998129,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -6,
+        "yb": -6
+      },
+      "deltaYa": 6,
+      "deltaYb": 6
+    },
+    {
+      "id": 841,
+      "sourceId": "w1222672054",
+      "road": 287,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": true,
+      "layer": -1,
+      "modelLayer": 0,
+      "coveredRoadModel": "avenue-square-covered-street",
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 837,
+        "sourceId": 11340706750,
+        "x": -564.064722910093,
+        "z": -439.9382483998129,
+        "y": 0
+      },
+      "b": {
+        "id": 838,
+        "sourceId": 11340656336,
+        "x": -562.3687616065201,
+        "z": -439.749323999974,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -6,
+        "yb": -6
+      },
+      "deltaYa": 6,
+      "deltaYb": 6
+    },
+    {
+      "id": 842,
+      "sourceId": "w1222672054",
+      "road": 287,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": true,
+      "layer": -1,
+      "modelLayer": 0,
+      "coveredRoadModel": "avenue-square-covered-street",
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 838,
+        "sourceId": 11340656336,
+        "x": -562.3687616065201,
+        "z": -439.749323999974,
+        "y": 0
+      },
+      "b": {
+        "id": 839,
+        "sourceId": 11340656335,
+        "x": -548.7410371455757,
+        "z": -439.91602200034276,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -6,
+        "yb": -6
+      },
+      "deltaYa": 6,
+      "deltaYb": 6
+    },
+    {
+      "id": 843,
+      "sourceId": "w1222672054",
+      "road": 287,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": true,
+      "layer": -1,
+      "modelLayer": 0,
+      "coveredRoadModel": "avenue-square-covered-street",
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 839,
+        "sourceId": 11340656335,
+        "x": -548.7410371455757,
+        "z": -439.91602200034276,
+        "y": 0
+      },
+      "b": {
+        "id": 905,
+        "x": -539.709667989315,
+        "z": -439.91602200034276,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -6,
+        "yb": -5.698579897390814
+      },
+      "deltaYa": 6,
+      "deltaYb": 5.698579897390814
+    },
+    {
+      "id": 844,
+      "sourceId": "w1222672054",
+      "road": 287,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": true,
+      "layer": -1,
+      "modelLayer": 0,
+      "coveredRoadModel": "avenue-square-covered-street",
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 840,
+        "sourceId": 11340656334,
+        "x": -530.6782988330544,
+        "z": -439.91602200034276,
+        "y": 0
+      },
+      "b": {
+        "id": 841,
+        "sourceId": 11363157406,
+        "x": -518.2137336737993,
+        "z": -439.9827012003324,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -5.282577018158161,
+        "yb": -4.2853975375027575
+      },
+      "deltaYa": 5.282577018158161,
+      "deltaYb": 4.2853975375027575
+    },
+    {
+      "id": 845,
+      "sourceId": "w1222672055",
+      "road": 288,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 842,
+        "sourceId": 11340656342,
+        "x": -599.8600123800749,
+        "z": -438.7269095998706,
+        "y": 0
+      },
+      "b": {
+        "id": 843,
+        "sourceId": 11921218970,
+        "x": -602.5015096322896,
+        "z": -434.28162960003885,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -5.34232109788247,
+        "yb": -4.928650527420514
+      },
+      "deltaYa": 5.34232109788247,
+      "deltaYb": 4.928650527420514
+    },
+    {
+      "id": 846,
+      "sourceId": "w1222672055",
+      "road": 288,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 843,
+        "sourceId": 11921218970,
+        "x": -602.5015096322896,
+        "z": -434.28162960003885,
+        "y": 0
+      },
+      "b": {
+        "id": 844,
+        "sourceId": 11921218969,
+        "x": -604.0173688505084,
+        "z": -427.9026527997197,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -4.928650527420514,
+        "yb": -4.4041214864645335
+      },
+      "deltaYa": 4.928650527420514,
+      "deltaYb": 4.4041214864645335
+    },
+    {
+      "id": 847,
+      "sourceId": "w1222672055",
+      "road": 288,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 844,
+        "sourceId": 11921218969,
+        "x": -604.0173688505084,
+        "z": -427.9026527997197,
+        "y": 0
+      },
+      "b": {
+        "id": 845,
+        "sourceId": 11340656345,
+        "x": -603.1768924529006,
+        "z": -421.4681100003305,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -4.4041214864645335,
+        "yb": -3.8849853325342893
+      },
+      "deltaYa": 4.4041214864645335,
+      "deltaYb": 3.8849853325342893
+    },
+    {
+      "id": 848,
+      "sourceId": "w1222672055",
+      "road": 288,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 845,
+        "sourceId": 11340656345,
+        "x": -603.1768924529006,
+        "z": -421.4681100003305,
+        "y": 0
+      },
+      "b": {
+        "id": 846,
+        "sourceId": 11340656346,
+        "x": -602.3289118011141,
+        "z": -417.04505639996887,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -3.8849853325342893,
+        "yb": -3.5246967873932484
+      },
+      "deltaYa": 3.8849853325342893,
+      "deltaYb": 3.5246967873932484
+    },
+    {
+      "id": 849,
+      "sourceId": "w1222672055",
+      "road": 288,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 846,
+        "sourceId": 11340656346,
+        "x": -602.3289118011141,
+        "z": -417.04505639996887,
+        "y": 0
+      },
+      "b": {
+        "id": 847,
+        "sourceId": 11340656347,
+        "x": -601.4734268951491,
+        "z": -412.0218899997011,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -3.5246967873932484,
+        "yb": -3.117057298753687
+      },
+      "deltaYa": 3.5246967873932484,
+      "deltaYb": 3.117057298753687
+    },
+    {
+      "id": 850,
+      "sourceId": "w1222672055",
+      "road": 288,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 847,
+        "sourceId": 11340656347,
+        "x": -601.4734268951491,
+        "z": -412.0218899997011,
+        "y": 0
+      },
+      "b": {
+        "id": 848,
+        "sourceId": 11340656348,
+        "x": -601.8186225585667,
+        "z": -407.94334560020684,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -3.117057298753687,
+        "yb": -2.7896071795385535
+      },
+      "deltaYa": 3.117057298753687,
+      "deltaYb": 2.7896071795385535
+    },
+    {
+      "id": 851,
+      "sourceId": "w1222672055",
+      "road": 288,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 848,
+        "sourceId": 11340656348,
+        "x": -601.8186225585667,
+        "z": -407.94334560020684,
+        "y": 0
+      },
+      "b": {
+        "id": 849,
+        "sourceId": 11340656358,
+        "x": -603.6871816943815,
+        "z": -402.15336839966403,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -2.7896071795385535,
+        "yb": -2.3028852516867353
+      },
+      "deltaYa": 2.7896071795385535,
+      "deltaYb": 2.3028852516867353
+    },
+    {
+      "id": 852,
+      "sourceId": "w1222672055",
+      "road": 288,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 849,
+        "sourceId": 11340656358,
+        "x": -603.6871816943815,
+        "z": -402.15336839966403,
+        "y": 0
+      },
+      "b": {
+        "id": 850,
+        "sourceId": 11340656357,
+        "x": -607.1016170629963,
+        "z": -391.95145079967915,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -2.3028852516867353,
+        "yb": -1.4422343664485302
+      },
+      "deltaYa": 2.3028852516867353,
+      "deltaYb": 1.4422343664485302
+    },
+    {
+      "id": 853,
+      "sourceId": "w1222672055",
+      "road": 288,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 850,
+        "sourceId": 11340656357,
+        "x": -607.1016170629963,
+        "z": -391.95145079967915,
+        "y": 0
+      },
+      "b": {
+        "id": 851,
+        "sourceId": 11340656356,
+        "x": -608.7150315780707,
+        "z": -383.02755120041576,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -1.4422343664485302,
+        "yb": -0.7167481991695178
+      },
+      "deltaYa": 1.4422343664485302,
+      "deltaYb": 0.7167481991695178
+    },
+    {
+      "id": 854,
+      "sourceId": "w1222672055",
+      "road": 288,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 851,
+        "sourceId": 11340656356,
+        "x": -608.7150315780707,
+        "z": -383.02755120041576,
+        "y": 0
+      },
+      "b": {
+        "id": 852,
+        "sourceId": 12845666586,
+        "x": -609.3679016372124,
+        "z": -377.7932340000493,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -0.7167481991695178,
+        "yb": -0.29475812635224896
+      },
+      "deltaYa": 0.7167481991695178,
+      "deltaYb": 0.29475812635224896
+    },
+    {
+      "id": 855,
+      "sourceId": "w1222672055",
+      "road": 288,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 852,
+        "sourceId": 12845666586,
+        "x": -609.3679016372124,
+        "z": -377.7932340000493,
+        "y": 0
+      },
+      "b": {
+        "id": 853,
+        "sourceId": 11340656355,
+        "x": -609.9082078932746,
+        "z": -373.41463320020716,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -0.29475812635224896,
+        "yb": 0
+      },
+      "deltaYa": 0.29475812635224896,
+      "deltaYb": 0
+    },
+    {
+      "id": 862,
+      "sourceId": "w1225324171",
+      "road": 289,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 841,
+        "sourceId": 11363157406,
+        "x": -518.2137336737993,
+        "z": -439.9827012003324,
+        "y": 0
+      },
+      "b": {
+        "id": 859,
+        "sourceId": 11340656333,
+        "x": -514.8593323332803,
+        "z": -440.0049275998025,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -4.2853975375027575,
+        "yb": -4.0170395394048874
+      },
+      "deltaYa": 4.2853975375027575,
+      "deltaYb": 4.0170395394048874
+    },
+    {
+      "id": 863,
+      "sourceId": "w1225324171",
+      "road": 289,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 859,
+        "sourceId": 11340656333,
+        "x": -514.8593323332803,
+        "z": -440.0049275998025,
+        "y": 0
+      },
+      "b": {
+        "id": 513,
+        "sourceId": 4270714562,
+        "x": -508.4281870344521,
+        "z": -440.2160783999011,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -4.0170395394048874,
+        "yb": -3.502270685552843
+      },
+      "deltaYa": 4.0170395394048874,
+      "deltaYb": 3.502270685552843
+    },
+    {
+      "id": 864,
+      "sourceId": "w1225324172",
+      "road": 290,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 842,
+        "sourceId": 11340656342,
+        "x": -599.8600123800749,
+        "z": -438.7269095998706,
+        "y": 0
+      },
+      "b": {
+        "id": 831,
+        "sourceId": 11363157407,
+        "x": -594.689581678725,
+        "z": -443.08328400024266,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -5.34232109788247,
+        "yb": -5.883202461901922
+      },
+      "deltaYa": 5.34232109788247,
+      "deltaYb": 5.883202461901922
+    },
+    {
+      "id": 865,
+      "sourceId": "w1285047732",
+      "road": 291,
+      "name": "103rd Avenue Northeast",
+      "bridge": false,
+      "tunnel": false,
+      "layer": 0,
+      "modelLayer": null,
+      "coveredRoadModel": null,
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 455,
+        "sourceId": 3514287876,
+        "x": -604.0548901192681,
+        "z": -443.4166800001905,
+        "y": 0
+      },
+      "b": {
+        "id": 842,
+        "sourceId": 11340656342,
+        "x": -599.8600123800749,
+        "z": -438.7269095998706,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -4.838950407249047,
+        "yb": -5.34232109788247
+      },
+      "deltaYa": 4.838950407249047,
+      "deltaYb": 5.34232109788247
+    },
+    {
+      "id": 916,
+      "sourceId": "w1222672054",
+      "road": 287,
+      "name": "Avenue Square Northeast",
+      "bridge": false,
+      "tunnel": true,
+      "layer": -1,
+      "modelLayer": 0,
+      "coveredRoadModel": "avenue-square-covered-street",
+      "publicDrive": true,
+      "drivable": true,
+      "a": {
+        "id": 905,
+        "x": -539.709667989315,
+        "z": -439.91602200034276,
+        "y": 0
+      },
+      "b": {
+        "id": 840,
+        "sourceId": 11340656334,
+        "x": -530.6782988330544,
+        "z": -439.91602200034276,
+        "y": 0
+      },
+      "ya": 0,
+      "yb": 0,
+      "wR": 3,
+      "wL": 3,
+      "sidewalk": 2.5,
+      "before": {
+        "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+        "ya": -5.698579897390814,
+        "yb": -5.282577018158161
+      },
+      "deltaYa": 5.698579897390814,
+      "deltaYb": 5.282577018158161
+    }
+  ],
+  "unmatchedCurrentEdges": [],
+  "xzBounds": [
+    -611.7392457613962,
+    -502.5577658404983,
+    -507.5064423617881,
+    -373.41463320020716
+  ]
+}

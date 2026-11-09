@@ -1,0 +1,42 @@
+{
+  "nativeSourceCommit": "7bd9eae1a9de9c6b6d0ab3959d44b979b4f99d79",
+  "fixture": {
+    "edge": 839,
+    "t": 0.85,
+    "lateral": 1.5,
+    "x": -568.2958206053852,
+    "z": -439.2728103557881,
+    "roadY": 0.24
+  },
+  "circle": {
+    "x": -565.7927423615074,
+    "z": -437.44750920117673,
+    "r": 0.35,
+    "push": [
+      0.0017798155412758541,
+      -0.016038226059283
+    ]
+  },
+  "nearestSourceSegment": {
+    "segment": 5,
+    "t": 0.5062388502751086,
+    "distance": 2.666136679909139,
+    "bodyCircleOuterDistance": 3.016136679909139,
+    "widthHalf": 3
+  },
+  "pushLength": 0.01613667990912726,
+  "classification": "Genuine retained solid contact by a local straight-tangent body fixture whose corner circle extends outside the finite-width source passage at a bend. Not a demonstrated native route contact; do not remove wall or widen source/model corridor.",
+  "nativeDrivenRoute": {
+    "ok": false,
+    "reason": "timeout",
+    "t": 45,
+    "dist": 69,
+    "resets": 0,
+    "remaining": 7,
+    "contactSamples": 0,
+    "floorBounds": [
+      0.24,
+      0.24
+    ]
+  }
+}

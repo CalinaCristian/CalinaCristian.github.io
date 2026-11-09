@@ -1,0 +1,22 @@
+{
+  "sourceCommit": "7bd9eae1a9de9c6b6d0ab3959d44b979b4f99d79",
+  "sourceManifest": "source-provenance-7bd.json",
+  "rawCaptures": [
+    {
+      "originalPath": "/workspace/reality-pass/overview-bellevue-covered-7bd9eae1/capture/native-gates.json",
+      "portable": "native-first-7bd.json.gz",
+      "rawBytes": 1947774,
+      "rawSha256": "d7eb1b5e00ec7daeda54a773e261e99fdfbc9943e856ed667bf142b8172792fd",
+      "gzipSha256": "25086bf525c3bf44e7d4fc87d56ca23dd7002549829e55125c22f870c82cce69"
+    },
+    {
+      "originalPath": "/workspace/reality-pass/overview-bellevue-covered-7bd9eae1/capture-r2/native-gates.json",
+      "portable": "native-r2-7bd.json.gz",
+      "rawBytes": 2473791,
+      "rawSha256": "d595e58fa0ee95097e00af96386c2d7b25a7813778f48ab89b29ae39a7a5aa2a",
+      "gzipSha256": "3f58b8243b26cc2d2db040daa7291a2ce81f6064e1a9da3c73cecc3eaef47994"
+    }
+  ],
+  "referenceImageryTracked": false,
+  "scope": "Frozen7bd native failure and CPU candidate; no corrected runtime images yet. Earlier CPU6m replay is superseded by actual6.3m native polygons."
+}

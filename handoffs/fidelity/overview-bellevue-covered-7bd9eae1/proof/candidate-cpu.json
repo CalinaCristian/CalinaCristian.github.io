@@ -1,0 +1,752 @@
+{
+  "passed": true,
+  "nativeSourceCommit": "7bd9eae1a9de9c6b6d0ab3959d44b979b4f99d79",
+  "scope": "CPU candidate against actual frozen7bd native source, asphalt, body-fixture and collider-band records. Not a fresh candidate World/render/motion acceptance.",
+  "checks": [
+    "Actual frozen7bd source/profile/ribbon validation",
+    "Literal source6m lane estimate retained; measured existing asphalt6.3m recorded separately",
+    "All66 actual native body fixtures clear, including retained7bd failing corner",
+    "Both parent and part retain ceiling and outside-passage physical solids",
+    "Genuine ground-level parent wall beyond actual asphalt remains physical",
+    "Literal numeric width6 versus asphalt6.3 fails closed; no silent source-width override",
+    "Missing native source span fails closed",
+    "Wrong floor withholds every low void",
+    "All15 reviewed native pieces retained, including11 covered pieces and4 exact portal-chain pieces"
+  ],
+  "report": {
+    "estimated": true,
+    "models": [
+      {
+        "id": "avenue-square-covered-street",
+        "sourceRoadId": "w1222672054",
+        "sourceBuildingIds": [
+          "w1223091246",
+          "w1223091251"
+        ],
+        "roadIndices": [
+          287
+        ],
+        "lengthM": 78.04958272062733,
+        "coveredM": 78.04958272062733,
+        "floorModel": {
+          "floorY": 0,
+          "clearanceM": 3.2,
+          "estimated": true,
+          "basis": "MODEL continuous covered street at its exact source-connected ground joins; clearance estimated, not surveyed; source numeric dimensions have priority"
+        },
+        "widthM": 6,
+        "widthSource": "estimate:unchanged source lane/class road width",
+        "clearanceM": 3.2,
+        "clearanceSource": "MODEL reviewed covered-street clearance; not surveyed",
+        "sourceGroundJoins": [
+          {
+            "anchorRoadId": "w6422057",
+            "anchorNodeId": 3514287876,
+            "ways": [
+              [
+                "w1285047732",
+                1
+              ],
+              [
+                "w1225324172",
+                1
+              ]
+            ],
+            "portalNodeId": 11363157407
+          },
+          {
+            "anchorRoadId": "w243441994",
+            "anchorNodeId": 4270714562,
+            "ways": [
+              [
+                "w1225324171",
+                -1
+              ]
+            ],
+            "portalNodeId": 11363157406
+          }
+        ],
+        "sourceXmlSha256": "f7e26dde902cb8746bca4a9a8c7d7fafb9d090bb5d680f26a096a97ff12e30cc",
+        "evidence": [
+          "https://www.openstreetmap.org/way/1222672054",
+          "https://www.openstreetmap.org/way/1223091246",
+          "https://www.openstreetmap.org/way/1223091251",
+          "https://www.openstreetmap.org/node/3514287876",
+          "https://www.openstreetmap.org/node/4270714562"
+        ],
+        "profileBoundsM": [
+          0,
+          0
+        ],
+        "floorModelVerified": true,
+        "nativePassage": {
+          "accepted": true,
+          "sourceLaneWidthM": 6,
+          "nativeAsphaltWidthsM": [
+            6.3,
+            6.299997
+          ],
+          "sourceRoadIds": [
+            "w1222672054",
+            "w1285047732",
+            "w1225324172",
+            "w1225324171"
+          ],
+          "preparedEdges": [
+            {
+              "id": 835,
+              "sourceRoadId": "w1222672054",
+              "sourceSegment": 0,
+              "sourceRole": "covered-source-road"
+            },
+            {
+              "id": 836,
+              "sourceRoadId": "w1222672054",
+              "sourceSegment": 1,
+              "sourceRole": "covered-source-road"
+            },
+            {
+              "id": 837,
+              "sourceRoadId": "w1222672054",
+              "sourceSegment": 2,
+              "sourceRole": "covered-source-road"
+            },
+            {
+              "id": 838,
+              "sourceRoadId": "w1222672054",
+              "sourceSegment": 3,
+              "sourceRole": "covered-source-road"
+            },
+            {
+              "id": 839,
+              "sourceRoadId": "w1222672054",
+              "sourceSegment": 4,
+              "sourceRole": "covered-source-road"
+            },
+            {
+              "id": 840,
+              "sourceRoadId": "w1222672054",
+              "sourceSegment": 5,
+              "sourceRole": "covered-source-road"
+            },
+            {
+              "id": 841,
+              "sourceRoadId": "w1222672054",
+              "sourceSegment": 6,
+              "sourceRole": "covered-source-road"
+            },
+            {
+              "id": 842,
+              "sourceRoadId": "w1222672054",
+              "sourceSegment": 7,
+              "sourceRole": "covered-source-road"
+            },
+            {
+              "id": 843,
+              "sourceRoadId": "w1222672054",
+              "sourceSegment": 8,
+              "sourceRole": "covered-source-road"
+            },
+            {
+              "id": 844,
+              "sourceRoadId": "w1222672054",
+              "sourceSegment": 9,
+              "sourceRole": "covered-source-road"
+            },
+            {
+              "id": 862,
+              "sourceRoadId": "w1225324171",
+              "sourceSegment": 0,
+              "sourceRole": "reviewed-exact-ground-join"
+            },
+            {
+              "id": 863,
+              "sourceRoadId": "w1225324171",
+              "sourceSegment": 1,
+              "sourceRole": "reviewed-exact-ground-join"
+            },
+            {
+              "id": 864,
+              "sourceRoadId": "w1225324172",
+              "sourceSegment": 0,
+              "sourceRole": "reviewed-exact-ground-join"
+            },
+            {
+              "id": 865,
+              "sourceRoadId": "w1285047732",
+              "sourceSegment": 0,
+              "sourceRole": "reviewed-exact-ground-join"
+            },
+            {
+              "id": 916,
+              "sourceRoadId": "w1222672054",
+              "sourceSegment": 8,
+              "sourceRole": "covered-source-road"
+            }
+          ],
+          "geometryBasis": "Shared native asphalt polygons; covered source and exact reviewed ground-join chains only, clipped to reviewed parent/part; no extra clearance padding."
+        }
+      }
+    ],
+    "unresolved": [],
+    "basis": "reviewed source cover and literal ground joins; not measured elevation"
+  },
+  "positives": [
+    {
+      "edge": 835,
+      "t": 0.15,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 835,
+      "t": 0.15,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 835,
+      "t": 0.5,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 835,
+      "t": 0.5,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 835,
+      "t": 0.85,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": false,
+      "outsideAsphalt": [
+        {
+          "circle": {
+            "x": -592.687472216984,
+            "z": -446.60272741442225,
+            "r": 0.9
+          },
+          "witness": [
+            -592.8739378698201,
+            -447.4831991972253
+          ]
+        },
+        {
+          "circle": {
+            "x": -592.5168019063956,
+            "z": -447.27025767222614,
+            "r": 0.35
+          },
+          "witness": [
+            -592.5893163269429,
+            -447.6126633655384
+          ]
+        }
+      ]
+    },
+    {
+      "edge": 835,
+      "t": 0.85,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 836,
+      "t": 0.15,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 836,
+      "t": 0.15,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 836,
+      "t": 0.5,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 836,
+      "t": 0.5,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 836,
+      "t": 0.85,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 836,
+      "t": 0.85,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 837,
+      "t": 0.15,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 837,
+      "t": 0.15,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 837,
+      "t": 0.5,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 837,
+      "t": 0.5,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 837,
+      "t": 0.85,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 837,
+      "t": 0.85,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 838,
+      "t": 0.15,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 838,
+      "t": 0.15,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 838,
+      "t": 0.5,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 838,
+      "t": 0.5,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 838,
+      "t": 0.85,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 838,
+      "t": 0.85,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 839,
+      "t": 0.15,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 839,
+      "t": 0.15,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 839,
+      "t": 0.5,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 839,
+      "t": 0.5,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 839,
+      "t": 0.85,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 839,
+      "t": 0.85,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 840,
+      "t": 0.15,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 840,
+      "t": 0.15,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 840,
+      "t": 0.5,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 840,
+      "t": 0.5,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 840,
+      "t": 0.85,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 840,
+      "t": 0.85,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 841,
+      "t": 0.15,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 841,
+      "t": 0.15,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 841,
+      "t": 0.5,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 841,
+      "t": 0.5,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 841,
+      "t": 0.85,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 841,
+      "t": 0.85,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 842,
+      "t": 0.15,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 842,
+      "t": 0.15,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 842,
+      "t": 0.5,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 842,
+      "t": 0.5,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 842,
+      "t": 0.85,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 842,
+      "t": 0.85,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 843,
+      "t": 0.15,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 843,
+      "t": 0.15,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 843,
+      "t": 0.5,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 843,
+      "t": 0.5,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 843,
+      "t": 0.85,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 843,
+      "t": 0.85,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 844,
+      "t": 0.15,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 844,
+      "t": 0.15,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 844,
+      "t": 0.5,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 844,
+      "t": 0.5,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 844,
+      "t": 0.85,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 844,
+      "t": 0.85,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 916,
+      "t": 0.15,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 916,
+      "t": 0.15,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 916,
+      "t": 0.5,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 916,
+      "t": 0.5,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 916,
+      "t": 0.85,
+      "lateral": -1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    },
+    {
+      "edge": 916,
+      "t": 0.85,
+      "lateral": 1.5,
+      "hits": [],
+      "nativeAsphaltBoundaryContained": true,
+      "outsideAsphalt": []
+    }
+  ],
+  "inputSha256": "d595e58fa0ee95097e00af96386c2d7b25a7813778f48ab89b29ae39a7a5aa2a",
+  "candidateFiles": {
+    "game/src/covered-road-models.js": "d18b168e09f4c5327160b3bc7c7a5acca4bb24d9d7e7d705633850a0ba0352d4",
+    "game/src/world.js": "95511dd4fd357757a8244476e4a385ab18b6e150b9236585105cf13458da39b1"
+  }
+}

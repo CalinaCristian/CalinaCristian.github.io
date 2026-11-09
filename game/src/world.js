@@ -3148,6 +3148,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (heightFixes.length) console.info('[world] height sanity:', heightFixes.length, 'buildings re-estimated', heightFixes.slice(0, 8));
     }
+    coveredRoadModels.useNativeRibbons(ribbons);
     const buildingPassageAudit=(data.buildingPassageIssues||[]).map(i=>({...i,accepted:false}));
     const configurePassages=b=>{
         b.passages=[];b.passageSolids=null;
@@ -3157,7 +3158,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const ne=nearestEdge(mid[0],mid[1],e=>!e.virtual&&(indices.has(e.road)||data.roadAccess?.[e.road]?.sourceId===source.sourceRoadId),100);
             const roadY=ne?Y.road+yAlong(ne.edge,mid[0],mid[1]):Y.road,ceilingM=roadY+source.clearanceM,top=b.roofProfile?.eavesM??b.h;
             if(!(ceilingM>Math.max(0,b.minH)&&ceilingM<top-.01)){buildingPassageAudit.push({source:data.buildingIds?.[b.i],road:source.sourceRoadId,accepted:false,reason:'opening-clearance-incompatible-with-source-body',ceilingM,bodyTopM:top});continue;}
-            const key=source.sourceRoadId+'/'+source.sourceSegment+'/'+ceilingM.toFixed(5);
+            const key=source.sourceRoadId+'/'+source.sourceSegment+'/'+(source.sourcePreparedEdgeId===undefined?'':source.sourcePreparedEdgeId+'/')+ceilingM.toFixed(5);
             b.passages.push({...source,key,ceilingM});
             buildingPassageAudit.push({source:data.buildingIds?.[b.i],road:source.sourceRoadId,accepted:true,clearanceM:source.clearanceM,ceilingM,widthM:source.widthM,clearanceSource:source.clearanceSource,widthSource:source.widthSource});
         }

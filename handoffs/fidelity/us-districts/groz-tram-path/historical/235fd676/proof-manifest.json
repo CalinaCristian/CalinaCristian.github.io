@@ -1,0 +1,61 @@
+{
+  "baseRuntimeCommit": "8ccab8b8f2e207aed8ceaca7fd6485590f1c7be7",
+  "requiredMetadataCommit": "6cbf82b61de8267f662bf50239c37ccc1764635c",
+  "sourceAuditCommit": "8ee6081d98bea46b45b265e94e67093d48c04b74",
+  "runtimeModules": {
+    "game/src/traffic.js": "eda195f98056098ac866cb8731da4a056b70c7d34db0a1f2a630a5468add1973",
+    "game/src/tram-path.js": "8880e5563e6a3bd1f07bdc52902f861da59f2957b3269839ebc0df8af22654c6"
+  },
+  "metadataDatasetSha256": {
+    "grozavesti": "6d9217531ed5995afb99f7aaadddcde6d49cf62761a759ff76c35d010e2d86d7",
+    "pipera": "1bf890e7ddfd74dcfd7b75fcd0c67613b66b9de98bdb597fe9c0301958337ca4",
+    "romana": "7ac05b291e4f691936b844a7fae4763a047353e8ba8a33c84e29315e6b3bfb1a",
+    "unirii": "6229110b67092ebd714c8db6a38ac41bebc69d86e80abc4b54912d78b2416a5f"
+  },
+  "nativeFixture": {
+    "path": "/workspace/reality-pass/remaining-ro/admission-fixture-groz-c2acc8d/fixture.json",
+    "sha256": "8f6cb9e27941445c0d8515a79a1fb715797f6b86ab2af2e1952473aa8cf8ee9c",
+    "bytes": 45418884,
+    "rawRetained": true
+  },
+  "files": {
+    "README.md": {
+      "bytes": 5998,
+      "sha256": "9a9ddef40bc381c65005ca64a8acbf376793feb9b799b15b922aa58668a205d0"
+    },
+    "native-binding-cpu.json": {
+      "bytes": 15743,
+      "sha256": "4088b37a9123024ab9e4f3fc8785f882054f82ffd59b0a6f657e6060b42713c9"
+    },
+    "native-crossing-cpu.json": {
+      "bytes": 422,
+      "sha256": "6067e7f5f752254e8ae49a02f88e3d4e039985af0636388f6a9366fb55ab3e2e"
+    },
+    "native-motion-cpu.json": {
+      "bytes": 590,
+      "sha256": "071e12ed7ccb153a7e8022d141320fc6264d1e839afc6e03455aeded8eb8d815"
+    },
+    "source-controls.json": {
+      "bytes": 1650,
+      "sha256": "c878eb0ca3ad3e08404c0dc009699e12273552fed4cb7fb896d6504fc626612f"
+    },
+    "test-native-binding.mjs": {
+      "bytes": 3996,
+      "sha256": "4180488f36e6889c1e806f832103a37c0b36efeff87fed8227276147fe414294"
+    },
+    "test-native-crossing.mjs": {
+      "bytes": 2970,
+      "sha256": "cf319584f62d8c1a111c3d123a99ec3b3eefe22d04fef72f99f6235bc87b0825"
+    },
+    "test-native-motion.mjs": {
+      "bytes": 3064,
+      "sha256": "5bc025629d580166c9cc6ceffc894f6bd2bc75a42ceac270c502d041b873deb2"
+    },
+    "test-tram-path.mjs": {
+      "bytes": 7567,
+      "sha256": "2992142836413573070a4a0d24ece2209bcc3ed5de941d32c0928cc56abfdd2c"
+    }
+  },
+  "stage": "ground source paths; native full-scene/grade-render acceptance pending",
+  "browserOpened": false
+}

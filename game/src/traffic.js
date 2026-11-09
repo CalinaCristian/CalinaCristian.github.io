@@ -54,7 +54,8 @@ const tramOffset = (e, dir = 1) => e.rail ? 0 : tramBaseOffset(e) + dir * (e.lan
 const layerOf = (e) => (e.bridge ? 1 : 0) + (e.tunnel ? -1 : 0) + (e.layer | 0);
 const isJunction = (n) => n.edges.length >= 3 || n.hasLight;
 /** a road cut at the district boundary (closure at its map-end node, spec R10.9): never routed into, never spawned on */
-const closedEdge = (e) => !!(e.a.mapEnd || e.b.mapEnd || !ambientTrafficAccess(e));
+const closedEdge = (e) => e.rail ? !e.usable : !!(e.a.mapEnd || e.b.mapEnd || !ambientTrafficAccess(e));
+const actorCanTravel = (e, dir, v) => e.rail ? !!v.tram && canTravelTram(e, dir) : canTravel(e, dir);
 // long vehicles (buses, trams, trucks ≥ 8.5 m): the body follows the lane path — front and rear axle points on the
 // path, the junction pad crossed as the chord entry lane → exit lane — instead of pivoting on its centre (note 4:
 // an 18 m bus turning on its centre swept broadside across the junction mouth, and froze like that when stopped)
@@ -227,7 +228,7 @@ export class Traffic {
     bindSourceTrams() {
         const actors = this.vehicles.filter(v => v.tram), summary = { passed: true, bindings: [], unresolved: [], rngDraws: 0 };
         if (!actors.length) return summary;
-        this.tramNetwork = buildTramNetwork(this.world.data, { motorNodes: nodeList(this.world.graph) });
+        this.tramNetwork = buildTramNetwork(this.world.data, { motorNodes: nodeList(this.world.graph), resolveGrade: this.world.tramGrade });
         this.tramIndex = new EdgeIndex(this.tramNetwork.edges);
         this.tramMotorCrossings = new Set(this.tramNetwork.nodes.filter(n => n.edges.length && n.motorNode).map(n => n.motorNode));
         summary.source = this.tramNetwork.report;
@@ -911,7 +912,7 @@ export class Traffic {
             const mx = (e.a.x + e.b.x) / 2 - P.x, mz = (e.a.z + e.b.z) / 2 - P.z; const d = Math.hypot(mx, mz);
             if (d < rMin || d > rMax) continue;
             if (hidden && d < 600 && (mx * P.fx + mz * P.fz) > 0) continue; // ahead & near: would pop in view
-            let dir = this.rng() < 0.5 ? 1 : -1; if (!canTravel(e, dir)) dir = -dir; if (!canTravel(e, dir)) continue;
+            let dir = this.rng() < 0.5 ? 1 : -1; if (!actorCanTravel(e, dir, v)) dir = -dir; if (!actorCanTravel(e, dir, v)) continue;
             if (v.parked && !this.parkOk(e, dir)) { dir = -dir; if (!this.parkOk(e, dir)) continue; }
             const lanes = lanesDir(e, dir);
             const sp = v.parked ? [15, e.len - 15] : this.sSpan(e, dir, v.length, v.long); if (!sp) continue;
@@ -947,6 +948,7 @@ export class Traffic {
     // ------------------------------------------------------------------ routing
     chooseNext(e, dir, v) {
         if (e.rail) {
+            if (!v.tram) return null;
             const choices = tramContinuations(e, dir);
             choices.sort((a, b) => Number(b.e.sourceId === e.sourceId) - Number(a.e.sourceId === e.sourceId) || (b.e.dirx * b.dir * e.dirx * dir + b.e.dirz * b.dir * e.dirz * dir) - (a.e.dirx * a.dir * e.dirx * dir + a.e.dirz * a.dir * e.dirz * dir) || String(a.e.id).localeCompare(String(b.e.id)));
             return choices[0] || null;
@@ -1039,7 +1041,7 @@ export class Traffic {
             const e = edges[Math.floor(this.rng() * edges.length)];
             if (v.tram && !e.tram) continue;
             if (v.trolley && !e.trolleyWire && (this.transit?.trolleyEdges || 0) > 0 && tries < 25) continue;
-            let dir = canTravel(e, 1) ? (canTravel(e, -1) && this.rng() < 0.5 ? -1 : 1) : (canTravel(e, -1) ? -1 : 0);
+            let dir = actorCanTravel(e, 1, v) ? (actorCanTravel(e, -1, v) && this.rng() < 0.5 ? -1 : 1) : (actorCanTravel(e, -1, v) ? -1 : 0);
             if (!dir || e.len < 8 || closedEdge(e)) continue;
             const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2;
             if (P && Math.hypot(mx - P.x, mz - P.z) < 180) continue;

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { buildTramNetwork, canTravelTram, sampleTramPath, tramSpan, tramPathPolyline, projectTramStations, nativeTramGradeResolver } from '../../../../game/src/tram-path.js';
+import { canTravel } from '../../../../game/src/nav.js';
 const encode = points => { let x = 0, z = 0; return points.flatMap(p => { const nx = Math.round(p[0] * 10), nz = Math.round(p[1] * 10), result = [nx - x, nz - z]; x = nx; z = nz; return result; }); };
 const way = (id, nodes, points, tags = {}) => ({ sourceId: 'w' + id, nodeIds: nodes, points: encode(points), tags: { railway: 'tram', oneway: 'yes', ...tags } });
 const data = ways => ({ q: 10, trams: ways.map(w => w.points), tramSources: ways.map(w => ({ sourceId: w.sourceId, nodeIds: w.nodeIds, tags: w.tags })), tramSourceWays: ways, tramRoutes: [], tramSourceNodeTags: {} });
@@ -10,6 +11,7 @@ try {
     test('explicit rail one-way differs from an unrelated motor direction', () => {
         const g = buildTramNetwork(data([way(1, [101, 102], [[0, 0], [100, 0]])]));
         assert.equal(canTravelTram(g.edges[0], 1), true); assert.equal(canTravelTram(g.edges[0], -1), false);
+        assert.equal(canTravel(g.edges[0], 1), false, 'a legal tram edge remains unavailable to generic motor navigation');
         const p = sampleTramPath({ edge: g.edges[0], dir: 1, s: 42 }); assert.equal(p.x, 42); assert.equal(p.z, 0);
     });
     test('nearby geometry cannot create a rail node join', () => {

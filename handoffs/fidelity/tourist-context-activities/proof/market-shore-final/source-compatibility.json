@@ -1,0 +1,222 @@
+{
+  "commits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "f056a5e1da18a554af52a147391188d90ddf39b5",
+    "472aadfebc80988559fb10bdfb9ac3a2562d9b71"
+  ],
+  "all19SpotDataBytesUnchanged": true,
+  "spotData": [
+    {
+      "file": "game/data/spots/arcul-de-triumf.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "cded0a0aaccc1b21b4fc790c86a9c3cd51e3ab39",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "cded0a0aaccc1b21b4fc790c86a9c3cd51e3ab39",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "cded0a0aaccc1b21b4fc790c86a9c3cd51e3ab39"
+      }
+    },
+    {
+      "file": "game/data/spots/athenaeum-revolution.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "edc0e084eb20476328115c6a2d5ce84da61b8d24",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "edc0e084eb20476328115c6a2d5ce84da61b8d24",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "edc0e084eb20476328115c6a2d5ce84da61b8d24"
+      }
+    },
+    {
+      "file": "game/data/spots/ballard-locks.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "1324ae24f6793519b0d25853b90f35d80bb0239e",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "1324ae24f6793519b0d25853b90f35d80bb0239e",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "1324ae24f6793519b0d25853b90f35d80bb0239e"
+      }
+    },
+    {
+      "file": "game/data/spots/bel-botanical-garden.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "856c0afa4e66fcc0229aef10b165a5f8caf4585e",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "856c0afa4e66fcc0229aef10b165a5f8caf4585e",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "856c0afa4e66fcc0229aef10b165a5f8caf4585e"
+      }
+    },
+    {
+      "file": "game/data/spots/bel-downtown-park.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "0392f073b2ba3038037cc6636f55ad66457d18f0",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "0392f073b2ba3038037cc6636f55ad66457d18f0",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "0392f073b2ba3038037cc6636f55ad66457d18f0"
+      }
+    },
+    {
+      "file": "game/data/spots/bel-lincoln-square.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "35b5f2437130bd6c87237df7e59e1135a683158e",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "35b5f2437130bd6c87237df7e59e1135a683158e",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "35b5f2437130bd6c87237df7e59e1135a683158e"
+      }
+    },
+    {
+      "file": "game/data/spots/bel-meydenbauer.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "ab543ff9328c0601c42de03aa28a5d12028ef0d9",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "ab543ff9328c0601c42de03aa28a5d12028ef0d9",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "ab543ff9328c0601c42de03aa28a5d12028ef0d9"
+      }
+    },
+    {
+      "file": "game/data/spots/buc-herastrau.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "a74365b1db1023cde0e39003673e7d465c523bb1",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "a74365b1db1023cde0e39003673e7d465c523bb1",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "a74365b1db1023cde0e39003673e7d465c523bb1"
+      }
+    },
+    {
+      "file": "game/data/spots/buc-old-town.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "84dd56813ba62129af54cbc052c7b294e84d9bfc",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "84dd56813ba62129af54cbc052c7b294e84d9bfc",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "84dd56813ba62129af54cbc052c7b294e84d9bfc"
+      }
+    },
+    {
+      "file": "game/data/spots/buc-parliament.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "a427f7647b78c3bb7db1fb893e9ac4df1c44e2cb",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "a427f7647b78c3bb7db1fb893e9ac4df1c44e2cb",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "a427f7647b78c3bb7db1fb893e9ac4df1c44e2cb"
+      }
+    },
+    {
+      "file": "game/data/spots/cismigiu.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "24351a464a5eb1ad4dcb57991a29f6c747367457",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "24351a464a5eb1ad4dcb57991a29f6c747367457",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "24351a464a5eb1ad4dcb57991a29f6c747367457"
+      }
+    },
+    {
+      "file": "game/data/spots/fremont-troll.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "f056a1da837a037b671fad06e9790e266ffd190e",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "f056a1da837a037b671fad06e9790e266ffd190e",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "f056a1da837a037b671fad06e9790e266ffd190e"
+      }
+    },
+    {
+      "file": "game/data/spots/gas-works.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "7059166df8e909b5dd4d9763fe8625e6200906ae",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "7059166df8e909b5dd4d9763fe8625e6200906ae",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "7059166df8e909b5dd4d9763fe8625e6200906ae"
+      }
+    },
+    {
+      "file": "game/data/spots/kerry-park.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "d97acffbf640ff6545f0214c1831b299f80efbf5",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "d97acffbf640ff6545f0214c1831b299f80efbf5",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "d97acffbf640ff6545f0214c1831b299f80efbf5"
+      }
+    },
+    {
+      "file": "game/data/spots/pike-place.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "cfa2b55f65b6aabdb71848cbe4b153111dac662e",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "cfa2b55f65b6aabdb71848cbe4b153111dac662e",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "cfa2b55f65b6aabdb71848cbe4b153111dac662e"
+      }
+    },
+    {
+      "file": "game/data/spots/pioneer-square.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "873677b069e23922eb154303b493c6849f82ed1d",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "873677b069e23922eb154303b493c6849f82ed1d",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "873677b069e23922eb154303b493c6849f82ed1d"
+      }
+    },
+    {
+      "file": "game/data/spots/seattle-center.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "71469abae40db284739b29e52f0c36764f4d999e",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "71469abae40db284739b29e52f0c36764f4d999e",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "71469abae40db284739b29e52f0c36764f4d999e"
+      }
+    },
+    {
+      "file": "game/data/spots/spring-palace.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "104667c8adfee9f2a89d33a96193050002c49895",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "104667c8adfee9f2a89d33a96193050002c49895",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "104667c8adfee9f2a89d33a96193050002c49895"
+      }
+    },
+    {
+      "file": "game/data/spots/waterfront.json",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "a98788b27ac3ca76d3460e67b76118a5a74e05a0",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "a98788b27ac3ca76d3460e67b76118a5a74e05a0",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "a98788b27ac3ca76d3460e67b76118a5a74e05a0"
+      }
+    }
+  ],
+  "unchangedSharedGeometryAndPhysicsModules": [
+    {
+      "file": "game/src/spots/ground.js",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "bb392f4d2fe20d8fa8d9f50f0c9cee5dcaea71ba",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "bb392f4d2fe20d8fa8d9f50f0c9cee5dcaea71ba",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "bb392f4d2fe20d8fa8d9f50f0c9cee5dcaea71ba"
+      }
+    },
+    {
+      "file": "game/src/spots/osm.js",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "36ad19fddd7bb4385b3239c2f1f3097e0711371f",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "36ad19fddd7bb4385b3239c2f1f3097e0711371f",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "36ad19fddd7bb4385b3239c2f1f3097e0711371f"
+      }
+    },
+    {
+      "file": "game/src/spots/walker.js",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "64aaf7a33f10845e7dd95a9dd13d41285aadafd2",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "64aaf7a33f10845e7dd95a9dd13d41285aadafd2",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "64aaf7a33f10845e7dd95a9dd13d41285aadafd2"
+      }
+    },
+    {
+      "file": "game/src/onfoot.js",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "eeb4ddfd015cad895855424801a24a089f761af6",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "eeb4ddfd015cad895855424801a24a089f761af6",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "eeb4ddfd015cad895855424801a24a089f761af6"
+      }
+    },
+    {
+      "file": "game/src/spots/kit.js",
+      "blobs": {
+        "93b0d8649e7c3a1217ae5b009f124347c41da6a8": "0133ca04ac1e15ab79cf53e269a1e984c21dd488",
+        "f056a5e1da18a554af52a147391188d90ddf39b5": "0133ca04ac1e15ab79cf53e269a1e984c21dd488",
+        "472aadfebc80988559fb10bdfb9ac3a2562d9b71": "0133ca04ac1e15ab79cf53e269a1e984c21dd488"
+      }
+    }
+  ],
+  "runtimeChangeFiles": [
+    "game/src/spots/scenes/bel-meydenbauer.js",
+    "game/src/spots/scenes/pike-place.js"
+  ],
+  "scope": "Only Pike immediate fish cancellation and Meydenbauer estimated rockery cap beneath existing rendered pier triangles change. No ground height modifier, source data or building-cache field changes.",
+  "postCorrectionNativeWarmCacheProof": "cache-followup-472aadf.json",
+  "postCorrectionCacheOutputChecks": [
+    {
+      "scene": "pike-place",
+      "derivedCacheUnchanged": true,
+      "allFieldsUnchanged": true
+    },
+    {
+      "scene": "bel-meydenbauer",
+      "derivedCacheUnchanged": true,
+      "allFieldsUnchanged": true
+    }
+  ]
+}

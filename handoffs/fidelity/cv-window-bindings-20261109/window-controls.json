@@ -1,0 +1,48 @@
+{
+  "testedFiles": {
+    "game/src/office-window-math.js": "98af1db1e701e664151edfd61cc4aff185e4837e27b92f6868e8724e3481aa67",
+    "game/src/office-window-target.js": "acdbe1eff2df1fd7ec7ebd14f452172bec101180b0b419697323a9b5d1553e17",
+    "game/src/office-resources.js": "fb7b7deb9ecf5946e6ee5a7444c75edacfb57eabf2e441d40a32e01604d727dc",
+    "game/vendor/three.module.min.js": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7"
+  },
+  "scope": "CPU actual Three projection matrices/RenderTarget ownership and renderer-state control; no browser/GPU/source-floor/real-world visual acceptance",
+  "passed": true,
+  "checks": [
+    "actual perspective projection maps source window corners to all four viewport corners",
+    "head parallax preserves source aperture coordinates while depths move differently",
+    "near clipping excludes the retained source facade and keeps immediately exterior geometry",
+    "bad side, degenerate/skew corners, nonfinite values and inadequate far are rejected without changing camera or inputs",
+    "portrait, ultrawide, high-DPR and tiny targets remain within exact pixel/dimension caps",
+    "one bounded target calls the existing-world renderer once and restores all renderer state",
+    "exceptions, recursive calls and asynchronous callbacks still restore existing world state",
+    "resize releases are bounded and final disposal is idempotent without owning the renderer or prior target",
+    "actual room ownership snapshot never adopts the external portal texture, before or after attachment"
+  ],
+  "rigidTransformCases": [
+    {
+      "yaw": 0,
+      "pitch": 0,
+      "roll": 0,
+      "near": 3.02
+    },
+    {
+      "yaw": 0.7,
+      "pitch": 0,
+      "roll": 0,
+      "near": 3.0200000000000267
+    },
+    {
+      "yaw": -1.2,
+      "pitch": 0.25,
+      "roll": 0.15,
+      "near": 3.0199999999999765
+    },
+    {
+      "yaw": 2.8,
+      "pitch": -0.2,
+      "roll": 0.4,
+      "near": 3.019999999999972
+    }
+  ],
+  "worldRenderCallbackCalls": 1
+}

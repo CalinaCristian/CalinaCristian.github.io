@@ -50,7 +50,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   The pilot marker uses the same seasonal character system as pedestrians.
   At Rosetti’s existing basketball court, pick up the ball, aim along its predicted dotted arc and throw. A real basket
   unlocks a secret achievement; desktop and mobile actions are supported. Pause, map, camera, drone or leaving cancels the aim.
-The main-menu Continue button stays hidden until a resumable session exists, including in a fresh/incognito browser.
+  The main-menu Continue button stays hidden until a resumable session exists, including in a fresh/incognito browser.
 - **Tourist spots (bonus).** Seven primary visits: Old Town, Cișmigiu and Arcul de Triumf in Bucharest; Pike Place and one combined Space Needle–Chihuly visit in Seattle; Meydenbauer and Downtown Park in Bellevue.
   The older 24-entry catalogue retains its source/evidence history and saved progress. Retired visits do not count toward current completion. The seven-visit scenery and activity quality pass remains in progress.
   Old Town uses a compact Lipscani–Smârdan focus with a source-anchored Freddo entrance, an estimated club interior, a visible dance avatar with timed left/right/spin inputs, and a three-stage virtual shot. Original house music uses the existing audio context and volume controls. The sports room and Carusel remain accessible.

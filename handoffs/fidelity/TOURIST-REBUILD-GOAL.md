@@ -30,6 +30,16 @@ Render only the visible source-backed exterior subsection/frusta with bounded wo
 
 Maintain a per-location photo/reference and window-anchor ledger, native visual/playthrough evidence and updated overview office/school/university records and captures. No-photo locations remain explicit gaps, never fabricated reference claims. This additional scope is open and does not count as completed because it has been added to the goal.
 
+## Added owner scope: lively contextual dialogue
+
+Expand the unique authored bubble library and actual event coverage across driving, walking, visits and interiors. Use location, local culture/persona, current events in the simulation, weather, time and season. Support player honks, NPC honks at each other, close calls and actual accidents caused by either the player or another NPC; bystanders and involved drivers should react to what actually happened. Do not fabricate collisions merely to produce dialogue or report a normal yielding stop as an accident.
+
+Include clean Romanian meme-like lines such as “Ce-ai făcut, Bobiță?”, with natural English glosses, and culturally fitting Seattle/Bellevue equivalents. Keep humour free of profanity, slurs and hostile stereotypes. Author substantial event/location/persona variety, avoid repeating a line through multiple actors, and use pair/event cooldowns and bounded readable simultaneous bubbles. More lively conversation must not become overlapping UI or unbounded per-frame event work. Validate NPC-to-NPC events as well as player-caused events, visible attribution, queue/priority, unique-line rotation, persistence/disposal and phone readability. Keep the overview dialogue/event coverage and captures current.
+
+## Added owner regression: underground visibility and opaque surfaces
+
+The user sees lower roads/cars through grass from the cockpit and sees above-ground trees/buildings through underground structure. Latest source clue is the Corneliu Coposu approach toward GTS in Unirii. Terrain/grass/pavement must occlude lower levels correctly; open ramps need real cutouts, covered tunnels need continuous roofs/undersides and walls, and neighboring road levels must not paint through them. Preserve actual source way alignment, legal connections, grade evidence and body clearance. Do not fix this by hiding unrelated roads/actors or blindly making every flat paint layer depth-writing. Reproduce actual entry/descent/traversal/ascent at driver height, inspect mirror/side views and verify the same physical geometry/query surfaces.
+
 ## Definition of an accepted visit
 
 1. **Recognizable, coherent place.** Verify current source footprints, heights where known, road/path/water/shore geometry, landmark orientation and surroundings against appropriate references. Preserve source provenance and distinguish estimates. No placeholder skyline scatter at primary views, residential window skins on market/terminal facades, misleading signs, floating canopies, missing floors, collapsed streets, buried cameras, lamps in water or visible coplanar flicker.

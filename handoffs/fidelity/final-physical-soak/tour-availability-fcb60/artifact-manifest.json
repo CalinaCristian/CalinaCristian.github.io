@@ -1,0 +1,27 @@
+[
+  {
+    "file": "results.json",
+    "bytes": 109105,
+    "sha256": "2e0d841d09bfeb59f1745ca1e0994857de6dfad4d7e7730d67d0541eb7b614e5"
+  },
+  {
+    "file": "runner.cjs",
+    "bytes": 9812,
+    "sha256": "81bcae3f0a820ae25a0f0fe2c68aaa2dd1278bb352036f089871b8b194fecbf9"
+  },
+  {
+    "file": "runner.log",
+    "bytes": 5611,
+    "sha256": "e914a3fc74e7778924f27bd20648d8685189cc56e8e74e4566d49191fef3620c"
+  },
+  {
+    "file": "source-check.json",
+    "bytes": 203,
+    "sha256": "207ac26ea092e1fa497eae979af7c4f56d562cc4c4d7a07901ac820fffab7433"
+  },
+  {
+    "file": "summary.json",
+    "bytes": 17703,
+    "sha256": "4a6747cd04c93aa01a5244a22372b4f60ddd51fabbacfc572a623f2e268aff3e"
+  }
+]

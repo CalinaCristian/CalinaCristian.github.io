@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 1,
+  "sourceBaselineCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "purpose": "Correct the solid-filled structural type on the source parking garage and the independently verified mapped covered Departures curb, preserving source footprints/holes/envelopes and all road geometry/access/widths.",
+  "sources": [
+    {
+      "url": "https://www.portseattle.org/sites/default/files/styles/image_16x9_/public/2018-02/Sea-Tac%20Airport%20parking%20garage.jpg?itok=mn-bhbxb",
+      "status": 200,
+      "sha256": "dba3be374a833b1769ea07657c2f89c40a9a15e264e28bab7653bccbc72e3b36",
+      "retrievedAt": "2026-11-09T00:14:06.768679+00:00",
+      "imageryTracked": false
+    },
+    {
+      "url": "https://www.portseattle.org/sea/parking/airport-parking-garage-map",
+      "status": 200,
+      "sha256": "bd4bf6b87088473d17ae7ff2564a87bcd33f8bb570ae4fabccc478ec7607a450",
+      "retrievedAt": "2026-11-09T00:14:06.975031+00:00",
+      "imageryTracked": false
+    },
+    {
+      "url": "https://www.portseattle.org/sea/parking/parking-information",
+      "status": 200,
+      "sha256": "6c8214c569c6cb2ad302fd61e33fc29adba5a4f2dddbf0a4eedc53a6b540715d",
+      "retrievedAt": "2026-11-09T00:14:06.886879+00:00",
+      "imageryTracked": false
+    },
+    {
+      "url": "https://www.portseattle.org/sites/default/files/2026-11/Ground%20Transportation%20Map10302026_55039474.pdf",
+      "status": 200,
+      "sha256": "d2bc73ef82b88656235ddbe8086f756e57ab8900f1402c2d0528ce3b8065477c",
+      "retrievedAt": "2026-11-09T00:14:07.019554+00:00",
+      "imageryTracked": false
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Departures_Drive_(7105121083).jpg",
+      "status": 200,
+      "sha256": "01b7559ce252ec9b3b18a1217c085cf47e8aaf3865ac8ac858ece5c86fad438d",
+      "retrievedAt": "2026-11-09T00:17:40.751230+00:00",
+      "imageryTracked": false
+    }
+  ],
+  "sourceBodies": [
+    {
+      "sourceId": "r15763840",
+      "model": "seagarage",
+      "outerVertices": 164,
+      "innerRings": 8,
+      "nativeSolidBandM": [
+        0.12,
+        22.57
+      ],
+      "tags": {
+        "building": "parking",
+        "building:levels": "7",
+        "parking": "multi-storey",
+        "covered": "yes",
+        "access": "yes"
+      },
+      "modelFHMetres": 3.05,
+      "modelFHProvenance": "Existing model estimate, not independently measured."
+    },
+    {
+      "sourceId": "w23772634",
+      "model": "seatac",
+      "outerVertices": 408,
+      "nativeSolidBandM": [
+        0.12,
+        19.62
+      ],
+      "tags": {
+        "building": "transportation",
+        "building:levels": "2",
+        "aeroway": "terminal",
+        "layer": "1"
+      },
+      "conflictingPublicSourceRoad": "w37017723",
+      "actualNativeRoadFootY": 11.24,
+      "roadProfileProvenance": "Existing integrated bridge model estimate; source layer2 is ordinal, not a physical metre elevation."
+    }
+  ],
+  "supportedFacts": [
+    "The official garage photo shows an open multi-storey concrete parking structure with helix ramps, exterior deck spandrels and column openings. A single full-height filled interior is the wrong structural type.",
+    "The official parking page states the maximum garage vehicle height is6ft10in (2.0828m). This is an operational entrance limit, not a measured soffit height at every road point.",
+    "The official2026-11 ground transportation map explicitly depicts Level3 ground transportation/TNC and Level4 parking/skybridges. It gives no absolute elevations, slab thicknesses, column plan or georeferenced road-floor assignment.",
+    "The independent2012 Departures Drive photograph shows cars using an upper curved curb beneath the terminal canopy, with columns along the curb. It gives no independently calibrated canopy soffit height or exact current column coordinates.",
+    "Aerial overlay shows exact garage source road geometries on the source footprint and helix locations, and the terminal road beneath/along its roof projection. The aerial is top down and cannot establish internal floor heights or under-roof facade lines."
+  ],
+  "coveredCurb": {
+    "sourceRoadId": "w37017723",
+    "sourceNodeIds": [
+      4272365633,
+      11105728286,
+      1139491631,
+      11105728285,
+      11105728284,
+      255173016,
+      2386658909,
+      1139491623,
+      2386658921,
+      255173017,
+      11105728291,
+      2386658903,
+      2386658906,
+      2386658907,
+      255173018,
+      3732079293,
+      11105728293,
+      1139491564,
+      11105728296,
+      11105728299,
+      11105728301,
+      1139491577,
+      2386658895,
+      2386658913
+    ],
+    "sourceTags": {
+      "bicycle": "yes",
+      "bridge": "yes",
+      "fixme": "verify bicycle=yes",
+      "highway": "secondary",
+      "lanes": "2",
+      "layer": "2",
+      "maxspeed": "20 mph",
+      "maxweight:signed": "no",
+      "name": "Departures Drive",
+      "oneway": "yes",
+      "turn:lanes": "through|through"
+    },
+    "sourceModelAnchor": {
+      "lat": 47.4423743,
+      "lon": -122.3012208,
+      "rotation": -1.4137
+    },
+    "line": [
+      [
+        -244.92396604,
+        -94.78523544
+      ],
+      [
+        -233.5634751,
+        -78.77889499
+      ],
+      [
+        -211.38645704,
+        -47.5230871
+      ],
+      [
+        -198.21699374,
+        -28.7302899
+      ],
+      [
+        -181.63328271,
+        -5.06755343
+      ],
+      [
+        -179.98141732,
+        -2.70993198
+      ],
+      [
+        -173.03542606,
+        4.01512743
+      ],
+      [
+        -165.15615974,
+        9.60757597
+      ],
+      [
+        -155.79560193,
+        14.23043713
+      ],
+      [
+        -145.80039084,
+        17.26181426
+      ],
+      [
+        -142.81284515,
+        17.6512076
+      ],
+      [
+        -135.44884511,
+        18.61189115
+      ],
+      [
+        -125.01772896,
+        18.25207128
+      ],
+      [
+        -114.77754117,
+        16.18523734
+      ],
+      [
+        -105.01800104,
+        12.46457925
+      ],
+      [
+        -97.5242522,
+        8.20209585
+      ],
+      [
+        -71.32219843,
+        -10.24575447
+      ],
+      [
+        -46.96883847,
+        -27.39350857
+      ],
+      [
+        -29.46091688,
+        -39.82548839
+      ],
+      [
+        -10.7998641,
+        -53.07325118
+      ],
+      [
+        16.41851701,
+        -72.39666284
+      ],
+      [
+        51.20616476,
+        -97.09860516
+      ],
+      [
+        72.3604546,
+        -111.87972166
+      ],
+      [
+        82.20870924,
+        -119.64106371
+      ]
+    ],
+    "widthM": 7,
+    "widthSource": "Existing compiled source-road model width:2lanes x3.5m; estimate, not a measurement.",
+    "modelRoadSurfaceLocalM": 11.12,
+    "modelVoidBottomLocalM": 10.9,
+    "modelSoffitLocalM": 16.4,
+    "verticalSource": "Bounded MODEL estimate tied to existing native11.24m road and existing16.4m roof fascia; not a surveyed clearance. Only this mapped covered curb is open, full source terminal below/above and all other masses remain."
+  },
+  "garage": {
+    "sourceId": "r15763840",
+    "literalLevels": "7",
+    "mappedHoles": 8,
+    "existingModelFloorSpacingM": 3.05,
+    "deckThicknessM": 0.35,
+    "spandrelDepthM": 0.8,
+    "existingExteriorPostPitchM": 9.5,
+    "existingExteriorPostWidthM": 0.7,
+    "existingExteriorPostDepthM": 0.3,
+    "operationalEntranceLimitM": 2.0828,
+    "operationalLimitMeaning": "Official6ft10in garage entrance vehicle limit, not a calibrated slab/beam soffit height or a terminal clearance.",
+    "dimensionsStatus": "MODEL estimates. Existing floor interval and exterior post arrangement retained; deck/spandrel dimensions bound the open structural representation without a new floor-elevation claim.",
+    "unknownInteriorColumns": "No positions are invented. Interior column layout remains an explicit fidelity/collision-detail gap."
+  },
+  "uncertainties": [
+    "OSM building:levels=7 is retained. Current official parking pages name Levels1\u20138; the roof/level counting and any historical changes are not resolved by replacing the OSM tag.",
+    "49 garage findings have source layer2 but actual runtime footY0.13\u20130.24m;17 are layer0. At least one source way is named3rdFloorTNC Pickup Road. No layer-to-metres conversion is supported.",
+    "Existing model garage skybridge floor9.15m and runtime Departures11m are estimates; the old garage comment stating Departures<=3.8m is stale.",
+    "Absolute road/deck elevation for each garage floor and mapped helix transition, including Level3 TNC and the actual main-road tie points",
+    "Garage slab/beam soffit bands and a georeferenced interior/exterior column plan at the affected road mouths",
+    "Terminal covered-curb footprint, facade/column line and canopy soffit above the actual Departures road profile"
+  ],
+  "retainedFailures": "All79 originalc78 capsule contacts remain immutable in handoffs/fidelity/us-districts/native-c78a5f4; candidate native positive/negative checks are independent.",
+  "acceptance": "Candidate only until exact native79-point/full-car and real solid/post/slab/above/below controls, approaches and visual review pass. This is not surveyed or complete photographic parity."
+}

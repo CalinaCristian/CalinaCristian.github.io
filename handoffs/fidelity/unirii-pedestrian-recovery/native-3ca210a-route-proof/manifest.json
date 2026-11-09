@@ -1,0 +1,118 @@
+{
+  "sourceCommit": "3ca210ac24a8fa83a5db84d6ebf65bae3146ebd8",
+  "rawSha256": "8ef5d8bb66a00b6161a820873faac509b830a7462de8b56f167871c9de73bba4",
+  "status": {
+    "nativeApproaches": "PASS",
+    "completeInitial560Admission": "PASS",
+    "dynamicCrowd": "OPEN attribution",
+    "combinedRendering": "PENDING root optimized candidate",
+    "combined900AndLoads": "PENDING root"
+  },
+  "artifacts": [
+    {
+      "path": "README.md",
+      "bytes": 1906,
+      "sha256": "da0c8e0ad98adbefe8ab2bc3b489dea42c1eaa0d4fed87c53b1b7f0e58922a22"
+    },
+    {
+      "path": "admission-observer.js",
+      "bytes": 3030,
+      "sha256": "f6eb7fbab2a6ce0086ee723e78b6889c8ac87a6d739835ce0ada18fb7b1aada1"
+    },
+    {
+      "path": "dynamic-peer-render-samples.json",
+      "bytes": 7774,
+      "sha256": "09f079cc863fc33a9c28f077e8753080925ea416a92ee5c546bd8990987e2749"
+    },
+    {
+      "path": "execution.log",
+      "bytes": 2190,
+      "sha256": "1a9854c92992ba2b88b8ab54658fbb3d05da342480211ec6906406e730bbec3a"
+    },
+    {
+      "path": "guard-proposal-observer.js",
+      "bytes": 1507,
+      "sha256": "7ce4079ebb06f2b735a52b0655e4961c4cee2b88761cfb5c7d9cbdabc6fabe26"
+    },
+    {
+      "path": "inspect-combined.py",
+      "bytes": 10732,
+      "sha256": "80f634e1c9edb9dcc4f8bed2df5c1d91d083cea0f39f1f89b63a2a9461d49166"
+    },
+    {
+      "path": "integration-files.json",
+      "bytes": 2102,
+      "sha256": "da55af3598ff534ec1a02515235cc786d37478e48985e52fade55f3dce64a4b7"
+    },
+    {
+      "path": "observe-combined-native.cjs",
+      "bytes": 18893,
+      "sha256": "c2461226e41cb2e8265d84b5a35c305e5e43374cda954e325e95bb1c87fb88f9"
+    },
+    {
+      "path": "player-context-observer.js",
+      "bytes": 3433,
+      "sha256": "35d538f2b1c813ecd66ec2f025c31313dbcc00b55aea7b443efdab54b8989899"
+    },
+    {
+      "path": "report.json.gz",
+      "bytes": 8904774,
+      "sha256": "ecd76a5f543252ba924e471a6b7ebd4a0ae86ee339f9b6791e309c7438703218"
+    },
+    {
+      "path": "service-pair-observer.js",
+      "bytes": 1546,
+      "sha256": "8fb6659ac7a0423ab5a5333b22be9c524cdef6fb5211c932f811daf9dc51c1f1"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 230249,
+      "sha256": "7b87ee209152b770f9c0788d563f8a581eaa2bbc553540bcc8b4690c0a8c7c6c"
+    },
+    {
+      "path": "unirii-day-chapter-start.png",
+      "bytes": 1193577,
+      "sha256": "6f53b77e1acf5f89659a2ea3150fb1e6f6d0e614961a4f9ee6e75805e3d4845c"
+    },
+    {
+      "path": "unirii-day-first150m.png",
+      "bytes": 1217072,
+      "sha256": "a75b177d1dffb917ccb773ac24371e3d10f955a9b7a3bbb86be69f377a9f3d9a"
+    },
+    {
+      "path": "unirii-day-public-approach.png",
+      "bytes": 1198533,
+      "sha256": "103823feb58cf3ef033372b5c61bf0bf2bb75117eb3a13df13573d0c6dcedf50"
+    },
+    {
+      "path": "unirii-night-chapter-start.png",
+      "bytes": 1195843,
+      "sha256": "1e555ceb896b41673bc4f1b036cf47727b24d796ef95d1a57789d5a0d39ecc53"
+    },
+    {
+      "path": "unirii-night-first150m.png",
+      "bytes": 1221580,
+      "sha256": "686f8217a4410246f0e40e0a031a3aa311b0a68806f1857aa8ea139e88f57da1"
+    },
+    {
+      "path": "unirii-night-public-approach.png",
+      "bytes": 1195446,
+      "sha256": "f8b38873c6b7f8446aced9ee95c616b3090e6e822e8a07577a36e959412c6901"
+    },
+    {
+      "path": "unirii-winter-chapter-start.png",
+      "bytes": 1235522,
+      "sha256": "3aa763a49894b8a3d5d1ee8d3de40abec6b79bb2e7f574d56cdc9786a27e50d1"
+    },
+    {
+      "path": "unirii-winter-first150m.png",
+      "bytes": 1216397,
+      "sha256": "e0726a4994cd69c59077acda6dce91c49f5350aa2253b5a6d732fff8ffdf552a"
+    },
+    {
+      "path": "visual-review.json",
+      "bytes": 2633,
+      "sha256": "a6cdcb0bdbaf13b62fb6266409dd6daf5be685b3771ea738cfd14d9a5a43d83a"
+    }
+  ]
+}

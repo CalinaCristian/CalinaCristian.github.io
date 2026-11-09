@@ -1,0 +1,45 @@
+{
+  "integration-transitions.cjs": {
+    "originCommit": "78416eb244e3c45f3283182562d23fedca87d232",
+    "originPath": "game/dev/harness/integration-transitions.cjs",
+    "originSha256": "bb54c9246ef0735e45c597e8d1b7c73c729f091d53c36be16acb82bb5e7c57d6"
+  },
+  "integration-ui-check.cjs": {
+    "originCommit": "78416eb244e3c45f3283182562d23fedca87d232",
+    "originPath": "game/dev/harness/integration-ui-check.cjs",
+    "originSha256": "8156a366c6249c8ca2d50538dffa15974ef8da5afcaa62ece50a7f54e2c72b43"
+  },
+  "headlights-check.cjs": {
+    "originCommit": "78416eb244e3c45f3283182562d23fedca87d232",
+    "originPath": "game/dev/harness/headlights-check.cjs",
+    "originSha256": "b52542c4251ddb86a5dd9aefba69c0f5dc35a54208d0e397527cbba17b67cb69"
+  },
+  "integration-browser-bounds.cjs": {
+    "originCommit": "78416eb244e3c45f3283182562d23fedca87d232",
+    "originPath": "game/dev/harness/integration-browser-bounds.cjs",
+    "originSha256": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29"
+  },
+  "integration-initial-body-audit.cjs": {
+    "originCommit": "78416eb244e3c45f3283182562d23fedca87d232",
+    "originPath": "game/dev/harness/integration-initial-body-audit.cjs",
+    "originSha256": "f77a5798820ce5eb7f5ad7ec597e094267d521a9da9336a0fbcd8ef3a0811e82"
+  },
+  "integration-initial-body-audit-check.cjs": {
+    "originCommit": "78416eb244e3c45f3283182562d23fedca87d232",
+    "originPath": "game/dev/harness/integration-initial-body-audit-check.cjs",
+    "originSha256": "af6704ed849ea0a7cf2e92ea6254b86d74326401f1e71bb92e3994e3ae442a99"
+  },
+  "integration-headlight-occlusion.cjs": {
+    "originCommit": "78416eb244e3c45f3283182562d23fedca87d232",
+    "originPath": "game/dev/harness/integration-headlight-occlusion.cjs",
+    "originSha256": "d3076cabf10a57e351d621f58afd50f2713516e76e1ec1bed9e87d75cd6bd2e6"
+  },
+  "bridge-native-dump.cjs": {
+    "originPath": "handoffs/fidelity/integration-final-acceptance/queue/bridge-native-dump.cjs",
+    "originSha256": "c2e7eef358380da722f7fe991f99722f05b007d080a6f1f877324595eade0a0d"
+  },
+  "bridge-targets.json": {
+    "originPath": "handoffs/fidelity/integration-final-acceptance/queue/bridge-targets.json",
+    "originSha256": "c743ae0cea6104a61b6538d59a814a662fe461b7ae5ea4f90c67ce6b10e1a236"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "sourceCommit": "ff6b2bff3cfe5b45c5dba9624abbb6672304bfed",
+  "gitTree": "851be01c58c5d7ba7367e35aa30c5f83d3da2c6a",
+  "files": 227,
+  "bytes": 119685688,
+  "districts": [
+    "bucharest-floreasca",
+    "bucharest-grozavesti",
+    "bucharest-pipera",
+    "bucharest-romana",
+    "bucharest-unirii",
+    "bucharest-otopeni",
+    "seattle-seatac",
+    "seattle-bellevue"
+  ],
+  "browserLaunched": false,
+  "networkUsed": false,
+  "policy": "Exact Git runtime plus native harness page/UI imports. No overview/research/proof copy; no source substitution."
+}

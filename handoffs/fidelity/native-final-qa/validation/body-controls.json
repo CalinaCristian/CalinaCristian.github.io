@@ -1,0 +1,768 @@
+{
+  "browserLaunched": false,
+  "controls": [
+    {
+      "name": "native hatch uses emitted negative wheel bottom and top, not declared1.46m",
+      "pass": true,
+      "details": {
+        "declared": 1.46,
+        "interval": {
+          "known": true,
+          "min": 0.17500000238418578,
+          "max": 1.7599999809265137,
+          "method": "actual-model-vertices",
+          "vertices": 2568,
+          "declaredModelHeight": 1.46
+        }
+      }
+    },
+    {
+      "name": "native pitched/rolled/scaled/parented model matches independent Three world-vertex bounds without mutation",
+      "pass": true,
+      "details": {
+        "expected": [
+          5.867873178109189,
+          10.87380004243605
+        ],
+        "actual": {
+          "known": true,
+          "min": 5.867873178109189,
+          "max": 10.87380004243605,
+          "method": "actual-model-vertices",
+          "vertices": 8,
+          "declaredModelHeight": 3.2
+        }
+      }
+    },
+    {
+      "name": "overlapping tall models more than2.5m apart vertically still fail actual geometry intersection across source layers",
+      "pass": true,
+      "details": {
+        "tested": 1,
+        "rawXYPositives": [
+          {
+            "a": 229,
+            "b": 423,
+            "xyPenetrationM": 2,
+            "verticalIntersectionM": 0.4500000476837158,
+            "bodyA": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "bodyB": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "verticalA": {
+              "known": true,
+              "min": 0.24,
+              "max": 3.690000047683716,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 3.45
+            },
+            "verticalB": {
+              "known": true,
+              "min": 3.24,
+              "max": 4.74,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 1.5
+            }
+          }
+        ],
+        "genuineIntersections": [
+          {
+            "a": 229,
+            "b": 423,
+            "xyPenetrationM": 2,
+            "verticalIntersectionM": 0.4500000476837158,
+            "bodyA": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "bodyB": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "verticalA": {
+              "known": true,
+              "min": 0.24,
+              "max": 3.690000047683716,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 3.45
+            },
+            "verticalB": {
+              "known": true,
+              "min": 3.24,
+              "max": 4.74,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 1.5
+            }
+          }
+        ],
+        "unknownHeightPairs": []
+      }
+    },
+    {
+      "name": "same-XY bodies with actual separated model heights retain raw positive without false physical failure",
+      "pass": true,
+      "details": {
+        "tested": 1,
+        "rawXYPositives": [
+          {
+            "a": 1,
+            "b": 2,
+            "xyPenetrationM": 2,
+            "verticalIntersectionM": -0.6000000238418581,
+            "bodyA": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "bodyB": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "verticalA": {
+              "known": true,
+              "min": 0.24,
+              "max": 1.639999976158142,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 1.4
+            },
+            "verticalB": {
+              "known": true,
+              "min": 2.24,
+              "max": 3.6399999761581423,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 1.4
+            }
+          }
+        ],
+        "genuineIntersections": [],
+        "unknownHeightPairs": []
+      }
+    },
+    {
+      "name": "raw small XY positives remain recorded while over5cm intersections fail",
+      "pass": true,
+      "details": {
+        "threshold": {
+          "xyPenetrationM": 0.05,
+          "verticalIntersectionM": 0,
+          "rawXYPositiveM": 0
+        },
+        "small": 0.040000000000000036,
+        "meaningful": 0.06000000000000005
+      }
+    },
+    {
+      "name": "drawn mesh heading detects crossing body despite stale native cached heading",
+      "pass": true,
+      "details": {
+        "nativeHeading": 0,
+        "drawnHeading": 1.5707963267948963,
+        "pairs": [
+          {
+            "a": 1,
+            "b": 2,
+            "xyPenetrationM": 1.4999999999999993,
+            "verticalIntersectionM": 2,
+            "bodyA": {
+              "x": 0,
+              "z": 0,
+              "fx": -1,
+              "fz": -2.220446049250313e-16,
+              "length": 8,
+              "width": 1,
+              "heading": 1.5707963267948963
+            },
+            "bodyB": {
+              "x": 3,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 2,
+              "width": 1,
+              "heading": 0
+            },
+            "verticalA": {
+              "known": true,
+              "min": 0.24,
+              "max": 2.24,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 2
+            },
+            "verticalB": {
+              "known": true,
+              "min": 0.24,
+              "max": 2.24,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 2
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "invisible active mesh is audited and pooled identity/pose is retained without a published-pair exemption",
+      "pass": true,
+      "details": {
+        "activeIds": [
+          1,
+          2
+        ],
+        "poolIds": [
+          50
+        ],
+        "pairs": {
+          "tested": 1,
+          "rawXYPositives": [
+            {
+              "a": 1,
+              "b": 2,
+              "xyPenetrationM": 2,
+              "verticalIntersectionM": 2,
+              "bodyA": {
+                "x": 0,
+                "z": 0,
+                "fx": 0,
+                "fz": -1,
+                "length": 4,
+                "width": 2,
+                "heading": 0
+              },
+              "bodyB": {
+                "x": 0,
+                "z": 0,
+                "fx": 0,
+                "fz": -1,
+                "length": 4,
+                "width": 2,
+                "heading": 0
+              },
+              "verticalA": {
+                "known": true,
+                "min": 0.24,
+                "max": 2.24,
+                "method": "actual-model-vertices",
+                "vertices": 8,
+                "declaredModelHeight": 2
+              },
+              "verticalB": {
+                "known": true,
+                "min": 0.24,
+                "max": 2.24,
+                "method": "actual-model-vertices",
+                "vertices": 8,
+                "declaredModelHeight": 2
+              }
+            }
+          ],
+          "genuineIntersections": [
+            {
+              "a": 1,
+              "b": 2,
+              "xyPenetrationM": 2,
+              "verticalIntersectionM": 2,
+              "bodyA": {
+                "x": 0,
+                "z": 0,
+                "fx": 0,
+                "fz": -1,
+                "length": 4,
+                "width": 2,
+                "heading": 0
+              },
+              "bodyB": {
+                "x": 0,
+                "z": 0,
+                "fx": 0,
+                "fz": -1,
+                "length": 4,
+                "width": 2,
+                "heading": 0
+              },
+              "verticalA": {
+                "known": true,
+                "min": 0.24,
+                "max": 2.24,
+                "method": "actual-model-vertices",
+                "vertices": 8,
+                "declaredModelHeight": 2
+              },
+              "verticalB": {
+                "known": true,
+                "min": 0.24,
+                "max": 2.24,
+                "method": "actual-model-vertices",
+                "vertices": 8,
+                "declaredModelHeight": 2
+              }
+            }
+          ],
+          "unknownHeightPairs": []
+        }
+      }
+    },
+    {
+      "name": "unknown active model height fails visibly and preserves unclassified raw pair",
+      "pass": true,
+      "details": {
+        "invalid": [
+          {
+            "id": 2,
+            "reason": "no actual model geometry or explicit model dimensions"
+          }
+        ],
+        "unknown": [
+          {
+            "a": 1,
+            "b": 2,
+            "xyPenetrationM": 2,
+            "verticalIntersectionM": null,
+            "bodyA": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "bodyB": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "verticalA": {
+              "known": true,
+              "min": 0.24,
+              "max": 2.24,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 2
+            },
+            "verticalB": {
+              "known": false,
+              "method": "unknown",
+              "reason": "no actual model geometry or explicit model dimensions"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "explicit metadata fallback is retained but cannot certify missing emitted-model height",
+      "pass": true,
+      "details": {
+        "fallback": [
+          {
+            "id": 1,
+            "vertical": {
+              "known": true,
+              "min": 0.24,
+              "max": 1.7,
+              "method": "explicit-model-dimensions-fallback",
+              "vertices": 0,
+              "declaredModelHeight": 1.46
+            }
+          }
+        ],
+        "invalid": [
+          {
+            "id": 1,
+            "reason": "initial acceptance requires actual emitted model vertices; fallback retained for diagnosis"
+          }
+        ]
+      }
+    },
+    {
+      "name": "physical waiting-pedestrian coordinates are retained without substituting future slot",
+      "pass": true,
+      "details": [
+        {
+          "id": 42,
+          "x": 1,
+          "z": 2,
+          "footY": 0.37,
+          "heading": 0.4,
+          "scale": 1,
+          "state": "wait",
+          "onRoad": false,
+          "s": null,
+          "animX": null,
+          "animZ": null
+        }
+      ]
+    },
+    {
+      "name": "asymmetric player body centre uses actual front/rear offset",
+      "pass": true,
+      "details": {
+        "x": 100,
+        "z": 99.47,
+        "fx": 0,
+        "fz": -1,
+        "length": 5.779999999999999,
+        "width": 1.8
+      }
+    },
+    {
+      "name": "actual player cockpit geometry supplies body height without a generic default",
+      "pass": true,
+      "details": {
+        "x": 100,
+        "y": 0.24,
+        "z": 100,
+        "heading": 0,
+        "front": 3.42,
+        "rear": 2.36,
+        "width": 1.8,
+        "body": {
+          "x": 100,
+          "z": 99.47,
+          "fx": 0,
+          "fz": -1,
+          "length": 5.779999999999999,
+          "width": 1.8
+        },
+        "vertical": {
+          "known": true,
+          "min": 0.18999999925494193,
+          "max": 2.0399999523162844,
+          "method": "actual-player-cockpit-geometry",
+          "parts": 1
+        },
+        "rawXYPositives": [
+          {
+            "id": 1,
+            "xyPenetrationM": 1.9,
+            "vertical": {
+              "known": true,
+              "min": 0.24,
+              "max": 2.24,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 2
+            },
+            "verticalIntersectionM": 1.7999999523162844
+          }
+        ],
+        "genuineIntersections": [
+          {
+            "id": 1,
+            "xyPenetrationM": 1.9,
+            "vertical": {
+              "known": true,
+              "min": 0.24,
+              "max": 2.24,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 2
+            },
+            "verticalIntersectionM": 1.7999999523162844
+          }
+        ],
+        "unclassifiedIntersections": []
+      }
+    },
+    {
+      "name": "immutable d981 saved constructor pairs reproduce exact native SAT with independent emitted-model intervals",
+      "pass": true,
+      "details": {
+        "sourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
+        "vehiclesSha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+        "scaleScope": "Native saved position/YXZ rotation plus unchanged native factory unit scale; no repair or physical step replay.",
+        "rows": [
+          {
+            "ids": [
+              229,
+              423
+            ],
+            "sourceXY": 3.0907590461797785,
+            "observed": {
+              "a": 229,
+              "b": 423,
+              "xyPenetrationM": 3.090759046179779,
+              "verticalIntersectionM": 1.5849999785423279,
+              "bodyA": {
+                "x": -648.9618140622359,
+                "z": 393.98965539987495,
+                "fx": -0.9150963041226599,
+                "fz": -0.4032353582971717,
+                "length": 4.28,
+                "width": 1.79,
+                "heading": 1.1557466845719935
+              },
+              "bodyB": {
+                "x": -649.1185876608115,
+                "z": 394.2632662313776,
+                "fx": -0.050765076725157246,
+                "fz": 0.998710622245047,
+                "length": 4.69,
+                "width": 1.83,
+                "heading": 3.09080574715197
+              },
+              "verticalA": {
+                "known": true,
+                "min": 0.17500000238418578,
+                "max": 1.7599999809265137,
+                "method": "actual-model-vertices",
+                "vertices": 2568,
+                "declaredModelHeight": 1.46
+              },
+              "verticalB": {
+                "known": true,
+                "min": 0.17500000238418578,
+                "max": 1.764999976158142,
+                "method": "actual-model-vertices",
+                "vertices": 2712,
+                "declaredModelHeight": 1.47
+              }
+            }
+          },
+          {
+            "ids": [
+              323,
+              461
+            ],
+            "sourceXY": 1.2114411244362011,
+            "observed": {
+              "a": 323,
+              "b": 461,
+              "xyPenetrationM": 1.211441124436201,
+              "verticalIntersectionM": 1.5849999785423279,
+              "bodyA": {
+                "x": -709.438655685135,
+                "z": 323.42745959999127,
+                "fx": 0.7684454640517884,
+                "fz": 0.6399152825009192,
+                "length": 4.280000000000001,
+                "width": 1.7900000000000005,
+                "heading": -2.2651843420623234
+              },
+              "bodyB": {
+                "x": -707.3773964688576,
+                "z": 325.23106412529495,
+                "fx": 0.9979459786579775,
+                "fz": 0.06406109334355414,
+                "length": 4.28,
+                "width": 1.79,
+                "heading": -1.634901317157708
+              },
+              "verticalA": {
+                "known": true,
+                "min": 0.17500000238418578,
+                "max": 1.7599999809265137,
+                "method": "actual-model-vertices",
+                "vertices": 2568,
+                "declaredModelHeight": 1.46
+              },
+              "verticalB": {
+                "known": true,
+                "min": 0.17500000238418578,
+                "max": 1.7599999809265137,
+                "method": "actual-model-vertices",
+                "vertices": 2568,
+                "declaredModelHeight": 1.46
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "immutable RO732 five saved constructor pair XY depths reproduce without relabelling metadata heights as native vertex intervals",
+      "pass": true,
+      "details": {
+        "sourceCommit": "73280854285737ab7808c88f520cc63921cca7b1",
+        "observedConstructorActors": 484,
+        "scope": "Exact native XY pose/dimension replay. Source file has model metadata heights and does not record native pitch; no new exact-vertex/native-pitch vertical claim. External624 count did not match file; failed assumption preserved.",
+        "rows": [
+          {
+            "ids": [
+              40,
+              266
+            ],
+            "sourceXY": 2.1321490894622808,
+            "independentXY": 2.1321490894622803,
+            "recordedMetadataHeightIntersection": 1.6899999999999995
+          },
+          {
+            "ids": [
+              61,
+              366
+            ],
+            "sourceXY": 2.4012718700897207,
+            "independentXY": 2.4012718700897207,
+            "recordedMetadataHeightIntersection": 3.1
+          },
+          {
+            "ids": [
+              155,
+              315
+            ],
+            "sourceXY": 2.0450610052311546,
+            "independentXY": 2.0450610052311546,
+            "recordedMetadataHeightIntersection": 3.1
+          },
+          {
+            "ids": [
+              229,
+              423
+            ],
+            "sourceXY": 3.0907590461797785,
+            "independentXY": 3.0907590461797785,
+            "recordedMetadataHeightIntersection": 1.46
+          },
+          {
+            "ids": [
+              323,
+              461
+            ],
+            "sourceXY": 1.2114411244362011,
+            "independentXY": 1.2114411244362011,
+            "recordedMetadataHeightIntersection": 1.46
+          }
+        ]
+      }
+    },
+    {
+      "name": "observer preserves exact receiver/args/return pointer and snapshots before attach/first draw",
+      "pass": true,
+      "details": {
+        "phases": [
+          "before-attachWorldRender",
+          "before-first-world-draw"
+        ],
+        "receiverArgsAndReturnPointersPreserved": true,
+        "noSceneActorReferencesInRecords": true
+      }
+    },
+    {
+      "name": "explicit alternate receivers remain forwarded rather than bound to installed objects",
+      "pass": true,
+      "details": {
+        "attachReceiverObserved": "bellevue",
+        "returnAndUndefinedArgumentPointersPreserved": true,
+        "rendererAlternateReceiverPreserved": true
+      }
+    },
+    {
+      "name": "serialized browser factory has no Node/module closure dependency",
+      "pass": true,
+      "details": {
+        "phase": "serialized",
+        "conflicts": 1
+      }
+    },
+    {
+      "name": "static transition wiring installs before loads and cannot gate-skip initial audit",
+      "pass": true,
+      "details": {
+        "sequence": [
+          "floreasca",
+          "grozavesti",
+          "pipera",
+          "romana",
+          "unirii",
+          "otopeni",
+          "seatac",
+          "bellevue",
+          "grozavesti",
+          "pipera",
+          "romana",
+          "unirii",
+          "otopeni",
+          "seatac",
+          "bellevue"
+        ],
+        "installsBeforeFirstLoad": true,
+        "bodyGateUnconditional": true
+      }
+    },
+    {
+      "name": "failed or missing native producer admission/binding stops publication without suppressing raw geometry",
+      "pass": true,
+      "details": {
+        "first": [
+          "native initialAdmission missing or failed"
+        ],
+        "second": [
+          "native initialTramBinding missing or failed"
+        ]
+      }
+    },
+    {
+      "name": "native rail directions, support and per-side sidewalk records are detached diagnostics with actual parent geometry",
+      "pass": true,
+      "details": {
+        "initialSupport": {
+          "known": true,
+          "y": 4.8,
+          "pitch": 0.12,
+          "pieceIds": [
+            "piece1"
+          ],
+          "witness": {
+            "constraint": "exact-native"
+          }
+        },
+        "observedSupport": {
+          "known": true,
+          "y": 4.8,
+          "pitch": 0.12,
+          "pieceIds": [
+            "piece1"
+          ],
+          "witness": {
+            "constraint": "exact-native"
+          }
+        },
+        "producerMetadataScope": "diagnostics only; no static-contact exemption or centreY shortcut"
+      }
+    }
+  ],
+  "complete": true
+}

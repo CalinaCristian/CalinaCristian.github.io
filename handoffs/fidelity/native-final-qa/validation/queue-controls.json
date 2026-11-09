@@ -1,0 +1,32 @@
+{
+  "browserLaunched": false,
+  "sourceArchiveWritten": false,
+  "controls": [
+    {
+      "name": "archive requires exact bytes/Gitblob/file inventory and refuses mutation",
+      "pass": true
+    },
+    {
+      "name": "source server returns exact raw bytes and records actual hashes",
+      "pass": true
+    },
+    {
+      "name": "changed source request is a retained failure, never accepted as original source",
+      "pass": true
+    },
+    {
+      "name": "unmanifested source is rejected and original missing-source failures remain explicit",
+      "pass": true
+    },
+    {
+      "name": "all three native runner servers use the same source guard with original callbacks",
+      "pass": true
+    },
+    {
+      "name": "final queue remains ordered, opt-in, exact-SHA, fail-closed and retains original GC counts",
+      "pass": true
+    }
+  ],
+  "complete": true,
+  "fixtureDirectory": "/tmp/final-qa-controls-RJ05Y3"
+}

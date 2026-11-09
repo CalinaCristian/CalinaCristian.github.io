@@ -1,0 +1,27 @@
+{
+  "preparedUtc": "2026-11-09T09:35:13.406477+00:00",
+  "browserLaunched": false,
+  "sourceArchiveWritten": false,
+  "runtimeChanged": false,
+  "readyForRootGo": true,
+  "finalNativeAcceptance": false,
+  "queueControls": 6,
+  "bodyModelPointerControls": 20,
+  "syntaxPassed": [
+    "bundle/bridge-native-dump.cjs",
+    "bundle/headlights-check.cjs",
+    "bundle/integration-browser-bounds.cjs",
+    "bundle/integration-headlight-occlusion.cjs",
+    "bundle/integration-initial-body-audit-check.cjs",
+    "bundle/integration-initial-body-audit.cjs",
+    "bundle/integration-transitions.cjs",
+    "bundle/integration-ui-check.cjs",
+    "bundle/source-guard.cjs",
+    "controls.mjs",
+    "prepare.mjs",
+    "run-queue.mjs"
+  ],
+  "historicalCpuRuntime": "ff6b2bff3cfe5b45c5dba9624abbb6672304bfed",
+  "physicalScope": "Tooling only. ff6 independent fresh ground contacts are preserved; new combined freeze and native all15/37/headlight runs remain required. No final source claim from this preparation.",
+  "protocol": "Original15-load GC/weakref/failureContinue/native bridge scheduling retained. Native producer flags required but never replace independent emitted body audit."
+}

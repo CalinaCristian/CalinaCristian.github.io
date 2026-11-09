@@ -29,7 +29,7 @@ function physicalEnvelopeBound(road, policy) {
     return halfWidth + road.sidewalk + policy.maxShoulderM + bodyCorner + policy.maskCellM / Math.SQRT2;
 }
 
-function restrictionsFor(legs, relations, id) {
+function restrictionsFor(legs, relations, id, { review, ways, byId, pos }) {
     const used = new Set(legs.map(l => +l.sourceId.slice(1))), retained = [];
     for (const [rid, relation] of relations) {
         const { tags, members } = relation;
@@ -40,6 +40,16 @@ function restrictionsFor(legs, relations, id) {
         if (!missingFromAtVisitedNode && !members.some(m => m.type === 'way' && used.has(m.ref))) continue;
         const record = { sourceId: 'r' + rid, tags: { ...tags }, members: members.map(m => ({ ...m })) };
         retained.push(record);
+        const approvals = (review.restrictionCompliance || []).filter(r => r.sourceId === record.sourceId);
+        if (approvals.length > 1) fail(id, `duplicate malformed-restriction review r${rid}`);
+        const approval = approvals[0];
+        if (approval) {
+            const sorted = value => JSON.stringify(Object.entries(value || {}).sort(([a], [b]) => a.localeCompare(b)));
+            if (!['missing-via-universal-known-transition', 'known-from-via-arrival-not-traversed'].includes(approval.basis) ||
+                sorted(tags) !== sorted(approval.expectedRecord?.tags) ||
+                JSON.stringify(members) !== JSON.stringify(approval.expectedRecord?.members))
+                fail(id, `reviewed malformed restriction r${rid} differs from its literal source pin`);
+        }
         if (String(tags.except || '').split(';').some(s => ['motorcar', 'motor_vehicle', 'vehicle'].includes(s.trim()))) continue;
         const kind = tags['restriction:motorcar'] ?? tags['restriction:motor_vehicle'] ?? tags.restriction;
         const conditional = Object.keys(tags).some(k => /^(restriction(?::motorcar|:motor_vehicle)?):conditional$/.test(k));
@@ -47,6 +57,58 @@ function restrictionsFor(legs, relations, id) {
         const from = members.filter(m => m.role === 'from' && m.type === 'way');
         const to = members.filter(m => m.role === 'to' && m.type === 'way');
         const via = members.filter(m => m.role === 'via');
+        if (approval?.basis === 'known-from-via-arrival-not-traversed') {
+            const anyConditional = Object.keys(tags).some(k => k === 'conditional' || k.startsWith('restriction') && k.endsWith(':conditional'));
+            if (kind !== 'only_right_turn' || anyConditional || members.length !== 2 || to.length || from.length !== 1 || via.length !== 1 || via[0].type !== 'node' ||
+                !sourceId(approval.fromSourceId) || !positiveId(approval.viaSourceNodeId) || 'w' + from[0].ref !== approval.fromSourceId || via[0].ref !== approval.viaSourceNodeId)
+                fail(id, `unsupported reviewed missing-TO restriction r${rid}`);
+            if (legs.some(l => l.sourceId === approval.fromSourceId && l.to === approval.viaSourceNodeId))
+                fail(id, `known constrained arrival of missing-TO restriction r${rid} is traversed`);
+            const rawFrom = ways.get(from[0].ref), road = byId.get(approval.fromSourceId);
+            if (!rawFrom || !road?.access?.publicDrive || !road.access.throughAccess || !rawFrom.nodes.includes(approval.viaSourceNodeId) ||
+                !rawFrom.nodes.every(n => positiveId(n) && Array.isArray(pos.get(n)) && pos.get(n).length === 2 && pos.get(n).every(Number.isFinite)))
+                fail(id, `missing exact source incidence/metrics for reviewed r${rid}`);
+            record.reviewValidation = { basis: 'known-from-via-arrival-not-traversed', fromSourceId: approval.fromSourceId,
+                viaSourceNodeId: approval.viaSourceNodeId, reviewedConstrainedArrivals: 0,
+                sourceOneWayDepartsVia: !!road.oneway && road.nodes[0] === approval.viaSourceNodeId,
+                scope: 'these reviewed legs only; raw missing TO remains absent', runtimeStatus: 'unresolved-missing-to' };
+            continue;
+        }
+        if (approval) {
+            const anyConditional = Object.keys(tags).some(k => k === 'conditional' || k.startsWith('restriction') && k.endsWith(':conditional'));
+            if (kind !== 'only_right_turn' || anyConditional || members.length !== 2 || via.length || from.length !== 1 || to.length !== 1 ||
+                !sourceId(approval.fromSourceId) || !sourceId(approval.toSourceId) || !positiveId(approval.sharedSourceNodeId) ||
+                'w' + from[0].ref !== approval.fromSourceId || 'w' + to[0].ref !== approval.toSourceId)
+                fail(id, `unsupported reviewed missing-via restriction r${rid}`);
+            // A known FROM never traversed cannot constrain this finite path.
+            // The source record remains malformed for general runtime routing.
+            if (!legs.some(l => l.sourceId === approval.fromSourceId)) {
+                record.reviewValidation = { basis: 'known-from-not-traversed', fromSourceId: approval.fromSourceId,
+                    scope: 'these reviewed legs only; raw missing via remains absent', runtimeStatus: 'unresolved-missing-via' };
+                continue;
+            }
+            const rawFrom = ways.get(from[0].ref), rawTo = ways.get(to[0].ref), fromRoad = byId.get(approval.fromSourceId), toRoad = byId.get(approval.toSourceId);
+            if (!rawFrom || !rawTo || !fromRoad?.access?.publicDrive || !fromRoad.access.throughAccess || !toRoad?.access?.publicDrive || !toRoad.access.throughAccess)
+                fail(id, `missing public source geometry for reviewed r${rid}`);
+            const shared = [...new Set(rawFrom.nodes.filter(n => rawTo.nodes.includes(n)))];
+            if (shared.length !== 1 || shared[0] !== approval.sharedSourceNodeId ||
+                rawFrom.nodes.filter(n => n === shared[0]).length !== 1 || rawTo.nodes.filter(n => n === shared[0]).length !== 1)
+                fail(id, `ambiguous literal shared-node incidence for reviewed r${rid}`);
+            if (![...rawFrom.nodes, ...rawTo.nodes].every(n => positiveId(n) && Array.isArray(pos.get(n)) && pos.get(n).length === 2 && pos.get(n).every(Number.isFinite)))
+                fail(id, `missing exact source metrics for reviewed r${rid}`);
+            const arrivals = [];
+            for (let i = 0; i < legs.length; i++) if (legs[i].sourceId === approval.fromSourceId && legs[i].to === shared[0]) {
+                const a = legs[i], b = legs[i + 1];
+                if (!b || b.from !== shared[0] || b.sourceId !== approval.toSourceId ||
+                    !sourceDir(fromRoad, a.from, a.to) || !sourceDir(toRoad, b.from, b.to))
+                    fail(id, `reviewed missing-via restriction r${rid} requires its exact known TO`);
+                arrivals.push({ from: a.sourceId, sourceNodeId: shared[0], to: b.sourceId, outgoingSourceNodeId: b.to });
+            }
+            if (!arrivals.length) fail(id, `no complete reviewed arrival for missing-via restriction r${rid}`);
+            record.reviewValidation = { basis: 'missing-via-universal-source-incidence', fromSourceId: approval.fromSourceId, toSourceId: approval.toSourceId,
+                sharedSourceNodeId: shared[0], inspectedArrivals: arrivals, scope: 'these reviewed legs only; no via member reconstructed', runtimeStatus: 'unresolved-missing-via' };
+            continue;
+        }
         // An incomplete only-straight relation with a known node/sole exit can
         // still be obeyed for EVERY possible incoming way. Do not reconstruct
         // its missing member or assert a permission: require that exact exit
@@ -166,7 +228,7 @@ export function compileSourceReturns({ roads, pos, ways, relations = new Map(), 
             }
             legs.push(leg); routeNodes.add(spec.from); routeNodes.add(spec.to);
         }
-        for (const r of restrictionsFor(legs, relations, id)) restrictions.set(r.sourceId, r);
+        for (const r of restrictionsFor(legs, relations, id, { review, ways, byId, pos })) restrictions.set(r.sourceId, r);
         pieces.push({ r: radiusM, pts: [legs[0].fromXZ, ...legs.map(l => l.toXZ)], sourceReturnId: id });
         corridors.push({ id, destinationSourceId: entry.destinationSourceId, radiusM, legs,
             lengthM: legs.reduce((s, l) => s + Math.hypot(l.toXZ[0] - l.fromXZ[0], l.toXZ[1] - l.fromXZ[1]), 0) });

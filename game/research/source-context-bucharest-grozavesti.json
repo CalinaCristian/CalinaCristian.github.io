@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "sourceDataCommit": "406a53f1f1f1397a1667ea1bc77df78289a5667a",
-  "sourceDataSha256": "b0341956c088b9cb142a7005831345eda7bf7aae27f18618181ba8fc535f4175",
+  "sourceDataCommit": "b8f33f2dac916f0495134c793a88a3d67d30082a",
+  "sourceDataSha256": "d223a9189e458e149b5baa694dc6e87a7ab9a44011066ef68a2b3af7a2f7f842",
   "surveySha256": "5221f4b82bf2008a46d0ee9e08d3ceca8ad5aa6185b64f8405d4acd31dddc6f0",
   "projection": {
     "lat0": 44.4412,
@@ -11,10 +11,12 @@
     "mPerLon": 79479.07183661079,
     "compress": null
   },
-  "scope": "Exact prior accepted source context, retained through a bounded graph/mask rebuild. Four distant mapped water areas lie outside local raw16tile coverage. Measured crowns are not deleted merely because the expanded compiler now applies a broad inferred carriageway filter. Physical source contradictions remain explicit and require independent native review; these records do not waive collision or narrow any road.",
+  "scope": "Exact prior accepted source context, retained through a bounded graph/mask rebuild. Four distant mapped water areas lie outside local raw16tile coverage. Measured crowns are not deleted merely because the expanded compiler now applies a broad inferred carriageway filter. Physical source contradictions remain explicit and require independent native review; these records do not waive collision or narrow any road. The finite north main bridge exit additionally retains identical prior inferred style/wall models and22exact measured crowns; all baseline source bodies/profiles remain checked separately.",
   "evidence": [
     "handoffs/fidelity/pipera-fidelity/groz-lukoil-source-returns/source-context-preservation.json.gz",
-    "game/research/trees-bucharest-grozavesti.json"
+    "game/research/trees-bucharest-grozavesti.json",
+    "handoffs/fidelity/pipera-fidelity/basarab-north-ground-return/model-evidence-parity.json",
+    "handoffs/fidelity/pipera-fidelity/basarab-north-ground-return/source-retention.json"
   ],
   "waterAreas": [
     {
@@ -1866,7 +1868,7 @@
       "rawSurveyCrown": [
         44.434427,
         26.048493,
-        4.0
+        4
       ],
       "packed": [
         -8510,
@@ -2037,7 +2039,7 @@
       "rawSurveyCrown": [
         44.434159,
         26.049104,
-        4.0
+        4
       ],
       "packed": [
         -8024,
@@ -2493,7 +2495,7 @@
       "rawSurveyCrown": [
         44.435806,
         26.053814,
-        5.0
+        5
       ],
       "packed": [
         -4281,
@@ -2588,7 +2590,7 @@
       "rawSurveyCrown": [
         44.434481,
         26.054158,
-        5.0
+        5
       ],
       "packed": [
         -4007,
@@ -2645,7 +2647,7 @@
       "rawSurveyCrown": [
         44.435492,
         26.054565,
-        4.0
+        4
       ],
       "packed": [
         -3684,
@@ -2664,7 +2666,7 @@
       "rawSurveyCrown": [
         44.434182,
         26.054683,
-        6.0
+        6
       ],
       "packed": [
         -3590,
@@ -2721,7 +2723,7 @@
       "rawSurveyCrown": [
         44.444117,
         26.056507,
-        5.0
+        5
       ],
       "packed": [
         -2140,
@@ -3196,7 +3198,7 @@
       "rawSurveyCrown": [
         44.434236,
         26.056207,
-        5.0
+        5
       ],
       "packed": [
         -2379,
@@ -3709,7 +3711,7 @@
       "rawSurveyCrown": [
         44.438533,
         26.059865,
-        9.0
+        9
       ],
       "packed": [
         529,
@@ -3842,7 +3844,7 @@
       "rawSurveyCrown": [
         44.445044,
         26.06818,
-        4.0
+        4
       ],
       "packed": [
         7137,
@@ -4241,7 +4243,7 @@
       "rawSurveyCrown": [
         44.445703,
         26.06847,
-        6.0
+        6
       ],
       "packed": [
         7368,
@@ -4374,7 +4376,7 @@
       "rawSurveyCrown": [
         44.446055,
         26.068524,
-        4.0
+        4
       ],
       "packed": [
         7411,
@@ -4558,6 +4560,424 @@
         37
       ],
       "crownRadiusDm": 55
+    },
+    {
+      "surveyIndex": 32278,
+      "rawSurveyCrown": [
+        44.450107,
+        26.069886,
+        2.2
+      ],
+      "packed": [
+        8493,
+        -9899,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 32279,
+      "rawSurveyCrown": [
+        44.450107,
+        26.069983,
+        2.2
+      ],
+      "packed": [
+        8570,
+        -9899,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 32309,
+      "rawSurveyCrown": [
+        44.45013,
+        26.070144,
+        2.8
+      ],
+      "packed": [
+        8698,
+        -9924,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 32397,
+      "rawSurveyCrown": [
+        44.450199,
+        26.070058,
+        2.2
+      ],
+      "packed": [
+        8630,
+        -10001,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 32426,
+      "rawSurveyCrown": [
+        44.450222,
+        26.06965,
+        2.2
+      ],
+      "packed": [
+        8306,
+        -10026,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 32427,
+      "rawSurveyCrown": [
+        44.450222,
+        26.06995,
+        5
+      ],
+      "packed": [
+        8544,
+        -10026,
+        280
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 50
+    },
+    {
+      "surveyIndex": 32772,
+      "rawSurveyCrown": [
+        44.450459,
+        26.069103,
+        2.8
+      ],
+      "packed": [
+        7871,
+        -10290,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 32843,
+      "rawSurveyCrown": [
+        44.450505,
+        26.069081,
+        3.1
+      ],
+      "packed": [
+        7853,
+        -10341,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 32844,
+      "rawSurveyCrown": [
+        44.450505,
+        26.069189,
+        2.2
+      ],
+      "packed": [
+        7939,
+        -10341,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 32887,
+      "rawSurveyCrown": [
+        44.450536,
+        26.068931,
+        2.2
+      ],
+      "packed": [
+        7734,
+        -10375,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 32956,
+      "rawSurveyCrown": [
+        44.45059,
+        26.069232,
+        2.2
+      ],
+      "packed": [
+        7973,
+        -10435,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 33076,
+      "rawSurveyCrown": [
+        44.450674,
+        26.06891,
+        2.8
+      ],
+      "packed": [
+        7717,
+        -10529,
+        178
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 28
+    },
+    {
+      "surveyIndex": 33174,
+      "rawSurveyCrown": [
+        44.450743,
+        26.068824,
+        2.2
+      ],
+      "packed": [
+        7649,
+        -10605,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 33923,
+      "rawSurveyCrown": [
+        44.451248,
+        26.070766,
+        5
+      ],
+      "packed": [
+        9193,
+        -11167,
+        280
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 50
+    },
+    {
+      "surveyIndex": 34079,
+      "rawSurveyCrown": [
+        44.45134,
+        26.071066,
+        3.1
+      ],
+      "packed": [
+        9431,
+        -11269,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 34601,
+      "rawSurveyCrown": [
+        44.451708,
+        26.071517,
+        6.2
+      ],
+      "packed": [
+        9789,
+        -11678,
+        336
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 62
+    },
+    {
+      "surveyIndex": 34858,
+      "rawSurveyCrown": [
+        44.451876,
+        26.071066,
+        3.1
+      ],
+      "packed": [
+        9431,
+        -11864,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
+    },
+    {
+      "surveyIndex": 35556,
+      "rawSurveyCrown": [
+        44.452313,
+        26.072611,
+        4.9
+      ],
+      "packed": [
+        10659,
+        -12350,
+        276
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 49
+    },
+    {
+      "surveyIndex": 35741,
+      "rawSurveyCrown": [
+        44.452435,
+        26.072085,
+        3.5
+      ],
+      "packed": [
+        10241,
+        -12486,
+        210
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 35
+    },
+    {
+      "surveyIndex": 35762,
+      "rawSurveyCrown": [
+        44.452451,
+        26.071946,
+        2.2
+      ],
+      "packed": [
+        10130,
+        -12503,
+        152
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 22
+    },
+    {
+      "surveyIndex": 35840,
+      "rawSurveyCrown": [
+        44.452497,
+        26.072987,
+        2.9
+      ],
+      "packed": [
+        10958,
+        -12555,
+        184
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 29
+    },
+    {
+      "surveyIndex": 36109,
+      "rawSurveyCrown": [
+        44.452673,
+        26.072794,
+        3.1
+      ],
+      "packed": [
+        10804,
+        -12750,
+        192
+      ],
+      "treeInfo": [
+        -1,
+        0,
+        37
+      ],
+      "crownRadiusDm": 31
     }
   ],
   "levelHeightEstimates": [
@@ -4610,6 +5030,1202 @@
       ],
       "heightM": 14.5,
       "basis": "Retain previous14.5m per-storey model for unchanged literal5levels; district promotion/shop-band flags supply no new physical height evidence."
+    },
+    {
+      "sourceId": "w119765120",
+      "sourceDimensions": {
+        "building:levels": "5"
+      },
+      "sourceRingLL": [
+        [
+          44.4505381,
+          26.0700451
+        ],
+        [
+          44.4506042,
+          26.0701065
+        ],
+        [
+          44.4506114,
+          26.0701236
+        ],
+        [
+          44.4506151,
+          26.0701425
+        ],
+        [
+          44.4506136,
+          26.0701609
+        ],
+        [
+          44.4505843,
+          26.0702387
+        ],
+        [
+          44.4507068,
+          26.0703368
+        ],
+        [
+          44.4507226,
+          26.0702971
+        ],
+        [
+          44.4508064,
+          26.0703655
+        ],
+        [
+          44.4507007,
+          26.0706535
+        ],
+        [
+          44.4503778,
+          26.0704285
+        ],
+        [
+          44.4504748,
+          26.0701995
+        ],
+        [
+          44.4505381,
+          26.0700451
+        ]
+      ],
+      "heightM": 14.5,
+      "basis": "Retain prior per-storey MODEL for identical literal storeys/footprint; source/research metres win. New domain/shop-band context is not height evidence."
+    },
+    {
+      "sourceId": "w156816440",
+      "sourceDimensions": {
+        "building:levels": "12"
+      },
+      "sourceRingLL": [
+        [
+          44.4502292,
+          26.0702956
+        ],
+        [
+          44.4501439,
+          26.0702168
+        ],
+        [
+          44.4502752,
+          26.0699381
+        ],
+        [
+          44.4503685,
+          26.0699088
+        ],
+        [
+          44.4505381,
+          26.0700451
+        ],
+        [
+          44.4504748,
+          26.0701995
+        ],
+        [
+          44.4503603,
+          26.0701075
+        ],
+        [
+          44.4503082,
+          26.0701278
+        ],
+        [
+          44.4502292,
+          26.0702956
+        ]
+      ],
+      "heightM": 34.8,
+      "basis": "Retain prior per-storey MODEL for identical literal storeys/footprint; source/research metres win. New domain/shop-band context is not height evidence."
     }
-  ]
+  ],
+  "priorSourceContext": {
+    "sourceDataCommit": "406a53f1f1f1397a1667ea1bc77df78289a5667a",
+    "sourceDataSha256": "b0341956c088b9cb142a7005831345eda7bf7aae27f18618181ba8fc535f4175",
+    "scope": "Exact prior accepted source context, retained through a bounded graph/mask rebuild. Four distant mapped water areas lie outside local raw16tile coverage. Measured crowns are not deleted merely because the expanded compiler now applies a broad inferred carriageway filter. Physical source contradictions remain explicit and require independent native review; these records do not waive collision or narrow any road."
+  },
+  "inferredBuildingModels": [
+    {
+      "sourceId": "w119765120",
+      "sourceTags": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:housenumber": "177",
+        "addr:postcode": "010745",
+        "addr:street": "\u0218oseaua Nicolae Titulescu",
+        "building": "yes",
+        "building:levels": "5",
+        "name": "Service Auto STB",
+        "operator": "STB",
+        "shop": "car_repair"
+      },
+      "modelInputTags": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:housenumber": "177",
+        "addr:postcode": "010745",
+        "addr:street": "\u0218oseaua Nicolae Titulescu",
+        "building": "yes",
+        "building:levels": "5",
+        "name": "Service Auto STB",
+        "operator": "STB",
+        "shop": "car_repair"
+      },
+      "sourceRingLL": [
+        [
+          44.4505381,
+          26.0700451
+        ],
+        [
+          44.4506042,
+          26.0701065
+        ],
+        [
+          44.4506114,
+          26.0701236
+        ],
+        [
+          44.4506151,
+          26.0701425
+        ],
+        [
+          44.4506136,
+          26.0701609
+        ],
+        [
+          44.4505843,
+          26.0702387
+        ],
+        [
+          44.4507068,
+          26.0703368
+        ],
+        [
+          44.4507226,
+          26.0702971
+        ],
+        [
+          44.4508064,
+          26.0703655
+        ],
+        [
+          44.4507007,
+          26.0706535
+        ],
+        [
+          44.4503778,
+          26.0704285
+        ],
+        [
+          44.4504748,
+          26.0701995
+        ],
+        [
+          44.4505381,
+          26.0700451
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "bloc",
+      "basis": "Same-source prior fallback MODEL; added road proximity is not new physical height/style evidence. Raw/effective evidence and exact closed footprint unchanged; source/research changes win.",
+      "roof": "flat"
+    },
+    {
+      "sourceId": "w156815214",
+      "sourceTags": {
+        "building": "apartments",
+        "name": "Bl. 1A"
+      },
+      "modelInputTags": {
+        "building": "apartments",
+        "name": "Bl. 1A"
+      },
+      "sourceRingLL": [
+        [
+          44.4526665,
+          26.0720608
+        ],
+        [
+          44.4526134,
+          26.0719998
+        ],
+        [
+          44.4525724,
+          26.0720636
+        ],
+        [
+          44.4525306,
+          26.0720232
+        ],
+        [
+          44.4524422,
+          26.0721923
+        ],
+        [
+          44.4525766,
+          26.072439
+        ],
+        [
+          44.4526185,
+          26.072396
+        ],
+        [
+          44.4526676,
+          26.0723459
+        ],
+        [
+          44.452588,
+          26.0721868
+        ],
+        [
+          44.4526665,
+          26.0720608
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "bloc",
+      "basis": "Same-source prior fallback MODEL; added road proximity is not new physical height/style evidence. Raw/effective evidence and exact closed footprint unchanged; source/research changes win.",
+      "wallHeightM": 23.2,
+      "roof": "flat"
+    },
+    {
+      "sourceId": "w156815581",
+      "sourceTags": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:housenumber": "92",
+        "addr:postcode": "011146",
+        "addr:postcode:source": "Date de la Po\u0219ta Rom\u00e2n\u0103, publicate sub Licen\u021ba pentru Guvernare Deschis\u0103 v1.0 la http://date.gov.ro/organization/posta-romana",
+        "addr:street": "\u0218oseaua Nicolae Titulescu",
+        "building": "apartments",
+        "name": "Bl. 13"
+      },
+      "modelInputTags": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:housenumber": "92",
+        "addr:postcode": "011146",
+        "addr:postcode:source": "Date de la Po\u0219ta Rom\u00e2n\u0103, publicate sub Licen\u021ba pentru Guvernare Deschis\u0103 v1.0 la http://date.gov.ro/organization/posta-romana",
+        "addr:street": "\u0218oseaua Nicolae Titulescu",
+        "building": "apartments",
+        "name": "Bl. 13"
+      },
+      "sourceRingLL": [
+        [
+          44.4522781,
+          26.0713853
+        ],
+        [
+          44.4520306,
+          26.0709512
+        ],
+        [
+          44.4520826,
+          26.0708906
+        ],
+        [
+          44.4520463,
+          26.0708263
+        ],
+        [
+          44.452055,
+          26.0708166
+        ],
+        [
+          44.4520218,
+          26.0707576
+        ],
+        [
+          44.4519851,
+          26.0706923
+        ],
+        [
+          44.4519771,
+          26.0707007
+        ],
+        [
+          44.4519407,
+          26.0706341
+        ],
+        [
+          44.4518886,
+          26.0706906
+        ],
+        [
+          44.4518733,
+          26.0706662
+        ],
+        [
+          44.4518596,
+          26.0706437
+        ],
+        [
+          44.4518706,
+          26.0706288
+        ],
+        [
+          44.4517956,
+          26.0705111
+        ],
+        [
+          44.4517877,
+          26.0705205
+        ],
+        [
+          44.4517514,
+          26.0704589
+        ],
+        [
+          44.4517065,
+          26.0705097
+        ],
+        [
+          44.4516995,
+          26.0704988
+        ],
+        [
+          44.4516443,
+          26.0705629
+        ],
+        [
+          44.4516919,
+          26.0706379
+        ],
+        [
+          44.4516819,
+          26.0706494
+        ],
+        [
+          44.4516968,
+          26.0706715
+        ],
+        [
+          44.4516919,
+          26.0706768
+        ],
+        [
+          44.4517502,
+          26.0707659
+        ],
+        [
+          44.4517571,
+          26.0707573
+        ],
+        [
+          44.451776,
+          26.0707882
+        ],
+        [
+          44.4517675,
+          26.0707998
+        ],
+        [
+          44.4517937,
+          26.0708421
+        ],
+        [
+          44.4518216,
+          26.0708096
+        ],
+        [
+          44.4518126,
+          26.0707959
+        ],
+        [
+          44.4518391,
+          26.0707609
+        ],
+        [
+          44.4518677,
+          26.0708119
+        ],
+        [
+          44.4518606,
+          26.07082
+        ],
+        [
+          44.4518767,
+          26.0708476
+        ],
+        [
+          44.4518728,
+          26.0708521
+        ],
+        [
+          44.4519138,
+          26.0709226
+        ],
+        [
+          44.4519183,
+          26.0709175
+        ],
+        [
+          44.4519362,
+          26.0709484
+        ],
+        [
+          44.4519409,
+          26.070943
+        ],
+        [
+          44.4519801,
+          26.0710107
+        ],
+        [
+          44.4519708,
+          26.0710212
+        ],
+        [
+          44.4519619,
+          26.0710058
+        ],
+        [
+          44.4519308,
+          26.0710412
+        ],
+        [
+          44.4519896,
+          26.0711427
+        ],
+        [
+          44.4521351,
+          26.071394
+        ],
+        [
+          44.4521951,
+          26.0714974
+        ],
+        [
+          44.4522458,
+          26.0714397
+        ],
+        [
+          44.4522397,
+          26.0714292
+        ],
+        [
+          44.4522781,
+          26.0713853
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "bloc",
+      "basis": "Same-source prior fallback MODEL; added road proximity is not new physical height/style evidence. Raw/effective evidence and exact closed footprint unchanged; source/research changes win.",
+      "wallHeightM": 29,
+      "roof": "flat"
+    },
+    {
+      "sourceId": "w156816287",
+      "sourceTags": {
+        "building": "apartments",
+        "name": "Bl. 21"
+      },
+      "modelInputTags": {
+        "building": "apartments",
+        "name": "Bl. 21"
+      },
+      "sourceRingLL": [
+        [
+          44.4516224,
+          26.071552
+        ],
+        [
+          44.4515684,
+          26.0714543
+        ],
+        [
+          44.4515535,
+          26.0714705
+        ],
+        [
+          44.4515178,
+          26.0714058
+        ],
+        [
+          44.4514285,
+          26.0715024
+        ],
+        [
+          44.4514436,
+          26.0715298
+        ],
+        [
+          44.4513489,
+          26.0716324
+        ],
+        [
+          44.4513915,
+          26.0717096
+        ],
+        [
+          44.4514033,
+          26.0716969
+        ],
+        [
+          44.4514302,
+          26.0717457
+        ],
+        [
+          44.4513731,
+          26.0718076
+        ],
+        [
+          44.4513654,
+          26.0717936
+        ],
+        [
+          44.4513369,
+          26.0718245
+        ],
+        [
+          44.4513759,
+          26.0718952
+        ],
+        [
+          44.4513626,
+          26.0719095
+        ],
+        [
+          44.4514289,
+          26.0720295
+        ],
+        [
+          44.4514412,
+          26.0720161
+        ],
+        [
+          44.4514789,
+          26.0720844
+        ],
+        [
+          44.4515077,
+          26.0720531
+        ],
+        [
+          44.4515013,
+          26.0720415
+        ],
+        [
+          44.4515588,
+          26.0719791
+        ],
+        [
+          44.4516075,
+          26.0720672
+        ],
+        [
+          44.451592,
+          26.072084
+        ],
+        [
+          44.4516364,
+          26.0721642
+        ],
+        [
+          44.4517315,
+          26.072061
+        ],
+        [
+          44.4517603,
+          26.072113
+        ],
+        [
+          44.4517963,
+          26.0720739
+        ],
+        [
+          44.4517894,
+          26.0720614
+        ],
+        [
+          44.4518408,
+          26.0720055
+        ],
+        [
+          44.4518047,
+          26.0719402
+        ],
+        [
+          44.4518212,
+          26.0719222
+        ],
+        [
+          44.4517736,
+          26.0718362
+        ],
+        [
+          44.4517272,
+          26.0718866
+        ],
+        [
+          44.4517182,
+          26.0718703
+        ],
+        [
+          44.4516645,
+          26.0719286
+        ],
+        [
+          44.4516444,
+          26.0718922
+        ],
+        [
+          44.4515836,
+          26.0719581
+        ],
+        [
+          44.4514701,
+          26.0717527
+        ],
+        [
+          44.451537,
+          26.0716801
+        ],
+        [
+          44.4515247,
+          26.0716579
+        ],
+        [
+          44.4516224,
+          26.071552
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "bloc",
+      "basis": "Same-source prior fallback MODEL; added road proximity is not new physical height/style evidence. Raw/effective evidence and exact closed footprint unchanged; source/research changes win.",
+      "wallHeightM": 29,
+      "roof": "flat"
+    },
+    {
+      "sourceId": "w156816440",
+      "sourceTags": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:housenumber": "160",
+        "addr:postcode": "010745",
+        "addr:street": "Calea Grivi\u021bei",
+        "building": "apartments",
+        "building:levels": "12",
+        "name": "Bl. A"
+      },
+      "modelInputTags": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:housenumber": "160",
+        "addr:postcode": "010745",
+        "addr:street": "Calea Grivi\u021bei",
+        "building": "apartments",
+        "building:levels": "12",
+        "name": "Bl. A"
+      },
+      "sourceRingLL": [
+        [
+          44.4502292,
+          26.0702956
+        ],
+        [
+          44.4501439,
+          26.0702168
+        ],
+        [
+          44.4502752,
+          26.0699381
+        ],
+        [
+          44.4503685,
+          26.0699088
+        ],
+        [
+          44.4505381,
+          26.0700451
+        ],
+        [
+          44.4504748,
+          26.0701995
+        ],
+        [
+          44.4503603,
+          26.0701075
+        ],
+        [
+          44.4503082,
+          26.0701278
+        ],
+        [
+          44.4502292,
+          26.0702956
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "bloc",
+      "basis": "Same-source prior fallback MODEL; added road proximity is not new physical height/style evidence. Raw/effective evidence and exact closed footprint unchanged; source/research changes win.",
+      "roof": "flat"
+    },
+    {
+      "sourceId": "w228403580",
+      "sourceTags": {
+        "building": "apartments",
+        "name": "Bl. 14-14A"
+      },
+      "modelInputTags": {
+        "building": "apartments",
+        "name": "Bl. 14-14A"
+      },
+      "sourceRingLL": [
+        [
+          44.4516565,
+          26.0703488
+        ],
+        [
+          44.4513724,
+          26.0699683
+        ],
+        [
+          44.4514236,
+          26.0698802
+        ],
+        [
+          44.4513808,
+          26.0698323
+        ],
+        [
+          44.4513875,
+          26.0698206
+        ],
+        [
+          44.4513318,
+          26.0697544
+        ],
+        [
+          44.4512996,
+          26.0697161
+        ],
+        [
+          44.4512931,
+          26.0697277
+        ],
+        [
+          44.4512462,
+          26.0696714
+        ],
+        [
+          44.4511913,
+          26.0697481
+        ],
+        [
+          44.4510741,
+          26.0696472
+        ],
+        [
+          44.4511061,
+          26.0695747
+        ],
+        [
+          44.4510563,
+          26.0695309
+        ],
+        [
+          44.4510419,
+          26.0695667
+        ],
+        [
+          44.4510254,
+          26.0696008
+        ],
+        [
+          44.4509439,
+          26.0695273
+        ],
+        [
+          44.4509,
+          26.0696279
+        ],
+        [
+          44.4508892,
+          26.0696177
+        ],
+        [
+          44.4508632,
+          26.0696704
+        ],
+        [
+          44.4511117,
+          26.0699014
+        ],
+        [
+          44.4511588,
+          26.0698045
+        ],
+        [
+          44.4512123,
+          26.0698624
+        ],
+        [
+          44.451202,
+          26.0698785
+        ],
+        [
+          44.451223,
+          26.0699049
+        ],
+        [
+          44.4512204,
+          26.0699091
+        ],
+        [
+          44.4512826,
+          26.0699766
+        ],
+        [
+          44.4512882,
+          26.0699653
+        ],
+        [
+          44.4513336,
+          26.0700173
+        ],
+        [
+          44.451314,
+          26.0700462
+        ],
+        [
+          44.451307,
+          26.0700379
+        ],
+        [
+          44.4512819,
+          26.0700796
+        ],
+        [
+          44.4513583,
+          26.0701723
+        ],
+        [
+          44.4513903,
+          26.0702085
+        ],
+        [
+          44.4513841,
+          26.0702184
+        ],
+        [
+          44.4514789,
+          26.0703486
+        ],
+        [
+          44.4514831,
+          26.0703433
+        ],
+        [
+          44.4515034,
+          26.0703693
+        ],
+        [
+          44.4515789,
+          26.0704807
+        ],
+        [
+          44.4516285,
+          26.0704125
+        ],
+        [
+          44.4516194,
+          26.0704015
+        ],
+        [
+          44.4516565,
+          26.0703488
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "bloc",
+      "basis": "Same-source prior fallback MODEL; added road proximity is not new physical height/style evidence. Raw/effective evidence and exact closed footprint unchanged; source/research changes win.",
+      "wallHeightM": 29,
+      "roof": "flat"
+    },
+    {
+      "sourceId": "w441137466",
+      "sourceTags": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:housenumber": "160",
+        "addr:postcode": "010745",
+        "addr:street": "Calea Grivi\u021bei",
+        "amenity": "restaurant",
+        "building": "yes",
+        "cuisine": "bistro",
+        "name": "Bistro - Restaurant Basarab",
+        "opening_hours": "Mo-Su 10:00-22:00"
+      },
+      "modelInputTags": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:housenumber": "160",
+        "addr:postcode": "010745",
+        "addr:street": "Calea Grivi\u021bei",
+        "amenity": "restaurant",
+        "building": "yes",
+        "cuisine": "bistro",
+        "name": "Bistro - Restaurant Basarab",
+        "opening_hours": "Mo-Su 10:00-22:00"
+      },
+      "sourceRingLL": [
+        [
+          44.4508352,
+          26.0689035
+        ],
+        [
+          44.4507121,
+          26.0690973
+        ],
+        [
+          44.450786,
+          26.06919
+        ],
+        [
+          44.4508104,
+          26.0691517
+        ],
+        [
+          44.4508609,
+          26.0690715
+        ],
+        [
+          44.4509089,
+          26.0689942
+        ],
+        [
+          44.4508352,
+          26.0689035
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "bloc",
+      "basis": "Same-source prior fallback MODEL; added road proximity is not new physical height/style evidence. Raw/effective evidence and exact closed footprint unchanged; source/research changes win.",
+      "wallHeightM": 11.6,
+      "roof": "flat"
+    },
+    {
+      "sourceId": "w621211534",
+      "sourceTags": {
+        "building": "yes",
+        "level": "0",
+        "name": "Maryab Patiserie",
+        "shop": "bakery",
+        "website": "https://www.maryab.ro/"
+      },
+      "modelInputTags": {
+        "building": "yes",
+        "level": "0",
+        "name": "Maryab Patiserie",
+        "shop": "bakery",
+        "website": "https://www.maryab.ro/"
+      },
+      "sourceRingLL": [
+        [
+          44.4506451,
+          26.0693934
+        ],
+        [
+          44.4506201,
+          26.0693617
+        ],
+        [
+          44.4506455,
+          26.0693201
+        ],
+        [
+          44.4506713,
+          26.0693528
+        ],
+        [
+          44.4506451,
+          26.0693934
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "house",
+      "basis": "Same-source prior fallback MODEL; added road proximity is not new physical height/style evidence. Raw/effective evidence and exact closed footprint unchanged; source/research changes win.",
+      "wallHeightM": 6.4,
+      "roof": "gabled"
+    },
+    {
+      "sourceId": "w803126215",
+      "sourceTags": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:postcode": "010745",
+        "addr:street": "Calea Grivi\u021bei",
+        "building": "yes",
+        "shop": "bakery"
+      },
+      "modelInputTags": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:postcode": "010745",
+        "addr:street": "Calea Grivi\u021bei",
+        "building": "yes",
+        "shop": "bakery"
+      },
+      "sourceRingLL": [
+        [
+          44.4507121,
+          26.0690973
+        ],
+        [
+          44.4506876,
+          26.0691343
+        ],
+        [
+          44.4507597,
+          26.0692262
+        ],
+        [
+          44.4508049,
+          26.0692828
+        ],
+        [
+          44.4508539,
+          26.0692063
+        ],
+        [
+          44.4508104,
+          26.0691517
+        ],
+        [
+          44.450786,
+          26.06919
+        ],
+        [
+          44.4507121,
+          26.0690973
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "house",
+      "basis": "Same-source prior fallback MODEL; added road proximity is not new physical height/style evidence. Raw/effective evidence and exact closed footprint unchanged; source/research changes win.",
+      "wallHeightM": 6.4,
+      "roof": "hipped"
+    },
+    {
+      "sourceId": "w803126216",
+      "sourceTags": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:postcode": "010745",
+        "addr:street": "Calea Grivi\u021bei",
+        "building": "yes",
+        "operator": "GT ALL BUSINESS",
+        "shop": "convenience"
+      },
+      "modelInputTags": {
+        "addr:city": "Bucure\u0219ti",
+        "addr:postcode": "010745",
+        "addr:street": "Calea Grivi\u021bei",
+        "building": "yes",
+        "operator": "GT ALL BUSINESS",
+        "shop": "convenience"
+      },
+      "sourceRingLL": [
+        [
+          44.4506876,
+          26.0691343
+        ],
+        [
+          44.4506458,
+          26.0691985
+        ],
+        [
+          44.4506947,
+          26.0692609
+        ],
+        [
+          44.450717,
+          26.0692522
+        ],
+        [
+          44.4507312,
+          26.0692702
+        ],
+        [
+          44.4507597,
+          26.0692262
+        ],
+        [
+          44.4506876,
+          26.0691343
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "house",
+      "basis": "Same-source prior fallback MODEL; added road proximity is not new physical height/style evidence. Raw/effective evidence and exact closed footprint unchanged; source/research changes win.",
+      "wallHeightM": 6.4,
+      "roof": "flat"
+    },
+    {
+      "sourceId": "w803126217",
+      "sourceTags": {
+        "amenity": "car_wash",
+        "building": "yes"
+      },
+      "modelInputTags": {
+        "amenity": "car_wash",
+        "building": "yes"
+      },
+      "sourceRingLL": [
+        [
+          44.4509065,
+          26.0692068
+        ],
+        [
+          44.450861,
+          26.0692729
+        ],
+        [
+          44.4509219,
+          26.0693549
+        ],
+        [
+          44.4509673,
+          26.0692887
+        ],
+        [
+          44.4509065,
+          26.0692068
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "house",
+      "basis": "Same-source prior fallback MODEL; added road proximity is not new physical height/style evidence. Raw/effective evidence and exact closed footprint unchanged; source/research changes win.",
+      "wallHeightM": 6.4,
+      "roof": "flat"
+    },
+    {
+      "sourceId": "w803126218",
+      "sourceTags": {
+        "building": "yes"
+      },
+      "modelInputTags": {
+        "building": "yes"
+      },
+      "sourceRingLL": [
+        [
+          44.4509089,
+          26.0689942
+        ],
+        [
+          44.4508609,
+          26.0690715
+        ],
+        [
+          44.4509155,
+          26.0691379
+        ],
+        [
+          44.4509634,
+          26.0690605
+        ],
+        [
+          44.4509089,
+          26.0689942
+        ]
+      ],
+      "sourceHolesLL": [],
+      "style": "house",
+      "basis": "Same-source prior fallback MODEL; added road proximity is not new physical height/style evidence. Raw/effective evidence and exact closed footprint unchanged; source/research changes win.",
+      "wallHeightM": 6.4,
+      "roof": "gabled"
+    }
+  ],
+  "priorModelInputsSha256": "cae3d684ff086e6587e248bac0b2681b24b08c3ac67019ec67a26d6ec10a054e"
 }

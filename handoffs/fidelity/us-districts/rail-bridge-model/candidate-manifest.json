@@ -1,0 +1,34 @@
+{
+  "scope": "source/model/helper composition at isolated worker; parent combined world commit and fresh native scene acceptance recorded separately",
+  "estimated": true,
+  "sourceDataMutated": false,
+  "runtimeArtifactSha256": {
+    "game/src/tram-grade.js": "cfd8e35e367220f85dbd9911176f4af96f9bc2ac3489b7c9b8515aa7f62044b1",
+    "game/src/tram-grade-models.js": "bc2f44e47e3b1988d18d7f984380193e2c7e1ad179f9461fbccfe60ccfecd461",
+    "game/src/tram-tunnel-grade.js": "29e198ae6f04a3fc97b3fd1db7fe01891f86b44444c2e398afd58f41b67ef2de",
+    "game/src/tram-trench.js": "755b4ab3acdf101182bcc4eccf9486289f7346b7e6d58fb4c81f92669ad8a018",
+    "game/src/world.js": "fb44a3ae33b14c6225cad39b844e17e29b7b005931f1a434b15f0d9924114ddf",
+    "tools/osm/tram-grade-check.mjs": "f79dd740920e57bd1f022067bb556807529c8102dbe4504007a609bc2f16e27a",
+    "tools/osm/tram-trench-check.mjs": "9d53837f60d01304201c8218b8b5b7e6de72c1beee4802acc20a190cb269ad8e",
+    "tools/osm/tram-grade-compose-check.mjs": "cb12ff533fc37436dcf529aa58816c4f75e0adf256ed0d98f62c2401e73ef527"
+  },
+  "nativeFixtures": {
+    "groz6cb": "a1dcca3b1a573028b7f659787b2c7db34dd874b0a28b6697d34593be6f417bb3",
+    "romana6cb": "c25b01cc7acf5b1d7cba51b9d1aa234439f431fcb493e297c0683b67d65496cf"
+  },
+  "implementationCommits": [
+    "bda91872",
+    "18078ae2",
+    "f1681a24",
+    "7ad4181b",
+    "3c705e61",
+    "20611058",
+    "904fd92d"
+  ],
+  "pending": [
+    "fresh regenerated native mesh/collider/source-piece correspondence",
+    "full actual-body source path clearance on fresh geometry including all props/roofs/walls",
+    "initial/publication/moving pose and mode transition gates",
+    "native all-eight scenario checks and 400call/1.5Mtri budget"
+  ]
+}

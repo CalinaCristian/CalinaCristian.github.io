@@ -112,7 +112,7 @@ export class CockpitDisplays {
         };
     }
 
-    setPlayer(player, camera = null, worldScene = null) {
+    setPlayer(player, camera = null, worldScene = null, lowWorld = false) {
         this.frameScene = this.frameCamera = null;
         this.bindings = [];
         this.mirrorTarget = player?.mirrorTarget || null; // Player-owned; never disposed here.
@@ -126,10 +126,10 @@ export class CockpitDisplays {
             this.scene.add(mesh);
             this.bindings.push({ source, mesh, uniforms });
         }
-        this.prewarm(camera, worldScene);
+        this.prewarm(camera, worldScene, lowWorld);
     }
 
-    prewarm(camera, worldScene) {
+    prewarm(camera, worldScene, lowWorld = false) {
         if (!this.bindings.length || !camera || !worldScene) return;
         const r = this.renderer, target = r.getRenderTarget();
         const face = r.getActiveCubeFace(), mip = r.getActiveMipmapLevel();
@@ -140,7 +140,7 @@ export class CockpitDisplays {
             // Persistent auxiliary targets and the existing Player-owned mirror
             // target must be ready before a Low -> Medium drive-policy change.
             // This allocates storage only: no rear scene or extra frame is drawn.
-            for (const t of [this.lowTarget, this.savedDepth, this.planeDepth, this.mirrorTarget]) {
+            for (const t of [lowWorld ? this.lowTarget : null, this.savedDepth, this.planeDepth, this.mirrorTarget]) {
                 if (t) r.initRenderTarget(t);
             }
             this.scene.fog = worldScene.fog;
@@ -154,7 +154,7 @@ export class CockpitDisplays {
             // The same original displays appear in the linear world target and
             // the sRGB presentation framebuffer. Compile both real variants with
             // the current world's FogExp2/lighting defines during normal setup.
-            for (const t of [this.lowTarget, null]) {
+            for (const t of [this.planeDepth, null]) {
                 r.setRenderTarget(t);
                 r.compile(this.scene, camera, worldScene);
             }

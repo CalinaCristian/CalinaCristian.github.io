@@ -1,0 +1,32 @@
+{
+  "baseline": "6e87f554eda6a7c5b474738ace3d8bf7eadbb48f",
+  "dataPath": "game/data/spots/arcul-de-triumf.json",
+  "rawSourceWays": "source/public-apron-source-tags.json",
+  "changes": [
+    {
+      "id": "w1191723271",
+      "added": {
+        "foot": "yes",
+        "motor_vehicle": "no"
+      }
+    },
+    {
+      "id": "w1191738377",
+      "added": {
+        "foot": "yes",
+        "motor_vehicle": "no"
+      }
+    },
+    {
+      "id": "w1191738378",
+      "added": {
+        "foot": "yes",
+        "motor_vehicle": "no"
+      }
+    }
+  ],
+  "allOtherSourceDataFieldsExact": true,
+  "sourceLayout": "source/source-layout.png",
+  "course": "Two literalUwalks plus2short game-course connectors on clear,explicitlyfoot-permitted apron; no new sourceway/footprint",
+  "nativeGate": "NOT RUN: no browser allocation yet. CPU tests do not certify all actual scene colliders/terrain/NPCbody/phone/nativeinput/performance."
+}

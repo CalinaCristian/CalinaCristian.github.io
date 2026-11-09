@@ -15,6 +15,7 @@ import { buildTurnLaneRules, laneTurnAllowed, preservesTurnLane } from './turn-l
 import { buildMotorTurnRestrictions, motorTurnAllowed, motorRestrictionMode } from './motor-turn-restrictions.js';
 import {sourceRoadClearance} from './source-road-clearance.js';
 import {relocationPeerQuery} from './pedestrian-relocation-peers.js';
+import {evaluateInitialParking} from './initial-parking-behavior.js';
 import { buildTramSourceSignals, tramSourceSignalState } from './tram-source-signals.js';
 import { fitTramBodySupport } from './tram-body-support.js';
 
@@ -599,6 +600,9 @@ export class Traffic {
         // double-parked cars (Bucharest special)
         const pc = this.city.traffic?.parkedChance ?? 0;
         const maxParked = Math.round(this.maxVehicles * 0.2), maxTrams = this.large ? 26 : 200;
+        this.initialParking = { attempted: 0, admitted: 0, refused: 0, records: [], rngDraws: 0,
+            scope: 'Generated parked behavior admitted before publication only; refused slots keep their original ordinary actor, source station and all historic RNG draws.' };
+        const parkingWalk = Object.create(Pedestrians.prototype); parkingWalk.t = this;
         let nParked = 0, nTrams = 0;
         const shuffled = edges.slice(); for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(this.rng() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
         if (pc > 0) {
@@ -611,8 +615,21 @@ export class Traffic {
                     const s = this.rng.range(15, e.len - 15);
                     if (junctionDist(e, s) < 30 || !free(e, dir, lanes - 1, s, 6)) continue;
                     const v = this.spawn({ edge: e, dir, lane: lanes - 1, s, kind: this.rng.pick(['hatch', 'sedan', 'van', 'hatch']) });
-                    v.parked = true; v.mesh.userData.parked = true; v.speed = 0; v.lateralExtra = (e.laneW ?? 3.3) * 0.55; v.hazard = true; nParked++;
-                    this.placeOnLane(v, true, 0);
+                    // Keep the historic attempted-slot count/loop termination and
+                    // every spawn draw. A refused behavior is the same ordinary
+                    // new actor, never a deleted/rerolled or later unparked car.
+                    nParked++; this.initialParking.attempted++;
+                    const original = { id:v.id, kind:v.kind, edgeId:e.id, sourceId:e.access?.sourceId, dir, lane:v.lane, s, x:v.x, y:v.y, z:v.z, latExtraCur:v.latExtraCur, lateralExtra:v.lateralExtra };
+                    const parking = evaluateInitialParking(this, v, { desiredOffset:(e.laneW ?? 3.3)*.55, walkOffset:(edge,side)=>parkingWalk.off(edge,side) });
+                    if (parking.valid) {
+                        v.parked = true; v.mesh.userData.parked = true; v.speed = 0; v.hazard = true;
+                        v.latExtraCur = v.lateralExtra = parking.offset;
+                        v.x=parking.body.x; v.y=parking.body.y; v.z=parking.body.z; v.heading=parking.body.heading;
+                        v.mesh.position.set(v.x,v.y,v.z); v.mesh.rotation.set(0,v.heading,0,'YXZ');
+                        this.initialParking.admitted++;
+                    } else this.initialParking.refused++;
+                    const { body, ...proof } = parking;
+                    this.initialParking.records.push({ original, parked:v.parked, ...proof });
                 }
             }
         }

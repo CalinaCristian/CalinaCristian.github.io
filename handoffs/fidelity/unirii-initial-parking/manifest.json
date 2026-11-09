@@ -1,0 +1,54 @@
+{
+  "scope": "Scoped creation eligibility source/CPU proof only; native physical/visual/budget acceptance pending",
+  "base": "57dbb99ef150dd8ec1c8eeeeb6008785bf9585a3",
+  "files": {
+    "README.md": {
+      "bytes": 52747,
+      "sha256": "6f97e78593f349e9e3bb620be6428c85a8abfe33c55dd1c51ccefb9275f58868"
+    },
+    "game/dev/fixtures/traffic-57db-parking-baseline.js.gz": {
+      "bytes": 75193,
+      "sha256": "377b6634203d71d79247d532737b5398fe7025f35fc65971fcacfcc9a97985cb"
+    },
+    "game/dev/fixtures/unirii-initial-parked-van484.json": {
+      "bytes": 3661,
+      "sha256": "fab29d94165adbc5de0c73bdb7969825d3dcacf19a2a0e296a7194312cbea682"
+    },
+    "game/dev/initial-parking-behavior.test.mjs": {
+      "bytes": 13420,
+      "sha256": "864d7fccc60cbb2eeca9b3e4be992f9a68499c290b87874f37ee312496e67d25"
+    },
+    "game/src/initial-parking-behavior.js": {
+      "bytes": 10115,
+      "sha256": "d97430424a10c19918e1a9d0cce3ecb00704de49473bf59f23f333beab21a82a"
+    },
+    "game/src/initial-parking-support.js": {
+      "bytes": 6585,
+      "sha256": "5ea1c2f7a2aecc549138998683db6f6befad1fa04b1dc67b914beeeb0204d635"
+    },
+    "game/src/traffic.js": {
+      "bytes": 255864,
+      "sha256": "ad018b4dc9a1d356697fd928945d6271c45f767e8e951dddc55943e6e1ad67cf"
+    },
+    "handoffs/fidelity/unirii-initial-parking/README.md": {
+      "bytes": 4010,
+      "sha256": "ba4a20decdcc8bc537b596bbca4a92c3529a6c96e80e549a91f511e7b8761c03"
+    },
+    "handoffs/fidelity/unirii-initial-parking/affected-controls.json": {
+      "bytes": 8747,
+      "sha256": "228b40b82dd7c011b7fbd28aca9c854953d96103ab98f11e21af76642aa4cafc"
+    },
+    "handoffs/fidelity/unirii-initial-parking/replay-unirii-spawn.mjs": {
+      "bytes": 7589,
+      "sha256": "404b7bf2c7874bc63f28c1577e7895a03adc11124da0985615eedfa5fd8dfdc8"
+    },
+    "handoffs/fidelity/unirii-initial-parking/unirii-spawn-parity.json": {
+      "bytes": 12744,
+      "sha256": "af47e32c23f961123038cc6b1ea3edd2c9fd36b1922e8d7c60cd9c2d1bb6bb93"
+    },
+    "specs/13-traffic.md": {
+      "bytes": 59557,
+      "sha256": "7cae60a0931cf36c0588fe9730790b334f05062d2abdf0742409e1c65ef44f85"
+    }
+  }
+}

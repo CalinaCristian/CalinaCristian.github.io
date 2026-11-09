@@ -1,0 +1,76 @@
+{
+  "scope": "CPU affected creation/source/physical regression controls; no native driving, geometry, GPU, budget or full-cohort claim",
+  "passed": true,
+  "results": [
+    {
+      "file": "game/dev/initial-parking-behavior.test.mjs",
+      "sha256": "864d7fccc60cbb2eeca9b3e4be992f9a68499c290b87874f37ee312496e67d25",
+      "exitCode": 0,
+      "stdout": "{\"passed\":true,\"checks\":44,\"baselineSHA256\":\"b76ade370d5f0f89bae39fea6ed04d3fbd473b7e319cb706258fd4eef077ba6d\",\"nativeFixture\":\"be12cd87cf988a097c7c54011f0b816694119db7\",\"actors\":18,\"attemptedSlots\":5,\"admitted\":0,\"refused\":5,\"laterTrams\":4,\"scope\":\"CPU native methods/actual emitted models; source be12 negative retained; new full native cohort and drive remain pending\"}\n",
+      "stderr": "(node:663935) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-initial-parking/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /workspace/fidelity-workers/unirii-initial-parking/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "file": "game/dev/source-road-clearance.test.mjs",
+      "sha256": "a2781c1fffb35856db1e0da5b560fc7093ca3896b3314e4fc601988dcb66e6bc",
+      "exitCode": 0,
+      "stdout": "PASS 48 actual-model/source-unit/mode/unknown/GPS/NPC/untouched-initial-admission controls\n",
+      "stderr": "(node:662234) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-initial-parking/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /workspace/fidelity-workers/unirii-initial-parking/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "file": "game/dev/vehicle-lanes.test.mjs",
+      "sha256": "a49bee514174aea78ea2d7d73b2f3a4db7105cf62a24f3a5a5c04063d3b0ac3d",
+      "exitCode": 0,
+      "stdout": "PASS: stopped lane/bypass holds, moving steering distance budget, long-body clearance, residual stop and visible/failed recovery holds\n",
+      "stderr": "(node:662241) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-initial-parking/game/src/traffic.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /workspace/fidelity-workers/unirii-initial-parking/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "file": "game/dev/vehicle-cell-boundary.test.mjs",
+      "sha256": "ea5778e3fddcce902fa072212f3a6e25db4be0f76756efc6848e9b74263236af",
+      "exitCode": 0,
+      "stdout": "PASS: native 593/609 proposal, cross-cell rollback/third body, recovery membership, sparse refresh and clear-boundary controls\n",
+      "stderr": "(node:662248) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-initial-parking/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /workspace/fidelity-workers/unirii-initial-parking/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "file": "game/dev/vehicle-separation.test.mjs",
+      "sha256": "3ede9845b53abee994c031ef5e6ed3c7f744ab8c2296f2e2096e4b377cc0421f",
+      "exitCode": 0,
+      "stdout": "PASS: actual short-edge body, back-out, new third contact, turn, pedestrian/player, height and timed-ghost controls\n",
+      "stderr": "(node:662255) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-initial-parking/game/src/traffic.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /workspace/fidelity-workers/unirii-initial-parking/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "file": "game/dev/solid-vehicle-sensing.test.mjs",
+      "sha256": "4edf586daa225edc922572902413533d1ee779a33d46fd22b64cc4cd54f45da1",
+      "exitCode": 0,
+      "stdout": "PASS: actual stepVehicle always sees solid bodies, rendered extents, no RNG and camera/mirror recovery gates\n",
+      "stderr": "(node:662262) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-initial-parking/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /workspace/fidelity-workers/unirii-initial-parking/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "file": "game/dev/pedestrian-admission.test.mjs",
+      "sha256": "c1a3916be321839821c5d05c81ffd5c30eeb334d9c36353e73dae2d4c559d074",
+      "exitCode": 0,
+      "stdout": "PASS: initial corner admission, live-pose protection, full actors/RNG, stopped crossing, monotonic escape, turning body and other-level controls\n",
+      "stderr": "(node:662269) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-initial-parking/game/src/traffic.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /workspace/fidelity-workers/unirii-initial-parking/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "file": "game/dev/pedestrian-source-sides.test.mjs",
+      "sha256": "c906d3d20b2e742bf1b40f0e558df8752898e620810eb54ba1f34873b580a541",
+      "exitCode": 0,
+      "stdout": "PASS: actual 560 constructor IDs/styles/RNG, source cells/admission, live recovery, narrow widths, crossing endpoints and parking side legality\n",
+      "stderr": "(node:662306) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-initial-parking/game/src/traffic.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /workspace/fidelity-workers/unirii-initial-parking/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "file": "game/dev/harness-vehicle-wait.test.mjs",
+      "sha256": "9fd084aa94732084a0da67cc5b725e677a68ecc0ac9bb063b10321b473f2e527",
+      "exitCode": 0,
+      "stdout": "PASS: real blocked vehicle intent, existing passing/watchdog, red/target stop and pedestrian controls\n",
+      "stderr": "(node:662313) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-initial-parking/game/dev/harness/page/core.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /workspace/fidelity-workers/unirii-initial-parking/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "file": "game/dev/signals.test.mjs",
+      "sha256": "47afa3a171e510fdcb0d315a8d98321ffc57f0b78232949f4bb0830df46c4ef0",
+      "exitCode": 0,
+      "stdout": "PASS: signal cycles/conflicts/clearance, queue release, cockpit/props, visible recycling, walking recoveries and stable detours\n",
+      "stderr": "(node:662320) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-initial-parking/game/src/signals.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /workspace/fidelity-workers/unirii-initial-parking/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    }
+  ]
+}

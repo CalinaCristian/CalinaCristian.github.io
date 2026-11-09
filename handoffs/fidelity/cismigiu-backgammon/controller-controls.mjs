@@ -19,7 +19,7 @@ function fixture(seed=1){
     backgammonGame(ctx,{x:0,y:.8,z:0,source:'test-source-table',onDone:(host,result)=>{assert.equal(host,s);awards.push(result);}});
     const data=ctx.extras.backgammon,flow=ctx.extras.participation,tick=(n=1)=>{for(let i=0;i<n;i++)for(const f of updates)f(.1,s,s.position);},open=()=>ctx.interactables[0].use(s);
     const click=b=>{assert.ok(b&&!b.disabled,'Requested actual button is disabled');b.click();};
-    const playMove=m=>{const r=flow.run;const d=[...r.dice.querySelectorAll('button')].find(b=>!b.disabled&&Number(b.textContent)===m.die);click(d);if(m.from==='bar')click(r.bar);else click(r.points[m.from]);if(m.to==='off')click(r.off);else click(r.points[m.to]);tick(3);};
+    const playMove=(m,settle=true)=>{const r=flow.run;const d=[...r.dice.querySelectorAll('button')].find(b=>!b.disabled&&Number(b.textContent)===m.die);click(d);if(m.from==='bar')click(r.bar);else click(r.points[m.from]);if(m.to==='off')click(r.off);else click(r.points[m.to]);if(settle)tick(3);};
     const dispose=()=>{flow.dispose();for(const f of ctx.extras.sceneCleanups)f();scene.traverse(o=>o.geometry?.dispose());};
     return{ctx,scene,colliders,awards,tourCompletions,s,data,flow,tick,open,click,playMove,dispose};
 }
@@ -30,7 +30,10 @@ try{
     f.click(f.flow.run.button);f.tick(6);
     let guard=0;while(f.data.state().turn===-1&&guard++<20)f.tick(20);
     if(f.data.state().phase==='roll'){f.click(f.flow.run.button);f.tick(6);}
-    const start=JSON.stringify(f.data.state()),m=chooseTurn(f.data.state())[0];assert.ok(m);f.playMove(m);
+    const start=JSON.stringify(f.data.state()),m=chooseTurn(f.data.state())[0];assert.ok(m);
+    check('Read-only legal-move diagnostics cannot corrupt the cached immutable position',()=>{const original=JSON.stringify(f.data.legalMoves()),view=f.data.legalMoves();view[0].die=99;assert.equal(JSON.stringify(f.data.legalMoves()),original);});
+    f.playMove(m,false);const dieNode=f.flow.run.dice.firstElementChild;f.tick();
+    check('Checker-only animation preserves actual die controls and keyboard focus nodes',()=>assert.equal(f.flow.run.dice.firstElementChild,dieNode));f.tick(2);
     check('Actual point/die click handlers apply a legal move to both position and 3D instances',()=>{assert.notEqual(JSON.stringify(f.data.state()),start);assert.equal(validatePosition(f.data.state()),true);assert.equal(f.data.checkers.count,30);assert.equal(f.data.events().at(-1).action,'move');assert.equal(f.awards.length,0);});
     f.click(f.flow.run.undo);
     check('Undo restores the exact rolled position without rerolling',()=>assert.equal(JSON.stringify(f.data.state()),start));

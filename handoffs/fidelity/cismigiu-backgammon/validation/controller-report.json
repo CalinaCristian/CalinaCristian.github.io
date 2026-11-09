@@ -15,6 +15,14 @@
       "passed": true
     },
     {
+      "name": "Read-only legal-move diagnostics cannot corrupt the cached immutable position",
+      "passed": true
+    },
+    {
+      "name": "Checker-only animation preserves actual die controls and keyboard focus nodes",
+      "passed": true
+    },
+    {
       "name": "Actual point/die click handlers apply a legal move to both position and 3D instances",
       "passed": true
     },

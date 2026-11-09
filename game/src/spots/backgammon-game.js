@@ -44,10 +44,12 @@ export function backgammonGame(ctx,{x,y,z,source,onDone}) {
     const patterns={1:[[0,0]],2:[[-1,-1],[1,1]],3:[[-1,-1],[0,0],[1,1]],4:[[-1,-1],[-1,1],[1,-1],[1,1]],5:[[-1,-1],[-1,1],[0,0],[1,-1],[1,1]],6:[[-1,-1],[-1,0],[-1,1],[1,-1],[1,0],[1,1]]};
     const faces=[null,{n:[0,1,0],u:[1,0,0],v:[0,0,1]},{n:[1,0,0],u:[0,1,0],v:[0,0,1]},{n:[0,0,1],u:[1,0,0],v:[0,1,0]},{n:[0,0,-1],u:[1,0,0],v:[0,1,0]},{n:[-1,0,0],u:[0,1,0],v:[0,0,1]},{n:[0,-1,0],u:[1,0,0],v:[0,0,1]}];
     const elder=makeCrowd({max:1,city:'bucharest',rng:()=>.5});elder.count=1;elder.dress(0,{top:'#43594b',bottom:'#4b443d',skin:'#cda886',hair:'#a9a7a0',acc:'#82684d',flags:0});
-    elder.set(0,{x:x-.95,y:y-.8,z,yaw:Math.PI/2,pose:'sit',amp:0,phase:1.4,scale:.98});ctx.add(elder.object);elder.object.name='Doru-fictional-park-regular';elder.object.userData.fictional=true;
+    elder.set(0,{x:x-.95,y:y-.8,z,yaw:-Math.PI/2,pose:'sit',amp:0,phase:1.4,scale:.98});ctx.add(elder.object);elder.object.name='Doru-fictional-park-regular';elder.object.userData.fictional=true;
     ctx.circle(x-.95,z,.28,1.3);(ctx.extras.sceneCleanups||=[]).push(()=>elder.dispose());
 
     let match=createGame(),turnStart=match,undo=[],selectedFrom=null,selectedDie=null,awarded=false,winConfirmed=false,aiWait=.6,rollTime=0,animationTime=1,fromPositions=[],toPositions=[],lastLine='Doru: “Shall we play a full game?”';
+    let moveCachePosition=null,moveCache=[];
+    const movesFor=()=>{if(moveCachePosition!==match){moveCachePosition=match;moveCache=legalMoves(match);}return moveCache;};
     const events=[],record=(action,detail={})=>events.push({action,...detail,state:match});
     const targets=s=>counts(s).flatMap((locations,i)=>locations.map(loc=>pointPosition(i===0?1:-1,loc)));
     const renderCheckers=(s,animate=false)=>{
@@ -72,7 +74,7 @@ export function backgammonGame(ctx,{x,y,z,source,onDone}) {
     };
     renderCheckers(match);renderDice();
     const eventMove=(m,p)=>{record('move',{player:p,move:{...m}});lastLine=`${playerName(p)}: ${moveLabel(m)}`;};
-    const resetSelection=()=>{const moves=legalMoves(match);if(!moves.some(m=>m.die===selectedDie))selectedDie=moves[0]?.die??null;selectedFrom=match.turn===1&&moves.some(m=>m.from==='bar')?'bar':null;};
+    const resetSelection=()=>{const moves=movesFor();if(!moves.some(m=>m.die===selectedDie))selectedDie=moves[0]?.die??null;selectedFrom=match.turn===1&&moves.some(m=>m.from==='bar')?'bar':null;};
     const roll=()=>{const a=die(),b=die();match=rollDice(match,a,b);record('roll',{dice:[a,b]});rollTime=.45;turnStart=match;undo=[];aiWait=.75;resetSelection();renderDice();};
     const resetMatch=()=>{match=createGame();turnStart=match;undo=[];selectedFrom=null;selectedDie=null;awarded=false;winConfirmed=false;aiWait=.6;record('new-match');lastLine='Doru: “Your white checkers move toward points 1–6.”';renderCheckers(match);};
     const changeMove=(m,human)=>{const before=match;if(human)undo.push(before);match=applyMove(match,m);eventMove(m,before.turn);renderCheckers(match,true);resetSelection();};
@@ -80,13 +82,13 @@ export function backgammonGame(ctx,{x,y,z,source,onDone}) {
     const readyForPoint=()=>current()&&!activityBlocked(current().s)&&match.turn===1&&match.phase==='move'&&animationTime>=1&&rollTime<=0;
     const clickPoint=(point,expectedRun)=>{
         if(current()!==expectedRun||!readyForPoint())return;
-        const moves=legalMoves(match).filter(m=>m.die===selectedDie),move=moves.find(m=>m.from===selectedFrom&&m.to===point);
+        const moves=movesFor().filter(m=>m.die===selectedDie),move=moves.find(m=>m.from===selectedFrom&&m.to===point);
         if(move)changeMove(move,true);else if(moves.some(m=>m.from===point))selectedFrom=selectedFrom===point?null:point;
         refresh();
     };
     function refresh(){
         const r=current();if(!r)return;
-        const moves=legalMoves(match),chosen=moves.filter(m=>m.die===selectedDie),human=match.turn===1,transition=animationTime<1||rollTime>0;
+        const moves=movesFor(),chosen=moves.filter(m=>m.die===selectedDie),human=match.turn===1,transition=animationTime<1||rollTime>0;
         r.summary.textContent=`You · white · ${match.off[0]}/15 off · ${pipCount(match,1)} pips     Doru · brown · ${match.off[1]}/15 off · ${pipCount(match,-1)} pips`;
         r.progress.value=match.off[0]/15;r.log.textContent=lastLine;
         r.dice.replaceChildren();
@@ -112,14 +114,14 @@ export function backgammonGame(ctx,{x,y,z,source,onDone}) {
     }
 
     ctx.interactables.push({kind:'backgammon',source,x:x+.95,z,r:1.8,label:'Play backgammon with Doru',use:s=>{
-        return flow.begin(s,{title:'Backgammon at La Șahiști',help:'Choose a die, a white checker and its green destination. Use both dice if possible; if only one can be played, use the higher. Enter from the bar first. Get all fifteen home (points 1–6), then bear off.',action:'Roll opening dice',focus:{x:x-.5,y:y+.35,z},
+        return flow.begin(s,{title:'Backgammon at La Șahiști',help:'Choose a die, a white checker and its green destination. Use both dice if possible; if only one can be played, use the higher. Enter from the bar first. Get all fifteen home (points 1–6), then bear off.',action:'Roll opening dice',focus:{x:x-.95,y:y+.35,z},
             started(s,r){
                 if(awarded)resetMatch();
                 r.backgammon=true;r.ui.classList.add('bg-game');if(!document.getElementById('backgammon-game-css')){const st=document.createElement('style');st.id='backgammon-game-css';st.textContent=CSS;document.head.append(st);}
                 r.summary=document.createElement('p');r.summary.className='bg-summary';r.dice=document.createElement('div');r.dice.className='bg-dice';r.dice.setAttribute('aria-label','Available dice');
                 const board=document.createElement('div');board.className='bg-board';board.setAttribute('role','group');board.setAttribute('aria-label','Backgammon board. White home points are 1 to 6.');r.points=Array(24);
                 for(const half of [[12,13,14,15,16,17,11,10,9,8,7,6],[18,19,20,21,22,23,5,4,3,2,1,0]]){const section=document.createElement('div');section.className='bg-half';for(const i of half){const b=document.createElement('button');b.className='bg-point';b.type='button';b.dataset.point=i;if(i<12)b.dataset.bottom='';const number=document.createElement('span');number.className='bg-number';number.textContent=i+1;b.stack=document.createElement('span');b.stack.className='bg-stack';b.append(number,b.stack);b.onclick=()=>clickPoint(i,r);r.points[i]=b;section.append(b);}board.append(section);}
-                const trays=document.createElement('div');trays.className='bg-trays';r.bar=document.createElement('button');r.bar.type='button';r.bar.onclick=()=>{if(current()===r&&readyForPoint()){selectedFrom='bar';refresh();}};r.off=document.createElement('button');r.off.type='button';r.off.onclick=()=>{if(current()!==r||!readyForPoint())return;const m=legalMoves(match).find(m=>m.from===selectedFrom&&m.to==='off'&&m.die===selectedDie);if(m){changeMove(m,true);refresh();}};trays.append(r.bar,r.off);
+                const trays=document.createElement('div');trays.className='bg-trays';r.bar=document.createElement('button');r.bar.type='button';r.bar.onclick=()=>{if(current()===r&&readyForPoint()){selectedFrom='bar';refresh();}};r.off=document.createElement('button');r.off.type='button';r.off.onclick=()=>{if(current()!==r||!readyForPoint())return;const m=movesFor().find(m=>m.from===selectedFrom&&m.to==='off'&&m.die===selectedDie);if(m){changeMove(m,true);refresh();}};trays.append(r.bar,r.off);
                 r.log=document.createElement('p');r.log.className='bg-log';r.log.setAttribute('aria-live','polite');const nav=r.ui.querySelector('nav');r.ui.insertBefore(r.summary,r.progress);r.ui.insertBefore(r.dice,nav);r.ui.insertBefore(board,nav);r.ui.insertBefore(trays,nav);r.ui.insertBefore(r.log,nav);
                 r.undo=document.createElement('button');r.undo.type='button';r.undo.className='bg-undo';r.undo.textContent='Undo move';r.undo.onclick=()=>{if(current()!==r||activityBlocked(s)||match.turn!==1||!undo.length||animationTime<1||rollTime>0)return;match=undo.pop();record('undo');resetSelection();renderCheckers(match);refresh();};nav.insertBefore(r.undo,nav.querySelector('[data-leave]'));
                 resetSelection();record('begin');refresh();
@@ -130,7 +132,7 @@ export function backgammonGame(ctx,{x,y,z,source,onDone}) {
                     else{resetMatch();refresh();}return;
                 }
                 if(match.phase==='opening'||(match.phase==='roll'&&match.turn===1)){roll();refresh();return;}
-                if(match.turn===1&&match.phase==='move'&&!legalMoves(match).length){match=confirmTurn(match);undo=[];turnStart=match;record('confirm-turn');aiWait=.6;selectedFrom=null;refresh();}
+                if(match.turn===1&&match.phase==='move'&&!movesFor().length){match=confirmTurn(match);undo=[];turnStart=match;record('confirm-turn');aiWait=.6;selectedFrom=null;refresh();}
             },
             update(dt){
                 if(match.turn!==-1||match.phase==='finished'||rollTime>0||animationTime<1)return;
@@ -146,11 +148,14 @@ export function backgammonGame(ctx,{x,y,z,source,onDone}) {
         });
     }});
     ctx.onUpdate(dt=>{
-        let changed=false;
-        if(animationTime<1){animationTime=Math.min(1,animationTime+dt/.24);const t=animationTime*(2-animationTime);for(let i=0;i<30;i++){const p=fromPositions[i].clone().lerp(toPositions[i],t);if(fromPositions[i].distanceToSquared(toPositions[i])>1e-12)p.y+=Math.sin(animationTime*Math.PI)*.055;checkers.setMatrixAt(i,M(...p.toArray()));}checkers.instanceMatrix.needsUpdate=true;changed=true;}
-        if(rollTime>0){rollTime=Math.max(0,rollTime-dt);renderDice();changed=true;}
-        if(changed)refresh();
+        let controlsChanged=false;
+        if(animationTime<1){animationTime=Math.min(1,animationTime+dt/.24);const t=animationTime*(2-animationTime);for(let i=0;i<30;i++){const p=fromPositions[i].clone().lerp(toPositions[i],t);if(fromPositions[i].distanceToSquared(toPositions[i])>1e-12)p.y+=Math.sin(animationTime*Math.PI)*.055;checkers.setMatrixAt(i,M(...p.toArray()));}checkers.instanceMatrix.needsUpdate=true;controlsChanged=animationTime===1;}
+        if(rollTime>0){rollTime=Math.max(0,rollTime-dt);renderDice();controlsChanged=controlsChanged||rollTime===0;}
+        // The position and point counts already changed in the input handler.
+        // Only re-enable controls when motion ends; preserve DOM focus while
+        // checker/die matrices alone advance through the intervening frames.
+        if(controlsChanged)refresh();
     });
-    ctx.extras.backgammon={source,table:{x,y,z,boardRotationY:Math.PI/2},opponent:{name:'Doru',fictional:true,x:x-.95,y:y-.8,z},state:()=>match,legalMoves:()=>legalMoves(match),events:()=>events.map(e=>({...e})),checkers,diceMesh,pips};
+    ctx.extras.backgammon={source,table:{x,y,z,boardRotationY:Math.PI/2},opponent:{name:'Doru',fictional:true,x:x-.95,y:y-.8,z,yaw:-Math.PI/2},state:()=>match,legalMoves:()=>movesFor().map(m=>({...m})),events:()=>events.map(e=>({...e})),checkers,diceMesh,pips};
     return root;
 }

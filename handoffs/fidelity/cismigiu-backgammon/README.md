@@ -41,14 +41,14 @@ does not edit the root-owned registry/data files.
 
 CPU evidence in `validation/`:
 
--22 engine controls and20 complete seeded engine matches:2,446 legal moves,
+- 22 engine controls and20 complete seeded engine matches:2,446 legal moves,
   205 hits, maximum104 turns. Original positions, dice and RNG remain intact.
--9 real DOM/Three/controller controls use the actual production click
+- 9 real DOM/Three/controller controls use the actual production click
   handlers. Three complete matches lose twice before a legal human win:
   486 actions/788 events, no loss/cancel awards, all15 final white 3D checkers
   in the off tray, exact captured-tour completion once. Undo, pause takeover,
   stale removed controls and leaving restore the correct state.
--Edited source passes module syntax and whitespace checks.
+- Edited source passes module syntax and whitespace checks.
 
 The DOM fixture uses LinkeDOM in `/tmp`, not a product dependency. Reproduce
 with `npm install --cache /tmp/bg-npm-cache --prefix /tmp/bg-dom --no-save

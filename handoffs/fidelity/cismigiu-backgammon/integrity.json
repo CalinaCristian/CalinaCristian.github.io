@@ -1,26 +1,106 @@
 {
-  "base": "7423ec24553528f29a5042472939dc498ebce46e",
-  "scope": "CPU source/controller only; native pending",
+  "base": "13722bedb3969a785062c6c3f9f29e8f47708317",
+  "scope": "Historical511 native findings plus33CPU follow-up controls; fresh native pending",
   "files": {
+    "handoffs/fidelity/cismigiu-backgammon/FOLLOWUP.md": {
+      "bytes": 3777,
+      "sha256": "bb499c2766efa8e4f1364c1ade7025e0e8464a232313e01dbbcbf2dad9c10cc6"
+    },
     "handoffs/fidelity/cismigiu-backgammon/README.md": {
-      "bytes": 4031,
-      "sha256": "acd67b39db54f350a84695ebd6019fbd762275ebf3ad4e106d02b77f9a176b79"
+      "bytes": 4034,
+      "sha256": "fdb5356136e34f96560ce9b2bcd5f78c83c384de3a10d2321edce7ae52b9af4c"
     },
     "handoffs/fidelity/cismigiu-backgammon/controller-controls.mjs": {
-      "bytes": 8956,
-      "sha256": "ff70db1025a66da72d768ce57e2b586d96122990c347ebcd17fae1f40bf9e532"
+      "bytes": 9459,
+      "sha256": "7c4a82eddf3a337d7216983ae8121a215d5298f73aa2c6357253aceace7bbec1"
     },
     "handoffs/fidelity/cismigiu-backgammon/engine-controls.mjs": {
       "bytes": 8261,
       "sha256": "619074b328cfbdaf59d9df8047ea557528ce23697da357ba34d00ab4b931f412"
     },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/desktop-constructor.json.gz": {
+      "bytes": 3121,
+      "sha256": "b7437cb9e04bc02d232f9c95a8e60439024e3bac50ce3fd1330905e62965b991"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/desktop-full-native-match.json.gz": {
+      "bytes": 31207,
+      "sha256": "2da9d6c2c92c0f3852686ae427958063a218d7b1004d9dd914081b62df416ddd"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/desktop-match-opening.png": {
+      "bytes": 1385822,
+      "sha256": "4ab98a6b7db31f7121234831e46e5ad86f1d37e40c938c43646e5d49f03b09b2"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/desktop-match-win-confirmed.png": {
+      "bytes": 1596447,
+      "sha256": "764c64891d888d15aa6a1f957760467683bcd5652551abe6d068d95e6c8e7c03"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/desktop-native-cancel-lifecycle.json.gz": {
+      "bytes": 3854,
+      "sha256": "a54d657911c9202bd4e97c8896a9f9b3c79127c5dd74550ea93d8208d182bcc9"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/desktop-native-timing-and-geometry.json.gz": {
+      "bytes": 25828,
+      "sha256": "5578562e9fdf6d4314c06d1fae79cd0b54ca5a26aee7b91405104836e1674451"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/desktop-public-approach-failed.json.gz": {
+      "bytes": 10870,
+      "sha256": "b2483bab79bc1962eb0dba02e07d663eefef84387b31af94d635ee67fea3dcde"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/desktop-public-approach.json.gz": {
+      "bytes": 1391,
+      "sha256": "bf821d6803bde67c9f418b5bddff8126bfcccf99bce36687909d49cb16d95d38"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/desktop-table-approach.png": {
+      "bytes": 1566335,
+      "sha256": "1423512fb8cb2d236bac0ea630dd5f1e838595ede618d4b6de524f5e8479ee90"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/desktop-winning-board-before-confirm.png": {
+      "bytes": 1328727,
+      "sha256": "fbaae5675e957b8adeb2af4937d2eadcf65b5e1d548cbf6c805b80f8827194ba"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/report.json": {
+      "bytes": 54627,
+      "sha256": "a7ab30058c88f8d169e959571c97836b68a787b292c1f8cd876468ea2d29e1b7"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/source-manifest.json": {
+      "bytes": 50389,
+      "sha256": "e420adeb2bf07f69f20266c8bea8bba2c4995241e44f440674517f8716f180d6"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/tools/native-begin.cjs": {
+      "bytes": 1782,
+      "sha256": "5623c4c760833915b6b1afaddb7e2e4cd4342ebddbe45ac1fa8113cfa88e3228"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/tools/native-cancel-cleanup.cjs": {
+      "bytes": 5021,
+      "sha256": "b827740769c1e258172376cf0e0f96a57a06bf1bbe1bd6ca8e26a07037aed9c1"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/tools/native-enter.cjs": {
+      "bytes": 2920,
+      "sha256": "0d54be77f86c27c474aef7cb53c7c234e13824493d32dc02720a4bb6b82651c3"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/tools/native-measure.cjs": {
+      "bytes": 3203,
+      "sha256": "c03faf7773e0c48a2f1f9a636a572bdaca566189ba38d5d83391dee2289d7884"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/tools/native-play.cjs": {
+      "bytes": 4416,
+      "sha256": "52acd0b66d6d89da008f6e26fc0ea489ee300526c8a37f50b67cf382d623aebe"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/tools/native-walk-r2.cjs": {
+      "bytes": 3630,
+      "sha256": "bbd9beb4ef74a953945b580d61b82df5d18e5cb846d4b4d0cb9e90f615c44862"
+    },
+    "handoffs/fidelity/cismigiu-backgammon/native-511/tools/native-walk.cjs": {
+      "bytes": 3495,
+      "sha256": "9bfc3417c1eacbf2ec391d9d67d4146105d9c4365548bc39e7edd9f29119302a"
+    },
     "handoffs/fidelity/cismigiu-backgammon/validation/controller-report.json": {
-      "bytes": 797674,
-      "sha256": "a0a87b1054ffb0ce7675aee8a780c80a2d652082f499a0ff7b26215498557c30"
+      "bytes": 797932,
+      "sha256": "7f6123fe9c22dce184bf7644fc0ed95489370811c00b8ce2fb7998adaa4cc671"
     },
     "handoffs/fidelity/cismigiu-backgammon/validation/controller.log": {
-      "bytes": 566,
-      "sha256": "6c2469f46deeb384bc763523aefcf6e8c66e5b47f6b9d1c3d54d304a8bffa20c"
+      "bytes": 581,
+      "sha256": "477a331669e6caa969aa4835587ed159eaae2b94040f18228cb470415eb3230d"
     },
     "handoffs/fidelity/cismigiu-backgammon/validation/engine-initial-invalid-fixture.log": {
       "bytes": 1721,
@@ -31,16 +111,16 @@
       "sha256": "8bda9d73541a29d1b3243bf3cba18cf3668badaab3f9d29b1df6649b45d68d5d"
     },
     "handoffs/fidelity/cismigiu-backgammon/validation/engine.log": {
-      "bytes": 579,
-      "sha256": "b57b308a45c0f80381cbc9b5fc3fe222da8fb7aa3fe033fe2277f3f235440500"
+      "bytes": 593,
+      "sha256": "b097aa8f5b074719154066cb625c6a8d567f3394a058bfdb569c2ec825af3b42"
     },
     "game/src/spots/backgammon-engine.js": {
       "bytes": 8179,
       "sha256": "2fe6d657d3df1c37a80eb2b9e73f3eaca5967be48301ed4fbd2f8bb3c4fea485"
     },
     "game/src/spots/backgammon-game.js": {
-      "bytes": 21162,
-      "sha256": "cdf2e54a29fbd719ae27e1cc57c8e31463ae153b793a485f0572d10e8c3d3f10"
+      "bytes": 21631,
+      "sha256": "c87e02606d7a1c4aec0760932c6e20d9d4cd43bcaf2f363eb10bda2f5f3abc83"
     },
     "game/src/spots/scenes/cismigiu.js": {
       "bytes": 22445,

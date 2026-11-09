@@ -186,12 +186,17 @@ export function compileSharedBridgeProfile(data, { coreEdges = [], lanePolygon, 
         const rawAtWorld = p => {
             if (main) return commonPoint(p) ?? legacy(p);
             const t = Math.max(0, Math.min(1, ((p[0] - e.a.x) * e.dirx + (p[1] - e.a.z) * e.dirz) / e.len)), s = roleFrames[role].locate(p)?.s ?? s0 + (s1 - s0) * t;
+            // Keep the original endpoint heights in the same mitered source
+            // cross-section coordinates as the MODEL. A tangent projection
+            // gives a different lateral station at a curved anchor and would
+            // introduce a height jump at the MODEL/legacy section boundary.
+            const sectionLegacy = oldYa + (oldYb - oldYa) * Math.max(0, Math.min(1, (s - s0) / ((s1 - s0) || 1)));
             if (role === 'trunk') return lift+trunk.at(s-approachReserves.trunk[0]);
             if(role==='approachIn'||role==='approachOut')return approachAt(p);
             if (role === 'branchA' || role === 'branchB') return internalHeight + branches[role].at(distance(p, centre));
-            if (role === 'loop') return s <= loopAnchor.s ? H - loop.at(s - merge.loop) : legacy(p);
-            if (role === 'exit') return s <= exitAnchor.s ? H + exitRamp.at(s - merge.exit) : legacy(p);
-            return s >= auxiliaryAnchor.s ? model.stationHeightM - auxiliaryRamp.at(s - auxiliaryAnchor.s) : legacy(p);
+            if (role === 'loop') return s <= loopAnchor.s ? H - loop.at(s - merge.loop) : sectionLegacy;
+            if (role === 'exit') return s <= exitAnchor.s ? H + exitRamp.at(s - merge.exit) : sectionLegacy;
+            return s >= auxiliaryAnchor.s ? model.stationHeightM - auxiliaryRamp.at(s - auxiliaryAnchor.s) : sectionLegacy;
         };
         const atWorld=p=>{let y=rawAtWorld(p);for(const n of [e.a,e.b]){const field=padFields.get(n.id);if(field)y=field.blendHeight(...p,y);}return y;};
         const changed = [0, .25, .5, .75, 1].some(t => { const p = [e.a.x + (e.b.x - e.a.x) * t, e.a.z + (e.b.z - e.a.z) * t]; return Math.abs(atWorld(p) - legacy(p)) > 1e-8; });

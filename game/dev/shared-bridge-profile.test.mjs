@@ -27,3 +27,13 @@ for(const [id,grade]of g.grades){if(!grade.sourceBridgeModelId)continue;changedR
 }
 assert(changedRailLegs>0);assert(maxPolynomialError<1e-7);
 console.log(JSON.stringify({passed:true,source:F.source,changedRoadEdges:p.roadGrades.size,changedRailLegs,piecesChecked,maximumGrade,maxPolynomialError,maxRegionAreaError,model:p.report,scope:'Exact immutable native lane/pad/source fixture and continuous support algebra only; no new native render/drive or all-fleet physical acceptance.'},null,2));
+
+// Native00c exposed a lateral MODEL/legacy discontinuity at this exact source
+// anchor. Reuse its actual Float32 leaf points, preserving old negative heights.
+const W=JSON.parse(fs.readFileSync(new URL('../../handoffs/fidelity/shared-bridge-native-00c60335/native-mesh-witnesses.json',import.meta.url))),loopEdge=f.edges.find(e=>e.sourceId==='w84483589'&&e.b.sourceId===3908619731),loopGrade=p.roadGrades.get(loopEdge.id);let maxWitnessChordErrorM=0;
+for(const w of [...W.nativeMeshAudit.limitSamples,W.nativeMeshAudit.worstControl]){assert.equal(w.sourceId,'w84483589');const P=w.vertices.map(v=>v.position),H=P.map(v=>loopGrade.heightAtWorld(v[0],v[2]));for(let i=0;i<3;i++)for(const t of [.25,.5,.75]){const a=P[i],b=P[(i+1)%3],x=a[0]+(b[0]-a[0])*t,z=a[2]+(b[2]-a[2])*t;maxWitnessChordErrorM=Math.max(maxWitnessChordErrorM,Math.abs(loopGrade.heightAtWorld(x,z)-H[i]-(H[(i+1)%3]-H[i])*t));}}
+assert(maxWitnessChordErrorM<.002,'exact native failed leaves now use one source-section coordinate field');
+const centreBaseline=JSON.parse(zlib.gunzipSync(fs.readFileSync(new URL('../../handoffs/fidelity/shared-bridge-native-00c60335/old-centre-heights.json.gz',import.meta.url))));let legacyCentreSamples=0,maxLegacyCentreErrorM=0;
+for(const row of centreBaseline.rows){const grade=p.roadGrades.get(row.edgeId);assert(grade);for(let i=0;i<row.heights.length;i++){maxLegacyCentreErrorM=Math.max(maxLegacyCentreErrorM,Math.abs(grade.heightAt(i/(row.heights.length-1))-row.heights[i]));legacyCentreSamples++;}}
+assert(legacyCentreSamples>0);assert(maxLegacyCentreErrorM<1e-7,'all old source-centre and node heights remain exact');
+console.log(JSON.stringify({nativeSource:W.source,maxWitnessChordErrorM,legacyCentreSamples,maxLegacyCentreErrorM,scope:'Native failed-leaf source-point replay only; fresh native emission/drive still required'}));

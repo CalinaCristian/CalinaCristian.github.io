@@ -112,6 +112,8 @@ R13.20 Preserve signalized `railway=tram_crossing` pedestrian semantics separate
 
 - Bridge mesh refinement evaluates controls at serialized Float32 child vertices and retains longest-edge bisection with a finite18-level numerical budget. The2mm error target is unchanged. Failed leaves retain source edge/way, actual vertex/color/material-tag records and error/depth witnesses; a capped subdivision is still a failed geometry gate. The b006 native3.84052mm/57-leaf failure remains historical negative evidence pending a fresh corrected native build.
 
+- Marked loop/exit/auxiliary MODEL-to-legacy transitions retain old endpoint/source-centre heights in the same mitered2D source-section station as their modeled intervals. A tangent-only legacy projection is not a compatible lateral coordinate: native00c exposed a5.12mm discontinuity. Unmarked readers, sourceXY/tags/lanes/anchors and the2mm/finite18 mesh limits remain unchanged; exact native failed-leaf and centre-height replay controls accompany the correction.
+
 ### Future lane context · 2026-11-09
 
 Lane-drop lookahead carries the planned lane with native `laneOnNext` and the fractional lane with the same destination-lane clamp as actual handoff. Evaluate each future leg using that inherited state; do not reuse the current wider-road index after a turn or merge. Preserve current-edge unfinished-merge waits, genuine future drops, red queues, claims, source directions, body guards and fleet admission. Exact native395 van244 replay reproduces the old false stop; fresh native traffic/route validation remains a gate.

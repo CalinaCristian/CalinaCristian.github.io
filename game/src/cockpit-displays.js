@@ -22,7 +22,7 @@ function depthTexture(renderer, width, height) {
 function patchMaterial(material) {
     if (material.userData.sharpCockpitDepth) return material.userData.sharpCockpitDepth;
     const uniforms = {
-        uDisplayPass: { value: 0 }, uDisplayDepth: { value: null },
+        uDisplayPass: { value: 0 }, uDisplayDepth: { value: null }, uDisplayPlaneDepth: { value: null },
         uDisplayWorldSize: { value: new THREE.Vector2(1, 1) },
         uDisplayOutputSize: { value: new THREE.Vector2(1, 1) },
         uDisplayDepthSign: { value: 1 }, uDisplayMultisample: { value: 0 },
@@ -34,16 +34,20 @@ function patchMaterial(material) {
         shader.fragmentShader = shader.fragmentShader.replace('#include <common>', `#include <common>
             #include <packing>
             uniform float uDisplayPass, uDisplayDepthSign, uDisplayMultisample;
-            uniform sampler2D uDisplayDepth;
+            uniform sampler2D uDisplayDepth, uDisplayPlaneDepth;
             uniform vec2 uDisplayWorldSize, uDisplayOutputSize;`)
             .replace('#include <clipping_planes_fragment>', `#include <clipping_planes_fragment>
+            if (uDisplayPass > 1.5) {
+                gl_FragColor = packDepthToRGBA(gl_FragCoord.z);
+                return;
+            }
             if (uDisplayPass > 0.5) {
                 vec2 worldPixel = floor(gl_FragCoord.xy * uDisplayWorldSize / uDisplayOutputSize) + 0.5;
-                vec2 delta = worldPixel * uDisplayOutputSize / uDisplayWorldSize - gl_FragCoord.xy;
                 vec2 slope = vec2(dFdx(gl_FragCoord.z), dFdy(gl_FragCoord.z));
-                // Window depth is affine across a projected plane. Compare at
-                // the sampled scene texel, rather than lifting the display.
-                float planeDepth = gl_FragCoord.z + dot(slope, delta);
+                // Compare two depths rasterized at the SAME world resolution.
+                // Cross-resolution fragment-depth interpolation differs slightly
+                // on real GPUs; a free epsilon would weaken physical occlusion.
+                float planeDepth = unpackRGBAToDepth(texture2D(uDisplayPlaneDepth, worldPixel / uDisplayWorldSize));
                 float sceneDepth = unpackRGBAToDepth(texture2D(uDisplayDepth, worldPixel / uDisplayWorldSize));
                 // MSAA depth resolve can select an intra-pixel sample. This is
                 // its bounded sampling uncertainty, plus four 24-bit depth ULPs.
@@ -82,6 +86,10 @@ export class CockpitDisplays {
             depthBuffer: false, stencilBuffer: false,
         });
         this.savedDepth.texture.name = 'cockpit-scene-depth';
+        this.planeDepth = new THREE.WebGLRenderTarget(1, 1, {
+            minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter,
+        });
+        this.planeDepth.texture.name = 'cockpit-display-plane-depth';
         this.lowTarget = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType });
         this.lowTarget.texture.name = 'low-world';
         this.lowTarget.samples = Math.min(4, renderer.capabilities.maxSamples);
@@ -96,12 +104,13 @@ export class CockpitDisplays {
         this.copyQuad = new FullScreenQuad(this.copyMaterial);
         this.capturePass = {
             enabled: true, needsSwap: false,
-            setSize: (w, h) => this.savedDepth.setSize(w, h),
-            render: (r, write, read) => { if (this.active) this.captureDepth(read, false); },
+            setSize: (w, h) => { this.savedDepth.setSize(w, h); this.planeDepth.setSize(w, h); },
+            render: (r, write, read) => { if (this.active) { this.captureDepth(read, false); this.renderPlaneDepth(); } },
         };
     }
 
     setPlayer(player) {
+        this.frameScene = this.frameCamera = null;
         this.bindings = [];
         this.scene.clear();
         for (const source of [player?.cockpit?.userData.cluster, player?.cockpit?.userData.screen]) {
@@ -118,11 +127,13 @@ export class CockpitDisplays {
         if (this.bindings.length) {
             this.renderer.initRenderTarget(this.lowTarget);
             this.renderer.initRenderTarget(this.savedDepth);
+            this.renderer.initRenderTarget(this.planeDepth);
         }
     }
 
     begin(scene, camera, player, worldRatio, width, height) {
         this.active = !!player?.driveRigShown && this.bindings.some(b => visibleInScene(b.source, scene, camera));
+        this.frameScene = this.active ? scene : null; this.frameCamera = this.active ? camera : null;
         const ratio = displayPixelRatio(worldRatio, globalThis.devicePixelRatio, width, height, this.active);
         if (this.renderer.getPixelRatio() !== ratio) this.renderer.setPixelRatio(ratio);
         this.stats = { active: this.active, worldPixelRatio: worldRatio, outputPixelRatio: ratio,
@@ -135,6 +146,7 @@ export class CockpitDisplays {
         const w = Math.max(1, Math.floor(width * worldRatio)), h = Math.max(1, Math.floor(height * worldRatio));
         this.lowTarget.setSize(w, h);
         this.savedDepth.setSize(w, h);
+        this.planeDepth.setSize(w, h);
     }
 
     captureDepth(target, multisample) {
@@ -148,11 +160,31 @@ export class CockpitDisplays {
         this.stats.triangles += r.info.render.triangles - before.triangles;
     }
 
+    renderPlaneDepth() {
+        const r = this.renderer, before = { ...r.info.render }, prev = r.getRenderTarget(), clear = r.autoClear;
+        const color = r.getClearColor(new THREE.Color()), alpha = r.getClearAlpha();
+        this.scene.fog = this.frameScene.fog; this.scene.environment = this.frameScene.environment;
+        try {
+            for (const { source, mesh, uniforms } of this.bindings) {
+                mesh.visible = visibleInScene(source, this.frameScene, this.frameCamera);
+                mesh.matrix.copy(source.matrixWorld); uniforms.uDisplayPass.value = 2;
+            }
+            r.autoClear = true; r.setClearColor(0xffffff, 1);
+            r.setRenderTarget(this.planeDepth); r.render(this.scene, this.frameCamera);
+        } finally {
+            for (const b of this.bindings) b.uniforms.uDisplayPass.value = 0;
+            r.autoClear = clear; r.setClearColor(color, alpha); r.setRenderTarget(prev);
+            this.scene.fog = this.scene.environment = null;
+        }
+        this.stats.drawCalls += r.info.render.calls - before.calls;
+        this.stats.triangles += r.info.render.triangles - before.triangles;
+    }
+
     renderLow(scene, camera, outputPass) {
         const r = this.renderer, prev = r.getRenderTarget();
         r.setRenderTarget(this.lowTarget);
         r.render(scene, camera);
-        if (this.active) this.captureDepth(this.lowTarget, this.lowTarget.samples > 0);
+        if (this.active) { this.captureDepth(this.lowTarget, this.lowTarget.samples > 0); this.renderPlaneDepth(); }
         const before = { ...r.info.render }, screen = outputPass.renderToScreen;
         outputPass.renderToScreen = true;
         try { outputPass.render(r, null, this.lowTarget); }
@@ -174,9 +206,10 @@ export class CockpitDisplays {
                 mesh.matrix.copy(source.matrixWorld);
                 const material = source.material;
                 changes.push({ material, depthTest: material.depthTest, depthWrite: material.depthWrite, uniforms });
-                material.depthTest = false; material.depthWrite = false;
+                material.depthTest = true; material.depthWrite = true;
                 uniforms.uDisplayPass.value = 1;
                 uniforms.uDisplayDepth.value = this.savedDepth.texture;
+                uniforms.uDisplayPlaneDepth.value = this.planeDepth.texture;
                 uniforms.uDisplayWorldSize.value.set(this.savedDepth.width, this.savedDepth.height);
                 uniforms.uDisplayOutputSize.value.set(r.domElement.width, r.domElement.height);
                 uniforms.uDisplayDepthSign.value = r.capabilities.reverseDepthBuffer ? -1 : 1;
@@ -184,6 +217,8 @@ export class CockpitDisplays {
             }
             r.autoClear = false;
             r.setRenderTarget(null);
+            r.clearDepth(); // only the two display planes use this depth attachment;
+            // physical world/cabin occlusion comes from the saved source depth.
             r.render(this.scene, camera);
         } finally {
             for (const c of changes) { c.material.depthTest = c.depthTest; c.material.depthWrite = c.depthWrite; c.uniforms.uDisplayPass.value = 0; }
@@ -197,6 +232,6 @@ export class CockpitDisplays {
     dispose() {
         this.setPlayer(null);
         this.copyQuad.dispose(); this.copyMaterial.dispose();
-        this.savedDepth.dispose(); this.lowTarget.dispose();
+        this.savedDepth.dispose(); this.planeDepth.dispose(); this.lowTarget.dispose();
     }
 }

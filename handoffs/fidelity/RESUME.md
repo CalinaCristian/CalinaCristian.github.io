@@ -8,7 +8,7 @@ Environment reattachment has ended model-agent sessions twice while OS jobs and 
 
 Managed browser runtime: NODE_PATH=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules and NODE_OPTIONS=--require=/workspace/.environment/drive-my-cv/use-system-chromium.cjs; /usr/bin/chromium, muted. Playwright's downloaded browser is absent. Software GL timings do not prove hardware FPS.
 
-## Latest integration checkpoint · 2026-11-09 04:42 UTC
+## Latest integration checkpoint · 2026-11-09 04:38 UTC
 
 ROOT8ccab8b8 includes bounded initial packingc2acc8d5, fountain registry disposal06d/native memory pass9242ccf6, actual-body side/rear pedestrian yield43648763 (worker452b), caller swept current-body sensingda08c8ae (worker0e), actual .55m carried negativea3a6a4c4, source-bound contact proof060ace28, C2 Unirii/Groz proof46211271, and minimal runtime freezer62b4643d/8ccab8b8. New focused actor tests and all12 freezer controls pass. Native combined route acceptance remains pending; RO now owns bounded Unirii caller/87-325 replay at exact46211271. No all8 or final900 restart until actual remaining source/display changes settle.
 
@@ -16,7 +16,7 @@ C2 native high/full initial admission passes Unirii484constructor→624public/56
 
 Latest owner requirement R17.display-clarity: all important car displays remain sharp on Low/Medium/Auto, including phone DPR3. Original12case native baselinee2170fa7 confirms world PR1/FXAA blur. Display-only output-resolution prototype51195e02 is NOTREADY: Lowsharp, Mediumdepthspeckle; now correcting actual GL depth-write-mask state and same-resolution packed-depth reference. Preserve bounded worldquality/AA/camera/picking, proper wheel/bezel/world occlusion, mirror/exterior visibility, prewarm and native full pass counters. No main.js edits required so far. Await actual12case/occluder/budget acceptance.
 
-Current master unchangeddf9b2e2c; fresh04:39fetch has no unseen commits. No final release/stamp/deploy. Only staging branch backup permitted now; keep all failed raw/source hashes unchanged. The historical checkpoint below remains evidence of prior state, not current acceptance.
+Current master unchangeddf9b2e2c; fresh04:37fetch has no unseen commits. No final release/stamp/deploy. Only staging branch backup permitted now; keep all failed raw/source hashes unchanged. The historical checkpoint below remains evidence of prior state, not current acceptance.
 
 ## Current checkpoint · 2026-11-09 03:45 UTC
 

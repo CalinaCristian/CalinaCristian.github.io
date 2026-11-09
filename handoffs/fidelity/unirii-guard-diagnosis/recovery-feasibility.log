@@ -1,0 +1,228 @@
+{
+  "source": "395071c21079fb14c25af194a9903a5ae5d87b26",
+  "scope": "CPU-only existing bounded separation feasibility on retained395 state; no production guard/recovery change, no browser, no fresh native acceptance.",
+  "rows": [
+    {
+      "id": 35,
+      "otherId": 47,
+      "direction": 1,
+      "rows": [
+        {
+          "tick": 1,
+          "moved": true,
+          "before": 0.0452595920692449,
+          "after": 0.04525959206922181,
+          "x": -401.0302735784165,
+          "z": 430.4903904969287,
+          "s": 20.806393932672123
+        }
+      ],
+      "delta": {
+        "distanceM": 0.026666666666650057,
+        "s": 0.026666666666667282,
+        "odo": 0.026666666666670835
+      },
+      "allKnownBodyContacts": [
+        {
+          "id": 47,
+          "pen": 0.04525959206922181
+        }
+      ],
+      "coverage": "Existing separation helper enforces peer/player/pedestrian monotonicity. Static/source/grade/published swept-mesh feasibility is unrecorded here and NOT accepted."
+    },
+    {
+      "id": 35,
+      "otherId": 47,
+      "direction": -1,
+      "rows": [
+        {
+          "tick": 1,
+          "moved": false,
+          "before": 0.0452595920692449,
+          "after": 0.0452595920692449,
+          "x": -401.0383307152724,
+          "z": 430.51581083635983,
+          "s": 20.779727266005455
+        }
+      ],
+      "delta": {
+        "distanceM": 0,
+        "s": 0,
+        "odo": 0
+      },
+      "allKnownBodyContacts": [
+        {
+          "id": 47,
+          "pen": 0.0452595920692449
+        }
+      ],
+      "coverage": "Existing separation helper enforces peer/player/pedestrian monotonicity. Static/source/grade/published swept-mesh feasibility is unrecorded here and NOT accepted."
+    },
+    {
+      "id": 47,
+      "otherId": 35,
+      "direction": 1,
+      "rows": [
+        {
+          "tick": 1,
+          "moved": false,
+          "before": 0.0452595920692449,
+          "after": 0.0452595920692449,
+          "x": -404.3236858526459,
+          "z": 430.37800543161654,
+          "s": 13.433537459136083
+        }
+      ],
+      "delta": {
+        "distanceM": 0,
+        "s": 0,
+        "odo": 0
+      },
+      "allKnownBodyContacts": [
+        {
+          "id": 35,
+          "pen": 0.0452595920692449
+        }
+      ],
+      "coverage": "Existing separation helper enforces peer/player/pedestrian monotonicity. Static/source/grade/published swept-mesh feasibility is unrecorded here and NOT accepted."
+    },
+    {
+      "id": 47,
+      "otherId": 35,
+      "direction": -1,
+      "rows": [
+        {
+          "tick": 1,
+          "moved": true,
+          "before": 0.0452595920692449,
+          "after": 0.019067900680624472,
+          "x": -404.35016734079375,
+          "z": 430.3748682518978,
+          "s": 13.406870792469416
+        }
+      ],
+      "delta": {
+        "distanceM": 0.026666666666693206,
+        "s": -0.026666666666667282,
+        "odo": -0.026666666666667282
+      },
+      "allKnownBodyContacts": [
+        {
+          "id": 35,
+          "pen": 0.019067900680624472
+        }
+      ],
+      "coverage": "Existing separation helper enforces peer/player/pedestrian monotonicity. Static/source/grade/published swept-mesh feasibility is unrecorded here and NOT accepted."
+    },
+    {
+      "id": 35,
+      "otherId": 47,
+      "direction": 1,
+      "rows": [
+        {
+          "tick": 1,
+          "moved": true,
+          "before": 0.0452595920692449,
+          "after": 0.04525959206922181,
+          "x": -401.0302735784165,
+          "z": 430.4903904969287,
+          "s": 20.806393932672123
+        },
+        {
+          "tick": 2,
+          "moved": true,
+          "before": 0.04525959206922181,
+          "after": 0.04525959206919916,
+          "x": -401.02221644156054,
+          "z": 430.46497015749753,
+          "s": 20.83306059933879
+        },
+        {
+          "tick": 3,
+          "moved": true,
+          "before": 0.04525959206919916,
+          "after": 0.04525959206917696,
+          "x": -401.0141593047046,
+          "z": 430.4395498180664,
+          "s": 20.859727266005457
+        },
+        {
+          "tick": 4,
+          "moved": true,
+          "before": 0.04525959206917696,
+          "after": 0.045259592069153864,
+          "x": -401.00610216784867,
+          "z": 430.41412947863523,
+          "s": 20.886393932672124
+        },
+        {
+          "tick": 5,
+          "moved": true,
+          "before": 0.045259592069153864,
+          "after": 0.045259592069131216,
+          "x": -400.9980450309927,
+          "z": 430.3887091392041,
+          "s": 20.91306059933879
+        },
+        {
+          "tick": 6,
+          "moved": true,
+          "before": 0.045259592069131216,
+          "after": 0.04525959206910857,
+          "x": -400.9899878941368,
+          "z": 430.36328879977293,
+          "s": 20.93972726600546
+        }
+      ],
+      "delta": {
+        "distanceM": 0.15999999999990033,
+        "s": 0.1600000000000037,
+        "odo": 0.160000000000025
+      },
+      "allKnownBodyContacts": [
+        {
+          "id": 47,
+          "pen": 0.04525959206910857
+        }
+      ],
+      "coverage": "Existing separation helper enforces peer/player/pedestrian monotonicity. Static/source/grade/published swept-mesh feasibility is unrecorded here and NOT accepted."
+    },
+    {
+      "id": 47,
+      "otherId": 35,
+      "direction": -1,
+      "rows": [
+        {
+          "tick": 1,
+          "moved": true,
+          "before": 0.0452595920692449,
+          "after": 0.019067900680624472,
+          "x": -404.35016734079375,
+          "z": 430.3748682518978,
+          "s": 13.406870792469416
+        },
+        {
+          "tick": 2,
+          "moved": true,
+          "before": 0.019067900680624472,
+          "after": -0.0071237907079968465,
+          "x": -404.3766488289416,
+          "z": 430.37173107217905,
+          "s": 13.380204125802749
+        }
+      ],
+      "delta": {
+        "distanceM": 0.05333333333338641,
+        "s": -0.053333333333334565,
+        "odo": -0.053333333333334565
+      },
+      "allKnownBodyContacts": [],
+      "coverage": "Existing separation helper enforces peer/player/pedestrian monotonicity. Static/source/grade/published swept-mesh feasibility is unrecorded here and NOT accepted."
+    }
+  ],
+  "conclusion": "At least one monotonic <=.8m/s detached translation exists, but existing overlapGuard skips recovery for the <.05m retained contact and returns immediately after rejection. This does not authorize a guard waiver or prove a complete source/static-safe route. Initial constructor poses were not recorded, so no admission cause is asserted."
+}
+(node:573080) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/reality-pass/unirii-underpass/source-395071c2/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/reality-pass/unirii-underpass/source-395071c2/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)

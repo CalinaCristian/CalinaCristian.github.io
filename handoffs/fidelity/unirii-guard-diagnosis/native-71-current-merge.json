@@ -1,0 +1,296 @@
+{
+  "source": "71f20c4581ae62d12a98e226fbfef476fc27dab9",
+  "scope": "Read-only retained71 current-edge true unfinished merge; not the false future-shape drop fixed in717. Scalar native laneFree inequalities independently evaluated on recorded bodies; no native replay.",
+  "time": 86.16666666666434,
+  "actor": {
+    "actualEmittedModelBounds": {
+      "min": [
+        -1.5549999475479126,
+        -0.06499999761581421,
+        -6.269999980926514
+      ],
+      "max": [
+        1.5549999475479126,
+        5.630000114440918,
+        6.104000091552734
+      ],
+      "vertices": 2444
+    },
+    "id": 88,
+    "kind": "trolleybus",
+    "x": 158.91561396310317,
+    "z": -248.3552581035572,
+    "y": 0.24,
+    "heading": -0.9316825177476686,
+    "fx": 0.8026246720555172,
+    "fz": -0.5964843969524882,
+    "speed": 0,
+    "length": 12,
+    "width": 2.55,
+    "dir": 1,
+    "s": 15.686337613129531,
+    "lane": 1,
+    "laneCur": 2,
+    "latExtraCur": 0,
+    "lateralExtra": 0,
+    "odo": 63.940931864375486,
+    "stuck": 35.10000000000057,
+    "still": 35.10000000000057,
+    "zeroWhy": "guard",
+    "gap": null,
+    "stopD": 0.18550496061520505,
+    "stopWhy": "lanedrop2",
+    "leaderCross": false,
+    "waitRed": false,
+    "redQ": false,
+    "ghost": 0,
+    "ovT": 0,
+    "touchT": 0,
+    "parked": false,
+    "tram": false,
+    "bus": true,
+    "trolley": true,
+    "dwell": 0,
+    "edge": {
+      "id": 791,
+      "road": 198,
+      "name": "Bulevardul Corneliu Coposu",
+      "dirx": 0.8026246720555172,
+      "dirz": -0.5964843969524882,
+      "nx": 0.5964843969524882,
+      "nz": 0.8026246720555172,
+      "len": 30.871842573744736,
+      "wL": 3.5,
+      "wR": 7,
+      "sidewalk": 3.5,
+      "sidewalkLeftM": 0,
+      "sidewalkRightM": 3.5,
+      "ya": 0,
+      "yb": 0,
+      "layer": 0,
+      "bridge": false,
+      "tunnel": false,
+      "lidded": false,
+      "anchorH": 0,
+      "L": 0,
+      "main": true,
+      "drivable": true,
+      "publicDrive": true,
+      "throughAccess": true,
+      "a": {
+        "id": 741,
+        "x": 143.1938292966124,
+        "z": -243.21238200028796,
+        "y": 0,
+        "sourceId": 9088160161,
+        "pad": true,
+        "radius": 7.5,
+        "edgeIds": [
+          700,
+          790,
+          791
+        ]
+      },
+      "b": {
+        "id": 421,
+        "x": 167.97233181811382,
+        "z": -261.62695440070024,
+        "y": 0,
+        "sourceId": 9088160178,
+        "pad": true,
+        "radius": 7.5,
+        "edgeIds": [
+          374,
+          440,
+          791
+        ]
+      }
+    },
+    "route": [
+      {
+        "edgeId": 440,
+        "road": 114,
+        "dir": 1
+      },
+      {
+        "edgeId": 441,
+        "road": 114,
+        "dir": 1
+      },
+      {
+        "edgeId": 500,
+        "road": 124,
+        "dir": 1
+      },
+      {
+        "edgeId": 556,
+        "road": 134,
+        "dir": 1
+      },
+      {
+        "edgeId": 771,
+        "road": 193,
+        "dir": 1
+      },
+      {
+        "edgeId": 825,
+        "road": 210,
+        "dir": 1
+      },
+      {
+        "edgeId": 826,
+        "road": 210,
+        "dir": 1
+      }
+    ],
+    "hist": []
+  },
+  "currentSource": "w982816382",
+  "currentLanes": 3,
+  "nextSource": "w229949119",
+  "nextLanes": 2,
+  "frontDistanceM": 9.185504960615205,
+  "radiusM": 7.5,
+  "stopM": 0.18550496061520505,
+  "targetLaneCenter": {
+    "x": 156.82791857376947,
+    "z": -251.1644444557515
+  },
+  "knownLaneFreeBlockers": [
+    {
+      "id": 5,
+      "kind": "taxi",
+      "longitudinalM": -7.18232000184126,
+      "lateralM": 8.373335865119458e-06,
+      "speed": 0,
+      "leader": 30,
+      "stopWhy": "light",
+      "stopD": 37.794607425554176
+    },
+    {
+      "id": 30,
+      "kind": "taxi",
+      "longitudinalM": -1.2219508160709682,
+      "lateralM": -0.13050899952288264,
+      "speed": 0,
+      "leader": 218,
+      "stopWhy": "light",
+      "stopD": 32.4580472933412
+    },
+    {
+      "id": 218,
+      "kind": "compact-sedan",
+      "longitudinalM": 4.813756402965541,
+      "lateralM": -0.17144127000883147,
+      "speed": 0,
+      "leader": 134,
+      "stopWhy": "box-full",
+      "stopD": 0.19174855764961407
+    }
+  ],
+  "conclusion": "Actual target lane has retained adjacent bodies, so unconditional release is unsafe. The present physical-index wait also cannot finish steering while speed0; a later gap must permit a geometric moving merge rather than a timer/slide. This lane has not implemented that broader behavior.",
+  "raw": [
+    {
+      "path": "/workspace/reality-pass/unirii-underpass/local-noon-71f20c45/report.json",
+      "bytes": 6893496,
+      "sha256": "102a9bf4430aae8124dd4f66787c77b69eaa39c2a4e06871998dacf55e6633eb"
+    },
+    {
+      "path": "/workspace/reality-pass/unirii-underpass/local-noon-71f20c45/block-dependencies.json.gz",
+      "bytes": 1042456,
+      "sha256": "5981ac67b0a4acc38ad4fe30ddba21317cef703974b0a9c1b979b9e98f498fd4"
+    },
+    {
+      "path": "/workspace/reality-pass/unirii-underpass/local-noon-71f20c45/native-world.json.gz",
+      "bytes": 9239295,
+      "sha256": "42ffd82af93e128da5a9055c2bd980e19ffe271f764c2a904ee0ee5dc6f3885e"
+    }
+  ],
+  "targetLaneChain": [
+    {
+      "id": 30,
+      "kind": "taxi",
+      "x": 155.76930411887525,
+      "z": -250.54031960306415,
+      "speed": 0,
+      "still": 0,
+      "leader": 218,
+      "waitRed": false,
+      "redQ": true,
+      "stopWhy": "light",
+      "stopD": 32.4580472933412,
+      "zeroWhy": "guard"
+    },
+    {
+      "id": 218,
+      "kind": "compact-sedan",
+      "x": 160.58929618550084,
+      "z": -254.1733780339682,
+      "speed": 0,
+      "still": 0,
+      "leader": 134,
+      "waitRed": false,
+      "redQ": true,
+      "stopWhy": "box-full",
+      "stopD": 0.19174855764961407,
+      "zeroWhy": null
+    },
+    {
+      "id": 134,
+      "kind": "compact-sedan",
+      "x": 172.58524646899343,
+      "z": -263.1456339536444,
+      "speed": 0,
+      "still": 0,
+      "leader": 199,
+      "waitRed": false,
+      "redQ": true,
+      "stopWhy": "light",
+      "stopD": 11.440358217433863,
+      "zeroWhy": null
+    },
+    {
+      "id": 199,
+      "kind": "compact-sedan",
+      "x": 177.2834814827872,
+      "z": -266.83743961158416,
+      "speed": 0,
+      "still": 0,
+      "leader": 158,
+      "waitRed": true,
+      "redQ": true,
+      "stopWhy": "light",
+      "stopD": 5.411003990872787,
+      "zeroWhy": null
+    },
+    {
+      "id": 158,
+      "kind": "sedan",
+      "x": 182.1295498283777,
+      "z": -270.71330246364903,
+      "speed": 0,
+      "still": 30.73333333333402,
+      "leader": 244,
+      "waitRed": false,
+      "redQ": false,
+      "stopWhy": "box-full",
+      "stopD": 0.11389151097175443,
+      "zeroWhy": null
+    },
+    {
+      "id": 244,
+      "kind": "delivery-van",
+      "x": 187.29366663716607,
+      "z": -275.8130465403916,
+      "speed": 0,
+      "still": 1.633333333333335,
+      "leader": null,
+      "waitRed": false,
+      "redQ": false,
+      "stopWhy": "lanedrop",
+      "stopD": -0.18247847033773912,
+      "zeroWhy": null
+    }
+  ],
+  "terminalOrMissingId": null
+}

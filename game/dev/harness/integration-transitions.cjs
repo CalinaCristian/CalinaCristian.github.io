@@ -3,6 +3,7 @@
 const fs = require('fs');
 const http = require('http');
 const path = require('path');
+const crypto = require('node:crypto');
 const { chromium, webkit } = require('playwright');
 const root = path.resolve(process.argv[2] || path.join(__dirname, '../../..'));
 const out = path.resolve(process.argv[3] || '/tmp/district-transitions.json');
@@ -10,13 +11,16 @@ const quality = process.argv[4] || 'auto';
 fs.mkdirSync(path.dirname(out), { recursive: true });
 const browserKind = process.argv[5] || 'chromium';
 const bridgeDump = process.env.BRIDGE_DUMP_PAYLOAD ? require(path.resolve(process.env.BRIDGE_DUMP_PAYLOAD)) : null;
+const bridgeTargetsFile = process.env.BRIDGE_DUMP_TARGETS ? path.resolve(process.env.BRIDGE_DUMP_TARGETS) : null;
+const bridgeTargets = bridgeTargetsFile ? JSON.parse(fs.readFileSync(bridgeTargetsFile, 'utf8')) : null;
 const mime = {'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.png':'image/png'};
 const server = http.createServer((q,r)=> {let p=decodeURIComponent(q.url.split('?')[0]); if(p.endsWith('/'))p+='index.html'; const f=path.join(root,p); fs.readFile(f,(e,b)=> {r.writeHead(e?404:200,{'content-type':mime[path.extname(f)]||'application/octet-stream'});r.end(e?'missing':b);});});
 async function run(){
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  let browser;
- const result={root,quality,browserKind,checksEnabled:!!process.env.PROBE_CHECKS,errors:[],consoleErrors:[],lost:[],navigations:[],stages:[],fetchStages:[]};
+ const result={root,quality,browserKind,checksEnabled:!!process.env.PROBE_CHECKS,errors:[],consoleErrors:[],lost:[],navigations:[],stages:[],fetchStages:[],bridgeTargetProvenance:bridgeTargetsFile?{file:bridgeTargetsFile,sha256:crypto.createHash('sha256').update(fs.readFileSync(bridgeTargetsFile)).digest('hex')}:null};
  try{
+ if(bridgeDump&&process.env.PROBE_CHECKS&&!bridgeTargets)throw Error('Final bridge dumps require explicit historical target records');
  browser = await (browserKind==='webkit'?webkit:chromium).launch({headless:true,...(browserKind==='chromium'?{executablePath:process.env.CHROMIUM_PATH || '/usr/bin/chromium',args:['--mute-audio','--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader','--enable-webgl','--js-flags=--expose-gc','--enable-precise-memory-info']}:{})});
  const context=await browser.newContext({viewport:{width:393,height:852},deviceScaleFactor:3,isMobile:true,hasTouch:true});
  const page=await context.newPage();require('./integration-browser-bounds.cjs').boundEvaluations(page);
@@ -62,9 +66,11 @@ async function run(){
    return {district,ms:performance.now()-started,generation:window.__generation,state:g.state,dpr:devicePixelRatio,pixelRatio:g.renderer.getPixelRatio(),quality:g.r3d.stats.quality,stats:{...g.r3d.stats},rendererMemory:{...g.renderer.info.memory},programs:g.renderer.info.programs.length,gl:{...window.__glLive},heap:performance.memory?.usedJSHeapSize,scene:{materials:materials.size,textures:textures.size,geometry:geometry.size,arrayBytes,instances},contextLost:gl.isContextLost(),contextEvents:window.__contextEvents.slice(),savedDistrict:g.save?.session?.district};
   },{district,quality});
   if(cdp){await cdp.send('Runtime.discardConsoleEntries');await cdp.send('HeapProfiler.collectGarbage');stage.collectedHeap=await cdp.send('Runtime.getHeapUsage');stage.retiredWorlds=await page.evaluate(()=>window.__retiredWorlds.map(w=>({district:w.district,alive:!!w.ref.deref()})));}
-  if(bridgeDump&&['pipera','bellevue'].includes(district)&&!result.bridgeDumps?.[district]){
-   const dump=await page.evaluate(bridgeDump),file=out.replace(/\.json$/,'.bridge-'+district+'.json');
-   fs.writeFileSync(file,JSON.stringify(dump,null,2));result.bridgeDumps||={};result.bridgeDumps[district]={file,recomputedStatsMatchNative:dump.recomputedStatsMatchNative,unresolvedPairs:dump.unresolvedPairs.length};
+  if(bridgeDump&&['pipera','bellevue','seatac'].includes(district)&&!result.bridgeDumps?.[district]){
+   const targets=bridgeTargets?.[district]||[];if(!Array.isArray(targets))throw Error('Invalid bridge target records for '+district);
+   const dump=await page.evaluate(bridgeDump,targets),file=out.replace(/\.json$/,'.bridge-'+district+'.json');
+   fs.writeFileSync(file,JSON.stringify(dump,null,2));result.bridgeDumps||={};result.bridgeDumps[district]={file,recomputedStatsMatchNative:dump.recomputedStatsMatchNative,unresolvedPairs:dump.unresolvedPairs.length,requestedPairs:dump.requestedPairs.length,blockedRequestedPairs:dump.requestedPairs.filter(p=>p.productionBodyQueries.some(q=>q.blocked)).length};
+   if(dump.requestedPairs.length!==targets.length)throw Error('Native bridge dump lost historical target records for '+district);
    if(!dump.recomputedStatsMatchNative)throw Error('Read-only bridge profile dump differs from the actual native world');
   }
   result.stages.push(stage);console.log(district,Date.now()-t,JSON.stringify({memory:stage.rendererMemory,gl:stage.gl,heap:stage.heap,calls:stage.stats.drawCalls,tris:stage.stats.triangles}));

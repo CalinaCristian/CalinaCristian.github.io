@@ -3,6 +3,7 @@
 import { canTravel, lanesDir } from './nav.js';
 import { ambientTrafficAccess } from './road-access.js';
 import { collideBuildings } from './world.js';
+import {sourceRoadClearance} from './source-road-clearance.js';
 import { planInitialVehicleAdmission, ordinaryVehicleStations, vehicleVerticalInterval, initialVehicleConflict } from './initial-vehicle-admission.js';
 import { canTravelTram } from './tram-path.js';
 import { validateTramSupportCertificate } from './tram-body-support.js';
@@ -135,6 +136,8 @@ function sourcePlacement(T, v, b, endMarginM) {
     const e = b.edge;
     const legal = e.rail ? v.tram && canTravelTram(e, b.dir) : canTravel(e, b.dir) && ambientTrafficAccess(e);
     if (e !== v.edge || b.dir !== v.dir || b.lane !== v.lane || b.laneCur !== v.laneCur || !legal || e.a.mapEnd || e.b.mapEnd || (v.tram && !e.tram)) return { valid: false, reason: 'source-edge-direction-lane-access' };
+    const clearance=sourceRoadClearance(T.world?.data,e,{...v,...b});
+    if(clearance.eligible!==true)return{valid:false,reason:'source-clearance-access',clearance};
     if (!(b.laneCur >= 0 && b.laneCur < lanesDir(e, b.dir))) return { valid: false, reason: 'source-lane-index' };
     if (longBody(v)) {
         const span = T.sSpan(e, b.dir, b.length, true);
@@ -181,5 +184,6 @@ export function admitInitialTraffic(T, { clearanceM = .05, spacingM = .25, endMa
         if (Math.abs(a.x - b.x) > span || Math.abs(a.z - b.z) > span) continue;
         const conflict = initialVehicleConflict(a, b, { clearanceM }); if (conflict.conflict) actualUnresolved.push(conflict);
     }
-    return { passed: plan.passed && identityPreserved && exactApplied && actualUnresolved.length === 0 && invalidRailModes.length === 0, applied: true, updates: applied, initialConflicts: plan.initialConflicts, unresolved: actualUnresolved, plannedUnresolved: plan.unresolved, invalidRailModes, unknownHeights: plan.unknownHeights, invalidBodies: plan.invalidBodies, attempts: plan.attempts, originalIds: plan.originalIds, identityPreserved, exactApplied, rngDraws: 0, search: plan.search, staticCandidates, staticSamples, scope: 'Before-first-publication source-station repair; complete fleet pair audit, native static/source/shared-lane validation of accepted candidates. Existing untouched static contacts are not globally certified.' };
+    const invalidSourceClearance=T.vehicles.map(v=>({id:v.id,kind:v.kind,edgeId:v.edge?.id,clearance:sourceRoadClearance(T.world?.data,v.edge,v)})).filter(r=>r.clearance.eligible!==true);
+    return { passed: plan.passed && identityPreserved && exactApplied && actualUnresolved.length === 0 && invalidRailModes.length === 0 && invalidSourceClearance.length===0, applied: true, updates: applied, initialConflicts: plan.initialConflicts, unresolved: actualUnresolved, plannedUnresolved: plan.unresolved, invalidRailModes, invalidSourceClearance, unknownHeights: plan.unknownHeights, invalidBodies: plan.invalidBodies, attempts: plan.attempts, originalIds: plan.originalIds, identityPreserved, exactApplied, rngDraws: 0, search: plan.search, staticCandidates, staticSamples, scope: 'Before-first-publication source-station repair; complete fleet pair/source-clearance audit, native static/source/shared-lane validation of accepted candidates. Existing untouched static contacts are not globally certified.' };
 }

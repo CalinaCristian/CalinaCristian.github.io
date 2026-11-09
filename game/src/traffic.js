@@ -13,6 +13,7 @@ import { admitInitialTraffic, previewInitialTrafficPose, initialTrafficStaticCle
 import { buildTramNetwork, canTravelTram, tramContinuations, sampleTramPath, tramSpan, tramPathPolyline, nearestTramSource, projectTramStations } from './tram-path.js';
 import { buildTurnLaneRules, laneTurnAllowed, preservesTurnLane } from './turn-lanes.js';
 import { buildMotorTurnRestrictions, motorTurnAllowed, motorRestrictionMode } from './motor-turn-restrictions.js';
+import {sourceRoadClearance} from './source-road-clearance.js';
 import { buildTramSourceSignals, tramSourceSignalState } from './tram-source-signals.js';
 import { fitTramBodySupport } from './tram-body-support.js';
 
@@ -991,7 +992,7 @@ export class Traffic {
     // ------------------------------------------------------------------ routing
     turnLaneAllows(e, dir, lane, next, v) {
         return v?.tram || laneTurnAllowed(this.turnLaneRules, e, dir, lane, next?.e, next?.dir) &&
-            (!next || motorTurnAllowed(this.motorTurnRestrictions,e,dir,next.e,next.dir,{mode:motorRestrictionMode(v)}));
+            (!next || motorTurnAllowed(this.motorTurnRestrictions,e,dir,next.e,next.dir,{mode:motorRestrictionMode(v)}) && sourceRoadClearance(this.world?.data,next.e,v).eligible===true);
     }
     /** Constructor planning normally has no motor routes: spawnAll consumes no
      * route-choice RNG. Still expose any invalid supplied/bound future turn,

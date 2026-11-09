@@ -5,6 +5,8 @@
 import { distPointSeg, clamp } from './util.js';
 import { endpointAccessEdges } from './road-access.js';
 import { buildMotorTurnRestrictions, motorTurnAllowed, hasExplicitMotorUTurn } from './motor-turn-restrictions.js';
+import {roadClearancePolicy,assessRoadClearance} from './source-road-clearance.js';
+import {sourceVehicleDimensions} from './source-vehicle-dimensions.js';
 
 // ---------- edge contract helpers (work with both the hand-made and the OSM graph) ----------
 /** lanes available when travelling the edge in `dir` (+1 = a→b, -1 = b→a). 0 = not allowed. */
@@ -118,6 +120,7 @@ export class Navigator {
         this.index = new EdgeIndex(world.graph.edges.filter(e => !e.virtual && e.publicDrive !== false));
         this.nid = new Map(); this.nodes.forEach((n, i) => this.nid.set(n, i));
         this.motorTurnRestrictions = buildMotorTurnRestrictions(world.data, world.graph.edges);
+        this.sourceClearance = roadClearancePolicy(world.data);
         this.markMainComponent();
         this.route = null; this.dest = null; this.offTimer = 0; this.progress = 0; this.segIdx = 0;
     }
@@ -172,9 +175,17 @@ export class Navigator {
     /** A* on travel time. heading (optional) penalises starting against the player's heading. */
     compute(fx, fz, tx, tz, heading = null, fy = null) {
         // on foot (nav.walking): every street both ways (no one-way rules), walking pace, no heading penalty; motorways excluded
-        const W = !!this.walking, canTravelW = (e, dir) => W ? !e.virtual && e.publicDrive !== false && !isMotorway(e) : canTravel(e, dir), speedW = (e) => W ? 1.5 : edgeSpeed(e);
+        const W = !!this.walking, checks = new Map(), actor = this.sourceVehicle || this.player;
+        const dimensions = !W && this.sourceClearance.report.finiteRules ? sourceVehicleDimensions(actor) : null;
+        const clearanceOK = e => {
+            if (W) return true;
+            let value=checks.get(e);if(!value){value=assessRoadClearance(this.sourceClearance,e,dimensions,{mode:this.motorMode||'motorcar'});checks.set(e,value);}
+            return value.eligible===true;
+        };
+        this.lastSourceClearance = {walking:W,dimensions,checks};
+        const canTravelW = (e, dir) => W ? !e.virtual && e.publicDrive !== false && !isMotorway(e) : canTravel(e, dir) && clearanceOK(e), speedW = (e) => W ? 1.5 : edgeSpeed(e);
         if (W) heading = null;
-        const main = (e) => e.main !== false;
+        const main = (e) => e.main !== false && clearanceOK(e);
         // start on the road at the car's level (a bridge deck above / a street below is not where we are)
         const yAt = (e) => { if (e.ya === undefined) return 0.24; const t = Math.max(0, Math.min(1, ((fx - e.a.x) * e.dirx + (fz - e.a.z) * e.dirz) / e.len)); return 0.24 + e.ya + (e.yb - e.ya) * t; };
         // (callers that do not pass the height but start at the player's position get the player's level)
@@ -183,7 +194,7 @@ export class Navigator {
         const s = this.preferStreet(fx, fz, (fy != null && this.index.nearest(fx, fz, 60, level)) || this.index.nearest(fx, fz, 400, main) || this.index.nearest(fx, fz), (e) => level(e), 3);
         const g = this.preferStreet(tx, tz, this.index.nearest(tx, tz, 600, main) || this.index.nearest(tx, tz), main, 3);
         if (!s || !g) return null;
-        if (!W && this.motorTurnRestrictions.modeCounts[this.motorMode || 'motorcar']) return this.computeMotorTurns(s, g, tx, tz, heading);
+        if (!W && this.motorTurnRestrictions.modeCounts[this.motorMode || 'motorcar']) return this.computeMotorTurns(s, g, tx, tz, heading, clearanceOK);
         const N = this.nodes.length, GOAL = N;
         const dist = new Float64Array(N + 1).fill(Infinity);
         const prevE = new Array(N + 1), prevN = new Int32Array(N + 1).fill(-2);
@@ -271,7 +282,7 @@ export class Navigator {
 
     /** A node can have a cheaper forbidden arrival and a different legal one.
      * Retain its actual incoming directed edge instead of discarding that state. */
-    computeMotorTurns(s, g, tx, tz, heading) {
+    computeMotorTurns(s, g, tx, tz, heading, clearanceOK = () => true) {
         const states = [null], dist = [Infinity], previous = [-2], stateByEdge = new Map(), heap = new Heap(), GOAL = 0;
         const se = s.edge, ge = g.edge, endpointAccess = endpointAccessEdges(se, ge);
         const mode = this.motorMode || 'motorcar', policy = this.motorTurnRestrictions;
@@ -285,7 +296,7 @@ export class Navigator {
         };
         const hx = heading === null ? 0 : -Math.sin(heading), hz = heading === null ? 0 : -Math.cos(heading), startOpts = [];
         for (const dir of [1,-1]) {
-            if (!canTravel(se, dir)) continue;
+            if (!canTravel(se, dir) || !clearanceOK(se)) continue;
             const node = dir > 0 ? se.b : se.a; if (!this.nid.has(node)) continue;
             const along = dir > 0 ? (1 - s.t) * se.len : s.t * se.len;
             const against = heading !== null && se.dirx * dir * hx + se.dirz * dir * hz < -.3;
@@ -298,7 +309,7 @@ export class Navigator {
             if (o.dir > 0 ? g.t >= s.t : g.t <= s.t) direct = {dir:o.dir,cost:Math.abs(g.t-s.t)*se.len/edgeSpeed(se) + o.cost-o.along/edgeSpeed(se)};
         }
         const goalCost = new Map();
-        for (const dir of [1,-1]) if (canTravel(ge,dir)) {
+        for (const dir of [1,-1]) if (canTravel(ge,dir) && clearanceOK(ge)) {
             const node = dir > 0 ? ge.a : ge.b, along = (dir > 0 ? g.t : 1-g.t) * ge.len;
             goalCost.set(node, {dir,along,cost:along/edgeSpeed(ge)});
         }
@@ -313,7 +324,7 @@ export class Navigator {
             }
             for (const e of node.edges) {
                 const dir = e.a === node ? 1 : -1, other = dir > 0 ? e.b : e.a;
-                if (!canTravel(e,dir) || !this.nid.has(other) || e.throughAccess === false && !endpointAccess.has(e) || !turnAllowed(state.e,state.dir,e,dir)) continue;
+                if (!canTravel(e,dir) || !clearanceOK(e) || !this.nid.has(other) || e.throughAccess === false && !endpointAccess.has(e) || !turnAllowed(state.e,state.dir,e,dir)) continue;
                 const turnPen = state.e === e ? 40 : node.edges.length >= 3 && (state.e.name||'') !== (e.name||'') ? 7 : 0;
                 const svc = e.type === 'service' && state.e.type !== 'service' ? SERVICE_ENTRY : 0;
                 const cost = du + e.len/edgeSpeed(e)*(TYPE_COST[e.type]||1) + turnPen + svc, i = stateFor(e,dir);

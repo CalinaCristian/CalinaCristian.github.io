@@ -425,6 +425,7 @@ class Game {
             this.setupScreen();
         } else { scene.add(this.player.rig); this.player.scene = scene; }
         this.player.world = world; this.player.traffic = this.traffic; this.player.bounds = world.bounds;
+        this.nav.sourceVehicle = this.player;
         this.placeSpawn(city, world);
         // Admit the replacement crowd around the new pose before its first render.
         // The previous world's eye/vehicle pose is invalid in this world.

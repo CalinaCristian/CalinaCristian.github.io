@@ -1,0 +1,664 @@
+{
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "touch": true,
+  "setup": "Explicit nearby setup for each interaction, actual CDP look/action touches afterwards; no source/collider/crowd changes.",
+  "cases": [
+    {
+      "name": "fish-immediate-pause-cancellation",
+      "setup": {
+        "position": {
+          "x": -56.871645523098664,
+          "z": 26.222058734034498,
+          "y": -6.4,
+          "heading": 0
+        },
+        "kind": "fish",
+        "label": "Ask the fishmongers to throw you a salmon"
+      },
+      "controls": {
+        "x": 249,
+        "y": 807,
+        "width": 46,
+        "height": 46
+      },
+      "inFlight": {
+        "label": "Catch!",
+        "award": false
+      },
+      "paused": {
+        "open": true,
+        "label": "Catch!",
+        "award": false
+      },
+      "passed": false,
+      "failure": {
+        "message": "Unfinished player fish throw survived host pause before another update",
+        "stack": "AssertionError [ERR_ASSERTION]: Unfinished player fish throw survived host pause before another update\n    at /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:43:20\n    at async test (/workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:35:110)\n    at async /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:37:9"
+      }
+    },
+    {
+      "name": "fish-native-timing-and-completion",
+      "setup": {
+        "position": {
+          "x": -56.871645523098664,
+          "z": 26.222058734034498,
+          "y": -6.4,
+          "heading": 0
+        },
+        "kind": "fish",
+        "label": "Ask the fishmongers to throw you a salmon"
+      },
+      "complete": {
+        "award": true,
+        "count": 1,
+        "events": [
+          {
+            "spot": "pike-place",
+            "id": "fish"
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "name": "gum-native-aim-and-physical-wall-placement",
+      "setup": {
+        "position": {
+          "x": -42.45237580292875,
+          "z": 57.91582661072324,
+          "y": -8.224181295225565,
+          "heading": 0
+        },
+        "wall": {
+          "x": -40.751666105378725,
+          "y": -6.574181295225564,
+          "z": 56.86340724342743
+        },
+        "sky": {
+          "x": -38.45237580292875,
+          "y": 3.4258187047744357,
+          "z": 57.91582661072324
+        }
+      },
+      "skyDrags": 6,
+      "passed": false,
+      "failure": {
+        "message": "Native touch look did not acquire the subject",
+        "stack": "Error: Native touch look did not acquire the subject\n    at aim (/workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:33:19)\n    at async /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:55:31\n    at async test (/workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:35:110)\n    at async /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:52:13"
+      }
+    },
+    {
+      "name": "pier-actual-arrival-source-centreline-and-terminal-award",
+      "arrival": {
+        "capturedAt": "2026-11-09T00:11:18.115Z",
+        "position": {
+          "x": 22,
+          "z": -21,
+          "y": 3.000899735713793,
+          "heading": 2.9909261469919177
+        },
+        "pose": {
+          "position": [
+            22,
+            4.650899735713793,
+            -21
+          ],
+          "bearing": 188.63255494203824,
+          "pitch": 0
+        },
+        "triangles": 616428,
+        "calls": 143
+      },
+      "plan": {
+        "source": "w688415225",
+        "arc": [
+          [
+            47.9,
+            15.5
+          ],
+          [
+            47.1,
+            20.5
+          ],
+          [
+            46.1,
+            24.1
+          ],
+          [
+            44.7,
+            27.3
+          ],
+          [
+            41.8,
+            32.3
+          ],
+          [
+            37.7,
+            38.3
+          ],
+          [
+            33.7,
+            43.1
+          ],
+          [
+            30,
+            46.7
+          ],
+          [
+            22.7,
+            52.6
+          ],
+          [
+            16.1,
+            56.1
+          ],
+          [
+            12.6,
+            58.2
+          ],
+          [
+            6.9,
+            60.8
+          ],
+          [
+            -2,
+            62.8
+          ],
+          [
+            -11.2,
+            63.5
+          ],
+          [
+            -19.3,
+            63.1
+          ],
+          [
+            -25.4,
+            62.1
+          ],
+          [
+            -32.2,
+            60.3
+          ],
+          [
+            -37.9,
+            58.2
+          ],
+          [
+            -46.8,
+            53.8
+          ],
+          [
+            -55.8,
+            47
+          ],
+          [
+            -58.8,
+            44.1
+          ]
+        ],
+        "prefix": [
+          [
+            22,
+            -21
+          ],
+          [
+            42.25,
+            -18.75
+          ],
+          [
+            49.75,
+            -8.25
+          ],
+          [
+            51.25,
+            -3.75
+          ],
+          [
+            48.25,
+            15.75
+          ],
+          [
+            47.9,
+            15.5
+          ]
+        ],
+        "arrival": {
+          "x": 22,
+          "z": -21,
+          "y": 3.000899735713793,
+          "heading": 2.9909261469919177
+        },
+        "people": 34,
+        "buildings": 65,
+        "colliders": 1405,
+        "award": false
+      },
+      "walk": {
+        "reached": false,
+        "finished": true,
+        "frames": 392,
+        "walked": 67.83538198978711,
+        "maxStep": 0.23000000000000106,
+        "maxRise": 0.5531258804535124,
+        "noProgress": 100,
+        "position": {
+          "x": 47.19328232693761,
+          "z": 20.207349671253212,
+          "y": 1.3591385109014036,
+          "heading": 2.619968033107065
+        },
+        "trace": [
+          {
+            "frames": 20,
+            "i": 1,
+            "position": {
+              "x": 26.21950602128832,
+              "z": -20.531165997634623,
+              "y": 3.5152555195812307,
+              "heading": -1.681453547968792
+            }
+          },
+          {
+            "frames": 40,
+            "i": 1,
+            "position": {
+              "x": 30.791355203705933,
+              "z": -20.023182755143782,
+              "y": 4.044995740309447,
+              "heading": -1.681453547968792
+            }
+          },
+          {
+            "frames": 60,
+            "i": 1,
+            "position": {
+              "x": 35.36322038247832,
+              "z": -19.51519773528019,
+              "y": 4.678930701494576,
+              "heading": -1.6814535479687924
+            }
+          },
+          {
+            "frames": 80,
+            "i": 1,
+            "position": {
+              "x": 39.93508556197693,
+              "z": -19.007212715335903,
+              "y": 4.749533950091835,
+              "heading": -1.6814535479687949
+            }
+          },
+          {
+            "frames": 99,
+            "i": 2,
+            "position": {
+              "x": 43.474480177788344,
+              "z": -17.154680751090783,
+              "y": 1.6305395091502795,
+              "heading": -2.5275670535724357
+            }
+          },
+          {
+            "frames": 119,
+            "i": 2,
+            "position": {
+              "x": 46.124994416137895,
+              "z": -13.396043087689671,
+              "y": 1.7588551990651844,
+              "heading": -2.5279025006237
+            }
+          },
+          {
+            "frames": 139,
+            "i": 2,
+            "position": {
+              "x": 48.77408000188489,
+              "z": -9.635412127016753,
+              "y": 2.5466033953880016,
+              "heading": -2.527902548566809
+            }
+          },
+          {
+            "frames": 158,
+            "i": 3,
+            "position": {
+              "x": 50.63436532066448,
+              "z": -5.737027133311479,
+              "y": 2.080061516478703,
+              "heading": -2.8409828540144213
+            }
+          },
+          {
+            "frames": 177,
+            "i": 4,
+            "position": {
+              "x": 50.95109248908873,
+              "z": -1.4908362799988957,
+              "y": 2.0029699344908867,
+              "heading": 2.986213895364106
+            }
+          },
+          {
+            "frames": 197,
+            "i": 4,
+            "position": {
+              "x": 50.239677837589745,
+              "z": 3.0536691992659235,
+              "y": 2.143517920872537,
+              "heading": 2.9861441531806663
+            }
+          },
+          {
+            "frames": 217,
+            "i": 4,
+            "position": {
+              "x": 49.52749110529905,
+              "z": 7.598203278422657,
+              "y": 2.068591670333089,
+              "heading": 2.9861441472709522
+            }
+          },
+          {
+            "frames": 237,
+            "i": 4,
+            "position": {
+              "x": 48.815304324747295,
+              "z": 12.142737356807869,
+              "y": 1.8710700390592208,
+              "heading": 2.9861441472702817
+            }
+          },
+          {
+            "frames": 254,
+            "i": 7,
+            "position": {
+              "x": 48.026685816945765,
+              "z": 15.703600378605875,
+              "y": 1.778101929510834,
+              "heading": 0.9905039203565836
+            }
+          },
+          {
+            "frames": 274,
+            "i": 7,
+            "position": {
+              "x": 47.178334133869846,
+              "z": 19.943151220770392,
+              "y": 1.5529447181493035,
+              "heading": 3.0017682883045036
+            }
+          },
+          {
+            "frames": 294,
+            "i": 7,
+            "position": {
+              "x": 47.45880172814825,
+              "z": 20.351059322307098,
+              "y": 1.3591385109014036,
+              "heading": 2.1533810568571545
+            }
+          },
+          {
+            "frames": 314,
+            "i": 7,
+            "position": {
+              "x": 47.374797146877576,
+              "z": 20.306804742665054,
+              "y": 1.3591385109014036,
+              "heading": 2.0860286074558787
+            }
+          },
+          {
+            "frames": 334,
+            "i": 7,
+            "position": {
+              "x": 47.182204237406324,
+              "z": 20.201371793614026,
+              "y": 1.3591385109014036,
+              "heading": 2.9104184560208783
+            }
+          },
+          {
+            "frames": 354,
+            "i": 7,
+            "position": {
+              "x": 47.449751864698655,
+              "z": 20.346341974686585,
+              "y": 1.3591385109014036,
+              "heading": 2.2284790025326537
+            }
+          },
+          {
+            "frames": 374,
+            "i": 7,
+            "position": {
+              "x": 47.379574789943284,
+              "z": 20.309340851207093,
+              "y": 1.3591385109014036,
+              "heading": 2.076466969893114
+            }
+          },
+          {
+            "frames": 392,
+            "i": 7,
+            "position": {
+              "x": 47.19328232693761,
+              "z": 20.207349671253212,
+              "y": 1.3591385109014036,
+              "heading": 2.619968033107065
+            }
+          }
+        ],
+        "award": false,
+        "people": 34,
+        "buildings": 65,
+        "colliders": 1405
+      },
+      "passed": false,
+      "failure": {
+        "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+        "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:83:24\n    at async test (/workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:35:110)\n    at async /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-shore-market-check.cjs:58:13"
+      }
+    },
+    {
+      "name": "stone-native-release-cancellation-and-three-flights",
+      "setup": {
+        "position": {
+          "x": -20.93905495023671,
+          "z": -30.8052073624069,
+          "y": 0.7346608027159323,
+          "heading": 0
+        },
+        "kind": "skip",
+        "label": "Practise three stone skips"
+      },
+      "controls": {
+        "x": 249,
+        "y": 807,
+        "width": 46,
+        "height": 46
+      },
+      "buttons": [
+        {
+          "width": 151.75,
+          "height": 44
+        },
+        {
+          "width": 68.890625,
+          "height": 44
+        }
+      ],
+      "partial": {
+        "phase": "flight",
+        "throws": 0,
+        "skips": 0,
+        "throwSkips": 1,
+        "stone": [
+          -28.5838974708566,
+          1.706704718536597,
+          -18.31234279687108
+        ],
+        "ripples": 0
+      },
+      "throws": [
+        {
+          "phase": "flight",
+          "throws": 0,
+          "skips": 0,
+          "throwSkips": 4,
+          "stone": [
+            -28.5838974708566,
+            1.706704718536597,
+            -18.31234279687108
+          ],
+          "ripples": 0
+        },
+        {
+          "phase": "flight",
+          "throws": 1,
+          "skips": 4,
+          "throwSkips": 1,
+          "stone": [
+            -28.5838974708566,
+            1.706704718536597,
+            -18.31234279687108
+          ],
+          "ripples": 2
+        },
+        {
+          "phase": "flight",
+          "throws": 2,
+          "skips": 5,
+          "throwSkips": 1,
+          "stone": [
+            -28.5838974708566,
+            1.706704718536597,
+            -18.31234279687108
+          ],
+          "ripples": 2
+        }
+      ],
+      "complete": {
+        "active": false,
+        "debug": null,
+        "events": [
+          {
+            "spot": "bel-meydenbauer",
+            "id": "skip"
+          }
+        ]
+      },
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "captures": [
+    {
+      "name": "fish-in-flight",
+      "capturedAt": "2026-11-09T00:10:31.507Z",
+      "position": {
+        "x": -56.871645523098664,
+        "z": 26.222058734034498,
+        "y": -6.4,
+        "heading": 0
+      },
+      "pose": {
+        "position": [
+          -56.871645523098664,
+          -4.75,
+          26.222058734034498
+        ],
+        "bearing": 0,
+        "pitch": 0
+      },
+      "triangles": 424669,
+      "calls": 57
+    },
+    {
+      "name": "pier-public-arrival",
+      "capturedAt": "2026-11-09T00:11:18.115Z",
+      "position": {
+        "x": 22,
+        "z": -21,
+        "y": 3.000899735713793,
+        "heading": 2.9909261469919177
+      },
+      "pose": {
+        "position": [
+          22,
+          4.650899735713793,
+          -21
+        ],
+        "bearing": 188.63255494203824,
+        "pitch": 0
+      },
+      "triangles": 616428,
+      "calls": 143
+    },
+    {
+      "name": "pier-public-end",
+      "capturedAt": "2026-11-09T00:11:25.265Z",
+      "position": {
+        "x": 47.19328232693761,
+        "z": 20.207349671253212,
+        "y": 1.3591385109014036,
+        "heading": 2.619968033107065
+      },
+      "pose": {
+        "position": [
+          47.19328232693761,
+          3.019031412249013,
+          20.207349671253212
+        ],
+        "bearing": 209.88688924377362,
+        "pitch": 0
+      },
+      "triangles": 579214,
+      "calls": 42
+    },
+    {
+      "name": "stone-in-flight-cancelled",
+      "capturedAt": "2026-11-09T00:11:32.670Z",
+      "position": {
+        "x": -20.93905495023671,
+        "z": -30.8052073624069,
+        "y": 0.7346608027159323,
+        "heading": 2.6016860685741348
+      },
+      "pose": {
+        "position": [
+          -20.93905495023671,
+          2.384660802715932,
+          -30.8052073624069
+        ],
+        "bearing": 210.9343686527184,
+        "pitch": -4.479174140659254
+      },
+      "triangles": 579007,
+      "calls": 52
+    },
+    {
+      "name": "stone-second-flight",
+      "capturedAt": "2026-11-09T00:11:35.776Z",
+      "position": {
+        "x": -20.93905495023671,
+        "z": -30.8052073624069,
+        "y": 0.7346608027159323,
+        "heading": 2.6016860685741348
+      },
+      "pose": {
+        "position": [
+          -20.93905495023671,
+          2.384660802715932,
+          -30.8052073624069
+        ],
+        "bearing": 210.9343686527184,
+        "pitch": -4.479174140659254
+      },
+      "triangles": 579167,
+      "calls": 56
+    }
+  ],
+  "checked": true
+}

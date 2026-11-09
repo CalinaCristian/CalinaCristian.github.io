@@ -1,0 +1,72 @@
+'use strict';
+// ROOT OUT FULLSHA MANIFEST REPO. One actual app; no pose/population/camera writes.
+const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),crypto=require('node:crypto'),cp=require('node:child_process'),zlib=require('node:zlib');
+const {chromium}=require('playwright'),{accountFrame}=require('./counter-accounting.cjs');
+const [rootArg,outArg,sourceCommit,manifestArg,repo]=process.argv.slice(2),root=path.resolve(rootArg),out=path.resolve(outArg);
+if(!/^[a-f0-9]{40}$/.test(sourceCommit||''))throw Error('Exact full source SHA required');
+const manifest=JSON.parse(fs.readFileSync(manifestArg)),sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+if(manifest.commit!==sourceCommit)throw Error('Wrong source manifest');
+if(fs.existsSync(out)&&fs.readdirSync(out).length)throw Error('Preserve incomplete outputs; use new directory');fs.mkdirSync(out,{recursive:true});
+const report={sourceCommit,startedUtc:new Date().toISOString(),complete:false,method:'Native High/public Groz rush clear summer, full native source populations. Read-only literal bridge/body scan, then bounded public-start actual driving. All complete warm-frame render work/carry retained. No camera, FOV, far, actor, source, mesh, shader, index or population replacement.',errors:[],consoleErrors:[],httpErrors:[],failures:[],frames:[],served:{},runnerSha256:sha(fs.readFileSync(__filename)),manifestSha256:sha(fs.readFileSync(manifestArg))};
+const save=()=>fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');
+const verify=()=>{for(const[n,e]of Object.entries(manifest.files)){const b=fs.readFileSync(path.join(root,n)),blob=crypto.createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${b.length}\0`),b])).digest('hex');if(sha(b)!==e.sha256||blob!==e.gitBlobSha1)throw Error('Source changed '+n);}return Object.keys(manifest.files).length;};
+report.sourceVerifiedBefore=verify();
+const mime={'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml'};
+const server=http.createServer((req,res)=>{let n=decodeURIComponent(req.url.split('?')[0]).replace(/^\/+/,''),p=path.resolve(root,n);if(!p.startsWith(root+path.sep)){res.writeHead(403).end();return;}fs.readFile(p,(err,b)=>{if(err||!manifest.files[n]||sha(b)!==manifest.files[n].sha256){report.httpErrors.push({path:n,error:err?String(err):'unverified source'});save();res.writeHead(404).end();return;}report.served[n]=manifest.files[n];res.writeHead(200,{'content-type':mime[path.extname(p)]||'application/octet-stream','cache-control':'no-store'}).end(b);});});
+let browser;
+async function capture(page,label){
+ const row=await page.evaluate(label=>{const g=game,H=harness.H,S=DOMAIN,before=S.actors();S.draws=[];S.count=true;S.stage=label;S.envScene=g.r3d._envJob?.scene;
+  const preDrawCounters={...g.renderer.info.render};try{H.renderFrame();}finally{S.count=false;}
+  return{label,preDrawCounters,postDrawCounters:{...g.renderer.info.render},nativeRawStats:{calls:g.r3d.stats.drawCalls,triangles:g.r3d.stats.triangles},draws:S.draws,quality:g.quality,mirror:!!g.player.mirrorEnabled,
+   size:{width:g.renderer.domElement.width,height:g.renderer.domElement.height,pixelRatio:g.renderer.getPixelRatio()},camera:{fov:g.camera.fov,near:g.camera.near,far:g.camera.far},pose:S.pose(),population:S.population(),actorStatesUnchanged:before===S.actors(),pendingReflection:!!g.r3d._envJob};},label);
+ row.accounting=accountFrame(row.preDrawCounters,row.postDrawCounters,row.nativeRawStats,row.draws);
+ if(row.quality!=='high'||row.size.width!==1280||row.size.height!==720||row.size.pixelRatio!==1||row.camera.far!==5000||row.camera.near!==.2||!row.mirror)
+  report.failures.push({kind:'native-settings',label,quality:row.quality,size:row.size,camera:row.camera,mirror:row.mirror});
+ if(!row.accounting.rawStatsAgreement||!row.accounting.productionEndResetObserved||!row.actorStatesUnchanged)report.failures.push({kind:'frame-invariant',label});
+ if(row.accounting.measuredFrameOverBudget)report.failures.push({kind:'actual-frame-budget',label,...row.accounting.measuredCompleteFrame});
+ report.frames.push(row);save();await page.screenshot({path:path.join(out,label+'.png')});console.log('FRAME',label,JSON.stringify(row.accounting.measuredCompleteFrame));
+}
+(async()=>{
+ save();await new Promise(r=>server.listen(0,'127.0.0.1',r));const base=`http://127.0.0.1:${server.address().port}/`;
+ browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--mute-audio','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+ const context=await browser.newContext({viewport:{width:1280,height:720},deviceScaleFactor:1}),page=await context.newPage();
+ page.on('pageerror',e=>{report.errors.push(String(e.stack||e));save();});page.on('console',m=>{if(m.type()==='error'){report.consoleErrors.push(m.text());save();}});page.on('requestfailed',r=>{report.httpErrors.push({url:r.url(),failure:r.failure()});save();});
+ await context.route(/api\.open-meteo\.com/,r=>r.fulfill({json:{error:true}}));report.liveWeatherScope='Only external menu weather request fails deterministically; native clear condition explicitly selected. No clock/date override.';
+ await page.goto(base+'game/index.html?notrack');await page.waitForFunction(()=>window.game?.r3d,null,{timeout:90000});
+ await page.addScriptTag({type:'module',url:base+'game/dev/harness/page/index.js'});await page.waitForFunction(()=>window.harness);
+ await page.evaluate(async()=>{
+  const g=game,H=harness.H;H.noShots=true;H.renderEvery=0;H.renderFrame=()=>{H._renderNow=true;try{g.drawFrame({mirror:true});const gl=g.renderer.getContext();gl.readPixels(0,0,1,1,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array(4));}finally{H._renderNow=false;}};
+  const S=window.DOMAIN={draws:[],unframed:[],count:false,stage:'load',traces:[],contacts:[],resetAttempts:[],constructors:[]},original=g.renderer.renderBufferDirect;
+  const {Traffic}=await import('/game/src/traffic.js'),spawnAll=Traffic.prototype.spawnAll;
+  Traffic.prototype.spawnAll=function(){const result=spawnAll.apply(this,arguments);S.constructors.push({traffic:this,actors:[...this.vehicles,...this.pool].map(v=>({object:v,birthId:v.id}))});return result;};
+  g.renderer.renderBufferDirect=function(camera,scene,geometry,material,object,group){const before={...this.info.render};const result=original.apply(this,arguments),after={...this.info.render},calls=after.calls-before.calls,triangles=after.triangles-before.triangles;
+   if(calls||triangles){const pass=camera===g.camera?'main':camera===g.player?.mirrorCam?'mirror':camera===g.r3d.sun?.shadow.camera?'true-shadow':material.name==='SphericalGaussianBlur'?'reflection-blur':scene===S.envScene||material.name==='PMREM.Background'?'reflection':'other';
+    const row={pass,calls,triangles,countersBefore:before,countersAfter:after,object:{id:object.id,name:object.name,type:object.type},material:{name:material.name,type:material.type},camera:{id:camera.id,type:camera.type}};(S.count?S.draws:S.unframed).push(row);}return result;};
+  S.pose=()=>({x:g.player.x,z:g.player.z,heading:g.player.heading,y:g.player.surfY,speed:g.player.speed,inside:g.world.district.inside(g.player.x,g.player.z)});
+  S.population=()=>{const T=g.traffic,all=[...T.vehicles,...T.pool],ctor=S.constructors.find(c=>c.traffic===T);return{active:T.vehicles.length,pool:T.pool.length,peds:T.peds.list.length,ids:all.map(v=>v.id).sort((a,b)=>a-b),pedIds:T.peds.list.map(p=>p.i),hidden:T.vehicles.filter(v=>v.mesh.visible===false).map(v=>v.id),maxVehicles:T.maxVehicles,profile:T.profile,target:T.target,constructorCount:ctor?.actors.length,constructorIds:ctor?.actors.map(r=>r.birthId),constructorObjectsAndIdsPreserved:!!ctor&&ctor.actors.every(r=>all.includes(r.object)&&r.object.id===r.birthId),duplicateIds:new Set(all.map(v=>v.id)).size!==all.length};};
+  S.actors=()=>JSON.stringify({vehicles:[...g.traffic.vehicles,...g.traffic.pool].map(v=>[v.id,v.x,v.z,v.y,v.heading,v.speed,v.s,v.dir]),peds:g.traffic.peds.list.map(p=>[p.i,p.x,p.z,p.y,p.heading,p.s,p.state])});
+ });
+ await page.selectOption('#quality','high');await page.evaluate(()=>game.startFreeRoam('grozavesti',{tod:'rush',weather:'clear',season:'summer'}));
+ report.publicEntry=await page.evaluate(()=>{const g=game,T=g.traffic,W=g.world;harness.H.begin('source-domain-public-start');return{state:g.state,district:g.district,pose:DOMAIN.pose(),population:DOMAIN.population(),initialAdmission:T.initialAdmission,initialTramBinding:T.initialTramBinding,body:{front:g.player.front,rear:g.player.rear,width:g.player.width,cachedSamples:g.player._colS?.length||0},boundary:W.stats.districtBoundary,closures:W.closures.map(c=>({x:c.x,z:c.z,l0:c.l0,l1:c.l1,half:c.half,bundleId:c.bundleId,bundlePrimary:c.bundlePrimary,worker:c.worker})),workers:g.workers?.length,dataRoads:W.data.roads.length,mask:{x0:W.district.mask.x0,z0:W.district.mask.z0,w:W.district.mask.w,h:W.district.mask.h,cell:W.district.mask.cell},clockDate:g.nowDate().toISOString()};});
+ report.preflightPassed=report.publicEntry.initialAdmission?.passed===true&&report.publicEntry.initialTramBinding?.passed===true&&report.publicEntry.population.maxVehicles===480&&report.publicEntry.population.peds===560&&!report.publicEntry.population.hidden.length&&report.publicEntry.population.constructorObjectsAndIdsPreserved&&!report.publicEntry.population.duplicateIds;
+ save();console.log('PUBLIC',JSON.stringify({population:report.publicEntry.population,preflightPassed:report.preflightPassed,boundary:report.publicEntry.boundary}));
+ for(const label of ['native-start-warm','native-start-sample'])await capture(page,label);
+ if(!report.preflightPassed){report.stoppedBeforeDrive=true;report.failures.push({kind:'native-physical-preflight'});return;}
+ report.startupStep=await page.evaluate(()=>{const before=game.traffic.time;harness.H.stepOnce(1/30);return{before,after:game.traffic.time,cachedBodySamples:game.player._colS?.length};});save();
+ const scanSource=require('./scan-main-bridge.cjs').toString();await page.addScriptTag({content:'window.__domainScan=('+scanSource+');'});
+ const scan=await page.evaluate(source=>__domainScan(game,{sourceCommit:source}),sourceCommit);fs.writeFileSync(path.join(out,'native-main-bridge.json.gz'),zlib.gzipSync(Buffer.from(JSON.stringify(scan))));
+ report.nativeBodyScan={rows:scan.rows.length,positiveRows:scan.rows.filter(r=>r.hits.length),surfaceErrors:scan.rows.filter(r=>r.surfaceError),actualPlayerUnchanged:scan.actualPlayerUnchanged,source:scan.source};save();console.log('BODY',JSON.stringify({rows:scan.rows.length,positive:report.nativeBodyScan.positiveRows.length}));
+ if(report.nativeBodyScan.positiveRows.length||report.nativeBodyScan.surfaceErrors.length){report.stoppedBeforeDrive=true;report.failures.push({kind:'native-body-scan',positive:report.nativeBodyScan.positiveRows.length});return;}
+ report.routes=await page.evaluate(()=>{const g=game,poi=g.world.pois.find(p=>p.id==='upb'),station=g.stations.find(s=>g.world.data.buildingIds?.[s.poi?.building]==='w256806132');if(!poi||!station)throw Error('Missing literal UPB/Lukoil');
+  const target={x:station.x,z:station.z},rows=g.world.graph.edges.filter(e=>/Doina Cornea/.test(e.name)).map(e=>{const x=(e.a.x+e.b.x)/2,z=(e.a.z+e.b.z)/2,r=g.nav.compute(x,z,target.x,target.z);return{sourceId:e.access?.sourceId,from:e.a.sourceId,to:e.b.sourceId,x,z,route:!!r,metres:r?.total};});
+  const route=g.nav.compute(g.player.x,g.player.z,poi.doorX,poi.doorZ,g.player.heading);if(!route||route.total<160)throw Error('Native public-start route unavailable');let k=0;while(k<route.cum.length-2&&route.cum[k+1]<160)k++;const t=(160-route.cum[k])/(route.cum[k+1]-route.cum[k]),a=route.points[k],b=route.points[k+1];DOMAIN.driveTarget={x:a[0]+(b[0]-a[0])*t,z:a[1]+(b[1]-a[1])*t};return{station:{x:station.x,z:station.z,sourceBuilding:g.world.data.buildingIds[station.poi.building]},upb:{x:poi.doorX,z:poi.doorZ},doina:rows,driveTarget:DOMAIN.driveTarget,fullRouteMetres:route.total};});save();
+ await page.evaluate(()=>{const H=harness.H,S=DOMAIN,step=H.stepOnce.bind(H),ap=H.autopilot.bind(H);H.resetCar=why=>{S.resetAttempts.push({why,t:H.scT,pose:S.pose()});throw Error('STRICT_STOP_BEFORE_HARNESS_RESET: '+why);};
+  H.autopilot=dt=>{if(H.ap?.ignorePeds)throw Error('STRICT_STOP_BEFORE_PEDESTRIAN_PUSH');return ap(dt);};
+  H.stepOnce=dt=>{step(dt);if(H.mon.steps%15===0)S.traces.push({t:H.scT,...S.pose(),contactCount:game.player.debug.count,lastCollider:game.player.debug.lastCollider});if(game.player.touching&&game.player.contactAge===0)S.contacts.push({t:H.scT,...S.pose(),lastCollider:game.player.debug.lastCollider});};
+  S.driveDone=false;S.drivePromise=H.driveTo(S.driveTarget.x,S.driveTarget.z,{label:'native-public-first160m',arriveR:9,timeout:120,speedMul:.7,stop:false}).then(r=>{S.driveResult=r;S.driveDone=true;},e=>{S.driveError=String(e.stack||e);S.driveDone=true;H.ap=null;H.setControls(0,0,true);});});
+ while(true){await new Promise(r=>setTimeout(r,1500));const state=await page.evaluate(()=>({done:DOMAIN.driveDone,result:DOMAIN.driveResult,error:DOMAIN.driveError,time:game.traffic.time,pose:DOMAIN.pose(),trace:DOMAIN.traces,contacts:DOMAIN.contacts,resetAttempts:DOMAIN.resetAttempts,issues:harness.H.issues}));report.drive=state;save();console.log('DRIVE',JSON.stringify({done:state.done,time:state.time,pose:state.pose,result:state.result,error:state.error}));if(state.done)break;}
+ await capture(page,'native-driven-endpoint');
+ report.drivePassed=report.drive.result?.ok===true&&report.drive.result.resets===0&&!report.drive.error&&!report.drive.resetAttempts.length&&!report.drive.contacts.length;
+ if(!report.drivePassed)report.failures.push({kind:'native-drive',result:report.drive.result,error:report.drive.error,contacts:report.drive.contacts.length});
+ report.finalPopulation=await page.evaluate(()=>DOMAIN.population());report.complete=true;
+})().catch(e=>{report.fatal=String(e.stack||e);report.failures.push({kind:'tool-or-runtime-fatal'});process.exitCode=1;}).finally(async()=>{await browser?.close();report.browserClosed=true;if(server.listening)await new Promise(r=>server.close(r));try{report.sourceVerifiedAfter=verify();}catch(e){report.failures.push({kind:'source-changed',error:String(e)});}report.endedUtc=new Date().toISOString();save();if(report.failures.length||report.errors.length||report.consoleErrors.length||report.httpErrors.length)process.exitCode=1;});

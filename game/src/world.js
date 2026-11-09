@@ -31,6 +31,7 @@ import { buildRailRoadsideClearance } from './rail-roadside.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
 import { roadMiter, needsRoadBevelPad } from './road-joins.js';
 import { markingArea, clipMarkingHalfPlane, clipMarkingConvex, subtractMarkingConvex, clipAffineMarkingRange, buildMarkingStations, markingDashIntervals } from './road-markings.js';
+import { decodeDistrictMask, buildSourceBoundarySupport, normalizeSourceMapEnds, districtMaskSegments } from './district-boundary.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -1602,11 +1603,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const pad = distId ? 40 : (city.bounds?.pad ?? 300);
     const bounds = { minX: bx0 - pad, maxX: bx1 + pad, minZ: bz0 - pad, maxZ: bz1 + pad };
     // district inside-mask (20 m cells, RLE rows): where the player may drive; boundary walls follow its outline
-    const dmask = data.district?.mask ? (() => {
-        const m = data.district.mask, bits = new Uint8Array(m.w * m.h); let k = 0, v = 0;
-        for (const run of m.rle) { bits.fill(v, k, k + run); k += run; v ^= 1; }
-        return { ...m, bits, at: (x, z) => { const i = Math.floor((x - m.x0) / m.cell), j = Math.floor((z - m.z0) / m.cell); return i >= 0 && j >= 0 && i < m.w && j < m.h && bits[j * m.w + i] === 1; } };
-    })() : null;
+    let dmask = decodeDistrictMask(data.district?.mask);
     if (dmask) Object.assign(bounds, { minX: dmask.x0 - pad, minZ: dmask.z0 - pad, maxX: dmask.x0 + dmask.w * dmask.cell + pad, maxZ: dmask.z0 + dmask.h * dmask.cell + pad });
 
     // -----------------------------------------------------------------------
@@ -2975,6 +2972,21 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     walls.push(...railRoadsideCaps); // exact render-matched new fascia; no invented barrier thickness
+    // The builder retains whole source bridge chains beyond its original core.
+    // Their actual road/pad support and the cockpit's complete body must share
+    // the same finite mask, bounds, inside query and synthetic wall outline.
+    const sourceCoreEdge = e => !!e && !e.virtual && !e.rail &&
+        /^w\d+$/.test(data.roadSourceGeometry?.[e.road]?.sourceId || '');
+    const sourceBoundaryPolygons = data.district && data.roadGeometryPolicy === 'source' ? ribbons.flatMap(rb => {
+        const ownerEdges = rb.e ? sourceCoreEdge(rb.e) ? [rb.e] : [] : (rb.node?.edges || []).filter(sourceCoreEdge);
+        if (!ownerEdges.length) return [];
+        const poly = rb.poly.map(([x, z], i) => [x, Y.road + (rb.e ? yAlong(rb.e, x, z) : rb.hs?.[i] ?? padHeightAt(rb.node, x, z)), z]);
+        return [{ poly, ownerEdges, sourceId: rb.e ? data.roadSourceGeometry[rb.e.road].sourceId : 'source-junction-pad' }];
+    }) : [];
+    const boundarySupport = buildSourceBoundarySupport(sourceBoundaryPolygons);
+    dmask = boundarySupport.extendMask(dmask);
+    if (dmask) Object.assign(bounds, { minX: dmask.x0 - pad, minZ: dmask.z0 - pad,
+        maxX: dmask.x0 + dmask.w * dmask.cell + pad, maxZ: dmask.z0 + dmask.h * dmask.cell + pad });
     // ---- district edge (chapters): every road cut at the district boundary ends in a red/white "road closed" barrier
     //      with a solid wall across it (kind 'end'); the inside-mask outline is an invisible wall (kind 'boundary')
     const mapEnds = [];
@@ -2984,45 +2996,39 @@ export async function buildWorld(city, renderer, opts = {}) {
         const endIdx = new Set(data.district.ends || []);
         nodeArr.forEach((n, i) => { if (!n || endIdx.has(i)) return; const real = n.edges.filter(f => !f.virtual && f.publicDrive !== false); if (real.length !== 1) return; const e = real[0];
             if (/service|living_street|track|path|footway|pedestrian|parking/.test(e.type || '') || (e.len || 0) < 25) return; endIdx.add(i); });
+        const candidates = [];
         for (const i of endIdx) {
             const n = nodeArr[i]; const real = n ? n.edges.filter(f => !f.virtual && f.publicDrive !== false) : []; if (real.length !== 1) continue; // (a U-turn connector may join a cut dual carriageway)
             const e = real[0];
             const out = e.a === n ? 1 : -1; // into the edge (= into the map)
             // road direction over the last ~20 m (a short, skewed last OSM segment made the barrier run diagonally)
             let ix = e.dirx * out, iz = e.dirz * out;
-            { let m = n, f = e, acc = 0, qx = n.x, qz = n.z; const seen = new Set([n]);
+            if (data.roadGeometryPolicy !== 'source') { let m = n, f = e, acc = 0, qx = n.x, qz = n.z; const seen = new Set([n]);
               while (f && acc < 20) { const o = f.a === m ? f.b : f.a; if (seen.has(o)) break; seen.add(o); acc += f.len; qx = o.x; qz = o.z; m = o; const nx2 = o.edges.filter(g => g !== f && !g.virtual); f = nx2.length === 1 ? nx2[0] : null; }
               const L = Math.hypot(qx - n.x, qz - n.z); if (L > 4) { const dx = (qx - n.x) / L, dz = (qz - n.z) / L; if (dx * ix + dz * iz > 0.7) { ix = dx; iz = dz; } } }
             const px = -iz, pz = ix;
-            const cx = n.x + ix * 1.5, cz = n.z + iz * 1.5, y = Y.road + n.y;
-            const half = Math.max(e.wR, e.wL) + shoulderOf(e) + e.sidewalk + 0.3;
-            const ax = cx - px * half, az = cz - pz * half, bx = cx + px * half, bz = cz + pz * half;
-            // soft collider across the whole road (kind 'closure'): the player can't drive off the map
-            const w = { wall: true, ax, az, bx, bz, y0a: y - 2, y1a: y + 3, y0b: y - 2, y1b: y + 3, nx: ix, nz: iz, kind: 'closure', soft: true, edge: e, node: n, x: cx, z: cz, r: half + 0.3, hw: 0, hd: 0, angle: 0, poly: null, h: 1.2 };
-            walls.push(w); n.mapEnd = true;
+            const setback = Math.min(1.5, e.len / 2), cx = n.x + ix * setback, cz = n.z + iz * setback, y = Y.road + yAlong(e, cx, cz);
+            n.mapEnd = true;
             const kind = /motorway|trunk/.test(e.type) ? 'highway' : (/^(primary|secondary)(_link)?$/.test(e.type) || e.lanesF + e.lanesB >= 4) ? 'boulevard' : 'small';
-            // the visible barrier spans the asphalt only (asymmetric on one-way / offset roads): lateral l0…l1 along +p
-            const sgn = px * e.nx + pz * e.nz >= 0 ? 1 : -1, wP = (sgn > 0 ? e.wR : e.wL) + shoulderOf(e), wN = (sgn > 0 ? e.wL : e.wR) + shoulderOf(e);
-            mapEnds.push({ x: cx, z: cz, node: n, edge: e, ix, iz, px, pz, half, y, kind, heading: Math.atan2(ix, iz), l0: -wN, l1: wP });
+            // One asymmetric full exit span (road/shoulder/source sidewalk) is
+            // finalized before both the physical wall and visible decoration.
+            const sgn = px * e.nx + pz * e.nz >= 0 ? 1 : -1,
+                wP = (sgn > 0 ? e.wR : e.wL) + shoulderOf(e) + sidewalkWidth(e, sgn) + .3,
+                wN = (sgn > 0 ? e.wL : e.wR) + shoulderOf(e) + sidewalkWidth(e, -sgn) + .3;
+            candidates.push({ x: cx, z: cz, node: n, edge: e, ix, iz, px, pz, half: (wN + wP) / 2, y, barrierHeight: US ? 1.51 : 1.36, kind, heading: Math.atan2(ix, iz), l0: -wN, l1: wP });
         }
-        if (dmask) { // outline of the inside cells, merged into straight runs
-            const { w: MW, h: MH, cell: CS, x0: X0, z0: Z0 } = dmask, B = (i, j) => i >= 0 && j >= 0 && i < MW && j < MH && dmask.bits[j * MW + i] === 1;
-            const addB = (ax, az, bx, bz, nx, nz) => walls.push({ wall: true, ax, az, bx, bz, y0a: -40, y1a: 80, y0b: -40, y1b: 80, nx, nz, kind: 'boundary', edge: null, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.3, hw: 0, hd: 0, angle: 0, poly: null, h: 0 });
-            for (let i = 0; i <= MW; i++) { let run = null; // vertical lines x = X0 + i*CS
-                for (let j = 0; j <= MH; j++) {
-                    const L = B(i - 1, j), R = B(i, j), v = j < MH && L !== R ? (R ? 1 : -1) : 0;
-                    if (run && v !== run.v) { addB(X0 + i * CS, Z0 + run.j0 * CS, X0 + i * CS, Z0 + j * CS, run.v, 0); run = null; }
-                    if (v && !run) run = { v, j0: j };
-                }
-            }
-            for (let j = 0; j <= MH; j++) { let run = null;
-                for (let i = 0; i <= MW; i++) {
-                    const U = B(i, j - 1), D = B(i, j), v = i < MW && U !== D ? (D ? 1 : -1) : 0;
-                    if (run && v !== run.v) { addB(X0 + run.i0 * CS, Z0 + j * CS, X0 + i * CS, Z0 + j * CS, 0, run.v); run = null; }
-                    if (v && !run) run = { v, i0: i };
-                }
-            }
+        mapEnds.push(...normalizeSourceMapEnds(candidates, boundarySupport));
+        for (const m of mapEnds) {
+            const { x, z, px, pz, y, ix, iz, l0, l1, edge, node } = m,
+                ax = x + px * l0, az = z + pz * l0, bx = x + px * l1, bz = z + pz * l1;
+            walls.push({ wall: true, ax, az, bx, bz, y0a: y, y1a: y + m.barrierHeight, y0b: y, y1b: y + m.barrierHeight,
+                nx: ix, nz: iz, kind: 'closure', soft: true, edge, node,
+                x: (ax + bx) / 2, z: (az + bz) / 2, r: m.half + .3, hw: 0, hd: 0, angle: 0, poly: null, h: 1.2,
+                normalizedSourceBoundary: true, bundleId: m.bundleId, l0, l1 });
         }
+        for (const { ax, az, bx, bz, nx, nz } of districtMaskSegments(dmask))
+            walls.push({ wall: true, ax, az, bx, bz, y0a: -40, y1a: 80, y0b: -40, y1b: 80, nx, nz, kind: 'boundary', edge: null,
+                x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + .3, hw: 0, hd: 0, angle: 0, poly: null, h: 0 });
     }
     // The same source grade resolver is later exposed to Traffic. Heights are
     // explicit model profiles, independent of motor routing and source layers.
@@ -4923,19 +4929,32 @@ export async function buildWorld(city, renderer, opts = {}) {
         const others = Object.entries(city.districts || {}).filter(([id]) => id !== distId).map(([id, d]) => { const q = city.proj(d.center.lat, d.center.lon); return { id, x: q.x, z: q.z }; });
         const post = (c, x, z, y, h) => c.solid.box(x, y, z, 0.08, h, 0.08, 0, postCol);
         const sign = (c, x, z, y, ang, text, bg, fg, accent, w = 1.6) => { const sg = signs.get(text, bg, fg, accent, true); if (!sg) return; post(c, x, z, y, 1.4 + 0.25); addSignQuad(c, x, z, ang, 1, w, w / sg.aspect * 1.0, y + 1.4 + w / sg.aspect / 2, sg, 0.05); };
+        const closureBuilders = () => [...cells.values()].flatMap(c => [...Object.values(c), ...(c.signs || [])]).filter(mb => mb && typeof mb.ic === 'number' && typeof mb.v === 'function');
         mapEnds.forEach((m, k) => {
             const { ix, iz, px, pz, y, kind, edge: e } = m, c = cellOf(m.x, m.z), ang = Math.atan2(px, pz), face = Math.atan2(ix, iz); // signs face the driver coming toward the edge
-            // lateral positions relative to the middle of the asphalt, `half` = half its width (barriers stop at the kerbs)
-            // (play-test note 6) the barrier spans every lane at the cut: widen l0…l1 over any carriageway / pad that the
-            // probe line (1 m inside) still finds beyond the edge's own asphalt (merging lanes, a junction mouth)
-            { const on = (l) => onRibbon(m.x + ix * 1 + px * l, m.z + iz * 1 + pz * l, 0);
-              let l1 = m.l1; while (l1 < m.l1 + 12 && on(l1 + 0.5)) l1 += 0.5; let l0 = m.l0; while (l0 > m.l0 - 12 && on(l0 - 0.5)) l0 -= 0.5;
-              m.l0 = l0; m.l1 = l1; }
+            const starts = new Map(closureBuilders().map(mb => [mb, mb.ic])), sourceScene = data.roadGeometryPolicy === 'source';
+            const clipOptions = { ownerEdges: m.ownerEdges, floorY: y };
+            const discrete = (mb, emit, x, z, radius, collidable = true) => {
+                const vi = mb.vc, ii = mb.ic; emit();
+                let lower = Infinity, upper = -Infinity;
+                for (let i = ii; i < mb.ic; i++) { const yy = mb.p[mb.i[i] * 3 + 1]; lower = Math.min(lower, yy); upper = Math.max(upper, yy); }
+                const clear = boundarySupport.clearMeshRange(mb, ii, clipOptions) &&
+                    boundarySupport.clearCircle(x, z, radius, { ownerEdges: m.ownerEdges, y0: lower - .3, y1: upper });
+                if (!clear) { mb.vc = vi; mb.ic = ii; boundarySupport.report.rejectedDiscreteProps++; return false; }
+                if (collidable) {
+                    if (!sourceScene) addPropColl(x, z, radius, 'closure');
+                    else propColl.push({ x, z, r: radius, hw: radius, hd: radius, angle: 0, poly: null, prop: true, kind: 'closure',
+                        y: lower, top: upper, h: upper - lower, y0: lower - .3, y1: upper, normalizedSourceBoundary: true });
+                }
+                return true;
+            };
+            // Immutable spans are shared by the physical wall and every visible
+            // barrier; source scenery supplies the real continuation beyond it.
             const half = (m.l1 - m.l0) / 2, lc = (m.l0 + m.l1) / 2;
             const at = (d, l) => [m.x + ix * d + px * (lc + l), m.z + iz * d + pz * (lc + l)];
             // the road visibly continues past the closure (note 6): a dug-up roadworks strip, then plain asphalt with kerbs and a
             // dashed centre line running out of the district (≈ 400 m, until it would re-enter the map) into the backdrop city
-            { const asp = rgb(ASPHALT), kerbC = rgb('#a7a39b'), dug = rgb('#6b5a48'), dash = rgb('#d9d9d4'), wS = Math.max(1.5, m.edge.sidewalk || 2);
+            if (!sourceScene && m.bundlePrimary) { const asp = rgb(ASPHALT), kerbC = rgb('#a7a39b'), dug = rgb('#6b5a48'), dash = rgb('#d9d9d4'), wS = Math.max(1.5, m.edge.sidewalk || 2);
               const strip = (d0, d1, l0, l1, col, yy) => { const [ax, az] = at(-d0, l0), [bx, bz] = at(-d1, l0), [cx2, cz2] = at(-d1, l1), [dx, dz] = at(-d0, l1); cellOf((ax + cx2) / 2, (az + cz2) / 2).solid.face4([ax, yy, az], [bx, yy, bz], [cx2, yy, cz2], [dx, yy, dz], col, [0, 1, 0]); };
               let dEnd = 0;
               const dMax = (data.scenery || []).length ? 30 : 400; // (district scenery streets carry the real road on beyond the dug strip)
@@ -5014,9 +5033,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const sg of [-0.5, 0.5]) { const [x, z] = at(0, sg * half * 2); c.solid.box(x, y + (US ? 1.35 : 1.2), z, 0.16, 0.16, 0.12, ang, yellowM); } // warning lamps at the ends
             // cones / drums tapering across the lanes in front of it
             const nT = kind === 'small' ? 4 : 7;
-            for (let j = 0; j < nT; j++) { const f = j / (nT - 1), [x, z] = at(3 + f * (kind === 'small' ? 5 : 14), (f - 0.5) * half * 1.6); c.solid.geo(US && kind !== 'small' ? drumG : coneG, x, y, z, 0, 1, 1, 1, [255, 255, 255]); addPropColl(x, z, US ? 0.35 : 0.22, 'closure'); }
-            if (kind !== 'small') { // jersey barriers + an arrow board on boulevards / highways
-                for (let j = -1; j <= 1; j++) { const [x, z] = at(1.0, j * 2.05 - half * 0.35); c.solid.geo(jerseyG, x, y, z, ang, 1, 1, 1, [255, 255, 255]); }
+            if (m.bundlePrimary) for (let j = 0; j < nT; j++) { const f = j / (nT - 1), [x, z] = at(3 + f * (kind === 'small' ? 5 : 14), (f - 0.5) * half * 1.6);
+                discrete(c.solid, () => c.solid.geo(US && kind !== 'small' ? drumG : coneG, x, y, z, 0, 1, 1, 1, [255, 255, 255]), x, z, US ? .35 : .22); }
+            if (kind !== 'small' && m.bundlePrimary) { // one arrow board per local street bundle
+                for (let j = -1; j <= 1; j++) { const [x, z] = at(1.0, j * 2.05 - half * 0.35);
+                    discrete(c.solid, () => c.solid.geo(jerseyG, x, y, z, ang, 1, 1, 1, [255, 255, 255]), x, z, 1.05, false); }
                 const [bx, bz] = at(-0.6, half * 0.5); c.solid.box(bx, y, bz, 0.1, 1.2, 0.1, 0, postCol); c.solid.box(bx, y + 1.25, bz, 2.2, 1.1, 0.12, ang + Math.PI / 2, dark);
                 const ab = signs.get(US ? '<<<<' : '◄◄◄', '#141414', '#ffb300', null, true); if (ab) addSignQuad(c, bx, bz, face, 1, 2.0, 0.9, y + 1.8, ab, 0.08);
             }
@@ -5033,15 +5054,18 @@ export async function buildWorld(city, renderer, opts = {}) {
             // one character prop per closure (deterministic): excavator / police car (RO), flagger (US)
             const pick = (e.id * 7 + k) % 3;
             if (!US && kind !== 'highway' && pick === 0) { /* the excavator digs in the work site (above) */
-            } else if (!US && kind !== 'small' && pick === 1) { // Poliția Rutieră car parked across the lane before the barrier
-                const [qx, qz] = at(6, half * 0.45); c.solid.geo(carProps('sedan', '#e8e8e8'), qx, y - 0.12, qz, ang, 1, 1, 1, [255, 255, 255]);
-                c.solid.box(qx, y + 1.5, qz, 0.9, 0.12, 0.25, ang, rgb('#1e5bff')); addPropColl(qx, qz, 1.9, 'closure');
-            } else if (US && pick !== 2) { // flagger with a STOP paddle
+            } else if (!US && kind !== 'small' && pick === 1 && m.bundlePrimary) { // one paired rendered/colliding car
+                const [qx, qz] = at(6, half * 0.45);
+                discrete(c.solid, () => { c.solid.geo(carProps('sedan', '#e8e8e8'), qx, y - .12, qz, ang, 1, 1, 1, [255, 255, 255]);
+                    c.solid.box(qx, y + 1.5, qz, .9, .12, .25, ang, rgb('#1e5bff')); }, qx, qz, 1.9);
+            } else if (US && pick !== 2 && m.bundlePrimary) { // flagger with a STOP paddle
                 const [fx, fz] = at(7, half - 1.2), vest = rgb('#d7ff1f');
+                if (boundarySupport.clearCircle(fx, fz, .85, { ownerEdges: m.ownerEdges, y0: y - .3, y1: y + 2.1 })) {
                 c.solid.box(fx, y, fz, 0.35, 0.85, 0.25, ang, rgb('#2b3442')); c.solid.box(fx, y + 0.85, fz, 0.45, 0.65, 0.3, ang, vest); c.solid.box(fx, y + 1.5, fz, 0.22, 0.25, 0.22, ang, rgb('#b98a6a'));
                 c.solid.box(fx, y + 1.78, fz, 0.32, 0.12, 0.32, ang, rgb('#f2f2f2')); post(c, fx + px * 0.35, fz + pz * 0.35, y + 0.6, 1.0);
                 const st = signs.get('STOP', '#c62828', '#ffffff', null, true); if (st) addSignQuad(c, fx + px * 0.35, fz + pz * 0.35, face, 1, 0.5, 0.5, y + 1.85, st, 0.05);
-                addPropColl(fx, fz, 0.35, 'closure');
+                propColl.push({ x: fx, z: fz, r: .35, hw: .35, hd: .35, angle: 0, poly: null, prop: true, kind: 'closure', y, h: 2.1, top: y + 2.1, y0: y - .3, y1: y + 2.1, normalizedSourceBoundary: true });
+                }
             }
             // which district this road heads toward (a later chapter's district → "opens in Chapter n")
             let leadsTo = null, best = Math.cos(45 * Math.PI / 180);
@@ -5049,7 +5073,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             // roadworks crew spot (gameplay places the instanced worker there): behind the barrier on the closed asphalt, off the
             // driver's sight line to the kerb signs (the sign plate no longer sits in front of the worker's head — note 6)
             const [wx, wz] = at(-1.4, half * 0.7); // (between the barrier and the work-site mesh)
-            closures.push({ x: m.x, z: m.z, heading: m.heading, edge: e, node: m.node, kind, leadsTo, l0: m.l0, l1: m.l1, worker: { x: wx, z: wz, y, yaw: Math.atan2(ix, iz) } });
+            const worker = m.bundlePrimary && boundarySupport.clearCircle(wx, wz, .6, { ownerEdges: m.ownerEdges, y0: y - .3, y1: y + 2 }) ? { x: wx, z: wz, y, yaw: Math.atan2(ix, iz) } : false;
+            closures.push({ x: m.x, z: m.z, heading: m.heading, edge: e, node: m.node, kind, leadsTo,
+                l0: m.l0, l1: m.l1, half: m.half, bundleId: m.bundleId, bundlePrimary: m.bundlePrimary, worker });
+            for (const mb of closureBuilders()) if (mb.ic > (starts.get(mb) || 0))
+                boundarySupport.applyMesh(mb, starts.get(mb) || 0, clipOptions);
         });
     }
     // road signs: speed limits where the limit changes, one-way at one-way entries, no-entry at one-way exits
@@ -5965,6 +5993,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
+    stats.districtBoundary = boundarySupport.report;
     stats.waterShore = waterShoreAudit;
     stats.waterChannels = waterChannelAudit;
     stats.waterLines = waterLineAudit;
@@ -6010,7 +6039,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         treeSpots: treeList,
         /** chapters: the loaded district {id, name, label, bbox, center, landmarks, congestion, areaKm2, ends:[{x,z,node,edge}] (road-closed
          *  barriers where roads leave the map; node.mapEnd = true), inside(x, z) (the drivable area)} — null for the legacy corridor maps */
-        district: distId ? { id: distId, ...distCfg, areaKm2: data.district?.areaKm2, ends: mapEnds, inside: insideDistrict, flightBoundary } : null,
+        district: distId ? { id: distId, ...distCfg, areaKm2: data.district?.areaKm2, ends: mapEnds, mask: dmask, inside: insideDistrict, flightBoundary } : null,
         /** district edge closures (spec R10.9) {x, z, heading, edge, node, kind: 'small'|'boulevard'|'highway', leadsTo: districtId|null}; also walls of kind 'closure' (soft) */
         closures,
         /** x/z scale of the world relative to reality (Bucharest 0.7, Seattle 0.5); lane widths, heights, vehicles are real size */
@@ -6064,7 +6093,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         /** invisible collision walls {ax, az, bx, bz, y0a, y1a, y0b, y1b, nx, nz, kind: rail|embank|trench|guard, edge} (also in world.buildings) */
         walls,
         /** carriageway polygons {e | node, poly}, and the ribbon test used by every placement: onRibbon(x, z, r) → ribbon | null */
-        ribbons, onRibbon,
+        ribbons, onRibbon, boundarySupport,
         /**
          * Traffic density multiplier for a local hour (0–24, fractional ok), from the city's daily curve
          * (city.traffic.hourly, TomTom-style: RO peaks 07–10 / 16–19 ×1.6, 22–05 ×0.25; US lower).

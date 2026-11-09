@@ -1,0 +1,27 @@
+(node:520596) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/ordinary-source-span/game/src/district-boundary.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/ordinary-source-span/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ mask decoder verifies complete RLE and preserves source occupancy (2.523367ms)
+✔ finite source-road support extends the whole body domain and leaves unrelated exterior closed (6.292194ms)
+✔ cell/road intersection keeps narrow diagonal support even when cell centre misses it (1.028977ms)
+✔ no selected source support creates no extension or substitute connection (0.27297ms)
+✔ physical segment subtraction splits only actual compatible-level source crossing (7.345438ms)
+✔ own legitimate closed-road cross-section remains closed (0.696623ms)
+✔ primitive polygon subtraction preserves geometry/attributes outside source road (7.154697ms)
+✔ other-level pavement/decorations remain untouched (12.632305ms)
+✔ graded actual support is clipped at its true height intervals (0.934333ms)
+✔ discrete prop clearance tests the complete radius at the actual level (0.642623ms)
+✔ normalized physical and visible sections share immutable exact spans (1.15662ms)
+✔ coplanar street-bundle overlaps are emitted once with one worksite primary (0.682088ms)
+✔ unrelated boundary and other-level local closure remain (8.707908ms)
+✔ source support and graph identity are not modified and no RNG is used (0.573268ms)
+✔ invalid primitive heights fail rather than removing another road blindly (0.253844ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 446.692022

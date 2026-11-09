@@ -1,0 +1,298 @@
+{
+  "scope": "Exact8e4 native source road/pad support plus original mask and all1736 read-only native body-scan poses. Offline replay of proposed boundary helper; not a fresh native app or driven acceptance. No source geometry/travel rights altered.",
+  "nativeSource": "8e4fb0a63cf672d2adf42d6c71d93435b9ff5f2b",
+  "fixtureRawSha256": "8255c08a76decef5413246b36e7280177b7a32b05a65f2bdeb63770f7a530a4c",
+  "nativeProfileRawSha256": "d10b97e01e9be83b4a7ad00cdbb64d66048f74368aa32c88a721917f9f2f3191",
+  "nativeScanRawSha256": "b7ddf79e3f5b0df9fae1cd5acaf415ece6e46d6019412be45bb0ea528b87e2da",
+  "scanRows": 1736,
+  "oldPositiveRows": 6,
+  "newPositiveRows": 0,
+  "oldWalls": 196,
+  "newWalls": 300,
+  "exactUnrelatedOldWallsRetained": 183,
+  "unrelatedControl": {
+    "ax": -760,
+    "az": 260,
+    "bx": -760,
+    "bz": 340,
+    "nx": 1,
+    "nz": 0,
+    "wall": true,
+    "kind": "boundary",
+    "y0a": -40,
+    "y1a": 80,
+    "y0b": -40,
+    "y1b": 80,
+    "x": -760,
+    "z": 300,
+    "r": 40.3
+  },
+  "body": {
+    "front": 3.42,
+    "rear": 2.36,
+    "width": 1.8,
+    "samples": [
+      [
+        2.52,
+        0,
+        0.9
+      ],
+      [
+        1.5250000000000001,
+        0,
+        0.9
+      ],
+      [
+        0.5300000000000002,
+        0,
+        0.9
+      ],
+      [
+        -0.4649999999999994,
+        0,
+        0.9
+      ],
+      [
+        -1.4599999999999995,
+        0,
+        0.9
+      ],
+      [
+        3.07,
+        0.41500000000000004,
+        0.35
+      ],
+      [
+        3.07,
+        -0.41500000000000004,
+        0.35
+      ],
+      [
+        -2.01,
+        0.55,
+        0.35
+      ],
+      [
+        -2.01,
+        -0.55,
+        0.35
+      ]
+    ]
+  },
+  "helperReport": {
+    "sourceSupports": 1714,
+    "triangles": 3650,
+    "bodyRadiusM": 3.53643888678993,
+    "addedMaskCells": 144,
+    "oldMaskCells": 1698,
+    "clippedClosureSections": 0,
+    "removedClosureSections": 0,
+    "closureBundles": 0,
+    "clippedDecorationPolygons": 0,
+    "unresolved": [],
+    "basis": "Finite whole-body support of kept literal source core roads/pads; no passive scenery, OUT or mapped barrier edits"
+  },
+  "buildMs": 41.768868,
+  "oldPositive": [
+    {
+      "station": 1119.8076633697528,
+      "sourceId": "w668700431",
+      "edgeId": 1118,
+      "lane": 1,
+      "x": 638.2198575317191,
+      "z": -866.8309326392705,
+      "oldHits": [
+        {
+          "o": 2.52,
+          "l": 0,
+          "rad": 0.9,
+          "x": 640.381545212403,
+          "z": -868.1261184835336,
+          "push": [
+            0.5184547875969884,
+            0
+          ]
+        },
+        {
+          "o": 1.5250000000000001,
+          "l": 0,
+          "rad": 0.9,
+          "x": 639.5280217035615,
+          "z": -867.6147256601043,
+          "push": [
+            -0.4280217035615351,
+            0
+          ]
+        }
+      ],
+      "newHits": []
+    },
+    {
+      "station": 1121.7126129716248,
+      "sourceId": "w668700431",
+      "edgeId": 1118,
+      "lane": 0,
+      "x": 638.0550780205166,
+      "z": -870.8123495602122,
+      "oldHits": [
+        {
+          "o": 2.52,
+          "l": 0,
+          "rad": 0.9,
+          "x": 640.2167657012005,
+          "z": -872.1075354044752,
+          "push": [
+            0.6832342987994707,
+            0
+          ]
+        },
+        {
+          "o": 1.5250000000000001,
+          "l": 0,
+          "rad": 0.9,
+          "x": 639.363242192359,
+          "z": -871.596142581046,
+          "push": [
+            -0.2632421923590528,
+            0
+          ]
+        }
+      ],
+      "newHits": []
+    },
+    {
+      "station": 1121.7126129716248,
+      "sourceId": "w668700431",
+      "edgeId": 1118,
+      "lane": 1,
+      "x": 639.8539472486597,
+      "z": -867.8100055592622,
+      "oldHits": [
+        {
+          "o": 0.5300000000000002,
+          "l": 0,
+          "rad": 0.9,
+          "x": 640.3085879116607,
+          "z": -868.0824057566667,
+          "push": [
+            0.591412088339348,
+            0
+          ]
+        },
+        {
+          "o": -0.4649999999999994,
+          "l": 0,
+          "rad": 0.9,
+          "x": 639.4550644028192,
+          "z": -867.5710129332375,
+          "push": [
+            -0.3550644028191755,
+            0
+          ]
+        }
+      ],
+      "newHits": []
+    },
+    {
+      "station": 1123.617562573497,
+      "sourceId": "w668700431",
+      "edgeId": 1118,
+      "lane": 0,
+      "x": 639.6891677374573,
+      "z": -871.7914224802039,
+      "oldHits": [
+        {
+          "o": 0.5300000000000002,
+          "l": 0,
+          "rad": 0.9,
+          "x": 640.1438084004583,
+          "z": -872.0638226776084,
+          "push": [
+            0.7561915995417167,
+            0
+          ]
+        },
+        {
+          "o": -0.4649999999999994,
+          "l": 0,
+          "rad": 0.9,
+          "x": 639.2902848916168,
+          "z": -871.5524298541792,
+          "push": [
+            -0.19028489161680684,
+            0
+          ]
+        }
+      ],
+      "newHits": []
+    },
+    {
+      "station": 1123.617562573497,
+      "sourceId": "w668700431",
+      "edgeId": 1118,
+      "lane": 1,
+      "x": 641.4880369656004,
+      "z": -868.7890784792539,
+      "oldHits": [
+        {
+          "o": -1.4599999999999995,
+          "l": 0,
+          "rad": 0.9,
+          "x": 640.2356306109184,
+          "z": -868.0386930297999,
+          "push": [
+            0.6643693890815939,
+            0
+          ]
+        },
+        {
+          "o": -2.01,
+          "l": 0.55,
+          "rad": 0.35,
+          "x": 640.0465131466202,
+          "z": -867.2842166652281,
+          "push": [
+            0.3034868533797862,
+            0
+          ]
+        }
+      ],
+      "newHits": []
+    },
+    {
+      "station": 1125.522512175369,
+      "sourceId": "w668700431",
+      "edgeId": 1463,
+      "lane": 0,
+      "x": 641.3232574543979,
+      "z": -872.7704954001956,
+      "oldHits": [
+        {
+          "o": -1.4599999999999995,
+          "l": 0,
+          "rad": 0.9,
+          "x": 640.0708510997159,
+          "z": -872.0201099507416,
+          "push": [
+            0.8291489002840763,
+            0
+          ]
+        },
+        {
+          "o": -2.01,
+          "l": 0.55,
+          "rad": 0.35,
+          "x": 639.8817336354177,
+          "z": -871.2656335861698,
+          "push": [
+            -0.2317336354177314,
+            0
+          ]
+        }
+      ],
+      "newHits": []
+    }
+  ],
+  "newPositive": [],
+  "nativeGate": "OPEN: this is CPU replay of actual old native data, not a fresh native World/draw or driven trip"
+}

@@ -2,6 +2,7 @@
 // elevations. Ordinary tunnel tags alone never enter this reviewed exception.
 import { edgeCuts } from './building-passages.js';
 import { parseMeasure } from './building-roofs.js';
+import { buildSourceCanopyRoadModels } from './source-canopy-road-models.js';
 
 const no = v => v == null || /^(no|false|0)$/.test(String(v));
 const zero = v => v == null || Number(v) === 0;
@@ -36,7 +37,16 @@ export function buildCoveredRoadModels(data) {
         if (!roadById.has(source.sourceId)) roadById.set(source.sourceId, []);
         roadById.get(source.sourceId).push({ index: Number(index), source });
     }
+    const canopyModels = buildSourceCanopyRoadModels(data);
+    report.unresolved.push(...canopyModels.unresolved);
+    for (const model of canopyModels.accepted) {
+        accepted.push(model); for (const index of model.roadIndices) roadIndices.add(index);
+        report.models.push({ id: model.id, sourceRoadId: model.sourceRoadId, sourceCanopyId: model.sourceCanopyId, roadIndices: model.roadIndices, floorModel: model.model,
+            profileOnly: true, lengthM: model.lengthM, coveredM: model.coveredM, clearanceM: model.clearanceM, clearanceSource: model.clearanceSource, legalMaxheightM: model.legalMaxheightM,
+            nativeUndersideM: model.nativeUndersideM, nativeTopM: model.nativeTopM, sourceGroundJoins: model.groundJoins, sourceXmlSha256: model.sourceXmlSha256, evidence: model.evidence, dimensionNote: model.dimensionNote });
+    }
     for (const record of data.reviewedCoveredRoads || []) {
+        if (record.classification === 'reviewed-source-fuel-canopy-covered-road') continue;
         const fail = reason => report.unresolved.push({ modelId: record.id, sourceRoadId: record.sourceRoadId, reason });
         if (record.schemaVersion !== 1 || record.classification !== 'reviewed-source-building-covered-road' || !/^[a-f0-9]{64}$/.test(record.sourceXmlSha256 || '') || !record.evidence?.length || record.evidence.some(u => !String(u).startsWith('https://'))) { fail('invalid-covered-road-review'); continue; }
         const snapshots = new Map((record.sourceWays || []).map(w => [w.sourceId, w])), road = snapshots.get(record.sourceRoadId), rows = roadById.get(record.sourceRoadId), tags = road?.tags || {};
@@ -120,6 +130,7 @@ export function buildCoveredRoadModels(data) {
     // independently sweeping that estimate leaves real asphalt inside solids.
     const useNativeRibbons = ribbons => {
         for (const model of accepted) {
+            if (model.profileOnly) continue; // Existing open canopy already owns its roof/colliders; no solid passage cut.
             const entry = report.models.find(m => m.id === model.id), sourceWays = new Map(model.sourceWays.map(w => [w.sourceId, w]));
             // Only the literal reviewed portal chains may complete the mouths;
             // their ground anchors and unrelated nearby roads are not opened.

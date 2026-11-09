@@ -1,0 +1,11 @@
+{
+  "sourceXmlFile": "/workspace/reality-pass/original-districts-refresh/tiles/buc_44.4250_26.1090_44.4350_26.1250.xml",
+  "sourceXmlBytes": 5627461,
+  "sourceXmlSha256": "85df20eded36f4d37dd0558762385fd6496b0608e5ebf7889c8db1eafd8a9f67",
+  "dataBeforeSha256": "72ab092e065ffb13c3f3caa6f31d7a73130b60ac8df50b100aeacde95e7dc7dd",
+  "policy": "Only one appended reviewedCoveredRoads field; all preexisting bytes/arrays/dates/footprints/source tags retained. No reference image. Existing reviewed canopy dimensions are not measurements.",
+  "dataAfterSha256": "c4d8da3b398d112b64fe4b3ba233eb4fdbad6168e41aa20f50f9abbd84523c12",
+  "allPreexistingFieldsIdentical": true,
+  "allPreexistingBytesBeforeFinalBraceIdentical": true,
+  "appendedBytes": 5074
+}

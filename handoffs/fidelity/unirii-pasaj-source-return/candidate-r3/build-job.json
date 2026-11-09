@@ -1,0 +1,24 @@
+{
+  "scope": "ISOLATED final R2 source-domain candidate build; not native accepted.126 literal corridor legs plus immutable prior model/crown context. Original dataset restored unconditionally.",
+  "command": [
+    "node",
+    "--max-old-space-size=8000",
+    "tools/osm/build-data.mjs",
+    "--tiles",
+    "/workspace/reality-pass/remaining-ro/unirii/tiles",
+    "--cache",
+    "/workspace/reality-pass/unirii-underpass/data-domain-candidate-2696-r3/cache",
+    "--city",
+    "bucharest",
+    "--district",
+    "unirii"
+  ],
+  "reviewSHA256": "1dbc861ae5c9943e89e9c27a047f83fad00c2e522317b955eb0f15875dd2ca93",
+  "sourceContextSHA256": "284b3ad2b76239f02c41761ddb2bf1b9a0e40a06d07f00807af3d83919b90d1a",
+  "startedAt": "2026-11-09T17:02:21.459725+00:00",
+  "exitCode": 0,
+  "canopyRevalidationExitCode": 0,
+  "outputSHA256": "e94dc563fc82efe0f6dac21e7e20ac8e34ea5a7e20eb38bf97e829abebe9657d",
+  "originalRestoredSHA256": "e5ec3f964640b500f4fcf0aa2bd38313ce625a594ff915ff599c7c792b5bd887",
+  "endedAt": "2026-11-09T17:04:34.021184+00:00"
+}

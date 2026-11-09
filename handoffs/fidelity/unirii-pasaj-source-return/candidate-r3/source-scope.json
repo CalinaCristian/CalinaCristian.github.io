@@ -1,0 +1,1196 @@
+{
+  "scope": "Literal expanded foreground versus route context; not mode, grade, binding, physical or native acceptance.",
+  "counts": {
+    "trams": {
+      "before": 4,
+      "after": 20
+    },
+    "tramSources": {
+      "before": 4,
+      "after": 20
+    },
+    "tramSourceWays": {
+      "before": 8,
+      "after": 148
+    },
+    "tramSourceNodeTags": {
+      "before": 10,
+      "after": 286
+    },
+    "tramRoutes": {
+      "before": 12,
+      "after": 26
+    },
+    "tramSourceCrossings": {
+      "before": 1,
+      "after": 3
+    },
+    "roadRestrictions": {
+      "before": 26,
+      "after": 46
+    },
+    "scenery": {
+      "before": 1251,
+      "after": 1418
+    },
+    "scenerySourceGeometry": {
+      "before": 1251,
+      "after": 1418
+    },
+    "pois": {
+      "before": 246,
+      "after": 341
+    },
+    "areas": {
+      "before": 444,
+      "after": 496
+    }
+  },
+  "preservedOldRecords": {
+    "tramSources": {
+      "lost": [],
+      "changed": [],
+      "added": [
+        "w983032285",
+        "w983032287",
+        "w305084701",
+        "w541390374",
+        "w1225181450",
+        "w1225181451",
+        "w1225181452",
+        "w1225181453",
+        "w1225181455",
+        "w1225181457",
+        "w1225181464",
+        "w1225181465",
+        "w1225181467",
+        "w1225324646",
+        "w1225324647",
+        "w1228244835"
+      ]
+    },
+    "tramSourceWays": {
+      "lost": [],
+      "changed": [],
+      "added": [
+        "w27845098",
+        "w28112712",
+        "w28112998",
+        "w78414345",
+        "w85248655",
+        "w86299926",
+        "w97471646",
+        "w172851021",
+        "w205037366",
+        "w227323098",
+        "w227338402",
+        "w227339002",
+        "w241368968",
+        "w241369345",
+        "w241369583",
+        "w305084701",
+        "w368131021",
+        "w541390374",
+        "w892415035",
+        "w894254316",
+        "w894254317",
+        "w894254318",
+        "w894254319",
+        "w894254320",
+        "w894254321",
+        "w899293857",
+        "w899302218",
+        "w899302219",
+        "w899302220",
+        "w899314650",
+        "w899314651",
+        "w899314652",
+        "w899314658",
+        "w899314660",
+        "w901994509",
+        "w983032277",
+        "w983032279",
+        "w983032280",
+        "w983032281",
+        "w983032282",
+        "w983032283",
+        "w983032284",
+        "w983032285",
+        "w983032286",
+        "w983032287",
+        "w983171911",
+        "w983171913",
+        "w983171914",
+        "w983171915",
+        "w983171916",
+        "w983171917",
+        "w983171918",
+        "w983171919",
+        "w983171920",
+        "w983171921",
+        "w983171922",
+        "w983171923",
+        "w983171924",
+        "w983171925",
+        "w983171926",
+        "w983171927",
+        "w983171928",
+        "w983171929",
+        "w983171931",
+        "w983171932",
+        "w983171933",
+        "w983171934",
+        "w983171935",
+        "w983171936",
+        "w983171937",
+        "w983171938",
+        "w983171939",
+        "w983171940",
+        "w983171941",
+        "w983171942",
+        "w1159323707",
+        "w1159323708",
+        "w1159323709",
+        "w1225181449",
+        "w1225181450",
+        "w1225181451",
+        "w1225181452",
+        "w1225181453",
+        "w1225181454",
+        "w1225181455",
+        "w1225181456",
+        "w1225181457",
+        "w1225181459",
+        "w1225181460",
+        "w1225181463",
+        "w1225181464",
+        "w1225181465",
+        "w1225181467",
+        "w1225192533",
+        "w1225192534",
+        "w1225192536",
+        "w1225192538",
+        "w1225192540",
+        "w1225192541",
+        "w1225192542",
+        "w1225294382",
+        "w1225294383",
+        "w1225294384",
+        "w1225294385",
+        "w1225294395",
+        "w1225294396",
+        "w1225294397",
+        "w1225294398",
+        "w1225294399",
+        "w1225294400",
+        "w1225294401",
+        "w1225294402",
+        "w1225294403",
+        "w1225324643",
+        "w1225324644",
+        "w1225324645",
+        "w1225324646",
+        "w1225324647",
+        "w1225324648",
+        "w1225324649",
+        "w1225324652",
+        "w1225324655",
+        "w1225324656",
+        "w1225324659",
+        "w1225324660",
+        "w1225324661",
+        "w1225324662",
+        "w1225324663",
+        "w1225324664",
+        "w1225439113",
+        "w1228244835",
+        "w1228945385",
+        "w1484394062",
+        "w1484394065",
+        "w1484394066",
+        "w1484394067",
+        "w1484394068",
+        "w1484394069",
+        "w1484394070",
+        "w1484394071"
+      ]
+    },
+    "roadRestrictions": {
+      "lost": [],
+      "changed": [],
+      "added": [
+        "r3073546",
+        "r3073547",
+        "r3076902",
+        "r3076903",
+        "r4816699",
+        "r4816700",
+        "r5822146",
+        "r5822147",
+        "r5822148",
+        "r5822149",
+        "r15004840",
+        "r17786033",
+        "r17786034",
+        "r17808341",
+        "r17808342",
+        "r19980542",
+        "r19980543",
+        "r19980544",
+        "r19980546",
+        "r19980547"
+      ]
+    },
+    "tramSourceCrossings": {
+      "lost": [],
+      "changed": [],
+      "added": [
+        "w983032289",
+        "w983032296"
+      ]
+    }
+  },
+  "newForeground": [
+    {
+      "sourceId": "w983032285",
+      "source": {
+        "sourceId": "w983032285",
+        "nodeIds": [
+          1580872115,
+          9089632718,
+          9089632724,
+          9089632723,
+          9089632738
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -3647,
+        9292,
+        -92,
+        42,
+        -138,
+        62,
+        -146,
+        66,
+        -127,
+        57
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w983032287",
+      "source": {
+        "sourceId": "w983032287",
+        "nodeIds": [
+          461798772,
+          9089632737,
+          9089632725,
+          9089632726,
+          9089632719
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -4241,
+        9594,
+        82,
+        -32,
+        135,
+        -60,
+        146,
+        -65,
+        140,
+        -60
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w305084701",
+      "source": {
+        "sourceId": "w305084701",
+        "nodeIds": [
+          419535273,
+          3462282903,
+          13510586457,
+          8312197077,
+          6518812533,
+          1754330904
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -4060,
+        -3226,
+        22,
+        131,
+        33,
+        208,
+        12,
+        39,
+        22,
+        46,
+        34,
+        39
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w541390374",
+      "source": {
+        "sourceId": "w541390374",
+        "nodeIds": [
+          1754330927,
+          13510586459,
+          1883107121,
+          8312197061,
+          8312197062,
+          8312197063,
+          419535273
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -4010,
+        -3630,
+        -23,
+        20,
+        -26,
+        27,
+        -18,
+        29,
+        -15,
+        37,
+        -5,
+        42,
+        37,
+        249
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w1225181450",
+      "source": {
+        "sourceId": "w1225181450",
+        "nodeIds": [
+          11361730458,
+          11361730456,
+          11361730457
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -3845,
+        -3683,
+        -77,
+        18,
+        -34,
+        10
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w1225181451",
+      "source": {
+        "sourceId": "w1225181451",
+        "nodeIds": [
+          1754330904,
+          6518812532,
+          6518812531
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -3937,
+        -2763,
+        45,
+        28,
+        56,
+        19
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w1225181452",
+      "source": {
+        "sourceId": "w1225181452",
+        "nodeIds": [
+          11361730421,
+          11361730464,
+          11361730422,
+          11361730423,
+          11361730424,
+          11361730425,
+          11361730426,
+          11361730427,
+          11361730428,
+          11361730429,
+          11361730430,
+          11361730431,
+          11361730449,
+          11361730454,
+          11361730453,
+          11361730455,
+          257717137
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -2719,
+        -3611,
+        -16,
+        -59,
+        -14,
+        -27,
+        -19,
+        -30,
+        -23,
+        -27,
+        -22,
+        -12,
+        -19,
+        -7,
+        -31,
+        0,
+        -59,
+        6,
+        -83,
+        11,
+        -72,
+        10,
+        -460,
+        76,
+        -162,
+        20,
+        -39,
+        5,
+        -40,
+        2,
+        -35,
+        -2,
+        -27,
+        -6
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w1225181453",
+      "source": {
+        "sourceId": "w1225181453",
+        "nodeIds": [
+          11361730440,
+          11361730439,
+          11361730438,
+          11361730437,
+          11361730436,
+          11361730435,
+          11361730434,
+          11361730433,
+          11361730432,
+          11361730448,
+          11361730450,
+          11361730451,
+          11361730452,
+          11361730458
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -2734,
+        -3749,
+        -8,
+        -16,
+        -13,
+        -16,
+        -26,
+        -22,
+        -27,
+        -14,
+        -36,
+        -10,
+        -50,
+        0,
+        -132,
+        21,
+        -445,
+        71,
+        -143,
+        19,
+        -143,
+        19,
+        -33,
+        6,
+        -36,
+        5,
+        -19,
+        3
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w1225181455",
+      "source": {
+        "sourceId": "w1225181455",
+        "nodeIds": [
+          257717137,
+          11361730461,
+          11361730462,
+          11361730463,
+          11361730457
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -3840,
+        -3651,
+        -33,
+        -6,
+        -21,
+        -2,
+        -28,
+        1,
+        -34,
+        3
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w1225181457",
+      "source": {
+        "sourceId": "w1225181457",
+        "nodeIds": [
+          11361730522,
+          11361730521
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -1654,
+        -3824,
+        54,
+        -83
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w1225181464",
+      "source": {
+        "sourceId": "w1225181464",
+        "nodeIds": [
+          11361730510,
+          11361730511
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -1830,
+        -3607,
+        -163,
+        251
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w1225181465",
+      "source": {
+        "sourceId": "w1225181465",
+        "nodeIds": [
+          11363161630,
+          11361730512,
+          11361730510
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -1620,
+        -3949,
+        -77,
+        125,
+        -133,
+        217
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w1225181467",
+      "source": {
+        "sourceId": "w1225181467",
+        "nodeIds": [
+          11361730421,
+          11361730441,
+          11618262154,
+          11361730440
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -2719,
+        -3611,
+        -7,
+        -91,
+        -3,
+        -24,
+        -5,
+        -23
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w1225324646",
+      "source": {
+        "sourceId": "w1225324646",
+        "nodeIds": [
+          11361730521,
+          11363161631,
+          11363161632,
+          11363161633,
+          11363161634
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -1600,
+        -3907,
+        122,
+        -191,
+        127,
+        -224,
+        120,
+        -240,
+        74,
+        -151
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w1225324647",
+      "source": {
+        "sourceId": "w1225324647",
+        "nodeIds": [
+          11363161642,
+          11363161641,
+          11363161640,
+          11363161639,
+          11363161630
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -1205,
+        -4702,
+        -86,
+        181,
+        -157,
+        281,
+        -71,
+        123,
+        -101,
+        168
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    },
+    {
+      "sourceId": "w1228244835",
+      "source": {
+        "sourceId": "w1228244835",
+        "nodeIds": [
+          11361730457,
+          11361730460,
+          1754330927
+        ],
+        "tags": {
+          "electrified": "contact_line",
+          "frequency": "0",
+          "gauge": "1435",
+          "oneway": "yes",
+          "operator": "STB",
+          "railway": "tram",
+          "voltage": "750"
+        }
+      },
+      "preparedPackedGeometry": [
+        -3956,
+        -3655,
+        -23,
+        10,
+        -31,
+        15
+      ],
+      "gradeBasis": "No bridge/tunnel/layer tag on these16new runs; native grade/binding/static checks still required.",
+      "directionsBasis": "Literal oneway=yes; runtime independent railDirections still required."
+    }
+  ],
+  "oldForegroundPackedRunsExactSubset": true,
+  "surroundingRouteContextWays": {
+    "before": 4,
+    "after": 128
+  },
+  "oldRouteRelations": [
+    {
+      "sourceId": "r1247193",
+      "tagsUnchanged": true,
+      "membersUnchanged": true,
+      "beforeMissingWayIds": [
+        891057604,
+        244581690,
+        905383381,
+        85071412,
+        893361218,
+        27015278,
+        1225294394,
+        1225294395,
+        1225294396,
+        1225294397,
+        1225294383,
+        1225192541,
+        1225192533
+      ],
+      "afterMissingWayIds": [
+        891057604,
+        244581690,
+        905383381,
+        85071412,
+        893361218,
+        27015278,
+        1225294394
+      ]
+    },
+    {
+      "sourceId": "r1270330",
+      "tagsUnchanged": true,
+      "membersUnchanged": true,
+      "beforeMissingWayIds": [
+        550861988,
+        550861980,
+        132573785,
+        121412966,
+        892415037,
+        893361212,
+        892445521,
+        892415034,
+        892415035,
+        983032280,
+        983032279,
+        1225192542,
+        1225192533
+      ],
+      "afterMissingWayIds": [
+        550861988,
+        550861980,
+        132573785,
+        121412966,
+        892415037,
+        893361212,
+        892445521,
+        892415034
+      ]
+    },
+    {
+      "sourceId": "r1271108",
+      "tagsUnchanged": true,
+      "membersUnchanged": true,
+      "beforeMissingWayIds": [
+        1225192534,
+        1225192536,
+        1159323709,
+        368131021,
+        983032281,
+        28112712,
+        892415036,
+        892423606,
+        892423605,
+        892445518,
+        244795547,
+        85076131,
+        85126161,
+        755543800,
+        892445514,
+        85125325,
+        902665732,
+        85125324,
+        23570396,
+        1428338203
+      ],
+      "afterMissingWayIds": [
+        892415036,
+        892423606,
+        892423605,
+        892445518,
+        244795547,
+        85076131,
+        85126161,
+        755543800,
+        892445514,
+        85125325,
+        902665732,
+        85125324,
+        23570396,
+        1428338203
+      ]
+    },
+    {
+      "sourceId": "r1271500",
+      "tagsUnchanged": true,
+      "membersUnchanged": true,
+      "beforeMissingWayIds": [
+        1225192534,
+        1225192536,
+        1159323709,
+        368131021,
+        983032283,
+        241368968,
+        983032287,
+        899314651,
+        899314650,
+        899314658,
+        899302218,
+        899302220,
+        899302219,
+        1484394069,
+        899314660,
+        27845527,
+        899293863,
+        85220053,
+        668676120,
+        85248023,
+        23708476
+      ],
+      "afterMissingWayIds": [
+        27845527,
+        899293863,
+        85220053,
+        668676120,
+        85248023,
+        23708476
+      ]
+    },
+    {
+      "sourceId": "r1925788",
+      "tagsUnchanged": true,
+      "membersUnchanged": true,
+      "beforeMissingWayIds": [
+        1225192534,
+        1225192538,
+        1225192540,
+        1225294385,
+        1225294384,
+        1225294398,
+        1225294399,
+        1225294400,
+        1225294401,
+        1225294402,
+        1225294403,
+        1225294404,
+        1225294393,
+        905997043,
+        905997046,
+        487564963,
+        905631392
+      ],
+      "afterMissingWayIds": [
+        1225294404,
+        1225294393,
+        905997043,
+        905997046,
+        487564963,
+        905631392
+      ]
+    },
+    {
+      "sourceId": "r1925789",
+      "tagsUnchanged": true,
+      "membersUnchanged": true,
+      "beforeMissingWayIds": null,
+      "afterMissingWayIds": null
+    },
+    {
+      "sourceId": "r1936712",
+      "tagsUnchanged": true,
+      "membersUnchanged": true,
+      "beforeMissingWayIds": [
+        905630483,
+        902665731,
+        902665730,
+        311502842,
+        892445517,
+        899293847,
+        1106531669,
+        899293848,
+        892445515,
+        892423604,
+        85076134,
+        23650304,
+        892415034,
+        892415035,
+        983032280,
+        983032279,
+        1225192542,
+        1225192533,
+        1428338209
+      ],
+      "afterMissingWayIds": [
+        905630483,
+        902665731,
+        902665730,
+        311502842,
+        892445517,
+        899293847,
+        1106531669,
+        899293848,
+        892445515,
+        892423604,
+        85076134,
+        23650304,
+        892415034,
+        1428338209
+      ]
+    },
+    {
+      "sourceId": "r1936713",
+      "tagsUnchanged": true,
+      "membersUnchanged": true,
+      "beforeMissingWayIds": null,
+      "afterMissingWayIds": null
+    },
+    {
+      "sourceId": "r1936801",
+      "tagsUnchanged": true,
+      "membersUnchanged": true,
+      "beforeMissingWayIds": [
+        1225192534,
+        1225192536,
+        1159323709,
+        368131021,
+        983032281,
+        28112712,
+        892415036,
+        85076132,
+        85076133,
+        85071411,
+        893361217,
+        132573786,
+        892415039,
+        892415038,
+        550861981,
+        550861975
+      ],
+      "afterMissingWayIds": [
+        892415036,
+        85076132,
+        85076133,
+        85071411,
+        893361217,
+        132573786,
+        892415039,
+        892415038,
+        550861981,
+        550861975
+      ]
+    },
+    {
+      "sourceId": "r1936802",
+      "tagsUnchanged": true,
+      "membersUnchanged": true,
+      "beforeMissingWayIds": null,
+      "afterMissingWayIds": null
+    },
+    {
+      "sourceId": "r2211465",
+      "tagsUnchanged": true,
+      "membersUnchanged": true,
+      "beforeMissingWayIds": [
+        893583719,
+        244801454,
+        899293861,
+        899293862,
+        899293858,
+        899293857,
+        1484394071,
+        86299926,
+        172851021,
+        78414345,
+        241369583,
+        241369345,
+        28112998,
+        899314652,
+        983032286,
+        983032285,
+        983032282,
+        983032279,
+        1225192542,
+        1225192533
+      ],
+      "afterMissingWayIds": [
+        893583719,
+        244801454,
+        899293861,
+        899293862,
+        899293858
+      ]
+    },
+    {
+      "sourceId": "r2211466",
+      "tagsUnchanged": true,
+      "membersUnchanged": true,
+      "beforeMissingWayIds": null,
+      "afterMissingWayIds": null
+    }
+  ],
+  "otherSourceRetention": {
+    "POIs": {
+      "missingOldRecords": 0,
+      "beforeRecords": 246,
+      "afterRecords": 341
+    },
+    "furniture": {
+      "missingOldRecords": 0,
+      "beforeRecords": 198,
+      "afterRecords": 202
+    },
+    "parking": {
+      "missingOldRecords": 0,
+      "beforeRecords": 18,
+      "afterRecords": 24
+    },
+    "parkingFootprints": {
+      "missingOldRecords": 0,
+      "beforeRecords": 106,
+      "afterRecords": 129
+    }
+  }
+}

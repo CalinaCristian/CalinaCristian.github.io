@@ -1,0 +1,5 @@
+(node:627746) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/unirii-pasaj-source-return/game/src/covered-road-models.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/unirii-pasaj-source-return/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"models":1,"originalSourcePrefixSha256":"d739dddbc2c35e0c3b94c720d9c41d56bd58785c26e4b98936703400def92d10","sourceXmlSha256":"58d044c277123541ddc2f16fab0f57dfe40eedb50616f548718c1442eca2987f","datasetBytes":33593010}

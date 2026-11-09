@@ -1534,7 +1534,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         for (const e of edges) { const grade=sharedBridgeProfile.roadGrades.get(e.id); if(!grade)continue;e.sourceBridgeGrade=grade;e.a.y=grade.ya;e.b.y=grade.yb; }
         for (const e of edges) {e.ya=e.a.y;e.yb=e.b.y;}
     }
-    const sharedBridgeMeshAudit={inputTriangles:0,outputTriangles:0,maxLeafControlErrorM:0,depthLimit:0};
+    const sharedBridgeMeshAudit={inputTriangles:0,outputTriangles:0,maxLeafControlErrorM:0,depthLimit:0,limitSamples:[],worstControl:null};
     if(profileStats)profileStats.sharedBridge=sharedBridgeProfile.report;
     const yAlong = (e, x, z) => { if(e.sourceBridgeGrade?.known)return e.sourceBridgeGrade.heightAtWorld(x,z); const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.ya + (e.yb - e.ya) * t; };
     coveredRoadModels.validateProfile(edges);
@@ -2056,7 +2056,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const displace = (mb, from, fn, edge=null, fromIndex=null) => {
         if(edge?.sourceBridgeGrade?.known){
             if(fromIndex===null){fromIndex=mb.ic;for(let k=0;k<mb.ic;k+=3)if(mb.i[k]>=from||mb.i[k+1]>=from||mb.i[k+2]>=from){fromIndex=k;break;}}
-            const a=displaceBridgeSurface(mb,from,fromIndex,fn);sharedBridgeMeshAudit.inputTriangles+=a.inputTriangles;sharedBridgeMeshAudit.outputTriangles+=a.outputTriangles;sharedBridgeMeshAudit.maxLeafControlErrorM=Math.max(sharedBridgeMeshAudit.maxLeafControlErrorM,a.maxLeafControlErrorM);sharedBridgeMeshAudit.depthLimit+=a.depthLimit;return;
+            const a=displaceBridgeSurface(mb,from,fromIndex,fn),context={edgeId:edge.id,sourceId:edge.access?.sourceId||edge.sourceId};sharedBridgeMeshAudit.inputTriangles+=a.inputTriangles;sharedBridgeMeshAudit.outputTriangles+=a.outputTriangles;if(a.maxLeafControlErrorM>sharedBridgeMeshAudit.maxLeafControlErrorM)sharedBridgeMeshAudit.worstControl={...a.worstControl,...context};sharedBridgeMeshAudit.maxLeafControlErrorM=Math.max(sharedBridgeMeshAudit.maxLeafControlErrorM,a.maxLeafControlErrorM);sharedBridgeMeshAudit.depthLimit+=a.depthLimit;for(const sample of a.limitSamples)if(sharedBridgeMeshAudit.limitSamples.length<32)sharedBridgeMeshAudit.limitSamples.push({...sample,...context});return;
         }
         for (let i = from; i < mb.vc; i++) mb.p[i * 3 + 1] += fn(mb.p[i * 3], mb.p[i * 3 + 2]);
     };

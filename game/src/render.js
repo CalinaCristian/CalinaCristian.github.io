@@ -1165,7 +1165,7 @@ export class Renderer3D {
 
     setPlayer(player) {
         this.player = player; this._applyRainToCockpit(); this._updateHeadlights();
-        this.cockpitDisplays.setPlayer(player, this.camera);
+        this.cockpitDisplays.setPlayer(player, this.camera, this.scene);
         this.camera?.layers.enable(1);
         this._cabinK = -1; this._updateNight(0);
     }
@@ -1305,6 +1305,7 @@ export class Renderer3D {
             this.sun.shadow.mapPass?.dispose(); this.sun.shadow.mapPass = null;
         }
         this._buildPasses();
+        this.cockpitDisplays.prewarm(this.camera, this.scene);
         if (this._lampGroup) this._syncLampPool();
         this._settle = 2; this._slowT = 0; this._fastT = 0;
         Object.assign(this.stats, { pixelRatio: pr, shadows: t.shadow, post: t.post + (t.ao ? '+ao' : ''), quality: this.auto ? `auto (${t.name})` : t.name, auto: this.auto, level });

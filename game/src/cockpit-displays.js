@@ -112,9 +112,10 @@ export class CockpitDisplays {
         };
     }
 
-    setPlayer(player, camera = null) {
+    setPlayer(player, camera = null, worldScene = null) {
         this.frameScene = this.frameCamera = null;
         this.bindings = [];
+        this.mirrorTarget = player?.mirrorTarget || null; // Player-owned; never disposed here.
         this.scene.clear();
         for (const source of [player?.cockpit?.userData.cluster, player?.cockpit?.userData.screen, player?.mirror]) {
             if (!source?.isMesh || !source.material?.isMeshBasicMaterial) continue;
@@ -125,17 +126,43 @@ export class CockpitDisplays {
             this.scene.add(mesh);
             this.bindings.push({ source, mesh, uniforms });
         }
-        // Allocate persistent auxiliary targets during normal cockpit setup,
-        // rather than on the first headlight or Low-quality interaction.
-        if (this.bindings.length) {
-            this.renderer.initRenderTarget(this.lowTarget);
-            this.renderer.initRenderTarget(this.savedDepth);
-            this.renderer.initRenderTarget(this.planeDepth);
-            if (camera) {
-                this.scene.overrideMaterial = this.planeMaterial;
-                try { this.renderer.compile(this.scene, camera); }
-                finally { this.scene.overrideMaterial = null; }
+        this.prewarm(camera, worldScene);
+    }
+
+    prewarm(camera, worldScene) {
+        if (!this.bindings.length || !camera || !worldScene) return;
+        const r = this.renderer, target = r.getRenderTarget();
+        const face = r.getActiveCubeFace(), mip = r.getActiveMipmapLevel();
+        const viewport = r.getViewport(new THREE.Vector4()), scissor = r.getScissor(new THREE.Vector4());
+        const scissorTest = r.getScissorTest(), fog = this.scene.fog, environment = this.scene.environment;
+        const materials = this.bindings.map(b => b.mesh.material);
+        try {
+            // Persistent auxiliary targets and the existing Player-owned mirror
+            // target must be ready before a Low -> Medium drive-policy change.
+            // This allocates storage only: no rear scene or extra frame is drawn.
+            for (const t of [this.lowTarget, this.savedDepth, this.planeDepth, this.mirrorTarget]) {
+                if (t) r.initRenderTarget(t);
             }
+            this.scene.fog = worldScene.fog;
+            this.scene.environment = worldScene.environment;
+            // Three's compile() traverses object.material, not overrideMaterial.
+            // Only private clones are changed; source meshes/materials stay put.
+            for (const { mesh } of this.bindings) mesh.material = this.planeMaterial;
+            r.setRenderTarget(this.planeDepth);
+            r.compile(this.scene, camera, worldScene);
+            for (let i = 0; i < this.bindings.length; i++) this.bindings[i].mesh.material = materials[i];
+            // The same original displays appear in the linear world target and
+            // the sRGB presentation framebuffer. Compile both real variants with
+            // the current world's FogExp2/lighting defines during normal setup.
+            for (const t of [this.lowTarget, null]) {
+                r.setRenderTarget(t);
+                r.compile(this.scene, camera, worldScene);
+            }
+        } finally {
+            for (let i = 0; i < this.bindings.length; i++) this.bindings[i].mesh.material = materials[i];
+            this.scene.fog = fog; this.scene.environment = environment;
+            r.setRenderTarget(target, face, mip);
+            r.setViewport(viewport); r.setScissor(scissor); r.setScissorTest(scissorTest);
         }
     }
 

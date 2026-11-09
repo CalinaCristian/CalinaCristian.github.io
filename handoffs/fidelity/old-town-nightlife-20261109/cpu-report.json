@@ -33,6 +33,10 @@
       "passed": true
     },
     {
+      "name": "all54 guests retain a physical aisle from dance slot to bar",
+      "passed": true
+    },
+    {
       "name": "interior disposal unregisters crowds/audio/activity and visibility listeners",
       "passed": true
     }

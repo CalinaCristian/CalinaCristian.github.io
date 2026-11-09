@@ -1,0 +1,462 @@
+{
+  "sourceCommit": "c7f0749b",
+  "started": "2026-11-09T19:14:56.877Z",
+  "scope": "R2 actual viewport screenshots (not tall element captures) of frozen overview DOM/CSS/component/images on desktop and phone. Original R1 element-capture negative is retained. No game World/provider pixels; historical frame provenance unchanged.",
+  "served": [
+    {
+      "path": "game/overview/index.html",
+      "bytes": 63952,
+      "sha256": "0c13967b1e2dab98ec87f8f7322bfec92eadb46d83a04ba036baff5d4238adb3"
+    },
+    {
+      "path": "game/overview/style.css",
+      "bytes": 26204,
+      "sha256": "539b8dd21c122f00bd6339622d2ad2ea3c8d807df3f426828703daed3e5a46a8"
+    },
+    {
+      "path": "game/overview/comparison-viewer.css",
+      "bytes": 13061,
+      "sha256": "de7ac8da561f88b142f880ddd8a6c404fd6c5de3c518b421dc74c4263fbbbecc"
+    },
+    {
+      "path": "game/overview/overview.js",
+      "bytes": 11866,
+      "sha256": "d16c78ae4fb889a42b924530b41f0d46d5b582face22383f017eaab587d0044a"
+    },
+    {
+      "path": "game/overview/evidence/carusel-staging-20261109/component.js",
+      "bytes": 4764,
+      "sha256": "23739fd4a7a000ec1653d0e64cdc04ca2fd8832c39afe9b0ad3eb7e81e07fc35"
+    },
+    {
+      "path": "game/overview/perspective-viewer.js",
+      "bytes": 12075,
+      "sha256": "46ac4cb52747b5ae6c39c9645c2b17cd739de8c236522c1031137234d8042304"
+    },
+    {
+      "path": "game/overview/comparison-viewer.js",
+      "bytes": 32986,
+      "sha256": "b9e8aeda8f8507a6da88c9216fb7cc307fd126a90b6678c2e0c43f6d5f15fff2"
+    },
+    {
+      "path": "game/overview/inventory.json",
+      "bytes": 214534,
+      "sha256": "0b8f29c411fd0defe90c9c5f61c37623d16f0e468554b4018bee3b8242e0bc20"
+    },
+    {
+      "path": "game/overview/evidence/carusel-staging-20261109/manifest.json",
+      "bytes": 7252,
+      "sha256": "bf43323ee0a33f6ad6eec43d1d04460dc442d98580854f0db1dd4042a7fa5b41"
+    },
+    {
+      "path": "game/overview/comparison-data/catalog.json",
+      "bytes": 973,
+      "sha256": "ded169e522ad97e829cb16f99dd2bfdf8087237415d3100e4db3ec7084aa7f17"
+    },
+    {
+      "path": "game/overview/landmark-evidence.js",
+      "bytes": 13833,
+      "sha256": "fa16ee87e1b1fb0b92f55e0163a2c652bfff424fe7ae89e915f64b6ceca49f29"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/manifest.json",
+      "bytes": 329767,
+      "sha256": "aa4e7668f19a60963bbbbd98a0bdb87d9d95111774b52f9fd17dfb7a85e941e8"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/manifest.json",
+      "bytes": 257809,
+      "sha256": "54451888ab12df421795de60c2224ebb87289a6e01bfdb5e823c6e849d7daf88"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/manifest.json",
+      "bytes": 298759,
+      "sha256": "00f5d11901a1e086b4769fcfcca3a6e1653bc5a0b436cc56b18e63ad9c5d078f"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/manifest.json",
+      "bytes": 214030,
+      "sha256": "ffd63f8bb89e341fd738ff67900258e69ab3d12262d5d60533d15f5446512e41"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/manifest.json",
+      "bytes": 202177,
+      "sha256": "c5820604b5b803c6d4654cdeb22ae01758ac38d66c28ebcb38a322c005bcf155"
+    },
+    {
+      "path": "game/overview/evidence-paths.js",
+      "bytes": 993,
+      "sha256": "9e59dd55869e10527b45fec156f00a4f926c8c4a1922e3a336ff35b40d8f754d"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/manifest.json",
+      "bytes": 285842,
+      "sha256": "1d685d3712c3e76f957729e64e83e764dc142333ea45fef920a5bc4a4228004c"
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/manifest.json",
+      "bytes": 393171,
+      "sha256": "e4fe0a575822cd9edb592565c80f4e6cbd7d72e08d00bd8c7c109aa68c2cd912"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/manifest.json",
+      "bytes": 217740,
+      "sha256": "4f2d3a1527a4c7c048be450ca5e72b5cd7b811f86310453e14e88727036ead3e"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/manifest.json",
+      "bytes": 132300,
+      "sha256": "b234323f3ce72854f75578c84187701e99ee0c3f386be823393d3e9f236fe0df"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-0fa9d108/manifest.json",
+      "bytes": 322590,
+      "sha256": "c99106035b43028243b0396db4aa02e9394d55f8c6ee2ef8c94f695ff9fc56f0"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/historical/df9b2e2ced83b8b30bcc8e34cf809a434b25bc27-859cfbde/manifest.json",
+      "bytes": 172310,
+      "sha256": "859cfbde3da4e9493050a22c09e232e9d896103ea94629ba3119e7cf4c4053a2"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-d7393248/manifest.json",
+      "bytes": 242929,
+      "sha256": "31260f2aeb55501c785f7093681296c7e2fb4b6615a94835569c02f9f143cc28"
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/manifest.json",
+      "bytes": 246884,
+      "sha256": "3c104b16729fc75d66a51530c3b63fa4f46234ec49761833db215074fc57df5c"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-fed96a2d/manifest.json",
+      "bytes": 270776,
+      "sha256": "753cdf4b00bfcea278d63b50573f66337582039eb73821e1b1eb154f4576f57f"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/manifest.json",
+      "bytes": 278993,
+      "sha256": "5978bf1b7cb34de16980571ce85235e784050e450322e7117387c75ef2d5ee1d"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/historical/full-before-07cc3d6b-5978c6d9/manifest.json",
+      "bytes": 291559,
+      "sha256": "5978c6d95b290767b7cd5a1f4fe4316e301e8f7159646e9ed6583417b675e182"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/historical/4198996/manifest.json",
+      "bytes": 185437,
+      "sha256": "97375354468e07bb0c88ed3d913b4596f7f4cad5f614064ca933dccd16a7f514"
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/historical/ff70806113efe0253cf5c623c87e181bbde595b5-dcfd7be3/manifest.json",
+      "bytes": 185593,
+      "sha256": "dcfd7be3bf98df8fd241064a5517b9cb03aa141872a4a406c5f264bbe9ee5b10"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/historical/0775fda/manifest.json",
+      "bytes": 185993,
+      "sha256": "767a94ad116d67b134c12a608cc3ead300cfb240674497a34708e291a38cff56"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/historical/full-before-07cc3d6b-0ad0a41b/manifest.json",
+      "bytes": 206327,
+      "sha256": "0ad0a41b7fb0ee3d59d6a54e3bcefb2390c51a51a18d6390943db4abfc7c4e26"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/historical/4198996/manifest.json",
+      "bytes": 200755,
+      "sha256": "a7e2c4c10c98472695187338fa30a21d7a16ec32d8c0488492c5d4765d59ac09"
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/historical/4378317/manifest.json",
+      "bytes": 199703,
+      "sha256": "e3c8ec0315ae6e755234bc8520e252fcb073a7d5dba69f9ac163d6b69394c929"
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/parliament.json",
+      "bytes": 10937,
+      "sha256": "472af79fa6f129c542a46b64394eb2252672e0b1abf987a86fd9175f89a4078d"
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/historical/4378317/manifest.json",
+      "bytes": 184306,
+      "sha256": "37ef5e663c30f0cfa70d25369af4873dacadd5941a2efa0047d85e1d8e4d23ff"
+    },
+    {
+      "path": "game/overview/evidence/spots/pike-place.json",
+      "bytes": 79454,
+      "sha256": "80130f351a85cf36207d97fae97f61fc9427839bb37d20d27527ae1f440ddd26"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/manifest.json",
+      "bytes": 349186,
+      "sha256": "803521c793e0eb12e668bbe198cc2275350b4bc943dfd975c6adff540b33acd8"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/historical/full-before-07cc3d6b-4b598272/manifest.json",
+      "bytes": 278868,
+      "sha256": "4b5982724681558afaa65ead6bf82086a55cf7c6ccef1c02973c24ca3525592f"
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/manifest.json",
+      "bytes": 378185,
+      "sha256": "2215e3c4de5505606f7ee78c4fd2519d25b586852ff55a7910f11fbf9a7f9991"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/historical/c78a5f4/manifest.json",
+      "bytes": 193586,
+      "sha256": "4e4e5429d654cf4acf00744b75b7779acd8b9d3bb3460039f43ebfd4d3f7662b"
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/historical/full-before-07cc3d6b-ff026d44/manifest.json",
+      "bytes": 207942,
+      "sha256": "ff026d4487d7cc831cb8b8a8b4b5980e30acf83fba4f1e4f4131155548299b3b"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/images/aerial-r10-c09.jpg",
+      "bytes": 124426,
+      "sha256": "e4e657aed2b23ddb2fc5f31f7b6144ad91a4f477a918554739f603fe958fd8b4"
+    },
+    {
+      "path": "game/overview/evidence/carusel-staging-20261109/carusel-public-entry-night.png",
+      "bytes": 1169600,
+      "sha256": "88afd58fadc93f8a468bac6c7e27f4b4ce56cb621375aad1ba30782597d03e4d"
+    },
+    {
+      "path": "game/overview/evidence/carusel-staging-20261109/carusel-first-gallery-day.png",
+      "bytes": 1302634,
+      "sha256": "6fa69197d17522ffec0b67a8cea09ffa359f594c21a2cb36f570a0f7a3f13481"
+    },
+    {
+      "path": "game/overview/evidence/carusel-staging-20261109/phone-carusel-ground-interior.png",
+      "bytes": 442134,
+      "sha256": "0c5e112d08d70634a8a1784b9f552578186741c95951234ebeeffdbc59785e19"
+    },
+    {
+      "path": "game/overview/evidence/carusel-staging-20261109/selected-report.json",
+      "bytes": 4661,
+      "sha256": "df357a1461cbb754f0e7a3343c1d1deff3dae2edcfe550b3e1a8b526686d5fa0"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r07-c06.jpg",
+      "bytes": 12848,
+      "sha256": "bc366ab50988599a18ed298f54346f9f5f837146e4b018a0bf0b0f8c1e45ae34"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r07-c07.jpg",
+      "bytes": 13109,
+      "sha256": "a294debb0099676ade0ff8ae48199abc74dea18d1dfb8d704ecc93511d3e2b8a"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r07-c08.jpg",
+      "bytes": 12483,
+      "sha256": "4812cdbb546749c4dddbd43374f4d330a9a1ac0314c905a103c9e0f5553728a1"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r08-c06.jpg",
+      "bytes": 11667,
+      "sha256": "18cf822235b0da0578e9bd4d0414014b73bb3cbeba8676bc9a7e588faf376ba6"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r08-c07.jpg",
+      "bytes": 12635,
+      "sha256": "dbd2bb1793908eca1e7b0fc81d085fb09cdd8e0635101763b01930aaf6f64bcd"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r08-c08.jpg",
+      "bytes": 11873,
+      "sha256": "83364dbbf2066e450ecd105052a67ad51746116672cb685a15b1de63e25da591"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r09-c08.jpg",
+      "bytes": 11797,
+      "sha256": "f7ef0e66ba95df80ce56f72bb737b2521006e93b5855b0a83f526a6eb4fb1417"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r09-c09.jpg",
+      "bytes": 11858,
+      "sha256": "8684d62590cb00e9590b09aed9cdd91a023fa3ce9e845e71a087eda8c3501812"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r10-c08.jpg",
+      "bytes": 11990,
+      "sha256": "664a5db32bdb1282943734db169546defb70d13b51d9a73f5900752f6faff7d7"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r10-c09.jpg",
+      "bytes": 11699,
+      "sha256": "8fed10aef99aa48329337577efd45357c34c4063aab90ee729a29bf20b25ac51"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r08-c09.jpg",
+      "bytes": 10151,
+      "sha256": "53c4866d375593cf5d8101e1e4758f225260aa29a0062d0468595640f4d0735b"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r11-c08.jpg",
+      "bytes": 10459,
+      "sha256": "71f3c6c11a939e20aa515e579344bb949c063e615e443c7f353862814d21f1ee"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r11-c09.jpg",
+      "bytes": 11973,
+      "sha256": "3f52acb7fd6e2ba4aace2fd0a00d68c700c435ccf0735a95e6be6877c69646e8"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r11-c10.jpg",
+      "bytes": 12283,
+      "sha256": "d7ad90c2b142f92443fc371960ce06876b4346a072c44e65e357813cc1ec7ecd"
+    },
+    {
+      "path": "game/overview/comparison-data/romana/thumbs/aerial-r10-c10.jpg",
+      "bytes": 12744,
+      "sha256": "8522985c59db8e7bff4f3767ddbcc6c58704c267d2d4fe6b43495e2ea0b2fba9"
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "external": [
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=2905159.50630%2C5534029.76755%2C2905509.67022%2C5534379.93147&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=2905159.50630%2C5534029.76755%2C2905509.67022%2C5534379.93147&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image"
+  ],
+  "checks": [
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "title": "Cărturești Carusel · doorway, hall and gallery",
+      "images": [
+        {
+          "loaded": true,
+          "width": 1280,
+          "height": 720,
+          "src": "http://127.0.0.1:40593/game/overview/evidence/carusel-staging-20261109/carusel-public-entry-night.png"
+        },
+        {
+          "loaded": true,
+          "width": 1280,
+          "height": 720,
+          "src": "http://127.0.0.1:40593/game/overview/evidence/carusel-staging-20261109/carusel-first-gallery-day.png"
+        },
+        {
+          "loaded": true,
+          "width": 390,
+          "height": 844,
+          "src": "http://127.0.0.1:40593/game/overview/evidence/carusel-staging-20261109/phone-carusel-ground-interior.png"
+        }
+      ],
+      "overflow": false,
+      "box": {
+        "x": 312,
+        "y": -186.578125,
+        "width": 916,
+        "height": 1125.28125,
+        "top": -186.578125,
+        "right": 1228,
+        "bottom": 938.703125,
+        "left": 312
+      },
+      "badge": "Staging · 9 November 2026"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "expandedHistoricalSource": "19b2298de4a8cf84de383a578d22520affdfb399"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "title": "Cărturești Carusel · doorway, hall and gallery",
+      "images": [
+        {
+          "loaded": true,
+          "width": 1280,
+          "height": 720,
+          "src": "http://127.0.0.1:40593/game/overview/evidence/carusel-staging-20261109/carusel-public-entry-night.png"
+        },
+        {
+          "loaded": true,
+          "width": 1280,
+          "height": 720,
+          "src": "http://127.0.0.1:40593/game/overview/evidence/carusel-staging-20261109/carusel-first-gallery-day.png"
+        },
+        {
+          "loaded": true,
+          "width": 390,
+          "height": 844,
+          "src": "http://127.0.0.1:40593/game/overview/evidence/carusel-staging-20261109/phone-carusel-ground-interior.png"
+        }
+      ],
+      "overflow": false,
+      "box": {
+        "x": 26,
+        "y": -396.265625,
+        "width": 338,
+        "height": 1668.21875,
+        "top": -396.265625,
+        "right": 364,
+        "bottom": 1271.953125,
+        "left": 26
+      },
+      "badge": "Staging · 9 November 2026"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "actualViewportFrame": 1,
+      "visibleFigure": {
+        "x": 43,
+        "y": 291.25,
+        "width": 304,
+        "height": 294.171875
+      },
+      "scrollY": 34760
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "actualViewportFrame": 2,
+      "visibleFigure": {
+        "x": 43,
+        "y": 278.421875,
+        "width": 304,
+        "height": 318.171875
+      },
+      "scrollY": 35083
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "actualViewportFrame": 3,
+      "visibleFigure": {
+        "x": 43,
+        "y": 86.59375,
+        "width": 304,
+        "height": 703.171875
+      },
+      "scrollY": 35609
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "expandedHistoricalSource": "19b2298de4a8cf84de383a578d22520affdfb399"
+    }
+  ],
+  "complete": true,
+  "closed": "2026-11-09T19:15:05.006Z",
+  "observerSHA256": "b22c0b3a140cd2f706d4ecbb5988c1b49754c50ca387491973c9094a4c983453"
+}

@@ -1,0 +1,32 @@
+{
+  "resolvedOverviewSourceCommit": "c7f0749bcc700250975b5941aa4e11f3cdd8c1fa",
+  "observerSourceExpression": "c7f0749b",
+  "historicalGameCaptureSource": "19b2298de4a8cf84de383a578d22520affdfb399",
+  "scope": "Frozen overview layout and actual viewport framing only; no new game scene renders, provider imagery, current live-page or final fidelity claim. Original R1 tall-element screenshot capture remains outside this R2 package.",
+  "files": {
+    "observer.cjs": {
+      "bytes": 4791,
+      "sha256": "b22c0b3a140cd2f706d4ecbb5988c1b49754c50ca387491973c9094a4c983453"
+    },
+    "overview-carusel-phone-viewport-1.png": {
+      "bytes": 190137,
+      "sha256": "d40d3dc82ac58e6e684d3c31645cfa93d288d8539a04b6837a7c9f46e39b2aac"
+    },
+    "overview-carusel-desktop-viewport.png": {
+      "bytes": 514411,
+      "sha256": "7d1e353a0e2de9945cf6b7a4c3fa99d9d8c111fbd6bfb56eceab8b02062d9291"
+    },
+    "overview-carusel-phone-viewport-3.png": {
+      "bytes": 248252,
+      "sha256": "a5155b894e9dabc5d5d5f5d9b1b72b0b405c5804c341489d418bc5e788eb2ffa"
+    },
+    "report.json": {
+      "bytes": 16899,
+      "sha256": "4b62b7d843e2dcaad3c298b729ecd7d48a31885e2d2d66442de794ccc2dc4ade"
+    },
+    "overview-carusel-phone-viewport-2.png": {
+      "bytes": 253084,
+      "sha256": "dc3aeb88944c16ad59b647cccb306bc8961ecf5fded739bc45d1ddd040d4e891"
+    }
+  }
+}

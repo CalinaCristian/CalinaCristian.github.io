@@ -1,0 +1,77 @@
+{
+  "sourceCommit": "54c044421640cfe3569bfc3f72159d2169f87581",
+  "toolCommit": "81db8383f8202ca7701dad8a00b5460591241550",
+  "collectionComplete": true,
+  "physicalAcceptance": false,
+  "pid": 452518,
+  "pidTerminalState": "Z",
+  "browserClosedUtc": "2026-11-09T07:59:26.448Z",
+  "sourceArchiveReadOnly": true,
+  "sourceFilesWritten": 0,
+  "copiedGitShaVerified": 227,
+  "servedGitShaVerified": 114,
+  "allNativeDatasetValuesCanonicalEqualSource": true,
+  "nativeConditions": {
+    "result": true,
+    "district": "unirii",
+    "state": "drive",
+    "nativeTime": 0,
+    "observedNowDate": "2026-11-10T06:31:03.825Z",
+    "clockFrozen": false,
+    "conditions": {
+      "tod": "rush",
+      "weather": "clear",
+      "season": "summer"
+    },
+    "quality": "high",
+    "touch": false
+  },
+  "allObservedNativeTrafficTimesZero": true,
+  "allPrimaryModelYKnown": true,
+  "geometryRecords": 60,
+  "allEdges": 1103,
+  "graphNodes": 1017,
+  "ribbons": 1263,
+  "allColliders": 29176,
+  "constructorActors": 482,
+  "publicActive": 622,
+  "publicPool": 0,
+  "publicPedestrians": 560,
+  "admissionPassed": false,
+  "unresolved": [
+    {
+      "a": 232,
+      "b": 465,
+      "penetration": 1.403893985700046,
+      "verticalOverlapM": 1.574999988079071,
+      "unknownHeight": false,
+      "conflict": true,
+      "aVertical": {
+        "min": 0.17500000238418578,
+        "max": 5.870000114440918,
+        "known": true,
+        "source": "emitted-model-vertices-YXZ"
+      },
+      "bVertical": {
+        "min": 0.17500000238418578,
+        "max": 1.7499999904632568,
+        "known": true,
+        "source": "emitted-model-vertices-YXZ"
+      }
+    }
+  ],
+  "wholeWorldSceneOmitted": true,
+  "limits": [
+    "Every actual primary model/parent pose and interval is captured, with actual child geometry hierarchy; primary interval is not a declaredheight or generic fallback.",
+    "Native collider function source remains metadata, not reconstructed closures. Each K.safe property reference root is local; unknowns require conservative handling.",
+    "Only a native frame is drawn; no drive or simulation tick occurs. Clock is original public rush, without a custom date/hour override.",
+    "World geometry buffers are intentionally omitted; exact native source graph/profiles/ribbons/colliders and actual actor buffers are present. No world rendering or physical-clearance acceptance claim.",
+    "The observed legacy54 pair persists; this is a negative source-span fixture for a separately owned candidate helper, not proof of that future candidate."
+  ],
+  "captureReview": {
+    "file": "unirii-native.png",
+    "visuallyInspected": true,
+    "finding": "Actual High native Unirii cockpit/street scene, pedestrians and trolleybus visible; no actor/camera/visibility edits. This view does not certify collisions or mapping."
+  },
+  "rawDirectory": "/workspace/integration-qa-evidence/unirii-zero54-native"
+}

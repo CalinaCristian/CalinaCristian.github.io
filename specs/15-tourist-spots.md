@@ -31,6 +31,8 @@ Seattle Center scene membership (2026-11-09): the current visit/activity owner i
 
 Source-mountain projection: `sourceMountain` retains all mesh/normal/index bytes and uniformly compresses source coordinates around the current native camera, rather than a fixed ground eye. `ctx.env.cameraFarM` and `backdropFarM` are finite bounds derived from the complete source mesh and scene terrain/camera domain. Groups expose `userData.sourceProjection` with their individual bound/basis; `group.visible` follows the existing visibility/cloud fade threshold. Host camera setup must apply a real projection update, and renderer fog culling must preserve the finite required far bound only while the source backdrop is effectively visible. Fog-hidden backdrops retain ordinary weather culling. Do not claim that changing an initial far plane alone defeats subsequent weather culling.
 
+Additional source terrain materials belong in `ctx.extras.sourceGroundMaterials`, appended to `vegetation.groundMaterials`. This shares the scene's ground weather/season uniforms without applying grass/tree wind. Absent extras preserve the existing material membership. Seattle source-context loading, visibility and native budget checks remain separate.
+
 Bonus content: only the most important, must-see tourist places in each city (top 10), e.g. the Fremont Troll and the Gum Wall in Seattle, built as small high-fidelity areas you explore on foot (no driving).
 
 ## Requirements

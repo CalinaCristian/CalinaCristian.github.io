@@ -292,7 +292,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         ctx.add(crowd.group);
         void sp;
     }
-    const vegetation = { treeCrownMeshes: ctx.crownMeshes, grassMaterials: ctx.grassMaterials, groundMaterials: terr.materials, roofMaterials: ctx.roofMaterials };
+    const vegetation = { treeCrownMeshes: ctx.crownMeshes, grassMaterials: ctx.grassMaterials, groundMaterials: [...terr.materials, ...(ctx.extras.sourceGroundMaterials || [])], roofMaterials: ctx.roofMaterials };
     ctx.scene.userData.vegetation = vegetation;
     const tris = countTris(ctx.scene);
     const city = CITIES[entry.city] || CITIES.seattle;

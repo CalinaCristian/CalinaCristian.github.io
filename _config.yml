@@ -34,3 +34,4 @@ exclude:
   - handoffs/fidelity/source-surface-ownership
   - handoffs/fidelity/root-duplicate-source-cleanup
   - handoffs/fidelity/root-foot-a-4cd4
+  - handoffs/fidelity/pedestrian-relocation-performance

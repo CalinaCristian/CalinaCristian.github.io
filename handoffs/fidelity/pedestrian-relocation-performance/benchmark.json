@@ -1,0 +1,74 @@
+{
+  "scope": "560 actual recorded native pedestrian positions/states and literal source-way segments. Uniform3m/3m benchmark sidewalk sections plus declared synthetic inbound reservations/carried radii are used only for component timing/parity; no native availability, whole-world or FPS claim.",
+  "sourceCommit": "8b51e6f38b3e217ac7f8a556949694e5ca62ebdb",
+  "people": 560,
+  "segments": 2051,
+  "queriedSegments": 566,
+  "relocationTargets": 10,
+  "rounds": [
+    {
+      "baseline": {
+        "ms": 123.02346100000005,
+        "count": 1527,
+        "clear": 500
+      },
+      "indexed": {
+        "ms": 62.978300000000104,
+        "count": 1527,
+        "clear": 500
+      }
+    },
+    {
+      "baseline": {
+        "ms": 92.16349099999991,
+        "count": 1527,
+        "clear": 500
+      },
+      "indexed": {
+        "ms": 87.02072299999998,
+        "count": 1527,
+        "clear": 500
+      }
+    },
+    {
+      "baseline": {
+        "ms": 87.14043600000002,
+        "count": 1527,
+        "clear": 500
+      },
+      "indexed": {
+        "ms": 38.991082000000006,
+        "count": 1527,
+        "clear": 500
+      }
+    },
+    {
+      "baseline": {
+        "ms": 95.62018499999999,
+        "count": 1527,
+        "clear": 500
+      },
+      "indexed": {
+        "ms": 37.317286999999965,
+        "count": 1527,
+        "clear": 500
+      }
+    },
+    {
+      "baseline": {
+        "ms": 149.78149999999982,
+        "count": 1527,
+        "clear": 500
+      },
+      "indexed": {
+        "ms": 36.22547499999996,
+        "count": 1527,
+        "clear": 500
+      }
+    }
+  ],
+  "medianBaselineMs": 95.62018499999999,
+  "medianIndexedMs": 38.991082000000006,
+  "speedup": 2.4523603884601095,
+  "passed": true
+}

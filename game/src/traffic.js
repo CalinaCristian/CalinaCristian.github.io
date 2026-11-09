@@ -14,6 +14,7 @@ import { buildTramNetwork, canTravelTram, tramContinuations, sampleTramPath, tra
 import { buildTurnLaneRules, laneTurnAllowed, preservesTurnLane } from './turn-lanes.js';
 import { buildMotorTurnRestrictions, motorTurnAllowed, motorRestrictionMode } from './motor-turn-restrictions.js';
 import {sourceRoadClearance} from './source-road-clearance.js';
+import {relocationPeerQuery} from './pedestrian-relocation-peers.js';
 import { buildTramSourceSignals, tramSourceSignalState } from './tram-source-signals.js';
 import { fitTramBodySupport } from './tram-body-support.js';
 
@@ -2495,6 +2496,7 @@ export class Pedestrians {
     relocate(p, rMin, rMax, hidden) {
         const T = this.t, P = T.player; if (!P) return;
         if (hidden && this.inView(p)) return;
+        const peers=relocationPeerQuery(this.list,p,o=>this.reach(o));
         const saved = { x: p.x, z: p.z, e: p.e, dir: p.dir, side: p.side, s: p.s, state: p.state, legs: p.legs, waitT: p.waitT, onRoad: p.onRoad, recovery: p.recovery, relocating: false, next: p.next, walkOff: p.walkOff, walkGoal: p.walkGoal, dodge: p.dodge, dodgeEdge: p.dodgeEdge, dodgeFrame: p.dodgeFrame, heading: p.heading };
         p.recovery = null; p.relocating = true;
         if (p.state === 'stand' && this.stops.length) {
@@ -2503,9 +2505,9 @@ export class Pedestrians {
                 const d = Math.hypot(sx - P.x, sz - P.z); if (d < rMin || d > rMax) continue;
                 // (2026-11-08, owner: "stuck people") at most 4 waiting at a stop: a dozen squeezed between the kerb and the
                 // shelter stood inside each other
-                if (this.list.filter(o => o !== p && o.state === 'stand' && Math.hypot(o.x - sx, o.z - sz) < 4).length >= 4) continue;
+                if (peers.standingCount(sx,sz,4) >= 4) continue;
                 const a = this.rng() * 6.28, r = this.rng.range(0.4, 2.2); p.x = sx + Math.cos(a) * r; p.z = sz + Math.sin(a) * r; this.kerbClamp(p);
-                if (this.inWater(p.x, p.z) || !this.freeWalkPoint(p.x, p.z, this.reach(p)) || !this.freePersonalSpace(p)) continue; // a shelter is not extra standing capacity
+                if (this.inWater(p.x, p.z) || !this.freeWalkPoint(p.x, p.z, this.reach(p)) || !this.freePersonalSpace(p,peers)) continue; // a shelter is not extra standing capacity
                 if (hidden && this.inView(p)) continue;
                 p.relocating = false; return;
             }
@@ -2520,7 +2522,7 @@ export class Pedestrians {
             const mx = (e.a.x + e.b.x) / 2 - P.x, mz = (e.a.z + e.b.z) / 2 - P.z, d = Math.hypot(mx, mz);
             if (d < rMin || d > rMax || (hidden && d < 250 && mx * P.fx + mz * P.fz > 0)) continue;
             for (const side of [-1, 1]) {
-                const space = this.walkSpace(e, side), load = this.spaceLoad(e, side, p);
+                const space = this.walkSpace(e, side), load = this.spaceLoad(e, side, p,peers);
                 const free = Math.max(0, space.cells.length - load);
                 if (!free) continue;
                 total += free * (0.2 + Math.min(0.8, trafficMulOf(e) * 0.45));
@@ -2534,7 +2536,7 @@ export class Pedestrians {
             p.walkOff = cell.u - this.off(c.e, c.side); p.walkGoal = undefined; p.dodge = 0; p.dodgeEdge = c.e; p.dodgeFrame = this._fr;
             p.state = 'walk'; p.legs = []; p.next = null; p.onRoad = false; p.waitT = 0;
             this.placeWalk(p);
-            if (!this.admit(p) || (hidden && this.inView(p))) continue;
+            if (!this.admit(p,peers) || (hidden && this.inView(p))) continue;
             p.animX = p.x; p.animZ = p.z; p.animVX = p.animVZ = 0; p.progressX = p.x; p.progressZ = p.z; p.progressT = 0;
             p.relocating = false; return;
         }
@@ -2588,8 +2590,9 @@ export class Pedestrians {
     }
     /** Count actual bodies and inbound routes, including people on adjacent
      * split records whose bodies already occupy this sidewalk corridor. */
-    spaceLoad(e, side, except) {
+    spaceLoad(e, side, except, peers = null) {
         const space = this.walkSpace(e, side); let n = 0;
+        if(peers&&peers.except===except)return peers.spaceLoad(e,side,space,PED_R);
         for (const o of this.list) {
             if (o === except || o.hidden) continue;
             const dx = o.x - e.a.x, dz = o.z - e.a.z, s = dx * e.dirx + dz * e.dirz, u = (dx * e.nx + dz * e.nz) * side;
@@ -2598,12 +2601,13 @@ export class Pedestrians {
         }
         return n;
     }
-    freePersonalSpace(p) {
+    freePersonalSpace(p, peers = null) {
         const r = this.reach(p);
+        if(peers&&peers.except===p)return peers.freePersonalSpace(p,r,.35);
         return !this.list.some(o => o !== p && !o.hidden && Math.hypot(o.x - p.x, o.z - p.z) < r + this.reach(o) + 0.35);
     }
-    admit(p) {
-        return this.spaceLoad(p.e, p.side, p) < this.walkSpace(p.e, p.side).cells.length && this.freeWalkPoint(p.x, p.z, this.reach(p)) && this.freePersonalSpace(p) && this.freeVehiclePoint(p.x, p.z, Math.max(this.reach(p), PED_R + 0.4));
+    admit(p, peers = null) {
+        return this.spaceLoad(p.e, p.side, p,peers) < this.walkSpace(p.e, p.side).cells.length && this.freeWalkPoint(p.x, p.z, this.reach(p)) && this.freePersonalSpace(p,peers) && this.freeVehiclePoint(p.x, p.z, Math.max(this.reach(p), PED_R + 0.4));
     }
     /** A source sidewalk line can end inside a crossing street's carriageway.
      * Pick a clear existing sidewalk slot before first visibility, without

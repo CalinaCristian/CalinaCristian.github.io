@@ -103,6 +103,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
 - New districts check initial car and bus bodies across road segments before showing them, keeping the fleet and source lanes. A bounded placement search can make room between neighbouring vehicles before first display; constructor and full rush-hour publication checks are separate gates.
   This search resolves held conflicts and constrained longer vehicles first, within fixed work limits.
   Ordinary cars can span a verified internal shape point on the same mapped road when their whole body remains on its actual asphalt; junctions, signals, changed widths and uncertain grades retain the stricter boundary.
+- Pedestrian relocation indexes the unchanged peer population for its exact sidewalk-capacity and personal-space queries, including distant incoming reservations. Component controls preserve actual selected poses and random draws; native FPS remains a separate check.
 - Pedestrian placement checks physical obstacles and neighbours before becoming visible; vehicle guards keep their spatial lookup current after movement and collision corrections. Walkers check other bodies before stepping and use continuous passing steps; live crowd stress testing remains the release gate.
 - A vehicle waiting beside a crossing pedestrian can move away only when its actual next body position increases clearance throughout the step, including the person's carried items. Front crossing yields remain in place.
 - **A living city.** Country-specific traffic (taxis, delivery vans, police; STB trams, trolleybuses and buses; King
@@ -232,6 +233,8 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
 - `node game/dev/harness/drone-boundary-check.cjs` and `drone-flight-check.cjs` — buffered flight limits and actual-controller returns.
 - `node game/dev/harness/map-waypoints-check.cjs` — map marking, held-F travel, fuel checks, and desktop/touch interactions.
 - `node game/dev/signals.test.mjs` — conflicting approaches, junction clearance and pedestrian recovery regression checks.
+- `node tools/profile-traffic-native.mjs OUT FULL_SOURCE_SHA` — actual RAF V8 attribution at High/Ultra through public settings; software FPS is not hardware evidence.
+- `node tools/pedestrian-relocation-benchmark.mjs` — full-population relocation query parity and component CPU timing.
 - `node tools/continue-menu-check.mjs` — actual fresh-context Main menu and persisted SaveStore availability, with an explicitly synthetic saved pose.
 - `node tools/tourist-tour-check.mjs` — walkable short tours, real participation, pause/skip/end and shared-scene entrances.
 - District reality passes combine OSM footprints with aerial roof/canopy/green-ground measurements and local-only

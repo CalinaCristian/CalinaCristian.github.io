@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "37f5e3522ac9d820000000000000000000000000",
+  "scope": "Actual normal RAF at public Grozavesti spawn, same evolving traffic, V8 sample attribution. Software renderer/scheduler observations are not hardware FPS or a driven/body-clearance acceptance.",
+  "started": "2026-11-09T16:36:26.975Z",
+  "phases": [],
+  "errors": [],
+  "httpErrors": [
+    {
+      "file": "game/index.html",
+      "error": "Error: Command failed: git show 37f5e3522ac9d820000000000000000000000000:game/index.html"
+    }
+  ],
+  "served": [],
+  "failure": "page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at http://127.0.0.1:41079/game/\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:41079/game/\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at /workspace/CalinaCristian.github.io/tools/profile-traffic-native.mjs:46:13",
+  "closed": "2026-11-09T16:36:29.301Z",
+  "executedToolSHA256": "52d1b22f4c72d83857c5992a0fa41afa5fb4b3136071bf799704c868cbd90ef3"
+}

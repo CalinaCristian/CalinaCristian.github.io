@@ -1,0 +1,10 @@
+{
+  "label": "evolved-final",
+  "phase": "after-one-pixel-readback",
+  "at": 3499348.200000003,
+  "programs": 68,
+  "memory": {
+    "geometries": 245,
+    "textures": 34
+  }
+}

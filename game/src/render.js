@@ -11,6 +11,7 @@ import { Rain, Snow, solarPosition, dirFromElAz, skyState, classifyWMO, fetchLiv
 import { setVehicleEnvMap, setVehicleSnow } from './vehicles.js';
 import { setWaterEnv, tickWater } from './water.js';
 import { progressivePMREM, supportsProgressivePMREM } from './progressive-pmrem.js';
+import { CockpitDisplays, displayPixelRatio } from './cockpit-displays.js';
 
 // ============================================================================
 //  Renderer3D — WebGL renderer + sky + sun/shadows + post-processing + weather
@@ -435,7 +436,8 @@ export class Renderer3D {
      */
     constructor(canvas, opts = {}) {
         this.opts = { autoGauges: false, envLighting: 0.3, ...opts };
-        const r = this._renderer = opts.renderer || new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance', stencil: false, reverseDepthBuffer: opts.reverseDepth === true });
+        // AA belongs to the adaptive world target, not the full-DPR presentation buffer.
+        const r = this._renderer = opts.renderer || new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance', stencil: false, reverseDepthBuffer: opts.reverseDepth === true });
         r.shadowMap.enabled = true;
         r.shadowMap.type = THREE.PCFSoftShadowMap;
         // AgX: photographic toe (ACES-fitted crushed shaded asphalt to ~0.2 % reflectance on screen, review #1);
@@ -504,6 +506,7 @@ export class Renderer3D {
         this.outputPass = new OutputPass();
         this.finalPass = new ShaderPass(FinalShader);
         this.bloomPass = null; this.smaaPass = null; this.fxaaPass = null; this.gtaoPass = null;
+        this.cockpitDisplays = new CockpitDisplays(r, this.composer);
 
         // adaptive quality state
         this._ema = 16.7; this._slowT = 0; this._fastT = 0; this._settle = 2; this._dts = []; this._block = {}; this._backoff = {};
@@ -526,6 +529,7 @@ export class Renderer3D {
         this.lamps = this._lampDens = this._lampTint = this._lampReal = null; this._lampNear = [];
         for (const sl of this._lampSlots) { sl.lamp = -1; sl.w = sl.target = 0; sl.light.intensity = 0; }
         this.scene = null; this.player = null; this.renderPass.scene = null;
+        this.cockpitDisplays.setPlayer(null);
         if (this.gtaoPass) this.gtaoPass.scene = null;
         this._envA?.dispose(); this._envB?.dispose(); this._waterEnv?.dispose();
         this._envA = this._envB = this._waterEnv = null; this._envFade = 1;
@@ -1161,6 +1165,7 @@ export class Renderer3D {
 
     setPlayer(player) {
         this.player = player; this._applyRainToCockpit(); this._updateHeadlights();
+        this.cockpitDisplays.setPlayer(player, this.camera);
         this.camera?.layers.enable(1);
         this._cabinK = -1; this._updateNight(0);
     }
@@ -1277,10 +1282,14 @@ export class Renderer3D {
         const t = this.tier = QUALITY_LADDER[level];
         const r = this._renderer;
         const pr = Math.min(typeof devicePixelRatio !== 'undefined' ? devicePixelRatio : 1, t.pr);
-        r.setPixelRatio(pr);
-        r.setSize(this.width, this.height, false);
+        this._worldPixelRatio = pr;
+        const outputPR = displayPixelRatio(pr, globalThis.devicePixelRatio, this.width, this.height, this.cockpitDisplays.active);
+        if (r.getPixelRatio() !== outputPR) r.setPixelRatio(outputPR);
+        const cssSize = r.getSize(this._bufferCSSSize ||= new THREE.Vector2());
+        if (cssSize.x !== this.width || cssSize.y !== this.height) r.setSize(this.width, this.height, false);
         this.composer.setPixelRatio(pr);
         this.composer.setSize(this.width, this.height);
+        this.cockpitDisplays.resize(this.width, this.height, pr);
         // shadows
         if (t.shadow) {
             if (this.sun.shadow.mapSize.x !== t.shadow) { this.sun.shadow.map?.dispose(); this.sun.shadow.map = null; this.sun.shadow.mapSize.set(t.shadow, t.shadow); }
@@ -1309,6 +1318,7 @@ export class Renderer3D {
         }
         if (t.post === 'off') return;
         c.addPass(this.renderPass);
+        c.addPass(this.cockpitDisplays.capturePass);
         if (t.ao && this.scene && this.camera) { // (GTAO needs a camera: an 'ultra' set before the first scene is built at setScene)
             if (!this.gtaoPass) this._gtaoLoading ??= import('../vendor/addons/GTAOPass.js').then(({ GTAOPass }) => {
                 if (!this.tier.ao || !this.scene || !this.camera) return;
@@ -1327,7 +1337,7 @@ export class Renderer3D {
         c.addPass(this.finalPass);
         this.finalPass.uniforms.uGrain.value = t.post === 'full' ? 0.035 : 0.0;
         if (t.aa === 'smaa') {
-            if (!this.smaaPass) this.smaaPass = new SMAAPass(w * this._renderer.getPixelRatio(), h * this._renderer.getPixelRatio());
+            if (!this.smaaPass) this.smaaPass = new SMAAPass(w * this._worldPixelRatio, h * this._worldPixelRatio);
             c.addPass(this.smaaPass);
         } else if (t.aa === 'fxaa') {
             if (!this.fxaaPass) this.fxaaPass = new ShaderPass(FXAAShader);
@@ -1337,7 +1347,7 @@ export class Renderer3D {
         this._updateResUniforms();
     }
     _updateResUniforms() {
-        const pr = this._renderer.getPixelRatio();
+        const pr = this._worldPixelRatio;
         this.finalPass.uniforms.uRes.value.set(this.width * pr, this.height * pr);
         if (this.fxaaPass) this.fxaaPass.material.uniforms.resolution.value.set(1 / (this.width * pr), 1 / (this.height * pr));
     }
@@ -1346,6 +1356,7 @@ export class Renderer3D {
         this.width = w; this.height = h;
         this._renderer.setSize(w, h, false);
         this.composer.setSize(w, h);
+        this.cockpitDisplays.resize(w, h, this._worldPixelRatio);
         this._updateResUniforms();
         this._settle = Math.max(this._settle, 1);
     }
@@ -1406,8 +1417,11 @@ export class Renderer3D {
         // render
         const fu = this.finalPass.uniforms; fu.uTime.value = this.time;
         this.sun.shadow.needsUpdate = true;
-        if (this.tier.post === 'off') this._renderer.render(scene, camera);
+        this.cockpitDisplays.begin(scene, camera, p, this._worldPixelRatio, this.width, this.height);
+        if (this.tier.post === 'off') this.cockpitDisplays.renderLow(scene, camera, this.outputPass);
         else this.composer.render(dt);
+        this.cockpitDisplays.render(scene, camera);
+        this.displayStats = this.cockpitDisplays.stats;
         // stats
         const info = this._renderer.info;
         this.stats.drawCalls = info.render.calls; this.stats.triangles = info.render.triangles;
@@ -1527,6 +1541,7 @@ export class Renderer3D {
     }
     dispose() {
         this._cancelEnvJob();
+        this.cockpitDisplays.dispose();
         this._wxGen++; this.snow?.dispose();
         this.composer.dispose?.(); this._envOut?.dispose(); this._envA?.dispose(); this._envB?.dispose(); this._envQuad?.dispose(); this._pmrem.dispose(); this.rain?.dispose();
     }

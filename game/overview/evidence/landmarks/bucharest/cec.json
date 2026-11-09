@@ -23,7 +23,7 @@
     },
     {
       "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
-      "label": "Esri World Imagery \u2014 private outline/roof comparison; no imagery published",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
       "type": "aerial"
     },
     {
@@ -55,6 +55,26 @@
       "url": "https://api.openstreetmap.org/api/0.6/relation/13104231/full",
       "label": "Raw full OSM multipolygon part r13104231; all outers/inners retained",
       "type": "osm"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/bb32f06f2b84080edf7efef90e361498f4227e12",
+      "label": "Accepted exact CEC outer/courtyard association in the tourist scene (bb32f06f)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/052ecc8d02358782b5e191050842952d529db853",
+      "label": "Accepted native Old Town collider bands; obsolete blanket caps removed (052ecc8d)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/29f4533895e1abba65f342ebffed735791c1e301/game/overview/evidence/spots/stavropoleos-cec.json",
+      "label": "Current selected Stavropoleos/CEC source-stamped primary-route record",
+      "type": "validation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/29f4533895e1abba65f342ebffed735791c1e301/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "label": "Existing 93b0d864 native scene/phone/primary-route report; scope remains limited",
+      "type": "validation"
     }
   ],
   "sourceIds": [
@@ -225,14 +245,15 @@
   "improvements": [
     "Canonical model now represents all 162 mapped source volumes (155 previously registered volumes and seven restored relation outers), across 161 real OSM identities.",
     "Every exact outer ring, five inner rings and all 153 literal source total heights are preserved. Body surfaces are unioned at every source vertical band; visible roof surfaces are clipped against the complete source assembly.",
-    "The six real restored relation IDs now have model coverage before replacement association; the two outers of r13104229 are retained separately. Exact model collision retains all 162 source polygons and holes."
+    "The six real restored relation IDs now have model coverage before replacement association; the two outers of r13104229 are retained separately. Exact model collision retains all 162 source polygons and holes.",
+    "Canonical CEC, including both prepared r13104229 outers, is associated in Old Town and uses native per-solid polygon/hole/height bands without the obsolete blanket parent collider (bb32f06f2b84080edf7efef90e361498f4227e12, 052ecc8d02358782b5e191050842952d529db853)."
   ],
   "remainingGaps": [
     "Nine source total heights and absent roof rises remain estimates. The literal mapped maximum is 37.5 m; literal total heights include their roofs.",
     "56 profiles retain unsupported or nonstandard roof tags, notably sloped with compass-valued roof:orientation and onion. The current native approximation visibly differs from rounded historic roof forms; these studies establish source-volume coverage, not complete architectural parity.",
     "Many source decorative parts have literal total heights and no minimum height. Their ground-based bands remain source-first, even where the resulting vertical faces appear stronger than the actual roof structure. No contradictory source tag is silently rewritten.",
     "Facade windows, cornices, clock, columns and absent material colours remain explicit architectural estimates.",
-    "Shaped-roof collision retains each complete source total-height band rather than a pointwise curved roof height. Tourist-scene placement and public approach need the scene owner\u2019s native context check after canonical association.",
+    "Shaped-roof collision retains each complete source total-height band rather than a pointwise curved roof height. Canonical association and removal of obsolete blanket parent caps are integrated; complete independent courtyard/frontage, neighbouring-MNIR, public-access and crowd-behaviour comparison remains separate from the recorded primary candle approach.",
     "Matched exterior Street View comparison and complete district traffic/mirror budgets are separate checks; isolated model captures do not establish those passes."
   ],
   "checks": [
@@ -244,7 +265,7 @@
     {
       "label": "Canonical union and duplicate-surface checks",
       "passed": true,
-      "details": "Source-body deficit <=2.81e-15 m\u00b2, derived outside area 0 m\u00b2 (1e-8 m\u00b2 tolerance); zero duplicate canonical roof triangles at 1e-7 m coordinate precision. All source volume records remain retained separately."
+      "details": "Source-body deficit <=2.81e-15 m², derived outside area 0 m² (1e-8 m² tolerance); zero duplicate canonical roof triangles at 1e-7 m coordinate precision. All source volume records remain retained separately."
     },
     {
       "label": "Actual rendered game studies",
@@ -252,9 +273,9 @@
       "details": "Three native game development-viewer captures from immutable 556b252, inspected front/top/oblique. Each model has 24,156 triangles; zero page errors. Orthographic top study is north-up. Raw source geometry and unsupported forms remain visible."
     },
     {
-      "label": "Tourist-scene native placement and access",
+      "label": "Complete tourist-scene context and access (separate gate)",
       "passed": false,
-      "details": "Pending scene owner canonical association and removal of obsolete blanket parent collider. Isolated model views do not test adjacent MNIR, public approaches or crowd behavior."
+      "details": "Canonical association and obsolete blanket parent-cap removal are implemented in accepted bb32f06f2b84080edf7efef90e361498f4227e12 and 052ecc8d02358782b5e191050842952d529db853. Existing source93b0d8649e7c3a1217ae5b009f124347c41da6a8 tourist evidence records the physical 26.095 m primary candle approach with ordinary source solids/crowd enabled. This broad complete-context gate remains open: that route does not establish matched frontage/courtyard/adjacent-MNIR fidelity, all public approaches or all crowd behaviour. No new browser or test execution accompanies this wording update."
     },
     {
       "label": "Matched exterior Street View comparison",
@@ -454,5 +475,39 @@
     "drawCalls": 3,
     "modelTriangles": 24156,
     "note": "Isolated development viewer including its ground; excludes district, traffic, mirrors and tourist-scene population."
-  }
+  },
+  "historicalImplementationNotes": [
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+      "supersededAt": "2026-11-09",
+      "field": "remainingGaps[4]",
+      "priorValue": "Shaped-roof collision retains each complete source total-height band rather than a pointwise curved roof height. Tourist-scene placement and public approach need the scene owner’s native context check after canonical association.",
+      "replacementScope": "Shaped-roof collision retains each complete source total-height band rather than a pointwise curved roof height. Canonical association and removal of obsolete blanket parent caps are integrated; complete independent courtyard/frontage, neighbouring-MNIR, public-access and crowd-behaviour comparison remains separate from the recorded primary candle approach.",
+      "acceptedImplementationCommits": [
+        "bb32f06f2b84080edf7efef90e361498f4227e12",
+        "052ecc8d02358782b5e191050842952d529db853"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "556b252dc9f654b70a28104353f00e60a12a1375",
+      "supersededAt": "2026-11-09",
+      "field": "checks[3]",
+      "priorValue": {
+        "label": "Tourist-scene native placement and access",
+        "passed": false,
+        "details": "Pending scene owner canonical association and removal of obsolete blanket parent collider. Isolated model views do not test adjacent MNIR, public approaches or crowd behavior."
+      },
+      "replacementScope": "Canonical association and obsolete blanket parent-cap removal are implemented in accepted bb32f06f2b84080edf7efef90e361498f4227e12 and 052ecc8d02358782b5e191050842952d529db853. Existing source93b0d8649e7c3a1217ae5b009f124347c41da6a8 tourist evidence records the physical 26.095 m primary candle approach with ordinary source solids/crowd enabled. This broad complete-context gate remains open: that route does not establish matched frontage/courtyard/adjacent-MNIR fidelity, all public approaches or all crowd behaviour. No new browser or test execution accompanies this wording update.",
+      "acceptedImplementationCommits": [
+        "bb32f06f2b84080edf7efef90e361498f4227e12",
+        "052ecc8d02358782b5e191050842952d529db853"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
 }

@@ -125,6 +125,11 @@
       "url": "https://www.spaceneedle.com/facts-1",
       "label": "Official Space Needle facts · 605 ft beacon height",
       "type": "official"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13",
+      "label": "Accepted production explicit-ID source replacement; implementation scope only (2c73f3d9)",
+      "type": "implementation"
     }
   ],
   "improvements": [
@@ -135,18 +140,18 @@
     "Fine mullions, restaurant interior, current roof equipment and individual structural joints remain simplified.",
     "Leg curvature, several profile break heights and facade colours remain authored estimates despite the verified overall height.",
     "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
-    "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy."
+    "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings."
   ],
   "checks": [
     {
-      "label": "Bucharest foot,a regression",
+      "label": "Historical Bucharest foot,a regression",
       "passed": true,
-      "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+      "details": "Historical branch evidence only. Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models. The statement about subsequent US-only changes belongs to that recorded branch stage; it does not describe all later integrated ROOT changes or constitute a new root regression."
     },
     {
       "label": "Current source identity and topology review",
       "passed": true,
-      "details": "All 24 US registry entries checked; 18 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+      "details": "All 24 US registry entries checked; 18 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates. Production explicit-ID replacement is now implemented by 2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13; this records implementation, not a new integrated placement, clearance or performance pass."
     },
     {
       "label": "Independent visual and actual model review",
@@ -281,5 +286,51 @@
     "triangles": 4191,
     "drawCalls": 3,
     "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
-  }
+  },
+  "historicalImplementationNotes": [
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "remainingGaps[3]",
+      "priorValue": "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy.",
+      "replacementScope": "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings.",
+      "acceptedImplementationCommits": [
+        "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "checks[0]",
+      "priorValue": {
+        "label": "Bucharest foot,a regression",
+        "passed": true,
+        "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+      },
+      "replacementScope": "Historical branch evidence only. Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models. The statement about subsequent US-only changes belongs to that recorded branch stage; it does not describe all later integrated ROOT changes or constitute a new root regression.",
+      "acceptedImplementationCommits": [],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "checks[1]",
+      "priorValue": {
+        "label": "Current source identity and topology review",
+        "passed": true,
+        "details": "All 24 US registry entries checked; 18 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+      },
+      "replacementScope": "All 24 US registry entries checked; 18 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates. Production explicit-ID replacement is now implemented by 2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13; this records implementation, not a new integrated placement, clearance or performance pass.",
+      "acceptedImplementationCommits": [
+        "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
 }

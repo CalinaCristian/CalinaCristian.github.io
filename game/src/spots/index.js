@@ -357,6 +357,7 @@ export class SpotSession {
         this.ctl = Ctl ? new Ctl(opts) : new LocalWalker(opts);
         this.walkerKind = Ctl ? 'OnFootController' : 'LocalWalker';
         const sp = spot.spawn; this.ctl.enter(sp.x, sp.z, sp.heading, sp.y);
+        if (Number.isFinite(sp.pitch)) { this.ctl.pitch = Math.max(-1.3, Math.min(1.3, sp.pitch)); this.ctl.place(); }
         r3d.setPlayer(this.ctl);
         if (this.input) this.input.lookAllowed = true;
         // UI + sound
@@ -786,6 +787,7 @@ export class SpotSession {
         this.cancelActivities('teleport');
         this.clearWaypoint();
         this.endTour(); this.ctl.teleport(s.x, s.z, s.heading);
+        if (Number.isFinite(s.pitch)) { this.ctl.pitch = Math.max(-1.3, Math.min(1.3, s.pitch)); this.ctl.place(); }
         Object.assign(this.spot, { id: spotId, name: entry.name, entry, spawn: s });
         this.ui.setTitle(this.spot.name, `${placeLabel(this.spot)} · walk-only bonus`);
         this._updateChallengeText(); this._refreshMarkers();

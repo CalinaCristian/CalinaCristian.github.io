@@ -1,0 +1,23 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import assert from 'node:assert/strict';
+import { parseFiles } from './parse-osm.mjs';
+import { compileCoveredRoadModels } from './append-covered-road-models.mjs';
+import { buildCoveredRoadModels } from '../../game/src/covered-road-models.js';
+
+const [dataFile, reviewFile, xmlFile] = process.argv.slice(2);
+if (!xmlFile) throw Error('dataset review source.xml');
+const data = JSON.parse(fs.readFileSync(dataFile)), review = JSON.parse(fs.readFileSync(reviewFile)), raw = parseFiles([xmlFile]);
+const sourceSHA = crypto.createHash('sha256').update(fs.readFileSync(xmlFile)).digest('hex');
+const before = JSON.stringify(data), records = compileCoveredRoadModels(data, review, raw, sourceSHA);
+assert.equal(JSON.stringify(data), before); assert.equal(records.length, 1);
+assert.equal(records[0].classification, 'reviewed-source-fuel-canopy-covered-road'); assert.equal(records[0].sourceCanopy.sourceId, 'w670595374');
+const output = buildCoveredRoadModels({ ...data, reviewedCoveredRoads: records });
+assert.equal(output.accepted[0].profileOnly, true); assert.equal(output.accepted[0].legalMaxheightM, 4.25); assert.equal(output.accepted[0].nativeUndersideM, 4.8); assert.equal(output.passages.size, 0);
+assert.equal(output.isCovered({ road: 12 }), false); assert.equal(output.isCovered({ road: 13 }), false); assert.equal(output.isCovered({ road: 213 }), false);
+assert.throws(() => compileCoveredRoadModels(data, { ...review, models: [{ ...review.models[0], classification: 'arbitrary-layer-override' }] }, raw, sourceSHA));
+const road = raw.ways.get(79870041), old = road.tags.incline; road.tags.incline = 'up';
+assert.throws(() => compileCoveredRoadModels(data, review, raw, sourceSHA), 'stale/changed literal incline fails source validation');
+if (old === undefined) delete road.tags.incline; else road.tags.incline = old;
+assert.deepEqual(compileCoveredRoadModels(data, review, raw, sourceSHA), records, 'deterministic fresh source snapshots after negative control');
+console.log(JSON.stringify({ passed: true, records: records.length, sourceSHA, sourceRoad: records[0].sourceRoadId, sourceCanopy: records[0].sourceCanopy.sourceId, sameNativeOpeningM: output.accepted[0].clearanceM, sourceDataUnchanged: true, unknownClassAndChangedSourceRejected: true, truePasajUnaffected: true, noShippedDatasetRegenerated: true }));

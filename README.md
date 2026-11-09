@@ -146,6 +146,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   addresses, and street trees are species-specific. The Dâmbovița runs in its concrete channel.
   Individually reviewed drives beneath mapped fuel roofs keep their surface-road joins; relative source layers
   below a canopy supply no underground metre depth. Roof dimensions remain explicit estimates and legal height limits stay intact.
+  A cached-source append command revalidates these finite cover reviews after a district rebuild.
 - **Mapped return roads.** Grozăvești's reviewed Politehnica–Lukoil return corridors retain the real road segments in both
   approach directions, extending the finite district through exact source nodes and legal directions. Native boundary,
   whole-body driving and render checks remain separate acceptance gates for this rebuilt coverage.

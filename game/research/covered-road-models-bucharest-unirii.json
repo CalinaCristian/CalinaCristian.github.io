@@ -1,0 +1,38 @@
+{
+  "reviewedAt": "2026-11-09",
+  "models": [
+    {
+      "id": "unirii-mol-coposu-source-canopy-cover",
+      "classification": "reviewed-source-fuel-canopy-covered-road",
+      "sourceRoadId": "w79870041",
+      "sourceCanopyId": "w670595374",
+      "evidence": [
+        "https://www.openstreetmap.org/way/79870041",
+        "https://www.openstreetmap.org/way/670595374",
+        "https://www.openstreetmap.org/way/668563018",
+        "https://www.openstreetmap.org/way/668563017",
+        "https://www.openstreetmap.org/way/1478497247",
+        "https://www.openstreetmap.org/way/982816382"
+      ],
+      "groundJoins": [
+        {
+          "portalNodeId": 6260825651,
+          "anchorRoadId": "w982816382",
+          "anchorNodeId": 9088160162,
+          "ways": [["w668563018", 1]]
+        },
+        {
+          "portalNodeId": 13563618634,
+          "anchorRoadId": "w982816382",
+          "anchorNodeId": 9088160161,
+          "ways": [["w668563017", -1], ["w1478497247", -1]]
+        }
+      ],
+      "model": {
+        "estimated": true,
+        "floorY": 0,
+        "basis": "Reviewed literal open MOL canopy and exact same-source-node connections to ordinary Coposu surface carriageway. Raw layer−1 is relative ordering beneath layer1 canopy, not6m underground elevation. Existing4.8m canopy underside/5.2m top remain model estimates."
+      }
+    }
+  ]
+}

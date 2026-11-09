@@ -106,6 +106,7 @@ that chapter of the CV.
   Rail access is separate from motor access: a legal tram direction does not make a track drivable by cars.
   Initial rail placement and source-boundary stops keep the whole tram clear of mapped crossing pads.
   NPC route choices respect mapped turn-lane arrows. Turning cars retain their approach lane through the junction, with continuous transitions into narrower exits; ordinary straight lane drops still merge ahead.
+  Mapped controlled pedestrian crossings retain a signal controller at their actual source node.
 - **Real light and weather.** Sun and moon from each place's real position and local time, street lights,
   headlights, lit windows and shops at night, live weather (Open-Meteo, with a 1991–2020 climate fallback) with rain,
   snow and fog, weather-driven visibility (snow settles on streets, roofs, lawns, sports grounds and the landmarks

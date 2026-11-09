@@ -597,7 +597,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     for (let i = 0; i < data.nodeFlags.length; i += 2) {
         const n = nodeArr[data.nodeFlags[i]], f = data.nodeFlags[i + 1];
-        n.flags = f; n.signal = !!(f & 1); n.crossing = !!(f & 2); n.zebra = !!(f & 4) || !!(f & 8); n.stop = !!(f & 16); n.giveWay = !!(f & 32);
+        n.flags = f; n.signal = !!(f & 1) || !!(f & 8); n.crossing = !!(f & 2); n.zebra = !!(f & 4) || !!(f & 8); n.stop = !!(f & 16); n.giveWay = !!(f & 32);
         n.busStop = !!(f & 64); n.tramStop = !!(f & 128); n.speedCamera = !!(f & 256); n.redLightCamera = !!(f & 1024);
     }
     const edges = [];
@@ -1514,6 +1514,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (!n.signal || !n.edges.length) continue;
         if (n.edges.some(e => /motorway/.test(e.type))) continue;
         if (n.edges.length >= 3) { n.hasLight = true; continue; }
+        if (n.flags & 8) { n.hasLight = true; continue; } // mapped controlled pedestrian crossing keeps its own controller
         // BFS along the graph up to 32 m for a junction
         let found = null; const seen = new Set([n]); let frontier = [[n, 0]];
         while (frontier.length && !found) {

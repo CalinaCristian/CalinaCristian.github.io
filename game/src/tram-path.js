@@ -65,8 +65,8 @@ function sourceSpeed(tags) {
 /** Default local datum follows the existing flat-world model, explicitly
  * estimated. A tag is never converted from layer/level to metres. */
 export function flatTramGrade(way) {
-    const t = way.tags || {}, layer = t.layer == null ? 0 : Number(t.layer);
-    if (!Number.isFinite(layer) || layer !== 0 || (t.bridge != null && !no(t.bridge)) || (t.tunnel != null && !no(t.tunnel)) || t.ele != null || t.incline != null) return null;
+    const t = way.tags || {}, layer = t.layer == null ? 0 : Number(t.layer), level = t.level == null ? 0 : Number(t.level);
+    if (!Number.isFinite(layer) || layer !== 0 || !Number.isFinite(level) || level !== 0 || (t.bridge != null && !no(t.bridge)) || (t.tunnel != null && !no(t.tunnel)) || t.ele != null || t.incline != null) return null;
     return { known: true, ya: 0, yb: 0, estimated: true, basis: 'existing-unsurveyed-flat-local-ground-datum' };
 }
 
@@ -152,6 +152,7 @@ export function buildTramNetwork(data, { motorNodes = [], resolveGrade = null } 
             const usable = modeled && !denied && directions.directions.length > 0 && known;
             const edge = { id: 'rail:' + way.sourceId + ':' + (i - 1), sourceId: way.sourceId, sourceNodeIds: [ids[i - 1], ids[i]], sourceSegment: i - 1, sourceTags: way.tags, a, b, len, dirx: dx / len, dirz: dz / len, nx: -dz / len, nz: dx / len, rail: true, tram: true, tramOnly: true, modeled, usable, railDirections: directions.directions, directionEvidence: directions, grade: known ? grade : { known: false, basis: 'unresolved-source-rail-grade' }, ya: known ? grade.ya : null, yb: known ? grade.yb : null, bridge: way.tags?.bridge != null && !no(way.tags.bridge), tunnel: way.tags?.tunnel != null && !no(way.tags.tunnel), layer: Number(way.tags?.layer || 0), type: 'tram', name: way.tags?.name || '', lanesF: directions.directions.includes(1) ? 1 : 0, lanesB: directions.directions.includes(-1) ? 1 : 0, oneway: !directions.directions.includes(-1), laneW: 0, median: 0, laneCenterShiftM: 0, publicDrive: false, throughAccess: false, publicTram: usable, throughTram: usable, access: { sourceId: way.sourceId, mode: 'tram', tags: way.tags } };
             const speed = sourceSpeed(way.tags); if (speed != null) edge.maxspeed = speed;
+            edge.sourceTramAccessAllowed = !denied;
             graph.allEdges.push(edge);
             if (modeled) { report.modeledSegments++; if (!known) report.unresolved.push({ sourceId: way.sourceId, sourceNodeIds: edge.sourceNodeIds, reason: 'unresolved-source-rail-grade' }); }
             if (usable) { graph.edges.push(edge); a.edges.push(edge); b.edges.push(edge); report.admittedSegments++; }
@@ -243,9 +244,30 @@ export function tramPathPolyline(vehicle, startOff, endOff) {
     return cursor >= endOff - 1e-9 ? segments : null;
 }
 
-export function projectTramStations(graph, x, z, heading, length) {
+/** Source choice precedes grade admission. Unknown bridges/tunnels/directions
+ * cannot disappear merely because a nearby ground path is easier to place. */
+export function nearestTramSource(graph, x, z, heading) {
+    const fx = -Math.sin(heading), fz = -Math.cos(heading), choices = [];
+    for (const e of graph.allEdges) {
+        if (!e.modeled || !e.sourceTramAccessAllowed) continue;
+        const raw = Math.max(0, Math.min(e.len, (x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz));
+        for (const dir of e.railDirections.length ? e.railDirections : [1, -1]) {
+            const dot = e.dirx * dir * fx + e.dirz * dir * fz; if (dot <= 0) continue;
+            choices.push({ e, dir, s: dir > 0 ? raw : e.len - raw, distance: Math.hypot(e.a.x + e.dirx * raw - x, e.a.z + e.dirz * raw - z), headingDot: dot, directionKnown: e.railDirections.length > 0 });
+        }
+    }
+    return choices.sort((a, b) => a.distance - b.distance || b.headingDot - a.headingDot || String(a.e.id).localeCompare(String(b.e.id)))[0] || null;
+}
+
+export function projectTramStations(graph, x, z, heading, length, { anchorEdge = null } = {}) {
     const fx = -Math.sin(heading), fz = -Math.cos(heading), candidates = [];
+    let component = null;
+    if (anchorEdge) {
+        component = new Set(); const pending = [anchorEdge];
+        while (pending.length) { const e = pending.pop(); if (component.has(e) || !e.usable) continue; component.add(e); for (const n of [e.a, e.b]) for (const q of n.edges) if (!component.has(q)) pending.push(q); }
+    }
     for (const e of graph.edges) for (const dir of e.railDirections) {
+        if (component && !component.has(e)) continue;
         if (e.dirx * dir * fx + e.dirz * dir * fz <= 0) continue;
         const span = tramSpan(e, dir, length); if (!span) continue;
         const raw = ((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz), s = Math.max(span[0], Math.min(span[1], dir > 0 ? raw : e.len - raw)), p = sampleTramPath({ edge: e, dir, s, route: [], hist: [] });

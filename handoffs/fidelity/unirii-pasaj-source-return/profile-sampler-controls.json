@@ -1,0 +1,11 @@
+{
+  "passed": 5,
+  "controls": [
+    "overlapping source levels use explicit edge",
+    "missing source remains unresolved",
+    "outside exact source span remains unresolved",
+    "conflicting same-source matches are all retained and flagged, never best-fit selected",
+    "malformed native edge cannot trigger nearest-road API fallback"
+  ],
+  "currentNativeAcceptance": false
+}

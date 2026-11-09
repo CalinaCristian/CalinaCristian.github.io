@@ -1,0 +1,40 @@
+{
+  "source": "2696df66fd0331fc645f7c003cbcca7a5410740b",
+  "files": [
+    {
+      "path": "tools/osm/parse-osm.mjs",
+      "bytes": 3919,
+      "sha256": "be358dac240c08233d22068108bd58e29975ac07b16aabe7b3c9b40ee4eb6613"
+    },
+    {
+      "path": "tools/osm/source-return-corridors.mjs",
+      "bytes": 12633,
+      "sha256": "c496c649d172ee2bc9b5f4c5907e711da5018b06f447a9fee2e1d5b86a151082"
+    },
+    {
+      "path": "game/src/road-access.js",
+      "bytes": 3078,
+      "sha256": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee"
+    },
+    {
+      "path": "game/src/motor-turn-restrictions.js",
+      "bytes": 9481,
+      "sha256": "7f7b113b6f68db6721e9889280e42d1116619e2edf20fd969069095a79f22445"
+    },
+    {
+      "path": "game/src/turn-lanes.js",
+      "bytes": 4090,
+      "sha256": "0911880d096c4efe126fc4f53a7df1559d8f6ee01cb52635afeb939648dece54"
+    },
+    {
+      "path": "game/src/road-widths.js",
+      "bytes": 4790,
+      "sha256": "c965c1368db011832786b39f0809d704c09880749dc161ddd09cd6e3d0d48b7f"
+    },
+    {
+      "path": "game/src/building-roofs.js",
+      "bytes": 18301,
+      "sha256": "a82db31d1197b3953c9f4718dbc44b2972a90e25d9c2c07c683e6ab5386fa8ac"
+    }
+  ]
+}

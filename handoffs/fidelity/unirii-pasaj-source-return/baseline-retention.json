@@ -1,0 +1,61 @@
+{
+  "source": "2696df66fd0331fc645f7c003cbcca7a5410740b",
+  "kind": "diagnostic baseline, source-returns none; no domain change",
+  "originalSHA256": "e5ec3f964640b500f4fcf0aa2bd38313ce625a594ff915ff599c7c792b5bd887",
+  "regeneratedSHA256": "4a12be9536f2aab22fde93d23d894c3f0874089619fc3c977eb6e5c041c7e040",
+  "exactValues": {
+    "proj": true,
+    "nodes": true,
+    "roadNodeIds": true,
+    "roadNodePositions": true,
+    "roads": true,
+    "roadInfo": true,
+    "roadSourceGeometry": true,
+    "roadWidths": true,
+    "roadAccess": true,
+    "buildingIds": true,
+    "buildingFootprints": true,
+    "buildingDimensions": true,
+    "buildings": true,
+    "buildingCanopies": true,
+    "buildingHoles": true,
+    "buildingHoleFootprints": true,
+    "buildingRoofProfiles": true,
+    "treeInfo": true,
+    "trees": true,
+    "treeCrownRadii": true,
+    "areas": true,
+    "areaSourceIds": true,
+    "scenerySourceGeometry": true,
+    "scenery": true,
+    "parking": true,
+    "pois": true,
+    "furniture": true
+  },
+  "changedFields": [
+    "areaSourceTags",
+    "buildingGeometryPoints",
+    "buildingRoofGeometryPoints",
+    "buildingRoofSurfaces",
+    "buildingUnions",
+    "generated",
+    "lineSources",
+    "reviewedCoveredRoads",
+    "roadSourceNodeTagCoverage",
+    "roadSourceNodeTags",
+    "tramRoutes",
+    "tramSourceNodeTags",
+    "tramSourceWays"
+  ],
+  "missingFields": [
+    "reviewedCoveredRoads"
+  ],
+  "newFields": [
+    "lineSources",
+    "areaSourceTags",
+    "roadSourceNodeTags",
+    "roadSourceNodeTagCoverage"
+  ],
+  "runtimeDatasetRestored": true,
+  "note": "Full rebuild omits explicit reviewedCoveredRoads; reapply/revalidate the finite MOL canopy compiler review before any candidate native profile comparison. Generated date/source metadata differences stay explicit."
+}

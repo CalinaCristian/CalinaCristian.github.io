@@ -1,0 +1,15 @@
+const assert = require('node:assert/strict'), sample = require('./sample-native-profiles.cjs');
+const source = (id, y, edgeId) => ({ id: edgeId, road: id === 'w1' ? 0 : 1, a: { x: 0, z: 0, sourceId: 10 }, b: { x: 0, z: 20, sourceId: 11 }, len: 20, y });
+const underground = source('w1', -5.76, 4), surface = source('w2', .24, 5), input = { sourceId: 'w1', x: 0, z: 10, beforeRoadSurfaceM: -5.76 };
+let calls = 0;
+const world = { allEdges: [surface, underground], data: { roadSourceGeometry: { 0: { sourceId: 'w1', tags: { maxheight: '3.5' } }, 1: { sourceId: 'w2', tags: {} } } }, roadHeight(x, z, e) { calls++; assert.ok(e === surface || e === underground); return e.y; } };
+const before = JSON.stringify(world), out = sample(world, [input]);
+assert.equal(calls, 1); assert.equal(out.results[0].matches[0].roadSurfaceM, -5.76); assert.equal(out.results[0].matches[0].sourceTags.maxheight, '3.5'); assert.equal(JSON.stringify(world), before);
+assert.equal(sample(world, [{ ...input, sourceId: 'wMissing' }]).results[0].unresolved, 'literal-source-station-not-retained');
+assert.equal(sample(world, [{ ...input, z: 21 }]).results[0].unresolved, 'literal-source-station-not-retained');
+const duplicate = { ...underground, id: 6, y: -4 }; world.allEdges.push(duplicate); world.roadHeight = (x, z, e) => e.y;
+assert.deepEqual(sample(world, [input]).results[0].matches.map(r => r.roadSurfaceM), [-5.76, -4]);
+assert.equal(sample(world, [input]).results[0].unresolved, 'ambiguous-native-source-level');
+world.allEdges = [{ ...underground, len: 0 }];
+assert.equal(sample(world, [input]).results[0].unresolved, 'literal-source-station-not-retained');
+console.log(JSON.stringify({ passed: 5, controls: ['overlapping source levels use explicit edge', 'missing source remains unresolved', 'outside exact source span remains unresolved', 'conflicting same-source matches are all retained and flagged, never best-fit selected', 'malformed native edge cannot trigger nearest-road API fallback'], currentNativeAcceptance: false }, null, 2));

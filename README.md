@@ -223,6 +223,8 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
 
 Generated NPC parking is checked before the actor is first shown: literal parking rules, actual model support, road and pedestrian corridors, static bodies and peers must permit the pose. A refused parking choice keeps the same newly generated car driving on its original source lane, with its original identity and random sequence.
 
+Generated road signs use their source side's pavement width and check the complete post and both plates against known source tram geometry before emission. Mapped hardware and source roads remain preserved; unknown rail grades remain explicit.
+
 ## Tests and QA
 - `npm run harness` — logic harness (Playwright + software GL): drives every chapter, free roam, on foot, the tourist
   spots, rush hour and the finale; checks placement, routing, overlaps, timings and page errors.

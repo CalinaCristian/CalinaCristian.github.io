@@ -15,6 +15,8 @@ node "$QA_PHYSICAL_OUT/runner.cjs" "$QA_FREEZE_ROOT" "$QA_PHYSICAL_OUT" 15
 node "$QA_PHYSICAL_OUT/verify-district-soak.cjs" "$QA_PHYSICAL_OUT" "$QA_FREEZE_SHA"
 ```
 
+For durable PID/start/exit metadata, `python handoffs/fidelity/final-physical-soak/launch-soak.py "$QA_PHYSICAL_OUT" "$QA_FREEZE_SHA"` runs that exact Node argument list with the prepared environment and preserves stdout/stderr in `runner.log`. It refuses any previously launched OUT or another active district soak and never retries. Do not execute the direct Node line and this wrapper both.
+
 Set `QA_FREEZE_ROOT` to the printed `sourceRoot` and `QA_PHYSICAL_OUT` to the printed `out`. Record actual PID, command, start time and exit code in launch metadata; keep stdout/stderr in `runner.log`. Before starting, inspect actual `/proc/*/cmdline` (`MainThread` is a normal Node comm name), existing launch manifests and raw progress; do not duplicate an existing heavy soak. No diagnostic-only flag is allowed. A stale or incomplete output directory is retained, never restarted or relabelled.
 
 Acceptance requires native **560 pedestrian / 631 vehicle identities** throughout **900 physical seconds**, with the wall guard retaining at least 900 wall seconds before evolved conditions. Retain all source actors, high quality/full post processing, native far plane and actual mirror. Every measured complete frame must stay under 1,500,000 triangles / 400 calls, with matching raw/logical counters, zero errors, visible snaps and stalled recoveries. Inspect actual initial publication and combined night/rain publication through their complete frames and fade1; the retained protocol produced50 frames in each transition. Do not infer completion from a pending job or an early subset.

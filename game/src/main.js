@@ -1732,7 +1732,7 @@ class Game {
         this.crew?.dispose?.(); this.crew = null;
         if (city.id !== 'bucharest' || !this.closures.length) return;
         // one instanced crowd for the whole roadworks crew (2 draw calls instead of 7 meshes per worker; crowd.js)
-        const list = this.closures.filter(c => c.edge);
+        const list = this.closures.filter(c => c.edge && c.worker !== false);
         const crew = this.crew = makeCrowd({ max: list.length, city: city.id, season: seasonOf(this.nowDate()), castShadow: true });
         list.forEach((c, i) => {
             const e = c.edge;

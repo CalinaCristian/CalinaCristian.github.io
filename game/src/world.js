@@ -21,6 +21,8 @@ import { cullMergedCells } from './cell-frustum.js';
 import { waterChannelDecision } from './water-channel.js';
 import { uncoveredWaterLine } from './water-lines.js';
 import { buildTramGrades, tramGradeRenderPieces, tramSupportPieceId } from './tram-grade.js';
+import { buildTramTunnelGrades } from './tram-tunnel-grade.js';
+import { buildTramTrenchCutter, uncoveredTramTrenchWall } from './tram-trench.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -1507,7 +1509,8 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     const yAlong = (e, x, z) => { const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.ya + (e.yb - e.ya) * t; };
-    const tramGrades = buildTramGrades(data, { coreEdges: edges }), tramDecks = [];
+    const tunnelGrades = buildTramTunnelGrades(data, { coreEdges: edges });
+    const tramGrades = buildTramGrades(data, { coreEdges: edges, extraGrades: tunnelGrades.grades, extraReport: tunnelGrades.report }), tramDecks = [];
     /** height of junction n's pad at (x, z): the profile of the nearest approach there (n.y on flat junctions) */
     const padHeightAt = (n, x, z) => { let best = null, bd = Infinity; for (const e of n.edges) { if (e.virtual) continue; const d = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z).d; if (d < bd) { bd = d; best = e; } } return best ? yAlong(best, x, z) : n.y; };
 
@@ -2941,6 +2944,36 @@ export async function buildWorld(city, renderer, opts = {}) {
                             roofHeightAt: (px, pz, radius) => band(px, pz, radius).top, minHeightAt: (px, pz, radius) => band(px, pz, radius).bottom };
                         sceneryDeckGrid.insert(x - deck.r, z - deck.r, x + deck.r, z + deck.r, deck); tramDecks.push(deck);
                         tramGrades.report.renderedDeckPieces++; tramGrades.report.renderedTriangles += 8;
+                    }
+                    if (Math.min(y0, y1) < -1e-6) {
+                        // Estimated retaining sides follow the actual source
+                        // centreline; only the closed station section is roofed.
+                        const upper = piece.roof ? piece.roof.bottomM : 0, sides = quad(grade.deckHalfWidthM, Math.max(Y.ballast + y0, upper), Math.max(Y.ballast + y1, upper));
+                        for (const [n, k, sign] of [[0, 1, -1], [2, 3, 1]]) {
+                          for (const [lo, hi] of uncoveredTramTrenchWall(top[n], top[k], [-nx * sign, -nz * sign], tramGrades.support, grade.modelId)) {
+                            const interpolate = (p, q, t) => p.map((v, j) => v + (q[j] - v) * t), A = interpolate(top[n], top[k], lo), B = interpolate(top[n], top[k], hi), U = interpolate(sides[n], sides[k], lo), V = interpolate(sides[n], sides[k], hi);
+                            c.solid.face4(A, B, V, U, rgb('#888982'), [nx * sign, 0, nz * sign]);
+                            const mx = (A[0] + B[0]) / 2, mz = (A[2] + B[2]) / 2;
+                            walls.push({ wall: true, ax: A[0], az: A[2], bx: B[0], bz: B[2], y0a: A[1], y0b: B[1], y1a: U[1], y1b: V[1],
+                                nx: nx * sign, nz: nz * sign, kind: 'source-tram-trench', edge: null, sourceId: data.tramSources[run].sourceId,
+                                sourceSegment: grade.sourceSegment, modelId: grade.modelId, estimated: true, elevationSource: grade.basis,
+                                x: mx, z: mz, r: Math.hypot(B[0] - A[0], B[2] - A[2]) / 2 + .1, hw: 0, hd: 0, angle: 0, poly: null, h: Math.max(U[1], V[1]) });
+                            tramGrades.report.renderedTriangles += 2;
+                          }
+                        }
+                    }
+                    if (piece.roof) {
+                        const roof = piece.roof, roofTop = quad(grade.deckHalfWidthM, roof.topM, roof.topM), roofBottom = quad(grade.deckHalfWidthM, roof.bottomM, roof.bottomM);
+                        c.solid.face4(...roofTop, rgb('#92938d'), [0, 1, 0]);
+                        c.solid.face4(...roofBottom.slice().reverse(), rgb('#646761'), [0, -1, 0]);
+                        for (const [n, k] of [[0, 1], [2, 3]]) c.solid.face4(roofBottom[n], roofBottom[k], roofTop[k], roofTop[n], rgb('#787b74'), n === 0 ? [nx, 0, nz] : [-nx, 0, -nz]);
+                        const poly = roofTop.map(p => [p[0], p[2]]), x = (a[0] + b[0]) / 2, z = (a[1] + b[1]) / 2;
+                        const cover = { x, z, r: Math.max(...poly.map(p => Math.hypot(p[0] - x, p[1] - z))), poly, holes: [], roadDeck: true, railRoof: true,
+                            kind: 'source-tram-roof', sourceId: data.tramSources[run].sourceId, sourceSegment: grade.sourceSegment,
+                            sourceNodeIds: data.tramSources[run].nodeIds.slice(i, i + 2), modelId: grade.modelId, estimated: true, elevationSource: roof.basis,
+                            y0: roof.bottomM, y1: roof.topM, h: roof.topM, roofHeightAt: () => roof.topM, minHeightAt: () => roof.bottomM };
+                        sceneryDeckGrid.insert(x - cover.r, z - cover.r, x + cover.r, z + cover.r, cover); tramDecks.push(cover);
+                        tramGrades.report.renderedRoofPieces = (tramGrades.report.renderedRoofPieces || 0) + 1; tramGrades.report.renderedTriangles += 8;
                     }
                     const ballast = quad(1.4, Y.ballast + y0 + (supported ? .001 : 0), Y.ballast + y1 + (supported ? .001 : 0));
                     (supported ? c.road : c.ground).face4(...ballast, ballastCol, [0, 1, 0], -1, ballast.map(p => [p[0] * .3, p[2] * .3]));
@@ -5472,9 +5505,11 @@ export async function buildWorld(city, renderer, opts = {}) {
         let o = supers.get(key); if (!o) supers.set(key, o = { layer, page, K, I, J, mb: null });
         return o;
     };
+    const tramTrench = buildTramTrenchCutter(tramGrades.support);
     for (const c of cells.values()) {
         for (const layer of ['area', 'grass', 'pave', 'sport', 'roof', 'backdrop', 'ground', 'road', 'pad', 'marks', 'water', 'solid', 'detail']) {
             if (c[layer].empty) continue;
+            if (['area', 'grass', 'pave', 'sport', 'ground'].includes(layer)) c[layer] = tramTrench.cut(c[layer]);
             const o = superOf(c, layer);
             if (['solid', 'roof', 'area', 'grass', 'pave', 'sport', 'ground', 'road', 'pad', 'marks'].includes(layer)) {
                 const mb = c[layer], box = new THREE.Box3().setFromArray(mb.p.subarray(0, mb.vc * 3));
@@ -5778,6 +5813,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.waterChannels = waterChannelAudit;
     stats.waterLines = waterLineAudit;
     stats.tramGrades = tramGrades.report;
+    stats.tramTrench = tramTrench.report;
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */

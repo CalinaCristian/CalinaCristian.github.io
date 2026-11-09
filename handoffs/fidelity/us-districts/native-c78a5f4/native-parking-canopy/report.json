@@ -1,0 +1,2061 @@
+{
+  "root": "/workspace/reality-pass/us-districts/snapshots/source-c78a5f4",
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "captureToolSha256": "24fdb4afe28b9a04eace344c89c886ebc13bc235016108594cc0fab5402e9f7c",
+  "reports": [
+    {
+      "city": "seattle",
+      "district": "seatac",
+      "surfaceCars": 592,
+      "openSourceCanopies": 15,
+      "estimatedSupports": 52,
+      "carsUnderCanopies": 3,
+      "counts": {
+        "r3918969": 26,
+        "r3918970": 31,
+        "r6760901": 22,
+        "r15776909": 43,
+        "w879585635": 46,
+        "w150752544": 46,
+        "w150752546": 43,
+        "w276643612": 33,
+        "w296948474": 16,
+        "w303267304": 16,
+        "w314940619": 45,
+        "w369422776": 26,
+        "w369422777": 15,
+        "w374778146": 46,
+        "w469727801": 45,
+        "w469727802": 42,
+        "w469766785": 29,
+        "w479818858": 22
+      },
+      "clearance": {
+        "candidates": 750,
+        "retained": 592,
+        "outsideSourceLot": 37,
+        "raisedSidewalk": 120,
+        "buildingBody": 1,
+        "canopySupport": 0,
+        "measuredLots": [
+          "w276643612"
+        ]
+      },
+      "issues": [],
+      "errors": [],
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "sourceDatasetSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+      "scenerySource": {
+        "precisePieces": 850,
+        "literalWidthPieces": 0,
+        "reviewedWidthPieces": 0,
+        "estimatedWidthPieces": 850,
+        "fallbackPieces": 0,
+        "resolvedWidths": [],
+        "issues": [],
+        "bridges": {
+          "policy": "MODEL estimate: exact source connectivity; final core ties; 5.2m road clearance, 0.4m slab, 8% approaches / 2.8% decks; river/rail-only bridges at grade",
+          "bridgePieces": 13,
+          "approachPieces": 21,
+          "coreTies": 7,
+          "crossings": 21,
+          "unresolved": [
+            {
+              "sourceId": "w428056673",
+              "lowerSourceId": "w4856725",
+              "x": -371.61066971055646,
+              "z": -1477.2951192438436,
+              "requiredDisplacementM": 5.6000000000000005,
+              "actualDisplacementM": 5.299177579244356,
+              "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+            },
+            {
+              "sourceId": "w37017434",
+              "lowerSourceId": "w124272629",
+              "x": -936.5227707050664,
+              "z": -1082.1481820196298,
+              "requiredDisplacementM": 5.6000000000000005,
+              "actualDisplacementM": 2.2890135352777605,
+              "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+            },
+            {
+              "sourceId": "w104034227",
+              "lowerSourceId": "w273078320",
+              "x": -480.9478377598115,
+              "z": -1239.7701804323374,
+              "requiredDisplacementM": 6.655910676075598,
+              "actualDisplacementM": 6.2643755714728355,
+              "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+            },
+            {
+              "sourceId": "w104034227",
+              "lowerSourceId": "w273078327",
+              "x": -520.1288871207773,
+              "z": -1194.7986777022186,
+              "requiredDisplacementM": 5.6000000000000005,
+              "actualDisplacementM": 4.580682441662746,
+              "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+            },
+            {
+              "sourceId": "w104034227",
+              "lowerSourceId": "w273078328",
+              "x": -523.7655592896479,
+              "z": -1191.1949413054215,
+              "requiredDisplacementM": 5.6000000000000005,
+              "actualDisplacementM": 4.437328182648766,
+              "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+            },
+            {
+              "sourceId": "w165056067",
+              "lowerSourceId": "w273078320",
+              "x": -486.2481392494635,
+              "z": -1237.35943793685,
+              "requiredDisplacementM": 6.588028460529312,
+              "actualDisplacementM": 6.142624024385874,
+              "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+            },
+            {
+              "sourceId": "w428045909",
+              "lowerSourceId": "w23563703",
+              "x": -973.5913267524701,
+              "z": -1106.1111662836634,
+              "requiredDisplacementM": 5.6000000000000005,
+              "actualDisplacementM": 2.8518308823825094,
+              "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+            },
+            {
+              "sourceId": "w985351051",
+              "lowerSourceId": "w273078327",
+              "x": -524.5002049643033,
+              "z": -1200.351762005546,
+              "requiredDisplacementM": 5.6000000000000005,
+              "actualDisplacementM": 3.082446998282827,
+              "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+            },
+            {
+              "sourceId": "w985351051",
+              "lowerSourceId": "w273078328",
+              "x": -528.5295259045002,
+              "z": -1196.2336290122466,
+              "requiredDisplacementM": 5.6000000000000005,
+              "actualDisplacementM": 3.243767939658258,
+              "reason": "exact core/ground ties and grade limit constrain estimated clearance"
+            }
+          ],
+          "pieces": [
+            {
+              "piece": 507,
+              "sourceId": "w23723885",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 4.658983058022976,
+              "coreTies": 0,
+              "renderedSegments": 28,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 511,
+              "sourceId": "w52735007",
+              "bridge": false,
+              "minDisplacementM": 2.215324663582932,
+              "maxDisplacementM": 4.389861649343245,
+              "coreTies": 0,
+              "renderedSegments": 5,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 524,
+              "sourceId": "w428056673",
+              "bridge": true,
+              "minDisplacementM": 4.389861649343245,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 16,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 525,
+              "sourceId": "w433205295",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 2.215324663582932,
+              "coreTies": 0,
+              "renderedSegments": 21,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 526,
+              "sourceId": "w433205297",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 2.215324663582932,
+              "coreTies": 0,
+              "renderedSegments": 8,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 615,
+              "sourceId": "w6329914",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 5.049102428731009,
+              "coreTies": 0,
+              "renderedSegments": 36,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 619,
+              "sourceId": "w6509980",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 1.8921815949022265,
+              "coreTies": 0,
+              "renderedSegments": 3,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 621,
+              "sourceId": "w23565025",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 5.201732646452501,
+              "coreTies": 1,
+              "renderedSegments": 34,
+              "alreadyRenderedCoreSegments": 3,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 622,
+              "sourceId": "w23723882",
+              "bridge": true,
+              "minDisplacementM": 5.049102428731009,
+              "maxDisplacementM": 8.202540508701386,
+              "coreTies": 0,
+              "renderedSegments": 21,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 623,
+              "sourceId": "w23723884",
+              "bridge": true,
+              "minDisplacementM": 4.658983058022976,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 11,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 625,
+              "sourceId": "w37017434",
+              "bridge": true,
+              "minDisplacementM": 2.2180882406796907,
+              "maxDisplacementM": 3.162148567832169,
+              "coreTies": 0,
+              "renderedSegments": 7,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 630,
+              "sourceId": "w37017720",
+              "bridge": true,
+              "minDisplacementM": 5.170795644667282,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 15,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 631,
+              "sourceId": "w37017721",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 5.172155494625477,
+              "coreTies": 1,
+              "renderedSegments": 30,
+              "alreadyRenderedCoreSegments": 2,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 632,
+              "sourceId": "w65584412",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 1.964761511816625,
+              "coreTies": 0,
+              "renderedSegments": 4,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 633,
+              "sourceId": "w65588356",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 4.389861649343245,
+              "coreTies": 0,
+              "renderedSegments": 27,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 638,
+              "sourceId": "w104034223",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 1.6209595954472658,
+              "coreTies": 0,
+              "renderedSegments": 37,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 639,
+              "sourceId": "w104034224",
+              "bridge": true,
+              "minDisplacementM": 3.7286623778882846,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 13,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 641,
+              "sourceId": "w104034227",
+              "bridge": true,
+              "minDisplacementM": 3.947776351254798,
+              "maxDisplacementM": 6.435651807029541,
+              "coreTies": 0,
+              "renderedSegments": 27,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 644,
+              "sourceId": "w124940472",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 4.389861649343245,
+              "coreTies": 0,
+              "renderedSegments": 7,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 646,
+              "sourceId": "w133397784",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 5.034955079812635,
+              "coreTies": 0,
+              "renderedSegments": 14,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 647,
+              "sourceId": "w165056067",
+              "bridge": true,
+              "minDisplacementM": 5.821415690716648,
+              "maxDisplacementM": 6.383665427708754,
+              "coreTies": 0,
+              "renderedSegments": 11,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 656,
+              "sourceId": "w273078320",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 2.9755065614867506,
+              "coreTies": 0,
+              "renderedSegments": 17,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 657,
+              "sourceId": "w273078321",
+              "bridge": true,
+              "minDisplacementM": 4.4362517126568255,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 11,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 668,
+              "sourceId": "w273078333",
+              "bridge": true,
+              "minDisplacementM": 5.2704193921055875,
+              "maxDisplacementM": 6.080493811263471,
+              "coreTies": 0,
+              "renderedSegments": 20,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 669,
+              "sourceId": "w273078860",
+              "bridge": false,
+              "minDisplacementM": 3.4283004038680005,
+              "maxDisplacementM": 3.7286623778882846,
+              "coreTies": 0,
+              "renderedSegments": 1,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 671,
+              "sourceId": "w273078862",
+              "bridge": false,
+              "minDisplacementM": 2.37219037122405,
+              "maxDisplacementM": 3.4283004038680005,
+              "coreTies": 0,
+              "renderedSegments": 2,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 673,
+              "sourceId": "w346501602",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 3.4283004038680005,
+              "coreTies": 0,
+              "renderedSegments": 21,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 682,
+              "sourceId": "w364969435",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 5.302439622841415,
+              "coreTies": 0,
+              "renderedSegments": 15,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 693,
+              "sourceId": "w428045909",
+              "bridge": true,
+              "minDisplacementM": 1.8921815949022265,
+              "maxDisplacementM": 2.8870235946077285,
+              "coreTies": 0,
+              "renderedSegments": 6,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 699,
+              "sourceId": "w428045915",
+              "bridge": true,
+              "minDisplacementM": 1.964761511816625,
+              "maxDisplacementM": 2.2180882406796907,
+              "coreTies": 0,
+              "renderedSegments": 1,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 736,
+              "sourceId": "w481592458",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 3.947776351254798,
+              "coreTies": 0,
+              "renderedSegments": 12,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 806,
+              "sourceId": "w819472433",
+              "bridge": false,
+              "minDisplacementM": 5.087703677448785,
+              "maxDisplacementM": 5.700018367714214,
+              "coreTies": 0,
+              "renderedSegments": 1,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 817,
+              "sourceId": "w985351050",
+              "bridge": false,
+              "minDisplacementM": 2.436338305944247,
+              "maxDisplacementM": 4.447030263785145,
+              "coreTies": 0,
+              "renderedSegments": 7,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 818,
+              "sourceId": "w985351051",
+              "bridge": true,
+              "minDisplacementM": 2.9755065614867506,
+              "maxDisplacementM": 3.751284115420577,
+              "coreTies": 0,
+              "renderedSegments": 8,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            }
+          ],
+          "continuations": [
+            {
+              "kind": "source bridge mouth with named parallel approach fork",
+              "sourceNodeId": 490756658,
+              "x": -382.26318755637266,
+              "z": -1446.6163571998893,
+              "nodeDegree": 4,
+              "incomingSourceId": "w428056673",
+              "approachSourceId": "w65588356",
+              "approachName": "International Boulevard",
+              "bridgeOutward": [
+                0.3280163580938159,
+                -0.9446720429984523
+              ],
+              "approachOutward": [
+                [
+                  -0.5157354295177736,
+                  0.8567479015090248
+                ],
+                [
+                  -0.16820159461171458,
+                  0.9857526178357713
+                ]
+              ]
+            },
+            {
+              "kind": "source bridge mouth with named parallel approach fork",
+              "sourceNodeId": 490756658,
+              "x": -382.26318755637266,
+              "z": -1446.6163571998893,
+              "nodeDegree": 4,
+              "incomingSourceId": "w428056673",
+              "approachSourceId": "w124940472",
+              "approachName": "International Boulevard",
+              "bridgeOutward": [
+                0.3280163580938159,
+                -0.9446720429984523
+              ],
+              "approachOutward": [
+                [
+                  -0.5157354295177736,
+                  0.8567479015090248
+                ],
+                [
+                  -0.16820159461171458,
+                  0.9857526178357713
+                ]
+              ]
+            },
+            {
+              "kind": "same source way through merge",
+              "sourceNodeId": 2779761986,
+              "x": -445.1807874306245,
+              "z": -1281.2963939994045,
+              "nodeDegree": 3,
+              "incomingSourceId": "w65588356",
+              "approachSourceId": "w65588356"
+            },
+            {
+              "kind": "same source way through merge",
+              "sourceNodeId": 4745072079,
+              "x": -789.0068770024058,
+              "z": -1240.588742399844,
+              "nodeDegree": 3,
+              "incomingSourceId": "w6329914",
+              "approachSourceId": "w6329914"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779778065,
+              "x": -746.1434152072108,
+              "z": -1214.5838543999598,
+              "nodeDegree": 3,
+              "incomingSourceId": "w273078860",
+              "approachSourceId": "w273078862"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779778065,
+              "x": -746.1434152072108,
+              "z": -1214.5838543999598,
+              "nodeDegree": 3,
+              "incomingSourceId": "w273078860",
+              "approachSourceId": "w346501602"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779778075,
+              "x": -736.5077933081925,
+              "z": -1223.6077727996026,
+              "nodeDegree": 2,
+              "incomingSourceId": "w273078862",
+              "approachSourceId": "w346501602"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 8067390485,
+              "x": -742.7709475424474,
+              "z": -1211.3832527996706,
+              "nodeDegree": 2,
+              "incomingSourceId": "w346501602",
+              "approachSourceId": "w346501602"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 8067390284,
+              "x": -733.3611605311357,
+              "z": -1220.551642799422,
+              "nodeDegree": 2,
+              "incomingSourceId": "w346501602",
+              "approachSourceId": "w346501602"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779778067,
+              "x": -729.3864664970151,
+              "z": -1198.102978800035,
+              "nodeDegree": 2,
+              "incomingSourceId": "w346501602",
+              "approachSourceId": "w346501602"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779778073,
+              "x": -679.424261381339,
+              "z": -1169.2197719996796,
+              "nodeDegree": 3,
+              "incomingSourceId": "w346501602",
+              "approachSourceId": "w273078861"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779778073,
+              "x": -679.424261381339,
+              "z": -1169.2197719996796,
+              "nodeDegree": 3,
+              "incomingSourceId": "w346501602",
+              "approachSourceId": "w346501602"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 11158493404,
+              "x": -690.3998369514818,
+              "z": -1160.2514195998965,
+              "nodeDegree": 2,
+              "incomingSourceId": "w346501602",
+              "approachSourceId": "w346501602"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779778083,
+              "x": -666.980759036824,
+              "z": -1167.9306407996178,
+              "nodeDegree": 2,
+              "incomingSourceId": "w273078861",
+              "approachSourceId": "w273078861"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779778072,
+              "x": -679.4016778917126,
+              "z": -1165.041208799806,
+              "nodeDegree": 2,
+              "incomingSourceId": "w346501602",
+              "approachSourceId": "w346501602"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779778068,
+              "x": -684.6485751302178,
+              "z": -1159.851344399959,
+              "nodeDegree": 3,
+              "incomingSourceId": "w346501602",
+              "approachSourceId": "w273078861"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 11158507905,
+              "x": -648.6354382792405,
+              "z": -1149.7938983992935,
+              "nodeDegree": 3,
+              "incomingSourceId": "w273078861",
+              "approachSourceId": "w273078861"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 11158507905,
+              "x": -648.6354382792405,
+              "z": -1149.7938983992935,
+              "nodeDegree": 3,
+              "incomingSourceId": "w273078861",
+              "approachSourceId": "w1090072138"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779778078,
+              "x": -657.4655824108213,
+              "z": -1133.0129663998105,
+              "nodeDegree": 2,
+              "incomingSourceId": "w273078861",
+              "approachSourceId": "w273078861"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779778081,
+              "x": -644.668272075352,
+              "z": -1145.782033199789,
+              "nodeDegree": 3,
+              "incomingSourceId": "w273078861",
+              "approachSourceId": "w1090072140"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 11158493402,
+              "x": -644.909162622453,
+              "z": -1153.4501411993801,
+              "nodeDegree": 2,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072138"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 11158493403,
+              "x": -640.1816856282404,
+              "z": -1149.9494831995326,
+              "nodeDegree": 2,
+              "incomingSourceId": "w1090072140",
+              "approachSourceId": "w1090072140"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057723,
+              "x": -635.0552336638206,
+              "z": -1163.4853607997861,
+              "nodeDegree": 2,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072138"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057746,
+              "x": -630.6966203210266,
+              "z": -1159.3290239993828,
+              "nodeDegree": 2,
+              "incomingSourceId": "w1090072140",
+              "approachSourceId": "w1090072140"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057724,
+              "x": -647.5213194968924,
+              "z": -1175.898805199557,
+              "nodeDegree": 2,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072138"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057745,
+              "x": -619.9544074677527,
+              "z": -1148.6603519994708,
+              "nodeDegree": 2,
+              "incomingSourceId": "w1090072140",
+              "approachSourceId": "w1090072140"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057725,
+              "x": -634.8820935834594,
+              "z": -1188.6123059996758,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072138"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057725,
+              "x": -634.8820935834594,
+              "z": -1188.6123059996758,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072149"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057744,
+              "x": -607.563599931653,
+              "z": -1161.462758399839,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072140",
+              "approachSourceId": "w1090072140"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057726,
+              "x": -622.1073667365467,
+              "z": -1201.3480332000543,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072138"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057726,
+              "x": -622.1073667365467,
+              "z": -1201.3480332000543,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072148"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057743,
+              "x": -595.2029037132722,
+              "z": -1174.7430323994743,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072140",
+              "approachSourceId": "w1090072140"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057727,
+              "x": -608.7379413505089,
+              "z": -1214.9394767993779,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072138"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057727,
+              "x": -608.7379413505089,
+              "z": -1214.9394767993779,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072147"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057742,
+              "x": -581.8259504970023,
+              "z": -1188.701211599925,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072140",
+              "approachSourceId": "w1090072140"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057728,
+              "x": -595.5943508521777,
+              "z": -1227.6196379998967,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072138"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057728,
+              "x": -595.5943508521777,
+              "z": -1227.6196379998967,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072146"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057741,
+              "x": -569.6609778486091,
+              "z": -1200.7701467996183,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072140",
+              "approachSourceId": "w1090072140"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057729,
+              "x": -582.7142343916438,
+              "z": -1240.6665347999635,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072138"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057729,
+              "x": -582.7142343916438,
+              "z": -1240.6665347999635,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072145"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057740,
+              "x": -556.1485236999292,
+              "z": -1213.516987199337,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072140",
+              "approachSourceId": "w1090072140"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057730,
+              "x": -569.9395075447311,
+              "z": -1253.4022619995524,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072138"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057730,
+              "x": -569.9395075447311,
+              "z": -1253.4022619995524,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072144"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057739,
+              "x": -543.2006567726554,
+              "z": -1226.841713999492,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072140",
+              "approachSourceId": "w1090072140"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057731,
+              "x": -556.6829996025466,
+              "z": -1266.8603471996864,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072138"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 9985057731,
+              "x": -556.6829996025466,
+              "z": -1266.8603471996864,
+              "nodeDegree": 3,
+              "incomingSourceId": "w1090072138",
+              "approachSourceId": "w1090072143"
+            },
+            {
+              "kind": "same source way through merge",
+              "sourceNodeId": 2779762261,
+              "x": -567.6585751726894,
+              "z": -1140.8811119993704,
+              "nodeDegree": 3,
+              "incomingSourceId": "w481592458",
+              "approachSourceId": "w481592458"
+            },
+            {
+              "kind": "short mapped bridge-to-source-building entry; floor elevation unknown",
+              "sourceNodeId": 7652825303,
+              "x": -502.7762117704689,
+              "z": -1264.5043487997914,
+              "nodeDegree": 3,
+              "incomingSourceId": "w273078333",
+              "approachSourceId": "w819472433",
+              "sourceBuildingId": "w439263874"
+            },
+            {
+              "kind": "same source way through merge",
+              "sourceNodeId": 1200609516,
+              "x": -878.0987404273271,
+              "z": -1112.6646971997004,
+              "nodeDegree": 3,
+              "incomingSourceId": "w104034223",
+              "approachSourceId": "w104034223"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779762097,
+              "x": -495.51185619771917,
+              "z": -1229.3644103997558,
+              "nodeDegree": 3,
+              "incomingSourceId": "w273078320",
+              "approachSourceId": "w273078320"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779762001,
+              "x": -489.512175999122,
+              "z": -1235.5544627994464,
+              "nodeDegree": 2,
+              "incomingSourceId": "w273078320",
+              "approachSourceId": "w273078320"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 3689973571,
+              "x": -485.0105338936859,
+              "z": -1238.0438195993206,
+              "nodeDegree": 2,
+              "incomingSourceId": "w273078320",
+              "approachSourceId": "w273078320"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779761998,
+              "x": -479.4399399819453,
+              "z": -1240.4109311993454,
+              "nodeDegree": 2,
+              "incomingSourceId": "w273078320",
+              "approachSourceId": "w273078320"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779761995,
+              "x": -474.8027969430294,
+              "z": -1242.9669671999989,
+              "nodeDegree": 2,
+              "incomingSourceId": "w273078320",
+              "approachSourceId": "w273078320"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 5608328389,
+              "x": -470.0527364591904,
+              "z": -1246.1897951997582,
+              "nodeDegree": 2,
+              "incomingSourceId": "w273078320",
+              "approachSourceId": "w273078320"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779761992,
+              "x": -468.2912243314414,
+              "z": -1247.378907599441,
+              "nodeDegree": 2,
+              "incomingSourceId": "w273078320",
+              "approachSourceId": "w273078320"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 3689973572,
+              "x": -465.3854821014857,
+              "z": -1250.1460943994032,
+              "nodeDegree": 2,
+              "incomingSourceId": "w273078320",
+              "approachSourceId": "w273078320"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 3689973573,
+              "x": -462.78838088644073,
+              "z": -1253.8801295996093,
+              "nodeDegree": 2,
+              "incomingSourceId": "w273078320",
+              "approachSourceId": "w273078320"
+            },
+            {
+              "kind": "same positive source layer continuation; elevation estimated",
+              "sourceNodeId": 2779761990,
+              "x": -457.0070077463879,
+              "z": -1263.0040667996311,
+              "nodeDegree": 2,
+              "incomingSourceId": "w273078320",
+              "approachSourceId": "w273078320"
+            }
+          ],
+          "ordering": {
+            "converged": true,
+            "iterations": 2,
+            "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+          }
+        }
+      },
+      "capture": {
+        "image": "seatac-measured-parking.jpg",
+        "sha256": "633f3d533dbf5f7d12d06fcf508a523f3a1eda92dbf2e9011f871af5742ffee7",
+        "capturedAt": "2026-11-08T23:42:43.103Z",
+        "target": {
+          "x": -798.8608059610382,
+          "z": 415.41697260068395,
+          "id": "w276643612"
+        },
+        "camera": {
+          "y": 100,
+          "pitch": -90,
+          "aspect": 1.5,
+          "fov": 60
+        },
+        "kind": "Technical overhead parking inspection; not a player drone flight"
+      }
+    },
+    {
+      "city": "seattle",
+      "district": "bellevue",
+      "surfaceCars": 696,
+      "openSourceCanopies": 35,
+      "estimatedSupports": 151,
+      "carsUnderCanopies": 0,
+      "counts": {
+        "r6543436": 46,
+        "r5856951": 41,
+        "r5856953": 46,
+        "r8463752": 42,
+        "r17280799": 44,
+        "r17280800": 4,
+        "r19927858": 40,
+        "w31120193": 9,
+        "w31120222": 27,
+        "w345607324": 43,
+        "w345607330": 7,
+        "w439836065": 37,
+        "w1095479849": 42,
+        "w1456626345": 9,
+        "w31119941": 4,
+        "w31119994": 12,
+        "w31538954": 4,
+        "w31539032": 6,
+        "w31974536": 3,
+        "w294880175": 17,
+        "w295033250": 8,
+        "w295033262": 4,
+        "w295033263": 14,
+        "w295150373": 45,
+        "w360093713": 20,
+        "w389122452": 2,
+        "w503657589": 36,
+        "w503657593": 14,
+        "w539239799": 1,
+        "w655090540": 5,
+        "w655090541": 14,
+        "w824680217": 4,
+        "w956124492": 2,
+        "w956149751": 7,
+        "w956149753": 8,
+        "w956149756": 1,
+        "w956149757": 2,
+        "w963167663": 11,
+        "w44614064": 15
+      },
+      "clearance": {
+        "candidates": 750,
+        "retained": 696,
+        "outsideSourceLot": 43,
+        "raisedSidewalk": 0,
+        "buildingBody": 11,
+        "canopySupport": 0,
+        "measuredLots": [
+          "w956124492"
+        ]
+      },
+      "issues": [],
+      "errors": [],
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "sourceDatasetSha256": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
+      "scenerySource": {
+        "precisePieces": 1704,
+        "literalWidthPieces": 0,
+        "reviewedWidthPieces": 0,
+        "estimatedWidthPieces": 1704,
+        "fallbackPieces": 0,
+        "resolvedWidths": [],
+        "issues": [],
+        "bridges": {
+          "policy": "MODEL estimate: exact source connectivity; final core ties; 5.2m road clearance, 0.4m slab, 8% approaches / 2.8% decks; river/rail-only bridges at grade",
+          "bridgePieces": 38,
+          "approachPieces": 37,
+          "coreTies": 42,
+          "crossings": 42,
+          "unresolved": [],
+          "pieces": [
+            {
+              "piece": 11,
+              "sourceId": "w30615048",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 5.204185845757044,
+              "coreTies": 0,
+              "renderedSegments": 40,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 22,
+              "sourceId": "w37691307",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 1.6974781555056144,
+              "coreTies": 0,
+              "renderedSegments": 10,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 41,
+              "sourceId": "w365781624",
+              "bridge": true,
+              "minDisplacementM": 1.6974781555056144,
+              "maxDisplacementM": 5.50965743521982,
+              "coreTies": 0,
+              "renderedSegments": 16,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 67,
+              "sourceId": "w454826562",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 4.767734836858058,
+              "coreTies": 0,
+              "renderedSegments": 35,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 69,
+              "sourceId": "w531674824",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 2.34713596847504,
+              "coreTies": 0,
+              "renderedSegments": 30,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 379,
+              "sourceId": "w29140451",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 4.231948526485777,
+              "coreTies": 0,
+              "renderedSegments": 8,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 382,
+              "sourceId": "w30614948",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 1.9323352534390943,
+              "coreTies": 0,
+              "renderedSegments": 10,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 383,
+              "sourceId": "w30614975",
+              "bridge": true,
+              "minDisplacementM": 5.2185113081612275,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 5,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 384,
+              "sourceId": "w30614980",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 4.186107579135509,
+              "coreTies": 0,
+              "renderedSegments": 8,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 385,
+              "sourceId": "w30614981",
+              "bridge": true,
+              "minDisplacementM": 4.231948526485777,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 11,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 386,
+              "sourceId": "w30614982",
+              "bridge": false,
+              "minDisplacementM": 0.5086358976522636,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 9,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 387,
+              "sourceId": "w30614989",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 1.0048463111465877,
+              "coreTies": 1,
+              "renderedSegments": 15,
+              "alreadyRenderedCoreSegments": 1,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 388,
+              "sourceId": "w30614990",
+              "bridge": true,
+              "minDisplacementM": 5.286827901656529,
+              "maxDisplacementM": 5.50965743521982,
+              "coreTies": 0,
+              "renderedSegments": 2,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 389,
+              "sourceId": "w30614992",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 4.895467424291629,
+              "coreTies": 0,
+              "renderedSegments": 10,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 390,
+              "sourceId": "w30615009",
+              "bridge": false,
+              "minDisplacementM": 2.34713596847504,
+              "maxDisplacementM": 5.381039500329263,
+              "coreTies": 0,
+              "renderedSegments": 7,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 391,
+              "sourceId": "w30615010",
+              "bridge": false,
+              "minDisplacementM": 3.8418197999674346,
+              "maxDisplacementM": 5.490494272019503,
+              "coreTies": 0,
+              "renderedSegments": 3,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 392,
+              "sourceId": "w30615035",
+              "bridge": true,
+              "minDisplacementM": 4.9889450559913975,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 3,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 393,
+              "sourceId": "w30615042",
+              "bridge": false,
+              "minDisplacementM": 5.283361396871686,
+              "maxDisplacementM": 5.597939706013629,
+              "coreTies": 0,
+              "renderedSegments": 1,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 394,
+              "sourceId": "w30615043",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 4.9889450559913975,
+              "coreTies": 0,
+              "renderedSegments": 9,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 395,
+              "sourceId": "w30615045",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 4.836107001222032,
+              "coreTies": 1,
+              "renderedSegments": 9,
+              "alreadyRenderedCoreSegments": 8,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 397,
+              "sourceId": "w37691308",
+              "bridge": true,
+              "minDisplacementM": 1.0048463111465877,
+              "maxDisplacementM": 3.4267043039848115,
+              "coreTies": 0,
+              "renderedSegments": 10,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 427,
+              "sourceId": "w48336267",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 1.863925351979911,
+              "coreTies": 0,
+              "renderedSegments": 9,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 430,
+              "sourceId": "w48995748",
+              "bridge": true,
+              "minDisplacementM": 5.575543580986198,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 18,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 459,
+              "sourceId": "w103757285",
+              "bridge": true,
+              "minDisplacementM": 0.9221378308165361,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 19,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 476,
+              "sourceId": "w160180168",
+              "bridge": true,
+              "minDisplacementM": 3.802484117037217,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 19,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 480,
+              "sourceId": "w160183267",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 26,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 482,
+              "sourceId": "w160183572",
+              "bridge": true,
+              "minDisplacementM": 5.6000000000000005,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 14,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 500,
+              "sourceId": "w172706979",
+              "bridge": true,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 0,
+              "coreTies": 0,
+              "renderedSegments": 8,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 504,
+              "sourceId": "w181984969",
+              "bridge": true,
+              "minDisplacementM": 5.381039500329263,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 6,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 505,
+              "sourceId": "w181984983",
+              "bridge": true,
+              "minDisplacementM": 5.033063698870535,
+              "maxDisplacementM": 5.3097848095201465,
+              "coreTies": 0,
+              "renderedSegments": 2,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 513,
+              "sourceId": "w309999156",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 2.267597284172078,
+              "coreTies": 0,
+              "renderedSegments": 6,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 514,
+              "sourceId": "w309999158",
+              "bridge": true,
+              "minDisplacementM": 5.503760924813052,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 20,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 529,
+              "sourceId": "w365781618",
+              "bridge": true,
+              "minDisplacementM": 5.215295446429113,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 3,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 530,
+              "sourceId": "w365781619",
+              "bridge": true,
+              "minDisplacementM": 5.3097848095201465,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 6,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 531,
+              "sourceId": "w365781620",
+              "bridge": true,
+              "minDisplacementM": 5.375397728227476,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 2,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 532,
+              "sourceId": "w365781621",
+              "bridge": true,
+              "minDisplacementM": 5.426610693664622,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 5,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 533,
+              "sourceId": "w365781622",
+              "bridge": true,
+              "minDisplacementM": 4.895467424291629,
+              "maxDisplacementM": 5.2185113081612275,
+              "coreTies": 0,
+              "renderedSegments": 2,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 534,
+              "sourceId": "w365781623",
+              "bridge": true,
+              "minDisplacementM": 5.073686710862795,
+              "maxDisplacementM": 5.3097848095201465,
+              "coreTies": 0,
+              "renderedSegments": 2,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 560,
+              "sourceId": "w378376405",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 3.8445234972867297,
+              "coreTies": 0,
+              "renderedSegments": 22,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 561,
+              "sourceId": "w378376406",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 4.973939470107656,
+              "coreTies": 0,
+              "renderedSegments": 13,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 564,
+              "sourceId": "w378376409",
+              "bridge": true,
+              "minDisplacementM": 4.914213424632402,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 26,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 565,
+              "sourceId": "w378376411",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 4.914213424632402,
+              "coreTies": 0,
+              "renderedSegments": 15,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 644,
+              "sourceId": "w427906896",
+              "bridge": true,
+              "minDisplacementM": 4.186107579135509,
+              "maxDisplacementM": 4.949790874611443,
+              "coreTies": 0,
+              "renderedSegments": 5,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 646,
+              "sourceId": "w427906930",
+              "bridge": false,
+              "minDisplacementM": 2.267597284172078,
+              "maxDisplacementM": 5.191823279367053,
+              "coreTies": 0,
+              "renderedSegments": 4,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 653,
+              "sourceId": "w428067756",
+              "bridge": false,
+              "minDisplacementM": 3.8445234972867297,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 3,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 654,
+              "sourceId": "w428067757",
+              "bridge": true,
+              "minDisplacementM": 4.973939470107656,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 7,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 669,
+              "sourceId": "w428073519",
+              "bridge": false,
+              "minDisplacementM": 3.9427426159168673,
+              "maxDisplacementM": 4.96396826757618,
+              "coreTies": 0,
+              "renderedSegments": 2,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 670,
+              "sourceId": "w428073520",
+              "bridge": false,
+              "minDisplacementM": 1.863925351979911,
+              "maxDisplacementM": 4.320121381698227,
+              "coreTies": 0,
+              "renderedSegments": 4,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 671,
+              "sourceId": "w428073521",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 3.9427426159168673,
+              "coreTies": 0,
+              "renderedSegments": 13,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 672,
+              "sourceId": "w428073522",
+              "bridge": true,
+              "minDisplacementM": 4.96396826757618,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 3,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 673,
+              "sourceId": "w428073523",
+              "bridge": true,
+              "minDisplacementM": 5.070804008749309,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 13,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 675,
+              "sourceId": "w428073527",
+              "bridge": true,
+              "minDisplacementM": 5.3097848095201465,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 18,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 676,
+              "sourceId": "w428073528",
+              "bridge": true,
+              "minDisplacementM": 5.426610693664622,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 17,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 683,
+              "sourceId": "w428073558",
+              "bridge": true,
+              "minDisplacementM": 3.7758082817448257,
+              "maxDisplacementM": 5.033063698870535,
+              "coreTies": 0,
+              "renderedSegments": 5,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 684,
+              "sourceId": "w428073559",
+              "bridge": false,
+              "minDisplacementM": 4.767734836858058,
+              "maxDisplacementM": 5.204185845757044,
+              "coreTies": 0,
+              "renderedSegments": 1,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 685,
+              "sourceId": "w428073560",
+              "bridge": true,
+              "minDisplacementM": 3.758723929354807,
+              "maxDisplacementM": 5.426610693664622,
+              "coreTies": 0,
+              "renderedSegments": 7,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 687,
+              "sourceId": "w428073561",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 5.283361396871686,
+              "coreTies": 1,
+              "renderedSegments": 10,
+              "alreadyRenderedCoreSegments": 8,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 748,
+              "sourceId": "w513238745",
+              "bridge": true,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 0.9221378308165361,
+              "coreTies": 0,
+              "renderedSegments": 8,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 755,
+              "sourceId": "w513238758",
+              "bridge": true,
+              "minDisplacementM": 5.407638048643707,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 3,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 765,
+              "sourceId": "w531677190",
+              "bridge": false,
+              "minDisplacementM": 2.34713596847504,
+              "maxDisplacementM": 3.7758082817448257,
+              "coreTies": 0,
+              "renderedSegments": 2,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 774,
+              "sourceId": "w557619991",
+              "bridge": false,
+              "minDisplacementM": 4.836107001222032,
+              "maxDisplacementM": 5.283361396871686,
+              "coreTies": 0,
+              "renderedSegments": 1,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 803,
+              "sourceId": "w622462904",
+              "bridge": false,
+              "minDisplacementM": 4.860119219463151,
+              "maxDisplacementM": 5.283361396871686,
+              "coreTies": 0,
+              "renderedSegments": 2,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 804,
+              "sourceId": "w622462905",
+              "bridge": false,
+              "minDisplacementM": 4.414248220547399,
+              "maxDisplacementM": 4.836107001222032,
+              "coreTies": 0,
+              "renderedSegments": 2,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 805,
+              "sourceId": "w622462906",
+              "bridge": true,
+              "minDisplacementM": 5.191823279367053,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 23,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 806,
+              "sourceId": "w622462907",
+              "bridge": false,
+              "minDisplacementM": 5.204185845757044,
+              "maxDisplacementM": 5.503760924813052,
+              "coreTies": 0,
+              "renderedSegments": 1,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 983,
+              "sourceId": "w967566386",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 3.802484117037217,
+              "coreTies": 0,
+              "renderedSegments": 40,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 988,
+              "sourceId": "w973585194",
+              "bridge": true,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 0,
+              "coreTies": 0,
+              "renderedSegments": 7,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 989,
+              "sourceId": "w973585197",
+              "bridge": true,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 0,
+              "coreTies": 0,
+              "renderedSegments": 6,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 990,
+              "sourceId": "w973585223",
+              "bridge": true,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 0,
+              "coreTies": 0,
+              "renderedSegments": 7,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 991,
+              "sourceId": "w973585225",
+              "bridge": true,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 0,
+              "coreTies": 0,
+              "renderedSegments": 6,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 994,
+              "sourceId": "w981130217",
+              "bridge": true,
+              "minDisplacementM": 4.949790874611443,
+              "maxDisplacementM": 5.560017316905578,
+              "coreTies": 0,
+              "renderedSegments": 3,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 997,
+              "sourceId": "w986171220",
+              "bridge": true,
+              "minDisplacementM": 3.4267043039848115,
+              "maxDisplacementM": 3.758723929354807,
+              "coreTies": 0,
+              "renderedSegments": 2,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 1005,
+              "sourceId": "w1031114177",
+              "bridge": false,
+              "minDisplacementM": 0,
+              "maxDisplacementM": 0.5086358976522636,
+              "coreTies": 0,
+              "renderedSegments": 7,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 1006,
+              "sourceId": "w1031114681",
+              "bridge": false,
+              "minDisplacementM": 1.9323352534390943,
+              "maxDisplacementM": 5.6000000000000005,
+              "coreTies": 0,
+              "renderedSegments": 5,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            },
+            {
+              "piece": 1036,
+              "sourceId": "w1062466761",
+              "bridge": false,
+              "minDisplacementM": 4.320121381698227,
+              "maxDisplacementM": 5.070804008749309,
+              "coreTies": 0,
+              "renderedSegments": 1,
+              "alreadyRenderedCoreSegments": 0,
+              "elevationSource": "MODEL estimate; source topology and final exact core ties"
+            }
+          ],
+          "continuations": [
+            {
+              "kind": "same source way through merge",
+              "sourceNodeId": 338517222,
+              "x": 556.2377864492377,
+              "z": 150.97282200022656,
+              "nodeDegree": 3,
+              "incomingSourceId": "w30614982",
+              "approachSourceId": "w30614982"
+            },
+            {
+              "kind": "same source way through merge",
+              "sourceNodeId": 5222229732,
+              "x": 360.51934941344774,
+              "z": -733.5712188002491,
+              "nodeDegree": 3,
+              "incomingSourceId": "w378376411",
+              "approachSourceId": "w378376411"
+            }
+          ],
+          "ordering": {
+            "converged": true,
+            "iterations": 1,
+            "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+          }
+        }
+      },
+      "capture": {
+        "image": "bellevue-measured-parking.jpg",
+        "sha256": "e625e5999c8390a1670af8c46d86165b81b3396910b614ca0a627a80a114e227",
+        "capturedAt": "2026-11-08T23:43:50.979Z",
+        "target": {
+          "x": -960.334336272184,
+          "z": 230.27106059987574,
+          "id": "w956124492"
+        },
+        "camera": {
+          "y": 100,
+          "pitch": -90,
+          "aspect": 1.5,
+          "fov": 60
+        },
+        "kind": "Technical overhead parking inspection; not a player drone flight"
+      }
+    }
+  ]
+}

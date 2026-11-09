@@ -1,0 +1,1249 @@
+{
+  "district": "bellevue",
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "captureToolSha256": "db65ff9c9cc4ac814173f62ea05bdd4fd4faa60872af59e52ef124e247d67ec0",
+  "sourceDatasetSha256": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
+  "startedAt": "2026-11-09T00:12:51.780Z",
+  "loaded": {
+    "key": "seattle-bellevue",
+    "city": "seattle",
+    "district": "bellevue",
+    "ms": 17562,
+    "edges": 917,
+    "ribbons": 1131
+  },
+  "errors": [],
+  "consoleErrors": [],
+  "captures": [
+    {
+      "id": "chapter-spawn",
+      "image": "images/bellevue-chapter-spawn.jpg",
+      "capturedAt": "2026-11-09T00:13:16.678Z",
+      "sha256": "ae991daa26f23d7315aa77df0f0022c4532118af17897c8463f922a5197635b9",
+      "ui": {
+        "finaleOpen": false,
+        "finaleElementPresent": false
+      },
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 264,
+        "triangles": 741546
+      },
+      "player": {
+        "x": 577.5191480403472,
+        "z": -326.9425842873775,
+        "y": 0.24,
+        "heading": 1.7751579177375318
+      },
+      "camera": {
+        "x": 577.1393948286153,
+        "y": 1.6,
+        "z": -326.5575031294649,
+        "fov": 72,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive",
+      "captureMethod": "Native WebGL canvas immediately after the full mirror draw; DOM completion overlay is closed with its actual button and absence recorded."
+    },
+    {
+      "id": "after-first-150m",
+      "image": "images/bellevue-after-first-150m.jpg",
+      "capturedAt": "2026-11-09T00:14:03.604Z",
+      "sha256": "88cd8418814a1b09ac675335fb81941521033d8147f049f26ea0f2dac2ce5323",
+      "ui": {
+        "finaleOpen": false,
+        "finaleElementPresent": false
+      },
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 268,
+        "triangles": 712425
+      },
+      "player": {
+        "x": 441.6014124876498,
+        "z": -316.1794011589351,
+        "y": 5.440000000017195,
+        "heading": 1.5499467550465
+      },
+      "camera": {
+        "x": 441.145254059927,
+        "y": 6.79760648901168,
+        "z": -315.88876176794395,
+        "fov": 76.65333390056024,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive",
+      "captureMethod": "Native WebGL canvas immediately after the full mirror draw; DOM completion overlay is closed with its actual button and absence recorded."
+    },
+    {
+      "id": "after-foot-office",
+      "image": "images/bellevue-after-foot-office.jpg",
+      "capturedAt": "2026-11-09T00:14:45.590Z",
+      "sha256": "274bd0380121770eca3790b568aed5d459c2d3cabee2a1ac263986b421b880b0",
+      "ui": {
+        "finaleOpen": false,
+        "finaleElementPresent": false
+      },
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 228,
+        "triangles": 540390
+      },
+      "player": {
+        "x": -500.9829173182942,
+        "z": -268.88284359667426,
+        "y": 0.24,
+        "heading": 0.0015935557977899222
+      },
+      "camera": {
+        "x": -501.2836320352362,
+        "y": 1.596102704074258,
+        "z": -269.3323649619581,
+        "fov": 76.64663702153307,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive",
+      "captureMethod": "Native WebGL canvas immediately after the full mirror draw; DOM completion overlay is closed with its actual button and absence recorded."
+    },
+    {
+      "id": "actual-drone-view",
+      "image": "images/bellevue-actual-drone-view.jpg",
+      "capturedAt": "2026-11-09T00:15:00.116Z",
+      "sha256": "1058af184a42f12047453a6a4c4935daabd754d7fc0af8690976e32795628fb0",
+      "ui": {
+        "finaleOpen": false,
+        "finaleElementPresent": false
+      },
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 166,
+        "triangles": 353511
+      },
+      "player": {
+        "x": -498.6849500824398,
+        "z": -57.57500905185277,
+        "y": 0.24,
+        "heading": 0.03128172069118808
+      },
+      "camera": {
+        "x": -500.7562380865138,
+        "y": 121.25986818645544,
+        "z": -77.56676896350713,
+        "fov": 70,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "foot",
+      "captureMethod": "Native WebGL canvas immediately after the full mirror draw; DOM completion overlay is closed with its actual button and absence recorded."
+    },
+    {
+      "id": "lincoln-high-traffic-mirror",
+      "image": "images/bellevue-lincoln-high-traffic-mirror.jpg",
+      "capturedAt": "2026-11-09T00:15:11.030Z",
+      "sha256": "7f4323e4c96876010f66539d8d14bbff3ddbde5138d1e46ee5a237433584d548",
+      "ui": {
+        "finaleOpen": false,
+        "finaleElementPresent": false
+      },
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 195,
+        "triangles": 544534
+      },
+      "player": {
+        "x": -509.26483094892535,
+        "z": -122.544683321127,
+        "y": 0.24,
+        "heading": -3.122915548441952
+      },
+      "camera": {
+        "x": -508.9564790638588,
+        "y": 1.6,
+        "z": -122.10036461234252,
+        "fov": 72.00000000000006,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 118,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive",
+      "captureMethod": "Native WebGL canvas immediately after the full mirror draw; DOM completion overlay is closed with its actual button and absence recorded."
+    },
+    {
+      "id": "office-towers-high-traffic-mirror",
+      "image": "images/bellevue-office-towers-high-traffic-mirror.jpg",
+      "capturedAt": "2026-11-09T00:15:21.700Z",
+      "sha256": "ebec9a9a8eabc34ddfd84fd770318beae3773fd4f34fcf401e1f6d8ca9cb3bee",
+      "ui": {
+        "finaleOpen": false,
+        "finaleElementPresent": false
+      },
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 194,
+        "triangles": 373121
+      },
+      "player": {
+        "x": 94.32645649959335,
+        "z": -209.3109834206318,
+        "y": 0.24,
+        "heading": -3.1385271186050763
+      },
+      "camera": {
+        "x": 94.62783457855123,
+        "y": 1.6,
+        "z": -208.86190519412372,
+        "fov": 72.00000000000006,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 118,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive",
+      "captureMethod": "Native WebGL canvas immediately after the full mirror draw; DOM completion overlay is closed with its actual button and absence recorded."
+    },
+    {
+      "id": "downtown-park-high-traffic-mirror",
+      "image": "images/bellevue-downtown-park-high-traffic-mirror.jpg",
+      "capturedAt": "2026-11-09T00:15:32.000Z",
+      "sha256": "aba2293c46391250636403ed05bc50cc59bc32341cf426c57966e1855633da98",
+      "ui": {
+        "finaleOpen": false,
+        "finaleElementPresent": false
+      },
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 225,
+        "triangles": 445734
+      },
+      "player": {
+        "x": -491.04708925166176,
+        "z": -57.379312343326134,
+        "y": 0.24,
+        "heading": 0.03128172069118808
+      },
+      "camera": {
+        "x": -491.36101696035144,
+        "y": 1.6,
+        "z": -57.81970920266651,
+        "fov": 72.00000000000006,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 118,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive",
+      "captureMethod": "Native WebGL canvas immediately after the full mirror draw; DOM completion overlay is closed with its actual button and absence recorded."
+    }
+  ],
+  "checks": {
+    "lastCapture": "downtown-park-high-traffic-mirror",
+    "spawn": {
+      "id": "a",
+      "title": "Spawn sanity",
+      "city": "seattle",
+      "wallMs": 39902,
+      "simSec": 12.9,
+      "newIssues": 33,
+      "stepMs": {
+        "autopilot": 0.14,
+        "game": 101.72,
+        "checks": 0.95,
+        "steps": 386,
+        "shotsMs": 0,
+        "yieldMs": 94,
+        "auditMs": 62
+      },
+      "result": {
+        "spawn": {
+          "x": 576.9,
+          "z": -326.8,
+          "lat": 47.617441,
+          "lon": -122.187312,
+          "street": "Exit → Northeast 8th Street West",
+          "edge": 138
+        },
+        "problems": [],
+        "navline": "↗Slight right onto Northeast 8th Street in 100 ft",
+        "street": "Exit → Northeast 8th Street West",
+        "shot": null,
+        "driveBudget": {
+          "timeout": 40,
+          "driving": 40,
+          "signalCycle": 0,
+          "crossing": 0,
+          "signals": []
+        },
+        "drive": {
+          "ok": true,
+          "reason": "arrived",
+          "t": 11.8,
+          "dist": 136,
+          "resets": 0,
+          "remaining": 15
+        },
+        "objectsInRoad": 32
+      },
+      "error": null
+    },
+    "foot-office": {
+      "result": {
+        "id": "foot",
+        "title": "On foot: get out, walk ~120 m on the sidewalk to an office, walk in, read, walk out, back to the car, drive away",
+        "city": "seattle",
+        "wallMs": 33196,
+        "simSec": 68.7,
+        "newIssues": 0,
+        "stepMs": {
+          "autopilot": 0.06,
+          "game": 38.68,
+          "checks": 0.8,
+          "steps": 275,
+          "shotsMs": 0,
+          "yieldMs": 595,
+          "auditMs": 0
+        },
+        "result": {
+          "stop": "uipath-bel",
+          "exited": true,
+          "exitDist": 1.5,
+          "shotOut": null,
+          "walkSec": 32.4,
+          "walked": 117.3,
+          "doorDist": 2.7,
+          "office": true,
+          "leftOnFoot": true,
+          "backIn": true,
+          "drive": {
+            "ok": true,
+            "reason": "arrived",
+            "t": 7.7,
+            "dist": 87,
+            "resets": 0,
+            "remaining": 15
+          }
+        },
+        "error": null
+      },
+      "fixtures": [
+        {
+          "kind": "explicit initial foot-scenario placement",
+          "before": {
+            "x": 440.3845533085941,
+            "z": -316.2044198410898,
+            "y": 5.44
+          },
+          "after": {
+            "x": -493.80030188427577,
+            "z": -183.51113103817576,
+            "y": 0.24
+          }
+        }
+      ]
+    },
+    "native-finale-close-after-foot-office": {
+      "method": "Native click on actual Story Complete Close button",
+      "buttonBox": {
+        "x": 895,
+        "y": 31,
+        "width": 34,
+        "height": 34
+      },
+      "closed": true
+    },
+    "walk-and-drone": {
+      "exited": true,
+      "walkedM": 18.046762166520743,
+      "walkRemainingM": 1.9532378334792666,
+      "droneDeploy": true,
+      "initialDroneCheck": {
+        "ok": false,
+        "reason": "The drone is already up."
+      },
+      "drone": {
+        "active": true,
+        "phase": "fly",
+        "altitudeM": 120.88986818645543,
+        "maxAltitudeM": 121.25986818645544,
+        "home": {
+          "x": -500.7061954958363,
+          "z": -75.96755173651191,
+          "y": 0.37,
+          "heading": 0.03128172069118808,
+          "pitch": 0
+        },
+        "position": {
+          "x": -500.7562380865138,
+          "y": 121.25986818645544,
+          "z": -77.56676896350713
+        }
+      }
+    },
+    "return-to-car": {
+      "state": "drive",
+      "backIn": true,
+      "doorDistanceM": 2.018198018957429
+    },
+    "hotspot-lincoln": {
+      "trafficHour": 8.5,
+      "illegalAmbientVehicles": [],
+      "vehicles": 118,
+      "traffic": {
+        "updateMs": 10.082433384394285,
+        "pedObstacles": 9640,
+        "lastMs": 11.399999998509884,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 0,
+        "pedObstacleWorst": null,
+        "pedGuard": 8,
+        "guard": 4425,
+        "separate": 1145,
+        "parkingEvents": 13,
+        "revGhost": 53,
+        "unstuck": 21,
+        "deadlockGhosts": 18,
+        "deadlocks": 9,
+        "parkingBubbles": 7
+      }
+    },
+    "hotspot-office-towers": {
+      "trafficHour": 8.5,
+      "illegalAmbientVehicles": [],
+      "vehicles": 118,
+      "traffic": {
+        "updateMs": 5.168518731150537,
+        "pedObstacles": 9640,
+        "lastMs": 4.299999997019768,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 0,
+        "pedObstacleWorst": null,
+        "pedGuard": 8,
+        "guard": 5405,
+        "separate": 1317,
+        "parkingEvents": 13,
+        "revGhost": 60,
+        "unstuck": 24,
+        "deadlockGhosts": 18,
+        "deadlocks": 9,
+        "parkingBubbles": 7
+      }
+    },
+    "hotspot-downtown-park": {
+      "trafficHour": 8.5,
+      "illegalAmbientVehicles": [],
+      "vehicles": 118,
+      "traffic": {
+        "updateMs": 5.751248919238558,
+        "pedObstacles": 9640,
+        "lastMs": 4,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 0,
+        "pedObstacleWorst": null,
+        "pedGuard": 42,
+        "guard": 6095,
+        "separate": 1573,
+        "parkingEvents": 13,
+        "revGhost": 69,
+        "unstuck": 29,
+        "deadlockGhosts": 18,
+        "deadlocks": 9,
+        "parkingBubbles": 7
+      }
+    }
+  },
+  "endedAt": "2026-11-09T00:15:32.003Z",
+  "issues": [
+    {
+      "id": 1,
+      "type": "perf-traffic-update",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 2,
+      "msg": "traffic.update averaging 178.7 ms (> 8 ms budget) on this machine",
+      "x": 574.3,
+      "z": -326.3,
+      "lat": 47.617436,
+      "lon": -122.187347,
+      "street": "Exit → Northeast 8th Street West",
+      "edge": 138,
+      "count": 4,
+      "data": {
+        "updateMs": 178.7,
+        "vehicles": 149
+      },
+      "lastScenario": "full-traffic-hotspot"
+    },
+    {
+      "id": 2,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Ramp by 0.89 m",
+      "x": 502.9,
+      "z": -443.9,
+      "lat": 47.618494,
+      "lon": -122.188298,
+      "street": "Ramp",
+      "edge": 57,
+      "count": 1,
+      "data": {
+        "edge": 57,
+        "kind": "closure",
+        "depth": 0.89,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 3,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Ramp by 1.55 m",
+      "x": 502.3,
+      "z": -441.6,
+      "lat": 47.618473,
+      "lon": -122.188307,
+      "street": "Ramp",
+      "edge": 57,
+      "count": 1,
+      "data": {
+        "edge": 57,
+        "kind": "closure",
+        "depth": 1.55,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 4,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Ramp by 2.2 m",
+      "x": 501.6,
+      "z": -439.2,
+      "lat": 47.618452,
+      "lon": -122.188315,
+      "street": "Ramp",
+      "edge": 57,
+      "count": 1,
+      "data": {
+        "edge": 57,
+        "kind": "closure",
+        "depth": 2.2,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 5,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Ramp by 1.55 m",
+      "x": 501,
+      "z": -436.9,
+      "lat": 47.618431,
+      "lon": -122.188324,
+      "street": "Ramp",
+      "edge": 57,
+      "count": 1,
+      "data": {
+        "edge": 57,
+        "kind": "closure",
+        "depth": 1.55,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 6,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Ramp by 0.89 m",
+      "x": 500.4,
+      "z": -434.6,
+      "lat": 47.61841,
+      "lon": -122.188332,
+      "street": "Ramp",
+      "edge": 57,
+      "count": 1,
+      "data": {
+        "edge": 57,
+        "kind": "closure",
+        "depth": 0.89,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 7,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Ramp by 0.95 m",
+      "x": 500.4,
+      "z": -442.2,
+      "lat": 47.618479,
+      "lon": -122.188332,
+      "street": "Ramp",
+      "edge": 57,
+      "count": 1,
+      "data": {
+        "edge": 57,
+        "kind": "closure",
+        "depth": 0.95,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 8,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Exit → Northeast 8th Street West by 0.89 m",
+      "x": 503.3,
+      "z": -197.4,
+      "lat": 47.616276,
+      "lon": -122.188293,
+      "street": "Exit → Northeast 8th Street West",
+      "edge": 283,
+      "count": 1,
+      "data": {
+        "edge": 283,
+        "kind": "closure",
+        "depth": 0.89,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 9,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Exit → Northeast 8th Street West by 1.55 m",
+      "x": 503.9,
+      "z": -199.8,
+      "lat": 47.616298,
+      "lon": -122.188286,
+      "street": "Exit → Northeast 8th Street West",
+      "edge": 283,
+      "count": 1,
+      "data": {
+        "edge": 283,
+        "kind": "closure",
+        "depth": 1.55,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 10,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Exit → Northeast 8th Street West by 2.2 m",
+      "x": 504.5,
+      "z": -202.1,
+      "lat": 47.616319,
+      "lon": -122.188278,
+      "street": "Exit → Northeast 8th Street West",
+      "edge": 283,
+      "count": 1,
+      "data": {
+        "edge": 283,
+        "kind": "closure",
+        "depth": 2.2,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 11,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Exit → Northeast 8th Street West by 1.55 m",
+      "x": 505,
+      "z": -204.5,
+      "lat": 47.61634,
+      "lon": -122.18827,
+      "street": "Exit → Northeast 8th Street West",
+      "edge": 283,
+      "count": 1,
+      "data": {
+        "edge": 283,
+        "kind": "closure",
+        "depth": 1.55,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 12,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Exit → Northeast 8th Street West by 0.89 m",
+      "x": 505.6,
+      "z": -206.8,
+      "lat": 47.616361,
+      "lon": -122.188262,
+      "street": "Exit → Northeast 8th Street West",
+      "edge": 283,
+      "count": 1,
+      "data": {
+        "edge": 283,
+        "kind": "closure",
+        "depth": 0.89,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 13,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Exit → Northeast 8th Street West by 0.95 m",
+      "x": 505.8,
+      "z": -199.2,
+      "lat": 47.616292,
+      "lon": -122.18826,
+      "street": "Exit → Northeast 8th Street West",
+      "edge": 283,
+      "count": 1,
+      "data": {
+        "edge": 283,
+        "kind": "closure",
+        "depth": 0.95,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 14,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of (service) by 0.83 m",
+      "x": 580.8,
+      "z": -456.4,
+      "lat": 47.618607,
+      "lon": -122.187261,
+      "street": "(service)",
+      "edge": 403,
+      "count": 1,
+      "data": {
+        "edge": 403,
+        "kind": "closure",
+        "depth": 0.83,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 15,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of (service) by 2.51 m",
+      "x": 580.5,
+      "z": -454.1,
+      "lat": 47.618586,
+      "lon": -122.187264,
+      "street": "(service)",
+      "edge": 403,
+      "count": 1,
+      "data": {
+        "edge": 403,
+        "kind": "closure",
+        "depth": 2.51,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 16,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of (service) by 2.51 m",
+      "x": 580.3,
+      "z": -451.7,
+      "lat": 47.618565,
+      "lon": -122.187268,
+      "street": "(service)",
+      "edge": 403,
+      "count": 1,
+      "data": {
+        "edge": 403,
+        "kind": "closure",
+        "depth": 2.51,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 17,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of (service) by 0.83 m",
+      "x": 580,
+      "z": -449.4,
+      "lat": 47.618543,
+      "lon": -122.187271,
+      "street": "(service)",
+      "edge": 403,
+      "count": 1,
+      "data": {
+        "edge": 403,
+        "kind": "closure",
+        "depth": 0.83,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 18,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of (service) by 1.4 m",
+      "x": 579.8,
+      "z": -450.5,
+      "lat": 47.618554,
+      "lon": -122.187274,
+      "street": "(service)",
+      "edge": 403,
+      "count": 1,
+      "data": {
+        "edge": 403,
+        "kind": "closure",
+        "depth": 1.4,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 19,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Ramp by 3.18 m",
+      "x": 698,
+      "z": -311.1,
+      "lat": 47.6173,
+      "lon": -122.185699,
+      "street": "Northeast 8th Street",
+      "edge": 71,
+      "count": 1,
+      "data": {
+        "edge": 451,
+        "kind": "closure",
+        "depth": 3.18,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 20,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of I-405 by 0.87 m",
+      "x": 447.6,
+      "z": -433.2,
+      "lat": 47.618398,
+      "lon": -122.189036,
+      "street": "I-405",
+      "edge": 302,
+      "count": 1,
+      "data": {
+        "edge": 302,
+        "kind": "closure",
+        "depth": 0.87,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 21,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of I-405 by 0.35 m",
+      "x": 447.2,
+      "z": -443.2,
+      "lat": 47.618488,
+      "lon": -122.18904,
+      "street": "Exit → Northeast 8th Street East",
+      "edge": 264,
+      "count": 1,
+      "data": {
+        "edge": 302,
+        "kind": "closure",
+        "depth": 0.35,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 22,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of I-405 by 0.87 m",
+      "x": 461.6,
+      "z": -446.9,
+      "lat": 47.618522,
+      "lon": -122.188849,
+      "street": "I-405",
+      "edge": 302,
+      "count": 1,
+      "data": {
+        "edge": 302,
+        "kind": "closure",
+        "depth": 0.87,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 23,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of I-405 by 3.16 m",
+      "x": 459.3,
+      "z": -444.7,
+      "lat": 47.618501,
+      "lon": -122.18888,
+      "street": "I-405",
+      "edge": 302,
+      "count": 1,
+      "data": {
+        "edge": 302,
+        "kind": "closure",
+        "depth": 3.16,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 24,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of I-405 by 5.46 m",
+      "x": 456.9,
+      "z": -442.4,
+      "lat": 47.618481,
+      "lon": -122.188911,
+      "street": "I-405",
+      "edge": 302,
+      "count": 1,
+      "data": {
+        "edge": 302,
+        "kind": "closure",
+        "depth": 5.46,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 25,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of I-405 by 7.75 m",
+      "x": 454.6,
+      "z": -440.1,
+      "lat": 47.61846,
+      "lon": -122.188942,
+      "street": "I-405",
+      "edge": 302,
+      "count": 1,
+      "data": {
+        "edge": 302,
+        "kind": "closure",
+        "depth": 7.75,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 26,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of I-405 by 5.46 m",
+      "x": 452.2,
+      "z": -437.8,
+      "lat": 47.618439,
+      "lon": -122.188973,
+      "street": "I-405",
+      "edge": 302,
+      "count": 1,
+      "data": {
+        "edge": 302,
+        "kind": "closure",
+        "depth": 5.46,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 27,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of I-405 by 3.16 m",
+      "x": 449.9,
+      "z": -435.5,
+      "lat": 47.618419,
+      "lon": -122.189005,
+      "street": "I-405",
+      "edge": 302,
+      "count": 1,
+      "data": {
+        "edge": 302,
+        "kind": "closure",
+        "depth": 3.16,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 28,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Exit → Northeast 8th Street East by 0.89 m",
+      "x": 442.1,
+      "z": -444.9,
+      "lat": 47.618504,
+      "lon": -122.189108,
+      "street": "Exit → Northeast 8th Street East",
+      "edge": 264,
+      "count": 1,
+      "data": {
+        "edge": 264,
+        "kind": "closure",
+        "depth": 0.89,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 29,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Exit → Northeast 8th Street East by 1.55 m",
+      "x": 441.4,
+      "z": -442.6,
+      "lat": 47.618483,
+      "lon": -122.189118,
+      "street": "Exit → Northeast 8th Street East",
+      "edge": 264,
+      "count": 1,
+      "data": {
+        "edge": 264,
+        "kind": "closure",
+        "depth": 1.55,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 30,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Exit → Northeast 8th Street East by 2.2 m",
+      "x": 440.7,
+      "z": -440.3,
+      "lat": 47.618462,
+      "lon": -122.189127,
+      "street": "Exit → Northeast 8th Street East",
+      "edge": 264,
+      "count": 1,
+      "data": {
+        "edge": 264,
+        "kind": "closure",
+        "depth": 2.2,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 31,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Exit → Northeast 8th Street East by 1.55 m",
+      "x": 440,
+      "z": -438,
+      "lat": 47.618441,
+      "lon": -122.189137,
+      "street": "Exit → Northeast 8th Street East",
+      "edge": 264,
+      "count": 1,
+      "data": {
+        "edge": 264,
+        "kind": "closure",
+        "depth": 1.55,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 32,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Exit → Northeast 8th Street East by 0.89 m",
+      "x": 439.3,
+      "z": -435.7,
+      "lat": 47.61842,
+      "lon": -122.189146,
+      "street": "Exit → Northeast 8th Street East",
+      "edge": 264,
+      "count": 1,
+      "data": {
+        "edge": 264,
+        "kind": "closure",
+        "depth": 0.89,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 33,
+      "type": "object-in-road",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 12.9,
+      "msg": "closure intersects the carriageway of Exit → Northeast 8th Street East by 0.95 m",
+      "x": 439.5,
+      "z": -443.4,
+      "lat": 47.618489,
+      "lon": -122.189143,
+      "street": "Exit → Northeast 8th Street East",
+      "edge": 264,
+      "count": 1,
+      "data": {
+        "edge": 264,
+        "kind": "closure",
+        "depth": 0.95,
+        "deckY": 0
+      }
+    }
+  ],
+  "budgets": {
+    "maxTriangles": 741546,
+    "maxDrawCalls": 268,
+    "limitTriangles": 1500000,
+    "limitDrawCalls": 400,
+    "note": "Actual normal camera high-quality renderer including mirror and moving full traffic; software render time is not GPU frame-time evidence."
+  }
+}

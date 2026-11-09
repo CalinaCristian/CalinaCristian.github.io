@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "rawReport": "original-controls/seatac.json",
+  "rawFalseFlagsPreserved": true,
+  "declaredCoordinate": {
+    "x": -1146.4884494855091,
+    "z": -444.52799999975366
+  },
+  "actualProductionObjective": {
+    "x": -1149.644183850554,
+    "z": -444.5535381487944,
+    "waypoint": true,
+    "label": "Airport Expressway north (SR-518 / I-405)"
+  },
+  "sourceProjection": "main.js projects the chapter waypoint to its actual native road objective; chapter-waypoint.js uses that objective with unchanged30m production gate.",
+  "completionEvents": [
+    {
+      "x": -1153.584670370348,
+      "z": -414.84759307197714,
+      "distanceToActualProductionObjectiveM": 29.966157693631025,
+      "insideUnchanged30mGate": true
+    }
+  ],
+  "freshTrafficFailure": "The separate fresh-state chapter-focused attempt has11 recovery placements and no completion. First-recovery diagnostic identifies NPC congestion at its first recovery only."
+}

@@ -1,0 +1,12 @@
+{
+  "scope": "Exact nodes on the four literal incident source tram ways; no proximity or transitive association. Absence in cached coverage is not a claim that physical hardware does not exist.",
+  "incidentSourceIds": [
+    "w47373428",
+    "w314810034",
+    "w660927531",
+    "w905360051"
+  ],
+  "sourceNodeReferences": 39,
+  "taggedSourceNodes": 21,
+  "explicitVehicleHeadNodes": []
+}

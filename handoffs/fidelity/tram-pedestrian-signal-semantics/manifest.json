@@ -1,0 +1,89 @@
+{
+  "base": "57ba8f97ea9aae00e786a15b7f7e8ac3317cbe28",
+  "checks": {
+    "newSourceSemanticControls": 8,
+    "existingNativeSignalYieldControls": 14,
+    "syntax": true,
+    "diffCheck": true
+  },
+  "browserOpened": false,
+  "TrafficWorldSourceActorsRngTimersUnchanged": true,
+  "scope": "Explicit pedestrian crossing signalization is not invented tram vehicle control. Native acceptance and pedestrian head rendering remain pending.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 29566,
+      "sha256": "6ac540aeda640fa845fd568f84b411dc58a1fe25071e4095644f854eebcb6cc2"
+    },
+    {
+      "path": "game/src/tram-source-signals.js",
+      "bytes": 11556,
+      "sha256": "49374a21c5b3be4331221f72fdc0adccfa19c245aed5ae04099fb714fc224390"
+    },
+    {
+      "path": "handoffs/fidelity/tram-pedestrian-signal-semantics/README.md",
+      "bytes": 4688,
+      "sha256": "849e90676f1ed0fb6a2264713746a3e63a2b6850e453444f5bb5bd0c46a1a572"
+    },
+    {
+      "path": "handoffs/fidelity/tram-pedestrian-signal-semantics/actual-four-fixture.json",
+      "bytes": 45548,
+      "sha256": "b5ddee8c30794cc2b4c2e74ff37b0ad4b4df9b0d8e0c936fa95920e70cda0678"
+    },
+    {
+      "path": "handoffs/fidelity/tram-pedestrian-signal-semantics/controls.json",
+      "bytes": 5972,
+      "sha256": "58f121da115d206dec53dfee2f8a463676e4c55638bee017cfe35401f2a4aaa5"
+    },
+    {
+      "path": "handoffs/fidelity/tram-pedestrian-signal-semantics/controls.log",
+      "bytes": 856,
+      "sha256": "30aa9232b2d1bf493c977a39c6dc706f81f3b730acfcfba63dc4a83bc0b851ed"
+    },
+    {
+      "path": "handoffs/fidelity/tram-pedestrian-signal-semantics/four-crossings-context-54c.json",
+      "bytes": 52862,
+      "sha256": "3981044e005ffd9b3854ea9965a22d2879e4da6204f9964a086e1c6c7d62ff91"
+    },
+    {
+      "path": "handoffs/fidelity/tram-pedestrian-signal-semantics/incident-rail-head-tags.json",
+      "bytes": 388,
+      "sha256": "90fc8bd464cff22830b731008a974b68e177a1302e15e3ecb6340c3063faa108"
+    },
+    {
+      "path": "handoffs/fidelity/tram-pedestrian-signal-semantics/legacy-signal-controls.json",
+      "bytes": 3791,
+      "sha256": "6b5a7ce456ba1f51f0174436138917b223a84fb56b4d91938e00f8e33b3f5ed6"
+    },
+    {
+      "path": "handoffs/fidelity/tram-pedestrian-signal-semantics/legacy-signal-controls.log",
+      "bytes": 1318,
+      "sha256": "153ab246fd8ee8d28d93671f14baacf54b8fcabc9d334504b592374660731eee"
+    },
+    {
+      "path": "handoffs/fidelity/tram-pedestrian-signal-semantics/test.mjs",
+      "bytes": 6461,
+      "sha256": "45a3f083748ea7f76e31486c228ce92bc8eb9f12e0982560a928be6c5b5d446f"
+    },
+    {
+      "path": "handoffs/fidelity/tram-pedestrian-signal-semantics/wiki-extra-ledger.json",
+      "bytes": 1191,
+      "sha256": "725aa0ab99f028c6265500c5d4ae4517739f36484ca1ccaa319341cfcbe9eb23"
+    },
+    {
+      "path": "handoffs/fidelity/tram-pedestrian-signal-semantics/wiki-ledger.json",
+      "bytes": 1945,
+      "sha256": "5ffa5abaf773853daecf9838b66b55e8a617f686e44ce9dee21a60501863b252"
+    },
+    {
+      "path": "specs/01-architecture.md",
+      "bytes": 57824,
+      "sha256": "0ada196bf705a5f10ab6c043c2deb0475b5a4fe9c8a7f90a5482dd6941dbd31c"
+    },
+    {
+      "path": "specs/13-traffic.md",
+      "bytes": 45459,
+      "sha256": "b4c1b7d906771fe918eb52489c661774cb7b375a6cb9ad8b9b56d8414a2b388c"
+    }
+  ]
+}

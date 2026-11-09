@@ -14,7 +14,16 @@
       "manifest": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
       "manifestSha256": "2ec17090452c2a61241a46b0c585667fe3f8389f3c5b455db091210c31b5a92a",
       "frames": 19
+    },
+    {
+      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "treeSha256": "6b2317f5651c21e5f38c7feda7cee8ae04f4e539883a777a183138e439f998a7",
+      "manifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
+      "manifestSha256": "3d058be0be137130ceb6d41058b25bfa81e8563a8cd9c251205c8405b72b7b1e",
+      "sourceProvenance": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/source-provenance.json",
+      "sourceProvenanceSha256": "f05664c4657ca87bf793d3d9ff188af55049ec4cb6790cf10c6b45efb39b5bc1",
+      "frames": 26
     }
   ],
-  "note": "Every retained frame carries its actual immutable capture SHA. Full original source and capture records are preserved under provenance/."
+  "note": "Original source inventories and fresh immutable retake inputs remain attached to their actual captures."
 }

@@ -1,0 +1,16 @@
+{
+  "district": "floreasca",
+  "frames": 90,
+  "retakesReviewed": 21,
+  "untouchedItemsAndBytesPreserved": 69,
+  "archivedFullFrames": 90,
+  "archivedManifestSha256": "3c104b16729fc75d66a51530c3b63fa4f46234ec49761833db215074fc57df5c",
+  "atlasSourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 21,
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 63
+  },
+  "allGroundPosesPreserved": true,
+  "perspectiveCollectionsUnchanged": true,
+  "failures": []
+}

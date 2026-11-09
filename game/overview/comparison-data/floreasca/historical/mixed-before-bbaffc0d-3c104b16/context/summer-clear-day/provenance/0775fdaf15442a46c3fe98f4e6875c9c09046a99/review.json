@@ -1,0 +1,214 @@
+{
+  "district": "floreasca",
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "imagesReviewed": 25,
+  "status": "All25 corrected unique-ID GAME daylight views reviewed; source0775 pitch paint visibility fails. Public promotion held for separate current-source targeted result.",
+  "captureCoverageAccepted": true,
+  "realWorldParityAccepted": false,
+  "reportedMarkingIssueAccepted": false,
+  "publicPromotionHeld": true,
+  "rawSourceContactHits": 62,
+  "entries": [
+    {
+      "id": "skytower-context",
+      "sha256": "11d62678aef973a53e5ba3861fa40db940f08ff189db62a274bde62edda3baf7",
+      "reviewedAt": "2026-11-08T23:38:21.021714+00:00",
+      "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
+      "status": "reviewed_with_gaps",
+      "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+    },
+    {
+      "id": "skytower-opposite",
+      "sha256": "f99bb637b9aea8156103c51a959387d6f339b9328564de96d41203ac2605cc7d",
+      "reviewedAt": "2026-11-08T23:38:21.031295+00:00",
+      "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
+      "status": "reviewed_with_gaps",
+      "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+    },
+    {
+      "id": "dinamo-context",
+      "sha256": "69f6289baaf666a10d4bc43dfe62c59ac4ee5e325a365bede30e7f5bacb8b36e",
+      "reviewedAt": "2026-11-08T23:38:21.032164+00:00",
+      "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
+      "status": "reviewed_with_gaps",
+      "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+    },
+    {
+      "id": "dinamo-opposite",
+      "sha256": "5a3620a3d6c089635b9df7f429753c1f4afeb0a365069c6fb605b2c7bb784249",
+      "reviewedAt": "2026-11-08T23:38:21.032489+00:00",
+      "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
+      "status": "reviewed_with_gaps",
+      "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+    },
+    {
+      "id": "dinamo-street",
+      "sha256": "57292830489414a973681ccd42d93afd8ec18e43edab0fa3206ea237aa047945",
+      "reviewedAt": "2026-11-08T23:38:21.032827+00:00",
+      "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
+      "status": "reviewed_with_gaps",
+      "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+    },
+    {
+      "id": "dinamo-football",
+      "sha256": "0fa6a7db9b7d547ff5f587d290dc505521755740862046f3322604a4260d7a06",
+      "reviewedAt": "2026-11-08T23:38:21.033199+00:00",
+      "reviewSheetSha256": "2f7fda4a09d13d4b5ba427fb84af3b9fc3591966416f7605eab9708da0772314",
+      "status": "reviewed_with_reported_visibility_failure",
+      "observations": "SkyTower context is a plain tower among sparse generic outside-detail blocks; no complete surrounding podium/roof fidelity is claimed. Dinamo is visible in actual district context and from a clear public source road; the low pitch view does not establish readable paint."
+    },
+    {
+      "id": "dinamo-football-drone",
+      "sha256": "144b3d7b5c8798947a2c5dc591b89e345bf65a913ce03277512c2af2f7d640fb",
+      "reviewedAt": "2026-11-08T23:38:21.033524+00:00",
+      "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
+      "status": "reviewed_with_reported_visibility_failure",
+      "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
+    },
+    {
+      "id": "rosetti-context",
+      "sha256": "fe35e712a8e7cf094038fffe548394945423aa9a5ecb9dd65ee23e35289ca78d",
+      "reviewedAt": "2026-11-08T23:38:21.038639+00:00",
+      "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
+      "status": "reviewed_with_gaps",
+      "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
+    },
+    {
+      "id": "rosetti-opposite",
+      "sha256": "84b45e8c4d75730249d788a0a317e36e16ddf658ce387a40aed5094b22eb2b1e",
+      "reviewedAt": "2026-11-08T23:38:21.039170+00:00",
+      "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
+      "status": "reviewed_with_gaps",
+      "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
+    },
+    {
+      "id": "rosetti-street",
+      "sha256": "5563584d926c6ea7b2ea6ddc6ec5491c7a11b900682b31dacf35c8419972b08c",
+      "reviewedAt": "2026-11-08T23:38:21.039721+00:00",
+      "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
+      "status": "reviewed_with_gaps",
+      "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
+    },
+    {
+      "id": "rosetti-basketball-0",
+      "sha256": "01cfb081734e9094ee97cdd33c696ac145a3ca33317d0b61a974ba044f5308a0",
+      "reviewedAt": "2026-11-08T23:38:21.040197+00:00",
+      "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
+      "status": "reviewed_with_gaps",
+      "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
+    },
+    {
+      "id": "rosetti-basketball-1",
+      "sha256": "ae521649ff52e0daf71f93c7fa2f7795a3f252bc3b8b826f8fed0786a5c46643",
+      "reviewedAt": "2026-11-08T23:38:21.042577+00:00",
+      "reviewSheetSha256": "4ee4ad57f79c9909796f131033d299d89362f4a87adc0bd3509dcf2176e4675c",
+      "status": "reviewed_with_gaps",
+      "observations": "The close elevated Dinamo view reproduces broken/stippled circle and box lines and absent halfway line on source0775. The reported paint-visibility issue is not accepted. Rosetti school/courts are visible; source facade/canopy appearance remains approximate."
+    },
+    {
+      "id": "globalworth-context",
+      "sha256": "1d4aac2a9796b3ccf76f0dee0f90c03bebe57178c34639e21a97067fc66b9f06",
+      "reviewedAt": "2026-11-08T23:38:21.042914+00:00",
+      "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
+      "status": "reviewed_with_gaps",
+      "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+    },
+    {
+      "id": "globalworth-opposite",
+      "sha256": "f478eaaf2f9e05e79eda7060796dbca6b7f2a183053638ad2f0bdb487aedb6ae",
+      "reviewedAt": "2026-11-08T23:38:21.043710+00:00",
+      "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
+      "status": "reviewed_with_gaps",
+      "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+    },
+    {
+      "id": "signal-1",
+      "sha256": "e8e27e73655ec67fc40d623c1c27354d14857dfa6dad3f02ff25fb57bd697f48",
+      "reviewedAt": "2026-11-08T23:38:21.044078+00:00",
+      "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
+      "status": "reviewed_with_gaps",
+      "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+    },
+    {
+      "id": "signal-2",
+      "sha256": "cd69e815e30057c04e384bc2cbc46f9064c784de6868ec265edb9cca94d516b6",
+      "reviewedAt": "2026-11-08T23:38:21.053501+00:00",
+      "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
+      "status": "reviewed_with_gaps",
+      "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+    },
+    {
+      "id": "signal-3",
+      "sha256": "b4ebdbca3697550056c32c321163f0808ad32746ea37901fd603d36230286177",
+      "reviewedAt": "2026-11-08T23:38:21.054619+00:00",
+      "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
+      "status": "reviewed_with_gaps",
+      "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+    },
+    {
+      "id": "parking-1",
+      "sha256": "dbeca17bbe6457cd521bde8bcdff8ace8ce4be96eed403180d3633bdca03a185",
+      "reviewedAt": "2026-11-08T23:38:21.055218+00:00",
+      "reviewSheetSha256": "79786fb5f76bf081816bb1bac7f11bb9978232afdcec08b6056dc1618d8377a4",
+      "status": "reviewed_with_gaps",
+      "observations": "Globalworth/SkyTower surroundings remain sparse with estimated facade/roof detail. Actual source signals, moving traffic and mapped parking are visible; current real occupancy and detailed lighting/architecture are unmeasured."
+    },
+    {
+      "id": "parking-2",
+      "sha256": "3a4d427c62c9e2a863a30a18afc3c309893f34dc079c92e8a6a82fcbcb8ac795",
+      "reviewedAt": "2026-11-08T23:38:21.055935+00:00",
+      "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
+      "status": "reviewed_with_gaps",
+      "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
+    },
+    {
+      "id": "parking-3",
+      "sha256": "271308fbe6ab9beda642ed1343b8303de18f802dbf2414bbe4360cfb6d060b2f",
+      "reviewedAt": "2026-11-08T23:38:21.058118+00:00",
+      "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
+      "status": "reviewed_with_gaps",
+      "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance.",
+      "displayLabel": "Mapped parking context \u00b7 foreground tower obscures most of the area"
+    },
+    {
+      "id": "drone-edge-west",
+      "sha256": "5718586a6d5cb303eba325806474a22b87f1d476440ca2892fcf4e7ca1cd2dfd",
+      "reviewedAt": "2026-11-08T23:38:21.067239+00:00",
+      "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
+      "status": "reviewed_with_gaps",
+      "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
+    },
+    {
+      "id": "drone-edge-east",
+      "sha256": "0fcc77aa2165af0676611a4a5b04031414f7a370a8aa2d743bf445f35ea86aba",
+      "reviewedAt": "2026-11-08T23:38:21.068070+00:00",
+      "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
+      "status": "reviewed_with_gaps",
+      "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
+    },
+    {
+      "id": "drone-edge-north",
+      "sha256": "270f84602826e1b6c615eea2322e7b7c9c1c7be45c3e820ec3a27e3b99d47699",
+      "reviewedAt": "2026-11-08T23:38:21.068625+00:00",
+      "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
+      "status": "reviewed_with_gaps",
+      "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
+    },
+    {
+      "id": "drone-edge-south",
+      "sha256": "dfa3f8db420f673e0d143c01d023713e746d3b3b78a38861b8271e7b0db7d84c",
+      "reviewedAt": "2026-11-08T23:38:21.069126+00:00",
+      "reviewSheetSha256": "fbd961ae39d9866cce246a64e42b39aad3d9afcb958e03b332d9673565d9a002",
+      "status": "reviewed_with_gaps",
+      "observations": "Parking2 is visible but parking3 is largely obscured by a foreground source tower; no complete parking visibility accepted there. Outward views explicitly show sparse/generic distant blocks and estimated canopy/water appearance."
+    },
+    {
+      "id": "chapter-rosetti-street",
+      "sha256": "206ea207feb86f61412b88debf7092cf202becbb4f97565021a4929949709bc3",
+      "reviewedAt": "2026-11-08T23:38:21.072967+00:00",
+      "reviewSheetSha256": "188c660954aff5bfb6293bbf984e88ef96370bd89ae3f3e61b189a0a531141c9",
+      "status": "reviewed_with_gaps",
+      "observations": "Actual Rosetti chapter-start street is visible with a passing bus in the recorded scene. Static camera capture does not exercise controls or certify complete clearance/parity."
+    }
+  ]
+}

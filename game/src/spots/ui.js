@@ -75,6 +75,13 @@ const CSS = `
 body.photo-mode #spot-ui .sp-mini,
 body.photo-mode #spot-ui .sp-card,body.photo-mode #spot-ui .sp-prompt,body.photo-mode #spot-ui .sp-help,body.photo-mode #spot-ui .sp-cross{display:none}
 @media (max-width:600px){#spot-ui .sp-help{display:none}#spot-ui .bubble{font-size:12px}#spot-ui .sp-mini{width:112px;height:112px}}
+@media(max-width:600px),(max-height:500px){
+  #spot-ui.sp-participating .sp-card>b,#spot-ui.sp-participating .sp-card>span,#spot-ui.sp-participating .sp-chal,#spot-ui.sp-participating .sp-waypoint,#spot-ui.sp-participating .sp-tour>b,#spot-ui.sp-participating .sp-dots,#spot-ui.sp-participating .sp-narr{display:none}
+  #spot-ui.sp-participating:not(.sp-tour-active) .sp-card{display:none}
+  #spot-ui.sp-participating .sp-tour{margin:0;padding:0;border:0}
+  #spot-ui.sp-participating .sp-tour button{min-height:44px}
+  #spot-ui.sp-participating .sp-participation{top:var(--sp-activity-top,108px);bottom:auto;max-height:calc(100dvh - var(--sp-activity-top,108px) - 12px);overflow:auto}
+}
 `;
 
 export class SpotUI {
@@ -91,6 +98,17 @@ export class SpotUI {
     }
     setTitle(name, sub) { this.$('.sp-card b').textContent = name; this.$('.sp-card span').textContent = sub || ''; }
     setHelp(t) { this.$('.sp-help').textContent = t || ''; }
+    /** Keep the current step and Skip/End accessible above a phone activity. */
+    setActivityActive(active) {
+        this._activityLayout?.disconnect(); this._activityLayout = null;
+        this.el.classList.toggle('sp-participating', active);
+        if (!active) { this.el.style.removeProperty('--sp-activity-top'); return; }
+        const card = this.$('.sp-card'), measure = () => {
+            const bottom = card.getBoundingClientRect().bottom - this.el.getBoundingClientRect().top;
+            this.el.style.setProperty('--sp-activity-top', `${Math.max(12, Math.ceil(bottom) + 8)}px`);
+        };
+        this._activityLayout = new ResizeObserver(measure); this._activityLayout.observe(card); measure();
+    }
     setChallenge(text, done = false) { const c = this.$('.sp-chal'); c.textContent = text ? (done ? '✅ ' : '📷 ') + text : ''; c.classList.toggle('done', !!done); }
     prompt(html) {
         if (html === this._prompt) return; this._prompt = html;
@@ -129,6 +147,7 @@ export class SpotUI {
     closePanel() { this._closePanel?.(); }
     /** the one persistent tour card under the title (notes 67/81): progress dots, current stop, the guide's narration; null hides it */
     setTour(t) {
+        this.el.classList.toggle('sp-tour-active', !!t);
         const el = this.$('.sp-tour'); if (!t) { el.innerHTML = ''; el.style.display = 'none'; return; }
         el.style.display = '';
         el.innerHTML = `<b>🚩 ${esc(t.title)}${t.done ? '' : ` · ${Math.min(t.i + 1, t.n)}/${t.n}`}</b><div class="sp-dots">${(t.dots || []).map((d) => (d === 1 ? '●' : d === 2 ? '◉' : d === 3 ? '×' : '○')).join('')}</div>${t.stop ? `<div class="sp-stop">▶ ${esc(t.stop)}</div>` : ''}${t.text ? `<div class="sp-narr">${esc(t.text)}</div>` : ''}${t.skip || t.end ? `<div class="sp-tour-controls">${t.skip ? '<button type="button" data-tour-skip aria-keyshortcuts="J" title="Skip this tour step (J)">Skip step (J)</button>' : ''}${t.end ? `<button data-tour-end>${t.done ? 'Close' : 'End tour'}</button>` : ''}</div>` : ''}`;
@@ -193,7 +212,7 @@ export class SpotUI {
     }
 
     update(camera) { this.bubbles.update(camera); }
-    dispose() { this.closePanel(); this.el.remove(); }
+    dispose() { this.setActivityActive(false); this.closePanel(); this.el.remove(); }
 }
 /** map marker kinds: [kind, icon, legend name] */
 export const MAP_KINDS = [['hero', '⭐', 'Landmark'], ['plaque', '📜', 'Plaque'], ['postcard', '📷', 'Postcard photo'], ['activity', '🎯', 'Activity'], ['bike', '🚲', 'Bikes'], ['entrance', '🚪', 'Entrance'], ['view', '👁', 'Viewpoint'], ['guide', '🚩', 'Tour guide'], ['waypoint', '📍', 'Waypoint'], ['you', '➤', 'You']];

@@ -1,4 +1,5 @@
 import * as THREE from '../vendor/three.module.min.js';
+import { structuralOwnerPlanes } from './office-window-structural-plane.js';
 
 // Reviewed identities, not cached building indices or claims of actual office floors.
 export const OFFICE_WINDOW_SOURCES = Object.freeze({
@@ -8,7 +9,15 @@ export const OFFICE_WINDOW_SOURCES = Object.freeze({
     ids: ['w28240552'],
     hold: 'Full aperture meets recessed ground facade and structural fins'
   },
-  gts: { landmark: 'gts', ids: ['w245117704'], skin: 0.26 },
+  gts: {
+    landmark: 'gts',
+    ids: ['w245117704'],
+    structuralBand: {
+      baseM: 0,
+      topM: 5.6,
+      basis: 'Unchanged bGTS main source-owner prism, modeled0–5.6m; actual office floor unknown'
+    }
+  },
   luxoft: {
     landmark: 'hermes',
     ids: ['w533147567', 'w231123137', 'r6774709'],
@@ -266,7 +275,7 @@ export function createOfficeWindowBinding(world, office) {
         diagnostics.push({ sourceId, edgeIndex: i, reason: 'edge-shorter-than-full-aperture' });
         continue;
       }
-      const outward = new THREE.Vector3(
+      let outward = new THREE.Vector3(
           ((b[1] - a[1]) / len) * (signed > 0 ? 1 : -1),
           0,
           (-(b[0] - a[0]) / len) * (signed > 0 ? 1 : -1)
@@ -274,6 +283,42 @@ export function createOfficeWindowBinding(world, office) {
         right = new THREE.Vector3(-outward.z, 0, outward.x),
         structural = new THREE.Vector3((a[0] + b[0]) / 2, floor + frame.center.y, (a[1] + b[1]) / 2),
         inward = outward.clone().negate();
+      const sourceCenter = structural.clone(),
+        sourceOutward = outward.clone();
+      let structuralPlane = null;
+      if (policy.structuralBand) {
+        const result = structuralOwnerPlanes(owner, {
+          floor,
+          band: policy.structuralBand,
+          width: frame.width,
+          height: frame.height,
+          sourceCenter,
+          sourceOutward
+        });
+        if (!result.known || !result.planes.length) {
+          diagnostics.push({
+            sourceId,
+            edgeIndex: i,
+            reason: result.reason || 'known-structural-plane-unavailable'
+          });
+          continue;
+        }
+        result.planes.sort((a, b) => b.outward.dot(sourceOutward) - a.outward.dot(sourceOutward));
+        if (
+          result.planes[1] &&
+          Math.abs(
+            result.planes[0].outward.dot(sourceOutward) - result.planes[1].outward.dot(sourceOutward)
+          ) < 1e-8
+        ) {
+          diagnostics.push({ sourceId, edgeIndex: i, reason: 'ambiguous-structural-face-correspondence' });
+          continue;
+        }
+        structuralPlane = result.planes[0];
+        structural = structuralPlane.center;
+        outward = structuralPlane.outward;
+        right = structuralPlane.right;
+        inward = outward.clone().negate();
+      }
       const mapAt = (p, skin = 0) => {
         const d = p.clone().sub(frame.center);
         return structural
@@ -284,8 +329,24 @@ export function createOfficeWindowBinding(world, office) {
           .addScaledVector(outward, skin);
       };
       const aperture = [mapAt(frame.ll), mapAt(frame.lr), mapAt(frame.ul)];
-      if (!segmentInside([aperture[0].x, aperture[0].z], [aperture[1].x, aperture[1].z], ring, holes))
+      const sourceProjection = aperture.map((p) =>
+        p.clone().addScaledVector(sourceOutward, -p.clone().sub(sourceCenter).dot(sourceOutward))
+      );
+      if (
+        !segmentInside(
+          [sourceProjection[0].x, sourceProjection[0].z],
+          [sourceProjection[1].x, sourceProjection[1].z],
+          ring,
+          holes
+        )
+      ) {
+        diagnostics.push({
+          sourceId,
+          edgeIndex: i,
+          reason: 'complete-structural-aperture-source-projection-does-not-fit'
+        });
         continue;
+      }
       const bounds = office.bounds,
         eyes = [
           [bounds.minX, bounds.minZ],
@@ -303,15 +364,64 @@ export function createOfficeWindowBinding(world, office) {
         diagnostics.push({ sourceId, edgeIndex: i, reason: 'complete-room-eye-envelope-does-not-fit' });
         continue;
       }
-      const facade = emittedFacade(owner, {
-        center: structural,
-        right,
-        outward,
-        width: frame.width,
-        y0: floor + frame.ll.y,
-        y1: floor + frame.ul.y,
-        maxSkin: policy.skin
-      });
+      if (
+        structuralPlane &&
+        !polygonFits(
+          eyes.map((p) => [p.x, p.z]),
+          structuralPlane.bodyRing
+        )
+      ) {
+        diagnostics.push({
+          sourceId,
+          edgeIndex: i,
+          reason: 'complete-eye-envelope-hits-emitted-structural-body'
+        });
+        continue;
+      }
+      let facade;
+      if (structuralPlane) {
+        let remaining = [
+          [
+            [-frame.width / 2, floor + frame.ll.y],
+            [frame.width / 2, floor + frame.ll.y],
+            [frame.width / 2, floor + frame.ul.y],
+            [-frame.width / 2, floor + frame.ul.y]
+          ]
+        ];
+        for (const t of structuralPlane.triangles) {
+          const tri = t.worldVertices.map((p) => {
+            const v = new THREE.Vector3(...p);
+            return [v.clone().sub(structural).dot(right), v.y];
+          });
+          remaining = remaining.flatMap((p) => subtract(p, tri));
+        }
+        const uncoveredM2 = remaining.reduce((s, p) => s + area(p), 0);
+        facade = {
+          known: uncoveredM2 < 1e-5,
+          offsetM: 0,
+          faces: structuralPlane.triangles.length,
+          uncoveredM2,
+          blocked: false,
+          basis: structuralPlane.basis,
+          planeCenter: structural.toArray(),
+          planeNormal: outward.toArray(),
+          sourcePlaneDeltaM: structuralPlane.sourcePlaneDeltaM,
+          sourceProjection: sourceProjection.map((p) => p.toArray()),
+          sourceEyeEnvelopeXZ: eyes.map((p) => [p.x, p.z]),
+          actualStructuralBodyRing: structuralPlane.bodyRing,
+          actualStructuralTriangles: structuralPlane.triangles,
+          exteriorGeometryRetained: true
+        };
+      } else
+        facade = emittedFacade(owner, {
+          center: structural,
+          right,
+          outward,
+          width: frame.width,
+          y0: floor + frame.ll.y,
+          y1: floor + frame.ul.y,
+          maxSkin: policy.skin
+        });
       if (!facade.known) {
         diagnostics.push({ sourceId, edgeIndex: i, reason: 'emitted-facade-incompatible', facade });
         continue;

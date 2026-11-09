@@ -1,0 +1,12 @@
+{
+  "scope": "CPU structural-plane/source-projection/whole-eye controls; exterior geometry retained; no native eye pixels",
+  "passed": true,
+  "checks": [
+    "actual plane follows unchanged structural triangles rather than an approximate source-edge direction",
+    "exterior mailbox, trim and substantial projection remain unchanged and never choose the clipping plane",
+    "missing band, truncated main wall and multiple structural contours fail without guessing ownership",
+    "a genuinely nonplanar full-height wall is never averaged into a planar certificate",
+    "binding requires both literal source support and the complete emitted structural eye envelope",
+    "retained source courtyard and wrong owner still hold despite a complete planar structural mesh"
+  ]
+}

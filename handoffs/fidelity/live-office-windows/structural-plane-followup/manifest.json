@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "parentCheckpoint": "213a81f8a28e3195906a8c2221313a0b145bb0d7",
+  "scope": "Separate fourth GTS structural-plane CPU candidate; four room holds/native acceptance remain open",
+  "priorReportsHistoricalAt": "213a81f8a28e3195906a8c2221313a0b145bb0d7",
+  "otherSevenRoomResultsExactlyUnchanged": true,
+  "fullEyeSourceAndEmittedContour": true,
+  "exteriorGeometryRetained": true,
+  "sourceWorldDataTrafficActorsMainTargetChanged": false,
+  "checks": {
+    "focused": 6,
+    "integration": 10
+  },
+  "files": {
+    "README.md": {
+      "sha256": "12f341b2d551283619ff70afd330b727f8ba16dab61cc5c7bef535d1ef9abcfd",
+      "bytes": 53294
+    },
+    "game/overview/index.html": {
+      "sha256": "81f2d7db6d86e8fa4eb0fdc53d2fde544f6e9f59d31d8d7187c7093597110b9e",
+      "bytes": 64310
+    },
+    "game/research/cv-window-bindings.md": {
+      "sha256": "57eb46a6fd061e5fb6b7985379885a78af6093f8082f9867a069f88c43244439",
+      "bytes": 7772
+    },
+    "game/src/office-window-binding.js": {
+      "sha256": "0546ab4130edc5bfff0f50e6b026f6ca16bafa59bad3475ef04cf0223b0192b0",
+      "bytes": 18363
+    },
+    "game/src/office-window-structural-plane.js": {
+      "sha256": "40e7f9e227a153e2882f2fbffc076d5d70427ed4138e83dab297cd0eb725c587",
+      "bytes": 4903
+    },
+    "handoffs/fidelity/live-office-windows/README.md": {
+      "sha256": "1d1b2dfe5dc9372971a641397802b50eb84f32de8d45a26e847766256fb0ebd5",
+      "bytes": 7403
+    },
+    "handoffs/fidelity/live-office-windows/structural-plane-followup/README.md": {
+      "sha256": "9e72117d5db02857fa79d5e3294f679a6daf26d5919f5bcea08d1450b109256a",
+      "bytes": 3678
+    },
+    "handoffs/fidelity/live-office-windows/structural-plane-followup/actual-bindings.json": {
+      "sha256": "ba000237c3790602883b206eecfdbec03e69ce985b7d1af49b4fb771bb2f6d4f",
+      "bytes": 360386
+    },
+    "handoffs/fidelity/live-office-windows/structural-plane-followup/controls.json": {
+      "sha256": "1a1142ee85f7a2356afc1f2afd634dbf7dffc419b7663c15af2cd07eb544b283",
+      "bytes": 778
+    },
+    "handoffs/fidelity/live-office-windows/structural-plane-followup/controls.mjs": {
+      "sha256": "65c1bfd68c7c34513eac4f67fccae9a23dc67c67888222eb62730d219a769f08",
+      "bytes": 6396
+    },
+    "handoffs/fidelity/live-office-windows/structural-plane-followup/integration-controls.json": {
+      "sha256": "07003f9dbaae21ab7834622292eaaca423a0d036dd779d97cc28f295462b139f",
+      "bytes": 1253
+    },
+    "specs/01-architecture.md": {
+      "sha256": "8d0ddfcd68dd68cd3fa83acbac574b84a99141c585aa580aa3beadb03826bc55",
+      "bytes": 82284
+    }
+  }
+}

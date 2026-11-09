@@ -97,7 +97,7 @@ export function buildOldTownNightlife(ctx, venueActivities) {
         {x:slot.x,z:slot.z,y:floor,r:2,label:()=>nightlifeHours(localHour).party?'Dance with the crowd':'Dancing starts late · come back after 22:00',cond:visible,use:beginDance},
         {x:barX+1.5,z:barZ,y:floor,r:1.7,label:'Pour a shot · Freddo',cond:visible,use:s=>venueActivities.start(s,'shot',{name:'Freddo',address:'Strada Smârdan 24',activity:'freddo-shot'})});
     const previousObstacles=ctx.extras.obstacles;
-    ctx.extras.obstacles=()=>[...(previousObstacles?.()||[]),...(room.visible?dancers.map(p=>({x:p.x,z:p.z,y:floor,hw:.22,hd:.22,r:.25})):[])];
+    ctx.extras.obstacles=()=>[...(previousObstacles?.()||[]),...(room.visible?dancers.map(p=>({x:p.x,z:p.z,y:floor,fx:0,fz:1,width:.44,length:.44})):[])];
     onActivityCancel(ctx,reason=>{stopDance(lastSession);music.pause();if(room.visible && ['mode','teleport'].includes(reason))leave(lastSession);});
     ctx.onUpdate((dt,s)=>{lastSession=s;clockT-=dt;if(clockT<=0){localHour=s._conditions().hour;clockT=1;}
         const hours=nightlifeHours(localHour),blocked=activityBlocked(s),party=hours.party;

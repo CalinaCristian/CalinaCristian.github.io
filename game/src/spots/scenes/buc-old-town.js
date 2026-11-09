@@ -551,7 +551,7 @@ export default {
         ctx.sound('crowd', 120, -60, 60, 1); ctx.sound('crowd', 200, 120, 50, 0.8); ctx.sound('crowd', -60, -66, 40, 0.6);
         ctx.sound('bell', CV.church?.x ?? 205, CV.church?.z ?? 134, 260, 0.45); ctx.sound('traffic', -240, -60, 120, 0.7); ctx.sound('traffic', 300, 0, 120, 0.5);
         // spawns
-        ctx.spawns['old-town-lipscani'] = { x: 128, z: -56.5, heading: headingFromBearing(78) };
+        ctx.spawns['old-town-lipscani'] = NIGHTLIFE ? { x:NIGHTLIFE.entry.x+3,z:NIGHTLIFE.entry.z+2.5,heading:headingFromBearing(300) } : { x:128,z:-56.5,heading:headingFromBearing(78) };
         // Legacy ID remains loadable, with the same compact arrival and saves intact.
         ctx.spawns['stavropoleos-cec'] = { ...ctx.spawns['old-town-lipscani'] };
         ctx.extras.walkBoundary=walkBoundary(()=>[OLD_TOWN_FOCUS,

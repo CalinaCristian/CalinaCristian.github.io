@@ -17,6 +17,10 @@
       "passed": true
     },
     {
+      "name": "compact boundary sweeps concave crossings; remote interior requires active state",
+      "passed": true
+    },
+    {
       "name": "original loop finite stereo, no clipping and32beat duration",
       "passed": true
     },

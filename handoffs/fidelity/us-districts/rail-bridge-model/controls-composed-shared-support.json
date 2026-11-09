@@ -1,0 +1,359 @@
+{
+  "passed": true,
+  "scope": "composition/source continuity/serialized continuous profiles/union-wall count; actual geometry clearance separate",
+  "network": {
+    "unresolved": [],
+    "retainedUnmodeled": [
+      {
+        "sourceId": "w23611300",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w27703815",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w28067162",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w28529341",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w237301629",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w237301630",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w237301631",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w237301632",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w237301633",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w237301634",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w237301635",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w243476550",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w301564753",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w660927513",
+        "reason": "unresolved-source-rail-direction"
+      },
+      {
+        "sourceId": "w660927519",
+        "reason": "unresolved-source-rail-direction"
+      },
+      {
+        "sourceId": "w1000358260",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358261",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358262",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358263",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358264",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358265",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358266",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358267",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358268",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358269",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358270",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358271",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358272",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358273",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1000358274",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076382446",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076382447",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076382448",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076389837",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076389838",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076389839",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076389840",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076389841",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076389842",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076389843",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076389844",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076392500",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076392501",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076392502",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076392503",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076392504",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076392505",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394869",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394870",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394871",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394872",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394873",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394874",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394875",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394876",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394877",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394878",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394879",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394880",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394881",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394882",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394883",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394884",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394885",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394886",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394887",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394888",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076394889",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076396333",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076396334",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076396335",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076396562",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1076396563",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1224993947",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1224993948",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1224993949",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1224993950",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1224993951",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1224993959",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1224993960",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1224993961",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1224993983",
+        "reason": "non-revenue-source-track"
+      },
+      {
+        "sourceId": "w1224993984",
+        "reason": "non-revenue-source-track"
+      }
+    ],
+    "sourceWays": 195,
+    "modeledSegments": 33,
+    "admittedSegments": 33,
+    "sourceNodeCrossings": []
+  },
+  "supportPieces": 633,
+  "uniqueSupportIds": 633,
+  "roofPieces": 84,
+  "maxSerializedErrorM": 5.329070518200751e-15,
+  "wallCandidates": 1266,
+  "outerWallIntervals": 1000,
+  "trench": {
+    "estimated": true,
+    "sourcePieces": 549,
+    "inputTriangles": 0,
+    "affectedTriangles": 0,
+    "outputTriangles": 0,
+    "basis": "estimated open source-tram trench; exact convex subtraction from flat render layers only; no source polygon or motor-road edits"
+  }
+}

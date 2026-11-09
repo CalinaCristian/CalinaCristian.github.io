@@ -1,0 +1,327 @@
+[
+  {
+    "file": "coin-5508fc3-desktop/coin-in-flight.webp",
+    "bytes": 42432,
+    "sha256": "ee3660d686435b2976dab03a266dd4704dd777fca6a1c0402def74ccf1c1d434"
+  },
+  {
+    "file": "coin-5508fc3-desktop/coin-ripple.webp",
+    "bytes": 42564,
+    "sha256": "5bd1bb863cc9173c86c7458e307fed3132a15a3522f01e5e92d001c31763d5bc"
+  },
+  {
+    "file": "coin-5508fc3-desktop/results.json",
+    "bytes": 1914,
+    "sha256": "a41b8d1acddafa669a5d697bbdd02286a0fec126689e387769779e1541ebefd7"
+  },
+  {
+    "file": "coin-5508fc3-desktop/run.log",
+    "bytes": 33,
+    "sha256": "f4a97ad9fa26877d0a2dce7ead8fb3d390597f4311057d3581d9fdbba050e8d5"
+  },
+  {
+    "file": "lincoln-front-desktop/bel-lincoln-square-photoHunt-1.webp",
+    "bytes": 46866,
+    "sha256": "e6b51cd03e27f88f49ce46a0e2ac7092ca0c3e5ca3134db70a1da14a79bf4903"
+  },
+  {
+    "file": "lincoln-front-desktop/bel-lincoln-square-photoHunt-2.webp",
+    "bytes": 57986,
+    "sha256": "375242ecc736b60350c8949efc691451727243f172bf62f656ac7aeee5546843"
+  },
+  {
+    "file": "lincoln-front-desktop/bel-lincoln-square-photoHunt-3.webp",
+    "bytes": 30336,
+    "sha256": "9aa432a1cb577003c66862dbadd2ec11d33ef9c14c683eb8f9a0905157b3864a"
+  },
+  {
+    "file": "lincoln-front-desktop/results.json",
+    "bytes": 5642,
+    "sha256": "aa34d61eb9782c1eabec3f45cfdd5669e089ba5f256f338e711ca0cada00a39a"
+  },
+  {
+    "file": "lincoln-front-desktop/run.log",
+    "bytes": 70,
+    "sha256": "fbcc0a61917c92968b4b61705efbab83fa2869d20d840df637d85fd6d92f9248"
+  },
+  {
+    "file": "outdoor-60db281-touch/arcul-de-triumf-photoHunt-1.webp",
+    "bytes": 20354,
+    "sha256": "a68ad846c6149f5da61640f5b96b62dd0ee8ba5b06dcbf8eb97022f26a14065f"
+  },
+  {
+    "file": "outdoor-60db281-touch/arcul-de-triumf-photoHunt-2.webp",
+    "bytes": 13252,
+    "sha256": "08286d93c6e385ccb9f76a7d558b56858640f0a2da601474d51ecf17291e7b32"
+  },
+  {
+    "file": "outdoor-60db281-touch/arcul-de-triumf-photoHunt-3.webp",
+    "bytes": 17380,
+    "sha256": "3b6dbb52f2250818e64c0c219130fe0c7841c4257586d403637424d21e5507b2"
+  },
+  {
+    "file": "outdoor-60db281-touch/athenaeum-revolution-photoHunt-1.webp",
+    "bytes": 14652,
+    "sha256": "8bb390cb82fd79a790a0fe0d62dce4c1260aabacd53328995c163cbcd1770e9a"
+  },
+  {
+    "file": "outdoor-60db281-touch/athenaeum-revolution-photoHunt-2.webp",
+    "bytes": 15828,
+    "sha256": "74aa76db4b81dd486913747a64c6aaab889c3ed7d90ae86ad2c1fe1f559fb007"
+  },
+  {
+    "file": "outdoor-60db281-touch/athenaeum-revolution-photoHunt-3.webp",
+    "bytes": 15256,
+    "sha256": "543e8fb84044f5a87d04291db85c6ff3dd13d11d2050c5fa1cd91c62947ab222"
+  },
+  {
+    "file": "outdoor-60db281-touch/bel-lincoln-square-photoHunt-1.webp",
+    "bytes": 24194,
+    "sha256": "f01249c2b0d80a16caa3d7fc50a559ea68800afb79afdc69873e356c6ba9beb9"
+  },
+  {
+    "file": "outdoor-60db281-touch/bel-lincoln-square-photoHunt-2.webp",
+    "bytes": 12622,
+    "sha256": "013871af3ed5a651bec799afff6364d59bc0079c617de6fe7b2593ed96c72def"
+  },
+  {
+    "file": "outdoor-60db281-touch/old-town-lipscani-curteaVecheVisit-1.webp",
+    "bytes": 13742,
+    "sha256": "07511dbfcb69bc65832cfa978a45f321649e3a5c57ba288c666dec477ba87fc2"
+  },
+  {
+    "file": "outdoor-60db281-touch/old-town-lipscani-curteaVecheVisit-2.webp",
+    "bytes": 14638,
+    "sha256": "ad165da3513529a4788d207ca0ebfe4430f8c5acf9ea6e1ce0ccd66f855c35e3"
+  },
+  {
+    "file": "outdoor-60db281-touch/old-town-lipscani-curteaVecheVisit-3.webp",
+    "bytes": 14284,
+    "sha256": "7654cc95af281aa6d4163d37525f10adf14060513cd614fa30fc7d2e32fb3d32"
+  },
+  {
+    "file": "outdoor-60db281-touch/palace-parliament-photoHunt-1.webp",
+    "bytes": 15796,
+    "sha256": "25293359c44b09730aadefea554d2c9df97b165ba7de05a1709da65b8afdf290"
+  },
+  {
+    "file": "outdoor-60db281-touch/palace-parliament-photoHunt-2.webp",
+    "bytes": 13346,
+    "sha256": "50ea35ab281e2f5427ca4e2c873a5732afadaa93bf6b1ff17246c2a542634987"
+  },
+  {
+    "file": "outdoor-60db281-touch/palace-parliament-photoHunt-3.webp",
+    "bytes": 13158,
+    "sha256": "063b7eabf0c0878aa9cc2b1c41e0bcfe364125ecfc749e150e8f0579f9384ded"
+  },
+  {
+    "file": "outdoor-60db281-touch/pioneer-square-pioneerPublicHistory-1.webp",
+    "bytes": 22862,
+    "sha256": "34b6b14297d8ab8920c9b6dce431f23d4f71178d15f5dff384c52f29cc91b0e3"
+  },
+  {
+    "file": "outdoor-60db281-touch/pioneer-square-pioneerPublicHistory-2.webp",
+    "bytes": 19626,
+    "sha256": "d3e7857c3a255287bbaac048ec611c1e5c04e7773e52e7e94f0edb88e2b6a55a"
+  },
+  {
+    "file": "outdoor-60db281-touch/pioneer-square-pioneerPublicHistory-3.webp",
+    "bytes": 21452,
+    "sha256": "c44f1a91b33253cd9f44edf65c55ffa0d8a8dca2c9c656860f0ee07e7c78f99b"
+  },
+  {
+    "file": "outdoor-60db281-touch/pioneer-square-pioneerTotem-1.webp",
+    "bytes": 9288,
+    "sha256": "adc843be523bc22225c09f6542d7f951d147a1b043a30d5341cb6a02c0206364"
+  },
+  {
+    "file": "outdoor-60db281-touch/pioneer-square-pioneerTotem-2.webp",
+    "bytes": 12218,
+    "sha256": "7bd934b218e5067c8c0f89a0b242f9ab354de7d15a72d8b58841f39e83a7b420"
+  },
+  {
+    "file": "outdoor-60db281-touch/pioneer-square-pioneerTotem-3.webp",
+    "bytes": 12180,
+    "sha256": "f5bdc363e6bbef10b2c6529bd5b080a3304ed69f8af7a9f9ed89a07306409dd5"
+  },
+  {
+    "file": "outdoor-60db281-touch/pioneer-square-pioneerTotem-4.webp",
+    "bytes": 14894,
+    "sha256": "fef37b4b01063d1147ff0b22be47196468b47e158e65b6542459f75eaa98cf2d"
+  },
+  {
+    "file": "outdoor-60db281-touch/pioneer-square-pioneerTotem-5.webp",
+    "bytes": 17994,
+    "sha256": "b1c8c9594c5324c2da3774cf53b131219eb995199e84750cc58bbbcca18cbae9"
+  },
+  {
+    "file": "outdoor-60db281-touch/pioneer-square-pioneerTotem-6.webp",
+    "bytes": 21902,
+    "sha256": "c8dfa011e3db720dd9cd134fdece35c0e4e71bf62373b144d0cc7b673bfbd4e9"
+  },
+  {
+    "file": "outdoor-60db281-touch/pioneer-square-pioneerTotem-7.webp",
+    "bytes": 20246,
+    "sha256": "5a3ea58d84568162dd0c3e3461b50b7a83e69a65133015cc0e3997cdf854d298"
+  },
+  {
+    "file": "outdoor-60db281-touch/results.json",
+    "bytes": 44931,
+    "sha256": "bc4e7c0baeedf20273c98b949c2881dab343499a48f561b3584029d10887154e"
+  },
+  {
+    "file": "outdoor-60db281-touch/run.log",
+    "bytes": 1352,
+    "sha256": "11c9565fedef08301ff3d8ff0fbe4736fd1b9023913fec5cd56a04118f3fca47"
+  },
+  {
+    "file": "outdoor-60db281-touch/spring-palace-photoHunt-1.webp",
+    "bytes": 13376,
+    "sha256": "6452a6319922d560c749463e3b23bb761696c55043f3b93e3a707f9a7abb9caf"
+  },
+  {
+    "file": "outdoor-60db281-touch/spring-palace-photoHunt-2.webp",
+    "bytes": 14452,
+    "sha256": "a32435b20a3235d5b73529215a4f2e69d453aa6c2b49b40607cd6b3317998d9a"
+  },
+  {
+    "file": "outdoor-60db281-touch/spring-palace-photoHunt-3.webp",
+    "bytes": 17240,
+    "sha256": "8ee49380556fbac461288c6bbcfec1cf0b392d24e23125e888fade9e0f883787"
+  },
+  {
+    "file": "outdoor-b533317-desktop/arcul-de-triumf-photoHunt-1.webp",
+    "bytes": 46412,
+    "sha256": "c9a18285110679133184c20b6cf08fd196c82bff9f460bdeb78c9d299d1cf663"
+  },
+  {
+    "file": "outdoor-b533317-desktop/arcul-de-triumf-photoHunt-2.webp",
+    "bytes": 41628,
+    "sha256": "48e98ff730c68fed7668b5bb41c86c6bb2d3315e4996a8d13329266328b2a440"
+  },
+  {
+    "file": "outdoor-b533317-desktop/arcul-de-triumf-photoHunt-3.webp",
+    "bytes": 45080,
+    "sha256": "3c22b28d355535d8c40f1e9942dd57e7d10d2aa3e74f2d38196c27d9cfb4fcd2"
+  },
+  {
+    "file": "outdoor-b533317-desktop/athenaeum-revolution-photoHunt-1.webp",
+    "bytes": 55038,
+    "sha256": "289ab97e2c2670b0eb9503ca4ca0e54dfb9efdd74a4c17d916fa83ef0873e835"
+  },
+  {
+    "file": "outdoor-b533317-desktop/athenaeum-revolution-photoHunt-2.webp",
+    "bytes": 53702,
+    "sha256": "1fc5cd0b56e8c03c07d28303b109ee178b534bc56bf577ee67dd0e5a7c24d644"
+  },
+  {
+    "file": "outdoor-b533317-desktop/athenaeum-revolution-photoHunt-3.webp",
+    "bytes": 49570,
+    "sha256": "191364598ce1bce662d81ec31706b2bd566e63bfd8b78c28b3ab0c00f8123fe8"
+  },
+  {
+    "file": "outdoor-b533317-desktop/old-town-lipscani-curteaVecheVisit-1.webp",
+    "bytes": 54990,
+    "sha256": "d349e765a155bf430193d5cabd22aacf0078312545f8cfd0cb4b0383a8840b43"
+  },
+  {
+    "file": "outdoor-b533317-desktop/old-town-lipscani-curteaVecheVisit-2.webp",
+    "bytes": 53538,
+    "sha256": "be65bec7d7830d2b1872e21aaeafa24c401e0b2ddb3fba213758476998fc603b"
+  },
+  {
+    "file": "outdoor-b533317-desktop/old-town-lipscani-curteaVecheVisit-3.webp",
+    "bytes": 52676,
+    "sha256": "ef4bd839661379b1f92086995e09af60413738d59599827afeb80a37f410daa4"
+  },
+  {
+    "file": "outdoor-b533317-desktop/palace-parliament-photoHunt-1.webp",
+    "bytes": 52838,
+    "sha256": "bc58c978a38234187fd8e942cffde3484e4184f5ac195487eb96f6ba5e93fddd"
+  },
+  {
+    "file": "outdoor-b533317-desktop/palace-parliament-photoHunt-2.webp",
+    "bytes": 56126,
+    "sha256": "46a4c6bc1549033461c97e293c87405cdf20ab751d475af9f4512f8e342bace2"
+  },
+  {
+    "file": "outdoor-b533317-desktop/palace-parliament-photoHunt-3.webp",
+    "bytes": 53756,
+    "sha256": "f11870ed286ce896949665809e46e910a098184e4acc2ed62972d6bd62281a5d"
+  },
+  {
+    "file": "outdoor-b533317-desktop/pioneer-square-pioneerPublicHistory-1.webp",
+    "bytes": 67772,
+    "sha256": "e5c3a59d8fc6294273f30aba9ecc95df1fdd634131453790e6a625282d03ab2d"
+  },
+  {
+    "file": "outdoor-b533317-desktop/pioneer-square-pioneerPublicHistory-2.webp",
+    "bytes": 78720,
+    "sha256": "401d4d5f37131f6a2af3af4426433ec36ca3273580d94b44a6dce8d6a999eccb"
+  },
+  {
+    "file": "outdoor-b533317-desktop/pioneer-square-pioneerPublicHistory-3.webp",
+    "bytes": 82550,
+    "sha256": "0c0c650fed81892d78dcf45db475d417e0d4436665514ff2e37c4e43d4e92e92"
+  },
+  {
+    "file": "outdoor-b533317-desktop/pioneer-square-pioneerTotem-1.webp",
+    "bytes": 28112,
+    "sha256": "90f5f90ac057b799d14da9091a6b84ba6a2e15f3c083d5dc8a09911105f87b7e"
+  },
+  {
+    "file": "outdoor-b533317-desktop/pioneer-square-pioneerTotem-2.webp",
+    "bytes": 28194,
+    "sha256": "bf31079fc77327f7fa235bb2d726e6ff3a7d88454008cfb7f88beb05f42e8209"
+  },
+  {
+    "file": "outdoor-b533317-desktop/pioneer-square-pioneerTotem-3.webp",
+    "bytes": 41160,
+    "sha256": "f3ba6e5205d59eac1424d4e5104649e98513fe3305eb01d11b9c7b7f629bbf76"
+  },
+  {
+    "file": "outdoor-b533317-desktop/pioneer-square-pioneerTotem-4.webp",
+    "bytes": 41566,
+    "sha256": "66043cc52204fa3948500dbec62f8e7dec0205cade6f8544a547562a8717f83b"
+  },
+  {
+    "file": "outdoor-b533317-desktop/pioneer-square-pioneerTotem-5.webp",
+    "bytes": 60276,
+    "sha256": "ef3f023daab10fd22d47966b30bb685012cb3b3557257e79cb118b952e4774e6"
+  },
+  {
+    "file": "outdoor-b533317-desktop/pioneer-square-pioneerTotem-6.webp",
+    "bytes": 77942,
+    "sha256": "7adaa9c0e7fca0bee3074a325a87cf71da6547220af2a17e762ed61dbb56d4f3"
+  },
+  {
+    "file": "outdoor-b533317-desktop/pioneer-square-pioneerTotem-7.webp",
+    "bytes": 74078,
+    "sha256": "f24cf247ad603c504096693ca300e20b76a63b334a92137e6a4bcf4da1491b55"
+  },
+  {
+    "file": "outdoor-b533317-desktop/results.json",
+    "bytes": 37094,
+    "sha256": "dd3821c3d019587410e622095b68e934a256d9f398dbdca557faf38816d44f2e"
+  },
+  {
+    "file": "outdoor-b533317-desktop/run.log",
+    "bytes": 1293,
+    "sha256": "5803687f4d74141faf4e5ba327f257e24dc642fdf9693b3635b6736a4a073799"
+  },
+  {
+    "file": "outdoor-b533317-desktop/spring-palace-photoHunt-1.webp",
+    "bytes": 57552,
+    "sha256": "e67694f6aa412235ae0dec2b1d44f14ed1fd3c0552344a2bf6825abd96beb3e5"
+  },
+  {
+    "file": "outdoor-b533317-desktop/spring-palace-photoHunt-2.webp",
+    "bytes": 58670,
+    "sha256": "78e0756109b1b57202e608cb406449bf73a53eadf8fd926cc61f0ee10ba99f2a"
+  },
+  {
+    "file": "outdoor-b533317-desktop/spring-palace-photoHunt-3.webp",
+    "bytes": 58952,
+    "sha256": "d4e0c3743dacec741dc400afb61324206c1a1a5780f57b86139ce9ae16db57fa"
+  }
+]

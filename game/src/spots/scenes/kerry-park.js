@@ -18,6 +18,7 @@ import { railing, signBoard } from '../props.js';
 import { bench } from '../osm.js';
 import { addTraffic } from '../cars.js';
 import { seaBackdrop, seaHeight, seaActivity } from './sea-common.js';
+import { photoHunt } from '../photo-hunt.js';
 
 /** Changing Form (1971): two interlocking curved slabs of dark weathered steel, each pierced by a round opening, ≈ 4.6 m */
 function changingForm(x, y, z, yaw) {
@@ -79,7 +80,7 @@ export default {
         const cf = sp.structures.find((s) => s.id === 'changing-form');
         const yawView = Math.atan2(Math.sin(141 * Math.PI / 180), -Math.cos(141 * Math.PI / 180));
         ctx.add(changingForm(cf.x, 0.15, cf.z, yawView)); ctx.box(cf.x, cf.z, 1.4, 0.55, yawView, { prop: true, h: 4.6 });
-        ctx.interactables.push({ kind: 'frame', x: cf.x - 2.6, z: cf.z - 2.2, r: 2, label: 'Frame the skyline through Changing Form', use: (s) => { s.ctl.teleport(cf.x - Math.sin(141 * Math.PI / 180) * 3.2, cf.z + Math.cos(141 * Math.PI / 180) * 3.2, headingFromBearing(141)); s.ctl.pitch = 0.05; } });
+        ctx.interactables.push({ kind: 'frame', x: cf.x - 2.6, z: cf.z - 2.2, r: 2, label: 'Frame the skyline through Changing Form', use: s => s.ui.toast('📷 Find your own frame', 'Step behind Changing Form, look through its opening towards the Needle, then use your camera.') });
         // ---- the view: real city around the scene (the scene's own terrain box is a hole in the city ground)
         const W = d.spots['kerry-park'].extent.polygon, xs = W.map((p) => p[0]), zs = W.map((p) => p[1]), m8 = (v) => Math.round(v / 8) * 8;
         const inner = { x0: m8(Math.min(...xs) - 60), z0: m8(Math.min(...zs) - 60), x1: m8(Math.max(...xs) + 60), z1: m8(Math.max(...zs) + 60) };
@@ -97,9 +98,15 @@ export default {
         const PL = sp.plaques;
         ctx.plaque(PL[0], -14, 8.6, Math.PI); ctx.plaque(PL[1], cf.x + 2.6, cf.z + 1.0, Math.PI, { credit: 'Changing Form © 1971 Doris Totten Chase — modelled in 3-D from public descriptions.' }); ctx.plaque(PL[2], 40, 8.8, Math.PI);
         const kc = ctx.challenge('kerry-park', { r: 12, tol: 28, view: [800, 1000] }); if (kc) { const base = kc.text; Object.defineProperty(kc, 'text', { get: () => (bd.mountainVisible ? base + ' — with the Mountain out!' : base + ' (Rainier hidden by clouds today)') }); }
-        // ---- activity (note 57): the sunset photo — at golden / blue hour the postcard counts double
-        ctx.interactables.push({ kind: 'activity', id: 'kerry-sunset', x: 12.8, z: 6.2, r: 2.2, label: 'Wait for the city lights (blue hour)',
-            use: (sess) => { const k = sess.nightK ?? 0; sess.ui.toast(k > 0.2 ? '🌃 Blue hour over Seattle' : '⏳ Come back at dusk', k > 0.2 ? 'The Needle\'s halo and downtown\'s offices light up — take the postcard now.' : 'Kerry Park is busiest at sunset; the skyline lights up about 30 min after.'); if (k > 0.2) seaActivity(sess, 'lm-kerry-blue-hour', 'kerry-park'); } });
+        // Actual dusk framing, rather than a button award for the clock.
+        if (bd.needle) {
+            bd.needle.name = 'kerry-framed-needle';
+            ctx.extras.kerryNightFraming = photoHunt(ctx, { x: 12.8, z: 6.2, spot: 'kerry-park', title: 'Frame the city lights at dusk',
+                unavailable: 'Look towards the illuminated Needle from the public terrace.',
+                targets: [{ label: 'The Needle’s illuminated top house', x: bd.needle.position.x, z: bd.needle.position.z, y: bd.needle.position.y + 153, radius: 14, maxDistance: 2500, featureName: 'kerry-framed-needle', surfaceTolerance: .8, holdSeconds: .8,
+                    available: s => (s.nightK ?? 0) > .2, waitHint: 'Choose dusk or night for the city lights' }],
+                onDone: s => seaActivity(s, 'lm-kerry-blue-hour', 'kerry-park', '🌃 City lights framed', 'You aimed at the illuminated Needle and captured the dusk or night view.') });
+        }
         // ---- crowd: photographers along the railing, people on the lawn and benches, kids on the sculpture
         ctx.crowdCfg = {
             personas: { tourist_us: 4, local: 3, photographer: 2, tourist_cn: 1.5, tourist_kr: 1, tourist_jp: 1, tourist_de: 1, tourist_es: 1, tourist_ca: 1, tourist_in: 1, kid: 1 },

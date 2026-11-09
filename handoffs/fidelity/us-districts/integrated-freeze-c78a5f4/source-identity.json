@@ -1,0 +1,44 @@
+{
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "checkedAt": "2026-11-08T23:06:40.117274+00:00",
+  "archiveRoot": "/workspace/reality-pass/us-districts/snapshots/source-c78a5f4",
+  "checks": [
+    {
+      "tool": "tools/landmarks/us-source-check.mjs",
+      "toolSha256": "3dd8fd6f55d9c2944de2b1b0bafee658798de140219bb55bab31efc266c45b4a",
+      "exitCode": 0,
+      "outputSha256": "1c880808d4ea89489736d466192044f8f3ce3d5d60ccc2083899f584399bc532"
+    },
+    {
+      "tool": "tools/landmarks/seatac-aircraft-check.mjs",
+      "toolSha256": "8104e2a094280b7f33a5e786e779afacd67157bae36ad226298098f2cf5d9e28",
+      "exitCode": 0,
+      "outputSha256": "9794c9687b8aa6ee7239f18858ed20bf0e7d42aa2842d3c35a04e5bb8215aaa1"
+    },
+    {
+      "tool": "tools/landmarks/seatac-facade-check.mjs",
+      "toolSha256": "5026103dfe71359ec01559bb790b92d67a5a5ebba438d3c3a6411245aa0b0ace",
+      "exitCode": 0,
+      "outputSha256": "0977403820d57242ba40f4843012632f4596aff16372534eb1ca0235636d10f3"
+    }
+  ],
+  "datasets": [
+    {
+      "district": "seatac",
+      "sha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+      "sourceBodies": 1858,
+      "byteIdenticalToAudited437": true,
+      "auditedSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "priorAudit": "final-freeze-source-check.json"
+    },
+    {
+      "district": "bellevue",
+      "sha256": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
+      "sourceBodies": 1197,
+      "byteIdenticalToAudited437": true,
+      "auditedSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "priorAudit": "final-freeze-source-check.json"
+    }
+  ],
+  "note": "Focused current-freeze CPU source/model checks. Rendering, controller reachability, unknown source heights and photographic parity are separate evidence."
+}

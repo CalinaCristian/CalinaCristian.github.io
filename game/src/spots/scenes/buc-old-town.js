@@ -11,10 +11,16 @@
 //  No photo textures (no freedom of panorama in Romania): all modelled.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, M, rng, hash2, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb, polyArea, flatGeometry } from '../kit.js';
-import { bucBackdrop, classicFacade, classicWalls, balustradeMaterial, palisade, osmPoly, cityFiller, placeLandmark, signAtlas, oldTownTerraces, floodlight, shopfrontFacade, bucActivity } from '../buc.js';
+import { GeoBatch, M, rng, hash2, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb, polyArea } from '../kit.js';
+import { bucBackdrop, classicFacade, classicWalls, balustradeMaterial, palisade, osmPoly, cityFiller, placeLandmark, signAtlas, oldTownTerraces, facadeToward, floodlight, shopfrontFacade, bucActivity } from '../buc.js';
 import { wallGeometry } from '../osm.js';
-import { dressFor } from '../../crowd.js';
+import { buildSecretWcpBar } from './wcp-secret-bar.js';
+import { createVenueActivities } from '../venue-activities.js';
+import { collide } from '../walker.js';
+import { candleLight } from '../candle-light.js';
+import { photoHunt } from '../photo-hunt.js';
+import { sourceRecord } from '../source-buildings.js';
+import { onActivityCancel } from '../participation.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -56,57 +62,26 @@ function ironRailMaterial() { // wrought-iron balcony railing: bars, a scroll ba
     IRON = new THREE.MeshStandardMaterial({ map: t, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.5, metalness: 0.6, color: '#ffffff' }); IRON.name = 'ot-iron'; IRON.userData.shared = true;
     return IRON;
 }
-/** keep only the outward quad of a 2-point wallGeometry (it builds a→b and b→a; the inner duplicate z-fights) */
-function oneSided(g, A, B) {
-    const P = g.attributes.position, ix = g.index.array, keep = [];
-    for (let t = 0; t < ix.length; t += 3) { const a = ix[t]; const nx = g.attributes.normal.getX(a), nz = g.attributes.normal.getZ(a); const ox = B[1] - A[1], oz = -(B[0] - A[0]); if (nx * ox + nz * oz > 0) keep.push(ix[t], ix[t + 1], ix[t + 2]); }
-    if (keep.length) g.setIndex(keep); void P; return g;
-}
-function oldTownFronts(ctx, { exclude = [], bar = null } = {}) {
-    let barInfo = null;
-    const d = ctx.data, g = ctx.ground, b = new GeoBatch(), mats = {}, r = rng(41);
+function oldTownFronts(ctx, { exclude = [] } = {}) {
+    const d = ctx.data, g = ctx.ground, b = new GeoBatch();
     const ways = d.ways.filter((w) => ['pedestrian', 'living_street', 'footway', 'residential'].includes(w.k) && OT_NAMES.test(w.name || ''));
     const exts = Object.values(d.spots).map((s) => s.extent.polygon);
     const nearWay = (x, z) => { let best = 1e9; for (const w of ways) { const q = distPolyline(x, z, w.pts); if (q.d < best) best = q.d; } return best; };
-    const shop = shopfrontFacade('ot-shop', { bay: 3.4, floor: 4.4 }); mats[shop.key] = shop.mat;
-    const facs = OT_VARIANTS.map(([key, rows, o], i) => { const f = classicFacade(key, rows, { bay: 3.4, floor: 3.7, res: 2, lit: 0.4, seed: i * 7, ...o }); mats[f.key] = f.mat; return f; });
     const rails = new GeoBatch(), built = [];
     for (let bd of d.buildings) {
         if (bd.part || ctx.skipBuildings.has(bd.id) || /church|roof|kiosk|chapel/.test(bd.k || '') || (bd.h || 0) > 26) continue;
-        let parts = null;
-        if (bd.hasParts) { // outline with building:parts (e.g. Lipscani 53, Gilda): one front on the outline, the parts' max height
-            parts = d.buildings.filter((x) => x.part && inPoly(...centroid(x.poly), bd.poly)); const hp = Math.max(0, ...parts.map((x) => x.h || 0));
-            if (hp > 26) continue; bd = { ...bd, h: bd.h || hp || undefined };
-        }
-        const p0 = polyArea(bd.poly) > 0 ? bd.poly : [...bd.poly].reverse(), p = simplifyRing(p0.filter((q, i) => { const n = p0[(i + 1) % p0.length]; return Math.hypot(n[0] - q[0], n[1] - q[1]) > 0.25; }), 0.12), [cx, cz] = centroid(p);
+        const p = polyArea(bd.poly) > 0 ? bd.poly : [...bd.poly].reverse(), [cx, cz] = centroid(p);
+        // Native source solids/parts/holes/roofs stay in the shared renderer.
+        // These optional historic trim details never replace a building.
+        if(bd.holes?.length || bd.hasParts) continue;
         if (!exts.some((e) => inPoly(cx, cz, e)) || exclude.some((e) => inPoly(cx, cz, e)) || Math.abs(polyArea(p)) < 25) continue;
         if (!p.some(([x, z]) => nearWay(x, z) < 8)) continue;
-        ctx.skipBuildings.add(bd.id); if (parts) for (const x of parts) ctx.skipBuildings.add(x.id);
-        const hs = hash2(cx * 0.37, cz * 0.53), lv = Math.max(2, Math.min(6, bd.lv || (bd.h ? Math.round((bd.h - 4.4) / 3.7) + 1 : 2 + Math.floor(hs * 3.2))));
-        let gmin = 1e9, gmax = -1e9; for (const [x, z] of p) { const h = g.heightAt(x, z); gmin = Math.min(gmin, h); gmax = Math.max(gmax, h); }
-        const base = gmin - 0.4, GF = 4.4, top = gmax + GF + (lv - 1) * 3.7;
-        const v = Math.floor(hash2(cz * 0.11, cx * 0.17) * facs.length), fac = facs[v], col = OT_COLS[Math.floor(hash2(cx, cz) * OT_COLS.length)];
-        const row = /^(yes|retail|commercial)$/.test(bd.k || 'yes') ? [0, 0, 1, 2, 2, 0, 1][Math.floor(hs * 7)] : 3;
-        // note 79: one compact Lipscani building becomes the hidden football bar (walk-in ground floor with a real doorway)
-        let door = null;
-        if (bar && !barInfo) { const o2 = obb(p); if (o2 && o2.len >= 10 && o2.wid >= 8 && Math.abs(polyArea(p)) / (o2.len * o2.wid) > 0.82 && cx > bar.x0 && cx < bar.x1) {
-            const lips = ways.filter((w) => /Lipscani/.test(w.name || '') && w.k === 'pedestrian');
-            for (let i = 0; i < p.length && !door; i++) { const [ax, az] = p[i], [bx, bz] = p[(i + 1) % p.length], L = Math.hypot(bx - ax, bz - az), mx = (ax + bx) / 2, mz = (az + bz) / 2; if (L < 7) continue; const nx0 = (bz - az) / L, nz0 = -(bx - ax) / L; if (!lips.some((w) => { const q = distPolyline(mx, mz, w.pts); return q.d < 9 && (q.cx - mx) * nx0 + (q.cz - mz) * nz0 > 0.5; })) continue; /* the edge FACING Lipscani */ door = { i, a: [ax, az], b: [bx, bz], L, mx, mz, ux: (bx - ax) / L, uz: (bz - az) / L, nx: (bz - az) / L, nz: -(bx - ax) / L }; } } }
-        if (door) {
-            const d0 = [door.mx - door.ux * 1.0, door.mz - door.uz * 1.0], d1 = [door.mx + door.ux * 1.0, door.mz + door.uz * 1.0];
-            for (let i = 0; i < p.length; i++) { const A = p[i], B = p[(i + 1) % p.length]; const segs = i === door.i ? [[A, d0], [d1, B]] : [[A, B]]; for (const [P0, P1] of segs) { const gw = oneSided(wallGeometry([P0, P1], base, gmax + GF, shop.S, gmax - 2 * GF, col), P0, P1); b.add(gw, shop.key, null, col); } }
-            b.add(oneSided(wallGeometry([d0, d1], gmax + 2.7, gmax + GF, shop.S, gmax - 3 * GF, col), d0, d1), shop.key, null, col);
-            barInfo = { bd, p, gmax, GF, top, door, col };
-        } else b.add(wallGeometry(p, base, gmax + GF, shop.S, gmax - row * GF, col), shop.key, null, col);
-        b.add(wallGeometry(p, gmax + GF, top, fac.S, gmax + GF, col), fac.key, null, col);
-        const light = '#f2ede2';
-        b.prism(grow(p, 0.16), gmax + GF - 0.22, gmax + GF + 0.12, light, 'stone');                       // string course
-        b.prism(grow(p, 0.42), top - 0.5, top - 0.15, light, 'stone', { noTop: true, bottom: true });      // cornice (two steps)
-        b.prism(grow(p, 0.22), top - 0.15, top + 0.1, light, 'stone', { noTop: true, bottom: true });
-        b.flat(grow(p, 0.22), top + 0.1, '#77736c', 'roofs');                                               // roof (= cornice top)
-        b.prism(p, top + 0.1, top + 0.75, col, 'stone', { noTop: true });                                     // attic parapet
-        const o = obb(p), fill = o ? Math.abs(polyArea(p)) / (o.len * o.wid) : 0;
-        if (o && fill > 0.82 && o.wid < 17 && hs > 0.3) { const rh = Math.min(3.2, o.wid * 0.28), rc = hs > 0.62 ? '#8a4a33' : '#6c7074'; b.add(new THREE.CylinderGeometry(Math.SQRT1_2 * 0.45, Math.SQRT1_2, 1, 4, 1).rotateY(Math.PI / 4), 'roofs', M(o.cx, top + 0.1 + rh / 2, o.cz, 0, -o.angle, 0, o.len - 0.2, rh, o.wid - 0.2), rc); }
+        const hs=hash2(cx*.37,cz*.53),record=sourceRecord(bd,0,g),gmax=record.datum,GF=Math.min(4.4,record.height*.5),top=gmax+record.height;
+        const lv=Math.max(1,Math.floor((record.height-GF)/3.7)+1),light='#f2ede2';
+        // Ornament sizes and balcony repetition are explicit visual estimates;
+        // literal source mass/roof heights and every geometry member win.
+        if(record.height>7)b.prism(grow(p,.12),gmax+GF-.12,gmax+GF+.08,light,'stone',{noTop:true});
+        b.prism(grow(p,.18),top-.22,top,light,'stone',{noTop:true,bottom:true});
         // 3-D balconies with wrought-iron railings on the street side (first floor, where the façade row has a balconette)
         for (let i = 0; i < p.length; i++) {
             const [ax, az] = p[i], [bx, bz] = p[(i + 1) % p.length], L = Math.hypot(bx - ax, bz - az); if (L < 6.5) continue;
@@ -124,149 +99,11 @@ function oldTownFronts(ctx, { exclude = [], bar = null } = {}) {
                 for (const [uu, s] of [[u0, 1], [u1, -1]]) rails.quad(P(uu, 0.02, yb), P(uu, D, yb), P(uu, D, yb + 1.0), P(uu, 0.02, yb + 1.0), '#ffffff', 'iron', [0, 0, D / 1.6, 0, D / 1.6, 1, 0, 1]);
             }
         }
-        if (barInfo?.bd === bd) { ringWalls(ctx, p, base - 1, top + 1, [{ x: barInfo.door.mx, z: barInfo.door.mz, w: 2.0 }]); } else ctx.poly(p, { y0: base - 1, y1: top + 1 });
         built.push({ bd, p, inner: grow(p, -0.4), top, gmax, GF, lv });
     }
-    // OSM footprints that overlap a rebuilt front (duplicate / overlapping ways) would z-fight with it: drop them
-    for (const x of d.buildings) { if (x.part || ctx.skipBuildings.has(x.id)) continue; const [qx, qz] = centroid(x.poly); if (built.some((B) => inPoly(qx, qz, B.p) || x.poly.filter(([vx, vz]) => inPoly(vx, vz, B.inner)).length >= 2)) ctx.skipBuildings.add(x.id); }
-    ctx.add(b.build('old-town-fronts', { matOverrides: mats }));
+    ctx.add(b.build('old-town-facade-trim'));
     ctx.add(rails.build('old-town-balconies', { castShadow: true, matOverrides: { iron: ironRailMaterial() } }));
-    return { built, ways, bar: barInfo };
-}
-
-// ---------------------------------------------------------------------------- note 79: the hidden football bar + World Cup Predictions kiosk
-// Not a real venue: a World Cup–themed sports bar inside one Lipscani building, showcasing the owner's own project World Cup
-// Predictions (previews captured from the live site into game/assets/wcp/). Generic football only: no official logos or trophy.
-const WCP_URL = 'https://wcpredictions.cristiancalina.com/';
-const WCP_PAGES = ['home', 'matches', 'standings', 'bracket', 'today', 'guide'];
-const NATIONS = [['#002b7f', '#fcd116', '#ce1126'], ['#000000', '#dd0000', '#ffce00'], ['#0055a4', '#ffffff', '#ef4135'], ['#009246', '#ffffff', '#ce2b37'], ['#74acdf', '#ffffff', '#74acdf'], ['#009c3b', '#ffdf00', '#002776'], ['#c60b1e', '#ffc400', '#c60b1e'], ['#ff6600', '#ffffff', '#21468b'], ['#006600', '#ff0000', '#ffcc00'], ['#ffffff', '#cf142b', '#ffffff'], ['#000000', '#ffd700', '#e00000'], ['#006847', '#ffffff', '#ce1126']];
-function pitchCanvas() {
-    const c = canvas(512, 288), x = c.getContext('2d');
-    const P = Array.from({ length: 22 }, (_, i) => ({ x: 60 + (i % 11) * 36 + (i < 11 ? 0 : 20), y: 50 + ((i * 37) % 190), t: i < 11 ? 0 : 1 })), ball = { x: 256, y: 144, vx: 2.4, vy: 1.3 };
-    let score = [0, 0], tm = 0;
-    const draw = (t) => {
-        x.fillStyle = '#2f7d32'; x.fillRect(0, 0, 512, 288); for (let i = 0; i < 8; i++) { x.fillStyle = i % 2 ? '#2b752e' : '#338537'; x.fillRect(16 + i * 60, 16, 60, 256); }
-        x.strokeStyle = 'rgba(255,255,255,0.85)'; x.lineWidth = 2; x.strokeRect(16, 16, 480, 256); x.beginPath(); x.moveTo(256, 16); x.lineTo(256, 272); x.stroke(); x.beginPath(); x.arc(256, 144, 36, 0, 7); x.stroke(); x.strokeRect(16, 84, 60, 120); x.strokeRect(436, 84, 60, 120);
-        ball.x += ball.vx; ball.y += ball.vy; if (ball.y < 22 || ball.y > 266) ball.vy *= -1; if (ball.x < 20 || ball.x > 492) { if (ball.y > 110 && ball.y < 178) score[ball.x < 20 ? 1 : 0]++; ball.x = 256; ball.y = 144; ball.vx = (Math.random() < 0.5 ? -1 : 1) * (1.8 + Math.random()); ball.vy = (Math.random() - 0.5) * 3; }
-        for (const p of P) { p.x += (ball.x - p.x) * 0.012 + Math.sin(t * 1.3 + p.y) * 0.6; p.y += (ball.y - p.y) * 0.01 + Math.cos(t + p.x) * 0.5; x.fillStyle = p.t ? '#f2f2f2' : '#c8102e'; x.beginPath(); x.arc(p.x, p.y, 4.5, 0, 7); x.fill(); }
-        x.fillStyle = '#ffffff'; x.beginPath(); x.arc(ball.x, ball.y, 3, 0, 7); x.fill();
-        x.fillStyle = 'rgba(0,0,0,0.65)'; x.fillRect(12, 6, 150, 22); x.fillStyle = '#fff'; x.font = '700 15px Helvetica, Arial'; x.fillText(`RED ${score[0]} – ${score[1]} WHT  ${String(Math.floor(tm / 60) % 90).padStart(2, '0')}'`, 18, 22);
-    };
-    draw(0);
-    return { c, step(dt, t) { tm += dt * 6; draw(t); } };
-}
-// note 84: the kiosk opens a panel about the project (facts only from the site's own home / guide pages), with a screenshot
-// carousel and "Open the site"; same panel container + close rules as the spot plaques (Esc / E / Close, focus back to the game)
-const WCP_CAPS = { home: 'Home — the 2026 tournament at a glance', matches: 'Matches — every fixture, pick the outcome', standings: 'Standings — the World leaderboard and your groups', bracket: 'Bracket — groups through to the final', today: 'Today — the matchday board with live results', guide: 'Guide — how picks and points work' };
-let WCP_CSS = false;
-function wcpPanel(s, onSeen) {
-    const ui = s.ui, p = ui.$('.sp-panel'); if (!p || ui.panelOpen) return;
-    if (!WCP_CSS) { WCP_CSS = true; const st = document.createElement('style'); st.textContent = `
-#spot-ui .wcp{width:min(760px,calc(100vw - 24px));max-height:calc(100vh - 24px);overflow:auto;background:linear-gradient(165deg,#0f2a1a,#0b1d13);border:2px solid #f4d35e;border-radius:12px;padding:18px 20px;color:#eef3ea;box-shadow:0 20px 60px rgba(0,0,0,.6);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-#spot-ui .wcp h3{margin:0;font-size:24px;color:#f4d35e} #spot-ui .wcp .wcp-sub{margin:4px 0 12px;opacity:.9}
-#spot-ui .wcp h4{margin:12px 0 6px;font-size:15px;text-transform:uppercase;letter-spacing:1px;color:#f4d35e}
-#spot-ui .wcp ul{margin:0 0 6px 18px;padding:0} #spot-ui .wcp li{margin:0 0 5px}
-#spot-ui .wcp .wcp-car{position:relative;margin-top:10px;background:#000;border-radius:8px;overflow:hidden;touch-action:pan-y}
-#spot-ui .wcp .wcp-car img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#0b0f0c}
-#spot-ui .wcp .wcp-cap{font-size:13px;opacity:.85;margin:6px 2px 0;text-align:center}
-#spot-ui .wcp .wcp-nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font:700 20px system-ui;cursor:pointer}
-#spot-ui .wcp .wcp-prev{left:8px} #spot-ui .wcp .wcp-next{right:8px}
-#spot-ui .wcp .wcp-dots{display:flex;gap:6px;justify-content:center;margin-top:6px} #spot-ui .wcp .wcp-dots span{width:8px;height:8px;border-radius:50%;background:#4b5b50} #spot-ui .wcp .wcp-dots span.on{background:#f4d35e}
-#spot-ui .wcp .wcp-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px} #spot-ui .wcp .wcp-btns a,#spot-ui .wcp .wcp-btns button{font:700 15px system-ui;border-radius:8px;padding:10px 16px;cursor:pointer;text-decoration:none;border:0}
-#spot-ui .wcp .wcp-open{background:#f4d35e;color:#0f2a1a} #spot-ui .wcp .wcp-close{background:#2c3e33;color:#eef3ea}
-@media (max-width:480px){#spot-ui .wcp{padding:14px 14px;font-size:14px} #spot-ui .wcp h3{font-size:20px}}`; document.head.appendChild(st); }
-    if (s.input) { s.input.lookAllowed = false; s.input.releaseLock?.(); }
-    const url = (n) => new URL(`../../../assets/wcp/${n}.webp`, import.meta.url).href;
-    p.innerHTML = `<div class="wcp" role="dialog" aria-label="World Cup Predictions"><h3>World Cup Predictions</h3>
-<div class="wcp-sub">A side project by Cristian, built for fun — a World Cup 2026 prediction game to play with friends.</div>
-<h4>How it works</h4><ul>
-<li>Build as many fun prediction sets as you like, then submit one official set per edition — to the World leaderboard or to your private groups.</li>
-<li>Every saved pick is a "contract": its points are frozen from the odds when you save, so harder correct picks pay more (a 64 % favourite: +10 / −9; a 12 % underdog: +38 / −2).</li>
-<li>Private groups use reusable invite links and the same scoring as World.</li>
-<li>Picks stay hidden until you submit them to that scope, and become a read-only archive after the tournament.</li>
-<li>The whole 2026 tournament: 48 teams, 104 matches, from the groups to the final bracket, a matchday board with live results, an AI forecast, in Romanian and English.</li></ul>
-<div class="wcp-car"><img alt=""><button class="wcp-nav wcp-prev" aria-label="Previous">‹</button><button class="wcp-nav wcp-next" aria-label="Next">›</button></div>
-<div class="wcp-cap"></div><div class="wcp-dots">${WCP_PAGES.map(() => '<span></span>').join('')}</div>
-<div class="wcp-btns"><a class="wcp-open" href="${WCP_URL}" target="_blank" rel="noopener">Open the site ↗</a><button class="wcp-close" data-close>Close</button></div></div>`;
-    let i = 0; const img = p.querySelector('.wcp-car img'), cap = p.querySelector('.wcp-cap'), dots = [...p.querySelectorAll('.wcp-dots span')];
-    const show = (k) => { i = (k + WCP_PAGES.length) % WCP_PAGES.length; img.src = url(WCP_PAGES[i]); img.alt = WCP_CAPS[WCP_PAGES[i]]; cap.textContent = `${i + 1} / ${WCP_PAGES.length} · ${WCP_CAPS[WCP_PAGES[i]]}`; dots.forEach((d, j) => d.classList.toggle('on', j === i)); };
-    show(0); p.classList.add('show'); onSeen?.();
-    p.querySelector('.wcp-prev').onclick = () => show(i - 1); p.querySelector('.wcp-next').onclick = () => show(i + 1);
-    { const car = p.querySelector('.wcp-car'); let x0 = null; car.addEventListener('pointerdown', (e) => { x0 = e.clientX; }); car.addEventListener('pointerup', (e) => { if (x0 !== null && Math.abs(e.clientX - x0) > 40) show(i + (e.clientX < x0 ? 1 : -1)); x0 = null; }); }
-    p.querySelector('.wcp-open').addEventListener('click', () => onSeen?.());
-    const swallowUp = (e) => { e.preventDefault(); e.stopPropagation(); window.removeEventListener('keyup', swallowUp, true); };
-    const close = (e) => { if (!p.classList.contains('show')) return; p.classList.remove('show'); window.removeEventListener('keydown', key, true); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; ui._closePanel = null; if (s.input) { s.input.lookAllowed = true; s.input.flush?.(); s.input.keys?.clear?.(); } s.returnFocus?.(); };
-    const key = (e) => { if (['Escape', 'KeyE'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } else if (e.code === 'ArrowLeft' || e.code === 'ArrowRight') { e.preventDefault(); e.stopPropagation(); show(i + (e.code === 'ArrowRight' ? 1 : -1)); } };
-    p.querySelector('[data-close]').onclick = () => close(); p.onclick = (e) => { if (e.target === p) close(); };
-    setTimeout(() => window.addEventListener('keydown', key, true), 120);
-    ui._closePanel = close;
-}
-function buildWcpBar(ctx, B) {
-    const g = ctx.ground, { p, gmax, door } = B, y = gmax + 0.03, H = 4.1, b = new GeoBatch();
-    // the bar is one room ≈ 10 m deep behind the street front (a real Lipscani bar), not the whole building: a back wall closes it
-    const o = obb(p), D = Math.max(6, Math.min(10.5, Math.max(o.wid, o.len) - 1)), RW = door.L / 2 - 0.3;
-    const Q = (u, v) => [door.mx + door.ux * u - door.nx * v, door.mz + door.uz * u - door.nz * v];
-    let inner = [Q(-RW, 0.3), Q(RW, 0.3), Q(RW, D), Q(-RW, D)]; if (polyArea(inner) < 0) inner = inner.reverse();
-    { const [ax, az] = Q(-RW, D), [bx, bz] = Q(RW, D); wallSeg(ctx, ax, az, bx, bz, y - 1, y + H); }
-    // floor (walkable), ceiling, warm dark-red interior walls with a wood dado
-    let floorP = [Q(-RW, -0.12), Q(RW, -0.12), Q(RW, D), Q(-RW, D)]; if (polyArea(floorP) < 0) floorP = floorP.reverse(); // floor runs out under the threshold (no grass strip in the doorway)
-    b.flat(floorP, y, '#5a3a24', 'wood'); g.addPoly(floorP, y, y - 2);
-    { const cg = flatGeometry(inner, y + H); const idx = cg.index.array; for (let i = 0; i < idx.length; i += 3) { const t = idx[i]; idx[i] = idx[i + 1]; idx[i + 1] = t; } cg.computeVertexNormals(); b.add(cg, 'paint', null, '#2a2220'); cg.dispose(); }
-    const inward = (geo) => { const ix = geo.index.array; for (let i = 0; i < ix.length; i += 3) { const t = ix[i]; ix[i] = ix[i + 1]; ix[i + 1] = t; } geo.computeVertexNormals(); return geo; }; // wallGeometry faces outward: flip to face into the room
-    b.add(inward(wallGeometry(inner, y, y + H, { bay: 3, floor: 4 }, y, '#9a4434')), 'paint', null, '#9a4434'); b.add(inward(wallGeometry(grow(inner, -0.03), y, y + 1.0, { bay: 3, floor: 4 }, y, '#4a2e1c')), 'wood', null, '#4a2e1c');
-    // local frame: u along the street front, v inward
-    ctx.extras.wcpDoor = { mx: door.mx, mz: door.mz, nx: door.nx, nz: door.nz, y };
-    const ux = door.ux, uz = door.uz, vx = -door.nx, vz = -door.nz, depth = D - 0.3, half = door.L / 2 - 0.6;
-    const P = (u, v) => [door.mx + ux * u + vx * v, door.mz + uz * u + vz * v], yaw = Math.atan2(ux, uz);
-    // bar counter along the back wall, taps, bottle shelves, stools
-    const cv = depth - 1.6; { const [x, z] = P(0, cv); b.box(x, y, z, 0.7, 1.08, door.L * 0.62, '#3b2416', 'wood', yaw); b.box(x, y + 1.08, z, 0.82, 0.06, door.L * 0.64, '#1d1a17', 'stone', yaw); ctx.box(x, z, door.L * 0.31, 0.4, Math.atan2(vx, vz) + Math.PI / 2, { prop: true, h: 1.1 });
-        for (let k = -3; k <= 3; k++) { const [tx, tz] = P(k * 0.35, cv + 0.15); b.cyl(tx, y + 1.14, tz, 0.03, 0.42, '#c9c9c9', 'chrome', 8); b.box(tx, y + 1.5, tz, 0.07, 0.14, 0.05, NATIONS[(k + 6) % NATIONS.length][0], 'paint', yaw); }
-        const [sx, sz] = P(0, depth - 0.25); for (const hh of [1.3, 1.8, 2.3]) { b.box(sx, y + hh, sz, 0.3, 0.04, door.L * 0.62, '#3b2416', 'wood', yaw); for (let k = 0; k < 26; k++) { const [bx, bz] = P(-door.L * 0.29 + k * door.L * 0.58 / 25, depth - 0.25); b.cyl(bx, y + hh + 0.04, bz, 0.035, 0.26, ['#2e5a2e', '#6b3a1a', '#d8d0b0', '#3a2a5a', '#8a1a1a'][k % 5], 'glass', 6); } }
-        for (let k = -2; k <= 2; k++) { const [qx, qz] = P(k * door.L * 0.13, cv - 0.75); b.cyl(qx, y, qz, 0.03, 0.75, '#222', 'metal', 6); b.cyl(qx, y + 0.75, qz, 0.2, 0.06, '#5a1e22', 'fabric', 10); } }
-    // high tables, scarves and flags of many nations, bunting across the ceiling
-    for (const [u, v] of [[-half * 0.6, 1.8], [half * 0.6, 1.8], [-half * 0.6, 3.6], [half * 0.6, 3.6]]) { if (v > cv - 1.2) continue; const [x, z] = P(u, v); b.cyl(x, y, z, 0.05, 1.05, '#1e1f21', 'metal', 6); b.cyl(x, y + 1.05, z, 0.38, 0.04, '#3b2416', 'wood', 12); ctx.circle(x, z, 0.4, 1.1); }
-    NATIONS.forEach((n, i) => { const side = i % 2 ? 1 : -1, v = 0.8 + (i >> 1) * Math.max(0.6, (depth - 1.6) / 6); const [x, z] = P(side * (door.L / 2 - 0.36), v); for (let k = 0; k < 3; k++) b.box(x, y + 2.3 + k * 0.42, z, 0.03, 0.42, 1.0, n[k], 'fabric', yaw); });
-    for (let row = 0; row < 3; row++) { const v = 1.2 + row * (depth - 2) / 3, n = 16; for (let k = 0; k < n; k++) { const u = -half + k * (half * 2) / (n - 1), [x, z] = P(u, v), col = NATIONS[(k + row * 5) % NATIONS.length][k % 3]; b.add(new THREE.ConeGeometry(0.12, 0.26, 3), 'fabric', M(x, y + H - 0.32, z, Math.PI, yaw, 0), col); } }
-    for (let k = 0; k < 5; k++) { const [x, z] = P(-half + 0.3 + k * 0.5, cv - 0.02); b.box(x, y + 1.6, z, 0.18, 0.9, 0.02, NATIONS[k * 2][k % 2], 'fabric', yaw); } // scarves hung on the bar front
-    // TVs: three screens on the side walls + one over the bar, all showing the same animated generic match
-    const pc = pitchCanvas(), tvTex = canvasTexture(pc.c), tvMat = new THREE.MeshBasicMaterial({ map: tvTex, color: new THREE.Color(0.8, 0.8, 0.8), toneMapped: false }); tvMat.name = 'wcp-tv';
-    const tvs = [];
-    const tv = (u, v, ry, w = 1.6) => { const [x, z] = P(u, v); b.box(x, y + 2.1, z, w + 0.08, w * 0.5625 + 0.08, 0.06, '#111', 'plastic', ry); const m = new THREE.Mesh(new THREE.PlaneGeometry(w, w * 0.5625), tvMat); m.position.set(x + Math.sin(ry) * 0.035, y + 2.1 + (w * 0.5625 + 0.08) / 2, z + Math.cos(ry) * 0.035); m.rotation.y = ry; ctx.add(m); tvs.push(m); };
-    tv(0, depth - 0.3, yaw + Math.PI, 1.9); tv(-(door.L / 2 - 0.32), Math.min(depth * 0.45, 3.2), yaw + Math.PI / 2, 1.5); tv(door.L / 2 - 0.32, Math.min(depth * 0.45, 3.2), yaw - Math.PI / 2, 1.5);
-    let acc = 0; ctx.onUpdate((dt, s) => { const pp = s.position; if (Math.hypot(pp.x - door.mx, pp.z - door.mz) > 40) return; acc += dt; if (acc < 0.08) return; pc.step(acc, s.t); acc = 0; tvTex.needsUpdate = true; });
-    // the World Cup Predictions kiosk (owner's project): a standing screen cycling through the site previews; E = next page
-    const kv = Math.min(1.6, depth * 0.3), [kx, kz] = P(-(half - 0.5), kv), kyaw = yaw + Math.PI / 2 * 0 + Math.atan2(0, 1) + Math.PI * 0 + (Math.PI / 2); void kyaw;
-    const kioskYaw = Math.atan2(ux, uz) + Math.PI / 2; // faces +u (into the room from the left wall)
-    b.box(kx, y, kz, 0.6, 0.9, 0.5, '#1d1f22', 'plastic', kioskYaw); b.box(kx, y + 0.9, kz, 0.12, 0.6, 0.12, '#1d1f22', 'metal', kioskYaw);
-    const tl = new THREE.TextureLoader(), pages = WCP_PAGES.map((n) => { const t = tl.load(new URL(`../../../assets/wcp/${n}.webp`, import.meta.url).href); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; });
-    const kMat = new THREE.MeshBasicMaterial({ map: pages[0], color: new THREE.Color(0.82, 0.82, 0.82), toneMapped: false }); kMat.name = 'wcp-kiosk'; // readable: unlit, ~0.82 white, under the bloom threshold
-    const kScr = new THREE.Mesh(new THREE.PlaneGeometry(1.28, 0.8), kMat); const fx = Math.sin(kioskYaw), fz = Math.cos(kioskYaw);
-    b.box(kx, y + 1.45, kz, 1.38, 0.9, 0.08, '#111', 'plastic', kioskYaw); kScr.position.set(kx + fx * 0.045, y + 1.9, kz + fz * 0.045); kScr.rotation.y = kioskYaw; kScr.name = 'wcp-kiosk-screen'; ctx.add(kScr);
-    let page = 0, auto = 0; const show = (i) => { page = (i + pages.length) % pages.length; kMat.map = pages[page]; kMat.needsUpdate = true; };
-    ctx.onUpdate((dt) => { auto += dt; if (auto > 5) { auto = 0; show(page + 1); } });
-    const sg = signAtlas([{ x: kx + fx * 0.05, y: y + 2.5, z: kz + fz * 0.05, yaw: kioskYaw, w: 1.38, h: 0.22, text: 'WORLD CUP PREDICTIONS', bg: '#0f2a1a', fg: '#f1e6c8', border: false, font: (q) => `700 ${q}px Helvetica, Arial, sans-serif` },
-        { x: door.mx + door.nx * 0.14, y: gmax + 3.4, z: door.mz + door.nz * 0.14, yaw: Math.atan2(door.nx, door.nz), w: 3.6, h: 0.6, text: 'GOLAZO · football bar', bg: '#0f2a1a', fg: '#f4d35e' }], { name: 'wcp-signs', night: 1.0 }); if (sg) ctx.add(sg);
-    const kp = { x: kx + fx * 1.0, z: kz + fz * 1.0 };
-    const seen = (s) => { if (!s._wcpSeen) { s._wcpSeen = true; bucActivity(s, 'old-town-lipscani', 'wcp-bar', '⚽ Hidden project', 'World Cup Predictions — a side project by Cristian.'); } };
-    ctx.interactables.push({ hidden: true, x: kp.x, z: kp.z, r: 1.8, label: 'World Cup Predictions — look at the screen', use: (s) => { auto = -6; wcpPanel(s, () => seen(s)); } });
-    ctx.extras.openWcp = (s) => wcpPanel(s, () => seen(s)); // dev / screenshots
-    ctx.plaque({ title: 'A project by Cristian — World Cup Predictions', text: 'Not a real bar: a nod to the author\'s side project World Cup Predictions — a web app to predict every match of the tournament with friends, with live standings, the knockout bracket and a daily view. Browse it on the screen, or open the site.', source: WCP_URL, source_url: WCP_URL }, kx + ux * 1.9 + fx * 0.3, kz + uz * 1.9 + fz * 0.3, kioskYaw, { style: 'city', y });
-    // warm pendant lights, chants
-    for (const [u, v] of [[-half * 0.5, depth * 0.35], [half * 0.5, depth * 0.35], [0, depth * 0.7]]) { const [x, z] = P(u, v); b.rod([x, y + H, z], [x, y + H - 0.7, z], 0.01, '#111', 'metal', 3); b.sphere(x, y + H - 0.78, z, 0.22, 0.16, 0.22, '#ffcf8a', 'glow', 10, 6); }
-    for (const v of [0.6, D - 0.5]) { const [x, z] = P(0, v); b.box(x, y + H - 0.12, z, 0.08, 0.06, door.L - 1.2, '#ffd9a0', 'glow', yaw); } // warm LED strips under the ceiling
-    // Romanian supporters (owner, note 79): a "TRICOLORII" banner in blue-yellow-red over the screen wall
-    { const [x, z] = P(0, depth - 0.12); for (let k = 0; k < 3; k++) { const [bx, bz] = P((k - 1) * 0.9, depth - 0.12); b.box(bx, y + 3.15, bz, 0.9, 0.6, 0.02, ['#002b7f', '#fcd116', '#ce1126'][k], 'fabric', yaw); } void x; void z;
-      const bs = signAtlas([{ x: P(0, depth - 0.16)[0], y: y + 3.45, z: P(0, depth - 0.16)[1], yaw: yaw + Math.PI, w: 2.4, h: 0.36, text: 'HAI ROMÂNIA! · TRICOLORII', bg: '#fcd116', fg: '#002b7f', border: false, font: (q) => `800 ${q}px Helvetica, Arial, sans-serif` }], { name: 'wcp-banner', night: 0.6 }); if (bs) ctx.add(bs); }
-    ctx.add(b.build('wcp-bar', { castShadow: false }));
-    for (const v of [D * 0.3, D * 0.7]) { const [x, z] = P(0, v); ctx.lampPoints.push({ x, z, h: H - 0.9 + (y - g.heightAt(x, z)), noPost: true }); }
-    ctx.sound('crowd', door.mx + vx * depth / 2, door.mz + vz * depth / 2, 14, 1.0);
-    // fans: watching the screens, sitting at the bar, a group at the high tables
-    const [fx0, fz0] = P(0, Math.min(depth * 0.35, cv - 1.8)), [tvx, tvz] = P(0, depth);
-    return { door, groups: [
-        ...[[-half * 0.22, 2.7], [half * 0.22, Math.min(4.9, cv - 2.2)], [0, Math.min(6.4, cv - 1.4)]].map(([u, v]) => { const [gx, gz] = P(u, v); return { x: gx, z: gz, r: 0.55, n: 3, act: 'watch', look: [tvx, tvz], fixedYaw: true, y, personas: ['fan_ro'] }; }), // three groups round the high tables, all facing the screen over the bar
-        ...[-1, 1].map((k) => { const [qx, qz] = P(k * door.L * 0.13, cv - 0.75); return { x: qx, z: qz, r: 0.01, n: 1, act: 'sit', yaw: yaw + Math.PI / 2 * 0 + Math.atan2(vx, vz) - yaw, y, fixedYaw: true, personas: ['fan_ro'] }; }),
-        { x: door.mx + vx * 0.9 + ux * (half - 0.4), z: door.mz + vz * 0.9 + uz * (half - 0.4), r: 0.6, n: 2, act: 'talk', y, personas: ['fan_ro'] },
-    ] };
+    return { built, ways, decoratedIds:new Set(built.map(x=>x.bd.id)) };
 }
 
 // ---------------------------------------------------------------------------- festoon string lights (note 25)
@@ -319,7 +156,7 @@ function festoons(ctx, ways, { spacing = 5.5, height = 5.6 } = {}) {
 // OSM way 658009149: 27.4 × 13.4 m, the narrow front faces Lipscani (south). Street front: rusticated white stucco, a giant
 // arch over two storeys filled with a three-light arched window, the "cărturești" band over the shop window, an attic
 // aedicule with urn finials and the glass mansard roof. Inside: six white levels round an oval atrium with undulating
-// balustrades, bookshelves on every wall, the bistro on the top floor (levels reached with E at the stair).
+// balustrades, bookshelves on every wall, the bistro on the top floor (levels reached by walking the modeled stair).
 function buildCarusel(ctx) {
     const d = ctx.data, g = ctx.ground, bd = d.buildings.find((x) => x.id === 'w658009149'); if (!bd) return null;
     ctx.skipBuildings.add(bd.id);
@@ -364,7 +201,7 @@ function buildCarusel(ctx) {
     b.add(new THREE.CylinderGeometry(Math.SQRT1_2 * 0.7, Math.SQRT1_2, 1, 4, 1).rotateY(Math.PI / 4), 'darkglass', M(oc.cx, y0 + H + 2.3, oc.cz, 0, -oc.angle, 0, oc.len - 0.6, 4.6, oc.wid - 0.6), '#3b4148');
     void roofP;
     // ---- interior: levels, atrium, balustrades, shelves
-    const LV = [0, 4.6, 8.4, 12.2, 16.0], innerP = grow(p, -0.35), ecx = oc.cx + (fx - oc.cx) * 0.08, ecz = oc.cz + (fzz - oc.cz) * 0.08;
+    const LV = [0, 4.6, 8.4, 12.2, 16.0], stair={x:oc.cx-oc.ux*oc.len*.38,z:oc.cz-oc.uz*oc.len*.38}, stairWell=Array.from({length:32},(_,i)=>[stair.x+Math.cos(i/32*Math.PI*2)*2.45,stair.z+Math.sin(i/32*Math.PI*2)*2.45]), innerP = grow(p, -0.35), ecx = oc.cx + (fx - oc.cx) * 0.08, ecz = oc.cz + (fzz - oc.cz) * 0.08;
     const along = Math.atan2(oc.ux, oc.uz); // long axis direction
     const ell = (k, rxK = 1) => { const pts = []; for (let i = 0; i < 48; i++) { const a = i / 48 * Math.PI * 2, wob = 1 + 0.07 * Math.sin(a * 5 + k * 1.3), rx = (3.1 - k * 0.1) * wob * rxK, rz = (8.2 - k * 0.35) * wob * rxK; const lx = Math.cos(a) * rx, lz = Math.sin(a) * rz; pts.push([ecx + lx * Math.cos(along) + lz * Math.sin(along), ecz - lx * Math.sin(along) + lz * Math.cos(along)]); } return pts; };
     const iw = new GeoBatch(), WHITE = '#f6f5f1';
@@ -373,7 +210,7 @@ function buildCarusel(ctx) {
     for (let k = 0; k < LV.length; k++) {
         const ly = y0 + LV[k];
         if (k > 0) { // slab with the atrium hole (white, slightly self-lit so the interior reads bright)
-            const sh = new THREE.Shape(innerP.map(([a, c]) => new THREE.Vector2(a, -c))); sh.holes.push(new THREE.Path(ell(k).map(([a, c]) => new THREE.Vector2(a, -c))));
+            const sh = new THREE.Shape(innerP.map(([a, c]) => new THREE.Vector2(a, -c))); sh.holes.push(new THREE.Path(ell(k).map(([a, c]) => new THREE.Vector2(a, -c))));sh.holes.push(new THREE.Path(stairWell.map(([a,c])=>new THREE.Vector2(a,-c))));
             const sg = new THREE.ExtrudeGeometry(sh, { depth: 0.38, bevelEnabled: false, curveSegments: 4 }); sg.rotateX(-Math.PI / 2); sg.translate(0, ly - 0.38, 0);
             iw.add(sg, 'paint', null, WHITE, { emissive: '#ffffff', emissiveIntensity: 0.28, roughness: 0.5 }); sg.dispose();
             // undulating balustrade round the hole + walk surface + wall collider at this level
@@ -383,27 +220,50 @@ function buildCarusel(ctx) {
             iw.add(bg, 'paint', null, '#fbfaf7', { emissive: '#ffffff', emissiveIntensity: 0.35, roughness: 0.4, side: THREE.DoubleSide }); bg.dispose();
             for (let i = 0; i < e.length; i++) { const [a, c] = e[i], [a2, c2] = e[(i + 1) % e.length]; wallSeg(ctx, a, c, a2, c2, ly - 0.2, ly + 1.1); }
             const holeE = ell(k);
-            g.surfaces.push({ kind: 'carusel', x: oc.cx, z: oc.cz, r: oc.len / 2 + 2, bottom: ly - 0.6, contains: (px, pz) => inPoly(px, pz, innerP) && !inPoly(px, pz, holeE), top: () => ly });
+            g.surfaces.push({ kind: 'carusel', x: oc.cx, z: oc.cz, r: oc.len / 2 + 2, bottom: ly - 0.6, contains: (px, pz) => inPoly(px, pz, innerP) && !inPoly(px, pz, holeE) && !inPoly(px,pz,stairWell), top: () => ly });
         }
         // shelves along the long walls (not across the front)
         for (let i = 0; i < innerP.length; i++) { const [ax, az] = innerP[i], [bx, bz] = innerP[(i + 1) % innerP.length], L = Math.hypot(bx - ax, bz - az); if (L < 6) continue; const mx = (ax + bx) / 2, mz = (az + bz) / 2; if (Math.hypot(mx - fx, mz - fzz) < 3) continue; const a = Math.atan2(bx - ax, bz - az); shelves.box(mx, ly, mz, 0.4, 3.1, L - 0.8, '#ffffff', 'shelf', a); }
     }
-    // ground floor tables of books + the white stair (E: up / down a level)
+    // ground floor tables of books + the white stair
     const r = rng(8);
     for (let i = 0; i < 6; i++) { const t = (i + 0.5) / 6 - 0.5, px = oc.cx + oc.ux * t * oc.len * 0.6, pz = oc.cz + oc.uz * t * oc.len * 0.6; iw.box(px + (r() - 0.5), y0, pz, 1.3, 0.8, 0.8, '#d8d2c4', 'wood', along); ctx.box(px, pz, 0.7, 0.45, along, { prop: true, h: 0.8 }); }
-    const stair = { x: oc.cx - oc.ux * oc.len * 0.38, z: oc.cz - oc.uz * oc.len * 0.38 };
-    for (let k = 0; k < LV.length - 1; k++) for (let s = 0; s < 10; s++) { const a = s / 10 * Math.PI + k * Math.PI, rr = 1.7; iw.box(stair.x + Math.cos(a) * rr, y0 + LV[k] + (LV[k + 1] - LV[k]) * s / 10, stair.z + Math.sin(a) * rr, 1.2, 0.18, 0.5, WHITE, 'paint', -a); }
+    // Continuous walkable version of the existing estimated stair. The real
+    // bookstore has stairs and galleries; this reconstruction's exact curve,
+    // tread sizes and landings are estimates, not a measured interior plan.
+    const stairPath=[];
+    for(let k=0;k<LV.length-1;k++){
+        const rise=LV[k+1]-LV[k];
+        for(let j=0;j<10;j++){
+            const a=(k+j/10)*Math.PI,x=stair.x+Math.cos(a)*1.7,z=stair.z+Math.sin(a)*1.7,top=y0+LV[k]+rise*(j+1)/10;
+            iw.box(x,top-.18,z,1.2,.18,.62,WHITE,'paint',-a);
+            g.addBox(x,z,.6,.31,-a,top-.18,top,{kind:'carusel-stair'});stairPath.push({x,z,y:top});
+            for(const rr of [1.06,2.34])if(j>0&&j<8){const p0=[stair.x+Math.cos(a)*rr,top+1,stair.z+Math.sin(a)*rr],a1=a+Math.PI/10,p1=[stair.x+Math.cos(a1)*rr,top+rise/10+1,stair.z+Math.sin(a1)*rr];iw.rod(p0,p1,.035,WHITE,'paint',6);wallSeg(ctx,p0[0],p0[2],p1[0],p1[2],top-.1,top+1);}
+        }
+        const a=(k+.9)*Math.PI,x=stair.x+Math.cos(a)*2.3,z=stair.z+Math.sin(a)*2.3,top=y0+LV[k+1];
+        iw.box(x,top-.18,z,1.5,.18,1.05,WHITE,'paint',-a);g.addBox(x,z,.75,.525,-a,top-.18,top,{kind:'carusel-landing'});
+    }
     // walls (enter through the shop door): wall colliders round the outline with a door gap on the front
     ringWalls(ctx, p, y0 - 1, y0 + H + 6, [{ x: fx, z: fzz, w: 3.2 }]);
     ctx.extras.caruselFloor = () => ctx.painter.poly(innerP, '#ebe8e1', 'slab');
     ctx.add(iw.build('carusel-interior', { castShadow: false }));
     ctx.add(shelves.build('carusel-shelves', { castShadow: false, matOverrides: { shelf } }));
-    ctx.add(b.build('carusel', { matOverrides: { [fac.key]: fac.mat } }));
+    const shell=b.build('carusel', { matOverrides: { [fac.key]: fac.mat } });
+    // The same estimated shell encloses the modeled interior. Its real walls
+    // and roof must remain visible from the galleries as well as the street.
+    const insideMaterials=new Map();shell.traverse(o=>{if(!o.isMesh)return;const inward=m=>{if(!insideMaterials.has(m)){const copy=m.clone();copy.side=THREE.DoubleSide;insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);
     for (let k = 0; k < LV.length; k++) ctx.lampPoints.push({ x: ecx, z: ecz, h: LV[k] + 3.6 - (ctx.ground.heightAt(ecx, ecz) - y0), noPost: true });
-    // stairs: E to go up / down (the levels are walkable)
-    const lvOf = (yy) => LV.reduce((bi, L, i) => (Math.abs(y0 + L - yy) < Math.abs(y0 + LV[bi] - yy) ? i : bi), 0);
-    ctx.interactables.push({ x: stair.x, z: stair.z, r: 2.6, y: undefined, label: (s) => { const k = lvOf(s.position.y); return k < LV.length - 1 ? `Climb to level ${k + 1}${k + 1 === LV.length - 1 ? ' (bistro)' : ''}` : 'Go down to the ground floor'; },
-        use: (s) => { const k = lvOf(s.position.y), to = k < LV.length - 1 ? k + 1 : 0, px = stair.x + (ecx - stair.x) * 0.15, pz = stair.z + (ecz - stair.z) * 0.15; s.ctl.y = y0 + LV[to]; s.ctl.teleport(px, pz, s.ctl.heading); s.sound.play('step', 0.5); if (to === LV.length - 1) bucActivity(s, 'old-town-lipscani', 'carusel', '📚 Top of the Carusel', 'The bistro on the top floor — look down the white balconies into the atrium.'); } });
+    const climb={previous:null,distance:0,ascent:0,done:false};
+    onActivityCancel(ctx, () => { climb.previous = null; climb.distance = 0; climb.ascent = 0; });
+    ctx.onUpdate((dt,s,pl)=>{if(!pl||climb.done)return;const previous=climb.previous;climb.previous={x:pl.x,y:pl.y,z:pl.z};if(!previous)return;
+        const d=Math.hypot(pl.x-previous.x,pl.z-previous.z),dy=pl.y-previous.y;
+        if(!s.ctl.active||d>Math.max(.8,dt*6)||Math.abs(dy)>.75){climb.distance=0;climb.ascent=0;return;}
+        if(!inPoly(pl.x,pl.z,innerP)){climb.distance=0;climb.ascent=0;return;}
+        climb.distance+=d;climb.ascent+=Math.max(0,dy);
+        if(pl.y>=y0+LV.at(-1)-.15&&climb.distance>=18&&climb.ascent>=14){climb.done=true;bucActivity(s,'old-town-lipscani','carusel','📚 Carusel stair climb','You walked the modeled stair to the top gallery. The interior layout and stair dimensions remain an estimated reconstruction.');}
+    });
+    ctx.interactables.push({kind:'stairs',x:stairPath[0].x,z:stairPath[0].z,y:y0,r:2.2,tourAvailable:()=>false,label:'Walk the visible stairs to the top gallery',use:s=>s.ui.toast('📚 Walk up the stairs','Use the movement controls on the visible treads. Reaching the top after a continuous climb completes the activity; E does not move you between floors. Stair dimensions are estimates.')});
+    ctx.extras.caruselStairs={path:stairPath,climb,well:stairWell,estimatedLayout:true};
     return { front: { x: fx, z: fzz, nx, nz, yaw }, y0, LV, ecx, ecz, along, stair };
 }
 
@@ -449,8 +309,8 @@ function buildManuc(ctx) {
 // ---------------------------------------------------------------------------- Curtea Veche: ruins, bust, 1559 church
 function buildCurteaVeche(ctx) {
     const d = ctx.data, g = ctx.ground, b = new GeoBatch();
-    const ru = osmPoly(d, 'w658220894');
-    if (ru) { ctx.skipBuildings.add('w658220894'); const y = Math.min(...ru.map(([x, z]) => g.heightAt(x, z)));
+    const ru = osmPoly(d, 'w658220894');let ruinsGround=null;
+    if (ru) { ctx.skipBuildings.add('w658220894'); const y = Math.min(...ru.map(([x, z]) => g.heightAt(x, z)));ruinsGround=y;
         // excavated brick walls (low, ragged) on the outline + cross walls, a grassy pit, iron railing round it
         for (let i = 0; i < ru.length; i++) { const [ax, az] = ru[i], [bx, bz] = ru[(i + 1) % ru.length], L = Math.hypot(bx - ax, bz - az); if (L < 0.5) continue; const n = Math.ceil(L / 2); for (let k = 0; k < n; k++) { const t0 = k / n, t1 = (k + 1) / n, h = 1.1 + Math.abs(Math.sin(i * 3.1 + k * 1.7)) * 1.6; const cx = ax + (bx - ax) * (t0 + t1) / 2, cz = az + (bz - az) * (t0 + t1) / 2; b.box(cx, y - 1.4 - ((i + k) % 3) * 0.03, cz, 1.0 - (k % 2) * 0.06, h + 1.4, L / n + 0.05, '#a65a3a', 'brick', Math.atan2(bx - ax, bz - az)); } }
         const o = obb(ru); for (let k = -2; k <= 2; k++) { const cx = o.cx + o.ux * k * o.len * 0.18, cz = o.cz + o.uz * k * o.len * 0.18; b.box(cx, y - 1.5, cz, 0.9, 1.9 + (k % 2 ? 0.8 : 0), o.wid * 0.8, '#9e5536', 'brick', Math.atan2(o.ux, o.uz) + Math.PI / 2); }
@@ -464,7 +324,7 @@ function buildCurteaVeche(ctx) {
     // the church (Buna Vestire / Sf. Anton, 1559): bands of red brick and white plaster, blind arcades, grey tower roof
     const ch = d.buildings.find((x) => x.id === 'w150803286');
     let church = null;
-    if (ch) { for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, ch.poly)) ctx.skipBuildings.add(x.id); } ctx.skipBuildings.add(ch.id);
+    if (ch) { ctx.skipBuildings.add(ch.id);
         const p = ch.poly, y = Math.min(...p.map(([x, z]) => g.heightAt(x, z))) - 0.2, o = obb(p);
         const fac = classicFacade('curtea-veche-church', [{ t: 'arch', w: 0.2, top: 0.36, cornice: false }, { t: 'niches', n: 3, top: 0.2, bottom: 0.3 }, { t: 'blank', cornice: false }, { t: 'blank' }], { bay: 2.6, floor: 3.4, stripes: { brick: '#9e4b33', band: '#ede6d6' }, lit: 0.2 });
         classicWalls(b, fac, p, y, y + 8.6, '#ffffff', y);
@@ -474,10 +334,10 @@ function buildCurteaVeche(ctx) {
         b.add(wallGeometry([[tx - tw / 2, tz - tw / 2], [tx + tw / 2, tz - tw / 2], [tx + tw / 2, tz + tw / 2], [tx - tw / 2, tz + tw / 2]], y + 8.8, y + 15, fac.S, y, '#ffffff'), fac.key, null, '#ffffff');
         b.add(new THREE.ConeGeometry(tw * 0.78, 6.5, 8), 'metal', M(tx, y + 18.2, tz), '#5c5f60'); b.box(tx, y + 21.4, tz, 0.15, 1.8, 0.15, '#c9a24e', 'bronze'); b.box(tx, y + 22.6, tz, 0.9, 0.12, 0.12, '#c9a24e', 'bronze');
         ctx.poly(p, { y0: y - 1, y1: y + 22 });
-        church = { x: o.cx, z: o.cz, fac };
+        church = { x: o.cx, z: o.cz, fac, tower:{x:tx,z:tz,y:y+18.2} };
     }
     ctx.add(b.build('curtea-veche', { matOverrides: { ...(church ? { [church.fac.key]: church.fac.mat } : {}), ...(ctx.extras.ruinMats || {}) } }));
-    return { bust: vb, church };
+    return { bust: vb, church, ruinsGround };
 }
 
 // ---------------------------------------------------------------------------- Stavropoleos (1724)
@@ -504,7 +364,7 @@ function porchTexture() { // the carved stone porch: five lobed (trefoil) arches
 }
 function buildStavropoleos(ctx) {
     const d = ctx.data, g = ctx.ground, ch = d.buildings.find((x) => x.id === 'w78444014'); if (!ch) return null;
-    for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, grow(ch.poly, 3))) ctx.skipBuildings.add(x.id); } ctx.skipBuildings.add(ch.id);
+    ctx.skipBuildings.add(ch.id);
     const p = ch.poly, o = obb(p), y = Math.min(...p.map(([x, z]) => g.heightAt(x, z))) - 0.1, b = new GeoBatch();
     const fac = classicFacade('stavropoleos', [{ t: 'arch', w: 0.24, top: 0.3, bottom: 0.18, cornice: false }, { t: 'niches', n: 2, cornice: false }, { t: 'blank' }, { t: 'blank' }], { bay: 2.8, floor: 2.9, lit: 0.25 });
     const WALL = '#e7d8b8';
@@ -548,26 +408,24 @@ export default {
         // a flat old town (bare-earth grid) — smooth the DEM noise
         const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.35);
         // most old-town buildings have no height in OSM: 2–5 storeys (uneven skyline), lantern-lit ground floors
-        for (const bd of d.buildings) if (!bd.part && !bd.h && !bd.lv && bd.k !== 'church' && bd.k !== 'roof') { const hsh = Math.abs(Math.sin(bd.poly[0][0] * 12.9898 + bd.poly[0][1] * 78.233) * 43758.5453) % 1; bd.lv = 2 + Math.floor(hsh * 4); }
+        for (const bd of d.buildings) if (!bd.part && !bd.h && !bd.lv && bd.k !== 'church' && bd.k !== 'roof') { const hsh = Math.abs(Math.sin(bd.poly[0][0] * 12.9898 + bd.poly[0][1] * 78.233) * 43758.5453) % 1; bd.estimatedLevels = 2 + Math.floor(hsh * 4); }
         const CA = buildCarusel(ctx), MA = buildManuc(ctx), CV = buildCurteaVeche(ctx), ST = buildStavropoleos(ctx);
         // CEC Palace + Post Palace (History Museum) from landmarks.js
-        for (const [lmId, osmId] of [['cec', 'w973712798'], ['mnir', 'r19919941']]) { const bd = d.buildings.find((x) => x.id === osmId); if (!bd) continue; ctx.skipBuildings.add(osmId); for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.part && inPoly(cx, cz, bd.poly)) ctx.skipBuildings.add(x.id); } const L2 = placeLandmark(ctx, lmId, { colliderH: 50 }); ctx.poly(bd.poly, { y0: -50, y1: 80 }); }
+        for (const [lmId, osmId] of [['cec', 'w973712798'], ['mnir', 'r19919941']]) { const bd = d.buildings.find((x) => x.id === osmId); if (!bd) continue; ctx.skipBuildings.add(osmId); const L2 = placeLandmark(ctx, lmId); for(const sourceId of L2?.lm.sourceIds||[])ctx.skipBuildings.add(sourceId);
+            // r13104229 is one real relation with two prepared outer records.
+            // Canonical CEC now includes both exact outer volumes and all holes.
+            if(lmId==='cec')for(const sourceId of ['r13104229_0','r13104229_1'])ctx.skipBuildings.add(sourceId);
+            // placeLandmark supplies exact per-solid polygons/holes/vertical
+            // bands. A second filled parent body would close real courtyards.
+        }
         // Caru' cu Bere (Str. Stavropoleos 5): neo-Gothic front, sign, queue
         const caruB = d.buildings.find((x) => x.id === 'w1456401783');
         if (caruB) { ctx.skipBuildings.add(caruB.id); const b = new GeoBatch(), y = Math.min(...caruB.poly.map(([x, z]) => g.heightAt(x, z))) - 0.2; const fac = classicFacade('caru', [{ t: 'arch', w: 0.36, top: 0.1, bottom: 0.06, rustic: true }, { t: 'arch2', w: 0.34, pil: true }, { t: 'arch', w: 0.26, pil: true, top: 0.3 }, { t: 'small', w: 0.24 }], { bay: 3.2, floor: 4.2, lit: 0.85 }); classicWalls(b, fac, caruB.poly, y, y + 15.5, '#c9b79a', y); b.flat(caruB.poly, y + 15.5, '#6b5f55', 'roofs'); const o = obb(caruB.poly); b.add(new THREE.ConeGeometry(4.5, 5, 4), 'roofs', M(-111, y + 18, -73.5, 0, Math.PI / 4, 0, 1, 1, 0.35), '#5a4f46'); ctx.poly(caruB.poly, { y0: y - 1, y1: y + 22 }); ctx.add(b.build('caru-cu-bere', { matOverrides: { [fac.key]: fac.mat } })); void o; }
-        const OT = oldTownFronts(ctx, { bar: { x0: 225, x1: 300 } });
-        const WB = OT.bar ? buildWcpBar(ctx, OT.bar) : null;
-        if (WB) { // the fans: yellow national-team shirts (some blue / red), tricolour scarves; chants in Romanian with English glosses
-            const dl = (spL.dialogue = spL.dialogue || { lines: [], personas: [] }); dl.lines = dl.lines || [];
-            if (!dl.lines.some((l) => l.p === 'fan_ro')) for (const [orig, text, c] of [['Hai România!', 'Come on, Romania!', 'spot'], ['Olé, olé, olé, Tricolorii!', 'Olé, olé, olé, the Tricolours!', 'spot'], ['Gooool! Ce gol, frate!', 'Goal! What a goal, man!', 'spot'], ['Hai, mă, trage odată!', 'Come on, just shoot!', 'idle'], ['Arbitrul n-a văzut nimic!', 'The referee saw nothing!', 'idle'], ['Ia loc, meciul abia a început!', 'Grab a seat, the match has just started!', 'greeting'], ['Noroc! Hai la încă o bere după repriză.', 'Cheers! Another beer at half-time.', 'greeting']]) dl.lines.push({ p: 'fan_ro', ctx: c, text, orig, lang: 'ro' });
-            if (!dl.lines.some((l) => /football bar/.test(l.text))) dl.lines.push({ p: 'local_young', ctx: 'spot', text: 'There is a little football bar down Lipscani — they show every match, the fans sing.', orig: 'E un bar mic de fotbal pe Lipscani — dau toate meciurile, fanii cântă.', lang: 'ro' });
-            let dressed = false;
-            ctx.onUpdate((dt, s) => { if (dressed) return; const C = s.spot.crowd; if (!C?.cr) return; dressed = true; const rr = rng(79);
-                C.peds.forEach((q, i) => { if (q.persona !== 'fan_ro') return; const o = dressFor('bucharest', 'summer', null, rr); o.top = rr() < 0.7 ? '#fcd116' : rr() < 0.5 ? '#002b7f' : '#ce1126'; o.acc = rr.pick(['#002b7f', '#ce1126', '#fcd116']); o.flags = (o.flags || 0) & ~(1 | 2 | 4); C.cr.dress(i, o); }); });
-        }
+        const OT = oldTownFronts(ctx);
+        const WB = buildSecretWcpBar(ctx, CA);
         // ground: shared-surface grey granite setts over every pedestrian street (no kerbs), slab bands
         ctx.terrainOpts = { bg: '#8f8b84', bgMask: 'cobble', innerPx: 2048, innerStep: 3, outerStep: 16, outerPad: 700 };
-        bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (bd.k === 'church' ? 'eclectic' : undefined) });
+        bucBackdrop(ctx, { lampStyle: 'lantern', lampColor: '#191b1c', lampH: 4.4, lampPad: 15, treeLod: { cap: 1600, max: 400 }, lampOpts: { spacing: 24, kinds: ['pedestrian', 'living_street'] }, streetTreeOpts: { kinds: ['primary', 'secondary', 'tertiary'], prob: 0.5 }, style: (bd) => (OT.decoratedIds.has(bd.id) || bd.k === 'church' ? 'eclectic' : undefined) });
         for (const w of d.ways) if (['pedestrian', 'living_street'].includes(w.k) && !w.tunnel) ctx.painter.line(w.pts, 11, '#7f7c76', 'cobble');
         // the inn passages (Hanul cu Tei, Pasajul Gabroveni, Intrarea Nicolae Șelari) are paved courtyards between the façades, not lawns
         for (const w of d.ways) if (w.k === 'footway' && /Hanul cu Tei|Pasajul Gabroveni|Nicolae Șelari/.test(w.name || '')) ctx.painter.line(w.pts, 18, '#86827b', 'cobble');
@@ -576,8 +434,33 @@ export default {
         ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; for (const w of d.ways) { if (w.k !== 'pedestrian') continue; x.strokeStyle = 'rgba(205,200,190,0.55)'; x.lineWidth = Math.max(1, 0.9 * k); x.beginPath(); w.pts.forEach(([a, c], i) => { const [px, py] = T(a, c); if (i) x.lineTo(px, py); else x.moveTo(px, py); }); x.stroke(); } });
         // terraces + shop signs from OSM (bars, restaurants, cafés, shops along the pedestrian lanes)
         const inside = (x, z) => Object.values(d.spots).some((s) => inPoly(x, z, s.extent.polygon));
-        const TR = oldTownTerraces(ctx, { inside, seed: 3 });
+        const TR = oldTownTerraces(ctx, { inside, seed: 3, prioritySources: ['n1731040881', 'n10775253367'] });
+        ctx.extras.sourceFrontages = { signs: TR.signs, terraces: TR.terraces };
         ctx.add(TR.group); ctx.lampPoints.push(...TR.lamps.filter((_, i) => i % 2 === 0));
+        // Real OSM POIs, on their existing street-facing footprint. Camera-held props only:
+        // no invented kiosk/interior, source footprint, terrace or collision changes.
+        const VA = createVenueActivities(ctx);
+        for (const [source, kind, address, label] of [
+            ['n1731040881', 'shaorma', 'Strada Franceză 17', 'Eat a shaorma at Dristor Kebap'],
+            ['n10775253367', 'shot', 'Strada Șelari 17', 'Pour a shot at Shoteria'],
+        ]) {
+            const poi = d.pois.find(p => p.id === source); if (!poi) continue;
+            let street = null;
+            for (const w of d.ways) { if (!['pedestrian', 'living_street'].includes(w.k)) continue; const q = distPolyline(poi.x, poi.z, w.pts); if (!street || q.d < street.d) street = q; }
+            const f = street && facadeToward(d, poi.x, poi.z, street.cx, street.cz); if (!f) continue;
+            // Find the clear street approach beyond existing terrace collision, without
+            // changing any footprint or moving its furniture. Both sources face Șelari.
+            let approach = null;
+            for (let distance = 5.2; distance <= 8; distance += .4) {
+                const x = f.x + f.nx * distance, z = f.z + f.nz * distance;
+                if (!collide(ctx.colliders, x, z, .45, g.heightAt(x, z) + .3)) { approach = { x, z }; break; }
+            }
+            if (!approach) continue;
+            const { x, z } = approach;
+            ctx.interactables.push({ x, z, y: g.heightAt(x, z), r: 2.6, label, source,
+                cond: s => !VA.active && s.spot.id === 'old-town-lipscani',
+                use: s => VA.start(s, kind, { name: poi.name, address }) });
+        }
         const signs = [...TR.signs];
         if (caruB) signs.push({ x: -111, y: g.heightAt(-111, -71.5) + 5.4, z: -71.4, yaw: 0, w: 6.2, h: 1.0, text: "CARU' CU BERE", bg: '#2a1d14', fg: '#e8c870', font: (q) => `700 ${q}px "Times New Roman", serif` });
         // Hanul cu Tei (Lipscani 63–65 → Blănari 14, 1833): the arched gateways of the inn's passage, painted lettering over the arch
@@ -607,14 +490,24 @@ export default {
         if (caruB) ctx.plaque(PS[2], -104, -67.5, Math.PI, { style: 'city' });
         ctx.plaque(PS[3], -212, -82, -Math.PI / 2, { style: 'city', credit: 'Architect Paul Gottereau (1897–1900).' });
         ctx.plaque(PS[4], -212, -32, -Math.PI / 2, { style: 'city', credit: 'Post Palace (1894–1900), architect Alexandru Săvulescu.' });
-        // fun: Dracula magnets ("Nu, mersi"), light a candle at Stavropoleos, the Carusel postcard needs level 2
-        ctx.interactables.push({ x: CV.bust.x - 3, z: CV.bust.z - 3, r: 2.4, label: 'Souvenir stall: "Dracula magnet, only 10 lei!" — say "Nu, mersi"', use: (s) => bucActivity(s, 'old-town-lipscani', 'curtea-veche', '🧛 "Nu, mersi!"', 'Vlad III ruled from this court in 1459 — locals see him as a hero, not a vampire.') });
-        if (ST) ctx.interactables.push({ x: ST.west.x - 3.5, z: -64.5 + 1.2, r: 2.4, label: 'Light a candle (Stavropoleos)', use: (s) => { bucActivity(s, 'stavropoleos-cec', 'stavropoleos', '🕯 Candle lit', 'Quiet please — the choir sings Byzantine chant.'); s.sound.play('chime', 0.3); } });
+        // Public outdoor details require actual look/capture inputs. An exterior
+        // source footprint does not establish present-day access to the ruins.
+        if(CV.church){const ru=d.buildings.find(b=>b.id==='w658220894'),edge=ru?distPolyline(CV.bust.x+4,CV.bust.z+4,[...ru.poly,ru.poly[0]]):null;
+            const targets=[{label:'Vlad III bust',x:CV.bust.x,y:gy(CV.bust.x,CV.bust.z)+2.65,z:CV.bust.z,radius:.4},
+                {label:'Old Court church tower',...CV.church.tower,radius:1.6,surfaceTolerance:4}];
+            if(edge)targets.push({label:'Old Court brick remains',x:edge.cx,y:CV.ruinsGround+1.2,z:edge.cz,radius:1.2});
+            ctx.extras.curteaVecheVisit=photoHunt(ctx,{x:CV.bust.x+4,z:CV.bust.z+4,title:'Frame the Old Court details',targets,
+                unavailable:'Explore these historic details from the public street. Current access inside the excavations has not been verified.',
+                onDone:s=>bucActivity(s,'old-town-lipscani','curtea-veche','🏛 Old Court details framed','You framed the bust, church and mapped court remains from outside. This does not claim admission inside the excavations.')});}
+        if (ST) {const candle=candleLight(ctx,new THREE.Vector3(),{title:'A virtual candle at Stavropoleos',portable:true,focus:new THREE.Vector3(ST.x,gy(ST.x,ST.z)+6,ST.z),
+            onDone:s=>bucActivity(s,'stavropoleos-cec','stavropoleos','🕯 Candle practice completed','You lit and placed a temporary virtual candle in a handheld holder. This does not locate a real rack or imply current interior access.')});
+            ctx.extras.stavropoleosCandle=candle;
+            ctx.interactables.push({kind:'candle',x:ST.west.x-3.5,z:-64.5+1.2,r:2.4,label:'Light and place a virtual candle',use:s=>candle.start(s)});}
         if (CA) ctx.challenge('old-town-lipscani', { x: CA.ecx + (CA.front.x - CA.ecx) * 0.75, z: CA.ecz + (CA.front.z - CA.ecz) * 0.75, heading: (Math.atan2(CA.ecx - CA.front.x, -(CA.ecz - CA.front.z)) * 180 / Math.PI + 360) % 360, r: 6, tol: 40, text: 'Cărturești Carusel: the white atrium and its stacked balconies (best from the level-2 balcony)' });
         if (MA) ctx.challenge('old-town-lipscani', { x: MA.gate.x + MA.gn.x * 14, z: MA.gate.z + MA.gn.z * 14, heading: (Math.atan2(-MA.gn.x, MA.gn.z) * 180 / Math.PI + 360) % 360, r: 7, tol: 30, text: "Hanul lui Manuc's gate on Str. Franceză" });
         ctx.challenge('stavropoleos-cec', { view: ST ? [ST.x, ST.z] : null, r: 7, tol: 30 });
         // crowd: busy lanes, waiters at every terrace, a tour at Stavropoleos, the Caru' cu Bere queue
-        const groups = [];
+        const groups = [...WB.groups];
         // waiters at the terraces nearest the arrival points, turned toward their tables (talking, not standing stiff)
         const SP0 = { x: 128, z: -56.5 }, dist0 = (q) => Math.min(Math.hypot(q.x - SP0.x, q.z - SP0.z), Math.hypot(q.x + 92, q.z + 67.5));
         [...TR.terraces].sort((a, b) => dist0(a) - dist0(b)).slice(0, 16).forEach((t) => { groups.push({ x: t.x + Math.sin(t.yaw) * (t.depth / 2 + 0.5), z: t.z + Math.cos(t.yaw) * (t.depth / 2 + 0.5), r: 0.2, n: 1, act: 'talk', yaw: t.yaw + Math.PI, personas: ['waiter'] }); });
@@ -624,7 +517,6 @@ export default {
         if (caruB) groups.push({ line: [[-111, -70.2], [-105, -69.6], [-99, -69.2], [-93, -68.8]], n: 9, act: 'queue', personas: ['tourist_de', 'tourist_us', 'local_young', 'tourist_fr', 'tourist_uk'] });
         if (CA) groups.push({ x: CA.front.x + CA.front.nx * 4, z: CA.front.z + CA.front.nz * 4, r: 2.5, n: 5, act: 'photo', look: [CA.front.x, CA.front.z], personas: ['tourist_it', 'tourist_us', 'local_young'] }, { x: CA.ecx, z: CA.ecz, r: 3, n: 5, act: 'watch', personas: ['local_young', 'tourist_uk', 'tourist_fr'] });
         groups.push({ x: CV.bust.x - 3, z: CV.bust.z - 3.5, r: 0.3, n: 1, act: 'watch', personas: ['vendor'] }, { x: CV.bust.x + 2, z: CV.bust.z - 4, r: 2, n: 4, act: 'photo', look: [CV.bust.x, CV.bust.z], personas: ['tourist_uk', 'tourist_it', 'tourist_us'] });
-        if (WB) groups.push(...WB.groups);
         groups.push({ x: 60, z: -66, r: 0.3, n: 1, act: 'perform', personas: ['busker'], prop: 'guitar' }, { x: 62, z: -62, r: 2.5, n: 4, act: 'watch', look: [60, -66], personas: ['local_young', 'tourist_uk'] });
         if (MA) groups.push({ x: MA.gate.x + MA.gn.x * 2.5 + MA.gn.z * 2.6, z: MA.gate.z + MA.gn.z * 2.5 - MA.gn.x * 2.6, r: 0.3, n: 1, act: 'watch', yaw: Math.atan2(MA.gn.x, MA.gn.z), personas: ['waiter'] });
         ctx.crowdCfg = {

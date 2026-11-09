@@ -8,6 +8,8 @@
 //  models from landmarks.js (read-only import) and small street props.
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
+import { activityFlow } from './participation.js';
+import { translatedLandmarkCollider } from './landmark-colliders.js';
 import { GeoBatch, M, rng, hash2, canvas, canvasTexture, fitDraw, polyArea, centroid, inPoly, polyBox, offsetPolyline, polylineLength, alongPolyline } from './kit.js';
 import { wallGeometry, polyCollider } from './osm.js';
 import { LANDMARKS, buildLandmark } from '../landmarks.js';
@@ -298,7 +300,7 @@ export function placeLandmark(ctx, id, { y = null, collide = true, colliderH = 6
     const p = ctx.ll(lm.lat, lm.lon), yy = y ?? ctx.ground.heightAt(p.x, p.z);
     r.mesh.position.set(p.x, yy, p.z); ctx.add(r.mesh);
     r.mesh.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
-    if (collide) for (const c of r.collision) ctx.box(p.x + c.x, p.z + c.z, c.hw, c.hd, c.angle, { y0: yy - 1, y1: yy + colliderH });
+    if (collide) for (const c of r.collision) ctx.collider(translatedLandmarkCollider(c, p, yy, colliderH, id));
     return { mesh: r.mesh, x: p.x, z: p.z, y: yy, lm, tris: r.triangles };
 }
 
@@ -437,21 +439,29 @@ export function oldTownTerraces(ctx, o = {}) {
     const d = ctx.data, b = new GeoBatch(), r = rng(o.seed || 21), out = { signs: [], lamps: [], terraces: [], seats: [] };
     const streets = o.streets || d.ways.filter((w) => ['pedestrian', 'living_street'].includes(w.k));
     const awn = o.colours || ['#e9e1c8', '#2f5a3a', '#7a2230', '#d9cfb3', '#3b4a5a', '#c9b48a', '#5a3a2a'];
-    const placed = [];
-    for (const p of d.pois) {
+    const placed = [], signPlaced = [];
+    // A mapped venue is evidence for its name, not for a terrace. Reserve the
+    // activity frontages first so a neighbouring venue cannot erase their sign.
+    const priority = new Set(o.prioritySources || []);
+    const pois = [...d.pois].sort((a, c) => Number(priority.has(c.id)) - Number(priority.has(a.id)));
+    for (const p of pois) {
         const shop = !!p.shop, eat = ['restaurant', 'bar', 'cafe', 'pub', 'fast_food', 'ice_cream', 'biergarten'].includes(p.amenity);
         if (!(eat || shop) || !p.name) continue;
         if (o.inside && !o.inside(p.x, p.z)) continue;
         let best = null; for (const w of streets) { const q = distPolylineK(p.x, p.z, w.pts); if (!best || q.d < best.d) best = { ...q, w }; }
         if (!best || best.d > 28) continue;
         const f = facadeToward(d, p.x, p.z, best.cx, best.cz); if (!f) continue;
-        const half = Math.hypot(best.cx - f.x, best.cz - f.z); if (half < 2.2 || half > 16) continue;
-        if (placed.some((q) => Math.hypot(q.x - f.x, q.z - f.z) < (eat ? 7 : 4.5))) continue;
-        placed.push(f);
+        const half = Math.hypot(best.cx - f.x, best.cz - f.z); if (half > 16) continue;
         const y = ctx.ground.heightAt(f.x, f.z), tx = -f.nz, tz = f.nx, yaw = Math.atan2(f.nx, f.nz);
         // sign above the door (on the façade)
-        out.signs.push({ x: f.x + f.nx * 0.12, y: y + 3.9, z: f.z + f.nz * 0.12, yaw, w: Math.min(5.5, 1.2 + p.name.length * 0.28), h: 0.62, text: p.name, bg: r.pick(['#1d2a24', '#2a1d1a', '#1a2230', '#3b2a1e', '#0f0f10', '#5a1e22']), fg: r.pick(['#f1e6c8', '#e8c870', '#ffffff']) });
-        if (!eat) continue;
+        const signW = Math.min(5.5, 1.2 + p.name.length * 0.28);
+        if (!signPlaced.some(q => Math.hypot(q.x - f.x, q.z - f.z) < (q.w + signW) / 2 + .2)) {
+            out.signs.push({ source: p.id, x: f.x + f.nx * 0.12, y: y + 3.9, z: f.z + f.nz * 0.12, yaw, w: signW, h: 0.62, text: p.name, bg: r.pick(['#1d2a24', '#2a1d1a', '#1a2230', '#3b2a1e', '#0f0f10', '#5a1e22']), fg: r.pick(['#f1e6c8', '#e8c870', '#ffffff']) });
+            signPlaced.push({ ...f, w: signW });
+        }
+        if (!eat || p.outdoor_seating !== 'yes' || half < 2.2) continue;
+        if (placed.some((q) => Math.hypot(q.x - f.x, q.z - f.z) < 7)) continue;
+        placed.push(f);
         const depth = Math.min(o.maxDepth ?? 3.4, half * 0.62), W = 5.5 + r() * 3, col = r.pick(awn), cx = f.x + f.nx * depth / 2, cz = f.z + f.nz * depth / 2;
         // pergola: 4 posts, beams, canvas roof sloping to the street, side valance
         const P = (u, v) => [f.x + tx * u + f.nx * v, f.z + tz * u + f.nz * v];
@@ -482,9 +492,10 @@ export function oldTownTerraces(ctx, o = {}) {
         for (const s of [-1, 1]) { const [x, z] = P(s * (W / 2 + 0.35), depth * 0.5); b.box(x, y, z, 0.5, 0.55, 0.5, '#3b3a36', 'concrete', yaw); for (let q = 0; q < 5; q++) { const ox = (r() - 0.5) * 0.3, oz = (r() - 0.5) * 0.3; b.cyl(x + ox, y + 0.55, z + oz, 0.015, 1.2 + r() * 0.6, '#7d8a4a', 'plant', 4); b.sphere(x + ox, y + 1.5 + r() * 0.4, z + oz, 0.18, 0.32, 0.18, '#4f7a3a', 'plant', 6, 4); } }
         if (r() < 0.6) { const [x, z] = P(W / 2 - 0.5, depth - 0.45); b.cyl(x, y, z, 0.22, 0.06, '#2b2d30', 'metal', 10); b.cyl(x, y, z, 0.05, 2.1, '#5c5f63', 'steel', 8); b.cyl(x, y + 2.05, z, 0.34, 0.1, '#5c5f63', 'steel', 12, 0.4); }
         { const [x, z] = P(-W / 2 - 0.2, depth + 0.35), a = yaw + Math.PI / 2; b.box(x, y, z, 0.55, 1.05, 0.06, '#1b1c1d', 'wood', a, 0.12); b.box(x, y, z, 0.55, 1.05, 0.06, '#1b1c1d', 'wood', a, -0.12); b.box(x + f.nx * 0.07, y + 0.25, z + f.nz * 0.07, 0.45, 0.6, 0.02, '#e9e4d6', 'paint', a + Math.PI / 2 * 0, 0.12); }
-        ctx.box(cx, cz, W / 2 + 0.6, depth / 2, yaw + Math.PI / 2, { prop: true, h: 0.8 });
+        // Local x follows the facade tangent; local z follows its outward normal.
+        ctx.box(cx, cz, W / 2 + 0.6, depth / 2, yaw, { prop: true, h: 0.8 });
         out.lamps.push({ x: cx, z: cz, h: 2.6, noPost: true });
-        out.terraces.push({ x: cx, z: cz, yaw, W, depth, name: p.name, f });
+        out.terraces.push({ source: p.id, x: cx, z: cz, yaw, W, depth, name: p.name, f });
     }
     out.group = b.build('terraces');
     return out;
@@ -512,40 +523,67 @@ export function bucActivity(s, spot, id, title, body) {
     if (title) s.ui.toast(title, body || '');
 }
 /**
- * a ride along a closed or open path (rowing boat, pedal boat): the walker is parked, the camera rides the boat (mouse look free),
- * the boat mesh follows; at the end the player is put back where the ride started and onDone(s) runs.
+ * Player-powered strokes along a validated water course. The camera rides the
+ * animated boat/oars; no input means drag brings it to rest. Completion needs
+ * the full course; cancelling restores the exact shore pose without an award.
  * path: [[x, z]…] (metres), y: water level, speed m/s. Returns { start(s), active() }.
  */
-export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.95, onDone = null } = {}) {
-    const L = polylineLength(path); let ride = null;
-    ctx.onUpdate((dt, s) => {
+export function boatRide(ctx, boat, path, y, { speed = 1.6, eye = 0.72, title = 'Rowing boat', action = 'Row the oars', onDone = null, outfit = true, paddle = 'oars', help = null, floatHeight = .25, initialPitch = -.4 } = {}) {
+    const L = polylineLength(path), flow = activityFlow(ctx); let ride = null;
+    boat.userData.noFloor = true; boat.position.y = y + floatHeight;
+    // The original hemisphere hull was one-sided: from the seated camera its
+    // entire inner surface vanished. A narrow rim and inner floor remain in
+    // view while looking across the water and make the strokes readable.
+    boat.traverse(o => { if (o.isMesh && o.material && !Array.isArray(o.material)) o.material.side = THREE.DoubleSide; });
+    if (outfit) { const inside = new THREE.MeshStandardMaterial({ color: '#b39366', roughness: .8 });
+        const floor = new THREE.Mesh(new THREE.BoxGeometry(1.05, .045, 2.5), inside); floor.position.y = -.19; boat.add(floor);
+        const rimCurve = new THREE.Curve(); rimCurve.getPoint = (t, v = new THREE.Vector3()) => v.set(Math.sin(t * Math.PI * 2) * .75, .025, Math.cos(t * Math.PI * 2) * 1.9);
+        boat.add(new THREE.Mesh(new THREE.TubeGeometry(rimCurve, 40, .035, 5, true), inside)); }
+    const paddles = [];
+    const wood = new THREE.MeshStandardMaterial({ color: '#8c643f', roughness: .85 });
+    if (paddle === 'kayak') { const pivot = new THREE.Group(); pivot.name = 'kayak-paddle'; pivot.position.set(0,.45,.95);
+        const shaft=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,2.1,6),wood);shaft.rotation.z=Math.PI/2;pivot.add(shaft);
+        const bladeMaterial=new THREE.MeshStandardMaterial({color:'#f2c230',roughness:.7});for(const side of [-1,1]){const blade=new THREE.Mesh(new THREE.BoxGeometry(.42,.035,.18),bladeMaterial);blade.position.x=side*1.08;pivot.add(blade);}boat.add(pivot);paddles.push({pivot,side:1,kayak:true});
+    } else for (const side of [-1, 1]) {
+        const pivot = new THREE.Group(); pivot.name = 'rowing-oar'; pivot.position.set(side * .7, .15, 1.0);
+        const shaft = new THREE.Mesh(new THREE.CylinderGeometry(.025, .025, 1.65, 6), wood); shaft.rotation.z = Math.PI / 2; shaft.position.x = side * .7;
+        const blade = new THREE.Mesh(new THREE.BoxGeometry(.5, .055, .18), wood); blade.position.x = side * 1.35;
+        pivot.add(shaft, blade); boat.add(pivot); paddles.push({ pivot, side });
+    }
+    function restore(s) {
         if (!ride) return;
-        ride.t += dt; const sp = Math.min(L, ride.t * speed), p = alongPolyline(path, sp), p2 = alongPolyline(path, Math.min(L, sp + 1.2));
-        const yaw = Math.atan2(p2.x - p.x, p2.z - p.z), bob = Math.sin(ride.t * 1.6) * 0.04;
-        boat.position.set(p.x, y + bob, p.z); boat.rotation.set(Math.sin(ride.t * 2.1) * 0.03, yaw, Math.sin(ride.t * 1.2) * 0.04);
-        const lk = s.input?.takeLook?.() || { dx: 0, dy: 0 }; ride.look -= lk.dx * 0.0024; ride.pitch = Math.max(-0.9, Math.min(0.9, ride.pitch - lk.dy * 0.0024));
-        if (s.ctl.rig) { s.ctl.rig.position.set(p.x, y + eye + bob, p.z); s.ctl.rig.rotation.set(ride.pitch, yaw + Math.PI + ride.look, 0, 'YXZ'); }
-        if (sp >= L - 0.05 || s.input?.take?.('Escape')) { s.ctl.active = true; s.ctl.teleport(ride.back.x, ride.back.z, ride.back.heading); boat.position.copy(ride.home.p); boat.rotation.copy(ride.home.r); const done = sp >= L - 0.05; ride = null; if (done) onDone?.(s); }
-    });
+        boat.position.copy(ride.home.p); boat.rotation.copy(ride.home.r); boat.visible = ride.home.visible;
+        paddles.forEach(({ pivot }) => pivot.rotation.set(0, 0, 0));
+        s.ctl.y = ride.back.y; s.ctl.teleport(ride.back.x, ride.back.z, ride.back.heading); s.ctl.place?.(); ride = null;
+    }
     return {
-        active: () => !!ride,
-        start(s) { const p = s.ctl.position; ride = { t: 0, look: 0, pitch: -0.05, back: { x: p.x, z: p.z, heading: s.ctl.heading }, home: { p: boat.position.clone(), r: boat.rotation.clone() } }; s.ctl.active = false; },
+        active: () => !!ride, debug: () => ride && { distance: ride.distance, length: L, velocity: ride.velocity, strokes: ride.strokes, paddleAngles: paddles.map(p=>[p.pivot.rotation.x,p.pivot.rotation.y,p.pivot.rotation.z]) },
+        start(s) {
+            if (!(L > 2) || ride) return false;
+            return flow.begin(s, { title, action, cameraRide: true, help: help || 'Each stroke moves the boat. Follow the short water course back to the landing. Look around freely; Leave or Esc returns ashore.',
+                started(s, r) { const p = s.position; ride = { distance: 0, velocity: 0, strokes: 0, t: 0, look: 0, pitch: initialPitch, back: { x: p.x, z: p.z, y: p.y, heading: s.ctl.heading }, home: { p: boat.position.clone(), r: boat.rotation.clone(), visible: boat.visible } }; boat.visible = true; r.status.textContent = '0 m · take a stroke to set off'; },
+                actioned(s, r) { r.busy = true; r.t = 0; ride.strokes++; },
+                update(dt, s, r) {
+                    if (!ride) return;
+                    ride.t += dt;
+                    if (r.busy) { const before = r.t; r.t += dt; if (before < .3 && r.t >= .3) { ride.velocity = Math.min(speed * 1.5, ride.velocity + speed * 1.2); s.sound?.play?.('splat', .2); } if (r.t >= .9) r.busy = false; }
+                    const phase = r.busy ? Math.sin(Math.min(1, r.t / .9) * Math.PI * 2) : 0;
+                    paddles.forEach(({ pivot, side, kayak }) => { pivot.rotation.y = side * phase * .55; pivot.rotation.z = kayak ? phase * .65 : -side * Math.sin(Math.min(1, r.t / .9) * Math.PI) * .22; });
+                    ride.velocity *= Math.exp(-.65 * dt); if (ride.velocity < .025) ride.velocity = 0;
+                    ride.distance = Math.min(L, ride.distance + ride.velocity * dt);
+                    const p = alongPolyline(path, ride.distance), ahead = alongPolyline(path, Math.min(L, ride.distance + .7));
+                    const targetYaw = Math.hypot(ahead.x - p.x, ahead.z - p.z) > .01 ? Math.atan2(ahead.x - p.x, ahead.z - p.z) : ride.yaw || 0;
+                    if (ride.yaw === undefined) ride.yaw = targetYaw;
+                    const turn = Math.atan2(Math.sin(targetYaw - ride.yaw), Math.cos(targetYaw - ride.yaw));
+                    ride.yaw += Math.max(-2.8 * dt, Math.min(2.8 * dt, turn));
+                    const yaw = ride.yaw, bob = Math.sin(ride.t * 1.6) * .025;
+                    boat.position.set(p.x, y + floatHeight + bob, p.z); boat.rotation.set(phase * .015, yaw, phase * .025);
+                    const lk = s.input?.takeLook?.() || { dx: 0, dy: 0 }; ride.look -= lk.dx * .0024; ride.pitch = Math.max(-.9, Math.min(.9, ride.pitch - lk.dy * .0024));
+                    s.ctl.rig.position.set(p.x, y + eye + bob, p.z); s.ctl.rig.rotation.set(ride.pitch, yaw + Math.PI + ride.look, 0, 'YXZ');
+                    r.progress.value = ride.distance / L; r.status.textContent = `${Math.round(ride.distance)} / ${Math.round(L)} m · ${ride.strokes} strokes`;
+                    if (ride.distance >= L - .1 && ride.strokes >= 2) flow.complete();
+                }, cancel: restore, complete(s) { restore(s); onDone?.(s); },
+            });
+        },
     };
-}
-/**
- * a short narrated visit at a door (rooms that are not modelled as walkable interiors): E starts it, one toast per step every
- * `every` s while the player stays within `r` m of (x, z); the last step reports the activity. Returns the interactable.
- */
-export function narratedVisit(ctx, { x, z, r = 7, every = 6, label, steps, spot, id, title, body }) {
-    let run = null;
-    ctx.onUpdate((dt, s) => {
-        if (!run) return;
-        if (Math.hypot(s.position.x - x, s.position.z - z) > r) { s.ui.toast('Tour left', 'Come back to the entrance to start again.'); run = null; return; }
-        run.t -= dt; if (run.t > 0) return;
-        if (run.i < steps.length) { const [t, b] = steps[run.i++]; s.ui.toast(t, b); run.t = every; return; }
-        bucActivity(s, spot, id, title, body); run = null;
-    });
-    const it = { x, z, r: 2.6, label: () => (run ? 'Tour in progress… (stay close)' : label), use: (s) => { if (!run) run = { i: 0, t: 0 }; } };
-    ctx.interactables.push(it);
-    return it;
 }

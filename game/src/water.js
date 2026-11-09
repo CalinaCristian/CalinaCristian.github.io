@@ -1,4 +1,6 @@
 import * as THREE from '../vendor/three.module.min.js';
+import { sourceShoreAttribute } from './water-shore.js';
+export { makeSourceShoreSampler } from './water-shore.js';
 
 // ============================================================================
 //  Water — one shared, cheap material for rivers, canals, lakes, fountains (districts + tourist spots).
@@ -26,6 +28,8 @@ export function makeWaterMaterial(o = {}) {
         transparent: !!o.transparent, opacity: o.opacity ?? 1, depthWrite: !o.transparent, side: o.side ?? THREE.FrontSide,
     });
     m.name = 'water';
+    // Ordinary/spot geometry without the optional mask keeps its existing foam.
+    m.defaultAttributeValues = { ...m.defaultAttributeValues, aFoamReliable: [1] };
     m.envMap = ENV; m.envMapIntensity = (o.envIntensity ?? 1) * ENV_I;
     m.userData.envScale = o.envIntensity ?? 1;
     const U = m.userData.waterU = {
@@ -36,9 +40,10 @@ export function makeWaterMaterial(o = {}) {
     m.onBeforeCompile = (sh) => {
         Object.assign(sh.uniforms, U);
         sh.vertexShader = sh.vertexShader
-            .replace('#include <common>', '#include <common>\nattribute float aShore;\nvarying vec3 vWWorld; varying float vWShore;')
+            .replace('#include <common>', '#include <common>\nattribute float aShore; attribute float aFoamReliable;\nvarying vec3 vWWorld; varying float vWShore; varying float vWFoamReliable;')
             .replace('#include <project_vertex>', `#include <project_vertex>
                 vWWorld = (modelMatrix * vec4(transformed, 1.0)).xyz;
+                vWFoamReliable = aFoamReliable;
                 #ifdef W_SHORE
                     vWShore = aShore;
                 #else
@@ -47,7 +52,7 @@ export function makeWaterMaterial(o = {}) {
         sh.fragmentShader = sh.fragmentShader
             .replace('#include <common>', `#include <common>
                 uniform float uWTime, uWRipple, uWWave, uWFoam; uniform vec2 uWFlow; uniform vec3 uWShallow, uWDeep;
-                varying vec3 vWWorld; varying float vWShore;
+                varying vec3 vWWorld; varying float vWShore; varying float vWFoamReliable;
                 float wH(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
                 vec2 wNg(vec2 p){ // value-noise gradient (analytic)
                     vec2 i = floor(p), f = fract(p), u = f * f * (3.0 - 2.0 * f), du = 6.0 * f * (1.0 - f);
@@ -77,14 +82,15 @@ export function makeWaterMaterial(o = {}) {
                 normal = normalize((viewMatrix * vec4(wNw, 0.0)).xyz);
                 // body colour: shallow near the shore, deep away from it and for steep views
                 float wNv = clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0);
-                float wEdge = 1.0 - smoothstep(0.0, 6.0, vWShore);
+                // Coarse faces without a defensible interpolated shoreline band also lack a defensible shallow tint.
+                float wEdge = (1.0 - smoothstep(0.0, 6.0, vWShore)) * clamp(vWFoamReliable, 0.0, 1.0);
                 diffuseColor.rgb = mix(uWDeep, uWShallow, wEdge * 0.8) * (0.75 + 0.25 * (1.0 - wNv));
                 diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.82, 0.85, 0.85), wFoam);`)
             .replace('#include <roughnessmap_fragment>', `#include <roughnessmap_fragment>
                 // shoreline foam: a broken band along the edge, drifting with the flow
                 vec2 wFq = (vWWorld.xz - uWFlow * uWTime) * 2.3; vec2 wFi = floor(wFq), wFf = fract(wFq); wFf = wFf * wFf * (3.0 - 2.0 * wFf);
                 float wFn = mix(mix(wH(wFi), wH(wFi + vec2(1, 0)), wFf.x), mix(wH(wFi + vec2(0, 1)), wH(wFi + vec2(1, 1)), wFf.x), wFf.y);
-                float wFoam = uWFoam * (1.0 - smoothstep(0.1, 0.9, vWShore)) * smoothstep(0.45, 0.8, wFn) * 0.85;
+                float wFoam = uWFoam * clamp(vWFoamReliable, 0.0, 1.0) * (1.0 - smoothstep(0.1, 0.9, vWShore)) * smoothstep(0.45, 0.8, wFn) * 0.85;
                 roughnessFactor = mix(roughnessFactor, 0.85, wFoam);`)
             .replace('#include <lights_fragment_end>', `#include <lights_fragment_end>
                 #if NUM_POINT_LIGHTS > 0
@@ -103,8 +109,10 @@ export function makeWaterMaterial(o = {}) {
                 #endif`);
         if (m.userData.hasShore) sh.vertexShader = '#define W_SHORE\n' + sh.vertexShader;
     };
-    m.customProgramCacheKey = () => 'water1' + (m.userData.hasShore ? 's' : '');
+    m.customProgramCacheKey = () => 'water2' + (m.userData.hasShore ? 's' : '');
     MATS.add(m);
+    // Tourist scene cleanup calls Material.dispose directly through disposeTree.
+    m.addEventListener('dispose', () => MATS.delete(m));
     return m;
 }
 
@@ -114,7 +122,15 @@ export function makeWaterMaterial(o = {}) {
  * inside the body (a 2-triangle strip only gets 0 at all corners — tessellate lakes/rivers to a few metres).
  * Call before first render; the material must then be told: material.userData.hasShore = true (done here when given).
  */
-export function computeShoreDistance(geometry, { maxD = 40, material = null } = {}) {
+export function computeShoreDistance(geometry, { maxD = 40, material = null, sourceSampler = null } = {}) {
+    if (sourceSampler) {
+        const result = sourceShoreAttribute(geometry.attributes.position, geometry.index, sourceSampler);
+        geometry.setAttribute('aShore', new THREE.BufferAttribute(result.distances, 1));
+        geometry.setAttribute('aFoamReliable', new THREE.BufferAttribute(result.foamReliable, 1));
+        geometry.userData.sourceShoreAudit = result.audit;
+        if (material) { material.userData.hasShore = true; material.needsUpdate = true; }
+        return result.distances;
+    }
     const pos = geometry.attributes.position, n = pos.count;
     // weld by position (non-indexed / split meshes) so interior edges are recognised as shared
     let idx = geometry.index ? geometry.index.array : null;

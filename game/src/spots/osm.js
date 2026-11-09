@@ -8,6 +8,8 @@
 import * as THREE from '../../vendor/three.module.min.js';
 import { GeoBatch, mat, rng, hash2, fbm2, polyArea, inPoly, centroid, polyBox, obb, distPolyline, alongPolyline, polylineLength, offsetPolyline, canvas, canvasTexture, clamp, M } from './kit.js';
 import { branchSkeleton } from '../trees.js';
+import { sourceRecord, resolveSourcePlan, sourceBuildingHeight, sourceHeroMembers } from './source-buildings.js';
+import { makeWaterMaterial } from '../water.js';
 
 // ---------------------------------------------------------------------------- palettes (Seattle defaults; scenes override)
 export const COL = {
@@ -288,88 +290,68 @@ export function buildingStyle(b, urban) {
     if ((b.h || 0) > 45) return 'office';
     return urban ? 'apartment' : 'house';
 }
-export function buildingHeight(b) {
-    if (b.h) return b.h;
-    if (b.lv) return b.lv * 3.2 + 0.8;
-    return { house: 7.5, detached: 7.5, garage: 3, shed: 2.8, roof: 4, apartments: 13, residential: 11, commercial: 9, retail: 6, office: 18, industrial: 8, warehouse: 8, church: 14, school: 9, hotel: 20, kiosk: 3, toilets: 3.5, service: 4 }[b.k] ?? 8;
-}
+export function buildingHeight(b) { return sourceBuildingHeight(b); }
 
 /**
  * extrude OSM buildings
  * @returns {{ group, colliders[], tris }}
  */
 export function buildBuildings(data, ground, o = {}) {
-    const skip = o.skip || new Set(), exclude = o.exclude || [], urban = o.urban ?? true;
-    const r = rng(1234);
-    const batch = new GeoBatch();
-    const colliders = [];
-    const mats = {};
-    const add = (style, g) => { const k = 'f-' + style; mats[k] = facadeMaterial(style); batch.add(g, k, null, g.userData.col); };
-    // notes 23/26: overlapping OSM footprints (duplicates, parts over parts) z-fight on coplanar facades and roofs.
-    // Largest first; a footprint (mostly) inside an accepted one that is not taller is dropped; a partly overlapping
-    // or taller one is inset 0.12 m and its roof lifted 8 cm so no facade / roof plane coincides.
-    const acc = [], cellA = 32, gridA = new Map(), keyA = (i, j) => i * 7919 + j;
-    const insideAcc = (x, z) => { for (const a of gridA.get(keyA(Math.floor(x / cellA), Math.floor(z / cellA))) || []) if (x >= a.bb.x0 && x <= a.bb.x1 && z >= a.bb.z0 && z <= a.bb.z1 && inPoly(x, z, a.poly)) return a; return null; };
-    const order = data.buildings.filter((b) => !skip.has(b.id) && !b.hasParts && b.poly?.length > 2).map((b) => ({ b, A: Math.abs(polyArea(b.poly)) })).sort((p, q) => q.A - p.A).map((p) => p.b);
-    let dropped = 0, inset = 0;
-    for (const b1 of order) {
-        const cp = cleanPoly(b1.poly); if (!cp) continue;
-        const b0 = cp === b1.poly ? b1 : { ...b1, poly: cp }; let b = b0;
-        if (b.k === 'roof' && !o.keepRoofs) continue;
-        { // overlap with accepted footprints
-            const [qx, qz] = centroid(b.poly), bbq = polyBox(b.poly), smp = [[qx, qz], ...b.poly.map(([x, z]) => [x + (qx - x) * 0.2, z + (qz - z) * 0.2])];
-            for (let i = 0; i < 9; i++) { const x = bbq.x0 + (bbq.x1 - bbq.x0) * ((i % 3) + 0.5) / 3, z = bbq.z0 + (bbq.z1 - bbq.z0) * (Math.floor(i / 3) + 0.5) / 3; if (inPoly(x, z, b.poly)) smp.push([x, z]); }
-            let hit = 0, host = null; for (const [x, z] of smp) { const a = insideAcc(x, z); if (a) { hit++; host = a; } }
-            const f = hit / smp.length, H0 = buildingHeight(b) + (b.minH || 0);
-            if (globalThis.__spotsLegacy) { /* dev A/B */ } else if (f >= 0.85 && host && H0 <= host.H + 0.5 && !b.minH) { dropped++; continue; }
-            if (!globalThis.__spotsLegacy && f > 0.04) { const pin = insetPoly(b.poly, 0.12); if (pin) { b = { ...b, poly: pin, _lift: 0.08 }; inset++; } }
-            else if (!globalThis.__spotsLegacy) { // a per-building 2–8 cm jitter: walls / roofs of touching footprints never share a plane
-                const [hx, hz] = centroid(b.poly), j = 0.02 + hash2(hx * 0.37, hz * 0.41) * 0.06, pin = insetPoly(b.poly, j); if (pin) b = { ...b, poly: pin, _lift: j }; }
-        }
-        const [cx, cz] = centroid(b.poly);
-        if (exclude.some((p) => inPoly(cx, cz, p))) continue;
-        if (o.filter && !o.filter(b)) continue;
-        const H = buildingHeight(b) * (o.heightScale || 1);
-        let gmin = 1e9, gmax = -1e9;
-        // lowest / highest ground under the footprint: vertices, centroid and every ~2.5 m along the edges (a long
-        // wall over a slope or a re-graded street must still reach the ground: closed volume, nothing to see under)
-        const gs = (x, z) => { const h = ground.heightAt(x, z); if (h < gmin) gmin = h; if (h > gmax) gmax = h; };
-        for (let i = 0, j = b.poly.length - 1; i < b.poly.length; j = i++) { const [ax, az] = b.poly[j], [bx, bz] = b.poly[i], n = Math.min(24, Math.ceil(Math.hypot(bx - ax, bz - az) / 2.5)); for (let q = 0; q < n; q++) gs(ax + (bx - ax) * q / n, az + (bz - az) * q / n); }
-        gs(cx, cz);
-        // over water (boathouses, pier sheds; round 6 note 28): the floor sits just above the water, not on the lakebed —
-        // the walls still reach down into the water like the piles they stand on
-        if (ground.waterY != null && gmax < ground.waterY + 0.6) gmax = ground.waterY + 0.6;
-        const base = b.minH ? gmax + b.minH : (b.minLv ? gmax + b.minLv * 3.2 : gmin - 0.6);
-        const top = gmax + H + (b._lift || 0);
-        if (top - base < 1) continue;
-        { const bb = polyBox(b0.poly), a = { poly: b0.poly, bb, H: buildingHeight(b0) + (b0.minH || 0) }; acc.push(a);
-            for (let i = Math.floor(bb.x0 / cellA); i <= Math.floor(bb.x1 / cellA); i++) for (let j = Math.floor(bb.z0 / cellA); j <= Math.floor(bb.z1 / cellA); j++) { const k = keyA(i, j); let l = gridA.get(k); if (!l) gridA.set(k, l = []); l.push(a); } }
-        const style = o.style?.(b) || buildingStyle(b, urban);
-        const pal = PALETTES[style] || (style === 'house' ? HOUSE_COLS : style === 'office' ? OFFICE_COLS : style === 'brick' ? BRICK_COLS : APT_COLS);
-        const hcol = b.c ? safeCol(b.c) : pal[Math.floor(hash2(cx, cz) * pal.length)];
-        const S = facadeStyle(style);
-        const pitched = (style === 'house' && (b.roof !== 'flat')) || /gabled|hipped|pitched/.test(b.roof || '');
-        const wallTop = pitched ? top - Math.min(3.5, H * 0.3) : top;
-        // ground floor shop band for urban commercial/mixed buildings
-        const shopBand = urban && !b.minH && H > 7 && (b.shop || b.amenity || style === 'mall' || /commercial|retail|mixed|yes/.test(b.k)) && style !== 'house' && style !== 'industrial';
-        const yGF = shopBand ? Math.min(wallTop, gmax + 4.3) : base;
-        if (shopBand) add(o.shopStyle || 'shop', wallGeometry(b.poly, base, yGF, facadeStyle(o.shopStyle || 'shop'), gmax, hcol));
-        add(style, wallGeometry(b.poly, yGF, wallTop, S, shopBand ? yGF : gmax, hcol));
-        // roof
-        if (pitched) { const g = gableRoof(b.poly, wallTop, top, b.rc ? safeCol(b.rc) : ['#4a4a4f', '#5b4a42', '#3f4a52', '#6b6660'][Math.floor(hash2(cz, cx) * 4)], hcol); if (g) { batch.add(g.roof, 'roofs', null, g.roofCol); batch.add(g.gables, 'f-' + style, null, hcol); mats['f-' + style] = facadeMaterial(style); } }
-        else {
-            batch.flat(b.poly, top, b.rc ? safeCol(b.rc) : (style === 'office' ? '#7d8288' : '#8a8784'), 'roofs');
-            // parapet + rooftop units on bigger roofs
-            const A = Math.abs(polyArea(b.poly));
-            if (A > 300 && H > 9) { const bb = obb(b.poly), put = []; if (bb) for (let i = 0; i < Math.min(4, A / 400); i++) { const u = (r() - 0.5) * bb.len * 0.5, v = (r() - 0.5) * bb.wid * 0.5; if (put.some(([pu, pv]) => Math.abs(pu - u) < 5.5 && Math.abs(pv - v) < 4.5)) continue; put.push([u, v]); batch.box(bb.cx + bb.ux * u - bb.uz * v, top, bb.cz + bb.uz * u + bb.ux * v, 2 + r() * 3, 1.2 + r() * 1.5, 2 + r() * 2, '#9a9a96', 'metal', bb.angle); } }
-        }
-        // the walker can't get under / into a building that stands on the ground (floating parts keep their underside)
-        colliders.push(polyCollider(b.poly, b.minH || b.minLv ? base : base - 30, top));
+    const started=performance.now(),skip=sourceHeroMembers(data.buildings,o.skip||new Set()),urban=o.urban??true,records=[],batch=new GeoBatch(),colliders=[],mats={},members=[];
+    // A scene can retain a newly discovered source volume while its canonical
+    // replacement coverage is still being compared. Parent containment alone
+    // does not verify a recently restored relation's authored mass.
+    for(const id of o.preserveSources||[])skip.delete(id);
+    for(const [i,b]of data.buildings.entries()){
+        if(skip.has(b.id)||!b.poly||b.poly.length<3||Math.abs(polyArea(b.poly))<1e-8)continue;
+        const [cx,cz]=centroid(b.poly);if(o.filter&&!o.filter(b))continue;
+        const style=o.style?.(b)||buildingStyle(b,urban),r=sourceRecord(b,i,ground,{house:style==='house',heightScale:o.heightScale||1});
+        r.style=style;r.cx=cx;r.cz=cz;records.push(r);
     }
-    for (const m of Object.values(mats)) m.side = globalThis.__spotsLegacy ? THREE.FrontSide : THREE.DoubleSide; // inside a wall the camera sees a wall, never the street beyond
-    const group = batch.build('osm-buildings', { matOverrides: mats });
-    return { group, colliders, tris: countFromGroup(group), dedupe: { dropped, inset } };
+    const plan=resolveSourcePlan(records,data.buildingGeometry),add=(style,g,col)=>{if(!g.index?.count){g.dispose();return;}const key='f-'+style;mats[key]=facadeMaterial(style);batch.add(g,key,null,col);g.dispose();};
+    const collisionKeys=new Map();
+    for(const v of plan.volumes){
+        const r=v.owner,b=v.source,style=r.style,S=facadeStyle(style),pal=PALETTES[style]||(style==='house'?HOUSE_COLS:style==='office'?OFFICE_COLS:style==='brick'?BRICK_COLS:APT_COLS),hcol=b.c?safeCol(b.c):pal[Math.floor(hash2(r.cx,r.cz)*pal.length)],roofcol=b.rc?safeCol(b.rc):style==='office'?'#7d8288':v.owner.profile.shape==='flat'?'#8a8784':['#4a4a4f','#5b4a42','#3f4a52','#6b6660'][Math.floor(hash2(r.cz,r.cx)*4)];
+        const shop=urban&&r.minHeight===0&&r.height>7&&(b.shop||b.amenity||style==='mall'||/commercial|retail|mixed|yes/.test(b.k))&&style!=='house'&&style!=='industrial',gf=shop?Math.min(v.h,r.datum+4.3):v.minH;
+        const wall=(ring,bands,hole=false)=>{
+            if(shop)add(o.shopStyle||'shop',sourceWallGeometry(ring,bands,facadeStyle(o.shopStyle||'shop'),r.datum,{max:gf,hole}),hcol);
+            add(style,sourceWallGeometry(ring,bands,S,shop?gf:r.datum,{min:shop?gf:-Infinity,hole}),hcol);
+        };
+        wall(v.ring,v.surface.walls);v.holes.forEach((h,i)=>wall(h,v.holeWalls[i],true));
+        if(r.minHeight>0)for(const ring of v.surface.underside){const u=sourceFaceGeometry([{vertices:ring.map(p=>[p[0],v.minH,p[1]]),normal:[0,-1,0]}]);batch.add(u,'roofs',null,roofcol);u.dispose();}
+        {
+            const roof=sourceFaceGeometry(v.visibleRoof.faces);if(roof.index.count)batch.add(roof,'roofs',null,roofcol);roof.dispose();
+            if(v.visibleRoof.walls.length)add(style,sourceFaceGeometry(v.visibleRoof.walls,S,r.datum),hcol);
+        }
+        // Exact same physical collision can carry more than one OSM identity.
+        // Union their membership, rather than summing duplicate push vectors.
+        const key=sourceCollisionKey(v.ring,v.holes,v.minH,v.roofTop),prior=collisionKeys.get(key);
+        if(prior)prior.sources.push(b.id);else{const c={...polyCollider(v.ring,r.minHeight>0?v.minH:v.minH-30,v.roofTop),holes:v.holes,sources:[b.id],source:b.id};collisionKeys.set(key,c);colliders.push(c);}
+        members.push({source:b.id,volume:v.i,residual:!!v.residual,footprint:v.ring,holes:v.holes,minHeight:v.minH,top:v.roofTop});
+    }
+    for(const m of Object.values(mats))m.side=THREE.DoubleSide;
+    const group=batch.build('osm-buildings',{matOverrides:mats});
+    const stats={...plan.stats,cacheHit:plan.cacheHit,buildMs:Math.round(performance.now()-started),sourceRecords:records.length,renderedVolumes:plan.volumes.length,heroReplacements:[...skip].filter(id=>data.buildings.some(b=>b.id===id))};
+    return{group,colliders,tris:countFromGroup(group),dedupe:{dropped:0,inset:0},sourceGeometry:stats,sourceMembers:members,geometryCache:plan.geometryCache};
 }
+function sourceCollisionKey(ring,holes,y0,y1){
+    const canon=ring=>{const p=ring.map(p=>p.join(',')),a=p.indexOf([...p].sort()[0]),q=p.slice(a).concat(p.slice(0,a)),rev=[q[0],...q.slice(1).reverse()];return JSON.stringify(q)<JSON.stringify(rev)?q:rev;};
+    return JSON.stringify([canon(ring),holes.map(canon).sort(),y0,y1]);
+}
+function sourceFaceGeometry(faces,S=null,vBase=0){
+    const pos=[],uv=[],idx=[];
+    for(const f of faces){const face=f.vertices||f;if(face.length<3)continue;const base=pos.length/3,target=f.normal||[0,1,0],a=face[0],b=face[1],c=face[2],cross=[(b[1]-a[1])*(c[2]-a[2])-(b[2]-a[2])*(c[1]-a[1]),(b[2]-a[2])*(c[0]-a[0])-(b[0]-a[0])*(c[2]-a[2]),(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0])],flip=cross.reduce((n,v,i)=>n+v*target[i],0)<0;
+        for(const p of face){pos.push(...p);uv.push((Math.abs(target[0])>Math.abs(target[2])?p[2]:p[0])/((S?.bay||1)*4),(p[1]-vBase)/((S?.floor||1)*4));}
+        for(let k=1;k<face.length-1;k++)idx.push(base,base+(flip?k+1:k),base+(flip?k:k+1));
+    }
+    const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setIndex(idx);g.computeVertexNormals();return g;
+}
+function sourceWallGeometry(ring,bands,S,vBase,{min=-Infinity,max=Infinity,hole=false}={}){
+    const pos=[],uv=[],idx=[],sign=Math.sign(polyArea(ring))*(hole?-1:1);let u=0;
+    for(let i=0;i<ring.length;i++){const a=ring[i],b=ring[(i+1)%ring.length],L=Math.hypot(b[0]-a[0],b[1]-a[1]);if(L<1e-8)continue;const ua=Math.round(u/S.bay)*S.bay,span=Math.max(S.bay,Math.round(L/S.bay)*S.bay);for(const f of bands[i]||[]){const y0=Math.max(min,f.y0),y1=Math.min(max,f.y1);if(y1-y0<1e-8)continue;const k=pos.length/3,x0=a[0]+(b[0]-a[0])*f.t0,z0=a[1]+(b[1]-a[1])*f.t0,x1=a[0]+(b[0]-a[0])*f.t1,z1=a[1]+(b[1]-a[1])*f.t1;pos.push(x0,y0,z0,x1,y0,z1,x1,y1,z1,x0,y1,z0);const U0=(ua+span*f.t0)/(S.bay*4),U1=(ua+span*f.t1)/(S.bay*4),V0=(y0-vBase)/(S.floor*4),V1=(y1-vBase)/(S.floor*4);uv.push(U0,V0,U1,V0,U1,V1,U0,V1);if(sign>0)idx.push(k,k+2,k+1,k,k+3,k+2);else idx.push(k,k+1,k+2,k,k+2,k+3);}u+=L;}
+    const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setIndex(idx);g.computeVertexNormals();return g;
+}
+
 /** ring without repeated / near-coincident (< 5 cm) or collinear vertices (no zero-length wall quads → no degenerate triangles / zero normals); null if < 3 left */
 export function cleanPoly(poly) {
     let out = []; for (const p of poly) { const q = out[out.length - 1]; if (!q || Math.hypot(p[0] - q[0], p[1] - q[1]) > 0.05) out.push(p); }
@@ -703,8 +685,9 @@ export function bench(b, x, y, z, a, col = '#6e5a42', frame = '#2e3236') {
 export function waterPlane(y, box, { color = '#2f4f5e', name = 'water' } = {}) {
     const W = box.x1 - box.x0, H = box.z1 - box.z0;
     const g = new THREE.PlaneGeometry(W, H, 1, 1); g.rotateX(-Math.PI / 2);
-    const m = new THREE.MeshStandardMaterial({ color, roughness: 0.08, metalness: 0.35, envMapIntensity: 1.2 });
-    m.name = 'spot-water';
+    // The generic city environment contains lighting blocks. Use the shared
+    // sky-only water reflection rather than reflecting invented floating boxes.
+    const m = makeWaterMaterial({deep:color,shallow:color,roughness:.08,envIntensity:1.2,ripple:.6,foam:0});
     const mesh = new THREE.Mesh(g, m); mesh.position.set((box.x0 + box.x1) / 2, y, (box.z0 + box.z1) / 2); mesh.name = name; mesh.receiveShadow = true;
     return mesh;
 }

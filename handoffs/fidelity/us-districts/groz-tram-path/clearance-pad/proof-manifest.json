@@ -1,0 +1,36 @@
+{
+  "previousSourceCommit": "d77ab0124604f754e0b03ba06e2af74c45d7fb0f",
+  "baselineHelperSha256": "eade4932fceec65ece73ea60c169197fa4bb5e8fc141f95521e183e3fb6813dd",
+  "runtimeModules": {
+    "game/src/tram-path.js": "467abc0a93f9b80e64d2b79f35a1a2f12a828cc9be46fc6ffed05b139c1a1445",
+    "game/src/traffic.js": "b4dc026640861e59a1b228d09ba16b156f2b3639f86017f542060b5252694c82"
+  },
+  "files": {
+    "README.md": {
+      "bytes": 1605,
+      "sha256": "6e6635243d8535a6e3fe22e056eb42edbfdf4f769fd56a48d8adbfbba1fb1da5"
+    },
+    "baseline-candidate-native-control.json": {
+      "bytes": 743,
+      "sha256": "c63aa83496ab845e76ab9aa4434ca8d49d784e4a6d7ef8c66a1fe7b1d5ef3b38"
+    },
+    "groz263-binding-cpu.json": {
+      "bytes": 15743,
+      "sha256": "4088b37a9123024ab9e4f3fc8785f882054f82ffd59b0a6f657e6060b42713c9"
+    },
+    "physical-priority-cpu.json": {
+      "bytes": 422,
+      "sha256": "6067e7f5f752254e8ae49a02f88e3d4e039985af0636388f6a9366fb55ab3e2e"
+    },
+    "source-stop-boundary-cpu.json": {
+      "bytes": 590,
+      "sha256": "071e12ed7ccb153a7e8022d141320fc6264d1e839afc6e03455aeded8eb8d815"
+    },
+    "test.mjs": {
+      "bytes": 2854,
+      "sha256": "acb7b2f615a04413afc9f8f1b24b23f57911911a500752a293c036d9c9da5411"
+    }
+  },
+  "nativeWorldAcceptance": false,
+  "browserOpened": false
+}

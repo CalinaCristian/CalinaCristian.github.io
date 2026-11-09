@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "7294edf843ff029ce82a755a20bd56ff81e6ac2e",
+  "status": "Superseded: coverage works in summer and winter, but final source also preserves original floodlit-material night semantics. Not promoted into public collections.",
+  "reviewedFrames": 6,
+  "allPaintPolygonsContinuous": true,
+  "winterNote": "Native snow/fog keeps all paint at low contrast; no forced far plane or readability adjustment.",
+  "cameraClip": {
+    "summer-clear-day": [
+      0.2,
+      5000
+    ],
+    "winter-snow-day": [
+      0.2,
+      2167.689161554192
+    ]
+  }
+}

@@ -64,6 +64,9 @@ const CSS = `
 #spot-ui .sp-tour .sp-dots{letter-spacing:3px;color:#fde68a;font-size:11px}
 #spot-ui .sp-tour .sp-stop{font-weight:700;color:#fde68a;margin-top:2px}
 #spot-ui .sp-tour .sp-narr{opacity:.92;margin-top:2px;max-height:7.5em;overflow:hidden}
+#spot-ui .sp-tour .sp-tour-controls{display:flex;gap:6px;margin-top:6px;pointer-events:auto}
+#spot-ui .sp-tour button{font:600 12px system-ui;border:0;border-radius:6px;padding:6px 9px;background:#fbbf24;color:#1d160a;cursor:pointer}
+#spot-ui .sp-tour button[data-tour-end]{background:#3a4148;color:#fff}
 body.photo-mode #spot-ui .sp-mini,
 body.photo-mode #spot-ui .sp-card,body.photo-mode #spot-ui .sp-prompt,body.photo-mode #spot-ui .sp-help,body.photo-mode #spot-ui .sp-cross{display:none}
 @media (max-width:600px){#spot-ui .sp-help{display:none}#spot-ui .bubble{font-size:12px}#spot-ui .sp-mini{width:112px;height:112px}}
@@ -73,43 +76,48 @@ export class SpotUI {
     constructor(root = document.body) {
         if (!document.getElementById('spot-ui-css')) { const st = document.createElement('style'); st.id = 'spot-ui-css'; st.textContent = CSS; document.head.appendChild(st); }
         const el = this.el = document.createElement('div'); el.id = 'spot-ui';
-        el.innerHTML = `<div class="sp-bubbles"></div><div class="sp-card"><b></b><span></span><div class="sp-chal"></div><div class="sp-tour"></div></div><div class="sp-mini" title="Map (M)"><canvas width="168" height="168"></canvas><b>N ↑</b></div>
+        el.innerHTML = `<div class="sp-bubbles"></div><div class="sp-card"><b></b><span></span><div class="sp-chal"></div><div class="sp-tour"></div></div><button type="button" class="sp-mini" aria-label="Open tourist map" title="Map"><canvas width="168" height="168"></canvas><b>N ↑</b></button>
             <div class="sp-cross"></div><div class="sp-prompt"></div><div class="sp-toasts"></div><div class="sp-help"></div><div class="sp-panel"></div>`;
         root.appendChild(el);
         this.$ = (s) => el.querySelector(s);
         this.bubbles = new BubbleLayer(this.$('.sp-bubbles'));
         this._prompt = null;
+        if (document.body.classList.contains('touch')) this.$('.sp-mini b').textContent = 'Map';
     }
     setTitle(name, sub) { this.$('.sp-card b').textContent = name; this.$('.sp-card span').textContent = sub || ''; }
     setHelp(t) { this.$('.sp-help').textContent = t || ''; }
     setChallenge(text, done = false) { const c = this.$('.sp-chal'); c.textContent = text ? (done ? '✅ ' : '📷 ') + text : ''; c.classList.toggle('done', !!done); }
     prompt(html) {
         if (html === this._prompt) return; this._prompt = html;
-        const p = this.$('.sp-prompt'); if (html) p.innerHTML = html; p.classList.toggle('show', !!html);
+        const p = this.$('.sp-prompt'), touch = document.body.classList.contains('touch');
+        p.innerHTML = html ? (touch ? `<button class="sp-use" data-spot-use>${html.replace(/<kbd>E<\/kbd>/g, '')}</button>` : html) : '';
+        p.classList.toggle('show', !!html);
     }
     crosshair(on) { this.$('.sp-cross').classList.toggle('show', !!on); }
     toast(title, body = '') {
         const t = document.createElement('div'); t.className = 'sp-toast'; t.innerHTML = `<b></b><span></span>`;
-        t.querySelector('b').textContent = title; t.querySelector('span').textContent = body;
+        t.querySelector('b').textContent = title; t.querySelector('span').textContent = document.body.classList.contains('touch') ? body.replace(/Press E\b/gi, 'Tap Use') : body;
         this.$('.sp-toasts').appendChild(t); requestAnimationFrame(() => t.classList.add('show'));
         setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 4200);
     }
     get panelOpen() { return this.$('.sp-panel').classList.contains('show'); }
     /** plaque reader; resolves when closed */
     showPlaque(pl, place = '') {
+        this.closePanel();
         const p = this.$('.sp-panel');
         const src = pl.source_url ? `<div class="sp-src">Source: <a href="${encodeURI(pl.source_url)}" target="_blank" rel="noopener">${esc(pl.source_url)}</a></div>` : '';
-        p.innerHTML = `<div class="sp-plaque"><div class="sp-place">${esc(place)}</div><h3>${esc(pl.title)}</h3><p>${esc(pl.text)}</p>${pl.credit ? `<div class="sp-credit">${esc(pl.credit)}</div>` : ''}${src}<button data-close>Close (E)</button></div>`;
+        p.innerHTML = `<div class="sp-plaque"><div class="sp-place">${esc(place)}</div><h3>${esc(pl.title)}</h3><p>${esc(pl.text)}</p>${pl.credit ? `<div class="sp-credit">${esc(pl.credit)}</div>` : ''}${src}<button data-close>Close${document.body.classList.contains('touch') ? '' : ' (E)'}</button></div>`;
         p.classList.add('show');
         return new Promise((res) => {
             // note 21: the closing key is consumed (its keyup too, so it neither re-opens the plaque nor opens the pause
             // menu), focus leaves the panel; the session hands focus back to the game (pointer lock on the next click)
+            let keyTimer = null;
             const swallowUp = (e) => { e.preventDefault(); e.stopPropagation(); window.removeEventListener('keyup', swallowUp, true); };
-            const close = (e) => { if (!p.classList.contains('show')) return; p.classList.remove('show'); window.removeEventListener('keydown', key, true); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; this._closePanel = null; res(); };
-            const key = (e) => { if (['Escape', 'KeyE', 'Enter', 'Space'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
+            const close = (e) => { clearTimeout(keyTimer); window.removeEventListener('keydown', key, true); if (this._closePanel !== close) return; p.classList.remove('show'); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; this._closePanel = null; res(); };
+            const key = (e) => { if (this._closePanel === close && p.classList.contains('show') && ['Escape', 'KeyE', 'Enter', 'Space'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
             p.querySelector('[data-close]').onclick = () => close();
             p.onclick = (e) => { if (e.target === p) close(); };
-            setTimeout(() => window.addEventListener('keydown', key, true), 120);
+            keyTimer = setTimeout(() => { if (this._closePanel === close) window.addEventListener('keydown', key, true); }, 120);
             this._closePanel = close;
         });
     }
@@ -118,18 +126,24 @@ export class SpotUI {
     setTour(t) {
         const el = this.$('.sp-tour'); if (!t) { el.innerHTML = ''; el.style.display = 'none'; return; }
         el.style.display = '';
-        el.innerHTML = `<b>🚩 ${esc(t.title)}${t.done ? '' : ` · ${Math.min(t.i + 1, t.n)}/${t.n}`}</b><div class="sp-dots">${(t.dots || []).map((d) => (d === 1 ? '●' : d === 2 ? '◉' : '○')).join('')}</div>${t.stop ? `<div class="sp-stop">▶ ${esc(t.stop)}</div>` : ''}${t.text ? `<div class="sp-narr">${esc(t.text)}</div>` : ''}`;
+        el.innerHTML = `<b>🚩 ${esc(t.title)}${t.done ? '' : ` · ${Math.min(t.i + 1, t.n)}/${t.n}`}</b><div class="sp-dots">${(t.dots || []).map((d) => (d === 1 ? '●' : d === 2 ? '◉' : d === 3 ? '×' : '○')).join('')}</div>${t.stop ? `<div class="sp-stop">▶ ${esc(t.stop)}</div>` : ''}${t.text ? `<div class="sp-narr">${esc(t.text)}</div>` : ''}${t.skip || t.end ? `<div class="sp-tour-controls">${t.skip ? '<button data-tour-skip>Skip stop</button>' : ''}${t.end ? `<button data-tour-end>${t.done ? 'Close' : 'End tour'}</button>` : ''}</div>` : ''}`;
+        for (const [selector, run] of [['[data-tour-skip]', t.skip], ['[data-tour-end]', t.end]]) {
+            const b = el.querySelector(selector); if (!b) continue;
+            b.onpointerdown = (e) => e.stopPropagation();
+            b.onclick = (e) => { e.stopPropagation(); run(); };
+        }
     }
     /**
      * full spot map (notes 32/33/67): the map with every objective + legend + checklist + tour button. Same panel
      * discipline as the plaque (closing key consumed, focus back to the game). `map` is the SpotMap; resolves on close.
      */
     showMap(map, { title = '', items = [], tour = null } = {}) {
+        this.closePanel();
         const p = this.$('.sp-panel'), kinds = MAP_KINDS.filter(([k]) => k === 'you' || k === 'guide' && map.markers.some((m) => m.kind === 'guide') || map.markers.some((m) => m.kind === k));
         p.innerHTML = `<div class="sp-map"><canvas></canvas><div class="sp-tip"></div><div class="sp-side"><h3>${esc(title)}</h3>
             <div class="sp-legend">${kinds.filter(([k]) => k !== 'you').map(([k, ic, nm]) => `<button data-kind="${k}" aria-pressed="${!map.hidden.has(k)}" title="Show / hide">${ic} ${nm}</button>`).join('')}</div>
             <ul>${items.map((it, i) => `<li data-i="${i}" class="${it.done ? 'done' : ''}">${it.done ? '✓' : it.icon} ${esc(it.label)}</li>`).join('')}</ul>
-            <div class="sp-btns">${tour ? `<button data-tour>${esc(tour.label)}</button>` : ''}<button data-close>Close (M)</button></div></div></div>`;
+            <div class="sp-btns">${tour ? `<button data-tour>${esc(tour.label)}</button>` : ''}<button data-close>Close${document.body.classList.contains('touch') ? '' : ' (M)'}</button></div></div></div>`;
         const box = p.querySelector('.sp-map'), cv = p.querySelector('canvas'), tip = p.querySelector('.sp-tip');
         p.classList.add('show');
         const fit = () => { const r = box.getBoundingClientRect(), sr = p.querySelector('.sp-side').getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1); cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
@@ -143,19 +157,20 @@ export class SpotUI {
         p.querySelectorAll('li[data-i]').forEach((li) => { li.onclick = () => { const it = items[+li.dataset.i]; map.sel = it.marker || it.members?.[0] || null; map.focus = it.members || null; p.querySelectorAll('li').forEach((x) => x.classList.toggle('sel', x === li)); map.draw(cv, { full: true }); }; });
         const onResize = () => fit(); window.addEventListener('resize', onResize);
         return new Promise((res) => {
+            let keyTimer = null;
             const swallowUp = (e) => { e.preventDefault(); e.stopPropagation(); window.removeEventListener('keyup', swallowUp, true); };
-            const close = (e) => { if (!p.classList.contains('show')) return; p.classList.remove('show'); window.removeEventListener('keydown', key, true); window.removeEventListener('resize', onResize); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; map.sel = null; map.focus = null; map.pad = null; this._closePanel = null; res(); };
-            const key = (e) => { if (['Escape', 'KeyM', 'KeyE', 'Enter'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
+            const close = (e) => { clearTimeout(keyTimer); window.removeEventListener('keydown', key, true); window.removeEventListener('resize', onResize); if (this._closePanel !== close) return; p.classList.remove('show'); if (e?.type === 'keydown') window.addEventListener('keyup', swallowUp, true); document.activeElement?.blur?.(); p.innerHTML = ''; map.sel = null; map.focus = null; map.pad = null; this._closePanel = null; res(); };
+            const key = (e) => { if (this._closePanel === close && p.classList.contains('show') && ['Escape', 'KeyM', 'KeyE', 'Enter'].includes(e.code)) { e.preventDefault(); e.stopPropagation(); close(e); } };
             p.querySelector('[data-close]').onclick = () => close();
             const tb = p.querySelector('[data-tour]'); if (tb) tb.onclick = () => { close(); tour.run(); };
             p.onclick = (e) => { if (e.target === p) close(); };
-            setTimeout(() => window.addEventListener('keydown', key, true), 120);
+            keyTimer = setTimeout(() => { if (this._closePanel === close) window.addEventListener('keydown', key, true); }, 120);
             this._closePanel = close;
         });
     }
 
     update(camera) { this.bubbles.update(camera); }
-    dispose() { this.el.remove(); }
+    dispose() { this.closePanel(); this.el.remove(); }
 }
 /** map marker kinds: [kind, icon, legend name] */
 export const MAP_KINDS = [['hero', '⭐', 'Landmark'], ['plaque', '📜', 'Plaque'], ['postcard', '📷', 'Postcard photo'], ['activity', '🎯', 'Activity'], ['bike', '🚲', 'Bikes'], ['entrance', '🚪', 'Entrance'], ['view', '👁', 'Viewpoint'], ['guide', '🚩', 'Tour guide'], ['you', '➤', 'You']];

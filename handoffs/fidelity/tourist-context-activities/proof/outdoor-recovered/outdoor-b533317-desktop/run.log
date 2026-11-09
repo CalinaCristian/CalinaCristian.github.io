@@ -1,0 +1,18 @@
+load pioneer-square pioneerTotem
+pioneer-square pioneerTotem passed
+load pioneer-square pioneerPublicHistory
+pioneer-square pioneerPublicHistory passed
+load old-town-lipscani curteaVecheVisit
+old-town-lipscani curteaVecheVisit passed
+load athenaeum-revolution photoHunt
+athenaeum-revolution photoHunt passed
+load spring-palace photoHunt
+spring-palace photoHunt passed
+load palace-parliament photoHunt
+palace-parliament photoHunt passed
+load arcul-de-triumf photoHunt
+arcul-de-triumf photoHunt passed
+load bel-lincoln-square photoHunt
+Error: Could not aim using native look: {"visibility":{"label":"Lincoln Square North: the office tower","clear":false,"targetDistance":98.51450794258396,"surfaceTolerance":13.5,"hitDistance":68.12211614765268,"hitPoint":[38.31405581117883,40.22391115167639,41.069367981674176],"sourceSurface":null,"blocker":null},"position":{"x":-2,"z":2,"y":-0.013445560075342715,"heading":3.943192653589793},"target":{"label":"Lincoln Square North: the office tower","x":56.3,"y":57.43949589617262,"z":58.5,"radius":9}}
+    at look (/workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-outdoor-details-check.cjs:4:1187)
+    at async /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-outdoor-details-check.cjs:5:1964

@@ -3,7 +3,7 @@
 //  The chapters are the spine. The world-map hub (worldmap.js) goes anywhere, for everyone: a jump lands in free
 //  roam (game.freeRoam: objective hidden, no chapter cards, conditions panel) or in a tourist spot; the story waits,
 //  and the "📖 Resume story · Chapter N" chip (or pause → Resume story) brings the objective, nav and cards back
-//  where the player left them. "Here" fast travel (hub), the drone (drone.js), K (time / weather / season) and the
+//  where the player left them. "Here" waypoints (hub), the drone (drone.js), K (time / weather / season) and the
 //  tourist spots are there in every state. There is no separate Explore mode, title entry or mode switch any more;
 //  the module keeps its name (explore.js / game.explore) so the hooks and saves did not churn.
 //
@@ -37,7 +37,7 @@ const DISTRICT_ICON = { grozavesti: '🎓', unirii: '⛲', romana: '🏢', flore
 export function initExplore(game) {
     if (!game || game.explore) return game?.explore;
     let busy = false, jumping = false, story = null, thumbDue = null;
-    const api = { active: false };
+    const api = { active: false, destination: null };
     game.explore = api; document.body.classList.add('has-explore');
 
     // ------------------------------------------------------------------ drone + hub
@@ -48,7 +48,12 @@ export function initExplore(game) {
         thumb: (k) => load().thumbs?.[k] || null,
         recent: () => load().recent || [],
         onGo: (it) => jump(it),
-        onHere: (x, z, pin) => fastTravelTo(x, z, pin),
+        destination: () => api.destination,
+        onSelect: (it) => selectPlace(it),
+        onHere: (x, z, pin) => selectHere(x, z, pin),
+        onClear: () => clearDestination(),
+        onTravel: () => fastTravelSelected(),
+        canTravel: () => !game.fastTravelStatus?.().disabled,
         onClose: () => {
             if (map.startMode && game.state === 'menu' && !busy) setActive(false);
             if (['drive', 'foot', 'spot'].includes(game.state)) game.returnFocus?.();
@@ -93,16 +98,69 @@ export function initExplore(game) {
             for (const s of Object.values(d.spots || {})) for (const [x, z] of s.extent?.polygon || []) { x0 = Math.min(x0, x); z0 = Math.min(z0, z); x1 = Math.max(x1, x); z1 = Math.max(z1, z); }
             if (!(x1 > x0)) { x0 = ctl.x - 200; x1 = ctl.x + 200; z0 = ctl.z - 200; z1 = ctl.z + 200; }
             const pins = Object.entries(sp.spawns || {}).map(([id, s]) => ({ x: s.x, z: s.z, id, label: (g.spotsMod?.SPOTS?.find((e) => e.id === id)?.name || id).split(/[:(]/)[0].trim(), icon: SPOT_ICON[id] || '📍', color: '#e11d48' }));
-            return { kind: 'spot', key: 'spot:' + sp.sceneId, name: g.spotEntry?.name?.split(/[:(&]/)[0].trim(), data: d, bounds: { x0: x0 - 40, z0: z0 - 40, x1: x1 + 40, z1: z1 + 40 }, player: { x: ctl.x, z: ctl.z, heading: ctl.heading }, pins };
+            return { kind: 'spot', key: 'spot:' + sp.sceneId, name: g.spotEntry?.name?.split(/[:(&]/)[0].trim(), data: d, bounds: { x0: x0 - 40, z0: z0 - 40, x1: x1 + 40, z1: z1 + 40 }, player: { x: ctl.x, z: ctl.z, heading: ctl.heading }, route: { points: api.destination?.route }, pins };
         }
         if (g.world && g.district && ['drive', 'foot'].includes(g.state)) {
             const b = g.world.bounds, foot = g.state === 'foot' && g.foot?.active;
             const P = foot ? g.foot : g.player;
             const pins = (g.stopPois || []).map(({ stop, poi }) => ({ x: poi.doorX ?? poi.x, z: poi.doorZ ?? poi.z, label: stop.short, icon: stop.icon, color: stop.color || '#7c3aed', office: true }));
+            for (const p of g.places || []) if (p.cat !== 'cv') pins.push({ ...p, label: p.name, base: true, station: p.cat === 'fuel' });
             return { kind: 'district', key: 'district:' + g.district, name: g.city?.districts?.[g.district]?.name, world: g.world, city: g.city, pois: g.world.pois,
-                bounds: { x0: b.minX, z0: b.minZ, x1: b.maxX, z1: b.maxZ }, player: { x: P.x, z: P.z, heading: P.heading, fx: P.fx, fz: P.fz }, pins, car: foot && g.carBox ? { x: g.carBox.x, z: g.carBox.z } : null };
+                bounds: { x0: b.minX, z0: b.minZ, x1: b.maxX, z1: b.maxZ }, player: { x: P.x, z: P.z, heading: P.heading, fx: P.fx, fz: P.fz }, route: g.nav?.route, pins, car: foot && g.carBox ? { x: g.carBox.x, z: g.carBox.z } : null };
         }
         return null;
+    }
+
+    // A map pick is navigation only. Travel is a separate, explicit action (hold F / Fast travel).
+    function sceneKey() { return game.state === 'spot' && game.spot?.spot ? 'spot:' + game.spot.spot.sceneId : currentPlace().key; }
+    function clearDestination({ restore = true } = {}) {
+        const had = api.destination; api.destination = null;
+        if (had && restore && game.nav) { game.navManual = false; game.nav.clear(); game.autoRoute?.(true); }
+        return null;
+    }
+    function onNavDestination(dest, manual) {
+        api.destination = manual ? { kind: 'point', key: currentPlace().key, sceneKey: sceneKey(), ...dest } : null;
+    }
+    function selectHere(x, z, pin = null) {
+        const g = game, cur = currentPlace(), label = pin?.label || 'Waypoint';
+        if (g.state === 'spot' && g.spot) {
+            const sp = g.spot.spot, dry = sp.ground?.nearestDry?.(x, z) || { x, z };
+            const free = freeSpot(sp.colliders, dry.x, dry.z, (px, pz) => sp.ground?.heightAt?.(px, pz) ?? 0);
+            if (free.bad || Math.hypot(dry.x - x, dry.z - z) > 40) { toast('📍 Choose a path', 'That point is not on walkable ground.', 'warn'); return null; }
+            api.destination = { kind: 'point', key: cur.key, sceneKey: sceneKey(), x: free.x, z: free.z, label, pin };
+            api.destination.route = Math.hypot(g.spot.ctl.x - free.x, g.spot.ctl.z - free.z) <= 400 ? g.spot._navPath?.(g.spot.ctl.x, g.spot.ctl.z, free.x, free.z) || null : null;
+            return api.destination;
+        }
+        if (!g.world || !['drive', 'foot'].includes(g.state)) return null;
+        const tx = pin?.nx ?? x, tz = pin?.nz ?? z, ne = g.nav?.index?.nearest(tx, tz, 60);
+        if (!ne || ne.d > 60 || g.world.district?.inside?.(tx, tz) === false) {
+            toast('📍 Outside the roads here', 'Choose a street or a reachable place in this district.', 'warn'); return null;
+        }
+        const dest = { x: tx, z: tz, label: pin?.label || `Waypoint · ${ne.edge.name || 'street'}`, station: !!pin?.station };
+        g.setNavDest(dest, true);
+        api.destination = { kind: 'point', key: cur.key, sceneKey: cur.key, ...dest, pin };
+        return api.destination;
+    }
+    function selectPlace(it) {
+        if (!it) return null;
+        const cur = currentPlace();
+        if (it.key === cur.key) { clearDestination(); return null; }
+        // A place in the loaded tourist scene can have a real walking destination.
+        if (game.state === 'spot' && it.kind === 'spot' && game.spot?.spot?.spawns?.[it.id]) {
+            const p = game.spot.spot.spawns[it.id]; return selectHere(p.x, p.z, { id: it.id, label: it.name });
+        }
+        api.destination = { kind: 'place', key: it.key, item: it, label: it.name, remote: true };
+        game.nav?.clear?.(); game.navManual = false; game.navInfo = null;
+        return api.destination;
+    }
+    async function fastTravelSelected() {
+        const d = api.destination, g = game; if (!d || busy || g._transit || g._spotBusy || g.refuel) return false;
+        if (g.clamp && !g.clamp.paid && ['drive', 'foot'].includes(g.state)) { toast('🔒 Wheel clamp', 'Pay the fine first: Esc → “Pay fine”.', 'warn'); return false; }
+        if (d.remote) return jump(d.item);
+        if (d.sceneKey !== sceneKey()) { clearDestination(); return false; }
+        if (g.state === 'spot') { map.close(); return fastTravelTo(d.x, d.z, d.pin); }
+        map.close();
+        return g.fastTravel({ x: d.x, z: d.z, label: d.label, station: d.station });
     }
 
     // ------------------------------------------------------------------ free roam ⇄ story
@@ -111,7 +169,7 @@ export function initExplore(game) {
         const g = game; if (!g.world || !g.district) return false;
         if (!g.freeRoam) {
             story = { chapterIdx: g.chapterIdx, chapterDone: g.chapterDone, weather: g.weatherOverride ?? null };
-            g.freeRoam = { district: g.district, tod: 'now', weather: g.weatherOverride || 'live', viaMap: true };
+            g.freeRoam = { district: g.district, ...g.travelConditions(), viaMap: true };
             g.ch = null; g.chapter = null; g.chapterIdx = -1; g.chapterDone = false; g.navManual = false;
             try { g.nav?.clear?.(); } catch { /* ignore */ }
             g.buildConditions?.(); document.body.classList.add('free-roam');
@@ -121,8 +179,8 @@ export function initExplore(game) {
     }
     /** go somewhere off the story: a place (key / id / item) → jump there; from the title menu → the hub to pick a start;
      *  in game → the hub (the old in-place "Switch to Explore" is gone) */
-    async function roam(where = null) {
-        if (where) { const it = typeof where === 'string' ? items().find((i) => i.key === where || i.id === where) : where; if (it) return jump(it); }
+    async function roam(where = null, conditions = null) {
+        if (where) { const it = typeof where === 'string' ? items().find((i) => i.key === where || i.id === where) : where; if (it) return jump(it, conditions); }
         if (game.state === 'menu') { await game.loadSpotsModule?.(); setActive(true); openWorldMap(null, { startMode: true }); return true; }
         await openWorldMap();
         return true;
@@ -136,6 +194,7 @@ export function initExplore(game) {
     }
     /** back to the story: in place when the chapter is in this district, else the montage / flight to its start */
     async function resumeStory() {
+        clearDestination({ restore: false });
         if (busy) return false;
         const idx = storyIdx(), ch = game.chapters?.[idx]; if (!ch) { setActive(false); return false; }
         busy = true;
@@ -148,7 +207,7 @@ export function initExplore(game) {
             const g = game;
             if (g.world && g.city?.id === ch.city && g.district === ch.district && ['drive', 'foot'].includes(g.state)) {
                 const st = story; story = null;
-                if (g.freeRoam) { g.freeRoam = null; g.clock.offsetMs = 0; g.clock.override = g.menuOverride ?? null; g.toggleConditions?.(false); document.body.classList.remove('free-roam'); g.r3d.setSeason?.(null); if (st && (g.weatherOverride ?? null) !== st.weather) g.setWeatherOverride?.(st.weather); g.updateClock?.(0); g.traffic?.setHour?.(g.trafficHours(), true); }
+                if (g.freeRoam) { g.freeRoam = null; g.toggleConditions?.(false); document.body.classList.remove('free-roam'); g.updateClock?.(0); g.traffic?.setHour?.(g.trafficHours(), true); }
                 g.chapterIdx = idx; g.ch = ch; g.chapter = ch.id; g.chapterDone = !!(st && st.chapterIdx === idx && st.chapterDone);
                 g.progress.reached.add(ch.id); saveProgress(g.progress); g.renderMenuChapters?.();
                 g.navManual = false; g.updateObjective();
@@ -156,7 +215,6 @@ export function initExplore(game) {
                 toast(`📖 Story · ${ch.year} · ${ch.title}`, g.chapterDone ? 'Chapter done: free drive here, M → next chapter.' : `${ch.intro || ''}`);
             } else {
                 const st = story; story = null;
-                if (st && (g.weatherOverride ?? null) !== st.weather) g.setWeatherOverride?.(st.weather);
                 await transition({ fromCity: g.city?.id, toCity: ch.city, from: g.district, to: ch.district, title: ch.title, caption: ch.intro, kicker: `Story · ${ch.year}` });
                 await g.enterChapter(idx);
             }
@@ -190,11 +248,12 @@ export function initExplore(game) {
     }
     function pushRecent(key) { const r = (load().recent || []).filter((k) => k !== key); r.unshift(key); save({ recent: r.slice(0, 8) }); }
     function scheduleThumb(key) { thumbDue = { key, at: performance.now() + 1600 }; }
-    /** one click on a hub pin / list row */
-    async function jump(it) {
+    /** explicit travel to a marked place */
+    async function jump(it, conditions = null) {
         if (typeof it === 'string') it = items().find((i) => i.key === it || i.id === it);
         if (!it || busy || game._transit || game._spotBusy) return false;
         busy = true;
+        clearDestination({ restore: false });
         try {
             await game.loadSpotsModule?.();
             drone.abort(); map.close();
@@ -205,7 +264,7 @@ export function initExplore(game) {
             if (game.state === 'office') game.leaveOffice?.();
             const cur = currentPlace(), curItem = cur.key ? items().find((i) => i.key === cur.key) : null;
             pushRecent(it.key);
-            const fr = game.freeRoam || {}, opts = { tod: fr.tod || 'now', weather: fr.weather || 'live' };
+            const opts = { ...game.travelConditions(), ...conditions };
             if (it.kind === 'spot') {
                 if (game.state === 'spot' && game.spot?.spot?.spawns?.[it.id]) { // same scene: walk over (Space Needle ⇄ Chihuly ⇄ MoPOP)
                     await warp(() => { game.spot.teleport(it.id); game.spotId = it.id; game.spotEntry = game.spotsMod?.SPOTS?.find((s) => s.id === it.id) || game.spotEntry; });
@@ -225,7 +284,7 @@ export function initExplore(game) {
             } else {
                 makeRoam();
                 await transition({ fromCity: cur.city, toCity: it.city, from: cur.mapKey, to: it.id, toItem: it, title: it.name, caption: it.sub });
-                await game.startFreeRoam(it.id, { tod: (game.freeRoam || fr).tod || 'now', weather: (game.freeRoam || fr).weather || 'live' });
+                await game.startFreeRoam(it.id, opts);
             }
             setActive(true);
             scheduleThumb(it.key);
@@ -234,7 +293,7 @@ export function initExplore(game) {
         } catch (e) { console.error('[explore] jump', e); return false; }
         finally { busy = false; }
     }
-    /** "Here" tab: click a point → fast travel inside the current district / spot (everyone) */
+    /** Explicit fast travel inside the current district / spot (map clicks only select) */
     async function fastTravelTo(x, z, pin = null) {
         drone.abort();
         return footTravel(x, z, pin);
@@ -289,6 +348,7 @@ export function initExplore(game) {
         if (game.mapOpen) game.toggleMap(false);
         if (game.condOpen) game.toggleConditions(false);
         if (game.photo?.active) game.photo.close();
+        game._ftT = 0; game._ftRing?.classList.remove('on');
         game.input.releaseLock?.(); game.input.lookAllowed = false; game.input.flush?.();
         map.open({ tab, startMode });
     }
@@ -302,9 +362,9 @@ export function initExplore(game) {
         /** leaving a spot entered from the title menu's hub: back to the hub, not the title menu; in a district: stay in free roam */
         afterLeaveSpot: () => { if (!jumping && api.active) { if (game.state === 'menu') setTimeout(() => openWorldMap(null, { startMode: true }), 50); else if (['drive', 'foot'].includes(game.state)) makeRoam(); } renderChip(); },
         /** any chapter entry is the story */
-        beforeChapter: () => { drone.abort(); if (api.active) setActive(false); story = null; renderChip(); },
+        beforeChapter: () => { clearDestination({ restore: false }); drone.abort(); if (api.active) setActive(false); story = null; renderChip(); },
         /** any free-roam start is roaming (note 76) */
-        afterFreeRoam: (districtId) => { setActive(true); if (!thumbDue) scheduleThumb('district:' + districtId); },
+        afterFreeRoam: (districtId) => { clearDestination({ restore: false }); setActive(true); if (!thumbDue) scheduleThumb('district:' + districtId); },
         /** after the game's photo bookkeeping: drone photos are flagged */
         onPhoto: () => { if (drone.active) { drone.onPhoto(); if (game.lastPhoto) game.lastPhoto.drone = true; } },
         /** the frame loop, before the game's own update: true = this frame was the drone's / the hub's (over a frozen scene) */
@@ -344,7 +404,12 @@ export function initExplore(game) {
         if (e.repeat) return;
         const typing = e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName);
         const stop = () => { e.preventDefault(); e.stopPropagation(); };
-        if (map.isOpen) { if (e.code === 'Escape' || (e.code === 'KeyM' && !typing)) { stop(); map.close(); } return; }
+        if (map.isOpen) {
+            if (e.code === 'Escape' || e.code === 'KeyM') { stop(); map.close(); }
+            else if (e.code === 'KeyF' && !typing) { stop(); map.close(); game.input.keys?.add?.('KeyF'); }
+            return;
+        }
+        if (game.mapOpen && e.code === 'KeyF' && !typing) { stop(); game.toggleMap(false); game.input.keys?.add?.('KeyF'); return; }
         if (typing || game.photo?.active || game._pauseOpen || game.hud?.panelOpen || game.condOpen || game.mapOpen) return;
         const st = game.state; if (!['drive', 'foot', 'spot'].includes(st) || (st === 'spot' && game.spot?.ui?.panelOpen)) return;
         if (drone.active) {
@@ -384,6 +449,7 @@ export function initExplore(game) {
     // ------------------------------------------------------------------ API
     Object.assign(api, {
         roam, resumeStory, enterExplore: roam, exitExplore: resumeStory, jump, fastTravelTo, renderChip,
+        selectHere, selectPlace, clearDestination, onNavDestination, fastTravelSelected,
         openWorldMap: (tab = null) => openWorldMap(tab),
         closeWorldMap: () => map.close(),
         deployDrone: () => { if (!['foot', 'spot'].includes(game.state)) { toast('🚁 Drone', game.state === 'drive' ? 'Get out of the car first (Enter), then G.' : 'Only on foot, outdoors.', 'warn'); return false; } return drone.deploy(); },

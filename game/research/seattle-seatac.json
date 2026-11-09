@@ -13,6 +13,13 @@
    "buildingsWithHeightOrLevels": 11,
    "businessesListed": 144,
    "landmarks": 5
+  },
+  "sourceRoofReview": {
+   "date": "2026-11-08",
+   "records": 15,
+   "source": "Explicit original OSM roof/carport classification; all source footprints inspected in independent Esri aerial context",
+   "dimensionStatus": "Unsourced vertical bands and supports remain estimates. Literal source height/min_height wins; layer is never a metre height. Legal maxheight is only a lower bound on clear underside.",
+   "imagesTracked": false
   }
  },
  "district": {
@@ -822,7 +829,7 @@
     },
     {
      "osmWay": 31928843,
-     "len": 131.0,
+     "len": 131,
      "highway": "motorway_link",
      "lanes": "2",
      "oneway": "yes",
@@ -886,7 +893,7 @@
     },
     {
      "osmWay": 369422779,
-     "len": 11.0,
+     "len": 11,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -932,7 +939,7 @@
     },
     {
      "osmWay": 369422790,
-     "len": 54.0,
+     "len": 54,
      "highway": "motorway_link",
      "lanes": "2",
      "oneway": "yes",
@@ -974,7 +981,7 @@
     },
     {
      "osmWay": 427909557,
-     "len": 46.0,
+     "len": 46,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -1032,7 +1039,7 @@
     },
     {
      "osmWay": 427909563,
-     "len": 65.0,
+     "len": 65,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -1076,7 +1083,7 @@
     },
     {
      "osmWay": 427909595,
-     "len": 40.0,
+     "len": 40,
      "highway": "motorway_link",
      "lanes": "2",
      "oneway": "yes",
@@ -1093,7 +1100,7 @@
     },
     {
      "osmWay": 428067872,
-     "len": 138.0,
+     "len": 138,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -1223,7 +1230,7 @@
     },
     {
      "osmWay": 124272605,
-     "len": 294.0,
+     "len": 294,
      "name": "Arrivals Drive",
      "highway": "secondary",
      "lanes": "5",
@@ -1476,7 +1483,7 @@
     },
     {
      "osmWay": 428067861,
-     "len": 32.0,
+     "len": 32,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -1533,7 +1540,7 @@
     },
     {
      "osmWay": 428067867,
-     "len": 45.0,
+     "len": 45,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -1772,7 +1779,7 @@
     },
     {
      "osmWay": 621396741,
-     "len": 202.0,
+     "len": 202,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -1875,7 +1882,7 @@
     },
     {
      "osmWay": 816538581,
-     "len": 111.0,
+     "len": 111,
      "highway": "trunk_link",
      "lanes": "1",
      "oneway": "yes",
@@ -1895,7 +1902,7 @@
     },
     {
      "osmWay": 843007513,
-     "len": 28.0,
+     "len": 28,
      "name": "South 176th Street",
      "highway": "tertiary",
      "lanes": "3",
@@ -1950,7 +1957,7 @@
     },
     {
      "osmWay": 1165458667,
-     "len": 25.0,
+     "len": 25,
      "name": "Airport Expressway",
      "highway": "motorway",
      "lanes": "4",
@@ -2553,7 +2560,7 @@
     },
     {
      "osmWay": 47012132,
-     "len": 20.0,
+     "len": 20,
      "highway": "motorway_link",
      "lanes": "1",
      "oneway": "yes",
@@ -2612,7 +2619,7 @@
     },
     {
      "osmWay": 364983819,
-     "len": 211.0,
+     "len": 211,
      "name": "Klickitat Drive",
      "highway": "secondary",
      "lanes": "2",
@@ -2701,7 +2708,7 @@
     },
     {
      "osmWay": 246086198,
-     "len": 79.0,
+     "len": 79,
      "highway": "motorway_link",
      "lanes": "1",
      "oneway": "yes",
@@ -2850,7 +2857,7 @@
     },
     {
      "osmWay": 23723882,
-     "len": 173.0,
+     "len": 173,
      "highway": "motorway_link",
      "lanes": "2",
      "oneway": "yes",
@@ -2900,7 +2907,7 @@
     },
     {
      "osmWay": 65588356,
-     "len": 254.0,
+     "len": 254,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -2956,7 +2963,7 @@
     },
     {
      "osmWay": 124940472,
-     "len": 55.0,
+     "len": 55,
      "name": "International Boulevard",
      "ref": "SR 99",
      "highway": "primary",
@@ -3002,7 +3009,7 @@
     },
     {
      "osmWay": 364969433,
-     "len": 21.0,
+     "len": 21,
      "name": "South 160th Street",
      "highway": "secondary",
      "lanes": "4",
@@ -3070,7 +3077,7 @@
     },
     {
      "osmWay": 428045915,
-     "len": 9.0,
+     "len": 9,
      "name": "South 160th Street",
      "highway": "secondary",
      "lanes": "4",
@@ -3275,7 +3282,7 @@
     },
     {
      "osmWay": 1201636576,
-     "len": 53.0,
+     "len": 53,
      "name": "Air Cargo Road",
      "highway": "tertiary",
      "lanes": "3",
@@ -3432,7 +3439,7 @@
     },
     {
      "osmWay": 623957740,
-     "len": 145.0,
+     "len": 145,
      "ref": "SR 518",
      "highway": "motorway",
      "lanes": "3",
@@ -3477,7 +3484,7 @@
     },
     {
      "osmWay": 691339381,
-     "len": 172.0,
+     "len": 172,
      "name": "Southcenter Boulevard",
      "highway": "tertiary",
      "lanes": "1",
@@ -3874,7 +3881,7 @@
     },
     {
      "osmWay": 428056674,
-     "len": 23.0,
+     "len": 23,
      "name": "International Boulevard",
      "highway": "primary",
      "lanes": "4",
@@ -3917,7 +3924,7 @@
     },
     {
      "osmWay": 482114340,
-     "len": 18.0,
+     "len": 18,
      "name": "South 154th Street",
      "highway": "primary",
      "lanes": "3",
@@ -4226,7 +4233,7 @@
     "name": "Sea-Tac Airport Main Terminal"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "footprint": [
     [
      47.44622,
@@ -6876,7 +6883,7 @@
     47.460922,
     -122.293247
    ],
-   "footprintM2": 34117.0,
+   "footprintM2": 34117,
    "distToRouteM": 29,
    "name": "Seatac Rental Car Facility",
    "brand": null,
@@ -6888,7 +6895,7 @@
     "parking": "multi-storey"
    },
    "heightM": null,
-   "levels": 4.0,
+   "levels": 4,
    "footprint": [
     [
      47.460117,
@@ -7330,7 +7337,7 @@
     47.45941,
     -122.29649
    ],
-   "footprintM2": 349.0,
+   "footprintM2": 349,
    "distToRouteM": 42,
    "name": null,
    "brand": null,
@@ -7735,7 +7742,7 @@
     47.446468,
     -122.295957
    ],
-   "footprintM2": 476.0,
+   "footprintM2": 476,
    "distToRouteM": 51,
    "name": null,
    "brand": null,
@@ -8048,7 +8055,7 @@
     47.46317,
     -122.281658
    ],
-   "footprintM2": 301.0,
+   "footprintM2": 301,
    "distToRouteM": 52,
    "name": null,
    "brand": null,
@@ -8482,7 +8489,7 @@
     "tourism": "hotel"
    },
    "heightM": null,
-   "levels": 3.0,
+   "levels": 3,
    "footprint": [
     [
      47.464319,
@@ -8753,7 +8760,7 @@
     "tourism": "hotel"
    },
    "heightM": null,
-   "levels": 12.0,
+   "levels": 12,
    "footprint": [
     [
      47.446906,
@@ -9543,7 +9550,7 @@
     "name": "SeaTac Office Tower North"
    },
    "heightM": null,
-   "levels": 12.0,
+   "levels": 12,
    "footprint": [
     [
      47.442104,
@@ -10688,7 +10695,7 @@
     47.46431,
     -122.277661
    ],
-   "footprintM2": 182.0,
+   "footprintM2": 182,
    "distToRouteM": 99,
    "name": null,
    "brand": null,
@@ -10748,7 +10755,7 @@
     "building:levels": "2"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "footprint": [
     [
      47.442842,
@@ -10783,7 +10790,7 @@
     47.461924,
     -122.28466
    ],
-   "footprintM2": 736.0,
+   "footprintM2": 736,
    "distToRouteM": 102,
    "name": null,
    "brand": null,
@@ -10890,7 +10897,7 @@
     "name": "SeaTac Office Tower South"
    },
    "heightM": null,
-   "levels": 12.0,
+   "levels": 12,
    "footprint": [
     [
      47.441496,
@@ -11133,7 +11140,7 @@
     47.465193,
     -122.281572
    ],
-   "footprintM2": 387.0,
+   "footprintM2": 387,
    "distToRouteM": 109,
    "name": null,
    "brand": null,
@@ -11481,7 +11488,7 @@
     "parking": "multi-storey"
    },
    "heightM": null,
-   "levels": 7.0
+   "levels": 7
   },
   {
    "osm": 652154050,
@@ -11769,7 +11776,7 @@
     "building:part": "yes"
    },
    "heightM": null,
-   "levels": 2.0,
+   "levels": 2,
    "footprint": [
     [
      47.455632,
@@ -11837,7 +11844,7 @@
     "height": "71",
     "name": "SeaTac Control Tower"
    },
-   "heightM": 71.0,
+   "heightM": 71,
    "levels": null,
    "footprint": [
     [
@@ -11989,6 +11996,505 @@
      -122.301143
     ]
    ]
+  },
+  {
+   "osm": "w276667216",
+   "osmTags": {
+    "addr:city": "Seatac",
+    "addr:housenumber": "2841",
+    "addr:postcode": "98188",
+    "addr:state": "WA",
+    "addr:street": "South 188th Street",
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/276667216",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29684947142859,47.43315088571429,-122.29484947142858,47.435150885714286&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w276667217",
+   "osmTags": {
+    "addr:city": "Seatac",
+    "addr:housenumber": "2841",
+    "addr:postcode": "98188",
+    "addr:state": "WA",
+    "addr:street": "South 188th Street",
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/276667217",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29710694285713,47.433303585714285,-122.29510694285712,47.43530358571428&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w364221558",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.2,
+     "clearanceM": 2.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/364221558",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29866364285714,47.443072542857145,-122.29666364285713,47.44507254285714&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w364221559",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.2,
+     "clearanceM": 2.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/364221559",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29835853999998,47.44289914,-122.29635853999997,47.44489914&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w469766789",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/469766789",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29708326000001,47.444617980000004,-122.29508326,47.44661798&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w647214513",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.2,
+     "clearanceM": 2.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/647214513",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29598984,47.44067844,-122.29398984,47.442678439999995&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "partly obscured by shadow/tree/adjacent structure",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w647566517",
+   "osmTags": {
+    "addr:city": "Seatac",
+    "addr:housenumber": "17400",
+    "addr:postcode": "98188",
+    "addr:state": "WA",
+    "addr:street": "International Boulevard",
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.2,
+     "clearanceM": 2.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/647566517",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29695720000001,47.44546759999999,-122.2949572,47.44746759999999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w1167138987",
+   "osmTags": {
+    "aeroway": "terminal",
+    "building": "roof"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.2,
+     "clearanceM": 2.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/1167138987",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.30025589999998,47.439598428125,-122.29825589999997,47.441598428125&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w433205179",
+   "osmTags": {
+    "addr:city": "Seatac",
+    "addr:housenumber": "16850",
+    "addr:postcode": "98188",
+    "addr:state": "WA",
+    "addr:street": "International Boulevard",
+    "amenity": "fuel",
+    "brand": "76",
+    "brand:wikidata": "Q1658320",
+    "building": "roof",
+    "check_date": "2024-06-16",
+    "level": "1",
+    "name": "76",
+    "source": "survey",
+    "website": "https://www.76.com/station/U76-PANJABI-CORP-0000802994/"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/433205179",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.2964487777778,47.44996223333334,-122.29444877777779,47.45196223333333&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w439263875",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 3.2,
+     "clearanceM": 2.85,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/439263875",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29564582,47.4594152,-122.29364582,47.4614152&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w439265090",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/439265090",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29450782727274,47.458493736363636,-122.29250782727273,47.46049373636363&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w647566814",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/647566814",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29687100000001,47.4493806,-122.294871,47.45138059999999&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w647569414",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/647569414",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29662963999999,47.44954266,-122.29462963999998,47.451542659999994&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w737770102",
+   "osmTags": {
+    "addr:city": "Tukwila",
+    "addr:housenumber": "15838",
+    "addr:postcode": "98188",
+    "addr:state": "WA",
+    "addr:street": "International Boulevard",
+    "amenity": "fuel",
+    "building": "roof",
+    "layer": "1",
+    "name": "Alliance Auto Gas"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/737770102",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29172092000002,47.45964072,-122.28972092000001,47.46164072&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
+  },
+  {
+   "osm": "w865527423",
+   "osmTags": {
+    "building": "roof",
+    "layer": "1"
+   },
+   "research": {
+    "open_canopy": {
+     "topM": 4,
+     "clearanceM": 3.65,
+     "estimateSupports": true,
+     "supportWidthM": 0.25,
+     "evidence": [
+      "https://www.openstreetmap.org/way/865527423",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.30461073636364,47.45390977272728,-122.30261073636363,47.455909772727274&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+     ],
+     "classificationNote": "Original OSM building=roof identifies an open roof/carport. Independent Esri aerial context inspected; roof underside and vertical dimensions cannot be measured from the overhead image.",
+     "dimensionNote": "Existing roof top estimate retained unless a literal positive OSM height wins. Clear underside and corner support placement/thickness are explicitly authoring estimates; source layer is not converted into metres. Aerial imagery cannot measure the vertical clearance.",
+     "reviewedAt": "2026-11-08",
+     "imageryDate": "unknown",
+     "aerialReview": {
+      "completeSourceFootprintCovered": true,
+      "visibility": "roof/context visible",
+      "mPerPixel": 0.4038377577766397,
+      "zoom": 18,
+      "imageryDate": "unknown",
+      "measurementRole": "roof/context comparison only; no vertical measurement"
+     }
+    }
+   }
   }
  ],
  "businesses": [
@@ -15237,7 +15743,7 @@
     {
      "osm": 37017729,
      "name": "Skybridge 1",
-     "lenM": 40.0,
+     "lenM": 40,
      "level": "4",
      "geom": [
       [
@@ -15269,7 +15775,7 @@
     {
      "osm": 37017725,
      "name": "Skybridge 5",
-     "lenM": 33.0,
+     "lenM": 33,
      "level": "4",
      "geom": [
       [
@@ -16231,5 +16737,31 @@
   "mutcd-3d": "https://mutcd.fhwa.dot.gov/htm/2009/part3/part3d.htm",
   "commons": "Wikimedia Commons photos in game/research/refs/seatac/ (see LICENSES.md)",
   "bellevue-json": "game/research/seattle-bellevue.json — shared WSDOT marking/sign/furniture standards (markings section applies verbatim to SR-518 and the Airport Expressway)"
- }
+ },
+ "building_passages": [
+  {
+   "sourceRoadId": "w1185430933",
+   "buildingId": "w647567422",
+   "sharedWallNodeIds": [
+    11011541158,
+    11011541159
+   ],
+   "classificationSource": "reviewed source shared-wall-node topology",
+   "clearanceM": 3.1,
+   "clearanceSource": "estimate:3.1m covered passenger-vehicle service passage; vertical dimension untagged",
+   "reviewedAt": "2026-11-08",
+   "evidence": [
+    "https://www.openstreetmap.org/way/1185430933",
+    "https://www.openstreetmap.org/way/647567422",
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-122.29528235000001,47.4465226,-122.29328235,47.4485226&bboxSR=4326&imageSR=3857&size=800,800&format=jpg&f=image"
+   ],
+   "sourceTags": {
+    "covered": "yes",
+    "highway": "service",
+    "oneway": "yes",
+    "service": "parking_aisle"
+   },
+   "note": "Original OSM covered=yes service way starts and ends at the exact original building-wall nodes, declaring a through-opening beneath the source roof. Independent Esri overhead context inspected; no vertical clearance is measurable from it. Width and clearance remain explicit class estimates where original OSM tags are absent. Source outlines, full wall-node topology, total heights and legal access stay unchanged."
+  }
+ ]
 }

@@ -1,0 +1,607 @@
+(node:314504) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-us-districts/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-us-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "garage": {
+    "sourceOuterHash": "257b8307a799026bff8ff993e3bad35ad6298f3f2fb1fe3f1202d5eae9552a85",
+    "holes": 8,
+    "decks": 8,
+    "sourceAislePoints": [
+      {
+        "id": 3,
+        "blocked": false
+      },
+      {
+        "id": 4,
+        "blocked": false
+      },
+      {
+        "id": 5,
+        "blocked": false
+      },
+      {
+        "id": 6,
+        "blocked": false
+      },
+      {
+        "id": 7,
+        "blocked": false
+      },
+      {
+        "id": 8,
+        "blocked": false
+      },
+      {
+        "id": 9,
+        "blocked": false
+      },
+      {
+        "id": 10,
+        "blocked": false
+      },
+      {
+        "id": 11,
+        "blocked": false
+      },
+      {
+        "id": 12,
+        "blocked": false
+      },
+      {
+        "id": 13,
+        "blocked": false
+      },
+      {
+        "id": 14,
+        "blocked": false
+      },
+      {
+        "id": 15,
+        "blocked": false
+      },
+      {
+        "id": 16,
+        "blocked": false
+      },
+      {
+        "id": 17,
+        "blocked": false
+      },
+      {
+        "id": 18,
+        "blocked": false
+      },
+      {
+        "id": 19,
+        "blocked": false
+      },
+      {
+        "id": 20,
+        "blocked": false
+      },
+      {
+        "id": 21,
+        "blocked": false
+      },
+      {
+        "id": 22,
+        "blocked": false
+      },
+      {
+        "id": 32,
+        "blocked": false
+      },
+      {
+        "id": 33,
+        "blocked": false
+      },
+      {
+        "id": 34,
+        "blocked": false
+      },
+      {
+        "id": 35,
+        "blocked": false
+      },
+      {
+        "id": 36,
+        "blocked": false
+      },
+      {
+        "id": 37,
+        "blocked": false
+      },
+      {
+        "id": 38,
+        "blocked": false
+      },
+      {
+        "id": 39,
+        "blocked": false
+      },
+      {
+        "id": 40,
+        "blocked": false
+      },
+      {
+        "id": 45,
+        "blocked": false
+      },
+      {
+        "id": 46,
+        "blocked": false
+      },
+      {
+        "id": 47,
+        "blocked": false
+      },
+      {
+        "id": 48,
+        "blocked": false
+      },
+      {
+        "id": 49,
+        "blocked": false
+      },
+      {
+        "id": 50,
+        "blocked": false
+      },
+      {
+        "id": 51,
+        "blocked": false
+      },
+      {
+        "id": 52,
+        "blocked": false
+      },
+      {
+        "id": 53,
+        "blocked": false
+      },
+      {
+        "id": 54,
+        "blocked": false
+      },
+      {
+        "id": 55,
+        "blocked": false
+      },
+      {
+        "id": 56,
+        "blocked": false
+      },
+      {
+        "id": 57,
+        "blocked": false
+      },
+      {
+        "id": 58,
+        "blocked": false
+      },
+      {
+        "id": 59,
+        "blocked": false
+      },
+      {
+        "id": 60,
+        "blocked": false
+      },
+      {
+        "id": 61,
+        "blocked": false
+      },
+      {
+        "id": 62,
+        "blocked": false
+      },
+      {
+        "id": 63,
+        "blocked": false
+      },
+      {
+        "id": 64,
+        "blocked": false
+      },
+      {
+        "id": 65,
+        "blocked": false
+      },
+      {
+        "id": 66,
+        "blocked": false
+      },
+      {
+        "id": 67,
+        "blocked": false
+      },
+      {
+        "id": 68,
+        "blocked": false
+      },
+      {
+        "id": 69,
+        "blocked": false
+      },
+      {
+        "id": 70,
+        "blocked": false
+      },
+      {
+        "id": 71,
+        "blocked": false
+      },
+      {
+        "id": 72,
+        "blocked": false
+      },
+      {
+        "id": 73,
+        "blocked": false
+      },
+      {
+        "id": 74,
+        "blocked": false
+      },
+      {
+        "id": 75,
+        "blocked": true
+      },
+      {
+        "id": 76,
+        "blocked": false
+      },
+      {
+        "id": 77,
+        "blocked": false
+      },
+      {
+        "id": 78,
+        "blocked": false
+      },
+      {
+        "id": 79,
+        "blocked": false
+      },
+      {
+        "id": 80,
+        "blocked": false
+      },
+      {
+        "id": 81,
+        "blocked": false
+      }
+    ],
+    "colliders": 3701,
+    "triangles": 17668,
+    "profile": {
+      "floorDatumsM": [
+        0,
+        2.6,
+        5.2,
+        7.8,
+        11.1875,
+        14.575,
+        17.9625,
+        21.35
+      ],
+      "level4WalkSurfaceM": 7.85,
+      "intervals": 7,
+      "deckThicknessM": 0.35,
+      "spandrelDepthM": 0.8,
+      "lowerSpandrelDepthM": 0.35,
+      "postPitchM": 9.5,
+      "postWidthM": 0.7,
+      "postDepthM": 0.3,
+      "operationalEntranceLimitM": 2.0828,
+      "dimensions": "MODEL estimates constrained by the official Level4 connection,8-level relationship, unchanged21.35m roof datum and6ft10in entrance limit. No source floor or layer becomes a metre elevation; absolute road-floor alignment and interior columns remain unknown."
+    }
+  },
+  "terminal": {
+    "sourceRoad": "w37017723",
+    "originalPointsCleared": 13,
+    "colliders": 2826,
+    "triangles": 42507,
+    "modelSoffitLocalM": 16.4,
+    "dimensionStatus": "Bounded model estimates, not surveyed."
+  },
+  "skybridgeControls": [
+    {
+      "sourceId": "w37017724",
+      "garageFloorM": 7.85,
+      "terminalFloorM": 7.14,
+      "gradient": 0.02145416573006555,
+      "clearInteriorM": 2.3,
+      "lowerArrivalsClearanceM": 6.77,
+      "fullBodyControls": 15
+    },
+    {
+      "sourceId": "w37017725",
+      "garageFloorM": 7.85,
+      "terminalFloorM": 7.15,
+      "gradient": 0.021240421618751035,
+      "clearInteriorM": 2.3,
+      "lowerArrivalsClearanceM": 6.78,
+      "fullBodyControls": 15
+    },
+    {
+      "sourceId": "w37017726",
+      "garageFloorM": 7.85,
+      "terminalFloorM": 7.16,
+      "gradient": 0.02040741436908729,
+      "clearInteriorM": 2.3,
+      "lowerArrivalsClearanceM": 6.79,
+      "fullBodyControls": 15
+    },
+    {
+      "sourceId": "w37017727",
+      "garageFloorM": 7.85,
+      "terminalFloorM": 7.17,
+      "gradient": 0.020219745748702955,
+      "clearInteriorM": 2.3,
+      "lowerArrivalsClearanceM": 6.8,
+      "fullBodyControls": 15
+    },
+    {
+      "sourceId": "w37017728",
+      "garageFloorM": 7.85,
+      "terminalFloorM": 7.18,
+      "gradient": 0.01981832227701469,
+      "clearInteriorM": 2.3,
+      "lowerArrivalsClearanceM": 6.81,
+      "fullBodyControls": 15
+    },
+    {
+      "sourceId": "w37017729",
+      "garageFloorM": 7.85,
+      "terminalFloorM": 7.07,
+      "gradient": 0.01955501475698257,
+      "clearInteriorM": 2.3,
+      "lowerArrivalsClearanceM": 6.7,
+      "fullBodyControls": 15
+    }
+  ],
+  "legacyColliderControls": [
+    {
+      "id": "parliament",
+      "collisionSha256": "8dc12980c95ee9c116920f8bffa0cadafac132b964d609ddd4e3b60e42f62db3"
+    },
+    {
+      "id": "cathedral",
+      "collisionSha256": "466df7cf7e5e91adef2a5ef67d1580e24fee22070021103e813cd0d433c2dfe2"
+    },
+    {
+      "id": "arcul",
+      "collisionSha256": "8d7bcb1f76b49a90789741eae92037cfca9fcda484477386db2848b751bf39a3"
+    },
+    {
+      "id": "casapresei",
+      "collisionSha256": "cebe2f3d007e9cbffa1b8aa413a8f86569c0742144061ac517461c1c1f7b4bdf"
+    },
+    {
+      "id": "grandhotel",
+      "collisionSha256": "863cf8bcf92cb85583a5c7c310afc967b165826f81a5f962a98b5da232a18e1d"
+    },
+    {
+      "id": "univ",
+      "collisionSha256": "93532b3b813aac9b581876c1e7af6c9b788a200d4dd71c506a7a6a738aace6d1"
+    },
+    {
+      "id": "tnb",
+      "collisionSha256": "2ea744325c80bc2d01815ec5609384bcaddfe7c357e977ce982be28aaf09cffd"
+    },
+    {
+      "id": "ateneu",
+      "collisionSha256": "9f1899632070047ff6759f8664cee0b5c806c149919630d639617e6578cb670c"
+    },
+    {
+      "id": "regal",
+      "collisionSha256": "94b34478c7d331ac7dd9fb283d03271d9c2410d9549aee4d1b003e80c53c3362"
+    },
+    {
+      "id": "victoria",
+      "collisionSha256": "7eaa77d41f9692f975d47f6364e9da235764abacbff41d4ba6bc9b8dcfb48091"
+    },
+    {
+      "id": "cec",
+      "collisionSha256": "af0886ad0d8cc190c3c40cd0ce9e42b4301a5cb19c0b0a9465eadc2cb38bb9ac"
+    },
+    {
+      "id": "mnir",
+      "collisionSha256": "810b57e943cc186df65e056ecae236986aaa259af34c7717b3402e926d5d5db4"
+    },
+    {
+      "id": "marriott",
+      "collisionSha256": "4446e03d729815c2fc5f531a0846315472fa527fb87aec092d4263ec935c6f55"
+    },
+    {
+      "id": "unirea",
+      "collisionSha256": "002d9d6437ea38368f67a21dd91bab855da6acdfbc983426620fa63d2736e9f4"
+    },
+    {
+      "id": "fountains",
+      "collisionSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "id": "skytower",
+      "collisionSha256": "a767c517b5a0699f4cb0d136df4b18b4eacb6db81477bc46fb135966cc70938e"
+    },
+    {
+      "id": "promenada",
+      "collisionSha256": "92ecdf4230c089d6c6105dd885101f1a96cd66185bc4a468e71aea9abe92435c"
+    },
+    {
+      "id": "baneasasc",
+      "collisionSha256": "87d86004734c55f198a731b85b3ca5b7351c3e0452f927b789a3c98bfc7fc13f"
+    },
+    {
+      "id": "romexpo",
+      "collisionSha256": "47a5554ff94adf36a7ce8c85ae22378a90945ab7e95d39e2d4bc1e0f4de955ea"
+    },
+    {
+      "id": "aviatorilor",
+      "collisionSha256": "5c36dbb8888590e9ae5d71c6e79147287b2f4bc054cb511bd79e5fa9e42585a7"
+    },
+    {
+      "id": "gara",
+      "collisionSha256": "49f92166536c1e74822fe71ff1d70cb40dde76071618fc822e095f3c92c088b7"
+    },
+    {
+      "id": "opera",
+      "collisionSha256": "c001cddc26425213584b84a6474c6879e95708633703b930957f4579bfc7258e"
+    },
+    {
+      "id": "politehnica",
+      "collisionSha256": "6a7c1d494d8be40b6d996abdd45d8a30e4265c09f0225659e49328442b6d87af"
+    },
+    {
+      "id": "hermes",
+      "collisionSha256": "8e72ac34cb6056499e39608adfb2c33848a295951ba06e4dee8188df5f29fc27"
+    },
+    {
+      "id": "baneasaterm",
+      "collisionSha256": "69b3378f8c1ac379359ea09aeb62bd54579aa09bb1a43d2a496155e697d51f9b"
+    },
+    {
+      "id": "otp",
+      "collisionSha256": "23c16cb933f6a2c1e9f6f5f8cddae16fd8fa7d056697392e1fe8149e8ef40fb2"
+    },
+    {
+      "id": "ase",
+      "collisionSha256": "e6f751a802c5c4b204b3b0b120f681d187c62930eed6e38bea9d32e25ff0d751"
+    },
+    {
+      "id": "ambasador",
+      "collisionSha256": "48bd55ecce1a6e6fbace0d4a8994d163c3a79ce38e127c6b8278e9950bea21e5"
+    },
+    {
+      "id": "aro",
+      "collisionSha256": "0e948f82d9db83e7e2201c95b94e4dabaf0143628cb0ff84f6539255cb269bde"
+    },
+    {
+      "id": "thelandmark",
+      "collisionSha256": "a290c7e0b7092d9b622c33dde87443ad2f873def595e4ac1cfa4e7a6f8191f71"
+    },
+    {
+      "id": "europehouse",
+      "collisionSha256": "cc2d5161a2fcace4c1202ecfe4ca4e4c0fdcae34724caca60b28dde030d9ef54"
+    },
+    {
+      "id": "gts",
+      "collisionSha256": "55fe883ee3e092bdbbe4bd16c550e7c799ed341fef72cc4078fa036ef0e83534"
+    },
+    {
+      "id": "dinamo",
+      "collisionSha256": "9643a19b660c6bc939ba78f5887372b14e3bd030e8fa67187374f29b8b3764e8"
+    },
+    {
+      "id": "rosetti",
+      "collisionSha256": "5c8b73e54f45fa0e5f6749987dad7d676cbab4fd9c04f41fa2c0dcce4cbfdfee"
+    },
+    {
+      "id": "bob",
+      "collisionSha256": "b4169e2714a16524760ba79e239e313d75b7228cd40d88d5cca4605a24a950ce"
+    },
+    {
+      "id": "halatraian",
+      "collisionSha256": "4683f3a725e6a3e5ac06447e765c69df057c14632908ad35603289dc5b882050"
+    },
+    {
+      "id": "globalworth",
+      "collisionSha256": "14214c525b146760439247b1c7bb008ff6f890c98239bf53107a889efc347f3e"
+    },
+    {
+      "id": "spaceneedle",
+      "collisionSha256": "923facbf39011775052a03730885c21d50ebc3f10864affeebadd4a47ab6e794"
+    },
+    {
+      "id": "columbia",
+      "collisionSha256": "d459b7ebbe29b975568dade8f0b34ba195bd190c9c827a57387a32a58d435606"
+    },
+    {
+      "id": "smith",
+      "collisionSha256": "3d5d5acd7bead116c3ea3338f919ecb350426e0c98c3d87af4ed1e19316f8dc2"
+    },
+    {
+      "id": "lumen",
+      "collisionSha256": "d0c82dc14cbe36ed5fdfcac44f2073725bdba9ccd1a425f8f855a6ce47ffe0e8"
+    },
+    {
+      "id": "tmobile",
+      "collisionSha256": "38a2cb85cbb6c129cb54203b5d14c2ebe07f189b9b9eb6ed96dbf72e928dcc85"
+    },
+    {
+      "id": "greatwheel",
+      "collisionSha256": "d454309e232797afe8158a9b3220c2a9a27412894378a1ed03e2ed2d06744aee"
+    },
+    {
+      "id": "spheres",
+      "collisionSha256": "33c6837e03ffdaed62325cc0a63b63da0a2f909be5146afe9a2eabc2688b0344"
+    },
+    {
+      "id": "mtbaker",
+      "collisionSha256": "89b28fd55c407bf2b14c92d53f248c80a5b66ffdbaac30e25b808ecf6107e685"
+    },
+    {
+      "id": "seatower",
+      "collisionSha256": "ed1c4213f5f411638bfe9a0a07e895c3e8de2bcdcb6620dc608f67ef1aca2a5e"
+    },
+    {
+      "id": "lincoln",
+      "collisionSha256": "b05c90564d8b36b4a717d7f2c1317a8b6377d1f9ad35c171be2d6fa114db8b6a"
+    },
+    {
+      "id": "onelincoln",
+      "collisionSha256": "6c665132185a12bb5d76c9b73bfbf07a2a0217def9ed002dc7e8001bfa31d6d1"
+    },
+    {
+      "id": "lincolnsouth",
+      "collisionSha256": "0078f6f2f4b9dbe5f6ad30b1f1053d4bd1eeffd3f74cc985fe7027a18c2f4d0a"
+    },
+    {
+      "id": "plazacenter",
+      "collisionSha256": "d54d0365201076efc479ac9624fa3e08d956fa881285a4d5ec9e769413558a99"
+    },
+    {
+      "id": "sonic",
+      "collisionSha256": "e8419483e2cb03cd2eab9b5234374797c9201f3e424eae9edabdd594a23836bd"
+    },
+    {
+      "id": "bellevue600",
+      "collisionSha256": "7f77de01bde599a7f02ed50d48b55108697b634a767ec5fed69d0a0f50f6b7c8"
+    },
+    {
+      "id": "murroww",
+      "collisionSha256": "1f58d000258e112ffd95d9ca5ae2abc3e4a28c20ac06f707c2f1fef6bfbbd54a"
+    },
+    {
+      "id": "murrowe",
+      "collisionSha256": "6a14bc138df2d9b45dc9abf27593933165a488cefd557330060aafdaf24f2173"
+    },
+    {
+      "id": "sealink",
+      "collisionSha256": "e78ffdde8b45a156e7a160dcef1ef68b8c55c0fa5a3f9dfa24ec4c8f655ba569"
+    },
+    {
+      "id": "bellevuetowers",
+      "collisionSha256": "718ada18ba6448b7c8a833c9ce1fca90edc00ef6d7bdefea2756273d60907e37"
+    },
+    {
+      "id": "bellevuesq",
+      "collisionSha256": "684d3450f543704c740e5d37a180dceb9484f1be50aecce2efb9c832f9240915"
+    },
+    {
+      "id": "rainier",
+      "collisionSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "id": "olympics",
+      "collisionSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  ]
+}
+(node:314504) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/reality-pass/us-districts/snapshots/source-c78a5f4/game/src/landmarks.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/reality-pass/us-districts/snapshots/source-c78a5f4/package.json.

@@ -1,0 +1,35 @@
+{
+  "observedAtUtc": "2026-11-08T22:58:00.344918+00:00",
+  "sourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+  "processes": [
+    {
+      "pid": 204694,
+      "statRaw": "204694 (MainThread) Z 1 204693 204693 0 -1 4227340 432283 20444 0 0 3084 667 12 17 20 0 1 0 2716593 0 0 18446744073709551615 0 0 0 0 0 0 0 16781312 67072 0 0 0 17 1 0 0 0 0 0 0 0 0 0 0 0 0 0\n",
+      "state": "Z",
+      "ppid": 1,
+      "exitCodeRaw": 0,
+      "argv": ""
+    },
+    {
+      "pid": 204693,
+      "statRaw": "204693 (codex) Z 1 204693 204693 0 -1 4228364 4003 0 0 0 0 1 0 0 20 0 1 0 2716588 0 0 18446744073709551615 0 0 0 0 0 0 0 4096 17479 0 0 0 17 4 0 0 0 0 0 0 0 0 0 0 0 0 0\n",
+      "state": "Z",
+      "ppid": 1,
+      "exitCodeRaw": 0,
+      "argv": ""
+    },
+    {
+      "pid": 204813,
+      "statRaw": "204813 (chromium) Z 1 204713 204713 0 -1 4228172 5291 0 0 0 44 23 0 0 20 0 1 0 2716908 0 0 18446744073709551615 0 0 0 0 0 0 0 4098 25232636 0 0 0 17 2 0 0 0 0 0 0 0 0 0 0 0 0 0\n",
+      "state": "Z",
+      "ppid": 1,
+      "exitCodeRaw": 0,
+      "argv": ""
+    }
+  ],
+  "rawReportCompleteFieldPresent": false,
+  "rawFinalFramePresent": false,
+  "rawRelocationsAuditPresent": false,
+  "finalImagePresent": false,
+  "cause": "Unresolved; process has exited (zombie, exit code0) after persisting cloud49, not a confirmed renderer or environment failure. No restart or synthetic completion performed."
+}

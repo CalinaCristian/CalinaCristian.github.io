@@ -1,0 +1,40 @@
+{
+  "baseCommit": "8ccab8b8f2e207aed8ceaca7fd6485590f1c7be7",
+  "files": [
+    {
+      "path": "tools/osm/build-data.mjs",
+      "bytes": 171501,
+      "sha256": "538e902a051a0654e6fd42c68bbd8dc6d1ea80467603c332f54175179b0192fc"
+    },
+    {
+      "path": "tools/osm/tram-sources.mjs",
+      "bytes": 9098,
+      "sha256": "9a60d97307d7396d98fa1a8edb4b2694f0f63eafb93294f7f48ac37f6af3afb7"
+    },
+    {
+      "path": "tools/osm/add-tram-source-metadata.mjs",
+      "bytes": 3747,
+      "sha256": "8e4bad6a640d854b82327f1113364493fe1ecf00fd1179965e0072ad83d3f61c"
+    },
+    {
+      "path": "tools/osm/tram-sources.test.mjs",
+      "bytes": 11335,
+      "sha256": "63012beb94941ee81fc0830b686635c113750f5e299461ce62aba45dc97f38e6"
+    },
+    {
+      "path": "tools/osm/tram-source-audit.py",
+      "bytes": 9202,
+      "sha256": "2da559312308371b010db91b2b8d62f54280078fa9d5deea3dab5b540234330f"
+    },
+    {
+      "path": "tools/osm/parse-osm.mjs",
+      "bytes": 3919,
+      "sha256": "be358dac240c08233d22068108bd58e29975ac07b16aabe7b3c9b40ee4eb6613"
+    },
+    {
+      "path": "game/data/README.md",
+      "bytes": 32711,
+      "sha256": "697e0269bc8f5be42fcd2e07b65fed08b94dffeb221d3d135f8eeed6ad9dbaf6"
+    }
+  ]
+}

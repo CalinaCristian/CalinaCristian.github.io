@@ -1,0 +1,75 @@
+{
+  "sourceCommit": "c4fd6255f928101e27874f37776ed5be8d805827",
+  "inputSha256": "c7df9652bb7ba2181c841726387acff98b394c0f89225c0022aa4a7a56792ba0",
+  "time": 20.000000000000153,
+  "actualTruck": {
+    "id": 214,
+    "sourceEdge": 124,
+    "sourceId": "w153967352",
+    "nextEdge": 158,
+    "nextSourceId": "w665335354",
+    "stopWhy": "claim",
+    "stopD": 0.2979802074765885,
+    "leader": {
+      "id": 87,
+      "kind": "compact-sedan"
+    },
+    "gap": 7.929930285444322
+  },
+  "reconstructedPath": [
+    {
+      "p0x": -638.0613342664548,
+      "p0z": 383.5670070542475,
+      "p1x": -656.4432233601248,
+      "p1z": 405.1308106144278
+    }
+  ],
+  "recordedClaimOwners": [
+    {
+      "id": 187,
+      "from": 157,
+      "to": 142,
+      "laneIn": 2,
+      "t0": 0.03333333333333333,
+      "entered": true,
+      "width": 1.79,
+      "poseObservedAt": 32.000000000000746
+    },
+    {
+      "id": 87,
+      "from": 124,
+      "to": 142,
+      "laneIn": 1,
+      "t0": 14.566666666666626,
+      "entered": true,
+      "width": 1.73,
+      "poseObservedAt": 20.000000000000153
+    }
+  ],
+  "eligibilityControls": [
+    {
+      "eligibleClaimOwners": [],
+      "result": "path"
+    },
+    {
+      "eligibleClaimOwners": [
+        187
+      ],
+      "result": "wait"
+    },
+    {
+      "eligibleClaimOwners": [
+        87
+      ],
+      "result": "wait"
+    },
+    {
+      "eligibleClaimOwners": [
+        187,
+        87
+      ],
+      "result": "wait"
+    }
+  ],
+  "scope": "Exact native boxPath/reservationPath/boxCheck on recorded geometry, with inBox eligibility explicitly controlled. Actual truck stopWhy=claim is observed; its individual boxCheck callback and owner187 pose/odo/generation at this first contact were not captured. These controls identify geometrically sufficient claims, not the actual selected branch. Claim widths use actual native model dimensions; owner187 first local pose is later. Actual claim chronology and the 87->423->ped73, later 87->ped325 chain remain in raw samples; do not attribute the separate older187 claim to pedestrian325."
+}

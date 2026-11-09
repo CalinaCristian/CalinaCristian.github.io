@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "nativeRuntimeCommit": "d77ab0124604f754e0b03ba06e2af74c45d7fb0f",
+  "pureChecks": 47,
+  "browserOpened": false,
+  "productionFilesEdited": false,
+  "scope": "Observer preparation and isolated CPU native-producer agreement; no live source rail/static/stop/crossing acceptance",
+  "observerFiles": [
+    {
+      "file": "rail-binding-checks.js",
+      "sha256": "dd45d9e1750d0afd441cb8b5242b33bd0584434d464853ee2335d2178d8708fd"
+    },
+    {
+      "file": "rail-binding-checks.test.mjs",
+      "sha256": "0b215c9d21d088ff8a1a74cc012a316572742247643dcb32456ea587b8b9189c"
+    },
+    {
+      "file": "rail-binding-observer.js",
+      "sha256": "8c9c34e725afc0b0b2424f88ea585aa49a95978c7ab9cb2f9bf6963ac678668c"
+    },
+    {
+      "file": "rail-binding-observer.test.mjs",
+      "sha256": "7054aea0e8a9b04a88c1eead161f88ba37871dc3aaaec6679c774d3a1af5bf1f"
+    },
+    {
+      "file": "global-physical-observer.js",
+      "sha256": "dd0e3517e6edac426e70910486d67beb08492218d82a26d2813c497e913c3e44"
+    },
+    {
+      "file": "global-physical-observer.test.mjs",
+      "sha256": "6f44f8ef666579c6026a092f5cd3b8924f57ee421361dadbb9755517cd1c3dc5"
+    },
+    {
+      "file": "first-publication-observer.js",
+      "sha256": "0fdfe407f1cd5d6c71e7d3f253dd322831bc24fdad20de0858d3fe6c9ce50940"
+    },
+    {
+      "file": "observe-first-publication.cjs",
+      "sha256": "1e7a580026b341b250596e7b2463ffbf9f6ee5ff4a93b8cd6ccde45efb95f372"
+    },
+    {
+      "file": "observe-unirii-current.cjs",
+      "sha256": "2164ac56e9759d4afc42d5eb1196ac2af587f4201d65f8e02ea6ac10fbf2bb0c"
+    },
+    {
+      "file": "RAIL-OBSERVER-PREP.md",
+      "sha256": "993441d192868373339c7940afb81872f6444ab7b5c84529e9ee2c448bdc184b"
+    }
+  ],
+  "nativeInputs": [
+    {
+      "file": "game/src/traffic.js",
+      "sha256": "2219a86d76640af3352d9358ef39284e1694806ca8a42b9da6b437859469543a"
+    },
+    {
+      "file": "game/src/tram-path.js",
+      "sha256": "eade4932fceec65ece73ea60c169197fa4bb5e8fc141f95521e183e3fb6813dd"
+    },
+    {
+      "file": "game/src/initial-traffic-admission.js",
+      "sha256": "d72392a0b124f131794e2026b498d6d9fd4ad4fc10e79236f51bc442e013b069"
+    },
+    {
+      "file": "game/src/initial-vehicle-admission.js",
+      "sha256": "7d3a81bebbcaeaabed1f964843f1d958534e5ca312ae9ccc433725355edc2ba0"
+    },
+    {
+      "file": "game/src/vehicles.js",
+      "sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df"
+    },
+    {
+      "file": "game/src/world.js",
+      "sha256": "eff89252875041058d439b8837ca34e3d1838bd07fefdbf7d9486280ede7d94e"
+    },
+    {
+      "file": "game/src/nav.js",
+      "sha256": "7d1553ad46fa656ee7773d82bf5ef9b8a2af4bb0fb29d8c0131ed9154bac8617"
+    }
+  ],
+  "logs": [
+    {
+      "file": "global-body-interop.log",
+      "sha256": "33b2f8b857676d7a0d814b94f061216f65bbd24c051d79217df0a03eee3d7ab6",
+      "bytes": 150
+    },
+    {
+      "file": "native-d77-agreement.log",
+      "sha256": "fc9ee04ad32541749957aa1db193f0704a903a3829b9c1570a2e384ab6388d8f",
+      "bytes": 270
+    },
+    {
+      "file": "pure-source-controls.log",
+      "sha256": "287f77cafd280ec49a96f2bead89e55dd0cde1584d152bd0f622724b2ce86946",
+      "bytes": 210
+    }
+  ]
+}

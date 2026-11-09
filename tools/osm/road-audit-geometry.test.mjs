@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {auditSourcePath} from './road-audit-geometry.mjs';
+const source=[[0,0],[1,0],[2,0],[2,1],[3,1]];
+assert.equal(auditSourcePath(source,source),null);
+assert.equal(auditSourcePath([[.5,0],[1,0],[2,0],[2,.5]],source),null,'exact cuts retain every intervening node');
+assert.match(auditSourcePath([[0,0],[2,0]],source),/vertex omitted/,'a collinear mapped node is still source topology');
+assert.match(auditSourcePath([[0,0],[1,0],[2,1]],source),/vertex omitted/,'a shortcut across a bend is not a source segment');
+assert.match(auditSourcePath([[2,1],[2,0],[1,0]],source),/reversed/);
+assert.match(auditSourcePath([[0,0],[1,.001],[2,0]],source),/not on source/);
+assert.equal(auditSourcePath([[0,0],[1,0]],[[0,0],[0,1],[0,0],[1,0]]),null,'a repeated source coordinate resolves to the complete retained branch');
+assert.equal(auditSourcePath([[0,0],[0,0],[1,0]],[[0,0],[0,0],[1,0]]),null,'distinct mapped vertices at the same coordinate remain valid');
+assert.equal(auditSourcePath([[0,0],[.04,0]],[[0,0],[.04,0]]),null,'a four-centimetre source stub survives');
+console.log('9 source road topology/coordinate controls passed');

@@ -17,7 +17,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
-import { BUC_CACHE } from './fetch-buc.mjs';
+import { BUC_CACHE, positiveBuildingTag } from './fetch-buc.mjs';
+import { parseMeasure } from '../../building-roofs.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
 const RES = path.join(ROOT, 'game/research');
@@ -125,7 +126,7 @@ function bucSpot(s, cfg) {
 const r1 = (v) => Math.round(v * 10) / 10;
 const r2 = (v) => Math.round(v * 100) / 100;
 
-function projector(lat0, lon0) {
+export function projector(lat0, lon0) {
     const p = lat0 * Math.PI / 180;
     const mLat = 111132.954 - 559.822 * Math.cos(2 * p) + 1.175 * Math.cos(4 * p);
     const mLon = 111412.84 * Math.cos(p) - 93.5 * Math.cos(3 * p);
@@ -148,7 +149,28 @@ function cleanPoly(p) {
 }
 const num = (v) => { if (v === null || v === undefined || v === '') return null; const n = parseFloat(String(v).replace(',', '.')); return Number.isFinite(n) ? n : null; };
 
-function buildScene(sceneId) {
+export function compactBuilding(b, P, backdrop = false) {
+            const poly = cleanPoly(b.footprint.map(([la, lo]) => P.xy(la, lo)));
+            if (poly.length < 3 || Math.abs(polyArea(poly)) < .001) return null;
+            const lv = num(b['building:levels']);
+            const o = {
+                id: b.id, poly, h: parseMeasure(b.height_m ?? b.height), lv, minH: parseMeasure(b.min_height), minLv: num(b['building:min_level']),
+                k: positiveBuildingTag(b.building) ? b.building : (positiveBuildingTag(b['building:part']) ? 'part' : 'yes'), part: positiveBuildingTag(b['building:part']),
+                roof: b['roof:shape'] || null, roofH: parseMeasure(b['roof:height']), rc: b['roof:colour'] || null, c: b['building:colour'] || null,
+                mat: b['building:material'] || null, name: b.name || null, backdrop,
+            };
+            const roofTags = Object.fromEntries(Object.entries(b).filter(([k]) => k.startsWith('roof:')));
+            if (Object.keys(roofTags).length) o.roofTags = roofTags;
+            if (b.amenity) o.amenity = b.amenity; if (b.shop) o.shop = b.shop; if (b.tourism) o.tourism = b.tourism;
+            if (b.layer) o.layer = num(b.layer);
+            if (b.holes) o.holes = b.holes.map((h) => cleanPoly(h.map(([la, lo]) => P.xy(la, lo))));
+            if (b.historic) o.historic = b.historic; if (b.religion) o.religion = b.religion;
+            if (b['addr:street']) o.addr = `${b['addr:housenumber'] || ''} ${b['addr:street']}`.trim();
+            for (const k of Object.keys(o)) if (o[k] === null || o[k] === false) delete o[k];
+            return o;
+}
+
+export function buildScene(sceneId) {
     const cfg = SCENES[sceneId];
     const research = JSON.parse(fs.readFileSync(path.join(RES, cfg.research), 'utf8'));
     let spots = cfg.members.map((id) => { const s = research.spots.find((x) => x.id === id); if (!s) throw new Error('no research spot ' + id); return s; });
@@ -174,25 +196,16 @@ function buildScene(sceneId) {
     const terrains = [];
     for (const s of (cfg.buc ? [first] : spots)) {
         const osm = JSON.parse(fs.readFileSync(srcFile(s, '.json'), 'utf8'));
+        if (s === first) {
+            const supplement = JSON.parse(fs.readFileSync(path.join(RES, 'osm/spot-part-relations.json'), 'utf8'));
+            osm.backdrop_buildings = [...(osm.backdrop_buildings || []), ...supplement.records.filter(r => r.scenes.includes(sceneId)).map(r => r.building)];
+        }
         const tf = srcFile(s, '.terrain.json');
         if (fs.existsSync(tf)) terrains.push(JSON.parse(fs.readFileSync(tf, 'utf8')));
         for (const [list, backdrop] of [[osm.buildings, false], [osm.backdrop_buildings, true]]) for (const b of list || []) {
             if (seen.has(b.id)) continue; seen.add(b.id);
-            const poly = cleanPoly(b.footprint.map(([la, lo]) => P.xy(la, lo)));
-            if (poly.length < 3 || Math.abs(polyArea(poly)) < 2) continue;
-            const lv = num(b['building:levels']);
-            const o = {
-                id: b.id, poly, h: num(b.height_m ?? b.height), lv, minH: num(b.min_height), minLv: num(b['building:min_level']),
-                k: b.building || (b['building:part'] ? 'part' : 'yes'), part: !!b['building:part'],
-                roof: b['roof:shape'] || null, roofH: num(b['roof:height']), rc: b['roof:colour'] || null, c: b['building:colour'] || null,
-                mat: b['building:material'] || null, name: b.name || null, backdrop,
-            };
-            if (b.amenity) o.amenity = b.amenity; if (b.shop) o.shop = b.shop; if (b.tourism) o.tourism = b.tourism;
-            if (b.layer) o.layer = num(b.layer);
-            if (b.holes) o.holes = b.holes.map((h) => cleanPoly(h.map(([la, lo]) => P.xy(la, lo))));
-            if (b.historic) o.historic = b.historic; if (b.religion) o.religion = b.religion;
-            if (b['addr:street']) o.addr = `${b['addr:housenumber'] || ''} ${b['addr:street']}`.trim();
-            for (const k of Object.keys(o)) if (o[k] === null || o[k] === false) delete o[k];
+            const o = compactBuilding(b, P, backdrop);
+            if (!o) continue;
             out.buildings.push(o);
         }
         for (const w of osm.ways || []) {
@@ -295,5 +308,7 @@ function buildScene(sceneId) {
     console.log(`${sceneId}: ${out.buildings.length} buildings, ${out.ways.length} ways, ${out.areas.length} areas, ${out.trees.length} trees, ${out.pois.length} pois, terrain ${terrain ? terrain.nx + '×' + terrain.nz : 'none'} → ${path.relative(ROOT, file)} (${(fs.statSync(file).size / 1024).toFixed(0)} KB)`);
 }
 
-const want = process.argv.slice(2);
-for (const id of (want.length ? want : Object.keys(SCENES))) buildScene(id);
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+    const want = process.argv.slice(2);
+    for (const id of (want.length ? want : Object.keys(SCENES))) buildScene(id);
+}

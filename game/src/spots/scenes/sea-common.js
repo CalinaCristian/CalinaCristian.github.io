@@ -28,7 +28,8 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, clamp, smooth, lerp, inPoly, canvas, canvasTexture, fitDraw } from '../kit.js';
-import { mountain } from '../props.js';
+import { LANDMARKS, buildLandmark } from '../../landmarks.js';
+import { sourceMountain } from '../source-landmark.js';
 
 export const NEEDLE_LL = [47.6205063, -122.3493043, 40.5];
 export const RAINIER_LL = [46.8529, -121.7604, 4392];
@@ -205,22 +206,12 @@ function addTower(b, t, x, y, z) {
     const put = (geo, k = key, c = col) => { b.add(geo, k, M(x, y, z, 0, yaw, 0), c); geo.dispose(); };
     const base = shapePoly(shape === 'twin' ? 'round' : shape, w, d);
     const sink = 6; // below ground so slopes never show the underside
-    if (shape === 'columbia') {
-        // three stepped, concave-sided lobes around a core: 286 / 245 / 205 m (OSM parts), the tallest to the SE
-        const lobe = (cx, cz, s) => { const out = []; for (let i = 0; i < 18; i++) { const a = i / 18 * Math.PI * 2; const r = s * (0.92 - 0.14 * Math.cos(a * 3)); out.push([cx + Math.cos(a) * r, cz + Math.sin(a) * r]); } return out; };
-        put(prismGeo(lobe(0, 0, 17), -sink, H));
-        put(prismGeo(lobe(-12, 9, 14), -sink, H * 0.86));
-        put(prismGeo(lobe(12, 8, 13), -sink, H * 0.72));
-        put(prismGeo(lobe(0, -14, 12), -sink, H * 0.56));
-        put(prismGeo(scalePoly(lobe(0, 0, 17), 0.82), H, H + 3), 'roof', '#3a3f45');
-        return;
-    }
-    if (shape === 'smith') {
-        put(prismGeo(shapePoly('box', 32, 30), -sink, 75), 'f-stone', '#ece6d6');
-        put(prismGeo(shapePoly('box', 18, 18), 75, 124), 'f-stone', '#ece6d6');
-        put(prismGeo(shapePoly('box', 20, 20), 124, 128.5), 'roof', '#e2dbc9');
-        const p = new THREE.ConeGeometry(13.4, 17.5, 4); p.rotateY(Math.PI / 4); p.translate(0, 128.5 + 8.75, 0); put(p, 'roof', '#e8e1d0');
-        const s = new THREE.SphereGeometry(1.2, 10, 8); s.translate(0, 147.2, 0); put(s, 'roof', '#cfe2ea');
+    if(shape==='columbia'||shape==='smith'){
+        // Skyline and close visitor models share source footprints, tier heights and roofs.
+        const lm=LANDMARKS.find(l=>l.id===shape),model=buildLandmark(lm,{realScale:true});model.mesh.updateMatrixWorld(true);
+        const dx=(lm.lon-t[2])*111320*Math.cos(lm.lat*DEG),dz=-(lm.lat-t[1])*111132;
+        const translation=new THREE.Matrix4().makeTranslation(x+dx,y,z+dz);
+        model.mesh.traverse(m=>{if(!m.isMesh)return;const matrix=translation.clone().multiply(m.matrixWorld);b.add(m.geometry,'roof',matrix,'#ffffff');m.geometry.dispose();});
         return;
     }
     if (shape === 'pedestal') { // Rainier Tower (1977): 11-storey tapered concrete pedestal under a 29-storey box
@@ -333,7 +324,7 @@ export function seaMidrise(ctx, { box = [47.596, -122.372, 47.640, -122.312], n 
  * a ground mesh from seaHeight over `box` (scene metres) with a hole over the scene's own terrain (`hole`, dropped
  * below it); vertex colours: urban grey-green, darker street grid, parks greener; water areas sit below the water plane.
  */
-export function cityGround(ctx, { box, hole = null, step = 24, holeDrop = 1.5, seed = 3, lakeY = null } = {}) {
+export function cityGround(ctx, { box, hole = null, step = 24, holeDrop = 1.5, seed = 3, lakeY = null, simplify = 0, omitSubmerged = false } = {}) {
     const E = ctx.data.origin.elev, pr = ctx.data.projection, o = ctx.data.origin, r = rng(seed);
     const toLL = (x, z) => [o.lat - z / pr.mLat, o.lon + x / pr.mLon];
     const nx = Math.round((box.x1 - box.x0) / step), nz = Math.round((box.z1 - box.z0) / step);
@@ -349,7 +340,82 @@ export function cityGround(ctx, { box, hole = null, step = 24, holeDrop = 1.5, s
         if (water) c.set('#2c3836'); else c.set(k < 0.45 ? '#4f5a47' : k < 0.75 ? '#5c5e56' : k < 0.9 ? '#46553c' : '#6a675e');
         col.push(c.r, c.g, c.b);
     }
-    for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) { const a = j * (nx + 1) + i, b2 = a + 1, cc = a + nx + 1, d = cc + 1; idx.push(a, cc, b2, b2, cc, d); }
+    const at = (i, j) => j * (nx + 1) + i, height = (i, j) => pos[at(i, j) * 3 + 1];
+    const oldHeight = (x, z) => {
+        const i = Math.min(nx - 1, Math.floor(x)), j = Math.min(nz - 1, Math.floor(z)), u = x - i, v = z - j;
+        return u + v <= 1 ? height(i, j) * (1 - u - v) + height(i + 1, j) * u + height(i, j + 1) * v
+            : height(i + 1, j + 1) * (u + v - 1) + height(i, j + 1) * (1 - u) + height(i + 1, j) * (1 - v);
+    };
+    let submerged = 0, patches = 0, maxError = 0;
+    const leaves = [];
+    const covered = (i, j, w, h) => {
+        if (!omitSubmerged) return false;
+        // Keep every coastal cell. Only the seabed fully below opaque water is redundant.
+        for (let z = j; z <= j + h; z += 0.5) for (let x = i; x <= i + w; x += 0.5) {
+            const wx = box.x0 + x * (box.x1 - box.x0) / nx, wz = box.z0 + z * (box.z1 - box.z0) / nz, [la, lo] = toLL(wx, wz);
+            const waterY = inLakeUnion(la, lo) ? 6.1 - E : inElliott(la, lo) ? 1 - E : -Infinity;
+            if (oldHeight(x, z) >= waterY - 0.05) return false;
+        }
+        return true;
+    };
+    const patch = (i, j, w, h) => {
+        if (covered(i, j, w, h)) { submerged += w * h * 2; return; }
+        if (w === 1 && h === 1) { leaves.push({ i, j, w, h }); return; }
+        if (simplify > 0 && w >= 2 && h >= 2) {
+            // First test the four-corner fan against the original surface. Neighbour
+            // corners are stitched at their original height in a second pass.
+            // Final geometry is independently checked against the original surface.
+            const cx = i + w / 2, cz = j + h / 2, cy = oldHeight(cx, cz), rim = [];
+            rim.push([i, j], [i, j + h], [i + w, j + h], [i + w, j]);
+            const candidates = rim.map((a, k) => [a, rim[(k + 1) % rim.length]]);
+            let error = 0;
+            for (let z = j; z <= j + h && error <= simplify; z += 0.5) for (let x = i; x <= i + w; x += 0.5) {
+                for (const [a, b2] of candidates) {
+                    const det = (a[0] - cx) * (b2[1] - cz) - (b2[0] - cx) * (a[1] - cz);
+                    const u = ((x - cx) * (b2[1] - cz) - (b2[0] - cx) * (z - cz)) / det;
+                    const v = ((a[0] - cx) * (z - cz) - (x - cx) * (a[1] - cz)) / det;
+                    if (u < -1e-8 || v < -1e-8 || u + v > 1 + 1e-8) continue;
+                    error = Math.max(error, Math.abs(cy * (1 - u - v) + height(...a) * u + height(...b2) * v - oldHeight(x, z))); break;
+                }
+                if (error > simplify) break;
+            }
+            if (error <= simplify) { leaves.push({ i, j, w, h, cx, cz, cy }); patches++; maxError = Math.max(maxError, error); return; }
+        }
+        const w0 = Math.floor(w / 2), h0 = Math.floor(h / 2);
+        if (w0 && h0) { patch(i, j, w0, h0); patch(i + w0, j, w - w0, h0); patch(i, j + h0, w0, h - h0); patch(i + w0, j + h0, w - w0, h - h0); }
+        else if (w0) { patch(i, j, w0, h); patch(i + w0, j, w - w0, h); }
+        else { patch(i, j, w, h0); patch(i, j + h0, w, h - h0); }
+    };
+    if (simplify > 0 || omitSubmerged) {
+        // Small fixed tiles bound build work; steep / irregular tiles naturally remain at full resolution.
+        for (let j = 0; j < nz; j += 16) for (let i = 0; i < nx; i += 16) patch(i, j, Math.min(16, nx - i), Math.min(16, nz - j));
+        // A corner shared by two different patch sizes appears in both boundaries.
+        // This avoids cracks and retains the full original grid along unsimplified areas.
+        const rows = new Map(), columns = new Map();
+        const corner = (i, j) => { if (!rows.has(j)) rows.set(j, new Set()); rows.get(j).add(i); if (!columns.has(i)) columns.set(i, new Set()); columns.get(i).add(j); };
+        for (const { i, j, w, h } of leaves) { corner(i, j); corner(i + w, j); corner(i, j + h); corner(i + w, j + h); }
+        for (const { i, j, w, h, cx, cz, cy } of leaves) {
+            if (cx === undefined) { const a = at(i, j), b2 = a + 1, cc = a + nx + 1, d = cc + 1; idx.push(a, cc, b2, b2, cc, d); continue; }
+            const rim = [
+                ...[...columns.get(i)].filter((z) => z >= j && z < j + h).sort((a, b) => a - b).map((z) => [i, z]),
+                ...[...rows.get(j + h)].filter((x) => x >= i && x < i + w).sort((a, b) => a - b).map((x) => [x, j + h]),
+                ...[...columns.get(i + w)].filter((z) => z > j && z <= j + h).sort((a, b) => b - a).map((z) => [i + w, z]),
+                ...[...rows.get(j)].filter((x) => x > i && x <= i + w).sort((a, b) => b - a).map((x) => [x, j]),
+            ];
+            const cidx = pos.length / 3, wx = box.x0 + cx * (box.x1 - box.x0) / nx, wz = box.z0 + cz * (box.z1 - box.z0) / nz;
+            pos.push(wx, cy, wz);
+            const ci = at(Math.floor(cx), Math.floor(cz)) * 3; col.push(col[ci], col[ci + 1], col[ci + 2]);
+            for (let k = 0; k < rim.length; k++) idx.push(cidx, at(...rim[k]), at(...rim[(k + 1) % rim.length]));
+        }
+    } else for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) { const a = at(i, j), b2 = a + 1, cc = a + nx + 1, d = cc + 1; idx.push(a, cc, b2, b2, cc, d); }
+    if (simplify > 0 || omitSubmerged) {
+        // The omitted seabed / patch interiors must not leave orphan vertices with
+        // zero normals in the uploaded geometry (or in geometry-quality audits).
+        const used = new Map(), p2 = [], c2 = [];
+        for (let k = 0; k < idx.length; k++) { const old = idx[k]; if (!used.has(old)) { used.set(old, used.size); p2.push(...pos.slice(old * 3, old * 3 + 3)); c2.push(...col.slice(old * 3, old * 3 + 3)); } idx[k] = used.get(old); }
+        pos.length = 0; col.length = 0;
+        for (let k = 0; k < p2.length; k++) { pos.push(p2[k]); col.push(c2[k]); }
+    }
     const g = new THREE.BufferGeometry();
     g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
     g.setIndex(pos.length / 3 > 65535 ? new THREE.Uint32BufferAttribute(idx, 1) : new THREE.Uint16BufferAttribute(idx, 1)); g.computeVertexNormals();
@@ -367,6 +433,7 @@ export function cityGround(ctx, { box, hole = null, step = 24, holeDrop = 1.5, s
     };
     m.customProgramCacheKey = () => 'sea-cityground-v1';
     const mesh = new THREE.Mesh(g, m); mesh.name = 'ground-sea-city'; mesh.userData.noFloor = true; mesh.receiveShadow = false;
+    if (simplify > 0 || omitSubmerged) mesh.userData.simplification = { originalTriangles: nx * nz * 2, triangles: idx.length / 3, submergedTriangles: submerged, patches, maxSampledError: maxError, tolerance: simplify };
     return mesh;
 }
 
@@ -482,15 +549,20 @@ export function crane(boomUp = false) {
  * No coplanar surfaces: the top house is ONE lathe profile; glass bands are recessed open cylinders; slabs never
  * share a plane with another face. Returns a Group with userData { night(k), elevators[], update(dt), levels }.
  */
-export function seaNeedle({ detail = 1, cabs = true } = {}) {
+export function seaNeedle({ detail = 1, cabs = true, visitorGlass = false } = {}) {
     const N = detail >= 1 ? 48 : 24, grp = new THREE.Group(); grp.name = 'space-needle';
     const white = new THREE.MeshStandardMaterial({ color: '#eef0ec', roughness: 0.5, metalness: 0.05, emissive: new THREE.Color('#fff4e2'), emissiveIntensity: 0 });
     white.userData.nightEmissive = 0.22; white.name = 'needle-white';
     const steel = new THREE.MeshStandardMaterial({ color: '#c9cdcf', roughness: 0.4, metalness: 0.6 }); steel.name = 'needle-steel';
     const glass = new THREE.MeshStandardMaterial({ color: '#33454f', roughness: 0.06, metalness: 0.75, emissive: new THREE.Color('#ffd9a0'), emissiveIntensity: 0, side: THREE.DoubleSide });
-    glass.userData.nightEmissive = 0.55; glass.name = 'needle-glass';
-    const barrier = new THREE.MeshStandardMaterial({ color: '#9fb6c2', roughness: 0.04, metalness: 0.2, transparent: true, opacity: 0.28, side: THREE.DoubleSide, depthWrite: false }); barrier.name = 'needle-barrier';
-    const add = (geo, m, name) => { const me = new THREE.Mesh(geo, m); me.name = name; me.castShadow = detail >= 1; me.receiveShadow = detail >= 1; grp.add(me); return me; };
+    // The hero is visited from inside. Backdrop needles retain their old distant
+    // treatment; the visitor version must show the city through the real glazing.
+    if (visitorGlass) { glass.color.set('#b8d5e0'); glass.metalness = 0.12; glass.transparent = true; glass.opacity = 0.18; glass.depthWrite = false; }
+    // Clear visitor glazing transmits light; it is not a luminous panel or an
+    // opaque shadow caster. Keep structural members casting their real shadows.
+    glass.userData.nightEmissive = visitorGlass ? 0 : 0.55; glass.name = 'needle-glass';
+    const barrier = new THREE.MeshStandardMaterial({ color: '#9fb6c2', roughness: 0.04, metalness: 0.2, transparent: true, opacity: 0.28, side: THREE.DoubleSide, depthWrite: false }); barrier.name = 'needle-barrier'; barrier.forceSinglePass = true;
+    const add = (geo, m, name) => { const me = new THREE.Mesh(geo, m); me.name = name; me.castShadow = detail >= 1 && !(visitorGlass && m.transparent); me.receiveShadow = detail >= 1; grp.add(me); return me; };
     const b = new GeoBatch();
     // ---- legs: three pairs; leg centre radius r(y) and pair half-gap d(y)
     const R = (y) => (y < 113 ? 5.2 + 12.6 * Math.pow(1 - y / 113, 1.55) : 5.2 + Math.pow((y - 113) / 31, 1.35) * 7.6);
@@ -535,6 +607,17 @@ export function seaNeedle({ detail = 1, cabs = true } = {}) {
         [22.45, 162.8], [22.45, 163.5],                                  // the roof halo (eave)
         [19.2, 165.6], [13.0, 168.1], [7.2, 169.8], [3.3, 170.6], [3.2, 170.61]];
     const lathe = new THREE.LatheGeometry(prof.map(([r, y]) => new THREE.Vector2(r, y)), N);
+    if (visitorGlass) {
+        // These two profile strips were opaque cylinders directly behind the window
+        // bands. They are duplicate fill, not real walls in the glazed visitor rings.
+        const p = lathe.attributes.position, keep = [], indices = lathe.index.array;
+        for (let i = 0; i < indices.length; i += 3) {
+            const tri = [indices[i], indices[i + 1], indices[i + 2]], ys = tri.map((k) => p.getY(k)), lo = Math.min(...ys), hi = Math.max(...ys);
+            if (hi - lo > 1 && ((lo >= 152.59 && hi <= 156.11) || (lo >= 158.44 && hi <= 162.41))) continue;
+            keep.push(...tri);
+        }
+        lathe.setIndex(keep);
+    }
     add(lathe, white, 'needle-tophouse');
     // glass bands (recessed by 0.1 m behind the rims, never coplanar)
     const gb1 = new THREE.CylinderGeometry(20.42, 20.42, 3.45, N, 1, true); gb1.translate(0, 154.35, 0); add(gb1, glass, 'needle-loupe-glass');
@@ -702,14 +785,8 @@ export function seaBackdrop(ctx, o = {}) {
         const cs = [[47.5925, -122.3418, 0.5, false], [47.5905, -122.3420, 0.5, true], [47.5795, -122.3540, 1.57, false], [47.5770, -122.3545, 1.57, true], [47.5745, -122.3548, 1.57, false], [47.5718, -122.3550, 1.57, false], [47.5690, -122.3552, 1.57, true]];
         for (const [la, lo, yaw, up] of cs) { const c = crane(up), p = ctx.ll(la, lo); c.position.set(p.x, 3 - E, p.z); c.rotation.y = yaw; grp.add(c); }
     }
-    if (o.rainier !== false) {
-        const R = RAINIER_LL, p = ctx.ll(R[0], R[1]), dist = Math.hypot(p.x, p.z), bear = ((Math.atan2(p.x, -p.z) / DEG) + 360) % 360;
-        const m = mountain(0, 0, bear, dist, R[2] - E - (o.eyeY ?? 0), 16000, { dist: 8000, eyeY: o.eyeY ?? 0, color: '#7486a0', snow: '#f4f6fa', haze: '#a9b9cb', seed: 4 });
-        m.position.y -= m.geometry.parameters?.height ? 0 : 0; m.scale.y = 1; m.position.y -= 0.12 * (new THREE.Box3().setFromObject(m).getSize(new THREE.Vector3()).y); m.userData.weatherMountain = true; m.material.fog = false; grp.add(m); out.rainier = m;
-    }
-    if (o.olympics !== false) {
-        for (const [b2, h, w2] of [[262, 1700, 30000], [276, 2200, 26000], [290, 2400, 32000], [305, 2000, 24000], [318, 1600, 22000]]) { const m = mountain(0, 0, b2, 70000, h - E - (o.eyeY ?? 0), w2, { dist: 7800, eyeY: o.eyeY ?? 0, color: '#66779a', snow: '#e6ebf2', haze: '#aebdd0', seed: b2 }); m.userData.weatherMountain = true; grp.add(m); }
-    }
+    if(o.rainier!==false){const m=sourceMountain(ctx,'rainier',{distance:8000,eyeY:o.eyeY??1.6});grp.add(m);out.rainier=m;}
+    if(o.olympics!==false)grp.add(sourceMountain(ctx,'olympics',{distance:7800,eyeY:o.eyeY??1.6}));
     ctx.add(grp);
     ctx.onNight((k) => grp.traverse((m) => { if (m.userData?.weatherMountain) m.material.color.setScalar(1 - 0.88 * k); }));
     ctx.onUpdate((dt, s) => {
@@ -719,15 +796,15 @@ export function seaBackdrop(ctx, o = {}) {
     });
     return out;
 }
-const ACT_IDS = { 'lm-needle-up': 'elevator', 'lm-needle-loupe': 'loupe', 'lm-needle-360': 'deck', 'lm-great-wheel': 'great-wheel', 'lm-pike-fish': 'fish', 'lm-gum-wall': 'gum-wall', 'lm-pike-rachel': 'rachel', 'lm-troll-climb': 'climb', 'lm-gasworks-kite': 'kite', 'lm-locks-lockage': 'lockage', 'lm-kerry-blue-hour': 'blue-hour' };
+const ACT_IDS = { 'lm-needle-up': 'elevator', 'lm-needle-loupe': 'loupe', 'lm-great-wheel': 'great-wheel', 'lm-pike-fish': 'fish', 'lm-gum-wall': 'gum-wall', 'lm-pike-rachel': 'rachel', 'lm-troll-climb': 'climb', 'lm-gasworks-kite': 'kite', 'lm-locks-lockage': 'lockage', 'lm-kerry-blue-hour': 'blue-hour' };
 /** the activities the spots-sea scenes ship (for spots/index.js ACTIVITIES, contract 01 *Activities*) */
 export const SEA_ACTIVITIES = [
-    { spot: 'space-needle', id: 'elevator', title: 'Ride the elevator up (41 s)' }, { spot: 'space-needle', id: 'loupe', title: 'Look down through The Loupe' }, { spot: 'space-needle', id: 'deck', title: 'The open-air deck' },
+    { spot: 'space-needle', id: 'elevator', title: 'Ride the elevator up (41 s)' }, { spot: 'space-needle', id: 'loupe', title: 'Look down through The Loupe' },
     { spot: 'waterfront', id: 'great-wheel', title: 'Ride the Great Wheel' }, { spot: 'pike-place', id: 'fish', title: 'Catch a flying fish' }, { spot: 'pike-place', id: 'gum-wall', title: 'Add gum to the Gum Wall' },
     { spot: 'pike-place', id: 'rachel', title: 'Feed Rachel a coin' }, { spot: 'fremont-troll', id: 'climb', title: 'Climb the Troll' }, { spot: 'gas-works', id: 'kite', title: 'Fly a kite on Kite Hill' },
-    { spot: 'ballard-locks', id: 'lockage', title: 'Run a lockage' }, { spot: 'kerry-park', id: 'blue-hour', title: 'Blue hour over Seattle' },
+    { spot: 'ballard-locks', id: 'lockage', title: 'Observe a lockage' }, { spot: 'kerry-park', id: 'blue-hour', title: 'Blue hour over Seattle' },
     { spot: 'chihuly', id: 'lm-chihuly-glasshouse', title: 'Under the Glasshouse' }, { spot: 'mopop', id: 'lm-mopop-monorail', title: 'Monorail through the guitar' },
-    { spot: 'pioneer-square', id: 'lm-totem-read', title: 'Read the pole' }, { spot: 'pioneer-square', id: 'lm-underground', title: 'Below Seattle' },
+    { spot: 'pioneer-square', id: 'lm-totem-read', title: 'Frame the seven pole figures' }, { spot: 'pioneer-square', id: 'lm-underground', title: 'Frame Pioneer Square history outdoors' },
 ];
 /**
  * A landmark activity was completed (note 57; contract 01 *Activities*): `window.game.emit('activity', { spot, id })`

@@ -1,0 +1,1 @@
+PASS: initial corner admission, live-pose protection, full actors/RNG, stopped crossing, monotonic escape, turning body and other-level controls

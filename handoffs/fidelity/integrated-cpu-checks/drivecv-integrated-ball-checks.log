@@ -1,0 +1,44 @@
+(node:256862) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/football.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS swept drone kick from centre scores in north goal
+PASS swept drone kick from centre scores in south goal
+PASS rolling without a drone touch cannot unlock a goal
+PASS a teleported drone cannot impart a scoring kick
+PASS a drone well above the football cannot touch it
+PASS wide shots and side entry behind the goal do not score
+PASS an overbar shot does not score
+PASS the whole football must cross the goal line
+PASS a ball stopped partway over the line can be nudged fully in
+PASS a post impact rebounds and is not a goal
+PASS a crossbar impact rebounds and is not a goal
+PASS scoring calls the unlock hook once, then resets for another attempt
+PASS reset clears eligibility and unfinished goal entry
+13/13 football checks passed
+(node:256869) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS fixed-speed physical throw can make the existing-size rim
+PASS preview and throw use exactly the same integration and contacts
+PASS the whole ball must cross downward before the basket counts
+PASS a physically clear angled descent passes the spherical opening
+PASS the visible aimed pose is the real fixed-speed release
+PASS a side entry below the top plane cannot score
+PASS an upward pass cannot score
+PASS wide throws and rim impacts are misses
+PASS the actual backboard face rebounds the ball
+PASS floor bounce loses energy and remains above the court
+PASS dropped or placed balls do not award the secret
+PASS Drop releases the held ball into gravity without scoring eligibility
+PASS fast frames retain swept full-ball scoring and match fine frames
+PASS each throw calls the award once, reset removes pending eligibility
+PASS invalid dt cannot corrupt a resting ball
+PASS the eighth secret has one live catalogue row and a stable id
+16/16 basketball checks passed
+(node:256883) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/world.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+9 courtyard collision checks passed

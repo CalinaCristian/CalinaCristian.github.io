@@ -1,0 +1,450 @@
+{
+  "scope": "Independent source tags, calibrated manual aerial ranges and actual emitted CPU body geometry; no production change or whole-scene negative clearance claim.",
+  "bodyModelScope": "Historical pre-100m-rise grade model. These pinned body poses must not be relabelled as the later 100m-rise plateau poses.",
+  "sourceNativeCommit": "6cbf82b61de8267f662bf50239c37ccc1764635c",
+  "nativeExportSha256": "a1dcca3b1a573028b7f659787b2c7db34dd874b0a28b6697d34593be6f417bb3",
+  "consumedBodySourcesSha256": {
+    "/workspace/CalinaCristian.github.io/game/src/traffic.js": "df76adba5049aa47d20b1a67fae3a913a72cb9da1f32655a0b00df1ab0ddd471",
+    "/workspace/CalinaCristian.github.io/game/src/vehicles.js": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+    "/workspace/CalinaCristian.github.io/game/src/tram-path.js": "467abc0a93f9b80e64d2b79f35a1a2f12a828cc9be46fc6ffed05b139c1a1445",
+    "/workspace/CalinaCristian.github.io/game/vendor/three.module.min.js": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+    "/workspace/fidelity-workers/rail-bridge-model/game/src/tram-grade.js": "aa3b3a59251bd3aa383b975640c38187bcae87e13daec3a91e148433d05c6098",
+    "/workspace/fidelity-workers/rail-bridge-model/game/src/tram-grade-models.js": "69968c75a84cec611e11752a52559d2098d86a0681d499947e093d25c3267b17"
+  },
+  "sourceRoads": [
+    {
+      "sourceId": "w1552024280",
+      "rawTags": {
+        "access": "yes",
+        "bridge": "yes",
+        "foot": "no",
+        "highway": "primary",
+        "is_in:city": "Bucure\u0219ti",
+        "lanes": "2",
+        "layer": "2",
+        "name": "Pasajul Basarab",
+        "oneway": "yes"
+      },
+      "rawWidthTagPresent": false,
+      "rawPlacementTagPresent": false,
+      "nativeRoadIndices": [
+        95
+      ],
+      "nativeWidths": [
+        [
+          3.5,
+          3.5,
+          3.5,
+          0
+        ]
+      ],
+      "nativeWidthSourceRecorded": false
+    },
+    {
+      "sourceId": "w1552024281",
+      "rawTags": {
+        "access": "yes",
+        "bridge": "yes",
+        "foot": "no",
+        "highway": "primary",
+        "is_in:city": "Bucure\u0219ti",
+        "lanes": "2",
+        "layer": "2",
+        "name": "Pasajul Basarab",
+        "oneway": "yes"
+      },
+      "rawWidthTagPresent": false,
+      "rawPlacementTagPresent": false,
+      "nativeRoadIndices": [
+        243
+      ],
+      "nativeWidths": [
+        [
+          3.5,
+          3.5,
+          3.5,
+          0
+        ]
+      ],
+      "nativeWidthSourceRecorded": false
+    },
+    {
+      "sourceId": "w1552024282",
+      "rawTags": {
+        "access": "yes",
+        "bridge": "yes",
+        "foot": "no",
+        "highway": "primary",
+        "is_in:city": "Bucure\u0219ti",
+        "lanes": "2",
+        "layer": "2",
+        "name": "Pasajul Basarab",
+        "oneway": "yes",
+        "surface": "asphalt"
+      },
+      "rawWidthTagPresent": false,
+      "rawPlacementTagPresent": false,
+      "nativeRoadIndices": [
+        244
+      ],
+      "nativeWidths": [
+        [
+          3.5,
+          3.5,
+          3.5,
+          0
+        ]
+      ],
+      "nativeWidthSourceRecorded": false
+    },
+    {
+      "sourceId": "w458458361",
+      "rawTags": {
+        "bridge": "yes",
+        "foot": "no",
+        "highway": "primary",
+        "layer": "2",
+        "name": "Pasajul Basarab",
+        "oneway": "yes"
+      },
+      "rawWidthTagPresent": false,
+      "rawPlacementTagPresent": false,
+      "nativeRoadIndices": [
+        50
+      ],
+      "nativeWidths": [
+        [
+          3.5,
+          3.5,
+          3.5,
+          0
+        ]
+      ],
+      "nativeWidthSourceRecorded": false
+    }
+  ],
+  "bodyCases": [
+    {
+      "fixture": {
+        "source": "w205971103",
+        "segment": 20,
+        "t": 0.8431372549019608
+      },
+      "kind": "tram-v3a",
+      "actualNativePose": {
+        "x": 582.5764705882352,
+        "y": 10.456688162302283,
+        "z": -854.856862745098,
+        "heading": 2.121432050286921,
+        "pitch": -0.006395837145083427
+      },
+      "emittedVertices": 4644,
+      "emittedBounds": {
+        "min": [
+          570.4366074551814,
+          10.382625971289979,
+          -862.9382564963995
+        ],
+        "max": [
+          594.7010724769333,
+          16.248744269394745,
+          -846.7660988912457
+        ]
+      },
+      "nearestRoadAtCentre": {
+        "distanceM": 3.6276406885154366,
+        "lateralM": -3.627640688515436,
+        "edgeId": 1150,
+        "sourceId": "w1552024282"
+      },
+      "mostRoadwardVertexLateralM": -2.0188263332191427,
+      "maximumUniformLeftExtentWithoutFootprintIntrusionM": 2.0188263332191427,
+      "currentNativeTriangleContactsAtLeast": 30,
+      "contactEvidenceTruncatedAt": 30,
+      "bodyNearestSourceIds": [
+        "w1552024282"
+      ]
+    },
+    {
+      "fixture": {
+        "source": "w205971103",
+        "segment": 20,
+        "t": 0.8431372549019608
+      },
+      "kind": "tram-imperio",
+      "actualNativePose": {
+        "x": 582.5764705882352,
+        "y": 10.456688162302283,
+        "z": -854.856862745098,
+        "heading": 2.121884146398434,
+        "pitch": -0.00639476395755053
+      },
+      "emittedVertices": 3416,
+      "emittedBounds": {
+        "min": [
+          566.6056220051065,
+          10.359618790884914,
+          -865.2993864997733
+        ],
+        "max": [
+          598.5320647247645,
+          16.219607999895466,
+          -844.4049635626702
+        ]
+      },
+      "nearestRoadAtCentre": {
+        "distanceM": 3.6276406885154366,
+        "lateralM": -3.627640688515436,
+        "edgeId": 1150,
+        "sourceId": "w1552024282"
+      },
+      "mostRoadwardVertexLateralM": -2.0116095584880314,
+      "maximumUniformLeftExtentWithoutFootprintIntrusionM": 2.0116095584880314,
+      "currentNativeTriangleContactsAtLeast": 30,
+      "contactEvidenceTruncatedAt": 30,
+      "bodyNearestSourceIds": [
+        "w1552024282"
+      ]
+    },
+    {
+      "fixture": {
+        "source": "w205971103",
+        "segment": 27,
+        "t": 0.8181818181818182
+      },
+      "kind": "tram-v3a",
+      "actualNativePose": {
+        "x": 359.77272727272725,
+        "y": 8.40573665833879,
+        "z": -723.0454545454545,
+        "heading": 2.121431311985205,
+        "pitch": -0.00846794485963266
+      },
+      "emittedVertices": 4644,
+      "emittedBounds": {
+        "min": [
+          347.6305647421054,
+          8.304999943266363,
+          -731.1252136785384
+        ],
+        "max": [
+          371.89468435284,
+          14.198408099177161,
+          -714.9532896854549
+        ]
+      },
+      "nearestRoadAtCentre": {
+        "distanceM": 3.6224407920952593,
+        "lateralM": -3.6224407920952593,
+        "edgeId": 915,
+        "sourceId": "w1552024280"
+      },
+      "mostRoadwardVertexLateralM": -2.050116039760704,
+      "maximumUniformLeftExtentWithoutFootprintIntrusionM": 2.050116039760704,
+      "currentNativeTriangleContactsAtLeast": 30,
+      "contactEvidenceTruncatedAt": 30,
+      "bodyNearestSourceIds": [
+        "w1552024280",
+        "w1552024281"
+      ]
+    },
+    {
+      "fixture": {
+        "source": "w205971103",
+        "segment": 27,
+        "t": 0.8181818181818182
+      },
+      "kind": "tram-imperio",
+      "actualNativePose": {
+        "x": 359.77272727272725,
+        "y": 8.40573665833879,
+        "z": -723.0454545454545,
+        "heading": 2.128377117206056,
+        "pitch": -0.00846829563137351
+      },
+      "emittedVertices": 3416,
+      "emittedBounds": {
+        "min": [
+          343.8545748718996,
+          8.27450992463008,
+          -733.5815143935534
+        ],
+        "max": [
+          375.6707600441411,
+          14.159824990871416,
+          -712.4968484080188
+        ]
+      },
+      "nearestRoadAtCentre": {
+        "distanceM": 3.6224407920952593,
+        "lateralM": -3.6224407920952593,
+        "edgeId": 915,
+        "sourceId": "w1552024280"
+      },
+      "mostRoadwardVertexLateralM": -1.9613846409466373,
+      "maximumUniformLeftExtentWithoutFootprintIntrusionM": 1.9613846409466373,
+      "currentNativeTriangleContactsAtLeast": 30,
+      "contactEvidenceTruncatedAt": 30,
+      "bodyNearestSourceIds": [
+        "w1552024280",
+        "w1552024281"
+      ]
+    }
+  ],
+  "measuredProfiles": [
+    {
+      "id": "north",
+      "railSourceSegment": 20,
+      "nativeRoadEdge": 1150,
+      "readings": [
+        {
+          "displayYPx": 200,
+          "alongRoadM": -10.0,
+          "leftEdgeXPxRange": [
+            205,
+            216
+          ],
+          "rightEdgeXPxRange": [
+            336,
+            352
+          ],
+          "leftExtentMRange": [
+            1.2000000000000002,
+            1.75
+          ],
+          "rightExtentMRange": [
+            4.800000000000001,
+            5.6000000000000005
+          ]
+        },
+        {
+          "displayYPx": 400,
+          "alongRoadM": 0.0,
+          "leftEdgeXPxRange": [
+            202,
+            216
+          ],
+          "rightEdgeXPxRange": [
+            336,
+            352
+          ],
+          "leftExtentMRange": [
+            1.2000000000000002,
+            1.9000000000000001
+          ],
+          "rightExtentMRange": [
+            4.800000000000001,
+            5.6000000000000005
+          ]
+        },
+        {
+          "displayYPx": 600,
+          "alongRoadM": 10.0,
+          "leftEdgeXPxRange": [
+            196,
+            210
+          ],
+          "rightEdgeXPxRange": [
+            338,
+            356
+          ],
+          "leftExtentMRange": [
+            1.5,
+            2.2
+          ],
+          "rightExtentMRange": [
+            4.9,
+            5.800000000000001
+          ]
+        }
+      ],
+      "registrationUncertaintyM": [
+        0.5,
+        1.0
+      ]
+    },
+    {
+      "id": "fork",
+      "railSourceSegment": 27,
+      "nativeRoadEdge": 915,
+      "readings": [
+        {
+          "displayYPx": 200,
+          "alongRoadM": -10.0,
+          "leftEdgeXPxRange": [
+            172,
+            188
+          ],
+          "rightEdgeXPxRange": [
+            328,
+            346
+          ],
+          "leftExtentMRange": [
+            2.6,
+            3.4000000000000004
+          ],
+          "rightExtentMRange": [
+            4.4,
+            5.300000000000001
+          ]
+        },
+        {
+          "displayYPx": 400,
+          "alongRoadM": 0.0,
+          "leftEdgeXPxRange": [
+            174,
+            190
+          ],
+          "rightEdgeXPxRange": [
+            334,
+            352
+          ],
+          "leftExtentMRange": [
+            2.5,
+            3.3000000000000003
+          ],
+          "rightExtentMRange": [
+            4.7,
+            5.6000000000000005
+          ]
+        },
+        {
+          "displayYPx": 600,
+          "alongRoadM": 10.0,
+          "leftEdgeXPxRange": [
+            182,
+            198
+          ],
+          "rightEdgeXPxRange": [
+            344,
+            364
+          ],
+          "leftExtentMRange": [
+            2.1,
+            2.9000000000000004
+          ],
+          "rightExtentMRange": [
+            5.2,
+            6.2
+          ]
+        }
+      ],
+      "registrationUncertaintyM": [
+        0.5,
+        1.0
+      ]
+    }
+  ],
+  "acquisitionDate": "unknown",
+  "findings": [
+    "No audited road has an OSM width or placement tag. The three w155202428x roads explicitly have two lanes; w458458361 does not.",
+    "Native audited carriageways use estimated centered 7m widths with zero lateral shift.",
+    "Visible asphalt edges are asymmetric around the literal OSM line; a centered narrower total is not the only possible source-backed width interpretation.",
+    "Seg20 measured inner edge may remove the footprint overlap, but image registration and whole-body uncertainty prevent a clearance certificate.",
+    "Seg27 measured inner edge still overlaps the most roadward emitted vertices before registration uncertainty. Width alone does not certify this case.",
+    "The pinned pre-100m-rise mesh intersections are positive proof for that model. A source-backed footprint or later grade correction requires a new body/support check.",
+    "Common layer/bridge tags do not prove one common deck height; preserve independent carriageway/rail profiles until physical support is associated."
+  ],
+  "noSourceGeometryEdited": true,
+  "noBrowserStarted": true
+}

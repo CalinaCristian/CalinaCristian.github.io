@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "controls": 5,
+  "cases": [
+    "literal context and direct native road/rail state agree while renderer state stays explicitly unobserved",
+    "wrong source controller/phase/axis/context and mismatched native states fail",
+    "observing red at time0 never constitutes a driven stop or a green resume",
+    "actual stopped red interval followed by bounded physical green progress is required",
+    "mapped stop dwell uses real physical duration and stationary source position"
+  ],
+  "browserOpened": false,
+  "scope": "Pure independent recorded-source/state/event positive/negative gates only; no native driven challenge inferred."
+}

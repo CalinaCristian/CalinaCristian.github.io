@@ -11,9 +11,10 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb, polyArea, offsetPolyline, distPolyline, prismGeometry } from '../kit.js';
-import { bucBackdrop, osmPoly, cityFiller, palisade, signAtlas, bucActivity, boatRide } from '../buc.js';
+import { bucBackdrop, osmPoly, placeLandmark, palisade, signAtlas, bucActivity, boatRide } from '../buc.js';
 import { railing } from '../props.js';
 import { addBikeRental } from '../bike.js';
+import { dryLanding, shortWaterRoute } from '../water-route.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
 const NORTH = /Maramureș|Maramures|Bistrița|Hunedoara|Harghita|Suceava|Neamț|Neamt|Alba|Cluj|Sălaj|Mureș|Brașov|Sibiu|Covasna|Bihor|Satu Mare|Bucovina/;
@@ -128,6 +129,12 @@ export default {
     env: { fogFar: 3400, ambientCity: 0.15, groundAlbedo: 0.1 },
     async build(ctx) {
         const g = ctx.ground, d = ctx.data, spH = ctx.spot('herastrau-park'), spV = ctx.spot('village-museum');
+        // The real Arc is in this source extract beside the mapped bike dock.
+        // Reuse its canonical model instead of giving the monument apartment
+        // windows. Only its exact source ID is replaced; shared membership
+        // preserves independent and crossing parts.
+        const arc=d.buildings.find(b=>b.id==='w217851530');
+        if(arc){ctx.skipBuildings.add(arc.id);ctx.extras.herastrauArc=placeLandmark(ctx,'arcul',{y:Math.min(...arc.poly.map(([x,z])=>g.heightAt(x,z))),colliderH:30});}
         // ---- the lake (OSM multipolygon with its islands): water plane, shore carved, not walkable
         const lake = d.areas.find((a) => a.id === 'r1130828');
         let level = g.heightAt(24, -45) - 1.4;
@@ -173,7 +180,7 @@ export default {
         { const named = houses.filter((h) => h.porch && h.bd.name), pick = [], regions = new Set();
           for (const h of named) { const reg = (h.bd.name.match(/din ([^,(]+)/) || [, h.bd.name])[1].trim(); if (regions.has(reg)) continue; regions.add(reg); pick.push(h); if (pick.length >= 8) break; }
           const stamps = new Set();
-          for (const h of pick) { const [x, z] = h.P(h.o.len > 6 ? 0 : -h.o.len * 0.175, -h.o.wid / 2 + 0.6); ctx.interactables.push({ x, z, r: 2.2, label: () => (stamps.has(h.bd.id) ? `${h.bd.name} (stamped)` : `Step into the house: ${h.bd.name}`), use: (s) => { if (stamps.has(h.bd.id)) return; stamps.add(h.bd.id); if (stamps.size >= 5) bucActivity(s, 'village-museum', 'farmhouse', '🏡 Village passport complete', `Five households from five regions — the last: ${h.bd.name}. The houses were moved here whole, with their furniture, from 1936 on.`); else s.ui.toast(`🏡 Stamp ${stamps.size} / 5`, `${h.bd.name}: a clay-floored main room, painted dowry chest, woven rugs on the walls, the bread oven by the door.`); } }); } }
+          for (const h of pick) { const [x, z] = h.P(h.o.len > 6 ? 0 : -h.o.len * 0.175, -h.o.wid / 2 + 0.6); ctx.interactables.push({ x, z, r: 2.2, source: h.bd.id, label: () => (stamps.has(h.bd.id) ? `${h.bd.name} (recorded)` : `Record a virtual passport visit: ${h.bd.name}`), use: (s) => { if (stamps.has(h.bd.id)) return; stamps.add(h.bd.id); if (stamps.size >= 5) bucActivity(s, 'village-museum', 'farmhouse', '🏡 Virtual village passport complete', `You visited five mapped households. The Village Museum has preserved rural buildings from across Romania since 1936.`); else s.ui.toast(`🏡 Visit ${stamps.size} / 5`, `${h.bd.name}. Walk to another mapped household to continue your passport.`); } }); } }
         for (const [x, z] of d.furniture.cross || []) { if (mus && !inPoly(x, z, mus)) continue; const y = g.heightAt(x, z); b.box(x, y, z, 0.18, 2.2, 0.18, '#5a4632', 'wood'); b.box(x, y + 1.6, z, 1.1, 0.16, 0.16, '#5a4632', 'wood'); b.box(x, y + 2.15, z, 0.7, 0.2, 0.5, '#4a3a2a', 'wood'); ctx.circle(x, z, 0.15, 2.2); }
         // museum fence (ticketed site) with the entrance by Kiseleff and a gate toward the park
         if (mus) {
@@ -221,20 +228,35 @@ export default {
             for (const w of d.ways) { if (!['footway', 'path', 'cycleway', 'pedestrian'].includes(w.k)) continue; for (let i = 1; i < w.pts.length; i++) { const [ax, az] = w.pts[i - 1], [bx, bz] = w.pts[i], L = Math.hypot(bx - ax, bz - az); if (L < 1) continue; const nx = -(bz - az) / L, nz = (bx - ax) / L; for (let t = r() * 9; t < L; t += 8 + r() * 4) for (const sd of [-1, 1]) { if (r() < 0.25) continue; const x = ax + (bx - ax) * t / L + nx * sd * (4 + r() * 2), z = az + (bz - az) * t / L + nz * sd * (4 + r() * 2); if (!inside(x, z) || (jg && inPoly(x, z, jg)) || Math.hypot(x - nymph.x, z - nymph.z) < 16) continue; ctx.trees.push({ x, z, kind: r() < 0.08 ? 'con' : 'broad', s: 1.25 + r() * 0.6 }); } } } }
         ctx.trees = ctx.trees.filter((t) => g.heightAt(t.x, t.z) > level + 0.4);
         { const ic = spV.photo.iconic; if (church && ic) { const dx = church.x - ic.x, dz = church.z - ic.z, L = Math.hypot(dx, dz); ctx.trees = ctx.trees.filter((t) => { const u = ((t.x - ic.x) * dx + (t.z - ic.z) * dz) / L; if (u < -2 || u > L + 4) return true; const v = Math.abs((t.x - ic.x) * dz - (t.z - ic.z) * dx) / L; return v > 4 + u * 0.35; }); } }
-        cityFiller(ctx, { ring: 650, avoid: lake ? [lake.poly] : [] });
+        // Unlocated random towers beyond the extract produced a false skyline
+        // across the lake. Preserve every mapped building; source coverage
+        // beyond this extract remains an explicit gap instead of invented blocks.
+        ctx.extras.herastrauContext={removedUnverifiedCityFiller:true};
         // plaques
         const PH = spH.plaques, PV = spV.plaques;
         PH.forEach((pl, i) => ctx.plaque(pl, nymph.x - 14 + i * 7, nymph.z + 10, Math.PI, { style: 'park' }));
         if (church) PV.forEach((pl, i) => { const a = Math.PI * 0.75 + i * 0.28, x = church.x + Math.cos(a) * 18, z = church.z + Math.sin(a) * 18; ctx.plaque(pl, x, z, Math.atan2(church.x - x, church.z - z) + Math.PI, { style: 'park', credit: i === 0 ? 'Founded by sociologist Dimitrie Gusti (1936).' : null }); });
-        // fun: feed the ducks, ring the toaca, draw water
-        // activity (note 57): a boat out on Lake Herăstrău from the south landing (rentals April–October), out and back
-        if (ctx.extras.inLake) { const inL = ctx.extras.inLake; let st = null; for (let k = 0; k < 40 && !st; k++) { const x = 30 + (k % 2 ? 1 : -1) * k * 2, z = -32 - k * 1.5; if (inL(x, z)) st = [x, z]; }
-            if (st) { const out = [st]; for (let k = 1; k < 60; k++) { const x = st[0] + Math.sin(k * 0.09) * 26, z = st[1] - k * 6; if (!inL(x, z) || !inL(x + 8, z) || !inL(x - 8, z)) break; out.push([x, z]); }
-                if (out.length > 6) { const bt = new THREE.Group(); const hull = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 6, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), new THREE.MeshStandardMaterial({ color: '#f2efe6', roughness: 0.5 })); hull.scale.set(0.95, 0.5, 2.3); bt.add(hull); const seat = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.06, 0.4), new THREE.MeshStandardMaterial({ color: '#2f5a7a' })); seat.position.y = -0.04; bt.add(seat); bt.position.set(st[0], level + 0.02, st[1]); ctx.add(bt);
-                    const path = [...out, ...out.slice(0, -1).reverse()], ride = boatRide(ctx, bt, path, level + 0.02, { speed: 2.2, onDone: (s) => bucActivity(s, 'herastrau-park', 'boat', '⛵ Lake Herăstrău', 'Out past the Japanese garden and back — boats and pedal boats are rented at the landings from spring to autumn.') });
-                    ctx.interactables.push({ x: 37, z: -24, r: 3, label: 'Rent a boat (out on the lake and back, Esc to stop)', cond: () => !ride.active(), use: (s) => { const m = new Date().getMonth(); if (m < 3 || m > 9) { s.ui.toast('⛵ Boats are seasonal', 'Boat and pedal-boat rentals run from April to October.'); return; } ride.start(s); } }); } } }
-        ctx.interactables.push({ x: 30, z: -26, r: 4, label: 'Feed the ducks', use: (s) => { s.ui.toast('🦆 Quack', 'Ducks gather at the south tip of the lake.'); s.sound.play('splat', 0.4); } });
-        if (church) ctx.interactables.push({ x: church.x + 6, z: church.z + 6, r: 3, label: 'Strike the toaca (wooden semantron)', use: (s) => { s.sound.play('thump', 0.8); setTimeout(() => s.sound.play('thump', 0.6), 260); setTimeout(() => s.sound.play('thump', 0.9), 520); s.ui.toast('Toaca', 'The wooden board calls to service on feast days.'); } });
+        // Participatory outdoor exercise at the retained mapped marina.
+        // A short optional rowing exercise at the mapped marina, not an
+        // invented rental point beside the spawn. Operator hours are unverified.
+        const landing=d.pois.find(p=>p.id==='n141706786');
+        if(lake&&landing){const holes=lake.holes||[],bridges=d.ways.filter(w=>w.bridge),path=shortWaterRoute(lake.poly,landing,{reach:24,clearance:1.4,avoid:(x,z)=>holes.some(h=>inPoly(x,z,h)||distPolyline(x,z,[...h,h[0]]).d<1.4)||bridges.some(w=>distPolyline(x,z,w.pts).d<(w.width||4)/2+2)});
+            if(path){const bt=new THREE.Group(),hull=new THREE.Mesh(new THREE.SphereGeometry(1,12,6,0,Math.PI*2,Math.PI/2,Math.PI/2),new THREE.MeshStandardMaterial({color:'#f2efe6',roughness:.5}));hull.scale.set(.95,.5,2.3);bt.add(hull);bt.position.set(path[0][0],level+.02,path[0][1]);ctx.add(bt);
+                const approach=dryLanding(lake.poly,landing),ride=boatRide(ctx,bt,path,level+.02,{speed:1.7,initialPitch:-.12,title:'Row from Debarcader Herăstrău',onDone:s=>bucActivity(s,'herastrau-park','boat','🚣 Returned to Debarcader','You rowed the short game course from the mapped marina and returned. Current rental operations and hours are unverified.')});
+                // Extend flight only to the retained marina path, its mapped public
+                // approach and the short game course. These estimated3m half-width
+                // strips stay inside the prepared DEM coverage; never expose the
+                // full unclipped park/lake merely because their OSM rings exist.
+                const terrain=d.terrain,flightBounds={x0:terrain.x0,z0:terrain.z0,x1:terrain.x0+(terrain.nx-1)*terrain.d,z1:terrain.z0+(terrain.nz-1)*terrain.d};
+                const flightAreas=[],strip=(a,b)=>{const L=Math.hypot(b[0]-a[0],b[1]-a[1]);if(!L)return;const nx=-(b[1]-a[1])/L*3,nz=(b[0]-a[0])/L*3;
+                    const poly=[[a[0]+nx,a[1]+nz],[b[0]+nx,b[1]+nz],[b[0]-nx,b[1]-nz],[a[0]-nx,a[1]-nz]];
+                    if(poly.every(([x,z])=>Number.isFinite(x)&&Number.isFinite(z)&&x>=flightBounds.x0&&x<=flightBounds.x1&&z>=flightBounds.z0&&z<=flightBounds.z1))flightAreas.push(poly);};
+                const sourceApproach=d.ways.find(w=>w.id==='w1162864482')?.pts.slice(1,4)||[],sourceLanding=d.ways.find(w=>w.id==='w68336727')?.pts||[];
+                for(const line of[sourceApproach,sourceLanding,[[approach.x,approach.z],path[0]],path.slice(0,Math.ceil(path.length/2))])for(let i=1;i<line.length;i++)strip(line[i-1],line[i]);
+                ctx.extras.droneFlightAreas=flightAreas;
+                const available=s=>s.r3d?.weather?.season!=='winter';ctx.extras.herastrauBoat={ride,path,landing,approach,source:landing.id,operatorHoursVerified:false,flightAreaSources:['w1162864482','w68336727','n141706786','r1130828'],flightAreaHalfWidthEstimate:3,flightBounds};
+                ctx.interactables.push({kind:'rowboat',x:approach.x,z:approach.z,r:3,source:landing.id,label:'Row a short course from Debarcader',tourAvailable:available,cond:()=>!ride.active(),use:s=>{if(!available(s)){s.ui.toast('🚣 Warm-season game course','Choose a warm season for this rowing exercise. Current operator hours are not confirmed.');return;}ride.start(s);}});
+            }}
         // postcards: the church spire from the lawn (research pose); the nymph with the lake behind
         if (church) { const ic = spV.photo.iconic, dx = ic.x - church.x, dz = ic.z - church.z, L = Math.hypot(dx, dz) || 1, px = church.x + dx / L * 16, pz = church.z + dz / L * 16; ctx.challenge('village-museum', { view: [church.x, church.z], x: px, z: pz, heading: (Math.atan2(church.x - px, -(church.z - pz)) * 180 / Math.PI + 360) % 360, pitch: 32, r: 10, tol: 28 }); }
         else ctx.challenge('village-museum', { r: 10, tol: 28 });
@@ -254,8 +276,11 @@ export default {
         };
         ctx.sound('birds', 150, 80, 160, 1); ctx.sound('birds', -150, -40, 160, 1); ctx.sound('water', 24, -50, 60, 0.6); ctx.sound('crows', -100, 0, 200, 0.6); ctx.sound('traffic', -380, 40, 160, 0.5); ctx.sound('wind', 0, 0, 300, 0.4);
         ctx.spawns['herastrau-park'] = { x: nymph.x - 4, z: nymph.z + 30, heading: headingFromBearing(350) };
-        // note 31: a bike-share dock next to the spawn (E rents a bike, E again gets off) — ride the park alleys round the lake
-        addBikeRental(ctx, { x: nymph.x + 0.5, z: nymph.z + 33, heading: headingFromBearing(80), n: 6, name: 'Bike rental (I\'Velo)', colour: '#2f8f46' });
+        // Mapped I'Velo docking station at Piața Arcul de Triumf. Do not invent
+        // a second rental venue beside the park spawn. Six display bikes and
+        // stand spacing are estimates; the source station's capacity is 18.
+        const bikeDock=d.pois.find(p=>p.id==='n2858053385');
+        if(bikeDock){ctx.extras.bikeRental=addBikeRental(ctx,{x:bikeDock.x,z:bikeDock.z,heading:headingFromBearing(80),n:6,name:bikeDock.name||"I'Velo",colour:'#2f8f46'});ctx.extras.bikeRentalSource={id:bikeDock.id,x:bikeDock.x,z:bikeDock.z,capacity:Number(bikeDock.capacity),displayedBikes:6,estimatedLayout:true};}
         ctx.spawns['village-museum'] = { x: spV.spawn.x, z: spV.spawn.z, heading: headingFromBearing(40) };
     },
 };

@@ -1,0 +1,55 @@
+{
+  "file": "game/data/bucharest-pipera.json",
+  "sourceRecords": 2283,
+  "assemblies": [
+    {
+      "source": "w236041902",
+      "mode": "union",
+      "parts": [
+        "w1289605664"
+      ],
+      "residualArea": 1295.1341619050036,
+      "residualHeight": 80
+    },
+    {
+      "source": "w237911115",
+      "mode": "union",
+      "parts": [
+        "w289666722"
+      ],
+      "residualArea": 861.9032051300455,
+      "residualHeight": 65
+    },
+    {
+      "source": "w764534288",
+      "mode": "union",
+      "parts": [
+        "w1104992266"
+      ],
+      "residualArea": 890.0803752550055,
+      "residualHeight": 55
+    },
+    {
+      "source": "w1289605665",
+      "mode": "union",
+      "parts": [
+        "w1289605670"
+      ],
+      "residualArea": 557.1892173899978,
+      "residualHeight": 40
+    }
+  ],
+  "roofs": {
+    "checked": 894,
+    "inset": 894,
+    "fallback": []
+  },
+  "rejectedSourceBands": [],
+  "physicalUnionSurfaces": 15,
+  "rawSource": {
+    "sourceParts": 9,
+    "explicitHeights": 73,
+    "explicitMinima": 0,
+    "tiles": 12
+  }
+}

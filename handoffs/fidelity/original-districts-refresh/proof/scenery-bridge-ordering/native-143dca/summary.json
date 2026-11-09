@@ -1,0 +1,281 @@
+{
+  "gameSourceCommit": "143dca860f4d1e2e8b947f3579e18359f474064e",
+  "scope": "Actual native passive source deck collision bands and shared QA/Drone._collide methods; body pair queries at previous exact source crossings. Static source dumps, not controller travel, whole-scene clearance parity, visual acceptance or hardware FPS.",
+  "originalSevenRecordsPreserved": true,
+  "resume": "Seven completed district files retained from interrupted run; only missing SeaTac rerun. First resume wrote valid native collision record then optional pair export failed; error retained, final complete rerun is separate.",
+  "totals": {
+    "districts": 8,
+    "passiveDecks": 1754,
+    "checks": 21048,
+    "errors": 0
+  },
+  "districts": [
+    {
+      "district": "bucharest-unirii",
+      "capturedAt": "2026-11-08T22:11:43.033Z",
+      "bridges": 3,
+      "passiveDecks": 11,
+      "checks": 132,
+      "errors": 0,
+      "coreSha256": "c8fac8acecd6e8e39455ea0f660546f80ae3c1799ee68d9fc272312be289dc9f",
+      "coreHashMatchesPreviousNativeAndCPU": true,
+      "completeStatsAndChangedProfilesMatchCPU": true,
+      "unresolvedEstimatedTargets": 0,
+      "ordering": {
+        "converged": true,
+        "iterations": 1,
+        "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+      },
+      "requestedPairs": 0
+    },
+    {
+      "district": "bucharest-otopeni",
+      "capturedAt": "2026-11-08T22:12:24.640Z",
+      "bridges": 7,
+      "passiveDecks": 165,
+      "checks": 1980,
+      "errors": 0,
+      "coreSha256": "6268464711e4afa55b04d7a18cf1023bcc17357760383d17a1501745d3514d2b",
+      "coreHashMatchesPreviousNativeAndCPU": true,
+      "completeStatsAndChangedProfilesMatchCPU": true,
+      "unresolvedEstimatedTargets": 0,
+      "ordering": {
+        "converged": true,
+        "iterations": 1,
+        "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+      },
+      "requestedPairs": 0
+    },
+    {
+      "district": "bucharest-floreasca",
+      "capturedAt": "2026-11-08T22:13:13.707Z",
+      "bridges": 3,
+      "passiveDecks": 22,
+      "checks": 264,
+      "errors": 0,
+      "coreSha256": "b8b1f974e81970614be9cb3c6498b021a4d3560334b62edfd2f47916e10b6f63",
+      "coreHashMatchesPreviousNativeAndCPU": true,
+      "completeStatsAndChangedProfilesMatchCPU": true,
+      "unresolvedEstimatedTargets": 0,
+      "ordering": {
+        "converged": true,
+        "iterations": 1,
+        "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+      },
+      "requestedPairs": 0
+    },
+    {
+      "district": "bucharest-grozavesti",
+      "capturedAt": "2026-11-08T22:14:29.407Z",
+      "bridges": 21,
+      "passiveDecks": 164,
+      "checks": 1968,
+      "errors": 0,
+      "coreSha256": "3d86c610a2361b4dacf2b4f1508435005e66191d6cca9cfe3fbc2b524dc7ffb4",
+      "coreHashMatchesPreviousNativeAndCPU": true,
+      "completeStatsAndChangedProfilesMatchCPU": true,
+      "unresolvedEstimatedTargets": 0,
+      "ordering": {
+        "converged": true,
+        "iterations": 1,
+        "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+      },
+      "requestedPairs": 0
+    },
+    {
+      "district": "bucharest-romana",
+      "capturedAt": "2026-11-08T22:15:58.873Z",
+      "bridges": 0,
+      "passiveDecks": 0,
+      "checks": 0,
+      "errors": 0,
+      "coreSha256": "d393fc83558eab60edd62b142c07b0fbc5e6ebdd47b98d1b37f436df5ba7b1f5",
+      "coreHashMatchesPreviousNativeAndCPU": true,
+      "completeStatsAndChangedProfilesMatchCPU": true,
+      "unresolvedEstimatedTargets": 0,
+      "ordering": {
+        "converged": true,
+        "iterations": 1,
+        "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+      },
+      "requestedPairs": 0
+    },
+    {
+      "district": "bucharest-pipera",
+      "capturedAt": "2026-11-08T22:17:19.880Z",
+      "bridges": 12,
+      "passiveDecks": 163,
+      "checks": 1956,
+      "errors": 0,
+      "coreSha256": "497509cf4c18259b8a177da73b7cd4c4dde5c76b2abf0a7717b736332508a093",
+      "coreHashMatchesPreviousNativeAndCPU": true,
+      "completeStatsAndChangedProfilesMatchCPU": true,
+      "unresolvedEstimatedTargets": 0,
+      "ordering": {
+        "converged": true,
+        "iterations": 1,
+        "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+      },
+      "requestedPairs": 1
+    },
+    {
+      "district": "seattle-bellevue",
+      "capturedAt": "2026-11-08T22:18:20.933Z",
+      "bridges": 38,
+      "passiveDecks": 732,
+      "checks": 8784,
+      "errors": 0,
+      "coreSha256": "54591492ee6815d65a24c1e834468d9fa938ed9ae9c2b1ca0a13d3fede3fa6f7",
+      "coreHashMatchesPreviousNativeAndCPU": true,
+      "completeStatsAndChangedProfilesMatchCPU": true,
+      "unresolvedEstimatedTargets": 0,
+      "ordering": {
+        "converged": true,
+        "iterations": 1,
+        "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+      },
+      "requestedPairs": 13
+    },
+    {
+      "district": "seattle-seatac",
+      "capturedAt": "2026-11-08T22:24:53.925Z",
+      "bridges": 13,
+      "passiveDecks": 497,
+      "checks": 5964,
+      "errors": 0,
+      "coreSha256": "d558c812942cdd19a3f0574c5f5908a343ec4c583f2bfc76d21eb9c58ee7728e",
+      "coreHashMatchesPreviousNativeAndCPU": true,
+      "completeStatsAndChangedProfilesMatchCPU": true,
+      "unresolvedEstimatedTargets": 9,
+      "ordering": {
+        "converged": true,
+        "iterations": 2,
+        "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+      },
+      "requestedPairs": 15,
+      "previousTargetPairs": 15,
+      "productionBodyContacts": 1,
+      "blockedPairs": [
+        {
+          "sourceId": "w37017434",
+          "lowerSourceId": "w124272629",
+          "x": -936.5227707050664,
+          "z": -1082.1481820196298,
+          "clearanceCandidatesM": [
+            1.9290135352777604,
+            1.9290135352777609
+          ],
+          "productionBodyQueries": [
+            {
+              "lowerTopM": 0.2,
+              "bodyHeightM": 2,
+              "radiusM": 0.2,
+              "blocked": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "file": "bucharest-unirii.json.gz",
+      "sha256": "a325fee1f183a46996238e2a9d462a4410fbc663a674d7a74e91a80a27b16853",
+      "rawSha256": "8bb5ca963b858d11bb372a93e4226e0e77d192317e8d654b3157afdcb87008b0"
+    },
+    {
+      "file": "bucharest-unirii-profile-dump.json.gz",
+      "sha256": "42592b2f6dcb8be4468a089d637cf40bf5bdc6473ce2ba7d6d7347fe7118a538",
+      "rawSha256": "484b38da3f6b40d61f858cbc56737e9463e6ae886a6f639c0b0fc3eea447c491"
+    },
+    {
+      "file": "bucharest-otopeni.json.gz",
+      "sha256": "a44e1113db63d4f7afcfd44979d5e09662e5e16b71a0bee76ea2dd48cae40843",
+      "rawSha256": "d09db817a175c629d21aa853fe15f9b7ee26114340a7bbc981c611d87c378d57"
+    },
+    {
+      "file": "bucharest-otopeni-profile-dump.json.gz",
+      "sha256": "e611da8d4ace3eb976846cf9d97745019fd78becbff1fa86682512322c706e91",
+      "rawSha256": "def3ea75c83b497d69518754d06072b14534c2173e8f0055492fdbc096bbf1e1"
+    },
+    {
+      "file": "bucharest-floreasca.json.gz",
+      "sha256": "28191a6fe82dcea3ea95ff42d6eeb22245d756eeda9d2cafa57cbb31cbef1fb9",
+      "rawSha256": "1ccc2d46bc849917b99d4deb5afefbfb68e8daa9147f025ca3e891301421dc7c"
+    },
+    {
+      "file": "bucharest-floreasca-profile-dump.json.gz",
+      "sha256": "9f4762d37b35265dcd2bd0a1c3ea1dff2e7119a731d72986f5641f01442e2f0a",
+      "rawSha256": "9af7f70977af655fde780ede147a43a93ee2840f685b6d3108f9793c1ff11fa1"
+    },
+    {
+      "file": "bucharest-grozavesti.json.gz",
+      "sha256": "52df5c94b4942bc621e7da2eaea98fcc09bc827abbd0bfcbe84ca411eebdc455",
+      "rawSha256": "9f2a08f667e821b8877c446f13291c38b6d7fe5a9109aba4410e214bc26e0ddb"
+    },
+    {
+      "file": "bucharest-grozavesti-profile-dump.json.gz",
+      "sha256": "90fde3f9ce6b9ec22c28a51367f484ff6c2e60afe140e24684e933bba08cf1e1",
+      "rawSha256": "4775119d536b2de4950e4e51e3ada5544b84f80e5094356ff4c6f2457d9a5657"
+    },
+    {
+      "file": "bucharest-romana.json.gz",
+      "sha256": "e11cdf4054c710a59e868321490982041811153d66a2e01dd77d569e3fdbb079",
+      "rawSha256": "ed9f8fbf95fd11d7abe36a3db70138f72def82991a3a4738a1c43cfa87017d84"
+    },
+    {
+      "file": "bucharest-romana-profile-dump.json.gz",
+      "sha256": "e7d7faeea4def3f3836dc0e4427103f2b9a2feb943bf71c8f80698937139bcee",
+      "rawSha256": "9a2842cf706a6addecc89d0126ef9489ff7122c4d1977382a23303a5d179bb51"
+    },
+    {
+      "file": "bucharest-pipera.json.gz",
+      "sha256": "59b1360a5b015bceba097d8aa12c007f1d82663bbd892f0f18eb7dc2476aeb64",
+      "rawSha256": "28cc1f442811b1972c15fbea36410380cf56d7ffea1bfefaec89c0fa31cf728c"
+    },
+    {
+      "file": "bucharest-pipera-profile-dump.json.gz",
+      "sha256": "377ddc2ca8170c5e8baa5c2a85dedc42b87f40b7e77ed1ac06778000336781f0",
+      "rawSha256": "a5d564e17d7f5e4acf141054769ba39baf458df91c1e3872d27bf31bba576459"
+    },
+    {
+      "file": "seattle-bellevue.json.gz",
+      "sha256": "c60d6bcd501711f9f5fe0b7392b327646dc403dd3c62fbb919446b55f3b55745",
+      "rawSha256": "492634dfcc218e14b47c034f8253bc40405076b7bede8a9b546dbd7fc2a186ac"
+    },
+    {
+      "file": "seattle-bellevue-profile-dump.json.gz",
+      "sha256": "6e28426a222b082cf0bf9fd70afe1ca48c72ac64b6b8728ceee7f61894502596",
+      "rawSha256": "6a337f940e53d0d92f6580b591defc1ece7ad344d1c13b0d872aee554815b1ae"
+    },
+    {
+      "file": "seattle-seatac.json.gz",
+      "sha256": "b6e8a68e8fca57592d76e8de9adf5d17581fe04e2a30317180809290e315fc0c",
+      "rawSha256": "13d08756fc470932df6a6b8bdc102df16913c19d3543b8684c7d76189eab68cf"
+    },
+    {
+      "file": "seattle-seatac-profile-dump.json.gz",
+      "sha256": "d1d1acea33cf6f710903c0a29c1de46d9f9059fccd949a35a0d41a05c0e434a6",
+      "rawSha256": "5d1616968bbc63f4300ff090345c2421acbc991e7666aa1a68eaac2847d120f9"
+    }
+  ],
+  "servedSnapshotVerification": {
+    "files": 1647,
+    "allBytesEqualGitArchive": true,
+    "manifest": "served-source-verification.json",
+    "manifestSha256": "f31e0dc4c0457f1beb53fed0c5a25a67bbafd1351ad88506e38ca14ea2fc7d3d",
+    "note": "Independent current audit of retained immutable source against actual143dca git archive. Recovered prior metadata retained separately."
+  },
+  "captureTools": {
+    "originalSevenToolSha256": "c86947665a7cb3b0495a40bb379c0142527e9e74974af97b6c7048e25def5ab8",
+    "completeSeaTacToolSha256": "4cd566718541d27bad5552ea19f6020d6ee700919e9892f654aff9db314e1a33",
+    "toolDifference": "Only optional pair-target parsing was moved before browser launch and accepts native stats or CPU before stats; served source and all queries are unchanged.",
+    "seaTacPairTargets": {
+      "path": "proof/scenery-bridge-continuation/seattle-seatac.json",
+      "sha256": "c8862dc5ee76b37b8e5eb66e48def5d2963e7330fe4fcffe4f3d660bde1a1fe5",
+      "count": 15
+    },
+    "originalSevenToolCommitContainingExactBytes": "ed6638844e8e97566deb5ce96c9474bd4ce36db3",
+    "completeSeaTacToolCommitContainingExactBytes": "516b7e46f5c420389f634849b71c7cfa99b01cd6"
+  }
+}

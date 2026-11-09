@@ -1,0 +1,66 @@
+{
+  "sourceCommit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+  "items": [
+    {
+      "image": "afi-legal-drone-10d9b98--afi-legal-drone-120.jpg",
+      "sourceCommit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+      "sha256": "56461ff83a179a42940872c91b36d365ed6c554fa9b476b718b122b0082ca1f0",
+      "fileCreatedUTC": "2026-11-08T16:15:04.279407+00:00"
+    },
+    {
+      "image": "afi-legal-drone-10d9b98--afi-legal-drone-60.jpg",
+      "sourceCommit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+      "sha256": "e08f4aa29efdaf08ed33538c4e37c65eb722d7c2be5c2075e523355e576e0de1",
+      "fileCreatedUTC": "2026-11-08T16:15:04.278322+00:00"
+    },
+    {
+      "image": "drone150-static-10d9b98--drone150-120.jpg",
+      "sourceCommit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+      "sha256": "79f40be132400832d9e6ce3571434e001dd8697da49964c8458080619b2032da",
+      "fileCreatedUTC": "2026-11-08T16:15:04.282845+00:00",
+      "boundaryPredicateCommit": "932910808532ac93abed97b192cd6feda94d5ed0",
+      "limit": "Static source-mask envelope only; controller not exercised."
+    },
+    {
+      "image": "drone150-static-10d9b98--drone150-60.jpg",
+      "sourceCommit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+      "sha256": "36697af6344c9d0ca09aca47815ff22a88fb0b2d0b1f8eedcddf1487b032583b",
+      "fileCreatedUTC": "2026-11-08T16:15:04.281489+00:00",
+      "boundaryPredicateCommit": "932910808532ac93abed97b192cd6feda94d5ed0",
+      "limit": "Static source-mask envelope only; controller not exercised."
+    },
+    {
+      "image": "drone150-static-10d9b98--drone150-west150.jpg",
+      "sourceCommit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+      "sha256": "de7f80e248e696d7629905e25940ec0bab0e526a61fd799db3fa918c8d82c038",
+      "fileCreatedUTC": "2026-11-08T16:15:04.280741+00:00",
+      "boundaryPredicateCommit": "932910808532ac93abed97b192cd6feda94d5ed0",
+      "limit": "Static source-mask envelope only; controller not exercised."
+    },
+    {
+      "image": "night-wet-winter-10d9b98--omv-roof.jpg",
+      "sourceCommit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+      "sha256": "6b783dcdbe75eb0151e5b5f18c7d2f1e63cbfa39b177ebc4b18cecb8812a66f0",
+      "fileCreatedUTC": "2026-11-08T16:15:04.277850+00:00"
+    },
+    {
+      "image": "night-wet-winter-10d9b98--omv-service-under-roof.jpg",
+      "sourceCommit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+      "sha256": "499d6bdc35bafe73cfbb4fe95d97bc804da64b176aee76d7d35a03ac984ed18b",
+      "fileCreatedUTC": "2026-11-08T16:15:04.277392+00:00"
+    },
+    {
+      "image": "night-wet-winter-10d9b98--omv-street.jpg",
+      "sourceCommit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+      "sha256": "f8eea6c6f4d8e80d60e6a6af06c8bdda3e60cdf5747ef57c1f1a7750cc17ba79",
+      "fileCreatedUTC": "2026-11-08T16:15:04.276979+00:00"
+    },
+    {
+      "image": "night-wet-winter-10d9b98--rectorat-oblique.jpg",
+      "sourceCommit": "10d9b98b9e8020ff8791de5466d4565824d876da",
+      "sha256": "2731420df9b51a9deb4016d196567e9293bff801b657b4940576ccdd3dae96f4",
+      "fileCreatedUTC": "2026-11-08T16:15:04.276275+00:00"
+    }
+  ],
+  "note": "Only frozen10d9 game views; earlier unfrozen work-in-progress pictures are excluded."
+}

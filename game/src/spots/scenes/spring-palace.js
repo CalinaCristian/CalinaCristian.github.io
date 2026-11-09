@@ -9,7 +9,8 @@
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb, polyArea, offsetPolyline } from '../kit.js';
-import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, palisade, osmPoly, cityFiller, flagpole, narratedVisit } from '../buc.js';
+import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, palisade, osmPoly, cityFiller, flagpole, bucActivity } from '../buc.js';
+import { photoHunt } from '../photo-hunt.js';
 import { addTraffic } from '../cars.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
@@ -110,10 +111,18 @@ export default {
         const inG = inPoly(gp.x, gp.z, grounds) ? gp : { x: 30, z: -35 };
         ctx.challenge('spring-palace', { view: M0 ? [M0.o.cx, M0.o.cz] : null, x: inG.x, z: inG.z, heading: M0 ? (Math.atan2(M0.o.cx - inG.x, -(M0.o.cz - inG.z)) * 180 / Math.PI + 360) % 360 : 290, r: 12, tol: 34, text: 'The Spring Palace from its garden' });
         ctx.challenge('spring-palace', { x: centroid(lawn)[0], z: centroid(lawn)[1], heading: 0, r: 40, tol: 180, text: 'A peacock with its tail fanned', cond: (s) => birds.some((q) => q.show > 0 && Math.hypot(q.x - s.position.x, q.z - s.position.z) < 18) }).condHint = 'Wait quietly near a peacock until it fans its tail.';
-        // activity (note 57, `spring-palace:tour`): the guided tour of the residence starts at the garden door (rooms narrated)
-        if (M0) { const o = M0.o, dx = o.cx + o.uz * (o.wid / 2 + 2.5), dz = o.cz - o.ux * (o.wid / 2 + 2.5), door = inPoly(dx, dz, grounds) ? { x: dx, z: dz } : { x: o.cx - o.uz * (o.wid / 2 + 2.5), z: o.cz + o.ux * (o.wid / 2 + 2.5) };
-            narratedVisit(ctx, { ...door, r: 10, every: 6, label: 'Join the guided tour of the residence', spot: 'spring-palace', id: 'residence-tour', title: '🛁 Gold taps', body: 'Tour done: the Ceaușescus lived here from 1965 to 1989; the villa opened to visitors in 2016.', steps: [
-                ['🏛 The winter garden', 'A glass-roofed hall with palms and a mosaic floor — the family\'s favourite room.'], ['🏊 The pool', 'Indoor pool under a mosaic of Venetian glass tesserae, with a sauna next door.'], ['🛁 Elena\'s bathroom', 'Gold-plated taps and pink marble.'], ['🎬 The cinema', 'A private screening room; foreign films were censored for everyone else.'] ] }); }
+        // Exterior framing from the boulevard; a real organised museum visit is
+        // separate from this scene, which has no modelled residence interior.
+        if (M0) { const [cx, cz] = centroid(grounds), start = { x: gmx - (cx - gmx) * .35, z: gmz - (cz - gmz) * .35 };
+            let front = null;
+            for (let i = 0; i < main.poly.length; i++) { const a = main.poly[i], b = main.poly[(i + 1) % main.poly.length], dx = b[0] - a[0], dz = b[1] - a[1], t = Math.max(0, Math.min(1, ((start.x - a[0]) * dx + (start.z - a[1]) * dz) / (dx * dx + dz * dz || 1))), x = a[0] + t * dx, z = a[1] + t * dz, distance = Math.hypot(start.x - x, start.z - z); if (!front || distance < front.distance) front = { x, z, distance }; }
+            const cornice = { x: front.x + (start.x - front.x) * .7 / front.distance, z: front.z + (start.z - front.z) * .7 / front.distance };
+            photoHunt(ctx, { ...start, title: 'Frame the Spring Palace entrance', unavailable: 'The residence interior is not modelled; this camera challenge starts outside the gate.', targets: [
+                { label: 'The entrance gate finial', x: gateB[0], z: gateB[1], y: yG + 2.9, radius: .6 },
+                { label: 'The Romanian flag by the gate', x: gateA[0] - gux * 1.2, z: gateA[1] - guz * 1.2, y: yG + 6, radius: .9 },
+                { label: 'The residence cornice', ...cornice, y: M0.y + 8.4, radius: 1.6 },
+            ], onDone: s => bucActivity(s, 'spring-palace', 'residence-tour', '📷 Spring Palace entrance', 'You framed the gate, flag and residence from its public approach.') });
+        }
         { const cs = [[inG.x - 12, inG.z + 9], [inG.x - 15, inG.z + 5]]; ctx.trees = ctx.trees.filter((t) => cs.every(([x, z]) => Math.hypot(t.x - x, t.z - z) > 4.5)); } // the garden groups stand clear of trunks
         ctx.crowdCfg = {
             personas: { tourist_uk: 2, tourist_de: 2, tourist_us: 2, local_elder: 1.5, local_young: 1 },

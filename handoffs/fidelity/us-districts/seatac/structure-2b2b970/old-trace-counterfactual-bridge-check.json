@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "expected": "clear",
+  "modelSourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+  "traceSourceCommit": "e6062143885002dd574c485e60f619a48c873161",
+  "traceSha256": "e6c1798a7b48f46612f8c4e96b9c232073a30f45e0cdcb1339c9adb39374c18e",
+  "inputHashes": {
+    "game/src/landmarks.js": "41ff84c1c18f291b9fd7f98c5fcf47a91e964bbf10d1ac1dc0c28295ee034121",
+    "game/src/landmark-us-source.js": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888",
+    "game/src/vehicles.js": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+    "game/src/world.js": "084ce927030dfbdb64b2e45f65c00abe5b031d9722d2133d4976c7f6dc2fc2a2",
+    "game/data/seattle-seatac.json": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171"
+  },
+  "method": "Exact rendered source skybridge glass-colour triangles transformed into the actual recorded native cockpit footprint. THREE.Box3.intersectsTriangle tests full3D mesh/body overlap. Different model/trace SHAs are explicitly a counterfactual replay, never a recaptured native trace.",
+  "bodyExtent": {
+    "front": 3.42,
+    "rear": 2.36,
+    "width": 1.8,
+    "height": 2
+  },
+  "renderedSkybridgeGlassTriangles": 144,
+  "frames": 206,
+  "hits": []
+}

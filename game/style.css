@@ -91,8 +91,9 @@ body.no-minimap .bottom-left { display: none; }
 #prompt { left: 50%; top: 58%; transform: translate(-50%, 0) scale(.9); background: rgba(10, 12, 18, .85); border: 1px solid rgba(255,255,255,.2); padding: 12px 20px; border-radius: 14px; font-size: 17px; opacity: 0; transition: all .25s; white-space: nowrap; }
 #prompt.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
 #prompt small { color: var(--muted); font-size: 13px; }
-#hint { left: 50%; bottom: 14px; transform: translateX(-50%); font-size: 12px; color: rgba(255,255,255,.55); white-space: normal; text-align: center; line-height: 1.3; width: max-content; max-width: calc(100% - 600px); } /* stays between the minimap and the bottom-right block (review #26) */
+#hint { left: 50%; bottom: 14px; transform: translateX(-50%); font-size: 12px; color: #e2e8f0; background: rgba(2,6,23,.72); padding: 5px 9px; border-radius: 8px; white-space: normal; text-align: center; line-height: 1.3; width: max-content; max-width: calc(100% - 600px); } /* stays between the minimap and the bottom-right block (review #26) */
 @media (max-width: 1000px) { #hint { max-width: calc(100% - 520px); } }
+@media (max-width: 760px) { #hint { left: 16px; right: 16px; bottom: 140px; width: auto; max-width: none; transform: none; } }
 #toasts { top: 90px; right: 16px; display: flex; flex-direction: column; gap: 10px; align-items: flex-end; width: min(380px, 80vw); }
 .toast { background: rgba(15, 18, 28, .92); border-left: 4px solid #60a5fa; padding: 12px 16px; border-radius: 12px; font-size: 14px; display: grid; gap: 3px; transform: translateX(30px); opacity: 0; transition: all .4s; box-shadow: 0 10px 30px rgba(0,0,0,.4); max-width: 100%; }
 .toast.show { transform: none; opacity: 1; }
@@ -324,6 +325,8 @@ body.free-roam #cond-btn { display: block; }
 body.in-spot #cond-btn, body.photo-mode #cond-btn { display: none; }
 #cond-panel { display: none; position: fixed; z-index: 40; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(480px, calc(100vw - 24px)); max-height: calc(100vh - 24px); overflow: auto; padding: 14px 16px; border-radius: 14px; background: rgba(15,23,42,.94); color: #e2e8f0; border: 1px solid rgba(148,163,184,.3); box-shadow: 0 20px 60px rgba(0,0,0,.45); font: 14px/1.4 system-ui, sans-serif; }
 #cond-panel.show { display: block; }
+body:not(.playing) #cond-panel { z-index: 70; }
+body:not(.playing).cond-open #menu { opacity: .25; transition: none; }
 #cond-panel .cond-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 16px; }
 #cond-panel .cond-x { width: 40px; height: 40px; border-radius: 10px; border: 1px solid rgba(148,163,184,.35); background: rgba(30,41,59,.9); color: #e2e8f0; font-size: 16px; cursor: pointer; }
 #cond-panel .cond-sec { margin: 10px 0; }
@@ -339,10 +342,12 @@ body.touch #cond-panel .cond-keys { display: none; }
 @media (max-height: 520px) and (orientation: landscape) { #cond-panel { left: 12px; top: 8px; transform: none; width: min(460px, 56vw); } body.touch #cond-panel { left: 148px; width: min(460px, calc(100vw - 340px)); } #cond-panel { max-height: calc(100vh - 16px); padding: 10px 12px; } #cond-panel .cond-sec { margin: 6px 0; } #cond-btn { right: 60px; top: 56px; width: 40px; height: 40px; } }
 /* main menu fits any viewport (spec 10 Request from progression): the overlay scrolls, the card is centred when it fits */
 #menu.overlay { overflow-y: auto; justify-content: flex-start; padding: 16px 0; -webkit-overflow-scrolling: touch; }
+#menu.overlay:not(.show) { visibility: hidden; }
 #menu .menu-card { margin: auto 0; flex-shrink: 0; }
 #menu .controls-wrap { margin: 10px 0 4px; }
 #menu .controls-wrap > summary { cursor: pointer; font-weight: 600; padding: 6px 0; color: #cbd5e1; }
 #menu .controls-wrap[open] > summary { margin-bottom: 4px; }
+.spot-parks > summary { min-height: 44px; box-sizing: border-box; padding: 12px 4px; cursor: pointer; }
 /* pause menu (note 72): ⏸ button + #pause-menu overlay (game paused), sub-views chapters / spots / free roam / settings */
 #pause-btn { display: none; position: fixed; z-index: 30; right: 268px; top: 20px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(148,163,184,.4); background: rgba(15,23,42,.72); color: #e2e8f0; font-size: 18px; cursor: pointer; }
 body.playing #pause-btn { display: block; }
@@ -737,7 +742,7 @@ body.photo-mode #drone-hud { display: none; }
 #drone-hud .dr-hline i { position: absolute; top: -1px; width: 120px; height: 2px; background: rgba(255,255,255,.8); box-shadow: 0 0 3px rgba(0,0,0,.6); }
 #drone-hud .dr-hline i:first-child { left: 0; } #drone-hud .dr-hline i:last-child { right: 0; }
 #drone-hud .dr-reticle { position: absolute; left: -36px; top: -8px; width: 72px; height: 16px; display: flex; align-items: center; justify-content: space-between; }
-#drone-hud .dr-reticle i { width: 22px; height: 2px; background: #4ade80; } #drone-hud .dr-reticle b { width: 6px; height: 6px; border-radius: 50%; border: 2px solid #4ade80; }
+#drone-hud .dr-reticle i { width: 22px; height: 2px; background: #4ade80; } #drone-hud .dr-reticle b { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #4ade80; }
 #drone-hud .dr-gimbal { position: absolute; left: 200px; top: -60px; width: 4px; height: 120px; background: rgba(255,255,255,.3); border-radius: 2px; }
 #drone-hud .dr-gimbal i { position: absolute; left: -4px; width: 12px; height: 4px; background: #fbbf24; border-radius: 2px; margin-top: -2px; }
 #drone-hud .dr-gimbal span { position: absolute; left: 12px; top: -8px; font-size: 11px; opacity: .85; }
@@ -852,3 +857,94 @@ body[data-mode=spot] .pad button[data-btn=foot], body[data-mode=spot] .pad butto
 #ft-hold circle { fill: none; stroke-width: 4; }
 #ft-hold .bg { stroke: rgba(15,23,42,.55); }
 #ft-hold .fg { stroke: #fbbf24; stroke-dasharray: 113.1; stroke-dashoffset: 113.1; stroke-linecap: round; }
+
+/* Gameplay launchers yield to the active modal; its own Back / Close controls stay interactive. */
+body.ui-modal :is(#pause-btn, #explore-bar, #touch, .photo-open, #cond-btn, #car-finder, #story-chip, #drone-hud, #hud > .bottom-left) { visibility: hidden !important; pointer-events: none !important; }
+body.ui-modal #touch * { pointer-events: none !important; }
+#minimap-toggle, .map-touch-help { display: none; }
+body.touch #minimap-toggle { display: block; position: absolute; top: 4px; right: 4px; min-width: 44px; height: 44px; padding: 4px 10px; border: 1px solid rgba(255,255,255,.4); border-radius: 10px; background: rgba(15,23,42,.92); color: #fff; font: 600 13px system-ui,sans-serif; cursor: pointer; pointer-events: auto; }
+body.touch #minimap { pointer-events: auto; cursor: pointer; }
+body.touch.minimap-collapsed #minimap { display: none; }
+body.touch.minimap-collapsed #minimap-toggle { position: static; }
+body.touch .pad button[data-btn=act], body.touch .pad button[data-btn=run] { font-size: 12px; }
+body.touch .pad button[aria-pressed=true] { background: #2563eb; border-color: #93c5fd; }
+body.touch .map-desktop-help { display: none; }
+body.touch .map-touch-help { display: block; text-align: center; margin-bottom: 6px; }
+body.touch #bigmap-wrap { padding: 12px; gap: 8px; }
+body.touch #bigmap-wrap .map-row { flex: 1; min-height: 0; width: 100%; }
+body.touch #bigmap-wrap #navpanel { flex: 1; min-height: 0; max-height: none; }
+body.touch #bigmap-wrap .map-hint { flex-shrink: 0; margin: 0; text-align: center; }
+body.touch #bigmap-wrap button, body.touch #world-map button { min-height: 44px; }
+body.touch #bigmap-wrap .map-hint button { min-width: 80px; margin: 0 3px; padding: 8px 12px; }
+body.touch #bigmap-wrap button:disabled { opacity: .45; cursor: default; }
+body.touch #pause-menu .pm-card { flex-shrink: 0; }
+body.touch #world-map .wm-head { flex-shrink: 0; }
+body.touch #world-map .wm-tools button { width: 44px; }
+body.touch #world-map .wm-zoom { top: 8px; right: 8px; }
+body.touch #world-map .wm-zoom button { min-width: 44px; }
+body.touch #world-map .wm-card { bottom: 36px; }
+body.touch #world-map .wm-ctx button { margin-top: 6px; }
+@media (max-width: 600px) {
+    body.touch #hud > .bottom-left { left: 12px; bottom: 340px; }
+    body.touch #world-map .wm-card { align-items: flex-end; }
+    body.touch #world-map .wm-card > .wm-go { padding: 8px; max-width: 108px; }
+    body.touch #world-map .wm-ctx p { -webkit-line-clamp: 3; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+    body.touch #bigmap-wrap .map-row { flex-direction: row; }
+    body.touch #bigmap-wrap #navpanel { flex: 0 0 280px; width: 280px; }
+    body.touch #bigmap-wrap .map-touch-help { display: inline; margin-right: 8px; }
+    body.touch #hud > .bottom-left { left: 12px; bottom: 120px; }
+    body.touch #world-map .wm-title { min-width: 100px; }
+    body.touch #world-map .wm-head { gap: 6px; }
+    body.touch #world-map .wm-tabs { gap: 4px; }
+    body.touch #world-map .wm-tabs button { padding: 6px 8px; }
+}
+
+.touch-instructions { display: none; }
+body.touch .controls { display: none; }
+body.touch .touch-instructions { display: block; margin: 14px 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+body.touch.drone-mode #hud > .bottom-left { top: 64px; bottom: auto; width: fit-content; height: fit-content; }
+
+body.touch :is(#pause-btn, #cond-btn, #explore-bar button) { min-width: 44px; min-height: 44px; }
+body.touch .pad.right { bottom: max(14px, env(safe-area-inset-bottom)); }
+body.touch .tpedals { bottom: max(12px, env(safe-area-inset-bottom)); }
+
+body.touch #world-map .wm-tabs, body.touch #world-map .wm-rrow { touch-action: pan-x; -webkit-overflow-scrolling: touch; }
+
+/* Keep the expanded phone map and driving actions clear of the actual instrument planes. */
+@media (max-width: 600px) and (orientation: portrait) {
+    body.touch.on-foot #minimap { width: 110px; height: 110px; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+    body.touch:not(.on-foot):not(.in-spot):not(.tmode-foot) #hud:not(.in-office) .pad.right { left: 148px; right: auto; }
+}
+
+/* Tourist interactions use the same controller action as E, with a visible context label on phones. */
+body.touch #spot-ui .sp-prompt { padding: 0; background: none; border-radius: 12px; white-space: normal; overflow: visible; }
+body.touch #spot-ui .sp-use { display: block; width: 100%; min-height: 44px; padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(251,191,36,.65); background: rgba(15,23,42,.94); color: #fff; font: 600 14px/1.3 system-ui,sans-serif; cursor: pointer; pointer-events: auto; touch-action: manipulation; }
+body.touch #spot-ui :is(.sp-plaque button, .sp-btns button, .sp-tour button, .sp-legend button, li[data-i]) { min-height: 44px; }
+body.touch #spot-ui li[data-i] { display: flex; align-items: center; white-space: normal; }
+body.touch #spot-ui .sp-card { max-height: min(42vh, 360px); overflow-y: auto; pointer-events: auto; touch-action: pan-y; }
+body.ui-modal #spot-ui :is(.sp-prompt, .sp-mini, .sp-tour-controls) { visibility: hidden !important; pointer-events: none !important; }
+@media (max-width: 600px) and (orientation: portrait) {
+    body.touch #spot-ui .sp-mini { bottom: 78px; }
+    body.touch #spot-ui .sp-prompt { left: 12px; right: 136px; bottom: 100px; transform: none; max-width: none; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+    body.touch.in-spot #hud .pad.right { left: 148px; right: auto; }
+    body.touch #spot-ui .sp-prompt { max-width: calc(100vw - 360px); }
+}
+
+body.touch #spot-ui button.sp-mini { padding: 0; color: inherit; font: inherit; }
+/* Rosetti basketball: the same pickup/throw/drop actions work with native taps. */
+#basketball-controls{position:fixed;z-index:23;left:50%;top:23%;transform:translateX(-50%);max-width:calc(100vw - 28px);padding:9px 12px;border:1px solid #98c4d966;border-radius:12px;background:#101e2fe8;color:#eef9ff;text-align:center;pointer-events:auto;touch-action:manipulation;font:13px/1.4 system-ui,sans-serif}
+#basketball-controls[hidden],body.ui-modal #basketball-controls,body.drone-mode #basketball-controls{display:none!important}
+#basketball-controls .basketball-help{display:block;margin-bottom:6px}
+#basketball-controls>div{display:flex;justify-content:center;gap:8px}
+#basketball-controls button{min-width:88px;min-height:44px;padding:9px 13px;border:1px solid #8cb8cc;border-radius:8px;background:#234b63;color:white;font:600 15px system-ui,sans-serif;touch-action:manipulation}
+#basketball-controls button:disabled{opacity:.45}
+#basketball-controls button[hidden]{display:none}
+@media(max-width:600px) and (orientation:portrait){#basketball-controls{top:26%}}
+@media(max-height:500px){#basketball-controls{top:auto;bottom:76px;width:280px;padding:5px 9px;font-size:12px}#basketball-controls .basketball-help{margin-bottom:3px}}
+/* end Rosetti basketball */

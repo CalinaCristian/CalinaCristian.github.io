@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "80f18372804cc083359260d06c1c950319feb7b4",
+  "sourceTree": "bd3eb1cb7ec5a5518993cf130a137f081a5edd80",
+  "snapshotRoot": "/workspace/reality-pass/overview-expanded-80f183/source",
+  "extraction": "git archive FULL40SHA; every extracted regular file matched exact Git blob",
+  "verifiedFiles": 15632,
+  "verifiedBytes": 1094037385,
+  "sourceFilesSha256": "31d444ee3e4f1c1cd845a20d6126c01ed5c8ea51663654d0addd596df2fd1f52",
+  "createdAt": "2026-11-09T02:28:59.088924+00:00",
+  "tool": "game/dev/harness/overview-current-check.cjs",
+  "toolSha256": "0ef59a6f93354d9c1ae197d1d6b6214ccfc60798ff4294fc2d36c3d622d78ce5",
+  "preloadSha256": "f8cbf897062806e97709204683a4da33524edd1f51b43a3cd2df733646a4acae",
+  "browserExecutable": "/usr/bin/chromium",
+  "browserVersion": "Chromium 156.0.8078.79 built on Debian GNU/Linux 13 (trixie)",
+  "nodeVersion": "v24.22.1",
+  "playwrightVersion": "1.62.1"
+}

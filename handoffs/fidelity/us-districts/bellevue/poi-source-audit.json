@@ -1,0 +1,5049 @@
+{
+ "schemaVersion": 1,
+ "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+ "datasetSha256": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
+ "district": "bellevue",
+ "source": "OSM nodes and polygon centroids or explicit official locator records; independent from compiled POI serializer.",
+ "toleranceM": 0.08,
+ "counts": {
+  "pois": 157,
+  "matched": 157,
+  "unmatched": 0,
+  "fuel": 0,
+  "transit": 3
+ },
+ "unmatched": [],
+ "rows": [
+  {
+   "index": 0,
+   "kind": "food",
+   "name": "Hummus Republic",
+   "brand": "",
+   "sub": "fast_food:mediterranean",
+   "x": 144.6,
+   "z": -338.8,
+   "buildingIndex": 10,
+   "matches": [
+    {
+     "sourceId": "n471973083",
+     "sourceUrl": "https://www.openstreetmap.org/node/471973083",
+     "tags": {
+      "amenity": "fast_food",
+      "check_date": "2024-09-05",
+      "cuisine": "mediterranean",
+      "drive_through": "no",
+      "name": "Hummus Republic",
+      "takeaway": "yes"
+     },
+     "sourcePositionM": [
+      144.60696605440282,
+      -338.8303548003478
+     ],
+     "roundingErrorM": 0.031143856827564338
+    }
+   ]
+  },
+  {
+   "index": 1,
+   "kind": "food",
+   "name": "Coco",
+   "brand": "CoCo",
+   "sub": "cafe:bubble_tea",
+   "x": 162.6,
+   "z": -338.2,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n471973084",
+     "sourceUrl": "https://www.openstreetmap.org/node/471973084",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "11028",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "amenity": "cafe",
+      "branch": "Fresh Tea and Juice",
+      "brand": "CoCo",
+      "brand:wikidata": "Q65084369",
+      "check_date": "2024-09-05",
+      "cuisine": "bubble_tea",
+      "drive_through": "no",
+      "name": "Coco",
+      "opening_hours": "Mo-Th 12:00-21:00; Fr-Su 12:00-22:00",
+      "outdoor_seating": "no",
+      "phone": "+1-425-362-6962",
+      "takeaway": "yes",
+      "website": "https://www.cocofreshtea.com/"
+     },
+     "sourcePositionM": [
+      162.61717459300664,
+      -338.1857891999221
+     ],
+     "roundingErrorM": 0.022291556334119382
+    }
+   ]
+  },
+  {
+   "index": 2,
+   "kind": "bank",
+   "name": "Charles Schwab",
+   "brand": "Charles Schwab",
+   "sub": "bank",
+   "x": 271.1,
+   "z": -338.1,
+   "buildingIndex": 179,
+   "matches": [
+    {
+     "sourceId": "n563386666",
+     "sourceUrl": "https://www.openstreetmap.org/node/563386666",
+     "tags": {
+      "amenity": "bank",
+      "brand": "Charles Schwab",
+      "brand:wikidata": "Q1066028",
+      "name": "Charles Schwab",
+      "office": "financial_advisor",
+      "phone": "+1-800-435-4000"
+     },
+     "sourcePositionM": [
+      271.0536384994289,
+      -338.08577040033254
+     ],
+     "roundingErrorM": 0.04849608481001938
+    }
+   ]
+  },
+  {
+   "index": 3,
+   "kind": "bank",
+   "name": "Umpqua Bank",
+   "brand": "Umpqua Bank",
+   "sub": "bank",
+   "x": 271.2,
+   "z": -343.9,
+   "buildingIndex": 179,
+   "matches": [
+    {
+     "sourceId": "n563386669",
+     "sourceUrl": "https://www.openstreetmap.org/node/563386669",
+     "tags": {
+      "amenity": "bank",
+      "brand": "Umpqua Bank",
+      "brand:wikidata": "Q7881772",
+      "name": "Umpqua Bank"
+     },
+     "sourcePositionM": [
+      271.2262363316709,
+      -343.8868608002156
+     ],
+     "roundingErrorM": 0.02934252324735443
+    }
+   ]
+  },
+  {
+   "index": 4,
+   "kind": "office",
+   "name": "BarclayDean",
+   "brand": "",
+   "sub": "company",
+   "x": 279,
+   "z": -337.7,
+   "buildingIndex": 179,
+   "matches": [
+    {
+     "sourceId": "n563386670",
+     "sourceUrl": "https://www.openstreetmap.org/node/563386670",
+     "tags": {
+      "addr:housenumber": "11100",
+      "addr:postcode": "98004",
+      "addr:street": "NE 8th Street",
+      "name": "BarclayDean",
+      "office": "company",
+      "phone": "+1-425-451-8940",
+      "website": "http://www.barclaydean.com/"
+     },
+     "sourcePositionM": [
+      278.9556174956707,
+      -337.6856952003951
+     ],
+     "roundingErrorM": 0.046630826523611585
+    }
+   ]
+  },
+  {
+   "index": 5,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "bank",
+   "x": 75.5,
+   "z": -348.7,
+   "buildingIndex": 180,
+   "matches": [
+    {
+     "sourceId": "n697212592",
+     "sourceUrl": "https://www.openstreetmap.org/node/697212592",
+     "tags": {
+      "amenity": "bank",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "name": "U.S. Bank"
+     },
+     "sourcePositionM": [
+      75.49279078859044,
+      -348.7211027998549
+     ],
+     "roundingErrorM": 0.02230024418846014
+    }
+   ]
+  },
+  {
+   "index": 6,
+   "kind": "food",
+   "name": "The French Bakery",
+   "brand": "",
+   "sub": "cafe",
+   "x": 264.6,
+   "z": -443.3,
+   "buildingIndex": 237,
+   "matches": [
+    {
+     "sourceId": "n1148149205",
+     "sourceUrl": "https://www.openstreetmap.org/node/1148149205",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "909",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "112th Avenue Northeast",
+      "addr:unit": "106",
+      "amenity": "cafe",
+      "name": "The French Bakery",
+      "opening_hours": "Mo-Fr 07:00-18:00; Sa-Su 08:00-18:00",
+      "phone": "+1-425-590-9640",
+      "shop": "bakery",
+      "website": "https://thefrenchbakery.com/"
+     },
+     "sourcePositionM": [
+      264.6224932006007,
+      -443.3055479996815
+     ],
+     "roundingErrorM": 0.023167312613395614
+    }
+   ]
+  },
+  {
+   "index": 7,
+   "kind": "food",
+   "name": "Day Break Cafe",
+   "brand": "",
+   "sub": "cafe",
+   "x": 62,
+   "z": -396.6,
+   "buildingIndex": 180,
+   "matches": [
+    {
+     "sourceId": "n1152272191",
+     "sourceUrl": "https://www.openstreetmap.org/node/1152272191",
+     "tags": {
+      "addr:housenumber": "10900",
+      "addr:postcode": "98004",
+      "addr:street": "NE 8th St",
+      "amenity": "cafe",
+      "name": "Day Break Cafe"
+     },
+     "sourcePositionM": [
+      61.977630131792104,
+      -396.5634287998796
+     ],
+     "roundingErrorM": 0.042870312360495565
+    }
+   ]
+  },
+  {
+   "index": 8,
+   "kind": "shop",
+   "name": "Salon Bellezza",
+   "brand": "",
+   "sub": "hairdresser",
+   "x": 85,
+   "z": -398.2,
+   "buildingIndex": 180,
+   "matches": [
+    {
+     "sourceId": "n1156033681",
+     "sourceUrl": "https://www.openstreetmap.org/node/1156033681",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:country": "US",
+      "addr:housenumber": "10900",
+      "addr:postcode": "98004-4452",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "addr:suite": "116",
+      "email": "salon@salonbellezza.com",
+      "name": "Salon Bellezza",
+      "opening_hours": "Mo 09:00-15:00; Tu,Fr 09:00-19:00; We-Th 09:00-20:00; Sa 09:00-17:00",
+      "phone": "+1-425-454-5534",
+      "shop": "hairdresser",
+      "website": "http://salonbellezza.com/"
+     },
+     "sourcePositionM": [
+      84.9781672853254,
+      -398.19706920001914
+     ],
+     "roundingErrorM": 0.02202855007916555
+    }
+   ]
+  },
+  {
+   "index": 9,
+   "kind": "shop",
+   "name": "Hermès",
+   "brand": "Hermès",
+   "sub": "clothes",
+   "x": 227.3,
+   "z": -288.4,
+   "buildingIndex": 417,
+   "matches": [
+    {
+     "sourceId": "n1202398697",
+     "sourceUrl": "https://www.openstreetmap.org/node/1202398697",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "11111",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "brand": "Hermès",
+      "brand:wikidata": "Q843887",
+      "check_date": "2026-01-02",
+      "name": "Hermès",
+      "phone": "+1-425-467-0500",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      227.28883175199735,
+      -288.3986532000697
+     ],
+     "roundingErrorM": 0.011249161457688416
+    }
+   ]
+  },
+  {
+   "index": 10,
+   "kind": "shop",
+   "name": "Louis Vuitton",
+   "brand": "Louis Vuitton",
+   "sub": "clothes",
+   "x": 210.6,
+   "z": -255,
+   "buildingIndex": 243,
+   "matches": [
+    {
+     "sourceId": "n1202398723",
+     "sourceUrl": "https://www.openstreetmap.org/node/1202398723",
+     "tags": {
+      "addr:unit": "140",
+      "brand": "Louis Vuitton",
+      "brand:wikidata": "Q191485",
+      "check_date": "2024-09-05",
+      "level": "2",
+      "name": "Louis Vuitton",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      210.59937184003417,
+      -255.01460040002277
+     ],
+     "roundingErrorM": 0.014613906588165556
+    }
+   ]
+  },
+  {
+   "index": 11,
+   "kind": "food",
+   "name": "Chutneys",
+   "brand": "",
+   "sub": "restaurant:indian",
+   "x": 120,
+   "z": -423.7,
+   "buildingIndex": 194,
+   "matches": [
+    {
+     "sourceId": "n1212280057",
+     "sourceUrl": "https://www.openstreetmap.org/node/1212280057",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "850",
+      "addr:postcode": "98004",
+      "addr:street": "110th Avenue Northeast",
+      "amenity": "restaurant",
+      "cuisine": "indian",
+      "name": "Chutneys"
+     },
+     "sourcePositionM": [
+      120.00051863890728,
+      -423.66852359998666
+     ],
+     "roundingErrorM": 0.03148067254865198
+    }
+   ]
+  },
+  {
+   "index": 12,
+   "kind": "food",
+   "name": "Kobe",
+   "brand": "",
+   "sub": "restaurant:japanese",
+   "x": 118.8,
+   "z": -397.3,
+   "buildingIndex": 10,
+   "matches": [
+    {
+     "sourceId": "n1212280181",
+     "sourceUrl": "https://www.openstreetmap.org/node/1212280181",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "850",
+      "addr:postcode": "98004",
+      "addr:street": "110th Avenue Northeast",
+      "amenity": "restaurant",
+      "cuisine": "japanese",
+      "name": "Kobe",
+      "phone": "+1-425-451-3888"
+     },
+     "sourcePositionM": [
+      118.79233381641276,
+      -397.3413528002845
+     ],
+     "roundingErrorM": 0.042057394857034816
+    }
+   ]
+  },
+  {
+   "index": 13,
+   "kind": "landmark",
+   "name": "Double Inquiry",
+   "brand": "",
+   "sub": "artwork",
+   "x": 76.9,
+   "z": -555,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n1704038803",
+     "sourceUrl": "https://www.openstreetmap.org/node/1704038803",
+     "tags": {
+      "artist_name": "Larry Kincaid",
+      "artwork_type": "sculpture",
+      "name": "Double Inquiry",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      76.89608620372958,
+      -555.0154343998586
+     ],
+     "roundingErrorM": 0.015922892332765434
+    }
+   ]
+  },
+  {
+   "index": 14,
+   "kind": "office",
+   "name": "Berntson Porter & Company PLLC",
+   "brand": "",
+   "sub": "company",
+   "x": 280,
+   "z": -343.9,
+   "buildingIndex": 179,
+   "matches": [
+    {
+     "sourceId": "n3810550765",
+     "sourceUrl": "https://www.openstreetmap.org/node/3810550765",
+     "tags": {
+      "name": "Berntson Porter & Company PLLC",
+      "office": "company"
+     },
+     "sourcePositionM": [
+      279.96118747240854,
+      -343.89797400034547
+     ],
+     "roundingErrorM": 0.03886536983791525
+    }
+   ]
+  },
+  {
+   "index": 15,
+   "kind": "food",
+   "name": "Cielo Mexican Cocina",
+   "brand": "",
+   "sub": "restaurant:mexican",
+   "x": 241.8,
+   "z": -437.9,
+   "buildingIndex": 240,
+   "matches": [
+    {
+     "sourceId": "n3883822559",
+     "sourceUrl": "https://www.openstreetmap.org/node/3883822559",
+     "tags": {
+      "amenity": "restaurant",
+      "cuisine": "mexican",
+      "name": "Cielo Mexican Cocina"
+     },
+     "sourcePositionM": [
+      241.83207514593616,
+      -437.89341960039565
+     ],
+     "roundingErrorM": 0.0327431923577687
+    }
+   ]
+  },
+  {
+   "index": 16,
+   "kind": "food",
+   "name": "Tokyo Steak House",
+   "brand": "",
+   "sub": "restaurant:japanese",
+   "x": 265.2,
+   "z": -416.6,
+   "buildingIndex": 237,
+   "matches": [
+    {
+     "sourceId": "n3883822564",
+     "sourceUrl": "https://www.openstreetmap.org/node/3883822564",
+     "tags": {
+      "amenity": "restaurant",
+      "cuisine": "japanese",
+      "name": "Tokyo Steak House"
+     },
+     "sourcePositionM": [
+      265.2228334858251,
+      -416.58941520017174
+     ],
+     "roundingErrorM": 0.02516755972140696
+    }
+   ]
+  },
+  {
+   "index": 17,
+   "kind": "food",
+   "name": "John Howie Steak",
+   "brand": "",
+   "sub": "restaurant:steak_house",
+   "x": 261.5,
+   "z": -257,
+   "buildingIndex": 183,
+   "matches": [
+    {
+     "sourceId": "n3888634157",
+     "sourceUrl": "https://www.openstreetmap.org/node/3888634157",
+     "tags": {
+      "amenity": "restaurant",
+      "cuisine": "steak_house",
+      "level": "2",
+      "name": "John Howie Steak"
+     },
+     "sourcePositionM": [
+      261.4707067069049,
+      -256.9705235999803
+     ],
+     "roundingErrorM": 0.04155665023167146
+    }
+   ]
+  },
+  {
+   "index": 18,
+   "kind": "shop",
+   "name": "Wolford",
+   "brand": "Wolford",
+   "sub": "clothes",
+   "x": 153.9,
+   "z": -222.3,
+   "buildingIndex": 243,
+   "matches": [
+    {
+     "sourceId": "n3888634158",
+     "sourceUrl": "https://www.openstreetmap.org/node/3888634158",
+     "tags": {
+      "brand": "Wolford",
+      "brand:wikidata": "Q431607",
+      "clothes": "women;underwear",
+      "name": "Wolford",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      153.8822234512026,
+      -222.33067920026122
+     ],
+     "roundingErrorM": 0.035457284382950344
+    }
+   ]
+  },
+  {
+   "index": 19,
+   "kind": "shop",
+   "name": "Oliver Peoples",
+   "brand": "Oliver Peoples",
+   "sub": "optician",
+   "x": 155.4,
+   "z": -254.1,
+   "buildingIndex": 243,
+   "matches": [
+    {
+     "sourceId": "n3888634159",
+     "sourceUrl": "https://www.openstreetmap.org/node/3888634159",
+     "tags": {
+      "brand": "Oliver Peoples",
+      "brand:wikidata": "Q7087746",
+      "name": "Oliver Peoples",
+      "shop": "optician"
+     },
+     "sourcePositionM": [
+      155.43560393818106,
+      -254.08109160016866
+     ],
+     "roundingErrorM": 0.04031337244862908
+    }
+   ]
+  },
+  {
+   "index": 20,
+   "kind": "shop",
+   "name": "Bottega Venetta",
+   "brand": "",
+   "sub": "leather",
+   "x": 230.3,
+   "z": -259,
+   "buildingIndex": 243,
+   "matches": [
+    {
+     "sourceId": "n3888634160",
+     "sourceUrl": "https://www.openstreetmap.org/node/3888634160",
+     "tags": {
+      "addr:unit": "30",
+      "check_date": "2024-09-05",
+      "level": "1",
+      "name": "Bottega Venetta",
+      "shop": "leather"
+     },
+     "sourcePositionM": [
+      230.30554168221082,
+      -258.99312599992743
+     ],
+     "roundingErrorM": 0.00882961600089452
+    }
+   ]
+  },
+  {
+   "index": 21,
+   "kind": "shop",
+   "name": "Salvatore Ferragamo",
+   "brand": "Salvatore Ferragamo",
+   "sub": "shoes",
+   "x": 236.1,
+   "z": -254.6,
+   "buildingIndex": 243,
+   "matches": [
+    {
+     "sourceId": "n3888634161",
+     "sourceUrl": "https://www.openstreetmap.org/node/3888634161",
+     "tags": {
+      "brand": "Salvatore Ferragamo",
+      "brand:wikidata": "Q3946053",
+      "level": "2",
+      "name": "Salvatore Ferragamo",
+      "shop": "shoes"
+     },
+     "sourcePositionM": [
+      236.09882542812144,
+      -254.57007240035546
+     ],
+     "roundingErrorM": 0.029950640052953732
+    }
+   ]
+  },
+  {
+   "index": 22,
+   "kind": "shop",
+   "name": "Jimmy Choo",
+   "brand": "Jimmy Choo",
+   "sub": "shoes",
+   "x": 224.2,
+   "z": -255,
+   "buildingIndex": 243,
+   "matches": [
+    {
+     "sourceId": "n3888634162",
+     "sourceUrl": "https://www.openstreetmap.org/node/3888634162",
+     "tags": {
+      "brand": "Jimmy Choo",
+      "brand:wikidata": "Q5213855",
+      "level": "2",
+      "name": "Jimmy Choo",
+      "shop": "shoes"
+     },
+     "sourcePositionM": [
+      224.22709629991215,
+      -255.02571360015264
+     ],
+     "roundingErrorM": 0.037355035828381046
+    }
+   ]
+  },
+  {
+   "index": 23,
+   "kind": "shop",
+   "name": "Holly Zhang",
+   "brand": "",
+   "sub": "jewelry",
+   "x": 164,
+   "z": -231.1,
+   "buildingIndex": 217,
+   "matches": [
+    {
+     "sourceId": "n3888634163",
+     "sourceUrl": "https://www.openstreetmap.org/node/3888634163",
+     "tags": {
+      "name": "Holly Zhang",
+      "shop": "jewelry"
+     },
+     "sourcePositionM": [
+      163.95293172587142,
+      -231.0767675998156
+     ],
+     "roundingErrorM": 0.05248968325080865
+    }
+   ]
+  },
+  {
+   "index": 24,
+   "kind": "shop",
+   "name": "Eye Society",
+   "brand": "",
+   "sub": "optician",
+   "x": 165.1,
+   "z": -222.3,
+   "buildingIndex": 217,
+   "matches": [
+    {
+     "sourceId": "n3888634164",
+     "sourceUrl": "https://www.openstreetmap.org/node/3888634164",
+     "tags": {
+      "level": "2",
+      "name": "Eye Society",
+      "shop": "optician"
+     },
+     "sourcePositionM": [
+      165.06356125257685,
+      -222.30845280000148
+     ],
+     "roundingErrorM": 0.03740631152135579
+    }
+   ]
+  },
+  {
+   "index": 25,
+   "kind": "shop",
+   "name": "Gucci",
+   "brand": "",
+   "sub": "leather",
+   "x": 163,
+   "z": -212.6,
+   "buildingIndex": 217,
+   "matches": [
+    {
+     "sourceId": "n3888634169",
+     "sourceUrl": "https://www.openstreetmap.org/node/3888634169",
+     "tags": {
+      "level": "2",
+      "name": "Gucci",
+      "shop": "leather"
+     },
+     "sourcePositionM": [
+      163.0299085376321,
+      -212.57328959994362
+     ],
+     "roundingErrorM": 0.040099452545675277
+    }
+   ]
+  },
+  {
+   "index": 26,
+   "kind": "shop",
+   "name": "Grace Collections Galleries",
+   "brand": "",
+   "sub": "bag",
+   "x": 170.5,
+   "z": -223.6,
+   "buildingIndex": 217,
+   "matches": [
+    {
+     "sourceId": "n3888634170",
+     "sourceUrl": "https://www.openstreetmap.org/node/3888634170",
+     "tags": {
+      "level": "2",
+      "name": "Grace Collections Galleries",
+      "shop": "bag"
+     },
+     "sourcePositionM": [
+      170.48163232048879,
+      -223.61981040032296
+     ],
+     "roundingErrorM": 0.02701524776090211
+    }
+   ]
+  },
+  {
+   "index": 27,
+   "kind": "office",
+   "name": "Microsoft Bravern Building 1",
+   "brand": "",
+   "sub": "company",
+   "x": 265.1,
+   "z": -286.5,
+   "buildingIndex": 183,
+   "matches": [
+    {
+     "sourceId": "n3888634171",
+     "sourceUrl": "https://www.openstreetmap.org/node/3888634171",
+     "tags": {
+      "name": "Microsoft Bravern Building 1",
+      "office": "company"
+     },
+     "sourcePositionM": [
+      265.0727484139858,
+      -286.52052240023164
+     ],
+     "roundingErrorM": 0.034114774681352586
+    }
+   ]
+  },
+  {
+   "index": 28,
+   "kind": "shop",
+   "name": "Omega",
+   "brand": "",
+   "sub": "optician",
+   "x": 170.7,
+   "z": -231.3,
+   "buildingIndex": 217,
+   "matches": [
+    {
+     "sourceId": "n3888634172",
+     "sourceUrl": "https://www.openstreetmap.org/node/3888634172",
+     "tags": {
+      "level": "2",
+      "name": "Omega",
+      "shop": "optician"
+     },
+     "sourcePositionM": [
+      170.6842471673119,
+      -231.25457880031425
+     ],
+     "roundingErrorM": 0.048075327545352854
+    }
+   ]
+  },
+  {
+   "index": 29,
+   "kind": "food",
+   "name": "Story Coffee",
+   "brand": "",
+   "sub": "cafe:coffee_shop",
+   "x": 210.3,
+   "z": -371,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n4053640841",
+     "sourceUrl": "https://www.openstreetmap.org/node/4053640841",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "11011",
+      "addr:postcode": "98004",
+      "addr:street": "Northeast 9th Street",
+      "amenity": "cafe",
+      "cuisine": "coffee_shop",
+      "name": "Story Coffee"
+     },
+     "sourcePositionM": [
+      210.34422721929366,
+      -370.96972920006283
+     ],
+     "roundingErrorM": 0.053594479709056134
+    }
+   ]
+  },
+  {
+   "index": 30,
+   "kind": "food",
+   "name": "Minamoto",
+   "brand": "",
+   "sub": "restaurant:japanese",
+   "x": 210.2,
+   "z": -387.5,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n4658727696",
+     "sourceUrl": "https://www.openstreetmap.org/node/4658727696",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "11011",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 9th Street",
+      "amenity": "restaurant",
+      "cuisine": "japanese",
+      "name": "Minamoto",
+      "phone": "+1-425-999-3338"
+     },
+     "sourcePositionM": [
+      210.1716293870517,
+      -387.5172839999773
+     ],
+     "roundingErrorM": 0.0332209020689764
+    }
+   ]
+  },
+  {
+   "index": 31,
+   "kind": "food",
+   "name": "Sugar Factory",
+   "brand": "",
+   "sub": "restaurant:diner",
+   "x": 258.6,
+   "z": -287.1,
+   "buildingIndex": 183,
+   "matches": [
+    {
+     "sourceId": "n5235488523",
+     "sourceUrl": "https://www.openstreetmap.org/node/5235488523",
+     "tags": {
+      "amenity": "restaurant",
+      "cuisine": "diner",
+      "level": "2",
+      "name": "Sugar Factory"
+     },
+     "sourcePositionM": [
+      258.5665605797711,
+      -287.0650692002781
+     ],
+     "roundingErrorM": 0.04835654655224908
+    }
+   ]
+  },
+  {
+   "index": 32,
+   "kind": "food",
+   "name": "Chocolate Lounge",
+   "brand": "",
+   "sub": "bar",
+   "x": 274.5,
+   "z": -274,
+   "buildingIndex": 183,
+   "matches": [
+    {
+     "sourceId": "n5235488524",
+     "sourceUrl": "https://www.openstreetmap.org/node/5235488524",
+     "tags": {
+      "amenity": "bar",
+      "level": "2",
+      "name": "Chocolate Lounge"
+     },
+     "sourcePositionM": [
+      274.46807386804375,
+      -274.0070592000816
+     ],
+     "roundingErrorM": 0.032697250763328856
+    }
+   ]
+  },
+  {
+   "index": 33,
+   "kind": "shop",
+   "name": "Tory Burch",
+   "brand": "",
+   "sub": "leather",
+   "x": 216.4,
+   "z": -259.7,
+   "buildingIndex": 243,
+   "matches": [
+    {
+     "sourceId": "n5235488525",
+     "sourceUrl": "https://www.openstreetmap.org/node/5235488525",
+     "tags": {
+      "level": "1",
+      "name": "Tory Burch",
+      "shop": "leather"
+     },
+     "sourcePositionM": [
+      216.44518536092855,
+      -259.73771039994267
+     ],
+     "roundingErrorM": 0.05885398122539948
+    }
+   ]
+  },
+  {
+   "index": 34,
+   "kind": "shop",
+   "name": "Prada",
+   "brand": "Prada",
+   "sub": "clothes",
+   "x": 190.1,
+   "z": -255.6,
+   "buildingIndex": 243,
+   "matches": [
+    {
+     "sourceId": "n5235488526",
+     "sourceUrl": "https://www.openstreetmap.org/node/5235488526",
+     "tags": {
+      "addr:unit": "50",
+      "brand": "Prada",
+      "brand:wikidata": "Q193136",
+      "check_date": "2024-09-05",
+      "name": "Prada",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      190.08274261376428,
+      -255.58137360032902
+     ],
+     "roundingErrorM": 0.02539212760663401
+    }
+   ]
+  },
+  {
+   "index": 35,
+   "kind": "food",
+   "name": "Mariposa",
+   "brand": "",
+   "sub": "cafe",
+   "x": 145.6,
+   "z": -223.6,
+   "buildingIndex": 243,
+   "matches": [
+    {
+     "sourceId": "n5235497256",
+     "sourceUrl": "https://www.openstreetmap.org/node/5235497256",
+     "tags": {
+      "amenity": "cafe",
+      "level": "3",
+      "name": "Mariposa"
+     },
+     "sourcePositionM": [
+      145.5825190165595,
+      -223.55313120033338
+     ],
+     "roundingErrorM": 0.050022686495586964
+    }
+   ]
+  },
+  {
+   "index": 36,
+   "kind": "office",
+   "name": "Apptio",
+   "brand": "",
+   "sub": "company",
+   "x": 272,
+   "z": -352.8,
+   "buildingIndex": 179,
+   "matches": [
+    {
+     "sourceId": "n5338127221",
+     "sourceUrl": "https://www.openstreetmap.org/node/5338127221",
+     "tags": {
+      "name": "Apptio",
+      "office": "company"
+     },
+     "sourcePositionM": [
+      271.9841659407803,
+      -352.76630759974915
+     ],
+     "roundingErrorM": 0.037227614294182546
+    }
+   ]
+  },
+  {
+   "index": 37,
+   "kind": "shop",
+   "name": "Dan’s Beauty",
+   "brand": "",
+   "sub": "beauty",
+   "x": 84.9,
+   "z": -428.1,
+   "buildingIndex": 244,
+   "matches": [
+    {
+     "sourceId": "n6564947462",
+     "sourceUrl": "https://www.openstreetmap.org/node/6564947462",
+     "tags": {
+      "addr:housenumber": "925",
+      "addr:street": "110th Avenue Northeast",
+      "addr:unit": "A",
+      "name": "Dan’s Beauty",
+      "shop": "beauty"
+     },
+     "sourcePositionM": [
+      84.8731077353578,
+      -428.1249167999482
+     ],
+     "roundingErrorM": 0.03666116224622566
+    }
+   ]
+  },
+  {
+   "index": 38,
+   "kind": "office",
+   "name": "UI Path",
+   "brand": "",
+   "sub": "company",
+   "x": 75.2,
+   "z": -364.4,
+   "buildingIndex": 180,
+   "matches": [
+    {
+     "sourceId": "n10211055617",
+     "sourceUrl": "https://www.openstreetmap.org/node/10211055617",
+     "tags": {
+      "name": "UI Path",
+      "office": "company"
+     },
+     "sourcePositionM": [
+      75.20012490015672,
+      -364.43516760029445
+     ],
+     "roundingErrorM": 0.03516782208953029
+    }
+   ]
+  },
+  {
+   "index": 39,
+   "kind": "office",
+   "name": "Epam",
+   "brand": "",
+   "sub": "it",
+   "x": 68.3,
+   "z": -368.1,
+   "buildingIndex": 180,
+   "matches": [
+    {
+     "sourceId": "n10271231055",
+     "sourceUrl": "https://www.openstreetmap.org/node/10271231055",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:country": "US",
+      "addr:housenumber": "10900",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "addr:unit": "1680",
+      "name": "Epam",
+      "office": "it",
+      "phone": "+1-267-759-9000",
+      "website": "https://www.epam.com/"
+     },
+     "sourcePositionM": [
+      68.33373289523392,
+      -368.1136367998512
+     ],
+     "roundingErrorM": 0.0363850316894659
+    }
+   ]
+  },
+  {
+   "index": 40,
+   "kind": "shop",
+   "name": "Neighbor Self Storage",
+   "brand": "",
+   "sub": "storage_rental",
+   "x": 245.6,
+   "z": -450,
+   "buildingIndex": 240,
+   "matches": [
+    {
+     "sourceId": "n13002077317",
+     "sourceUrl": "https://www.openstreetmap.org/node/13002077317",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "958",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "111th Avenue Northeast",
+      "name": "Neighbor Self Storage",
+      "opening_hours": "Mo-Su 09:00-17:00",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "phone": "+1-425-225-4951",
+      "shop": "storage_rental"
+     },
+     "sourcePositionM": [
+      245.56168916445375,
+      -449.9956943996888
+     ],
+     "roundingErrorM": 0.03855202088465885
+    }
+   ]
+  },
+  {
+   "index": 41,
+   "kind": "landmark",
+   "name": "Crossing Paths",
+   "brand": "",
+   "sub": "artwork",
+   "x": 658.8,
+   "z": -510.5,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n13237845900",
+     "sourceUrl": "https://www.openstreetmap.org/node/13237845900",
+     "tags": {
+      "artist_name": "Larine Chung",
+      "artwork_type": "mural",
+      "description": "Utility Junction Box wrapped with a mural of people crossing a yellow lined crosswalk. Artwork added circa 2021.",
+      "name": "Crossing Paths",
+      "tourism": "artwork",
+      "website": "https://static1.squarespace.com/static/63efe450f3d28b27294f0ff8/t/645e8f411c6d7774c49cde4f/1683918663093/COBUtilityBoxWrapsProgram2022.pdf"
+     },
+     "sourcePositionM": [
+      658.8059240743629,
+      -510.45150240024276
+     ],
+     "roundingErrorM": 0.04885807854665673
+    }
+   ]
+  },
+  {
+   "index": 42,
+   "kind": "hotel",
+   "name": "Hyatt Regency Bellevue on Seattle's Eastside",
+   "brand": "Hyatt Regency",
+   "sub": "hotel",
+   "x": -462.3,
+   "z": -417.6,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n557280121",
+     "sourceUrl": "https://www.openstreetmap.org/node/557280121",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "900",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "branch": "Bellevue on Seattle's Eastside",
+      "brand": "Hyatt Regency",
+      "brand:wikidata": "Q115794868",
+      "breakfast": "no",
+      "contact:facebook": "HyattRegencyBellevue",
+      "contact:instagram": "hyattregencybellevue",
+      "dog": "yes",
+      "fax": "+1-425-646-7567",
+      "fitness_centre": "yes",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "laundry_service": "yes",
+      "name": "Hyatt Regency Bellevue on Seattle's Eastside",
+      "phone": "+1-425-462-1234",
+      "tourism": "hotel",
+      "website": "https://bellevue.regency.hyatt.com/en/hotel/home.html",
+      "wheelchair": "yes",
+      "wikidata": "Q111393647"
+     },
+     "sourcePositionM": [
+      -462.2620191482556,
+      -417.6340559997452
+     ],
+     "roundingErrorM": 0.051013294520891116
+    }
+   ]
+  },
+  {
+   "index": 43,
+   "kind": "food",
+   "name": "Top Pot Doughnuts",
+   "brand": "",
+   "sub": "cafe:donut;coffee_shop",
+   "x": -289.8,
+   "z": -453,
+   "buildingIndex": 556,
+   "matches": [
+    {
+     "sourceId": "n1152306298",
+     "sourceUrl": "https://www.openstreetmap.org/node/1152306298",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "10610",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 9th Place",
+      "amenity": "cafe",
+      "check_date": "2024-07-16",
+      "cuisine": "donut;coffee_shop",
+      "name": "Top Pot Doughnuts",
+      "opening_hours": "Mo-Fr 06:00-17:30; Sa, Su 07:00-17:30",
+      "outdoor_seating": "yes",
+      "payment:cash": "yes",
+      "phone": "+1-425-457-7440",
+      "website": "https://www.toppotdoughnuts.com/"
+     },
+     "sourcePositionM": [
+      -289.77675112740326,
+      -452.97403199974974
+     ],
+     "roundingErrorM": 0.034854656991821074
+    }
+   ]
+  },
+  {
+   "index": 44,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -76.2,
+   "z": -414.6,
+   "buildingIndex": 558,
+   "matches": [
+    {
+     "sourceId": "n1186646939",
+     "sourceUrl": "https://www.openstreetmap.org/node/1186646939",
+     "tags": {
+      "amenity": "atm",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "drive_through": "yes",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084",
+      "operator:wikipedia": "en:U.S. Bancorp"
+     },
+     "sourcePositionM": [
+      -76.16817361026774,
+      -414.62237880008433
+     ],
+     "roundingErrorM": 0.038906680359589295
+    }
+   ]
+  },
+  {
+   "index": 45,
+   "kind": "food",
+   "name": "Wild Ginger",
+   "brand": "",
+   "sub": "restaurant:asian",
+   "x": -478.5,
+   "z": -52.6,
+   "buildingIndex": 1172,
+   "matches": [
+    {
+     "sourceId": "n1206853622",
+     "sourceUrl": "https://www.openstreetmap.org/node/1206853622",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "508",
+      "addr:postcode": "98004",
+      "addr:street": "Bellevue Way Northeast",
+      "addr:unit": "508",
+      "amenity": "restaurant",
+      "cuisine": "asian",
+      "level": "0",
+      "name": "Wild Ginger",
+      "phone": "+1-425-495-8889",
+      "website": "https://www.wildginger.net/locations-bellevue",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -478.49371959372166,
+      -52.55432279981474
+     ],
+     "roundingErrorM": 0.04610694220814545
+    }
+   ]
+  },
+  {
+   "index": 46,
+   "kind": "food",
+   "name": "STK Steakhouse",
+   "brand": "",
+   "sub": "restaurant:steak_house",
+   "x": -482.2,
+   "z": -140.8,
+   "buildingIndex": 739,
+   "matches": [
+    {
+     "sourceId": "n1271647480",
+     "sourceUrl": "https://www.openstreetmap.org/node/1271647480",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "610",
+      "addr:postcode": "98004",
+      "addr:street": "Bellevue Way Northeast",
+      "addr:unit": "110",
+      "amenity": "restaurant",
+      "check_date": "2023-09-23",
+      "cuisine": "steak_house",
+      "name": "STK Steakhouse",
+      "website": "https://stksteakhouse.com"
+     },
+     "sourcePositionM": [
+      -482.2233336111728,
+      -140.82647040010136
+     ],
+     "roundingErrorM": 0.035286534143903064
+    }
+   ]
+  },
+  {
+   "index": 47,
+   "kind": "food",
+   "name": "Earls",
+   "brand": "Earls",
+   "sub": "restaurant:american",
+   "x": -483.1,
+   "z": -200.4,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n1271649364",
+     "sourceUrl": "https://www.openstreetmap.org/node/1271649364",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "700",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "addr:unit": "130",
+      "amenity": "restaurant",
+      "branch": "Kitchen & Bar",
+      "brand": "Earls",
+      "brand:wikidata": "Q5326525",
+      "check_date": "2026-10-30",
+      "check_date:opening_hours": "2026-10-30",
+      "cuisine": "american",
+      "diet:gluten_free": "yes",
+      "diet:meat": "yes",
+      "diet:raw": "yes",
+      "diet:vegan": "yes",
+      "diet:vegetarian": "yes",
+      "name": "Earls",
+      "opening_hours": "Mo-Th 11:30-24:00, Fr 11:30-01:00, Sa 10:00-01:00, Su 10:00-24:00",
+      "phone": "+1-425-452-3275",
+      "toilets:wheelchair": "yes",
+      "website": "https://earls.ca/locations/bellevue",
+      "website:menu": "https://earls.ca/locations/bellevue/menu",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -483.10883553065247,
+      -200.4376752002609
+     ],
+     "roundingErrorM": 0.03869738126294547
+    }
+   ]
+  },
+  {
+   "index": 48,
+   "kind": "food",
+   "name": "Bellevue Water Grill",
+   "brand": "",
+   "sub": "restaurant:seafood",
+   "x": -477,
+   "z": -289.6,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n1271661890",
+     "sourceUrl": "https://www.openstreetmap.org/node/1271661890",
+     "tags": {
+      "addr:housenumber": "115",
+      "addr:street": "Bellevue Way Northeast",
+      "amenity": "restaurant",
+      "check_date": "2023-09-23",
+      "cuisine": "seafood",
+      "level": "0",
+      "name": "Bellevue Water Grill",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -476.97035612132436,
+      -289.5877655997523
+     ],
+     "roundingErrorM": 0.032069301401152925
+    }
+   ]
+  },
+  {
+   "index": 49,
+   "kind": "food",
+   "name": "Joey",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -483,
+   "z": -366.3,
+   "buildingIndex": 750,
+   "matches": [
+    {
+     "sourceId": "n1271662500",
+     "sourceUrl": "https://www.openstreetmap.org/node/1271662500",
+     "tags": {
+      "addr:street": "Bellevue Way Northeast",
+      "amenity": "restaurant",
+      "level": "0",
+      "name": "Joey",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -483.04880150255656,
+      -366.25773240027286
+     ],
+     "roundingErrorM": 0.06456110778535776
+    }
+   ]
+  },
+  {
+   "index": 50,
+   "kind": "food",
+   "name": "Starbucks",
+   "brand": "Starbucks",
+   "sub": "cafe:coffee_shop",
+   "x": -524.2,
+   "z": -282.2,
+   "buildingIndex": 509,
+   "matches": [
+    {
+     "sourceId": "n1271662639",
+     "sourceUrl": "https://www.openstreetmap.org/node/1271662639",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "545",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "amenity": "cafe",
+      "branch": "The Lodge",
+      "brand": "Starbucks",
+      "brand:wikidata": "Q37158",
+      "cuisine": "coffee_shop",
+      "internet_access": "wlan",
+      "name": "Starbucks",
+      "official_name": "Starbucks Coffee",
+      "phone": "+1-425-452-5534",
+      "takeaway": "yes",
+      "website": "https://www.starbucks.com/store-locator/store/18615/the-lodge-545-bellevue-square-bellevue-wa-980045031-us",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -524.1721109977734,
+      -282.23082719984916
+     ],
+     "roundingErrorM": 0.041570574878604306
+    }
+   ]
+  },
+  {
+   "index": 51,
+   "kind": "food",
+   "name": "Shake Shack",
+   "brand": "Shake Shack",
+   "sub": "fast_food:burger",
+   "x": -521.2,
+   "z": -204.8,
+   "buildingIndex": 509,
+   "matches": [
+    {
+     "sourceId": "n1271663198",
+     "sourceUrl": "https://www.openstreetmap.org/node/1271663198",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "503",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "air_conditioning": "yes",
+      "amenity": "fast_food",
+      "brand": "Shake Shack",
+      "brand:wikidata": "Q1058722",
+      "changing_table": "yes",
+      "check_date": "2024-06-22",
+      "cuisine": "burger",
+      "drive_through": "no",
+      "highchair": "yes",
+      "indoor_seating": "yes",
+      "level": "0",
+      "name": "Shake Shack",
+      "opening_hours": "Su-Th 10:30-23:00; Fr-Sa 10:30-24:00",
+      "outdoor_seating": "yes",
+      "takeaway": "yes",
+      "toilets": "yes"
+     },
+     "sourcePositionM": [
+      -521.2154350967222,
+      -204.84961559970301
+     ],
+     "roundingErrorM": 0.05196104256759506
+    }
+   ]
+  },
+  {
+   "index": 52,
+   "kind": "food",
+   "name": "Castilla Restaurant and Tapas Bar",
+   "brand": "",
+   "sub": "restaurant:tapas;spanish",
+   "x": -522.1,
+   "z": -219.4,
+   "buildingIndex": 509,
+   "matches": [
+    {
+     "sourceId": "n1271663393",
+     "sourceUrl": "https://www.openstreetmap.org/node/1271663393",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "504",
+      "addr:postcode": "98004",
+      "addr:street": "Bellevue Way Northeast",
+      "amenity": "restaurant",
+      "check_date": "2023-09-23",
+      "cuisine": "tapas;spanish",
+      "name": "Castilla Restaurant and Tapas Bar",
+      "wheelchair": "limited"
+     },
+     "sourcePositionM": [
+      -522.0709200016207,
+      -219.38568119980022
+     ],
+     "roundingErrorM": 0.032414107189643236
+    }
+   ]
+  },
+  {
+   "index": 53,
+   "kind": "shop",
+   "name": "The Container Store",
+   "brand": "The Container Store",
+   "sub": "houseware",
+   "x": -480.6,
+   "z": -233.6,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n1271668742",
+     "sourceUrl": "https://www.openstreetmap.org/node/1271668742",
+     "tags": {
+      "addr:street": "Bellevue Way Northeast",
+      "brand": "The Container Store",
+      "brand:wikidata": "Q7727445",
+      "check_date": "2026-07-21",
+      "level": "0",
+      "name": "The Container Store",
+      "opening_hours": "Mo-Sa 11:00-20:00; Su 11:00-19:00",
+      "shop": "houseware",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -480.63243185756755,
+      -233.64391679980923
+     ],
+     "roundingErrorM": 0.05459405362093331
+    }
+   ]
+  },
+  {
+   "index": 54,
+   "kind": "shop",
+   "name": "Xfinity",
+   "brand": "Xfinity",
+   "sub": "telecommunication",
+   "x": -520,
+   "z": -99.1,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n1437183004",
+     "sourceUrl": "https://www.openstreetmap.org/node/1437183004",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "408",
+      "addr:postcode": "98004-5002",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "brand": "Xfinity",
+      "brand:wikidata": "Q5151002",
+      "check_date": "2025-08-24",
+      "name": "Xfinity",
+      "shop": "telecommunication"
+     },
+     "sourcePositionM": [
+      -520.0447715419209,
+      -99.12974400003745
+     ],
+     "roundingErrorM": 0.053751246536278066
+    }
+   ]
+  },
+  {
+   "index": 55,
+   "kind": "shop",
+   "name": "Chromatique",
+   "brand": "",
+   "sub": "hairdresser",
+   "x": -486.3,
+   "z": -378.3,
+   "buildingIndex": 750,
+   "matches": [
+    {
+     "sourceId": "n1928451410",
+     "sourceUrl": "https://www.openstreetmap.org/node/1928451410",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "800",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "check_date": "2023-10-21",
+      "female": "yes",
+      "name": "Chromatique",
+      "phone": "+1-425-657-0351",
+      "shop": "hairdresser",
+      "website": "https://chromatiquesalon.com/pages/bellevue"
+     },
+     "sourcePositionM": [
+      -486.27563053270524,
+      -378.28221480023615
+     ],
+     "roundingErrorM": 0.030169260297058634
+    }
+   ]
+  },
+  {
+   "index": 56,
+   "kind": "busstop",
+   "name": "NE 8th St & 108th Ave NE",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -165.2,
+   "z": -339.9,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n1987511417",
+     "sourceUrl": "https://www.openstreetmap.org/node/1987511417",
+     "tags": {
+      "bench": "no",
+      "bin": "no",
+      "bus": "yes",
+      "direction": "W",
+      "gtfs:dataset_id": "KCGIS",
+      "gtfs:stop_id": "67610",
+      "gtfs:stop_id:US-WA-KCM": "67610",
+      "highway": "bus_stop",
+      "lit": "yes",
+      "name": "NE 8th St & 108th Ave NE",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "67610",
+      "route_ref": "246;271;DART 249",
+      "shelter": "no",
+      "source": "King County GIS",
+      "tactile_paving": "no",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -165.1911335640135,
+      -339.86388239979146
+     ],
+     "roundingErrorM": 0.03718998160693642
+    }
+   ]
+  },
+  {
+   "index": 57,
+   "kind": "food",
+   "name": "Farzi Café",
+   "brand": "",
+   "sub": "restaurant:indian",
+   "x": -523,
+   "z": -239.6,
+   "buildingIndex": 509,
+   "matches": [
+    {
+     "sourceId": "n2971057903",
+     "sourceUrl": "https://www.openstreetmap.org/node/2971057903",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "515",
+      "addr:postcode": "98004",
+      "addr:street": "Bellevue Way Northeast",
+      "amenity": "restaurant",
+      "check_date": "2023-09-23",
+      "cuisine": "indian",
+      "level": "0",
+      "name": "Farzi Café",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -522.9864389356815,
+      -239.645044799661
+     ],
+     "roundingErrorM": 0.04704185840240973
+    }
+   ]
+  },
+  {
+   "index": 58,
+   "kind": "food",
+   "name": "Din Tai Fung",
+   "brand": "Din Tai Fung",
+   "sub": "restaurant:taiwanese",
+   "x": -417.4,
+   "z": -292.6,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n2988437886",
+     "sourceUrl": "https://www.openstreetmap.org/node/2988437886",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "700",
+      "addr:postcode": "98004",
+      "addr:street": "Bellevue Way Northeast",
+      "amenity": "restaurant",
+      "brand": "Din Tai Fung",
+      "brand:en": "Din Tai Fung",
+      "brand:wikidata": "Q699142",
+      "brand:zh": "鼎泰豐",
+      "check_date": "2024-05-04",
+      "cuisine": "taiwanese",
+      "level": "0",
+      "name": "Din Tai Fung",
+      "name:en": "Din Tai Fung",
+      "name:zh": "鼎泰豐",
+      "opening_hours": "Mo-Th 11:00-21:00; Fr 11:00-22:00; Sa 10:30-22:00; Su 10:30-21:00",
+      "smoking": "no",
+      "website": "https://dintaifungusa.com/",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -417.37157436682804,
+      -292.59944280020284
+     ],
+     "roundingErrorM": 0.028431093767904606
+    }
+   ]
+  },
+  {
+   "index": 59,
+   "kind": "shop",
+   "name": "Bergman Luggage",
+   "brand": "",
+   "sub": "bag",
+   "x": -529.5,
+   "z": -400.4,
+   "buildingIndex": 741,
+   "matches": [
+    {
+     "sourceId": "n3073269011",
+     "sourceUrl": "https://www.openstreetmap.org/node/3073269011",
+     "tags": {
+      "check_date": "2025-12-01",
+      "level": "0",
+      "name": "Bergman Luggage",
+      "shop": "bag"
+     },
+     "sourcePositionM": [
+      -529.5076352771868,
+      -400.39748279967523
+     ],
+     "roundingErrorM": 0.008039512124091557
+    }
+   ]
+  },
+  {
+   "index": 60,
+   "kind": "shop",
+   "name": "AT&T",
+   "brand": "AT&T",
+   "sub": "mobile_phone",
+   "x": -552.4,
+   "z": -362,
+   "buildingIndex": 741,
+   "matches": [
+    {
+     "sourceId": "n3073269012",
+     "sourceUrl": "https://www.openstreetmap.org/node/3073269012",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "821",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "brand": "AT&T",
+      "brand:wikidata": "Q298594",
+      "check_date": "2025-12-01",
+      "drive_through": "no",
+      "name": "AT&T",
+      "opening_hours": "Mo-Sa 10:00-20:00; Su 11:00-18:00",
+      "phone": "+1-425-454-0581",
+      "shop": "mobile_phone",
+      "website": "https://www.att.com/stores/washington/bellevue/210611?source=I-00s1000B000000L&wtExtndSource=locator",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -552.3881043745283,
+      -361.9680371998904
+     ],
+     "roundingErrorM": 0.03410464039114992
+    }
+   ]
+  },
+  {
+   "index": 61,
+   "kind": "food",
+   "name": "The Cheesecake Factory",
+   "brand": "The Cheesecake Factory",
+   "sub": "restaurant:american",
+   "x": -525.2,
+   "z": -154.9,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n3073269015",
+     "sourceUrl": "https://www.openstreetmap.org/node/3073269015",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "401",
+      "addr:postcode": "98004",
+      "addr:street": "Bellevue Square",
+      "alt_name": "Cheesecake Factory",
+      "amenity": "restaurant",
+      "brand": "The Cheesecake Factory",
+      "brand:wikidata": "Q1045842",
+      "check_date": "2023-09-23",
+      "cuisine": "american",
+      "indoor_seating": "yes",
+      "name": "The Cheesecake Factory",
+      "opening_hours": "Mo-Fr 11:00-24:00; Sa,Su 10:00-24:00",
+      "outdoor_seating": "yes",
+      "phone": "+1-425-450-6000",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -525.2152022432708,
+      -154.8624419998819
+     ],
+     "roundingErrorM": 0.040518040097417295
+    }
+   ]
+  },
+  {
+   "index": 62,
+   "kind": "shop",
+   "name": "d'Original Jewelers",
+   "brand": "",
+   "sub": "jewelry",
+   "x": -529.5,
+   "z": -412.6,
+   "buildingIndex": 741,
+   "matches": [
+    {
+     "sourceId": "n3073271761",
+     "sourceUrl": "https://www.openstreetmap.org/node/3073271761",
+     "tags": {
+      "name": "d'Original Jewelers",
+      "shop": "jewelry",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -529.4926267709626,
+      -412.61088960026706
+     ],
+     "roundingErrorM": 0.013150965759735627
+    }
+   ]
+  },
+  {
+   "index": 63,
+   "kind": "food",
+   "name": "13 Coins",
+   "brand": "",
+   "sub": "restaurant:breakfast;seafood",
+   "x": -474.3,
+   "z": -411.4,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n3073271762",
+     "sourceUrl": "https://www.openstreetmap.org/node/3073271762",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "900",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "addr:unit": "100",
+      "amenity": "restaurant",
+      "cuisine": "breakfast;seafood",
+      "level": "0",
+      "name": "13 Coins",
+      "opening_hours": "Su-Th 07:00-23:00; Fr-Sa 07:00-02:00",
+      "outdoor_seating": "yes",
+      "phone": "+1-425-455-1313",
+      "website": "https://www.13coins.com/location/13-coins-bellevue/",
+      "website:menu": "https://www.13coins.com/menus/",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -474.25381633265664,
+      -411.43289039992476
+     ],
+     "roundingErrorM": 0.056698408588735545
+    }
+   ]
+  },
+  {
+   "index": 64,
+   "kind": "shop",
+   "name": "Porcello Jewelers",
+   "brand": "",
+   "sub": "jewelry",
+   "x": -643.8,
+   "z": -359.8,
+   "buildingIndex": 520,
+   "matches": [
+    {
+     "sourceId": "n3073271763",
+     "sourceUrl": "https://www.openstreetmap.org/node/3073271763",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "10222",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "check_date": "2024-02-23",
+      "name": "Porcello Jewelers",
+      "phone": "+1-425-454-2300",
+      "shop": "jewelry",
+      "toilets:wheelchair": "no",
+      "website": "https://porcelloestatebuyers.com/",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -643.7974169597484,
+      -359.83430280022384
+     ],
+     "roundingErrorM": 0.03439991569956339
+    }
+   ]
+  },
+  {
+   "index": 65,
+   "kind": "shop",
+   "name": "Recoop",
+   "brand": "",
+   "sub": "beauty",
+   "x": -523.8,
+   "z": -490,
+   "buildingIndex": 554,
+   "matches": [
+    {
+     "sourceId": "n3651436033",
+     "sourceUrl": "https://www.openstreetmap.org/node/3651436033",
+     "tags": {
+      "addr:housenumber": "925",
+      "addr:street": "Bellevue Way Northeast",
+      "check_date": "2025-12-01",
+      "name": "Recoop",
+      "shop": "beauty",
+      "website": "https://recoopspa.com",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -523.8419238416465,
+      -489.9698748001535
+     ],
+     "roundingErrorM": 0.05162495679604554
+    }
+   ]
+  },
+  {
+   "index": 66,
+   "kind": "food",
+   "name": "Black Bottle",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -524.4,
+   "z": -473.2,
+   "buildingIndex": 554,
+   "matches": [
+    {
+     "sourceId": "n3651436328",
+     "sourceUrl": "https://www.openstreetmap.org/node/3651436328",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "919",
+      "addr:postcode": "98004",
+      "addr:street": "Bellevue Way Northeast",
+      "amenity": "restaurant",
+      "check_date": "2025-12-01",
+      "name": "Black Bottle",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -524.3597173373059,
+      -473.2333956004002
+     ],
+     "roundingErrorM": 0.052325510411371026
+    }
+   ]
+  },
+  {
+   "index": 67,
+   "kind": "food",
+   "name": "Starbucks",
+   "brand": "Starbucks",
+   "sub": "cafe:coffee_shop",
+   "x": -672.7,
+   "z": -359.6,
+   "buildingIndex": 520,
+   "matches": [
+    {
+     "sourceId": "n3905077170",
+     "sourceUrl": "https://www.openstreetmap.org/node/3905077170",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "10214",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "addr:unit": "8th",
+      "amenity": "cafe",
+      "branch": "Bellevue",
+      "brand": "Starbucks",
+      "brand:wikidata": "Q37158",
+      "check_date": "2024-02-23",
+      "cuisine": "coffee_shop",
+      "internet_access": "wlan",
+      "name": "Starbucks",
+      "official_name": "Starbucks Coffee",
+      "phone": "+1-425-454-0191",
+      "takeaway": "yes",
+      "toilets:wheelchair": "yes",
+      "website": "https://www.starbucks.com/store-locator/store/18416/bellevue-10214-ne-8th-bellevue-wa-980044217-us",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -672.6887931560478,
+      -359.6120387999954
+     ],
+     "roundingErrorM": 0.016447676331251125
+    }
+   ]
+  },
+  {
+   "index": 68,
+   "kind": "shop",
+   "name": "Mephisto",
+   "brand": "Mephisto",
+   "sub": "shoes",
+   "x": -664.5,
+   "z": -359.4,
+   "buildingIndex": 520,
+   "matches": [
+    {
+     "sourceId": "n3905207486",
+     "sourceUrl": "https://www.openstreetmap.org/node/3905207486",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "10218",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "brand": "Mephisto",
+      "brand:wikidata": "Q822975",
+      "check_date": "2024-02-23",
+      "name": "Mephisto",
+      "phone": "+1-425-635-7463",
+      "shop": "shoes",
+      "toilets:wheelchair": "no",
+      "website": "http://mephistoshoesseattle.com/",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -664.5091567786629,
+      -359.4008879998968
+     ],
+     "roundingErrorM": 0.009199735827664778
+    }
+   ]
+  },
+  {
+   "index": 69,
+   "kind": "food",
+   "name": "Pasta & Co",
+   "brand": "",
+   "sub": "cafe",
+   "x": -657.1,
+   "z": -359.6,
+   "buildingIndex": 520,
+   "matches": [
+    {
+     "sourceId": "n3921542489",
+     "sourceUrl": "https://www.openstreetmap.org/node/3921542489",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "10218",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "addr:unit": "201",
+      "amenity": "cafe",
+      "check_date": "2024-02-23",
+      "name": "Pasta & Co",
+      "phone": "+1-425-453-8760",
+      "toilets:wheelchair": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -657.1399797853712,
+      -359.6120387999954
+     ],
+     "roundingErrorM": 0.04175303514303817
+    }
+   ]
+  },
+  {
+   "index": 70,
+   "kind": "shop",
+   "name": "Envision",
+   "brand": "",
+   "sub": "optician",
+   "x": -650.4,
+   "z": -359.6,
+   "buildingIndex": 520,
+   "matches": [
+    {
+     "sourceId": "n3921542490",
+     "sourceUrl": "https://www.openstreetmap.org/node/3921542490",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "10220",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "check_date": "2024-02-23",
+      "name": "Envision",
+      "phone": "+1-425-455-4602",
+      "shop": "optician",
+      "toilets:wheelchair": "no",
+      "website": "https://www.envisionopto.com/",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -650.4311771043333,
+      -359.6120387999954
+     ],
+     "roundingErrorM": 0.03342072021874139
+    }
+   ]
+  },
+  {
+   "index": 71,
+   "kind": "food",
+   "name": "Cactus - Bellevue Square",
+   "brand": "",
+   "sub": "restaurant:southwestern",
+   "x": -532,
+   "z": -251.1,
+   "buildingIndex": 509,
+   "matches": [
+    {
+     "sourceId": "n3926527631",
+     "sourceUrl": "https://www.openstreetmap.org/node/3926527631",
+     "tags": {
+      "amenity": "restaurant",
+      "check_date": "2023-09-23",
+      "cuisine": "southwestern",
+      "level": "2",
+      "name": "Cactus - Bellevue Square",
+      "opening_hours": "Mo-Th 11:00-22:00; Fr 11:00-23:00; Sa 10:00-23:00; Su 10:00-22:00",
+      "phone": "+1-425-455-4321",
+      "toilets:wheelchair": "no",
+      "website": "https://cactusrestaurants.com/location/bellevue-square/",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -532.0440729805005,
+      -251.12498040036743
+     ],
+     "roundingErrorM": 0.05066012250983472
+    }
+   ]
+  },
+  {
+   "index": 72,
+   "kind": "food",
+   "name": "Suite",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -371.9,
+   "z": -427.6,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n3926527632",
+     "sourceUrl": "https://www.openstreetmap.org/node/3926527632",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "10500",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "addr:unit": "125",
+      "amenity": "restaurant",
+      "check_date": "2023-09-23",
+      "contact:facebook": "https://www.facebook.com/227673370612881",
+      "contact:instagram": "suitebellevue",
+      "contact:twitter": "suitebellevue",
+      "contact:yelp": "https://www.yelp.com/biz/suite-bellevue-4",
+      "email": "Info@suitebellevue.com",
+      "name": "Suite",
+      "opening_hours": "Mo-We 16:00-22:00; Th 16:00-23:00; Fr-Sa 16:00-01:30",
+      "phone": "+1-425-679-6951",
+      "reservation": "yes",
+      "website": "https://suitebellevue.com",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -371.9483275824504,
+      -427.5581436004316
+     ],
+     "roundingErrorM": 0.06393366413975553
+    }
+   ]
+  },
+  {
+   "index": 73,
+   "kind": "food",
+   "name": "Cypress Lounge & Wine Bar",
+   "brand": "",
+   "sub": "bar",
+   "x": -408.8,
+   "z": -144,
+   "buildingIndex": 739,
+   "matches": [
+    {
+     "sourceId": "n3926527633",
+     "sourceUrl": "https://www.openstreetmap.org/node/3926527633",
+     "tags": {
+      "amenity": "bar",
+      "name": "Cypress Lounge & Wine Bar",
+      "toilets:wheelchair": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -408.83173381766863,
+      -143.98261919987132
+     ],
+     "roundingErrorM": 0.036181865581233756
+    }
+   ]
+  },
+  {
+   "index": 74,
+   "kind": "food",
+   "name": "Tavern Hall",
+   "brand": "",
+   "sub": "pub",
+   "x": -530.5,
+   "z": -229.8,
+   "buildingIndex": 509,
+   "matches": [
+    {
+     "sourceId": "n3926527635",
+     "sourceUrl": "https://www.openstreetmap.org/node/3926527635",
+     "tags": {
+      "amenity": "pub",
+      "check_date": "2026-05-21",
+      "indoor_seating": "yes",
+      "name": "Tavern Hall",
+      "outdoor_seating": "no",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -530.4756839862314,
+      -229.76541000028377
+     ],
+     "roundingErrorM": 0.04228163438143365
+    }
+   ]
+  },
+  {
+   "index": 75,
+   "kind": "food",
+   "name": "Daniel's Broiler",
+   "brand": "",
+   "sub": "restaurant:steak_house",
+   "x": -398.4,
+   "z": -379.3,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n3926527636",
+     "sourceUrl": "https://www.openstreetmap.org/node/3926527636",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "amenity": "restaurant",
+      "cuisine": "steak_house",
+      "email": "danielsbellevue@schwartzbros.com",
+      "level": "22",
+      "name": "Daniel's Broiler",
+      "opening_hours": "Tu-Sa 16:00-22:00",
+      "phone": "+1-425-462-4662",
+      "website": "https://danielsbroiler.com/pages/locations-daniels-bellevue",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -398.37830861188905,
+      -379.2824028000798
+     ],
+     "roundingErrorM": 0.027931662378210143
+    }
+   ]
+  },
+  {
+   "index": 76,
+   "kind": "food",
+   "name": "Woods Coffee",
+   "brand": "",
+   "sub": "cafe:coffee_shop",
+   "x": -442.9,
+   "z": -246.7,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n3926527637",
+     "sourceUrl": "https://www.openstreetmap.org/node/3926527637",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "700",
+      "addr:postcode": "98004",
+      "addr:street": "Bellevue Way Northeast",
+      "addr:unit": "140",
+      "amenity": "cafe",
+      "check_date": "2026-07-21",
+      "cuisine": "coffee_shop",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "level": "0",
+      "name": "Woods Coffee",
+      "opening_hours": "Mo-Fr 07:00-21:00; Sa 08:00-21:00; Su 09:00-19:00",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "phone": "+1-425-279-8860",
+      "website": "https://woodscoffee.com",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -442.90854922260854,
+      -246.69081359987595
+     ],
+     "roundingErrorM": 0.012549069863926081
+    }
+   ]
+  },
+  {
+   "index": 77,
+   "kind": "shop",
+   "name": "Crate & Barrel",
+   "brand": "Crate & Barrel",
+   "sub": "furniture",
+   "x": -549.2,
+   "z": -300.7,
+   "buildingIndex": 509,
+   "matches": [
+    {
+     "sourceId": "n3926527638",
+     "sourceUrl": "https://www.openstreetmap.org/node/3926527638",
+     "tags": {
+      "brand": "Crate & Barrel",
+      "brand:wikidata": "Q5182604",
+      "check_date": "2024-05-04",
+      "level": "0;2",
+      "name": "Crate & Barrel",
+      "shop": "furniture"
+     },
+     "sourcePositionM": [
+      -549.1537710912676,
+      -300.7120788002511
+     ],
+     "roundingErrorM": 0.04778084781689999
+    }
+   ]
+  },
+  {
+   "index": 78,
+   "kind": "food",
+   "name": "Thai Kitchen Bird Pepper",
+   "brand": "",
+   "sub": "restaurant:thai",
+   "x": -590.6,
+   "z": -301.5,
+   "buildingIndex": 509,
+   "matches": [
+    {
+     "sourceId": "n3926527639",
+     "sourceUrl": "https://www.openstreetmap.org/node/3926527639",
+     "tags": {
+      "amenity": "restaurant",
+      "check_date": "2024-05-04",
+      "cuisine": "thai",
+      "level": "2",
+      "name": "Thai Kitchen Bird Pepper",
+      "opening_hours": "Mo-Fr 11:00-22:00; Sa-Su 11:00-24:00",
+      "takeaway": "yes",
+      "toilets": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -590.584754983275,
+      -301.5233424002559
+     ],
+     "roundingErrorM": 0.02787970919237457
+    }
+   ]
+  },
+  {
+   "index": 79,
+   "kind": "food",
+   "name": "Paddy Coyne's",
+   "brand": "",
+   "sub": "pub:irish",
+   "x": -464,
+   "z": -300.1,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n3926527640",
+     "sourceUrl": "https://www.openstreetmap.org/node/3926527640",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "700",
+      "addr:postcode": "98004",
+      "addr:street": "Bellevue Way Northeast",
+      "amenity": "pub",
+      "check_date": "2024-05-04",
+      "cuisine": "irish",
+      "level": "0",
+      "mapillary": "530600931278506",
+      "name": "Paddy Coyne's",
+      "opening_hours": "Mo-Fr 11:00-02:00; Sa-Su 10:00-02:00",
+      "phone": "+1-425-453-8080",
+      "survey:date": "2020-01-19",
+      "theme": "irish",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -463.98799746640964,
+      -300.11196600034486
+     ],
+     "roundingErrorM": 0.016948332568147147
+    }
+   ]
+  },
+  {
+   "index": 80,
+   "kind": "shop",
+   "name": "Yardbird",
+   "brand": "",
+   "sub": "furniture",
+   "x": -456.7,
+   "z": -345.3,
+   "buildingIndex": 750,
+   "matches": [
+    {
+     "sourceId": "n3928038754",
+     "sourceUrl": "https://www.openstreetmap.org/node/3928038754",
+     "tags": {
+      "addr:housenumber": "10400",
+      "addr:street": "Northeast 8th Street",
+      "check_date": "2025-12-29",
+      "name": "Yardbird",
+      "shop": "furniture",
+      "wheelchair": "limited"
+     },
+     "sourcePositionM": [
+      -456.70887151579495,
+      -345.3426899998565
+     ],
+     "roundingErrorM": 0.04360206279805093
+    }
+   ]
+  },
+  {
+   "index": 81,
+   "kind": "bank",
+   "name": "Fidelity Investments",
+   "brand": "Fidelity Investments",
+   "sub": "bank",
+   "x": -398.9,
+   "z": -343.2,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n3928038755",
+     "sourceUrl": "https://www.openstreetmap.org/node/3928038755",
+     "tags": {
+      "amenity": "bank",
+      "brand": "Fidelity Investments",
+      "brand:wikidata": "Q1411292",
+      "check_date": "2023-09-23",
+      "level": "0",
+      "name": "Fidelity Investments",
+      "office": "financial_advisor",
+      "opening_hours": "Mo-Fr 08:30-17:00; Sa-Su off",
+      "short_name": "Fidelity",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -398.9111106148391,
+      -343.23118199966007
+     ],
+     "roundingErrorM": 0.033102309056994676
+    }
+   ]
+  },
+  {
+   "index": 82,
+   "kind": "food",
+   "name": "Fujiwara Omakase",
+   "brand": "",
+   "sub": "restaurant:sushi",
+   "x": -272.5,
+   "z": -455,
+   "buildingIndex": 556,
+   "matches": [
+    {
+     "sourceId": "n3928038756",
+     "sourceUrl": "https://www.openstreetmap.org/node/3928038756",
+     "tags": {
+      "amenity": "restaurant",
+      "check_date": "2026-10-10",
+      "cuisine": "sushi",
+      "disused:amenity": "restaurant",
+      "name": "Fujiwara Omakase"
+     },
+     "sourcePositionM": [
+      -272.5394807051994,
+      -455.04108720021634
+     ],
+     "roundingErrorM": 0.05698143649173201
+    }
+   ]
+  },
+  {
+   "index": 83,
+   "kind": "shop",
+   "name": "Mattress Firm",
+   "brand": "Mattress Firm",
+   "sub": "bed",
+   "x": -551.3,
+   "z": -400.4,
+   "buildingIndex": 741,
+   "matches": [
+    {
+     "sourceId": "n3928039558",
+     "sourceUrl": "https://www.openstreetmap.org/node/3928039558",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "833",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "branch": "Downtown Bellevue",
+      "brand": "Mattress Firm",
+      "brand:wikidata": "Q6791878",
+      "check_date": "2025-12-01",
+      "contact:sms": "+1 425-642-1959",
+      "delivery": "yes",
+      "mattress": "yes",
+      "name": "Mattress Firm",
+      "phone": "+1-425-452-9703",
+      "ref": "18687",
+      "shop": "bed",
+      "website": "https://www.mattressfirm.com/en-us/stores/wa/bellevue/508052/"
+     },
+     "sourcePositionM": [
+      -551.3149961165825,
+      -400.39748279967523
+     ],
+     "roundingErrorM": 0.015205913653325217
+    }
+   ]
+  },
+  {
+   "index": 84,
+   "kind": "food",
+   "name": "Eques",
+   "brand": "",
+   "sub": "restaurant:breakfast;buffet",
+   "x": -372.7,
+   "z": -416.1,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n3938589095",
+     "sourceUrl": "https://www.openstreetmap.org/node/3938589095",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:floor": "2",
+      "addr:housenumber": "900",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "addr:unit": "202",
+      "amenity": "restaurant",
+      "check_date": "2023-09-23",
+      "cuisine": "breakfast;buffet",
+      "level": "1",
+      "name": "Eques",
+      "opening_hours": "Mo-Fr 06:30-10:00; Sa 07:00-12:00; Su 07:00-13:00",
+      "phone": "+1-425-698-4100",
+      "reservation": "yes",
+      "website": "https://www.hyatt.com/hyatt-regency/en-US/belle-hyatt-regency-bellevue-on-seattles-eastside/dining",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -372.7137614457383,
+      -416.12266080024466
+     ],
+     "roundingErrorM": 0.02651205870045915
+    }
+   ]
+  },
+  {
+   "index": 85,
+   "kind": "shop",
+   "name": "Thomasville & Urban Interiors",
+   "brand": "",
+   "sub": "furniture",
+   "x": -475.4,
+   "z": -273.5,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n4188506793",
+     "sourceUrl": "https://www.openstreetmap.org/node/4188506793",
+     "tags": {
+      "addr:floor": "2",
+      "check_date": "2023-09-23",
+      "level": "1",
+      "name": "Thomasville & Urban Interiors",
+      "shop": "furniture",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -475.38695862083114,
+      -273.51807839989476
+     ],
+     "roundingErrorM": 0.022291391014927043
+    }
+   ]
+  },
+  {
+   "index": 86,
+   "kind": "shop",
+   "name": "Schoener",
+   "brand": "",
+   "sub": "furniture",
+   "x": -466.3,
+   "z": -229.7,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n4188507098",
+     "sourceUrl": "https://www.openstreetmap.org/node/4188507098",
+     "tags": {
+      "check_date:opening_hours": "2022-07-24",
+      "name": "Schoener",
+      "opening_hours:signed": "no",
+      "shop": "furniture",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -466.3368288301907,
+      -229.68761760016432
+     ],
+     "roundingErrorM": 0.03885468516029806
+    }
+   ]
+  },
+  {
+   "index": 87,
+   "kind": "busstop",
+   "name": "NE 8th St & 106th Ave NE",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -325.8,
+   "z": -313.6,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n4188526389",
+     "sourceUrl": "https://www.openstreetmap.org/node/4188526389",
+     "tags": {
+      "bus": "yes",
+      "gtfs:dataset_id": "KCGIS",
+      "gtfs:stop_id": "73049",
+      "gtfs:stop_id:US-WA-KCM": "73049",
+      "highway": "bus_stop",
+      "name": "NE 8th St & 106th Ave NE",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "73049",
+      "route_ref": "246;271;DART 249",
+      "shelter": "yes",
+      "source": "King County GIS",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -325.75964693585126,
+      -313.57005119968926
+     ],
+     "roundingErrorM": 0.050252367369575515
+    }
+   ]
+  },
+  {
+   "index": 88,
+   "kind": "office",
+   "name": "Microsoft",
+   "brand": "Microsoft",
+   "sub": "company",
+   "x": -439,
+   "z": -220.3,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n4190971186",
+     "sourceUrl": "https://www.openstreetmap.org/node/4190971186",
+     "tags": {
+      "branch": "Bellevue",
+      "brand": "Microsoft",
+      "brand:wikidata": "Q2283",
+      "check_date": "2023-09-23",
+      "name": "Microsoft",
+      "office": "company",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -439.0438586406087,
+      -220.3303031997842
+     ],
+     "roundingErrorM": 0.053309138740006264
+    }
+   ]
+  },
+  {
+   "index": 89,
+   "kind": "shop",
+   "name": "Paper Source",
+   "brand": "",
+   "sub": "paper",
+   "x": -483.6,
+   "z": -165.9,
+   "buildingIndex": 739,
+   "matches": [
+    {
+     "sourceId": "n4190971187",
+     "sourceUrl": "https://www.openstreetmap.org/node/4190971187",
+     "tags": {
+      "addr:housenumber": "610",
+      "addr:street": "Bellevue Way Northeast",
+      "addr:unit": "100",
+      "check_date": "2026-10-30",
+      "check_date:opening_hours": "2026-10-30",
+      "level": "0",
+      "name": "Paper Source",
+      "opening_hours": "Mo-Sa 10:00-21:00; Su 11:00-19:00",
+      "shop": "paper"
+     },
+     "sourcePositionM": [
+      -483.62662902631195,
+      -165.9200760003911
+     ],
+     "roundingErrorM": 0.03334892553028569
+    }
+   ]
+  },
+  {
+   "index": 90,
+   "kind": "office",
+   "name": "Gallagher",
+   "brand": "",
+   "sub": "company",
+   "x": -155.2,
+   "z": -292.5,
+   "buildingIndex": 578,
+   "matches": [
+    {
+     "sourceId": "n4190985793",
+     "sourceUrl": "https://www.openstreetmap.org/node/4190985793",
+     "tags": {
+      "name": "Gallagher",
+      "office": "company",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -155.19546782473114,
+      -292.46608440022374
+     ],
+     "roundingErrorM": 0.034217079373484345
+    }
+   ]
+  },
+  {
+   "index": 91,
+   "kind": "shop",
+   "name": "Made in Washington",
+   "brand": "",
+   "sub": "gift",
+   "x": -607.6,
+   "z": -114.7,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n4485958016",
+     "sourceUrl": "https://www.openstreetmap.org/node/4485958016",
+     "tags": {
+      "addr:floor": "1",
+      "addr:housenumber": "190",
+      "addr:street": "Bellevue Square",
+      "check_date": "2025-02-23",
+      "check_date:opening_hours": "2025-02-23",
+      "level": "0",
+      "name": "Made in Washington",
+      "opening_hours:signed": "no",
+      "shop": "gift",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -607.5893935440746,
+      -114.66599759997834
+     ],
+     "roundingErrorM": 0.035618255354960895
+    }
+   ]
+  },
+  {
+   "index": 92,
+   "kind": "busstop",
+   "name": "NE 8th St & 102nd Ave NE",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -673.9,
+   "z": -315,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n4561016264",
+     "sourceUrl": "https://www.openstreetmap.org/node/4561016264",
+     "tags": {
+      "bench": "yes",
+      "bin": "yes",
+      "bus": "yes",
+      "gtfs:dataset_id": "KCGIS",
+      "gtfs:stop_id": "85669",
+      "gtfs:stop_id:US-WA-KCM": "85669",
+      "highway": "bus_stop",
+      "lit": "yes",
+      "name": "NE 8th St & 102nd Ave NE",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "85669",
+      "route_ref": "246;271",
+      "shelter": "yes",
+      "source": "King County GIS",
+      "tactile_paving": "no",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -673.8819694723181,
+      -315.01476719998993
+     ],
+     "roundingErrorM": 0.023306010470014737
+    }
+   ]
+  },
+  {
+   "index": 93,
+   "kind": "landmark",
+   "name": "Cinemark Reserve Lincoln Square - Dine-In 21+",
+   "brand": "Cinemark",
+   "sub": "cinema",
+   "x": -466.3,
+   "z": 8,
+   "buildingIndex": 1172,
+   "matches": [
+    {
+     "sourceId": "n5045488114",
+     "sourceUrl": "https://www.openstreetmap.org/node/5045488114",
+     "tags": {
+      "amenity": "cinema",
+      "brand": "Cinemark",
+      "brand:wikidata": "Q707530",
+      "level": "2",
+      "name": "Cinemark Reserve Lincoln Square - Dine-In 21+",
+      "toilets:wheelchair": "yes",
+      "wheelchair": "yes",
+      "wikidata": "Q78916703"
+     },
+     "sourcePositionM": [
+      -466.291803308319,
+      7.957051199809314
+     ],
+     "roundingErrorM": 0.04372396588065839
+    }
+   ]
+  },
+  {
+   "index": 94,
+   "kind": "landmark",
+   "name": "Cinemark Lincoln Square",
+   "brand": "Cinemark",
+   "sub": "cinema",
+   "x": -428.1,
+   "z": -247.2,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n5116153886",
+     "sourceUrl": "https://www.openstreetmap.org/node/5116153886",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "700",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "amenity": "cinema",
+      "brand": "Cinemark",
+      "brand:wikidata": "Q707530",
+      "check_date": "2026-07-21",
+      "name": "Cinemark Lincoln Square",
+      "screen": "22",
+      "toilets:wheelchair": "yes",
+      "website": "https://www.cinemark.com/washington/cinemark-lincoln-square",
+      "wheelchair": "yes",
+      "wikidata": "Q43305575"
+     },
+     "sourcePositionM": [
+      -428.1176654610413,
+      -247.23536039992246
+     ],
+     "roundingErrorM": 0.03952753972205528
+    }
+   ]
+  },
+  {
+   "index": 95,
+   "kind": "food",
+   "name": "Pressed Juicery",
+   "brand": "Pressed",
+   "sub": "fast_food:juice",
+   "x": -524.3,
+   "z": -289.2,
+   "buildingIndex": 509,
+   "matches": [
+    {
+     "sourceId": "n5235765493",
+     "sourceUrl": "https://www.openstreetmap.org/node/5235765493",
+     "tags": {
+      "amenity": "fast_food",
+      "brand": "Pressed",
+      "brand:wikidata": "Q123005477",
+      "check_date": "2025-12-25",
+      "cuisine": "juice",
+      "name": "Pressed Juicery",
+      "takeaway": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -524.277170547741,
+      -289.2321432003343
+     ],
+     "roundingErrorM": 0.039425489447513236
+    }
+   ]
+  },
+  {
+   "index": 96,
+   "kind": "shop",
+   "name": "City Sweats",
+   "brand": "",
+   "sub": "general",
+   "x": -544.3,
+   "z": -387.9,
+   "buildingIndex": 741,
+   "matches": [
+    {
+     "sourceId": "n5398976739",
+     "sourceUrl": "https://www.openstreetmap.org/node/5398976739",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "825",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "check_date": "2025-12-01",
+      "name": "City Sweats",
+      "opening_hours": "Tu-Fr 10:00-20:00; Sa 09:00-18:00; Su 10:00-18:00",
+      "phone": "+1-425-455-8901",
+      "shop": "general",
+      "website": "https://citysweats.com/"
+     },
+     "sourcePositionM": [
+      -544.2835105325298,
+      -387.8617932000551
+     ],
+     "roundingErrorM": 0.04161324427963182
+    }
+   ]
+  },
+  {
+   "index": 97,
+   "kind": "office",
+   "name": "KidzWorkshop2",
+   "brand": "",
+   "sub": "company",
+   "x": -549.9,
+   "z": -395.1,
+   "buildingIndex": 741,
+   "matches": [
+    {
+     "sourceId": "n5608446842",
+     "sourceUrl": "https://www.openstreetmap.org/node/5608446842",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "827",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "addr:unit": "208",
+      "name": "KidzWorkshop2",
+      "office": "company",
+      "wheelchair": "no"
+     },
+     "sourcePositionM": [
+      -549.8516666722811,
+      -395.1409391998387
+     ],
+     "roundingErrorM": 0.063341366039994
+    }
+   ]
+  },
+  {
+   "index": 98,
+   "kind": "shop",
+   "name": "Optima Dental Spa",
+   "brand": "",
+   "sub": "dentist",
+   "x": -389.7,
+   "z": -346.4,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n5608446845",
+     "sourceUrl": "https://www.openstreetmap.org/node/5608446845",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:floor": "2",
+      "addr:housenumber": "10500",
+      "addr:street": "Northeast 8th Street",
+      "addr:unit": "208",
+      "amenity": "dentist",
+      "check_date": "2023-09-23",
+      "description": "Dr. Lynn Jones DDS, AAACD; Dr. Chantal Botros, DMD; Dr. Brian Polito, DDS",
+      "healthcare": "dentist",
+      "level": "1",
+      "name": "Optima Dental Spa"
+     },
+     "sourcePositionM": [
+      -389.6808787388446,
+      -346.40955719968974
+     ],
+     "roundingErrorM": 0.021376685759996468
+    }
+   ]
+  },
+  {
+   "index": 99,
+   "kind": "food",
+   "name": "Fonte Coffee",
+   "brand": "",
+   "sub": "cafe:coffee_shop",
+   "x": -408.4,
+   "z": -409,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n5608446846",
+     "sourceUrl": "https://www.openstreetmap.org/node/5608446846",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:floor": "1",
+      "addr:housenumber": "10500",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "amenity": "cafe",
+      "check_date": "2023-09-23",
+      "cuisine": "coffee_shop",
+      "level": "0",
+      "name": "Fonte Coffee",
+      "opening_hours": "Mo-Sa 06:00-20:00; Su 06:00-17:00",
+      "phone": "+1-425-429-3862",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -408.38147860428353,
+      -409.0324392002999
+     ],
+     "roundingErrorM": 0.037354301163086884
+    }
+   ]
+  },
+  {
+   "index": 100,
+   "kind": "food",
+   "name": "Istanbul Cuisine",
+   "brand": "",
+   "sub": "fast_food",
+   "x": -536,
+   "z": -112.7,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n5752777682",
+     "sourceUrl": "https://www.openstreetmap.org/node/5752777682",
+     "tags": {
+      "addr:street": "Bellevue Way Northeast",
+      "amenity": "fast_food",
+      "check_date": "2023-09-24",
+      "level": "-1",
+      "name": "Istanbul Cuisine",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -536.0288316197585,
+      -112.65450840016109
+     ],
+     "roundingErrorM": 0.05385859220035686
+    }
+   ]
+  },
+  {
+   "index": 101,
+   "kind": "food",
+   "name": "MIX Poke Bar",
+   "brand": "",
+   "sub": "fast_food",
+   "x": -536.1,
+   "z": -133.8,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n5752777706",
+     "sourceUrl": "https://www.openstreetmap.org/node/5752777706",
+     "tags": {
+      "addr:street": "Bellevue Way Northeast",
+      "amenity": "fast_food",
+      "check_date": "2023-09-24",
+      "level": "-1",
+      "name": "MIX Poke Bar",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -536.1038741551449,
+      -133.76958839975654
+     ],
+     "roundingErrorM": 0.03065737280745476
+    }
+   ]
+  },
+  {
+   "index": 102,
+   "kind": "office",
+   "name": "Salesforce",
+   "brand": "Salesforce",
+   "sub": "it",
+   "x": -132.3,
+   "z": -428.4,
+   "buildingIndex": 827,
+   "matches": [
+    {
+     "sourceId": "n6261134885",
+     "sourceUrl": "https://www.openstreetmap.org/node/6261134885",
+     "tags": {
+      "addr:postcode": "98004",
+      "branch": "com",
+      "brand": "Salesforce",
+      "brand:wikidata": "Q941127",
+      "name": "Salesforce",
+      "office": "it",
+      "website": "https://www.salesforce.com/"
+     },
+     "sourcePositionM": [
+      -132.27747745969637,
+      -428.41386000016627
+     ],
+     "roundingErrorM": 0.026445499169776503
+    }
+   ]
+  },
+  {
+   "index": 103,
+   "kind": "shop",
+   "name": "Buckle",
+   "brand": "Buckle",
+   "sub": "clothes",
+   "x": -595.1,
+   "z": -114.9,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333539",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333539",
+     "tags": {
+      "addr:floor": "1",
+      "brand": "Buckle",
+      "brand:wikidata": "Q4983306",
+      "check_date": "2025-02-23",
+      "check_date:opening_hours": "2025-02-23",
+      "clothes": "men;women;children",
+      "level": "0",
+      "name": "Buckle",
+      "opening_hours:signed": "no",
+      "shop": "clothes",
+      "wheelchair": "limited"
+     },
+     "sourcePositionM": [
+      -595.0647943567236,
+      -114.85492199981721
+     ],
+     "roundingErrorM": 0.057196708113198026
+    }
+   ]
+  },
+  {
+   "index": 104,
+   "kind": "shop",
+   "name": "AT&T",
+   "brand": "AT&T",
+   "sub": "mobile_phone",
+   "x": -588.9,
+   "z": -130.6,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333546",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333546",
+     "tags": {
+      "addr:floor": "1",
+      "addr:housenumber": "180",
+      "addr:street": "Bellevue Square",
+      "brand": "AT&T",
+      "brand:wikidata": "Q298594",
+      "check_date": "2025-02-23",
+      "check_date:opening_hours": "2025-02-23",
+      "level": "0",
+      "name": "AT&T",
+      "opening_hours:signed": "no",
+      "shop": "mobile_phone",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -588.9038021859263,
+      -130.6467792003762
+     ],
+     "roundingErrorM": 0.046933465732402715
+    }
+   ]
+  },
+  {
+   "index": 105,
+   "kind": "shop",
+   "name": "Champs Sports",
+   "brand": "Champs Sports",
+   "sub": "sports",
+   "x": -604.5,
+   "z": -130.4,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333547",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333547",
+     "tags": {
+      "addr:floor": "1",
+      "addr:housenumber": "176",
+      "addr:street": "Bellevue Square",
+      "brand": "Champs Sports",
+      "brand:wikidata": "Q2955924",
+      "check_date": "2025-02-23",
+      "check_date:opening_hours": "2025-02-23",
+      "level": "0",
+      "name": "Champs Sports",
+      "opening_hours:signed": "no",
+      "shop": "sports",
+      "website": "https://stores.champssports.com/wa/bellevue/176-bellevue-square-14321.html",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -604.46762406496,
+      -130.40228879988797
+     ],
+     "roundingErrorM": 0.032456736968507635
+    }
+   ]
+  },
+  {
+   "index": 106,
+   "kind": "shop",
+   "name": "Burberry",
+   "brand": "Burberry",
+   "sub": "clothes",
+   "x": -667.6,
+   "z": -217.1,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333554",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333554",
+     "tags": {
+      "addr:floor": "1",
+      "addr:housenumber": "108",
+      "addr:street": "Bellevue Square",
+      "brand": "Burberry",
+      "brand:wikidata": "Q390107",
+      "check_date": "2025-02-23",
+      "check_date:opening_hours": "2025-02-23",
+      "clothes": "men;women",
+      "level": "0",
+      "name": "Burberry",
+      "opening_hours:signed": "no",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      -667.6159177515534,
+      -217.11858840015452
+     ],
+     "roundingErrorM": 0.024472503648385432
+    }
+   ]
+  },
+  {
+   "index": 107,
+   "kind": "shop",
+   "name": "Tory Burch",
+   "brand": "Tory Burch",
+   "sub": "clothes",
+   "x": -667.8,
+   "z": -229.6,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333555",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333555",
+     "tags": {
+      "addr:floor": "1",
+      "addr:housenumber": "106",
+      "addr:street": "Bellevue Square",
+      "brand": "Tory Burch",
+      "brand:wikidata": "Q19988222",
+      "check_date": "2023-09-24",
+      "level": "0",
+      "name": "Tory Burch",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      -667.8410453587792,
+      -229.56537240031503
+     ],
+     "roundingErrorM": 0.053700950990256735
+    }
+   ]
+  },
+  {
+   "index": 108,
+   "kind": "shop",
+   "name": "Tesla",
+   "brand": "Tesla",
+   "sub": "car",
+   "x": -668.1,
+   "z": -242,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333556",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333556",
+     "tags": {
+      "addr:floor": "1",
+      "addr:housenumber": "104",
+      "addr:street": "Bellevue Square",
+      "brand": "Tesla",
+      "brand:wikidata": "Q478214",
+      "check_date": "2023-09-24",
+      "level": "0",
+      "name": "Tesla",
+      "shop": "car"
+     },
+     "sourcePositionM": [
+      -668.0661729649385,
+      -242.03438279994563
+     ],
+     "roundingErrorM": 0.04823323784650568
+    }
+   ]
+  },
+  {
+   "index": 109,
+   "kind": "shop",
+   "name": "Optical Illusions",
+   "brand": "",
+   "sub": "optician",
+   "x": -604.4,
+   "z": -107.3,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333585",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333585",
+     "tags": {
+      "addr:floor": "2",
+      "addr:housenumber": "274",
+      "addr:street": "Bellevue Square",
+      "check_date": "2023-09-24",
+      "level": "1",
+      "name": "Optical Illusions",
+      "shop": "optician"
+     },
+     "sourcePositionM": [
+      -604.4376070503788,
+      -107.34239879967521
+     ],
+     "roundingErrorM": 0.05667405448787086
+    }
+   ]
+  },
+  {
+   "index": 110,
+   "kind": "shop",
+   "name": "Loft",
+   "brand": "Loft",
+   "sub": "clothes",
+   "x": -591.3,
+   "z": -107.3,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333586",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333586",
+     "tags": {
+      "addr:floor": "2",
+      "addr:housenumber": "268",
+      "addr:street": "Bellevue Square",
+      "brand": "Loft",
+      "brand:wikidata": "Q62075137",
+      "check_date": "2023-09-24",
+      "clothes": "women",
+      "level": "1",
+      "name": "Loft",
+      "shop": "clothes",
+      "website": "https://stores.loft.com/wa/bellevue/268-bellevue-square.html"
+     },
+     "sourcePositionM": [
+      -591.3126675778034,
+      -107.34239879967521
+     ],
+     "roundingErrorM": 0.04425071458524269
+    }
+   ]
+  },
+  {
+   "index": 111,
+   "kind": "shop",
+   "name": "Optical Illusions",
+   "brand": "",
+   "sub": "optician",
+   "x": -590.4,
+   "z": -140.3,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333587",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333587",
+     "tags": {
+      "addr:floor": "2",
+      "addr:housenumber": "266",
+      "addr:street": "Bellevue Square",
+      "check_date:opening_hours": "2025-02-23",
+      "level": "1",
+      "name": "Optical Illusions",
+      "opening_hours:signed": "no",
+      "shop": "optician",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -590.4346699114358,
+      -140.29303680018472
+     ],
+     "roundingErrorM": 0.03536225262386114
+    }
+   ]
+  },
+  {
+   "index": 112,
+   "kind": "shop",
+   "name": "Ann Taylor",
+   "brand": "Ann Taylor",
+   "sub": "clothes",
+   "x": -601.1,
+   "z": -140.2,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333588",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333588",
+     "tags": {
+      "addr:floor": "2",
+      "addr:housenumber": "264",
+      "addr:street": "Bellevue Square",
+      "brand": "Ann Taylor",
+      "brand:wikidata": "Q4766699",
+      "check_date:opening_hours": "2025-02-23",
+      "clothes": "women",
+      "level": "1",
+      "name": "Ann Taylor",
+      "opening_hours:signed": "no",
+      "shop": "clothes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -601.0531886952788,
+      -140.2041311999354
+     ],
+     "roundingErrorM": 0.046993244861487
+    }
+   ]
+  },
+  {
+   "index": 113,
+   "kind": "shop",
+   "name": "Seattle Team Shop",
+   "brand": "",
+   "sub": "collector",
+   "x": -621,
+   "z": -140,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333589",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333589",
+     "tags": {
+      "addr:floor": "2",
+      "addr:housenumber": "260",
+      "addr:street": "Bellevue Square",
+      "check_date": "2025-02-23",
+      "check_date:opening_hours": "2025-02-23",
+      "level": "1",
+      "name": "Seattle Team Shop",
+      "opening_hours:signed": "no",
+      "shop": "collector",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -620.9844861446812,
+      -140.0263200002264
+     ],
+     "roundingErrorM": 0.030551957691280662
+    }
+   ]
+  },
+  {
+   "index": 114,
+   "kind": "shop",
+   "name": "Banana Republic",
+   "brand": "Banana Republic",
+   "sub": "clothes",
+   "x": -657.2,
+   "z": -203.8,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333593",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333593",
+     "tags": {
+      "addr:floor": "2",
+      "addr:housenumber": "208",
+      "addr:street": "Bellevue Square",
+      "brand": "Banana Republic",
+      "brand:wikidata": "Q806085",
+      "check_date": "2023-09-24",
+      "clothes": "men;women",
+      "level": "1",
+      "name": "Banana Republic",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      -657.2000138134671,
+      -203.78274839986975
+     ],
+     "roundingErrorM": 0.017251605660530394
+    }
+   ]
+  },
+  {
+   "index": 115,
+   "kind": "shop",
+   "name": "White House Black Market",
+   "brand": "White House Black Market",
+   "sub": "clothes",
+   "x": -657.3,
+   "z": -229,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333594",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333594",
+     "tags": {
+      "addr:floor": "2",
+      "addr:housenumber": "204",
+      "addr:street": "Bellevue Square",
+      "brand": "White House Black Market",
+      "brand:wikidata": "Q7994858",
+      "check_date": "2023-09-24",
+      "level": "1",
+      "name": "White House Black Market",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      -657.3200818707252,
+      -229.00971240013865
+     ],
+     "roundingErrorM": 0.02230722412757361
+    }
+   ]
+  },
+  {
+   "index": 116,
+   "kind": "shop",
+   "name": "Everything But Water",
+   "brand": "Everything But Water",
+   "sub": "clothes",
+   "x": -657.4,
+   "z": -240.8,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333595",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333595",
+     "tags": {
+      "addr:floor": "2",
+      "addr:housenumber": "202",
+      "addr:street": "Bellevue Square",
+      "brand": "Everything But Water",
+      "brand:wikidata": "Q124069833",
+      "check_date": "2025-02-23",
+      "check_date:opening_hours": "2025-02-23",
+      "clothes": "swimwear;women",
+      "level": "1",
+      "name": "Everything But Water",
+      "opening_hours:signed": "no",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      -657.3726116457091,
+      -240.76747800014363
+     ],
+     "roundingErrorM": 0.04251825990586774
+    }
+   ]
+  },
+  {
+   "index": 117,
+   "kind": "food",
+   "name": "Nordstrom Marketplace Cafe",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -677.5,
+   "z": -298.2,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333613",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333613",
+     "tags": {
+      "amenity": "restaurant",
+      "name": "Nordstrom Marketplace Cafe"
+     },
+     "sourcePositionM": [
+      -677.5215324481587,
+      -298.20049560011716
+     ],
+     "roundingErrorM": 0.02153815087662458
+    }
+   ]
+  },
+  {
+   "index": 118,
+   "kind": "shop",
+   "name": "Proto101",
+   "brand": "",
+   "sub": "clothes",
+   "x": -599.1,
+   "z": -107.3,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n9480333616",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480333616",
+     "tags": {
+      "addr:floor": "2",
+      "addr:housenumber": "272",
+      "addr:street": "Bellevue Square",
+      "check_date": "2023-09-24",
+      "level": "1",
+      "name": "Proto101",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      -599.0945785167869,
+      -107.34239879967521
+     ],
+     "roundingErrorM": 0.042744013547267055
+    }
+   ]
+  },
+  {
+   "index": 119,
+   "kind": "shop",
+   "name": "TRUCE Spa",
+   "brand": "",
+   "sub": "beauty",
+   "x": -440.5,
+   "z": -160.7,
+   "buildingIndex": 739,
+   "matches": [
+    {
+     "sourceId": "n9480344700",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480344700",
+     "tags": {
+      "name": "TRUCE Spa",
+      "shop": "beauty"
+     },
+     "sourcePositionM": [
+      -440.51469233802214,
+      -160.71909840041428
+     ],
+     "roundingErrorM": 0.02409592693675865
+    }
+   ]
+  },
+  {
+   "index": 120,
+   "kind": "food",
+   "name": "Forum Social House",
+   "brand": "",
+   "sub": "bar",
+   "x": -474.9,
+   "z": -281.7,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n9480344702",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480344702",
+     "tags": {
+      "addr:floor": "3",
+      "amenity": "bar",
+      "check_date": "2023-09-23",
+      "internet_access": "wlan",
+      "internet_access:fee": "customers",
+      "level": "2",
+      "name": "Forum Social House",
+      "opening_hours": "Mo-Th 17:00-22:00; Fr 17:00-02:00; Sa 12:00-02:00; Su 12:00-20:00",
+      "payment:credit_cards": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -474.86916512517166,
+      -281.7085068000624
+     ],
+     "roundingErrorM": 0.031986796541387225
+    }
+   ]
+  },
+  {
+   "index": 121,
+   "kind": "food",
+   "name": "Prime 21 Lounge",
+   "brand": "",
+   "sub": "bar",
+   "x": -399.1,
+   "z": -374.5,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n9480344703",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480344703",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "amenity": "bar",
+      "level": "20",
+      "name": "Prime 21 Lounge",
+      "opening_hours": "Tu-Sa 16:00+"
+     },
+     "sourcePositionM": [
+      -399.0912127001932,
+      -374.4703871999106
+     ],
+     "roundingErrorM": 0.03088906873038847
+    }
+   ]
+  },
+  {
+   "index": 122,
+   "kind": "shop",
+   "name": "Needs Deli | Mercantile",
+   "brand": "",
+   "sub": "deli",
+   "x": -409.8,
+   "z": -400.5,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n9480344704",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480344704",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:floor": "2",
+      "addr:housenumber": "10500",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "addr:unit": "218",
+      "check_date": "2023-09-23",
+      "email": "hyattneeds@gmail.com",
+      "level": "1",
+      "name": "Needs Deli | Mercantile",
+      "opening_hours": "Mo-Fr 09:00-17:00",
+      "phone": "+1-425-646-7222",
+      "shop": "deli"
+     },
+     "sourcePositionM": [
+      -409.7997825267132,
+      -400.4975016000544
+     ],
+     "roundingErrorM": 0.002507847068412115
+    }
+   ]
+  },
+  {
+   "index": 123,
+   "kind": "food",
+   "name": "Fresh N More",
+   "brand": "",
+   "sub": "restaurant:buffet",
+   "x": -390.7,
+   "z": -401.6,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n9480344705",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480344705",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:floor": "2",
+      "addr:housenumber": "10500",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "addr:unit": "206",
+      "amenity": "restaurant",
+      "check_date": "2023-09-23",
+      "cuisine": "buffet",
+      "level": "1",
+      "name": "Fresh N More",
+      "opening_hours": "Mo-Fr 11:00-14:00",
+      "website": "https://www.freshnmorebellevue.com/"
+     },
+     "sourcePositionM": [
+      -390.7239699832757,
+      -401.6199347997474
+     ],
+     "roundingErrorM": 0.03117621431806989
+    }
+   ]
+  },
+  {
+   "index": 124,
+   "kind": "shop",
+   "name": "Nova Eye Care",
+   "brand": "",
+   "sub": "optician",
+   "x": -430.9,
+   "z": -410.6,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n9480344706",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480344706",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:floor": "2",
+      "addr:housenumber": "900",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "addr:unit": "213",
+      "check_date": "2023-09-23",
+      "level": "1",
+      "name": "Nova Eye Care",
+      "opening_hours": "Tu, Th 09:00-17:00; Sa[2] 09:00-13:00",
+      "phone": "+1-425-454-1415",
+      "shop": "optician"
+     },
+     "sourcePositionM": [
+      -430.8867350236264,
+      -410.5549475999303
+     ],
+     "roundingErrorM": 0.04696465000651203
+    }
+   ]
+  },
+  {
+   "index": 125,
+   "kind": "shop",
+   "name": "Trillium Custom Tailoring & Design",
+   "brand": "",
+   "sub": "tailor",
+   "x": -389,
+   "z": -361.5,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n9480344708",
+     "sourceUrl": "https://www.openstreetmap.org/node/9480344708",
+     "tags": {
+      "addr:floor": "1",
+      "check_date": "2023-09-23",
+      "level": "0",
+      "name": "Trillium Custom Tailoring & Design",
+      "opening_hours": "Mo,Sa-Su off; Tu-Fr 11:00-17:00",
+      "phone": "+1-425-454-0292",
+      "shop": "tailor",
+      "website": "https://trilliumtailor.com"
+     },
+     "sourcePositionM": [
+      -388.97547890471907,
+      -361.5012827999633
+     ],
+     "roundingErrorM": 0.024554626641884576
+    }
+   ]
+  },
+  {
+   "index": 126,
+   "kind": "food",
+   "name": "Cafe Hagen",
+   "brand": "",
+   "sub": "cafe",
+   "x": -114.8,
+   "z": -260.3,
+   "buildingIndex": 578,
+   "matches": [
+    {
+     "sourceId": "n9626930586",
+     "sourceUrl": "https://www.openstreetmap.org/node/9626930586",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "777",
+      "addr:postcode": "98004",
+      "addr:street": "108th Avenue Northeast",
+      "amenity": "cafe",
+      "check_date": "2025-12-09",
+      "name": "Cafe Hagen",
+      "website": "https://cafehagen.com"
+     },
+     "sourcePositionM": [
+      -114.82258368551167,
+      -260.2822571999892
+     ],
+     "roundingErrorM": 0.0287198503393358
+    }
+   ]
+  },
+  {
+   "index": 127,
+   "kind": "landmark",
+   "name": "Lincoln Square Fiori",
+   "brand": "",
+   "sub": "artwork",
+   "x": -482.4,
+   "z": -253.4,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n11212853758",
+     "sourceUrl": "https://www.openstreetmap.org/node/11212853758",
+     "tags": {
+      "artist_name": "Dale Chihuly",
+      "artwork_type": "sculpture",
+      "level": "0",
+      "material": "glass",
+      "name": "Lincoln Square Fiori",
+      "start_date": "2006-09-07",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      -482.4259484569295,
+      -253.39207320001313
+     ],
+     "roundingErrorM": 0.027132205495613182
+    }
+   ]
+  },
+  {
+   "index": 128,
+   "kind": "shop",
+   "name": "Finish Line",
+   "brand": "Finish Line",
+   "sub": "sports",
+   "x": -550.9,
+   "z": -110.4,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n11213162188",
+     "sourceUrl": "https://www.openstreetmap.org/node/11213162188",
+     "tags": {
+      "brand": "Finish Line",
+      "brand:wikidata": "Q5450341",
+      "check_date": "2023-09-24",
+      "level": "-1",
+      "name": "Finish Line",
+      "shop": "sports",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -550.9097664240028,
+      -110.43186840024524
+     ],
+     "roundingErrorM": 0.03333133618672901
+    }
+   ]
+  },
+  {
+   "index": 129,
+   "kind": "landmark",
+   "name": "Lincoln Square End of the Day Chandelier",
+   "brand": "",
+   "sub": "artwork",
+   "x": -485.7,
+   "z": -250.4,
+   "buildingIndex": 567,
+   "matches": [
+    {
+     "sourceId": "n11214221844",
+     "sourceUrl": "https://www.openstreetmap.org/node/11214221844",
+     "tags": {
+      "artist_name": "Dale Chihuly",
+      "artwork_type": "sculpture",
+      "level": "0",
+      "material": "glass",
+      "name": "Lincoln Square End of the Day Chandelier",
+      "start_date": "2006-09-07",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      -485.65277748707814,
+      -250.4359620002119
+     ],
+     "roundingErrorM": 0.0593568124640682
+    }
+   ]
+  },
+  {
+   "index": 130,
+   "kind": "shop",
+   "name": "City Flowers",
+   "brand": "",
+   "sub": "gift",
+   "x": -413.4,
+   "z": -395.6,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n11214334061",
+     "sourceUrl": "https://www.openstreetmap.org/node/11214334061",
+     "tags": {
+      "addr:floor": "1",
+      "check_date": "2023-09-23",
+      "level": "0",
+      "name": "City Flowers",
+      "note": "City Flowers is one business which occupies two units - one on either side of the corridor. Gift shop is to the west, and flowers are to the east.",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -413.40932848797263,
+      -395.61880679989565
+     ],
+     "roundingErrorM": 0.02099324677533551
+    }
+   ]
+  },
+  {
+   "index": 131,
+   "kind": "shop",
+   "name": "City Flowers",
+   "brand": "",
+   "sub": "florist",
+   "x": -385.4,
+   "z": -396.4,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n11214334062",
+     "sourceUrl": "https://www.openstreetmap.org/node/11214334062",
+     "tags": {
+      "addr:floor": "1",
+      "check_date": "2023-09-23",
+      "level": "0",
+      "name": "City Flowers",
+      "note": "City Flowers is one business which occupies two units - one on either side of the corridor. Gift shop is to the west, and flowers are to the east.",
+      "shop": "florist"
+     },
+     "sourcePositionM": [
+      -385.41846271844344,
+      -396.3745044000408
+     ],
+     "roundingErrorM": 0.03147852584860461
+    }
+   ]
+  },
+  {
+   "index": 132,
+   "kind": "hotel",
+   "name": "InterContinental Seattle Bellevue, by IHG",
+   "brand": "InterContinental",
+   "sub": "hotel",
+   "x": -593.1,
+   "z": -392.8,
+   "buildingIndex": 1090,
+   "matches": [
+    {
+     "sourceId": "n11921218971",
+     "sourceUrl": "https://www.openstreetmap.org/node/11921218971",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "850",
+      "addr:old_street": "103rd Avenue Northeast",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Avenue Square Northeast",
+      "air_conditioning": "yes",
+      "brand": "InterContinental",
+      "brand:wikidata": "Q1825730",
+      "check_date": "2024-05-20",
+      "email": "info@icbellevue.com",
+      "fax": "+1-425-436-3980",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "level": "0",
+      "name": "InterContinental Seattle Bellevue, by IHG",
+      "pets_allowed": "yes",
+      "phone": "+1-425-615-6565",
+      "rooms": "208",
+      "tourism": "hotel",
+      "website": "https://www.ihg.com/intercontinental/hotels/us/en/bellevue/seaha/hoteldetail"
+     },
+     "sourcePositionM": [
+      -593.0611586574264,
+      -392.75160120034377
+     ],
+     "roundingErrorM": 0.062057180898636766
+    }
+   ]
+  },
+  {
+   "index": 133,
+   "kind": "shop",
+   "name": "Brume",
+   "brand": "",
+   "sub": "furniture",
+   "x": -619.6,
+   "z": -345.9,
+   "buildingIndex": 1091,
+   "matches": [
+    {
+     "sourceId": "n12008728872",
+     "sourceUrl": "https://www.openstreetmap.org/node/12008728872",
+     "tags": {
+      "addr:housenumber": "801",
+      "addr:street": "Avenue Square Northeast",
+      "name": "Brume",
+      "shop": "furniture",
+      "website": "https://www.brume.house/"
+     },
+     "sourcePositionM": [
+      -619.6112077441232,
+      -345.9316896004225
+     ],
+     "roundingErrorM": 0.03361315669897802
+    }
+   ]
+  },
+  {
+   "index": 134,
+   "kind": "shop",
+   "name": "Jo Malone",
+   "brand": "Jo Malone",
+   "sub": "perfumery",
+   "x": -602.8,
+   "z": -369,
+   "buildingIndex": 1090,
+   "matches": [
+    {
+     "sourceId": "n12008728875",
+     "sourceUrl": "https://www.openstreetmap.org/node/12008728875",
+     "tags": {
+      "addr:housenumber": "842",
+      "addr:old_street": "103rd Avenue Northeast",
+      "addr:street": "Avenue Square Northeast",
+      "brand": "Jo Malone",
+      "brand:wikidata": "Q28940761",
+      "name": "Jo Malone",
+      "shop": "perfumery"
+     },
+     "sourcePositionM": [
+      -602.8316967884166,
+      -368.98046639971574
+     ],
+     "roundingErrorM": 0.037232350664368495
+    }
+   ]
+  },
+  {
+   "index": 135,
+   "kind": "shop",
+   "name": "Fleur",
+   "brand": "",
+   "sub": "florist",
+   "x": -599.8,
+   "z": -373.8,
+   "buildingIndex": 1090,
+   "matches": [
+    {
+     "sourceId": "n12008728876",
+     "sourceUrl": "https://www.openstreetmap.org/node/12008728876",
+     "tags": {
+      "addr:housenumber": "846",
+      "addr:street": "Avenue Square Northeast",
+      "name": "Fleur",
+      "shop": "florist"
+     },
+     "sourcePositionM": [
+      -599.7774655905099,
+      -373.8480479997446
+     ],
+     "roundingErrorM": 0.0530698585877332
+    }
+   ]
+  },
+  {
+   "index": 136,
+   "kind": "food",
+   "name": "Sweet Alchemy",
+   "brand": "",
+   "sub": "ice_cream",
+   "x": -290.7,
+   "z": -459.9,
+   "buildingIndex": 556,
+   "matches": [
+    {
+     "sourceId": "n12058105559",
+     "sourceUrl": "https://www.openstreetmap.org/node/12058105559",
+     "tags": {
+      "amenity": "ice_cream",
+      "check_date": "2024-07-16",
+      "name": "Sweet Alchemy"
+     },
+     "sourcePositionM": [
+      -290.7372955822694,
+      -459.9197820003751
+     ],
+     "roundingErrorM": 0.04221715286059429
+    }
+   ]
+  },
+  {
+   "index": 137,
+   "kind": "shop",
+   "name": "MR.",
+   "brand": "",
+   "sub": "furniture",
+   "x": -622.5,
+   "z": -374.2,
+   "buildingIndex": 1091,
+   "matches": [
+    {
+     "sourceId": "n12103463651",
+     "sourceUrl": "https://www.openstreetmap.org/node/12103463651",
+     "tags": {
+      "addr:housenumber": "859",
+      "addr:street": "Avenue Square Northeast",
+      "level": "1",
+      "name": "MR.",
+      "shop": "furniture",
+      "website": "https://mr.studio/"
+     },
+     "sourcePositionM": [
+      -622.5003453629,
+      -374.2036703999523
+     ],
+     "roundingErrorM": 0.0036866124480936084
+    }
+   ]
+  },
+  {
+   "index": 138,
+   "kind": "food",
+   "name": "Fresco",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -598.4,
+   "z": -371.5,
+   "buildingIndex": 1090,
+   "matches": [
+    {
+     "sourceId": "n12103463654",
+     "sourceUrl": "https://www.openstreetmap.org/node/12103463654",
+     "tags": {
+      "addr:housenumber": "825",
+      "addr:street": "Avenue Square Northeast",
+      "amenity": "restaurant",
+      "level": "1",
+      "name": "Fresco",
+      "website": "https://www.ihg.com/intercontinental/hotels/us/en/bellevue/seaha/hoteldetail/dining"
+     },
+     "sourcePositionM": [
+      -598.3966829368399,
+      -371.51427600010936
+     ],
+     "roundingErrorM": 0.014656298548090651
+    }
+   ]
+  },
+  {
+   "index": 139,
+   "kind": "landmark",
+   "name": "Heronious One",
+   "brand": "",
+   "sub": "artwork",
+   "x": -142.5,
+   "z": -116.2,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n12160288160",
+     "sourceUrl": "https://www.openstreetmap.org/node/12160288160",
+     "tags": {
+      "alt_name": "Pescamatic Pomonoid",
+      "artist_name": "Rik Allen;Shelley Muzylowski Allen",
+      "artwork_type": "sculpture",
+      "material": "bronze;stainless steel",
+      "name": "Heronious One",
+      "start_date": "2023",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      -142.52828781971922,
+      -116.1662796001387
+     ],
+     "roundingErrorM": 0.044014385276565364
+    }
+   ]
+  },
+  {
+   "index": 140,
+   "kind": "food",
+   "name": "Central Bar & Restaurant",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -430.7,
+   "z": -104.1,
+   "buildingIndex": 1172,
+   "matches": [
+    {
+     "sourceId": "n12269969117",
+     "sourceUrl": "https://www.openstreetmap.org/node/12269969117",
+     "tags": {
+      "amenity": "restaurant",
+      "check_date": "2023-09-23",
+      "level": "0",
+      "name": "Central Bar & Restaurant",
+      "payment:credit_cards": "yes",
+      "toilets:wheelchair": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -430.7366499528535,
+      -104.11957079991566
+     ],
+     "roundingErrorM": 0.04154798735803676
+    }
+   ]
+  },
+  {
+   "index": 141,
+   "kind": "landmark",
+   "name": "Story Pole VI",
+   "brand": "",
+   "sub": "artwork",
+   "x": -676.4,
+   "z": -318,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n12554043199",
+     "sourceUrl": "https://www.openstreetmap.org/node/12554043199",
+     "tags": {
+      "artist_name": "Frank Video",
+      "artwork_type": "sculpture",
+      "description": "Crooked metal bus stop pole displaying historical statistics",
+      "name": "Story Pole VI",
+      "start_date": "1996",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      -676.4184071745653,
+      -318.0375575997807
+     ],
+     "roundingErrorM": 0.04182579798124674
+    }
+   ]
+  },
+  {
+   "index": 142,
+   "kind": "shop",
+   "name": "FP Movement",
+   "brand": "",
+   "sub": "clothes",
+   "x": -610.5,
+   "z": -129.8,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "n12615219911",
+     "sourceUrl": "https://www.openstreetmap.org/node/12615219911",
+     "tags": {
+      "addr:floor": "1",
+      "addr:unit": "173",
+      "check_date:opening_hours": "2025-02-23",
+      "level": "0",
+      "name": "FP Movement",
+      "opening_hours:signed": "no",
+      "shop": "clothes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -610.4710269108058,
+      -129.77994959972202
+     ],
+     "roundingErrorM": 0.03523433621857336
+    }
+   ]
+  },
+  {
+   "index": 143,
+   "kind": "landmark",
+   "name": "Colors of Joy I, II",
+   "brand": "",
+   "sub": "artwork",
+   "x": -395.7,
+   "z": -541.1,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n13237996411",
+     "sourceUrl": "https://www.openstreetmap.org/node/13237996411",
+     "tags": {
+      "artist_name": "Rohini Mathur",
+      "artwork_type": "mural",
+      "name": "Colors of Joy I, II",
+      "start_date": "2022",
+      "tourism": "artwork",
+      "website": "https://static1.squarespace.com/static/63efe450f3d28b27294f0ff8/t/645e8f411c6d7774c49cde4f/1683918663093/COBUtilityBoxWrapsProgram2022.pdf"
+     },
+     "sourcePositionM": [
+      -395.6692730784663,
+      -541.1017079999274
+     ],
+     "roundingErrorM": 0.03077435573151688
+    }
+   ]
+  },
+  {
+   "index": 144,
+   "kind": "landmark",
+   "name": "A Tutti Frutti Crossing",
+   "brand": "",
+   "sub": "artwork",
+   "x": -114.7,
+   "z": -504.2,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n13238424478",
+     "sourceUrl": "https://www.openstreetmap.org/node/13238424478",
+     "tags": {
+      "artist_name": "Carmel Mercado",
+      "artwork_type": "mural",
+      "name": "A Tutti Frutti Crossing",
+      "start_date": "2022",
+      "tourism": "artwork",
+      "website": "https://static1.squarespace.com/static/63efe450f3d28b27294f0ff8/t/645e8f411c6d7774c49cde4f/1683918663093/COBUtilityBoxWrapsProgram2022.pdf"
+     },
+     "sourcePositionM": [
+      -114.69501137514143,
+      -504.1725444003028
+     ],
+     "roundingErrorM": 0.027905130938806647
+    }
+   ]
+  },
+  {
+   "index": 145,
+   "kind": "landmark",
+   "name": "Water Lily",
+   "brand": "",
+   "sub": "artwork",
+   "x": -521.6,
+   "z": -339.8,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n13238424479",
+     "sourceUrl": "https://www.openstreetmap.org/node/13238424479",
+     "tags": {
+      "artist_name": "George Tuton",
+      "artwork_type": "mural",
+      "description": "Mural installed on Utility Junction box as a part of City of Bellevue's Utility Box Wraps art initiative.",
+      "name": "Water Lily",
+      "start_date": "2022",
+      "tourism": "artwork",
+      "website": "https://static1.squarespace.com/static/63efe450f3d28b27294f0ff8/t/645e8f411c6d7774c49cde4f/1683918663093/COBUtilityBoxWrapsProgram2022.pdf"
+     },
+     "sourcePositionM": [
+      -521.6281690424141,
+      -339.76386360020194
+     ],
+     "roundingErrorM": 0.04581849343762277
+    }
+   ]
+  },
+  {
+   "index": 146,
+   "kind": "landmark",
+   "name": "Praise for You, Dive with Me",
+   "brand": "",
+   "sub": "artwork",
+   "x": -491.7,
+   "z": -197.9,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n13238424480",
+     "sourceUrl": "https://www.openstreetmap.org/node/13238424480",
+     "tags": {
+      "artist_name": "Soo Hong",
+      "artwork_type": "mural",
+      "name": "Praise for You, Dive with Me",
+      "note": "Mural installed on Utility Junction box as a part of City of Bellevue's Utility Box Wraps art initiative.",
+      "start_date": "2022",
+      "tourism": "artwork",
+      "website": "https://static1.squarespace.com/static/63efe450f3d28b27294f0ff8/t/645e8f411c6d7774c49cde4f/1683918663093/COBUtilityBoxWrapsProgram2022.pdf"
+     },
+     "sourcePositionM": [
+      -491.68619734750513,
+      -197.93720520025687
+     ],
+     "roundingErrorM": 0.03968299562844513
+    }
+   ]
+  },
+  {
+   "index": 147,
+   "kind": "landmark",
+   "name": "The Shoppers, The Sidewalk, Passerby, 11AM Saturday Morning, The Intersection, The Crosswalk",
+   "brand": "",
+   "sub": "artwork",
+   "x": -490.2,
+   "z": -108.3,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n13238424481",
+     "sourceUrl": "https://www.openstreetmap.org/node/13238424481",
+     "tags": {
+      "artist_name": "Rey Daoed",
+      "artwork_type": "mural",
+      "name": "The Shoppers, The Sidewalk, Passerby, 11AM Saturday Morning, The Intersection, The Crosswalk",
+      "note": "Mural installed on Utility Junction box as a part of City of Bellevue's Utility Box Wraps art initiative.",
+      "start_date": "2022",
+      "tourism": "artwork",
+      "website": "https://static1.squarespace.com/static/63efe450f3d28b27294f0ff8/t/645e8f411c6d7774c49cde4f/1683918663093/COBUtilityBoxWrapsProgram2022.pdf"
+     },
+     "sourcePositionM": [
+      -490.1703381292863,
+      -108.33147360017867
+     ],
+     "roundingErrorM": 0.043248284156064534
+    }
+   ]
+  },
+  {
+   "index": 148,
+   "kind": "shop",
+   "name": "Eco Car Cafe",
+   "brand": "",
+   "sub": "car_wash",
+   "x": -406,
+   "z": -345.9,
+   "buildingIndex": 514,
+   "matches": [
+    {
+     "sourceId": "n13279136171",
+     "sourceUrl": "https://www.openstreetmap.org/node/13279136171",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "10500",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street Lvl 3",
+      "amenity": "car_wash",
+      "check_date": "2025-11-04",
+      "currency:XBT": "yes",
+      "name": "Eco Car Cafe",
+      "payment:lightning": "yes",
+      "payment:lightning_contactless": "no",
+      "payment:lightning:operator": "square",
+      "payment:onchain": "no",
+      "phone": "+1-206-222-2710",
+      "website": "https://ecocarcafe.com/"
+     },
+     "sourcePositionM": [
+      -406.0401514946809,
+      -345.8761235997731
+     ],
+     "roundingErrorM": 0.046714291313311895
+    }
+   ]
+  },
+  {
+   "index": 149,
+   "kind": "shop",
+   "name": "Paris Baguette",
+   "brand": "Paris Baguette",
+   "sub": "bakery",
+   "x": -116.6,
+   "z": -420.1,
+   "buildingIndex": 827,
+   "matches": [
+    {
+     "sourceId": "n13847031368",
+     "sourceUrl": "https://www.openstreetmap.org/node/13847031368",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "931",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "108th Avenue Northeast",
+      "brand": "Paris Baguette",
+      "brand:wikidata": "Q62605260",
+      "name": "Paris Baguette",
+      "shop": "bakery"
+     },
+     "sourcePositionM": [
+      -116.59358752447099,
+      -420.0567336004195
+     ],
+     "roundingErrorM": 0.043739012049582304
+    }
+   ]
+  },
+  {
+   "index": 150,
+   "kind": "food",
+   "name": "Sabine Cafe and Bar",
+   "brand": "",
+   "sub": "cafe",
+   "x": -175.3,
+   "z": -346.9,
+   "buildingIndex": 571,
+   "matches": [
+    {
+     "sourceId": "n14272313951",
+     "sourceUrl": "https://www.openstreetmap.org/node/14272313951",
+     "tags": {
+      "amenity": "cafe",
+      "name": "Sabine Cafe and Bar"
+     },
+     "sourcePositionM": [
+      -175.25433758450382,
+      -346.88742479974667
+     ],
+     "roundingErrorM": 0.04736234633501642
+    }
+   ]
+  },
+  {
+   "index": 151,
+   "kind": "food",
+   "name": "Chick-fil-A",
+   "brand": "Chick-fil-A",
+   "sub": "fast_food:chicken",
+   "x": 654.4,
+   "z": -251,
+   "buildingIndex": 359,
+   "matches": [
+    {
+     "sourceId": "w387927271",
+     "sourceUrl": "https://www.openstreetmap.org/way/387927271",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "785",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "116th Avenue Northeast",
+      "amenity": "fast_food",
+      "branch": "Northeast 8th Street",
+      "brand": "Chick-fil-A",
+      "brand:wikidata": "Q491516",
+      "building": "yes",
+      "check_date": "2025-02-16",
+      "cuisine": "chicken",
+      "delivery": "yes",
+      "drive_through": "yes",
+      "internet_access": "wlan",
+      "name": "Chick-fil-A",
+      "opening_hours": "Mo-Sa 06:00-22:00; Su off",
+      "outdoor_seating": "no",
+      "phone": "+1-425-454-1758",
+      "ref": "03299",
+      "smoking": "no",
+      "takeaway": "yes",
+      "website": "https://www.chick-fil-a.com/locations/wa/northeast-8th-street"
+     },
+     "sourcePositionM": [
+      654.4265181698274,
+      -250.97272409831373
+     ],
+     "roundingErrorM": 0.038041926131527536
+    }
+   ]
+  },
+  {
+   "index": 152,
+   "kind": "bank",
+   "name": "Chase",
+   "brand": "Chase",
+   "sub": "bank",
+   "x": -337.5,
+   "z": -356.5,
+   "buildingIndex": 512,
+   "matches": [
+    {
+     "sourceId": "w33115668",
+     "sourceUrl": "https://www.openstreetmap.org/way/33115668",
+     "tags": {
+      "addr:city": "Bellevue",
+      "addr:housenumber": "10550",
+      "addr:postcode": "98004",
+      "addr:state": "WA",
+      "addr:street": "Northeast 8th Street",
+      "amenity": "bank",
+      "atm": "yes",
+      "brand": "Chase",
+      "brand:wikidata": "Q524629",
+      "building": "commercial",
+      "building:levels": "2",
+      "check_date": "2024-09-17",
+      "check_date:opening_hours": "2024-09-17",
+      "name": "Chase",
+      "opening_hours": "Mo-Fr 09:00-17:00; Sa 09:00-13:00; Su closed",
+      "phone": "+1-425-590-4242",
+      "website": "https://locator.chase.com/wa/bellevue/10550-ne-8th-st"
+     },
+     "sourcePositionM": [
+      -337.47377522364263,
+      -356.47364259511016
+     ],
+     "roundingErrorM": 0.037181335203575916
+    }
+   ]
+  },
+  {
+   "index": 153,
+   "kind": "office",
+   "name": "Paccar",
+   "brand": "",
+   "sub": "company",
+   "x": -357.9,
+   "z": -273.8,
+   "buildingIndex": 513,
+   "matches": [
+    {
+     "sourceId": "w33115737",
+     "sourceUrl": "https://www.openstreetmap.org/way/33115737",
+     "tags": {
+      "building": "office",
+      "building:levels": "4",
+      "name": "Paccar",
+      "note": "As of 5/5/2018: This is no longer a bank, has become part of the Paccar company complex.",
+      "office": "company",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -357.9354701334672,
+      -273.79043306241084
+     ],
+     "roundingErrorM": 0.03673767362012856
+    }
+   ]
+  },
+  {
+   "index": 154,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "bank",
+   "x": -62.9,
+   "z": -372.1,
+   "buildingIndex": 539,
+   "matches": [
+    {
+     "sourceId": "w33725900",
+     "sourceUrl": "https://www.openstreetmap.org/way/33725900",
+     "tags": {
+      "addr:housenumber": "10800",
+      "addr:street": "Northeast 8th Street",
+      "amenity": "bank",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "building": "yes",
+      "building:levels": "10",
+      "name": "U.S. Bank",
+      "roof:shape": "flat"
+     },
+     "sourcePositionM": [
+      -62.870577824488414,
+      -372.0787029569144
+     ],
+     "roundingErrorM": 0.036321184672650865
+    }
+   ]
+  },
+  {
+   "index": 155,
+   "kind": "hotel",
+   "name": "Westin Bellevue",
+   "brand": "Westin",
+   "sub": "hotel",
+   "x": -441.1,
+   "z": -153.2,
+   "buildingIndex": 739,
+   "matches": [
+    {
+     "sourceId": "w328017119",
+     "sourceUrl": "https://www.openstreetmap.org/way/328017119",
+     "tags": {
+      "addr:housenumber": "600",
+      "addr:state": "WA",
+      "addr:street": "Bellevue Way Northeast",
+      "brand": "Westin",
+      "brand:wikidata": "Q1969162",
+      "building": "yes",
+      "building:levels": "2",
+      "layer": "1",
+      "name": "Westin Bellevue",
+      "operator": "Starwood Hotels & Resorts Worldwide, Inc.",
+      "source": "Bing",
+      "toilets:wheelchair": "yes",
+      "tourism": "hotel",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -441.05301465749227,
+      -153.16977389389754
+     ],
+     "roundingErrorM": 0.05586805796416443
+    }
+   ]
+  },
+  {
+   "index": 156,
+   "kind": "shop",
+   "name": "Macy's",
+   "brand": "Macy's",
+   "sub": "department_store",
+   "x": -552.5,
+   "z": -130.8,
+   "buildingIndex": 503,
+   "matches": [
+    {
+     "sourceId": "w497739259",
+     "sourceUrl": "https://www.openstreetmap.org/way/497739259",
+     "tags": {
+      "brand": "Macy's",
+      "brand:wikidata": "Q629269",
+      "building:part": "yes",
+      "name": "Macy's",
+      "shop": "department_store",
+      "website": "https://www.macys.com/stores/wa/bellevue/bellevue-square_368.html",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -552.4995730050423,
+      -130.76889742298454
+     ],
+     "roundingErrorM": 0.03110550789968577
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+{
+  "sourceInventory": "e1bab01021be5b8d05a60145b7a8476d720d0f1d",
+  "scope": "Actual published local game images and UI; official aerial response intercepted for cache tests only. No visual parity or physical-phone claim.",
+  "districts": [],
+  "landmarks": [],
+  "spots": [],
+  "errors": [],
+  "complete": false,
+  "failure": "page.waitForFunction: Timeout 45000ms exceeded.\n    at main (/workspace/CalinaCristian.github.io/game/dev/harness/overview-current-check.cjs:23:14)"
+}

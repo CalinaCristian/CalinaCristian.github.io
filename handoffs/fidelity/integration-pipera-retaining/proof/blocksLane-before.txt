@@ -1,0 +1,29 @@
+        blocksLane = (w, x, z, f) => {
+            const mg = w.kind === 'barrier' ? 0 : 0.3, y0 = w.y0a + (w.y0b - w.y0a) * f - mg, y1 = w.y1a + (w.y1b - w.y1a) * f + mg;
+            let hit = false;
+            ribGrid.each(x - 0.6, z - 0.6, x + 0.6, z + 0.6, (rb) => {
+                if (hit || rb.e === w.edge) return;
+                if (w.node && (rb.node === w.node || (rb.e && (rb.e.a === w.node || rb.e.b === w.node)))) return; // a pad-rim barrier vs its own junction / approaches
+                if (rb.node && !w.node && (rb.node === w.edge.a || rb.node === w.edge.b)) { // its own junction: keep the wall along the edge proper
+                    const e = w.edge, sAl = (x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz;
+                    if (sAl > retract(e, e.a) + 0.3 && sAl < e.len - retract(e, e.b) - 0.3 && (rb.node.allEdges || rb.node.edges).filter(f => !f.virtual).length <= 2) return; // (a real junction's pad is used by the other approaches)
+                }
+                if (x < rb.x0 - 0.6 || x > rb.x1 + 0.6 || z < rb.z0 - 0.6 || z > rb.z1 + 0.6) return;
+                if (!pointInPolygon(x, z, rb.poly) || polyDist(x, z, rb.poly) < 0.3) return; // only where it would stand ≥ 0.3 m inside a lane
+                if (w.kind !== 'barrier') { hit = true; return; } // wide-band walls (embankment / trench / rail / guard) never stand in a lane
+                // at a split / merge the sibling ramp (sharing a node with the wall's edge) is driven through the gore: a barrier
+                // standing in its lanes is always cut (the wall across 'Exit → Westfield Southcenter', QA round 2)
+                const sib = distId && rb.e && w.edge && ((/_link$/.test(rb.e.type) && /_link$/.test(w.edge.type)) || rb.e.bridge || w.edge.bridge) && (rb.e.a === w.edge.a || rb.e.a === w.edge.b || rb.e.b === w.edge.a || rb.e.b === w.edge.b);
+                if (sib) { const n = (rb.e.a === w.edge.a || rb.e.a === w.edge.b) ? rb.e.a : rb.e.b;
+                    const hS = Y.road + rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1), own = (y0 + y1) / 2;
+                    if (Math.hypot(x - n.x, z - n.z) < ((rb.e.bridge || w.edge.bridge) ? 40 : 15) && Math.abs(hS - own) < 1.6 && polyDist(x, z, rb.poly) > 0.5) { hit = true; return; } } // (a deck leaving its street at a split: no barrier in the street's lane — play-test note 12)
+                // narrow separation barriers: only where the lane continues on both sides (a lane merely ending at the line keeps it)
+                if (!pointInPolygon(x + w.nx * 0.9, z + w.nz * 0.9, rb.poly) || !pointInPolygon(x - w.nx * 0.9, z - w.nz * 0.9, rb.poly)) return;
+                // and a car pushed through the gap would really land on a surface at this level (same test as roadHeight)
+                let cont = false; surfacesAt(x - w.nx * 0.6, z - w.nz * 0.6, (hh) => { if (hh >= y0 && hh <= y1) cont = true; }, null, false, w.edge);
+                if (!cont) return;
+                const h = Y.road + (rb.e ? rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1) : padHeightAt(rb.node, x, z));
+                if (h >= y0 && h <= y1) hit = true;
+            });
+            return hit;
+        };

@@ -1,0 +1,158 @@
+{
+  "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+  "overviewBase": "e354a500e95a5f741564becf528af1f9445bd265",
+  "startedAt": "2026-11-09T08:17:44.126Z",
+  "sourceFilesVerifiedBefore": 230,
+  "purpose": "Visitor scene illustrations from staging, not released gameplay, public-route proof or a matched reference comparison.",
+  "setup": "Native destination entry followed by explicit placement of the production on-foot controller at the scene-authored postcard viewpoint. All final look direction is acquired through actual CDP touch drags; no free camera. Phone JPEGs are the entire actual 390×844 page, including its native HUD.",
+  "records": [
+    {
+      "id": "pike-place",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/pike-place/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:18:02.329Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -19.622449085792063,
+            "z": 17.0575347537532,
+            "y": -2.1248124068135157,
+            "heading": 2.286381328125
+          },
+          "pose": {
+            "position": [
+              -19.622449085792063,
+              -0.4748124068135158,
+              17.0575347537532
+            ],
+            "bearing": 228.99999954092166,
+            "pitch": 11.999998965706924
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:17:57.335Z",
+          "triangles": 521521,
+          "drawCalls": 156,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "0df12482b0db1f2eda1b079c0813d028173fdabf11f93fc6a7abbf1a331a9b7d",
+          "bytes": 51514,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/pike-place/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:18:08.671Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -19.622449085792063,
+            "z": 17.0575347537532,
+            "y": -2.1248124068135157,
+            "heading": 2.286381328125
+          },
+          "pose": {
+            "position": [
+              -19.622449085792063,
+              -0.4748124068135158,
+              17.0575347537532
+            ],
+            "bearing": 228.99999954092166,
+            "pitch": 11.999998965706924
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:18:03.672Z",
+          "triangles": 501235,
+          "drawCalls": 101,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "3a164d1c03d07138079787833fad55fb21bb176da4ae77f18e559d653e1f7a9d",
+          "bytes": 57673,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -9.5,
+          "z": 13.5,
+          "y": -1.1196706226673887,
+          "heading": -4.1887902047863905
+        },
+        "viewpoint": {
+          "view": null,
+          "id": "pike-place",
+          "x": -19.622449085792063,
+          "z": 17.0575347537532,
+          "bearing": 229,
+          "pitch": 12,
+          "fov": 55,
+          "text": "Looking down Pike St: the PUBLIC MARKET CENTER sign and clock above the arcade corner, fish stall and crowds below; best at blue hour when the neon glows.",
+          "r": 12,
+          "tol": 30,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": -19.622449085792063,
+          "z": 17.0575347537532,
+          "y": -2.1248124068135157,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "pike-place",
+        "origin": {
+          "lat": 47.60897,
+          "lon": -122.33987,
+          "elev": 36.8
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.56
+        }
+      },
+      "look": {
+        "drags": 9,
+        "residualInputPixels": {
+          "x": 0.000003338511689321422,
+          "y": -0.000007521591474657364
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.000003338511689321422,
+          "y": -0.000007521591474657364
+        }
+      },
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "complete": true,
+  "endedAt": "2026-11-09T08:18:09.801Z",
+  "sourceFilesVerifiedAfter": 230
+}

@@ -1,0 +1,9 @@
+PASS actual four signalized tram_crossing nodes preserve pedestrian control without requiring an uncontrolled road controller
+PASS explicit railway signal head tags cannot become pedestrian-only or silently green
+PASS an explicit tram head retained only in source-node metadata still blocks pedestrian-only classification
+PASS missing literal crossing context retains the original source-coverage guard
+PASS unavailable coordinates, wrong source IDs and shifted source node cannot masquerade as complete context
+PASS ordinary railway crossing semantics and missing vehicle controller guards are unchanged
+PASS contradictory explicit head in another same-node raw context is never masked by earlier pedestrian context
+PASS read-only pedestrian report adds no signal head, timing, priority or vehicle state
+{"passed":true,"controls":8,"browserOpened":false}

@@ -1,0 +1,117 @@
+{
+  "freeze": "4198996ab142e3496c9224478eb8cd1aced676fb",
+  "uiRuntime": {
+    "game/src/main.js": {
+      "tested": "6183dfb0110fd7139f8b825838798667d225a7cddeb78f8b395bc21701dae84c",
+      "freeze": "6183dfb0110fd7139f8b825838798667d225a7cddeb78f8b395bc21701dae84c"
+    },
+    "game/src/render.js": {
+      "tested": "c886535e571144de5fd007294350b2b803138125d68f61f9a5992ca298fba587",
+      "freeze": "c886535e571144de5fd007294350b2b803138125d68f61f9a5992ca298fba587"
+    },
+    "game/src/save.js": {
+      "tested": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc",
+      "freeze": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc"
+    },
+    "game/src/hud.js": {
+      "tested": "8ee4cbc9e0aea279a72a0f923e7554cb8115d7fffb9c9820ed08d7e0b39beb18",
+      "freeze": "8ee4cbc9e0aea279a72a0f923e7554cb8115d7fffb9c9820ed08d7e0b39beb18"
+    },
+    "game/src/office.js": {
+      "tested": "a56fed9898f03633930afa6e724421c888d30dd040d5d4d3b1bed9880d359166",
+      "freeze": "a56fed9898f03633930afa6e724421c888d30dd040d5d4d3b1bed9880d359166"
+    },
+    "game/src/achievements.js": {
+      "tested": "fb7650a3db44ce163a28fc760c6093af1f68f0580198ffd13d57c2c6a7680eb8",
+      "freeze": "fb7650a3db44ce163a28fc760c6093af1f68f0580198ffd13d57c2c6a7680eb8"
+    },
+    "game/src/explore.js": {
+      "tested": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993",
+      "freeze": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993"
+    },
+    "game/src/input.js": {
+      "tested": "e14ff4e1be7dbbfaf7cb07395340515e01820ab36cba24a40d60001ff5511d00",
+      "freeze": "e14ff4e1be7dbbfaf7cb07395340515e01820ab36cba24a40d60001ff5511d00"
+    },
+    "game/src/data.js": {
+      "tested": "5f9f29ab1b4ca2890fab1a6df96749e59235bf1b7aa75d5a4421160e626be738",
+      "freeze": "5f9f29ab1b4ca2890fab1a6df96749e59235bf1b7aa75d5a4421160e626be738"
+    },
+    "game/src/cities.js": {
+      "tested": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+      "freeze": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac"
+    },
+    "game/style.css": {
+      "tested": "8b2fd3641ced223a3c11afc33a3f4a19764d2a7f52b522d3e2f0d08319142d26",
+      "freeze": "8b2fd3641ced223a3c11afc33a3f4a19764d2a7f52b522d3e2f0d08319142d26"
+    }
+  },
+  "uiRuntimeDifferences": [],
+  "roadFields": {
+    "game/data/seattle-seatac.json": {
+      "roadAndProjectionFieldsIdentical": true,
+      "changedFields": [],
+      "decodedSourcePoisIdentical": true,
+      "testedPoiCount": 210,
+      "freezePoiCount": 210
+    },
+    "game/data/bucharest-pipera.json": {
+      "roadAndProjectionFieldsIdentical": false,
+      "changedFields": [
+        "pois"
+      ],
+      "decodedSourcePoisIdentical": true,
+      "testedPoiCount": 260,
+      "freezePoiCount": 260
+    },
+    "game/data/seattle-bellevue.json": {
+      "roadAndProjectionFieldsIdentical": false,
+      "changedFields": [
+        "pois"
+      ],
+      "decodedSourcePoisIdentical": true,
+      "testedPoiCount": 157,
+      "freezePoiCount": 157
+    },
+    "game/data/bucharest-floreasca.json": {
+      "roadAndProjectionFieldsIdentical": true,
+      "changedFields": [],
+      "decodedSourcePoisIdentical": true,
+      "testedPoiCount": 94,
+      "freezePoiCount": 94
+    },
+    "game/data/bucharest-otopeni.json": {
+      "roadAndProjectionFieldsIdentical": true,
+      "changedFields": [],
+      "decodedSourcePoisIdentical": true,
+      "testedPoiCount": 72,
+      "freezePoiCount": 72
+    },
+    "game/data/bucharest-grozavesti.json": {
+      "roadAndProjectionFieldsIdentical": true,
+      "changedFields": [],
+      "decodedSourcePoisIdentical": true,
+      "testedPoiCount": 73,
+      "freezePoiCount": 73
+    },
+    "game/data/bucharest-unirii.json": {
+      "roadAndProjectionFieldsIdentical": false,
+      "changedFields": [
+        "pois"
+      ],
+      "decodedSourcePoisIdentical": true,
+      "testedPoiCount": 246,
+      "freezePoiCount": 246
+    },
+    "game/data/bucharest-romana.json": {
+      "roadAndProjectionFieldsIdentical": false,
+      "changedFields": [
+        "pois"
+      ],
+      "decodedSourcePoisIdentical": true,
+      "testedPoiCount": 362,
+      "freezePoiCount": 362
+    }
+  },
+  "interpretation": "All listed UI runtime files and road/projection fields match. Raw POI index differences are string-table/building-index shifts; decoded names/brands/subtypes/source building IDs are compared separately. This permits scoped UI/control proof reuse, not final geometry/render/resource acceptance."
+}

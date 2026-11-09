@@ -7,12 +7,13 @@
 //  Tower (1914) up Yesler Way. Acorn street lamps throughout.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb } from '../kit.js';
+import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly } from '../kit.js';
 import { signBoard } from '../props.js';
+import { photoHunt } from '../photo-hunt.js';
 import { meshSDF, sdEllipsoid, sdCapsule, sdSphere, sdBox, smin, smax, fbm3 } from '../sdf.js';
 import { seaBackdrop, seaActivity } from './sea-common.js';
-import { facadeMaterial, facadeStyle, wallGeometry } from '../osm.js';
 import { addTraffic } from '../cars.js';
+import { LANDMARKS, buildLandmark } from '../../landmarks.js';
 
 // ---------------------------------------------------------------------------- the Chief-of-All-Women pole (1940 replica)
 /**
@@ -122,23 +123,11 @@ function buildPergola(ctx) {
     return { cx, cz, y0 };
 }
 function buildSmithTower(ctx) {
-    const st = ctx.data.buildings.find((x) => x.id === 'w52781661'); if (!st) return null;
-    ctx.skipBuildings.add(st.id);
-    const g = ctx.ground, o = obb(st.poly), y0 = Math.min(...st.poly.map(([x, z]) => g.heightAt(x, z))) - 0.3;
-    const cream = '#ece6d6', b = new GeoBatch(), S = facadeStyle('concrete');
-    const wb = wallGeometry(st.poly, y0, y0 + 75, S, y0, cream); b.add(wb, 'f-concrete', null, cream);
-    b.flat(st.poly, y0 + 75, '#cfc7b6', 'roofs');
-    // the tower shaft (≈ 15 × 15 m) rising to 140.8 m, then the pyramid to 147.5 m with the glass globe
-    const tw = 15.5, cx = o.cx, cz = o.cz, sq = (s) => [[cx - s, cz - s], [cx + s, cz - s], [cx + s, cz + s], [cx - s, cz + s]].map(([x, z]) => { const dx = x - cx, dz = z - cz; return [cx + dx * Math.cos(o.angle) - dz * Math.sin(o.angle), cz + dx * Math.sin(o.angle) + dz * Math.cos(o.angle)]; });
-    const shaft = wallGeometry(sq(tw / 2), y0 + 75, y0 + 136, S, y0 + 75, cream); b.add(shaft, 'f-concrete', null, cream);
-    b.box(cx, y0 + 136, cz, tw + 1.2, 2.2, tw + 1.2, cream, 'stone', -o.angle);
-    b.add(new THREE.ConeGeometry(tw * 0.74, 9.5, 4, 1), 'paint', M(cx, y0 + 138.2 + 4.75, cz, 0, Math.PI / 4 - o.angle, 0), '#e9e3d2');
-    b.sphere(cx, y0 + 148.3, cz, 0.9, 0.9, 0.9, '#a8d0e6', 'glass', 12, 8);
-    ctx.add(b.build('smith-tower', { matOverrides: { 'f-concrete': facadeMaterial('concrete') } }));
-    ctx.poly(st.poly);
-    const sg = signBoard('SMITH TOWER', 3.6, 0.6, { bg: '#2b2b2b', fg: '#e8d9a8', font: (s) => `700 ${s}px Georgia, serif` });
-    const [px, pz] = st.poly[0]; sg.position.set(px, y0 + 4.8, pz); sg.rotation.y = Math.PI; ctx.add(sg);
-    return { cx, cz };
+    const lm=LANDMARKS.find(l=>l.id==='smith'),st=ctx.data.buildings.find(x=>x.id==='w52781661');if(!st)return null;
+    for(const id of lm.sourceIds)ctx.skipBuildings.add(id);
+    const p=ctx.ll(lm.lat,lm.lon),y0=Math.min(...st.poly.map(([x,z])=>ctx.ground.heightAt(x,z)))-.3,model=buildLandmark(lm,{realScale:true});
+    model.mesh.position.set(p.x,y0,p.z);ctx.add(model.mesh);ctx.poly(st.poly);
+    return {cx:p.x,cz:p.z,y0,surface:{source:st.id,poly:st.poly,holes:st.holes||[],bottom:y0,top:y0+st.h}};
 }
 
 export default {
@@ -147,7 +136,7 @@ export default {
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('pioneer-square');
         ctx.terrainOpts = { bg: '#8c8578', bgMask: 'slab', innerPx: 2048 };
         const per = buildPergola(ctx);
-        buildSmithTower(ctx);
+        const smith=buildSmithTower(ctx);
         // totem pole + Chief Seattle bust fountain
         const tb = new GeoBatch();
         const to = sp.structures.find((s) => s.id === 'totem'), cs = sp.structures.find((s) => s.id === 'chief-seattle');
@@ -161,42 +150,27 @@ export default {
         ctx.lampOpts = { style: 'acorn', color: '#1c2a24', h: 4.6 };
         // Occidental Square: big London plane trees on the brick square
         { const sq = d.areas.find((a) => a.id === 'w174692555'); if (sq) { const bb = polyBox(sq.poly), r = rng(6); for (let i = 0; i < 26; i++) { const x = bb.x0 + 5 + r() * (bb.x1 - bb.x0 - 10), z = bb.z0 + 5 + r() * (bb.z1 - bb.z0 - 10); ctx.trees.push({ x, z, kind: 'broad', s: 1.25 + r() * 0.35 }); } ctx.painter.poly(sq.poly, '#9a5a44', 'brick'); } }
-        // storefront signs
-        const signs = [['UNDERGROUND TOUR', -13, -2, Math.PI / 2, '#3a1f12', '#f3d38a'], ["MERCHANT'S CAFE", 52, 12, -Math.PI / 2, '#1d3a2b', '#f2ead2']];
-        for (const [t, x, z, yaw, bg, fg] of signs) { const s2 = signBoard(t, 3.4, 0.55, { bg, fg, font: (q) => `700 ${q}px Georgia, serif`, glow: 0.05, night: 1.2 }); s2.position.set(x, g.heightAt(x, z) + 3.6, z); s2.rotation.y = yaw; ctx.add(s2); }
         ctx.extras.seaBackdrop = seaBackdrop(ctx, { clear: 330, rainier: false, olympics: false, bay: false, ferries: false, cranes: false, midrise: 500, midClear: 420, midBox: [47.596, -122.34, 47.612, -122.318] });
         addTraffic(ctx, { lanes: [{ pts: [[6, 272], [5, 179], [5, 85], [5, 30], [6, -8], [5, -84], [0, -94], [-12, -106], [-56, -178]], n: 3, speed: 8 }, { pts: [[-56, -178], [-12, -106], [-2, -84], [-2, -8], [-3, 85], [-4, 178], [-3, 248]].map(([x, z]) => [x - 1, z]), n: 3, speed: 8 }, { pts: [[-97, -9], [-2, -8], [45, -8], [151, -8], [247, -7]], n: 2, speed: 8 }] });
         // plaques around Pioneer Place
         const PL = sp.plaques;
         ctx.plaque(PL[0], per.cx - 5, per.cz + 6, Math.PI * 1.1); ctx.plaque(PL[1], -10, -16, Math.PI / 2); ctx.plaque(PL[2], 14, 10, -Math.PI / 2);
         ctx.plaque(PL[3], 150, -20, -Math.PI / 2, { credit: 'Smith Tower (1914): Gaggin & Gaggin.' }); ctx.plaque({ ...PL[4], title: 'Chief-of-All-Women pole (replica)', text: 'Carved 1939–40 at Saxman, Alaska, by Tlingit carvers led by Charles Brown, among them members of the Kinninook family, for whom the original was carved about 1790 at Tongass Island to honour Chief-of-All-Women. The original was taken without consent by a Seattle business excursion in 1899 and burned in 1938. Figures, top to bottom: Raven with the moon; a woman holding her frog child; her frog husband; Mink; Raven; Whale holding a seal; Raven-at-the-Head-of-Nass.' }, to.x - 2.2, to.z + 2.5, Math.PI * 0.9, { credit: 'Restored 1972 by Tsimshian carver John C. Hudson Jr. National Historic Landmark (1977). Modelled respectfully in 3-D from published descriptions (Garfield, The Seattle Totem Pole).' });
-        // ---- activities (note 57): read the pole (a light ring travels down the figures, top to bottom); the Underground
-        { const FIG = [['Raven with the moon in his beak', 13.6], ['A woman holding her frog child', 11.2], ['Her frog husband', 9.25], ['Mink', 7.7], ['Raven', 6.1], ['Whale holding a seal', 4.1], ['Raven-at-the-Head-of-Nass', 1.6]];
-          const ty = g.heightAt(to.x, to.z), ring = new THREE.Mesh(new THREE.TorusGeometry(0.95, 0.04, 6, 40), new THREE.MeshBasicMaterial({ color: '#ffe7b0', toneMapped: false, transparent: true, opacity: 0.85 }));
-          ring.rotation.x = Math.PI / 2; ring.visible = false; ring.name = 'totem-read-ring'; ring.userData.noAudit = true; ctx.add(ring);
-          let read = null;
-          ctx.onUpdate((dt, s) => { if (!read) return; read.t += dt; const i = Math.floor(read.t / 3.2);
-              if (i >= FIG.length) { ring.visible = false; read = null; seaActivity(s, 'lm-totem-read', 'pioneer-square', '🪶 Read the pole', 'Chief-of-All-Women pole: carved 1939–40 at Saxman by Tlingit carvers led by Charles Brown (Kinninook family among them).'); return; }
-              if (i !== read.i) { read.i = i; s.ui.toast(`${i + 1} / 7 · ${FIG[i][0]}`, i === 0 ? 'A pole is read from the top: the top figure names the owner — here the Raven moiety Kinninook family.' : ''); }
-              ring.position.set(to.x, ty + lerpF(FIG[Math.max(0, i - 1)][1], FIG[i][1], Math.min(1, (read.t % 3.2) / 0.8)), to.z); });
-          const lerpF = (a, b, t) => a + (b - a) * t;
-          ctx.interactables.push({ kind: 'activity', x: to.x - 2.6, z: to.z + 3.2, r: 2.6, label: 'Read the totem pole (top to bottom)', cond: () => !read,
-              use: (s) => { read = { t: 0, i: -1 }; ring.visible = true; s.ctl.pitch = 0.75; } });
-          // the Underground: a vault room under the 1st Ave sidewalk (1889 street level), amethyst glass prisms glowing overhead
-          const U = { x0: 7.2, x1: 13.2, z0: -44, z1: -24 }, uy = g.heightAt(10, -34) - 3.6, ub = new GeoBatch();
-          ub.box((U.x0 + U.x1) / 2, uy - 0.2, (U.z0 + U.z1) / 2, U.x1 - U.x0, 0.2, U.z1 - U.z0, '#5a4a3c', 'wood');
-          for (const x of [U.x0, U.x1]) ub.box(x, uy, (U.z0 + U.z1) / 2, 0.4, 3.5, U.z1 - U.z0, '#7a3f2c', 'brick');
-          for (const z of [U.z0, U.z1]) ub.box((U.x0 + U.x1) / 2, uy, z, U.x1 - U.x0, 3.5, 0.4, '#7a3f2c', 'brick');
-          ub.box((U.x0 + U.x1) / 2, uy + 3.45, (U.z0 + U.z1) / 2, U.x1 - U.x0, 0.12, U.z1 - U.z0, '#2c2a28', 'concrete');
-          for (let x = U.x0 + 0.5; x < U.x1 - 0.3; x += 0.45) for (let z = U.z0 + 0.5; z < U.z1 - 0.3; z += 0.45) ub.box(x, uy + 3.33, z, 0.22, 0.12, 0.22, (Math.round(x * 7 + z * 3) % 3) ? '#8c5ac8' : '#b48ae0', 'glow');
-          for (let z = U.z0 + 3; z < U.z1; z += 5) ub.box(U.x0 + 0.9, uy, z, 0.8, 1.0, 1.6, '#3b2a1c', 'wood'); // old shop counters
-          const room = ub.build('underground-vault', { castShadow: false }); room.visible = false; room.traverse((o) => { o.userData.noAudit = true; }); ctx.add(room);
-          let under = null;
-          ctx.onUpdate((dt, s) => { if (!under) return; under.t += dt; const lk = s.input?.takeLook?.() || { dx: 0, dy: 0 }; under.h -= lk.dx * 0.0024; under.p = Math.max(-1.2, Math.min(1.3, under.p - lk.dy * 0.0024));
-              s.ctl.rig.position.set(10.2, uy + 1.62, lerpF(U.z1 - 2, U.z0 + 2, Math.min(1, under.t / 18))); s.ctl.rig.rotation.set(under.p, under.h, 0, 'YXZ');
-              if (under.t > 20) { room.visible = false; s.ctl.active = true; s.ctl.teleport(under.back.x, under.back.z, under.back.heading); under = null; seaActivity(s, 'lm-underground', 'pioneer-square', '🕯️ Below Seattle', 'After the 1889 fire the streets were raised one to two storeys; the old ground-floor sidewalks became this Underground, lit by purple glass prisms.'); } });
-          ctx.interactables.push({ kind: 'activity', x: -11.5, z: -2, r: 3, label: 'Take the Underground Tour (descend under the sidewalk)', cond: () => !under,
-              use: (s) => { const p = s.ctl.position; under = { t: 0, h: 0, p: 0.5, back: { x: p.x, z: p.z, heading: s.ctl.heading } }; room.visible = true; s.ctl.active = false; s.ui.toast('🕯️ Down the stairs', 'Watch the purple sidewalk prisms overhead — the street is above you.'); } }); }
+        // Read the actual outdoor carving by framing each published figure.
+        // The guide rings are temporary game UI, not fixtures on the pole.
+        const figures=[['Raven with the moon in his beak',13.6],['A woman holding her frog child',11.2],['Her frog husband',9.25],['Mink',7.7],['Raven',6.1],['Whale holding a seal',4.1],['Raven-at-the-Head-of-Nass',1.6]],ty=g.heightAt(to.x,to.z);
+        ctx.extras.pioneerTotem=photoHunt(ctx,{x:to.x-2.6,z:to.z+3.2,title:'Frame the seven pole figures',unavailable:'The 1939–40 replica was carved at Saxman by Tlingit carvers led by Charles Brown; the original was taken without consent in 1899.',
+            targets:figures.map(([label,y])=>({label,x:to.x-Math.sin(.15)*.85,y:ty+y,z:to.z+Math.cos(.15)*.85,radius:.55,maxDistance:40})),
+            onDone:s=>seaActivity(s,'lm-totem-read','pioneer-square','🪶 Seven figures framed','You framed each published figure of the Chief-of-All-Women pole from the public square.')});
+        // No verified real staircase or private Underground room is modeled.
+        // Keep the public streets and valid buildings intact and offer a real
+        // outdoor exercise rather than an automatic trip to an invented room.
+        ctx.extras.pioneerPublicHistory=photoHunt(ctx,{x:cs.x-6.5,z:cs.z+3,title:'Frame Pioneer Square history outdoors',unavailable:'A real Underground tour uses an operator and ticketed access. No interior entrance is verified in this game; explore these public features instead.',targets:[
+            {label:'The cast-iron pergola',x:per.cx,y:per.y0+4.6,z:per.cz,radius:1.4},
+            {label:'The Chief Seattle bust',x:cs.x,y:g.heightAt(cs.x,cs.z)+2.25,z:cs.z,radius:.5},
+            ...(smith?[{label:'The white terracotta Smith Tower',x:smith.cx,y:smith.y0+40,z:smith.cz,radius:5,maxDistance:300,surfaceTolerance:2,surface:smith.surface}]:[])],
+            onDone:s=>seaActivity(s,'lm-underground','pioneer-square','🏛 Public square details framed','You framed three outdoor details in Pioneer Square. A ticketed Underground interior has not been entered or simulated.')});
+        ctx.extras.pioneerContext={removedUnverifiedUndergroundRoom:true};
         ctx.challenge('pioneer-square', { r: 10, tol: 30 });
         ctx.crowdCfg = {
             personas: { local: 4, tourist_us: 4, tech: 1.5, guide: 0.8, tourist_cn: 1, tourist_kr: 1, tourist_jp: 1, tourist_de: 1.2, tourist_es: 1, tourist_ca: 1, tourist_in: 1, kid: 0.8 },

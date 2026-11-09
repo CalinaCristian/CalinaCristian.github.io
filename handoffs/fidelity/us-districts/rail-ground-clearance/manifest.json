@@ -1,0 +1,14 @@
+{
+  "baseCommit": "54c044421640cfe3569bfc3f72159d2169f87581",
+  "runtimeAndControlSha256": {
+    "game/src/world.js": "a33f8ac2831df63926503d3f3144a547e26253f3dcdaa15da0f08561ebe1a6e3",
+    "game/src/tram-grade.js": "fa9cf7ce58fe4ac740ce49840249f0c1ff5715be9dcfe0993937afa265606423",
+    "game/src/sidewalk-source.js": "d7a37535e91da36b9e383fd609f969d4205dfd427681328caa6a8adf688c9c82",
+    "game/src/tram-clearance.js": "6d778dd69fe40a9a15b822cfa6b162d0d36c8114d30246c6feef75148fa26ac2",
+    "tools/osm/sidewalk-source-check.mjs": "02fc6f5be78b46fdd29dc93a6b8f988deaae2fc93de398141d8684a9184934b8",
+    "tools/osm/tram-prop-clearance-check.mjs": "1c4c742b86e426cb5a9ff5470cde1f431495887f9c0a4e162f408ff6c5484896"
+  },
+  "browserOpened": false,
+  "nativeAcceptance": false,
+  "scope": "CPU/source causal fix candidate; parent combined source and fresh native acceptance required"
+}

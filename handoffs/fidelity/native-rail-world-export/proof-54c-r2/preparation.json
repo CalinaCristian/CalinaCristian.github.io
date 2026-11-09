@@ -1,0 +1,26 @@
+{
+  "sourceCommit": "54c044421640cfe3569bfc3f72159d2169f87581",
+  "sourceGitTree": "63bb5eb0dbefa2691ae5bc8ebbd46ffe7c16eb2d",
+  "districts": [
+    "grozavesti",
+    "romana"
+  ],
+  "copiedFiles": 211,
+  "copiedBytes": 73615449,
+  "missingInterfaces": [],
+  "policy": "Exact Git runtime blobs only. Other district datasets, overview/research/dev and handoffs excluded; no production patch. Archive/served responses checked with Gitblob SHA1 and SHA256.",
+  "archive": "/workspace/integration-qa-evidence/rail-world-54c04442-source",
+  "out": "/workspace/integration-qa-evidence/rail-world-54c04442-native-r2",
+  "preparedUtc": "2026-11-09T07:16:56.180Z",
+  "reusedVerifiedArchive": true,
+  "toolHashes": {
+    "runner.cjs": "d3de477990de103c1db71fd96c20aadd3354dcb2ed0422b16bec038f4cc1d694",
+    "geometry-kernel.cjs": "0845d75ccc331332f64d30416caea381bb552ff876c68e4e43d8ed9d8183a19b",
+    "decode-geometry.cjs": "2bfd6f289442a5e86b6a31c491ec78e1be8a51101f7e04a49196e0e50854f800",
+    "install-observer.cjs": "9c8937d6f926dc6fe215e8fdd42d484e1c635f7e97c446604c43b81cde3c30e8",
+    "integration-browser-bounds.cjs": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29"
+  },
+  "preparationToolSha256": "77861ecbe30558b1e134c20d9a25da40e481437dd5a3ba459d01bc7aeff6858d",
+  "browserLaunched": false,
+  "networkUsed": false
+}

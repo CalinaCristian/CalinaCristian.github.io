@@ -1,0 +1,26 @@
+{
+  "pid": 435208,
+  "sourceCommit": "54c044421640cfe3569bfc3f72159d2169f87581",
+  "sourceGitTree": "63bb5eb0dbefa2691ae5bc8ebbd46ffe7c16eb2d",
+  "toolCommit": "a5db5d17b45595e6e8b26231b669772efbe63158",
+  "startedUtc": "2026-11-09T07:09:51.235225+00:00",
+  "argv": [
+    "node",
+    "/workspace/integration-qa-evidence/rail-world-54c04442-native/runner.cjs",
+    "--go",
+    "--source",
+    "54c044421640cfe3569bfc3f72159d2169f87581",
+    "--archive",
+    "/workspace/integration-qa-evidence/rail-world-54c04442-source",
+    "--out",
+    "/workspace/integration-qa-evidence/rail-world-54c04442-native"
+  ],
+  "toolHashes": {
+    "runner.cjs": "f376d04b2af68556ea9a03ba847c06e9bab2e691040afb4c4f318ca990048bd4",
+    "geometry-kernel.cjs": "22ab8f10fe5a7127eb4ab677356d11a6d09526578a11a24f1b9e72ef12f98680",
+    "decode-geometry.cjs": "2bfd6f289442a5e86b6a31c491ec78e1be8a51101f7e04a49196e0e50854f800",
+    "install-observer.cjs": "2f9cea639363817242988bedbea0d0542c94a6db4057b581d0fc906e4554a902",
+    "integration-browser-bounds.cjs": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29"
+  },
+  "scope": "Root GO exact54c combined nativeGroz/Rom freshworld geometry andbefore/afterbinding/publication export; onebrowser, no drive steps/all8 acceptance."
+}

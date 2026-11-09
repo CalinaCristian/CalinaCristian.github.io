@@ -1,0 +1,32 @@
+[
+  {
+    "city": "seattle",
+    "district": "seatac",
+    "out": "/workspace/reality-pass/structure-atlas-07cc/retakes-seatac",
+    "expectedFrames": 20
+  },
+  {
+    "city": "seattle",
+    "district": "bellevue",
+    "out": "/workspace/reality-pass/structure-atlas-07cc/retakes-bellevue",
+    "expectedFrames": 5
+  },
+  {
+    "city": "bucharest",
+    "district": "grozavesti",
+    "out": "/workspace/reality-pass/structure-atlas-07cc/retakes-grozavesti",
+    "expectedFrames": 1
+  },
+  {
+    "city": "bucharest",
+    "district": "pipera",
+    "out": "/workspace/reality-pass/structure-atlas-07cc/retakes-pipera",
+    "expectedFrames": 2
+  },
+  {
+    "city": "bucharest",
+    "district": "unirii",
+    "out": "/workspace/reality-pass/structure-atlas-07cc/retakes-unirii",
+    "expectedFrames": 1
+  }
+]

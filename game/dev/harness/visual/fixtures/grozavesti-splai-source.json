@@ -1,0 +1,399 @@
+{
+  "attribution": "OpenStreetMap contributors, ODbL1.0",
+  "datasetSha256": "48d8c39e95bfacc85302130cabc5e99cb3fed8806746cb8f1b248a06643fa27e",
+  "source": "Exact named source road records and precise source nodes from full-preservation Grozavesti delivery cf174db; negative IDs are the recorded exact map-boundary cuts, not joins. No other road or invented U-turn is present.",
+  "nodes": [
+    {
+      "id": 4,
+      "sourceId": 32934941,
+      "x": 103.55328269583163,
+      "z": -242.93455199941013,
+      "mapEnd": false
+    },
+    {
+      "id": 5,
+      "sourceId": 6233987447,
+      "x": 83.87426450924447,
+      "z": -248.24666159989602,
+      "mapEnd": false
+    },
+    {
+      "id": 6,
+      "sourceId": 3908701982,
+      "x": 78.58095832490633,
+      "z": -249.69137759940702,
+      "mapEnd": false
+    },
+    {
+      "id": 7,
+      "sourceId": 7733754405,
+      "x": 30.52791149228324,
+      "z": -262.7493875996036,
+      "mapEnd": false
+    },
+    {
+      "id": 8,
+      "sourceId": 7733754391,
+      "x": 26.03734393355767,
+      "z": -263.9051603996862,
+      "mapEnd": false
+    },
+    {
+      "id": 9,
+      "sourceId": 2723644930,
+      "x": -21.2129642731705,
+      "z": -276.7409063996543,
+      "mapEnd": false
+    },
+    {
+      "id": 10,
+      "sourceId": -2000000002,
+      "x": -22.064791012507065,
+      "z": -276.97176415432733,
+      "mapEnd": true
+    },
+    {
+      "id": 49,
+      "sourceId": 981520486,
+      "x": 120.74460593422751,
+      "z": -179.48929319945495,
+      "mapEnd": false
+    },
+    {
+      "id": 50,
+      "sourceId": 6234260294,
+      "x": 125.57693350189122,
+      "z": -178.18904880005297,
+      "mapEnd": false
+    },
+    {
+      "id": 51,
+      "sourceId": 3908701974,
+      "x": 137.68954404959192,
+      "z": -175.25516399972184,
+      "mapEnd": false
+    },
+    {
+      "id": 52,
+      "sourceId": 1820379937,
+      "x": 191.02000125200007,
+      "z": -164.45313359983072,
+      "mapEnd": false
+    },
+    {
+      "id": 53,
+      "sourceId": 14070391975,
+      "x": 199.92960520480943,
+      "z": -162.18604079939539,
+      "mapEnd": false
+    },
+    {
+      "id": 54,
+      "sourceId": 3912365972,
+      "x": 207.93314773882307,
+      "z": -159.9189479997497,
+      "mapEnd": false
+    },
+    {
+      "id": 55,
+      "sourceId": -2000000008,
+      "x": 216.3763584905954,
+      "z": -157.24579768424002,
+      "mapEnd": true
+    },
+    {
+      "id": 113,
+      "sourceId": -2000000010,
+      "x": -35.51281411360774,
+      "z": -221.7535262073569,
+      "mapEnd": true
+    },
+    {
+      "id": 114,
+      "sourceId": 31403487,
+      "x": 68.99578226121486,
+      "z": -193.46969880016542,
+      "mapEnd": false
+    },
+    {
+      "id": 112,
+      "sourceId": 32934991,
+      "x": 91.20223493237597,
+      "z": -187.33521239954484,
+      "mapEnd": false
+    },
+    {
+      "id": 116,
+      "sourceId": 981520528,
+      "x": 133.56458022135175,
+      "z": -235.88878319998483,
+      "mapEnd": false
+    },
+    {
+      "id": 255,
+      "sourceId": 6233585073,
+      "x": 116.88192304300716,
+      "z": -239.75617679938043,
+      "mapEnd": false
+    },
+    {
+      "id": 256,
+      "sourceId": 6233585074,
+      "x": 113.7901871482932,
+      "z": -240.4674215997957,
+      "mapEnd": false
+    },
+    {
+      "id": 273,
+      "sourceId": 13455628567,
+      "x": 101.86832637297056,
+      "z": -184.5013463995929,
+      "mapEnd": false
+    },
+    {
+      "id": 274,
+      "sourceId": 13455628566,
+      "x": 104.76136458774755,
+      "z": -183.7456487994478,
+      "mapEnd": false
+    },
+    {
+      "id": 278,
+      "sourceId": 6262321705,
+      "x": 214.9988372252171,
+      "z": -214.82926919945945,
+      "mapEnd": false
+    },
+    {
+      "id": 279,
+      "sourceId": 984557086,
+      "x": 170.53824443980037,
+      "z": -226.33143119963597,
+      "mapEnd": false
+    },
+    {
+      "id": 280,
+      "sourceId": 304809416,
+      "x": 154.36425332094234,
+      "z": -230.50999439950937,
+      "mapEnd": false
+    },
+    {
+      "id": 281,
+      "sourceId": 6233585075,
+      "x": 149.14247830124597,
+      "z": -231.85469159943082,
+      "mapEnd": false
+    },
+    {
+      "id": 551,
+      "sourceId": -2000000038,
+      "x": 229.45557779639148,
+      "z": -210.95157109816654,
+      "mapEnd": true
+    },
+    {
+      "id": 552,
+      "sourceId": 984559644,
+      "x": 226.41203194077082,
+      "z": -211.82870519992838,
+      "mapEnd": false
+    }
+  ],
+  "roads": [
+    {
+      "sourceId": "w12803020",
+      "name": "Splaiul Independenței",
+      "type": "secondary",
+      "lanesF": 2,
+      "lanesB": 0,
+      "oneway": true,
+      "maxspeedKmh": 50,
+      "nodes": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "access": {
+        "sourceId": "w12803020",
+        "publicDrive": true,
+        "throughAccess": true,
+        "key": null,
+        "value": null,
+        "reason": "OSM road class default; no motorcar restriction mapped",
+        "conditionalUnresolved": false,
+        "tags": {
+          "oneway": "yes"
+        }
+      }
+    },
+    {
+      "sourceId": "w27758242",
+      "name": "Splaiul Independenței",
+      "type": "secondary",
+      "lanesF": 2,
+      "lanesB": 0,
+      "oneway": true,
+      "maxspeedKmh": 50,
+      "nodes": [
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55
+      ],
+      "access": {
+        "sourceId": "w27758242",
+        "publicDrive": true,
+        "throughAccess": true,
+        "key": null,
+        "value": null,
+        "reason": "OSM road class default; no motorcar restriction mapped",
+        "conditionalUnresolved": false,
+        "tags": {
+          "oneway": "yes"
+        }
+      }
+    },
+    {
+      "sourceId": "w128304851",
+      "name": "Splaiul Independenței",
+      "type": "secondary",
+      "lanesF": 3,
+      "lanesB": 0,
+      "oneway": true,
+      "maxspeedKmh": 50,
+      "nodes": [
+        113,
+        114,
+        112
+      ],
+      "access": {
+        "sourceId": "w128304851",
+        "publicDrive": true,
+        "throughAccess": true,
+        "key": null,
+        "value": null,
+        "reason": "OSM road class default; no motorcar restriction mapped",
+        "conditionalUnresolved": false,
+        "tags": {
+          "oneway": "yes"
+        }
+      }
+    },
+    {
+      "sourceId": "w665700250",
+      "name": "Splaiul Independenței",
+      "type": "secondary",
+      "lanesF": 3,
+      "lanesB": 0,
+      "oneway": true,
+      "maxspeedKmh": 50,
+      "nodes": [
+        116,
+        255,
+        256,
+        4
+      ],
+      "access": {
+        "sourceId": "w665700250",
+        "publicDrive": true,
+        "throughAccess": true,
+        "key": null,
+        "value": null,
+        "reason": "OSM road class default; no motorcar restriction mapped",
+        "conditionalUnresolved": false,
+        "tags": {
+          "oneway": "yes"
+        }
+      }
+    },
+    {
+      "sourceId": "w665933043",
+      "name": "Splaiul Independenței",
+      "type": "secondary",
+      "lanesF": 3,
+      "lanesB": 0,
+      "oneway": true,
+      "maxspeedKmh": 50,
+      "nodes": [
+        112,
+        273,
+        274,
+        49
+      ],
+      "access": {
+        "sourceId": "w665933043",
+        "publicDrive": true,
+        "throughAccess": true,
+        "key": null,
+        "value": null,
+        "reason": "OSM road class default; no motorcar restriction mapped",
+        "conditionalUnresolved": false,
+        "tags": {
+          "oneway": "yes"
+        }
+      }
+    },
+    {
+      "sourceId": "w668720099",
+      "name": "Splaiul Independenței",
+      "type": "secondary",
+      "lanesF": 3,
+      "lanesB": 0,
+      "oneway": true,
+      "maxspeedKmh": 50,
+      "nodes": [
+        278,
+        279,
+        280,
+        281,
+        116
+      ],
+      "access": {
+        "sourceId": "w668720099",
+        "publicDrive": true,
+        "throughAccess": true,
+        "key": null,
+        "value": null,
+        "reason": "OSM road class default; no motorcar restriction mapped",
+        "conditionalUnresolved": false,
+        "tags": {
+          "oneway": "yes"
+        }
+      }
+    },
+    {
+      "sourceId": "w665700251",
+      "name": "Splaiul Independenței",
+      "type": "secondary",
+      "lanesF": 2,
+      "lanesB": 0,
+      "oneway": true,
+      "maxspeedKmh": 50,
+      "nodes": [
+        551,
+        552,
+        278
+      ],
+      "access": {
+        "sourceId": "w665700251",
+        "publicDrive": true,
+        "throughAccess": true,
+        "key": null,
+        "value": null,
+        "reason": "OSM road class default; no motorcar restriction mapped",
+        "conditionalUnresolved": false,
+        "tags": {
+          "oneway": "yes"
+        }
+      }
+    }
+  ]
+}

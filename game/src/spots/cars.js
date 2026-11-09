@@ -48,7 +48,13 @@ export function addTraffic(ctx, o = {}) {
     if (!cars.length) return { cars };
     // note 29: spot traffic never overlaps — spawn spacing on every lane (and across lanes that share road space),
     // then per frame a car yields to any car in its path on another lane (merges, roundabouts, crossings)
-    const place = (c) => { const p = alongPolyline(c.lane.pts, c.s); c.x = p.x; c.z = p.z; c.yaw = Math.atan2(-p.tx, -p.tz); };
+    const place = (c) => {
+        const p = alongPolyline(c.lane.pts, c.s); c.x = p.x; c.z = p.z; c.yaw = Math.atan2(-p.tx, -p.tz);
+        // Correct physical pose before floor probes/crowd placement and the
+        // first render, rather than waiting for the first animation update.
+        c.v.position.set(p.x, ctx.ground.heightAt(p.x, p.z) + .02, p.z); c.v.rotation.y = c.yaw;
+        c.v.userData.noFloor = true;
+    };
     const hits = (a, b) => { const dx = b.x - a.x, dz = b.z - a.z, fx = -Math.sin(a.yaw), fz = -Math.cos(a.yaw), along = dx * fx + dz * fz, lat = Math.abs(dx * fz - dz * fx); return Math.abs(along) < (a.len + b.len) / 2 + 1.5 && lat < (a.wid + b.wid) / 2 + 0.6; };
     for (let i = 0; i < cars.length; i++) { const c = cars[i]; place(c);
         for (let k = 0; k < 40 && cars.slice(0, i).some((d) => hits(c, d) || hits(d, c)); k++) { c.s = (c.s + c.len + 2) % c.L; place(c); }

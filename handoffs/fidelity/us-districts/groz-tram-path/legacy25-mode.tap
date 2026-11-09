@@ -1,0 +1,72 @@
+(node:399456) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-us-districts/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-us-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual source931 normal tolerance and strict monotonic recovery remain distinct
+✔ game/dev/normal-guard-tolerance.test.mjs (378.890253ms)
+(node:399457) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-us-districts/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-us-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: native87/325 forward separation, unchanged comfort refusal, preview isolation, front/side/turn/overlap/grade/carried controls
+✔ game/dev/pedestrian-side-yield.test.mjs (584.937445ms)
+(node:399474) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-us-districts/game/src/shared-lanes.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-us-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ one physical centre is shared by both legal graph directions; ordinary lane offsets stay unchanged (3.675425ms)
+✔ continuous sections preserve direction across reversed OSM edge ordering (1.007011ms)
+✔ opposite arrivals cannot both reserve an empty section (2.22891ms)
+✔ opposite waiting blocks new followers, then receives priority only after the rear clears (6.765733ms)
+✔ occupied sections do not expire after a long wait or admit an opposite spawn (0.852671ms)
+✔ player body occupancy blocks the opposite entry; a deck above does not (0.476237ms)
+✔ cancelled or stationary uncommitted requests release without expiring real occupancy (0.467246ms)
+✔ legacy graphs create no controls or placement restrictions (0.515388ms)
+✔ wider side entry does not split a narrow corridor: {} (0.586977ms)
+✔ wider side entry does not split a narrow corridor: {"publicDrive":false} (0.814674ms)
+✔ wider side entry does not split a narrow corridor: {"throughAccess":false} (0.346287ms)
+✔ a narrow fork reserves the whole component, including requests with the same local edge sign (0.689176ms)
+✔ cycles and blind ends admit one body through its exit or U-turn (2.021658ms)
+✔ opposing queues close the admitted batch while its first claim is still approaching (0.712919ms)
+✔ front-only commitment and asymmetric player front/rear keep an opposite entry closed (0.400735ms)
+✔ tail lifetime follows successful relocation generation, never a failed respawn flag (0.569128ms)
+✔ compatible through traffic can form a same-direction platoon until an opposite request arrives (0.330298ms)
+✔ turning exits leave a full fleet body envelope beyond the opposing queue mouth (0.996752ms)
+(node:399481) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-us-districts/game/src/signals.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-us-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: signal cycles/conflicts/clearance, queue release, cockpit/props, visible recycling, walking recoveries and stable detours
+✔ game/dev/signals.test.mjs (489.362392ms)
+(node:399488) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-us-districts/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-us-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual stepVehicle always sees solid bodies, rendered extents, no RNG and camera/mirror recovery gates
+✔ game/dev/solid-vehicle-sensing.test.mjs (239.251301ms)
+(node:399495) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-us-districts/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-us-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: native 593/609 proposal, cross-cell rollback/third body, recovery membership, sparse refresh and clear-boundary controls
+✔ game/dev/vehicle-cell-boundary.test.mjs (412.836602ms)
+(node:399496) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-us-districts/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-us-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: stopped lane/bypass holds, moving steering distance budget, long-body clearance, residual stop and visible/failed recovery holds
+✔ game/dev/vehicle-lanes.test.mjs (217.402582ms)
+(node:399509) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/remaining-us-districts/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/remaining-us-districts/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual short-edge body, back-out, new third contact, turn, pedestrian/player, height and timed-ghost controls
+✔ game/dev/vehicle-separation.test.mjs (197.7906ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1522.972435

@@ -1,0 +1,50 @@
+{
+  "minute-0.png": {
+    "bytes": 1198178,
+    "sha256": "21f8119bb0746852c2e4791e41c5d4845d56307e7243a8c4d36208ba7ae78f4d"
+  },
+  "minute-5.png": {
+    "bytes": 1199938,
+    "sha256": "e9cc1ad947a9620ff799fdb201481e5abccb9c3d3491939fd0872f5e77788abc"
+  },
+  "strict-verifier-incomplete.log": {
+    "bytes": 979,
+    "sha256": "6dc37a44e457c01c1835c55aead0d965c04ffeea9549aaac18ba80fec97812ff"
+  },
+  "assessment.json": {
+    "bytes": 543,
+    "sha256": "5e31c2dde963ffeda5349bdbc25397b7bc210a96977323f7c7c040997deade14"
+  },
+  "source-manifest.json": {
+    "bytes": 13101,
+    "sha256": "60d617c46238f99d89dfa68b23ed13208b7b439d844554dd1a881c9cbffa0dc7"
+  },
+  "minute-10.png": {
+    "bytes": 1202732,
+    "sha256": "cc9595ba298dcec5f49f9bffbfbc58cc333ece7edbcb1f050d03bb43d846fa3b"
+  },
+  "runner.cjs": {
+    "bytes": 18008,
+    "sha256": "596ea826a6560c0618fe25a449047557d2a89204b147416d0263f5148562d4e8"
+  },
+  "minute-15.png": {
+    "bytes": 1200501,
+    "sha256": "56546054b90bf97a66c7bcddb427d01007300c2a60de8e042f29e1b19d0ea764"
+  },
+  "terminal-gap.json": {
+    "bytes": 1411,
+    "sha256": "0860c1d2a77f64232d8d8b6aa82ea654ad0fb1c873994dde4e3b7e495c0ebcac"
+  },
+  "frame-stage.json": {
+    "bytes": 178,
+    "sha256": "af79da971bb4c6665e50b471fab0c19464cebfe3bf7f68505a0697e381a5a99b"
+  },
+  "profile.json.gz": {
+    "bytes": 1072154,
+    "sha256": "6acdd5be9a3218cc9da55e3c6b9680fe8b4b2fafdaec3949cee6726694938ddc"
+  },
+  "integration-browser-bounds.cjs": {
+    "bytes": 1529,
+    "sha256": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29"
+  }
+}

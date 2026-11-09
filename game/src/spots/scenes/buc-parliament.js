@@ -18,6 +18,9 @@
 //  pavilion; Calea 13 Septembrie blocks behind.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
+import { candleLight } from '../candle-light.js';
+import { photoHunt } from '../photo-hunt.js';
+import { activityBlocked, onActivityCancel } from '../participation.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, distPolyline, canvas, canvasTexture, fitDraw, obb } from '../kit.js';
 import { clockFace } from '../props.js';
 import { bucBackdrop, classicFacade, classicWalls, balustrade, balustradeMaterial, flagpole, palisade, hedge, osmPoly, cityFiller, placeLandmark, bucActivity } from '../buc.js';
@@ -334,38 +337,40 @@ const placeLandmarkNote = 'landmarks.js bCathedral is not used here: its drum wi
 function buildCathedral(ctx) {
     const d = ctx.data, g = ctx.ground;
     const cat = d.buildings.find((x) => x.id === 'w232332568'); if (!cat) return null;
-    const cb = polyBox(cat.poly);
-    for (const x of d.buildings) { const [cx, cz] = centroid(x.poly); if (x.id === cat.id || (x.part && cx > cb.x0 - 8 && cx < cb.x1 + 8 && cz > cb.z0 - 8 && cz < cb.z1 + 8)) ctx.skipBuildings.add(x.id); }
-    const piazza = [[-768, 96], [-570, 96], [-570, 216], [-768, 216]];
-    ctx.skipBuildings.add('w1223607029'); // low structure under the piazza's south-west corner (its roof is the piazza level)
+    // Canonical source IDs and the shared whole-footprint membership rule
+    // determine replacements; a nearby part's centroid cannot erase it.
+    ctx.skipBuildings.add(cat.id);
+    const piazzaSource=d.areas.find(a=>a.id==='r16698908');
+    const piazza=piazzaSource?.poly||[[-768,96],[-570,96],[-570,216],[-768,216]];
+    // The western building w1223607029 is outside the mapped esplanade. It
+    // remains a source building; the former rectangle incorrectly erased it.
+    ctx.extras.cathedralContext={piazzaSource:piazzaSource?.source||null,piazza,removedUnverifiedCandlePavilion:true};
     const yc = g.heightAt(-654, 158);
     const PY = Math.round(yc * 10) / 10; void placeLandmarkNote;
     g.flatten(piazza, PY, 18);
     const paintPiazza = () => {
         ctx.painter.poly(piazza, '#c8c2b6', 'slab');
-        ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; x.strokeStyle = 'rgba(120,112,100,0.35)'; x.lineWidth = Math.max(1, 0.12 * k); for (let q = -768; q <= -570; q += 6) { const [a, b0] = T(q, 96), [, b1] = T(q, 216); x.beginPath(); x.moveTo(a, b0); x.lineTo(a, b1); x.stroke(); } for (let q = 96; q <= 216; q += 6) { const [a0, bb] = T(-768, q), [a1] = T(-570, q); x.beginPath(); x.moveTo(a0, bb); x.lineTo(a1, bb); x.stroke(); } });
+        ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; x.save(); x.beginPath(); piazza.forEach(([px,pz],i)=>{const [sx,sy]=T(px,pz);if(i)x.lineTo(sx,sy);else x.moveTo(sx,sy);});x.closePath();x.clip(); x.strokeStyle = 'rgba(120,112,100,0.35)'; x.lineWidth = Math.max(1, 0.12 * k); for (let q = -768; q <= -570; q += 6) { const [a, b0] = T(q, 96), [, b1] = T(q, 216); x.beginPath(); x.moveTo(a, b0); x.lineTo(a, b1); x.stroke(); } for (let q = 96; q <= 216; q += 6) { const [a0, bb] = T(-768, q), [a1] = T(-570, q); x.beginPath(); x.moveTo(a0, bb); x.lineTo(a1, bb); x.stroke(); } x.restore(); });
     };
     ctx.exclude.push(piazza);
     // landmarks.js bCathedral (fixed 2026-11-07: white drums, ribbed gilded domes, floodlit) reads better than the spot's
     // own model (kept below as buildCathedralModel for reference / fallback)
     const L0 = placeLandmark(ctx, 'cathedral', { y: PY, colliderH: 140 }), lm = L0 ? { x: L0.x, z: L0.z } : buildCathedralModel(ctx, PY);
+    for (const id of L0?.lm.sourceIds || []) ctx.skipBuildings.add(id);
     ctx.poly(cat.poly, { y0: PY - 2, y1: PY + 140 });
-    const b = new GeoBatch();
-    // granite kerb around the piazza
-    for (let i = 0; i < 4; i++) { const [ax, az] = piazza[i], [bx, bz] = piazza[(i + 1) % 4], L = Math.hypot(bx - ax, bz - az); b.box((ax + bx) / 2, PY - 0.6, (az + bz) / 2, 0.5, 0.8, L, '#bdb6a8', 'stone', Math.atan2(bx - ax, bz - az)); }
-    // candle pavilion (lumânărar): small open shelter with candle racks, south-west of the church
-    const cx = -742, cz = 190;
-    b.box(cx, PY, cz, 7, 0.25, 3.2, '#cfc6b5', 'stone');
-    for (const [dx, dz] of [[-3.2, -1.4], [3.2, -1.4], [-3.2, 1.4], [3.2, 1.4]]) b.cyl(cx + dx, PY + 0.25, cz + dz, 0.12, 2.6, '#f1ece2', 'stone', 8);
-    b.box(cx, PY + 2.85, cz, 7.8, 0.3, 4.0, '#e8e1d3', 'stone'); b.add(new THREE.ConeGeometry(4.6, 1.4, 4, 1), 'paint', new THREE.Matrix4().compose(new THREE.Vector3(cx, PY + 3.85, cz), new THREE.Quaternion().setFromEuler(new THREE.Euler(0, Math.PI / 4, 0)), new THREE.Vector3(1.2, 1, 0.62)), '#b89038');
-    for (const s of [-1, 1]) { b.box(cx + s * 1.6, PY + 0.25, cz, 2.6, 0.9, 1.2, '#2e2a26', 'metal'); b.box(cx + s * 1.6, PY + 1.15, cz, 2.6, 0.08, 1.2, '#7a6a4e', 'metal'); }
-    ctx.box(cx, cz, 3.6, 1.8, 0, { prop: true, h: 1.2 });
-    ctx.add(b.build('cathedral-piazza'));
-    // candle flames (glow, flicker) on both racks
-    const fl = new GeoBatch(); const r = rng(9);
-    for (const s of [-1, 1]) for (let i = 0; i < 22; i++) { const x = cx + s * 1.6 + (r() - 0.5) * 2.3, z = cz + (r() - 0.5) * 1.0; fl.cyl(x, PY + 1.23, z, 0.012, 0.18, '#f3ead2', 'paint', 4); fl.sphere(x, PY + 1.45, z, 0.02, 0.04, 0.02, '#ffb54a', 'glow', 5, 4); }
-    ctx.add(fl.build('candles', { castShadow: false }));
-    return { PY, x: lm?.x ?? -654, z: lm?.z ?? 158, candle: { x: cx, z: cz }, paintPiazza };
+    const walls = new GeoBatch();
+    // Retaining-wall positions come from six mapped ways. Keep their source
+    // gaps open. Wall height/material remain estimates; no invented rectangle.
+    for(const w of d.ways.filter(w=>/^w122360703[0-5]$/.test(w.id)))for(let i=1;i<w.pts.length;i++){
+        const [ax,az]=w.pts[i-1],[bx,bz]=w.pts[i],ya=g.heightAt(ax,az),yb=g.heightAt(bx,bz);
+        walls.quad([ax,ya-.3,az],[bx,yb-.3,bz],[bx,yb+1,bz],[ax,ya+1,az],'#bdb6a8','stone');
+        ctx.collider({wall:true,ax,az,bx,bz,y0a:ya-.3,y1a:ya+1,y0b:yb-.3,y1b:yb+1,source:w.id});
+    }
+    const wallMaterial = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .9, side: THREE.DoubleSide });
+    ctx.add(walls.build('cathedral-source-retaining-walls', { matOverrides: { stone: wallMaterial } }));
+    // No source establishes the former permanent pavilion/racks. The optional
+    // candle exercise uses a temporary handheld prop on the mapped forecourt.
+    return { PY, x: lm?.x ?? -654, z: lm?.z ?? 158, candle: { x: -726, z: 170 }, paintPiazza };
 }
 
 export default {
@@ -410,26 +415,48 @@ export default {
         const PL = spP.plaques;
         PL.forEach((pl, i) => ctx.plaque(pl, 44 + (i % 2) * 0.1, -60 + i * 22, -Math.PI / 2, { style: 'park', credit: i === 1 ? 'Chief architect Anca Petrescu (1950–2013) with a team of about 700 architects.' : null }));
         const CPL = spC.plaques;
-        if (C) CPL.forEach((pl, i) => ctx.plaque(pl, -700 + i * 18, 212, Math.PI, { style: 'park', y: C.PY }));
-        // "Pace the Palace": walk the east front between two markers (≈ 270 m along the sidewalk of Bd. Libertății)
-        const mA = { x: 30, z: -150 }, mB = { x: 22, z: 140 }; let pace = null;
-        const mk = new GeoBatch(); for (const m of [mA, mB]) { const y = g.heightAt(m.x, m.z); mk.cyl(m.x, y, m.z, 0.22, 1.1, '#3b4b5a', 'metal', 10); mk.cyl(m.x, y + 1.1, m.z, 0.3, 0.12, '#c8a34a', 'bronze', 12); ctx.circle(m.x, m.z, 0.25, 1.2); }
-        ctx.add(mk.build('pace-markers'));
-        ctx.interactables.push({ x: mA.x, z: mA.z, r: 2, label: 'Pace the Palace: start (walk to the far marker)', use: (s) => { pace = { t: s.t, x: s.position.x, z: s.position.z }; s.ui.toast('⏱ Pace the Palace', 'Walk along the façade to the marker at the other end.'); } });
-        ctx.interactables.push({ x: mB.x, z: mB.z, r: 2, label: () => (pace ? 'Pace the Palace: finish' : 'Pace the Palace (start at the other marker)'), use: (s) => { if (!pace) return; const sec = s.t - pace.t; bucActivity(s, 'palace-parliament', 'pace', `⏱ ${sec.toFixed(0)} s for 270 m`, `About ${Math.round(sec / 60 * 10) / 10} min — and this is only one side. The Pentagon's side is 281 m.`); pace = null; } });
-        // activity (note 57, research `lm-palace-balcony`): the guided tour ends on the central balcony over Bd. Unirii — walk the
-        // balcony (walkable, balustrade), look down the axis to Piața Unirii, E at the balcony door to return to the square
-        { const pt = P.portico, by = pt.y + 13.5 + 3.1, bal = [[pt.x - 14, -10.5 - 27], [pt.x + 1.0, -10.5 - 27], [pt.x + 1.0, -10.5 + 27], [pt.x - 14, -10.5 + 27]];
-          g.addPoly(bal, by, by - 3); ctx.collider({ wall: true, ax: pt.x + 1.3, az: -38, bx: pt.x + 1.3, bz: 17, y0a: by - 0.5, y1a: by + 1.2, y0b: by - 0.5, y1b: by + 1.2, x: pt.x + 1.3, z: -10.5, r: 28 });
-          const door = { x: 34, z: 8 };
-          ctx.interactables.push({ x: door.x, z: door.z, r: 2.4, label: 'Join the guided tour (ends on the balcony over Bd. Unirii)', use: (s) => { s.ctl.y = by; s.ctl.teleport(pt.x - 4, -10.5, headingFromBearing(90)); bucActivity(s, 'palace-parliament', 'balcony', '🏛 The balcony over the boulevard', 'After the marble halls the tour steps out here: Bd. Unirii runs 3.2 km straight to Piața Unirii — built 6 m wider than the Champs-Élysées.'); } });
-          ctx.interactables.push({ x: pt.x - 6, z: -10.5, y: by, r: 3, label: 'Back down to Piața Constituției', use: (s) => { s.ctl.y = g.heightAt(door.x + 2, door.z); s.ctl.teleport(door.x + 2, door.z, headingFromBearing(270)); } }); }
+        if (C) CPL.forEach((pl, i) => ctx.plaque(pl, -730, 130 + i * 11, -Math.PI / 2, { style: 'park', y: C.PY }));
+        // Pace a game course along the public east frontage. The endpoints
+        // are UI waypoints; no unsourced permanent marker posts are added.
+        const paceWay = d.ways.find(w => w.id === 'w1364200823');
+        if (paceWay?.pts.length >= 4) {
+        const mA = { x: paceWay.pts[2][0], z: paceWay.pts[2][1] }, mB = { x: paceWay.pts[3][0], z: paceWay.pts[3][1] }, paceMetres = Math.hypot(mB.x - mA.x, mB.z - mA.z); let pace = null;
+        onActivityCancel(ctx, () => { pace = null; });
+        ctx.extras.palacePace = { start: mA, end: mB, source: paceWay.id, corridorHalfWidthEstimate: 3, debug: () => pace && { ...pace, previous: { ...pace.previous } } };
+        ctx.onUpdate((dt, s, p) => {
+            if (!pace) return;
+            if (!p || s.spot.entry.id !== 'palace-parliament' || !s.ctl.active || activityBlocked(s)) { pace = null; return; }
+            const delta = Math.hypot(p.x - pace.previous.x, p.z - pace.previous.z);
+            if (delta > Math.max(1, dt * 6) || distPolyline(p.x, p.z, [[mA.x, mA.z], [mB.x, mB.z]]).d > 3) { pace = null; return; }
+            pace.walked += delta; pace.previous = { x: p.x, z: p.z };
+        });
+        ctx.interactables.push({ x: mA.x, z: mA.z, r: 2, cond: s => s.spot.entry.id === 'palace-parliament', label: 'Pace the Palace: start the public frontage course', use: s => {
+            pace = { t: s.t, walked: 0, previous: { x: s.position.x, z: s.position.z } };
+            s.ui.toast('⏱ Pace the Palace', `Walk the public frontage to the other waypoint, about ${Math.round(paceMetres)} game metres. Travel, leaving the route or opening another mode cancels the course.`);
+        } });
+        ctx.interactables.push({ x: mB.x, z: mB.z, r: 2, cond: s => s.spot.entry.id === 'palace-parliament', label: () => pace ? 'Pace the Palace: finish the walk' : 'Pace the Palace: begin at the north waypoint', use: s => {
+            if (!pace || pace.walked < paceMetres - 5) return;
+            const sec = s.t - pace.t, metres = Math.round(pace.walked); pace = null;
+            bucActivity(s, 'palace-parliament', 'pace', `⏱ ${sec.toFixed(0)} s for ${metres} game metres`, 'You walked continuously along the public east frontage. This course is a game exercise, not a surveyed building dimension.');
+        } });
+        }
+        // Balcony geometry remains; a visitor does not teleport through the
+        // unmodelled halls. The public square supplies three real facade views.
+        {const pt=P.portico;photoHunt(ctx,{x:44,z:-16,title:'Frame the Palace facade',unavailable:'Interior and balcony access require an organised visit; they are unavailable in this scene.',targets:[
+            {label:'The central balcony over the boulevard',x:pt.x,y:pt.y+17,z:pt.z,radius:4},
+            {label:'The north wing',x:pt.x-18,y:pt.y+18,z:pt.z-78,radius:5},
+            {label:'The south wing',x:pt.x-18,y:pt.y+18,z:pt.z+78,radius:5},
+        ],onDone:s=>bucActivity(s,'palace-parliament','balcony','📷 Three Palace details','You framed the balcony and both wings from the public square.')});}
         // cathedral: light a candle
-        if (C) ctx.interactables.push({ x: C.candle.x, z: C.candle.z + 2.6, r: 2.4, label: 'Light a candle (for the living / the departed)', use: (s) => { bucActivity(s, 'peoples-salvation-cathedral', 'candle', '🕯 Candle lit', 'Living on one side, the departed on the other — an Orthodox custom.'); s.sound.play('chime', 0.4); } });
+        if (C) {
+            const candle = candleLight(ctx, new THREE.Vector3(), { title: 'A virtual candle at the cathedral', portable: true, focus: new THREE.Vector3(C.x, C.PY + 30, C.z), onDone: s => bucActivity(s, 'peoples-salvation-cathedral', 'candle', '🕯 Candle practice completed', 'You lit and placed a virtual candle in a handheld holder. The real lumânărar location is unverified; this does not represent a permanent rack on the piazza.') });
+            ctx.extras.cathedralCandle = candle;
+            ctx.interactables.push({ kind: 'candle', x: C.candle.x, z: C.candle.z, r: 2.4, label: 'Light and place a virtual candle', use: s => candle.start(s) });
+        }
         // postcards
         // postcard: the frontal view across Piața Constituției on the Bd. Unirii axis (the Bd. Libertății sidewalk, ≈ 190 m from the east front)
         ctx.challenge('palace-parliament', { view: [-160, -10.5], x: 31, z: -10.5, heading: 270, pitch: 14, r: 18, tol: 26 });
-        ctx.challenge('peoples-salvation-cathedral', { view: [C?.x ?? -654, C?.z ?? 158], r: 14, tol: 28 });
+        ctx.challenge('peoples-salvation-cathedral', { view: [C?.x ?? -654, C?.z ?? 158], x: -731, z: 165, heading: 85, pitch: 28, r: 6, tol: 28, text: 'From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.' });
         // crowd
         const cl = SQ.clock, cat = C || { x: -654, z: 158, PY: 14 };
         ctx.crowdCfg = {
@@ -452,7 +479,7 @@ export default {
         ctx.sound('crowd', cl.x - 10, cl.z, 30, 0.4); ctx.sound('traffic', -500, 285, 160, 0.7); ctx.sound('bell', cat.x, cat.z, 400, 0.6); ctx.sound('wind', cat.x, cat.z, 120, 0.5);
         // spawns: the square by the clock looking at the palace; the piazza's south-west corner looking at the west front
         ctx.spawns['palace-parliament'] = { x: cl.x - 4, z: cl.z - 3, heading: headingFromBearing(268) };
-        ctx.spawns['peoples-salvation-cathedral'] = { x: -748, z: 208, heading: headingFromBearing(62) };
+        ctx.spawns['peoples-salvation-cathedral'] = { x: -732, z: 169, heading: headingFromBearing(85) };
         void distPolyline; void canvas; void canvasTexture; void fitDraw;
     },
 };

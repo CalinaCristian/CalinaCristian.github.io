@@ -11,6 +11,8 @@ import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, polyAr
 import { bucBackdrop, osmPoly, cityFiller, signAtlas, bucActivity, boatRide } from '../buc.js';
 import { bench } from '../osm.js';
 import { clockFace, railing } from '../props.js';
+import { shortWaterRoute, dryLanding } from '../water-route.js';
+import { chessOpening } from '../chess-opening.js';
 
 const WRITERS = ['Mihai Eminescu', 'Ion Creangă', 'Ion Luca Caragiale', 'Vasile Alecsandri', 'George Coșbuc', 'Alexandru Vlahuță', 'Barbu Ștefănescu Delavrancea', 'Duiliu Zamfirescu', 'Titu Maiorescu', 'Nicolae Bălcescu', 'Alexandru Odobescu', 'Ștefan Octavian Iosif'];
 
@@ -20,8 +22,9 @@ export default {
         const g = ctx.ground, d = ctx.data, sp = ctx.spot('cismigiu'), r = rng(41);
         const T0 = g.heightAt(0, 0); g.mod((x, z, h) => T0 + (h - T0) * 0.5);
         const lake = osmPoly(d, 'w16292044');
+        const landing = d.pois.find(p => p.id === 'n473428602');
         let level = T0 - 1.3;
-        const month = new Date().getMonth(), winter = month === 11 || month <= 1;
+        const winterSeason = s => s.r3d?.weather?.season ? s.r3d.weather.season === 'winter' : [12,1,2].includes(+new Intl.DateTimeFormat('en', {timeZone:'Europe/Bucharest',month:'numeric'}).format(s.r3d?.simDate || s.host.date || new Date()));
         if (lake) { ctx.skipAreas.add('w16292044'); let s = 0; for (const [x, z] of lake) s += g.heightAt(x, z); level = s / lake.length - 1.1; ctx.water(level, polyBox(lake), [lake], { color: '#3f5a52', depth: 1.6 }); }
         const b = new GeoBatch(), signs = [];
         // footbridges over the lake (OSM bridge ways), note 35: smooth arched decks (walkable surface follows the arch), white
@@ -55,7 +58,7 @@ export default {
         // lake edge: low railing (posts + rails) with openings at bridge heads and paths reaching the shore; weeping willows
         if (lake) { const L = [...lake, lake[0]];
             const lw = offsetPolyline(L, polyArea(lake) > 0 ? -1.4 : 1.4);
-            const open = (x, z) => bridges.some((w) => distPolyline(x, z, w.pts).d < 2.6) || shorePaths.some((w) => { const e0 = w.pts[0], e1 = w.pts[w.pts.length - 1]; return [e0, e1].some(([ex, ez]) => Math.hypot(ex - x, ez - z) < 2.2) && distPolyline(x, z, w.pts).d < 1.8; });
+            const open = (x, z) => (landing && Math.hypot(x - landing.x, z - landing.z) < 8) || bridges.some((w) => distPolyline(x, z, w.pts).d < 2.6) || shorePaths.some((w) => { const e0 = w.pts[0], e1 = w.pts[w.pts.length - 1]; return [e0, e1].some(([ex, ez]) => Math.hypot(ex - x, ez - z) < 2.2) && distPolyline(x, z, w.pts).d < 1.8; });
             let run = []; const flush = () => { if (run.length >= 2) { railing(b, run, (x, z) => g.heightAt(x, z), { h: 0.7, post: 2.6, color: '#2a2e2c', r: 0.025 }); for (let i = 1; i < run.length; i++) { const [ax, az] = run[i - 1], [bx, bz] = run[i]; ctx.collider({ wall: true, ax, az, bx, bz, y0a: level - 3, y1a: level + 4, y0b: level - 3, y1b: level + 4, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.5 }); } } run = []; };
             for (let i = 0; i < lw.length; i++) { const [x, z] = lw[i]; if (open(x, z)) { flush(); continue; } if (i > 0 && open((x + lw[i - 1][0]) / 2, (z + lw[i - 1][1]) / 2)) flush(); run.push([x, z]); }
             flush();
@@ -63,10 +66,10 @@ export default {
         }
         // rowing boats (summer) moored at the landing + drifting; in winter the rink is up (OSM ice_rink area)
         const boats = [];
-        if (lake && !winter) { const bb = polyBox(lake); for (let i = 0; i < 9; i++) { let x = 0, z = 0; for (let k = 0; k < 40; k++) { x = bb.x0 + r() * (bb.x1 - bb.x0); z = bb.z0 + r() * (bb.z1 - bb.z0); if (inPoly(x, z, lake) && distPolyline(x, z, [...lake, lake[0]]).d > 6) break; } const m = new THREE.Group(); const hull = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 6, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), new THREE.MeshStandardMaterial({ color: r.pick(['#e8e2d2', '#2f5a7a', '#c8323a', '#e8e2d2']), roughness: 0.6 })); hull.scale.set(0.75, 0.42, 2.0); hull.rotation.x = Math.PI; hull.position.y = 0.05; hull.rotation.x = 0; m.add(hull); const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.06, 0.3), new THREE.MeshStandardMaterial({ color: '#7a5a3c' })); seat.position.y = -0.05; m.add(seat); m.position.set(x, level + 0.02, z); m.rotation.y = r() * 6.28; ctx.add(m); boats.push({ m, a: r() * 6.28, cx: x, cz: z }); }
-            ctx.onUpdate((dt, s) => { for (const q of boats) { q.a += dt * 0.05; const nx = q.cx + Math.cos(q.a) * 5, nz = q.cz + Math.sin(q.a) * 5; if (inPoly(nx, nz, lake)) { q.m.position.x = nx; q.m.position.z = nz; q.m.rotation.y = -q.a; } q.m.position.y = level + 0.02 + Math.sin(s.t * 1.3 + q.a * 3) * 0.03; } }); }
+        if (lake) { const bb = polyBox(lake); for (let i = 0; i < 9; i++) { let x = 0, z = 0; for (let k = 0; k < 40; k++) { x = bb.x0 + r() * (bb.x1 - bb.x0); z = bb.z0 + r() * (bb.z1 - bb.z0); if (inPoly(x, z, lake) && distPolyline(x, z, [...lake, lake[0]]).d > 6) break; } const m = new THREE.Group(); const hull = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 6, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), new THREE.MeshStandardMaterial({ color: r.pick(['#e8e2d2', '#2f5a7a', '#c8323a', '#e8e2d2']), roughness: 0.6 })); hull.scale.set(0.75, 0.42, 2.0); hull.rotation.x = Math.PI; hull.position.y = 0.05; hull.rotation.x = 0; m.add(hull); const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.06, 0.3), new THREE.MeshStandardMaterial({ color: '#7a5a3c' })); seat.position.y = -0.05; m.add(seat); m.position.set(x, level + 0.02, z); m.rotation.y = r() * 6.28; ctx.add(m); boats.push({ m, a: r() * 6.28, cx: x, cz: z }); }
+            ctx.onUpdate((dt, s) => { const winter = winterSeason(s); for (const q of boats) { q.m.visible = !winter; if (winter) continue; q.a += dt * 0.05; const nx = q.cx + Math.cos(q.a) * 5, nz = q.cz + Math.sin(q.a) * 5; if (inPoly(nx, nz, lake)) { q.m.position.x = nx; q.m.position.z = nz; q.m.rotation.y = -q.a; } q.m.position.y = level + 0.02 + Math.sin(s.t * 1.3 + q.a * 3) * 0.03; } }); }
         const rink = osmPoly(d, 'w1508293151');
-        if (rink && winter) { const yy = g.heightAt(...centroid(rink)); b.flat(rink, yy + 0.08, '#dfe9ee', 'glass'); }
+        if (rink) { const yy = g.heightAt(...centroid(rink)), ice = new GeoBatch(); ice.flat(rink, yy + .08, '#dfe9ee', 'glass'); const rinkMesh = ice.build('winter-rink'); rinkMesh.visible = false; ctx.add(rinkMesh); ctx.onUpdate((dt,s) => { rinkMesh.visible = winterSeason(s); }); }
         // the Writers' Rotunda: 12 busts on plinths round a paved circle
         const rot = d.pois.find((p) => p.id === 'n473428600') || { x: -162.6, z: 27.1 };
         { const y = g.heightAt(rot.x, rot.z); ctx.painter.custom((x, T, k) => { const [px, py] = T(rot.x, rot.z); x.fillStyle = '#b8b0a2'; x.beginPath(); x.arc(px, py, 13 * k, 0, 7); x.fill(); x.fillStyle = '#6c8a44'; x.beginPath(); x.arc(px, py, 5 * k, 0, 7); x.fill(); });
@@ -75,7 +78,7 @@ export default {
         // "La Șahiști": concrete chess tables, players, onlookers
         const ch = d.pois.find((p) => p.id === 'n473428599') || { x: -134.5, z: 78.6 };
         const chessTables = [];
-        { const y = g.heightAt(ch.x, ch.z); for (let i = 0; i < 6; i++) { const x = ch.x + (i % 3) * 3.4 - 3.4, z = ch.z + Math.floor(i / 3) * 3.6 - 1.8; b.cyl(x, y, z, 0.22, 0.72, '#b8b3a8', 'concrete', 8); b.box(x, y + 0.72, z, 0.95, 0.08, 0.95, '#cfcac0', 'concrete'); b.box(x, y + 0.805, z, 0.6, 0.01, 0.6, '#3a3a3a', 'paint'); for (let q = 0; q < 8; q++) b.box(x - 0.26 + (q % 4) * 0.15 + (Math.floor(q / 4) % 2) * 0.075, y + 0.816, z - 0.26 + Math.floor(q / 4) * 0.3, 0.075, 0.003, 0.075, '#e8e4d8', 'paint'); for (const s of [-1, 1]) { b.box(x + s * 0.95, y, z, 0.4, 0.45, 0.4, '#b8b3a8', 'concrete'); } ctx.box(x, z, 0.55, 0.55, 0, { prop: true, h: 0.8 }); chessTables.push([x, z]); } }
+        { const y = g.heightAt(ch.x, ch.z); for (let i = 0; i < 6; i++) { const x = ch.x + (i % 3) * 3.4 - 3.4, z = ch.z + Math.floor(i / 3) * 3.6 - 1.8; b.cyl(x, y, z, 0.22, 0.72, '#b8b3a8', 'concrete', 8); b.box(x, y + 0.72, z, 0.95, 0.08, 0.95, '#cfcac0', 'concrete'); b.box(x, y + 0.805, z, 0.6, 0.01, 0.6, '#3a3a3a', 'paint'); for(let rank=0;rank<8;rank++)for(let file=0;file<8;file++)if((rank+file)%2===0)b.box(x+(file-3.5)*.075,y+.816,z+(rank-3.5)*.075,.075,.003,.075,'#e8e4d8','paint'); for (const s of [-1, 1]) { b.box(x + s * 0.95, y, z, 0.4, 0.45, 0.4, '#b8b3a8', 'concrete'); } ctx.box(x, z, 0.55, 0.55, 0, { prop: true, h: 0.8 }); chessTables.push([x, z]); } }
         // French Heroes monument, Sissi Stefanidi spring, the pole clock at the Regina Elisabeta gate
         const fh = d.pois.find((p) => p.id === 'n473428601'); if (fh) { const y = g.heightAt(fh.x, fh.z); b.box(fh.x, y, fh.z, 3.2, 1.0, 3.2, '#bdb6a8', 'stone'); b.box(fh.x, y + 1, fh.z, 2.2, 3.2, 1.6, '#d6cfc0', 'stone'); b.sphere(fh.x, y + 4.8, fh.z, 0.55, 0.9, 0.5, '#3f4a3c', 'bronze', 10, 8); ctx.box(fh.x, fh.z, 1.6, 1.6, 0, { y0: y - 1, y1: y + 6 }); }
         const ck = d.pois.find((p) => p.id === 'n10864971740'); if (ck) { const y = g.heightAt(ck.x, ck.z); b.cyl(ck.x, y, ck.z, 0.12, 4.2, '#25332c', 'metal', 8); b.box(ck.x, y + 4.2, ck.z, 0.9, 0.9, 0.9, '#25332c', 'metal'); for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2, c = clockFace(0.78, { timeZone: 'Europe/Bucharest', ink: '#1d1d1d', ring: '#1d1d1d' }); c.position.set(ck.x + Math.sin(a) * 0.46, y + 4.65, ck.z + Math.cos(a) * 0.46); c.rotation.y = a; ctx.add(c); } signs.push({ x: ck.x, y: y + 5.45, z: ck.z + 0.46, yaw: 0, w: 1.2, h: 0.28, text: 'CIȘMIGIU', bg: '#25332c', fg: '#e8d9a8', border: false }); ctx.circle(ck.x, ck.z, 0.2, 5); }
@@ -105,15 +108,22 @@ export default {
         if (rink) { const [rx, rz] = centroid(rink); ctx.plaque(PL[2], rx - 18, rz, -Math.PI / 2, { style: 'park' }); }
         ctx.plaque(PL[3], rot.x + 14.5, rot.z + 2, Math.PI / 2, { style: 'bronze', credit: 'Writers\' Rotunda (1943); busts by several sculptors.' });
         ctx.plaque(PL[4], -40, 40, Math.PI / 2, { style: 'park' });
-        ctx.interactables.push({ x: ch.x + 4.5, z: ch.z, r: 3, label: 'Watch a chess game at "La Șahiști"', use: (s) => { const lines = ['„Nu muta calul acolo, domnule!" — "Don\'t move the knight there, sir!"', '„Șah! Și mat în trei." — "Check! And mate in three."', '„Pe vremea mea se juca șah adevărat." — "In my day we played real chess."']; bucActivity(s, 'cismigiu', 'chess', '♟ La Șahiști', lines[Math.floor(Math.random() * lines.length)]); } });
+        { const [x,z]=chessTables[2];chessOpening(ctx,{x,z,y:g.heightAt(ch.x,ch.z)+.823,source:ch.id,onDone:s=>bucActivity(s,'cismigiu','chess','♟ An opening at La Șahiști','You moved the king pawns and developed a knight: e4, …e5, Nf3.')}); }
         // activity (note 57): row round the lake from the landing (boats April–October; the rink replaces them in winter)
         if (lake) {
-            const landing = { x: -150, z: -100 }, q = distPolyline(landing.x, landing.z, [...lake, lake[0]]);
-            const loop = offsetPolyline([...lake, lake[0]], polyArea(lake) > 0 ? -9 : 9).filter(([x, z]) => inPoly(x, z, lake) && !bridges.some((w) => distPolyline(x, z, w.pts).d < 4));
-            const rb = new THREE.Group(); { const hull = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 6, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), new THREE.MeshStandardMaterial({ color: '#e8e2d2', roughness: 0.6 })); hull.scale.set(0.75, 0.42, 2.0); rb.add(hull); const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.06, 0.3), new THREE.MeshStandardMaterial({ color: '#7a5a3c' })); seat.position.y = -0.05; rb.add(seat); for (const sd of [-1, 1]) { const oar = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 2.4, 5), seat.material); oar.rotation.z = sd * 1.25; oar.position.set(sd * 1.0, 0.05, 0.1); rb.add(oar); } }
-            rb.position.set(q.cx, level + 0.02, q.cz); ctx.add(rb);
-            const ride = loop.length > 4 ? boatRide(ctx, rb, [[q.cx, q.cz], ...loop.slice(Math.floor(loop.length * 0.0)), [q.cx, q.cz]], level + 0.02, { speed: 1.5, onDone: (s) => bucActivity(s, 'cismigiu', 'rowboat', '🚣 Rowed in Cișmigiu', 'Round the lake under the willows and back to the landing (debarcader). Boats are rented by the hour, April to October.') }) : null;
-            ctx.interactables.push({ x: landing.x, z: landing.z, r: 5, label: () => (winter ? 'Boat landing (rink season: skating on the frozen-over lake)' : 'Rent a rowing boat (row round the lake, Esc to stop)'), cond: () => !ride?.active(), use: (s) => { const m = new Date().getMonth(); if (winter || m < 3 || m > 9) { s.ui.toast('🚣 Boats are seasonal', 'The landing rents rowing boats from April to October; in winter the lake becomes the rink.'); return; } ride?.start(s); } });
+            const loop = landing && shortWaterRoute(lake, landing, { avoid: (x, z) => bridges.some(w => distPolyline(x, z, w.pts).d < 4) });
+            const rb = new THREE.Group(); { const hull = new THREE.Mesh(new THREE.SphereGeometry(1, 12, 6, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), new THREE.MeshStandardMaterial({ color: '#e8e2d2', roughness: 0.6 })); hull.scale.set(0.75, 0.42, 2.0); rb.add(hull); const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.06, 0.3), new THREE.MeshStandardMaterial({ color: '#7a5a3c' })); seat.position.y = -0.05; rb.add(seat); }
+            if (loop) {
+                // The real Debarcader POI is the shore access, not the former
+                // invented trigger 250 m away. Only a short, validated course
+                // near this landing is used; all of the lake remains scenery.
+                rb.position.set(loop[0][0], level + .02, loop[0][1]); ctx.add(rb);
+                const ride = boatRide(ctx, rb, loop, level + .02, { speed: 1.5, title: 'Row on Lake Cișmigiu', onDone: s => bucActivity(s, 'cismigiu', 'rowboat', '🚣 Rowed in Cișmigiu', 'You rowed the short course and returned to Debarcader. Rowing on the lake is a warm-season activity.') });
+                const inSeason = s => { const date = s.r3d?.simDate || s.host.date || new Date(), m = new Intl.DateTimeFormat('en', { timeZone: 'Europe/Bucharest', month: 'numeric' }).format(date); return +m >= 4 && +m <= 10 && s.r3d?.weather?.season !== 'winter'; };
+                const approach = dryLanding(lake, landing);
+                ctx.extras.rowboat = { ride, path: loop, source: landing.id, landing, approach };
+                ctx.interactables.push({ x: approach.x, z: approach.z, source: landing.id, r: 3, label: 'Row a boat from Debarcader (warm season)', tourAvailable: inSeason, cond: () => !ride.active(), use: s => { if (!inSeason(s)) { s.ui.toast('🚣 Boats are seasonal', 'Rowing is a warm-season activity. Current rental hours are not confirmed.'); return; } ride.start(s); } });
+            }
         }
         // the Writers' Rotunda: read all twelve names (walk past each bust)
         { const seen = new Set(); ctx.onUpdate((dt, s) => { const p = s.position; if (Math.hypot(p.x - rot.x, p.z - rot.z) > 14 || seen.size >= 12) return; WRITERS.forEach((nm, i) => { const a = i / 12 * Math.PI * 2; if (Math.hypot(p.x - (rot.x + Math.cos(a) * 9.2), p.z - (rot.z + Math.sin(a) * 9.2)) < 1.6 && !seen.has(nm)) { seen.add(nm); if (seen.size === 12) bucActivity(s, 'cismigiu', 'rotunda', '📖 Twelve writers', 'You stood before every bust in the Rotunda — Eminescu to Iosif.'); } }); }); }

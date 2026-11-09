@@ -1,0 +1,293 @@
+{
+  "conditions": [
+    {
+      "label": "night-auto-warm",
+      "on": true,
+      "manual": "auto",
+      "renderManual": null,
+      "night": true,
+      "weather": "clear",
+      "quality": "auto (low+)",
+      "pose": {
+        "x": 636.3505394827646,
+        "z": 710.5483630322376,
+        "heading": 0.3350408401110723
+      },
+      "spots": [
+        {
+          "visible": true,
+          "intensity": 140,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        },
+        {
+          "visible": true,
+          "intensity": 140,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        }
+      ],
+      "links": 22,
+      "programs": 63
+    },
+    {
+      "label": "night-manual-off",
+      "on": false,
+      "manual": false,
+      "renderManual": false,
+      "night": true,
+      "weather": "clear",
+      "quality": "auto (low+)",
+      "pose": {
+        "x": 636.3505394827646,
+        "z": 710.5483630322376,
+        "heading": 0.3350408401110723
+      },
+      "spots": [
+        {
+          "visible": true,
+          "intensity": 0,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        },
+        {
+          "visible": true,
+          "intensity": 0,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        }
+      ],
+      "links": 0,
+      "programs": 63
+    },
+    {
+      "label": "night-manual-on",
+      "on": true,
+      "manual": true,
+      "renderManual": true,
+      "night": true,
+      "weather": "clear",
+      "quality": "auto (low+)",
+      "pose": {
+        "x": 636.3505394827646,
+        "z": 710.5483630322376,
+        "heading": 0.3350408401110723
+      },
+      "spots": [
+        {
+          "visible": true,
+          "intensity": 140,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        },
+        {
+          "visible": true,
+          "intensity": 140,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        }
+      ],
+      "links": 0,
+      "programs": 63
+    },
+    {
+      "label": "day-auto-off",
+      "on": false,
+      "manual": "auto",
+      "renderManual": null,
+      "night": false,
+      "weather": "clear",
+      "quality": "auto (low+)",
+      "pose": {
+        "x": 636.3505394827646,
+        "z": 710.5483630322376,
+        "heading": 0.3350408401110723
+      },
+      "spots": [
+        {
+          "visible": true,
+          "intensity": 0,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        },
+        {
+          "visible": true,
+          "intensity": 0,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        }
+      ],
+      "links": 0,
+      "programs": 63
+    },
+    {
+      "label": "fog-auto-on",
+      "on": true,
+      "manual": "auto",
+      "renderManual": true,
+      "night": false,
+      "weather": "fog",
+      "quality": "auto (low+)",
+      "pose": {
+        "x": 636.3505394827646,
+        "z": 710.5483630322376,
+        "heading": 0.3350408401110723
+      },
+      "spots": [
+        {
+          "visible": true,
+          "intensity": 25.2,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        },
+        {
+          "visible": true,
+          "intensity": 25.2,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        }
+      ],
+      "links": 0,
+      "programs": 63
+    },
+    {
+      "label": "fog-manual-off",
+      "on": false,
+      "manual": false,
+      "renderManual": false,
+      "night": false,
+      "weather": "fog",
+      "quality": "auto (low+)",
+      "pose": {
+        "x": 636.3505394827646,
+        "z": 710.5483630322376,
+        "heading": 0.3350408401110723
+      },
+      "spots": [
+        {
+          "visible": true,
+          "intensity": 0,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        },
+        {
+          "visible": true,
+          "intensity": 0,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        }
+      ],
+      "links": 0,
+      "programs": 63
+    },
+    {
+      "label": "fog-auto-before-travel",
+      "on": true,
+      "manual": "auto",
+      "renderManual": true,
+      "night": false,
+      "weather": "fog",
+      "quality": "auto (low+)",
+      "pose": {
+        "x": 636.3505394827646,
+        "z": 710.5483630322376,
+        "heading": 0.3350408401110723
+      },
+      "spots": [
+        {
+          "visible": true,
+          "intensity": 25.2,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        },
+        {
+          "visible": true,
+          "intensity": 25.2,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        }
+      ],
+      "links": 0,
+      "programs": 63
+    },
+    {
+      "label": "fog-auto-after-travel",
+      "on": true,
+      "manual": "auto",
+      "renderManual": true,
+      "night": false,
+      "weather": "fog",
+      "quality": "auto (low+)",
+      "pose": {
+        "x": -249.87297358346723,
+        "z": 980.5161446512409,
+        "heading": 0.031013351810325242
+      },
+      "spots": [
+        {
+          "visible": true,
+          "intensity": 25.2,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        },
+        {
+          "visible": true,
+          "intensity": 25.2,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        }
+      ],
+      "links": 16,
+      "programs": 46
+    },
+    {
+      "label": "settings-manual-off",
+      "on": false,
+      "manual": false,
+      "renderManual": false,
+      "night": false,
+      "weather": "fog",
+      "quality": "medium",
+      "pose": {
+        "x": -249.87297358346723,
+        "z": 980.5161446512409,
+        "heading": 0.031013351810325242
+      },
+      "spots": [
+        {
+          "visible": true,
+          "intensity": 0,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        },
+        {
+          "visible": true,
+          "intensity": 0,
+          "shadow": false,
+          "layer": 1,
+          "map": false
+        }
+      ],
+      "links": 37,
+      "programs": 67
+    }
+  ],
+  "errors": []
+}

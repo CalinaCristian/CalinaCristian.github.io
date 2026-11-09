@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "controls": [
+    {
+      "name": "explicit rail one-way differs from an unrelated motor direction",
+      "passed": true
+    },
+    {
+      "name": "nearby geometry cannot create a rail node join",
+      "passed": true
+    },
+    {
+      "name": "long-body samples traverse literal short connected legs and bends",
+      "passed": true
+    },
+    {
+      "name": "reverse-only source direction remains reverse-only",
+      "passed": true
+    },
+    {
+      "name": "unknown source direction and incomplete whole-way geometry remain unresolved",
+      "passed": true
+    },
+    {
+      "name": "layer is not a height; an explicit resolver supplies the same path grade",
+      "passed": true
+    },
+    {
+      "name": "equal source node creates a physical binding without mutating motor topology",
+      "passed": true
+    },
+    {
+      "name": "projection never uses road median or cross-track reverse legality",
+      "passed": true
+    },
+    {
+      "name": "unmodeled full source continuation stays retained without adding an invisible route",
+      "passed": true
+    },
+    {
+      "name": "source reservations retain a mapped bend instead of crossing its chord",
+      "passed": true
+    },
+    {
+      "name": "native bridge grade needs whole support, compatible layer, and consistent height",
+      "passed": true
+    },
+    {
+      "name": "source-connected height conflicts and coordinate conflicts cannot become usable joins",
+      "passed": true
+    },
+    {
+      "name": "numeric source speed limits survive rail graph construction",
+      "passed": true
+    }
+  ],
+  "rngDraws": 0,
+  "browserOpened": false
+}

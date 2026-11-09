@@ -664,5 +664,289 @@
         "cismigiu"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "cismigiu",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/cismigiu/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:21:16.431Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -10.640205413017927,
+          "z": -49.15501588057138,
+          "y": 0.35078865501015155,
+          "heading": 0.698131640625
+        },
+        "pose": {
+          "position": [
+            -10.640205413017927,
+            2.0007886550101515,
+            -49.15501588057138
+          ],
+          "bearing": 320.00000344764356,
+          "pitch": 5.000001247631845
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:21:14.369Z",
+        "triangles": 564963,
+        "drawCalls": 45,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "60b4602a7d80506f2c318889c79b5e303ee8af4a92c2a4578074ef0b32f168e5",
+        "bytes": 48042,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -0.8630312298909688,
+            "z": -71.07983521630418,
+            "y": 0.6773180583153496,
+            "heading": -5.21173570206482
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "cismigiu",
+            "x": -10.640205413017927,
+            "z": -49.15501588057138,
+            "bearing": 320,
+            "pitch": 5,
+            "fov": 70,
+            "text": "From the lake bridge/shore near the centre looking NW along the lake with rowing boats and willows; alt: Rotonda Scriitorilor.",
+            "r": 12,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -10.640205413017927,
+            "z": -49.15501588057138,
+            "y": 0.35078865501015155,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "cismigiu",
+          "origin": {
+            "lat": 44.437,
+            "lon": 26.0912,
+            "elev": 74.8
+          },
+          "projection": {
+            "mLat": 111120.78,
+            "mLon": 79615.21
+          }
+        },
+        "label": "The lake through the garden trees",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/cismigiu/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:26:08.012Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -10.640205413017927,
+          "z": -49.15501588057138,
+          "y": 0.35078865501015155,
+          "heading": 0.6981317578124999
+        },
+        "pose": {
+          "position": [
+            -10.640205413017927,
+            2.0007886550101515,
+            -49.15501588057138
+          ],
+          "bearing": 319.99999673329444,
+          "pitch": 5.000001247631846
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:26:06.484Z",
+        "triangles": 568701,
+        "drawCalls": 141,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "f84fefa7d61e47af8bd896caad29f30b350c92569079bcac08fcd88109214b50",
+        "bytes": 44834,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": -0.8630312298909688,
+            "z": -71.07983521630418,
+            "y": 0.6773180583153496,
+            "heading": -5.21173570206482
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "cismigiu",
+            "x": -10.640205413017927,
+            "z": -49.15501588057138,
+            "bearing": 320,
+            "pitch": 5,
+            "fov": 70,
+            "text": "From the lake bridge/shore near the centre looking NW along the lake with rowing boats and willows; alt: Rotonda Scriitorilor.",
+            "r": 12,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -10.640205413017927,
+            "z": -49.15501588057138,
+            "y": 0.35078865501015155,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "cismigiu",
+          "origin": {
+            "lat": 44.437,
+            "lon": 26.0912,
+            "elev": 74.8
+          },
+          "projection": {
+            "mLat": 111120.78,
+            "mLon": 79615.21
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/cismigiu/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:21:21.444Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -10.640205413017927,
+          "z": -49.15501588057138,
+          "y": 0.35078865501015155,
+          "heading": 0.698131640625
+        },
+        "pose": {
+          "position": [
+            -10.640205413017927,
+            2.0007886550101515,
+            -49.15501588057138
+          ],
+          "bearing": 320.00000344764356,
+          "pitch": 5.000001247631845
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:21:19.383Z",
+        "triangles": 556028,
+        "drawCalls": 44,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "78616cf6f289f5b88bb876289a4f8bbd56e32ac625c1bea28637d9a7e1c79931",
+        "bytes": 44791,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -0.8630312298909688,
+            "z": -71.07983521630418,
+            "y": 0.6773180583153496,
+            "heading": -5.21173570206482
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "cismigiu",
+            "x": -10.640205413017927,
+            "z": -49.15501588057138,
+            "bearing": 320,
+            "pitch": 5,
+            "fov": 70,
+            "text": "From the lake bridge/shore near the centre looking NW along the lake with rowing boats and willows; alt: Rotonda Scriitorilor.",
+            "r": 12,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -10.640205413017927,
+            "z": -49.15501588057138,
+            "y": 0.35078865501015155,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "cismigiu",
+          "origin": {
+            "lat": 44.437,
+            "lon": 26.0912,
+            "elev": 74.8
+          },
+          "projection": {
+            "mLat": 111120.78,
+            "mLon": 79615.21
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:26:08.012Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

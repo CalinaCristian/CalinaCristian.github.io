@@ -1,0 +1,75 @@
+{
+  "canvas": [
+    512,
+    320
+  ],
+  "viewport": [
+    1280,
+    720
+  ],
+  "mapBounds": [
+    0,
+    74,
+    512,
+    266
+  ],
+  "font": "11px sans-serif",
+  "scope": "isolated production CarScreen; synthetic control poses; no source POI movement",
+  "rows": [
+    {
+      "id": "inside",
+      "screenCentre": [
+        270,
+        100
+      ],
+      "changedPixels": 276,
+      "changedOutsideMap": 0,
+      "mapGlyphDraws": 1,
+      "inputUnchanged": true
+    },
+    {
+      "id": "partial-top",
+      "screenCentre": [
+        270,
+        76
+      ],
+      "changedPixels": 174,
+      "changedOutsideMap": 0,
+      "mapGlyphDraws": 1,
+      "inputUnchanged": true
+    },
+    {
+      "id": "outside-top",
+      "screenCentre": [
+        270,
+        65
+      ],
+      "changedPixels": 0,
+      "changedOutsideMap": 0,
+      "mapGlyphDraws": 0,
+      "inputUnchanged": true
+    },
+    {
+      "id": "native-top-overflow",
+      "screenCentre": [
+        270,
+        2
+      ],
+      "changedPixels": 0,
+      "changedOutsideMap": 0,
+      "mapGlyphDraws": 0,
+      "inputUnchanged": true
+    },
+    {
+      "id": "outside-bottom",
+      "screenCentre": [
+        270,
+        276
+      ],
+      "changedPixels": 0,
+      "changedOutsideMap": 0,
+      "mapGlyphDraws": 0,
+      "inputUnchanged": true
+    }
+  ]
+}

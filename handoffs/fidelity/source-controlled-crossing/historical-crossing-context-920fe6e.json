@@ -1,0 +1,234 @@
+{
+  "scope": "Cached literal source incidence and native6cb/world8cc road approach audit, no browser or production writes; parallel axis permits a shared synthetic game phase only, not measured real-world phase timing.",
+  "inputs": [
+    {
+      "path": "/workspace/fidelity-workers/tram-source-metadata/game/data/bucharest-grozavesti.json",
+      "sha256": "6d9217531ed5995afb99f7aaadddcde6d49cf62761a759ff76c35d010e2d86d7"
+    },
+    {
+      "path": "/workspace/integration-qa-evidence/groz-support-6cb-native/native-support.json",
+      "sha256": "a1dcca3b1a573028b7f659787b2c7db34dd874b0a28b6697d34593be6f417bb3",
+      "sourceCommit": "6cbf82b61de8267f662bf50239c37ccc1764635c"
+    },
+    {
+      "path": "/workspace/reality-pass/grozavesti/tiles/buc_44.4350_26.0450_44.4450_26.0610.xml",
+      "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689"
+    }
+  ],
+  "crossingFootway": {
+    "sourceId": "w665913378",
+    "nodeIds": [
+      6234008737,
+      6234008741,
+      6234008736,
+      6234008735
+    ],
+    "tags": {
+      "footway": "crossing",
+      "highway": "footway",
+      "surface": "asphalt"
+    },
+    "points": [
+      [
+        61.461166251152214,
+        -5.645505599644139
+      ],
+      [
+        58.61581547946974,
+        -9.979653599756432
+      ],
+      [
+        56.45398472538117,
+        -13.169141999916008
+      ],
+      [
+        54.72134095942559,
+        -15.66961199992005
+      ]
+    ],
+    "nodeTags": {
+      "6234008737": {},
+      "6234008741": {
+        "button_operated": "no",
+        "crossing": "traffic_signals",
+        "highway": "crossing",
+        "traffic_signals:sound": "no",
+        "traffic_signals:vibration": "no"
+      },
+      "6234008736": {
+        "crossing": "traffic_signals",
+        "railway": "crossing"
+      },
+      "6234008735": {
+        "crossing": "traffic_signals",
+        "railway": "crossing"
+      }
+    }
+  },
+  "railNodeIds": [
+    6234008736,
+    6234008735
+  ],
+  "roadIncidences": [
+    {
+      "nodeId": 6234008741,
+      "sourceId": "w106797416",
+      "nativeNodeId": 98
+    }
+  ],
+  "rawRoadWay": {
+    "sourceId": "w106797416",
+    "nodeIds": [
+      286838434,
+      304485448,
+      6234008741,
+      2159714535,
+      4544523819,
+      6234340430,
+      4544523820
+    ],
+    "tags": {
+      "access": "yes",
+      "highway": "secondary",
+      "lanes": "2",
+      "maxspeed": "50",
+      "name": "Bulevardul Doina Cornea",
+      "oneway": "yes",
+      "smoothness": "excellent",
+      "surface": "asphalt",
+      "turn:lanes": "left|left"
+    }
+  },
+  "nativeRoadNode": {
+    "id": 98,
+    "sourceId": 6234008741,
+    "x": 58.61581547946974,
+    "z": -9.979653599756432,
+    "radius": 4,
+    "hasLight": false,
+    "crossing": true,
+    "zebra": true,
+    "stop": false,
+    "flags": 10,
+    "signal": false,
+    "giveWay": false,
+    "busStop": false,
+    "tramStop": false,
+    "speedCamera": false,
+    "redLightCamera": false,
+    "comp": 423,
+    "drivable": true,
+    "y": 0,
+    "yFixed": false,
+    "yPin": false,
+    "pad": false,
+    "edgeIds": [
+      78,
+      79
+    ],
+    "liveGraphEdgeIds": [
+      78,
+      79
+    ]
+  },
+  "nativeIncomingMotorApproaches": [
+    {
+      "edgeId": 78,
+      "sourceId": "w106797416",
+      "dir": 1,
+      "unit": [
+        0.6965965412063009,
+        -0.717463071369822
+      ],
+      "sourceNodeIds": [
+        304485448,
+        6234008741
+      ]
+    }
+  ],
+  "incomingRailApproaches": [
+    {
+      "railNodeId": 6234008736,
+      "sourceId": "w660918285",
+      "sourceTags": {
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "oneway": "yes",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      },
+      "sourceNodeIds": [
+        6187777608,
+        6234008736
+      ],
+      "dir": 1,
+      "incomingUnit": [
+        0.7079859080806641,
+        -0.7062265599361138
+      ],
+      "motorAxisComparisons": [
+        {
+          "motorEdgeId": 78,
+          "dot": 0.9998720115665006,
+          "axisAngleDeg": 0.9167008292300907
+        }
+      ]
+    },
+    {
+      "railNodeId": 6234008735,
+      "sourceId": "w128304860",
+      "sourceTags": {
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "oneway": "yes",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      },
+      "sourceNodeIds": [
+        933659730,
+        6234008735
+      ],
+      "dir": 1,
+      "incomingUnit": [
+        -0.7081384015077417,
+        0.7060736536014216
+      ],
+      "motorAxisComparisons": [
+        {
+          "motorEdgeId": 78,
+          "dot": -0.9998685333118393,
+          "axisAngleDeg": 0.9290738780443841
+        }
+      ]
+    }
+  ],
+  "neighborCrossingNotFloodMerged": {
+    "sourceId": "w665913379",
+    "nodeIds": [
+      6234008740,
+      6234008737,
+      6233585067
+    ],
+    "tags": {
+      "footway": "crossing",
+      "highway": "footway",
+      "surface": "asphalt"
+    }
+  },
+  "controllerFinding": {
+    "bit8Retained": true,
+    "signal": false,
+    "hasLight": false,
+    "railControllerCurrentlyLinked": false,
+    "noNearestLightOrProximityJoin": true
+  },
+  "proposedField": "tramSourceCrossings: [{sourceId,nodeIds,tags,points:q10_delta,nodeTags,railNodeIds,roadIncidences:[{nodeId,sourceId}]}]",
+  "unknowns": [
+    "Actual real signal phases and timings are not encoded by this source.",
+    "Current raw tags do not specify a separate tram signal indication or priority request phase."
+  ]
+}

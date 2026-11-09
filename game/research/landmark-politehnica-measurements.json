@@ -1,0 +1,124 @@
+{
+  "schema": 1,
+  "reviewedUTC": "2026-11-08",
+  "landmark": "politehnica",
+  "builder": "bPolitehnica",
+  "sourceIdentity": "w28240552",
+  "sources": [
+    {
+      "id": "osm",
+      "url": "https://www.openstreetmap.org/way/28240552",
+      "retrieved": "2026-11-08",
+      "license": "ODbL",
+      "claims": [
+        "outline",
+        "five building levels",
+        "university use",
+        "name"
+      ]
+    },
+    {
+      "id": "commons-front-2024",
+      "url": "https://commons.wikimedia.org/wiki/File:Politehnica_University_of_Bucharest.jpg",
+      "acquired": "2024-01-22",
+      "license": "CC BY-SA 4.0",
+      "author": "Mister rf",
+      "claims": [
+        "red main-floor panels",
+        "pale vertical fins and sills",
+        "brick lower facade",
+        "recessed glazed upper floor"
+      ]
+    },
+    {
+      "id": "commons-oblique-2024",
+      "url": "https://commons.wikimedia.org/wiki/File:Politehnica_University_of_Bucharest_04.jpg",
+      "acquired": "2024-01-22",
+      "license": "CC BY-SA 4.0",
+      "author": "Mister rf",
+      "claims": [
+        "adjoining face composition"
+      ]
+    },
+    {
+      "id": "commons-night-2024",
+      "url": "https://commons.wikimedia.org/wiki/File:Politehnica_University_of_Bucharest_at_night_02.jpg",
+      "acquired": "2024-04-24",
+      "license": "CC BY-SA 4.0",
+      "author": "Mister rf",
+      "claims": [
+        "blue dome rim at night",
+        "lit roof slab"
+      ]
+    },
+    {
+      "id": "esri-z18",
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "retrieved": "2026-11-08",
+      "acquired": null,
+      "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+      "use": "Local measurement only. Imagery is not redistributed.",
+      "claims": [
+        "square body",
+        "saucer roof plan"
+      ]
+    }
+  ],
+  "measurements": {
+    "footprintAreaM2": {
+      "value": 2238,
+      "source": "osm",
+      "method": "projected OSM polygon shoelace area"
+    },
+    "buildingLevels": {
+      "value": 5,
+      "source": "osm",
+      "method": "building:levels tag"
+    },
+    "existingOutlineVertexDeviationM": {
+      "maximum": 0.4,
+      "source": "osm",
+      "method": "corresponding vertices against retained P2.rectorat"
+    },
+    "domeDiameterM": {
+      "value": 40,
+      "uncertainty": 4,
+      "source": "esri-z18",
+      "method": "manual roof-plan observation; off-nadir displacement limits precision"
+    }
+  },
+  "authoredEstimates": {
+    "mainStoreyM": 3.6,
+    "groundStoreyM": 3.8,
+    "upperStoreyM": 4.4,
+    "domeDiameterM": 39.2,
+    "facadeRed": "#b52c35",
+    "facadePale": "#dedbd0",
+    "brick": "#9b624b",
+    "note": "Palette and dimensions are visual approximations, not exact colourimetry or surveyed heights."
+  },
+  "unresolved": [
+    "No independently published metre height",
+    "Fin depth and exact bay count unmeasured",
+    "Partly exposed lower level and individual altered bays simplified",
+    "Neighbouring campus buildings are separate generic OSM records",
+    "No complete landmark parity claim"
+  ],
+  "sourceIds": [
+    "w28240552",
+    "w1217715300"
+  ],
+  "roofPart": {
+    "osm": "w1217715300",
+    "tags": {
+      "building:levels": "7",
+      "building:part": "roof",
+      "layer": "1",
+      "min_level": "6",
+      "roof:levels": "1",
+      "roof:shape": "dome"
+    },
+    "sourceNote": "Raw source levels/min_level/layer are preserved as facts, not metric heights. Alternative min_level is not interpreted as a measured clearance in this pass."
+  },
+  "replacementScope": "Only the Rectorat body and its dome roof part. Adjacent Corp AN w1217713450 and all other campus buildings stay separate source records."
+}

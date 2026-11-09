@@ -1,0 +1,13 @@
+{
+  "candidateCommit": "a553a44455cdf1f7b4af32eae86dbfb57d924cfb",
+  "parentMaster": "df9b2e2ced83b8b30bcc8e34cf809a434b25bc27",
+  "runtimeUnchanged": true,
+  "scope": "Exact Git commit served, local assets and UI; official aerial request mocked only for browser delivery smoke, no external imagery/parity claim.",
+  "errors": [],
+  "consoleErrors": [],
+  "missing": [],
+  "districts": [],
+  "landmarks": [],
+  "spots": [],
+  "completedAt": "2026-11-09T06:57:25.998Z"
+}

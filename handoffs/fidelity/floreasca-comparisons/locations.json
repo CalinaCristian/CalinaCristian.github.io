@@ -1,0 +1,7 @@
+[
+  {"id":"rosetti-start","label":"Rosetti chapter start","lat":44.4556,"lon":26.10071,"source":"game/src/cities.js:CHAPTERS.rosetti.start","kind":"chapter-start"},
+  {"id":"rosetti","label":"Liceul C.A. Rosetti","lat":44.46709,"lon":26.1063,"source":"game/src/cities.js:BUC_POIS.rosetti; OSM w28240279 / grounds w253216276","osm":"way/28240279","kind":"cv-stop"},
+  {"id":"dinamo","label":"Stadionul Dinamo","lat":44.4551306,"lon":26.1023192,"source":"game/src/landmarks.js:ANCHOR.dinamo","kind":"landmark"},
+  {"id":"skytower","label":"Sky Tower","lat":44.4779551,"lon":26.1047395,"source":"game/src/landmarks.js:ANCHOR.skytower; OSM w219622660","osm":"way/219622660","kind":"skyline"},
+  {"id":"globalworth","label":"Globalworth Tower","lat":44.4792401,"lon":26.1024141,"source":"game/src/landmarks.js:ANCHOR.globalworth; OSM w547396774","osm":"way/547396774","kind":"skyline"}
+]

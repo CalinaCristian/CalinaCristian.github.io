@@ -1,0 +1,316 @@
+{
+  "beforeSource": "10d9b98b9e8020ff8791de5466d4565824d876da",
+  "afterSource": "57986a65bac7a86268b3678d6d0cd40d9fe5c746",
+  "protocol": {
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "viewportCSS": [
+      1280,
+      720
+    ],
+    "pixelRatio": 0.5,
+    "mirror": true,
+    "manualTrafficStepsSinceLoad": 900,
+    "manualTrafficDt": 0.03333333333333333,
+    "renderWarmupFrames": 3,
+    "measuredFrames": 3,
+    "explanation": "Before warmed with one prior900-step call; final recorded spec.warm=0 preserves that30s state and warms/render-measures six frames. After starts from a fresh immutable reload and warms900steps in its recorded call. Counts are observed warmed fleet frames, not claims of identical stochastic traffic placement."
+  },
+  "before": {
+    "spec": {
+      "id": "warmed-under-target54",
+      "x": 196.8,
+      "z": -464.7,
+      "road": 56,
+      "heading": -0.35,
+      "warm": 0,
+      "traffic": true,
+      "frames": 6
+    },
+    "pose": {
+      "x": 196.8,
+      "z": -464.7,
+      "y": 0.24,
+      "heading": -0.35,
+      "edge": 265,
+      "latlon": {
+        "lat": 44.4453815138754,
+        "lon": 26.061676123531043
+      }
+    },
+    "quality": "high",
+    "mirrorEnabled": true,
+    "mirrorFar": 150,
+    "traffic": {
+      "vehicles": 308,
+      "hot": 3
+    },
+    "samples": [
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 274,
+        "triangles": 947315,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 274,
+        "triangles": 947315,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 274,
+        "triangles": 947315,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 274,
+        "triangles": 947315,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 274,
+        "triangles": 947315,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 274,
+        "triangles": 947315,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      }
+    ],
+    "trafficVisibility": {
+      "vehicles": true,
+      "peds": true
+    },
+    "sourceLabel": "before",
+    "warmupRenderFrames": 3,
+    "warmedSamples": [
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 274,
+        "triangles": 947315,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 274,
+        "triangles": 947315,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 274,
+        "triangles": 947315,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      }
+    ]
+  },
+  "after": {
+    "spec": {
+      "id": "warmed-under-target54",
+      "x": 196.8,
+      "z": -464.7,
+      "road": 56,
+      "heading": -0.35,
+      "warm": 900,
+      "traffic": true,
+      "frames": 6
+    },
+    "pose": {
+      "x": 196.8,
+      "z": -464.7,
+      "y": 0.24,
+      "heading": -0.35,
+      "edge": 265,
+      "latlon": {
+        "lat": 44.4453815138754,
+        "lon": 26.061676123531043
+      }
+    },
+    "quality": "high",
+    "mirrorEnabled": true,
+    "mirrorFar": 150,
+    "traffic": {
+      "vehicles": 308,
+      "hot": 3
+    },
+    "samples": [
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 365,
+        "triangles": 972061,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 269,
+        "triangles": 959389,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 269,
+        "triangles": 959389,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 269,
+        "triangles": 959389,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 269,
+        "triangles": 959389,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 269,
+        "triangles": 959389,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      }
+    ],
+    "trafficVisibility": {
+      "vehicles": true,
+      "peds": true
+    },
+    "sourceLabel": "after",
+    "warmupRenderFrames": 3,
+    "warmedSamples": [
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 269,
+        "triangles": 959389,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 269,
+        "triangles": 959389,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 269,
+        "triangles": 959389,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      }
+    ]
+  }
+}

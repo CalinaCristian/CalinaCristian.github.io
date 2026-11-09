@@ -738,5 +738,286 @@
         "space-needle"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "space-needle",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/space-needle/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:23:40.548Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": 0.3,
+          "z": 56.3,
+          "y": 1.3309367892146104,
+          "heading": 0
+        },
+        "pose": {
+          "position": [
+            0.3,
+            2.9809367892146104,
+            56.3
+          ],
+          "bearing": 0,
+          "pitch": 57.204106265861405
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:23:36.348Z",
+        "triangles": 735015,
+        "drawCalls": 62,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "a49fc6642f8309dafa85012281445d8afdfd173d311228b41c30f43818b516a2",
+        "bytes": 19812,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 0.2,
+            "z": 27.2,
+            "y": 1.5,
+            "heading": 0
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "space-needle",
+            "x": 0.3,
+            "z": 56.3,
+            "bearing": 0,
+            "pitch": 60,
+            "fov": 70,
+            "text": "Straight up the legs from the south base",
+            "r": 16,
+            "tol": 45,
+            "targets": [],
+            "condHint": "Look straight up the legs."
+          },
+          "position": {
+            "x": 0.3,
+            "z": 56.3,
+            "y": 1.3309367892146104,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "seattle-center",
+          "origin": {
+            "lat": 47.6205063,
+            "lon": -122.3493043,
+            "elev": 40.5
+          },
+          "projection": {
+            "mLat": 111182.94,
+            "mLon": 75171.03
+          }
+        },
+        "label": "Looking up the Needle above the trees",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/space-needle/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:27:34.172Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 0.3,
+          "z": 56.3,
+          "y": 1.3309367892146104,
+          "heading": 0
+        },
+        "pose": {
+          "position": [
+            0.3,
+            2.9809367892146104,
+            56.3
+          ],
+          "bearing": 0,
+          "pitch": 57.204106265861405
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:27:31.726Z",
+        "triangles": 737717,
+        "drawCalls": 154,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "16e4c9bf67b7f81b83b37a61263d2c3d759a71f97140edd73a14dd0f622f674e",
+        "bytes": 47520,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": 0.2,
+            "z": 27.2,
+            "y": 1.5,
+            "heading": 0
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "space-needle",
+            "x": 0.3,
+            "z": 56.3,
+            "bearing": 0,
+            "pitch": 60,
+            "fov": 70,
+            "text": "Straight up the legs from the south base",
+            "r": 16,
+            "tol": 45,
+            "targets": [],
+            "condHint": "Look straight up the legs."
+          },
+          "position": {
+            "x": 0.3,
+            "z": 56.3,
+            "y": 1.3309367892146104,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "seattle-center",
+          "origin": {
+            "lat": 47.6205063,
+            "lon": -122.3493043,
+            "elev": 40.5
+          },
+          "projection": {
+            "mLat": 111182.94,
+            "mLon": 75171.03
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/space-needle/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:23:43.742Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 0.3,
+          "z": 56.3,
+          "y": 1.3309367892146104,
+          "heading": 0
+        },
+        "pose": {
+          "position": [
+            0.3,
+            2.9809367892146104,
+            56.3
+          ],
+          "bearing": 0,
+          "pitch": 57.204106265861405
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:23:39.543Z",
+        "triangles": 725044,
+        "drawCalls": 57,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "6c1da31eaa773629e7e3735a9b119c87b779392bd2ccdf74a22b7eca9c14c284",
+        "bytes": 47436,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 0.2,
+            "z": 27.2,
+            "y": 1.5,
+            "heading": 0
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "space-needle",
+            "x": 0.3,
+            "z": 56.3,
+            "bearing": 0,
+            "pitch": 60,
+            "fov": 70,
+            "text": "Straight up the legs from the south base",
+            "r": 16,
+            "tol": 45,
+            "targets": [],
+            "condHint": "Look straight up the legs."
+          },
+          "position": {
+            "x": 0.3,
+            "z": 56.3,
+            "y": 1.3309367892146104,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "seattle-center",
+          "origin": {
+            "lat": 47.6205063,
+            "lon": -122.3493043,
+            "elev": 40.5
+          },
+          "projection": {
+            "mLat": 111182.94,
+            "mLon": 75171.03
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:27:34.172Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

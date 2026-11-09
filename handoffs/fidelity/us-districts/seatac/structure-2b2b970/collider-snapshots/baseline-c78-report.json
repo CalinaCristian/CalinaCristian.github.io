@@ -1,0 +1,88 @@
+{
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "inputHashes": {
+    "game/src/world.js": "1154543c41891ef05eb94b56ad904f9f06a81f41dabac439d577b018a0f8beb2",
+    "game/src/landmarks.js": "1fbe64af340374ed49e3ae93f7cc6fb88547251fc5d4f2e4eb48e0006ccc35ec",
+    "game/src/cities.js": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac"
+  },
+  "captureToolSha256": "dd0abc2309d57a42e3d617af61c2f60b13181fcbff9284bc06cfa57e2da865ce",
+  "startedAt": "2026-11-09T00:54:41.997Z",
+  "districts": [
+    {
+      "key": "seattle-seatac",
+      "file": "seattle-seatac.json",
+      "sha256": "c0963d29883fbad20e134b9ef08822c4a27b7aa72ec0912793486655946279f3",
+      "colliderCount": 19399,
+      "generatedBarriers": 155,
+      "legacyNonBarrierCount": 19238,
+      "legacyNonBarrierSha256": "c596e22f2104958d22b1545b221baff7e8dd5bfec9fbe5d1be5222f47e482815"
+    },
+    {
+      "key": "seattle-bellevue",
+      "file": "seattle-bellevue.json",
+      "sha256": "f4c3cc16c2a741e29602ea01ebd5f2f3933e363787f85dd456a7f8afa412c7b8",
+      "colliderCount": 14092,
+      "generatedBarriers": 50,
+      "legacyNonBarrierCount": 14042,
+      "legacyNonBarrierSha256": "b36bb00c412a75750a0848e746675f685cefa6c681e3ab5364e47e08b5dd314f"
+    },
+    {
+      "key": "bucharest-romana",
+      "file": "bucharest-romana.json",
+      "sha256": "3e4508d35811cf72781c8c04bb789ebb7dbe594af43bb04b1c4c31fa7eefdcfe",
+      "colliderCount": 35886,
+      "generatedBarriers": 88,
+      "legacyNonBarrierCount": 35798,
+      "legacyNonBarrierSha256": "dd966811b32dbbee157e374bb0d51375a9050f015e61b3480ba7447175fab4e2"
+    },
+    {
+      "key": "bucharest-floreasca",
+      "file": "bucharest-floreasca.json",
+      "sha256": "12e2d000a2291889638f4a908e12c9ced0a34e50e1dfc4b1453b7e23a192e0ed",
+      "colliderCount": 27658,
+      "generatedBarriers": 0,
+      "legacyNonBarrierCount": 27658,
+      "legacyNonBarrierSha256": "77b74603f20c73556a2ce2effca8caee4cab7fab7e9ac012032865abcd022679"
+    },
+    {
+      "key": "bucharest-grozavesti",
+      "file": "bucharest-grozavesti.json",
+      "sha256": "20b736780502ded55e003d89f77124efab0a8ebc12b66df20a1d88de9f76ecd7",
+      "colliderCount": 27528,
+      "generatedBarriers": 217,
+      "legacyNonBarrierCount": 27311,
+      "legacyNonBarrierSha256": "b80a4721fc6f3b8199ec0c82e9b2b94693210bd295dd572b67d51fbf7eea32ce"
+    },
+    {
+      "key": "bucharest-pipera",
+      "file": "bucharest-pipera.json",
+      "sha256": "905d5b0519d1876bb7dfa5d3e2a3365848dea2d985cad24c66bf74a160698a69",
+      "colliderCount": 31777,
+      "generatedBarriers": 150,
+      "legacyNonBarrierCount": 31627,
+      "legacyNonBarrierSha256": "6a8c3e2df737f74fb0a5a2dbfc40467782e2158c0a0a5d6dd62193b9c954249e"
+    },
+    {
+      "key": "bucharest-unirii",
+      "file": "bucharest-unirii.json",
+      "sha256": "097b0e718160964a8c8dc761526950d9b2f3d57026f8815b8f21b37517141393",
+      "colliderCount": 29146,
+      "generatedBarriers": 157,
+      "legacyNonBarrierCount": 28989,
+      "legacyNonBarrierSha256": "5bac6b84a2339e39d91c641511531a7c983497c4e0f6039dede8f820c193b1eb"
+    },
+    {
+      "key": "bucharest-otopeni",
+      "file": "bucharest-otopeni.json",
+      "sha256": "8d33b519d69dfac94a6f422bb8887dc973ce999201b18967690e836a2f353040",
+      "colliderCount": 20033,
+      "generatedBarriers": 3,
+      "legacyNonBarrierCount": 20030,
+      "legacyNonBarrierSha256": "af2d2d668f824cae5ff14c0f4ce9fc1774aeb20c9a0f2c905b687c8ea67850a3"
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "scope": "Static actual native high-quality worlds. Moving traffic is disabled for source collider attribution; no traffic/frame-budget acceptance is claimed.",
+  "endedAt": "2026-11-09T00:58:07.204Z"
+}

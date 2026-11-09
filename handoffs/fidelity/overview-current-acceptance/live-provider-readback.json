@@ -1,0 +1,44 @@
+{
+  "sourceCommit": "7067c24490ce12c69cfd0816e3d5d8d2228a6fe2",
+  "operation": "Read-only live provider GET with existing system CA, certificate chain and hostname verification required; no reference image bytes saved.",
+  "rows": [
+    {
+      "district": "romana",
+      "tile": "aerial-r10-c09",
+      "officialURL": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=2905159.50630,5534029.76755,2905509.67022,5534379.93147&bboxSR=3857&imageSR=3857&size=640,640&format=jpg&f=image",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "imageSize": [
+        640,
+        640
+      ],
+      "sha256": "414a698b36a8522b33adaa65ce44b4a32605d9340d09bca9157139b891c7424b",
+      "bytes": 157657,
+      "sampleRange": [
+        229,
+        223,
+        214
+      ]
+    },
+    {
+      "district": "floreasca",
+      "tile": "aerial-r09-c04",
+      "officialURL": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=2905511.45399,5536189.54384,2905861.70095,5536539.79081&bboxSR=3857&imageSR=3857&size=640,640&format=jpg&f=image",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "imageSize": [
+        640,
+        640
+      ],
+      "sha256": "b414ea32441606d4eb8ac54484f1865e3c0e166fbe7e672490766cb5db030b6c",
+      "bytes": 137439,
+      "sampleRange": [
+        252,
+        246,
+        245
+      ]
+    }
+  ],
+  "browserDirectStatus": "Cloud Chromium rejects the provided proxy CA with ERR_CERT_AUTHORITY_INVALID. Persistent trust-store update was rejected by automatic approval review; no security change was made. Browser gallery/cache checks use the explicitly labelled response fixture.",
+  "scope": "Verifies live provider responses and JPEG decoding independently. Does not assert this cloud Chromium performed a successful direct HTTPS fetch or establish real-world image parity."
+}

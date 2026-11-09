@@ -1,0 +1,292 @@
+{
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "inputHashes": {
+    "game/data/seattle-seatac.json": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+    "game/research/landmarks-seatac-aircraft.json": "44c5af03f412c706888088182f90eadcc840e10946b6242c90ba689a3cfe37dc",
+    "game/src/world.js": "1154543c41891ef05eb94b56ad904f9f06a81f41dabac439d577b018a0f8beb2",
+    "game/src/landmarks.js": "1fbe64af340374ed49e3ae93f7cc6fb88547251fc5d4f2e4eb48e0006ccc35ec",
+    "game/src/landmark-seatac-aircraft.js": "23bd2be82947f78042858f2632a0f41a76ce30fe606fc3150d6c1ad08e51d1c5",
+    "game/src/landmark-us-source.js": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888",
+    "game/src/landmark-us-geometry.js": "5314a5e92a86b9a9612c3de013927a5d281d0c051944562347d39086930848aa",
+    "game/src/landmark-us-terrain.js": "cfca62d53bfeaf34f736b6ce345045dbbe50337544111fb6b676c4d237042879"
+  },
+  "sourceDatasetSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+  "captureToolSha256": "fcc7bb188930c329e8cf37637bc2c0d89edbaf11bc841714b9a1f3f0709bb99c",
+  "startedAt": "2026-11-08T22:58:48.124Z",
+  "errors": [],
+  "captures": [
+    {
+      "id": "corrected-public-curb",
+      "lat": 47.4447219,
+      "lon": -122.300094,
+      "heading": 314,
+      "pitch": 6,
+      "fov": 90,
+      "h": 2.5,
+      "cameraBaseY": 0,
+      "note": "Exact original 437 camera; independent aerial correction removes the unsupported forecourt aircraft.",
+      "camera": {
+        "x": -1136.2506012171336,
+        "y": 2.5,
+        "z": 586.565809200587,
+        "baseY": 0,
+        "fov": 64.01076641616699,
+        "horizontalFov": 90,
+        "far": 5000,
+        "quaternion": [
+          -0.04817550173170433,
+          -0.3901956450573735,
+          0.020449287243370716,
+          -0.9192433335425375
+        ]
+      },
+      "perf": {
+        "triangles": 254443,
+        "drawCalls": 110
+      },
+      "settings": {
+        "quality": "high",
+        "weather": "clear",
+        "season": "summer",
+        "traffic": false,
+        "mirror": false,
+        "fog": true,
+        "pixelRatio": 1,
+        "renderWidth": 640,
+        "renderHeight": 400
+      },
+      "image": "corrected-public-curb.png",
+      "sha256": "17d423c1e1bb08a645ee5804fe3155527a5270cd7e608156e945748df881943a",
+      "capturedAt": "2026-11-08T22:59:54.503Z"
+    },
+    {
+      "id": "apron-c11-plan",
+      "lat": 47.44603477062828,
+      "lon": -122.30306816427675,
+      "heading": 0,
+      "pitch": -90,
+      "fov": 50,
+      "h": 90,
+      "aircraft": "apron-c11",
+      "note": "Airside camera fixture in the actual district; ordinary fog, depth and world geometry retained.",
+      "camera": {
+        "x": -1360.1406202694159,
+        "y": 90,
+        "z": 440.663870538265,
+        "baseY": 0,
+        "fov": 32.49671172492056,
+        "horizontalFov": 50,
+        "far": 5000,
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ]
+      },
+      "perf": {
+        "triangles": 135507,
+        "drawCalls": 63
+      },
+      "settings": {
+        "quality": "high",
+        "weather": "clear",
+        "season": "summer",
+        "traffic": false,
+        "mirror": false,
+        "fog": true,
+        "pixelRatio": 1,
+        "renderWidth": 640,
+        "renderHeight": 400
+      },
+      "image": "apron-c11-plan.png",
+      "sha256": "4e14354d4d8e91e462fbc40f665e0b6a0ad7a623a0c70b75e813f7cb06f7babf",
+      "capturedAt": "2026-11-08T22:59:57.375Z"
+    },
+    {
+      "id": "apron-c9-plan",
+      "lat": 47.44564196506719,
+      "lon": -122.30313569715578,
+      "heading": 0,
+      "pitch": -90,
+      "fov": 50,
+      "h": 90,
+      "aircraft": "apron-c9",
+      "note": "Airside camera fixture in the actual district; ordinary fog, depth and world geometry retained.",
+      "camera": {
+        "x": -1365.2243803329536,
+        "y": 90,
+        "z": 484.31713815346734,
+        "baseY": 0,
+        "fov": 32.49671172492056,
+        "horizontalFov": 50,
+        "far": 5000,
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ]
+      },
+      "perf": {
+        "triangles": 138501,
+        "drawCalls": 62
+      },
+      "settings": {
+        "quality": "high",
+        "weather": "clear",
+        "season": "summer",
+        "traffic": false,
+        "mirror": false,
+        "fog": true,
+        "pixelRatio": 1,
+        "renderWidth": 640,
+        "renderHeight": 400
+      },
+      "image": "apron-c9-plan.png",
+      "sha256": "567e5cb54ea35da499475c86710b5a1a2f4d7c91388561be28f25a28e34b8c22",
+      "capturedAt": "2026-11-08T22:59:59.639Z"
+    },
+    {
+      "id": "apron-b7-plan",
+      "lat": 47.441994110454836,
+      "lon": -122.30457791726883,
+      "heading": 0,
+      "pitch": -90,
+      "fov": 50,
+      "h": 90,
+      "aircraft": "apron-b7",
+      "note": "Airside camera fixture in the actual district; ordinary fog, depth and world geometry retained.",
+      "camera": {
+        "x": -1473.7922530332594,
+        "y": 90,
+        "z": 889.7105169335126,
+        "baseY": 0,
+        "fov": 32.49671172492056,
+        "horizontalFov": 50,
+        "far": 5000,
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ]
+      },
+      "perf": {
+        "triangles": 106347,
+        "drawCalls": 59
+      },
+      "settings": {
+        "quality": "high",
+        "weather": "clear",
+        "season": "summer",
+        "traffic": false,
+        "mirror": false,
+        "fog": true,
+        "pixelRatio": 1,
+        "renderWidth": 640,
+        "renderHeight": 400
+      },
+      "image": "apron-b7-plan.png",
+      "sha256": "363ac68f87b043435f112337cff74796012fe1b441d5a80e28ee1e5380f3730c",
+      "capturedAt": "2026-11-08T23:00:03.314Z"
+    },
+    {
+      "id": "apron-a4-plan",
+      "lat": 47.44136251016873,
+      "lon": -122.30157288786484,
+      "heading": 0,
+      "pitch": -90,
+      "fov": 50,
+      "h": 90,
+      "aircraft": "apron-a4",
+      "note": "Airside camera fixture in the actual district; ordinary fog, depth and world geometry retained.",
+      "camera": {
+        "x": -1247.5787597934248,
+        "y": 90,
+        "z": 959.9015199289933,
+        "baseY": 0,
+        "fov": 32.49671172492056,
+        "horizontalFov": 50,
+        "far": 5000,
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ]
+      },
+      "perf": {
+        "triangles": 139208,
+        "drawCalls": 67
+      },
+      "settings": {
+        "quality": "high",
+        "weather": "clear",
+        "season": "summer",
+        "traffic": false,
+        "mirror": false,
+        "fog": true,
+        "pixelRatio": 1,
+        "renderWidth": 640,
+        "renderHeight": 400
+      },
+      "image": "apron-a4-plan.png",
+      "sha256": "5339a9314ed2fa2af973f1d8ddf739a25f3ad69a4bbdc56d4742e7ec51d13675",
+      "capturedAt": "2026-11-08T23:00:06.010Z"
+    }
+  ],
+  "note": "Actual game renders. Technical camera fixtures do not establish native drone reachability or current fleet/operator/altitude claims. No reference imagery is fetched or published.",
+  "loaded": {
+    "key": "seattle-seatac",
+    "city": "seattle",
+    "district": "seatac",
+    "ms": 41225,
+    "edges": 2428,
+    "ribbons": 4412
+  },
+  "runtimeAircraft": [
+    {
+      "id": "apron-c11",
+      "world": {
+        "x": -1360.1604296410762,
+        "z": 440.6640814674499
+      },
+      "modelBaseY": 0.12,
+      "topY": 5.831912155151367,
+      "aboveModelBaseM": 5.711912155151367
+    },
+    {
+      "id": "apron-c9",
+      "world": {
+        "x": -1365.245476543847,
+        "z": 484.3171982175357
+      },
+      "modelBaseY": 0.12,
+      "topY": 5.115851039886468,
+      "aboveModelBaseM": 4.9958510398864675
+    },
+    {
+      "id": "apron-b7",
+      "world": {
+        "x": -1473.828470425808,
+        "z": 889.7102308520766
+      },
+      "modelBaseY": 0.12,
+      "topY": 4.709673042297363,
+      "aboveModelBaseM": 4.589673042297363
+    },
+    {
+      "id": "apron-a4",
+      "world": {
+        "x": -1247.5829689017967,
+        "z": 959.9012577226713
+      },
+      "modelBaseY": 0.12,
+      "topY": 4.717409725189216,
+      "aboveModelBaseM": 4.597409725189216
+    }
+  ],
+  "endedAt": "2026-11-08T23:00:06.011Z",
+  "passed": true
+}

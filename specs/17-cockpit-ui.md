@@ -3,6 +3,8 @@
 Owner role: **cockpit-ui** (vehicles.js, office.js, flight.js, canvasText.js, style.css); HUD logic in hud.js by **gameplay**.
 
 ## Owner findings
+- At desktop portrait widths the driving-help footer must use the available viewport width above the lower HUD. The former `100% - 520px` rule collapsed a 390px view into a one-word column. A max-760px rule retains readable keyboard hints; touch continues using its dedicated controls.
+- Phone office answer taps must never open a hidden title-menu action. Regression: `node game/dev/harness/office-touch-check.cjs` exercises every office at 390×844, 844×390, 440×756 and 956×352 after opening/closing Achievements. On published `58129ab`, five manager dialogues at 956×352 open Achievements through invisible `#achv-menu` descendants; the staged `#menu.overlay:not(.show) { visibility:hidden }` repair passes all 32 office/viewport cases and 104 native taps, with zero page errors. This is DOM/touch coverage, not a rendered-world performance test.
 - The in-car map screen is intersected by the dashboard and cut by the bottom of the view.
 - Office lobby sign subtitle was clipped — quick fix shipped; generalize.
 - Mirror shows odd content in Seattle; steering wheel direction (fixed); look-back cabin (fixed).
@@ -10,9 +12,16 @@ Owner role: **cockpit-ui** (vehicles.js, office.js, flight.js, canvasText.js, st
 ## Requirements
 R17.1 Centre nav screen in a proper housing on the console: fully visible and unoccluded at FOV 72–86 and aspect 16:9, 16:10, 21:9, phone landscape; tilted to the driver; instrument cluster readable behind the wheel.
 R17.2 Mirror camera excludes all cockpit/cabin layers; correct position and frame.
+On a quality transition that enables the mirror, request its existing three warm refresh frames immediately; a target left dormant on Low must not show a stale/black view while waiting for the normal cadence. This does not enable the mirror on Low or add a second rear-scene render to one frame.
+Prewarm the existing Player-owned mirror target without taking ownership, and compile actual original-color/depth material variants with the current world's FogExp2 in both linear-target and sRGB presentation modes. Three's compile traverses object materials, so temporarily assign the depth reference only to private clones. Initialize the Low multisample target only on the actual Low render path; use the already-needed reference target for linear shader compilation on other tiers.
 R17.3 `fitText()` helper used by every canvas text (office signs, station screens, gauges, taxi/brand signs, flight captions); nothing ever overflows; log any text needing > 2 lines.
 R17.4 No sky gaps through the dash/doors at wide FOV or when looking ±150°; thin pillars.
 R17.5 HUD (DOM): no overlapping elements, nothing off-screen at 16:9/21:9/phone; touch controls don't cover the nav screen.
+R17.6 Instrument and navigation/media displays remain sharp on Low, Medium and Auto as well as higher tiers. Preserve world quality/adaptive resolution, physical occlusion, original geometry/camera/picking and mirror visibility policy. The same output-resolution protection applies to the mirror when enabled. Prewarm display resources and count every display/depth/presentation draw in the complete frame budget; do not introduce first-headlight shader or resource churn.
+
+2026-11-09 display implementation: `CockpitDisplays` redraws the existing display planes after world post processing. It compares saved native scene depth with a same-resolution standard packed-depth reference, retaining physical occlusion without an arbitrary depth bias. Device DPR is capped at3 and additional presentation pixels at4M, while an already higher selected world resolution remains intact. Low keeps MSAA on its world target; the large presentation buffer has no multisample allocation. Display bindings clear on scene replacement and dispose only their owned targets/materials, preserving source display geometry/material ownership.
+
+Native source1e640089 controls cover12 desktop/landscape/portrait tier captures, up to339calls/1,115,483triangles in forced-full-mirror stress. Low's forced mirror is a budget control, not normal availability; a separate normal Low drive preserves its hidden mirror and sharp instruments/nav. Pixel controls show zero changes outside the three source plane projections (one output-pixel raster allowance), with actual near occlusion, picking, mirror bytes, camera/fleet callbacks and off-car/layer hiding retained. Cold touchAuto4-toggle/9-condition controls and two resource cycles pass. These focused checks do not replace the final combined-tree phone/transition/performance gates.
 
 ## Acceptance
 - [x] Visual QA cockpit detectors: screen fully in frustum and unoccluded at all four viewports; 0 canvas text overflows; 0 HUD overlaps. (raycast + DOM-rect checks in the log; HUD-overlap re-run pending after the last CSS tweak for Seattle/touch)

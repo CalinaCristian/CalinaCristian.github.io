@@ -1,0 +1,2 @@
+page.waitForFunction: Timeout 30000ms exceeded.
+    at main (/tmp/drivecv-overview-preview-smoke.cjs:15:13)

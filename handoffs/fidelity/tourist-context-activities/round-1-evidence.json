@@ -1,0 +1,379 @@
+{
+  "baseCommit": "6da0031",
+  "scope": "Pioneer floor/guide initialization and Old Town source-backed terraces/frontages",
+  "sourcePriority": "OSM > independently cited references > explicit procedural estimates",
+  "sourcePoiLinks": [
+    "https://www.openstreetmap.org/node/10775253367",
+    "https://www.openstreetmap.org/node/1731040881"
+  ],
+  "images": {
+    "before": "images/pioneer-before.jpg",
+    "after": "images/pioneer-after.jpg"
+  },
+  "checks": {
+    "contextFixtures": 10,
+    "terraceCollisionFixtures": 58,
+    "footA": {
+      "high": 0,
+      "medium": 0,
+      "low": 1,
+      "note": "software-GL FPS informational only"
+    },
+    "venueDesktopTouch": {
+      "initial": {
+        "triangles": 723596,
+        "venues": [
+          {
+            "source": "n1731040881",
+            "x": 72.49827827197393,
+            "z": 142.71728546745504,
+            "path": true
+          },
+          {
+            "source": "n10775253367",
+            "x": 79.27814209489486,
+            "z": 120.70847040258631,
+            "path": true
+          }
+        ],
+        "sources": [
+          {
+            "id": "n1731040881",
+            "x": 62.3,
+            "z": 139.4,
+            "addr:housenumber": "17",
+            "addr:street": "Strada Francez\u0103",
+            "amenity": "fast_food",
+            "cuisine": "kebab",
+            "drive_through": "no",
+            "level": "0",
+            "name": "Dristor Kebap",
+            "outdoor_seating": "yes",
+            "payment:mastercard": "yes",
+            "payment:visa": "yes",
+            "toilets:wheelchair": "no"
+          },
+          {
+            "id": "n10775253367",
+            "x": 88.9,
+            "z": 123.7,
+            "addr:housenumber": "17",
+            "addr:street": "Strada \u0218elari",
+            "amenity": "bar",
+            "name": "Shoteria",
+            "outdoor_seating": "no"
+          }
+        ],
+        "buildings": [
+          {
+            "id": "w657568318",
+            "poly": [
+              [
+                51.6,
+                139.4
+              ],
+              [
+                63.9,
+                145.8
+              ],
+              [
+                65.2,
+                145.6
+              ],
+              [
+                66.2,
+                145.4
+              ],
+              [
+                69.7,
+                134.3
+              ],
+              [
+                65.1,
+                136.2
+              ],
+              [
+                60.4,
+                130.7
+              ]
+            ],
+            "k": "yes",
+            "lv": 4,
+            "_bb": {
+              "x0": 51.6,
+              "z0": 130.7,
+              "x1": 69.7,
+              "z1": 145.8
+            }
+          },
+          {
+            "id": "w658248961",
+            "poly": [
+              [
+                85.5,
+                118.1
+              ],
+              [
+                103.2,
+                121
+              ],
+              [
+                101.1,
+                130.9
+              ],
+              [
+                81.9,
+                130
+              ]
+            ],
+            "k": "yes",
+            "lv": 3,
+            "_bb": {
+              "x0": 81.9,
+              "z0": 118.1,
+              "x1": 103.2,
+              "z1": 130.9
+            }
+          }
+        ],
+        "roomHidden": true
+      },
+      "frames": [
+        {
+          "name": "dristor-bite",
+          "triangles": 711203,
+          "calls": 161
+        },
+        {
+          "name": "shoteria-pour",
+          "triangles": 700890,
+          "calls": 134
+        },
+        {
+          "name": "shoteria-noroc",
+          "triangles": 700304,
+          "calls": 123
+        },
+        {
+          "name": "shoteria-drink",
+          "triangles": 700304,
+          "calls": 123
+        },
+        {
+          "name": "mobile-390",
+          "triangles": 697612,
+          "calls": 120
+        },
+        {
+          "name": "mobile-844",
+          "triangles": 711329,
+          "calls": 161
+        }
+      ],
+      "approach": {
+        "triangles": 716204,
+        "calls": 224
+      },
+      "bite": {
+        "kind": "shaorma",
+        "step": 0,
+        "animating": true,
+        "t": 0.7500000000000001,
+        "fill": 0.001,
+        "bites": 3,
+        "hand": [
+          0.03,
+          -0.15000000000000002,
+          -0.5
+        ]
+      },
+      "foodComplete": {
+        "walker": true,
+        "timestamp": 1794158655849
+      },
+      "pour": {
+        "kind": "shot",
+        "step": 0,
+        "animating": true,
+        "t": 1.3000000000000005,
+        "fill": 0.7967587076211499,
+        "bites": 2,
+        "hand": [
+          0.03,
+          -0.15000000000000002,
+          -0.5
+        ]
+      },
+      "render": {
+        "triangles": 699756,
+        "calls": 112
+      },
+      "cancellation": {
+        "leave": {
+          "active": false,
+          "walker": true,
+          "ui": false,
+          "reason": "leave"
+        },
+        "escape": {
+          "active": false,
+          "walker": true,
+          "ui": false,
+          "reason": "escape"
+        },
+        "map": {
+          "active": false,
+          "walker": true,
+          "ui": false,
+          "reason": "map"
+        },
+        "photo": {
+          "active": false,
+          "walker": true,
+          "ui": false,
+          "reason": "mode"
+        },
+        "drone": {
+          "active": false,
+          "walker": true,
+          "ui": false,
+          "reason": "drone"
+        },
+        "pause": {
+          "active": false,
+          "walker": true,
+          "ui": false,
+          "reason": "pause"
+        },
+        "distance": {
+          "active": false,
+          "walker": true,
+          "ui": false,
+          "reason": "mode-or-distance"
+        },
+        "teleport": {
+          "active": false,
+          "walker": true,
+          "ui": false,
+          "reason": "teleport"
+        },
+        "hidden": {
+          "active": false,
+          "walker": true,
+          "ui": false,
+          "reason": "hidden"
+        }
+      },
+      "droneControl": {
+        "ok": true,
+        "active": true,
+        "cancelled": true,
+        "frozen": true
+      },
+      "mobile": [
+        {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "bounds": {
+            "box": {
+              "x": 12,
+              "y": 106,
+              "width": 366,
+              "height": 163.3125,
+              "top": 106,
+              "right": 378,
+              "bottom": 269.3125,
+              "left": 12
+            },
+            "buttons": [
+              {
+                "x": 25,
+                "y": 214.3125,
+                "width": 172.40625,
+                "height": 44,
+                "top": 214.3125,
+                "right": 197.40625,
+                "bottom": 258.3125,
+                "left": 25
+              },
+              {
+                "x": 205.40625,
+                "y": 214.3125,
+                "width": 68.890625,
+                "height": 44,
+                "top": 214.3125,
+                "right": 274.296875,
+                "bottom": 258.3125,
+                "left": 205.40625
+              }
+            ],
+            "overflow": false
+          }
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "bounds": {
+            "box": {
+              "x": 12,
+              "y": 106,
+              "width": 400,
+              "height": 163.3125,
+              "top": 106,
+              "right": 412,
+              "bottom": 269.3125,
+              "left": 12
+            },
+            "buttons": [
+              {
+                "x": 25,
+                "y": 214.3125,
+                "width": 172.40625,
+                "height": 44,
+                "top": 214.3125,
+                "right": 197.40625,
+                "bottom": 258.3125,
+                "left": 25
+              },
+              {
+                "x": 205.40625,
+                "y": 214.3125,
+                "width": 68.890625,
+                "height": 44,
+                "top": 214.3125,
+                "right": 274.296875,
+                "bottom": 258.3125,
+                "left": 205.40625
+              }
+            ],
+            "overflow": false
+          }
+        }
+      ],
+      "disposal": {
+        "disposed": true,
+        "active": false,
+        "ui": false,
+        "props": false
+      },
+      "persistence": {
+        "food": true,
+        "shot": true
+      },
+      "errors": []
+    }
+  },
+  "openGaps": [
+    "Pioneer raw static zfight findings remain; this fixes the reproduced floating guide only.",
+    "Every destination still needs scene/context source review. READY flags are unchanged.",
+    "Old Town sign colours and canopy shapes remain procedural estimates, not photo-derived measurements."
+  ],
+  "sourceHashes": {
+    "game/data/spots/buc-old-town.json": "f701782153f91d3370bb071f3064a4582af9e2b1191dd7a7c2e50b72a722063b",
+    "game/data/spots/pioneer-square.json": "3be8f1cf6dd45ddd213f4c6ef0b7a3a087d76a7d55875460f6dba5259393883a"
+  }
+}

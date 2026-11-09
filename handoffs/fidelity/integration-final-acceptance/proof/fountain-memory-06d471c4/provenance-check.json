@@ -1,0 +1,14 @@
+{
+  "sourceCommit": "06d471c4b2486633b325a62c52b46e08e4a3053f",
+  "sourceGitTree": "bffe03042137d3fc59aac4a54b5bbd94919da745",
+  "copiedFilesVerifiedBeforeAndAfter": 208,
+  "copiedBytes": 118937258,
+  "servedFilesVerifiedAgainstCopiedAndGitBlobs": 106,
+  "allCopiedAndServedGitBlobSHA1AndSHA256Match": true,
+  "runtimeDeltaFromC4": [
+    "game/src/landmarks.js (7added/1removed lines)"
+  ],
+  "noSourceEditsByQA": true,
+  "inspectedOriginalScreenshot": "final-floreasca.png",
+  "scope": "Bounded fountain/world memory regression only. No final15/all8/globalphysics/body/hardware acceptance."
+}

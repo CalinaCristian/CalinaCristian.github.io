@@ -1,0 +1,31 @@
+(node:352521) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/integration-qa/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/integration-qa/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS native hatch uses emitted negative wheel bottom and top, not declared1.46m
+PASS native pitched/rolled/scaled/parented model matches independent Three world-vertex bounds without mutation
+PASS overlapping tall models more than2.5m apart vertically still fail actual geometry intersection across source layers
+PASS same-XY bodies with actual separated model heights retain raw positive without false physical failure
+PASS raw small XY positives remain recorded while over5cm intersections fail
+PASS drawn mesh heading detects crossing body despite stale native cached heading
+PASS invisible active mesh is audited and pooled identity/pose is retained without a published-pair exemption
+PASS unknown active model height fails visibly and preserves unclassified raw pair
+PASS physical waiting-pedestrian coordinates are retained without substituting future slot
+PASS asymmetric player body centre uses actual front/rear offset
+PASS actual player cockpit geometry supplies body height without a generic default
+PASS immutable d981 saved constructor pairs reproduce exact native SAT with independent emitted-model intervals
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+484 !== 624
+
+    at /workspace/fidelity-workers/integration-qa/game/dev/harness/integration-initial-body-audit-check.cjs:30:284
+    at control (/workspace/fidelity-workers/integration-qa/game/dev/harness/integration-initial-body-audit-check.cjs:11:42)
+    at main (/workspace/fidelity-workers/integration-qa/game/dev/harness/integration-initial-body-audit-check.cjs:30:2)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 484,
+  expected: 624,
+  operator: 'strictEqual',
+  diff: 'simple'
+}

@@ -1,0 +1,173 @@
+{
+  "sourceCommit": "78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce",
+  "inputHashes": {
+    "game/src/landmarks.js": "7b4cc4a398690b6f4d247f00369a025e088da7a51b9930098e7de67be75908f0",
+    "game/src/landmark-seatac-aircraft.js": "23bd2be82947f78042858f2632a0f41a76ce30fe606fc3150d6c1ad08e51d1c5",
+    "game/src/landmark-us-source.js": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888",
+    "game/src/landmark-us-geometry.js": "5314a5e92a86b9a9612c3de013927a5d281d0c051944562347d39086930848aa",
+    "game/src/landmark-us-terrain.js": "cfca62d53bfeaf34f736b6ce345045dbbe50337544111fb6b676c4d237042879",
+    "game/dev/landmarks.html": "4637a3856f22273cfc668348e7d0764abbbafae628a66d01fdb94583854201c8"
+  },
+  "errors": [],
+  "inspectedAt": "2026-11-08T22:28:49.238574+00:00",
+  "note": "All three actual refreshed model studies inspected. North-up plan shows four airside aircraft; generic vertical shapes remain estimates. No matched-world parity claim.",
+  "records": [
+    {
+      "id": "seatac",
+      "view": "front",
+      "stats": {
+        "id": "seatac",
+        "triangles": 14547,
+        "height": 36.5,
+        "w": 704.6339882876954,
+        "d": 1028.2714226742476,
+        "ms": 573.6999999992549,
+        "drawCalls": 3,
+        "sourceIds": [
+          "w23772634",
+          "w23772637",
+          "w734002404",
+          "w869951038"
+        ],
+        "pose": {
+          "position": [
+            6.113379338270818,
+            14.600000000000001,
+            1553.5856573274796
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "quaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "projection": "perspective",
+          "fov": 45,
+          "target": [
+            6.113379338270818,
+            14.600000000000001,
+            -0.9738686385154551
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        }
+      },
+      "sourceCommit": "78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce",
+      "capturedAt": "2026-11-08T22:27:44.999Z",
+      "url": "/game/dev/landmarks.html?id=seatac&view=34&clean=1&az=0&el=0",
+      "pngSha256": "1048cbd5125080da6c22091722cc84ef99b1709a10b6f65bfae2dd426388e803",
+      "publishedImage": "assets/landmarks/seatac/front.webp",
+      "publishedSha256": "94296e045e68263fc5a64b8fa73cb6f9afd5dad25ff2dac3d0ee1dae5f9c63bc",
+      "losslessRGBPixelEquality": true
+    },
+    {
+      "id": "seatac",
+      "view": "top",
+      "stats": {
+        "id": "seatac",
+        "triangles": 14547,
+        "height": 36.5,
+        "w": 704.6339882876954,
+        "d": 1028.2714226742476,
+        "ms": 670.1000000014901,
+        "drawCalls": 3,
+        "sourceIds": [
+          "w23772634",
+          "w23772637",
+          "w734002404",
+          "w869951038"
+        ],
+        "pose": {
+          "position": [
+            6.113379338270818,
+            1233.294850302127,
+            -0.9738686385154551
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "quaternion": [
+            -0.7071067811865474,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "projection": "orthographic",
+          "groundSquareM": 1196.794850302127,
+          "orientation": "north-up",
+          "target": [
+            6.113379338270818,
+            0,
+            -0.9738686385154551
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        }
+      },
+      "sourceCommit": "78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce",
+      "capturedAt": "2026-11-08T22:27:57.042Z",
+      "url": "/game/dev/landmarks.html?id=seatac&view=top&clean=1&az=35&el=26",
+      "pngSha256": "33d6cd0bf539c1c3a7b498a87210ede76984c3118ad5562c9b96d6fb24128eb4",
+      "publishedImage": "assets/landmarks/seatac/top.webp",
+      "publishedSha256": "c1b1e770709c2fe6237eb9f7d0f3177e6c0784feac037b3d931c72386e6a48fd",
+      "losslessRGBPixelEquality": true
+    },
+    {
+      "id": "seatac",
+      "view": "oblique",
+      "stats": {
+        "id": "seatac",
+        "triangles": 14547,
+        "height": 36.5,
+        "w": 704.6339882876954,
+        "d": 1028.2714226742476,
+        "ms": 510.19999999925494,
+        "drawCalls": 3,
+        "sourceIds": [
+          "w23772634",
+          "w23772637",
+          "w734002404",
+          "w869951038"
+        ],
+        "pose": {
+          "position": [
+            807.5309219126816,
+            696.0740421495977,
+            1143.568997357293
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "quaternion": [
+            -0.21453963361642955,
+            0.29299872934427457,
+            0.0676440866458011,
+            0.929273247087327
+          ],
+          "projection": "perspective",
+          "fov": 45,
+          "target": [
+            6.113379338270818,
+            14.600000000000001,
+            -0.9738686385154551
+          ],
+          "frame": "isolated landmark model, +x east / +z south, metres"
+        }
+      },
+      "sourceCommit": "78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce",
+      "capturedAt": "2026-11-08T22:28:05.522Z",
+      "url": "/game/dev/landmarks.html?id=seatac&view=34&clean=1&az=35&el=26",
+      "pngSha256": "c5cc75632ab5db2654cc65ecf98eb65a53b0a3dd3c5b6b9e2606b4991ac65438",
+      "publishedImage": "assets/landmarks/seatac/oblique.webp",
+      "publishedSha256": "af578f14c358d8b1efc7c07ff1a05dca754a83bead08557cf840a0035b3ae339",
+      "losslessRGBPixelEquality": true
+    }
+  ]
+}

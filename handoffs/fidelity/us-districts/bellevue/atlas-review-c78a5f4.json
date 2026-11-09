@@ -1,0 +1,1500 @@
+{
+  "review": {
+    "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+    "referenceProvider": "Esri World Imagery",
+    "referenceAcquisitionDate": null,
+    "reviewBasis": "Actual paired GAME/Esri250m ground-plane crop sheets inspected. Coverage review does not establish photographic identity, unknown-height resolution or native drone acceptance.",
+    "sheets": [
+      {
+        "sheet": "/workspace/reality-pass/us-districts/bellevue/atlas-review-c78a5f4/pairs-1-12.jpg",
+        "viewIds": [
+          "aerial-r01-c03",
+          "aerial-r01-c04",
+          "aerial-r01-c05",
+          "aerial-r01-c06",
+          "aerial-r01-c07",
+          "aerial-r01-c08",
+          "aerial-r01-c09",
+          "aerial-r01-c10",
+          "aerial-r02-c02",
+          "aerial-r02-c03",
+          "aerial-r02-c04",
+          "aerial-r02-c05"
+        ],
+        "sheetSha256": "27d8b2818e223ee65b437789040d9f8bad9c0b93a8ec35423e0c1c52ea191a7f",
+        "inspectedAt": "2026-11-08T23:20:44.457253+00:00",
+        "finding": "All12 northern ring/core residential and office cells inspected. Complete source footprint/road arrangement and measured canopy extent remain; outer-ring trees/hedges, roof/material/storey detail, parking occupancy and source-height estimates visibly differ. Source height/roof inputs are retained rather than inferred from reference imagery. Tall roofs project larger in the perspective ground-plane atlas; acquisition date and photographic parity remain unknown."
+      },
+      {
+        "sheet": "/workspace/reality-pass/us-districts/bellevue/atlas-review-c78a5f4/pairs-13-24.jpg",
+        "viewIds": [
+          "aerial-r02-c06",
+          "aerial-r02-c07",
+          "aerial-r02-c08",
+          "aerial-r02-c09",
+          "aerial-r02-c10",
+          "aerial-r02-c11",
+          "aerial-r03-c01",
+          "aerial-r03-c02",
+          "aerial-r03-c03",
+          "aerial-r03-c04",
+          "aerial-r03-c05",
+          "aerial-r03-c06"
+        ],
+        "sheetSha256": "aaff63f85066543929e868a2e5434731c6430fe5b259582124d554d997e4eaac",
+        "inspectedAt": "2026-11-08T23:21:07.366558+00:00",
+        "finding": "All12 downtown-edge, office/campus, residential and elevated highway approach cells inspected. Source footprints, connecting streets and source bridge layouts remain; dense canopy, rooftop equipment/materials, parcel/parking occupancy and unknown vertical levels remain simplified. Roof enlargement and leaning under the perspective250m ground-plane camera are explicit, particularly taller downtown bodies; this view does not independently validate their physical heights or clearance."
+      },
+      {
+        "sheet": "/workspace/reality-pass/us-districts/bellevue/atlas-review-c78a5f4/pairs-25-36.jpg",
+        "viewIds": [
+          "aerial-r03-c07",
+          "aerial-r03-c08",
+          "aerial-r03-c09",
+          "aerial-r03-c10",
+          "aerial-r03-c11",
+          "aerial-r03-c12",
+          "aerial-r04-c01",
+          "aerial-r04-c02",
+          "aerial-r04-c03",
+          "aerial-r04-c04",
+          "aerial-r04-c05",
+          "aerial-r04-c06"
+        ],
+        "sheetSha256": "de0b54dc1a19c46db290ccecbfa123533ff8db543ee0c28a35cfa0dda12acbae",
+        "inspectedAt": "2026-11-08T23:23:24.880013+00:00",
+        "finding": "All12 northern downtown/highway/pond and central tower cells inspected. Source road, water and body outlines remain; tall roofs show substantial perspective enlargement relative to the250m ground-plane reference and must not be mistaken for measured footprint disagreement. Rooftop/facade detail, source-height unknowns, park/shoreline colour, parking occupancy and landscaping remain limited. Water surface appearance and acquisition date are unmeasured; no bathymetry or photographic parity claim."
+      },
+      {
+        "sheet": "/workspace/reality-pass/us-districts/bellevue/atlas-review-c78a5f4/pairs-37-48.jpg",
+        "viewIds": [
+          "aerial-r04-c07",
+          "aerial-r04-c08",
+          "aerial-r04-c09",
+          "aerial-r04-c10",
+          "aerial-r04-c11",
+          "aerial-r04-c12",
+          "aerial-r05-c01",
+          "aerial-r05-c02",
+          "aerial-r05-c03",
+          "aerial-r05-c04",
+          "aerial-r05-c05",
+          "aerial-r05-c06"
+        ],
+        "sheetSha256": "9545fe83009ed6a0198a9b750cab37bbee79abf47ef39acfd4bfef2595cd589e",
+        "inspectedAt": "2026-11-08T23:24:23.261347+00:00",
+        "finding": "All12 central towers/interchange/station, commercial car-lot, mall and residential cells inspected. Original street/source deck and body arrangement retained. Source layer is not a measured metre datum; interchange terrain, supports and clearance, rooftop/facade/material details, parking occupancy and canopy detail remain limited. Tower roof perspective enlargement is explicitly technical-camera projection; no new source dimension is inferred."
+      },
+      {
+        "sheet": "/workspace/reality-pass/us-districts/bellevue/atlas-review-c78a5f4/pairs-49-60.jpg",
+        "viewIds": [
+          "aerial-r05-c07",
+          "aerial-r05-c08",
+          "aerial-r05-c09",
+          "aerial-r05-c10",
+          "aerial-r05-c11",
+          "aerial-r05-c12",
+          "aerial-r06-c02",
+          "aerial-r06-c03",
+          "aerial-r06-c04",
+          "aerial-r06-c05",
+          "aerial-r06-c06",
+          "aerial-r06-c07"
+        ],
+        "sheetSha256": "39cda213daf19730eeb7b7b2225cef09044b8ff2b52b2c52c7d62b755fd3b114",
+        "inspectedAt": "2026-11-08T23:27:14.722149+00:00",
+        "finding": "All12 central/park/interchange/mall/office/residential cells inspected. OPEN MATERIAL RENDER FINDING: frame57 aerial-r06-c04 shows repeated broad blue pads beyond the Downtown Park curved canal edge; primary original water area102/sourcew1326469169, with adjacentw842753013/w1326469168. Full640GAME and private reference were inspected and sent to root; shared water owner investigates. Preserve exactc78original, no hidden visual pass. Other source roof/storey, terrain/grade, parking, vegetation and tall-roof projection limits remain."
+      },
+      {
+        "sheet": "/workspace/reality-pass/us-districts/bellevue/atlas-review-c78a5f4/pairs-61-72.jpg",
+        "viewIds": [
+          "aerial-r06-c08",
+          "aerial-r06-c09",
+          "aerial-r06-c10",
+          "aerial-r06-c11",
+          "aerial-r07-c02",
+          "aerial-r07-c03",
+          "aerial-r07-c04",
+          "aerial-r07-c05",
+          "aerial-r07-c06",
+          "aerial-r07-c07",
+          "aerial-r07-c08",
+          "aerial-r07-c09"
+        ],
+        "sheetSha256": "f47e4dcabb39e64c1d9275909eac14823d4b2999f0ba0fb67df8146717bcd580",
+        "inspectedAt": "2026-11-08T23:28:42.992641+00:00",
+        "finding": "Final22 approach/office/park/residential and4distant-context cells inspected. OPEN canal pad finding also appears atframe67/aerial-r07-c04 (southern curved arc); preserve exactc78render and root-owned diagnosis. Source bodies/ways/water remain; narrow park paths/detail, canopy, parking, roof/style/height estimates and shoreline appearance remain limited. Four explicit outside-ring frames expose sparse distant scenery; they are not claims of full neighboring-scene coverage."
+      },
+      {
+        "sheet": "/workspace/reality-pass/us-districts/bellevue/atlas-review-c78a5f4/pairs-73-82.jpg",
+        "viewIds": [
+          "aerial-r07-c10",
+          "aerial-r07-c11",
+          "aerial-r08-c03",
+          "aerial-r08-c04",
+          "aerial-r08-c05",
+          "aerial-r08-c06",
+          "context-northwest",
+          "context-northeast",
+          "context-southwest",
+          "context-southeast"
+        ],
+        "sheetSha256": "8595e3932517be85553a26b53203324498685cd70c08e103472f70dfa1bd81b7",
+        "inspectedAt": "2026-11-08T23:28:42.998754+00:00",
+        "finding": "Final22 approach/office/park/residential and4distant-context cells inspected. OPEN canal pad finding also appears atframe67/aerial-r07-c04 (southern curved arc); preserve exactc78render and root-owned diagnosis. Source bodies/ways/water remain; narrow park paths/detail, canopy, parking, roof/style/height estimates and shoreline appearance remain limited. Four explicit outside-ring frames expose sparse distant scenery; they are not claims of full neighboring-scene coverage."
+      }
+    ],
+    "framesReviewed": 82,
+    "openMaterialFindings": [
+      {
+        "id": "downtown-park-canal-blue-pads",
+        "viewId": "aerial-r06-c04",
+        "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+        "gameImageSha256": "79e323727853a21035393a71302b1dec8a157a36642a7ed566d8540b4ae3065c",
+        "primarySourceWaterId": "w1326469169",
+        "adjacentSourceWaterIds": [
+          "w842753013",
+          "w1326469168"
+        ],
+        "classification": "Visible generated water geometry/band issue pending shared-owner diagnosis; exact original capture retained",
+        "resolutionOwner": "root",
+        "visualAccepted": false,
+        "additionalViewIds": [
+          "aerial-r07-c04"
+        ]
+      }
+    ],
+    "reviewCompletedAt": "2026-11-08T23:28:43.234104+00:00",
+    "scopeCounts": {
+      "ring-touches": 64,
+      "core-touches": 14,
+      "outside-ring": 4
+    },
+    "visualAcceptance": "Complete82-frame inspection; current-c78canal material finding remains open, so full-scene visual acceptance is not claimed."
+  },
+  "privateAerialComparison": {
+    "provider": "Esri World Imagery",
+    "endpoint": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export",
+    "acquisitionDate": null,
+    "startedAt": "2026-11-08T23:04:35.045647+00:00",
+    "use": "Private aerial comparison review only; no reference imagery or derived building attributes is published.",
+    "referenceCoordinatesSha256": "ceca308d6a237e9bb42422c769a8c0b428420715df83b424d72cd3ccb7df517e",
+    "captures": [
+      {
+        "id": "aerial-r01-c03",
+        "image": "aerial-r01-c03.jpg",
+        "sha256": "b2963991082932f61868344569e9f90f36c727413f423623001fc1b4ad9efa8c",
+        "fetchedAt": "2026-11-08T23:04:38.125224+00:00",
+        "bboxWebMercator": [
+          -13604168.632808724,
+          6044445.688947551,
+          -13603797.704656439,
+          6044816.617099835
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604168.632808724%2C6044445.688947551%2C-13603797.704656439%2C6044816.617099835&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r01-c04",
+        "image": "aerial-r01-c04.jpg",
+        "sha256": "a4435073e1a3bb163ccc0d3f97336a6d33cc711b7657d1434e31c8bb41653bdc",
+        "fetchedAt": "2026-11-08T23:04:37.999865+00:00",
+        "bboxWebMercator": [
+          -13603797.77816629,
+          6044445.688947551,
+          -13603426.850014005,
+          6044816.617099835
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603797.77816629%2C6044445.688947551%2C-13603426.850014005%2C6044816.617099835&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r01-c05",
+        "image": "aerial-r01-c05.jpg",
+        "sha256": "1d52616b544418b817ce3b09513e8019d7a6288eec473e213d8994b71584ed22",
+        "fetchedAt": "2026-11-08T23:04:39.592132+00:00",
+        "bboxWebMercator": [
+          -13603426.923523854,
+          6044445.688947551,
+          -13603055.995371569,
+          6044816.617099835
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603426.923523854%2C6044445.688947551%2C-13603055.995371569%2C6044816.617099835&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r01-c06",
+        "image": "aerial-r01-c06.jpg",
+        "sha256": "7bd2d44036f25c0bf19050213348b869fc6aa3638896ce70dfd022c7c82d0912",
+        "fetchedAt": "2026-11-08T23:04:37.699191+00:00",
+        "bboxWebMercator": [
+          -13603056.068881422,
+          6044445.688947551,
+          -13602685.140729137,
+          6044816.617099835
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603056.068881422%2C6044445.688947551%2C-13602685.140729137%2C6044816.617099835&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r01-c07",
+        "image": "aerial-r01-c07.jpg",
+        "sha256": "7f49963bbe84130748feaf1fae3894d06abc62dc0d699539b2659bcd29fe0ced",
+        "fetchedAt": "2026-11-08T23:04:39.267523+00:00",
+        "bboxWebMercator": [
+          -13602685.21423899,
+          6044445.688947551,
+          -13602314.286086705,
+          6044816.617099835
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602685.21423899%2C6044445.688947551%2C-13602314.286086705%2C6044816.617099835&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r01-c08",
+        "image": "aerial-r01-c08.jpg",
+        "sha256": "91ae4ac0d57c359df43dc0cfcd67f1766561a96660c45a6866bab72a709d61b7",
+        "fetchedAt": "2026-11-08T23:04:39.460787+00:00",
+        "bboxWebMercator": [
+          -13602314.359596556,
+          6044445.688947551,
+          -13601943.43144427,
+          6044816.617099835
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602314.359596556%2C6044445.688947551%2C-13601943.43144427%2C6044816.617099835&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r01-c09",
+        "image": "aerial-r01-c09.jpg",
+        "sha256": "0d0f16eb1029354d84b56db1cdbcd3930d9db7b4bb94042c25131439d7a2ad52",
+        "fetchedAt": "2026-11-08T23:04:40.004173+00:00",
+        "bboxWebMercator": [
+          -13601943.50495412,
+          6044445.688947551,
+          -13601572.576801835,
+          6044816.617099835
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601943.50495412%2C6044445.688947551%2C-13601572.576801835%2C6044816.617099835&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r01-c10",
+        "image": "aerial-r01-c10.jpg",
+        "sha256": "a90022bcd1272df21c9e51fab22c3e4a459d848ee7aeeb0def6ca9a990fb5526",
+        "fetchedAt": "2026-11-08T23:04:41.789268+00:00",
+        "bboxWebMercator": [
+          -13601572.650311688,
+          6044445.688947551,
+          -13601201.722159402,
+          6044816.617099835
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601572.650311688%2C6044445.688947551%2C-13601201.722159402%2C6044816.617099835&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r02-c02",
+        "image": "aerial-r02-c02.jpg",
+        "sha256": "3c86218da7ca1ae78aa627480d9c9cb1b55b7f8c3ef7d5eff9269f31402f9757",
+        "fetchedAt": "2026-11-08T23:04:43.855170+00:00",
+        "bboxWebMercator": [
+          -13604539.47947018,
+          6044074.15097797,
+          -13604168.567279847,
+          6044445.063168305
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604539.47947018%2C6044074.15097797%2C-13604168.567279847%2C6044445.063168305&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r02-c03",
+        "image": "aerial-r02-c03.jpg",
+        "sha256": "f3b8f86596fee53c427c59c9aed6f581b805a101b92499b97829e5bb05feb84d",
+        "fetchedAt": "2026-11-08T23:04:43.973125+00:00",
+        "bboxWebMercator": [
+          -13604168.624827748,
+          6044074.15097797,
+          -13603797.712637415,
+          6044445.063168305
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604168.624827748%2C6044074.15097797%2C-13603797.712637415%2C6044445.063168305&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r02-c04",
+        "image": "aerial-r02-c04.jpg",
+        "sha256": "30d97f4b99bb32168b9a8558d3d896f64f9e05f43eff3e2d0c144abac7f71a80",
+        "fetchedAt": "2026-11-08T23:04:41.969921+00:00",
+        "bboxWebMercator": [
+          -13603797.770185314,
+          6044074.15097797,
+          -13603426.857994981,
+          6044445.063168305
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603797.770185314%2C6044074.15097797%2C-13603426.857994981%2C6044445.063168305&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r02-c05",
+        "image": "aerial-r02-c05.jpg",
+        "sha256": "0c5668c7e46cc2be3726e0d008f3212e4e8abe76d9693ddf8af67ff5879d9f9b",
+        "fetchedAt": "2026-11-08T23:04:45.795839+00:00",
+        "bboxWebMercator": [
+          -13603426.915542878,
+          6044074.15097797,
+          -13603056.003352545,
+          6044445.063168305
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603426.915542878%2C6044074.15097797%2C-13603056.003352545%2C6044445.063168305&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r02-c06",
+        "image": "aerial-r02-c06.jpg",
+        "sha256": "3710f837ab53a92f78de27743a5d73dbbcaa250caf4b1df801c30272f4e097e0",
+        "fetchedAt": "2026-11-08T23:04:44.998051+00:00",
+        "bboxWebMercator": [
+          -13603056.060900446,
+          6044074.15097797,
+          -13602685.148710113,
+          6044445.063168305
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603056.060900446%2C6044074.15097797%2C-13602685.148710113%2C6044445.063168305&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r02-c07",
+        "image": "aerial-r02-c07.jpg",
+        "sha256": "c60c082c144d22c0af6f4fa164f75a86270d4ab2d26f5dd874a1c723b677fcc9",
+        "fetchedAt": "2026-11-08T23:04:46.053509+00:00",
+        "bboxWebMercator": [
+          -13602685.206258014,
+          6044074.15097797,
+          -13602314.29406768,
+          6044445.063168305
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602685.206258014%2C6044074.15097797%2C-13602314.29406768%2C6044445.063168305&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r02-c08",
+        "image": "aerial-r02-c08.jpg",
+        "sha256": "315cefdd644badc4a3805f9273861a86794ee3e790dbdc9e5566b78cd425e239",
+        "fetchedAt": "2026-11-08T23:04:46.475241+00:00",
+        "bboxWebMercator": [
+          -13602314.35161558,
+          6044074.15097797,
+          -13601943.439425247,
+          6044445.063168305
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602314.35161558%2C6044074.15097797%2C-13601943.439425247%2C6044445.063168305&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r02-c09",
+        "image": "aerial-r02-c09.jpg",
+        "sha256": "9db449fcfbd3fb5f4ef2f3d4723ef659e8e9ddd4f2f44496510a8b271ecb2c4c",
+        "fetchedAt": "2026-11-08T23:04:52.025335+00:00",
+        "bboxWebMercator": [
+          -13601943.496973144,
+          6044074.15097797,
+          -13601572.58478281,
+          6044445.063168305
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601943.496973144%2C6044074.15097797%2C-13601572.58478281%2C6044445.063168305&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r02-c10",
+        "image": "aerial-r02-c10.jpg",
+        "sha256": "d20a3c64db1b903ae21c0e9bbb41023b54c4d8fbb0f381f4e6e781ef54cacc5c",
+        "fetchedAt": "2026-11-08T23:04:48.801117+00:00",
+        "bboxWebMercator": [
+          -13601572.642330712,
+          6044074.15097797,
+          -13601201.730140379,
+          6044445.063168305
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601572.642330712%2C6044074.15097797%2C-13601201.730140379%2C6044445.063168305&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r02-c11",
+        "image": "aerial-r02-c11.jpg",
+        "sha256": "206baf19ea5e3b2e30d73c7ebf8fc79cffcc5995904a9d195e1ff189f2493013",
+        "fetchedAt": "2026-11-08T23:04:47.990557+00:00",
+        "bboxWebMercator": [
+          -13601201.78768828,
+          6044074.15097797,
+          -13600830.875497947,
+          6044445.063168305
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601201.78768828%2C6044074.15097797%2C-13600830.875497947%2C6044445.063168305&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r03-c01",
+        "image": "aerial-r03-c01.jpg",
+        "sha256": "82520a7a9c15ae338c37bbdc4d9ddc9782683e52f0480c748c6f2ba6ab3e6ae8",
+        "fetchedAt": "2026-11-08T23:04:49.122855+00:00",
+        "bboxWebMercator": [
+          -13604910.326132614,
+          6043702.6289953245,
+          -13604539.429902285,
+          6044073.525225653
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604910.326132614%2C6043702.6289953245%2C-13604539.429902285%2C6044073.525225653&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r03-c02",
+        "image": "aerial-r03-c02.jpg",
+        "sha256": "fe629981b522f24bd39115316071ff772b8ac4aca89fe19c3fa9f6787a0c8ed4",
+        "fetchedAt": "2026-11-08T23:04:52.873460+00:00",
+        "bboxWebMercator": [
+          -13604539.471490178,
+          6043702.6289953245,
+          -13604168.57525985,
+          6044073.525225653
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604539.471490178%2C6043702.6289953245%2C-13604168.57525985%2C6044073.525225653&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r03-c03",
+        "image": "aerial-r03-c03.jpg",
+        "sha256": "236d56ba451a07e8a39cbae2625abd0c601105c64cd1e9fd5ee0aa37b9efac38",
+        "fetchedAt": "2026-11-08T23:04:51.880545+00:00",
+        "bboxWebMercator": [
+          -13604168.616847746,
+          6043702.6289953245,
+          -13603797.720617417,
+          6044073.525225653
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604168.616847746%2C6043702.6289953245%2C-13603797.720617417%2C6044073.525225653&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r03-c04",
+        "image": "aerial-r03-c04.jpg",
+        "sha256": "d74ac1bb6d4250adf64181ee0805b151a9539c865a5e8983e1cf30882a77fe80",
+        "fetchedAt": "2026-11-08T23:04:52.324921+00:00",
+        "bboxWebMercator": [
+          -13603797.762205312,
+          6043702.6289953245,
+          -13603426.865974983,
+          6044073.525225653
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603797.762205312%2C6043702.6289953245%2C-13603426.865974983%2C6044073.525225653&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r03-c05",
+        "image": "aerial-r03-c05.jpg",
+        "sha256": "9133b62e9dad814507aab036725f803b85d90257f303c8a194dd5475614953b6",
+        "fetchedAt": "2026-11-08T23:04:54.624342+00:00",
+        "bboxWebMercator": [
+          -13603426.907562876,
+          6043702.6289953245,
+          -13603056.011332547,
+          6044073.525225653
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603426.907562876%2C6043702.6289953245%2C-13603056.011332547%2C6044073.525225653&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r03-c06",
+        "image": "aerial-r03-c06.jpg",
+        "sha256": "41ab47f1a41fa0dca1ebff45d0a5b90edc56c513b728c3a205ebbfe98af19542",
+        "fetchedAt": "2026-11-08T23:04:53.567560+00:00",
+        "bboxWebMercator": [
+          -13603056.052920444,
+          6043702.6289953245,
+          -13602685.156690115,
+          6044073.525225653
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603056.052920444%2C6043702.6289953245%2C-13602685.156690115%2C6044073.525225653&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r03-c07",
+        "image": "aerial-r03-c07.jpg",
+        "sha256": "0c00e272ef758cde6ffa26dd152b35a6d9a25d97ba0cd9d30007803f13743847",
+        "fetchedAt": "2026-11-08T23:04:53.884650+00:00",
+        "bboxWebMercator": [
+          -13602685.198278012,
+          6043702.6289953245,
+          -13602314.302047683,
+          6044073.525225653
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602685.198278012%2C6043702.6289953245%2C-13602314.302047683%2C6044073.525225653&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r03-c08",
+        "image": "aerial-r03-c08.jpg",
+        "sha256": "37ff1e1b40d6fb51ed8b0bb9f891a17db29e3a4bdb65c682fa5e40b00c3e38de",
+        "fetchedAt": "2026-11-08T23:04:55.397877+00:00",
+        "bboxWebMercator": [
+          -13602314.343635578,
+          6043702.6289953245,
+          -13601943.447405249,
+          6044073.525225653
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602314.343635578%2C6043702.6289953245%2C-13601943.447405249%2C6044073.525225653&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r03-c09",
+        "image": "aerial-r03-c09.jpg",
+        "sha256": "51b343442f87127ea7ddf187d4a20a0e7912937ca730c02eeb487a2e35f297c3",
+        "fetchedAt": "2026-11-08T23:04:57.005327+00:00",
+        "bboxWebMercator": [
+          -13601943.488993142,
+          6043702.6289953245,
+          -13601572.592762813,
+          6044073.525225653
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601943.488993142%2C6043702.6289953245%2C-13601572.592762813%2C6044073.525225653&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r03-c10",
+        "image": "aerial-r03-c10.jpg",
+        "sha256": "e83a43b190ea85cbc1cc07bda7e7582213e18987dd009d15c52b51484b2cb8c1",
+        "fetchedAt": "2026-11-08T23:04:57.855299+00:00",
+        "bboxWebMercator": [
+          -13601572.63435071,
+          6043702.6289953245,
+          -13601201.73812038,
+          6044073.525225653
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601572.63435071%2C6043702.6289953245%2C-13601201.73812038%2C6044073.525225653&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r03-c11",
+        "image": "aerial-r03-c11.jpg",
+        "sha256": "b96c6827d559894e0f79a4e0b60e7678188cdb9884b6440788141252866a47a0",
+        "fetchedAt": "2026-11-08T23:04:56.643496+00:00",
+        "bboxWebMercator": [
+          -13601201.779708277,
+          6043702.6289953245,
+          -13600830.883477949,
+          6044073.525225653
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601201.779708277%2C6043702.6289953245%2C-13600830.883477949%2C6044073.525225653&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r03-c12",
+        "image": "aerial-r03-c12.jpg",
+        "sha256": "5ce88d44af92a1ad7cf473a93ee64e2a0b08cc2ea3a5ca252a734f8700433c32",
+        "fetchedAt": "2026-11-08T23:04:57.411474+00:00",
+        "bboxWebMercator": [
+          -13600830.925065842,
+          6043702.6289953245,
+          -13600460.028835513,
+          6044073.525225653
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13600830.925065842%2C6043702.6289953245%2C-13600460.028835513%2C6044073.525225653&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r04-c01",
+        "image": "aerial-r04-c01.jpg",
+        "sha256": "ea29e3f89940d8deba06767397039ace90d3e2bf6de59f5c474458e7c350e669",
+        "fetchedAt": "2026-11-08T23:04:59.263208+00:00",
+        "bboxWebMercator": [
+          -13604910.318153584,
+          6043331.122997661,
+          -13604539.437881315,
+          6043702.00326993
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604910.318153584%2C6043331.122997661%2C-13604539.437881315%2C6043702.00326993&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r04-c02",
+        "image": "aerial-r04-c02.jpg",
+        "sha256": "b7b2fd07387ba6b42c3b404fedd1e3ff3dd05ee08078360fe5264038c926aa21",
+        "fetchedAt": "2026-11-08T23:05:00.608538+00:00",
+        "bboxWebMercator": [
+          -13604539.463511148,
+          6043331.122997661,
+          -13604168.58323888,
+          6043702.00326993
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604539.463511148%2C6043331.122997661%2C-13604168.58323888%2C6043702.00326993&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r04-c03",
+        "image": "aerial-r04-c03.jpg",
+        "sha256": "1d22b2d1d11c90a07dced285ac65a5d541d1fb095f4ed9451ffc939ec792a75b",
+        "fetchedAt": "2026-11-08T23:04:59.073796+00:00",
+        "bboxWebMercator": [
+          -13604168.608868716,
+          6043331.122997661,
+          -13603797.728596447,
+          6043702.00326993
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604168.608868716%2C6043331.122997661%2C-13603797.728596447%2C6043702.00326993&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r04-c04",
+        "image": "aerial-r04-c04.jpg",
+        "sha256": "37a96b6a1f3efde4bfa7b27fee5aaffa5877d38044418dd382576c18655f0983",
+        "fetchedAt": "2026-11-08T23:04:59.685563+00:00",
+        "bboxWebMercator": [
+          -13603797.754226282,
+          6043331.122997661,
+          -13603426.873954013,
+          6043702.00326993
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603797.754226282%2C6043331.122997661%2C-13603426.873954013%2C6043702.00326993&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r04-c05",
+        "image": "aerial-r04-c05.jpg",
+        "sha256": "2c737c7a3baf84a2c8c23123fd05d37d70131a3a7abf64fbc92372a388a13e59",
+        "fetchedAt": "2026-11-08T23:05:00.896420+00:00",
+        "bboxWebMercator": [
+          -13603426.899583846,
+          6043331.122997661,
+          -13603056.019311577,
+          6043702.00326993
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603426.899583846%2C6043331.122997661%2C-13603056.019311577%2C6043702.00326993&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r04-c06",
+        "image": "aerial-r04-c06.jpg",
+        "sha256": "96275dc2b50aa1897b84d1e413c64b0909493594008bf4aeba16ce9c7442acfb",
+        "fetchedAt": "2026-11-08T23:05:01.231482+00:00",
+        "bboxWebMercator": [
+          -13603056.044941414,
+          6043331.122997661,
+          -13602685.164669145,
+          6043702.00326993
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603056.044941414%2C6043331.122997661%2C-13602685.164669145%2C6043702.00326993&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r04-c07",
+        "image": "aerial-r04-c07.jpg",
+        "sha256": "ab8be8ef1cc024f9ab7d50f8dce6dfad647d2aa354a72cf428bbddd58c0425d8",
+        "fetchedAt": "2026-11-08T23:05:01.194398+00:00",
+        "bboxWebMercator": [
+          -13602685.190298982,
+          6043331.122997661,
+          -13602314.310026713,
+          6043702.00326993
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602685.190298982%2C6043331.122997661%2C-13602314.310026713%2C6043702.00326993&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r04-c08",
+        "image": "aerial-r04-c08.jpg",
+        "sha256": "077a426f14d472d14871664c55d8fc92fe9d4922cde2a689bce54a9a60a7c700",
+        "fetchedAt": "2026-11-08T23:05:04.217519+00:00",
+        "bboxWebMercator": [
+          -13602314.335656548,
+          6043331.122997661,
+          -13601943.455384279,
+          6043702.00326993
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602314.335656548%2C6043331.122997661%2C-13601943.455384279%2C6043702.00326993&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r04-c09",
+        "image": "aerial-r04-c09.jpg",
+        "sha256": "0f93f75c6719f7ea7ae74fdd75e6638a2ec53d0b352714219d4ab8418845ce44",
+        "fetchedAt": "2026-11-08T23:05:03.238529+00:00",
+        "bboxWebMercator": [
+          -13601943.481014112,
+          6043331.122997661,
+          -13601572.600741843,
+          6043702.00326993
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601943.481014112%2C6043331.122997661%2C-13601572.600741843%2C6043702.00326993&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r04-c10",
+        "image": "aerial-r04-c10.jpg",
+        "sha256": "f2fe7e7d65191faca22493159d2648c0ab8ebf86838f7ff39d34d634f97d8c30",
+        "fetchedAt": "2026-11-08T23:05:03.220492+00:00",
+        "bboxWebMercator": [
+          -13601572.62637168,
+          6043331.122997661,
+          -13601201.74609941,
+          6043702.00326993
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601572.62637168%2C6043331.122997661%2C-13601201.74609941%2C6043702.00326993&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r04-c11",
+        "image": "aerial-r04-c11.jpg",
+        "sha256": "3a2d65a478197941ab39bd3eeeb32bbced2e32a5cd0ada5d5e9d2864690ffbfb",
+        "fetchedAt": "2026-11-08T23:05:03.320497+00:00",
+        "bboxWebMercator": [
+          -13601201.771729248,
+          6043331.122997661,
+          -13600830.891456978,
+          6043702.00326993
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601201.771729248%2C6043331.122997661%2C-13600830.891456978%2C6043702.00326993&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r04-c12",
+        "image": "aerial-r04-c12.jpg",
+        "sha256": "8b9bea129623a4ed8d1da143f63e8d972f9e0401529be2d714e6bfb99452e98e",
+        "fetchedAt": "2026-11-08T23:05:04.779291+00:00",
+        "bboxWebMercator": [
+          -13600830.917086812,
+          6043331.122997661,
+          -13600460.036814542,
+          6043702.00326993
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13600830.917086812%2C6043331.122997661%2C-13600460.036814542%2C6043702.00326993&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r05-c01",
+        "image": "aerial-r05-c01.jpg",
+        "sha256": "26f7215b3ccab159b0842ddaec6da3be91ff97a328f64e1e38dad91ff00757b5",
+        "fetchedAt": "2026-11-08T23:05:06.189471+00:00",
+        "bboxWebMercator": [
+          -13604910.310175527,
+          6042959.632983033,
+          -13604539.445859373,
+          6043330.497299189
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604910.310175527%2C6042959.632983033%2C-13604539.445859373%2C6043330.497299189&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r05-c02",
+        "image": "aerial-r05-c02.jpg",
+        "sha256": "c1886dfa7e6ff70d132b9e65d5f08bd4c35b61babe2071251c06306dd5d68d6a",
+        "fetchedAt": "2026-11-08T23:05:06.108315+00:00",
+        "bboxWebMercator": [
+          -13604539.455533091,
+          6042959.632983033,
+          -13604168.591216937,
+          6043330.497299189
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604539.455533091%2C6042959.632983033%2C-13604168.591216937%2C6043330.497299189&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r05-c03",
+        "image": "aerial-r05-c03.jpg",
+        "sha256": "0216311e59f4c0da3a33ae023b89aff1b3a5250825a96f5aa33c43d3c1df5c8d",
+        "fetchedAt": "2026-11-08T23:05:08.777379+00:00",
+        "bboxWebMercator": [
+          -13604168.600890659,
+          6042959.632983033,
+          -13603797.736574505,
+          6043330.497299189
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604168.600890659%2C6042959.632983033%2C-13603797.736574505%2C6043330.497299189&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r05-c04",
+        "image": "aerial-r05-c04.jpg",
+        "sha256": "1b7cb9f4f0f63247912bf71e34473ecb4378bdb11b8b75deb692486fd7211de6",
+        "fetchedAt": "2026-11-08T23:05:08.295187+00:00",
+        "bboxWebMercator": [
+          -13603797.746248225,
+          6042959.632983033,
+          -13603426.88193207,
+          6043330.497299189
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603797.746248225%2C6042959.632983033%2C-13603426.88193207%2C6043330.497299189&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r05-c05",
+        "image": "aerial-r05-c05.jpg",
+        "sha256": "e971cdf3e42ffb94635d6c7066f3672b5bb131730fb396f8372959591da7735d",
+        "fetchedAt": "2026-11-08T23:05:08.791510+00:00",
+        "bboxWebMercator": [
+          -13603426.891605789,
+          6042959.632983033,
+          -13603056.027289635,
+          6043330.497299189
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603426.891605789%2C6042959.632983033%2C-13603056.027289635%2C6043330.497299189&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r05-c06",
+        "image": "aerial-r05-c06.jpg",
+        "sha256": "1748fb62191342b724488f1d62f2dd2750ec056d3eba64f0605da342047e58a7",
+        "fetchedAt": "2026-11-08T23:05:11.261832+00:00",
+        "bboxWebMercator": [
+          -13603056.036963357,
+          6042959.632983033,
+          -13602685.172647202,
+          6043330.497299189
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603056.036963357%2C6042959.632983033%2C-13602685.172647202%2C6043330.497299189&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r05-c07",
+        "image": "aerial-r05-c07.jpg",
+        "sha256": "6876bb416704e1ef1ba3492223cdcd48ff72403d81334780509ef2fa6681518c",
+        "fetchedAt": "2026-11-08T23:05:10.767105+00:00",
+        "bboxWebMercator": [
+          -13602685.182320924,
+          6042959.632983033,
+          -13602314.31800477,
+          6043330.497299189
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602685.182320924%2C6042959.632983033%2C-13602314.31800477%2C6043330.497299189&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r05-c08",
+        "image": "aerial-r05-c08.jpg",
+        "sha256": "30d41ad2b57fd2e8d8e157787066bd6b1e4bbda758f936df7b41dc07cb10b942",
+        "fetchedAt": "2026-11-08T23:05:10.395232+00:00",
+        "bboxWebMercator": [
+          -13602314.32767849,
+          6042959.632983033,
+          -13601943.463362336,
+          6043330.497299189
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602314.32767849%2C6042959.632983033%2C-13601943.463362336%2C6043330.497299189&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r05-c09",
+        "image": "aerial-r05-c09.jpg",
+        "sha256": "70fc06e5ec80049754b9642249ef594075ccec083e6fab2d6a9dce379d0b3dd3",
+        "fetchedAt": "2026-11-08T23:05:11.384496+00:00",
+        "bboxWebMercator": [
+          -13601943.473036055,
+          6042959.632983033,
+          -13601572.6087199,
+          6043330.497299189
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601943.473036055%2C6042959.632983033%2C-13601572.6087199%2C6043330.497299189&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r05-c10",
+        "image": "aerial-r05-c10.jpg",
+        "sha256": "135692b3ec228c79c4c376236c7a5d1b2cee69e5fb08ecf11c88ae04b3485c3e",
+        "fetchedAt": "2026-11-08T23:05:11.685216+00:00",
+        "bboxWebMercator": [
+          -13601572.618393622,
+          6042959.632983033,
+          -13601201.754077468,
+          6043330.497299189
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601572.618393622%2C6042959.632983033%2C-13601201.754077468%2C6043330.497299189&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r05-c11",
+        "image": "aerial-r05-c11.jpg",
+        "sha256": "a6507843b833f55ce22736c141eb153629296028bd957a176c44c684c3c16e5a",
+        "fetchedAt": "2026-11-08T23:05:13.849280+00:00",
+        "bboxWebMercator": [
+          -13601201.76375119,
+          6042959.632983033,
+          -13600830.899435036,
+          6043330.497299189
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601201.76375119%2C6042959.632983033%2C-13600830.899435036%2C6043330.497299189&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r05-c12",
+        "image": "aerial-r05-c12.jpg",
+        "sha256": "fdef4529b5a9016dffb996f88e274ef6665c1c360c45284df0c7e7ac92daef53",
+        "fetchedAt": "2026-11-08T23:05:13.970209+00:00",
+        "bboxWebMercator": [
+          -13600830.909108754,
+          6042959.632983033,
+          -13600460.0447926,
+          6043330.497299189
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13600830.909108754%2C6042959.632983033%2C-13600460.0447926%2C6043330.497299189&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r06-c02",
+        "image": "aerial-r06-c02.jpg",
+        "sha256": "a341263ad0c5b0fec6f06cd7e5e3fae6c181b15998a4ae879bd91f55e90af84f",
+        "fetchedAt": "2026-11-08T23:05:16.467680+00:00",
+        "bboxWebMercator": [
+          -13604539.447556006,
+          6042588.1589494925,
+          -13604168.599194022,
+          6042959.007311478
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604539.447556006%2C6042588.1589494925%2C-13604168.599194022%2C6042959.007311478&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r06-c03",
+        "image": "aerial-r06-c03.jpg",
+        "sha256": "a441411202ee28788d3de437b401aff40dc9c81b2ec91b2566d51bb1a42d22c1",
+        "fetchedAt": "2026-11-08T23:05:14.877311+00:00",
+        "bboxWebMercator": [
+          -13604168.592913574,
+          6042588.1589494925,
+          -13603797.74455159,
+          6042959.007311478
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604168.592913574%2C6042588.1589494925%2C-13603797.74455159%2C6042959.007311478&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r06-c04",
+        "image": "aerial-r06-c04.jpg",
+        "sha256": "cf017719b9c0d6e7074e941c66e5632d93579b854806e8e8dd723256be846dde",
+        "fetchedAt": "2026-11-08T23:05:18.894077+00:00",
+        "bboxWebMercator": [
+          -13603797.73827114,
+          6042588.1589494925,
+          -13603426.889909156,
+          6042959.007311478
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603797.73827114%2C6042588.1589494925%2C-13603426.889909156%2C6042959.007311478&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r06-c05",
+        "image": "aerial-r06-c05.jpg",
+        "sha256": "886faa6699f9fa6d5e36d343df9d567dca7d5ee25bd8884b51c65ad8af8e5472",
+        "fetchedAt": "2026-11-08T23:05:16.979562+00:00",
+        "bboxWebMercator": [
+          -13603426.883628704,
+          6042588.1589494925,
+          -13603056.03526672,
+          6042959.007311478
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603426.883628704%2C6042588.1589494925%2C-13603056.03526672%2C6042959.007311478&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r06-c06",
+        "image": "aerial-r06-c06.jpg",
+        "sha256": "05d620e067a71fe94e63bef818b2b6e113d013e62df7c1791a60b5df1a487e8b",
+        "fetchedAt": "2026-11-08T23:05:17.780463+00:00",
+        "bboxWebMercator": [
+          -13603056.028986271,
+          6042588.1589494925,
+          -13602685.180624288,
+          6042959.007311478
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603056.028986271%2C6042588.1589494925%2C-13602685.180624288%2C6042959.007311478&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r06-c07",
+        "image": "aerial-r06-c07.jpg",
+        "sha256": "5a3377dd523246c17ef99705fb9f81c61fc13ff0e963eec4f02da664b72ac6f1",
+        "fetchedAt": "2026-11-08T23:05:21.415485+00:00",
+        "bboxWebMercator": [
+          -13602685.17434384,
+          6042588.1589494925,
+          -13602314.325981855,
+          6042959.007311478
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602685.17434384%2C6042588.1589494925%2C-13602314.325981855%2C6042959.007311478&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r06-c08",
+        "image": "aerial-r06-c08.jpg",
+        "sha256": "0142bf9e90bdc7a89f0e00e414f5de8c0d39579b60dc63304743e7435769ea07",
+        "fetchedAt": "2026-11-08T23:05:19.004119+00:00",
+        "bboxWebMercator": [
+          -13602314.319701405,
+          6042588.1589494925,
+          -13601943.471339421,
+          6042959.007311478
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602314.319701405%2C6042588.1589494925%2C-13601943.471339421%2C6042959.007311478&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r06-c09",
+        "image": "aerial-r06-c09.jpg",
+        "sha256": "8096a4b0dbd492a52109cfbff3a69529ac4c852bfe67dfa837eaa6cbae0375f5",
+        "fetchedAt": "2026-11-08T23:05:19.568661+00:00",
+        "bboxWebMercator": [
+          -13601943.46505897,
+          6042588.1589494925,
+          -13601572.616696985,
+          6042959.007311478
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601943.46505897%2C6042588.1589494925%2C-13601572.616696985%2C6042959.007311478&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r06-c10",
+        "image": "aerial-r06-c10.jpg",
+        "sha256": "7a200b31fb0afb015f1e34046ac410579e2d07d4295864e5f3e2a74f770d21ec",
+        "fetchedAt": "2026-11-08T23:05:21.972657+00:00",
+        "bboxWebMercator": [
+          -13601572.610416537,
+          6042588.1589494925,
+          -13601201.762054553,
+          6042959.007311478
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601572.610416537%2C6042588.1589494925%2C-13601201.762054553%2C6042959.007311478&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r06-c11",
+        "image": "aerial-r06-c11.jpg",
+        "sha256": "5fdfe52ffa37aa4b63652512ad0ee4a5b8a80a6e0354d8d7fd8e6626679c4120",
+        "fetchedAt": "2026-11-08T23:05:26.767894+00:00",
+        "bboxWebMercator": [
+          -13601201.755774105,
+          6042588.1589494925,
+          -13600830.907412121,
+          6042959.007311478
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601201.755774105%2C6042588.1589494925%2C-13600830.907412121%2C6042959.007311478&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r07-c02",
+        "image": "aerial-r07-c02.jpg",
+        "sha256": "43cb26d0e12a2938ec96822ad9f6734d3e68b2ca72bb90814f53b09275724c31",
+        "fetchedAt": "2026-11-08T23:05:21.004791+00:00",
+        "bboxWebMercator": [
+          -13604539.439579893,
+          6042216.700895095,
+          -13604168.607170135,
+          6042587.533304855
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604539.439579893%2C6042216.700895095%2C-13604168.607170135%2C6042587.533304855&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r07-c03",
+        "image": "aerial-r07-c03.jpg",
+        "sha256": "4e7fffc10be57c72c59b9893eafab9d83ca2150d59bb43007a93fa6b532a427c",
+        "fetchedAt": "2026-11-08T23:05:23.903840+00:00",
+        "bboxWebMercator": [
+          -13604168.58493746,
+          6042216.700895095,
+          -13603797.752527703,
+          6042587.533304855
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604168.58493746%2C6042216.700895095%2C-13603797.752527703%2C6042587.533304855&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r07-c04",
+        "image": "aerial-r07-c04.jpg",
+        "sha256": "af58a263e0ba46261984a989decc056041408dd6b25ae51a79ac8ed683aba29d",
+        "fetchedAt": "2026-11-08T23:05:22.988575+00:00",
+        "bboxWebMercator": [
+          -13603797.730295027,
+          6042216.700895095,
+          -13603426.897885269,
+          6042587.533304855
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603797.730295027%2C6042216.700895095%2C-13603426.897885269%2C6042587.533304855&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r07-c05",
+        "image": "aerial-r07-c05.jpg",
+        "sha256": "9b0e6b5c48bd073fcdc7700c33a34b6959d08295c1566b13fde3b69677417182",
+        "fetchedAt": "2026-11-08T23:05:24.691388+00:00",
+        "bboxWebMercator": [
+          -13603426.87565259,
+          6042216.700895095,
+          -13603056.043242833,
+          6042587.533304855
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603426.87565259%2C6042216.700895095%2C-13603056.043242833%2C6042587.533304855&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r07-c06",
+        "image": "aerial-r07-c06.jpg",
+        "sha256": "4fa235e57726bf893b7dc081a3e2a0e1dedb0df3b4bfe881a66ce247db679253",
+        "fetchedAt": "2026-11-08T23:05:24.693601+00:00",
+        "bboxWebMercator": [
+          -13603056.021010159,
+          6042216.700895095,
+          -13602685.1886004,
+          6042587.533304855
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603056.021010159%2C6042216.700895095%2C-13602685.1886004%2C6042587.533304855&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r07-c07",
+        "image": "aerial-r07-c07.jpg",
+        "sha256": "262e896a4cbdeb3444176431d3a692fd7ff2469790a4b3d44931d706e71d112a",
+        "fetchedAt": "2026-11-08T23:05:26.853154+00:00",
+        "bboxWebMercator": [
+          -13602685.166367726,
+          6042216.700895095,
+          -13602314.333957968,
+          6042587.533304855
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602685.166367726%2C6042216.700895095%2C-13602314.333957968%2C6042587.533304855&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r07-c08",
+        "image": "aerial-r07-c08.jpg",
+        "sha256": "bf38437125563ac60107e5f91df28cd9f8e0d483f60e01300c06a2e59403ae24",
+        "fetchedAt": "2026-11-08T23:05:26.502436+00:00",
+        "bboxWebMercator": [
+          -13602314.311725292,
+          6042216.700895095,
+          -13601943.479315534,
+          6042587.533304855
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13602314.311725292%2C6042216.700895095%2C-13601943.479315534%2C6042587.533304855&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r07-c09",
+        "image": "aerial-r07-c09.jpg",
+        "sha256": "b77a485ee95e7ad80caad5eab9ae3205b3edce7f1e7e9c673d068af77382f6b9",
+        "fetchedAt": "2026-11-08T23:05:29.831061+00:00",
+        "bboxWebMercator": [
+          -13601943.457082856,
+          6042216.700895095,
+          -13601572.624673098,
+          6042587.533304855
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601943.457082856%2C6042216.700895095%2C-13601572.624673098%2C6042587.533304855&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r07-c10",
+        "image": "aerial-r07-c10.jpg",
+        "sha256": "f9154a1a8a3a59f35884bc283714fc22f0f3d998a942be1032aac4645a75a1f7",
+        "fetchedAt": "2026-11-08T23:05:28.194405+00:00",
+        "bboxWebMercator": [
+          -13601572.602440424,
+          6042216.700895095,
+          -13601201.770030666,
+          6042587.533304855
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601572.602440424%2C6042216.700895095%2C-13601201.770030666%2C6042587.533304855&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r07-c11",
+        "image": "aerial-r07-c11.jpg",
+        "sha256": "b432ae70d9df5e98519ce80ff2c944fc517fd99361479e6f7d311bcb662e7f51",
+        "fetchedAt": "2026-11-08T23:05:30.377729+00:00",
+        "bboxWebMercator": [
+          -13601201.747797992,
+          6042216.700895095,
+          -13600830.915388234,
+          6042587.533304855
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13601201.747797992%2C6042216.700895095%2C-13600830.915388234%2C6042587.533304855&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r08-c03",
+        "image": "aerial-r08-c03.jpg",
+        "sha256": "1e4bdc5c235cc5ab0b62326b00453a54ff9da5f290503ff2f92014d7fb4b9c17",
+        "fetchedAt": "2026-11-08T23:05:33.167321+00:00",
+        "bboxWebMercator": [
+          -13604168.57696232,
+          6041845.258817889,
+          -13603797.760502843,
+          6042216.075277366
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604168.57696232%2C6041845.258817889%2C-13603797.760502843%2C6042216.075277366&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r08-c04",
+        "image": "aerial-r08-c04.jpg",
+        "sha256": "77e418663fc164c1eff69b16e7dd2832afb61e0f1afa2b7d21b163e05b6fbab7",
+        "fetchedAt": "2026-11-08T23:05:32.179957+00:00",
+        "bboxWebMercator": [
+          -13603797.722319886,
+          6041845.258817889,
+          -13603426.90586041,
+          6042216.075277366
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603797.722319886%2C6041845.258817889%2C-13603426.90586041%2C6042216.075277366&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r08-c05",
+        "image": "aerial-r08-c05.jpg",
+        "sha256": "96e33fd0fa72e512b463572854aae277966eb58961e4f5038f4d9242108875b0",
+        "fetchedAt": "2026-11-08T23:05:32.612193+00:00",
+        "bboxWebMercator": [
+          -13603426.86767745,
+          6041845.258817889,
+          -13603056.051217973,
+          6042216.075277366
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603426.86767745%2C6041845.258817889%2C-13603056.051217973%2C6042216.075277366&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "aerial-r08-c06",
+        "image": "aerial-r08-c06.jpg",
+        "sha256": "a719c81552c02c2de2d66456a87da3ff78da9ae183bc680cd03a327765e2f38c",
+        "fetchedAt": "2026-11-08T23:05:33.264315+00:00",
+        "bboxWebMercator": [
+          -13603056.013035018,
+          6041845.258817889,
+          -13602685.196575541,
+          6042216.075277366
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13603056.013035018%2C6041845.258817889%2C-13602685.196575541%2C6042216.075277366&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "context-northeast",
+        "image": "context-northeast.jpg",
+        "sha256": "b9347fe6634675435406347fc6904cc1d7c4ec3367bc05e987dd232530417f20",
+        "fetchedAt": "2026-11-08T23:05:35.567556+00:00",
+        "bboxWebMercator": [
+          -13600830.94102682,
+          6044445.688947551,
+          -13600460.012874534,
+          6044816.617099835
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13600830.94102682%2C6044445.688947551%2C-13600460.012874534%2C6044816.617099835&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "context-northwest",
+        "image": "context-northwest.jpg",
+        "sha256": "ea165e1c30574a681379cf2c205a17f32defe0dd140b3d878a57fbd52c0fe823",
+        "fetchedAt": "2026-11-08T23:05:34.829121+00:00",
+        "bboxWebMercator": [
+          -13604910.342093593,
+          6044445.688947551,
+          -13604539.413941307,
+          6044816.617099835
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604910.342093593%2C6044445.688947551%2C-13604539.413941307%2C6044816.617099835&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "context-southeast",
+        "image": "context-southeast.jpg",
+        "sha256": "b9ef12e05c8960ce124ad262197e86f18ae2a5ae480afecbcef966ff6c8692d2",
+        "fetchedAt": "2026-11-08T23:05:36.278225+00:00",
+        "bboxWebMercator": [
+          -13600830.885180416,
+          6041845.258817889,
+          -13600460.068720939,
+          6042216.075277366
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13600830.885180416%2C6041845.258817889%2C-13600460.068720939%2C6042216.075277366&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      },
+      {
+        "id": "context-southwest",
+        "image": "context-southwest.jpg",
+        "sha256": "20ca396b7db4be956489daab11d22f8b7ea6915e18416ea0a8da31bd743c5b5f",
+        "fetchedAt": "2026-11-08T23:05:35.046935+00:00",
+        "bboxWebMercator": [
+          -13604910.286247188,
+          6041845.258817889,
+          -13604539.469787711,
+          6042216.075277366
+        ],
+        "sizeGroundM": 250,
+        "requestUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13604910.286247188%2C6041845.258817889%2C-13604539.469787711%2C6042216.075277366&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+        "contentType": "image/jpeg",
+        "acquisitionDate": null
+      }
+    ],
+    "errors": [],
+    "endedAt": "2026-11-08T23:05:36.313471+00:00"
+  },
+  "publication": "Only actual GAME images and source/reference URL metadata enter git. Private reference crops and paired sheets are excluded."
+}

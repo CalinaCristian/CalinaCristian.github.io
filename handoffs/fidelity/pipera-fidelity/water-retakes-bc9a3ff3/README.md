@@ -1,0 +1,23 @@
+# Pipera water retakes
+
+All **35 planned water-affected squares** were freshly captured from immutable combined source `bc9a3ff3058799a4ec9ac450f3efbdc050b79c58` on **2026-11-09, 00:43:04–00:44:34 UTC**. The 89.537-second capture has zero page, console or request errors. All 35 image/thumbnail hashes, exact original poses and **8,211 served files** pass validation. The subset contains four core-touching and 31 ring-touching squares.
+
+The complete published atlas remains **133 views: 35 bc9a3ff3 retakes plus 98 original c78a5f4 frames**. Every frame retains its actual source SHA, capture time, image hash and review provenance. Top-level capture, review, pose and source-inventory metadata explicitly describe this mixed collection. The full geometric coverage remains 38 core-touching, 91 ring-touching and four distant context views; this does not make all 133 captures fresh.
+
+The complete original collection is preserved at `game/overview/comparison-data/pipera/historical/c78a5f4/`: **275 files, including all 133 images and 133 thumbnails, are byte-identical** to the combined snapshot's original collection. Both source inventories were rechecked: 2,580 files for the original capture and 8,211 for the retakes. The original raw capture ledger, dates, review, validation and source provenance remain unchanged in that archive. Earlier incomplete private attempts remain at their original locations.
+
+The mask is the exact 35-ID Pipera set from `/tmp/drivecv-water-line-impact.json`, pinned to `bbaffc0d6cdccb6246edeb9478c58590852980d9`. Its source dataset is byte-identical to the combined snapshot. Pipera's entire dataset is also byte-identical to c78a5f4 (`def0b751…`), as are `cities.js` and `trees.js`. `landmarks.js` differs because of the separately integrated Dinamo paint change; no whole-file equivalence is claimed. The original 2,283 source-body/ring and road/roof audits remain labelled c78a5f4 in `../atlas-c78a5f4/`; data equivalence is recorded separately rather than relabelling those audits as new runs.
+
+All **35 original/retake/Esri triplets** were manually inspected across nine private sheets. Each reference square has coverage 1.0, with image/source hashes in the portable triplet ledger. References were reused from the 2026-11-08 access; acquisition dates remain unknown. Reference imagery and triplet sheets remain outside the checkout. No new visible bank holes, shoreline discontinuities or missing source bodies were identified at the reviewed capture/sheet scale. Redundant submerged ribbons are often hidden by mapped water polygons, so every conservative-mask tile need not show an obvious visual difference. Bank and yard polygons, vegetation, roofs, equipment, docks and ground textures retain documented model limits. This is not full visual parity, a water-quality claim or native driving-budget acceptance.
+
+The cameras remain 640 × 640, square, north up, 250 m across, high quality, summer, clear daylight, with moving traffic and mirrors disabled. Fog is temporarily removed and depth extended for technical top-down captures. Native normal-perspective performance and physical checks are separate. Unresolved source contradictions w27750597/w176791388 and w176792203 are not resolved by this capture delivery.
+
+## Evidence and reproduction
+
+The public `retakes/bc9a3ff3/` directory contains the original 35-frame capture manifest/report, source inventory, poses, mask, validation, paired review and original-archive hashes. `delivery.json` hashes all published Pipera files. `tool-provenance.json` records tools, source identity and commands. Only Pipera comparison data, these handoffs and two local publication/review helpers change; no catalogue, global documentation or runtime files change.
+
+1. Archive `game`, `public` and `package.json` at the recorded source SHA to a new immutable directory. Copy the original 133-pose plan and boundary, filter poses by the exact mask IDs, replace only each pose's source SHA, and label the plan as a 35-view subset.
+2. Run `tools/aerial/capture-game-grid.cjs` using `../atlas-capture-preload.cjs`, then `tools/aerial/validate-game-grid.py`. The managed runtime uses installed Chromium and SwiftShader; no hardware FPS claim is made.
+3. Run `../review-atlas-retakes.py`, inspect all triplets privately, and record the completed review. Publish with the frozen `tools/fidelity/publish-atlas-retakes.py`, then `../finalize-pipera-water.py` to retain all original bytes and reconcile the mixed provenance and review ledgers.
+
+The immutable source snapshot and original output remain under `/workspace/reality-pass/pipera/water-source-bc9a3ff3` and `water-retakes-bc9a3ff3`; private review material is in `water-paired-review-bc9a3ff3`.

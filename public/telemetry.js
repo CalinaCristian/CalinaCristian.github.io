@@ -2,7 +2,8 @@
  * Privacy-friendly analytics + game telemetry (PostHog Cloud EU).
  *
  *  - Loaded lazily (after the page has rendered and the browser is idle), so it never slows the first paint.
- *  - No cookies, no localStorage: `persistence: 'memory'`. Nothing is stored on the visitor's device.
+ *  - Analytics identities use no cookies or localStorage: `persistence: 'memory'`.
+ *    The game separately keeps a bounded, 15-minute per-tab health breadcrumb in sessionStorage.
  *    The anonymous id is handed from the landing page to the game through the "Play my CV" link (?ph=…)
  *    so one visit = one visitor across both pages.
  *  - Only sends from the production hosts below. Add `?track=1` to force it on (e.g. for a quick test),
@@ -33,13 +34,19 @@
 
     function trackingAllowed() {
         if (params.has('notrack')) return false;
-        if (params.get('track') === '1') return true;
         var dnt = navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true;
         if (dnt) return false;
+        if (params.get('track') === '1') return true;
         return CONFIG.productionHosts.indexOf(location.hostname) !== -1;
     }
 
     var enabled = trackingAllowed();
+    function context() {
+        var p = { telemetry_schema: 2, release_id: document.querySelector('meta[name="game-release"]')?.content || 'unversioned', source_commit: document.querySelector('meta[name="game-source"]')?.content || null };
+        try { Object.assign(p, api.contextProvider && api.contextProvider() || {}); } catch (_) { /* diagnostics never break capture */ }
+        return p;
+    }
+    function enqueue(item) { if (queue.length >= 200) queue.shift(); queue.push(item); }
 
     var api = {
         enabled: enabled,
@@ -47,8 +54,9 @@
         /** queue-safe event capture (no-op when tracking is disabled) */
         track: function (event, props, options) {
             if (!enabled) return;
-            if (ready && window.posthog) window.posthog.capture(event, props || {}, options);
-            else queue.push([event, props || {}, options]);
+            var p = Object.assign(context(), props || {});
+            if (ready && window.posthog) window.posthog.capture(event, p, options);
+            else enqueue([event, p, options]);
         },
         /** use when the page is going away (pagehide): sends with navigator.sendBeacon */
         trackBeacon: function (event, props) { api.track(event, props, { transport: 'sendBeacon' }); },
@@ -56,8 +64,9 @@
         error: function (err, props) {
             if (!enabled) return;
             try {
-                if (ready && window.posthog && window.posthog.captureException) window.posthog.captureException(err, props || {});
-                else api.track('$exception', Object.assign({ message: String(err && err.message || err) }, props || {}));
+                var p = Object.assign(context(), props || {});
+                if (ready && window.posthog && window.posthog.captureException) window.posthog.captureException(err, p);
+                else enqueue(['$queued_exception', err, p]);
             } catch (e) { /* never let telemetry break the page */ }
         },
         /** append the anonymous id to an internal link so landing -> game is one visitor */
@@ -73,6 +82,9 @@
     };
     window.cvTelemetry = api;
     if (!enabled) return;
+    // Preserve early exceptions during a cold world build, before the lazy SDK finishes loading.
+    addEventListener('error', function (e) { if (!ready && e.error) api.error(e.error, { phase: 'before_sdk' }); });
+    addEventListener('unhandledrejection', function (e) { if (!ready) api.error(e.reason instanceof Error ? e.reason : new Error('Unhandled promise rejection'), { phase: 'before_sdk' }); });
 
     // id handed over from the previous page (then removed from the address bar)
     var handedId = params.get('ph');
@@ -91,7 +103,7 @@
             api_host: CONFIG.apiHost,
             ui_host: CONFIG.uiHost,
             defaults: '2026-08-30',
-            persistence: 'memory',          // nothing stored on the device -> no cookie banner needed
+            persistence: 'memory',          // analytics identity is not persisted on the device
             person_profiles: 'identified_only', // anonymous events only (we never call identify)
             autocapture: false,             // explicit events only
             capture_pageview: true,
@@ -106,14 +118,14 @@
             respect_dnt: true,
             loaded: function () {
                 ready = true;
-                while (queue.length) { var q = queue.shift(); window.posthog.capture(q[0], q[1], q[2]); }
+                while (queue.length) { var q = queue.shift(); if (q[0] === '$queued_exception') window.posthog.captureException(q[1], q[2]); else window.posthog.capture(q[0], q[1], q[2]); }
             },
         };
         if (handedId) options.bootstrap = { distinctID: handedId };
         window.posthog.init(CONFIG.key, options);
         window.posthog.register({
             site_page: page,
-            app_version: CONFIG.appVersion,
+            app_version: document.querySelector('meta[name="game-release"]')?.content || CONFIG.appVersion,
             viewport: window.innerWidth + 'x' + window.innerHeight,
             touch: ('ontouchstart' in window) || navigator.maxTouchPoints > 0,
         });

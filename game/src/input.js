@@ -87,14 +87,14 @@ export class Input {
     /** wire the on-screen touch buttons */
     bindTouch(root) {
         { // (round 6 note 38) iOS ignores user-scalable=no: block pinch / double-tap zoom outside the scrolling panels
-            const scrolls = (t) => t && t.closest && t.closest('#navpanel, .panel-inner, .pv-gallery, #cond-panel, #menu, #pause-menu, #achv-panel, #save-gallery, .dlg, #finale, .wm-list, .sp-panel');
+            const scrolls = (t) => t && t.closest && t.closest('#navpanel, .panel-inner, .pv-gallery, #cond-panel, #menu, #pause-menu, #achv-panel, #save-gallery, .dlg, #finale, .wm-list, .wm-tabs, .wm-rrow, .sp-card, .sp-panel');
             for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
             document.addEventListener('touchmove', (e) => { if (e.touches.length > 1 || !scrolls(e.target)) e.preventDefault(); }, { passive: false });
             let lastEnd = 0; document.addEventListener('touchend', (e) => { const n = performance.now(); if (n - lastEnd < 320 && !scrolls(e.target) && !(e.target.closest && e.target.closest('button, a, input, select, label'))) e.preventDefault(); lastEnd = n; }, { passive: false });
         }
         const bind = (sel, down, up) => {
             const el = root.querySelector(sel); if (!el) return;
-            const d = (e) => { e.preventDefault(); down(); el.classList.add('active'); };
+            const d = (e) => { e.preventDefault(); if (document.body.classList.contains('ui-modal')) return; down(); el.classList.add('active'); };
             const u = (e) => { e.preventDefault(); up(); el.classList.remove('active'); };
             el.addEventListener('touchstart', d, { passive: false }); el.addEventListener('touchend', u); el.addEventListener('touchcancel', u);
             el.addEventListener('mousedown', d); el.addEventListener('mouseup', u); el.addEventListener('mouseleave', u);
@@ -102,11 +102,21 @@ export class Input {
         // (round 5: the ◀ ▶ ▲ ▼ buttons are replaced by the analog controls; the pedals are built in _buildTouchUI)
         this._buildTouchUI(root);
         bind('[data-btn=horn]', () => { this.touch.horn = true; this.actions.add('KeyH'); }, () => this.touch.horn = false);
+        bind('[data-btn=lookback]', () => this.keys.add('KeyC'), () => this.keys.delete('KeyC'));
         bind('[data-btn=act]', () => this.actions.add('KeyE'), () => { });
         bind('[data-btn=map]', () => this.actions.add('KeyM'), () => { });
         bind('[data-btn=jump]', () => this.actions.add('Space'), () => { });
         bind('[data-btn=foot]', () => this.actions.add('Enter'), () => { }); // get out of / back into the car (spec 14)
-        bind('[data-btn=run]', () => { this._runToggle = !this._runToggle; this.touch.run = this._runToggle || !!this._stickRun; }, () => { });
+        bind('[data-btn=run]', () => { this._runToggle = !this._runToggle; this.touch.run = this._runToggle || !!this._stickRun; const b = root.querySelector('[data-btn=run]'); b?.setAttribute('aria-pressed', String(this._runToggle)); }, () => { });
+    }
+
+    cancelTouch() {
+        this._tL = this.touchLook = this._pedal = null; this._stickRun = this._runToggle = false;
+        Object.assign(this.touch, { steer: 0, throttle: 0, brake: false, horn: false, run: false });
+        Object.assign(this.touch.stick, { x: 0, y: 0, mag: 0, active: false }); this.keys.delete('KeyC'); this._hideStick();
+        document.querySelector('[data-btn=run]')?.setAttribute('aria-pressed', 'false');
+        for (const el of document.querySelectorAll('#touch .active')) el.classList.remove('active');
+        for (const el of document.querySelectorAll('.tpedal i')) el.style.transform = 'scaleY(0)';
     }
 
     // =================================================================================================================
@@ -126,10 +136,10 @@ export class Input {
     _initTouch() {
         this.touch.stick = { x: 0, y: 0, mag: 0, active: false };
         this._tL = null; // left control {id, ox, oy, mode}
-        const skip = (t) => t && t.closest && t.closest('button, a, select, input, label, #bigmap-wrap, #panel, #menu, .pad, .tpedal, .photo-open, #finale, #chapter-transition, .overlay.show');
+        const skip = (t) => t && t.closest && t.closest('button, a, select, input, label, .sp-card, #minimap, #bigmap-wrap, #panel, #menu, .pad, .tpedal, .photo-open, #finale, #chapter-transition, .overlay.show');
         const R = () => Math.max(46, Math.min(70, Math.min(innerWidth, innerHeight) * 0.11)); // stick radius (px)
         window.addEventListener('touchstart', (e) => {
-            if (!this.enabled) return;
+            if (!this.enabled || document.body.classList.contains('ui-modal')) return;
             for (const t of e.changedTouches) {
                 if (skip(t.target)) continue;
                 const left = t.clientX < innerWidth * 0.5;
@@ -186,7 +196,7 @@ export class Input {
             const gas = el.dataset.pedal === 'gas', bar = el.querySelector('i');
             const val = (t) => { const r = el.getBoundingClientRect(); return Math.max(0.35, Math.min(1, 0.35 + 0.65 * (r.bottom - t.clientY) / r.height * 1.15)); };
             let id = null;
-            const set = (v) => { if (gas) this.touch.throttle = v; else { this.touch.throttle = -v; this.touch.brake = v > 0.5; } bar.style.transform = `scaleY(${v})`; el.classList.toggle('active', v > 0); this._pedal = v > 0 ? el.dataset.pedal : null; };
+            const set = (v) => { if (document.body.classList.contains('ui-modal')) v = 0; if (gas) this.touch.throttle = v; else { this.touch.throttle = -v; this.touch.brake = v > 0.5; } bar.style.transform = `scaleY(${v})`; el.classList.toggle('active', v > 0); this._pedal = v > 0 ? el.dataset.pedal : null; };
             el.addEventListener('touchstart', (e) => { e.preventDefault(); const t = e.changedTouches[0]; id = t.identifier; set(val(t)); }, { passive: false });
             el.addEventListener('touchmove', (e) => { e.preventDefault(); for (const t of e.changedTouches) if (t.identifier === id) set(val(t)); }, { passive: false });
             const up = (e) => { for (const t of e.changedTouches) if (t.identifier === id) { id = null; set(0); this.touch.brake = false; this.touch.throttle = 0; } };

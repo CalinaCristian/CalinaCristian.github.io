@@ -1,0 +1,9 @@
+PASS literal complete crossing preserves raw references/order/all tags/delta and exact road incidence
+PASS sharing a curb never pulls in an adjacent crossing transitively
+PASS coincident geometry with distinct rail IDs creates no crossing identity
+PASS complete raw road node alone does not qualify when absent from prepared source graph
+PASS missing crossing coordinates remain null with all literal refs and unavailable IDs
+PASS missing raw candidate road fails; an unrelated uncached source way requires no invented coverage
+PASS append-only field preserves bytes, old four metadata fields, date and every existing value
+PASS actual four datasets retain every81c field and exact byte prefix with one append-only addition
+{"passed":true,"controls":8,"browserOpened":false,"networkUsed":false}

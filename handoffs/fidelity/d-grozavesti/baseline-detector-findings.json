@@ -1,0 +1,641 @@
+{
+  "sourceCommit": "65ba08d639d4367288e1647cacd34bbb44e683c5",
+  "rawReport": "/workspace/reality-pass/grozavesti/baseline-visual/visual.json",
+  "findings": [
+    {
+      "id": 31,
+      "type": "ribbon-stacked",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "Pasajul Basarab [edge 131, bridge] and Pasajul Basarab [edge 846, bridge] overlap over 8.8 m\u00b2 with only 0.06 m between them (spec R11.4: share one surface or \u2265 5 m clearance) \u2192 a visible stacked / stepped road surface",
+      "x": 355.2,
+      "z": -690.1,
+      "lat": 44.447409,
+      "lon": 26.063669,
+      "street": "Calea Giule\u0219ti",
+      "count": 1,
+      "data": {
+        "area": 8.8,
+        "dy": 0.06,
+        "a": "Pasajul Basarab [edge 131, bridge]",
+        "b": "Pasajul Basarab [edge 846, bridge]",
+        "edgeA": 131,
+        "edgeB": 846
+      },
+      "crop": "issues/bucharest-grozavesti-geo-ribbon-stacked-355_-690.jpg",
+      "seen": "sweep-pasajul-basarab #63 (962 m, forward sheet 4)"
+    },
+    {
+      "id": 53,
+      "type": "ribbon-stacked",
+      "severity": "high",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "\u0218oseaua Orhideelor [edge 257] and (primary) [edge 443, bridge] overlap over 6.1 m\u00b2 with only 0.43 m between them (spec R11.4: share one surface or \u2265 5 m clearance) \u2192 a visible stacked / stepped road surface",
+      "x": 191.2,
+      "z": -448.4,
+      "lat": 44.445235,
+      "lon": 26.061605,
+      "street": "(primary)",
+      "count": 2,
+      "data": {
+        "area": 6.1,
+        "dy": 0.43,
+        "a": "\u0218oseaua Orhideelor [edge 257]",
+        "b": "(primary) [edge 443, bridge]",
+        "edgeA": 257,
+        "edgeB": 443
+      },
+      "crop": "issues/bucharest-grozavesti-geo-ribbon-stacked-191_-448.jpg",
+      "seen": "sweep-pasajul-basarab #56 (682 m, forward sheet 3)"
+    },
+    {
+      "id": 54,
+      "type": "ribbon-stacked",
+      "severity": "high",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "\u0218oseaua Orhideelor [edge 258] and (primary) [edge 824, bridge] overlap over 10 m\u00b2 with only 1.77 m between them (spec R11.4: share one surface or \u2265 5 m clearance) \u2192 a visible stacked / stepped road surface",
+      "x": 196.8,
+      "z": -464.7,
+      "lat": 44.445382,
+      "lon": 26.061677,
+      "street": "(primary)",
+      "count": 5,
+      "data": {
+        "area": 10,
+        "dy": 1.77,
+        "a": "\u0218oseaua Orhideelor [edge 258]",
+        "b": "(primary) [edge 824, bridge]",
+        "edgeA": 258,
+        "edgeB": 824
+      },
+      "crop": "issues/bucharest-grozavesti-geo-ribbon-stacked-197_-465.jpg",
+      "seen": "sweep-pasajul-basarab #56 (682 m, forward sheet 3)"
+    },
+    {
+      "id": 56,
+      "type": "ribbon-stacked",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "\u0218oseaua Orhideelor [edge 259] and (primary) [edge 826, bridge] overlap over 3.8 m\u00b2 with only 3.72 m between them (spec R11.4: share one surface or \u2265 5 m clearance) \u2192 a visible stacked / stepped road surface",
+      "x": 205.8,
+      "z": -488,
+      "lat": 44.445591,
+      "lon": 26.061789,
+      "street": "\u0218oseaua Orhideelor",
+      "count": 1,
+      "data": {
+        "area": 3.8,
+        "dy": 3.72,
+        "a": "\u0218oseaua Orhideelor [edge 259]",
+        "b": "(primary) [edge 826, bridge]",
+        "edgeA": 259,
+        "edgeB": 826
+      },
+      "crop": "issues/bucharest-grozavesti-geo-ribbon-stacked-206_-488.jpg",
+      "seen": "sweep-pasajul-basarab #57 (722 m, forward sheet 3)"
+    },
+    {
+      "id": 82,
+      "type": "ribbon-stacked",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "Bretea [edge 376, bridge] and Bretea [edge 442, bridge] overlap over 2.6 m\u00b2 with only 0.3 m between them (spec R11.4: share one surface or \u2265 5 m clearance) \u2192 a visible stacked / stepped road surface",
+      "x": 427.4,
+      "z": -700,
+      "lat": 44.447499,
+      "lon": 26.064577,
+      "street": "Bretea",
+      "count": 3,
+      "data": {
+        "area": 2.6,
+        "dy": 0.3,
+        "a": "Bretea [edge 376, bridge]",
+        "b": "Bretea [edge 442, bridge]",
+        "edgeA": 376,
+        "edgeB": 442
+      },
+      "crop": "issues/bucharest-grozavesti-geo-ribbon-stacked-427_-700.jpg",
+      "seen": "sweep-pasajul-basarab #65 (1042 m, forward sheet 5)"
+    },
+    {
+      "id": 83,
+      "type": "ribbon-stacked",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "Bretea [edge 381, bridge] and Pasajul Basarab [edge 566, bridge] overlap over 2.4 m\u00b2 with only 0.77 m between them (spec R11.4: share one surface or \u2265 5 m clearance) \u2192 a visible stacked / stepped road surface",
+      "x": 432.5,
+      "z": -745.2,
+      "lat": 44.447906,
+      "lon": 26.064642,
+      "street": "Bretea",
+      "count": 2,
+      "data": {
+        "area": 2.4,
+        "dy": 0.77,
+        "a": "Bretea [edge 381, bridge]",
+        "b": "Pasajul Basarab [edge 566, bridge]",
+        "edgeA": 381,
+        "edgeB": 566
+      },
+      "crop": "issues/bucharest-grozavesti-geo-ribbon-stacked-433_-745.jpg",
+      "seen": "sweep-pasajul-basarab #66 (1082 m, forward sheet 5)"
+    },
+    {
+      "id": 84,
+      "type": "ribbon-stacked",
+      "severity": "high",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "Bretea [edge 382, bridge] and Pasajul Basarab [edge 915, bridge] overlap over 19.2 m\u00b2 with only 0.25 m between them (spec R11.4: share one surface or \u2265 5 m clearance) \u2192 a visible stacked / stepped road surface",
+      "x": 437.8,
+      "z": -749.3,
+      "lat": 44.447942,
+      "lon": 26.064708,
+      "street": "Bretea",
+      "count": 1,
+      "data": {
+        "area": 19.2,
+        "dy": 0.25,
+        "a": "Bretea [edge 382, bridge]",
+        "b": "Pasajul Basarab [edge 915, bridge]",
+        "edgeA": 382,
+        "edgeB": 915
+      },
+      "crop": "issues/bucharest-grozavesti-geo-ribbon-stacked-438_-749.jpg",
+      "seen": "sweep-pasajul-basarab #66 (1082 m, forward sheet 5)"
+    },
+    {
+      "id": 121,
+      "type": "ribbon-stacked",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "Bretea [edge 822, bridge] and Pasajul Basarab [edge 909, bridge] overlap over 3.6 m\u00b2 with only 0.1 m between them (spec R11.4: share one surface or \u2265 5 m clearance) \u2192 a visible stacked / stepped road surface",
+      "x": 381.5,
+      "z": -709.1,
+      "lat": 44.447581,
+      "lon": 26.063999,
+      "street": "Bretea",
+      "count": 1,
+      "data": {
+        "area": 3.6,
+        "dy": 0.1,
+        "a": "Bretea [edge 822, bridge]",
+        "b": "Pasajul Basarab [edge 909, bridge]",
+        "edgeA": 822,
+        "edgeB": 909
+      },
+      "crop": "issues/bucharest-grozavesti-geo-ribbon-stacked-382_-709.jpg",
+      "seen": "sweep-pasajul-basarab #64 (1002 m, forward sheet 5)"
+    },
+    {
+      "id": 128,
+      "type": "surface-above-road",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "a sidewalk / light surface (y=8.15) lies 0.04 m above Pasajul Basarab [edge 566, bridge] (y=8.11) \u2192 a strip / slab across the carriageway",
+      "x": 429.4,
+      "z": -743.7,
+      "lat": 44.447892,
+      "lon": 26.064603,
+      "street": "Pasajul Basarab",
+      "count": 1,
+      "data": {
+        "y": 8.15,
+        "surf": 8.11,
+        "what": "sidewalk / light surface"
+      },
+      "crop": "issues/bucharest-grozavesti-geo-surface-above-road-429_-744.jpg",
+      "seen": "sweep-pasajul-basarab #65 (1042 m, forward sheet 5)"
+    },
+    {
+      "id": 129,
+      "type": "surface-above-road",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "a sidewalk / light surface (y=7.33) lies 0.11 m above junction pad (node 374, Pasajul Basarab \u00d7 Bretea) (y=7.22) \u2192 a strip / slab across the carriageway",
+      "x": 446.8,
+      "z": -758.5,
+      "lat": 44.448025,
+      "lon": 26.064822,
+      "street": "Pasajul Basarab",
+      "count": 2,
+      "data": {
+        "y": 7.33,
+        "surf": 7.22,
+        "what": "sidewalk / light surface"
+      },
+      "crop": "issues/bucharest-grozavesti-geo-surface-above-road-447_-758.jpg",
+      "seen": "sweep-pasajul-basarab #66 (1082 m, forward sheet 5)"
+    },
+    {
+      "id": 130,
+      "type": "marking-buried",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "road marking at y=7.81 is under Pasajul Basarab [edge 846, bridge] (surface y=7.85) \u2192 hidden / flickering markings",
+      "x": 355,
+      "z": -689.4,
+      "lat": 44.447404,
+      "lon": 26.063667,
+      "street": "Calea Giule\u0219ti",
+      "count": 4,
+      "data": {
+        "y": 7.81,
+        "surf": 7.85,
+        "other": "Pasajul Basarab [edge 846, bridge]"
+      },
+      "crop": "issues/bucharest-grozavesti-geo-marking-buried-355_-689.jpg",
+      "seen": "sweep-pasajul-basarab #63 (962 m, forward sheet 4)"
+    },
+    {
+      "id": 131,
+      "type": "surface-above-road",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "a sidewalk / light surface (y=3.34) lies 0.15 m above (primary) [edge 444, bridge] (y=3.18) \u2192 a strip / slab across the carriageway",
+      "x": 200.4,
+      "z": -479.4,
+      "lat": 44.445514,
+      "lon": 26.061721,
+      "street": "(primary)",
+      "count": 2,
+      "data": {
+        "y": 3.34,
+        "surf": 3.18,
+        "what": "sidewalk / light surface"
+      },
+      "crop": "issues/bucharest-grozavesti-geo-surface-above-road-200_-479.jpg",
+      "seen": "sweep-pasajul-basarab #56 (682 m, forward sheet 3)"
+    },
+    {
+      "id": 132,
+      "type": "marking-buried",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "road marking at y=0.27 is under (primary) [edge 443, bridge] (surface y=0.37) \u2192 hidden / flickering markings",
+      "x": 190.3,
+      "z": -444.6,
+      "lat": 44.4452,
+      "lon": 26.061594,
+      "street": "\u0218oseaua Orhideelor",
+      "count": 2,
+      "data": {
+        "y": 0.27,
+        "surf": 0.37,
+        "other": "(primary) [edge 443, bridge]"
+      },
+      "crop": "issues/bucharest-grozavesti-geo-marking-buried-190_-445.jpg",
+      "seen": "sweep-pasajul-basarab #55 (642 m, forward sheet 3)"
+    },
+    {
+      "id": 133,
+      "type": "marking-floating",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "road marking floats 0.06 m above the road surface under it (Pasajul Basarab [edge 102])",
+      "x": 65.4,
+      "z": 175.5,
+      "lat": 44.439621,
+      "lon": 26.060023,
+      "street": "Pasajul Basarab",
+      "count": 1,
+      "data": {
+        "y": 4.44,
+        "surf": 4.38
+      },
+      "crop": "issues/bucharest-grozavesti-geo-marking-floating-65_176.jpg",
+      "seen": "sweep-pasajul-basarab #40 (42 m, forward sheet 1)"
+    },
+    {
+      "id": 134,
+      "type": "surface-above-road",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "a kerb strip (y=11.15) lies 0.13 m above Pasajul Basarab [edge 533] (y=11.02) \u2192 a strip / slab across the carriageway",
+      "x": 990.7,
+      "z": -1191.9,
+      "lat": 44.451925,
+      "lon": 26.071665,
+      "street": "Pasajul Basarab",
+      "count": 2,
+      "data": {
+        "y": 11.15,
+        "surf": 11.02,
+        "what": "kerb strip"
+      },
+      "crop": "issues/bucharest-grozavesti-geo-surface-above-road-991_-1192.jpg",
+      "seen": "sweep-pasajul-basarab #84 (1802 m, forward sheet 8)"
+    },
+    {
+      "id": 135,
+      "type": "object-floating",
+      "severity": "high",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "prop \"Group\" floats 4.3 m above the surface under it (base y=4.54, ground/road y=0.24)",
+      "x": -224,
+      "z": 301.9,
+      "lat": 44.438483,
+      "lon": 26.056381,
+      "street": "Bulevardul Doina Cornea",
+      "count": 1,
+      "data": {
+        "base": 4.54,
+        "ground": 0.24,
+        "kind": "props",
+        "name": null,
+        "size": [
+          2.7,
+          2.3,
+          2.7
+        ]
+      },
+      "crop": "issues/bucharest-grozavesti-geo-object-floating--224_302.jpg",
+      "seen": "upb #37 (1482 m, forward sheet 7)"
+    },
+    {
+      "id": 136,
+      "type": "object-floating",
+      "severity": "high",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "prop \"Group\" floats 4.3 m above the surface under it (base y=4.54, ground/road y=0.24)",
+      "x": 98.3,
+      "z": -571.8,
+      "lat": 44.446345,
+      "lon": 26.060437,
+      "street": "\u0218oseaua Orhideelor",
+      "count": 1,
+      "data": {
+        "base": 4.54,
+        "ground": 0.24,
+        "kind": "props",
+        "name": null,
+        "size": [
+          2.7,
+          2.3,
+          2.7
+        ]
+      },
+      "crop": "issues/bucharest-grozavesti-geo-object-floating-98_-572.jpg",
+      "seen": "upb #13 (522 m, forward sheet 3)"
+    },
+    {
+      "id": 137,
+      "type": "deck-dangling",
+      "severity": "high",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "Pasajul Basarab ends 4.1 m up with no road connected (deck / ramp ending in mid-air)",
+      "x": 67,
+      "z": 175.9,
+      "lat": 44.439617,
+      "lon": 26.060043,
+      "street": "Pasajul Basarab",
+      "count": 1,
+      "data": {
+        "y": 4.12
+      },
+      "crop": "issues/bucharest-grozavesti-geo-deck-dangling-67_176.jpg",
+      "seen": "sweep-pasajul-basarab #40 (42 m, forward sheet 1)"
+    },
+    {
+      "id": 138,
+      "type": "phantom-wall",
+      "severity": "high",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "a embank wall of Pasajul Basarab crosses the driven path at its level (y 8.72 in -1.5\u202611.23): the car is blocked",
+      "x": 1011.4,
+      "z": -1215.7,
+      "lat": 44.452139,
+      "lon": 26.071926,
+      "street": "Pasajul Basarab",
+      "count": 1,
+      "data": {
+        "kind": "embank"
+      },
+      "crop": "issues/bucharest-grozavesti-geo-phantom-wall-1011_-1216.jpg",
+      "seen": "sweep-pasajul-basarab #84 (1802 m, forward sheet 8)"
+    },
+    {
+      "id": 139,
+      "type": "zfight",
+      "severity": "high",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "flicker: 9 screen blocks change between two renders 1 mm apart (coplanar surfaces fighting)",
+      "x": 85.9,
+      "z": 20,
+      "lat": 44.44102,
+      "lon": 26.060281,
+      "street": "Pasajul Basarab",
+      "count": 1,
+      "data": {
+        "route": "sweep-pasajul-basarab",
+        "sample": 43,
+        "blocks": 9,
+        "frac": 0.009,
+        "surfaces": []
+      },
+      "box": [
+        432,
+        192,
+        640,
+        240
+      ],
+      "crop": "issues/bucharest-grozavesti-sweep-pasajul-basarab-43-zfight.jpg",
+      "frame": "frames/bucharest-grozavesti-sweep-pasajul-basarab-0043.jpg",
+      "seen": "sweep-pasajul-basarab #44 (202 m, forward sheet 1)"
+    },
+    {
+      "id": 140,
+      "type": "zfight",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "flicker: 3 screen blocks change between two renders 1 mm apart (coplanar surfaces fighting)",
+      "x": 118.1,
+      "z": -217.1,
+      "lat": 44.443154,
+      "lon": 26.060686,
+      "street": "Pasajul Basarab",
+      "count": 1,
+      "data": {
+        "route": "sweep-pasajul-basarab",
+        "sample": 49,
+        "blocks": 3,
+        "frac": 0.0051,
+        "surfaces": []
+      },
+      "box": [
+        456,
+        192,
+        528,
+        216
+      ],
+      "crop": "issues/bucharest-grozavesti-sweep-pasajul-basarab-49-zfight.jpg",
+      "frame": "frames/bucharest-grozavesti-sweep-pasajul-basarab-0049.jpg",
+      "seen": "sweep-pasajul-basarab #50 (442 m, forward sheet 2)"
+    },
+    {
+      "id": 141,
+      "type": "zfight",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "flicker: 6 screen blocks change between two renders 1 mm apart (coplanar surfaces fighting)",
+      "x": 177.5,
+      "z": -449.4,
+      "lat": 44.445244,
+      "lon": 26.061433,
+      "street": "Pasajul Basarab",
+      "count": 1,
+      "data": {
+        "route": "sweep-pasajul-basarab",
+        "sample": 55,
+        "blocks": 6,
+        "frac": 0.0084,
+        "surfaces": []
+      },
+      "box": [
+        480,
+        192,
+        640,
+        216
+      ],
+      "crop": "issues/bucharest-grozavesti-sweep-pasajul-basarab-55-zfight.jpg",
+      "frame": "frames/bucharest-grozavesti-sweep-pasajul-basarab-0055.jpg",
+      "seen": "sweep-pasajul-basarab #55 (642 m, forward sheet 3)"
+    },
+    {
+      "id": 142,
+      "type": "zfight",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "flicker: 5 screen blocks change between two renders 1 mm apart (coplanar surfaces fighting)",
+      "x": 497.3,
+      "z": -791.2,
+      "lat": 44.448319,
+      "lon": 26.065457,
+      "street": "Pasajul Basarab",
+      "count": 1,
+      "data": {
+        "route": "sweep-pasajul-basarab",
+        "sample": 67,
+        "blocks": 5,
+        "frac": 0.0055,
+        "surfaces": []
+      },
+      "box": [
+        408,
+        192,
+        528,
+        216
+      ],
+      "crop": "issues/bucharest-grozavesti-sweep-pasajul-basarab-67-zfight.jpg",
+      "frame": "frames/bucharest-grozavesti-sweep-pasajul-basarab-0067.jpg",
+      "seen": "sweep-pasajul-basarab #68 (1162 m, forward sheet 5)"
+    },
+    {
+      "id": 143,
+      "type": "zfight",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "flicker: 6 screen blocks change between two renders 1 mm apart (coplanar surfaces fighting)",
+      "x": 601.5,
+      "z": -850.7,
+      "lat": 44.448855,
+      "lon": 26.066768,
+      "street": "Pasajul Basarab",
+      "count": 1,
+      "data": {
+        "route": "sweep-pasajul-basarab",
+        "sample": 70,
+        "blocks": 6,
+        "frac": 0.0059,
+        "surfaces": []
+      },
+      "box": [
+        0,
+        168,
+        600,
+        216
+      ],
+      "crop": "issues/bucharest-grozavesti-sweep-pasajul-basarab-70-zfight.jpg",
+      "frame": "frames/bucharest-grozavesti-sweep-pasajul-basarab-0070.jpg",
+      "seen": "sweep-pasajul-basarab #71 (1282 m, forward sheet 6)"
+    },
+    {
+      "id": 144,
+      "type": "road-sky-hole",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "8 % of the lane ahead is sky-coloured \u2014 a hole in the road surface",
+      "x": -33,
+      "z": -215.8,
+      "lat": 44.443142,
+      "lon": 26.058784,
+      "street": "Splaiul Independen\u021bei",
+      "count": 1,
+      "data": {
+        "frac": 0.078,
+        "route": "sweep-splaiul-independen-ei",
+        "sample": 85
+      },
+      "box": [
+        188,
+        201,
+        310,
+        221
+      ],
+      "crop": "issues/bucharest-grozavesti-sweep-splaiul-independen-ei-85-road-sky-hole.jpg",
+      "frame": "frames/bucharest-grozavesti-sweep-splaiul-independen-ei-0085.jpg",
+      "seen": "sweep-splaiul-independen-ei #85 (42 m, forward sheet 1)"
+    },
+    {
+      "id": 145,
+      "type": "canvas-text-overflow",
+      "severity": "medium",
+      "city": "bucharest",
+      "group": "bucharest-grozavesti",
+      "msg": "\"\u26fd\" runs 11 px past the top edge of the 512\u00d7320 canvas (font 11px sans-serif, 512\u00d7320 canvas, drawn by game/src/nav.js:470)",
+      "count": 1,
+      "data": {
+        "text": "\u26fd",
+        "problems": [
+          "runs 11 px past the top edge of the 512\u00d7320 canvas"
+        ],
+        "src": "game/src/nav.js:470",
+        "canvas": [
+          512,
+          320
+        ],
+        "box": [
+          184,
+          -11,
+          198,
+          3
+        ],
+        "n": 1
+      }
+    }
+  ]
+}

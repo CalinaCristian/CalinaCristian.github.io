@@ -1,16 +1,16 @@
 // ============================================================================
 //  WORLD MAP HUB (note 75, explore lane) — one full-screen map, go anywhere (one mode since 2026-11-08):
 //  tabs Here · București · Seattle · Bellevue · World; every district (footprint from cities.js) and tourist
-//  spot (spots/index.js SPOTS) as a pin; a searchable list with thumbnails + "recent"; click a pin → card → Go.
+//  spot (spots/index.js SPOTS) as a pin; a searchable list with thumbnails + "recent"; click a pin → destination mark → explicit Fast travel.
 //  "Here": the current district (the game's MiniMap of the loaded world) or tourist spot (its OSM data) —
-//  click a point to fast-travel there (everyone). Pan: drag · zoom: wheel / pinch / + −. Mobile: map over list.
+//  click a point to mark it and set navigation (everyone). Pan: drag · zoom: wheel / pinch / + −. Mobile: map over list.
 //
 //  new WorldMap(opts) · open({ tab, startMode }) · close() · isOpen · refresh()
 //  opts: items() → [item], here() → here | null, current() → { key, region }, mode() → 'roam' | 'story' (roam = off the story),
-//        thumb(key) → dataURL | null, recent() → [key], onGo(item), onHere(x, z), onClose(), onConditions?(), canConditions?()
+//        thumb(key) → dataURL | null, recent() → [key], onGo(item), onSelect(item), onHere(x, z), destination(), onClear(), onTravel(), canTravel?(), onClose(), onConditions?(), canConditions?()
 //  item: { key, kind: 'district'|'spot', id, city, region: 'bucharest'|'seattle'|'bellevue', name, sub, blurb, lat, lon, bbox?, poly?, icon, done? }
 // ============================================================================
-import { MiniMap } from './minimap.js';
+import { MiniMap, filterOn } from './minimap.js';
 
 const REGIONS = [
     { id: 'bucharest', name: 'București', flag: '🇷🇴', tz: 'Europe/Bucharest' },
@@ -73,8 +73,10 @@ export class WorldMap {
         this.condBtn.addEventListener('click', () => { this.close(); this.o.onConditions?.(); });
         this.tabsEl.addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b && !b.disabled) this.setTab(b.dataset.tab); });
         this.searchEl.addEventListener('input', () => { this.query = this.searchEl.value.trim().toLowerCase(); this.renderList(); });
-        this.searchEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') { const f = this._filtered()[0]; if (f) this.go(f); } e.stopPropagation(); });
+        this.searchEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') { const f = this._filtered()[0]; if (f) this.select(f, true); } e.stopPropagation(); });
         const pick = (e) => {
+            if (e.target.closest('[data-clear]')) { this.o.onClear?.(); this.sel = null; this.card.hidden = true; this.renderList(); this.draw(); return; }
+            if (e.target.closest('[data-travel]')) { this.o.onTravel?.(); return; }
             const g = e.target.closest('[data-go]'); if (g) { const it = this._byKey(g.dataset.go); if (it) this.go(it); return; }
             const s = e.target.closest('[data-sel]'); if (s) { const it = this._byKey(s.dataset.sel); if (it) this.select(it, true); }
         };
@@ -107,22 +109,23 @@ export class WorldMap {
         this.curKey = cur.key || null;
         this.tab = tab || (this.hereInfo ? 'here' : cur.region || this.tab || 'bucharest');
         if (this.tab === 'here' && !this.hereInfo) this.tab = cur.region || 'bucharest';
-        this.sel = null; this.card.hidden = true;
+        this.sel = this._byKey(this.o.destination?.()?.key) || null; this.card.hidden = true;
         this.el.classList.add('show'); document.body.classList.add('wm-open');
         this.modeEl.textContent = startMode ? '🌍 Pick a start · the story waits' : this.o.mode?.() === 'roam' ? '🗺️ Free roam' : '📖 Story';
         this.condBtn.hidden = !this.o.canConditions?.();
         this.renderTabs(); this.renderRecent(); this.renderList();
-        this._size(); this.draw(); this._scrollList();
+        this._size(); this.draw(); this._scrollList(); this.renderDestination();
         if (!matchMedia('(pointer: coarse)').matches) setTimeout(() => { try { this.searchEl.focus({ preventScroll: true }); } catch { /* ignore */ } }, 30);
     }
     close() { if (!this.isOpen) return; this.el.classList.remove('show'); document.body.classList.remove('wm-open'); this.searchEl.blur(); this.o.onClose?.(); }
     refresh() { if (this.isOpen) this.open({ tab: this.tab, startMode: this.startMode }); }
-    setTab(t) { this.tab = t; this.sel = null; this.card.hidden = true; this.renderTabs(); this._size(); this.draw(); this._scrollList(); }
+    setTab(t) { this.tab = t; this.renderTabs(); this._size(); this.draw(); this._scrollList(); this.renderDestination(); }
     _scrollList() { const h = this.listEl.querySelector(`[data-region="${this.tab}"]`); if (h) this.listEl.scrollTop = h.offsetTop - this.listEl.offsetTop; else if (this.tab !== 'here') this.listEl.scrollTop = 0; }
     renderTabs() {
         const here = this.hereInfo, list = [['here', here ? `📍 Here <small>${esc(here.name || '')}</small>` : '📍 Here', !here], ...REGIONS.map((r) => [r.id, `${r.flag} ${r.name}`, false]), ['world', '🌍 World', false]];
         this.tabsEl.innerHTML = list.map(([id, lab, dis]) => `<button role="tab" data-tab="${id}"${id === this.tab ? ' class="on" aria-selected="true"' : ''}${dis ? ' disabled' : ''}>${lab}</button>`).join('');
-        const h = { here: here?.kind === 'spot' ? 'Click a path or square to walk straight there · drag to pan · wheel / pinch to zoom' : 'Click a street to fast-travel there · drag to pan · wheel / pinch to zoom', world: 'Pick a city' }[this.tab] || 'Click a pin, then Go · drag to pan · wheel / pinch to zoom';
+        const touch = document.body.classList.contains('touch');
+        const h = touch ? (this.tab === 'world' ? 'Tap a city' : 'Tap to mark · choose Fast travel to move · drag / pinch to explore') : { here: 'Click a place or street to mark it · hold F to fast travel · drag to pan · wheel / pinch to zoom', world: 'Pick a city' }[this.tab] || 'Click a pin to mark it · hold F to fast travel · drag to pan · wheel / pinch to zoom';
         this.hint.textContent = h;
     }
     _byKey(k) { return this.items.find((i) => i.key === k); }
@@ -147,20 +150,27 @@ export class WorldMap {
             html += `<div class="wm-h" data-region="${r.id}">${r.flag} ${esc(r.name)} <small>${its.filter((i) => i.kind === 'district').length} districts · ${its.filter((i) => i.kind === 'spot').length} spots</small></div>`;
             for (const it of its) {
                 const here = it.key === this.curKey;
-                html += `<div class="wm-row${here ? ' here' : ''}${this.sel?.key === it.key ? ' sel' : ''}" data-sel="${esc(it.key)}">${this._thumb(it)}<span class="wm-txt"><b>${esc(it.name)}</b><small>${it.kind === 'district' ? '🚗 District · drive &amp; walk' : '🚶 Tourist spot · walk'}${it.done ? ' · ✓ postcard' : ''}${here ? ' · you are here' : ''}</small></span><button class="wm-go" data-go="${esc(it.key)}"${here ? ' disabled' : ''}>${here ? '•' : 'Go'}</button></div>`;
+                html += `<div class="wm-row${here ? ' here' : ''}${this.sel?.key === it.key ? ' sel' : ''}" data-sel="${esc(it.key)}">${this._thumb(it)}<span class="wm-txt"><b>${esc(it.name)}</b><small>${it.kind === 'district' ? '🚗 District · drive &amp; walk' : '🚶 Tourist spot · walk'}${it.done ? ' · ✓ postcard' : ''}${here ? ' · you are here' : ''}</small></span><button class="wm-go" data-sel="${esc(it.key)}">${here ? 'Here' : 'Mark'}</button></div>`;
             }
         }
         if (!this.query && !this.items.some((i) => i.kind === 'spot')) html += '<p class="wm-empty">Tourist spots appear here as each one passes its review.</p>';
         this.listEl.innerHTML = html || '<p class="wm-empty">Nothing matches.</p>';
     }
     select(it, center = false) {
-        this.sel = it;
+        this.searchEl.blur(); this.sel = it;
         if (center) { if (this.tab !== it.region) { this.tab = it.region; this.renderTabs(); this._size(); } const v = this._view(); if (v) { const p = this._ll(it.lat, it.lon); v.cx = p.x; v.cy = p.y; } }
-        const here = it.key === this.curKey, story = this.o.mode?.() !== 'roam' && !this.startMode && it.kind === 'district';
-        this.card.innerHTML = `${this._thumb(it, 'wm-cth')}<div class="wm-ctx"><div class="wm-ck">${it.kind === 'district' ? '🚗 District' : '🚶 Tourist spot'} · ${esc(REGIONS.find((r) => r.id === it.region)?.name)}</div><b>${esc(it.name)}</b><p>${esc(it.blurb || it.sub || '')}</p>${story ? '<p class="wm-note">Jumping to another district leaves the story for free roam (no objective); 📖 Resume story brings it back where you left it.</p>' : ''}</div><button class="wm-go big" data-go="${esc(it.key)}"${here ? ' disabled' : ''}>${here ? 'You are here' : 'Go ▸'}</button>`;
+        this.o.onSelect?.(it);
+        this.renderDestination(); this.renderList(); this.draw();
+    }
+    renderDestination() {
+        const d = this.o.destination?.(), it = this.sel;
+        if (!d && !it) { this.card.hidden = true; return; }
+        const local = d?.kind === 'point', name = local ? d.label : it?.name || d?.label;
+        const item = local ? null : it || d?.item, here = item?.key === this.curKey;
+        const touch = document.body.classList.contains('touch'), travel = touch ? 'choose Fast travel' : 'hold F to fast travel';
+        const note = local ? (this.hereInfo?.kind === 'spot' ? `Marked on the map. Walk there, or ${travel}.` : (this.hereInfo?.route ? `Follow the route, or ${travel}.` : 'Destination marked. No route is available from here.')) : here ? 'You are here. Pick a place on the Here tab.' : this.startMode ? 'Choose this place to start free roam.' : `Destination marked in another area. ${touch ? 'Choose Fast travel' : 'Hold F to travel'}; there is no local road route. The story waits when you travel.`;
+        this.card.innerHTML = `<div class="wm-ctx"><div class="wm-ck">📍 ${here ? 'Current area' : 'Destination marked'}</div><b>${esc(name)}</b><p>${esc(note)}</p><button class="wm-go" data-clear>Clear mark</button></div>${here ? '' : this.startMode && item ? `<button class="wm-go" data-go="${esc(item.key)}">Start here</button>` : `<button class="wm-go big" data-travel${this.o.canTravel?.() === false ? ' disabled' : ''}>Fast travel${touch ? '' : '<br>F'}</button>`}`;
         this.card.hidden = false;
-        this.renderList();
-        this.draw();
     }
     go(it) { if (it.key === this.curKey) return; this.close(); this.o.onGo?.(it); }
 
@@ -352,36 +362,46 @@ export class WorldMap {
             for (const b of d.buildings || []) if (!b.part) poly(b.poly, '#b9b2a6', 'rgba(90,80,70,.35)');
             for (const s of Object.values(d.spots || {})) { const e = s.extent?.polygon; if (e) { g.setLineDash([6, 4]); g.lineWidth = 1.5; poly(e, null, 'rgba(30,58,138,.6)'); g.setLineDash([]); } }
         }
+        const destination = this.o.destination?.();
+        if (destination?.kind === 'point' && destination.sceneKey === h.key && h.route?.points?.length) {
+            g.beginPath(); h.route.points.forEach(([x, z], i) => { const p = this._toScreen(v, { x, y: z }); i ? g.lineTo(p.x, p.y) : g.moveTo(p.x, p.y); });
+            g.strokeStyle = '#60a5fa'; g.lineWidth = 4; g.lineJoin = 'round'; g.stroke();
+        }
         // pins (spot entrances / district landmarks + offices handed in by explore.js)
         this._hits = [];
         g.textAlign = 'center'; g.textBaseline = 'middle';
         for (const pn of h.pins || []) {
+            if (pn.base && pn.cat && !filterOn(pn.cat)) continue;
             const p = this._toScreen(v, { x: pn.x, y: pn.z }); if (p.x < -20 || p.y < -20 || p.x > W + 20 || p.y > H + 20) continue;
+            if (!pn.base) {
             g.beginPath(); g.arc(p.x, p.y, 11, 0, 7); g.fillStyle = pn.color || '#e11d48'; g.fill(); g.lineWidth = 2; g.strokeStyle = '#fff'; g.stroke();
             g.font = '12px system-ui,sans-serif'; g.fillStyle = '#fff'; g.fillText(pn.icon || '📍', p.x, p.y + 1);
             g.font = '600 12px system-ui,sans-serif'; g.textAlign = 'left'; g.lineWidth = 3; g.strokeStyle = 'rgba(255,255,255,.95)'; g.strokeText(pn.label, p.x + 15, p.y); g.fillStyle = '#0f172a'; g.fillText(pn.label, p.x + 15, p.y); g.textAlign = 'center';
+            }
             this._hits.push({ pin: pn, x0: p.x - 14, y0: p.y - 14, x1: p.x + 14, y1: p.y + 14 });
         }
         // you
         { const pl = h.player, p = this._toScreen(v, { x: pl.x, y: pl.z }); g.save(); g.translate(p.x, p.y); g.rotate(-(pl.heading || 0)); g.beginPath(); g.moveTo(0, -12); g.lineTo(8, 9); g.lineTo(0, 4); g.lineTo(-8, 9); g.closePath(); g.fillStyle = '#2563eb'; g.fill(); g.strokeStyle = '#fff'; g.lineWidth = 2; g.stroke(); g.restore(); }
         this._scaleBar(g, v.s * 1000);
-        if (this._target) { const p = this._toScreen(v, { x: this._target.x, y: this._target.z }); g.beginPath(); g.arc(p.x, p.y, 9, 0, 7); g.strokeStyle = '#f59e0b'; g.lineWidth = 3; g.stroke(); }
+        if (destination?.kind === 'point' && destination.sceneKey === h.key) { const p = this._toScreen(v, { x: destination.x, y: destination.z }); g.beginPath(); g.arc(p.x, p.y, 9, 0, 7); g.strokeStyle = '#f59e0b'; g.lineWidth = 3; g.stroke(); }
     }
 
     // ------------------------------------------------------------------ hit testing
     _hit(x, y) { for (let i = (this._hits || []).length - 1; i >= 0; i--) { const h = this._hits[i]; if (x >= h.x0 && x <= h.x1 && y >= h.y0 && y <= h.y1) return h; } return null; }
     _hover(x, y) { this.cv.style.cursor = this._hit(x, y) || this.tab === 'here' ? 'pointer' : 'grab'; }
     _click(x, y) {
+        this.searchEl.blur();
         const h = this._hit(x, y);
         if (this.tab === 'world') { if (h?.tab) { if (h.go) h.go(); else this.setTab(h.tab); } return; } // globe: fly to the city, then its tab
         if (this.tab === 'here') {
             const v = this.views.here; let wx, wz;
             if (h?.pin) { wx = h.pin.x; wz = h.pin.z; } else { wx = v.cx + (x - this.W / 2) / v.s; wz = v.cy + (y - this.H / 2) / v.s; }
-            this._target = { x: wx, z: wz }; this.draw();
-            setTimeout(() => { this._target = null; this.close(); this.o.onHere?.(wx, wz, h?.pin || null); }, 140);
+            this.o.onHere?.(wx, wz, h?.pin || null);
+            this.hereInfo = this.o.here?.() || this.hereInfo;
+            this.sel = null; this.renderDestination(); this.renderList(); this.draw();
             return;
         }
-        if (h?.it) this.select(h.it, !!h.edge); else { this.sel = null; this.card.hidden = true; this.renderList(); this.draw(); }
+        if (h?.it) this.select(h.it, !!h.edge); else { this.sel = null; this.renderDestination(); this.renderList(); this.draw(); }
     }
 }
 export { REGIONS };

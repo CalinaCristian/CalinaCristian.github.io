@@ -1,0 +1,578 @@
+{
+  "action": "Remove only closed generated exact Git runtime extracts; all captures/logs/tool inputs/Git branches/worktrees retained.",
+  "at": "2026-11-09T06:09:22.851474+00:00",
+  "proofCommittedAt": "09a3a9f5431490d525a69e35a3dcfb795ec01684",
+  "items": [
+    {
+      "removedPath": "/workspace/reality-pass/cockpit-sharp-displays/candidate-1e640089/source",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "copiedFilesVerified": 339,
+      "sourceLogicalBytes": 120599926,
+      "duBytesBefore": 120599926,
+      "allocatedBytesFreed": 121434112,
+      "rawFilesVerifiedCommittedAndUnchanged": 118,
+      "rawFileHashes": [
+        {
+          "path": "capture.log",
+          "sha256": "37ea0648235779f90d62df7c27d236669f1cf533e1f1d8cd6b5f15b1b11f2de2"
+        },
+        {
+          "path": "resource-unit.log",
+          "sha256": "0b6c1d5d094bca1f8273ec507bbd88451b3ba22e154adbb619a59d01fbd2ddcb"
+        },
+        {
+          "path": "capture-portrait-followup.cjs",
+          "sha256": "b21224b87adf9903d4299e438a7fdfa7ebdb219fec46051fb454a9b889bad5d2"
+        },
+        {
+          "path": "controls-only.cjs",
+          "sha256": "80b5ed98aa242c6a67ebf9eadccf5ca62c5f43565b2a3cd83b15f0d48bb18000"
+        },
+        {
+          "path": "source-files.json",
+          "sha256": "4831a64e7af757afde8ab85cf7a13a24ed9d582b05f408f996661a7524457bf0"
+        },
+        {
+          "path": "controls-final.log",
+          "sha256": "9fbb9cf1f4e4e6e09a2968a1716ee1971b0c625ebdbff343438f3e5b0704c252"
+        },
+        {
+          "path": "portrait-followup.log",
+          "sha256": "87831093bcc7bb5bd1df87559ee7d71cbb924695ecc60ddebec8d113b9ff092a"
+        },
+        {
+          "path": "source-identity.json",
+          "sha256": "f6820f3de166459a35018176ef7e2dddfa41b24b17525090b92f0080e1c4c76a"
+        },
+        {
+          "path": "resource-final.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "car-screen-poi.log",
+          "sha256": "f847fe278d2fa865df82b79236eea1580e7a0c085648aef9f10c79ea9a833b4e"
+        },
+        {
+          "path": "resource-only.cjs",
+          "sha256": "80b5ed98aa242c6a67ebf9eadccf5ca62c5f43565b2a3cd83b15f0d48bb18000"
+        },
+        {
+          "path": "resource-final/resource-controls.json",
+          "sha256": "97d545a8e9f5a956b942ea6c6b33f9a48dbf2b4f82901623fbe268f664c8c1f7"
+        },
+        {
+          "path": "resource-final/report.json",
+          "sha256": "52da10aa7b72b2c1b03c6bbc2f5235e58281dce2105ccca995772fffb88ab10c"
+        },
+        {
+          "path": "portrait-followup/explicit-near-occluder-before.png",
+          "sha256": "09f20890eb56062db44287d2a7d1050af74b7ebfe32a2f4992487c27993492c5"
+        },
+        {
+          "path": "portrait-followup/controls.json",
+          "sha256": "bd0988b7fa353fb79c8c4f90bd422eaf41f45e4d0e23858373e32ce4c10e104b"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-medium-cluster.png",
+          "sha256": "58a70880eef2d21e72f572fcec89dd84d2794b7ff7d29c556f2d25142adafc65"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-medium-mirror.png",
+          "sha256": "35e213cd5182f16bd5ab2c8309d7e792f163cecf40a030681aed039cb7fd79f6"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-low-screen.png",
+          "sha256": "aa3c51fcf471a319600043db30547562c84f4df7574597fb68366fa966530586"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-auto-cluster.png",
+          "sha256": "9ae0597c69ca58736e37a128f0c1c5f624a2a30b5dbd4a8681607239e9714469"
+        },
+        {
+          "path": "portrait-followup/explicit-near-occluder-after.png",
+          "sha256": "62e7873c4cff7bce78a06f155f8fd7c81584b7d8dc1094274bb6c64a8007b04f"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-low-cluster.png",
+          "sha256": "2d5072e483e45c7721526d9f50997f9991c999dc702b8367cc88a4745eabfa81"
+        },
+        {
+          "path": "portrait-followup/clear-native-plane-before.png",
+          "sha256": "0c2fd95b48e3df9720957539c722208d9927f6de221a80dd86a60fe5ed48eafe"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-medium-screen.png",
+          "sha256": "38d1bc760ab1981bc0b5c591032be758e171a640ccce3fc384dab2c4448ff538"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-high.png",
+          "sha256": "5a3ef85ca1bf6db151ed1bd6d3393d404d4ded834638c6baae63ff348202ebd0"
+        },
+        {
+          "path": "portrait-followup/authored-home-fallback-after.png",
+          "sha256": "5760246f721a591def24bba7843ef8212bf5cd61d3ec76e621cb336b6a271e89"
+        },
+        {
+          "path": "portrait-followup/authored-home-fallback-before.png",
+          "sha256": "2a15f5a17e300f10aabb483fc026661f239fd98bcebafa878a8f721cfe0666e6"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-high-cluster.png",
+          "sha256": "c6ef72e403e61c8c03a1d65f0474e3a80b2c901505c0a5889e483570804ee250"
+        },
+        {
+          "path": "portrait-followup/clear-native-plane-after.png",
+          "sha256": "d6f58ad716fa11759c23e477b88efef6a978b1af66ea48f41b1b6349a1daa375"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-auto-mirror.png",
+          "sha256": "2a505133a6fdceac57b3ae195f18ca2ece3a2b67565cd0db961d6776b2c22274"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-medium.png",
+          "sha256": "71e453c8a894228262c566ad0b1ff8ac44fec045ffccd014407558e60b03e80b"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-high-mirror.png",
+          "sha256": "8b4814ab72498c3d5daf32bdedd90e3042ee9afc8c2a591a92ccd14085571973"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-low-mirror.png",
+          "sha256": "747712e682fff470a2e44bd23e1a3d367bb9174f45e679bd814b043bc81df0c8"
+        },
+        {
+          "path": "portrait-followup/report.json",
+          "sha256": "73d643084503e3e3cc8e4d843cbff89c3e502f6ca00e3d0b4608476b6397a102"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-low.png",
+          "sha256": "f6627cdeba9bd4ba72d442885194ecec40f9dcf3ad8706ea99827bb503017dd8"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-high-screen.png",
+          "sha256": "e8aeb27dd05af1c61909e0c3078bd520ed1a3aa4cc554f019fbb634f3cac5f1f"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-auto.png",
+          "sha256": "6433b15a8886b90e1cf10fb552a80b60c2e5c36228975c11b9c2435707fc6860"
+        },
+        {
+          "path": "portrait-followup/phone-portrait-auto-screen.png",
+          "sha256": "d9acc18932025889b9887339f9f587878b44d24647b6f0dd60273726dbb5a756"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/settings-manual-off.png",
+          "sha256": "7db6ec2974ddab29848a354b3b23ae5711a0bdef3270b3fc2fa9e1159492aa5f"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/night-auto-warm.png",
+          "sha256": "371617a477a10550874085bf2de695fd18dd7008ab86b79d9590ddfd198c767a"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/result.json",
+          "sha256": "22e842b091fd3549dbdb325b4f3ea85dc0c32983d4c6950ee8589115e66e7d2d"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/fog-auto-after-travel.png",
+          "sha256": "b6caf252513ebea0f4bde6a2bebfac4ce71064de0599a186566dc9df4f308cbe"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/fog-auto-before-travel.png",
+          "sha256": "84a119417412889dafd1d19f18537e0d3359e7c135e0851265d3a8fb5f7d2203"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/first-on.png",
+          "sha256": "babe3ed517b26279d785e8827edb5a2fa832d3fd345f0ceb3e29500802de6e66"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/day-auto-off.png",
+          "sha256": "5cb5e01bc2dbabca638ebdbffe02854de993ca8d10bb481b30bd28a7be0e399c"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/run.log",
+          "sha256": "96ba5a565127a718ccb38e4168deb35c6a553f9101d5f066e846bfd68e96e46a"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/fog-auto-on.png",
+          "sha256": "5404c6e8b5876b2ed105ae4f9144d150f670a8efd982ce395ae43b3c4022f147"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/program-links.jsonl",
+          "sha256": "803ec2bbde21107beb51c760a207f4f404afea7467166eb06c3e89f0d82a1216"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/night-manual-on.png",
+          "sha256": "235f2646881f6a959c53125873175b82199f83ea87a20c41e55cf1b5187851c2"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/conditions.json",
+          "sha256": "f187a9e82b8df4112b3a74cb111792a3cc6bc479cae88567dcefd5844d85f281"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/night-manual-off.png",
+          "sha256": "e30aae2aaeed440b966605724726508af91da40074217509e3959c7d39f25a86"
+        },
+        {
+          "path": "canonical-headlights-touch-auto/fog-manual-off.png",
+          "sha256": "4f792e1ba461231c2fe5d852ae8220c0c84ed07072be90a852207a184038f855"
+        },
+        {
+          "path": "native/explicit-near-occluder-before.png",
+          "sha256": "86f9932612340f8a56e4350dbb677d41396b1a2a2ed2553dc3a2eb4951eb8146"
+        },
+        {
+          "path": "native/phone-landscape-low.png",
+          "sha256": "3a5a3abe094688722f469238683573121720fa42088b116b040613c23271f72f"
+        },
+        {
+          "path": "native/phone-landscape-medium.png",
+          "sha256": "7b5f655c2f63d3fe7d63c32d77769e3fabebd5926a9a6e6413b4c95e8c7cc8d3"
+        },
+        {
+          "path": "native/desktop-auto.png",
+          "sha256": "225d56c382b1ed20f203fec15f222deeff932e662d7fcecb648d8c18fbc489a2"
+        },
+        {
+          "path": "native/controls.json",
+          "sha256": "ada03cfab680e0e9d098f3f357991a35f077a616bc84839e9030177aaea5b9d2"
+        },
+        {
+          "path": "native/desktop-low-cluster.png",
+          "sha256": "5c3739cb29422e0a5cfc6daed285e1e9574d27df100188cef24e38e386df3035"
+        },
+        {
+          "path": "native/desktop-auto-mirror.png",
+          "sha256": "ae980e73cfd6af6e6c8b8142943acfe951832bd2f704593775a21083761a9fdb"
+        },
+        {
+          "path": "native/phone-landscape-low-cluster.png",
+          "sha256": "b974ba4c3bef1ae8e1239c8d4425def868ab83aeb1634da5e27239880e870b21"
+        },
+        {
+          "path": "native/phone-landscape-medium-mirror.png",
+          "sha256": "f1bf568728053523c19bd6cd444af1e1c6690be9d3193e8c204442e99f9b4efd"
+        },
+        {
+          "path": "native/phone-landscape-auto-mirror.png",
+          "sha256": "22b266f977eb9a1afd48691f02aaee764d53257ec85e3d93e23caffd97d733c0"
+        },
+        {
+          "path": "native/desktop-high-screen.png",
+          "sha256": "c45d347813a06d25f4bc2b0712970e225642928bcb660592574b87bbfc6cf688"
+        },
+        {
+          "path": "native/desktop-auto-screen.png",
+          "sha256": "cb22410e9ac2a6268b2e25862e83a072ea7300bd396c83d171237cc78b35317d"
+        },
+        {
+          "path": "native/pixel-controls.json",
+          "sha256": "1fb95ea691c9596b84c956b98b217f80ae00f70f29457742cd2fe71e0d8a3bda"
+        },
+        {
+          "path": "native/explicit-near-occluder-after.png",
+          "sha256": "4f784990968902d7081e0ff99fbed898ec109c4ddd97012d00c2b30a0a7098cb"
+        },
+        {
+          "path": "native/desktop-medium-mirror.png",
+          "sha256": "3a50ca53227f657b2f1d3093f3b5724da7629367113dee379dbf3a73bb80c1cd"
+        },
+        {
+          "path": "native/clear-native-plane-before.png",
+          "sha256": "e62b6c766517dfd2c388e3fd3f3b69da36c73e2ac9d5a8e908d6500ce2f59552"
+        },
+        {
+          "path": "native/phone-landscape-auto-cluster.png",
+          "sha256": "f5618619b327d32a2901b042173cb8f844654582d0af823b16d12400f54fa2d4"
+        },
+        {
+          "path": "native/phone-landscape-auto-screen.png",
+          "sha256": "f25831fcb3094039deadee5e207910d78337c2eeadad0bb4f751587018ec78cd"
+        },
+        {
+          "path": "native/desktop-low-mirror.png",
+          "sha256": "a7dea6c214b0e930736401e9b163d0a16c0cc91464d963cacb0259585ec0958b"
+        },
+        {
+          "path": "native/authored-home-fallback-after.png",
+          "sha256": "3906ddb9ecb89005bd2efa8d8608a8706b09671bb2406cafa236cadfdaa9e3f9"
+        },
+        {
+          "path": "native/desktop-medium-cluster.png",
+          "sha256": "8afa1ccfd20e956760ef259f0019786839b583eed94c7ee213d9ccea13c8639d"
+        },
+        {
+          "path": "native/authored-home-fallback-before.png",
+          "sha256": "b8f067358fb33aede360ab354fb03bf35a0053bc85b911d090d2146b46d6acdd"
+        },
+        {
+          "path": "native/desktop-low-screen.png",
+          "sha256": "9963995e37fd524354af14195d2c7115e8bd3b7551f51788b7acb77c534e7be0"
+        },
+        {
+          "path": "native/clear-native-plane-after.png",
+          "sha256": "51fb15f59c804c7b3a19ab3553a7d3743e257372511337e001a5087036b6ab46"
+        },
+        {
+          "path": "native/phone-landscape-medium-cluster.png",
+          "sha256": "08b3c4071bdcf4f1a5a0a0d1e31f5af2fdbc6c10d3f2bb737374863a677d8d68"
+        },
+        {
+          "path": "native/phone-landscape-medium-screen.png",
+          "sha256": "396552e7a9e7e680c23ee7e8152d755d805555919fe04ff2f681ede85b617cc1"
+        },
+        {
+          "path": "native/desktop-medium.png",
+          "sha256": "7c7e541f5e67a62aed9beca78971452194c987e56b6f4742fa1e3a8de6e39f31"
+        },
+        {
+          "path": "native/desktop-low.png",
+          "sha256": "24a5df13f757ed8a4cb57c53b5c4511ab68d7959633329d2b755665e64a3e405"
+        },
+        {
+          "path": "native/desktop-high-cluster.png",
+          "sha256": "b85075b09e75c14e1858b6272f70d54282f7156f58cfc6faeb62adbc8a8d03a7"
+        },
+        {
+          "path": "native/desktop-medium-screen.png",
+          "sha256": "239d8ed24d7992b949038fc324ee2dea79d21e22e182d0f9034409bcaba3e5d4"
+        },
+        {
+          "path": "native/desktop-high-mirror.png",
+          "sha256": "0e14e82b0a687a3cda9fc7ab61e3ef03b44f05aa30e7fc59ce1e749b68997332"
+        },
+        {
+          "path": "native/desktop-high.png",
+          "sha256": "e01bfd4efc3a16b1bdd2388b86a75547613895d7b5ad8a6d39423b190fcb0c37"
+        },
+        {
+          "path": "native/phone-landscape-auto.png",
+          "sha256": "1b81840820e63dc9aea436608cab22310d46e492ec6c126ce5ae94e817af74b1"
+        },
+        {
+          "path": "native/phone-landscape-low-mirror.png",
+          "sha256": "9615a48f3a9625066d57c63fce3837ec013d377e3240ef0a4aa7a718244b1efb"
+        },
+        {
+          "path": "native/report.json",
+          "sha256": "17d2acc8c3bdf535c278f520a077b72f3b5ff1b6f0eeb37db2876574769fd188"
+        },
+        {
+          "path": "native/phone-landscape-high-screen.png",
+          "sha256": "5ea95af1dc31f268c68365dc18d14eae5994da7ffa12a936a0d4dbe92a5b87a8"
+        },
+        {
+          "path": "native/phone-landscape-high-mirror.png",
+          "sha256": "1bf99f5ed3e75a14328abb2b2e5dbc4e2e113f17a32407607080e3623cc48e2f"
+        },
+        {
+          "path": "native/phone-landscape-low-screen.png",
+          "sha256": "8398f5b553be212b47bd423b12ba3ae90dfb0494578ce62749cf93eac4ecca86"
+        },
+        {
+          "path": "native/phone-landscape-high-cluster.png",
+          "sha256": "9834464eb5304c14aeb8e9936ac0484f1a64cddba54e5dd1aed101b3ff8e9b5d"
+        },
+        {
+          "path": "native/desktop-auto-cluster.png",
+          "sha256": "8f250a6f19f0663dd6db6f85322ffa68dac89adaa592e5cc3cc59485f60740d2"
+        },
+        {
+          "path": "native/phone-landscape-high.png",
+          "sha256": "dd679f62fc6d16a21f5eb45525aaefd98bb623f6d565d3e93e0cee7fd38f5ac6"
+        },
+        {
+          "path": "car-screen-poi/result.json",
+          "sha256": "7aee0f9ebda3fab0ed2655d7cc8c37b096c13ae061f7557e6212012238c2ad60"
+        },
+        {
+          "path": "car-screen-poi/partial-top.png",
+          "sha256": "fafa5860413fe738835abc303685a1f70b828a4fb3a9fdd958ce16432b0da550"
+        },
+        {
+          "path": "car-screen-poi/outside-top.png",
+          "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30"
+        },
+        {
+          "path": "car-screen-poi/outside-bottom.png",
+          "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30"
+        },
+        {
+          "path": "car-screen-poi/inside.png",
+          "sha256": "5118e2aa7bca70c6b1a34e8d2a6943b84e6c307f38c2d70e9f7d845ffdcdc673"
+        },
+        {
+          "path": "car-screen-poi/native-top-overflow.png",
+          "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30"
+        },
+        {
+          "path": "car-screen-poi/empty.png",
+          "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30"
+        },
+        {
+          "path": "validation/phone-portrait-screen-before-after.png",
+          "sha256": "e741f4d617288a64bd02fb76c40d864127d444b938f654ba759eff65339aa6b8"
+        },
+        {
+          "path": "validation/phone-landscape-cluster-before-after.png",
+          "sha256": "44f23306aa43d1248ceb17027fdf5d8a6d5b58d42183aad945ea2587f8f1a29c"
+        },
+        {
+          "path": "validation/desktop-mirror-before-after.png",
+          "sha256": "b5086947a3fac6c99a40ab2657f6611a8dec86024a987679bd5b552f09c246c2"
+        },
+        {
+          "path": "validation/native-comparison.json",
+          "sha256": "82fd43bc32e76e1e12bf0b048d4a254b5c1185fe7573a1c1928b13353d763de4"
+        },
+        {
+          "path": "validation/phone-landscape-mirror-before-after.png",
+          "sha256": "5dc2a4c684a17df160298ae46d8a74e18ee8060942c7c67d71c188c81d6b1cd4"
+        },
+        {
+          "path": "validation/desktop-cluster-before-after.png",
+          "sha256": "bf4f0c66f0d39a69f327c1985ba970e14f5abd69c1e65d1ed232b7311af19b67"
+        },
+        {
+          "path": "validation/phone-portrait-cluster-before-after.png",
+          "sha256": "e264bb9b65a001ad2e8b024068e4e3b5bebc4d4595b320a70a3ed51fcbe10548"
+        },
+        {
+          "path": "validation/phone-portrait-mirror-before-after.png",
+          "sha256": "9cc2238393d32f3027e2d7833bbb4e5f6d3cb0480d5c9d27e388d1ec99a05a0b"
+        },
+        {
+          "path": "validation/phone-landscape-screen-before-after.png",
+          "sha256": "30b259fe41b8116bfe55b1130c61940fcd9cb5786c76a74e67a2cfd223382a5e"
+        },
+        {
+          "path": "validation/desktop-screen-before-after.png",
+          "sha256": "c2ceb10c1c387fff38f2dba3bed274496a0c67f5053af3c30eafc94e4e3e7446"
+        },
+        {
+          "path": "controls-final/explicit-near-occluder-before.png",
+          "sha256": "5df9fc43c37778cf38d72c17170aff3f0d9091799ac831f429f8d1f4c3886819"
+        },
+        {
+          "path": "controls-final/controls.json",
+          "sha256": "3d4899ba8ff4b0ccd169c922e21bdace52e7a7d65b53ddf7224a351e8c9c7189"
+        },
+        {
+          "path": "controls-final/explicit-near-occluder-after.png",
+          "sha256": "b98b33249a8a854dee674b58c8379cf3c4c24d577111995638cb148998e34b6d"
+        },
+        {
+          "path": "controls-final/clear-native-plane-before.png",
+          "sha256": "2dad4fea7e566375dc0a6ed32211873252f225fc12c3862ab642e3065b4510d7"
+        },
+        {
+          "path": "controls-final/authored-home-fallback-after.png",
+          "sha256": "05f15423bdd2875855d4f4f313f420c7e0c00900ec45dd3bf4ae18737be09cc0"
+        },
+        {
+          "path": "controls-final/authored-home-fallback-before.png",
+          "sha256": "d89690d6688edd1bb9003a6a72be2f1a73d5c29cc48cdc8072664967df6d64ae"
+        },
+        {
+          "path": "controls-final/clear-native-plane-after.png",
+          "sha256": "75e1603d7af42e1d4d5f06bd405eec71f52ea9c1c337ec04ea883574514207a9"
+        },
+        {
+          "path": "controls-final/report.json",
+          "sha256": "4ef7028231c17d22483b18e176469e532d668536eaf530236e813c532d4360f4"
+        },
+        {
+          "path": "controls-final/normal-low-no-forced-mirror.png",
+          "sha256": "69c5e594e32d27b1f0d20852681d5d5faf68d5ba5448b84725aeeeef2f9ebea3"
+        }
+      ],
+      "allReportsClosed": true,
+      "noLiveSourceProcess": true,
+      "gitCommitPresent": true,
+      "sourceInventoryRetained": "handoffs/fidelity/cockpit-sharp-displays/candidate-1e640089/source-files.json"
+    },
+    {
+      "removedPath": "/workspace/reality-pass/cockpit-sharp-displays/mirror-positive-718b996c/source",
+      "sourceCommit": "718b996c54819feb632c0b62682923b38f7abe2d",
+      "copiedFilesVerified": 345,
+      "sourceLogicalBytes": 121106219,
+      "duBytesBefore": 121106219,
+      "allocatedBytesFreed": 121937920,
+      "rawFilesVerifiedCommittedAndUnchanged": 17,
+      "rawFileHashes": [
+        {
+          "path": "explicit-mirror-occluder-mirror-contact.png",
+          "sha256": "8166122251e1879569fe43201b27364c40e4ff3534ac621c91cd403c2a8061e4"
+        },
+        {
+          "path": "retry.log",
+          "sha256": "71a9cccc078fe74fe94135d2e3abe3a90ebd8919cba86b6aa3c329e24974fb57"
+        },
+        {
+          "path": "controls.cjs",
+          "sha256": "f1fdff660f83d205de6ebe9291c6507cb0bd8a6ab91e3a20bfbccea7c33d17e1"
+        },
+        {
+          "path": "run.log",
+          "sha256": "8417d717351fa5ea8ea64fe0433bf21cbb8c4adafd4bd1d6aaa144462e4db0da"
+        },
+        {
+          "path": "pixel-review.json",
+          "sha256": "58e83f04e74e37fa2881007aa83ddb22a8e6c5f85add0804b1569e134397dcd6"
+        },
+        {
+          "path": "source-files.json",
+          "sha256": "7df47c570800dc762fd24a089500fc8009cb556ada2001071497fa262d371ab1"
+        },
+        {
+          "path": "mirror-positive-attempt01.cjs",
+          "sha256": "1adb6a105a946de2de3355137018f4e259234b0c4447a9b154a99e93d90a5ea3"
+        },
+        {
+          "path": "mirror-pixel-review.json",
+          "sha256": "6f789da41761878036d9368b4ef07d903d966e3423f21c1e655affe2d7a27b53"
+        },
+        {
+          "path": "normal-medium-enabled-mirror-contact.png",
+          "sha256": "f3e11f963d9e209a67737e25dc226ed030ddf87d0776547e177a12c11dddb6f0"
+        },
+        {
+          "path": "source-identity.json",
+          "sha256": "8699460b5f6b5e471cbedf2349687b2c68d998b87bf3004b0daf1838736f56d0"
+        },
+        {
+          "path": "native-retry/normal-medium-enabled-after.png",
+          "sha256": "5c4798e974be7e24f6589387afdb537648a8bcad4c557686f890347dd9cb84d8"
+        },
+        {
+          "path": "native-retry/normal-medium-enabled-full.png",
+          "sha256": "d5608de6de37f3a68a2e8dfec90fb5ed9570be59603eee909c9fc33ea7dbc845"
+        },
+        {
+          "path": "native-retry/explicit-mirror-occluder-after.png",
+          "sha256": "48aa8106290e12c22d6fd40d28842d692638e01d10b1432e180dd5e020d606bb"
+        },
+        {
+          "path": "native-retry/normal-medium-enabled-before.png",
+          "sha256": "c1e094a61d45561322a59798334431a67e382ba12d0a7db5b45fad8a37826f6f"
+        },
+        {
+          "path": "native-retry/report.json",
+          "sha256": "44fe1f9bac04c26f8d4ce646b59ab788ff1f06df5c6734e18b335af060db81ed"
+        },
+        {
+          "path": "native-retry/explicit-mirror-occluder-before.png",
+          "sha256": "c21ab1fc3a19a82c3fe5d0e71d28eae10ffdccd45878b5744959b64b6c455036"
+        },
+        {
+          "path": "native/report.json",
+          "sha256": "c31f60ab220c3da2dde08ff35108339810f281ae3ff72235eb096857b0aedfcb"
+        }
+      ],
+      "allReportsClosed": true,
+      "noLiveSourceProcess": true,
+      "gitCommitPresent": true,
+      "sourceInventoryRetained": "handoffs/fidelity/cockpit-sharp-displays/mirror-positive-718b996c/source-files.json"
+    }
+  ],
+  "totalAllocatedBytesFreed": 243372032
+}

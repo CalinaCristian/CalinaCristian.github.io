@@ -1,0 +1,1804 @@
+{
+  "baseCommit": "65ba08d",
+  "liveScreenshotBuild": "58129ab",
+  "sourceSha256": {
+    "game/src/buildings.js": "634c8a5149d9de9761c62f445c6318dcb3087b41980b574a5afa6d02dfa7cfe4",
+    "game/src/world.js": "0838e800c5e3eaf6e91e2762cd08f1c22ccee847ffe1773257aca756c0ae613e",
+    "game/dev/harness/facades.js": "de1bba27287803aea55c3fc15b0b2e29f18657ef598df7cd7b101cf0a9e0a29a"
+  },
+  "liveAffectedCodeBlockHashes": {
+    "58129ab": {
+      "material": "7cf83619b487e3536c4741af93b0dc8dd25640ec9d8e1b4099b0a5e3daaa2bba",
+      "nearSlab": "8bb3d1f99b5e4520c12cdf09e80d1422ba3611dc13efbbeb324a559ce931bde0",
+      "blocBalconies": "39f8bd03a6125f33eac213fdbfdd7ad9d60a0669c00a88fad9536bf63fbb163f",
+      "baseBalconies": "1c81cd20f9ad27f42a1039866d1fc80a41d2481f33ad24604047a93e74cd0fb5"
+    },
+    "65ba08d": {
+      "material": "7cf83619b487e3536c4741af93b0dc8dd25640ec9d8e1b4099b0a5e3daaa2bba",
+      "nearSlab": "8bb3d1f99b5e4520c12cdf09e80d1422ba3611dc13efbbeb324a559ce931bde0",
+      "blocBalconies": "39f8bd03a6125f33eac213fdbfdd7ad9d60a0669c00a88fad9536bf63fbb163f",
+      "baseBalconies": "1c81cd20f9ad27f42a1039866d1fc80a41d2481f33ad24604047a93e74cd0fb5"
+    }
+  },
+  "focusedFinal": {
+    "passed": 38,
+    "failed": 0,
+    "maxAnchorErrorM": 0.00028203314788033396,
+    "errors": [],
+    "checks": [
+      {
+        "name": "one-room-winding1-cell0",
+        "pass": true,
+        "depths": [
+          3.0687499046325684,
+          3.0687499046325684,
+          3.0687499046325684
+        ]
+      },
+      {
+        "name": "metre-scale-winding1-cell0",
+        "pass": true,
+        "dims": [
+          3.542459011077881,
+          2.6569085121154785,
+          3.0687499046325684
+        ],
+        "expected": [
+          3.54251012145749,
+          2.6568825910931175
+        ]
+      },
+      {
+        "name": "anchoring-1-0-base",
+        "pass": true,
+        "errorM": 3.786150251627873e-05
+      },
+      {
+        "name": "anchoring-1-0-slide01",
+        "pass": true,
+        "errorM": 0.00019818944017524487
+      },
+      {
+        "name": "anchoring-1-0-slide1",
+        "pass": true,
+        "errorM": 4.145895955787182e-05
+      },
+      {
+        "name": "anchoring-1-0-rotate",
+        "pass": true,
+        "errorM": 0.0002817947293012324
+      },
+      {
+        "name": "anchoring-1-0-secondary",
+        "pass": true,
+        "errorM": 7.074066470735829e-05
+      },
+      {
+        "name": "anchoring-1-0-main-after-secondary",
+        "pass": true,
+        "errorM": 3.786150251627873e-05
+      },
+      {
+        "name": "one-room-winding1-cell1",
+        "pass": true,
+        "depths": [
+          3.0687499046325684,
+          3.0687499046325684,
+          3.0687499046325684
+        ]
+      },
+      {
+        "name": "metre-scale-winding1-cell1",
+        "pass": true,
+        "dims": [
+          3.542459011077881,
+          2.6569085121154785,
+          3.0687499046325684
+        ],
+        "expected": [
+          3.54251012145749,
+          2.6568825910931175
+        ]
+      },
+      {
+        "name": "anchoring-1-1-base",
+        "pass": true,
+        "errorM": 3.786150267570676e-05
+      },
+      {
+        "name": "anchoring-1-1-slide01",
+        "pass": true,
+        "errorM": 0.00019818943889671203
+      },
+      {
+        "name": "anchoring-1-1-slide1",
+        "pass": true,
+        "errorM": 4.145895961382706e-05
+      },
+      {
+        "name": "anchoring-1-1-rotate",
+        "pass": true,
+        "errorM": 0.00028179472949974027
+      },
+      {
+        "name": "anchoring-1-1-secondary",
+        "pass": true,
+        "errorM": 7.0740665781166e-05
+      },
+      {
+        "name": "anchoring-1-1-main-after-secondary",
+        "pass": true,
+        "errorM": 3.786150267570676e-05
+      },
+      {
+        "name": "one-room-winding-1-cell0",
+        "pass": true,
+        "depths": [
+          3.0687499046325684,
+          3.0687499046325684,
+          3.0687499046325684
+        ]
+      },
+      {
+        "name": "metre-scale-winding-1-cell0",
+        "pass": true,
+        "dims": [
+          3.542527198791504,
+          2.6569082736968994,
+          3.0687499046325684
+        ],
+        "expected": [
+          3.54251012145749,
+          2.6568825910931175
+        ]
+      },
+      {
+        "name": "anchoring--1-0-base",
+        "pass": true,
+        "errorM": 3.786150251627873e-05
+      },
+      {
+        "name": "anchoring--1-0-slide01",
+        "pass": true,
+        "errorM": 0.0001693407921043999
+      },
+      {
+        "name": "anchoring--1-0-slide1",
+        "pass": true,
+        "errorM": 6.458556173072338e-05
+      },
+      {
+        "name": "anchoring--1-0-rotate",
+        "pass": true,
+        "errorM": 0.00028203314788033396
+      },
+      {
+        "name": "anchoring--1-0-secondary",
+        "pass": true,
+        "errorM": 7.074066470735829e-05
+      },
+      {
+        "name": "anchoring--1-0-main-after-secondary",
+        "pass": true,
+        "errorM": 3.786150251627873e-05
+      },
+      {
+        "name": "one-room-winding-1-cell1",
+        "pass": true,
+        "depths": [
+          3.0687499046325684,
+          3.0687499046325684,
+          3.0687499046325684
+        ]
+      },
+      {
+        "name": "metre-scale-winding-1-cell1",
+        "pass": true,
+        "dims": [
+          3.542527198791504,
+          2.6569082736968994,
+          3.0687499046325684
+        ],
+        "expected": [
+          3.54251012145749,
+          2.6568825910931175
+        ]
+      },
+      {
+        "name": "anchoring--1-1-base",
+        "pass": true,
+        "errorM": 3.786150174711622e-05
+      },
+      {
+        "name": "anchoring--1-1-slide01",
+        "pass": true,
+        "errorM": 0.0001693407919440837
+      },
+      {
+        "name": "anchoring--1-1-slide1",
+        "pass": true,
+        "errorM": 6.458556118893455e-05
+      },
+      {
+        "name": "anchoring--1-1-rotate",
+        "pass": true,
+        "errorM": 0.00028203314741537255
+      },
+      {
+        "name": "anchoring--1-1-secondary",
+        "pass": true,
+        "errorM": 7.074066398482515e-05
+      },
+      {
+        "name": "anchoring--1-1-main-after-secondary",
+        "pass": true,
+        "errorM": 3.786150174711622e-05
+      },
+      {
+        "name": "balcony-below-frontside",
+        "pass": true,
+        "hit": [
+          0,
+          2.9000000953674316,
+          0.6
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      {
+        "name": "balcony-above-frontside",
+        "pass": true,
+        "hit": [
+          0,
+          3.0199999809265137,
+          0.6
+        ],
+        "normal": [
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "name": "balcony-left-frontside",
+        "pass": true,
+        "hit": [
+          -1.399999976158142,
+          2.95,
+          0.6
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "balcony-right-frontside",
+        "pass": true,
+        "hit": [
+          1.399999976158142,
+          2.95,
+          0.6
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "balcony-front-frontside",
+        "pass": true,
+        "hit": [
+          0,
+          2.95,
+          1.100000023841858
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "balcony-shell-budget",
+        "pass": true,
+        "triangles": 20
+      }
+    ],
+    "records": [
+      {
+        "sign": 1,
+        "cell": 0,
+        "id": "base",
+        "hit": [
+          2.125471591949463,
+          1.4631764888763428,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.125509453451979,
+          1.4631577547511685,
+          3.0687499046325684
+        ],
+        "errorM": 3.786150251627873e-05
+      },
+      {
+        "sign": 1,
+        "cell": 0,
+        "id": "slide01",
+        "hit": [
+          2.125917673110962,
+          1.4631766080856323,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1257194836707867,
+          1.4631577547511685,
+          3.0687499046325684
+        ],
+        "errorM": 0.00019818944017524487
+      },
+      {
+        "sign": 1,
+        "cell": 0,
+        "id": "slide1",
+        "hit": [
+          2.1276512145996094,
+          1.4631764888763428,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1276097556400515,
+          1.4631577547511685,
+          3.0687499046325684
+        ],
+        "errorM": 4.145895955787182e-05
+      },
+      {
+        "sign": 1,
+        "cell": 0,
+        "id": "rotate",
+        "hit": [
+          2.129279613494873,
+          1.4603952169418335,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.128997818765572,
+          1.4602503786405359,
+          3.0687499046325684
+        ],
+        "errorM": 0.0002817947293012324
+      },
+      {
+        "sign": 1,
+        "cell": 0,
+        "id": "secondary",
+        "hit": [
+          2.1272339820861816,
+          1.4599028825759888,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1271632414214743,
+          1.4598664406212656,
+          3.0687499046325684
+        ],
+        "errorM": 7.074066470735829e-05
+      },
+      {
+        "sign": 1,
+        "cell": 0,
+        "id": "main-after-secondary",
+        "hit": [
+          2.125471591949463,
+          1.4631764888763428,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.125509453451979,
+          1.4631577547511685,
+          3.0687499046325684
+        ],
+        "errorM": 3.786150251627873e-05
+      },
+      {
+        "sign": 1,
+        "cell": 1,
+        "id": "base",
+        "hit": [
+          2.125471591949463,
+          1.4631764888763428,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1255094534521386,
+          1.4631577547511505,
+          3.0687499046325684
+        ],
+        "errorM": 3.786150267570676e-05
+      },
+      {
+        "sign": 1,
+        "cell": 1,
+        "id": "slide01",
+        "hit": [
+          2.125917673110962,
+          1.4631766080856323,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.125719483672065,
+          1.4631577547511665,
+          3.0687499046325684
+        ],
+        "errorM": 0.00019818943889671203
+      },
+      {
+        "sign": 1,
+        "cell": 1,
+        "id": "slide1",
+        "hit": [
+          2.1276512145996094,
+          1.4631764888763428,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1276097556399955,
+          1.4631577547511458,
+          3.0687499046325684
+        ],
+        "errorM": 4.145895961382706e-05
+      },
+      {
+        "sign": 1,
+        "cell": 1,
+        "id": "rotate",
+        "hit": [
+          2.129279613494873,
+          1.4603952169418335,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1289978187653733,
+          1.46025037864052,
+          3.0687499046325684
+        ],
+        "errorM": 0.00028179472949974027
+      },
+      {
+        "sign": 1,
+        "cell": 1,
+        "id": "secondary",
+        "hit": [
+          2.1272339820861816,
+          1.4599028825759888,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1271632414204005,
+          1.4598664406212603,
+          3.0687499046325684
+        ],
+        "errorM": 7.0740665781166e-05
+      },
+      {
+        "sign": 1,
+        "cell": 1,
+        "id": "main-after-secondary",
+        "hit": [
+          2.125471591949463,
+          1.4631764888763428,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1255094534521386,
+          1.4631577547511505,
+          3.0687499046325684
+        ],
+        "errorM": 3.786150267570676e-05
+      },
+      {
+        "sign": -1,
+        "cell": 0,
+        "id": "base",
+        "hit": [
+          2.125471591949463,
+          1.4631764888763428,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.125509453451979,
+          1.4631577547511685,
+          3.0687499046325684
+        ],
+        "errorM": 3.786150251627873e-05
+      },
+      {
+        "sign": -1,
+        "cell": 0,
+        "id": "slide01",
+        "hit": [
+          2.1258888244628906,
+          1.4631764888763428,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1257194836707862,
+          1.4631577547511685,
+          3.0687499046325684
+        ],
+        "errorM": 0.0001693407921043999
+      },
+      {
+        "sign": -1,
+        "cell": 0,
+        "id": "slide1",
+        "hit": [
+          2.1276743412017822,
+          1.4631766080856323,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1276097556400515,
+          1.4631577547511685,
+          3.0687499046325684
+        ],
+        "errorM": 6.458556173072338e-05
+      },
+      {
+        "sign": -1,
+        "cell": 0,
+        "id": "rotate",
+        "hit": [
+          2.129279851913452,
+          1.4602257013320923,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.128997818765572,
+          1.4602503786405359,
+          3.0687499046325684
+        ],
+        "errorM": 0.00028203314788033396
+      },
+      {
+        "sign": -1,
+        "cell": 0,
+        "id": "secondary",
+        "hit": [
+          2.1272339820861816,
+          1.459928274154663,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1271632414214743,
+          1.4598664406212656,
+          3.0687499046325684
+        ],
+        "errorM": 7.074066470735829e-05
+      },
+      {
+        "sign": -1,
+        "cell": 0,
+        "id": "main-after-secondary",
+        "hit": [
+          2.125471591949463,
+          1.4631764888763428,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.125509453451979,
+          1.4631577547511685,
+          3.0687499046325684
+        ],
+        "errorM": 3.786150251627873e-05
+      },
+      {
+        "sign": -1,
+        "cell": 1,
+        "id": "base",
+        "hit": [
+          2.125471591949463,
+          1.4631764888763428,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.12550945345121,
+          1.463157754751176,
+          3.0687499046325684
+        ],
+        "errorM": 3.786150174711622e-05
+      },
+      {
+        "sign": -1,
+        "cell": 1,
+        "id": "slide01",
+        "hit": [
+          2.1258888244628906,
+          1.4631764888763428,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1257194836709465,
+          1.463157754751161,
+          3.0687499046325684
+        ],
+        "errorM": 0.0001693407919440837
+      },
+      {
+        "sign": -1,
+        "cell": 1,
+        "id": "slide1",
+        "hit": [
+          2.1276743412017822,
+          1.4631766080856323,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1276097556405933,
+          1.4631577547511596,
+          3.0687499046325684
+        ],
+        "errorM": 6.458556118893455e-05
+      },
+      {
+        "sign": -1,
+        "cell": 1,
+        "id": "rotate",
+        "hit": [
+          2.129279851913452,
+          1.4602257013320923,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.1289978187660368,
+          1.4602503786405396,
+          3.0687499046325684
+        ],
+        "errorM": 0.00028203314741537255
+      },
+      {
+        "sign": -1,
+        "cell": 1,
+        "id": "secondary",
+        "hit": [
+          2.1272339820861816,
+          1.459928274154663,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.127163241422197,
+          1.4598664406212591,
+          3.0687499046325684
+        ],
+        "errorM": 7.074066398482515e-05
+      },
+      {
+        "sign": -1,
+        "cell": 1,
+        "id": "main-after-secondary",
+        "hit": [
+          2.125471591949463,
+          1.4631764888763428,
+          3.0687499046325684,
+          1
+        ],
+        "expected": [
+          2.12550945345121,
+          1.463157754751176,
+          3.0687499046325684
+        ],
+        "errorM": 3.786150174711622e-05
+      }
+    ],
+    "balcony": {
+      "triangles": 20
+    }
+  },
+  "focusedBaseline": {
+    "passed": 0,
+    "failed": 33,
+    "maxAnchorErrorM": 1.8193626267034873,
+    "errors": [],
+    "checks": [
+      {
+        "name": "one-room-winding1-cell0",
+        "pass": false,
+        "depths": [
+          3.3359375,
+          3.2468748092651367,
+          3.2468748092651367
+        ]
+      },
+      {
+        "name": "metre-scale-winding1-cell0",
+        "pass": false,
+        "dims": [
+          1.399999976158142,
+          1.7000000476837158,
+          3.2468748092651367
+        ],
+        "expected": [
+          3.54251012145749,
+          2.6568825910931175
+        ]
+      },
+      {
+        "name": "anchoring-1-0-base",
+        "pass": false,
+        "errorM": 1.1994992155246855
+      },
+      {
+        "name": "anchoring-1-0-slide01",
+        "pass": false,
+        "errorM": 1.2266178566498236
+      },
+      {
+        "name": "anchoring-1-0-slide1",
+        "pass": false,
+        "errorM": 1.4397200875616534
+      },
+      {
+        "name": "anchoring-1-0-rotate",
+        "pass": false,
+        "errorM": 1.201576088964127
+      },
+      {
+        "name": "anchoring-1-0-secondary",
+        "pass": false,
+        "errorM": 1.0491856299360633
+      },
+      {
+        "name": "anchoring-1-0-main-after-secondary",
+        "pass": false,
+        "errorM": 1.1994992155246855
+      },
+      {
+        "name": "one-room-winding1-cell1",
+        "pass": false,
+        "depths": [
+          3.3359375,
+          3.2468748092651367,
+          3.2468748092651367
+        ]
+      },
+      {
+        "name": "metre-scale-winding1-cell1",
+        "pass": false,
+        "dims": [
+          1.399999976158142,
+          1.7000000476837158,
+          3.2468748092651367
+        ],
+        "expected": [
+          3.54251012145749,
+          2.6568825910931175
+        ]
+      },
+      {
+        "name": "anchoring-1-1-base",
+        "pass": false,
+        "errorM": 1.1994992155250608
+      },
+      {
+        "name": "anchoring-1-1-slide01",
+        "pass": false,
+        "errorM": 1.2266178566493435
+      },
+      {
+        "name": "anchoring-1-1-slide1",
+        "pass": false,
+        "errorM": 1.439720087561966
+      },
+      {
+        "name": "anchoring-1-1-rotate",
+        "pass": false,
+        "errorM": 1.2015760889636793
+      },
+      {
+        "name": "anchoring-1-1-secondary",
+        "pass": false,
+        "errorM": 1.0491856299354914
+      },
+      {
+        "name": "anchoring-1-1-main-after-secondary",
+        "pass": false,
+        "errorM": 1.1994992155250608
+      },
+      {
+        "name": "one-room-winding-1-cell0",
+        "pass": false,
+        "depths": [
+          3.2468748092651367,
+          3.3359375,
+          3.3359375
+        ]
+      },
+      {
+        "name": "metre-scale-winding-1-cell0",
+        "pass": false,
+        "dims": [
+          1.399999976158142,
+          1.7000000476837158,
+          3.3359375
+        ],
+        "expected": [
+          3.54251012145749,
+          2.6568825910931175
+        ]
+      },
+      {
+        "name": "anchoring--1-0-base",
+        "pass": false,
+        "errorM": 1.4803660276700876
+      },
+      {
+        "name": "anchoring--1-0-slide01",
+        "pass": false,
+        "errorM": 1.4261994447895185
+      },
+      {
+        "name": "anchoring--1-0-slide1",
+        "pass": false,
+        "errorM": 0.9371637769867025
+      },
+      {
+        "name": "anchoring--1-0-rotate",
+        "pass": false,
+        "errorM": 1.4854170693394755
+      },
+      {
+        "name": "anchoring--1-0-secondary",
+        "pass": false,
+        "errorM": 1.819362626702715
+      },
+      {
+        "name": "anchoring--1-0-main-after-secondary",
+        "pass": false,
+        "errorM": 1.4803660276700876
+      },
+      {
+        "name": "one-room-winding-1-cell1",
+        "pass": false,
+        "depths": [
+          3.2468748092651367,
+          3.3359375,
+          3.3359375
+        ]
+      },
+      {
+        "name": "metre-scale-winding-1-cell1",
+        "pass": false,
+        "dims": [
+          1.399999976158142,
+          1.7000000476837158,
+          3.3359375
+        ],
+        "expected": [
+          3.54251012145749,
+          2.6568825910931175
+        ]
+      },
+      {
+        "name": "anchoring--1-1-base",
+        "pass": false,
+        "errorM": 1.480366027670763
+      },
+      {
+        "name": "anchoring--1-1-slide01",
+        "pass": false,
+        "errorM": 1.4261994447892508
+      },
+      {
+        "name": "anchoring--1-1-slide1",
+        "pass": false,
+        "errorM": 0.9371637769875347
+      },
+      {
+        "name": "anchoring--1-1-rotate",
+        "pass": false,
+        "errorM": 1.4854170693398192
+      },
+      {
+        "name": "anchoring--1-1-secondary",
+        "pass": false,
+        "errorM": 1.8193626267034873
+      },
+      {
+        "name": "anchoring--1-1-main-after-secondary",
+        "pass": false,
+        "errorM": 1.480366027670763
+      },
+      {
+        "name": "balcony-shell-helper",
+        "pass": false
+      }
+    ]
+  },
+  "warmedFrozenTrafficFinal": {
+    "results": [
+      {
+        "district": "romana",
+        "shot": "spawn",
+        "camera": [
+          636.1162017190301,
+          1.6,
+          710.612320197192
+        ],
+        "triangles": 1174910,
+        "drawCalls": 343,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 343,
+          "triangles": 1174910,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "romana",
+        "shot": "back",
+        "camera": [
+          636.9801352068015,
+          1.6,
+          711.2631803424667
+        ],
+        "triangles": 825906,
+        "drawCalls": 239,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 239,
+          "triangles": 825906,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "romana",
+        "shot": "below",
+        "camera": [
+          284.1383342128818,
+          2.2,
+          -386.45851055020864
+        ],
+        "triangles": 838052,
+        "drawCalls": 187,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 187,
+          "triangles": 838052,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "romana",
+        "shot": "side",
+        "camera": [
+          282.64684476309037,
+          2.2,
+          -392.2701763373269
+        ],
+        "triangles": 1013105,
+        "drawCalls": 256,
+        "stats": {
+          "fps": 14,
+          "frameMs": 0,
+          "drawCalls": 256,
+          "triangles": 1013105,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "spawn",
+        "camera": [
+          -250.22235239232188,
+          1.6,
+          980.0706533182833
+        ],
+        "triangles": 1107079,
+        "drawCalls": 343,
+        "stats": {
+          "fps": 14,
+          "frameMs": 0,
+          "drawCalls": 343,
+          "triangles": 1107079,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "back",
+        "camera": [
+          -249.5941315197949,
+          1.6,
+          980.9511864155156
+        ],
+        "triangles": 778702,
+        "drawCalls": 228,
+        "stats": {
+          "fps": 14,
+          "frameMs": 0,
+          "drawCalls": 228,
+          "triangles": 778702,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "below",
+        "camera": [
+          -251.000819448242,
+          2.2,
+          942.3508399908801
+        ],
+        "triangles": 762490,
+        "drawCalls": 185,
+        "stats": {
+          "fps": 14,
+          "frameMs": 0,
+          "drawCalls": 185,
+          "triangles": 762490,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "side",
+        "camera": [
+          -251.09997945736197,
+          2.2,
+          936.3516594391222
+        ],
+        "triangles": 785425,
+        "drawCalls": 195,
+        "stats": {
+          "fps": 15,
+          "frameMs": 0,
+          "drawCalls": 195,
+          "triangles": 785425,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      }
+    ],
+    "errors": []
+  },
+  "warmedFrozenTrafficBaseline": {
+    "results": [
+      {
+        "district": "romana",
+        "shot": "spawn",
+        "camera": [
+          636.1162017190301,
+          1.6,
+          710.612320197192
+        ],
+        "triangles": 1163678,
+        "drawCalls": 343,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 343,
+          "triangles": 1163678,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "romana",
+        "shot": "back",
+        "camera": [
+          636.9801352068015,
+          1.6,
+          711.2631803424667
+        ],
+        "triangles": 825906,
+        "drawCalls": 239,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 239,
+          "triangles": 825906,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "romana",
+        "shot": "below",
+        "camera": [
+          284.1383342128818,
+          2.2,
+          -386.45851055020864
+        ],
+        "triangles": 833856,
+        "drawCalls": 187,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 187,
+          "triangles": 833856,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "romana",
+        "shot": "side",
+        "camera": [
+          282.64684476309037,
+          2.2,
+          -392.2701763373269
+        ],
+        "triangles": 1008909,
+        "drawCalls": 256,
+        "stats": {
+          "fps": 13,
+          "frameMs": 0,
+          "drawCalls": 256,
+          "triangles": 1008909,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "spawn",
+        "camera": [
+          -250.22235239232188,
+          1.6,
+          980.0706533182833
+        ],
+        "triangles": 1105327,
+        "drawCalls": 343,
+        "stats": {
+          "fps": 13,
+          "frameMs": 0,
+          "drawCalls": 343,
+          "triangles": 1105327,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "back",
+        "camera": [
+          -249.5941315197949,
+          1.6,
+          980.9511864155156
+        ],
+        "triangles": 775842,
+        "drawCalls": 228,
+        "stats": {
+          "fps": 13,
+          "frameMs": 0,
+          "drawCalls": 228,
+          "triangles": 775842,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "below",
+        "camera": [
+          -251.000819448242,
+          2.2,
+          942.3508399908801
+        ],
+        "triangles": 759454,
+        "drawCalls": 185,
+        "stats": {
+          "fps": 13,
+          "frameMs": 0,
+          "drawCalls": 185,
+          "triangles": 759454,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "side",
+        "camera": [
+          -251.09997945736197,
+          2.2,
+          936.3516594391222
+        ],
+        "triangles": 782389,
+        "drawCalls": 195,
+        "stats": {
+          "fps": 14,
+          "frameMs": 0,
+          "drawCalls": 195,
+          "triangles": 782389,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      }
+    ],
+    "errors": []
+  },
+  "evolvedTrafficFinal": {
+    "results": [
+      {
+        "district": "romana",
+        "shot": "spawn",
+        "traffic": {
+          "vehicles": 321,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          636.1162017190301,
+          1.6,
+          710.612320197192
+        ],
+        "triangles": 1186124,
+        "drawCalls": 343,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 343,
+          "triangles": 1186124,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "romana",
+        "shot": "back",
+        "traffic": {
+          "vehicles": 321,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          636.9801352068015,
+          1.6,
+          711.2631803424667
+        ],
+        "triangles": 846318,
+        "drawCalls": 239,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 239,
+          "triangles": 846318,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "romana",
+        "shot": "below",
+        "traffic": {
+          "vehicles": 321,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          284.1383342128818,
+          2.2,
+          -386.45851055020864
+        ],
+        "triangles": 853550,
+        "drawCalls": 187,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 187,
+          "triangles": 853550,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "romana",
+        "shot": "side",
+        "traffic": {
+          "vehicles": 321,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          282.64684476309037,
+          2.2,
+          -392.2701763373269
+        ],
+        "triangles": 1035323,
+        "drawCalls": 255,
+        "stats": {
+          "fps": 12,
+          "frameMs": 0,
+          "drawCalls": 255,
+          "triangles": 1035323,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "spawn",
+        "traffic": {
+          "vehicles": 184,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          -250.22235239232188,
+          1.6,
+          980.0706533182833
+        ],
+        "triangles": 1113757,
+        "drawCalls": 343,
+        "stats": {
+          "fps": 12,
+          "frameMs": 0,
+          "drawCalls": 343,
+          "triangles": 1113757,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "back",
+        "traffic": {
+          "vehicles": 184,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          -249.5941315197949,
+          1.6,
+          980.9511864155156
+        ],
+        "triangles": 793948,
+        "drawCalls": 228,
+        "stats": {
+          "fps": 12,
+          "frameMs": 0,
+          "drawCalls": 228,
+          "triangles": 793948,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "below",
+        "traffic": {
+          "vehicles": 184,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          -251.000819448242,
+          2.2,
+          942.3508399908801
+        ],
+        "triangles": 787312,
+        "drawCalls": 185,
+        "stats": {
+          "fps": 12,
+          "frameMs": 0,
+          "drawCalls": 185,
+          "triangles": 787312,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "side",
+        "traffic": {
+          "vehicles": 184,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          -251.09997945736197,
+          2.2,
+          936.3516594391222
+        ],
+        "triangles": 806005,
+        "drawCalls": 196,
+        "stats": {
+          "fps": 15,
+          "frameMs": 0,
+          "drawCalls": 196,
+          "triangles": 806005,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      }
+    ],
+    "errors": []
+  },
+  "evolvedTrafficBaseline": {
+    "results": [
+      {
+        "district": "romana",
+        "shot": "spawn",
+        "traffic": {
+          "vehicles": 321,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          636.1162017190301,
+          1.6,
+          710.612320197192
+        ],
+        "triangles": 1174892,
+        "drawCalls": 343,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 343,
+          "triangles": 1174892,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "romana",
+        "shot": "back",
+        "traffic": {
+          "vehicles": 321,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          636.9801352068015,
+          1.6,
+          711.2631803424667
+        ],
+        "triangles": 846318,
+        "drawCalls": 239,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 239,
+          "triangles": 846318,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "romana",
+        "shot": "below",
+        "traffic": {
+          "vehicles": 321,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          284.1383342128818,
+          2.2,
+          -386.45851055020864
+        ],
+        "triangles": 849354,
+        "drawCalls": 187,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 187,
+          "triangles": 849354,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "romana",
+        "shot": "side",
+        "traffic": {
+          "vehicles": 321,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          282.64684476309037,
+          2.2,
+          -392.2701763373269
+        ],
+        "triangles": 1031127,
+        "drawCalls": 255,
+        "stats": {
+          "fps": 12,
+          "frameMs": 0,
+          "drawCalls": 255,
+          "triangles": 1031127,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "spawn",
+        "traffic": {
+          "vehicles": 184,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          -250.22235239232188,
+          1.6,
+          980.0706533182833
+        ],
+        "triangles": 1112005,
+        "drawCalls": 343,
+        "stats": {
+          "fps": 12,
+          "frameMs": 0,
+          "drawCalls": 343,
+          "triangles": 1112005,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "back",
+        "traffic": {
+          "vehicles": 184,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          -249.5941315197949,
+          1.6,
+          980.9511864155156
+        ],
+        "triangles": 791088,
+        "drawCalls": 228,
+        "stats": {
+          "fps": 12,
+          "frameMs": 0,
+          "drawCalls": 228,
+          "triangles": 791088,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "below",
+        "traffic": {
+          "vehicles": 184,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          -251.000819448242,
+          2.2,
+          942.3508399908801
+        ],
+        "triangles": 784276,
+        "drawCalls": 185,
+        "stats": {
+          "fps": 12,
+          "frameMs": 0,
+          "drawCalls": 185,
+          "triangles": 784276,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      },
+      {
+        "district": "floreasca",
+        "shot": "side",
+        "traffic": {
+          "vehicles": 184,
+          "pedestrians": 560,
+          "visible": true
+        },
+        "camera": [
+          -251.09997945736197,
+          2.2,
+          936.3516594391222
+        ],
+        "triangles": 802969,
+        "drawCalls": 196,
+        "stats": {
+          "fps": 12,
+          "frameMs": 0,
+          "drawCalls": 196,
+          "triangles": 802969,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      }
+    ],
+    "errors": []
+  },
+  "logic": {
+    "command": "npm run harness -- --scenario=foot,a --city=bucharest",
+    "high": 0,
+    "medium": 0,
+    "low": 2,
+    "lowTypes": [
+      "perf-traffic-update",
+      "perf-fps"
+    ],
+    "reportSha256": "6108bd77e0365c556a140e88abadfb877beb3ea283cfea911b1f48a41cd8ead5"
+  },
+  "limits": [
+    "Exact owner screenshot camera not identified.",
+    "Cold first render reached439 calls in both versions; warmed frames pass.",
+    "Exploratory far target poses obscured by trees/buildings; no positive distant-visibility claim.",
+    "No full-district visual-detector survey or hardware FPS claim."
+  ],
+  "reproduce": [
+    "node game/dev/harness/facades.js --out=/tmp/facades",
+    "node game/dev/harness/facades.js --root=/path/to/65ba08d --out=/tmp/facades-baseline"
+  ]
+}

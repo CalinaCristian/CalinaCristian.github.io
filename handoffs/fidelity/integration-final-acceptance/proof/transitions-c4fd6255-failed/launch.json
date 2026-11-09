@@ -1,0 +1,30 @@
+{
+  "pid": 355926,
+  "sourceCommit": "c4fd6255f928101e27874f37776ed5be8d805827",
+  "sourceGitTree": "fd9963a95ab699e0414c9dbc9875296a201ddba2",
+  "toolCommit": "1124c45789712d2b214b492283b9c5a658633d00",
+  "startedUtc": "2026-11-09T03:23:22.406121+00:00",
+  "argv": [
+    "node",
+    "/workspace/integration-qa-evidence/transitions-c4fd6255-native/runner.cjs",
+    "/workspace/integration-qa-evidence/transitions-c4fd6255-source",
+    "/workspace/integration-qa-evidence/transitions-c4fd6255-native/report.json",
+    "auto",
+    "chromium"
+  ],
+  "environment": {
+    "PROBE_CHECKS": "1",
+    "PROBE_CYCLES": "2",
+    "BRIDGE_DUMP_PAYLOAD": "/workspace/integration-qa-evidence/transitions-c4fd6255-native/bridge-native-dump.cjs",
+    "BRIDGE_DUMP_TARGETS": "/workspace/integration-qa-evidence/transitions-c4fd6255-native/bridge-targets.json"
+  },
+  "toolHashes": {
+    "integration-initial-body-audit.cjs": "f77a5798820ce5eb7f5ad7ec597e094267d521a9da9336a0fbcd8ef3a0811e82",
+    "source-manifest.json": "b78a61fdab1e302e7fc8767b69c7e9ec00141fbb8ec2d37134bfc31e86ed5b7d",
+    "runner.cjs": "bb54c9246ef0735e45c597e8d1b7c73c729f091d53c36be16acb82bb5e7c57d6",
+    "bridge-targets.json": "c743ae0cea6104a61b6538d59a814a662fe461b7ae5ea4f90c67ce6b10e1a236",
+    "bridge-native-dump.cjs": "c2e7eef358380da722f7fe991f99722f05b007d080a6f1f877324595eade0a0d",
+    "integration-browser-bounds.cjs": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29"
+  },
+  "scope": "Actual15load/all8mobileAuto/nativepublication-body/weakrefs/resources/failureContinue/pinnednativebridges against exact candidatec4fd. Stopafterfirstboundedpublicationfailure; no source/scheduling/clearance/timeouts override."
+}

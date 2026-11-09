@@ -1,0 +1,385 @@
+{
+  "passed": true,
+  "sourceHashes": {
+    "game/overview/perspective-viewer.js": "46ac4cb52747b5ae6c39c9645c2b17cd739de8c236522c1031137234d8042304",
+    "game/overview/style.css": "8a3e0a1c216601d73fdebce957048b536adae678c5d58bde6834fa5abe341ac6",
+    "game/overview/comparison-data/bellevue/manifest.json": "4f2d3a1527a4c7c048be450ca5e72b5cd7b811f86310453e14e88727036ead3e",
+    "game/overview/comparison-data/bellevue/street-walk/retakes/aabd17ad/manifest.json": "d662818d0e7162052fbb4de2f9174c7c05e302b6a756c20161242e6ead541620"
+  },
+  "scope": "Static perspective component with actual Bellevue manifests/images at1280/390; no game/World/refAPI execution; native geometry evidence remains separate.",
+  "results": [
+    {
+      "width": 1280,
+      "documentWidth": 1280,
+      "figures": 3,
+      "titles": [
+        "103rd Avenue Northeast · looking east",
+        "103rd Avenue Northeast · looking north",
+        "103rd Avenue Northeast · looking west"
+      ],
+      "captions": [
+        "103rd Avenue Northeast · looking east\n\nGame screenshot · fixed street camera · estimated height 2.5 m above the modeled road\n\nKnown game issue: this street is modeled below the surrounding buildings. These pictures record the error; a corrected capture is pending.\n\nCaptured 9 Nov 2026\n\nOpen reference panorama · 2018-07\nCamera and capture details",
+        "103rd Avenue Northeast · looking north\n\nGame screenshot · fixed street camera · estimated height 2.5 m above the modeled road\n\nKnown game issue: this street is modeled below the surrounding buildings. These pictures record the error; a corrected capture is pending.\n\nThe orange barrier marks the game-map boundary, not a real street closure.\n\nThe same picture serves both identical camera requests.\n\nCaptured 9 Nov 2026\n\nOpen reference panorama · 2018-07\nCamera and capture details",
+        "103rd Avenue Northeast · looking west\n\nGame screenshot · fixed street camera · estimated height 2.5 m above the modeled road\n\nKnown game issue: this street is modeled below the surrounding buildings. These pictures record the error; a corrected capture is pending.\n\nCaptured 9 Nov 2026\n\nOpen reference panorama · 2018-07\nCamera and capture details"
+      ],
+      "images": [
+        {
+          "width": 640,
+          "height": 400
+        },
+        {
+          "width": 640,
+          "height": 400
+        },
+        {
+          "width": 640,
+          "height": 400
+        }
+      ],
+      "rawRecords": [
+        {
+          "captureId": "103rd-Avenue-Northeast-0-R-right",
+          "recordedRequests": [
+            "103rd-Avenue-Northeast-0-R-right"
+          ],
+          "capturedAt": "2026-11-09T08:16:21.165Z",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "originalScope": "Four original requested Bellevue poses, three unique camera captures. Game pixels only. No source changes, no cropped geometry; reference imagery remains private.",
+          "reference": {
+            "provider": "Google Street View",
+            "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=UuSMK0XGk4RAE9wo8KhOIA&heading=90&pitch=6&fov=90",
+            "date": "2018-07",
+            "altitude": "Not supplied by panorama metadata; source road level ambiguities remain explicitly flagged.",
+            "use": "Visual comparison only. No reference image or extracted building attributes are published."
+          },
+          "camera": {
+            "x": -603.8147540047518,
+            "z": -452.5295040000824,
+            "y": -1.3700486697801608,
+            "heightAboveModeledRoad": 2.5,
+            "heading": 90,
+            "pitch": 6,
+            "fov": 90,
+            "sourceEdge": 454,
+            "levelAmbiguity": null
+          },
+          "conditions": {
+            "quality": "high",
+            "traffic": false,
+            "mirror": false,
+            "fog": "normal",
+            "far": 5000,
+            "seasonOverride": "summer",
+            "appliedSeason": "summer",
+            "renderer": {
+              "width": 640,
+              "height": 400,
+              "pixelRatio": 1
+            }
+          },
+          "staticCamera": true,
+          "controllerExercised": false,
+          "renderer": {
+            "width": 640,
+            "height": 400
+          },
+          "perf": {
+            "triangles": 0,
+            "drawCalls": 0
+          }
+        },
+        {
+          "captureId": "103rd-Avenue-Northeast-0-R-fwd",
+          "recordedRequests": [
+            "103rd-Avenue-Northeast-0-R-fwd",
+            "103rd-Avenue-Northeast-0-L-fwd"
+          ],
+          "capturedAt": "2026-11-09T08:16:22.105Z",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "originalScope": "Four original requested Bellevue poses, three unique camera captures. Game pixels only. No source changes, no cropped geometry; reference imagery remains private.",
+          "reference": {
+            "provider": "Google Street View",
+            "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=UuSMK0XGk4RAE9wo8KhOIA&heading=360&pitch=0&fov=80",
+            "date": "2018-07",
+            "altitude": "Not supplied by panorama metadata; source road level ambiguities remain explicitly flagged.",
+            "use": "Visual comparison only. No reference image or extracted building attributes are published."
+          },
+          "camera": {
+            "x": -603.8147540047518,
+            "z": -452.5295040000824,
+            "y": -1.3700486697801608,
+            "heightAboveModeledRoad": 2.5,
+            "heading": 360,
+            "pitch": 0,
+            "fov": 80,
+            "sourceEdge": 454,
+            "levelAmbiguity": null
+          },
+          "conditions": {
+            "quality": "high",
+            "traffic": false,
+            "mirror": false,
+            "fog": "normal",
+            "far": 5000,
+            "seasonOverride": "summer",
+            "appliedSeason": "summer",
+            "renderer": {
+              "width": 640,
+              "height": 400,
+              "pixelRatio": 1
+            }
+          },
+          "staticCamera": true,
+          "controllerExercised": false,
+          "renderer": {
+            "width": 640,
+            "height": 400
+          },
+          "perf": {
+            "triangles": 0,
+            "drawCalls": 0
+          }
+        },
+        {
+          "captureId": "103rd-Avenue-Northeast-0-L-left",
+          "recordedRequests": [
+            "103rd-Avenue-Northeast-0-L-left"
+          ],
+          "capturedAt": "2026-11-09T08:16:22.805Z",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "originalScope": "Four original requested Bellevue poses, three unique camera captures. Game pixels only. No source changes, no cropped geometry; reference imagery remains private.",
+          "reference": {
+            "provider": "Google Street View",
+            "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=UuSMK0XGk4RAE9wo8KhOIA&heading=270&pitch=6&fov=90",
+            "date": "2018-07",
+            "altitude": "Not supplied by panorama metadata; source road level ambiguities remain explicitly flagged.",
+            "use": "Visual comparison only. No reference image or extracted building attributes are published."
+          },
+          "camera": {
+            "x": -603.8147540047518,
+            "z": -452.5295040000824,
+            "y": -1.3700486697801608,
+            "heightAboveModeledRoad": 2.5,
+            "heading": 270,
+            "pitch": 6,
+            "fov": 90,
+            "sourceEdge": 454,
+            "levelAmbiguity": null
+          },
+          "conditions": {
+            "quality": "high",
+            "traffic": false,
+            "mirror": false,
+            "fog": "normal",
+            "far": 5000,
+            "seasonOverride": "summer",
+            "appliedSeason": "summer",
+            "renderer": {
+              "width": 640,
+              "height": 400,
+              "pixelRatio": 1
+            }
+          },
+          "staticCamera": true,
+          "controllerExercised": false,
+          "renderer": {
+            "width": 640,
+            "height": 400
+          },
+          "perf": {
+            "triangles": 0,
+            "drawCalls": 0
+          }
+        }
+      ],
+      "historicalPagesLoaded": 48
+    },
+    {
+      "width": 390,
+      "documentWidth": 390,
+      "figures": 3,
+      "titles": [
+        "103rd Avenue Northeast · looking east",
+        "103rd Avenue Northeast · looking north",
+        "103rd Avenue Northeast · looking west"
+      ],
+      "captions": [
+        "103rd Avenue Northeast · looking east\n\nGame screenshot · fixed street camera · estimated height 2.5 m above the modeled road\n\nKnown game issue: this street is modeled below the surrounding buildings. These pictures record the error; a corrected capture is pending.\n\nCaptured 9 Nov 2026\n\nOpen reference panorama · 2018-07\nCamera and capture details",
+        "103rd Avenue Northeast · looking north\n\nGame screenshot · fixed street camera · estimated height 2.5 m above the modeled road\n\nKnown game issue: this street is modeled below the surrounding buildings. These pictures record the error; a corrected capture is pending.\n\nThe orange barrier marks the game-map boundary, not a real street closure.\n\nThe same picture serves both identical camera requests.\n\nCaptured 9 Nov 2026\n\nOpen reference panorama · 2018-07\nCamera and capture details",
+        "103rd Avenue Northeast · looking west\n\nGame screenshot · fixed street camera · estimated height 2.5 m above the modeled road\n\nKnown game issue: this street is modeled below the surrounding buildings. These pictures record the error; a corrected capture is pending.\n\nCaptured 9 Nov 2026\n\nOpen reference panorama · 2018-07\nCamera and capture details"
+      ],
+      "images": [
+        {
+          "width": 640,
+          "height": 400
+        },
+        {
+          "width": 640,
+          "height": 400
+        },
+        {
+          "width": 640,
+          "height": 400
+        }
+      ],
+      "rawRecords": [
+        {
+          "captureId": "103rd-Avenue-Northeast-0-R-right",
+          "recordedRequests": [
+            "103rd-Avenue-Northeast-0-R-right"
+          ],
+          "capturedAt": "2026-11-09T08:16:21.165Z",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "originalScope": "Four original requested Bellevue poses, three unique camera captures. Game pixels only. No source changes, no cropped geometry; reference imagery remains private.",
+          "reference": {
+            "provider": "Google Street View",
+            "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=UuSMK0XGk4RAE9wo8KhOIA&heading=90&pitch=6&fov=90",
+            "date": "2018-07",
+            "altitude": "Not supplied by panorama metadata; source road level ambiguities remain explicitly flagged.",
+            "use": "Visual comparison only. No reference image or extracted building attributes are published."
+          },
+          "camera": {
+            "x": -603.8147540047518,
+            "z": -452.5295040000824,
+            "y": -1.3700486697801608,
+            "heightAboveModeledRoad": 2.5,
+            "heading": 90,
+            "pitch": 6,
+            "fov": 90,
+            "sourceEdge": 454,
+            "levelAmbiguity": null
+          },
+          "conditions": {
+            "quality": "high",
+            "traffic": false,
+            "mirror": false,
+            "fog": "normal",
+            "far": 5000,
+            "seasonOverride": "summer",
+            "appliedSeason": "summer",
+            "renderer": {
+              "width": 640,
+              "height": 400,
+              "pixelRatio": 1
+            }
+          },
+          "staticCamera": true,
+          "controllerExercised": false,
+          "renderer": {
+            "width": 640,
+            "height": 400
+          },
+          "perf": {
+            "triangles": 0,
+            "drawCalls": 0
+          }
+        },
+        {
+          "captureId": "103rd-Avenue-Northeast-0-R-fwd",
+          "recordedRequests": [
+            "103rd-Avenue-Northeast-0-R-fwd",
+            "103rd-Avenue-Northeast-0-L-fwd"
+          ],
+          "capturedAt": "2026-11-09T08:16:22.105Z",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "originalScope": "Four original requested Bellevue poses, three unique camera captures. Game pixels only. No source changes, no cropped geometry; reference imagery remains private.",
+          "reference": {
+            "provider": "Google Street View",
+            "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=UuSMK0XGk4RAE9wo8KhOIA&heading=360&pitch=0&fov=80",
+            "date": "2018-07",
+            "altitude": "Not supplied by panorama metadata; source road level ambiguities remain explicitly flagged.",
+            "use": "Visual comparison only. No reference image or extracted building attributes are published."
+          },
+          "camera": {
+            "x": -603.8147540047518,
+            "z": -452.5295040000824,
+            "y": -1.3700486697801608,
+            "heightAboveModeledRoad": 2.5,
+            "heading": 360,
+            "pitch": 0,
+            "fov": 80,
+            "sourceEdge": 454,
+            "levelAmbiguity": null
+          },
+          "conditions": {
+            "quality": "high",
+            "traffic": false,
+            "mirror": false,
+            "fog": "normal",
+            "far": 5000,
+            "seasonOverride": "summer",
+            "appliedSeason": "summer",
+            "renderer": {
+              "width": 640,
+              "height": 400,
+              "pixelRatio": 1
+            }
+          },
+          "staticCamera": true,
+          "controllerExercised": false,
+          "renderer": {
+            "width": 640,
+            "height": 400
+          },
+          "perf": {
+            "triangles": 0,
+            "drawCalls": 0
+          }
+        },
+        {
+          "captureId": "103rd-Avenue-Northeast-0-L-left",
+          "recordedRequests": [
+            "103rd-Avenue-Northeast-0-L-left"
+          ],
+          "capturedAt": "2026-11-09T08:16:22.805Z",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "originalScope": "Four original requested Bellevue poses, three unique camera captures. Game pixels only. No source changes, no cropped geometry; reference imagery remains private.",
+          "reference": {
+            "provider": "Google Street View",
+            "url": "https://www.google.com/maps/@?api=1&map_action=pano&pano=UuSMK0XGk4RAE9wo8KhOIA&heading=270&pitch=6&fov=90",
+            "date": "2018-07",
+            "altitude": "Not supplied by panorama metadata; source road level ambiguities remain explicitly flagged.",
+            "use": "Visual comparison only. No reference image or extracted building attributes are published."
+          },
+          "camera": {
+            "x": -603.8147540047518,
+            "z": -452.5295040000824,
+            "y": -1.3700486697801608,
+            "heightAboveModeledRoad": 2.5,
+            "heading": 270,
+            "pitch": 6,
+            "fov": 90,
+            "sourceEdge": 454,
+            "levelAmbiguity": null
+          },
+          "conditions": {
+            "quality": "high",
+            "traffic": false,
+            "mirror": false,
+            "fog": "normal",
+            "far": 5000,
+            "seasonOverride": "summer",
+            "appliedSeason": "summer",
+            "renderer": {
+              "width": 640,
+              "height": 400,
+              "pixelRatio": 1
+            }
+          },
+          "staticCamera": true,
+          "controllerExercised": false,
+          "renderer": {
+            "width": 640,
+            "height": 400
+          },
+          "perf": {
+            "triangles": 0,
+            "drawCalls": 0
+          }
+        }
+      ],
+      "historicalPagesLoaded": 48
+    }
+  ],
+  "errors": []
+}

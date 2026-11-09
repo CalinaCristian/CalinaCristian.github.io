@@ -1,0 +1,159 @@
+{
+  "generated": "2026-11-08T17:40:57.190Z",
+  "args": {
+    "scenario": "foot,a",
+    "city": "bucharest",
+    "audit": false,
+    "headed": false,
+    "verbose": false,
+    "port": 8149,
+    "width": 640,
+    "height": 360,
+    "traffic": "full",
+    "dt": 0.03333333333333333,
+    "shots": 30,
+    "timeout": 240
+  },
+  "summary": {
+    "dynamic": {
+      "high": 0,
+      "medium": 0,
+      "low": 2,
+      "byType": {
+        "perf-traffic-update": 1,
+        "perf-fps": 1
+      }
+    },
+    "audit": {}
+  },
+  "scenarios": [
+    {
+      "id": "foot",
+      "title": "On foot: get out, walk ~120 m on the sidewalk to an office, walk in, read, walk out, back to the car, drive away",
+      "city": "bucharest",
+      "wallMs": 105799,
+      "simSec": 64.7,
+      "newIssues": 1,
+      "stepMs": {
+        "autopilot": 0.05,
+        "game": 23.93,
+        "checks": 0.99,
+        "steps": 303,
+        "shotsMs": 48459,
+        "yieldMs": 1622,
+        "auditMs": 0
+      },
+      "result": {
+        "stop": "rosetti",
+        "exited": true,
+        "exitDist": 1.5,
+        "shotOut": "shots/173248-bucharest-foot-out.jpg",
+        "walkSec": 27.6,
+        "walked": 119.3,
+        "doorDist": 2.9,
+        "office": true,
+        "leftOnFoot": true,
+        "backIn": true,
+        "drive": {
+          "ok": true,
+          "reason": "arrived",
+          "t": 8.7,
+          "dist": 86,
+          "resets": 0,
+          "remaining": 15
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "a",
+      "title": "Spawn sanity",
+      "city": "bucharest",
+      "wallMs": 69520,
+      "simSec": 37.9,
+      "newIssues": 0,
+      "stepMs": {
+        "autopilot": 0.17,
+        "game": 22.98,
+        "checks": 2.42,
+        "steps": 1137,
+        "shotsMs": 28466,
+        "yieldMs": 487,
+        "auditMs": 43
+      },
+      "result": {
+        "spawn": {
+          "x": -2378,
+          "z": -1263.8,
+          "lat": 44.443045,
+          "lon": 26.059767,
+          "street": "Splaiul Independen\u021bei",
+          "edge": 4418
+        },
+        "resetVisited": [
+          "rosetti"
+        ],
+        "problems": [],
+        "navline": "\u2b05Turn left onto Podul Groz\u0103ve\u0219ti in 60 m",
+        "street": "Splaiul Independen\u021bei",
+        "shot": "shots/173248-bucharest-scenario-a-spawn.jpg",
+        "driveBudget": {
+          "timeout": 83,
+          "driving": 40,
+          "signalCycle": 33,
+          "crossing": 10,
+          "signals": [
+            {
+              "node": 4056,
+              "phases": 3,
+              "seconds": 33
+            }
+          ]
+        },
+        "drive": {
+          "ok": true,
+          "reason": "arrived",
+          "t": 36.8,
+          "dist": 138,
+          "resets": 0,
+          "remaining": 15
+        },
+        "objectsInRoad": 0
+      },
+      "error": null
+    }
+  ],
+  "issues": [
+    {
+      "id": 1,
+      "type": "perf-traffic-update",
+      "severity": "low",
+      "scenario": "foot",
+      "city": "bucharest",
+      "t": 57.5,
+      "msg": "traffic.update averaging 9.8 ms (> 8 ms budget) on this machine",
+      "x": 201.8,
+      "z": -3027.7,
+      "lat": 44.46572,
+      "lon": 26.106127,
+      "street": "Strada General Giuseppe Garibaldi",
+      "edge": 13616,
+      "count": 6,
+      "data": {
+        "updateMs": 9.8,
+        "vehicles": 0
+      },
+      "lastScenario": "a"
+    },
+    {
+      "type": "perf-fps",
+      "severity": "low",
+      "msg": "0 fps (42027 ms/frame, 108 draw calls, 427581 tris) at quality low 640\u00d7360 in software GL \u2014 not representative of real GPUs",
+      "scenario": "end",
+      "city": "bucharest",
+      "count": 1
+    }
+  ],
+  "sourceCommit": "a9f77967c37fdf004ebd154609ec3b2f6cd013e9",
+  "scope": "Mandatory shared-runtime legacy Bucharest foot,a regression, separate from both US district checks."
+}

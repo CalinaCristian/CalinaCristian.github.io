@@ -3,6 +3,32 @@
 Owner role: **orchestrator**.
 
 ## Telemetry (shipped)
+
+Read-only dashboard/event review (2026-11-08): [`handoffs/fidelity/TELEMETRY-REVIEW.md`](../handoffs/fidelity/TELEMETRY-REVIEW.md).
+Existing dashboards are useful for visit funnels and successful loads/FPS; the review proposes interrupted-load recovery, release identity,
+mode-aware performance/resource growth and interaction-outcome diagnostics. The starter retention
+chart is not reliable with memory-only anonymous identities. No PostHog configuration was changed by this review.
+
+## Health observer v2 (staged, release gate pending)
+
+`telemetry-health.js` observes district loads, releases, real render frames, office rendering and fixed UI actions.
+`load_started/completed/failed`, bucketed `load_stages`, `scene_first_frame`, `scene_released`, `continue_result`,
+`render_stall` and UI/office action events provide context missing from the original observer. Performance summaries
+cover rendered modes with a bounded 4,096-value reservoir of frame intervals, actual frame-budget breach counts and
+texture/geometry/program counts. These counters are not total browser RAM/VRAM. Unsupported long-task observation is labelled.
+
+A per-tab sessionStorage breadcrumb expires after 15 minutes and contains fixed place/action IDs, attempt ID and
+load stage only. It can identify an ungracefully interrupted load or first frame on the next boot, not prove an OS crash.
+Normal pagehide is marked; capture/storage respects DNT/GPC and disabled tracking. No persistent visitor identity or replay
+is added. Early exceptions queue for the lazy SDK (bounded at 200 items), avoiding the previous cold-start blind spot.
+
+`tools/telemetry/stamp-release.mjs` fingerprints committed runtime assets and stamps release/source metadata into both HTML
+entry pages. Its self-referential meta lines are excluded from the hash. Run after committing runtime changes and before
+deployment; diagnostics include `telemetry_schema:2`, `release_id` and the source commit. Dashboard definitions and observer
+behavior pass 12 actual-browser checks and eight pure privacy/wrapper tests. Seven release-aware health tables were applied
+to project338182 and read back successfully; their definitions and idempotent sync command are in `tools/telemetry/`.
+They remain empty until a v2 game release is published. Full rollout still requires the final combined release gate.
+
 PostHog Cloud EU, cookieless (`persistence: 'memory'`), lazy, production hosts only, DNT/GPC respected, bots filtered. Landing events: `cv_toggle, cv_pdf_open, social_click, play_cta_click`. Game: funnel (`game_start → world_loaded → stop_visited → office_screen_read → flight_taken → seattle_arrived → finale_reached → game_exit`), feature usage, `perf_summary`, health. Chapter / on-foot / photo / spot events: see below. **Todo**: owner to set Authorized URLs + Error tracking in PostHog.
 
 ## Game events: chapters, on foot, photo, tourist spots (gameplay, 2026-11-07)
@@ -39,3 +65,7 @@ Opt-in "🎮 Play my CV — discover my career interactively" CTA (pill + card f
 - 2026-11-07 04:12 UTC (gameplay, grant this round): events above implemented in `game/src/telemetry-game.js`; verified with a capturing `cvTelemetry` stub in Playwright: `chapter_select {id:'luxoft', source:'menu'}`, `chapter_start {id:'luxoft', n:4, district:'pipera', …}`, `chapter_complete {id:'luxoft', minutes:0.9, …}`, `chapter_start {id:'db', n:5, district:'pipera'}`, `on_foot {action:'enter', district:'floreasca'}`, `spot_enter {id:'fremont-troll', city:'seattle', from:'foot'}`, `spot_leave {id:'fremont-troll', seconds:9}`; no free text or coordinates in any of them. Existing events unchanged.
 - 2026-11-08: `world_loaded.load_ms` now times `game.loadCity` (see the note above). PostHog showed median 8 ms / p90 132 s with the old timer. Verified in the browser with a capturing `cvTelemetry` stub: story start `world_loaded {district:'floreasca', load_ms:3107, first:true}` right after `game_start`; then 4 s on a card + `enterChapter(upb)` → `world_loaded {district:'grozavesti', load_ms:1581, first:false}` (the call took 1612 ms, so the card wait is no longer counted). PostHog dashboards: see the "Game health and performance" dashboard in project 338182; its load-time tile filters on `first` being set, so old events are excluded.
 - 2026-11-08 (gameplay, one mode — Explore deleted): `explore_enter` is gone (a world-map jump is `worldmap_jump`, a free-roam start `free_roam_start`); `explore_exit` is renamed `story_resume` (props `chapter`, `from`). PostHog: old `explore_*` events stay in history; dashboards on them should read `story_resume` from now on.
+
+- 2026-11-08: root verified 12 browser diagnostics checks: real load/build/first-frame pairing, native headlights, mode-isolated frame tails, failed district replacement, Continue retaining fuel0, interrupted-first-frame recovery, blocked storage, DNT/GPC, queued pre-SDK exception and no external test ingestion. New pure checks also prevent `?track=1` from bypassing DNT/GPC. Dashboard metadata now labels historical periodic summaries and exit-only duration accurately; retention is explicitly unavailable with memory-only identities. No persistent identity was added.
+
+- 2026-11-09 root: release stamper accepts optional `--source=<commit>` for curated unsigned master releases. It resolves a real commit and validates every canonical runtime file against that commit before changing HTML/release metadata; default remains HEAD. This avoids telemetry pointing to an unpublished integration ancestor.

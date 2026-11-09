@@ -1,0 +1,81 @@
+{
+  "sourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
+  "helperSha256": "c5d2dc16a6f98e161945f903d819ba9e6564fc12a1b1264e9893aff9f64b28e9",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 10248,
+      "sha256": "2aed7ee24058c6a3f1f6810cf873825bfc502e4e31f98481aab77a4979b61517"
+    },
+    {
+      "file": "admission-check-first10.json",
+      "bytes": 6195,
+      "sha256": "feb8349304dad9d5f1c56d81232919a0c52ca311b6859bc174437db6013b660a"
+    },
+    {
+      "file": "admission-check.json",
+      "bytes": 6325,
+      "sha256": "d5318905ff6ff23aa810108ea97ecec7d92d9d913e05ed2c1ef993420a7426c1"
+    },
+    {
+      "file": "admission-check.log",
+      "bytes": 1876,
+      "sha256": "71d1e2fd12f66a6e914b390b7bd136d67d367c7ccfcf37b4731e782f6a4af3af"
+    },
+    {
+      "file": "admission-check.mjs",
+      "bytes": 8802,
+      "sha256": "9178f95e45cbbcbfc6516e31c4af140bf6a7e8d5febe1cb10e20b6084036065f"
+    },
+    {
+      "file": "causal-summary.json",
+      "bytes": 30304,
+      "sha256": "d84234fce7eb1001baa244c41c643ecb432e3a4ea303145c43efe4b814f33f91"
+    },
+    {
+      "file": "constructor-fixtures.json",
+      "bytes": 9399,
+      "sha256": "3dffa552f0af77bdd49cb99e696e3f59988791d348f9cb34a2abf287d6019134"
+    },
+    {
+      "file": "historical-observer-scope.json",
+      "bytes": 13224,
+      "sha256": "54f070d0fce7a3e22735fccdc7c12c1a3bbe9cb360dd2ec2e3e7e97e08374fe5"
+    },
+    {
+      "file": "main-source-diff.patch",
+      "bytes": 5541,
+      "sha256": "7c388edb1c2545306c615e4fef9a15cf26a31463d6eeb46cc12b1196f1998db8"
+    },
+    {
+      "file": "native-observation-report.json",
+      "bytes": 6430257,
+      "sha256": "e7b59f393afe506115f47db5498f3f1a0769aeec56b47cd5b51550eafb14a3d0"
+    },
+    {
+      "file": "native-observation.log",
+      "bytes": 571,
+      "sha256": "e02e3552815ced9daf81fb2cd3b4e0e458f1ea2c9d00e83bf5ced02c45bb32a6"
+    },
+    {
+      "file": "observe-start.cjs",
+      "bytes": 10284,
+      "sha256": "7137b75bf7ce1de337193c105335324a28361cc4919a3e4f3e05e62ca99518be"
+    },
+    {
+      "file": "original-findings.json",
+      "bytes": 5271,
+      "sha256": "daea7cf0984dc580751f1761e6bdcd61df10609850523d1e7dee6764490f572b"
+    },
+    {
+      "file": "source-comparison.json",
+      "bytes": 6190,
+      "sha256": "9b73df87bd47a548315ac2bf447e7a0053e7caaf78733f33445fe04631d447ce"
+    },
+    {
+      "file": "world-source-diff.patch",
+      "bytes": 8486,
+      "sha256": "fd19ec47821c5a3c6d6802b71321400416591986224e2a1feb1bb7b3601664b7"
+    }
+  ]
+}

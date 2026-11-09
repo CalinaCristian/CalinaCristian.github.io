@@ -1,0 +1,3203 @@
+{
+  "district": "seatac",
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "captureToolSha256": "d56a7ff6c83912ff6765e251d0c31d40ef7597a8697007d36497538e6a55f672",
+  "sourceDatasetSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+  "startedAt": "2026-11-08T23:26:10.401Z",
+  "loaded": {
+    "key": "seattle-seatac",
+    "city": "seattle",
+    "district": "seatac",
+    "ms": 27697,
+    "edges": 2428,
+    "ribbons": 4412
+  },
+  "errors": [],
+  "consoleErrors": [],
+  "captures": [
+    {
+      "id": "chapter-spawn",
+      "image": "images/seatac-chapter-spawn.jpg",
+      "capturedAt": "2026-11-08T23:26:32.035Z",
+      "sha256": "097423bfc371cf9d40db07acab108836baef23f1d3d9355fb8237dfd2ebd5e8a",
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 216,
+        "triangles": 560256
+      },
+      "player": {
+        "x": -1214.6511924328763,
+        "z": 769.8435659719954,
+        "y": 0.24,
+        "heading": -2.363070876892153
+      },
+      "camera": {
+        "x": -1214.121604230387,
+        "y": 1.6,
+        "z": 769.9532762075436,
+        "fov": 72,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive"
+    },
+    {
+      "id": "after-first-150m",
+      "image": "images/seatac-after-first-150m.jpg",
+      "capturedAt": "2026-11-08T23:27:16.054Z",
+      "sha256": "25732468de0f23f220b5c1edae0a23e0ec532819f2e0e29b2b181105349d4a70",
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 214,
+        "triangles": 600039
+      },
+      "player": {
+        "x": -1092.3701403707344,
+        "z": 877.0996451628214,
+        "y": 0.24,
+        "heading": -2.3879467335344398
+      },
+      "camera": {
+        "x": -1091.8434454785956,
+        "y": 1.600874487826426,
+        "z": 877.2224946268732,
+        "fov": 73.58251101143472,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive"
+    },
+    {
+      "id": "after-legal-route-ramp",
+      "image": "images/seatac-after-legal-route-ramp.jpg",
+      "capturedAt": "2026-11-08T23:27:24.656Z",
+      "sha256": "84cae03604f99b163db7b9d9fe927c1e3c48d8e728acf07ec93ee8b026543870",
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 214,
+        "triangles": 600039
+      },
+      "player": {
+        "x": -1091.6504332153957,
+        "z": 877.8665818308567,
+        "y": 0.24,
+        "heading": -2.387955283636106
+      },
+      "camera": {
+        "x": -1091.1237389129615,
+        "y": 1.601666805785297,
+        "z": 877.9894353658809,
+        "fov": 73.57788218621978,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive"
+    },
+    {
+      "id": "departure-deck",
+      "image": "images/seatac-departure-deck.jpg",
+      "capturedAt": "2026-11-08T23:28:09.661Z",
+      "sha256": "568b69a4698c7c4c436ea79ec993346125123717eb11a5ccc615a4c055fbbe1f",
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 212,
+        "triangles": 602694
+      },
+      "player": {
+        "x": -1097.4476032336897,
+        "z": 900.6086200185391,
+        "y": 11.24,
+        "heading": -2.343143065651428
+      },
+      "camera": {
+        "x": -1096.9158398087347,
+        "y": 12.60162613189016,
+        "z": 900.7076589099619,
+        "fov": 73.60021882424476,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive"
+    },
+    {
+      "id": "actual-drone-view",
+      "image": "images/seatac-actual-drone-view.jpg",
+      "capturedAt": "2026-11-08T23:28:34.282Z",
+      "sha256": "1e17e636f349312ead55d2c2241634c693d6b1ee5582d531c2b7f5cf566c91bc",
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 189,
+        "triangles": 515029
+      },
+      "player": {
+        "x": -848.9817975487252,
+        "z": 432.28091985421645,
+        "y": 0.24,
+        "heading": 0.05699373823179981
+      },
+      "camera": {
+        "x": -851.5663727634893,
+        "y": 121.12986818645545,
+        "z": 412.34901905874545,
+        "fov": 70,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "foot"
+    },
+    {
+      "id": "terminal-high-traffic-mirror",
+      "image": "images/seatac-terminal-high-traffic-mirror.jpg",
+      "capturedAt": "2026-11-08T23:29:02.442Z",
+      "sha256": "5cdbcbf5d702a9fbd9db9543ddca4363026761128230fa16b184260d6777df28",
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 209,
+        "triangles": 546692
+      },
+      "player": {
+        "x": -1214.6511924328763,
+        "z": 769.8435659719954,
+        "y": 0.24,
+        "heading": -2.363070876892153
+      },
+      "camera": {
+        "x": -1214.121604230387,
+        "y": 1.6,
+        "z": 769.9532762075436,
+        "fov": 72.00000000000006,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive"
+    },
+    {
+      "id": "expressway-high-traffic-mirror",
+      "image": "images/seatac-expressway-high-traffic-mirror.jpg",
+      "capturedAt": "2026-11-08T23:29:23.845Z",
+      "sha256": "9ef746c48a57bfbf886a972cfca507c5894ef55dfb7e56edf8f86af3506e8f91",
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 254,
+        "triangles": 696026
+      },
+      "player": {
+        "x": -852.6543841599002,
+        "z": 288.82869110160993,
+        "y": 0.24,
+        "heading": 0.020748187299193227
+      },
+      "camera": {
+        "x": -852.9636556035371,
+        "y": 1.6,
+        "z": 288.38501196738025,
+        "fov": 72.00000000000006,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive"
+    },
+    {
+      "id": "airport-approach-high-traffic-mirror",
+      "image": "images/seatac-airport-approach-high-traffic-mirror.jpg",
+      "capturedAt": "2026-11-08T23:29:37.615Z",
+      "sha256": "7502be159d5e883f725e7e3f07041c93b2b88577073c9c13d6dbda52825f95e6",
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 231,
+        "triangles": 545660
+      },
+      "player": {
+        "x": -954.3665576319067,
+        "z": 18.69067055114499,
+        "y": 1.7235756476613202,
+        "heading": 0.7772927976522609
+      },
+      "camera": {
+        "x": -954.8951889344231,
+        "y": 3.083962732834757,
+        "z": 18.581144643282077,
+        "fov": 72.00000000000006,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "drive"
+    },
+    {
+      "id": "full-native-chapter-objective",
+      "image": "images/seatac-full-native-chapter-objective.jpg",
+      "capturedAt": "2026-11-08T23:33:21.126Z",
+      "sha256": "29e87073757021b08fdc02d5d6dad2c0fad6dd12287766379f7ad36f48ddd6f3",
+      "quality": "high",
+      "mirror": true,
+      "traffic": true,
+      "perf": {
+        "drawCalls": 176,
+        "triangles": 406149
+      },
+      "player": {
+        "x": -1153.584670370348,
+        "z": -414.84759307197714,
+        "y": 0.24000000000000002,
+        "heading": -0.00820087478010776
+      },
+      "camera": {
+        "x": -1153.880973549226,
+        "y": 1.5974195874378918,
+        "z": -415.30003820437247,
+        "fov": 78.21020966592003,
+        "far": 5000,
+        "aspect": 1.7777777777777777
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "renderSize": {
+        "width": 960,
+        "height": 540,
+        "pixelRatio": 1
+      },
+      "state": "card"
+    }
+  ],
+  "checks": {
+    "lastCapture": "full-native-chapter-objective",
+    "spawn": {
+      "id": "a",
+      "title": "Spawn sanity",
+      "city": "seattle",
+      "wallMs": 18255,
+      "simSec": 33.8,
+      "newIssues": 81,
+      "stepMs": {
+        "autopilot": 0.12,
+        "game": 15.23,
+        "checks": 1.33,
+        "steps": 1013,
+        "shotsMs": 0,
+        "yieldMs": 229,
+        "auditMs": 1042
+      },
+      "result": {
+        "spawn": {
+          "x": -1198.7,
+          "z": 766.1,
+          "lat": 47.443106,
+          "lon": -122.300923,
+          "street": "Arrivals Drive",
+          "edge": 224
+        },
+        "problems": [
+          "crossover 131 within 6 m"
+        ],
+        "navline": "🏁Arrive at destination in 1.2 mi",
+        "street": "Arrivals Drive",
+        "shot": null,
+        "driveBudget": {
+          "timeout": 40,
+          "driving": 40,
+          "signalCycle": 0,
+          "crossing": 0,
+          "signals": []
+        },
+        "drive": {
+          "ok": true,
+          "reason": "arrived",
+          "t": 32.7,
+          "dist": 154,
+          "resets": 0,
+          "remaining": 15
+        },
+        "objectsInRoad": 79
+      },
+      "error": null
+    },
+    "legal-route-first-900m": {
+      "ok": true,
+      "reason": "arrived",
+      "t": 0.2,
+      "dist": 1,
+      "resets": 0,
+      "remaining": 14
+    },
+    "departures": {
+      "start": {
+        "x": -1255.1987878002565,
+        "z": 731.1216402430093,
+        "y": 11.24,
+        "road": 13,
+        "sourceId": "w37017723",
+        "layer": 2
+      },
+      "sourceLength": 244.86855663411148,
+      "ok": true,
+      "reason": "arrived",
+      "t": 50,
+      "dist": 232,
+      "resets": 0,
+      "remaining": 12
+    },
+    "walk-and-drone": {
+      "exited": true,
+      "walkedM": 18.046762166526115,
+      "walkRemainingM": 1.953237833473891,
+      "droneDeploy": true,
+      "initialDroneCheck": {
+        "ok": false,
+        "reason": "The drone is already up."
+      },
+      "drone": {
+        "active": true,
+        "phase": "fly",
+        "altitudeM": 120.88986818645546,
+        "maxAltitudeM": 121.12986818645545,
+        "home": {
+          "x": -851.475232142827,
+          "z": 413.9464211331354,
+          "y": 0.24,
+          "heading": 0.05699373823180171,
+          "pitch": 0
+        },
+        "position": {
+          "x": -851.5663727634893,
+          "y": 121.12986818645545,
+          "z": 412.34901905874545
+        }
+      }
+    },
+    "return-to-car": {
+      "state": "drive",
+      "backIn": true,
+      "doorDistanceM": 2.018198018962625
+    },
+    "hotspot-terminal": {
+      "trafficHour": 12,
+      "illegalAmbientVehicles": [],
+      "vehicles": 149,
+      "traffic": {
+        "updateMs": 5.49000800485599,
+        "pedObstacles": 14053,
+        "lastMs": 2.600000001490116,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 0,
+        "pedObstacleWorst": null,
+        "guard": 252,
+        "separate": 101,
+        "unstuck": 2,
+        "deadlocks": 1,
+        "deadlockGhosts": 4,
+        "parkingEvents": 3
+      }
+    },
+    "hotspot-expressway": {
+      "trafficHour": 12,
+      "illegalAmbientVehicles": [],
+      "vehicles": 149,
+      "traffic": {
+        "updateMs": 10.252867608845662,
+        "pedObstacles": 14053,
+        "lastMs": 14.399999998509884,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 0,
+        "pedObstacleWorst": null,
+        "guard": 345,
+        "separate": 113,
+        "unstuck": 3,
+        "deadlocks": 1,
+        "deadlockGhosts": 4,
+        "parkingEvents": 3,
+        "revGhost": 1
+      }
+    },
+    "hotspot-airport-approach": {
+      "trafficHour": 12,
+      "illegalAmbientVehicles": [],
+      "vehicles": 149,
+      "traffic": {
+        "updateMs": 5.769411987350049,
+        "pedObstacles": 14053,
+        "lastMs": 3.100000001490116,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 0,
+        "pedObstacleWorst": null,
+        "guard": 532,
+        "separate": 133,
+        "unstuck": 3,
+        "deadlocks": 1,
+        "deadlockGhosts": 4,
+        "parkingEvents": 3,
+        "revGhost": 3
+      }
+    },
+    "full-native-chapter": {
+      "start": {
+        "x": -1214.6511924328763,
+        "z": 769.8435659719954,
+        "y": 0.24
+      },
+      "target": {
+        "x": -1146.4884494855091,
+        "z": -444.52799999975366
+      },
+      "routeLengthM": 1951.5804139570323,
+      "routeHasVirtual": false,
+      "routeSourceLegs": [
+        {
+          "sourceId": "w124272605",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w124272605",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w1119615395",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w1119615395",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w1119615395",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w428003811",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w428003811",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w428003811",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w428003811",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w428003811",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6329486",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6329486",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w952961192",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w369422790",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w369422790",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w369422790",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w369422790",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w369422790",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w369422790",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w369422790",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928842",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928842",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928842",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928842",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928842",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928842",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928842",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928842",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928842",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928842",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928843",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928843",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928843",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928831",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928831",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w31928831",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w256231543",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w256231543",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w256231543",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w68522640",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w68522640",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w68522640",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w68522640",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w583844172",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w1165458667",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w1165458667",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w1165458667",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w23609851",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w23609851",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w23609851",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w23609851",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w23609851",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w23609851",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w23609851",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w23609851",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w23609851",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w23609851",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w23609851",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w23609851",
+          "layer": 1,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        },
+        {
+          "sourceId": "w6429441",
+          "layer": 0,
+          "dir": 1,
+          "drivable": true,
+          "publicDrive": true,
+          "throughAccess": true,
+          "virtual": false
+        }
+      ],
+      "placementsDuringTraversal": [],
+      "continuousWithoutPlacement": true,
+      "result": {
+        "ok": false,
+        "reason": "timeout",
+        "t": 150.2,
+        "dist": 1921,
+        "resets": 0,
+        "remaining": 30
+      },
+      "chapterDone": true,
+      "state": "card",
+      "objectiveDistanceM": 30.516928191494433,
+      "completionEvents": [
+        {
+          "x": -1153.584670370348,
+          "z": -414.84759307197714,
+          "y": 0.24000000000000002,
+          "objectiveDistanceM": 30.516928191494433,
+          "chapter": "seatac"
+        }
+      ],
+      "completedAtActualObjective": false,
+      "continuousCompletion": false,
+      "note": "Native enterChapter resets to its legal source start; continuous control-driven full route, all placements/recoveries during traversal are logged; completion is not suppressed. DriveTo can report an interrupted arrival when actual native chapter completion opens the card before its tighter 16m target."
+    }
+  },
+  "endedAt": "2026-11-08T23:33:21.173Z",
+  "issues": [
+    {
+      "id": 1,
+      "type": "bad-placement",
+      "severity": "medium",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 0.1,
+      "msg": "spawn: crossover 131 within 6 m",
+      "x": -1198.7,
+      "z": 766.1,
+      "lat": 47.443106,
+      "lon": -122.300923,
+      "street": "Arrivals Drive",
+      "edge": 224,
+      "count": 1,
+      "data": {}
+    },
+    {
+      "id": 2,
+      "type": "perf-traffic-update",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 2,
+      "msg": "traffic.update averaging 10.9 ms (> 8 ms budget) on this machine",
+      "x": -1198,
+      "z": 769.2,
+      "lat": 47.443078,
+      "lon": -122.300915,
+      "street": "Arrivals Drive",
+      "edge": 224,
+      "count": 35,
+      "data": {
+        "updateMs": 10.9,
+        "vehicles": 149
+      },
+      "lastScenario": "full-native-seatac-chapter"
+    },
+    {
+      "id": 3,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 18 m",
+      "x": -1189.8,
+      "z": 718.1,
+      "lat": 47.443538,
+      "lon": -122.300805,
+      "street": "(service)",
+      "edge": 395,
+      "count": 1,
+      "data": {
+        "edge": 395,
+        "kind": "landmark",
+        "depth": 18,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 4,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1208.2,
+      "z": 718.3,
+      "lat": 47.443536,
+      "lon": -122.30105,
+      "street": "(service)",
+      "edge": 396,
+      "count": 1,
+      "data": {
+        "edge": 396,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 5,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1210.1,
+      "z": 718.9,
+      "lat": 47.443531,
+      "lon": -122.301075,
+      "street": "(service)",
+      "edge": 397,
+      "count": 1,
+      "data": {
+        "edge": 397,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 6,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1211.7,
+      "z": 719.9,
+      "lat": 47.443523,
+      "lon": -122.301096,
+      "street": "(service)",
+      "edge": 398,
+      "count": 1,
+      "data": {
+        "edge": 398,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 7,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1212.8,
+      "z": 721.1,
+      "lat": 47.443512,
+      "lon": -122.301111,
+      "street": "(service)",
+      "edge": 399,
+      "count": 1,
+      "data": {
+        "edge": 399,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 8,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1212.4,
+      "z": 726.1,
+      "lat": 47.443467,
+      "lon": -122.301105,
+      "street": "(service)",
+      "edge": 403,
+      "count": 1,
+      "data": {
+        "edge": 403,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 9,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 12 m",
+      "x": -1209.9,
+      "z": 729.1,
+      "lat": 47.443439,
+      "lon": -122.301072,
+      "street": "(service)",
+      "edge": 404,
+      "count": 1,
+      "data": {
+        "edge": 404,
+        "kind": "landmark",
+        "depth": 12,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 10,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 18 m",
+      "x": -1200.3,
+      "z": 738.4,
+      "lat": 47.443356,
+      "lon": -122.300945,
+      "street": "(service)",
+      "edge": 405,
+      "count": 1,
+      "data": {
+        "edge": 405,
+        "kind": "landmark",
+        "depth": 18,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 11,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 120 m",
+      "x": -1069.5,
+      "z": 717.3,
+      "lat": 47.443545,
+      "lon": -122.299208,
+      "street": "(service)",
+      "edge": 394,
+      "count": 1,
+      "data": {
+        "edge": 394,
+        "kind": "landmark",
+        "depth": 120,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 12,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 114 m",
+      "x": -1181.7,
+      "z": 738.6,
+      "lat": 47.443354,
+      "lon": -122.300698,
+      "street": "(service)",
+      "edge": 406,
+      "count": 1,
+      "data": {
+        "edge": 406,
+        "kind": "landmark",
+        "depth": 114,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 13,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 102 m",
+      "x": -1066.5,
+      "z": 753.9,
+      "lat": 47.443216,
+      "lon": -122.299167,
+      "street": "(service)",
+      "edge": 665,
+      "count": 1,
+      "data": {
+        "edge": 665,
+        "kind": "landmark",
+        "depth": 102,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 14,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 6 m",
+      "x": -1169.7,
+      "z": 753.6,
+      "lat": 47.443219,
+      "lon": -122.300538,
+      "street": "(service)",
+      "edge": 666,
+      "count": 1,
+      "data": {
+        "edge": 666,
+        "kind": "landmark",
+        "depth": 6,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 15,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1176.5,
+      "z": 753.7,
+      "lat": 47.443218,
+      "lon": -122.300629,
+      "street": "(service)",
+      "edge": 667,
+      "count": 1,
+      "data": {
+        "edge": 667,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 16,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1178.1,
+      "z": 754,
+      "lat": 47.443215,
+      "lon": -122.30065,
+      "street": "(service)",
+      "edge": 668,
+      "count": 1,
+      "data": {
+        "edge": 668,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 17,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1179.7,
+      "z": 754.9,
+      "lat": 47.443207,
+      "lon": -122.300672,
+      "street": "(service)",
+      "edge": 669,
+      "count": 1,
+      "data": {
+        "edge": 669,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 18,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1180.6,
+      "z": 756.4,
+      "lat": 47.443193,
+      "lon": -122.300683,
+      "street": "(service)",
+      "edge": 670,
+      "count": 1,
+      "data": {
+        "edge": 670,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 19,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1180.5,
+      "z": 758.1,
+      "lat": 47.443178,
+      "lon": -122.300682,
+      "street": "(service)",
+      "edge": 671,
+      "count": 1,
+      "data": {
+        "edge": 671,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 20,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 18 m",
+      "x": -1179.5,
+      "z": 759.8,
+      "lat": 47.443163,
+      "lon": -122.300668,
+      "street": "(service)",
+      "edge": 672,
+      "count": 1,
+      "data": {
+        "edge": 672,
+        "kind": "landmark",
+        "depth": 18,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 21,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 15 m",
+      "x": -1162.2,
+      "z": 780.3,
+      "lat": 47.442978,
+      "lon": -122.300439,
+      "street": "(service)",
+      "edge": 1105,
+      "count": 1,
+      "data": {
+        "edge": 1105,
+        "kind": "landmark",
+        "depth": 15,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 22,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 12 m",
+      "x": -1159.4,
+      "z": 776.7,
+      "lat": 47.443011,
+      "lon": -122.300402,
+      "street": "(service)",
+      "edge": 1114,
+      "count": 1,
+      "data": {
+        "edge": 1114,
+        "kind": "landmark",
+        "depth": 12,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 23,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 2 m",
+      "x": -1187.2,
+      "z": 814.3,
+      "lat": 47.442673,
+      "lon": -122.30077,
+      "street": "Departures Drive",
+      "edge": 95,
+      "count": 1,
+      "data": {
+        "edge": 95,
+        "kind": "landmark",
+        "depth": 2,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 24,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 3 m",
+      "x": -1171.1,
+      "z": 830.7,
+      "lat": 47.442525,
+      "lon": -122.300558,
+      "street": "Departures Drive",
+      "edge": 96,
+      "count": 1,
+      "data": {
+        "edge": 96,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 25,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 1 m",
+      "x": -1195.1,
+      "z": 806.2,
+      "lat": 47.442745,
+      "lon": -122.300875,
+      "street": "Departures Drive",
+      "edge": 2348,
+      "count": 1,
+      "data": {
+        "edge": 2348,
+        "kind": "landmark",
+        "depth": 1,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 26,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 2 m",
+      "x": -1192.2,
+      "z": 809.2,
+      "lat": 47.442719,
+      "lon": -122.300837,
+      "street": "Departures Drive",
+      "edge": 2349,
+      "count": 1,
+      "data": {
+        "edge": 2349,
+        "kind": "landmark",
+        "depth": 2,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 27,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 2 m",
+      "x": -1181.8,
+      "z": 819.8,
+      "lat": 47.442623,
+      "lon": -122.300699,
+      "street": "Departures Drive",
+      "edge": 2350,
+      "count": 1,
+      "data": {
+        "edge": 2350,
+        "kind": "landmark",
+        "depth": 2,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 28,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 2 m",
+      "x": -1176.5,
+      "z": 825.2,
+      "lat": 47.442574,
+      "lon": -122.300628,
+      "street": "Departures Drive",
+      "edge": 2351,
+      "count": 1,
+      "data": {
+        "edge": 2351,
+        "kind": "landmark",
+        "depth": 2,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 29,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 3 m",
+      "x": -1165.3,
+      "z": 836.6,
+      "lat": 47.442472,
+      "lon": -122.30048,
+      "street": "Departures Drive",
+      "edge": 2352,
+      "count": 1,
+      "data": {
+        "edge": 2352,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 30,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 3 m",
+      "x": -1159.5,
+      "z": 842.6,
+      "lat": 47.442418,
+      "lon": -122.300403,
+      "street": "Departures Drive",
+      "edge": 2353,
+      "count": 1,
+      "data": {
+        "edge": 2353,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 31,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 3 m",
+      "x": -1153.6,
+      "z": 848.6,
+      "lat": 47.442364,
+      "lon": -122.300325,
+      "street": "Departures Drive",
+      "edge": 2354,
+      "count": 1,
+      "data": {
+        "edge": 2354,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 32,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 18 m",
+      "x": -1188,
+      "z": 700.3,
+      "lat": 47.443699,
+      "lon": -122.300781,
+      "street": "(service)",
+      "edge": 721,
+      "count": 1,
+      "data": {
+        "edge": 721,
+        "kind": "landmark",
+        "depth": 18,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 33,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 102 m",
+      "x": -1033,
+      "z": 789.7,
+      "lat": 47.442894,
+      "lon": -122.298722,
+      "street": "(service)",
+      "edge": 449,
+      "count": 1,
+      "data": {
+        "edge": 449,
+        "kind": "landmark",
+        "depth": 102,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 34,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 12 m",
+      "x": -1134.6,
+      "z": 790.2,
+      "lat": 47.442889,
+      "lon": -122.300072,
+      "street": "(service)",
+      "edge": 450,
+      "count": 1,
+      "data": {
+        "edge": 450,
+        "kind": "landmark",
+        "depth": 12,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 35,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 21 m",
+      "x": -1146.5,
+      "z": 795.3,
+      "lat": 47.442844,
+      "lon": -122.30023,
+      "street": "(service)",
+      "edge": 451,
+      "count": 1,
+      "data": {
+        "edge": 451,
+        "kind": "landmark",
+        "depth": 21,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 36,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 30 m",
+      "x": -1147,
+      "z": 776.5,
+      "lat": 47.443013,
+      "lon": -122.300237,
+      "street": "(service)",
+      "edge": 1115,
+      "count": 1,
+      "data": {
+        "edge": 1115,
+        "kind": "landmark",
+        "depth": 30,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 37,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 117 m",
+      "x": -992.9,
+      "z": 828,
+      "lat": 47.442549,
+      "lon": -122.29819,
+      "street": "(service)",
+      "edge": 452,
+      "count": 1,
+      "data": {
+        "edge": 452,
+        "kind": "landmark",
+        "depth": 117,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 38,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 21 m",
+      "x": -1109.1,
+      "z": 831.9,
+      "lat": 47.442514,
+      "lon": -122.299733,
+      "street": "(service)",
+      "edge": 453,
+      "count": 1,
+      "data": {
+        "edge": 453,
+        "kind": "landmark",
+        "depth": 21,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 39,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 15 m",
+      "x": -1125.3,
+      "z": 815.9,
+      "lat": 47.442658,
+      "lon": -122.299948,
+      "street": "(service)",
+      "edge": 1106,
+      "count": 1,
+      "data": {
+        "edge": 1106,
+        "kind": "landmark",
+        "depth": 15,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 40,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 114 m",
+      "x": -1122.5,
+      "z": 812.3,
+      "lat": 47.442691,
+      "lon": -122.299911,
+      "street": "(service)",
+      "edge": 1113,
+      "count": 1,
+      "data": {
+        "edge": 1113,
+        "kind": "landmark",
+        "depth": 114,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 41,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 3 m",
+      "x": -1147.8,
+      "z": 854.5,
+      "lat": 47.442311,
+      "lon": -122.300247,
+      "street": "Departures Drive",
+      "edge": 97,
+      "count": 1,
+      "data": {
+        "edge": 97,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 42,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 3 m",
+      "x": -1141.8,
+      "z": 860.6,
+      "lat": 47.442256,
+      "lon": -122.300168,
+      "street": "Departures Drive",
+      "edge": 2355,
+      "count": 1,
+      "data": {
+        "edge": 2355,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 43,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 3 m",
+      "x": -1135.9,
+      "z": 866.7,
+      "lat": 47.442201,
+      "lon": -122.300089,
+      "street": "Departures Drive",
+      "edge": 2356,
+      "count": 1,
+      "data": {
+        "edge": 2356,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 44,
+      "type": "object-under-elevated-road",
+      "severity": "low",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark stands under the deck of Departures Drive (deck y 11 m; pokes through it if taller) by 1 m",
+      "x": -1129.9,
+      "z": 872.8,
+      "lat": 47.442146,
+      "lon": -122.30001,
+      "street": "Departures Drive",
+      "edge": 2357,
+      "count": 1,
+      "data": {
+        "edge": 2357,
+        "kind": "landmark",
+        "depth": 1,
+        "deckY": 11
+      }
+    },
+    {
+      "id": 45,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 12 m",
+      "x": -1066.9,
+      "z": 722.7,
+      "lat": 47.443497,
+      "lon": -122.299172,
+      "street": "(service)",
+      "edge": 414,
+      "count": 1,
+      "data": {
+        "edge": 414,
+        "kind": "landmark",
+        "depth": 12,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 46,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1056.9,
+      "z": 734.1,
+      "lat": 47.443394,
+      "lon": -122.29904,
+      "street": "(service)",
+      "edge": 460,
+      "count": 1,
+      "data": {
+        "edge": 460,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": -0.1
+      }
+    },
+    {
+      "id": 47,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1054.6,
+      "z": 736.8,
+      "lat": 47.44337,
+      "lon": -122.299009,
+      "street": "(service)",
+      "edge": 461,
+      "count": 1,
+      "data": {
+        "edge": 461,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 48,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1051.8,
+      "z": 738.4,
+      "lat": 47.443356,
+      "lon": -122.298973,
+      "street": "(service)",
+      "edge": 462,
+      "count": 1,
+      "data": {
+        "edge": 462,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 49,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 15 m",
+      "x": -1047.1,
+      "z": 717.4,
+      "lat": 47.443544,
+      "lon": -122.29891,
+      "street": "(service)",
+      "edge": 476,
+      "count": 1,
+      "data": {
+        "edge": 476,
+        "kind": "landmark",
+        "depth": 15,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 50,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 6 m",
+      "x": -1066.9,
+      "z": 742.4,
+      "lat": 47.443319,
+      "lon": -122.299173,
+      "street": "(service)",
+      "edge": 1539,
+      "count": 1,
+      "data": {
+        "edge": 1539,
+        "kind": "landmark",
+        "depth": 6,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 51,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1066.7,
+      "z": 749,
+      "lat": 47.44326,
+      "lon": -122.299171,
+      "street": "(service)",
+      "edge": 1540,
+      "count": 1,
+      "data": {
+        "edge": 1540,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 52,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1065.3,
+      "z": 754.2,
+      "lat": 47.443214,
+      "lon": -122.299152,
+      "street": "(service)",
+      "edge": 665,
+      "count": 1,
+      "data": {
+        "edge": 1541,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 53,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 9 m",
+      "x": -1059.9,
+      "z": 759.2,
+      "lat": 47.443168,
+      "lon": -122.29908,
+      "street": "(service)",
+      "edge": 1542,
+      "count": 1,
+      "data": {
+        "edge": 1542,
+        "kind": "landmark",
+        "depth": 9,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 54,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 6 m",
+      "x": -1053.8,
+      "z": 764.9,
+      "lat": 47.443117,
+      "lon": -122.298998,
+      "street": "(service)",
+      "edge": 1543,
+      "count": 1,
+      "data": {
+        "edge": 1543,
+        "kind": "landmark",
+        "depth": 6,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 55,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 117 m",
+      "x": -1092,
+      "z": 847.4,
+      "lat": 47.442375,
+      "lon": -122.299506,
+      "street": "(service)",
+      "edge": 1112,
+      "count": 1,
+      "data": {
+        "edge": 1112,
+        "kind": "landmark",
+        "depth": 117,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 56,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 120 m",
+      "x": -956.6,
+      "z": 864.8,
+      "lat": 47.442218,
+      "lon": -122.297708,
+      "street": "(service)",
+      "edge": 454,
+      "count": 1,
+      "data": {
+        "edge": 454,
+        "kind": "landmark",
+        "depth": 120,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 57,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 18 m",
+      "x": -1054.1,
+      "z": 889.4,
+      "lat": 47.441997,
+      "lon": -122.299003,
+      "street": "(service)",
+      "edge": 1107,
+      "count": 1,
+      "data": {
+        "edge": 1107,
+        "kind": "landmark",
+        "depth": 18,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 58,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of 3rd Floor TNC Pickup Road by 24 m",
+      "x": -1076.1,
+      "z": 865.8,
+      "lat": 47.442209,
+      "lon": -122.299295,
+      "street": "3rd Floor TNC Pickup Road",
+      "edge": 1110,
+      "count": 1,
+      "data": {
+        "edge": 1110,
+        "kind": "landmark",
+        "depth": 24,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 59,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 114 m",
+      "x": -1051.5,
+      "z": 885.9,
+      "lat": 47.442029,
+      "lon": -122.298968,
+      "street": "(service)",
+      "edge": 1111,
+      "count": 1,
+      "data": {
+        "edge": 1111,
+        "kind": "landmark",
+        "depth": 114,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 60,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1025,
+      "z": 792.1,
+      "lat": 47.442873,
+      "lon": -122.298616,
+      "street": "(service)",
+      "edge": 437,
+      "count": 1,
+      "data": {
+        "edge": 437,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 61,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 12 m",
+      "x": -1023.4,
+      "z": 795,
+      "lat": 47.442846,
+      "lon": -122.298595,
+      "street": "(service)",
+      "edge": 438,
+      "count": 1,
+      "data": {
+        "edge": 438,
+        "kind": "landmark",
+        "depth": 12,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 62,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1030.7,
+      "z": 789.1,
+      "lat": 47.442899,
+      "lon": -122.298691,
+      "street": "(service)",
+      "edge": 448,
+      "count": 1,
+      "data": {
+        "edge": 448,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 63,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1012.2,
+      "z": 792.7,
+      "lat": 47.442867,
+      "lon": -122.298446,
+      "street": "(service)",
+      "edge": 678,
+      "count": 1,
+      "data": {
+        "edge": 678,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 64,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1010,
+      "z": 793.9,
+      "lat": 47.442856,
+      "lon": -122.298416,
+      "street": "(service)",
+      "edge": 679,
+      "count": 1,
+      "data": {
+        "edge": 679,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 65,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1006.6,
+      "z": 794.7,
+      "lat": 47.442849,
+      "lon": -122.298371,
+      "street": "(service)",
+      "edge": 680,
+      "count": 1,
+      "data": {
+        "edge": 680,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 66,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1003.1,
+      "z": 794.3,
+      "lat": 47.442852,
+      "lon": -122.298325,
+      "street": "(service)",
+      "edge": 681,
+      "count": 1,
+      "data": {
+        "edge": 681,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 67,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -999.9,
+      "z": 792.9,
+      "lat": 47.442865,
+      "lon": -122.298283,
+      "street": "(service)",
+      "edge": 682,
+      "count": 1,
+      "data": {
+        "edge": 682,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 68,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -999.4,
+      "z": 775,
+      "lat": 47.443026,
+      "lon": -122.298276,
+      "street": "(service)",
+      "edge": 1117,
+      "count": 1,
+      "data": {
+        "edge": 688,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 69,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1002.7,
+      "z": 773.4,
+      "lat": 47.443041,
+      "lon": -122.29832,
+      "street": "(service)",
+      "edge": 1117,
+      "count": 1,
+      "data": {
+        "edge": 689,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 70,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1006.4,
+      "z": 772.9,
+      "lat": 47.443045,
+      "lon": -122.298369,
+      "street": "(service)",
+      "edge": 690,
+      "count": 1,
+      "data": {
+        "edge": 690,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 71,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1010,
+      "z": 773.7,
+      "lat": 47.443038,
+      "lon": -122.298417,
+      "street": "(service)",
+      "edge": 691,
+      "count": 1,
+      "data": {
+        "edge": 691,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 72,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1013.2,
+      "z": 775.7,
+      "lat": 47.44302,
+      "lon": -122.298459,
+      "street": "(service)",
+      "edge": 692,
+      "count": 1,
+      "data": {
+        "edge": 692,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 73,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 12 m",
+      "x": -1015.5,
+      "z": 778.2,
+      "lat": 47.442997,
+      "lon": -122.298491,
+      "street": "(service)",
+      "edge": 693,
+      "count": 1,
+      "data": {
+        "edge": 693,
+        "kind": "landmark",
+        "depth": 12,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 74,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1023.8,
+      "z": 788.7,
+      "lat": 47.442903,
+      "lon": -122.2986,
+      "street": "(service)",
+      "edge": 694,
+      "count": 1,
+      "data": {
+        "edge": 694,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 75,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 6 m",
+      "x": -1033.5,
+      "z": 785.1,
+      "lat": 47.442936,
+      "lon": -122.29873,
+      "street": "(service)",
+      "edge": 1544,
+      "count": 1,
+      "data": {
+        "edge": 1544,
+        "kind": "landmark",
+        "depth": 6,
+        "deckY": -0.1
+      }
+    },
+    {
+      "id": 76,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 3 m",
+      "x": -1031,
+      "z": 788,
+      "lat": 47.44291,
+      "lon": -122.298696,
+      "street": "(service)",
+      "edge": 1545,
+      "count": 1,
+      "data": {
+        "edge": 1545,
+        "kind": "landmark",
+        "depth": 3,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 77,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 6 m",
+      "x": -1014.3,
+      "z": 804.6,
+      "lat": 47.44276,
+      "lon": -122.298474,
+      "street": "(service)",
+      "edge": 439,
+      "count": 1,
+      "data": {
+        "edge": 439,
+        "kind": "landmark",
+        "depth": 6,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 78,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 18 m",
+      "x": -1004,
+      "z": 815.3,
+      "lat": 47.442663,
+      "lon": -122.298338,
+      "street": "(service)",
+      "edge": 440,
+      "count": 1,
+      "data": {
+        "edge": 440,
+        "kind": "landmark",
+        "depth": 18,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 79,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 111 m",
+      "x": -924.9,
+      "z": 902.3,
+      "lat": 47.441881,
+      "lon": -122.297286,
+      "street": "(service)",
+      "edge": 455,
+      "count": 1,
+      "data": {
+        "edge": 455,
+        "kind": "landmark",
+        "depth": 111,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 80,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 18 m",
+      "x": -1035.3,
+      "z": 907.3,
+      "lat": 47.441836,
+      "lon": -122.298753,
+      "street": "(service)",
+      "edge": 456,
+      "count": 1,
+      "data": {
+        "edge": 456,
+        "kind": "landmark",
+        "depth": 18,
+        "deckY": 0
+      }
+    },
+    {
+      "id": 81,
+      "type": "object-in-road",
+      "severity": "high",
+      "scenario": "a",
+      "city": "seattle",
+      "t": 33.8,
+      "msg": "landmark intersects the carriageway of (service) by 102 m",
+      "x": -1021.2,
+      "z": 920.4,
+      "lat": 47.441718,
+      "lon": -122.298566,
+      "street": "(service)",
+      "edge": 457,
+      "count": 1,
+      "data": {
+        "edge": 457,
+        "kind": "landmark",
+        "depth": 102,
+        "deckY": 0
+      }
+    }
+  ],
+  "budgets": {
+    "maxTriangles": 696026,
+    "maxDrawCalls": 254,
+    "limitTriangles": 1500000,
+    "limitDrawCalls": 400,
+    "note": "Actual normal camera high-quality renderer including mirror and moving full traffic; software render time is not GPU frame-time evidence."
+  }
+}

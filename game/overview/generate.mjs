@@ -7,6 +7,63 @@ import { createHash } from 'node:crypto';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const read = p => readFileSync(resolve(root, p), 'utf8');
 const { evidenceAsset, evidenceReport } = await import('data:text/javascript;base64,' + Buffer.from(read('game/overview/evidence-paths.js')).toString('base64'));
+const visitorCounts = {spotVisitorGalleries:0,spotVisitorCaptures:0,spotVisitorRetainedCaptures:0,spotVisitorImages:0};
+const visitorReports = new Set();
+function visitorGallerySummary(record, id, recordPath) {
+    if (!Object.hasOwn(record, 'visitorGallery')) return null;
+    const gallery = record.visitorGallery;
+    const fail = message => { throw new Error(`Visitor gallery ${message} in ${recordPath}`); };
+    if (!gallery || typeof gallery !== 'object' || Array.isArray(gallery)) fail('must be an object');
+    if (!/^[a-f0-9]{40}$/.test(gallery.sourceCommit || '')) fail('source is missing or invalid');
+    if (!Array.isArray(gallery.captures) || !gallery.captures.length) fail('requires primary captures');
+    if (gallery.retainedIllustrations !== undefined && !Array.isArray(gallery.retainedIllustrations)) fail('retainedIllustrations must be an array');
+    if (gallery.reports !== undefined && !Array.isArray(gallery.reports)) fail('reports must be an array');
+    const captures = [...gallery.captures, ...(gallery.retainedIllustrations || [])], images = new Set(), sources = new Set();
+    for (const capture of captures) {
+        if (!capture || !evidenceAsset(capture.image, {kind:'spot',id})) fail('has an unsafe/missing image path');
+        if (images.has(capture.image)) fail(`repeats image ${capture.image}`);
+        const file = resolve(root, 'game/overview', capture.image);
+        if (!existsSync(file)) fail(`image is missing: ${capture.image}`);
+        if (createHash('sha256').update(readFileSync(file)).digest('hex') !== capture.sha256) fail(`image hash mismatch: ${capture.image}`);
+        if (!/^[a-f0-9]{40}$/.test(capture.sourceCommit || '')) fail(`capture source is missing or invalid: ${capture.image}`);
+        if (typeof capture.capturedAt !== 'string' || !Number.isFinite(Date.parse(capture.capturedAt))) fail(`capture date is missing or invalid: ${capture.image}`);
+        images.add(capture.image); sources.add(capture.sourceCommit);
+    }
+    const reports = [...(gallery.reports || [])];
+    if (gallery.report !== undefined) reports.push({report:gallery.report,sha256:gallery.reportSha256});
+    const reportPaths = new Set();
+    for (const proof of reports) {
+        if (!proof || !evidenceReport(proof.report)) fail('has an unsafe/missing report path');
+        const file = resolve(root, 'game/overview', proof.report);
+        if (!existsSync(file)) fail(`report is missing: ${proof.report}`);
+        const bytes = readFileSync(file);
+        if (createHash('sha256').update(bytes).digest('hex') !== proof.sha256) fail(`report hash mismatch: ${proof.report}`);
+        try { JSON.parse(bytes.toString('utf8')); } catch { fail(`report is not JSON: ${proof.report}`); }
+        reportPaths.add(proof.report);
+    }
+    // Summarize only the additive gallery. Never replace the validation record's
+    // original sourceCommit, captureSourceCommits, captureRange or collections.
+    const ordered = captures.map(capture => capture.capturedAt).sort((a,b) => Date.parse(a)-Date.parse(b));
+    visitorCounts.spotVisitorGalleries++;
+    visitorCounts.spotVisitorCaptures += gallery.captures.length;
+    visitorCounts.spotVisitorRetainedCaptures += (gallery.retainedIllustrations || []).length;
+    visitorCounts.spotVisitorImages += images.size;
+    for (const report of reportPaths) visitorReports.add(report);
+    return {sourceCommit:gallery.sourceCommit,captureCount:gallery.captures.length,retainedCaptureCount:(gallery.retainedIllustrations || []).length,reportCount:reportPaths.size,captureSourceCommits:[...sources].sort(),captureRange:[ordered[0],ordered.at(-1)]};
+}
+const visitorTotals = () => ({...visitorCounts,spotVisitorReports:visitorReports.size});
+// Read-only validation is useful before the orchestrator adopts this generator;
+// it neither requires the game runtime nor writes inventory.json.
+if (process.argv.includes('--check-visitor-galleries')) {
+    const directory = 'game/overview/evidence/spots';
+    const checked = readdirSync(resolve(root,directory)).filter(name => name.endsWith('.json')).map(name => {
+        const recordPath = `${directory}/${name}`, record = JSON.parse(read(recordPath));
+        if (name !== `${record.id}.json`) throw new Error(`Destination evidence identity: ${recordPath}`);
+        return {id:record.id,visitorGallery:visitorGallerySummary(record,record.id,recordPath)};
+    });
+    process.stdout.write(JSON.stringify({counts:visitorTotals(),spots:checked},null,2)+'\n');
+    process.exit(0);
+}
 const sourceSha = process.argv.find(x => x.startsWith('--source='))?.slice(9) || execFileSync('git', ['rev-parse','HEAD'], {cwd:root, encoding:'utf8'}).trim();
 const citySource = read('game/src/cities.js');
 const { CITIES, CHAPTERS } = await import('data:text/javascript;base64,' + Buffer.from(citySource).toString('base64'));
@@ -60,6 +117,8 @@ for (const spot of spots) {
         const explicitlyUnknown = proof.sourceCommit === null && proof.passed === null && proof.provenance === 'historical-source-unrecorded';
         if (!explicitlyUnknown && !/^[a-f0-9]{40}$/.test(proof.sourceCommit || '')) throw new Error(`Missing native proof source in ${recordPath}`);
     }
+    const visitorGallery = visitorGallerySummary(record,spot.id,recordPath);
+    if (visitorGallery) spot.visitorGallery = visitorGallery;
     spot.evidence = recordPath;
 }
 const districts = Object.entries(CITIES).flatMap(([city,c])=>Object.entries(c.districts).map(([id,d])=>({id,city,name:d.name,label:d.label,landmarks:d.landmarks,scenery:d.scenery||[],chapters:CHAPTERS.filter(x=>x.city===city && x.district===id).map(x=>({id:x.id,title:x.title,year:x.year})),data:`game/data/${city}-${id}.json`})));
@@ -72,6 +131,6 @@ for (const source of sources) {
     if(createHash('sha256').update(committed).digest('hex') !== source.sha256) throw new Error(`Source ${source.path} differs from ${sourceSha}. Commit game/docs changes before pinning provenance.`);
 }
 const comparisonLocations = JSON.parse(read('game/overview/comparison-data/catalog.json')).locations.map(place=>place.id);
-const data = {comparisonLocations,sourceSha,reviewedOn:'2026-11-09',repository:'https://github.com/CalinaCristian/CalinaCristian.github.io',counts:{districts:districts.length,chapters:CHAPTERS.length,landmarks:landmarks.length,landmarkBuilders:new Set(landmarks.map(x=>x.builder)).size,landmarkEvidence:landmarks.filter(lm=>lm.evidence).length,spots:spots.length,spotEvidence:spots.filter(s=>s.evidence).length,scenes:new Set(spots.map(s=>s.scene)).size,historicalReady:ready.length,menuAvailable:MENU_AVAILABLE.size,achievements:[...read('game/src/data.js').split('export const ACHIEVEMENTS = [')[1].split('\n];')[0].matchAll(/\{ id: '/g)].length},districts,landmarks,spots,sources};
+const data = {comparisonLocations,sourceSha,reviewedOn:'2026-11-09',repository:'https://github.com/CalinaCristian/CalinaCristian.github.io',counts:{districts:districts.length,chapters:CHAPTERS.length,landmarks:landmarks.length,landmarkBuilders:new Set(landmarks.map(x=>x.builder)).size,landmarkEvidence:landmarks.filter(lm=>lm.evidence).length,spots:spots.length,spotEvidence:spots.filter(s=>s.evidence).length,scenes:new Set(spots.map(s=>s.scene)).size,historicalReady:ready.length,menuAvailable:MENU_AVAILABLE.size,...visitorTotals(),achievements:[...read('game/src/data.js').split('export const ACHIEVEMENTS = [')[1].split('\n];')[0].matchAll(/\{ id: '/g)].length},districts,landmarks,spots,sources};
 writeFileSync(resolve(root,'game/overview/inventory.json'),JSON.stringify(data,null,2)+'\n');
 process.stdout.write(JSON.stringify(data.counts)+'\n');

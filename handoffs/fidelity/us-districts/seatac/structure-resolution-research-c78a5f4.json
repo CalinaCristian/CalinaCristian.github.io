@@ -1,0 +1,683 @@
+{
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "status": "Material source-road/model-body conflicts remain open; no unsupported runtime correction applied.",
+  "rawFindings": 79,
+  "confirmedGarageFindings": 66,
+  "confirmedTerminalFindings": 13,
+  "insidePlayableCore": 79,
+  "sourcePolicy": "Independent official records and aerial imagery only; no source geometry or attributes extracted from Google Street View. All provider/Commons images remain private scratch files.",
+  "independentSources": [
+    {
+      "url": "https://www.portseattle.org/sites/default/files/styles/image_16x9_/public/2018-02/Sea-Tac%20Airport%20parking%20garage.jpg?itok=mn-bhbxb",
+      "status": 200,
+      "privateFile": "/workspace/reality-pass/us-districts/seatac/structure-research/garage-photo.jpg",
+      "sha256": "dba3be374a833b1769ea07657c2f89c40a9a15e264e28bab7653bccbc72e3b36",
+      "retrievedAt": "2026-11-09T00:14:06.768679+00:00",
+      "imageryTracked": false
+    },
+    {
+      "url": "https://www.portseattle.org/sea/parking/airport-parking-garage-map",
+      "status": 200,
+      "privateFile": "/workspace/reality-pass/us-districts/seatac/structure-research/garage-map.html",
+      "sha256": "bd4bf6b87088473d17ae7ff2564a87bcd33f8bb570ae4fabccc478ec7607a450",
+      "retrievedAt": "2026-11-09T00:14:06.975031+00:00",
+      "imageryTracked": false
+    },
+    {
+      "url": "https://www.portseattle.org/sea/parking/parking-information",
+      "status": 200,
+      "privateFile": "/workspace/reality-pass/us-districts/seatac/structure-research/parking-information.html",
+      "sha256": "6c8214c569c6cb2ad302fd61e33fc29adba5a4f2dddbf0a4eedc53a6b540715d",
+      "retrievedAt": "2026-11-09T00:14:06.886879+00:00",
+      "imageryTracked": false
+    },
+    {
+      "url": "https://www.portseattle.org/sites/default/files/2026-11/Ground%20Transportation%20Map10302026_55039474.pdf",
+      "status": 200,
+      "privateFile": "/workspace/reality-pass/us-districts/seatac/structure-research/ground-transportation.pdf",
+      "sha256": "d2bc73ef82b88656235ddbe8086f756e57ab8900f1402c2d0528ce3b8065477c",
+      "retrievedAt": "2026-11-09T00:14:07.019554+00:00",
+      "imageryTracked": false
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Departures_Drive_(7105121083).jpg",
+      "status": 200,
+      "privateFile": "/workspace/reality-pass/us-districts/seatac/structure-research/departures-drive.jpg",
+      "sha256": "01b7559ce252ec9b3b18a1217c085cf47e8aaf3865ac8ac858ece5c86fad438d",
+      "retrievedAt": "2026-11-09T00:17:40.751230+00:00",
+      "imageryTracked": false
+    }
+  ],
+  "sourceBodies": [
+    {
+      "sourceId": "r15763840",
+      "model": "seagarage",
+      "outerVertices": 164,
+      "innerRings": 8,
+      "nativeSolidBandM": [
+        0.12,
+        22.57
+      ],
+      "tags": {
+        "building": "parking",
+        "building:levels": "7",
+        "parking": "multi-storey",
+        "covered": "yes",
+        "access": "yes"
+      },
+      "modelFHMetres": 3.05,
+      "modelFHProvenance": "Existing model estimate, not independently measured."
+    },
+    {
+      "sourceId": "w23772634",
+      "model": "seatac",
+      "outerVertices": 408,
+      "nativeSolidBandM": [
+        0.12,
+        19.62
+      ],
+      "tags": {
+        "building": "transportation",
+        "building:levels": "2",
+        "aeroway": "terminal",
+        "layer": "1"
+      },
+      "conflictingPublicSourceRoad": "w37017723",
+      "actualNativeRoadFootY": 11.24,
+      "roadProfileProvenance": "Existing integrated bridge model estimate; source layer2 is ordinal, not a physical metre elevation."
+    }
+  ],
+  "supportedFacts": [
+    "The official garage photo shows an open multi-storey concrete parking structure with helix ramps, exterior deck spandrels and column openings. A single full-height filled interior is the wrong structural type.",
+    "The official parking page states the maximum garage vehicle height is6ft10in (2.0828m). This is an operational entrance limit, not a measured soffit height at every road point.",
+    "The official2026-11 ground transportation map explicitly depicts Level3 ground transportation/TNC and Level4 parking/skybridges. It gives no absolute elevations, slab thicknesses, column plan or georeferenced road-floor assignment.",
+    "The independent2012 Departures Drive photograph shows cars using an upper curved curb beneath the terminal canopy, with columns along the curb. It gives no independently calibrated canopy soffit height or exact current column coordinates.",
+    "Aerial overlay shows exact garage source road geometries on the source footprint and helix locations, and the terminal road beneath/along its roof projection. The aerial is top down and cannot establish internal floor heights or under-roof facade lines."
+  ],
+  "sourceDiscrepancies": [
+    "OSM building:levels=7 is retained. Current official parking pages name Levels1\u20138; the roof/level counting and any historical changes are not resolved by replacing the OSM tag.",
+    "49 garage findings have source layer2 but actual runtime footY0.13\u20130.24m;17 are layer0. At least one source way is named3rdFloorTNC Pickup Road. No layer-to-metres conversion is supported.",
+    "Existing model garage skybridge floor9.15m and runtime Departures11m are estimates; the old garage comment stating Departures<=3.8m is stale."
+  ],
+  "missingMeasurements": [
+    {
+      "measurement": "Absolute road/deck elevation for each garage floor and mapped helix transition, including Level3 TNC and the actual main-road tie points",
+      "whyNeeded": "Opening a ground-level void would hide a vertical-placement conflict; lifting all layer2 ways uniformly would invent a physical datum."
+    },
+    {
+      "measurement": "Garage slab/beam soffit bands and a georeferenced interior/exterior column plan at the affected road mouths",
+      "whyNeeded": "A proper open parking structure must retain deck, column, core and parapet collisions. No full-height solid deletion or arbitrary clear corridor can stand in for them."
+    },
+    {
+      "measurement": "Terminal covered-curb footprint, facade/column line and canopy soffit above the actual Departures road profile",
+      "whyNeeded": "The main source footprint includes the roof projection; source layers and photos prove covered vehicle access, but do not define an exact3D opening or permit treating the whole terminal as elevated."
+    }
+  ],
+  "affectedSourceRoads": [
+    {
+      "sourceRoadId": "w344201644",
+      "findingIds": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "sourceEdges": [
+        395,
+        396,
+        397,
+        398,
+        399,
+        403,
+        404,
+        405,
+        394,
+        406
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "findingCount": 10,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w430427477",
+      "findingIds": [
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "sourceEdges": [
+        665,
+        666,
+        667,
+        668,
+        669,
+        670,
+        671,
+        672
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "findingCount": 8,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w722071152",
+      "findingIds": [
+        21
+      ],
+      "sourceEdges": [
+        1105
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle"
+      },
+      "findingCount": 1,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w722071160",
+      "findingIds": [
+        22,
+        36
+      ],
+      "sourceEdges": [
+        1114,
+        1115
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "findingCount": 2,
+      "nativeFootYRangeM": [
+        0.2359109988404811,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w37017723",
+      "findingIds": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        41,
+        42,
+        43,
+        44
+      ],
+      "sourceEdges": [
+        95,
+        96,
+        2348,
+        2349,
+        2350,
+        2351,
+        2352,
+        2353,
+        2354,
+        97,
+        2355,
+        2356,
+        2357
+      ],
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "findingCount": 13,
+      "nativeFootYRangeM": [
+        11.24,
+        11.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w430442190",
+      "findingIds": [
+        32
+      ],
+      "sourceEdges": [
+        721
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "asphalt"
+      },
+      "findingCount": 1,
+      "nativeFootYRangeM": [
+        0.23326024883884963,
+        0.23326024883884963
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w344201652",
+      "findingIds": [
+        33,
+        34,
+        35,
+        62
+      ],
+      "sourceEdges": [
+        449,
+        450,
+        451,
+        448
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "findingCount": 4,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w344201653",
+      "findingIds": [
+        37,
+        38
+      ],
+      "sourceEdges": [
+        452,
+        453
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "findingCount": 2,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w722071153",
+      "findingIds": [
+        39
+      ],
+      "sourceEdges": [
+        1106
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "findingCount": 1,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w722071159",
+      "findingIds": [
+        40
+      ],
+      "sourceEdges": [
+        1113
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "findingCount": 1,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w344201646",
+      "findingIds": [
+        45
+      ],
+      "sourceEdges": [
+        414
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle"
+      },
+      "findingCount": 1,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w364221562",
+      "findingIds": [
+        46,
+        47,
+        48,
+        49
+      ],
+      "sourceEdges": [
+        460,
+        461,
+        462,
+        476
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "findingCount": 4,
+      "nativeFootYRangeM": [
+        0.17926449935368177,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w1444470941",
+      "findingIds": [
+        50,
+        51,
+        52,
+        53,
+        54,
+        75,
+        76
+      ],
+      "sourceEdges": [
+        1539,
+        1540,
+        1541,
+        1542,
+        1543,
+        1544,
+        1545
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle"
+      },
+      "findingCount": 7,
+      "nativeFootYRangeM": [
+        0.12849067805306952,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w722071158",
+      "findingIds": [
+        55
+      ],
+      "sourceEdges": [
+        1112
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "findingCount": 1,
+      "nativeFootYRangeM": [
+        0.23948757020298303,
+        0.23948757020298303
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w344201654",
+      "findingIds": [
+        56
+      ],
+      "sourceEdges": [
+        454
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "findingCount": 1,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w722071154",
+      "findingIds": [
+        57
+      ],
+      "sourceEdges": [
+        1107
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "findingCount": 1,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w722071156",
+      "findingIds": [
+        58
+      ],
+      "sourceEdges": [
+        1110
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "name": "3rd Floor TNC Pickup Road",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "findingCount": 1,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w722071157",
+      "findingIds": [
+        59
+      ],
+      "sourceEdges": [
+        1111
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "findingCount": 1,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w344201650",
+      "findingIds": [
+        60,
+        61,
+        77,
+        78
+      ],
+      "sourceEdges": [
+        437,
+        438,
+        439,
+        440
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "findingCount": 4,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w430434890",
+      "findingIds": [
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74
+      ],
+      "sourceEdges": [
+        678,
+        679,
+        680,
+        681,
+        682,
+        688,
+        689,
+        690,
+        691,
+        692,
+        693,
+        694
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "findingCount": 12,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    },
+    {
+      "sourceRoadId": "w344201655",
+      "findingIds": [
+        79,
+        80,
+        81
+      ],
+      "sourceEdges": [
+        455,
+        456,
+        457
+      ],
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "findingCount": 3,
+      "nativeFootYRangeM": [
+        0.24,
+        0.24
+      ],
+      "wholeCapsulesConservativelyInsideCore": true
+    }
+  ],
+  "possibleCorrectionScope": "A source-backed structural model would preserve all source polygons/holes/roof envelopes, represent real deck/column bands, and model the verified covered curb separately. Exact alignment must be supported or labelled as a bounded estimate. This ledger does not authorize a claim that the79 contacts are cleared.",
+  "parityAccepted": false
+}

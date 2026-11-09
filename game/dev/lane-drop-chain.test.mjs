@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {Traffic} from '../src/traffic.js';
+const T=Object.create(Traffic.prototype);
+const edge=(len,lanesF,lanesB=lanesF)=>({len,lanesF,lanesB});
+const a=edge(35,2),b=edge(8.3,2),c=edge(1.17,2),d=edge(1.3057,2),out=edge(22.3,1);
+const bus={edge:a,dir:1,s:10,length:12,lane:1,laneCur:1,latExtraCur:0,lateralExtra:0,route:[{e:b,dir:1},{e:c,dir:1},{e:d,dir:1},{e:out,dir:1}]};
+assert.equal(T.laneDropMax(bus,60),0,'the future lane drop is seen across all unchanged short source edges');
+assert.equal(T.laneDropMax({...bus,s:0,edge:edge(150,2)},60),1,'a distant drop does not force an early merge');
+assert.equal(T.laneDropMax({...bus,route:[{e:b,dir:1,uturn:true},{e:out,dir:1}]},60),1,'the lookahead never crosses a route U-turn');
+assert.equal(T.laneDropStop({laneCur:.9074943662361267},1,-5.420880099136436,4),Infinity,'actual native bus155 cannot stop at a lane-drop line10.9209m behind its committed front');
+assert.equal(T.laneDropStop({laneCur:1},1,7,4),1.5,'an unmerged body can still wait before the intersection');
+assert.equal(T.laneDropStop({laneCur:0},1,7,4),Infinity,'a merged body is not stopped');
+bus.lane=0;bus.speed=0;T.steerLane(bus,1/30);assert.equal(bus.laneCur,1,'waiting never slides a bus sideways');
+bus.speed=3;T.steerLane(bus,1/30);
+assert.ok(bus.laneCur<1&&1-bus.laneCur<=.45*3/30/3.3+1e-9,'the early merge uses the existing travel-based lateral budget');
+console.log('PASS: literal short-edge lookahead, committed bus155, legal pre-line wait and smooth travel-based merge');

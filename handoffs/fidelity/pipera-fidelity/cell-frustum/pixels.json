@@ -1,0 +1,38 @@
+[
+  {
+    "view": "forward",
+    "capture": "warmed-native",
+    "beforeSha256": "5b1c5d07513d8fc0eea4722744991ef38892773a6b50b27535db9eb3f20e0a34",
+    "afterSha256": "5b1c5d07513d8fc0eea4722744991ef38892773a6b50b27535db9eb3f20e0a34",
+    "changedPixels": 0,
+    "maxChannelDelta": 0,
+    "bbox": null
+  },
+  {
+    "view": "left",
+    "capture": "initial-comparison",
+    "beforeSha256": "2838614de1e78865bf956789eb3495a2c83191fbe0a80761da64e27a2b76bdd1",
+    "afterSha256": "2838614de1e78865bf956789eb3495a2c83191fbe0a80761da64e27a2b76bdd1",
+    "changedPixels": 0,
+    "maxChannelDelta": 0,
+    "bbox": null
+  },
+  {
+    "view": "back",
+    "capture": "initial-comparison",
+    "beforeSha256": "f169458fa38867f6dc2fad611e730e36e9afd0645779d8f3f041e276123a538f",
+    "afterSha256": "f169458fa38867f6dc2fad611e730e36e9afd0645779d8f3f041e276123a538f",
+    "changedPixels": 0,
+    "maxChannelDelta": 0,
+    "bbox": null
+  },
+  {
+    "view": "right",
+    "capture": "initial-comparison",
+    "beforeSha256": "707143303de0d2ce27bd2305eacecb39e575738ecf3242bbd32c2b93371765c5",
+    "afterSha256": "707143303de0d2ce27bd2305eacecb39e575738ecf3242bbd32c2b93371765c5",
+    "changedPixels": 0,
+    "maxChannelDelta": 0,
+    "bbox": null
+  }
+]

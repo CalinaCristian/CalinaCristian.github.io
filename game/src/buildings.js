@@ -10,6 +10,24 @@ import { GeoBatch, makeCanvasTexture } from './util.js';
 const BOX = new THREE.BoxGeometry(1, 1, 1);
 const PYR = new THREE.ConeGeometry(0.72, 1, 4); PYR.rotateY(Math.PI / 4); // square pyramid roof, base 1x1
 
+/** Projecting facade slab with outward faces. `back` keeps a balcony parapet a thin plate rather than a solid room.
+ *  The building wall hides the rear face when back is at the wall; detached plates also get an inward face.
+ *  10 triangles against the wall / 12 for a detached plate, merged into the caller's existing detail mesh. */
+export function emitFacadeSlab(mb, frame, s, y, w, h, depth, color, { back = 0.02, ends = true, soffit = true } = {}) {
+    const { ax, az, ux, uz, nx, nz } = frame;
+    const at = (u, d, yy) => [ax + ux * u + nx * d, yy, az + uz * u + nz * d];
+    const a = at(s - w / 2, back, y), b = at(s + w / 2, back, y), c = at(s + w / 2, depth, y), d = at(s - w / 2, depth, y);
+    const top = p => [p[0], y + h, p[2]], tint = k => color.map(v => Math.min(255, Math.round(v * k)));
+    mb.face4(d, c, top(c), top(d), color, [nx, 0, nz]);
+    mb.face4(top(a), top(b), top(c), top(d), tint(1.06), [0, 1, 0]);
+    if (soffit) mb.face4(a, b, c, d, tint(0.75), [0, -1, 0]);
+    if (ends) {
+        mb.face4(a, d, top(d), top(a), tint(0.9), [-ux, 0, -uz]);
+        mb.face4(c, b, top(b), top(c), tint(0.9), [ux, 0, uz]);
+    }
+    if (back > 0.02) mb.face4(b, a, top(a), top(b), color, [-nx, 0, -nz]);
+}
+
 export const PALETTE = {
     interwar: ['#e6dccb', '#efe7d8', '#d9cfbd', '#f1ece1', '#cfc5b2', '#e2d6bf'],
     eclectic: ['#e9d9b8', '#d8c6a3', '#efe3cc', '#cbbfa6', '#e4cfa7', '#d6d0c2', '#e8d8c4'],

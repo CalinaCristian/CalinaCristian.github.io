@@ -1,0 +1,6630 @@
+{
+ "schemaVersion": 1,
+ "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+ "datasetSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+ "district": "seatac",
+ "source": "OSM nodes and polygon centroids or explicit official locator records; independent from compiled POI serializer.",
+ "toleranceM": 0.08,
+ "counts": {
+  "pois": 210,
+  "matched": 210,
+  "unmatched": 0,
+  "fuel": 2,
+  "transit": 20
+ },
+ "unmatched": [],
+ "rows": [
+  {
+   "index": 0,
+   "kind": "metro",
+   "name": "S Gates",
+   "brand": "",
+   "sub": "station",
+   "x": -1330,
+   "z": 1229,
+   "buildingIndex": 726,
+   "matches": [
+    {
+     "sourceId": "n460261669",
+     "sourceUrl": "https://www.openstreetmap.org/node/460261669",
+     "tags": {
+      "level": "-1",
+      "light_rail": "yes",
+      "name": "S Gates",
+      "network": "SEA Underground",
+      "opening_hours": "24/7",
+      "operator": "Port of Seattle",
+      "public_transport": "station",
+      "railway": "station",
+      "source": "yahoo_wms",
+      "station": "light_rail",
+      "wheelchair": "yes",
+      "wikidata": "Q140799500"
+     },
+     "sourcePositionM": [
+      -1330.016935358316,
+      1228.9643352006078
+     ],
+     "roundingErrorM": 0.039481442184599674
+    }
+   ]
+  },
+  {
+   "index": 1,
+   "kind": "metro",
+   "name": "C Gates",
+   "brand": "",
+   "sub": "station",
+   "x": -1413,
+   "z": 438.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n460261832",
+     "sourceUrl": "https://www.openstreetmap.org/node/460261832",
+     "tags": {
+      "level": "-1",
+      "light_rail": "yes",
+      "name": "C Gates",
+      "network": "SEA Underground",
+      "opening_hours": "24/7",
+      "operator": "Port of Seattle",
+      "public_transport": "station",
+      "railway": "station",
+      "source": "yahoo_wms",
+      "station": "light_rail",
+      "wheelchair": "yes",
+      "wikidata": "Q140799506"
+     },
+     "sourcePositionM": [
+      -1412.9736176522304,
+      438.3490608001929
+     ],
+     "roundingErrorM": 0.055704491644781993
+    }
+   ]
+  },
+  {
+   "index": 2,
+   "kind": "food",
+   "name": "Starbucks",
+   "brand": "Starbucks",
+   "sub": "cafe:coffee_shop",
+   "x": -1201.5,
+   "z": 917.7,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n2554523052",
+     "sourceUrl": "https://www.openstreetmap.org/node/2554523052",
+     "tags": {
+      "addr:city": "SeaTac",
+      "addr:housenumber": "17801",
+      "addr:postcode": "98158",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "cafe",
+      "branch": "SEA Concourse A Gate A3",
+      "brand": "Starbucks",
+      "brand:wikidata": "Q37158",
+      "check_date": "2026-03-09",
+      "cuisine": "coffee_shop",
+      "internet_access": "wlan",
+      "name": "Starbucks",
+      "official_name": "Starbucks Coffee",
+      "opening_hours": "04:00-21:00",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "phone": "+1-206-717-0837",
+      "ref": "13861",
+      "takeaway": "yes",
+      "website": "https://www.starbucks.com/store-locator/store/13861/sea-concourse-a-gate-a-3-17801-international-blvd-sea-tac-wa-981581132-us",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1201.5469952478861,
+      917.6613768005643
+     ],
+     "roundingErrorM": 0.060830131173045345
+    }
+   ]
+  },
+  {
+   "index": 3,
+   "kind": "busstop",
+   "name": "International Boulevard & South 176th Street - Bay 2",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -834.1,
+   "z": 487,
+   "buildingIndex": 771,
+   "matches": [
+    {
+     "sourceId": "n2861419115",
+     "sourceUrl": "https://www.openstreetmap.org/node/2861419115",
+     "tags": {
+      "bench": "yes",
+      "bus": "yes",
+      "gtfs:stop_code:US-WA-PT": "2282",
+      "gtfs:stop_id:US-WA-KCM": "60900",
+      "highway": "bus_stop",
+      "local_ref": "2",
+      "name": "International Boulevard & South 176th Street - Bay 2",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "network:wikipedia": "en:King County Metro",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "60900",
+      "route_ref": "161;A Line",
+      "shelter": "yes",
+      "tactile_paving": "no",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -834.0835207029027,
+      487.02487680048216
+     ],
+     "roundingErrorM": 0.029839946967988938
+    }
+   ]
+  },
+  {
+   "index": 4,
+   "kind": "busstop",
+   "name": "International Boulevard & South 176th Street - Bay 1",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -865.4,
+   "z": 511,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n2861419116",
+     "sourceUrl": "https://www.openstreetmap.org/node/2861419116",
+     "tags": {
+      "bench": "yes",
+      "bus": "yes",
+      "gtfs:stop_id:US-WA-KCM": "61080",
+      "highway": "bus_stop",
+      "local_ref": "1",
+      "name": "International Boulevard & South 176th Street - Bay 1",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "network:wikipedia": "en:King County Metro",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "61080",
+      "route_ref": "161;A Line",
+      "shelter": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -865.3992918773864,
+      511.00716240041913
+     ],
+     "roundingErrorM": 0.00719732015404613
+    }
+   ]
+  },
+  {
+   "index": 5,
+   "kind": "busstop",
+   "name": "S 176th St & 30th Ave S - Bay 3",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -739.9,
+   "z": 517.7,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n3007636346",
+     "sourceUrl": "https://www.openstreetmap.org/node/3007636346",
+     "tags": {
+      "bus": "yes",
+      "gtfs:feed": "US-WA-KCM",
+      "gtfs:stop_id": "60903",
+      "highway": "bus_stop",
+      "local_ref": "3",
+      "name": "S 176th St & 30th Ave S - Bay 3",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "network:wikipedia": "en:King County Metro",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "60903",
+      "route_ref": "156",
+      "shelter": "no",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -739.9103722906749,
+      517.7417616001562
+     ],
+     "roundingErrorM": 0.043030403919201064
+    }
+   ]
+  },
+  {
+   "index": 6,
+   "kind": "food",
+   "name": "13 Coins",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -781.1,
+   "z": 969.8,
+   "buildingIndex": 740,
+   "matches": [
+    {
+     "sourceId": "n3209330685",
+     "sourceUrl": "https://www.openstreetmap.org/node/3209330685",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "18000",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "restaurant",
+      "name": "13 Coins",
+      "opening_hours": "Su-Th 06:00-23:00, Fr,Sa 06:00-01:00"
+     },
+     "sourcePositionM": [
+      -781.0951280831854,
+      969.8045112003117
+     ],
+     "roundingErrorM": 0.0066397666902913936
+    }
+   ]
+  },
+  {
+   "index": 7,
+   "kind": "shop",
+   "name": "Hudson",
+   "brand": "Hudson",
+   "sub": "convenience",
+   "x": -941.7,
+   "z": 1226.2,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n3643223205",
+     "sourceUrl": "https://www.openstreetmap.org/node/3643223205",
+     "tags": {
+      "brand": "Hudson",
+      "brand:wikidata": "Q111534515",
+      "name": "Hudson",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -941.7314841147895,
+      1226.1860352005156
+     ],
+     "roundingErrorM": 0.03444219953368221
+    }
+   ]
+  },
+  {
+   "index": 8,
+   "kind": "food",
+   "name": "Mountain Room Bar",
+   "brand": "",
+   "sub": "pub",
+   "x": -942.5,
+   "z": 1247.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n3643223206",
+     "sourceUrl": "https://www.openstreetmap.org/node/3643223206",
+     "tags": {
+      "amenity": "pub",
+      "check_date": "2026-05-29",
+      "name": "Mountain Room Bar"
+     },
+     "sourcePositionM": [
+      -942.4767392457192,
+      1247.5233792003396
+     ],
+     "roundingErrorM": 0.032979534536330776
+    }
+   ]
+  },
+  {
+   "index": 9,
+   "kind": "food",
+   "name": "Africa Lounge",
+   "brand": "",
+   "sub": "pub:american",
+   "x": -1147.6,
+   "z": 941.9,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n3643290929",
+     "sourceUrl": "https://www.openstreetmap.org/node/3643290929",
+     "tags": {
+      "amenity": "pub",
+      "brewery": "yes",
+      "check_date": "2025-12-19",
+      "cuisine": "american",
+      "name": "Africa Lounge",
+      "opening_hours": "06:00-22:00",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "smoking": "no",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1147.625151756414,
+      941.9437188000595
+     ],
+     "roundingErrorM": 0.05043752897751876
+    }
+   ]
+  },
+  {
+   "index": 10,
+   "kind": "shop",
+   "name": "Hudson",
+   "brand": "Hudson",
+   "sub": "convenience",
+   "x": -971.8,
+   "z": 1086.9,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n3643290930",
+     "sourceUrl": "https://www.openstreetmap.org/node/3643290930",
+     "tags": {
+      "brand": "Hudson",
+      "brand:wikidata": "Q111534515",
+      "name": "Hudson",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -971.8428025516287,
+      1086.9154128004343
+     ],
+     "roundingErrorM": 0.04549299773759797
+    }
+   ]
+  },
+  {
+   "index": 11,
+   "kind": "shop",
+   "name": "Hudson",
+   "brand": "Hudson",
+   "sub": "convenience",
+   "x": -1189.8,
+   "z": 929.6,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n3643290931",
+     "sourceUrl": "https://www.openstreetmap.org/node/3643290931",
+     "tags": {
+      "brand": "Hudson",
+      "brand:wikidata": "Q111534515",
+      "check_date": "2026-03-09",
+      "name": "Hudson",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "shop": "convenience",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1189.7734697383985,
+      929.619180000538
+     ],
+     "roundingErrorM": 0.03273724486389737
+    }
+   ]
+  },
+  {
+   "index": 12,
+   "kind": "food",
+   "name": "Caffe D'Arte",
+   "brand": "",
+   "sub": "cafe:italian_pizza;italian",
+   "x": -985,
+   "z": 1107.6,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n3643290932",
+     "sourceUrl": "https://www.openstreetmap.org/node/3643290932",
+     "tags": {
+      "amenity": "cafe",
+      "check_date": "2024-10-20",
+      "cuisine": "italian_pizza;italian",
+      "name": "Caffe D'Arte",
+      "opening_hours": "06:00-15:00",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -985.0014487082844,
+      1107.552625199973
+     ],
+     "roundingErrorM": 0.04739694540043394
+    }
+   ]
+  },
+  {
+   "index": 13,
+   "kind": "food",
+   "name": "Manchu Wok",
+   "brand": "Manchu Wok",
+   "sub": "fast_food:chinese",
+   "x": -1135.2,
+   "z": 980,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n3643290933",
+     "sourceUrl": "https://www.openstreetmap.org/node/3643290933",
+     "tags": {
+      "amenity": "fast_food",
+      "brand": "Manchu Wok",
+      "brand:wikidata": "Q6747622",
+      "check_date": "2023-02-05",
+      "cuisine": "chinese",
+      "name": "Manchu Wok",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "takeaway": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1135.2493998786388,
+      979.9730892006966
+     ],
+     "roundingErrorM": 0.05625423653975306
+    }
+   ]
+  },
+  {
+   "index": 14,
+   "kind": "shop",
+   "name": "Dufry",
+   "brand": "Dufry",
+   "sub": "department_store",
+   "x": -973.5,
+   "z": 1118.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n3643290935",
+     "sourceUrl": "https://www.openstreetmap.org/node/3643290935",
+     "tags": {
+      "branch": "Tax and Duty Free",
+      "brand": "Dufry",
+      "brand:wikidata": "Q1264020",
+      "name": "Dufry",
+      "shop": "department_store"
+     },
+     "sourcePositionM": [
+      -973.4989250657565,
+      1118.510240400103
+     ],
+     "roundingErrorM": 0.01029666343511519
+    }
+   ]
+  },
+  {
+   "index": 15,
+   "kind": "landmark",
+   "name": "cloudsandclunkers",
+   "brand": "",
+   "sub": "artwork",
+   "x": -964.1,
+   "z": 1125.1,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n3643290937",
+     "sourceUrl": "https://www.openstreetmap.org/node/3643290937",
+     "tags": {
+      "artist_name": "Peter Shelton",
+      "name": "cloudsandclunkers",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      -964.1493606909526,
+      1125.1114812006506
+     ],
+     "roundingErrorM": 0.05067835612658787
+    }
+   ]
+  },
+  {
+   "index": 16,
+   "kind": "busstop",
+   "name": "International Boulevard & South 180th Street",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -819,
+   "z": 813.7,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n4052149094",
+     "sourceUrl": "https://www.openstreetmap.org/node/4052149094",
+     "tags": {
+      "bench": "yes",
+      "bus": "yes",
+      "gtfs:stop_code:US-WA-PT": "2791",
+      "gtfs:stop_id:US-WA-KCM": "60890",
+      "highway": "bus_stop",
+      "name": "International Boulevard & South 180th Street",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "network:wikipedia": "en:King County Metro",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "60890",
+      "route_ref": "156;161;A Line",
+      "shelter": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -818.952583188046,
+      813.7085040002278
+     ],
+     "roundingErrorM": 0.048173354416679554
+    }
+   ]
+  },
+  {
+   "index": 17,
+   "kind": "busstop",
+   "name": "International Boulevard & South 182nd Street",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -840.2,
+   "z": 1146.3,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n4052149095",
+     "sourceUrl": "https://www.openstreetmap.org/node/4052149095",
+     "tags": {
+      "bench": "yes",
+      "bin": "yes",
+      "bus": "yes",
+      "gtfs:stop_code:US-WA-PT": "3768",
+      "gtfs:stop_id:US-WA-KCM": "61090",
+      "highway": "bus_stop",
+      "lit": "yes",
+      "name": "International Boulevard & South 182nd Street",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "network:wikipedia": "en:King County Metro",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "61090",
+      "route_ref": "156;161;A Line",
+      "shelter": "yes",
+      "tactile_paving": "no",
+      "website": "https://www.soundtransit.org/ride-with-us/stops-stations/1_61090",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -840.1810626859588,
+      1146.3488064000953
+     ],
+     "roundingErrorM": 0.05235156686641044
+    }
+   ]
+  },
+  {
+   "index": 18,
+   "kind": "busstop",
+   "name": "S 176th St & International Blvd - Bay 4",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -733.7,
+   "z": 532.8,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n4244877654",
+     "sourceUrl": "https://www.openstreetmap.org/node/4244877654",
+     "tags": {
+      "bus": "yes",
+      "gtfs:feed": "US-WA-KCM",
+      "gtfs:stop_id": "60902",
+      "highway": "bus_stop",
+      "local_ref": "4",
+      "name": "S 176th St & International Blvd - Bay 4",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "60902",
+      "route_ref": "156",
+      "shelter": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -733.6622737158144,
+      532.8001476000402
+     ],
+     "roundingErrorM": 0.037726572919181425
+    }
+   ]
+  },
+  {
+   "index": 19,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -1326.6,
+   "z": 651.4,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n4334772796",
+     "sourceUrl": "https://www.openstreetmap.org/node/4334772796",
+     "tags": {
+      "amenity": "atm",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "drive_through": "no",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084",
+      "operator:wikipedia": "en:U.S. Bancorp"
+     },
+     "sourcePositionM": [
+      -1326.6294120341583,
+      651.3779915999337
+     ],
+     "roundingErrorM": 0.03673468969264412
+    }
+   ]
+  },
+  {
+   "index": 20,
+   "kind": "metro",
+   "name": "N Gates",
+   "brand": "",
+   "sub": "station",
+   "x": -1342.5,
+   "z": 180.5,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n4352130731",
+     "sourceUrl": "https://www.openstreetmap.org/node/4352130731",
+     "tags": {
+      "level": "-1",
+      "light_rail": "yes",
+      "name": "N Gates",
+      "network": "SEA Underground",
+      "opening_hours": "24/7",
+      "operator": "Port of Seattle",
+      "public_transport": "station",
+      "railway": "station",
+      "source": "yahoo_wms",
+      "station": "light_rail",
+      "wheelchair": "yes",
+      "wikidata": "Q140799513"
+     },
+     "sourcePositionM": [
+      -1342.5131325101765,
+      180.51170760034802
+     ],
+     "roundingErrorM": 0.01759348542631667
+    }
+   ]
+  },
+  {
+   "index": 21,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -1211.1,
+   "z": 527.7,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n4352748664",
+     "sourceUrl": "https://www.openstreetmap.org/node/4352748664",
+     "tags": {
+      "amenity": "atm",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084",
+      "operator:wikipedia": "en:U.S. Bancorp"
+     },
+     "sourcePositionM": [
+      -1211.0772275322133,
+      527.6769624001829
+     ],
+     "roundingErrorM": 0.03239315196805848
+    }
+   ]
+  },
+  {
+   "index": 22,
+   "kind": "food",
+   "name": "Delta Sky Club",
+   "brand": "",
+   "sub": "bar",
+   "x": -1299.2,
+   "z": 1227.3,
+   "buildingIndex": 726,
+   "matches": [
+    {
+     "sourceId": "n4357010075",
+     "sourceUrl": "https://www.openstreetmap.org/node/4357010075",
+     "tags": {
+      "amenity": "bar",
+      "level": "2",
+      "name": "Delta Sky Club"
+     },
+     "sourcePositionM": [
+      -1299.2281122572874,
+      1227.2640156004788
+     ],
+     "roundingErrorM": 0.04566372760393768
+    }
+   ]
+  },
+  {
+   "index": 23,
+   "kind": "food",
+   "name": "British Airways Terraces Lounge",
+   "brand": "",
+   "sub": "bar",
+   "x": -1321.9,
+   "z": 1233.6,
+   "buildingIndex": 726,
+   "matches": [
+    {
+     "sourceId": "n4357010076",
+     "sourceUrl": "https://www.openstreetmap.org/node/4357010076",
+     "tags": {
+      "amenity": "bar",
+      "check_date": "2023-02-20",
+      "club": "yes",
+      "level": "2",
+      "name": "British Airways Terraces Lounge"
+     },
+     "sourcePositionM": [
+      -1321.8944072097138,
+      1233.6096528004082
+     ],
+     "roundingErrorM": 0.011155978617250178
+    }
+   ]
+  },
+  {
+   "index": 24,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -1249.6,
+   "z": 1243.4,
+   "buildingIndex": 726,
+   "matches": [
+    {
+     "sourceId": "n4378939903",
+     "sourceUrl": "https://www.openstreetmap.org/node/4378939903",
+     "tags": {
+      "amenity": "atm",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "cash_in": "no",
+      "check_date": "2023-04-21",
+      "currency:USD": "yes",
+      "drive_through": "no",
+      "indoor": "yes",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084",
+      "operator:wikipedia": "en:U.S. Bancorp"
+     },
+     "sourcePositionM": [
+      -1249.6197151314957,
+      1243.389268800196
+     ],
+     "roundingErrorM": 0.022446493247939674
+    }
+   ]
+  },
+  {
+   "index": 25,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -1076.4,
+   "z": 421.7,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n4405597090",
+     "sourceUrl": "https://www.openstreetmap.org/node/4405597090",
+     "tags": {
+      "amenity": "atm",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084",
+      "operator:wikipedia": "en:U.S. Bancorp"
+     },
+     "sourcePositionM": [
+      -1076.4043558240364,
+      421.70148720068886
+     ],
+     "roundingErrorM": 0.0046027132133687485
+    }
+   ]
+  },
+  {
+   "index": 26,
+   "kind": "food",
+   "name": "United Club",
+   "brand": "",
+   "sub": "bar",
+   "x": -978.9,
+   "z": 1080.1,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5164232125",
+     "sourceUrl": "https://www.openstreetmap.org/node/5164232125",
+     "tags": {
+      "amenity": "bar",
+      "check_date": "2023-02-05",
+      "internet_access": "wlan",
+      "internet_access:fee": "customers",
+      "name": "United Club",
+      "opening_hours": "04:15-23:30",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -978.9490737023418,
+      1080.1363608001777
+     ],
+     "roundingErrorM": 0.061076477068565505
+    }
+   ]
+  },
+  {
+   "index": 27,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -943.1,
+   "z": 1238.6,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5164232126",
+     "sourceUrl": "https://www.openstreetmap.org/node/5164232126",
+     "tags": {
+      "amenity": "atm",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084",
+      "operator:wikipedia": "en:U.S. Bancorp"
+     },
+     "sourcePositionM": [
+      -943.0864934442387,
+      1238.6105928004163
+     ],
+     "roundingErrorM": 0.017164919725820772
+    }
+   ]
+  },
+  {
+   "index": 28,
+   "kind": "bank",
+   "name": "International Currency Exchange",
+   "brand": "",
+   "sub": "bureau_de_change",
+   "x": -1186.8,
+   "z": 903.6,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5164272324",
+     "sourceUrl": "https://www.openstreetmap.org/node/5164272324",
+     "tags": {
+      "amenity": "bureau_de_change",
+      "check_date": "2023-04-21",
+      "name": "International Currency Exchange",
+      "opening_hours": "09:15-16:45",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1186.7849213833783,
+      903.603178800524
+     ],
+     "roundingErrorM": 0.015410043867333256
+    }
+   ]
+  },
+  {
+   "index": 29,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -1156.3,
+   "z": 933.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5164276921",
+     "sourceUrl": "https://www.openstreetmap.org/node/5164276921",
+     "tags": {
+      "amenity": "atm",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "cash_in": "no",
+      "check_date": "2025-06-21",
+      "currency:USD": "yes",
+      "drive_through": "no",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084",
+      "operator:wikipedia": "en:U.S. Bancorp"
+     },
+     "sourcePositionM": [
+      -1156.2746279774017,
+      933.5199132003231
+     ],
+     "roundingErrorM": 0.03225329561201493
+    }
+   ]
+  },
+  {
+   "index": 30,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -962,
+   "z": 1097,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5164278021",
+     "sourceUrl": "https://www.openstreetmap.org/node/5164278021",
+     "tags": {
+      "amenity": "atm",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "cash_in": "no",
+      "check_date": "2025-06-21",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084",
+      "operator:wikipedia": "en:U.S. Bancorp"
+     },
+     "sourcePositionM": [
+      -961.9813457638339,
+      1096.9617456001804
+     ],
+     "roundingErrorM": 0.04256030583181834
+    }
+   ]
+  },
+  {
+   "index": 31,
+   "kind": "food",
+   "name": "The Club at SEA",
+   "brand": "",
+   "sub": "bar:american",
+   "x": -941.4,
+   "z": 1216,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5164278022",
+     "sourceUrl": "https://www.openstreetmap.org/node/5164278022",
+     "tags": {
+      "amenity": "bar",
+      "check_date": "2024-10-20",
+      "cuisine": "american",
+      "internet_access": "wlan",
+      "name": "The Club at SEA",
+      "opening_hours": "05:00-24:00"
+     },
+     "sourcePositionM": [
+      -941.3776761227655,
+      1215.950778000141
+     ],
+     "roundingErrorM": 0.05404776373626002
+    }
+   ]
+  },
+  {
+   "index": 32,
+   "kind": "landmark",
+   "name": "Pantopol V",
+   "brand": "",
+   "sub": "artwork",
+   "x": -957.3,
+   "z": 1239,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5164278023",
+     "sourceUrl": "https://www.openstreetmap.org/node/5164278023",
+     "tags": {
+      "name": "Pantopol V",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      -957.3442027238483,
+      1238.9773283999643
+     ],
+     "roundingErrorM": 0.04967778420773261
+    }
+   ]
+  },
+  {
+   "index": 33,
+   "kind": "shop",
+   "name": "Lowrider Cookie Company",
+   "brand": "",
+   "sub": "bakery",
+   "x": -1287.7,
+   "z": 809,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5264150423",
+     "sourceUrl": "https://www.openstreetmap.org/node/5264150423",
+     "tags": {
+      "check_date": "2024-10-20",
+      "name": "Lowrider Cookie Company",
+      "shop": "bakery"
+     },
+     "sourcePositionM": [
+      -1287.710532954295,
+      809.0076204005676
+     ],
+     "roundingErrorM": 0.01300052425836371
+    }
+   ]
+  },
+  {
+   "index": 34,
+   "kind": "shop",
+   "name": "Lady Yum",
+   "brand": "",
+   "sub": "bakery",
+   "x": -1294.9,
+   "z": 801.8,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5264172521",
+     "sourceUrl": "https://www.openstreetmap.org/node/5264172521",
+     "tags": {
+      "check_date": "2023-02-05",
+      "contact:facebook": "https://www.facebook.com/LadyYum/",
+      "contact:instagram": "https://www.instagram.com/ladyyum/",
+      "contact:pinterest": "https://www.pinterest.com/ladyyum/",
+      "contact:twitter": "https://twitter.com/Lady_Wagstaff",
+      "name": "Lady Yum",
+      "payment:credit_cards": "yes",
+      "shop": "bakery",
+      "website": "https://ladyyum.com/",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1294.8619710831915,
+      801.8396064005033
+     ],
+     "roundingErrorM": 0.05490779065362533
+    }
+   ]
+  },
+  {
+   "index": 35,
+   "kind": "office",
+   "name": "Delta Flight Operations",
+   "brand": "",
+   "sub": "company",
+   "x": -1251,
+   "z": 831,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5264172522",
+     "sourceUrl": "https://www.openstreetmap.org/node/5264172522",
+     "tags": {
+      "name": "Delta Flight Operations",
+      "office": "company"
+     },
+     "sourcePositionM": [
+      -1251.0048357797336,
+      831.0117564002873
+     ],
+     "roundingErrorM": 0.012712108925997513
+    }
+   ]
+  },
+  {
+   "index": 36,
+   "kind": "shop",
+   "name": "Terminal Getaway Spa",
+   "brand": "",
+   "sub": "beauty",
+   "x": -1142.7,
+   "z": 971.4,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5264172524",
+     "sourceUrl": "https://www.openstreetmap.org/node/5264172524",
+     "tags": {
+      "name": "Terminal Getaway Spa",
+      "phone": "+1-206-242-9356",
+      "shop": "beauty"
+     },
+     "sourcePositionM": [
+      -1142.7094790213762,
+      971.4048120000616
+     ],
+     "roundingErrorM": 0.01063048403613053
+    }
+   ]
+  },
+  {
+   "index": 37,
+   "kind": "shop",
+   "name": "InMotion",
+   "brand": "InMotion",
+   "sub": "electronics",
+   "x": -1130.1,
+   "z": 985.4,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5264172525",
+     "sourceUrl": "https://www.openstreetmap.org/node/5264172525",
+     "tags": {
+      "brand": "InMotion",
+      "brand:wikidata": "Q109648041",
+      "check_date": "2023-02-05",
+      "name": "InMotion",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "shop": "electronics",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1130.0777809371057,
+      985.3963308001123
+     ],
+     "roundingErrorM": 0.02251998631690806
+    }
+   ]
+  },
+  {
+   "index": 38,
+   "kind": "hospital",
+   "name": "Northwest Kidney Centers",
+   "brand": "",
+   "sub": "clinic",
+   "x": -736.9,
+   "z": 829.9,
+   "buildingIndex": 749,
+   "matches": [
+    {
+     "sourceId": "n5302134922",
+     "sourceUrl": "https://www.openstreetmap.org/node/5302134922",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "clinic",
+      "healthcare": "clinic",
+      "name": "Northwest Kidney Centers"
+     },
+     "sourcePositionM": [
+      -736.899240447098,
+      829.944889200454
+     ],
+     "roundingErrorM": 0.04489562604542943
+    }
+   ]
+  },
+  {
+   "index": 39,
+   "kind": "office",
+   "name": "Wings Financial",
+   "brand": "",
+   "sub": "company",
+   "x": -769.2,
+   "z": 954.7,
+   "buildingIndex": 740,
+   "matches": [
+    {
+     "sourceId": "n5302134923",
+     "sourceUrl": "https://www.openstreetmap.org/node/5302134923",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "18000",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "name": "Wings Financial",
+      "office": "company"
+     },
+     "sourcePositionM": [
+      -769.2011573006821,
+      954.7350120002978
+     ],
+     "roundingErrorM": 0.03503112201631064
+    }
+   ]
+  },
+  {
+   "index": 40,
+   "kind": "food",
+   "name": "Spencer's",
+   "brand": "",
+   "sub": "restaurant:steak_house",
+   "x": -746.7,
+   "z": 644.2,
+   "buildingIndex": 6,
+   "matches": [
+    {
+     "sourceId": "n5302163523",
+     "sourceUrl": "https://www.openstreetmap.org/node/5302163523",
+     "tags": {
+      "addr:city": "Seattle",
+      "addr:housenumber": "17620",
+      "addr:postcode": "98188-4001",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "restaurant",
+      "cuisine": "steak_house",
+      "name": "Spencer's"
+     },
+     "sourcePositionM": [
+      -746.6854189389904,
+      644.2210907999993
+     ],
+     "roundingErrorM": 0.02564038191551305
+    }
+   ]
+  },
+  {
+   "index": 41,
+   "kind": "office",
+   "name": "Eva Air",
+   "brand": "",
+   "sub": "company",
+   "x": -779,
+   "z": 954.6,
+   "buildingIndex": 740,
+   "matches": [
+    {
+     "sourceId": "n5302163723",
+     "sourceUrl": "https://www.openstreetmap.org/node/5302163723",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "18000",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "check_date": "2026-03-31",
+      "name": "Eva Air",
+      "office": "company"
+     },
+     "sourcePositionM": [
+      -778.9948636228067,
+      954.5572008005888
+     ],
+     "roundingErrorM": 0.043106308597600486
+    }
+   ]
+  },
+  {
+   "index": 42,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -1366.5,
+   "z": 829.9,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n5357406223",
+     "sourceUrl": "https://www.openstreetmap.org/node/5357406223",
+     "tags": {
+      "amenity": "atm",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "drive_through": "no",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084",
+      "operator:wikipedia": "en:U.S. Bancorp"
+     },
+     "sourcePositionM": [
+      -1366.534436793122,
+      829.9337760003241
+     ],
+     "roundingErrorM": 0.048235991939883385
+    }
+   ]
+  },
+  {
+   "index": 43,
+   "kind": "office",
+   "name": "Coppersmith",
+   "brand": "",
+   "sub": "company",
+   "x": -610.2,
+   "z": 477.5,
+   "buildingIndex": 774,
+   "matches": [
+    {
+     "sourceId": "n5445967623",
+     "sourceUrl": "https://www.openstreetmap.org/node/5445967623",
+     "tags": {
+      "check_date": "2024-10-26",
+      "name": "Coppersmith",
+      "office": "company"
+     },
+     "sourcePositionM": [
+      -610.1682289758603,
+      477.523090799993
+     ],
+     "roundingErrorM": 0.03927573066416745
+    }
+   ]
+  },
+  {
+   "index": 44,
+   "kind": "bank",
+   "name": "International Currency Exchange",
+   "brand": "",
+   "sub": "bureau_de_change",
+   "x": -1328.4,
+   "z": 1247.8,
+   "buildingIndex": 726,
+   "matches": [
+    {
+     "sourceId": "n5774282053",
+     "sourceUrl": "https://www.openstreetmap.org/node/5774282053",
+     "tags": {
+      "amenity": "bureau_de_change",
+      "check_date": "2023-04-21",
+      "level": "1",
+      "name": "International Currency Exchange",
+      "opening_hours": "09:15-16:15",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1328.3909241629772,
+      1247.767869600038
+     ],
+     "roundingErrorM": 0.0333876237456491
+    }
+   ]
+  },
+  {
+   "index": 45,
+   "kind": "shop",
+   "name": "Swarovski",
+   "brand": "Swarovski",
+   "sub": "jewelry",
+   "x": -1111.5,
+   "z": 979.9,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n6039202387",
+     "sourceUrl": "https://www.openstreetmap.org/node/6039202387",
+     "tags": {
+      "brand": "Swarovski",
+      "brand:wikidata": "Q611115",
+      "check_date": "2023-02-05",
+      "name": "Swarovski",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "shop": "jewelry",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1111.529208780372,
+      979.8619572001876
+     ],
+     "roundingErrorM": 0.04796256319661645
+    }
+   ]
+  },
+  {
+   "index": 46,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -1265.2,
+   "z": 710.1,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n6551337254",
+     "sourceUrl": "https://www.openstreetmap.org/node/6551337254",
+     "tags": {
+      "amenity": "atm",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "drive_through": "no",
+      "level": "0",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084",
+      "operator:wikipedia": "en:U.S. Bancorp"
+     },
+     "sourcePositionM": [
+      -1265.2023224228356,
+      710.1112536000988
+     ],
+     "roundingErrorM": 0.011490742491726276
+    }
+   ]
+  },
+  {
+   "index": 47,
+   "kind": "food",
+   "name": "Capitol Hill Food Hall",
+   "brand": "",
+   "sub": "bar",
+   "x": -1102.1,
+   "z": 990.2,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n6551504954",
+     "sourceUrl": "https://www.openstreetmap.org/node/6551504954",
+     "tags": {
+      "amenity": "bar",
+      "check_date": "2023-02-05",
+      "name": "Capitol Hill Food Hall",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1102.0893104502718,
+      990.2083464002815
+     ],
+     "roundingErrorM": 0.013562037864848213
+    }
+   ]
+  },
+  {
+   "index": 48,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -1328.5,
+   "z": 763.7,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n6566489493",
+     "sourceUrl": "https://www.openstreetmap.org/node/6566489493",
+     "tags": {
+      "amenity": "atm",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "level": "1",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084",
+      "operator:wikipedia": "en:U.S. Bancorp"
+     },
+     "sourcePositionM": [
+      -1328.5113694370625,
+      763.654651200417
+     ],
+     "roundingErrorM": 0.04675230179084583
+    }
+   ]
+  },
+  {
+   "index": 49,
+   "kind": "shop",
+   "name": "Hudson",
+   "brand": "Hudson",
+   "sub": "convenience",
+   "x": -1110.1,
+   "z": 485.4,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n6721009655",
+     "sourceUrl": "https://www.openstreetmap.org/node/6721009655",
+     "tags": {
+      "brand": "Hudson",
+      "brand:wikidata": "Q111534515",
+      "check_date": "2023-07-15",
+      "level": "0",
+      "name": "Hudson",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -1110.0537541768376,
+      485.41346280060236
+     ],
+     "roundingErrorM": 0.048165580656901054
+    }
+   ]
+  },
+  {
+   "index": 50,
+   "kind": "metro",
+   "name": "A Gates",
+   "brand": "",
+   "sub": "station",
+   "x": -1182.9,
+   "z": 917.2,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n6824060532",
+     "sourceUrl": "https://www.openstreetmap.org/node/6824060532",
+     "tags": {
+      "level": "-1",
+      "light_rail": "yes",
+      "name": "A Gates",
+      "network": "SEA Underground",
+      "opening_hours": "24/7",
+      "operator": "Port of Seattle",
+      "public_transport": "station",
+      "railway": "station",
+      "source": "yahoo_wms",
+      "station": "light_rail",
+      "wheelchair": "yes",
+      "wikidata": "Q140799467"
+     },
+     "sourcePositionM": [
+      -1182.8704499868352,
+      917.1835092005074
+     ],
+     "roundingErrorM": 0.033840061258119385
+    }
+   ]
+  },
+  {
+   "index": 51,
+   "kind": "metro",
+   "name": "D Gates",
+   "brand": "",
+   "sub": "station",
+   "x": -1215.3,
+   "z": 559.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n6824060533",
+     "sourceUrl": "https://www.openstreetmap.org/node/6824060533",
+     "tags": {
+      "level": "-1",
+      "light_rail": "yes",
+      "name": "D Gates",
+      "network": "SEA Underground",
+      "opening_hours": "24/7",
+      "operator": "Port of Seattle",
+      "public_transport": "station",
+      "railway": "station",
+      "source": "yahoo_wms",
+      "station": "light_rail",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1215.292812113435,
+      559.305129600241
+     ],
+     "roundingErrorM": 0.00883054425859074
+    }
+   ]
+  },
+  {
+   "index": 52,
+   "kind": "food",
+   "name": "Convenience Store",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -1168.4,
+   "z": 866.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n7656869486",
+     "sourceUrl": "https://www.openstreetmap.org/node/7656869486",
+     "tags": {
+      "amenity": "restaurant",
+      "name": "Convenience Store"
+     },
+     "sourcePositionM": [
+      -1168.3643223298925,
+      866.307279600562
+     ],
+     "roundingErrorM": 0.03641275502689155
+    }
+   ]
+  },
+  {
+   "index": 53,
+   "kind": "busstop",
+   "name": "Seatac Airport Access & International Boulevard",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -861.5,
+   "z": 1067.2,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n8515803640",
+     "sourceUrl": "https://www.openstreetmap.org/node/8515803640",
+     "tags": {
+      "bench": "yes",
+      "bin": "yes",
+      "bus": "yes",
+      "gtfs:feed": "US-WA-KCM",
+      "gtfs:stop_id": "61082",
+      "highway": "bus_stop",
+      "lit": "yes",
+      "name": "Seatac Airport Access & International Boulevard",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "network:wikipedia": "en:King County Metro",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "61082",
+      "route_ref": "124",
+      "shelter": "yes",
+      "tactile_paving": "no",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -861.4998761391681,
+      1067.1672564002304
+     ],
+     "roundingErrorM": 0.03274383403607863
+    }
+   ]
+  },
+  {
+   "index": 54,
+   "kind": "food",
+   "name": "The Deli",
+   "brand": "",
+   "sub": "cafe:american",
+   "x": -741.3,
+   "z": 953.5,
+   "buildingIndex": 740,
+   "matches": [
+    {
+     "sourceId": "n8604417198",
+     "sourceUrl": "https://www.openstreetmap.org/node/8604417198",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "18000",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "cafe",
+      "cuisine": "american",
+      "name": "The Deli",
+      "outdoor_seating": "yes"
+     },
+     "sourcePositionM": [
+      -741.2503259617994,
+      953.5125600002257
+     ],
+     "roundingErrorM": 0.051237326987475545
+    }
+   ]
+  },
+  {
+   "index": 55,
+   "kind": "landmark",
+   "name": "Talking Fountain",
+   "brand": "",
+   "sub": "artwork",
+   "x": -1433,
+   "z": 443.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n8920167700",
+     "sourceUrl": "https://www.openstreetmap.org/node/8920167700",
+     "tags": {
+      "amenity": "drinking_water",
+      "artist_name": "Jim Green",
+      "artwork_type": "sound_sculpture",
+      "name": "Talking Fountain",
+      "start_date": "1992",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      -1433.0051722427304,
+      443.3277743999412
+     ],
+     "roundingErrorM": 0.02825189174115505
+    }
+   ]
+  },
+  {
+   "index": 56,
+   "kind": "food",
+   "name": "Lil Woody’s",
+   "brand": "",
+   "sub": "fast_food:burger",
+   "x": -1266.9,
+   "z": 218,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n9597290574",
+     "sourceUrl": "https://www.openstreetmap.org/node/9597290574",
+     "tags": {
+      "amenity": "fast_food",
+      "bar": "yes",
+      "check_date": "2026-03-09",
+      "cuisine": "burger",
+      "name": "Lil Woody’s",
+      "straw": "bioplastic"
+     },
+     "sourcePositionM": [
+      -1266.888556255752,
+      217.99653120014892
+     ],
+     "roundingErrorM": 0.011957920171211996
+    }
+   ]
+  },
+  {
+   "index": 57,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -1302.5,
+   "z": 174.6,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n10046446332",
+     "sourceUrl": "https://www.openstreetmap.org/node/10046446332",
+     "tags": {
+      "amenity": "atm",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "check_date": "2026-03-09",
+      "drive_through": "no",
+      "indoor": "yes",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084"
+     },
+     "sourcePositionM": [
+      -1302.5403572844732,
+      174.57725880048582
+     ],
+     "roundingErrorM": 0.04632356382441208
+    }
+   ]
+  },
+  {
+   "index": 58,
+   "kind": "shop",
+   "name": "The Confectionary",
+   "brand": "",
+   "sub": "candles",
+   "x": -1289.5,
+   "z": 807.8,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n10930927601",
+     "sourceUrl": "https://www.openstreetmap.org/node/10930927601",
+     "tags": {
+      "check_date": "2024-10-20",
+      "name": "The Confectionary",
+      "shop": "candles"
+     },
+     "sourcePositionM": [
+      -1289.472045083114,
+      807.7962816006252
+     ],
+     "roundingErrorM": 0.02820113245983976
+    }
+   ]
+  },
+  {
+   "index": 59,
+   "kind": "landmark",
+   "name": "Interfaith Prayer and Meditation Room",
+   "brand": "",
+   "sub": "place_of_worship",
+   "x": -1171,
+   "z": 876.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n11385632848",
+     "sourceUrl": "https://www.openstreetmap.org/node/11385632848",
+     "tags": {
+      "amenity": "place_of_worship",
+      "description": "Quiet place to pray and meditate. There are holy books from Islam, Christianity, and The LDS Book of Mormon.",
+      "name": "Interfaith Prayer and Meditation Room",
+      "opening_hours": "24/7",
+      "religion": "all"
+     },
+     "sourcePositionM": [
+      -1170.9538957157752,
+      876.5091972005469
+     ],
+     "roundingErrorM": 0.04701269532566411
+    }
+   ]
+  },
+  {
+   "index": 60,
+   "kind": "food",
+   "name": "The Hop Over",
+   "brand": "",
+   "sub": "bar",
+   "x": -1428.2,
+   "z": 528,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n11413517402",
+     "sourceUrl": "https://www.openstreetmap.org/node/11413517402",
+     "tags": {
+      "amenity": "bar",
+      "check_date": "2024-10-20",
+      "level": "1",
+      "name": "The Hop Over"
+     },
+     "sourcePositionM": [
+      -1428.240056099497,
+      527.9547924002711
+     ],
+     "roundingErrorM": 0.060400481621892224
+    }
+   ]
+  },
+  {
+   "index": 61,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -1277.4,
+   "z": 613.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n11593934583",
+     "sourceUrl": "https://www.openstreetmap.org/node/11593934583",
+     "tags": {
+      "amenity": "atm",
+      "atm": "yes",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084"
+     },
+     "sourcePositionM": [
+      -1277.3823507306229,
+      613.5042060003252
+     ],
+     "roundingErrorM": 0.01814351532325586
+    }
+   ]
+  },
+  {
+   "index": 62,
+   "kind": "bank",
+   "name": "U.S. Bank",
+   "brand": "U.S. Bank",
+   "sub": "atm",
+   "x": -1226,
+   "z": 632.4,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n11593934584",
+     "sourceUrl": "https://www.openstreetmap.org/node/11593934584",
+     "tags": {
+      "amenity": "atm",
+      "atm": "yes",
+      "brand": "U.S. Bank",
+      "brand:wikidata": "Q739084",
+      "name": "U.S. Bank",
+      "operator": "U.S. Bank",
+      "operator:wikidata": "Q739084"
+     },
+     "sourcePositionM": [
+      -1226.0049136479201,
+      632.3966460000047
+     ],
+     "roundingErrorM": 0.005949222793906495
+    }
+   ]
+  },
+  {
+   "index": 63,
+   "kind": "office",
+   "name": "MacDonald Miller",
+   "brand": "",
+   "sub": "company",
+   "x": -771.7,
+   "z": 896.3,
+   "buildingIndex": 739,
+   "matches": [
+    {
+     "sourceId": "n11759341569",
+     "sourceUrl": "https://www.openstreetmap.org/node/11759341569",
+     "tags": {
+      "name": "MacDonald Miller",
+      "office": "company"
+     },
+     "sourcePositionM": [
+      -771.6702854124794,
+      896.2573535999611
+     ],
+     "roundingErrorM": 0.051977611986263855
+    }
+   ]
+  },
+  {
+   "index": 64,
+   "kind": "food",
+   "name": "Caffe Vita",
+   "brand": "",
+   "sub": "cafe:coffee_shop",
+   "x": -1352.8,
+   "z": 154.7,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n11789336631",
+     "sourceUrl": "https://www.openstreetmap.org/node/11789336631",
+     "tags": {
+      "amenity": "cafe",
+      "check_date": "2026-03-09",
+      "cuisine": "coffee_shop",
+      "name": "Caffe Vita"
+     },
+     "sourcePositionM": [
+      -1352.848842563011,
+      154.7401968000326
+     ],
+     "roundingErrorM": 0.06325645180017499
+    }
+   ]
+  },
+  {
+   "index": 65,
+   "kind": "food",
+   "name": "Beecher’s Handmade Cheese",
+   "brand": "",
+   "sub": "cafe",
+   "x": -1356.1,
+   "z": 161.1,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n11789336632",
+     "sourceUrl": "https://www.openstreetmap.org/node/11789336632",
+     "tags": {
+      "amenity": "cafe",
+      "check_date": "2026-03-09",
+      "name": "Beecher’s Handmade Cheese"
+     },
+     "sourcePositionM": [
+      -1356.0556979765756,
+      161.08583399996215
+     ],
+     "roundingErrorM": 0.04651177094626342
+    }
+   ]
+  },
+  {
+   "index": 66,
+   "kind": "food",
+   "name": "Costa",
+   "brand": "Costa",
+   "sub": "cafe:coffee_shop",
+   "x": -1329.1,
+   "z": 150.4,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n11789336633",
+     "sourceUrl": "https://www.openstreetmap.org/node/11789336633",
+     "tags": {
+      "amenity": "cafe",
+      "brand": "Costa",
+      "brand:wikidata": "Q608845",
+      "check_date": "2026-09-24",
+      "cuisine": "coffee_shop",
+      "name": "Costa",
+      "takeaway": "yes"
+     },
+     "sourcePositionM": [
+      -1329.0834844865612,
+      150.40604880070995
+     ],
+     "roundingErrorM": 0.017588353367251362
+    }
+   ]
+  },
+  {
+   "index": 67,
+   "kind": "shop",
+   "name": "Tender Loving Empire",
+   "brand": "",
+   "sub": "gift",
+   "x": -1323.3,
+   "z": 136.5,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n11789336634",
+     "sourceUrl": "https://www.openstreetmap.org/node/11789336634",
+     "tags": {
+      "check_date": "2026-03-09",
+      "level": "5",
+      "name": "Tender Loving Empire",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -1323.3021113475781,
+      136.47009600051896
+     ],
+     "roundingErrorM": 0.029978441813371934
+    }
+   ]
+  },
+  {
+   "index": 68,
+   "kind": "shop",
+   "name": "SEA Pop Culture",
+   "brand": "",
+   "sub": "gift",
+   "x": -1311.7,
+   "z": 144.5,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n11789336635",
+     "sourceUrl": "https://www.openstreetmap.org/node/11789336635",
+     "tags": {
+      "check_date": "2026-03-09",
+      "level": "5",
+      "name": "SEA Pop Culture",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -1311.7318372372404,
+      144.482713200188
+     ],
+     "roundingErrorM": 0.03622765687754742
+    }
+   ]
+  },
+  {
+   "index": 69,
+   "kind": "food",
+   "name": "Wendy's",
+   "brand": "Wendy's",
+   "sub": "fast_food:burger",
+   "x": -1345,
+   "z": 145,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n11789336636",
+     "sourceUrl": "https://www.openstreetmap.org/node/11789336636",
+     "tags": {
+      "amenity": "fast_food",
+      "brand": "Wendy's",
+      "brand:wikidata": "Q550258",
+      "check_date": "2026-03-09",
+      "cuisine": "burger",
+      "name": "Wendy's",
+      "takeaway": "yes"
+     },
+     "sourcePositionM": [
+      -1344.952149303185,
+      145.00503359997475
+     ],
+     "roundingErrorM": 0.04811472035026874
+    }
+   ]
+  },
+  {
+   "index": 70,
+   "kind": "food",
+   "name": "Open Space Tap Room",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -1343.8,
+   "z": 168.5,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n11789336637",
+     "sourceUrl": "https://www.openstreetmap.org/node/11789336637",
+     "tags": {
+      "amenity": "restaurant",
+      "check_date": "2026-03-09",
+      "name": "Open Space Tap Room"
+     },
+     "sourcePositionM": [
+      -1343.800391372886,
+      168.53167800011457
+     ],
+     "roundingErrorM": 0.03168041767392687
+    }
+   ]
+  },
+  {
+   "index": 71,
+   "kind": "shop",
+   "name": "Natalie’s Candy Jar",
+   "brand": "",
+   "sub": "confectionery",
+   "x": -1317,
+   "z": 140.5,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n11789336638",
+     "sourceUrl": "https://www.openstreetmap.org/node/11789336638",
+     "tags": {
+      "check_date": "2026-03-09",
+      "level": "5",
+      "name": "Natalie’s Candy Jar",
+      "shop": "confectionery"
+     },
+     "sourcePositionM": [
+      -1316.9787344757456,
+      140.47084800068336
+     ],
+     "roundingErrorM": 0.03608409048283095
+    }
+   ]
+  },
+  {
+   "index": 72,
+   "kind": "landmark",
+   "name": "Blackleaf",
+   "brand": "",
+   "sub": "artwork",
+   "x": -1284.5,
+   "z": 189.7,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n11789336639",
+     "sourceUrl": "https://www.openstreetmap.org/node/11789336639",
+     "tags": {
+      "artist_name": "Deborah Butterfield",
+      "artwork_type": "sculpture",
+      "check_date": "2026-03-09",
+      "description": "Life-sized wood horse sculpture",
+      "material": "wood",
+      "name": "Blackleaf",
+      "start_date": "2017",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      -1284.4585105636172,
+      189.6912108002295
+     ],
+     "roundingErrorM": 0.04241017995678802
+    }
+   ]
+  },
+  {
+   "index": 73,
+   "kind": "shop",
+   "name": "Chalo & Co",
+   "brand": "",
+   "sub": "gift",
+   "x": -1277.1,
+   "z": 196.2,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n11789336640",
+     "sourceUrl": "https://www.openstreetmap.org/node/11789336640",
+     "tags": {
+      "check_date": "2026-03-09",
+      "name": "Chalo & Co",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -1277.103821035571,
+      196.18131960026807
+     ],
+     "roundingErrorM": 0.01906718770504582
+    }
+   ]
+  },
+  {
+   "index": 74,
+   "kind": "shop",
+   "name": "Show Pony",
+   "brand": "",
+   "sub": "clothes",
+   "x": -1258.4,
+   "z": 211.4,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n11789336644",
+     "sourceUrl": "https://www.openstreetmap.org/node/11789336644",
+     "tags": {
+      "check_date": "2026-03-09",
+      "name": "Show Pony",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      -1258.4046922859632,
+      211.3730640001312
+     ],
+     "roundingErrorM": 0.027341646557804165
+    }
+   ]
+  },
+  {
+   "index": 75,
+   "kind": "food",
+   "name": "Village Pub",
+   "brand": "",
+   "sub": "pub",
+   "x": -1284.6,
+   "z": 201.6,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n11789336646",
+     "sourceUrl": "https://www.openstreetmap.org/node/11789336646",
+     "tags": {
+      "amenity": "pub",
+      "check_date": "2026-03-09",
+      "name": "Village Pub"
+     },
+     "sourcePositionM": [
+      -1284.624122814816,
+      201.6490140002032
+     ],
+     "roundingErrorM": 0.05462858602026123
+    }
+   ]
+  },
+  {
+   "index": 76,
+   "kind": "shop",
+   "name": "Sunshine Beauty Salon",
+   "brand": "",
+   "sub": "hairdresser",
+   "x": -654.3,
+   "z": 507.4,
+   "buildingIndex": 1001,
+   "matches": [
+    {
+     "sourceId": "n11822862069",
+     "sourceUrl": "https://www.openstreetmap.org/node/11822862069",
+     "tags": {
+      "check_date": "2024-08-02",
+      "name": "Sunshine Beauty Salon",
+      "shop": "hairdresser"
+     },
+     "sourcePositionM": [
+      -654.3114218046023,
+      507.38425919993244
+     ],
+     "roundingErrorM": 0.019448146624831773
+    }
+   ]
+  },
+  {
+   "index": 77,
+   "kind": "landmark",
+   "name": "Celestial Navigation",
+   "brand": "",
+   "sub": "artwork",
+   "x": -827.2,
+   "z": 486.7,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n12100097672",
+     "sourceUrl": "https://www.openstreetmap.org/node/12100097672",
+     "tags": {
+      "artist_name": "Fernanda D’Agostino",
+      "artwork_type": "sculpture",
+      "material": "metal",
+      "name": "Celestial Navigation",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      -827.1805009513395,
+      486.65814120014466
+     ],
+     "roundingErrorM": 0.04617761388374712
+    }
+   ]
+  },
+  {
+   "index": 78,
+   "kind": "metro",
+   "name": "B Gates",
+   "brand": "",
+   "sub": "station",
+   "x": -1399.2,
+   "z": 1028.6,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n12403316424",
+     "sourceUrl": "https://www.openstreetmap.org/node/12403316424",
+     "tags": {
+      "level": "-1",
+      "light_rail": "yes",
+      "name": "B Gates",
+      "network": "SEA Underground",
+      "opening_hours": "24/7",
+      "operator": "Port of Seattle",
+      "public_transport": "station",
+      "railway": "station",
+      "source": "yahoo_wms",
+      "station": "light_rail",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1399.1675781491037,
+      1028.5822260002067
+     ],
+     "roundingErrorM": 0.036974200250873994
+    }
+   ]
+  },
+  {
+   "index": 79,
+   "kind": "food",
+   "name": "RBG Bar & Grill",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -759.7,
+   "z": 1055.2,
+   "buildingIndex": 742,
+   "matches": [
+    {
+     "sourceId": "n12474229118",
+     "sourceUrl": "https://www.openstreetmap.org/node/12474229118",
+     "tags": {
+      "amenity": "restaurant",
+      "check_date": "2025-01-04",
+      "name": "RBG Bar & Grill"
+     },
+     "sourcePositionM": [
+      -759.6633971861228,
+      1055.2316796005164
+     ],
+     "roundingErrorM": 0.04840829549372562
+    }
+   ]
+  },
+  {
+   "index": 80,
+   "kind": "busstop",
+   "name": "SeaTac Airport Terminal - Bay 2",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -1074.3,
+   "z": 917.3,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n13143529520",
+     "sourceUrl": "https://www.openstreetmap.org/node/13143529520",
+     "tags": {
+      "bench": "yes",
+      "bin": "yes",
+      "gtfs:stop_id:US-WA-ST": "4080",
+      "highway": "bus_stop",
+      "lit": "yes",
+      "name": "SeaTac Airport Terminal - Bay 2",
+      "network": "Sound Transit",
+      "network:wikidata": "Q3965367",
+      "network:wikipedia": "en:Sound Transit",
+      "public_transport": "platform",
+      "ref": "4080",
+      "shelter": "yes",
+      "tactile_paving": "no",
+      "website": "https://www.soundtransit.org/ride-with-us/stops-stations/3_13215"
+     },
+     "sourcePositionM": [
+      -1074.2890357031933,
+      917.3390939999566
+     ],
+     "roundingErrorM": 0.040602421566636605
+    }
+   ]
+  },
+  {
+   "index": 81,
+   "kind": "food",
+   "name": "P.F. Chang's",
+   "brand": "P.F. Chang's",
+   "sub": "restaurant:asian",
+   "x": -1358.2,
+   "z": 156.9,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "n13630053295",
+     "sourceUrl": "https://www.openstreetmap.org/node/13630053295",
+     "tags": {
+      "amenity": "restaurant",
+      "brand": "P.F. Chang's",
+      "brand:wikidata": "Q5360181",
+      "check_date": "2026-03-09",
+      "cuisine": "asian",
+      "level": "6",
+      "name": "P.F. Chang's",
+      "official_name": "P.F. Chang's China Bistro"
+     },
+     "sourcePositionM": [
+      -1358.1936015859753,
+      156.87393120048878
+     ],
+     "roundingErrorM": 0.026842541049386
+    }
+   ]
+  },
+  {
+   "index": 82,
+   "kind": "shop",
+   "name": "Sunglass Hut",
+   "brand": "Sunglass Hut",
+   "sub": "optician",
+   "x": -1413.7,
+   "z": 554.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13866989295",
+     "sourceUrl": "https://www.openstreetmap.org/node/13866989295",
+     "tags": {
+      "brand": "Sunglass Hut",
+      "brand:wikidata": "Q136311",
+      "check_date": "2026-05-23",
+      "name": "Sunglass Hut",
+      "shop": "optician"
+     },
+     "sourcePositionM": [
+      -1413.71887278316,
+      554.2597368005031
+     ],
+     "roundingErrorM": 0.04446692228973975
+    }
+   ]
+  },
+  {
+   "index": 83,
+   "kind": "landmark",
+   "name": "Lookout at C",
+   "brand": "",
+   "sub": "viewpoint",
+   "x": -1387.7,
+   "z": 577.7,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13950604125",
+     "sourceUrl": "https://www.openstreetmap.org/node/13950604125",
+     "tags": {
+      "level": "3",
+      "name": "Lookout at C",
+      "tourism": "viewpoint"
+     },
+     "sourcePositionM": [
+      -1387.672582335738,
+      577.7085888005234
+     ],
+     "roundingErrorM": 0.028731442846002493
+    }
+   ]
+  },
+  {
+   "index": 84,
+   "kind": "landmark",
+   "name": "Shared Breath",
+   "brand": "",
+   "sub": "artwork",
+   "x": -1381.2,
+   "z": 576.2,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13950614416",
+     "sourceUrl": "https://www.openstreetmap.org/node/13950614416",
+     "tags": {
+      "airside": "yes",
+      "artist_name": "Fumi Amano",
+      "artwork_type": "sculpture",
+      "level": "3",
+      "material": "glass",
+      "name": "Shared Breath",
+      "start_date": "2026",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      -1381.191121041869,
+      576.2083068003631
+     ],
+     "roundingErrorM": 0.01215889920025292
+    }
+   ]
+  },
+  {
+   "index": 85,
+   "kind": "food",
+   "name": "Chili's",
+   "brand": "Chili's",
+   "sub": "restaurant:tex-mex",
+   "x": -1355.6,
+   "z": 573.6,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13953189918",
+     "sourceUrl": "https://www.openstreetmap.org/node/13953189918",
+     "tags": {
+      "airside": "yes",
+      "amenity": "restaurant",
+      "brand": "Chili's",
+      "brand:wikidata": "Q1072948",
+      "check_date": "2026-08-03",
+      "cuisine": "tex-mex",
+      "level": "2",
+      "name": "Chili's",
+      "official_name": "Chili's Grill & Bar"
+     },
+     "sourcePositionM": [
+      -1355.551333392747,
+      573.6189312001097
+     ],
+     "roundingErrorM": 0.0522190482401226
+    }
+   ]
+  },
+  {
+   "index": 86,
+   "kind": "food",
+   "name": "Buffalo Wild Wings Go",
+   "brand": "Buffalo Wild Wings",
+   "sub": "restaurant:wings",
+   "x": -1371.3,
+   "z": 565.2,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13953189924",
+     "sourceUrl": "https://www.openstreetmap.org/node/13953189924",
+     "tags": {
+      "airside": "yes",
+      "amenity": "restaurant",
+      "bar": "yes",
+      "brand": "Buffalo Wild Wings",
+      "brand:wikidata": "Q509255",
+      "check_date": "2026-08-03",
+      "cuisine": "wings",
+      "level": "2",
+      "name": "Buffalo Wild Wings Go",
+      "note": "Although the NSI warns that this is a non-standard name, the name of this location does indeed end with \"Go\". I assume it refers to the fact that this location didn't seem to have a full bar setup, unlike some other airports",
+      "short_name": "BW3",
+      "takeaway": "yes"
+     },
+     "sourcePositionM": [
+      -1371.3070807655176,
+      565.2062388005032
+     ],
+     "roundingErrorM": 0.009437153810072152
+    }
+   ]
+  },
+  {
+   "index": 87,
+   "kind": "food",
+   "name": "Port of Subs",
+   "brand": "",
+   "sub": "restaurant:sandwich",
+   "x": -1378.7,
+   "z": 575.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13953189942",
+     "sourceUrl": "https://www.openstreetmap.org/node/13953189942",
+     "tags": {
+      "airside": "yes",
+      "amenity": "restaurant",
+      "check_date": "2026-08-03",
+      "cuisine": "sandwich",
+      "level": "2",
+      "name": "Port of Subs",
+      "takeaway": "only"
+     },
+     "sourcePositionM": [
+      -1378.7219929300718,
+      575.2859112006389
+     ],
+     "roundingErrorM": 0.026118637800938236
+    }
+   ]
+  },
+  {
+   "index": 88,
+   "kind": "food",
+   "name": "Great State Burger",
+   "brand": "",
+   "sub": "fast_food:american",
+   "x": -1381.2,
+   "z": 577.1,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13953189943",
+     "sourceUrl": "https://www.openstreetmap.org/node/13953189943",
+     "tags": {
+      "airside": "yes",
+      "amenity": "fast_food",
+      "check_date": "2026-08-03",
+      "cuisine": "american",
+      "delivery": "no",
+      "level": "2",
+      "name": "Great State Burger",
+      "takeaway": "only"
+     },
+     "sourcePositionM": [
+      -1381.198648872101,
+      577.0973628004874
+     ],
+     "roundingErrorM": 0.0029631685521731834
+    }
+   ]
+  },
+  {
+   "index": 89,
+   "kind": "landmark",
+   "name": "Interfaith Prayer and Meditation Room",
+   "brand": "",
+   "sub": "place_of_worship",
+   "x": -1379.6,
+   "z": 568.1,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13953189952",
+     "sourceUrl": "https://www.openstreetmap.org/node/13953189952",
+     "tags": {
+      "airside": "yes",
+      "amenity": "place_of_worship",
+      "level": "3",
+      "name": "Interfaith Prayer and Meditation Room",
+      "opening_hours": "24/7",
+      "religion": "all"
+     },
+     "sourcePositionM": [
+      -1379.5801655059245,
+      568.0734444000552
+     ],
+     "roundingErrorM": 0.03314524164426766
+    }
+   ]
+  },
+  {
+   "index": 90,
+   "kind": "shop",
+   "name": "Bite Society",
+   "brand": "",
+   "sub": "confectionery",
+   "x": -1342.1,
+   "z": 593.1,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13976551285",
+     "sourceUrl": "https://www.openstreetmap.org/node/13976551285",
+     "tags": {
+      "airside": "yes",
+      "level": "1",
+      "name": "Bite Society",
+      "shop": "confectionery"
+     },
+     "sourcePositionM": [
+      -1342.144268858758,
+      593.1003708003553
+     ],
+     "roundingErrorM": 0.04427041166124174
+    }
+   ]
+  },
+  {
+   "index": 91,
+   "kind": "shop",
+   "name": "Transcend",
+   "brand": "",
+   "sub": "clothes",
+   "x": -1364.7,
+   "z": 596.8,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13976551286",
+     "sourceUrl": "https://www.openstreetmap.org/node/13976551286",
+     "tags": {
+      "airside": "yes",
+      "check_date": "2026-08-03",
+      "clothes": "fashion",
+      "level": "1",
+      "name": "Transcend",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      -1364.7428133455144,
+      596.789953200042
+     ],
+     "roundingErrorM": 0.043976365738035816
+    }
+   ]
+  },
+  {
+   "index": 92,
+   "kind": "food",
+   "name": "Wanderlust",
+   "brand": "",
+   "sub": "bar",
+   "x": -1371.3,
+   "z": 591.8,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13976551287",
+     "sourceUrl": "https://www.openstreetmap.org/node/13976551287",
+     "tags": {
+      "airside": "yes",
+      "amenity": "bar",
+      "check_date": "2026-08-03",
+      "level": "1",
+      "name": "Wanderlust"
+     },
+     "sourcePositionM": [
+      -1371.2694416175666,
+      591.8334660005534
+     ],
+     "roundingErrorM": 0.045318737074013744
+    }
+   ]
+  },
+  {
+   "index": 93,
+   "kind": "shop",
+   "name": "Seattle Glassblowing Studio",
+   "brand": "",
+   "sub": "jewelry",
+   "x": -1377.1,
+   "z": 587.7,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13976551288",
+     "sourceUrl": "https://www.openstreetmap.org/node/13976551288",
+     "tags": {
+      "airside": "yes",
+      "level": "1",
+      "name": "Seattle Glassblowing Studio",
+      "shop": "jewelry"
+     },
+     "sourcePositionM": [
+      -1377.1110373941272,
+      587.7326952000097
+     ],
+     "roundingErrorM": 0.03450797259756437
+    }
+   ]
+  },
+  {
+   "index": 94,
+   "kind": "food",
+   "name": "Nanny's BBQ",
+   "brand": "",
+   "sub": "restaurant:barbecue",
+   "x": -1352.3,
+   "z": 578.1,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13976556413",
+     "sourceUrl": "https://www.openstreetmap.org/node/13976556413",
+     "tags": {
+      "airside": "yes",
+      "amenity": "restaurant",
+      "check_date": "2026-08-03",
+      "cuisine": "barbecue",
+      "level": "1",
+      "name": "Nanny's BBQ"
+     },
+     "sourcePositionM": [
+      -1352.3218944906257,
+      578.0975508003311
+     ],
+     "roundingErrorM": 0.02203105305652962
+    }
+   ]
+  },
+  {
+   "index": 95,
+   "kind": "landmark",
+   "name": "Tree at C",
+   "brand": "",
+   "sub": "artwork",
+   "x": -1366.4,
+   "z": 577,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n13976556414",
+     "sourceUrl": "https://www.openstreetmap.org/node/13976556414",
+     "tags": {
+      "airside": "yes",
+      "artwork_type": "installation",
+      "level": "1-3",
+      "material": "wood",
+      "name": "Tree at C",
+      "start_date": "2026",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      -1366.4215193492687,
+      577.0084572002381
+     ],
+     "roundingErrorM": 0.023121561989013936
+    }
+   ]
+  },
+  {
+   "index": 96,
+   "kind": "landmark",
+   "name": "Infinity Column",
+   "brand": "",
+   "sub": "artwork",
+   "x": -1006.5,
+   "z": 1068.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n14013735472",
+     "sourceUrl": "https://www.openstreetmap.org/node/14013735472",
+     "tags": {
+      "artist_name": "John Geiseman",
+      "name": "Infinity Column",
+      "tourism": "artwork"
+     },
+     "sourcePositionM": [
+      -1006.4934022429247,
+      1068.3119160001831
+     ],
+     "roundingErrorM": 0.013620626226061942
+    }
+   ]
+  },
+  {
+   "index": 97,
+   "kind": "food",
+   "name": "Olympia Coffee",
+   "brand": "",
+   "sub": "cafe:coffee_shop",
+   "x": -1395.2,
+   "z": 574.2,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "n14189991289",
+     "sourceUrl": "https://www.openstreetmap.org/node/14189991289",
+     "tags": {
+      "air_conditioning": "yes",
+      "amenity": "cafe",
+      "cuisine": "coffee_shop",
+      "diet:gluten_free": "yes",
+      "diet:vegetarian": "yes",
+      "indoor_seating": "yes",
+      "name": "Olympia Coffee",
+      "outdoor_seating": "no",
+      "payment:credit_cards": "yes",
+      "payment:debit_cards": "yes",
+      "smoking": "no"
+     },
+     "sourcePositionM": [
+      -1395.1928841149831,
+      574.2301572001459
+     ],
+     "roundingErrorM": 0.030985360094873217
+    }
+   ]
+  },
+  {
+   "index": 98,
+   "kind": "fuel",
+   "name": "Shell",
+   "brand": "Shell",
+   "sub": "fuel",
+   "x": -812.3,
+   "z": -57.4,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n824050627",
+     "sourceUrl": "https://www.openstreetmap.org/node/824050627",
+     "tags": {
+      "addr:housenumber": "17010",
+      "addr:street": "International Boulevard",
+      "amenity": "fuel",
+      "brand": "Shell",
+      "brand:wikidata": "Q110716465",
+      "check_date": "2024-06-16",
+      "name": "Shell",
+      "opening_hours": "24/7",
+      "source": "survey"
+     },
+     "sourcePositionM": [
+      -812.328093131535,
+      -57.44413079931377
+     ],
+     "roundingErrorM": 0.05231397029011597
+    }
+   ]
+  },
+  {
+   "index": 99,
+   "kind": "busstop",
+   "name": "International Boulevard & South 170th Street",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -857.1,
+   "z": -19,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n4052149088",
+     "sourceUrl": "https://www.openstreetmap.org/node/4052149088",
+     "tags": {
+      "bus": "yes",
+      "gtfs:stop_id:US-WA-KCM": "61070",
+      "highway": "bus_stop",
+      "name": "International Boulevard & South 170th Street",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "network:wikipedia": "en:King County Metro",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "61070",
+      "route_ref": "161;A Line",
+      "shelter": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -857.1186793067476,
+      -19.048024799918494
+     ],
+     "roundingErrorM": 0.051529582841133716
+    }
+   ]
+  },
+  {
+   "index": 100,
+   "kind": "busstop",
+   "name": "International Boulevard & South 170th Street",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -803.8,
+   "z": -135.3,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n4052149089",
+     "sourceUrl": "https://www.openstreetmap.org/node/4052149089",
+     "tags": {
+      "bus": "yes",
+      "gtfs:stop_id:US-WA-KCM": "60910",
+      "highway": "bus_stop",
+      "name": "International Boulevard & South 170th Street",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "network:wikipedia": "en:King County Metro",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "60910",
+      "route_ref": "A Line",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -803.8216456731894,
+      -135.34766280003635
+     ],
+     "roundingErrorM": 0.05234766160135056
+    }
+   ]
+  },
+  {
+   "index": 101,
+   "kind": "shop",
+   "name": "Food Mart",
+   "brand": "",
+   "sub": "convenience",
+   "x": -782.2,
+   "z": -108.2,
+   "buildingIndex": 1634,
+   "matches": [
+    {
+     "sourceId": "n4320422000",
+     "sourceUrl": "https://www.openstreetmap.org/node/4320422000",
+     "tags": {
+      "addr:housenumber": "17850",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "check_date": "2024-06-16",
+      "name": "Food Mart",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -782.2393581843223,
+      -108.20922839953974
+     ],
+     "roundingErrorM": 0.04042561108025118
+    }
+   ]
+  },
+  {
+   "index": 102,
+   "kind": "food",
+   "name": "Ginger Palace",
+   "brand": "",
+   "sub": "restaurant:asian",
+   "x": -746.6,
+   "z": -304.5,
+   "buildingIndex": 1627,
+   "matches": [
+    {
+     "sourceId": "n4320453289",
+     "sourceUrl": "https://www.openstreetmap.org/node/4320453289",
+     "tags": {
+      "addr:city": "Sea Tac",
+      "addr:housenumber": "16720",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "restaurant",
+      "cuisine": "asian",
+      "internet_access": "wlan",
+      "name": "Ginger Palace",
+      "opening_hours": "Mo-Su 07:00-01:00",
+      "phone": "+1-206-957-1001"
+     },
+     "sourcePositionM": [
+      -746.5725014951371,
+      -304.5127931996571
+     ],
+     "roundingErrorM": 0.030328760725804434
+    }
+   ]
+  },
+  {
+   "index": 103,
+   "kind": "shop",
+   "name": "SEATAC Coffee & Deli",
+   "brand": "",
+   "sub": "convenience",
+   "x": -729.3,
+   "z": -323.4,
+   "buildingIndex": 1632,
+   "matches": [
+    {
+     "sourceId": "n4320491909",
+     "sourceUrl": "https://www.openstreetmap.org/node/4320491909",
+     "tags": {
+      "name": "SEATAC Coffee & Deli",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -729.3111882011129,
+      -323.3830067998666
+     ],
+     "roundingErrorM": 0.02034563085571284
+    }
+   ]
+  },
+  {
+   "index": 104,
+   "kind": "shop",
+   "name": "SEATAC Airport Grocery",
+   "brand": "",
+   "sub": "convenience",
+   "x": -730.4,
+   "z": -333.9,
+   "buildingIndex": 1632,
+   "matches": [
+    {
+     "sourceId": "n4320492599",
+     "sourceUrl": "https://www.openstreetmap.org/node/4320492599",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "16704",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "name": "SEATAC Airport Grocery",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -730.4403626428555,
+      -333.8516411998098
+     ],
+     "roundingErrorM": 0.06298981262165347
+    }
+   ]
+  },
+  {
+   "index": 105,
+   "kind": "shop",
+   "name": "SeaTac Spine & Wellness",
+   "brand": "",
+   "sub": "doctors",
+   "x": -730.3,
+   "z": -327.4,
+   "buildingIndex": 1632,
+   "matches": [
+    {
+     "sourceId": "n6171272908",
+     "sourceUrl": "https://www.openstreetmap.org/node/6171272908",
+     "tags": {
+      "amenity": "doctors",
+      "healthcare": "doctor",
+      "name": "SeaTac Spine & Wellness"
+     },
+     "sourcePositionM": [
+      -730.2521669030999,
+      -327.42821159976086
+     ],
+     "roundingErrorM": 0.055532868826634975
+    }
+   ]
+  },
+  {
+   "index": 106,
+   "kind": "shop",
+   "name": "Nur Wireless",
+   "brand": "",
+   "sub": "mobile_phone",
+   "x": -729.9,
+   "z": -337.1,
+   "buildingIndex": 1632,
+   "matches": [
+    {
+     "sourceId": "n6171272911",
+     "sourceUrl": "https://www.openstreetmap.org/node/6171272911",
+     "tags": {
+      "name": "Nur Wireless",
+      "shop": "mobile_phone"
+     },
+     "sourcePositionM": [
+      -729.9359980590269,
+      -337.0855823996992
+     ],
+     "roundingErrorM": 0.038777924804481265
+    }
+   ]
+  },
+  {
+   "index": 107,
+   "kind": "shop",
+   "name": "Associate Fleet Auto Sales",
+   "brand": "",
+   "sub": "car",
+   "x": -691.2,
+   "z": -451.5,
+   "buildingIndex": 1711,
+   "matches": [
+    {
+     "sourceId": "n6548480585",
+     "sourceUrl": "https://www.openstreetmap.org/node/6548480585",
+     "tags": {
+      "name": "Associate Fleet Auto Sales",
+      "shop": "car"
+     },
+     "sourcePositionM": [
+      -691.235426037708,
+      -451.4626367994595
+     ],
+     "roundingErrorM": 0.05148798794195017
+    }
+   ]
+  },
+  {
+   "index": 108,
+   "kind": "busstop",
+   "name": "Air Cargo Rd & S 165th St",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -1209.2,
+   "z": -690.9,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n6579154350",
+     "sourceUrl": "https://www.openstreetmap.org/node/6579154350",
+     "tags": {
+      "bus": "yes",
+      "gtfs:feed": "US-WA-KCM",
+      "gtfs:stop_id": "80153",
+      "highway": "bus_stop",
+      "name": "Air Cargo Rd & S 165th St",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "80153",
+      "route_ref": "161",
+      "shelter": "no",
+      "wheelchair": "no"
+     },
+     "sourcePositionM": [
+      -1209.1726866418223,
+      -690.863191199422
+     ],
+     "roundingErrorM": 0.04583565571620832
+    }
+   ]
+  },
+  {
+   "index": 109,
+   "kind": "busstop",
+   "name": "Air Cargo Rd & S 166th St",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -1230.4,
+   "z": -384.2,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n6579154351",
+     "sourceUrl": "https://www.openstreetmap.org/node/6579154351",
+     "tags": {
+      "bus": "yes",
+      "gtfs:feed": "US-WA-KCM",
+      "gtfs:stop_id": "80121",
+      "highway": "bus_stop",
+      "name": "Air Cargo Rd & S 166th St",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "80121",
+      "route_ref": "161",
+      "shelter": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1230.4388052876861,
+      -384.1833239997087
+     ],
+     "roundingErrorM": 0.04223670605186515
+    }
+   ]
+  },
+  {
+   "index": 110,
+   "kind": "busstop",
+   "name": "Air Cargo Rd & S 166th St",
+   "brand": "",
+   "sub": "bus_stop",
+   "x": -1244.4,
+   "z": -398.3,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "n6579154352",
+     "sourceUrl": "https://www.openstreetmap.org/node/6579154352",
+     "tags": {
+      "bus": "yes",
+      "gtfs:feed": "US-WA-KCM",
+      "gtfs:stop_id": "80154",
+      "highway": "bus_stop",
+      "name": "Air Cargo Rd & S 166th St",
+      "network": "King County Metro",
+      "network:short": "KCM",
+      "network:wikidata": "Q6411393",
+      "operator": "King County Metro",
+      "operator:short": "KCM",
+      "operator:wikidata": "Q6411393",
+      "operator:wikipedia": "en:King County Metro",
+      "public_transport": "platform",
+      "ref": "80154",
+      "route_ref": "161",
+      "shelter": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1244.4480961899626,
+      -398.3304275999983
+     ],
+     "roundingErrorM": 0.05691293640786382
+    }
+   ]
+  },
+  {
+   "index": 111,
+   "kind": "shop",
+   "name": "Northwest Autobody",
+   "brand": "",
+   "sub": "car_repair",
+   "x": -672.5,
+   "z": -517.8,
+   "buildingIndex": 1737,
+   "matches": [
+    {
+     "sourceId": "n6859170985",
+     "sourceUrl": "https://www.openstreetmap.org/node/6859170985",
+     "tags": {
+      "name": "Northwest Autobody",
+      "shop": "car_repair"
+     },
+     "sourcePositionM": [
+      -672.5362972881004,
+      -517.7528747994966
+     ],
+     "roundingErrorM": 0.05948342328689481
+    }
+   ]
+  },
+  {
+   "index": 112,
+   "kind": "food",
+   "name": "San Fernando Fried Chicken",
+   "brand": "",
+   "sub": "fast_food",
+   "x": -683.5,
+   "z": -451.5,
+   "buildingIndex": 1711,
+   "matches": [
+    {
+     "sourceId": "n11565425169",
+     "sourceUrl": "https://www.openstreetmap.org/node/11565425169",
+     "tags": {
+      "amenity": "fast_food",
+      "name": "San Fernando Fried Chicken"
+     },
+     "sourcePositionM": [
+      -683.5495120072641,
+      -451.52931599944907
+     ],
+     "roundingErrorM": 0.0575401311000861
+    }
+   ]
+  },
+  {
+   "index": 113,
+   "kind": "food",
+   "name": "Bibito Cafe",
+   "brand": "",
+   "sub": "cafe",
+   "x": -605.3,
+   "z": -701.6,
+   "buildingIndex": 1629,
+   "matches": [
+    {
+     "sourceId": "n14111796067",
+     "sourceUrl": "https://www.openstreetmap.org/node/14111796067",
+     "tags": {
+      "amenity": "cafe",
+      "name": "Bibito Cafe",
+      "outdoor_seating": "no"
+     },
+     "sourcePositionM": [
+      -605.3353623669568,
+      -701.5652027997235
+     ],
+     "roundingErrorM": 0.04961191534176547
+    }
+   ]
+  },
+  {
+   "index": 114,
+   "kind": "airport",
+   "name": "Sea-Tac Airport Main Terminal",
+   "brand": "",
+   "sub": "terminal",
+   "x": -1237,
+   "z": 760.4,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "w23772634",
+     "sourceUrl": "https://www.openstreetmap.org/way/23772634",
+     "tags": {
+      "aeroway": "terminal",
+      "air_conditioning": "yes",
+      "building": "transportation",
+      "building:levels": "2",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "layer": "1",
+      "name": "Sea-Tac Airport Main Terminal",
+      "smoking": "no",
+      "source": "yahoo_wms"
+     },
+     "sourcePositionM": [
+      -1236.9697985157459,
+      760.3919418984148
+     ],
+     "roundingErrorM": 0.0312580014125929
+    }
+   ]
+  },
+  {
+   "index": 115,
+   "kind": "airport",
+   "name": "Sea-Tac Airport North Satellite",
+   "brand": "",
+   "sub": "terminal",
+   "x": -1322.6,
+   "z": 154.3,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "w23772636",
+     "sourceUrl": "https://www.openstreetmap.org/way/23772636",
+     "tags": {
+      "aeroway": "terminal",
+      "building": "yes",
+      "building:levels": "2",
+      "layer": "1",
+      "name": "Sea-Tac Airport North Satellite"
+     },
+     "sourcePositionM": [
+      -1322.6439801830036,
+      154.26533255501153
+     ],
+     "roundingErrorM": 0.05600078784326048
+    }
+   ]
+  },
+  {
+   "index": 116,
+   "kind": "airport",
+   "name": "Sea-Tac Airport South Satellite",
+   "brand": "",
+   "sub": "terminal",
+   "x": -1292.6,
+   "z": 1240.8,
+   "buildingIndex": 726,
+   "matches": [
+    {
+     "sourceId": "w23772637",
+     "sourceUrl": "https://www.openstreetmap.org/way/23772637",
+     "tags": {
+      "aeroway": "terminal",
+      "alt_name": "S Concourse",
+      "building": "transportation",
+      "building:levels": "2",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Sea-Tac Airport South Satellite"
+     },
+     "sourcePositionM": [
+      -1292.5620410827069,
+      1240.761665031039
+     ],
+     "roundingErrorM": 0.05394857965969195
+    }
+   ]
+  },
+  {
+   "index": 117,
+   "kind": "metro",
+   "name": "SeaTac/Airport",
+   "brand": "",
+   "sub": "station",
+   "x": -896.8,
+   "z": 531.3,
+   "buildingIndex": 730,
+   "matches": [
+    {
+     "sourceId": "w54139654",
+     "sourceUrl": "https://www.openstreetmap.org/way/54139654",
+     "tags": {
+      "air_conditioning": "no",
+      "building": "train_station",
+      "layer": "1",
+      "light_rail": "yes",
+      "name": "SeaTac/Airport",
+      "network": "Sound Transit",
+      "not:network:wikidata": "Q7564853",
+      "operator": "Sound Transit",
+      "operator:wikidata": "Q3965367",
+      "public_transport": "station",
+      "railway": "station",
+      "ref": "64",
+      "station": "light_rail",
+      "wheelchair": "yes",
+      "wikidata": "Q7439822"
+     },
+     "sourcePositionM": [
+      -896.8052914865841,
+      531.2549092819413
+     ],
+     "roundingErrorM": 0.045400139705892545
+    }
+   ]
+  },
+  {
+   "index": 118,
+   "kind": "hotel",
+   "name": "Skybridge Seattle Airport Hotel",
+   "brand": "",
+   "sub": "hotel",
+   "x": -779.4,
+   "z": 333.4,
+   "buildingIndex": 733,
+   "matches": [
+    {
+     "sourceId": "w246328436",
+     "sourceUrl": "https://www.openstreetmap.org/way/246328436",
+     "tags": {
+      "addr:city": "Seattle",
+      "addr:housenumber": "17338",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "air_conditioning": "yes",
+      "bar": "yes",
+      "building": "yes",
+      "building:levels": "12",
+      "fax": "+1-206-242-7089",
+      "internet_access": "yes",
+      "internet_access:fee": "no",
+      "name": "Skybridge Seattle Airport Hotel",
+      "payment:credit_cards": "yes",
+      "phone": "+1-206-248-1000",
+      "restaurant": "yes",
+      "rooms": "260",
+      "swimming_pool": "no",
+      "tourism": "hotel",
+      "website": "https://www.marriott.com/en-us/hotels/seaaa-skybridge-seattle-airport-hotel/overview/"
+     },
+     "sourcePositionM": [
+      -779.3886803425257,
+      333.3699324836414
+     ],
+     "roundingErrorM": 0.032127716777089664
+    }
+   ]
+  },
+  {
+   "index": 119,
+   "kind": "food",
+   "name": "Denny's",
+   "brand": "Denny's",
+   "sub": "restaurant:american",
+   "x": -827,
+   "z": 139.1,
+   "buildingIndex": 734,
+   "matches": [
+    {
+     "sourceId": "w246328442",
+     "sourceUrl": "https://www.openstreetmap.org/way/246328442",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "17206",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "restaurant",
+      "brand": "Denny's",
+      "brand:wikidata": "Q1189695",
+      "building": "yes",
+      "check_date": "2024-06-16",
+      "cuisine": "american",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Denny's",
+      "website": "https://www.dennys.com/"
+     },
+     "sourcePositionM": [
+      -827.02618044388,
+      139.14282060056166
+     ],
+     "roundingErrorM": 0.050189834371262496
+    }
+   ]
+  },
+  {
+   "index": 120,
+   "kind": "hotel",
+   "name": "Radisson Hotel Seattle Airport",
+   "brand": "Radisson",
+   "sub": "hotel",
+   "x": -747.3,
+   "z": 1066.9,
+   "buildingIndex": 742,
+   "matches": [
+    {
+     "sourceId": "w314940617",
+     "sourceUrl": "https://www.openstreetmap.org/way/314940617",
+     "tags": {
+      "addr:city": "Seattle",
+      "addr:housenumber": "18118",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "brand": "Radisson",
+      "brand:wikidata": "Q1751979",
+      "building": "yes",
+      "building:levels": "7",
+      "email": "rhi_seta@radisson.com",
+      "fax": "+1-206-248-6065",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Radisson Hotel Seattle Airport",
+      "phone": "+1-206-244-6666;+1-800-333-3333",
+      "tourism": "hotel",
+      "website": "https://www.radissonhotels.com/en-us/hotels/radisson-seattle-airport"
+     },
+     "sourcePositionM": [
+      -747.3127935753992,
+      1066.93871496975
+     ],
+     "roundingErrorM": 0.040774065951655065
+    }
+   ]
+  },
+  {
+   "index": 121,
+   "kind": "hotel",
+   "name": "SureStay",
+   "brand": "SureStay",
+   "sub": "hotel",
+   "x": -681.4,
+   "z": 414.5,
+   "buildingIndex": 745,
+   "matches": [
+    {
+     "sourceId": "w314940622",
+     "sourceUrl": "https://www.openstreetmap.org/way/314940622",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "3000",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "South 176th Street",
+      "brand": "SureStay",
+      "brand:wikidata": "Q135246628",
+      "building": "yes",
+      "contact:facebook": "https://www.facebook.com/people/SureStay-Hotel-By-Best-Western-Seatac-Airport-North/100089823463862/",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "SureStay",
+      "official_name": "SureStay by Best Western",
+      "phone": "+1-206-242-0200;+1-800-780-7234",
+      "tourism": "hotel",
+      "website": "https://www.bestwestern.com/en_US/book/seatac/hotel-rooms/surestay-hotel-by-best-western-seatac-airport-north/propertyCode.52121.html"
+     },
+     "sourcePositionM": [
+      -681.4139703742463,
+      414.5110008475579
+     ],
+     "roundingErrorM": 0.01778173229962666
+    }
+   ]
+  },
+  {
+   "index": 122,
+   "kind": "hotel",
+   "name": "Red Lion Inn",
+   "brand": "Red Lion Hotels",
+   "sub": "hotel",
+   "x": -743.8,
+   "z": 1182.6,
+   "buildingIndex": 754,
+   "matches": [
+    {
+     "sourceId": "w364221560",
+     "sourceUrl": "https://www.openstreetmap.org/way/364221560",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "18220",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "brand": "Red Lion Hotels",
+      "brand:wikidata": "Q25047720",
+      "building": "yes",
+      "internet_access": "wlan",
+      "name": "Red Lion Inn",
+      "phone": "+1-206-246-5535",
+      "smoking": "no",
+      "tourism": "hotel",
+      "website": "https://www.redlion.com/red-lion-hotels/wa/seattle/red-lion-hotel-seattle-airport-sea-tac"
+     },
+     "sourcePositionM": [
+      -743.8256982918311,
+      1182.5515096958845
+     ],
+     "roundingErrorM": 0.054879065191042166
+    }
+   ]
+  },
+  {
+   "index": 123,
+   "kind": "hotel",
+   "name": "Rodeway Inn",
+   "brand": "Rodeway Inn",
+   "sub": "motel",
+   "x": -684.1,
+   "z": 275.5,
+   "buildingIndex": 1034,
+   "matches": [
+    {
+     "sourceId": "w647567422",
+     "sourceUrl": "https://www.openstreetmap.org/way/647567422",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "2930",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "South 176th Street",
+      "brand": "Rodeway Inn",
+      "brand:wikidata": "Q7356709",
+      "building": "yes",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Rodeway Inn",
+      "phone": "+1-206-246-9300",
+      "ref": "WA075",
+      "tourism": "motel",
+      "website": "https://www.choicehotels.com/en-ca/washington/seatac/rodeway-inn-hotels/wa075"
+     },
+     "sourcePositionM": [
+      -684.1078966210567,
+      275.4808681379399
+     ],
+     "roundingErrorM": 0.02069745805646747
+    }
+   ]
+  },
+  {
+   "index": 124,
+   "kind": "hotel",
+   "name": "SeaTac Inn",
+   "brand": "",
+   "sub": "motel",
+   "x": -805.8,
+   "z": 109.6,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "w647568031",
+     "sourceUrl": "https://www.openstreetmap.org/way/647568031",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "17108",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "building": "yes",
+      "check_date": "2024-06-16",
+      "name": "SeaTac Inn",
+      "phone": "+1-206-244-1230;+1-800-500-1230",
+      "rooms": "70",
+      "tourism": "motel",
+      "website": "http://theseatacinn.com/Home.html"
+     },
+     "sourcePositionM": [
+      -805.7588962227272,
+      109.5930284427484
+     ],
+     "roundingErrorM": 0.04169080374132754
+    }
+   ]
+  },
+  {
+   "index": 125,
+   "kind": "food",
+   "name": "Bambuza",
+   "brand": "",
+   "sub": "restaurant:vietnamese",
+   "x": -1364.1,
+   "z": 94.3,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "w687883520",
+     "sourceUrl": "https://www.openstreetmap.org/way/687883520",
+     "tags": {
+      "amenity": "restaurant",
+      "check_date": "2026-03-09",
+      "cuisine": "vietnamese",
+      "indoor": "room",
+      "level": "5",
+      "name": "Bambuza"
+     },
+     "sourcePositionM": [
+      -1364.1358760677726,
+      94.31214905667557
+     ],
+     "roundingErrorM": 0.03787732589478718
+    }
+   ]
+  },
+  {
+   "index": 126,
+   "kind": "food",
+   "name": "Skillet",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -1370.4,
+   "z": 87.1,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "w687883521",
+     "sourceUrl": "https://www.openstreetmap.org/way/687883521",
+     "tags": {
+      "amenity": "restaurant",
+      "check_date": "2026-03-09",
+      "indoor": "room",
+      "level": "5",
+      "name": "Skillet"
+     },
+     "sourcePositionM": [
+      -1370.3511720144725,
+      87.06403191209334
+     ],
+     "roundingErrorM": 0.06064549050297564
+    }
+   ]
+  },
+  {
+   "index": 127,
+   "kind": "shop",
+   "name": "Emerald City Market",
+   "brand": "",
+   "sub": "gift",
+   "x": -1355.3,
+   "z": 98.9,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "w687883524",
+     "sourceUrl": "https://www.openstreetmap.org/way/687883524",
+     "tags": {
+      "check_date": "2026-03-09",
+      "indoor": "room",
+      "level": "5",
+      "name": "Emerald City Market",
+      "operator": "Hudson",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -1355.2600884913124,
+      98.92884762918895
+     ],
+     "roundingErrorM": 0.04924544888145568
+    }
+   ]
+  },
+  {
+   "index": 128,
+   "kind": "food",
+   "name": "Caffe D'arte",
+   "brand": "",
+   "sub": "cafe:coffee_shop",
+   "x": -1390.6,
+   "z": 110.6,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "w687883528",
+     "sourceUrl": "https://www.openstreetmap.org/way/687883528",
+     "tags": {
+      "amenity": "cafe",
+      "check_date": "2026-03-09",
+      "cuisine": "coffee_shop",
+      "indoor": "room",
+      "level": "5",
+      "name": "Caffe D'arte"
+     },
+     "sourcePositionM": [
+      -1390.5938021022887,
+      110.60661187692209
+     ],
+     "roundingErrorM": 0.009062607377108935
+    }
+   ]
+  },
+  {
+   "index": 129,
+   "kind": "shop",
+   "name": "Dufry Duty Free",
+   "brand": "",
+   "sub": "gift",
+   "x": -1324,
+   "z": 1271.4,
+   "buildingIndex": 726,
+   "matches": [
+    {
+     "sourceId": "w688101300",
+     "sourceUrl": "https://www.openstreetmap.org/way/688101300",
+     "tags": {
+      "check_date": "2023-04-21",
+      "indoor": "room",
+      "level": "1",
+      "name": "Dufry Duty Free",
+      "opening_hours": "PH,Mo-Su 05:30-01:00",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -1324.0168819531962,
+      1271.4008061097327
+     ],
+     "roundingErrorM": 0.016901188023875018
+    }
+   ]
+  },
+  {
+   "index": 130,
+   "kind": "food",
+   "name": "Smith Cove Bar & Kitchen",
+   "brand": "",
+   "sub": "restaurant:seafood",
+   "x": -1291.5,
+   "z": 1241.6,
+   "buildingIndex": 726,
+   "matches": [
+    {
+     "sourceId": "w688101301",
+     "sourceUrl": "https://www.openstreetmap.org/way/688101301",
+     "tags": {
+      "amenity": "restaurant",
+      "brewery": "yes",
+      "check_date": "2024-12-01",
+      "cuisine": "seafood",
+      "indoor": "room",
+      "level": "1",
+      "name": "Smith Cove Bar & Kitchen",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1291.4823918552179,
+      1241.5748665403082
+     ],
+     "roundingErrorM": 0.030687742809494038
+    }
+   ]
+  },
+  {
+   "index": 131,
+   "kind": "shop",
+   "name": "Hudson",
+   "brand": "Hudson",
+   "sub": "convenience",
+   "x": -1304.5,
+   "z": 1245.6,
+   "buildingIndex": 726,
+   "matches": [
+    {
+     "sourceId": "w688101303",
+     "sourceUrl": "https://www.openstreetmap.org/way/688101303",
+     "tags": {
+      "brand": "Hudson",
+      "brand:wikidata": "Q111534515",
+      "check_date": "2023-04-21",
+      "indoor": "room",
+      "level": "1",
+      "name": "Hudson",
+      "opening_hours": "Mo-Su 05:30-01:00",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "shop": "convenience",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1304.455243205126,
+      1245.639831624594
+     ],
+     "roundingErrorM": 0.059914347240110424
+    }
+   ]
+  },
+  {
+   "index": 132,
+   "kind": "food",
+   "name": "Moe's Indian Kitchen",
+   "brand": "",
+   "sub": "fast_food:indian",
+   "x": -1265.7,
+   "z": 1234.7,
+   "buildingIndex": 726,
+   "matches": [
+    {
+     "sourceId": "w688101305",
+     "sourceUrl": "https://www.openstreetmap.org/way/688101305",
+     "tags": {
+      "amenity": "fast_food",
+      "check_date": "2023-04-21",
+      "cuisine": "indian",
+      "indoor": "room",
+      "level": "1",
+      "name": "Moe's Indian Kitchen",
+      "not:brand:wikidata": "Q6889938",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1265.6925279365266,
+      1234.7223419231127
+     ],
+     "roundingErrorM": 0.023558294949398876
+    }
+   ]
+  },
+  {
+   "index": 133,
+   "kind": "food",
+   "name": "Greedy Cow Burger",
+   "brand": "",
+   "sub": "fast_food:burger",
+   "x": -1262.2,
+   "z": 1240.3,
+   "buildingIndex": 726,
+   "matches": [
+    {
+     "sourceId": "w688101306",
+     "sourceUrl": "https://www.openstreetmap.org/way/688101306",
+     "tags": {
+      "amenity": "fast_food",
+      "check_date": "2023-04-21",
+      "cuisine": "burger",
+      "indoor": "room",
+      "level": "1",
+      "name": "Greedy Cow Burger",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1262.2221619144314,
+      1240.2796699037372
+     ],
+     "roundingErrorM": 0.03007429575759321
+    }
+   ]
+  },
+  {
+   "index": 134,
+   "kind": "food",
+   "name": "Peet's Coffee",
+   "brand": "Peet's Coffee",
+   "sub": "cafe:coffee_shop",
+   "x": -1269.4,
+   "z": 1230.3,
+   "buildingIndex": 726,
+   "matches": [
+    {
+     "sourceId": "w688101307",
+     "sourceUrl": "https://www.openstreetmap.org/way/688101307",
+     "tags": {
+      "amenity": "cafe",
+      "brand": "Peet's Coffee",
+      "brand:wikidata": "Q1094101",
+      "check_date": "2023-04-21",
+      "cuisine": "coffee_shop",
+      "indoor": "room",
+      "level": "1",
+      "name": "Peet's Coffee",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "takeaway": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1269.3649645819578,
+      1230.3237863528657
+     ],
+     "roundingErrorM": 0.04234703177380306
+    }
+   ]
+  },
+  {
+   "index": 135,
+   "kind": "shop",
+   "name": "Planewear",
+   "brand": "",
+   "sub": "clothes",
+   "x": -1339.1,
+   "z": 681.6,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522614",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522614",
+     "tags": {
+      "addr:city": "Seattle",
+      "addr:housenumber": "17801",
+      "addr:postcode": "98158",
+      "addr:state": "WA",
+      "addr:street": "Pacific Highway S",
+      "addr:unit": "CT-16",
+      "check_date": "2024-10-20",
+      "indoor": "room",
+      "level": "1",
+      "name": "Planewear",
+      "note": "Central Terminal, Sea-Tac Airport",
+      "shop": "clothes"
+     },
+     "sourcePositionM": [
+      -1339.1024168411207,
+      681.6311010257069
+     ],
+     "roundingErrorM": 0.03119478996602435
+    }
+   ]
+  },
+  {
+   "index": 136,
+   "kind": "food",
+   "name": "Starbucks",
+   "brand": "Starbucks",
+   "sub": "cafe:coffee_shop",
+   "x": -1315.8,
+   "z": 669.8,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522620",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522620",
+     "tags": {
+      "addr:city": "Seattle-Tacoma International Airport",
+      "addr:housenumber": "17801",
+      "addr:postcode": "98158",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "cafe",
+      "branch": "SEA PRE-SECURITY Checkpoint 3",
+      "brand": "Starbucks",
+      "brand:wikidata": "Q37158",
+      "cuisine": "coffee_shop",
+      "indoor": "room",
+      "indoor_seating": "yes",
+      "level": "1",
+      "name": "Starbucks",
+      "name:en": "Starbucks",
+      "official_name": "Starbucks Coffee",
+      "outdoor_seating": "no",
+      "phone": "+1-206-717-0837",
+      "ref": "15960",
+      "takeaway": "yes",
+      "website": "https://www.starbucks.com/store-locator/store/15960/sea-pre-security-checkpoint-3-17801-international-blvd-sea-tac-wa-981581132-us"
+     },
+     "sourcePositionM": [
+      -1315.8142309062882,
+      669.8190376965468
+     ],
+     "roundingErrorM": 0.023768731215550933
+    }
+   ]
+  },
+  {
+   "index": 137,
+   "kind": "shop",
+   "name": "Dufry Duty Free",
+   "brand": "",
+   "sub": "gift",
+   "x": -1317.4,
+   "z": 652.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522621",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522621",
+     "tags": {
+      "indoor": "room",
+      "level": "1",
+      "name": "Dufry Duty Free",
+      "name:en": "Dufry Duty Free",
+      "room": "shop",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -1317.3942324064367,
+      652.4955295384698
+     ],
+     "roundingErrorM": 0.0072972708464049746
+    }
+   ]
+  },
+  {
+   "index": 138,
+   "kind": "shop",
+   "name": "MAC Cosmetics",
+   "brand": "MAC Cosmetics",
+   "sub": "cosmetics",
+   "x": -1358.7,
+   "z": 658.1,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522626",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522626",
+     "tags": {
+      "brand": "MAC Cosmetics",
+      "brand:wikidata": "Q2624442",
+      "check_date": "2026-07-13",
+      "indoor": "room",
+      "level": "1",
+      "name": "MAC Cosmetics",
+      "name:en": "MAC",
+      "shop": "cosmetics",
+      "short_name": "M·A·C"
+     },
+     "sourcePositionM": [
+      -1358.6583593797425,
+      658.0641583234045
+     ],
+     "roundingErrorM": 0.054941487389877204
+    }
+   ]
+  },
+  {
+   "index": 139,
+   "kind": "shop",
+   "name": "Coach",
+   "brand": "Coach",
+   "sub": "bag",
+   "x": -1351,
+   "z": 653.8,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522627",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522627",
+     "tags": {
+      "brand": "Coach",
+      "brand:wikidata": "Q727697",
+      "check_date": "2026-07-13",
+      "indoor": "room",
+      "level": "1",
+      "name": "Coach",
+      "name:en": "Coach",
+      "room": "shop",
+      "shop": "bag"
+     },
+     "sourcePositionM": [
+      -1350.993019020108,
+      653.8249109794718
+     ],
+     "roundingErrorM": 0.025870658640645243
+    }
+   ]
+  },
+  {
+   "index": 140,
+   "kind": "shop",
+   "name": "Seattle Chocolate",
+   "brand": "",
+   "sub": "confectionery",
+   "x": -1356.8,
+   "z": 647.9,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522628",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522628",
+     "tags": {
+      "check_date": "2026-05-23",
+      "indoor": "room",
+      "level": "1",
+      "name": "Seattle Chocolate",
+      "name:en": "Seattle Chocolate",
+      "room": "shop",
+      "shop": "confectionery"
+     },
+     "sourcePositionM": [
+      -1356.7986360435432,
+      647.8606134888831
+     ],
+     "roundingErrorM": 0.03941012097384807
+    }
+   ]
+  },
+  {
+   "index": 141,
+   "kind": "shop",
+   "name": "Hudson Nonstop",
+   "brand": "",
+   "sub": "convenience",
+   "x": -1361.1,
+   "z": 643.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522629",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522629",
+     "tags": {
+      "check_date": "2026-05-23",
+      "indoor": "room",
+      "level": "1",
+      "name": "Hudson Nonstop",
+      "room": "shop",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -1361.0869158269263,
+      643.5447877118793
+     ],
+     "roundingErrorM": 0.04665977625751311
+    }
+   ]
+  },
+  {
+   "index": 142,
+   "kind": "shop",
+   "name": "Hudson",
+   "brand": "Hudson",
+   "sub": "convenience",
+   "x": -1284,
+   "z": 619.1,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522632",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522632",
+     "tags": {
+      "brand": "Hudson",
+      "brand:wikidata": "Q111534515",
+      "indoor": "room",
+      "level": "1",
+      "name": "Hudson",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -1283.9763011937416,
+      619.0792355839968
+     ],
+     "roundingErrorM": 0.031508639926634996
+    }
+   ]
+  },
+  {
+   "index": 143,
+   "kind": "food",
+   "name": "Alaska Lounge",
+   "brand": "",
+   "sub": "cafe:american;sandwich",
+   "x": -1299.9,
+   "z": 597.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522634",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522634",
+     "tags": {
+      "amenity": "cafe",
+      "cuisine": "american;sandwich",
+      "indoor": "room",
+      "internet_access": "wlan",
+      "level": "1",
+      "name": "Alaska Lounge",
+      "opening_hours": "Mo-Su 05:00-00:00",
+      "operator": "Alaska Airlines"
+     },
+     "sourcePositionM": [
+      -1299.9363022489954,
+      597.3364667536545
+     ],
+     "roundingErrorM": 0.05145558671529493
+    }
+   ]
+  },
+  {
+   "index": 144,
+   "kind": "shop",
+   "name": "Planewear",
+   "brand": "",
+   "sub": "gift",
+   "x": -1311.2,
+   "z": 616.2,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522635",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522635",
+     "tags": {
+      "indoor": "room",
+      "level": "1",
+      "name": "Planewear",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -1311.220755925251,
+      616.2449521155299
+     ],
+     "roundingErrorM": 0.049512635999703514
+    }
+   ]
+  },
+  {
+   "index": 145,
+   "kind": "food",
+   "name": "Stonehouse",
+   "brand": "",
+   "sub": "restaurant:american",
+   "x": -1324.1,
+   "z": 628.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522636",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522636",
+     "tags": {
+      "amenity": "restaurant",
+      "brewery": "yes",
+      "cuisine": "american",
+      "delivery": "no",
+      "indoor": "room",
+      "level": "1",
+      "name": "Stonehouse",
+      "outdoor_seating": "no",
+      "smoking": "no",
+      "takeaway": "no"
+     },
+     "sourcePositionM": [
+      -1324.0536491450757,
+      628.471152872113
+     ],
+     "roundingErrorM": 0.054594491842442555
+    }
+   ]
+  },
+  {
+   "index": 146,
+   "kind": "food",
+   "name": "Ninth & Pike Artisan Kitchen",
+   "brand": "",
+   "sub": "fast_food",
+   "x": -1412.2,
+   "z": 537.8,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522653",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522653",
+     "tags": {
+      "amenity": "fast_food",
+      "check_date": "2026-05-23",
+      "delivery": "no",
+      "indoor": "room",
+      "indoor_seating": "yes",
+      "level": "1",
+      "name": "Ninth & Pike Artisan Kitchen",
+      "outdoor_seating": "no"
+     },
+     "sourcePositionM": [
+      -1412.174583033779,
+      537.7658068317663
+     ],
+     "roundingErrorM": 0.04260510445628892
+    }
+   ]
+  },
+  {
+   "index": 147,
+   "kind": "food",
+   "name": "Skillet",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -1410.9,
+   "z": 507.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522654",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522654",
+     "tags": {
+      "amenity": "restaurant",
+      "area": "yes",
+      "check_date": "2026-07-10",
+      "check_date:opening_hours": "2026-07-10",
+      "indoor": "room",
+      "level": "1",
+      "name": "Skillet",
+      "opening_hours": "Mo-Su 05:00-22:00"
+     },
+     "sourcePositionM": [
+      -1410.882232654154,
+      507.4758205145731
+     ],
+     "roundingErrorM": 0.030005434406515534
+    }
+   ]
+  },
+  {
+   "index": 148,
+   "kind": "shop",
+   "name": "Hudson",
+   "brand": "Hudson",
+   "sub": "convenience",
+   "x": -1411,
+   "z": 494,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522655",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522655",
+     "tags": {
+      "brand": "Hudson",
+      "brand:wikidata": "Q111534515",
+      "check_date": "2026-07-10",
+      "check_date:opening_hours": "2026-07-10",
+      "indoor": "room",
+      "level": "1",
+      "name": "Hudson",
+      "opening_hours": "Mo-Su 03:45-23:00",
+      "shop": "convenience",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1410.9664657597848,
+      493.9566087090322
+     ],
+     "roundingErrorM": 0.05483930523505595
+    }
+   ]
+  },
+  {
+   "index": 149,
+   "kind": "food",
+   "name": "Le Grand Comptoir",
+   "brand": "",
+   "sub": "bar",
+   "x": -1411.7,
+   "z": 478.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522657",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522657",
+     "tags": {
+      "amenity": "bar",
+      "check_date": "2026-07-10",
+      "check_date:opening_hours": "2026-07-10",
+      "indoor": "room",
+      "indoor_seating": "yes",
+      "level": "1",
+      "name": "Le Grand Comptoir",
+      "opening_hours": "Mo-Su 06:00-22:00",
+      "outdoor_seating": "no"
+     },
+     "sourcePositionM": [
+      -1411.65584920617,
+      478.3411855881418
+     ],
+     "roundingErrorM": 0.060378350974616656
+    }
+   ]
+  },
+  {
+   "index": 150,
+   "kind": "food",
+   "name": "Starbucks",
+   "brand": "Starbucks",
+   "sub": "cafe:coffee_shop",
+   "x": -1411.8,
+   "z": 464.1,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522658",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522658",
+     "tags": {
+      "addr:city": "SeaTac",
+      "addr:housenumber": "17801",
+      "addr:postcode": "98158",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "cafe",
+      "branch": "SEA Concourse C Gate C10",
+      "brand": "Starbucks",
+      "brand:wikidata": "Q37158",
+      "check_date": "2026-05-23",
+      "cuisine": "coffee_shop",
+      "indoor": "room",
+      "indoor_seating": "yes",
+      "internet_access": "wlan",
+      "level": "1",
+      "name": "Starbucks",
+      "official_name": "Starbucks Coffee",
+      "opening_hours": "Mo-Su 04:00-22:30",
+      "outdoor_seating": "no",
+      "phone": "+1-206-717-0837",
+      "ref": "1020178",
+      "smoking": "no",
+      "takeaway": "yes",
+      "website": "https://www.starbucks.com/store-locator/store/1020178/sea-concourse-c-gate-c-10-17801-international-blvd-sea-tac-wa-98158-us",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1411.8019755906637,
+      464.0960577879804
+     ],
+     "roundingErrorM": 0.004409534451436425
+    }
+   ]
+  },
+  {
+   "index": 151,
+   "kind": "shop",
+   "name": "Kathy Casey Dish D'Lish",
+   "brand": "",
+   "sub": "convenience",
+   "x": -1411.2,
+   "z": 452.9,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522660",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522660",
+     "tags": {
+      "check_date": "2026-07-10",
+      "check_date:opening_hours": "2026-07-10",
+      "indoor": "room",
+      "level": "1",
+      "name": "Kathy Casey Dish D'Lish",
+      "opening_hours": "Mo-Su 04:15-22:00",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -1411.1762914670796,
+      452.85870224991817
+     ],
+     "roundingErrorM": 0.04761931010690701
+    }
+   ]
+  },
+  {
+   "index": 152,
+   "kind": "food",
+   "name": "Hachi-ko",
+   "brand": "",
+   "sub": "fast_food:asian",
+   "x": -1427,
+   "z": 463.6,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522662",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522662",
+     "tags": {
+      "amenity": "fast_food",
+      "check_date": "2026-05-23",
+      "cuisine": "asian",
+      "indoor": "room",
+      "indoor_seating": "yes",
+      "level": "1",
+      "name": "Hachi-ko",
+      "opening_hours": "Mo-Su 06:00-21:00",
+      "outdoor_seating": "no",
+      "takeaway": "yes"
+     },
+     "sourcePositionM": [
+      -1426.9933246491403,
+      463.58001003499277
+     ],
+     "roundingErrorM": 0.021075080310444715
+    }
+   ]
+  },
+  {
+   "index": 153,
+   "kind": "food",
+   "name": "Alaska Airlines Lounge",
+   "brand": "",
+   "sub": "bar:american;sandwich",
+   "x": -1450.3,
+   "z": 441.8,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w688522665",
+     "sourceUrl": "https://www.openstreetmap.org/way/688522665",
+     "tags": {
+      "amenity": "bar",
+      "cuisine": "american;sandwich",
+      "indoor": "room",
+      "indoor_seating": "yes",
+      "internet_access": "wlan",
+      "level": "1",
+      "name": "Alaska Airlines Lounge",
+      "opening_hours": "Mo-Su 05:00-24:00",
+      "outdoor_seating": "no"
+     },
+     "sourcePositionM": [
+      -1450.285073351087,
+      441.7591042821286
+     ],
+     "roundingErrorM": 0.04353463664702962
+    }
+   ]
+  },
+  {
+   "index": 154,
+   "kind": "shop",
+   "name": "Hudson",
+   "brand": "Hudson",
+   "sub": "convenience",
+   "x": -1297.8,
+   "z": 736.4,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704097",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704097",
+     "tags": {
+      "brand": "Hudson",
+      "brand:wikidata": "Q111534515",
+      "indoor": "room",
+      "level": "1",
+      "name": "Hudson",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -1297.7827689721307,
+      736.4106414006067
+     ],
+     "roundingErrorM": 0.020252104293187877
+    }
+   ]
+  },
+  {
+   "index": 155,
+   "kind": "shop",
+   "name": "Alki Bakery",
+   "brand": "",
+   "sub": "bakery",
+   "x": -1293.8,
+   "z": 746.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704099",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704099",
+     "tags": {
+      "indoor": "room",
+      "level": "1",
+      "name": "Alki Bakery",
+      "shop": "bakery"
+     },
+     "sourcePositionM": [
+      -1293.792961531689,
+      746.3396829295316
+     ],
+     "roundingErrorM": 0.04030229438107354
+    }
+   ]
+  },
+  {
+   "index": 156,
+   "kind": "food",
+   "name": "Qdoba",
+   "brand": "Qdoba",
+   "sub": "fast_food:mexican",
+   "x": -1307.8,
+   "z": 776.2,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704101",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704101",
+     "tags": {
+      "addr:city": "Seattle",
+      "addr:housenumber": "17801",
+      "addr:postcode": "98158",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "fast_food",
+      "branch": "Seatac Airport",
+      "brand": "Qdoba",
+      "brand:wikidata": "Q1363885",
+      "check_date": "2026-07-13",
+      "cuisine": "mexican",
+      "delivery": "no",
+      "drive_through": "no",
+      "name": "Qdoba",
+      "official_name": "Qdoba Mexican Eats",
+      "opening_hours": "00:00-23:50",
+      "outdoor_seating": "no",
+      "phone": "+1 206-243-1514",
+      "smoking": "no",
+      "takeaway": "yes",
+      "website": "https://locations.qdoba.com/us/wa/seattle/17801-international-blvd.html",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1307.8042176031063,
+      776.158060016419
+     ],
+     "roundingErrorM": 0.042151517158261584
+    }
+   ]
+  },
+  {
+   "index": 157,
+   "kind": "food",
+   "name": "Vyne",
+   "brand": "",
+   "sub": "bar",
+   "x": -1352.9,
+   "z": 773.6,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704103",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704103",
+     "tags": {
+      "amenity": "bar",
+      "check_date": "2026-07-13",
+      "indoor": "room",
+      "level": "1",
+      "name": "Vyne"
+     },
+     "sourcePositionM": [
+      -1352.9089053118853,
+      773.5520753042651
+     ],
+     "roundingErrorM": 0.04874506170940098
+    }
+   ]
+  },
+  {
+   "index": 158,
+   "kind": "food",
+   "name": "Starbucks",
+   "brand": "Starbucks",
+   "sub": "cafe:coffee_shop",
+   "x": -1355.7,
+   "z": 763,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704104",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704104",
+     "tags": {
+      "amenity": "cafe",
+      "brand": "Starbucks",
+      "check_date": "2026-07-13",
+      "cuisine": "coffee_shop",
+      "indoor": "room",
+      "level": "1",
+      "name": "Starbucks",
+      "not:brand:wikidata": "Q37158",
+      "official_name": "Starbucks Coffee",
+      "opening_hours": "24/7",
+      "takeaway": "yes"
+     },
+     "sourcePositionM": [
+      -1355.6868495434594,
+      763.0378616343595
+     ],
+     "roundingErrorM": 0.04008039250805699
+    }
+   ]
+  },
+  {
+   "index": 159,
+   "kind": "food",
+   "name": "Lucky Louie Fish Shack",
+   "brand": "",
+   "sub": "fast_food:seafood",
+   "x": -1366.2,
+   "z": 747.9,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704105",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704105",
+     "tags": {
+      "amenity": "fast_food",
+      "check_date": "2026-07-13",
+      "cuisine": "seafood",
+      "indoor": "room",
+      "level": "1",
+      "name": "Lucky Louie Fish Shack"
+     },
+     "sourcePositionM": [
+      -1366.2462945570444,
+      747.8966595995411
+     ],
+     "roundingErrorM": 0.0464149144904769
+    }
+   ]
+  },
+  {
+   "index": 160,
+   "kind": "food",
+   "name": "Pei Wei",
+   "brand": "Pei Wei",
+   "sub": "restaurant:asian;chinese",
+   "x": -1371.9,
+   "z": 741,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704106",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704106",
+     "tags": {
+      "amenity": "restaurant",
+      "brand": "Pei Wei",
+      "brand:wikidata": "Q7160898",
+      "check_date": "2026-09-13",
+      "cuisine": "asian;chinese",
+      "indoor": "room",
+      "level": "1",
+      "name": "Pei Wei"
+     },
+     "sourcePositionM": [
+      -1371.8869467321263,
+      741.0455579143998
+     ],
+     "roundingErrorM": 0.047391047325850345
+    }
+   ]
+  },
+  {
+   "index": 161,
+   "kind": "food",
+   "name": "Pallino",
+   "brand": "",
+   "sub": "fast_food:pizza",
+   "x": -1377,
+   "z": 737.6,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704107",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704107",
+     "tags": {
+      "amenity": "fast_food",
+      "check_date": "2026-07-13",
+      "cuisine": "pizza",
+      "indoor": "room",
+      "level": "1",
+      "name": "Pallino"
+     },
+     "sourcePositionM": [
+      -1377.0377533389048,
+      737.5805404073035
+     ],
+     "roundingErrorM": 0.04247340752022907
+    }
+   ]
+  },
+  {
+   "index": 162,
+   "kind": "food",
+   "name": "Evergreens",
+   "brand": "Evergreens",
+   "sub": "fast_food:salad",
+   "x": -1383.2,
+   "z": 735.4,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704108",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704108",
+     "tags": {
+      "amenity": "fast_food",
+      "brand": "Evergreens",
+      "brand:wikidata": "Q109328830",
+      "check_date": "2026-07-13",
+      "cuisine": "salad",
+      "indoor": "room",
+      "level": "1",
+      "name": "Evergreens",
+      "takeaway": "yes"
+     },
+     "sourcePositionM": [
+      -1383.1516396314237,
+      735.394202584766
+     ],
+     "roundingErrorM": 0.048706624521072835
+    }
+   ]
+  },
+  {
+   "index": 163,
+   "kind": "food",
+   "name": "Salty’s at the Sea",
+   "brand": "",
+   "sub": "restaurant:seafood",
+   "x": -1374.2,
+   "z": 673.7,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704111",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704111",
+     "tags": {
+      "amenity": "restaurant",
+      "area": "yes",
+      "check_date": "2024-10-05",
+      "cuisine": "seafood",
+      "indoor": "room",
+      "level": "1",
+      "name": "Salty’s at the Sea"
+     },
+     "sourcePositionM": [
+      -1374.2143907267362,
+      673.7431068793752
+     ],
+     "roundingErrorM": 0.04544552855296021
+    }
+   ]
+  },
+  {
+   "index": 164,
+   "kind": "food",
+   "name": "Dilettante Mocha Café",
+   "brand": "",
+   "sub": "cafe:coffee_shop",
+   "x": -1360.2,
+   "z": 694,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704113",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704113",
+     "tags": {
+      "amenity": "cafe",
+      "check_date": "2026-07-13",
+      "cuisine": "coffee_shop",
+      "indoor": "room",
+      "level": "1",
+      "name": "Dilettante Mocha Café",
+      "name:en": "Dilettante Mocha Café"
+     },
+     "sourcePositionM": [
+      -1360.233219248887,
+      693.9617733962294
+     ],
+     "roundingErrorM": 0.05064377288916124
+    }
+   ]
+  },
+  {
+   "index": 165,
+   "kind": "food",
+   "name": "Koi Shi",
+   "brand": "",
+   "sub": "fast_food:japanese",
+   "x": -1382.8,
+   "z": 717.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704115",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704115",
+     "tags": {
+      "amenity": "fast_food",
+      "check_date": "2026-07-13",
+      "cuisine": "japanese",
+      "indoor": "room",
+      "level": "1",
+      "name": "Koi Shi"
+     },
+     "sourcePositionM": [
+      -1382.8114774204123,
+      717.3070288158696
+     ],
+     "roundingErrorM": 0.013458656390983493
+    }
+   ]
+  },
+  {
+   "index": 166,
+   "kind": "shop",
+   "name": "Made in Washington",
+   "brand": "",
+   "sub": "gift",
+   "x": -1333,
+   "z": 749.7,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704123",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704123",
+     "tags": {
+      "check_date": "2026-07-13",
+      "indoor": "room",
+      "level": "1",
+      "name": "Made in Washington",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -1332.964201191671,
+      749.740532801232
+     ],
+     "roundingErrorM": 0.05407830113350027
+    }
+   ]
+  },
+  {
+   "index": 167,
+   "kind": "shop",
+   "name": "Fireworks",
+   "brand": "",
+   "sub": "gift",
+   "x": -1339.1,
+   "z": 737.7,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704124",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704124",
+     "tags": {
+      "check_date": "2026-07-13",
+      "indoor": "room",
+      "level": "1",
+      "name": "Fireworks",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -1339.071313654675,
+      737.6808883041762
+     ],
+     "roundingErrorM": 0.0344697450726063
+    }
+   ]
+  },
+  {
+   "index": 168,
+   "kind": "food",
+   "name": "Seattle Dawg House",
+   "brand": "",
+   "sub": "pub",
+   "x": -1196.3,
+   "z": 507.6,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704140",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704140",
+     "tags": {
+      "amenity": "pub",
+      "check_date": "2024-10-05",
+      "indoor": "room",
+      "level": "1",
+      "name": "Seattle Dawg House"
+     },
+     "sourcePositionM": [
+      -1196.3144833825806,
+      507.64338152310023
+     ],
+     "roundingErrorM": 0.045735379275486994
+    }
+   ]
+  },
+  {
+   "index": 169,
+   "kind": "shop",
+   "name": "Urban Market",
+   "brand": "",
+   "sub": "convenience",
+   "x": -1216,
+   "z": 527,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704142",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704142",
+     "tags": {
+      "check_date": "2024-10-05",
+      "indoor": "room",
+      "level": "1",
+      "name": "Urban Market",
+      "shop": "convenience",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1215.9823189254607,
+      527.0029101330168
+     ],
+     "roundingErrorM": 0.017918964005734055
+    }
+   ]
+  },
+  {
+   "index": 170,
+   "kind": "food",
+   "name": "Starbucks",
+   "brand": "Starbucks",
+   "sub": "cafe:coffee_shop",
+   "x": -1220.4,
+   "z": 531.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704143",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704143",
+     "tags": {
+      "addr:city": "SeaTac",
+      "addr:housenumber": "17801",
+      "addr:postcode": "98158",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "cafe",
+      "branch": "SEA Concourse D Gate D2",
+      "brand": "Starbucks",
+      "brand:wikidata": "Q37158",
+      "check_date": "2024-10-05",
+      "cuisine": "coffee_shop",
+      "indoor": "room",
+      "level": "1",
+      "name": "Starbucks",
+      "official_name": "Starbucks Coffee",
+      "outdoor_seating": "no",
+      "phone": "+1-206-717-0837",
+      "ref": "1024030",
+      "smoking": "no",
+      "takeaway": "yes",
+      "website": "https://www.starbucks.com/store-locator/store/1024030/sea-concourse-d-gate-d-2-17801-international-blvd-sea-tac-wa-98158-us",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1220.4005169486888,
+      531.4773709113288
+     ],
+     "roundingErrorM": 0.02263499260078395
+    }
+   ]
+  },
+  {
+   "index": 171,
+   "kind": "food",
+   "name": "Camden Food Co.",
+   "brand": "",
+   "sub": "fast_food",
+   "x": -1147.9,
+   "z": 457.6,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704144",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704144",
+     "tags": {
+      "amenity": "fast_food",
+      "check_date": "2026-06-11",
+      "indoor": "room",
+      "level": "1",
+      "name": "Camden Food Co."
+     },
+     "sourcePositionM": [
+      -1147.9051630538413,
+      457.5729605909614
+     ],
+     "roundingErrorM": 0.027527927021966887
+    }
+   ]
+  },
+  {
+   "index": 172,
+   "kind": "food",
+   "name": "Neighborhood Bubble Tea and Coffee",
+   "brand": "",
+   "sub": "cafe:coffee_shop;bubble_tea",
+   "x": -1118.6,
+   "z": 487.9,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704146",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704146",
+     "tags": {
+      "amenity": "cafe",
+      "check_date": "2023-07-15",
+      "cuisine": "coffee_shop;bubble_tea",
+      "indoor": "room",
+      "indoor_seating": "yes",
+      "level": "1",
+      "name": "Neighborhood Bubble Tea and Coffee",
+      "outdoor_seating": "no",
+      "payment:mastercard": "yes",
+      "payment:visa": "yes",
+      "smoking": "no",
+      "takeaway": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1118.5865490402587,
+      487.94171580090017
+     ],
+     "roundingErrorM": 0.043830769588328995
+    }
+   ]
+  },
+  {
+   "index": 173,
+   "kind": "food",
+   "name": "Ballard Brew Hall",
+   "brand": "",
+   "sub": "pub",
+   "x": -1088.8,
+   "z": 425.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704152",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704152",
+     "tags": {
+      "amenity": "pub",
+      "check_date": "2026-06-11",
+      "indoor": "room",
+      "level": "1",
+      "name": "Ballard Brew Hall"
+     },
+     "sourcePositionM": [
+      -1088.7549581274902,
+      425.5249288489403
+     ],
+     "roundingErrorM": 0.05148026601204739
+    }
+   ]
+  },
+  {
+   "index": 174,
+   "kind": "shop",
+   "name": "Fireworks",
+   "brand": "",
+   "sub": "gift",
+   "x": -1096.5,
+   "z": 433.6,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704153",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704153",
+     "tags": {
+      "check_date": "2026-06-11",
+      "indoor": "room",
+      "level": "1",
+      "name": "Fireworks",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -1096.528863596292,
+      433.64694906108554
+     ],
+     "roundingErrorM": 0.05511190005542841
+    }
+   ]
+  },
+  {
+   "index": 175,
+   "kind": "shop",
+   "name": "InMotion",
+   "brand": "InMotion",
+   "sub": "electronics",
+   "x": -1103.1,
+   "z": 436,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704154",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704154",
+     "tags": {
+      "branch": "Entertainment",
+      "brand": "InMotion",
+      "brand:wikidata": "Q109648041",
+      "check_date": "2026-06-11",
+      "indoor": "room",
+      "level": "1",
+      "name": "InMotion",
+      "shop": "electronics"
+     },
+     "sourcePositionM": [
+      -1103.0616531961714,
+      436.02645491206573
+     ],
+     "roundingErrorM": 0.046586905201658674
+    }
+   ]
+  },
+  {
+   "index": 176,
+   "kind": "shop",
+   "name": "Hudson",
+   "brand": "Hudson",
+   "sub": "convenience",
+   "x": -1112.1,
+   "z": 445,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w700704155",
+     "sourceUrl": "https://www.openstreetmap.org/way/700704155",
+     "tags": {
+      "brand": "Hudson",
+      "brand:wikidata": "Q111534515",
+      "check_date": "2026-06-11",
+      "indoor": "room",
+      "level": "1",
+      "name": "Hudson",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -1112.138962978597,
+      445.0280940000013
+     ],
+     "roundingErrorM": 0.04803526347620708
+    }
+   ]
+  },
+  {
+   "index": 177,
+   "kind": "airport",
+   "name": "International Arrivals Facility",
+   "brand": "",
+   "sub": "terminal",
+   "x": -966.5,
+   "z": 1074,
+   "buildingIndex": 1107,
+   "matches": [
+    {
+     "sourceId": "w734002404",
+     "sourceUrl": "https://www.openstreetmap.org/way/734002404",
+     "tags": {
+      "aeroway": "terminal",
+      "building": "yes",
+      "name": "International Arrivals Facility",
+      "opening_date": "2022-04-19",
+      "short_name": "IAF"
+     },
+     "sourcePositionM": [
+      -966.5400568373124,
+      1073.969415451258
+     ],
+     "roundingErrorM": 0.05039806382406718
+    }
+   ]
+  },
+  {
+   "index": 178,
+   "kind": "airport",
+   "name": "International Arrivals Facility Pedestrian Walkway",
+   "brand": "",
+   "sub": "terminal",
+   "x": -1098.9,
+   "z": 1218.8,
+   "buildingIndex": 1120,
+   "matches": [
+    {
+     "sourceId": "w869951038",
+     "sourceUrl": "https://www.openstreetmap.org/way/869951038",
+     "tags": {
+      "aeroway": "terminal",
+      "building": "yes",
+      "height": "33.5",
+      "layer": "2",
+      "min_height": "25.908",
+      "name": "International Arrivals Facility Pedestrian Walkway"
+     },
+     "sourcePositionM": [
+      -1098.9011669325416,
+      1218.8214198308954
+     ],
+     "roundingErrorM": 0.02145159404670201
+    }
+   ]
+  },
+  {
+   "index": 179,
+   "kind": "food",
+   "name": "Alaska Lounge",
+   "brand": "",
+   "sub": "bar",
+   "x": -1397.6,
+   "z": 89.8,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "w1037480313",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037480313",
+     "tags": {
+      "access": "private",
+      "amenity": "bar",
+      "check_date": "2026-03-09",
+      "indoor": "room",
+      "level": "6",
+      "name": "Alaska Lounge"
+     },
+     "sourcePositionM": [
+      -1397.6444419254271,
+      89.78233125449637
+     ],
+     "roundingErrorM": 0.04782540437206953
+    }
+   ]
+  },
+  {
+   "index": 180,
+   "kind": "food",
+   "name": "Bad Egg Breakfast Bar",
+   "brand": "",
+   "sub": "restaurant:american",
+   "x": -1246.4,
+   "z": 192.2,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "w1037480328",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037480328",
+     "tags": {
+      "air_conditioning": "yes",
+      "amenity": "restaurant",
+      "area": "yes",
+      "bar": "yes",
+      "check_date": "2026-03-09",
+      "cuisine": "american",
+      "diet:vegetarian": "yes",
+      "indoor": "room",
+      "indoor_seating": "yes",
+      "level": "5",
+      "name": "Bad Egg Breakfast Bar",
+      "outdoor_seating": "no",
+      "straw": "compostible",
+      "toilets": "no"
+     },
+     "sourcePositionM": [
+      -1246.3603197413315,
+      192.18133712664175
+     ],
+     "roundingErrorM": 0.043850037286074284
+    }
+   ]
+  },
+  {
+   "index": 181,
+   "kind": "food",
+   "name": "Embarque",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -1255.3,
+   "z": 183.6,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "w1037480329",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037480329",
+     "tags": {
+      "amenity": "restaurant",
+      "area": "yes",
+      "check_date": "2026-03-09",
+      "indoor": "room",
+      "level": "5",
+      "name": "Embarque"
+     },
+     "sourcePositionM": [
+      -1255.2574298167824,
+      183.55651596710234
+     ],
+     "roundingErrorM": 0.0608529507601709
+    }
+   ]
+  },
+  {
+   "index": 182,
+   "kind": "shop",
+   "name": "Pike and Pine",
+   "brand": "",
+   "sub": "gift",
+   "x": -1265.6,
+   "z": 176,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "w1037480330",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037480330",
+     "tags": {
+      "check_date": "2026-03-09",
+      "indoor": "room",
+      "level": "5",
+      "name": "Pike and Pine",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -1265.5861455540173,
+      175.95893957059445
+     ],
+     "roundingErrorM": 0.04333479590874282
+    }
+   ]
+  },
+  {
+   "index": 183,
+   "kind": "shop",
+   "name": "FILSON",
+   "brand": "",
+   "sub": "gift",
+   "x": -1302.4,
+   "z": 148.2,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "w1037480343",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037480343",
+     "tags": {
+      "check_date": "2026-03-09",
+      "indoor": "room",
+      "level": "5",
+      "name": "FILSON",
+      "shop": "gift"
+     },
+     "sourcePositionM": [
+      -1302.390522773875,
+      148.2014432441184
+     ],
+     "roundingErrorM": 0.009586488857224792
+    }
+   ]
+  },
+  {
+   "index": 184,
+   "kind": "food",
+   "name": "Tundra Taqueria",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -1343.3,
+   "z": 174.9,
+   "buildingIndex": 725,
+   "matches": [
+    {
+     "sourceId": "w1037480353",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037480353",
+     "tags": {
+      "amenity": "restaurant",
+      "indoor": "room",
+      "level": "5",
+      "name": "Tundra Taqueria"
+     },
+     "sourcePositionM": [
+      -1343.2884989595439,
+      174.93843780032935
+     ],
+     "roundingErrorM": 0.04012154565481703
+    }
+   ]
+  },
+  {
+   "index": 185,
+   "kind": "food",
+   "name": "Sam Choy’s Poke to the Max",
+   "brand": "",
+   "sub": "restaurant:asian",
+   "x": -1131.3,
+   "z": 440.9,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037486110",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037486110",
+     "tags": {
+      "amenity": "restaurant",
+      "bar": "yes",
+      "check_date": "2026-06-11",
+      "cuisine": "asian",
+      "indoor": "room",
+      "level": "1",
+      "name": "Sam Choy’s Poke to the Max"
+     },
+     "sourcePositionM": [
+      -1131.3083739959243,
+      440.89927511737574
+     ],
+     "roundingErrorM": 0.008405311568265987
+    }
+   ]
+  },
+  {
+   "index": 186,
+   "kind": "shop",
+   "name": "Sourced Market",
+   "brand": "",
+   "sub": "convenience",
+   "x": -1294.9,
+   "z": 676.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037486346",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037486346",
+     "tags": {
+      "indoor": "room",
+      "level": "1",
+      "name": "Sourced Market",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -1294.8785149766663,
+      676.3120905127571
+     ],
+     "roundingErrorM": 0.024653330938891056
+    }
+   ]
+  },
+  {
+   "index": 187,
+   "kind": "food",
+   "name": "The Centurion Lounge",
+   "brand": "",
+   "sub": "bar",
+   "x": -1366.4,
+   "z": 845.4,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037488203",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037488203",
+     "tags": {
+      "amenity": "bar",
+      "check_date": "2023-02-05",
+      "indoor": "room",
+      "level": "1",
+      "name": "The Centurion Lounge",
+      "opening_hours": "Mo-Su 05:00-22:00",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1366.378258894951,
+      845.4320449645173
+     ],
+     "roundingErrorM": 0.038724093271205816
+    }
+   ]
+  },
+  {
+   "index": 188,
+   "kind": "food",
+   "name": "McDonald's",
+   "brand": "McDonald's",
+   "sub": "fast_food:burger",
+   "x": -1342.2,
+   "z": 815.7,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037488208",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037488208",
+     "tags": {
+      "amenity": "fast_food",
+      "brand": "McDonald's",
+      "brand:wikidata": "Q38076",
+      "cuisine": "burger",
+      "indoor": "room",
+      "level": "1",
+      "name": "McDonald's",
+      "takeaway": "yes"
+     },
+     "sourcePositionM": [
+      -1342.1860552161893,
+      815.7482619418264
+     ],
+     "roundingErrorM": 0.05023616251644947
+    }
+   ]
+  },
+  {
+   "index": 189,
+   "kind": "shop",
+   "name": "Tumi",
+   "brand": "Tumi",
+   "sub": "bag",
+   "x": -1330.8,
+   "z": 804.9,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037488209",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037488209",
+     "tags": {
+      "brand": "Tumi",
+      "brand:wikidata": "Q4465402",
+      "check_date": "2026-07-13",
+      "indoor": "room",
+      "level": "1",
+      "name": "Tumi",
+      "payment:credit_cards": "yes",
+      "shop": "bag",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1330.8365196827417,
+      804.9042610637697
+     ],
+     "roundingErrorM": 0.03676742977157953
+    }
+   ]
+  },
+  {
+   "index": 190,
+   "kind": "shop",
+   "name": "Marmot",
+   "brand": "",
+   "sub": "clothes",
+   "x": -1317.5,
+   "z": 799.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037488210",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037488210",
+     "tags": {
+      "check_date": "2026-07-13",
+      "indoor": "room",
+      "level": "1",
+      "name": "Marmot",
+      "payment:credit_cards": "yes",
+      "shop": "clothes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1317.5163763883363,
+      799.2773910933286
+     ],
+     "roundingErrorM": 0.027916818511741045
+    }
+   ]
+  },
+  {
+   "index": 191,
+   "kind": "food",
+   "name": "Floret",
+   "brand": "",
+   "sub": "restaurant:regional",
+   "x": -1297,
+   "z": 819.1,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037488211",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037488211",
+     "tags": {
+      "addr:city": "SeaTac",
+      "addr:postcode": "98158",
+      "addr:state": "WA",
+      "amenity": "restaurant",
+      "check_date": "2026-07-13",
+      "contact:facebook": "https://www.facebook.com/FloretSeattle",
+      "contact:instagram": "https://www.instagram.com/floretseattle",
+      "contact:website": "https://floretseattle.com",
+      "cuisine": "regional",
+      "delivery": "no",
+      "diet:gluten_free": "yes",
+      "diet:vegan": "yes",
+      "diet:vegetarian": "only",
+      "indoor": "room",
+      "level": "1",
+      "name": "Floret",
+      "opening_hours": "Mo-Su 05:00-17:00",
+      "operator": "Cafe Flora",
+      "outdoor_seating": "no",
+      "payment:credit_cards": "yes",
+      "smoking": "no",
+      "takeaway": "no",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1297.011328476572,
+      819.0769478023474
+     ],
+     "roundingErrorM": 0.025685369338614435
+    }
+   ]
+  },
+  {
+   "index": 192,
+   "kind": "food",
+   "name": "Delta SkyClub",
+   "brand": "",
+   "sub": "bar",
+   "x": -1329.6,
+   "z": 834.1,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037488212",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037488212",
+     "tags": {
+      "amenity": "bar",
+      "check_date": "2026-07-13",
+      "indoor": "room",
+      "internet_access": "wlan",
+      "internet_access:fee": "customers",
+      "level": "1",
+      "name": "Delta SkyClub",
+      "opening_hours": "04:15-24:00",
+      "payment:credit_cards": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1329.5794598699904,
+      834.1269108533633
+     ],
+     "roundingErrorM": 0.03385396534448379
+    }
+   ]
+  },
+  {
+   "index": 193,
+   "kind": "food",
+   "name": "LouLou Market and Bar",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -1383.9,
+   "z": 855.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037488213",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037488213",
+     "tags": {
+      "amenity": "restaurant",
+      "check_date": "2023-02-05",
+      "indoor": "room",
+      "level": "1",
+      "name": "LouLou Market and Bar",
+      "payment:credit_cards": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1383.8560474626483,
+      855.5234320437445
+     ],
+     "roundingErrorM": 0.04980849539687107
+    }
+   ]
+  },
+  {
+   "index": 194,
+   "kind": "food",
+   "name": "Rel'lish Burger Lounge",
+   "brand": "",
+   "sub": "restaurant:burger",
+   "x": -1402.7,
+   "z": 900.8,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037488215",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037488215",
+     "tags": {
+      "amenity": "restaurant",
+      "check_date": "2023-02-05",
+      "cuisine": "burger",
+      "delivery": "no",
+      "indoor": "room",
+      "level": "1",
+      "name": "Rel'lish Burger Lounge",
+      "outdoor_seating": "no",
+      "payment:credit_cards": "yes",
+      "smoking": "no",
+      "takeaway": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1402.6862979746104,
+      900.7848388897029
+     ],
+     "roundingErrorM": 0.020435380231807267
+    }
+   ]
+  },
+  {
+   "index": 195,
+   "kind": "food",
+   "name": "Starbucks",
+   "brand": "Starbucks",
+   "sub": "cafe:coffee_shop",
+   "x": -1402.7,
+   "z": 910.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037488216",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037488216",
+     "tags": {
+      "addr:city": "SeaTac",
+      "addr:housenumber": "17801",
+      "addr:postcode": "98158",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "cafe",
+      "branch": "SEA Concourse B Gate B7",
+      "brand": "Starbucks",
+      "brand:wikidata": "Q37158",
+      "check_date": "2023-02-05",
+      "cuisine": "coffee_shop",
+      "indoor": "room",
+      "level": "1",
+      "name": "Starbucks",
+      "official_name": "Starbucks Coffee",
+      "outdoor_seating": "no",
+      "payment:credit_cards": "yes",
+      "phone": "+1-206-717-0837",
+      "ref": "1020701",
+      "smoking": "no",
+      "takeaway": "yes",
+      "website": "https://www.starbucks.com/store-locator/store/1020701/sea-concourse-b-gate-b-7-17801-international-blvd-sea-tac-wa-981581202-us",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1402.7111919278686,
+      910.54274350242
+     ],
+     "roundingErrorM": 0.04418445709230254
+    }
+   ]
+  },
+  {
+   "index": 196,
+   "kind": "shop",
+   "name": "Hudson",
+   "brand": "Hudson",
+   "sub": "convenience",
+   "x": -1402.8,
+   "z": 920.5,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037488217",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037488217",
+     "tags": {
+      "brand": "Hudson",
+      "brand:wikidata": "Q111534515",
+      "check_date": "2023-02-05",
+      "indoor": "room",
+      "level": "1",
+      "name": "Hudson",
+      "payment:credit_cards": "yes",
+      "shop": "convenience",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1402.7620999720202,
+      920.5434005158401
+     ],
+     "roundingErrorM": 0.05761958778096122
+    }
+   ]
+  },
+  {
+   "index": 197,
+   "kind": "food",
+   "name": "Mi Casa Cantina",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -1405.2,
+   "z": 964,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037488220",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037488220",
+     "tags": {
+      "amenity": "restaurant",
+      "check_date": "2023-02-05",
+      "indoor": "room",
+      "level": "1",
+      "name": "Mi Casa Cantina",
+      "payment:credit_cards": "yes",
+      "wheelchair": "yes"
+     },
+     "sourcePositionM": [
+      -1405.2102305254696,
+      963.9831381796075
+     ],
+     "roundingErrorM": 0.019722693485697183
+    }
+   ]
+  },
+  {
+   "index": 198,
+   "kind": "shop",
+   "name": "Hudson",
+   "brand": "Hudson",
+   "sub": "convenience",
+   "x": -1345.1,
+   "z": 781.3,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "w1037488222",
+     "sourceUrl": "https://www.openstreetmap.org/way/1037488222",
+     "tags": {
+      "brand": "Hudson",
+      "brand:wikidata": "Q111534515",
+      "check_date": "2026-07-13",
+      "indoor": "room",
+      "level": "1",
+      "name": "Hudson",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -1345.0964257334253,
+      781.2721384566512
+     ],
+     "roundingErrorM": 0.02808987325213516
+    }
+   ]
+  },
+  {
+   "index": 199,
+   "kind": "landmark",
+   "name": "SeaTac Airport Fire Station",
+   "brand": "",
+   "sub": "fire_station",
+   "x": -1316.2,
+   "z": -116.8,
+   "buildingIndex": 1621,
+   "matches": [
+    {
+     "sourceId": "w53201003",
+     "sourceUrl": "https://www.openstreetmap.org/way/53201003",
+     "tags": {
+      "addr:city": "SeaTac",
+      "addr:housenumber": "2400",
+      "addr:postcode": "98158",
+      "addr:state": "WA",
+      "addr:street": "South 170th Street",
+      "amenity": "fire_station",
+      "building": "yes",
+      "name": "SeaTac Airport Fire Station",
+      "source": "yahoo_wms"
+     },
+     "sourcePositionM": [
+      -1316.1714537400192,
+      -116.82096018129789
+     ],
+     "roundingErrorM": 0.03541494259400823
+    }
+   ]
+  },
+  {
+   "index": 200,
+   "kind": "office",
+   "name": "Gate Gourmet Flight Kitchen",
+   "brand": "",
+   "sub": "company",
+   "x": -1064.1,
+   "z": -710.8,
+   "buildingIndex": 1624,
+   "matches": [
+    {
+     "sourceId": "w171270443",
+     "sourceUrl": "https://www.openstreetmap.org/way/171270443",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "2755",
+      "addr:postcode": "98158",
+      "addr:state": "WA",
+      "addr:street": "South 163rd Street",
+      "building": "yes",
+      "name": "Gate Gourmet Flight Kitchen",
+      "office": "company",
+      "source": "Bing",
+      "website": "https://gategroup.com/en-gb/brands/gate-gourmet/"
+     },
+     "sourcePositionM": [
+      -1064.089813121531,
+      -710.842921796712
+     ],
+     "roundingErrorM": 0.04411409214667132
+    }
+   ]
+  },
+  {
+   "index": 201,
+   "kind": "hotel",
+   "name": "Red Roof Inn",
+   "brand": "Red Roof Inn",
+   "sub": "hotel",
+   "x": -750,
+   "z": -150.3,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "w246328444",
+     "sourceUrl": "https://www.openstreetmap.org/way/246328444",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "16838",
+      "addr:postcode": "98188-3117",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "brand": "Red Roof Inn",
+      "brand:wikidata": "Q7304949",
+      "building": "yes",
+      "building:levels": "4",
+      "check_date": "2024-06-16",
+      "dog": "yes",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Red Roof Inn",
+      "tourism": "hotel"
+     },
+     "sourcePositionM": [
+      -749.9731572209524,
+      -150.2609694616157
+     ],
+     "roundingErrorM": 0.04737000858735138
+    }
+   ]
+  },
+  {
+   "index": 202,
+   "kind": "hotel",
+   "name": "Ramada",
+   "brand": "Ramada",
+   "sub": "hotel",
+   "x": -723.2,
+   "z": -296.4,
+   "buildingIndex": 1627,
+   "matches": [
+    {
+     "sourceId": "w374790721",
+     "sourceUrl": "https://www.openstreetmap.org/way/374790721",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "16720",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "branch": "SeaTac Airport",
+      "brand": "Ramada",
+      "brand:wikidata": "Q1502859",
+      "building": "yes",
+      "building:levels": "5",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Ramada",
+      "phone": "+1-866-338-6732",
+      "tourism": "hotel",
+      "website": "https://www.wyndhamhotels.com/en-uk/ramada/sea-tac-washington/ramada-suites-seatac-airport/overview"
+     },
+     "sourcePositionM": [
+      -723.189305749926,
+      -296.38690923780206
+     ],
+     "roundingErrorM": 0.016903698990710436
+    }
+   ]
+  },
+  {
+   "index": 203,
+   "kind": "food",
+   "name": "Mecca Mediterranean",
+   "brand": "",
+   "sub": "restaurant",
+   "x": -583.6,
+   "z": -740,
+   "buildingIndex": 1628,
+   "matches": [
+    {
+     "sourceId": "w374790722",
+     "sourceUrl": "https://www.openstreetmap.org/way/374790722",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "16310",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "restaurant",
+      "building": "yes",
+      "name": "Mecca Mediterranean"
+     },
+     "sourcePositionM": [
+      -583.5653525204884,
+      -740.0168838841823
+     ],
+     "roundingErrorM": 0.03854235827746662
+    }
+   ]
+  },
+  {
+   "index": 204,
+   "kind": "hotel",
+   "name": "Motel 6 Seattle Airport",
+   "brand": "Motel 6",
+   "sub": "motel",
+   "x": -604.3,
+   "z": -594.7,
+   "buildingIndex": -1,
+   "matches": [
+    {
+     "sourceId": "w374790724",
+     "sourceUrl": "https://www.openstreetmap.org/way/374790724",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "16500",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "brand": "Motel 6",
+      "brand:wikidata": "Q2188884",
+      "building": "yes",
+      "building:levels": "2",
+      "dog": "yes",
+      "internet_access": "wlan",
+      "internet_access:fee": "no",
+      "name": "Motel 6 Seattle Airport",
+      "phone": "+1-206-246-4101",
+      "smoking": "isolated",
+      "tourism": "motel",
+      "website": "https://www.motel6.com/en/home/motels.wa.seattle.9458.html"
+     },
+     "sourcePositionM": [
+      -604.2991576934575,
+      -594.7029347962321
+     ],
+     "roundingErrorM": 0.0030532784404570077
+    }
+   ]
+  },
+  {
+   "index": 205,
+   "kind": "fuel",
+   "name": "76",
+   "brand": "76",
+   "sub": "fuel",
+   "x": -787.7,
+   "z": -108.6,
+   "buildingIndex": 1634,
+   "matches": [
+    {
+     "sourceId": "w433205179",
+     "sourceUrl": "https://www.openstreetmap.org/way/433205179",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "16850",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "fuel",
+      "brand": "76",
+      "brand:wikidata": "Q1658320",
+      "building": "roof",
+      "check_date": "2024-06-16",
+      "level": "1",
+      "name": "76",
+      "source": "survey",
+      "website": "https://www.76.com/station/U76-PANJABI-CORP-0000802994/"
+     },
+     "sourcePositionM": [
+      -787.7493640881219,
+      -108.63156056022459
+     ],
+     "roundingErrorM": 0.05859080267233779
+    }
+   ]
+  },
+  {
+   "index": 206,
+   "kind": "shop",
+   "name": "Car Wash",
+   "brand": "",
+   "sub": "car_wash",
+   "x": -789.4,
+   "z": -133.7,
+   "buildingIndex": 1635,
+   "matches": [
+    {
+     "sourceId": "w433205180",
+     "sourceUrl": "https://www.openstreetmap.org/way/433205180",
+     "tags": {
+      "amenity": "car_wash",
+      "building": "yes",
+      "check_date": "2024-06-16",
+      "name": "Car Wash",
+      "operator": "76"
+     },
+     "sourcePositionM": [
+      -789.4058519715084,
+      -133.6917959996319
+     ],
+     "roundingErrorM": 0.010077261164353148
+    }
+   ]
+  },
+  {
+   "index": 207,
+   "kind": "shop",
+   "name": "Food Mart",
+   "brand": "",
+   "sub": "convenience",
+   "x": -798.9,
+   "z": -46,
+   "buildingIndex": 1789,
+   "matches": [
+    {
+     "sourceId": "w647569318",
+     "sourceUrl": "https://www.openstreetmap.org/way/647569318",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "17010",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "building": "yes",
+      "check_date": "2024-06-16",
+      "name": "Food Mart",
+      "shop": "convenience"
+     },
+     "sourcePositionM": [
+      -798.8909172795748,
+      -46.00864800007916
+     ],
+     "roundingErrorM": 0.0125412804646104
+    }
+   ]
+  },
+  {
+   "index": 208,
+   "kind": "food",
+   "name": "Five Star Espresso",
+   "brand": "",
+   "sub": "cafe",
+   "x": -626.5,
+   "z": -658.9,
+   "buildingIndex": 1817,
+   "matches": [
+    {
+     "sourceId": "w647569641",
+     "sourceUrl": "https://www.openstreetmap.org/way/647569641",
+     "tags": {
+      "addr:city": "Seatac",
+      "addr:housenumber": "16402",
+      "addr:postcode": "98188",
+      "addr:state": "WA",
+      "addr:street": "International Boulevard",
+      "amenity": "cafe",
+      "building": "yes",
+      "name": "Five Star Espresso",
+      "outdoor_seating": "no"
+     },
+     "sourcePositionM": [
+      -626.5036192280864,
+      -658.9016280000211
+     ],
+     "roundingErrorM": 0.0039685256721533465
+    }
+   ]
+  },
+  {
+   "index": 209,
+   "kind": "food",
+   "name": "SEA Bag Claim 4",
+   "brand": "Starbucks",
+   "sub": "cafe",
+   "x": -1206,
+   "z": 830.2,
+   "buildingIndex": 724,
+   "matches": [
+    {
+     "sourceId": "official-locator",
+     "sourceUrl": "https://www.starbucks.com/store-locator/store/1024029",
+     "tags": {
+      "category": "cafe",
+      "notes": "missing from OSM: position = locator pin (±30 m typical); street unit; inside the SeaTac terminal (baggage claim level): not visible from the roads",
+      "confidence": "medium"
+     },
+     "sourcePositionM": [
+      -1205.9583033980257,
+      830.1560400005526
+     ],
+     "roundingErrorM": 0.06058950542481671
+    }
+   ]
+  }
+ ]
+}

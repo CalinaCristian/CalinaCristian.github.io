@@ -1,0 +1,47 @@
+{
+  "sourceCommit": "65d76f7f33bf41cb4c43edc947d5ab6542ec859f",
+  "recordedAt": "2026-11-09T02:04:56.626512+00:00",
+  "results": [
+    {
+      "name": "geometry",
+      "command": "node tools/landmarks/geometry-check.mjs",
+      "exitCode": 0,
+      "passed": true,
+      "checks": 2113,
+      "toolSha256": "05c716486d262961eb0a8b153d935db3fa4a762d23869dec2aa75c979d620e3f"
+    },
+    {
+      "name": "us-source",
+      "command": "node tools/landmarks/us-source-check.mjs",
+      "exitCode": 0,
+      "passed": true,
+      "checks": 224,
+      "toolSha256": "3dd8fd6f55d9c2944de2b1b0bafee658798de140219bb55bab31efc266c45b4a"
+    },
+    {
+      "name": "bucharest-source",
+      "command": "node tools/landmarks/bucharest-source-check.mjs",
+      "exitCode": 0,
+      "passed": true,
+      "checks": 456,
+      "toolSha256": "35734dc0f6a657ee1435b8bb3bf7464e97b0afd79f8690ab595d3e5a6b305673"
+    }
+  ],
+  "sourceHashes": {
+    "game/src/world.js": "eff89252875041058d439b8837ca34e3d1838bd07fefdbf7d9486280ede7d94e",
+    "game/src/landmarks.js": "8b7cb0125571c3563daaf325b8040ee88df844a991b0101424401917cf8c465d",
+    "game/src/building-parts.js": "0039e752969e9cfc1a0477641a9a5bb7b31eb6c8886843d88d79848362633b30",
+    "game/src/landmark-cec-source.js": "4891822203ad126ab75511e2196965848db37cfdfabadef54b13cea4ffbe4356",
+    "game/src/landmark-otp-roofs.js": "f071c4b256efe77dae8eaf64e0d4c2a04af9f01b4447686bd2cd91f77950b8a6",
+    "game/src/landmark-pitch-paint-coverage.js": "db48ecb69657184e42aa165909396f09f0e3185e6f7375968188121770a4fa8c",
+    "game/src/landmark-pitch-paint.js": "ebbbe0aeef06a63d5a737452c316a4cd94a0ac6e962354dea089d56bf87c6ed5",
+    "game/src/landmark-seatac-aircraft.js": "23bd2be82947f78042858f2632a0f41a76ce30fe606fc3150d6c1ad08e51d1c5",
+    "game/src/landmark-seatac-structure.js": "babdf7e471ad949ca982a737701280785005a950b18227205bd047d32e418bb5",
+    "game/src/landmark-source-identities.js": "4f93c8853d3f1ae65badd1940f4f7286bc6538353defb94a0268f7fed699adfc",
+    "game/src/landmark-source-masses.js": "b5009b0f96ee984cc674793d7170a5c49763fb91d87e168c2847c1218d68e2b9",
+    "game/src/landmark-us-geometry.js": "5314a5e92a86b9a9612c3de013927a5d281d0c051944562347d39086930848aa",
+    "game/src/landmark-us-source.js": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888",
+    "game/src/landmark-us-terrain.js": "cfca62d53bfeaf34f736b6ce345045dbbe50337544111fb6b676c4d237042879"
+  },
+  "scope": "Source and procedural geometry invariants on the integrated SeaTac structure + pitch AA + water runtime. No fresh native scene, material fidelity, hardware FPS or actor-system acceptance is implied."
+}

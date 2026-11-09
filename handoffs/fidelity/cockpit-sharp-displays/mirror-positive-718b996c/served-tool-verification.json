@@ -1,0 +1,25 @@
+{
+  "scope": "Post-run packaging verification only, original reports untouched.",
+  "checks": [
+    {
+      "report": "native/report.json",
+      "sourceCommit": "718b996c54819feb632c0b62682923b38f7abe2d",
+      "servedFiles": 114,
+      "allServedMatchCopiedGitInventory": true,
+      "exactToolAndCounterHashesMatch": true,
+      "complete": false,
+      "browserClosed": true,
+      "failureRetained": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(report.firstEnable.mirrorEnabled&&report.firstEnable.mirrorVisible)\n\n    at /workspace/fidelity-workers/sharp-cockpit-displays/handoffs/fidelity/cockpit-sharp-displays/mirror-positive.cjs:28:2"
+    },
+    {
+      "report": "native-retry/report.json",
+      "sourceCommit": "718b996c54819feb632c0b62682923b38f7abe2d",
+      "servedFiles": 114,
+      "allServedMatchCopiedGitInventory": true,
+      "exactToolAndCounterHashesMatch": true,
+      "complete": true,
+      "browserClosed": true,
+      "failureRetained": null
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "frames": 20,
+  "sourceFilesVerified": 9318,
+  "scopeCounts": {
+    "core-touches": 20
+  },
+  "failures": [],
+  "movedUnusedFirstAttemptFrames": [],
+  "manifestSha256": "bb73a1278b01f0e1dfd3dd3b0f2c1a5bff3d92a73dbf757fd2285e92f32c3a57"
+}

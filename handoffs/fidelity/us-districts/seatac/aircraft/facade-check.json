@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "short": {
+    "edge": 49,
+    "lengthM": 7.660939890117924,
+    "y": 13,
+    "distanceM": 1.9299996513709203,
+    "glass": true,
+    "color": [
+      0.10461648553609848,
+      0.20507873594760895,
+      0.28744083642959595
+    ]
+  },
+  "negatives": [
+    {
+      "edge": 16,
+      "lengthM": 0.9219544457292765,
+      "y": 13,
+      "distanceM": 2.0000043031309085,
+      "glass": false,
+      "color": [
+        0.6795424818992615,
+        0.7011018991470337,
+        0.7083757519721985
+      ]
+    },
+    {
+      "edge": 49,
+      "lengthM": 7.660939890117924,
+      "y": 8.5,
+      "distanceM": 1.9999979783580517,
+      "glass": false,
+      "color": [
+        0.6795424818992615,
+        0.7011018991470337,
+        0.7083757519721985
+      ]
+    },
+    {
+      "edge": 49,
+      "lengthM": 7.660939890117924,
+      "y": 16,
+      "distanceM": 1.9999979783580517,
+      "glass": false,
+      "color": [
+        0.6795424818992615,
+        0.7011018991470337,
+        0.7083757519721985
+      ]
+    }
+  ],
+  "collisionSha256": "00aa1e2fff8a64cc4007252d014b835d66ffb9a6e46d7f134b45f2f6621a4720",
+  "triangles": 14547,
+  "addedTriangles": 1016,
+  "note": "Facade bands and 2 m detail cutoff remain procedural estimates. Source geometry and collision are unchanged."
+}

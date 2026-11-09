@@ -1,0 +1,4763 @@
+{
+  "passed": true,
+  "baselineSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "currentSourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+  "baselineCaptureToolSha256": "dd0abc2309d57a42e3d617af61c2f60b13181fcbff9284bc06cfa57e2da865ce",
+  "currentCaptureToolSha256": "dd0abc2309d57a42e3d617af61c2f60b13181fcbff9284bc06cfa57e2da865ce",
+  "scope": "Exact generated-separator render/physical deltas in all8 native districts. The existing geometric/continuation gates remain; only full2m body height replaces wheel-height-only matching. Complete source road XZ, deck tops, grades, legality and all non-generated collision records outside the two SeaTac models remain unchanged.",
+  "retakeMaskPolicy": "Use each removed/added renderedFootprintXZ and YRange, plus the separate two-model impact bounds. ROOT owns conservative shadow/raster padding and actual fresh-source retakes; original frame source/date never changes.",
+  "districts": [
+    {
+      "key": "seattle-seatac",
+      "baselineSnapshotSha256": "c0963d29883fbad20e134b9ef08822c4a27b7aa72ec0912793486655946279f3",
+      "currentSnapshotSha256": "3d456454fcf332eea1cc80bbc89ef12ba4e0c6c21c95d3b9e0310c72b33ede22",
+      "completeSourceRoadProfilesIdentical": true,
+      "legacyNonBarrierCount": 19238,
+      "legacyNonBarrierSha256": "c596e22f2104958d22b1545b221baff7e8dd5bfec9fbe5d1be5222f47e482815",
+      "allNonGeneratedCollidersOutsideTwoSeaTacModelsIdentical": true,
+      "baselineTotalColliders": 19399,
+      "currentTotalColliders": 25910,
+      "baselineGeneratedBarriers": 155,
+      "currentGeneratedBarriers": 145,
+      "unchangedGeneratedBarriers": 141,
+      "changedSourceWayIds": [
+        "w1165162671",
+        "w31928834",
+        "w344201642",
+        "w369422790",
+        "w430442189",
+        "w722292911",
+        "w722314207",
+        "w906096010",
+        "w955297074",
+        "w964279964"
+      ],
+      "removedOrReplaced": [
+        {
+          "kind": "barrier",
+          "x": -859.6063250638999,
+          "z": 833.3865049104497,
+          "r": 13.544594594594596,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -860.0692426840696,
+          "az": 846.6230072147634,
+          "bx": -859.1434074437303,
+          "bz": 820.1500026061361,
+          "y0a": 2.9260898074699986,
+          "y1a": 3.826089807469999,
+          "y0b": 0.9502989850016121,
+          "y1b": 1.8502989850016125,
+          "edge": {
+            "id": 54,
+            "sourceId": "w31928834",
+            "layer": 0,
+            "ya": 3.1808429512908316,
+            "yb": 0,
+            "a": 10848334101,
+            "b": 255173024
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 54,
+            "sourceId": "w31928834",
+            "layer": 0,
+            "ya": 3.1808429512908316,
+            "yb": 0,
+            "a": 10848334101,
+            "b": 255173024,
+            "node": null,
+            "sourceTags": {
+              "bicycle": "yes",
+              "fixme": "verify bicycle=yes",
+              "highway": "motorway_link",
+              "lanes": "1",
+              "maxspeed": "30 mph",
+              "oneway": "yes"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -859.9193343322913,
+              846.6282499303883
+            ],
+            [
+              -858.993499091952,
+              820.155245321761
+            ],
+            [
+              -859.2933157955086,
+              820.1447598905113
+            ],
+            [
+              -860.219151035848,
+              846.6177644991386
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -860.219151035848,
+            820.1447598905113,
+            -858.993499091952,
+            846.6282499303883
+          ],
+          "physicalWallLineXZ": [
+            [
+              -860.0692426840696,
+              846.6230072147634
+            ],
+            [
+              -859.1434074437303,
+              820.1500026061361
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -860.0692426840696,
+            820.1500026061361,
+            -859.1434074437303,
+            846.6230072147634
+          ],
+          "renderedYRange": [
+            1.400298985001612,
+            4.276089807469999
+          ],
+          "physicalYRange": [
+            0.9502989850016121,
+            3.826089807469999
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -1021.5028222733896,
+          "z": 751.7322971191129,
+          "r": 1.782811201272966,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -1020.9894124943072,
+          "az": 753.1233900194482,
+          "bx": -1022.016232052472,
+          "bz": 750.3412042187776,
+          "y0a": -3.017171739292084,
+          "y1a": -2.1171717392920835,
+          "y0b": -3.254421531495757,
+          "y1b": -2.3544215314957566,
+          "edge": {
+            "id": 383,
+            "sourceId": "w344201642",
+            "layer": 0,
+            "ya": -2.7591717392920834,
+            "yb": -3.0444215314957566,
+            "a": 10837636584,
+            "b": 10837636585
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 383,
+            "sourceId": "w344201642",
+            "layer": 0,
+            "ya": -2.7591717392920834,
+            "yb": -3.0444215314957566,
+            "a": 10837636584,
+            "b": 10837636585,
+            "node": null,
+            "sourceTags": {
+              "highway": "service",
+              "oneway": "yes"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -1020.8486906445726,
+              753.0714538951485
+            ],
+            [
+              -1021.8755102027374,
+              750.289268094478
+            ],
+            [
+              -1022.1569539022066,
+              750.3931403430773
+            ],
+            [
+              -1021.1301343440418,
+              753.1753261437478
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -1022.1569539022066,
+            750.289268094478,
+            -1020.8486906445726,
+            753.1753261437478
+          ],
+          "physicalWallLineXZ": [
+            [
+              -1020.9894124943072,
+              753.1233900194482
+            ],
+            [
+              -1022.016232052472,
+              750.3412042187776
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -1022.016232052472,
+            750.3412042187776,
+            -1020.9894124943072,
+            753.1233900194482
+          ],
+          "renderedYRange": [
+            -2.804421531495757,
+            -1.6671717392920837
+          ],
+          "physicalYRange": [
+            -3.254421531495757,
+            -2.1171717392920835
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -943.4871582046495,
+          "z": 1002.4376631548541,
+          "r": 2.42026073904885,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -945.4332888674295,
+          "az": 1001.5961876383122,
+          "bx": -941.5410275418695,
+          "bz": 1003.2791386713961,
+          "y0a": 0.2805091363893187,
+          "y1a": 1.1805091363893188,
+          "y0b": 0.6095736030897034,
+          "y1b": 1.5095736030897033,
+          "edge": {
+            "id": 571,
+            "sourceId": "w369422790",
+            "layer": 0,
+            "ya": 0.21114913638931865,
+            "yb": 0.8195736030897033,
+            "a": 10853210062,
+            "b": 10848238515
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 571,
+            "sourceId": "w369422790",
+            "layer": 0,
+            "ya": 0.21114913638931865,
+            "yb": 0.8195736030897033,
+            "a": 10853210062,
+            "b": 10848238515,
+            "node": null,
+            "sourceTags": {
+              "bicycle": "yes",
+              "destination": "Return To Terminal;Overheight Vehicle Parking",
+              "destination:ref": "I 5;I 405;SR 509",
+              "fixme": "verify bicycle=yes",
+              "highway": "motorway_link",
+              "lanes": "2",
+              "maxspeed": "20 mph",
+              "oneway": "yes",
+              "sidewalk:both": "no",
+              "tiger:county": "King, WA"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -945.4928199077193,
+              1001.7338686291644
+            ],
+            [
+              -941.6005585821594,
+              1003.4168196622483
+            ],
+            [
+              -941.4814965015797,
+              1003.141457680544
+            ],
+            [
+              -945.3737578271397,
+              1001.4585066474601
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -945.4928199077193,
+            1001.4585066474601,
+            -941.4814965015797,
+            1003.4168196622483
+          ],
+          "physicalWallLineXZ": [
+            [
+              -945.4332888674295,
+              1001.5961876383122
+            ],
+            [
+              -941.5410275418695,
+              1003.2791386713961
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -945.4332888674295,
+            1001.5961876383122,
+            -941.5410275418695,
+            1003.2791386713961
+          ],
+          "renderedYRange": [
+            0.7305091363893187,
+            1.9595736030897035
+          ],
+          "physicalYRange": [
+            0.2805091363893187,
+            1.5095736030897033
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -939.5919230116629,
+          "z": 1003.8799390893846,
+          "r": 1.1999999999999589,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -940.456284949913,
+          "az": 1003.6291833522528,
+          "bx": -938.7275610734129,
+          "bz": 1004.1306948265164,
+          "y0a": 0.6561336030897034,
+          "y1a": 1.5561336030897033,
+          "y0b": 0.7958136030897034,
+          "y1b": 1.6958136030897033,
+          "edge": {
+            "id": 572,
+            "sourceId": "w369422790",
+            "layer": 0,
+            "ya": 0.8195736030897033,
+            "yb": 1.4819521470169148,
+            "a": 10848238515,
+            "b": 10848238516
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 572,
+            "sourceId": "w369422790",
+            "layer": 0,
+            "ya": 0.8195736030897033,
+            "yb": 1.4819521470169148,
+            "a": 10848238515,
+            "b": 10848238516,
+            "node": null,
+            "sourceTags": {
+              "bicycle": "yes",
+              "destination": "Return To Terminal;Overheight Vehicle Parking",
+              "destination:ref": "I 5;I 405;SR 509",
+              "fixme": "verify bicycle=yes",
+              "highway": "motorway_link",
+              "lanes": "2",
+              "maxspeed": "20 mph",
+              "oneway": "yes",
+              "sidewalk:both": "no",
+              "tiger:county": "King, WA"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -940.4980775727682,
+              1003.7732436752945
+            ],
+            [
+              -938.7693536962681,
+              1004.2747551495581
+            ],
+            [
+              -938.6857684505576,
+              1003.9866345034748
+            ],
+            [
+              -940.4144923270577,
+              1003.4851230292111
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -940.4980775727682,
+            1003.4851230292111,
+            -938.6857684505576,
+            1004.2747551495581
+          ],
+          "physicalWallLineXZ": [
+            [
+              -940.456284949913,
+              1003.6291833522528
+            ],
+            [
+              -938.7275610734129,
+              1004.1306948265164
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -940.456284949913,
+            1003.6291833522528,
+            -938.7275610734129,
+            1004.1306948265164
+          ],
+          "renderedYRange": [
+            1.1061336030897033,
+            2.1458136030897035
+          ],
+          "physicalYRange": [
+            0.6561336030897034,
+            1.6958136030897033
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -1038.7365343539395,
+          "z": 700.3602935774315,
+          "r": 0.7500000000000405,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -1039.0242870652255,
+          "az": 700.7062681099446,
+          "bx": -1038.4487816426536,
+          "bz": 700.0143190449186,
+          "y0a": -3.0203352668078525,
+          "y1a": -2.120335266807852,
+          "y0b": -3.0923352668078525,
+          "y1b": -2.192335266807852,
+          "edge": {
+            "id": 699,
+            "sourceId": "w430442189",
+            "layer": 0,
+            "ya": -2.810335266807852,
+            "yb": -3.0843953882586397,
+            "a": 10837689045,
+            "b": 10837689046
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 699,
+            "sourceId": "w430442189",
+            "layer": 0,
+            "ya": -2.810335266807852,
+            "yb": -3.0843953882586397,
+            "a": 10837689045,
+            "b": 10837689046,
+            "node": null,
+            "sourceTags": {
+              "highway": "service",
+              "oneway": "yes"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -1038.9089622210545,
+              700.8021856803733
+            ],
+            [
+              -1038.3334567984825,
+              700.1102366153473
+            ],
+            [
+              -1038.5641064868246,
+              699.9184014744899
+            ],
+            [
+              -1039.1396119093965,
+              700.6103505395159
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -1039.1396119093965,
+            699.9184014744899,
+            -1038.3334567984825,
+            700.8021856803733
+          ],
+          "physicalWallLineXZ": [
+            [
+              -1039.0242870652255,
+              700.7062681099446
+            ],
+            [
+              -1038.4487816426536,
+              700.0143190449186
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -1039.0242870652255,
+            700.0143190449186,
+            -1038.4487816426536,
+            700.7062681099446
+          ],
+          "renderedYRange": [
+            -2.6423352668078524,
+            -1.6703352668078524
+          ],
+          "physicalYRange": [
+            -3.0923352668078525,
+            -2.120335266807852
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -998.5235873717018,
+          "z": 776.8196490749659,
+          "r": 1.0907208417617476,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -997.7539573615186,
+          "az": 777.0010577214576,
+          "bx": -999.2932173818848,
+          "bz": 776.6382404284742,
+          "y0a": 0.9953249233240244,
+          "y1a": 1.8953249233240244,
+          "y0b": -0.20999999999999974,
+          "y1b": 0.6900000000000002,
+          "edge": {
+            "id": 1116,
+            "sourceId": "w722292911",
+            "layer": -1,
+            "ya": 2.805878624008611,
+            "yb": 0,
+            "a": 7037085159,
+            "b": 10837660152
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 1116,
+            "sourceId": "w722292911",
+            "layer": -1,
+            "ya": 2.805878624008611,
+            "yb": 0,
+            "a": 7037085159,
+            "b": 10837660152,
+            "node": null,
+            "sourceTags": {
+              "covered": "yes",
+              "destination": "all other Airlines",
+              "highway": "service",
+              "layer": "-1",
+              "oneway": "yes",
+              "tunnel": "yes"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -997.7195440824742,
+              776.8550586590449
+            ],
+            [
+              -999.2588041028404,
+              776.4922413660614
+            ],
+            [
+              -999.3276306609292,
+              776.784239490887
+            ],
+            [
+              -997.788370640563,
+              777.1470567838704
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -999.3276306609292,
+            776.4922413660614,
+            -997.7195440824742,
+            777.1470567838704
+          ],
+          "physicalWallLineXZ": [
+            [
+              -997.7539573615186,
+              777.0010577214576
+            ],
+            [
+              -999.2932173818848,
+              776.6382404284742
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -999.2932173818848,
+            776.6382404284742,
+            -997.7539573615186,
+            777.0010577214576
+          ],
+          "renderedYRange": [
+            0.24000000000000027,
+            2.3453249233240245
+          ],
+          "physicalYRange": [
+            -0.20999999999999974,
+            1.8953249233240244
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -1015.5824353113962,
+          "z": 739.3305336445503,
+          "r": 1.125000000000005,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -1015.0145650374903,
+          "az": 739.9289886152991,
+          "bx": -1016.1503055853022,
+          "bz": 738.7320786738014,
+          "y0a": 4.629043751398401,
+          "y1a": 5.529043751398401,
+          "y0b": 4.565688823729553,
+          "y1b": 5.465688823729553,
+          "edge": {
+            "id": 2965,
+            "sourceId": "w722314207",
+            "layer": 1,
+            "ya": 5.040627612162916,
+            "yb": 4.758858379779269,
+            "a": 3682806301,
+            "b": 12025217782
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 2965,
+            "sourceId": "w722314207",
+            "layer": 1,
+            "ya": 5.040627612162916,
+            "yb": 4.758858379779269,
+            "a": 3682806301,
+            "b": 12025217782,
+            "node": null,
+            "sourceTags": {
+              "access": "no",
+              "bridge": "yes",
+              "highway": "service",
+              "layer": "1",
+              "oneway": "yes",
+              "rideshare": "designated"
+            },
+            "publicDrive": false,
+            "drivable": false
+          },
+          "renderedFootprintXZ": [
+            [
+              -1014.9057550428088,
+              739.8257394745889
+            ],
+            [
+              -1016.0414955906207,
+              738.6288295330912
+            ],
+            [
+              -1016.2591155799838,
+              738.8353278145116
+            ],
+            [
+              -1015.1233750321719,
+              740.0322377560093
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -1016.2591155799838,
+            738.6288295330912,
+            -1014.9057550428088,
+            740.0322377560093
+          ],
+          "physicalWallLineXZ": [
+            [
+              -1015.0145650374903,
+              739.9289886152991
+            ],
+            [
+              -1016.1503055853022,
+              738.7320786738014
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -1016.1503055853022,
+            738.7320786738014,
+            -1015.0145650374903,
+            739.9289886152991
+          ],
+          "renderedYRange": [
+            5.015688823729553,
+            5.9790437513984
+          ],
+          "physicalYRange": [
+            4.565688823729553,
+            5.529043751398401
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -1065.6788886912013,
+          "z": 696.1398725559947,
+          "r": 3.56868039114506,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -1065.6431149457603,
+          "az": 692.8713879318005,
+          "bx": -1065.7146624366421,
+          "bz": 699.4083571801888,
+          "y0a": -0.21000000000000002,
+          "y1a": 0.69,
+          "y0b": -0.21000000000000002,
+          "y1b": 0.69,
+          "edge": {
+            "id": 3092,
+            "sourceId": "w906096010",
+            "layer": 1,
+            "ya": 0,
+            "yb": 0,
+            "a": 8394508321,
+            "b": 8394508322
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 3092,
+            "sourceId": "w906096010",
+            "layer": 1,
+            "ya": 0,
+            "yb": 0,
+            "a": 8394508321,
+            "b": 8394508322,
+            "node": null,
+            "sourceTags": {
+              "access": "no",
+              "highway": "service",
+              "layer": "1",
+              "level": "3",
+              "oneway": "yes",
+              "rideshare": "designated",
+              "tunnel": "building_passage"
+            },
+            "publicDrive": false,
+            "drivable": false
+          },
+          "renderedFootprintXZ": [
+            [
+              -1065.7931059619996,
+              692.8697462718112
+            ],
+            [
+              -1065.8646534528814,
+              699.4067155201994
+            ],
+            [
+              -1065.5646714204029,
+              699.4099988401781
+            ],
+            [
+              -1065.493123929521,
+              692.8730295917899
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -1065.8646534528814,
+            692.8697462718112,
+            -1065.493123929521,
+            699.4099988401781
+          ],
+          "physicalWallLineXZ": [
+            [
+              -1065.6431149457603,
+              692.8713879318005
+            ],
+            [
+              -1065.7146624366421,
+              699.4083571801888
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -1065.7146624366421,
+            692.8713879318005,
+            -1065.6431149457603,
+            699.4083571801888
+          ],
+          "renderedYRange": [
+            0.24,
+            1.1400000000000001
+          ],
+          "physicalYRange": [
+            -0.21000000000000002,
+            0.69
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -1090.6303566778545,
+          "z": 701.1410178037573,
+          "r": 23.249999999999993,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -1067.6811930173963,
+          "az": 701.3369445387974,
+          "bx": -1113.5795203383127,
+          "bz": 700.9450910687173,
+          "y0a": -0.21000000000000002,
+          "y1a": 0.69,
+          "y0b": -0.21000000000000002,
+          "y1b": 0.69,
+          "edge": {
+            "id": 3093,
+            "sourceId": "w906096010",
+            "layer": 1,
+            "ya": 0,
+            "yb": 0,
+            "a": 8394508322,
+            "b": 8394508323
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 3093,
+            "sourceId": "w906096010",
+            "layer": 1,
+            "ya": 0,
+            "yb": 0,
+            "a": 8394508322,
+            "b": 8394508323,
+            "node": null,
+            "sourceTags": {
+              "access": "no",
+              "highway": "service",
+              "layer": "1",
+              "level": "3",
+              "oneway": "yes",
+              "rideshare": "designated",
+              "tunnel": "building_passage"
+            },
+            "publicDrive": false,
+            "drivable": false
+          },
+          "renderedFootprintXZ": [
+            [
+              -1067.6799124505005,
+              701.186950005069
+            ],
+            [
+              -1113.578239771417,
+              700.7950965349888
+            ],
+            [
+              -1113.5808009052084,
+              701.0950856024457
+            ],
+            [
+              -1067.682473584292,
+              701.4869390725258
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -1113.5808009052084,
+            700.7950965349888,
+            -1067.6799124505005,
+            701.4869390725258
+          ],
+          "physicalWallLineXZ": [
+            [
+              -1067.6811930173963,
+              701.3369445387974
+            ],
+            [
+              -1113.5795203383127,
+              700.9450910687173
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -1113.5795203383127,
+            700.9450910687173,
+            -1067.6811930173963,
+            701.3369445387974
+          ],
+          "renderedYRange": [
+            0.24,
+            1.1400000000000001
+          ],
+          "physicalYRange": [
+            -0.21000000000000002,
+            0.69
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -1117.7787081965107,
+          "z": 700.4743847755676,
+          "r": 1.2000000000000415,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -1117.7780426513325,
+          "az": 699.5743850216512,
+          "bx": -1117.779373741689,
+          "bz": 701.3743845294841,
+          "y0a": -0.21000000000000002,
+          "y1a": 0.69,
+          "y0b": -0.21000000000000002,
+          "y1b": 0.69,
+          "edge": {
+            "id": 3094,
+            "sourceId": "w906096010",
+            "layer": 1,
+            "ya": 0,
+            "yb": 0,
+            "a": 8394508323,
+            "b": 10902652794
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 3094,
+            "sourceId": "w906096010",
+            "layer": 1,
+            "ya": 0,
+            "yb": 0,
+            "a": 8394508323,
+            "b": 10902652794,
+            "node": null,
+            "sourceTags": {
+              "access": "no",
+              "highway": "service",
+              "layer": "1",
+              "level": "3",
+              "oneway": "yes",
+              "rideshare": "designated",
+              "tunnel": "building_passage"
+            },
+            "publicDrive": false,
+            "drivable": false
+          },
+          "renderedFootprintXZ": [
+            [
+              -1117.9280426103185,
+              699.5742740974548
+            ],
+            [
+              -1117.929373700675,
+              701.3742736052877
+            ],
+            [
+              -1117.629373782703,
+              701.3744954536805
+            ],
+            [
+              -1117.6280426923465,
+              699.5744959458476
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -1117.929373700675,
+            699.5742740974548,
+            -1117.6280426923465,
+            701.3744954536805
+          ],
+          "physicalWallLineXZ": [
+            [
+              -1117.7780426513325,
+              699.5743850216512
+            ],
+            [
+              -1117.779373741689,
+              701.3743845294841
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -1117.779373741689,
+            699.5743850216512,
+            -1117.7780426513325,
+            701.3743845294841
+          ],
+          "renderedYRange": [
+            0.24,
+            1.1400000000000001
+          ],
+          "physicalYRange": [
+            -0.21000000000000002,
+            0.69
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -974.419704903489,
+          "z": 803.9453793906312,
+          "r": 1.9499999999999644,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -974.3377750775792,
+          "az": 805.5933440454785,
+          "bx": -974.5016347293989,
+          "bz": 802.2974147357837,
+          "y0a": -5.123433728769758,
+          "y1a": -4.223433728769757,
+          "y0b": -5.387433728769758,
+          "y1b": -4.487433728769758,
+          "edge": {
+            "id": 3153,
+            "sourceId": "w964279964",
+            "layer": 0,
+            "ya": -3.4254337287697583,
+            "yb": -5.3659695422348985,
+            "a": 8919375263,
+            "b": 8919375264
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 3153,
+            "sourceId": "w964279964",
+            "layer": 0,
+            "ya": -3.4254337287697583,
+            "yb": -5.3659695422348985,
+            "a": 8919375263,
+            "b": 8919375264,
+            "node": null,
+            "sourceTags": {
+              "highway": "service",
+              "oneway": "yes"
+            },
+            "publicDrive": true,
+            "drivable": false
+          },
+          "renderedFootprintXZ": [
+            [
+              -974.1879601089566,
+              805.5858958794867
+            ],
+            [
+              -974.3518197607764,
+              802.2899665697919
+            ],
+            [
+              -974.6514496980215,
+              802.3048629017756
+            ],
+            [
+              -974.4875900462017,
+              805.6007922114703
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -974.6514496980215,
+            802.2899665697919,
+            -974.1879601089566,
+            805.6007922114703
+          ],
+          "physicalWallLineXZ": [
+            [
+              -974.3377750775792,
+              805.5933440454785
+            ],
+            [
+              -974.5016347293989,
+              802.2974147357837
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -974.5016347293989,
+            802.2974147357837,
+            -974.3377750775792,
+            805.5933440454785
+          ],
+          "renderedYRange": [
+            -4.937433728769758,
+            -3.7734337287697577
+          ],
+          "physicalYRange": [
+            -5.387433728769758,
+            -4.223433728769757
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -994.7184561051865,
+          "z": 692.9967404467632,
+          "r": 0.8675826515911003,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -995.094726286957,
+          "az": 693.4216766969203,
+          "bx": -994.3421859234161,
+          "bz": 692.571804196606,
+          "y0a": -0.5702355375126398,
+          "y1a": 0.3297644624873602,
+          "y0b": -0.4794223132580673,
+          "y1b": 0.42057768674193274,
+          "edge": {
+            "id": 1397,
+            "sourceId": "w1165162671",
+            "layer": 0,
+            "ya": -0.6482355375126398,
+            "yb": -0.26942231325806726,
+            "a": 10837753913,
+            "b": 10837753915
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 1397,
+            "sourceId": "w1165162671",
+            "layer": 0,
+            "ya": -0.6482355375126398,
+            "yb": -0.26942231325806726,
+            "a": 10837753913,
+            "b": 10837753915,
+            "node": null,
+            "sourceTags": {
+              "highway": "service",
+              "oneway": "yes"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -994.9824246911544,
+              693.5211168878905
+            ],
+            [
+              -994.2298843276135,
+              692.6712443875762
+            ],
+            [
+              -994.4544875192187,
+              692.4723640056358
+            ],
+            [
+              -995.2070278827596,
+              693.3222365059501
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -995.2070278827596,
+            692.4723640056358,
+            -994.2298843276135,
+            693.5211168878905
+          ],
+          "physicalWallLineXZ": [
+            [
+              -995.094726286957,
+              693.4216766969203
+            ],
+            [
+              -994.3421859234161,
+              692.571804196606
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -995.094726286957,
+            692.571804196606,
+            -994.3421859234161,
+            693.4216766969203
+          ],
+          "renderedYRange": [
+            -0.12023553751263977,
+            0.8705776867419328
+          ],
+          "physicalYRange": [
+            -0.5702355375126398,
+            0.42057768674193274
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -991.932731148203,
+          "z": 690.5095898013824,
+          "r": 2.69999999999999,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -993.657406881429,
+          "az": 692.1785696140888,
+          "bx": -990.208055414977,
+          "bz": 688.8406099886761,
+          "y0a": -0.4965618466927988,
+          "y1a": 0.40343815330720123,
+          "y0b": -0.6336781141706508,
+          "y1b": 0.26632188582934924,
+          "edge": {
+            "id": 1398,
+            "sourceId": "w1165162671",
+            "layer": 0,
+            "ya": -0.26942231325806726,
+            "yb": -0.6446707148728669,
+            "a": 10837753915,
+            "b": 10837753923
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 1398,
+            "sourceId": "w1165162671",
+            "layer": 0,
+            "ya": -0.26942231325806726,
+            "yb": -0.6446707148728669,
+            "a": 10837753915,
+            "b": 10837753923,
+            "node": null,
+            "sourceTags": {
+              "highway": "service",
+              "oneway": "yes"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -993.5530956431348,
+              692.2863618474155
+            ],
+            [
+              -990.1037441766829,
+              688.9484022220028
+            ],
+            [
+              -990.3123666532712,
+              688.7328177553494
+            ],
+            [
+              -993.7617181197231,
+              692.0707773807621
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -993.7617181197231,
+            688.7328177553494,
+            -990.1037441766829,
+            692.2863618474155
+          ],
+          "physicalWallLineXZ": [
+            [
+              -993.657406881429,
+              692.1785696140888
+            ],
+            [
+              -990.208055414977,
+              688.8406099886761
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -993.657406881429,
+            688.8406099886761,
+            -990.208055414977,
+            692.1785696140888
+          ],
+          "renderedYRange": [
+            -0.18367811417065077,
+            0.8534381533072013
+          ],
+          "physicalYRange": [
+            -0.6336781141706508,
+            0.40343815330720123
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -1001.2942022592654,
+          "z": 753.9087422568139,
+          "r": 4.86461837446039,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -998.0767370469147,
+          "az": 757.1465900777861,
+          "bx": -1004.5116674716162,
+          "bz": 750.6708944358418,
+          "y0a": 4.25255918221782,
+          "y1a": 5.1525591822178205,
+          "y0b": 4.830627612162916,
+          "y1b": 5.730627612162916,
+          "edge": {
+            "id": 3732,
+            "sourceId": "w955297074",
+            "layer": 1,
+            "ya": 4.424566843153105,
+            "yb": 5.040627612162916
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 3732,
+            "sourceId": "w955297074",
+            "layer": 1,
+            "ya": 4.424566843153105,
+            "yb": 5.040627612162916,
+            "node": null,
+            "sourceTags": {
+              "access": "no",
+              "bridge": "yes",
+              "destination": "Rideshare App Rematch Only",
+              "highway": "service",
+              "lanes": "1",
+              "layer": "1",
+              "name": "Rideshare App Rematch Only",
+              "oneway": "yes",
+              "rideshare": "designated"
+            },
+            "publicDrive": false,
+            "drivable": false
+          },
+          "renderedFootprintXZ": [
+            [
+              -997.9703366573743,
+              757.0408594904159
+            ],
+            [
+              -1004.4052670820759,
+              750.5651638484716
+            ],
+            [
+              -1004.6180678611565,
+              750.776625023212
+            ],
+            [
+              -998.183137436455,
+              757.2523206651563
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -1004.6180678611565,
+            750.5651638484716,
+            -997.9703366573743,
+            757.2523206651563
+          ],
+          "physicalWallLineXZ": [
+            [
+              -998.0767370469147,
+              757.1465900777861
+            ],
+            [
+              -1004.5116674716162,
+              750.6708944358418
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -1004.5116674716162,
+            750.6708944358418,
+            -998.0767370469147,
+            757.1465900777861
+          ],
+          "renderedYRange": [
+            4.70255918221782,
+            6.180627612162915
+          ],
+          "physicalYRange": [
+            4.25255918221782,
+            5.730627612162916
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        }
+      ],
+      "addedOrShortened": [
+        {
+          "kind": "barrier",
+          "x": -859.9149368106798,
+          "z": 842.2108397799923,
+          "r": 4.714864864864865,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -860.0692426840696,
+          "az": 846.6230072147634,
+          "bx": -859.7606309372899,
+          "bz": 837.798672345221,
+          "y0a": 2.9260898074699986,
+          "y1a": 3.826089807469999,
+          "y0b": 2.267492866647203,
+          "y1b": 3.1674928666472035,
+          "edge": {
+            "id": 54,
+            "sourceId": "w31928834",
+            "layer": 0,
+            "ya": 3.1808429512908316,
+            "yb": 0,
+            "a": 10848334101,
+            "b": 255173024
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 54,
+            "sourceId": "w31928834",
+            "layer": 0,
+            "ya": 3.1808429512908316,
+            "yb": 0,
+            "a": 10848334101,
+            "b": 255173024,
+            "node": null,
+            "sourceTags": {
+              "bicycle": "yes",
+              "fixme": "verify bicycle=yes",
+              "highway": "motorway_link",
+              "lanes": "1",
+              "maxspeed": "30 mph",
+              "oneway": "yes"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -859.9193343322913,
+              846.6282499303883
+            ],
+            [
+              -859.6107225855116,
+              837.8039150608458
+            ],
+            [
+              -859.9105392890682,
+              837.7934296295962
+            ],
+            [
+              -860.219151035848,
+              846.6177644991386
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -860.219151035848,
+            837.7934296295962,
+            -859.6107225855116,
+            846.6282499303883
+          ],
+          "physicalWallLineXZ": [
+            [
+              -860.0692426840696,
+              846.6230072147634
+            ],
+            [
+              -859.7606309372899,
+              837.798672345221
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -860.0692426840696,
+            837.798672345221,
+            -859.7606309372899,
+            846.6230072147634
+          ],
+          "renderedYRange": [
+            2.7174928666472034,
+            4.276089807469999
+          ],
+          "physicalYRange": [
+            2.267492866647203,
+            3.826089807469999
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -1021.3316856803622,
+          "z": 752.1959947525579,
+          "r": 1.2885408008486552,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -1020.9894124943072,
+          "az": 753.1233900194482,
+          "bx": -1021.673958866417,
+          "bz": 751.2685994856678,
+          "y0a": -3.017171739292084,
+          "y1a": -2.1171717392920835,
+          "y0b": -3.175338267427866,
+          "y1b": -2.2753382674278657,
+          "edge": {
+            "id": 383,
+            "sourceId": "w344201642",
+            "layer": 0,
+            "ya": -2.7591717392920834,
+            "yb": -3.0444215314957566,
+            "a": 10837636584,
+            "b": 10837636585
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 383,
+            "sourceId": "w344201642",
+            "layer": 0,
+            "ya": -2.7591717392920834,
+            "yb": -3.0444215314957566,
+            "a": 10837636584,
+            "b": 10837636585,
+            "node": null,
+            "sourceTags": {
+              "highway": "service",
+              "oneway": "yes"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -1020.8486906445726,
+              753.0714538951485
+            ],
+            [
+              -1021.5332370166824,
+              751.2166633613681
+            ],
+            [
+              -1021.8146807161517,
+              751.3205356099675
+            ],
+            [
+              -1021.1301343440418,
+              753.1753261437478
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -1021.8146807161517,
+            751.2166633613681,
+            -1020.8486906445726,
+            753.1753261437478
+          ],
+          "physicalWallLineXZ": [
+            [
+              -1020.9894124943072,
+              753.1233900194482
+            ],
+            [
+              -1021.673958866417,
+              751.2685994856678
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -1021.673958866417,
+            751.2685994856678,
+            -1020.9894124943072,
+            753.1233900194482
+          ],
+          "renderedYRange": [
+            -2.725338267427866,
+            -1.6671717392920837
+          ],
+          "physicalYRange": [
+            -3.175338267427866,
+            -2.1171717392920835
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -994.9065911960718,
+          "z": 693.2092085718417,
+          "r": 0.5837913257955288,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -995.094726286957,
+          "az": 693.4216766969203,
+          "bx": -994.7184561051865,
+          "bz": 692.9967404467632,
+          "y0a": -0.5702355375126398,
+          "y1a": 0.3297644624873602,
+          "y0b": -0.5248289253853535,
+          "y1b": 0.3751710746146465,
+          "edge": {
+            "id": 1397,
+            "sourceId": "w1165162671",
+            "layer": 0,
+            "ya": -0.6482355375126398,
+            "yb": -0.26942231325806726,
+            "a": 10837753913,
+            "b": 10837753915
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 1397,
+            "sourceId": "w1165162671",
+            "layer": 0,
+            "ya": -0.6482355375126398,
+            "yb": -0.26942231325806726,
+            "a": 10837753913,
+            "b": 10837753915,
+            "node": null,
+            "sourceTags": {
+              "highway": "service",
+              "oneway": "yes"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -994.9824246911544,
+              693.5211168878905
+            ],
+            [
+              -994.6061545093839,
+              693.0961806377334
+            ],
+            [
+              -994.8307577009891,
+              692.897300255793
+            ],
+            [
+              -995.2070278827596,
+              693.3222365059501
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -995.2070278827596,
+            692.897300255793,
+            -994.6061545093839,
+            693.5211168878905
+          ],
+          "physicalWallLineXZ": [
+            [
+              -995.094726286957,
+              693.4216766969203
+            ],
+            [
+              -994.7184561051865,
+              692.9967404467632
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -995.094726286957,
+            692.9967404467632,
+            -994.7184561051865,
+            693.4216766969203
+          ],
+          "renderedYRange": [
+            -0.12023553751263977,
+            0.8251710746146466
+          ],
+          "physicalYRange": [
+            -0.5702355375126398,
+            0.3751710746146465
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -1000.6507092167953,
+          "z": 754.5563118210084,
+          "r": 3.951694699568312,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -998.0767370469147,
+          "az": 757.1465900777861,
+          "bx": -1003.2246813866759,
+          "bz": 751.9660335642307,
+          "y0a": 4.25255918221782,
+          "y1a": 5.1525591822178205,
+          "y0b": 4.715013926173897,
+          "y1b": 5.615013926173897,
+          "edge": {
+            "id": 3732,
+            "sourceId": "w955297074",
+            "layer": 1,
+            "ya": 4.424566843153105,
+            "yb": 5.040627612162916
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 3732,
+            "sourceId": "w955297074",
+            "layer": 1,
+            "ya": 4.424566843153105,
+            "yb": 5.040627612162916,
+            "node": null,
+            "sourceTags": {
+              "access": "no",
+              "bridge": "yes",
+              "destination": "Rideshare App Rematch Only",
+              "highway": "service",
+              "lanes": "1",
+              "layer": "1",
+              "name": "Rideshare App Rematch Only",
+              "oneway": "yes",
+              "rideshare": "designated"
+            },
+            "publicDrive": false,
+            "drivable": false
+          },
+          "renderedFootprintXZ": [
+            [
+              -997.9703366573743,
+              757.0408594904159
+            ],
+            [
+              -1003.1182809971356,
+              751.8603029768605
+            ],
+            [
+              -1003.3310817762163,
+              752.0717641516009
+            ],
+            [
+              -998.183137436455,
+              757.2523206651563
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -1003.3310817762163,
+            751.8603029768605,
+            -997.9703366573743,
+            757.2523206651563
+          ],
+          "physicalWallLineXZ": [
+            [
+              -998.0767370469147,
+              757.1465900777861
+            ],
+            [
+              -1003.2246813866759,
+              751.9660335642307
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -1003.2246813866759,
+            751.9660335642307,
+            -998.0767370469147,
+            757.1465900777861
+          ],
+          "renderedYRange": [
+            4.70255918221782,
+            6.065013926173897
+          ],
+          "physicalYRange": [
+            4.25255918221782,
+            5.615013926173897
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        }
+      ],
+      "aggregateChangedRenderedBoundsXZ": [
+        -1117.929373700675,
+        688.7328177553494,
+        -858.993499091952,
+        1004.2747551495581
+      ],
+      "unrelatedSeparatorNativeControls": [
+        {
+          "label": "Lowest retained separator",
+          "sourceOwnership": {
+            "id": 736,
+            "sourceId": "w447574326",
+            "layer": -1,
+            "ya": -7.5,
+            "yb": -7.5,
+            "a": 10837716551,
+            "b": 10837716552
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": -959.5390090117289,
+            "z": 820.7161532250971,
+            "r": 0.8147464050015629,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": -959.1192608116288,
+            "az": 821.0141050835822,
+            "bx": -959.958757211829,
+            "bz": 820.4182013666119,
+            "y0a": -7.71,
+            "y1a": -6.81,
+            "y0b": -7.71,
+            "y1b": -6.81,
+            "edge": {
+              "id": 736,
+              "sourceId": "w447574326",
+              "layer": -1,
+              "ya": -7.5,
+              "yb": -7.5,
+              "a": 10837716551,
+              "b": 10837716552
+            },
+            "node": null
+          },
+          "query": {
+            "x": -959.51006739547,
+            "z": 820.6753808956528,
+            "radiusM": 0.2,
+            "insideFootY": -7.26,
+            "belowFootY": -8.02,
+            "aboveFootY": -6.8
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        },
+        {
+          "label": "Highest retained separator",
+          "sourceOwnership": {
+            "id": 2384,
+            "sourceId": "w428095059",
+            "layer": 2,
+            "ya": 11,
+            "yb": 11,
+            "b": 2386658898
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": -1146.3546328839097,
+            "z": 563.8175595862274,
+            "r": 3.450000000000021,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": -1144.1196399065288,
+            "az": 561.597805908213,
+            "bx": -1148.5896258612906,
+            "bz": 566.0373132642417,
+            "y0a": 10.790000000000001,
+            "y1a": 11.69,
+            "y0b": 10.790000000000001,
+            "y1b": 11.69,
+            "edge": {
+              "id": 2384,
+              "sourceId": "w428095059",
+              "layer": 2,
+              "ya": 11,
+              "yb": 11,
+              "b": 2386658898
+            },
+            "node": null
+          },
+          "query": {
+            "x": -1146.389867069275,
+            "z": 563.7820835072214,
+            "radiusM": 0.2,
+            "insideFootY": 11.24,
+            "belowFootY": 10.48,
+            "aboveFootY": 11.7
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        }
+      ],
+      "sourceMappedBarrierPreservation": "All non-generated records, including real source fences/props/buildings outside the two structural models, are byte-identical. These per-district hashes do not claim an additional on-foot route test."
+    },
+    {
+      "key": "seattle-bellevue",
+      "baselineSnapshotSha256": "f4c3cc16c2a741e29602ea01ebd5f2f3933e363787f85dd456a7f8afa412c7b8",
+      "currentSnapshotSha256": "48a35c9e2876fc85b900e4fbb237cefa16601fe77d9fe647604ab473ecfafac6",
+      "completeSourceRoadProfilesIdentical": true,
+      "legacyNonBarrierCount": 14042,
+      "legacyNonBarrierSha256": "b36bb00c412a75750a0848e746675f685cefa6c681e3ab5364e47e08b5dd314f",
+      "allNonGeneratedCollidersOutsideTwoSeaTacModelsIdentical": true,
+      "baselineTotalColliders": 14092,
+      "currentTotalColliders": 14089,
+      "baselineGeneratedBarriers": 50,
+      "currentGeneratedBarriers": 47,
+      "unchangedGeneratedBarriers": 42,
+      "changedSourceWayIds": [
+        "w1295951545",
+        "w1295951546",
+        "w427906916",
+        "w55481043"
+      ],
+      "removedOrReplaced": [
+        {
+          "kind": "barrier",
+          "x": 328.62896373053945,
+          "z": -334.2662668114277,
+          "r": 4.601093765607512,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 332.92939629979657,
+          "az": -334.1908526362334,
+          "bx": 324.3285311612823,
+          "bz": -334.3416809866221,
+          "y0a": 0.5659257735031054,
+          "y1a": 1.4659257735031053,
+          "y0b": 0.25287985798633483,
+          "y1b": 1.1528798579863349,
+          "edge": {
+            "id": 231,
+            "sourceId": "w427906916",
+            "layer": 0,
+            "ya": 3.3445076444099415,
+            "yb": 0,
+            "a": 1804700802,
+            "b": 7013129140
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 231,
+            "sourceId": "w427906916",
+            "layer": 0,
+            "ya": 3.3445076444099415,
+            "yb": 0,
+            "a": 1804700802,
+            "b": 7013129140,
+            "node": null,
+            "sourceTags": {
+              "foot": "no",
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "4",
+              "maxspeed": "30 mph",
+              "name": "Northeast 8th Street",
+              "oneway": "yes",
+              "sidewalk:left": "no",
+              "sidewalk:right": "separate",
+              "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+              "surface": "asphalt",
+              "turn:lanes": "left|through||"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              332.93202635784587,
+              -334.34082957710984
+            ],
+            [
+              324.3311612193316,
+              -334.4916579274986
+            ],
+            [
+              324.325901103233,
+              -334.19170404574567
+            ],
+            [
+              332.92676624174726,
+              -334.04087569535693
+            ]
+          ],
+          "renderedBoundsXZ": [
+            324.325901103233,
+            -334.4916579274986,
+            332.93202635784587,
+            -334.04087569535693
+          ],
+          "physicalWallLineXZ": [
+            [
+              332.92939629979657,
+              -334.1908526362334
+            ],
+            [
+              324.3285311612823,
+              -334.3416809866221
+            ]
+          ],
+          "physicalBoundsXZ": [
+            324.3285311612823,
+            -334.3416809866221,
+            332.92939629979657,
+            -334.1908526362334
+          ],
+          "renderedYRange": [
+            0.7028798579863349,
+            1.9159257735031054
+          ],
+          "physicalYRange": [
+            0.25287985798633483,
+            1.4659257735031053
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -504.9560811731343,
+          "z": -455.73924895023583,
+          "r": 3.449999999999984,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -504.9541837106144,
+          "az": -452.58924952172225,
+          "bx": -504.95797863565423,
+          "bz": -458.8892483787494,
+          "y0a": -0.21000000000000002,
+          "y1a": 0.69,
+          "y0b": -0.21000000000000002,
+          "y1b": 0.69,
+          "edge": {
+            "id": 866,
+            "sourceId": "w1295951545",
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "a": 12008699365,
+            "b": 12008699366
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 866,
+            "sourceId": "w1295951545",
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "a": 12008699365,
+            "b": 12008699366,
+            "node": null,
+            "sourceTags": {
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "3",
+              "maxspeed": "30 mph",
+              "name": "Bellevue Way Northeast",
+              "oneway": "yes",
+              "sidewalk:both": "separate",
+              "surface": "asphalt"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -504.80418373782805,
+              -452.58933987708036
+            ],
+            [
+              -504.80797866286787,
+              -458.8893387341075
+            ],
+            [
+              -505.1079786084406,
+              -458.8891580233913
+            ],
+            [
+              -505.1041836834008,
+              -452.58915916636414
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -505.1079786084406,
+            -458.8893387341075,
+            -504.80418373782805,
+            -452.58915916636414
+          ],
+          "physicalWallLineXZ": [
+            [
+              -504.9541837106144,
+              -452.58924952172225
+            ],
+            [
+              -504.95797863565423,
+              -458.8892483787494
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -504.95797863565423,
+            -458.8892483787494,
+            -504.9541837106144,
+            -452.58924952172225
+          ],
+          "renderedYRange": [
+            0.24,
+            1.1400000000000001
+          ],
+          "physicalYRange": [
+            -0.21000000000000002,
+            0.69
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -504.78490943082284,
+          "z": -475.7266439439651,
+          "r": 16.460294117647045,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -504.9515010895953,
+          "az": -459.5672085210277,
+          "bx": -504.6183177720504,
+          "bz": -491.88607936690255,
+          "y0a": -0.21000000000000002,
+          "y1a": 0.69,
+          "y0b": -0.21000000000000002,
+          "y1b": 0.69,
+          "edge": {
+            "id": 867,
+            "sourceId": "w1295951545",
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "a": 12008699366,
+            "b": -2000000070
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 867,
+            "sourceId": "w1295951545",
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "a": 12008699366,
+            "b": -2000000070,
+            "node": null,
+            "sourceTags": {
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "3",
+              "maxspeed": "30 mph",
+              "name": "Bellevue Way Northeast",
+              "oneway": "yes",
+              "sidewalk:both": "separate",
+              "surface": "asphalt"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -504.80150906000756,
+              -459.56566221570466
+            ],
+            [
+              -504.46832574246264,
+              -491.88453306157953
+            ],
+            [
+              -504.7683098016381,
+              -491.88762567222557
+            ],
+            [
+              -505.10149311918303,
+              -459.5687548263507
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -505.10149311918303,
+            -491.88762567222557,
+            -504.46832574246264,
+            -459.56566221570466
+          ],
+          "physicalWallLineXZ": [
+            [
+              -504.9515010895953,
+              -459.5672085210277
+            ],
+            [
+              -504.6183177720504,
+              -491.88607936690255
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -504.9515010895953,
+            -491.88607936690255,
+            -504.6183177720504,
+            -459.5672085210277
+          ],
+          "renderedYRange": [
+            0.24,
+            1.1400000000000001
+          ],
+          "physicalYRange": [
+            -0.21000000000000002,
+            0.69
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -508.59397415942124,
+          "z": -409.0177492696079,
+          "r": 9.749999999999991,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -508.575424288138,
+          "az": -399.5677674758543,
+          "bx": -508.6125240307045,
+          "bz": -418.46773106336155,
+          "y0a": -0.21000000000000002,
+          "y1a": 0.69,
+          "y0b": -0.21000000000000002,
+          "y1b": 0.69,
+          "edge": {
+            "id": 869,
+            "sourceId": "w1295951546",
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "a": 7625804221,
+            "b": 12008699365
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 869,
+            "sourceId": "w1295951546",
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "a": 7625804221,
+            "b": 12008699365,
+            "node": null,
+            "sourceTags": {
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "3",
+              "lanes:backward": "3",
+              "lanes:forward": "3",
+              "maxspeed": "30 mph",
+              "name": "Bellevue Way Northeast",
+              "oneway": "yes",
+              "sidewalk:both": "separate",
+              "surface": "asphalt",
+              "turn:lanes:backward": "left||"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -508.425424577126,
+              -399.5680619182556
+            ],
+            [
+              -508.46252431969253,
+              -418.46802550576285
+            ],
+            [
+              -508.76252374171645,
+              -418.46743662096026
+            ],
+            [
+              -508.72542399914994,
+              -399.567473033453
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -508.76252374171645,
+            -418.46802550576285,
+            -508.425424577126,
+            -399.567473033453
+          ],
+          "physicalWallLineXZ": [
+            [
+              -508.575424288138,
+              -399.5677674758543
+            ],
+            [
+              -508.6125240307045,
+              -418.46773106336155
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -508.6125240307045,
+            -418.46773106336155,
+            -508.575424288138,
+            -399.5677674758543
+          ],
+          "renderedYRange": [
+            0.24,
+            1.1400000000000001
+          ],
+          "physicalYRange": [
+            -0.21000000000000002,
+            0.69
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": 432.203305324702,
+          "z": -296.5424311215997,
+          "r": 1.0146874946775142,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 431.4887284067869,
+          "az": -296.55500265417623,
+          "bx": 432.91788224261717,
+          "bz": -296.52985958902315,
+          "y0a": 1.9898040270805775,
+          "y1a": 2.8898040270805776,
+          "y0b": 2.1007235262545256,
+          "y1b": 3.000723526254526,
+          "edge": {
+            "id": 889,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 1.5712440270805776,
+            "yb": 2.310723526254526
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 889,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 1.5712440270805776,
+            "yb": 2.310723526254526,
+            "node": null,
+            "sourceTags": {
+              "bridge": "yes",
+              "foot": "no",
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "4",
+              "layer": "1",
+              "maxspeed": "30 mph",
+              "name": "Northeast 8th Street",
+              "oneway": "yes",
+              "sidewalk:left": "no",
+              "sidewalk:right": "separate",
+              "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+              "surface": "concrete"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              431.4860898691036,
+              -296.405025862242
+            ],
+            [
+              432.91524370493386,
+              -296.3798827970889
+            ],
+            [
+              432.9205207803005,
+              -296.6798363809574
+            ],
+            [
+              431.4913669444702,
+              -296.7049794461105
+            ]
+          ],
+          "renderedBoundsXZ": [
+            431.4860898691036,
+            -296.7049794461105,
+            432.9205207803005,
+            -296.3798827970889
+          ],
+          "physicalWallLineXZ": [
+            [
+              431.4887284067869,
+              -296.55500265417623
+            ],
+            [
+              432.91788224261717,
+              -296.52985958902315
+            ]
+          ],
+          "physicalBoundsXZ": [
+            431.4887284067869,
+            -296.55500265417623,
+            432.91788224261717,
+            -296.52985958902315
+          ],
+          "renderedYRange": [
+            2.4398040270805774,
+            3.4507235262545257
+          ],
+          "physicalYRange": [
+            1.9898040270805775,
+            3.000723526254526
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": 431.71551610823724,
+          "z": -311.45331847548647,
+          "r": 1.7646874946774966,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 430.25105523065076,
+          "az": -311.47908269647945,
+          "bx": 433.17997698582366,
+          "bz": -311.4275542544935,
+          "y0a": 1.8734040270805778,
+          "y1a": 2.773404027080578,
+          "y0b": 2.1007235262545256,
+          "y1b": 3.000723526254526,
+          "edge": {
+            "id": 889,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 1.5712440270805776,
+            "yb": 2.310723526254526
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 889,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 1.5712440270805776,
+            "yb": 2.310723526254526,
+            "node": null,
+            "sourceTags": {
+              "bridge": "yes",
+              "foot": "no",
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "4",
+              "layer": "1",
+              "maxspeed": "30 mph",
+              "name": "Northeast 8th Street",
+              "oneway": "yes",
+              "sidewalk:left": "no",
+              "sidewalk:right": "separate",
+              "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+              "surface": "concrete"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              430.24841669296745,
+              -311.3291059045452
+            ],
+            [
+              433.17733844814035,
+              -311.27757746255924
+            ],
+            [
+              433.18261552350697,
+              -311.57753104642774
+            ],
+            [
+              430.2536937683341,
+              -311.6290594884137
+            ]
+          ],
+          "renderedBoundsXZ": [
+            430.24841669296745,
+            -311.6290594884137,
+            433.18261552350697,
+            -311.27757746255924
+          ],
+          "physicalWallLineXZ": [
+            [
+              430.25105523065076,
+              -311.47908269647945
+            ],
+            [
+              433.17997698582366,
+              -311.4275542544935
+            ]
+          ],
+          "physicalBoundsXZ": [
+            430.25105523065076,
+            -311.47908269647945,
+            433.17997698582366,
+            -311.4275542544935
+          ],
+          "renderedYRange": [
+            2.323404027080578,
+            3.4507235262545257
+          ],
+          "physicalYRange": [
+            1.8734040270805778,
+            3.000723526254526
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": 435.9174180813024,
+          "z": -296.47708883535745,
+          "r": 2.699999999999989,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 433.51778941035417,
+          "az": -296.5193054382901,
+          "bx": 438.31704675225063,
+          "bz": -296.4348722324249,
+          "y0a": 2.1472835262545256,
+          "y1a": 3.047283526254526,
+          "y0b": 2.5197635262545255,
+          "y1b": 3.419763526254526,
+          "edge": {
+            "id": 890,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 2.310723526254526,
+            "yb": 3.0502030254284747
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 890,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 2.310723526254526,
+            "yb": 3.0502030254284747,
+            "node": null,
+            "sourceTags": {
+              "bridge": "yes",
+              "foot": "no",
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "4",
+              "layer": "1",
+              "maxspeed": "30 mph",
+              "name": "Northeast 8th Street",
+              "oneway": "yes",
+              "sidewalk:left": "no",
+              "sidewalk:right": "separate",
+              "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+              "surface": "concrete"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              433.51515087267086,
+              -296.3693286463558
+            ],
+            [
+              438.3144082145673,
+              -296.28489544049063
+            ],
+            [
+              438.31968528993394,
+              -296.58484902435913
+            ],
+            [
+              433.5204279480375,
+              -296.6692822302243
+            ]
+          ],
+          "renderedBoundsXZ": [
+            433.51515087267086,
+            -296.6692822302243,
+            438.31968528993394,
+            -296.28489544049063
+          ],
+          "physicalWallLineXZ": [
+            [
+              433.51778941035417,
+              -296.5193054382901
+            ],
+            [
+              438.31704675225063,
+              -296.4348722324249
+            ]
+          ],
+          "physicalBoundsXZ": [
+            433.51778941035417,
+            -296.5193054382901,
+            438.31704675225063,
+            -296.4348722324249
+          ],
+          "renderedYRange": [
+            2.5972835262545257,
+            3.8697635262545256
+          ],
+          "physicalYRange": [
+            2.1472835262545256,
+            3.419763526254526
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": 436.1795128245089,
+          "z": -311.3747835008278,
+          "r": 2.699999999999989,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 433.77988415356066,
+          "az": -311.4170001037604,
+          "bx": 438.5791414954571,
+          "bz": -311.3325668978952,
+          "y0a": 2.1472835262545256,
+          "y1a": 3.047283526254526,
+          "y0b": 2.5197635262545255,
+          "y1b": 3.419763526254526,
+          "edge": {
+            "id": 890,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 2.310723526254526,
+            "yb": 3.0502030254284747
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 890,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 2.310723526254526,
+            "yb": 3.0502030254284747,
+            "node": null,
+            "sourceTags": {
+              "bridge": "yes",
+              "foot": "no",
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "4",
+              "layer": "1",
+              "maxspeed": "30 mph",
+              "name": "Northeast 8th Street",
+              "oneway": "yes",
+              "sidewalk:left": "no",
+              "sidewalk:right": "separate",
+              "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+              "surface": "concrete"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              433.77724561587735,
+              -311.26702331182616
+            ],
+            [
+              438.5765029577738,
+              -311.18259010596097
+            ],
+            [
+              438.58178003314043,
+              -311.48254368982947
+            ],
+            [
+              433.78252269124397,
+              -311.56697689569467
+            ]
+          ],
+          "renderedBoundsXZ": [
+            433.77724561587735,
+            -311.56697689569467,
+            438.58178003314043,
+            -311.18259010596097
+          ],
+          "physicalWallLineXZ": [
+            [
+              433.77988415356066,
+              -311.4170001037604
+            ],
+            [
+              438.5791414954571,
+              -311.3325668978952
+            ]
+          ],
+          "physicalBoundsXZ": [
+            433.77988415356066,
+            -311.4170001037604,
+            438.5791414954571,
+            -311.3325668978952
+          ],
+          "renderedYRange": [
+            2.5972835262545257,
+            3.8697635262545256
+          ],
+          "physicalYRange": [
+            2.1472835262545256,
+            3.419763526254526
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        }
+      ],
+      "addedOrShortened": [
+        {
+          "kind": "barrier",
+          "x": 332.451570458768,
+          "z": -334.1992319890328,
+          "r": 0.7778993072897142,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 332.92939629979657,
+          "az": -334.1908526362334,
+          "bx": 331.97374461773944,
+          "bz": -334.20761134183215,
+          "y0a": 0.5659257735031054,
+          "y1a": 1.4659257735031053,
+          "y0b": 0.5311428940012419,
+          "y1b": 1.4311428940012418,
+          "edge": {
+            "id": 231,
+            "sourceId": "w427906916",
+            "layer": 0,
+            "ya": 3.3445076444099415,
+            "yb": 0,
+            "a": 1804700802,
+            "b": 7013129140
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 231,
+            "sourceId": "w427906916",
+            "layer": 0,
+            "ya": 3.3445076444099415,
+            "yb": 0,
+            "a": 1804700802,
+            "b": 7013129140,
+            "node": null,
+            "sourceTags": {
+              "foot": "no",
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "4",
+              "maxspeed": "30 mph",
+              "name": "Northeast 8th Street",
+              "oneway": "yes",
+              "sidewalk:left": "no",
+              "sidewalk:right": "separate",
+              "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+              "surface": "asphalt",
+              "turn:lanes": "left|through||"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              332.93202635784587,
+              -334.34082957710984
+            ],
+            [
+              331.97637467578875,
+              -334.3575882827086
+            ],
+            [
+              331.97111455969014,
+              -334.0576344009557
+            ],
+            [
+              332.92676624174726,
+              -334.04087569535693
+            ]
+          ],
+          "renderedBoundsXZ": [
+            331.97111455969014,
+            -334.3575882827086,
+            332.93202635784587,
+            -334.04087569535693
+          ],
+          "physicalWallLineXZ": [
+            [
+              332.92939629979657,
+              -334.1908526362334
+            ],
+            [
+              331.97374461773944,
+              -334.20761134183215
+            ]
+          ],
+          "physicalBoundsXZ": [
+            331.97374461773944,
+            -334.20761134183215,
+            332.92939629979657,
+            -334.1908526362334
+          ],
+          "renderedYRange": [
+            0.9811428940012419,
+            1.9159257735031054
+          ],
+          "physicalYRange": [
+            0.5311428940012419,
+            1.4659257735031053
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": -508.6115477216896,
+          "z": -417.97036360053244,
+          "r": 0.7973684210526385,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -508.6105714126747,
+          "az": -417.47299613770326,
+          "bx": -508.6125240307045,
+          "bz": -418.46773106336155,
+          "y0a": -0.21000000000000002,
+          "y1a": 0.69,
+          "y0b": -0.21000000000000002,
+          "y1b": 0.69,
+          "edge": {
+            "id": 869,
+            "sourceId": "w1295951546",
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "a": 7625804221,
+            "b": 12008699365
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 869,
+            "sourceId": "w1295951546",
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "a": 7625804221,
+            "b": 12008699365,
+            "node": null,
+            "sourceTags": {
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "3",
+              "lanes:backward": "3",
+              "lanes:forward": "3",
+              "maxspeed": "30 mph",
+              "name": "Bellevue Way Northeast",
+              "oneway": "yes",
+              "sidewalk:both": "separate",
+              "surface": "asphalt",
+              "turn:lanes:backward": "left||"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              -508.46057170166273,
+              -417.47329058010456
+            ],
+            [
+              -508.46252431969253,
+              -418.46802550576285
+            ],
+            [
+              -508.76252374171645,
+              -418.46743662096026
+            ],
+            [
+              -508.76057112368665,
+              -417.47270169530196
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -508.76252374171645,
+            -418.46802550576285,
+            -508.46057170166273,
+            -417.47270169530196
+          ],
+          "physicalWallLineXZ": [
+            [
+              -508.6105714126747,
+              -417.47299613770326
+            ],
+            [
+              -508.6125240307045,
+              -418.46773106336155
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -508.6125240307045,
+            -418.46773106336155,
+            -508.6105714126747,
+            -417.47299613770326
+          ],
+          "renderedYRange": [
+            0.24,
+            1.1400000000000001
+          ],
+          "physicalYRange": [
+            -0.21000000000000002,
+            0.69
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": 430.7392088565129,
+          "z": -311.4704946228151,
+          "r": 0.7882291648924893,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 430.25105523065076,
+          "az": -311.47908269647945,
+          "bx": 431.22736248237504,
+          "bz": -311.4619065491508,
+          "y0a": 1.8734040270805778,
+          "y1a": 2.773404027080578,
+          "y0b": 1.9491771934718938,
+          "y1b": 2.849177193471894,
+          "edge": {
+            "id": 889,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 1.5712440270805776,
+            "yb": 2.310723526254526
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 889,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 1.5712440270805776,
+            "yb": 2.310723526254526,
+            "node": null,
+            "sourceTags": {
+              "bridge": "yes",
+              "foot": "no",
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "4",
+              "layer": "1",
+              "maxspeed": "30 mph",
+              "name": "Northeast 8th Street",
+              "oneway": "yes",
+              "sidewalk:left": "no",
+              "sidewalk:right": "separate",
+              "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+              "surface": "concrete"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              430.24841669296745,
+              -311.3291059045452
+            ],
+            [
+              431.22472394469173,
+              -311.31192975721655
+            ],
+            [
+              431.23000102005835,
+              -311.61188334108505
+            ],
+            [
+              430.2536937683341,
+              -311.6290594884137
+            ]
+          ],
+          "renderedBoundsXZ": [
+            430.24841669296745,
+            -311.6290594884137,
+            431.23000102005835,
+            -311.31192975721655
+          ],
+          "physicalWallLineXZ": [
+            [
+              430.25105523065076,
+              -311.47908269647945
+            ],
+            [
+              431.22736248237504,
+              -311.4619065491508
+            ]
+          ],
+          "physicalBoundsXZ": [
+            430.25105523065076,
+            -311.47908269647945,
+            431.22736248237504,
+            -311.4619065491508
+          ],
+          "renderedYRange": [
+            2.323404027080578,
+            3.299177193471894
+          ],
+          "physicalYRange": [
+            1.8734040270805778,
+            2.849177193471894
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": 436.8772695496817,
+          "z": -296.46020219418443,
+          "r": 1.7399999999999878,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 435.43749234711277,
+          "az": -296.485532155944,
+          "bx": 438.31704675225063,
+          "bz": -296.4348722324249,
+          "y0a": 2.2962755262545254,
+          "y1a": 3.1962755262545257,
+          "y0b": 2.5197635262545255,
+          "y1b": 3.419763526254526,
+          "edge": {
+            "id": 890,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 2.310723526254526,
+            "yb": 3.0502030254284747
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 890,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 2.310723526254526,
+            "yb": 3.0502030254284747,
+            "node": null,
+            "sourceTags": {
+              "bridge": "yes",
+              "foot": "no",
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "4",
+              "layer": "1",
+              "maxspeed": "30 mph",
+              "name": "Northeast 8th Street",
+              "oneway": "yes",
+              "sidewalk:left": "no",
+              "sidewalk:right": "separate",
+              "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+              "surface": "concrete"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              435.43485380942946,
+              -296.33555536400974
+            ],
+            [
+              438.3144082145673,
+              -296.28489544049063
+            ],
+            [
+              438.31968528993394,
+              -296.58484902435913
+            ],
+            [
+              435.4401308847961,
+              -296.63550894787824
+            ]
+          ],
+          "renderedBoundsXZ": [
+            435.43485380942946,
+            -296.63550894787824,
+            438.31968528993394,
+            -296.28489544049063
+          ],
+          "physicalWallLineXZ": [
+            [
+              435.43749234711277,
+              -296.485532155944
+            ],
+            [
+              438.31704675225063,
+              -296.4348722324249
+            ]
+          ],
+          "physicalBoundsXZ": [
+            435.43749234711277,
+            -296.485532155944,
+            438.31704675225063,
+            -296.4348722324249
+          ],
+          "renderedYRange": [
+            2.7462755262545255,
+            3.8697635262545256
+          ],
+          "physicalYRange": [
+            2.2962755262545254,
+            3.419763526254526
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": 437.1393642928882,
+          "z": -311.3578968596548,
+          "r": 1.7399999999999878,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 435.69958709031926,
+          "az": -311.3832268214143,
+          "bx": 438.5791414954571,
+          "bz": -311.3325668978952,
+          "y0a": 2.2962755262545254,
+          "y1a": 3.1962755262545257,
+          "y0b": 2.5197635262545255,
+          "y1b": 3.419763526254526,
+          "edge": {
+            "id": 890,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 2.310723526254526,
+            "yb": 3.0502030254284747
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 890,
+            "sourceId": "w55481043",
+            "layer": 1,
+            "ya": 2.310723526254526,
+            "yb": 3.0502030254284747,
+            "node": null,
+            "sourceTags": {
+              "bridge": "yes",
+              "foot": "no",
+              "hgv": "designated",
+              "highway": "primary",
+              "lanes": "4",
+              "layer": "1",
+              "maxspeed": "30 mph",
+              "name": "Northeast 8th Street",
+              "oneway": "yes",
+              "sidewalk:left": "no",
+              "sidewalk:right": "separate",
+              "source:hgv": "https://bellevue.municipal.codes/BCC/11.70.060?__cf_chl_tk=1pFYcarvfEPbtmOkRjb9Xfw9ewU9Y.uBmvT_FgTV.D4-1761124288-1.0.1.1-M3Uf6laxwaDZiMw1JL_7FbJ12Z5CgnMAYdG6lsWTU3s",
+              "surface": "concrete"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              435.69694855263594,
+              -311.2332500294801
+            ],
+            [
+              438.5765029577738,
+              -311.18259010596097
+            ],
+            [
+              438.58178003314043,
+              -311.48254368982947
+            ],
+            [
+              435.70222562800257,
+              -311.5332036133486
+            ]
+          ],
+          "renderedBoundsXZ": [
+            435.69694855263594,
+            -311.5332036133486,
+            438.58178003314043,
+            -311.18259010596097
+          ],
+          "physicalWallLineXZ": [
+            [
+              435.69958709031926,
+              -311.3832268214143
+            ],
+            [
+              438.5791414954571,
+              -311.3325668978952
+            ]
+          ],
+          "physicalBoundsXZ": [
+            435.69958709031926,
+            -311.3832268214143,
+            438.5791414954571,
+            -311.3325668978952
+          ],
+          "renderedYRange": [
+            2.7462755262545255,
+            3.8697635262545256
+          ],
+          "physicalYRange": [
+            2.2962755262545254,
+            3.419763526254526
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        }
+      ],
+      "aggregateChangedRenderedBoundsXZ": [
+        -508.76252374171645,
+        -491.88762567222557,
+        438.58178003314043,
+        -296.28489544049063
+      ],
+      "unrelatedSeparatorNativeControls": [
+        {
+          "label": "Lowest retained separator",
+          "sourceOwnership": {
+            "id": 834,
+            "sourceId": "w1221905229",
+            "layer": 0,
+            "ya": -4.65935206464527,
+            "yb": -4.2241017262521785,
+            "a": 11332315028,
+            "b": 11332315029
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": -608.5174285972959,
+            "z": -441.9931931759494,
+            "r": 1.2000000000000246,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": -607.6174361075447,
+            "az": -441.99686991247904,
+            "bx": -609.417421087047,
+            "bz": -441.9895164394198,
+            "y0a": -4.5813520646452695,
+            "y1a": -3.681352064645269,
+            "y0b": -4.437352064645269,
+            "y1b": -3.537352064645269,
+            "edge": {
+              "id": 834,
+              "sourceId": "w1221905229",
+              "layer": 0,
+              "ya": -4.65935206464527,
+              "yb": -4.2241017262521785,
+              "a": 11332315028,
+              "b": 11332315029
+            },
+            "node": null
+          },
+          "query": {
+            "x": -608.5176328604364,
+            "z": -442.04319275871336,
+            "radiusM": 0.2,
+            "insideFootY": -4.059352064645269,
+            "belowFootY": -4.819352064645269,
+            "aboveFootY": -3.5993520646452692
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        },
+        {
+          "label": "Highest retained separator",
+          "sourceOwnership": {
+            "id": 902,
+            "sourceId": "w428073537",
+            "layer": 1,
+            "ya": 5.5,
+            "yb": 5.2
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": 464.43609154000694,
+            "z": -313.67067512411893,
+            "r": 3.081296050977678,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": 467.2170929831639,
+            "az": -313.630194309618,
+            "bx": 461.6550900968499,
+            "bz": -313.7111559386198,
+            "y0a": 5.172129424950663,
+            "y1a": 6.072129424950663,
+            "y0b": 4.99,
+            "y1b": 5.890000000000001,
+            "edge": {
+              "id": 902,
+              "sourceId": "w428073537",
+              "layer": 1,
+              "ya": 5.5,
+              "yb": 5.2
+            },
+            "node": null
+          },
+          "query": {
+            "x": 464.43681927293716,
+            "z": -313.72066982788624,
+            "radiusM": 0.2,
+            "insideFootY": 5.531064712475332,
+            "belowFootY": 4.771064712475332,
+            "aboveFootY": 5.991064712475332
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        }
+      ],
+      "sourceMappedBarrierPreservation": "All non-generated records, including real source fences/props/buildings outside the two structural models, are byte-identical. These per-district hashes do not claim an additional on-foot route test."
+    },
+    {
+      "key": "bucharest-romana",
+      "baselineSnapshotSha256": "3e4508d35811cf72781c8c04bb789ebb7dbe594af43bb04b1c4c31fa7eefdcfe",
+      "currentSnapshotSha256": "07136657385244ea7ab105b03b8bf1c58a4f13db67158a1c5e0222d47655dd9c",
+      "completeSourceRoadProfilesIdentical": true,
+      "legacyNonBarrierCount": 35798,
+      "legacyNonBarrierSha256": "dd966811b32dbbee157e374bb0d51375a9050f015e61b3480ba7447175fab4e2",
+      "allNonGeneratedCollidersOutsideTwoSeaTacModelsIdentical": true,
+      "baselineTotalColliders": 35886,
+      "currentTotalColliders": 35886,
+      "baselineGeneratedBarriers": 88,
+      "currentGeneratedBarriers": 88,
+      "unchangedGeneratedBarriers": 88,
+      "changedSourceWayIds": [],
+      "removedOrReplaced": [],
+      "addedOrShortened": [],
+      "aggregateChangedRenderedBoundsXZ": null,
+      "unrelatedSeparatorNativeControls": [
+        {
+          "label": "Lowest retained separator",
+          "sourceOwnership": {
+            "id": 448,
+            "sourceId": "w241374324",
+            "layer": -1,
+            "ya": -6,
+            "yb": -6,
+            "a": 6272105932
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": -334.3224042475582,
+            "z": -408.09773900658774,
+            "r": 3.750000000000008,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": -337.76843212233325,
+            "az": -407.9322340632372,
+            "bx": -330.87637637278317,
+            "bz": -408.2632439499383,
+            "y0a": -6.21,
+            "y1a": -5.31,
+            "y0b": -6.21,
+            "y1b": -5.31,
+            "edge": {
+              "id": 448,
+              "sourceId": "w241374324",
+              "layer": -1,
+              "ya": -6,
+              "yb": -6,
+              "a": 6272105932
+            },
+            "node": null
+          },
+          "query": {
+            "x": -334.3200056251908,
+            "z": -408.04779657361996,
+            "radiusM": 0.2,
+            "insideFootY": -5.76,
+            "belowFootY": -6.52,
+            "aboveFootY": -5.3
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        },
+        {
+          "label": "Highest retained separator",
+          "sourceOwnership": {
+            "id": 958,
+            "sourceId": "w241374324",
+            "layer": -1,
+            "ya": -6,
+            "yb": -5.363701270180154,
+            "b": 2360460513
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": -282.7670842301846,
+            "z": -423.94115500024327,
+            "r": 1.9499999999999837,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": -284.37981820164845,
+            "az": -423.5924586605917,
+            "bx": -281.15435025872074,
+            "bz": -424.28985133989477,
+            "y0a": -6.162,
+            "y1a": -5.262,
+            "y0b": -5.898,
+            "y1b": -4.997999999999999,
+            "edge": {
+              "id": 958,
+              "sourceId": "w241374324",
+              "layer": -1,
+              "ya": -6,
+              "yb": -5.363701270180154,
+              "b": 2360460513
+            },
+            "node": null
+          },
+          "query": {
+            "x": -282.7565176744376,
+            "z": -423.8922842738353,
+            "radiusM": 0.2,
+            "insideFootY": -5.579999999999999,
+            "belowFootY": -6.339999999999999,
+            "aboveFootY": -5.119999999999999
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        }
+      ],
+      "sourceMappedBarrierPreservation": "All non-generated records, including real source fences/props/buildings outside the two structural models, are byte-identical. These per-district hashes do not claim an additional on-foot route test."
+    },
+    {
+      "key": "bucharest-floreasca",
+      "baselineSnapshotSha256": "12e2d000a2291889638f4a908e12c9ced0a34e50e1dfc4b1453b7e23a192e0ed",
+      "currentSnapshotSha256": "a031fbf1bfd244f3a0c05fe5a217d05b66dab1a03108bc72363208c3920a94ef",
+      "completeSourceRoadProfilesIdentical": true,
+      "legacyNonBarrierCount": 27658,
+      "legacyNonBarrierSha256": "77b74603f20c73556a2ce2effca8caee4cab7fab7e9ac012032865abcd022679",
+      "allNonGeneratedCollidersOutsideTwoSeaTacModelsIdentical": true,
+      "baselineTotalColliders": 27658,
+      "currentTotalColliders": 27658,
+      "baselineGeneratedBarriers": 0,
+      "currentGeneratedBarriers": 0,
+      "unchangedGeneratedBarriers": 0,
+      "changedSourceWayIds": [],
+      "removedOrReplaced": [],
+      "addedOrShortened": [],
+      "aggregateChangedRenderedBoundsXZ": null,
+      "unrelatedSeparatorNativeControls": [],
+      "sourceMappedBarrierPreservation": "All non-generated records, including real source fences/props/buildings outside the two structural models, are byte-identical. These per-district hashes do not claim an additional on-foot route test."
+    },
+    {
+      "key": "bucharest-grozavesti",
+      "baselineSnapshotSha256": "20b736780502ded55e003d89f77124efab0a8ebc12b66df20a1d88de9f76ecd7",
+      "currentSnapshotSha256": "228d0b8062eb8676fe74d7db22de713048cdeace6e350cd90ebc8089ad6a8fff",
+      "completeSourceRoadProfilesIdentical": true,
+      "legacyNonBarrierCount": 27311,
+      "legacyNonBarrierSha256": "b80a4721fc6f3b8199ec0c82e9b2b94693210bd295dd572b67d51fbf7eea32ce",
+      "allNonGeneratedCollidersOutsideTwoSeaTacModelsIdentical": true,
+      "baselineTotalColliders": 27528,
+      "currentTotalColliders": 27527,
+      "baselineGeneratedBarriers": 217,
+      "currentGeneratedBarriers": 216,
+      "unchangedGeneratedBarriers": 215,
+      "changedSourceWayIds": [
+        "w668894712",
+        "w84477811"
+      ],
+      "removedOrReplaced": [
+        {
+          "kind": "barrier",
+          "x": 174.53608825745198,
+          "z": -385.7834003374743,
+          "r": 38.668780178857965,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 165.0343652193171,
+          "az": -348.6097463373615,
+          "bx": 184.03781129558686,
+          "bz": -422.95705433758707,
+          "y0a": 0.7659111730307608,
+          "y1a": 1.6659111730307608,
+          "y0b": 5.59,
+          "y1b": 6.49,
+          "edge": {
+            "id": 950,
+            "sourceId": "w84477811",
+            "layer": 0,
+            "ya": 0.9759111730307608,
+            "yb": 5.8,
+            "a": 6263935466,
+            "b": 3020519289
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 950,
+            "sourceId": "w84477811",
+            "layer": 0,
+            "ya": 0.9759111730307608,
+            "yb": 5.8,
+            "a": 6263935466,
+            "b": 3020519289,
+            "node": null,
+            "sourceTags": {
+              "foot": "no",
+              "highway": "primary",
+              "is_in:city": "București",
+              "oneway": "yes"
+            },
+            "publicDrive": true,
+            "drivable": false
+          },
+          "renderedFootprintXZ": [
+            [
+              165.1796929590582,
+              -348.57260003119603
+            ],
+            [
+              184.18313903532797,
+              -422.9199080314216
+            ],
+            [
+              183.89248355584576,
+              -422.99420064375255
+            ],
+            [
+              164.889037479576,
+              -348.646892643527
+            ]
+          ],
+          "renderedBoundsXZ": [
+            164.889037479576,
+            -422.99420064375255,
+            184.18313903532797,
+            -348.57260003119603
+          ],
+          "physicalWallLineXZ": [
+            [
+              165.0343652193171,
+              -348.6097463373615
+            ],
+            [
+              184.03781129558686,
+              -422.95705433758707
+            ]
+          ],
+          "physicalBoundsXZ": [
+            165.0343652193171,
+            -422.95705433758707,
+            184.03781129558686,
+            -348.6097463373615
+          ],
+          "renderedYRange": [
+            1.2159111730307608,
+            6.9399999999999995
+          ],
+          "physicalYRange": [
+            0.7659111730307608,
+            6.49
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        },
+        {
+          "kind": "barrier",
+          "x": 164.06781955418688,
+          "z": -344.850291641633,
+          "r": 3.000000000000022,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 163.39551786292915,
+          "az": -342.23533266758926,
+          "bx": 164.74012124544458,
+          "bz": -347.46525061567684,
+          "y0a": 0.25559999999999994,
+          "y1a": 1.1556,
+          "y0b": 0.6746399999999999,
+          "y1b": 1.5746399999999998,
+          "edge": {
+            "id": 953,
+            "sourceId": "w668894712",
+            "layer": 0,
+            "ya": 0,
+            "yb": 0.9759111730307608,
+            "a": 6263935467,
+            "b": 6263935466
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 953,
+            "sourceId": "w668894712",
+            "layer": 0,
+            "ya": 0,
+            "yb": 0.9759111730307608,
+            "a": 6263935467,
+            "b": 6263935466,
+            "node": null,
+            "sourceTags": {
+              "foot": "no",
+              "highway": "primary",
+              "is_in:city": "București",
+              "oneway": "yes"
+            },
+            "publicDrive": true,
+            "drivable": false
+          },
+          "renderedFootprintXZ": [
+            [
+              163.54079336148715,
+              -342.1979825736305
+            ],
+            [
+              164.88539674400258,
+              -347.4279005217181
+            ],
+            [
+              164.5948457468866,
+              -347.5026007096356
+            ],
+            [
+              163.25024236437116,
+              -342.272682761548
+            ]
+          ],
+          "renderedBoundsXZ": [
+            163.25024236437116,
+            -347.5026007096356,
+            164.88539674400258,
+            -342.1979825736305
+          ],
+          "physicalWallLineXZ": [
+            [
+              163.39551786292915,
+              -342.23533266758926
+            ],
+            [
+              164.74012124544458,
+              -347.46525061567684
+            ]
+          ],
+          "physicalBoundsXZ": [
+            163.39551786292915,
+            -347.46525061567684,
+            164.74012124544458,
+            -342.23533266758926
+          ],
+          "renderedYRange": [
+            0.7056,
+            2.0246399999999998
+          ],
+          "physicalYRange": [
+            0.25559999999999994,
+            1.5746399999999998
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        }
+      ],
+      "addedOrShortened": [
+        {
+          "kind": "barrier",
+          "x": 177.49766426933817,
+          "z": -397.36999379205486,
+          "r": 26.709679863369782,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 170.95751724308948,
+          "az": -371.7829332465227,
+          "bx": 184.03781129558686,
+          "bz": -422.95705433758707,
+          "y0a": 2.269523274943251,
+          "y1a": 3.169523274943251,
+          "y0b": 5.59,
+          "y1b": 6.49,
+          "edge": {
+            "id": 950,
+            "sourceId": "w84477811",
+            "layer": 0,
+            "ya": 0.9759111730307608,
+            "yb": 5.8,
+            "a": 6263935466,
+            "b": 3020519289
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 950,
+            "sourceId": "w84477811",
+            "layer": 0,
+            "ya": 0.9759111730307608,
+            "yb": 5.8,
+            "a": 6263935466,
+            "b": 3020519289,
+            "node": null,
+            "sourceTags": {
+              "foot": "no",
+              "highway": "primary",
+              "is_in:city": "București",
+              "oneway": "yes"
+            },
+            "publicDrive": true,
+            "drivable": false
+          },
+          "renderedFootprintXZ": [
+            [
+              171.1028449828306,
+              -371.7457869403572
+            ],
+            [
+              184.18313903532797,
+              -422.9199080314216
+            ],
+            [
+              183.89248355584576,
+              -422.99420064375255
+            ],
+            [
+              170.81218950334838,
+              -371.8200795526882
+            ]
+          ],
+          "renderedBoundsXZ": [
+            170.81218950334838,
+            -422.99420064375255,
+            184.18313903532797,
+            -371.7457869403572
+          ],
+          "physicalWallLineXZ": [
+            [
+              170.95751724308948,
+              -371.7829332465227
+            ],
+            [
+              184.03781129558686,
+              -422.95705433758707
+            ]
+          ],
+          "physicalBoundsXZ": [
+            170.95751724308948,
+            -422.95705433758707,
+            184.03781129558686,
+            -371.7829332465227
+          ],
+          "renderedYRange": [
+            2.719523274943251,
+            6.9399999999999995
+          ],
+          "physicalYRange": [
+            2.269523274943251,
+            6.49
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        }
+      ],
+      "aggregateChangedRenderedBoundsXZ": [
+        163.25024236437116,
+        -422.99420064375255,
+        184.18313903532797,
+        -342.1979825736305
+      ],
+      "unrelatedSeparatorNativeControls": [
+        {
+          "label": "Lowest retained separator",
+          "sourceOwnership": {
+            "id": 365,
+            "sourceId": "w256807104",
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "a": 10049427896,
+            "b": 1418266963
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": 158.24429413224453,
+            "z": -345.39668696857166,
+            "r": 2.219999999999982,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": 157.72697874875772,
+            "az": -343.5476913509436,
+            "bx": 158.76160951573132,
+            "bz": -347.24568258619973,
+            "y0a": -0.21000000000000002,
+            "y1a": 0.69,
+            "y0b": -0.21000000000000002,
+            "y1b": 0.69,
+            "edge": {
+              "id": 365,
+              "sourceId": "w256807104",
+              "layer": 0,
+              "ya": 0,
+              "yb": 0,
+              "a": 10049427896,
+              "b": 1418266963
+            },
+            "node": null
+          },
+          "query": {
+            "x": 158.29244505978693,
+            "z": -345.38321521379333,
+            "radiusM": 0.2,
+            "insideFootY": 0.23999999999999996,
+            "belowFootY": -0.52,
+            "aboveFootY": 0.7
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        },
+        {
+          "label": "Highest retained separator",
+          "sourceOwnership": {
+            "id": 1527,
+            "sourceId": "w1552024282",
+            "layer": 2,
+            "ya": 11,
+            "yb": 11,
+            "b": 257542529
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": 584.4495110669413,
+            "z": -865.7224726846664,
+            "r": 1.200000000000015,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": 585.1588186247751,
+            "az": -866.2764427094872,
+            "bx": 583.7402035091077,
+            "bz": -865.1685026598456,
+            "y0a": 10.790000000000001,
+            "y1a": 11.69,
+            "y0b": 10.790000000000001,
+            "y1b": 11.69,
+            "edge": {
+              "id": 1527,
+              "sourceId": "w1552024282",
+              "layer": 2,
+              "ya": 11,
+              "yb": 11,
+              "b": 257542529
+            },
+            "node": null
+          },
+          "query": {
+            "x": 584.4187349544513,
+            "z": -865.7618786601016,
+            "radiusM": 0.2,
+            "insideFootY": 11.24,
+            "belowFootY": 10.48,
+            "aboveFootY": 11.7
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        }
+      ],
+      "sourceMappedBarrierPreservation": "All non-generated records, including real source fences/props/buildings outside the two structural models, are byte-identical. These per-district hashes do not claim an additional on-foot route test."
+    },
+    {
+      "key": "bucharest-pipera",
+      "baselineSnapshotSha256": "905d5b0519d1876bb7dfa5d3e2a3365848dea2d985cad24c66bf74a160698a69",
+      "currentSnapshotSha256": "739ddd860cd09944d365dfd7e156b8ff607d5febb68bba395b308ea9cc0e230d",
+      "completeSourceRoadProfilesIdentical": true,
+      "legacyNonBarrierCount": 31627,
+      "legacyNonBarrierSha256": "6a8c3e2df737f74fb0a5a2dbfc40467782e2158c0a0a5d6dd62193b9c954249e",
+      "allNonGeneratedCollidersOutsideTwoSeaTacModelsIdentical": true,
+      "baselineTotalColliders": 31777,
+      "currentTotalColliders": 31777,
+      "baselineGeneratedBarriers": 150,
+      "currentGeneratedBarriers": 150,
+      "unchangedGeneratedBarriers": 149,
+      "changedSourceWayIds": [
+        "w1284446132"
+      ],
+      "removedOrReplaced": [
+        {
+          "kind": "barrier",
+          "x": -893.2598894635241,
+          "z": 16.231292676511124,
+          "r": 1.1999999999999795,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -893.9903356096564,
+          "az": 15.705509044585934,
+          "bx": -892.5294433173918,
+          "bz": 16.75707630843631,
+          "y0a": -3.5188375340334352,
+          "y1a": -2.618837534033435,
+          "y0b": -3.374837534033435,
+          "y1b": -2.4748375340334348,
+          "edge": {
+            "id": 1301,
+            "sourceId": "w1284446132",
+            "layer": 0,
+            "ya": -3.596837534033435,
+            "yb": -2.5132985073054543,
+            "a": 11916287009,
+            "b": 11916287010
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 1301,
+            "sourceId": "w1284446132",
+            "layer": 0,
+            "ya": -3.596837534033435,
+            "yb": -2.5132985073054543,
+            "a": 11916287009,
+            "b": 11916287010,
+            "node": null,
+            "sourceTags": {
+              "highway": "service",
+              "incline": "up",
+              "maxspeed": "10",
+              "oneway": "yes",
+              "service": "parking_aisle",
+              "surface": "concrete"
+            },
+            "publicDrive": true,
+            "drivable": false
+          },
+          "renderedFootprintXZ": [
+            [
+              -894.0779662149773,
+              15.82725006894132
+            ],
+            [
+              -892.6170739227127,
+              16.878817332791694
+            ],
+            [
+              -892.4418127120709,
+              16.635335284080927
+            ],
+            [
+              -893.9027050043355,
+              15.583768020230549
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -894.0779662149773,
+            15.583768020230549,
+            -892.4418127120709,
+            16.878817332791694
+          ],
+          "physicalWallLineXZ": [
+            [
+              -893.9903356096564,
+              15.705509044585934
+            ],
+            [
+              -892.5294433173918,
+              16.75707630843631
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -893.9903356096564,
+            15.705509044585934,
+            -892.5294433173918,
+            16.75707630843631
+          ],
+          "renderedYRange": [
+            -3.068837534033435,
+            -2.024837534033435
+          ],
+          "physicalYRange": [
+            -3.5188375340334352,
+            -2.4748375340334348
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        }
+      ],
+      "addedOrShortened": [
+        {
+          "kind": "barrier",
+          "x": -893.6251125365902,
+          "z": 15.96840086054853,
+          "r": 0.7499999999999902,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": -893.9903356096564,
+          "az": 15.705509044585934,
+          "bx": -893.2598894635241,
+          "bz": 16.231292676511124,
+          "y0a": -3.5188375340334352,
+          "y1a": -2.618837534033435,
+          "y0b": -3.446837534033435,
+          "y1b": -2.546837534033435,
+          "edge": {
+            "id": 1301,
+            "sourceId": "w1284446132",
+            "layer": 0,
+            "ya": -3.596837534033435,
+            "yb": -2.5132985073054543,
+            "a": 11916287009,
+            "b": 11916287010
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 1301,
+            "sourceId": "w1284446132",
+            "layer": 0,
+            "ya": -3.596837534033435,
+            "yb": -2.5132985073054543,
+            "a": 11916287009,
+            "b": 11916287010,
+            "node": null,
+            "sourceTags": {
+              "highway": "service",
+              "incline": "up",
+              "maxspeed": "10",
+              "oneway": "yes",
+              "service": "parking_aisle",
+              "surface": "concrete"
+            },
+            "publicDrive": true,
+            "drivable": false
+          },
+          "renderedFootprintXZ": [
+            [
+              -894.0779662149773,
+              15.82725006894132
+            ],
+            [
+              -893.347520068845,
+              16.353033700866508
+            ],
+            [
+              -893.1722588582032,
+              16.10955165215574
+            ],
+            [
+              -893.9027050043355,
+              15.583768020230549
+            ]
+          ],
+          "renderedBoundsXZ": [
+            -894.0779662149773,
+            15.583768020230549,
+            -893.1722588582032,
+            16.353033700866508
+          ],
+          "physicalWallLineXZ": [
+            [
+              -893.9903356096564,
+              15.705509044585934
+            ],
+            [
+              -893.2598894635241,
+              16.231292676511124
+            ]
+          ],
+          "physicalBoundsXZ": [
+            -893.9903356096564,
+            15.705509044585934,
+            -893.2598894635241,
+            16.231292676511124
+          ],
+          "renderedYRange": [
+            -3.068837534033435,
+            -2.096837534033435
+          ],
+          "physicalYRange": [
+            -3.5188375340334352,
+            -2.546837534033435
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        }
+      ],
+      "aggregateChangedRenderedBoundsXZ": [
+        -894.0779662149773,
+        15.583768020230549,
+        -892.4418127120709,
+        16.878817332791694
+      ],
+      "unrelatedSeparatorNativeControls": [
+        {
+          "label": "Lowest retained separator",
+          "sourceOwnership": {
+            "id": 1293,
+            "sourceId": "w1284446130",
+            "layer": -1,
+            "ya": -5.363933007771735,
+            "yb": -6,
+            "a": 13243681302,
+            "b": 7733587949
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": -876.723749748548,
+            "z": 29.11527154907494,
+            "r": 1.7254187014266689,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": -877.8614832160289,
+            "az": 28.256562616228166,
+            "bx": -875.5860162810671,
+            "bz": 29.973980481921714,
+            "y0a": -5.981933007771735,
+            "y1a": -5.081933007771735,
+            "y0b": -6.21,
+            "y1b": -5.31,
+            "edge": {
+              "id": 1293,
+              "sourceId": "w1284446130",
+              "layer": -1,
+              "ya": -5.363933007771735,
+              "yb": -6,
+              "a": 13243681302,
+              "b": 7733587949
+            },
+            "node": null
+          },
+          "query": {
+            "x": -876.7538710361383,
+            "z": 29.155180295408286,
+            "radiusM": 0.2,
+            "insideFootY": -5.645966503885867,
+            "belowFootY": -6.405966503885867,
+            "aboveFootY": -5.185966503885867
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        },
+        {
+          "label": "Highest retained separator",
+          "sourceOwnership": {
+            "id": 1239,
+            "sourceId": "w119926495",
+            "layer": 1,
+            "ya": 5.5,
+            "yb": 5.5,
+            "b": 9168233531
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": -689.2892286485614,
+            "z": -110.15660089424614,
+            "r": 4.200000000000011,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": -692.4640857798628,
+            "az": -107.89158826827145,
+            "bx": -686.11437151726,
+            "bz": -112.42161352022083,
+            "y0a": 5.29,
+            "y1a": 6.19,
+            "y0b": 5.29,
+            "y1b": 6.19,
+            "edge": {
+              "id": 1239,
+              "sourceId": "w119926495",
+              "layer": 1,
+              "ya": 5.5,
+              "yb": 5.5,
+              "b": 9168233531
+            },
+            "node": null
+          },
+          "query": {
+            "x": -689.2601900251515,
+            "z": -110.11589759769099,
+            "radiusM": 0.2,
+            "insideFootY": 5.74,
+            "belowFootY": 4.98,
+            "aboveFootY": 6.2
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        }
+      ],
+      "sourceMappedBarrierPreservation": "All non-generated records, including real source fences/props/buildings outside the two structural models, are byte-identical. These per-district hashes do not claim an additional on-foot route test."
+    },
+    {
+      "key": "bucharest-unirii",
+      "baselineSnapshotSha256": "097b0e718160964a8c8dc761526950d9b2f3d57026f8815b8f21b37517141393",
+      "currentSnapshotSha256": "ccf2e2809de23796d6b234eb8fba4522ee02131e4f9d38d094836e8cd50fa23d",
+      "completeSourceRoadProfilesIdentical": true,
+      "legacyNonBarrierCount": 28989,
+      "legacyNonBarrierSha256": "5bac6b84a2339e39d91c641511531a7c983497c4e0f6039dede8f820c193b1eb",
+      "allNonGeneratedCollidersOutsideTwoSeaTacModelsIdentical": true,
+      "baselineTotalColliders": 29146,
+      "currentTotalColliders": 29145,
+      "baselineGeneratedBarriers": 157,
+      "currentGeneratedBarriers": 156,
+      "unchangedGeneratedBarriers": 156,
+      "changedSourceWayIds": [
+        "w826403111"
+      ],
+      "removedOrReplaced": [
+        {
+          "kind": "barrier",
+          "x": 110.69185580839685,
+          "z": -210.54372728843526,
+          "r": 0.7499999999999964,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "h": 1,
+          "poly": null,
+          "wall": true,
+          "ax": 110.53225223240848,
+          "az": -210.96447269664756,
+          "bx": 110.85145938438522,
+          "bz": -210.122981880223,
+          "y0a": -1.1046115240778454,
+          "y1a": -0.20461152407784539,
+          "y0b": -1.0326115240778455,
+          "y1b": -0.13261152407784543,
+          "edge": {
+            "id": 751,
+            "sourceId": "w826403111",
+            "layer": 0,
+            "ya": -0.8946115240778454,
+            "yb": -0.39255089192173687,
+            "a": 9844451331,
+            "b": 7715933699
+          },
+          "node": null,
+          "sourceMappedBarrier": false,
+          "classification": "Generated grade-separation barrier owned by an exact source edge; not a mapped real barrier",
+          "sourceOwnership": {
+            "id": 751,
+            "sourceId": "w826403111",
+            "layer": 0,
+            "ya": -0.8946115240778454,
+            "yb": -0.39255089192173687,
+            "a": 9844451331,
+            "b": 7715933699,
+            "node": null,
+            "sourceTags": {
+              "highway": "service",
+              "lit": "yes",
+              "maxspeed": "10",
+              "oneway": "yes",
+              "surface": "asphalt"
+            },
+            "publicDrive": true,
+            "drivable": true
+          },
+          "renderedFootprintXZ": [
+            [
+              110.39200376300438,
+              -210.91127150465144
+            ],
+            [
+              110.71121091498112,
+              -210.06978068822687
+            ],
+            [
+              110.99170785378932,
+              -210.17618307221912
+            ],
+            [
+              110.67250070181258,
+              -211.01767388864369
+            ]
+          ],
+          "renderedBoundsXZ": [
+            110.39200376300438,
+            -211.01767388864369,
+            110.99170785378932,
+            -210.06978068822687
+          ],
+          "physicalWallLineXZ": [
+            [
+              110.53225223240848,
+              -210.96447269664756
+            ],
+            [
+              110.85145938438522,
+              -210.122981880223
+            ]
+          ],
+          "physicalBoundsXZ": [
+            110.53225223240848,
+            -210.96447269664756,
+            110.85145938438522,
+            -210.122981880223
+          ],
+          "renderedYRange": [
+            -0.6546115240778454,
+            0.3173884759221546
+          ],
+          "physicalYRange": [
+            -1.1046115240778454,
+            -0.13261152407784543
+          ],
+          "nativeBaseMarginBelowM": 0.3
+        }
+      ],
+      "addedOrShortened": [],
+      "aggregateChangedRenderedBoundsXZ": [
+        110.39200376300438,
+        -211.01767388864369,
+        110.99170785378932,
+        -210.06978068822687
+      ],
+      "unrelatedSeparatorNativeControls": [
+        {
+          "label": "Lowest retained separator",
+          "sourceOwnership": {
+            "id": 31,
+            "sourceId": "w241368617",
+            "layer": -1,
+            "ya": -6,
+            "yb": -6,
+            "a": 2351340228,
+            "b": 6564974882
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": -425.93152985900895,
+            "z": 31.321145307765068,
+            "r": 3.2619138687059097,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": -426.35016370018093,
+            "az": 28.388965321362797,
+            "bx": -425.512896017837,
+            "bz": 34.25332529416734,
+            "y0a": -6.21,
+            "y1a": -5.31,
+            "y0b": -6.21,
+            "y1b": -5.31,
+            "edge": {
+              "id": 31,
+              "sourceId": "w241368617",
+              "layer": -1,
+              "ya": -6,
+              "yb": -6,
+              "a": 2351340228,
+              "b": 6564974882
+            },
+            "node": null
+          },
+          "query": {
+            "x": -425.98102792202457,
+            "z": 31.32821225602435,
+            "radiusM": 0.2,
+            "insideFootY": -5.76,
+            "belowFootY": -6.52,
+            "aboveFootY": -5.3
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        },
+        {
+          "label": "Highest retained separator",
+          "sourceOwnership": {
+            "id": 788,
+            "sourceId": "w982816382",
+            "layer": 0,
+            "ya": 0,
+            "yb": -1.3485557092399572,
+            "a": 9088160179,
+            "b": 9088160163
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": 109.16536139933308,
+            "z": -208.0522289975118,
+            "r": 1.9500000000000028,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": 107.84661612706178,
+            "az": -207.06055823215564,
+            "bx": 110.48410667160438,
+            "bz": -209.043899762868,
+            "y0a": -1.4303626204274644,
+            "y1a": -0.5303626204274645,
+            "y0b": -1.550219663505162,
+            "y1b": -0.650219663505162,
+            "edge": {
+              "id": 788,
+              "sourceId": "w982816382",
+              "layer": 0,
+              "ya": 0,
+              "yb": -1.3485557092399572,
+              "a": 9088160179,
+              "b": 9088160163
+            },
+            "node": null
+          },
+          "query": {
+            "x": 109.19541202858629,
+            "z": -208.01226701956418,
+            "radiusM": 0.2,
+            "insideFootY": -1.0402911419663132,
+            "belowFootY": -1.8002911419663132,
+            "aboveFootY": -0.5802911419663133
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        }
+      ],
+      "sourceMappedBarrierPreservation": "All non-generated records, including real source fences/props/buildings outside the two structural models, are byte-identical. These per-district hashes do not claim an additional on-foot route test."
+    },
+    {
+      "key": "bucharest-otopeni",
+      "baselineSnapshotSha256": "8d33b519d69dfac94a6f422bb8887dc973ce999201b18967690e836a2f353040",
+      "currentSnapshotSha256": "ae5c13c28d0b2a22cec7ee6b699e2d9f214d2c08f1398b019d508cd86bf0a253",
+      "completeSourceRoadProfilesIdentical": true,
+      "legacyNonBarrierCount": 20030,
+      "legacyNonBarrierSha256": "af2d2d668f824cae5ff14c0f4ce9fc1774aeb20c9a0f2c905b687c8ea67850a3",
+      "allNonGeneratedCollidersOutsideTwoSeaTacModelsIdentical": true,
+      "baselineTotalColliders": 20033,
+      "currentTotalColliders": 20033,
+      "baselineGeneratedBarriers": 3,
+      "currentGeneratedBarriers": 3,
+      "unchangedGeneratedBarriers": 3,
+      "changedSourceWayIds": [],
+      "removedOrReplaced": [],
+      "addedOrShortened": [],
+      "aggregateChangedRenderedBoundsXZ": null,
+      "unrelatedSeparatorNativeControls": [
+        {
+          "label": "Lowest retained separator",
+          "sourceOwnership": {
+            "id": 507,
+            "sourceId": "w217693983",
+            "layer": 0,
+            "ya": -5.2,
+            "yb": -5.2,
+            "a": 5448473654,
+            "b": 10960376123
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": -97.71262109344173,
+            "z": -416.8394485842359,
+            "r": 0.7500000000000049,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": -98.13621767637889,
+            "az": -416.68757384991864,
+            "bx": -97.28902451050455,
+            "bz": -416.99132331855327,
+            "y0a": -5.41,
+            "y1a": -4.51,
+            "y0b": -5.41,
+            "y1b": -4.51,
+            "edge": {
+              "id": 507,
+              "sourceId": "w217693983",
+              "layer": 0,
+              "ya": -5.2,
+              "yb": -5.2,
+              "a": 5448473654,
+              "b": 10960376123
+            },
+            "node": null
+          },
+          "query": {
+            "x": -97.69574612296202,
+            "z": -416.7923822972429,
+            "radiusM": 0.2,
+            "insideFootY": -4.96,
+            "belowFootY": -5.72,
+            "aboveFootY": -4.5
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        },
+        {
+          "label": "Highest retained separator",
+          "sourceOwnership": {
+            "id": 561,
+            "sourceId": "w406264147",
+            "layer": 0,
+            "ya": -4.704452977858069,
+            "yb": -3.6372301150375215,
+            "a": 4083562477,
+            "b": 4084488462
+          },
+          "nativeCollider": {
+            "kind": "barrier",
+            "x": 115.4100822090555,
+            "z": -584.6163876948397,
+            "r": 1.1250000000000462,
+            "hw": 0,
+            "hd": 0,
+            "angle": 0,
+            "h": 1,
+            "poly": null,
+            "wall": true,
+            "ax": 115.18053860122733,
+            "az": -585.4088110236894,
+            "bx": 115.6396258168837,
+            "bz": -583.8239643659899,
+            "y0a": -4.146452977858068,
+            "y1a": -3.2464529778580684,
+            "y0b": -4.014452977858069,
+            "y1b": -3.1144529778580683,
+            "edge": {
+              "id": 561,
+              "sourceId": "w406264147",
+              "layer": 0,
+              "ya": -4.704452977858069,
+              "yb": -3.6372301150375215,
+              "a": 4083562477,
+              "b": 4084488462
+            },
+            "node": null
+          },
+          "query": {
+            "x": 115.36205655276159,
+            "z": -584.6024759610319,
+            "radiusM": 0.2,
+            "insideFootY": -3.6304529778580683,
+            "belowFootY": -4.390452977858068,
+            "aboveFootY": -3.1704529778580683
+          },
+          "results": {
+            "inside": true,
+            "below": false,
+            "above": false
+          },
+          "method": "Exported native collideBuildings queried against an exact unchanged native wall record. This is a collision fixture, separate from native controller routes."
+        }
+      ],
+      "sourceMappedBarrierPreservation": "All non-generated records, including real source fences/props/buildings outside the two structural models, are byte-identical. These per-district hashes do not claim an additional on-foot route test."
+    }
+  ]
+}

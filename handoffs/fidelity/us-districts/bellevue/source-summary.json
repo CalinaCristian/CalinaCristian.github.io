@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 1,
+  "district": "bellevue",
+  "date": "2026-11-08",
+  "sourceCommit": "c1c995989cb76c45be045b9f2d6c57cb78895af8",
+  "dataset": "game/data/seattle-bellevue.json",
+  "datasetSha256": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
+  "coverage": "Every whole positive-area building or building:part intersecting the exact configured core or 600 m source ring. Multipolygon inner rings retained; named model exclusions are exact source IDs.",
+  "buildingAudit": {
+    "core": {
+      "expected": 118,
+      "sourceIdentitiesPresent": 118,
+      "exactTopology": 118,
+      "literalHeightMatches": 118,
+      "literalMinimumMatches": 118,
+      "mappedStoreysMatches": 118,
+      "relationBodies": 1,
+      "partOnlyRelationBodies": 0,
+      "maximumBoundaryErrorM": 7e-05
+    },
+    "ring": {
+      "expected": 1079,
+      "sourceIdentitiesPresent": 1079,
+      "exactTopology": 1079,
+      "literalHeightMatches": 1079,
+      "literalMinimumMatches": 1079,
+      "mappedStoreysMatches": 1079,
+      "relationBodies": 22,
+      "partOnlyRelationBodies": 9,
+      "maximumBoundaryErrorM": 7e-05
+    }
+  },
+  "sourceSkips": [],
+  "sourceIssues": {
+    "4": [
+      "unsupported minimum-level tag building:min_levels=25; no physical minimum derived from this key"
+    ],
+    "6": [
+      "unsupported minimum-level tag building:min_levels=1; no physical minimum derived from this key"
+    ],
+    "7": [
+      "unsupported minimum-level tag building:min_levels=2; no physical minimum derived from this key"
+    ],
+    "17": [
+      "unsupported minimum-level tag building:min_levels=7; no physical minimum derived from this key"
+    ],
+    "19": [
+      "unsupported minimum-level tag building:min_levels=1; no physical minimum derived from this key"
+    ],
+    "21": [
+      "unsupported minimum-level tag building:min_levels=1; no physical minimum derived from this key"
+    ],
+    "348": [
+      "unsupported minimum-level tag building:min_levels=2; no physical minimum derived from this key"
+    ],
+    "737": [
+      "unsupported minimum-level tag building:min_levels=2; no physical minimum derived from this key"
+    ]
+  },
+  "roofHeightProvenance": {
+    "OSM building:levels estimate": 252,
+    "research storeys estimate": 7,
+    "OSM height": 26,
+    "style estimate": 880,
+    "research estimate": 25,
+    "research height": 7
+  },
+  "nativeUnitsInThisDataset": [],
+  "nativeUnitsNote": "This snapshot has no unit-bearing literal building height/min-height/roof-height strings. Strict imperial ft/in parsing is covered by shared native-profile regression fixtures; this dataset does not demonstrate a unit-bearing source example.",
+  "trees": {
+    "allMeasuredPolicy": {
+      "policy": "all-measured",
+      "inputCrowns": 13750,
+      "retained": 7133,
+      "rejectedGeometryOrDuplicate": 446,
+      "outsideSurveyDistrict": 6171,
+      "thinned": 0
+    },
+    "compiledTotal": 7237
+  },
+  "roads": {
+    "data": "seattle-bellevue.json",
+    "roads": 305,
+    "sourceWays": 304,
+    "preparedNodes": 1224,
+    "cutNodes": 71,
+    "expectedWhole": 239,
+    "wholeSourceVertices": 966,
+    "missingWhole": 0,
+    "privatePhysical": 9,
+    "shortSourceStubs": 62,
+    "scenery": {
+      "pieces": 1704,
+      "sourceWays": 1696,
+      "preparedVertices": 7504,
+      "privatePhysical": 73
+    },
+    "visibleRing": {
+      "expectedWays": 1772,
+      "missingWays": 0,
+      "requiredVertices": 7574,
+      "missingVertices": 0,
+      "excludedCoveredWays": [
+        "w841698969",
+        "w923009774",
+        "w966771537",
+        "w436801334",
+        "w549788050",
+        "w549788051",
+        "w842720853",
+        "w1241466512",
+        "w1472635659",
+        "w30617899",
+        "w44677414",
+        "w366058682",
+        "w380296727",
+        "w380296730",
+        "w425947113",
+        "w425947121",
+        "w513184998",
+        "w513188465",
+        "w651862054",
+        "w821308536",
+        "w827647471",
+        "w827647472",
+        "w827647473",
+        "w896596886",
+        "w1060448273",
+        "w1060448275",
+        "w1060448276",
+        "w1061958380",
+        "w1090430628",
+        "w1234245259",
+        "w1234245261",
+        "w1277864142",
+        "w1278996312",
+        "w325852436",
+        "w436485311",
+        "w513188426",
+        "w513188435",
+        "w545416275",
+        "w607861450",
+        "w652027893",
+        "w762971755",
+        "w816498783",
+        "w816498786",
+        "w816498788",
+        "w816498790",
+        "w816523048",
+        "w842328367",
+        "w842328382",
+        "w852999115",
+        "w1222672054",
+        "w1241466516",
+        "w1241466518",
+        "w1382705019",
+        "w1472634061"
+      ],
+      "exclusionReason": "Covered/tunnel source ways outside the physical core are not represented as ground scenery; no elevation or open road is invented."
+    },
+    "sourceDirectionNormalizations": [],
+    "issues": []
+  },
+  "retainedBuildingRoadConflicts": 38,
+  "conflictPolicy": "Raw detections remain visible for source/access/layer/width classification; no source body or road was removed or moved to clear a default ribbon.",
+  "remainingGates": [
+    "Full route visual findings classification",
+    "Actual drive/foot/drone and full-traffic mirror hotspot budgets",
+    "Complete north-up 250 m game-only atlas and actual 150 m edge views",
+    "Full Street View comparison images and reviewed coverage ledger",
+    "Nonstandard relative building minimum levels remain without a physical metre datum"
+  ],
+  "placesAudit": {
+    "pois": 157,
+    "matched": 157,
+    "unmatched": 0,
+    "fuel": 0,
+    "transit": 3
+  },
+  "placesScope": "Every compiled POI matched independently to an original OSM node/polygon centroid or explicit official locator within 0.08 m output quantization tolerance. This does not claim every nearby-ring trading unit is rendered.",
+  "parkingAdditiveAudit": "parking-runtime.json",
+  "buildPrerequisiteCommit": "5519dab",
+  "strictDimensionAudit": {
+    "literalPositiveHeightFailures": 0,
+    "literalMinimumFailures": 0,
+    "mappedStoreyFailures": 0,
+    "sourceDimensionIssues": 0,
+    "provenanceNote": "Literal heights/minima and storey counts are source facts; storey-derived metre estimates are not literal OSM heights."
+  },
+  "openSourceCanopies": {
+    "records": 35,
+    "sourceClassification": "literal original OSM building=roof/carport or building:part=roof",
+    "allFootprintsCoveredByIndependentAerial": true,
+    "verticalDimensions": "Explicit estimates unless original positive source height/min_height wins. No layer-to-metres conversion.",
+    "legalClearanceLowerBounds": [
+      {
+        "sourceId": "w640216056",
+        "raw": "16'0\"",
+        "metres": 4.8768
+      }
+    ],
+    "nativeParkingProof": "../parking-canopy-runtime.json"
+  },
+  "reviewedRoadCandidates": "road-conflict-review.json",
+  "unresolvedPassageDatums": {
+    "count": 2,
+    "ledger": "unresolved-passage-datums.json",
+    "policy": "Original relative layer/level retained; no physical metre datum is inferred and no ground opening is cut."
+  },
+  "roofShapeReview": {
+    "independentlyConfidentShapeThreshold": 0.5,
+    "sourcePriorityDifferences": [
+      {
+        "osm": "w103453919",
+        "roofGame": "gabled",
+        "roofAerial": "flat",
+        "roofConf": 0.9,
+        "roofOSM": "quadruple_saltbox"
+      },
+      {
+        "osm": "w393282358",
+        "roofGame": "gabled",
+        "roofAerial": "flat",
+        "roofConf": 0.75,
+        "roofOSM": "gabled"
+      },
+      {
+        "osm": "w393282361",
+        "roofGame": "gabled",
+        "roofAerial": "flat",
+        "roofConf": 0.9,
+        "roofOSM": "gabled"
+      }
+    ],
+    "unexplainedConfidentShapeDifferences": 0,
+    "note": "Explicit OSM roof shape wins. Unsupported quadruple_saltbox remains a reported profile issue; it is not asserted to be an exact native shape. Uncertain aerial shapes and estimated rise/pitch remain estimates."
+  },
+  "nonstandardMinimumUncertainties": [
+    {
+      "sourceId": "r4547847",
+      "issues": [
+        "unsupported minimum-level tag building:min_levels=25; no physical minimum derived from this key"
+      ]
+    },
+    {
+      "sourceId": "r4547852",
+      "issues": [
+        "unsupported minimum-level tag building:min_levels=1; no physical minimum derived from this key"
+      ]
+    },
+    {
+      "sourceId": "r4547854",
+      "issues": [
+        "unsupported minimum-level tag building:min_levels=2; no physical minimum derived from this key"
+      ]
+    },
+    {
+      "sourceId": "r4547846",
+      "issues": [
+        "unsupported minimum-level tag building:min_levels=7; no physical minimum derived from this key"
+      ]
+    },
+    {
+      "sourceId": "r4547850",
+      "issues": [
+        "unsupported minimum-level tag building:min_levels=1; no physical minimum derived from this key"
+      ]
+    },
+    {
+      "sourceId": "r4547853",
+      "issues": [
+        "unsupported minimum-level tag building:min_levels=1; no physical minimum derived from this key"
+      ]
+    },
+    {
+      "sourceId": "w325852418",
+      "issues": [
+        "unsupported minimum-level tag building:min_levels=2; no physical minimum derived from this key"
+      ]
+    },
+    {
+      "sourceId": "w325852400",
+      "issues": [
+        "unsupported minimum-level tag building:min_levels=2; no physical minimum derived from this key"
+      ]
+    }
+  ],
+  "sourceRelationTagRecords": 21,
+  "positiveRelationPartReview": "relation-part-review.json",
+  "officialStoreysReview": "official-permit-height-review.json"
+}

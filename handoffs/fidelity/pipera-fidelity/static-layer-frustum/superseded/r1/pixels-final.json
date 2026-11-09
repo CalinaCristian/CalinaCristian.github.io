@@ -1,0 +1,114 @@
+[
+  {
+    "season": "summer",
+    "view": "forward",
+    "beforeSha256": "e0838580c52b5613ae4b0448edcd147c1baaccdb0a20563612c38d3dba82d974",
+    "afterSha256": "0a56fb1bc48d1e07715753d09c3745979757dbc4901a61cee916576859c205b5",
+    "changedPixels": 591663,
+    "maxChannelDelta": 217,
+    "bbox": [
+      0,
+      0,
+      1280,
+      720
+    ]
+  },
+  {
+    "season": "summer",
+    "view": "left",
+    "beforeSha256": "38a8d96dc93ef69f7cb19071561a5b3a5ca351ed98bb7c3138530c386b1e09e8",
+    "afterSha256": "d92ca5a49a4687b77063bb691404408f93c4c37bda0d17ab306b8edee966175f",
+    "changedPixels": 533603,
+    "maxChannelDelta": 212,
+    "bbox": [
+      0,
+      0,
+      1280,
+      720
+    ]
+  },
+  {
+    "season": "summer",
+    "view": "back",
+    "beforeSha256": "a85b8b0c9b66bd24bd324389dca3306025c70b50a1254286a9cf991d103a941c",
+    "afterSha256": "bfc32cf0dcb5aed721e4f86c6ad36810502d02bfdc0257505a907ffb9cb459e1",
+    "changedPixels": 570983,
+    "maxChannelDelta": 213,
+    "bbox": [
+      0,
+      0,
+      1280,
+      720
+    ]
+  },
+  {
+    "season": "summer",
+    "view": "right",
+    "beforeSha256": "e94cd9bb8190798982ddadf88f63e1e8e99621da605d790e8c86dc204f9a8e18",
+    "afterSha256": "bd2a25c5ac2f6a8a571d8d0a8271d766916930de8eed415c05dbf92030bad4f1",
+    "changedPixels": 499022,
+    "maxChannelDelta": 216,
+    "bbox": [
+      0,
+      0,
+      1280,
+      720
+    ]
+  },
+  {
+    "season": "winter",
+    "view": "forward",
+    "beforeSha256": "7c6abd2190854f2102a42ed84acea702fdb8117c8cf4984135478e3ccb7fade9",
+    "afterSha256": "a4399f68c58f35ce2760babe50946bcb5891f70604183d6f762b94509d5cd566",
+    "changedPixels": 496862,
+    "maxChannelDelta": 198,
+    "bbox": [
+      0,
+      0,
+      1280,
+      720
+    ]
+  },
+  {
+    "season": "winter",
+    "view": "left",
+    "beforeSha256": "b08e88e23d8f67f86d968f9fbe7e5d9221fcb5b8373ce625a753ee9a5be636ec",
+    "afterSha256": "856b8da90359fa86fcfa18e2e374e7a220cf197834a36b7d4e9812b3310b9f7f",
+    "changedPixels": 482361,
+    "maxChannelDelta": 196,
+    "bbox": [
+      0,
+      0,
+      1280,
+      720
+    ]
+  },
+  {
+    "season": "winter",
+    "view": "back",
+    "beforeSha256": "879716e046e72a4f078c19793776b0cf6f95141a6559870981ac232c4c34d72a",
+    "afterSha256": "57644ed7368d1ad52612a2276aa772af96992ffb952468e96e2d02d8e3272881",
+    "changedPixels": 525238,
+    "maxChannelDelta": 193,
+    "bbox": [
+      0,
+      0,
+      1280,
+      720
+    ]
+  },
+  {
+    "season": "winter",
+    "view": "right",
+    "beforeSha256": "de075f88e428f7cc5f0ddbc49d79625db2e48b08c975013204504bd917c648fb",
+    "afterSha256": "f7da6dad06238a05630bdf4f03b10fbfb74b971f0da4f6ecd35beecc1f239e93",
+    "changedPixels": 454254,
+    "maxChannelDelta": 192,
+    "bbox": [
+      0,
+      0,
+      1280,
+      720
+    ]
+  }
+]

@@ -1,0 +1,195 @@
+{
+  "passed": true,
+  "sourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
+  "helperSha256": "1b2c61d80dcd0f0cf470f0ddd23deb6ae002189b399c85e51516584b2f19baa0",
+  "producerSha256": "db92d5dfb68aaf5bac7f20540328cbfe3c8c32e36351070d098ff833de294af4",
+  "nativeFiles": {
+    "game/src/vehicles.js": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+    "game/src/traffic.js": "f686b2a42f66acb423f522e147ead9cd7484cebe995a49d37e6e82c723ab82a3"
+  },
+  "fixtureSha256": "3dffa552f0af77bdd49cb99e696e3f59988791d348f9cb34a2abf287d6019134",
+  "scope": "Focused CPU controls with actual source-bound two-pair poses/emitted vehicle geometry. Same-edge candidate translation matches native snapped straight lanes and validates whole-body endpoint bounds. Full624-vehicle/static-world/shared-lane integration remains unrun; validator fixture rejection is not a native full-world static pass.",
+  "tests": [
+    {
+      "label": "Exact source two-pair repair, deterministic native body/model geometry, all identities/meshes/source lanes preserved, no mutation/RNG",
+      "passed": true,
+      "updates": [
+        {
+          "id": 423,
+          "previous": {
+            "x": -649.1185876608115,
+            "y": 0.24,
+            "z": 394.2632662313776,
+            "heading": 3.09080574715197,
+            "s": 15.211360558981841
+          },
+          "pose": {
+            "x": -648.9028360847295,
+            "y": 0.24,
+            "z": 390.01874608683613,
+            "heading": 3.09080574715197,
+            "s": 10.961360558981841,
+            "pitch": 0,
+            "roll": 0
+          },
+          "sourceEdge": 124
+        },
+        {
+          "id": 461,
+          "previous": {
+            "x": -707.3773964688576,
+            "y": 0.24,
+            "z": 325.23106412529495,
+            "heading": -1.634901317157708,
+            "s": 4.683910066035614
+          },
+          "pose": {
+            "x": -705.1320180168772,
+            "y": 0.24,
+            "z": 325.37520158531794,
+            "heading": -1.634901317157708,
+            "s": 6.933910066035614,
+            "pitch": 0,
+            "roll": 0
+          },
+          "sourceEdge": 103
+        }
+      ],
+      "finalPairs": [
+        {
+          "a": 229,
+          "b": 423,
+          "penetration": -0.2454313347112831,
+          "verticalOverlapM": 1.5849999785423279,
+          "unknownHeight": false,
+          "conflict": false,
+          "aVertical": {
+            "min": 0.17500000238418578,
+            "max": 1.7599999809265137,
+            "known": true,
+            "source": "emitted-model-vertices-YXZ"
+          },
+          "bVertical": {
+            "min": 0.17500000238418578,
+            "max": 1.764999976158142,
+            "known": true,
+            "source": "emitted-model-vertices-YXZ"
+          }
+        },
+        {
+          "a": 323,
+          "b": 461,
+          "penetration": -0.15949485848223421,
+          "verticalOverlapM": 1.5849999785423279,
+          "unknownHeight": false,
+          "conflict": false,
+          "aVertical": {
+            "min": 0.17500000238418578,
+            "max": 1.7599999809265137,
+            "known": true,
+            "source": "emitted-model-vertices-YXZ"
+          },
+          "bVertical": {
+            "min": 0.17500000238418578,
+            "max": 1.7599999809265137,
+            "known": true,
+            "source": "emitted-model-vertices-YXZ"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Real static/reservation rejection remains unresolved without dropping a vehicle",
+      "passed": true,
+      "unresolved": [
+        [
+          229,
+          423
+        ],
+        [
+          323,
+          461
+        ]
+      ]
+    },
+    {
+      "label": "Candidate cannot replace a source edge, lane/direction, ID, fleet kind or dimensions",
+      "passed": true
+    },
+    {
+      "label": "Same XZ/different physical decks clear; true vertical overlap still blocks despite different ordinal layers",
+      "passed": true,
+      "deck": {
+        "a": 229,
+        "b": 423,
+        "penetration": 3.233440629510714,
+        "verticalOverlapM": -1.4150000214576723,
+        "unknownHeight": false,
+        "conflict": false,
+        "aVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.7599999809265137,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 3.175000002384186,
+          "max": 4.764999976158142,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      },
+      "real": {
+        "a": 229,
+        "b": 423,
+        "penetration": 3.233440629510714,
+        "verticalOverlapM": 1.3349999785423279,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.7599999809265137,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.4250000023841858,
+          "max": 2.0149999761581423,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "label": "Actual emitted wheels/roof bounds outrank underestimated declared hatch height",
+      "passed": true,
+      "actual": {
+        "min": 0.17500000238418578,
+        "max": 1.7599999809265137,
+        "known": true,
+        "source": "emitted-model-vertices-YXZ"
+      },
+      "declaredHeight": 1.46
+    },
+    {
+      "label": "Native YXZ pitch/roll uses the actual vertex range, including sloped full-car height",
+      "passed": true
+    },
+    {
+      "label": "Unknown model height remains observable and fails admission acceptance",
+      "passed": true
+    },
+    {
+      "label": "Constrained later long transit keeps its mapped connected-leg pose; earlier flexible car moves, no blanket one-edge transit containment",
+      "passed": true
+    },
+    {
+      "label": "No legal room returns the true unresolved pair, preserving every fleet identity",
+      "passed": true
+    },
+    {
+      "label": "Body SAT follows actual drawn heading instead of stale road-axis vectors",
+      "passed": true
+    }
+  ]
+}

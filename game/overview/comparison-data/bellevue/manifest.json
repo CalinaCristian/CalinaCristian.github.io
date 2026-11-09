@@ -6616,7 +6616,37 @@
     "gameFrames": 426,
     "uniquePanoramas": 131,
     "cameraLevelAmbiguities": 22,
-    "referenceImagesTracked": false
+    "referenceImagesTracked": false,
+    "retakes": [
+      {
+        "manifest": "street-walk/retakes/aabd17ad/manifest.json",
+        "label": "Recorded road-height issue \u00b7 103rd Avenue Northeast",
+        "gameSourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "status": "known-issue",
+        "gameFrames": 4,
+        "uniqueImages": 3
+      }
+    ],
+    "captureIssues": [
+      {
+        "id": "103rd-modeled-road-height",
+        "poseIds": [
+          "103rd-Avenue-Northeast-0-R-right",
+          "103rd-Avenue-Northeast-0-R-fwd",
+          "103rd-Avenue-Northeast-0-L-left",
+          "103rd-Avenue-Northeast-0-L-fwd"
+        ],
+        "description": "Known game issue: this street is modeled below the surrounding buildings. These pictures record the error; a corrected capture is pending."
+      },
+      {
+        "id": "103rd-game-map-boundary",
+        "poseIds": [
+          "103rd-Avenue-Northeast-0-R-fwd",
+          "103rd-Avenue-Northeast-0-L-fwd"
+        ],
+        "description": "The orange barrier marks the game-map boundary, not a real street closure."
+      }
+    ]
   },
   "historicalCollections": [
     {

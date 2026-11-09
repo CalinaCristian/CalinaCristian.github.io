@@ -1,0 +1,47 @@
+{
+  "adapterSha256": "02318f04433105efdef00333f68f4e307be9ae9ef08a5f44bf1fad8a3445617c",
+  "helperSha256": "c5d2dc16a6f98e161945f903d819ba9e6564fc12a1b1264e9893aff9f64b28e9",
+  "nativeSourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 6093,
+      "sha256": "0c222122a1cc8a8d6298e58a44ee2baa301afb438d65434466e19322810ab560"
+    },
+    {
+      "file": "adapter-check.json",
+      "bytes": 43588,
+      "sha256": "7f322e34e85d8d5be645bfea7ff079e2406c2841ef8a0d4af008f04a6d44a2be"
+    },
+    {
+      "file": "adapter-check.log",
+      "bytes": 1477,
+      "sha256": "9cdf3f13507838fb3bda1c2ac7814ed38d3ecf158108e34942fd39baee4f6d3d"
+    },
+    {
+      "file": "adapter-check.mjs",
+      "bytes": 10779,
+      "sha256": "bafef3be42bfd85bef78f22c159b7478cbbf77a7099a360a8231d58779e0b62a"
+    },
+    {
+      "file": "collision-source-equivalence.json",
+      "bytes": 461,
+      "sha256": "d081cf41a24d8958fc2d57c7402fb388c8cc31003eab266cab11632bf4b83e86"
+    },
+    {
+      "file": "first-fixture-failure.log",
+      "bytes": 1099,
+      "sha256": "78383a875c285096cc3ebdbe2e98bbcb5f07b3775ed64355c79aeced42aa6eb1"
+    },
+    {
+      "file": "first12-success.json",
+      "bytes": 43431,
+      "sha256": "aea469a393d848ac39001190dec7ef7878a642f6e928abbadc5dd1578345d953"
+    },
+    {
+      "file": "first12-success.log",
+      "bytes": 1477,
+      "sha256": "75d15cfb527b59aae0ebf561297aa0ddab9bdd1f3b64994364694c8f7083aa85"
+    }
+  ]
+}

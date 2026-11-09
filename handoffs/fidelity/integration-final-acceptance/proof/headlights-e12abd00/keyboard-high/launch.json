@@ -1,0 +1,16 @@
+{
+  "pid": 310745,
+  "sourceCommit": "e12abd000b5488ea0adf291731a9ee7cee7b77df",
+  "toolCommit": "db7fa83c2cebde8375523373de375c94c1c48443",
+  "startedUtc": "2026-11-09T01:01:27.284696+00:00",
+  "argv": [
+    "node",
+    "/workspace/integration-qa-evidence/headlights-e12abd00-keyboard-high/runner.cjs",
+    "/workspace/integration-qa-evidence/menu-headlights-e12abd00-source",
+    "/workspace/integration-qa-evidence/headlights-e12abd00-keyboard-high",
+    "keyboard",
+    "high"
+  ],
+  "runnerSha256": "1ff7a7e61889349f3e0dbc8babd2f84ca90f1cd817c399d0f91e90a3a7db681d",
+  "scope": "Scoped cold Floreasca keyboard/high headlight shader/resource/input regression. Not final combined-tree acceptance."
+}

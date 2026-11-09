@@ -1,0 +1,687 @@
+[
+  {
+    "file": "actual-review.json",
+    "sha256": "a53e314aaf1f3c265e8ea7b99e7dd7f94059884c9a50eddce16d1b600ea7cb8d",
+    "bytes": 71251
+  },
+  {
+    "file": "issues/bucharest-grozavesti-upb-78-zfight.jpg",
+    "sha256": "1df60d7c49dc4fb638376c76cd598c11e2f1c7fbab91c2517312ab0027130d5f",
+    "bytes": 9201
+  },
+  {
+    "file": "sheets/bucharest-floreasca-geometry-001.jpg",
+    "sha256": "f9b3695fb1101b810945ebdd78c13c6cff678b080777a74bac98de99a0518bea",
+    "bytes": 211188
+  },
+  {
+    "file": "sheets/bucharest-floreasca-geometry-002.jpg",
+    "sha256": "86f4a987ff688dd0fd0594ef4095fd8c6e0a31a73f8d51a82cb5a5864df3868d",
+    "bytes": 216233
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-aerial-001.jpg",
+    "sha256": "7b410a29507a3e7a8e85f31703c23d975a4ea9f14e7566d92b51a7b23767c5d7",
+    "bytes": 338398
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-aerial-002.jpg",
+    "sha256": "f75fbd4d776c22eadf17594b2c2c8fcfac4d23530d89e1e207b998e8514f42dd",
+    "bytes": 186157
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-forward-001.jpg",
+    "sha256": "dafffb68354dc9c3226de75b34f83d1ff54b9a56345f3bdad0baadfa3f4f3e96",
+    "bytes": 309602
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-forward-002.jpg",
+    "sha256": "1b6cc9a909a660b860e104a14b65383ca01b7b57d7f29bb1f4c855c25eb94f62",
+    "bytes": 306084
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-forward-003.jpg",
+    "sha256": "0239c51f043c8997b3253b2069f98b577d2781da3db940525a6e8f520f636e74",
+    "bytes": 311729
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-forward-004.jpg",
+    "sha256": "a6183602f40485fd5be3f28228486f3419a1e9b516a8c479c1113edc9628681b",
+    "bytes": 315976
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-forward-005.jpg",
+    "sha256": "ae810b8d04c4335e90aa785561055615d944666e75f99f5bd6bce1e72f809ff0",
+    "bytes": 310520
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-forward-006.jpg",
+    "sha256": "b864e412b7bfc205f58215f3e79bc44ba7733f7a0c808b2ec4d93a1284fe2fc6",
+    "bytes": 318352
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-forward-007.jpg",
+    "sha256": "b5dd36966e9c964c7606360ba7833d375068872e047ebd47f8420548c878faac",
+    "bytes": 314949
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-looks-001.jpg",
+    "sha256": "aa5d4f5aec93dc8adb2b04f5c7fbf7dbef587ce5aaaac577098303bdfd2582f9",
+    "bytes": 235972
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-looks-002.jpg",
+    "sha256": "b58bef8b15a0c9a7c9333b5813bc480aa8975e40aa9b39f932bdaa11e0557c6f",
+    "bytes": 230494
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-looks-003.jpg",
+    "sha256": "085b0857e4c70a73475dd12fbba374ba81d83a87804049e54d980b57db7c59af",
+    "bytes": 235270
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-looks-004.jpg",
+    "sha256": "932fe40b91f526039c9bf2fa8a8c246ae7cf016dc2272c32f6b86e13b0359aff",
+    "bytes": 242329
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-looks-005.jpg",
+    "sha256": "c96eb3088b932c8b042979eea9c41ada1427841d7b61131f327ce12bf7e27ff2",
+    "bytes": 125367
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-traffic-001.jpg",
+    "sha256": "ed9c4b7747211667660dede973b1e49bcd4db0a8f3d24051058d36bc6e9d1c92",
+    "bytes": 314373
+  },
+  {
+    "file": "sheets/bucharest-floreasca-rosetti-traffic-002.jpg",
+    "sha256": "60598055138b34637741d5511af2dcaa021a6ba7348dd1e68fae30c34c8bf305",
+    "bytes": 176456
+  },
+  {
+    "file": "sheets/bucharest-floreasca-sweep-bulevardul-mircea-eliade-forward-001.jpg",
+    "sha256": "5a124be58a4ed5253d122c4d9c43fd359103dee25206f07162efd3c333bb739d",
+    "bytes": 177903
+  },
+  {
+    "file": "sheets/bucharest-floreasca-sweep-bulevardul-mircea-eliade-run-2-forward-001.jpg",
+    "sha256": "4a1030178ba8e7123b6b917f2449571d471402ae999d9b820a1cc6290cb98de2",
+    "bytes": 176639
+  },
+  {
+    "file": "sheets/bucharest-floreasca-sweep-strada-mihail-ivanovici-glinka-forward-001.jpg",
+    "sha256": "a72dd47cb1a2dc1918b67081b8f635bdaf855b826376673e30ca4463d5751d70",
+    "bytes": 182586
+  },
+  {
+    "file": "sheets/bucharest-floreasca-sweep-strada-mihail-ivanovici-glinka-run-2-forward-001.jpg",
+    "sha256": "5ff4f2cc9794227024fd8f84f3a188014bc5484ef5b85b0f0202170836644f41",
+    "bytes": 179887
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-geometry-001.jpg",
+    "sha256": "e3b701685bd14a6fc3528c7c736caed2f5acb11b866ab3efa990cbc4968a20be",
+    "bytes": 255750
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-geometry-002.jpg",
+    "sha256": "5ca187dab62ad99031aa4cd12b228d4b60e7c52428e2fcd718acfd5c0474cca7",
+    "bytes": 277958
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-geometry-003.jpg",
+    "sha256": "34bb1128de878fe4bcdffcaf690b7defecac1aff291ae83a1fa61c729275e1bf",
+    "bytes": 272052
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-geometry-004.jpg",
+    "sha256": "f07ac3c727a5739f7bbc1974cae9b797cac57ebcdf96be56fefca06ce5f3be49",
+    "bytes": 139354
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-oseaua-groz-ve-ti-aerial-001.jpg",
+    "sha256": "8913002995a0145da7d9a3cdf7268a95a636066f185971ce57367b94c9688d45",
+    "bytes": 97227
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-oseaua-groz-ve-ti-forward-001.jpg",
+    "sha256": "469844aef8b5a21d96e67b8531f6ce470fff296708475376a51713e0794f4a10",
+    "bytes": 324939
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-oseaua-groz-ve-ti-forward-002.jpg",
+    "sha256": "96516fd713e506046f0abc4f20706c64d05c73ffd403566c77c3dbeaac65ef82",
+    "bytes": 125216
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-oseaua-groz-ve-ti-looks-001.jpg",
+    "sha256": "25e532af8ee2973f8e5528a9ba5b1c521c6183ad5dfea71256b2cb70c46a9a2f",
+    "bytes": 140199
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-oseaua-groz-ve-ti-run-2-aerial-001.jpg",
+    "sha256": "7e9fd9aba186982b213afe882a07227d997f60e17c0f1ea1dbf569e5e78602c8",
+    "bytes": 97799
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-oseaua-groz-ve-ti-run-2-forward-001.jpg",
+    "sha256": "a69ddc9b7d7fc628b84f8f6d92564a4e32534427968ddf5c4097ed3431aa7a8b",
+    "bytes": 328592
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-oseaua-groz-ve-ti-run-2-forward-002.jpg",
+    "sha256": "0b9bb4369378ca792ede903abff1200d141f6dc45ec90a63538db94a02c54be6",
+    "bytes": 74857
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-oseaua-groz-ve-ti-run-2-looks-001.jpg",
+    "sha256": "3ed32f5f9faa9162713327415d7cb8ffc2648ca738f2cc061acfec260603685e",
+    "bytes": 137382
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-oseaua-groz-ve-ti-run-2-traffic-001.jpg",
+    "sha256": "1f3a69ad420877951d39b166af74ecb35fc95990a3033fd934cf967da3c935de",
+    "bytes": 75060
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-oseaua-groz-ve-ti-traffic-001.jpg",
+    "sha256": "4f857e9e35bef85b99342277d560876ea7b51df43dcd153532926198c99e86a8",
+    "bytes": 73968
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-aerial-001.jpg",
+    "sha256": "53e07f368e9617f828373928759fd15ecef67242c96e7c7efc19d184654ed4bb",
+    "bytes": 91709
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-forward-001.jpg",
+    "sha256": "541f66cdb4d6936f07da7a69658960b9f714cfc43f1d8b04e2f244316ff98f0d",
+    "bytes": 326811
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-looks-001.jpg",
+    "sha256": "be50bb91c2f53e53787ce57e8ec23caf3e06e5f9345dc2cdf328c5b6c76b28c0",
+    "bytes": 137183
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-run-2-aerial-001.jpg",
+    "sha256": "332fef2ee06f4721e03eb34c3c728a40192ccffe08df996b0fe027d73c75fd36",
+    "bytes": 88669
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-run-2-forward-001.jpg",
+    "sha256": "2859dc9a0eab22ac5c73927f8cf40aaa2aec8c7882b614e0686f66a81c635dc5",
+    "bytes": 338984
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-run-2-looks-001.jpg",
+    "sha256": "43eea03d751b48b90401a888a9351f8d4f2e7eca3d67646fa12f118c7d9508ed",
+    "bytes": 138613
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-run-2-traffic-001.jpg",
+    "sha256": "7770828044ae4082ca360e0de6ba8a0e68b7881d8334c3f772bc798ba21f1523",
+    "bytes": 76350
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-sweep-splaiul-independen-ei-traffic-001.jpg",
+    "sha256": "41a3527c79aefda664330bc8dae3e04aec266df31c05c55cfeb26ef40e8b9b21",
+    "bytes": 73011
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-aerial-001.jpg",
+    "sha256": "15caa9ff41cf2b8890a7cc15af49a14f133475d1990e3e4817eb386e5f677321",
+    "bytes": 383025
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-aerial-002.jpg",
+    "sha256": "23f27b9ba47f63fe2287052ddc2b703f253100b3c70c100514c69310decc8c73",
+    "bytes": 150995
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-forward-001.jpg",
+    "sha256": "2f1047897d2168d884afdb6392b50eede4eed88477c8fa15d5a7cffead106ac3",
+    "bytes": 308858
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-forward-002.jpg",
+    "sha256": "934843f2064280258cad7b3ee311cd884c19c4c8243b68e7c5e1dc7068b8ef87",
+    "bytes": 316649
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-forward-003.jpg",
+    "sha256": "f718823e0973bb7ae50dd58fb2b789793eb24de7492c284eaafea65ec6218f1d",
+    "bytes": 311320
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-forward-004.jpg",
+    "sha256": "9567eaca6c44bc5b7e5d3f61d0481c3b9622d5283e329d8596427102cc6ea74b",
+    "bytes": 328256
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-forward-005.jpg",
+    "sha256": "485310b7caf7914d431ac58b2fd332aab5844e03743c8df938292ecd65e787b1",
+    "bytes": 305671
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-forward-006.jpg",
+    "sha256": "a3b9942d62c81148ddacac67c9f43a6cd6f6bdb838d5c94481ea21ddf3ac231a",
+    "bytes": 320883
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-forward-007.jpg",
+    "sha256": "45cd00c68d31624e933bc81b34118ef504c2253d2cd6a4c2ee3214052f41aa9a",
+    "bytes": 222162
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-looks-001.jpg",
+    "sha256": "585e952fb53f57ea0513f27e0022badc533ea00bb2b2bd6c30b31d7b4c76c11d",
+    "bytes": 235391
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-looks-002.jpg",
+    "sha256": "831c8ee6d110030c23e9d7d30ddb443e61b86f136c4ff17299ccb3929eafb4fe",
+    "bytes": 238362
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-looks-003.jpg",
+    "sha256": "910ea483eb44c50f5e926bfbd8768ca24a6afb1f42ea3bc5463f681e93476772",
+    "bytes": 241827
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-looks-004.jpg",
+    "sha256": "9d1da4a5dccd81e4c183c16425e8678c0fe26ced88c98442a5ec4b0e9fa83a2f",
+    "bytes": 244866
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-traffic-001.jpg",
+    "sha256": "4ceeae2b67ae5a36e91d3f201b69b620a347185983bef5e0b64bdd2a2fcf14b6",
+    "bytes": 320304
+  },
+  {
+    "file": "sheets/bucharest-grozavesti-upb-traffic-002.jpg",
+    "sha256": "bd8d94e2a9f2e35696bb966f71637a4cc983baebb4b2537c631dc35e166fa13e",
+    "bytes": 123416
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-aerial-001.jpg",
+    "sha256": "582ca6ef4223b81e2691c764853971d08d8122f2cc6893e56aa5f5cda0d07e93",
+    "bytes": 347673
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-aerial-002.jpg",
+    "sha256": "78d49b8568aae81ef1c19ac493f8e0a4ae2bd51e9e6c575d52fa20f52f2eebe6",
+    "bytes": 339682
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-forward-001.jpg",
+    "sha256": "589fce68d9f26d5f4034f1a9b649fc084ed11224cb0c3a4f7d4e255a2491eaff",
+    "bytes": 330411
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-forward-002.jpg",
+    "sha256": "b03adba37673d30954d3a7a12328b80ba49e91ef59eaf50992fcc946d4f37c04",
+    "bytes": 340358
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-forward-003.jpg",
+    "sha256": "72079418479f6f67d5c6e5e641c1532fd4010dcfd58c6a8a7a6b94b9a81177b3",
+    "bytes": 344020
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-forward-004.jpg",
+    "sha256": "85725b5c3e59603cde070340f96c498e0d1a73cb6f6f05283477d152c13f82b6",
+    "bytes": 335019
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-forward-005.jpg",
+    "sha256": "f60ba681fbf40b7a9798f7b0d75be02cbb91cd488075b80dea55a9a9134842d4",
+    "bytes": 339360
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-forward-006.jpg",
+    "sha256": "6314cfd486a309ec66317f090e9bc0f4966b4118c3d63457348f458aad2ca0c7",
+    "bytes": 332262
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-forward-007.jpg",
+    "sha256": "0e3d90eaacf6f6454f75ffd1ac3718101d9566c47b695d04f81d68a480f8cc9a",
+    "bytes": 328852
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-forward-008.jpg",
+    "sha256": "1e5a43c4b8998a18fbad1cd74ae1e143d67242460fa6f9f3f08f24f6d74edab7",
+    "bytes": 321264
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-forward-009.jpg",
+    "sha256": "64849d97ed95f9a5c24fb0f237b15f52546d785f04b55777f367b48c65b94a94",
+    "bytes": 320623
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-forward-010.jpg",
+    "sha256": "9b6ac43cd9e30c40283a411a3558812ea2289c25fb3253f7f4a68d6798a2b071",
+    "bytes": 67863
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-looks-001.jpg",
+    "sha256": "d51c0a535b2b1b9c7c2c9cd5b56fec5cc4e953c39ab5a76ca589d4a48d117af4",
+    "bytes": 241491
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-looks-002.jpg",
+    "sha256": "59ea0677ce56ef19fd03101e764074eee4e05c7256113866955d6fc59d1791bd",
+    "bytes": 251843
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-looks-003.jpg",
+    "sha256": "49c8cfc4962e93ffd9c908020f42b52fa1af48d845134e2cab03b82dc4cc458f",
+    "bytes": 248861
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-looks-004.jpg",
+    "sha256": "7583a6b372f0e6271fbad2548a40858d82bc56c0e8d0b89c5fbfe71006631490",
+    "bytes": 245947
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-looks-005.jpg",
+    "sha256": "27f87337865f90b760aea746373519fb42a67ce9e5186735f4d7d3fb5fa1aceb",
+    "bytes": 245489
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-looks-006.jpg",
+    "sha256": "3ffb7900edb2f5f446c372f538c38b9e6f8511ee1c3ae5f6deb062fd29846bd3",
+    "bytes": 135619
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-traffic-001.jpg",
+    "sha256": "efc27ea16199ace2d256cac67133f2f006dfd4f4d89d667dba25a4d081b5b40b",
+    "bytes": 344010
+  },
+  {
+    "file": "sheets/bucharest-romana-arnia-traffic-002.jpg",
+    "sha256": "785017f32e3f066fb5fc7c0e032a52b90ff421fdbf5ae3dcc004fd16837362e8",
+    "bytes": 288068
+  },
+  {
+    "file": "sheets/bucharest-romana-geometry-001.jpg",
+    "sha256": "aa11025abc7c34596c3eaea456626beecd0599fa0a4720bff0f4e500ebc42dc7",
+    "bytes": 253588
+  },
+  {
+    "file": "sheets/bucharest-romana-geometry-002.jpg",
+    "sha256": "20522dbb4bd835401ded9edc7775590ac5ac93bec42db5b2ab3bb23244570510",
+    "bytes": 257469
+  },
+  {
+    "file": "sheets/bucharest-romana-geometry-003.jpg",
+    "sha256": "64ef6b4adf06fa73d0bc73809f1125c960897525931e5506ba9589d1dbf0d123",
+    "bytes": 228935
+  },
+  {
+    "file": "sheets/bucharest-romana-geometry-004.jpg",
+    "sha256": "d197e105a2db0b8f962ddb85263f664513f543dd7a461851ce6571cd7dafeb18",
+    "bytes": 210835
+  },
+  {
+    "file": "sheets/bucharest-romana-geometry-005.jpg",
+    "sha256": "bafbf9ede60bf13b0bddb28c76d2c741c3a2e693587b11497d412e73d6cb4f3a",
+    "bytes": 227850
+  },
+  {
+    "file": "sheets/bucharest-romana-geometry-006.jpg",
+    "sha256": "57dfe9b960a00bdcc0bf2d2536642697aff3a4505306f1e1dd47c308e5559a97",
+    "bytes": 218846
+  },
+  {
+    "file": "sheets/bucharest-romana-geometry-007.jpg",
+    "sha256": "dc24f8b9c92ccf910f0339b060fafdd00f39290909a3d883fce5f2758e60cc0f",
+    "bytes": 159599
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-aerial-001.jpg",
+    "sha256": "89cb7a1394d19c543f5b14d6fe88be3e9d3980153ac1af7724d2ba2d58d144fd",
+    "bytes": 213092
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-forward-001.jpg",
+    "sha256": "74fe85130fb4e4a52bbb085cc03d9052b8f9de2ef5529b775bc7227c8e7e980c",
+    "bytes": 344144
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-forward-002.jpg",
+    "sha256": "73792bcf0ef8c895b25be9e8f0d9e12d8429046f054f503b30efc25e848eb9b7",
+    "bytes": 348251
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-forward-003.jpg",
+    "sha256": "765b7a410d88ebb15364a986329beec9abd8de54c39032eda0d4ccfb66786bef",
+    "bytes": 188208
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-looks-001.jpg",
+    "sha256": "84edae34d8dc2aa9f6e8d04e966f729635495b75243da0fdb2f22c98f7641031",
+    "bytes": 275569
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-looks-002.jpg",
+    "sha256": "2ae94a45ae22708a825dc86dafc50ffb795736251da919692c9901ec37f46571",
+    "bytes": 145409
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-run-2-aerial-001.jpg",
+    "sha256": "fa93688f3cf4f65a7f177a8128b356876801c7c369ef08bb5a7586bfd200d1ec",
+    "bytes": 234823
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-run-2-forward-001.jpg",
+    "sha256": "7b0c0d707d4399f155c3e8e853da385946cfc599b788b852f35378ba962f2ab7",
+    "bytes": 348628
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-run-2-forward-002.jpg",
+    "sha256": "608a6606194df19163bbea90ba1cfdbfb47e66b5ebe91a9804e95e96ddc5fd2e",
+    "bytes": 339649
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-run-2-forward-003.jpg",
+    "sha256": "ea176e936ac3ebd599aec5aba1f383288713de448e0ebaa6d3ce7f2dbf7e209d",
+    "bytes": 186997
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-run-2-looks-001.jpg",
+    "sha256": "3193c23829828e4feb6dd2fcd69b3c588a72ccfde8f4d3de5619de1661b7b30c",
+    "bytes": 267604
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-run-2-looks-002.jpg",
+    "sha256": "ebcb6ef0609a483f1c1e79599f19a6eb0df376626bd5a5c0bde9c8acc762326a",
+    "bytes": 144008
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-run-2-traffic-001.jpg",
+    "sha256": "7825c7567d1ef0edea7502e036ea4417ae13228203056c93998eee9dbaef185f",
+    "bytes": 188378
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-run-3-forward-001.jpg",
+    "sha256": "154af88f04474ec9568eb880f138d1ede881c9459fc4237e4dc5ff055b0f0c4b",
+    "bytes": 185583
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-bulevardul-iancu-de-hunedoara-traffic-001.jpg",
+    "sha256": "4719beb5e0da0c43199893583358ca20f7bbc0b60f5ceba647be39d6a56da756",
+    "bytes": 190969
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-strada-c-derea-bastiliei-aerial-001.jpg",
+    "sha256": "90a6806790a843380840c408a60c9a8cf63bd6cf611249660f858a445b6d9137",
+    "bytes": 147891
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-strada-c-derea-bastiliei-forward-001.jpg",
+    "sha256": "2fc3ed75dc1f94ec599a90428eb978035bfc5e075c02e64262580bda35236ba0",
+    "bytes": 321079
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-strada-c-derea-bastiliei-forward-002.jpg",
+    "sha256": "28df9a07066262cad677bfa29ac6071bd3169bebba79719f78151cbcb2749d92",
+    "bytes": 286997
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-strada-c-derea-bastiliei-looks-001.jpg",
+    "sha256": "8e637d651d2a9122cdca8138f6edd34d2a8d13b07a654de2f571e6b15c530855",
+    "bytes": 224556
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-strada-c-derea-bastiliei-run-2-forward-001.jpg",
+    "sha256": "a25a1052cd33ac7cbfd0cdd29e7af5e0f33649872a52a37739e8d69229a382ee",
+    "bytes": 176888
+  },
+  {
+    "file": "sheets/bucharest-romana-sweep-strada-c-derea-bastiliei-traffic-001.jpg",
+    "sha256": "869220ff3cb6ce593007510697c090ca358e7fa36e80f00afed60457378913dc",
+    "bytes": 123414
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-aerial-001.jpg",
+    "sha256": "f21b76b882d4133d009f25b3d1af23edd2ce125fc68d9df9bc11342063ed5845",
+    "bytes": 392735
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-aerial-002.jpg",
+    "sha256": "5267eebc90fc551f3e7f84961f67f488528b17311f7523fbdf30a2335a3b2670",
+    "bytes": 138357
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-forward-001.jpg",
+    "sha256": "dd8ebf27485472b3b72761ee92a642d6001bf4285e3c9a133f9376332a6cbfb7",
+    "bytes": 322255
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-forward-002.jpg",
+    "sha256": "54d460dd8253a9b5c75f55fc9688485662a19b75fc45d434de1c3b3745fef053",
+    "bytes": 327529
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-forward-003.jpg",
+    "sha256": "1ee9319f49752b4fc1261977958e2f24bbd73e60019cf4b031c25ce6c10edd61",
+    "bytes": 328145
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-forward-004.jpg",
+    "sha256": "3a1eb8214493a480e90ebb2d544af17d13a091ec67c8fb1c1207a2ef0fe436b0",
+    "bytes": 326549
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-forward-005.jpg",
+    "sha256": "9d2a6e9f6fc731f86fdb5ec7f3fd80141d229c45ba522ef30f37a6f1be9f7931",
+    "bytes": 316925
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-forward-006.jpg",
+    "sha256": "dadb02a2b579c46ff26a0789eaf3cafa152c91c139ca8aee94fc37fe1bd54d1d",
+    "bytes": 309678
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-forward-007.jpg",
+    "sha256": "2375697eadb07aaf4e6ddd1f5421646bd48d18f81de51d8d928046bfa276b7f8",
+    "bytes": 67981
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-looks-001.jpg",
+    "sha256": "b01545f10545e27e9eb7de60a066b7e435e56483a6427720bb9f9e20c354b453",
+    "bytes": 253096
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-looks-002.jpg",
+    "sha256": "b693d66f77c6f9c156d17bd6383d56c52b06f3fbd9d80f5049ae2270fc2abecc",
+    "bytes": 243560
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-looks-003.jpg",
+    "sha256": "02704d2c7eb8c27c78480fe0fd8f3359b1b653fbd26fa7e825ca161b40e3f078",
+    "bytes": 240486
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-looks-004.jpg",
+    "sha256": "cd13cd2fbf5df9eb94fa8f3da7ab5a098c40179e91bd9f6680b09075178c7066",
+    "bytes": 229431
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-traffic-001.jpg",
+    "sha256": "e3e3bb01d90d918552bead6adc76affd361a5a0e62125e6037e2e2e5e065b269",
+    "bytes": 328106
+  },
+  {
+    "file": "sheets/bucharest-romana-uipath-buc-traffic-002.jpg",
+    "sha256": "44caf1973ee81371cc3516a37842bf0faacae50ee847b8c2bd41041541fb9508",
+    "bytes": 118702
+  },
+  {
+    "file": "sheets/cockpit-bucharest-floreasca-bucharest-1280x720-001.jpg",
+    "sha256": "d2a583d3b29ad1e9e93681193d1c366008af449a22cab0260b37966e460bb342",
+    "bytes": 96161
+  },
+  {
+    "file": "sheets/cockpit-bucharest-floreasca-bucharest-1920x1080-001.jpg",
+    "sha256": "c501cb03f3ea32dfe8db8b7832205cb9c03df6590722efc58f79801d048dee5c",
+    "bytes": 89747
+  },
+  {
+    "file": "sheets/cockpit-bucharest-floreasca-bucharest-2560x1080-001.jpg",
+    "sha256": "ca4d223bd7bf18e948a5b7bb1f38c70ed128976aed8cc36dfa390404db64f301",
+    "bytes": 69092
+  },
+  {
+    "file": "sheets/cockpit-bucharest-floreasca-bucharest-390x844-001.jpg",
+    "sha256": "818fbd8301a0960c72dd14d692fac233b9d989ba24dcfd9cd6c73d7383d8cda6",
+    "bytes": 226185
+  },
+  {
+    "file": "sheets/cockpit-bucharest-floreasca-bucharest-390x844-touch-001.jpg",
+    "sha256": "5157f2faffc9433ce643af457d8324061f2d8167f0be8bc3da12c17a006e424f",
+    "bytes": 214039
+  },
+  {
+    "file": "sheets/cockpit-bucharest-floreasca-bucharest-844x390-001.jpg",
+    "sha256": "27275067c34973ec334af55986ff044ee8e28788ea655338a01c21e95d309d65",
+    "bytes": 81150
+  },
+  {
+    "file": "sheets/cockpit-bucharest-floreasca-bucharest-844x390-touch-001.jpg",
+    "sha256": "a160f430062d1ed1aa50bed3b5dcf9c86c0b2523db46641ef62b1d12b275840e",
+    "bytes": 80918
+  },
+  {
+    "file": "sheets/offices-bucharest-001.jpg",
+    "sha256": "e504dedbb4531d4f10009afc847c521f5f2dace50a2446daf5156f5e52b4ef13",
+    "bytes": 129732
+  },
+  {
+    "file": "sheets/offices-bucharest-002.jpg",
+    "sha256": "fb0b7461c52a48f7f7e0550feb44b273b571316806862af6901717e860274047",
+    "bytes": 113872
+  },
+  {
+    "file": "sheets/offices-bucharest-003.jpg",
+    "sha256": "241d47cf624cd3eba65c6a27e555fb3eba0baf44056cb4fc8019dee9876c47f6",
+    "bytes": 52554
+  },
+  {
+    "file": "visual.json.gz",
+    "sha256": "090f760681dd85d190372c9403ae3b9a95dc632d472c07e0067e4838b116f257",
+    "bytes": 74614
+  },
+  {
+    "file": "visual.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "file": "visual.md",
+    "sha256": "d9a930174618ac0bb3b74c82bd582f3864ac5b06b393461dda170ae12d9e69dc",
+    "bytes": 93269
+  }
+]

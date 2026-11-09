@@ -10,14 +10,23 @@
 // ============================================================================
 import * as THREE from '../vendor/three.module.min.js';
 import { collideBuildings } from './world.js';
+import { createFlightBoundary, spotFlightSource, FLIGHT_GRACE } from './drone-boundary.js';
+import { makeCrowd, dressFor, seasonOf, CROWD_FLAGS } from './crowd.js';
+
+const flightBoundaries = new WeakMap();
+function flightBoundary(scene, source) {
+    if (!flightBoundaries.has(scene)) flightBoundaries.set(scene, createFlightBoundary(source));
+    return flightBoundaries.get(scene);
+}
 
 const DEG = Math.PI / 180;
 const MODES = [
-    { id: 'C', name: 'Cine', h: 4, v: 2.5 },
-    { id: 'N', name: 'Normal', h: 12, v: 5 },
-    { id: 'S', name: 'Sport', h: 26, v: 7 },
+    { id: 'C', name: 'Cine', h: 4 },
+    { id: 'N', name: 'Normal', h: 12 },
+    { id: 'S', name: 'Sport', h: 26 },
 ];
 const BOOST = 1.8;                // Shift: Sport + boost ≈ 47 m/s — fast enough to cross a district in half a minute
+const COLLISION_STEP = 0.35;      // no movement step skips a thin roof band, wall or the drone's collision radius
 const RANGE = { district: 800, spot: 450 };
 const CEIL_M = 120;               // EU open category: 120 m above ground; FAA recreational: 400 ft (121.9 m)
 const BATTERY_S = 10 * 60;        // ~10 min of hover; faster flight drains faster
@@ -60,17 +69,26 @@ function buildDroneModel() {
     return g;
 }
 /** where you stand while the drone is up: a small figure + a pulsing "H" pad ring */
-function buildHomeMarker() {
+function buildHomeMarker(city, season) {
     const g = new THREE.Group(); g.name = 'drone-home';
-    const mat = new THREE.MeshLambertMaterial({ color: '#1e3a8a' }), skin = new THREE.MeshLambertMaterial({ color: '#d6a77a' });
-    const legs = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.11, 0.85, 8), new THREE.MeshLambertMaterial({ color: '#334155' })); legs.position.y = 0.43; g.add(legs);
-    const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.16, 0.6, 8), mat); torso.position.y = 1.15; g.add(torso);
-    const head = new THREE.Mesh(new THREE.SphereGeometry(0.12, 10, 8), skin); head.position.y = 1.6; g.add(head);
+    // The pilot shares the NPC body, face, clothes and phone pose, without crowd AI.
+    // Stable identity and palette across flights; only city/season clothing changes.
+    const pilot = makeCrowd({ max: 1, city, season, rng: () => 0.42 });
+    const outfit = dressFor(city, season, null, () => 0.42);
+    outfit.skin = '#e8bc9a'; outfit.hair = '#3b2a1e';
+    outfit.flags &= CROWD_FLAGS.coat | CROWD_FLAGS.hat | CROWD_FLAGS.shortSleeves;
+    pilot.dress(0, outfit); pilot.count = 1;
+    pilot.set(0, { pose: 'phone', prop: 'phone', amp: 0 });
+    pilot.object.name = 'drone-pilot'; g.add(pilot.object);
     const ringMat = new THREE.MeshBasicMaterial({ color: '#fbbf24', transparent: true, opacity: 0.85, depthWrite: false });
     const ring = new THREE.Mesh(new THREE.RingGeometry(1.4, 1.75, 40), ringMat); ring.rotation.x = -Math.PI / 2; ring.position.y = 0.06; g.add(ring);
     const hTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'); x.fillStyle = '#fbbf24'; x.font = 'bold 52px system-ui,sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('H', 32, 35); return new THREE.CanvasTexture(c); })();
     const h = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 1.2), new THREE.MeshBasicMaterial({ map: hTex, transparent: true, depthWrite: false })); h.rotation.x = -Math.PI / 2; h.position.set(0, 0.07, 1.2); g.add(h);
-    g.userData.ring = ring; g.userData.figure = [legs, torso, head];
+    g.userData.ring = ring; g.userData.figure = [pilot.object]; g.userData.pilot = pilot;
+    g.userData.dispose = () => {
+        pilot.dispose(); ring.geometry.dispose(); ringMat.dispose();
+        h.geometry.dispose(); h.material.dispose(); hTex.dispose();
+    };
     return g;
 }
 
@@ -137,16 +155,15 @@ const HUD_HTML = `
   <div class="dr-acts"><button data-dr="gohere" title="Go here: walk-teleport to the ground under the drone, then land (T)">⇩ Go here</button><button data-dr="rth" title="Return home (H)">⌂ Home</button><button data-dr="photo" title="Photo (P)">📷</button><button data-dr="land" class="dr-exit" title="Fly back and land in your hand (G / X)">✕ Land</button></div>
 </div>
 <div class="dr-stick" aria-hidden="true"><i></i></div>
-<div class="dr-vert"><button data-hold="up" aria-label="Up">▲</button><button data-hold="down" aria-label="Down">▼</button></div>
-<div class="dr-help">WASD fly · mouse: look / gimbal · Space or E up · Q or C down · Shift boost · wheel or 1 2 3: speed mode · N minimap · T go here · H home (hold: land now) · G or X land · P photo · Esc pause</div>`;
+<div class="dr-help">Mouse look · W/S follow view · A/D strafe · look up/down + W to climb/descend · Shift boost · 1/2/3 or wheel speed · N minimap · T go here · H home (hold land) · G/X land · P photo · Esc pause</div>`;
 
 export class Drone {
     constructor(game, { onEvent = null, onGoHere = null } = {}) {
         this.g = game; this.onEvent = onEvent; this.onGoHere = onGoHere;
         this.active = false; this.phase = null; this.mode = 1;
-        this.pos = new THREE.Vector3(); this.vel = new THREE.Vector3(); this.yaw = 0; this.gimbal = -0.2;
+        this.pos = new THREE.Vector3(); this.vel = new THREE.Vector3(); this.yaw = 0; this.gimbal = 0;
         this.tiltP = 0; this.tiltR = 0; this.t = 0; this.battery = 1;
-        this.stick = { x: 0, y: 0 }; this.hold = { up: false, down: false };
+        this.stick = { x: 0, y: 0 };
         this._q = new THREE.Quaternion(); this._q2 = new THREE.Quaternion(); this._e = new THREE.Euler(0, 0, 0, 'YXZ'); this._v = new THREE.Vector3();
         this.sound = new RotorSound(game.audio);
         this.stats = { ...{ flights: 0, maxDist: 0, maxAlt: 0, km: 0, photos: 0 }, ...(store.get().drone || {}) };
@@ -158,12 +175,12 @@ export class Drone {
         const g = this.g;
         if (g.state === 'spot' && g.spot?.ctl && g.spot.spot) {
             const s = g.spot, sp = s.spot;
-            return { kind: 'spot', scene: sp.scene, walker: s.ctl, session: s, colliders: sp.colliders, units: sp.units === 'mph' ? 'imperial' : 'metric',
-                groundAt: (x, z, y) => { try { const h = sp.groundAt(x, z, y); return Number.isFinite(h) ? h : sp.ground?.heightAt?.(x, z) ?? 0; } catch { return 0; } } };
+            return { kind: 'spot', scene: sp.scene, walker: s.ctl, session: s, colliders: sp.colliders, boundary: flightBoundary(sp, spotFlightSource(sp)), units: sp.units === 'mph' ? 'imperial' : 'metric',
+                groundAt: (x, z, y) => { try { const h = sp.ground?.flightHeightAt ? sp.ground.flightHeightAt(x, z, y) : sp.groundAt(x, z, y); return Number.isFinite(h) ? h : sp.ground?.heightAt?.(x, z) ?? 0; } catch { return 0; } } };
         }
         if (g.state === 'foot' && g.foot?.active && g.world) {
             const w = g.world;
-            return { kind: 'district', scene: g.scene, walker: g.foot, colliders: w.buildings, bounds: w.bounds, units: g.city?.units === 'mph' ? 'imperial' : 'metric',
+            return { kind: 'district', scene: g.scene, walker: g.foot, colliders: w.buildings, boundary: flightBoundary(w, w.district?.flightBoundary), units: g.city?.units === 'mph' ? 'imperial' : 'metric',
                 groundAt: (x, z, y) => { try { const h = w.roadHeight?.(x, z, { y }); return Number.isFinite(h) ? Math.max(0, h - 0.24) : 0; } catch { return 0; } } };
         }
         return null;
@@ -176,6 +193,7 @@ export class Drone {
         if (g.state === 'drive') return { ok: false, reason: 'Get out of the car first (Enter).' };
         const c = this.ctx(); if (!c) return { ok: false, reason: 'Only on foot, in a district or a tourist spot.' };
         if (g.photo?.active || g.hud?.panelOpen || g._pauseOpen || c.session?.ui?.panelOpen) return { ok: false, reason: 'Close the panel first.' };
+        if (c.boundary && !c.boundary.allowed(c.walker)) return { ok: false, reason: `Outside the flight area: walk back within ${FLIGHT_GRACE} m of the playable area.` };
         if (this.covered(c)) return { ok: false, reason: 'Something is overhead (a roof, a bridge or tree crowns): step out under open sky.' };
         return { ok: true };
     }
@@ -192,10 +210,13 @@ export class Drone {
     // ------------------------------------------------------------------ deploy / land / abort
     deploy() {
         const chk = this.canDeploy(); if (!chk.ok) { this.toast('🚁 Can\'t take off here', chk.reason, 'warn'); return false; }
-        const g = this.g, c = this.c = this.ctx(), w = c.walker, cam = g.camera;
-        this.active = true; this.phase = 'lift'; this.t = 0; this.pt = 0; this.battery = 1; this.recT = 0; this.rth = false; this.autoRth = false; this.maxD = 0; this.maxAlt = 0; this.dist = 0;
+        const g = this.g;
+        if (typeof g.spot?.cancelActivities === 'function') g.spot.cancelActivities('drone');
+        else g.spot?.spot?.ctx?.extras?.venueActivities?.cancel('drone');
+        const c = this.c = this.ctx(), w = c.walker, cam = g.camera;
+        this.active = true; this.phase = 'lift'; this.t = 0; this.pt = 0; this.battery = 1; this.recT = 0; this.rth = false; this.rthPath = null; this.autoRth = false; this.maxD = 0; this.maxAlt = 0; this.dist = 0;
         this.home = { x: w.x, z: w.z, y: w.y || 0, heading: w.heading, pitch: w.pitch || 0 };
-        this.yaw = w.heading; this.gimbal = -0.18; this.vel.set(0, 0, 0); this.tiltP = this.tiltR = 0;
+        this.yaw = w.heading; this.gimbal = 0; this.vel.set(0, 0, 0); this.tiltP = this.tiltR = 0;
         this.range = RANGE[c.kind]; this.imperial = c.units === 'imperial';
         // camera leaves the walker's head (world space); the walker freezes (its input is swapped for a dead one)
         this.saved = { fov: cam.fov, parent: cam.parent, r3dPlayer: g.r3d?.player ?? null, lookAllowed: g.input.lookAllowed };
@@ -205,7 +226,7 @@ export class Drone {
         this._freezeWalker(true);
         // models
         if (!this.model) this.model = buildDroneModel();
-        if (!this.homeMk) this.homeMk = buildHomeMarker();
+        if (!this.homeMk) this.homeMk = buildHomeMarker(c.kind === 'spot' ? c.session.spot.city : g.city?.id || 'bucharest', g.r3d?._seasonOverride || g.r3d?.weather?.season || seasonOf(g.nowDate?.()));
         c.scene.add(this.model); c.scene.add(this.homeMk);
         this.homeMk.position.set(w.x, this.home.y, w.z); this.homeMk.rotation.y = w.heading; this.homeMk.visible = false;
         this.handPos = this._hand();
@@ -222,7 +243,18 @@ export class Drone {
         return true;
     }
     /** H / ⌂: fly back over you and land */
-    returnHome(auto = false) { if (!this.active || this.phase !== 'fly') return; this.rth = true; this.autoRth = auto; this.warn(auto ? 'Battery low — returning home' : 'Returning home', 2.5); }
+    returnHome(auto = false) {
+        if (!this.active || this.phase !== 'fly') return;
+        const dock = this._returnDock(), boundary = this.c.boundary;
+        this.rthPath = boundary ? boundary.route(this.pos, dock, { home: this.home, range: this.range }) : [{ x: dock.x, z: dock.z }];
+        if (!this.rthPath) { this.rth = false; this.warn('No safe route home — fly back toward the playable area', 3, 'hot'); return; }
+        this.rthAltitude = Math.max(this.pos.y, this.home.y + 30);
+        this.rth = true; this.autoRth = auto; this.warn(auto ? 'Battery low — returning home' : 'Returning home', 2.5);
+    }
+    _returnDock() {
+        const h = this.home, dock = new THREE.Vector3(h.x - Math.sin(h.heading) * 2.4, h.y + EYE + 2.6, h.z - Math.cos(h.heading) * 2.4);
+        this.c.boundary?.project(dock); return dock;
+    }
     /** G / ⤓: come back and land in your hand (RTH, then the dock animation) */
     land() { if (!this.active) return; if (this.phase === 'fly') this.returnHome(false); else if (this.phase === 'lift') { this.phase = 'fly'; this.returnHome(false); } }
     /** T / ⇩: scout-and-travel — you are moved (on foot) to walkable ground under the drone, then it lands in your hand */
@@ -255,6 +287,7 @@ export class Drone {
         const g = this.g, c = this.c, cam = g.camera;
         if (g.photo?.active) { try { g.photo.close(); } catch { /* ignore */ } }
         this.model?.parent?.remove(this.model); this.homeMk?.parent?.remove(this.homeMk);
+        this.homeMk?.userData.dispose?.(); this.homeMk = null;
         cam.parent?.remove(cam);
         const w = c?.walker;
         if (w?.rig && w.active !== false) { w.rig.add(cam); cam.position.set(0, 0, 0); cam.rotation.set(0, 0, 0); }
@@ -356,7 +389,7 @@ export class Drone {
         // camera: look up at it, then follow it up into the drone view
         const lookAt = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().lookAt(eye, m, new THREE.Vector3(0, 1, 0)));
         const q0 = this._walkerQuat();
-        this.yaw = h.heading; this.gimbal = -0.18;
+        this.yaw = h.heading; this.gimbal = 0;
         if (this.t < 1.4) { cam.position.copy(eye); const qh = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().lookAt(eye, this.handPos.clone().add(new THREE.Vector3(0, 0.12, 0)), new THREE.Vector3(0, 1, 0))); cam.quaternion.copy(q0).slerp(qh, 0.55 * ease(this.t / 0.4)).slerp(lookAt, ease((this.t - 0.5) / 0.9)); }
         else {
             const k = ease((this.t - 1.4) / 1.5);
@@ -367,64 +400,87 @@ export class Drone {
         this.homeMk.visible = cam.position.distanceTo(eye) > 2.5;
         for (const f of this.homeMk.userData.figure) f.visible = this.homeMk.visible;
         if (this.t > 2.2) document.body.classList.remove('drone-lift');
-        if (u >= 1) { this.phase = 'fly'; this.pos.copy(fly0); this.model.visible = false; this.t = 0; this.warn(`${MODES[this.mode].name} mode · ${this._fmtDist(this.range)} range · ${this.imperial ? '400 ft' : `${CEIL_M} m`} ceiling`, 3.5); }
+        if (u >= 1) { this.phase = 'fly'; this.pos.copy(fly0); this.c.boundary?.constrain(this.pos, this.vel); this.model.visible = false; this.t = 0; this.warn(`${MODES[this.mode].name} mode · ${this._fmtDist(this.range)} range · ${this.imperial ? '400 ft' : `${CEIL_M} m`} ceiling`, 3.5); }
     }
     _fly(dt) {
+        // Looking upward/downward uses the full mode speed too. Sweep physical
+        // collision at short intervals, including a boosted climb through a roof.
+        const maxSpeed = Math.max(this.vel.length(), this.rth ? Math.hypot(16, 6) : MODES[this.mode].h * (this.g.input.shift ? BOOST : 1));
+        const steps = Math.max(1, Math.ceil(dt * maxSpeed / COLLISION_STEP));
+        if (steps > 1) { for (let i = 0; i < steps && this.phase === 'fly'; i++) this._fly(dt / steps); return; }
         const g = this.g, c = this.c, inp = g.input, cam = g.camera, h = this.home;
+        const previous = { x: this.pos.x, z: this.pos.z };
         const photo = !!g.photo?.active;
         // look: yaw + gimbal tilt
         const lk = inp.takeLook();
-        this.yaw -= lk.dx * 0.0022; this.gimbal = clamp(this.gimbal - lk.dy * 0.0022, -Math.PI / 2, 0.35);
-        let fwd = 0, side = 0, turn = 0, vert = 0, boost = false;
+        this.yaw -= lk.dx * 0.0022; this.gimbal = clamp(this.gimbal - lk.dy * 0.0022, -Math.PI / 2, Math.PI / 2);
+        let fwd = 0, side = 0, boost = false;
         if (!photo && !this.rth) {
-            const k = inp.keys, mouse = inp.lookHeld || inp.locked;
-            if (k.has('KeyW') || k.has('ArrowUp')) fwd += 1;
-            if (k.has('KeyS') || k.has('ArrowDown')) fwd -= 1;
-            const a = k.has('KeyA'), d = k.has('KeyD');
-            if (mouse) side = (d ? 1 : 0) - (a ? 1 : 0); else turn += (d ? 1 : 0) - (a ? 1 : 0);
-            turn += (k.has('ArrowRight') ? 1 : 0) - (k.has('ArrowLeft') ? 1 : 0);
-            if (k.has('Space') || k.has('KeyE') || k.has('PageUp') || this.hold.up) vert += 1;
-            if (k.has('KeyQ') || k.has('KeyC') || k.has('PageDown') || this.hold.down) vert -= 1;
+            const k = inp.keys;
+            fwd = (k.has('KeyW') ? 1 : 0) - (k.has('KeyS') ? 1 : 0);
+            side = (k.has('KeyD') ? 1 : 0) - (k.has('KeyA') ? 1 : 0);
             boost = inp.shift;
             if (this.stick.x || this.stick.y) { fwd = -this.stick.y; side = this.stick.x; }
-            else if (!k.size && inp.touch) { if (inp.touch.throttle) fwd = inp.touch.throttle; if (inp.touch.steer) turn = inp.touch.steer; }
+            else if (inp.touch?.stick?.active) {
+                const stick = inp.touch.stick, mag = Math.hypot(stick.x, stick.y), response = mag > 0.12 ? (Math.min(1, mag) - 0.12) / (0.88 * mag) : 0;
+                fwd = -stick.y * response; side = stick.x * response;
+            }
             inp.take('Space'); inp.take('KeyE');
         }
-        this.yaw -= turn * 1.5 * dt;
-        const M = MODES[this.mode], hs = M.h * (boost ? BOOST : 1), vs = M.v * (boost ? 1.5 : 1);
+        const M = MODES[this.mode], hs = M.h * (boost ? BOOST : 1);
         const fx = -Math.sin(this.yaw), fz = -Math.cos(this.yaw), rx = -fz, rz = fx;
-        let tx = fx * fwd + rx * side, tz = fz * fwd + rz * side; const tl = Math.hypot(tx, tz); if (tl > 1) { tx /= tl; tz /= tl; }
-        tx *= hs; tz *= hs; let ty = vert * vs;
+        // Follow the viewing heading in all three dimensions. The sideways axis stays
+        // level, even when looking straight up/down; diagonal input keeps one speed.
+        const pitchCos = Math.cos(this.gimbal);
+        let tx = fx * pitchCos * fwd + rx * side, tz = fz * pitchCos * fwd + rz * side, ty = Math.sin(this.gimbal) * fwd;
+        const tl = Math.hypot(tx, ty, tz); if (tl > 1) { tx /= tl; ty /= tl; tz /= tl; }
+        tx *= hs; ty *= hs; tz *= hs;
         // return home: climb to a safe height, fly over you, descend in front of you
         const dHome = Math.hypot(this.pos.x - h.x, this.pos.z - h.z), gy0 = c.groundAt(this.pos.x, this.pos.z, this.pos.y);
         if (this.rth) {
-            const dock = new THREE.Vector3(h.x - Math.sin(h.heading) * 2.4, h.y + EYE + 2.6, h.z - Math.cos(h.heading) * 2.4);
-            const dx = dock.x - this.pos.x, dz = dock.z - this.pos.z, dd = Math.hypot(dx, dz);
-            const safe = Math.max(h.y + 30, gy0 + 30);
+            const dock = this._returnDock();
+            // Each leg was certified against the buffered playable shape. Slow at bends
+            // instead of cutting across a concavity with the old straight-line return.
+            const path = this.rthPath || [{ x: dock.x, z: dock.z }];
+            while (path.length > 1 && Math.hypot(path[0].x - this.pos.x, path[0].z - this.pos.z) < 0.8) path.shift();
+            const target = path[0] || dock, dx = target.x - this.pos.x, dz = target.z - this.pos.z, dd = Math.hypot(dx, dz);
+            const remaining = path.length > 1 ? Infinity : dd;
+            const safe = Math.max(this.rthAltitude || h.y + 30, gy0 + 30);
             const sp = Math.min(16, dd * 0.9 + 1.2);
-            if (dd > 25 && this.pos.y < safe - 1) { tx = 0; tz = 0; ty = 6; }
-            else { tx = dd > 0.01 ? dx / dd * sp : 0; tz = dd > 0.01 ? dz / dd * sp : 0; ty = clamp((dd > 25 ? safe : dock.y) - this.pos.y, -6, 6); }
+            if (remaining > 25 && this.pos.y < safe - 1) { tx = 0; tz = 0; ty = 6; }
+            else { tx = dd > 0.01 ? dx / dd * sp : 0; tz = dd > 0.01 ? dz / dd * sp : 0; ty = clamp((remaining > 25 ? safe : dock.y) - this.pos.y, -6, 6); }
             const wantYaw = dd > 4 ? Math.atan2(-dx, -dz) : h.heading + Math.PI; // face you on the last metres
             let dy = wantYaw - this.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); this.yaw += dy * Math.min(1, dt * 2.5);
             this.gimbal = lerp(this.gimbal, dd > 25 ? -0.35 : -0.25, Math.min(1, dt * 2));
-            if (dd < 0.8 && Math.abs(dock.y - this.pos.y) < 0.6) { this._startDock(); return; }
+            if (path.length <= 1 && dd < 0.8 && Math.abs(dock.y - this.pos.y) < 0.6) { this._startDock(); return; }
         }
         // inertia
         const k = 1 - Math.exp(-(this.rth ? 3 : 2.2) * dt);
-        this.vel.x += (tx - this.vel.x) * k; this.vel.z += (tz - this.vel.z) * k; this.vel.y += (ty - this.vel.y) * (1 - Math.exp(-3.5 * dt));
+        this.vel.x += (tx - this.vel.x) * k; this.vel.z += (tz - this.vel.z) * k; this.vel.y += (ty - this.vel.y) * (this.rth ? 1 - Math.exp(-3.5 * dt) : k);
         const nx = this.pos.x + this.vel.x * dt, nz = this.pos.z + this.vel.z * dt; let ny = this.pos.y + this.vel.y * dt;
         this.pos.x = nx; this.pos.z = nz;
-        // limits: range around you, altitude ceiling, ground, district bounds
+        // limits: range around you, altitude ceiling, ground, then the playable flight area
         const rd = Math.hypot(this.pos.x - h.x, this.pos.z - h.z);
         if (rd > this.range) { const s = this.range / rd; this.pos.x = h.x + (this.pos.x - h.x) * s; this.pos.z = h.z + (this.pos.z - h.z) * s; const ux = (this.pos.x - h.x) / this.range, uz = (this.pos.z - h.z) / this.range, vr = this.vel.x * ux + this.vel.z * uz; if (vr > 0) { this.vel.x -= ux * vr; this.vel.z -= uz * vr; } this.warn(`Max range ${this._fmtDist(this.range)} — press H to return home`, 1.2, 'hot'); }
         else if (rd > this.range * 0.9) this.warn('Approaching max range', 0.6);
-        const b = c.bounds; if (b) { this.pos.x = clamp(this.pos.x, b.minX + 20, b.maxX - 20); this.pos.z = clamp(this.pos.z, b.minZ + 20, b.maxZ - 20); }
         const gy = c.groundAt(this.pos.x, this.pos.z, ny);
         const ceil = gy + (this.imperial ? 121.9 : CEIL_M);
         if (ny > ceil) { ny = ceil; if (this.vel.y > 0) this.vel.y = 0; this.warn(this.imperial ? 'Altitude limit 400 ft (FAA recreational ceiling)' : `Altitude limit ${CEIL_M} m (EU open category)`, 1.2); }
         if (ny < gy + 0.6) { ny = gy + 0.6; if (this.vel.y < 0) this.vel.y = 0; }
         this.pos.y = ny;
-        this._collide(c);
+        this._collide(c, !!c.boundary);
+        // The geofence runs after physical pushes, and at every height (including above
+        // the driving-mask walls). Projection removes outward speed, preserving slides.
+        if (c.boundary?.constrain(this.pos, this.vel, previous)) this.warn(`Flight area edge · ${FLIGHT_GRACE} m beyond the playable area`, 0.6);
+        const finalRange = Math.hypot(this.pos.x - h.x, this.pos.z - h.z);
+        if (finalRange > this.range) {
+            // Keep the corrected step inside both the range disk and the flight domain.
+            let lo = 0, hi = 1;
+            for (let i = 0; i < 18; i++) { const t = (lo + hi) / 2, x = previous.x + (this.pos.x - previous.x) * t, z = previous.z + (this.pos.z - previous.z) * t; if (Math.hypot(x - h.x, z - h.z) <= this.range) lo = t; else hi = t; }
+            this.pos.x = previous.x + (this.pos.x - previous.x) * lo; this.pos.z = previous.z + (this.pos.z - previous.z) * lo;
+            const ux = (this.pos.x - h.x) / this.range, uz = (this.pos.z - h.z) / this.range, outward = this.vel.x * ux + this.vel.z * uz;
+            if (outward > 0) { this.vel.x -= ux * outward; this.vel.z -= uz * outward; }
+        }
         // body tilt into the motion (pitch forward / roll sideways), the gimbal keeps the camera level
         const vf = this.vel.x * fx + this.vel.z * fz, vr2 = this.vel.x * rx + this.vel.z * rz;
         this.tiltP = lerp(this.tiltP, clamp(-vf / 30, -0.45, 0.45), Math.min(1, dt * 4));
@@ -435,20 +491,17 @@ export class Drone {
         const sp = Math.hypot(this.vel.x, this.vel.z);
         this.battery = Math.max(0, this.battery - dt / BATTERY_S * (1 + sp / 40 + Math.abs(this.vel.y) / 12));
         if (this.battery < RTH_LOW && !this.rth) this.returnHome(true);
-        if (this.battery <= 0.02 && this.rth) { this.warn('Battery empty — landing', 2, 'hot'); this._startDock(); return; }
+        if (this.battery <= 0.02 && this.rth) this.warn('Battery reserve — returning to land', 2, 'hot');
         this.recT += dt; this.dist += sp * dt;
         this.maxD = Math.max(this.maxD, rd); this.maxAlt = Math.max(this.maxAlt, this.pos.y - gy);
         this.homeMk.visible = true; for (const f of this.homeMk.userData.figure) f.visible = true;
         void dHome;
     }
-    _collide(c) {
+    _collide(c, flightBoundary = false) {
         const C = c.colliders; if (!C) return;
         const y = this.pos.y, one = [null];
         const test = (b) => {
-            // The stadium's coarse car collider fills its open bowl. The drone
-            // can fly over it and descend into the actual pitch, without opening
-            // the surrounding stands or changing car/walker collisions.
-            if (b.landmark === 'dinamo' && this.g.football?.allowsFlightAt(this.pos)) return;
+            if (flightBoundary && b.kind === 'boundary') return; // replaced by the height-independent flight domain
             let top;
             if (b.wall) top = Math.max(b.y1a ?? 0, b.y1b ?? 0);
             else if (b.y1 !== undefined) top = b.y1;
@@ -457,7 +510,7 @@ export class Drone {
             if (b.y0 !== undefined && y < b.y0 - 0.4) return;
             if (b.yMax !== undefined) return; // bridge piers etc.: only for traffic below the deck
             one[0] = b;
-            const r = collideBuildings(one, this.pos.x, this.pos.z, 0.35, b.wall ? y : undefined);
+            const r = collideBuildings(one, this.pos.x, this.pos.z, 0.35, y - 0.35, 0.7);
             if (r) { this.pos.x += r.px * 1.01; this.pos.z += r.pz * 1.01; const l = Math.hypot(r.px, r.pz) || 1, nx = r.px / l, nz = r.pz / l, vn = this.vel.x * nx + this.vel.z * nz; if (vn < 0) { this.vel.x -= nx * vn; this.vel.z -= nz * vn; } }
         };
         try { if (C.query) C.query(this.pos.x, this.pos.z, 2, test); else for (const b of C) test(b); } catch { /* ignore */ }
@@ -519,10 +572,6 @@ export class Drone {
             else if (k === 'photo') this.g.photo?.open?.();
             b.blur();
         });
-        for (const b of el.querySelectorAll('[data-hold]')) {
-            const k = b.dataset.hold, on = (e) => { e.preventDefault(); this.hold[k] = true; b.classList.add('on'); }, off = (e) => { e.preventDefault?.(); this.hold[k] = false; b.classList.remove('on'); };
-            b.addEventListener('pointerdown', on); b.addEventListener('pointerup', off); b.addEventListener('pointerleave', off); b.addEventListener('pointercancel', off);
-        }
         // virtual stick (touch / mouse drag): forward/back + strafe
         const st = this.q.stick; let pid = null, cx = 0, cy = 0;
         st.addEventListener('pointerdown', (e) => { pid = e.pointerId; const r = st.getBoundingClientRect(); cx = r.left + r.width / 2; cy = r.top + r.height / 2; st.setPointerCapture?.(pid); move(e); e.preventDefault(); });
@@ -565,7 +614,7 @@ export class Drone {
         // horizon: the aircraft attitude (roll + pitch) against the camera's gimbal tilt
         const s = this._sway(), roll = this.tiltR + s.r * 3, pitchPx = (this.gimbal + this.tiltP * 0.3) * 260;
         q.hline.style.transform = `translateY(${clamp(pitchPx, -220, 220)}px) rotate(${(-roll / DEG).toFixed(2)}deg)`;
-        const gd = Math.round(this.gimbal / DEG); q.gim.textContent = `${gd}°`; q.gimI.style.top = `${clamp((-gd + 20) / 110 * 100, 0, 100)}%`;
+        const gd = Math.round(this.gimbal / DEG); q.gim.textContent = `${gd}°`; q.gimI.style.top = `${clamp((90 - gd) / 180 * 100, 0, 100)}%`;
         this._drawCompass();
     }
     _drawCompass() {

@@ -10,6 +10,8 @@ import { FullScreenQuad } from '../vendor/addons/Pass.js';
 import { Rain, Snow, solarPosition, dirFromElAz, skyState, classifyWMO, fetchLiveWeather, climateWeather, nearestClimate, weatherTargets, seasonState, WEATHER_PRESETS, WEATHER_TTL_MS } from './weather.js';
 import { setVehicleEnvMap, setVehicleSnow } from './vehicles.js';
 import { setWaterEnv, tickWater } from './water.js';
+import { progressivePMREM, supportsProgressivePMREM } from './progressive-pmrem.js';
+import { CockpitDisplays, displayPixelRatio } from './cockpit-displays.js';
 
 // ============================================================================
 //  Renderer3D — WebGL renderer + sky + sun/shadows + post-processing + weather
@@ -434,7 +436,8 @@ export class Renderer3D {
      */
     constructor(canvas, opts = {}) {
         this.opts = { autoGauges: false, envLighting: 0.3, ...opts };
-        const r = this._renderer = opts.renderer || new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance', stencil: false, reverseDepthBuffer: opts.reverseDepth === true });
+        // AA belongs to the adaptive world target, not the full-DPR presentation buffer.
+        const r = this._renderer = opts.renderer || new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance', stencil: false, reverseDepthBuffer: opts.reverseDepth === true });
         r.shadowMap.enabled = true;
         r.shadowMap.type = THREE.PCFSoftShadowMap;
         // AgX: photographic toe (ACES-fitted crushed shaded asphalt to ~0.2 % reflectance on screen, review #1);
@@ -503,6 +506,7 @@ export class Renderer3D {
         this.outputPass = new OutputPass();
         this.finalPass = new ShaderPass(FinalShader);
         this.bloomPass = null; this.smaaPass = null; this.fxaaPass = null; this.gtaoPass = null;
+        this.cockpitDisplays = new CockpitDisplays(r, this.composer);
 
         // adaptive quality state
         this._ema = 16.7; this._slowT = 0; this._fastT = 0; this._settle = 2; this._dts = []; this._block = {}; this._backoff = {};
@@ -513,6 +517,25 @@ export class Renderer3D {
     }
 
     get renderer() { return this._renderer; }
+
+    /** District replacement: drop scene references without resizing the persistent light pool or cockpit targets. */
+    releaseScene() {
+        this._cancelEnvJob();
+        const retained = [this.sun, this.sun.target, this.probe, this.sky, this._lampGroup, this._discs].filter(Boolean);
+        for (const o of retained) o.removeFromParent();
+        for (const k of ['rain', 'snow']) if (this[k]) { this[k].mesh.removeFromParent(); this[k].dispose(); this[k] = null; }
+        this._wxGen++; this._wxBusy = false; this._wxLoc = ''; // discard the old response; setClock refreshes the new place
+        this._crowns = []; this._nightMats = []; this._lampHead = null;
+        this.lamps = this._lampDens = this._lampTint = this._lampReal = null; this._lampNear = [];
+        for (const sl of this._lampSlots) { sl.lamp = -1; sl.w = sl.target = 0; sl.light.intensity = 0; }
+        this.scene = null; this.player = null; this.renderPass.scene = null;
+        this.cockpitDisplays.setPlayer(null);
+        if (this.gtaoPass) this.gtaoPass.scene = null;
+        this._envA?.dispose(); this._envB?.dispose(); this._waterEnv?.dispose();
+        this._envA = this._envB = this._waterEnv = null; this._envFade = 1;
+        setWaterEnv(null, 1);
+        return retained;
+    }
 
     // ------------------------------------------------------------------ scene
     /**
@@ -537,10 +560,14 @@ export class Renderer3D {
         this._fogBase = edge ? 3.0 / edge : 0;
         scene.fog = new THREE.FogExp2(env.fog, Math.max(this._fogBase, 3.912 / 15000));
         this.setVegetation(o.vegetation || scene.userData?.vegetation || null);
-        // climate state right away; live data replaces it when it arrives. Before the first setClock the place is not
-        // known yet (hosts call setClock right after setScene): no live request for a default place (shared API quota)
-        if (!this._wx) this._refreshWeather({ live: !!this.clock });
+        // Establish the new place's clock and weather before baking its reflections. Building an environment with
+        // the previous place's lighting makes the first frame bake it again after the host sets the actual clock.
         scene.background = new THREE.Color(env.fog);
+        this._wxInstant = true;
+        if ('weather' in o) this._wxOverride = typeof o.weather === 'string' && WEATHER_PRESETS[o.weather] ? o.weather : null;
+        if (o.clock) this.setClock(o.clock);
+        // setClock refreshes a changed location; a same-location scene still needs its instantaneous weather state.
+        if (!this._wx || this._wxInstant) this._refreshWeather({ live: !!this.clock });
         this._applyLighting(true);
         // environment map for reflections (vehicle paint, glass, wet roads)
         this._buildEnvMap(true);
@@ -1138,6 +1165,7 @@ export class Renderer3D {
 
     setPlayer(player) {
         this.player = player; this._applyRainToCockpit(); this._updateHeadlights();
+        this.cockpitDisplays.setPlayer(player, this.camera, this.scene, this.tier.post === 'off');
         this.camera?.layers.enable(1);
         this._cabinK = -1; this._updateNight(0);
     }
@@ -1149,10 +1177,11 @@ export class Renderer3D {
      * and never changes material programs. immediate = jump (new scene).
      */
     _buildEnvMap(immediate = false) {
+        this._cancelEnvJob();
         const envScene = new THREE.Scene();
-        const dome = new THREE.Mesh(this.sky.geometry, this.sky.material);
+        // Freeze all sky uniforms while the six faces are captured on different frames.
+        const dome = new THREE.Mesh(this.sky.geometry, this.sky.material.clone());
         envScene.add(dome);
-        // a hint of ground + city mass below the horizon so reflections are not pure sky
         const ground = new THREE.Mesh(new THREE.CircleGeometry(90, 24), new THREE.MeshBasicMaterial({ color: new THREE.Color(this.env.asphalt || '#444').lerp(new THREE.Color(this.env.fog), 0.25) }));
         ground.rotation.x = -Math.PI / 2; ground.position.y = -2; envScene.add(ground);
         const blocks = new THREE.MeshBasicMaterial({ color: new THREE.Color(this.env.hemiGround).multiplyScalar(0.7) });
@@ -1160,19 +1189,45 @@ export class Renderer3D {
             const a = i / 14 * Math.PI * 2, b = new THREE.Mesh(new THREE.BoxGeometry(14, 6 + (i * 7) % 11, 14), blocks);
             b.position.set(Math.cos(a) * 60, 0, Math.sin(a) * 60); envScene.add(b);
         }
-        const rt = this._pmrem.fromScene(envScene, 0, 0.5, 300);
+        const job = { scene: envScene, dome, ground, blocks, waterColor: (this.scene?.fog?.color || new THREE.Color(this.env.fog)).clone().multiplyScalar(0.45) };
         this._envCloud = this._wx ? this._wx.cloud : null;
-        // water gets a sky-only environment: the stand-in city boxes of the shared env read as hard slabs lying on a
-        // mirror-like surface; real shore buildings come back as a soft dark band (ground ring) below the horizon
-        {
-            for (const o of [...envScene.children]) if (o !== dome && o !== ground) { envScene.remove(o); o.geometry?.dispose(); }
-            ground.material.color.copy(this.scene?.fog?.color || new THREE.Color(this.env.fog)).multiplyScalar(0.45);
-            ground.position.y = -6;
-            const wrt = this._pmrem.fromScene(envScene, 0.004, 0.5, 300);
-            this._waterEnv?.dispose(); this._waterEnv = wrt; setWaterEnv(wrt.texture, 1);
+        if (!immediate && supportsProgressivePMREM(this._pmrem)) {
+            job.task = progressivePMREM(this._renderer, this._pmrem, envScene);
+            this._envJob = job;
+            return;
         }
-        envScene.traverse(o => { if (o !== dome && o.geometry) o.geometry.dispose(); });
-        blocks.dispose(); ground.material.dispose();
+        // New scenes are baked before their first draw. An incompatible future Three revision keeps the native path.
+        const rt = this._pmrem.fromScene(envScene, 0, 0.5, 300);
+        this._prepareWaterEnv(job);
+        const water = this._pmrem.fromScene(envScene, 0.004, 0.5, 300);
+        this._disposeEnvScene(job);
+        this._finishEnvMap(rt, water, immediate);
+    }
+    _prepareWaterEnv(job) {
+        for (const o of [...job.scene.children]) if (o !== job.dome && o !== job.ground) { job.scene.remove(o); o.geometry.dispose(); }
+        job.ground.material.color.copy(job.waterColor); job.ground.position.y = -6;
+    }
+    _disposeEnvScene(job) {
+        job.scene.traverse(o => { if (o !== job.dome) o.geometry?.dispose(); });
+        job.dome.material.dispose(); job.blocks.dispose(); job.ground.material.dispose();
+    }
+    _cancelEnvJob() {
+        const job = this._envJob; if (!job) return;
+        this._envJob = null; job.task.dispose(); job.rt?.dispose(); this._disposeEnvScene(job);
+    }
+    _stepEnvJob() {
+        const job = this._envJob; if (!job || !job.task.step()) return;
+        if (!job.rt) {
+            job.rt = job.task.target;
+            this._prepareWaterEnv(job);
+            job.task = progressivePMREM(this._renderer, this._pmrem, job.scene, 0.004);
+        } else {
+            this._envJob = null; this._disposeEnvScene(job);
+            this._finishEnvMap(job.rt, job.task.target, false);
+        }
+    }
+    _finishEnvMap(rt, water, immediate) {
+        this._waterEnv?.dispose(); this._waterEnv = water; setWaterEnv(water.texture, 1);
         let out = this._envOut;
         if (!out || out.width !== rt.width || out.height !== rt.height) {
             out?.dispose();
@@ -1227,10 +1282,14 @@ export class Renderer3D {
         const t = this.tier = QUALITY_LADDER[level];
         const r = this._renderer;
         const pr = Math.min(typeof devicePixelRatio !== 'undefined' ? devicePixelRatio : 1, t.pr);
-        r.setPixelRatio(pr);
-        r.setSize(this.width, this.height, false);
+        this._worldPixelRatio = pr;
+        const outputPR = displayPixelRatio(pr, globalThis.devicePixelRatio, this.width, this.height, this.cockpitDisplays.active);
+        if (r.getPixelRatio() !== outputPR) r.setPixelRatio(outputPR);
+        const cssSize = r.getSize(this._bufferCSSSize ||= new THREE.Vector2());
+        if (cssSize.x !== this.width || cssSize.y !== this.height) r.setSize(this.width, this.height, false);
         this.composer.setPixelRatio(pr);
         this.composer.setSize(this.width, this.height);
+        this.cockpitDisplays.resize(this.width, this.height, pr);
         // shadows
         if (t.shadow) {
             if (this.sun.shadow.mapSize.x !== t.shadow) { this.sun.shadow.map?.dispose(); this.sun.shadow.map = null; this.sun.shadow.mapSize.set(t.shadow, t.shadow); }
@@ -1240,8 +1299,13 @@ export class Renderer3D {
             const texel = span / t.shadow;
             this.sun.shadow.bias = -0.0004; this.sun.shadow.normalBias = texel * 0.9;
             this.sun.shadow.radius = 3;
-        } else this.sun.castShadow = false;
+        } else {
+            this.sun.castShadow = false;
+            this.sun.shadow.map?.dispose(); this.sun.shadow.map = null;
+            this.sun.shadow.mapPass?.dispose(); this.sun.shadow.mapPass = null;
+        }
         this._buildPasses();
+        this.cockpitDisplays.prewarm(this.camera, this.scene, t.post === 'off');
         if (this._lampGroup) this._syncLampPool();
         this._settle = 2; this._slowT = 0; this._fastT = 0;
         Object.assign(this.stats, { pixelRatio: pr, shadows: t.shadow, post: t.post + (t.ao ? '+ao' : ''), quality: this.auto ? `auto (${t.name})` : t.name, auto: this.auto, level });
@@ -1249,15 +1313,21 @@ export class Renderer3D {
     _buildPasses() {
         const t = this.tier, c = this.composer, w = this.width, h = this.height;
         for (const p of [...c.passes]) c.removePass(p);
+        // Removed passes still own render targets. Auto/high → low must release those allocations.
+        for (const [name, needed] of [['bloomPass', t.post === 'full'], ['smaaPass', t.post !== 'off' && t.aa === 'smaa'], ['gtaoPass', t.post !== 'off' && t.ao]]) {
+            if (!needed && this[name]) { this[name].dispose(); this[name] = null; }
+        }
         if (t.post === 'off') return;
         c.addPass(this.renderPass);
+        c.addPass(this.cockpitDisplays.capturePass);
         if (t.ao && this.scene && this.camera) { // (GTAO needs a camera: an 'ultra' set before the first scene is built at setScene)
             if (!this.gtaoPass) this._gtaoLoading ??= import('../vendor/addons/GTAOPass.js').then(({ GTAOPass }) => {
+                if (!this.tier.ao || !this.scene || !this.camera) return;
                 this.gtaoPass = new GTAOPass(this.scene, this.camera, w, h);
                 this.gtaoPass.updateGtaoMaterial({ radius: 0.6, distanceExponent: 1.5, thickness: 1, scale: 1 });
                 this.gtaoPass.blendIntensity = 0.85;
                 if (this.tier.ao) this._buildPasses();
-            });
+            }).finally(() => { this._gtaoLoading = null; });
             if (this.gtaoPass) { this.gtaoPass.scene = this.scene; this.gtaoPass.camera = this.camera; c.addPass(this.gtaoPass); }
         }
         if (t.post === 'full') {
@@ -1268,7 +1338,7 @@ export class Renderer3D {
         c.addPass(this.finalPass);
         this.finalPass.uniforms.uGrain.value = t.post === 'full' ? 0.035 : 0.0;
         if (t.aa === 'smaa') {
-            if (!this.smaaPass) this.smaaPass = new SMAAPass(w * this._renderer.getPixelRatio(), h * this._renderer.getPixelRatio());
+            if (!this.smaaPass) this.smaaPass = new SMAAPass(w * this._worldPixelRatio, h * this._worldPixelRatio);
             c.addPass(this.smaaPass);
         } else if (t.aa === 'fxaa') {
             if (!this.fxaaPass) this.fxaaPass = new ShaderPass(FXAAShader);
@@ -1278,7 +1348,7 @@ export class Renderer3D {
         this._updateResUniforms();
     }
     _updateResUniforms() {
-        const pr = this._renderer.getPixelRatio();
+        const pr = this._worldPixelRatio;
         this.finalPass.uniforms.uRes.value.set(this.width * pr, this.height * pr);
         if (this.fxaaPass) this.fxaaPass.material.uniforms.resolution.value.set(1 / (this.width * pr), 1 / (this.height * pr));
     }
@@ -1287,6 +1357,7 @@ export class Renderer3D {
         this.width = w; this.height = h;
         this._renderer.setSize(w, h, false);
         this.composer.setSize(w, h);
+        this.cockpitDisplays.resize(w, h, this._worldPixelRatio);
         this._updateResUniforms();
         this._settle = Math.max(this._settle, 1);
     }
@@ -1313,10 +1384,11 @@ export class Renderer3D {
             this._envT -= dt;
             const e0 = this._envEl, e1 = this.sunElevation;
             const dc = this._wx ? Math.abs(this._wx.cloud - (this._envCloud ?? this._wx.cloud)) : 0;
-            if (this._envT <= 0 && ((Math.abs(e1 - e0) > ENV_REBUILD_DEG && !(e0 < -14 && e1 < -14)) || dc > 0.2)) {
+            if (!this._envJob && this._envT <= 0 && ((Math.abs(e1 - e0) > ENV_REBUILD_DEG && !(e0 < -14 && e1 < -14)) || dc > 0.2)) {
                 this._envT = 2; this._buildEnvMap(); this._envEl = e1;
             }
         }
+        this._stepEnvJob();
         this._stepEnvFade(dt);
         this._updateNight(dt);
         this._updateSun(T.cam);
@@ -1346,8 +1418,11 @@ export class Renderer3D {
         // render
         const fu = this.finalPass.uniforms; fu.uTime.value = this.time;
         this.sun.shadow.needsUpdate = true;
-        if (this.tier.post === 'off') this._renderer.render(scene, camera);
+        this.cockpitDisplays.begin(scene, camera, p, this._worldPixelRatio, this.width, this.height);
+        if (this.tier.post === 'off') this.cockpitDisplays.renderLow(scene, camera, this.outputPass);
         else this.composer.render(dt);
+        this.cockpitDisplays.render(scene, camera);
+        this.displayStats = this.cockpitDisplays.stats;
         // stats
         const info = this._renderer.info;
         this.stats.drawCalls = info.render.calls; this.stats.triangles = info.render.triangles;
@@ -1466,6 +1541,8 @@ export class Renderer3D {
         }
     }
     dispose() {
+        this._cancelEnvJob();
+        this.cockpitDisplays.dispose();
         this._wxGen++; this.snow?.dispose();
         this.composer.dispose?.(); this._envOut?.dispose(); this._envA?.dispose(); this._envB?.dispose(); this._envQuad?.dispose(); this._pmrem.dispose(); this.rain?.dispose();
     }

@@ -1,0 +1,27 @@
+== inside: ALL valid positive-area way/part source identities 810/810 (100.0 %); topology 810/810 (100.0 %)
+== inside: 757 OSM footprints ≥ 25 m² (748 ≥ 40 m², not sheds/garages; legacy comparison subset)
+  matched      748/748 (100.0 %)
+  area kept    median 1.00, < 0.6 for 0
+  centroid off median 0.0 m, > 3 m for 0
+  literal positive OSM total heights exact within0.011m: 121/121 (100.0 %)
+  literal positive OSM storey counts exact: 250/250 (100.0 %)
+  levels-only metre ESTIMATES: eaves within ±25%/2.5m of generic3m/storey (diagnostic, not source-tag fidelity): 226/226 (100.0 %)
+  roof flat/pitched agrees with the aerial survey: 392/395 (99.2 %)
+== ring: ALL valid positive-area way/part source identities 4832/4832 (100.0 %); topology 4832/4832 (100.0 %)
+== ring: 4210 OSM footprints ≥ 25 m² (4163 ≥ 40 m², not sheds/garages; legacy comparison subset)
+  matched      4163/4163 (100.0 %)
+  area kept    median 1.00, < 0.6 for 0
+  centroid off median 0.0 m, > 3 m for 0
+  literal positive OSM total heights exact within0.011m: 899/899 (100.0 %)
+  literal positive OSM storey counts exact: 897/897 (100.0 %)
+  levels-only metre ESTIMATES: eaves within ±25%/2.5m of generic3m/storey (diagnostic, not source-tag fidelity): 806/806 (100.0 %)
+  roof flat/pitched agrees with the aerial survey: 2402/2414 (99.5 %)
+== inside multipolygon relations: 5/5 (100.0 %) source identity matched; courtyards 5/5 (100.0 %) count and source interior points preserved (legacy annular sectors excluded only without source identities)
+  relation literal positive OSM total heights exact within0.011m: 0/0 (0.0 %)
+  relation literal positive OSM storey counts exact: 3/3 (100.0 %)
+  relation levels-only metre ESTIMATES: eaves within ±25%/2.5m of generic3m/storey (diagnostic, not source-tag fidelity): 3/3 (100.0 %)
+== ring multipolygon relations: 35/35 (100.0 %) source identity matched; courtyards 31/31 (100.0 %) count and source interior points preserved (legacy annular sectors excluded only without source identities)
+  relation literal positive OSM total heights exact within0.011m: 4/4 (100.0 %)
+  relation literal positive OSM storey counts exact: 25/25 (100.0 %)
+  relation levels-only metre ESTIMATES: eaves within ±25%/2.5m of generic3m/storey (diagnostic, not source-tag fidelity): 21/21 (100.0 %)
+wrote /workspace/reality-pass/original-districts-refresh/delivery-4fd/romana.json

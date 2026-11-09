@@ -1,0 +1,24 @@
+{
+  "classification": "Source-backed retainer candidate; native heap retaining-path not captured.",
+  "sourceCommit": "c4fd6255f928101e27874f37776ed5be8d805827",
+  "file": "game/src/landmarks.js",
+  "facts": [
+    {
+      "line": 1371,
+      "code": "const FOUNTAIN_WATER = new Set();"
+    },
+    {
+      "line": 568,
+      "code": "FOUNTAIN_WATER.add(mesh)"
+    },
+    {
+      "line": 1366,
+      "code": "for (const m of FOUNTAIN_WATER) m.visible = !drained;"
+    }
+  ],
+  "noDeleteOrClearInSource": true,
+  "disposalBoundary": "sceneResources disposes geometry/materials then scene.clear(); no fountain-set unregister.",
+  "observedRetiredUniriiWorlds": 2,
+  "allOtherRetiredWorldsCollected": true,
+  "causalityPendingRootFixAndNativeReplay": true
+}

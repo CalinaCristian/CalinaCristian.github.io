@@ -1,0 +1,3 @@
+LOAD unirii
+STOP {"district":"unirii","failures":[{"stage":"beforeAttach","type":"unresolved-initial-admission"},{"stage":"beforeAttach","type":"true-height-vehicle-body-contact"},{"stage":"publicBeforeWarm","type":"unresolved-initial-admission"},{"stage":"publicBeforeWarm","type":"true-height-vehicle-body-contact"},{"stage":"firstWorld","type":"unresolved-initial-admission"},{"stage":"firstWorld","type":"true-height-vehicle-body-contact"},{"stage":"firstMain","type":"unresolved-initial-admission"},{"stage":"firstMain","type":"true-height-vehicle-body-contact"}],"admission":false}
+COMPLETE {"sourceCommit":"c4fd6255f928101e27874f37776ed5be8d805827","passedAllEight":false,"districts":1,"failures":8,"errors":0,"consoleErrors":0,"failedRequests":0}

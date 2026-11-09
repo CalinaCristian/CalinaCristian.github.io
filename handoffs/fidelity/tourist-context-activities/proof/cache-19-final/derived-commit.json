@@ -1,0 +1,14 @@
+{
+  "inputSourceCommit": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "derivedRuntimeCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "tree": "891b3610db1a42b1af20128f143c9db7de228526",
+  "durableTag": "fidelity-evidence/tourist-cache-09766dc-93b0d86",
+  "filesChanged": [
+    "game/data/spots/ballard-locks.json",
+    "game/data/spots/buc-old-town.json",
+    "game/data/spots/buc-herastrau.json"
+  ],
+  "scenesBaked": 19,
+  "runtimeFilesVerified": 302,
+  "sourceBodiesRetained": 6681
+}

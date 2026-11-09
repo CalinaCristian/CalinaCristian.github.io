@@ -102,7 +102,7 @@ const INIT = () => {
 
 // ---------------------------------------------------------------- one city in one page
 async function runCity(browser, base, city, ctxOut) {
-    const res = { city, groups: [], routes: [], sheets: [], issues: [], counts: {}, cockpit: [], offices: [], errors: [], log: [], timing: {} };
+    const res = { city, groups: [], routes: [], sheets: [], issues: [], counts: {}, cockpit: [], offices: [], errors: [], log: [], timing: {}, sweepPlanning: [] };
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
     await ctx.route(/api\.open-meteo\.com/, (route) => route.fulfill({ status: 200, contentType: 'application/json', body: '{"error":true,"reason":"visual QA: live weather disabled"}' }));
     const page = await ctx.newPage();
@@ -117,7 +117,7 @@ async function runCity(browser, base, city, ctxOut) {
     });
     const T = (k, t) => { res.timing[k] = (res.timing[k] || 0) + Math.round((Date.now() - t) / 1000); };
     let t = Date.now();
-    await page.goto(base + 'game/index.html?weather=clear', { waitUntil: 'load' });
+    await page.goto(base + 'game/index.html?weather=clear', { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.waitForFunction(() => window.game, null, { timeout: 60000 });
     await page.addScriptTag({ url: base + 'game/dev/harness/visual/page/visual.js?v=' + Date.now(), type: 'module' });
     await page.waitForFunction(() => window.vqa, null, { timeout: 30000 });
@@ -140,13 +140,19 @@ async function runCity(browser, base, city, ctxOut) {
         res.groups.push(info);
         const plans = await page.evaluate(() => window.vqa.plans());
         const sel = A.route ? A.route.split(',') : null;
+        const planning = await page.evaluate(() => window.vqa.S.sweepPlanning);
+        for (const diagnostic of planning) {
+            const requested = !sel || sel.some(s => s === 'all' || s !== 'none' && diagnostic.routePrefix.includes(s));
+            res.sweepPlanning.push({ group: gr.key, requested, ...diagnostic });
+            if (requested) log(`[${city}] source sweep ${diagnostic.name}: ${diagnostic.coveredDirectedEdges}/${diagnostic.requiredDirectedEdges} directed edges in ${diagnostic.components.length} components, ${diagnostic.status}`);
+        }
         const chosen = plans.filter(p => !sel || sel.some(s => s === 'all' || p.id === s || (s !== 'none' && p.id.includes(s))));
-        if (!chosen.length && A.route !== 'none') { log(`[${city}] no route matches --route=${A.route}. Available: ${plans.map(p => p.id).join(', ')}`); continue; }
+        if (!chosen.length && A.route !== 'none') { const msg = `no route matches --route=${A.route}. Available: ${plans.map(p => p.id).join(', ')}`; log(`[${city}] ${msg}`); res.errors.push(msg); continue; }
         const routes = [];
         for (const p of chosen) {
             await page.evaluate((b) => window.vqa.setRouteBase(b), routeBase);
             const r = await page.evaluate((sp) => window.vqa.sampleRoute(sp), p);
-            if (!r.ok) { log(`[${city}] ${p.id}: no route`); continue; }
+            if (!r.ok) { const msg = `${p.id}: required route could not be sampled`; log(`[${city}] ${msg}`); res.errors.push(msg); continue; }
             r.base = routeBase; routeBase += r.n; routes.push(r);
             log(`[${city}] route ${p.id}: ${r.total} m, ${r.n} samples (${r.from.street} → ${r.to.street})`);
         }
@@ -177,7 +183,7 @@ async function runCity(browser, base, city, ctxOut) {
             const pick = (x, k) => x ? { idx: x.idx, s: x.s, street: x.street, x: x.x, z: x.z, ...x[k] } : null;
             r.perf = { start: pick(sh[0], 'perf'), worstCalls: pick(worst('perf', 'calls'), 'perf'), worstTris: pick(worst('perf', 'tris'), 'perf'), startT: pick(sh.find(x => x.perfT), 'perfT'), worstCallsT: pick(worst('perfT', 'calls'), 'perfT'), worstTrisT: pick(worst('perfT', 'tris'), 'perfT') };
             res.routes.push({ group: gr.key, ...r });
-            log(`[${city}] ${r.id} done: ${r.n} samples in ${r.wallSec} s, ${flagged} with pixel flags`);
+            log(`[${city}] ${r.id}: ${(r.shots || []).length}/${r.n} samples captured in ${r.wallSec} s, ${flagged} with pixel flags`);
         }
         T('survey', t);
         if (A.geometry && A.focus > 0) { t = Date.now(); const n = await withTimeout(page.evaluate((m) => window.vqa.focusShots(m), A.focus), 600000, 'focus shots').catch(e => { res.errors.push(e.message); return 0; }); T('focus', t); log(`[${city}] ${n} geometry close-ups`); }
@@ -207,10 +213,12 @@ async function runCity(browser, base, city, ctxOut) {
             T('cockpit', t);
         }
     }
+    if (!res.groups.length) res.errors.push('No requested world group was loaded');
     await page.evaluate(() => window.vqa.textIssues()).catch(e => res.errors.push(e.message));
     res.sheets = await page.evaluate(() => window.vqa.flushSheets()).catch(e => { res.errors.push(e.message); return []; });
     res.issues = await page.evaluate(() => window.vqa.issues()).catch(() => []);
     res.counts = await page.evaluate(() => window.vqa.counts()).catch(() => ({}));
+    res.officeSignFrames = await page.evaluate(() => window.vqa.S.officeSignFrames || []).catch(() => []);
     res.log = await page.evaluate(() => window.vqa.log()).catch(() => []);
     const errs = await page.evaluate(() => window.__harnessErrors || []).catch(() => []);
     for (const e of errs) res.errors.push(`${e.kind}: ${e.msg}`.slice(0, 300));
@@ -239,7 +247,7 @@ async function runSpots(browser, base) {
         page.on('pageerror', (e) => errs.push(String(e.message || e).slice(0, 300)));
         await page.addInitScript(INIT);
         try {
-            await page.goto(`${base}game/dev/spots.html?id=${encodeURIComponent(sp.id)}&manual=1&ui=0&q=${A.spotQ}&ov=${A.time}&weather=${A.weather}`, { waitUntil: 'load' });
+            await page.goto(`${base}game/dev/spots.html?id=${encodeURIComponent(sp.id)}&manual=1&ui=0&q=${A.spotQ}&ov=${A.time}&weather=${A.weather}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
             await page.waitForFunction(() => window.spotDev?.ready || /Failed/.test(document.querySelector('#loading')?.textContent || ''), null, { timeout: 180000 });
             const fail = await page.evaluate(() => window.spotDev ? null : document.querySelector('#loading')?.textContent);
             if (fail) throw new Error(fail);
@@ -308,14 +316,41 @@ async function runSpots(browser, base) {
 
 // ---------------------------------------------------------------- report
 const SEV = { high: 0, medium: 1, low: 2 };
+function captureCoverage(results) {
+    const routes = [], errors = [];
+    if (!results.length) errors.push({ city: 'all', message: 'No requested survey results were produced' });
+    for (const result of results) {
+        for (const error of result.errors || []) errors.push({ city: result.city, message: String(error) });
+        for (const plan of result.sweepPlanning || []) if (plan.requested && plan.status !== 'complete') errors.push({ city: result.city, message: `${plan.group}/${plan.name}: source sweep planning ${plan.status}; ${plan.uncovered.length} required directed source edges have no verified capture route` });
+        for (const line of new Set([...(result.captureErrors || []), ...(result.log || []).filter(line => /save failed /i.test(line))])) errors.push({ city: result.city, message: String(line) });
+        for (const route of result.routes || []) {
+            const required = Number.isInteger(route.n) && route.n >= 0 ? route.n : 0;
+            if (required !== route.n) errors.push({ city: result.city, message: `${route.id}: invalid required sample count` });
+            const base = route.base || 0, seen = new Set((route.shots || []).map(shot => shot.idx));
+            const missingIndices = [];
+            for (let i = 0; i < required; i++) if (!seen.has(base + i)) missingIndices.push(base + i);
+            routes.push({ city: result.city, group: route.group, route: route.id, required, captured: required - missingIndices.length, missing: missingIndices.length, missingIndices });
+        }
+    }
+    const required = routes.reduce((n, route) => n + route.required, 0), captured = routes.reduce((n, route) => n + route.captured, 0);
+    const complete = required === captured && !errors.length;
+    return { complete, status: complete ? 'complete' : 'incomplete', requiredSamples: required, capturedSamples: captured, missingSamples: required - captured, errors, routes };
+}
+const reportExitCode = report => report.coverage.complete ? (report.c.high > 0 ? 1 : 0) : 2;
 function writeReport(results) {
     const issues = results.flatMap(r => r.issues);
-    const json = { generated: new Date().toISOString(), durationSec: Math.round((Date.now() - t0) / 1000), args: A, results: results.map(r => ({ ...r, log: undefined })), issues };
+    const coverage = captureCoverage(results);
+    const json = { generated: new Date().toISOString(), durationSec: Math.round((Date.now() - t0) / 1000), args: A, coverage, results: results.map(r => ({ ...r, captureErrors: [...new Set([...(r.captureErrors || []), ...(r.log || []).filter(line => /save failed /i.test(line))])], log: undefined })), issues };
     fs.writeFileSync(path.join(OUT, 'visual.log'), results.flatMap(r => r.log.map(l => `[${r.city}] ${l}`)).join('\n'));
     const byType = {}; for (const it of issues) { (byType[it.type] ||= []).push(it); }
     const L = [];
     L.push(`# Visual QA — ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC`, '');
-    L.push(`Run: \`${process.argv.slice(2).join(' ') || '(defaults)'}\` · ${Math.round((Date.now() - t0) / 60)} min · quality ${A.quality}, ${A.time}, ${A.weather}, far ${A.far > 0 ? A.far + ' m' : 'game'},${A.trafficEvery ? ` traffic shots every ${A.trafficEvery} m,` : ''} forward every ${A.every} m, looks/aerial every ${A.lookEvery}/${A.aerialEvery} m, z-fight test every ${A.zEvery || '–'} sample(s).`, '');
+    L.push(`Run: \`${process.argv.slice(2).join(' ') || '(defaults)'}\` · ${Math.round((Date.now() - t0) / 60000)} min · quality ${A.quality}, ${A.time}, ${A.weather}, far ${A.far > 0 ? A.far + ' m' : 'game'},${A.trafficEvery ? ` traffic shots every ${A.trafficEvery} m,` : ''} forward every ${A.every} m, looks/aerial every ${A.lookEvery}/${A.aerialEvery} m, z-fight test every ${A.zEvery || '–'} sample(s).`, '');
+    L.push(`Capture coverage: **${coverage.complete ? 'COMPLETE' : 'INCOMPLETE'}** — ${coverage.capturedSamples}/${coverage.requiredSamples} required route samples captured; ${coverage.missingSamples} missing; ${coverage.errors.length} capture/runtime errors.`, '');
+    if (!coverage.complete) L.push('This run is incomplete and cannot establish a passing visual review or frame-budget result. Detector severities below remain the raw findings; a tool timeout is not itself a game defect.', '');
+    for (const route of coverage.routes.filter(route => route.missing)) L.push(`- Missing route samples: \`${route.group || route.city}/${route.route}\` ${route.captured}/${route.required} captured (indices ${route.missingIndices.slice(0, 20).join(', ')}${route.missingIndices.length > 20 ? ', …' : ''}).`);
+    for (const error of coverage.errors) L.push(`- Capture/runtime error (${error.city}): ${error.message.replace(/\n/g, ' ')}`);
+    if (!coverage.complete) L.push('');
     L.push('Human review: [review.md](review.md).', '');
     L.push('## Findings by detector', '', '| detector | high | medium | low | total |', '|---|---|---|---|---|');
     for (const [k, v] of Object.entries(byType).sort((a, b) => b[1].length - a[1].length)) {
@@ -326,6 +361,10 @@ function writeReport(results) {
     for (const r of results) {
         L.push(`## ${r.city} (${r.mode})`, '');
         for (const g of r.groups) L.push(`- world \`${g.key}\`${g.district ? ` district ${g.district}` : ''}: ${g.edges} edges, ${g.ribbons} ribbons, loaded in ${(g.ms / 1000).toFixed(1)} s`);
+        for (const p of (r.sweepPlanning || []).filter(p => p.requested)) {
+            const original = p.originalFarthestPair;
+            L.push(`- Source sweep **${p.name}**: ${p.coveredDirectedEdges}/${p.requiredDirectedEdges} legal directed source edges covered by verified routes in ${p.components.length} actual source-node components (${p.status}). Original farthest pair: forward ${original?.forward.reachable ? 'reachable' : 'unreachable'}, reverse ${original?.reverse.reachable ? 'reachable' : 'unreachable'}. All original-pair diagnostics, access exclusions and uncovered source IDs remain in visual.json.`);
+        }
         L.push(`- time: ${Object.entries(r.timing).map(([k, v]) => `${k} ${v} s`).join(', ')}`);
         if (r.errors.length) L.push(`- page errors (${r.errors.length}): ${r.errors.slice(0, 5).map(e => '`' + e.replace(/`/g, "'").slice(0, 160) + '`').join('; ')}`);
         L.push('', '| route | length | samples | flagged | wall |', '|---|---|---|---|---|');
@@ -377,7 +416,7 @@ function writeReport(results) {
     fs.writeFileSync(path.join(OUT, 'visual.md'), L.join('\n'));
     fs.writeFileSync(path.join(OUT, 'visual.json'), JSON.stringify(json, null, 1));
     const c = { high: 0, medium: 0, low: 0 }; for (const it of issues) c[it.severity]++;
-    return { issues, c, byType };
+    return { issues, c, byType, coverage };
 }
 
 // ---------------------------------------------------------------- main
@@ -387,7 +426,7 @@ async function main() {
         const j = JSON.parse(fs.readFileSync(path.join(OUT, 'visual.json'), 'utf8'));
         const res = j.results.map(r => ({ log: [], ...r }));
         Object.assign(A, j.args, { reportOnly: true });
-        const rep = writeReport(res); console.log(`rewrote ${path.join(OUT, 'visual.md')} (${rep.issues.length} findings)`); return;
+        const rep = writeReport(res); console.log(`rewrote ${path.join(OUT, 'visual.md')} (${rep.issues.length} findings; coverage ${rep.coverage.status}, ${rep.coverage.capturedSamples}/${rep.coverage.requiredSamples} samples)`); process.exitCode = reportExitCode(rep); return;
     }
     if (!A.keep) for (const d of ['sheets', 'issues', 'frames', 'cockpit', 'debug']) fs.rmSync(path.join(OUT, d), { recursive: true, force: true });
     let srv = null, base;
@@ -405,9 +444,10 @@ async function main() {
     if (srv) srv.close();
     results.sort((a, b) => (a.city === 'spots') - (b.city === 'spots') || cities.indexOf(a.city) - cities.indexOf(b.city));
     const rep = writeReport(results);
-    console.log(`\nVisual QA: ${rep.issues.length} findings (${rep.c.high} high, ${rep.c.medium} medium, ${rep.c.low} low) in ${Math.round((Date.now() - t0) / 1000)} s`);
+    console.log(`\nVisual QA: capture coverage ${rep.coverage.status.toUpperCase()} (${rep.coverage.capturedSamples}/${rep.coverage.requiredSamples} required samples, ${rep.coverage.errors.length} capture/runtime errors)`);
+    console.log(`Raw detectors: ${rep.issues.length} findings (${rep.c.high} high, ${rep.c.medium} medium, ${rep.c.low} low) in ${Math.round((Date.now() - t0) / 1000)} s`);
     for (const [k, v] of Object.entries(rep.byType).sort((a, b) => b[1].length - a[1].length)) console.log(`  ${k.padEnd(28)} ${v.length}`);
     console.log(`Report: ${path.join(OUT, 'visual.md')}`);
-    process.exit(rep.c.high > 0 ? 1 : 0);
+    process.exit(reportExitCode(rep));
 }
 main().catch((e) => { console.error('visual QA failed:', e); process.exit(3); });

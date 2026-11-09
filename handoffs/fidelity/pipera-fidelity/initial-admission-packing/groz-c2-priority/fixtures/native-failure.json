@@ -1,0 +1,2895 @@
+{
+  "sourceCommit": "c2acc8d59cab1ca5f8da4f1f44bbdc5706f56f76",
+  "rawReportSha256": "5b5ee899bd1662c70a37e56b0a0caa6fae62bc4e225c0adbf52d5434766f934e",
+  "constructorCount": 263,
+  "publicCount": 374,
+  "search": {
+    "maxDepth": 6,
+    "maxWork": 8192,
+    "work": 8192,
+    "candidateTests": 2812,
+    "validationCalls": 5380,
+    "pairTests": 11042,
+    "deepest": 2,
+    "maxReservedBodies": 3,
+    "transactions": 12,
+    "committedTransactions": 0,
+    "rolledBackBranches": 2591,
+    "cyclePrunes": 2567,
+    "depthPrunes": 0,
+    "workLimitReached": true
+  },
+  "attempts": [
+    {
+      "id": 261,
+      "s": 5.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 0.5967072794553516,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 5.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 0.846301720098328,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 5.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 0.34711321873787426,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 4.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 1.0958963983824503,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 5.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 0.09751968022328938,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 4.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 1.3454911720169314,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 6.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.2308205973386284,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 4.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 1.5950858987048377,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 6.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.2249895340366885,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 4.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 1.8446804361435412,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 6.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.219376268657244,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 3.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.076353518416605,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 6.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.2139808012131703,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 3.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.084868494680297,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 7.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.2088031314690415,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 3.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.0931636108722658,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 7.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.2038432589412507,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 3.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.101238860544105,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 7.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.199101182897745,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 2.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.104896651104833,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 7.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1945769023583503,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 2.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.1027744588278305,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 8.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1902704160944553,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 2.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.1006519154633536,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 8.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1861817226292457,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 2.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.0985290254738422,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 8.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.182310820237784,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 1.7970912018722949,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.0964057933224214,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 8.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1786577069467055,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 1.5470912018722949,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.0942822234728773,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 9.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1755006403659367,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 1.2970912018722949,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.086487894169329,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 9.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1730088105541174,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 1.0470912018722949,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.078289974863284,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 9.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.170626434248209,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 0.7970912018722949,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.070311616750633,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 9.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.16835353658326,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 0.5470912018722949,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.062552824843059,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 10.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1661901426702723,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 0.5,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 64,
+        "penetration": 2.061115916412191,
+        "verticalOverlapM": 1.5617262599989772,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 10.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1641362775963584,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 10.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1621919664247913,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 10.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.16035723419468,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 11.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.158632105921302,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 11.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1570166065957235,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 11.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.155510761184944,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 11.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.15411459463198,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 12.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.152828131855546,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 12.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1527144495867594,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 12.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.154283222559569,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 12.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1559621690964272,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 13.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1577513137264526,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 13.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.159650680953945,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 13.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1616602952584794,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 13.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1637801810951247,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 14.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1660103628941316,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 14.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.16835086506078,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 14.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1708017119759346,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 14.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1733629279952766,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 15.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1760345374498558,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 15.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.178816564645814,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 15.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1817090338640623,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 15.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.184711969360964,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 16.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1878253953676667,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 16.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.191049336090194,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 16.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1943838157098243,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 16.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.197828858382316,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 17.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.200133278401763,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 17.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.2001332784018204,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 17.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.2001332784017875,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 17.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.2001332784017706,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 18.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.2001332784018146,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 18.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.2001332784017573,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 18.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.200133278401802,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 18.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.199873283984909,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 19.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1988255975495075,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 19.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.197777911114201,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 19.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1967302246787774,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 19.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1956825382433993,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 20.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.194634851808016,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 20.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1935871653726378,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 20.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1925394789373085,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 20.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.191491792501916,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 21.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1904441060665154,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 21.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.189396419631209,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 21.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1883487331958174,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 21.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1873010467604463,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 22.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.186253360325023,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 22.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.185205673889645,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 22.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1841579874543484,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 22.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1831103010189232,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 23.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1820626145835456,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 23.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.181014928148215,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 23.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1799672417128253,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 23.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1789195552774534,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 24.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1778718688420637,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 24.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.176824182406652,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 24.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1757764959713555,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 24.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1747288095359303,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 25.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1736811231005366,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 25.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1726334366652065,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 25.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.171585750229814,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 25.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.170538063794445,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 26.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1694903773590526,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 26.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.168442690923634,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 26.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.167395004488345,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 26.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.166347318052904,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 27.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.165299631617526,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 27.297091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1642519451821967,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 27.547091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.1632042587468034,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 27.797091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.162156572311434,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 28.047091201872295,
+      "reason": "another-planned-body",
+      "blocker": {
+        "a": 261,
+        "b": 231,
+        "penetration": 2.161108885876042,
+        "verticalOverlapM": 3.3717263219878078,
+        "unknownHeight": false,
+        "conflict": true,
+        "aVertical": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        },
+        "bVertical": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "s": 28.297091201872295,
+      "reason": "native-full-body-static-contact"
+    },
+    {
+      "id": 261,
+      "s": 28.547091201872295,
+      "reason": "native-full-body-static-contact"
+    },
+    {
+      "id": 261,
+      "s": 28.797091201872295,
+      "reason": "native-full-body-static-contact"
+    },
+    {
+      "id": 261,
+      "s": 28.912425940773865,
+      "reason": "native-full-body-static-contact"
+    }
+  ],
+  "pairs": [
+    {
+      "ids": [
+        64,
+        261
+      ],
+      "orientedXZPenetrationM": 0.5967072794553516,
+      "actualVerticalIntersectionM": 1.5617262599989772
+    },
+    {
+      "ids": [
+        71,
+        259
+      ],
+      "orientedXZPenetrationM": 1.7928167429013793,
+      "actualVerticalIntersectionM": 1.5117261884734035
+    },
+    {
+      "ids": [
+        97,
+        260
+      ],
+      "orientedXZPenetrationM": 2.1401878160703127,
+      "actualVerticalIntersectionM": 1.731726217083633
+    },
+    {
+      "ids": [
+        188,
+        223
+      ],
+      "orientedXZPenetrationM": 0.3235792909346804,
+      "actualVerticalIntersectionM": 1.5849999785423279
+    },
+    {
+      "ids": [
+        231,
+        261
+      ],
+      "orientedXZPenetrationM": 2.2496205709247463,
+      "actualVerticalIntersectionM": 3.3717263219878078
+    },
+    {
+      "ids": [
+        249,
+        260
+      ],
+      "orientedXZPenetrationM": 1.6049533664774849,
+      "actualVerticalIntersectionM": 1.5117261884734035
+    }
+  ],
+  "updates": []
+}

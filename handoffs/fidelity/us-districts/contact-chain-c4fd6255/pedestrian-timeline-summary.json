@@ -1,0 +1,227 @@
+{
+  "firstLocalRecord": {
+    "t": 16.49999999999998,
+    "step": 495,
+    "origin": "post-step-half-second",
+    "ped": {
+      "i": 325,
+      "x": -631.7706997476316,
+      "z": 396.27534237467785,
+      "footY": 0.38,
+      "heading": 2.717092135767788,
+      "scale": 0.9648420391371474,
+      "speed": 1.13054281945806,
+      "onRoad": false,
+      "state": "wait",
+      "dir": -1,
+      "side": -1,
+      "s": 8.276815711337644,
+      "waitT": 3.433333333333331,
+      "blockT": 0,
+      "legStall": 0,
+      "progressT": 0,
+      "downT": 0,
+      "recovery": null,
+      "edgeId": 142,
+      "sourceId": "w244601702",
+      "legs": [
+        {
+          "x": -637.7140894006977,
+          "z": 409.42497283265146,
+          "cross": true,
+          "nodeId": 139,
+          "edgeId": 142
+        },
+        {
+          "x": -640.1909038689588,
+          "z": 410.1165972752661,
+          "nodeId": null,
+          "edgeId": null
+        }
+      ]
+    }
+  },
+  "startedBracket": {
+    "lastRecordedNotStarted": {
+      "t": 19.000000000000103,
+      "step": 570,
+      "origin": "post-step-half-second",
+      "ped": {
+        "i": 325,
+        "x": -631.7706997476316,
+        "z": 396.27534237467785,
+        "footY": 0.38,
+        "heading": 2.717092135767788,
+        "scale": 0.9648420391371474,
+        "speed": 1.13054281945806,
+        "onRoad": false,
+        "state": "wait",
+        "dir": -1,
+        "side": -1,
+        "s": 8.276815711337644,
+        "waitT": 5.933333333333322,
+        "blockT": 0,
+        "legStall": 0,
+        "progressT": 0,
+        "downT": 0,
+        "recovery": null,
+        "edgeId": 142,
+        "sourceId": "w244601702",
+        "legs": [
+          {
+            "x": -637.7140894006977,
+            "z": 409.42497283265146,
+            "cross": true,
+            "nodeId": 139,
+            "edgeId": 142
+          },
+          {
+            "x": -640.1909038689588,
+            "z": 410.1165972752661,
+            "nodeId": null,
+            "edgeId": null
+          }
+        ]
+      }
+    },
+    "firstRecordedStarted": {
+      "t": 19.500000000000128,
+      "step": 585,
+      "origin": "post-step-half-second",
+      "ped": {
+        "i": 325,
+        "x": -631.8677063705852,
+        "z": 396.4899675832339,
+        "footY": 0.38,
+        "heading": 2.717092135767774,
+        "scale": 0.9648420391371474,
+        "speed": 1.13054281945806,
+        "onRoad": true,
+        "state": "legs",
+        "dir": -1,
+        "side": -1,
+        "s": 8.276815711337644,
+        "waitT": 0,
+        "blockT": 0,
+        "legStall": 0,
+        "progressT": 0.13333333333333333,
+        "downT": 0,
+        "recovery": null,
+        "edgeId": 142,
+        "sourceId": "w244601702",
+        "legs": [
+          {
+            "x": -637.7140894006977,
+            "z": 409.42497283265146,
+            "sx": -631.7706997476316,
+            "sz": 396.27534237467785,
+            "cross": true,
+            "started": true,
+            "nodeId": 139,
+            "edgeId": 142
+          },
+          {
+            "x": -640.1909038689588,
+            "z": 410.1165972752661,
+            "nodeId": null,
+            "edgeId": null
+          }
+        ]
+      }
+    }
+  },
+  "backBracket": {
+    "lastRecordedNotBack": {
+      "t": 29.500000000000625,
+      "step": 885,
+      "origin": "post-step-half-second",
+      "ped": {
+        "i": 325,
+        "x": -635.3599447969239,
+        "z": 404.2164750912525,
+        "footY": 0.2,
+        "heading": 2.7170921357676616,
+        "scale": 0.9648420391371474,
+        "speed": 1.13054281945806,
+        "onRoad": true,
+        "state": "legs",
+        "dir": -1,
+        "side": -1,
+        "s": 8.276815711337644,
+        "waitT": 0,
+        "blockT": 3.9999999999999956,
+        "legStall": 0,
+        "progressT": 4.099999999999995,
+        "downT": 0,
+        "recovery": null,
+        "edgeId": 142,
+        "sourceId": "w244601702",
+        "legs": [
+          {
+            "x": -637.7140894006977,
+            "z": 409.42497283265146,
+            "sx": -631.7706997476316,
+            "sz": 396.27534237467785,
+            "cross": true,
+            "started": true,
+            "nodeId": 139,
+            "edgeId": 142
+          },
+          {
+            "x": -640.1909038689588,
+            "z": 410.1165972752661,
+            "nodeId": null,
+            "edgeId": null
+          }
+        ]
+      }
+    },
+    "firstRecordedBack": {
+      "t": 30.00000000000065,
+      "step": 900,
+      "origin": "post-step-half-second",
+      "ped": {
+        "i": 325,
+        "x": -635.3599447969239,
+        "z": 404.2164750912525,
+        "footY": 0.2,
+        "heading": -0.42450051782192205,
+        "scale": 0.9648420391371474,
+        "speed": 1.13054281945806,
+        "onRoad": true,
+        "state": "legs",
+        "dir": -1,
+        "side": -1,
+        "s": 8.276815711337644,
+        "waitT": 0,
+        "blockT": 0.4666666666666666,
+        "legStall": 0,
+        "progressT": 4.599999999999993,
+        "downT": 0,
+        "recovery": null,
+        "edgeId": 142,
+        "sourceId": "w244601702",
+        "legs": [
+          {
+            "x": -631.7706997476316,
+            "z": 396.27534237467785,
+            "sx": -631.7706997476316,
+            "sz": 396.27534237467785,
+            "cross": true,
+            "started": true,
+            "back": true,
+            "nodeId": 139,
+            "edgeId": 142
+          }
+        ]
+      }
+    }
+  },
+  "recordsByPedestrian": {
+    "325": 1701,
+    "71": 88,
+    "73": 38
+  },
+  "pedestrian324ObservedRecords": 0,
+  "scope": "Native snapshots; no direct per-pedestrian guard/static callbacks were captured. Half-second times and before-vehicle-step times have different phases. A missing local record is not absence from the full scene."
+}

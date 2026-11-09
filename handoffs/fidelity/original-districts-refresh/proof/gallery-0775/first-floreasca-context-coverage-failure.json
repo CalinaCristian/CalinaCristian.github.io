@@ -1,0 +1,18 @@
+{
+  "captureAccepted": false,
+  "detectedAt": "2026-11-08T22:54:26.584795+00:00",
+  "duplicateIds": {
+    "rosetti-street": 2
+  },
+  "imageHashMismatches": [
+    "rosetti-street"
+  ],
+  "reason": "A landmark street view and actual chapter start reused rosetti-street and overwrote the image. Entire attempt retained; unique chapter-prefixed IDs required before recapture.",
+  "rawAttempt": {
+    "path": "/workspace/reality-pass/original-districts-refresh/final-0775fda/context-floreasca-summer-clear-day",
+    "manifestSha256": "ed69d2243460967d0016f7dff021baae76c885c407ff1ea6296ed956a3587f42",
+    "framesRecorded": 24,
+    "uniqueViewIds": 23,
+    "sourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99"
+  }
+}

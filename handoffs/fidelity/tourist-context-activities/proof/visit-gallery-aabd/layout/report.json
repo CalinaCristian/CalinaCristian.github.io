@@ -1,0 +1,848 @@
+{
+  "scope": "Standalone overview layout; native game captures are verified separately.",
+  "records": [
+    {
+      "id": "pike-place",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "chihuly",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "space-needle",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "fremont-troll",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "kerry-park",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "mopop",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "waterfront",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "pioneer-square",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "ballard-locks",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "gas-works",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "bel-lincoln-square",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "bel-downtown-park",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "bel-botanical-garden",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    },
+    {
+      "id": "palace-parliament",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Bucharest"
+    },
+    {
+      "id": "peoples-salvation-cathedral",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Bucharest"
+    },
+    {
+      "id": "old-town-lipscani",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Bucharest"
+    },
+    {
+      "id": "stavropoleos-cec",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Bucharest"
+    },
+    {
+      "id": "athenaeum-revolution",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Bucharest"
+    },
+    {
+      "id": "arcul-de-triumf",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Bucharest"
+    },
+    {
+      "id": "village-museum",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Bucharest"
+    },
+    {
+      "id": "herastrau-park",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Bucharest"
+    },
+    {
+      "id": "spring-palace",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Bucharest"
+    },
+    {
+      "id": "cismigiu",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Bucharest"
+    },
+    {
+      "id": "bel-meydenbauer",
+      "width": 390,
+      "scrollWidth": 390,
+      "phoneNatural": [
+        390,
+        844
+      ],
+      "phoneRenderedWidth": 218,
+      "sceneNatural": [
+        1280,
+        720
+      ],
+      "bounds": [
+        {
+          "left": 26,
+          "right": 364
+        },
+        {
+          "left": 39,
+          "right": 351
+        },
+        {
+          "left": 73,
+          "right": 317
+        },
+        {
+          "left": 86,
+          "right": 304
+        }
+      ],
+      "validationCollapsed": true,
+      "retainedCollapsed": true,
+      "eyebrow": "Tourist visit · Seattle"
+    }
+  ],
+  "errors": [],
+  "history": true,
+  "complete": true
+}

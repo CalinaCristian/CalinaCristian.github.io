@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
+  "purpose": "Render-budget diagnostic of combined d981 production runtime with exact RO3ca actor candidate. This is not FINAL physical acceptance; moving-pedestrian contact correction remains in RO lane.",
+  "actualNativeSourceCounts": {
+    "vehicles": 624,
+    "pedestrians": 560
+  },
+  "sourceArchiveFiles": 13181
+}

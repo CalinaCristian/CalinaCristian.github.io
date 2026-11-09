@@ -1,0 +1,14 @@
+{
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "rawFindingsRetained": 79,
+  "exactSamplesReproduced": 79,
+  "confirmedLegalLaneCapsuleConflicts": 79,
+  "wholeCapsulesConservativelyInsidePlayableCore": 79,
+  "sourceWays": 21,
+  "sourceEdges": 79,
+  "legalLaneStaticPoses": 2617,
+  "sourceEdgeHeightHintMaxDifferenceM": 5.551115123125783e-17,
+  "garageFindings": 66,
+  "terminalFindings": 13,
+  "classification": "All79 remain material unresolved road/body/vertical conflicts. No access restriction, outside-domain exemption, broad nearest-edge match or point-only test is used to clear them."
+}

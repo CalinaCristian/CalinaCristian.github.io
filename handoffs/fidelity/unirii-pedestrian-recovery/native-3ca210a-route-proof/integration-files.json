@@ -1,0 +1,58 @@
+{
+  "base": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "runtimeSource": "3ca210ac24a8fa83a5db84d6ebf65bae3146ebd8",
+  "files": [
+    {
+      "path": "game/src/traffic.js",
+      "sha256": "f686b2a42f66acb423f522e147ead9cd7484cebe995a49d37e6e82c723ab82a3"
+    },
+    {
+      "path": "game/dev/harness/page/core.js",
+      "sha256": "8f9d3c3336b7dcad7f44060e765d4bfe50790d6c87e92f9ddf7175135d88c904"
+    },
+    {
+      "path": "game/dev/pedestrian-admission.test.mjs",
+      "sha256": "c1a3916be321839821c5d05c81ffd5c30eeb334d9c36353e73dae2d4c559d074"
+    },
+    {
+      "path": "game/dev/vehicle-separation.test.mjs",
+      "sha256": "3ede9845b53abee994c031ef5e6ed3c7f744ab8c2296f2e2096e4b377cc0421f"
+    },
+    {
+      "path": "game/dev/normal-guard-tolerance.test.mjs",
+      "sha256": "724ca386d996bdb7754a51d4ce23710c02b9cf52215680ed5ee00a9947077e8e"
+    },
+    {
+      "path": "game/dev/lane-drop-chain.test.mjs",
+      "sha256": "9205a24e97a15e77015aa1c1f223a01568a3455847690339a39601311ed0fe75"
+    },
+    {
+      "path": "game/dev/harness-body-sensing.test.mjs",
+      "sha256": "557d52707c4170fb306fca88db9f77d191403f1901aa65db635c13ba343efa9f"
+    },
+    {
+      "path": "game/dev/solid-vehicle-sensing.test.mjs",
+      "sha256": "4edf586daa225edc922572902413533d1ee779a33d46fd22b64cc4cd54f45da1"
+    },
+    {
+      "path": "game/dev/harness-vehicle-wait.test.mjs",
+      "sha256": "9fd084aa94732084a0da67cc5b725e677a68ecc0ac9bb063b10321b473f2e527"
+    },
+    {
+      "path": "game/dev/vehicle-cell-boundary.test.mjs",
+      "sha256": "ea5778e3fddcce902fa072212f3a6e25db4be0f76756efc6848e9b74263236af"
+    },
+    {
+      "path": "game/dev/fixtures/unirii-short-edge-pair.json",
+      "sha256": "e8c1c6aa69872243ccbcc7d13c36b9e5e918766d906ad6a70df3ec094dee7609"
+    },
+    {
+      "path": "game/dev/fixtures/unirii-guard-57.json",
+      "sha256": "da8f15a3efd78073f6c7a2c770a3c290420992eb43dbb4c3229d87a54a883f71"
+    },
+    {
+      "path": "game/dev/fixtures/unirii-cell-boundary-593-609.json",
+      "sha256": "6e0eddf07da26c169ea9e77f11114e4c11b4155b668c7a74d719044569d58184"
+    }
+  ]
+}

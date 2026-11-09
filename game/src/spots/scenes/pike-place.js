@@ -15,6 +15,8 @@ import { neonSign, signBoard, latticeFrame, clockFace, canopy, stall, fishMesh, 
 import { addTraffic } from '../cars.js';
 import { buildingStyle, wallGeometry, facadeMaterial, facadeStyle } from '../osm.js';
 import { seaActivity, seaWheel, seaBackdrop, signAtlas } from './sea-common.js';
+import { coinDrop } from '../coin-drop.js';
+import { activityBlocked, onActivityCancel } from '../participation.js';
 
 // ---------------------------------------------------------------------------- street profile (OSM centrelines, research elevations)
 const PIKE_PLACE = [[-50, 33], [-60, 25], [-76, 10], [-91, -3], [-95, -6], [-103, -14], [-126, -34], [-141, -48], [-148, -53], [-151, -56], [-172, -75], [-179, -81], [-263, -155], [-270, -161]];
@@ -212,8 +214,16 @@ function buildFishThrow(ctx) {
     const front = { x: p0.x - p0.tz * -1.2, z: p0.z + p0.tx * -1.2 };    // monger in front of the counter (street side)
     const back = { x: p0.x - p0.tz * -5.6, z: p0.z + p0.tx * -5.6 };     // catcher behind the counter
     let t = -1, from = null, to = null, dur = 1.1, next = 4, toPlayer = false, caught = false, catchWindow = 0;
+    const cancelPlayerThrow = () => {
+        if (!toPlayer) return;
+        t = -1; catchWindow = 0; toPlayer = false; fish.visible = false; next = 5;
+    };
+    // Pause/conditions stop scene updates. Clear the unfinished player throw
+    // before the host freezes the scene, just as the shared activity flows do.
+    onActivityCancel(ctx, cancelPlayerThrow);
     const throwFish = (a, bb, toP = false) => { from = a; to = bb; t = 0; dur = toP ? 1.25 : 1.05; fish.visible = true; toPlayer = toP; caught = false; };
     ctx.onUpdate((dt, s, pl) => {
+        if (toPlayer && activityBlocked(s)) { cancelPlayerThrow(); return; }
         next -= dt;
         if (t < 0 && next <= 0) {
             next = 5 + Math.random() * 6;
@@ -237,6 +247,7 @@ function buildFishThrow(ctx) {
         kind: 'fish', x: front.x + (front.x - back.x) * 0.5, z: front.z + (front.z - back.z) * 0.5, r: 4.5,
         label: (s) => (t >= 0 && toPlayer ? 'Catch!' : 'Ask the fishmongers to throw you a salmon'),
         use: (s) => {
+            if (activityBlocked(s)) return;
             if (t >= 0 && toPlayer) {
                 if (catchWindow > 0 && !caught) { caught = true; fish.visible = false; t = -1; s.ui.toast('🐟 Caught it!', 'Flying fish since 1986 — up to 10,000 people watch on a summer day.'); s.sound.play('catch'); s.progress.fish = (s.progress.fish || 0) + 1; seaActivity(s, 'lm-pike-fish', 'pike-place'); }
                 return;
@@ -429,7 +440,9 @@ export default {
         ctx.plaque(PL[4], GUM.x + 1.4, GUM.z - 5.5, -0.6);
         ctx.plaque(PL[5], sb.x + Math.cos(sb.yaw) * 4.5 + Math.sin(sb.yaw) * 1.2, sb.z - Math.sin(sb.yaw) * 4.5 + Math.cos(sb.yaw) * 1.2, sb.yaw);
         // ---- Rachel coin
-        ctx.interactables.push({ kind: 'coin', x: RACHEL.x + 0.6, z: RACHEL.z - 0.4, r: 1.8, label: 'Drop a coin in Rachel', use: (s) => { s.sound.play('coin'); seaActivity(s, 'lm-pike-rachel', 'pike-place'); s.progress.coins = (s.progress.coins || 0) + 1; s.ui.toast('🪙 Clink', `Coin #${s.progress.coins} — Rachel's donations fund the Market's social services.`); } });
+        const rachelCoin = coinDrop(ctx, new THREE.Vector3(RACHEL.x, ctx.ground.heightAt(RACHEL.x, RACHEL.z) + .91, RACHEL.z), { title: 'Rachel the Piggy Bank', onDone(s) { seaActivity(s, 'lm-pike-rachel', 'pike-place'); s.progress.coins = (s.progress.coins || 0) + 1; s.ui.toast('🪙 Clink', `Coin #${s.progress.coins} — Rachel's donations fund the Market's social services.`); } });
+        ctx.extras.rachelCoin = rachelCoin;
+        ctx.interactables.push({ kind: 'coin', x: RACHEL.x + 0.6, z: RACHEL.z - 0.4, r: 1.8, label: 'Drop a coin in Rachel', use: s => rachelCoin.start(s) });
         // ---- postcard challenge (blue hour best: the neon glows)
         (() => { const ic = ctx.spot('pike-place').photo.iconic, a = (ic.heading_deg ?? 229) * Math.PI / 180; return ctx.challenge('pike-place', { x: ic.x + Math.sin(a) * 26, z: ic.z - Math.cos(a) * 26, pitch: 12, r: 12, tol: 30 }); })() // 26 m down Pike St: the sign + clock fill the frame;
         // ---- crowd (dense): fish-throw audience, mongers, Starbucks queue, gum-wall selfies, buskers, vendors, walkers

@@ -1,0 +1,40 @@
+{
+  "checkedAtUtc": "2026-11-09T07:05:59.751113+00:00",
+  "checks": [
+    {
+      "file": "handoffs/fidelity/native-rail-world-export/controls.cjs",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "file": "handoffs/fidelity/native-rail-world-export/decode-geometry.cjs",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "file": "handoffs/fidelity/native-rail-world-export/geometry-kernel.cjs",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "file": "handoffs/fidelity/native-rail-world-export/install-observer.cjs",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "file": "handoffs/fidelity/native-rail-world-export/runner.cjs",
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "file": "handoffs/fidelity/native-rail-world-export/prepare.mjs",
+      "exitCode": 0,
+      "output": ""
+    }
+  ],
+  "dryRunSource": "835e54dd60603cf9962d53704e64151136f11abb",
+  "browserLaunched": false,
+  "archiveCreated": false,
+  "producerFilesChanged": false,
+  "pass": true
+}

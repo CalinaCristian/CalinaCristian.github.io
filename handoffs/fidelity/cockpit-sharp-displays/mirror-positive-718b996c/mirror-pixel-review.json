@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "718b996c54819feb632c0b62682923b38f7abe2d",
+  "scope": "Offline original same-frame mirror interior comparison and explicit added occluder control; unscaled native-pixel derived contact sheets.",
+  "rows": [
+    {
+      "label": "normal-medium-enabled",
+      "changedMirrorInteriorPixels": 40389
+    },
+    {
+      "label": "explicit-mirror-occluder",
+      "changedMirrorInteriorPixels": 38715,
+      "explicitOccluderInteriorPixels": 953,
+      "changedExplicitOccluderInteriorPixels": 0
+    }
+  ]
+}

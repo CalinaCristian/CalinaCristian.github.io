@@ -5,6 +5,10 @@ Owner role: **progression** (`game/src/achievements.js`, new). Hooks in gameplay
 ## Why
 Give players a reason to explore everything the game offers (story, free roam, tourist spots, photo mode, on foot) and show how much of it they have seen.
 
+## Current completion scope
+
+Use `spot-availability.js` as the shared pure menu/completion contract. `SPOTS` is the current ordered menu list, while `SPOTS_ALL` preserves all development scenes and `READY` preserves historical visual-review flags. City visits, postcards and distinct guided-tour targets enumerate the available destinations. Activity achievements outside that set are excluded before and after the async scene registry loads. Old saved visits/unlocks remain stored and count only when their entries are currently available. A hidden development show-all option may intentionally expand this scope. Older dated request notes below describe superseded totals.
+
 ## Requirements
 R23.1 **Catalogue** of ~40–60 achievements in categories, each with id, icon, title, description, category, optional `hidden` (shown as "???" until unlocked) and optional counter target (e.g. 7/10):
 - **Story**: each chapter completed, Bucharest done, the flight, story complete.
@@ -105,3 +109,9 @@ R23.8 **Dinamo drone football secret** (owner, 2026-11-08): a football starts on
 - 2026-11-08 (gameplay, one mode — Explore deleted): no achievement depended on the mode itself. `roam-first` / `roam-all` count districts opened in free roam (`game.freeRoam`), which a world-map jump now always is: both stay earnable (descriptions: "Went off the story: free roam from the world map." / "Visited every district in free roam (world map)."). The drone, spot and plaque achievements are reachable from the story too (drone and spots were already). The category keeps its id `explorer` (label "Explorer"). save.js restore calls `g.explore.roam(district)` (alias `enterExplore`) for sessions saved in free roam (`mode: 'explore'`, the stored key kept for old saves).
 
 - 2026-11-08 (orchestrator, integrated Dinamo verification): Catalogue is **113 achievements** including the hidden drone goal. After master stadium/sport-layer/walker updates through `7d4a80b`, actual controller flight again scores in **102 frames**, persists the unlock after reload, and disposes the ball on district replacement, with **zero page errors** (`/workspace/reality-pass/dinamo/df1/browser-results.json`). Pure football checks remain **13/13**; mandatory Bucharest foot/a regression remains **0 high / 0 medium**. Ball cost remains **180 triangles / one draw call**, without a shadow pass. Latest master snow integration through `781d741` preserves the pitch metadata and physics geometry; final weather smoke is recorded with the integrated QA in spec 19.
+
+- 2026-11-08 Rosetti basketball implementation staged for integration: eighth hidden achievement `rosetti-basket`/After-school hoops, physical pickup/aim/throw and downward rim crossing, not an interaction-button reward. Worker verified16 basketball and13football fixtures, actual desktop and390x844touch baskets, existing gate access, reload/dedup, all takeover cancellations and one-time disposal; mandatoryfoot/a0H0M. See handoffs/fidelity/ROSETTI-BASKETBALL.md.
+
+### Fidelity integration: retired unsupported activities
+
+Remove `lm-needle-360` (`space-needle:deck`) and `lm-bbg-plants` (`bel-botanical-garden:plants`) from the active catalogue. The unmodelled deck stair teleport and invented botanical label-count award were removed from scene participation. Keep the animated Needle elevator/Loupe and the physical garden bridge. Existing saved unlock/activity keys remain historical data: completion and the all-activities award enumerate the current catalogue, so retired keys add neither a requirement nor progress. Current catalogue contains 114 entries. Active activity requirements and city/postcard/tour targets follow the current menu availability; cycling activates on first use. Preserve old earned keys without counting unavailable or retired entries toward progress.

@@ -1,0 +1,1 @@
+PASS: actual 560 constructor IDs/styles/RNG, source cells/admission, live recovery, narrow widths, crossing endpoints and parking side legality

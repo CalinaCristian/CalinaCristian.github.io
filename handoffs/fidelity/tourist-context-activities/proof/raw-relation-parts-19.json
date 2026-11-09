@@ -1,0 +1,466 @@
+{
+  "schemaVersion": 1,
+  "audit": "Raw positive building:part-only multipolygon omission class across all 19 tourist scene inputs",
+  "updatedAt": "2026-11-08T20:46:18.542740+00:00",
+  "source": "https://overpass-api.de/api/interpreter",
+  "query": "[out:json][timeout:170];(relation[\"building:part\"](44.4634604,26.0730272,44.4709396,26.0832728);relation[\"building:part\"](44.4356604,26.0912288,44.4445396,26.1027712);relation[\"building:part\"](47.6634076,-122.4010581,47.6685311,-122.3929823);relation[\"building:part\"](47.6048980,-122.1836520,47.6114249,-122.1739480);relation[\"building:part\"](47.6091154,-122.2085195,47.6172974,-122.2001493);relation[\"building:part\"](47.6121262,-122.2067240,47.6191226,-122.1967568);relation[\"building:part\"](47.6081602,-122.2134793,47.6127210,-122.2070025);relation[\"building:part\"](44.4661604,26.0717270,44.4761396,26.0882730);relation[\"building:part\"](44.4268604,26.0917293,44.4353396,26.1067707);relation[\"building:part\"](44.4216604,26.0767295,44.4315396,26.0967705);relation[\"building:part\"](44.4331604,26.0847289,44.4415396,26.0967711);relation[\"building:part\"](47.6490339,-122.3504172,47.6526318,-122.3441468);relation[\"building:part\"](47.6448110,-122.3397152,47.6484546,-122.3318429);relation[\"building:part\"](47.6281629,-122.3630547,47.6308596,-122.3567458);relation[\"building:part\"](47.6064843,-122.3451404,47.6110042,-122.3374114);relation[\"building:part\"](47.5984238,-122.3365580,47.6038595,-122.3298483);relation[\"building:part\"](47.6186552,-122.3549900,47.6244626,-122.3452099);relation[\"building:part\"](44.4651604,26.0872272,44.4723396,26.0972728);relation[\"building:part\"](47.6039161,-122.3451404,47.6099640,-122.3387610););out geom;",
+  "rawBytes": 16548,
+  "rawSHA256": "e303b8dfc7871e1dea5efcf4355e82ea6f934bea6e3bcf07baae8d3a816bc735",
+  "rawRelationCount": 8,
+  "scenes": [
+    {
+      "id": "arcul-de-triumf",
+      "members": [
+        "arcul-de-triumf"
+      ],
+      "bbox": [
+        44.46346043983731,
+        26.073027241809324,
+        44.47093956016269,
+        26.083272758190674
+      ],
+      "scope": "Exact existing Bucharest fetch-buc footprint union + 260 m backdrop bounds.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": true
+    },
+    {
+      "id": "athenaeum-revolution",
+      "members": [
+        "athenaeum-revolution"
+      ],
+      "bbox": [
+        44.435660439837314,
+        26.0912287601765,
+        44.44453956016269,
+        26.1027712398235
+      ],
+      "scope": "Exact existing Bucharest fetch-buc footprint union + 260 m backdrop bounds.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": true
+    },
+    {
+      "id": "ballard-locks",
+      "members": [
+        "ballard-locks"
+      ],
+      "bbox": [
+        47.6634076,
+        -122.4010581,
+        47.6685311,
+        -122.3929823
+      ],
+      "scope": "Envelope of all retained original prepared source footprints. Original API bbox file is unavailable; this audits relation-part omission within retained source coverage, not original exact extract completeness.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": false
+    },
+    {
+      "id": "bel-botanical-garden",
+      "members": [
+        "bel-botanical-garden"
+      ],
+      "bbox": [
+        47.604898,
+        -122.183652,
+        47.6114249,
+        -122.173948
+      ],
+      "scope": "Envelope of all retained original prepared source footprints. Original API bbox file is unavailable; this audits relation-part omission within retained source coverage, not original exact extract completeness.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": false
+    },
+    {
+      "id": "bel-downtown-park",
+      "members": [
+        "bel-downtown-park"
+      ],
+      "bbox": [
+        47.6091154,
+        -122.2085195,
+        47.6172974,
+        -122.2001493
+      ],
+      "scope": "Envelope of all retained original prepared source footprints. Original API bbox file is unavailable; this audits relation-part omission within retained source coverage, not original exact extract completeness.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": false
+    },
+    {
+      "id": "bel-lincoln-square",
+      "members": [
+        "bel-lincoln-square"
+      ],
+      "bbox": [
+        47.6121262,
+        -122.206724,
+        47.6191226,
+        -122.1967568
+      ],
+      "scope": "Envelope of all retained original prepared source footprints. Original API bbox file is unavailable; this audits relation-part omission within retained source coverage, not original exact extract completeness.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": false
+    },
+    {
+      "id": "bel-meydenbauer",
+      "members": [
+        "bel-meydenbauer"
+      ],
+      "bbox": [
+        47.6081602,
+        -122.2134793,
+        47.612721,
+        -122.2070025
+      ],
+      "scope": "Envelope of all retained original prepared source footprints. Original API bbox file is unavailable; this audits relation-part omission within retained source coverage, not original exact extract completeness.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": false
+    },
+    {
+      "id": "buc-herastrau",
+      "members": [
+        "herastrau-park",
+        "village-museum"
+      ],
+      "bbox": [
+        44.46616043983731,
+        26.071727020318647,
+        44.476139560162686,
+        26.088272979681353
+      ],
+      "scope": "Exact existing Bucharest fetch-buc footprint union + 260 m backdrop bounds.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": true
+    },
+    {
+      "id": "buc-old-town",
+      "members": [
+        "old-town-lipscani",
+        "stavropoleos-cec"
+      ],
+      "bbox": [
+        44.42686043983731,
+        26.091729263957873,
+        44.43533956016269,
+        26.106770736042126
+      ],
+      "scope": "Exact existing Bucharest fetch-buc footprint union + 260 m backdrop bounds.",
+      "positivePartOnlyRelations": [
+        {
+          "sourceId": "r13104090",
+          "retainedIds": [
+            "r13104090"
+          ],
+          "sourceUrl": "https://www.openstreetmap.org/relation/13104090",
+          "tags": {
+            "building:material": "plaster",
+            "building:part": "yes",
+            "height": "25",
+            "roof:colour": "beige",
+            "type": "multipolygon"
+          }
+        },
+        {
+          "sourceId": "r13104091",
+          "retainedIds": [
+            "r13104091"
+          ],
+          "sourceUrl": "https://www.openstreetmap.org/relation/13104091",
+          "tags": {
+            "building:material": "plaster",
+            "building:part": "yes",
+            "height": "23.5",
+            "roof:colour": "beige",
+            "type": "multipolygon"
+          }
+        },
+        {
+          "sourceId": "r13104092",
+          "retainedIds": [
+            "r13104092"
+          ],
+          "sourceUrl": "https://www.openstreetmap.org/relation/13104092",
+          "tags": {
+            "building:part": "yes",
+            "roof:shape": "dome",
+            "type": "multipolygon"
+          }
+        },
+        {
+          "sourceId": "r13104229",
+          "retainedIds": [
+            "r13104229_0",
+            "r13104229_1"
+          ],
+          "sourceUrl": "https://www.openstreetmap.org/relation/13104229",
+          "tags": {
+            "building:material": "plaster",
+            "building:part": "yes",
+            "height": "25",
+            "roof:colour": "beige",
+            "type": "multipolygon"
+          }
+        },
+        {
+          "sourceId": "r13104230",
+          "retainedIds": [
+            "r13104230"
+          ],
+          "sourceUrl": "https://www.openstreetmap.org/relation/13104230",
+          "tags": {
+            "building:material": "plaster",
+            "building:part": "yes",
+            "height": "25",
+            "roof:colour": "beige",
+            "type": "multipolygon"
+          }
+        },
+        {
+          "sourceId": "r13104231",
+          "retainedIds": [
+            "r13104231"
+          ],
+          "sourceUrl": "https://www.openstreetmap.org/relation/13104231",
+          "tags": {
+            "building:material": "plaster",
+            "building:part": "yes",
+            "height": "25",
+            "roof:colour": "beige",
+            "type": "multipolygon"
+          }
+        }
+      ],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": true
+    },
+    {
+      "id": "buc-parliament",
+      "members": [
+        "palace-parliament",
+        "peoples-salvation-cathedral"
+      ],
+      "bbox": [
+        44.42166043983731,
+        26.07672951576012,
+        44.43153956016269,
+        26.096770484239876
+      ],
+      "scope": "Exact existing Bucharest fetch-buc footprint union + 260 m backdrop bounds.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": true
+    },
+    {
+      "id": "cismigiu",
+      "members": [
+        "cismigiu"
+      ],
+      "bbox": [
+        44.43316043983731,
+        26.084728914134725,
+        44.44153956016269,
+        26.096771085865274
+      ],
+      "scope": "Exact existing Bucharest fetch-buc footprint union + 260 m backdrop bounds.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": true
+    },
+    {
+      "id": "fremont-troll",
+      "members": [
+        "fremont-troll"
+      ],
+      "bbox": [
+        47.6490339,
+        -122.3504172,
+        47.6526318,
+        -122.3441468
+      ],
+      "scope": "Envelope of all retained original prepared source footprints. Original API bbox file is unavailable; this audits relation-part omission within retained source coverage, not original exact extract completeness.",
+      "positivePartOnlyRelations": [
+        {
+          "sourceId": "r7296784",
+          "retainedIds": [
+            "r7296784"
+          ],
+          "sourceUrl": "https://www.openstreetmap.org/relation/7296784",
+          "tags": {
+            "building:levels": "5",
+            "building:material": "glass",
+            "building:part": "yes",
+            "height": "20.8",
+            "type": "multipolygon"
+          }
+        }
+      ],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": false
+    },
+    {
+      "id": "gas-works",
+      "members": [
+        "gas-works"
+      ],
+      "bbox": [
+        47.644811,
+        -122.3397152,
+        47.6484546,
+        -122.3318429
+      ],
+      "scope": "Envelope of all retained original prepared source footprints. Original API bbox file is unavailable; this audits relation-part omission within retained source coverage, not original exact extract completeness.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": false
+    },
+    {
+      "id": "kerry-park",
+      "members": [
+        "kerry-park"
+      ],
+      "bbox": [
+        47.6281629,
+        -122.3630547,
+        47.6308596,
+        -122.3567458
+      ],
+      "scope": "Envelope of all retained original prepared source footprints. Original API bbox file is unavailable; this audits relation-part omission within retained source coverage, not original exact extract completeness.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": false
+    },
+    {
+      "id": "pike-place",
+      "members": [
+        "pike-place"
+      ],
+      "bbox": [
+        47.6064843,
+        -122.3451404,
+        47.6110042,
+        -122.3374114
+      ],
+      "scope": "Envelope of all retained original prepared source footprints. Original API bbox file is unavailable; this audits relation-part omission within retained source coverage, not original exact extract completeness.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": false
+    },
+    {
+      "id": "pioneer-square",
+      "members": [
+        "pioneer-square"
+      ],
+      "bbox": [
+        47.5984238,
+        -122.336558,
+        47.6038595,
+        -122.3298483
+      ],
+      "scope": "Envelope of all retained original prepared source footprints. Original API bbox file is unavailable; this audits relation-part omission within retained source coverage, not original exact extract completeness.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": false
+    },
+    {
+      "id": "seattle-center",
+      "members": [
+        "space-needle",
+        "chihuly",
+        "mopop"
+      ],
+      "bbox": [
+        47.6186552,
+        -122.35499,
+        47.6244626,
+        -122.3452099
+      ],
+      "scope": "Envelope of all retained original prepared source footprints. Original API bbox file is unavailable; this audits relation-part omission within retained source coverage, not original exact extract completeness.",
+      "positivePartOnlyRelations": [
+        {
+          "sourceId": "r19745997",
+          "retainedIds": [
+            "r19745997"
+          ],
+          "sourceUrl": "https://www.openstreetmap.org/relation/19745997",
+          "tags": {
+            "building:part": "yes",
+            "height": "154.25",
+            "min_height": "154.15",
+            "type": "multipolygon"
+          }
+        }
+      ],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": false
+    },
+    {
+      "id": "spring-palace",
+      "members": [
+        "spring-palace"
+      ],
+      "bbox": [
+        44.46516043983731,
+        26.087227154900688,
+        44.47233956016269,
+        26.09727284509931
+      ],
+      "scope": "Exact existing Bucharest fetch-buc footprint union + 260 m backdrop bounds.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": true
+    },
+    {
+      "id": "waterfront",
+      "members": [
+        "waterfront"
+      ],
+      "bbox": [
+        47.6039161,
+        -122.3451404,
+        47.609964,
+        -122.338761
+      ],
+      "scope": "Envelope of all retained original prepared source footprints. Original API bbox file is unavailable; this audits relation-part omission within retained source coverage, not original exact extract completeness.",
+      "positivePartOnlyRelations": [],
+      "allExpectedRelationsRetained": true,
+      "originalExactExtractionScopeVerified": false
+    }
+  ],
+  "restoration": {
+    "scene": "buc-old-town",
+    "relationIds": [
+      13104090,
+      13104091,
+      13104092,
+      13104229,
+      13104230,
+      13104231
+    ],
+    "outerVolumeCount": 7,
+    "supplementalSource": "game/research/osm/spot-part-relations.json"
+  },
+  "excludedOutsideScope": {
+    "district": "bellevue",
+    "sourceIds": [
+      "r4547846",
+      "r4547847",
+      "r4547848",
+      "r4547849",
+      "r4547850",
+      "r4547851",
+      "r4547852",
+      "r4547853",
+      "r4547854"
+    ],
+    "reason": "All9 district relation-part footprints are east of the Lincoln Square retained original source envelope (east=-122.1967568). No tourist scene scope is extended."
+  },
+  "remainingGaps": [
+    "US original osm/<scene>.osm bbox files are unavailable. US coverage here is explicitly the envelope of retained original source footprints, not proven original API extraction rectangles.",
+    "This audit checks the positive part-only relation omission class. It does not establish completeness of every OSM input class or full scene visual/physical acceptance."
+  ]
+}

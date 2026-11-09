@@ -1,0 +1,71 @@
+{
+  "sourceCommit": "bd9c9231551c773aa36a25b99c65197850f9eae9",
+  "rawSha256": "ffb096853c079914843e0013939899ab3d84e729a7929faed213069f438bd9f6",
+  "artifacts": [
+    {
+      "file": "README.md",
+      "bytes": 1776,
+      "sha256": "ab9056d6dc3da0046215c3d17e5af216d4abb03d5218e8aa754c86d42c129a5a"
+    },
+    {
+      "file": "admission-observer.js",
+      "bytes": 4814,
+      "sha256": "533e95c3ba23e0cd757f11ee732e0e49931fd0ae50c831a41705705594af7568"
+    },
+    {
+      "file": "classification.json",
+      "bytes": 687356,
+      "sha256": "b1680aa38cdc5a57c346457a5bee6671460c61eb652f70881e6ce8ce2a074305"
+    },
+    {
+      "file": "execution.log",
+      "bytes": 639,
+      "sha256": "2d8cea478f6128947776f758086187ef22905ab614fabda860568011dfdfa572"
+    },
+    {
+      "file": "guard-proposal-observer.js",
+      "bytes": 1507,
+      "sha256": "7ce4079ebb06f2b735a52b0655e4961c4cee2b88761cfb5c7d9cbdabc6fabe26"
+    },
+    {
+      "file": "integration-delta.json",
+      "bytes": 714,
+      "sha256": "e5596e690fc94717d69aacf20bb8d76c4822d268322179a8b0c10b9e33ff6cf1"
+    },
+    {
+      "file": "observe-peer-attribution.cjs",
+      "bytes": 19955,
+      "sha256": "98834ac033248b1b0cb5e90c3e110d6c18c3da21004613bb3068c86c5df8c4db"
+    },
+    {
+      "file": "peer-observer.js",
+      "bytes": 6463,
+      "sha256": "9cd13f843ae71dfb5e7b4e01df5fa9f3cb5fc1d63e157a08b7efc072f20075e6"
+    },
+    {
+      "file": "player-context-observer.js",
+      "bytes": 3433,
+      "sha256": "35d538f2b1c813ecd66ec2f025c31313dbcc00b55aea7b443efdab54b8989899"
+    },
+    {
+      "file": "report.json.gz",
+      "bytes": 11546108,
+      "sha256": "a4f215e21c04d19f8d44d6d8bee8ba25d28364a79cf90416aca12042dfb9293b"
+    },
+    {
+      "file": "service-pair-observer.js",
+      "bytes": 1546,
+      "sha256": "8fb6659ac7a0423ab5a5333b22be9c524cdef6fb5211c932f811daf9dc51c1f1"
+    },
+    {
+      "file": "unirii-day-chapter-start.png",
+      "bytes": 1196194,
+      "sha256": "401e2e4d87809f04fa55ac95ca5889739aec7d74cd4d0c9c40c789a836bceb2e"
+    },
+    {
+      "file": "unirii-day-first150m.png",
+      "bytes": 1214945,
+      "sha256": "4099f04102a54e7b8526e9cc8b4560d24b486bd5018b0ede9669a9a09593d873"
+    }
+  ]
+}

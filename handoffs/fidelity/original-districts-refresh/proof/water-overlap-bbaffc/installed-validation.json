@@ -1,0 +1,197 @@
+{
+  "collections": [
+    {
+      "manifest": "game/overview/comparison-data/floreasca/manifest.json",
+      "kind": "current",
+      "frames": 90,
+      "verifiedImageHashes": 180,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 21,
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 63
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/floreasca/historical/df9b2e2ced83b8b30bcc8e34cf809a434b25bc27-859cfbde/manifest.json",
+      "kind": "historical",
+      "frames": 90,
+      "verifiedImageHashes": 180,
+      "sourceCounts": {
+        "df9b2e2ced83b8b30bcc8e34cf809a434b25bc27": 90
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/floreasca/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-d7393248/manifest.json",
+      "kind": "historical",
+      "frames": 90,
+      "verifiedImageHashes": 180,
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 90
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/floreasca/historical/mixed-before-bbaffc0d-3c104b16/manifest.json",
+      "kind": "historical",
+      "frames": 90,
+      "verifiedImageHashes": 180,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 25,
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 65
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/floreasca/context/summer-clear-night/manifest.json",
+      "kind": "perspective",
+      "frames": 10,
+      "verifiedImageHashes": 20,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 10
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/floreasca/context/summer-clear-day/manifest.json",
+      "kind": "perspective",
+      "frames": 25,
+      "verifiedImageHashes": 50,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 24,
+        "d5795e20c85e8122a62fc503f33a182d05eceaf0": 1
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/floreasca/context/winter-snow-day/manifest.json",
+      "kind": "perspective",
+      "frames": 11,
+      "verifiedImageHashes": 22,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 10,
+        "d5795e20c85e8122a62fc503f33a182d05eceaf0": 1
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/romana/manifest.json",
+      "kind": "current",
+      "frames": 116,
+      "verifiedImageHashes": 232,
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 103,
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 13
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/manifest.json",
+      "kind": "historical",
+      "frames": 199,
+      "verifiedImageHashes": 199,
+      "sourceCounts": {
+        "b10d8d3684b702fa529076bb92e3f0c1948d85cd": 192,
+        "ce54c6b548b155c3bafe9a120d24627d0b38346f": 3,
+        "58129abe74a93be2ef52d3c3bf40682768531bc3": 4
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/romana/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-0fa9d108/manifest.json",
+      "kind": "historical",
+      "frames": 116,
+      "verifiedImageHashes": 232,
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 116
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/romana/context/summer-clear-night/manifest.json",
+      "kind": "perspective",
+      "frames": 9,
+      "verifiedImageHashes": 18,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 9
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/romana/context/winter-snow-day/manifest.json",
+      "kind": "perspective",
+      "frames": 9,
+      "verifiedImageHashes": 18,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 9
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/romana/context/summer-clear-day/manifest.json",
+      "kind": "perspective",
+      "frames": 37,
+      "verifiedImageHashes": 74,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 37
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/grozavesti/manifest.json",
+      "kind": "current",
+      "frames": 100,
+      "verifiedImageHashes": 200,
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 26,
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/grozavesti/historical/ff70806113efe0253cf5c623c87e181bbde595b5-dcfd7be3/manifest.json",
+      "kind": "historical",
+      "frames": 99,
+      "verifiedImageHashes": 198,
+      "sourceCounts": {
+        "ff70806113efe0253cf5c623c87e181bbde595b5": 99
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/grozavesti/historical/4378317f3fcdccc886d6c7c1ed092ee15d95db8a-fed96a2d/manifest.json",
+      "kind": "historical",
+      "frames": 100,
+      "verifiedImageHashes": 200,
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 100
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/grozavesti/historical/mixed-before-bbaffc0d-5978bf1b/manifest.json",
+      "kind": "historical",
+      "frames": 100,
+      "verifiedImageHashes": 200,
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 81,
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 19
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/grozavesti/context/summer-clear-day/manifest.json",
+      "kind": "perspective",
+      "frames": 16,
+      "verifiedImageHashes": 32,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 16
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/grozavesti/context/summer-clear-night/manifest.json",
+      "kind": "perspective",
+      "frames": 6,
+      "verifiedImageHashes": 12,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/grozavesti/context/winter-snow-day/manifest.json",
+      "kind": "perspective",
+      "frames": 6,
+      "verifiedImageHashes": 12,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 6
+      }
+    }
+  ],
+  "currentAtlasFrames": 306,
+  "failures": []
+}

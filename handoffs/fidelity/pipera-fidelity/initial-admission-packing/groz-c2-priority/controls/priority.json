@@ -1,0 +1,738 @@
+{
+  "passed": true,
+  "sourceCommit": "c2acc8d59cab1ca5f8da4f1f44bbdc5706f56f76",
+  "fixtureSha256": "8f6cb9e27941445c0d8515a79a1fb715797f6b86ab2af2e1952473aa8cf8ee9c",
+  "fixtureGzipSha256": "d75dbc040f85a13e63a2fa30be28b0e726a0c8c978513d21cb06f94fa966c535",
+  "bodies": 263,
+  "projectedCandidates": 30459,
+  "originalNativeReplayMatchesSearchAndAttempts": true,
+  "originalSearch": {
+    "maxDepth": 6,
+    "maxWork": 8192,
+    "work": 8192,
+    "candidateTests": 2812,
+    "validationCalls": 5380,
+    "pairTests": 11042,
+    "deepest": 2,
+    "maxReservedBodies": 3,
+    "transactions": 12,
+    "committedTransactions": 0,
+    "rolledBackBranches": 2591,
+    "cyclePrunes": 2567,
+    "depthPrunes": 0,
+    "workLimitReached": true
+  },
+  "attribution": {
+    "candidates": {
+      "64": 51,
+      "231": 2645,
+      "261": 116
+    },
+    "validations": {
+      "64": 51,
+      "231": 5212,
+      "261": 117
+    },
+    "nodes": [
+      {
+        "id": 261,
+        "held": [],
+        "work": 0
+      },
+      {
+        "id": 64,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          }
+        ],
+        "work": 233
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 12.433203719771685
+          }
+        ],
+        "work": 245
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 12.183203719771685
+          }
+        ],
+        "work": 594
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 11.933203719771685
+          }
+        ],
+        "work": 943
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 11.683203719771685
+          }
+        ],
+        "work": 1292
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 11.433203719771685
+          }
+        ],
+        "work": 1641
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 11.183203719771685
+          }
+        ],
+        "work": 1990
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 10.933203719771685
+          }
+        ],
+        "work": 2339
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 10.683203719771685
+          }
+        ],
+        "work": 2688
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 10.433203719771685
+          }
+        ],
+        "work": 3037
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 10.183203719771685
+          }
+        ],
+        "work": 3388
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 9.933203719771685
+          }
+        ],
+        "work": 3737
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 9.683203719771685
+          }
+        ],
+        "work": 4086
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 9.433203719771685
+          }
+        ],
+        "work": 4435
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 9.183203719771685
+          }
+        ],
+        "work": 4784
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 8.933203719771685
+          }
+        ],
+        "work": 5133
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 8.683203719771685
+          }
+        ],
+        "work": 5482
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 8.433203719771685
+          }
+        ],
+        "work": 5831
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 8.183203719771685
+          }
+        ],
+        "work": 6180
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 7.933203719771685
+          }
+        ],
+        "work": 6529
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 7.683203719771685
+          }
+        ],
+        "work": 6878
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 7.433203719771685
+          }
+        ],
+        "work": 7227
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 7.183203719771685
+          }
+        ],
+        "work": 7576
+      },
+      {
+        "id": 231,
+        "held": [
+          {
+            "id": 261,
+            "s": 5.297091201872295
+          },
+          {
+            "id": 64,
+            "s": 6.933203719771685
+          }
+        ],
+        "work": 7925
+      },
+      {
+        "id": 64,
+        "held": [],
+        "work": 8192
+      },
+      {
+        "id": 259,
+        "held": [],
+        "work": 8192
+      },
+      {
+        "id": 71,
+        "held": [],
+        "work": 8192
+      },
+      {
+        "id": 260,
+        "held": [],
+        "work": 8192
+      },
+      {
+        "id": 97,
+        "held": [],
+        "work": 8192
+      },
+      {
+        "id": 223,
+        "held": [],
+        "work": 8192
+      },
+      {
+        "id": 188,
+        "held": [],
+        "work": 8192
+      },
+      {
+        "id": 261,
+        "held": [],
+        "work": 8192
+      },
+      {
+        "id": 231,
+        "held": [],
+        "work": 8192
+      },
+      {
+        "id": 260,
+        "held": [],
+        "work": 8192
+      },
+      {
+        "id": 249,
+        "held": [],
+        "work": 8192
+      }
+    ],
+    "cycles": {
+      "231>261": 2567
+    }
+  },
+  "originalFixedTramBusDomain": {
+    "heldTram": 261,
+    "station": 5.297091201872295,
+    "bus": 231,
+    "choices": 115,
+    "everyChoiceBlocked": true,
+    "minimumPenetrationM": 0.39914624385333397,
+    "firstFeasibleTramCandidateIndex": 3,
+    "firstFeasibleTramStation": 4.797091201872295
+  },
+  "shortPairSourceValidClearCombinations": 49,
+  "sourceRejectedReverseTramCandidates": 121,
+  "prioritySearch": {
+    "maxDepth": 6,
+    "maxWork": 8192,
+    "work": 2221,
+    "candidateTests": 922,
+    "validationCalls": 1299,
+    "pairTests": 3892,
+    "deepest": 2,
+    "maxReservedBodies": 3,
+    "transactions": 7,
+    "committedTransactions": 5,
+    "rolledBackBranches": 348,
+    "cyclePrunes": 345,
+    "depthPrunes": 0,
+    "workLimitReached": false
+  },
+  "elapsedMs": 27.544765000000098,
+  "deterministicReplay": true,
+  "rngDraws": 0,
+  "inputUnchanged": true,
+  "updates": [
+    {
+      "id": 231,
+      "edgeId": 74,
+      "sourceId": "w80013062",
+      "dir": 1,
+      "lane": 1,
+      "previous": {
+        "x": -366.2466340816357,
+        "y": 0.24,
+        "z": 488.69155883448923,
+        "heading": 2.8182845041123334,
+        "s": 6.734265302098164
+      },
+      "pose": {
+        "x": -373.20455814393114,
+        "y": 0.24,
+        "z": 509.75000374521886,
+        "heading": 2.822475262120488,
+        "s": 28.912425940773865,
+        "pitch": 0,
+        "roll": 0,
+        "verticalInterval": {
+          "min": 0.17500000238418578,
+          "max": 3.620000114440918,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 64,
+      "edgeId": 73,
+      "sourceId": "w80013062",
+      "dir": 1,
+      "lane": 1,
+      "previous": {
+        "x": -359.03011887195566,
+        "y": 0.24,
+        "z": 468.9129679350174,
+        "heading": 2.7771624639295536,
+        "s": 13.183203719771685
+      },
+      "pose": {
+        "x": -358.58459766798046,
+        "y": 0.24,
+        "z": 467.7450591813861,
+        "heading": 2.7771624639295536,
+        "s": 11.933203719771685,
+        "pitch": 0,
+        "roll": 0,
+        "verticalInterval": {
+          "min": 0.17500000238418578,
+          "max": 1.8100000524520874,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 261,
+      "edgeId": 74,
+      "sourceId": "w80013062",
+      "dir": 1,
+      "lane": 0,
+      "previous": {
+        "x": -365.5108976067888,
+        "y": 0.24,
+        "z": 487.4210623827272,
+        "heading": 2.809057026181219,
+        "s": 5.297091201872295
+      },
+      "pose": {
+        "x": -365.3540332893268,
+        "y": 0.24,
+        "z": 486.94630603900214,
+        "heading": 2.8081850655830607,
+        "s": 4.797091201872295,
+        "pitch": 0,
+        "roll": 0,
+        "verticalInterval": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 259,
+      "edgeId": 161,
+      "sourceId": "w277315765",
+      "dir": 1,
+      "lane": 0,
+      "previous": {
+        "x": -317.7174976110598,
+        "y": 0.24,
+        "z": 419.1746761813226,
+        "heading": -0.4692049143755117,
+        "s": 12.952529488204096
+      },
+      "pose": {
+        "x": -320.43207059910446,
+        "y": 0.24,
+        "z": 424.52547925119705,
+        "heading": -0.46699774542467276,
+        "s": 6.952529488204096,
+        "pitch": 0,
+        "roll": 0,
+        "verticalInterval": {
+          "min": 0.2482737924531102,
+          "max": 6.029999961853028,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 97,
+      "edgeId": 162,
+      "sourceId": "w277315765",
+      "dir": 1,
+      "lane": 0,
+      "previous": {
+        "x": -306.0378797862893,
+        "y": 0.24,
+        "z": 391.1970237222443,
+        "heading": -0.5467340704899957,
+        "s": 12.346382167631218
+      },
+      "pose": {
+        "x": -304.8681044233194,
+        "y": 0.24,
+        "z": 389.27501290016534,
+        "heading": -0.5467340704899957,
+        "s": 14.596382167631218,
+        "pitch": 0,
+        "roll": 0,
+        "verticalInterval": {
+          "min": 0.13999999850988387,
+          "max": 1.9800000095367432,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 188,
+      "edgeId": 490,
+      "sourceId": "w295382943",
+      "dir": 1,
+      "lane": 0,
+      "previous": {
+        "x": 308.8135041919759,
+        "y": 0.24,
+        "z": -713.2978668963358,
+        "heading": 2.1267049126810744,
+        "s": 3.9906961937452605
+      },
+      "pose": {
+        "x": 308.3887935338349,
+        "y": 0.24,
+        "z": -713.0340092512665,
+        "heading": 2.1267049126810744,
+        "s": 4.4906961937452605,
+        "pitch": 0,
+        "roll": 0,
+        "verticalInterval": {
+          "min": 0.17500000238418578,
+          "max": 1.7599999809265137,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 223,
+      "edgeId": 700,
+      "sourceId": "w295382931",
+      "dir": 1,
+      "lane": 2,
+      "previous": {
+        "x": 312.57228059028375,
+        "y": 0.24,
+        "z": -713.7988714795106,
+        "heading": -2.196077484238981,
+        "s": 2.8574481906848623
+      },
+      "pose": {
+        "x": 312.57228059028375,
+        "y": 0.24,
+        "z": -713.7988714795106,
+        "heading": -2.196077484238981,
+        "s": 2.8574481906848623,
+        "pitch": 0,
+        "roll": 0,
+        "verticalInterval": {
+          "min": 0.17500000238418578,
+          "max": 1.7599999809265137,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    },
+    {
+      "id": 249,
+      "edgeId": 161,
+      "sourceId": "w277315765",
+      "dir": 1,
+      "lane": 0,
+      "previous": {
+        "x": -319.42405728066257,
+        "y": 0.24,
+        "z": 415.4656083738596,
+        "heading": -0.4694869776478138,
+        "s": 15.488181259696676
+      },
+      "pose": {
+        "x": -320.215807735509,
+        "y": 0.24,
+        "z": 417.02625926923963,
+        "heading": -0.4694869776478138,
+        "s": 13.738181259696676,
+        "pitch": 0,
+        "roll": 0,
+        "verticalInterval": {
+          "min": 0.17500000238418578,
+          "max": 1.7599999809265137,
+          "known": true,
+          "source": "emitted-model-vertices-YXZ"
+        }
+      }
+    }
+  ],
+  "unresolved": [],
+  "boundedSynthetic": {
+    "oldPassed": false,
+    "oldSearch": {
+      "maxDepth": 6,
+      "maxWork": 96,
+      "work": 96,
+      "candidateTests": 36,
+      "validationCalls": 60,
+      "pairTests": 147,
+      "deepest": 2,
+      "maxReservedBodies": 3,
+      "transactions": 4,
+      "committedTransactions": 0,
+      "rolledBackBranches": 33,
+      "cyclePrunes": 24,
+      "depthPrunes": 0,
+      "workLimitReached": true
+    },
+    "newPassed": true,
+    "newSearch": {
+      "maxDepth": 6,
+      "maxWork": 96,
+      "work": 46,
+      "candidateTests": 17,
+      "validationCalls": 29,
+      "pairTests": 82,
+      "deepest": 2,
+      "maxReservedBodies": 3,
+      "transactions": 1,
+      "committedTransactions": 1,
+      "rolledBackBranches": 8,
+      "cyclePrunes": 6,
+      "depthPrunes": 0,
+      "workLimitReached": false
+    }
+  },
+  "scope": "Pure order/pruning response with unchanged work/depth/clearance/source/long-body gates. Cached native source/static validation only for exact poses and context-independent nonshared mouth checks. All263 bodies retained. Does not certify source rail alignment/legal transit assignments or replace native provider regeneration/publication."
+}

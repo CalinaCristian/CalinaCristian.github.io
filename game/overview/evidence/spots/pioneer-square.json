@@ -687,5 +687,289 @@
         "pioneer-square"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "pioneer-square",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/pioneer-square/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:23:26.070Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": 0,
+          "z": 0,
+          "y": 0.005508346529677466,
+          "heading": -0.34906570312499996
+        },
+        "pose": {
+          "position": [
+            0,
+            1.6555083465296774,
+            0
+          ],
+          "bearing": 19.999991561829063,
+          "pitch": 7.999999310471287
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:23:21.797Z",
+        "triangles": 420525,
+        "drawCalls": 87,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "503fc5fa9a70ba19cb241b9b532be201d592e4bba617f42c19a7d33929150006",
+        "bytes": 72514,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 1,
+            "z": 4,
+            "y": 0.007195211062207779,
+            "heading": -0.3490658503988659
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "pioneer-square",
+            "x": 0,
+            "z": 0,
+            "bearing": 20,
+            "pitch": 8,
+            "fov": 60,
+            "text": "Pergola in front of the Pioneer Building with the totem pole on the left",
+            "r": 10,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 0,
+            "z": 0,
+            "y": 0.005508346529677466,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "pioneer-square",
+          "origin": {
+            "lat": 47.60166,
+            "lon": -122.3342,
+            "elev": 7.9
+          },
+          "projection": {
+            "mLat": 111182.57,
+            "mLon": 75198.04
+          }
+        },
+        "label": "Pioneer Square and surrounding street fronts",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/pioneer-square/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:27:26.655Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 0,
+          "z": 0,
+          "y": 0.005508346529677466,
+          "heading": -0.3490658203125
+        },
+        "pose": {
+          "position": [
+            0,
+            1.6555083465296774,
+            0
+          ],
+          "bearing": 19.99999827617819,
+          "pitch": 7.999999310471287
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:27:23.187Z",
+        "triangles": 378429,
+        "drawCalls": 144,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "3644adc10f8f9f31513a2a574acdcc5d808f5bcd0dda0e60bb7df6260a6a5dc3",
+        "bytes": 61630,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": 1,
+            "z": 4,
+            "y": 0.007195211062207779,
+            "heading": -0.3490658503988659
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "pioneer-square",
+            "x": 0,
+            "z": 0,
+            "bearing": 20,
+            "pitch": 8,
+            "fov": 60,
+            "text": "Pergola in front of the Pioneer Building with the totem pole on the left",
+            "r": 10,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 0,
+            "z": 0,
+            "y": 0.005508346529677466,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "pioneer-square",
+          "origin": {
+            "lat": 47.60166,
+            "lon": -122.3342,
+            "elev": 7.9
+          },
+          "projection": {
+            "mLat": 111182.57,
+            "mLon": 75198.04
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/pioneer-square/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:23:31.210Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 0,
+          "z": 0,
+          "y": 0.005508346529677466,
+          "heading": -0.34906570312499996
+        },
+        "pose": {
+          "position": [
+            0,
+            1.6555083465296774,
+            0
+          ],
+          "bearing": 19.999991561829063,
+          "pitch": 7.999999310471287
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:23:26.938Z",
+        "triangles": 365756,
+        "drawCalls": 47,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "5fca86a151fa431e88e78a063b3b5a09b7bbc0e46f7c5cceb897ba8fe2089b7d",
+        "bytes": 61637,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 1,
+            "z": 4,
+            "y": 0.007195211062207779,
+            "heading": -0.3490658503988659
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "pioneer-square",
+            "x": 0,
+            "z": 0,
+            "bearing": 20,
+            "pitch": 8,
+            "fov": 60,
+            "text": "Pergola in front of the Pioneer Building with the totem pole on the left",
+            "r": 10,
+            "tol": 30,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 0,
+            "z": 0,
+            "y": 0.005508346529677466,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "pioneer-square",
+          "origin": {
+            "lat": 47.60166,
+            "lon": -122.3342,
+            "elev": 7.9
+          },
+          "projection": {
+            "mLat": 111182.57,
+            "mLon": 75198.04
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:27:26.655Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

@@ -1,0 +1,46 @@
+{
+  "sourceCommit": "54c044421640cfe3569bfc3f72159d2169f87581",
+  "originalWorld": {
+    "path": "/workspace/integration-qa-evidence/unirii-zero54-native/unirii-world.json.gz",
+    "compressedSha256": "e7136854163ec3fa6cf36d06db47b346339b5a96100d07f281cf39d24289b21f",
+    "rawSha256": "c19a443957ea464c1aea06d929a29034f8ee982bceff955f38ce6ee0e8a0da37",
+    "rawBytes": 84265376
+  },
+  "originalFacts": {
+    "path": "/workspace/integration-qa-evidence/unirii-zero54-native/unirii-constructor-facts.json.gz",
+    "compressedSha256": "2508f83192730570926456bdd68e67923135a06d9b3169c83e20cbec0234f4e0",
+    "rawSha256": "18232c3d142908b5440922c6319ec979cf2f91562b2005287e7d192415b7b39f",
+    "rawBytes": 33370345
+  },
+  "projection": {
+    "worldFields": [
+      "allEdges",
+      "graphNodes",
+      "graphEdgeIds",
+      "ribbons",
+      "colliders"
+    ],
+    "omittedColliderDiagnosticFields": [
+      "directBandSamples"
+    ],
+    "edges": 1103,
+    "nodes": 1017,
+    "ribbons": 1263,
+    "colliders": 29176,
+    "rawBytes": 19097708,
+    "rawSha256": "0b40bd67a8020da5e17ce11e19b9b95b4e589e656ee1925aacfc5f97558515b0"
+  },
+  "files": [
+    {
+      "path": "constructor-facts.json.gz",
+      "bytes": 2901098,
+      "sha256": "2508f83192730570926456bdd68e67923135a06d9b3169c83e20cbec0234f4e0"
+    },
+    {
+      "path": "world.json.gz",
+      "bytes": 1856988,
+      "sha256": "a196e9f49ffb7942993ed65de0c97498e286b7a1e8075b6f734dd26532656aec"
+    }
+  ],
+  "scope": "Exact JSON-value projection, not inferred geometry or source regeneration. Every consumed graph/ribbon/collider field remains unchanged; function text stays a non-executable unknown marker. All original full native exports remain preserved at their producer paths."
+}

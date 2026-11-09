@@ -17,7 +17,8 @@
             <div class="eyebrow">An interactive résumé</div>
             <h1>Drive My CV</h1>
             <p class="lead">Get behind the wheel in <b>Bucharest</b>, survive the traffic, visit every office where Cristian worked, then fly to <b>Seattle</b> and drive to Bellevue.</p>
-            <details class="controls-wrap"><summary>⌨️ Controls</summary>
+            <details class="controls-wrap"><summary>Controls</summary>
+            <div class="touch-instructions">Drag the left side to steer or walk, and the right side to look. Use the gas / brake pedals while driving. Tap Use to interact, 🚶 to get out or in, 🧭 for navigation, and ⏸ for fast travel, position reset and settings. On foot, tap Run or push the movement stick to its edge to run.</div>
             <div class="controls">
                 <div><kbd>W</kbd><kbd>S</kbd> drive · <kbd>A</kbd><kbd>D</kbd> steer</div>
                 <div><kbd>Space</kbd> brake · <kbd>H</kbd> horn (you'll need it)</div>
@@ -30,11 +31,12 @@
                 <button id="continue" class="btn primary" data-continue hidden>▶ Continue</button>
                 <button id="start" class="btn primary">📖 New story</button>
                 <button id="worldmap-start" class="btn">🌍 World map <small>go anywhere · the story waits</small></button>
+                <button id="menu-settings" class="btn">⚙️ Settings</button>
                 <a class="btn ghost" href="../">Skip the game → classic CV</a>
             </div>
             <div class="row small">
                 <label>Quality <select id="quality"><option value="auto">Auto (recommended)</option><option value="ultra">Ultra</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low (mobile)</option></select></label>
-                <label>Time of day <select id="timeofday"><option value="real">Real time (default)</option><option value="dawn">Dawn</option><option value="day">Day</option><option value="sunset">Sunset</option><option value="night">Night</option></select></label>
+                <label>Time of day <select id="timeofday"><option value="real">Real time (default)</option><option value="dawn">Dawn</option><option value="rush">Rush 08:30</option><option value="noon">Noon</option><option value="day">Day</option><option value="sunset">Golden hour</option><option value="dusk">Dusk</option><option value="night">Night</option></select></label>
                 <label>Weather <select id="weather"><option value="real">Real (default)</option><option value="clear">Clear</option><option value="cloudy">Cloudy</option><option value="drizzle">Drizzle</option><option value="rain">Rain</option><option value="snow">Snow</option><option value="fog">Fog</option><option value="storm">Storm</option></select></label>
                 <label>Mouse look <select id="lookmode"><option value="lock">Pointer lock (click the view)</option><option value="hold">Hold right button</option><option value="off">Off</option></select></label>
                 <label><input type="checkbox" id="opt-minimap"> Mini-map</label>
@@ -66,7 +68,7 @@
             <div id="fuel" class="fuel"><span class="ico">⛽</span><div class="bar"><div id="fuel-fill"></div></div><span id="fuel-text"></span></div>
             <div id="trip"></div>
         </div>
-        <div class="bottom-left"><canvas id="minimap" width="230" height="230"></canvas></div>
+        <div class="bottom-left"><canvas id="minimap" width="230" height="230"></canvas><button id="minimap-toggle" aria-label="Collapse mini-map" aria-expanded="true">−</button></div>
         <div id="ticker"><span></span></div>
         <div id="prompt"></div>
         <div id="hint"></div>
@@ -76,16 +78,16 @@
         <!-- touch controls -->
         <div id="touch">
             <div class="pad left"></div>
-            <div class="pad right"><button data-btn="jump" class="office-only" title="Jump">⤒</button><button data-btn="horn" class="drive-only">📣</button><button data-btn="act">E</button><button data-btn="foot" title="Get out / get in">🚶</button><button data-btn="map" title="Map &amp; navigation">🧭</button></div>
+            <div class="pad right"><button data-btn="jump" class="office-only" title="Jump" aria-label="Jump">⤒</button><button data-btn="run" class="office-only" title="Toggle running" aria-pressed="false">Run</button><button data-btn="horn" class="drive-only" title="Horn" aria-label="Horn">📣</button><button data-btn="lookback" class="drive-only" title="Hold to look back" aria-label="Hold to look back">↶</button><button data-btn="act" title="Interact / enter office / refuel">Use</button><button data-btn="foot" title="Get out / get in" aria-label="Get out / get in">🚶</button><button data-btn="map" title="Map &amp; navigation" aria-label="Map &amp; navigation">🧭</button></div>
         </div>
     </div>
 
-    <div id="bigmap-wrap">
+    <div id="bigmap-wrap" role="dialog" aria-label="Map and navigation">
         <div class="map-row">
             <canvas id="bigmap"></canvas>
             <aside id="navpanel"><div class="eyebrow">Navigate to</div><div id="navlist"></div></aside>
         </div>
-        <div class="map-hint">Click the map to drop a waypoint · drag to pan · scroll to zoom · <kbd>M</kbd> / <kbd>Esc</kbd> to close <button id="map-close" class="btn ghost small-btn">Close ✕</button></div>
+        <div class="map-hint"><span class="map-desktop-help">Click the map to mark a waypoint · drag to pan · scroll to zoom · <kbd>M</kbd> / <kbd>Esc</kbd> to close</span><span class="map-touch-help">Tap to mark · drag to pan</span><button id="map-fast-travel" class="btn small-btn">⏩ Fast travel</button> <button id="map-close" class="btn ghost small-btn">Close ✕</button></div>
     </div>
     <div id="panel"></div>
 

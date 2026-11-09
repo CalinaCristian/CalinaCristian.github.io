@@ -510,3 +510,20 @@ Culture notes:
 | pipera_adevarul | https://adevarul.ro/economie/pipera-dragostea-mea-866424.html |
 | pipera_protv | https://stirileprotv.ro/exclusiv/stirile-tale/epopeea-traficului-din-bucuresti-partea-a-ii-a.html |
 | pipera_capital | https://www.capital.ro/investitie-pentru-fluidizarea-traficului-in-nordul-capitalei-se-construieste-o-noua-sosea-in-zona-dimitrie-pompeiu.html |
+
+
+## Independent full-ring measurements — 2026-11-08
+
+The original route/coverage tables above are the2026-11-06 dossier snapshot. Current chapter anchors and playable geometry remain those in `cities.js`; this pass preserves them. The machine-readable measurement ledger is `measurements-bucharest-pipera.json`.
+
+Fresh OpenStreetMap API0.6 tiles cover the analytic core and complete600m intersecting-source ring. Every valid source ID is audited directly, including small structures, source parts and mapped courtyard relations; spatial neighbours cannot mask a missing ID. The initial rebuild had2282 source records but omitted7 and shrank several others; the exact-source policy retains all2282. Road contacts remain source-review items until their mapped shared lanes, open roofs or building passages are implemented and verified.
+
+Independent Esri World Imagery coverage is44.465–44.490N /26.084–26.141E, zoom18, approximately0.426m/pixel,1161tiles. Acquisition date is unknown; access date is2026-11-08. Roof calibration inspected80 deterministic random samples and12 key structures on5 private sheets. The compact input contains2266 source roof records, including retained uncertain classifications. It does not measure roof rise/direction or native metre height. The canopy input measures47585 crown centres/radii over the complete image coverage; the builder accounts for retention outside the source envelope and exact physical exclusions. Untagged heights/species remain estimates. Green ground uses the same source mosaic.
+
+All9 `building=roof` records were independently reviewed, with explicit open-roof metadata and estimated untagged vertical dimensions. The two station canopies also have mapped covered service access: [Petrom](https://www.openstreetmap.org/way/241976323), [covered lane](https://www.openstreetmap.org/way/668515452); [Lukoil](https://www.openstreetmap.org/way/547396767), [covered lane](https://www.openstreetmap.org/way/668523278). No fuel station is invented from available ground.
+
+The Aviation Museum's23 mapped `historic=aircraft` outlines describe aircraft exhibits, rather than houses. Their exact planforms and identities remain; vertical body/fin/clearance detail is explicitly estimated. Their silhouettes are excluded from roof-class claims.
+
+Landmark evidence uses the [Sky Tower owner](https://www.skytower.ro/), [Hermes owner](https://adventum.eu/asset/hermes-business-campus/), [Globalworth BOB owner particulars](https://www.globalworth.com/wp-content/uploads/2021/01/BOB-particulars.pdf), the mapped building identities, and independent aerial plans. Sky Tower's tagged137m/37levels/flat roof and colour have priority. Hermes A and B+C each have9 OSM levels, and B+C's courtyard remains open at every tier. BOB has independently published GF+6 floors; its metre height remains an estimate. Ground-floor/site entrance details retain the existing source chapter approach.
+
+Google Street View is used only for private side-by-side comparison. No geometry, height or colour is extracted from it, and no reference imagery is committed or published.

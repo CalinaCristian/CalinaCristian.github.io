@@ -1,0 +1,3 @@
+LOAD grozavesti exact constructor fixture
+FIXTURE {"actors":263,"providers":263,"candidates":30459,"unchanged":true}
+COMPLETE {"sourceCommit":"c2acc8d59cab1ca5f8da4f1f44bbdc5706f56f76","passedAllEight":false,"districts":0,"failures":0,"errors":0,"consoleErrors":0,"failedRequests":0}

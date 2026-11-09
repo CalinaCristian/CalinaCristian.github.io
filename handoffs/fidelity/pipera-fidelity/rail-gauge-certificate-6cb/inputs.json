@@ -1,0 +1,1936 @@
+{
+  "scope": "Exact guardrail source-gauge certificate inputs. No aerial width measurements, vehicle sweeps or source modifications.",
+  "nativeCommit": "6cbf82b61de8267f662bf50239c37ccc1764635c",
+  "nativeExportSha256": "a1dcca3b1a573028b7f659787b2c7db34dd874b0a28b6697d34593be6f417bb3",
+  "projection": {
+    "lat0": 44.4412,
+    "lon0": 26.0592,
+    "scale": 1,
+    "mPerLat": 111132,
+    "mPerLon": 79479.07183661079,
+    "compress": null
+  },
+  "mesh": "solid 1,-2",
+  "triangles": [
+    {
+      "triangle": 648,
+      "vertices": [
+        [
+          581.0740356445312,
+          11.239999771118164,
+          -853.4430541992188
+        ],
+        [
+          581.8907470703125,
+          11.239999771118164,
+          -853.99951171875
+        ],
+        [
+          581.8907470703125,
+          12.34000015258789,
+          -853.99951171875
+        ]
+      ]
+    },
+    {
+      "triangle": 649,
+      "vertices": [
+        [
+          581.0740356445312,
+          11.239999771118164,
+          -853.4430541992188
+        ],
+        [
+          581.8907470703125,
+          12.34000015258789,
+          -853.99951171875
+        ],
+        [
+          581.0740356445312,
+          12.34000015258789,
+          -853.4430541992188
+        ]
+      ]
+    }
+  ],
+  "rawRails": {
+    "205971103": {
+      "id": "205971103",
+      "nodeIds": [
+        "6187888833",
+        "6187888838",
+        "6187888847",
+        "6187888846",
+        "6187888829",
+        "6187888836",
+        "6187888845",
+        "6187888852",
+        "6187888848",
+        "6187888837",
+        "6187888842",
+        "6187888830",
+        "6187888843",
+        "6187888849",
+        "5865238778",
+        "1775175278",
+        "5865238776",
+        "6187848848",
+        "6187848836",
+        "6187848861",
+        "6187848807",
+        "6187848833",
+        "6187848809",
+        "6187849501",
+        "6187848858",
+        "6187849498",
+        "6187777601",
+        "2159751755",
+        "2159751748",
+        "2159751730",
+        "6263837339",
+        "2159751746",
+        "2624398751",
+        "2159751773",
+        "6340365308",
+        "3908619717",
+        "2159751736",
+        "2159751741",
+        "6340365319",
+        "2159751784",
+        "6187777596",
+        "2159751767",
+        "2159751770",
+        "4544537076",
+        "2159751764",
+        "4544537031",
+        "2159751758"
+      ],
+      "tags": {
+        "bridge": "yes",
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "layer": "2",
+        "level": "1",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      },
+      "tile": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0610_44.4550_26.0770.xml",
+      "wgs84": [
+        [
+          44.4519632,
+          26.0715815
+        ],
+        [
+          44.4516986,
+          26.0710643
+        ],
+        [
+          44.4515535,
+          26.0708167
+        ],
+        [
+          44.4514158,
+          26.0706102
+        ],
+        [
+          44.4512777,
+          26.0704216
+        ],
+        [
+          44.4511405,
+          26.0702481
+        ],
+        [
+          44.4510233,
+          26.0701167
+        ],
+        [
+          44.4508992,
+          26.0699839
+        ],
+        [
+          44.4507764,
+          26.0698592
+        ],
+        [
+          44.4506466,
+          26.0697317
+        ],
+        [
+          44.4505346,
+          26.0696066
+        ],
+        [
+          44.4504747,
+          26.0695298
+        ],
+        [
+          44.450424,
+          26.0694636
+        ],
+        [
+          44.4503862,
+          26.0694155
+        ],
+        [
+          44.4502811,
+          26.0692885
+        ],
+        [
+          44.4500193,
+          26.0688087
+        ],
+        [
+          44.4497537,
+          26.068322
+        ],
+        [
+          44.4496275,
+          26.0680594
+        ],
+        [
+          44.4494388,
+          26.0676811
+        ],
+        [
+          44.4492445,
+          26.0673131
+        ],
+        [
+          44.4490932,
+          26.0669886
+        ],
+        [
+          44.4488547,
+          26.0664448
+        ],
+        [
+          44.4486892,
+          26.0660713
+        ],
+        [
+          44.4485216,
+          26.0656937
+        ],
+        [
+          44.4482861,
+          26.0651439
+        ],
+        [
+          44.4479644,
+          26.0644277
+        ],
+        [
+          44.4478817,
+          26.0641992
+        ],
+        [
+          44.4477851,
+          26.0639237
+        ],
+        [
+          44.4476884,
+          26.0636825
+        ],
+        [
+          44.4475289,
+          26.0633865
+        ],
+        [
+          44.4474513,
+          26.0632548
+        ],
+        [
+          44.4473162,
+          26.06303
+        ],
+        [
+          44.4471671,
+          26.0628055
+        ],
+        [
+          44.4470111,
+          26.0625915
+        ],
+        [
+          44.4469069,
+          26.0624556
+        ],
+        [
+          44.4467998,
+          26.0623309
+        ],
+        [
+          44.4466439,
+          26.0621593
+        ],
+        [
+          44.4464983,
+          26.0620123
+        ],
+        [
+          44.4463761,
+          26.0618997
+        ],
+        [
+          44.4462179,
+          26.0617653
+        ],
+        [
+          44.446055,
+          26.061642
+        ],
+        [
+          44.4458781,
+          26.0615181
+        ],
+        [
+          44.4456605,
+          26.0613821
+        ],
+        [
+          44.4454648,
+          26.0612749
+        ],
+        [
+          44.4452259,
+          26.061162
+        ],
+        [
+          44.4450144,
+          26.0610849
+        ],
+        [
+          44.4447789,
+          26.0610132
+        ]
+      ]
+    },
+    "118416425": {
+      "id": "118416425",
+      "nodeIds": [
+        "4544537085",
+        "2202002156",
+        "4544537025",
+        "1454112669",
+        "2159731258",
+        "6340365321",
+        "1454112672",
+        "6340365313",
+        "2159730241",
+        "4544537086",
+        "2159730242",
+        "2159730251",
+        "4544537073",
+        "6340365323",
+        "1454112676",
+        "6263837338",
+        "2624398760",
+        "6187848825",
+        "2624398745",
+        "2159730243",
+        "2159751777",
+        "6187849515",
+        "6187848813",
+        "6187848862",
+        "6187848878",
+        "6187849493",
+        "6187848830",
+        "6187848838",
+        "6187848814",
+        "5865238775",
+        "5865238769",
+        "5865238777",
+        "5865238774",
+        "5865238773",
+        "2159760710",
+        "3908620644",
+        "1331991698",
+        "3908620652",
+        "1344579078",
+        "3908620658",
+        "1344579089",
+        "2448336879",
+        "2159760715",
+        "2159760712",
+        "296078599"
+      ],
+      "tags": {
+        "bridge": "yes",
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "layer": "2",
+        "level": "1",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      },
+      "tile": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0610_44.4550_26.0770.xml",
+      "wgs84": [
+        [
+          44.4447425,
+          26.061142
+        ],
+        [
+          44.4450726,
+          26.0612579
+        ],
+        [
+          44.4453217,
+          26.0613698
+        ],
+        [
+          44.4455725,
+          26.0614962
+        ],
+        [
+          44.4457619,
+          26.0616137
+        ],
+        [
+          44.445934,
+          26.0617347
+        ],
+        [
+          44.446098,
+          26.0618572
+        ],
+        [
+          44.4462696,
+          26.0619984
+        ],
+        [
+          44.4464231,
+          26.0621376
+        ],
+        [
+          44.4466015,
+          26.0623157
+        ],
+        [
+          44.4467598,
+          26.0624964
+        ],
+        [
+          44.4469077,
+          26.0626822
+        ],
+        [
+          44.4470344,
+          26.0628521
+        ],
+        [
+          44.4471434,
+          26.0630039
+        ],
+        [
+          44.4472298,
+          26.0631382
+        ],
+        [
+          44.4473669,
+          26.0633715
+        ],
+        [
+          44.4474185,
+          26.0634568
+        ],
+        [
+          44.4474874,
+          26.0635815
+        ],
+        [
+          44.4476428,
+          26.0638967
+        ],
+        [
+          44.4477642,
+          26.064135
+        ],
+        [
+          44.4479329,
+          26.0644595
+        ],
+        [
+          44.4480948,
+          26.0648326
+        ],
+        [
+          44.4482996,
+          26.0652941
+        ],
+        [
+          44.4485715,
+          26.065922
+        ],
+        [
+          44.4487084,
+          26.0662188
+        ],
+        [
+          44.4488903,
+          26.0665943
+        ],
+        [
+          44.449076,
+          26.0670074
+        ],
+        [
+          44.4492253,
+          26.0673373
+        ],
+        [
+          44.4494184,
+          26.0677183
+        ],
+        [
+          44.4497284,
+          26.0683491
+        ],
+        [
+          44.4499939,
+          26.0688358
+        ],
+        [
+          44.4502557,
+          26.0693157
+        ],
+        [
+          44.4503964,
+          26.069501
+        ],
+        [
+          44.4504487,
+          26.0695693
+        ],
+        [
+          44.4505097,
+          26.0696474
+        ],
+        [
+          44.4506236,
+          26.0697747
+        ],
+        [
+          44.4507542,
+          26.0699029
+        ],
+        [
+          44.4508763,
+          26.070027
+        ],
+        [
+          44.4509996,
+          26.0701591
+        ],
+        [
+          44.4511157,
+          26.070289
+        ],
+        [
+          44.4512514,
+          26.0704608
+        ],
+        [
+          44.4513884,
+          26.0706478
+        ],
+        [
+          44.4515246,
+          26.0708522
+        ],
+        [
+          44.4516681,
+          26.071097
+        ],
+        [
+          44.451932,
+          26.0716128
+        ]
+      ]
+    }
+  },
+  "rawTiles": [
+    {
+      "path": "/workspace/reality-pass/grozavesti/tiles/buc_44.4350_26.0450_44.4450_26.0610.xml",
+      "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689",
+      "ways": [
+        "458458361",
+        "1552024280"
+      ]
+    },
+    {
+      "path": "/workspace/reality-pass/grozavesti/tiles/buc_44.4350_26.0610_44.4450_26.0770.xml",
+      "sha256": "5c526f202084ffa605d5b78bb15b923b10dee7bca10bf65d9438152a465e0624",
+      "ways": [
+        "118416425",
+        "205971103",
+        "458458361"
+      ]
+    },
+    {
+      "path": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0610_44.4550_26.0770.xml",
+      "sha256": "1b4248039697685242b9df55183002daee53d1ca728571020f64d9fa4fdb9f2e",
+      "ways": [
+        "118416425",
+        "205971103",
+        "458458361",
+        "1552024280",
+        "1552024281",
+        "1552024282"
+      ]
+    }
+  ],
+  "nativeRails": [
+    {
+      "sourceId": "w118416425",
+      "nodeIds": [
+        4544537085,
+        2202002156,
+        4544537025,
+        1454112669,
+        2159731258,
+        6340365321,
+        1454112672,
+        6340365313,
+        2159730241,
+        4544537086,
+        2159730242,
+        2159730251,
+        4544537073,
+        6340365323,
+        1454112676,
+        6263837338,
+        2624398760,
+        6187848825,
+        2624398745,
+        2159730243,
+        2159751777,
+        6187849515,
+        6187848813,
+        6187848862,
+        6187848878,
+        6187849493,
+        6187848830,
+        6187848838,
+        6187848814,
+        5865238775,
+        5865238769,
+        5865238777,
+        5865238774,
+        5865238773,
+        2159760710,
+        3908620644,
+        1331991698,
+        3908620652,
+        1344579078,
+        3908620658,
+        1344579089,
+        2448336879,
+        2159760715,
+        2159760712,
+        296078599
+      ],
+      "sourceTags": {
+        "bridge": "yes",
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "layer": "2",
+        "level": "1",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      },
+      "sourceVertices": [
+        {
+          "nodeId": 4544537085,
+          "x": 154.3,
+          "z": -393.7,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2202002156,
+          "x": 163.6,
+          "z": -430.4,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 4544537025,
+          "x": 172.5,
+          "z": -458.1,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 1454112669,
+          "x": 182.5,
+          "z": -485.9,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159731258,
+          "x": 191.8,
+          "z": -507,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6340365321,
+          "x": 201.5,
+          "z": -526.1,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 1454112672,
+          "x": 211.2,
+          "z": -544.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6340365313,
+          "x": 222.4,
+          "z": -563.4,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159730241,
+          "x": 233.5,
+          "z": -580.5,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 4544537086,
+          "x": 247.6,
+          "z": -600.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159730242,
+          "x": 262,
+          "z": -617.9,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159730251,
+          "x": 276.8,
+          "z": -634.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 4544537073,
+          "x": 290.3,
+          "z": -648.4,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6340365323,
+          "x": 302.3,
+          "z": -660.5,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 1454112676,
+          "x": 313,
+          "z": -670.1,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6263837338,
+          "x": 331.5,
+          "z": -685.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2624398760,
+          "x": 338.3,
+          "z": -691.1,
+          "surfacesAt": [
+            0.24,
+            0.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [
+            {
+              "ribbon": 998,
+              "edge": 705,
+              "node": null,
+              "sourceId": "w295382931",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "topY": 0.24,
+              "heightMethod": "native world.roadHeight(x,z,edge)"
+            }
+          ],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848825,
+          "x": 348.2,
+          "z": -698.7,
+          "surfacesAt": [
+            0.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [
+            {
+              "ribbon": 998,
+              "edge": 705,
+              "node": null,
+              "sourceId": "w295382931",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "topY": 0.24,
+              "heightMethod": "native world.roadHeight(x,z,edge)"
+            }
+          ],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2624398745,
+          "x": 373.3,
+          "z": -716,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159730243,
+          "x": 392.2,
+          "z": -729.5,
+          "surfacesAt": [
+            0.24,
+            0.24,
+            0.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [
+            {
+              "ribbon": 934,
+              "edge": 648,
+              "node": null,
+              "sourceId": "w153967941",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "topY": 0.24,
+              "heightMethod": "native world.roadHeight(x,z,edge)"
+            }
+          ],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751777,
+          "x": 418,
+          "z": -748.2,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187849515,
+          "x": 447.7,
+          "z": -766.2,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848813,
+          "x": 484.4,
+          "z": -789,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848862,
+          "x": 534.3,
+          "z": -819.2,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848878,
+          "x": 557.8,
+          "z": -834.4,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187849493,
+          "x": 587.7,
+          "z": -854.6,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848830,
+          "x": 620.5,
+          "z": -875.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848838,
+          "x": 646.7,
+          "z": -891.9,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848814,
+          "x": 677,
+          "z": -913.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 5865238775,
+          "x": 727.2,
+          "z": -947.8,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 5865238769,
+          "x": 765.8,
+          "z": -977.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 5865238777,
+          "x": 804,
+          "z": -1006.4,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 5865238774,
+          "x": 818.7,
+          "z": -1022,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 5865238773,
+          "x": 824.1,
+          "z": -1027.8,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159760710,
+          "x": 830.3,
+          "z": -1034.6,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 3908620644,
+          "x": 840.5,
+          "z": -1047.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 1331991698,
+          "x": 850.7,
+          "z": -1061.8,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 3908620652,
+          "x": 860.5,
+          "z": -1075.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 1344579078,
+          "x": 871,
+          "z": -1089,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 3908620658,
+          "x": 881.3,
+          "z": -1102,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 1344579089,
+          "x": 895,
+          "z": -1117,
+          "surfacesAt": [
+            11.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2448336879,
+          "x": 909.9,
+          "z": -1132.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159760715,
+          "x": 926.1,
+          "z": -1147.4,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159760712,
+          "x": 945.6,
+          "z": -1163.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 296078599,
+          "x": 986.6,
+          "z": -1192.7,
+          "surfacesAt": [
+            11.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        }
+      ]
+    },
+    {
+      "sourceId": "w205971103",
+      "nodeIds": [
+        6187888833,
+        6187888838,
+        6187888847,
+        6187888846,
+        6187888829,
+        6187888836,
+        6187888845,
+        6187888852,
+        6187888848,
+        6187888837,
+        6187888842,
+        6187888830,
+        6187888843,
+        6187888849,
+        5865238778,
+        1775175278,
+        5865238776,
+        6187848848,
+        6187848836,
+        6187848861,
+        6187848807,
+        6187848833,
+        6187848809,
+        6187849501,
+        6187848858,
+        6187849498,
+        6187777601,
+        2159751755,
+        2159751748,
+        2159751730,
+        6263837339,
+        2159751746,
+        2624398751,
+        2159751773,
+        6340365308,
+        3908619717,
+        2159751736,
+        2159751741,
+        6340365319,
+        2159751784,
+        6187777596,
+        2159751767,
+        2159751770,
+        4544537076,
+        2159751764,
+        4544537031,
+        2159751758
+      ],
+      "sourceTags": {
+        "bridge": "yes",
+        "electrified": "contact_line",
+        "frequency": "0",
+        "gauge": "1435",
+        "layer": "2",
+        "level": "1",
+        "operator": "STB",
+        "railway": "tram",
+        "voltage": "750"
+      },
+      "sourceVertices": [
+        {
+          "nodeId": 6187888833,
+          "x": 984.1,
+          "z": -1196.1,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888838,
+          "x": 943,
+          "z": -1166.7,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888847,
+          "x": 923.3,
+          "z": -1150.6,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888846,
+          "x": 906.9,
+          "z": -1135.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888829,
+          "x": 891.9,
+          "z": -1120,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888836,
+          "x": 878.1,
+          "z": -1104.7,
+          "surfacesAt": [
+            11.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888845,
+          "x": 867.6,
+          "z": -1091.7,
+          "surfacesAt": [
+            11.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888852,
+          "x": 857.1,
+          "z": -1077.9,
+          "surfacesAt": [
+            11.24,
+            11.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [
+            {
+              "ribbon": 1338,
+              "edge": 1338,
+              "node": null,
+              "sourceId": "w23770172",
+              "layer": 2,
+              "bridge": true,
+              "tunnel": false,
+              "topY": 11.24,
+              "heightMethod": "native world.roadHeight(x,z,edge)"
+            }
+          ],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888848,
+          "x": 847.2,
+          "z": -1064.2,
+          "surfacesAt": [
+            11.24,
+            11.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [
+            {
+              "ribbon": 1339,
+              "edge": 1339,
+              "node": null,
+              "sourceId": "w23770172",
+              "layer": 2,
+              "bridge": true,
+              "tunnel": false,
+              "topY": 11.24,
+              "heightMethod": "native world.roadHeight(x,z,edge)"
+            }
+          ],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888837,
+          "x": 837,
+          "z": -1049.8,
+          "surfacesAt": [
+            11.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888842,
+          "x": 827.1,
+          "z": -1037.4,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888830,
+          "x": 821,
+          "z": -1030.7,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888843,
+          "x": 815.7,
+          "z": -1025.1,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187888849,
+          "x": 811.9,
+          "z": -1020.9,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 5865238778,
+          "x": 801.8,
+          "z": -1009.2,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 1775175278,
+          "x": 763.7,
+          "z": -980.1,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 5865238776,
+          "x": 725,
+          "z": -950.6,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848848,
+          "x": 704.1,
+          "z": -936.6,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848836,
+          "x": 674.1,
+          "z": -915.6,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848861,
+          "x": 644.8,
+          "z": -894,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848807,
+          "x": 619,
+          "z": -877.2,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848833,
+          "x": 575.8,
+          "z": -850.7,
+          "surfacesAt": [
+            11.24,
+            11.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [
+            {
+              "ribbon": 1136,
+              "edge": 1151,
+              "node": null,
+              "sourceId": "w1552024282",
+              "layer": 2,
+              "bridge": true,
+              "tunnel": false,
+              "topY": 11.24,
+              "heightMethod": "native world.roadHeight(x,z,edge)"
+            }
+          ],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848809,
+          "x": 546.1,
+          "z": -832.3,
+          "surfacesAt": [
+            11.24,
+            11.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [
+            {
+              "ribbon": 1529,
+              "edge": 1529,
+              "node": null,
+              "sourceId": "w1552024282",
+              "layer": 2,
+              "bridge": true,
+              "tunnel": false,
+              "topY": 11.24,
+              "heightMethod": "native world.roadHeight(x,z,edge)"
+            }
+          ],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187849501,
+          "x": 516.1,
+          "z": -813.7,
+          "surfacesAt": [
+            11.24,
+            11.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187848858,
+          "x": 472.4,
+          "z": -787.5,
+          "surfacesAt": [
+            7.363607708355651,
+            7.560235045397656
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187849498,
+          "x": 415.5,
+          "z": -751.7,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187777601,
+          "x": 397.3,
+          "z": -742.6,
+          "surfacesAt": [
+            7.335743930837668,
+            7.473230703417502
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751755,
+          "x": 375.4,
+          "z": -731.8,
+          "surfacesAt": [
+            9.36808276706386
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751748,
+          "x": 356.3,
+          "z": -721.1,
+          "surfacesAt": [
+            9.902548150502188,
+            9.920601085292486
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [
+            {
+              "ribbon": 1279,
+              "edge": 1279,
+              "node": null,
+              "sourceId": "w1552024280",
+              "layer": 2,
+              "bridge": true,
+              "tunnel": false,
+              "topY": 9.920601085292486,
+              "heightMethod": "native world.roadHeight(x,z,edge)"
+            }
+          ],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751730,
+          "x": 332.7,
+          "z": -703.3,
+          "surfacesAt": [
+            0.24,
+            0.24,
+            0.24,
+            0.24,
+            0.24
+          ],
+          "walkTop": null,
+          "ribbonCandidates": [
+            {
+              "ribbon": 994,
+              "edge": 701,
+              "node": null,
+              "sourceId": "w295382931",
+              "layer": 0,
+              "bridge": false,
+              "tunnel": false,
+              "topY": 0.24,
+              "heightMethod": "native world.roadHeight(x,z,edge)"
+            }
+          ],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6263837339,
+          "x": 322.3,
+          "z": -694.7,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751746,
+          "x": 304.4,
+          "z": -679.7,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2624398751,
+          "x": 286.6,
+          "z": -663.1,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751773,
+          "x": 269.6,
+          "z": -645.8,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6340365308,
+          "x": 258.8,
+          "z": -634.2,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 3908619717,
+          "x": 248.8,
+          "z": -622.3,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751736,
+          "x": 235.2,
+          "z": -605,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751741,
+          "x": 223.5,
+          "z": -588.8,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6340365319,
+          "x": 214.6,
+          "z": -575.2,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751784,
+          "x": 203.9,
+          "z": -557.6,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 6187777596,
+          "x": 194.1,
+          "z": -539.5,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751767,
+          "x": 184.2,
+          "z": -519.9,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751770,
+          "x": 173.4,
+          "z": -495.7,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 4544537076,
+          "x": 164.9,
+          "z": -474,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751764,
+          "x": 155.9,
+          "z": -447.4,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 4544537031,
+          "x": 149.8,
+          "z": -423.9,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        },
+        {
+          "nodeId": 2159751758,
+          "x": 144.1,
+          "z": -397.7,
+          "surfacesAt": [],
+          "walkTop": null,
+          "ribbonCandidates": [],
+          "passiveDeckCandidates": []
+        }
+      ]
+    }
+  ],
+  "nativeRoad": {
+    "id": 1150,
+    "dirx": -0.8263869723861571,
+    "dirz": 0.5631026299622838,
+    "len": 10.242805651022167,
+    "nx": -0.5631026299622838,
+    "nz": -0.8263869723861571,
+    "name": "Pasajul Basarab",
+    "type": "primary",
+    "road": 244,
+    "lanesF": 2,
+    "lanesB": 0,
+    "lanes": 2,
+    "oneway": true,
+    "laneW": 3.5,
+    "median": -7,
+    "wR": 3.5,
+    "wL": 3.5,
+    "halfW": 3.5,
+    "sidewalk": 0.8,
+    "sharedLane": false,
+    "roadWidthSource": null,
+    "laneCenterShiftM": 0,
+    "publicDrive": true,
+    "throughAccess": true,
+    "maxspeed": 13.88888888888889,
+    "speed": 13.88888888888889,
+    "tram": true,
+    "tramMedian": false,
+    "bridge": true,
+    "tunnel": false,
+    "toll": false,
+    "busLane": false,
+    "roundabout": false,
+    "unpaved": false,
+    "layer": 2,
+    "trafficMul": 1.8,
+    "bikeLane": false,
+    "cycleTrack": false,
+    "lit": false,
+    "unlit": false,
+    "drivable": false,
+    "L": 2,
+    "over": null,
+    "anchorH": 0,
+    "ya": 11,
+    "yb": 11,
+    "overWater": false,
+    "_mkAll": 3.697697808327405,
+    "lidded": false,
+    "a": {
+      "id": 1116,
+      "sourceId": 257542529,
+      "x": 582.5657007480557,
+      "z": -859.2392844000873,
+      "radius": 4,
+      "hasLight": false,
+      "crossing": false,
+      "zebra": false,
+      "stop": false,
+      "flags": 0,
+      "comp": 102,
+      "drivable": false,
+      "y": 11,
+      "yFixed": false,
+      "yPin": false,
+      "pad": false,
+      "edgeIds": [
+        1150,
+        1527
+      ],
+      "liveGraphEdgeIds": []
+    },
+    "b": {
+      "id": 1117,
+      "sourceId": 3908619748,
+      "x": 574.1011795973677,
+      "z": -853.4715335998042,
+      "radius": 4,
+      "hasLight": false,
+      "crossing": false,
+      "zebra": false,
+      "stop": false,
+      "flags": 0,
+      "comp": 103,
+      "drivable": false,
+      "y": 11,
+      "yFixed": false,
+      "yPin": false,
+      "pad": false,
+      "edgeIds": [
+        1150,
+        1151
+      ],
+      "liveGraphEdgeIds": []
+    },
+    "access": {
+      "sourceId": "w1552024282",
+      "publicDrive": true,
+      "throughAccess": true,
+      "key": "access",
+      "value": "yes",
+      "reason": "OSM access=yes",
+      "conditionalUnresolved": false,
+      "tags": {
+        "access": "yes",
+        "bridge": "yes",
+        "foot": "no",
+        "layer": "2",
+        "oneway": "yes"
+      }
+    },
+    "sourceId": "w1552024282",
+    "sourceNodeIds": [
+      257542529,
+      3908619748
+    ],
+    "rawRoadInfo": [
+      2,
+      36,
+      0,
+      0,
+      -1,
+      -1
+    ],
+    "profileSamples": [
+      {
+        "t": 0,
+        "x": 582.5657007480557,
+        "z": -859.2392844000873,
+        "displacementY": 11,
+        "topY": 11.24
+      },
+      {
+        "t": 0.25,
+        "x": 580.4495704603837,
+        "z": -857.7973467000165,
+        "displacementY": 11,
+        "topY": 11.24
+      },
+      {
+        "t": 0.5,
+        "x": 578.3334401727118,
+        "z": -856.3554089999457,
+        "displacementY": 11,
+        "topY": 11.24
+      },
+      {
+        "t": 0.75,
+        "x": 576.2173098850398,
+        "z": -854.9134712998749,
+        "displacementY": 11,
+        "topY": 11.24
+      },
+      {
+        "t": 1,
+        "x": 574.1011795973677,
+        "z": -853.4715335998042,
+        "displacementY": 11,
+        "topY": 11.24
+      }
+    ]
+  },
+  "currentGradeObservation": {
+    "nativeSource": "6cbf82b61de8267f662bf50239c37ccc1764635c",
+    "way": "w205971103",
+    "segment": 20,
+    "sourceNodeIds": [
+      6187848807,
+      6187848833
+    ],
+    "known": true,
+    "basis": "MODEL independent central rail viaduct; common cable-station profile, original source ground joins and smooth source-connected approaches; not surveyed",
+    "estimated": true,
+    "samples": [
+      {
+        "t": 0,
+        "displacementY": 11,
+        "railActorBaseY": 11.24,
+        "renderedRailHeadY": 11.276
+      },
+      {
+        "t": 0.8431372549019608,
+        "displacementY": 11,
+        "railActorBaseY": 11.24,
+        "renderedRailHeadY": 11.276
+      },
+      {
+        "t": 0.8635161772152606,
+        "displacementY": 11,
+        "railActorBaseY": 11.24,
+        "renderedRailHeadY": 11.276
+      },
+      {
+        "t": 0.8829937916351446,
+        "displacementY": 11,
+        "railActorBaseY": 11.24,
+        "renderedRailHeadY": 11.276
+      },
+      {
+        "t": 1,
+        "displacementY": 11,
+        "railActorBaseY": 11.24,
+        "renderedRailHeadY": 11.276
+      }
+    ],
+    "consumedSourcesSha256": {
+      "tram-grade.js": "b51097352647806dc888ad7359760cf47049b74aa60e1b1a9071ea78570bc340",
+      "tram-grade-models.js": "bc2f44e47e3b1988d18d7f984380193e2c7e1ad179f9461fbccfe60ccfecd461"
+    }
+  },
+  "rawBarrierAudit": {
+    "scope": "Cached raw OSM barrier ways within100m of north205971103segment20; absence in this tile is not proof no physical barrier exists.",
+    "tile": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0610_44.4550_26.0770.xml",
+    "tileSha256": "1b4248039697685242b9df55183002daee53d1ca728571020f64d9fa4fdb9f2e",
+    "pointXZ": [
+      582.5765,
+      -854.8569
+    ],
+    "nearbyBarrierWays": []
+  },
+  "emissionProvenance": {
+    "path": "game/src/world.js",
+    "commit": "6cbf82b61de8267f662bf50239c37ccc1764635c",
+    "fullModuleSha256": "eff89252875041058d439b8837ca34e3d1838bd07fefdbf7d9486280ede7d94e",
+    "visualStartLine": 2305,
+    "visualBridgeRailingBlock": "// bridges: railings\n        if (e.bridge) {\n            for (const s of [1, -1]) {\n                const pa = corner(e, e.a, s, widthAsphalt(e, s) + 0.3, widthAsphalt), pb = corner(e, e.b, s, widthAsphalt(e, s) + 0.3, widthAsphalt);\n                // in ~3 m pieces; a piece standing on another deck / carriageway at this level (two ways mapped side by\n                // side on one viaduct, a merging ramp) is left out \u2014 no parapet fins across a deck (upb route, Basarab)\n                const L = Math.hypot(pb[0] - pa[0], pb[1] - pa[1]), k = Math.max(1, Math.ceil(L / 3));\n                for (let j = 0; j < k; j++) {\n                    const A = [pa[0] + (pb[0] - pa[0]) * j / k, pa[1] + (pb[1] - pa[1]) * j / k], B = [pa[0] + (pb[0] - pa[0]) * (j + 1) / k, pa[1] + (pb[1] - pa[1]) * (j + 1) / k];\n                    const mx = (A[0] + B[0]) / 2, mz = (A[1] + B[1]) / 2;\n                    if (coveredByOther(mx, mz, e, yAlong(e, mx, mz), 0.1)) continue;\n                    c.solid.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, e.nx * s, e.nz * s, rgb('#9aa3ad'));\n                    c.solid.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, -e.nx * s, -e.nz * s, rgb('#8a939d'));\n                    c.solid.flatQuad(A[0], A[1], B[0], B[1], B[0] + e.nx * s * 0.3, B[1] + e.nz * s * 0.3, A[0] + e.nx * s * 0.3, A[1] + e.nz * s * 0.3, yR + 1.1, rgb('#b0b8c0'), 0, -1);\n                }\n            }\n        }\n        ",
+    "collisionStartLine": 2699,
+    "collisionBridgeRailingStatement": "if (e.bridge) { add(e, s, widthAsphalt(e, s) + 0.3, 'rail', t0, t1); continue; }",
+    "origin": "Native bridge-default emission driven by e.bridge and road width; this block does not consume an OSM barrier record. A road source ID is not a barrier source identity.",
+    "sourceBarrierPresenceNotInferredFromCacheAbsence": true
+  }
+}

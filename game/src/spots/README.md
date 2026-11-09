@@ -129,3 +129,34 @@ the `max` trees within `near` m of the camera at full detail, the rest low-poly.
 Rules (spec 15): artworks are modelled in 3-D from the research description (no photo textures) and credited on a
 plaque; dialogue comes from the research (`spots[].dialogue`, translation under non-English lines); keep
 deep water / dangerous structures unwalkable (Gas Works towers are fenced).
+
+Old Town terrace furniture requires explicit OSM `outdoor_seating=yes`. A venue's name alone supplies a façade sign,
+not a canopy, tables or seating. Dristor's mapped terrace remains; Shoteria's `outdoor_seating=no` frontage carries its
+name and the three-action drink interaction without generated outdoor furniture. Sign colours remain procedural estimates.
+Tourist floor probes honour `userData.noFloor` and visibility on ancestors, so unnamed vehicle parts never lift a person
+onto a car roof. Traffic starts at its lane pose before crowd placement, and initial guides keep clear of postcard cameras.
+
+Scene participation uses `activityFlow(ctx)` (`participation.js`): native 44 px buttons, E/Escape, explicit busy phases,
+complete-only callbacks, and cleanup on map, travel, visibility and disposal. Hosts must call
+`session.cancelActivities(reason)` before pause/photo/drone takeovers; this delegates the earlier Lipscani venue controller
+as well. Camera rides set `cameraRide: true`; other locked activities retain mouse/touch look.
+
+`boatRide` now requires repeated strokes. Each stroke visibly moves both oars, adds velocity and advances a validated water
+course; drag stops an idle boat. The full return course is required for completion. Cișmigiu uses the mapped Debarcader
+`n473428602`, a dry-bank approach and a 48 m course inside lake `w16292044`, away from mapped bridges. Course length and
+boat appearance are gameplay estimates, not surveyed rental equipment. Rental hours remain unconfirmed; the seasonal
+calendar is a gameplay approximation. July visit dates and the renderer's winter season drive the relevant availability.
+Entrance history is read one fact at a time outdoors; it does not claim an accessible interior.
+
+Seattle Center's Glasshouse, Loupe and passing Monorail exercises require manual looking and an explicit shutter;
+short steady-frame gates prevent a button press or idle timer from awarding the view. Each belongs to its active shared
+entry. The animated Needle elevator uses the shared Leave/mode cancellation flow. The unmodelled stair transfer and
+instant open-air-deck visit award are retired. Kerry Park's city-lights activity requires an actual dusk/night capture.
+Palace pacing counts continuous walking along its public-frontage game course; its endpoints are UI waypoints without
+invented marker posts. Botanical Garden trail notes are explicitly virtual at mapped rooms and add no physical plant-label
+hardware or reading-count award; its suspension-bridge award requires continuous walking on the existing bridge deck.
+Walking courses register `onActivityCancel(ctx, cancel)` for host takeovers. `SpotSession.cancelActivities()` clears their
+partial progress immediately when the host opens a mode that freezes scene updates; visibility listeners are disposed with
+the scene. This covers Palace pacing, the ravine crossing, the promenade loop and an unfinished Carusel climb.
+Drone altitude queries use `ground.flightHeightAt()`: actual terrain, reachable deck surfaces and the declared water level.
+The walker's deep-water/steep-sculpture `y + 50` movement barrier remains confined to `groundAt()`.

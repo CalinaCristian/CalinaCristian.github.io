@@ -1,0 +1,2625 @@
+{
+  "schemaVersion": 1,
+  "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "captureType": "game-perspective-context",
+  "comparisonCompatible": false,
+  "generatedAt": "2026-11-08T23:39:22.914666+00:00",
+  "title": "Unirii and Otopeni bounded native approach and drone context",
+  "description": "Native high-quality driving and drone evidence; separate from the dated north-up aerial comparison grids. These are targeted controller/render cases, not a complete street survey or a claim of architectural parity.",
+  "items": [
+    {
+      "id": "unirii-day-chapter-start",
+      "district": "unirii",
+      "label": "day-chapter-start",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/unirii-day-chapter-start.jpg",
+      "thumbnail": "thumbs/unirii-day-chapter-start.jpg",
+      "sha256": "e019d8e6e6418a11148270b1dab4c32c65a81f369da40dffd26cc3cc09a820a0",
+      "thumbnailSha256": "4757fd56ee525d4524765efa836b2dc1367728c045377a06ef696589885bd8e2",
+      "originalPNG": {
+        "file": "unirii-day-chapter-start.png",
+        "sha256": "af7f87b004c0e3017515837c89745eb07a8a2b3d2c672833e54cbb45b9205121"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:05:59.222Z",
+      "pose": {
+        "x": -641.572533570401,
+        "y": 1.6,
+        "z": 323.67309509250134,
+        "quaternion": [
+          0,
+          0.9996147919260518,
+          0,
+          0.027753698179449993
+        ]
+      },
+      "playerPose": {
+        "x": -641.8471027032357,
+        "z": 323.2071425291492,
+        "y": 0.24,
+        "heading": 3.0860781288334342,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72,
+        "position": [
+          -641.572533570401,
+          1.6,
+          323.67309509250134
+        ],
+        "quaternion": [
+          0,
+          0.9996147919260518,
+          0,
+          0.027753698179449993
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": null,
+        "sunElevation": 12.584361782835435,
+        "headlights": false,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": false,
+      "controllerNote": "Initial source-road placement with native idle controller",
+      "performanceFrames": [
+        {
+          "calls": 260,
+          "triangles": 1313835,
+          "passes": {
+            "mirror": {
+              "calls": 54,
+              "triangles": 256590
+            },
+            "sun-shadow": {
+              "calls": 28,
+              "triangles": 195175
+            },
+            "main": {
+              "calls": 160,
+              "triangles": 862052
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        },
+        {
+          "calls": 260,
+          "triangles": 1313835,
+          "passes": {
+            "mirror": {
+              "calls": 54,
+              "triangles": 256590
+            },
+            "sun-shadow": {
+              "calls": 28,
+              "triangles": 195175
+            },
+            "main": {
+              "calls": 160,
+              "triangles": 862052
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "unirii-day-first150m",
+      "district": "unirii",
+      "label": "day-first150m",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/unirii-day-first150m.jpg",
+      "thumbnail": "thumbs/unirii-day-first150m.jpg",
+      "sha256": "989228fc4af994e0fe3b8eb30b4ba0116fe342cc244baf86e3a4e4809c532a4e",
+      "thumbnailSha256": "93cbba2709873709f39dd766720181d7243b0a34a4cacaeaacc9a66c54173e0e",
+      "originalPNG": {
+        "file": "unirii-day-first150m.png",
+        "sha256": "586aa711ea7d2805e0d4a512309ea0737bb6ad7ddbf5f3300a04edcc5084f0b4"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:08:31.413Z",
+      "pose": {
+        "x": -579.6480104694979,
+        "y": 1.6022465302523914,
+        "z": 417.59896175950985,
+        "quaternion": [
+          0.0010165141146697607,
+          -0.7673452175123726,
+          0.0015956085773439208,
+          0.641231423039461
+        ]
+      },
+      "playerPose": {
+        "x": -580.1437011509073,
+        "z": 417.816191281258,
+        "y": 0.24,
+        "heading": 4.536395961418271,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 75.3991286597627,
+        "position": [
+          -579.6480104694979,
+          1.6022465302523914,
+          417.59896175950985
+        ],
+        "quaternion": [
+          0.0010165141146697607,
+          -0.7673452175123726,
+          0.0015956085773439208,
+          0.641231423039461
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": null,
+        "sunElevation": 12.93460714496616,
+        "headlights": false,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 334,
+          "triangles": 1576147,
+          "passes": {
+            "mirror": {
+              "calls": 54,
+              "triangles": 260497
+            },
+            "sun-shadow": {
+              "calls": 31,
+              "triangles": 204278
+            },
+            "main": {
+              "calls": 231,
+              "triangles": 1111354
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        },
+        {
+          "calls": 334,
+          "triangles": 1576147,
+          "passes": {
+            "mirror": {
+              "calls": 54,
+              "triangles": 260497
+            },
+            "sun-shadow": {
+              "calls": 31,
+              "triangles": 204278
+            },
+            "main": {
+              "calls": 231,
+              "triangles": 1111354
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "unirii-day-public-approach",
+      "district": "unirii",
+      "label": "day-public-approach",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/unirii-day-public-approach.jpg",
+      "thumbnail": "thumbs/unirii-day-public-approach.jpg",
+      "sha256": "ab3f5c5ca52896824b9ad3530f56880fb4fcdd921ad1a5e60a812838a11c6647",
+      "thumbnailSha256": "b75ba074f70e9a995d562d4581812bfed7ada226cd6226dc00fcd0f89f4e1a8b",
+      "originalPNG": {
+        "file": "unirii-day-public-approach.png",
+        "sha256": "4259daf0be14d9c6b21edbcbcde4ce1033c1dd7be04fe8844a3539ae996593a8"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:10:30.269Z",
+      "pose": {
+        "x": 682.8148164111469,
+        "y": 1.59983452465644,
+        "z": -393.7572543737184,
+        "quaternion": [
+          0.00011319483686614417,
+          -0.7270394192722326,
+          0.00011907225665901833,
+          0.6865957004183914
+        ]
+      },
+      "playerPose": {
+        "x": 682.3483827248746,
+        "z": -393.483504979413,
+        "y": 0.24,
+        "heading": -1.6280660575038732,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72.45955931781981,
+        "position": [
+          682.8148164111469,
+          1.59983452465644,
+          -393.7572543737184
+        ],
+        "quaternion": [
+          0.00011319483686614417,
+          -0.7270394192722326,
+          0.00011907225665901833,
+          0.6865957004183914
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": null,
+        "sunElevation": 13.221197141821923,
+        "headlights": false,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 210,
+          "triangles": 719712,
+          "passes": {
+            "mirror": {
+              "calls": 54,
+              "triangles": 151858
+            },
+            "sun-shadow": {
+              "calls": 22,
+              "triangles": 99079
+            },
+            "main": {
+              "calls": 116,
+              "triangles": 468757
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        },
+        {
+          "calls": 210,
+          "triangles": 719712,
+          "passes": {
+            "mirror": {
+              "calls": 54,
+              "triangles": 151858
+            },
+            "sun-shadow": {
+              "calls": 22,
+              "triangles": 99079
+            },
+            "main": {
+              "calls": 116,
+              "triangles": 468757
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "unirii-night-chapter-start",
+      "district": "unirii",
+      "label": "night-chapter-start",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/unirii-night-chapter-start.jpg",
+      "thumbnail": "thumbs/unirii-night-chapter-start.jpg",
+      "sha256": "ebfc2a727991371883d341e170655f1d31c48bed3b5b853d43fc1237d54d1707",
+      "thumbnailSha256": "3e7b5cb3d5c9c2aa604f526c7931bd2eade025b75ab211c8566c020fb94eb122",
+      "originalPNG": {
+        "file": "unirii-night-chapter-start.png",
+        "sha256": "cc7a065a0a7b75f502b9b730c1e861c44b9919e9b0e8bc2bb1873447a3348c44"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:11:51.251Z",
+      "pose": {
+        "x": -641.572533570401,
+        "y": 1.6,
+        "z": 323.67309509250134,
+        "quaternion": [
+          0,
+          0.999614860359525,
+          0,
+          0.02775123327723099
+        ]
+      },
+      "playerPose": {
+        "x": -641.8471027032357,
+        "z": 323.2071425291492,
+        "y": 0.24,
+        "heading": 3.0860781288334342,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72.05105659341174,
+        "position": [
+          -641.572533570401,
+          1.6,
+          323.67309509250134
+        ],
+        "quaternion": [
+          0,
+          0.999614860359525,
+          0,
+          0.02775123327723099
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": "night",
+        "sunElevation": -28,
+        "headlights": true,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": false,
+      "controllerNote": "Initial source-road placement with native idle controller",
+      "performanceFrames": [
+        {
+          "calls": 213,
+          "triangles": 1051188,
+          "passes": {
+            "mirror": {
+              "calls": 41,
+              "triangles": 221626
+            },
+            "other": {
+              "calls": 8,
+              "triangles": 1056
+            },
+            "main": {
+              "calls": 146,
+              "triangles": 828488
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        },
+        {
+          "calls": 209,
+          "triangles": 1051180,
+          "passes": {
+            "mirror": {
+              "calls": 42,
+              "triangles": 221678
+            },
+            "other": {
+              "calls": 3,
+              "triangles": 996
+            },
+            "main": {
+              "calls": 146,
+              "triangles": 828488
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "unirii-night-first150m",
+      "district": "unirii",
+      "label": "night-first150m",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/unirii-night-first150m.jpg",
+      "thumbnail": "thumbs/unirii-night-first150m.jpg",
+      "sha256": "ffb7e80d63f4f2db8b6bed1f2ff4382d837e796d0b8e5ffb9aacb19fce72d180",
+      "thumbnailSha256": "58a1037d9e3a04becc1baa48c995bc879d69d6977b5d529080520b6f8412d855",
+      "originalPNG": {
+        "file": "unirii-night-first150m.png",
+        "sha256": "d60a14e4897c391945bea4dfff5a018f4bfb7d391812b0f2f60d3ef54be2b4d3"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:14:31.835Z",
+      "pose": {
+        "x": -579.6310771844943,
+        "y": 1.6001064112668804,
+        "z": 417.5993819487402,
+        "quaternion": [
+          0.0010228410072656326,
+          -0.7673258969437321,
+          0.0016022526610212661,
+          0.6412545161339461
+        ]
+      },
+      "playerPose": {
+        "x": -580.1267582932219,
+        "z": 417.8166298478894,
+        "y": 0.24,
+        "heading": 4.536438009053325,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 75.39977710719145,
+        "position": [
+          -579.6310771844943,
+          1.6001064112668804,
+          417.5993819487402
+        ],
+        "quaternion": [
+          0.0010228410072656326,
+          -0.7673258969437321,
+          0.0016022526610212661,
+          0.6412545161339461
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": "night",
+        "sunElevation": -28,
+        "headlights": true,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 289,
+          "triangles": 1268087,
+          "passes": {
+            "mirror": {
+              "calls": 42,
+              "triangles": 226638
+            },
+            "other": {
+              "calls": 7,
+              "triangles": 1044
+            },
+            "main": {
+              "calls": 222,
+              "triangles": 1040387
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        },
+        {
+          "calls": 290,
+          "triangles": 1268099,
+          "passes": {
+            "mirror": {
+              "calls": 42,
+              "triangles": 226638
+            },
+            "other": {
+              "calls": 8,
+              "triangles": 1056
+            },
+            "main": {
+              "calls": 222,
+              "triangles": 1040387
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "unirii-night-public-approach",
+      "district": "unirii",
+      "label": "night-public-approach",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/unirii-night-public-approach.jpg",
+      "thumbnail": "thumbs/unirii-night-public-approach.jpg",
+      "sha256": "263895a80b84c3655f195a614454a4025a74e9e4021c22c5c728bce0fefb8973",
+      "thumbnailSha256": "2cbd0931786af41be711560576736acc7b60f252b35babfa1205fbcb45a5045e",
+      "originalPNG": {
+        "file": "unirii-night-public-approach.png",
+        "sha256": "77b19f3246a1932f043d5ad814c0a67f295984af4418b32b0ba4541685aafec8"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:16:04.560Z",
+      "pose": {
+        "x": 682.8148164111346,
+        "y": 1.6000317592119022,
+        "z": -393.7572543735047,
+        "quaternion": [
+          0.00011319483686614417,
+          -0.7270394192722326,
+          0.00011907225665901833,
+          0.6865957004183914
+        ]
+      },
+      "playerPose": {
+        "x": 682.3483827248746,
+        "z": -393.483504979413,
+        "y": 0.24,
+        "heading": -1.6280660575038732,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72.45955931781981,
+        "position": [
+          682.8148164111346,
+          1.6000317592119022,
+          -393.7572543735047
+        ],
+        "quaternion": [
+          0.00011319483686614417,
+          -0.7270394192722326,
+          0.00011907225665901833,
+          0.6865957004183914
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": "night",
+        "sunElevation": -28,
+        "headlights": true,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 180,
+          "triangles": 607339,
+          "passes": {
+            "mirror": {
+              "calls": 49,
+              "triangles": 146460
+            },
+            "other": {
+              "calls": 3,
+              "triangles": 996
+            },
+            "main": {
+              "calls": 110,
+              "triangles": 459865
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        },
+        {
+          "calls": 184,
+          "triangles": 607371,
+          "passes": {
+            "mirror": {
+              "calls": 49,
+              "triangles": 146444
+            },
+            "other": {
+              "calls": 7,
+              "triangles": 1044
+            },
+            "main": {
+              "calls": 110,
+              "triangles": 459865
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "unirii-winter-chapter-start",
+      "district": "unirii",
+      "label": "winter-chapter-start",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/unirii-winter-chapter-start.jpg",
+      "thumbnail": "thumbs/unirii-winter-chapter-start.jpg",
+      "sha256": "bd42a3a7fe8a4f75fd7ce05342a5a36b7e12487172425470a0068ddd820a0897",
+      "thumbnailSha256": "fb1ae87a0a34dcf492350eeeb69d61ad9c90b149d379dfce1567d9f68698b81d",
+      "originalPNG": {
+        "file": "unirii-winter-chapter-start.png",
+        "sha256": "2280412f06e47e200f3665a989a69c1c50cef75c9fa68dc2676a838a84751b51"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:17:08.399Z",
+      "pose": {
+        "x": -641.572533570401,
+        "y": 1.6,
+        "z": 323.67309509250134,
+        "quaternion": [
+          0,
+          0.999614860359525,
+          0,
+          0.02775123327723099
+        ]
+      },
+      "playerPose": {
+        "x": -641.8471027032357,
+        "z": 323.2071425291492,
+        "y": 0.24,
+        "heading": 3.0860781288334342,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72.05105659341174,
+        "position": [
+          -641.572533570401,
+          1.6,
+          323.67309509250134
+        ],
+        "quaternion": [
+          0,
+          0.999614860359525,
+          0,
+          0.02775123327723099
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "winter",
+        "weather": "snow",
+        "override": null,
+        "sunElevation": 12.487247786995395,
+        "headlights": false,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": false,
+      "controllerNote": "Initial source-road placement with native idle controller",
+      "performanceFrames": [
+        {
+          "calls": 251,
+          "triangles": 1248739,
+          "passes": {
+            "mirror": {
+              "calls": 47,
+              "triangles": 235626
+            },
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 25,
+              "triangles": 165399
+            },
+            "main": {
+              "calls": 159,
+              "triangles": 847672
+            }
+          }
+        },
+        {
+          "calls": 249,
+          "triangles": 1243018,
+          "passes": {
+            "mirror": {
+              "calls": 47,
+              "triangles": 233719
+            },
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 24,
+              "triangles": 163492
+            },
+            "main": {
+              "calls": 158,
+              "triangles": 845765
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "unirii-winter-first150m",
+      "district": "unirii",
+      "label": "winter-first150m",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/unirii-winter-first150m.jpg",
+      "thumbnail": "thumbs/unirii-winter-first150m.jpg",
+      "sha256": "9dd52e2aa996d91be2a738c58dfdbbda3c019feda1065c1c25bd85da27625821",
+      "thumbnailSha256": "66af8dc2d85ff1f0c7bb37a8f3cf0f30a7519f604d5d4e36b5e0f4e3a0da8f53",
+      "originalPNG": {
+        "file": "unirii-winter-first150m.png",
+        "sha256": "794e979508fa89e00071e673a222e727164c95fff790bbe8685781e55cd2593c"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:22:45.670Z",
+      "pose": {
+        "x": -580.0573420573123,
+        "y": 1.6002701285408805,
+        "z": 417.61747869410806,
+        "quaternion": [
+          0.00021382711479578945,
+          -0.7656205084274104,
+          0.0003361391099588929,
+          0.6432923739356914
+        ]
+      },
+      "playerPose": {
+        "x": -580.5517540424389,
+        "z": 417.8368927980323,
+        "y": 0.24,
+        "heading": 4.541842591387249,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72.76579770697302,
+        "position": [
+          -580.0573420573123,
+          1.6002701285408805,
+          417.61747869410806
+        ],
+        "quaternion": [
+          0.00021382711479578945,
+          -0.7656205084274104,
+          0.0003361391099588929,
+          0.6432923739356914
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "winter",
+        "weather": "snow",
+        "override": null,
+        "sunElevation": 13.252874677088611,
+        "headlights": false,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 329,
+          "triangles": 1503866,
+          "passes": {
+            "mirror": {
+              "calls": 54,
+              "triangles": 242071
+            },
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 26,
+              "triangles": 167696
+            },
+            "main": {
+              "calls": 229,
+              "triangles": 1094057
+            }
+          }
+        },
+        {
+          "calls": 329,
+          "triangles": 1503866,
+          "passes": {
+            "mirror": {
+              "calls": 54,
+              "triangles": 242071
+            },
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 26,
+              "triangles": 167696
+            },
+            "main": {
+              "calls": 229,
+              "triangles": 1094057
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "unirii-winter-public-approach",
+      "district": "unirii",
+      "label": "winter-public-approach",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/unirii-winter-public-approach.jpg",
+      "thumbnail": "thumbs/unirii-winter-public-approach.jpg",
+      "sha256": "3ee54d19b5c3e00bfea122a2c1add2af6d871b1f85e11ef14727916c7308534b",
+      "thumbnailSha256": "67c7bdb6f43f3d53c5ceeddf58063bb4312ad9e5eb6e79cace10ae525ed58cd1",
+      "originalPNG": {
+        "file": "unirii-winter-public-approach.png",
+        "sha256": "f67dbf15bbcf3bcc2e1c140d6403e73e5b46d5ae2685eba203f447e1556843dd"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:24:16.283Z",
+      "pose": {
+        "x": 682.9067358853845,
+        "y": 1.6001304248162864,
+        "z": -393.7567203509962,
+        "quaternion": [
+          0.0001336058634208805,
+          -0.7273923607325011,
+          0.00014009719287729768,
+          0.6862217688694003
+        ]
+      },
+      "playerPose": {
+        "x": 682.4400094950164,
+        "z": -393.48347180282667,
+        "y": 0.24,
+        "heading": -1.6291365669052629,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72.46957044609294,
+        "position": [
+          682.9067358853845,
+          1.6001304248162864,
+          -393.7567203509962
+        ],
+        "quaternion": [
+          0.0001336058634208805,
+          -0.7273923607325011,
+          0.00014009719287729768,
+          0.6862217688694003
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "winter",
+        "weather": "snow",
+        "override": null,
+        "sunElevation": 13.46732237342749,
+        "headlights": false,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 224,
+          "triangles": 741434,
+          "passes": {
+            "mirror": {
+              "calls": 59,
+              "triangles": 157087
+            },
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 22,
+              "triangles": 102955
+            },
+            "main": {
+              "calls": 123,
+              "triangles": 481350
+            }
+          }
+        },
+        {
+          "calls": 224,
+          "triangles": 741434,
+          "passes": {
+            "mirror": {
+              "calls": 59,
+              "triangles": 157087
+            },
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 22,
+              "triangles": 102955
+            },
+            "main": {
+              "calls": 123,
+              "triangles": 481350
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "unirii-drone-ceiling",
+      "district": "unirii",
+      "label": "drone-ceiling",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/unirii-drone-ceiling.jpg",
+      "thumbnail": "thumbs/unirii-drone-ceiling.jpg",
+      "sha256": "daf3846d188999f6acd78622045437ba7b2814378811100675da3c3210c32333",
+      "thumbnailSha256": "fc4c82ef7e8468bb64fcba3f6de98f9888295f1b99177a40ed17fbdb5e78e545",
+      "originalPNG": {
+        "file": "unirii-drone-ceiling.png",
+        "sha256": "0e77ff8da5f63b1cba8b77f3efbf131648253765a5df7625836b6f853b3dc7bd"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:25:15.696Z",
+      "pose": {
+        "x": -640.5153008059931,
+        "y": 120,
+        "z": 325.2842387489958,
+        "quaternion": [
+          -0.0005597688395714953,
+          0.9995865730404593,
+          0.0015816652902629227,
+          0.028703100720766643
+        ]
+      },
+      "playerPose": {
+        "x": -641.8471027032357,
+        "z": 323.2071425291492,
+        "y": 0.24,
+        "heading": 3.0860781288334342,
+        "state": "foot"
+      },
+      "drone": {
+        "phase": "fly",
+        "x": -640.5153008059931,
+        "y": 120,
+        "z": 325.2842387489958,
+        "dist": 1.6000000000000099,
+        "battery": 0.9666048828540543,
+        "mode": "N",
+        "range": 800
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 70,
+        "position": [
+          -640.5153008059931,
+          120,
+          325.2842387489958
+        ],
+        "quaternion": [
+          -0.0005597688395714953,
+          0.9995865730404593,
+          0.0015816652902629227,
+          0.028703100720766643
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": false
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": null,
+        "sunElevation": 12.537769751618994,
+        "headlights": false,
+        "steadyState": false,
+        "visibleTransition": "Winter snow to selected summer clear: residual snow particles remain visible. This is flight/controller evidence rather than settled clear-weather visual acceptance."
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 174,
+          "triangles": 993031,
+          "passes": {
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 21,
+              "triangles": 171096
+            },
+            "main": {
+              "calls": 133,
+              "triangles": 821893
+            }
+          }
+        },
+        {
+          "calls": 176,
+          "triangles": 996845,
+          "passes": {
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 22,
+              "triangles": 173003
+            },
+            "main": {
+              "calls": 134,
+              "triangles": 823800
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "unirii-drone-outward-boundary",
+      "district": "unirii",
+      "label": "drone-outward-boundary",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/unirii-drone-outward-boundary.jpg",
+      "thumbnail": "thumbs/unirii-drone-outward-boundary.jpg",
+      "sha256": "ead8cca4f9eea0e3cfa7d0bd8039ff41f847af06669fa53e40f73399f4cffac1",
+      "thumbnailSha256": "cd69e145a2e5026054a022ccba712a35236a17afcd965e8e7218723bb409e089",
+      "originalPNG": {
+        "file": "unirii-drone-outward-boundary.png",
+        "sha256": "e27e89ced8eb3274c5b7c774d8891c0a6f672964d1796f37b8ed37588f536992"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:26:52.907Z",
+      "pose": {
+        "x": -945.0028981004297,
+        "y": 120,
+        "z": 478.3908783889665,
+        "quaternion": [
+          0.0017778466524072908,
+          0.7934574797268384,
+          0.0015581978502355897,
+          0.6086210965340209
+        ]
+      },
+      "playerPose": {
+        "x": -658.1911710790577,
+        "z": 405.63921081868097,
+        "y": 0.24,
+        "heading": 1.9916118884952871,
+        "state": "foot"
+      },
+      "drone": {
+        "phase": "fly",
+        "x": -945.0028981004297,
+        "y": 120,
+        "z": 478.3908783889665,
+        "dist": 341.61403638208526,
+        "battery": 0.8670055299409363,
+        "mode": "N",
+        "range": 800
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 70,
+        "position": [
+          -945.0028981004297,
+          120,
+          478.3908783889665
+        ],
+        "quaternion": [
+          0.0017778466524072908,
+          0.7934574797268384,
+          0.0015581978502355897,
+          0.6086210965340209
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": false
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": null,
+        "sunElevation": 12.754623289024765,
+        "headlights": false,
+        "steadyState": false,
+        "visibleTransition": "Winter snow to selected summer clear: residual snow particles remain visible. This is flight/controller evidence rather than settled clear-weather visual acceptance."
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 115,
+          "triangles": 581878,
+          "passes": {
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 19,
+              "triangles": 126458
+            },
+            "main": {
+              "calls": 76,
+              "triangles": 455378
+            }
+          }
+        },
+        {
+          "calls": 115,
+          "triangles": 581878,
+          "passes": {
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 19,
+              "triangles": 126458
+            },
+            "main": {
+              "calls": 76,
+              "triangles": 455378
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "otopeni-day-chapter-start",
+      "district": "otopeni",
+      "label": "day-chapter-start",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/otopeni-day-chapter-start.jpg",
+      "thumbnail": "thumbs/otopeni-day-chapter-start.jpg",
+      "sha256": "8f723207a656810d27cca43bff03a54953973ddec86dacf7b8c7634d85b734ec",
+      "thumbnailSha256": "b3b87c938602ee85d6ac0fc6415a5e61e8d9f21fc2873bf71cd82dec7279e337",
+      "originalPNG": {
+        "file": "otopeni-day-chapter-start.png",
+        "sha256": "f3775fafc83c3e94068d3a9005a08f14b3cf3bc1ec55a4bdcb46e582fe726505"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:28:45.651Z",
+      "pose": {
+        "x": -608.906693083385,
+        "y": 1.6,
+        "z": 998.0839224895892,
+        "quaternion": [
+          0,
+          -0.015380054997875888,
+          0,
+          0.9998817199590471
+        ]
+      },
+      "playerPose": {
+        "x": -608.6206791165273,
+        "z": 998.5429388408909,
+        "y": 0.24,
+        "heading": -0.03076936880264438,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72.04590091258918,
+        "position": [
+          -608.906693083385,
+          1.6,
+          998.0839224895892
+        ],
+        "quaternion": [
+          0,
+          -0.015380054997875888,
+          0,
+          0.9998817199590471
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": null,
+        "sunElevation": 12.353251431048175,
+        "headlights": false,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": false,
+      "controllerNote": "Initial source-road placement with native idle controller",
+      "performanceFrames": [
+        {
+          "calls": 284,
+          "triangles": 725657,
+          "passes": {
+            "mirror": {
+              "calls": 43,
+              "triangles": 98600
+            },
+            "sun-shadow": {
+              "calls": 22,
+              "triangles": 69434
+            },
+            "main": {
+              "calls": 201,
+              "triangles": 557605
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        },
+        {
+          "calls": 284,
+          "triangles": 725657,
+          "passes": {
+            "mirror": {
+              "calls": 43,
+              "triangles": 98600
+            },
+            "sun-shadow": {
+              "calls": 22,
+              "triangles": 69434
+            },
+            "main": {
+              "calls": 201,
+              "triangles": 557605
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "otopeni-day-first150m",
+      "district": "otopeni",
+      "label": "day-first150m",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/otopeni-day-first150m.jpg",
+      "thumbnail": "thumbs/otopeni-day-first150m.jpg",
+      "sha256": "cad09de9a815a3addfe7289b4a1adbeea5811de0667f158fac008a5a5e517e5a",
+      "thumbnailSha256": "184e562d8ca77aaab1fcba561c07180263c9511028b89150b3022de1a6531126",
+      "originalPNG": {
+        "file": "otopeni-day-first150m.png",
+        "sha256": "98500362dac59447a54be09bce034fb9b16f3bdbe7a8990e0870a8cba5c94cd3"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:29:22.101Z",
+      "pose": {
+        "x": -612.1183368087867,
+        "y": 1.5961324264147811,
+        "z": 856.3989655963825,
+        "quaternion": [
+          0.0026502602181422887,
+          -0.016259635783865693,
+          3.9785178969746716e-05,
+          0.9998642901824687
+        ]
+      },
+      "playerPose": {
+        "x": -611.8331480624346,
+        "z": 856.8584892502186,
+        "y": 0.24,
+        "heading": -0.03254662499447792,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 76.74877605751121,
+        "position": [
+          -612.1183368087867,
+          1.5961324264147811,
+          856.3989655963825
+        ],
+        "quaternion": [
+          0.0026502602181422887,
+          -0.016259635783865693,
+          3.9785178969746716e-05,
+          0.9998642901824687
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": null,
+        "sunElevation": 12.444479365156605,
+        "headlights": false,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 265,
+          "triangles": 647406,
+          "passes": {
+            "mirror": {
+              "calls": 42,
+              "triangles": 75835
+            },
+            "sun-shadow": {
+              "calls": 19,
+              "triangles": 57673
+            },
+            "main": {
+              "calls": 186,
+              "triangles": 513880
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        },
+        {
+          "calls": 265,
+          "triangles": 647406,
+          "passes": {
+            "mirror": {
+              "calls": 42,
+              "triangles": 75835
+            },
+            "sun-shadow": {
+              "calls": 19,
+              "triangles": 57673
+            },
+            "main": {
+              "calls": 186,
+              "triangles": 513880
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "otopeni-day-public-approach",
+      "district": "otopeni",
+      "label": "day-public-approach",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/otopeni-day-public-approach.jpg",
+      "thumbnail": "thumbs/otopeni-day-public-approach.jpg",
+      "sha256": "2c6420127c910223f1e4edafca1d477d7f47645c38920607414ddf854e713262",
+      "thumbnailSha256": "eb8071cd425e71d63cf86305a2a6ade416abdbc9d10c1478646db1b777a0200e",
+      "originalPNG": {
+        "file": "otopeni-day-public-approach.png",
+        "sha256": "c41f34c3f3e1e54959d107165c0d1b7e979c9a2a18c2f5036e3736deda9f595a"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:30:06.101Z",
+      "pose": {
+        "x": -130.90569176118402,
+        "y": 1.6000755884794189,
+        "z": -547.9419567170554,
+        "quaternion": [
+          0.0001637116186881905,
+          -0.10995943357231107,
+          1.179358502824214e-05,
+          0.993936062343989
+        ]
+      },
+      "playerPose": {
+        "x": -130.71171366158578,
+        "z": -547.4371178830147,
+        "y": 0.24,
+        "heading": -0.2211315680121293,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72.45725636167,
+        "position": [
+          -130.90569176118402,
+          1.6000755884794189,
+          -547.9419567170554
+        ],
+        "quaternion": [
+          0.0001637116186881905,
+          -0.10995943357231107,
+          1.179358502824214e-05,
+          0.993936062343989
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": null,
+        "sunElevation": 12.547536322586954,
+        "headlights": false,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 194,
+          "triangles": 505468,
+          "passes": {
+            "mirror": {
+              "calls": 48,
+              "triangles": 135182
+            },
+            "sun-shadow": {
+              "calls": 18,
+              "triangles": 52730
+            },
+            "main": {
+              "calls": 110,
+              "triangles": 317538
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        },
+        {
+          "calls": 194,
+          "triangles": 505468,
+          "passes": {
+            "mirror": {
+              "calls": 48,
+              "triangles": 135182
+            },
+            "sun-shadow": {
+              "calls": 18,
+              "triangles": 52730
+            },
+            "main": {
+              "calls": 110,
+              "triangles": 317538
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "otopeni-night-chapter-start",
+      "district": "otopeni",
+      "label": "night-chapter-start",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/otopeni-night-chapter-start.jpg",
+      "thumbnail": "thumbs/otopeni-night-chapter-start.jpg",
+      "sha256": "5fe491044b9a84b2b0bdc90c097c63a8b906aadc322907485d861f921dc1d580",
+      "thumbnailSha256": "da77b26014625aa7fdd9c3702c4ff8b6861d4fedf40cbdf8bbc2de8fea371af2",
+      "originalPNG": {
+        "file": "otopeni-night-chapter-start.png",
+        "sha256": "82d5848b8a36307c069e9fa5a653dc9fe85c9134289e132229d59e423a05f21f"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:30:39.300Z",
+      "pose": {
+        "x": -608.906693083385,
+        "y": 1.6,
+        "z": 998.0839224895892,
+        "quaternion": [
+          0,
+          -0.015355488287785194,
+          0,
+          0.9998820975392265
+        ]
+      },
+      "playerPose": {
+        "x": -608.6206791165273,
+        "z": 998.5429388408909,
+        "y": 0.24,
+        "heading": -0.03076936880264438,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72.0508007372225,
+        "position": [
+          -608.906693083385,
+          1.6,
+          998.0839224895892
+        ],
+        "quaternion": [
+          0,
+          -0.015355488287785194,
+          0,
+          0.9998820975392265
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": "night",
+        "sunElevation": -28,
+        "headlights": true,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": false,
+      "controllerNote": "Initial source-road placement with native idle controller",
+      "performanceFrames": [
+        {
+          "calls": 256,
+          "triangles": 611405,
+          "passes": {
+            "mirror": {
+              "calls": 39,
+              "triangles": 85318
+            },
+            "other": {
+              "calls": 8,
+              "triangles": 1056
+            },
+            "main": {
+              "calls": 191,
+              "triangles": 525013
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        },
+        {
+          "calls": 252,
+          "triangles": 611395,
+          "passes": {
+            "mirror": {
+              "calls": 40,
+              "triangles": 85368
+            },
+            "other": {
+              "calls": 3,
+              "triangles": 996
+            },
+            "main": {
+              "calls": 191,
+              "triangles": 525013
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "otopeni-night-first150m",
+      "district": "otopeni",
+      "label": "night-first150m",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/otopeni-night-first150m.jpg",
+      "thumbnail": "thumbs/otopeni-night-first150m.jpg",
+      "sha256": "c0cfeebbb4b8002e874243233b9f74c11619f03f2bb4dbfdf9c02786d4e40e59",
+      "thumbnailSha256": "a08b561de5d3a4935df0751f08810a7af1f79f86cecc36c4d76d74dc132974f9",
+      "originalPNG": {
+        "file": "otopeni-night-first150m.png",
+        "sha256": "db9b8dac5031936bd93478736974d279e756da5ded381ce967c279435295a8e9"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:31:10.490Z",
+      "pose": {
+        "x": -612.118336755931,
+        "y": 1.5960383609660462,
+        "z": 856.3989639448246,
+        "quaternion": [
+          0.002650260218136736,
+          -0.01625963586473053,
+          3.978517932720802e-05,
+          0.9998642901811536
+        ]
+      },
+      "playerPose": {
+        "x": -611.8331480090293,
+        "z": 856.8584875987267,
+        "y": 0.24,
+        "heading": -0.032546625154855104,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 76.74877605751121,
+        "position": [
+          -612.118336755931,
+          1.5960383609660462,
+          856.3989639448246
+        ],
+        "quaternion": [
+          0.002650260218136736,
+          -0.01625963586473053,
+          3.978517932720802e-05,
+          0.9998642901811536
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": "night",
+        "sunElevation": -28,
+        "headlights": true,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 246,
+          "triangles": 560749,
+          "passes": {
+            "mirror": {
+              "calls": 38,
+              "triangles": 71325
+            },
+            "other": {
+              "calls": 7,
+              "triangles": 1044
+            },
+            "main": {
+              "calls": 183,
+              "triangles": 488362
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        },
+        {
+          "calls": 247,
+          "triangles": 560755,
+          "passes": {
+            "mirror": {
+              "calls": 38,
+              "triangles": 71319
+            },
+            "other": {
+              "calls": 8,
+              "triangles": 1056
+            },
+            "main": {
+              "calls": 183,
+              "triangles": 488362
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "otopeni-night-public-approach",
+      "district": "otopeni",
+      "label": "night-public-approach",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/otopeni-night-public-approach.jpg",
+      "thumbnail": "thumbs/otopeni-night-public-approach.jpg",
+      "sha256": "fb2ae969a3efbaad457ebb938534d0a6508bc618a5e2436d2409b4d858a212a5",
+      "thumbnailSha256": "4c44857e4853cfc83c80c4389f90491fa78f679424872231a7574cb1ac6dd9be",
+      "originalPNG": {
+        "file": "otopeni-night-public-approach.png",
+        "sha256": "175fdaef60c4763fb7b25be946d844e29e8755cfc51bb549da8ef59dafb2bac2"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:31:50.045Z",
+      "pose": {
+        "x": -130.90569176166431,
+        "y": 1.6000363912120832,
+        "z": -547.9419567171634,
+        "quaternion": [
+          0.0001637116186881905,
+          -0.10995943357231107,
+          1.179358502824214e-05,
+          0.993936062343989
+        ]
+      },
+      "playerPose": {
+        "x": -130.71171366158578,
+        "z": -547.4371178830147,
+        "y": 0.24,
+        "heading": -0.2211315680121293,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72.45725636167,
+        "position": [
+          -130.90569176166431,
+          1.6000363912120832,
+          -547.9419567171634
+        ],
+        "quaternion": [
+          0.0001637116186881905,
+          -0.10995943357231107,
+          1.179358502824214e-05,
+          0.993936062343989
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": "night",
+        "sunElevation": -28,
+        "headlights": true,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 166,
+          "triangles": 439938,
+          "passes": {
+            "mirror": {
+              "calls": 39,
+              "triangles": 127768
+            },
+            "other": {
+              "calls": 3,
+              "triangles": 996
+            },
+            "main": {
+              "calls": 106,
+              "triangles": 311156
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        },
+        {
+          "calls": 170,
+          "triangles": 439972,
+          "passes": {
+            "mirror": {
+              "calls": 39,
+              "triangles": 127754
+            },
+            "other": {
+              "calls": 7,
+              "triangles": 1044
+            },
+            "main": {
+              "calls": 106,
+              "triangles": 311156
+            },
+            "shadow": {
+              "calls": 18,
+              "triangles": 18
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "otopeni-winter-chapter-start",
+      "district": "otopeni",
+      "label": "winter-chapter-start",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/otopeni-winter-chapter-start.jpg",
+      "thumbnail": "thumbs/otopeni-winter-chapter-start.jpg",
+      "sha256": "09fa88f2c3054768f816b4b579118bce4db150525a19d53c122ff4ccfee93bb3",
+      "thumbnailSha256": "1de3b9c6223458e57d1da24758b765152a8eb87128cd0b518a84659af00c09e9",
+      "originalPNG": {
+        "file": "otopeni-winter-chapter-start.png",
+        "sha256": "3f2ac7928cd9e47802cda65ea0035a84504d2e8c41291f3dcd1d9387cfe32a99"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:32:14.201Z",
+      "pose": {
+        "x": -608.906693083385,
+        "y": 1.6,
+        "z": 998.0839224895892,
+        "quaternion": [
+          0,
+          -0.015355488287785194,
+          0,
+          0.9998820975392265
+        ]
+      },
+      "playerPose": {
+        "x": -608.6206791165273,
+        "z": 998.5429388408909,
+        "y": 0.24,
+        "heading": -0.03076936880264438,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72.0508007372225,
+        "position": [
+          -608.906693083385,
+          1.6,
+          998.0839224895892
+        ],
+        "quaternion": [
+          0,
+          -0.015355488287785194,
+          0,
+          0.9998820975392265
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "winter",
+        "weather": "snow",
+        "override": null,
+        "sunElevation": 12.413923160890503,
+        "headlights": false,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": false,
+      "controllerNote": "Initial source-road placement with native idle controller",
+      "performanceFrames": [
+        {
+          "calls": 280,
+          "triangles": 690593,
+          "passes": {
+            "mirror": {
+              "calls": 44,
+              "triangles": 88022
+            },
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 17,
+              "triangles": 54978
+            },
+            "main": {
+              "calls": 199,
+              "triangles": 547551
+            }
+          }
+        },
+        {
+          "calls": 281,
+          "triangles": 690593,
+          "passes": {
+            "mirror": {
+              "calls": 45,
+              "triangles": 88022
+            },
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 17,
+              "triangles": 54978
+            },
+            "main": {
+              "calls": 199,
+              "triangles": 547551
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "otopeni-winter-first150m",
+      "district": "otopeni",
+      "label": "winter-first150m",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/otopeni-winter-first150m.jpg",
+      "thumbnail": "thumbs/otopeni-winter-first150m.jpg",
+      "sha256": "3cef450df37e2cff19cbb2c7e0ae7d0c014c089d7718de7bef6785126fe2bf57",
+      "thumbnailSha256": "70c8906b601b679ab6a879f3fb5d28f463b058ddcd37ad1d2bb247f712d72989",
+      "originalPNG": {
+        "file": "otopeni-winter-first150m.png",
+        "sha256": "0bcd50389299793d4b9b17eb593ab5afc2980475cb5860ab21622f3d18618f0d"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:33:01.198Z",
+      "pose": {
+        "x": -612.124201922192,
+        "y": 1.6023172110760162,
+        "z": 856.3840162194905,
+        "quaternion": [
+          0.0026109034934732296,
+          -0.016463300616079188,
+          3.6992620204732326e-05,
+          0.9998610611216533
+        ]
+      },
+      "playerPose": {
+        "x": -611.8392167717809,
+        "z": 856.8436613665174,
+        "y": 0.24,
+        "heading": -0.032973631812555686,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 76.55282694543236,
+        "position": [
+          -612.124201922192,
+          1.6023172110760162,
+          856.3840162194905
+        ],
+        "quaternion": [
+          0.0026109034934732296,
+          -0.016463300616079188,
+          3.6992620204732326e-05,
+          0.9998610611216533
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "winter",
+        "weather": "snow",
+        "override": null,
+        "sunElevation": 12.525848279827581,
+        "headlights": false,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 274,
+          "triangles": 651636,
+          "passes": {
+            "mirror": {
+              "calls": 44,
+              "triangles": 80679
+            },
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 19,
+              "triangles": 54553
+            },
+            "main": {
+              "calls": 191,
+              "triangles": 516362
+            }
+          }
+        },
+        {
+          "calls": 274,
+          "triangles": 651636,
+          "passes": {
+            "mirror": {
+              "calls": 44,
+              "triangles": 80679
+            },
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 19,
+              "triangles": 54553
+            },
+            "main": {
+              "calls": 191,
+              "triangles": 516362
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "otopeni-winter-public-approach",
+      "district": "otopeni",
+      "label": "winter-public-approach",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/otopeni-winter-public-approach.jpg",
+      "thumbnail": "thumbs/otopeni-winter-public-approach.jpg",
+      "sha256": "28c28132f761217430335f6fc4502a3ba288df4a14070a2be08b6e548ed67e89",
+      "thumbnailSha256": "c233fdf894500f0e022e6e4d26bb1b5619d76dcd65ece20215896196192a8dbe",
+      "originalPNG": {
+        "file": "otopeni-winter-public-approach.png",
+        "sha256": "1ab7e47e94727a037f68813830f0650bcec5f41b0a5366ad8c47f45913901ba4"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:33:56.232Z",
+      "pose": {
+        "x": -130.91638667723691,
+        "y": 1.5999144141835293,
+        "z": -548.0345690637148,
+        "quaternion": [
+          0.0001932618309783523,
+          -0.11073301891492403,
+          5.879679232923117e-06,
+          0.9938501703663793
+        ]
+      },
+      "playerPose": {
+        "x": -130.72365053724158,
+        "z": -547.5292697515779,
+        "y": 0.24,
+        "heading": -0.22354183095282223,
+        "state": "drive"
+      },
+      "drone": {
+        "phase": null
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 72.46601060170794,
+        "position": [
+          -130.91638667723691,
+          1.5999144141835293,
+          -548.0345690637148
+        ],
+        "quaternion": [
+          0.0001932618309783523,
+          -0.11073301891492403,
+          5.879679232923117e-06,
+          0.9938501703663793
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": true
+      },
+      "conditions": {
+        "season": "winter",
+        "weather": "snow",
+        "override": null,
+        "sunElevation": 12.65794978123286,
+        "headlights": false,
+        "steadyState": false
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 186,
+          "triangles": 466272,
+          "passes": {
+            "mirror": {
+              "calls": 46,
+              "triangles": 130462
+            },
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 13,
+              "triangles": 41410
+            },
+            "main": {
+              "calls": 107,
+              "triangles": 294358
+            }
+          }
+        },
+        {
+          "calls": 186,
+          "triangles": 466272,
+          "passes": {
+            "mirror": {
+              "calls": 46,
+              "triangles": 130462
+            },
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 13,
+              "triangles": 41410
+            },
+            "main": {
+              "calls": 107,
+              "triangles": 294358
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "otopeni-drone-ceiling",
+      "district": "otopeni",
+      "label": "drone-ceiling",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/otopeni-drone-ceiling.jpg",
+      "thumbnail": "thumbs/otopeni-drone-ceiling.jpg",
+      "sha256": "3919d05ea6ae115fbc63e4b080e0b24c865c539ab173a0db516da76746305152",
+      "thumbnailSha256": "8670c6afac7c10c4f35cf5edfbbf56a079411b2d53a9827bf2adb1936c84f791",
+      "originalPNG": {
+        "file": "otopeni-drone-ceiling.png",
+        "sha256": "4da056b8e2726f3ace4463781557de1e0058c2960f9daf3bf70f6418cfe809ab"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:34:33.020Z",
+      "pose": {
+        "x": -610.0034661129637,
+        "y": 120,
+        "z": 996.4994307977245,
+        "quaternion": [
+          -0.001588469837520943,
+          -0.0163337565182582,
+          -0.0005401572173579688,
+          0.9998651876086885
+        ]
+      },
+      "playerPose": {
+        "x": -608.6206791165273,
+        "z": 998.5429388408909,
+        "y": 0.24,
+        "heading": -0.03076936880264438,
+        "state": "foot"
+      },
+      "drone": {
+        "phase": "fly",
+        "x": -610.0034661129637,
+        "y": 120,
+        "z": 996.4994307977245,
+        "dist": 1.5999999999999723,
+        "battery": 0.9666048828540543,
+        "mode": "N",
+        "range": 800
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 70,
+        "position": [
+          -610.0034661129637,
+          120,
+          996.4994307977245
+        ],
+        "quaternion": [
+          -0.001588469837520943,
+          -0.0163337565182582,
+          -0.0005401572173579688,
+          0.9998651876086885
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": false
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": null,
+        "sunElevation": 12.468729370387436,
+        "headlights": false,
+        "steadyState": false,
+        "visibleTransition": "Winter snow to selected summer clear: residual snow particles remain visible. This is flight/controller evidence rather than settled clear-weather visual acceptance."
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 202,
+          "triangles": 581910,
+          "passes": {
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 15,
+              "triangles": 59458
+            },
+            "main": {
+              "calls": 167,
+              "triangles": 522410
+            }
+          }
+        },
+        {
+          "calls": 202,
+          "triangles": 581910,
+          "passes": {
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 15,
+              "triangles": 59458
+            },
+            "main": {
+              "calls": 167,
+              "triangles": 522410
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    },
+    {
+      "id": "otopeni-drone-outward-boundary",
+      "district": "otopeni",
+      "label": "drone-outward-boundary",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "image": "images/otopeni-drone-outward-boundary.jpg",
+      "thumbnail": "thumbs/otopeni-drone-outward-boundary.jpg",
+      "sha256": "b34c84b822b49ed24f7e86f94c8897e2470bcfbdee50b3dd9c2c65b313ba2239",
+      "thumbnailSha256": "2edc30a07a0ef8dfab3b210e9c1e480f69fa9d6ae7f74e73e4e5c25c0a29bd57",
+      "originalPNG": {
+        "file": "otopeni-drone-outward-boundary.png",
+        "sha256": "4af115c8483c7cf4defff30c00516e17ef73e64a903bcb949cbcc8c68765de16"
+      },
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "capturedAt": "2026-11-08T23:35:32.994Z",
+      "pose": {
+        "x": -909.999,
+        "y": 120,
+        "z": 996.4994307977245,
+        "quaternion": [
+          0.0014545592585903972,
+          0.7072282863770205,
+          0.0016713485415403894,
+          0.7069817832162574
+        ]
+      },
+      "playerPose": {
+        "x": -600.4028530055232,
+        "z": 1052.857287611358,
+        "y": 0.24,
+        "heading": 3.1107558646243088,
+        "state": "foot"
+      },
+      "drone": {
+        "phase": "fly",
+        "x": -909.999,
+        "y": 120,
+        "z": 996.4994307977245,
+        "dist": 299.9505740260113,
+        "battery": 0.8707864750043924,
+        "mode": "N",
+        "range": 800
+      },
+      "camera": {
+        "near": 0.2,
+        "far": 5000,
+        "fov": 70,
+        "position": [
+          -909.999,
+          120,
+          996.4994307977245
+        ],
+        "quaternion": [
+          0.0014545592585903972,
+          0.7072282863770205,
+          0.0016713485415403894,
+          0.7069817832162574
+        ],
+        "pixelRatio": 1,
+        "mirrorFar": 150,
+        "mirrorEnabled": true,
+        "driveRigShown": false
+      },
+      "conditions": {
+        "season": "summer",
+        "weather": "clear",
+        "override": null,
+        "sunElevation": 12.616036100992478,
+        "headlights": false,
+        "steadyState": false,
+        "visibleTransition": "Winter snow to selected summer clear: residual snow particles remain visible. This is flight/controller evidence rather than settled clear-weather visual acceptance."
+      },
+      "staticCamera": false,
+      "controllerExercised": true,
+      "controllerNote": "Native physical input/controller route or view-following drone flight; no camera-plane, population or LOD override",
+      "performanceFrames": [
+        {
+          "calls": 99,
+          "triangles": 334103,
+          "passes": {
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 15,
+              "triangles": 57488
+            },
+            "main": {
+              "calls": 64,
+              "triangles": 276573
+            }
+          }
+        },
+        {
+          "calls": 99,
+          "triangles": 334103,
+          "passes": {
+            "shadow": {
+              "calls": 20,
+              "triangles": 42
+            },
+            "sun-shadow": {
+              "calls": 15,
+              "triangles": 57488
+            },
+            "main": {
+              "calls": 64,
+              "triangles": 276573
+            }
+          }
+        }
+      ],
+      "architecturalParity": false
+    }
+  ],
+  "rawReport": {
+    "path": "report.json",
+    "sha256": "aad9cd891004802162d5a6ec10261e8e1df3f6c7fdf0e8023ecca7d60eafd9f9"
+  },
+  "runtimeErrors": [],
+  "rawFailures": [
+    {
+      "district": "unirii",
+      "label": "day-first150m",
+      "type": "budget",
+      "calls": 334,
+      "triangles": 1576147
+    },
+    {
+      "district": "unirii",
+      "label": "day-first150m",
+      "type": "budget",
+      "calls": 334,
+      "triangles": 1576147
+    },
+    {
+      "district": "unirii",
+      "condition": "night",
+      "type": "population-identity"
+    },
+    {
+      "district": "unirii",
+      "label": "winter-first150m",
+      "type": "budget",
+      "calls": 329,
+      "triangles": 1503866
+    },
+    {
+      "district": "unirii",
+      "label": "winter-first150m",
+      "type": "budget",
+      "calls": 329,
+      "triangles": 1503866
+    },
+    {
+      "district": "unirii",
+      "condition": "winter",
+      "type": "population-identity"
+    },
+    {
+      "district": "otopeni",
+      "condition": "night",
+      "type": "population-identity"
+    },
+    {
+      "district": "otopeni",
+      "condition": "winter",
+      "type": "population-identity"
+    }
+  ],
+  "observationNotes": [
+    "The raw first execution compares active vehicle arrays across time profiles. Night moves vehicles into the native preserved pool; combined IDs require the separate observer confirmation. The raw assertion is retained rather than erased.",
+    "The raw first execution labels unrecognised orthographic cameras shadow. Its18 fullscreen post draws are included in totals; only sun-shadow identifies the actual sun shadow camera. Full attribution uses exact light camera identity.",
+    "Captured logical frames include production mirror, main, shadow and post work. SoftwareGL timings are diagnostics, not hardware FPS evidence.",
+    "The two frames at each view include condition/reflection transition work; no fully-settled environment or15minute soak claim is made.",
+    "The205 aerial items retain their0775 capture revisions and their complete paired review with gaps; thesec78 native cases do not relabel them."
+  ]
+}

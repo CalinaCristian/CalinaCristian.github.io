@@ -2,16 +2,17 @@
 //  Hiram M. Chittenden (Ballard) Locks: the large lock (251.5 × 24.4 m) and
 //  the small lock (45.7 × 9.1 m) side by side between Salmon Bay (lake level)
 //  and Shilshole Bay (tidal), miter gates you walk across, boats rising and
-//  falling (operate a lockage!), the spillway dam with tainter gates, the fish
+//  falling, the spillway dam with tainter gates, the fish
 //  ladder on the south bank, the 1915 buildings with red tile roofs and the
 //  Carl S. English Jr. Botanical Garden on the north bank.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
-import { GeoBatch, M, rng, clamp, lerp, smooth, headingFromBearing, polyBox, inPoly } from '../kit.js';
+import { GeoBatch, M, rng, clamp, lerp, smooth, headingFromBearing, polyBox, inPoly, capsuleGeometry, distSeg } from '../kit.js';
 import { signBoard } from '../props.js';
 import { addTraffic } from '../cars.js';
 import { waterMaterial, worldUV } from './sea-common.js';
 import { seaActivity } from './sea-common.js';
+import { activityFlow } from '../participation.js';
 
 // lock axis from the west (sea) gate to the east (lake) gate — OSM lock_gate ways
 const A = [-105, 42], B = [131, 130];
@@ -24,7 +25,7 @@ const LARGE = { s0: 0, s1: LEN, t: 0, w: 24.4 }, SMALL = { s0: 62, s1: 108, t: 2
 
 function boat(color, len = 12) {
     const g = new THREE.Group(); g.name = 'boat';
-    const hull = new THREE.Mesh(new THREE.CapsuleGeometry(len * 0.13, len * 0.72, 4, 10), new THREE.MeshStandardMaterial({ color, roughness: 0.5 }));
+    const hull = new THREE.Mesh(capsuleGeometry(len * 0.13, len * 0.72, 4, 10), new THREE.MeshStandardMaterial({ color, roughness: 0.5 }));
     hull.rotation.x = Math.PI / 2; hull.scale.set(1, 1, 0.55); hull.position.y = 0.2; g.add(hull);
     const cabin = new THREE.Mesh(new THREE.BoxGeometry(len * 0.2, len * 0.11, len * 0.3), new THREE.MeshStandardMaterial({ color: '#f2f2ee', roughness: 0.5 })); cabin.position.set(0, len * 0.1, -len * 0.05); g.add(cabin);
     const mast = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, len * 0.9, 6), cabin.material); mast.position.set(0, len * 0.45, len * 0.1); if (len < 13) g.add(mast);
@@ -85,6 +86,30 @@ export default {
             const lake = new THREE.Mesh(geo, waterMat); lake.name = 'water-salmon-bay'; ctx.add(lake);
         }
         const big = buildLock(ctx, LARGE, sea), small = buildLock(ctx, SMALL, sea);
+        // The coarse DEM's lake cells also covered the mapped north-bank public
+        // path, putting its painted surface6.7m below the existing lock coping.
+        // Regrade only that source footway and its mapped western access. This
+        // uses the authored coping elevation; neither height nor width is a
+        // field measurement. No deck is extended across a chamber or courtyard.
+        const northWalks = ['w60973303', 'w472179831'].map(id => d.ways.find(w => w.id === id)).filter(Boolean);
+        const publicBankPoint = (x, z) => {
+            let nearest = null;
+            for (const way of northWalks) for (let i = 1; i < way.pts.length; i++) {
+                const a = way.pts[i - 1], b = way.pts[i], p = distSeg(x, z, ...a, ...b);
+                if (!nearest || p.d < nearest.d) nearest = p;
+            }
+            return nearest ? [nearest.cx, nearest.cz] : [x, z];
+        };
+        const westSteps = d.ways.find(w => w.id === 'w60973302');
+        const westLink = d.ways.find(w => w.id === 'w1305390459');
+        for (const walk of northWalks) g.corridor(walk.pts, 3.2, 2.5, () => WALL_TOP);
+        if (westLink) g.corridor(westLink.pts, 3.2, 1.5, () => WALL_TOP);
+        if (westSteps) {
+            const [a, c] = westSteps.pts, dx = c[0] - a[0], dz = c[1] - a[1], ll = dx * dx + dz * dz;
+            const top = g.heightAt(...c);
+            g.corridor(westSteps.pts, 2.6, 1.5, (x, z) => lerp(WALL_TOP, top, clamp(((x - a[0]) * dx + (z - a[1]) * dz) / ll, 0, 1)));
+        }
+        ctx.extras.publicNorthWalk = { sourceIds: [...northWalks, westLink, westSteps].filter(Boolean).map(w => w.id), topM: WALL_TOP, widthM: 3.2, stepsWidthM: 2.6, provenance: 'Unmeasured grade/width estimates aligned to existing authored coping; exact mapped source centre lines retained.' };
         // spillway dam with 6 tainter gates (south of the small lock) + the fish ladder on the south bank
         {
             const b = new GeoBatch(), s0 = 30, s1 = 102, t = 62;
@@ -98,7 +123,7 @@ export default {
             ctx.add(b.build('spillway-fishladder'));
         }
         // 1915 buildings: buff walls, red tile hipped roofs
-        for (const bd of d.buildings) if (/Administration|Operating House|Control Tower|Visitor Center|Machine Shop|Office and Shop|Mechanics|Warehouse No|Steel Shop|Gatehouse/.test(bd.name || '')) { bd.roof = 'hipped'; bd.rc = '#a2452d'; bd.c = '#d9ccad'; bd.h = bd.h || (/Administration/.test(bd.name) ? 11 : 7); }
+        for (const bd of d.buildings) if (/Administration|Operating House|Control Tower|Visitor Center|Machine Shop|Office and Shop|Mechanics|Warehouse No|Steel Shop|Gatehouse/.test(bd.name || '')) { bd.estimatedRoof = 'hipped'; bd.rc = '#a2452d'; bd.c = '#d9ccad'; bd.estimatedHeight = /Administration/.test(bd.name) ? 11 : 7; }
         ctx.terrainOpts = { bg: '#5f7a3c', innerPx: 2048, skirtY: SEA - 0.2, skirtColor: '#36525a' };
         ctx.osmBackdrop({ paint: {}, urban: false, style: (bd) => (bd.rc === '#a2452d' ? 'apartment' : undefined), areaTreeOpts: { conifer: 0.5, density: 1 / 70 } });
         // Carl S. English Jr. Botanical Garden: specimen trees + beds
@@ -109,7 +134,8 @@ export default {
         ctx.lampOpts = { style: 'acorn', color: '#1f2a26', h: 4.2 };
         // boats in the large lock, rising and falling with the water
         const boats = [['#1f3b57', 11], ['#e8e4d8', 14], ['#7a2c2c', 9], ['#f2f2ee', 18], ['#2d5a3a', 10]].map(([c, l], i) => { const bt = boat(c, l); const [x, z] = fromAx(30 + i * 42, (i % 2 ? 6 : -6)); bt.position.set(x, SEA, z); bt.rotation.y = YAW; ctx.add(bt); return bt; });
-        // lockage cycle: fill (sea → lake), hold, drain; E at the control tower runs one immediately
+        // An ambient, shortened lock cycle. Visitors observe from the public
+        // walkway; the activity never gives them control of operating equipment.
         let level = SEA, phase = 'low', timer = 20;
         const runLockage = () => { phase = 'fill'; timer = 0; };
         ctx.onUpdate((dt, s) => {
@@ -121,15 +147,36 @@ export default {
             big.water.position.y = level; small.water.position.y = level;
             boats.forEach((bt, i) => { bt.position.y = level + 0.05 + Math.sin(s.t * 0.8 + i) * 0.04; bt.rotation.z = Math.sin(s.t * 0.6 + i * 2) * 0.02; });
         });
-        const [tx, tz] = fromAx(108, -16);
-        ctx.interactables.push({ kind: 'lockage', x: tx, z: tz, r: 4, label: () => (phase === 'low' ? 'Operate a lockage: close the gates, open the fill valves' : phase === 'high' ? 'Drain the chamber to sea level' : 'Lockage in progress…'),
-            use: (s) => { if (phase === 'low') { runLockage(); seaActivity(s, 'lm-locks-lockage', 'ballard-locks'); s.ui.toast('🚢 Filling', 'Boats rise up to 26 ft in 10–15 minutes (here: 25 s).'); } else if (phase === 'high') { phase = 'drain'; timer = 0; } s.sound.play('bell'); } });
+        // Observe from the actual mapped public bank path, outside the coping.
+        const [tx, tz] = publicBankPoint(...fromAx(108, -16));
+        const flow=activityFlow(ctx),stages=[['fill','The boats are rising'],['high','They reached lake level'],['drain','The boats are descending'],['low','Back at sea level']];
+        ctx.extras.lockage={debug:()=>({phase,timer,level})};
+        ctx.interactables.push({kind:'lockage',x:tx,z:tz,r:4,label:'Watch a lock cycle from the public walkway',use:s=>flow.begin(s,{
+            title:'Watch the Ballard Locks',focus:{x:fromAx(108,0)[0],z:fromAx(108,0)[1],y:level+1.5},action:stages[0][1],lockWalker:false,
+            help:'Watch the boats and water through a shortened cycle. Identify each stage when you see it; Leave or Esc ends the visit.',
+            started(s,r){r.stage=0;r.busy=true;},
+            actioned(s,r){r.stage++;if(r.stage===stages.length){flow.complete();return;}r.busy=true;r.button.textContent=stages[r.stage][1];},
+            update(dt,s,r){r.busy=phase!==stages[r.stage][0]||timer<3;r.status.textContent=`${phase==='fill'?'Filling':phase==='drain'?'Draining':phase==='high'?'At lake level':'At sea level'} · ${Math.round((level-SEA)/(LAKE-SEA)*100)}% of the rise`;r.progress.value=r.stage/4;if(Math.hypot(s.position.x-tx,s.position.z-tz)>14)flow.cancel('distance');},
+            complete(s){seaActivity(s,'lm-locks-lockage','ballard-locks');s.ui.toast('🚢 Lock cycle observed','You watched the boats rise to lake level and return to sea level.');s.sound.play('bell');},
+        })});
         // signage
         const sg = signBoard('HIRAM M. CHITTENDEN LOCKS', 6.5, 0.9, { bg: '#1e3a2b', fg: '#f1ead4', font: (q) => `700 ${q}px Georgia, serif` }); sg.position.set(55, g.heightAt(55, -140) + 2.2, -140); sg.rotation.y = Math.PI; ctx.add(sg);
         addTraffic(ctx, { lanes: [{ pts: [[-142, -119], [-99, -126], [-63, -131], [32, -148], [56, -157], [69, -167]], n: 2, speed: 9 }] });
         // plaques on the north lock wall walkway + visitor centre
         const PL = sp.plaques;
-        PL.forEach((pl, i) => { const [x, z] = fromAx(40 + i * 30, -LARGE.w / 2 - 4.5); ctx.plaque(pl, x, z, YAW + Math.PI / 2, { credit: i === 0 ? 'U.S. Army Corps of Engineers; opened 1917.' : null }); });
+        PL.forEach((pl, i) => {
+            // The original reader positions align with the mapped public bank
+            // path, outside the operating wall. Attach boards to that grade.
+            let [x, z] = fromAx(40 + i * 30, -LARGE.w / 2 - 4.5);
+            if (i === 3) {
+                // The mapped path bends around the operating house here. Keep
+                // this authored board's reader on that bend, not its low verge.
+                const yaw = YAW + Math.PI / 2;
+                const p = publicBankPoint(x + Math.sin(yaw) * 1.2, z + Math.cos(yaw) * 1.2);
+                x = p[0] - Math.sin(yaw) * 1.2; z = p[1] - Math.cos(yaw) * 1.2;
+            }
+            ctx.plaque(pl, x, z, YAW + Math.PI / 2, { y: WALL_TOP, credit: i === 0 ? 'U.S. Army Corps of Engineers; opened 1917.' : null });
+        });
         { const [cx, cz] = fromAx(205, -LARGE.w / 2 - 1.8); ctx.challenge('ballard-locks', { x: cx, z: cz, heading: 290, pitch: -10, r: 16, tol: 35 }); } // on the north lock wall, looking down the chamber full of boats
         // crowd: people along the lock walls watching boats, the garden, the fish ladder windows
         const wallLine = (t) => [fromAx(10, t), fromAx(LEN - 10, t)];

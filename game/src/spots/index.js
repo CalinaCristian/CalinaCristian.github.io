@@ -9,12 +9,15 @@
 // ============================================================================
 import * as THREE from '../../vendor/three.module.min.js';
 import { CITIES } from '../cities.js';
+import { MENU_ORDER, MENU_AVAILABLE, RECOMMENDED_SPOTS, PARK_WALKS } from '../spot-availability.js';
+export { MENU_AVAILABLE } from '../spot-availability.js';
 import { Ground, Painter, buildTerrain } from './ground.js';
 import { paintOSM, buildBuildings, buildTrees, buildLamps, buildFurniture, roadLampPoints, streetTrees, areaTrees, waterPlane, polyCollider, streetBands, carriagewayTest } from './osm.js';
 import { Crowd } from './people.js';
 import { SpotUI, SpotMap, plaqueMesh } from './ui.js';
 import { SpotSound } from './sound.js';
 import { colliderIndex, LocalWalker, collide } from './walker.js';
+import { findWalkPath, pathLength, walkHeight, walkSegment, withMovingBodies } from './tour.js';
 import { countTris, disposeTree, headingFromBearing, inPoly, polyBox, DEG, rng, distPolyline } from './kit.js';
 
 // ---------------------------------------------------------------------------- registry (Seattle 10 + Bellevue 4; Bucharest added by its builder)
@@ -53,27 +56,29 @@ export const DEV_SPOTS = [
  * `game.emit('activity', { spot, id })` / `dmcv:activity` when one is completed. Scene lanes: ask spots-core to add yours.
  */
 export const ACTIVITIES = [
-    ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'chess', 'Watch the chess players'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
-    ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['village-museum', 'farmhouse', 'Step into a farmhouse'],
-    ['old-town-lipscani', 'carusel', 'Climb Cărturești Carusel'], ['old-town-lipscani', 'curtea-veche', 'Old Princely Court'], ['old-town-lipscani', 'wcp-bar', 'A drink on Lipscani'],
-    ['palace-parliament', 'balcony', 'The balcony view'], ['palace-parliament', 'pace', 'Pace the esplanade'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
+    ['cismigiu', 'rowboat', 'Row a boat on the lake'], ['cismigiu', 'chess', 'Play a chess opening'], ['cismigiu', 'rotunda', 'Visit the Writers\' Rotunda'],
+    ['herastrau-park', 'boat', 'Boat on Lake Herăstrău'], ['village-museum', 'farmhouse', 'Collect a virtual household passport'],
+    ['old-town-lipscani', 'wcp-bar', 'Hidden project'],
+    ['old-town-lipscani', 'carusel', 'Climb Cărturești Carusel'], ['old-town-lipscani', 'curtea-veche', 'Old Princely Court'],
+    ['old-town-lipscani', 'dristor-shaorma', 'Eat a shaorma at Dristor Kebap'], ['old-town-lipscani', 'shoteria-shot', 'Pour, toast and drink at Shoteria'],
+    ['palace-parliament', 'balcony', 'Frame the Palace facade'], ['palace-parliament', 'pace', 'Walk the public Palace sidewalk'], ['peoples-salvation-cathedral', 'candle', 'Light a candle'], ['stavropoleos-cec', 'stavropoleos', 'Stavropoleos courtyard'],
     ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],
-    ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-botanical-garden', 'plants', 'Garden plants'], ['bel-lincoln-square', 'badge-in', 'Badge in at UiPath'],
+    ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-lincoln-square', 'badge-in', 'Frame Lincoln Square'],
 ].map(([spot, id, title]) => ({ spot, id, title }));
 /**
- * Review gate (owner note 61): a spot is listed in SPOTS (game menu, world map, explore pins, achievements) only once
- * its scene passed the side-by-side review against real photos (day / night, spawn, postcard, 3 walk poses). Scene
- * lanes ask for the flip in spec 15 Requests → spots-core. Every spot stays loadable by id (spotById, dev page); a
+ * READY retains historical side-by-side review records. MENU_AVAILABLE separately
+ * lists current native access/control checks; it is not an architectural parity flag.
+ * Every spot stays loadable by id (spotById, dev page); a
  * reviewer lists all with `?spots=all` in the URL or localStorage `dmcv.spots.showAll` = '1'.
  */
-export const READY = new Set([ // round 5 review (2026-11-07): passed the side-by-side review + audit gate
+export const READY = new Set([ // Historical round5 review (2026-11-07); not the current menu-access gate.
     'palace-parliament', 'peoples-salvation-cathedral', 'arcul-de-triumf', 'athenaeum-revolution', 'cismigiu', 'village-museum', 'herastrau-park',
     'bel-lincoln-square', 'bel-meydenbauer', 'bel-downtown-park',
     'kerry-park', 'gas-works',
 ]);
 const showAll = (() => { try { return /[?&]spots=all\b/.test(globalThis.location?.search || '') || globalThis.localStorage?.getItem('dmcv.spots.showAll') === '1'; } catch { return false; } })();
-for (const s of SPOTS_ALL) s.ready = READY.has(s.id);
-export const SPOTS = SPOTS_ALL.filter((s) => s.ready || showAll);
+for (const s of SPOTS_ALL) { s.ready = READY.has(s.id); s.available = MENU_AVAILABLE.has(s.id); s.menuTier = RECOMMENDED_SPOTS.has(s.id) ? 'recommended' : PARK_WALKS.has(s.id) ? 'parks' : 'views'; }
+export const SPOTS = SPOTS_ALL.filter((s) => s.available || showAll).sort((a,b) => (MENU_ORDER.indexOf(a.id) < 0 ? Infinity : MENU_ORDER.indexOf(a.id)) - (MENU_ORDER.indexOf(b.id) < 0 ? Infinity : MENU_ORDER.indexOf(b.id)));
 export const spotById = (id) => SPOTS_ALL.find((s) => s.id === id) || DEV_SPOTS.find((s) => s.id === id) || null;
 
 const DATA_URL = (scene) => new URL(`../../data/spots/${scene}.json`, import.meta.url).href;
@@ -139,7 +144,7 @@ class SceneContext {
         const d = this.data, ex = [...this.exclude, ...(o.exclude || [])];
         this.ground.settle?.(o.settle);
         paintOSM(this.painter, d, { skipWays: this.skipWays, skipAreas: this.skipAreas, skipBuildings: this.skipBuildings, ...o.paint });
-        const B = buildBuildings(d, this.ground, { skip: this.skipBuildings, exclude: ex, urban: o.urban ?? true, style: o.style, filter: o.filter, shopStyle: o.shopStyle });
+        const B = buildBuildings(d, this.ground, { skip: this.skipBuildings, preserveSources:o.preserveSources, exclude: ex, urban: o.urban ?? true, style: o.style, filter: o.filter, shopStyle: o.shopStyle });
         this.add(B.group); this.colliders.push(...B.colliders); this.extras.buildings = B;
         if (o.trees !== false) {
             this.trees.push(...d.trees.filter(([x, z]) => !ex.some((p) => inPoly(x, z, p))).map(([x, z, lt]) => ({ x, z, kind: lt === 'needleleaved' ? 'con' : 'broad' })));
@@ -271,7 +276,14 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         const fp = globalThis.__spotsLegacy ? null : floorProbe(ctx.scene); ctx.extras.floorProbe = fp;
         // the tour guide (note 67): waits with a flag a few metres from the first spawn until the player joins the tour
         if (ctx.crowdCfg.tour !== false) { const s0 = spawn || Object.values(spawns)[0], fx = -Math.sin(s0.heading), fz = -Math.cos(s0.heading);
-            let gx = s0.x + fx * 4 + fz * 2.5, gz = s0.z + fz * 4 - fx * 2.5; if (collide(colliders, gx, gz, 0.4, ctx.ground.heightAt(gx, gz) + 0.2)) { gx = s0.x - fz * 2; gz = s0.z + fx * 2; }
+            let gx = s0.x - fz * 2, gz = s0.z + fx * 2;
+            // Initial placement only: keep the guide beside the approach and out
+            // of each actual postcard camera, without moving anyone after arrival.
+            searchGuide: for (const f of [4, 6, 2, 8]) for (const side of [4, -4, 6, -6, 2.5, -2.5]) {
+                const x = s0.x + fx * f + fz * side, z = s0.z + fz * f - fx * side;
+                if (ctx.challenges.some(c => Math.hypot(c.x - x, c.z - z) < 3) || collide(colliders, x, z, .4, ctx.ground.heightAt(x, z) + .2) || ctx.ground.nearestDry(x, z).x !== x) continue;
+                gx = x; gz = z; break searchGuide;
+            }
             ctx.crowdCfg = { ...ctx.crowdCfg, groups: [...(ctx.crowdCfg.groups || []), { x: gx, z: gz, r: 0, n: 1, act: 'guide', personas: ['tour_guide'], tour: true, fixedYaw: true, yaw: Math.atan2(s0.x - gx, s0.z - gz) }] }; }
         crowd = new Crowd({ lift: fp?.lift, city: data.city, ground: ctx.ground, dialogue: mergeDialogue(data, ctx.crowdCfg.spots || data.members), general: data.dialogueGeneral, seed: data.id.length * 7, colliders, ...ctx.crowdCfg });
         ctx.add(crowd.group);
@@ -289,7 +301,7 @@ export async function loadSpot(id, renderer = null, opts = {}) {
         lamps: lamps.lamps, lampHeadMesh: lamps.headMesh, vegetation, crowd, interactables: ctx.interactables, challenges: ctx.challenges,
         updaters: ctx.updaters, nightHooks: ctx.nightHooks, sounds: ctx.sounds, ctx, tris,
         timing: { fetch: Math.round(tFetch - t0), build: Math.round(tBuild - tFetch), finish: Math.round(performance.now() - tBuild), total: Math.round(performance.now() - t0) },
-        dispose() { crowd?.dispose(); disposeTree(ctx.scene); ctx.scene.clear(); },
+        dispose() { ctx.extras.participation?.dispose(); for (const clean of ctx.extras.sceneCleanups || []) clean(); crowd?.dispose(); disposeTree(ctx.scene); ctx.scene.clear(); },
     };
     void renderer; // (programs compile on the first frame, after Renderer3D added its lights)
     console.info(`[spots] ${id} (${sceneId}): ${tris.toLocaleString()} tris, ${ctx.colliders.length} colliders, ${crowd?.count || 0} people, ${ctx.plaques.length} plaques — ${res.timing.total} ms (fetch ${res.timing.fetch}, build ${res.timing.build}, finish ${res.timing.finish})`);
@@ -327,8 +339,10 @@ export class SpotSession {
         const { spot, host } = this, r3d = this.r3d, cam = this.camera;
         cam.near = 0.25; // on foot: render's depth-precision test (note 55) cam.far = Math.max(cam.far, 9000); cam.updateProjectionMatrix();
         const T = [performance.now()];
-        r3d.setScene(spot.scene, cam, spot.env, { units: spot.units, vegetation: spot.vegetation }); T.push(performance.now());
-        r3d.setClock({ date: host.date || new Date(), lat: spot.clock.lat, lon: spot.clock.lon, timeZone: spot.clock.timeZone, timeScale: host.timeScale ?? 1, override: host.override ?? null }); T.push(performance.now());
+        if (host.season !== undefined) r3d.setSeason(host.season === 'auto' ? null : host.season);
+        r3d.setScene(spot.scene, cam, spot.env, { units: spot.units, vegetation: spot.vegetation,
+            ...(host.weather !== undefined ? { weather: host.weather === 'live' ? null : host.weather } : {}),
+            clock: { date: host.date || new Date(), lat: spot.clock.lat, lon: spot.clock.lon, timeZone: host.timeZone ?? spot.clock.timeZone, timeScale: host.timeScale ?? 1, override: host.override ?? null } }); T.push(performance.now());
         r3d.setLamps(spot.lamps, { headMesh: spot.lampHeadMesh }); T.push(performance.now());
         r3d.setHeadlights?.(false);
         // walker: the game's OnFootController (spec 14) when present, else the local fallback
@@ -357,6 +371,11 @@ export class SpotSession {
         window.cvTelemetry?.track?.('spot_enter', { id: spot.id, scene: spot.sceneId, city: spot.city });
     }
     get position() { return this.ctl.position; }
+    cancelActivities(reason = 'cancel') {
+        const extras = this.spot.ctx.extras;
+        extras.venueActivities?.cancel(reason); extras.participation?.cancel(reason);
+        for (const cancel of extras.activityCancellers || []) cancel(reason);
+    }
     // ------------------------------------------------------------------ spot map + objectives + guided tour (notes 32/33/67)
     /** everything worth finding in this scene: { kind, x, z, label, done, icon? } (landmarks, plaques, postcard, activities, entrances) */
     objectives() {
@@ -366,13 +385,13 @@ export class SpotSession {
             // the spot itself (its extent centre, else the postcard stand / spawn) — not ch.view, the point the postcard
             // looks AT (Kerry Park: downtown, 1.2 km away — the tour walked you into the city; after round 6)
             const hx = ext ? (ext.x0 + ext.x1) / 2 : ch?.x ?? d.spawn?.x ?? 0, hz = ext ? (ext.z0 + ext.z1) / 2 : ch?.z ?? d.spawn?.z ?? 0;
-            out.push({ kind: 'hero', x: hx, z: hz, label: e.name, blurb: e.blurb, done: !!this._seen?.has('hero:' + mid) }); }
+            out.push({ kind: 'hero', id: mid, x: hx, z: hz, label: e.name, blurb: e.blurb, done: !!this._seen?.has('hero:' + mid) }); }
         for (const [k, sp] of Object.entries(S.spawns || {})) if (Object.keys(S.spawns).length > 1) out.push({ kind: 'entrance', x: sp.x, z: sp.z, label: 'Entrance: ' + (spotById(k)?.name || k), done: true, noTour: true });
         for (const pl of S.plaques) out.push({ kind: 'plaque', x: pl.x, z: pl.z, label: pl.title, text: pl.text, done: !!read[S.sceneId + ':' + pl.title], plaque: pl });
-        for (const c of S.challenges) out.push({ kind: 'postcard', x: c.x, z: c.z, label: 'Postcard photo: ' + (spotById(c.id)?.name || 'the iconic view'), text: c.text, done: !!P.postcards?.[c.id] });
+        for (const c of S.challenges) out.push({ kind: 'postcard', id: c.id, challenge: c, x: c.x, z: c.z, label: 'Postcard photo: ' + (spotById(c.id)?.name || 'the iconic view'), text: c.text, done: !!P.postcards?.[c.id] });
         const acts = [];
         for (const it of S.interactables) { if (it.kind === 'plaque' || it.kind === 'guide' || it.kind === 'talk' || it.hidden) continue; const lb = typeof it.label === 'function' ? it.label(this) : it.label; if (!lb) continue;
-            acts.push({ kind: it.kind === 'bike' ? 'bike' : 'activity', x: it.x, z: it.z, full: lb, done: !!this._seen?.has('act:' + lb) }); }
+            acts.push({ kind: it.kind === 'bike' ? 'bike' : 'activity', interaction: it, x: it.x, z: it.z, full: lb, done: false }); }
         // short labels; activities sharing a "Verb: name" prefix (≥ 3, e.g. the Village Museum houses) become one group objective
         const pre = (l) => (/^([^:—]{3,40}):\s*(.+)$/.exec(l) || null), count = {};
         for (const a of acts) { const m = pre(a.full); if (m) count[m[1]] = (count[m[1]] || 0) + 1; }
@@ -393,7 +412,7 @@ export class SpotSession {
         this.guide = S.crowd?.peds.find((p) => p.group?.tour) || null;
         if (this.guide) {
             this.guide.driven = true; this.guide.speed = 0;
-            this._guideIt = { kind: 'guide', x: this.guide.x, z: this.guide.z, r: 2.6, label: (s) => (s.tour?.state === 'done' ? 'Thanks for the tour!' : s.tour?.said ? 'Next stop, please' : s.tour ? 'Tour guide — follow the flag' : 'Join the free guided tour'), use: (s) => { if (!s.tour) s.startTour(); else if (s.tour.said && s.tour.state === 'arrive') s.tour.wait = 99; } }; // (E at the guide after the narration: on to the next stop)
+            this._guideIt = { kind: 'guide', x: this.guide.x, z: this.guide.z, r: 2.6, label: (s) => (!s.tour || s.tour.state === 'done' ? 'Join the short guided tour' : s.tour.said && !['activity', 'bike', 'postcard'].includes(s.tour.stops[s.tour.i]?.kind) ? 'Next stop, please' : 'Tour guide — follow the flag'), use: (s) => { if (!s.tour || s.tour.state === 'done') { s.endTour(); s.startTour(); } else if (s.tour.said && !['activity', 'bike', 'postcard'].includes(s.tour.stops[s.tour.i]?.kind)) s._nextTourStop(); } };
             S.interactables.push(this._guideIt);
         }
         // E — talk to people (after round 6): the nearest person in front of the player within reach stops, turns and
@@ -416,6 +435,7 @@ export class SpotSession {
     }
     async openMap() {
         if (this.ui.panelOpen || !this.map) return;
+        this.cancelActivities('map');
         if (this.input) { this.input.lookAllowed = false; this.input.releaseLock?.(); }
         this._refreshMarkers();
         const ICONS = { hero: '⭐', plaque: '📜', postcard: '📷', bike: '🚲', activity: '🎯' }, items = [], groups = new Map();
@@ -423,7 +443,7 @@ export class SpotSession {
             if (m.group) { let g = groups.get(m.group); if (!g) { g = { icon: ICONS[m.kind] || '•', label: m.group, members: [], kind: m.kind }; groups.set(m.group, g); items.push(g); } g.members.push(m); continue; }
             items.push({ icon: ICONS[m.kind] || '•', label: m.short || m.label, done: m.done, kind: m.kind, marker: m }); }
         for (const g of groups.values()) { const d = g.members.filter((m) => m.done).length; g.label = `${g.label} (${d}/${g.members.length})`; g.done = d === g.members.length; }
-        await this.ui.showMap(this.map, { title: this.spot.name, items, tour: this.guide && !this.tour ? { label: '🚩 Start the guided tour', run: () => this.startTour() } : null });
+        await this.ui.showMap(this.map, { title: this.spot.name, items, tour: this.guide ? { label: this.tour && this.tour.state !== 'done' ? 'End the guided tour' : '🚩 Short guided tour · up to 3 stops', run: () => { if (this.tour && this.tour.state !== 'done') this.endTour(); else { this.endTour(); this.startTour(); } } } : null });
         if (this.input) { this.input.lookAllowed = true; this.input.flush?.(); this.input.keys?.clear?.(); }
         this.returnFocus();
     }
@@ -436,81 +456,74 @@ export class SpotSession {
         this._talks = (this._talks || 0) + 1;
         try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: this.spot.id, id: 'talk', n: this._talks } })); } catch { /* no host */ }
     }
-    /** walkable route from (ax, az) to (bx, bz) on a 1.5 m grid: cells clear of colliders and water, steps ≤ 0.65 m;
-     *  A* (8-neighbour), goal within 2.2 m — else (goal unreachable) the closest reachable point within 18 m; the result
-     *  is string-pulled to a few waypoints [[x, z], …]. null when nothing reachable. */
-    _navPath(ax, az, bx, bz) {
-        const C = 1.5, g = this.spot.ground, cols = this.spot.colliders, wy = g.waterY, M = 130;
-        const x0 = Math.min(ax, bx) - M, z0 = Math.min(az, bz) - M, nx = Math.ceil((Math.max(ax, bx) + M - x0) / C), nz = Math.ceil((Math.max(az, bz) + M - z0) / C);
-        if (nx * nz > 260000) return [[ax, az], [bx, bz]];
-        const cache = new Float32Array(nx * nz).fill(-1e9), cx = (i) => x0 + (i + 0.5) * C, cz = (j) => z0 + (j + 0.5) * C;
-        const at = (i, j) => { if (i < 0 || j < 0 || i >= nx || j >= nz) return NaN; const k = i * nz + j; let v = cache[k];
-            if (v === -1e9) { const x = cx(i), z = cz(j), h = g.heightAt(x, z), y = g.groundAt ? g.groundAt(x, z, h + 1.2) : h;
-                v = (!Number.isFinite(y) || (wy != null && y < wy + 0.03) || (cols && collide(cols, x, z, 0.32, y + 0.3))) ? NaN : y; cache[k] = v; } return v; };
-        const si = Math.floor((ax - x0) / C), sj = Math.floor((az - z0) / C);
-        const search = (R) => {
-            const gS = new Map(), prev = new Map(), H = []; let best = null, bestD = 1e9, n = 0; // binary min-heap of [f, k]
-            const push = (e) => { H.push(e); let i = H.length - 1; while (i) { const p2 = (i - 1) >> 1; if (H[p2][0] <= H[i][0]) break; [H[p2], H[i]] = [H[i], H[p2]]; i = p2; } };
-            const pop = () => { const top = H[0], last = H.pop(); if (H.length) { H[0] = last; let i = 0; for (;;) { const l = i * 2 + 1, r2 = l + 1; let m = i; if (l < H.length && H[l][0] < H[m][0]) m = l; if (r2 < H.length && H[r2][0] < H[m][0]) m = r2; if (m === i) break; [H[m], H[i]] = [H[i], H[m]]; i = m; } } return top; };
-            const done = new Set(); push([0, si * nz + sj]); gS.set(si * nz + sj, 0);
-            while (H.length && n++ < 150000) {
-                const [, k] = pop(); if (done.has(k)) continue; done.add(k);
-                const i = Math.floor(k / nz), j = k % nz, d = Math.hypot(cx(i) - bx, cz(j) - bz);
-                if (d < bestD) { bestD = d; best = k; } if (d < R) { best = k; break; }
-                const y0 = at(i, j), g0 = gS.get(k);
-                for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]]) {
-                    const ii = i + di, jj = j + dj, y1 = at(ii, jj); if (!Number.isFinite(y1)) continue;
-                    if (Number.isFinite(y0) && Math.abs(y1 - y0) > 0.65) continue;
-                    if (di && dj && (!Number.isFinite(at(i + di, j)) || !Number.isFinite(at(i, j + dj)))) continue; // no corner cutting
-                    const kk = ii * nz + jj, ng = g0 + (di && dj ? 1.414 : 1) * C;
-                    if (ng < (gS.get(kk) ?? 1e9)) { gS.set(kk, ng); prev.set(kk, k); push([ng + Math.hypot(cx(ii) - bx, cz(jj) - bz), kk]); }
-                }
-            }
-            return { best, bestD, prev };
-        };
-        const r = search(2.2); if (r.bestD > 45) return null; // (a stop in the lake / behind a fence: the nearest reachable point within 45 m)
-        const pts = []; for (let k = r.best; k != null; k = r.prev.get(k)) pts.push([cx(Math.floor(k / nz)), cz(k % nz)]);
-        pts.reverse(); pts[0] = [ax, az]; if (r.bestD < 2.2) pts.push([bx, bz]);
-        // string-pull: keep a waypoint only where the straight line to the next kept one is blocked
-        const clear = (p, q) => { const L = Math.hypot(q[0] - p[0], q[1] - p[1]), n2 = Math.ceil(L / 0.75); for (let t = 1; t < n2; t++) { const x = p[0] + (q[0] - p[0]) * t / n2, z = p[1] + (q[1] - p[1]) * t / n2; if (!Number.isFinite(at(Math.floor((x - x0) / C), Math.floor((z - z0) / C)))) return false; } return true; };
-        const out = [pts[0]]; let a = 0; while (a < pts.length - 1) { let b2 = pts.length - 1; while (b2 > a + 1 && !clear(pts[a], pts[b2])) b2--; out.push(pts[b2]); a = b2; }
-        return out;
+    /** Strict walkable route; optional radius stays within the actual interaction's reach. */
+    _navColliders(ax,az,bx,bz,range=200) {
+        const bodies=[...(this.spot.crowd?.obstacles((ax+bx)/2,(az+bz)/2,range)||[]),...(this.spot.ctx.extras.obstacles?.()||[])];
+        return withMovingBodies(this.spot.colliders,bodies,this.guide);
     }
-    /** optional guided tour: the guide walks ahead with a flag to each stop (landmark → plaques → activities → postcard), narrates, ticks the checklist */
+    _navPath(ax, az, bx, bz, opts = {}) { return findWalkPath(this.spot.ground, this._navColliders(ax,az,bx,bz), ax, az, bx, bz, opts); }
+    /** Optional quick visit: one activity first, a nearby fact, then this spot's postcard; all content remains on the map. */
     startTour() {
         if (!this.guide || this.tour) return;
-        // (after round 6) only what belongs to the spot you are in: inside its mapped extent (+40 m) or within 230 m of its
-        // entrance — a scene shared by two spots (Herăstrău + Village Museum) or a far 'hero' view point (Kerry Park, 1.2 km)
-        // sent the guide on a 10-minute walk
-        const sd = this.spot.data.spots?.[this.spot.id], ext = sd?.extent?.polygon?.length ? sd.extent.polygon : null, sp0 = this.spot.spawn || { x: this.guide.x, z: this.guide.z };
-        const near = (m) => (ext ? (inPoly(m.x, m.z, ext) || distPolyline(m.x, m.z, [...ext, ext[0]]).d < 40) : true) && Math.hypot(m.x - sp0.x, m.z - sp0.z) < (ext ? 600 : 230);
+        const S = this.spot, sp0 = S.spawns[S.id] || S.spawn, ext = S.data.spots?.[S.id]?.extent?.polygon;
+        const near = (m) => {
+            if (m.id && m.id !== S.id) return false;
+            if (Math.hypot(m.x - sp0.x, m.z - sp0.z) > 230) return false;
+            if (ext?.length && !inPoly(m.x, m.z, ext) && distPolyline(m.x, m.z, [...ext, ext[0]]).d > 40) return false;
+            if (!m.id && Object.entries(S.spawns).some(([id, sp]) => id !== S.id && Math.hypot(m.x - sp.x, m.z - sp.z) + 5 < Math.hypot(m.x - sp0.x, m.z - sp0.z))) return false;
+            const it = m.interaction;
+            return !it || ((!it.cond || it.cond(this)) && (!it.tourAvailable || it.tourAvailable(this)) && Math.abs((it.y ?? this.ctl.y) - this.ctl.y) < 3);
+        };
         const objs = this.objectives().filter((m) => !m.noTour && m.kind !== 'entrance' && near(m));
-        const stops = []; let cx = this.guide.x, cz = this.guide.z; const pool = objs.filter((m) => m.kind !== 'postcard'), post = objs.filter((m) => m.kind === 'postcard');
-        let walked = 0; // (after round 6) a tour of a few minutes: ≤ 5 stops and ≈ 350 m of walking, nearest first
-        while (pool.length && stops.length < 5) { let bi = 0, bd = 1e9; pool.forEach((m, i) => { const r = Math.hypot(m.x - cx, m.z - cz), d = r + (m.kind === 'hero' && r < 150 ? -60 : 0); if (d < bd) { bd = d; bi = i; } });
-            const m = pool[bi], leg = Math.hypot(m.x - cx, m.z - cz); if (stops.length && walked + leg > 350) break; pool.splice(bi, 1); walked += leg; stops.push(m); cx = m.x; cz = m.z; }
-        if (post[0] && (Math.hypot(post[0].x - cx, post[0].z - cz) < 160 || !stops.length)) stops.push(post[0]); // finish at the postcard viewpoint (when it's on the way)
-        // (after round 6: "the tour path should account for blocking objects / tells me to go somewhere I have no access")
-        // every leg is a walkable route (grid search round fences, machinery, steps and water); a stop that can't be
-        // reached is visited from the nearest reachable point (e.g. at the fence in front of it), or dropped
-        { let px = this.guide.x, pz = this.guide.z; const kept = [];
-          for (const m of stops) { m.done = false; const dry = this.spot.ground.nearestDry(m.x, m.z); const path = this._navPath(px, pz, dry.x, dry.z);
-              if (!path) continue; const end = path[path.length - 1]; m.tx = end[0]; m.tz = end[1]; m.path = path; kept.push(m); px = m.tx; pz = m.tz; }
-          stops.length = 0; stops.push(...kept); }
-        this.tour = { stops, i: 0, state: 'walk', wait: 0, said: false, t: 0 };
-        this.guide.act = 'guide';
-        this.guide.sayCd = 1e9; // the guide speaks only through the tour (one bubble at a time)
-        this.tour.narr = `Follow my flag — ${stops.length} stops. M shows the map.`;
-        try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: this.spot.id, id: 'tour-start' } })); } catch { /* no host */ }
-        this._tourUI(); this._routeLine();
+        const stops = []; let x = this.guide.x, z = this.guide.z, walked = 0;
+        const addNearest = (pool) => {
+            // A detour counts against the budget before the stop enters the itinerary.
+            for (const m of pool.sort((a, b) => Math.hypot(a.x - x, a.z - z) - Math.hypot(b.x - x, b.z - z))) {
+                const radius = m.interaction ? Math.min(1.5, Math.max(0.4, (m.interaction.r || 2) - 0.4)) : m.kind === 'postcard' ? Math.min(2, (m.challenge.r || 8) - 0.4) : 1.5;
+                const path = this._navPath(x, z, m.x, m.z, { radius, maxLength: 180 - walked });
+                if (!path) continue;
+                const end = path.at(-1); m.tx = end[0]; m.tz = end[1]; m.path = path; m.radius = radius;
+                m.done = false; stops.push(m); walked += pathLength(path); x = m.tx; z = m.tz; return true;
+            }
+            return false;
+        };
+        const active = objs.filter((m) => ['activity', 'bike'].includes(m.kind));
+        if (!addNearest(active)) addNearest(objs.filter((m) => m.kind === 'hero'));
+        addNearest(objs.filter((m) => m.kind === 'plaque'));
+        addNearest(objs.filter((m) => m.kind === 'postcard'));
+        if (!stops.length) { this.ui.toast('No short walking route', 'Explore freely with M. The guide could not find a safe route from here.'); return false; }
+        this.tour = { stops, i: 0, state: 'walk', wait: 0, said: false, t: 0, walked, travelled:0, skipped: 0 };
+        this.guide.act = 'guide'; this.guide.sayCd = 1e9;
+        this.tour.narr = `Follow my flag — ${stops.length} stop${stops.length === 1 ? '' : 's'}, about ${Math.ceil(walked)} m. Skip or end the tour at any time.`;
+        try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: S.id, id: 'tour-start' } })); } catch { /* no host */ }
+        this._tourUI(); this._routeLine(); return true;
     }
-    _tourUI() { const T = this.tour; if (!T) return this.ui.setTour(null);
-        const st = T.stops[Math.min(T.i, T.stops.length - 1)];
-        return this.ui.setTour({ title: T.state === 'done' ? 'Tour complete' : 'Guided tour', i: Math.min(T.i, T.stops.length), n: T.stops.length, done: T.state === 'done', stop: T.state === 'done' ? '' : (st.short || shortLabel(st.label)), text: T.narr || '', dots: T.stops.map((m, k) => (k < T.i ? 1 : k === T.i ? 2 : 0)) }); this.ui.setTour(T.stops.map((m, i) => ({ label: m.label, done: i < T.i || m.done && i < T.i, cur: i === T.i && T.state !== 'done' })), T.state === 'done' ? 'Tour complete' : `Guided tour ${Math.min(T.i + 1, T.stops.length)}/${T.stops.length}`); }
+    _tourUI() {
+        const T = this.tour; if (!T) return this.ui.setTour(null);
+        const st = T.stops[T.i], done = T.state === 'done';
+        this.ui.setTour({ title: done ? (T.skipped ? 'Tour ended' : 'Tour complete') : 'Short guided tour', i: T.i, n: T.stops.length, done,
+            stop: st ? (st.short || shortLabel(st.label)) : '', text: T.narr || '', dots: T.stops.map((m, k) => (m.skipped ? 3 : k < T.i ? 1 : k === T.i ? 2 : 0)),
+            skip: done ? null : () => this.skipTourStop(), end: () => this.endTour() });
+    }
+    endTour() {
+        this._guideBubble?.remove(); this._guideBubble = null;
+        if (this.guide) { this.guide.speed = 0; this.guide.sayCd = 5; }
+        this.tour = null; this._tourUI(); this._routeLine(); this._refreshMarkers();
+    }
+    skipTourStop() { if (!this.tour || this.tour.state === 'done') return; this.tour.stops[this.tour.i].skipped = true; this.tour.skipped++; this._nextTourStop(); }
+    _nextTourStop() {
+        const T = this.tour; if (!T) return;
+        T.stops[T.i].done = !T.stops[T.i].skipped; T.i++; T.said = false; T.t = 0; T.wait = 0;
+        if (T.i >= T.stops.length) return this._finishTour();
+        const st = T.stops[T.i], path = this._navPath(this.guide.x, this.guide.z, st.x, st.z, { radius: st.radius, maxLength: Math.max(0, 180 - (T.travelled || 0)) });
+        if (!path) { T.narr = 'The next stop is blocked. You can skip it or end the tour.'; T.state = 'blocked'; this.guide.speed = 0; }
+        else { st.path = path; st.wi = 1; [st.tx, st.tz] = path.at(-1); T.state = 'walk'; T.narr = 'Follow the flag to the next stop.'; }
+        this._tourUI(); this._routeLine(); this._refreshMarkers();
+    }
     /** a dashed ground line from the guide to the current stop (3-D) + the same route on the map */
     _routeLine() {
-        if (this._route) { this.spot.scene.remove(this._route); this._route.geometry.dispose(); this._route = null; }
-        const T = this.tour, st = T?.stops[T.i]; if (!st || T.state === 'done') { this.map?.setRoute(null); return; }
+        if (this._route) { this.spot.scene.remove(this._route); this._route.geometry.dispose(); this._route.material.dispose(); this._route = null; }
+        const T = this.tour, st = T?.stops[T.i]; if (!st || T.state === 'done' || T.state === 'blocked') { this.map?.setRoute(null); return; }
         const a = this.guide, g = this.spot.ground, pos = [];
         // the remaining route of this leg (guide → waypoints → stop), dashed on the ground
         const route = [[a.x, a.z], ...(st.path && st.path.length > 1 ? st.path.slice(st.wi ?? 1) : [[st.tx, st.tz]])];
@@ -523,56 +536,63 @@ export class SpotSession {
         this.map?.setRoute(route);
     }
     _updateTour(dt, p) {
-        const T = this.tour, G = this.guide; if (!T || !G || T.state === 'done') return;
+        const T = this.tour, G = this.guide; if (!T || !G || T.state === 'done' || T.state === 'blocked' || dt <= 0) return;
         const st = T.stops[T.i]; T.t += dt;
         let dP = Math.hypot(p.x - G.x, p.z - G.z), dS = Math.hypot(st.tx - G.x, st.tz - G.z);
         const pS = Math.hypot(st.tx - p.x, st.tz - p.z); // player → stop
         if (T.state === 'walk') {
-            // (round 6 note 15) the player got there first: the guide catches up at once (next to the stop, behind the
-            // player when possible) and narrates — no waiting for a slow walker
-            if (pS < 5 && dS > 4) {
-                const ax = (p.x - st.tx) / (pS || 1), az = (p.z - st.tz) / (pS || 1), gx = st.tx + ax * 2.4 - az * 1.2, gz = st.tz + az * 2.4 + ax * 1.2;
-                if (!collide(this.spot.colliders, gx, gz, 0.3, (G.y ?? 0) + 0.3)) { G.x = gx; G.z = gz; } else { G.x = st.tx; G.z = st.tz; }
-                G.y = this.spot.ground.groundAt(G.x, G.z, (G.y ?? 0) + 0.45); dS = Math.hypot(st.tx - G.x, st.tz - G.z); dP = Math.hypot(p.x - G.x, p.z - G.z);
-                T.state = 'arrive'; T.wait = 0; G.speed = 0;
-            }
-        }
-        if (T.state === 'walk') {
             const wait = dP > 14 && pS > dS; // the guide waits for a player who is behind, waving the flag
-            if (dS < 2.2) { T.state = 'arrive'; T.wait = 0; G.speed = 0; }
+            if (dS < 0.5 && (st.wi ?? 1) >= st.path.length - 1) { T.state = 'arrive'; T.wait = 0; G.speed = 0; }
             else if (!wait) {
                 // keeps the player's pace: a stroll when the player is close behind, a jog when the player is ahead
                 const pv = Math.abs(p.vel ?? p.speed ?? 0), ahead = pS < dS;
                 const v = ahead ? Math.min(4.5, Math.max(2.6, pv + 0.6)) : Math.min(3.0, Math.max(1.7, Math.min(pv + 0.5, 1.4 + Math.max(0, 9 - dP) * 0.2))); // (brisker: a tour is a few minutes, not ten)
-                // follow the leg's route: head for the next waypoint (advanced when within 1.2 m)
+                // Follow each corner closely; movement clearance still checks every short step.
                 const wp = st.path && st.path.length > 1 ? st.path : null; st.wi ??= 1;
-                if (wp) while (st.wi < wp.length - 1 && Math.hypot(wp[st.wi][0] - G.x, wp[st.wi][1] - G.z) < 1.2) st.wi++;
+                if (wp) while (st.wi < wp.length - 1 && Math.hypot(wp[st.wi][0] - G.x, wp[st.wi][1] - G.z) < 0.35) st.wi++;
                 const tgx = wp ? wp[st.wi][0] : st.tx, tgz = wp ? wp[st.wi][1] : st.tz, dT = Math.hypot(tgx - G.x, tgz - G.z) || 1;
-                let dx = (tgx - G.x) / dT, dz = (tgz - G.z) / dT;
-                const cols = this.spot.colliders; let nx = G.x + dx * v * dt, nz = G.z + dz * v * dt;
-                for (const turn of [0, 0.7, -0.7, 1.4, -1.4]) { const c = Math.cos(turn), s2 = Math.sin(turn), ex = dx * c - dz * s2, ez = dx * s2 + dz * c; nx = G.x + ex * v * dt; nz = G.z + ez * v * dt; if (!collide(cols, nx, nz, 0.3, G.y + 0.3)) { dx = ex; dz = ez; break; } }
-                G.x = nx; G.z = nz; G.y = this.spot.ground.groundAt(nx, nz, G.y + 0.45); G.speed = v; G.phase += dt * v * 4.6; G.yaw = Math.atan2(dx, dz); G.tyaw = G.yaw;
+                let dx = (tgx - G.x) / dT, dz = (tgz - G.z) / dT; const step = Math.min(v * dt, dT);
+                const cols = this._navColliders(G.x,G.z,G.x,G.z,12), ground = this.spot.ground; let nx = G.x, nz = G.z, moved = false;
+                for (const turn of [0, 0.7, -0.7, 1.4, -1.4]) {
+                    const c = Math.cos(turn), s2 = Math.sin(turn), ex = dx * c - dz * s2, ez = dx * s2 + dz * c, tx = G.x + ex * step, tz = G.z + ez * step;
+                    if (walkSegment(ground, cols, [G.x, G.z], [tx, tz])) { nx = tx; nz = tz; dx = ex; dz = ez; moved = true; break; }
+                }
+                T.travelled = (T.travelled || 0) + Math.hypot(nx - G.x, nz - G.z);
+                G.x = nx; G.z = nz; if (moved) G.y = walkHeight(ground, cols, nx, nz);
+                const remaining = Math.hypot(tgx - nx, tgz - nz);
+                if (st.progressWaypoint !== st.wi || remaining < (st.bestRemaining ?? Infinity) - 0.05) {
+                    st.progressWaypoint = st.wi; st.bestRemaining = remaining; st.blockedFor = 0;
+                } else st.blockedFor = (st.blockedFor || 0) + dt;
+                if(T.travelled>180){T.state='blocked';T.narr='This short walk has reached its distance budget. You can end the tour and keep exploring freely.';G.speed=0;this._tourUI();this._routeLine();return;}
+                if(st.blockedFor>1){
+                    const replanned=this._navPath(G.x,G.z,st.x,st.z,{radius:st.radius,maxLength:180-T.travelled});st.blockedFor=0;
+                    if(replanned){st.path=replanned;st.wi=1;st.progressWaypoint=null;st.bestRemaining=Infinity;[st.tx,st.tz]=replanned.at(-1);this._routeLine();}
+                    else{T.state='blocked';T.narr='The public route is currently blocked. You can skip this stop or end the tour.';G.speed=0;this._tourUI();this._routeLine();return;}
+                }
+                G.speed = moved ? v : 0; G.phase += moved ? dt * v * 4.6 : 0; G.yaw = Math.atan2(dx, dz); G.tyaw = G.yaw;
                 if ((T.t % 1) < dt) this._routeLine();
             } else { G.speed = 0; G.yaw = Math.atan2(p.x - G.x, p.z - G.z); }
         }
         if (T.state === 'arrive') {
             G.speed = 0; G.yaw = Math.atan2(st.x - G.x, st.z - G.z); T.wait += dt;
-            if ((dP < 10 || T.wait > 8) && !T.said) { // narration: the guide's bubble + the full line in a toast (also when you hang back)
+            if (pS < 6 && !T.said) { // narration: the guide's bubble + the full line in a toast (also when you hang back)
                 T.said = true; const text = st.kind === 'hero' ? (st.blurb || st.label) : st.kind === 'plaque' ? (st.text || st.label) : st.kind === 'postcard' ? 'Best photo of the day from right here — ' + (st.text || 'the classic view') : st.label;
                 this._guideBubble?.remove(); // at most one guide bubble at a time
                 this._guideBubble = this.ui.bubbles?.say(this.spot.crowd?._headRef?.(G) || G, st.kind === 'hero' ? 'Here it is!' : st.kind === 'postcard' ? 'Photo time!' : 'Look here…', '', 'friendly');
                 if (this._guideBubble) this._guideBubble.dataset.prio = '1';
-                T.narr = text.slice(0, 320); this._tourUI(); this._seen.add((st.kind === 'hero' ? 'hero:' : 'act:') + st.label); T.wait = 0;
+                T.narr = text.slice(0, 240) + (['activity', 'bike'].includes(st.kind) ? ' · Try it with E, or skip this stop.' : st.kind === 'postcard' ? ' · P opens the camera. Take the postcard, or skip this stop.' : ''); this._tourUI(); if (st.kind === 'hero') this._seen.add('hero:' + st.id); T.wait = 0;
             }
             const left = T.said && T.wait > 1.5 && pS > 12; // the player already walked on: so does the tour
-            if (T.said && (T.wait > 6 || left)) { st.done = true; T.i++; T.said = false; T.t = 0; if (T.i >= T.stops.length) return this._finishTour(); T.state = 'walk'; this._tourUI(); this._routeLine(); this._refreshMarkers(); }
+            const needsAction = ['activity', 'bike', 'postcard'].includes(st.kind);
+            if (T.said && (needsAction ? st.participated : T.wait > 6 || left)) this._nextTourStop();
         }
         if (this._guideIt) { this._guideIt.x = G.x; this._guideIt.z = G.z; }
     }
     _finishTour() {
-        const T = this.tour; T.state = 'done'; this.guide.speed = 0; this.guide.sayCd = 5; T.narr = `That's the tour — ${T.stops.length} stops. Enjoy ${this.spot.name}!`; this._tourUI(); this._routeLine();
+        const T = this.tour; T.state = 'done'; this.guide.speed = 0; this.guide.sayCd = 5; T.narr = T.skipped ? `Tour ended with ${T.skipped} skipped stop${T.skipped === 1 ? '' : 's'}. Keep exploring with M.` : `That's the tour — ${T.stops.length} stop${T.stops.length === 1 ? '' : 's'}. Enjoy ${this.spot.name}!`; this._tourUI(); this._routeLine();
+        if (T.skipped) { this._refreshMarkers(); return; }
         const P = this.progress, k = this.spot.sceneId; (P.tours || (P.tours = {}))[k] = Date.now(); saveProgress(P);
-        this.ui.toast('🏅 Tour complete', `You saw ${T.stops.length} stops at ${this.spot.name}.`);
+        this.ui.toast('🏅 Tour complete', `You saw ${T.stops.length} stop${T.stops.length === 1 ? '' : 's'} at ${this.spot.name}.`);
         try { this.host.onTour?.({ scene: k, spot: this.spot.id, stops: T.stops.length }); } catch { /* host */ }
         try { window.dispatchEvent(new CustomEvent('dmcv:activity', { detail: { spot: this.spot.id, id: 'tour' } })); } catch { /* no host */ }
         window.cvTelemetry?.track?.('spot_tour', { id: this.spot.id });
@@ -582,7 +602,22 @@ export class SpotSession {
     onPhoto(meta = {}) {
         const n = this.spot.crowd?.onPhoto(this.camera) || 0;
         const done = this.checkChallenge();
+        const st = this.tour?.stops[this.tour.i]; if (done && st?.kind === 'postcard' && st.id === done) st.participated = true;
         return { people: n, postcard: done };
+    }
+    /** Host conditions setters call this after changing their destination-local
+     * clock. The renderer advances that clock; session.update never resets it. */
+    setConditions(conditions = {}) {
+        this.cancelActivities('conditions');
+        const { host, spot, r3d } = this;
+        for (const key of ['date', 'override', 'timeScale', 'timeZone', 'weather', 'season']) {
+            if (Object.prototype.hasOwnProperty.call(conditions, key)) host[key] = conditions[key];
+        }
+        r3d.setClock({ date: 'date' in conditions ? (host.date || new Date()) : (r3d.simDate || host.date || new Date()), lat: spot.clock.lat, lon: spot.clock.lon,
+            timeZone: host.timeZone ?? spot.clock.timeZone, timeScale: host.timeScale ?? 1, override: host.override ?? null });
+        if ('season' in conditions) r3d.setSeason(conditions.season === 'auto' ? null : conditions.season);
+        if ('weather' in conditions) r3d.setWeather(conditions.weather === 'live' ? null : conditions.weather, { instant: true });
+        this.condT = 0;
     }
     /** info for PhotoMode.getInfo while in a spot */
     photoInfo() { const sp = this.spot; return { place: sp.name, city: sp.city, timeZone: sp.clock.timeZone, night: !!this.r3d.nightLights, sub: placeLabel(sp) }; }
@@ -653,17 +688,22 @@ export class SpotSession {
         }
         for (const f of this.spot.updaters) f(dt, this, pl);
         try { // map + tour never break the frame loop
-            if (this.tour) this._updateTour(dt, p);
+            const drone = this.host.explore?.drone;
+            if (this.tour && !panel && !photo && !drone?.active && this.ctl.active !== false) this._updateTour(dt, p);
+            else if (this.guide) this.guide.speed = 0;
             if (this.map && !photo) { /* (the drone's position while it flies — note 43) */ const dr = this.host.explore?.drone, flying = dr?.active && dr.phase === 'fly'; this.map.update(dt, flying ? { x: dr.pos.x, z: dr.pos.z, heading: dr.yaw } : { x: p.x, z: p.z, heading: this.ctl.heading }); if (this.guide && (this._mkT = (this._mkT ?? 0) - dt) <= 0) { this._mkT = 1; this._refreshMarkers(); } }
         } catch (e) { if (!this._mapErr) { this._mapErr = true; console.warn('[spots] map/tour', e); } }
         if (!photo && !panel && this.input?.take?.('KeyM')) this.openMap(); // (G is the drone everywhere — round 6 note 14)
         // interactions (nearest within reach)
-        if (!photo && !panel) {
+        if (!photo && !panel && !this.spot.ctx.extras.venueActivities?.active && !this.spot.ctx.extras.participation?.active) {
             let best = null, bd = 1e9;
             for (const it of this.spot.interactables) { if (it.cond && !it.cond(this)) continue; const d = Math.hypot(p.x - it.x, p.z - it.z); if (d < (it.r || 2) && d < bd && Math.abs((it.y ?? p.y) - p.y) < 3) { bd = d; best = it; } }
             this.ui.prompt(best ? `<kbd>E</kbd>${escapeHtml(typeof best.label === 'function' ? best.label(this) : best.label)}` : null);
             this.ui.crosshair(!!best?.aim);
-            if (best && this.input?.take?.('KeyE')) best.use(this, best);
+            if (best && this.input?.take?.('KeyE')) {
+                best.use(this, best);
+                const st = this.tour?.stops[this.tour.i]; if (st?.interaction === best) st.participated = true;
+            }
             else this.input?.take?.('KeyE');
             // reset if fallen out of the world
             if (p.y < (this.spot.ctx.minY ?? -80)) this.ctl.teleport(this.spot.spawn.x, this.spot.spawn.z, this.spot.spawn.heading);
@@ -686,8 +726,16 @@ export class SpotSession {
         if (moved) c.place?.();
     }
     /** move the walker to another spawn of the same scene (seattle-center: space-needle / chihuly / mopop) */
-    teleport(spotId) { const s = this.spot.spawns[spotId]; if (s) { this.ctl.teleport(s.x, s.z, s.heading); this.spot.id = spotId; this._updateChallengeText(); } }
+    teleport(spotId) {
+        const s = this.spot.spawns[spotId], entry = spotById(spotId); if (!s || !entry) return;
+        this.cancelActivities('teleport');
+        this.endTour(); this.ctl.teleport(s.x, s.z, s.heading);
+        Object.assign(this.spot, { id: spotId, name: entry.name, entry, spawn: s });
+        this.ui.setTitle(this.spot.name, `${placeLabel(this.spot)} · walk-only bonus`);
+        this._updateChallengeText(); this._refreshMarkers();
+    }
     dispose() {
+        this.cancelActivities('exit');
         this.ctl?.exit(); this.ui?.dispose(); this.sound?.dispose(); this.spot?.dispose();
         this.r3d.setLamps?.([]);
         window.cvTelemetry?.track?.('spot_exit', { id: this.spot.id, seconds: Math.round(this.t) });
@@ -719,7 +767,11 @@ export function floorProbe(scene, { minArea = 0.25, cell = 4 } = {}) {
     const grid = new Map(), key = (i, j) => i * 100003 + j, v = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()], list = [];
     const skip = /^(terrain|ground|sky|water|people|crowd|tree|lamp|bench|table|chair|terrace|stall|car|parked|furniture|sign|plaque|roof|canopy|awning|umbrella|bubble)/i;
     scene.traverse((o) => {
-        if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh || !o.visible || skip.test(o.name || '') || /roof|canopy|awning|bench|table|chair|shelf|car/i.test(o.name || '')) return;
+        if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh) return;
+        // A vehicle's children are often unnamed. Test the ancestry as well:
+        // a car created at the origin once lifted the Pioneer guide onto its
+        // roof, leaving a floating person when traffic took its first frame.
+        for (let a = o; a && a !== scene; a = a.parent) if (!a.visible || a.userData.noFloor || skip.test(a.name || '') || /roof|canopy|awning|bench|table|chair|shelf|car/i.test(a.name || '')) return;
         const pos = o.geometry?.attributes?.position, idx = o.geometry?.index; if (!pos) return;
         const n = idx ? idx.count / 3 : pos.count / 3, mw = o.matrixWorld;
         for (let t = 0; t < n; t++) {

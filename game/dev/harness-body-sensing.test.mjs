@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {Harness} from './harness/page/core.js';
+const H=Object.create(Harness.prototype),P={x:0,z:0,y:.24,fx:1,fz:0,front:3.42,length:5.78,width:1.8};
+const path={pts:[[0,0],[40,0]],cum:[0,40]};let actors=[];
+H.g={player:P,traffic:{near:()=>actors}};H.ap={pi:0};
+actors=[{id:1,x:14,z:0,y:.24,heading:-Math.PI/2,fx:1,fz:0,length:4,width:1.8,speed:0}];
+assert.ok(Math.abs(H.obstacleAhead(path,0,30).gap-8.58)<1e-9,'braking clearance starts at the actual3.42m front extent');
+actors=[{id:2,x:14,z:4,y:.24,heading:0,fx:1,fz:0,length:12,width:2.55,speed:0}];
+assert.ok(Number.isFinite(H.obstacleAhead(path,0,30).gap),'the drawn turning bus crossing the path is detected despite a different road axis');
+actors[0].heading=-Math.PI/2;actors[0].fx=0;actors[0].fz=1;
+assert.equal(H.obstacleAhead(path,0,30).gap,Infinity,'a real parallel body clear of the path is not confused with its old perpendicular road axis');
+actors[0].heading=0;actors[0].y=8;
+assert.equal(H.obstacleAhead(path,0,30).gap,Infinity,'another actual road level does not create a false stop');
+console.log('PASS: actual player nose, rendered turning body, clear parallel body and other-level sensing');

@@ -1,0 +1,404 @@
+{
+  "scope": "Evidence-only exact incident-arm and bare-earth sample coverage; no new terrain, deck or clearance estimate.",
+  "sourceData": {
+    "path": "game/data/seattle-seatac.json",
+    "sha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171"
+  },
+  "terrainEvidence": {
+    "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-ordering/seatac-s160-usgs-terrain.json",
+    "sha256": "90f152f0a54c8ac4959d678d426421c7ee941edee02fae3973588f5a46d24c8f",
+    "acquisitionDate": "2021-06-05",
+    "resolutionM": 1,
+    "deckMeasurement": false,
+    "roadClearanceMeasurement": false
+  },
+  "junctionSourceNodeId": 430536585,
+  "incidentArms": [
+    {
+      "piece": 626,
+      "sourceId": "w37017438",
+      "tags": {
+        "access": "yes",
+        "highway": "service",
+        "source": "Bing"
+      },
+      "sourceNodeCountBeyondJunction": 28,
+      "measuredSourceNodeCountBeyondJunction": 2,
+      "distanceToWayEndpointM": 435.65269741441637,
+      "blindJunctionOnlyLiftGradeToUnchangedFirstNode": 0.5622968089760834,
+      "nodes": [
+        {
+          "sourceNodeId": 1823283820,
+          "x": -903.7159445878924,
+          "z": -1061.4106188000771,
+          "distanceAlongWayM": 11.25251850623456,
+          "bareEarthM": 135.633560181
+        },
+        {
+          "sourceNodeId": 1823283738,
+          "x": -906.3807962696774,
+          "z": -1045.0408751998718,
+          "distanceAlongWayM": 27.837751094967672,
+          "bareEarthM": 136.422607422
+        },
+        {
+          "sourceNodeId": 1823283729,
+          "x": -908.8047574043612,
+          "z": -1035.772466399741,
+          "distanceAlongWayM": 37.41788623330473,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283741,
+          "x": -912.0341963064824,
+          "z": -1026.9041327995476,
+          "distanceAlongWayM": 46.85592715644407,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283846,
+          "x": -920.232002750987,
+          "z": -1009.2674843995402,
+          "distanceAlongWayM": 66.30471625209333,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283796,
+          "x": -921.7300408430783,
+          "z": -1003.9331483995842,
+          "distanceAlongWayM": 71.84540742610612,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283708,
+          "x": -922.6559638846011,
+          "z": -999.599000399472,
+          "distanceAlongWayM": 76.27735647429019,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 9035040012,
+          "x": -923.5066086302216,
+          "z": -959.5581407998072,
+          "distanceAlongWayM": 116.32725078080881,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283860,
+          "x": -924.6734222199153,
+          "z": -904.4700083995989,
+          "distanceAlongWayM": 171.42773884848364,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283832,
+          "x": -926.6984083854617,
+          "z": -900.035841599897,
+          "distanceAlongWayM": 176.30240849659646,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 12176649352,
+          "x": -931.2000504908978,
+          "z": -900.0914075997567,
+          "distanceAlongWayM": 180.80439352831027,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283716,
+          "x": -994.5392088228438,
+          "z": -900.8471051999019,
+          "distanceAlongWayM": 244.14805980254948,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283747,
+          "x": -1002.4961247202474,
+          "z": -898.324408799638,
+          "distanceAlongWayM": 252.4953053198599,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283706,
+          "x": -1019.8552997987305,
+          "z": -888.6559247995698,
+          "distanceAlongWayM": 272.36539697201397,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283851,
+          "x": -1035.30240615766,
+          "z": -877.464932399871,
+          "distanceAlongWayM": 291.4402863754731,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283713,
+          "x": -1047.0157090295702,
+          "z": -867.3852599997355,
+          "distanceAlongWayM": 306.8934821570308,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283859,
+          "x": -1058.2246473176517,
+          "z": -857.2055688000103,
+          "distanceAlongWayM": 322.03502799844944,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283812,
+          "x": -1065.99336747423,
+          "z": -849.2485175994113,
+          "distanceAlongWayM": 333.1556249554557,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283727,
+          "x": -1072.053270309335,
+          "z": -842.8028615998923,
+          "distanceAlongWayM": 342.0025963940357,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283824,
+          "x": -1078.5121481146473,
+          "z": -834.3346031996364,
+          "distanceAlongWayM": 352.65287821366195,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283854,
+          "x": -1091.8364065225019,
+          "z": -813.7751831994276,
+          "distanceAlongWayM": 377.1523805119591,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283710,
+          "x": -1097.489806559307,
+          "z": -805.3180379993016,
+          "distanceAlongWayM": 387.3251007436455,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283731,
+          "x": -1103.0453448105834,
+          "z": -794.7271583995091,
+          "distanceAlongWayM": 399.28464655269266,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283722,
+          "x": -1107.1856510959028,
+          "z": -784.7586179998826,
+          "distanceAlongWayM": 410.0788085783082,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283858,
+          "x": -1108.39763166271,
+          "z": -781.5357899993335,
+          "distanceAlongWayM": 413.5219927464064,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283792,
+          "x": -1109.203109431217,
+          "z": -778.301848799444,
+          "distanceAlongWayM": 416.8547348786305,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283790,
+          "x": -1109.6096122295169,
+          "z": -775.0790207996845,
+          "distanceAlongWayM": 420.1030982882661,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 6895793029,
+          "x": -1109.8730862662444,
+          "z": -759.5316539996137,
+          "distanceAlongWayM": 435.65269741441637,
+          "bareEarthM": null
+        }
+      ]
+    },
+    {
+      "piece": 632,
+      "sourceId": "w65584412",
+      "tags": {
+        "highway": "secondary",
+        "lanes": "4",
+        "lanes:backward": "1",
+        "lanes:forward": "3",
+        "name": "South 160th Street",
+        "tiger:cfcc": "A41",
+        "tiger:county": "King, WA",
+        "tiger:name_base": "160th",
+        "tiger:name_direction_prefix": "S",
+        "turn:lanes:forward": "left||"
+      },
+      "sourceNodeCountBeyondJunction": 2,
+      "measuredSourceNodeCountBeyondJunction": 2,
+      "distanceToWayEndpointM": 24.55951889770781,
+      "blindJunctionOnlyLiftGradeToUnchangedFirstNode": 0.4518299885880789,
+      "nodes": [
+        {
+          "sourceNodeId": 1823283773,
+          "x": -915.9110285550744,
+          "z": -1074.3241571993751,
+          "distanceAlongWayM": 14.00361952240493,
+          "bareEarthM": 135.782974243
+        },
+        {
+          "sourceNodeId": 357708588,
+          "x": -926.0886541869421,
+          "z": -1077.1246835997272,
+          "distanceAlongWayM": 24.55951889770781,
+          "bareEarthM": 133.29069519
+        }
+      ]
+    },
+    {
+      "piece": 638,
+      "sourceId": "w104034223",
+      "tags": {
+        "destination": "Seattle;Tacoma",
+        "destination:ref": "SR 518 East",
+        "destination:ref:to": "I 5;I 405",
+        "highway": "motorway_link",
+        "lanes": "1",
+        "lit": "yes",
+        "oneway": "yes",
+        "surface": "asphalt"
+      },
+      "sourceNodeCountBeyondJunction": 9,
+      "measuredSourceNodeCountBeyondJunction": 0,
+      "distanceToWayEndpointM": 413.5737219646094,
+      "blindJunctionOnlyLiftGradeToUnchangedFirstNode": 0.5117208558286485,
+      "nodes": [
+        {
+          "sourceNodeId": 4745072089,
+          "x": -896.4892281630939,
+          "z": -1083.592565999506,
+          "distanceAlongWayM": 12.364661664520318,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283760,
+          "x": -893.0339543721961,
+          "z": -1090.6939007995807,
+          "distanceAlongWayM": 20.26199494309082,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1823283789,
+          "x": -884.6554800170984,
+          "z": -1104.0297407998653,
+          "distanceAlongWayM": 36.01139051981764,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1200609516,
+          "x": -878.0987404273271,
+          "z": -1112.6646971997004,
+          "distanceAlongWayM": 46.85359076124131,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 10288841172,
+          "x": -789.4886580976777,
+          "z": -1206.404539199922,
+          "distanceAlongWayM": 175.8454690664035,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 1200609560,
+          "x": -734.6785307126338,
+          "z": -1264.4598960000617,
+          "distanceAlongWayM": 255.68640165837826,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 2621705370,
+          "x": -692.4775179233038,
+          "z": -1312.0021655997384,
+          "distanceAlongWayM": 319.2567790297101,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 2621705374,
+          "x": -652.497214868438,
+          "z": -1353.454401599314,
+          "distanceAlongWayM": 376.84768544490225,
+          "bareEarthM": null
+        },
+        {
+          "sourceNodeId": 2621705369,
+          "x": -630.6288698542867,
+          "z": -1382.9599475998357,
+          "distanceAlongWayM": 413.5737219646094,
+          "bareEarthM": null
+        }
+      ]
+    },
+    {
+      "piece": 679,
+      "sourceId": "w364969432",
+      "tags": {
+        "highway": "secondary",
+        "lanes": "4",
+        "lanes:backward": "2",
+        "lanes:forward": "2",
+        "name": "South 160th Street",
+        "sidewalk": "right",
+        "tiger:cfcc": "A41",
+        "tiger:county": "King, WA",
+        "tiger:name_base": "160th",
+        "tiger:name_direction_prefix": "S",
+        "turn:lanes:backward": "left|"
+      },
+      "sourceNodeCountBeyondJunction": 2,
+      "measuredSourceNodeCountBeyondJunction": 2,
+      "distanceToWayEndpointM": 49.58107276534962,
+      "blindJunctionOnlyLiftGradeToUnchangedFirstNode": 0.5047089993421462,
+      "nodes": [
+        {
+          "sourceNodeId": 5608441923,
+          "x": -889.4883466270717,
+          "z": -1072.790535599615,
+          "distanceAlongWayM": 12.536442300904412,
+          "bareEarthM": 134.609100342
+        },
+        {
+          "sourceNodeId": 53229816,
+          "x": -852.4514249490429,
+          "z": -1073.5462331997599,
+          "distanceAlongWayM": 49.58107276534962,
+          "bareEarthM": 132.086837769
+        }
+      ]
+    }
+  ],
+  "junctionMinusExpresswayCrossingBareEarthM": 6.327255249000018,
+  "minimumDistanceForThisRiseAt8PercentM": 79.09069061250023,
+  "runtimeCorrectionSupported": false,
+  "openNativeContact": {
+    "sourceCommit": "143dca860f4d1e2e8b947f3579e18359f474064e",
+    "upperSourceId": "w37017434",
+    "lowerSourceId": "w124272629",
+    "clearanceM": 1.9290135352777604,
+    "bodyHeightM": 2,
+    "productionBodyQueryBlocked": true
+  },
+  "gaps": [
+    "No bare-earth samples beyond the junction on the actual motorway link w104034223.",
+    "Only two of the 28 service-way nodes beyond this junction have bare-earth samples.",
+    "The eastern throughroad endpoint remains 3.126937867 m above the expressway crossing bare earth; its continuation terrain and junction ties are unmeasured.",
+    "The current source data has no terrain height field. Raising only the bridge cap would leave incident road surfaces and adjacent ground/objects inconsistent.",
+    "Bare earth under a bridge omits its deck. These samples cannot establish the actual bridge profile or clearance."
+  ],
+  "requiredNextEvidence": "A continuous local terrain model covering all four actual incident arms, their source junction continuations and adjacent ground/objects; retain exact XY, access, widths and fixed core grades. Independently validate the deck rather than treating bare earth as a deck survey."
+}

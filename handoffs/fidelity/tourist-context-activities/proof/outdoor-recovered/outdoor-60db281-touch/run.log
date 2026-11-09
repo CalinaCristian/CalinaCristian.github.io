@@ -1,0 +1,18 @@
+load pioneer-square pioneerTotem
+pioneer-square pioneerTotem passed
+load pioneer-square pioneerPublicHistory
+pioneer-square pioneerPublicHistory passed
+load old-town-lipscani curteaVecheVisit
+old-town-lipscani curteaVecheVisit passed
+load athenaeum-revolution photoHunt
+athenaeum-revolution photoHunt passed
+load spring-palace photoHunt
+spring-palace photoHunt passed
+load palace-parliament photoHunt
+palace-parliament photoHunt passed
+load arcul-de-triumf photoHunt
+arcul-de-triumf photoHunt passed
+load bel-lincoln-square photoHunt
+Error: Could not aim using native look: {"visibility":{"label":"The west end of the Bellevue Way skybridge","clear":false,"targetDistance":94.65578844213667,"surfaceTolerance":3,"hitDistance":5.098255689351995,"hitPoint":[-1.730694985839742,1.8968668765560441,7.084478667345666],"sourceSurface":null,"blocker":"crowd-near","raycastMs":155.40000000223517,"meshCount":138},"position":{"x":-2,"z":2,"y":-0.013445560075342715,"heading":3.1945092551522927},"target":{"label":"The west end of the Bellevue Way skybridge","x":3,"y":6.469595470428467,"z":96.4,"radius":2}}
+    at look (/workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-outdoor-details-check.cjs:4:1187)
+    at async /workspace/fidelity-workers/tourist-context-activities/game/dev/harness/tourist-outdoor-details-check.cjs:5:2349

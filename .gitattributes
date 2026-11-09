@@ -1,0 +1,3 @@
+# Archived unified-diff context lines contain a required single space.
+# Keep their evidence hashes intact; production source keeps normal checks.
+handoffs/fidelity/cockpit-sharp-displays/runtime-*.patch -whitespace

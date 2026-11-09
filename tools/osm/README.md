@@ -100,6 +100,8 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
 
 Data © OpenStreetMap contributors, ODbL.
 
+District source roads retain physical restricted roads and service aisles. `roadAccess` resolves the OSM motorcar hierarchy independently of physical geometry; restricted rows never enter the public runtime graph, and destination/customer streets are available only for selected endpoints. Raw conditional/HOV/reversible restrictions remain explicit and unresolved. `node tools/osm/road-access-check.mjs` verifies precedence, endpoint routing and an isolated builder fixture, including a private elevated trunk, a specifically public service road, parking/customer access, a footway and a runway.
+
 ## District reality data (2026-11-08)
 
 District builds also read the aerial measurements in `game/research/` (see `tools/aerial/README.md`):
@@ -111,5 +113,26 @@ the area the build did not keep and why (`far`, `simplify`, `road-clearance`, `t
 ("Georges Bizet 10"), block numbers and residential names no longer become shop signs. OSM `parking:*` tags reach
 world.js through `roadInfo` permission bits and optional `parking` location/orientation rows; mapped diagonal street-side bays
 are not interchangeable with parallel sidewalk parking. New builds retain source `buildingIds` and exact district geometry
-for the independent footprint/height auditor. Check the result street by street against Street View:
+for the independent footprint/height auditor, and keep buildings throughout that geometry, including campuses beyond the
+drivable-road buffer. The legacy corridor network-distance filter does not apply inside an explicitly selected district.
+Check the result street by street against Street View:
 `node game/dev/harness/viewpoints.js --district=<id> --walk --streetview` (`game/dev/harness/README.md`).
+
+
+Explicit open roofs may be declared in a district building's `research.open_canopy` with nonempty `evidence`, numeric `topM > clearanceM > 0`, and a `dimensionNote`. This is a reviewed structural classification, not a rule for every fuel station. OSM dimensions still win. The builder emits `buildingCanopies`, retains the full roof outline/source ID, and exempts only its ground service lane from the late overlap deletion where the declared roof clearance is at least3m. Estimated dimensions/supports remain labelled estimates. Invalid nonpositive OSM heights are retained as `buildingSourceIssues`; valid positive heights are never raised to the default2.5m minimum.
+
+`building-geometry-check.mjs --data=<district.json> --osm=<tile-directory>` also assembles multipolygon relation outer rings, associates each repeated relation identity with its corresponding prepared outer, and verifies literal positive heights/minima, canopy collision bands and explicit source anomalies. A relation may have several independent outer buildings; it is not a way-node list.
+
+
+District building admission and `building-audit.py` use the complete source footprint against the analytic core and600m ring, including polygon edges and mapped holes. Exact segment-to-segment, circle-to-solid and polygon overlap distances replace centroid-only admission. Every intersecting footprint is retained whole; its source centre may lie beyond600m. A source core inside an open courtyard does not by itself intersect the building. The auditor retains `centroidMargin` alongside the new solid-footprint `margin`, so historical centroid totals remain distinguishable. Read-only Floreasca/Romană fixtures and crossing/containment/courtyard cases verify that this extends valid coverage.
+
+The current canopy emitter supports flat open roofs. An explicit non-flat OSM roof shape or explicit zero minimum conflicts with that review model: the review is not applied, authoritative source tags remain, and `buildingSourceIssues` records the unsupported review. This prevents a future canopy hint from silently changing an OSM roof shape or inventing clearance over an explicit ground-based minimum.
+
+Road-overlap developer audits use each solid body's vertical band and courtyard holes. A reviewed canopy clears a ground road only when its underside is above the two-metre vehicle envelope; a low underside or a source wing still reports an overlap. Visual QA also respects the existing explicit `userData.noAudit` marker on action UI pins/rings; physical fuel columns/pumps remain audited. Raw pre-fix findings are retained in the district evidence ledger.
+
+
+District rebuilds optionally export source `railways` for rail, disused and abandoned ways touching the exact600m source ring, preserving full node IDs and raw tags. Tram rendering stays in its existing field. Run `node tools/osm/rail-tree-check.mjs --data=game/data/<district>.json --osm=<tiles>` to verify every selected source way, exact tags, full node order, coordinate quantization and measured-crown accounting. `_retention: "all-measured"` disables the legacy small-ring crown thinning for a reviewed survey; `treeCrownRadii` carries the independent radius measurement into the renderer. Tree heights and untagged species remain estimates. New data fields gate all new rendering; no old dataset is mutated by runtime defaults.
+
+Run `node tools/osm/road-source-check.mjs` for actual builder fixtures at all eight district masks: near parallel main roads, a five-metre private stub, an unjoined nearby dead end and a crossing elevated source road must retain exact original coordinates, node identities and topology. It also checks that a tempting virtual border connector cannot enter car or foot GPS routes. Audit each rebuilt dataset independently against its raw source with `node tools/osm/road-source-audit.mjs --data game/data/seattle-seatac.json --osm /path/to/raw/xml/tiles`. A source way wholly inside the core must retain every source vertex; clipping may add only exact boundary cuts on its original segments. The audit reports private physical rows and short source ways rather than dropping either.
+
+`node tools/osm/positive-levels-check.mjs` compiles three actual OSM SeaTac source ways whose positive mapped levels previously became an unconditional9m default, and checks literal imperial height, untagged estimates, religious levels and source grandstand levels. Positive levels now reach normal estimated storey spacing; known positive heights continue to override that estimate.

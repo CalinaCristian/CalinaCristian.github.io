@@ -1,0 +1,117 @@
+{
+  "parentSourceCommit": "920fe6e5817bb8c54ce11297daa1bdd1d5ada0fa",
+  "sharedGradeDependencyCommit": "fc23a68da396e336dce82dacc21134d45f5d18dd",
+  "scope": "CPU rigid-body support candidate. Fresh combined native static/publication/ceiling and full budget gates still required.",
+  "files": [
+    {
+      "path": "game/src/tram-body-support.js",
+      "bytes": 14348,
+      "sha256": "50b3d9042c3ffefb6be204e5bec2196303877ad4112a965b396d04b6c91c5813"
+    },
+    {
+      "path": "game/src/traffic.js",
+      "bytes": 246472,
+      "sha256": "76736ea3c0184c94a3ce28a76e30a61795caf7d6891a11e12f439ba268ad4c06"
+    },
+    {
+      "path": "game/src/initial-traffic-admission.js",
+      "bytes": 14846,
+      "sha256": "d1fb82060cb69be182c5679ebfd4b26c52f2723224990ec7fc981d5913e01f7f"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/README.md",
+      "bytes": 4884,
+      "sha256": "47577974cac849b7b7a6e94bdbef487f030f07f4ab1cd3957912a1e8cb566365"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/ROOT-INTEGRATION.md",
+      "bytes": 1340,
+      "sha256": "a9408e04563b4f376bfb4f88a2e0eade88f3e42f6fa95542e2a9641026c59b6e"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/controls.json",
+      "bytes": 1256,
+      "sha256": "fee3a6b738fdb4ef8c18ccfda26379ed25a85551284a53b39d285c93bb56de7d"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/groz-full-source-sweep.json.gz",
+      "bytes": 286743,
+      "sha256": "635178d62ebe0e04bed4c76c3ad8d43beb210229628d0ccbaed648506468561e"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/groz-summary.json",
+      "bytes": 17480,
+      "sha256": "f9cd3598753f22e9fc4119d04a72d2b1135e25c5922012c8965788888cc4b3d9"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/groz263-binding-cpu.json",
+      "bytes": 17546,
+      "sha256": "0fa48f380f69033e41c1e4ed30fd3a562e115dd06244a2556a5fce28467c5349"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/historical/constructor-only-span-superseded.json.gz",
+      "bytes": 187513,
+      "sha256": "393f20caae44f92a392d6ca1fcebc096929487126b74aa65442bcce791ec1469"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/historical/pre-static-branch-counterexamples.json",
+      "bytes": 6273,
+      "sha256": "816c1f2b05109d8678225c2ea48f6bca96a8bd11d9b4d38dae5d977ef34b950c"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/legacy-adapter13.json",
+      "bytes": 44070,
+      "sha256": "e8fe770ea647d5466dd341f494334a538beedca46f69647eee5d04a2404ff789"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/mode-cpu.json",
+      "bytes": 251,
+      "sha256": "114184eb4c2cd2e73957409eb845702965b01423b287cf2007be6440163924f0"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/native-crossing-cpu.json",
+      "bytes": 422,
+      "sha256": "6067e7f5f752254e8ae49a02f88e3d4e039985af0636388f6a9366fb55ab3e2e"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/native-motion-cpu.json",
+      "bytes": 590,
+      "sha256": "071e12ed7ccb153a7e8022d141320fc6264d1e839afc6e03455aeded8eb8d815"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/pure13.json",
+      "bytes": 1650,
+      "sha256": "c878eb0ca3ad3e08404c0dc009699e12273552fed4cb7fb896d6504fc626612f"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/static-controls.json",
+      "bytes": 1283,
+      "sha256": "a56edb3348bdd302632f0920f4027c1c004209b8f5a56f1971a06dc8e0091544"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/sweep.mjs",
+      "bytes": 8603,
+      "sha256": "dd4c5961dfb6ea9b3cc5e2724f5b96aaae2d462293522d7f958b96d07f3bf1c8"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/test-static.mjs",
+      "bytes": 5946,
+      "sha256": "0b332f5df0960fe023b55e3dee252d50222874f9c2ec4e91ca1272cf3b3977e3"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/body-support/test.mjs",
+      "bytes": 2687,
+      "sha256": "17e609325f1653fdb1bdaa03bf445f7337eecf349a4dab64cb69114c83c2353f"
+    }
+  ],
+  "consumedSharedGradeModules": [
+    {
+      "path": "/workspace/fidelity-workers/rail-bridge-model/game/src/tram-grade.js",
+      "sha256": "cfd8e35e367220f85dbd9911176f4af96f9bc2ac3489b7c9b8515aa7f62044b1"
+    },
+    {
+      "path": "/workspace/fidelity-workers/rail-bridge-model/game/src/tram-grade-models.js",
+      "sha256": "bc2f44e47e3b1988d18d7f984380193e2c7e1ad179f9461fbccfe60ccfecd461"
+    }
+  ]
+}

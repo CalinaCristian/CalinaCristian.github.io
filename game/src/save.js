@@ -96,6 +96,7 @@ export class SaveStore {
             schema: SCHEMA, t: Date.now(), mode, city: g.city.id, district: g.district || null,
             chapterIdx: g.chapterIdx ?? -1, chapter: g.chapter || null, chapterDone: !!g.chapterDone,
             freeRoam: g.freeRoam ? { district: g.freeRoam.district, tod: g.freeRoam.tod || 'now', weather: g.freeRoam.weather || 'live', season: g.freeRoam.season ?? null } : null,
+            season: g.r3d?._seasonOverride || null,
             onFoot, car: { x: num(P.x), z: num(P.z), heading: num(P.heading), y: num(P.surfY), edge: P.supportEdge?.id ?? null },
             foot: foot ? { x: num(foot.x), z: num(foot.z), heading: num(foot.heading), y: num(foot.y) } : null,
             fuel: num(g.fuel), stats, honks: g.honks || 0, visited: [...(g.visited || [])],
@@ -149,11 +150,12 @@ export class SaveStore {
             // the story state of the chapter
             if (s.chapterDone && g.ch && g.ch.id === s.chapter && !g.chapterDone) { g.chapterDone = true; try { g.updateObjective?.(); } catch { /* ignore */ } }
             for (const id of s.visited || []) g.visited?.add?.(id);
-            if (Number.isFinite(s.fuel) && s.fuel > 0) g.fuel = s.fuel;
+            if (Number.isFinite(s.fuel) && s.fuel >= 0) g.fuel = s.fuel;
             if (s.stats && g.stats) Object.assign(g.stats, s.stats);
             g.honks = s.honks || 0;
             if (s.mode !== 'explore' && g.clock) { g.clock.offsetMs = s.clock?.offsetMs || 0; if (s.clock?.override !== undefined) g.clock.override = s.clock.override; }
             if ((s.weatherOverride || null) !== (g.weatherOverride || null)) { try { g.setWeatherOverride?.(s.weatherOverride); } catch { /* ignore */ } }
+            if (s.season !== undefined) g.r3d?.setSeason?.(s.season);
             if (s.headlights !== undefined) g.headlights = s.headlights;
             // the car exactly where it was (on the same road layer)
             const P = g.player, c = s.car;

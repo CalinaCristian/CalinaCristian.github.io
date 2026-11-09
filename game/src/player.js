@@ -2,6 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeCockpit } from './vehicles.js';
 import { collideBuildings } from './world.js';
 import { clamp, damp, lerp } from './util.js';
+import { roadWidthAt } from './nav.js';
 
 const GROUND_Y = 0.24;   // road surface top at street level (world Y.road)
 const MAX_STEP = 0.9;    // bigger height jumps between frames = deck edge / trench wall (not drivable)
@@ -35,6 +36,7 @@ export class Player {
         this.mirror.position.set(0.04, 1.68, -1.5); // fixed to the car (not the head), at the end of the cockpit's mirror stalk
         const frame = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.14, 0.02), new THREE.MeshBasicMaterial({ color: '#15171a' }));
         frame.position.z = -0.011; this.mirror.add(frame);
+        this.mirror.traverse((o) => o.layers.set(1));
         this.rig.add(this.mirror);
         // the cockpit's mirror mount (R17.2): glass on the stalk inside the windshield, camera centred
         const mm = this.cockpit?.userData?.mirrorMount;
@@ -42,7 +44,7 @@ export class Player {
             this.mirror.position.copy(mm.position); this.mirror.quaternion.copy(mm.quaternion); this.mirror.scale.set(mm.width / 0.33, mm.height / 0.11, 1);
             this.mirrorCam.position.copy(mm.camPosition); this.mirrorCam.rotation.copy(mm.camRotation); this.mirrorCam.fov = mm.camFov; this.mirrorCam.updateProjectionMatrix();
         }
-        this.mirrorEnabled = true;
+        this.mirrorEnabled = true; this.driveRigShown = true;
         scene.add(this.rig);
         this.length = 4.4; this.width = 1.8; this.radius = 1.1;
         // (2026-11-08, owner: "the car still goes halfway into things before the collision") the body the driver sees runs
@@ -196,7 +198,7 @@ export class Player {
             const ax = e.a.x, az = e.a.z, dx = e.b.x - ax, dz = e.b.z - az, L2 = dx * dx + dz * dz || 1;
             const tr = ((x - ax) * dx + (z - az) * dz) / L2, t = clamp(tr, 0, 1);
             const d = Math.hypot(ax + dx * t - x, az + dz * t - z);
-            const hw = (e.halfW ?? 6) + 0.6;
+            const hw = roadWidthAt(e, x, z) + 0.6;
             // past the ends: the junction pad (node radius) counts as part of the ribbon
             const lim = tr < 0 ? Math.max(hw, (e.a.radius ?? 0) + 0.8) : tr > 1 ? Math.max(hw, (e.b.radius ?? 0) + 0.8) : hw;
             if (d > lim) return;
@@ -455,7 +457,8 @@ export class Player {
     }
     /** render the rear view into the mirror texture (call before the main render) */
     renderMirror(renderer, scene) {
-        if (!this.mirrorEnabled || this.lookBack) return;
+        if (!this.driveRigShown || !this.mirrorEnabled || this.lookBack) return;
+        const shown = this.mirror.visible;
         this.mirror.visible = false;
         const prev = renderer.getRenderTarget();
         // a cheap view: far 150 m (set in the constructor), layer 0 only (layer 1 = cockpit, layer 2 = main-view-only
@@ -465,7 +468,7 @@ export class Player {
         renderer.render(scene, this.mirrorCam);
         renderer.setRenderTarget(prev);
         sm.autoUpdate = au; sm.needsUpdate = nu;
-        this.mirror.visible = true;
+        this.mirror.visible = shown && this.driveRigShown && this.mirrorEnabled && !this.lookBack;
     }
     hit(strength, what, v) {
         if (this.collisionCd > 0) return;
@@ -496,9 +499,9 @@ export class Player {
         // camera bob + shake + look-back + mouse look
         const s = this.shake, d = dt || 0.016, L = this.look;
         const bobY = Math.sin(this.bob) * 0.004 * clamp(Math.abs(this.speed) / 10, 0, 1);
-        const pv = this.cockpit?.userData.viewFor?.(this.camera.aspect) || null; // portrait phones: eye / yaw / FOV per aspect (cockpit-ui, R17.1)
+        const pv = this.cockpit?.userData.viewFor?.(this.camera.aspect, document.body.classList.contains('touch')) || null; // portrait phones: eye / yaw / FOV per aspect (cockpit-ui, R17.1)
         this.camHolder.position.y = 1.36 + (pv?.eye.y || 0) + bobY + (Math.random() - 0.5) * s * 0.08;
-        if (this.mirror) this.mirror.visible = this.mirrorEnabled && !this.lookBack;
+        if (this.mirror) this.mirror.visible = this.driveRigShown && this.mirrorEnabled && !this.lookBack;
         L.baseYaw = damp(L.baseYaw, (this.lookBack ? Math.PI : 0) + this.steerVisual * 0.06, 10, d);
         L.yawCur = damp(L.yawCur, this.lookBack ? 0 : L.yaw, 22, d);
         // looking far to the side / back: the head leans toward the centre of the car a little

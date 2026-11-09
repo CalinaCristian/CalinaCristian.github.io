@@ -1,0 +1,549 @@
+{
+  "root": "/tmp/drone-controls-swept-qa",
+  "checks": [
+    {
+      "name": "free flight starts level and vertical pads are removed",
+      "pass": true,
+      "details": {
+        "pitch": 0,
+        "verticalPads": 0,
+        "cancelBeforeFreeze": true
+      }
+    },
+    {
+      "name": "native mouse + W flies up along the view",
+      "pass": true,
+      "details": {
+        "delta": [
+          2.6808811610322607,
+          10.838609741754254,
+          -15.074675211158365
+        ],
+        "yawDelta": 0,
+        "yaw": -0.17600000000000002,
+        "pitch": 0.616,
+        "speed": 11.852671921163179,
+        "verticalSpeed": 6.848177603604712,
+        "battery": 0.9944400040513902,
+        "altitude": 90.83860974175425,
+        "expected": [
+          0.1429100381691906,
+          0.5777750071169316,
+          -0.8035874327921699
+        ],
+        "alignment": 1.0000000000000002
+      }
+    },
+    {
+      "name": "native mouse + W flies down along the view",
+      "pass": true,
+      "details": {
+        "delta": [
+          2.6808811610322607,
+          -10.838609741754254,
+          -15.074675211158365
+        ],
+        "yawDelta": 0,
+        "yaw": -0.17600000000000002,
+        "pitch": -0.616,
+        "speed": 11.852671921163179,
+        "verticalSpeed": -6.848177603604712,
+        "battery": 0.9944400040513902,
+        "altitude": 69.16139025824575,
+        "expected": [
+          0.1429100381691906,
+          -0.5777750071169316,
+          -0.8035874327921699
+        ],
+        "alignment": 1.0000000000000002
+      }
+    },
+    {
+      "name": "native mouse + S reverses the full view",
+      "pass": true,
+      "details": {
+        "delta": [
+          -2.6808811610322607,
+          -10.838609741754254,
+          15.074675211158365
+        ],
+        "yawDelta": 0,
+        "yaw": -0.17600000000000002,
+        "pitch": 0.616,
+        "speed": 11.852671921163179,
+        "verticalSpeed": -6.848177603604712,
+        "battery": 0.9944400040513902,
+        "altitude": 69.16139025824575,
+        "expected": [
+          -0.1429100381691906,
+          -0.5777750071169316,
+          0.8035874327921699
+        ],
+        "alignment": 1.0000000000000002
+      }
+    },
+    {
+      "name": "native A strafes without an active mouse gesture",
+      "pass": true,
+      "details": {
+        "delta": [
+          -18.46942858330442,
+          0,
+          -3.284604308247822
+        ],
+        "yawDelta": 0,
+        "yaw": -0.17600000000000002,
+        "pitch": 0.616,
+        "speed": 11.852671921163179,
+        "verticalSpeed": 0,
+        "battery": 0.9958016990748817,
+        "altitude": 80,
+        "alignment": 0.9999999999999998
+      }
+    },
+    {
+      "name": "native D strafes without an active mouse gesture",
+      "pass": true,
+      "details": {
+        "delta": [
+          18.469428583304506,
+          0,
+          3.284604308247822
+        ],
+        "yawDelta": 0,
+        "yaw": -0.17600000000000002,
+        "pitch": 0.616,
+        "speed": 11.852671921163179,
+        "verticalSpeed": 0,
+        "battery": 0.9958016990748817,
+        "altitude": 80,
+        "alignment": 1
+      }
+    },
+    {
+      "name": "native ControlLeft does not climb, descend or turn",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          0
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 0,
+        "verticalSpeed": 0,
+        "battery": 0.9966666666666626,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native Space does not climb, descend or turn",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          0
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 0,
+        "verticalSpeed": 0,
+        "battery": 0.9966666666666626,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native e does not climb, descend or turn",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          0
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 0,
+        "verticalSpeed": 0,
+        "battery": 0.9966666666666626,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native q does not climb, descend or turn",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          0
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 0,
+        "verticalSpeed": 0,
+        "battery": 0.9966666666666626,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native c does not climb, descend or turn",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          0
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 0,
+        "verticalSpeed": 0,
+        "battery": 0.9966666666666626,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native PageUp does not climb, descend or turn",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          0
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 0,
+        "verticalSpeed": 0,
+        "battery": 0.9966666666666626,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native PageDown does not climb, descend or turn",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          0
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 0,
+        "verticalSpeed": 0,
+        "battery": 0.9966666666666626,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native ArrowUp does not climb, descend or turn",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          0
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 0,
+        "verticalSpeed": 0,
+        "battery": 0.9966666666666626,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native ArrowLeft does not climb, descend or turn",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          0
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 0,
+        "verticalSpeed": 0,
+        "battery": 0.9966666666666626,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native speed mode 1",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          -10.282325071234027
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 3.994558527849809,
+        "verticalSpeed": 0,
+        "battery": 0.9945715697886981,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native speed mode 2",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          -30.701297619274442
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 11.983675583549424,
+        "verticalSpeed": 0,
+        "battery": 0.993720779265864,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native speed mode 3",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          -66.35943042971815
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 25.964630431023753,
+        "verticalSpeed": 0,
+        "battery": 0.9922350237320952,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native Shift boost keeps Sport speed",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          -119.32268978907439
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 46.73633477584276,
+        "verticalSpeed": 0,
+        "battery": 0.9900282212587886,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native boosted motion cannot skip a thin roof",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          2.339999999999989,
+          4.393500000000017
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 1.5707963267948966,
+        "speed": 46.8,
+        "verticalSpeed": 46.8,
+        "battery": 0.9995916666666663,
+        "altitude": 82.33999999999999
+      }
+    },
+    {
+      "name": "native boosted motion cannot skip a thin wall",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          -0.6999483959848476
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 0,
+        "verticalSpeed": 0,
+        "battery": 0.9998888095238099,
+        "altitude": 80
+      }
+    },
+    {
+      "name": "native mouse wheel cycles speed",
+      "pass": true,
+      "details": {
+        "mode": 0
+      }
+    },
+    {
+      "name": "native boosted forward flight stops at the 800m range",
+      "pass": true,
+      "details": {
+        "angle": 2.6878070480712677,
+        "legalBeyondRange": true,
+        "delta": [
+          2.191855733945488,
+          0,
+          -4.493970231495837
+        ],
+        "yawDelta": 0,
+        "yaw": -0.45378560551852554,
+        "pitch": 0,
+        "speed": 2.981625835562115e-15,
+        "verticalSpeed": 0,
+        "battery": 0.9964627335130504,
+        "altitude": 80,
+        "distance": 800,
+        "allowed": true
+      }
+    },
+    {
+      "name": "looking up + W respects the 120m ceiling",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          40,
+          0
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 1.5707963267948966,
+        "speed": 7.347867196887119e-16,
+        "verticalSpeed": 0,
+        "battery": 0.9844450844932344,
+        "altitude": 120
+      }
+    },
+    {
+      "name": "native photo shutter captures and tags the aerial photo",
+      "pass": true,
+      "details": {
+        "gallery": 1,
+        "dronePhotos": 1,
+        "tagged": true
+      }
+    },
+    {
+      "name": "native P photo opens, suppresses flight input and closes",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          0,
+          0
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 0,
+        "verticalSpeed": 0,
+        "battery": 0.9966666666666626,
+        "altitude": 80,
+        "opened": true,
+        "closed": true
+      }
+    },
+    {
+      "name": "native H requests a legal return-home route",
+      "pass": true,
+      "details": {
+        "rth": true,
+        "legs": 1,
+        "inside": true
+      }
+    },
+    {
+      "name": "battery drain and automatic low-battery return remain active",
+      "pass": true,
+      "details": {
+        "battery": 0.14891515721068427,
+        "rth": true,
+        "automatic": true,
+        "legs": 1
+      }
+    },
+    {
+      "name": "native touch look + stick climbs and releases cleanly",
+      "pass": true,
+      "details": {
+        "delta": [
+          0,
+          8.769451373916155,
+          -10.327337075403648
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0.7040000000000001,
+        "speed": 8.560263054173404,
+        "verticalSpeed": 5.540817681016789,
+        "battery": 0.99493504826437,
+        "altitude": 88.76945137391616,
+        "stick": {
+          "x": 0,
+          "y": -0.7222222222222222
+        },
+        "release": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "name": "native floating touch stick strafes without turning",
+      "pass": true,
+      "details": {
+        "delta": [
+          17.23655806299965,
+          0,
+          0
+        ],
+        "yawDelta": 0,
+        "yaw": 0,
+        "pitch": 0,
+        "speed": 10.890604395094739,
+        "verticalSpeed": 0,
+        "battery": 0.9959484767473747,
+        "altitude": 80,
+        "stick": {
+          "x": 0.9285714285714286,
+          "y": 0,
+          "mag": 0.9285714285714286,
+          "active": true
+        }
+      }
+    },
+    {
+      "name": "zero browser errors",
+      "pass": true,
+      "details": {
+        "page": [],
+        "console": []
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": []
+}

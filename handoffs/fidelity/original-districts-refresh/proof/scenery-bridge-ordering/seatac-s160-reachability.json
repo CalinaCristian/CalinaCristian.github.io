@@ -1,0 +1,83 @@
+{
+  "scope": "CPU read-only audit of retained actual native143dca source core. SeaTac has no Dinamo landmark domain extension. The exact source mask cell union is passed to the production createFlightBoundary function; no flight/controller movement is claimed.",
+  "sourceData": {
+    "path": "game/data/seattle-seatac.json",
+    "sha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171"
+  },
+  "nativeCore": {
+    "sourceCommit": "143dca860f4d1e2e8b947f3579e18359f474064e",
+    "path": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-ordering/native-143dca/seattle-seatac-profile-dump.json.gz",
+    "sha256": "d1d1acea33cf6f710903c0a29c1de46d9f9059fccd949a35a0d41a05c0e434a6",
+    "edges": 3734
+  },
+  "productionFlightGraceM": 150,
+  "points": [
+    {
+      "label": "Actual recorded upper/lower contact",
+      "x": -936.5227707050664,
+      "z": -1082.1481820196298,
+      "insidePlayableMask": false,
+      "distanceFromFlightDomain": {
+        "distance": 222.14818201962976,
+        "x": -936.5227707050664,
+        "z": -860,
+        "nx": 0,
+        "nz": -1
+      },
+      "allowedByProductionFlightBoundary": false,
+      "nearestNativeCore": {
+        "distanceM": 249.9570319393109,
+        "edgeId": 1862,
+        "sourceId": "w171269649",
+        "x": -911.0749747134521,
+        "z": -833.4899275918331,
+        "roadDisplacementM": 0,
+        "publicDrive": true
+      },
+      "nearestPublicNativeCore": {
+        "distanceM": 249.9570319393109,
+        "edgeId": 1862,
+        "sourceId": "w171269649",
+        "x": -911.0749747134521,
+        "z": -833.4899275918331,
+        "roadDisplacementM": 0,
+        "publicDrive": true
+      }
+    },
+    {
+      "label": "Actual four-arm source junction430536585",
+      "x": -902.0221829258136,
+      "z": -1072.5349319997863,
+      "insidePlayableMask": false,
+      "distanceFromFlightDomain": {
+        "distance": 212.5349319997863,
+        "x": -902.0221829258136,
+        "z": -860,
+        "nx": 0,
+        "nz": -1
+      },
+      "allowedByProductionFlightBoundary": false,
+      "nearestNativeCore": {
+        "distanceM": 239.21636058503339,
+        "edgeId": 1862,
+        "sourceId": "w171269649",
+        "x": -911.0749747134521,
+        "z": -833.4899275918331,
+        "roadDisplacementM": 0,
+        "publicDrive": true
+      },
+      "nearestPublicNativeCore": {
+        "distanceM": 239.21636058503339,
+        "edgeId": 1862,
+        "sourceId": "w171269649",
+        "x": -911.0749747134521,
+        "z": -833.4899275918331,
+        "roadDisplacementM": 0,
+        "publicDrive": true
+      }
+    }
+  ],
+  "upperSourceNativeCoreEdges": 0,
+  "actualJunctionNativeCoreEdges": 0,
+  "finding": "The open S160 contact and four-arm junction are passive scenery outside both the playable mask and legal150m drone envelope. The visual terrain-model gap remains visible context; this classification does not clear the native body query or establish scenery fidelity."
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "recordedAtRootCommit": "68f50efdbb7fca752dd9b1322872c6a633f55732",
+  "files": {
+    "README.md": {
+      "bytes": 994,
+      "sha256": "cb5f874e72674ca0279e369850a6c1614253abfb482bbe4ca88c9d8e725abdcf"
+    },
+    "kiseleff-0775/source-left.png": {
+      "bytes": 1185458,
+      "sha256": "139a5a14209ff3e534392eb9d0793aea9a0275ea579b7a7530c3fa35aa793905"
+    },
+    "kiseleff-0775/source-forward.png": {
+      "bytes": 1189962,
+      "sha256": "2912548f0b782c90842580952519fb7a26c819bb6dd0e77f91b4b61b6da77d38"
+    },
+    "kiseleff-0775/source-back.png": {
+      "bytes": 1178107,
+      "sha256": "191780c5a6ba6967f2ae60a0fe8365cd7a14829a078f1aeaebb6cc4dfff27342"
+    },
+    "kiseleff-0775/report.json.gz": {
+      "bytes": 150157,
+      "sha256": "f0e8e63021e9c5b328eb0d28ec55444b66460e234e0eb0923245167f35e20fc8"
+    },
+    "kiseleff-0775/integration-browser-bounds.cjs": {
+      "bytes": 1529,
+      "sha256": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29"
+    },
+    "kiseleff-0775/integration-kiseleff-budget.cjs": {
+      "bytes": 7108,
+      "sha256": "6fc33e48dae212e3825f4a1149b5a2705109511787db72df142cb06c7070823d"
+    },
+    "kiseleff-0775/source-right.png": {
+      "bytes": 1182842,
+      "sha256": "5a32c81f1157fe656dc987c43e3d7581bb66d92902aec172ff10c7f59546ba2e"
+    },
+    "foot-a-4378317/drivecv-final-foot-a-4378317.log.gz": {
+      "bytes": 672,
+      "sha256": "36a24cd42c04f20fa805144c746c256481ad1324fc1f9b4ca40b185c6b4928dc"
+    },
+    "foot-a-4378317/latest.log": {
+      "bytes": 285,
+      "sha256": "0a81f0ab61c3bea7e6187095910698dce7c8002fa32eb3ef46c02ad4ff5f386b"
+    },
+    "foot-a-4378317/latest.json": {
+      "bytes": 3593,
+      "sha256": "3f7caa65acebc89953a463f8fa4fa227689d23c2a2a5180f939c3f67405cc006"
+    },
+    "foot-a-4378317/drivecv-foot-a-wrong-working-directory-interrupted.log.gz": {
+      "bytes": 2449,
+      "sha256": "77c7ee19f55c6237103bbf4288d1820ab7a308447f93566c2b27b40c8cded6e9"
+    },
+    "foot-a-4378317/latest.md": {
+      "bytes": 1658,
+      "sha256": "e482647721c297d44c9564189af898da400e57a41b2a0ba356c8775dfa12e2f7"
+    },
+    "foot-a-4378317/shots/214218-bucharest-foot-out.jpg": {
+      "bytes": 25934,
+      "sha256": "6eac35ea9915591b5027b7fb0b936ab9b3dbf4eea54a460b23542dd6ff16f417"
+    },
+    "foot-a-4378317/shots/214218-bucharest-scenario-a-spawn.jpg": {
+      "bytes": 27221,
+      "sha256": "0125ef0789d1eb5ede9521f7114beacc3b3e0a5cf22f3ecbb0f1f9bc590e1c0f"
+    }
+  }
+}

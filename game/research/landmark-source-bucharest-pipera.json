@@ -1,0 +1,577 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-11-08",
+  "source": "OpenStreetMap API0.6 full source geometry; no Street View extraction",
+  "attribution": "© OpenStreetMap contributors, ODbL",
+  "nativeSourceCommit": "734a4854b0eb799185ecbc420485782150c003db",
+  "models": {
+    "skytower": {
+      "anchor": {
+        "lat": 44.4779551,
+        "lon": 26.1047395,
+        "rotation": -1.3265
+      },
+      "projectionBasis": {
+        "mPerLat": 111132,
+        "mPerLon": 79426.27110155247,
+        "district": "bucharest-pipera",
+        "precisionM": 0.0001
+      },
+      "sourceIds": [
+        "w219622660"
+      ],
+      "sourceParts": [
+        {
+          "sourceId": "w219622660",
+          "tags": {
+            "addr:city": "București",
+            "addr:housenumber": "246C",
+            "addr:postcode": "014476",
+            "addr:street": "Strada Barbu Văcărescu",
+            "building": "office",
+            "building:colour": "#3960DA",
+            "building:levels": "37",
+            "building:levels:underground": "5",
+            "building:material": "glass",
+            "height": "137",
+            "name": "Sky Tower",
+            "operator": "Raiffeisen Property InternationaI GmbH",
+            "roof:material": "gravel",
+            "roof:shape": "flat",
+            "start_date": "2012",
+            "website": "https://www.skytower.ro/",
+            "wikidata": "Q5460511",
+            "wikimedia_commons": "Category:Sky Tower in Bucharest",
+            "wikipedia": "ro:Sky Tower"
+          },
+          "version": "14",
+          "editedAt": "2024-06-05T09:40:33Z",
+          "nodes": [
+            "2287671754",
+            "2287671759",
+            "2287671755",
+            "2287671757",
+            "2287671758",
+            "8066355828",
+            "2287671775",
+            "2287671783",
+            "2287671731",
+            "2287671741",
+            "2287671730",
+            "2287671728",
+            "2287671761",
+            "2287671745",
+            "8066355834",
+            "2287671722",
+            "2287671746",
+            "8066355831",
+            "2287671729",
+            "2287671725",
+            "2287671739",
+            "8066355833",
+            "2287671732",
+            "8066355832",
+            "2287671782",
+            "2287671751",
+            "2287671754"
+          ],
+          "wgs84": [
+            [
+              44.4781478,
+              26.1046369
+            ],
+            [
+              44.4781602,
+              26.1047078
+            ],
+            [
+              44.4781563,
+              26.1047688
+            ],
+            [
+              44.4781399,
+              26.1048245
+            ],
+            [
+              44.4781157,
+              26.1048644
+            ],
+            [
+              44.4780869,
+              26.1049056
+            ],
+            [
+              44.4780562,
+              26.104934
+            ],
+            [
+              44.4780151,
+              26.1049545
+            ],
+            [
+              44.4779662,
+              26.1049689
+            ],
+            [
+              44.4779119,
+              26.1049718
+            ],
+            [
+              44.4778493,
+              26.1049507
+            ],
+            [
+              44.4778092,
+              26.1049156
+            ],
+            [
+              44.4777824,
+              26.1048767
+            ],
+            [
+              44.4777579,
+              26.1048168
+            ],
+            [
+              44.4777566,
+              26.1047617
+            ],
+            [
+              44.477765,
+              26.1046988
+            ],
+            [
+              44.4777795,
+              26.1046505
+            ],
+            [
+              44.4778058,
+              26.1046024
+            ],
+            [
+              44.4778373,
+              26.1045638
+            ],
+            [
+              44.4778906,
+              26.1045293
+            ],
+            [
+              44.477939,
+              26.1045092
+            ],
+            [
+              44.4779826,
+              26.1044994
+            ],
+            [
+              44.4780177,
+              26.1045003
+            ],
+            [
+              44.4780589,
+              26.104515
+            ],
+            [
+              44.4780936,
+              26.1045412
+            ],
+            [
+              44.4781207,
+              26.1045745
+            ]
+          ],
+          "authoredRing": [
+            -22.7503,
+            2.7274,
+            -22.7254,
+            -3.07,
+            -21.133,
+            -7.6663,
+            -18.2945,
+            -11.5182,
+            -14.9184,
+            -13.9427,
+            -11.0213,
+            -16.3438,
+            -7.1653,
+            -17.7073,
+            -2.3395,
+            -18.1824,
+            3.2101,
+            -17.9777,
+            9.1211,
+            -16.7417,
+            15.466,
+            -13.4329,
+            19.1158,
+            -9.6499,
+            21.2584,
+            -5.9316,
+            22.7495,
+            -0.6566,
+            21.8312,
+            3.6248,
+            19.717,
+            8.2465,
+            17.2256,
+            11.5792,
+            13.4655,
+            14.5792,
+            9.3272,
+            16.7073,
+            2.917,
+            17.9334,
+            -2.6882,
+            18.1815,
+            -7.578,
+            17.7648,
+            -11.3456,
+            16.752,
+            -15.5059,
+            14.5116,
+            -18.7443,
+            11.5597,
+            -21.0269,
+            8.2649
+          ]
+        }
+      ]
+    },
+    "hermes": {
+      "anchor": {
+        "lat": 44.4810862,
+        "lon": 26.1140757,
+        "rotation": -1.1519
+      },
+      "projectionBasis": {
+        "mPerLat": 111132,
+        "mPerLon": 79426.27110155247,
+        "district": "bucharest-pipera",
+        "precisionM": 0.0001
+      },
+      "sourceIds": [
+        "w533147567",
+        "w231123137",
+        "r6774709"
+      ],
+      "sourceParts": [
+        {
+          "sourceId": "w533147567",
+          "tags": {
+            "addr:city": "București",
+            "addr:housenumber": "5-7",
+            "addr:postcode": "020337",
+            "addr:street": "Bulevardul Dimitrie Pompeiu",
+            "building": "commercial",
+            "building:levels": "9",
+            "name": "Clădirea A"
+          },
+          "version": "7",
+          "editedAt": "2024-10-05T14:27:58Z",
+          "nodes": [
+            "5172842271",
+            "5172842267",
+            "5172842268",
+            "5172842269",
+            "5172842271"
+          ],
+          "wgs84": [
+            [
+              44.4808295,
+              26.1134494
+            ],
+            [
+              44.4810713,
+              26.1142277
+            ],
+            [
+              44.4805894,
+              26.1145218
+            ],
+            [
+              44.4803476,
+              26.1137436
+            ]
+          ],
+          "authoredRing": [
+            5.8273,
+            57.0473,
+            6.4233,
+            -10.3554,
+            64.8489,
+            -9.9116,
+            64.256,
+            57.4839
+          ]
+        },
+        {
+          "sourceId": "w231123137",
+          "tags": {
+            "addr:city": "București",
+            "addr:street": "Bulevardul Dimitrie Pompeiu",
+            "building": "yes"
+          },
+          "version": "4",
+          "editedAt": "2024-10-05T14:27:58Z",
+          "nodes": [
+            "2395291206",
+            "2395291208",
+            "2395291203",
+            "2395291202",
+            "2395291206"
+          ],
+          "wgs84": [
+            [
+              44.4811229,
+              26.1143387
+            ],
+            [
+              44.481257,
+              26.1147627
+            ],
+            [
+              44.4809382,
+              26.1149607
+            ],
+            [
+              44.4808041,
+              26.1145367
+            ]
+          ],
+          "authoredRing": [
+            4.7708,
+            -20.742,
+            4.8546,
+            -57.5687,
+            43.617,
+            -57.5246,
+            43.5332,
+            -20.6978
+          ]
+        },
+        {
+          "sourceId": "w458259608",
+          "tags": {},
+          "version": "3",
+          "editedAt": "2024-10-05T14:27:58Z",
+          "nodes": [
+            "3283905998",
+            "4007285491",
+            "3283905999",
+            "4161774655",
+            "4161774656",
+            "12227866737",
+            "3283905998"
+          ],
+          "wgs84": [
+            [
+              44.480909,
+              26.1133933
+            ],
+            [
+              44.4811754,
+              26.1132271
+            ],
+            [
+              44.4814083,
+              26.1130836
+            ],
+            [
+              44.4817863,
+              26.114289
+            ],
+            [
+              44.4813004,
+              26.1146092
+            ],
+            [
+              44.4811752,
+              26.1142204
+            ]
+          ],
+          "authoredRing": [
+            -4.0562,
+            57.5242,
+            -36.4715,
+            57.5414,
+            -64.7523,
+            57.4258,
+            -64.1855,
+            -47.1236,
+            -4.5106,
+            -48.3927,
+            -4.3608,
+            -14.5224
+          ]
+        },
+        {
+          "sourceId": "w321641496",
+          "tags": {},
+          "version": "6",
+          "editedAt": "2016-12-07T10:58:44Z",
+          "nodes": [
+            "4161774654",
+            "4161774641",
+            "4161774635",
+            "4161774652",
+            "4161774654"
+          ],
+          "wgs84": [
+            [
+              44.4814056,
+              26.1141978
+            ],
+            [
+              44.4815582,
+              26.1141056
+            ],
+            [
+              44.4813555,
+              26.1134458
+            ],
+            [
+              44.4812015,
+              26.1135387
+            ]
+          ],
+          "authoredRing": [
+            -28.4819,
+            -23.2974,
+            -46.953,
+            -23.5054,
+            -47.6903,
+            33.5317,
+            -29.0544,
+            33.7522
+          ]
+        }
+      ],
+      "relation": {
+        "sourceId": "r6774709",
+        "members": [
+          {
+            "type": "way",
+            "ref": "458259608",
+            "role": "outer"
+          },
+          {
+            "type": "way",
+            "ref": "321641496",
+            "role": "inner"
+          }
+        ],
+        "tags": {
+          "addr:city": "București",
+          "addr:housenumber": "5-7",
+          "addr:postcode": "020337",
+          "addr:street": "Bulevardul Dimitrie Pompeiu",
+          "building": "commercial",
+          "building:levels": "9",
+          "building:levels:underground": "4",
+          "name": "Clădirea B+C",
+          "smoking": "outside",
+          "type": "multipolygon"
+        }
+      }
+    },
+    "bob": {
+      "anchor": {
+        "lat": 44.479608,
+        "lon": 26.1147802,
+        "rotation": 0
+      },
+      "projectionBasis": {
+        "mPerLat": 111132,
+        "mPerLon": 79426.27110155247,
+        "district": "bucharest-pipera",
+        "precisionM": 0.0001
+      },
+      "sourceIds": [
+        "w55450549"
+      ],
+      "sourceParts": [
+        {
+          "sourceId": "w55450549",
+          "tags": {
+            "addr:city": "București",
+            "addr:country": "RO",
+            "building": "office",
+            "name": "BOB Tower",
+            "office": "company",
+            "wheelchair": "yes"
+          },
+          "version": "11",
+          "editedAt": "2026-04-03T09:30:23Z",
+          "nodes": [
+            "12336817106",
+            "696832602",
+            "696832649",
+            "12336817107",
+            "12276933674",
+            "908468139",
+            "12336817106"
+          ],
+          "wgs84": [
+            [
+              44.479638,
+              26.1138698
+            ],
+            [
+              44.4791062,
+              26.1142006
+            ],
+            [
+              44.4795783,
+              26.1156905
+            ],
+            [
+              44.4801098,
+              26.1153598
+            ],
+            [
+              44.4798827,
+              26.1146426
+            ],
+            [
+              44.4798775,
+              26.1146261
+            ]
+          ],
+          "authoredRing": [
+            -72.3097,
+            -3.334,
+            -46.0355,
+            55.766,
+            72.3017,
+            3.3006,
+            46.0355,
+            -55.766,
+            -10.9291,
+            -30.528,
+            -12.2396,
+            -29.9501
+          ]
+        }
+      ]
+    }
+  },
+  "references": [
+    {
+      "url": "https://www.skytower.ro/",
+      "facts": "Sky Tower owner daylight exterior; OSM height137,37levels,flat roof andcolour authoritative."
+    },
+    {
+      "url": "https://adventum.eu/asset/hermes-business-campus/",
+      "facts": "Owner exterior: blue-grey glazing, alternating panel bands and recessed ground floor. No metre dimensions extracted."
+    },
+    {
+      "url": "https://www.globalworth.com/wp-content/uploads/2021/01/BOB-particulars.pdf",
+      "facts": "BOB owner: GF+6 floors,2008,6A Dimitrie Pompeiu; exterior cladding/entrance reference. Metre height remains estimated."
+    }
+  ],
+  "limits": [
+    "Static study geometry uses the Pipera projection basis; actual district runtime consumes ctx.sourceBuildings in its own exact projection.",
+    "Untagged metre heights, facade bay widths/colours and entrance details are explicitly authored estimates; imagery is never published."
+  ]
+}

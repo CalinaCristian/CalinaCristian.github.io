@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "15fda8751813b6ad3919963af9975f8764b09a23",
+  "sourceTree": "9079b51400e40d147d358c9d2bb5d10808ecbd56",
+  "archivePaths": [
+    "game/src",
+    "game/data",
+    "game/vendor",
+    "game/assets",
+    "game/dev",
+    "game/index.html",
+    "game/style.css",
+    "public"
+  ],
+  "files": 339,
+  "bytes": 120598458,
+  "sourceFilesSha256": "bade269f3d01a6bf033ce8a3aa7c4e19f873bfaa4d4d6068aab77826d6811406",
+  "createdAt": "2026-11-09T04:25:55.427673+00:00",
+  "allCopiedGitBlobsVerified": true,
+  "noOverview": true
+}

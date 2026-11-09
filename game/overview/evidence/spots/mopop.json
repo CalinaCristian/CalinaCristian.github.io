@@ -749,5 +749,295 @@
         "mopop"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "mopop",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/mopop/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:22:25.916Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": 158.2,
+          "z": -138.3,
+          "y": -8.182275688648224,
+          "heading": 2.1504
+        },
+        "pose": {
+          "position": [
+            158.2,
+            -6.532275688648223,
+            -138.3
+          ],
+          "bearing": 236.79115573506778,
+          "pitch": 11.99999896570693
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:22:21.955Z",
+        "triangles": 1023228,
+        "drawCalls": 222,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "d0cc380b4c01b6c29f3552ca0d3a0ace3f03dd5055e352cd389bef0112d2711d",
+        "bytes": 30268,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 143.1,
+            "z": -121.6,
+            "y": -7.725864601135253,
+            "heading": -4.363323129985824
+          },
+          "viewpoint": {
+            "view": [
+              80.15,
+              -110.14999999999999
+            ],
+            "id": "mopop",
+            "x": 158.2,
+            "z": -138.3,
+            "bearing": 235,
+            "pitch": 12,
+            "fov": 60,
+            "text": "Gehry shingle masses with the monorail emerging and the Space Needle behind",
+            "r": 30,
+            "tol": 40,
+            "targets": [],
+            "condHint": "Wait for the Monorail to pass through the building."
+          },
+          "position": {
+            "x": 158.2,
+            "z": -138.3,
+            "y": -8.182275688648224,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "seattle-center",
+          "origin": {
+            "lat": 47.6205063,
+            "lon": -122.3493043,
+            "elev": 40.5
+          },
+          "projection": {
+            "mLat": 111182.94,
+            "mLon": 75171.03
+          }
+        },
+        "label": "MoPOP with the Space Needle beyond",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/mopop/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:26:43.013Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 158.2,
+          "z": -138.3,
+          "y": -8.182275688648224,
+          "heading": 2.1816615820312495
+        },
+        "pose": {
+          "position": [
+            158.2,
+            -6.532275688648223,
+            -138.3
+          ],
+          "bearing": 234.99999902377516,
+          "pitch": 11.999998965706924
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:26:40.557Z",
+        "triangles": 1022695,
+        "drawCalls": 260,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "7744d121f21e62a18b1d03d899786ba145e679be6329b5b28fc9ee2e5223e4fd",
+        "bytes": 44558,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": 143.1,
+            "z": -121.6,
+            "y": -7.725864601135253,
+            "heading": -4.363323129985824
+          },
+          "viewpoint": {
+            "view": [
+              80.15,
+              -110.14999999999999
+            ],
+            "id": "mopop",
+            "x": 158.2,
+            "z": -138.3,
+            "bearing": 235,
+            "pitch": 12,
+            "fov": 60,
+            "text": "Gehry shingle masses with the monorail emerging and the Space Needle behind",
+            "r": 30,
+            "tol": 40,
+            "targets": [],
+            "condHint": "Wait for the Monorail to pass through the building."
+          },
+          "position": {
+            "x": 158.2,
+            "z": -138.3,
+            "y": -8.182275688648224,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "seattle-center",
+          "origin": {
+            "lat": 47.6205063,
+            "lon": -122.3493043,
+            "elev": 40.5
+          },
+          "projection": {
+            "mLat": 111182.94,
+            "mLon": 75171.03
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/mopop/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:22:30.744Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 158.2,
+          "z": -138.3,
+          "y": -8.182275688648224,
+          "heading": 2.1504
+        },
+        "pose": {
+          "position": [
+            158.2,
+            -6.532275688648223,
+            -138.3
+          ],
+          "bearing": 236.79115573506778,
+          "pitch": 11.99999896570693
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:22:26.783Z",
+        "triangles": 1010844,
+        "drawCalls": 166,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "9c2f30564ec2604ef922dc1bede5ad9a6219809439ab693fd539a2cba05823cb",
+        "bytes": 44579,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 143.1,
+            "z": -121.6,
+            "y": -7.725864601135253,
+            "heading": -4.363323129985824
+          },
+          "viewpoint": {
+            "view": [
+              80.15,
+              -110.14999999999999
+            ],
+            "id": "mopop",
+            "x": 158.2,
+            "z": -138.3,
+            "bearing": 235,
+            "pitch": 12,
+            "fov": 60,
+            "text": "Gehry shingle masses with the monorail emerging and the Space Needle behind",
+            "r": 30,
+            "tol": 40,
+            "targets": [],
+            "condHint": "Wait for the Monorail to pass through the building."
+          },
+          "position": {
+            "x": 158.2,
+            "z": -138.3,
+            "y": -8.182275688648224,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "seattle-center",
+          "origin": {
+            "lat": 47.6205063,
+            "lon": -122.3493043,
+            "elev": 40.5
+          },
+          "projection": {
+            "mLat": 111182.94,
+            "mLon": 75171.03
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:26:43.013Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

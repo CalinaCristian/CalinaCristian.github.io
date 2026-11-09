@@ -736,5 +736,298 @@
         "athenaeum-revolution"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "athenaeum-revolution",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/athenaeum-revolution/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:19:41.656Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -72.21742551762745,
+          "z": -28.50611609793468,
+          "y": 0.06744660995283282,
+          "heading": -1.0752
+        },
+        "pose": {
+          "position": [
+            -72.21742551762745,
+            1.7174466099528327,
+            -28.50611609793468
+          ],
+          "bearing": 61.604422132466084,
+          "pitch": 11.999998965706927
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:19:39.663Z",
+        "triangles": 412867,
+        "drawCalls": 55,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "204603297782b7fe67affe5b1fd0187a9570a3ad050fa9fba8e7a0ad0a132ccd",
+        "bytes": 51322,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -63.61344211498177,
+            "z": -16.219071310558114,
+            "y": 0.008137123783364522,
+            "heading": -0.8180066186009393
+          },
+          "viewpoint": {
+            "view": [
+              -22.330599390186947,
+              -54.89369990036949
+            ],
+            "id": "athenaeum-revolution",
+            "x": -72.21742551762745,
+            "z": -28.50611609793468,
+            "bearing": 62.12344556265924,
+            "pitch": 12,
+            "fov": 60,
+            "text": "From the south-east corner of Grădina Ateneului near the Eminescu statue looking north-west at the portico and dome (OSM: Athenaeum centroid 44.441321,26.097215).",
+            "r": 12,
+            "tol": 26,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -72.21742551762745,
+            "z": -28.50611609793468,
+            "y": 0.06744660995283282,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "athenaeum-revolution",
+          "origin": {
+            "lat": 44.44085,
+            "lon": 26.09765,
+            "elev": 86.4
+          },
+          "projection": {
+            "mLat": 111120.85,
+            "mLon": 79609.98
+          }
+        },
+        "label": "Athenaeum facade and gardens",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/athenaeum-revolution/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:25:11.498Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -72.21742551762745,
+          "z": -28.50611609793468,
+          "y": 0.06744660995283282,
+          "heading": -1.0842585937499998
+        },
+        "pose": {
+          "position": [
+            -72.21742551762745,
+            1.7174466099528327,
+            -28.50611609793468
+          ],
+          "bearing": 62.12344132266469,
+          "pitch": 11.99999896570693
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:25:09.936Z",
+        "triangles": 416782,
+        "drawCalls": 137,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "1840e56911533d5dd0de5d26aa4a38da764ce4806c783b0bf67b5e7f89f4085f",
+        "bytes": 62318,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": -63.61344211498177,
+            "z": -16.219071310558114,
+            "y": 0.008137123783364522,
+            "heading": -0.8180066186009393
+          },
+          "viewpoint": {
+            "view": [
+              -22.330599390186947,
+              -54.89369990036949
+            ],
+            "id": "athenaeum-revolution",
+            "x": -72.21742551762745,
+            "z": -28.50611609793468,
+            "bearing": 62.12344556265924,
+            "pitch": 12,
+            "fov": 60,
+            "text": "From the south-east corner of Grădina Ateneului near the Eminescu statue looking north-west at the portico and dome (OSM: Athenaeum centroid 44.441321,26.097215).",
+            "r": 12,
+            "tol": 26,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -72.21742551762745,
+            "z": -28.50611609793468,
+            "y": 0.06744660995283282,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "athenaeum-revolution",
+          "origin": {
+            "lat": 44.44085,
+            "lon": 26.09765,
+            "elev": 86.4
+          },
+          "projection": {
+            "mLat": 111120.85,
+            "mLon": 79609.98
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/athenaeum-revolution/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:19:45.673Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -72.21742551762745,
+          "z": -28.50611609793468,
+          "y": 0.06744660995283282,
+          "heading": -1.0752
+        },
+        "pose": {
+          "position": [
+            -72.21742551762745,
+            1.7174466099528327,
+            -28.50611609793468
+          ],
+          "bearing": 61.604422132466084,
+          "pitch": 11.999998965706927
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:19:43.680Z",
+        "triangles": 404109,
+        "drawCalls": 40,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "e164a8a85d322a140dfd94009e71a7c7baf0e585dab5af8394ccb4e39f1aa218",
+        "bytes": 62960,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -63.61344211498177,
+            "z": -16.219071310558114,
+            "y": 0.008137123783364522,
+            "heading": -0.8180066186009393
+          },
+          "viewpoint": {
+            "view": [
+              -22.330599390186947,
+              -54.89369990036949
+            ],
+            "id": "athenaeum-revolution",
+            "x": -72.21742551762745,
+            "z": -28.50611609793468,
+            "bearing": 62.12344556265924,
+            "pitch": 12,
+            "fov": 60,
+            "text": "From the south-east corner of Grădina Ateneului near the Eminescu statue looking north-west at the portico and dome (OSM: Athenaeum centroid 44.441321,26.097215).",
+            "r": 12,
+            "tol": 26,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -72.21742551762745,
+            "z": -28.50611609793468,
+            "y": 0.06744660995283282,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "athenaeum-revolution",
+          "origin": {
+            "lat": 44.44085,
+            "lon": 26.09765,
+            "elev": 86.4
+          },
+          "projection": {
+            "mLat": 111120.85,
+            "mLon": 79609.98
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:25:11.498Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

@@ -1,0 +1,14 @@
+{
+  "sourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+  "sourceRoot": "/workspace/reality-pass/original-districts-refresh/water-overlap-bbaffc/source",
+  "gitArchivePaths": [
+    "game",
+    "public"
+  ],
+  "sourceFiles": 7994,
+  "sourceTreeSha256": "6b2317f5651c21e5f38c7feda7cee8ae04f4e539883a777a183138e439f998a7",
+  "captureToolSha256": "16a1e573ce8cd5a87661b6891c328d27bfe189e9e2c8356c014a0740fab2bfc2",
+  "oneBrowserAtATime": true,
+  "browserJobsClosed": true,
+  "referenceImageryPublished": false
+}

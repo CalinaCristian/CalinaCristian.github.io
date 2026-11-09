@@ -707,5 +707,298 @@
         "palace-parliament"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "palace-parliament",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/palace-parliament/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:23:00.831Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": 31,
+          "z": -10.5,
+          "y": 0.188,
+          "heading": 1.5707964843749997
+        },
+        "pose": {
+          "position": [
+            31,
+            1.8379999999999999,
+            -10.5
+          ],
+          "bearing": 269.99999097132513,
+          "pitch": 14.000002150499332
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:22:57.014Z",
+        "triangles": 611559,
+        "drawCalls": 114,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "a9ff983299a4bd378ef88236ad417513d7d592d10a21f4132a0b4296d2f7d9c9",
+        "bytes": 58184,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 157.7,
+            "z": 8.8,
+            "y": -0.3187999999999999,
+            "heading": -4.6774823953448035
+          },
+          "viewpoint": {
+            "view": [
+              -160,
+              -10.5
+            ],
+            "id": "palace-parliament",
+            "x": 31,
+            "z": -10.5,
+            "bearing": 270,
+            "pitch": 14,
+            "fov": 70,
+            "text": "From the east edge of Piața Constituției by the \"București 1459\" clock, ~330 m from the façade, camera on the Unirii axis so the central pavilion is centred; at dusk the floodlights turn on. Postcard alt: from the Bd. Unirii median fountains (outside footprint).",
+            "r": 18,
+            "tol": 26,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 31,
+            "z": -10.5,
+            "y": 0.188,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-parliament",
+          "origin": {
+            "lat": 44.42735,
+            "lon": 26.0905,
+            "elev": 70.8
+          },
+          "projection": {
+            "mLat": 111120.59,
+            "mLon": 79628.31
+          }
+        },
+        "label": "Parliament across the public square",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/palace-parliament/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:27:01.681Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 31,
+          "z": -10.5,
+          "y": 0.188,
+          "heading": 1.5707963671874998
+        },
+        "pose": {
+          "position": [
+            31,
+            1.8379999999999999,
+            -10.5
+          ],
+          "bearing": 269.9999976856743,
+          "pitch": 13.999995436150172
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:26:59.737Z",
+        "triangles": 618772,
+        "drawCalls": 200,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "1e589feb952e978f687d9482d506d2fa78cebb90f793d1cd63674b1506a051d1",
+        "bytes": 62818,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": 157.7,
+            "z": 8.8,
+            "y": -0.3187999999999999,
+            "heading": -4.6774823953448035
+          },
+          "viewpoint": {
+            "view": [
+              -160,
+              -10.5
+            ],
+            "id": "palace-parliament",
+            "x": 31,
+            "z": -10.5,
+            "bearing": 270,
+            "pitch": 14,
+            "fov": 70,
+            "text": "From the east edge of Piața Constituției by the \"București 1459\" clock, ~330 m from the façade, camera on the Unirii axis so the central pavilion is centred; at dusk the floodlights turn on. Postcard alt: from the Bd. Unirii median fountains (outside footprint).",
+            "r": 18,
+            "tol": 26,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 31,
+            "z": -10.5,
+            "y": 0.188,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-parliament",
+          "origin": {
+            "lat": 44.42735,
+            "lon": 26.0905,
+            "elev": 70.8
+          },
+          "projection": {
+            "mLat": 111120.59,
+            "mLon": 79628.31
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/palace-parliament/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:23:05.135Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 31,
+          "z": -10.5,
+          "y": 0.188,
+          "heading": 1.5707964843749997
+        },
+        "pose": {
+          "position": [
+            31,
+            1.8379999999999999,
+            -10.5
+          ],
+          "bearing": 269.99999097132513,
+          "pitch": 14.000002150499332
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:23:01.317Z",
+        "triangles": 606099,
+        "drawCalls": 103,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "40b57648b5801d463f8ad12b4d2a1ba3fd8f9db053ae6934a39f9e8ba82593cf",
+        "bytes": 62829,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 157.7,
+            "z": 8.8,
+            "y": -0.3187999999999999,
+            "heading": -4.6774823953448035
+          },
+          "viewpoint": {
+            "view": [
+              -160,
+              -10.5
+            ],
+            "id": "palace-parliament",
+            "x": 31,
+            "z": -10.5,
+            "bearing": 270,
+            "pitch": 14,
+            "fov": 70,
+            "text": "From the east edge of Piața Constituției by the \"București 1459\" clock, ~330 m from the façade, camera on the Unirii axis so the central pavilion is centred; at dusk the floodlights turn on. Postcard alt: from the Bd. Unirii median fountains (outside footprint).",
+            "r": 18,
+            "tol": 26,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 31,
+            "z": -10.5,
+            "y": 0.188,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-parliament",
+          "origin": {
+            "lat": 44.42735,
+            "lon": 26.0905,
+            "elev": 70.8
+          },
+          "projection": {
+            "mLat": 111120.59,
+            "mLon": 79628.31
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:27:01.681Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

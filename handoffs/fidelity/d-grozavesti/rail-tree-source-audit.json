@@ -1,0 +1,15 @@
+{
+  "file": "game/data/bucharest-grozavesti.json",
+  "sourceRailwayWays": 110,
+  "sourceRailwayLengthM": 47364,
+  "retainedTreeRecords": 17189,
+  "measuredCrownRadii": 17188,
+  "treeRetention": {
+    "policy": "all-measured",
+    "inputCrowns": 44645,
+    "retained": 17188,
+    "rejectedGeometryOrDuplicate": 2468,
+    "outsideSurveyDistrict": 24989,
+    "thinned": 0
+  }
+}

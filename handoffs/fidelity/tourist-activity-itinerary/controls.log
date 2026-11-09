@@ -1,0 +1,22 @@
+(node:612552) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/spots/index.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ a reachable208.72m activity leads the short itinerary instead of a nearby sign (4.489827ms)
+✔ blocked and unavailable activities never produce a hero/plaque-only fallback (162.040911ms)
+(node:612553) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/spots/ground.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ raised gallery route goes around its actual void, while ground route stays below (14.645411ms)
+✔ same-floor custom waypoint routes, another floor is neither routed nor arrived (8.706199ms)
+✔ guide planning uses its own ground floor while player is on a gallery (0.781187ms)
+✔ a real concave Old Town extent never puts its primary marker outside the visit (149.898024ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 423.423

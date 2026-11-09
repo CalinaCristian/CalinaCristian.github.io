@@ -1,6 +1,8 @@
 // Short guided walks use the same clearance for planning, smoothing and movement.
 import { collide, colliderIndex } from './walker.js';
 
+export const TOUR_WALK_LIMIT_M = 300;
+
 /** A planar walking route may remain on an actual raised floor, but cannot
  * silently switch to the terrain below its void. Inter-storey routing needs a
  * separate connected-surface graph; refuse it instead of drawing a false path.

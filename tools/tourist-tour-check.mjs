@@ -29,13 +29,13 @@ const load = async (id) => {
 };
 const route = async (id) => {
     const r = await page.evaluate(async () => {
-        const { pathLength, walkSegment } = await import('/game/src/spots/tour.js'); const s = spotDev.session;
+        const { pathLength, walkSegment, TOUR_WALK_LIMIT_M } = await import('/game/src/spots/tour.js'); const s = spotDev.session;
         s.endTour(); const ms = performance.now(); s.startTour();
-        return { id: s.spot.id, name: s.spot.name, sceneTris: s.spot.tris, ms: performance.now() - ms, meters: s.tour?.walked,
+        return { id: s.spot.id, name: s.spot.name, sceneTris: s.spot.tris, ms: performance.now() - ms, meters: s.tour?.walked, limit: TOUR_WALK_LIMIT_M,
             stops: s.tour?.stops.map((m) => ({ kind: m.kind, id: m.id, label: m.label, target: [m.x, m.z], endpoint: [m.tx, m.tz], radius: m.radius, length: pathLength(m.path), clear: m.path.slice(1).every((p, i) => walkSegment(s.spot.ground, s.spot.colliders, m.path[i], p)), available: !m.interaction || ((!m.interaction.cond || m.interaction.cond(s)) && Math.abs((m.interaction.y ?? s.ctl.y) - s.ctl.y) < 3) })) };
     });
     results.routes.push(r);
-    check(`${id}: <=3 stops and <=180 actual route metres`, r.stops?.length > 0 && r.stops.length <= 3 && r.meters <= 180, { metres: r.meters, stops: r.stops?.map((m) => m.label) });
+    check(`${id}: activity first, <=3 stops and <=300 actual route metres`, r.stops?.[0]?.kind === 'activity' && r.stops.length <= 3 && r.limit === 300 && r.meters <= r.limit, { metres: r.meters, stops: r.stops?.map((m) => m.label) });
     check(`${id}: clear routes within interaction reach`, r.stops?.every((m) => m.clear && m.available && Math.hypot(m.endpoint[0] - m.target[0], m.endpoint[1] - m.target[1]) <= m.radius + 1e-6));
     check(`${id}: hero/photo belong to active entry`, r.id === id && r.stops?.every((m) => !m.id || m.id === id));
     return r;
@@ -125,7 +125,7 @@ try {
             const sync = await page.evaluate((target) => { const s = spotDev.session; s.teleport(target); return { id: s.spot.id, name: s.spot.name, photo: s.photoInfo().place, title: s.ui.$('.sp-card b').textContent, entry: s.spot.entry.id, sameSpawn: s.spot.spawn === s.spot.spawns[target], tour: !!s.tour, route: !!s._route }; }, target);
             check(`${target}: shared-scene entry metadata and cancelled tour`, sync.id === target && sync.entry === target && sync.name === sync.photo && sync.name === sync.title && sync.sameSpawn && !sync.tour && !sync.route, sync);
             // Teleporting the player does not teleport the guide across the scene. A fresh entry creates its local guide.
-            const remote = await page.evaluate(() => { const s = spotDev.session; s.startTour(); return { safe: !s.tour || s.tour.walked <= 180, guideDistance: Math.hypot(s.guide.x - s.ctl.x, s.guide.z - s.ctl.z), hasTour: !!s.tour }; });
+            const remote = await page.evaluate(() => { const s = spotDev.session; s.startTour(); return { safe: !s.tour || s.tour.walked <= 300, guideDistance: Math.hypot(s.guide.x - s.ctl.x, s.guide.z - s.ctl.z), hasTour: !!s.tour }; });
             check(`${target}: remote guide remains safe after teleport`, remote.safe, remote);
             await load(target); await route(target);
         }

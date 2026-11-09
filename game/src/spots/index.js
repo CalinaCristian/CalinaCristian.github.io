@@ -17,7 +17,7 @@ import { Crowd } from './people.js';
 import { SpotUI, SpotMap, plaqueMesh } from './ui.js';
 import { SpotSound } from './sound.js';
 import { colliderIndex, LocalWalker, collide } from './walker.js';
-import { findWalkPath, pathLength, walkHeight, walkSegment, withMovingBodies, walkingLevelGround } from './tour.js';
+import { findWalkPath, pathLength, walkHeight, walkSegment, withMovingBodies, walkingLevelGround, TOUR_WALK_LIMIT_M } from './tour.js';
 import { countTris, disposeTree, headingFromBearing, inPoly, polyBox, DEG, rng, distPolyline } from './kit.js';
 
 // ---------------------------------------------------------------------------- registry (Seattle 10 + Bellevue 4; Bucharest added by its builder)
@@ -528,7 +528,7 @@ export class SpotSession {
             // A detour counts against the budget before the stop enters the itinerary.
             for (const m of pool.sort((a, b) => Math.hypot(a.x - x, a.z - z) - Math.hypot(b.x - x, b.z - z))) {
                 const radius = m.interaction ? Math.min(1.5, Math.max(0.4, (m.interaction.r || 2) - 0.4)) : m.kind === 'postcard' ? Math.min(2, (m.challenge.r || 8) - 0.4) : 1.5;
-                const path = this._navPath(x, z, m.x, m.z, { radius, maxLength: 180 - walked, startY: y, targetY: m.floorY });
+                const path = this._navPath(x, z, m.x, m.z, { radius, maxLength: TOUR_WALK_LIMIT_M - walked, startY: y, targetY: m.floorY });
                 if (!path) continue;
                 const end = path.at(-1); m.tx = end[0]; m.tz = end[1]; m.path = path; m.radius = radius;
                 m.done = false; stops.push(m); walked += pathLength(path); x = m.tx; z = m.tz; y = this.spot.ground.groundAt(x,z,y); return true;
@@ -536,7 +536,10 @@ export class SpotSession {
             return false;
         };
         const active = objs.filter((m) => ['activity', 'bike'].includes(m.kind));
-        if (!addNearest(active)) addNearest(objs.filter((m) => m.kind === 'hero'));
+        if (!addNearest(active)) {
+            this.ui.toast('No activity route right now', 'Choose an activity on M and explore freely. The guide could not find a safe short route to an available activity.');
+            return false;
+        }
         addNearest(objs.filter((m) => m.kind === 'plaque'));
         addNearest(objs.filter((m) => m.kind === 'postcard'));
         if (!stops.length) { this.ui.toast('No short walking route', 'Explore freely with M. The guide could not find a safe route from here.'); return false; }
@@ -581,7 +584,7 @@ export class SpotSession {
         const T = this.tour; if (!T) return;
         T.stops[T.i].done = !T.stops[T.i].skipped; T.i++; T.said = false; T.t = 0; T.wait = 0;
         if (T.i >= T.stops.length) return this._finishTour();
-        const st = T.stops[T.i], path = this._navPath(this.guide.x, this.guide.z, st.x, st.z, { radius: st.radius, maxLength: Math.max(0, 180 - (T.travelled || 0)), startY: this.guide.y, targetY: st.floorY });
+        const st = T.stops[T.i], path = this._navPath(this.guide.x, this.guide.z, st.x, st.z, { radius: st.radius, maxLength: Math.max(0, TOUR_WALK_LIMIT_M - (T.travelled || 0)), startY: this.guide.y, targetY: st.floorY });
         if (!path) { T.narr = 'The next stop is blocked. You can skip it or end the tour.'; T.state = 'blocked'; this.guide.speed = 0; }
         else { st.path = path; st.wi = 1; [st.tx, st.tz] = path.at(-1); T.state = 'walk'; T.narr = 'Follow the flag to the next stop.'; }
         this._tourUI(); this._routeLine(); this._refreshMarkers();
@@ -631,9 +634,9 @@ export class SpotSession {
                 if (st.progressWaypoint !== st.wi || remaining < (st.bestRemaining ?? Infinity) - 0.05) {
                     st.progressWaypoint = st.wi; st.bestRemaining = remaining; st.blockedFor = 0;
                 } else st.blockedFor = (st.blockedFor || 0) + dt;
-                if(T.travelled>180){T.state='blocked';T.narr='This short walk has reached its distance budget. You can end the tour and keep exploring freely.';G.speed=0;this._tourUI();this._routeLine();return;}
+                if(T.travelled>TOUR_WALK_LIMIT_M){T.state='blocked';T.narr='This short walk has reached its distance budget. You can end the tour and keep exploring freely.';G.speed=0;this._tourUI();this._routeLine();return;}
                 if(st.blockedFor>1){
-                    const replanned=this._navPath(G.x,G.z,st.x,st.z,{radius:st.radius,maxLength:180-T.travelled,startY:G.y,targetY:st.floorY});st.blockedFor=0;
+                    const replanned=this._navPath(G.x,G.z,st.x,st.z,{radius:st.radius,maxLength:TOUR_WALK_LIMIT_M-T.travelled,startY:G.y,targetY:st.floorY});st.blockedFor=0;
                     if(replanned){st.path=replanned;st.wi=1;st.progressWaypoint=null;st.bestRemaining=Infinity;[st.tx,st.tz]=replanned.at(-1);this._routeLine();}
                     else{T.state='blocked';T.narr='The public route is currently blocked. You can skip this stop or end the tour.';G.speed=0;this._tourUI();this._routeLine();return;}
                 }

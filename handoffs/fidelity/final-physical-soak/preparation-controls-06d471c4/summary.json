@@ -1,0 +1,50 @@
+{
+  "status": "static-preparation-controls-pass",
+  "checkedUtc": "2026-11-09T04:10:46.101923+00:00",
+  "sourceCommit": "06d471c4b2486633b325a62c52b46e08e4a3053f",
+  "toolCommit": "853ea6ce22974e400d2e0532437938cd4cd347ce",
+  "preparationScriptSha256": "7a87da6443459418274b4183985379f2185dc99b298b73db0ee89c991337582c",
+  "controlScriptSha256": "0626afb961fbb87892a0d634cac20dd7eb982361858151d8a9ecb7b4269e4bb1",
+  "priorQaManifest": "/workspace/integration-qa-evidence/fountain-memory-06d471c4-source/qa-source-manifest.json",
+  "priorQaManifestSha256": "e4a3be6b74984781a9d5d91a1f10a4f0ce06558c740d3018ef1da3f8895c0f41",
+  "priorQaFilesCompared": 208,
+  "allPriorQaFilesMatchExactSha256AndGitBlob": true,
+  "archiveMode": "runtime-only",
+  "partialArchive": true,
+  "includedFiles": 219,
+  "includedBytes": 119130349,
+  "additionalFilesBeyondPriorQa": [
+    "canvas.js",
+    "game/dev/harness/page/audit.js",
+    "game/dev/harness/page/core.js",
+    "game/dev/harness/page/index.js",
+    "game/dev/harness/page/office-talk.js",
+    "game/dev/harness/page/scenarios.js",
+    "game/dev/harness/page/util.js",
+    "index.css",
+    "index.html",
+    "index.js",
+    "tools/telemetry/stamp-release.mjs"
+  ],
+  "moduleSyntaxCheckedFiles": 157,
+  "resourceParsedFiles": 4,
+  "localDependencyEdges": 463,
+  "frozenToolSyntaxChecked": [
+    "runner.cjs",
+    "integration-browser-bounds.cjs",
+    "verify-district-soak.cjs"
+  ],
+  "frozenToolSha256": {
+    "runner.cjs": "a41f232662d1eb74a42adb58c05cdee6917c57fec83eea0998fae4dcd3ac63f5",
+    "integration-browser-bounds.cjs": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29",
+    "verify-district-soak.cjs": "19b0afd7e6b21a2c8f56693c3f46db61d8adb9d21a90b7ab6cd22a48a4cc7122"
+  },
+  "postControlExactFileSetAndGitBlobAndSha256": true,
+  "originalRelease": {
+    "present": false,
+    "files": {}
+  },
+  "browserLaunched": false,
+  "scope": "Static disposable archive/dependency/integrity control only; no HTTP server, browser, physical simulation or final-source acceptance. The temporary source and raw OUT paths in prepared.json are historical control paths, removed after this test; they must never be reused for the final run.",
+  "temporarySourceAndOutRemoved": true
+}

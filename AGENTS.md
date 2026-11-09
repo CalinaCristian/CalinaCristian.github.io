@@ -25,6 +25,16 @@ the next agent needs, add it here (short, imperative) or in the relevant spec, a
 - **README.md always reflects the latest game**: when a change adds, removes or changes a player-facing feature, a control,
   a mode, a district / landmark, a dev tool or a data source / credit, update README.md in the same commit (and the
   relevant spec). A feature change without its README update is not done.
+- **Keep the entire published overview current.** Any game, data, model, rendering, UI, controls, activity, performance or
+  evidence change that affects `/game/overview/` must update the affected overview material in the same change. This includes
+  its prose, inventory, district/landmark/tourist records, comparisons, links, captions, status and **all affected published
+  pictures, game screenshots, thumbnails, street/aerial views, activity frames and phone captures**. Recapture affected game
+  images from the exact changed source; record the real source commit, date, camera, conditions and scope. Never just change
+  an old image's source/date or keep a stale capture presented as current. Preserve old captures and provenance as explicitly
+  historical or validation evidence. Inspect full-size pictures and desktop/mobile layouts: reject wrong-level cameras,
+  obstructed or meaningless framing, and misleading comparisons. Verify affected selectors, image decoding, links and cache
+  behavior; after publishing, check the live page and image assets. A change is not complete until its affected overview is
+  synchronized. Street View remains comparison-only; never commit reference-provider imagery.
 - Commit and push as you go on the assigned branch; no PR unless asked.
 
 ## District reality pass — how to make a district match reality (learned on Floreasca, 2026-11-08)

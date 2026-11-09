@@ -2836,8 +2836,7 @@ export class Pedestrians {
                 if (p.state === 'walk') p.s = os;
                 p.blockT = (p.blockT || 0) + dt;
                 if (p.blockT > 3 && p.state === 'walk') { p.dir = -p.dir; p.blockT = 0; p.heading += Math.PI; }
-            } else if (!(p.onRoad && p.blockT > 2.5)) p.blockT = Math.max(0, (p.blockT || 0) - dt);
-            else { p.blockT += dt; if (p.blockT > 6) p.blockT = 0; }
+            } else p.blockT = Math.max(0, (p.blockT || 0) - dt);
             // a crossing that makes no headway (a car parked across it, a queue on the zebra): give up and walk back to the
             // kerb it started from, then carry on along the sidewalk it came from — cars waiting for them can go
             if (p.onRoad && p.state === 'legs') {

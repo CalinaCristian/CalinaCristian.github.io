@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import path from 'node:path';
 import { Pedestrians } from '../src/traffic.js';
@@ -80,6 +81,18 @@ if(Base) {
     assert.ok(intrusions>0,'the previous native caller lets the physical pedestrian radius enter the stopped body: '+minClearance);
 }
 
+// An already-overlapped crossing that is making safe outward progress must
+// not keep ageing its blocked timer and turn back into the same obstacle.
+const outward=walkers([street],[sedan]), escaping=crossingStart();
+escaping.z=.1; escaping.blockT=3; outward.list=[escaping]; let reversed=false;
+for(let i=0;i<100;i++) {
+    const old={x:escaping.x,z:escaping.z}; outward.update(1/30);
+    reversed ||= !!escaping.legs[0]?.back;
+    assert.ok(Math.hypot(escaping.x-old.x,escaping.z-old.z)<.12);
+}
+assert.equal(reversed,false,'safe penetration-reducing progress does not trigger a blocked-crossing reversal');
+assert.ok(escaping.z>3.8,'the native caller actually escapes to the clear far kerb');
+
 // Previous-pose comparison deliberately permits progress out of an existing
 // overlap. It does not require one step to clear the whole car body.
 const E=walkers([street],[sedan]);
@@ -123,10 +136,15 @@ for(const [buc,count] of [[true,560],[false,180]]) {
     assert.ok(fixed.list.every(p=>p.live&&!p.hidden));
     assert.ok((fixed.stats.initialWalkRepairs||0)>0,'the constructor fixture actually exercises previsible repairs');
     assert.equal(fixed.stats.initialWalkUnresolved||0,0,'the grid fixture has sufficient real clear capacity for every repair');
+    // Retained c78 constructor stream fixtures, including all original unused
+    // colour draws. Physical admission must not change the future logic stream.
+    const future=Array.from({length:32},()=>fixed.rng());
+    const expected=buc?'8dd7a4860eb532c7ff7da0f19c3a9c227dba325192e74ec27ab52b0b3b218d3b':'16a04a8c238aba4ff7deb0115a2da0327e3b4d41241ebafd1e3fedabb75e408f';
+    assert.equal(createHash('sha256').update(JSON.stringify(future)).digest('hex'),expected);
     if(Base) {
         const base=new Base(gridTraffic(buc),count);
         assert.deepEqual(fixed.list.map(p=>[p.i,p.speed,p.phase,p.scale]),base.list.map(p=>[p.i,p.speed,p.phase,p.scale]));
-        assert.deepEqual(Array.from({length:32},()=>fixed.rng()),Array.from({length:32},()=>base.rng()),'future logic RNG values remain byte-exact');
+        assert.deepEqual(future,Array.from({length:32},()=>base.rng()),'future logic RNG values remain byte-exact');
         base.dispose();
     }
     fixed.dispose();

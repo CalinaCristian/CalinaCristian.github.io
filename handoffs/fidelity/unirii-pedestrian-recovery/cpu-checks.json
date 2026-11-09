@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-09T00:05:30.611997+00:00",
+  "testedRuntimeSha256": "e99d7f5c188270d8a762b71a83ca7413949c718600c71f14719802edeecfb784",
+  "testSha256": "acfc5bd9f9463a01e3eb2119d102bfad981ccef7f23c4112c53cef1208113896",
+  "baselineTrafficSha256": "d2090be8a2f94b8431af00994f0764ee38637c9ccfe44d99392ec54551d8645c",
+  "checks": [
+    {
+      "command": "node --input-type=module --check < game/src/traffic.js",
+      "result": "pass"
+    },
+    {
+      "command": "node game/dev/pedestrian-admission.test.mjs --baseline=/workspace/reality-pass/remaining-ro/source-c78a5f4",
+      "result": "pass"
+    },
+    {
+      "command": "node game/dev/pedestrian-admission.test.mjs",
+      "result": "pass"
+    },
+    {
+      "command": "node game/dev/crowd-flow.test.mjs",
+      "result": "pass"
+    }
+  ],
+  "scope": "Actual production Pedestrians methods and complete560/180 constructors on controlled source-like geometry; actual full-world native replay remains separate and pending.",
+  "futureRngDigests": {
+    "bucharest560": "8dd7a4860eb532c7ff7da0f19c3a9c227dba325192e74ec27ab52b0b3b218d3b",
+    "seattle180": "16a04a8c238aba4ff7deb0115a2da0327e3b4d41241ebafd1e3fedabb75e408f"
+  }
+}

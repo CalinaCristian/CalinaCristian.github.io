@@ -1,0 +1,392 @@
+{
+  "sourceCommit": "a294fff13ed9440fb840317dcfa861df73deaaad",
+  "scope": "Direct native publication/final body snapshots and actual route samples, not reconstructed",
+  "actors": [
+    {
+      "id": 2,
+      "initial": {
+        "x": -641.9295033797024,
+        "z": 390.7211690386173,
+        "s": 11.308876052433636,
+        "dir": 1,
+        "lane": 1,
+        "laneCur": 1,
+        "edge": {
+          "id": 124,
+          "sourceId": "w153967352",
+          "access": {
+            "sourceId": "w153967352",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "oneway": "yes"
+            }
+          },
+          "name": "Pia\u021ba Unirii",
+          "type": "primary",
+          "layer": 0,
+          "ya": 0,
+          "yb": 0,
+          "len": 19.417570583561936,
+          "wL": 5.25,
+          "wR": 8.75,
+          "lanesF": 4,
+          "lanesB": 0,
+          "a": {
+            "id": 148,
+            "sourceId": 6225397217,
+            "x": -641.3554074192253,
+            "z": 379.4268743993992
+          },
+          "b": {
+            "id": 139,
+            "sourceId": 31404739,
+            "x": -642.341141879716,
+            "z": 398.81940839939546
+          }
+        }
+      },
+      "final": {
+        "x": -632.5742467171874,
+        "z": 403.4338367095858,
+        "s": 10.804955952679338,
+        "dir": 1,
+        "lane": 1,
+        "laneCur": 1,
+        "edge": {
+          "id": 142,
+          "sourceId": "w244601702",
+          "access": {
+            "sourceId": "w244601702",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "oneway": "yes"
+            }
+          },
+          "name": "Pia\u021ba Unirii",
+          "type": "primary",
+          "layer": 0,
+          "ya": 0,
+          "yb": 0,
+          "len": 18.392923802972543,
+          "wL": 5.25,
+          "wR": 5.25,
+          "lanesF": 3,
+          "lanesB": 0,
+          "a": {
+            "id": 139,
+            "sourceId": 31404739,
+            "x": -642.341141879716,
+            "z": 398.81940839939546
+          },
+          "b": {
+            "id": 167,
+            "sourceId": 2687992834,
+            "x": -625.7108475983796,
+            "z": 406.6764407996152
+          }
+        }
+      },
+      "observedSourceStates": [
+        {
+          "t": 6.499999999999987,
+          "x": -636.0842764320196,
+          "z": 400.21830028457225,
+          "speed": 0,
+          "edge": 142,
+          "source": "w244601702",
+          "dir": 1,
+          "s": 5.311908644559068,
+          "lane": 1,
+          "laneCur": 1
+        },
+        {
+          "t": 7.999999999999981,
+          "x": -636.0842764320196,
+          "z": 400.21830028457225,
+          "speed": 0,
+          "edge": 142,
+          "source": "w244601702",
+          "dir": 1,
+          "s": 5.311908644559068,
+          "lane": 1,
+          "laneCur": 1
+        },
+        {
+          "t": 9.499999999999977,
+          "x": -635.4843209935023,
+          "z": 401.26329776268994,
+          "speed": 2.9000000000000012,
+          "edge": 142,
+          "source": "w244601702",
+          "dir": 1,
+          "s": 6.761908644559068,
+          "lane": 1,
+          "laneCur": 1
+        },
+        {
+          "t": 10.999999999999972,
+          "x": -633.2087531588085,
+          "z": 403.13427415624125,
+          "speed": 0,
+          "edge": 142,
+          "source": "w244601702",
+          "dir": 1,
+          "s": 10.10328928601267,
+          "lane": 1,
+          "laneCur": 1
+        },
+        {
+          "t": 12.499999999999966,
+          "x": -633.2087531588085,
+          "z": 403.13427415624125,
+          "speed": 0,
+          "edge": 142,
+          "source": "w244601702",
+          "dir": 1,
+          "s": 10.10328928601267,
+          "lane": 1,
+          "laneCur": 1
+        },
+        {
+          "t": 13.999999999999961,
+          "x": -632.747554421725,
+          "z": 403.3519798156435,
+          "speed": 1.7000000000000004,
+          "edge": 142,
+          "source": "w244601702",
+          "dir": 1,
+          "s": 10.61328928601267,
+          "lane": 1,
+          "laneCur": 1
+        },
+        {
+          "t": 15.499999999999956,
+          "x": -632.6194569582697,
+          "z": 403.4124817541937,
+          "speed": 0,
+          "edge": 142,
+          "source": "w244601702",
+          "dir": 1,
+          "s": 10.754955952679337,
+          "lane": 1,
+          "laneCur": 1
+        }
+      ]
+    },
+    {
+      "id": 423,
+      "initial": {
+        "x": -648.9028360847295,
+        "z": 390.0187460868362,
+        "s": 10.961360558981841,
+        "dir": 1,
+        "lane": 3,
+        "laneCur": 3,
+        "edge": {
+          "id": 124,
+          "sourceId": "w153967352",
+          "access": {
+            "sourceId": "w153967352",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "oneway": "yes"
+            }
+          },
+          "name": "Pia\u021ba Unirii",
+          "type": "primary",
+          "layer": 0,
+          "ya": 0,
+          "yb": 0,
+          "len": 19.417570583561936,
+          "wL": 5.25,
+          "wR": 8.75,
+          "lanesF": 4,
+          "lanesB": 0,
+          "a": {
+            "id": 148,
+            "sourceId": 6225397217,
+            "x": -641.3554074192253,
+            "z": 379.4268743993992
+          },
+          "b": {
+            "id": 139,
+            "sourceId": 31404739,
+            "x": -642.341141879716,
+            "z": 398.81940839939546
+          }
+        }
+      },
+      "final": {
+        "x": -650.7603380709422,
+        "z": 393.194582804784,
+        "s": 9.97250388227704,
+        "dir": -1,
+        "lane": 0,
+        "laneCur": 0,
+        "edge": {
+          "id": 157,
+          "sourceId": "w665204215",
+          "access": {
+            "sourceId": "w665204215",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "oneway": "no"
+            }
+          },
+          "name": "Strada Bibescu Vod\u0103",
+          "type": "primary",
+          "layer": 0,
+          "ya": 0,
+          "yb": 0,
+          "len": 20.284221191758355,
+          "wL": 3.5,
+          "wR": 10.5,
+          "lanesF": 3,
+          "lanesB": 1,
+          "a": {
+            "id": 181,
+            "sourceId": 6244653735,
+            "x": -660.9031577243006,
+            "z": 390.6400931993577
+          },
+          "b": {
+            "id": 139,
+            "sourceId": 31404739,
+            "x": -642.341141879716,
+            "z": 398.81940839939546
+          }
+        }
+      },
+      "observedSourceStates": [
+        {
+          "t": 5.49999999999999,
+          "x": -648.9500488261053,
+          "z": 390.2794976261088,
+          "speed": 0,
+          "edge": 124,
+          "source": "w153967352",
+          "dir": 1,
+          "s": 11.234693892315175,
+          "lane": 3,
+          "laneCur": 3
+        },
+        {
+          "t": 6.499999999999987,
+          "x": -648.9681928457553,
+          "z": 390.34403166917684,
+          "speed": 0,
+          "edge": 124,
+          "source": "w153967352",
+          "dir": 1,
+          "s": 11.31524944787073,
+          "lane": 3,
+          "laneCur": 3
+        },
+        {
+          "t": 7.499999999999983,
+          "x": -648.9681928457553,
+          "z": 390.34403166917684,
+          "speed": 0,
+          "edge": 124,
+          "source": "w153967352",
+          "dir": 1,
+          "s": 11.31524944787073,
+          "lane": 3,
+          "laneCur": 3
+        },
+        {
+          "t": 8.49999999999998,
+          "x": -648.9681928457553,
+          "z": 390.34403166917684,
+          "speed": 0,
+          "edge": 124,
+          "source": "w153967352",
+          "dir": 1,
+          "s": 11.31524944787073,
+          "lane": 3,
+          "laneCur": 3
+        },
+        {
+          "t": 9.499999999999977,
+          "x": -648.9681928457553,
+          "z": 390.34403166917684,
+          "speed": 0,
+          "edge": 124,
+          "source": "w153967352",
+          "dir": 1,
+          "s": 11.31524944787073,
+          "lane": 3,
+          "laneCur": 3
+        },
+        {
+          "t": 10.499999999999973,
+          "x": -648.9681928457553,
+          "z": 390.34403166917684,
+          "speed": 0,
+          "edge": 124,
+          "source": "w153967352",
+          "dir": 1,
+          "s": 11.31524944787073,
+          "lane": 3,
+          "laneCur": 3
+        },
+        {
+          "t": 11.49999999999997,
+          "x": -648.9681928457553,
+          "z": 390.34403166917684,
+          "speed": 0,
+          "edge": 124,
+          "source": "w153967352",
+          "dir": 1,
+          "s": 11.31524944787073,
+          "lane": 3,
+          "laneCur": 3
+        },
+        {
+          "t": 12.499999999999966,
+          "x": -649.0127439493488,
+          "z": 390.1524745595149,
+          "speed": 2.3848514774999017,
+          "edge": 124,
+          "source": "w153967352",
+          "dir": 1,
+          "s": 12.636260446676255,
+          "lane": 3,
+          "laneCur": 3
+        },
+        {
+          "t": 13.499999999999963,
+          "x": -649.2173220601283,
+          "z": 390.87333707001955,
+          "speed": 3.6170089099620886,
+          "edge": 124,
+          "source": "w153967352",
+          "dir": 1,
+          "s": 16.02040638365348,
+          "lane": 3,
+          "laneCur": 3
+        }
+      ]
+    }
+  ]
+}

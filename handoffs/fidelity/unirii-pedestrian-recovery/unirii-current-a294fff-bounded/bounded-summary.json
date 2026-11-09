@@ -1,0 +1,28 @@
+{
+  "rail": {
+    "noTrams": true,
+    "actors": 0,
+    "bindings": 0,
+    "preBindingIds": [],
+    "sourceGraphEdges": 0
+  },
+  "global": {
+    "samples": 542,
+    "pairs": 32,
+    "above5cm": [
+      {
+        "ids": [
+          10,
+          139
+        ],
+        "max": 0.0589605819435115,
+        "above5cmSamples": 12,
+        "first": 10.633333333333306,
+        "last": 11.566666666666636
+      }
+    ],
+    "pair2_423": null
+  },
+  "finalActors": [],
+  "modelGlobalFalse": 0
+}

@@ -184,9 +184,15 @@ export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MOD
             const grade = forRun(run, i - 1) || ((tags.level == null || Number(tags.level) === 0) ? flatTramGrade(way) : null);
             if (!grade?.known) continue;
             const a = points[i - 1], b = points[i];
+            // Reviewed grade functions are piecewise quadratic. Endpoints and
+            // midpoint of every declared polynomial interval prove a flat leg;
+            // a model-wide grade cap alone does not mean this leg is sloped.
+            const heightAt = grade.heightAt || (t => grade.ya + (grade.yb - grade.ya) * t);
+            const breaks = [...new Set([0, 1, ...(grade.breaks || [])])].filter(t => t >= 0 && t <= 1).sort((a, b) => a - b);
+            const groundLevel = breaks.every(t => Math.abs(heightAt(t)) < 1e-8) && breaks.slice(1).every((t, k) => Math.abs(heightAt((t + breaks[k]) / 2)) < 1e-8);
             const halfWidthM = Math.max(gauge / 2000, 1.2) + .5;
             corridors.push({ a, b, sourceId: source.sourceId, sourceNodeIds: source.nodeIds.slice(i - 1, i + 1), gaugeM: gauge / 1000,
-                heightAt: grade.heightAt || (t => grade.ya + (grade.yb - grade.ya) * t), halfWidthM, maxGrade: grade.maxGrade || 0,
+                heightAt, groundLevel, halfWidthM, maxGrade: grade.maxGrade || 0,
                 x0: Math.min(a[0], b[0]) - halfWidthM, x1: Math.max(a[0], b[0]) + halfWidthM, z0: Math.min(a[1], b[1]) - halfWidthM, z1: Math.max(a[1], b[1]) + halfWidthM });
         }
     }

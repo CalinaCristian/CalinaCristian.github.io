@@ -25,6 +25,7 @@ import { buildTramTunnelGrades } from './tram-tunnel-grade.js';
 import { buildTramTrenchCutter, uncoveredTramTrenchWall } from './tram-trench.js';
 import { sourceSidewalkSides, sidewalkWidth } from './sidewalk-source.js';
 import { emittedTramClearance } from './tram-clearance.js';
+import { buildRailRoadsideClearance } from './rail-roadside.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
 
 // ============================================================================
@@ -1521,6 +1522,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const tunnelGrades = buildTramTunnelGrades(data, { coreEdges: edges });
     const tramGrades = buildTramGrades(data, { coreEdges: edges, extraGrades: tunnelGrades.grades, extraReport: tunnelGrades.report }), tramDecks = [];
     const tramPropEnvelope = (data.trams || []).length ? emittedTramClearance(makeVehicle, city.id) : null;
+    const railRoadside = buildRailRoadsideClearance(tramGrades, tramPropEnvelope), railRoadsideCaps = [];
     /** height of junction n's pad at (x, z): the profile of the nearest approach there (n.y on flat junctions) */
     const padHeightAt = (n, x, z) => { let best = null, bd = Infinity; for (const e of n.edges) { if (e.virtual) continue; const d = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z).d; if (d < bd) { bd = d; best = e; } } return best ? yAlong(best, x, z) : n.y; };
 
@@ -2051,6 +2053,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (e.virtual) continue;
             const [aR, bR, bL, aL] = asphaltCorners(e, widthAsphalt);
             const poly = [aR, bR, bL, aL]; ribPoly.set(e, poly);
+            railRoadside.register(e, asphaltCorners(e, (f, sd) => sd > 0 ? f.wR : f.wL), asphaltCorners(e, widthSide));
             for (const [n, p, q] of [[e.a, aR, aL], [e.b, bR, bL]]) if (n.pad) { let o = padPts.get(n); if (!o) padPts.set(n, o = []); o.push(p, q); }
         }
         const ins = (o, poly) => { let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of poly) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); } Object.assign(o, { poly, x0, z0, x1, z1 }); surfGrid.insert(x0, z0, x1, z1, o); };
@@ -2112,6 +2115,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2;
         const c = cellOf(mx, mz);
         const v0g = c.ground.vc, v0m = c.marks.vc, v0s = c.solid.vc, v0p = c.road.vc;
+        const i0g = c.ground.ic, i0s = c.solid.ic, i0p = c.road.ic;
         const elevated = Math.abs(e.ya) > 0.01 || Math.abs(e.yb) > 0.01;
         if (elevated) raised.push(e);
         const ly = layerY(e);
@@ -2121,7 +2125,7 @@ export async function buildWorld(city, renderer, opts = {}) {
           const i0 = mb.v(aR[0], yR, aR[1], 0, 1, 0, aR[0] * u, aR[1] * u, ca), i1 = mb.v(bR[0], yR, bR[1], 0, 1, 0, bR[0] * u, bR[1] * u, cb);
           const i2 = mb.v(bL[0], yR, bL[1], 0, 1, 0, bL[0] * u, bL[1] * u, cb), i3 = mb.v(aL[0], yR, aL[1], 0, 1, 0, aL[0] * u, aL[1] * u, ca);
           mb.triUp(i0, i1, i2); mb.triUp(i0, i2, i3); }
-        ribbons.push({ e, poly: [aR, bR, bL, aL] });
+        for (const poly of railRoadside.footprint(e, [aR, bR, bL, aL])) ribbons.push({ e, poly });
         // sidewalks
         const hasSide = Math.max(sidewalkWidth(e, 1), sidewalkWidth(e, -1)) > 0.3;
         if (!hasSide && (e.bridge || elevated) && !e.tunnel) {
@@ -2404,6 +2408,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
         }
         if (elevated) { const f = (x, z) => yAlong(e, x, z); displace(c.ground, v0g, f); displace(c.road, v0p, f); displace(c.marks, v0m, f); displace(c.solid, v0s, f); }
+        railRoadside.apply(c.ground, i0g, e); railRoadside.apply(c.road, i0p, e); railRoadside.apply(c.solid, i0s, e);
     }
     // ---- turn arrows (OSM turn:lanes) painted in each lane 9 m before the junction a way ends at (R11.3)
     {
@@ -2448,7 +2453,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     for (const e of edges) e.lidded = !!e.tunnel && !e.coveredRoadModel && !e.virtual && Math.max(e.ya, e.yb) < -4.5;
     for (const e of raised) {
         const c = cellOf((e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2);
-        const sb = c.solid;
+        const sb = c.solid, roadsideSolidStart = sb.ic;
         const conc = rgb('#a9a69e'), dark = rgb('#55524d');
         const wr = widthSide(e, 1), wl = widthSide(e, -1);
         const P = (s2, o, y) => [e.a.x + e.dirx * s2 + e.nx * o, y, e.a.z + e.dirz * s2 + e.nz * o];
@@ -2468,6 +2473,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const cols = hw > 7 ? [-hw * 0.55, hw * 0.55] : [0];
                 for (const o of cols) { const q = P(s2, o, 0); pierSpots.push({ sb, x: q[0], z: q[2], y, ang: Math.atan2(e.dirx, e.dirz), e, col: conc }); }
             }
+            railRoadside.apply(sb, roadsideSolidStart, e);
+            const outer = [Pm(0, wr, 0), Pm(1, wr, 0), Pm(1, -wl, 0), Pm(0, -wl, 0)].map(p => [p[0], p[2]]);
+            const bottomAt = (x, z) => { const y = yAlong(e, x, z); return y + Y.road - Math.min(1.1, Math.max(.05, y)); };
+            railRoadsideCaps.push(...railRoadside.caps(sb, e, outer, bottomAt, (x, z) => yAlong(e, x, z) + Y.road, conc));
         } else if (up) {
             // ramp on an embankment: retaining walls down to the ground
             for (const [o, sgn] of [[wr, 1], [-wl, -1]]) sb.face4(Pm(0, o, 0), Pm(1, o, 0), Pm(1, o, Math.max(0, yB)), Pm(0, o, Math.max(0, yA)), conc, [e.nx * sgn, 0, e.nz * sgn]);
@@ -2649,7 +2658,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const q = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z); if (q.t <= 0 || q.t >= 1) return;
             const side = ((x - q.cx) * e.nx + (z - q.cz) * e.nz) >= 0 ? 1 : -1, wa = widthAsphalt(e, side);
             if (!raisedEdge(e, side) || q.d < wa + 0.02 || q.d > wa + sidewalkWidth(e, side) + SIDE_BACK + tol) return;
-            top = Y.road + Y.kerb + e.a.y + (e.b.y - e.a.y) * q.t;
+            top = railRoadside.surface(e, x, z, Y.road + Y.kerb + e.a.y + (e.b.y - e.a.y) * q.t);
         });
         if (top !== null && onRibbon(x, z, 0, RIB_ONLY)) return null;
         return top;
@@ -2916,6 +2925,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             c.solid.face4([w.ax + px, ya + 0.9, w.az + pz], [w.bx + px, yb + 0.9, w.bz + pz], [w.bx - px, yb + 0.9, w.bz - pz], [w.ax - px, ya + 0.9, w.az - pz], shadeRgb(barrierCol, 1.08), [0, 1, 0]);
         }
     }
+    walls.push(...railRoadsideCaps); // exact render-matched new fascia; no invented barrier thickness
     // ---- district edge (chapters): every road cut at the district boundary ends in a red/white "road closed" barrier
     //      with a solid wall across it (kind 'end'); the inside-mask outline is an invisible wall (kind 'boundary')
     const mapEnds = [];
@@ -5871,6 +5881,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.waterChannels = waterChannelAudit;
     stats.waterLines = waterLineAudit;
     stats.tramGrades = tramGrades.report;
+    stats.railRoadside = railRoadside.report;
     stats.tramTrench = tramTrench.report;
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.coveredRoadModels = coveredRoadModels.report;
@@ -5895,8 +5906,10 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (q.d > lim) return;
             if ((q.t <= 0 || q.t >= 1) && Math.hypot(x - (q.t <= 0 ? e.a.x : e.b.x), z - (q.t <= 0 ? e.a.z : e.b.z)) > (q.t <= 0 ? e.a : e.b).radius + (carriagewayOnly ? 0 : 1)) return;
             const h = Y.road + e.a.y + (e.b.y - e.a.y) * q.t;
-            if (!carriagewayOnly && q.t > 0 && q.t < 1 && raisedEdge(e, side) && q.d > widthAsphalt(e, side) + 0.02 && !onRibbon(x, z, 0, RIB_ONLY)) { cb(h + Y.kerb, true); return; } // (the raised sidewalk)
-            cb(h);
+            if (!carriagewayOnly && q.t > 0 && q.t < 1 && raisedEdge(e, side) && q.d > widthAsphalt(e, side) + 0.02 && !onRibbon(x, z, 0, RIB_ONLY)) { const sh = railRoadside.surface(e, x, z, h + Y.kerb); if (sh !== null) cb(sh, sh > h + .01); return; } // source-rail flush paving follows rendered height
+            let adjusted = railRoadside.surface(e, x, z, h);
+            if (adjusted === null && !carriagewayOnly) adjusted = railRoadside.surface(e, x, z, h + Y.side - Y.road);
+            if (adjusted !== null) cb(adjusted);
         });
     }
 

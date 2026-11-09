@@ -1,0 +1,68 @@
+{
+  "bytesConfirmedImmutableBy": [
+    "US /root/us_finalize (committed9454f95c)",
+    "RO /root/ro_finalize (completed7328085 browserclosed)"
+  ],
+  "fixtures": [
+    {
+      "origin": "/workspace/fidelity-workers/remaining-us-districts/handoffs/fidelity/us-districts/start-admission-d981eee7/constructor-fixtures.json",
+      "sourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
+      "proofCommit": "9454f95c",
+      "sourceSha256": "3dffa552f0af77bdd49cb99e696e3f59988791d348f9cb34a2abf287d6019134",
+      "sourceBytes": 9399,
+      "copy": "us-d981-constructor-fixtures.json",
+      "copySha256": "3dffa552f0af77bdd49cb99e696e3f59988791d348f9cb34a2abf287d6019134",
+      "compression": "none"
+    },
+    {
+      "origin": "/workspace/fidelity-workers/remaining-us-districts/handoffs/fidelity/us-districts/start-admission-d981eee7/native-observation-report.json",
+      "sourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
+      "proofCommit": "9454f95c",
+      "sourceSha256": "e7b59f393afe506115f47db5498f3f1a0769aeec56b47cd5b51550eafb14a3d0",
+      "sourceBytes": 6430257,
+      "copy": "us-d981-native-observation-report.json.gz",
+      "copySha256": "b204ef245afec3b4854abe3824fdcc3452c3648a135eb1361ad753b838f40c2f",
+      "compression": "lossless gzip"
+    },
+    {
+      "origin": "/workspace/fidelity-workers/remaining-us-districts/handoffs/fidelity/us-districts/start-admission-d981eee7/original-findings.json",
+      "sourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
+      "proofCommit": "9454f95c",
+      "sourceSha256": "daea7cf0984dc580751f1761e6bdcd61df10609850523d1e7dee6764490f572b",
+      "sourceBytes": 5271,
+      "copy": "us-d981-original-findings.json",
+      "copySha256": "daea7cf0984dc580751f1761e6bdcd61df10609850523d1e7dee6764490f572b",
+      "compression": "none"
+    },
+    {
+      "origin": "/workspace/fidelity-workers/remaining-us-districts/handoffs/fidelity/us-districts/start-admission-d981eee7/causal-summary.json",
+      "sourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
+      "proofCommit": "9454f95c",
+      "sourceSha256": "d84234fce7eb1001baa244c41c643ecb432e3a4ea303145c43efe4b814f33f91",
+      "sourceBytes": 30304,
+      "copy": "us-d981-causal-summary.json",
+      "copySha256": "d84234fce7eb1001baa244c41c643ecb432e3a4ea303145c43efe4b814f33f91",
+      "compression": "none"
+    },
+    {
+      "origin": "/workspace/fidelity-workers/remaining-us-districts/handoffs/fidelity/us-districts/start-admission-d981eee7/integrity.json",
+      "sourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
+      "proofCommit": "9454f95c",
+      "sourceSha256": "fc1c133b3362e4a4624df77d3acca735fcdd4dff376c88abcaefb39bc2196c1c",
+      "sourceBytes": 2525,
+      "copy": "us-d981-integrity.json",
+      "copySha256": "fc1c133b3362e4a4624df77d3acca735fcdd4dff376c88abcaefb39bc2196c1c",
+      "compression": "none"
+    },
+    {
+      "origin": "/workspace/reality-pass/unirii-pedestrian-recovery/peer-native-7328085/constructor-vehicle-gate.json",
+      "sourceCommit": "73280854285737ab7808c88f520cc63921cca7b1",
+      "sourceSha256": "20d8314588755f71dee510847742affee696504e2c9884651ad7817cd7dbabd2",
+      "sourceBytes": 608743,
+      "copy": "ro-7328085-constructor-vehicle-gate.json.gz",
+      "copySha256": "d41c171e36d03b2bdfe1281419d487c18b489eee5f488d58d9d49a35e5e75249",
+      "compression": "lossless gzip",
+      "scope": "Actual484 actor/fivepair constructor source poses and metadata-height positives (624 was reported externally, not present in this file). Exact source7328085 usesbase097world, not d981. Native mesh pitch is not recorded here; CPU replay asserts exact XY body SAT only."
+    }
+  ]
+}

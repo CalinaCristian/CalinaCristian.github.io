@@ -1,0 +1,102 @@
+{
+  "REVIEW.md": {
+    "sha256": "6e139de77a72cb68f59bd3a12bec3618079b30bdbf96fd6d1837f2cd72091c93",
+    "bytes": 5996
+  },
+  "assessment.json": {
+    "sha256": "7416a2cc24ae3b2bebc212913b6a9a4f65fedf0d1d3a0a7fec8c7ea6cffd448a",
+    "bytes": 934
+  },
+  "cpu-controls.json": {
+    "sha256": "90a463d5fbdbf18c0b346c41939a08f144b2da6e201fda978cb469e38081842d",
+    "bytes": 20538
+  },
+  "cpu-controls.log": {
+    "sha256": "48c221ad8e2737a9ae509be974af6d53ee3369dbb903413fa7bf8d06256dccac",
+    "bytes": 2241
+  },
+  "diagnostics/incorrect-RO-624-count-assumption/cpu-controls-final.json": {
+    "sha256": "4d544357212cef569b7eb01d4f68ad2f6f6809dde3ebf4753245c48b8be49ef3",
+    "bytes": 17086
+  },
+  "diagnostics/incorrect-RO-624-count-assumption/cpu-controls-final.log": {
+    "sha256": "b0decb0c4696dbdc9c1c8f9d76fa7393cd1a46442f6b88b14879e35f59def25e",
+    "bytes": 2257
+  },
+  "diagnostics/incorrect-RO-624-count-assumption/integration-initial-body-audit-check.cjs": {
+    "sha256": "0dba9e9e72855b6e4b3a5b3396eaed0e0fa152775843ba9c71d1704945e692ba",
+    "bytes": 13822
+  },
+  "diagnostics/incorrect-RO-624-count-assumption/integration-initial-body-audit.cjs": {
+    "sha256": "e44628fe309969b8786ccbcd996783e7d5a0d5b1c4b23c37a40cfdf5955e812a",
+    "bytes": 11073
+  },
+  "fixture-provenance.json": {
+    "sha256": "3fcf34a714781405c7b8b7cbdcf2d58bfaba7ed1a96cf818dc67ae2c1bb3538a",
+    "bytes": 3685
+  },
+  "fixtures/ro-7328085-constructor-vehicle-gate.json.gz": {
+    "sha256": "d41c171e36d03b2bdfe1281419d487c18b489eee5f488d58d9d49a35e5e75249",
+    "bytes": 65736
+  },
+  "fixtures/us-d981-causal-summary.json": {
+    "sha256": "d84234fce7eb1001baa244c41c643ecb432e3a4ea303145c43efe4b814f33f91",
+    "bytes": 30304
+  },
+  "fixtures/us-d981-constructor-fixtures.json": {
+    "sha256": "3dffa552f0af77bdd49cb99e696e3f59988791d348f9cb34a2abf287d6019134",
+    "bytes": 9399
+  },
+  "fixtures/us-d981-integrity.json": {
+    "sha256": "fc1c133b3362e4a4624df77d3acca735fcdd4dff376c88abcaefb39bc2196c1c",
+    "bytes": 2525
+  },
+  "fixtures/us-d981-native-observation-report.json.gz": {
+    "sha256": "b204ef245afec3b4854abe3824fdcc3452c3648a135eb1361ad753b838f40c2f",
+    "bytes": 112945
+  },
+  "fixtures/us-d981-original-findings.json": {
+    "sha256": "daea7cf0984dc580751f1761e6bdcd61df10609850523d1e7dee6764490f572b",
+    "bytes": 5271
+  },
+  "initial-controls/cpu-controls-final-r2.json": {
+    "sha256": "28555a21fed4139ff15908da6953a20aebb3e463d22c705e3169419bb3afa6b7",
+    "bytes": 19530
+  },
+  "initial-controls/cpu-controls-final-r2.log": {
+    "sha256": "1c3ea6c7733730a7850dfb4fc34ffaa0d04ba2acbb8639185fdf45c22a808d18",
+    "bytes": 2059
+  },
+  "initial-controls/cpu-controls-final-r3.json": {
+    "sha256": "022ad35bb983f7741f2c881ca3155c73ee9340c86f70da13939fc37384c6739e",
+    "bytes": 20218
+  },
+  "initial-controls/cpu-controls-final-r3.log": {
+    "sha256": "b25211873e44bed0a0bd39e8402d6ee5da6679d74d851b91ef04c483d3d87020",
+    "bytes": 2151
+  },
+  "initial-controls/cpu-controls-first.json": {
+    "sha256": "916849b07142cf3d4904ab90c4f18ed1704112b3a92d4858d37ca7b4ee1b5b95",
+    "bytes": 12487
+  },
+  "initial-controls/runner-before-historical-fixtures.cjs": {
+    "sha256": "0e9c71524357a46384abf135d550d5d0f53957f5aa3777cf884c618ed6ee8210",
+    "bytes": 10506
+  },
+  "integration-initial-body-audit-check.cjs": {
+    "sha256": "af6704ed849ea0a7cf2e92ea6254b86d74326401f1e71bb92e3994e3ae442a99",
+    "bytes": 15299
+  },
+  "integration-initial-body-audit.cjs": {
+    "sha256": "f77a5798820ce5eb7f5ad7ec597e094267d521a9da9336a0fbcd8ef3a0811e82",
+    "bytes": 11316
+  },
+  "integration-transitions.cjs": {
+    "sha256": "c70c220739bb6fa2464d9f6aa8b9408d385d5571a65b61947099a3d854e69fdc",
+    "bytes": 20238
+  },
+  "setup-diagnostic.json": {
+    "sha256": "e59ce654ef8e072cd05e5d73f35b2973703f895008200f1362f92ec82b7ca664",
+    "bytes": 457
+  }
+}

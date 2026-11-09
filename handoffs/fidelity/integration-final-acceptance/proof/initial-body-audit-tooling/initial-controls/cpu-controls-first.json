@@ -1,0 +1,473 @@
+{
+  "browserLaunched": false,
+  "controls": [
+    {
+      "name": "native hatch uses emitted negative wheel bottom and top, not declared1.46m",
+      "pass": true,
+      "details": {
+        "declared": 1.46,
+        "interval": {
+          "known": true,
+          "min": 0.17500000238418578,
+          "max": 1.7599999809265137,
+          "method": "actual-model-vertices",
+          "vertices": 2568,
+          "declaredModelHeight": 1.46
+        }
+      }
+    },
+    {
+      "name": "native pitched/rolled/scaled/parented model matches independent Three world-vertex bounds without mutation",
+      "pass": true,
+      "details": {
+        "expected": [
+          5.867873178109189,
+          10.87380004243605
+        ],
+        "actual": {
+          "known": true,
+          "min": 5.867873178109189,
+          "max": 10.87380004243605,
+          "method": "actual-model-vertices",
+          "vertices": 8,
+          "declaredModelHeight": 3.2
+        }
+      }
+    },
+    {
+      "name": "overlapping tall models more than2.5m apart vertically still fail actual geometry intersection across source layers",
+      "pass": true,
+      "details": {
+        "tested": 1,
+        "rawXYPositives": [
+          {
+            "a": 229,
+            "b": 423,
+            "xyPenetrationM": 2,
+            "verticalIntersectionM": 0.4500000476837158,
+            "bodyA": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "bodyB": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "verticalA": {
+              "known": true,
+              "min": 0.24,
+              "max": 3.690000047683716,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 3.45
+            },
+            "verticalB": {
+              "known": true,
+              "min": 3.24,
+              "max": 4.74,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 1.5
+            }
+          }
+        ],
+        "genuineIntersections": [
+          {
+            "a": 229,
+            "b": 423,
+            "xyPenetrationM": 2,
+            "verticalIntersectionM": 0.4500000476837158,
+            "bodyA": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "bodyB": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "verticalA": {
+              "known": true,
+              "min": 0.24,
+              "max": 3.690000047683716,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 3.45
+            },
+            "verticalB": {
+              "known": true,
+              "min": 3.24,
+              "max": 4.74,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 1.5
+            }
+          }
+        ],
+        "unknownHeightPairs": []
+      }
+    },
+    {
+      "name": "same-XY bodies with actual separated model heights retain raw positive without false physical failure",
+      "pass": true,
+      "details": {
+        "tested": 1,
+        "rawXYPositives": [
+          {
+            "a": 1,
+            "b": 2,
+            "xyPenetrationM": 2,
+            "verticalIntersectionM": -0.6000000238418581,
+            "bodyA": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "bodyB": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "verticalA": {
+              "known": true,
+              "min": 0.24,
+              "max": 1.639999976158142,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 1.4
+            },
+            "verticalB": {
+              "known": true,
+              "min": 2.24,
+              "max": 3.6399999761581423,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 1.4
+            }
+          }
+        ],
+        "genuineIntersections": [],
+        "unknownHeightPairs": []
+      }
+    },
+    {
+      "name": "raw small XY positives remain recorded while over5cm intersections fail",
+      "pass": true,
+      "details": {
+        "threshold": {
+          "xyPenetrationM": 0.05,
+          "verticalIntersectionM": 0,
+          "rawXYPositiveM": 0
+        },
+        "small": 0.040000000000000036,
+        "meaningful": 0.06000000000000005
+      }
+    },
+    {
+      "name": "drawn mesh heading detects crossing body despite stale native cached heading",
+      "pass": true,
+      "details": {
+        "nativeHeading": 0,
+        "drawnHeading": 1.5707963267948963,
+        "pairs": [
+          {
+            "a": 1,
+            "b": 2,
+            "xyPenetrationM": 1.4999999999999993,
+            "verticalIntersectionM": 2,
+            "bodyA": {
+              "x": 0,
+              "z": 0,
+              "fx": -1,
+              "fz": -2.220446049250313e-16,
+              "length": 8,
+              "width": 1,
+              "heading": 1.5707963267948963
+            },
+            "bodyB": {
+              "x": 3,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 2,
+              "width": 1,
+              "heading": 0
+            },
+            "verticalA": {
+              "known": true,
+              "min": 0.24,
+              "max": 2.24,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 2
+            },
+            "verticalB": {
+              "known": true,
+              "min": 0.24,
+              "max": 2.24,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 2
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "invisible active mesh is audited and pooled identity/pose is retained without a published-pair exemption",
+      "pass": true,
+      "details": {
+        "activeIds": [
+          1,
+          2
+        ],
+        "poolIds": [
+          50
+        ],
+        "pairs": {
+          "tested": 1,
+          "rawXYPositives": [
+            {
+              "a": 1,
+              "b": 2,
+              "xyPenetrationM": 2,
+              "verticalIntersectionM": 2,
+              "bodyA": {
+                "x": 0,
+                "z": 0,
+                "fx": 0,
+                "fz": -1,
+                "length": 4,
+                "width": 2,
+                "heading": 0
+              },
+              "bodyB": {
+                "x": 0,
+                "z": 0,
+                "fx": 0,
+                "fz": -1,
+                "length": 4,
+                "width": 2,
+                "heading": 0
+              },
+              "verticalA": {
+                "known": true,
+                "min": 0.24,
+                "max": 2.24,
+                "method": "actual-model-vertices",
+                "vertices": 8,
+                "declaredModelHeight": 2
+              },
+              "verticalB": {
+                "known": true,
+                "min": 0.24,
+                "max": 2.24,
+                "method": "actual-model-vertices",
+                "vertices": 8,
+                "declaredModelHeight": 2
+              }
+            }
+          ],
+          "genuineIntersections": [
+            {
+              "a": 1,
+              "b": 2,
+              "xyPenetrationM": 2,
+              "verticalIntersectionM": 2,
+              "bodyA": {
+                "x": 0,
+                "z": 0,
+                "fx": 0,
+                "fz": -1,
+                "length": 4,
+                "width": 2,
+                "heading": 0
+              },
+              "bodyB": {
+                "x": 0,
+                "z": 0,
+                "fx": 0,
+                "fz": -1,
+                "length": 4,
+                "width": 2,
+                "heading": 0
+              },
+              "verticalA": {
+                "known": true,
+                "min": 0.24,
+                "max": 2.24,
+                "method": "actual-model-vertices",
+                "vertices": 8,
+                "declaredModelHeight": 2
+              },
+              "verticalB": {
+                "known": true,
+                "min": 0.24,
+                "max": 2.24,
+                "method": "actual-model-vertices",
+                "vertices": 8,
+                "declaredModelHeight": 2
+              }
+            }
+          ],
+          "unknownHeightPairs": []
+        }
+      }
+    },
+    {
+      "name": "unknown active model height fails visibly and preserves unclassified raw pair",
+      "pass": true,
+      "details": {
+        "invalid": [
+          {
+            "id": 2,
+            "reason": "no actual model geometry or explicit model dimensions"
+          }
+        ],
+        "unknown": [
+          {
+            "a": 1,
+            "b": 2,
+            "xyPenetrationM": 2,
+            "verticalIntersectionM": null,
+            "bodyA": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "bodyB": {
+              "x": 0,
+              "z": 0,
+              "fx": 0,
+              "fz": -1,
+              "length": 4,
+              "width": 2,
+              "heading": 0
+            },
+            "verticalA": {
+              "known": true,
+              "min": 0.24,
+              "max": 2.24,
+              "method": "actual-model-vertices",
+              "vertices": 8,
+              "declaredModelHeight": 2
+            },
+            "verticalB": {
+              "known": false,
+              "method": "unknown",
+              "reason": "no actual model geometry or explicit model dimensions"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "physical waiting-pedestrian coordinates are retained without substituting future slot",
+      "pass": true,
+      "details": [
+        {
+          "id": 42,
+          "x": 1,
+          "z": 2,
+          "footY": 0.37,
+          "heading": 0.4,
+          "scale": 1,
+          "state": "wait",
+          "onRoad": false,
+          "s": null,
+          "animX": null,
+          "animZ": null
+        }
+      ]
+    },
+    {
+      "name": "asymmetric player body centre uses actual front/rear offset",
+      "pass": true,
+      "details": {
+        "x": 100,
+        "z": 99.47,
+        "fx": 0,
+        "fz": -1,
+        "length": 5.779999999999999,
+        "width": 1.8
+      }
+    },
+    {
+      "name": "observer preserves exact receiver/args/return pointer and snapshots before attach/first draw",
+      "pass": true,
+      "details": {
+        "phases": [
+          "before-attachWorldRender",
+          "before-first-world-draw"
+        ],
+        "receiverArgsAndReturnPointersPreserved": true,
+        "noSceneActorReferencesInRecords": true
+      }
+    },
+    {
+      "name": "serialized browser factory has no Node/module closure dependency",
+      "pass": true,
+      "details": {
+        "phase": "serialized",
+        "conflicts": 1
+      }
+    },
+    {
+      "name": "static transition wiring installs before loads and cannot gate-skip initial audit",
+      "pass": true,
+      "details": {
+        "sequence": [
+          "floreasca",
+          "grozavesti",
+          "pipera",
+          "romana",
+          "unirii",
+          "otopeni",
+          "seatac",
+          "bellevue",
+          "grozavesti",
+          "pipera",
+          "romana",
+          "unirii",
+          "otopeni",
+          "seatac",
+          "bellevue"
+        ],
+        "installsBeforeFirstLoad": true,
+        "bodyGateUnconditional": true
+      }
+    }
+  ],
+  "complete": true
+}

@@ -1,0 +1,21 @@
+{
+  "browserLaunched": false,
+  "finalNative15Run": "HOLD pending root actual40SHA",
+  "cpuControlsPassed": 18,
+  "syntaxPassed": [
+    "integration-initial-body-audit.cjs",
+    "integration-initial-body-audit-check.cjs",
+    "integration-transitions.cjs"
+  ],
+  "toolHashes": {
+    "integration-initial-body-audit.cjs": "f77a5798820ce5eb7f5ad7ec597e094267d521a9da9336a0fbcd8ef3a0811e82",
+    "integration-initial-body-audit-check.cjs": "af6704ed849ea0a7cf2e92ea6254b86d74326401f1e71bb92e3994e3ae442a99",
+    "integration-transitions.cjs": "c70c220739bb6fa2464d9f6aa8b9408d385d5571a65b61947099a3d854e69fdc"
+  },
+  "nativeVehiclesSha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+  "fixedThresholds": {
+    "xyPenetrationM": 0.05,
+    "verticalIntersectionM": 0
+  },
+  "unavailableNativeCoverage": "No new all15/all8 constructor/publication report yet; CPU fixtures are historical, exact source labelled."
+}

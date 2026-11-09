@@ -16,7 +16,7 @@ import { addTraffic } from '../cars.js';
 import { buildingStyle, wallGeometry, facadeMaterial, facadeStyle } from '../osm.js';
 import { seaActivity, seaWheel, seaBackdrop, signAtlas } from './sea-common.js';
 import { coinDrop } from '../coin-drop.js';
-import { activityBlocked } from '../participation.js';
+import { activityBlocked, onActivityCancel } from '../participation.js';
 
 // ---------------------------------------------------------------------------- street profile (OSM centrelines, research elevations)
 const PIKE_PLACE = [[-50, 33], [-60, 25], [-76, 10], [-91, -3], [-95, -6], [-103, -14], [-126, -34], [-141, -48], [-148, -53], [-151, -56], [-172, -75], [-179, -81], [-263, -155], [-270, -161]];
@@ -214,9 +214,16 @@ function buildFishThrow(ctx) {
     const front = { x: p0.x - p0.tz * -1.2, z: p0.z + p0.tx * -1.2 };    // monger in front of the counter (street side)
     const back = { x: p0.x - p0.tz * -5.6, z: p0.z + p0.tx * -5.6 };     // catcher behind the counter
     let t = -1, from = null, to = null, dur = 1.1, next = 4, toPlayer = false, caught = false, catchWindow = 0;
+    const cancelPlayerThrow = () => {
+        if (!toPlayer) return;
+        t = -1; catchWindow = 0; toPlayer = false; fish.visible = false; next = 5;
+    };
+    // Pause/conditions stop scene updates. Clear the unfinished player throw
+    // before the host freezes the scene, just as the shared activity flows do.
+    onActivityCancel(ctx, cancelPlayerThrow);
     const throwFish = (a, bb, toP = false) => { from = a; to = bb; t = 0; dur = toP ? 1.25 : 1.05; fish.visible = true; toPlayer = toP; caught = false; };
     ctx.onUpdate((dt, s, pl) => {
-        if (toPlayer && activityBlocked(s)) { t = -1; catchWindow = 0; toPlayer = false; fish.visible = false; next = 5; return; }
+        if (toPlayer && activityBlocked(s)) { cancelPlayerThrow(); return; }
         next -= dt;
         if (t < 0 && next <= 0) {
             next = 5 + Math.random() * 6;

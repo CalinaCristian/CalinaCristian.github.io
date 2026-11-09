@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "b44ac0c27db70968b036cf33c309131b1dfefa03",
+  "sourceSha": "4e707c61de9b5f5a57945725d6cdbcde0038dcdb",
   "reviewedOn": "2026-11-09",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -1066,7 +1066,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "30a60619bad4623b81ce7897e7479ecba393e3b8c99884e495332f093b64eb3d"
+      "sha256": "c1982c1f8e2865ea1eb339044a90e66e8836fa903b20f426b2a4a2484bb4130c"
     },
     {
       "path": "specs/README.md",
@@ -1078,7 +1078,7 @@
     },
     {
       "path": "specs/01-architecture.md",
-      "sha256": "857bbbe5ca03e9d39563a2900f4a9d1a922a359e2d981d54f73dcdff3e479718"
+      "sha256": "fe8ed299bd2774e139c668698fc0835a38e99c284997511a2b07c9367da5743d"
     },
     {
       "path": "specs/STATUS.md",
@@ -1122,7 +1122,7 @@
     },
     {
       "path": "game/src/main.js",
-      "sha256": "b727104ff365df42832e9d256c4adc593768913172e2585af83127b1cf7cf48c"
+      "sha256": "684844108de63b868c5a105c979c8bc19f51bcefc6635a6151fc39d1b61b0f38"
     },
     {
       "path": "game/src/world.js",
@@ -3474,35 +3474,35 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/ambasador.json",
-      "sha256": "69282da4342c301b2c0f1072809be3406b4f82330e0e5653795e5bb50d8bd51b"
+      "sha256": "acfc44eb67ea21268f163504f025c74f22c4d09f57affb7f1c560f01137b52e3"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/arcul.json",
-      "sha256": "91406bb865162ec1706eeeff3faec2b4c3ab36941c56b4c033acc2118b4d39cf"
+      "sha256": "9f9788312cd21347cb24f857c6724fa2015467574bfd1907419cae853fbb1f01"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/aro.json",
-      "sha256": "8943663b837359839dc69cc5c5ceed4b94480857b81ed13d96ac3cae297005ba"
+      "sha256": "ff156a4ab67dc11a08e965ba9af56f90f2c99809788a2ecc42329ad7d5a075c6"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/ase.json",
-      "sha256": "b231288d208b6e35b4183539dd4ad0074252ccc612441f14d2a41c35149b5f4d"
+      "sha256": "0f177b11572fd09cf77427f44761db04d1d3174362478d270660e8d8682b0d41"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/ateneu.json",
-      "sha256": "db3aca0b249b424928192f698232510e01834e735a4b5b8958106bb3c1380142"
+      "sha256": "fd3dc7f7a477528188972c6235a0744e78b28e7fa4389af92903a91f9d5e9dd1"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/aviatorilor.json",
-      "sha256": "33cbaf2d69be61c9f3b73c885d23b7fa0e7b22e222e770ba21c8ddb961db90c2"
+      "sha256": "63b1ec6a964579fbe34bc918fd3f78dabd0ea5eb1b5d9849b4119af86fb4c57d"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/baneasasc.json",
-      "sha256": "97bacaa624caf58fc79d79e30cc58c5cc74f01527e234f554b451d5f3ff8d790"
+      "sha256": "e0e09d22bd6b6001f13075e5091e8fd2970188a3c60616d593fe52abbf875b9b"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/baneasaterm.json",
-      "sha256": "94bd3a7325042a1dc6ccaeddaf9d7f876006f21fceeff62645fe8502e986bb98"
+      "sha256": "a440dd1dbdce5b07bdf24239332b632baafdaae8782596fd83f64a7de12cd80c"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/bob.json",
@@ -3510,7 +3510,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/casapresei.json",
-      "sha256": "8c20ffc3d73a03a508b9ff7e8444fffc5a5143a579f57c8ea9eab633ca6e2666"
+      "sha256": "0df164a27bde2e13afdf86fd5a1c2fdc338dec77a3d62ba205706b83dbbbca16"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/cathedral.json",
@@ -3518,39 +3518,39 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/cec.json",
-      "sha256": "bbbffb40a859347f41233847d05f54d68131a261e8821a531bf87172944a1391"
+      "sha256": "7df56f46230a0d6b6da4678719b746e0c9c755d944416f4eb7e3efc5698a1981"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/dinamo.json",
-      "sha256": "a728f2d907ed922386dab4eef19111332ea6ccde9b8884231790ec2605db766d"
+      "sha256": "6188bbc5cb77e8524684be5dc32860f8d03edc3f37c5c9adaefd93633d7036c5"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/europehouse.json",
-      "sha256": "d535b9d463bb62913671823fc85b694be2bceddc122e7e6f2ba3b8016c12c33c"
+      "sha256": "cc74ed794495da621fba7c40aa0a671e60e34aa6d2a3f230712a3b251e78bca5"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/fountains.json",
-      "sha256": "9912e95c0134794c4e2b532c0aac369ad8ea8f3ab1a73fd6a97d208a0d23ed25"
+      "sha256": "8c630b72daeadb9c52072afa41b1af6a8322976cfb1e5aa28f0cbb8cd13aaf20"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/gara.json",
-      "sha256": "aa795467d7f60611fa64ecd5db36f79adcb28946cec08a9ebf49c3b75ec7df6d"
+      "sha256": "5391957ab089b833a2c217d1eff976084cc9c6de488c3dd36dfcb28d6a7cbc6b"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/globalworth.json",
-      "sha256": "2abb4e9a5c2c83324e27545206e2127d4482a99817e5dffac09ec931fac9b0f3"
+      "sha256": "e858640468e6687e02195ba90e7a5d53fce3271cdae8f07b0a2f67e507c3f05f"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/grandhotel.json",
-      "sha256": "86d91f04b10972f4eddd9810b7cde82434b7c00ccf937f190b2c0ab7af1de6da"
+      "sha256": "c1f2015d9083f3a48c7147cec751794c8443ae86ca5314efbb28ef214964c4d9"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/gts.json",
-      "sha256": "64ac3f8bd2c34c0cfd2e037dff9bc8f005fbb757fd949fd9e730e4c6e17861a6"
+      "sha256": "2d5c1b4d9efc0f9fcbd7562ca781231d635b17fbb2d25c58e305dc4fb70145a4"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/halatraian.json",
-      "sha256": "1133b907d082320d9d349216f7fde117dbab6c1bebfa72386ace788042827239"
+      "sha256": "0c79650739b7c4ea90de10d32c94fefde1ac6dcf8239de8c2a9fcfcf91ef1759"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/hermes.json",
@@ -3558,31 +3558,31 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/marriott.json",
-      "sha256": "d75f8cdb7517ea063f08688c6f0ccbbe3a13be4c72bbec912d2e62391a3368ba"
+      "sha256": "afaba7ef4c176b9d9818b1a66da03408b240174d3facc455831829e90ffe4d5a"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/mnir.json",
-      "sha256": "08b61254371c15b0a7736a8735563686440143362ad68f4f36cb928f8fae8f0d"
+      "sha256": "806dbe056477bb5b29db8cfa86e6e6c828e97ed6bfd1fffc5136d1675df34149"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/opera.json",
-      "sha256": "c825d7b1826f9db5c835cdd7d843ecdb3922eb0508fa1c1c79d6aae886972755"
+      "sha256": "de55d295b49eb3387c2fbceeed575d0cdd0e153dd762e1b2ea0781ddc0351c20"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/otp.json",
-      "sha256": "1a84d46c52bde2144dd552c8d21814693b69e68a557db45b428fe2bce7827806"
+      "sha256": "5476845e8a486123b7b9b8d275ee3b413ad709dfc92ffab8bcd4bab5c813c13b"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/parliament.json",
-      "sha256": "ce86b44aee7a2c69abb1a3976646443921c18d11fb304f2b648810312a5be5e5"
+      "sha256": "472af79fa6f129c542a46b64394eb2252672e0b1abf987a86fd9175f89a4078d"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/politehnica.json",
-      "sha256": "4df0ccc5cd93a98dc8199c85503affac7ca2fe3585f4b2b3b3efa5d508e0e5c0"
+      "sha256": "7b4d3211431826c697651577f5fb53a2046e004b275c2d05fc1f37672f0982e9"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/promenada.json",
-      "sha256": "8aec178cfdf109ad5628e50da3217c14d2d1d4b1afea6e5a446361bf5a13f339"
+      "sha256": "65c785f20b987400dbb1eb1170b06b68089307b419995635cb1a71ff330f2232"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/regal.json",
@@ -3590,11 +3590,11 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/romexpo.json",
-      "sha256": "32a812daf4fe87069c7c24862cab4888a890d8b98cab62e8b1aeaff6424d0dd1"
+      "sha256": "308d76b02583e4852349543abaf4f666b64f7847d0fafb5282e6c407d14eb06f"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/rosetti.json",
-      "sha256": "8c75fe10c72d79e4ed163f9c9d14f56f534172351d45a06799ff37f4516fb4d5"
+      "sha256": "5dc73090698984e9bff346d7b44d13d2d418058282f96e585abfb2660291abe7"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/skytower.json",
@@ -3602,91 +3602,91 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/thelandmark.json",
-      "sha256": "d4323599f8b896c030f3cf0d64029176e87d32cae8f9a89908cd5d5e86a7134e"
+      "sha256": "94fb92941dcd836dc396587de9e62f157f3f25902fa888397405b75ef7c7ba55"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/tnb.json",
-      "sha256": "9f6b324741f4d6ec489d97da0261273562509c657cff3c4334895821273891bf"
+      "sha256": "9911c049223ab17058d59cb87cf4849329bcf97d15b18d87668075d6a5fc23fb"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/unirea.json",
-      "sha256": "3755166e9d53619edbd34f77317f61f6464236725acac12bf017558a48904e76"
+      "sha256": "7e3a8968b6e199807a8ecb9ac6983cc2d8238c681af87ab05d0eedb5ba3f7343"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/univ.json",
-      "sha256": "686be0efa79ea79f0b26def59b53e62a3713d321831168e93b1bed8b2a096880"
+      "sha256": "1be523ad33d9d726df56b3149d6b68e3e7deed5e71891acd222f2c2440da2cbf"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/victoria.json",
-      "sha256": "a345cf324fd296e3885158689c1a8f0fd07f8e9c952c81e015ccede950c92ccd"
+      "sha256": "af5ca1109e9122e7e3c8147269a9774c2e18e9f8910ababe82095a27e61b32b3"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/bellevue600.json",
-      "sha256": "e471a7921ed0fc620bf3f61afac80baff5516ef9b9797fc09445bfed08cb4a79"
+      "sha256": "354d7d73699c752eedfb111d5d5f0dce62e874ae41b885b678bf7b732fa1820a"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/bellevuesq.json",
-      "sha256": "b44516c4d7be0fcf82e366817fa8b7ab5dbef6dbc662eacabee2e6af4f83c72c"
+      "sha256": "524764f1253433bb6ac93e42b4429acf59c0effda36ad6a355c9d87f90635552"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/bellevuetowers.json",
-      "sha256": "2da3ca01f01724341c9cbde0cfc0b558b71d9f3bff4c1d96e1b7ac19e014019b"
+      "sha256": "495ab87e8ef8d076a2ace64e6881821006e99cfe23790edbaaac58a72fa052f9"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/columbia.json",
-      "sha256": "60e91be828e8221ab6eb993fe9f76c59650d67e55181a033a573bb124be937a8"
+      "sha256": "97414b556885586918601ae96f2a2ec25b5bc3015b2d3ba9897d895660c404e5"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/greatwheel.json",
-      "sha256": "9a8d72d72a7ed86c19a72fa1b0ff487b33634d9e1c30646bf2d3349cd73b85ac"
+      "sha256": "4608e8baff83b6a437d1941aaffda98aac8746d377026d14d2112485e59ab86c"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/lincoln.json",
-      "sha256": "1a8035802c5ca68367e349e2a1217be03a8ba82e30a1a62bdacc97386c07a2ac"
+      "sha256": "c92e071e59c09e675a37529da1c4d5fac209b330d5aa2d2946ae0e1edc3709af"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/lincolnsouth.json",
-      "sha256": "4c6939a8e663c4292c9c9e5be01143714e535f554ef4dc94641bd15371a7c6b9"
+      "sha256": "f649d0eeecf384f1859151a869dc5901b22696042d9ec57805ea9847643465b9"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/lumen.json",
-      "sha256": "c2c0643343a3d924095ece4302e25d5d2ca7dae646a72f639a9291994836f913"
+      "sha256": "1b8b022ecd687b3259812967c3bb332b74db5e02b7943a6f3bbc22e59bdcaaa8"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/mtbaker.json",
-      "sha256": "270e97f86383642614f8902e338263738971141c3893cd98eb0a8d2f4611d139"
+      "sha256": "cabba4090e1cd9fe12753f2102c543ffce1930bf09c8ded158ac5601ca6e617e"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/murrowe.json",
-      "sha256": "f8ee760c7bb725d3fb290885ab9c671accc240062bc17789c44e4033d979fb49"
+      "sha256": "d90cc96f4f30f6fb229fac0a34e0103864bb7df687f11e030b24d2015a90360d"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/murroww.json",
-      "sha256": "fcd803aaa2c38f595598a5933467d7e97e3e4249d24e8f27d152dcc88426c209"
+      "sha256": "fbd250bfc3009279e8263a3f1ae41cdfd7dbf98eb30645f3cf636da9a483d91b"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/olympics.json",
-      "sha256": "a1e146dd7e8c3cdbe7561082cea131ce08193bd2985e2df9b0a2513719ea5660"
+      "sha256": "cf91868c27e61af03e6961dadf9ac0ff79bf1d3ee477269d16906f02742eba43"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/onelincoln.json",
-      "sha256": "2a4fda0792a9dc94a16987342a15fadff1b4a7dbdee115bf16e6c03ebfbdce4e"
+      "sha256": "9a07e57190960cefb52cb1c4f1a462b6b53e1685e6d9a991e91fefe99635e4b6"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/plazacenter.json",
-      "sha256": "64da32e661a7cb6cbc24b49f6256cf44b360dad959480c48216a1c8725b75fb6"
+      "sha256": "c62fa322a593d15754cf37a6c64aec7fcecf76a9515b76508d7ea538c95da23b"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/rainier.json",
-      "sha256": "4f423c0842b6fa5b1fc1a8013b648df9ab619d3e84b1095b703e77660bcb9e0d"
+      "sha256": "890bf84b09503618541f2882a8fe9a2614a2bcb7c6a9fb82cad4b976368d6911"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/seagarage.json",
-      "sha256": "2a4660e4b812965147aa3deb52a2be3e63a547ad7054ebfc4062f56035d46299"
+      "sha256": "0f2de77bc3dd5916f2853a6e304c2e6fc5711c46dac65400b90cc0b34c47d3ad"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/sealink.json",
-      "sha256": "a16733c46b7fe82d03adb14d1010877bf6878be66eff291cb0af98555d2f27da"
+      "sha256": "d3b4df6467024513169a65809cdc75100067fd82fefb8544e968e98dfb0bab36"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/seatac.json",
@@ -3694,27 +3694,27 @@
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/seatower.json",
-      "sha256": "dbcbbac68462255294fcbc66286d56e21316f63edf9ee9b93d3ed5553ee9f98f"
+      "sha256": "4b1ae6ba37a0d5e2343af26f1dbd5040381b45fdd754deb036d2b7ea1d2f080e"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/smith.json",
-      "sha256": "80a355146e1d1afcfe1379a3667bceb1176ae8b17cbb30fc981c69837c3ffedb"
+      "sha256": "395151bc0b6781d3e0f7c1eb288134f6d0e33e19e55844ba7e429522ffec04d9"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/sonic.json",
-      "sha256": "3251542a79db15a58f9612475df8c9f98defb39f7dc7bbb4cf9b51821ed64589"
+      "sha256": "46d976ce3c7ad69564fadc35e1a5ccdbf35c16c00d5b4b088a8d6556a73cd414"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/spaceneedle.json",
-      "sha256": "44f55ac72e7e3d492e232c47d76137a5576dc9c318c365cb7aab38fe26708c5e"
+      "sha256": "92f4a5f43d2207b6142162e654376a74c4709c16ac790b9537dc3da051a72f16"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/spheres.json",
-      "sha256": "9e688328402177e2dc45f014eb6cdc5411f1bdae205e7967ae1791ffcf30de83"
+      "sha256": "0c4ea167be1bf20667c913768ffc2908f6ef318ecf6cea00c54b022478857c2f"
     },
     {
       "path": "game/overview/evidence/landmarks/seattle/tmobile.json",
-      "sha256": "70b66c2f9c5603e65cdca40a495b0dcf301f87b55e78f78d763a51c23fc98d11"
+      "sha256": "9d7d4ede89f72ba1a1e4b5fe997f39f9050c02c27ccb266fcb4ef06bfef1ead0"
     },
     {
       "path": "game/overview/evidence/spots/arcul-de-triumf.json",
@@ -3814,11 +3814,11 @@
     },
     {
       "path": "game/overview/evidence-paths.js",
-      "sha256": "e95a0762ee62178190425b3ea9d29c974235f2f0379c5bf4089c1f3f115e2dc4"
+      "sha256": "9e59dd55869e10527b45fec156f00a4f926c8c4a1922e3a336ff35b40d8f754d"
     },
     {
       "path": "game/overview/generate.mjs",
-      "sha256": "a758c4a975560264500bf1737e03e56e327208da33c34e9839f8a1ab910643dd"
+      "sha256": "99c6050e8f94261253d6be6566d62ef649a446a9f0dcbc9de206427c7f98327c"
     },
     {
       "path": "game/overview/index.html",
@@ -3826,7 +3826,7 @@
     },
     {
       "path": "game/overview/landmark-evidence.js",
-      "sha256": "229f7c4eb8dae8516b28db942fd8bb6940339f196e1a284e027d45b88198e274"
+      "sha256": "b329121292a5cc1eca5f76d48d0132153334e3a695116f3faf909333526f2822"
     },
     {
       "path": "game/overview/overview.js",

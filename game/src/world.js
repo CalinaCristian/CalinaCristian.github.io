@@ -20,6 +20,7 @@ import { batchWaterChunks } from './water-batch.js';
 import { cullMergedCells } from './cell-frustum.js';
 import { waterChannelDecision } from './water-channel.js';
 import { uncoveredWaterLine } from './water-lines.js';
+import { buildTramGrades, tramDeckBand } from './tram-grade.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -2906,11 +2907,55 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
         }
     }
+    // The same source grade resolver is later exposed to Traffic. Heights are
+    // explicit model profiles, independent of motor routing and source layers.
+    const tramGrades = buildTramGrades(data, { coreEdges: edges }), tramDecks = [];
     // tram tracks
-    for (const pl of trams) {
+    for (const [run, pl] of trams.entries()) {
         for (let i = 0; i < pl.length - 1; i++) {
             const [ax, az] = pl[i], [bx, bz] = pl[i + 1]; const L = Math.hypot(bx - ax, bz - az); if (L < 0.05) continue;
             const ux = (bx - ax) / L, uz = (bz - az) / L, nx = -uz, nz = ux;
+            const grade = tramGrades.forRun(run, i);
+            if (grade) {
+                // Flat decks need only bounded pieces for cells; smooth ramp
+                // chords stay within2mm of the exact shared continuous profile.
+                const fractions = new Set([0, 1, ...grade.breaks]);
+                const step = Math.abs(grade.ya - grade.yb) > 1e-8 || grade.breaks.length ? 1.5 : 10;
+                for (let k = 1, count = Math.ceil(L / step); k < count; k++) fractions.add(k / count);
+                const ts = [...fractions].sort((a, b) => a - b);
+                for (let j = 1; j < ts.length; j++) {
+                    const t0 = ts[j - 1], t1 = ts[j], a = [ax + (bx - ax) * t0, az + (bz - az) * t0], b = [ax + (bx - ax) * t1, az + (bz - az) * t1];
+                    if ((t1 - t0) * L < 1e-6) continue;
+                    const y0 = grade.heightAt(t0), y1 = grade.heightAt(t1), c = cellOf((a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
+                    const n0 = t0 === 0 && grade.aOffset ? grade.aOffset : [nx, nz], n1 = t1 === 1 && grade.bOffset ? grade.bOffset : [nx, nz];
+                    const quad = (width, top0, top1, miter = true) => { const u = miter ? n0 : [nx, nz], v = miter ? n1 : [nx, nz]; return [[a[0] + u[0] * width, top0, a[1] + u[1] * width], [b[0] + v[0] * width, top1, b[1] + v[1] * width], [b[0] - v[0] * width, top1, b[1] - v[1] * width], [a[0] - u[0] * width, top0, a[1] - u[1] * width]]; };
+                    const supported = grade.bridge || Math.max(y0, y1, grade.heightAt((t0 + t1) / 2)) > 1e-8;
+                    const top = quad(grade.deckHalfWidthM, Y.ballast + y0, Y.ballast + y1);
+                    if (supported) {
+                        const bottom = top.map(p => [p[0], p[1] - grade.thicknessM, p[2]]), slab = rgb('#96938b');
+                        c.solid.face4(...top, slab, [0, 1, 0]);
+                        c.solid.face4(...bottom.slice().reverse(), rgb('#55524d'), [0, -1, 0]);
+                        for (const [n, k] of [[0, 1], [2, 3]]) c.solid.face4(bottom[n], bottom[k], top[k], top[n], slab, n === 0 ? [nx, 0, nz] : [-nx, 0, -nz]);
+                        const local = { ...grade, heightAt: t => grade.heightAt(t0 + (t1 - t0) * Math.max(0, Math.min(1, t))) };
+                        const band = tramDeckBand(a, b, local, Y.ballast), poly = top.map(p => [p[0], p[2]]), x = (a[0] + b[0]) / 2, z = (a[1] + b[1]) / 2;
+                        const deck = { x, z, r: Math.max(...poly.map(p => Math.hypot(p[0] - x, p[1] - z))), poly, holes: [], roadDeck: true, railDeck: true,
+                            kind: 'source-tram-deck', sourceId: data.tramSources[run].sourceId, sourceNodeIds: data.tramSources[run].nodeIds.slice(i, i + 2), sourceTags: data.tramSources[run].tags,
+                            estimated: true, elevationSource: grade.basis, sourceAnchorIds: grade.sourceAnchorIds, modelId: grade.modelId,
+                            y0: Math.min(...bottom.map(p => p[1])), y1: Math.max(...top.map(p => p[1])), h: Math.max(...top.map(p => p[1])),
+                            roofHeightAt: (px, pz, radius) => band(px, pz, radius).top, minHeightAt: (px, pz, radius) => band(px, pz, radius).bottom };
+                        sceneryDeckGrid.insert(x - deck.r, z - deck.r, x + deck.r, z + deck.r, deck); tramDecks.push(deck);
+                        tramGrades.report.renderedDeckPieces++; tramGrades.report.renderedTriangles += 8;
+                    }
+                    (supported ? c.road : c.ground).face4(...quad(1.4, Y.ballast + y0 + (supported ? .001 : 0), Y.ballast + y1 + (supported ? .001 : 0)), ballastCol, [0, 1, 0]);
+                    for (const offset of [-.72, .72]) {
+                        const hw = .045, yy = Y.road + Y.mark + .006;
+                        c.marks.face4([a[0] + nx * (offset + hw), yy + y0, a[1] + nz * (offset + hw)], [b[0] + nx * (offset + hw), yy + y1, b[1] + nz * (offset + hw)],
+                            [b[0] + nx * (offset - hw), yy + y1, b[1] + nz * (offset - hw)], [a[0] + nx * (offset - hw), yy + y0, a[1] + nz * (offset - hw)], railCol, [0, 1, 0]);
+                    }
+                    tramGrades.report.renderedTriangles += 6;
+                }
+                continue;
+            }
             const c = cellOf(ax, az);
             c.ground.flatQuad(ax + nx * 1.4, az + nz * 1.4, bx + nx * 1.4, bz + nz * 1.4, bx - nx * 1.4, bz - nz * 1.4, ax - nx * 1.4, az - nz * 1.4, Y.ballast, ballastCol, 0.3);
             for (const o of [-0.72, 0.72]) {
@@ -3522,6 +3567,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const palette = PALETTES[country], roofCols = ROOF_COL[country];
     const collision = [];
     const propColl = []; // small circles for street furniture (trees, posts, shelters…)
+    propColl.push(...tramDecks);
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });
     propColl.push(...sportsColl); // (pitch / court fences, dugouts, goal and hoop posts)
@@ -5730,6 +5776,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.waterShore = waterShoreAudit;
     stats.waterChannels = waterChannelAudit;
     stats.waterLines = waterLineAudit;
+    stats.tramGrades = tramGrades.report;
     console.info('[world]', city.id, stats);
 
     /** calls cb(height) for every drivable surface (carriageway + shoulder + sidewalk, junction pads) covering (x, z) */
@@ -5757,6 +5804,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         camera: null, // optional: set to the main camera for distance culling (auto-detected otherwise)
         group, graph, buildings: allColl, pois, lights, nodeLight, bounds, nearestEdge, edgesInBox, isWater, isPark, waterMesh, sky,
         districts, areas, landmarks, trams, stats, data, spawn, city, allEdges,
+        tramGrade: tramGrades.resolveGrade, tramDecks,
         /** placed trees {x, z, species, con, kind} (read-only; QA detectors) */
         treeSpots: treeList,
         /** chapters: the loaded district {id, name, label, bbox, center, landmarks, congestion, areaKm2, ends:[{x,z,node,edge}] (road-closed

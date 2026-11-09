@@ -410,6 +410,7 @@ class Game {
             onBubble: (v, kind) => this.hud.bubble(v, kind, city.id),
             onSay: (target, text, sub, cls) => this.hud.say(target, text, sub, cls), // (parking reactions, driver lines with the English gloss)
             onHonk: (v, reason) => this.vehicleHonk(v, reason),
+            dialogueHost: this,
             onBand: (band, prev) => this.onTrafficBand(band, prev),
         });
         try { this.traffic.onParkingEvent?.((ev) => this.onParkingEvent(ev)); } catch (e) { console.warn('[parking]', e); } // traffic lane, note 8
@@ -743,6 +744,7 @@ class Game {
         if (this.holdToTravel(input, dt)) { this.fastTravelToObjective(); if (this.state !== 'drive') return; }
         if (input.take('Enter') || input.take('NumpadEnter')) { if (this.exitCar()) return; }
         hud.update(dt, this.camera, city.id);
+        traffic.situationalHudFrame();
         this.audio.engine(empty ? player.speed * 0.3 : player.speed, empty ? 0 : input.throttle, dt);
         this.stats.time += dt;
         // (sun follow / shadows / rain are handled inside Renderer3D.frame())
@@ -996,8 +998,9 @@ class Game {
     talkToPed(p, F) {
         const persona = this.pedPersona(p); p.talkN = (p.talkN || 0) + 1; p.talkT = 6; p.talkTo = F; p.talkWave = p.talkN === 1 ? 1.4 : 0;
         const order = p.talkN === 1 ? ['greeting', 'street', 'idle'] : p.talkN === 2 ? ['street', 'idle'] : ['idle', 'street'];
-        const l = this.talkLine(persona, order);
-        if (l) this.traffic.say(p, { t: l.orig || l.text, en: l.orig ? l.text : '' }, '', 3);
+        const l = this.talkLine(persona, order),dialogueEvent=this.traffic.dialogueEvent('greeting',F,{target:p,targetRole:'pedestrian'});
+        if (l) this.traffic.say(p, { t: l.orig || l.text, en: l.orig ? l.text : '' }, '', 3,{situational:true,event:dialogueEvent,role:'pedestrian'});
+        else this.traffic.speakSituational(dialogueEvent,p,'pedestrian');
         const tips = this.talkData()?.culture || [];
         if (p.talkN >= 2 && tips.length && /^(local|tech)/.test(persona) && Math.random() < 0.6) {
             const tp = tips[((p.i ?? 0) * 7 + p.talkN * 3) % tips.length]; let n = String(tp.note || ''); const cut = n.lastIndexOf('. ', 230);
@@ -1012,8 +1015,9 @@ class Game {
         this._chatT = (this._chatT ?? 6) - dt; if (this._chatT > 0) return; this._chatT = 7 + Math.random() * 7;
         const peds = (this.traffic?.peds?.near(F.x, F.z, 22) || []).filter((p) => p.state !== 'down' && !p.hidden && !p.agent && !p.react && !(p.talkT > 0) && Math.hypot(p.x - F.x, p.z - F.z) > 4);
         if (!peds.length) return; const p = peds[Math.floor(Math.random() * peds.length)];
-        const l = this.talkLine(this.pedPersona(p), Math.random() < 0.6 ? ['street', 'idle'] : ['idle', 'street']);
-        if (l) this.traffic.say(p, { t: l.orig || l.text, en: l.orig ? l.text : '' }, '', 1);
+        const l = this.talkLine(this.pedPersona(p), Math.random() < 0.6 ? ['street', 'idle'] : ['idle', 'street']),dialogueEvent=this.traffic.dialogueEvent('ambient',p,{sourceRole:'pedestrian'});
+        if (l) this.traffic.say(p, { t: l.orig || l.text, en: l.orig ? l.text : '' }, '', 1,{situational:true,event:dialogueEvent,role:'pedestrian'});
+        else this.traffic.speakSituational(dialogueEvent,p,'pedestrian');
     }
     cityHours() { const c = this.clock; return c.override ? OVERRIDE_HOURS[c.override] : localHours(this.nowDate(), c.timeZone); }
     /** the game's "now": real time, shifted by the free-roam time-of-day pick (clock.offsetMs) */
@@ -1271,7 +1275,9 @@ class Game {
         const p = this.player;
         this.audio.horn(0, 0, 1.0, 0.45);
         this.honks++;
-        const reacted = this.traffic.playerHonk(p.x, p.z, p.fx, p.fz);
+        const dialogueEvent=this.traffic.dialogueEvent('player-honk',p);
+        const reacted = this.traffic.playerHonk(p.x, p.z, p.fx, p.fz,dialogueEvent);
+        this.traffic.emitDialogueEvent(dialogueEvent);
         const rage = this.hud.addRage(this.city.id === 'bucharest' ? 6 + reacted * 2 : 3);
         if (this.honks === 1) this.hud.achievement('first-honk');
         if (this.honks === 10) this.hud.achievement('honk-10');
@@ -1284,21 +1290,25 @@ class Game {
         const pan = clamp((dx * -p.fz + dz * p.fx) / (d || 1), -1, 1) * -1;
         this.audio.horn(pan, d, 0.8 + ((v.x * 13) % 7) / 10, 0.3 + Math.random() * 0.4);
         if (d < 40) this.hud.addRage(2);
+        const dialogueEvent=this.traffic.dialogueEvent('npc-honk',v,{sourceRole:'driver'});
+        this.traffic.emitDialogueEvent(dialogueEvent,{participant:v});return dialogueEvent;
     }
     onCollide(strength, what, v) {
+        const dialogueEvent=this.traffic?.dialogueEvent('collision',this.player,{target:what==='vehicle'||what==='pedestrian'?v:null,targetRole:what==='pedestrian'?'pedestrian':'driver',facts:{contact:true,collisionType:what==='vehicle'?'vehicle':what==='pedestrian'?'pedestrian':'static'}});
         if (what === 'pedestrian') {
             this.audio.crash(0.35);
             this.stats.peds++;
             this.hud.addRage(35);
-            this.giveFine('🚶 Pieton!', this.city.id === 'bucharest' ? 'Pedestrians have priority. They got up and are shouting at you.' : 'They\'re okay, thankfully. The officer is less okay.', 0, 'pedestrian');
+            this.giveFine('🚶 Pieton!', this.city.id === 'bucharest' ? 'Contact cu un pieton. Oprește și verifică dacă e nevoie de ajutor.' : 'Pedestrian contact. Stop and check whether help is needed.', 0, 'pedestrian');
             this.hud.achievement('pedestrian');
             this.traffic.playerHonk(this.player.x, this.player.z, this.player.fx, this.player.fz);
-            return;
+            this.traffic.emitDialogueEvent(dialogueEvent);return;
         }
         this.audio.crash(clamp(strength / 10, 0.2, 1));
-        if (what === 'vehicle' && v) { this.traffic.bump(v); this.hud.addRage(12); }
+        if (what === 'vehicle' && v) { this.traffic.bump(v,dialogueEvent); this.hud.addRage(12); }
         else if (what === 'edge') { /* deck edge / trench wall: the crash sound is enough */ }
-        else if (strength > 8) this.hud.toast('💥 Ouch', this.city.id === 'bucharest' ? 'Buildings in Bucharest do not move. Neither do double-parked cars.' : 'That was not a drive-thru. Your rental deposit just got smaller.', 'warn');
+        else if (strength > 8) this.hud.toast('💥 Ouch', this.city.id === 'bucharest' ? 'Oprește și verifică oamenii și împrejurimile înainte să continui.' : 'Stop and check people and surroundings before continuing.', 'warn');
+        this.traffic.emitDialogueEvent(dialogueEvent,{participant:what==='vehicle'?v:null});
     }
 
     // ---------------------------------------------------------------------------------- dev: collision overlay
@@ -1672,6 +1682,7 @@ class Game {
         if (input.take('KeyR')) this.resetPosition();
         this.updateActionMarkers(F.x, F.z);
         hud.update(dt, this.camera, city.id);
+        traffic.situationalHudFrame();
         this.stats.time += dt;
         // find the car: T calls it; the HUD chip and map offer a route back.
         this.nav.walking = true;

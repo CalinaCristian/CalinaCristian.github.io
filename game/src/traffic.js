@@ -2,6 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeVehicle, CAR_COLORS } from './vehicles.js';
 import * as VEH from './vehicles.js';
 import { TRANSIT, TRANSIT_RE, PHRASES } from './data.js';
+import {TrafficDialogue} from './situational-dialogue-traffic.js';
 import { makeRng, clamp, angleLerp } from './util.js';
 import { makeCrowd, dressFor } from './crowd.js';
 import { lanesDir, canTravel, edgeSpeed, isMotorway, turnAngle, nodeList, EdgeIndex, roadSideWidth, roadLateral } from './nav.js';
@@ -201,6 +202,7 @@ export class Traffic {
         this.onSay = opts.onSay || null; // (target, text, sub, cls): free-text bubbles (parking reactions); falls back to game.hud.say
         this.park = null; this.parking = null; // illegal-parking watch (note 8)
         this.onHonk = opts.onHonk || (() => { });
+        this._situational=opts.dialogueHost?new TrafficDialogue(this,opts.dialogueHost):null;this._replyTimers=new Set();
         this.player = null;
         this.maxVehicles = opts.maxVehicles || (this.buc ? 210 : 70);
         this.group = new THREE.Group();
@@ -2008,28 +2010,28 @@ export class Traffic {
     }
 
     honk(v, reason) {
-        this.onHonk(v, reason);
+        const dialogueEvent=this.onHonk(v, reason);
         const P = this.player;
         if (P && Math.hypot(P.x - v.x, P.z - v.z) < 70 && v.bubbleCd <= 0) {
             v.bubbleCd = 4;
-            this.bubble(v, reason === 'stuck' ? 'stuck' : 'honkedAt');
+            this.bubble(v, reason === 'stuck' ? 'stuck' : 'honkedAt',dialogueEvent);
         }
     }
 
     /** the player honked: nearby drivers react */
-    playerHonk(px, pz, fx, fz) {
+    playerHonk(px, pz, fx, fz,dialogueEvent=null) {
         let reacted = 0;
         for (const v of this.near(px, pz, 28)) {
             const dx = v.x - px, dz = v.z - pz;
             const d = Math.hypot(dx, dz);
             const ahead = (dx * fx + dz * fz) / (d || 1);
             if (ahead < -0.2 && d > 10) continue;
-            if (v.parked && this.rng.chance(0.3)) { this.bubble(v, 'honkedAt'); reacted++; continue; }
+            if (v.parked && this.rng.chance(0.3)) { this.bubble(v, 'honkedAt',dialogueEvent); reacted++; continue; }
             v.annoyed = 6;
             if (v.bubbleCd <= 0 && this.rng.chance(this.chaos > 0.5 ? 0.6 : 0.3)) {
                 v.bubbleCd = 3;
-                this.bubble(v, 'honkedAt'); reacted++;
-                if (this.rng.chance(0.4 * this.chaos)) setTimeout(() => this.honk(v, 'reply'), 300 + this.rng() * 800);
+                this.bubble(v, 'honkedAt',dialogueEvent); reacted++;
+                if (this.rng.chance(0.4 * this.chaos)) this._scheduleHornReply(v,300 + this.rng() * 800);
             }
             if (v.speed < 0.2 && !v.parked && this.rng.chance(0.25)) v.speed = 1.5;
         }
@@ -2041,17 +2043,23 @@ export class Traffic {
             let said = 0;
             for (const p of peds) { if (said >= 2 || !L?.length) break; if (this.rng.chance(0.55)) continue;
                 const it = L[Math.floor(this.rng() * L.length)], line = typeof it === 'string' ? { t: it } : it;
-                if (this.say(p, line, 'mad', 1)) { said++; reacted++; } }
+                if (this.say(p, line, 'mad', 1,{situational:true,event:dialogueEvent,role:'pedestrian',simulation:true})) { said++; reacted++; } }
             if (said) this._pedHonkT = now + 2500;
         } }
         return reacted;
     }
 
     /** player bumped vehicle v */
-    bump(v) {
-        if (v.bubbleCd <= 0) { v.bubbleCd = 4; this.bubble(v, 'bumped'); }
+    bump(v,dialogueEvent=null) {
+        if (v.bubbleCd <= 0) { v.bubbleCd = 4; this.bubble(v, 'bumped',dialogueEvent); }
         if (this.rng.chance(0.5 * this.chaos + 0.1)) this.honk(v, 'bumped');
     }
+
+    _scheduleHornReply(v,delay) { const timer=setTimeout(()=>{this._replyTimers?.delete(timer);this.honk(v,'reply');},delay);(this._replyTimers||=new Set()).add(timer); }
+    dialogueEvent(kind,source,options) { return this._situational?.event(kind,source,options)||null; }
+    emitDialogueEvent(event,options) { return this._situational?.dispatch(event,options)||0; }
+    speakSituational(event,actor,role,options) { return this._situational?.present(event,actor,role,options)||false; }
+    situationalHudFrame() { this._situational?.hudFrame(); }
 
     /** nearby vehicles for collision tests */
     near(x, z, r) {
@@ -2091,7 +2099,7 @@ export class Traffic {
     /** nearest police car within r (or null) */
     policeNear(x, z, r) { let best = null, bd = r; for (const p of this.police) { const d = Math.hypot(p.x - x, p.z - z); if (d < bd) { bd = d; best = p; } } return best; }
 
-    dispose() { try { this.endParking('dispose'); } catch { /* ignore */ } this.scene.remove(this.group); this.peds.dispose(); }
+    dispose() { try { this.endParking('dispose'); } catch { /* ignore */ } this._situational?.dispose();this._situational=null;for(const timer of this._replyTimers||[])clearTimeout(timer);this._replyTimers?.clear();this._bub=[];this.scene.remove(this.group); this.peds.dispose(); }
 
     // ------------------------------------------------------------------ illegal parking reactions (note 8)
     /**
@@ -2121,26 +2129,33 @@ export class Traffic {
     }
     /** a driver's chat bubble of a kind (honkedAt, bumped, stuck, green, redLight) from data.js PHRASES: Romanian lines
      *  are {t, en} and show the English gloss underneath (plain strings still work); falls back to opts.onBubble */
-    bubble(v, kind) {
+    bubble(v, kind,dialogueEvent=null) {
         const L = (PHRASES[this.city.id] || PHRASES.bucharest)?.[kind] || PHRASES.bucharest?.[kind];
         const canSay = !!(this.onSay || globalThis.game?.hud?.say);
-        if (!L?.length || !canSay) { this.onBubble(v, kind); return; }
+        if (!L?.length || !canSay) { if(!this._situational)this.onBubble(v, kind); return; }
         const last = (this._lastLine || (this._lastLine = {}))[kind]; let k = Math.floor(Math.random() * L.length);
         if (L.length > 1 && k === last) k = (k + 1 + Math.floor(Math.random() * (L.length - 1))) % L.length; // (never the same line twice in a row)
         this._lastLine[kind] = k;
         const it = L[k], line = typeof it === 'string' ? { t: it } : it;
-        this.say(v, line, kind === 'bumped' ? 'angry' : kind === 'honkedAt' ? 'mad' : '', kind === 'bumped' ? 2 : 1);
+        this.say(v, line, kind === 'bumped' ? 'angry' : kind === 'honkedAt' ? 'mad' : '', kind === 'bumped' ? 2 : 1,{situational:true,event:dialogueEvent,role:'driver'});
     }
     /** a chat bubble over anything with {x, z}: opts.onSay(target, text, sub, cls) when gameplay wires it, else hud.say */
-    say(target, line, cls = '', pri = 2) {
+    say(target, line, cls = '', pri = 2,options=null) {
+        if(this._situational&&!options?.actual&&!options?.legacyAdmission){
+            const legacy=this._situational.legacyAdmission(target,line,cls,pri);
+            const actual=options?.situational?this._situational.present(options.event,target,options.role):this.say(target,line,cls,pri,{actual:true});
+            return options?.simulation?legacy:actual;
+        }
         if (!line || !target) return false;
         const ref = this.walker?.active ? this.walker : this.player;
         if (ref && Math.hypot(target.x - ref.x, target.z - ref.z) > 75) return false;
         // (after round 6) someone on another level (under the bridge / on the deck above) isn't talking to us
         if (ref && Number.isFinite(ref.y) && Math.abs((Number.isFinite(target.y) ? target.y : 0) - ref.y) > 3.5) return false; // (pedestrians: street level)
         const text = line.t, sub = line.en && line.en !== line.t ? line.en : '';
-        const tgt = this.placeBubble(target, pri, !!sub); if (!tgt) return false;
-        try { if (this.onSay) this.onSay(tgt, text, sub, cls); else globalThis.game?.hud?.say?.(tgt, text, sub, cls); } catch { /* no HUD */ }
+        const tgt = this.placeBubble(target, pri, !!sub,options?.legacyAdmission); if (!tgt) return false;
+        if(options?.legacyAdmission){const h=options.legacyAdmission.hud;h.bubbles.push({v:tgt,until:performance.now()+4200});if(h.bubbles.length>14)h.bubbles.shift();return true;}
+        try { if (this.onSay) this.onSay(tgt, text, sub, cls); else if(globalThis.game?.hud?.say)globalThis.game.hud.say(tgt,text,sub,cls);else if(options?.actual)return false; } catch { if(options?.actual)return false; }
+        this._situational?.markEmitted(tgt);
         this.stats.parkingBubbles = (this.stats.parkingBubbles || 0) + 1;
         (this._sayLog || (this._sayLog = [])).push(text); if (this._sayLog.length > 40) this._sayLog.shift();
         return true;
@@ -2151,11 +2166,11 @@ export class Traffic {
      * re-projects the anchor every frame), and when no nudge is free the lower-priority bubble is dropped (driver
      * grumbles 1 < passers-by / bumps 2 < officer / tow 3). Returns the anchor to hand to hud.say, or null (dropped).
      */
-    placeBubble(target, pri, two) {
-        const now = performance.now(), cam = globalThis.game?.camera, hud = globalThis.game?.hud;
-        const act = (this._bub = (this._bub || []).filter(b => b.until > now && (!hud?.bubbles || hud.bubbles.some(h => h.v === b.anchor))));
+    placeBubble(target, pri, two,layout=null) {
+        const now = performance.now(), cam = globalThis.game?.camera, hud = layout?.hud||globalThis.game?.hud,state=layout||this;
+        const act = (state._bub = (state._bub || []).filter(b => b.until > now && (!hud?.bubbles || hud.bubbles.some(h => h.v === b.anchor))));
         const W = globalThis.innerWidth || 1280, Hh = globalThis.innerHeight || 720;
-        const V = this._bv || (this._bv = new THREE.Vector3());
+        const V = state._bv || (state._bv = new THREE.Vector3());
         const scr = (x, z, y = 2.6) => { if (!cam) return null; V.set(x, y, z).project(cam); if (V.z > 1 || Math.abs(V.x) > 1.2 || Math.abs(V.y) > 1.2) return null; return [(V.x + 1) / 2 * W, (1 - V.y) / 2 * Hh]; };
         const drop = (b) => { b.until = 0; const h = hud?.bubbles?.find(q => q.v === b.anchor); if (h) h.until = 0; };
         // at most three: make room by dropping the lowest priority (never one that outranks the new bubble)
@@ -2178,7 +2193,7 @@ export class Traffic {
             if (!ok) { const h = hit(p0[0], p0[1]); if (h && h.pri < pri) drop(h); else return null; }
         }
         const anchor = ox || oz ? { get x() { return target.x + ox; }, get z() { return target.z + oz; }, get bubbleY() { return target.bubbleY; } } : target;
-        this._bub.push({ anchor, pri, until: now + 4300 });
+        state._bub.push({ anchor, pri, until: now + 4300 });
         return anchor;
     }
     /** where the car stands and why that is illegal → { illegal, reasons, primary, severity, edge, dir, lat, along } */
@@ -2299,7 +2314,7 @@ export class Traffic {
                 else if (kind === 'note') line = pick(L.note);
                 if (kind === 'call') { const c = pick(L.call), w = L.where[rsn] || L.where.lane; line = { t: c.t.replace('{where}', w.t), en: c.en ? c.en.replace('{where}', w.en || w.t) : undefined }; }
                 p.react = { t: kind === 'remark' ? rng.range(2, 3.5) : rng.range(3.5, 5), x: face.x, z: face.z, pose: kind === 'photo' ? 'photo' : kind === 'call' ? 'phone' : kind === 'note' ? 'point' : 'talk', prop: kind === 'photo' || kind === 'call' ? 'phone' : null };
-                if (this.say(p, line)) st.bubbleT = rng.range(2.2, 3.6);
+                if (this.say(p, line,'',2,{simulation:true})) st.bubbleT = rng.range(2.2, 3.6);
                 this.emitParking(kind === 'remark' ? 'noticed' : kind === 'photo' ? 'photo' : kind === 'note' ? 'note' : 'report', { by: 'passer-by' });
                 if (kind === 'note') { S.note = true; this.addCarProp('note'); }
                 if (kind === 'call') S.report = true;
@@ -2313,7 +2328,7 @@ export class Traffic {
             for (const v of this.near(st.x, st.z, 32)) {
                 if (v.parked || v.service || v.leader !== P || v.speed > 0.5 || (v.blockT || 0) < 1.5) continue;
                 if (rng() < (US ? 0.15 : 0.55)) this.onHonk(v, 'stuck');
-                if (st.bubbleT <= 0 && rng() < 0.6 && this.say(v, pick(L.driver), '', 1)) { st.bubbleT = rng.range(2, 3); st.driverT = 3; this.stats.parkingHonks = (this.stats.parkingHonks || 0) + 1; }
+                if (st.bubbleT <= 0 && rng() < 0.6 && this.say(v, pick(L.driver), '', 1,{simulation:true})) { st.bubbleT = rng.range(2, 3); st.driverT = 3; this.stats.parkingHonks = (this.stats.parkingHonks || 0) + 1; }
                 break;
             }
         }

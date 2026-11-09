@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "proofCommit": "42f5a5f5",
+  "records": [
+    {
+      "id": "seatac",
+      "recordSnapshotCommit": "0b392db4805662376d35e84cdd322dd36e56af37",
+      "currentSourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+      "oldSourceCommit": "78d7c9efb5cf7157dc2c3e6d02c3def68f0cb2ce",
+      "historicalCaptures": 3,
+      "currentCaptures": 3,
+      "historyObjectsUnchanged": true,
+      "losslessRgbVerified": true,
+      "oldAssetBytesUnchanged": true,
+      "historicalImplementationNotesRetained": true
+    },
+    {
+      "id": "seagarage",
+      "recordSnapshotCommit": "0b392db4805662376d35e84cdd322dd36e56af37",
+      "currentSourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+      "oldSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "historicalCaptures": 3,
+      "currentCaptures": 3,
+      "historyObjectsUnchanged": true,
+      "losslessRgbVerified": true,
+      "oldAssetBytesUnchanged": true,
+      "historicalImplementationNotesRetained": true
+    }
+  ]
+}

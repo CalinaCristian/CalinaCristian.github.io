@@ -1,0 +1,3777 @@
+{
+  "schemaVersion": 1,
+  "captureType": "game-perspective-context",
+  "comparisonCompatible": false,
+  "gameSourceCommit": null,
+  "captureTool": null,
+  "district": "floreasca",
+  "season": "summer",
+  "weather": "clear",
+  "time": "day",
+  "quality": "high",
+  "traffic": true,
+  "mirror": false,
+  "scope": "Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.",
+  "loaded": {
+    "key": "bucharest-floreasca",
+    "city": "bucharest",
+    "district": "floreasca",
+    "ms": 18805,
+    "edges": 384,
+    "ribbons": 523
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "items": [
+    {
+      "id": "skytower-context",
+      "label": "Sky Tower in district context",
+      "kind": "landmark-context",
+      "landmark": "skytower",
+      "x": 191.09139228753583,
+      "z": -1335.1553742733297,
+      "y": 109.05,
+      "target": [
+        74.64139228753582,
+        61.704,
+        -1506.4053742733297
+      ],
+      "fov": 70,
+      "cameraY": 109.05,
+      "groundY": 0,
+      "heading": 325.7842978675626,
+      "pitch": -12.877801191445986,
+      "aspect": 1.5,
+      "pose": {
+        "x": 191.09139228753583,
+        "y": 109.05,
+        "z": -1335.1553742733297,
+        "heading": 325.7842978675626,
+        "pitch": -12.877801191445986,
+        "fov": 70,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.10718156798057174,
+          0.2923156620212918,
+          0.03298943319140014,
+          0.9497238348699008
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 44,
+        "triangles": 55498,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": false,
+      "distanceFromFlightDomainM": 815.1553742733297,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.476414139710194,
+      "lon": 26.106205253546314,
+      "image": "images/skytower-context.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:30:18.089Z",
+      "sha256": "11d62678aef973a53e5ba3861fa40db940f08ff189db62a274bde62edda3baf7",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "skytower-opposite",
+      "label": "Sky Tower in district context",
+      "kind": "landmark-context",
+      "landmark": "skytower",
+      "x": -41.80860771246418,
+      "z": -1677.6553742733297,
+      "y": 109.05,
+      "target": [
+        74.64139228753582,
+        61.704,
+        -1506.4053742733297
+      ],
+      "fov": 70,
+      "cameraY": 109.05,
+      "groundY": 0,
+      "heading": 145.7842978675626,
+      "pitch": -12.877801191445979,
+      "aspect": 1.5,
+      "pose": {
+        "x": -41.80860771246418,
+        "y": 109.05,
+        "z": -1677.6553742733297,
+        "heading": 145.7842978675626,
+        "pitch": -12.877801191445979,
+        "fov": 70,
+        "aspect": 1.5,
+        "quaternion": [
+          0.03298943319140014,
+          0.9497238348699006,
+          0.10718156798057174,
+          -0.29231566202129183
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 174,
+        "triangles": 555425,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": false,
+      "distanceFromFlightDomainM": 1168.9088891413946,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.47949606030912,
+      "lon": 26.103273758075844,
+      "image": "images/skytower-opposite.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:30:35.699Z",
+      "sha256": "f99bb637b9aea8156103c51a959387d6f339b9328564de96d41203ac2605cc7d",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "dinamo-context",
+      "label": "Stadionul Dinamo in district context",
+      "kind": "landmark-context",
+      "landmark": "dinamo",
+      "x": 84.39908789919079,
+      "z": 1335.9717998961662,
+      "y": 52.175000000000004,
+      "target": [
+        -118.16703644468129,
+        22.329,
+        1038.0804405669426
+      ],
+      "fov": 70,
+      "cameraY": 52.175000000000004,
+      "groundY": 0,
+      "heading": 325.7842978675626,
+      "pitch": -4.736167131244546,
+      "aspect": 1.5,
+      "pose": {
+        "x": 84.39908789919079,
+        "y": 52.175000000000004,
+        "z": 1335.9717998961662,
+        "heading": 325.7842978675626,
+        "pitch": -4.736167131244546,
+        "fov": 70,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.03949083148665074,
+          0.2939200701198797,
+          0.012154889796330035,
+          0.9549365032625243
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 226,
+        "triangles": 820861,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": false,
+      "distanceFromFlightDomainM": 215.23677851475472,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.45237851384033,
+      "lon": 26.104862325220644,
+      "image": "images/dinamo-context.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:30:54.575Z",
+      "sha256": "69f6289baaf666a10d4bc43dfe62c59ac4ee5e325a365bede30e7f5bacb8b36e",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "dinamo-opposite",
+      "label": "Stadionul Dinamo in district context",
+      "kind": "landmark-context",
+      "landmark": "dinamo",
+      "x": -320.7331607885534,
+      "z": 740.1890812377189,
+      "y": 52.175000000000004,
+      "target": [
+        -118.16703644468129,
+        22.329,
+        1038.0804405669426
+      ],
+      "fov": 70,
+      "cameraY": 52.175000000000004,
+      "groundY": 0,
+      "heading": 145.7842978675626,
+      "pitch": -4.736167131244544,
+      "aspect": 1.5,
+      "pose": {
+        "x": -320.7331607885534,
+        "y": 52.175000000000004,
+        "z": 740.1890812377189,
+        "heading": 145.7842978675626,
+        "pitch": -4.736167131244544,
+        "fov": 70,
+        "aspect": 1.5,
+        "quaternion": [
+          0.012154889796330035,
+          0.9549365032625243,
+          0.03949083148665074,
+          -0.29392007011987975
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 146,
+        "triangles": 760210,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": -263.8747456656682,
+          "z": 725.5157053374724,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019902"
+        },
+        {
+          "x": -262.85851614207434,
+          "z": 749.2304024656956,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019902"
+        },
+        {
+          "x": -274.1773829302016,
+          "z": 707.3513507119708,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w26991992"
+        },
+        {
+          "x": -263.4177097234508,
+          "z": 736.1810803288105,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019902"
+        },
+        {
+          "x": -263.6264057193541,
+          "z": 731.3109577631744,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019902"
+        },
+        {
+          "x": -359.32915607046874,
+          "z": 717.5225965889158,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w26991992"
+        }
+      ],
+      "vehiclesWithin60m": 0,
+      "lat": 44.457739550433374,
+      "lon": 26.099762954881577,
+      "image": "images/dinamo-opposite.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:31:10.063Z",
+      "sha256": "5a3620a3d6c089635b9df7f429753c1f4afeb0a365069c6fb605b2c7bb784249",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "dinamo-street",
+      "label": "Stadionul Dinamo from its actual public street",
+      "kind": "street",
+      "landmark": "dinamo",
+      "sourceEdge": 17,
+      "sourceRoadId": "w669019902",
+      "x": -244.46390156179143,
+      "z": 1041.998585951885,
+      "y": 1.7,
+      "absoluteY": 1.94,
+      "target": [
+        -118.16703644468129,
+        9,
+        1038.0804405669426
+      ],
+      "fov": 85,
+      "cameraBodyValidation": {
+        "method": "Production collideBuildings at actual public source-road centre and its exact native roadHeight, before capture; no offset toward or through the source facade",
+        "radiusM": 0.25,
+        "footY": 0.29,
+        "heightM": 1.7,
+        "clear": true
+      },
+      "cameraY": 1.94,
+      "groundY": 0.24,
+      "heading": 88.22306583271398,
+      "pitch": 3.1979712327500334,
+      "aspect": 1.5,
+      "pose": {
+        "x": -244.46390156179143,
+        "y": 1.94,
+        "z": 1041.998585951885,
+        "heading": 88.22306583271398,
+        "pitch": 3.1979712327500334,
+        "fov": 85,
+        "aspect": 1.5,
+        "quaternion": [
+          0.020034644903138325,
+          -0.6957862939328349,
+          0.0194227429317617,
+          0.7177066275546177
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 170,
+        "triangles": 851554,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": -239.23258268065956,
+          "z": 989.7160511207222,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019902"
+        },
+        {
+          "x": -252.09099407622662,
+          "z": 1017.0561406740239,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019902"
+        },
+        {
+          "x": -289.2638559442594,
+          "z": 1048.1763091027367,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w217941966"
+        },
+        {
+          "x": -250.6022064668279,
+          "z": 1046.3551579984503,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w669019902"
+        },
+        {
+          "x": -297.35778008081485,
+          "z": 1042.5894745452897,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w209538792"
+        },
+        {
+          "x": -298.96232524361244,
+          "z": 1032.386623795338,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w209538792"
+        },
+        {
+          "x": -250.32626133682456,
+          "z": 1071.1968794770482,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019902"
+        },
+        {
+          "x": -251.0119915838741,
+          "z": 1041.786210356725,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w669019902"
+        },
+        {
+          "x": -281.61576154981094,
+          "z": 1048.0019248424874,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w217941966"
+        }
+      ],
+      "vehiclesWithin60m": 5,
+      "lat": 44.455023775456645,
+      "lon": 26.10072295053619,
+      "image": "images/dinamo-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:31:17.861Z",
+      "sha256": "57292830489414a973681ccd42d93afd8ec18e43edab0fa3206ea237aa047945",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "dinamo-football",
+      "label": "Dinamo pitch and goals at walking height",
+      "kind": "sports",
+      "x": -119.05461355265025,
+      "z": 993.4412242784146,
+      "y": 1.7,
+      "target": [
+        -112.27086487485705,
+        1.7,
+        1037.9269608000968
+      ],
+      "fov": 85,
+      "cameraY": 1.7,
+      "groundY": 0,
+      "heading": 171.32960905696632,
+      "pitch": 0,
+      "aspect": 1.5,
+      "pose": {
+        "x": -119.05461355265025,
+        "y": 1.7,
+        "z": 993.4412242784146,
+        "heading": 171.32960905696632,
+        "pitch": 0,
+        "fov": 85,
+        "aspect": 1.5,
+        "quaternion": [
+          0,
+          0.9971388876941996,
+          0,
+          -0.07559126039413802
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 122,
+        "triangles": 620172,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.455460709568094,
+      "lon": 26.10230146818219,
+      "image": "images/dinamo-football.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:31:25.835Z",
+      "sha256": "0fa6a7db9b7d547ff5f587d290dc505521755740862046f3322604a4260d7a06",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "dinamo-football-drone",
+      "label": "Dinamo modeled pitch, goals and markings from a close elevated static camera",
+      "kind": "sports",
+      "x": -171.58518023710013,
+      "z": 1046.9719590371544,
+      "y": 70.12,
+      "target": [
+        -112.27086487485705,
+        0.28,
+        1037.9269608000968
+      ],
+      "fov": 80,
+      "cameraY": 70.12,
+      "groundY": 0,
+      "heading": 81.32960905696643,
+      "pitch": -49.333909477034375,
+      "aspect": 1.5,
+      "pose": {
+        "x": -171.58518023710013,
+        "y": 70.12,
+        "z": 1046.9719590371544,
+        "heading": 81.32960905696643,
+        "pitch": -49.333909477034375,
+        "fov": 80,
+        "aspect": 1.5,
+        "near": 0.2,
+        "far": 5000,
+        "quaternion": [
+          -0.3165691910413425,
+          -0.5921704722001023,
+          -0.271954309665235,
+          0.6893177297823141
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794183090881,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 146,
+        "triangles": 516213,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.454979023512244,
+      "lon": 26.10164026973523,
+      "image": "images/dinamo-football-drone.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "capturedAt": "2026-11-09T00:11:58.506Z",
+      "sha256": "a193c424b1c7423f0ffa34cc8f63ab31c43087813ef33a03054a66a80ff81ba5",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "rosetti-context",
+      "label": "Liceul Teoretic C.A. Rosetti in district context",
+      "kind": "landmark-context",
+      "landmark": "rosetti",
+      "x": 339.98958147395615,
+      "z": -143.61827073159577,
+      "y": 28.73120348919183,
+      "target": [
+        189.27817333568103,
+        6.083999828338623,
+        -365.25269446435334
+      ],
+      "fov": 70,
+      "cameraY": 28.73120348919183,
+      "groundY": 0,
+      "heading": 325.7842978675626,
+      "pitch": -4.82988177167169,
+      "aspect": 1.5,
+      "pose": {
+        "x": 339.98958147395615,
+        "y": 28.73120348919183,
+        "z": -143.61827073159577,
+        "heading": 325.7842978675626,
+        "pitch": -4.82988177167169,
+        "fov": 70,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.04027177912805424,
+          0.29391003138577637,
+          0.012395257804817575,
+          0.9549038877502936
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 154,
+        "triangles": 740453,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 2,
+      "lat": 44.46569232148014,
+      "lon": 26.108079424294104,
+      "image": "images/rosetti-context.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:31:51.206Z",
+      "sha256": "fe35e712a8e7cf094038fffe548394945423aa9a5ecb9dd65ee23e35289ca78d",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "rosetti-opposite",
+      "label": "Liceul Teoretic C.A. Rosetti in district context",
+      "kind": "landmark-context",
+      "landmark": "rosetti",
+      "x": 38.566765197405886,
+      "z": -586.8871181971109,
+      "y": 28.73120348919183,
+      "target": [
+        189.27817333568103,
+        6.083999828338623,
+        -365.25269446435334
+      ],
+      "fov": 70,
+      "cameraY": 28.73120348919183,
+      "groundY": 0,
+      "heading": 145.7842978675626,
+      "pitch": -4.829881771671691,
+      "aspect": 1.5,
+      "pose": {
+        "x": 38.566765197405886,
+        "y": 28.73120348919183,
+        "z": -586.8871181971109,
+        "heading": 145.7842978675626,
+        "pitch": -4.829881771671691,
+        "fov": 70,
+        "aspect": 1.5,
+        "quaternion": [
+          0.012395257804817575,
+          0.9549038877502936,
+          0.04027177912805424,
+          -0.29391003138577637
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 205,
+        "triangles": 1042186,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 96.26050204941598,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.46968099123742,
+      "lon": 26.104285437086677,
+      "image": "images/rosetti-opposite.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:32:07.605Z",
+      "sha256": "84b45e8c4d75730249d788a0a317e36e16ddf658ce387a40aed5094b22eb2b1e",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "rosetti-street",
+      "label": "Liceul Teoretic C.A. Rosetti from its actual public street",
+      "kind": "street",
+      "landmark": "rosetti",
+      "sourceEdge": 350,
+      "sourceRoadId": "w669209222",
+      "x": 230.41832818279894,
+      "z": -356.2123284096326,
+      "y": 1.7,
+      "absoluteY": 1.94,
+      "target": [
+        189.27817333568103,
+        2.97439991607666,
+        -365.25269446435334
+      ],
+      "fov": 85,
+      "cameraBodyValidation": {
+        "method": "Production collideBuildings at actual public source-road centre and its exact native roadHeight, before capture; no offset toward or through the source facade",
+        "radiusM": 0.25,
+        "footY": 0.29,
+        "heightM": 1.7,
+        "clear": true
+      },
+      "cameraY": 1.94,
+      "groundY": 0.24,
+      "heading": 282.39351205186483,
+      "pitch": 1.4067521179252476,
+      "aspect": 1.5,
+      "pose": {
+        "x": 230.41832818279894,
+        "y": 1.94,
+        "z": -356.2123284096326,
+        "heading": 282.39351205186483,
+        "pitch": 1.4067521179252476,
+        "fov": 85,
+        "aspect": 1.5,
+        "quaternion": [
+          0.00956665479530856,
+          0.626600715800276,
+          -0.007692679767818073,
+          0.7792437646542953
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 166,
+        "triangles": 839098,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 2,
+      "lat": 44.46760530835771,
+      "lon": 26.106700258846633,
+      "image": "images/rosetti-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:32:20.838Z",
+      "sha256": "5563584d926c6ea7b2ea6ddc6ec5491c7a11b900682b31dacf35c8419972b08c",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "rosetti-basketball-0",
+      "label": "Rosetti court 1 and actual hoop",
+      "kind": "sports",
+      "x": 226.80102833140856,
+      "z": -439.1103580004251,
+      "y": 1.7,
+      "target": [
+        235.8782139119602,
+        3.165,
+        -436.87028001380827
+      ],
+      "fov": 80,
+      "cameraY": 1.7,
+      "groundY": 0,
+      "heading": 103.86253269291058,
+      "pitch": 8.905422524641605,
+      "aspect": 1.5,
+      "pose": {
+        "x": 226.80102833140856,
+        "y": 1.7,
+        "z": -439.1103580004251,
+        "heading": 103.86253269291058,
+        "pitch": 8.905422524641605,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          0.04787101675010525,
+          -0.7848954390554616,
+          0.06112083154414689,
+          0.6147452801417814
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 129,
+        "triangles": 712103,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 168.0359375692072,
+          "z": -436.0242224616714,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 170.11205795537728,
+          "z": -436.82199145773615,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 169.57448621425667,
+          "z": -427.4282911671874,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 170.68225669874246,
+          "z": -427.75760874560837,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 170.09105901986632,
+          "z": -427.87088675337213,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        }
+      ],
+      "vehiclesWithin60m": 3,
+      "lat": 44.46835125038693,
+      "lon": 26.10665472815479,
+      "image": "images/rosetti-basketball-0.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:32:29.290Z",
+      "sha256": "01cfb081734e9094ee97cdd33c696ac145a3ca33317d0b61a974ba044f5308a0",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "rosetti-basketball-1",
+      "label": "Rosetti court 2 and actual hoop",
+      "kind": "sports",
+      "x": 195.45102833140857,
+      "z": -411.38535800042513,
+      "y": 1.7,
+      "target": [
+        195.60776879043846,
+        3.165,
+        -420.9857111160054
+      ],
+      "fov": 80,
+      "cameraY": 1.7,
+      "groundY": 0,
+      "heading": 0.9353581957572032,
+      "pitch": 8.675181204518063,
+      "aspect": 1.5,
+      "pose": {
+        "x": 195.45102833140857,
+        "y": 1.7,
+        "z": -411.38535800042513,
+        "heading": 0.9353581957572032,
+        "pitch": 8.675181204518063,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          0.07563042405632316,
+          -0.008139069975512373,
+          0.0006173500799969442,
+          0.9971025089607753
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 127,
+        "triangles": 676522,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 167.31581976126026,
+          "z": -435.8734971980466,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 167.6904046455331,
+          "z": -427.37714642989374,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 157.58942059910257,
+          "z": -434.7552500027166,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 168.55001049424018,
+          "z": -436.09423572306434,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 163.73842667919644,
+          "z": -426.5084010691242,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 154.38138337951165,
+          "z": -434.09111632553544,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 171.47332729724076,
+          "z": -437.16844611831397,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 159.5738380110982,
+          "z": -426.4728723779148,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 158.73852182213102,
+          "z": -435.0920210813456,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 167.4160871125197,
+          "z": -426.81803116752263,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 164.2236550523819,
+          "z": -427.34422145420484,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 153.34437390589125,
+          "z": -424.8070416303971,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 162.0597321734171,
+          "z": -434.9147955601956,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 160.57877650919812,
+          "z": -434.7198572745858,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 169.25356964126226,
+          "z": -427.6107919286444,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 163.17376140894822,
+          "z": -434.98272526328134,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 170.62669243016595,
+          "z": -427.92402770781257,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 164.53173119841483,
+          "z": -426.8235031267136,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 161.60251398822007,
+          "z": -426.2165133932049,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 171.84135623364423,
+          "z": -427.8314741563447,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 160.14777740674285,
+          "z": -435.25279762371895,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 150.71872637857712,
+          "z": -433.2124281843962,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 171.48667687613403,
+          "z": -428.31409782969837,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 155.95860465512035,
+          "z": -433.77847542638796,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 162.20305692058102,
+          "z": -435.4829300757201,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 162.52643560349873,
+          "z": -426.3112956950291,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 157.18462917135525,
+          "z": -435.17705391821977,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        },
+        {
+          "x": 164.51448719493717,
+          "z": -426.18768208709525,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w545173563"
+        }
+      ],
+      "vehiclesWithin60m": 1,
+      "lat": 44.46810177228881,
+      "lon": 26.106260127970167,
+      "image": "images/rosetti-basketball-1.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:32:41.780Z",
+      "sha256": "ae521649ff52e0daf71f93c7fa2f7795a3f252bc3b8b826f8fed0786a5c46643",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "globalworth-context",
+      "label": "Globalworth Tower in district context",
+      "kind": "landmark-context",
+      "landmark": "globalworth",
+      "x": -8.150444175675972,
+      "z": -1499.1959665582308,
+      "y": 98,
+      "target": [
+        -110.15044417567597,
+        54.054,
+        -1649.1959665582308
+      ],
+      "fov": 70,
+      "cameraY": 98,
+      "groundY": 0,
+      "heading": 325.7842978675626,
+      "pitch": -13.618507701344837,
+      "aspect": 1.5,
+      "pose": {
+        "x": -8.150444175675972,
+        "y": 98,
+        "z": -1499.1959665582308,
+        "heading": 325.7842978675626,
+        "pitch": -13.618507701344837,
+        "fov": 70,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.11331819053072043,
+          0.29209631693202853,
+          0.03487822529859962,
+          0.9490111899917764
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 39,
+        "triangles": 34994,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": false,
+      "distanceFromFlightDomainM": 987.546088679577,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.47789022753624,
+      "lon": 26.10369741094812,
+      "image": "images/globalworth-context.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:32:46.517Z",
+      "sha256": "1d4aac2a9796b3ccf76f0dee0f90c03bebe57178c34639e21a97067fc66b9f06",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "globalworth-opposite",
+      "label": "Globalworth Tower in district context",
+      "kind": "landmark-context",
+      "landmark": "globalworth",
+      "x": -212.15044417567597,
+      "z": -1799.1959665582308,
+      "y": 98,
+      "target": [
+        -110.15044417567597,
+        54.054,
+        -1649.1959665582308
+      ],
+      "fov": 70,
+      "cameraY": 98,
+      "groundY": 0,
+      "heading": 145.7842978675626,
+      "pitch": -13.618507701344841,
+      "aspect": 1.5,
+      "pose": {
+        "x": -212.15044417567597,
+        "y": 98,
+        "z": -1799.1959665582308,
+        "heading": 145.7842978675626,
+        "pitch": -13.618507701344841,
+        "fov": 70,
+        "aspect": 1.5,
+        "quaternion": [
+          0.03487822529859962,
+          0.9490111899917762,
+          0.11331819053072043,
+          -0.29209631693202853
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 15,
+        "frameMs": 0,
+        "drawCalls": 164,
+        "triangles": 521141,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": false,
+      "distanceFromFlightDomainM": 1321.6150114253944,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.48058972003166,
+      "lon": 26.101129677689315,
+      "image": "images/globalworth-opposite.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:32:58.471Z",
+      "sha256": "f478eaaf2f9e05e79eda7060796dbca6b7f2a183053638ad2f0bdb487aedb6ae",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "signal-1",
+      "label": "Actual runtime traffic signal and sidewalk activity",
+      "kind": "signals-pedestrians",
+      "sourceNodeId": 656960,
+      "sourceSignalMapped": true,
+      "sourceRoadId": "w668772132",
+      "x": -142.55067747457778,
+      "z": -177.273199454004,
+      "y": 1.7,
+      "target": [
+        -132.70274396575854,
+        3.37,
+        -175.53590108991241
+      ],
+      "fov": 80,
+      "cameraY": 1.7,
+      "groundY": 0,
+      "heading": 100.00475091253554,
+      "pitch": 9.48090361795083,
+      "aspect": 1.5,
+      "pose": {
+        "x": -142.55067747457778,
+        "y": 1.7,
+        "z": -177.273199454004,
+        "heading": 100.00475091253554,
+        "pitch": 9.48090361795083,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          0.05311871331786779,
+          -0.7634505838863159,
+          0.06330974781360123,
+          0.6405571669186721
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 15,
+        "frameMs": 0,
+        "drawCalls": 186,
+        "triangles": 987123,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 19,
+      "lat": 44.46599515890521,
+      "lon": 26.102005724923448,
+      "image": "images/signal-1.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:33:14.281Z",
+      "sha256": "e8e27e73655ec67fc40d623c1c27354d14857dfa6dad3f02ff25fb57bd697f48",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "signal-2",
+      "label": "Actual runtime traffic signal and sidewalk activity",
+      "kind": "signals-pedestrians",
+      "sourceNodeId": 255898079,
+      "sourceSignalMapped": true,
+      "sourceRoadId": "w1206961912",
+      "x": -162.9503627826594,
+      "z": 72.43145459193413,
+      "y": 1.7,
+      "target": [
+        -164.26492629986353,
+        3.37,
+        82.34467418797031
+      ],
+      "fov": 80,
+      "cameraY": 1.7,
+      "groundY": 0,
+      "heading": 187.5537574153161,
+      "pitch": 9.480903617950833,
+      "aspect": 1.5,
+      "pose": {
+        "x": -162.9503627826594,
+        "y": 1.7,
+        "z": 72.43145459193413,
+        "heading": 187.5537574153161,
+        "pitch": 9.480903617950833,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          0.0054437396295159675,
+          0.9944148491601459,
+          -0.08246264349154503,
+          0.0656459130261482
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 15,
+        "frameMs": 0,
+        "drawCalls": 184,
+        "triangles": 912657,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": -157.4701485424631,
+          "z": 35.21557436066027,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -182.1910690039083,
+          "z": 60.541585398677604,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -158.22292015451063,
+          "z": 33.4372708903754,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -107.3819165795322,
+          "z": 55.72609806521238,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w26974392"
+        },
+        {
+          "x": -180.08072823499288,
+          "z": 44.97741606066567,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -156.8582052896907,
+          "z": 35.148607776810685,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -182.83208149078604,
+          "z": 60.707904738170086,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -177.6513943193435,
+          "z": 32.77255509562752,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -181.21909151496877,
+          "z": 52.01269606037016,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -109.86365724860077,
+          "z": 75.2280685308752,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w26974392"
+        },
+        {
+          "x": -161.3281911790002,
+          "z": 67.06701589265123,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -180.0916872414425,
+          "z": 50.369832094195864,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -180.89919038539784,
+          "z": 51.3718993247009,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -182.20992551255097,
+          "z": 55.57287902516589,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -176.20364034658957,
+          "z": 14.849427588986796,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -155.15022638100785,
+          "z": 15.195480779076755,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -159.1165697220129,
+          "z": 45.70179362477278,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -177.16865257684503,
+          "z": 18.001050700168822,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -159.96450007431665,
+          "z": 47.728267858286245,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -181.20859240818905,
+          "z": 61.25476528165232,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -158.7163235069768,
+          "z": 35.34327572901427,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -157.71917550504745,
+          "z": 34.09672953086056,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -156.85727216152907,
+          "z": 29.423864191201083,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -154.2493108385889,
+          "z": 13.995614000213733,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -159.47402996265075,
+          "z": 48.67115665336464,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -156.84757741443897,
+          "z": 22.678266762353143,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -179.18053819664314,
+          "z": 38.79896169316564,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -175.7456800764741,
+          "z": 15.610098177750803,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -178.7690206229851,
+          "z": 35.774672031267635,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -161.66696759493252,
+          "z": 62.62310168799619,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -158.1364316481905,
+          "z": 37.57758741619146,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -156.97233396904593,
+          "z": 27.928569747264028,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -154.8073806333019,
+          "z": 14.2306028730064,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -177.22881259883465,
+          "z": 23.008136451733765,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -181.93218930023355,
+          "z": 61.99366636772002,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -160.53478660259674,
+          "z": 60.977635144107076,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -178.30274487282387,
+          "z": 36.91915324363337,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -156.117503719393,
+          "z": 17.679803731103714,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -179.74250264157422,
+          "z": 38.649190772800104,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -161.04764191512484,
+          "z": 59.057152636741904,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -161.5723694692342,
+          "z": 66.00186151744865,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -160.43006415877517,
+          "z": 58.79484649069236,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -178.20537756670814,
+          "z": 31.45059837360994,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -180.00432222242756,
+          "z": 42.298608006070026,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -178.52655920159003,
+          "z": 38.93847482160068,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -162.14403690243824,
+          "z": 62.95697142339794,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -175.86576337432578,
+          "z": 16.70430684163542,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -158.35753243094487,
+          "z": 31.492675461078598,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -158.32356939837032,
+          "z": 39.84147867785468,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -159.83864822649073,
+          "z": 51.68698573784283,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -176.3429729478056,
+          "z": 15.664751348179394,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -180.824636510912,
+          "z": 53.64823442647612,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -107.96456401415239,
+          "z": 58.44596099166624,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w26974392"
+        },
+        {
+          "x": -158.8583933844515,
+          "z": 47.8615171341941,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -160.60414201370563,
+          "z": 62.33174559608556,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        }
+      ],
+      "vehiclesWithin60m": 16,
+      "lat": 44.46374823943965,
+      "lon": 26.101748955558573,
+      "image": "images/signal-2.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:33:39.503Z",
+      "sha256": "cd69e815e30057c04e384bc2cbc46f9064c784de6868ec265edb9cca94d516b6",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "signal-3",
+      "label": "Actual runtime traffic signal and sidewalk activity",
+      "kind": "signals-pedestrians",
+      "sourceNodeId": 2136557810,
+      "sourceSignalMapped": true,
+      "sourceRoadId": "w669019908",
+      "x": -164.2888670068491,
+      "z": 82.48395824833281,
+      "y": 1.7,
+      "target": [
+        -165.59076070478025,
+        3.37,
+        92.39884971517637
+      ],
+      "fov": 80,
+      "cameraY": 1.7,
+      "groundY": 0,
+      "heading": 187.4805354053692,
+      "pitch": 9.48090361795083,
+      "aspect": 1.5,
+      "pose": {
+        "x": -164.2888670068491,
+        "y": 1.7,
+        "z": 82.48395824833281,
+        "heading": 187.4805354053692,
+        "pitch": 9.48090361795083,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          0.005391046329135626,
+          0.9944565927429578,
+          -0.08246610511140152,
+          0.06501048590265512
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 15,
+        "frameMs": 0,
+        "drawCalls": 183,
+        "triangles": 911025,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": -157.47362011552653,
+          "z": 36.39502420935284,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -181.99533961250737,
+          "z": 59.20689131183292,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -157.5691396858515,
+          "z": 32.18731826115958,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -179.7233030573705,
+          "z": 43.684565020057185,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -156.70770916979632,
+          "z": 33.90116974306002,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -182.95995994558118,
+          "z": 61.935043316812774,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -178.18478571617445,
+          "z": 34.27162030865408,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -180.82694344387224,
+          "z": 50.637716095063666,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -110.26984585425568,
+          "z": 76.62527850305536,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w26974392"
+        },
+        {
+          "x": -161.70684961539442,
+          "z": 67.86748517694468,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w1206961912"
+        },
+        {
+          "x": -180.2009423006053,
+          "z": 51.78917403951809,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -181.43791429613543,
+          "z": 52.37663070665718,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -182.04647418866094,
+          "z": 57.04278300284153,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -159.22226914108882,
+          "z": 47.22780861495724,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -159.80571774486864,
+          "z": 46.418368346668416,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -181.12911335005373,
+          "z": 59.748124221233915,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -158.22666202824558,
+          "z": 34.20668074504549,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -157.8572223907114,
+          "z": 35.24097787253827,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -156.95759234510615,
+          "z": 27.80637880709461,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -159.62760837683277,
+          "z": 49.93771050546388,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -179.4403243388056,
+          "z": 40.088457800660876,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -178.96975785539695,
+          "z": 37.28810309771371,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -161.41601973964103,
+          "z": 63.75876278560523,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -158.14421989886975,
+          "z": 36.491468428120626,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -156.79101969390916,
+          "z": 26.42568500162202,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -177.4135125660149,
+          "z": 24.539084651958863,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -182.07150779546163,
+          "z": 63.14845487571869,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -161.02557307119878,
+          "z": 62.123554987437416,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -178.25476467470557,
+          "z": 35.45000548655027,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -179.60960099496785,
+          "z": 37.420130616542735,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -161.20545312590608,
+          "z": 60.36522427751861,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -161.69834403875927,
+          "z": 67.10170399808047,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -160.24107741122657,
+          "z": 57.2283658602785,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -178.40506692283634,
+          "z": 32.75791858667051,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -179.50032909868744,
+          "z": 41.04322033108132,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -178.40125413228887,
+          "z": 37.58523315141406,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -161.71873131614223,
+          "z": 62.35239469337765,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -158.14335477307912,
+          "z": 32.625606475125515,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -158.16364246689878,
+          "z": 38.73752823896619,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -160.0012744590877,
+          "z": 53.034968316858404,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -180.7970407904336,
+          "z": 52.584603688404904,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -159.34648633983863,
+          "z": 48.98511088146943,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        },
+        {
+          "x": -160.8497868299296,
+          "z": 63.56200409012013,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w669019911"
+        }
+      ],
+      "vehiclesWithin60m": 16,
+      "lat": 44.46365778391239,
+      "lon": 26.101732107902624,
+      "image": "images/signal-3.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:33:57.702Z",
+      "sha256": "b4ebdbca3697550056c32c321163f0808ad32746ea37901fd603d36230286177",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "parking-1",
+      "label": "Actual source parking area and complete parked car placement",
+      "kind": "parking",
+      "parkingSourceId": "w1441704041",
+      "parkedCars": 24,
+      "x": -209.09208216988617,
+      "z": 975.0477663667117,
+      "y": 26.4,
+      "target": [
+        -223.49208216988617,
+        0,
+        957.0477663667117
+      ],
+      "fov": 80,
+      "cameraY": 26.4,
+      "groundY": 0,
+      "heading": 321.3401917459099,
+      "pitch": -48.87405626091186,
+      "aspect": 1.5,
+      "pose": {
+        "x": -209.09208216988617,
+        "y": 26.4,
+        "z": 975.0477663667117,
+        "heading": 321.3401917459099,
+        "pitch": -48.87405626091186,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.3903723212318419,
+          0.3013541799807178,
+          0.13693521638582984,
+          0.8590947884474559
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 165,
+        "triangles": 854397,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 2,
+      "lat": 44.45562621957342,
+      "lon": 26.10116817307088,
+      "image": "images/parking-1.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:34:14.242Z",
+      "sha256": "dbeca17bbe6457cd521bde8bcdff8ace8ce4be96eed403180d3633bdca03a185",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "parking-2",
+      "label": "Actual source parking area and complete parked car placement",
+      "kind": "parking",
+      "parkingSourceId": "w771246934",
+      "parkedCars": 23,
+      "x": 105.47592334943523,
+      "z": -453.31250969962645,
+      "y": 26.4,
+      "target": [
+        91.07592334943523,
+        0,
+        -471.31250969962645
+      ],
+      "fov": 80,
+      "cameraY": 26.4,
+      "groundY": 0,
+      "heading": 321.3401917459099,
+      "pitch": -48.87405626091186,
+      "aspect": 1.5,
+      "pose": {
+        "x": 105.47592334943523,
+        "y": 26.4,
+        "z": -453.31250969962645,
+        "heading": 321.3401917459099,
+        "pitch": -48.87405626091186,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.3903723212318419,
+          0.3013541799807178,
+          0.13693521638582984,
+          0.8590947884474559
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 114,
+        "triangles": 574570,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 1,
+      "lat": 44.468479045726696,
+      "lon": 26.105127617825428,
+      "image": "images/parking-2.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:34:30.790Z",
+      "sha256": "3a4d427c62c9e2a863a30a18afc3c309893f34dc079c92e8a6a82fcbcb8ac795",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "parking-3",
+      "label": "Actual source parking area and complete parked car placement",
+      "kind": "parking",
+      "parkingSourceId": "w281299678",
+      "parkedCars": 17,
+      "x": -164.54724026694868,
+      "z": -85.37745801266877,
+      "y": 57.11922647745504,
+      "target": [
+        -209.66646674440372,
+        0,
+        -141.77649110948755
+      ],
+      "fov": 80,
+      "cameraY": 57.11922647745504,
+      "groundY": 0,
+      "heading": 321.3401917459099,
+      "pitch": -38.33836428570938,
+      "aspect": 1.5,
+      "pose": {
+        "x": -164.54724026694868,
+        "y": 57.11922647745504,
+        "z": -85.37745801266877,
+        "heading": 321.3401917459099,
+        "pitch": -38.33836428570938,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.3098485158559792,
+          0.3126536399816363,
+          0.10868899063253022,
+          0.8913070749990499
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 140,
+        "triangles": 749227,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 6,
+      "lat": 44.4651682526906,
+      "lon": 26.10172885577707,
+      "image": "images/parking-3.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:34:48.577Z",
+      "sha256": "271308fbe6ab9beda642ed1343b8303de18f802dbf2414bbe4360cfb6d060b2f",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "drone-edge-west",
+      "label": "Outward west view at 149 m from actual flight-domain boundary",
+      "kind": "drone-edge",
+      "boundaryPoint": [
+        -420,
+        720
+      ],
+      "boundarySource": "runtime playable source mask and declared landmark flight areas",
+      "x": -569,
+      "z": 720,
+      "y": 120,
+      "target": [
+        -789,
+        25,
+        720
+      ],
+      "fov": 75,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraY": 120,
+      "groundY": 0,
+      "heading": 270,
+      "pitch": -23.355564859286012,
+      "aspect": 1.5,
+      "pose": {
+        "x": -569,
+        "y": 120,
+        "z": 720,
+        "heading": 270,
+        "pitch": -23.355564859286012,
+        "fov": 75,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.14312376328182674,
+          0.6924706408101701,
+          0.14312376328182674,
+          0.6924706408101701
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 97,
+        "triangles": 539296,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 149,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.45792121801101,
+      "lon": 26.096638038116375,
+      "image": "images/drone-edge-west.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:35:00.921Z",
+      "sha256": "5718586a6d5cb303eba325806474a22b87f1d476440ca2892fcf4e7ca1cd2dfd",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "drone-edge-east",
+      "label": "Outward east view at 149 m from actual flight-domain boundary",
+      "kind": "drone-edge",
+      "boundaryPoint": [
+        420,
+        -300
+      ],
+      "boundarySource": "runtime playable source mask and declared landmark flight areas",
+      "x": 569,
+      "z": -300,
+      "y": 120,
+      "target": [
+        789,
+        25,
+        -300
+      ],
+      "fov": 75,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraY": 120,
+      "groundY": 0,
+      "heading": 90,
+      "pitch": -23.355564859286012,
+      "aspect": 1.5,
+      "pose": {
+        "x": 569,
+        "y": 120,
+        "z": -300,
+        "heading": 90,
+        "pitch": -23.355564859286012,
+        "fov": 75,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.14312376328182674,
+          -0.6924706408101701,
+          -0.14312376328182674,
+          0.6924706408101701
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 104,
+        "triangles": 505657,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 149,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.46709949249541,
+      "lon": 26.110961961883625,
+      "image": "images/drone-edge-east.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:35:10.457Z",
+      "sha256": "0fcc77aa2165af0676611a4a5b04031414f7a370a8aa2d743bf445f35ea86aba",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "drone-edge-north",
+      "label": "Outward north view at 149 m from actual flight-domain boundary",
+      "kind": "drone-edge",
+      "boundaryPoint": [
+        200,
+        -520
+      ],
+      "boundarySource": "runtime playable source mask and declared landmark flight areas",
+      "x": 200,
+      "z": -669,
+      "y": 120,
+      "target": [
+        200,
+        25,
+        -889
+      ],
+      "fov": 75,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraY": 120,
+      "groundY": 0,
+      "heading": 0,
+      "pitch": -23.355564859286012,
+      "aspect": 1.5,
+      "pose": {
+        "x": 200,
+        "y": 120,
+        "z": -669,
+        "heading": 0,
+        "pitch": -23.355564859286012,
+        "fov": 75,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.2024075671310358,
+          0,
+          0,
+          0.9793013717789305
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 103,
+        "triangles": 380400,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 149,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.47041986826476,
+      "lon": 26.106317385547847,
+      "image": "images/drone-edge-north.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:35:19.093Z",
+      "sha256": "270f84602826e1b6c615eea2322e7b7c9c1c7be45c3e820ec3a27e3b99d47699",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "drone-edge-south",
+      "label": "Outward south view at 149 m from actual flight-domain boundary",
+      "kind": "drone-edge",
+      "boundaryPoint": [
+        -250,
+        1200
+      ],
+      "boundarySource": "runtime playable source mask and declared landmark flight areas",
+      "x": -250,
+      "z": 1349,
+      "y": 120,
+      "target": [
+        -250,
+        25,
+        1569
+      ],
+      "fov": 75,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraY": 120,
+      "groundY": 0,
+      "heading": 180,
+      "pitch": -23.355564859286012,
+      "aspect": 1.5,
+      "pose": {
+        "x": -250,
+        "y": 120,
+        "z": 1349,
+        "heading": 180,
+        "pitch": -23.355564859286012,
+        "fov": 75,
+        "aspect": 1.5,
+        "quaternion": [
+          0,
+          0.9793013717789306,
+          0.20240756713103578,
+          0
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 13,
+        "frameMs": 0,
+        "drawCalls": 102,
+        "triangles": 470244,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 149,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.452261282078965,
+      "lon": 26.10065326806519,
+      "image": "images/drone-edge-south.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:35:27.484Z",
+      "sha256": "dfa3f8db420f673e0d143c01d023713e746d3b3b78a38861b8271e7b0db7d84c",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    },
+    {
+      "id": "chapter-rosetti-street",
+      "chapterId": "rosetti",
+      "label": "rosetti actual chapter start street view",
+      "kind": "street",
+      "x": -245.49278934593488,
+      "z": 977.9616000000897,
+      "y": 1.7,
+      "target": [
+        -247.23776418105993,
+        1.7,
+        927.9920586491348
+      ],
+      "fov": 80,
+      "cameraY": 1.94,
+      "groundY": 0.24,
+      "heading": 358,
+      "pitch": -0.27501762954037684,
+      "aspect": 1.5,
+      "pose": {
+        "x": -245.49278934593488,
+        "y": 1.94,
+        "z": 977.9616000000897,
+        "heading": 358,
+        "pitch": -0.27501762954037684,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.0023996137358420293,
+          0.017452356175149113,
+          4.188541356176535e-05,
+          0.9998448156406404
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "day",
+        "rendererClockOverride": "day",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\u2600\ufe0f",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794180600813,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": 48
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 225,
+        "triangles": 978422,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 3,
+      "lat": 44.4556,
+      "lon": 26.10071,
+      "image": "images/chapter-rosetti-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:35:42.925Z",
+      "sha256": "206ea207feb86f61412b88debf7092cf202becbb4f97565021a4929949709bc3",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "day",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      }
+    }
+  ],
+  "sourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 24,
+    "d5795e20c85e8122a62fc503f33a182d05eceaf0": 1
+  },
+  "sourceSnapshots": [
+    {
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "manifest": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
+      "manifestSha256": "0bd4dc277693951fb03f0295d091f1a113bd5799e11c7371cca64827404dee8a",
+      "sourceProvenance": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/source-provenance.json",
+      "sourceProvenanceSha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429",
+      "frames": 25
+    },
+    {
+      "gameSourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "manifest": "provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/manifest.json",
+      "manifestSha256": "3abba632908eeae77e4cf7ab340b18c5f2249ee915a6b1ea958229e899e09bfc",
+      "sourceProvenance": "provenance/d5795e20c85e8122a62fc503f33a182d05eceaf0/source-provenance.json",
+      "sourceProvenanceSha256": "50ebd384f16ca78942d341b0c6413335e8ac32d804d23a5f9170fe4396ea0df4",
+      "frames": 3
+    }
+  ],
+  "sourceCompatibility": {
+    "method": "Only actually reviewed exact-pose pitch views replaced; every other original image byte, source SHA, pose and capture time retained. This does not relabel retained frames or claim full-scene pixel equivalence.",
+    "replacedIds": [
+      "dinamo-football-drone"
+    ],
+    "unchangedDistrictDataSha256": "e7c961ee4acc9bd0c6850e7fcce9ba170d1899134f10376c2a3b3f8af5695358"
+  }
+}

@@ -276,7 +276,10 @@ function buildCarusel(ctx) {
     // The same estimated shell encloses the modeled interior. Its real walls
     // and roof must remain visible from the galleries as well as the street.
     const insideMaterials=new Map();shell.traverse(o=>{if(!o.isMesh)return;const inward=m=>{if(!insideMaterials.has(m)){const copy=m.clone();copy.side=THREE.DoubleSide;insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);
-    for (let k = 0; k < LV.length; k++) ctx.lampPoints.push({ x: ecx, z: ecz, h: LV[k] + 3.6 - (ctx.ground.heightAt(ecx, ecz) - y0), noPost: true });
+    // Upper-storey fixtures must not become tall outdoor lamps whose pooled
+    // ground spill shines through every gallery and burns out the shop floor.
+    // One bounded reading light supplements the self-lit estimated interior.
+    const readingLight=new THREE.PointLight('#fff1db',24,7,2);readingLight.name='carusel-reading-light';readingLight.position.set(ecx,y0+3.1,ecz);ctx.add(readingLight);
     const climb={previous:null,distance:0,ascent:0,done:false};
     onActivityCancel(ctx, () => { climb.previous = null; climb.distance = 0; climb.ascent = 0; });
     ctx.onUpdate((dt,s,pl)=>{if(!pl||climb.done)return;const previous=climb.previous;climb.previous={x:pl.x,y:pl.y,z:pl.z};if(!previous)return;

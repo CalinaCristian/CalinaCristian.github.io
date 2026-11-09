@@ -1,0 +1,601 @@
+<?xml version='1.0' encoding='utf-8'?>
+<osm version="0.6" generator="Lossless original-element subset; sorted retained OSM tiles; first occurrence wins" copyright="OpenStreetMap and contributors" license="https://opendatacommons.org/licenses/odbl/1-0/"><node id="255081214" visible="true" version="6" changeset="158820953" timestamp="2024-11-06T14:33:19Z" user="Dan 9" uid="9484321" lat="44.4477329" lon="26.0688344" />
+ <node id="255082281" visible="true" version="8" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321" lat="44.4468174" lon="26.0681934">
+  <tag k="crossing" v="uncontrolled" />
+  <tag k="highway" v="crossing" />
+ </node>
+ <node id="255082599" visible="true" version="8" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321" lat="44.4464291" lon="26.0679216" />
+ <node id="257541268" visible="true" version="8" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321" lat="44.4456096" lon="26.0673478" />
+ <node id="286836527" visible="true" version="31" changeset="122236986" timestamp="2022-06-11T06:55:38Z" user="Dan 9" uid="9484321" lat="44.4345099" lon="26.0593553" />
+ <node id="286836866" visible="true" version="31" changeset="122236986" timestamp="2022-06-11T06:55:38Z" user="Dan 9" uid="9484321" lat="44.4346483" lon="26.0596097" />
+ <node id="286837118" visible="true" version="26" changeset="122236986" timestamp="2022-06-11T06:55:38Z" user="Dan 9" uid="9484321" lat="44.4345140" lon="26.0595735" />
+ <node id="286837968" visible="true" version="5" changeset="18387147" timestamp="2013-10-16T14:26:07Z" user="dincaionclaudiu" uid="1164579" lat="44.4348157" lon="26.0596527" />
+ <node id="933659723" visible="true" version="6" changeset="122574613" timestamp="2022-06-19T10:46:05Z" user="ted3sco" uid="2112541" lat="44.4344316" lon="26.0544739" />
+ <node id="981547574" visible="true" version="7" changeset="27024778" timestamp="2014-11-25T15:58:07Z" user="dincaionclaudiu" uid="1164579" lat="44.4474606" lon="26.0646170" />
+ <node id="981549744" visible="true" version="9" changeset="66966536" timestamp="2019-02-06T14:57:57Z" user="JAAS" uid="3321532" lat="44.4458763" lon="26.0669696" />
+ <node id="981563579" visible="true" version="6" changeset="76571260" timestamp="2019-11-04T06:39:56Z" user="Dan 9" uid="9484321" lat="44.4472617" lon="26.0651280" />
+ <node id="981599610" visible="true" version="5" changeset="98932766" timestamp="2021-02-08T21:50:58Z" user="Dan 9" uid="9484321" lat="44.4393900" lon="26.0602362" />
+ <node id="1340349368" visible="true" version="3" changeset="15523277" timestamp="2013-03-28T06:08:36Z" user="rarad74" uid="128281" lat="44.4402400" lon="26.0602092" />
+ <node id="1341164745" visible="true" version="8" changeset="190346758" timestamp="2026-10-11T13:07:47Z" user="Falnon" uid="311846" lat="44.4344046" lon="26.0593047">
+  <tag k="button_operated" v="no" />
+  <tag k="crossing" v="traffic_signals" />
+  <tag k="highway" v="crossing" />
+  <tag k="traffic_signals:sound" v="no" />
+  <tag k="traffic_signals:vibration" v="no" />
+ </node>
+ <node id="1341209718" visible="true" version="7" changeset="190346758" timestamp="2026-10-11T12:54:00Z" user="Falnon" uid="311846" lat="44.4347336" lon="26.0596352">
+  <tag k="button_operated" v="no" />
+  <tag k="crossing" v="traffic_signals" />
+  <tag k="highway" v="crossing" />
+  <tag k="traffic_signals:sound" v="no" />
+  <tag k="traffic_signals:vibration" v="no" />
+ </node>
+ <node id="1725252732" visible="true" version="14" changeset="191291791" timestamp="2026-10-31T19:25:30Z" user="one_electro_dan" uid="22582172" lat="44.4344887" lon="26.0582609">
+  <tag k="bench" v="no" />
+  <tag k="bus" v="yes" />
+  <tag k="name" v="Piața Leul" />
+  <tag k="network" v="Societatea de Transport București" />
+  <tag k="network:short" v="STB" />
+  <tag k="network:wikidata" v="Q2280353" />
+  <tag k="operator" v="Societatea de Transport București" />
+  <tag k="public_transport" v="stop_position" />
+  <tag k="ref" v="61, 62, 93, 136, 336" />
+  <tag k="shelter" v="yes" />
+  <tag k="tactile_paving" v="no" />
+  <tag k="trolleybus" v="yes" />
+ </node>
+ <node id="2159714520" visible="true" version="3" changeset="185162034" timestamp="2026-07-05T20:44:25Z" user="SGFRO" uid="20320807" lat="44.4398078" lon="26.0601694" />
+ <node id="2159891788" visible="true" version="4" changeset="92477437" timestamp="2020-10-14T13:54:49Z" user="Dan 9" uid="9484321" lat="44.4344602" lon="26.0566759" />
+ <node id="2250245615" visible="true" version="5" changeset="142343217" timestamp="2023-10-09T10:29:24Z" user="alexnder" uid="8430074" lat="44.4340393" lon="26.0591722">
+  <tag k="bus" v="yes" />
+  <tag k="name" v="Piața Leul" />
+  <tag k="network" v="Societatea de Transport București" />
+  <tag k="network:short" v="STB" />
+  <tag k="network:wikidata" v="Q2280353" />
+  <tag k="operator" v="Societatea de Transport București" />
+  <tag k="public_transport" v="stop_position" />
+  <tag k="ref" v="139" />
+  <tag k="shelter" v="yes" />
+  <tag k="tactile_paving" v="no" />
+ </node>
+ <node id="2250245616" visible="true" version="3" changeset="122236986" timestamp="2022-06-11T06:55:38Z" user="Dan 9" uid="9484321" lat="44.4342947" lon="26.0592595" />
+ <node id="2250245620" visible="true" version="3" changeset="122236986" timestamp="2022-06-11T06:55:38Z" user="Dan 9" uid="9484321" lat="44.4341377" lon="26.0592013" />
+ <node id="2250245623" visible="true" version="3" changeset="122236986" timestamp="2022-06-11T06:55:38Z" user="Dan 9" uid="9484321" lat="44.4344947" lon="26.0586741" />
+ <node id="2273753852" visible="true" version="3" changeset="76571260" timestamp="2019-11-04T06:39:56Z" user="Dan 9" uid="9484321" lat="44.4459396" lon="26.0688000" />
+ <node id="2295201758" visible="true" version="8" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321" lat="44.4465956" lon="26.0659272" />
+ <node id="2519078588" visible="true" version="4" changeset="188973792" timestamp="2026-09-13T17:43:20Z" user="Dan 9" uid="9484321" lat="44.4458344" lon="26.0670291">
+  <tag k="bus" v="yes" />
+  <tag k="name" v="Primăria Sector 6" />
+  <tag k="network" v="STB" />
+  <tag k="operator" v="STB" />
+  <tag k="public_transport" v="stop_position" />
+ </node>
+ <node id="2624398744" visible="true" version="3" changeset="53657910" timestamp="2017-11-10T06:18:52Z" user="rarad74" uid="128281" lat="44.4475765" lon="26.0643597" />
+ <node id="2624398749" visible="true" version="2" changeset="27025335" timestamp="2014-11-25T16:20:02Z" user="dincaionclaudiu" uid="1164579" lat="44.4475854" lon="26.0640995" />
+ <node id="2624398766" visible="true" version="3" changeset="53657910" timestamp="2017-11-10T06:18:52Z" user="rarad74" uid="128281" lat="44.4475909" lon="26.0642616" />
+ <node id="2624398767" visible="true" version="2" changeset="27025335" timestamp="2014-11-25T16:20:02Z" user="dincaionclaudiu" uid="1164579" lat="44.4475699" lon="26.0639930" />
+ <node id="2624398782" visible="true" version="3" changeset="53657910" timestamp="2017-11-10T06:18:52Z" user="rarad74" uid="128281" lat="44.4475538" lon="26.0644369" />
+ <node id="3020483247" visible="true" version="2" changeset="27024778" timestamp="2014-11-25T15:58:06Z" user="dincaionclaudiu" uid="1164579" lat="44.4472310" lon="26.0649805" />
+ <node id="3067740833" visible="true" version="4" changeset="144913215" timestamp="2023-12-08T18:08:34Z" user="Cătălin Topală" uid="16131251" lat="44.4344428" lon="26.0555738">
+  <tag k="bench" v="no" />
+  <tag k="bus" v="yes" />
+  <tag k="name" v="Facultatea de Electronică" />
+  <tag k="public_transport" v="stop_position" />
+  <tag k="ref" v="61, 62, 136, 336" />
+  <tag k="shelter" v="no" />
+  <tag k="tactile_paving" v="no" />
+  <tag k="trolleybus" v="yes" />
+ </node>
+ <node id="3201061286" visible="true" version="7" changeset="190346758" timestamp="2026-10-11T12:53:03Z" user="Falnon" uid="311846" lat="44.4345023" lon="26.0591325">
+  <tag k="button_operated" v="no" />
+  <tag k="crossing" v="traffic_signals" />
+  <tag k="highway" v="crossing" />
+  <tag k="traffic_signals:sound" v="no" />
+  <tag k="traffic_signals:vibration" v="no" />
+ </node>
+ <node id="3204791962" visible="true" version="6" changeset="188970541" timestamp="2026-09-13T16:29:38Z" user="Dan 9" uid="9484321" lat="44.4455327" lon="26.0674531">
+  <tag k="crossing" v="uncontrolled" />
+  <tag k="crossing:island" v="no" />
+  <tag k="crossing:markings" v="zebra" />
+  <tag k="flashing_lights" v="yes" />
+  <tag k="highway" v="crossing" />
+ </node>
+ <node id="3208556810" visible="true" version="6" changeset="188971071" timestamp="2026-09-13T16:41:37Z" user="Dan 9" uid="9484321" lat="44.4466607" lon="26.0658330" />
+ <node id="4365246377" visible="true" version="2" changeset="98932766" timestamp="2021-02-08T21:50:58Z" user="Dan 9" uid="9484321" lat="44.4372822" lon="26.0599673" />
+ <node id="4544537022" visible="true" version="2" changeset="188981329" timestamp="2026-09-13T20:49:15Z" user="Dan 9" uid="9484321" lat="44.4469648" lon="26.0661511" />
+ <node id="4544537024" visible="true" version="2" changeset="188981329" timestamp="2026-09-13T20:49:15Z" user="Dan 9" uid="9484321" lat="44.4469194" lon="26.0658730" />
+ <node id="4544537026" visible="true" version="2" changeset="188981329" timestamp="2026-09-13T20:49:15Z" user="Dan 9" uid="9484321" lat="44.4470222" lon="26.0660438" />
+ <node id="4544537048" visible="true" version="2" changeset="188981329" timestamp="2026-09-13T20:49:15Z" user="Dan 9" uid="9484321" lat="44.4468388" lon="26.0659348" />
+ <node id="4544537057" visible="true" version="1" changeset="44254004" timestamp="2016-12-08T09:30:24Z" user="rarad74" uid="128281" lat="44.4410029" lon="26.0603004" />
+ <node id="5142391359" visible="true" version="2" changeset="68318758" timestamp="2019-03-20T04:42:09Z" user="Dan 9" uid="9484321" lat="44.4452018" lon="26.0679063" />
+ <node id="5220968641" visible="true" version="1" changeset="53657910" timestamp="2017-11-10T06:16:41Z" user="rarad74" uid="128281" lat="44.4475901" lon="26.0641596" />
+ <node id="5220968642" visible="true" version="1" changeset="53657910" timestamp="2017-11-10T06:16:41Z" user="rarad74" uid="128281" lat="44.4475154" lon="26.0645203" />
+ <node id="5865532739" visible="true" version="7" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321" lat="44.4476665" lon="26.0687879">
+  <tag k="crossing" v="uncontrolled" />
+  <tag k="crossing:island" v="no" />
+  <tag k="crossing:markings" v="zebra" />
+  <tag k="highway" v="crossing" />
+  <tag k="kerb" v="raised" />
+ </node>
+ <node id="6257151356" visible="true" version="5" changeset="188970607" timestamp="2026-09-13T16:31:14Z" user="Dan 9" uid="9484321" lat="44.4457045" lon="26.0674143">
+  <tag k="crossing" v="uncontrolled" />
+  <tag k="crossing:island" v="no" />
+  <tag k="crossing:markings" v="zebra" />
+  <tag k="highway" v="crossing" />
+ </node>
+ <node id="6261060837" visible="true" version="5" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321" lat="44.4453030" lon="26.0680289">
+  <tag k="crossing" v="uncontrolled" />
+  <tag k="crossing:island" v="no" />
+  <tag k="crossing_ref" v="zebra" />
+  <tag k="highway" v="crossing" />
+ </node>
+ <node id="6261926623" visible="true" version="3" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321" lat="44.4463774" lon="26.0662318" />
+ <node id="6261926624" visible="true" version="3" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321" lat="44.4468910" lon="26.0656446" />
+ <node id="6261926625" visible="true" version="1" changeset="66966536" timestamp="2019-02-06T14:57:56Z" user="JAAS" uid="3321532" lat="44.4471615" lon="26.0650868" />
+ <node id="6261926626" visible="true" version="4" changeset="189810668" timestamp="2026-10-01T08:56:09Z" user="rarad74" uid="128281" lat="44.4464178" lon="26.0662965" />
+ <node id="6261963475" visible="true" version="2" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321" lat="44.4460824" lon="26.0667610" />
+ <node id="6261963476" visible="true" version="2" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321" lat="44.4460419" lon="26.0667002" />
+ <node id="6261963477" visible="true" version="1" changeset="66967287" timestamp="2019-02-06T15:25:37Z" user="JAAS" uid="3321532" lat="44.4469620" lon="26.0653863" />
+ <node id="6307136271" visible="true" version="1" changeset="67634378" timestamp="2019-02-27T23:15:20Z" user="Te-Ika" uid="3742941" lat="44.4475446" lon="26.0638625" />
+ <node id="6909034247" visible="true" version="10" changeset="190346758" timestamp="2026-10-11T13:10:57Z" user="Falnon" uid="311846" lat="44.4344333" lon="26.0546156">
+  <tag k="button_operated" v="no" />
+  <tag k="crossing" v="traffic_signals" />
+  <tag k="crossing:markings" v="zebra" />
+  <tag k="crossing_ref" v="zebra" />
+  <tag k="highway" v="crossing" />
+  <tag k="traffic_signals:sound" v="no" />
+  <tag k="traffic_signals:vibration" v="no" />
+ </node>
+ <node id="9810357647" visible="true" version="1" changeset="122236986" timestamp="2022-06-11T06:55:38Z" user="Dan 9" uid="9484321" lat="44.4342116" lon="26.0592277" />
+ <node id="9810364009" visible="true" version="1" changeset="122237113" timestamp="2022-06-11T07:01:58Z" user="Dan 9" uid="9484321" lat="44.4344907" lon="26.0583998" />
+ <node id="9810372019" visible="true" version="1" changeset="122237113" timestamp="2022-06-11T07:01:58Z" user="Dan 9" uid="9484321" lat="44.4344530" lon="26.0562191" />
+ <node id="13328623445" visible="true" version="1" changeset="175077605" timestamp="2025-11-24T17:33:44Z" user="rarad74" uid="128281" lat="44.4463934" lon="26.0679817" />
+ <node id="14161960362" visible="true" version="1" changeset="188707291" timestamp="2026-09-08T07:40:25Z" user="DanTPG" uid="14332595" lat="44.4396210" lon="26.0601993" />
+ <node id="14178097945" visible="true" version="1" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321" lat="44.4462157" lon="26.0664575" />
+ <node id="14178189703" visible="true" version="2" changeset="188973792" timestamp="2026-09-13T17:43:20Z" user="Dan 9" uid="9484321" lat="44.4454648" lon="26.0675460">
+  <tag k="bus" v="yes" />
+  <tag k="name" v="Primăria Sector 6" />
+  <tag k="network" v="Societatea de Transport București" />
+  <tag k="operator" v="Societatea de Transport București" />
+  <tag k="public_transport" v="stop_position" />
+ </node>
+ <node id="14178582383" visible="true" version="1" changeset="188981329" timestamp="2026-09-13T20:49:15Z" user="Dan 9" uid="9484321" lat="44.4470053" lon="26.0660638" />
+ <node id="14178582384" visible="true" version="1" changeset="188981329" timestamp="2026-09-13T20:49:15Z" user="Dan 9" uid="9484321" lat="44.4470193" lon="26.0660872" />
+ <node id="14178582385" visible="true" version="1" changeset="188981329" timestamp="2026-09-13T20:49:15Z" user="Dan 9" uid="9484321" lat="44.4468916" lon="26.0658724" />
+ <node id="14178582386" visible="true" version="1" changeset="188981329" timestamp="2026-09-13T20:49:15Z" user="Dan 9" uid="9484321" lat="44.4469034" lon="26.0658920" />
+ <node id="14178582388" visible="true" version="1" changeset="188981329" timestamp="2026-09-13T20:49:15Z" user="Dan 9" uid="9484321" lat="44.4469321" lon="26.0660884" />
+ <way id="23556037" visible="true" version="14" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321">
+  <nd ref="257541268" />
+  <nd ref="6257151356" />
+  <nd ref="255082599" />
+  <nd ref="255082281" />
+  <nd ref="5865532739" />
+  <nd ref="255081214" />
+  <tag k="highway" v="residential" />
+  <tag k="lanes" v="1" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="RO:urban" />
+  <tag k="name" v="Strada Barierei" />
+  <tag k="oneway" v="yes" />
+  <tag k="parking:both" v="street_side" />
+  <tag k="parking:both:fee" v="no" />
+  <tag k="parking:both:orientation" v="parallel" />
+  <tag k="sidewalk" v="both" />
+  <tag k="sidewalk:both:surface" v="asphalt" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="28050353" visible="true" version="19" changeset="116580799" timestamp="2022-01-25T11:32:40Z" user="Daniel Pavel" uid="103259">
+  <nd ref="286837118" />
+  <nd ref="286836866" />
+  <tag k="access" v="yes" />
+  <tag k="foot" v="no" />
+  <tag k="highway" v="primary" />
+  <tag k="lanes" v="2" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="50" />
+  <tag k="name" v="Șoseaua Grozăvești" />
+  <tag k="oneway" v="yes" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="28050354" visible="true" version="15" changeset="122236986" timestamp="2022-06-11T06:55:38Z" user="Dan 9" uid="9484321">
+  <nd ref="286836527" />
+  <nd ref="1341164745" />
+  <nd ref="2250245616" />
+  <nd ref="9810357647" />
+  <nd ref="2250245620" />
+  <nd ref="2250245615" />
+  <tag k="highway" v="primary" />
+  <tag k="is_in:city" v="București" />
+  <tag k="lanes" v="2" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="50" />
+  <tag k="name" v="Bulevardul Geniului" />
+  <tag k="oneway" v="yes" />
+  <tag k="sidewalk" v="separate" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="32070436" visible="true" version="47" changeset="188707291" timestamp="2026-09-08T07:40:25Z" user="DanTPG" uid="14332595">
+  <nd ref="981599610" />
+  <nd ref="14161960362" />
+  <nd ref="2159714520" />
+  <tag k="foot" v="no" />
+  <tag k="highway" v="primary" />
+  <tag k="name" v="Pasajul Basarab" />
+  <tag k="oneway" v="yes" />
+ </way>
+ <way id="50586387" visible="true" version="17" changeset="188970607" timestamp="2026-09-13T16:31:14Z" user="Dan 9" uid="9484321">
+  <nd ref="981549744" />
+  <nd ref="2519078588" />
+  <nd ref="257541268" />
+  <tag k="access" v="yes" />
+  <tag k="highway" v="secondary" />
+  <tag k="lanes" v="6" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="RO:urban" />
+  <tag k="name" v="Calea Plevnei" />
+  <tag k="surface" v="asphalt" />
+  <tag k="turn:lanes:forward" v="left;through|through|right" />
+ </way>
+ <way id="84482712" visible="true" version="25" changeset="188946096" timestamp="2026-09-13T07:01:32Z" user="SGFRO" uid="20320807">
+  <nd ref="6261926625" />
+  <nd ref="6261963477" />
+  <tag k="highway" v="secondary" />
+  <tag k="is_in:city" v="București" />
+  <tag k="lanes" v="1" />
+  <tag k="name" v="Calea Plevnei" />
+  <tag k="oneway" v="yes" />
+ </way>
+ <way id="84483724" visible="true" version="25" changeset="97470777" timestamp="2021-01-14T02:20:38Z" user="ted3sco" uid="2112541">
+  <nd ref="981549744" />
+  <nd ref="6261963475" />
+  <nd ref="6261926626" />
+  <nd ref="6261926624" />
+  <tag k="access" v="yes" />
+  <tag k="highway" v="secondary" />
+  <tag k="lanes" v="3" />
+  <tag k="maxspeed" v="RO:urban" />
+  <tag k="name" v="Calea Plevnei" />
+  <tag k="oneway" v="yes" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="119235186" visible="true" version="19" changeset="189209624" timestamp="2026-09-18T13:41:02Z" user="Dan 9" uid="9484321">
+  <nd ref="6307136271" />
+  <nd ref="2624398767" />
+  <nd ref="2624398749" />
+  <nd ref="5220968641" />
+  <nd ref="2624398766" />
+  <nd ref="2624398744" />
+  <nd ref="2624398782" />
+  <nd ref="5220968642" />
+  <nd ref="981547574" />
+  <tag k="bridge" v="yes" />
+  <tag k="foot" v="no" />
+  <tag k="hazard" v="ice" />
+  <tag k="highway" v="primary_link" />
+  <tag k="lanes" v="1" />
+  <tag k="layer" v="2" />
+  <tag k="lit" v="yes" />
+  <tag k="maxweightrating:hgv" v="5" />
+  <tag k="oneway" v="yes" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="198350132" visible="true" version="27" changeset="190344725" timestamp="2026-10-11T12:51:27Z" user="Falnon" uid="311846">
+  <nd ref="933659723" />
+  <nd ref="6909034247" />
+  <nd ref="3067740833" />
+  <nd ref="9810372019" />
+  <nd ref="2159891788" />
+  <tag k="highway" v="primary" />
+  <tag k="int_ref" v="E 81" />
+  <tag k="lanes" v="3" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="60" />
+  <tag k="maxspeed:hgv" v="40" />
+  <tag k="name" v="Bulevardul Iuliu Maniu" />
+  <tag k="oneway" v="yes" />
+  <tag k="sidewalk:left" v="no" />
+  <tag k="sidewalk:right" v="yes" />
+  <tag k="sidewalk:right:surface" v="asphalt" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+  <tag k="surface_survey" v="2020AUG_" />
+  <tag k="trolley_wire" v="yes" />
+ </way>
+ <way id="218081605" visible="true" version="5" changeset="66951662" timestamp="2019-02-06T03:55:29Z" user="JAAS" uid="3321532">
+  <nd ref="2273753852" />
+  <nd ref="6261060837" />
+  <nd ref="5142391359" />
+  <tag k="highway" v="residential" />
+  <tag k="maxspeed" v="RO:urban" />
+  <tag k="name" v="Strada Doamna Despina" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="218081606" visible="true" version="6" changeset="175077605" timestamp="2025-11-24T17:33:44Z" user="rarad74" uid="128281">
+  <nd ref="2273753852" />
+  <nd ref="13328623445" />
+  <nd ref="255082599" />
+  <tag k="highway" v="residential" />
+  <tag k="is_in:city" v="București" />
+  <tag k="maxspeed" v="RO:urban" />
+  <tag k="name" v="Strada Bogdan Vodă" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="239653290" visible="true" version="13" changeset="135818271" timestamp="2023-05-07T16:06:12Z" user="rarad74" uid="128281">
+  <nd ref="286836527" />
+  <nd ref="286837118" />
+  <tag k="foot" v="no" />
+  <tag k="highway" v="primary" />
+  <tag k="int_ref" v="E 81" />
+  <tag k="lanes" v="3" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="50" />
+  <tag k="name" v="Șoseaua Cotroceni" />
+  <tag k="oneway" v="yes" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+  <tag k="surface_survey" v="2020AUG_" />
+  <tag k="trolley_wire" v="yes" />
+ </way>
+ <way id="302795167" visible="true" version="13" changeset="190345556" timestamp="2026-10-11T12:52:57Z" user="Falnon" uid="311846">
+  <nd ref="2250245623" />
+  <nd ref="3201061286" />
+  <nd ref="286836527" />
+  <tag k="highway" v="primary" />
+  <tag k="int_ref" v="E 81" />
+  <tag k="lanes" v="3" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="50" />
+  <tag k="name" v="Bulevardul Iuliu Maniu" />
+  <tag k="oneway" v="yes" />
+  <tag k="sidewalk:left" v="no" />
+  <tag k="sidewalk:right" v="yes" />
+  <tag k="sidewalk:right:surface" v="asphalt" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+  <tag k="surface_survey" v="2020AUG_" />
+  <tag k="trolley_wire" v="yes" />
+ </way>
+ <way id="302798182" visible="true" version="7" changeset="190345556" timestamp="2026-10-11T12:54:22Z" user="Falnon" uid="311846">
+  <nd ref="286836866" />
+  <nd ref="1341209718" />
+  <nd ref="286837968" />
+  <tag k="access" v="yes" />
+  <tag k="highway" v="primary" />
+  <tag k="lanes" v="2" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="50" />
+  <tag k="name" v="Șoseaua Grozăvești" />
+  <tag k="oneway" v="yes" />
+  <tag k="sidewalk:left" v="no" />
+  <tag k="sidewalk:right" v="yes" />
+  <tag k="sidewalk:right:surface" v="asphalt" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="314448326" visible="true" version="12" changeset="188707291" timestamp="2026-09-08T07:40:25Z" user="DanTPG" uid="14332595">
+  <nd ref="2159714520" />
+  <nd ref="1340349368" />
+  <nd ref="4544537057" />
+  <tag k="bridge" v="yes" />
+  <tag k="foot" v="no" />
+  <tag k="highway" v="primary" />
+  <tag k="layer" v="1" />
+  <tag k="name" v="Pasajul Basarab" />
+  <tag k="oneway" v="yes" />
+ </way>
+ <way id="458458366" visible="true" version="2" changeset="188981329" timestamp="2026-09-13T20:49:15Z" user="Dan 9" uid="9484321">
+  <nd ref="4544537024" />
+  <nd ref="4544537026" />
+  <nd ref="14178582383" />
+  <nd ref="14178582384" />
+  <nd ref="4544537022" />
+  <nd ref="14178582388" />
+  <nd ref="4544537048" />
+  <nd ref="14178582385" />
+  <nd ref="14178582386" />
+  <nd ref="4544537024" />
+  <tag k="addr:city" v="București" />
+  <tag k="addr:country" v="RO" />
+  <tag k="addr:housenumber" v="228A" />
+  <tag k="addr:postcode" v="060016" />
+  <tag k="addr:street" v="Calea Plevnei" />
+  <tag k="amenity" v="bank" />
+  <tag k="atm" v="no" />
+  <tag k="building" v="office" />
+  <tag k="building:levels" v="5" />
+  <tag k="name" v="Creditcoop" />
+  <tag k="opening_hours" v="Mo-Th 08:00-16:30; Fr 08:00-16:00" />
+  <tag k="operator" v="Banca Centrala Cooperatista Creditcoop" />
+  <tag k="phone" v="+40 21 317 74 05" />
+  <tag k="start_date" v="2016" />
+  <tag k="website" v="https://www.creditcoop.ro/" />
+ </way>
+ <way id="665933058" visible="true" version="7" changeset="190345556" timestamp="2026-10-11T13:04:29Z" user="Falnon" uid="311846">
+  <nd ref="286837968" />
+  <nd ref="4365246377" />
+  <nd ref="981599610" />
+  <tag k="access" v="yes" />
+  <tag k="highway" v="primary" />
+  <tag k="lanes" v="2" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="50" />
+  <tag k="name" v="Șoseaua Grozăvești" />
+  <tag k="oneway" v="yes" />
+  <tag k="sidewalk:left" v="no" />
+  <tag k="sidewalk:right" v="yes" />
+  <tag k="sidewalk:right:surface" v="asphalt" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="668588452" visible="true" version="6" changeset="188973792" timestamp="2026-09-13T17:43:20Z" user="Dan 9" uid="9484321">
+  <nd ref="257541268" />
+  <nd ref="3204791962" />
+  <nd ref="14178189703" />
+  <nd ref="5142391359" />
+  <tag k="highway" v="secondary" />
+  <tag k="lanes" v="5" />
+  <tag k="lanes:backward" v="3" />
+  <tag k="lanes:forward" v="2" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="RO:urban" />
+  <tag k="name" v="Calea Plevnei" />
+  <tag k="surface" v="asphalt" />
+  <tag k="turn:lanes:backward" v="left;through|through|through;right" />
+ </way>
+ <way id="668676693" visible="true" version="5" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321">
+  <nd ref="2295201758" />
+  <nd ref="6261926623" />
+  <tag k="access" v="yes" />
+  <tag k="foot" v="no" />
+  <tag k="highway" v="secondary" />
+  <tag k="lanes" v="3" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="50" />
+  <tag k="name" v="Calea Plevnei" />
+  <tag k="oneway" v="yes" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+  <tag k="turn:lanes" v="||merge_to_left" />
+ </way>
+ <way id="668676694" visible="true" version="6" changeset="188946096" timestamp="2026-09-13T07:01:32Z" user="SGFRO" uid="20320807">
+  <nd ref="3020483247" />
+  <nd ref="6261926625" />
+  <tag k="foot" v="no" />
+  <tag k="highway" v="secondary" />
+  <tag k="is_in:city" v="București" />
+  <tag k="lanes" v="2" />
+  <tag k="layer" v="1" />
+  <tag k="oneway" v="no" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="668676695" visible="true" version="8" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321">
+  <nd ref="6261926624" />
+  <nd ref="6261926625" />
+  <tag k="destination:ref" v="A2;7;1" />
+  <tag k="highway" v="secondary" />
+  <tag k="is_in:city" v="București" />
+  <tag k="lanes" v="1" />
+  <tag k="oneway" v="yes" />
+ </way>
+ <way id="668676696" visible="true" version="2" changeset="97470777" timestamp="2021-01-14T02:20:38Z" user="ted3sco" uid="2112541">
+  <nd ref="6261926624" />
+  <nd ref="981563579" />
+  <tag k="access" v="yes" />
+  <tag k="highway" v="secondary" />
+  <tag k="lanes" v="2" />
+  <tag k="maxspeed" v="RO:urban" />
+  <tag k="name" v="Calea Plevnei" />
+  <tag k="oneway" v="yes" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="668676697" visible="true" version="6" changeset="188946096" timestamp="2026-09-13T07:01:32Z" user="SGFRO" uid="20320807">
+  <nd ref="981547574" />
+  <nd ref="3020483247" />
+  <tag k="bridge" v="yes" />
+  <tag k="foot" v="no" />
+  <tag k="highway" v="secondary" />
+  <tag k="is_in:city" v="București" />
+  <tag k="lanes" v="2" />
+  <tag k="layer" v="1" />
+  <tag k="oneway" v="no" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="668679784" visible="true" version="3" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321">
+  <nd ref="6261926623" />
+  <nd ref="14178097945" />
+  <nd ref="6261963476" />
+  <nd ref="981549744" />
+  <tag k="access" v="yes" />
+  <tag k="foot" v="no" />
+  <tag k="highway" v="secondary" />
+  <tag k="lanes" v="2" />
+  <tag k="maxspeed" v="50" />
+  <tag k="name" v="Calea Plevnei" />
+  <tag k="oneway" v="yes" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+ </way>
+ <way id="668679788" visible="true" version="7" changeset="188968548" timestamp="2026-09-13T15:47:42Z" user="Dan 9" uid="9484321">
+  <nd ref="6261963477" />
+  <nd ref="3208556810" />
+  <tag k="highway" v="secondary" />
+  <tag k="is_in:city" v="București" />
+  <tag k="lanes" v="1" />
+  <tag k="name" v="Calea Plevnei" />
+  <tag k="oneway" v="yes" />
+ </way>
+ <way id="668679789" visible="true" version="3" changeset="120988914" timestamp="2022-05-14T19:02:00Z" user="VanVidra" uid="15956631">
+  <nd ref="3208556810" />
+  <nd ref="2295201758" />
+  <tag k="access" v="yes" />
+  <tag k="foot" v="no" />
+  <tag k="highway" v="secondary" />
+  <tag k="lanes" v="3" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="50" />
+  <tag k="name" v="Calea Plevnei" />
+  <tag k="oneway" v="yes" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+  <tag k="turn:lanes" v="||merge_to_left" />
+ </way>
+ <way id="723726654" visible="true" version="10" changeset="190344725" timestamp="2026-10-11T13:09:25Z" user="Falnon" uid="311846">
+  <nd ref="2159891788" />
+  <nd ref="1725252732" />
+  <nd ref="9810364009" />
+  <nd ref="2250245623" />
+  <tag k="highway" v="primary" />
+  <tag k="int_ref" v="E 81" />
+  <tag k="lanes" v="3" />
+  <tag k="lit" v="yes" />
+  <tag k="maxspeed" v="50" />
+  <tag k="maxspeed:hgv" v="40" />
+  <tag k="name" v="Bulevardul Iuliu Maniu" />
+  <tag k="oneway" v="yes" />
+  <tag k="sidewalk:left" v="no" />
+  <tag k="sidewalk:right" v="yes" />
+  <tag k="sidewalk:right:surface" v="asphalt" />
+  <tag k="smoothness" v="excellent" />
+  <tag k="surface" v="asphalt" />
+  <tag k="surface_survey" v="2020AUG_" />
+  <tag k="trolley_wire" v="yes" />
+ </way>
+ <relation id="11760661" visible="true" version="1" changeset="92578315" timestamp="2020-10-16T10:47:54Z" user="Rus Ionut" uid="1435498">
+  <member type="way" ref="668676695" role="from" />
+  <member type="node" ref="6261926625" role="via" />
+  <member type="way" ref="668676694" role="to" />
+  <tag k="restriction" v="only_straight_on" />
+  <tag k="type" v="restriction" />
+ </relation>
+ <relation id="15001525" visible="true" version="1" changeset="130019880" timestamp="2022-12-13T04:35:30Z" user="Bolt005" uid="11831826">
+  <member type="way" ref="302795167" role="from" />
+  <member type="node" ref="286836527" role="via" />
+  <member type="way" ref="28050354" role="to" />
+  <tag k="restriction" v="no_right_turn" />
+  <tag k="type" v="restriction" />
+ </relation>
+ <relation id="21068490" visible="true" version="2" changeset="187939855" timestamp="2026-08-24T13:41:08Z" user="SGFRO" uid="20320807">
+  <member type="node" ref="2159714520" role="via" />
+  <member type="way" ref="314448326" role="to" />
+  <tag k="restriction" v="only_straight_on" />
+  <tag k="type" v="restriction" />
+ </relation>
+ <relation id="21387140" visible="true" version="1" changeset="188946096" timestamp="2026-09-13T07:01:32Z" user="SGFRO" uid="20320807">
+  <member type="way" ref="119235186" role="from" />
+  <member type="node" ref="981547574" role="via" />
+  <member type="way" ref="668676697" role="to" />
+  <tag k="restriction" v="only_straight_on" />
+  <tag k="type" v="restriction" />
+ </relation>
+ <relation id="21387141" visible="true" version="1" changeset="188946096" timestamp="2026-09-13T07:01:32Z" user="SGFRO" uid="20320807">
+  <member type="way" ref="668679784" role="from" />
+  <member type="node" ref="981549744" role="via" />
+  <member type="way" ref="50586387" role="to" />
+  <tag k="restriction" v="only_straight_on" />
+  <tag k="type" v="restriction" />
+ </relation>
+ </osm>

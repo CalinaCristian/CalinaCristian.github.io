@@ -1,0 +1,1282 @@
+{
+  "scope": "Independent old-to-rebuilt source retention. Synthetic negative boundary cuts may be replaced; all literal positive source nodes, original physical building footprints/courtyards/dimensions, source-road metadata and measured crown records must survive. Native World acceptance remains separate.",
+  "oldSourceCommit": "322ddcc639b219a34589006a0e1b493c214b65b1",
+  "oldDataSha256": "7d69db01e1c26c838cf8d0cdc61afbde0d13e366c63a9eb22be02402a79955fb",
+  "candidateDataSha256": "58018e6df3f92e990ff14907a7daa2c2fd28c23296a6a10ad7132f64bcf71600",
+  "positiveNodes": {
+    "old": 1185,
+    "new": 1294,
+    "missing": [],
+    "moved": []
+  },
+  "trees": {
+    "old": 19289,
+    "new": 21708,
+    "missingOrChanged": [
+      {
+        "packed": [
+          -3564,
+          7918,
+          322
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 59
+        }
+      },
+      {
+        "packed": [
+          -2652,
+          7901,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          -1987,
+          7876,
+          340
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 63
+        }
+      },
+      {
+        "packed": [
+          -2396,
+          7799,
+          244
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 42
+        }
+      },
+      {
+        "packed": [
+          -2166,
+          7783,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          -1416,
+          7783,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          -1791,
+          7774,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          -1688,
+          7774,
+          184
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 29
+        }
+      },
+      {
+        "packed": [
+          -1834,
+          7757,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          -2379,
+          7739,
+          280
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 50
+        }
+      },
+      {
+        "packed": [
+          -665,
+          7731,
+          210
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 35
+        }
+      },
+      {
+        "packed": [
+          -2362,
+          7637,
+          184
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 29
+        }
+      },
+      {
+        "packed": [
+          -597,
+          7629,
+          340
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 63
+        }
+      },
+      {
+        "packed": [
+          -2404,
+          7595,
+          192
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 31
+        }
+      },
+      {
+        "packed": [
+          230,
+          7586,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          -3197,
+          7578,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          -1995,
+          7569,
+          340
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 63
+        }
+      },
+      {
+        "packed": [
+          -972,
+          7527,
+          252
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 44
+        }
+      },
+      {
+        "packed": [
+          -1910,
+          7425,
+          192
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 31
+        }
+      },
+      {
+        "packed": [
+          -597,
+          7365,
+          304
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 55
+        }
+      },
+      {
+        "packed": [
+          -2950,
+          7297,
+          244
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 42
+        }
+      },
+      {
+        "packed": [
+          -2038,
+          7280,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          -1969,
+          7280,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          -734,
+          7246,
+          184
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 29
+        }
+      },
+      {
+        "packed": [
+          -597,
+          7246,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          -60,
+          7229,
+          184
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 29
+        }
+      },
+      {
+        "packed": [
+          281,
+          7220,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          768,
+          6931,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          239,
+          6207,
+          432
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 83
+        }
+      },
+      {
+        "packed": [
+          521,
+          5807,
+          304
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 55
+        }
+      },
+      {
+        "packed": [
+          401,
+          5373,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          597,
+          4948,
+          414
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 79
+        }
+      },
+      {
+        "packed": [
+          614,
+          4776,
+          368
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 69
+        }
+      },
+      {
+        "packed": [
+          265,
+          4360,
+          192
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 31
+        }
+      },
+      {
+        "packed": [
+          674,
+          4104,
+          376
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 71
+        }
+      },
+      {
+        "packed": [
+          461,
+          3713,
+          276
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 49
+        }
+      },
+      {
+        "packed": [
+          529,
+          2964,
+          440
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 90
+        }
+      },
+      {
+        "packed": [
+          649,
+          2529,
+          436
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 84
+        }
+      },
+      {
+        "packed": [
+          870,
+          1874,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          597,
+          1771,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          7137,
+          -4170,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          7086,
+          -4213,
+          244
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 42
+        }
+      },
+      {
+        "packed": [
+          7171,
+          -4230,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          7137,
+          -4272,
+          234
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 40
+        }
+      },
+      {
+        "packed": [
+          7197,
+          -4281,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          7035,
+          -4290,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          7043,
+          -4332,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          6915,
+          -4341,
+          276
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 49
+        }
+      },
+      {
+        "packed": [
+          7052,
+          -4417,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          6941,
+          -4468,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          6771,
+          -4536,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          6865,
+          -4553,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          6643,
+          -4681,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          6276,
+          -4698,
+          252
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 44
+        }
+      },
+      {
+        "packed": [
+          6617,
+          -4706,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          6549,
+          -4723,
+          210
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 35
+        }
+      },
+      {
+        "packed": [
+          6719,
+          -4741,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          6362,
+          -4792,
+          244
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 42
+        }
+      },
+      {
+        "packed": [
+          6353,
+          -4868,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          7325,
+          -4885,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          6327,
+          -4893,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          6609,
+          -4902,
+          336
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 62
+        }
+      },
+      {
+        "packed": [
+          6268,
+          -4953,
+          230
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 39
+        }
+      },
+      {
+        "packed": [
+          6327,
+          -4970,
+          252
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 44
+        }
+      },
+      {
+        "packed": [
+          7368,
+          -5004,
+          326
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 60
+        }
+      },
+      {
+        "packed": [
+          6319,
+          -5072,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          6268,
+          -5081,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          6387,
+          -5098,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          6327,
+          -5192,
+          336
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 62
+        }
+      },
+      {
+        "packed": [
+          6225,
+          -5277,
+          276
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 49
+        }
+      },
+      {
+        "packed": [
+          7478,
+          -5388,
+          312
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 57
+        }
+      },
+      {
+        "packed": [
+          7411,
+          -5395,
+          234
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 40
+        }
+      },
+      {
+        "packed": [
+          7359,
+          -5455,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          7350,
+          -5507,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          7256,
+          -5515,
+          192
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 31
+        }
+      },
+      {
+        "packed": [
+          7308,
+          -5523,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          7206,
+          -5592,
+          312
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 57
+        }
+      },
+      {
+        "packed": [
+          7078,
+          -5677,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          7035,
+          -5693,
+          178
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 28
+        }
+      },
+      {
+        "packed": [
+          6993,
+          -5737,
+          152
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 22
+        }
+      },
+      {
+        "packed": [
+          4715,
+          -6519,
+          304
+        ],
+        "record": {
+          "info": [
+            -1,
+            0,
+            37
+          ],
+          "radius": 55
+        }
+      }
+    ],
+    "retention": {
+      "policy": "all-measured",
+      "inputCrowns": 44645,
+      "retained": 21657,
+      "rejectedGeometryOrDuplicate": 3372,
+      "outsideSurveyDistrict": 19616,
+      "thinned": 0
+    }
+  },
+  "areas": {
+    "old": 526,
+    "new": 560,
+    "missingSourceIds": [],
+    "carriedWater": [
+      {
+        "sourceId": "r1130828",
+        "unchangedRings": true
+      },
+      {
+        "sourceId": "w174991904",
+        "unchangedRings": true
+      },
+      {
+        "sourceId": "w983903953",
+        "unchangedRings": true
+      },
+      {
+        "sourceId": "w117140697",
+        "unchangedRings": true
+      }
+    ]
+  },
+  "mask": {
+    "oldInsideCells": 2058,
+    "newInsideCells": 2516,
+    "removedOldInsideCells": 0,
+    "addedInsideCells": 458,
+    "cellM": 20
+  },
+  "roadSourceNodeTagCoverage": {
+    "keys": [
+      "ele",
+      "incline",
+      "level"
+    ],
+    "sourceNodeCount": 6185,
+    "missingSourceNodes": [],
+    "scope": "All literal original nodes of retained roadSourceGeometry and scenerySourceGeometry, before clipping; no values inferred."
+  }
+}
+building dimension changes 1 appearance changes 0 profile changes 0 missing exact bodies 0 roadmetadata mismatches 0

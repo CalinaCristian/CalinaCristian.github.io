@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-11-09T00:27:45.646676+00:00",
-  "testedRuntimeSha256": "525c598df3397da590e89242c83fcb65a6cd81db3dd567ce84b7d6359a21b27d",
+  "recordedAt": "2026-11-09T00:53:27.293100+00:00",
+  "testedRuntimeSha256": "44aeb2d50d2496f2264589fb18a388c58d4b96e852fa68bad85650d443b61ec0",
   "checks": [
     {
       "command": "node --input-type=module --check < game/src/traffic.js",
@@ -18,9 +18,22 @@
     {
       "command": "node game/dev/crowd-flow.test.mjs",
       "result": "pass"
+    },
+    {
+      "command": "node --input-type=module --check < game/dev/harness/page/core.js",
+      "result": "pass"
+    },
+    {
+      "command": "node game/dev/lane-drop-chain.test.mjs",
+      "result": "pass"
+    },
+    {
+      "command": "node game/dev/harness-body-sensing.test.mjs",
+      "result": "pass"
     }
   ],
   "scope": "Actual production methods; full560/180 controlled source-like constructors preserve exact future RNG. Native final combined proof remains separate and pending.",
   "sourceFixture": "game/dev/fixtures/unirii-short-edge-pair.json",
-  "sourceFixtureSha256": "e8c1c6aa69872243ccbcc7d13c36b9e5e918766d906ad6a70df3ec094dee7609"
+  "sourceFixtureSha256": "e8c1c6aa69872243ccbcc7d13c36b9e5e918766d906ad6a70df3ec094dee7609",
+  "testedCallerSha256": "d01486357308e8b50ff6947b16da8f4b5205086454384d8f15aa003b1d163005"
 }

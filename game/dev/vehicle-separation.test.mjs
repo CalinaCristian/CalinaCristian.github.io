@@ -71,4 +71,11 @@ for(let i=0;i<70;i++) {
     assert.ok(penetration(moving,solid)<=0);
 }
 assert.equal(guarded.stats.revGhost,undefined,'waiting never forces ghost passage');
+const rotating=vehicle({id:1,length:4,width:1,heading:-Math.PI/2}),beside=vehicle({id:2,x:2.2,length:2,width:1,heading:0,parked:true});
+const sweep=traffic([rotating,beside]);
+Object.assign(rotating,{_f:1,_x0:0,_z0:0,_h0:0,_e0:rotating.edge,_s0:10,_odo0:0,_y0:.24,_ly0:0});
+assert.ok(penetration(rotating,beside)>0);
+sweep.overlapGuard();
+assert.equal(rotating.heading,0,'a heading-only rendered body sweep is reverted even with unchanged centre');
+assert.ok(penetration(rotating,beside)<=0);
 console.log('PASS: actual short-edge body, back-out, new third contact, turn, pedestrian/player, height and timed-ghost controls');

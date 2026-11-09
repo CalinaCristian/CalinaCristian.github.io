@@ -420,15 +420,16 @@ export class Harness {
                 let bd = Infinity, bsv = 0;
                 for (const i of segs) { const a = path.pts[i], b = path.pts[i + 1]; const q = distPointSeg(px, pz, a[0], a[1], b[0], b[1]); if (q.d < bd) { bd = q.d; bsv = path.cum[i] + (path.cum[i + 1] - path.cum[i]) * q.t; } }
                 if (bd > halfW + 1.25) continue;
-                const gp = bsv - s0 - (P.length || 4.4) / 2;
+                const gp = bsv - s0 - (P.front ?? (P.length || 4.4) / 2);
                 if (gp < -3 || gp > look) continue;
                 if (gp < gap) { gap = gp; speed = sp; what = label; info = obj; }
             }
         };
         for (const v of T.near(P.x + P.fx * look * 0.5, P.z + P.fz * look * 0.5, look * 0.6 + 16)) {
             if (Math.abs((v.y ?? 0.24) - (P.y ?? 0.24)) > 3) continue;
-            const along = v.fx * P.fx + v.fz * P.fz;
-            test(v.x, v.z, v.fx, v.fz, v.width / 2, v.length / 2, v.speed * along, v.parked ? 'parked car' : (v.kind || 'car'), { id: v.id, kind: v.kind, parked: !!v.parked, speed: r1(v.speed) });
+            const fx = Number.isFinite(v.heading) ? -Math.sin(v.heading) : v.fx, fz = Number.isFinite(v.heading) ? -Math.cos(v.heading) : v.fz;
+            const along = fx * P.fx + fz * P.fz;
+            test(v.x, v.z, fx, fz, v.width / 2, v.length / 2, v.speed * along, v.parked ? 'parked car' : (v.kind || 'car'), { id: v.id, kind: v.kind, parked: !!v.parked, speed: r1(v.speed) });
         }
         for (const p of (T.nearPeds && !this.ap.ignorePeds) ? T.nearPeds(P.x + P.fx * 15, P.z + P.fz * 15, 22) : []) if (p.state !== 'down') test(p.x, p.z, 1, 0, 0.4, 0, 0, 'pedestrian', null);
         return { gap, speed, what, info };

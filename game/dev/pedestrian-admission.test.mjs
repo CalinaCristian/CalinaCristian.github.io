@@ -167,6 +167,11 @@ for(const [buc,count] of [[true,560],[false,180]]) {
     assert.ok(fixed.list.every(p=>p.live&&!p.hidden));
     assert.ok((fixed.stats.initialWalkRepairs||0)>0,'the constructor fixture actually exercises previsible repairs');
     assert.equal(fixed.stats.initialWalkUnresolved||0,0,'the grid fixture has sufficient real clear capacity for every repair');
+    for(let i=0;i<fixed.list.length;i++)for(const other of fixed.list.slice(i+1)) {
+        const p=fixed.list[i];
+        assert.ok(Math.hypot(p.x-other.x,p.z-other.z)>=fixed.reach(p)+fixed.reach(other)+.35-1e-8,
+            'all native initial bodies and carried objects have the required walking headway');
+    }
     // Retained c78 constructor stream fixtures, including all original unused
     // colour draws. Physical admission must not change the future logic stream.
     const future=Array.from({length:32},()=>fixed.rng());

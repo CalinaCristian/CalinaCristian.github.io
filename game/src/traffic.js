@@ -1129,6 +1129,8 @@ export class Traffic {
         if (leader === P && P && Math.abs(P.speed) < 1.2 && gap < 14) v.blockT += dt; else v.blockT = Math.max(0, v.blockT - dt * 2);
 
         // ---------------- path constraints: lights, stops, zebras, turns ----------------
+        const laneDropMax = this.laneDropMax(v, 60);
+        if (!v.tram && v.lane > laneDropMax && this.laneFree(v, v.lane - 1)) { v.lane--; v.laneChangeCd = 2; }
         let stopD = Infinity, vCap = Infinity, waitingRed = false, stopWhy = null;
         let curE = e, curDir = v.dir, D = L - v.s - half, prevNode = null, prevD = 0;
         const seenSignals = new Set();
@@ -1191,15 +1193,16 @@ export class Traffic {
             }
             // lane drop ahead (next edge has fewer lanes): merge before the end of this edge, or wait at the end
             // instead of being squeezed sideways onto a car in the remaining lane
-            if (k === -1 && nxt && !v.tram && !nxt.uturn) {
+            if (nxt && !v.tram && !nxt.uturn && D < 60) {
                 const nl = Math.max(1, lanesDir(nxt.e, nxt.dir));
-                if (v.lane > nl - 1 && D < 60) {
-                    if (this.laneFree(v, v.lane - 1)) { v.lane--; v.laneChangeCd = 2; }
+                if (v.lane > nl - 1) {
                     // wait for a gap before the line; already at / past it (or waited long): merge on the move,
                     // car-following and the junction claim keep it off the others (a stop inside the box locks the junction)
-                    else if (D - rad - 1.5 > -0.5 && v.stuck < 3) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop'; } }
-                } else if (v.lane > nl - 1) { /* far: handled when closer */ }
-                else if (v.laneCur > nl - 1 + 0.25 && D - rad < 6) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop2'; } } // still sliding over
+                    if (D - rad - 1.5 > -0.5 && v.stuck < 3) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop'; } }
+                } else {
+                    const _d = this.laneDropStop(v, nl, D, rad);
+                    if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop2'; }
+                }
             }
             if (!nxt) break;
             const ang = Math.abs(nxt.uturn ? Math.PI : turnAngle(curE.dirx * curDir, curE.dirz * curDir, nxt.e.dirx * nxt.dir, nxt.e.dirz * nxt.dir));
@@ -1289,10 +1292,11 @@ export class Traffic {
             const blocked = leader && leader !== 'ped' && gap < 25 && leaderSpeed < desired * 0.6;
             const wander = this.buc && v.speed > 6 && this.rng.chance(0.0006 * this.chaos);
             let want = blocked || (v.stuck > 2 && gap < 8) || wander;
-            if (v.bus && v.lane !== lanes - 1) want = true;
+            const busLane = Math.min(lanes - 1, laneDropMax);
+            if (v.bus && v.lane !== busLane) want = true;
             if (want) {
-                let options = v.bus ? [lanes - 1 > v.lane ? v.lane + 1 : v.lane - 1] : [v.lane - 1, v.lane + 1];
-                const lmax = v.bus ? lanes - 1 : this.carLaneMax(v.edge, v.dir, v);
+                let options = v.bus ? [busLane > v.lane ? v.lane + 1 : v.lane - 1] : [v.lane - 1, v.lane + 1];
+                const lmax = Math.min(laneDropMax, v.bus ? lanes - 1 : this.carLaneMax(v.edge, v.dir, v));
                 options = options.filter(l => l >= 0 && l <= lmax && l !== v.lane);
                 if (this.rng() < 0.5) options.reverse();
                 let done = false;
@@ -1335,6 +1339,24 @@ export class Traffic {
         const lateral = Math.abs(lane * (v.edge.laneW ?? 3.3)) + Math.abs(extra);
         const scale = lateral > 0 ? Math.min(1, 0.45 * travel / lateral) : 0;
         v.laneCur += lane * scale; v.latExtraCur += extra * scale;
+    }
+
+    /** Plan across literal short source segments, so a long body starts its
+     * merge before the last metre of a lane exists. No graph record is joined. */
+    laneDropMax(v, look) {
+        let maxLane = Math.max(0, lanesDir(v.edge, v.dir) - 1), distance = v.edge.len - v.s - v.length / 2;
+        for (const next of v.route) {
+            if (distance >= look || next.uturn) break;
+            maxLane = Math.min(maxLane, Math.max(0, lanesDir(next.e, next.dir) - 1));
+            distance += next.e.len;
+        }
+        return maxLane;
+    }
+    /** Once its body has passed the stop line it must clear the intersection;
+     * travel supplies the remaining smooth lateral merge, never a stopped slide. */
+    laneDropStop(v, nextLanes, distance, radius) {
+        const stop = distance - radius - 1.5;
+        return v.laneCur > nextLanes - 1 + 0.25 && distance - radius < 6 && stop > -0.5 ? stop : Infinity;
     }
 
     /** path across the junction pad for v going (curE,curDir) → nxt: entry lane point → exit lane point */

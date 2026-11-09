@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "e1bab01021be5b8d05a60145b7a8476d720d0f1d",
+  "sourceSha": "250051fde303974e3b0043d3e2a34415012f0220",
   "reviewedOn": "2026-11-09",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -2930,35 +2930,127 @@
     },
     {
       "path": "game/overview/comparison-data/pipera/capture-manifest.json",
-      "sha256": "67b0dac64fdd882db788b51523e5566b964d4c39309fb88e327f0fde07f2832d"
+      "sha256": "1ba053f3b48eb5915a7c69ba8c738c84fe8fe201a02cebf5ae63c52027fbd535"
     },
     {
       "path": "game/overview/comparison-data/pipera/capture-report.json",
-      "sha256": "81e551daa756fa9be57cb5694b5568352fc352acd799f2f1a8ec030f1f096f64"
+      "sha256": "89ca6abe3d51bf5185201f6afb7b0b4735dfbd461fbe8b5b4577789c50489fbf"
     },
     {
       "path": "game/overview/comparison-data/pipera/grid-plan.json",
+      "sha256": "a4467112973082405fe973302a02a6b4a622ff4c7f211ccfefbd18037207e47f"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/boundary-source.json",
+      "sha256": "0eab74111ca1fb114369cc119b8509eb5c7a764446ab601f07d931c4e6b19129"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/capture-manifest.json",
+      "sha256": "67b0dac64fdd882db788b51523e5566b964d4c39309fb88e327f0fde07f2832d"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/capture-report.json",
+      "sha256": "81e551daa756fa9be57cb5694b5568352fc352acd799f2f1a8ec030f1f096f64"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/grid-plan.json",
       "sha256": "307d3f99e08abdc32720489151bd01064fc98a1f2dbc9a4b81f1c7bb4d644c4f"
     },
     {
-      "path": "game/overview/comparison-data/pipera/manifest.json",
+      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/manifest.json",
       "sha256": "803521c793e0eb12e668bbe198cc2275350b4bc943dfd975c6adff540b33acd8"
     },
     {
-      "path": "game/overview/comparison-data/pipera/poses.json",
+      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/poses.json",
       "sha256": "fbf638e77bae9519aa4cccc5a0af3356926c5dc0da810d35cf69a6b66bf13c2e"
     },
     {
-      "path": "game/overview/comparison-data/pipera/review.json",
+      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/review.json",
       "sha256": "acb1b605aa93ce51fcfe8c65d4868bf365438b004f93238eaaa6287b1718f053"
     },
     {
-      "path": "game/overview/comparison-data/pipera/source-provenance.json",
+      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/source-provenance.json",
       "sha256": "bedee6790e941fd84d4a7409c4a34d9744e7ffb6077b35a24e8722e52aee2850"
     },
     {
-      "path": "game/overview/comparison-data/pipera/validation.json",
+      "path": "game/overview/comparison-data/pipera/historical/c78a5f4/validation.json",
       "sha256": "50d818f599f8bffc6eb567b6c404315364d8b0599bdc0bc421199882adc03068"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/manifest.json",
+      "sha256": "4b5982724681558afaa65ead6bf82086a55cf7c6ccef1c02973c24ca3525592f"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/poses.json",
+      "sha256": "464630466b49c7de738277fd1120c5f63521e3adb4c8616e2814fbf7c5a3a495"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/boundary-source.json",
+      "sha256": "0eab74111ca1fb114369cc119b8509eb5c7a764446ab601f07d931c4e6b19129"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/capture-report.json",
+      "sha256": "47028b74968b1a4f948098a75bcf826c88a238594e42c77a787d8a7ea887ef3f"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/grid-plan.json",
+      "sha256": "36ac96cddfa0f7a165b40e5feea370664dc19f59f9cc87fb4f454f74ad395c21"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/manifest.json",
+      "sha256": "85245cb4df7a9b626117254380c15baea205bfb7496cb0373f2b499c5ebdbb13"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/original-archive-hashes.json",
+      "sha256": "9187f5387d42234933520ee609cd76608d58f19c447927df7eced5b64fd1dd58"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/paired-review.json",
+      "sha256": "7126aa8d288a034764775fd59832aeca54adb62baa722195b892b7843add8a4c"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/poses.json",
+      "sha256": "2805f9314ed4b1ba4f96cc66d5f4aac608f1bdaf6649ee38c9eb5825265248cf"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/publication-validation.json",
+      "sha256": "b58af989c2ffde0ee80e5a7a96362b4cb54a0715e8687ca3d0f4a05cf15cdbda"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/retake-impact-mask.json",
+      "sha256": "405b3b611c8f3e53f2561ff2692d6a382639f13f23822428b32e7066a24b2ddd"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/source-equivalence.json",
+      "sha256": "e9035d9787471e13b942518b28cf0393dd4dfbe0dcbecdc183343a16e9f8d092"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/source-provenance.json",
+      "sha256": "8903d3205876f09e9a2f7f8eb380658ac4bf83e8c48e797db425039e7c60db3b"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/triplet-source-ledger.json",
+      "sha256": "630965c1002f932167bb39c3d31b2a7706494e18587b31a5e8a775fd28cbf396"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/validation.json",
+      "sha256": "608f1588c831f6dafd1b51cad4df3a14e46750c96b2edc01135e31c27836dff0"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/retakes/bc9a3ff3/world-stats.json",
+      "sha256": "e496158174031312dd923f2fba21e0ade3075d90bc1995f3ab11de97352e168a"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/review.json",
+      "sha256": "ff90aaf10dc15e4531cfed79dafc866c8463ecca79fdd0cf63daafd5450702ea"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/source-provenance.json",
+      "sha256": "4a7296dc03fde108fd2f275c166a5fb50268a9928bd8ebdd0f8bd7c90e62a2c1"
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/validation.json",
+      "sha256": "b58af989c2ffde0ee80e5a7a96362b4cb54a0715e8687ca3d0f4a05cf15cdbda"
     },
     {
       "path": "game/overview/comparison-data/romana/boundary-source.json",
@@ -3730,7 +3822,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "9b279bee933c9b6c5c60868033879df1d04b1da5b4ba0574083bb92131c9c9e9"
+      "sha256": "57436651bb7860fbab9989bbd46a3be26a17f2a4bfc97d867b4cb7c0cae43fab"
     },
     {
       "path": "game/overview/landmark-evidence.js",

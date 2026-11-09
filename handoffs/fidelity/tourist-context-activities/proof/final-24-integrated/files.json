@@ -1,0 +1,432 @@
+[
+  {
+    "file": "contact-1.jpg",
+    "bytes": 121123,
+    "sha256": "da026871806949c9bbc13d2a603cbcf1d21b8812ff0bdb5fb6f713c0a5fa5587"
+  },
+  {
+    "file": "contact-2.jpg",
+    "bytes": 110410,
+    "sha256": "5c2ad72e043819499497cf31238e41a83df1c473717966a2883a3821fffc3baf"
+  },
+  {
+    "file": "contact-3.jpg",
+    "bytes": 110328,
+    "sha256": "2e316ad0c662a7cde195c3a644070ae5b1c1a1b6b5c5087f40c0a5e8deb92d85"
+  },
+  {
+    "file": "contact-4.jpg",
+    "bytes": 112826,
+    "sha256": "bb7b1ac7552786739d24516dce8b9b995eabe586dad2631da3bec11aa0364c14"
+  },
+  {
+    "file": "contact-5.jpg",
+    "bytes": 109994,
+    "sha256": "bd027c0b240fc562c93f50097c292c5a8df6fa5fc652f8a5b97eb62fc64aa68f"
+  },
+  {
+    "file": "contact-6.jpg",
+    "bytes": 108103,
+    "sha256": "f968dacaf9621c5363a32c1dfef2bcfd793b44586cd8cfa952a9c45b430db047"
+  },
+  {
+    "file": "corrected-followups/fremont-troll-approach.webp",
+    "bytes": 23290,
+    "sha256": "3fb1d917cd3bcab04f3129975a12b789649374caa5719de35548831e2c797cfd"
+  },
+  {
+    "file": "corrected-followups/fremont-troll-arrival.webp",
+    "bytes": 23812,
+    "sha256": "6dfa38928da28a9256a9fd50af997b9bb51a6e68f694622de22e3213cdff7738"
+  },
+  {
+    "file": "corrected-followups/fremont-troll-phone.webp",
+    "bytes": 10792,
+    "sha256": "4c6cef31765876ea8c70dbb42e3c5a450a853cf03f69a7c5b806d42d39d2ff78"
+  },
+  {
+    "file": "corrected-followups/old-town-lipscani-approach.webp",
+    "bytes": 17538,
+    "sha256": "7f042c867057a2c1d2e5b685286c4359a2dbd99cc1910a3e7ecbac4d3887bfc8"
+  },
+  {
+    "file": "corrected-followups/old-town-lipscani-arrival.webp",
+    "bytes": 44060,
+    "sha256": "a2f47bc2aa68d4067093bbb02d1477866b15fc1b39a22509955a500367b09373"
+  },
+  {
+    "file": "corrected-followups/old-town-lipscani-phone.webp",
+    "bytes": 8302,
+    "sha256": "209a71c54df9e12048a8b0b3fb0ae5abd326f357d3de43eec638c3fc52e720bc"
+  },
+  {
+    "file": "corrected-followups/results.json",
+    "bytes": 85242,
+    "sha256": "53433bff6d427784c344f5507b97ab7c0383a06bab78e42cff241e1f0c1bee0e"
+  },
+  {
+    "file": "corrected-followups/runner.cjs",
+    "bytes": 12964,
+    "sha256": "1de2fbee10f80b72fcfb2d42cf87d1ec0a3f27282de515241e01da01e58b205a"
+  },
+  {
+    "file": "initial/arcul-de-triumf-approach.webp",
+    "bytes": 33044,
+    "sha256": "00dcdcec59fb193eb90ab0e1da88aeefde3d7af255930ab01347d8974efe2478"
+  },
+  {
+    "file": "initial/arcul-de-triumf-arrival.webp",
+    "bytes": 32388,
+    "sha256": "a6564aacac8e8cda235298a7d43701968deab5186ec67e1dd93946ed3e9a0f57"
+  },
+  {
+    "file": "initial/arcul-de-triumf-phone.webp",
+    "bytes": 11710,
+    "sha256": "cd671146cf2a0e7ca7ddd0144c8d1954e105dd63a842dc3cce361cc0ecc74c5a"
+  },
+  {
+    "file": "initial/athenaeum-revolution-approach.webp",
+    "bytes": 22556,
+    "sha256": "7120060f6f9c58f6a44affb0bb45b00e82320aa40e51be43c9274f4163357682"
+  },
+  {
+    "file": "initial/athenaeum-revolution-arrival.webp",
+    "bytes": 29544,
+    "sha256": "1e31e17c3dbad6ecd1dd3f84830527a2b936acb7121a606fbf13e7357db9d54d"
+  },
+  {
+    "file": "initial/athenaeum-revolution-phone.webp",
+    "bytes": 5460,
+    "sha256": "a87d6a519598c4b85206df762ec5fbadf0b7da0bf9f89663829bc72ab7365da0"
+  },
+  {
+    "file": "initial/ballard-locks-approach.webp",
+    "bytes": 25400,
+    "sha256": "984741ee5247cd5bbe08aec647334bc9d03449e0abad22a96072dbe172616b45"
+  },
+  {
+    "file": "initial/ballard-locks-arrival.webp",
+    "bytes": 25466,
+    "sha256": "57624d3410b78e5bb74d7aeca4b808e4084b01ec378c87bad351ace5e99a874f"
+  },
+  {
+    "file": "initial/ballard-locks-phone.webp",
+    "bytes": 8252,
+    "sha256": "0ee13dd1e6e84cd3566871712c12c48715e325171636e6561e913187e6e426c4"
+  },
+  {
+    "file": "initial/bel-botanical-garden-approach.webp",
+    "bytes": 23178,
+    "sha256": "37b63991e22e2d04623cb345c37a7257826eb50559eb74ef16aa20c72412b79d"
+  },
+  {
+    "file": "initial/bel-botanical-garden-arrival.webp",
+    "bytes": 28926,
+    "sha256": "e92d6291537904ebdae4f57b199c96202086beb6d501c3759a30ed84ed4bb6a2"
+  },
+  {
+    "file": "initial/bel-botanical-garden-phone.webp",
+    "bytes": 8866,
+    "sha256": "691a2b123d19b9a6f2345de2d4390d3d6c5886d97593a4c7897aa569d5609dc6"
+  },
+  {
+    "file": "initial/bel-downtown-park-approach.webp",
+    "bytes": 20358,
+    "sha256": "77f7e25aab3c3d5381d60cb1dc946c634b660d9bffe3d31ab076df22fd0e4997"
+  },
+  {
+    "file": "initial/bel-downtown-park-arrival.webp",
+    "bytes": 20932,
+    "sha256": "d400b181666cc49d8428b4127c18884e9c1abc3f7c8eb240ae5eb02a7b91bef2"
+  },
+  {
+    "file": "initial/bel-downtown-park-phone.webp",
+    "bytes": 7316,
+    "sha256": "d6a0196e830c5c921cb47284ea7bf9aeb398cfb4cc8a6587b0c363204a11911f"
+  },
+  {
+    "file": "initial/bel-lincoln-square-approach.webp",
+    "bytes": 32270,
+    "sha256": "484e2497d2fa95046dac59ae2bca4644c1d53b26a38fb3ea9526c89e9f2f2300"
+  },
+  {
+    "file": "initial/bel-lincoln-square-arrival.webp",
+    "bytes": 35030,
+    "sha256": "cfebe36a631dc7236b57942af454250f0c6760e05896a9651e6afee4fb56a062"
+  },
+  {
+    "file": "initial/bel-lincoln-square-phone.webp",
+    "bytes": 11998,
+    "sha256": "54eb19a3cf468efdb5e79a32a32953f5f73be54f368506787e86760f032a95ef"
+  },
+  {
+    "file": "initial/bel-meydenbauer-approach.webp",
+    "bytes": 20434,
+    "sha256": "7a4ef72f72351bc4ba0291d81d32c43bbf039f14034595dbabdb2cfebd56fea7"
+  },
+  {
+    "file": "initial/bel-meydenbauer-arrival.webp",
+    "bytes": 20376,
+    "sha256": "b3815115d4f9e632ecfadf5c5cefe3f5bd7f853b5033432376b63bd18ba6da84"
+  },
+  {
+    "file": "initial/bel-meydenbauer-phone.webp",
+    "bytes": 7128,
+    "sha256": "cbe41d2264bcd8fd65c9e63f5107e80ec8f0579f7d22746a1d08b45a082cfbbb"
+  },
+  {
+    "file": "initial/chihuly-approach.webp",
+    "bytes": 25674,
+    "sha256": "c1d79f910bc1f6110a3de2b3cb0727e092d7eaaae9f80f0d91b90305fee21603"
+  },
+  {
+    "file": "initial/chihuly-arrival.webp",
+    "bytes": 38808,
+    "sha256": "3809c2d36e1ec70edc910fa982ef2cedebae1d12afad0b651d0d96286b8ff302"
+  },
+  {
+    "file": "initial/chihuly-phone.webp",
+    "bytes": 11698,
+    "sha256": "8717d10fe7fc2cb42cd194151910c503a00aaf494df9e5a571fbf7a62164a3ed"
+  },
+  {
+    "file": "initial/cismigiu-approach.webp",
+    "bytes": 19398,
+    "sha256": "c74c25c334d6b19ca2c24f8d7806c5f00283eabbed05d6b216ab378ab7e5a2a1"
+  },
+  {
+    "file": "initial/cismigiu-arrival.webp",
+    "bytes": 28490,
+    "sha256": "6e9ec7de88c23d00aa0dfb0a1f1b29f2888c479c505e2123bb6fa6db516ad0b9"
+  },
+  {
+    "file": "initial/cismigiu-phone.webp",
+    "bytes": 9020,
+    "sha256": "5c2ee8c071960ad45c49f1f9312f885b0477572aaa90c7965bffa625c58bb956"
+  },
+  {
+    "file": "initial/gas-works-approach.webp",
+    "bytes": 23070,
+    "sha256": "f58d4d2051c41b6d43eff57cc04f004c969e0021db449c7be626bf0e8cc14af7"
+  },
+  {
+    "file": "initial/gas-works-arrival.webp",
+    "bytes": 23518,
+    "sha256": "c0afb92d1e4812d40fcfd75c79ca7a1fcf9285e2a4762a4bf4a3a51f28448581"
+  },
+  {
+    "file": "initial/gas-works-phone.webp",
+    "bytes": 8774,
+    "sha256": "62ed7a19c5761b10002b50f471c38054fe740ace28df33d80c8ba09f561ae092"
+  },
+  {
+    "file": "initial/herastrau-park-approach.webp",
+    "bytes": 28058,
+    "sha256": "190cc290078dd29fc96894d3539c7bbd451ef3a9d98cfd09e06d986d9102cfa9"
+  },
+  {
+    "file": "initial/herastrau-park-arrival.webp",
+    "bytes": 28078,
+    "sha256": "2cba7216d8269cd2a7cdfb3c73f4681afc1ec6d9b3fab419e9ce47ca801f6ad2"
+  },
+  {
+    "file": "initial/herastrau-park-phone.webp",
+    "bytes": 9862,
+    "sha256": "1e3b7d9e060d322d7313525450b9e9ddffa703fd4c53598e4bf5cbe67eb88c5e"
+  },
+  {
+    "file": "initial/kerry-park-approach.webp",
+    "bytes": 37680,
+    "sha256": "8321a7923b3ddbda7be942346ebe80c27b6d3151739bd4451d53bc4a93ef322a"
+  },
+  {
+    "file": "initial/kerry-park-arrival.webp",
+    "bytes": 28508,
+    "sha256": "9751296cdb5d300740b57a88d6f7f9c2172911e0f250ebc2813b825ce8051771"
+  },
+  {
+    "file": "initial/kerry-park-phone.webp",
+    "bytes": 15222,
+    "sha256": "2ba21970da0bf626d08c8147d41bfe4396608065e78742284c7c876be2b33738"
+  },
+  {
+    "file": "initial/mopop-approach.webp",
+    "bytes": 18300,
+    "sha256": "42ad75be5c3290587239071a372710f29cb6966a306c6eceb8edb1b69ebd514d"
+  },
+  {
+    "file": "initial/mopop-arrival.webp",
+    "bytes": 19336,
+    "sha256": "71a46c19483019d10d22cdf1447d733ddb496ecb62e90b2a6555ffac16e70a99"
+  },
+  {
+    "file": "initial/mopop-phone.webp",
+    "bytes": 6784,
+    "sha256": "dbfa74380bbdf1bb28318356f2c54c5a3756230848b5b0aef8a10a6dd40c0721"
+  },
+  {
+    "file": "initial/old-town-lipscani-approach.webp",
+    "bytes": 44104,
+    "sha256": "0f01b5424ffb035d91151817d8c5415248662a9f8a4f97004c082885b06ea505"
+  },
+  {
+    "file": "initial/old-town-lipscani-arrival.webp",
+    "bytes": 44076,
+    "sha256": "746f8ef446bd3b02f9c5bcb5d0032ed217c96258f92980aee24f99247dea9877"
+  },
+  {
+    "file": "initial/old-town-lipscani-phone.webp",
+    "bytes": 20552,
+    "sha256": "d0a21d655b4db915b89f96b3cfb324e0b1bebccf97e0aab35ddfac2c88ffa909"
+  },
+  {
+    "file": "initial/palace-parliament-approach.webp",
+    "bytes": 30146,
+    "sha256": "a98ff637f4a35a470d57f4dc2d5c4176a4e46d990be1d593f0218381af4514f2"
+  },
+  {
+    "file": "initial/palace-parliament-arrival.webp",
+    "bytes": 25438,
+    "sha256": "4c219b573bb19be4f6c6fd989dd05df4e8b43699f24d90d0473319e381d5b3a1"
+  },
+  {
+    "file": "initial/palace-parliament-phone.webp",
+    "bytes": 12188,
+    "sha256": "8953c3ae83db8b6d43e2783435c3c993c0ac71b4565a91aa62579a641900bd9f"
+  },
+  {
+    "file": "initial/peoples-salvation-cathedral-approach.webp",
+    "bytes": 15844,
+    "sha256": "c447f7bd30a2c4ca028e7335367a82277215088c9cd8230742f4690b5da2a274"
+  },
+  {
+    "file": "initial/peoples-salvation-cathedral-arrival.webp",
+    "bytes": 16598,
+    "sha256": "b715845e90bfa92263087308b34f693eb58bea3d680d341d938ec31330d43de9"
+  },
+  {
+    "file": "initial/peoples-salvation-cathedral-phone.webp",
+    "bytes": 4196,
+    "sha256": "4c742b6a4d946e7dcebdae1179bafbdbfdb29fced73650ac41536964a1e06149"
+  },
+  {
+    "file": "initial/pike-place-approach.webp",
+    "bytes": 17328,
+    "sha256": "191f170220f806548a7ad13c0ab6b3288c2b1eb7b4ac12361147845b7a982729"
+  },
+  {
+    "file": "initial/pike-place-arrival.webp",
+    "bytes": 36092,
+    "sha256": "c36bde0eb6707aea97579c77e50d476d3d48465c3d95661f7f672b5bd3b7db9c"
+  },
+  {
+    "file": "initial/pike-place-phone.webp",
+    "bytes": 3948,
+    "sha256": "e59728ec3c73ec5851221b842cefff1f988b0af7f854383038bd208cac433f26"
+  },
+  {
+    "file": "initial/pioneer-square-approach.webp",
+    "bytes": 37882,
+    "sha256": "c24663cd1528e651f37cb4e7493778bf5be3916baecd4d24d01d95f93a119909"
+  },
+  {
+    "file": "initial/pioneer-square-arrival.webp",
+    "bytes": 43124,
+    "sha256": "e54ba66270220e5e36ebd8ee7a4c737555ba155bebc2015f78af1e07b1145ba3"
+  },
+  {
+    "file": "initial/pioneer-square-phone.webp",
+    "bytes": 19260,
+    "sha256": "b6497b7d9c1f3a658a3899c8b906f1a9eefa2eea8225181d75ef9376b38c4956"
+  },
+  {
+    "file": "initial/results.json",
+    "bytes": 561632,
+    "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3"
+  },
+  {
+    "file": "initial/runner.cjs",
+    "bytes": 12249,
+    "sha256": "213ebb647104e40ef4865168f7258de3553e1f2d202df57b39f7036507bc990e"
+  },
+  {
+    "file": "initial/space-needle-approach.webp",
+    "bytes": 27860,
+    "sha256": "f1a8e4c43ec47b5219401faf0e53e2a5db2775f317a9c37b4fc66806920c88e3"
+  },
+  {
+    "file": "initial/space-needle-arrival.webp",
+    "bytes": 24318,
+    "sha256": "5860bc9c302e4fb40999321f707a55ce9c6be012fd8f1bb5871bad5dbe869dd0"
+  },
+  {
+    "file": "initial/space-needle-phone.webp",
+    "bytes": 10102,
+    "sha256": "d6c4b44ec5cc09db3ad41f1261a62c28a8235d44da7eaa0c4d60f41fb204f8af"
+  },
+  {
+    "file": "initial/spring-palace-approach.webp",
+    "bytes": 28486,
+    "sha256": "8ecd8c004e1ef2a8c89d6d61b858690b74570a544ad8a2a1d68965dd11702c5d"
+  },
+  {
+    "file": "initial/spring-palace-arrival.webp",
+    "bytes": 28410,
+    "sha256": "7ef030ba83556977a3ac9d0f31d1d265a0931fa1a8032a678655613ce3265d01"
+  },
+  {
+    "file": "initial/spring-palace-phone.webp",
+    "bytes": 7396,
+    "sha256": "fec845c6a09d8bc21be2bd634056d8d31135fa23082b82cc25941ae5af9c9157"
+  },
+  {
+    "file": "initial/stavropoleos-cec-approach.webp",
+    "bytes": 28070,
+    "sha256": "5f635b3115a4bd42227f1a47a72f26a4d0a8babc69bd4be8ac053fda22299e32"
+  },
+  {
+    "file": "initial/stavropoleos-cec-arrival.webp",
+    "bytes": 32780,
+    "sha256": "3e074d57f6c47b1e3020a4a1c8ce02ce73a11fa8cf7129cd58adaeb3ff6b8671"
+  },
+  {
+    "file": "initial/stavropoleos-cec-phone.webp",
+    "bytes": 10932,
+    "sha256": "c969a6e8cd72fc0e2ee55892d934a1c08dc0ef295705d4f90e05f1a56cebf60d"
+  },
+  {
+    "file": "initial/village-museum-approach.webp",
+    "bytes": 26192,
+    "sha256": "4053bd2f6270fbefa9a991073d5127dc15db012d1df6dac5d2f1fcdc3001d27b"
+  },
+  {
+    "file": "initial/village-museum-arrival.webp",
+    "bytes": 26720,
+    "sha256": "974f2f6f3cb717aed4a835b3240b07ee69d9a914f4a5bcd953f88ca36c8e026f"
+  },
+  {
+    "file": "initial/village-museum-phone.webp",
+    "bytes": 10556,
+    "sha256": "ab0cfacf7e2a6a563d9538aac3ad837f08b130eedc90bc04afd90f50402f4eab"
+  },
+  {
+    "file": "initial/waterfront-approach.webp",
+    "bytes": 5628,
+    "sha256": "e7e0e4f8fbb178a0477e595a7811ab9decac44d4b6e518510f90dbed501a84d9"
+  },
+  {
+    "file": "initial/waterfront-arrival.webp",
+    "bytes": 22590,
+    "sha256": "5d2d9b3c0d5ca5df52bfca3808ab87dfd5557c8aacd8f8a491231f2344fa5d71"
+  },
+  {
+    "file": "initial/waterfront-phone.webp",
+    "bytes": 1884,
+    "sha256": "9cf1bdbe3411ac6f40aabd4c13160323d568663bd3c50f346eb1d5158f032cf2"
+  },
+  {
+    "file": "summary.json",
+    "bytes": 18338,
+    "sha256": "13dc02210851639ce7b4b5bbcc6bca55ce75e8ea81aaf0f2466cf2f96e59d28d"
+  }
+]

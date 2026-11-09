@@ -1,0 +1,11 @@
+{
+  "passed": 6,
+  "cases": [
+    "actual hatch vertex bounds beat incorrect producer height metadata",
+    "native parent translation and body pitch are applied independently",
+    "producer pass cannot waive a real actual-height deep body contact",
+    "grade-separated XY overlap is retained but not a physical contact",
+    "missing actual geometry remains unknown and blocks drive admission",
+    "literal rail direction, mode, centre and grade gates reject independently"
+  ]
+}

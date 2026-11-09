@@ -146,9 +146,13 @@ export class Ground {
         const r = Math.max(1, Math.round(reach / d)), Nr = boxBlur3(R, nx, nz, r), Wm = boxBlur3(Wt, nx, nz, r), F = new Float32Array(N);
         for (let k = 0; k < N; k++) if (Wm[k] > 1e-4) F[k] = (Nr[k] / Wm[k]) * clamp(Wm[k] / 0.12, 0, 1); // untouched streets + lots
         this.settleField = F; this.timing = { ...this.timing, settle: Math.round(performance.now() - t0) };
-        this.mod((x, z, h) => {
+        // Adjust the underlying lots, then replay the authored street/plaza
+        // modifiers. Their full-strength interiors keep their exact grades and
+        // their existing blend weights continuously attenuate this residual.
+        // A height-difference cutoff here creates a cliff where a blend crosses
+        // that cutoff, even when the original terrain and modifier are smooth.
+        this.mods.unshift((x, z, h) => {
             const fx = (x - x0) / d, fz = (z - z0) / d; if (fx < 0 || fz < 0 || fx > nx - 1 || fz > nz - 1) return h;
-            if (Math.abs(h - this.base(x, z)) > 0.05) return h; // a scene modifier owns this point
             const i = Math.min(nx - 2, Math.floor(fx)), j = Math.min(nz - 2, Math.floor(fz)), u = fx - i, v = fz - j, k = j * nx + i;
             return h + (F[k] * (1 - u) + F[k + 1] * u) * (1 - v) + (F[k + nx] * (1 - u) + F[k + nx + 1] * u) * v;
         });
@@ -157,6 +161,8 @@ export class Ground {
     onStreet(x, z) { const c = this.c; if (!c) return false; const i = Math.round((x - c.x0) / c.d), j = Math.round((z - c.z0) / c.d); return i >= 0 && j >= 0 && i < c.nx && j < c.nz && c.streets[j * c.nx + i] === 1; }
     /** terrain + modifiers (the visible ground) */
     heightAt(x, z) { let h = this.base(x, z); for (const m of this.mods) h = m(x, z, h); return h; }
+    /** Physical floor: use the emitted terrain triangles once buildTerrain exists. */
+    terrainHeightAt(x, z) { return this.renderedHeightAt?.(x, z) ?? this.heightAt(x, z); }
     /** add a modifier (x,z,h)=>h */
     mod(fn) { this.mods.push(fn); return this; }
     /** flatten inside a polygon to y (number) or to the polygon's mean height; `edge` m blend outside */
@@ -182,10 +188,20 @@ export class Ground {
         const ys = pts.map(([x, z]) => (yFn ? yFn(x, z) : this.heightAt(x, z)));
         this.mod((x, z, h) => {
             if (x < bb.x0 || x > bb.x1 || z < bb.z0 || z > bb.z1) return h;
-            let best = null, bi = 0;
-            for (let i = 1; i < pts.length; i++) { const r = distSeg(x, z, pts[i - 1][0], pts[i - 1][1], pts[i][0], pts[i][1]); if (!best || r.d < best.d) { best = r; bi = i; } }
+            let best = null, sum = 0, weight = 0, centreY = null;
+            const reach = w / 2 + edge;
+            for (let i = 1; i < pts.length; i++) {
+                const r = distSeg(x, z, pts[i - 1][0], pts[i - 1][1], pts[i][0], pts[i][1]);
+                if (!best || r.d < best.d) best = r;
+                const y = ys[i - 1] + (ys[i] - ys[i - 1]) * r.t;
+                if (r.d < 1e-9) { centreY = y; continue; }
+                // Compact inverse-distance interpolation joins the profiles at
+                // bends. A nearest-leg switch can otherwise jump between two
+                // different stations on the inside of the same wide corridor.
+                if (r.d < reach) { const q = (reach - r.d) / (reach * r.d), a = q * q; sum += y * a; weight += a; }
+            }
             if (best.d > w / 2 + edge) return h;
-            const yc = ys[bi - 1] + (ys[bi] - ys[bi - 1]) * best.t;
+            const yc = centreY ?? (weight > 0 ? sum / weight : h);
             if (best.d <= w / 2) return yc;
             const k = (best.d - w / 2) / edge, s = k * k * (3 - 2 * k);
             return yc + (h - yc) * s;
@@ -247,7 +263,7 @@ export class Ground {
     /** Physical support for aircraft. Walker water/steep barriers use y + 50;
      * that movement sentinel must never become an aircraft's ground altitude. */
     flightHeightAt(x, z, y = 0) {
-        let g = this.heightAt(x, z);
+        let g = this.terrainHeightAt(x, z);
         for (const s of this.surfaces) {
             if (Math.abs(x - s.x) > s.r || Math.abs(z - s.z) > s.r || s.bottom > y + 1.6 || !s.contains(x, z)) continue;
             const t = s.top(x, z); if (Number.isFinite(t) && t > g) g = t;
@@ -256,7 +272,7 @@ export class Ground {
         return g;
     }
     groundAt(x, z, y = 0) {
-        let g = this.heightAt(x, z);
+        let g = this.terrainHeightAt(x, z);
         for (const s of this.surfaces) {
             if (Math.abs(x - s.x) > s.r || Math.abs(z - s.z) > s.r) continue;
             if (s.bottom > y + 1.6) continue;
@@ -412,10 +428,25 @@ export function buildTerrain(ground, painter, { inner, outer, innerPx = 2048, ou
         g.setIndex(pos.length / 3 > 65535 ? new THREE.Uint32BufferAttribute(idx, 1) : new THREE.Uint16BufferAttribute(idx, 1));
         g.computeVertexNormals();
         const mesh = new THREE.Mesh(g, m); mesh.receiveShadow = true; mesh.name = 'groundPlane';
+        // The walking floor must use these same Float32 triangles, rather than
+        // evaluating a curved modifier between their vertices. That analytic
+        // surface can sit above or below the pavement actually drawn here.
+        mesh.userData.heightAt = (x, z) => {
+            if (x < box.x0 || x > box.x1 || z < box.z0 || z > box.z1) return null;
+            const ci = Math.min(nx - 1, Math.floor((x - box.x0) * nx / W));
+            const cj = Math.min(nz - 1, Math.floor((z - box.z0) * nz / H));
+            const ids = [vid[ci + cj * (nx + 1)], vid[ci + 1 + cj * (nx + 1)], vid[ci + (cj + 1) * (nx + 1)], vid[ci + 1 + (cj + 1) * (nx + 1)]];
+            if (ids.some(id => id < 0) || insideHole(box.x0 + (ci + .5) * W / nx, box.z0 + (cj + .5) * H / nz)) return null;
+            const p = g.attributes.position, [a, b, d, c] = ids;
+            const u = (x - p.getX(a)) / (p.getX(b) - p.getX(a)), v = (z - p.getZ(a)) / (p.getZ(d) - p.getZ(a));
+            return u + v <= 1 ? p.getY(a) * (1 - u - v) + p.getY(b) * u + p.getY(d) * v
+                : p.getY(c) * (u + v - 1) + p.getY(d) * (1 - u) + p.getY(b) * (1 - v);
+        };
         return mesh;
     };
     const i = mk(inner, innerPx, innerStep, null), o = mk(outer, outerPx, outerStep, inner);
     i.name = 'terrain-inner'; o.name = 'terrain-outer';
+    ground.renderedHeightAt = (x, z) => i.userData.heightAt(x, z) ?? o.userData.heightAt(x, z);
     grp.add(i, o);
     if (skirt > 0) { // a far apron disc so the horizon never shows a gap
         const g = new THREE.RingGeometry(Math.max(outer.x1 - outer.x0, outer.z1 - outer.z0) * 0.7, skirt, 48, 1); g.rotateX(-Math.PI / 2);

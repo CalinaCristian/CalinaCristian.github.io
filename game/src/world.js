@@ -25,6 +25,7 @@ import { buildTramTunnelGrades } from './tram-tunnel-grade.js';
 import { buildTramTrenchCutter, uncoveredTramTrenchWall } from './tram-trench.js';
 import { sourceSidewalkSides, sidewalkWidth } from './sidewalk-source.js';
 import { emittedTramClearance } from './tram-clearance.js';
+import { buildCoveredRoadModels } from './covered-road-models.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -833,10 +834,15 @@ export async function buildWorld(city, renderer, opts = {}) {
     //        approaches, ~3 % along bridge decks so viaducts stay up between the roads they cross).
     //      node.y / edge.ya / edge.yb are the vertical displacement of the road surface (asphalt top = 0.24 + y).
     const CLEAR = 6, GRADE = 0.09;
+    const coveredRoadModels = buildCoveredRoadModels(data);
+    for (const e of edges) if (coveredRoadModels.isCovered(e)) {
+        e.coveredRoadModel = coveredRoadModels.accepted.find(m => m.roadIndices.includes(e.road)).id;
+        e.modelLayer = 0; // source tunnel=yes still means cover; no underground metre datum
+    }
     const crossings = []; // {u (upper), f (lower), x, z}
     let profileStats = null, profileStats0 = null, wallCut = 0, blocksLane = null;
     {
-        for (const e of edges) { e.L = e.virtual ? 0 : Math.max(-2, Math.min(3, e.bridge ? Math.max(1, e.layer) : e.tunnel ? Math.min(-1, e.layer) : 0)); e.over = null; e.anchorH = 0; }
+        for (const e of edges) { e.L = e.virtual || e.coveredRoadModel ? 0 : Math.max(-2, Math.min(3, e.bridge ? Math.max(1, e.layer) : e.tunnel ? Math.min(-1, e.layer) : 0)); e.over = null; e.anchorH = 0; }
         const near = (e) => { const s = new Set([e.a, e.b]); for (const n of [e.a, e.b]) for (const f of n.edges) { s.add(f.a); s.add(f.b); } return s; };
         const segX = (e, f) => { // centreline intersection → {t, u} or null
             const rx = e.b.x - e.a.x, rz = e.b.z - e.a.z, sx = f.b.x - f.a.x, sz = f.b.z - f.a.z;
@@ -1511,6 +1517,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     const yAlong = (e, x, z) => { const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.ya + (e.yb - e.ya) * t; };
+    coveredRoadModels.validateProfile(edges);
     const tunnelGrades = buildTramTunnelGrades(data, { coreEdges: edges });
     const tramGrades = buildTramGrades(data, { coreEdges: edges, extraGrades: tunnelGrades.grades, extraReport: tunnelGrades.report }), tramDecks = [];
     const tramPropEnvelope = (data.trams || []).length ? emittedTramClearance(makeVehicle, city.id) : null;
@@ -2438,7 +2445,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     // structures under / beside elevated and sunken roads
     const pierSpots = [], pierColl = [];
-    for (const e of edges) e.lidded = !!e.tunnel && !e.virtual && Math.max(e.ya, e.yb) < -4.5;
+    for (const e of edges) e.lidded = !!e.tunnel && !e.coveredRoadModel && !e.virtual && Math.max(e.ya, e.yb) < -4.5;
     for (const e of raised) {
         const c = cellOf((e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2);
         const sb = c.solid;
@@ -2484,7 +2491,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     }
                 }
             }
-            if (e.tunnel && !e.lidded && Math.min(e.ya, e.yb) < -4.2) { // (play-test note 45) partly deep tunnel edge: the
+            if (e.tunnel && !e.coveredRoadModel && !e.lidded && Math.min(e.ya, e.yb) < -4.2) { // (play-test note 45) partly deep tunnel edge: the
                 // covered part (deeper than 4.2 m) gets its lid / ceiling and a portal where it opens (the hole in Piața Victoriei)
                 const tY = (y) => clamp((y - e.ya) / ((e.yb - e.ya) || 1e-6), 0, 1), t4 = tY(-4.2);
                 const [t0, t1] = e.ya < e.yb ? [0, t4] : [t4, 1];
@@ -3134,7 +3141,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const buildingPassageAudit=(data.buildingPassageIssues||[]).map(i=>({...i,accepted:false}));
     const configurePassages=b=>{
         b.passages=[];b.passageSolids=null;
-        for(const source of data.buildingPassages?.[b.derivedFrom??b.i]||[]){
+        for(const source of [...(data.buildingPassages?.[b.derivedFrom??b.i]||[]),...(coveredRoadModels.passages.get(b.derivedFrom??b.i)||[])]){
             if(passageBaseUnknown(source.tags)){buildingPassageAudit.push({source:data.buildingIds?.[b.derivedFrom??b.i],road:source.sourceRoadId,accepted:false,reason:'absolute-passage-base-unknown',baseUnknown:true,tags:source.tags});continue;}
             const mid=centroid(source.ring),indices=new Set(source.roadIndices||[]);
             const ne=nearestEdge(mid[0],mid[1],e=>!e.virtual&&(indices.has(e.road)||data.roadAccess?.[e.road]?.sourceId===source.sourceRoadId),100);
@@ -5866,6 +5873,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.tramGrades = tramGrades.report;
     stats.tramTrench = tramTrench.report;
     stats.tramPropEnvelope = tramPropEnvelope;
+    stats.coveredRoadModels = coveredRoadModels.report;
     stats.sidewalkSource = { explicitEdges: edges.filter(e => e.sidewalkSource.explicit).length,
         directionalEdges: edges.filter(e => e.sidewalkRightM !== e.sidewalkLeftM).length,
         unresolved: edges.filter(e => e.sidewalkSource.unresolved).map(e => ({ edge: e.id, sourceId: e.sidewalkSource.sourceId, reason: e.sidewalkSource.unresolved })) };

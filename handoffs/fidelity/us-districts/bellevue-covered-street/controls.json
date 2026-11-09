@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "scope": "source association/context guards, physical passage bands/walls, numeric priority and causal cone controls; fresh native geometry remains required",
+  "dataSha256": "ce748b6b9982856655927a590b37b1e951716cff15b7efef1cf9cd5a09f5c8cb",
+  "report": {
+    "estimated": true,
+    "models": [
+      {
+        "id": "avenue-square-covered-street",
+        "sourceRoadId": "w1222672054",
+        "sourceBuildingIds": [
+          "w1223091246",
+          "w1223091251"
+        ],
+        "roadIndices": [
+          287
+        ],
+        "lengthM": 78.04958272062733,
+        "coveredM": 78.04958272062733,
+        "floorModel": {
+          "floorY": 0,
+          "clearanceM": 3.2,
+          "estimated": true,
+          "basis": "MODEL continuous covered street at its exact source-connected ground joins; clearance estimated, not surveyed; source numeric dimensions have priority"
+        },
+        "widthM": 6,
+        "widthSource": "estimate:unchanged source lane/class road width",
+        "clearanceM": 3.2,
+        "clearanceSource": "MODEL reviewed covered-street clearance; not surveyed",
+        "sourceGroundJoins": [
+          {
+            "anchorRoadId": "w6422057",
+            "anchorNodeId": 3514287876,
+            "ways": [
+              [
+                "w1285047732",
+                1
+              ],
+              [
+                "w1225324172",
+                1
+              ]
+            ],
+            "portalNodeId": 11363157407
+          },
+          {
+            "anchorRoadId": "w243441994",
+            "anchorNodeId": 4270714562,
+            "ways": [
+              [
+                "w1225324171",
+                -1
+              ]
+            ],
+            "portalNodeId": 11363157406
+          }
+        ],
+        "sourceXmlSha256": "f7e26dde902cb8746bca4a9a8c7d7fafb9d090bb5d680f26a096a97ff12e30cc",
+        "evidence": [
+          "https://www.openstreetmap.org/way/1222672054",
+          "https://www.openstreetmap.org/way/1223091246",
+          "https://www.openstreetmap.org/way/1223091251",
+          "https://www.openstreetmap.org/node/3514287876",
+          "https://www.openstreetmap.org/node/4270714562"
+        ],
+        "profileBoundsM": [
+          0,
+          0
+        ],
+        "floorModelVerified": true
+      }
+    ],
+    "unresolved": [],
+    "basis": "reviewed source cover and literal ground joins; not measured elevation"
+  },
+  "passageSamples": 100,
+  "retainedLowCells": 1276,
+  "clippedWallFaces": 22,
+  "causalCone": {
+    "historicalGraphCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+    "freshTargetCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "before": [
+      -4.65935206464527,
+      -4.050334205728477
+    ],
+    "freshNative": [
+      -4.65935206464527,
+      -4.050334205728477
+    ],
+    "after": [
+      0,
+      0
+    ],
+    "scope": "literal production negative-envelope stage on retained source graph; not a complete native World/render acceptance"
+  }
+}

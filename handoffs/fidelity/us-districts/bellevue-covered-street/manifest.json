@@ -1,0 +1,15 @@
+{
+  "baseCommit": "b1efd46b",
+  "sourcePrefixSha256": "60506e422b1a0c8edbccc5fbbb7800015bd39e7f8c3767d49d262e4c9c2c6e38",
+  "sourceOriginalBytesPreserved": true,
+  "artifactsSha256": {
+    "game/src/world.js": "2a5edd4b36ee3a4c669c03f0f6312fb19fc7b662a2c3171018b614995c77dc4b",
+    "game/src/covered-road-models.js": "dde4caa03bcc29814168adcb954685cb43d7ab1c47979ef6aeed09139c7285ac",
+    "game/data/seattle-bellevue.json": "ce748b6b9982856655927a590b37b1e951716cff15b7efef1cf9cd5a09f5c8cb",
+    "game/research/covered-road-models-seattle-bellevue.json": "e5135f2a05cc27927e09c7b7ff1144a137136dfb326721ee6a74e63b7373492f",
+    "tools/osm/append-covered-road-models.mjs": "dec58b510069656ff5e6f02ce0c0bc802a2c5199d45dc7e0cf3be6aee3e54876",
+    "tools/osm/covered-road-models-check.mjs": "ad8d8169be1e9eca38dae34183b7cf0718a5170b0a58754a3e196d068ccaaa11"
+  },
+  "browserOpened": false,
+  "nativeAcceptance": false
+}

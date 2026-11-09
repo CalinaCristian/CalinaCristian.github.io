@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-11-09",
+  "models": [
+    {
+      "id": "avenue-square-covered-street",
+      "sourceRoadId": "w1222672054",
+      "sourceBuildingId": "w1223091246",
+      "sourcePartIds": ["w1223091251"],
+      "contextRequirements": {
+        "road": {"highway": "residential", "lanes": "2", "tunnel": "yes"},
+        "cover": {"building": "retail", "layer": "1", "building:levels:underground": "0"},
+        "part": {"building:part": "yes", "building:min_level": "1"}
+      },
+      "groundJoins": [
+        {"anchorRoadId": "w6422057", "anchorNodeId": 3514287876, "ways": [["w1285047732", 1], ["w1225324172", 1]], "portalNodeId": 11363157407},
+        {"anchorRoadId": "w243441994", "anchorNodeId": 4270714562, "ways": [["w1225324171", -1]], "portalNodeId": 11363157406}
+      ],
+      "model": {"floorY": 0, "clearanceM": 3.2, "estimated": true, "basis": "MODEL continuous covered street at its exact source-connected ground joins; clearance estimated, not surveyed; source numeric dimensions have priority"},
+      "evidence": ["https://www.openstreetmap.org/way/1222672054", "https://www.openstreetmap.org/way/1223091246", "https://www.openstreetmap.org/way/1223091251", "https://www.openstreetmap.org/node/3514287876", "https://www.openstreetmap.org/node/4270714562"]
+    }
+  ]
+}

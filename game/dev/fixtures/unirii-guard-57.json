@@ -1,0 +1,204 @@
+{
+  "sourceCommit": "96ad69768c75e1c3ec8adfd433113feb3057c0c7",
+  "trafficTime": 16.333333333333304,
+  "frame": 490,
+  "purpose": "Actual before-overlapGuard body proposals at the source931 corner. Normal5.693mm box contact is within the pre-existing5cm motion tolerance; epsilon introduced a repeated rollback. Recovery corrections remain strict.",
+  "proposedPenetrationM": 0.005693398931376326,
+  "previousPenetrationM": 0.0024590264665289574,
+  "vehicles": [
+    {
+      "id": 57,
+      "kind": "crossover",
+      "x": 707.3369982039076,
+      "z": -391.0921639963082,
+      "y": 0.24,
+      "heading": 0.4511583085693043,
+      "fx": -0.4226627252561966,
+      "fz": -0.9062870520309805,
+      "s": 3.0915677974049633,
+      "dir": -1,
+      "lane": 0,
+      "laneCur": 0,
+      "speed": 0.1,
+      "ghost": 0,
+      "revT": 2.4833333333333347,
+      "ovT": 0,
+      "stopWhy": null,
+      "stopD": null,
+      "still": 2.533333333333334,
+      "stuck": 2.533333333333334,
+      "_x0": 707.3382762830988,
+      "_z0": -391.08934263555284,
+      "_h0": 0.45159442777922887,
+      "_s0": 3.08823446407163,
+      "length": 4.6,
+      "width": 1.86,
+      "edge": {
+        "id": 931,
+        "name": "Strada Feti\u021belor",
+        "len": 5.2850685543566,
+        "type": "residential",
+        "lanesF": 1,
+        "lanesB": 1,
+        "wL": 3,
+        "wR": 3,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23124314",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {}
+        },
+        "a": {
+          "id": 935,
+          "x": 705.0545221782626,
+          "z": -392.46265800012566,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 936,
+          "x": 707.2883236566128,
+          "z": -387.6728688002162,
+          "radius": 3.5
+        }
+      },
+      "hist": [
+        {
+          "edge": 933,
+          "dir": -1
+        },
+        {
+          "edge": 932,
+          "dir": -1
+        }
+      ],
+      "route": [
+        {
+          "edge": 930,
+          "dir": -1
+        },
+        {
+          "edge": 242,
+          "dir": -1
+        },
+        {
+          "edge": 241,
+          "dir": -1
+        },
+        {
+          "edge": 240,
+          "dir": -1
+        },
+        {
+          "edge": 239,
+          "dir": -1
+        }
+      ]
+    },
+    {
+      "id": 503,
+      "kind": "taxi",
+      "x": 705.3837428332737,
+      "z": -393.7441698973627,
+      "y": 0.24,
+      "heading": 2.2120762634721833,
+      "fx": 0.29039117606300624,
+      "fz": 0.9569080232001109,
+      "s": 0.7991985174097238,
+      "dir": 1,
+      "lane": 0,
+      "laneCur": 0,
+      "speed": 0.1,
+      "ghost": 0,
+      "revT": 2.4500000000000015,
+      "ovT": 0,
+      "stopWhy": null,
+      "stopD": null,
+      "still": 2.533333333333334,
+      "stuck": 2.533333333333334,
+      "_x0": 705.3860320988657,
+      "_z0": -393.747019524384,
+      "_h0": 2.204527891885149,
+      "_s0": 0.7958651840763905,
+      "length": 4.36,
+      "width": 1.73,
+      "edge": {
+        "id": 930,
+        "name": "Strada Feti\u021belor",
+        "len": 1.5330025091174748,
+        "type": "residential",
+        "lanesF": 1,
+        "lanesB": 1,
+        "wL": 3,
+        "wR": 3,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23124314",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {}
+        },
+        "a": {
+          "id": 278,
+          "x": 704.6093517767324,
+          "z": -393.92960040068607,
+          "radius": 4
+        },
+        "b": {
+          "id": 935,
+          "x": 705.0545221782626,
+          "z": -392.46265800012566,
+          "radius": 3.5
+        }
+      },
+      "hist": [
+        {
+          "edge": 928,
+          "dir": -1
+        },
+        {
+          "edge": 927,
+          "dir": -1
+        },
+        {
+          "edge": 245,
+          "dir": -1
+        },
+        {
+          "edge": 244,
+          "dir": -1
+        },
+        {
+          "edge": 243,
+          "dir": -1
+        }
+      ],
+      "route": [
+        {
+          "edge": 931,
+          "dir": 1
+        },
+        {
+          "edge": 932,
+          "dir": 1
+        },
+        {
+          "edge": 933,
+          "dir": 1
+        }
+      ]
+    }
+  ]
+}

@@ -87,6 +87,7 @@ that chapter of the CV.
   photography, walking and secrets. The weighted score appears in the menu, map and pause screens. Tourist totals and
   activity requirements follow the available menu destinations; unavailable activities and retired save keys do not inflate completion.
   Cycling becomes active after its first use.
+- Pedestrian placement checks physical obstacles and neighbours before becoming visible; vehicle guards keep their spatial lookup current after movement and collision corrections. Moving-crowd separation is under final stress testing.
 - **A living city.** Country-specific traffic (taxis, delivery vans, police; STB trams, trolleybuses and buses; King
   County Metro buses) driven by real lanes, one-ways, signals and speed limits, with traffic density by hour, rush-hour
   standstills at real hotspots (Piața Victoriei, Piața Unirii, Bd. Dimitrie Pompeiu, I-405), honking and angry chat

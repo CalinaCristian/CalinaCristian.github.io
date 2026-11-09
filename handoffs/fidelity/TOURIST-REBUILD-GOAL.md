@@ -2,6 +2,8 @@
 
 Owner instruction, 9 November 2026: rebuild the selected tourist visits with good graphics, convincing source-backed scenery, substantial activities and a clear map/tour flow. Iterate until the actual player experience is excellent. Keep the published overview synchronized, including its images. This is an active tracked goal; no external background goal service has been registered.
 
+**Latest priority: bridges and underpasses need the most work.** Resolve the shared physical and visible level transitions before treating the tourist rebuild as ready to publish. Inspect source-labelled decks, pad joins, retaining walls, ramp cuts, tunnel ceilings and earth occlusion from normal driving approaches, throughout the passage and on exit, including side and mirror views. Actual vehicle clearance and smooth support must agree with the rendered surfaces; a static aerial or isolated helper pass is insufficient. The systematic all-district lane review continues alongside this priority.
+
 ## Fixed scope
 
 At most three visits per Bucharest, Seattle and Bellevue; seven total. One menu entry per experience. Retired visits, old saved achievements and historical evidence must not inflate current completion. Source buildings outside the focus remain geographic context rather than additional visits.

@@ -28,3 +28,6 @@ exclude:
   - handoffs/fidelity/tram-pedestrian-signal-semantics
   - handoffs/fidelity/game-preview-ff6b2bff
   - handoffs/fidelity/history-unsigned-20261109
+
+  # Closed internal native diagnostics stay in Git; public viewer evidence is unchanged.
+  - handoffs/fidelity/combined-native-budget

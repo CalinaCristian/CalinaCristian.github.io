@@ -270,3 +270,5 @@ Overview upkeep is part of every affected change: update the published text, con
 Street screenshots use readable street and direction captions, estimated camera heights and explicit labels for known game geometry or boundary issues. New captures retain their exact source revision; earlier images and records remain available. Identical camera requests share a displayed picture only when the recorded pixels, date and source match.
 
 The overview includes a dated Carusel staging gallery (doorway, first gallery and phone interior) with original source/date/camera metadata. The seven-visit rebuild target and bridge/underpass priority are separate from the earlier live game preview; this documentation update changes no game runtime or data.
+
+Closed native-budget diagnostics remain in Git but are excluded from Pages publication. Public overview images, historical galleries and runtime assets remain unchanged; this removes35.1MB of unreferenced diagnostic payload.

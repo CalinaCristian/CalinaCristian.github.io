@@ -1,0 +1,185 @@
+{
+  "sourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+  "district": "bellevue",
+  "city": "seattle",
+  "totalFrames": 82,
+  "originalManifestSha256": "ff026d4487d7cc831cb8b8a8b4b5980e30acf83fba4f1e4f4131155548299b3b",
+  "originalPosesSha256": null,
+  "tiles": [
+    {
+      "id": "aerial-r03-c04",
+      "reasons": [
+        "changed-structural-model-or-rendered-separator-conservative-bound"
+      ]
+    },
+    {
+      "id": "aerial-r03-c05",
+      "reasons": [
+        "changed-structural-model-or-rendered-separator-conservative-bound"
+      ]
+    },
+    {
+      "id": "aerial-r04-c04",
+      "reasons": [
+        "changed-structural-model-or-rendered-separator-conservative-bound"
+      ]
+    },
+    {
+      "id": "aerial-r04-c05",
+      "reasons": [
+        "changed-structural-model-or-rendered-separator-conservative-bound"
+      ]
+    },
+    {
+      "id": "aerial-r04-c08",
+      "reasons": [
+        "changed-structural-model-or-rendered-separator-conservative-bound"
+      ]
+    }
+  ],
+  "changedBounds": [
+    {
+      "kind": "generated-separator",
+      "sourceId": "w427906916",
+      "boundsXZ": [
+        304.325901103233,
+        -354.4916579274986,
+        352.93202635784587,
+        -314.04087569535693
+      ],
+      "paddingM": 20
+    },
+    {
+      "kind": "generated-separator",
+      "sourceId": "w1295951545",
+      "boundsXZ": [
+        -525.1079786084406,
+        -478.8893387341075,
+        -484.80418373782805,
+        -432.58915916636414
+      ],
+      "paddingM": 20
+    },
+    {
+      "kind": "generated-separator",
+      "sourceId": "w1295951545",
+      "boundsXZ": [
+        -525.101493119183,
+        -511.88762567222557,
+        -484.46832574246264,
+        -439.56566221570466
+      ],
+      "paddingM": 20
+    },
+    {
+      "kind": "generated-separator",
+      "sourceId": "w1295951546",
+      "boundsXZ": [
+        -528.7625237417164,
+        -438.46802550576285,
+        -488.425424577126,
+        -379.567473033453
+      ],
+      "paddingM": 20
+    },
+    {
+      "kind": "generated-separator",
+      "sourceId": "w55481043",
+      "boundsXZ": [
+        411.4860898691036,
+        -316.7049794461105,
+        452.9205207803005,
+        -276.3798827970889
+      ],
+      "paddingM": 20
+    },
+    {
+      "kind": "generated-separator",
+      "sourceId": "w55481043",
+      "boundsXZ": [
+        410.24841669296745,
+        -331.6290594884137,
+        453.18261552350697,
+        -291.27757746255924
+      ],
+      "paddingM": 20
+    },
+    {
+      "kind": "generated-separator",
+      "sourceId": "w55481043",
+      "boundsXZ": [
+        413.51515087267086,
+        -316.6692822302243,
+        458.31968528993394,
+        -276.28489544049063
+      ],
+      "paddingM": 20
+    },
+    {
+      "kind": "generated-separator",
+      "sourceId": "w55481043",
+      "boundsXZ": [
+        413.77724561587735,
+        -331.56697689569467,
+        458.58178003314043,
+        -291.18259010596097
+      ],
+      "paddingM": 20
+    },
+    {
+      "kind": "generated-separator",
+      "sourceId": "w427906916",
+      "boundsXZ": [
+        311.97111455969014,
+        -354.3575882827086,
+        352.93202635784587,
+        -314.04087569535693
+      ],
+      "paddingM": 20
+    },
+    {
+      "kind": "generated-separator",
+      "sourceId": "w1295951546",
+      "boundsXZ": [
+        -528.7625237417164,
+        -438.46802550576285,
+        -488.46057170166273,
+        -397.47270169530196
+      ],
+      "paddingM": 20
+    },
+    {
+      "kind": "generated-separator",
+      "sourceId": "w55481043",
+      "boundsXZ": [
+        410.24841669296745,
+        -331.6290594884137,
+        451.23000102005835,
+        -291.31192975721655
+      ],
+      "paddingM": 20
+    },
+    {
+      "kind": "generated-separator",
+      "sourceId": "w55481043",
+      "boundsXZ": [
+        415.43485380942946,
+        -316.63550894787824,
+        458.31968528993394,
+        -276.28489544049063
+      ],
+      "paddingM": 20
+    },
+    {
+      "kind": "generated-separator",
+      "sourceId": "w55481043",
+      "boundsXZ": [
+        415.69694855263594,
+        -331.5332036133486,
+        458.58178003314043,
+        -291.18259010596097
+      ],
+      "paddingM": 20
+    }
+  ]
+}

@@ -12,6 +12,8 @@ Spot maps accept named or custom waypoints through pointer/touch and keyboard li
 
 Planner/fallback wall queries interpolate native segment bands `y0a/y0b/y1a/y1b` at the closest point, using the World query-height convention. Elevated Carusel rails previously blocked lower-floor planning at every height. The native bookshop route remains a separate gate.
 
+Returning to the menu calls `Renderer3D.releaseScene()` after disposing the visit. Clear scene/player/pass/vegetation/backdrop references while preserving the persistent light pool and presentation resources; an inactive walker still retains its scene and obstacle closure. Native511 backgammon exposed this retention despite detached/disposed board meshes. CPU controls verify explicit host reference release; fresh native weak-reference/enter-leave checks are required separately.
+
 Old Town's visit boundary is enforced after native controller movement and crowd push-out, preserving the exact source streets/buildings as surrounding scenery. Freddo hours and the source anchor are recorded in `game/research/old-town-nightlife.md`; the interior layout and music are authored game content. Native dance, shot, hidden sports-room access and mobile checks are separate gates.
 
 

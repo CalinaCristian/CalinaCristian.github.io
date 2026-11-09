@@ -4,12 +4,35 @@ import assert from 'node:assert/strict';
 import * as THREE from '../../vendor/three.module.min.js';
 import { disposeDistrictScene } from '../../src/sceneResources.js';
 import { makeWaterMaterial, setWaterEnv } from '../../src/water.js';
+import { Renderer3D } from '../../src/render.js';
 
 function disposals(object) {
     let n = 0;
     object.addEventListener('dispose', () => n++);
     return () => n;
 }
+
+test('renderer scene release drops retired walker, scenery and pass references while retaining shared lights', () => {
+    const scene = new THREE.Scene(), crown = new THREE.Group(), backdrop = new THREE.Group(); scene.add(crown, backdrop);
+    const renderer = Object.create(Renderer3D.prototype), detached = [];
+    const sun = new THREE.DirectionalLight(), sky = new THREE.Group(), lampGroup = new THREE.Group();
+    scene.add(sun, sun.target, sky, lampGroup);
+    const controller = { active: false, scene, obstacles: () => backdrop };
+    let displayPlayer = controller, cancelled = 0, envDisposals = 0;
+    Object.assign(renderer, { scene, player: controller, sun, sky, _lampGroup: lampGroup, _lampSlots: [{lamp: 2,w: 1,target: 1,light: {intensity: 4}}],
+        _crowns: [crown], _nightMats: [{}], _sourceBackdrops: [backdrop], _lampHead: crown, lamps: [controller], _lampNear: [controller],
+        _wxGen: 0, renderPass: {scene}, gtaoPass: {scene}, cockpitDisplays: {setPlayer(value) { displayPlayer = value; }},
+        _cancelEnvJob() { cancelled++; }, _envA: {dispose() {envDisposals++;}}, _envB: null, _waterEnv: null });
+    detached.push(...renderer.releaseScene());
+    assert.equal(renderer.scene, null); assert.equal(renderer.player, null); assert.equal(displayPlayer, null);
+    assert.equal(renderer.renderPass.scene, null); assert.equal(renderer.gtaoPass.scene, null);
+    assert.deepEqual(renderer._sourceBackdrops, []); assert.deepEqual(renderer._crowns, []); assert.deepEqual(renderer._nightMats, []);
+    assert.equal(renderer.lamps, null); assert.equal(renderer._lampHead, null); assert.deepEqual(renderer._lampNear, []);
+    assert.equal(cancelled, 1); assert.equal(envDisposals, 1);
+    assert(detached.includes(sun) && detached.includes(sky) && detached.includes(lampGroup));
+    assert.equal(sun.parent, null); assert.equal(sky.parent, null); assert.equal(lampGroup.parent, null);
+    assert.equal(renderer._lampSlots[0].light.intensity, 0);
+});
 
 test('district disposal preserves the cockpit and cached landmark material, but frees its own maps', () => {
     const scene = new THREE.Scene(), cockpit = new THREE.Group();

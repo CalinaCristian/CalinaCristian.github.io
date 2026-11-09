@@ -1917,6 +1917,7 @@ class Game {
             this.input.lookAllowed = true; this.frameClock.getDelta();
         } else {
             this._menuTod = conditions.tod;
+            this.r3d.releaseScene();
             this.state = 'menu'; this.input.lookAllowed = false;
             $('#hud').classList.remove('show'); $('#menu').classList.add('show'); document.body.classList.remove('playing');
             this.renderMenuSpots();

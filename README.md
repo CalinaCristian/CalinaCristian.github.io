@@ -70,6 +70,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   Reused landmark collisions preserve their exact polygons, courtyard holes and raised volume bands in tourist scenes.
   Narrow desktop windows keep the keyboard-help footer above the lower HUD; touch screens use their dedicated action buttons.
   Walking routes respect actual wall height bands: upper gallery rails do not block the floor below, while remaining solid at their own level.
+  Leaving a menu-launched visit releases retired renderer scene, walker and backdrop references; fresh native WeakRef verification remains a separate gate.
   Source-backed tourist activities can declare a narrow drone launch/approach area outside their original scene focus. The same 150 m flight margin applies; this does not open an entire park or lake.
   Disposing a tourist water material removes it from shared environment updates, so later travel does not retain retired water materials.
   Dinamo pitch paint uses filtered alpha coverage at its real 12 cm width, keeping lines continuous from higher drone views.

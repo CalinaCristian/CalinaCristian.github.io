@@ -1,0 +1,126 @@
+{
+  "passed": true,
+  "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+  "records": [
+    {
+      "id": "arcul-de-triumf",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "athenaeum-revolution",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "ballard-locks",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "bel-botanical-garden",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "bel-downtown-park",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "bel-lincoln-square",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "bel-meydenbauer",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "chihuly",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "cismigiu",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "fremont-troll",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "gas-works",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "herastrau-park",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "kerry-park",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "mopop",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "old-town-lipscani",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "palace-parliament",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "peoples-salvation-cathedral",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "pike-place",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "pioneer-square",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "space-needle",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "spring-palace",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "stavropoleos-cec",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "village-museum",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    },
+    {
+      "id": "waterfront",
+      "visitorImages": 2,
+      "priorRecordUnchanged": true
+    }
+  ]
+}

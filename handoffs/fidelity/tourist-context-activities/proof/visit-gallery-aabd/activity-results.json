@@ -1,0 +1,137 @@
+{
+  "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+  "overviewBase": "e354a500e95a5f741564becf528af1f9445bd265",
+  "startedAt": "2026-11-09T08:29:58.035Z",
+  "sourceFilesVerifiedBefore": 230,
+  "purpose": "Visitor scene illustrations from staging, not released gameplay, public-route proof or a matched reference comparison.",
+  "setup": "Native Pike Place entry, then an explicit nearby production-controller setup beside Rachel. Actual portrait touch look, Use tap, and Drop the coin tap. Capture after eight native 50ms updates; this illustrates the in-flight coin and native activity UI, not a public arrival route or complete activity regression.",
+  "records": [
+    {
+      "id": "pike-place",
+      "captures": [
+        {
+          "kind": "activity-phone",
+          "image": "assets/spots/pike-place/visit-aabd/activity-phone.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:30:11.385Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -53.14768236141362,
+            "z": 35.97335325679389,
+            "y": -6.411679728001929,
+            "heading": 1.8157749899217597
+          },
+          "pose": {
+            "position": [
+              -53.14768236141362,
+              -4.76167972800193,
+              35.97335325679389
+            ],
+            "bearing": 255.9637565320736,
+            "pitch": -23.826686164566883
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:30:08.933Z",
+          "triangles": 454516,
+          "drawCalls": 145,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "0e2a0a2f4c953dc9dc178e780ea60eb369db0c9b1739ac9111f32473af2fdd0d",
+          "bytes": 53239,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -9.5,
+          "z": 13.5,
+          "y": -1.1196706226673887,
+          "heading": -4.1887902047863905
+        },
+        "viewpoint": {
+          "x": -53.14768236141362,
+          "z": 35.97335325679389,
+          "bearing": 255.96375653207357,
+          "pitch": -23.826686164566866
+        },
+        "target": {
+          "x": -54.747682361413624,
+          "z": 36.37335325679389,
+          "y": -5.49
+        },
+        "position": {
+          "x": -53.14768236141362,
+          "z": 35.97335325679389,
+          "y": -6.411679728001929,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "pike-place",
+        "origin": {
+          "lat": 47.60897,
+          "lon": -122.33987,
+          "elev": 36.8
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.56
+        }
+      },
+      "lookBefore": {
+        "heading": 0,
+        "pitch": 0
+      },
+      "lookAfterInitialTouch": {
+        "heading": -0.17279999999999998,
+        "pitch": 0
+      },
+      "phoneLook": {
+        "drags": 8,
+        "residualInputPixels": {
+          "x": -0.000012076775135483333,
+          "y": -0.000007172470302870456
+        }
+      },
+      "useTap": {
+        "x": 249,
+        "y": 807,
+        "width": 46,
+        "height": 46
+      },
+      "dropTap": {
+        "x": 92.0625,
+        "y": 269.171875,
+        "width": 122.125,
+        "height": 44
+      },
+      "activity": {
+        "active": true,
+        "busy": true,
+        "t": 0.39999999999999997,
+        "title": "Rachel the Piggy Bank",
+        "coinVisible": true,
+        "coinPosition": [
+          -54.03521369383683,
+          -5.109364534813925,
+          36.05779923571244
+        ]
+      },
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "complete": true,
+  "endedAt": "2026-11-09T08:30:13.506Z",
+  "sourceFilesVerifiedAfter": 230
+}

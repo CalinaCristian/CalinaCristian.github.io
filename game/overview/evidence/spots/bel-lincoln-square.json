@@ -738,5 +738,289 @@
         "bel-lincoln-square"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "bel-lincoln-square",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/bel-lincoln-square/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:20:24.653Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -2,
+          "z": 2,
+          "y": -0.013445560075342715,
+          "heading": -2.53072734375
+        },
+        "pose": {
+          "position": [
+            -2,
+            1.6365544399246572,
+            2
+          ],
+          "bearing": 144.9999958952285,
+          "pitch": 18.00000180573498
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:20:23.894Z",
+        "triangles": 282716,
+        "drawCalls": 114,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "1ef14e73780c5dd518ed2ddc15652506feee23e78fbb5e9592d74497d5f7e0a5",
+        "bytes": 68594,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -3,
+            "z": -3,
+            "y": 0.06244638077914703,
+            "heading": -2.356194490192345
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "bel-lincoln-square",
+            "x": -2,
+            "z": 2,
+            "bearing": 145,
+            "pitch": 18,
+            "fov": 60,
+            "text": "Lincoln Square North (UiPath) and One Lincoln Tower over Bellevue Way",
+            "r": 12,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -2,
+            "z": 2,
+            "y": -0.013445560075342715,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "bel-lincoln-square",
+          "origin": {
+            "lat": 47.61755,
+            "lon": -122.20195,
+            "elev": 49.5
+          },
+          "projection": {
+            "mLat": 111182.88,
+            "mLon": 75175.27
+          }
+        },
+        "label": "Lincoln Square tower and street frontage",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/bel-lincoln-square/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:25:42.297Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -2,
+          "z": 2,
+          "y": -0.013445560075342715,
+          "heading": -2.5307273437499997
+        },
+        "pose": {
+          "position": [
+            -2,
+            1.6365544399246572,
+            2
+          ],
+          "bearing": 144.9999958952285,
+          "pitch": 18.00000180573498
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:25:41.411Z",
+        "triangles": 279383,
+        "drawCalls": 144,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "5c7714529173aef0da768082ae546c1f6979379d16c29c634059a9a9cfdb9fa4",
+        "bytes": 82062,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": -3,
+            "z": -3,
+            "y": 0.06244638077914703,
+            "heading": -2.356194490192345
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "bel-lincoln-square",
+            "x": -2,
+            "z": 2,
+            "bearing": 145,
+            "pitch": 18,
+            "fov": 60,
+            "text": "Lincoln Square North (UiPath) and One Lincoln Tower over Bellevue Way",
+            "r": 12,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -2,
+            "z": 2,
+            "y": -0.013445560075342715,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "bel-lincoln-square",
+          "origin": {
+            "lat": 47.61755,
+            "lon": -122.20195,
+            "elev": 49.5
+          },
+          "projection": {
+            "mLat": 111182.88,
+            "mLon": 75175.27
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/bel-lincoln-square/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:20:28.502Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -2,
+          "z": 2,
+          "y": -0.013445560075342715,
+          "heading": -2.53072734375
+        },
+        "pose": {
+          "position": [
+            -2,
+            1.6365544399246572,
+            2
+          ],
+          "bearing": 144.9999958952285,
+          "pitch": 18.00000180573498
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:20:27.743Z",
+        "triangles": 266710,
+        "drawCalls": 47,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "6326ba8b4ddffd19b2b965ca5e7dcfa5af2fb77f95aa97c293c909b00365bf89",
+        "bytes": 82191,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -3,
+            "z": -3,
+            "y": 0.06244638077914703,
+            "heading": -2.356194490192345
+          },
+          "viewpoint": {
+            "view": null,
+            "id": "bel-lincoln-square",
+            "x": -2,
+            "z": 2,
+            "bearing": 145,
+            "pitch": 18,
+            "fov": 60,
+            "text": "Lincoln Square North (UiPath) and One Lincoln Tower over Bellevue Way",
+            "r": 12,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -2,
+            "z": 2,
+            "y": -0.013445560075342715,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "bel-lincoln-square",
+          "origin": {
+            "lat": 47.61755,
+            "lon": -122.20195,
+            "elev": 49.5
+          },
+          "projection": {
+            "mLat": 111182.88,
+            "mLon": 75175.27
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:25:42.297Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

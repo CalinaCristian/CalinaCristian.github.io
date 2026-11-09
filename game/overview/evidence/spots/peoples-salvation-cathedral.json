@@ -660,5 +660,733 @@
         "peoples-salvation-cathedral"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "peoples-salvation-cathedral",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene-east-footway",
+        "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/scene-east-footway.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:32:10.030Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -641.2,
+          "z": 287.9,
+          "y": 18.292510930333016,
+          "heading": 0.08726648437500001
+        },
+        "pose": {
+          "position": [
+            -641.2,
+            19.942510930333015,
+            287.9
+          ],
+          "bearing": 354.9999987523681,
+          "pitch": 24.999999523810065
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:32:05.065Z",
+        "triangles": 582572,
+        "drawCalls": 83,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "d8c03d4fd26fdbe9898c6b4c6189ab92b3f6c7919e0ca352d42de88047c050d3",
+        "bytes": 51528,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/cathedral-footway-results.json",
+        "setup": {
+          "arrival": {
+            "x": -732,
+            "z": 169,
+            "y": 14,
+            "heading": -1.4835298641951802
+          },
+          "originalViewpoint": {
+            "view": [
+              -653.1034357889633,
+              157.82457397694287
+            ],
+            "id": "peoples-salvation-cathedral",
+            "x": -731,
+            "z": 165,
+            "bearing": 85,
+            "pitch": 28,
+            "fov": 70,
+            "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+            "r": 6,
+            "tol": 28,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "viewpoint": {
+            "view": [
+              -653.1034357889633,
+              157.82457397694287
+            ],
+            "id": "peoples-salvation-cathedral",
+            "x": -641.2,
+            "z": 287.9,
+            "bearing": 355,
+            "pitch": 25,
+            "fov": 70,
+            "text": "South facade from exact mapped footway w1364230357 point [-641.2,287.9]. Explicit native on-foot setup, not a walked route.",
+            "r": 6,
+            "tol": 28,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -641.2,
+            "z": 287.9,
+            "y": 18.292510930333016,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-parliament",
+          "origin": {
+            "lat": 44.42735,
+            "lon": 26.0905,
+            "elev": 70.8
+          },
+          "projection": {
+            "mLat": 111120.59,
+            "mLon": 79628.31
+          }
+        },
+        "label": "The cathedral from the southern footway",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-east-footway",
+        "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/phone-east-footway.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:32:14.728Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -641.2,
+          "z": 287.9,
+          "y": 18.292510930333016,
+          "heading": 0.08726648437500001
+        },
+        "pose": {
+          "position": [
+            -641.2,
+            19.942510930333015,
+            287.9
+          ],
+          "bearing": 354.9999987523681,
+          "pitch": 24.999999523810065
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:32:09.761Z",
+        "triangles": 393832,
+        "drawCalls": 37,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "73aeb6ce77044a529e9f3d039812c38265fd0e6225b7c3ec38dcd61587b5da92",
+        "bytes": 55742,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/cathedral-footway-results.json",
+        "setup": {
+          "arrival": {
+            "x": -732,
+            "z": 169,
+            "y": 14,
+            "heading": -1.4835298641951802
+          },
+          "originalViewpoint": {
+            "view": [
+              -653.1034357889633,
+              157.82457397694287
+            ],
+            "id": "peoples-salvation-cathedral",
+            "x": -731,
+            "z": 165,
+            "bearing": 85,
+            "pitch": 28,
+            "fov": 70,
+            "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+            "r": 6,
+            "tol": 28,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "viewpoint": {
+            "view": [
+              -653.1034357889633,
+              157.82457397694287
+            ],
+            "id": "peoples-salvation-cathedral",
+            "x": -641.2,
+            "z": 287.9,
+            "bearing": 355,
+            "pitch": 25,
+            "fov": 70,
+            "text": "South facade from exact mapped footway w1364230357 point [-641.2,287.9]. Explicit native on-foot setup, not a walked route.",
+            "r": 6,
+            "tol": 28,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -641.2,
+            "z": 287.9,
+            "y": 18.292510930333016,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-parliament",
+          "origin": {
+            "lat": 44.42735,
+            "lon": 26.0905,
+            "elev": 70.8
+          },
+          "projection": {
+            "mLat": 111120.59,
+            "mLon": 79628.31
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:23:13.623Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -731,
+          "z": 165,
+          "y": 14,
+          "heading": -1.483529765625
+        },
+        "pose": {
+          "position": [
+            -731,
+            15.65,
+            165
+          ],
+          "bearing": 84.99999435234469,
+          "pitch": 27.999997586649503
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:23:10.681Z",
+        "triangles": 651459,
+        "drawCalls": 164,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "a147cd161e39574d50f3d54dab2e72db8a0ce6bbb59e032af7625d1d3a44ed6f",
+        "bytes": 33092,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -732,
+            "z": 169,
+            "y": 14,
+            "heading": -1.4835298641951802
+          },
+          "viewpoint": {
+            "view": [
+              -653.1034357889633,
+              157.82457397694287
+            ],
+            "id": "peoples-salvation-cathedral",
+            "x": -731,
+            "z": 165,
+            "bearing": 85,
+            "pitch": 28,
+            "fov": 70,
+            "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+            "r": 6,
+            "tol": 28,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -731,
+            "z": 165,
+            "y": 14,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-parliament",
+          "origin": {
+            "lat": 44.42735,
+            "lon": 26.0905,
+            "elev": 70.8
+          },
+          "projection": {
+            "mLat": 111120.59,
+            "mLon": 79628.31
+          }
+        },
+        "label": "Earlier scene framing (retained)",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:23:17.581Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -731,
+          "z": 165,
+          "y": 14,
+          "heading": -1.483529765625
+        },
+        "pose": {
+          "position": [
+            -731,
+            15.65,
+            165
+          ],
+          "bearing": 84.99999435234469,
+          "pitch": 27.999997586649503
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:23:14.639Z",
+        "triangles": 636321,
+        "drawCalls": 150,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "db472ce30230e4954660dec9ab0d515d3008c73852b2b7936755a0e2f4069082",
+        "bytes": 36479,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": -732,
+            "z": 169,
+            "y": 14,
+            "heading": -1.4835298641951802
+          },
+          "viewpoint": {
+            "view": [
+              -653.1034357889633,
+              157.82457397694287
+            ],
+            "id": "peoples-salvation-cathedral",
+            "x": -731,
+            "z": 165,
+            "bearing": 85,
+            "pitch": 28,
+            "fov": 70,
+            "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+            "r": 6,
+            "tol": 28,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -731,
+            "z": 165,
+            "y": 14,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-parliament",
+          "origin": {
+            "lat": 44.42735,
+            "lon": 26.0905,
+            "elev": 70.8
+          },
+          "projection": {
+            "mLat": 111120.59,
+            "mLon": 79628.31
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:27:09.947Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -731,
+          "z": 165,
+          "y": 14,
+          "heading": -1.4835298828124999
+        },
+        "pose": {
+          "position": [
+            -731,
+            15.65,
+            165
+          ],
+          "bearing": 85.00000106669381,
+          "pitch": 27.999997586649503
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:27:08.231Z",
+        "triangles": 648994,
+        "drawCalls": 247,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "67155212a3a5ece2b9e551ba9b5d588056432cf4cdca804c51c257c8c2e77a3a",
+        "bytes": 36477,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": -732,
+            "z": 169,
+            "y": 14,
+            "heading": -1.4835298641951802
+          },
+          "viewpoint": {
+            "view": [
+              -653.1034357889633,
+              157.82457397694287
+            ],
+            "id": "peoples-salvation-cathedral",
+            "x": -731,
+            "z": 165,
+            "bearing": 85,
+            "pitch": 28,
+            "fov": 70,
+            "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+            "r": 6,
+            "tol": 28,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -731,
+            "z": 165,
+            "y": 14,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-parliament",
+          "origin": {
+            "lat": 44.42735,
+            "lon": 26.0905,
+            "elev": 70.8
+          },
+          "projection": {
+            "mLat": 111120.59,
+            "mLon": 79628.31
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      },
+      {
+        "kind": "scene-context",
+        "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/scene-context.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:29:28.040Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": -655,
+          "z": 286.97,
+          "y": 18.17033382468106,
+          "heading": -0.017453203125
+        },
+        "pose": {
+          "position": [
+            -655,
+            19.820333824681057,
+            286.97
+          ],
+          "bearing": 0.9999948780470618,
+          "pitch": 24.99999952381006
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:29:24.869Z",
+        "triangles": 584510,
+        "drawCalls": 85,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "398edf0ec3543dc63d2e3027f2cc8aa8b4fde89e051432af792adaa7fce641c3",
+        "bytes": 56624,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/context-results.json",
+        "setup": {
+          "arrival": {
+            "x": -732,
+            "z": 169,
+            "y": 14,
+            "heading": -1.4835298641951802
+          },
+          "originalViewpoint": {
+            "view": [
+              -653.1034357889633,
+              157.82457397694287
+            ],
+            "id": "peoples-salvation-cathedral",
+            "x": -731,
+            "z": 165,
+            "bearing": 85,
+            "pitch": 28,
+            "fov": 70,
+            "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+            "r": 6,
+            "tol": 28,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "viewpoint": {
+            "view": [
+              -653.1034357889633,
+              157.82457397694287
+            ],
+            "id": "peoples-salvation-cathedral",
+            "x": -655,
+            "z": 286.5,
+            "bearing": 1,
+            "pitch": 25,
+            "fov": 70,
+            "text": "South facade from exact mapped footway w1364230355 point [-655,286.5]. Explicit native on-foot setup, not a walked route.",
+            "r": 6,
+            "tol": 28,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -655,
+            "z": 286.97,
+            "y": 18.15027886238136,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-parliament",
+          "origin": {
+            "lat": 44.42735,
+            "lon": 26.0905,
+            "elev": 70.8
+          },
+          "projection": {
+            "mLat": 111120.59,
+            "mLon": 79628.31
+          }
+        },
+        "label": "Earlier scene framing (retained)",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-context",
+        "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/phone-context.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:29:32.304Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": -655,
+          "z": 286.97,
+          "y": 18.17033382468106,
+          "heading": -0.01745326171875
+        },
+        "pose": {
+          "position": [
+            -655,
+            19.820333824681057,
+            286.97
+          ],
+          "bearing": 0.9999982352215966,
+          "pitch": 24.999999523810054
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:29:29.133Z",
+        "triangles": 395754,
+        "drawCalls": 38,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "7ad28f0b7ab3e01c7871bdbfd736afcd09c784bcd307da168ae5bb80fc6869ff",
+        "bytes": 60559,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/context-results.json",
+        "setup": {
+          "arrival": {
+            "x": -732,
+            "z": 169,
+            "y": 14,
+            "heading": -1.4835298641951802
+          },
+          "originalViewpoint": {
+            "view": [
+              -653.1034357889633,
+              157.82457397694287
+            ],
+            "id": "peoples-salvation-cathedral",
+            "x": -731,
+            "z": 165,
+            "bearing": 85,
+            "pitch": 28,
+            "fov": 70,
+            "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+            "r": 6,
+            "tol": 28,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "viewpoint": {
+            "view": [
+              -653.1034357889633,
+              157.82457397694287
+            ],
+            "id": "peoples-salvation-cathedral",
+            "x": -655,
+            "z": 286.5,
+            "bearing": 1,
+            "pitch": 25,
+            "fov": 70,
+            "text": "South facade from exact mapped footway w1364230355 point [-655,286.5]. Explicit native on-foot setup, not a walked route.",
+            "r": 6,
+            "tol": 28,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": -655,
+            "z": 286.97,
+            "y": 18.15027886238136,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "buc-parliament",
+          "origin": {
+            "lat": 44.42735,
+            "lon": 26.0905,
+            "elev": 70.8
+          },
+          "projection": {
+            "mLat": 111120.59,
+            "mLon": 79628.31
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged.",
+      "The authored west-porch postcard is a close-up of columns. Southern footway views retain real foreground tree/crowd occlusion; the full silhouette and facade comparison remain open."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      },
+      {
+        "label": "Ballard and cathedral context views",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/context-results.json",
+        "sha256": "e46dc323e5bf403e8eb9abe0eee73f21a1a621a7499e2d5b43d98e2fd3dd0222"
+      },
+      {
+        "label": "Cathedral mapped-footway view",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/cathedral-footway-results.json",
+        "sha256": "dd5ed03529037b4bf2e68ca1cfa2e7de73c7bad9d98d23a3b06a06b698ea3cf9"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:32:14.728Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

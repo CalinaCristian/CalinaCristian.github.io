@@ -687,5 +687,298 @@
         "pier-actual-arrival-source-centreline-and-terminal-award"
       ]
     }
-  ]
+  ],
+  "visitorGallery": {
+    "id": "bel-meydenbauer",
+    "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+    "captures": [
+      {
+        "kind": "scene",
+        "image": "assets/spots/bel-meydenbauer/visit-aabd/scene.webp",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:20:36.829Z",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "position": {
+          "x": 44.09012130325257,
+          "z": 28.351514994392115,
+          "y": 0.26185336692432337,
+          "heading": 1.9532920312499997
+        },
+        "pose": {
+          "position": [
+            44.09012130325257,
+            1.9118533669243232,
+            28.351514994392115
+          ],
+          "bearing": 248.08461045283929,
+          "pitch": 1.000001592396201
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:20:33.958Z",
+        "triangles": 586555,
+        "drawCalls": 54,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "68a795ce8fd76be5d76e7904f6f475d5c1617a0109bd94345e441bded6231517",
+        "bytes": 51984,
+        "fullPageHUD": false,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 22,
+            "z": -21,
+            "y": 3.000899735713793,
+            "heading": 2.9909261469919177
+          },
+          "viewpoint": {
+            "view": [
+              -33.8299437497493,
+              59.6994944079871
+            ],
+            "id": "bel-meydenbauer",
+            "x": 44.09012130325257,
+            "z": 28.351514994392115,
+            "bearing": 248.08461040089054,
+            "pitch": 1,
+            "fov": 45,
+            "text": "The crescent pier curving out over Meydenbauer Bay, Seattle on the horizon",
+            "r": 14,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 44.09012130325257,
+            "z": 28.351514994392115,
+            "y": 0.26185336692432337,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "bel-meydenbauer",
+          "origin": {
+            "lat": 47.6106,
+            "lon": -122.2108,
+            "elev": 5.7
+          },
+          "projection": {
+            "mLat": 111182.74,
+            "mLon": 75185.23
+          }
+        },
+        "label": "The crescent pier and Meydenbauer Bay",
+        "purpose": "Native on-foot scene camera; explicit viewpoint setup, not a walked route."
+      },
+      {
+        "kind": "phone-ui-touch",
+        "image": "assets/spots/bel-meydenbauer/visit-aabd/phone-ui-touch.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:25:50.443Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 44.09012130325257,
+          "z": 28.351514994392115,
+          "y": 0.26185336692432337,
+          "heading": 1.9532920312499997
+        },
+        "pose": {
+          "position": [
+            44.09012130325257,
+            1.9118533669243232,
+            28.351514994392115
+          ],
+          "bearing": 248.08461045283929,
+          "pitch": 1.000001592396201
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:25:47.079Z",
+        "triangles": 598700,
+        "drawCalls": 149,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "885432136fcfd168f6a293b4cce21702e4c934aa3fc05fb47bf4fcbed7c6b369",
+        "bytes": 50584,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "setup": {
+          "arrival": {
+            "x": 22,
+            "z": -21,
+            "y": 3.000899735713793,
+            "heading": 2.9909261469919177
+          },
+          "viewpoint": {
+            "view": [
+              -33.8299437497493,
+              59.6994944079871
+            ],
+            "id": "bel-meydenbauer",
+            "x": 44.09012130325257,
+            "z": 28.351514994392115,
+            "bearing": 248.08461040089054,
+            "pitch": 1,
+            "fov": 45,
+            "text": "The crescent pier curving out over Meydenbauer Bay, Seattle on the horizon",
+            "r": 14,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 44.09012130325257,
+            "z": 28.351514994392115,
+            "y": 0.26185336692432337,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "bel-meydenbauer",
+          "origin": {
+            "lat": 47.6106,
+            "lon": -122.2108,
+            "elev": 5.7
+          },
+          "projection": {
+            "mLat": 111182.74,
+            "mLon": 75185.23
+          }
+        },
+        "label": "Phone view with the native touch interface",
+        "purpose": "Entire 390 × 844 game page; native portrait look gestures and HUD."
+      }
+    ],
+    "retainedIllustrations": [
+      {
+        "kind": "phone-ui",
+        "image": "assets/spots/bel-meydenbauer/visit-aabd/phone-ui.jpg",
+        "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+        "capturedAt": "2026-11-09T08:20:42.275Z",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "position": {
+          "x": 44.09012130325257,
+          "z": 28.351514994392115,
+          "y": 0.26185336692432337,
+          "heading": 1.9532920312499997
+        },
+        "pose": {
+          "position": [
+            44.09012130325257,
+            1.9118533669243232,
+            28.351514994392115
+          ],
+          "bearing": 248.08461045283929,
+          "pitch": 1.000001592396201
+        },
+        "conditions": {
+          "tod": "day",
+          "weather": "clear",
+          "season": "summer"
+        },
+        "simulationDate": "2026-11-09T08:20:39.406Z",
+        "triangles": 586027,
+        "drawCalls": 52,
+        "cameraParent": "onfoot",
+        "ui": {
+          "touch": true,
+          "spotHUD": true,
+          "touchAction": true
+        },
+        "sha256": "a0b0753ec131031a9f24e0222cc5d16d83074359c780750e0d3ed208ef2edf2e",
+        "bytes": 50451,
+        "fullPageHUD": true,
+        "captureRecord": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "setup": {
+          "arrival": {
+            "x": 22,
+            "z": -21,
+            "y": 3.000899735713793,
+            "heading": 2.9909261469919177
+          },
+          "viewpoint": {
+            "view": [
+              -33.8299437497493,
+              59.6994944079871
+            ],
+            "id": "bel-meydenbauer",
+            "x": 44.09012130325257,
+            "z": 28.351514994392115,
+            "bearing": 248.08461040089054,
+            "pitch": 1,
+            "fov": 45,
+            "text": "The crescent pier curving out over Meydenbauer Bay, Seattle on the horizon",
+            "r": 14,
+            "tol": 35,
+            "targets": [],
+            "cond": null,
+            "condHint": null
+          },
+          "position": {
+            "x": 44.09012130325257,
+            "z": 28.351514994392115,
+            "y": 0.26185336692432337,
+            "heading": 0
+          },
+          "walker": "OnFootController",
+          "sceneId": "bel-meydenbauer",
+          "origin": {
+            "lat": 47.6106,
+            "lon": -122.2108,
+            "elev": 5.7
+          },
+          "projection": {
+            "mLat": 111182.74,
+            "mLon": 75185.23
+          }
+        },
+        "label": "Initial portrait framing (retained)",
+        "purpose": "Full native phone UI after resizing; look was acquired at the earlier wide viewport. Retained without claiming portrait-input validation."
+      }
+    ],
+    "limitations": [
+      "Illustrative native viewpoints, not a matched Street View comparison or a new scene-fidelity acceptance.",
+      "The current native phone toolbar crosses the centre of the viewport; it remains visible and unchanged."
+    ],
+    "reports": [
+      {
+        "label": "Initial 23-destination scene and portrait capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/results.json",
+        "sha256": "3e5387b872a5a91f7558b74098cc1b1bfd082edaa25efb01f1059b562fea7feb"
+      },
+      {
+        "label": "Actual portrait touch-look capture",
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/portrait-input-results.json",
+        "sha256": "05f2a8feb0f884f2d589ab24183ef9453167bf28f7711236d038f649f4d92f1a"
+      }
+    ],
+    "updatedAt": "2026-11-09T08:25:50.443Z",
+    "notice": "These views come from the staged game under test; the live game can differ.",
+    "setup": "Explicit production on-foot viewpoints, with native touch look. The scene-authored postcard pose is used except the labelled Ballard chamber turn and Cathedral mapped southern footway. Phone captures use the complete native page; the Rachel image also uses actual activity buttons. No route, reference match or release acceptance is implied.",
+    "report": "../../handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/visitor-captures.json",
+    "reportSha256": "c6a9cecf2d98cfa0d993893904308c8529f75d28da32d9a119795394a52244fe"
+  }
 }

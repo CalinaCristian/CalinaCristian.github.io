@@ -1,0 +1,3362 @@
+{
+  "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+  "overviewBase": "e354a500e95a5f741564becf528af1f9445bd265",
+  "startedAt": "2026-11-09T08:19:20.098Z",
+  "sourceFilesVerifiedBefore": 230,
+  "purpose": "Visitor scene illustrations from staging, not released gameplay, public-route proof or a matched reference comparison.",
+  "setup": "Native destination entry followed by explicit placement of the production on-foot controller at the scene-authored postcard viewpoint. All final look direction is acquired through actual CDP touch drags; no free camera. Phone JPEGs are the entire actual 390×844 page, including its native HUD.",
+  "records": [
+    {
+      "id": "arcul-de-triumf",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/arcul-de-triumf/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:19:30.219Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -13.274371973762545,
+            "z": -45.71971323598915,
+            "y": -0.08562885447913324,
+            "heading": 0.3490659375
+          },
+          "pose": {
+            "position": [
+              -13.274371973762545,
+              1.5643711455208666,
+              -45.71971323598915
+            ],
+            "bearing": 339.9999950094726,
+            "pitch": 10.999997373310727
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:19:28.561Z",
+          "triangles": 287503,
+          "drawCalls": 108,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "bd80427a68639691d7e6c5775ed7afe90edaf4dd1fde7d64da888f0d185f494f",
+          "bytes": 42222,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/arcul-de-triumf/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:19:34.853Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -13.274371973762545,
+            "z": -45.71971323598915,
+            "y": -0.08562885447913324,
+            "heading": 0.3490659375
+          },
+          "pose": {
+            "position": [
+              -13.274371973762545,
+              1.5643711455208666,
+              -45.71971323598915
+            ],
+            "bearing": 339.9999950094726,
+            "pitch": 10.999997373310727
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:19:33.193Z",
+          "triangles": 282647,
+          "drawCalls": 87,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "adf92a3f727a767d53b989e579f121fc51db38be8c680af0a8c8ff114c40475c",
+          "bytes": 50328,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -25.651450004398864,
+          "z": -79.7254556439903,
+          "y": -0.12020864978336726,
+          "heading": -5.934119456780721
+        },
+        "viewpoint": {
+          "view": [
+            -32.4275,
+            -98.34250000000002
+          ],
+          "id": "arcul-de-triumf",
+          "x": -13.274371973762545,
+          "z": -45.71971323598915,
+          "bearing": 340,
+          "pitch": 11,
+          "fov": 60,
+          "text": "From the south side of the roundabout on the Kiseleff axis, ~90 m south of the arch, looking NNW through the opening at the south face with Ferdinand & Maria medallions.",
+          "r": 12,
+          "tol": 24,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": -13.274371973762545,
+          "z": -45.71971323598915,
+          "y": -0.08562885447913324,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "arcul-de-triumf",
+        "origin": {
+          "lat": 44.46632,
+          "lon": 26.0785,
+          "elev": 90.4
+        },
+        "projection": {
+          "mLat": 111121.35,
+          "mLon": 79575.39
+        }
+      },
+      "look": {
+        "drags": 2,
+        "residualInputPixels": {
+          "x": 0.00003629213966386639,
+          "y": -0.000019101823433194852
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.00003629213966386639,
+          "y": -0.000019101823433194852
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "athenaeum-revolution",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/athenaeum-revolution/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:19:41.656Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -72.21742551762745,
+            "z": -28.50611609793468,
+            "y": 0.06744660995283282,
+            "heading": -1.0752
+          },
+          "pose": {
+            "position": [
+              -72.21742551762745,
+              1.7174466099528327,
+              -28.50611609793468
+            ],
+            "bearing": 61.604422132466084,
+            "pitch": 11.999998965706927
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:19:39.663Z",
+          "triangles": 412867,
+          "drawCalls": 55,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "204603297782b7fe67affe5b1fd0187a9570a3ad050fa9fba8e7a0ad0a132ccd",
+          "bytes": 51322,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/athenaeum-revolution/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:19:45.673Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -72.21742551762745,
+            "z": -28.50611609793468,
+            "y": 0.06744660995283282,
+            "heading": -1.0752
+          },
+          "pose": {
+            "position": [
+              -72.21742551762745,
+              1.7174466099528327,
+              -28.50611609793468
+            ],
+            "bearing": 61.604422132466084,
+            "pitch": 11.999998965706927
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:19:43.680Z",
+          "triangles": 404109,
+          "drawCalls": 40,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "e164a8a85d322a140dfd94009e71a7c7baf0e585dab5af8394ccb4e39f1aa218",
+          "bytes": 62960,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -63.61344211498177,
+          "z": -16.219071310558114,
+          "y": 0.008137123783364522,
+          "heading": -0.8180066186009393
+        },
+        "viewpoint": {
+          "view": [
+            -22.330599390186947,
+            -54.89369990036949
+          ],
+          "id": "athenaeum-revolution",
+          "x": -72.21742551762745,
+          "z": -28.50611609793468,
+          "bearing": 62.12344556265924,
+          "pitch": 12,
+          "fov": 60,
+          "text": "From the south-east corner of Grădina Ateneului near the Eminescu statue looking north-west at the portico and dome (OSM: Athenaeum centroid 44.441321,26.097215).",
+          "r": 12,
+          "tol": 26,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": -72.21742551762745,
+          "z": -28.50611609793468,
+          "y": 0.06744660995283282,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "athenaeum-revolution",
+        "origin": {
+          "lat": 44.44085,
+          "lon": 26.09765,
+          "elev": 86.4
+        },
+        "projection": {
+          "mLat": 111120.85,
+          "mLon": 79609.98
+        }
+      },
+      "look": {
+        "drags": 4,
+        "residualInputPixels": {
+          "x": 3.7744448966107553,
+          "y": -0.000007521591474657364
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 3.7744448966107553,
+          "y": -0.000007521591474657364
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "ballard-locks",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/ballard-locks/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:19:50.884Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 91.97229627058839,
+            "z": 100.50567922767456,
+            "y": 0.6,
+            "heading": 1.221730546875
+          },
+          "pose": {
+            "position": [
+              91.97229627058839,
+              2.25,
+              100.50567922767456
+            ],
+            "bearing": 289.9999959618525,
+            "pitch": -10.00000249526369
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:19:49.919Z",
+          "triangles": 465993,
+          "drawCalls": 85,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "ac59596e23d041411ed83cc2e1d2b53be80b61521470e3ce5908bcd25ca1504f",
+          "bytes": 35976,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/ballard-locks/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:19:55.503Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 91.97229627058839,
+            "z": 100.50567922767456,
+            "y": 0.6,
+            "heading": 1.221730546875
+          },
+          "pose": {
+            "position": [
+              91.97229627058839,
+              2.25,
+              100.50567922767456
+            ],
+            "bearing": 289.9999959618525,
+            "pitch": -10.00000249526369
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:19:54.537Z",
+          "triangles": 461705,
+          "drawCalls": 78,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "34af10e42835a84dc66452ad1a22b7d87310520f9cbccbec9f0f63c8d855cac0",
+          "bytes": 41669,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 0,
+          "z": 0,
+          "y": 0.2098590035364024,
+          "heading": -3.141592653589793
+        },
+        "viewpoint": {
+          "view": null,
+          "id": "ballard-locks",
+          "x": 91.97229627058839,
+          "z": 100.50567922767456,
+          "bearing": 290,
+          "pitch": -10,
+          "fov": 60,
+          "text": "Large lock full of boats from the north wall with the gates and control tower",
+          "r": 16,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": 91.97229627058839,
+          "z": 100.50567922767456,
+          "y": 0.6,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "ballard-locks",
+        "origin": {
+          "lat": 47.6664,
+          "lon": -122.397,
+          "elev": 8.5
+        },
+        "projection": {
+          "mLat": 111183.83,
+          "mLon": 75105.22
+        }
+      },
+      "look": {
+        "drags": 5,
+        "residualInputPixels": {
+          "x": 0.000029366236849644643,
+          "y": -0.000018146069612201554
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.000029366236849644643,
+          "y": -0.000018146069612201554
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "bel-botanical-garden",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/bel-botanical-garden/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:20:05.397Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 200.080744013379,
+            "z": 229.410791060295,
+            "y": -20.50424937027438,
+            "heading": 2.1504
+          },
+          "pose": {
+            "position": [
+              200.080744013379,
+              -18.85424937027438,
+              229.410791060295
+            ],
+            "bearing": 236.79115573506778,
+            "pitch": -6.000002840028045
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:20:04.024Z",
+          "triangles": 638112,
+          "drawCalls": 67,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "a2cdfaeb7519340e479297a0c07412d9a8d0a477586f9ed8b654c726e14ddf8f",
+          "bytes": 36864,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/bel-botanical-garden/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:20:09.465Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 200.080744013379,
+            "z": 229.410791060295,
+            "y": -20.50424937027438,
+            "heading": 2.1504
+          },
+          "pose": {
+            "position": [
+              200.080744013379,
+              -18.85424937027438,
+              229.410791060295
+            ],
+            "bearing": 236.79115573506778,
+            "pitch": -6.000002840028045
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:20:08.092Z",
+          "triangles": 637470,
+          "drawCalls": 63,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "fa6c7a9c6f276b12b5472f43bb6b1cdb02b67467f23ba9fe207537b4a4af3fb6",
+          "bytes": 45027,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 0,
+          "z": 3,
+          "y": -0.18721023569814868,
+          "heading": -3.141592653589793
+        },
+        "viewpoint": {
+          "view": [
+            157.3,
+            259.7
+          ],
+          "id": "bel-botanical-garden",
+          "x": 200.080744013379,
+          "z": 229.410791060295,
+          "bearing": 234.70111176729984,
+          "pitch": -6,
+          "fov": 60,
+          "text": "The Ravine Experience suspension bridge disappearing into ferns and firs",
+          "r": 10,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": 200.080744013379,
+          "z": 229.410791060295,
+          "y": -20.50424937027438,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "bel-botanical-garden",
+        "origin": {
+          "lat": 47.6088,
+          "lon": -122.1793,
+          "elev": 69.3
+        },
+        "projection": {
+          "mLat": 111182.71,
+          "mLon": 75187.81
+        }
+      },
+      "look": {
+        "drags": 8,
+        "residualInputPixels": {
+          "x": -15.19922864541501,
+          "y": -0.000020653266764638266
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": -15.19922864541501,
+          "y": -0.000020653266764638266
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "bel-downtown-park",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/bel-downtown-park/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:20:15.644Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -93,
+            "z": 131,
+            "y": -3.8999999999999995,
+            "heading": 1.4056476562499998
+          },
+          "pose": {
+            "position": [
+              -93,
+              -2.2499999999999996,
+              131
+            ],
+            "bearing": 279.46232181441906,
+            "pitch": 1.0000015923962011
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:20:14.216Z",
+          "triangles": 551160,
+          "drawCalls": 43,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "94bcd32fb2919e33bf7696a77fd84a1323d97c96f3fbbb345a816d6f40494346",
+          "bytes": 43562,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/bel-downtown-park/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:20:19.138Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -93,
+            "z": 131,
+            "y": -3.8999999999999995,
+            "heading": 1.4056476562499998
+          },
+          "pose": {
+            "position": [
+              -93,
+              -2.2499999999999996,
+              131
+            ],
+            "bearing": 279.46232181441906,
+            "pitch": 1.0000015923962011
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:20:17.710Z",
+          "triangles": 548564,
+          "drawCalls": 33,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "1235497483ce479e0e0783f4e8b5aea08be9fa2a2b5a39444bc8613099902016",
+          "bytes": 46266,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 6,
+          "z": -6,
+          "y": 0.687159805578802,
+          "heading": -3.490658503988659
+        },
+        "viewpoint": {
+          "view": [
+            -150,
+            121.5
+          ],
+          "id": "bel-downtown-park",
+          "x": -93,
+          "z": 131,
+          "bearing": 279.4623222080256,
+          "pitch": 1,
+          "fov": 65,
+          "text": "Along the 240-ft waterfall spilling into the reflecting pool",
+          "r": 14,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": -93,
+          "z": 131,
+          "y": -3.8999999999999995,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "bel-downtown-park",
+        "origin": {
+          "lat": 47.6133,
+          "lon": -122.2034,
+          "elev": 39.8
+        },
+        "projection": {
+          "mLat": 111182.8,
+          "mLon": 75181.36
+        }
+      },
+      "look": {
+        "drags": 6,
+        "residualInputPixels": {
+          "x": 0.000002862387364170142,
+          "y": 0.000011580231959983091
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.000002862387364170142,
+          "y": 0.000011580231959983091
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "bel-lincoln-square",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/bel-lincoln-square/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:20:24.653Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -2,
+            "z": 2,
+            "y": -0.013445560075342715,
+            "heading": -2.53072734375
+          },
+          "pose": {
+            "position": [
+              -2,
+              1.6365544399246572,
+              2
+            ],
+            "bearing": 144.9999958952285,
+            "pitch": 18.00000180573498
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:20:23.894Z",
+          "triangles": 282716,
+          "drawCalls": 114,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "1ef14e73780c5dd518ed2ddc15652506feee23e78fbb5e9592d74497d5f7e0a5",
+          "bytes": 68594,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/bel-lincoln-square/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:20:28.502Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -2,
+            "z": 2,
+            "y": -0.013445560075342715,
+            "heading": -2.53072734375
+          },
+          "pose": {
+            "position": [
+              -2,
+              1.6365544399246572,
+              2
+            ],
+            "bearing": 144.9999958952285,
+            "pitch": 18.00000180573498
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:20:27.743Z",
+          "triangles": 266710,
+          "drawCalls": 47,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "6326ba8b4ddffd19b2b965ca5e7dcfa5af2fb77f95aa97c293c909b00365bf89",
+          "bytes": 82191,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -3,
+          "z": -3,
+          "y": 0.06244638077914703,
+          "heading": -2.356194490192345
+        },
+        "viewpoint": {
+          "view": null,
+          "id": "bel-lincoln-square",
+          "x": -2,
+          "z": 2,
+          "bearing": 145,
+          "pitch": 18,
+          "fov": 60,
+          "text": "Lincoln Square North (UiPath) and One Lincoln Tower over Bellevue Way",
+          "r": 12,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": -2,
+          "z": 2,
+          "y": -0.013445560075342715,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "bel-lincoln-square",
+        "origin": {
+          "lat": 47.61755,
+          "lon": -122.20195,
+          "elev": 49.5
+        },
+        "projection": {
+          "mLat": 111182.88,
+          "mLon": 75175.27
+        }
+      },
+      "look": {
+        "drags": 10,
+        "residualInputPixels": {
+          "x": 0.00002985074039803711,
+          "y": 0.00001313167528419849
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.00002985074039803711,
+          "y": 0.00001313167528419849
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "bel-meydenbauer",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/bel-meydenbauer/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:20:36.829Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 44.09012130325257,
+            "z": 28.351514994392115,
+            "y": 0.26185336692432337,
+            "heading": 1.9532920312499997
+          },
+          "pose": {
+            "position": [
+              44.09012130325257,
+              1.9118533669243232,
+              28.351514994392115
+            ],
+            "bearing": 248.08461045283929,
+            "pitch": 1.000001592396201
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:20:33.958Z",
+          "triangles": 586555,
+          "drawCalls": 54,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "68a795ce8fd76be5d76e7904f6f475d5c1617a0109bd94345e441bded6231517",
+          "bytes": 51984,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/bel-meydenbauer/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:20:42.275Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 44.09012130325257,
+            "z": 28.351514994392115,
+            "y": 0.26185336692432337,
+            "heading": 1.9532920312499997
+          },
+          "pose": {
+            "position": [
+              44.09012130325257,
+              1.9118533669243232,
+              28.351514994392115
+            ],
+            "bearing": 248.08461045283929,
+            "pitch": 1.000001592396201
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:20:39.406Z",
+          "triangles": 586027,
+          "drawCalls": 52,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "a0b0753ec131031a9f24e0222cc5d16d83074359c780750e0d3ed208ef2edf2e",
+          "bytes": 50451,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 22,
+          "z": -21,
+          "y": 3.000899735713793,
+          "heading": 2.9909261469919177
+        },
+        "viewpoint": {
+          "view": [
+            -33.8299437497493,
+            59.6994944079871
+          ],
+          "id": "bel-meydenbauer",
+          "x": 44.09012130325257,
+          "z": 28.351514994392115,
+          "bearing": 248.08461040089054,
+          "pitch": 1,
+          "fov": 45,
+          "text": "The crescent pier curving out over Meydenbauer Bay, Seattle on the horizon",
+          "r": 14,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": 44.09012130325257,
+          "z": 28.351514994392115,
+          "y": 0.26185336692432337,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "bel-meydenbauer",
+        "origin": {
+          "lat": 47.6106,
+          "lon": -122.2108,
+          "elev": 5.7
+        },
+        "projection": {
+          "mLat": 111182.74,
+          "mLon": 75185.23
+        }
+      },
+      "look": {
+        "drags": 8,
+        "residualInputPixels": {
+          "x": -3.777822499273498e-7,
+          "y": 0.000011580231959983091
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": -3.777822499273498e-7,
+          "y": 0.000011580231959983091
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "chihuly",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/chihuly/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:20:57.247Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -56.25,
+            "z": -6.199999999999999,
+            "y": 1.8164729028567674,
+            "heading": -1.047197578125
+          },
+          "pose": {
+            "position": [
+              -56.25,
+              3.4664729028567676,
+              -6.199999999999999
+            ],
+            "bearing": 60.00000154288381,
+            "pitch": 38.00000008191319
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:20:50.169Z",
+          "triangles": 973626,
+          "drawCalls": 92,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "3a961feb44c40f3d68ec4cebc02203b9bbde73ab7eb40e40ec8f0a6fa3c7139e",
+          "bytes": 99278,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/chihuly/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:21:07.560Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -56.25,
+            "z": -6.199999999999999,
+            "y": 1.8164729028567674,
+            "heading": -1.047197578125
+          },
+          "pose": {
+            "position": [
+              -56.25,
+              3.4664729028567676,
+              -6.199999999999999
+            ],
+            "bearing": 60.00000154288381,
+            "pitch": 38.00000008191319
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:21:00.482Z",
+          "triangles": 954629,
+          "drawCalls": 58,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "d76fa05aea41dd8fb5c829391965fd41b8db5835e91503b9bf698542489a4188",
+          "bytes": 69585,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -73.4,
+          "z": 11.8,
+          "y": 2.368821026776569,
+          "heading": -1.3962634015954636
+        },
+        "viewpoint": {
+          "view": null,
+          "id": "chihuly",
+          "x": -56.25,
+          "z": -6.199999999999999,
+          "bearing": 60,
+          "pitch": 38,
+          "fov": 75,
+          "text": "Inside the Glasshouse looking up through the red-orange sculpture and glass roof to the Space Needle",
+          "r": 12,
+          "tol": 80,
+          "targets": [],
+          "condHint": "Stand inside the Glasshouse and look up through the sculpture."
+        },
+        "position": {
+          "x": -56.25,
+          "z": -6.199999999999999,
+          "y": 1.8164729028567674,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "seattle-center",
+        "origin": {
+          "lat": 47.6205063,
+          "lon": -122.3493043,
+          "elev": 40.5
+        },
+        "projection": {
+          "mLat": 111182.94,
+          "mLon": 75171.03
+        }
+      },
+      "look": {
+        "drags": 4,
+        "residualInputPixels": {
+          "x": -0.00001122016775786013,
+          "y": 5.956895162325301e-7
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": -0.00001122016775786013,
+          "y": 5.956895162325301e-7
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "cismigiu",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/cismigiu/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:21:16.431Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -10.640205413017927,
+            "z": -49.15501588057138,
+            "y": 0.35078865501015155,
+            "heading": 0.698131640625
+          },
+          "pose": {
+            "position": [
+              -10.640205413017927,
+              2.0007886550101515,
+              -49.15501588057138
+            ],
+            "bearing": 320.00000344764356,
+            "pitch": 5.000001247631845
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:21:14.369Z",
+          "triangles": 564963,
+          "drawCalls": 45,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "60b4602a7d80506f2c318889c79b5e303ee8af4a92c2a4578074ef0b32f168e5",
+          "bytes": 48042,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/cismigiu/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:21:21.444Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -10.640205413017927,
+            "z": -49.15501588057138,
+            "y": 0.35078865501015155,
+            "heading": 0.698131640625
+          },
+          "pose": {
+            "position": [
+              -10.640205413017927,
+              2.0007886550101515,
+              -49.15501588057138
+            ],
+            "bearing": 320.00000344764356,
+            "pitch": 5.000001247631845
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:21:19.383Z",
+          "triangles": 556028,
+          "drawCalls": 44,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "78616cf6f289f5b88bb876289a4f8bbd56e32ac625c1bea28637d9a7e1c79931",
+          "bytes": 44791,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -0.8630312298909688,
+          "z": -71.07983521630418,
+          "y": 0.6773180583153496,
+          "heading": -5.21173570206482
+        },
+        "viewpoint": {
+          "view": null,
+          "id": "cismigiu",
+          "x": -10.640205413017927,
+          "z": -49.15501588057138,
+          "bearing": 320,
+          "pitch": 5,
+          "fov": 70,
+          "text": "From the lake bridge/shore near the centre looking NW along the lake with rowing boats and willows; alt: Rotonda Scriitorilor.",
+          "r": 12,
+          "tol": 30,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": -10.640205413017927,
+          "z": -49.15501588057138,
+          "y": 0.35078865501015155,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "cismigiu",
+        "origin": {
+          "lat": 44.437,
+          "lon": 26.0912,
+          "elev": 74.8
+        },
+        "projection": {
+          "mLat": 111120.78,
+          "mLon": 79615.21
+        }
+      },
+      "look": {
+        "drags": 3,
+        "residualInputPixels": {
+          "x": -0.00002507197116585758,
+          "y": 0.000009073034806100777
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": -0.00002507197116585758,
+          "y": 0.000009073034806100777
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "fremont-troll",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/fremont-troll/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:21:33.711Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -2.3,
+            "z": -27.8,
+            "y": 2.2639801597100586,
+            "heading": -0.06981304687499999
+          },
+          "pose": {
+            "position": [
+              -2.3,
+              3.9139801597100585,
+              -27.8
+            ],
+            "bearing": 3.9999929408865,
+            "pitch": 7.999999310471285
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:21:24.929Z",
+          "triangles": 351788,
+          "drawCalls": 103,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "c18df18fc468e804cad0964fd5da4118b3ab3b7886dce87cbea0f66d7ada45bc",
+          "bytes": 49710,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/fremont-troll/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:21:37.777Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -2.3,
+            "z": -27.8,
+            "y": 2.2639801597100586,
+            "heading": -0.06981304687499999
+          },
+          "pose": {
+            "position": [
+              -2.3,
+              3.9139801597100585,
+              -27.8
+            ],
+            "bearing": 3.9999929408865,
+            "pitch": 7.999999310471285
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:21:28.995Z",
+          "triangles": 341165,
+          "drawCalls": 79,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "630aec76a4069ae10847c3db14d10e43abc2ac52401d106460e2c1acfde7799a",
+          "bytes": 52307,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -1.2,
+          "z": 0,
+          "y": -0.12456653673201748,
+          "heading": -0.03490658503988659
+        },
+        "viewpoint": {
+          "view": null,
+          "id": "fremont-troll",
+          "x": -2.3,
+          "z": -27.8,
+          "bearing": 4,
+          "pitch": 8,
+          "fov": 70,
+          "text": "Troll head-on framed by the concrete arch, splayed hand left, Beetle under the left hand on the right, stairs at right edge",
+          "r": 9,
+          "tol": 30,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": -2.3,
+          "z": -27.8,
+          "y": 2.2639801597100586,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "fremont-troll",
+        "origin": {
+          "lat": 47.6506,
+          "lon": -122.34722,
+          "elev": 33.1
+        },
+        "projection": {
+          "mLat": 111183.52,
+          "mLon": 75127.88
+        }
+      },
+      "look": {
+        "drags": 1,
+        "residualInputPixels": {
+          "x": 0.00005133532191929173,
+          "y": -0.000005014394316438243
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.00005133532191929173,
+          "y": -0.000005014394316438243
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "gas-works",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/gas-works/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:21:44.660Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 82.6,
+            "z": 100.1,
+            "y": -2.978620171546936,
+            "heading": 0.5235989062499999
+          },
+          "pose": {
+            "position": [
+              82.6,
+              -1.3286201715469361,
+              100.1
+            ],
+            "bearing": 329.99999251420894,
+            "pitch": 11.99999896570693
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:21:43.571Z",
+          "triangles": 644347,
+          "drawCalls": 60,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "ddb41e80fa0935bd40effee1ef297bfa4a64d11fc8da0ec0f7922cc5758d0aea",
+          "bytes": 43154,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/gas-works/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:21:50.453Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 82.6,
+            "z": 100.1,
+            "y": -2.978620171546936,
+            "heading": 0.5235989062499999
+          },
+          "pose": {
+            "position": [
+              82.6,
+              -1.3286201715469361,
+              100.1
+            ],
+            "bearing": 329.99999251420894,
+            "pitch": 11.99999896570693
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:21:49.364Z",
+          "triangles": 638170,
+          "drawCalls": 43,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "1a6bf7031cad4f7d54293beda050afab04dbfd7db197d75d347c5537200f7e84",
+          "bytes": 48991,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 0,
+          "z": 0,
+          "y": 0.3717435399070379,
+          "heading": -2.792526803190927
+        },
+        "viewpoint": {
+          "view": null,
+          "id": "gas-works",
+          "x": 82.6,
+          "z": 100.1,
+          "bearing": 330,
+          "pitch": 12,
+          "fov": 55,
+          "text": "Rusty towers against the sky",
+          "r": 14,
+          "tol": 35,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": 82.6,
+          "z": 100.1,
+          "y": -2.978620171546936,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "gas-works",
+        "origin": {
+          "lat": 47.6456,
+          "lon": -122.3356,
+          "elev": 10.9
+        },
+        "projection": {
+          "mLat": 111183.42,
+          "mLon": 75135.05
+        }
+      },
+      "look": {
+        "drags": 2,
+        "residualInputPixels": {
+          "x": 0.000054438208755650905,
+          "y": -0.000007521591474657364
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.000054438208755650905,
+          "y": -0.000007521591474657364
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "herastrau-park",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/herastrau-park/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:21:59.229Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 235.5,
+            "z": 114,
+            "y": 2.553881935259905,
+            "heading": 0.17453296875000002
+          },
+          "pose": {
+            "position": [
+              235.5,
+              4.203881935259905,
+              114
+            ],
+            "bearing": 349.9999975047363,
+            "pitch": -11.99999896570693
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:21:56.970Z",
+          "triangles": 682768,
+          "drawCalls": 54,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "eca489888f77470c99a1b495551e495e4aa4e7e816486d51ad1a49d6bc2f2bae",
+          "bytes": 51654,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/herastrau-park/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:22:04.906Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 235.5,
+            "z": 114,
+            "y": 2.553881935259905,
+            "heading": 0.17453296875000002
+          },
+          "pose": {
+            "position": [
+              235.5,
+              4.203881935259905,
+              114
+            ],
+            "bearing": 349.9999975047363,
+            "pitch": -11.99999896570693
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:22:02.646Z",
+          "triangles": 678477,
+          "drawCalls": 43,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "7968f1320a10b85bac85a9846b38eb9bf50efed9e9ab60c6e43a66b4805b2bfc",
+          "bytes": 50536,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 232.3,
+          "z": 139.8,
+          "y": 2.4804715772859374,
+          "heading": -6.1086523819801535
+        },
+        "viewpoint": {
+          "view": [
+            236.3,
+            109.8
+          ],
+          "id": "herastrau-park",
+          "x": 235.5,
+          "z": 114,
+          "bearing": 350,
+          "pitch": -12,
+          "fov": 65,
+          "text": "The Sleeping Nymph with the park and Lake Herăstrău behind",
+          "r": 8,
+          "tol": 30,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": 235.5,
+          "z": 114,
+          "y": 2.553881935259905,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "buc-herastrau",
+        "origin": {
+          "lat": 44.471,
+          "lon": 26.08,
+          "elev": 84.2
+        },
+        "projection": {
+          "mLat": 111121.44,
+          "mLon": 79569.03
+        }
+      },
+      "look": {
+        "drags": 1,
+        "residualInputPixels": {
+          "x": 0.000018146069831933197,
+          "y": 0.000007521591474657364
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.000018146069831933197,
+          "y": 0.000007521591474657364
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "kerry-park",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/kerry-park/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:22:10.424Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 12.8,
+            "z": 4.4,
+            "y": 0.15,
+            "heading": -2.495820703125
+          },
+          "pose": {
+            "position": [
+              12.8,
+              1.7999999999999998,
+              4.4
+            ],
+            "bearing": 142.99999271043612,
+            "pitch": 1.000001592396201
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:22:09.373Z",
+          "triangles": 686079,
+          "drawCalls": 76,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "1147b735db4a91e5a36510510691f64fc81a7fcb200643b0310c1e902c7a2f77",
+          "bytes": 53396,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/kerry-park/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:22:16.763Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 12.8,
+            "z": 4.4,
+            "y": 0.15,
+            "heading": -2.495820703125
+          },
+          "pose": {
+            "position": [
+              12.8,
+              1.7999999999999998,
+              4.4
+            ],
+            "bearing": 142.99999271043612,
+            "pitch": 1.000001592396201
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:22:15.711Z",
+          "triangles": 676272,
+          "drawCalls": 58,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "64a0a215bfeb87e2c98f059d35be9fa267cdb8ca88b8a39a1123e5a29fd3f3c0",
+          "bytes": 51349,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 2,
+          "z": 4.5,
+          "y": 0.15,
+          "heading": -2.4609142453120048
+        },
+        "viewpoint": {
+          "view": [
+            800,
+            1000
+          ],
+          "id": "kerry-park",
+          "x": 12.8,
+          "z": 4.4,
+          "bearing": 143,
+          "pitch": 1,
+          "fov": 35,
+          "text": "Space Needle centred-left, Columbia Center stack behind, Rainier to the right, at blue hour — with the Mountain out!",
+          "r": 12,
+          "tol": 28,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": 12.8,
+          "z": 4.4,
+          "y": 0.15,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "kerry-park",
+        "origin": {
+          "lat": 47.6295,
+          "lon": -122.3601,
+          "elev": 103
+        },
+        "projection": {
+          "mLat": 111183.11,
+          "mLon": 75158.14
+        }
+      },
+      "look": {
+        "drags": 10,
+        "residualInputPixels": {
+          "x": 0.00005301120431511209,
+          "y": 0.000011580231959983091
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.00005301120431511209,
+          "y": 0.000011580231959983091
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "mopop",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/mopop/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:22:25.916Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 158.2,
+            "z": -138.3,
+            "y": -8.182275688648224,
+            "heading": 2.1504
+          },
+          "pose": {
+            "position": [
+              158.2,
+              -6.532275688648223,
+              -138.3
+            ],
+            "bearing": 236.79115573506778,
+            "pitch": 11.99999896570693
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:22:21.955Z",
+          "triangles": 1023228,
+          "drawCalls": 222,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "d0cc380b4c01b6c29f3552ca0d3a0ace3f03dd5055e352cd389bef0112d2711d",
+          "bytes": 30268,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/mopop/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:22:30.744Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 158.2,
+            "z": -138.3,
+            "y": -8.182275688648224,
+            "heading": 2.1504
+          },
+          "pose": {
+            "position": [
+              158.2,
+              -6.532275688648223,
+              -138.3
+            ],
+            "bearing": 236.79115573506778,
+            "pitch": 11.99999896570693
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:22:26.783Z",
+          "triangles": 1010844,
+          "drawCalls": 166,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "9c2f30564ec2604ef922dc1bede5ad9a6219809439ab693fd539a2cba05823cb",
+          "bytes": 44579,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 143.1,
+          "z": -121.6,
+          "y": -7.725864601135253,
+          "heading": -4.363323129985824
+        },
+        "viewpoint": {
+          "view": [
+            80.15,
+            -110.14999999999999
+          ],
+          "id": "mopop",
+          "x": 158.2,
+          "z": -138.3,
+          "bearing": 235,
+          "pitch": 12,
+          "fov": 60,
+          "text": "Gehry shingle masses with the monorail emerging and the Space Needle behind",
+          "r": 30,
+          "tol": 40,
+          "targets": [],
+          "condHint": "Wait for the Monorail to pass through the building."
+        },
+        "position": {
+          "x": 158.2,
+          "z": -138.3,
+          "y": -8.182275688648224,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "seattle-center",
+        "origin": {
+          "lat": 47.6205063,
+          "lon": -122.3493043,
+          "elev": 40.5
+        },
+        "projection": {
+          "mLat": 111182.94,
+          "mLon": 75171.03
+        }
+      },
+      "look": {
+        "drags": 8,
+        "residualInputPixels": {
+          "x": -13.025652080379906,
+          "y": -0.000007521591474657364
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": -13.025652080379906,
+          "y": -0.000007521591474657364
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "old-town-lipscani",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/old-town-lipscani/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:22:41.076Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 163.67316734279922,
+            "z": -62.753227180527375,
+            "y": -0.5947590971435853,
+            "heading": -0.135527578125
+          },
+          "pose": {
+            "position": [
+              163.67316734279922,
+              1.0552409028564145,
+              -62.753227180527375
+            ],
+            "bearing": 7.765158234192029,
+            "pitch": 19.999998276178218
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:22:36.431Z",
+          "triangles": 694801,
+          "drawCalls": 60,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "e7eb29c3c1c497ab9d7369471a56286b8c29a75788e7f9f410956f7888c81a9f",
+          "bytes": 49468,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/old-town-lipscani/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:22:50.192Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 163.67316734279922,
+            "z": -62.753227180527375,
+            "y": -0.5947590971435853,
+            "heading": -0.135527578125
+          },
+          "pose": {
+            "position": [
+              163.67316734279922,
+              1.0552409028564145,
+              -62.753227180527375
+            ],
+            "bearing": 7.765158234192029,
+            "pitch": 19.999998276178218
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:22:45.547Z",
+          "triangles": 694675,
+          "drawCalls": 59,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "5f9fbf592bf0a46d1d94c6984a7c4e51637336a069e0bf4a848f08116b309576",
+          "bytes": 57184,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 128,
+          "z": -56.5,
+          "y": -0.485522033158244,
+          "heading": -1.361356816555577
+        },
+        "viewpoint": {
+          "view": null,
+          "id": "old-town-lipscani",
+          "x": 163.67316734279922,
+          "z": -62.753227180527375,
+          "bearing": 7.765166018425873,
+          "pitch": 20,
+          "fov": 75,
+          "text": "Cărturești Carusel: the white atrium and its stacked balconies (best from the level-2 balcony)",
+          "r": 6,
+          "tol": 40,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": 163.67316734279922,
+          "z": -62.753227180527375,
+          "y": -0.5947590971435853,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "buc-old-town",
+        "origin": {
+          "lat": 44.4313,
+          "lon": 26.0995,
+          "elev": 86.7
+        },
+        "projection": {
+          "mLat": 111120.67,
+          "mLon": 79622.95
+        }
+      },
+      "look": {
+        "drags": 1,
+        "residualInputPixels": {
+          "x": 0.000056608545998907786,
+          "y": -0.000012535985791095607
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.000056608545998907786,
+          "y": -0.000012535985791095607
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "palace-parliament",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/palace-parliament/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:23:00.831Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 31,
+            "z": -10.5,
+            "y": 0.188,
+            "heading": 1.5707964843749997
+          },
+          "pose": {
+            "position": [
+              31,
+              1.8379999999999999,
+              -10.5
+            ],
+            "bearing": 269.99999097132513,
+            "pitch": 14.000002150499332
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:22:57.014Z",
+          "triangles": 611559,
+          "drawCalls": 114,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "a9ff983299a4bd378ef88236ad417513d7d592d10a21f4132a0b4296d2f7d9c9",
+          "bytes": 58184,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/palace-parliament/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:23:05.135Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 31,
+            "z": -10.5,
+            "y": 0.188,
+            "heading": 1.5707964843749997
+          },
+          "pose": {
+            "position": [
+              31,
+              1.8379999999999999,
+              -10.5
+            ],
+            "bearing": 269.99999097132513,
+            "pitch": 14.000002150499332
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:23:01.317Z",
+          "triangles": 606099,
+          "drawCalls": 103,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "40b57648b5801d463f8ad12b4d2a1ba3fd8f9db053ae6934a39f9e8ba82593cf",
+          "bytes": 62829,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 157.7,
+          "z": 8.8,
+          "y": -0.3187999999999999,
+          "heading": -4.6774823953448035
+        },
+        "viewpoint": {
+          "view": [
+            -160,
+            -10.5
+          ],
+          "id": "palace-parliament",
+          "x": 31,
+          "z": -10.5,
+          "bearing": 270,
+          "pitch": 14,
+          "fov": 70,
+          "text": "From the east edge of Piața Constituției by the \"București 1459\" clock, ~330 m from the façade, camera on the Unirii axis so the central pavilion is centred; at dusk the floodlights turn on. Postcard alt: from the Bd. Unirii median fountains (outside footprint).",
+          "r": 18,
+          "tol": 26,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": 31,
+          "z": -10.5,
+          "y": 0.188,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "buc-parliament",
+        "origin": {
+          "lat": 44.42735,
+          "lon": 26.0905,
+          "elev": 70.8
+        },
+        "projection": {
+          "mLat": 111120.59,
+          "mLon": 79628.31
+        }
+      },
+      "look": {
+        "drags": 6,
+        "residualInputPixels": {
+          "x": 0.00006565837651351103,
+          "y": 0.00001563887244241761
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.00006565837651351103,
+          "y": 0.00001563887244241761
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "peoples-salvation-cathedral",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:23:13.623Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -731,
+            "z": 165,
+            "y": 14,
+            "heading": -1.483529765625
+          },
+          "pose": {
+            "position": [
+              -731,
+              15.65,
+              165
+            ],
+            "bearing": 84.99999435234469,
+            "pitch": 27.999997586649503
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:23:10.681Z",
+          "triangles": 651459,
+          "drawCalls": 164,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "a147cd161e39574d50f3d54dab2e72db8a0ce6bbb59e032af7625d1d3a44ed6f",
+          "bytes": 33092,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/peoples-salvation-cathedral/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:23:17.581Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -731,
+            "z": 165,
+            "y": 14,
+            "heading": -1.483529765625
+          },
+          "pose": {
+            "position": [
+              -731,
+              15.65,
+              165
+            ],
+            "bearing": 84.99999435234469,
+            "pitch": 27.999997586649503
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:23:14.639Z",
+          "triangles": 636321,
+          "drawCalls": 150,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "db472ce30230e4954660dec9ab0d515d3008c73852b2b7936755a0e2f4069082",
+          "bytes": 36479,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -732,
+          "z": 169,
+          "y": 14,
+          "heading": -1.4835298641951802
+        },
+        "viewpoint": {
+          "view": [
+            -653.1034357889633,
+            157.82457397694287
+          ],
+          "id": "peoples-salvation-cathedral",
+          "x": -731,
+          "z": 165,
+          "bearing": 85,
+          "pitch": 28,
+          "fov": 70,
+          "text": "From the mapped west forecourt, outside the church inner ring and the western source building, looking toward the main portal and bell tower.",
+          "r": 6,
+          "tol": 28,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": -731,
+          "z": 165,
+          "y": 14,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "buc-parliament",
+        "origin": {
+          "lat": 44.42735,
+          "lon": 26.0905,
+          "elev": 70.8
+        },
+        "projection": {
+          "mLat": 111120.59,
+          "mLon": 79628.31
+        }
+      },
+      "look": {
+        "drags": 6,
+        "residualInputPixels": {
+          "x": 0.00004107090815589724,
+          "y": -0.000017550380107533847
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.00004107090815589724,
+          "y": -0.000017550380107533847
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "pioneer-square",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/pioneer-square/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:23:26.070Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 0,
+            "z": 0,
+            "y": 0.005508346529677466,
+            "heading": -0.34906570312499996
+          },
+          "pose": {
+            "position": [
+              0,
+              1.6555083465296774,
+              0
+            ],
+            "bearing": 19.999991561829063,
+            "pitch": 7.999999310471287
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:23:21.797Z",
+          "triangles": 420525,
+          "drawCalls": 87,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "503fc5fa9a70ba19cb241b9b532be201d592e4bba617f42c19a7d33929150006",
+          "bytes": 72514,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/pioneer-square/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:23:31.210Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 0,
+            "z": 0,
+            "y": 0.005508346529677466,
+            "heading": -0.34906570312499996
+          },
+          "pose": {
+            "position": [
+              0,
+              1.6555083465296774,
+              0
+            ],
+            "bearing": 19.999991561829063,
+            "pitch": 7.999999310471287
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:23:26.938Z",
+          "triangles": 365756,
+          "drawCalls": 47,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "5fca86a151fa431e88e78a063b3b5a09b7bbc0e46f7c5cceb897ba8fe2089b7d",
+          "bytes": 61637,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 1,
+          "z": 4,
+          "y": 0.007195211062207779,
+          "heading": -0.3490658503988659
+        },
+        "viewpoint": {
+          "view": null,
+          "id": "pioneer-square",
+          "x": 0,
+          "z": 0,
+          "bearing": 20,
+          "pitch": 8,
+          "fov": 60,
+          "text": "Pergola in front of the Pioneer Building with the totem pole on the left",
+          "r": 10,
+          "tol": 30,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": 0,
+          "z": 0,
+          "y": 0.005508346529677466,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "pioneer-square",
+        "origin": {
+          "lat": 47.60166,
+          "lon": -122.3342,
+          "elev": 7.9
+        },
+        "projection": {
+          "mLat": 111182.57,
+          "mLon": 75198.04
+        }
+      },
+      "look": {
+        "drags": 2,
+        "residualInputPixels": {
+          "x": 0.00006136411082972397,
+          "y": -0.000005014394316438243
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.00006136411082972397,
+          "y": -0.000005014394316438243
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "space-needle",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/space-needle/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:23:40.548Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 0.3,
+            "z": 56.3,
+            "y": 1.3309367892146104,
+            "heading": 0
+          },
+          "pose": {
+            "position": [
+              0.3,
+              2.9809367892146104,
+              56.3
+            ],
+            "bearing": 0,
+            "pitch": 57.204106265861405
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:23:36.348Z",
+          "triangles": 735015,
+          "drawCalls": 62,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "a49fc6642f8309dafa85012281445d8afdfd173d311228b41c30f43818b516a2",
+          "bytes": 19812,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/space-needle/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:23:43.742Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 0.3,
+            "z": 56.3,
+            "y": 1.3309367892146104,
+            "heading": 0
+          },
+          "pose": {
+            "position": [
+              0.3,
+              2.9809367892146104,
+              56.3
+            ],
+            "bearing": 0,
+            "pitch": 57.204106265861405
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:23:39.543Z",
+          "triangles": 725044,
+          "drawCalls": 57,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "6c1da31eaa773629e7e3735a9b119c87b779392bd2ccdf74a22b7eca9c14c284",
+          "bytes": 47436,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 0.2,
+          "z": 27.2,
+          "y": 1.5,
+          "heading": 0
+        },
+        "viewpoint": {
+          "view": null,
+          "id": "space-needle",
+          "x": 0.3,
+          "z": 56.3,
+          "bearing": 0,
+          "pitch": 60,
+          "fov": 70,
+          "text": "Straight up the legs from the south base",
+          "r": 16,
+          "tol": 45,
+          "targets": [],
+          "condHint": "Look straight up the legs."
+        },
+        "position": {
+          "x": 0.3,
+          "z": 56.3,
+          "y": 1.3309367892146104,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "seattle-center",
+        "origin": {
+          "lat": 47.6205063,
+          "lon": -122.3493043,
+          "elev": 40.5
+        },
+        "projection": {
+          "mLat": 111182.94,
+          "mLon": 75171.03
+        }
+      },
+      "look": {
+        "drags": 2,
+        "residualInputPixels": {
+          "x": 0,
+          "y": -20.332312998582367
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0,
+          "y": -20.332312998582367
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "spring-palace",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/spring-palace/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:23:48.441Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 30,
+            "z": -35,
+            "y": 0.013298569207428937,
+            "heading": 1.59684046875
+          },
+          "pose": {
+            "position": [
+              30,
+              1.663298569207429,
+              -35
+            ],
+            "bearing": 268.50778058493296,
+            "pitch": 7.999999310471287
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:23:47.662Z",
+          "triangles": 306091,
+          "drawCalls": 131,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "693da227a7ed47a882deb75f3b341ecca3e4313c9661dfdddfa35d05eda8a313",
+          "bytes": 52186,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/spring-palace/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:23:52.909Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 30,
+            "z": -35,
+            "y": 0.013298569207428937,
+            "heading": 1.59684046875
+          },
+          "pose": {
+            "position": [
+              30,
+              1.663298569207429,
+              -35
+            ],
+            "bearing": 268.50778058493296,
+            "pitch": 7.999999310471287
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:23:52.131Z",
+          "triangles": 297125,
+          "drawCalls": 80,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "04855b08306b66547bec59856d5a0680f50b7d9e2f9a5ca98d0c3cecc6c60700",
+          "bytes": 50683,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -23.18625,
+          "z": -69.525,
+          "y": 0.023967316468001855,
+          "heading": -2.488791289792414
+        },
+        "viewpoint": {
+          "view": [
+            -15.78869300683543,
+            -33.807204236460606
+          ],
+          "id": "spring-palace",
+          "x": 30,
+          "z": -35,
+          "bearing": 268.50778203495156,
+          "pitch": 8,
+          "fov": 60,
+          "text": "The Spring Palace from its garden",
+          "r": 12,
+          "tol": 34,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": 30,
+          "z": -35,
+          "y": 0.013298569207428937,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "spring-palace",
+        "origin": {
+          "lat": 44.4685,
+          "lon": 26.09235,
+          "elev": 86.9
+        },
+        "projection": {
+          "mLat": 111121.39,
+          "mLon": 79572.43
+        }
+      },
+      "look": {
+        "drags": 6,
+        "residualInputPixels": {
+          "x": 0.000010544833154805627,
+          "y": -0.000005014394316438243
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.000010544833154805627,
+          "y": -0.000005014394316438243
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "stavropoleos-cec",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/stavropoleos-cec/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:24:02.919Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -70.1,
+            "z": -68.9,
+            "y": 1.1552824208695978,
+            "heading": -2.0943951562499996
+          },
+          "pose": {
+            "position": [
+              -70.1,
+              2.805282420869598,
+              -68.9
+            ],
+            "bearing": 120.00000308576756,
+            "pitch": 10.000002495263686
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:23:58.757Z",
+          "triangles": 751992,
+          "drawCalls": 144,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "57a43e133a405cea757b21c54ae54bfdbe87613ca19490c2108159a5ff4f38bf",
+          "bytes": 68040,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/stavropoleos-cec/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:24:09.658Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -70.1,
+            "z": -68.9,
+            "y": 1.1552824208695978,
+            "heading": -2.0943951562499996
+          },
+          "pose": {
+            "position": [
+              -70.1,
+              2.805282420869598,
+              -68.9
+            ],
+            "bearing": 120.00000308576756,
+            "pitch": 10.000002495263686
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:24:05.497Z",
+          "triangles": 723412,
+          "drawCalls": 99,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "1d28240df1b359152efe41aa3ed29dfdd64300b82515326ca431943247a5f441",
+          "bytes": 63462,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -92,
+          "z": -67.5,
+          "y": 1.1196192387755073,
+          "heading": -1.7453292519943295
+        },
+        "viewpoint": {
+          "view": [
+            -53.307692307692314,
+            -54.03846153846156
+          ],
+          "id": "stavropoleos-cec",
+          "x": -70.1,
+          "z": -68.9,
+          "bearing": 120,
+          "pitch": 10,
+          "fov": 65,
+          "text": "From Str. Stavropoleos at the north-west corner of the church looking south-east at the west porch with its carved stone columns and painted upper walls (OSM: long axis E-W, altar to the east); alt: CEC Palace from the Calea Victoriei crossing at [44.43160,26.09690] heading 320.",
+          "r": 7,
+          "tol": 30,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": -70.1,
+          "z": -68.9,
+          "y": 1.1552824208695978,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "buc-old-town",
+        "origin": {
+          "lat": 44.4313,
+          "lon": 26.0995,
+          "elev": 86.7
+        },
+        "projection": {
+          "mLat": 111120.67,
+          "mLon": 79622.95
+        }
+      },
+      "look": {
+        "drags": 8,
+        "residualInputPixels": {
+          "x": -0.00002244033551572026,
+          "y": 0.000018146069612201554
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": -0.00002244033551572026,
+          "y": 0.000018146069612201554
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "village-museum",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/village-museum/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:24:15.636Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": -90.26053515493962,
+            "z": -38.69041483703681,
+            "y": -1.0727372870291327,
+            "heading": -0.88282125
+          },
+          "pose": {
+            "position": [
+              -90.26053515493962,
+              0.5772627129708672,
+              -38.69041483703681
+            ],
+            "bearing": 50.581931689463715,
+            "pitch": 31.999997241885147
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:24:13.430Z",
+          "triangles": 637751,
+          "drawCalls": 49,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "10a2a7a084bf04d962da940fd8f892ed34072924f43e2bcc25f21b47b9d47f6c",
+          "bytes": 27578,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/village-museum/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:24:19.109Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": -90.26053515493962,
+            "z": -38.69041483703681,
+            "y": -1.0727372870291327,
+            "heading": -0.88282125
+          },
+          "pose": {
+            "position": [
+              -90.26053515493962,
+              0.5772627129708672,
+              -38.69041483703681
+            ],
+            "bearing": 50.581931689463715,
+            "pitch": 31.999997241885147
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:24:16.903Z",
+          "triangles": 634614,
+          "drawCalls": 48,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "34a4b47020e36e1d3d6b813090c3b42d3d111c6b53fa9d80d174a316c46fd9f4",
+          "bytes": 40750,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": -159.1,
+          "z": 16.7,
+          "y": 5.292971316446889,
+          "heading": -0.6981317007977318
+        },
+        "viewpoint": {
+          "view": [
+            -77.89999999999999,
+            -48.85000000000001
+          ],
+          "id": "village-museum",
+          "x": -90.26053515493962,
+          "z": -38.69041483703681,
+          "bearing": 50.58193848683749,
+          "pitch": 32,
+          "fov": 55,
+          "text": "From the lawn ~40 m south-west of the wooden church (OSM way/277782593 at 44.47145,26.07900) looking NE up at the west tower spire with the graveyard crosses in the foreground.",
+          "r": 10,
+          "tol": 28,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": -90.26053515493962,
+          "z": -38.69041483703681,
+          "y": -1.0727372870291327,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "buc-herastrau",
+        "origin": {
+          "lat": 44.471,
+          "lon": 26.08,
+          "elev": 84.2
+        },
+        "projection": {
+          "mLat": 111121.44,
+          "mLon": 79569.03
+        }
+      },
+      "look": {
+        "drags": 4,
+        "residualInputPixels": {
+          "x": 0.000049431897094128395,
+          "y": -0.00002005757726575297
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.000049431897094128395,
+          "y": -0.00002005757726575297
+        }
+      },
+      "passed": true
+    },
+    {
+      "id": "waterfront",
+      "captures": [
+        {
+          "kind": "scene",
+          "image": "assets/spots/waterfront/visit-aabd/scene.webp",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:24:24.046Z",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "position": {
+            "x": 0,
+            "z": 0,
+            "y": 3.4,
+            "heading": 2.530727578125
+          },
+          "pose": {
+            "position": [
+              0,
+              5.05,
+              0
+            ],
+            "bearing": 214.99999067607317,
+            "pitch": 14.999997028546368
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:24:23.417Z",
+          "triangles": 329325,
+          "drawCalls": 83,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "c779904cf004899f3676a743e08b405534e04d6c75bbcdf114dd885002a4ed78",
+          "bytes": 31182,
+          "fullPageHUD": false
+        },
+        {
+          "kind": "phone-ui",
+          "image": "assets/spots/waterfront/visit-aabd/phone-ui.jpg",
+          "sourceCommit": "aabd17adfc8853c1ea23d3846782c5d1cc9be50f",
+          "capturedAt": "2026-11-09T08:24:28.512Z",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "position": {
+            "x": 0,
+            "z": 0,
+            "y": 3.4,
+            "heading": 2.530727578125
+          },
+          "pose": {
+            "position": [
+              0,
+              5.05,
+              0
+            ],
+            "bearing": 214.99999067607317,
+            "pitch": 14.999997028546368
+          },
+          "conditions": {
+            "tod": "day",
+            "weather": "clear",
+            "season": "summer"
+          },
+          "simulationDate": "2026-11-09T08:24:27.883Z",
+          "triangles": 313491,
+          "drawCalls": 56,
+          "cameraParent": "onfoot",
+          "ui": {
+            "touch": true,
+            "spotHUD": true,
+            "touchAction": true
+          },
+          "sha256": "7a8345f78ac785335d42613b121401e430fab9828c6e4b63331735cec070891e",
+          "bytes": 52755,
+          "fullPageHUD": true
+        }
+      ],
+      "setup": {
+        "arrival": {
+          "x": 6,
+          "z": -6,
+          "y": 3.4,
+          "heading": -3.7524578917878086
+        },
+        "viewpoint": {
+          "view": null,
+          "id": "waterfront",
+          "x": 0,
+          "z": 0,
+          "bearing": 215,
+          "pitch": 15,
+          "fov": 55,
+          "text": "Great Wheel with gondolas lit against Elliott Bay at dusk",
+          "r": 14,
+          "tol": 30,
+          "targets": [],
+          "cond": null,
+          "condHint": null
+        },
+        "position": {
+          "x": 0,
+          "z": 0,
+          "y": 3.4,
+          "heading": 0
+        },
+        "walker": "OnFootController",
+        "sceneId": "waterfront",
+        "origin": {
+          "lat": 47.6069,
+          "lon": -122.3416,
+          "elev": 0
+        },
+        "projection": {
+          "mLat": 111182.67,
+          "mLon": 75190.53
+        }
+      },
+      "look": {
+        "drags": 10,
+        "residualInputPixels": {
+          "x": 0.00006780550935540457,
+          "y": -0.000021609020591413973
+        }
+      },
+      "phoneLook": {
+        "drags": 0,
+        "residualInputPixels": {
+          "x": 0.00006780550935540457,
+          "y": -0.000021609020591413973
+        }
+      },
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "complete": true,
+  "endedAt": "2026-11-09T08:24:29.505Z",
+  "sourceFilesVerifiedAfter": 230
+}

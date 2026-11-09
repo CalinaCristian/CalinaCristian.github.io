@@ -36,6 +36,7 @@ import { buildCoveredRoadModels } from './covered-road-models.js';
 import { roadMiter, needsRoadBevelPad } from './road-joins.js';
 import { markingArea, clipMarkingHalfPlane, clipMarkingConvex, subtractMarkingConvex, clipAffineMarkingRange, buildMarkingStations, markingDashIntervals } from './road-markings.js';
 import { decodeDistrictMask, buildSourceBoundarySupport, normalizeSourceMapEnds, districtMaskSegments } from './district-boundary.js';
+import { sourceTransitStopPlacement, transitShelterModel } from './source-transit-stop.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -4591,7 +4592,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     setProgress('Opening the shops…'); await tick();
     const P = props();
     const fuelLog = []; // fuel forecourts: where the canopy went (or why not) — world.stats.fuel
-    for (const r of data.pois) {
+    const transitStopAudit = [], emittedShelterPlatforms = new Set();
+    for (const [poiIndex, r] of data.pois.entries()) {
         const kind = data.poiKinds[r[0]];
         const x = r[1] / 10, z = r[2] / 10, name = str(r[3]), brand = str(r[4]), sub = str(r[5]), bIdx = buildingIndex(r[6], x, z);
         const ks = KIND_STYLE[kind] || KIND_STYLE.landmark;
@@ -4686,29 +4688,45 @@ export async function buildWorld(city, renderer, opts = {}) {
             continue;
         }
         if (kind === 'busstop') {
+            const sourcePlacement = sourceTransitStopPlacement(data, poiIndex);
+            if (sourcePlacement && !sourcePlacement.resolved) { transitStopAudit.push(sourcePlacement); continue; }
+            if (sourcePlacement && emittedShelterPlatforms.has(sourcePlacement.platformSourceId)) {
+                transitStopAudit.push({ ...sourcePlacement, emitted: false, reason: 'platform-shelter-already-emitted' }); continue;
+            }
+            const stopSide = sourcePlacement?.side ?? side;
             const sideW = side > 0 ? e.wR : e.wL;
-            if (ne.d > sideW + 12) continue;
+            if (!sourcePlacement && ne.d > sideW + 12) continue;
             let off = sideW + shoulderOf(e) + Math.max(1.3, Math.min(e.sidewalk, 3) * 0.6);
-            let sx = ne.cx + e.nx * off * side, sz = ne.cz + e.nz * off * side;
-            const ang = roadAng; const ca = Math.cos(ang), sa = Math.sin(ang);
-            { const shelterBad = () => { if (polyOnRibbon(obbPoly({ x: sx, z: sz, hw: 1.2, hd: 2.2, angle: ang }))) return true;
+            let sx = sourcePlacement?.x ?? ne.cx + e.nx * off * side, sz = sourcePlacement?.z ?? ne.cz + e.nz * off * side;
+            const ang = sourcePlacement?.angle ?? roadAng; const ca = Math.cos(ang), sa = Math.sin(ang);
+            if (!sourcePlacement) { const shelterBad = () => { if (polyOnRibbon(obbPoly({ x: sx, z: sz, hw: 1.2, hd: 2.2, angle: ang }))) return true;
                     for (const [lx, lz, r] of [[-side * 0.5, -1.3, 0.75], [-side * 0.5, 0, 0.75], [-side * 0.5, 1.3, 0.75], [side * 0.3, 1.9, 0.15]]) if (onRibbon(sx + lx * ca + lz * sa, sz - lx * sa + lz * ca, r)) return true; return false; };
               let k = 0; while (k < 8 && shelterBad()) { off += 0.6; sx = ne.cx + e.nx * off * side; sz = ne.cz + e.nz * off * side; k++; }
               if (shelterBad() || buildingAt(sx, sz)) continue; }
-            const L2W = (lx, lz) => [sx + lx * ca + lz * sa, sz - lx * sa + lz * ca];
-            const back = L2W(-side * 0.8, 0), v0b = c.solid.vc; // local +x points toward the road (= -normal)
+            // A mapped platform may occupy an inferred road shoulder; it is not
+            // moved away from its source line by the legacy motorway-edge test.
+            // Reject actual rail-corridor conflicts without relocating either
+            // source feature. Native motor/static/body validation remains due.
+            if (sourcePlacement) {
+                const roof = obbPoly({ x: sourcePlacement.platformPoint[0], z: sourcePlacement.platformPoint[1], hw: .8, hd: 1.75, angle: ang });
+                let conflict = buildingAt(sx, sz);
+                for (let k = 0; k < roof.length && !conflict; k++) conflict = tramGrades.excludesInferredObstacle(roof[k], roof[(k + 1) % roof.length], { inferred: true, radiusM: .05, bodyEnvelope: tramPropEnvelope, y0a: .2, y1a: 3.3, kind: 'source-platform-shelter-model', sourceId: sourcePlacement.platformSourceId });
+                if (conflict) { transitStopAudit.push({ ...sourcePlacement, emitted: false, reason: 'source-platform-model-physical-conflict' }); continue; }
+                emittedShelterPlatforms.add(sourcePlacement.platformSourceId);
+                transitStopAudit.push({ ...sourcePlacement, emitted: true });
+            }
+            const c = cellOf(sx, sz), v0b = c.solid.vc;
             // (real STB / King County Metro shelter: ~3.4 × 1.5 m, 2.3 m roof, tinted glass on a raised frame — not a pale box)
-            const glass = rgb('#6f8a99'), frame = rgb(US ? '#2f3e46' : '#3b3f45');
-            c.solid.box(back[0], 0.35, back[1], 0.06, 1.9, 3.2, ang, glass);
-            for (const lz of [-1.6, 1.6]) { const p2 = L2W(-side * 0.8, lz); c.solid.box(p2[0], 0.2, p2[1], 0.1, 2.15, 0.1, ang, frame); const p3 = L2W(-side * 0.25, lz); c.solid.box(p3[0], 0.35, p3[1], 1.1, 1.9, 0.05, ang, glass); }
-            const roofP = L2W(-side * 0.25, 0); c.solid.box(roofP[0], 2.35, roofP[1], 1.6, 0.1, 3.5, ang, frame);
-            const bench = L2W(-side * 0.5, 0); c.solid.box(bench[0], 0.45, bench[1], 0.4, 0.08, 2.4, ang, rgb('#6b4a2f'));
-            const pole = L2W(side * 0.3, 1.9);
-            for (const lz of [-1.3, 0, 1.3]) { const q2 = L2W(-side * 0.5, lz); addPropColl(q2[0], q2[1], 0.75, 'busstop'); }
-            addPropColl(pole[0], pole[1], 0.15, 'busstop'); c.solid.box(pole[0], 0.2, pole[1], 0.08, 2.8, 0.08, ang, frame);
+            const colors = { glass: rgb('#6f8a99'), frame: rgb(US ? '#2f3e46' : '#3b3f45'), bench: rgb('#6b4a2f') };
+            const shelter = transitShelterModel({ x: sx, z: sz, angle: ang, side: stopSide });
+            for (const part of shelter.boxes) c.solid.box(part.x, part.y, part.z, part.w, part.h, part.d, part.angle, colors[part.material]);
+            const propStart = propColl.length;
+            for (const p of shelter.discs) addPropColl(p.x, p.z, p.r, 'busstop');
+            const pole = shelter.pole;
             const s = signs.get(sub.startsWith('tram') ? 'T' : 'BUS', sub.startsWith('tram') ? '#c2410c' : '#0f766e', '#ffffff', null);
             if (s) for (const sd of [1, -1]) addSignQuad(c, pole[0], pole[1], ang, sd, 0.6, 0.5, 2.5, s, 0.05);
-            liftOnSide(c, v0b, null, sx, sz, 0.5);
+            const lifted = liftOnSide(c, v0b, null, sx, sz, 0.5);
+            if (sourcePlacement) for (let k = propStart; k < propColl.length; k++) Object.assign(propColl[k], { sourceId: sourcePlacement.platformSourceId, sourceStopId: sourcePlacement.sourceId, estimated: true, ...(lifted ? { y: DY_SIDE } : {}) });
             continue;
         }
         // businesses without a building of their own (or in a building already signed) → small pylon / board
@@ -6072,6 +6090,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.bridgeJunctions = bridgeJunctionAudit;
     stats.tramTrench = tramTrench.report;
     stats.tramPropEnvelope = tramPropEnvelope;
+    stats.transitStops = transitStopAudit;
     stats.coveredRoadModels = coveredRoadModels.report;
     stats.sidewalkSource = { explicitEdges: edges.filter(e => e.sidewalkSource.explicit).length,
         directionalEdges: edges.filter(e => e.sidewalkRightM !== e.sidewalkLeftM).length,

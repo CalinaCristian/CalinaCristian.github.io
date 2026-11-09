@@ -2,7 +2,7 @@
 
 Immutable capture source: **`07cc3d6bcefe90967c5bde3af2237dab4b972705`**. All 29 fresh frames retain that actual source and their actual capture dates. They are not relabelled as a later release or later vehicle-only fix.
 
-The committed read-only selector [`tools/fidelity/atlas-structure-impact.mjs`](../../../tools/fidelity/atlas-structure-impact.mjs) uses the accepted source-stamped [all-eight separator deltas](../us-districts/seatac/structure-2b2b970/all 8-generated-separator-deltas.json) and [two-model bounds](../us-districts/seatac/structure-2b2b970/model-impact-bounds.json), including conservative noon-shadow, perspective and rasterization padding. `structure-mask.json` is the exact 07cc selector output. No source coordinate, model, data, collider, runtime, catalog, inventory or global documentation is edited by this delivery.
+The committed read-only selector [`tools/fidelity/atlas-structure-impact.mjs`](../../../tools/fidelity/atlas-structure-impact.mjs) uses the accepted source-stamped [all-eight separator deltas](../us-districts/seatac/structure-2b2b970/all8-generated-separator-deltas.json) and [two-model bounds](../us-districts/seatac/structure-2b2b970/model-impact-bounds.json), including conservative noon-shadow, perspective and rasterization padding. `structure-mask.json` is the exact 07cc selector output. No source coordinate, model, data, collider, runtime, catalog, inventory or global documentation is edited by this delivery.
 
 | Current atlas | Fresh 07cc frames | Untouched current items | Full prior atlas archived |
 | --- | ---: | ---: | ---: |

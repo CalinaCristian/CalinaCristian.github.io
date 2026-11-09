@@ -1,0 +1,135 @@
+{
+  "scope": "CPU actual Pike ground modifiers and exact buildTerrain 2m triangle diagonal; native visuals/walking pending",
+  "base": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+  "sourceHashes": {
+    "beforeGround": "b9b80a4262b3d802c3e0054794812095dc601a69d7691de8ab0e6b9927065433",
+    "afterGround": "954be12835c2a96f9d497777dfdd838cca55e42e37fe8905e822f36b2ca62eaa",
+    "pikeData": "484a00735a54b5aa60e07e20567e6a3cbd4142a78945ec463c6c5c9ee236c0d8"
+  },
+  "historical": {
+    "prepreview": "dc5339f4da79e6fb84b8f98d9e241aa352e8bdf6",
+    "preview": "0b18608b215172ed3283cf062349978084495219",
+    "groundConformSettleIdentical": true,
+    "pikeGroundProfilesIdentical": true
+  },
+  "innerTerrain": {
+    "x0": -416,
+    "z0": -304,
+    "x1": 104,
+    "z1": 192
+  },
+  "regions": {
+    "marketAndApproaches": {
+      "box": {
+        "x0": -280,
+        "x1": 35,
+        "z0": -175,
+        "z1": 135
+      },
+      "before": {
+        "count": 391851,
+        "sampleSpacingM": 0.5,
+        "jumpDistanceM": 0.02,
+        "maxJump": {
+          "x": -10.5,
+          "z": 121.5,
+          "y": -17.365664272153417,
+          "x2": -10.5,
+          "z2": 121.52,
+          "y2": -12.181010455397622,
+          "deltaM": 5.1846538167557945
+        },
+        "maxWalkingMeshDifference": {
+          "x": -11.5,
+          "z": 119.5,
+          "heightAt": -17.015435728314007,
+          "actualTriangleY": -12.003947455265264,
+          "deltaM": 5.011488273048743
+        }
+      },
+      "after": {
+        "count": 391851,
+        "sampleSpacingM": 0.5,
+        "jumpDistanceM": 0.02,
+        "maxJump": {
+          "x": -0.5,
+          "z": 132.5,
+          "y": -12.816054175408814,
+          "x2": -0.5,
+          "z2": 132.52,
+          "y2": -12.853862470101175,
+          "deltaM": 0.037808294692361244
+        },
+        "maxWalkingMeshDifference": {
+          "x": -59,
+          "z": 47,
+          "heightAt": -6.7806452010337575,
+          "actualTriangleY": -7.738971662693285,
+          "deltaM": 0.958326461659528
+        }
+      }
+    },
+    "gumWall": {
+      "box": {
+        "x0": -60,
+        "x1": -20,
+        "z0": 40,
+        "z1": 85
+      },
+      "before": {
+        "count": 7371,
+        "sampleSpacingM": 0.5,
+        "jumpDistanceM": 0.02,
+        "maxJump": {
+          "x": -33,
+          "z": 84.5,
+          "y": -11.677173899229581,
+          "x2": -32.98,
+          "z2": 84.5,
+          "y2": -15.06712075643025,
+          "deltaM": 3.389946857200668
+        },
+        "maxWalkingMeshDifference": {
+          "x": -33.5,
+          "z": 83.5,
+          "heightAt": -14.86360775816665,
+          "actualTriangleY": -11.594771836403295,
+          "deltaM": 3.2688359217633547
+        }
+      },
+      "after": {
+        "count": 7371,
+        "sampleSpacingM": 0.5,
+        "jumpDistanceM": 0.02,
+        "maxJump": {
+          "x": -53.5,
+          "z": 50.5,
+          "y": -8.34375878908177,
+          "x2": -53.5,
+          "z2": 50.52,
+          "y2": -8.377344279078233,
+          "deltaM": 0.03358548999646338
+        },
+        "maxWalkingMeshDifference": {
+          "x": -59,
+          "z": 47,
+          "heightAt": -6.7806452010337575,
+          "actualTriangleY": -7.738971662693285,
+          "deltaM": 0.958326461659528
+        }
+      }
+    }
+  },
+  "controls": {
+    "exactFlatCorridor": true,
+    "exactEightPercentGrade": true,
+    "unchangedNoModifiers": true,
+    "idempotentSettle": true,
+    "continuousBlendMaxOneMmStepM": 0.00010725782984177812,
+    "independentEmittedTriangleRaycasts": 8,
+    "maxRayErrorM": 0,
+    "reachableSolid": true,
+    "overheadSolid": true,
+    "deepWaterAndAircraft": true
+  }
+}

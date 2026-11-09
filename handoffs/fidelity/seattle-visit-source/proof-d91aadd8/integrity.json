@@ -1,0 +1,21 @@
+{
+  "runtimeSources": [
+    {
+      "sourceCommit": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+      "files": 228,
+      "bytes": 119613576,
+      "passed": true
+    },
+    {
+      "sourceCommit": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+      "files": 228,
+      "bytes": 119615894,
+      "passed": true
+    }
+  ],
+  "publicPictures": 16,
+  "allPicturesFullsizeReviewed": true,
+  "meaningfulViewsPerSource": 5,
+  "rejectedTechnicalFixturesPerSource": 3,
+  "allOldImagePathsRetained": true
+}

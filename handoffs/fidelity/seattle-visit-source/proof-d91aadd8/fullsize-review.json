@@ -1,0 +1,146 @@
+[
+  {
+    "source": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+    "id": "spawn",
+    "file": "before-spawn.jpg",
+    "sha256": "ba4bc3eb1c3cb6d91df2fa83ff896c376d7c8deae445ce635d8a4cc948467133",
+    "reviewedFullSize": true,
+    "galleryEligible": true,
+    "note": "Actual game picture; generic architecture and access gaps remain"
+  },
+  {
+    "source": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+    "id": "walk-end",
+    "file": "before-walk-end.jpg",
+    "sha256": "5e38623ff4bbc7bd635dd1ed43b9310e90c459d46cf89051475473519b7b736e",
+    "reviewedFullSize": true,
+    "galleryEligible": true,
+    "note": "Actual game picture; generic architecture and access gaps remain"
+  },
+  {
+    "source": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+    "id": "market-sign",
+    "file": "before-market-sign.jpg",
+    "sha256": "e051e7dd5a707fe9b5d55aef6dc0ddfa80d4772a6f0f3ca87f71fd81d4883394",
+    "reviewedFullSize": true,
+    "galleryEligible": true,
+    "note": "Actual game picture; generic architecture and access gaps remain"
+  },
+  {
+    "source": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+    "id": "stalls",
+    "file": "before-stalls.jpg",
+    "sha256": "8acc61a5c2f18a20b3a1d2e6c7728a5bafc016f31ff5e024fb068dad00dbe0b0",
+    "reviewedFullSize": true,
+    "galleryEligible": true,
+    "note": "Actual game picture; generic architecture and access gaps remain"
+  },
+  {
+    "source": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+    "id": "gum-wall",
+    "file": "before-gum-wall.jpg",
+    "sha256": "250e89315bd3604123f25278cba8d8487eb5dcec73064aca964afd03e316f66f",
+    "reviewedFullSize": true,
+    "galleryEligible": true,
+    "note": "Actual game picture; generic architecture and access gaps remain"
+  },
+  {
+    "source": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+    "id": "gum-approach",
+    "file": "before-gum-approach.jpg",
+    "sha256": "5eda2a3d3ddb83fe7a857c61d8f6af48dbd1240afce340c0e21b462b31b9f888",
+    "reviewedFullSize": true,
+    "galleryEligible": false,
+    "note": "Inside/obstructed fixture; retained raw and rejected for visitor gallery"
+  },
+  {
+    "source": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+    "id": "old-sinkhole",
+    "file": "before-old-sinkhole.jpg",
+    "sha256": "7b8c155f18aecf37a9d0e3aa7026af409808edc2f56930a373e5b534aebfa712",
+    "reviewedFullSize": true,
+    "galleryEligible": false,
+    "note": "Inside/obstructed fixture; retained raw and rejected for visitor gallery"
+  },
+  {
+    "source": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+    "id": "market-paving",
+    "file": "before-market-paving.jpg",
+    "sha256": "d06126dec8d9342f8a547668160b642c729a3abdc03c4dc3b25cde5d27d701bd",
+    "reviewedFullSize": true,
+    "galleryEligible": false,
+    "note": "Inside/obstructed fixture; retained raw and rejected for visitor gallery"
+  },
+  {
+    "source": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+    "id": "spawn",
+    "file": "after-spawn.jpg",
+    "sha256": "3133273beaacf34254070d2f292e5415230843054bfbab3ccc1d4e7b266d1641",
+    "reviewedFullSize": true,
+    "galleryEligible": true,
+    "note": "Actual game picture; generic architecture and access gaps remain"
+  },
+  {
+    "source": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+    "id": "walk-end",
+    "file": "after-walk-end.jpg",
+    "sha256": "c70c44ecf1c4913f7fccded881ff36611a988ea8b853e6ff97c3e15a4bcc332b",
+    "reviewedFullSize": true,
+    "galleryEligible": true,
+    "note": "Actual game picture; generic architecture and access gaps remain"
+  },
+  {
+    "source": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+    "id": "market-sign",
+    "file": "after-market-sign.jpg",
+    "sha256": "c94db70ec1f2cb1807225e4ae7c3e75a3e58e3e6217884b08f975072280ac660",
+    "reviewedFullSize": true,
+    "galleryEligible": true,
+    "note": "Actual game picture; generic architecture and access gaps remain"
+  },
+  {
+    "source": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+    "id": "stalls",
+    "file": "after-stalls.jpg",
+    "sha256": "6f01311d48d800d47bbbfc00d7322bfeb65293df5b449f416af27d8b2cfa4060",
+    "reviewedFullSize": true,
+    "galleryEligible": true,
+    "note": "Actual game picture; generic architecture and access gaps remain"
+  },
+  {
+    "source": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+    "id": "gum-wall",
+    "file": "after-gum-wall.jpg",
+    "sha256": "09d54a5b9e54c64623ad00e3ff8827ecc4e9b5805297c3c34ae7831d263ace68",
+    "reviewedFullSize": true,
+    "galleryEligible": true,
+    "note": "Actual game picture; generic architecture and access gaps remain"
+  },
+  {
+    "source": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+    "id": "gum-approach",
+    "file": "after-gum-approach.jpg",
+    "sha256": "5eda2a3d3ddb83fe7a857c61d8f6af48dbd1240afce340c0e21b462b31b9f888",
+    "reviewedFullSize": true,
+    "galleryEligible": false,
+    "note": "Inside/obstructed fixture; retained raw and rejected for visitor gallery"
+  },
+  {
+    "source": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+    "id": "old-sinkhole",
+    "file": "after-old-sinkhole.jpg",
+    "sha256": "1a93f016e5af2a38a5599f6935db8dbdb157b54e6f224c7f84ace8d07ee9db35",
+    "reviewedFullSize": true,
+    "galleryEligible": false,
+    "note": "Inside/obstructed fixture; retained raw and rejected for visitor gallery"
+  },
+  {
+    "source": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
+    "id": "market-paving",
+    "file": "after-market-paving.jpg",
+    "sha256": "7e0e0fae5ece8a0f253a267496b833a637ea6c7f6a052f5cd47e15daff3d7b99",
+    "reviewedFullSize": true,
+    "galleryEligible": false,
+    "note": "Inside/obstructed fixture; retained raw and rejected for visitor gallery"
+  }
+]

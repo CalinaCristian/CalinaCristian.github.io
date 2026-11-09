@@ -1,0 +1,43 @@
+{
+  "scope": "All16newpictures/manifest+linkednativeproof. Existing history/globaloverview layout are root combined gates.",
+  "checks": [
+    {
+      "url": "http://127.0.0.1:8496/game/overview/assets/spots/pike-place/ground-d91aadd8/after-spawn.jpg",
+      "bytes": 218036,
+      "sha256": "3133273beaacf34254070d2f292e5415230843054bfbab3ccc1d4e7b266d1641",
+      "passed": true
+    },
+    {
+      "url": "http://127.0.0.1:8496/game/overview/assets/spots/pike-place/ground-d91aadd8/after-walk-end.jpg",
+      "bytes": 289803,
+      "sha256": "c70c44ecf1c4913f7fccded881ff36611a988ea8b853e6ff97c3e15a4bcc332b",
+      "passed": true
+    },
+    {
+      "url": "http://127.0.0.1:8496/game/overview/assets/spots/pike-place/ground-d91aadd8/after-market-sign.jpg",
+      "bytes": 237281,
+      "sha256": "c94db70ec1f2cb1807225e4ae7c3e75a3e58e3e6217884b08f975072280ac660",
+      "passed": true
+    },
+    {
+      "url": "http://127.0.0.1:8496/game/overview/assets/spots/pike-place/ground-d91aadd8/after-stalls.jpg",
+      "bytes": 219693,
+      "sha256": "6f01311d48d800d47bbbfc00d7322bfeb65293df5b449f416af27d8b2cfa4060",
+      "passed": true
+    },
+    {
+      "url": "http://127.0.0.1:8496/game/overview/assets/spots/pike-place/ground-d91aadd8/after-gum-wall.jpg",
+      "bytes": 328171,
+      "sha256": "09d54a5b9e54c64623ad00e3ff8827ecc4e9b5805297c3c34ae7831d263ace68",
+      "passed": true
+    },
+    {
+      "url": "http://127.0.0.1:8496/handoffs/fidelity/seattle-visit-source/proof-d91aadd8/native-report.json",
+      "bytes": 246746,
+      "sha256": "95ffb6084d0679aac0d3ebd91d2cf6e0e3a23cda133d7f958c531c6cf9837824",
+      "passed": true
+    }
+  ],
+  "allSixteenRawPictureHashes": true,
+  "manifestNativeReportHTTP": 200
+}

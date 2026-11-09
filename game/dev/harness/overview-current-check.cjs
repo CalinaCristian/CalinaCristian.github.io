@@ -7,7 +7,7 @@ const load=p=>JSON.parse(fs.readFileSync(p)),sha=b=>crypto.createHash('sha256').
 fs.mkdirSync(out,{recursive:true});
 const publicDir=path.join(root,'game/overview'),inventory=load(path.join(publicDir,'inventory.json'));
 const catalog=load(path.join(publicDir,'comparison-data/catalog.json'));
-const result={sourceInventory:inventory.sourceSha,scope:'Actual published local game images and UI; official aerial response intercepted for cache tests only. No visual parity or physical-phone claim.',districts:[],landmarks:[],spots:[],errors:[]};
+const result={toolSha256:sha(fs.readFileSync(__filename)),snapshotRoot:root,snapshotSourceCommit:process.argv[4]||null,sourceInventory:inventory.sourceSha,scope:'Actual published local game images and UI; official aerial response intercepted for cache tests only. No visual parity or physical-phone claim.',districts:[],landmarks:[],spots:[],errors:[]};
 const mime={'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.jpg':'image/jpeg','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml'};
 const server=http.createServer((req,res)=>{let f;try{f=path.resolve(root,'.'+decodeURIComponent(req.url.split('?')[0]));if(!f.startsWith(root+path.sep))throw Error();if(fs.statSync(f).isDirectory())f=path.join(f,'index.html');}catch{res.writeHead(404).end();return;}fs.readFile(f,(e,b)=>{if(e){res.writeHead(404).end();return;}res.writeHead(200,{'content-type':mime[path.extname(f)]||'application/octet-stream','cache-control':'no-store'});res.end(b);});});
 async function main(){

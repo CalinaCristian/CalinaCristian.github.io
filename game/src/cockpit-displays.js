@@ -37,10 +37,6 @@ function patchMaterial(material) {
             uniform sampler2D uDisplayDepth, uDisplayPlaneDepth;
             uniform vec2 uDisplayWorldSize, uDisplayOutputSize;`)
             .replace('#include <clipping_planes_fragment>', `#include <clipping_planes_fragment>
-            if (uDisplayPass > 1.5) {
-                gl_FragColor = packDepthToRGBA(gl_FragCoord.z);
-                return;
-            }
             if (uDisplayPass > 0.5) {
                 vec2 worldPixel = floor(gl_FragCoord.xy * uDisplayWorldSize / uDisplayOutputSize) + 0.5;
                 vec2 slope = vec2(dFdx(gl_FragCoord.z), dFdy(gl_FragCoord.z));
@@ -95,6 +91,8 @@ export class CockpitDisplays {
             minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter,
         });
         this.planeDepth.texture.name = 'cockpit-display-plane-depth';
+        this.planeMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
+        this.planeMaterial.name = 'cockpit-display-plane-depth';
         this.lowTarget = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType });
         this.lowTarget.texture.name = 'low-world';
         this.lowTarget.samples = Math.min(4, renderer.capabilities.maxSamples);
@@ -114,7 +112,7 @@ export class CockpitDisplays {
         };
     }
 
-    setPlayer(player) {
+    setPlayer(player, camera = null) {
         this.frameScene = this.frameCamera = null;
         this.bindings = [];
         this.scene.clear();
@@ -133,6 +131,11 @@ export class CockpitDisplays {
             this.renderer.initRenderTarget(this.lowTarget);
             this.renderer.initRenderTarget(this.savedDepth);
             this.renderer.initRenderTarget(this.planeDepth);
+            if (camera) {
+                this.scene.overrideMaterial = this.planeMaterial;
+                try { this.renderer.compile(this.scene, camera); }
+                finally { this.scene.overrideMaterial = null; }
+            }
         }
     }
 
@@ -175,15 +178,16 @@ export class CockpitDisplays {
         try {
             for (const { source, mesh, uniforms } of this.bindings) {
                 mesh.visible = visibleInScene(source, this.frameScene, this.frameCamera);
-                mesh.matrix.copy(source.matrixWorld); uniforms.uDisplayPass.value = 2;
+                mesh.matrix.copy(source.matrixWorld);
             }
             r.autoClear = true;
             r.setClearColor(r.capabilities.reverseDepthBuffer ? 0x000000 : 0xffffff,
                 r.capabilities.reverseDepthBuffer ? 0 : 1);
             r.state.buffers.depth.setMask(true);
+            this.scene.overrideMaterial = this.planeMaterial;
             r.setRenderTarget(this.planeDepth); r.render(this.scene, this.frameCamera);
         } finally {
-            for (const b of this.bindings) b.uniforms.uDisplayPass.value = 0;
+            this.scene.overrideMaterial = null;
             r.autoClear = clear; r.setClearColor(color, alpha); r.setRenderTarget(prev);
             this.scene.fog = this.scene.environment = null;
         }
@@ -244,6 +248,6 @@ export class CockpitDisplays {
     dispose() {
         this.setPlayer(null);
         this.copyQuad.dispose(); this.copyMaterial.dispose();
-        this.savedDepth.dispose(); this.planeDepth.dispose(); this.lowTarget.dispose();
+        this.savedDepth.dispose(); this.planeDepth.dispose(); this.lowTarget.dispose(); this.planeMaterial.dispose();
     }
 }

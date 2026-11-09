@@ -1165,7 +1165,7 @@ export class Renderer3D {
 
     setPlayer(player) {
         this.player = player; this._applyRainToCockpit(); this._updateHeadlights();
-        this.cockpitDisplays.setPlayer(player);
+        this.cockpitDisplays.setPlayer(player, this.camera);
         this.camera?.layers.enable(1);
         this._cabinK = -1; this._updateNight(0);
     }

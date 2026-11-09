@@ -1,10 +1,12 @@
 # Combined native budget probe
 
-**Final acceptance remains on hold.** The latest [c4fd6255 candidate](candidate-c4fd6255/README.md) passes all rendering limits but fails native movement with one recovery reset and 127 contact-flag samples. The earlier [d981 diagnostic](diagnostic-d981eee7/README.md) also passes rendering limits and has two recovery resets. Await root's next source decision and reset-free rerun; these captures do not accept a later runtime or its evolved actors.
+**Final acceptance remains on hold.** The [54c04442 preflight](candidate-54c04442/README.md) stops before driving: two initial complete frames pass rendering limits, but actual native constructor pair 232/465 remains unresolved. Earlier [c4fd6255](candidate-c4fd6255/README.md) and [d981](diagnostic-d981eee7/README.md) runs pass rendering limits but contain recovery resets. These captures do not accept a later runtime or its evolved actors.
 
 `probe.cjs ROOT OUTPUT FULL40SHA [GIT_REPO]` serves the exact archived production files. Before boot it verifies every archive file against the supplied Git tree, recording SHA256 and Git blob identities. It hashes each file actually served and verifies the entire archive again after the run. A nonempty output directory is rejected so an incomplete attempt cannot be overwritten.
 
 The probe selects **high through the normal quality UI**, then uses the public Unirii free-roam start with summer, clear weather and rush time. The viewport is 1280 × 720 at device scale 1. Production FOV, near/far planes, native populations, trees, mirror, shaders, geometry, indices and LOD remain in use. There are no served-source substitutions or camera-property assignments. The source harness controls fixed-step scheduling at 30 Hz; its reduced-far/half-resolution screenshot scheduler is replaced only with a call to the unchanged full production draw path. Every counted frame includes the mirror.
+
+Read-only original`spawnAll`/`spawn`/`setHour`/`rebalance` wrappers retain constructor classes, original birth IDs/objects, native rush additions, profile targets and active/pool membership. The high native 480 setting is a **cap**, not a minimum: source 54 natively creates477 moving+2 police+3 parked, then 140 rush additions, yielding 622. No historic 624 expectation may force spawning or reduce quality. The observer instead requires all original native objects/IDs, unchanged birth IDs, native rush targets, 560 pedestrians, no hidden/inactive/pooled actors and stable full membership through every counted frame. Constructor/binding physical admission is a separate gate. After two actual initial warm/sample frames, any failed cohort, physical admission, setting, counter or budget check stops before driving and retains incomplete raw results.
 
 The first 150 m of the native route to GTS is driven using navigation and ordinary input controls. There is **no extra player placement, traffic clearing or population edit**. The report retains the native start, target, actual endpoint, simulated duration, path trace, contacts and harness issues. Distance from the historical hotspot is recorded; an endpoint over 30 m away is flagged as a coverage gap.
 
@@ -18,7 +20,7 @@ Raw native stats and measured complete-frame maxima are both retained. Any raw c
 
 Acceptance requires every recorded complete frame to remain within 400 calls / 1,500,000 triangles, with main/mirror/true-shadow passes present, native settings retained and NPC invariants satisfied. Images, full per-draw records, per-pass totals, actual source population IDs and source hashes are retained. Warm frames are never discarded from the maxima. SwiftShader elapsed time is not hardware FPS evidence. This narrow render probe does not replace physical collision, pedestrian, source geometry or destination acceptance.
 
-After root provides the final SHA, create a fresh immutable archive of `game`, `public` and `package.json`, inspect existing process arguments before starting another browser, then run:
+After root provides the final SHA, create a fresh minimal immutable runtime archive (source/vendor/data/assets, game entry/style, harness/page, public and required root entry files; omit the unused overview), inspect existing process arguments before starting another browser, then run:
 
 ```sh
 NODE_PATH=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules \
@@ -28,5 +30,7 @@ node --require ./browser-preload.cjs ./probe.cjs \
 ```
 
 `node counter-accounting.test.cjs` checks observed sums, setup carry, raw-stat agreement/mismatch retention, a real reflection contribution crossing the cap and production-reset observation without launching a browser. These synthetic controls do not classify any historical cold frame.
+
+`node cohort-accounting.test.cjs` checks source-derived 622 and historic 624 cohorts, cap semantics and failures for reduced settings, missed native births, changed IDs/objects, hidden/pool/inactive actors and incomplete pedestrian identity. It does not certify physical admission or change native counts.
 
 The external preload selects installed muted Chromium, uses bounded waits and saves compositor screenshots without requesting an additional game draw. Review raw counter alerts, the final report and all images before recording acceptance. Preserve failures as separate dated attempts; do not edit production runtime files in this lane unless root explicitly authorizes a response to a measured combined failure.

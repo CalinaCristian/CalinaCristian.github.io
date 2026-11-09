@@ -1,0 +1,20 @@
+{
+  "pid": 410619,
+  "sourceCommit": "6cbf82b61de8267f662bf50239c37ccc1764635c",
+  "sourceGitTree": "69419e78c1dc1200853278672418342ed6a13d41",
+  "startedUtc": "2026-11-09T06:22:58.039889+00:00",
+  "argv": [
+    "node",
+    "/workspace/integration-qa-evidence/romana-constructor-6cb-native/runner.cjs",
+    "/workspace/integration-qa-evidence/groz-support-6cb-source",
+    "/workspace/integration-qa-evidence/romana-constructor-6cb-native"
+  ],
+  "scope": "One historical6cbHigh/fullRomana constructor observer; beforeadmission/postspawnAll and normal native publication stages, no traffic steps/currentrail acceptance.",
+  "toolHashes": {
+    "runner.cjs": "1e2a4ef6566edd127939c918c816959286447b91c15960b8548e56942776d4f9",
+    "integration-browser-bounds.cjs": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29",
+    "source-manifest.json": "ecd984b2364c2b5e123295bfaf567141838d133da857e80a882275bbe4215be4",
+    "source-comparison-root718.json": "4714305c6b12860455cf0fb4f2de24bdb50f90d077d961779cdad4132f05bacf",
+    "relevant-source-diff-root718.patch": "f0bf2358de5bb78834db1b9a2bc81c7bd96a2aeb311bca0228e78164ca4a07fa"
+  }
+}

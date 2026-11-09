@@ -423,8 +423,11 @@ class Game {
             this.setupScreen();
         } else { scene.add(this.player.rig); this.player.scene = scene; }
         this.player.world = world; this.player.traffic = this.traffic; this.player.bounds = world.bounds;
-        this.traffic.setPlayer(this.player);
         this.placeSpawn(city, world);
+        // Admit the replacement crowd around the new pose before its first render.
+        // The previous world's eye/vehicle pose is invalid in this world.
+        this.traffic.setPlayer(this.player);
+        this.traffic.clearForPlayer?.(this.player) ?? this.traffic.clearAround(this.player.x, this.player.z, 14);
         // renderer: scene, lighting, real-time sun, street lamps, weather
         this.attachWorldRender();
         this.r3d.onNightLights = (on) => { this.nightLights = on; this.traffic?.setNightLights(on || !!this._fogLights); };

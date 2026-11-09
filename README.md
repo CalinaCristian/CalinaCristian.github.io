@@ -81,7 +81,7 @@ that chapter of the CV.
   (distance chip, walking route, call it to the kerb); pull out a camera and frame a shot with filters — it is
   kept in the in-game gallery, and you save (or share) only the ones you want, from the print or the gallery. Leave the
   car somewhere illegal and passers-by react — then the ticket, the clamp or the tow truck.
-- **Saves.** Progress, position and photos persist in IndexedDB; **Continue** resumes exactly where you left off.
+- **Saves.** Progress, position and photos persist in IndexedDB; **Continue** resumes exactly where you left off. District replacement clears nearby traffic around the actual new spawn before its first rendered frame, so the car does not start inside another vehicle.
 - **Achievements and completion %.** 114 catalogue entries cover story, exploration, driving, local colour, activities,
   photography, walking and secrets. The weighted score appears in the menu, map and pause screens. Tourist totals and
   activity requirements follow the available menu destinations; unavailable activities and retired save keys do not inflate completion.

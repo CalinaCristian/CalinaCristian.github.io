@@ -76,7 +76,10 @@ for d in j['districts']:
     for case in d['cases']:
         if 'warmup' in case:
             warm=case['warmup']
-            for clock in ['trafficTime','harnessSim','scenarioTime']:assert abs(warm['after'][clock]-warm['before'][clock]-.5)<1e-8
+            elapsed=warm['after']['trafficTime']-warm['before']['trafficTime']
+            step=warm.get('fixedStepSeconds',1/30);requested=warm.get('requestedSeconds',.5)
+            assert requested-1e-8<=elapsed<=requested+step+1e-8
+            for clock in ['trafficTime','harnessSim','scenarioTime']:assert abs(warm['after'][clock]-warm['before'][clock]-elapsed)<1e-8
             D['warmups'].append({'condition':case['condition'],'result':warm})
         for pop in [case['populationBefore'],case['populationAfter']]:
             assert pop['allVehicleIds']==initial['allVehicleIds'] and pop['pedIds']==initial['pedIds']

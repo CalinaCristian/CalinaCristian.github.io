@@ -4,6 +4,10 @@ The owner authorizes autonomous completion, separate worker branches, tested int
 
 ## Latest live preview · 2026-11-09
 
+### New playtest recovery · staging406a
+
+Read [PLAYTEST-20261109.md](PLAYTEST-20261109.md): new screenshot defects include Salesforce location correction, Bellevue closures/low overpass/skybridges/signs, SeaTac paint and water patches, plus compact participatory Old Town nightlife and Arc activities. Live master remains24ceb, root406a staging only. Six existing lanes resumed: Bridge shared grade, Pipera legal return/domain, RO visual source ownership, US exact Bellevue/Pipera/Salesforce source work, QA road joins/closures, OldTown nightlife. Root owns integration/UI/EU flag/performance/session hooks. Latest pedestrian159cc runtime and207handoff are ready but not root-integrated; native180s remains pending. Never merge signed staging ancestry into unsigned master.
+
 Master24ceb55e is LIVE, curated source0b18608b, releasegame-a2158b8f987b2378; all203live runtime hashes match andPagesbuilt. All115mastercommitsunsigned/no signaturebadges; originalsignedhistory/capture sourcesarchived. Root7bd additionallyhasBVcoveredstreet candidate+TrafficmodelLayer0hook (notyetlive). US ONEbrowsernativeBV/affectedretakes; Bridge+ROoffline actualG259road/deck+underlay conflicts andR490inferredsidewalkcontact; do nothideactualroadtriangles. QA toolingfinal15/37/headlights,noactivebrowser. Currentff6preview proof71Node/foot0H0M/3constructorpreflight is scoped, NOTfinalphysicalacceptance. Overview9129images/8/61/24selectors/34reports/390px/cachePASS. SevenPostHogdefinitions/queryreadbacksPASS,0v2rows. See `game-preview-publication-20261109/`.
 
 ## Latest · 2026-11-09 · unsigned history and playable preview

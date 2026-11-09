@@ -53,6 +53,10 @@
       "passed": true
     },
     {
+      "name": "A 0.390379m source leg between two pads retains its positive 0.039038m strip",
+      "passed": true
+    },
+    {
       "name": "An infeasible short width-transition miter requires full-width bevel geometry",
       "passed": true
     },

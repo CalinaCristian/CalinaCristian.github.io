@@ -52,6 +52,12 @@ The follow-up reserves each actually emitted stop/zebra envelope, including
 the chosen crossing setback, before emitting longitudinal paint. Pads remove
 their complete mouth footprint, avoiding small paint fragments in their rim.
 This first candidate remains intermediate evidence, not final acceptance.
+Independent native comparison also caught a 0.390379m Bellevue service leg
+(edge475) whose valid 0.039038m strip between two bevel pads was erased by
+the old less-than-5cm collapse guard. The final guard collapses only a
+nonpositive/numerically-zero longitudinal side. The controls now replay that
+last guard literally and include this exact short-leg regression. Original
+intermediate captures and the failed comparison remain preserved.
 
 Root reassigned the remaining closure-decoration work (the worksite/props and
 backdrop strip clipping) to the Pipera boundary lane. This branch does not

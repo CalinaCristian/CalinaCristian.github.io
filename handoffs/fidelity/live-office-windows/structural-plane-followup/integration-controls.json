@@ -1,0 +1,16 @@
+{
+  "scope": "CPU actual Three and exact Main method execution; no native/GPU/whole-app acceptance",
+  "passed": true,
+  "checks": [
+    "whole polygon catches a concave excursion and an enclosed courtyard despite all corners being in source",
+    "emitted facade requires full triangle union, detects an unsampled slit, and rejects a real proud structural projection",
+    "one existing world capture, HDR linear target, exact state restoration and actual pixel caps",
+    "target restores all tone/clear/viewport state after actual render error",
+    "unsupported identity/HDR and failed world draw keep neutral pane, source environment and ownership restoration",
+    "aperture measurement handles behind/offscreen and partially visible pane with real perspective",
+    "actual Main office methods update native clock/Traffic once and restore drive/foot plus physical parked car",
+    "actual Main failed entry rolls back street camera, parked-car lease, HUD and drive state without CV completion",
+    "twenty repeated retained-world target leases restore references and release each owned target/placeholder once",
+    "actual vehicle and pedestrian recovery hooks use the source observer camera, without the office camera or cockpit mirror"
+  ]
+}

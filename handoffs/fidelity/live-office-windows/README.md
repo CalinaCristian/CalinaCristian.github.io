@@ -1,5 +1,7 @@
 # Retained-district office windows — staged candidate
 
+This document and the adjacent three-room JSON reports describe checkpoint `213a81f8a28e3195906a8c2221313a0b145bb0d7`. The separately reviewed [structural-plane follow-up](structural-plane-followup/README.md) adds GTS CPU compatibility; it keeps these earlier reports historical and leaves four bindings plus native acceptance open.
+
 Base: `027b681bf08e2b9000c5685fd5f5345f0792d31a`. No browser was started. No source data, buildings, rooms, physical actors, creation rules, RNG, quality presets or world geometry changed. This is CPU-reviewed integration, not native acceptance or a completed eight-room feature.
 
 Main retains its existing World/scene/Traffic/clock/weather. Each active Office frame advances the normal clock and native Traffic once. The existing environment advances with a dedicated source-world camera, `cockpit:false,cull:false`; the off-axis projection is configured afterward using `visibilityFar`. The full unchanged right-wall aperture maps at unit scale with a right-handed basis (Office +X outward, +Z source-right, +Y up). The physical player/car never moves to the room; driving entries show the exterior parked car, and foot entries return to the saved physical foot pose. Source-world camera hooks govern vegetation and visible recovery. Street DOM bubbles are hidden while inside, preserving dialogue evolution.

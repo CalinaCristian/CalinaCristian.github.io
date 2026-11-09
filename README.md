@@ -69,6 +69,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   Exterior camera challenges at the Athenaeum, Spring Palace, Parliament, Arc and Lincoln Square require aiming and taking three pictures. They preserve public access; museum and office interiors are not implied. The cathedral has a virtual handheld candle practice on its mapped forecourt. Stable activity IDs preserve existing saves.
   Reused landmark collisions preserve their exact polygons, courtyard holes and raised volume bands in tourist scenes.
   Narrow desktop windows keep the keyboard-help footer above the lower HUD; touch screens use their dedicated action buttons.
+  Walking routes respect actual wall height bands: upper gallery rails do not block the floor below, while remaining solid at their own level.
   Source-backed tourist activities can declare a narrow drone launch/approach area outside their original scene focus. The same 150 m flight margin applies; this does not open an entire park or lake.
   Disposing a tourist water material removes it from shared environment updates, so later travel does not retain retired water materials.
   Dinamo pitch paint uses filtered alpha coverage at its real 12 cm width, keeping lines continuous from higher drone views.

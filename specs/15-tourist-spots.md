@@ -10,6 +10,8 @@ While an activity is open at phone widths or short landscape heights, the title 
 
 Spot maps accept named or custom waypoints through pointer/touch and keyboard list selection. A persistent HUD shows direction/distance and a blue validated walking route; guide routing remains gold. Unreachable points are explicitly marked without a false safe-route line. Clear removes the pin/route, and shared-scene teleport clears it. Optional visit boundaries constrain both the walker and guide/waypoint planning; concave focus exits cannot become A* shortcuts. Native DOM fixtures cover map selection, inverse projection, clear and keyboard focus, plus a concave path control. These do not substitute for the seven actual scene walkthroughs.
 
+Planner/fallback wall queries interpolate native segment bands `y0a/y0b/y1a/y1b` at the closest point, using the World query-height convention. Elevated Carusel rails previously blocked lower-floor planning at every height. The native bookshop route remains a separate gate.
+
 Old Town's visit boundary is enforced after native controller movement and crowd push-out, preserving the exact source streets/buildings as surrounding scenery. Freddo hours and the source anchor are recorded in `game/research/old-town-nightlife.md`; the interior layout and music are authored game content. Native dance, shot, hidden sports-room access and mobile checks are separate gates.
 
 

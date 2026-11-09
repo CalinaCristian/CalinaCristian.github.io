@@ -29,3 +29,12 @@ node game/dev/harness/telemetry-health-check.cjs --root="$QA_FREEZE_ROOT" --out=
 Require valid release fingerprint, actual final source/release context, correlated load/build/first frame, native key latency/program counters, bounded mode-specific summaries, failed replacement/Continue and interrupted-load breadcrumb handling, DNT/GPC/storage/early-error controls. The fixture fulfills production-origin assets locally with a capturing SDK stub and sends no test events to PostHog. Preserve deliberately injected errors distinctly. Final telemetry proof does not replace root's external dashboard/deployment checks.
 
 The437soak retained900physical seconds and complete50-frame sun/cloud publication+fade, but exited without terminal finalFrame/relocation audit/finalPNG/complete flag. It is explicitly terminal-incomplete. Its generic-mouth compatibility is currently blocked: exact Romană retaining collision output changes271→268walls, cut count647→676. Keep the original source SHA and report. A later scope/reuse decision needs root's explicit evidence review; distance from Arnia alone is not exact source equivalence.
+
+
+The later global pedestrian/vehicle guard candidate requires a new combined physical freeze. Root owns scheduling it, possibly in another lane while QA runs the sequential headlight/load matrix. The existing `integration-district-final-soak.cjs` runs the actual 900-second high/full-mirror and combined night/rain protocol on an explicit ROOT/OUT; keep its helper and source manifest beside the frozen runner. After its complete flag, final relocation audit, measured frame and all five inspected original captures exist, verify the exact intended commit explicitly:
+
+```sh
+node handoffs/fidelity/integration-final-acceptance/verify-district-soak.cjs "$QA_PHYSICAL_OUT" "$QA_FREEZE_SHA"
+```
+
+The verifier defaults to c78 only for its retained historical proof. It does not infer that a later actor runtime is compatible.

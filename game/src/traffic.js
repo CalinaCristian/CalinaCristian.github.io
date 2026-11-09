@@ -1434,8 +1434,13 @@ export class Traffic {
     /** A recovery translation must actually separate the drawn bodies. The
      * source path alone cannot tell which way is outward at a short bend. */
     separateVehicleStep(v, other, distance) {
+        if (v._separateFrame !== this._frame) { v._separateFrame = this._frame; v._separateLeft = 0.8 * (this._dt || 1 / 30); }
+        distance = Math.sign(distance) * Math.min(Math.abs(distance), v._separateLeft);
+        if (Math.abs(distance) < 1e-8) return false;
         const x = v.x - Math.sin(v.heading) * distance, z = v.z - Math.cos(v.heading) * distance;
-        if (vvPen(v, other, x, z) >= vvPen(v, other) - 1e-6) return false;
+        const before = vvPen(v, other), after = vvPen(v, other, x, z);
+        const outward = Math.hypot(x - other.x, z - other.z) > Math.hypot(v.x - other.x, v.z - other.z) + 1e-6;
+        if (!(after < before - 1e-6 || (after <= before + 1e-6 && outward))) return false;
         let clear = true;
         this.grid.query(x, z, v.length / 2 + 24, o => {
             if (!clear || o === v || o.inactive || Math.abs(o.y - v.y) > 2) return;
@@ -1450,6 +1455,7 @@ export class Traffic {
         });
         if (!clear) return false;
         v.x = x; v.z = z; v.s += distance; v.odo += distance;
+        v._separateLeft -= Math.abs(distance);
         v.mesh.position.set(v.x, v.y, v.z);
         return true;
     }
@@ -1463,12 +1469,12 @@ export class Traffic {
         const seen = this._ogSeen || (this._ogSeen = new Set()); seen.clear();
         for (const v of this.vehicles) {
             if (v.inactive) continue;
-            const stepped = v._f === f && !v.parked && (v.x !== v._x0 || v.z !== v._z0);
+            const stepped = v._f === f && !v.parked && (v.x !== v._x0 || v.z !== v._z0 || v.heading !== v._h0);
             let worse = false, hit = null, hp = 0;
             const vl = v.length / 2;
             this.grid.query(v.x, v.z, vl + 9, (o) => {
                 if (o === v || o.inactive || Math.abs(o.y - v.y) > 2) return;
-                const p = vvPen(v, o); if (p <= 0.05) return;
+                const p = vvPen(v, o); if (p <= 1e-6) return;
                 if (stepped) {
                     const p0 = vvPen(v, o, v._x0, v._z0, v._h0);
                     if (p > Math.max(0, p0) + 1e-6) worse = true;
@@ -1497,9 +1503,12 @@ export class Traffic {
             const other = fol === v ? hit : v;
             fol.speed = 0; fol.zeroWhy = 'ovFol:' + (other.kind || '') + '#' + other.id; fol.ovT = (fol.ovT || 0) + dt;
             const back = Math.min(hp + 0.05, 0.8 * dt);
+            let separated = false;
             if (fol.s - back > 0.3 && !fol.tram && !(P && Math.hypot(P.x - fol.x, P.z - fol.z) < 12 && vpPen(fol, P) > -0.4 && (P.x - fol.x) * -Math.sin(fol.heading) + (P.z - fol.z) * -Math.cos(fol.heading) < 0)) {
-                if (this.separateVehicleStep(fol, other, -back)) this.stats.separate = (this.stats.separate || 0) + 1;
-            } else if (other.speed < 0.3 && !other.parked && !other.tram && other.s + 0.25 < other.edge.len - 0.5 && !(P && vpPen(other, P) > -0.3)) {
+                separated = this.separateVehicleStep(fol, other, -back);
+                if (separated) this.stats.separate = (this.stats.separate || 0) + 1;
+            }
+            if (!separated && other.speed < 0.3 && !other.parked && !other.tram && other.s + 0.25 < other.edge.len - 0.5 && !(P && vpPen(other, P) > -0.3)) {
                 // the follower cannot back up (start of its edge): nudge the one in front forward instead
                 this.separateVehicleStep(other, fol, Math.min(0.25, 0.8 * dt));
             }
@@ -2366,10 +2375,24 @@ export class Pedestrians {
         if (this.freeWalkPoint(p.x, p.z, radius) && this.freeVehiclePoint(p.x, p.z, vehicleRadius) && peersClear(p.x, p.z)) return false;
         const stop = this.stops[p.i % this.stops.length], sx = stop?.x ?? stop?.doorX, sz = stop?.z ?? stop?.doorZ;
         const near = Number.isFinite(sx) && Number.isFinite(sz) ? this.t.index.nearest(sx, sz, 12, e => this.ok(e)) : null;
-        const e = near?.edge;
-        if (e) {
-            const side = ((sx - e.a.x) * e.nx + (sz - e.a.z) * e.nz) >= 0 ? 1 : -1;
-            const cells = this.walkSpace(e, side).cells.filter(c => Math.hypot(c.x - sx, c.z - sz) <= 8);
+        if (near) {
+            const root = near.edge, lat = (sx - root.a.x) * root.nx + (sz - root.a.z) * root.nz, stopSide = lat >= 0 ? 1 : -1;
+            const rootWidth = (stopSide > 0 ? root.wR : root.wL) ?? root.halfW ?? 6;
+            // Some source stop points are on the road axis, so their sidewalk
+            // side is not encoded. Otherwise retain the source stop's side.
+            const sideKnown = Math.abs(lat) > rootWidth;
+            const cells = [];
+            for (const e of this.t.index.near(sx, sz, 16, []).filter(e => this.ok(e))) {
+                const s0 = clamp((sx - e.a.x) * e.dirx + (sz - e.a.z) * e.dirz, 0, e.len);
+                for (const side of [1, -1]) {
+                    const width = (side > 0 ? e.wR : e.wL) ?? e.halfW ?? 6, sw = e.sidewalk ?? 3;
+                    for (let ds = -8; ds <= 8; ds += 0.55) for (let u = width + radius + 0.08; u <= width + sw - radius - 0.08; u += 0.55) {
+                        const s = clamp(s0 + ds, 0, e.len), x = e.a.x + e.dirx * s + e.nx * u * side, z = e.a.z + e.dirz * s + e.nz * u * side;
+                        if (Math.hypot(x - sx, z - sz) > 8 || (sideKnown && ((x - root.a.x) * root.nx + (z - root.a.z) * root.nz) * stopSide <= rootWidth)) continue;
+                        cells.push({ x, z });
+                    }
+                }
+            }
             cells.sort((a, b) => Math.hypot(a.x - p.x, a.z - p.z) - Math.hypot(b.x - p.x, b.z - p.z));
             for (const c of cells) {
                 if (!this.freeWalkPoint(c.x, c.z, radius) || !this.freeVehiclePoint(c.x, c.z, vehicleRadius) || !peersClear(c.x, c.z)) continue;

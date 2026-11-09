@@ -15,8 +15,11 @@ function read(p) {
     const peers=this.list.filter(q=>q!==p&&!q.hidden&&Math.hypot(q.x-p.x,q.z-p.z)<reach+this.reach(q)+.35)
         .map(q=>({id:q.i,state:q.state,x:q.x,z:q.z,reach:this.reach(q),distance:Math.hypot(q.x-p.x,q.z-p.z),nativeBodyPenetrationM:.6-Math.hypot(q.x-p.x,q.z-p.z)}));
     const stop=p.state==='stand'?this.stops[p.i%this.stops.length]:null;
+    const stopNear=stop?this.t.index.nearest(stop.x??stop.doorX,stop.z??stop.doorZ,12,e=>this.ok(e)):null;
+    const e=stopNear?.edge,lat=e?((stop.x??stop.doorX)-e.a.x)*e.nx+((stop.z??stop.doorZ)-e.a.z)*e.nz:null;
     return {id:p.i,x:p.x,z:p.z,state:p.state,edge:p.e?.id,side:p.side,s:p.s,dir:p.dir,speed:p.speed,phase:p.phase,scale:p.scale,
         reach,feetY:y,nativeCollisionHeight:2,live:!!p.live,stop:stop?{id:stop.id,x:stop.x,z:stop.z,doorX:stop.doorX,doorZ:stop.doorZ}:null,
+        stopSourceSidewalk:e?{edge:e.id,a:{x:e.a.x,z:e.a.z},b:{x:e.b.x,z:e.b.z},wL:e.wL,wR:e.wR,halfW:e.halfW,sidewalk:e.sidewalk,sourceStopLateral:lat,sideEncoded:Math.abs(lat)>((lat>=0?e.wR:e.wL)??e.halfW??6)}:null,
         roadAt:!!this.roadAt(p.x,p.z),freeWalkingBody:this.freeWalkPoint(p.x,p.z,reach),freeVehicleBody:this.freeVehiclePoint(p.x,p.z,Math.max(reach,.7)),colliders,peers};
 }
 for(const name of ['admitInitialWalk','admitInitialStand']) {

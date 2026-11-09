@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-09T00:22:19.813713+00:00",
+  "sourceCommit": "0bca479e1bddc39e86580628e6a2ff2b227c4ff4",
+  "reason": "Initial standing admission remains unresolved for12 actors; true static/body contacts identified before final acceptance. Stop own failed-candidate replay, retain raw incomplete report.",
+  "terminatedOwnedNodePids": [
+    290093
+  ]
+}

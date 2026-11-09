@@ -46,6 +46,12 @@ const turn=vehicle({id:1,fx:0,fz:-1}),other=vehicle({id:2,x:3.8}),turning=traffi
 assert.equal(turning.separateVehicleStep(turn,other,-.02),true,'a turning rendered heading determines outward motion, not the source axis');
 assert.ok(turn.x<0);assert.ok(Math.abs(turn.z)<1e-12);
 assert.equal(turning.separateVehicleStep(turn,other,.02),false,'a worsening forward correction is refused');
+const inside=vehicle({id:7,x:1,length:2,width:1}),container=vehicle({id:8,x:0,length:10,width:3});
+const contained=traffic([inside,container]);
+assert.equal(contained.separateVehicleStep(inside,container,.02),true,'a contained body may make outward progress across an equal-penetration plateau');
+const movedOnce=inside.x;contained.separateVehicleStep(inside,container,.02);
+assert.ok(inside.x-1<=.8/30+1e-9,'all corrections in one physical frame share one recovery budget');
+assert.ok(inside.x>=movedOnce);
 
 const nearPed=vehicle({id:1}),pedCar=vehicle({id:2,x:3.8}),pedTraffic=traffic([nearPed,pedCar]);
 pedTraffic.peds={grid:{query(x,z,r,fn){fn({x:-2.31,z:0});}}};

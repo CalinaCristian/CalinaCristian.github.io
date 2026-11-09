@@ -1,0 +1,8 @@
+{
+  "pid": 308042,
+  "sourceCommit": "d53da8ffb633bdceeafa8302e3e818e42f69c69b",
+  "toolCommit": "2d51cd5e",
+  "startedUtc": "2026-11-09T00:56:09.332843+00:00",
+  "runnerSha256": "e17b3e29f33740ec13e4bff2e71ba984c07e5014f6b8c98950f7e71d0058f164",
+  "scope": "Same-source rerun correcting closed-details visibility measurement; original failure retained separately."
+}

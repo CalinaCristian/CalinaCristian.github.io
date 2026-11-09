@@ -38,6 +38,26 @@
       }
     },
     {
+      "manifest": "game/overview/comparison-data/floreasca/context/summer-clear-day/manifest.json",
+      "kind": "perspective",
+      "frames": 25,
+      "verifiedImageHashes": 50,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 24,
+        "d5795e20c85e8122a62fc503f33a182d05eceaf0": 1
+      }
+    },
+    {
+      "manifest": "game/overview/comparison-data/floreasca/context/winter-snow-day/manifest.json",
+      "kind": "perspective",
+      "frames": 11,
+      "verifiedImageHashes": 22,
+      "sourceCounts": {
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 10,
+        "d5795e20c85e8122a62fc503f33a182d05eceaf0": 1
+      }
+    },
+    {
       "manifest": "game/overview/comparison-data/romana/manifest.json",
       "kind": "current",
       "frames": 116,

@@ -41,6 +41,26 @@ for (const edge of network.edges) {
 assert.ok(maxSlope <= .08 + 1e-7); assert.ok(maxChordErrorM < .002);
 assert.equal(network.nodes.find(n => n.sourceId === 981543139).y, 0);
 assert.equal(network.nodes.find(n => n.sourceId === 6187776680).y, 0);
+const guardA = [581.0740356445312, -853.4430541992188], guardB = [581.8907470703125, -853.99951171875], guardHeight = { inferred: true, y0a: 11.24, y1a: 12.34 };
+assert.equal(models.excludesInferredObstacle(guardA, guardB, guardHeight), true, 'inferred guard inside literal track/vehicle corridor is excluded');
+assert.equal(models.excludesInferredObstacle(guardA, guardB, { ...guardHeight, inferred: false }), false, 'mapped barrier is never excluded');
+assert.equal(models.excludesInferredObstacle([0, 0], [1, 1], guardHeight), false, 'unrelated outer guard remains');
+assert.equal(models.excludesInferredObstacle([108, -216], [108, -215], { inferred: true, y0a: 9.04, y1a: 12.34 }), false, 'upper Basarab guard remains above lower river tram');
+assert.equal(models.excludesInferredObstacle([106.5898, -202.5576], [110.4695, -201.5729], { inferred: true, y0a: 0, y1a: 1.15 }), true, 'inferred quay crossing the actual lower rail bridge opens');
+const riverSupport = models.support.at(108.5, -215.4, { modelId: 'grozavesti-lower-river-trams' });
+assert.ok(riverSupport); assert.equal(riverSupport.top, .2); assert.equal(riverSupport.bottom, -.2);
+assert.equal(models.support.at(108.5, -215.4, { modelId: 'basarab-central-trams' }), null, 'higher model cannot provide support to the river bridge');
+assert.equal(models.support.at(108.5, -215.4), null, 'support requires explicit source model ownership');
+const slopeSupport = models.support.at(136.5542568005376, -321.65964605054234, { modelId: 'basarab-central-trams' });
+assert.ok(Math.abs(slopeSupport.top - 1.0822197226250878) < 1e-9, 'CPU support catalogue evaluates exact emitted slab profile');
+assert.ok(models.support.at.inBox(130, -330, 140, -300, { modelId: 'basarab-central-trams' }).length > 0);
+assert.deepEqual(models.support.at.inBox(130, -330, 140, -300), [], 'box support lookup also requires explicit model ownership');
+assert.equal(new Set(models.support.pieces.map(p => p.id)).size, models.support.pieces.length, 'source support piece IDs are unique');
+assert.ok(models.support.pieces.every(p => p.id && Number.isInteger(p.sourceSegment)), 'support IDs retain original source segment identities');
+for (const p of models.support.pieces) for (const u of [.13, .37, .79]) {
+    const [a, b, c] = p.topProfile.coefficients, x = p.a[0] + (p.b[0] - p.a[0]) * u, z = p.a[1] + (p.b[1] - p.a[1]) * u;
+    assert.ok(Math.abs((a * u + b) * u + c - p.band(x, z, 0).top) < 1e-8, 'serialized quadratic profile agrees with continuous band');
+}
 assert.equal(smoothTramRamp(95, 11), null, 'infeasible C1 source ramp must be refused');
 for (const length of [95.4637320786839, 96.72973671746844]) {
     const r = smoothTramRamp(length, 6); assert.ok(r); assert.equal(r.at(0), 0); assert.equal(r.at(length), 6);
@@ -58,7 +78,10 @@ const badGround = structuredClone(native.data); for (const s of Object.values(ba
 assert.ok(buildTramGrades(badGround, { coreEdges: native.allEdges }).report.unresolved.some(r => r.reason === 'source-ground-anchor-or-smooth-grade-cap-unresolved'));
 const sourceMetric = structuredClone(native.data); sourceMetric.tramSourceWays.find(w => w.sourceId === 'w118416425').tags.ele = '90';
 assert.ok(buildTramGrades(sourceMetric, { coreEdges: native.allEdges }).report.unresolved.some(r => r.reason === 'missing-or-changed-source-bridge'));
+const nodeMetric = structuredClone(native.data); nodeMetric.tramSourceNodeTags[5865238769].ele = '90';
+assert.ok(buildTramGrades(nodeMetric, { coreEdges: native.allEdges }).report.unresolved.some(r => r.reason === 'missing-or-changed-source-bridge'));
 assert.equal(JSON.stringify(native.data), dataBefore); assert.equal(JSON.stringify(native.allEdges), edgesBefore);
 console.log(JSON.stringify({ passed: true, scope: 'CPU source continuity/model controls only; actual-body geometry clearance is a separate retained failing proof',
     nativeSourceCommit: native.sourceCommit, nativeExportSha256: crypto.createHash('sha256').update(bytes).digest('hex'),
-    modeledSegments: 211, bridgeSegments: 54, samples, maxSlope, maxChordErrorM, models: models.report.models }, null, 2));
+    modeledSegments: 211, bridgeSegments: 54, samples, maxSlope, maxChordErrorM, supportPieces: models.support.pieces.length,
+    inferredObstacleControls: models.report.inferredObstacleExclusions, models: models.report.models }, null, 2));

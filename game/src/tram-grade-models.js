@@ -19,7 +19,7 @@ export const TRAM_BRIDGE_MODELS = [
         ],
         basis: 'MODEL independent central rail viaduct; common cable-station profile, original source ground joins and smooth source-connected approaches; not surveyed',
         evidence: ['https://www.webuildgroup.ro/en/projects-romania/basarab-overpass/', 'https://www.midasbridge.com/en/project-application/the-basarab-overpass-0', 'https://doc.pmb.ro/primarul/prioritati_proiecte/pasajul_basarab/docs/pasaj.pdf'],
-        bridgeEntryHeightM: 6, maxDeckGrade: .028,
+        bridgeEntryHeightM: 6, bridgeRiseLengthM: 100, maxDeckGrade: .08,
         maxGrade: .08, easeM: 20, deckHalfWidthM: 1.7, thicknessM: .4,
     },
 ];

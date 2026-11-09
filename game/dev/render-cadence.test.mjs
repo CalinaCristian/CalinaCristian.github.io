@@ -45,3 +45,27 @@ test('visible60Hz intervals remain60fps and hidden-tab gaps are not foreground s
     now+=1000;r.frame();assert.equal(r.stats.fps,1);assert.equal(r.stats.frameMs,1000);
     const before={...r.stats};r.scene=null;now+=5000;r.frame();assert.deepEqual(r.stats,before,'no-scene calls are not render samples');
 });
+test('environment-only portal update does not draw, simulate actors or rewrite the off-axis projection',()=>{
+    const{r,effects,adapt}=host(),sourceCamera=new THREE.PerspectiveCamera();sourceCamera.position.set(123,24,-80);
+    sourceCamera.projectionMatrix.elements[8]=.25;const projection=sourceCamera.projectionMatrix.toArray();
+    let weather=0,windshield=0,culls=0,lighting=0;
+    r._updateWeather=(dt,position,velocity)=>{weather++;assert.equal(dt,.05);assert.deepEqual(position.toArray(),[123,24,-80]);assert.deepEqual(velocity.toArray(),[0,0,0]);};
+    r._updateWindshield=()=>windshield++;r._fogCull=()=>culls++;
+    r.clock={};r._envT=1;r._envEl=0;r.sunElevation=0;r._applyLighting=()=>lighting++;
+    const actor={speed:18,fx:1,fz:0,update(){throw Error('No actor simulation in environment adapter');}};r.player=actor;
+    assert.equal(r.advanceEnvironment(.05,{camera:sourceCamera,cockpit:false,cull:false}),true);
+    assert.equal(weather,1);assert.equal(lighting,1);assert.equal(windshield,0);assert.equal(culls,0);
+    assert.deepEqual(sourceCamera.projectionMatrix.toArray(),projection);assert.equal(r.time,.05);
+    assert.deepEqual(r.stats,{fps:0,frameMs:0});assert.equal(r._lastStatsNow,null);assert.equal(r.player,actor);
+    assert.deepEqual(effects,[]);assert.deepEqual(adapt,[]);assert.equal(r.camera.position.x,0);
+    r.scene=null;assert.equal(r.advanceEnvironment(.05),false);
+});
+test('pure weather far-limit query preserves a caller-owned off-axis frustum',()=>{
+    const{r}=host(),camera=new THREE.PerspectiveCamera();camera.projectionMatrix.elements[8]=.31;
+    r.scene.fog=new THREE.FogExp2('#888888',.01);const before=camera.projectionMatrix.toArray();
+    assert.equal(r.visibilityFar(5000),530);assert.deepEqual(camera.projectionMatrix.toArray(),before);
+    const backdrop=new THREE.Object3D();backdrop.userData.sourceProjection={cameraFarM:1000};r._sourceBackdrops=[backdrop];
+    assert.equal(r.visibilityFar(5000),1000);backdrop.visible=false;assert.equal(r.visibilityFar(5000),530);
+    r.scene.fog.density=1;assert.equal(r.visibilityFar(5000),220);r.scene.fog=null;assert.equal(r.visibilityFar(5000),5000);
+    assert.equal(r._farBase,undefined);assert.equal(r._farSet,undefined);
+});

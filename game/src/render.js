@@ -1366,17 +1366,12 @@ export class Renderer3D {
     }
 
     // ------------------------------------------------------------------ frame
-    /** Render one frame. dt advances effects; diagnostics use actual visible frame cadence. */
-    frame(dt) {
-        const { scene, camera } = this;
-        if (!scene || !camera) return;
-        const now = performance.now();
-        const visible = typeof document === 'undefined' || document.visibilityState !== 'hidden';
-        const elapsed = visible && this._lastStatsNow != null ? (now - this._lastStatsNow) / 1000 : 0;
-        this._lastStatsNow = visible ? now : null;
-        if (!visible) { this._fpsAcc = 0; this._fpsN = 0; this.stats.fps = 0; this.stats.frameMs = 0; }
-        if (dt === undefined) dt = this._lastNow ? Math.min(0.1, (now - this._lastNow) / 1000) : 1 / 60;
-        this._lastNow = now;
+    /** Advance the existing scene's environment without drawing or ticking any actors.
+     * A window uses its dedicated source-world camera and configures off-axis
+     * projection AFTER this update; cull:false preserves that projection. */
+    advanceEnvironment(dt, {camera = this.camera, cockpit = true, cull = true} = {}) {
+        if (!this.scene || !camera) return false;
+        if (!Number.isFinite(dt) || dt < 0) throw new RangeError('Finite nonnegative environment dt required');
         this.time += dt;
         tickWater(dt);
         const T = this._tmp;
@@ -1401,7 +1396,7 @@ export class Renderer3D {
         this._updateSun(T.cam);
         this._updateLamps(T.cam, dt);
         // weather + cockpit
-        const p = this.player;
+        const p = cockpit ? this.player : null;
         if (p) {
             T.vel.set(p.fx * p.speed, 0, p.fz * p.speed);
             const ck = p.cockpit?.userData;
@@ -1420,8 +1415,24 @@ export class Renderer3D {
             }
         } else T.vel.set(0, 0, 0);
         this._updateWeather(dt, T.cam, T.vel);
-        this._updateWindshield();
-        this._fogCull(camera);
+        if (cockpit) this._updateWindshield();
+        if (cull) this._fogCull(camera);
+        return true;
+    }
+
+    /** Render one frame. dt advances effects; diagnostics use actual visible frame cadence. */
+    frame(dt) {
+        const { scene, camera } = this;
+        if (!scene || !camera) return;
+        const now = performance.now();
+        const visible = typeof document === 'undefined' || document.visibilityState !== 'hidden';
+        const elapsed = visible && this._lastStatsNow != null ? (now - this._lastStatsNow) / 1000 : 0;
+        this._lastStatsNow = visible ? now : null;
+        if (!visible) { this._fpsAcc = 0; this._fpsN = 0; this.stats.fps = 0; this.stats.frameMs = 0; }
+        if (dt === undefined) dt = this._lastNow ? Math.min(0.1, (now - this._lastNow) / 1000) : 1 / 60;
+        this._lastNow = now;
+        this.advanceEnvironment(dt);
+        const p = this.player;
         // render
         const fu = this.finalPass.uniforms; fu.uTime.value = this.time;
         this.sun.shadow.needsUpdate = true;
@@ -1452,17 +1463,23 @@ export class Renderer3D {
      * buildings and their draw calls are frustum-culled. Never below 220 m, restored as soon as it clears; clear-weather
      * fog is left alone (backdrops beyond it are meant to show).
      */
-    _fogCull(camera) {
+    /** Read the current scene/weather limit without rewriting a camera projection. */
+    visibilityFar(baseFar) {
         const fog = this.scene?.fog;
-        if (!camera?.isPerspectiveCamera) return;
-        if (this._farSet === undefined || Math.abs(camera.far - this._farSet) > 0.01) { this._farBase = camera.far; this._farSet = camera.far; }
-        let want = this._farBase;
-        if (fog?.isFogExp2 && fog.density > 0) want = Math.min(this._farBase, Math.max(220, 5.3 / fog.density)); // 0.5 % left
+        let want = baseFar;
+        if (fog?.isFogExp2 && fog.density > 0) want = Math.min(baseFar, Math.max(220, 5.3 / fog.density)); // 0.5 % left
         for (const object of this._sourceBackdrops || []) {
             let visible = true;
             for (let p = object; p; p = p.parent) if (!p.visible) { visible = false; break; }
-            if (visible) want = Math.max(want, Math.min(this._farBase, object.userData.sourceProjection.cameraFarM));
+            if (visible) want = Math.max(want, Math.min(baseFar, object.userData.sourceProjection.cameraFarM));
         }
+        return want;
+    }
+
+    _fogCull(camera) {
+        if (!camera?.isPerspectiveCamera) return;
+        if (this._farSet === undefined || Math.abs(camera.far - this._farSet) > 0.01) { this._farBase = camera.far; this._farSet = camera.far; }
+        const want = this.visibilityFar(this._farBase);
         if (Math.abs(want - camera.far) > camera.far * 0.04) { camera.far = want; camera.updateProjectionMatrix(); this._farSet = want; }
     }
 

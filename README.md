@@ -241,6 +241,7 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
 - `node game/dev/harness/map-waypoints-check.cjs` — map marking, held-F travel, fuel checks, and desktop/touch interactions.
 - `node game/dev/signals.test.mjs` — conflicting approaches, junction clearance and pedestrian recovery regression checks.
 - `node tools/profile-traffic-native.mjs OUT FULL_SOURCE_SHA` — actual RAF V8 attribution at High/Ultra through public settings; software FPS is not hardware evidence.
+- `node --test game/dev/render-cadence.test.mjs` — actual render orchestration timing, environment-only adapter boundaries and projection-preserving weather-distance controls; CPU evidence, not GPU speed.
 - `node tools/pedestrian-relocation-benchmark.mjs` — full-population relocation query parity and component CPU timing.
 - `node tools/continue-menu-check.mjs` — actual fresh-context Main menu and persisted SaveStore availability, with an explicitly synthetic saved pose.
 - `node tools/tourist-tour-check.mjs` — walkable short tours, real participation, pause/skip/end and shared-scene entrances.

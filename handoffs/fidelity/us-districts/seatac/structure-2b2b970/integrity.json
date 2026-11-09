@@ -205,6 +205,11 @@
       "file": "separator-delta-validation.log",
       "bytes": 2400,
       "sha256": "bd38750e332625a7d297ffd8e7840ba6f02672c6233bf8d87c479fb9cbfb6672"
+    },
+    {
+      "file": "study-publication-integrity.json",
+      "bytes": 1020,
+      "sha256": "4054a64e310dd0a08428289fb529a47a7c758f58c840f3924efbd1f95c218709"
     }
   ]
 }

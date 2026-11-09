@@ -1,0 +1,127 @@
+{
+  "status": "HELD\u2014genuine motor-body roof contacts; metadata-only is independently ready",
+  "nativeSourceCommit": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 5415,
+      "sha256": "cd39b7335a05de0e0e67f88cf111c66ff3c295ac5bf7e5c3042d6bcb29805466"
+    },
+    {
+      "file": "actual-native-bodies.mjs",
+      "bytes": 5112,
+      "sha256": "3339488069d67a8f7ee76b3231095694c17f73730d45c78faa9168bb35b7aca9"
+    },
+    {
+      "file": "failed-stop-projection-model.mjs",
+      "bytes": 6157,
+      "sha256": "7f99daf0f8b3338bc6960e0545d53d9d9a0a85ff066f982db239eaa3d31d8f4d"
+    },
+    {
+      "file": "motor-shelter-check.mjs",
+      "bytes": 4985,
+      "sha256": "50c4620af4e59484d30c9e2cadf9c746dcf219fc7dd2d159fff9996c6475b080"
+    },
+    {
+      "file": "native-fixture/constructor-facts.json.gz",
+      "bytes": 1326261,
+      "sha256": "06d8b676ababebafa72eaa1e77d426117c52b589ec015b985ecf854aab3fdbbd"
+    },
+    {
+      "file": "native-fixture/decode-geometry.cjs",
+      "bytes": 5819,
+      "sha256": "01084af43c317f1fecb002c50e4c808a320ab7ede83dbcd03f1200777ae77411"
+    },
+    {
+      "file": "native-fixture/manifest.json",
+      "bytes": 2215,
+      "sha256": "46ca99750f17123211b3e9290150a4813b80b5d5c98d4cf447a69f859fa29dee"
+    },
+    {
+      "file": "native-fixture/native-blocker-fixture.json.gz",
+      "bytes": 2682477,
+      "sha256": "7edc463270c0c3a5d75d2140f2b85d3d5596449835e7fc1169fdbe9f1df2fc61"
+    },
+    {
+      "file": "native-fixture/native-canonical-scene.json.gz",
+      "bytes": 193862,
+      "sha256": "682aca2eccf37c2a88fdb97599416a95c07988736edc3f8a47b39c851411e216"
+    },
+    {
+      "file": "native-fixture/preparation.json",
+      "bytes": 1324,
+      "sha256": "2328dea3d4497e4ee9b2f60d32552f313e7e2459d2ba34cd146c349173214ec4"
+    },
+    {
+      "file": "native-fixture/source-manifest.json",
+      "bytes": 55783,
+      "sha256": "c5eb169bcdb130db47ac4ecbed0bcb1391f4b0609212ec2adad22387700ec2c4"
+    },
+    {
+      "file": "north-ground-exit-audit.json",
+      "bytes": 29137,
+      "sha256": "65a040934c3e260ccb8e75e81f44de7f69e6f9182c9e8a2218925e246620457b"
+    },
+    {
+      "file": "north-ground-exit-source.osm",
+      "bytes": 212125,
+      "sha256": "6e7c37b2f2133bddccb92ba2fc9536f56bc112424f759c6c1dde66fae249b28e"
+    },
+    {
+      "file": "private-reference-ledger.json",
+      "bytes": 10486,
+      "sha256": "661383a76fdd916ff6d6b91f3ddebb9a114a57c23eb4e2570238f1afe3f519cf"
+    },
+    {
+      "file": "shelter-route-check.mjs",
+      "bytes": 14124,
+      "sha256": "836ec6b5fb809113b07f65cb403ef2a1b0651439ac0870a106286703dcec4e28"
+    },
+    {
+      "file": "validation/actual-native-bodies.json",
+      "bytes": 54746,
+      "sha256": "6e71291918071ff87b79516e8b0c5e697e86a701c3d81b4bd113343728d97693"
+    },
+    {
+      "file": "validation/failed-stop-projection-actual.json",
+      "bytes": 217924,
+      "sha256": "3190b34b998b57a1ef3a12d330e90e852c076afc74149bc48f771b1865f38869"
+    },
+    {
+      "file": "validation/literal-nearby-platforms.json",
+      "bytes": 1090,
+      "sha256": "d8c3585fe49a1bc5b3c11e8ff59ee6a9cd8a755cce78ecc7a9a8154554fb4a74"
+    },
+    {
+      "file": "validation/motor-shelter-check.json",
+      "bytes": 42107,
+      "sha256": "272491dbff19d1672c0b05933cc77002d2ca71e700231340b9a0991947b5b159"
+    },
+    {
+      "file": "validation/shelter-route-check-final.json",
+      "bytes": 180406,
+      "sha256": "d9bb2ef30eb5862f7a9023bdcd8872121eab30c73930d52f2bd621d313eacfe7"
+    },
+    {
+      "file": "validation/shelter-route-check.json",
+      "bytes": 177886,
+      "sha256": "85a2423ed992500f9570b068001bf1f40169a1c7878d87e20edd2584793d6837"
+    },
+    {
+      "file": "validation/shelter-route-coarse-envelope-negative.json",
+      "bytes": 26056,
+      "sha256": "cfb294d57efe3f3942797d6affc891205d757c446a5842ddef9c71073b6543e6"
+    },
+    {
+      "file": "validation/source-controls.json",
+      "bytes": 1107,
+      "sha256": "10e596f3621e499fc36f791e01744f038c6268e7f69842ff713be276a5506374"
+    },
+    {
+      "file": "validation/transit-metadata-append.json",
+      "bytes": 3478,
+      "sha256": "f0ba5ef2f08554325df97471ca0d31a77979d3b35c2d8d56683b8c021ac9dce2"
+    }
+  ],
+  "runtimeCandidateCommit": "6e204029"
+}

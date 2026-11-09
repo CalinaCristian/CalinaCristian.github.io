@@ -1,0 +1,22 @@
+{
+  "passed": 17,
+  "tests": [
+    "actual southbound stop uses literal west platform",
+    "actual northbound stop uses literal east platform",
+    "roof centre stays exactly on unchanged platform line",
+    "generic model station is literal platform half arclength, independent of vehicle-stop projection",
+    "stale prepared POI association is explicit",
+    "source-free legacy datasets retain existing placement",
+    "ordinary bus stop retains existing roadside placement",
+    "literal shelter=no is respected",
+    "shelter existence is not guessed from stop_position",
+    "nearby namesake without parallel source track is refused",
+    "equidistant separate platforms remain ambiguous",
+    "literal stop_area membership outranks model association",
+    "different layer / tagged grade never silently becomes flat",
+    "closed platform footprint is not treated as a centre line",
+    "short source line cannot host the unchanged shelter",
+    "repeat placement preserves all source arrays / identities / RNG",
+    "raw snapshot retains complete tags/geometry independently of later edits"
+  ]
+}

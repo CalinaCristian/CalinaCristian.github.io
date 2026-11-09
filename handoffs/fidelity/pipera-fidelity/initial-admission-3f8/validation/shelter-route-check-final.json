@@ -1,0 +1,6848 @@
+{
+  "nativeSourceCommit": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+  "nativeFixtureSha256": "ef1b5c1994043588ac1fb42833e6bb5e8e8c07fde45eb882689e1f0729b29e4b",
+  "sourceFiles": [
+    {
+      "file": "game/src/world.js",
+      "sha256": "a429dd6d8e3e4c9063a43970dfb5b1513a507f12a3d62780b30dfcd056ca256b"
+    },
+    {
+      "file": "game/src/source-transit-stop.js",
+      "sha256": "9646dcb0b22bb2ed7669815e33561d0b79f8bc67716529e04426140bdc8f815d"
+    },
+    {
+      "file": "tools/osm/public-transport-sources.mjs",
+      "sha256": "6d8053a7729eaedb4dd89aa733670a79aac68c8e83fda685990c396800da27f1"
+    },
+    {
+      "file": "game/data/bucharest-grozavesti.json",
+      "sha256": "d223a9189e458e149b5baa694dc6e87a7ab9a44011066ef68a2b3af7a2f7f842"
+    }
+  ],
+  "placementImplementation": {
+    "file": "/workspace/fidelity-workers/native-initial-admission-3f8/game/src/source-transit-stop.js",
+    "sha256": "9646dcb0b22bb2ed7669815e33561d0b79f8bc67716529e04426140bdc8f815d"
+  },
+  "scope": "Actual captured native primary geometry, immutable original native rail source XY, and unchanged generic shelter boxes. Continuous perpendicular-separation certificate bounds every local actual primary vertex for every heading of the connected axle chord near the two shelters. Flat local source/support only. Native first-publication/static/admission/body and global drive gates remain required.",
+  "sourceFieldsPreserved": true,
+  "actorsMoved": 0,
+  "rngDraws": 0,
+  "placements": [
+    {
+      "poiIndex": 2,
+      "resolved": true,
+      "sourceId": "n933659725",
+      "platformSourceId": "w909062875",
+      "association": "estimated-unique-nearest-same-name-parallel-platform",
+      "x": -385.8275658046245,
+      "z": 692.3671098029154,
+      "angle": 3.12704573036871,
+      "side": -1,
+      "platformPoint": [
+        -386.07753935346904,
+        692.363473200372
+      ],
+      "platformSegment": 0,
+      "platformT": 0.5,
+      "associationPoint": [
+        -386.2702653324086,
+        705.611111988291
+      ],
+      "associationSegment": 0,
+      "associationT": 0.25751355106026563,
+      "stopDistanceM": 2.243523407290404,
+      "model": {
+        "estimated": true,
+        "roofWidthM": 1.6,
+        "roofLengthM": 3.5,
+        "roofTopM": 2.45,
+        "station": "literal-platform-half-arclength-estimate",
+        "widthAndRoofFootprint": "unmapped-existing-generic-shelter-estimate"
+      }
+    },
+    {
+      "poiIndex": 17,
+      "resolved": true,
+      "sourceId": "n8440717929",
+      "platformSourceId": "w909062874",
+      "association": "estimated-unique-nearest-same-name-parallel-platform",
+      "x": -378.64983429191335,
+      "z": 692.4653934132102,
+      "angle": 3.1269713853710477,
+      "side": 1,
+      "platformPoint": [
+        -378.39986101412285,
+        692.4690486000264
+      ],
+      "platformSegment": 0,
+      "platformT": 0.5,
+      "associationPoint": [
+        -378.28782738334723,
+        684.80722026791
+      ],
+      "associationSegment": 0,
+      "associationT": 0.6409599133343681,
+      "stopDistanceM": 2.3297487592315043,
+      "model": {
+        "estimated": true,
+        "roofWidthM": 1.6,
+        "roofLengthM": 3.5,
+        "roofTopM": 2.45,
+        "station": "literal-platform-half-arclength-estimate",
+        "widthAndRoofFootprint": "unmapped-existing-generic-shelter-estimate"
+      }
+    }
+  ],
+  "nativeLegacyMeshParity": [
+    {
+      "frame": {
+        "x": -385.5511914350732,
+        "z": 705.5736415474383,
+        "angle": -0.016990756575799664,
+        "side": -1
+      },
+      "matchedTriangles": 96,
+      "nativeTriangles": [
+        {
+          "mesh": "solid -1,1",
+          "triangle": 552
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 553
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 554
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 555
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 556
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 557
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 558
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 559
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 560
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 561
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 562
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 563
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 564
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 565
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 566
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 567
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 568
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 569
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 570
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 571
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 572
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 573
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 574
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 575
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 576
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 577
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 578
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 579
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 580
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 581
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 582
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 583
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 584
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 585
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 586
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 587
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 588
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 589
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 590
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 591
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 592
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 593
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 594
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 595
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 596
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 597
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 598
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 599
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 600
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 601
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 602
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 603
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 604
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 605
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 606
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 607
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 608
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 609
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 610
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 611
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 612
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 613
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 614
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 615
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 616
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 617
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 618
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 619
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 620
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 621
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 622
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 623
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 624
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 625
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 626
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 627
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 628
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 629
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 630
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 631
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 632
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 633
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 634
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 635
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 636
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 637
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 638
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 639
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 640
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 641
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 642
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 643
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 644
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 645
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 646
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 647
+        }
+      ]
+    },
+    {
+      "frame": {
+        "x": -379.7287643798825,
+        "z": 684.8198213511913,
+        "angle": 3.1188457273348598,
+        "side": -1
+      },
+      "matchedTriangles": 96,
+      "nativeTriangles": [
+        {
+          "mesh": "solid -1,1",
+          "triangle": 672
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 673
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 674
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 675
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 676
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 677
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 678
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 679
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 680
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 681
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 682
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 683
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 684
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 685
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 686
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 687
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 688
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 689
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 690
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 691
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 692
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 693
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 694
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 695
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 696
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 697
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 698
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 699
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 700
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 701
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 702
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 703
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 704
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 705
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 706
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 707
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 708
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 709
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 710
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 711
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 712
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 713
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 714
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 715
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 716
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 717
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 718
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 719
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 720
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 721
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 722
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 723
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 724
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 725
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 726
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 727
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 728
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 729
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 730
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 731
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 732
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 733
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 734
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 735
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 736
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 737
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 738
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 739
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 740
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 741
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 742
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 743
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 744
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 745
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 746
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 747
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 748
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 749
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 750
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 751
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 752
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 753
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 754
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 755
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 756
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 757
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 758
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 759
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 760
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 761
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 762
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 763
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 764
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 765
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 766
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 767
+        }
+      ]
+    }
+  ],
+  "nativePoseParity": [
+    {
+      "actorId": 483,
+      "sourceId": "w660918285",
+      "segment": 9,
+      "maximumPoseError": 1.734723475976807e-18,
+      "nativePose": {
+        "x": -380.66072133738794,
+        "y": 0.24,
+        "z": 690.0979366870957,
+        "heading": -0.014958638672559772,
+        "s": 29.60400753938725,
+        "pitch": 0,
+        "roll": 0,
+        "railSupport": {
+          "known": true,
+          "y": 0.24,
+          "pitch": 0,
+          "verticalOffsetM": 0,
+          "basis": "unchanged-native-source-pose-outside-shared-slab-model"
+        }
+      }
+    },
+    {
+      "actorId": 483,
+      "sourceId": "w660918285",
+      "segment": 10,
+      "maximumPoseError": 1.1368683772161603e-13,
+      "nativePose": {
+        "x": -380.59865820154295,
+        "y": 0.24,
+        "z": 684.7500180074736,
+        "heading": -0.019189557958477408,
+        "s": 0.05,
+        "pitch": 0,
+        "roll": 0,
+        "railSupport": {
+          "known": true,
+          "y": 0.24,
+          "pitch": 0,
+          "verticalOffsetM": 0,
+          "basis": "unchanged-native-source-pose-outside-shared-slab-model"
+        }
+      }
+    },
+    {
+      "actorId": 484,
+      "sourceId": "w128304860",
+      "segment": 24,
+      "maximumPoseError": 1.1368683772161603e-13,
+      "nativePose": {
+        "x": -383.7911541552789,
+        "y": 0.24,
+        "z": 695.0663377068778,
+        "heading": 3.1203076485859005,
+        "s": 70.18012722330572,
+        "pitch": 0,
+        "roll": 0,
+        "railSupport": {
+          "known": true,
+          "y": 0.24,
+          "pitch": 0,
+          "verticalOffsetM": 0,
+          "basis": "unchanged-native-source-pose-outside-shared-slab-model"
+        }
+      }
+    },
+    {
+      "actorId": 484,
+      "sourceId": "w128304860",
+      "segment": 25,
+      "maximumPoseError": 1.1368683772161603e-13,
+      "nativePose": {
+        "x": -384.0017719359066,
+        "y": 0.24,
+        "z": 705.6499685925672,
+        "heading": 3.113927487040008,
+        "s": 0.05,
+        "pitch": 0,
+        "roll": 0,
+        "railSupport": {
+          "known": true,
+          "y": 0.24,
+          "pitch": 0,
+          "verticalOffsetM": 0,
+          "basis": "unchanged-native-source-pose-outside-shared-slab-model"
+        }
+      }
+    }
+  ],
+  "continuousRailBody": [
+    {
+      "actorId": 483,
+      "kind": "tram-v3a",
+      "sourceId": "w660918285",
+      "platformSourceId": "w909062875",
+      "bodyRadiusM": 13.553228401913726,
+      "minimumSeparationM": 3.293764368056543,
+      "clear": true,
+      "intervalCount": 60,
+      "edges": [
+        {
+          "sourceSegment": 9,
+          "s0": 657.0864546375567,
+          "s1": 657.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231294456
+          ],
+          "separationM": 3.380183081066889
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 657.5864546375567,
+          "s1": 658.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.378640030021245
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 658.0864546375567,
+          "s1": 658.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3770969789757146
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 658.5864546375567,
+          "s1": 659.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3755539279301843
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 659.0864546375567,
+          "s1": 659.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.374010876884654
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 659.5864546375567,
+          "s1": 660.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231294456
+          ],
+          "separationM": 3.3724678258391236
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 660.0864546375567,
+          "s1": 660.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3709247747935933
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 660.5864546375567,
+          "s1": 661.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 661.0864546375567,
+          "s1": 661.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 661.5864546375567,
+          "s1": 662.0864546375567,
+          "headingRange": [
+            -0.011460816231294524,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 662.0864546375567,
+          "s1": 662.5864546375567,
+          "headingRange": [
+            -0.011460816231294524,
+            -0.011460816231294456
+          ],
+          "separationM": 3.3701010379659806
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 662.5864546375567,
+          "s1": 663.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 663.0864546375567,
+          "s1": 663.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 663.5864546375567,
+          "s1": 664.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.370101037965867
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 664.0864546375567,
+          "s1": 664.5864546375567,
+          "headingRange": [
+            -0.011460816231291599,
+            -0.011460816231291533
+          ],
+          "separationM": 3.370101037965867
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 664.5864546375567,
+          "s1": 665.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291599
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 665.0864546375567,
+          "s1": 665.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 665.5864546375567,
+          "s1": 666.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 666.0864546375567,
+          "s1": 666.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 666.5864546375567,
+          "s1": 667.0864546375567,
+          "headingRange": [
+            -0.011460816231291533,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 667.0864546375567,
+          "s1": 667.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 667.5864546375567,
+          "s1": 668.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659806
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 668.0864546375567,
+          "s1": 668.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659806
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 668.5864546375567,
+          "s1": 669.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 669.0864546375567,
+          "s1": 669.5864546375567,
+          "headingRange": [
+            -0.011460816231291533,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 669.5864546375567,
+          "s1": 669.768746825893,
+          "headingRange": [
+            -0.011460816231291533,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 669.768746825893,
+          "s1": 670.0864546375567,
+          "headingRange": [
+            -0.011712135502863704,
+            -0.011460816231291533
+          ],
+          "separationM": 3.3684507849610554
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 670.0864546375567,
+          "s1": 670.5864546375567,
+          "headingRange": [
+            -0.01210765689654275,
+            -0.011712135502863704
+          ],
+          "separationM": 3.3680654496315015
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 670.5864546375567,
+          "s1": 671.0864546375567,
+          "headingRange": [
+            -0.012503180493642964,
+            -0.01210765689654275
+          ],
+          "separationM": 3.3687388014265025
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 671.0864546375567,
+          "s1": 671.5864546375567,
+          "headingRange": [
+            -0.012898706170425427,
+            -0.012503180493642964
+          ],
+          "separationM": 3.369015917594254
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 671.5864546375567,
+          "s1": 672.0864546375567,
+          "headingRange": [
+            -0.01329423380315879,
+            -0.012898706170425427
+          ],
+          "separationM": 3.3688967949671564
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 672.0864546375567,
+          "s1": 672.5864546375567,
+          "headingRange": [
+            -0.013689763268099474,
+            -0.01329423380315879
+          ],
+          "separationM": 3.3683814307496505
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 672.5864546375567,
+          "s1": 673.0864546375567,
+          "headingRange": [
+            -0.014085294441500557,
+            -0.013689763268099474
+          ],
+          "separationM": 3.3674698225184443
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 673.0864546375567,
+          "s1": 673.5864546375567,
+          "headingRange": [
+            -0.01448082719962019,
+            -0.014085294441500557
+          ],
+          "separationM": 3.366161968222741
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 673.5864546375567,
+          "s1": 674.0864546375567,
+          "headingRange": [
+            -0.014876361418705266,
+            -0.01448082719962019
+          ],
+          "separationM": 3.3652370317449254
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 674.0864546375567,
+          "s1": 674.5864546375567,
+          "headingRange": [
+            -0.015271896974999862,
+            -0.014876361418705266
+          ],
+          "separationM": 3.3615377195667406
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 674.5864546375567,
+          "s1": 675.0864546375567,
+          "headingRange": [
+            -0.01566743374475405,
+            -0.015271896974999862
+          ],
+          "separationM": 3.3578552288132073
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 675.0864546375567,
+          "s1": 675.5864546375567,
+          "headingRange": [
+            -0.016062971604204286,
+            -0.01566743374475405
+          ],
+          "separationM": 3.3537764839356896
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 675.5864546375567,
+          "s1": 676.0864546375567,
+          "headingRange": [
+            -0.01645851042959641,
+            -0.016062971604204286
+          ],
+          "separationM": 3.34930148511512
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 676.0864546375567,
+          "s1": 676.5864546375567,
+          "headingRange": [
+            -0.016854050097165653,
+            -0.01645851042959641
+          ],
+          "separationM": 3.344430232904301
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 676.5864546375567,
+          "s1": 677.0864546375567,
+          "headingRange": [
+            -0.01724959048314588,
+            -0.016854050097165653
+          ],
+          "separationM": 3.3391627282287004
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 677.0864546375567,
+          "s1": 677.5864546375567,
+          "headingRange": [
+            -0.017645131463778364,
+            -0.01724959048314588
+          ],
+          "separationM": 3.3334989723859962
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 677.5864546375567,
+          "s1": 678.0864546375567,
+          "headingRange": [
+            -0.01804067291529139,
+            -0.017645131463778364
+          ],
+          "separationM": 3.3274389670461915
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 678.0864546375567,
+          "s1": 678.5864546375567,
+          "headingRange": [
+            -0.01843621471392402,
+            -0.01804067291529139
+          ],
+          "separationM": 3.3209827142514996
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 678.5864546375567,
+          "s1": 679.0864546375567,
+          "headingRange": [
+            -0.01883175673590623,
+            -0.01843621471392402
+          ],
+          "separationM": 3.3141302164165722
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 679.0864546375567,
+          "s1": 679.488746825893,
+          "headingRange": [
+            -0.01915000374525441,
+            -0.01883175673590623
+          ],
+          "separationM": 3.3083931366370507
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 679.488746825893,
+          "s1": 679.988746825893,
+          "headingRange": [
+            -0.019545545857085404,
+            -0.01915000374525441
+          ],
+          "separationM": 3.3046061512402503
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 679.988746825893,
+          "s1": 680.488746825893,
+          "headingRange": [
+            -0.019941087845151532,
+            -0.019545545857085404
+          ],
+          "separationM": 3.3045292428670905
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 680.488746825893,
+          "s1": 680.988746825893,
+          "headingRange": [
+            -0.02033662958568196,
+            -0.019941087845151532
+          ],
+          "separationM": 3.3040560977397035
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 680.988746825893,
+          "s1": 681.488746825893,
+          "headingRange": [
+            -0.020732170954906676,
+            -0.02033662958568196
+          ],
+          "separationM": 3.303186716359562
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 681.488746825893,
+          "s1": 681.988746825893,
+          "headingRange": [
+            -0.021127711829065258,
+            -0.020732170954906676
+          ],
+          "separationM": 3.3019210996006905
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 681.988746825893,
+          "s1": 682.488746825893,
+          "headingRange": [
+            -0.02152325208438579,
+            -0.021127711829065258
+          ],
+          "separationM": 3.300259248708983
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 682.488746825893,
+          "s1": 682.988746825893,
+          "headingRange": [
+            -0.02191879159710994,
+            -0.02152325208438579
+          ],
+          "separationM": 3.298201165302885
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 682.988746825893,
+          "s1": 683.488746825893,
+          "headingRange": [
+            -0.022314330243471753,
+            -0.02191879159710994
+          ],
+          "separationM": 3.29574685137311
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 683.488746825893,
+          "s1": 683.988746825893,
+          "headingRange": [
+            -0.02270986789970705,
+            -0.022314330243471753
+          ],
+          "separationM": 3.293764368056543
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 683.988746825893,
+          "s1": 684.488746825893,
+          "headingRange": [
+            -0.023105404442061994,
+            -0.02270986789970705
+          ],
+          "separationM": 3.294614354364228
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 684.488746825893,
+          "s1": 684.988746825893,
+          "headingRange": [
+            -0.023500939746773166,
+            -0.023105404442061994
+          ],
+          "separationM": 3.2954645649500094
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 684.988746825893,
+          "s1": 685.488746825893,
+          "headingRange": [
+            -0.023896473690091544,
+            -0.023500939746773166
+          ],
+          "separationM": 3.2963150022973764
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 685.488746825893,
+          "s1": 685.988746825893,
+          "headingRange": [
+            -0.02429200614826429,
+            -0.023896473690091544
+          ],
+          "separationM": 3.2971656688891926
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 685.988746825893,
+          "s1": 686.488746825893,
+          "headingRange": [
+            -0.02468753699753299,
+            -0.02429200614826429
+          ],
+          "separationM": 3.2980165672083785
+        }
+      ]
+    },
+    {
+      "actorId": 483,
+      "kind": "tram-v3a",
+      "sourceId": "w660918285",
+      "platformSourceId": "w909062874",
+      "bodyRadiusM": 13.553228401913726,
+      "minimumSeparationM": 0.25484750481604124,
+      "clear": true,
+      "intervalCount": 64,
+      "edges": [
+        {
+          "sourceSegment": 9,
+          "s0": 656.0864546375567,
+          "s1": 656.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291599
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 656.5864546375567,
+          "s1": 657.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291599
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 657.0864546375567,
+          "s1": 657.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231294456
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 657.5864546375567,
+          "s1": 658.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 658.0864546375567,
+          "s1": 658.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 658.5864546375567,
+          "s1": 659.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 659.0864546375567,
+          "s1": 659.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 659.5864546375567,
+          "s1": 660.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231294456
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 660.0864546375567,
+          "s1": 660.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 660.5864546375567,
+          "s1": 661.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 661.0864546375567,
+          "s1": 661.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 661.5864546375567,
+          "s1": 662.0864546375567,
+          "headingRange": [
+            -0.011460816231294524,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 662.0864546375567,
+          "s1": 662.5864546375567,
+          "headingRange": [
+            -0.011460816231294524,
+            -0.011460816231294456
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 662.5864546375567,
+          "s1": 663.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 663.0864546375567,
+          "s1": 663.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 663.5864546375567,
+          "s1": 664.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 664.0864546375567,
+          "s1": 664.5864546375567,
+          "headingRange": [
+            -0.011460816231291599,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 664.5864546375567,
+          "s1": 665.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291599
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 665.0864546375567,
+          "s1": 665.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 665.5864546375567,
+          "s1": 666.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 666.0864546375567,
+          "s1": 666.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 666.5864546375567,
+          "s1": 667.0864546375567,
+          "headingRange": [
+            -0.011460816231291533,
+            -0.011460816231291533
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 667.0864546375567,
+          "s1": 667.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 667.5864546375567,
+          "s1": 668.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 668.0864546375567,
+          "s1": 668.5864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 668.5864546375567,
+          "s1": 669.0864546375567,
+          "headingRange": [
+            -0.011460816231294456,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 669.0864546375567,
+          "s1": 669.5864546375567,
+          "headingRange": [
+            -0.011460816231291533,
+            -0.011460816231291533
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 669.5864546375567,
+          "s1": 669.768746825893,
+          "headingRange": [
+            -0.011460816231291533,
+            -0.011460816231291533
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 669.768746825893,
+          "s1": 670.0864546375567,
+          "headingRange": [
+            -0.011712135502863704,
+            -0.011460816231291533
+          ],
+          "separationM": 0.2564942886076551
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 670.0864546375567,
+          "s1": 670.5864546375567,
+          "headingRange": [
+            -0.01210765689654275,
+            -0.011712135502863704
+          ],
+          "separationM": 0.25484750481604124
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 670.5864546375567,
+          "s1": 671.0864546375567,
+          "headingRange": [
+            -0.012503180493642964,
+            -0.01210765689654275
+          ],
+          "separationM": 0.2553588068713566
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 671.0864546375567,
+          "s1": 671.5864546375567,
+          "headingRange": [
+            -0.012898706170425427,
+            -0.012503180493642964
+          ],
+          "separationM": 0.2562702152521297
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 671.5864546375567,
+          "s1": 672.0864546375567,
+          "headingRange": [
+            -0.01329423380315879,
+            -0.012898706170425427
+          ],
+          "separationM": 0.2575769210839667
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 672.0864546375567,
+          "s1": 672.5864546375567,
+          "headingRange": [
+            -0.013689763268099474,
+            -0.01329423380315879
+          ],
+          "separationM": 0.2592789265913211
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 672.5864546375567,
+          "s1": 673.0864546375567,
+          "headingRange": [
+            -0.014085294441500557,
+            -0.013689763268099474
+          ],
+          "separationM": 0.2613762336278569
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 673.0864546375567,
+          "s1": 673.5864546375567,
+          "headingRange": [
+            -0.01448082719962019,
+            -0.014085294441500557
+          ],
+          "separationM": 0.2638688436762777
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 673.5864546375567,
+          "s1": 674.0864546375567,
+          "headingRange": [
+            -0.014876361418705266,
+            -0.01448082719962019
+          ],
+          "separationM": 0.26746908474791553
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 674.0864546375567,
+          "s1": 674.5864546375567,
+          "headingRange": [
+            -0.015271896974999862,
+            -0.014876361418705266
+          ],
+          "separationM": 0.26776277639834234
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 674.5864546375567,
+          "s1": 675.0864546375567,
+          "headingRange": [
+            -0.01566743374475405,
+            -0.015271896974999862
+          ],
+          "separationM": 0.27005692248189916
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 675.0864546375567,
+          "s1": 675.5864546375567,
+          "headingRange": [
+            -0.016062971604204286,
+            -0.01566743374475405
+          ],
+          "separationM": 0.2727463705575133
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 675.5864546375567,
+          "s1": 676.0864546375567,
+          "headingRange": [
+            -0.01645851042959641,
+            -0.016062971604204286
+          ],
+          "separationM": 0.2758311209026374
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 676.0864546375567,
+          "s1": 676.5864546375567,
+          "headingRange": [
+            -0.016854050097165653,
+            -0.01645851042959641
+          ],
+          "separationM": 0.27931117342370726
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 676.5864546375567,
+          "s1": 677.0864546375567,
+          "headingRange": [
+            -0.01724959048314588,
+            -0.016854050097165653
+          ],
+          "separationM": 0.28318652765699426
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 677.0864546375567,
+          "s1": 677.5864546375567,
+          "headingRange": [
+            -0.017645131463778364,
+            -0.01724959048314588
+          ],
+          "separationM": 0.28745718276655907
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 677.5864546375567,
+          "s1": 678.0864546375567,
+          "headingRange": [
+            -0.01804067291529139,
+            -0.017645131463778364
+          ],
+          "separationM": 0.29212313754646857
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 678.0864546375567,
+          "s1": 678.5864546375567,
+          "headingRange": [
+            -0.01843621471392402,
+            -0.01804067291529139
+          ],
+          "separationM": 0.29718439041943157
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 678.5864546375567,
+          "s1": 679.0864546375567,
+          "headingRange": [
+            -0.01883175673590623,
+            -0.01843621471392402
+          ],
+          "separationM": 0.3026409394371399
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 679.0864546375567,
+          "s1": 679.488746825893,
+          "headingRange": [
+            -0.01915000374525441,
+            -0.01883175673590623
+          ],
+          "separationM": 0.3089505818131215
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 679.488746825893,
+          "s1": 679.988746825893,
+          "headingRange": [
+            -0.019545545857085404,
+            -0.01915000374525441
+          ],
+          "separationM": 0.3098412629628342
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 679.988746825893,
+          "s1": 680.488746825893,
+          "headingRange": [
+            -0.019941087845151532,
+            -0.019545545857085404
+          ],
+          "separationM": 0.3089150964829628
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 680.488746825893,
+          "s1": 680.988746825893,
+          "headingRange": [
+            -0.02033662958568196,
+            -0.019941087845151532
+          ],
+          "separationM": 0.30838422177629354
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 680.988746825893,
+          "s1": 681.488746825893,
+          "headingRange": [
+            -0.020732170954906676,
+            -0.02033662958568196
+          ],
+          "separationM": 0.3082486386280152
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 681.488746825893,
+          "s1": 681.988746825893,
+          "headingRange": [
+            -0.021127711829065258,
+            -0.020732170954906676
+          ],
+          "separationM": 0.30850834645298164
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 681.988746825893,
+          "s1": 682.488746825893,
+          "headingRange": [
+            -0.02152325208438579,
+            -0.021127711829065258
+          ],
+          "separationM": 0.309163344294916
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 682.488746825893,
+          "s1": 682.988746825893,
+          "headingRange": [
+            -0.02191879159710994,
+            -0.02152325208438579
+          ],
+          "separationM": 0.3102136308264676
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 682.988746825893,
+          "s1": 683.488746825893,
+          "headingRange": [
+            -0.022314330243471753,
+            -0.02191879159710994
+          ],
+          "separationM": 0.3116592043496098
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 683.488746825893,
+          "s1": 683.988746825893,
+          "headingRange": [
+            -0.02270986789970705,
+            -0.022314330243471753
+          ],
+          "separationM": 0.3135000627950717
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 683.988746825893,
+          "s1": 684.488746825893,
+          "headingRange": [
+            -0.023105404442061994,
+            -0.02270986789970705
+          ],
+          "separationM": 0.3157362037228495
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 684.488746825893,
+          "s1": 684.988746825893,
+          "headingRange": [
+            -0.023500939746773166,
+            -0.023105404442061994
+          ],
+          "separationM": 0.318367624322093
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 684.988746825893,
+          "s1": 685.488746825893,
+          "headingRange": [
+            -0.023896473690091544,
+            -0.023500939746773166
+          ],
+          "separationM": 0.3227826051310103
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 685.488746825893,
+          "s1": 685.988746825893,
+          "headingRange": [
+            -0.02429200614826429,
+            -0.023896473690091544
+          ],
+          "separationM": 0.32729015049943655
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 685.988746825893,
+          "s1": 686.488746825893,
+          "headingRange": [
+            -0.02468753699753299,
+            -0.02429200614826429
+          ],
+          "separationM": 0.3317978755242734
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 686.488746825893,
+          "s1": 686.988746825893,
+          "headingRange": [
+            -0.02508306611415979,
+            -0.02468753699753299
+          ],
+          "separationM": 0.33630577808753515
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 686.988746825893,
+          "s1": 687.488746825893,
+          "headingRange": [
+            -0.025478593374395196,
+            -0.02508306611415979
+          ],
+          "separationM": 0.34081385607112225
+        }
+      ]
+    },
+    {
+      "actorId": 483,
+      "kind": "tram-v3a",
+      "sourceId": "w128304860",
+      "platformSourceId": "w909062875",
+      "bodyRadiusM": 13.553228401913726,
+      "minimumSeparationM": 0.3034110690325633,
+      "clear": true,
+      "intervalCount": 64,
+      "edges": [
+        {
+          "sourceSegment": 24,
+          "s0": 1037.457244847018,
+          "s1": 1037.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 0.3350632114647283
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1037.957244847018,
+          "s1": 1038.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 0.33242472496766595
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1038.457244847018,
+          "s1": 1038.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 0.32978623847066046
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1038.957244847018,
+          "s1": 1039.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 0.327147751973655
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1039.457244847018,
+          "s1": 1039.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 0.3245092654765358
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1039.957244847018,
+          "s1": 1040.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883499
+          ],
+          "separationM": 0.3218707789795303
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1040.457244847018,
+          "s1": 1040.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.121768732883499
+          ],
+          "separationM": 0.3192322924825248
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1040.957244847018,
+          "s1": 1041.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 0.3165938059854625
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1041.457244847018,
+          "s1": 1041.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.121768732883499
+          ],
+          "separationM": 0.3139553194883433
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1041.957244847018,
+          "s1": 1042.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883499
+          ],
+          "separationM": 0.31131683299133783
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1042.457244847018,
+          "s1": 1042.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 0.30867834649433235
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1042.957244847018,
+          "s1": 1043.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1043.457244847018,
+          "s1": 1043.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1043.957244847018,
+          "s1": 1044.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1044.457244847018,
+          "s1": 1044.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1044.957244847018,
+          "s1": 1045.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1045.457244847018,
+          "s1": 1045.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1045.957244847018,
+          "s1": 1046.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1046.457244847018,
+          "s1": 1046.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1046.957244847018,
+          "s1": 1047.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1047.457244847018,
+          "s1": 1047.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1047.957244847018,
+          "s1": 1048.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1048.457244847018,
+          "s1": 1048.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1048.957244847018,
+          "s1": 1049.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1049.457244847018,
+          "s1": 1049.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.121768732883499
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1049.957244847018,
+          "s1": 1050.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883499
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1050.457244847018,
+          "s1": 1050.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1050.957244847018,
+          "s1": 1051.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1051.457244847018,
+          "s1": 1051.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1051.957244847018,
+          "s1": 1052.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1052.457244847018,
+          "s1": 1052.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1052.957244847018,
+          "s1": 1053.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1053.457244847018,
+          "s1": 1053.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1053.957244847018,
+          "s1": 1054.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1054.457244847018,
+          "s1": 1054.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1054.957244847018,
+          "s1": 1055.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1055.457244847018,
+          "s1": 1055.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1055.957244847018,
+          "s1": 1056.4531045029742,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1056.4531045029742,
+          "s1": 1056.457244847018,
+          "headingRange": [
+            3.1217654057881017,
+            3.121768732883496
+          ],
+          "separationM": 0.3072580176719839
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1056.457244847018,
+          "s1": 1056.957244847018,
+          "headingRange": [
+            3.121363614813432,
+            3.1217654057881017
+          ],
+          "separationM": 0.3034110690325633
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1056.957244847018,
+          "s1": 1057.457244847018,
+          "headingRange": [
+            3.1209618214475174,
+            3.121363614813432
+          ],
+          "separationM": 0.3045096812495558
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1057.457244847018,
+          "s1": 1057.957244847018,
+          "headingRange": [
+            3.1205600258200636,
+            3.1209618214475174
+          ],
+          "separationM": 0.3060098470045318
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1057.957244847018,
+          "s1": 1058.457244847018,
+          "headingRange": [
+            3.120158228060788,
+            3.1205600258200636
+          ],
+          "separationM": 0.3079115688619254
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1058.457244847018,
+          "s1": 1058.957244847018,
+          "headingRange": [
+            3.1197564282994077,
+            3.120158228060788
+          ],
+          "separationM": 0.3102148489972478
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1058.957244847018,
+          "s1": 1059.457244847018,
+          "headingRange": [
+            3.119354626665647,
+            3.1197564282994077
+          ],
+          "separationM": 0.31291968919731517
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1059.457244847018,
+          "s1": 1059.957244847018,
+          "headingRange": [
+            3.1189528232892254,
+            3.119354626665647
+          ],
+          "separationM": 0.31602609086013445
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1059.957244847018,
+          "s1": 1060.457244847018,
+          "headingRange": [
+            3.118551018299874,
+            3.1189528232892254
+          ],
+          "separationM": 0.3195340549948469
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1060.457244847018,
+          "s1": 1060.957244847018,
+          "headingRange": [
+            3.118149211827328,
+            3.118551018299874
+          ],
+          "separationM": 0.32344358222172787
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1060.957244847018,
+          "s1": 1061.457244847018,
+          "headingRange": [
+            3.1177474040013156,
+            3.118149211827328
+          ],
+          "separationM": 0.32775467277190273
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1061.457244847018,
+          "s1": 1061.957244847018,
+          "headingRange": [
+            3.1173455949515767,
+            3.1177474040013156
+          ],
+          "separationM": 0.33246732648808575
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1061.957244847018,
+          "s1": 1062.457244847018,
+          "headingRange": [
+            3.1169437848078543,
+            3.1173455949515767
+          ],
+          "separationM": 0.3375815428235569
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1062.457244847018,
+          "s1": 1062.957244847018,
+          "headingRange": [
+            3.116541973699884,
+            3.1169437848078543
+          ],
+          "separationM": 0.3430973208431283
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1062.957244847018,
+          "s1": 1063.457244847018,
+          "headingRange": [
+            3.1161401617574125,
+            3.116541973699884
+          ],
+          "separationM": 0.3490146592227461
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1063.457244847018,
+          "s1": 1063.957244847018,
+          "headingRange": [
+            3.115738349110187,
+            3.1161401617574125
+          ],
+          "separationM": 0.3553335562489792
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1063.957244847018,
+          "s1": 1064.457244847018,
+          "headingRange": [
+            3.1153365358879457,
+            3.115738349110187
+          ],
+          "separationM": 0.36205400981998537
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1064.457244847018,
+          "s1": 1064.957244847018,
+          "headingRange": [
+            3.1149347222204478,
+            3.1153365358879457
+          ],
+          "separationM": 0.3691760174449428
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1064.957244847018,
+          "s1": 1065.457244847018,
+          "headingRange": [
+            3.114532908237436,
+            3.1149347222204478
+          ],
+          "separationM": 0.37669957624393646
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1065.457244847018,
+          "s1": 1065.957244847018,
+          "headingRange": [
+            3.114131094068657,
+            3.114532908237436
+          ],
+          "separationM": 0.38462468294835617
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1065.957244847018,
+          "s1": 1066.1731045029742,
+          "headingRange": [
+            3.1139576231072863,
+            3.114131094068657
+          ],
+          "separationM": 0.39299266355811824
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1066.1731045029742,
+          "s1": 1066.6731045029742,
+          "headingRange": [
+            3.1135558088984108,
+            3.1139576231072863
+          ],
+          "separationM": 0.3929655924585518
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1066.6731045029742,
+          "s1": 1067.1731045029742,
+          "headingRange": [
+            3.1131539948192817,
+            3.1135558088984108
+          ],
+          "separationM": 0.39667321611023
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1067.1731045029742,
+          "s1": 1067.6731045029742,
+          "headingRange": [
+            3.1127521809996517,
+            3.1131539948192817
+          ],
+          "separationM": 0.40205387135330284
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1067.6731045029742,
+          "s1": 1068.1731045029742,
+          "headingRange": [
+            3.1123503675692716,
+            3.1127521809996517
+          ],
+          "separationM": 0.4074347341212956
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1068.1731045029742,
+          "s1": 1068.6731045029742,
+          "headingRange": [
+            3.1119485546578844,
+            3.1123503675692716
+          ],
+          "separationM": 0.41281580180731225
+        }
+      ]
+    },
+    {
+      "actorId": 483,
+      "kind": "tram-v3a",
+      "sourceId": "w128304860",
+      "platformSourceId": "w909062874",
+      "bodyRadiusM": 13.553228401913726,
+      "minimumSeparationM": 3.2149018402016054,
+      "clear": true,
+      "intervalCount": 61,
+      "edges": [
+        {
+          "sourceSegment": 24,
+          "s0": 1037.957244847018,
+          "s1": 1038.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1038.457244847018,
+          "s1": 1038.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 3.314654931418147
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1038.957244847018,
+          "s1": 1039.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1039.457244847018,
+          "s1": 1039.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1039.957244847018,
+          "s1": 1040.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883499
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1040.457244847018,
+          "s1": 1040.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.121768732883499
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1040.957244847018,
+          "s1": 1041.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1041.457244847018,
+          "s1": 1041.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.121768732883499
+          ],
+          "separationM": 3.314654931418147
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1041.957244847018,
+          "s1": 1042.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883499
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1042.457244847018,
+          "s1": 1042.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 3.314654931418147
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1042.957244847018,
+          "s1": 1043.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 3.314654931418147
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1043.457244847018,
+          "s1": 1043.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1043.957244847018,
+          "s1": 1044.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1044.457244847018,
+          "s1": 1044.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1044.957244847018,
+          "s1": 1045.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1045.457244847018,
+          "s1": 1045.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1045.957244847018,
+          "s1": 1046.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1046.457244847018,
+          "s1": 1046.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 3.314654931418147
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1046.957244847018,
+          "s1": 1047.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1047.457244847018,
+          "s1": 1047.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1047.957244847018,
+          "s1": 1048.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1048.457244847018,
+          "s1": 1048.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1048.957244847018,
+          "s1": 1049.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1049.457244847018,
+          "s1": 1049.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.121768732883499
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1049.957244847018,
+          "s1": 1050.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883499
+          ],
+          "separationM": 3.3146549314180334
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1050.457244847018,
+          "s1": 1050.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1050.957244847018,
+          "s1": 1051.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 3.314654931418147
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1051.457244847018,
+          "s1": 1051.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1051.957244847018,
+          "s1": 1052.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1052.457244847018,
+          "s1": 1052.957244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1052.957244847018,
+          "s1": 1053.457244847018,
+          "headingRange": [
+            3.1217687328834964,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1053.457244847018,
+          "s1": 1053.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1053.957244847018,
+          "s1": 1054.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1054.457244847018,
+          "s1": 1054.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1054.957244847018,
+          "s1": 1055.457244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.121768732883496
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1055.457244847018,
+          "s1": 1055.957244847018,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 3.314654931418147
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1055.957244847018,
+          "s1": 1056.4531045029742,
+          "headingRange": [
+            3.121768732883496,
+            3.1217687328834964
+          ],
+          "separationM": 3.314654931418147
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1056.4531045029742,
+          "s1": 1056.457244847018,
+          "headingRange": [
+            3.1217654057881017,
+            3.121768732883496
+          ],
+          "separationM": 3.3146208619687627
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1056.457244847018,
+          "s1": 1056.957244847018,
+          "headingRange": [
+            3.121363614813432,
+            3.1217654057881017
+          ],
+          "separationM": 3.310521494958323
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1056.957244847018,
+          "s1": 1057.457244847018,
+          "headingRange": [
+            3.1209618214475174,
+            3.121363614813432
+          ],
+          "separationM": 3.308000472962817
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1057.457244847018,
+          "s1": 1057.957244847018,
+          "headingRange": [
+            3.1205600258200636,
+            3.1209618214475174
+          ],
+          "separationM": 3.3050769143291063
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1057.957244847018,
+          "s1": 1058.457244847018,
+          "headingRange": [
+            3.120158228060788,
+            3.1205600258200636
+          ],
+          "separationM": 3.301750816971321
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1058.457244847018,
+          "s1": 1058.957244847018,
+          "headingRange": [
+            3.1197564282994077,
+            3.120158228060788
+          ],
+          "separationM": 3.2980221791929694
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1058.957244847018,
+          "s1": 1059.457244847018,
+          "headingRange": [
+            3.119354626665647,
+            3.1197564282994077
+          ],
+          "separationM": 3.2938909996883012
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1059.457244847018,
+          "s1": 1059.957244847018,
+          "headingRange": [
+            3.1189528232892254,
+            3.119354626665647
+          ],
+          "separationM": 3.2893572775413418
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1059.957244847018,
+          "s1": 1060.457244847018,
+          "headingRange": [
+            3.118551018299874,
+            3.1189528232892254
+          ],
+          "separationM": 3.2844210122272557
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1060.457244847018,
+          "s1": 1060.957244847018,
+          "headingRange": [
+            3.118149211827328,
+            3.118551018299874
+          ],
+          "separationM": 3.279082203610699
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1060.957244847018,
+          "s1": 1061.457244847018,
+          "headingRange": [
+            3.1177474040013156,
+            3.118149211827328
+          ],
+          "separationM": 3.2733408519467844
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1061.457244847018,
+          "s1": 1061.957244847018,
+          "headingRange": [
+            3.1173455949515767,
+            3.1177474040013156
+          ],
+          "separationM": 3.2671969578813673
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1061.957244847018,
+          "s1": 1062.457244847018,
+          "headingRange": [
+            3.1169437848078543,
+            3.1173455949515767
+          ],
+          "separationM": 3.260650522450362
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1062.457244847018,
+          "s1": 1062.957244847018,
+          "headingRange": [
+            3.116541973699884,
+            3.1169437848078543
+          ],
+          "separationM": 3.2537015470795723
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1062.957244847018,
+          "s1": 1063.457244847018,
+          "headingRange": [
+            3.1161401617574125,
+            3.116541973699884
+          ],
+          "separationM": 3.2463500335859976
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1063.457244847018,
+          "s1": 1063.957244847018,
+          "headingRange": [
+            3.115738349110187,
+            3.1161401617574125
+          ],
+          "separationM": 3.238595984176186
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1063.957244847018,
+          "s1": 1064.457244847018,
+          "headingRange": [
+            3.1153365358879457,
+            3.115738349110187
+          ],
+          "separationM": 3.230489155451437
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1064.457244847018,
+          "s1": 1064.957244847018,
+          "headingRange": [
+            3.1149347222204478,
+            3.1153365358879457
+          ],
+          "separationM": 3.225108203896582
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1064.957244847018,
+          "s1": 1065.457244847018,
+          "headingRange": [
+            3.114532908237436,
+            3.1149347222204478
+          ],
+          "separationM": 3.221652888792505
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1065.457244847018,
+          "s1": 1065.957244847018,
+          "headingRange": [
+            3.114131094068657,
+            3.114532908237436
+          ],
+          "separationM": 3.218876483985241
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1065.957244847018,
+          "s1": 1066.1731045029742,
+          "headingRange": [
+            3.1139576231072863,
+            3.114131094068657
+          ],
+          "separationM": 3.21915620193289
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1066.1731045029742,
+          "s1": 1066.6731045029742,
+          "headingRange": [
+            3.1135558088984108,
+            3.1139576231072863
+          ],
+          "separationM": 3.2149018402016054
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1066.6731045029742,
+          "s1": 1067.1731045029742,
+          "headingRange": [
+            3.1131539948192817,
+            3.1135558088984108
+          ],
+          "separationM": 3.2199363507810403
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1067.1731045029742,
+          "s1": 1067.6731045029742,
+          "headingRange": [
+            3.1127521809996517,
+            3.1131539948192817
+          ],
+          "separationM": 3.2249710905514917
+        }
+      ]
+    },
+    {
+      "actorId": 484,
+      "kind": "tram-imperio",
+      "sourceId": "w660918285",
+      "platformSourceId": "w909062875",
+      "bodyRadiusM": 18.039955657219362,
+      "minimumSeparationM": 3.2805059141965103,
+      "clear": true,
+      "intervalCount": 81,
+      "edges": [
+        {
+          "sourceSegment": 9,
+          "s0": 652.0864546375567,
+          "s1": 652.5864546375567,
+          "headingRange": [
+            -0.010354949952655425,
+            -0.010243471210106386
+          ],
+          "separationM": 3.359941262622897
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 652.5864546375567,
+          "s1": 653.0864546375567,
+          "headingRange": [
+            -0.010466428650869301,
+            -0.010354949952655425
+          ],
+          "separationM": 3.3603930886335434
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 653.0864546375567,
+          "s1": 653.5864546375567,
+          "headingRange": [
+            -0.01057790730198158,
+            -0.010466428650869301
+          ],
+          "separationM": 3.3608449298577057
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 653.5864546375567,
+          "s1": 654.0864546375567,
+          "headingRange": [
+            -0.010689385903217104,
+            -0.01057790730198158
+          ],
+          "separationM": 3.3612967862210326
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 654.0864546375567,
+          "s1": 654.5864546375567,
+          "headingRange": [
+            -0.010800864451809456,
+            -0.010689385903217104
+          ],
+          "separationM": 3.3617486576492865
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 654.5864546375567,
+          "s1": 655.0864546375567,
+          "headingRange": [
+            -0.010912342944983588,
+            -0.010800864451809456
+          ],
+          "separationM": 3.362200544067946
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 655.0864546375567,
+          "s1": 655.5864546375567,
+          "headingRange": [
+            -0.011023821379970858,
+            -0.010912342944983588
+          ],
+          "separationM": 3.3626524454026594
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 655.5864546375567,
+          "s1": 656.0864546375567,
+          "headingRange": [
+            -0.011135299754002815,
+            -0.011023821379970858
+          ],
+          "separationM": 3.363878347592106
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 656.0864546375567,
+          "s1": 656.5864546375567,
+          "headingRange": [
+            -0.011246778064304299,
+            -0.011135299754002815
+          ],
+          "separationM": 3.3654657478569447
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 656.5864546375567,
+          "s1": 657.0864546375567,
+          "headingRange": [
+            -0.011358256308106787,
+            -0.011246778064304299
+          ],
+          "separationM": 3.367053162371235
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 657.0864546375567,
+          "s1": 657.5464546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011358256308106787
+          ],
+          "separationM": 3.3686405910758026
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 657.5464546375567,
+          "s1": 657.5864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 657.5864546375567,
+          "s1": 658.0864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.01146081623129223
+          ],
+          "separationM": 3.3701010379659806
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 658.0864546375567,
+          "s1": 658.5864546375567,
+          "headingRange": [
+            -0.011460816231294474,
+            -0.01146081623129223
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 658.5864546375567,
+          "s1": 659.0864546375567,
+          "headingRange": [
+            -0.011460816231294474,
+            -0.011460816231292281
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 659.0864546375567,
+          "s1": 659.5864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 659.5864546375567,
+          "s1": 660.0864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 660.0864546375567,
+          "s1": 660.5864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.01146081623129223
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 660.5864546375567,
+          "s1": 661.0864546375567,
+          "headingRange": [
+            -0.011460816231294474,
+            -0.01146081623129223
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 661.0864546375567,
+          "s1": 661.5864546375567,
+          "headingRange": [
+            -0.011460816231294474,
+            -0.011460816231292281
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 661.5864546375567,
+          "s1": 662.0864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 662.0864546375567,
+          "s1": 662.5864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 662.5864546375567,
+          "s1": 663.0864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 663.0864546375567,
+          "s1": 663.5864546375567,
+          "headingRange": [
+            -0.011460816231294423,
+            -0.011460816231292281
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 663.5864546375567,
+          "s1": 664.0864546375567,
+          "headingRange": [
+            -0.011460816231294423,
+            -0.011460816231292281
+          ],
+          "separationM": 3.370101037965867
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 664.0864546375567,
+          "s1": 664.5864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 3.370101037965867
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 664.5864546375567,
+          "s1": 665.0864546375567,
+          "headingRange": [
+            -0.011460816231294474,
+            -0.011460816231292281
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 665.0864546375567,
+          "s1": 665.5864546375567,
+          "headingRange": [
+            -0.011460816231294474,
+            -0.011460816231292281
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 665.5864546375567,
+          "s1": 666.0864546375567,
+          "headingRange": [
+            -0.011460816231294423,
+            -0.011460816231292281
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 666.0864546375567,
+          "s1": 666.528746825893,
+          "headingRange": [
+            -0.011460816231294423,
+            -0.01146081623129223
+          ],
+          "separationM": 3.3701010379659238
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 666.528746825893,
+          "s1": 666.5864546375567,
+          "headingRange": [
+            -0.011495053022338268,
+            -0.01146081623129223
+          ],
+          "separationM": 3.3698539854645446
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 666.5864546375567,
+          "s1": 667.0864546375567,
+          "headingRange": [
+            -0.011791692903370359,
+            -0.011495053022338268
+          ],
+          "separationM": 3.3680353488089168
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 667.0864546375567,
+          "s1": 667.5864546375567,
+          "headingRange": [
+            -0.012088334079423836,
+            -0.011791692903370359
+          ],
+          "separationM": 3.369656225127301
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 667.5864546375567,
+          "s1": 668.0864546375567,
+          "headingRange": [
+            -0.012384976498298087,
+            -0.012088334079423836
+          ],
+          "separationM": 3.370980064132766
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 668.0864546375567,
+          "s1": 668.5864546375567,
+          "headingRange": [
+            -0.012681620107797918,
+            -0.012384976498298087
+          ],
+          "separationM": 3.372006863645879
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 668.5864546375567,
+          "s1": 669.0864546375567,
+          "headingRange": [
+            -0.012978264855718166,
+            -0.012681620107797918
+          ],
+          "separationM": 3.3727366216440373
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 669.0864546375567,
+          "s1": 669.5864546375567,
+          "headingRange": [
+            -0.013274910689860904,
+            -0.012978264855718166
+          ],
+          "separationM": 3.373169336261583
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 669.5864546375567,
+          "s1": 670.0864546375567,
+          "headingRange": [
+            -0.01357155755802081,
+            -0.013274910689860904
+          ],
+          "separationM": 3.3733050057898026
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 670.0864546375567,
+          "s1": 670.5864546375567,
+          "headingRange": [
+            -0.013868205407991366,
+            -0.01357155755802081
+          ],
+          "separationM": 3.3731436286770418
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 670.5864546375567,
+          "s1": 671.0864546375567,
+          "headingRange": [
+            -0.014164854187571652,
+            -0.013868205407991366
+          ],
+          "separationM": 3.3726852035284196
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 671.0864546375567,
+          "s1": 671.5864546375567,
+          "headingRange": [
+            -0.014461503844550814,
+            -0.014164854187571652
+          ],
+          "separationM": 3.3719297291059434
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 671.5864546375567,
+          "s1": 672.0864546375567,
+          "headingRange": [
+            -0.014758154326726086,
+            -0.014461503844550814
+          ],
+          "separationM": 3.371703422616406
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 672.0864546375567,
+          "s1": 672.5864546375567,
+          "headingRange": [
+            -0.015054805581887069,
+            -0.014758154326726086
+          ],
+          "separationM": 3.3683890984303275
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 672.5864546375567,
+          "s1": 673.0864546375567,
+          "headingRange": [
+            -0.015351457557822542,
+            -0.015054805581887069
+          ],
+          "separationM": 3.3658529188058424
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 673.0864546375567,
+          "s1": 673.5864546375567,
+          "headingRange": [
+            -0.01564811020232723,
+            -0.015351457557822542
+          ],
+          "separationM": 3.3630196845846854
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 673.5864546375567,
+          "s1": 674.0864546375567,
+          "headingRange": [
+            -0.015944763463186393,
+            -0.01564811020232723
+          ],
+          "separationM": 3.3598893954699633
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 674.0864546375567,
+          "s1": 674.5864546375567,
+          "headingRange": [
+            -0.016241417288193265,
+            -0.015944763463186393
+          ],
+          "separationM": 3.3564620513218983
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 674.5864546375567,
+          "s1": 675.0864546375567,
+          "headingRange": [
+            -0.01653807162513391,
+            -0.016241417288193265
+          ],
+          "separationM": 3.352737652157373
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 675.0864546375567,
+          "s1": 675.5864546375567,
+          "headingRange": [
+            -0.01683472642179406,
+            -0.01653807162513391
+          ],
+          "separationM": 3.348716198150555
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 675.5864546375567,
+          "s1": 676.0864546375567,
+          "headingRange": [
+            -0.01713138162596525,
+            -0.01683472642179406
+          ],
+          "separationM": 3.3443976896323875
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 676.0864546375567,
+          "s1": 676.5864546375567,
+          "headingRange": [
+            -0.017428037185430036,
+            -0.01713138162596525
+          ],
+          "separationM": 3.3397821270908707
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 676.5864546375567,
+          "s1": 677.0864546375567,
+          "headingRange": [
+            -0.01772469304797946,
+            -0.017428037185430036
+          ],
+          "separationM": 3.3348695111709503
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 677.0864546375567,
+          "s1": 677.5864546375567,
+          "headingRange": [
+            -0.018021349161397183,
+            -0.01772469304797946
+          ],
+          "separationM": 3.3296598426744026
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 677.5864546375567,
+          "s1": 678.0864546375567,
+          "headingRange": [
+            -0.018318005473467076,
+            -0.018021349161397183
+          ],
+          "separationM": 3.324153122560233
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 678.0864546375567,
+          "s1": 678.5864546375567,
+          "headingRange": [
+            -0.01861466193197931,
+            -0.018318005473467076
+          ],
+          "separationM": 3.318349351944221
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 678.5864546375567,
+          "s1": 679.0864546375567,
+          "headingRange": [
+            -0.018911318484714872,
+            -0.01861466193197931
+          ],
+          "separationM": 3.3122485320990336
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 679.0864546375567,
+          "s1": 679.488746825893,
+          "headingRange": [
+            -0.019150003745255818,
+            -0.018911318484714872
+          ],
+          "separationM": 3.307423688251049
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 679.488746825893,
+          "s1": 679.988746825893,
+          "headingRange": [
+            -0.019446660335897707,
+            -0.019150003745255818
+          ],
+          "separationM": 3.3043319491983425
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 679.988746825893,
+          "s1": 680.488746825893,
+          "headingRange": [
+            -0.019743316874327108,
+            -0.019446660335897707
+          ],
+          "separationM": 3.3052354730038473
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 680.488746825893,
+          "s1": 680.988746825893,
+          "headingRange": [
+            -0.020039973308325264,
+            -0.019743316874327108
+          ],
+          "separationM": 3.3058419514496222
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 680.988746825893,
+          "s1": 681.488746825893,
+          "headingRange": [
+            -0.02033662958568205,
+            -0.020039973308325264
+          ],
+          "separationM": 3.306151384493262
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 681.488746825893,
+          "s1": 681.988746825893,
+          "headingRange": [
+            -0.020633285654180912,
+            -0.02033662958568205
+          ],
+          "separationM": 3.3061637722494766
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 681.988746825893,
+          "s1": 682.488746825893,
+          "headingRange": [
+            -0.020929941461605706,
+            -0.020633285654180912
+          ],
+          "separationM": 3.305879114989807
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 682.488746825893,
+          "s1": 682.988746825893,
+          "headingRange": [
+            -0.021226596955747037,
+            -0.020929941461605706
+          ],
+          "separationM": 3.3052974131428527
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 682.988746825893,
+          "s1": 683.488746825893,
+          "headingRange": [
+            -0.021523252084389478,
+            -0.021226596955747037
+          ],
+          "separationM": 3.3044186672939304
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 683.488746825893,
+          "s1": 683.988746825893,
+          "headingRange": [
+            -0.021819906795317395,
+            -0.021523252084389478
+          ],
+          "separationM": 3.3032428781856424
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 683.988746825893,
+          "s1": 684.488746825893,
+          "headingRange": [
+            -0.022116561036322764,
+            -0.021819906795317395
+          ],
+          "separationM": 3.3017700467173086
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 684.488746825893,
+          "s1": 684.988746825893,
+          "headingRange": [
+            -0.02241321475518917,
+            -0.022116561036322764
+          ],
+          "separationM": 3.3000001739454206
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 684.988746825893,
+          "s1": 685.488746825893,
+          "headingRange": [
+            -0.02270986789970924,
+            -0.02241321475518917
+          ],
+          "separationM": 3.2979332610829033
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 685.488746825893,
+          "s1": 685.988746825893,
+          "headingRange": [
+            -0.023006520417669932,
+            -0.02270986789970924
+          ],
+          "separationM": 3.2955693095002516
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 685.988746825893,
+          "s1": 686.488746825893,
+          "headingRange": [
+            -0.023303172256858955,
+            -0.023006520417669932
+          ],
+          "separationM": 3.292908320724621
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 686.488746825893,
+          "s1": 686.988746825893,
+          "headingRange": [
+            -0.02359982336507071,
+            -0.023303172256858955
+          ],
+          "separationM": 3.2899502964399403
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 686.988746825893,
+          "s1": 687.488746825893,
+          "headingRange": [
+            -0.023896473690092207,
+            -0.02359982336507071
+          ],
+          "separationM": 3.2866952384873116
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 687.488746825893,
+          "s1": 687.988746825893,
+          "headingRange": [
+            -0.02419312317971996,
+            -0.023896473690092207
+          ],
+          "separationM": 3.283143148864724
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 687.988746825893,
+          "s1": 688.488746825893,
+          "headingRange": [
+            -0.024489771781744468,
+            -0.02419312317971996
+          ],
+          "separationM": 3.2805059141965103
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 688.488746825893,
+          "s1": 688.988746825893,
+          "headingRange": [
+            -0.02478641944395759,
+            -0.024489771781744468
+          ],
+          "separationM": 3.2813458018580377
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 688.988746825893,
+          "s1": 689.488746825893,
+          "headingRange": [
+            -0.025083066114158437,
+            -0.02478641944395759
+          ],
+          "separationM": 3.282185830130004
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 689.488746825893,
+          "s1": 689.988746825893,
+          "headingRange": [
+            -0.025379711740138394,
+            -0.025083066114158437
+          ],
+          "separationM": 3.283026000411951
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 689.988746825893,
+          "s1": 690.488746825893,
+          "headingRange": [
+            -0.025676356269698945,
+            -0.025379711740138394
+          ],
+          "separationM": 3.283866314103193
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 690.488746825893,
+          "s1": 690.988746825893,
+          "headingRange": [
+            -0.02597299965063602,
+            -0.025676356269698945
+          ],
+          "separationM": 3.2847067726026467
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 690.988746825893,
+          "s1": 691.488746825893,
+          "headingRange": [
+            -0.02626964183074703,
+            -0.02597299965063602
+          ],
+          "separationM": 3.2855473773096264
+        }
+      ]
+    },
+    {
+      "actorId": 484,
+      "kind": "tram-imperio",
+      "sourceId": "w660918285",
+      "platformSourceId": "w909062874",
+      "bodyRadiusM": 18.039955657219362,
+      "minimumSeparationM": 0.25291661934380727,
+      "clear": true,
+      "intervalCount": 83,
+      "edges": [
+        {
+          "sourceSegment": 9,
+          "s0": 651.5864546375567,
+          "s1": 652.0864546375567,
+          "headingRange": [
+            -0.010243471210106386,
+            -0.010131992425995065
+          ],
+          "separationM": 0.28156974304863525
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 652.0864546375567,
+          "s1": 652.5864546375567,
+          "headingRange": [
+            -0.010354949952655425,
+            -0.010243471210106386
+          ],
+          "separationM": 0.2789533833091582
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 652.5864546375567,
+          "s1": 653.0864546375567,
+          "headingRange": [
+            -0.010466428650869301,
+            -0.010354949952655425
+          ],
+          "separationM": 0.27644848433357083
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 653.0864546375567,
+          "s1": 653.5864546375567,
+          "headingRange": [
+            -0.01057790730198158,
+            -0.010466428650869301
+          ],
+          "separationM": 0.27405504615109066
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 653.5864546375567,
+          "s1": 654.0864546375567,
+          "headingRange": [
+            -0.010689385903217104,
+            -0.01057790730198158
+          ],
+          "separationM": 0.2717730687825224
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 654.0864546375567,
+          "s1": 654.5864546375567,
+          "headingRange": [
+            -0.010800864451809456,
+            -0.010689385903217104
+          ],
+          "separationM": 0.26960255223985996
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 654.5864546375567,
+          "s1": 655.0864546375567,
+          "headingRange": [
+            -0.010912342944983588,
+            -0.010800864451809456
+          ],
+          "separationM": 0.26754349652748033
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 655.0864546375567,
+          "s1": 655.5864546375567,
+          "headingRange": [
+            -0.011023821379970858,
+            -0.010912342944983588
+          ],
+          "separationM": 0.2655959016410634
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 655.5864546375567,
+          "s1": 656.0864546375567,
+          "headingRange": [
+            -0.011135299754002815,
+            -0.011023821379970858
+          ],
+          "separationM": 0.26375976756804675
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 656.0864546375567,
+          "s1": 656.5864546375567,
+          "headingRange": [
+            -0.011246778064304299,
+            -0.011135299754002815
+          ],
+          "separationM": 0.26203509428739835
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 656.5864546375567,
+          "s1": 657.0864546375567,
+          "headingRange": [
+            -0.011358256308106787,
+            -0.011246778064304299
+          ],
+          "separationM": 0.26042188177012804
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 657.0864546375567,
+          "s1": 657.5464546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011358256308106787
+          ],
+          "separationM": 0.2590620181891836
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 657.5464546375567,
+          "s1": 657.5864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 657.5864546375567,
+          "s1": 658.0864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.01146081623129223
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 658.0864546375567,
+          "s1": 658.5864546375567,
+          "headingRange": [
+            -0.011460816231294474,
+            -0.01146081623129223
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 658.5864546375567,
+          "s1": 659.0864546375567,
+          "headingRange": [
+            -0.011460816231294474,
+            -0.011460816231292281
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 659.0864546375567,
+          "s1": 659.5864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 659.5864546375567,
+          "s1": 660.0864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 660.0864546375567,
+          "s1": 660.5864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.01146081623129223
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 660.5864546375567,
+          "s1": 661.0864546375567,
+          "headingRange": [
+            -0.011460816231294474,
+            -0.01146081623129223
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 661.0864546375567,
+          "s1": 661.5864546375567,
+          "headingRange": [
+            -0.011460816231294474,
+            -0.011460816231292281
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 661.5864546375567,
+          "s1": 662.0864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 662.0864546375567,
+          "s1": 662.5864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 662.5864546375567,
+          "s1": 663.0864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 663.0864546375567,
+          "s1": 663.5864546375567,
+          "headingRange": [
+            -0.011460816231294423,
+            -0.011460816231292281
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 663.5864546375567,
+          "s1": 664.0864546375567,
+          "headingRange": [
+            -0.011460816231294423,
+            -0.011460816231292281
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 664.0864546375567,
+          "s1": 664.5864546375567,
+          "headingRange": [
+            -0.011460816231292281,
+            -0.011460816231292281
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 664.5864546375567,
+          "s1": 665.0864546375567,
+          "headingRange": [
+            -0.011460816231294474,
+            -0.011460816231292281
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 665.0864546375567,
+          "s1": 665.5864546375567,
+          "headingRange": [
+            -0.011460816231294474,
+            -0.011460816231292281
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 665.5864546375567,
+          "s1": 666.0864546375567,
+          "headingRange": [
+            -0.011460816231294423,
+            -0.011460816231292281
+          ],
+          "separationM": 0.2593592895543111
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 666.0864546375567,
+          "s1": 666.528746825893,
+          "headingRange": [
+            -0.011460816231294423,
+            -0.01146081623129223
+          ],
+          "separationM": 0.25935928955436793
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 666.528746825893,
+          "s1": 666.5864546375567,
+          "headingRange": [
+            -0.011495053022338268,
+            -0.01146081623129223
+          ],
+          "separationM": 0.2588303318561316
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 666.5864546375567,
+          "s1": 667.0864546375567,
+          "headingRange": [
+            -0.011791692903370359,
+            -0.011495053022338268
+          ],
+          "separationM": 0.25465603399283054
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 667.0864546375567,
+          "s1": 667.5864546375567,
+          "headingRange": [
+            -0.012088334079423836,
+            -0.011791692903370359
+          ],
+          "separationM": 0.25377972136442395
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 667.5864546375567,
+          "s1": 668.0864546375567,
+          "headingRange": [
+            -0.012384976498298087,
+            -0.012088334079423836
+          ],
+          "separationM": 0.25319991579658563
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 668.0864546375567,
+          "s1": 668.5864546375567,
+          "headingRange": [
+            -0.012681620107797918,
+            -0.012384976498298087
+          ],
+          "separationM": 0.25291661934380727
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 668.5864546375567,
+          "s1": 669.0864546375567,
+          "headingRange": [
+            -0.012978264855718166,
+            -0.012681620107797918
+          ],
+          "separationM": 0.25292983390448853
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 669.0864546375567,
+          "s1": 669.5864546375567,
+          "headingRange": [
+            -0.013274910689860904,
+            -0.012978264855718166
+          ],
+          "separationM": 0.2532395612203686
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 669.5864546375567,
+          "s1": 670.0864546375567,
+          "headingRange": [
+            -0.01357155755802081,
+            -0.013274910689860904
+          ],
+          "separationM": 0.2538458028766968
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 670.0864546375567,
+          "s1": 670.5864546375567,
+          "headingRange": [
+            -0.013868205407991366,
+            -0.01357155755802081
+          ],
+          "separationM": 0.25474856030223236
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 670.5864546375567,
+          "s1": 671.0864546375567,
+          "headingRange": [
+            -0.014164854187571652,
+            -0.013868205407991366
+          ],
+          "separationM": 0.2560916236182038
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 671.0864546375567,
+          "s1": 671.5864546375567,
+          "headingRange": [
+            -0.014461503844550814,
+            -0.014164854187571652
+          ],
+          "separationM": 0.25773561032730186
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 671.5864546375567,
+          "s1": 672.0864546375567,
+          "headingRange": [
+            -0.014758154326726086,
+            -0.014461503844550814
+          ],
+          "separationM": 0.2615878699226073
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 672.0864546375567,
+          "s1": 672.5864546375567,
+          "headingRange": [
+            -0.015054805581887069,
+            -0.014758154326726086
+          ],
+          "separationM": 0.2608456694161987
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 672.5864546375567,
+          "s1": 673.0864546375567,
+          "headingRange": [
+            -0.015351457557822542,
+            -0.015054805581887069
+          ],
+          "separationM": 0.262192742293621
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 673.0864546375567,
+          "s1": 673.5864546375567,
+          "headingRange": [
+            -0.01564811020232723,
+            -0.015351457557822542
+          ],
+          "separationM": 0.2638363338363092
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 673.5864546375567,
+          "s1": 674.0864546375567,
+          "headingRange": [
+            -0.015944763463186393,
+            -0.01564811020232723
+          ],
+          "separationM": 0.265776444651749
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 674.0864546375567,
+          "s1": 674.5864546375567,
+          "headingRange": [
+            -0.016241417288193265,
+            -0.015944763463186393
+          ],
+          "separationM": 0.26815594223199923
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 674.5864546375567,
+          "s1": 675.0864546375567,
+          "headingRange": [
+            -0.01653807162513391,
+            -0.016241417288193265
+          ],
+          "separationM": 0.2708372867701314
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 675.0864546375567,
+          "s1": 675.5864546375567,
+          "headingRange": [
+            -0.01683472642179406,
+            -0.01653807162513391
+          ],
+          "separationM": 0.273815151437816
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 675.5864546375567,
+          "s1": 676.0864546375567,
+          "headingRange": [
+            -0.01713138162596525,
+            -0.01683472642179406
+          ],
+          "separationM": 0.27708953609862874
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 676.0864546375567,
+          "s1": 676.5864546375567,
+          "headingRange": [
+            -0.017428037185430036,
+            -0.01713138162596525
+          ],
+          "separationM": 0.2806604404597124
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 676.5864546375567,
+          "s1": 677.0864546375567,
+          "headingRange": [
+            -0.01772469304797946,
+            -0.017428037185430036
+          ],
+          "separationM": 0.28452786407166286
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 677.0864546375567,
+          "s1": 677.5864546375567,
+          "headingRange": [
+            -0.018021349161397183,
+            -0.01772469304797946
+          ],
+          "separationM": 0.28869180632847247
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 677.5864546375567,
+          "s1": 678.0864546375567,
+          "headingRange": [
+            -0.018318005473467076,
+            -0.018021349161397183
+          ],
+          "separationM": 0.29315226646775727
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 678.0864546375567,
+          "s1": 678.5864546375567,
+          "headingRange": [
+            -0.01861466193197931,
+            -0.018318005473467076
+          ],
+          "separationM": 0.2979092435702455
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 678.5864546375567,
+          "s1": 679.0864546375567,
+          "headingRange": [
+            -0.018911318484714872,
+            -0.01861466193197931
+          ],
+          "separationM": 0.30296273656051653
+        },
+        {
+          "sourceSegment": 9,
+          "s0": 679.0864546375567,
+          "s1": 679.488746825893,
+          "headingRange": [
+            -0.019150003745255818,
+            -0.018911318484714872
+          ],
+          "separationM": 0.3088908832463062
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 679.488746825893,
+          "s1": 679.988746825893,
+          "headingRange": [
+            -0.019446660335897707,
+            -0.019150003745255818
+          ],
+          "separationM": 0.30913630484417354
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 679.988746825893,
+          "s1": 680.488746825893,
+          "headingRange": [
+            -0.019743316874327108,
+            -0.019446660335897707
+          ],
+          "separationM": 0.3074806085693922
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 680.488746825893,
+          "s1": 680.988746825893,
+          "headingRange": [
+            -0.020039973308325264,
+            -0.019743316874327108
+          ],
+          "separationM": 0.30612142630280914
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 680.988746825893,
+          "s1": 681.488746825893,
+          "headingRange": [
+            -0.02033662958568205,
+            -0.020039973308325264
+          ],
+          "separationM": 0.3050587582079629
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 681.488746825893,
+          "s1": 681.988746825893,
+          "headingRange": [
+            -0.020633285654180912,
+            -0.02033662958568205
+          ],
+          "separationM": 0.3042926042913905
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 681.988746825893,
+          "s1": 682.488746825893,
+          "headingRange": [
+            -0.020929941461605706,
+            -0.020633285654180912
+          ],
+          "separationM": 0.3038229644031958
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 682.488746825893,
+          "s1": 682.988746825893,
+          "headingRange": [
+            -0.021226596955747037,
+            -0.020929941461605706
+          ],
+          "separationM": 0.3036498382370496
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 682.988746825893,
+          "s1": 683.488746825893,
+          "headingRange": [
+            -0.021523252084389478,
+            -0.021226596955747037
+          ],
+          "separationM": 0.30377322533001916
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 683.488746825893,
+          "s1": 683.988746825893,
+          "headingRange": [
+            -0.021819906795317395,
+            -0.021523252084389478
+          ],
+          "separationM": 0.30419312506285223
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 683.988746825893,
+          "s1": 684.488746825893,
+          "headingRange": [
+            -0.022116561036322764,
+            -0.021819906795317395
+          ],
+          "separationM": 0.30490953665912457
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 684.488746825893,
+          "s1": 684.988746825893,
+          "headingRange": [
+            -0.02241321475518917,
+            -0.022116561036322764
+          ],
+          "separationM": 0.3059224591868883
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 684.988746825893,
+          "s1": 685.488746825893,
+          "headingRange": [
+            -0.02270986789970924,
+            -0.02241321475518917
+          ],
+          "separationM": 0.3072318915566825
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 685.488746825893,
+          "s1": 685.988746825893,
+          "headingRange": [
+            -0.023006520417669932,
+            -0.02270986789970924
+          ],
+          "separationM": 0.3088378325232384
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 685.988746825893,
+          "s1": 686.488746825893,
+          "headingRange": [
+            -0.023303172256858955,
+            -0.023006520417669932
+          ],
+          "separationM": 0.31074028068445614
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 686.488746825893,
+          "s1": 686.988746825893,
+          "headingRange": [
+            -0.02359982336507071,
+            -0.023303172256858955
+          ],
+          "separationM": 0.3129392344816324
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 686.988746825893,
+          "s1": 687.488746825893,
+          "headingRange": [
+            -0.023896473690092207,
+            -0.02359982336507071
+          ],
+          "separationM": 0.3154346921998581
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 687.488746825893,
+          "s1": 687.988746825893,
+          "headingRange": [
+            -0.02419312317971996,
+            -0.023896473690092207
+          ],
+          "separationM": 0.31822665196722255
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 687.988746825893,
+          "s1": 688.488746825893,
+          "headingRange": [
+            -0.024489771781744468,
+            -0.02419312317971996
+          ],
+          "separationM": 0.3213151117560642
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 688.488746825893,
+          "s1": 688.988746825893,
+          "headingRange": [
+            -0.02478641944395759,
+            -0.024489771781744468
+          ],
+          "separationM": 0.32470006938149254
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 688.988746825893,
+          "s1": 689.488746825893,
+          "headingRange": [
+            -0.025083066114158437,
+            -0.02478641944395759
+          ],
+          "separationM": 0.3291190608160264
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 689.488746825893,
+          "s1": 689.988746825893,
+          "headingRange": [
+            -0.025379711740138394,
+            -0.025083066114158437
+          ],
+          "separationM": 0.3337015525543734
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 689.988746825893,
+          "s1": 690.488746825893,
+          "headingRange": [
+            -0.025676356269698945,
+            -0.025379711740138394
+          ],
+          "separationM": 0.33828413817195724
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 690.488746825893,
+          "s1": 690.988746825893,
+          "headingRange": [
+            -0.02597299965063602,
+            -0.025676356269698945
+          ],
+          "separationM": 0.34286681645795625
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 690.988746825893,
+          "s1": 691.488746825893,
+          "headingRange": [
+            -0.02626964183074703,
+            -0.02597299965063602
+          ],
+          "separationM": 0.34744958620126454
+        },
+        {
+          "sourceSegment": 10,
+          "s0": 691.488746825893,
+          "s1": 691.988746825893,
+          "headingRange": [
+            -0.026566282757836505,
+            -0.02626964183074703
+          ],
+          "separationM": 0.3520324461910036
+        }
+      ]
+    },
+    {
+      "actorId": 484,
+      "kind": "tram-imperio",
+      "sourceId": "w128304860",
+      "platformSourceId": "w909062875",
+      "bodyRadiusM": 18.039955657219362,
+      "minimumSeparationM": 0.2656861961950767,
+      "clear": true,
+      "intervalCount": 83,
+      "edges": [
+        {
+          "sourceSegment": 24,
+          "s0": 1032.957244847018,
+          "s1": 1033.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.33506321146467144
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1033.457244847018,
+          "s1": 1033.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.33242472496766595
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1033.957244847018,
+          "s1": 1034.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.32978623847066046
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1034.457244847018,
+          "s1": 1034.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.3271477519735413
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1034.957244847018,
+          "s1": 1035.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.32450926547647896
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1035.457244847018,
+          "s1": 1035.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3218707789795303
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1035.957244847018,
+          "s1": 1036.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.31923229248241114
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1036.457244847018,
+          "s1": 1036.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.3165938059853488
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1036.957244847018,
+          "s1": 1037.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.31395531948840016
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1037.457244847018,
+          "s1": 1037.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.311316832991281
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1037.957244847018,
+          "s1": 1038.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.30867834649421866
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1038.457244847018,
+          "s1": 1038.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1038.957244847018,
+          "s1": 1039.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1039.457244847018,
+          "s1": 1039.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1039.957244847018,
+          "s1": 1040.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1040.457244847018,
+          "s1": 1040.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1040.957244847018,
+          "s1": 1041.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1041.457244847018,
+          "s1": 1041.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1041.957244847018,
+          "s1": 1042.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1042.457244847018,
+          "s1": 1042.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1042.957244847018,
+          "s1": 1043.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1043.457244847018,
+          "s1": 1043.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1043.957244847018,
+          "s1": 1044.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1044.457244847018,
+          "s1": 1044.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.30729020070049273
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1044.957244847018,
+          "s1": 1045.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1045.457244847018,
+          "s1": 1045.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1045.957244847018,
+          "s1": 1046.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.30729020070049273
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1046.457244847018,
+          "s1": 1046.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1046.957244847018,
+          "s1": 1047.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1047.457244847018,
+          "s1": 1047.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.30729020070049273
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1047.957244847018,
+          "s1": 1048.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1048.457244847018,
+          "s1": 1048.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1048.957244847018,
+          "s1": 1049.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1049.457244847018,
+          "s1": 1049.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1049.957244847018,
+          "s1": 1050.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007006064
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1050.457244847018,
+          "s1": 1050.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1050.957244847018,
+          "s1": 1051.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1051.457244847018,
+          "s1": 1051.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1051.957244847018,
+          "s1": 1052.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1052.457244847018,
+          "s1": 1052.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 0.30729020070049273
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1052.957244847018,
+          "s1": 1053.2131045029741,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 0.3072902007005496
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1053.2131045029741,
+          "s1": 1053.457244847018,
+          "headingRange": [
+            3.1216215930965876,
+            3.121768732883497
+          ],
+          "separationM": 0.30501690426820005
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1053.457244847018,
+          "s1": 1053.957244847018,
+          "headingRange": [
+            3.121320249437375,
+            3.1216215930965876
+          ],
+          "separationM": 0.3024477789962816
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1053.957244847018,
+          "s1": 1054.457244847018,
+          "headingRange": [
+            3.1210189044409637,
+            3.121320249437375
+          ],
+          "separationM": 0.3022894968077594
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1054.457244847018,
+          "s1": 1054.957244847018,
+          "headingRange": [
+            3.1207175581620707,
+            3.1210189044409637
+          ],
+          "separationM": 0.30243241979655977
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1054.957244847018,
+          "s1": 1055.457244847018,
+          "headingRange": [
+            3.12041621065542,
+            3.1207175581620707
+          ],
+          "separationM": 0.302945646053729
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1055.457244847018,
+          "s1": 1055.957244847018,
+          "headingRange": [
+            3.1201148619757357,
+            3.12041621065542
+          ],
+          "separationM": 0.30384152044825896
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1055.957244847018,
+          "s1": 1056.457244847018,
+          "headingRange": [
+            3.119813512177745,
+            3.1201148619757357
+          ],
+          "separationM": 0.3050386062477628
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1056.457244847018,
+          "s1": 1056.957244847018,
+          "headingRange": [
+            3.119512161316172,
+            3.119813512177745
+          ],
+          "separationM": 0.3065369047612876
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1056.957244847018,
+          "s1": 1057.457244847018,
+          "headingRange": [
+            3.1192108094457396,
+            3.119512161316172
+          ],
+          "separationM": 0.30833641713320503
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1057.457244847018,
+          "s1": 1057.957244847018,
+          "headingRange": [
+            3.118909456621185,
+            3.1192108094457396
+          ],
+          "separationM": 0.31043714434451886
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1057.957244847018,
+          "s1": 1058.457244847018,
+          "headingRange": [
+            3.1186081028972334,
+            3.118909456621185
+          ],
+          "separationM": 0.3128390872114437
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1058.457244847018,
+          "s1": 1058.957244847018,
+          "headingRange": [
+            3.1183067483286115,
+            3.1186081028972334
+          ],
+          "separationM": 0.3155422463864852
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1058.957244847018,
+          "s1": 1059.457244847018,
+          "headingRange": [
+            3.118005392970059,
+            3.1183067483286115
+          ],
+          "separationM": 0.3185466223583262
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1059.457244847018,
+          "s1": 1059.957244847018,
+          "headingRange": [
+            3.117704036876303,
+            3.118005392970059
+          ],
+          "separationM": 0.32185221545091736
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1059.957244847018,
+          "s1": 1060.457244847018,
+          "headingRange": [
+            3.117402680102074,
+            3.117704036876303
+          ],
+          "separationM": 0.32545902582450026
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1060.457244847018,
+          "s1": 1060.957244847018,
+          "headingRange": [
+            3.1171013227021134,
+            3.117402680102074
+          ],
+          "separationM": 0.32936705347532325
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1060.957244847018,
+          "s1": 1061.457244847018,
+          "headingRange": [
+            3.116799964731149,
+            3.1171013227021134
+          ],
+          "separationM": 0.33357629823507295
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1061.457244847018,
+          "s1": 1061.957244847018,
+          "headingRange": [
+            3.116498606243919,
+            3.116799964731149
+          ],
+          "separationM": 0.33808675977195435
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1061.957244847018,
+          "s1": 1062.457244847018,
+          "headingRange": [
+            3.116197247295161,
+            3.116498606243919
+          ],
+          "separationM": 0.34289843758955385
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1062.457244847018,
+          "s1": 1062.957244847018,
+          "headingRange": [
+            3.115895887939607,
+            3.116197247295161
+          ],
+          "separationM": 0.34801133102752146
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1062.957244847018,
+          "s1": 1063.457244847018,
+          "headingRange": [
+            3.115594528231995,
+            3.115895887939607
+          ],
+          "separationM": 0.3534254392616276
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1063.457244847018,
+          "s1": 1063.957244847018,
+          "headingRange": [
+            3.1152931682270646,
+            3.115594528231995
+          ],
+          "separationM": 0.3591407613031947
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1063.957244847018,
+          "s1": 1064.457244847018,
+          "headingRange": [
+            3.1149918079795493,
+            3.1152931682270646
+          ],
+          "separationM": 0.3651572959996656
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1064.457244847018,
+          "s1": 1064.957244847018,
+          "headingRange": [
+            3.114690447544189,
+            3.1149918079795493
+          ],
+          "separationM": 0.3714750420342625
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1064.957244847018,
+          "s1": 1065.457244847018,
+          "headingRange": [
+            3.1143890869757227,
+            3.114690447544189
+          ],
+          "separationM": 0.37809399792621434
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1065.457244847018,
+          "s1": 1065.957244847018,
+          "headingRange": [
+            3.114087726328885,
+            3.1143890869757227
+          ],
+          "separationM": 0.38501416203058625
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1065.957244847018,
+          "s1": 1066.1731045029742,
+          "headingRange": [
+            3.1139576231072863,
+            3.114087726328885
+          ],
+          "separationM": 0.39296012964786087
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1066.1731045029742,
+          "s1": 1066.6731045029742,
+          "headingRange": [
+            3.1136562624435338,
+            3.1139576231072863
+          ],
+          "separationM": 0.39169138586487406
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1066.6731045029742,
+          "s1": 1067.1731045029742,
+          "headingRange": [
+            3.1133549018345175,
+            3.1136562624435338
+          ],
+          "separationM": 0.39168364321807303
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1067.1731045029742,
+          "s1": 1067.3219669659795,
+          "headingRange": [
+            3.113265179288169,
+            3.1133549018345175
+          ],
+          "separationM": 0.39500928255080225
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1067.3219669659795,
+          "s1": 1067.6731045029742,
+          "headingRange": [
+            3.113265179288169,
+            3.1136101949480883
+          ],
+          "separationM": 0.38856546224718613
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1067.6731045029742,
+          "s1": 1068.1731045029742,
+          "headingRange": [
+            3.1136101949480883,
+            3.114101486307653
+          ],
+          "separationM": 0.3781114067398903
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1068.1731045029742,
+          "s1": 1068.6731045029742,
+          "headingRange": [
+            3.114101486307653,
+            3.1145927875185118
+          ],
+          "separationM": 0.36753357450055546
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1068.6731045029742,
+          "s1": 1069.1731045029742,
+          "headingRange": [
+            3.1145927875185118,
+            3.115084098343778
+          ],
+          "separationM": 0.3564639421816196
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1069.1731045029742,
+          "s1": 1069.6731045029742,
+          "headingRange": [
+            3.115084098343778,
+            3.115575418546529
+          ],
+          "separationM": 0.34490250317389837
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1069.6731045029742,
+          "s1": 1070.1731045029742,
+          "headingRange": [
+            3.115575418546529,
+            3.116066747889831
+          ],
+          "separationM": 0.33284925158034184
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1070.1731045029742,
+          "s1": 1070.6731045029742,
+          "headingRange": [
+            3.116066747889831,
+            3.1165580861367075
+          ],
+          "separationM": 0.32030418221660284
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1070.6731045029742,
+          "s1": 1071.1731045029742,
+          "headingRange": [
+            3.1165580861367075,
+            3.1170494330501626
+          ],
+          "separationM": 0.3072672906114349
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1071.1731045029742,
+          "s1": 1071.6731045029742,
+          "headingRange": [
+            3.1170494330501626,
+            3.1175407883931827
+          ],
+          "separationM": 0.29373857300606687
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1071.6731045029742,
+          "s1": 1072.1731045029742,
+          "headingRange": [
+            3.1175407883931827,
+            3.1180321519287166
+          ],
+          "separationM": 0.2832613312881449
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1072.1731045029742,
+          "s1": 1072.6731045029742,
+          "headingRange": [
+            3.1180321519287166,
+            3.118523523419697
+          ],
+          "separationM": 0.2744736595838049
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1072.6731045029742,
+          "s1": 1073.1731045029742,
+          "headingRange": [
+            3.118523523419697,
+            3.119014902629033
+          ],
+          "separationM": 0.2656861961950767
+        }
+      ]
+    },
+    {
+      "actorId": 484,
+      "kind": "tram-imperio",
+      "sourceId": "w128304860",
+      "platformSourceId": "w909062874",
+      "bodyRadiusM": 18.039955657219362,
+      "minimumSeparationM": 3.1923020712022776,
+      "clear": true,
+      "intervalCount": 81,
+      "edges": [
+        {
+          "sourceSegment": 24,
+          "s0": 1033.457244847018,
+          "s1": 1033.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1033.957244847018,
+          "s1": 1034.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1034.457244847018,
+          "s1": 1034.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1034.957244847018,
+          "s1": 1035.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1035.457244847018,
+          "s1": 1035.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1035.957244847018,
+          "s1": 1036.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1036.457244847018,
+          "s1": 1036.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1036.957244847018,
+          "s1": 1037.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1037.457244847018,
+          "s1": 1037.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1037.957244847018,
+          "s1": 1038.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1038.457244847018,
+          "s1": 1038.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1038.957244847018,
+          "s1": 1039.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1039.457244847018,
+          "s1": 1039.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1039.957244847018,
+          "s1": 1040.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1040.457244847018,
+          "s1": 1040.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1040.957244847018,
+          "s1": 1041.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1041.457244847018,
+          "s1": 1041.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.314654931418147
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1041.957244847018,
+          "s1": 1042.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1042.457244847018,
+          "s1": 1042.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1042.957244847018,
+          "s1": 1043.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.314654931418147
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1043.457244847018,
+          "s1": 1043.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1043.957244847018,
+          "s1": 1044.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1044.457244847018,
+          "s1": 1044.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1044.957244847018,
+          "s1": 1045.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1045.457244847018,
+          "s1": 1045.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1045.957244847018,
+          "s1": 1046.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1046.457244847018,
+          "s1": 1046.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1046.957244847018,
+          "s1": 1047.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1047.457244847018,
+          "s1": 1047.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1047.957244847018,
+          "s1": 1048.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1048.457244847018,
+          "s1": 1048.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1048.957244847018,
+          "s1": 1049.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1049.457244847018,
+          "s1": 1049.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1049.957244847018,
+          "s1": 1050.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1050.457244847018,
+          "s1": 1050.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1050.957244847018,
+          "s1": 1051.457244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.314654931418147
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1051.457244847018,
+          "s1": 1051.957244847018,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1051.957244847018,
+          "s1": 1052.457244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1052.457244847018,
+          "s1": 1052.957244847018,
+          "headingRange": [
+            3.1217687328834947,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1052.957244847018,
+          "s1": 1053.2131045029741,
+          "headingRange": [
+            3.121768732883497,
+            3.121768732883497
+          ],
+          "separationM": 3.31465493141809
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1053.2131045029741,
+          "s1": 1053.457244847018,
+          "headingRange": [
+            3.1216215930965876,
+            3.121768732883497
+          ],
+          "separationM": 3.3125100142841006
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1053.457244847018,
+          "s1": 1053.957244847018,
+          "headingRange": [
+            3.121320249437375,
+            3.1216215930965876
+          ],
+          "separationM": 3.30985462091229
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1053.957244847018,
+          "s1": 1054.457244847018,
+          "headingRange": [
+            3.1210189044409637,
+            3.121320249437375
+          ],
+          "separationM": 3.3087954315950583
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1054.457244847018,
+          "s1": 1054.957244847018,
+          "headingRange": [
+            3.1207175581620707,
+            3.1210189044409637
+          ],
+          "separationM": 3.307434483210386
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1054.957244847018,
+          "s1": 1055.457244847018,
+          "headingRange": [
+            3.12041621065542,
+            3.1207175581620707
+          ],
+          "separationM": 3.305771774159041
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1055.457244847018,
+          "s1": 1055.957244847018,
+          "headingRange": [
+            3.1201148619757357,
+            3.12041621065542
+          ],
+          "separationM": 3.3038073030062947
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1055.957244847018,
+          "s1": 1056.457244847018,
+          "headingRange": [
+            3.119813512177745,
+            3.1201148619757357
+          ],
+          "separationM": 3.3015410684815834
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1056.457244847018,
+          "s1": 1056.957244847018,
+          "headingRange": [
+            3.119512161316172,
+            3.119813512177745
+          ],
+          "separationM": 3.2989730694793593
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1056.957244847018,
+          "s1": 1057.457244847018,
+          "headingRange": [
+            3.1192108094457396,
+            3.119512161316172
+          ],
+          "separationM": 3.2961033050579545
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1057.457244847018,
+          "s1": 1057.957244847018,
+          "headingRange": [
+            3.118909456621185,
+            3.1192108094457396
+          ],
+          "separationM": 3.2929317744409445
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1057.957244847018,
+          "s1": 1058.457244847018,
+          "headingRange": [
+            3.1186081028972334,
+            3.118909456621185
+          ],
+          "separationM": 3.289458477016069
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1058.457244847018,
+          "s1": 1058.957244847018,
+          "headingRange": [
+            3.1183067483286115,
+            3.1186081028972334
+          ],
+          "separationM": 3.2856834123355156
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1058.957244847018,
+          "s1": 1059.457244847018,
+          "headingRange": [
+            3.118005392970059,
+            3.1183067483286115
+          ],
+          "separationM": 3.281606580116488
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1059.457244847018,
+          "s1": 1059.957244847018,
+          "headingRange": [
+            3.117704036876303,
+            3.118005392970059
+          ],
+          "separationM": 3.277227980239843
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1059.957244847018,
+          "s1": 1060.457244847018,
+          "headingRange": [
+            3.117402680102074,
+            3.117704036876303
+          ],
+          "separationM": 3.272547612752021
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1060.457244847018,
+          "s1": 1060.957244847018,
+          "headingRange": [
+            3.1171013227021134,
+            3.117402680102074
+          ],
+          "separationM": 3.2675654778635135
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1060.957244847018,
+          "s1": 1061.457244847018,
+          "headingRange": [
+            3.116799964731149,
+            3.1171013227021134
+          ],
+          "separationM": 3.2622815759489754
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1061.457244847018,
+          "s1": 1061.957244847018,
+          "headingRange": [
+            3.116498606243919,
+            3.116799964731149
+          ],
+          "separationM": 3.256695907548533
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1061.957244847018,
+          "s1": 1062.457244847018,
+          "headingRange": [
+            3.116197247295161,
+            3.116498606243919
+          ],
+          "separationM": 3.250808473366135
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1062.457244847018,
+          "s1": 1062.957244847018,
+          "headingRange": [
+            3.115895887939607,
+            3.116197247295161
+          ],
+          "separationM": 3.244619274270349
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1062.957244847018,
+          "s1": 1063.457244847018,
+          "headingRange": [
+            3.115594528231995,
+            3.115895887939607
+          ],
+          "separationM": 3.238128311294645
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1063.457244847018,
+          "s1": 1063.957244847018,
+          "headingRange": [
+            3.1152931682270646,
+            3.115594528231995
+          ],
+          "separationM": 3.2313355856368275
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1063.957244847018,
+          "s1": 1064.457244847018,
+          "headingRange": [
+            3.1149918079795493,
+            3.1152931682270646
+          ],
+          "separationM": 3.2242410986590357
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1064.457244847018,
+          "s1": 1064.957244847018,
+          "headingRange": [
+            3.114690447544189,
+            3.1149918079795493
+          ],
+          "separationM": 3.2168448518884247
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1064.957244847018,
+          "s1": 1065.457244847018,
+          "headingRange": [
+            3.1143890869757227,
+            3.114690447544189
+          ],
+          "separationM": 3.2091468470164273
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1065.457244847018,
+          "s1": 1065.957244847018,
+          "headingRange": [
+            3.114087726328885,
+            3.1143890869757227
+          ],
+          "separationM": 3.2011470858988673
+        },
+        {
+          "sourceSegment": 24,
+          "s0": 1065.957244847018,
+          "s1": 1066.1731045029742,
+          "headingRange": [
+            3.1139576231072863,
+            3.114087726328885
+          ],
+          "separationM": 3.197524493510741
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1066.1731045029742,
+          "s1": 1066.6731045029742,
+          "headingRange": [
+            3.1136562624435338,
+            3.1139576231072863
+          ],
+          "separationM": 3.1930739045041037
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1066.6731045029742,
+          "s1": 1067.1731045029742,
+          "headingRange": [
+            3.1133549018345175,
+            3.1136562624435338
+          ],
+          "separationM": 3.1923020712022776
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1067.1731045029742,
+          "s1": 1067.3219669659795,
+          "headingRange": [
+            3.113265179288169,
+            3.1133549018345175
+          ],
+          "separationM": 3.194313588740499
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1067.3219669659795,
+          "s1": 1067.6731045029742,
+          "headingRange": [
+            3.113265179288169,
+            3.1136101949480883
+          ],
+          "separationM": 3.195793526457294
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1067.6731045029742,
+          "s1": 1068.1731045029742,
+          "headingRange": [
+            3.1136101949480883,
+            3.114101486307653
+          ],
+          "separationM": 3.204398411751299
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1068.1731045029742,
+          "s1": 1068.6731045029742,
+          "headingRange": [
+            3.114101486307653,
+            3.1145927875185118
+          ],
+          "separationM": 3.2167368397246605
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1068.6731045029742,
+          "s1": 1069.1731045029742,
+          "headingRange": [
+            3.1145927875185118,
+            3.115084098343778
+          ],
+          "separationM": 3.229565651767018
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1069.1731045029742,
+          "s1": 1069.6731045029742,
+          "headingRange": [
+            3.115084098343778,
+            3.115575418546529
+          ],
+          "separationM": 3.2443343932924904
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1069.6731045029742,
+          "s1": 1070.1731045029742,
+          "headingRange": [
+            3.115575418546529,
+            3.116066747889831
+          ],
+          "separationM": 3.26353317420876
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1070.1731045029742,
+          "s1": 1070.6731045029742,
+          "headingRange": [
+            3.116066747889831,
+            3.1165580861367075
+          ],
+          "separationM": 3.282732460644695
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1070.6731045029742,
+          "s1": 1071.1731045029742,
+          "headingRange": [
+            3.1165580861367075,
+            3.1170494330501626
+          ],
+          "separationM": 3.301932246259355
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1071.1731045029742,
+          "s1": 1071.6731045029742,
+          "headingRange": [
+            3.1170494330501626,
+            3.1175407883931827
+          ],
+          "separationM": 3.3211325247104924
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1071.6731045029742,
+          "s1": 1072.1731045029742,
+          "headingRange": [
+            3.1175407883931827,
+            3.1180321519287166
+          ],
+          "separationM": 3.340333289654268
+        },
+        {
+          "sourceSegment": 25,
+          "s0": 1072.1731045029742,
+          "s1": 1072.6731045029742,
+          "headingRange": [
+            3.1180321519287166,
+            3.118523523419697
+          ],
+          "separationM": 3.3595345347457624
+        }
+      ]
+    }
+  ],
+  "actualTriangleProbes": [],
+  "passed": true
+}

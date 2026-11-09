@@ -1,0 +1,1344 @@
+{
+  "scope": "Read-only source continuity audit. Native data is historical exact3f, not8b. No source ground metre datum inferred from absent bridge tags; absolute descent model remains Bridge/root-owned.",
+  "nativeSourceCommit": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+  "sourceFiles": [
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4250_26.0290_44.4350_26.0450.xml",
+      "sha256": "5f6dfc4175e595a80a0207927b135fcdda0ea79cfecdea841b089c91ba0c3343"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4250_26.0450_44.4350_26.0610.xml",
+      "sha256": "57639f0f940a2ca42f873e5e171b938cf43980f28fede6a30d29ce246b957fa7"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4250_26.0610_44.4350_26.0770.xml",
+      "sha256": "1de258735272aa12e444747c50a36372a0337d0bb16821337ba865d5ad600feb"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4250_26.0770_44.4350_26.0930.xml",
+      "sha256": "1dafbd501669a59407348a2028a6190dbeb129a85c30181bb86e79b05c8a5fb1"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4350_26.0290_44.4450_26.0450.xml",
+      "sha256": "1b3433692876dc385b2960f34d06d3f55c96f0c507f9207a9bb449ec7c0b3bcf"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4350_26.0450_44.4450_26.0610.xml",
+      "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4350_26.0610_44.4450_26.0770.xml",
+      "sha256": "5c526f202084ffa605d5b78bb15b923b10dee7bca10bf65d9438152a465e0624"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4350_26.0770_44.4450_26.0930.xml",
+      "sha256": "14b1a756654b49a7d62517cddc711bc20056e4684a0a1f10c6a41ee9e6462069"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0290_44.4550_26.0450.xml",
+      "sha256": "57a0c0e0a2c75f2e0f999b8fa8c5733d669c5bd244490fcd409b1c747593c55f"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0450_44.4550_26.0610.xml",
+      "sha256": "1336a618c3f735263833078499794446ed5f9b8776aeefe914aaaa2eb5ec7732"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0610_44.4550_26.0770.xml",
+      "sha256": "1b4248039697685242b9df55183002daee53d1ca728571020f64d9fa4fdb9f2e"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4450_26.0770_44.4550_26.0930.xml",
+      "sha256": "ee2946108a6f27a83e7b71f558950182e12af5eb1de7b7815b5ec03369a3af6e"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4550_26.0290_44.4650_26.0450.xml",
+      "sha256": "2d4083c18438e61eebab62d3b67f5a07337d69c2aa84bb8b4d8bb143d2437b85"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4550_26.0450_44.4650_26.0610.xml",
+      "sha256": "5b4a8f65b7fd6866738854193f910b82c100e3c6ed1effedb800a83f6ed1fd50"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4550_26.0610_44.4650_26.0770.xml",
+      "sha256": "052b27afee4aef69c907c144db2c38791acddfd572c917584f2136a709698996"
+    },
+    {
+      "file": "/workspace/reality-pass/grozavesti/tiles/buc_44.4550_26.0770_44.4650_26.0930.xml",
+      "sha256": "990ea50aa95587d1a134729a994a2f08db3e64618164a473a852ff298ac1af96"
+    }
+  ],
+  "roads": [
+    {
+      "sourceId": "w668700433",
+      "tags": {
+        "bridge": "yes",
+        "foot": "no",
+        "highway": "primary",
+        "layer": "2",
+        "name": "Pasajul Basarab",
+        "oneway": "yes"
+      },
+      "nodeIds": [
+        6262162596,
+        1330584245,
+        3908620612,
+        3020483265,
+        1330594285,
+        2159760176,
+        2624398780,
+        1330594288,
+        3908620654,
+        2159763170,
+        3908620657,
+        2448336874,
+        2159763173,
+        2448336883,
+        2159763169,
+        255060348
+      ],
+      "nodes": [
+        {
+          "id": 6262162596,
+          "ll": [
+            44.4499036,
+            26.0689482
+          ],
+          "tags": {}
+        },
+        {
+          "id": 1330584245,
+          "ll": [
+            44.450059,
+            26.0692325
+          ],
+          "tags": {}
+        },
+        {
+          "id": 3908620612,
+          "ll": [
+            44.4501319,
+            26.0693534
+          ],
+          "tags": {}
+        },
+        {
+          "id": 3020483265,
+          "ll": [
+            44.4502159,
+            26.0694882
+          ],
+          "tags": {}
+        },
+        {
+          "id": 1330594285,
+          "ll": [
+            44.4503219,
+            26.0696187
+          ],
+          "tags": {}
+        },
+        {
+          "id": 2159760176,
+          "ll": [
+            44.4504324,
+            26.0697339
+          ],
+          "tags": {}
+        },
+        {
+          "id": 2624398780,
+          "ll": [
+            44.4506155,
+            26.0698916
+          ],
+          "tags": {}
+        },
+        {
+          "id": 1330594288,
+          "ll": [
+            44.4508509,
+            26.0701008
+          ],
+          "tags": {}
+        },
+        {
+          "id": 3908620654,
+          "ll": [
+            44.4509483,
+            26.0701935
+          ],
+          "tags": {}
+        },
+        {
+          "id": 2159763170,
+          "ll": [
+            44.4510326,
+            26.0702811
+          ],
+          "tags": {}
+        },
+        {
+          "id": 3908620657,
+          "ll": [
+            44.4511144,
+            26.070368
+          ],
+          "tags": {}
+        },
+        {
+          "id": 2448336874,
+          "ll": [
+            44.4512008,
+            26.0704705
+          ],
+          "tags": {}
+        },
+        {
+          "id": 2159763173,
+          "ll": [
+            44.4513477,
+            26.070671
+          ],
+          "tags": {}
+        },
+        {
+          "id": 2448336883,
+          "ll": [
+            44.4514844,
+            26.0708729
+          ],
+          "tags": {}
+        },
+        {
+          "id": 2159763169,
+          "ll": [
+            44.4516504,
+            26.0711596
+          ],
+          "tags": {}
+        },
+        {
+          "id": 255060348,
+          "ll": [
+            44.4519001,
+            26.0716471
+          ],
+          "tags": {}
+        }
+      ],
+      "native3fEdges": [
+        {
+          "id": 1530,
+          "drivable": false,
+          "sourceNodes": [
+            6262162596,
+            null
+          ],
+          "xy": [
+            [
+              774.777888077701,
+              -967.2484751996583
+            ],
+            [
+              782.3098547853382,
+              -973.0051127998115
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1531,
+          "drivable": false,
+          "sourceNodes": [
+            1330584245,
+            3908620612
+          ],
+          "xy": [
+            [
+              797.3737882006125,
+              -984.5183880001179
+            ],
+            [
+              806.9828079858512,
+              -992.6199108000362
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1532,
+          "drivable": false,
+          "sourceNodes": [
+            3908620612,
+            null
+          ],
+          "xy": [
+            [
+              806.9828079858512,
+              -992.6199108000362
+            ],
+            [
+              812.3396974275545,
+              -997.2874548000964
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1533,
+          "drivable": false,
+          "sourceNodes": [
+            3020483265,
+            null
+          ],
+          "xy": [
+            [
+              817.6965868692579,
+              -1001.9549988001565
+            ],
+            [
+              822.8825963066333,
+              -1007.844994799894
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1534,
+          "drivable": false,
+          "sourceNodes": [
+            1330594285,
+            null
+          ],
+          "xy": [
+            [
+              828.0686057440089,
+              -1013.7349907996316
+            ],
+            [
+              832.6466002817881,
+              -1019.8750337995275
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1535,
+          "drivable": false,
+          "sourceNodes": [
+            2159760176,
+            null
+          ],
+          "xy": [
+            [
+              837.2245948195673,
+              -1026.0150767994235
+            ],
+            [
+              841.402544695753,
+              -1032.7978331994602
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1536,
+          "drivable": false,
+          "sourceNodes": [
+            2624398780,
+            null
+          ],
+          "xy": [
+            [
+              849.7584444481245,
+              -1046.3633459995335
+            ],
+            [
+              853.9151999051885,
+              -1052.9034641995643
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1537,
+          "drivable": false,
+          "sourceNodes": [
+            1330594288,
+            3908620654
+          ],
+          "xy": [
+            [
+              866.3854662763804,
+              -1072.5238187996565
+            ],
+            [
+              873.7531762356123,
+              -1083.3480755998073
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1538,
+          "drivable": false,
+          "sourceNodes": [
+            3908620654,
+            2159763170
+          ],
+          "xy": [
+            [
+              873.7531762356123,
+              -1083.3480755998073
+            ],
+            [
+              880.7155429285407,
+              -1092.7165031995278
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1539,
+          "drivable": false,
+          "sourceNodes": [
+            2159763170,
+            3908620657
+          ],
+          "xy": [
+            [
+              880.7155429285407,
+              -1092.7165031995278
+            ],
+            [
+              887.6222742710981,
+              -1101.8071007999495
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1540,
+          "drivable": false,
+          "sourceNodes": [
+            3908620657,
+            2448336874
+          ],
+          "xy": [
+            [
+              887.6222742710981,
+              -1101.8071007999495
+            ],
+            [
+              895.7688791343953,
+              -1111.4089056000282
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1541,
+          "drivable": false,
+          "sourceNodes": [
+            2448336874,
+            null
+          ],
+          "xy": [
+            [
+              895.7688791343953,
+              -1111.4089056000282
+            ],
+            [
+              901.0807304355238,
+              -1116.8506691999235
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1542,
+          "drivable": false,
+          "sourceNodes": [
+            2159763173,
+            null
+          ],
+          "xy": [
+            [
+              911.7044330377807,
+              -1127.7341963997142
+            ],
+            [
+              917.0533745723958,
+              -1132.7981111996685
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1543,
+          "drivable": false,
+          "sourceNodes": [
+            2448336883,
+            null
+          ],
+          "xy": [
+            [
+              927.7512576416259,
+              -1142.9259407995773
+            ],
+            [
+              935.3468076068165,
+              -1149.0752447995815
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1544,
+          "drivable": false,
+          "sourceNodes": [
+            2159763169,
+            null
+          ],
+          "xy": [
+            [
+              950.5379075371977,
+              -1161.3738527995897
+            ],
+            [
+              958.2871170412421,
+              -1166.9237848796963
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1791,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            null
+          ],
+          "xy": [
+            [
+              782.3098547853382,
+              -973.0051127998115
+            ],
+            [
+              789.8418214929753,
+              -978.7617503999646
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1792,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            1330584245
+          ],
+          "xy": [
+            [
+              789.8418214929753,
+              -978.7617503999646
+            ],
+            [
+              797.3737882006125,
+              -984.5183880001179
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1793,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            3020483265
+          ],
+          "xy": [
+            [
+              812.3396974275545,
+              -997.2874548000964
+            ],
+            [
+              817.6965868692579,
+              -1001.9549988001565
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1794,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            1330594285
+          ],
+          "xy": [
+            [
+              822.8825963066333,
+              -1007.844994799894
+            ],
+            [
+              828.0686057440089,
+              -1013.7349907996316
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1795,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            2159760176
+          ],
+          "xy": [
+            [
+              832.6466002817881,
+              -1019.8750337995275
+            ],
+            [
+              837.2245948195673,
+              -1026.0150767994235
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1796,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            null
+          ],
+          "xy": [
+            [
+              841.402544695753,
+              -1032.7978331994602
+            ],
+            [
+              845.5804945719387,
+              -1039.5805895994968
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1797,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            2624398780
+          ],
+          "xy": [
+            [
+              845.5804945719387,
+              -1039.5805895994968
+            ],
+            [
+              849.7584444481245,
+              -1046.3633459995335
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1798,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            null
+          ],
+          "xy": [
+            [
+              853.9151999051885,
+              -1052.9034641995643
+            ],
+            [
+              858.0719553622524,
+              -1059.443582399595
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1799,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            null
+          ],
+          "xy": [
+            [
+              858.0719553622524,
+              -1059.443582399595
+            ],
+            [
+              862.2287108193163,
+              -1065.9837005996258
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1800,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            1330594288
+          ],
+          "xy": [
+            [
+              862.2287108193163,
+              -1065.9837005996258
+            ],
+            [
+              866.3854662763804,
+              -1072.5238187996565
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1801,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            null
+          ],
+          "xy": [
+            [
+              901.0807304355238,
+              -1116.8506691999235
+            ],
+            [
+              906.3925817366522,
+              -1122.292432799819
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1802,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            2159763173
+          ],
+          "xy": [
+            [
+              906.3925817366522,
+              -1122.292432799819
+            ],
+            [
+              911.7044330377807,
+              -1127.7341963997142
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1803,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            null
+          ],
+          "xy": [
+            [
+              917.0533745723958,
+              -1132.7981111996685
+            ],
+            [
+              922.4023161070108,
+              -1137.862025999623
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1804,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            2448336883
+          ],
+          "xy": [
+            [
+              922.4023161070108,
+              -1137.862025999623
+            ],
+            [
+              927.7512576416259,
+              -1142.9259407995773
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1805,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            null
+          ],
+          "xy": [
+            [
+              935.3468076068165,
+              -1149.0752447995815
+            ],
+            [
+              942.9423575720072,
+              -1155.2245487995856
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1806,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            2159763169
+          ],
+          "xy": [
+            [
+              942.9423575720072,
+              -1155.2245487995856
+            ],
+            [
+              950.5379075371977,
+              -1161.3738527995897
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1807,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            null
+          ],
+          "xy": [
+            [
+              958.2871170412421,
+              -1166.9237848796963
+            ],
+            [
+              966.0363265452866,
+              -1172.4737169598027
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1808,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            null
+          ],
+          "xy": [
+            [
+              966.0363265452866,
+              -1172.4737169598027
+            ],
+            [
+              973.7855360493311,
+              -1178.0236490399093
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1809,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            null
+          ],
+          "xy": [
+            [
+              973.7855360493311,
+              -1178.0236490399093
+            ],
+            [
+              981.5347455533755,
+              -1183.5735811200157
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        },
+        {
+          "id": 1810,
+          "drivable": false,
+          "sourceNodes": [
+            null,
+            255060348
+          ],
+          "xy": [
+            [
+              981.5347455533755,
+              -1183.5735811200157
+            ],
+            [
+              989.2839550574199,
+              -1189.1235132001223
+            ]
+          ],
+          "height": [
+            11,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "sourceId": "w668700424",
+      "tags": {
+        "foot": "no",
+        "highway": "primary",
+        "name": "Pasajul Basarab",
+        "oneway": "yes",
+        "turn:lanes": "through|through;right"
+      },
+      "nodeIds": [
+        255060348,
+        14161960361,
+        1397135743
+      ],
+      "nodes": [
+        {
+          "id": 255060348,
+          "ll": [
+            44.4519001,
+            26.0716471
+          ],
+          "tags": {}
+        },
+        {
+          "id": 14161960361,
+          "ll": [
+            44.4519511,
+            26.0717403
+          ],
+          "tags": {}
+        },
+        {
+          "id": 1397135743,
+          "ll": [
+            44.4520388,
+            26.0719005
+          ],
+          "tags": {}
+        }
+      ],
+      "native3fEdges": [
+        {
+          "id": 1516,
+          "drivable": false,
+          "sourceNodes": [
+            255060348,
+            14161960361
+          ],
+          "xy": [
+            [
+              989.2839550574199,
+              -1189.1235132001223
+            ],
+            [
+              996.6914045524697,
+              -1194.7912452000262
+            ]
+          ],
+          "height": [
+            11,
+            10.276222449438295
+          ]
+        },
+        {
+          "id": 1517,
+          "drivable": false,
+          "sourceNodes": [
+            14161960361,
+            1397135743
+          ],
+          "xy": [
+            [
+              996.6914045524697,
+              -1194.7912452000262
+            ],
+            [
+              1009.4239518609638,
+              -1204.5375215994243
+            ]
+          ],
+          "height": [
+            10.276222449438295,
+            9.031939262024322
+          ]
+        }
+      ]
+    },
+    {
+      "sourceId": "w23554631",
+      "tags": {
+        "highway": "primary",
+        "lanes": "2",
+        "maxspeed": "50",
+        "name": "Șoseaua Nicolae Titulescu",
+        "oneway": "yes",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      },
+      "nodeIds": [
+        1344579108,
+        12007812262,
+        1344579144,
+        647897898,
+        1344579074,
+        1344579061,
+        1344579132,
+        1397135740,
+        1397135743
+      ],
+      "nodes": [
+        {
+          "id": 1344579108,
+          "ll": [
+            44.4506913,
+            26.0700759
+          ],
+          "tags": {
+            "bus": "yes",
+            "name": "Șoseaua Nicolae Titulescu",
+            "network": "Societatea de Transport București",
+            "network:short": "STB",
+            "network:wikidata": "Q2280353",
+            "operator": "Societatea de Transport București",
+            "public_transport": "stop_position",
+            "trolleybus": "yes"
+          }
+        },
+        {
+          "id": 12007812262,
+          "ll": [
+            44.4508192,
+            26.0702008
+          ],
+          "tags": {}
+        },
+        {
+          "id": 1344579144,
+          "ll": [
+            44.4509187,
+            26.0702957
+          ],
+          "tags": {}
+        },
+        {
+          "id": 647897898,
+          "ll": [
+            44.4511557,
+            26.0705537
+          ],
+          "tags": {}
+        },
+        {
+          "id": 1344579074,
+          "ll": [
+            44.4514469,
+            26.0709792
+          ],
+          "tags": {}
+        },
+        {
+          "id": 1344579061,
+          "ll": [
+            44.4516148,
+            26.0712567
+          ],
+          "tags": {}
+        },
+        {
+          "id": 1344579132,
+          "ll": [
+            44.4519043,
+            26.0717751
+          ],
+          "tags": {}
+        },
+        {
+          "id": 1397135740,
+          "ll": [
+            44.4519677,
+            26.0718473
+          ],
+          "tags": {}
+        },
+        {
+          "id": 1397135743,
+          "ll": [
+            44.4520388,
+            26.0719005
+          ],
+          "tags": {}
+        }
+      ],
+      "native3fEdges": []
+    },
+    {
+      "sourceId": "w125909047",
+      "tags": {
+        "highway": "primary",
+        "lanes": "3",
+        "maxspeed": "50",
+        "name": "Șoseaua Nicolae Titulescu",
+        "oneway": "yes",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      },
+      "nodeIds": [
+        1397135743,
+        358518389
+      ],
+      "nodes": [
+        {
+          "id": 1397135743,
+          "ll": [
+            44.4520388,
+            26.0719005
+          ],
+          "tags": {}
+        },
+        {
+          "id": 358518389,
+          "ll": [
+            44.452086,
+            26.072003
+          ],
+          "tags": {}
+        }
+      ],
+      "native3fEdges": []
+    }
+  ],
+  "atGroundJoin": [
+    {
+      "sourceId": "w23554631",
+      "nodeIds": [
+        1344579108,
+        12007812262,
+        1344579144,
+        647897898,
+        1344579074,
+        1344579061,
+        1344579132,
+        1397135740,
+        1397135743
+      ],
+      "tags": {
+        "highway": "primary",
+        "lanes": "2",
+        "maxspeed": "50",
+        "name": "Șoseaua Nicolae Titulescu",
+        "oneway": "yes",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "sourceId": "w125909047",
+      "nodeIds": [
+        1397135743,
+        358518389
+      ],
+      "tags": {
+        "highway": "primary",
+        "lanes": "3",
+        "maxspeed": "50",
+        "name": "Șoseaua Nicolae Titulescu",
+        "oneway": "yes",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "sourceId": "w668700424",
+      "nodeIds": [
+        255060348,
+        14161960361,
+        1397135743
+      ],
+      "tags": {
+        "foot": "no",
+        "highway": "primary",
+        "name": "Pasajul Basarab",
+        "oneway": "yes",
+        "turn:lanes": "through|through;right"
+      }
+    }
+  ],
+  "atNextNode": [
+    {
+      "sourceId": "w125909047",
+      "nodeIds": [
+        1397135743,
+        358518389
+      ],
+      "tags": {
+        "highway": "primary",
+        "lanes": "3",
+        "maxspeed": "50",
+        "name": "Șoseaua Nicolae Titulescu",
+        "oneway": "yes",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "sourceId": "w131484722",
+      "nodeIds": [
+        358518389,
+        7512641468,
+        1344626148,
+        356664294
+      ],
+      "tags": {
+        "highway": "tertiary",
+        "lanes": "1",
+        "maxspeed": "RO:urban",
+        "name": "Bulevardul Alexandru Ioan Cuza",
+        "oneway": "yes",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "sourceId": "w668700423",
+      "nodeIds": [
+        358518389,
+        358518409
+      ],
+      "tags": {
+        "highway": "primary",
+        "lanes": "3",
+        "maxspeed": "50",
+        "name": "Șoseaua Nicolae Titulescu",
+        "oneway": "yes",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      }
+    }
+  ],
+  "findings": [
+    "w668700424 complete raw chain has3nodes and2legs; source truncation is not missing additional424nodes.",
+    "Native3f retains433/424 but has no edge from raw23554631/125909047, so1397135743 has only incoming424 in native graph.",
+    "A11m→0m descent over25.3616m would exceed8%; supported earlier bridge/source-chain modelling and finite actual Titulescu domain are separate reviewed requirements."
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "nativeSourceCommit": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+  "scope": "CPU proof fixtures only. Runtime shelter candidate HELD on genuine motor model intersections; original rail binding/admission native failures preserved. All provider reference pixels remain private.",
+  "files": [
+    {
+      "file": "native-fixture/native-blocker-fixture.json.gz",
+      "producer": "/workspace/integration-qa-evidence/basarab-shared-3f8f86be-native/native-blocker-fixture.json",
+      "rawSha256": "ef1b5c1994043588ac1fb42833e6bb5e8e8c07fde45eb882689e1f0729b29e4b",
+      "rawBytes": 16181292,
+      "storedSha256": "7edc463270c0c3a5d75d2140f2b85d3d5596449835e7fc1169fdbe9f1df2fc61",
+      "storedBytes": 2682477
+    },
+    {
+      "file": "native-fixture/constructor-facts.json.gz",
+      "producer": "/workspace/integration-qa-evidence/basarab-shared-3f8f86be-native/constructor-facts.json.gz",
+      "rawSha256": "5b501b52003204a21278fc78324e89629edb4ce64562c607eed69b82ecc35257",
+      "rawBytes": 12798365,
+      "storedSha256": "06d8b676ababebafa72eaa1e77d426117c52b589ec015b985ecf854aab3fdbbd",
+      "storedBytes": 1326261
+    },
+    {
+      "file": "native-fixture/decode-geometry.cjs",
+      "producer": "/workspace/integration-qa-evidence/basarab-shared-3f8f86be-native/decode-geometry.cjs",
+      "rawSha256": "01084af43c317f1fecb002c50e4c808a320ab7ede83dbcd03f1200777ae77411",
+      "rawBytes": 5819,
+      "storedSha256": "01084af43c317f1fecb002c50e4c808a320ab7ede83dbcd03f1200777ae77411",
+      "storedBytes": 5819
+    },
+    {
+      "file": "native-fixture/native-canonical-scene.json.gz",
+      "producer": "/workspace/integration-qa-evidence/basarab-shared-3f8f86be-native/native-canonical-scene.json.gz",
+      "rawSha256": "a6558e9167a25b8d1a10271ebcc0d17df7b8aa906c7f1d00454766eabf66d746",
+      "rawBytes": 1291525,
+      "storedSha256": "682aca2eccf37c2a88fdb97599416a95c07988736edc3f8a47b39c851411e216",
+      "storedBytes": 193862,
+      "selection": {
+        "objects": 1,
+        "geometryIds": [
+          "552dbcc6-65b2-4df9-9518-b2636dfdae2e@capture-123"
+        ],
+        "wholeSceneRawSha256": "ea084c1ca9c7b2c8086bd12bd6496fdbb1ea7a16d2c9ef6c8f518bf181414ec3"
+      }
+    }
+  ]
+}

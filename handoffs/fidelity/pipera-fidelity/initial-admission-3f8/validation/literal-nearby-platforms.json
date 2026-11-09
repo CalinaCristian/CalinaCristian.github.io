@@ -1,0 +1,56 @@
+{
+  "literalPlatformShelterWaysWithin160m": [
+    {
+      "sourceId": "w909062874",
+      "nodeIds": [
+        8440709464,
+        8440709465
+      ],
+      "tags": {
+        "bench": "yes",
+        "bin": "yes",
+        "lit": "no",
+        "name": "Bd. Iuliu Maniu",
+        "public_transport": "platform",
+        "railway": "platform",
+        "shelter": "yes"
+      },
+      "points": [
+        [
+          -378.79725637329085,
+          719.646379200188
+        ],
+        [
+          -378.00246565495485,
+          665.2917179998649
+        ]
+      ]
+    },
+    {
+      "sourceId": "w909062875",
+      "nodeIds": [
+        8440709466,
+        8440709467
+      ],
+      "tags": {
+        "bench": "yes",
+        "bin": "yes",
+        "lit": "no",
+        "name": "Bd. Iuliu Maniu",
+        "public_transport": "platform",
+        "railway": "platform",
+        "shelter": "yes"
+      },
+      "points": [
+        [
+          -386.47493471263704,
+          719.6797188005776
+        ],
+        [
+          -385.68014399430103,
+          665.0472276001664
+        ]
+      ]
+    }
+  ]
+}

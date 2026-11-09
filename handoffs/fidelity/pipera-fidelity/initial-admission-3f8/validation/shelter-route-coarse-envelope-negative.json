@@ -1,0 +1,1155 @@
+{
+  "nativeSourceCommit": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+  "nativeFixtureSha256": "ef1b5c1994043588ac1fb42833e6bb5e8e8c07fde45eb882689e1f0729b29e4b",
+  "sourceFiles": [
+    {
+      "file": "game/src/world.js",
+      "sha256": "a429dd6d8e3e4c9063a43970dfb5b1513a507f12a3d62780b30dfcd056ca256b"
+    },
+    {
+      "file": "game/src/source-transit-stop.js",
+      "sha256": "7f99daf0f8b3338bc6960e0545d53d9d9a0a85ff066f982db239eaa3d31d8f4d"
+    },
+    {
+      "file": "tools/osm/public-transport-sources.mjs",
+      "sha256": "6d8053a7729eaedb4dd89aa733670a79aac68c8e83fda685990c396800da27f1"
+    },
+    {
+      "file": "game/data/bucharest-grozavesti.json",
+      "sha256": "d223a9189e458e149b5baa694dc6e87a7ab9a44011066ef68a2b3af7a2f7f842"
+    }
+  ],
+  "scope": "Actual captured native primary geometry, immutable original native rail source XY, and unchanged generic shelter boxes. Continuous perpendicular-separation certificate bounds every local actual primary vertex for every heading of the connected axle chord near the two shelters. Flat local source/support only. Native first-publication/static/admission/body and global drive gates remain required.",
+  "sourceFieldsPreserved": true,
+  "actorsMoved": 0,
+  "rngDraws": 0,
+  "placements": [
+    {
+      "poiIndex": 2,
+      "resolved": true,
+      "sourceId": "n933659725",
+      "platformSourceId": "w909062875",
+      "association": "estimated-unique-nearest-same-name-parallel-platform",
+      "x": -386.02029178356406,
+      "z": 705.6147485908343,
+      "angle": 3.12704573036871,
+      "side": -1,
+      "platformPoint": [
+        -386.2702653324086,
+        705.611111988291
+      ],
+      "platformSegment": 0,
+      "platformT": 0.25751355106026563,
+      "stopDistanceM": 2.243523407290404,
+      "model": {
+        "estimated": true,
+        "roofWidthM": 1.6,
+        "roofLengthM": 3.5,
+        "roofTopM": 2.45,
+        "station": "projection-of-literal-stop-on-platform-line",
+        "widthAndRoofFootprint": "unmapped-existing-generic-shelter-estimate"
+      }
+    },
+    {
+      "poiIndex": 17,
+      "resolved": true,
+      "sourceId": "n8440717929",
+      "platformSourceId": "w909062874",
+      "association": "estimated-unique-nearest-same-name-parallel-platform",
+      "x": -378.53780066113774,
+      "z": 684.8035650810938,
+      "angle": 3.1269713853710477,
+      "side": 1,
+      "platformPoint": [
+        -378.28782738334723,
+        684.80722026791
+      ],
+      "platformSegment": 0,
+      "platformT": 0.6409599133343681,
+      "stopDistanceM": 2.3297487592315043,
+      "model": {
+        "estimated": true,
+        "roofWidthM": 1.6,
+        "roofLengthM": 3.5,
+        "roofTopM": 2.45,
+        "station": "projection-of-literal-stop-on-platform-line",
+        "widthAndRoofFootprint": "unmapped-existing-generic-shelter-estimate"
+      }
+    }
+  ],
+  "nativeLegacyMeshParity": [
+    {
+      "frame": {
+        "x": -385.5511914350732,
+        "z": 705.5736415474383,
+        "angle": -0.016990756575799664,
+        "side": -1
+      },
+      "matchedTriangles": 96,
+      "nativeTriangles": [
+        {
+          "mesh": "solid -1,1",
+          "triangle": 552
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 553
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 554
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 555
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 556
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 557
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 558
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 559
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 560
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 561
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 562
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 563
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 564
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 565
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 566
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 567
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 568
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 569
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 570
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 571
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 572
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 573
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 574
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 575
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 576
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 577
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 578
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 579
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 580
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 581
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 582
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 583
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 584
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 585
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 586
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 587
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 588
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 589
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 590
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 591
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 592
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 593
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 594
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 595
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 596
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 597
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 598
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 599
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 600
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 601
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 602
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 603
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 604
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 605
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 606
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 607
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 608
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 609
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 610
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 611
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 612
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 613
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 614
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 615
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 616
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 617
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 618
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 619
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 620
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 621
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 622
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 623
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 624
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 625
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 626
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 627
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 628
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 629
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 630
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 631
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 632
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 633
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 634
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 635
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 636
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 637
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 638
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 639
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 640
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 641
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 642
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 643
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 644
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 645
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 646
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 647
+        }
+      ]
+    },
+    {
+      "frame": {
+        "x": -379.7287643798825,
+        "z": 684.8198213511913,
+        "angle": 3.1188457273348598,
+        "side": -1
+      },
+      "matchedTriangles": 96,
+      "nativeTriangles": [
+        {
+          "mesh": "solid -1,1",
+          "triangle": 672
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 673
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 674
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 675
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 676
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 677
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 678
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 679
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 680
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 681
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 682
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 683
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 684
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 685
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 686
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 687
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 688
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 689
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 690
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 691
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 692
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 693
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 694
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 695
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 696
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 697
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 698
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 699
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 700
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 701
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 702
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 703
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 704
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 705
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 706
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 707
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 708
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 709
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 710
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 711
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 712
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 713
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 714
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 715
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 716
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 717
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 718
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 719
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 720
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 721
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 722
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 723
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 724
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 725
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 726
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 727
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 728
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 729
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 730
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 731
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 732
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 733
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 734
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 735
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 736
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 737
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 738
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 739
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 740
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 741
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 742
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 743
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 744
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 745
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 746
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 747
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 748
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 749
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 750
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 751
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 752
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 753
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 754
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 755
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 756
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 757
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 758
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 759
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 760
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 761
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 762
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 763
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 764
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 765
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 766
+        },
+        {
+          "mesh": "solid -1,1",
+          "triangle": 767
+        }
+      ]
+    }
+  ],
+  "continuousRailBody": [
+    {
+      "actorId": 483,
+      "kind": "tram-v3a",
+      "sourceId": "w660918285",
+      "platformSourceId": "w909062875",
+      "bodyRadiusM": 13.553228401913726,
+      "sourceHeadingRange": [
+        -0.026839191259215814,
+        -0.005681757040848767
+      ],
+      "minimumSeparationM": 3.038530034196042,
+      "clear": true,
+      "edges": [
+        {
+          "sourceSegment": 8,
+          "sourceNodeIds": [
+            8828056677,
+            8828056678
+          ],
+          "obstacleDistanceM": 4.5347470709459605,
+          "actualBodyReachM": 1.4962170367499183,
+          "separationM": 3.038530034196042
+        },
+        {
+          "sourceSegment": 9,
+          "sourceNodeIds": [
+            8828056678,
+            8440717929
+          ],
+          "obstacleDistanceM": 4.625988963237776,
+          "actualBodyReachM": 1.4189187252771212,
+          "separationM": 3.207070237960655
+        }
+      ]
+    },
+    {
+      "actorId": 483,
+      "kind": "tram-v3a",
+      "sourceId": "w660918285",
+      "platformSourceId": "w909062874",
+      "bodyRadiusM": 13.553228401913726,
+      "sourceHeadingRange": [
+        -0.026839191259215814,
+        -0.011460816231292937
+      ],
+      "minimumSeparationM": 0.07129380346122138,
+      "clear": true,
+      "edges": [
+        {
+          "sourceSegment": 9,
+          "sourceNodeIds": [
+            8828056678,
+            8440717929
+          ],
+          "obstacleDistanceM": 1.5065767279822726,
+          "actualBodyReachM": 1.4189187252771212,
+          "separationM": 0.08765800270515145
+        },
+        {
+          "sourceSegment": 10,
+          "sourceNodeIds": [
+            8440717929,
+            8440717930
+          ],
+          "obstacleDistanceM": 1.4902125287383425,
+          "actualBodyReachM": 1.4189187252771212,
+          "separationM": 0.07129380346122138
+        }
+      ]
+    },
+    {
+      "actorId": 483,
+      "kind": "tram-v3a",
+      "sourceId": "w128304860",
+      "platformSourceId": "w909062875",
+      "bodyRadiusM": 13.553228401913726,
+      "sourceHeadingRange": [
+        3.1061465133310784,
+        3.1472423109933785
+      ],
+      "minimumSeparationM": -0.9070987474420472,
+      "clear": false,
+      "edges": [
+        {
+          "sourceSegment": 24,
+          "sourceNodeIds": [
+            933659666,
+            933659725
+          ],
+          "obstacleDistanceM": 1.4603754208603215,
+          "actualBodyReachM": 1.5539155420189783,
+          "separationM": -0.09354012115865684
+        },
+        {
+          "sourceSegment": 25,
+          "sourceNodeIds": [
+            933659725,
+            7070697815
+          ],
+          "obstacleDistanceM": 1.4320492107662648,
+          "actualBodyReachM": 1.7625604025548185,
+          "separationM": -0.3305111917885537
+        },
+        {
+          "sourceSegment": 26,
+          "sourceNodeIds": [
+            7070697815,
+            6937009013
+          ],
+          "obstacleDistanceM": 0.8554616551127797,
+          "actualBodyReachM": 1.762560402554827,
+          "separationM": -0.9070987474420472
+        }
+      ]
+    },
+    {
+      "actorId": 483,
+      "kind": "tram-v3a",
+      "sourceId": "w128304860",
+      "platformSourceId": "w909062874",
+      "bodyRadiusM": 13.553228401913726,
+      "sourceHeadingRange": [
+        3.1061465133310784,
+        3.1217687328834964
+      ],
+      "minimumSeparationM": 3.0676077884322934,
+      "clear": true,
+      "edges": [
+        {
+          "sourceSegment": 24,
+          "sourceNodeIds": [
+            933659666,
+            933659725
+          ],
+          "obstacleDistanceM": 4.489789053171528,
+          "actualBodyReachM": 1.4221812647392342,
+          "separationM": 3.0676077884322934
+        }
+      ]
+    },
+    {
+      "actorId": 484,
+      "kind": "tram-imperio",
+      "sourceId": "w660918285",
+      "platformSourceId": "w909062875",
+      "bodyRadiusM": 18.039955657219362,
+      "sourceHeadingRange": [
+        -0.026839191259215814,
+        -0.005681757040848767
+      ],
+      "minimumSeparationM": 2.9433286831925565,
+      "clear": true,
+      "edges": [
+        {
+          "sourceSegment": 8,
+          "sourceNodeIds": [
+            8828056677,
+            8828056678
+          ],
+          "obstacleDistanceM": 4.5347470709459605,
+          "actualBodyReachM": 1.591418387753404,
+          "separationM": 2.9433286831925565
+        },
+        {
+          "sourceSegment": 9,
+          "sourceNodeIds": [
+            8828056678,
+            8440717929
+          ],
+          "obstacleDistanceM": 4.625988963237776,
+          "actualBodyReachM": 1.4881186852601331,
+          "separationM": 3.137870277977643
+        }
+      ]
+    },
+    {
+      "actorId": 484,
+      "kind": "tram-imperio",
+      "sourceId": "w660918285",
+      "platformSourceId": "w909062874",
+      "bodyRadiusM": 18.039955657219362,
+      "sourceHeadingRange": [
+        -0.026839191259215814,
+        -0.011460816231292937
+      ],
+      "minimumSeparationM": 0.0020938434782096227,
+      "clear": true,
+      "edges": [
+        {
+          "sourceSegment": 9,
+          "sourceNodeIds": [
+            8828056678,
+            8440717929
+          ],
+          "obstacleDistanceM": 1.5065767279822726,
+          "actualBodyReachM": 1.4881186852601331,
+          "separationM": 0.018458042722139467
+        },
+        {
+          "sourceSegment": 10,
+          "sourceNodeIds": [
+            8440717929,
+            8440717930
+          ],
+          "obstacleDistanceM": 1.4902125287383425,
+          "actualBodyReachM": 1.488118685260133,
+          "separationM": 0.0020938434782096227
+        }
+      ]
+    },
+    {
+      "actorId": 484,
+      "kind": "tram-imperio",
+      "sourceId": "w128304860",
+      "platformSourceId": "w909062875",
+      "bodyRadiusM": 18.039955657219362,
+      "sourceHeadingRange": [
+        3.1061465133310784,
+        3.1472423109933785
+      ],
+      "minimumSeparationM": -1.091977826570837,
+      "clear": false,
+      "edges": [
+        {
+          "sourceSegment": 24,
+          "sourceNodeIds": [
+            933659666,
+            933659725
+          ],
+          "obstacleDistanceM": 1.4603754208603215,
+          "actualBodyReachM": 1.6685342465012631,
+          "separationM": -0.20815882564094168
+        },
+        {
+          "sourceSegment": 25,
+          "sourceNodeIds": [
+            933659725,
+            7070697815
+          ],
+          "obstacleDistanceM": 1.4320492107662648,
+          "actualBodyReachM": 1.9474394816836056,
+          "separationM": -0.5153902709173408
+        },
+        {
+          "sourceSegment": 26,
+          "sourceNodeIds": [
+            7070697815,
+            6937009013
+          ],
+          "obstacleDistanceM": 0.8554616551127797,
+          "actualBodyReachM": 1.9474394816836167,
+          "separationM": -1.091977826570837
+        }
+      ]
+    },
+    {
+      "actorId": 484,
+      "kind": "tram-imperio",
+      "sourceId": "w128304860",
+      "platformSourceId": "w909062874",
+      "bodyRadiusM": 18.039955657219362,
+      "sourceHeadingRange": [
+        3.1061465133310784,
+        3.1217687328834964
+      ],
+      "minimumSeparationM": 2.997310659907394,
+      "clear": true,
+      "edges": [
+        {
+          "sourceSegment": 24,
+          "sourceNodeIds": [
+            933659666,
+            933659725
+          ],
+          "obstacleDistanceM": 4.489789053171528,
+          "actualBodyReachM": 1.4924783932641335,
+          "separationM": 2.997310659907394
+        }
+      ]
+    }
+  ],
+  "passed": false
+}

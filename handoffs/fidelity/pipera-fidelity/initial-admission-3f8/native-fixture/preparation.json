@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+  "sourceGitTree": "40b15e39f56600a290efa5e59b71f403db036e4c",
+  "districts": [
+    "grozavesti"
+  ],
+  "copiedFiles": 257,
+  "copiedBytes": 83164414,
+  "missingInterfaces": [],
+  "policy": "Exact Git runtime blobs only. Other district datasets, overview/research/dev and handoffs excluded; no production patch. Archive/served responses checked with Gitblob SHA1 and SHA256.",
+  "archive": "/workspace/reality-pass/basarab-shared-native/source-3f8f86be",
+  "out": "/workspace/integration-qa-evidence/basarab-shared-3f8f86be-native",
+  "preparedUtc": "2026-11-09T15:10:18.897Z",
+  "reusedVerifiedArchive": false,
+  "toolHashes": {
+    "runner.cjs": "92ebbd8497602b2176fd4ea64125130b6485da5315ce5dcc55d94eda7099550e",
+    "geometry-kernel.cjs": "0845d75ccc331332f64d30416caea381bb552ff876c68e4e43d8ed9d8183a19b",
+    "decode-geometry.cjs": "01084af43c317f1fecb002c50e4c808a320ab7ede83dbcd03f1200777ae77411",
+    "install-observer.cjs": "f7c341800069001a30deda2752df9d9719f1cf095f87e4c31a0c4ede1005d51d",
+    "integration-browser-bounds.cjs": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29"
+  },
+  "preparationToolSha256": "77861ecbe30558b1e134c20d9a25da40e481437dd5a3ba459d01bc7aeff6858d",
+  "browserLaunched": false,
+  "networkUsed": false
+}

@@ -1,0 +1,814 @@
+{
+  "source": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+  "passed": true,
+  "dataset": {
+    "path": "/workspace/reality-pass/basarab-shared-native/north-domain-4eeb5aea.json",
+    "sha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093"
+  },
+  "scope": "Actual indexed hatch/truck/STB-bus/trolleybus on the complete literal north433+424 source chain, every legal forward lane, <=2m centers. Literal Traffic placement/recorded native source geometry matches actual720a prefix for all37 legs. Compared with independent source rail slab model on final4eeb data; <=.1m clipped-edge samples. This is finite CPU geometry replay, not new native meshes/guards/body/drive acceptance.",
+  "model": {
+    "known": true,
+    "models": [
+      {
+        "modelId": "basarab-north-titulescu-descent",
+        "estimated": true,
+        "basis": "MODEL finite northern Basarab descent: retained11m crown, literal433+424 chain and at-grade Titulescu source joins. Heights are estimates, not surveyed elevations or layer-to-metres conversion.",
+        "active": true,
+        "known": true,
+        "unresolved": [],
+        "oldProfiles": [
+          {
+            "edgeId": 1516,
+            "sourceId": "w668700424",
+            "ya": 11,
+            "yb": 10.276222449438295,
+            "newYa": 0,
+            "newYb": 0
+          },
+          {
+            "edgeId": 1517,
+            "sourceId": "w668700424",
+            "ya": 10.276222449438295,
+            "yb": 9.031939262024322,
+            "newYa": 0,
+            "newYb": 0
+          },
+          {
+            "edgeId": 1530,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 11,
+            "newYb": 10.898767376932895
+          },
+          {
+            "edgeId": 1531,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 10.169143865871899,
+            "newYb": 9.602835324466355
+          },
+          {
+            "edgeId": 1532,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 9.602835324466355,
+            "newYb": 9.282696816665574
+          },
+          {
+            "edgeId": 1533,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 8.962558308864786,
+            "newYb": 8.608958292707161
+          },
+          {
+            "edgeId": 1534,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 8.255358276549526,
+            "newYb": 7.91026788301086
+          },
+          {
+            "edgeId": 1535,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 7.5651774894721875,
+            "newYb": 7.206237149720222
+          },
+          {
+            "edgeId": 1536,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 6.488356470216298,
+            "newYb": 6.139190812716939
+          },
+          {
+            "edgeId": 1537,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 5.09169384021887,
+            "newYb": 4.501717687566158
+          },
+          {
+            "edgeId": 1538,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 4.501717687566158,
+            "newYb": 3.975792310894475
+          },
+          {
+            "edgeId": 1539,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 3.975792310894475,
+            "newYb": 3.46138080686901
+          },
+          {
+            "edgeId": 1540,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 3.46138080686901,
+            "newYb": 2.8940087226072624
+          },
+          {
+            "edgeId": 1541,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 2.8940087226072624,
+            "newYb": 2.551367338460569
+          },
+          {
+            "edgeId": 1542,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 1.8660845701671693,
+            "newYb": 1.5342006880915857
+          },
+          {
+            "edgeId": 1543,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 0.8704329239404025,
+            "newYb": 0.43032913544222495
+          },
+          {
+            "edgeId": 1544,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 0,
+            "newYb": 0
+          },
+          {
+            "edgeId": 1791,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 10.898767376932895,
+            "newYb": 10.595069507731582
+          },
+          {
+            "edgeId": 1792,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 10.59506950773158,
+            "newYb": 10.169143865871899
+          },
+          {
+            "edgeId": 1793,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 9.282696816665572,
+            "newYb": 8.962558308864786
+          },
+          {
+            "edgeId": 1794,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 8.608958292707158,
+            "newYb": 8.255358276549526
+          },
+          {
+            "edgeId": 1795,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 7.910267883010858,
+            "newYb": 7.5651774894721875
+          },
+          {
+            "edgeId": 1796,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 7.206237149720222,
+            "newYb": 6.84729680996827
+          },
+          {
+            "edgeId": 1797,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 6.847296809968264,
+            "newYb": 6.488356470216298
+          },
+          {
+            "edgeId": 1798,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 6.139190812716939,
+            "newYb": 5.7900251552175845
+          },
+          {
+            "edgeId": 1799,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 5.790025155217584,
+            "newYb": 5.440859497718229
+          },
+          {
+            "edgeId": 1800,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 5.440859497718227,
+            "newYb": 5.09169384021887
+          },
+          {
+            "edgeId": 1801,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 2.551367338460567,
+            "newYb": 2.2087259543138664
+          },
+          {
+            "edgeId": 1802,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 2.2087259543138664,
+            "newYb": 1.866084570167171
+          },
+          {
+            "edgeId": 1803,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 1.534200688091584,
+            "newYb": 1.2023168060159897
+          },
+          {
+            "edgeId": 1804,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 1.2023168060159897,
+            "newYb": 0.8704329239404061
+          },
+          {
+            "edgeId": 1805,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 0.4303291354422232,
+            "newYb": 0.10758228386055535
+          },
+          {
+            "edgeId": 1806,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 0.10758228386055535,
+            "newYb": 0
+          },
+          {
+            "edgeId": 1807,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 0,
+            "newYb": 0
+          },
+          {
+            "edgeId": 1808,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 0,
+            "newYb": 0
+          },
+          {
+            "edgeId": 1809,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 0,
+            "newYb": 0
+          },
+          {
+            "edgeId": 1810,
+            "sourceId": "w668700433",
+            "ya": 11,
+            "yb": 11,
+            "newYa": 0,
+            "newYb": 0
+          }
+        ],
+        "crown": {
+          "sourceNodeId": 6262162596,
+          "heightM": 11
+        },
+        "ground": {
+          "sourceNodeId": 1397135743,
+          "heightM": 0,
+          "oldHeightM": 9.031939262024322,
+          "sourceJoins": [
+            "w23554631",
+            "w125909047"
+          ]
+        },
+        "groundJoinProfiles": [
+          {
+            "edgeId": 900015,
+            "sourceId": "w23554631",
+            "oldYa": 0,
+            "oldYb": 9.031939262024322,
+            "newYa": 0,
+            "newYb": 0
+          },
+          {
+            "edgeId": 900017,
+            "sourceId": "w125909047",
+            "oldYa": 9.031939262024322,
+            "oldYb": 0,
+            "newYa": 0,
+            "newYb": 0
+          }
+        ],
+        "pathLengthM": 337.1513880123831,
+        "incidentGroundReserveM": 9.606994884479548,
+        "flatGroundReserveM": 73.01976363136026,
+        "rampLengthM": 264.13162438102285,
+        "modelRampFinishSourceNode": 2159763169,
+        "rampFinishBasis": "MODEL ramp timing constrained by actual primary vehicle corridor; existing source vertex is a parameter boundary, not a surveyed ground anchor",
+        "peakGrade": 0.04505766111985558,
+        "easeM": 20,
+        "groundLaneOverlaps": [
+          {
+            "descentEdgeId": 1517,
+            "groundEdgeId": 900015,
+            "poly": [
+              [
+                1005.6272837652546,
+                -1196.4050662979091
+              ],
+              [
+                1011.4106686294087,
+                -1200.8320254950322
+              ],
+              [
+                1011.7602763188291,
+                -1201.4853444941662
+              ],
+              [
+                1009.4239518609638,
+                -1204.5375215994243
+              ],
+              [
+                1006.3380160401551,
+                -1206.1888847060275
+              ],
+              [
+                1002.1097294184494,
+                -1198.287399506078
+              ]
+            ]
+          },
+          {
+            "descentEdgeId": 1517,
+            "groundEdgeId": 900017,
+            "poly": [
+              [
+                1011.6780575542081,
+                -1201.0367014568874
+              ],
+              [
+                1011.9464410205139,
+                -1201.2421387021038
+              ],
+              [
+                1009.4239518609638,
+                -1204.5375215994243
+              ]
+            ]
+          }
+        ],
+        "earlierGradeSeparatedFootprints": [
+          {
+            "descentEdgeId": 1516,
+            "groundEdgeId": 900012,
+            "poly": [
+              [
+                991.8057746576998,
+                -1185.827617888732
+              ],
+              [
+                998.4347774398084,
+                -1190.8997295812542
+              ],
+              [
+                997.3032002946774,
+                -1192.3488826090459
+              ],
+              [
+                990.7383489619727,
+                -1187.2226912498136
+              ]
+            ]
+          },
+          {
+            "descentEdgeId": 1516,
+            "groundEdgeId": 900014,
+            "poly": [
+              [
+                998.1329934236421,
+                -1190.6688227182876
+              ],
+              [
+                999.2132241527496,
+                -1191.495349888636
+              ],
+              [
+                997.8964959711137,
+                -1193.2162494485203
+              ],
+              [
+                996.7434619964486,
+                -1191.800519210967
+              ]
+            ]
+          },
+          {
+            "descentEdgeId": 1517,
+            "groundEdgeId": 900014,
+            "poly": [
+              [
+                999.2138937120199,
+                -1191.4958623027057
+              ],
+              [
+                1005.5509758768243,
+                -1196.3466555373539
+              ],
+              [
+                1002.4818509831904,
+                -1198.8462880103923
+              ],
+              [
+                997.8967575338811,
+                -1193.2165706032538
+              ]
+            ]
+          },
+          {
+            "descentEdgeId": 1544,
+            "groundEdgeId": 900010,
+            "poly": [
+              [
+                953.8289849251784,
+                -1158.257340977733
+              ],
+              [
+                956.1428671506519,
+                -1159.9145279702955
+              ],
+              [
+                955.9947559477231,
+                -1160.0895988270213
+              ]
+            ]
+          },
+          {
+            "descentEdgeId": 1544,
+            "groundEdgeId": 900012,
+            "poly": [
+              [
+                956.2472033769242,
+                -1159.9892528785592
+              ],
+              [
+                960.8781948057203,
+                -1163.3059380036627
+              ],
+              [
+                960.6024512822929,
+                -1163.6909507032021
+              ],
+              [
+                956.101249454523,
+                -1160.1761686089412
+              ]
+            ]
+          },
+          {
+            "descentEdgeId": 1798,
+            "groundEdgeId": 900002,
+            "poly": [
+              [
+                861.6214202023148,
+                -1056.732213512815
+              ],
+              [
+                861.8275847699324,
+                -1057.0565868503386
+              ],
+              [
+                861.754685275411,
+                -1057.1029201676274
+              ],
+              [
+                861.5369732654157,
+                -1056.7911914327628
+              ]
+            ]
+          },
+          {
+            "descentEdgeId": 1799,
+            "groundEdgeId": 900002,
+            "poly": [
+              [
+                861.8275847699324,
+                -1057.0565868503386
+              ],
+              [
+                862.8924656056372,
+                -1058.7320394013473
+              ],
+              [
+                861.754685275411,
+                -1057.1029201676274
+              ]
+            ]
+          },
+          {
+            "descentEdgeId": 1807,
+            "groundEdgeId": 900012,
+            "poly": [
+              [
+                960.8781948057203,
+                -1163.3059380036627
+              ],
+              [
+                968.6274043097648,
+                -1168.855870083769
+              ],
+              [
+                968.121508535627,
+                -1169.5622377085292
+              ],
+              [
+                960.6024512822929,
+                -1163.6909507032021
+              ]
+            ]
+          },
+          {
+            "descentEdgeId": 1808,
+            "groundEdgeId": 900012,
+            "poly": [
+              [
+                968.6274043097648,
+                -1168.855870083769
+              ],
+              [
+                976.3766138138093,
+                -1174.4058021638757
+              ],
+              [
+                975.640565788961,
+                -1175.4335247138565
+              ],
+              [
+                968.121508535627,
+                -1169.5622377085292
+              ]
+            ]
+          },
+          {
+            "descentEdgeId": 1809,
+            "groundEdgeId": 900012,
+            "poly": [
+              [
+                976.3766138138093,
+                -1174.4058021638757
+              ],
+              [
+                984.1258233178537,
+                -1179.955734243982
+              ],
+              [
+                983.1596230422949,
+                -1181.3048117191836
+              ],
+              [
+                975.640565788961,
+                -1175.4335247138565
+              ]
+            ]
+          },
+          {
+            "descentEdgeId": 1810,
+            "groundEdgeId": 900012,
+            "poly": [
+              [
+                984.1258233178537,
+                -1179.955734243982
+              ],
+              [
+                991.8750328218981,
+                -1185.5056663240887
+              ],
+              [
+                990.678680295629,
+                -1187.176098724511
+              ],
+              [
+                983.1596230422949,
+                -1181.3048117191836
+              ]
+            ]
+          }
+        ],
+        "nativePhysicalGatePending": true
+      }
+    ]
+  },
+  "poses": 1668,
+  "unknownLiteralEndSpans": 52,
+  "comparisons": 564106,
+  "projected": 162257,
+  "actualHitCount": 0,
+  "minHorizontalGapM": 0.00021403577198101457,
+  "horizontalWitness": {
+    "kind": "hatch",
+    "source": "w668700433",
+    "edge": 1542,
+    "s": 3.6828796016815146,
+    "lane": 0,
+    "upperSource": "w118416425",
+    "upperEdge": "basarab-central-trams:w118416425:41:0.0000000000000000:0.33333333333333331",
+    "pose": {
+      "x": 913.1757894138557,
+      "y": 1.9431984238771187,
+      "z": -1131.5369865037123,
+      "heading": -0.8127639092883092
+    },
+    "bodyHull": [
+      [
+        911.088743575304,
+        -1130.669677241189
+      ],
+      [
+        911.1171975331007,
+        -1130.7356797871498
+      ],
+      [
+        911.3553685643452,
+        -1131.0322587478042
+      ],
+      [
+        912.9629656752805,
+        -1132.829602564728
+      ],
+      [
+        912.9668703919498,
+        -1132.8332992124485
+      ],
+      [
+        913.0355117661508,
+        -1132.8982829234233
+      ],
+      [
+        913.0394164828201,
+        -1132.9019795711438
+      ],
+      [
+        914.1937156764777,
+        -1133.6091960366045
+      ],
+      [
+        914.598320356866,
+        -1133.193551866264
+      ],
+      [
+        914.8996446823286,
+        -1132.8798029798515
+      ],
+      [
+        914.9340193771721,
+        -1132.8434934761867
+      ],
+      [
+        915.3005808852687,
+        -1132.4400299818014
+      ],
+      [
+        914.5312783804002,
+        -1131.3261469627541
+      ],
+      [
+        914.5273736637309,
+        -1131.3224503150336
+      ],
+      [
+        914.4548275728606,
+        -1131.2537699563384
+      ],
+      [
+        912.5722328212219,
+        -1129.7469022553025
+      ],
+      [
+        912.2630690074136,
+        -1129.5253119661236
+      ],
+      [
+        912.1956087840948,
+        -1129.500511186386
+      ],
+      [
+        912.1607347639255,
+        -1129.5242237569234
+      ],
+      [
+        911.7819298929911,
+        -1129.9075647616323
+      ],
+      [
+        911.480605565589,
+        -1130.2213136462083
+      ],
+      [
+        911.4462308707456,
+        -1130.2576231498733
+      ],
+      [
+        911.1105128434394,
+        -1130.6335583079513
+      ]
+    ],
+    "upperBand": [
+      [
+        911.0892038395187,
+        -1131.0844813702172
+      ],
+      [
+        916.4591202664209,
+        -1136.0897738422061
+      ],
+      [
+        914.140879733579,
+        -1138.5768928244604
+      ],
+      [
+        908.7107961604812,
+        -1133.5155186297827
+      ]
+    ]
+  },
+  "minSampledBelowSlabClearanceM": 3.8015731222813822,
+  "witness": {
+    "kind": "truck",
+    "source": "w668700433",
+    "edge": 1540,
+    "s": 7.1955048602216545,
+    "lane": 0,
+    "bodyTriangle": 22,
+    "upper": "basarab-central-trams:w118416425:39:0.33333333333333331:0.66666666666666663",
+    "upperSource": "w118416425",
+    "point": [
+      887.2440217096366,
+      6.998426877718617,
+      -1106.0501501512094
+    ],
+    "upperFloor": 11.2
+  },
+  "hits": [],
+  "moduleHashes": {
+    "source-bridge-descents.js": "b70c61e65b75fac4bec3d8330da5dc82e6a558eba09c50097dd43ba9594aed32",
+    "source-bridge-descent-models.js": "e4412e8ed1fbcca038692b53ebdd1c36e074df26eb470fa1a11a3575ea05681c",
+    "traffic.js": "fa0bce51149f9cae479c6735787bd80a19c0ebd7a5535765fb3fdad7ef921eea",
+    "vehicles.js": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df"
+  },
+  "rawOmittedArrays": {
+    "headroomPolygons": {
+      "count": 162257,
+      "rawFile": "/tmp/north-ordinary-rail-slab-replay-4eeb.json"
+    },
+    "projectedIntervals": {
+      "count": 162257,
+      "rawFile": "/tmp/north-ordinary-rail-slab-replay-4eeb.json"
+    }
+  },
+  "originalRunnerScope": "NORTH MODEL ORDINARY ROAD VEHICLES AGAINST INDEPENDENT SOURCE RAIL SLABS. Actual emitted indexed primary vehicle meshes on EVERY legal forward lane (including buses, no invented bus-lane restriction), placed by literal Traffic on prospective raw-source ground235/125 paths; exact sourceXY/default widths and source native mitered asphalt cross-sections expanded by the unchanged native structural-width rule, <=1m centres, <=.1m clipped-edge field samples against reviewed north bridge bands. Only literal World UP structural predicates are included (bridge and max endpoint displacement>.3m); normal flat ground pavement is not a1.1m elevated solid. Native ground geometry/sidewalls/mitered surfaces and whole-world acceptance remain pending. No actor reduction or source geometry changes."
+}

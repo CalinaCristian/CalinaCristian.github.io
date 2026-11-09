@@ -1,0 +1,446 @@
+[
+  {
+    "nativeNew": 1525,
+    "nativeOld": [
+      1516
+    ],
+    "different": {},
+    "newSidewalk": 0.3,
+    "oldLR": [
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "nativeNew": 1526,
+    "nativeOld": [
+      1517
+    ],
+    "different": {},
+    "newSidewalk": 0.3,
+    "oldLR": [
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "nativeNew": 1539,
+    "nativeOld": [
+      1530
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1540,
+    "nativeOld": [
+      1531
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1541,
+    "nativeOld": [
+      1532
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1542,
+    "nativeOld": [
+      1533
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1543,
+    "nativeOld": [
+      1534
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1544,
+    "nativeOld": [
+      1535
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1545,
+    "nativeOld": [
+      1536
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1546,
+    "nativeOld": [
+      1537
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1547,
+    "nativeOld": [
+      1538
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1548,
+    "nativeOld": [
+      1539
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1549,
+    "nativeOld": [
+      1540
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1550,
+    "nativeOld": [
+      1541
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1551,
+    "nativeOld": [
+      1542
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1552,
+    "nativeOld": [
+      1543
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1553,
+    "nativeOld": [
+      1544
+    ],
+    "different": {},
+    "newSidewalk": 0.3,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1977,
+    "nativeOld": [
+      1791
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1978,
+    "nativeOld": [
+      1792
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1979,
+    "nativeOld": [
+      1793
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1980,
+    "nativeOld": [
+      1794
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1981,
+    "nativeOld": [
+      1795
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1982,
+    "nativeOld": [
+      1796
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1983,
+    "nativeOld": [
+      1797
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1984,
+    "nativeOld": [
+      1798
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1985,
+    "nativeOld": [
+      1799
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1986,
+    "nativeOld": [
+      1800
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1987,
+    "nativeOld": [
+      1801
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1988,
+    "nativeOld": [
+      1802
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1989,
+    "nativeOld": [
+      1803
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1990,
+    "nativeOld": [
+      1804
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1991,
+    "nativeOld": [
+      1805
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1992,
+    "nativeOld": [
+      1806
+    ],
+    "different": {},
+    "newSidewalk": 0.8,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1993,
+    "nativeOld": [
+      1807
+    ],
+    "different": {},
+    "newSidewalk": 0.3,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1994,
+    "nativeOld": [
+      1808
+    ],
+    "different": {},
+    "newSidewalk": 0.3,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1995,
+    "nativeOld": [
+      1809
+    ],
+    "different": {},
+    "newSidewalk": 0.3,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  },
+  {
+    "nativeNew": 1996,
+    "nativeOld": [
+      1810
+    ],
+    "different": {},
+    "newSidewalk": 0.3,
+    "oldLR": [
+      0.8,
+      0.8
+    ]
+  }
+]

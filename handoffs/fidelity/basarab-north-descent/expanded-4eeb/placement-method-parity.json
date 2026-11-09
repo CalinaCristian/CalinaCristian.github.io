@@ -1,0 +1,32 @@
+[
+  {
+    "name": "placeOnLane",
+    "equal": true,
+    "sha256": "2a93a50e542c5fcbe8b16cb534f998479226907c19a46f7720526e26db0a0001"
+  },
+  {
+    "name": "pathPoint",
+    "equal": true,
+    "sha256": "4c0f504f1221d94035564be19dc80edf9a34bc014578e20511b8a4c521b6dc7b"
+  },
+  {
+    "name": "laneTarget",
+    "equal": true,
+    "sha256": "19cdf80f5c3fe20da82ea950f5568801458694c282c31a814738eb700222fbcc"
+  },
+  {
+    "name": "lanePt",
+    "equal": true,
+    "sha256": "38145b73214b1edba31d858185d4aa30420269c936dbf07ea9a42c2370577767"
+  },
+  {
+    "name": "prevLink",
+    "equal": true,
+    "sha256": "e1768d02b82a4be85605c51e387ccf018fa4d0f78e221b58fd54acbea57b24eb"
+  },
+  {
+    "name": "latOn",
+    "equal": true,
+    "sha256": "63daeadc87d05d69d8267e52a2b551a0cbd5ee99239dd4e0fafe86fbef704ba1"
+  }
+]

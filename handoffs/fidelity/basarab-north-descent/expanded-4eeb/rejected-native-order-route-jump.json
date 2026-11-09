@@ -1,0 +1,176 @@
+{
+  "kind": "hatch",
+  "source": "w668700424",
+  "edge": 1517,
+  "s": 14.252957473241395,
+  "start": 9.327030290743622,
+  "lane": 1,
+  "station": 337.1513880123833,
+  "e": {
+    "id": 1517,
+    "dirx": 0.7940681680290332,
+    "dirz": -0.6078287131445956,
+    "len": 16.03457715739657,
+    "nx": 0.6078287131445956,
+    "nz": 0.7940681680290332,
+    "name": "Pasajul Basarab",
+    "type": "primary",
+    "road": 324,
+    "lanesF": 2,
+    "lanesB": 0,
+    "lanes": 2,
+    "oneway": true,
+    "laneW": 3.5,
+    "median": -7,
+    "wR": 3.5,
+    "wL": 3.5,
+    "halfW": 3.5,
+    "sidewalk": 0.5,
+    "sharedLane": false,
+    "roadWidthSource": null,
+    "laneCenterShiftM": 0,
+    "publicDrive": true,
+    "throughAccess": true,
+    "maxspeed": 13.88888888888889,
+    "speed": 13.88888888888889,
+    "tram": false,
+    "tramMedian": false,
+    "bridge": false,
+    "tunnel": false,
+    "toll": false,
+    "busLane": false,
+    "roundabout": false,
+    "unpaved": false,
+    "layer": 0,
+    "trafficMul": 1.8,
+    "bikeLane": false,
+    "cycleTrack": false,
+    "lit": false,
+    "unlit": false,
+    "drivable": false,
+    "L": 0,
+    "over": null,
+    "anchorH": 0,
+    "ya": 0,
+    "yb": 0,
+    "overWater": false,
+    "sidewalkRightM": 0.5,
+    "sidewalkLeftM": 0.5,
+    "_mkAll": 23.446157754282467,
+    "_mkOut": 6.502959877252579e-7,
+    "_mkDrop": 0,
+    "lidded": false,
+    "a": {
+      "id": 1346,
+      "sourceId": 14161960361,
+      "x": 996.6914045524697,
+      "z": -1194.7912452000262,
+      "radius": 4,
+      "hasLight": false,
+      "crossing": false,
+      "zebra": false,
+      "stop": false,
+      "flags": 0,
+      "comp": 577,
+      "drivable": false,
+      "y": 0,
+      "yFixed": false,
+      "yPin": false,
+      "pad": false,
+      "tags": {
+        "$undefined": true
+      },
+      "edgeIds": [
+        1516,
+        1517
+      ],
+      "motorNodeId": null,
+      "sourceSignal": null,
+      "lightCluster": null
+    },
+    "b": {
+      "id": 980,
+      "sourceId": 1397135743,
+      "x": 1009.4239518609638,
+      "z": -1204.5375215994243,
+      "radius": 4,
+      "hasLight": false,
+      "crossing": false,
+      "zebra": false,
+      "stop": false,
+      "flags": 0,
+      "comp": 578,
+      "drivable": false,
+      "y": 0,
+      "yFixed": false,
+      "yPin": false,
+      "pad": false,
+      "tags": {
+        "$undefined": true
+      },
+      "edgeIds": [
+        1517
+      ],
+      "motorNodeId": null,
+      "sourceSignal": null,
+      "lightCluster": null
+    },
+    "sourceNodeIds": [
+      14161960361,
+      1397135743
+    ],
+    "railDirections": {
+      "$undefined": true
+    },
+    "grade": {
+      "$undefined": true
+    },
+    "gradeNativeSamples": null,
+    "access": {
+      "sourceId": "w668700424",
+      "publicDrive": true,
+      "throughAccess": true,
+      "key": null,
+      "value": null,
+      "reason": "OSM road class default; no motorcar restriction mapped",
+      "conditionalUnresolved": false,
+      "tags": {
+        "foot": "no",
+        "oneway": "yes"
+      }
+    },
+    "sidewalkSource": {
+      "rightM": 0.5,
+      "leftM": 0.5,
+      "explicit": false,
+      "sourceId": "w668700424",
+      "sourceForward": null,
+      "basis": "unchanged inferred fallback; source side tags absent"
+    },
+    "nativeSidewalkWidth": {
+      "leftM": 0.5,
+      "rightM": 0.5
+    },
+    "sourceId": "w668700424",
+    "sourceBridgeGrade": {
+      "known": true,
+      "modelId": "basarab-north-titulescu-descent",
+      "estimated": true,
+      "basis": "MODEL finite northern Basarab descent: retained11m crown, literal433+424 chain and at-grade Titulescu source joins. Heights are estimates, not surveyed elevations or layer-to-metres conversion.",
+      "sourceId": "w668700424",
+      "role": "source-descent",
+      "ya": 0,
+      "yb": 0,
+      "oldYa": 10.276222449438295,
+      "oldYb": 9.031939262024322
+    }
+  },
+  "F": {
+    "x": 900.0371768624391,
+    "z": -1091.498518431694
+  },
+  "R": {
+    "x": 987.9755450380593,
+    "z": -1181.0303772991201
+  }
+}

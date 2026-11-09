@@ -1,0 +1,102 @@
+{
+  "dataset": {
+    "commit": "4eeb5aeae2e3968b6d04a2a73fc1b4d3b15270cf",
+    "sha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093"
+  },
+  "actualPrefixSource": {
+    "base": "720a460a8a1d3dc9ad9f601081196a8d3d22162d",
+    "northHookCommit": "bbf02713",
+    "sourceCopy": "/workspace/reality-pass/basarab-north-prefix-720a-source",
+    "worldSHA256": "644188d413572a95504815316da7bcc618e8ad0a2d5b906db831ef7885b54fc9",
+    "composition": "All unchanged720a modules and exact649 data; bbf World hook applied; the displaced top import was applied explicitly after its context-only patch rejection. No algorithm changes or runtime source overrides."
+  },
+  "rawFiles": [
+    {
+      "path": "/tmp/north-new-rail-support-sweep-4eeb.json",
+      "bytes": 9018200,
+      "sha256": "fef5cff68929e9a78fb96575e31db623a86725d53dcfa7c3aac33ee18cb99687"
+    },
+    {
+      "path": "/tmp/north-new-rail-road-replay-4eeb.json",
+      "bytes": 18785,
+      "sha256": "6f3e876705a6ef8a20d50948aec741f56376c6ffa5d9bd74423cecad9a1ab065"
+    },
+    {
+      "path": "/tmp/north-ordinary-rail-slab-replay-4eeb.json",
+      "bytes": 165437630,
+      "sha256": "886894828f5c0ea0f46d8f01dbb4cb22ae0f64a1ce94a4077549aef4a0ff4d88"
+    },
+    {
+      "path": "/tmp/north-actual-prefix-ground-body-replay.json",
+      "bytes": 20330,
+      "sha256": "68787ab771993233234333e27567478d60776ab298541eccd7d416caf562e628"
+    },
+    {
+      "path": "/tmp/north-prefix-720a-bbf.json.gz",
+      "bytes": 194558,
+      "sha256": "3c6c42c71112a1f5e6737f56805c829f0432988dbe59bc9ba6931e30145a9bba"
+    },
+    {
+      "path": "/tmp/north-actual-prefix-native-path-parity.json",
+      "bytes": 5774,
+      "sha256": "9cbd9925fa645c2d19aeda5e9a1c4a3649b3e2b11c96fde9d02ab271b2877c54"
+    },
+    {
+      "path": "/tmp/north-720a-placement-method-parity.json",
+      "bytes": 801,
+      "sha256": "dc8b5889e912e5d9088a13e480921bfe809c4590a9e7b9294867051162e33616"
+    },
+    {
+      "path": "/tmp/north-road-height-query-failed.json",
+      "bytes": 4017,
+      "sha256": "33b9485abb760578f05ba7b4ed2dc4fe192f9b75a3fdccbade2bf51d1dd97f68"
+    }
+  ],
+  "portableFiles": [
+    {
+      "path": "handoffs/fidelity/basarab-north-descent/expanded-4eeb/actual-ground-vehicles-vs-road.json",
+      "bytes": 20548,
+      "sha256": "2304415330b7ddd6be40e288b895b218b0889bce8eb480a53fb693a2f41e9434"
+    },
+    {
+      "path": "handoffs/fidelity/basarab-north-descent/expanded-4eeb/actual-world-prefix-720a-bbf.json.gz",
+      "bytes": 194558,
+      "sha256": "3c6c42c71112a1f5e6737f56805c829f0432988dbe59bc9ba6931e30145a9bba"
+    },
+    {
+      "path": "handoffs/fidelity/basarab-north-descent/expanded-4eeb/native-path-parity.json",
+      "bytes": 5774,
+      "sha256": "9cbd9925fa645c2d19aeda5e9a1c4a3649b3e2b11c96fde9d02ab271b2877c54"
+    },
+    {
+      "path": "handoffs/fidelity/basarab-north-descent/expanded-4eeb/new-rail-source-support.json.gz",
+      "bytes": 480084,
+      "sha256": "8a9fde46a31e7ee3300380673a68a82d5db32a8f4776333cab50b830666680b5"
+    },
+    {
+      "path": "handoffs/fidelity/basarab-north-descent/expanded-4eeb/north-trams-vs-road.json",
+      "bytes": 18811,
+      "sha256": "7f53da10126e027a06038c9ecaddfb7a2fd55d04402df83d70dc10ab20eacc05"
+    },
+    {
+      "path": "handoffs/fidelity/basarab-north-descent/expanded-4eeb/placement-method-parity.json",
+      "bytes": 801,
+      "sha256": "dc8b5889e912e5d9088a13e480921bfe809c4590a9e7b9294867051162e33616"
+    },
+    {
+      "path": "handoffs/fidelity/basarab-north-descent/expanded-4eeb/rejected-native-order-route-jump.json",
+      "bytes": 4017,
+      "sha256": "33b9485abb760578f05ba7b4ed2dc4fe192f9b75a3fdccbade2bf51d1dd97f68"
+    },
+    {
+      "path": "handoffs/fidelity/basarab-north-descent/expanded-4eeb/road-vehicles-vs-rail.json",
+      "bytes": 21823,
+      "sha256": "543b392b7d53c30daee368678bf764b3f4b815f0ac3cf866a08525e71e0b6aaa"
+    },
+    {
+      "path": "handoffs/fidelity/basarab-north-descent/expanded-4eeb/source-node-queries.json",
+      "bytes": 3588,
+      "sha256": "e81c54021b896d2e7be64a47ecb3f4f28f431e0112dd044a16606b432bceb05d"
+    }
+  ]
+}

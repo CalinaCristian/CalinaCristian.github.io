@@ -16,6 +16,8 @@ Scene spawn metadata accepts an optional finite `pitch` in radians, clamped to t
 
 Returning to the menu calls `Renderer3D.releaseScene()` after disposing the visit. Clear scene/player/pass/vegetation/backdrop references while preserving the persistent light pool and presentation resources; an inactive walker still retains its scene and obstacle closure. Native511 backgammon exposed this retention despite detached/disposed board meshes. CPU controls verify explicit host reference release; fresh native weak-reference/enter-leave checks are required separately.
 
+Planner/fallback wall queries interpolate the native segment bands `y0a/y0b/y1a/y1b` at the closest segment point, using the same query-height convention as World. Elevated Carusel rails previously blocked lower-floor planning at every height. Level parity/ground-route/own-level/legacy controls are in `tourist-wall-levels.test.mjs`; actual bookshop access remains a native acceptance gate.
+
 Old Town's visit boundary is enforced after native controller movement and crowd push-out, preserving the exact source streets/buildings as surrounding scenery. Freddo hours and the source anchor are recorded in `game/research/old-town-nightlife.md`; the interior layout and music are authored game content. Native dance, shot, hidden sports-room access and mobile checks are separate gates.
 
 

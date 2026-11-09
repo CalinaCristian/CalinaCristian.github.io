@@ -74,6 +74,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   Tourist entry applies its actual near/far projection, including any source-backed scene far requirement; the earlier far/projection assignments had been swallowed by a comment. Visible source-backed terrain retains its finite complete geometry bound during weather culling; hidden terrain releases that far-plane floor. Actual elevated and weather visuals remain separate scene checks.
   Tourist spawns can also declare a bounded initial look angle, so a tall landmark can be framed from its actual public approach; ordinary mouse/touch look remains available.
   Leaving a menu-launched visit releases the renderer's retired walker, scene and backdrop references as well as the activity resources. Repeated native travel and Ultra frame-time checks remain separate performance gates.
+  Walking routes respect the actual height bands of railings and walls: a gallery railing above the visitor no longer blocks the floor below, while it still blocks its own level.
   Source-backed tourist activities can declare a narrow drone launch/approach area outside their original scene focus. The same 150 m flight margin applies; this does not open an entire park or lake.
   Disposing a tourist water material removes it from shared environment updates, so later travel does not retain retired water materials.
   Dinamo pitch paint uses filtered alpha coverage at its real 12 cm width, keeping lines continuous from higher drone views.

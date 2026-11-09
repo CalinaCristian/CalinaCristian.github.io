@@ -1,0 +1,19 @@
+{
+  "baseCommit": "aabd17ad",
+  "baselineSourceCommit": "54c044421640cfe3569bfc3f72159d2169f87581",
+  "baselineTrafficSha256": "9c32eedf8dc9499415f969ddaca011f5f11c7b2ddc707d0ad1ff6e45eb87eb35",
+  "consumedAndChangedSha256": {
+    "game/src/traffic.js": "240472a8553460547bc4084020fb6f6e8095f56b67d34e931e7de7e7527c3bcd",
+    "game/dev/pedestrian-source-sides.test.mjs": "c906d3d20b2e742bf1b40f0e558df8752898e620810eb54ba1f34873b580a541",
+    "README.md": "263e5b299a21adeb320e2af5c3cc4c38ff83a614aa8af764cf4d9be5ad21a0ab",
+    "specs/13-traffic.md": "5546dd849cfd2fef35b8d7ab9c634043eebebeff5189abd14e0b7cc0de241f07"
+  },
+  "browserOpened": false,
+  "nativeAcceptance": false,
+  "controls": [
+    "source-sides-controls.txt",
+    "legacy-admission-controls.txt",
+    "motion-controls.txt",
+    "side-yield-controls.txt"
+  ]
+}

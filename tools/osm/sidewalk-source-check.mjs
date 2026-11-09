@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import { sourceSidewalkSides, sidewalkWidth } from '../../game/src/sidewalk-source.js';
+const source = { sourceId: 'w1', projected: [[0, 0], [10, 0]], tags: {} }, edge = { road: 0, a: { x: 2, z: 0 }, b: { x: 8, z: 0 }, sidewalk: 3.5 }, data = { roadSourceGeometry: [source] };
+const sides = tags => sourceSidewalkSides({ roadSourceGeometry: [{ ...source, tags }] }, edge);
+assert.deepEqual([sides({}).leftM, sides({}).rightM], [3.5, 3.5]);
+assert.deepEqual([sides({ sidewalk: 'right' }).leftM, sides({ sidewalk: 'right' }).rightM], [0, 3.5]);
+assert.deepEqual([sides({ sidewalk: 'both', 'sidewalk:left': 'no' }).leftM, sides({ sidewalk: 'both', 'sidewalk:left': 'no' }).rightM], [0, 3.5]);
+assert.deepEqual([sides({ sidewalk: 'both', 'sidewalk:both': 'no', 'sidewalk:left': 'yes' }).leftM, sides({ sidewalk: 'both', 'sidewalk:both': 'no', 'sidewalk:left': 'yes' }).rightM], [3.5, 0]);
+assert.deepEqual([sides({ sidewalk: 'separate' }).leftM, sides({ sidewalk: 'separate' }).rightM], [0, 0]);
+const reverse = sourceSidewalkSides({ roadSourceGeometry: [{ ...source, tags: { sidewalk: 'right' } }] }, { ...edge, a: edge.b, b: edge.a });
+assert.deepEqual([reverse.leftM, reverse.rightM, reverse.sourceForward], [3.5, 0, -1]);
+assert.equal(sidewalkWidth({ sidewalk: 4, sidewalkLeftM: 0, sidewalkRightM: 3 }, -1), 0);
+assert.equal(sidewalkWidth({ sidewalk: 4 }, 1), 4);
+assert.ok(sourceSidewalkSides({ roadSourceGeometry: [{ ...source, tags: { sidewalk: 'right' } }] }, { ...edge, a: { x: 2, z: 20 }, b: { x: 8, z: 20 } }).unresolved);
+assert.ok(sourceSidewalkSides({ roadSourceGeometry: [{ ...source, projected: [[0, 0], [10, 0], [0, 0]], tags: { sidewalk: 'right' } }] }, edge).unresolved, 'overlapping opposite source directions stay unresolved');
+console.log(JSON.stringify({ passed: true, scope: 'source directional sidewalk semantics; source order, reverse edge, explicit-side precedence, separate-footway preservation, absent fallback' }));

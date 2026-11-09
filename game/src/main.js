@@ -854,7 +854,9 @@ class Game {
             this.drawRouteOverlay(this.minimap.ctx, $('#minimap'), { cx: player.x, cz: player.z, scale: 0.16, heading: player.heading });
         }
         if (this.frame % 2 === 1) this.drawCarScreen(streetName, fuelText);
-        player.mirrorEnabled = this.quality !== 'low' && !/low/.test(this.r3d.stats?.quality || '');
+        const mirrorEnabled = this.quality !== 'low' && !/low/.test(this.r3d.stats?.quality || '');
+        if (mirrorEnabled && !player.mirrorEnabled) player.mirrorWarm = Math.max(player.mirrorWarm || 0, 3);
+        player.mirrorEnabled = mirrorEnabled;
         // mirror pass: every 2nd frame at high+, every 3rd at medium (it re-renders the scene; render's perf table)
         const mq = this.r3d.stats?.quality || this.quality, mEvery = /medium/.test(mq) ? 3 : 2;
         const warm = player.mirrorWarm > 0; if (warm) player.mirrorWarm--;

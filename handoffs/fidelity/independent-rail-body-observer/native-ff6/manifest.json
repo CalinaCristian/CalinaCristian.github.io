@@ -1,0 +1,160 @@
+{
+  "sourceCommit": "ff6b2bff3cfe5b45c5dba9624abbb6672304bfed",
+  "rawExportCommit": "b6352717a9ccb04fbdf258c0438c9dbe091e50de",
+  "rawExportPath": "handoffs/fidelity/native-rail-world-export/proof-preview-ff6/",
+  "toolHashesMeasured": "After completed jobs; consumed proof modules were held unchanged until both sweeps exited. Per-job raw input hashes and six native counter-parity assertions are retained in sweep reports.",
+  "artifacts": [
+    {
+      "path": "grozavesti-audit-final.json.gz",
+      "rawExternalPath": "/workspace/reality-pass/remaining-ro/independent-rail-body-ff6/grozavesti-audit-final.json",
+      "bytes": 962623,
+      "sha256": "6663b11bf124e6dd58457ae302f859ae016e11d64a078706df018df75734a14f",
+      "gzipBytes": 141942,
+      "gzipSha256": "02008a066cf0718a3965907616527c5098e9364f63c55e1e8855ea14643da2fa"
+    },
+    {
+      "path": "romana-audit-final.json.gz",
+      "rawExternalPath": "/workspace/reality-pass/remaining-ro/independent-rail-body-ff6/romana-audit-final.json",
+      "bytes": 1002589,
+      "sha256": "e90df9073a2c0793c8dcd9581ea2c6330b7c4f67343dc1b09f21cc8789155efa",
+      "gzipBytes": 156494,
+      "gzipSha256": "3087676dc52c1603b4757d35fb8334c1716e0b36e2a3012f7bdc31eaa9aba424"
+    },
+    {
+      "path": "grozavesti-source-sweep.json.gz",
+      "rawExternalPath": "/workspace/reality-pass/remaining-ro/independent-rail-body-ff6/grozavesti-source-sweep.json",
+      "bytes": 2308883,
+      "sha256": "9d2ba59e1d447ba6347ac840ee4ab135da2bf571592987bdcafc89b8625da5c8",
+      "gzipBytes": 241493,
+      "gzipSha256": "51beabb32ea47eea274044c747c7f0f855d96126ddf68d10c617532710437c4d"
+    },
+    {
+      "path": "romana-source-sweep.json.gz",
+      "rawExternalPath": "/workspace/reality-pass/remaining-ro/independent-rail-body-ff6/romana-source-sweep.json",
+      "bytes": 1192493,
+      "sha256": "c3249cca95ca3c4dd8fb8b5f1f566b1f2ba0bd4947beca595bf31188cbee49ac",
+      "gzipBytes": 149055,
+      "gzipSha256": "c8a3ee26d9ba36fd20fbb837ccaa72d2a84fbfb2b99eaed85c66c41ebbb9f39e"
+    },
+    {
+      "path": "signals-publication.json.gz",
+      "rawExternalPath": "/workspace/reality-pass/remaining-ro/independent-rail-body-ff6/signals-publication.json",
+      "bytes": 3094,
+      "sha256": "394fbdfd6e3c71ccceca5e1aea168708dc4b962f905aecba565965376c1cef6f",
+      "gzipBytes": 719,
+      "gzipSha256": "96be61f816e9ed1324cf80959992b504c6285510274f5d8c033f8792d2465e5b"
+    },
+    {
+      "path": "all-contact-triangle-fixture.json.gz",
+      "rawExternalPath": "/workspace/reality-pass/remaining-ro/independent-rail-body-ff6/all-contact-triangle-fixture.json",
+      "bytes": 350196,
+      "sha256": "0f6875691cf9084915afcfc8b6edbb28340241e8cc31a35aa10212c9034d40ca",
+      "gzipBytes": 23767,
+      "gzipSha256": "1b7d8afc9bfe89a17fc477ff753c05de04cdd50b7e4f24f6c64ce46d477a8df9"
+    },
+    {
+      "path": "groz259-all-asphalt-pairs.json.gz",
+      "rawExternalPath": "/workspace/reality-pass/remaining-ro/independent-rail-body-ff6/groz259-all-asphalt-pairs.json",
+      "bytes": 3890,
+      "sha256": "6c9e14ad3829b03899edafd927e209d6cb83d3a190eebba87e7441cdedca8239",
+      "gzipBytes": 753,
+      "gzipSha256": "ff201e82a82009b568bbd06aa52e6f0386386ec5629975dc896e351e576ae483"
+    },
+    {
+      "path": "groz259-all-contact-lateral.json.gz",
+      "rawExternalPath": "/workspace/reality-pass/remaining-ro/independent-rail-body-ff6/groz259-all-contact-lateral.json",
+      "bytes": 177387,
+      "sha256": "0d77fb13025ab0b28b6699f97a7c78a3cc964a83ffb8d47adaae320179caab8c",
+      "gzipBytes": 11926,
+      "gzipSha256": "4a09cdf810b4605a2f4aee8288b405da8038a34f26b7ea43cc8b44bef666e600"
+    },
+    {
+      "path": "proposed-flat-oneleg-corridors.json.gz",
+      "rawExternalPath": "/workspace/reality-pass/remaining-ro/independent-rail-body-ff6/proposed-flat-oneleg-corridors.json",
+      "bytes": 44819,
+      "sha256": "27977ee398979a2b088168ea2a8be0c314519e01d1c034123875d49acc2ea5f3",
+      "gzipBytes": 5271,
+      "gzipSha256": "0e4de295da9477a5a3da0b4632130de64a691d41ce89da4bac7834f76878072c"
+    },
+    {
+      "path": "proposal-layer-classification.json.gz",
+      "rawExternalPath": "/workspace/reality-pass/remaining-ro/independent-rail-body-ff6/proposal-layer-classification.json",
+      "bytes": 4034487,
+      "sha256": "b0d6328069644e58383ccd2800a3ee89fcd4806b4dac527935ba838b1cff1581",
+      "gzipBytes": 386015,
+      "gzipSha256": "1f921519710bd1797227935a11e560cdbf89f789ac854cefb12b40f8726ac2f3"
+    },
+    {
+      "path": "e77-compiler-87fe-proposed-replay.json.gz",
+      "rawExternalPath": "/workspace/reality-pass/remaining-ro/independent-rail-body-ff6/e77-compiler-87fe-proposed-replay.json",
+      "bytes": 48456,
+      "sha256": "b72d3477ccb5203e689aaf9f33c8595fb16c1c6c85d0e87baa3ce674fe7a1542",
+      "gzipBytes": 8487,
+      "gzipSha256": "b42d842ec55a08450a52bf4efe299611fd6978a83ad9cc74cfa5175ce5ffdd83"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/body-checks.js",
+      "sha256": "f01fc852439f27d915a0e3fe0a79a3e5dbbcee63fedb7436dc1a2364cabf1135"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/model-provenance.js",
+      "sha256": "7ae04b73dfa956f13c3ee5428da7b2270d448a31442decfb0171ab19d840bcbb"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/signal-checks.js",
+      "sha256": "b6ceb7c2fac07971a6040c4c9fe7935c74831c06908fbc81129987da96a8cccc"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/source-pose-sampler.js",
+      "sha256": "7754a96b60ae2a161c3a6e660b597b59f5c4f572a0fa990eedcb4473388c01bd"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/audit-recorded-world.mjs",
+      "sha256": "b6e164da915be87ced6bef5ea615331e1404793eb35ccba6310ce12d375419e2"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/body-checks.test.mjs",
+      "sha256": "c4829fc30a55ab4e42e54b9ae025f6ab9325940b14a6858431fc32abb3d28de8"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/classify-recorded-proposals.mjs",
+      "sha256": "8d31290725631dc8d56a3d109890d5916938c46d6f7e7b679b86fe76f36af6ba"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/recorded-context.mjs",
+      "sha256": "815528180e5d44aec097d19d01a1693bcd3df6fc5ac4d04e60f0fbb6907a6ee4"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/recorded-context.test.mjs",
+      "sha256": "de0fe2a143b2e1fbf98fa5dfbb68e78c190accd93cfad62e470b151919575836"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/replay-flat-proposal.mjs",
+      "sha256": "50c2dbe896078747765f8e249255618955079f9f499a262f77ec274fe9ca2ee6"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/signal-checks.test.mjs",
+      "sha256": "0e7cf36ca408739e39c90c860ec5586708a703df01f13e97f9b432f4f8655c09"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/source-pose-sampler.test.mjs",
+      "sha256": "6399c4a4fc5883b44b9c99252339231ed788ac9ab0d795588d9ef9f47e2df1d2"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/sweep-recorded-world.mjs",
+      "sha256": "9bf7485689330ca68dfc9e8e200265df9203793853d87b4745c29dff57511d23"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/decoder-qa-a5db.cjs",
+      "sha256": "2bfd6f289442a5e86b6a31c491ec78e1be8a51101f7e04a49196e0e50854f800"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/geometry-encoder-qa-a5db.cjs",
+      "sha256": "22ab8f10fe5a7127eb4ab677356d11a6d09526578a11a24f1b9e72ef12f98680"
+    },
+    {
+      "tool": "handoffs/fidelity/independent-rail-body-observer/reviewed-models.json",
+      "sha256": "553dcf62c51719e52f3dca44432e2386a7de2caf2f7b97f4ea9013698a5cd9bf"
+    }
+  ]
+}

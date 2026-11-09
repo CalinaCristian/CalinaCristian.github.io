@@ -1,0 +1,80 @@
+{
+  "physicalAcceptance": false,
+  "browserOpened": false,
+  "sourceCommit": "ff6b2bff3cfe5b45c5dba9624abbb6672304bfed",
+  "scope": "Independent offline attribution of exact native publication poses and separately sampled proposed rigid source poses. No native movement, camera render inspection, actual red-stop/dwell/resume, all8 or900 acceptance.",
+  "publication": {
+    "grozavesti": {
+      "trams": {
+        "256": 0,
+        "257": 0,
+        "258": 0,
+        "259": 375
+      },
+      "actualWorldTriangles": 2295890,
+      "sourceSupportPiecesValidated": 444,
+      "sourceDirectionGaps": 0
+    },
+    "romana": {
+      "trams": {
+        "490": 114,
+        "491": 0
+      },
+      "actualWorldTriangles": 2825649,
+      "sourceSupportPiecesValidated": 633,
+      "sourceDirectionGaps": 0
+    }
+  },
+  "sourceOwnerAttribution": {
+    "G259": "e1255/w458458374 bridge inferred sidewalk underlay/deck exterior and e1256/e1257 shoulder; every contacted body triangle vertex lies outside preserved lane halfwidth3.5m, closest3.5617005949m.",
+    "R490": "e677/road203/w1396530918 left inferred raised sidewalk, source has no sidewalk tags; actual native triangles7781/2/3/7813/4/5."
+  },
+  "proposals": {
+    "grozavesti": {
+      "total": 2876,
+      "rawGeometricClear": 2011,
+      "rawIntersections": 740,
+      "unknown": 125,
+      "branchChoiceUncertainty": 384
+    },
+    "romana": {
+      "total": 804,
+      "rawGeometricClear": 370,
+      "rawIntersections": 403,
+      "unknown": 31,
+      "branchChoiceUncertainty": 0
+    }
+  },
+  "representationClassification": {
+    "supportedBallastWitness": "G w118416425:0 V3A proposal at s0: road0,-1 native1095 exactly matches w314447163:2 support piece top+0.00099959..0.00100001m. Own continuous/rendered slab violation counters zero. World authored this as supported ballast +.001; not an additional physical slab-collision blocker.",
+    "horizonPlane": "R108 proposal group intersections involve global ground atY\u2212.3: groundPlane Lambert,FrontSide,depthWrite=false,renderOrder\u221220. Native source labels far horizon filler. Not a physical collider; visible rendering consequences unobserved.",
+    "otherProposals": "Far LOD alternatives, signs and thin detail retain material/visibility/ownership uncertainty. Opaque mixed ground/solid contacts still require exact source ownership, grade and legal whole-body carriageway envelope through joins. No generic contact count becomes an observed game bug."
+  },
+  "e77ProposalReplay": {
+    "compilerCommit": "87fe582541b828c7caa6f9649449f208ca24463c",
+    "before": 174,
+    "after": 0,
+    "bodyTriangles": 168,
+    "worldTriangles": 12,
+    "scope": "Exact cached native triangles at an independently proposed source-legal same-leg flat pose, serialized actual MeshBuilder. Conservative protected exported asphalt ribbon includes shoulder. Not native re-emission or observed motion."
+  },
+  "signals": {
+    "literalKnownAssociations": 2,
+    "pedestrianOnlyContexts": 4,
+    "directStateAtNativeTime0": "road=rail red, exact98/78/controller4/phase1",
+    "nativeRedStopObserved": false,
+    "nativeGreenResumeObserved": false,
+    "nativeMappedDwellObserved": false,
+    "renderedHeadsAccepted": false
+  },
+  "checks": {
+    "passed": true,
+    "controls": 84,
+    "body": 19,
+    "recordedGeometry": 6,
+    "signal": 6,
+    "sourceSampler": 6,
+    "retainedSource": 47
+  },
+  "requiredNext": "Fresh native regenerated geometry/publication must clear actual two spawn conflicts after Bridge candidate; retain wholepath proposal diagnostic separately from evolved actual physical routes."
+}

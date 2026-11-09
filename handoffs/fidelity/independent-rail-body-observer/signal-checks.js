@@ -2,7 +2,19 @@
 // signal/path helpers; no real-world timing claim or inferred nearest light.
 const id=v=>String(v),controlled=t=>t?.highway==='traffic_signals'||t?.crossing==='traffic_signals'||t?.['crossing:signals']==='yes';
 export function auditRecordedSignals({data,world,snapshot}){
-    const issues=[],checks=[],unobserved=[],motors=new Map((world.graphNodes||[]).map(n=>[id(n.id),n])),edges=new Map((world.allEdges||[]).map(e=>[id(e.id),e])),lights=new Map((world.lights||[]).map(l=>[id(l.node.id),l]));
+    const issues=[],checks=[],pedestrianChecks=[],unobserved=[],motors=new Map((world.graphNodes||[]).map(n=>[id(n.id),n])),edges=new Map((world.allEdges||[]).map(e=>[id(e.id),e])),lights=new Map((world.lights||[]).map(l=>[id(l.node.id),l]));
+    const sameTags=(a,b)=>a&&b&&Object.keys(a).length===Object.keys(b).length&&Object.keys(a).every(k=>a[k]===b[k]);
+    const vehicleHead=t=>t?.railway==='signal'||Object.keys(t||{}).some(k=>k.startsWith('railway:signal'))||String(t?.traffic_signals||'').split(';').some(v=>/^tram(?:_|$)/.test(v.trim()));
+    const reportedPedestrian=snapshot.initialTramBinding?.sourceSignals?.pedestrianControlled||[],expectedPedestrian=new Set();
+    for(const crossing of data.tramSourceCrossings||[])for(const railId of crossing.railNodeIds||[]){
+        const n=snapshot.tramNetwork?.nodes.find(n=>id(n.sourceId)===id(railId)),tags=crossing.nodeTags?.[id(railId)];
+        if(!n?.edgeIds?.length||n.tags?.railway!=='tram_crossing'||tags?.railway!=='tram_crossing'||!controlled(tags)||vehicleHead(tags)||vehicleHead(n.tags)||vehicleHead(data.tramSourceNodeTags?.[id(railId)]))continue;
+        const key=crossing.sourceId+':'+id(railId);expectedPedestrian.add(key);
+        const rows=reportedPedestrian.filter(p=>p.sourceId===crossing.sourceId&&id(p.railSourceNodeId)===id(railId)),p=rows[0];
+        if(rows.length!==1||!sameTags(p?.tags,tags)||!sameTags(p?.crossingTags,crossing.tags)||p?.nodeIds?.map(id).join(',')!==crossing.nodeIds.map(id).join(',')||JSON.stringify(p?.roadIncidences)!==JSON.stringify(crossing.roadIncidences)||p?.vehicleControl!=='not mapped'||p?.pedestrianHeadRendering!=='not verified'||p?.phase!=null||p?.controller!=null||n.sourceSignal){issues.push({reason:'missing-or-incorrect-literal-pedestrian-control-report',railSourceNodeId:railId,crossingSourceId:crossing.sourceId});continue;}
+        pedestrianChecks.push({sourceId:crossing.sourceId,railSourceNodeId:railId,vehicleControl:'not mapped',pedestrianHeadRenderingAccepted:false});
+    }
+    for(const p of reportedPedestrian)if(!expectedPedestrian.has(p.sourceId+':'+id(p.railSourceNodeId)))issues.push({reason:'unsupported-pedestrian-only-control-claim',sourceId:p.sourceId,railSourceNodeId:p.railSourceNodeId});
     for(const n of snapshot.tramNetwork?.nodes||[]){
         const s=n.sourceSignal;if(!s)continue;
         const fail=(reason,fields={})=>issues.push({reason,railSourceNodeId:n.sourceId,...fields});
@@ -20,7 +32,7 @@ export function auditRecordedSignals({data,world,snapshot}){
             if(sample.actualRendererApproachState==null)unobserved.push({reason:'rendered-approach-lamp-state-not-initialized-or-captured',railSourceNodeId:n.sourceId,railEdgeId});
         }
     }
-    return{passed:!issues.length,issues,checks,unobserved,nativeRedStopObserved:false,nativeGreenResumeObserved:false,nativeMappedDwellObserved:false,scope:'Literal association and direct state at recorded clock only. No driven red stop, dwell, green resume or renderer phase equivalence is inferred.'};
+    return{passed:!issues.length,issues,checks,pedestrianChecks,unobserved,nativeRedStopObserved:false,nativeGreenResumeObserved:false,nativeMappedDwellObserved:false,scope:'Literal association/pedestrian semantics and direct state at recorded clock only. No driven red stop, dwell, green resume or renderer phase equivalence is inferred.'};
 }
 
 /** Event gate for future actual per-step traces. Progress comes from captured

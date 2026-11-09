@@ -2,6 +2,8 @@
 // certificate imports. All physical witnesses use emitted triangle geometry.
 import {buildIndependentModelProfiles} from './model-provenance.js';
 const finite = Number.isFinite, EPS = 1e-7;
+const catalogueRefs = new WeakMap();
+function freezeSource(value,seen=new WeakSet()){if(!value||typeof value!=='object'||seen.has(value))return;seen.add(value);for(const child of Object.values(value))freezeSource(child,seen);Object.freeze(value);}
 export const IDENTITY = [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1];
 const add = (a,b) => a.map((v,i)=>v+b[i]), sub = (a,b) => a.map((v,i)=>v-b[i]);
 const dot = (a,b) => a.reduce((s,v,i)=>s+v*b[i],0);
@@ -127,14 +129,15 @@ function ownSlabTriangle(triangle,pieces,allowed){
     }return false;
 }
 
-export function auditTramBody(S,{samplePath,expectedHeading=S.actor?.heading}={}) {
+export function auditTramBody(S,{samplePath,expectedHeading=S.actor?.heading,fitOnly=false,sourceCatalogue=null,bruteWorldTriangles=false}={}) {
     const issues=[],coverageGaps=[],actor=S.actor||{},frame=S.frameMatrix||IDENTITY,root=actor.matrixWorld,expected=transform(frame,[actor.x,actor.y,actor.z]);
     if(!inverseAffine(root)||!expected.every(finite)||Math.hypot(...sub(transform(root,[0,0,0]),expected))>EPS)issues.push({reason:'cold-or-mismatched-current-body-pose'});
     const emitted=emittedTriangles(S.parts,{frameMatrix:frame});if(!emitted.known)return{passed:false,issues,coverageGaps:[{reason:emitted.reason}],witnesses:[]};
     if(!S.sourceSpanKnown)coverageGaps.push({reason:'unresolved-source-connected-whole-body-span'});
-    const catalogue=auditSupportCatalogue(S);coverageGaps.push(...catalogue.issues);
+    const cached=catalogueRefs.get(sourceCatalogue),catalogue=cached&&cached.data===S.data&&cached.pieces===S.pieces&&cached.reviewedModels===S.reviewedModels&&cached.nativeMotorEdges===S.nativeMotorEdges?sourceCatalogue:auditSupportCatalogue(S);coverageGaps.push(...catalogue.issues);
     const body=emitted.triangles.map(t=>({...t,bounds:box(t.points)})),bounds=box(body.flatMap(t=>t.points)),witnesses=[];
     const contactCounters={continuousViolatingEdgeConstraints:0,renderedViolatingClipVertices:0,worldTriangleContactPairs:0};
+    const worldContactGroups=new Map();
     let testedSupportEdges=0,minimumClearanceM=Infinity,ownPieces=0;
     const allowed=new Set(S.expectedModelIds||[]);
     let rigidPose=null;
@@ -163,6 +166,7 @@ export function auditTramBody(S,{samplePath,expectedHeading=S.actor?.heading}={}
             }
         }
     }
+    if(fitOnly)return{known:!!rigidPose&&!coverageGaps.length,rigidPose,issues,coverageGaps,scope:'Independent proposed rigid pose only; no world/body clearance or native motion acceptance.'};
     for(const piece of catalogue.pieces){
         const pbox=box(piece.top),near=bounds.min[0]<=pbox.max[0]&&bounds.max[0]>=pbox.min[0]&&bounds.min[2]<=pbox.max[2]&&bounds.max[2]>=pbox.min[2];if(!near)continue;
         if(!allowed.has(piece.modelId))continue;ownPieces++;
@@ -179,15 +183,18 @@ export function auditTramBody(S,{samplePath,expectedHeading=S.actor?.heading}={}
     if(allowed.size&&(!ownPieces||!testedSupportEdges))coverageGaps.push({reason:'missing-same-model-whole-body-support-overlap'});
     const expectedSolids=S.staticCoverage?.expectedSolidIds,actualSolids=(S.solids||[]).map(s=>s.id);
     if(!S.staticCoverageComplete||!Array.isArray(expectedSolids)||new Set(expectedSolids).size!==expectedSolids.length||expectedSolids.length!==actualSolids.length||expectedSolids.some(id=>!actualSolids.includes(id))||S.staticCoverage?.unclassifiedIds?.length)coverageGaps.push({reason:'incomplete-actual-world-solid-geometry-coverage'});
+    const bodyCells=new Map(),largeBody=[],cell=2;
+    if(!bruteWorldTriangles)for(const a of body){const x0=Math.floor(a.bounds.min[0]/cell),x1=Math.floor(a.bounds.max[0]/cell),z0=Math.floor(a.bounds.min[2]/cell),z1=Math.floor(a.bounds.max[2]/cell);if((x1-x0+1)*(z1-z0+1)>64){largeBody.push(a);continue;}for(let x=x0;x<=x1;x++)for(let z=z0;z<=z1;z++){const k=x+','+z;if(!bodyCells.has(k))bodyCells.set(k,[]);bodyCells.get(k).push(a);}}
+    const bodyCandidates=b=>{if(bruteWorldTriangles)return body;const found=new Set(largeBody);for(let x=Math.floor(Math.max(b.min[0],bounds.min[0])/cell);x<=Math.floor(Math.min(b.max[0],bounds.max[0])/cell);x++)for(let z=Math.floor(Math.max(b.min[2],bounds.min[2])/cell);z<=Math.floor(Math.min(b.max[2],bounds.max[2])/cell);z++)for(const a of bodyCells.get(x+','+z)||[])found.add(a);return found;};
     for(const solid of S.solids||[]){
         if(!solid.triangles?.length||solid.triangles.some(t=>t.length!==3||!t.every(xyz))){coverageGaps.push({reason:'malformed-or-unsupported-world-solid',solidId:solid.id});continue;}
         // Same-model slabs are checked above only after an independently valid
         // identity/profile/geometry match; roofs/posts/foreign slabs never skip.
         if(solid.kind==='support-slab'&&allowed.has(solid.modelId)&&catalogue.pieces.some(p=>p.id===solid.supportPieceId))continue;
-        for(let i=0;i<solid.triangles.length;i++){const tri=solid.triangles[i],b=box(tri);if(!boxesMeet(bounds,b))continue;if(solid.kind==='native-world-mixed-batch'&&ownSlabTriangle(tri,catalogue.pieces,allowed))continue;for(const a of body){if(!boxesMeet(a.bounds,b))continue;const hit=triangleContact(a.points,tri);if(hit){contactCounters.worldTriangleContactPairs++;if(witnesses.length<30)witnesses.push({reason:'actual-emitted-body-world-solid-contact',solidId:solid.id,solidName:solid.name,kind:solid.kind,sourceId:solid.sourceId,modelId:solid.modelId,bodyPart:a.id,bodyTriangle:a.triangle,solidTriangle:solid.nativeTriangleIds?.[i]??i,point:hit.point,coplanar:hit.coplanar,bodyVertices:a.points,solidVertices:tri});}}}
+        for(let i=0;i<solid.triangles.length;i++){const tri=solid.triangles[i],b=box(tri);if(!boxesMeet(bounds,b))continue;if(solid.kind==='native-world-mixed-batch'&&ownSlabTriangle(tri,catalogue.pieces,allowed))continue;for(const a of bodyCandidates(b)){if(!boxesMeet(a.bounds,b))continue;const hit=triangleContact(a.points,tri);if(hit){contactCounters.worldTriangleContactPairs++;const witness={reason:'actual-emitted-body-world-solid-contact',solidId:solid.id,solidName:solid.name,kind:solid.kind,sourceId:solid.sourceId,modelId:solid.modelId,bodyPart:a.id,bodyTriangle:a.triangle,solidTriangle:solid.nativeTriangleIds?.[i]??i,point:hit.point,coplanar:hit.coplanar,bodyVertices:a.points,solidVertices:tri};if(!worldContactGroups.has(solid.id))worldContactGroups.set(solid.id,{solidId:solid.id,solidName:solid.name,pairs:0,nativeTriangles:new Set(),bodyTriangles:new Set(),first:witness});const group=worldContactGroups.get(solid.id);group.pairs++;group.nativeTriangles.add(witness.solidTriangle);group.bodyTriangles.add(a.triangle);if(witnesses.length<30)witnesses.push(witness);}}}
     }
     if(witnesses.length)issues.push({reason:'actual-emitted-tram-geometry-contact',witnesses:witnesses.length});
-    return{passed:!issues.length&&!coverageGaps.length,issues,coverageGaps,witnesses,contactCounters,rigidPose,bodyTriangles:body.length,testedSupportEdges,minimumClearanceM:finite(minimumClearanceM)?minimumClearanceM:null,bounds,producerCertificateAccepted:false};
+    return{passed:!issues.length&&!coverageGaps.length,issues,coverageGaps,witnesses,contactCounters,worldContactGroups:[...worldContactGroups.values()].map(g=>({...g,nativeTriangles:[...g.nativeTriangles],bodyTriangles:[...g.bodyTriangles]})),rigidPose,bodyTriangles:body.length,testedSupportEdges,minimumClearanceM:finite(minimumClearanceM)?minimumClearanceM:null,bounds,producerCertificateAccepted:false};
 }
 
 /** Grade from independently checked same-source support, with explicit flat
@@ -197,6 +204,8 @@ export function sourceSupportHeight(S,way,a,b,t){
 }
 export function makeSourceSupportLookup(S){
     const catalogue=auditSupportCatalogue(S);
+    for(const value of[S.pieces,S.reviewedModels,S.nativeMotorEdges,S.data?.tramSourceWays,S.data?.tramRoutes,S.data?.tramSourceNodeTags,S.data?.roadSourceGeometry,S.data?.scenerySourceGeometry])freezeSource(value);
+    catalogueRefs.set(catalogue,{data:S.data,pieces:S.pieces,reviewedModels:S.reviewedModels,nativeMotorEdges:S.nativeMotorEdges});
     return{catalogue,heightAt(way,a,b,t){
     const point=[a[0]+(b[0]-a[0])*t,0,a[1]+(b[1]-a[1])*t],values=[];
     for(const p of catalogue.pieces)if(p.sourceId===way.sourceId){const u=fraction(p,point);if(u>=-EPS&&u<=1+EPS&&Math.abs((point[0]-p.a[0])*(p.b[1]-p.a[1])-(point[2]-p.a[1])*(p.b[0]-p.a[0]))<=EPS*Math.hypot(p.b[0]-p.a[0],p.b[1]-p.a[1]))values.push({y:polynomial(p,Math.max(0,Math.min(1,u)))-.2,modelId:p.modelId,basis:'independent-native-sampled-source-support-profile'});}

@@ -1,0 +1,15 @@
+# Independent ff6 native-body attribution and proposed source sweep
+
+Exact source `ff6b2bff3cfe5b45c5dba9624abbb6672304bfed`. Complete fresh QA raw buffers are committed separately as `b6352717a9ccb04fbdf258c0438c9dbe091e50de` under `handoffs/fidelity/native-rail-world-export/proof-preview-ff6/`. No browser or production code changed in this proof lane.
+
+**Physical acceptance remains false.** All 1,077 actual support pieces/profile/top geometry validate independently; native source directions and mode declarations are present. Exact native publication Groz 259 has375 triangle-pair contacts and Rom 490 has114. Other four actual flat native tram bodies have zero support/roof/world contacts at their captured poses. The complete 375/114 triangle fixtures and G lane-boundary proof are retained here. Source owners are inferred raised roadside surfaces/deck exteriors, not deleted real source volumes.
+
+The two offline sweeps retain every original admitted rail vertex and <=5m stations, both actual model kinds and legal directions: Groz 2,876 proposals and Rom 804. Raw geometric-clear/intersection/unknown counts are diagnostic, not native gameplay acceptance. Unique same-source branch choices keep alternative routes explicit; unconnected endpoints remain unknown. Actual full-mesh projected station/lateral bounds and raw estimated grade metadata are in `proposal-layer-classification.json.gz`. Source-centre legality alone does not certify whole-body carriageway clearance at joins. All raw pair groups remain unchanged.
+
+Classification preserves material side/depth/current visibility. The Romană global plane is a nonphysical horizon backdrop (`depthWrite=false`, `renderOrder=-20`); supported ballast can sit 1 mm above the actual physical slab. Far LOD alternatives, thin detail and signs require separate ownership/active-render attribution. No such raw render-plane intersection alone authorizes source deletion or a new blocker claim. No new camera/render inspection was performed.
+
+One additional unambiguous flat, same-original-leg proposal on w128304860:11 hits e77/w106797416 inferred LEFT sidewalk. Its 168 actual contacting body triangles and 12 native terrain triangles reproduce 174 pairs. Bridge 87fe compiler replay through Float32 MeshBuilder leaves zero while protecting the complete exported asphalt ribbon, conservatively including its shoulder. This is a cached compiler/proposal replay; fresh native emission and actual driving remain separate required gates.
+
+Known literal signal 35/36→98/78/controller4 associations match direct red states at native time 0; four pedestrian-only contexts are independently preserved. Actual controlled red stopping, dwell, green resume and rendered head acceptance remain unobserved. Native all 8/evolving routes/900 gates remain open.
+
+`manifest.json` pins raw and compressed artifacts and proof tools. `assessment.json` records exact scope and results. Gzip output is deterministic; raw originals and prior detector attempts remain untouched externally. 84 focused CPU controls passed. No runtime tolerance, population, RNG, route or camera override was made.

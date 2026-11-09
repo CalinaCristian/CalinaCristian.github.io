@@ -27,3 +27,13 @@ node handoffs/fidelity/independent-rail-body-observer/signal-checks.test.mjs
 node handoffs/fidelity/unirii-pedestrian-recovery/rail-binding-checks.test.mjs
 node handoffs/fidelity/independent-rail-body-observer/audit-recorded-world.mjs --world WORLD.json.gz --scene SCENE.json.gz --facts FACTS.json.gz --decoder handoffs/fidelity/independent-rail-body-observer/decoder-qa-a5db.cjs --archive EXACT_SOURCE_ARCHIVE --out NEW_REPORT.json
 ```
+
+The subsequent exact ff6 audit and separate proposed-pose sweeps are retained in [native-ff6/README.md](native-ff6/README.md). The current independent tools add complete per-mesh contact groups, an immutable validated-source cache, a bounded body-triangle index, literal pedestrian-only signal checks and an independent source pose sampler. All six native publication counter results remain identical before/after indexing. The current 84 focused controls pass; this does not change the false physical acceptance of the captured ff6 world.
+
+`source-pose-sampler.js` uses exact raw rail vertices, original node identity, declared/native and independently legal directions. It never joins nearby coordinates. Proposed stations extend only through literal connected legs; selected same-source branches retain other choices as uncertainty. `sweep-recorded-world.mjs` compares proposed rigid whole meshes against the immutable captured world, leaving source endpoints and unsupported spans unknown. It does not move runtime actors or claim continuous path coverage. `classify-recorded-proposals.mjs` preserves raw intersections while recording actual emitted body projection, materials, current visibility, render-only horizon/far LOD/detail distinctions and unresolved source/carriageway ownership. `replay-flat-proposal.mjs` separately checks one cached flat roadside compiler proposal; it is not a new native world capture.
+
+```sh
+node handoffs/fidelity/independent-rail-body-observer/source-pose-sampler.test.mjs
+node handoffs/fidelity/independent-rail-body-observer/sweep-recorded-world.mjs --dir QA_EXPORT --district grozavesti --archive EXACT_SOURCE_ARCHIVE --out NEW_REPORT.json
+node handoffs/fidelity/independent-rail-body-observer/classify-recorded-proposals.mjs --dir QA_EXPORT --sweeps SWEEP_DIRECTORY --out NEW_REPORT.json
+```

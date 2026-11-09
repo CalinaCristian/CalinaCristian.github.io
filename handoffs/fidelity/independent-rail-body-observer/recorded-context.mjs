@@ -71,7 +71,7 @@ export function prepareRecordedContext({world,scene,facts,reviewedModels,decoder
         const points=positions.map(v=>transform(inverse,transform(raw.matrixWorld,v))),bounds=box(points),solids=index.query(bounds),models=new Set();
         for(const off of[0,record.length/2,-record.length/2,record.length*.36,-record.length*.36]){const v=options.samplePath(off);if(v?.grade?.modelId)models.add(v.grade.modelId);}
         const snapshot={...shared,frameMatrix:frame,actor:{...record,matrixWorld:raw.matrixWorld},parts:[part],sourceSpanKnown:!!options.samplePath(record.length/2)&&!!options.samplePath(-record.length/2),expectedModelIds:[...models],solids,staticCoverageComplete:complete,staticCoverage:{expectedSolidIds:solids.map(s=>s.id),unclassifiedIds:gaps.map(g=>g.meshId||g.type),nativeFullMeshCount:expectedMeshIds.length,nativeFullTriangleCount:index.triangles,query:'complete immutable triangle index; no camera/draw-distance filtering'}};
-        const result=auditTramBody(snapshot,options);result.nativeStaticQuery={meshes:solids.length,triangles:solids.reduce((n,s)=>n+s.triangles.length,0),completeWorldMeshCount:expectedMeshIds.length,completeWorldTriangleCount:index.triangles};return result;
+        const result=auditTramBody(snapshot,{...options,sourceCatalogue:lookup.catalogue});result.nativeStaticQuery={meshes:solids.length,triangles:solids.reduce((n,s)=>n+s.triangles.length,0),completeWorldMeshCount:expectedMeshIds.length,completeWorldTriangleCount:index.triangles};return result;
     }
     function auditPhase(snapshot){
         const records=[...(snapshot.active||[]),...(snapshot.pool||[])],trams=records.filter(v=>v.tramDetected),byId=new Map(trams.map(v=>[v.id,v])),pre=facts.snapshots.find(s=>s.phase==='after-original-spawnAll-before-binding');
@@ -81,5 +81,5 @@ export function prepareRecordedContext({world,scene,facts,reviewedModels,decoder
         const result=auditRailBinding(source,{stage:snapshot.phase==='after-original-source-binding-before-initial-admission'?'publication':'motion',requireFinalModes:true,sourceGradeAt:lookup.heightAt,bodyAudit:(v,opt)=>body(byId.get(v.id),opt)});
         if(gaps.length||declarationGaps.length){result.passed=false;result.coverageGaps.push(...gaps,...declarationGaps);}return{phase:snapshot.phase,nativeTime:snapshot.nativeTime,nativeFrame:snapshot.nativeFrame,...result};
     }
-    return{auditPhase,body,index,lookup,summary:{complete,worldMeshCount:expectedMeshIds.length,decodedMeshCount:index.meshes.size,worldTriangles:index.triangles,largeTrianglesAlwaysQueried:index.large.length,rawSupportPieces:pieces.length,independentSupportPieces:lookup.catalogue.pieces.length,gaps,declarationGaps,exclusions}};
+    return{auditPhase,body,index,lookup,frameMatrix:frame,summary:{complete,worldMeshCount:expectedMeshIds.length,decodedMeshCount:index.meshes.size,worldTriangles:index.triangles,largeTrianglesAlwaysQueried:index.large.length,rawSupportPieces:pieces.length,independentSupportPieces:lookup.catalogue.pieces.length,gaps,declarationGaps,exclusions}};
 }

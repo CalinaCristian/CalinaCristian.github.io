@@ -1,0 +1,306 @@
+{
+  "scope": "Actual Office construction/dispose events across24rooms; CPU ownership only, not renderer.info, GPU allocation or weak-reference lifetime proof",
+  "passed": true,
+  "checks": [
+    "24 repeated real room constructions release each owned geometry/material/map once",
+    "replaced original window map is freed while late external texture is preserved",
+    "global BOXG and shared crowd materials survive every room",
+    "late allocated directional shadow/mapPass targets are each released once",
+    "second dispose is inert and ownership sets clear"
+  ],
+  "rooms": 24,
+  "ownedResourcesReleased": 1029,
+  "sharedResourcesPreserved": 3,
+  "shadowTargetsReleased": 48,
+  "externalTextureReleases": 0,
+  "summaries": [
+    {
+      "repeat": 0,
+      "stop": "rosetti",
+      "ownedResources": 27,
+      "roomSnapshot": {
+        "geometries": 9,
+        "materials": 9,
+        "textures": 4,
+        "shadows": 3
+      },
+      "helper": true
+    },
+    {
+      "repeat": 0,
+      "stop": "upb",
+      "ownedResources": 49,
+      "roomSnapshot": {
+        "geometries": 18,
+        "materials": 26,
+        "textures": 5,
+        "shadows": 7
+      },
+      "helper": false
+    },
+    {
+      "repeat": 0,
+      "stop": "gts",
+      "ownedResources": 41,
+      "roomSnapshot": {
+        "geometries": 7,
+        "materials": 29,
+        "textures": 5,
+        "shadows": 3
+      },
+      "helper": false
+    },
+    {
+      "repeat": 0,
+      "stop": "luxoft",
+      "ownedResources": 46,
+      "roomSnapshot": {
+        "geometries": 5,
+        "materials": 37,
+        "textures": 4,
+        "shadows": 7
+      },
+      "helper": false
+    },
+    {
+      "repeat": 0,
+      "stop": "db",
+      "ownedResources": 27,
+      "roomSnapshot": {
+        "geometries": 9,
+        "materials": 9,
+        "textures": 4,
+        "shadows": 7
+      },
+      "helper": true
+    },
+    {
+      "repeat": 0,
+      "stop": "arnia",
+      "ownedResources": 29,
+      "roomSnapshot": {
+        "geometries": 10,
+        "materials": 9,
+        "textures": 4,
+        "shadows": 7
+      },
+      "helper": true
+    },
+    {
+      "repeat": 0,
+      "stop": "uipath-buc",
+      "ownedResources": 70,
+      "roomSnapshot": {
+        "geometries": 8,
+        "materials": 58,
+        "textures": 4,
+        "shadows": 7
+      },
+      "helper": false
+    },
+    {
+      "repeat": 0,
+      "stop": "uipath-bel",
+      "ownedResources": 54,
+      "roomSnapshot": {
+        "geometries": 13,
+        "materials": 33,
+        "textures": 8,
+        "shadows": 7
+      },
+      "helper": false
+    },
+    {
+      "repeat": 1,
+      "stop": "rosetti",
+      "ownedResources": 27,
+      "roomSnapshot": {
+        "geometries": 9,
+        "materials": 9,
+        "textures": 4,
+        "shadows": 3
+      },
+      "helper": true
+    },
+    {
+      "repeat": 1,
+      "stop": "upb",
+      "ownedResources": 49,
+      "roomSnapshot": {
+        "geometries": 18,
+        "materials": 26,
+        "textures": 5,
+        "shadows": 7
+      },
+      "helper": false
+    },
+    {
+      "repeat": 1,
+      "stop": "gts",
+      "ownedResources": 41,
+      "roomSnapshot": {
+        "geometries": 7,
+        "materials": 29,
+        "textures": 5,
+        "shadows": 3
+      },
+      "helper": false
+    },
+    {
+      "repeat": 1,
+      "stop": "luxoft",
+      "ownedResources": 46,
+      "roomSnapshot": {
+        "geometries": 5,
+        "materials": 37,
+        "textures": 4,
+        "shadows": 7
+      },
+      "helper": false
+    },
+    {
+      "repeat": 1,
+      "stop": "db",
+      "ownedResources": 27,
+      "roomSnapshot": {
+        "geometries": 9,
+        "materials": 9,
+        "textures": 4,
+        "shadows": 7
+      },
+      "helper": true
+    },
+    {
+      "repeat": 1,
+      "stop": "arnia",
+      "ownedResources": 29,
+      "roomSnapshot": {
+        "geometries": 10,
+        "materials": 9,
+        "textures": 4,
+        "shadows": 7
+      },
+      "helper": true
+    },
+    {
+      "repeat": 1,
+      "stop": "uipath-buc",
+      "ownedResources": 70,
+      "roomSnapshot": {
+        "geometries": 8,
+        "materials": 58,
+        "textures": 4,
+        "shadows": 7
+      },
+      "helper": false
+    },
+    {
+      "repeat": 1,
+      "stop": "uipath-bel",
+      "ownedResources": 54,
+      "roomSnapshot": {
+        "geometries": 13,
+        "materials": 33,
+        "textures": 8,
+        "shadows": 7
+      },
+      "helper": false
+    },
+    {
+      "repeat": 2,
+      "stop": "rosetti",
+      "ownedResources": 27,
+      "roomSnapshot": {
+        "geometries": 9,
+        "materials": 9,
+        "textures": 4,
+        "shadows": 3
+      },
+      "helper": true
+    },
+    {
+      "repeat": 2,
+      "stop": "upb",
+      "ownedResources": 49,
+      "roomSnapshot": {
+        "geometries": 18,
+        "materials": 26,
+        "textures": 5,
+        "shadows": 7
+      },
+      "helper": false
+    },
+    {
+      "repeat": 2,
+      "stop": "gts",
+      "ownedResources": 41,
+      "roomSnapshot": {
+        "geometries": 7,
+        "materials": 29,
+        "textures": 5,
+        "shadows": 3
+      },
+      "helper": false
+    },
+    {
+      "repeat": 2,
+      "stop": "luxoft",
+      "ownedResources": 46,
+      "roomSnapshot": {
+        "geometries": 5,
+        "materials": 37,
+        "textures": 4,
+        "shadows": 7
+      },
+      "helper": false
+    },
+    {
+      "repeat": 2,
+      "stop": "db",
+      "ownedResources": 27,
+      "roomSnapshot": {
+        "geometries": 9,
+        "materials": 9,
+        "textures": 4,
+        "shadows": 7
+      },
+      "helper": true
+    },
+    {
+      "repeat": 2,
+      "stop": "arnia",
+      "ownedResources": 29,
+      "roomSnapshot": {
+        "geometries": 10,
+        "materials": 9,
+        "textures": 4,
+        "shadows": 7
+      },
+      "helper": true
+    },
+    {
+      "repeat": 2,
+      "stop": "uipath-buc",
+      "ownedResources": 70,
+      "roomSnapshot": {
+        "geometries": 8,
+        "materials": 58,
+        "textures": 4,
+        "shadows": 7
+      },
+      "helper": false
+    },
+    {
+      "repeat": 2,
+      "stop": "uipath-bel",
+      "ownedResources": 54,
+      "roomSnapshot": {
+        "geometries": 13,
+        "materials": 33,
+        "textures": 8,
+        "shadows": 7
+      },
+      "helper": false
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 import { makeCanvasTexture, clamp, damp, angleLerp } from './util.js';
 import { drawFitText } from './canvasText.js';
 import { makeCrowd } from './crowd.js';
-import {buildArniaInterior,buildDBInterior} from './office-interior-details.js';
+import {buildArniaInterior,buildDBInterior,buildRosettiInterior} from './office-interior-details.js';
 import {captureOfficeResources} from './office-resources.js';
 
 const SANS = (w) => (px) => `${w} ${px}px "Helvetica Neue", Helvetica, Arial, sans-serif`;
@@ -140,10 +140,10 @@ const carpet = (base) => tex(128, 128, (ctx) => { ctx.fillStyle = base; ctx.fill
 
 /** per-stop theme: room size, surfaces, view, NPC persona + look, colleagues, props builder name */
 const THEMES = {
-    rosetti: { W: 10, D: 10, H: 3.4, floor: () => parquet('#8a5a34'), wallLow: '#5f7f5a', wall: '#ede3cc', ceil: '#f2efe6', view: 'bucharest', props: 'classroom',
+    rosetti: { W: 10, D: 10, H: 3.4, photoLed:true, floor: () => carpet('#a6adab'), wallLow: '#90999a', wall: '#eef0ea', ceil: '#f1f3ed', view: 'bucharest', props: 'classroom',
         npc: { title: 'Form teacher', persona: 'teacher', look: { top: '#5a4636', bottom: '#2f3237', skin: '#e8bc9a', hair: '#5a4030' }, at: [-2.6, -3.6], yaw: 0.35 },
-        // students on the desk chairs (desks at x = −3.2 / 0 / 3.2, z = −1.4 + r·1.6, seats at x ± 0.3, z + 0.45), facing the board (note 2)
-        mates: [[-3.5, 0.65, 'sit', 0], [0.3, 0.65, 'sit', 0], [2.9, 2.25, 'sit', 0], [4.4, 4.0, 'phone', -0.4]], tone: 'room' },
+        // Virtual classmates occupy the paired desks of the estimated photo-led room.
+        mates: [[-3.5, 0.65, 'sit', 0], [-2.7, 2.25, 'sit', 0], [2.9, 2.25, 'sit', 0], [4.4, 4.0, 'phone', -0.4]], tone: 'room' },
     upb: { W: 18, D: 22, H: 7, floor: () => stone('#d8d4cc', 'rgba(120,110,100,0.25)', 128), wallLow: '#b9b2a6', wall: '#e6e0d4', ceil: '#efe9df', view: 'bucharest', props: 'rectorat',
         npc: { title: 'Professor', persona: 'professor', look: { top: '#3a3d44', bottom: '#2f3237', skin: '#e8bc9a', hair: '#9a9a96' }, at: [2.5, -6], yaw: -0.4 },
         mates: [[-4, -2, 'talk'], [-3.2, -1.2, 'talk'], [5, 3, 'phone'], [-6, 5, 'walk']], tone: 'hall' },
@@ -495,31 +495,8 @@ function makeRngLite(seed) { let s = seed || 1; return () => (s = (s * 16807) % 
 //  prop sets per interior
 // ---------------------------------------------------------------------------------------------------------------------
 const PROPS = {
-    /** 2009 classroom: chalkboard, teacher's desk, double school desks + chairs, notice board, beige CRT, radiator */
-    classroom(o, { W, D, H, accent }) {
-        const { box, mat } = o, wood = mat('#a0703f', { roughness: 0.6 }), metal = mat('#3d4148', { roughness: 0.5, metalness: 0.5 });
-        const board = new THREE.Mesh(new THREE.PlaneGeometry(4.2, 1.3), new THREE.MeshStandardMaterial({ roughness: 0.9, map: makeCanvasTexture(1024, 320, (ctx) => {
-            ctx.fillStyle = '#20402e'; ctx.fillRect(0, 0, 1024, 320); ctx.fillStyle = 'rgba(255,255,255,0.08)'; for (let i = 0; i < 40; i++) ctx.fillRect(Math.random() * 1024, Math.random() * 320, 80, 3);
-            ctx.fillStyle = '#ece9e0'; ctx.textAlign = 'center';
-            drawFitText(ctx, 'Matematică-Informatică · 2009', 512, 90, 900, { maxSize: 64, minSize: 24, font: (sz) => `italic ${sz}px "Comic Sans MS", "Segoe Print", cursive`, label: 'chalkboard title' });
-            drawFitText(ctx, 'f(x) = x² − 4x + 3   ·   program p; begin writeln(\'Hello\'); end.', 512, 210, 960, { maxSize: 40, minSize: 16, font: (sz) => `${sz}px "Courier New", monospace`, label: 'chalkboard code' });
-        }) }));
-        board.position.set(0, 1.75, -D / 2 + 0.145); o.scene.add(board); // (25 mm proud of its wooden backing: it z-fought at +0.12 — round 6 note 1)
-        box(4.4, 0.08, 0.08, 0, 1.08, -D / 2 + 0.16, wood); box(4.5, 1.5, 0.04, 0, 1.75, -D / 2 + 0.1, wood);
-        o.signMesh.position.set(-W / 2 + 0.13, 2.6, -1); o.signMesh.rotation.y = Math.PI / 2; o.signMesh.scale.setScalar(0.45); // school name on the side wall
-        box(1.4, 0.06, 0.7, -2.6, 0.76, -3.1, wood, true); box(1.3, 0.7, 0.04, -2.6, 0.4, -2.78, wood);
-        for (let r = 0; r < 4; r++) for (let c = -1; c <= 1; c++) {
-            const x = c * 3.2, z = -1.4 + r * 1.6;
-            box(1.25, 0.04, 0.5, x, 0.74, z, wood, true); for (const dx of [-0.55, 0.55]) box(0.04, 0.72, 0.45, x + dx, 0.37, z, metal);
-            for (const dx of [-0.3, 0.3]) { box(0.38, 0.04, 0.38, x + dx, 0.44, z + 0.45, wood); box(0.38, 0.4, 0.03, x + dx, 0.68, z + 0.65, wood); }
-        }
-        const notice = makeCanvasTexture(512, 256, (ctx) => { ctx.fillStyle = '#b08a5a'; ctx.fillRect(0, 0, 512, 256); const cols = ['#fff7c2', '#ffffff', '#cde8ff', '#ffd9d9']; for (let i = 0; i < 9; i++) { ctx.fillStyle = cols[i % 4]; ctx.save(); ctx.translate(30 + (i % 5) * 96, 30 + Math.floor(i / 5) * 110); ctx.rotate((i % 3 - 1) * 0.05); ctx.fillRect(0, 0, 80, 96); ctx.fillStyle = '#c0392b'; ctx.beginPath(); ctx.arc(40, 6, 5, 0, 7); ctx.fill(); ctx.fillStyle = 'rgba(0,0,0,0.25)'; for (let y = 22; y < 90; y += 10) ctx.fillRect(8, y, 64, 2); ctx.restore(); } });
-        const nb = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.2), new THREE.MeshStandardMaterial({ map: notice, roughness: 0.9 })); nb.position.set(-2.9, 1.7, D / 2 - 0.03); nb.rotation.y = Math.PI; o.scene.add(nb); // (beside the door: it was centred on it, at the door's own depth — note 3)
-        box(0.5, 0.42, 0.45, -W / 2 + 0.6, 1.0, 2.6, mat('#d9d2bd')); box(0.5, 0.05, 0.6, -W / 2 + 0.6, 0.76, 2.6, wood, true); // beige CRT on a side table
-        box(0.44, 0.32, 0.02, -W / 2 + 0.86, 1.02, 2.6, new THREE.MeshBasicMaterial({ color: '#2a4d6b' }), false, Math.PI / 2);
-        box(0.12, 0.6, 3.6, W / 2 - 0.3, 0.55, 0, mat('#e6e6e0')); // radiator under the windows
-        void H; void accent;
-    },
+    /** Privately compared Rosetti school tour; exact2009room appearance is unknown. */
+    classroom(o,d) { return buildRosettiInterior(o,d); },
     /** Rectorat hall: columns, benches, glass case with the BEST hackathon trophy, notice board of the faculty */
     rectorat(o, { W, D, H, accent }) {
         const { box, mat } = o, col = mat('#ece6da', { roughness: 0.5 }), wood = mat('#6e4a2c', { roughness: 0.5 });

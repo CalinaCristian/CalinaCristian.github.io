@@ -1,0 +1,23 @@
+{
+  "base": "144eb1248af4eb52d9682388881cdf792b5a8c03",
+  "scope": "CPU-tested implementation bytes before native candidate commit; no browser acceptance",
+  "files": {
+    "game/src/spots/context-array-codec.js": "2f0a5c32cacedb5b605341a57a4d6191738028ad4bb3424a013eee75aa373282",
+    "game/src/spots/source-context.js": "3fc95de32279908e3be9f951ce6baecf48ab54d5f4d62c6c7819c779bea51807",
+    "game/src/spots/source-context-data.js": "2a4232db32d748b2ebfff087265ef3b8afe6052a3b0b3aff6638efe8d6f096db",
+    "game/src/spots/source-context-landscape.js": "563b535d1e143bcaf357658ec257dbe91ca419b4f9d05938aab0ed24de395a9b",
+    "game/src/spots/source-context-surface.js": "8c6bc6d0081bf6031f8bc32f363a2f0857d6483429b54f7a7b64baf71d160386",
+    "game/src/spots/source-water-faces.js": "d0e283399213d8d737a6e9d2cb210b4cb02019d7b764b574514da421c076a1ff",
+    "game/src/spots/source-coast-water.js": "5187c160d1da6b87e232dc87c3ff45089226f26b224dc998a2e146103aea641e",
+    "game/src/spots/ground.js": "f269ad5471ffaa0098620bcd8a6056c604a9b89d22fb7fbd24bfd9c7ac6b1489",
+    "game/src/spots/scenes/pike-place.js": "3a348fab3a403222c6bbea568f67e9ca6071baf6c76f0e08af35cc4529f4dd72",
+    "game/src/spots/scenes/seattle-center.js": "effba705c6dda69ff5762ffdf11e075bcd40c9da8474dffcce01593ee3b8669f",
+    "tools/osm/build-spot-context.mjs": "a2031facf55a171cfe30ecf6df2693a0ac8e0e3768cd9e978e6ec9aeba30a8af",
+    "tools/osm/bake-context-plan.mjs": "2f929dfccc94e750243a35f8cb310364d355423dbb397bc999e03db2163a423d",
+    "tools/osm/bake-context-render.mjs": "4eec19cbf34f6a059bb6d0e6525c4c30e0cdf28f8cfdc7067a821ce6fdc12cff",
+    "tools/osm/deduplicate-attributes.mjs": "fceeb26eea342b327a3286a5c6421cf3638c18beb26c66ce908d552f88713d06",
+    "tools/osm/audit-spot-context.py": "8130fb8d1a7d0156d2a761b48d70912bc60bff7f8bfb795cf5507e8a0b6e2e67",
+    "tools/osm/context-cache-controls.mjs": "b8f238fbaa4ac49be8301b5485182a31065c3d7fa0e9dd5f7d03b57d15cd1ca4",
+    "tools/osm/context-surface-controls.mjs": "ae6de02e68deba91f12329d058490a500d0522a544849f23d0774353d4e47b86"
+  }
+}

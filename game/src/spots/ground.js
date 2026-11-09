@@ -173,7 +173,8 @@ export class Ground {
     /** terrain + modifiers (the visible ground) */
     heightAt(x, z) { let h = this.base(x, z); for (const m of this.mods) h = m(x, z, h); return h; }
     /** Physical floor: use the emitted terrain triangles once buildTerrain exists. */
-    terrainHeightAt(x, z) { return this.renderedHeightAt?.(x, z) ?? this.heightAt(x, z); }
+    terrainHeightAt(x, z) { return this.renderedHeightAt?.(x, z) ?? this.sourceTerrain?.renderedHeightAt?.(x,z) ?? this.heightAt(x, z); }
+    waterHeightAt(x,z) { return this.sourceTerrain?.waterAt ? this.sourceTerrain.waterAt(x,z) : this.waterY; }
     /** add a modifier (x,z,h)=>h */
     mod(fn) { this.mods.push(fn); return this; }
     /** flatten inside a polygon to y (number) or to the polygon's mean height; `edge` m blend outside */
@@ -279,7 +280,7 @@ export class Ground {
             if (Math.abs(x - s.x) > s.r || Math.abs(z - s.z) > s.r || s.bottom > y + 1.6 || !s.contains(x, z)) continue;
             const t = s.top(x, z); if (Number.isFinite(t) && t > g) g = t;
         }
-        if (Number.isFinite(this.waterY)) g = Math.max(g, this.waterY);
+        const water=this.waterHeightAt(x,z);if (Number.isFinite(water)) g = Math.max(g, water);
         return g;
     }
     groundAt(x, z, y = 0) {
@@ -293,7 +294,7 @@ export class Ground {
             if (t > g) g = t;
         }
         // deep water is not walkable (piers / decks above it are, through the surfaces)
-        if (this.waterY !== null && this.waterY !== undefined && g < this.waterY - 0.5) return y + 50;
+        const water=this.waterHeightAt(x,z);if (water !== null && water !== undefined && g < water - 0.5) return y + 50;
         return g;
     }
 }

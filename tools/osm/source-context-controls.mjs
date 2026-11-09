@@ -18,7 +18,11 @@ b.sourceTerrain={heightAt:(x,z)=>20+x*.1+z*.05,transitionM:10};
 let samples=0;for(let z=0;z<=20;z+=.25)for(let x=0;x<=20;x+=.25){assert.equal(a.raw(x,z),b.raw(x,z));samples++;}
 assert(Math.abs(b.raw(20.000001,10)-a.raw(20,10))<1e-10);assert.equal(b.raw(30,10),23.5);
 b.sourceTerrain.heightAt=()=>null;assert.equal(a.raw(100,100),b.raw(100,100));
-const result={syntheticControlsPassed:18,unchangedFineDemSamples:samples,sourceLayerDoesNotSupplyMetres:true,literalFeetPriority:true,sourceHolesAndClosedOrder:true,noInputMutation:true};
+const wet=new Ground(oldGrid);wet.waterY=99;wet.sourceTerrain={heightAt:()=>0,waterAt:(x,z)=>x>30?40:null};
+assert.equal(wet.flightHeightAt(40,10),40);assert.equal(wet.groundAt(40,10,0),50);assert(wet.flightHeightAt(10,10)<40);
+wet.addBox(40,10,2,2,0,39,45);assert.equal(wet.groundAt(40,10,45),45);assert.equal(wet.flightHeightAt(40,10,40),45);
+const legacy=new Ground(oldGrid);legacy.waterY=99;assert.equal(legacy.flightHeightAt(10,10),99);
+const result={syntheticControlsPassed:24,unchangedFineDemSamples:samples,sourceLayerDoesNotSupplyMetres:true,literalFeetPriority:true,sourceHolesAndClosedOrder:true,noInputMutation:true,sourceMaskedWaterAndDeckControls:true,legacyUnmaskedWaterUnchanged:true};
 if(process.argv[2]){
  const source=JSON.parse(fs.readFileSync(process.argv[2])),native=JSON.parse(fs.readFileSync('game/data/spots/seattle-center.json')),field=sourceTerrainField(source.terrain,native.origin,native.projection);
  let pixels=0,maxErrorM=0;

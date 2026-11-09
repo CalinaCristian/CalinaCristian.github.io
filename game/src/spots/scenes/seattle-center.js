@@ -15,6 +15,7 @@ import { addTraffic } from '../cars.js';
 import { photoHunt } from '../photo-hunt.js';
 import { activityFlow } from '../participation.js';
 import { facadeMaterial } from '../osm.js';
+import {prepareSourceContext,addSourceContext} from '../source-context.js';
 
 const NEEDLE = { x: 0.3, z: 0.7, y: 1.5 };
 const MONO = [[-46, -86], [-23, -87], [-8, -87], [10, -88], [37, -89], [49, -88], [56, -87], [64, -86], [71, -83], [78, -80], [96, -62], [102, -54], [105, -50], [109, -43], [115, -39], [124, -30], [129, -10], [129, 60], [126, 160], [126, 300]];
@@ -286,11 +287,12 @@ function buildMonorail(ctx) {
 export default {
     env: { fogFar: 4200 },
     async build(ctx) {
+        await prepareSourceContext(ctx,{replaceNativeSourceIds:['r20085315']});
         const g = ctx.ground, d = ctx.data;
         // plaza level around the Needle base (flat), gentle elsewhere
         const plaza = []; for (let i = 0; i < 40; i++) { const a = i / 40 * Math.PI * 2; plaza.push([NEEDLE.x + Math.cos(a) * 34, NEEDLE.z + Math.sin(a) * 34]); }
         g.flatten(plaza, NEEDLE.y, 10);
-        ctx.terrainOpts = { bg: '#8f8b82', bgMask: 'slab', innerPx: 2048, outerPad: 420, skirtY: -42, skirtColor: '#1f333c' };
+        ctx.terrainOpts = { bg: '#8f8b82', bgMask: 'slab', innerPx: 2048, outerPad: 0, skirt: 0 };
         { const c = []; for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; c.push([NEEDLE.x + Math.cos(a) * 26, NEEDLE.z + Math.sin(a) * 26]); } ctx.exclude.push(c); } // the Needle's OSM parts → hero model
         const needle = buildNeedle(ctx);
         const chi = buildChihuly(ctx);
@@ -303,10 +305,8 @@ export default {
         // Howard S. Wright Memorial Fountain: shallow pool south of the base
         { const fw = d.areas.find((a) => a.id === 'w241876412'); if (fw) { const c = centroid(fw.poly), w = new THREE.Mesh(new THREE.CircleGeometry(4.2, 32), new THREE.MeshStandardMaterial({ color: '#3d6f80', roughness: 0.05, metalness: 0.3 })); w.rotation.x = -Math.PI / 2; w.position.set(c[0], g.heightAt(c[0], c[1]) + 0.06, c[1]); ctx.add(w); } }
         // the city around the grounds (seen from the deck: 360°) — real towers, blocks, ground, Elliott Bay + ferries, mountains
-        { const W = Object.values(d.spots).flatMap((sp) => sp.extent?.polygon || []), xs = W.map((p) => p[0]), zs = W.map((p) => p[1]), m8 = (v) => Math.round(v / 8) * 8, OUT = 420;
-          const hole = { x0: m8(Math.min(...xs) - 60) - OUT + 16, z0: m8(Math.min(...zs) - 60) - OUT + 16, x1: m8(Math.max(...xs) + 60) + OUT - 16, z1: m8(Math.max(...zs) + 60) + OUT - 16 };
-          ctx.extras.seaBackdrop = seaBackdrop(ctx, { needle: false, clear: 380, eyeY: 1.6, midrise: 1800, midClear: 420, midBox: [47.596, -122.375, 47.645, -122.31],
-            ground: { box: { x0: -4000, z0: -3600, x1: 4000, z1: 3600 }, hole, step: 24, simplify: 0.025, omitSubmerged: true }, trees: 2600, treeClear: 420, lake: true }); }
+        addSourceContext(ctx);
+        ctx.extras.seaBackdrop = seaBackdrop(ctx, { needle: false, towers: false, bay: false, clear: 380, eyeY: 1.6 });
         // 5th Ave / Broad St traffic
         addTraffic(ctx, { lanes: [{ pts: [[129, 160], [129, -20], [129, -174], [130, -219], [124, -305]], n: 3, speed: 10 }, { pts: [[124, -305], [130, -219], [129, -174], [129, -20], [129, 160]].map(([x, z]) => [x - 5, z]), n: 3, speed: 10 }, { pts: [[7, 120], [18, 108], [40, 83], [79, 34], [103, 6], [129, -20]], n: 2, speed: 10 }] });
         // ---- plaques (Needle 5, Chihuly 3) with artist / architect credits

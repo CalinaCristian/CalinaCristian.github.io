@@ -309,8 +309,10 @@ export function buildBuildings(data, ground, o = {}) {
         r.style=style;r.cx=cx;r.cz=cz;records.push(r);
     }
     const plan=resolveSourcePlan(records,data.buildingGeometry),add=(style,g,col)=>{if(!g.index?.count){g.dispose();return;}const key='f-'+style;mats[key]=facadeMaterial(style);batch.add(g,key,null,col);g.dispose();};
-    const collisionKeys=new Map();
+    const collisionKeys=new Map();let reusedVolumes=0;
     for(const v of plan.volumes){
+        if(o.reuseSceneSourceIds?.has(v.source.id)){reusedVolumes++;continue;}
+        o.onSourceVolume?.(v.source.id); // geometry-cache observer: primitive identity only
         const r=v.owner,b=v.source,style=r.style,S=facadeStyle(style),pal=PALETTES[style]||(style==='house'?HOUSE_COLS:style==='office'?OFFICE_COLS:style==='brick'?BRICK_COLS:APT_COLS),hcol=b.c?safeCol(b.c):pal[Math.floor(hash2(r.cx,r.cz)*pal.length)],roofcol=b.rc?safeCol(b.rc):style==='office'?'#7d8288':v.owner.profile.shape==='flat'?'#8a8784':['#4a4a4f','#5b4a42','#3f4a52','#6b6660'][Math.floor(hash2(r.cz,r.cx)*4)];
         const shop=urban&&r.minHeight===0&&r.height>7&&(b.shop||b.amenity||style==='mall'||/commercial|retail|mixed|yes/.test(b.k))&&style!=='house'&&style!=='industrial',gf=shop?Math.min(v.h,r.datum+4.3):v.minH;
         const wall=(ring,bands,hole=false)=>{
@@ -340,7 +342,7 @@ export function buildBuildings(data, ground, o = {}) {
     }
     for(const m of Object.values(mats))m.side=THREE.DoubleSide;
     const group=batch.build('osm-buildings',{matOverrides:mats});
-    const stats={...plan.stats,cacheHit:plan.cacheHit,buildMs:Math.round(performance.now()-started),sourceRecords:records.length,renderedVolumes:plan.volumes.length,heroReplacements:[...skip].filter(id=>data.buildings.some(b=>b.id===id))};
+    const stats={...plan.stats,cacheHit:plan.cacheHit,buildMs:Math.round(performance.now()-started),sourceRecords:records.length,renderedVolumes:plan.volumes.length-reusedVolumes,heroReplacements:[...skip].filter(id=>data.buildings.some(b=>b.id===id)),...(o.reuseSceneSourceIds?{reusedSceneSourceIds:[...o.reuseSceneSourceIds].filter(id=>records.some(r=>r.source.id===id)),reusedVolumes}: {})};
     return{group,colliders,tris:countFromGroup(group),dedupe:{dropped:0,inset:0},sourceGeometry:stats,sourceMembers:members,geometryCache:plan.geometryCache};
 }
 function sourceCollisionKey(ring,holes,y0,y1){

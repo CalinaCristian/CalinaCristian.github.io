@@ -2,6 +2,7 @@
 import { parseMeasure } from '../building-roofs.js';
 const positive=t=>t!=null&&!['no','false','0',''].includes(String(t).toLowerCase());
 const number=t=>t!=null&&String(t).trim()!==''&&Number.isFinite(Number(t))?Number(t):undefined;
+export const unknownContextVerticalParts=data=>data.buildings.filter(b=>b.part&&(b.layer||b.rawTags.location==='elevated'||b.rawTags.location==='underground')&&!Number.isFinite(b.minH)&&!Number.isFinite(b.minLv));
 export function sourceTerrainField(terrain,origin,projection){
     if(!(terrain.nx>=2&&terrain.nz>=2&&terrain.lonStep>0&&terrain.latStep>0))throw Error('Invalid source terrain grid');
     const bytes=Uint8Array.from(atob(terrain.heights),c=>c.charCodeAt(0)),view=new DataView(bytes.buffer);
@@ -29,7 +30,7 @@ export function decodeSourceContext(data,{origin,projection}){
         return b;
     });
     const common=(r,isArea=false)=>{
-        const t=data.tags[r.t],o={id:r.id,rawTags:t,...(isArea?{poly:ring(r.n),holes:(r.holes||[]).map(ring)}:{pts:r.n.map(i=>[xy[i*2],xy[i*2+1]]),k:t.highway})};
+        const t=data.tags[r.t],o={id:r.id,nodeRefs:r.n.map(i=>data.nodes[i*3]),rawTags:t,...(isArea?{poly:ring(r.n),holes:(r.holes||[]).map(ring)}:{pts:r.n.map(i=>[xy[i*2],xy[i*2+1]]),k:t.highway})};
         for(const k of['name','surface','area','indoor','bridge','tunnel','level','sidewalk','lanes','highway','natural','water','waterway','landuse','leisure','place'])if(t[k]!=null&&!(k==='tunnel'&&t[k]==='no'))o[k]=t[k];
         if(t['area:highway'])o.area_highway=t['area:highway'];if(t.layer!=null)o.layer=number(t.layer);const width=parseMeasure(t.width);if(width>0)o.width=width;
         return o;

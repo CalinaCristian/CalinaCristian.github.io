@@ -1,0 +1,82 @@
+{
+  "syntheticSourceIdentityAndWaterControls": 8,
+  "reports": [
+    {
+      "scene": "seattle-center",
+      "faces": 67742,
+      "badQueries": 0,
+      "wetCentroids": 0,
+      "maxRayError": 2.2737367544323206e-13,
+      "nativeSeamSourceVerticesExact": 1977,
+      "derivedWaterClipSeamMaxErrorM": 3.8501457311213017e-7,
+      "buildMs": 2194.789164,
+      "elapsedMs": 2588.702532,
+      "serialization": {
+        "lineOnlyFragments": 50,
+        "collapsedOrInvertedFragments": 1585,
+        "wrongSideFragments": [
+          {
+            "face": [
+              [
+                1959.7613525390625,
+                -34.475982666015625,
+                -3480
+              ],
+              [
+                1959.781982421875,
+                -34.475467681884766,
+                -3480.218017578125
+              ],
+              [
+                1959.7818603515625,
+                -34.475467681884766,
+                -3480.218017578125
+              ]
+            ],
+            "original": [
+              [
+                1959.7614016534155,
+                -34.475982310051045,
+                -3480
+              ],
+              [
+                1959.7819997578194,
+                -34.47546684687518,
+                -3480.21800024218
+              ],
+              [
+                1959.7819062630563,
+                -34.475469287468904,
+                -3480.2180937369435
+              ]
+            ],
+            "projectedArea": 0.000013306736946105957
+          }
+        ]
+      },
+      "waterPolygons": 21,
+      "sourceCoastWays": 58,
+      "coastIssues": []
+    },
+    {
+      "scene": "pike-place",
+      "faces": 64054,
+      "badQueries": 0,
+      "wetCentroids": 0,
+      "maxRayError": 1.7763568394002505e-13,
+      "nativeSeamSourceVerticesExact": 1689,
+      "derivedWaterClipSeamMaxErrorM": 0.0000013794924598187208,
+      "buildMs": 1832.5949899999996,
+      "elapsedMs": 2220.4377889999996,
+      "serialization": {
+        "lineOnlyFragments": 21,
+        "collapsedOrInvertedFragments": 1099,
+        "wrongSideFragments": []
+      },
+      "waterPolygons": 23,
+      "sourceCoastWays": 58,
+      "coastIssues": []
+    }
+  ],
+  "scope": "Geometry-only CPU. Source ground mesh/query/triangle union; no actual browser pixels, authored scene routes or cold-load acceptance."
+}

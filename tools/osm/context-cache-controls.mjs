@@ -1,0 +1,31 @@
+import fs from 'node:fs';
+import zlib from 'node:zlib';
+import crypto from 'node:crypto';
+import assert from 'node:assert/strict';
+import * as THREE from '../../game/vendor/three.module.min.js';
+import {encodeContextContainer,decodeContextContainer,validateContextBatches} from '../../game/src/spots/context-array-codec.js';
+import {decodeSourceContext,unknownContextVerticalParts} from '../../game/src/spots/source-context-data.js';
+import {addSourceContextBuildings,prepareSourceContext} from '../../game/src/spots/source-context.js';
+import {Ground,Painter} from '../../game/src/spots/ground.js';
+const input=JSON.parse(fs.readFileSync(process.argv[2])),bytes=new Uint8Array(zlib.gunzipSync(fs.readFileSync(process.argv[3]))),cache=decodeContextContainer(bytes),data=decodeSourceContext(input,input.frame),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+assert.equal(cache.sourceDataSHA256,hash(fs.readFileSync(process.argv[2])));assert(validateContextBatches(cache.batches,new Set(data.buildings.map(b=>b.id))));
+for(const[p,h]of Object.entries(cache.sourceConsumerHashes))assert.equal(hash(fs.readFileSync(p)),h,p);
+const fixture={batches:[{key:'roofs',attributes:{position:{array:new Float32Array([0,0,0,1,0,0,0,0,1]),itemSize:3}},index:new Uint16Array([0,1,2]),sourceRanges:[{source:'w1',start:0,count:3}]}]};
+const round=decodeContextContainer(encodeContextContainer(fixture));assert.deepEqual(round.batches[0].attributes.position.array,fixture.batches[0].attributes.position.array);assert(validateContextBatches(round.batches,new Set(['w1'])));
+assert.throws(()=>decodeContextContainer(new Uint8Array(16)));const malformed=structuredClone(round);malformed.batches[0].index[0]=3;assert.throws(()=>validateContextBatches(malformed.batches,new Set(['w1'])));
+const foreign=structuredClone(round);foreign.batches[0].sourceRanges[0].source='w2';assert.throws(()=>validateContextBatches(foreign.batches,new Set(['w1'])));
+const corrupt=structuredClone(round);corrupt.batches[0].attributes.position.array[0]=NaN;assert.throws(()=>validateContextBatches(corrupt.batches,new Set(['w1'])));
+const opaque=new Float32Array(new Uint32Array([0,0x80000000,0x7fc00001]).buffer),special={batches:[{attributes:{position:{array:opaque,itemSize:3}},index:new Uint16Array(),sourceRanges:[]}]},preserved=decodeContextContainer(encodeContextContainer(special));assert.deepEqual(new Uint32Array(preserved.batches[0].attributes.position.array.buffer,preserved.batches[0].attributes.position.array.byteOffset,3),new Uint32Array(opaque.buffer));
+const context2d=()=>new Proxy({createLinearGradient:()=>({addColorStop(){}}),createRadialGradient:()=>({addColorStop(){}}),measureText:t=>({width:String(t).length*8})},{get:(o,k)=>k in o?o[k]:()=>{}});globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>context2d()})};
+globalThis.fetch=async url=>new Response(fs.readFileSync(new URL(url)));
+const reports=[];
+for(const id of['seattle-center','pike-place']){const native=JSON.parse(fs.readFileSync(`game/data/spots/${id}.json`)),colliders=[],scene=new THREE.Scene(),ctx={data:native,ground:new Ground(native.terrain),painter:new Painter(),skipBuildings:new Set(),extras:{},ll:(lat,lon)=>({x:(lon-native.origin.lon)*native.projection.mLon,z:-(lat-native.origin.lat)*native.projection.mLat}),collider:c=>colliders.push(c),add:g=>scene.add(g)};
+    const state=await prepareSourceContext(ctx,id==='seattle-center'?{replaceNativeSourceIds:['r20085315']}:{heroSourceIds:['w12903132']}),omit=state.visualOmitIds;
+    const start=performance.now();addSourceContextBuildings(ctx);let expected=0;const attrs=new Map();for(const b of cache.batches)for(const r of b.sourceRanges)if(!omit.has(r.source))expected+=r.count/3;
+    for(const m of state.group.children){const key=m.name.split(':')[1],prior=attrs.get(key);if(prior)assert.equal(m.geometry.attributes.position,prior);else attrs.set(key,m.geometry.attributes.position);
+        const p=m.geometry.attributes.position,idx=m.geometry.index.array;for(let i=0;i<idx.length;i+=101){const v=new THREE.Vector3().fromBufferAttribute(p,idx[i]);assert(m.geometry.boundingBox.containsPoint(v));}}
+    assert.equal(state.renderedTriangles,expected);assert.equal(state.group.userData.noFloor,true);
+    if(id==='seattle-center'){assert(ctx.skipBuildings.has('r20085315'));assert(state.nativeSourceCorrections[0].componentIds.length===2);}else assert(state.heroReplacementSourceIds.includes('w12903132'));
+    reports.push({scene:id,modeledSourceRecords:cache.sourceGeometry.sourceRecords,reusedNativeSourceIds:state.reusedNativeSourceIds.length,heroReplacementSourceIds:state.heroReplacementSourceIds,nativeSourceCorrections:state.nativeSourceCorrections,contextTriangles:expected,chunks:state.meshChunks,physicalVolumes:colliders.length,chunkAttributesShared:true,indexedBoundsContainAllCheckedVertices:true,buildMs:performance.now()-start});
+}
+console.log(JSON.stringify({binaryAndMalformedCacheControls:8,sourceDataSHA256:cache.sourceDataSHA256,bytes:bytes.length,reports,scope:'CPU exact numeric/cache/chunk controls; no native render, load, image or frame-budget pass'},null,2));

@@ -1,0 +1,1626 @@
+{
+  "toolSha256": "0ef59a6f93354d9c1ae197d1d6b6214ccfc60798ff4294fc2d36c3d622d78ce5",
+  "snapshotRoot": "/workspace/reality-pass/overview-expanded-80f183/source",
+  "snapshotSourceCommit": "80f18372804cc083359260d06c1c950319feb7b4",
+  "sourceInventory": "ca16fcee1d3a9fcb8798aceaa6170c2007d41174",
+  "scope": "Actual published local game images and UI; official aerial response intercepted for cache tests only. No visual parity or physical-phone claim.",
+  "districts": [
+    {
+      "id": "romana",
+      "current": 116,
+      "historical": [
+        199,
+        116
+      ],
+      "contextCounts": [
+        9,
+        9,
+        37
+      ]
+    },
+    {
+      "id": "floreasca",
+      "current": 90,
+      "historical": [
+        90,
+        90,
+        90
+      ],
+      "contextCounts": [
+        10,
+        25,
+        11
+      ]
+    },
+    {
+      "id": "grozavesti",
+      "current": 100,
+      "historical": [
+        99,
+        100,
+        100,
+        100
+      ],
+      "contextCounts": [
+        16,
+        6,
+        6
+      ]
+    },
+    {
+      "id": "unirii",
+      "current": 98,
+      "historical": [
+        98,
+        98,
+        98,
+        98
+      ],
+      "contextCounts": []
+    },
+    {
+      "id": "otopeni",
+      "current": 107,
+      "historical": [
+        107,
+        107
+      ],
+      "contextCounts": []
+    },
+    {
+      "id": "pipera",
+      "current": 133,
+      "historical": [
+        133,
+        133
+      ],
+      "contextCounts": []
+    },
+    {
+      "id": "seatac",
+      "current": 139,
+      "historical": [
+        139
+      ],
+      "contextCounts": [
+        762,
+        3
+      ]
+    },
+    {
+      "id": "bellevue",
+      "current": 82,
+      "historical": [
+        82,
+        82
+      ],
+      "contextCounts": [
+        426
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "parliament",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "cathedral",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "arcul",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "casapresei",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "grandhotel",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "univ",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "tnb",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "ateneu",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "regal",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "victoria",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "cec",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "mnir",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "marriott",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "unirea",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "fountains",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "skytower",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "promenada",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "baneasasc",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "romexpo",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "aviatorilor",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "gara",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "opera",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "politehnica",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "hermes",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "baneasaterm",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "otp",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "ase",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "ambasador",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "aro",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "thelandmark",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "europehouse",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "gts",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "dinamo",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "rosetti",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "bob",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "halatraian",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "globalworth",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "spaceneedle",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "columbia",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "smith",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "lumen",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "tmobile",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "greatwheel",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "spheres",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "mtbaker",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "seatac",
+      "current": 3,
+      "historical": 3,
+      "nativeReports": 0
+    },
+    {
+      "id": "seatower",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "lincoln",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "onelincoln",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "lincolnsouth",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "plazacenter",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "sonic",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "bellevue600",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "murroww",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "murrowe",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "seagarage",
+      "current": 3,
+      "historical": 3,
+      "nativeReports": 0
+    },
+    {
+      "id": "sealink",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "bellevuetowers",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "bellevuesq",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "rainier",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    },
+    {
+      "id": "olympics",
+      "current": 3,
+      "historical": 0,
+      "nativeReports": 0
+    }
+  ],
+  "spots": [
+    {
+      "id": "pike-place",
+      "current": 4,
+      "historical": 4,
+      "nativeReports": 4
+    },
+    {
+      "id": "chihuly",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "space-needle",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "fremont-troll",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "kerry-park",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "mopop",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "waterfront",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 4
+    },
+    {
+      "id": "pioneer-square",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "ballard-locks",
+      "current": 2,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "gas-works",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "bel-lincoln-square",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "bel-downtown-park",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 2
+    },
+    {
+      "id": "bel-botanical-garden",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 2
+    },
+    {
+      "id": "palace-parliament",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 4
+    },
+    {
+      "id": "peoples-salvation-cathedral",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "old-town-lipscani",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 5
+    },
+    {
+      "id": "stavropoleos-cec",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 1
+    },
+    {
+      "id": "athenaeum-revolution",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "arcul-de-triumf",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "village-museum",
+      "current": 2,
+      "historical": 4,
+      "nativeReports": 1
+    },
+    {
+      "id": "herastrau-park",
+      "current": 2,
+      "historical": 6,
+      "nativeReports": 6
+    },
+    {
+      "id": "spring-palace",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "cismigiu",
+      "current": 3,
+      "historical": 4,
+      "nativeReports": 3
+    },
+    {
+      "id": "bel-meydenbauer",
+      "current": 3,
+      "historical": 6,
+      "nativeReports": 5
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "legacyHashGaps": [
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c01.jpg",
+      "observedSha256": "03d7c600d49e1f01821f1941a005554e23a2f25e76198b22575b3f29ff3924bd",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c02.jpg",
+      "observedSha256": "000989826f9109365ec204257f16ba7b344fc44e81a48c71c6e54b275e6aa79e",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c03.jpg",
+      "observedSha256": "9c80bef98277e4a9c95170fe04237acf8d3305ca94f6a4c567b91b1cd606efc5",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c04.jpg",
+      "observedSha256": "c2fe9371e385a92647592cbe0de7ffed0457a340e868c88c22c263247fa5b628",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c05.jpg",
+      "observedSha256": "a0cc3a430341f276e5a21e6dc832dc957c91396ad5b7066ba599d08c79e29bd6",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c06.jpg",
+      "observedSha256": "d2fed052448832eb21b1bffc715fe4c64ba6fcfc9e16d6a9894f680b8ba4cf3e",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c07.jpg",
+      "observedSha256": "0785cf30d81a0b20635d828e6f27811081ee008df9de834f761ccb064061f5c8",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c08.jpg",
+      "observedSha256": "14d3481fd844208f697c5fe8d01ad0b3b073d8e9ba3081d67ff753cca65d254d",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c09.jpg",
+      "observedSha256": "511fd93558fc05b19ade245ba909665f4ef892bcdf3418316ee75970dafba4b7",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c10.jpg",
+      "observedSha256": "be7306d45ada0095bdccfef2696b7bcdd2c41947f4f27d285f79936ae0964a17",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c11.jpg",
+      "observedSha256": "70d48449251d0e0c934fe1e0c9f25b2123771402c7c05359c6bf6f3fdf009183",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c12.jpg",
+      "observedSha256": "e09fba91591216e10cc657ca79b6f2e5f3d852fab6beb2b5d4ec0e0bb810f09d",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r01-c13.jpg",
+      "observedSha256": "4998dc4a1e6fd3ff0acca2677e98ac4b962b984a688ae0a32bfc8a25ba425fc4",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c01.jpg",
+      "observedSha256": "ef1aecda2d89e56ec3720269bf6940094e0166c4b39e673064b95d5f37d2728f",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c02.jpg",
+      "observedSha256": "ce05edcd51309b752c4196e014a0c249112fd76dd5886ecfdd9fc6f5605dcd99",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c03.jpg",
+      "observedSha256": "1a205bf6c12016bf95aee233bccdbc2f2be93c911cf76a21abe4ebb6873929fb",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c04.jpg",
+      "observedSha256": "90b574d9a6a5742d6b6b40e8d9587c8ded5c3f8bee618d9a3491272e771a2f24",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c05.jpg",
+      "observedSha256": "779100054ff4247be13d7c4f8d1ea405732b77f22f82b8ea821c9c24df55d7a5",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c06.jpg",
+      "observedSha256": "a1eb44ba8b1e77f759931ddf578bbe56ce49a0682ce915e6db772672367ff25c",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c07.jpg",
+      "observedSha256": "293db61cc772b5b8a1e3e6a942b664187af84a9379f83b6865b4adea2ea53fc9",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c08.jpg",
+      "observedSha256": "c560d09026c7561a63a7782b7463f579a925a007fa7943d0c996178168daa518",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c09.jpg",
+      "observedSha256": "185530e6ce7927cb2ace48d728c6fb447424d405bfc8dcf6d06f067a8c4b07cc",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c10.jpg",
+      "observedSha256": "0b4a67be77720aec22270e603611191a1933de77a2fedd38222d46390079e8fc",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c11.jpg",
+      "observedSha256": "fb5d3e78ffba0fa4f30ad47a4864599c8ca8f0cd5172c20892033c93edda1700",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c12.jpg",
+      "observedSha256": "d20014b2a3914c1662ce147fdd950e1984849eb8845e2495773271e3609b5454",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r02-c13.jpg",
+      "observedSha256": "f5145e59578497a1da87b4273dd0659a473b8557448a5594a3a6f246eefd71a2",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c01.jpg",
+      "observedSha256": "f02082c4ac8fd8137afc20f5cb688bdc5e9488e7fd787fe6e207cbd567a4bddd",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c02.jpg",
+      "observedSha256": "40f9972251dc9d1402403cfd11458e80b758ad6897e0c313084e848ee1d77cca",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c03.jpg",
+      "observedSha256": "f964eb21360cf1dc98667a3bf1fa21e6df8adb05e61e0f79dc07727d9c89905f",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c04.jpg",
+      "observedSha256": "86f489a13b0999e6e53c03475438906e226eae1d3abb39a05752de765b89af03",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c05.jpg",
+      "observedSha256": "642ce7135bf1833fda2c6a92752a6ad3818338b5fbb4a6d70929a8db0d55f10c",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c06.jpg",
+      "observedSha256": "42049186ed216f68af06efc2fb98b1bb6b5c2ee9f8ce633162f4cf0bb31b03cc",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c07.jpg",
+      "observedSha256": "8e582c84da089533db1567b2e6a51ff0433213630833eaf5b78e9ec70769e234",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c08.jpg",
+      "observedSha256": "1f6aa515479acd01acfe4ccc2760daa41caa9414cb123fac1ba999f452f28f6b",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c09.jpg",
+      "observedSha256": "610a62add1796c5a5f7eea5748f6b0cd4cae8f8189e11a8264556d000d86385a",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c10.jpg",
+      "observedSha256": "15b78d8dcec03329beeec7009a60fb177686f372f24bce7285a9beee9e608cff",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c11.jpg",
+      "observedSha256": "f4e59525f9f590b9445afa5c6163960a0f605964403999144b213fba12483fa5",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c12.jpg",
+      "observedSha256": "13c0d29571b5bcd98f7613a944382819bace542c0cdecfe7963a9e7b4810465d",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r03-c13.jpg",
+      "observedSha256": "ddbe467fb0faf5ce194e4950110df3b140f9ed99045217ffab337969e42797de",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c01.jpg",
+      "observedSha256": "c0f366137966aa078eaa3fae2a23a8bb66442c7ff9bbadabe98a2a551e9dfc57",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c02.jpg",
+      "observedSha256": "70cea7792e5f5fd11a3ef437bff50f3de818bc67489077d51d97c4fb392bacb1",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c03.jpg",
+      "observedSha256": "174ad62e5a63c231ab1ee817fff93c9d0ecbea4a9c2761bb5418aaf84d4d1bae",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c04.jpg",
+      "observedSha256": "a0acc96305aca410233f76f34dcf9f2b6f7cbd95cdd6cf4dff21c62c94dd1921",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c05.jpg",
+      "observedSha256": "129f6684e04afe210410894afab47b74860b3e0487a6c71dce103535bdd7f2ae",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c06.jpg",
+      "observedSha256": "ccfeb5f7f58e9dceeb0b1aa313bd9c9acef9a5d8b014e6be785fed61e9ff3bcc",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c07.jpg",
+      "observedSha256": "26f98f9ae96c040ee123f542832ae11f439b99d17ffc3530db9dc35ae2433c74",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c08.jpg",
+      "observedSha256": "74b59aa3d205880ca7f393ccd2caf4723c5977800983b635a2b3a619eaef3a64",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c09.jpg",
+      "observedSha256": "41b3cfc9c8e19864438114755f898bf5814dd59b5c73068c1f5e94ec2d782450",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c10.jpg",
+      "observedSha256": "a2e50460cd8dd5ed1c060f20753f14f1e2d9ff13a704c959983172b91721a28f",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c11.jpg",
+      "observedSha256": "bbf11ca0425efe8bf1146a5c7cf1cf4b847b16e84c5f9b5e79135ed418df3694",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c12.jpg",
+      "observedSha256": "133bc2240c4f57e1dcbecd2b8caca2fca4d125fb045c0e9905f12897b3d46930",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r04-c13.jpg",
+      "observedSha256": "3521601944476f022f4c302b644adf4f631bccfb9e86dd8d55607e8f573af2af",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c01.jpg",
+      "observedSha256": "10c23d4a51a4dbcae516de603ed38415457bebf495c97622d5c14ede84a94d51",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c02.jpg",
+      "observedSha256": "2e40c5651cf6f74f380af84559b7a908dfd0cb02a00d3026671d70163ad80cf9",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c03.jpg",
+      "observedSha256": "2ca8f3c8cb936ddbf9fe267c22ab49952d891fc080985abd8581f968e614b8e6",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c04.jpg",
+      "observedSha256": "63a895ea76c715fee024a936f1ce75b2c4249df6b2c6f6317fb46b29fb60764c",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c05.jpg",
+      "observedSha256": "4ebc27972097c36dbe257ffc08c5ade1fc921440c24a9002141ad7a4fc39bd2e",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c06.jpg",
+      "observedSha256": "243dca8d0ea58f3814311fe48f665e43cdbb12e0dda0458af2f41da3abcf6cd3",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c07.jpg",
+      "observedSha256": "a90a1078d385d2949c80f0d21fd0ed003b244827fa2d624ee22570f2f396acbc",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c08.jpg",
+      "observedSha256": "8fca26ffede8bcc95732808c6c48eb8dfd2c009c6868b38ac7d6869e33a3d2e4",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c09.jpg",
+      "observedSha256": "cc7d3e9929c35752e0668253b685042772266454130371c23768db7844ae3b3c",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c10.jpg",
+      "observedSha256": "d0056105d9e52ca29775e88ecbfe8c321557aba7b62af560383b69b7b037f06b",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c11.jpg",
+      "observedSha256": "375e56f15509eafd08b080c2b805c8f7f18ad8a289d3778af54fce6ca588cfeb",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c12.jpg",
+      "observedSha256": "f6c7ac86f291fa2870fd8d009328a06aacd6b1d8ebe9deb6e44fca93c35a7075",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r05-c13.jpg",
+      "observedSha256": "934b813414e7dd7cfe2634fca7cfae57bd23f5760ebe506f6b061e0fdbf44310",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c01.jpg",
+      "observedSha256": "25aec13931cca3c88949daa5e8e07b59773f0ed370231a729332a6e53663d770",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c02.jpg",
+      "observedSha256": "406a3f7e23a388324378c76e169fe429f2c7a8e5cab3dfcc400c6e46a628c281",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c03.jpg",
+      "observedSha256": "5605fd75f7945bd70d2add4411b14b706e2b3e9843dead25d68fb996eec6f25f",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c04.jpg",
+      "observedSha256": "5d2b2e8974a29b2cae90d4f3a45de398d600649ab5080a8734c371d6ae9b018d",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c05.jpg",
+      "observedSha256": "376ba032860c1fe8258783272b4b9f876c005227a95a19b2834854d726c496ba",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c06.jpg",
+      "observedSha256": "3f5421faf5474f770d08e5eb3670160fb904da094011c52902caeff1f9253e88",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c07.jpg",
+      "observedSha256": "10b013715ef688e2b6e2b05a9ebe1f2ac614bf75859f5f53ccf36e5d40f8be04",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c08.jpg",
+      "observedSha256": "9894a9a8139d58a58e5837f3a2ad91c5ed2be2c909f515f15e2162dd73fa7b99",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c09.jpg",
+      "observedSha256": "9f8986dce43de0b58ebbf3133264e881eecfdb7d6bd27687b5dccf44fbe86532",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c10.jpg",
+      "observedSha256": "ccda25098ad5015b935cb20720af26c47babfa8586d8d92f42d3ab745f61cd65",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c11.jpg",
+      "observedSha256": "246538fa09cf847a8b933f1aaf840876934a68d8e9f653f4bdda87584c39e03d",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c12.jpg",
+      "observedSha256": "b4b1ac877a8f9e97566a582ce0a900b26b00b23b20ae6db1003c5ecfa51c1777",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r06-c13.jpg",
+      "observedSha256": "15bd859c401845ae7da8865624726b7e1aa997ae081259f31acc5e3703be19bc",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c01.jpg",
+      "observedSha256": "e49289b418bf9d117db02d0d8a45476e97d28f462d68c39c553f014bcfe7d89e",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c02.jpg",
+      "observedSha256": "7a5be2768abc4d412b037435076b5eee268abd348a19787f34e631e4d1378a1a",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c03.jpg",
+      "observedSha256": "265c74d9edc3a9b2e19b879c070c73376731df49ab9e9f6781b5e10be051145d",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c04.jpg",
+      "observedSha256": "ff345f05785ceb899dbb3395ead07df9ce689e8d10daa32339c47c890c4008c9",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c05.jpg",
+      "observedSha256": "306ff972dfb0b9adcc42664f873aeb85a515a4c701968a65176f15374ff449ef",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c06.jpg",
+      "observedSha256": "75badd8da652b8071d257f0c4bb760849b108890c5ebff3524ebde820c439926",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c07.jpg",
+      "observedSha256": "82a0354ec791580261bc96887963968c8bd91be66f485aded4463e814c708e63",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c08.jpg",
+      "observedSha256": "678f7cca069e354c6a07600798a51c76acbad81ffd036cd4996f805838d872e1",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c09.jpg",
+      "observedSha256": "c7ce6b5e16102aede8172074d526155dabb7b91539cd0ddc02ea40145756672a",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c10.jpg",
+      "observedSha256": "513ea5013d0a488e117ecb9aab2067b7c9daf941345a687131b3d765ade95c71",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c11.jpg",
+      "observedSha256": "1894e8481643450ab078a650ad89ffa7f8c0c67c1e58b5675baef0b9cb7637d3",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c12.jpg",
+      "observedSha256": "368bf221e7cc22ee4684e6bac9350240ae35a0e00ea553fef62dcfbbf75ab7e8",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r07-c13.jpg",
+      "observedSha256": "ec1ae9b962211a2cadf49828a74c5a6a72a81a3147d6772a0d690af753a26e15",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c01.jpg",
+      "observedSha256": "19c061f148c83b15c76abc397074556b3ef2ddce67330e137cd958b0d7798b3a",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c02.jpg",
+      "observedSha256": "b74d06806c871416ccf9e667d6d6d9c7737f5a0b4b701dc755aeecc76187c4cf",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c03.jpg",
+      "observedSha256": "331e32237cdb28559493643fbd059b5ed1675c353cabffb3c5dc40a0fdfe1e1a",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c04.jpg",
+      "observedSha256": "84a15d78c9406a5f8bfb8471ecf87b5db2fcb8ed9d2c54a3a5c4ca41116dcc81",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c05.jpg",
+      "observedSha256": "529f5a7c5e24dc452ae889f1cf6d6db8bea40975d8902fe3292bb0ac608a7024",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c06.jpg",
+      "observedSha256": "e6f8745e6c81615a299e304d2bd9d55fdae3f941ac3dd0e0687a0f4aa9f30b15",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c07.jpg",
+      "observedSha256": "fc84e5577ec18d1d9f33488db05de7d8585047f805f42f2842e79ed116ffb887",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c08.jpg",
+      "observedSha256": "e10d58103ac0ad580cdbaf50859a391e6e2fb341e7d59e1973f582765b7fe12f",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c09.jpg",
+      "observedSha256": "3cbfa6ddb3203e5604093131e38e3d51ce8887648970662072592e801687fe3a",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c10.jpg",
+      "observedSha256": "7e25ec12ad6deccadc2fabab7ea1e4428b1dcf7832cf942f9f81e1e50003de59",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c11.jpg",
+      "observedSha256": "5a02c99434b1326bfdf82d266343aa07250a6b4ef8e1dc924b1d5f9314b3b914",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c12.jpg",
+      "observedSha256": "85b3d6948373c78e8cf5abeee3684164bb59d9a0ceb4ed36bfd5c9b19348ebcf",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r08-c13.jpg",
+      "observedSha256": "f95949fc58e9b2b4a4405675b64b8551b77509aba4bd995a68255e475fb73ca5",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c01.jpg",
+      "observedSha256": "aafe4f1ab5be45033fd836fdcf4736d06f7c35bcd28703e56212cb2c69d064b9",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c02.jpg",
+      "observedSha256": "241c82a44d1b6c6907a1c424ab7b3291c417d59b8537316edfb2e63c1403de16",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c03.jpg",
+      "observedSha256": "c3c07c3dd80da73f05cf9dfcec0e3b86c25df82f08d3ebd3bcd89cc586c13f62",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c04.jpg",
+      "observedSha256": "daff49d76ae2164bc92b8a196b974aeaa950f775a643a2887126fda2309d9737",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c05.jpg",
+      "observedSha256": "1dee3db317a592c57d01a787a933bc6187c36201a7a84ecfc6e39044df581ab3",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c06.jpg",
+      "observedSha256": "f8b88022f2ccaf50c280ddbe9ec00e3cfc1dbf96701fc16c6e9d19df1c5ab5c3",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c07.jpg",
+      "observedSha256": "4a4cf7176a7e7b5bc93083ebd90de6e1fcf8191b0d6cdd7bd0c9d1431584b668",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c08.jpg",
+      "observedSha256": "1a217b67bcb6f44620b36c552d397f3a5a4f6cd84ef10b1cde63a58b9949439d",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c09.jpg",
+      "observedSha256": "b3a3b3c3004d5055dc98cf6b5fdb7c005aacc97a91a04ab4279b8832f874a07a",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c10.jpg",
+      "observedSha256": "3d1019d3e0320d714b344f385d28b6848ae0f00e7130b2597c632f49e114aa63",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c11.jpg",
+      "observedSha256": "1c5d720456c22038e959dbfae71332bf88eece3b7a800953a629b87c3d195370",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c12.jpg",
+      "observedSha256": "ba337f0bdc743c5a843c483e25f0067046fdcb6f24058821185e498d1901d607",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r09-c13.jpg",
+      "observedSha256": "60aaf11256812587a2089f226ee119aafcea556df28f1f2f1e882d498f8d2107",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c01.jpg",
+      "observedSha256": "f6eeaacab2358f776921af67acde3f6c84e6dc3de8572a44b4708e21bf76d42d",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c02.jpg",
+      "observedSha256": "99926b28176d97cae5e2c7bbe836fd60be8b275f9abbc10d2d1da70eabde9945",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c03.jpg",
+      "observedSha256": "650839d3a67bf44e1a99a2ae214a665e4a795e2ea3d2a182735f3912ace31c2f",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c04.jpg",
+      "observedSha256": "20ba5fad104bf476c702b902f419ee3b235c0187ba1a961972ed44434bbde266",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c05.jpg",
+      "observedSha256": "05678adf7aecbf6055382d231fbe98c801cdf7f30d4f18a084afc3a1dfff09bd",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c06.jpg",
+      "observedSha256": "663939c72389d300ecba314494ba2a95e1b9e4cc5f0467f0ce7ed21f545900fc",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c07.jpg",
+      "observedSha256": "48ef11fee1da99ce8387a7470d9861de0df30973f9ea4ff7a4a20e7b6079b85b",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c08.jpg",
+      "observedSha256": "6cc89aa9bf1394aede56fd9dbd96e466fb4d567223f202ba9e6a47633aa4c796",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c09.jpg",
+      "observedSha256": "0030fb107fcede254e5bf340590e3a2be353767461c566db6ec8ed484605c5b4",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c10.jpg",
+      "observedSha256": "e353c19964e96970a390af8780b21ad97e21e20cd4a2d8c620ccfe034946be6c",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c11.jpg",
+      "observedSha256": "83996e3ae0e79d16e56a2ecf1a993017dbf6764cbb987046ed3d8e6889bae410",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c12.jpg",
+      "observedSha256": "6a394a960a9aeea94a5826853c77e0ca67ebaab6d9fd33e8c71eebac895628ed",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r10-c13.jpg",
+      "observedSha256": "c92ae665675695e32b1cef4886ac4f579a0d52026668346741b39e4889711ceb",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c01.jpg",
+      "observedSha256": "910352884806eb9e23f4095cf95bdf8a8a91b0426c000c839f6616dc515043e6",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c02.jpg",
+      "observedSha256": "770fd19c82dccd52c78857b4398b308ec87ea88e11fa417b0ebf315855332f01",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c03.jpg",
+      "observedSha256": "6fcd7123cf4622b97ceeca0162aa2b372dafd62b744a73b3e46a2c63bcb7c74e",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c04.jpg",
+      "observedSha256": "c69944f3b6f53d1627f8a80fd881e7d0df0a10b4845825badf412aaf19c1319a",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c05.jpg",
+      "observedSha256": "50f21134ecdcf86e63df5641584a0155a571a1105bffdc4966261b4899fdb1c0",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c06.jpg",
+      "observedSha256": "3929241f8d391c5325df3f1102158bd3aae12edc97a6c94d9b379023a03928ea",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c07.jpg",
+      "observedSha256": "f03d6f770dbb2da256f4876ec32b9ade29a4c10d4c4febf0ba2bffcd7c262454",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c08.jpg",
+      "observedSha256": "9a8813e84f32b4562f99799d2c552675895347be2d7ec5bda5cc53fba29ed917",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c09.jpg",
+      "observedSha256": "7aa17ef1998a68b60b0e8e893271c0380b2b3df9144864d7be31ce243753c293",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c10.jpg",
+      "observedSha256": "115ec440fe4f2ef7e8e977cbd0773faea40ff53c2f717263881027159c4e5ded",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c11.jpg",
+      "observedSha256": "529cbe811870c94ddc26de2662e66072cb78f1e38f338da59740bcc95b573d86",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c12.jpg",
+      "observedSha256": "8a67c3c6bea7838099adf6befa23702d8ae9e698f4f6cabdf96115902ebb1e0e",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r11-c13.jpg",
+      "observedSha256": "ed350f02c175ba2c6fc23e0642a92c9db5b3f093bfcfba4ae86eece4037ce09c",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c01.jpg",
+      "observedSha256": "5b60968d24f4b0b3e60a7b5c5e3f90e24a1576b86271c7e3e12cb0e7adcc4fc4",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c02.jpg",
+      "observedSha256": "69faf2979e39d88e988a60ca4ce16cac2b23e1e4bb7642f2a5c743bc6e9722ea",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c03.jpg",
+      "observedSha256": "6b8cd4424f33ee21a1e5edc07a5d0708ba37cd11f407c05c4440ac86b927c732",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c04.jpg",
+      "observedSha256": "3adcf521aa4650369aa213a880a775596af78cfae2e8e9bec14518317fba5912",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c05.jpg",
+      "observedSha256": "c548f86b94945cbb448f799074e7108838e863a286f8a37923624f562f936aa2",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c06.jpg",
+      "observedSha256": "8a31cc681f28018036d7f28730365bb37cd89ef7da9ebaf4543cd0c967e76ea1",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c07.jpg",
+      "observedSha256": "44394811d9446c03fc5e067df7f88765b8a7a1c3efa975b3cc9832f075db4cea",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c08.jpg",
+      "observedSha256": "f1d3e72f6451ae60286f2db170cea55282816019e4fff801d8e6b8ca2b53f56c",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c09.jpg",
+      "observedSha256": "cd787a4296c3fa38a5500f27e561af72349b69df991d3f83365358d1318cce20",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c10.jpg",
+      "observedSha256": "631e4562ec6f5fa71fa70cf2c7083eb3b261c8157026645d0e92dc1312e103cb",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c11.jpg",
+      "observedSha256": "0172407a73b79fcdb2360c945ebb8dffd5ee6dba43dc4d8900e920434b5caf85",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c12.jpg",
+      "observedSha256": "0a01f42ea78c080e7827e99da2224d690266b72db2cd3f93ccfe8c902a68cb17",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r12-c13.jpg",
+      "observedSha256": "e6eeb2dbc6d53c128f06c05e91c8769d7aa5df6785d4c8d2d7eddc64678398fc",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c01.jpg",
+      "observedSha256": "2425c990f385cb401676f0bbe2c440167281017899502cf0aacf59bf068a41e9",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c02.jpg",
+      "observedSha256": "556aa58e97b39085edac4badec2b717ab4386c97aa70c22ebd53b83adcdc1d48",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c03.jpg",
+      "observedSha256": "cde14ac36f73b6985e3645e2cde2adb2e23d5815d86cd7963702fcc06be4cc4f",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c04.jpg",
+      "observedSha256": "4ec0dcf24b14084250c4af86a104388704b507d619c93cc58944d11bd30d0f4d",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c05.jpg",
+      "observedSha256": "43a75948bc7469ba22479175d2d0f892265eb68a7053dee188277e146c576e6a",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c06.jpg",
+      "observedSha256": "0497cca8989219f80cb2729fbfebba624aa3b03aa67149cfae0efa5893f79d3d",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c07.jpg",
+      "observedSha256": "ce15f8a6c899638c46ed2feb3a5c1c0377a8549c170079f42a1028cb700e71ea",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c08.jpg",
+      "observedSha256": "3221542e93dfeca44bd1956f863c81bb373e9ba9a14854b7fa0d4723a1df89a8",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c09.jpg",
+      "observedSha256": "fe92bc98d026965e183634e8ba205d8576b36ab253cce794967035b643124435",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c10.jpg",
+      "observedSha256": "6bc5f12a7476c40c2747f9245c7d3787fb0dec688a09909abcedbd8190494ca3",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c11.jpg",
+      "observedSha256": "357bd24bb8c79eee65347bb4d8234ae4376e489bb908c2ef7f08f8c5ddff62c1",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c12.jpg",
+      "observedSha256": "935e0a2ca1e24ce64ad69179f0c9f3a4ba4ccab1a9ffd6fdf864f94fcea82588",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r13-c13.jpg",
+      "observedSha256": "7379c78269d43e424ec3bc2d2c01ee39f000c4aa5dfa8812e09a27bac46f1185",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c01.jpg",
+      "observedSha256": "735c957d2e669bd6bae8b26792fe19fa2235f07023ecbd2672704749f657677d",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c02.jpg",
+      "observedSha256": "83318e197c5afd8416dfbf4ea31cf97ee07eeaa0f6ffdfcffa8e642ede00987f",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c03.jpg",
+      "observedSha256": "df67db7f75b3ca32cd88f530c3d346e439b52b76e731eb2f2d2b346910940021",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c04.jpg",
+      "observedSha256": "4628ebbf1ada715c1a1e3b96f276e636ce3014e174856295536a3368cbb6ec01",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c05.jpg",
+      "observedSha256": "3a4bb0cfe0748ca7d6bb1ca4eee2ae33f8c535b6125deea8ed827ebc134cdeb3",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c06.jpg",
+      "observedSha256": "1a6c0f85619e67ff367d4bf0ec10a0de4107dce2ea9518e3e31188dac5e20ffd",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c07.jpg",
+      "observedSha256": "4d99437987612246155530289bdbdd8b2ccea73ac5112254b7d8a8c8cac2789f",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c08.jpg",
+      "observedSha256": "f0bea97862ddb738f114a2e7188fba56eaa25b909f9bebf339bbab41d631fe74",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c09.jpg",
+      "observedSha256": "e1cc9cf2e372d7f1d1b02f0a87efdcb5c62bd5fff2db80e0fcf2b1d18e9f96db",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c10.jpg",
+      "observedSha256": "55ae1c5b972d80c028f627005cb5406ae61525d5cf31713ad9a91f724e4c05a0",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c11.jpg",
+      "observedSha256": "39e8eaf70cd77fdf8fc14577b758925ccbbfb05e78b057f11910a8ea8278520e",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c12.jpg",
+      "observedSha256": "ba99299e85de9f493d51e639a9a21ed6027d5360775994e12a0dc05dcbed270c",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r14-c13.jpg",
+      "observedSha256": "b9da642e825eb7b44badfba92b8340b37ad8497b16aee689ad4ca241be79df42",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c01.jpg",
+      "observedSha256": "2ce7c9c3ef59f483deac2eb3cc9400c5f60420ce3b822d131bc4010eea14f0bc",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c02.jpg",
+      "observedSha256": "0ce0a52bccbed2a624a4a7a673be18733ffd7edf8d73233f8abdb48ed72730b4",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c03.jpg",
+      "observedSha256": "a487f3c7b51b15c1dbeeb1c3826f32695c0dd7eb9901eaed77201baa5dc02652",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c04.jpg",
+      "observedSha256": "d396e3cee49c000ad7629625ada33b9bd9fae51b2175d70fd1e249d048bde3b9",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c05.jpg",
+      "observedSha256": "6965294ed506c9ae37fb870f869d03baae00f975cec387cdda9490da209ab583",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c06.jpg",
+      "observedSha256": "e50046e49a6ff38dbf875fde76de6d2c875887e26a3d00d118cba7567322c76c",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c07.jpg",
+      "observedSha256": "e47c4ba067067913ef2512c8874831a36d78e0dd15eee32e15c593e7ab0b7d02",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c08.jpg",
+      "observedSha256": "cf71ac03897d908109cf91589faf19825e7bc9b7af6923c6187c060a93d57ed1",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c09.jpg",
+      "observedSha256": "a56558da7813e3ef42d8df6c8bae798d5407b69c5ecb54e48b0d21d2b1c9d746",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c10.jpg",
+      "observedSha256": "fc6ae95f5724f795b51f1ab526022668c138263cb7d1ba947bd995dc4f5612b9",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c11.jpg",
+      "observedSha256": "f2091b99fb5dd19abf5905555e9a817c8c9e595a0ff3ea7fd8f0b8e64bfd58bb",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c12.jpg",
+      "observedSha256": "10e5913aa77fd1dbc5539ce7bfcb1788dccd68994b78e34f10e86af5a88dab13",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/atlas/aerial-r15-c13.jpg",
+      "observedSha256": "cc5599b791aca90016f0b3eab519c5028c5bf13759a63fb263c0e5689f948a01",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/published/romana-spawn.jpg",
+      "observedSha256": "9b09a499c1ca653aad04e90f31af3585e4efa06172e9854c3f752815c13a1e3a",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/published/arnia-europe-house.jpg",
+      "observedSha256": "f0a6437b9a1a09974acc114ccd0783a90c3f94df912e09850ce2f7a29c1c5714",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/published/victoriei.jpg",
+      "observedSha256": "3cde3ac6ad5b18598558fee0191a91802c5d3012bbbcf8de1e114236a6e6e988",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    },
+    {
+      "path": "/game/overview/comparison-data/romana/historical/58129abe74a93be2ef52d3c3bf40682768531bc3-b234323f/thumbs/published/dinamo.jpg",
+      "observedSha256": "7a2e3a3897be89459b3b0798899f686da9b6388214ee11335ff4f22fea5ae884",
+      "note": "Original historical ledger did not record this image hash. Bytes are decoded and retained from the immutable archived tree; historical metadata is unchanged."
+    }
+  ],
+  "uniqueGameImagesDecoded": 9044,
+  "mobile": {
+    "width": 390,
+    "scrollWidth": 421,
+    "selectHeights": [
+      48,
+      48
+    ]
+  },
+  "complete": false,
+  "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(result.mobile.scrollWidth<=391)\n\n    at main (/workspace/reality-pass/overview-expanded-80f183/source/game/dev/harness/overview-current-check.cjs:85:3)"
+}

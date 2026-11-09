@@ -1,0 +1,1036 @@
+{
+  "scope": "Actual final native water vertices/material/order/matrices against reconstructed exact native roof polygons. Big-water topology separately source-validated; never relabel stale index tail as captured canonical. No visible-hole assertion, new roof, runtime mutation or passage pass.",
+  "nativeGzipSHA256": "60dcfe9ac763b2fde291ae77cbf3ff85bbc6a07b60928f1f1a87e66197fbbb61",
+  "controls": [
+    {
+      "name": "contained triangle",
+      "expectedAreaM2": 0.5,
+      "actualAreaM2": 0.5
+    },
+    {
+      "name": "reversed footprint",
+      "expectedAreaM2": 0.5,
+      "actualAreaM2": 0.5
+    },
+    {
+      "name": "crossing triangle",
+      "expectedAreaM2": 2,
+      "actualAreaM2": 2
+    },
+    {
+      "name": "outside triangle",
+      "expectedAreaM2": 0,
+      "actualAreaM2": 0
+    },
+    {
+      "name": "boundary-only touch",
+      "expectedAreaM2": 0,
+      "actualAreaM2": 0
+    }
+  ],
+  "rawPositives": [
+    {
+      "edgeId": 1210,
+      "contacts": [
+        {
+          "id": "water:-20013:89",
+          "rawIntersection": [
+            [
+              -404.63298997691,
+              380.14082535012193
+            ],
+            [
+              -404.22419068500574,
+              387.8475266221812
+            ],
+            [
+              -396.3352815393729,
+              387.4290621769167
+            ],
+            [
+              -396.5854870455362,
+              382.7121775569776
+            ]
+          ],
+          "rawAreaM2": 49.14215522109589,
+          "recomputedAreaM2": 49.14215522109589
+        }
+      ]
+    },
+    {
+      "edgeId": 1211,
+      "contacts": [
+        {
+          "id": "water:-20013:88",
+          "rawIntersection": [
+            [
+              -403.8415582359531,
+              395.0609294832998
+            ],
+            [
+              -403.6968757452478,
+              397.7884898221874
+            ],
+            [
+              -395.80796659961493,
+              397.3700253769229
+            ],
+            [
+              -396.2269157898992,
+              389.47197779799416
+            ]
+          ],
+          "rawAreaM2": 42.03015764974407,
+          "recomputedAreaM2": 42.03015764974407
+        },
+        {
+          "id": "water:-20013:89",
+          "rawIntersection": [
+            [
+              -404.22419068500574,
+              387.8475266221812
+            ],
+            [
+              -403.8415582359531,
+              395.0609294832998
+            ],
+            [
+              -396.2269157898992,
+              389.47197779799416
+            ],
+            [
+              -396.3352815393729,
+              387.4290621769167
+            ]
+          ],
+          "rawAreaM2": 36.61386040892103,
+          "recomputedAreaM2": 36.61386040892103
+        }
+      ]
+    },
+    {
+      "edgeId": 1212,
+      "contacts": [
+        {
+          "id": "water:-20013:88",
+          "rawIntersection": [
+            [
+              -403.6968757452478,
+              397.7884898221874
+            ],
+            [
+              -403.1695608054898,
+              407.7294530221936
+            ],
+            [
+              -397.1297397862274,
+              407.4090728142758
+            ],
+            [
+              -395.5394556472727,
+              402.43200503040697
+            ],
+            [
+              -395.80796659961493,
+              397.3700253769229
+            ]
+          ],
+          "rawAreaM2": 74.12049049050256,
+          "recomputedAreaM2": 74.12049049050256
+        }
+      ]
+    },
+    {
+      "edgeId": 1213,
+      "contacts": [
+        {
+          "id": "water:-20013:88",
+          "rawIntersection": [
+            [
+              -403.1695608054898,
+              407.7294530221936
+            ],
+            [
+              -402.93358779726134,
+              412.17802599846993
+            ],
+            [
+              -399.0500183105469,
+              413.4189147949219
+            ],
+            [
+              -397.1297397862274,
+              407.4090728142758
+            ]
+          ],
+          "rawAreaM2": 26.33333834608493,
+          "recomputedAreaM2": 26.33333834608493
+        }
+      ]
+    },
+    {
+      "edgeId": 1239,
+      "contacts": [
+        {
+          "id": "water:-20013:88",
+          "rawIntersection": [
+            [
+              -390.9926190335811,
+              388.20189767148304
+            ],
+            [
+              -394.59113078204217,
+              388.36080988618676
+            ],
+            [
+              -394.16034355863434,
+              398.11583650519145
+            ]
+          ],
+          "rawAreaM2": 17.58601762339822,
+          "recomputedAreaM2": 17.58601762339822
+        }
+      ]
+    },
+    {
+      "edgeId": 1240,
+      "contacts": [
+        {
+          "id": "water:-20013:89",
+          "rawIntersection": [
+            [
+              -394.81560392714925,
+              383.2776937054214
+            ],
+            [
+              -394.5949571919922,
+              388.2741621657122
+            ],
+            [
+              -389.91912841796875,
+              384.84222412109375
+            ]
+          ],
+          "rawAreaM2": 12.059938459962723,
+          "recomputedAreaM2": 12.059938459962723
+        },
+        {
+          "id": "water:-20013:88",
+          "rawIntersection": [
+            [
+              -394.5949571919922,
+              388.2741621657122
+            ],
+            [
+              -394.59113078204217,
+              388.36080988618676
+            ],
+            [
+              -390.9926190335811,
+              388.20189767148304
+            ],
+            [
+              -389.91912841796875,
+              384.84222412109375
+            ]
+          ],
+          "rawAreaM2": 6.168757938678027,
+          "recomputedAreaM2": 6.168757938678027
+        }
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "world.js": "f57e216523a2f58a5860d374e27e0c1f328a2265f01af9efa46a493f1b7b75be",
+    "water-batch.js": "cd1a0fb7e59ff1c621eadc77acbd58c61d81cce09c5dbf9b74125268b41b5543",
+    "water.js": "7a7cea86bdb0dc2cf135b95c9cd7aec81d16e8e48a4bf0b125449d91931df3ae",
+    "road-joins.js": "5836ac682164076ddb8e5ef46b25977b870761f7b69623f8b5df454b67ab5a33"
+  },
+  "held": [
+    {
+      "edgeId": 1210,
+      "sourceId": "w241368617",
+      "poly": [
+        [
+          -404.7515056247637,
+          377.906563422175
+        ],
+        [
+          -404.22419068500574,
+          387.8475266221812
+        ],
+        [
+          -396.3352815393729,
+          387.4290621769167
+        ],
+        [
+          -396.86259647913084,
+          377.4880989769105
+        ]
+      ],
+      "sourceEdge": {
+        "id": 1210,
+        "road": 19,
+        "name": "Pasajul Unirii",
+        "dirx": 0.052970182944872934,
+        "dirz": 0.998596094383904,
+        "nx": -0.998596094383904,
+        "nz": 0.052970182944872934,
+        "len": 9.954938994768845,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 0.5,
+        "sidewalkLeftM": 0,
+        "sidewalkRightM": 0,
+        "ya": -6,
+        "yb": -6,
+        "layer": -1,
+        "bridge": false,
+        "tunnel": true,
+        "lidded": true,
+        "anchorH": -6,
+        "L": -1,
+        "over": [
+          551
+        ],
+        "main": true,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "a": {
+          "id": 1214,
+          "x": -400.80705105194727,
+          "z": 377.69733119954276,
+          "y": -6,
+          "pad": false,
+          "radius": 4,
+          "edgeIds": [
+            1209,
+            1210
+          ]
+        },
+        "b": {
+          "id": 1215,
+          "x": -400.2797361121893,
+          "z": 387.63829439954895,
+          "y": -6,
+          "pad": false,
+          "radius": 4,
+          "edgeIds": [
+            1210,
+            1211
+          ]
+        }
+      },
+      "rawWaterWitnesses": [
+        {
+          "id": "water:-20013:89",
+          "minY": 0.10499999672174454,
+          "maxY": 0.10499999672174454,
+          "intersection": [
+            [
+              -404.63298997691,
+              380.14082535012193
+            ],
+            [
+              -404.22419068500574,
+              387.8475266221812
+            ],
+            [
+              -396.3352815393729,
+              387.4290621769167
+            ],
+            [
+              -396.5854870455362,
+              382.7121775569776
+            ]
+          ]
+        }
+      ],
+      "basis": "Reconstruction of exact frozen World Pm average-mitre branch from actual persisted node/edge inputs; direct native query polygon was not serialized."
+    },
+    {
+      "edgeId": 1211,
+      "sourceId": "w241368617",
+      "poly": [
+        [
+          -404.22419068500574,
+          387.8475266221812
+        ],
+        [
+          -403.6968757452478,
+          397.7884898221874
+        ],
+        [
+          -395.80796659961493,
+          397.3700253769229
+        ],
+        [
+          -396.3352815393729,
+          387.4290621769167
+        ]
+      ],
+      "sourceEdge": {
+        "id": 1211,
+        "road": 19,
+        "name": "Pasajul Unirii",
+        "dirx": 0.052970182944872934,
+        "dirz": 0.998596094383904,
+        "nx": -0.998596094383904,
+        "nz": 0.052970182944872934,
+        "len": 9.954938994768845,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 0.5,
+        "sidewalkLeftM": 0,
+        "sidewalkRightM": 0,
+        "ya": -6,
+        "yb": -6,
+        "layer": -1,
+        "bridge": false,
+        "tunnel": true,
+        "lidded": true,
+        "anchorH": -6,
+        "L": -1,
+        "over": [
+          551
+        ],
+        "main": true,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "a": {
+          "id": 1215,
+          "x": -400.2797361121893,
+          "z": 387.63829439954895,
+          "y": -6,
+          "pad": false,
+          "radius": 4,
+          "edgeIds": [
+            1210,
+            1211
+          ]
+        },
+        "b": {
+          "id": 1216,
+          "x": -399.75242117243135,
+          "z": 397.57925759955515,
+          "y": -6,
+          "pad": false,
+          "radius": 4,
+          "edgeIds": [
+            1211,
+            1212
+          ]
+        }
+      },
+      "rawWaterWitnesses": [
+        {
+          "id": "water:-20013:88",
+          "minY": 0.10499999672174454,
+          "maxY": 0.10499999672174454,
+          "intersection": [
+            [
+              -403.8415582359531,
+              395.0609294832998
+            ],
+            [
+              -403.6968757452478,
+              397.7884898221874
+            ],
+            [
+              -395.80796659961493,
+              397.3700253769229
+            ],
+            [
+              -396.2269157898992,
+              389.47197779799416
+            ]
+          ]
+        },
+        {
+          "id": "water:-20013:89",
+          "minY": 0.10499999672174454,
+          "maxY": 0.10499999672174454,
+          "intersection": [
+            [
+              -404.22419068500574,
+              387.8475266221812
+            ],
+            [
+              -403.8415582359531,
+              395.0609294832998
+            ],
+            [
+              -396.2269157898992,
+              389.47197779799416
+            ],
+            [
+              -396.3352815393729,
+              387.4290621769167
+            ]
+          ]
+        }
+      ],
+      "basis": "Reconstruction of exact frozen World Pm average-mitre branch from actual persisted node/edge inputs; direct native query polygon was not serialized."
+    },
+    {
+      "edgeId": 1212,
+      "sourceId": "w241368617",
+      "poly": [
+        [
+          -403.6968757452478,
+          397.7884898221874
+        ],
+        [
+          -403.1695608054898,
+          407.7294530221936
+        ],
+        [
+          -395.28065165985697,
+          407.3109885769291
+        ],
+        [
+          -395.80796659961493,
+          397.3700253769229
+        ]
+      ],
+      "sourceEdge": {
+        "id": 1212,
+        "road": 19,
+        "name": "Pasajul Unirii",
+        "dirx": 0.052970182944872934,
+        "dirz": 0.998596094383904,
+        "nx": -0.998596094383904,
+        "nz": 0.052970182944872934,
+        "len": 9.954938994768845,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 0.5,
+        "sidewalkLeftM": 0,
+        "sidewalkRightM": 0,
+        "ya": -6,
+        "yb": -6,
+        "layer": -1,
+        "bridge": false,
+        "tunnel": true,
+        "lidded": true,
+        "anchorH": -6,
+        "L": -1,
+        "over": [
+          551
+        ],
+        "main": true,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "a": {
+          "id": 1216,
+          "x": -399.75242117243135,
+          "z": 397.57925759955515,
+          "y": -6,
+          "pad": false,
+          "radius": 4,
+          "edgeIds": [
+            1211,
+            1212
+          ]
+        },
+        "b": {
+          "id": 1217,
+          "x": -399.2251062326734,
+          "z": 407.52022079956134,
+          "y": -6,
+          "pad": false,
+          "radius": 4,
+          "edgeIds": [
+            1212,
+            1213
+          ]
+        }
+      },
+      "rawWaterWitnesses": [
+        {
+          "id": "water:-20013:88",
+          "minY": 0.10499999672174454,
+          "maxY": 0.10499999672174454,
+          "intersection": [
+            [
+              -403.6968757452478,
+              397.7884898221874
+            ],
+            [
+              -403.1695608054898,
+              407.7294530221936
+            ],
+            [
+              -397.1297397862274,
+              407.4090728142758
+            ],
+            [
+              -395.5394556472727,
+              402.43200503040697
+            ],
+            [
+              -395.80796659961493,
+              397.3700253769229
+            ]
+          ]
+        }
+      ],
+      "basis": "Reconstruction of exact frozen World Pm average-mitre branch from actual persisted node/edge inputs; direct native query polygon was not serialized."
+    },
+    {
+      "edgeId": 1213,
+      "sourceId": "w241368617",
+      "poly": [
+        [
+          -403.1695608054898,
+          407.7294530221936
+        ],
+        [
+          -402.64224586573187,
+          417.67041622219983
+        ],
+        [
+          -394.753336720099,
+          417.25195177693536
+        ],
+        [
+          -395.28065165985697,
+          407.3109885769291
+        ]
+      ],
+      "sourceEdge": {
+        "id": 1213,
+        "road": 19,
+        "name": "Pasajul Unirii",
+        "dirx": 0.052970182944872934,
+        "dirz": 0.998596094383904,
+        "nx": -0.998596094383904,
+        "nz": 0.052970182944872934,
+        "len": 9.954938994768845,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 0.5,
+        "sidewalkLeftM": 0,
+        "sidewalkRightM": 0,
+        "ya": -6,
+        "yb": -6,
+        "layer": -1,
+        "bridge": false,
+        "tunnel": true,
+        "lidded": true,
+        "anchorH": -6,
+        "L": -1,
+        "over": [
+          551
+        ],
+        "main": true,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "a": {
+          "id": 1217,
+          "x": -399.2251062326734,
+          "z": 407.52022079956134,
+          "y": -6,
+          "pad": false,
+          "radius": 4,
+          "edgeIds": [
+            1212,
+            1213
+          ]
+        },
+        "b": {
+          "id": 1218,
+          "x": -398.69779129291544,
+          "z": 417.4611839995676,
+          "y": -6,
+          "pad": false,
+          "radius": 4,
+          "edgeIds": [
+            1213,
+            1214
+          ]
+        }
+      },
+      "rawWaterWitnesses": [
+        {
+          "id": "water:-20013:88",
+          "minY": 0.10499999672174454,
+          "maxY": 0.10499999672174454,
+          "intersection": [
+            [
+              -403.1695608054898,
+              407.7294530221936
+            ],
+            [
+              -402.93358779726134,
+              412.17802599846993
+            ],
+            [
+              -399.0500183105469,
+              413.4189147949219
+            ],
+            [
+              -397.1297397862274,
+              407.4090728142758
+            ]
+          ]
+        }
+      ],
+      "basis": "Reconstruction of exact frozen World Pm average-mitre branch from actual persisted node/edge inputs; direct native query polygon was not serialized."
+    },
+    {
+      "edgeId": 1239,
+      "sourceId": "w241368618",
+      "poly": [
+        [
+          -386.25895188467535,
+          397.9730013127429
+        ],
+        [
+          -386.69882263844494,
+          388.0122813127398
+        ],
+        [
+          -394.59113078204217,
+          388.36080988618676
+        ],
+        [
+          -394.1512600282726,
+          398.32152988618986
+        ]
+      ],
+      "sourceEdge": {
+        "id": 1239,
+        "road": 20,
+        "name": "Pasajul Unirii",
+        "dirx": -0.044117540942660426,
+        "dirz": -0.9990263472907873,
+        "nx": 0.9990263472907873,
+        "nz": -0.044117540942660426,
+        "len": 9.970427733978305,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 0.5,
+        "sidewalkLeftM": 0,
+        "sidewalkRightM": 0,
+        "ya": -6,
+        "yb": -6,
+        "layer": -1,
+        "bridge": false,
+        "tunnel": true,
+        "lidded": true,
+        "anchorH": -6,
+        "L": -1,
+        "over": [
+          551
+        ],
+        "main": true,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "a": {
+          "id": 1243,
+          "x": -390.205105956474,
+          "z": 398.1472655994664,
+          "y": -6,
+          "pad": false,
+          "radius": 4,
+          "edgeIds": [
+            1238,
+            1239
+          ]
+        },
+        "b": {
+          "id": 1244,
+          "x": -390.64497671024355,
+          "z": 388.1865455994633,
+          "y": -6,
+          "pad": false,
+          "radius": 4,
+          "edgeIds": [
+            1239,
+            1240
+          ]
+        }
+      },
+      "rawWaterWitnesses": [
+        {
+          "id": "water:-20013:88",
+          "minY": 0.10499999672174454,
+          "maxY": 0.10499999672174454,
+          "intersection": [
+            [
+              -390.9926190335811,
+              388.20189767148304
+            ],
+            [
+              -394.59113078204217,
+              388.36080988618676
+            ],
+            [
+              -394.16034355863434,
+              398.11583650519145
+            ]
+          ]
+        }
+      ],
+      "basis": "Reconstruction of exact frozen World Pm average-mitre branch from actual persisted node/edge inputs; direct native query polygon was not serialized."
+    },
+    {
+      "edgeId": 1240,
+      "sourceId": "w241368618",
+      "poly": [
+        [
+          -386.69882263844494,
+          388.0122813127398
+        ],
+        [
+          -387.1386933922146,
+          378.0515613127367
+        ],
+        [
+          -395.0310015358118,
+          378.40008988618365
+        ],
+        [
+          -394.59113078204217,
+          388.36080988618676
+        ]
+      ],
+      "sourceEdge": {
+        "id": 1240,
+        "road": 20,
+        "name": "Pasajul Unirii",
+        "dirx": -0.044117540942660426,
+        "dirz": -0.9990263472907873,
+        "nx": 0.9990263472907873,
+        "nz": -0.044117540942660426,
+        "len": 9.970427733978305,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 0.5,
+        "sidewalkLeftM": 0,
+        "sidewalkRightM": 0,
+        "ya": -6,
+        "yb": -6,
+        "layer": -1,
+        "bridge": false,
+        "tunnel": true,
+        "lidded": true,
+        "anchorH": -6,
+        "L": -1,
+        "over": [
+          551
+        ],
+        "main": true,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "a": {
+          "id": 1244,
+          "x": -390.64497671024355,
+          "z": 388.1865455994633,
+          "y": -6,
+          "pad": false,
+          "radius": 4,
+          "edgeIds": [
+            1239,
+            1240
+          ]
+        },
+        "b": {
+          "id": 1245,
+          "x": -391.0848474640132,
+          "z": 378.22582559946017,
+          "y": -6,
+          "pad": false,
+          "radius": 4,
+          "edgeIds": [
+            1240,
+            1241
+          ]
+        }
+      },
+      "rawWaterWitnesses": [
+        {
+          "id": "water:-20013:89",
+          "minY": 0.10499999672174454,
+          "maxY": 0.10499999672174454,
+          "intersection": [
+            [
+              -394.81560392714925,
+              383.2776937054214
+            ],
+            [
+              -394.5949571919922,
+              388.2741621657122
+            ],
+            [
+              -389.91912841796875,
+              384.84222412109375
+            ]
+          ]
+        },
+        {
+          "id": "water:-20013:88",
+          "minY": 0.10499999672174454,
+          "maxY": 0.10499999672174454,
+          "intersection": [
+            [
+              -394.5949571919922,
+              388.2741621657122
+            ],
+            [
+              -394.59113078204217,
+              388.36080988618676
+            ],
+            [
+              -390.9926190335811,
+              388.20189767148304
+            ],
+            [
+              -389.91912841796875,
+              384.84222412109375
+            ]
+          ]
+        }
+      ],
+      "basis": "Reconstruction of exact frozen World Pm average-mitre branch from actual persisted node/edge inputs; direct native query polygon was not serialized."
+    }
+  ],
+  "results": [
+    {
+      "objectId": 46,
+      "name": "",
+      "matrixWorld": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -516.7156444956507,
+        0.12,
+        322.2827999996437,
+        1
+      ],
+      "material": [
+        {
+          "id": 37,
+          "name": "landmark-fountain-water",
+          "type": "MeshStandardMaterial",
+          "side": 0,
+          "colorWrite": true,
+          "depthWrite": false,
+          "depthTest": true,
+          "transparent": true,
+          "opacity": 0.9
+        }
+      ],
+      "renderOrder": 1,
+      "topology": "direct complete nonindexed native geometry",
+      "selectedValidation": null,
+      "vertices": 5721,
+      "triangles": 1907,
+      "intersections": []
+    },
+    {
+      "objectId": 472,
+      "name": "water -1,0",
+      "matrixWorld": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "material": [
+        {
+          "id": 54,
+          "name": "water",
+          "type": "MeshStandardMaterial",
+          "side": 0,
+          "colorWrite": true,
+          "depthWrite": false,
+          "depthTest": true,
+          "transparent": false,
+          "opacity": 1
+        }
+      ],
+      "renderOrder": -18,
+      "topology": "direct complete nonindexed native geometry",
+      "selectedValidation": null,
+      "vertices": 738,
+      "triangles": 246,
+      "intersections": []
+    },
+    {
+      "objectId": 742,
+      "name": "water-big visible batch",
+      "matrixWorld": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "material": [
+        {
+          "id": 54,
+          "name": "water",
+          "type": "MeshStandardMaterial",
+          "side": 0,
+          "colorWrite": true,
+          "depthWrite": false,
+          "depthTest": true,
+          "transparent": false,
+          "opacity": 1
+        }
+      ],
+      "renderOrder": -18.1,
+      "topology": "source-validated complete POSITION triples: World copies each triangle into nonindexed chunks; batchWaterChunks concatenates sequential canonical indices. NOT directly captured canonical index, and stale tail is not used.",
+      "selectedValidation": {
+        "selectedIndices": 92853,
+        "validatedTriples": 30951,
+        "badTriples": [],
+        "fullPositionVertices": 179391,
+        "indexCapacity": 179391
+      },
+      "vertices": 179391,
+      "triangles": 59797,
+      "intersections": []
+    }
+  ]
+}

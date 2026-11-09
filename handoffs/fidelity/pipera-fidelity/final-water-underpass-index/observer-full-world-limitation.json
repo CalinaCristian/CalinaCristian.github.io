@@ -1,0 +1,10 @@
+{
+  "scope": "Failed optional full-World CPU observer; not a production/browser failure. No final snapshot was produced. Late owner and isolated literal final-water replays remain separately successful.",
+  "mode": "old720 World, stage final",
+  "failure": {
+    "type": "InvalidArg",
+    "message": "Convert String to CString failed",
+    "location": "SignAtlas.get, ctx.measureText(text), called from SignAtlas.icon/placeSign before final mesh assembly"
+  },
+  "interpretation": "Installed native Node Canvas requires a string; browser Canvas coerces the explicitly supplied undefined text via DOMString. No production signs/text were changed. The bounded water-only final path avoids unrelated Canvas adapter substitutions."
+}

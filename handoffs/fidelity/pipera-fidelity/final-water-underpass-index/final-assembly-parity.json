@@ -1,0 +1,134 @@
+{
+  "scope": "CPU replay of literal final World water super-merge/shoreFoam/addSuper/big-chunk/batch code on actual post-OWN_WATER World-prefix snapshots. Other layers are empty; later cells have no water writes. Not a complete World or native render/route/visual pass.",
+  "oldExecutedWaterPathSha256": "2ffc4748417fbd0b91892707529ca6a38c6f99021a75ec404e9d9fc64a7c4a99",
+  "candidateExecutedWaterPathSha256": "a56fb08dbc32bacf6cfe1c9780dd2e525ce6c036db50ef761f7ae3ab0cfdc4d1",
+  "oldWorldSha256": "6e75d09f721b8e729b826636ebcf6e5aca79dddf7e2230512135415b0ff4b207",
+  "candidateWorldSha256": "17c0aa5c94a58505c45c6c5d98c067dc41efd75810be2ebd134dc81f4652c517",
+  "exactFinalWaterGeometryAttributesIndicesMaterialsTransformsOrders": true,
+  "exactShoreAudits": true,
+  "allPreparedConsumed": true,
+  "shoreTris": 110832,
+  "meshes": [
+    {
+      "name": "water -2,0",
+      "renderOrder": -18,
+      "attributeNames": [
+        "position",
+        "normal",
+        "aShore",
+        "aFoamReliable"
+      ],
+      "positionVertices": 228,
+      "sha256": "071d75061b77f3b12d6137a5b93a280138f721726a22bbdeedb6e1600fd8be71"
+    },
+    {
+      "name": "water -1,-1",
+      "renderOrder": -18,
+      "attributeNames": [
+        "position",
+        "normal",
+        "aShore",
+        "aFoamReliable"
+      ],
+      "positionVertices": 705,
+      "sha256": "eb940e374137a1896b905c66011836c89b7e7346ca5d5ecc89987b5e98ff15b9"
+    },
+    {
+      "name": "water -1,0",
+      "renderOrder": -18,
+      "attributeNames": [
+        "position",
+        "normal",
+        "aShore",
+        "aFoamReliable"
+      ],
+      "positionVertices": 738,
+      "sha256": "f1f249239a5eb37e2a4d4f47bb56c7ead89f1752190485893ba1bee678ccc73b"
+    },
+    {
+      "name": "water 0,0",
+      "renderOrder": -18,
+      "attributeNames": [
+        "position",
+        "normal",
+        "aShore",
+        "aFoamReliable"
+      ],
+      "positionVertices": 42,
+      "sha256": "7bca7c52125ef40b3140a4eb896de14266a3d0a45b79f66062a6f7c4dd2db733"
+    },
+    {
+      "name": "water 9,3",
+      "renderOrder": -18,
+      "attributeNames": [
+        "position",
+        "normal",
+        "aShore",
+        "aFoamReliable"
+      ],
+      "positionVertices": 58608,
+      "sha256": "714cd76d701c9f2ff8777722edb0ebb67b0013a65097552cb3b97f371c0e76f2"
+    },
+    {
+      "name": "water 10,3",
+      "renderOrder": -18,
+      "attributeNames": [
+        "position",
+        "normal",
+        "aShore",
+        "aFoamReliable"
+      ],
+      "positionVertices": 40368,
+      "sha256": "7207cee512ef2f73bc2f0e232881d0b467ba4ac94b4dd56f8e7e22f8f37c89c8"
+    },
+    {
+      "name": "water 11,3",
+      "renderOrder": -18,
+      "attributeNames": [
+        "position",
+        "normal",
+        "aShore",
+        "aFoamReliable"
+      ],
+      "positionVertices": 5760,
+      "sha256": "d895ef5b843f8f31b28e35b8a9952f531e467d4fe7cbf24bf71c02d39415b7da"
+    },
+    {
+      "name": "water 12,3",
+      "renderOrder": -18,
+      "attributeNames": [
+        "position",
+        "normal",
+        "aShore",
+        "aFoamReliable"
+      ],
+      "positionVertices": 40704,
+      "sha256": "bfe6afcb0210fc57a52964d100e8a608cc2a0a18579c8475cbcba09783d17ee9"
+    },
+    {
+      "name": "water 13,3",
+      "renderOrder": -18,
+      "attributeNames": [
+        "position",
+        "normal",
+        "aShore",
+        "aFoamReliable"
+      ],
+      "positionVertices": 5952,
+      "sha256": "d7ec196f6f2482251c8df4bdfb68ae2039036e9d2c4354622fed9b34fa0e5667"
+    },
+    {
+      "name": "water-big visible batch",
+      "renderOrder": -18.1,
+      "attributeNames": [
+        "aFoamReliable",
+        "aShore",
+        "normal",
+        "position"
+      ],
+      "positionVertices": 179391,
+      "sha256": "13cca75da5eecb4e60bb0df357d1007e4ff8134b73e2d8e2e3f42c91632e5a48"
+    }
+  ],
+  "fullFinalWaterPayloadSha256": "671af62873c8bc12dc1c39c49f9fc9862b8adde4bbe967b69c20ad6e2b8e010c"
+}

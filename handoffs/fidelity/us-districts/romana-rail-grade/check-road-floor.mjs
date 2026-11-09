@@ -7,6 +7,8 @@ const input = process.argv[2], builder = process.argv[3];
 if (!input || !builder) throw new Error('Pass immutable native constructor-facts.json and shared tram-grade.js path');
 const { buildTramGrades } = await import(pathToFileURL(builder));
 const bytes = fs.readFileSync(input), native = JSON.parse(bytes), tunnel = buildTramTunnelGrades(native.data, { coreEdges: native.allEdges });
+const halfWidthOverrideM = Number(process.argv[4]) || null;
+if (halfWidthOverrideM) for (const grade of tunnel.grades.values()) grade.deckHalfWidthM = halfWidthOverrideM;
 const model = buildTramGrades(native.data, { coreEdges: native.allEdges, models: [], extraGrades: tunnel.grades, extraReport: tunnel.report });
 const area2 = p => p.reduce((s, a, i) => { const b = p[(i + 1) % p.length]; return s + a[0] * b[1] - a[1] * b[0]; }, 0);
 function clip(subject, boundary) {
@@ -43,8 +45,11 @@ for (const piece of model.support.pieces) for (const ribbon of native.ribbons) {
 }
 const report = { scope: 'CPU intersection of composed literal rail floor quads and immutable native road ribbon polygons/profiles; no browser or current-root acceptance',
     nativeSourceCommit: '6cbf82b61de8267f662bf50239c37ccc1764635c', nativeInputSha256: crypto.createHash('sha256').update(bytes).digest('hex'),
-    sharedBuilderSha256: crypto.createHash('sha256').update(fs.readFileSync(builder)).digest('hex'), sourceModel: tunnel.report,
+    sharedBuilderSha256: crypto.createHash('sha256').update(fs.readFileSync(builder)).digest('hex'), halfWidthOverrideM, sourceModel: tunnel.report,
     floorPieces: model.support.pieces.length, roadPositiveAreaOverlaps: overlaps.length, slabRoadSurfaceIntersections: intersections.length, adjacentCarTubePositiveAreaOverlaps: motorCorridorOverlaps.length,
     intersections, adjacentCarTubeOverlaps: motorCorridorOverlaps, allOverlaps: overlaps };
 console.log(JSON.stringify(report, null, 2));
-if (intersections.length || motorCorridorOverlaps.length) process.exitCode = 1;
+// Horizontal overlap can be a lower rail bed beneath retained motor asphalt.
+// Keep every overlap visible; actual mesh/corridor clearance is checked by the
+// separate posed-body tool, rather than declaring that XY alone is contact.
+if (intersections.length) process.exitCode = 1;

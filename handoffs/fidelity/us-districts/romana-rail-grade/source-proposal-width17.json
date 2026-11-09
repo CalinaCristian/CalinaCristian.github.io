@@ -1,0 +1,196 @@
+{
+  "scope": "Current explicit MODEL proposal after source overhead-road clearance control; not surveyed/current native acceptance",
+  "descriptor": {
+    "id": "victoria-tram-underpass",
+    "depthM": 7.6,
+    "maxGrade": 0.08,
+    "easeM": 20,
+    "stationHalfPlateauM": 30,
+    "tunnelRampInsetM": 15,
+    "deckHalfWidthM": 1.7,
+    "thicknessM": 0.35,
+    "roofBottomM": -0.3,
+    "roofTopM": 0,
+    "basis": "MODEL independent Victoria tram underpass; literal source-node ground joins and underground stops; depth, ramps and roof extent estimated, not surveyed",
+    "paths": [
+      {
+        "ways": [
+          [
+            "w241374323",
+            -1
+          ],
+          [
+            "w241374326",
+            -1
+          ],
+          [
+            "w243476552",
+            -1
+          ],
+          [
+            "w920117610",
+            -1
+          ]
+        ],
+        "tunnelWay": "w241374326",
+        "westGround": 2927621025,
+        "westGroundWay": "w40503646",
+        "eastGround": 296077845,
+        "eastGroundWay": "w920117610",
+        "stationNode": 8544117695
+      },
+      {
+        "ways": [
+          [
+            "w920117611",
+            1
+          ],
+          [
+            "w920117619",
+            1
+          ],
+          [
+            "w920117620",
+            1
+          ]
+        ],
+        "tunnelWay": "w920117619",
+        "westGround": 8544126334,
+        "westGroundWay": "w920117625",
+        "eastGround": 8544117714,
+        "eastGroundWay": "w920117620",
+        "stationNode": 8544117694
+      }
+    ]
+  },
+  "report": {
+    "models": [
+      {
+        "id": "victoria-tram-underpass",
+        "basis": "MODEL independent Victoria tram underpass; literal source-node ground joins and underground stops; depth, ramps and roof extent estimated, not surveyed",
+        "depthM": 7.6,
+        "maxGradeCap": 0.08,
+        "deckHalfWidthM": 1.7,
+        "thicknessM": 0.35,
+        "roof": {
+          "bottomM": -0.3,
+          "topM": 0,
+          "coveredMPerTrack": 60,
+          "estimated": true,
+          "policy": "only flat station section; no claim that all source-tagged tunnel length is covered"
+        },
+        "paths": [
+          {
+            "sourceWays": [
+              [
+                "w241374323",
+                -1
+              ],
+              [
+                "w241374326",
+                -1
+              ],
+              [
+                "w243476552",
+                -1
+              ],
+              [
+                "w920117610",
+                -1
+              ]
+            ],
+            "anchors": [
+              {
+                "end": "west",
+                "nodeId": 2927621025,
+                "sourceId": "w40503646",
+                "modelY": 0,
+                "basis": "equal literal source rail node in existing unsurveyed flat ground rail continuation"
+              },
+              {
+                "end": "east",
+                "nodeId": 296077845,
+                "sourceId": "w920117610",
+                "modelY": 0,
+                "basis": "equal literal source rail node in existing unsurveyed flat ground rail continuation"
+              }
+            ],
+            "stationNode": 8544117695,
+            "stationM": 411.11604731073385,
+            "stationPlateauM": [
+              381.11604731073385,
+              441.11604731073385
+            ],
+            "floorPlateauM": [
+              231.50471670534486,
+              498.57974568650934
+            ],
+            "floorCoreTransitionInsetM": 15,
+            "groundIntervalM": [
+              0,
+              676.8676124201016
+            ],
+            "westApproachM": 231.50471670534486,
+            "eastApproachM": 178.2878667335923,
+            "westEaseM": 20,
+            "eastEaseM": 20,
+            "peakGrade": 0.04801378751784711
+          },
+          {
+            "sourceWays": [
+              [
+                "w920117611",
+                1
+              ],
+              [
+                "w920117619",
+                1
+              ],
+              [
+                "w920117620",
+                1
+              ]
+            ],
+            "anchors": [
+              {
+                "end": "west",
+                "nodeId": 8544126334,
+                "sourceId": "w920117625",
+                "modelY": 0,
+                "basis": "equal literal source rail node in existing unsurveyed flat ground rail continuation"
+              },
+              {
+                "end": "east",
+                "nodeId": 8544117714,
+                "sourceId": "w920117620",
+                "modelY": 0,
+                "basis": "equal literal source rail node in existing unsurveyed flat ground rail continuation"
+              }
+            ],
+            "stationNode": 8544117694,
+            "stationM": 420.31276148723884,
+            "stationPlateauM": [
+              390.31276148723884,
+              450.31276148723884
+            ],
+            "floorPlateauM": [
+              231.50279443924046,
+              499.4167101654507
+            ],
+            "floorCoreTransitionInsetM": 15,
+            "groundIntervalM": [
+              0,
+              679.3531827844563
+            ],
+            "westApproachM": 231.50279443924046,
+            "eastApproachM": 179.9364726190056,
+            "westEaseM": 20,
+            "eastEaseM": 20,
+            "peakGrade": 0.047518867182374476
+          }
+        ]
+      }
+    ],
+    "unresolved": []
+  }
+}

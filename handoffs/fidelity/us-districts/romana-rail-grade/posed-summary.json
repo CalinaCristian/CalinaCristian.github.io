@@ -1,0 +1,619 @@
+{
+  "passed": true,
+  "scope": "CPU actual Traffic rigid fitting, primary emitted mesh triangle clipping versus all native road ribbons and explicit rail roof polygons; no browser or current-root static/native acceptance",
+  "nativeInputSha256": "c25b01cc7acf5b1d7cba51b9d1aa234439f431fcb493e297c0683b67d65496cf",
+  "halfWidthOverrideM": null,
+  "outerWallSegments": 636,
+  "stepM": 5,
+  "partialDiagnosticLimit": null,
+  "unchangedModules": true,
+  "moduleSha256": {
+    "/workspace/fidelity-workers/remaining-us-districts/game/src/traffic.js": "76736ea3c0184c94a3ce28a76e30a61795caf7d6891a11e12f439ba268ad4c06",
+    "/workspace/fidelity-workers/remaining-us-districts/game/src/tram-body-support.js": "50b3d9042c3ffefb6be204e5bec2196303877ad4112a965b396d04b6c91c5813",
+    "/workspace/fidelity-workers/remaining-us-districts/game/src/tram-path.js": "235e9d35ef44bea17e0a323b845b15a02a1be03e02431435264f812886c38b56",
+    "/workspace/fidelity-workers/remaining-us-districts/game/src/vehicles.js": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+    "/workspace/fidelity-workers/rail-bridge-model/game/src/tram-grade.js": "cfd8e35e367220f85dbd9911176f4af96f9bc2ac3489b7c9b8515aa7f62044b1",
+    "/workspace/fidelity-workers/rail-bridge-model/game/src/tram-trench.js": "755b4ab3acdf101182bcc4eccf9486289f7346b7e6d58fb4c81f92669ad8a018",
+    "/workspace/fidelity-workers/romana-rail-grade/game/src/tram-tunnel-grade.js": "29e198ae6f04a3fc97b3fd1db7fe01891f86b44444c2e398afd58f41b67ef2de"
+  },
+  "afterModuleSha256": {
+    "/workspace/fidelity-workers/remaining-us-districts/game/src/traffic.js": "76736ea3c0184c94a3ce28a76e30a61795caf7d6891a11e12f439ba268ad4c06",
+    "/workspace/fidelity-workers/remaining-us-districts/game/src/tram-body-support.js": "50b3d9042c3ffefb6be204e5bec2196303877ad4112a965b396d04b6c91c5813",
+    "/workspace/fidelity-workers/remaining-us-districts/game/src/tram-path.js": "235e9d35ef44bea17e0a323b845b15a02a1be03e02431435264f812886c38b56",
+    "/workspace/fidelity-workers/remaining-us-districts/game/src/vehicles.js": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+    "/workspace/fidelity-workers/rail-bridge-model/game/src/tram-grade.js": "cfd8e35e367220f85dbd9911176f4af96f9bc2ac3489b7c9b8515aa7f62044b1",
+    "/workspace/fidelity-workers/rail-bridge-model/game/src/tram-trench.js": "755b4ab3acdf101182bcc4eccf9486289f7346b7e6d58fb4c81f92669ad8a018",
+    "/workspace/fidelity-workers/romana-rail-grade/game/src/tram-tunnel-grade.js": "29e198ae6f04a3fc97b3fd1db7fe01891f86b44444c2e398afd58f41b67ef2de"
+  },
+  "actualGeometry": [
+    {
+      "kind": "tram-v3a",
+      "vertices": 4644,
+      "localMin": [
+        -1.215000033378601,
+        0.008273792453110218,
+        -13.5
+      ],
+      "localMax": [
+        1.2230000495910645,
+        5.789999961853027,
+        13.5
+      ],
+      "historicalNativeActorId": 490,
+      "matchesActualNativeConstructorGeometry": true
+    },
+    {
+      "kind": "tram-imperio",
+      "vertices": 3416,
+      "localMin": [
+        -1.215000033378601,
+        0.008273792453110218,
+        -18
+      ],
+      "localMax": [
+        1.2230000495910645,
+        5.789999961853027,
+        18
+      ],
+      "historicalNativeActorId": 489,
+      "matchesActualNativeConstructorGeometry": true
+    }
+  ],
+  "sourceModel": {
+    "models": [
+      {
+        "id": "victoria-tram-underpass",
+        "basis": "MODEL independent Victoria tram underpass; literal source-node ground joins and underground stops; depth, ramps and roof extent estimated, not surveyed",
+        "depthM": 7.6,
+        "maxGradeCap": 0.08,
+        "deckHalfWidthM": 2.8,
+        "thicknessM": 0.35,
+        "roof": {
+          "bottomM": -0.3,
+          "topM": 0,
+          "coveredMPerTrack": 60,
+          "estimated": true,
+          "policy": "only flat station section; no claim that all source-tagged tunnel length is covered"
+        },
+        "paths": [
+          {
+            "sourceWays": [
+              [
+                "w241374323",
+                -1
+              ],
+              [
+                "w241374326",
+                -1
+              ],
+              [
+                "w243476552",
+                -1
+              ],
+              [
+                "w920117610",
+                -1
+              ]
+            ],
+            "anchors": [
+              {
+                "end": "west",
+                "nodeId": 2927621025,
+                "sourceId": "w40503646",
+                "modelY": 0,
+                "basis": "equal literal source rail node in existing unsurveyed flat ground rail continuation"
+              },
+              {
+                "end": "east",
+                "nodeId": 296077845,
+                "sourceId": "w920117610",
+                "modelY": 0,
+                "basis": "equal literal source rail node in existing unsurveyed flat ground rail continuation"
+              }
+            ],
+            "stationNode": 8544117695,
+            "stationM": 411.11604731073385,
+            "stationPlateauM": [
+              381.11604731073385,
+              441.11604731073385
+            ],
+            "floorPlateauM": [
+              231.50471670534486,
+              498.57974568650934
+            ],
+            "floorCoreTransitionInsetM": 15,
+            "groundIntervalM": [
+              0,
+              676.8676124201016
+            ],
+            "westApproachM": 231.50471670534486,
+            "eastApproachM": 178.2878667335923,
+            "westEaseM": 20,
+            "eastEaseM": 20,
+            "peakGrade": 0.04801378751784711
+          },
+          {
+            "sourceWays": [
+              [
+                "w920117611",
+                1
+              ],
+              [
+                "w920117619",
+                1
+              ],
+              [
+                "w920117620",
+                1
+              ]
+            ],
+            "anchors": [
+              {
+                "end": "west",
+                "nodeId": 8544126334,
+                "sourceId": "w920117625",
+                "modelY": 0,
+                "basis": "equal literal source rail node in existing unsurveyed flat ground rail continuation"
+              },
+              {
+                "end": "east",
+                "nodeId": 8544117714,
+                "sourceId": "w920117620",
+                "modelY": 0,
+                "basis": "equal literal source rail node in existing unsurveyed flat ground rail continuation"
+              }
+            ],
+            "stationNode": 8544117694,
+            "stationM": 420.31276148723884,
+            "stationPlateauM": [
+              390.31276148723884,
+              450.31276148723884
+            ],
+            "floorPlateauM": [
+              231.50279443924046,
+              499.4167101654507
+            ],
+            "floorCoreTransitionInsetM": 15,
+            "groundIntervalM": [
+              0,
+              679.3531827844563
+            ],
+            "westApproachM": 231.50279443924046,
+            "eastApproachM": 179.9364726190056,
+            "westEaseM": 20,
+            "eastEaseM": 20,
+            "peakGrade": 0.047518867182374476
+          }
+        ]
+      }
+    ],
+    "unresolved": []
+  },
+  "network": {
+    "modeled": 33,
+    "admitted": 33,
+    "unresolved": []
+  },
+  "summary": {
+    "fixtures": 770,
+    "actualPoses": 751,
+    "failed": 0,
+    "excludedUnknownWholeSourceSpan": 19,
+    "checkedOverheadPoses": 271,
+    "minimumOverheadClearanceM": 0.971806143753432,
+    "maximumSupportOffsetM": 0.27532181596321514,
+    "maximumBelowRimLateralReachM": 2.636351485416063,
+    "posesWithCarProjectedTriangleOverlaps": 0,
+    "cpuMs": 8363.965788
+  },
+  "actualHistoricalActors": [
+    {
+      "label": "actual-historical-constructor-source-projection",
+      "id": 490,
+      "nativeOrigin": {
+        "x": -120.17549684604938,
+        "z": -447.667861447297,
+        "heading": 1.7176251186762523
+      },
+      "kind": "tram-v3a",
+      "sourceId": "w243476552",
+      "sourceSegment": 0,
+      "sourceNodeIds": [
+        296077845,
+        2205721493
+      ],
+      "t": 0.09427363541937298,
+      "station": 9.112052844560553,
+      "dir": 1,
+      "passed": true,
+      "wallIntersectionCount": 0,
+      "wallWitness": null,
+      "carProjectedTriangleOverlaps": 0,
+      "carProjectionWitness": null,
+      "minimumOverheadClearanceM": null,
+      "minimumNativeRoadTopClearanceM": null,
+      "minimumConservativeRoadUndersideClearanceM": null,
+      "minimumModeledRailRoofClearanceM": null,
+      "maximumBelowRimLateralReachM": 1.2322698831370686,
+      "lateralWitness": {
+        "point": [
+          -132.7609739151392,
+          0.24549742823283188,
+          -454.35483755658566
+        ],
+        "distanceM": 1.2322698831370686,
+        "sourceId": "w243476552",
+        "sourceSegment": 0,
+        "t": 0.2122619076436181
+      },
+      "witness": null,
+      "actualPose": {
+        "x": -121.30313218255012,
+        "y": 0.14033597227926786,
+        "z": -454.89532283225134,
+        "heading": 1.7247566540327706,
+        "pitch": -0.022348234862606446
+      },
+      "actualBounds": {
+        "min": [
+          -134.8550544709829,
+          -0.13906683911803275,
+          -458.153050599097
+        ],
+        "max": [
+          -107.81303963466289,
+          5.936487872546528,
+          -451.634716486693
+        ]
+      },
+      "sourceErrorM": 0,
+      "support": {
+        "known": true,
+        "y": 0.14033597227926786,
+        "pitch": -0.022348234862606446,
+        "baselineY": 0.14033597227926786,
+        "bogieChordY": -0.04773426513982515,
+        "verticalOffsetM": 0,
+        "supportLiftM": 0,
+        "rawClearanceM": null,
+        "witness": null,
+        "testedEdges": 0,
+        "pieceCount": 35,
+        "pieceIds": [
+          "victoria-tram-underpass:w243476552:0:0.0000000000000000:0.015384615384615385",
+          "victoria-tram-underpass:w243476552:0:0.015384615384615385:0.030769230769230771",
+          "victoria-tram-underpass:w243476552:0:0.030769230769230771:0.046153846153846156",
+          "victoria-tram-underpass:w243476552:0:0.046153846153846156:0.061538461538461542",
+          "victoria-tram-underpass:w243476552:0:0.061538461538461542:0.076923076923076927",
+          "victoria-tram-underpass:w243476552:0:0.076923076923076927:0.092307692307692313",
+          "victoria-tram-underpass:w243476552:0:0.092307692307692313:0.10769230769230770",
+          "victoria-tram-underpass:w243476552:0:0.10769230769230770:0.12307692307692308",
+          "victoria-tram-underpass:w243476552:0:0.12307692307692308:0.13846153846153847",
+          "victoria-tram-underpass:w243476552:0:0.13846153846153847:0.15384615384615385",
+          "victoria-tram-underpass:w243476552:0:0.15384615384615385:0.16923076923076924",
+          "victoria-tram-underpass:w243476552:0:0.16923076923076924:0.18461538461538463",
+          "victoria-tram-underpass:w243476552:0:0.18461538461538463:0.20000000000000001",
+          "victoria-tram-underpass:w243476552:0:0.20000000000000001:0.20692073899823721",
+          "victoria-tram-underpass:w243476552:0:0.20692073899823721:0.21538461538461540",
+          "victoria-tram-underpass:w243476552:0:0.21538461538461540:0.23076923076923078",
+          "victoria-tram-underpass:w243476552:0:0.23076923076923078:0.24615384615384617",
+          "victoria-tram-underpass:w920117620:0:0.84545454545454546:0.85454545454545450",
+          "victoria-tram-underpass:w920117620:0:0.85454545454545450:0.86363636363636365",
+          "victoria-tram-underpass:w920117620:0:0.86363636363636365:0.87272727272727268",
+          "victoria-tram-underpass:w920117620:0:0.87272727272727268:0.87874119239715442",
+          "victoria-tram-underpass:w920117620:0:0.87874119239715442:0.88181818181818183",
+          "victoria-tram-underpass:w920117620:0:0.88181818181818183:0.89090909090909087",
+          "victoria-tram-underpass:w920117620:0:0.89090909090909087:0.90000000000000002",
+          "victoria-tram-underpass:w920117620:0:0.90000000000000002:0.90909090909090906",
+          "victoria-tram-underpass:w920117620:0:0.90909090909090906:0.91818181818181821",
+          "victoria-tram-underpass:w920117620:0:0.91818181818181821:0.92727272727272725",
+          "victoria-tram-underpass:w920117620:0:0.92727272727272725:0.93636363636363640",
+          "victoria-tram-underpass:w920117620:0:0.93636363636363640:0.94545454545454544",
+          "victoria-tram-underpass:w920117620:0:0.94545454545454544:0.95454545454545459",
+          "victoria-tram-underpass:w920117620:0:0.95454545454545459:0.96363636363636362",
+          "victoria-tram-underpass:w920117620:0:0.96363636363636362:0.97272727272727277",
+          "victoria-tram-underpass:w920117620:0:0.97272727272727277:0.98181818181818181",
+          "victoria-tram-underpass:w920117620:0:0.98181818181818181:0.99090909090909096",
+          "victoria-tram-underpass:w920117620:0:0.99090909090909096:1.0000000000000000"
+        ],
+        "piecesHash": "4fa7b66e",
+        "geometryFingerprint": "2b693516",
+        "poseHash": "116af7ee",
+        "modelIds": [
+          "victoria-tram-underpass"
+        ],
+        "actualSupport": {
+          "localMinY": 0.008273792453110218,
+          "frontZ": -12.873432159423828,
+          "rearZ": 12.873432159423828,
+          "vertices": 4644
+        },
+        "basis": "actual emitted lowest wheel-support chord and minimum rigid mesh vertical anchor over exact shared source rail slab; not an articulated model or measured suspension"
+      },
+      "testedTriangles": 0,
+      "testedSurfaces": 0
+    },
+    {
+      "label": "actual-historical-constructor-source-projection",
+      "id": 489,
+      "nativeOrigin": {
+        "x": -120.64317768434289,
+        "z": -444.66715127751803,
+        "heading": -1.4210133283633442
+      },
+      "kind": "tram-imperio",
+      "sourceId": "w920117620",
+      "sourceSegment": 0,
+      "sourceNodeIds": [
+        8544117712,
+        8544117714
+      ],
+      "t": 0.9295227565334251,
+      "station": 153.31220468171793,
+      "dir": 1,
+      "passed": true,
+      "wallIntersectionCount": 0,
+      "wallWitness": null,
+      "carProjectedTriangleOverlaps": 0,
+      "carProjectionWitness": null,
+      "minimumOverheadClearanceM": null,
+      "minimumNativeRoadTopClearanceM": null,
+      "minimumConservativeRoadUndersideClearanceM": null,
+      "minimumModeledRailRoofClearanceM": null,
+      "maximumBelowRimLateralReachM": 1.22418813405217,
+      "lateralWitness": {
+        "point": [
+          -118.76448105630702,
+          0.38184025723118775,
+          -450.63718898606413
+        ],
+        "distanceM": 1.22418813405217,
+        "sourceId": "w920117620",
+        "sourceSegment": 0,
+        "t": 0.9463096933496189
+      },
+      "witness": null,
+      "actualPose": {
+        "x": -121.68779068505171,
+        "y": 0.07947698392754332,
+        "z": -451.4239734646423,
+        "heading": -1.4178385273700043,
+        "pitch": 0.026096283650006057
+      },
+      "actualBounds": {
+        "min": [
+          -139.6905174867171,
+          -0.3420986164177806,
+          -455.35360991753015
+        ],
+        "max": [
+          -103.75727217377482,
+          5.979608946397184,
+          -447.4859022150112
+        ]
+      },
+      "sourceErrorM": 0,
+      "support": {
+        "known": true,
+        "y": 0.07947698392754332,
+        "pitch": 0.026096283650006057,
+        "baselineY": 0.07947698392754332,
+        "bogieChordY": -0.18999111266454682,
+        "verticalOffsetM": 0,
+        "supportLiftM": 0,
+        "rawClearanceM": null,
+        "witness": null,
+        "testedEdges": 0,
+        "pieceCount": 42,
+        "pieceIds": [
+          "victoria-tram-underpass:w243476552:0:0.0000000000000000:0.015384615384615385",
+          "victoria-tram-underpass:w243476552:0:0.015384615384615385:0.030769230769230771",
+          "victoria-tram-underpass:w243476552:0:0.030769230769230771:0.046153846153846156",
+          "victoria-tram-underpass:w243476552:0:0.046153846153846156:0.061538461538461542",
+          "victoria-tram-underpass:w243476552:0:0.061538461538461542:0.076923076923076927",
+          "victoria-tram-underpass:w243476552:0:0.076923076923076927:0.092307692307692313",
+          "victoria-tram-underpass:w243476552:0:0.092307692307692313:0.10769230769230770",
+          "victoria-tram-underpass:w243476552:0:0.10769230769230770:0.12307692307692308",
+          "victoria-tram-underpass:w243476552:0:0.12307692307692308:0.13846153846153847",
+          "victoria-tram-underpass:w243476552:0:0.13846153846153847:0.15384615384615385",
+          "victoria-tram-underpass:w243476552:0:0.15384615384615385:0.16923076923076924",
+          "victoria-tram-underpass:w243476552:0:0.16923076923076924:0.18461538461538463",
+          "victoria-tram-underpass:w243476552:0:0.18461538461538463:0.20000000000000001",
+          "victoria-tram-underpass:w243476552:0:0.20000000000000001:0.20692073899823721",
+          "victoria-tram-underpass:w243476552:0:0.20692073899823721:0.21538461538461540",
+          "victoria-tram-underpass:w243476552:0:0.21538461538461540:0.23076923076923078",
+          "victoria-tram-underpass:w243476552:0:0.23076923076923078:0.24615384615384617",
+          "victoria-tram-underpass:w243476552:0:0.24615384615384617:0.26153846153846155",
+          "victoria-tram-underpass:w243476552:0:0.26153846153846155:0.27692307692307694",
+          "victoria-tram-underpass:w243476552:0:0.27692307692307694:0.29230769230769232",
+          "victoria-tram-underpass:w920117620:0:0.80909090909090908:0.81818181818181823",
+          "victoria-tram-underpass:w920117620:0:0.81818181818181823:0.82727272727272727",
+          "victoria-tram-underpass:w920117620:0:0.82727272727272727:0.83636363636363631",
+          "victoria-tram-underpass:w920117620:0:0.83636363636363631:0.84545454545454546",
+          "victoria-tram-underpass:w920117620:0:0.84545454545454546:0.85454545454545450",
+          "victoria-tram-underpass:w920117620:0:0.85454545454545450:0.86363636363636365",
+          "victoria-tram-underpass:w920117620:0:0.86363636363636365:0.87272727272727268",
+          "victoria-tram-underpass:w920117620:0:0.87272727272727268:0.87874119239715442",
+          "victoria-tram-underpass:w920117620:0:0.87874119239715442:0.88181818181818183",
+          "victoria-tram-underpass:w920117620:0:0.88181818181818183:0.89090909090909087",
+          "victoria-tram-underpass:w920117620:0:0.89090909090909087:0.90000000000000002",
+          "victoria-tram-underpass:w920117620:0:0.90000000000000002:0.90909090909090906",
+          "victoria-tram-underpass:w920117620:0:0.90909090909090906:0.91818181818181821",
+          "victoria-tram-underpass:w920117620:0:0.91818181818181821:0.92727272727272725",
+          "victoria-tram-underpass:w920117620:0:0.92727272727272725:0.93636363636363640",
+          "victoria-tram-underpass:w920117620:0:0.93636363636363640:0.94545454545454544",
+          "victoria-tram-underpass:w920117620:0:0.94545454545454544:0.95454545454545459",
+          "victoria-tram-underpass:w920117620:0:0.95454545454545459:0.96363636363636362",
+          "victoria-tram-underpass:w920117620:0:0.96363636363636362:0.97272727272727277",
+          "victoria-tram-underpass:w920117620:0:0.97272727272727277:0.98181818181818181",
+          "victoria-tram-underpass:w920117620:0:0.98181818181818181:0.99090909090909096",
+          "victoria-tram-underpass:w920117620:0:0.99090909090909096:1.0000000000000000"
+        ],
+        "piecesHash": "58bf9180",
+        "geometryFingerprint": "824e5977",
+        "poseHash": "09530dff",
+        "modelIds": [
+          "victoria-tram-underpass"
+        ],
+        "actualSupport": {
+          "localMinY": 0.008273792453110218,
+          "frontZ": -16.473432540893555,
+          "rearZ": 16.473432540893555,
+          "vertices": 3416
+        },
+        "basis": "actual emitted lowest wheel-support chord and minimum rigid mesh vertical anchor over exact shared source rail slab; not an articulated model or measured suspension"
+      },
+      "testedTriangles": 0,
+      "testedSurfaces": 0
+    }
+  ],
+  "minimumModeledRailRoofClearanceM": 1.270000038146972,
+  "minimumConservativeRoadUndersideClearanceM": 0.971806143753432,
+  "wallIntersectionCount": 0,
+  "worstLateralPose": {
+    "label": "full-source-sweep",
+    "kind": "tram-imperio",
+    "sourceId": "w920117619",
+    "sourceSegment": 2,
+    "sourceNodeIds": [
+      8544117694,
+      8544117715
+    ],
+    "t": 1,
+    "station": 51.902408421960516,
+    "dir": 1,
+    "passed": true,
+    "wallIntersectionCount": 0,
+    "wallWitness": null,
+    "carProjectedTriangleOverlaps": 0,
+    "carProjectionWitness": null,
+    "minimumOverheadClearanceM": 1.270000038146972,
+    "minimumNativeRoadTopClearanceM": 1.810000038146972,
+    "minimumConservativeRoadUndersideClearanceM": 1.270000038146972,
+    "minimumModeledRailRoofClearanceM": null,
+    "maximumBelowRimLateralReachM": 2.636351485416063,
+    "lateralWitness": {
+      "point": [
+        -296.81353949271215,
+        -6.819999978542327,
+        -421.29533116010407
+      ],
+      "distanceM": 2.636351485416063,
+      "sourceId": "w920117619",
+      "sourceSegment": 3,
+      "t": 0.42170480599892946
+    },
+    "witness": {
+      "kind": "native-road",
+      "id": "road-ribbon:597",
+      "sourceId": "w372295695",
+      "edgeId": 535,
+      "triangle": 1720,
+      "point": [
+        -310.5336496482138,
+        -1.570000038146972,
+        -420.5291654603435
+      ],
+      "ceilingY": -0.30000000000000004,
+      "gapM": 1.270000038146972,
+      "basis": "native rendered road top; conservative MODEL underside 0.54m lower, matching -0.3m underside below zero ground datum"
+    },
+    "actualPose": {
+      "x": -314.8,
+      "y": -7.359999999999999,
+      "z": -420.9,
+      "heading": -1.4814573922852665,
+      "pitch": 0
+    },
+    "actualBounds": {
+      "min": [
+        -332.83527892972245,
+        -7.351726207546889,
+        -423.7076719885843
+      ],
+      "max": [
+        -296.7647210702776,
+        -1.570000038146972,
+        -418.09232801141565
+      ]
+    },
+    "sourceErrorM": 0,
+    "support": {
+      "known": true,
+      "y": -7.359999999999999,
+      "pitch": 0,
+      "baselineY": -7.359999999999999,
+      "bogieChordY": -7.359999999999999,
+      "verticalOffsetM": 0,
+      "supportLiftM": 0,
+      "rawClearanceM": null,
+      "witness": null,
+      "testedEdges": 0,
+      "pieceCount": 47,
+      "pieceIds": [
+        "victoria-tram-underpass:w241374326:0:0.68965517241379315:0.72413793103448276",
+        "victoria-tram-underpass:w241374326:0:0.72413793103448276:0.75862068965517238",
+        "victoria-tram-underpass:w241374326:0:0.75862068965517238:0.79310344827586210",
+        "victoria-tram-underpass:w241374326:0:0.79310344827586210:0.82758620689655171",
+        "victoria-tram-underpass:w241374326:0:0.82758620689655171:0.86206896551724133",
+        "victoria-tram-underpass:w241374326:0:0.86206896551724133:0.89655172413793105",
+        "victoria-tram-underpass:w241374326:0:0.89655172413793105:0.93103448275862066",
+        "victoria-tram-underpass:w241374326:0:0.93103448275862066:0.96551724137931039",
+        "victoria-tram-underpass:w241374326:0:0.96551724137931039:1.0000000000000000",
+        "victoria-tram-underpass:w241374326:1:0.0000000000000000:0.024390243902439025",
+        "victoria-tram-underpass:w241374326:1:0.024390243902439025:0.048780487804878050",
+        "victoria-tram-underpass:w241374326:1:0.048780487804878050:0.073170731707317069",
+        "victoria-tram-underpass:w241374326:1:0.073170731707317069:0.097560975609756101",
+        "victoria-tram-underpass:w241374326:1:0.097560975609756101:0.12195121951219512",
+        "victoria-tram-underpass:w241374326:1:0.12195121951219512:0.14634146341463414",
+        "victoria-tram-underpass:w241374326:1:0.14634146341463414:0.17073170731707318",
+        "victoria-tram-underpass:w241374326:1:0.17073170731707318:0.19512195121951220",
+        "victoria-tram-underpass:w241374326:1:0.19512195121951220:0.21951219512195122",
+        "victoria-tram-underpass:w241374326:1:0.21951219512195122:0.24390243902439024",
+        "victoria-tram-underpass:w241374326:1:0.24390243902439024:0.26829268292682928",
+        "victoria-tram-underpass:w241374326:1:0.26829268292682928:0.29268292682926828",
+        "victoria-tram-underpass:w920117619:2:0.62857142857142856:0.65714285714285714",
+        "victoria-tram-underpass:w920117619:2:0.65714285714285714:0.68571428571428572",
+        "victoria-tram-underpass:w920117619:2:0.68571428571428572:0.71428571428571430",
+        "victoria-tram-underpass:w920117619:2:0.71428571428571430:0.74285714285714288",
+        "victoria-tram-underpass:w920117619:2:0.74285714285714288:0.77142857142857146",
+        "victoria-tram-underpass:w920117619:2:0.77142857142857146:0.80000000000000004",
+        "victoria-tram-underpass:w920117619:2:0.80000000000000004:0.82857142857142863",
+        "victoria-tram-underpass:w920117619:2:0.82857142857142863:0.85714285714285710",
+        "victoria-tram-underpass:w920117619:2:0.85714285714285710:0.88571428571428568",
+        "victoria-tram-underpass:w920117619:2:0.88571428571428568:0.91428571428571426",
+        "victoria-tram-underpass:w920117619:2:0.91428571428571426:0.94285714285714284",
+        "victoria-tram-underpass:w920117619:2:0.94285714285714284:0.97142857142857142",
+        "victoria-tram-underpass:w920117619:2:0.97142857142857142:1.0000000000000000",
+        "victoria-tram-underpass:w920117619:3:0.0000000000000000:0.034482758620689655",
+        "victoria-tram-underpass:w920117619:3:0.034482758620689655:0.068965517241379309",
+        "victoria-tram-underpass:w920117619:3:0.068965517241379309:0.10344827586206896",
+        "victoria-tram-underpass:w920117619:3:0.10344827586206896:0.13793103448275862",
+        "victoria-tram-underpass:w920117619:3:0.13793103448275862:0.17241379310344829",
+        "victoria-tram-underpass:w920117619:3:0.17241379310344829:0.20689655172413793",
+        "victoria-tram-underpass:w920117619:3:0.20689655172413793:0.24137931034482760",
+        "victoria-tram-underpass:w920117619:3:0.24137931034482760:0.27586206896551724",
+        "victoria-tram-underpass:w920117619:3:0.27586206896551724:0.31034482758620691",
+        "victoria-tram-underpass:w920117619:3:0.31034482758620691:0.34482758620689657",
+        "victoria-tram-underpass:w920117619:3:0.34482758620689657:0.37931034482758619",
+        "victoria-tram-underpass:w920117619:3:0.37931034482758619:0.41379310344827586",
+        "victoria-tram-underpass:w920117619:3:0.41379310344827586:0.44827586206896552"
+      ],
+      "piecesHash": "ff7bf1be",
+      "geometryFingerprint": "824e5977",
+      "poseHash": "5003a46a",
+      "modelIds": [
+        "victoria-tram-underpass"
+      ],
+      "actualSupport": {
+        "localMinY": 0.008273792453110218,
+        "frontZ": -16.473432540893555,
+        "rearZ": 16.473432540893555,
+        "vertices": 3416
+      },
+      "basis": "actual emitted lowest wheel-support chord and minimum rigid mesh vertical anchor over exact shared source rail slab; not an articulated model or measured suspension"
+    },
+    "testedTriangles": 298,
+    "testedSurfaces": 2
+  }
+}

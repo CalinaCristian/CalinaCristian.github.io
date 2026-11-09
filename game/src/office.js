@@ -3,6 +3,7 @@ import { makeCanvasTexture, clamp, damp, angleLerp } from './util.js';
 import { drawFitText } from './canvasText.js';
 import { makeCrowd } from './crowd.js';
 import {buildArniaInterior,buildDBInterior} from './office-interior-details.js';
+import {captureOfficeResources} from './office-resources.js';
 
 const SANS = (w) => (px) => `${w} ${px}px "Helvetica Neue", Helvetica, Arial, sans-serif`;
 const BOLD = SANS('bold'), REG = SANS('normal');
@@ -230,6 +231,7 @@ export class Office {
         this.boxes = [];
         this.talking = false;
         this.build();
+        this.roomResources=captureOfficeResources(this.scene,{sharedGeometries:new Set([BOXG]),helperMaterials:this.interiorDetails?.ownedMaterials,helperTextures:this.interiorDetails?.ownedTextures});
         this.camRig = new THREE.Group(); this.camRig.rotation.order = 'YXZ'; this.camRig.add(camera); this.scene.add(this.camRig);
         camera.position.set(0, 0, 0); camera.rotation.set(0, 0, 0);
         this.t = 0;
@@ -478,12 +480,13 @@ export class Office {
 
     render() { this.renderer.render(this.scene, this.camera); }
     dispose() {
+        if(this._disposed)return;this._disposed=true;
         if (this.talking) this.endTalk(false);
         this.stopTone();
         this.input.releaseLock(); this.camRig.remove(this.camera);
         this.crowd?.dispose();
         this.interiorDetails?.dispose();
-        this.scene.traverse(o => { if (o.geometry && o.geometry !== BOXG && !o.userData.shared) o.geometry.dispose(); });
+        this.roomResources.dispose();
     }
 }
 function makeRngLite(seed) { let s = seed || 1; return () => (s = (s * 16807) % 2147483647) / 2147483647; }

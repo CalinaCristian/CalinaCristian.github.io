@@ -1,0 +1,10 @@
+LOAD unirii
+{"district":"unirii","label":"day-chapter-start","calls":[260,260],"triangles":[1306570,1306570],"passes":{"mirror":{"calls":54,"triangles":256929},"sun-shadow":{"calls":28,"triangles":191601},"main":{"calls":160,"triangles":858022},"post-or-other":{"calls":18,"triangles":18}}}
+{"district":"unirii","label":"day-first150m","calls":[334,334],"triangles":[1569735,1569735],"passes":{"mirror":{"calls":55,"triangles":253599},"sun-shadow":{"calls":31,"triangles":205488},"main":{"calls":230,"triangles":1110630},"post-or-other":{"calls":18,"triangles":18}}}
+{"district":"unirii","label":"day-public-approach","calls":[224,224],"triangles":[755094,755094],"passes":{"mirror":{"calls":56,"triangles":164899},"sun-shadow":{"calls":26,"triangles":110347},"main":{"calls":124,"triangles":479830},"post-or-other":{"calls":18,"triangles":18}}}
+Debugger listening on ws://127.0.0.1:9229/504567f7-ee6f-4869-8151-fb1339f2db3b
+For help, see: https://nodejs.org/learn/getting-started/debugging
+Debugger attached.
+Debugger ending on ws://127.0.0.1:9229/504567f7-ee6f-4869-8151-fb1339f2db3b
+For help, see: https://nodejs.org/learn/getting-started/debugging
+COMPLETE {"errors":0,"consoleErrors":0,"failedRequests":0,"failures":4}

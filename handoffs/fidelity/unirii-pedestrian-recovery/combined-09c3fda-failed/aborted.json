@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-09T00:36:34.081481+00:00",
+  "sourceCommit": "09c3fda5058a1055070288e2ca41639eb7ae25ad",
+  "reason": "Root directed stop after primary native regressions:19SUV player contact samples, public approach no-progress reset. Preserve failed matrix and diagnose nearby actual actor state before reset; winter acceptance not completed.",
+  "terminatedOwnedNodePids": [
+    293022
+  ]
+}

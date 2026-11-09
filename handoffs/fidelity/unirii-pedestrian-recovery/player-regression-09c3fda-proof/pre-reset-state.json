@@ -1,0 +1,4179 @@
+{
+  "wallClockMs": 230176.20000000298,
+  "harnessSim": 81.29999999999795,
+  "scenarioTime": 58.49999999999924,
+  "trafficTime": 81.29999999999795,
+  "frame": 2439,
+  "player": {
+    "x": 647.3096129137605,
+    "z": -395.25412712727524,
+    "y": 0.24,
+    "surfY": 0.24,
+    "heading": -1.611703187673153,
+    "fx": 0.999163431033844,
+    "fz": 0.04089545310516789,
+    "speed": -0.020080321285140562,
+    "front": 3.42,
+    "rear": 2.36,
+    "length": 5.779999999999999,
+    "width": 1.8,
+    "contactAge": 67.49999999999875,
+    "body": {
+      "x": 647.8391695322084,
+      "z": -395.2324525371295,
+      "fx": 0.999163431033844,
+      "fz": 0.04089545310516789,
+      "length": 5.779999999999999,
+      "width": 1.8
+    },
+    "touching": false,
+    "lastCollider": {
+      "type": "vehicle",
+      "id": "veh:249",
+      "kind": "small-suv",
+      "x": -614,
+      "z": 409.6,
+      "parked": false
+    },
+    "hits": [
+      {
+        "type": "vehicle",
+        "id": "veh:249",
+        "kind": "small-suv",
+        "x": -614,
+        "z": 409.6,
+        "parked": false
+      }
+    ]
+  },
+  "input": {
+    "throttle": 0,
+    "steer": -2.6570058539584948e-05,
+    "brake": true
+  },
+  "ap": {
+    "s": 110.62608429247557,
+    "pi": 10,
+    "waitT": 0,
+    "stallT": 0,
+    "revT": 0,
+    "resets": 0,
+    "laneBias": 0,
+    "latShift": 0,
+    "lastProgressT": 58.49999999999924,
+    "bestRem": 40.651069159895314,
+    "remaining": 38.975417650626056,
+    "rerouteN": 1,
+    "dev": 0.00033898345967944046,
+    "obstacle": {
+      "gap": 2.6048772480408795,
+      "speed": 0,
+      "what": "sedan",
+      "info": {
+        "id": 526,
+        "kind": "sedan",
+        "parked": false,
+        "speed": 0
+      }
+    }
+  },
+  "trafficStats": {
+    "updateMs": 20.945675012854814,
+    "pedObstacles": 19443,
+    "guard": 47682,
+    "separate": 2285,
+    "lastMs": 17.69999999552965,
+    "unstuck": 22,
+    "pedObstacleOverlaps": 0,
+    "pedObstacleMax": 0,
+    "pedObstacleWorst": null,
+    "parkingBubbles": 55,
+    "deadlocks": 46,
+    "pedGuard": 39,
+    "deadlockGhosts": 29,
+    "pedUnclump": 5,
+    "playerWatchdog": 7
+  },
+  "actors": [
+    {
+      "id": 8,
+      "kind": "estate",
+      "x": 654.2077488732833,
+      "z": -378.3490486141226,
+      "y": 0.24,
+      "heading": -0.364962520663642,
+      "fx": 0.353084600949007,
+      "fz": -0.9355913982998564,
+      "speed": 0,
+      "dir": 1,
+      "s": 1.140526649119834,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.69,
+      "width": 1.83,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 13.599999999999962,
+      "still": 13.599999999999962,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 654.2077488732833,
+      "_z0": -378.3490486141226,
+      "_h0": -0.364962520663642,
+      "_s0": 1.140526649119834,
+      "playerBodyPenetrationM": -13.194538217654467,
+      "edge": {
+        "id": 266,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 10.334088168871302,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 303,
+          "sourceId": 2279089979,
+          "x": 652.8423936697369,
+          "z": -378.93789360000204,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 304,
+          "sourceId": 4048757536,
+          "x": 656.4912010670147,
+          "z": -388.60637760007035,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 266,
+      "leader": {
+        "id": 285,
+        "kind": "hatch"
+      },
+      "route": [
+        {
+          "edge": 267,
+          "dir": 1
+        },
+        {
+          "edge": 268,
+          "dir": 1
+        },
+        {
+          "edge": 240,
+          "dir": -1
+        },
+        {
+          "edge": 239,
+          "dir": -1
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "kind": "small-suv",
+      "x": 719.6421787754327,
+      "z": -394.6814401210976,
+      "y": 0.24,
+      "heading": 1.5042410029085072,
+      "fx": -0.997786715711268,
+      "fz": -0.0664956385796929,
+      "speed": 0,
+      "dir": -1,
+      "s": 6.97522596126432,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.34,
+      "width": 1.8,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 4.56666666666666,
+      "still": 4.56666666666666,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 719.6421787754327,
+      "_z0": -394.6814401210976,
+      "_h0": 1.5042410029085072,
+      "_s0": 6.97522596126432,
+      "playerBodyPenetrationM": -66.68310761178387,
+      "edge": {
+        "id": 243,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 21.893604325428797,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 278,
+          "sourceId": 248729693,
+          "x": 704.6093517767324,
+          "z": -393.92960040068607,
+          "radius": 4
+        },
+        "b": {
+          "id": 279,
+          "sourceId": 11360886918,
+          "x": 726.454499331684,
+          "z": -392.47377120025556,
+          "radius": 4
+        }
+      },
+      "previousEdge": 243,
+      "leader": {
+        "id": 41,
+        "kind": "compact-sedan"
+      },
+      "route": [
+        {
+          "edge": 242,
+          "dir": -1
+        },
+        {
+          "edge": 241,
+          "dir": -1
+        },
+        {
+          "edge": 240,
+          "dir": -1
+        },
+        {
+          "edge": 239,
+          "dir": -1
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "kind": "stb-bus",
+      "x": 676.1264048131585,
+      "z": -393.82857776160006,
+      "y": 0.24,
+      "heading": -1.6259989871385523,
+      "fx": 0.9985055723534341,
+      "fz": 0.05464999523459394,
+      "speed": 0,
+      "dir": 1,
+      "s": 17.86556582721852,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 12,
+      "width": 2.55,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 12.933333333333298,
+      "still": 12.933333333333298,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 676.1264048131585,
+      "_z0": -393.82857776160006,
+      "_h0": -1.6259989871385523,
+      "_s0": 17.86556582721852,
+      "playerBodyPenetrationM": -19.419033698505,
+      "edge": {
+        "id": 241,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 23.995566599635424,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 276,
+          "sourceId": 2279089977,
+          "x": 658.3831752730943,
+          "z": -396.5523156005394,
+          "radius": 4
+        },
+        "b": {
+          "id": 277,
+          "sourceId": 13538468946,
+          "x": 682.3428822346082,
+          "z": -395.2409580002179,
+          "radius": 4
+        }
+      },
+      "previousEdge": 241,
+      "leader": {
+        "id": 321,
+        "kind": "sedan"
+      },
+      "route": [
+        {
+          "edge": 242,
+          "dir": 1
+        },
+        {
+          "edge": 243,
+          "dir": 1
+        },
+        {
+          "edge": 244,
+          "dir": 1
+        },
+        {
+          "edge": 245,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "kind": "compact-sedan",
+      "x": 713.7074133501874,
+      "z": -395.0771579196664,
+      "y": 0.24,
+      "heading": 1.504244335953106,
+      "fx": -0.997786715711268,
+      "fz": -0.0664956385796929,
+      "speed": 0,
+      "dir": -1,
+      "s": 12.901361632503809,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.36,
+      "width": 1.73,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 5.59999999999999,
+      "still": 5.59999999999999,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "ovFol:crossover#286",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 713.7074133501874,
+      "_z0": -395.0771579196664,
+      "_h0": 1.504244335953106,
+      "_s0": 12.901361632503809,
+      "playerBodyPenetrationM": -60.728027551068266,
+      "edge": {
+        "id": 243,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 21.893604325428797,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 278,
+          "sourceId": 248729693,
+          "x": 704.6093517767324,
+          "z": -393.92960040068607,
+          "radius": 4
+        },
+        "b": {
+          "id": 279,
+          "sourceId": 11360886918,
+          "x": 726.454499331684,
+          "z": -392.47377120025556,
+          "radius": 4
+        }
+      },
+      "previousEdge": 243,
+      "leader": {
+        "id": 286,
+        "kind": "crossover"
+      },
+      "route": [
+        {
+          "edge": 242,
+          "dir": -1
+        },
+        {
+          "edge": 241,
+          "dir": -1
+        },
+        {
+          "edge": 240,
+          "dir": -1
+        },
+        {
+          "edge": 239,
+          "dir": -1
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "kind": "crossover",
+      "x": 706.6982754860359,
+      "z": -392.59492401565075,
+      "y": 0.24,
+      "heading": 0.40296733294794157,
+      "fx": -0.4226627252561966,
+      "fz": -0.9062870520309805,
+      "speed": 0,
+      "dir": -1,
+      "s": 4.848674028687819,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.6,
+      "width": 1.86,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 63.349999999998964,
+      "ovT": 0,
+      "stuck": 11.333333333333321,
+      "still": 14.133333333333294,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "guard",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 706.6982754860359,
+      "_z0": -392.59492401565075,
+      "_h0": 0.40296733294794157,
+      "_s0": 4.848674028687819,
+      "playerBodyPenetrationM": -54.20013578127138,
+      "edge": {
+        "id": 931,
+        "name": "Strada Feti\u021belor",
+        "type": "residential",
+        "len": 5.2850685543566,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23124314",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {}
+        },
+        "a": {
+          "id": 935,
+          "sourceId": 11360886943,
+          "x": 705.0545221782626,
+          "z": -392.46265800012566,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 936,
+          "sourceId": 12898060115,
+          "x": 707.2883236566128,
+          "z": -387.6728688002162,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 931,
+      "leader": {},
+      "route": [
+        {
+          "edge": 930,
+          "dir": -1
+        },
+        {
+          "edge": 243,
+          "dir": 1
+        },
+        {
+          "edge": 244,
+          "dir": 1
+        },
+        {
+          "edge": 245,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "kind": "compact-sedan",
+      "x": 645.5764024281057,
+      "z": -356.12299665204745,
+      "y": 0.24,
+      "heading": -0.3785381453288707,
+      "fx": 0.37832149258672987,
+      "fz": -0.9256742668168696,
+      "speed": 0,
+      "dir": 1,
+      "s": 22.19267972027211,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.36,
+      "width": 1.73,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 8.433333333333314,
+      "still": 8.433333333333314,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 645.5764024281057,
+      "_z0": -356.12299665204745,
+      "_h0": -0.3785381453288707,
+      "_s0": 22.19267972027211,
+      "playerBodyPenetrationM": -35.92581966934057,
+      "edge": {
+        "id": 264,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 22.378287419494715,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 301,
+          "sourceId": 2279089954,
+          "x": 636.2518467458514,
+          "z": -337.21894080046803,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 302,
+          "sourceId": 2279089986,
+          "x": 644.7180338439294,
+          "z": -357.933945600126,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 264,
+      "leader": {
+        "id": 322,
+        "kind": "hatch"
+      },
+      "route": [
+        {
+          "edge": 265,
+          "dir": 1
+        },
+        {
+          "edge": 266,
+          "dir": 1
+        },
+        {
+          "edge": 267,
+          "dir": 1
+        },
+        {
+          "edge": 268,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 89,
+      "kind": "hatch",
+      "x": 666.4025656202325,
+      "z": -394.36083785252356,
+      "y": 0.24,
+      "heading": -1.6254766061626034,
+      "fx": 0.9985055723534341,
+      "fz": 0.05464999523459394,
+      "speed": 0,
+      "dir": 1,
+      "s": 8.127170430219982,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.28,
+      "width": 1.79,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 4.199999999999995,
+      "still": 4.199999999999995,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "ovFol:stb-bus#26",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 666.4025656202325,
+      "_z0": -394.36083785252356,
+      "_h0": -1.6254766061626034,
+      "_s0": 8.127170430219982,
+      "playerBodyPenetrationM": -13.541387767960376,
+      "edge": {
+        "id": 241,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 23.995566599635424,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 276,
+          "sourceId": 2279089977,
+          "x": 658.3831752730943,
+          "z": -396.5523156005394,
+          "radius": 4
+        },
+        "b": {
+          "id": 277,
+          "sourceId": 13538468946,
+          "x": 682.3428822346082,
+          "z": -395.2409580002179,
+          "radius": 4
+        }
+      },
+      "previousEdge": 241,
+      "leader": {
+        "id": 26,
+        "kind": "stb-bus"
+      },
+      "route": [
+        {
+          "edge": 242,
+          "dir": 1
+        },
+        {
+          "edge": 243,
+          "dir": 1
+        },
+        {
+          "edge": 244,
+          "dir": 1
+        },
+        {
+          "edge": 245,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 92,
+      "kind": "hatch",
+      "x": 640.2916285037663,
+      "z": -397.59008826656236,
+      "y": 0.24,
+      "heading": -1.5584677529871906,
+      "fx": 0.9991622166210165,
+      "fz": 0.04092511303560279,
+      "speed": 0,
+      "dir": 1,
+      "s": 10.936951442531123,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": -2.1201853576363856,
+      "lateralExtra": -2.4680047120370303,
+      "length": 4.28,
+      "width": 1.79,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 2.1000000000000023,
+      "still": 2.1000000000000023,
+      "blockT": 32.23333333333411,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 640.2916285037663,
+      "_z0": -397.59008826656236,
+      "_h0": -1.5584677529871906,
+      "_s0": 10.936951442531123,
+      "playerBodyPenetrationM": -2.5630520350030297,
+      "edge": {
+        "id": 240,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 29.055812225811504,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 275,
+          "sourceId": 11360886916,
+          "x": 629.3517055238284,
+          "z": -397.74142800022196,
+          "radius": 4
+        },
+        "b": {
+          "id": 276,
+          "sourceId": 2279089977,
+          "x": 658.3831752730943,
+          "z": -396.5523156005394,
+          "radius": 4
+        }
+      },
+      "previousEdge": 240,
+      "leader": "player",
+      "route": [
+        {
+          "edge": 241,
+          "dir": 1
+        },
+        {
+          "edge": 242,
+          "dir": 1
+        },
+        {
+          "edge": 243,
+          "dir": 1
+        },
+        {
+          "edge": 244,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 107,
+      "kind": "hatch",
+      "x": 591.0346227927215,
+      "z": -397.2713670561756,
+      "y": 0.24,
+      "heading": -1.5723319536512304,
+      "fx": 0.9998933954008082,
+      "fz": 0.014601295622051001,
+      "speed": 11.752000864530533,
+      "dir": 1,
+      "s": 1.6096432422232738,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.28,
+      "width": 1.79,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 0,
+      "still": 0,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "pedGuard",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 590.6451088015066,
+      "_z0": -397.2720331674769,
+      "_h0": -1.5722629270887565,
+      "_s0": 1.217909880072256,
+      "playerBodyPenetrationM": -51.776838386417225,
+      "edge": {
+        "id": 238,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 11.416658075697013,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 273,
+          "sourceId": 419273968,
+          "x": 589.4374093545375,
+          "z": -399.07501200001354,
+          "radius": 4
+        },
+        "b": {
+          "id": 274,
+          "sourceId": 256209955,
+          "x": 600.8528503619763,
+          "z": -398.9083140004344,
+          "radius": 4
+        }
+      },
+      "previousEdge": 238,
+      "leader": {
+        "id": 258,
+        "kind": "van"
+      },
+      "route": [
+        {
+          "edge": 239,
+          "dir": 1
+        },
+        {
+          "edge": 240,
+          "dir": 1
+        },
+        {
+          "edge": 241,
+          "dir": 1
+        },
+        {
+          "edge": 242,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 136,
+      "kind": "sedan",
+      "x": 661.6698350352816,
+      "z": -394.61571296309444,
+      "y": 0.24,
+      "heading": -1.6185874579534,
+      "fx": 0.9985055723534341,
+      "fz": 0.05464999523459394,
+      "speed": 0,
+      "dir": 1,
+      "s": 3.385708089027008,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.85,
+      "width": 1.84,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 4.199999999999995,
+      "still": 4.199999999999995,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "guard",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 661.6698350352816,
+      "_z0": -394.61571296309444,
+      "_h0": -1.6185874579534,
+      "_s0": 3.385708089027008,
+      "playerBodyPenetrationM": -8.523210094603636,
+      "edge": {
+        "id": 241,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 23.995566599635424,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 276,
+          "sourceId": 2279089977,
+          "x": 658.3831752730943,
+          "z": -396.5523156005394,
+          "radius": 4
+        },
+        "b": {
+          "id": 277,
+          "sourceId": 13538468946,
+          "x": 682.3428822346082,
+          "z": -395.2409580002179,
+          "radius": 4
+        }
+      },
+      "previousEdge": 241,
+      "leader": {
+        "id": 89,
+        "kind": "hatch"
+      },
+      "route": [
+        {
+          "edge": 242,
+          "dir": 1
+        },
+        {
+          "edge": 243,
+          "dir": 1
+        },
+        {
+          "edge": 244,
+          "dir": 1
+        },
+        {
+          "edge": 245,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 155,
+      "kind": "stb-bus",
+      "x": 703.4406168468756,
+      "z": -394.6287189870133,
+      "y": 0.24,
+      "heading": 2.3757834129043824,
+      "fx": -0.09132420390672323,
+      "fz": 0.9958212137631952,
+      "speed": 0,
+      "dir": 1,
+      "s": 0.7265807424159058,
+      "lane": 0,
+      "laneCur": 0.9074943662361267,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 12,
+      "width": 2.55,
+      "layer": 0,
+      "ghost": 0.7666666666666655,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 68.53333333333201,
+      "still": 13.733333333333327,
+      "blockT": 0,
+      "stopD": -10.920880099136436,
+      "stopWhy": "lanedrop2",
+      "zeroWhy": "guard",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 703.4406168468756,
+      "_z0": -394.6287189870133,
+      "_h0": 2.3757834129043824,
+      "_s0": 0.7265807424159058,
+      "playerBodyPenetrationM": -47.75682930527541,
+      "edge": {
+        "id": 926,
+        "name": "Strada Prof. Dr. Mihail Georgescu",
+        "type": "residential",
+        "len": 1.3057006432794707,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050743",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "yes"
+          }
+        },
+        "a": {
+          "id": 931,
+          "sourceId": 11360886969,
+          "x": 704.7285938485204,
+          "z": -395.229844800088,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 278,
+          "sourceId": 248729693,
+          "x": 704.6093517767324,
+          "z": -393.92960040068607,
+          "radius": 4
+        }
+      },
+      "previousEdge": 926,
+      "leader": {},
+      "route": [
+        {
+          "edge": 242,
+          "dir": -1
+        },
+        {
+          "edge": 241,
+          "dir": -1
+        },
+        {
+          "edge": 240,
+          "dir": -1
+        },
+        {
+          "edge": 239,
+          "dir": -1
+        }
+      ]
+    },
+    {
+      "id": 252,
+      "kind": "small-suv",
+      "x": 708.7507000986019,
+      "z": -388.5134260853622,
+      "y": 0.24,
+      "heading": 0.5164448121474801,
+      "fx": -0.57823568633122,
+      "fz": -0.8158697757933326,
+      "speed": 0,
+      "dir": -1,
+      "s": 4.419555818991813,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.34,
+      "width": 1.8,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 33.433333333334,
+      "still": 17.866666666666745,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "guard",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 708.7507000986019,
+      "_z0": -388.5134260853622,
+      "_h0": 0.5164448121474801,
+      "_s0": 4.419555818991813,
+      "playerBodyPenetrationM": -56.33375754938808,
+      "edge": {
+        "id": 932,
+        "name": "Strada Feti\u021belor",
+        "type": "residential",
+        "len": 4.440541011798353,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23124314",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {}
+        },
+        "a": {
+          "id": 936,
+          "sourceId": 12898060115,
+          "x": 707.2883236566128,
+          "z": -387.6728688002162,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 937,
+          "sourceId": 4048757535,
+          "x": 709.8560029362519,
+          "z": -384.04996560051916,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 932,
+      "leader": {
+        "id": 57,
+        "kind": "crossover"
+      },
+      "route": [
+        {
+          "edge": 931,
+          "dir": -1
+        },
+        {
+          "edge": 930,
+          "dir": -1
+        },
+        {
+          "edge": 243,
+          "dir": 1
+        },
+        {
+          "edge": 244,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 256,
+      "kind": "small-suv",
+      "x": 634.3048789532585,
+      "z": -395.7870815388227,
+      "y": 0.24,
+      "heading": 4.671452802580995,
+      "fx": 0.9991622166210165,
+      "fz": 0.04092511303560279,
+      "speed": 0,
+      "dir": 1,
+      "s": 5.029005592901781,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.34,
+      "width": 1.8,
+      "layer": 0,
+      "ghost": 0,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 25.86666666666711,
+      "still": 16.900000000000023,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "guard",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 634.3048789532585,
+      "_z0": -395.7870815388227,
+      "_h0": 4.671452802580995,
+      "_s0": 5.029005592901781,
+      "playerBodyPenetrationM": -8.485623645751772,
+      "edge": {
+        "id": 240,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 29.055812225811504,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 275,
+          "sourceId": 11360886916,
+          "x": 629.3517055238284,
+          "z": -397.74142800022196,
+          "radius": 4
+        },
+        "b": {
+          "id": 276,
+          "sourceId": 2279089977,
+          "x": 658.3831752730943,
+          "z": -396.5523156005394,
+          "radius": 4
+        }
+      },
+      "previousEdge": 240,
+      "leader": {
+        "id": 92,
+        "kind": "hatch"
+      },
+      "route": [
+        {
+          "edge": 241,
+          "dir": 1
+        },
+        {
+          "edge": 242,
+          "dir": 1
+        },
+        {
+          "edge": 243,
+          "dir": 1
+        },
+        {
+          "edge": 244,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 257,
+      "kind": "hatch",
+      "x": 657.7115989148181,
+      "z": -388.14495462842115,
+      "y": 0.24,
+      "heading": -0.3037694747004582,
+      "fx": 0.24220793940305993,
+      "fz": -0.9702243627584928,
+      "speed": 0,
+      "dir": 1,
+      "s": 1.0368035401856224,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.28,
+      "width": 1.79,
+      "layer": 0,
+      "ghost": 0.29999999999999893,
+      "ovT": 0,
+      "stuck": 10.199999999999992,
+      "still": 16.2333333333333,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "revP",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 657.7115989148181,
+      "_z0": -388.14495462842115,
+      "_h0": -0.3037694747004582,
+      "_s0": 1.0368035401856224,
+      "playerBodyPenetrationM": -7.620844320265898,
+      "edge": {
+        "id": 267,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 6.826737664251354,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 304,
+          "sourceId": 4048757536,
+          "x": 656.4912010670147,
+          "z": -388.60637760007035,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 305,
+          "sourceId": 11360886945,
+          "x": 658.1446911295183,
+          "z": -395.229844800088,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 267,
+      "leader": {},
+      "route": [
+        {
+          "edge": 268,
+          "dir": 1
+        },
+        {
+          "edge": 240,
+          "dir": -1
+        },
+        {
+          "edge": 239,
+          "dir": -1
+        },
+        {
+          "edge": 238,
+          "dir": -1
+        }
+      ]
+    },
+    {
+      "id": 258,
+      "kind": "van",
+      "x": 616.7899691034836,
+      "z": -396.50430218818434,
+      "y": 0.24,
+      "heading": -1.6117188959164845,
+      "fx": 0.9991628054646859,
+      "fz": 0.040910734238559954,
+      "speed": 4.593075147439508,
+      "dir": 1,
+      "s": 16.0221261611456,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.36,
+      "width": 1.75,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 0,
+      "still": 0,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "guard",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 616.6369947757601,
+      "_z0": -396.5105657389881,
+      "_h0": -1.6117190212535393,
+      "_s0": 15.86902365623095,
+      "playerBodyPenetrationM": -26.005224754539764,
+      "edge": {
+        "id": 239,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 28.522734239089313,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 274,
+          "sourceId": 256209955,
+          "x": 600.8528503619763,
+          "z": -398.9083140004344,
+          "radius": 4
+        },
+        "b": {
+          "id": 275,
+          "sourceId": 11360886916,
+          "x": 629.3517055238284,
+          "z": -397.74142800022196,
+          "radius": 4
+        }
+      },
+      "previousEdge": 239,
+      "leader": {
+        "id": 594,
+        "kind": "hatch"
+      },
+      "route": [
+        {
+          "edge": 240,
+          "dir": 1
+        },
+        {
+          "edge": 241,
+          "dir": 1
+        },
+        {
+          "edge": 242,
+          "dir": 1
+        },
+        {
+          "edge": 243,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 285,
+      "kind": "hatch",
+      "x": 656.3906949194503,
+      "z": -384.0288003657345,
+      "y": 0.24,
+      "heading": 5.936462154804095,
+      "fx": 0.353084600949007,
+      "fz": -0.9355913982998564,
+      "speed": 0,
+      "dir": 1,
+      "s": 7.37840871889623,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.28,
+      "width": 1.79,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 14.29999999999996,
+      "still": 14.29999999999996,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "ovFol:hatch#257",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 656.3906949194503,
+      "_z0": -384.0288003657345,
+      "_h0": 5.936462154804095,
+      "_s0": 7.37840871889623,
+      "playerBodyPenetrationM": -7.927962602368691,
+      "edge": {
+        "id": 266,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 10.334088168871302,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 303,
+          "sourceId": 2279089979,
+          "x": 652.8423936697369,
+          "z": -378.93789360000204,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 304,
+          "sourceId": 4048757536,
+          "x": 656.4912010670147,
+          "z": -388.60637760007035,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 266,
+      "leader": {
+        "id": 257,
+        "kind": "hatch"
+      },
+      "route": [
+        {
+          "edge": 267,
+          "dir": 1
+        },
+        {
+          "edge": 268,
+          "dir": 1
+        },
+        {
+          "edge": 241,
+          "dir": 1
+        },
+        {
+          "edge": 242,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 286,
+      "kind": "crossover",
+      "x": 709.2129057562789,
+      "z": -395.37668352824863,
+      "y": 0.24,
+      "heading": 1.504288347034747,
+      "fx": -0.997786715711268,
+      "fz": -0.0664956385796929,
+      "speed": 0,
+      "dir": -1,
+      "s": 17.405823738353345,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.6,
+      "width": 1.86,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 2.2500000000000067,
+      "ovT": 0,
+      "stuck": 5.799999999999989,
+      "still": 5.799999999999989,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "guard",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 709.2129057562789,
+      "_z0": -395.37668352824863,
+      "_h0": 1.504288347034747,
+      "_s0": 17.405823738353345,
+      "playerBodyPenetrationM": -56.10344171815367,
+      "edge": {
+        "id": 243,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 21.893604325428797,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 278,
+          "sourceId": 248729693,
+          "x": 704.6093517767324,
+          "z": -393.92960040068607,
+          "radius": 4
+        },
+        "b": {
+          "id": 279,
+          "sourceId": 11360886918,
+          "x": 726.454499331684,
+          "z": -392.47377120025556,
+          "radius": 4
+        }
+      },
+      "previousEdge": 243,
+      "leader": {
+        "id": 57,
+        "kind": "crossover"
+      },
+      "route": [
+        {
+          "edge": 242,
+          "dir": -1
+        },
+        {
+          "edge": 241,
+          "dir": -1
+        },
+        {
+          "edge": 240,
+          "dir": -1
+        },
+        {
+          "edge": 239,
+          "dir": -1
+        }
+      ]
+    },
+    {
+      "id": 321,
+      "kind": "sedan",
+      "x": 686.1388826884984,
+      "z": -393.26405311159743,
+      "y": 0.24,
+      "heading": -1.6278764724673627,
+      "fx": 0.9982702569750587,
+      "fz": 0.05879195556324208,
+      "speed": 0,
+      "dir": 1,
+      "s": 3.9055984925769107,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.85,
+      "width": 1.84,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 13.933333333333294,
+      "still": 13.933333333333294,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "ovFol:delivery-van#337",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 686.1388826884984,
+      "_z0": -393.26405311159743,
+      "_h0": -1.6278764724673627,
+      "_s0": 3.9055984925769107,
+      "playerBodyPenetrationM": -33.02045529286398,
+      "edge": {
+        "id": 242,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 22.30505154946288,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 277,
+          "sourceId": 13538468946,
+          "x": 682.3428822346082,
+          "z": -395.2409580002179,
+          "radius": 4
+        },
+        "b": {
+          "id": 278,
+          "sourceId": 248729693,
+          "x": 704.6093517767324,
+          "z": -393.92960040068607,
+          "radius": 4
+        }
+      },
+      "previousEdge": 242,
+      "leader": {
+        "id": 337,
+        "kind": "delivery-van"
+      },
+      "route": [
+        {
+          "edge": 243,
+          "dir": 1
+        },
+        {
+          "edge": 244,
+          "dir": 1
+        },
+        {
+          "edge": 245,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 322,
+      "kind": "hatch",
+      "x": 647.7601845393923,
+      "z": -361.641337307857,
+      "y": 0.24,
+      "heading": -0.36921266347934606,
+      "fx": 0.3607546356524754,
+      "fz": -0.9326607597917098,
+      "speed": 0,
+      "dir": 1,
+      "s": 5.738079949662805,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.28,
+      "width": 1.79,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 9.999999999999975,
+      "still": 9.999999999999975,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 647.7601845393923,
+      "_z0": -361.641337307857,
+      "_h0": -0.36921266347934606,
+      "_s0": 5.738079949662805,
+      "playerBodyPenetrationM": -30.351957913450484,
+      "edge": {
+        "id": 265,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 22.520458569058757,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 302,
+          "sourceId": 2279089986,
+          "x": 644.7180338439294,
+          "z": -357.933945600126,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 303,
+          "sourceId": 2279089979,
+          "x": 652.8423936697369,
+          "z": -378.93789360000204,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 265,
+      "leader": {
+        "id": 413,
+        "kind": "hatch"
+      },
+      "route": [
+        {
+          "edge": 266,
+          "dir": 1
+        },
+        {
+          "edge": 267,
+          "dir": 1
+        },
+        {
+          "edge": 268,
+          "dir": 1
+        },
+        {
+          "edge": 241,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 337,
+      "kind": "delivery-van",
+      "x": 691.5462672368242,
+      "z": -392.94590688034987,
+      "y": 0.24,
+      "heading": -1.6296232238862363,
+      "fx": 0.9982702569750587,
+      "fz": 0.05879195556324208,
+      "speed": 0,
+      "dir": 1,
+      "s": 9.322396060841285,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 5.93,
+      "width": 2.02,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 16.066666666666624,
+      "still": 16.066666666666624,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "ovFol:compact-sedan#378",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 691.5462672368242,
+      "_z0": -392.94590688034987,
+      "_h0": -1.6296232238862363,
+      "_s0": 9.322396060841285,
+      "playerBodyPenetrationM": -37.89526270283907,
+      "edge": {
+        "id": 242,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 22.30505154946288,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 277,
+          "sourceId": 13538468946,
+          "x": 682.3428822346082,
+          "z": -395.2409580002179,
+          "radius": 4
+        },
+        "b": {
+          "id": 278,
+          "sourceId": 248729693,
+          "x": 704.6093517767324,
+          "z": -393.92960040068607,
+          "radius": 4
+        }
+      },
+      "previousEdge": 242,
+      "leader": {
+        "id": 378,
+        "kind": "compact-sedan"
+      },
+      "route": [
+        {
+          "edge": 243,
+          "dir": 1
+        },
+        {
+          "edge": 244,
+          "dir": 1
+        },
+        {
+          "edge": 245,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 355,
+      "kind": "small-suv",
+      "x": 652.0130350539903,
+      "z": -372.6357979038802,
+      "y": 0.24,
+      "heading": -0.3690768882215386,
+      "fx": 0.3607546356524754,
+      "fz": -0.9326607597917098,
+      "speed": 0,
+      "dir": 1,
+      "s": 17.536175315518456,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.34,
+      "width": 1.8,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 12.199999999999967,
+      "still": 12.199999999999967,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 652.0130350539903,
+      "_z0": -372.6357979038802,
+      "_h0": -0.3690768882215386,
+      "_s0": 17.536175315518456,
+      "playerBodyPenetrationM": -19.16278348649753,
+      "edge": {
+        "id": 265,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 22.520458569058757,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 302,
+          "sourceId": 2279089986,
+          "x": 644.7180338439294,
+          "z": -357.933945600126,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 303,
+          "sourceId": 2279089979,
+          "x": 652.8423936697369,
+          "z": -378.93789360000204,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 265,
+      "leader": {
+        "id": 8,
+        "kind": "estate"
+      },
+      "route": [
+        {
+          "edge": 266,
+          "dir": 1
+        },
+        {
+          "edge": 267,
+          "dir": 1
+        },
+        {
+          "edge": 268,
+          "dir": 1
+        },
+        {
+          "edge": 241,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 367,
+      "kind": "hatch",
+      "x": 641.1258307917625,
+      "z": -345.19804869999297,
+      "y": 0.24,
+      "heading": -0.3883512018547145,
+      "fx": 0.37832149258672987,
+      "fz": -0.9256742668168696,
+      "speed": 0,
+      "dir": 1,
+      "s": 10.381014033771324,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.28,
+      "width": 1.79,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 5.833333333333322,
+      "still": 5.833333333333322,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 641.1258307917625,
+      "_z0": -345.19804869999297,
+      "_h0": -0.3883512018547145,
+      "_s0": 10.381014033771324,
+      "playerBodyPenetrationM": -47.05022135612923,
+      "edge": {
+        "id": 264,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 22.378287419494715,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 301,
+          "sourceId": 2279089954,
+          "x": 636.2518467458514,
+          "z": -337.21894080046803,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 302,
+          "sourceId": 2279089986,
+          "x": 644.7180338439294,
+          "z": -357.933945600126,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 264,
+      "leader": {
+        "id": 403,
+        "kind": "hatch"
+      },
+      "route": [
+        {
+          "edge": 265,
+          "dir": 1
+        },
+        {
+          "edge": 266,
+          "dir": 1
+        },
+        {
+          "edge": 267,
+          "dir": 1
+        },
+        {
+          "edge": 268,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 378,
+      "kind": "compact-sedan",
+      "x": 696.6813692376475,
+      "z": -392.6434773345383,
+      "y": 0.24,
+      "heading": -1.6296222038311432,
+      "fx": 0.9982702569750587,
+      "fz": 0.05879195556324208,
+      "speed": 0,
+      "dir": 1,
+      "s": 14.46639607303085,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.36,
+      "width": 1.73,
+      "layer": 0,
+      "ghost": 0.43333333333333224,
+      "revT": 2.066666666666669,
+      "ovT": 3.899999999999996,
+      "stuck": 10.06666666666666,
+      "still": 16.09999999999996,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "guard",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 696.6813692376475,
+      "_z0": -392.6434773345383,
+      "_h0": -1.6296222038311432,
+      "_s0": 14.46639607303085,
+      "playerBodyPenetrationM": -43.824263879105914,
+      "edge": {
+        "id": 242,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 22.30505154946288,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 277,
+          "sourceId": 13538468946,
+          "x": 682.3428822346082,
+          "z": -395.2409580002179,
+          "radius": 4
+        },
+        "b": {
+          "id": 278,
+          "sourceId": 248729693,
+          "x": 704.6093517767324,
+          "z": -393.92960040068607,
+          "radius": 4
+        }
+      },
+      "previousEdge": 242,
+      "leader": {},
+      "route": [
+        {
+          "edge": 243,
+          "dir": 1
+        },
+        {
+          "edge": 244,
+          "dir": 1
+        },
+        {
+          "edge": 245,
+          "dir": 1
+        },
+        {
+          "edge": 246,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 403,
+      "kind": "hatch",
+      "x": 643.3562097722377,
+      "z": -350.6369626102202,
+      "y": 0.24,
+      "heading": -0.3879823938866172,
+      "fx": 0.37832149258672987,
+      "fz": -0.9256742668168696,
+      "speed": 0,
+      "dir": 1,
+      "s": 16.275995872955445,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.28,
+      "width": 1.79,
+      "layer": 0,
+      "ghost": 0,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 7.0999999999999845,
+      "still": 7.0999999999999845,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "ovFol:small-suv#43",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 643.3562097722377,
+      "_z0": -350.6369626102202,
+      "_h0": -0.3879823938866172,
+      "_s0": 16.275995872955445,
+      "playerBodyPenetrationM": -41.52468689426561,
+      "edge": {
+        "id": 264,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 22.378287419494715,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 301,
+          "sourceId": 2279089954,
+          "x": 636.2518467458514,
+          "z": -337.21894080046803,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 302,
+          "sourceId": 2279089986,
+          "x": 644.7180338439294,
+          "z": -357.933945600126,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 264,
+      "leader": {
+        "id": 60,
+        "kind": "compact-sedan"
+      },
+      "route": [
+        {
+          "edge": 265,
+          "dir": 1
+        },
+        {
+          "edge": 266,
+          "dir": 1
+        },
+        {
+          "edge": 267,
+          "dir": 1
+        },
+        {
+          "edge": 268,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 407,
+      "kind": "taxi",
+      "x": 706.8278561702176,
+      "z": -402.02900543817054,
+      "y": 0.24,
+      "heading": 3.0540350129694662,
+      "fx": -0.0900093485953543,
+      "fz": 0.9959409205196059,
+      "speed": 0,
+      "dir": 1,
+      "s": 4.7001035931379365,
+      "lane": 0,
+      "laneCur": 0.00490781852362745,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.36,
+      "width": 1.73,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 0,
+      "still": 0,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "ovFol:stb-bus#155",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 706.8264789323443,
+      "_z0": -402.01574231521676,
+      "_h0": 3.054150844023237,
+      "_s0": 4.713436926471269,
+      "playerBodyPenetrationM": -54.8056696838592,
+      "edge": {
+        "id": 924,
+        "name": "Strada Prof. Dr. Mihail Georgescu",
+        "type": "residential",
+        "len": 8.301918948348636,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050743",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "yes"
+          }
+        },
+        "a": {
+          "id": 929,
+          "sourceId": 1674584688,
+          "x": 705.7779240805372,
+          "z": -406.843138799984,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 930,
+          "sourceId": 13434145381,
+          "x": 705.0306737639049,
+          "z": -398.5749180004865,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 924,
+      "leader": {
+        "id": 286,
+        "kind": "crossover"
+      },
+      "route": [
+        {
+          "edge": 925,
+          "dir": 1
+        },
+        {
+          "edge": 926,
+          "dir": 1
+        },
+        {
+          "edge": 243,
+          "dir": 1
+        },
+        {
+          "edge": 244,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 413,
+      "kind": "hatch",
+      "x": 649.881596195285,
+      "z": -367.1254222790082,
+      "y": 0.24,
+      "heading": -0.369079234630977,
+      "fx": 0.3607546356524754,
+      "fz": -0.9326607597917098,
+      "speed": 0,
+      "dir": 1,
+      "s": 11.619236311245922,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.28,
+      "width": 1.79,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 11.099999999999971,
+      "still": 11.099999999999971,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 649.881596195285,
+      "_z0": -367.1254222790082,
+      "_h0": -0.369079234630977,
+      "_s0": 11.619236311245922,
+      "playerBodyPenetrationM": -24.78572565923692,
+      "edge": {
+        "id": 265,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 22.520458569058757,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 302,
+          "sourceId": 2279089986,
+          "x": 644.7180338439294,
+          "z": -357.933945600126,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 303,
+          "sourceId": 2279089979,
+          "x": 652.8423936697369,
+          "z": -378.93789360000204,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 265,
+      "leader": {
+        "id": 355,
+        "kind": "small-suv"
+      },
+      "route": [
+        {
+          "edge": 266,
+          "dir": 1
+        },
+        {
+          "edge": 267,
+          "dir": 1
+        },
+        {
+          "edge": 268,
+          "dir": 1
+        },
+        {
+          "edge": 241,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 503,
+      "kind": "taxi",
+      "x": 731.5490691023659,
+      "z": -393.99918866722334,
+      "y": 0.24,
+      "heading": 1.521408760952616,
+      "fx": -0.9990532633325426,
+      "fz": -0.04350375874102477,
+      "speed": 0,
+      "dir": -1,
+      "s": 50.18725654572557,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.36,
+      "width": 1.73,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 2.5666666666666673,
+      "still": 2.5666666666666673,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 731.5490691023659,
+      "_z0": -393.99918866722334,
+      "_h0": 1.521408760952616,
+      "_s0": 50.18725654572557,
+      "playerBodyPenetrationM": -78.61304802381466,
+      "edge": {
+        "id": 244,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 53.900749443837796,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 279,
+          "sourceId": 11360886918,
+          "x": 726.454499331684,
+          "z": -392.47377120025556,
+          "radius": 4
+        },
+        "b": {
+          "id": 280,
+          "sourceId": 11360886919,
+          "x": 780.3042189596199,
+          "z": -390.1288860004904,
+          "radius": 4
+        }
+      },
+      "previousEdge": 244,
+      "leader": {
+        "id": 522,
+        "kind": "compact-sedan"
+      },
+      "route": [
+        {
+          "edge": 243,
+          "dir": -1
+        },
+        {
+          "edge": 930,
+          "dir": 1
+        },
+        {
+          "edge": 931,
+          "dir": 1
+        },
+        {
+          "edge": 932,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 522,
+      "kind": "compact-sedan",
+      "x": 725.579947407866,
+      "z": -394.3203519135741,
+      "y": 0.24,
+      "heading": 1.515841900199301,
+      "fx": -0.997786715711268,
+      "fz": -0.0664956385796929,
+      "speed": 0,
+      "dir": -1,
+      "s": 1.0892752940810153,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.36,
+      "width": 1.73,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 3.433333333333331,
+      "still": 3.433333333333331,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 725.579947407866,
+      "_z0": -394.3203519135741,
+      "_h0": 1.515841900199301,
+      "_s0": 1.0892752940810153,
+      "playerBodyPenetrationM": -72.63110746768429,
+      "edge": {
+        "id": 243,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 21.893604325428797,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 278,
+          "sourceId": 248729693,
+          "x": 704.6093517767324,
+          "z": -393.92960040068607,
+          "radius": 4
+        },
+        "b": {
+          "id": 279,
+          "sourceId": 11360886918,
+          "x": 726.454499331684,
+          "z": -392.47377120025556,
+          "radius": 4
+        }
+      },
+      "previousEdge": 243,
+      "leader": {
+        "id": 20,
+        "kind": "small-suv"
+      },
+      "route": [
+        {
+          "edge": 242,
+          "dir": -1
+        },
+        {
+          "edge": 241,
+          "dir": -1
+        },
+        {
+          "edge": 240,
+          "dir": -1
+        },
+        {
+          "edge": 239,
+          "dir": -1
+        }
+      ]
+    },
+    {
+      "id": 526,
+      "kind": "sedan",
+      "x": 655.2226131858274,
+      "z": -394.92410060059706,
+      "y": 0.24,
+      "heading": -1.6181471374667102,
+      "fx": 0.9991622166210165,
+      "fz": 0.04092511303560279,
+      "speed": 0,
+      "dir": 1,
+      "s": 25.967315282827123,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.85,
+      "width": 1.84,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 4.199999999999995,
+      "still": 4.199999999999995,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 655.2226131858274,
+      "_z0": -394.92410060059706,
+      "_h0": -1.6181471374667102,
+      "_s0": 25.967315282827123,
+      "playerBodyPenetrationM": -2.0690237399511338,
+      "edge": {
+        "id": 240,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 29.055812225811504,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 275,
+          "sourceId": 11360886916,
+          "x": 629.3517055238284,
+          "z": -397.74142800022196,
+          "radius": 4
+        },
+        "b": {
+          "id": 276,
+          "sourceId": 2279089977,
+          "x": 658.3831752730943,
+          "z": -396.5523156005394,
+          "radius": 4
+        }
+      },
+      "previousEdge": 240,
+      "leader": {
+        "id": 136,
+        "kind": "sedan"
+      },
+      "route": [
+        {
+          "edge": 241,
+          "dir": 1
+        },
+        {
+          "edge": 242,
+          "dir": 1
+        },
+        {
+          "edge": 243,
+          "dir": 1
+        },
+        {
+          "edge": 244,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 558,
+      "kind": "van",
+      "x": 703.6184755969517,
+      "z": -399.61127092193095,
+      "y": 0.24,
+      "heading": 3.0513950792188465,
+      "fx": -0.0900093485953543,
+      "fz": 0.9959409205196059,
+      "speed": 0,
+      "dir": 1,
+      "s": 7.465686493821067,
+      "lane": 1,
+      "laneCur": 0.9999730452298456,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.36,
+      "width": 1.75,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 17.90000000000005,
+      "still": 17.90000000000005,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "ovFol:stb-bus#155",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 703.6184755969517,
+      "_z0": -399.61127092193095,
+      "_h0": 3.0513950792188465,
+      "_s0": 7.465686493821067,
+      "playerBodyPenetrationM": -51.68222154050027,
+      "edge": {
+        "id": 924,
+        "name": "Strada Prof. Dr. Mihail Georgescu",
+        "type": "residential",
+        "len": 8.301918948348636,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050743",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "yes"
+          }
+        },
+        "a": {
+          "id": 929,
+          "sourceId": 1674584688,
+          "x": 705.7779240805372,
+          "z": -406.843138799984,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 930,
+          "sourceId": 13434145381,
+          "x": 705.0306737639049,
+          "z": -398.5749180004865,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 924,
+      "leader": {
+        "id": 155,
+        "kind": "stb-bus"
+      },
+      "route": [
+        {
+          "edge": 925,
+          "dir": 1
+        },
+        {
+          "edge": 926,
+          "dir": 1
+        },
+        {
+          "edge": 930,
+          "dir": 1
+        },
+        {
+          "edge": 931,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 594,
+      "kind": "hatch",
+      "x": 627.5670198638132,
+      "z": -396.0630192017432,
+      "y": 0.24,
+      "heading": -1.6117256777688058,
+      "fx": 0.9991628054646859,
+      "fz": 0.040910734238559954,
+      "speed": 1.1394581349914283,
+      "dir": 1,
+      "s": 26.808214839261506,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.28,
+      "width": 1.79,
+      "layer": 0,
+      "ghost": -1.0130785099704553e-15,
+      "revT": 0,
+      "ovT": 0,
+      "stuck": 0,
+      "still": 0,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "zeroWhy": "guard",
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 627.5290698549027,
+      "_z0": -396.0645733389321,
+      "_h0": -1.6117256776923747,
+      "_s0": 26.770232901428457,
+      "playerBodyPenetrationM": -15.259136889094354,
+      "edge": {
+        "id": 239,
+        "name": "Calea C\u0103l\u0103ra\u0219ilor",
+        "type": "secondary",
+        "len": 28.522734239089313,
+        "wL": 3.5,
+        "wR": 3.5,
+        "sidewalk": 3.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23050045",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 274,
+          "sourceId": 256209955,
+          "x": 600.8528503619763,
+          "z": -398.9083140004344,
+          "radius": 4
+        },
+        "b": {
+          "id": 275,
+          "sourceId": 11360886916,
+          "x": 629.3517055238284,
+          "z": -397.74142800022196,
+          "radius": 4
+        }
+      },
+      "previousEdge": 239,
+      "leader": {
+        "id": 256,
+        "kind": "small-suv"
+      },
+      "route": [
+        {
+          "edge": 240,
+          "dir": 1
+        },
+        {
+          "edge": 241,
+          "dir": 1
+        },
+        {
+          "edge": 242,
+          "dir": 1
+        },
+        {
+          "edge": 243,
+          "dir": 1
+        }
+      ]
+    },
+    {
+      "id": 613,
+      "kind": "estate",
+      "x": 712.389484889252,
+      "z": -383.47895953380424,
+      "y": 0.24,
+      "heading": 0.6769400663870093,
+      "fx": -0.6522925046721559,
+      "fz": -0.7579673398956748,
+      "speed": 0,
+      "dir": -1,
+      "s": 154.33745599844391,
+      "lane": 0,
+      "laneCur": 0,
+      "latExtraCur": 0,
+      "lateralExtra": 0,
+      "length": 4.69,
+      "width": 1.83,
+      "layer": 0,
+      "ghost": 0,
+      "ovT": 0,
+      "stuck": 32.50000000000072,
+      "still": 17.866666666666745,
+      "blockT": 0,
+      "stopD": null,
+      "stopWhy": null,
+      "waitRed": false,
+      "parked": false,
+      "_f": 2439,
+      "_x0": 712.389484889252,
+      "_z0": -383.47895953380424,
+      "_h0": 0.6769400663870093,
+      "_s0": 154.33745599844391,
+      "playerBodyPenetrationM": -59.85532167233052,
+      "edge": {
+        "id": 933,
+        "name": "Strada Feti\u021belor",
+        "type": "residential",
+        "len": 156.38324365859654,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23124314",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {}
+        },
+        "a": {
+          "id": 937,
+          "sourceId": 4048757535,
+          "x": 709.8560029362519,
+          "z": -384.04996560051916,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 938,
+          "sourceId": 1674584496,
+          "x": 811.8636206310739,
+          "z": -265.5165744003556,
+          "radius": 3.5
+        }
+      },
+      "previousEdge": 933,
+      "leader": {
+        "id": 252,
+        "kind": "small-suv"
+      },
+      "route": [
+        {
+          "edge": 932,
+          "dir": -1
+        },
+        {
+          "edge": 931,
+          "dir": -1
+        },
+        {
+          "edge": 930,
+          "dir": -1
+        },
+        {
+          "edge": 242,
+          "dir": -1
+        }
+      ]
+    }
+  ],
+  "peds": [
+    {
+      "i": 1,
+      "x": 568.1781634657004,
+      "z": -413.78971282967615,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": -1,
+      "side": 1,
+      "s": 2.545922280636335,
+      "speed": 1.3354781825444662,
+      "blockT": 0,
+      "progressT": 1.3000000000000007,
+      "progressX": 568.6424015492818,
+      "progressZ": -415.5188908607219,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 357,
+        "name": "Pia\u021ba Sf\u00e2ntul \u0218tefan",
+        "type": "tertiary",
+        "len": 24.691491101718984,
+        "wL": 1.75,
+        "wR": 1.75,
+        "sidewalk": 3,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w62218271",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "yes"
+          }
+        },
+        "a": {
+          "id": 403,
+          "sourceId": 574822,
+          "x": 564.5237658184373,
+          "z": -412.466418000158,
+          "radius": 2.25
+        },
+        "b": {
+          "id": 404,
+          "sourceId": 2032302058,
+          "x": 573.3794770177835,
+          "z": -435.5151948002409,
+          "radius": 2.25
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 357,
+        "side": 1,
+        "dir": -1,
+        "s": 24.58619131300553
+      }
+    },
+    {
+      "i": 29,
+      "x": 571.4160706608039,
+      "z": -418.4037476319304,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": 1,
+      "side": 1,
+      "s": 8.01427689554637,
+      "speed": 1.5121277161408218,
+      "blockT": 0,
+      "crossT": 3.7999999999999963,
+      "progressT": 3.0999999999999988,
+      "progressX": 568.8259427209628,
+      "progressZ": -414.3232332936872,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 357,
+        "name": "Pia\u021ba Sf\u00e2ntul \u0218tefan",
+        "type": "tertiary",
+        "len": 24.691491101718984,
+        "wL": 1.75,
+        "wR": 1.75,
+        "sidewalk": 3,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w62218271",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "yes"
+          }
+        },
+        "a": {
+          "id": 403,
+          "sourceId": 574822,
+          "x": 564.5237658184373,
+          "z": -412.466418000158,
+          "radius": 2.25
+        },
+        "b": {
+          "id": 404,
+          "sourceId": 2032302058,
+          "x": 573.3794770177835,
+          "z": -435.5151948002409,
+          "radius": 2.25
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 357,
+        "side": 1,
+        "dir": -1,
+        "s": 24.691491101718984
+      }
+    },
+    {
+      "i": 33,
+      "x": 569.4732027418669,
+      "z": -417.68305653433606,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": -1,
+      "side": 1,
+      "s": 6.644714996691032,
+      "speed": 1.0771125535131432,
+      "blockT": 0,
+      "progressT": 1.2000000000000004,
+      "progressX": 570.2553191496095,
+      "progressZ": -418.80567307913674,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": true,
+      "edge": {
+        "id": 357,
+        "name": "Pia\u021ba Sf\u00e2ntul \u0218tefan",
+        "type": "tertiary",
+        "len": 24.691491101718984,
+        "wL": 1.75,
+        "wR": 1.75,
+        "sidewalk": 3,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w62218271",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "yes"
+          }
+        },
+        "a": {
+          "id": 403,
+          "sourceId": 574822,
+          "x": 564.5237658184373,
+          "z": -412.466418000158,
+          "radius": 2.25
+        },
+        "b": {
+          "id": 404,
+          "sourceId": 2032302058,
+          "x": 573.3794770177835,
+          "z": -435.5151948002409,
+          "radius": 2.25
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 357,
+        "side": 1,
+        "dir": -1,
+        "s": 24.274000865537218
+      }
+    },
+    {
+      "i": 107,
+      "x": 573.5915675201945,
+      "z": -426.7267342477994,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": 1,
+      "side": 1,
+      "s": 16.5637902421257,
+      "speed": 1.5528553351992742,
+      "blockT": 0,
+      "crossT": 3.73333333333333,
+      "progressT": 5.133333333333325,
+      "progressX": 570.6391535505606,
+      "progressZ": -419.2661982676314,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 357,
+        "name": "Pia\u021ba Sf\u00e2ntul \u0218tefan",
+        "type": "tertiary",
+        "len": 24.691491101718984,
+        "wL": 1.75,
+        "wR": 1.75,
+        "sidewalk": 3,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w62218271",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "yes"
+          }
+        },
+        "a": {
+          "id": 403,
+          "sourceId": 574822,
+          "x": 564.5237658184373,
+          "z": -412.466418000158,
+          "radius": 2.25
+        },
+        "b": {
+          "id": 404,
+          "sourceId": 2032302058,
+          "x": 573.3794770177835,
+          "z": -435.5151948002409,
+          "radius": 2.25
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 357,
+        "side": 1,
+        "dir": -1,
+        "s": 24.691491101718984
+      }
+    },
+    {
+      "i": 112,
+      "x": 610.2406163788777,
+      "z": -323.1524737914088,
+      "state": "legs",
+      "onRoad": false,
+      "live": true,
+      "dir": 1,
+      "side": -1,
+      "s": 60.5190466462893,
+      "speed": 1.5245372428093107,
+      "blockT": 0,
+      "crossT": 4.56666666666666,
+      "progressT": 1.5000000000000013,
+      "progressX": 608.0658676262523,
+      "progressZ": -322.2951799305792,
+      "legBest": 7.693397732986861,
+      "legStall": 0.06666666666666667,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 259,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 65.2190466462893,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 296,
+          "sourceId": 2606247721,
+          "x": 553.243465825315,
+          "z": -296.05564800032073,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 297,
+          "sourceId": 256209951,
+          "x": 613.9456298465586,
+          "z": -319.9045752002786,
+          "radius": 3.5
+        }
+      },
+      "legs": [
+        {
+          "x": 617.256141619003,
+          "z": -325.91801933390167
+        }
+      ],
+      "recovery": null,
+      "next": {
+        "edge": 260,
+        "side": -1,
+        "dir": 1,
+        "s": 5.28964777123183
+      }
+    },
+    {
+      "i": 154,
+      "x": 633.8559572680867,
+      "z": -342.9209344925168,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": 1,
+      "side": -1,
+      "s": 4.371772346980875,
+      "speed": 1.3910265559796244,
+      "blockT": 0,
+      "progressT": 2.666666666666667,
+      "progressX": 632.4350681122946,
+      "progressZ": -339.4443132767278,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 264,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 22.378287419494715,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 301,
+          "sourceId": 2279089954,
+          "x": 636.2518467458514,
+          "z": -337.21894080046803,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 302,
+          "sourceId": 2279089986,
+          "x": 644.7180338439294,
+          "z": -357.933945600126,
+          "radius": 3.5
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 264,
+        "side": -1,
+        "dir": 1,
+        "s": 0.47689799023792145
+      }
+    },
+    {
+      "i": 210,
+      "x": 576.3761459373073,
+      "z": -432.4882581662499,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": -1,
+      "side": 1,
+      "s": 22.940703667480882,
+      "speed": 1.1671916228253394,
+      "blockT": 0,
+      "crossT": 4.633333333333327,
+      "progressT": 1.933333333333336,
+      "progressX": 576.5737450357578,
+      "progressZ": -434.0039605639957,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 357,
+        "name": "Pia\u021ba Sf\u00e2ntul \u0218tefan",
+        "type": "tertiary",
+        "len": 24.691491101718984,
+        "wL": 1.75,
+        "wR": 1.75,
+        "sidewalk": 3,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w62218271",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "yes"
+          }
+        },
+        "a": {
+          "id": 403,
+          "sourceId": 574822,
+          "x": 564.5237658184373,
+          "z": -412.466418000158,
+          "radius": 2.25
+        },
+        "b": {
+          "id": 404,
+          "sourceId": 2032302058,
+          "x": 573.3794770177835,
+          "z": -435.5151948002409,
+          "radius": 2.25
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 357,
+        "side": 1,
+        "dir": -1,
+        "s": 24.691491101718984
+      }
+    },
+    {
+      "i": 222,
+      "x": 617.7577087634734,
+      "z": -326.11632732879343,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": 1,
+      "side": -1,
+      "s": 5.8289952114317485,
+      "speed": 1.369179273233749,
+      "blockT": 0,
+      "crossT": 5.166666666666658,
+      "progressT": 4.2999999999999945,
+      "progressX": 612.2228054107129,
+      "progressZ": -323.93420567293947,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 260,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 10.548554614197924,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 297,
+          "sourceId": 256209951,
+          "x": 613.9456298465586,
+          "z": -319.9045752002786,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 298,
+          "sourceId": 2279089949,
+          "x": 623.7552776204915,
+          "z": -323.7830820005937,
+          "radius": 3.5
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 260,
+        "side": -1,
+        "dir": 1,
+        "s": 4.551094556413591
+      }
+    },
+    {
+      "i": 302,
+      "x": 569.0086660338269,
+      "z": -416.44696105944337,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": -1,
+      "side": 1,
+      "s": 5.324248302396436,
+      "speed": 1.5272521894890816,
+      "blockT": 0,
+      "crossT": 3.73333333333333,
+      "progressT": 5.766666666666656,
+      "progressX": 572.6865948918388,
+      "progressZ": -424.371360224006,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 357,
+        "name": "Pia\u021ba Sf\u00e2ntul \u0218tefan",
+        "type": "tertiary",
+        "len": 24.691491101718984,
+        "wL": 1.75,
+        "wR": 1.75,
+        "sidewalk": 3,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w62218271",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "yes"
+          }
+        },
+        "a": {
+          "id": 403,
+          "sourceId": 574822,
+          "x": 564.5237658184373,
+          "z": -412.466418000158,
+          "radius": 2.25
+        },
+        "b": {
+          "id": 404,
+          "sourceId": 2032302058,
+          "x": 573.3794770177835,
+          "z": -435.5151948002409,
+          "radius": 2.25
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 357,
+        "side": 1,
+        "dir": -1,
+        "s": 24.476769147291325
+      }
+    },
+    {
+      "i": 332,
+      "x": 622.3214840135979,
+      "z": -318.51164862363675,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": 1,
+      "side": 1,
+      "s": 7.276987871051004,
+      "speed": 1.3310397435096093,
+      "blockT": 0,
+      "crossT": 5.099999999999992,
+      "progressT": 2.066666666666669,
+      "progressX": 619.7220980102626,
+      "progressZ": -317.48391179526965,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 260,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 10.548554614197924,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 297,
+          "sourceId": 256209951,
+          "x": 613.9456298465586,
+          "z": -319.9045752002786,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 298,
+          "sourceId": 2279089949,
+          "x": 623.7552776204915,
+          "z": -323.7830820005937,
+          "radius": 3.5
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 260,
+        "side": 1,
+        "dir": 1,
+        "s": 4.368054323457182
+      }
+    },
+    {
+      "i": 364,
+      "x": 631.2674909963383,
+      "z": -322.9890153562518,
+      "state": "legs",
+      "onRoad": false,
+      "live": true,
+      "dir": 1,
+      "side": 1,
+      "s": 6.032068117587845,
+      "speed": 1.4803971613757314,
+      "blockT": 0,
+      "crossT": 4.66666666666666,
+      "progressT": 1.633333333333335,
+      "progressX": 629.1600422832736,
+      "progressZ": -321.784534998063,
+      "legBest": 1.6485025446037536,
+      "legStall": 0.06666666666666667,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 261,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 6.032068117587845,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 298,
+          "sourceId": 2279089949,
+          "x": 623.7552776204915,
+          "z": -323.7830820005937,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 299,
+          "sourceId": 2279089947,
+          "x": 629.0257771943686,
+          "z": -326.7169668001352,
+          "radius": 3.5
+        }
+      },
+      "legs": [
+        {
+          "x": 632.4208737276663,
+          "z": -323.9487533281396
+        }
+      ],
+      "recovery": null,
+      "next": {
+        "edge": 262,
+        "side": 1,
+        "dir": 1,
+        "s": 0.22149784862995148
+      }
+    },
+    {
+      "i": 379,
+      "x": 578.8508293968272,
+      "z": -439.24528548625716,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": -1,
+      "side": 1,
+      "s": 5.711985064893959,
+      "speed": 1.281906337325927,
+      "blockT": 0,
+      "crossT": 4.866666666666659,
+      "progressT": 3.7999999999999963,
+      "progressX": 580.9527765873213,
+      "progressZ": -443.6870150324421,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 358,
+        "name": "Pia\u021ba Sf\u00e2ntul \u0218tefan",
+        "type": "tertiary",
+        "len": 16.056950784677216,
+        "wL": 1.75,
+        "wR": 1.75,
+        "sidewalk": 3,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w62218271",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "yes"
+          }
+        },
+        "a": {
+          "id": 404,
+          "sourceId": 2032302058,
+          "x": 573.3794770177835,
+          "z": -435.5151948002409,
+          "radius": 2.25
+        },
+        "b": {
+          "id": 405,
+          "sourceId": 13930181332,
+          "x": 580.2478203539024,
+          "z": -450.02903400007835,
+          "radius": 2.25
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 358,
+        "side": 1,
+        "dir": -1,
+        "s": 12.463358441477219
+      }
+    },
+    {
+      "i": 417,
+      "x": 571.9258077034679,
+      "z": -419.82264923546404,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": 1,
+      "side": 1,
+      "s": 9.52159900279562,
+      "speed": 1.4955391103867441,
+      "blockT": 0,
+      "crossT": 3.9999999999999956,
+      "progressT": 1.8000000000000023,
+      "progressX": 569.5216434273975,
+      "progressZ": -417.8091332009873,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 357,
+        "name": "Pia\u021ba Sf\u00e2ntul \u0218tefan",
+        "type": "tertiary",
+        "len": 24.691491101718984,
+        "wL": 1.75,
+        "wR": 1.75,
+        "sidewalk": 3,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w62218271",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "yes"
+          }
+        },
+        "a": {
+          "id": 403,
+          "sourceId": 574822,
+          "x": 564.5237658184373,
+          "z": -412.466418000158,
+          "radius": 2.25
+        },
+        "b": {
+          "id": 404,
+          "sourceId": 2032302058,
+          "x": 573.3794770177835,
+          "z": -435.5151948002409,
+          "radius": 2.25
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 357,
+        "side": 1,
+        "dir": -1,
+        "s": 24.691491101718984
+      }
+    },
+    {
+      "i": 420,
+      "x": 641.7885512750848,
+      "z": -342.59934161937673,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": 1,
+      "side": 1,
+      "s": 7.075152904735467,
+      "speed": 1.2709855517488906,
+      "blockT": 1.3000000000000007,
+      "crossT": 5.633333333333323,
+      "progressT": 0.13333333333333333,
+      "progressX": 641.7885512750848,
+      "progressZ": -342.59934161937673,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": true,
+      "edge": {
+        "id": 264,
+        "name": "Strada Profesor Valaori Iuliu",
+        "type": "residential",
+        "len": 22.378287419494715,
+        "wL": 3,
+        "wR": 3,
+        "sidewalk": 2.5,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w23116325",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "no"
+          }
+        },
+        "a": {
+          "id": 301,
+          "sourceId": 2279089954,
+          "x": 636.2518467458514,
+          "z": -337.21894080046803,
+          "radius": 3.5
+        },
+        "b": {
+          "id": 302,
+          "sourceId": 2279089986,
+          "x": 644.7180338439294,
+          "z": -357.933945600126,
+          "radius": 3.5
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 264,
+        "side": 1,
+        "dir": 1,
+        "s": 0
+      }
+    },
+    {
+      "i": 476,
+      "x": 575.7800161218163,
+      "z": -432.9185394631453,
+      "state": "walk",
+      "onRoad": false,
+      "live": true,
+      "dir": -1,
+      "side": 1,
+      "s": 23.128553970687506,
+      "speed": 1.5022432529367507,
+      "blockT": 0,
+      "crossT": 4.033333333333329,
+      "progressT": 3.466666666666664,
+      "progressX": 577.4630872075264,
+      "progressZ": -436.31277818418005,
+      "legStall": 0,
+      "roadHits": 0,
+      "onDodge": false,
+      "edge": {
+        "id": 357,
+        "name": "Pia\u021ba Sf\u00e2ntul \u0218tefan",
+        "type": "tertiary",
+        "len": 24.691491101718984,
+        "wL": 1.75,
+        "wR": 1.75,
+        "sidewalk": 3,
+        "layer": 0,
+        "ya": 0,
+        "yb": 0,
+        "access": {
+          "sourceId": "w62218271",
+          "publicDrive": true,
+          "throughAccess": true,
+          "key": null,
+          "value": null,
+          "reason": "OSM road class default; no motorcar restriction mapped",
+          "conditionalUnresolved": false,
+          "tags": {
+            "oneway": "yes"
+          }
+        },
+        "a": {
+          "id": 403,
+          "sourceId": 574822,
+          "x": 564.5237658184373,
+          "z": -412.466418000158,
+          "radius": 2.25
+        },
+        "b": {
+          "id": 404,
+          "sourceId": 2032302058,
+          "x": 573.3794770177835,
+          "z": -435.5151948002409,
+          "radius": 2.25
+        }
+      },
+      "legs": [],
+      "recovery": null,
+      "next": {
+        "edge": 357,
+        "side": 1,
+        "dir": -1,
+        "s": 24.228801515828362
+      }
+    }
+  ]
+}

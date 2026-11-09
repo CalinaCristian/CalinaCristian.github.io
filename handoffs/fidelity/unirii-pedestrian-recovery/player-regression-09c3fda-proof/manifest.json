@@ -1,0 +1,34 @@
+{
+  "pre-reset-state.json": {
+    "sha256": "23c3a82022ec7ef6ac221bfd6e6e75a099dfc89b69a27020ea06e0bda3a98c66",
+    "bytes": 98446
+  },
+  "execution.log": {
+    "sha256": "3ae0cc816ebbab21df242273b2b3df87e529165d96e3dff41192265f3abd0c4c",
+    "bytes": 1224
+  },
+  "admission-observer-executed.js": {
+    "sha256": "f6eb7fbab2a6ce0086ee723e78b6889c8ac87a6d739835ce0ada18fb7b1aada1",
+    "bytes": 3030
+  },
+  "runner-executed.cjs": {
+    "sha256": "56569c594c705b9f86124b267eb338087c84d3b3d494243e048af80080f354ba",
+    "bytes": 16744
+  },
+  "report.json.gz": {
+    "sha256": "40c1355bfcbe42451165c594d0821fada64690314dd0a6372a6b1d6a397ee82b",
+    "bytes": 31502846
+  },
+  "player-context-observer.executed-reconstructed.js": {
+    "sha256": "88f0443dc3740c574cc712b51cf37b375b5dd5ca2d063959c9d3aba972729931",
+    "bytes": 3026
+  },
+  "HANDOFF.md": {
+    "sha256": "9b7e4ecf11721271dbfdee31a0777167c2eac61725455e405d078f677f2e34c1",
+    "bytes": 2117
+  },
+  "unirii-day-public-approach-pre-reset-0.png": {
+    "sha256": "858dcbd9caf6cf51ff9afbc0824f6bbc663428f00a86fc2fc3bbd84387a921d2",
+    "bytes": 1771772
+  }
+}

@@ -1,0 +1,330 @@
+{
+  "sourceCommit": "09c3fda5058a1055070288e2ca41639eb7ae25ad",
+  "complete": false,
+  "rawSha256": "4f1850915f5498598ebfb3d5bff5ab31f60495c7743385021f452a6a71d0017d",
+  "errors": [
+    "page.evaluate: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader --mute-audio --user-data-dir=/tmp/playwright_chromiumdev_profile-r3nh5t --remote-debugging-pipe --no-startup-window\n<launched> pid=293034\n[pid=293034][err] [293034:293034:1109/002809.797933:ERROR:third_party/crashpad/crashpad/util/file/filesystem_posix.cc:63] mkdir : No such file or directory (2)\n[pid=293034][err] chrome_crashpad_handler: --database is required\n[pid=293034][err] Try 'chrome_crashpad_handler --help' for more information.\n[pid=293034][err] Fontconfig error: No writable cache directories\n[pid=293034][err] [293034:293060:1109/002809.829359:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n[pid=293034][err] [293034:293060:1109/002809.829445:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=293034][err] [293034:293060:1109/002809.829475:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n[pid=293034][err] [293034:293060:1109/002809.829621:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n[pid=293034][err] [293034:293060:1109/002809.829651:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n[pid=293034][err] [293034:293060:1109/002809.829661:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=293034][err] [293034:293060:1109/002809.829669:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=293034][err] [293034:293070:1109/002809.860600:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 293073: Read-only file system (30)\n[pid=293034][err] [293034:293060:1109/002809.880889:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=293034][err] [293034:293070:1109/002809.883795:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 293085: Read-only file system (30)\n[pid=293034][err] [293034:293034:1109/002809.915595:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=293034][err] [293034:293034:1109/002809.915661:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=293034][err] [293034:293060:1109/002809.915731:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=293034][err] [293034:293060:1109/002809.915756:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=293034][err] [293034:293034:1109/002809.925960:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=293034][err] [293034:293060:1109/002809.935014:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=293034][err] [293034:293034:1109/002809.944455:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=293034][err] [293034:293034:1109/002809.944486:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=293034][err] [293034:293060:1109/002809.944571:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n[pid=293034][err] [293034:293060:1109/002809.944619:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n[pid=293034][err] [293034:293060:1109/002809.944633:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=293034][err] [293034:293034:1109/002809.950906:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=293034][err] [293034:293034:1109/002809.953149:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: unknown error type: \n[pid=293034][err] [293034:293034:1109/002809.953173:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=293034][err] [293034:293060:1109/002809.953292:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=293034][err] [293034:293034:1109/002809.962536:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=293034][err] [293034:293060:1109/002809.962725:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=293034][err] [293034:293034:1109/002809.975353:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=293034][err] \n[pid=293034][err] (process:293034): dconf-CRITICAL **: 00:28:10.003: unable to create directory '/home/agent/.cache/dconf': Read-only file system.  dconf will not work properly.\n[pid=293034][err] \n[pid=293034][err] (process:293034): dconf-CRITICAL **: 00:28:10.003: unable to create directory '/home/agent/.cache/dconf': Read-only file system.  dconf will not work properly.\n[pid=293034][err] \n[pid=293034][err] (process:293034): dconf-CRITICAL **: 00:28:10.003: unable to create directory '/home/agent/.cache/dconf': Read-only file system.  dconf will not work properly.\n[pid=293034][err] [293034:293070:1109/002810.040088:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 293127: Read-only file system (30)\n[pid=293034][err] [293034:293070:1109/002810.078737:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 293138: Read-only file system (30)\n[pid=293034][err] [293034:293070:1109/002810.082046:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 293140: Read-only file system (30)\n[pid=293034][err] [293034:293056:1109/002810.103238:ERROR:crypto/nss_util.cc:256] Error initializing NSS with a persistent database (sql:/home/agent/.pki/nssdb): NSS error code: -8126\n[pid=293034][err] [293074:293118:1109/002810.121144:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=293034][err] [293074:293118:1109/002810.121480:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=293034][err] [293074:293118:1109/002811.122923:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=293034][err] Failed to create secure directory (/home/agent/.config/pulse): Read-only file system\n[pid=293034][err] [293074:293118:1109/002814.057798:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=293034][err] [293074:293118:1109/002821.410280:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=293034][err] [293074:293118:1109/002844.931213:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=293034][err] [293034:293070:1109/002912.597047:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 293593: Read-only file system (30)\n[pid=293034][err] [293034:293070:1109/002912.623796:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 293602: Read-only file system (30)\n[pid=293034][err] [293074:293118:1109/002912.682174:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=293034][err] [293074:293118:1109/002912.806600:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=293034][err] [293074:293118:1109/003004.202732:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=293034][err] [293034:293070:1109/003109.853445:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 294141: Read-only file system (30)\n[pid=293034][err] Warning: vkCreateInstance: Found no drivers!\n[pid=293034][err] Warning: vkCreateInstance failed with VK_ERROR_INCOMPATIBLE_DRIVER\n[pid=293034][err]     at CheckVkSuccessImpl (../../third_party/dawn/src/dawn/native/vulkan/VulkanError.cpp:106)\n[pid=293034][err] \n[pid=293034][err] [293074:293118:1109/003354.076940:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=293034] <gracefully close start>\n    at /workspace/fidelity-workers/unirii-pedestrian-recovery/handoffs/fidelity/unirii-pedestrian-recovery/observe-combined-native.cjs:23:428"
+  ],
+  "failures": [
+    {
+      "district": "unirii",
+      "condition": "day",
+      "phase": "first150m",
+      "type": "native-approach",
+      "result": {
+        "ok": true,
+        "reason": "arrived",
+        "t": 22.3,
+        "dist": 136,
+        "resets": 0,
+        "remaining": 9
+      },
+      "contacts": 19
+    },
+    {
+      "district": "unirii",
+      "label": "day-first150m",
+      "type": "budget",
+      "calls": 334,
+      "triangles": 1569735
+    },
+    {
+      "district": "unirii",
+      "label": "day-first150m",
+      "type": "budget",
+      "calls": 334,
+      "triangles": 1569735
+    },
+    {
+      "district": "unirii",
+      "condition": "day",
+      "phase": "public-approach",
+      "type": "native-approach",
+      "result": {
+        "ok": true,
+        "reason": "arrived",
+        "t": 64.3,
+        "dist": 146,
+        "resets": 1,
+        "remaining": 4
+      },
+      "contacts": 0
+    }
+  ],
+  "initialAdmissionStats": {
+    "pushes": 0,
+    "obsPush": 14,
+    "initialWalkRepairs": 173,
+    "initialStandRepairs": 19
+  },
+  "initialActorCount": 560,
+  "initialStaticContacts": 0,
+  "initialVehicleOrWalkingFailure": 0,
+  "drives": [
+    {
+      "condition": "day",
+      "phase": "first150m",
+      "result": {
+        "ok": true,
+        "reason": "arrived",
+        "t": 22.3,
+        "dist": 136,
+        "resets": 0,
+        "remaining": 9
+      },
+      "contacts": [
+        {
+          "t": 11.466666666666637,
+          "x": -617.6441953522772,
+          "z": 406.75986970118356,
+          "y": 0.24,
+          "speed": 5.342602769479093,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.49999999999997,
+          "x": -617.4905181844972,
+          "z": 406.75249686495977,
+          "y": 0.24,
+          "speed": 3.957122740595019,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.533333333333303,
+          "x": -617.3795291264463,
+          "z": 406.74716888118894,
+          "y": 0.24,
+          "speed": 3.5879609162993056,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.566666666666636,
+          "x": -617.2799207551096,
+          "z": 406.74230915294817,
+          "y": 0.24,
+          "speed": 3.2202757393007753,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.59999999999997,
+          "x": -617.1916513605163,
+          "z": 406.7378779066632,
+          "y": 0.24,
+          "speed": 2.854061303010239,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.633333333333303,
+          "x": -617.1146763250298,
+          "z": 406.7338778912384,
+          "y": 0.24,
+          "speed": 2.489311724464865,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.666666666666636,
+          "x": -617.0489491231915,
+          "z": 406.73032589901345,
+          "y": 0.24,
+          "speed": 2.126021144233672,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.699999999999969,
+          "x": -616.9944206950704,
+          "z": 406.7272923636599,
+          "y": 0.24,
+          "speed": 1.7641837263234037,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.733333333333302,
+          "x": -616.9510302747879,
+          "z": 406.7251954110966,
+          "y": 0.24,
+          "speed": 1.4037936580847767,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.766666666666636,
+          "x": -616.9084401270586,
+          "z": 406.7234109813258,
+          "y": 0.24,
+          "speed": 1.3781784834524375,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.799999999999969,
+          "x": -616.8666723479871,
+          "z": 406.72143443185064,
+          "y": 0.24,
+          "speed": 1.3526657695186277,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.833333333333302,
+          "x": -616.8257267314235,
+          "z": 406.71911286031195,
+          "y": 0.24,
+          "speed": 1.3272551064405531,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.866666666666635,
+          "x": -616.7855519935285,
+          "z": 406.71736306360026,
+          "y": 0.24,
+          "speed": 1.301946086014791,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.899999999999968,
+          "x": -616.7461540219947,
+          "z": 406.71610866335675,
+          "y": 0.24,
+          "speed": 1.2767383016707317,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.933333333333302,
+          "x": -616.7075620455342,
+          "z": 406.71480218380003,
+          "y": 0.24,
+          "speed": 1.2516313484640487,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.966666666666635,
+          "x": -616.6697947401148,
+          "z": 406.713020816796,
+          "y": 0.24,
+          "speed": 1.2266248230701924,
+          "collider": "small-suv"
+        },
+        {
+          "t": 11.999999999999968,
+          "x": -616.632799977825,
+          "z": 406.71151912931975,
+          "y": 0.24,
+          "speed": 1.2017183237779117,
+          "collider": "small-suv"
+        },
+        {
+          "t": 12.033333333333301,
+          "x": -616.596557834016,
+          "z": 406.7105797723756,
+          "y": 0.24,
+          "speed": 1.1769114504828,
+          "collider": "small-suv"
+        },
+        {
+          "t": 12.066666666666634,
+          "x": -616.5610710683721,
+          "z": 406.71012658362764,
+          "y": 0.24,
+          "speed": 1.1522038046808687,
+          "collider": "small-suv"
+        }
+      ],
+      "issues": [
+        {
+          "id": 3,
+          "type": "perf-traffic-update",
+          "severity": "low",
+          "scenario": "native-final-day",
+          "city": "bucharest",
+          "t": 2,
+          "msg": "traffic.update averaging 31.2 ms (> 8 ms budget) on this machine",
+          "x": -638.8,
+          "z": 328.9,
+          "lat": 44.426741,
+          "lon": 26.100964,
+          "street": "Pia\u021ba Unirii",
+          "edge": 123,
+          "count": 1,
+          "data": {
+            "updateMs": 31.2,
+            "vehicles": 624
+          }
+        }
+      ]
+    },
+    {
+      "condition": "day",
+      "phase": "public-approach",
+      "result": {
+        "ok": true,
+        "reason": "arrived",
+        "t": 64.3,
+        "dist": 146,
+        "resets": 1,
+        "remaining": 4
+      },
+      "contacts": [],
+      "issues": [
+        {
+          "id": 4,
+          "type": "autopilot-no-progress",
+          "severity": "medium",
+          "scenario": "public-approach",
+          "city": "bucharest",
+          "t": 58.5,
+          "msg": "no progress toward public-approach for 30 s",
+          "x": 647.3,
+          "z": -395.3,
+          "lat": 44.433257,
+          "lon": 26.117143,
+          "street": "Calea C\u0103l\u0103ra\u0219ilor",
+          "edge": 240,
+          "count": 1,
+          "data": {}
+        },
+        {
+          "id": 5,
+          "type": "ped-stuck-crossing",
+          "severity": "low",
+          "scenario": "public-approach",
+          "city": "bucharest",
+          "t": 63,
+          "msg": "pedestrian 252 has been crossing for > 30 s",
+          "x": 558.8,
+          "z": -462.9,
+          "lat": 44.433865,
+          "lon": 26.116029,
+          "street": "Pia\u021ba Sf\u00e2ntul \u0218tefan",
+          "edge": 302,
+          "count": 1,
+          "data": {}
+        }
+      ]
+    },
+    {
+      "condition": "night",
+      "phase": "first150m",
+      "result": {
+        "ok": true,
+        "reason": "arrived",
+        "t": 14.9,
+        "dist": 136,
+        "resets": 0,
+        "remaining": 9
+      },
+      "contacts": [],
+      "issues": []
+    },
+    {
+      "condition": "night",
+      "phase": "public-approach",
+      "result": {
+        "ok": true,
+        "reason": "arrived",
+        "t": 17.3,
+        "dist": 146,
+        "resets": 0,
+        "remaining": 4
+      },
+      "contacts": [],
+      "issues": []
+    }
+  ]
+}

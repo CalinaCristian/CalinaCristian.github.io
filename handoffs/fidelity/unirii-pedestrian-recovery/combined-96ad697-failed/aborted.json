@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-09T01:03:38.508135+00:00",
+  "sourceCommit": "96ad69768c75e1c3ec8adfd433113feb3057c0c7",
+  "reason": "Body-sensing contact resolved, but public approach still resets behind source931 crossover57 guard refusal. Stop failed matrix and record actual proposed and final OBBs/claims before reset.",
+  "terminatedOwnedNodePids": [
+    306727
+  ]
+}

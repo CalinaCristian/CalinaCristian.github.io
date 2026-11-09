@@ -1,0 +1,34 @@
+{
+  "guard-proposal-observer.js.executed": {
+    "sha256": "7ce4079ebb06f2b735a52b0655e4961c4cee2b88761cfb5c7d9cbdabc6fabe26",
+    "bytes": 1507
+  },
+  "observe-guard-stall.cjs.executed": {
+    "sha256": "a3a95dfac780342f72e843febd67015c7968a76ce6e5754e41e91cc5a15edd1d",
+    "bytes": 16954
+  },
+  "player-context-observer.js.executed": {
+    "sha256": "35d538f2b1c813ecd66ec2f025c31313dbcc00b55aea7b443efdab54b8989899",
+    "bytes": 3433
+  },
+  "execution.log": {
+    "sha256": "ad9aa1c6ebc6a215940b78a4e74c655fb423a19bc14c25f124db0431957f4aee",
+    "bytes": 918
+  },
+  "report.json.gz": {
+    "sha256": "110402745cfef3a7fb5f2c5c7b120812b38e805ab47634d1c1830eef84bffe5f",
+    "bytes": 3292871
+  },
+  "classification.json": {
+    "sha256": "c0896a5d32941626f9a017589f172ebaf3552abac1560eba906444f00f6d3ef7",
+    "bytes": 25590
+  },
+  "HANDOFF.md": {
+    "sha256": "d6b69fce61b839ac7818d6e99d12664ac773ce0e52d97e8644fcc6a1bc17b9cb",
+    "bytes": 1097
+  },
+  "unirii-day-public-approach-pre-reset-0.png": {
+    "sha256": "d25a959cd1be2be12914cf104f0f2e6fece960eb72e1d307799b1c7218acea34",
+    "bytes": 1766322
+  }
+}

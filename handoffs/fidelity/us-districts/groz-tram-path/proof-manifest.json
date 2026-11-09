@@ -3,8 +3,9 @@
   "requiredMetadataCommit": "6cbf82b61de8267f662bf50239c37ccc1764635c",
   "sourceAuditCommit": "8ee6081d98bea46b45b265e94e67093d48c04b74",
   "runtimeModules": {
-    "game/src/traffic.js": "eda195f98056098ac866cb8731da4a056b70c7d34db0a1f2a630a5468add1973",
-    "game/src/tram-path.js": "8880e5563e6a3bd1f07bdc52902f861da59f2957b3269839ebc0df8af22654c6"
+    "game/src/traffic.js": "2219a86d76640af3352d9358ef39284e1694806ca8a42b9da6b437859469543a",
+    "game/src/tram-path.js": "eade4932fceec65ece73ea60c169197fa4bb5e8fc141f95521e183e3fb6813dd",
+    "game/src/initial-traffic-admission.js": "d72392a0b124f131794e2026b498d6d9fd4ad4fc10e79236f51bc442e013b069"
   },
   "metadataDatasetSha256": {
     "grozavesti": "6d9217531ed5995afb99f7aaadddcde6d49cf62761a759ff76c35d010e2d86d7",
@@ -20,8 +21,20 @@
   },
   "files": {
     "README.md": {
-      "bytes": 5998,
-      "sha256": "9a9ddef40bc381c65005ca64a8acbf376793feb9b799b15b922aa58668a205d0"
+      "bytes": 7368,
+      "sha256": "4457920a72f02259e1b3c676c217f395e1de3599bdb5c8ee35612ef89d1baa12"
+    },
+    "legacy-adapter13-mode.json": {
+      "bytes": 44070,
+      "sha256": "7102b6f78491dae5b832d5607ba98ede6dfcd41a89335b93009d807f48dccde2"
+    },
+    "legacy25-mode.tap": {
+      "bytes": 6938,
+      "sha256": "8fb9f282863406e7f550d3135e277e39499f8480cbf31ee68d6f68c0760bcfbb"
+    },
+    "mode-admission-cpu.json": {
+      "bytes": 251,
+      "sha256": "114184eb4c2cd2e73957409eb845702965b01423b287cf2007be6440163924f0"
     },
     "native-binding-cpu.json": {
       "bytes": 15743,
@@ -39,6 +52,10 @@
       "bytes": 1650,
       "sha256": "c878eb0ca3ad3e08404c0dc009699e12273552fed4cb7fb896d6504fc626612f"
     },
+    "test-mode-admission.mjs": {
+      "bytes": 2401,
+      "sha256": "ac5fa45ecd9cd47a9f4d099be109565d453bb847b9f2ba8367a42e8c19374631"
+    },
     "test-native-binding.mjs": {
       "bytes": 3996,
       "sha256": "4180488f36e6889c1e806f832103a37c0b36efeff87fed8227276147fe414294"
@@ -52,10 +69,16 @@
       "sha256": "5bc025629d580166c9cc6ceffc894f6bd2bc75a42ceac270c502d041b873deb2"
     },
     "test-tram-path.mjs": {
-      "bytes": 7567,
-      "sha256": "2992142836413573070a4a0d24ece2209bcc3ed5de941d32c0928cc56abfdd2c"
+      "bytes": 7748,
+      "sha256": "0c4a4f3ab78b246d72182f3518efe002eddc67248460247cd5c82a7e51edf47b"
     }
   },
   "stage": "ground source paths; native full-scene/grade-render acceptance pending",
-  "browserOpened": false
+  "browserOpened": false,
+  "previousCandidateCommit": "235fd676b8cfca98e721ca05ce313958ef7614c8",
+  "historicalProof": {
+    "path": "historical/235fd676/proof-manifest.json",
+    "sha256": "608c9e99f55637a8422965e260efdc10fca224a942b30717080139e2330d197f",
+    "immutableSourceCommit": "235fd676b8cfca98e721ca05ce313958ef7614c8"
+  }
 }

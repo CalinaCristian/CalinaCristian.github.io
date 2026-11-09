@@ -1,0 +1,696 @@
+{
+  "passed": true,
+  "fixtureFile": "/workspace/reality-pass/remaining-ro/admission-fixture-groz-c2acc8d/fixture.json",
+  "dataFile": "/workspace/fidelity-workers/tram-source-metadata/game/data/bucharest-grozavesti.json",
+  "actorCount": 263,
+  "bindings": [
+    {
+      "id": 257,
+      "kind": "tram-imperio",
+      "before": {
+        "sourceId": "w80013062",
+        "edgeId": 63,
+        "dir": 1,
+        "s": 34.46060722997032,
+        "x": -162.11430524140562,
+        "z": 204.34401821222625,
+        "heading": 2.3977534557021785
+      },
+      "after": {
+        "sourceId": "w128304860",
+        "sourceNodeIds": [
+          6187777598,
+          933659727
+        ],
+        "edgeId": "rail:w128304860:14",
+        "dir": 1,
+        "s": 32.71755952389531,
+        "x": -155.9576340975759,
+        "y": 0.24,
+        "z": 209.96401206788912,
+        "heading": 2.401734228110498
+      },
+      "distanceM": 8.336002069994587,
+      "sourceGrade": "existing-unsurveyed-flat-local-ground-datum"
+    },
+    {
+      "id": 258,
+      "kind": "tram-v3a",
+      "before": {
+        "sourceId": "w80013062",
+        "edgeId": 63,
+        "dir": -1,
+        "s": 15.867370814464453,
+        "x": -168.2884755252729,
+        "z": 215.33680404345697,
+        "heading": -0.7438391978876152
+      },
+      "after": {
+        "sourceId": "w660918285",
+        "sourceNodeIds": [
+          8440717937,
+          8440717938
+        ],
+        "edgeId": "rail:w660918285:18",
+        "dir": 1,
+        "s": 170.05807679771044,
+        "x": -162.19078478805685,
+        "y": 0.24,
+        "z": 220.88155557024535,
+        "heading": -0.7379404205309903
+      },
+      "distanceM": 8.241729297941825,
+      "sourceGrade": "existing-unsurveyed-flat-local-ground-datum"
+    },
+    {
+      "id": 259,
+      "kind": "tram-v3a",
+      "before": {
+        "sourceId": "w277315765",
+        "edgeId": 161,
+        "dir": 1,
+        "s": 12.952529488204096,
+        "x": -317.7174976110598,
+        "z": 419.1746761813226,
+        "heading": -0.4692049143755117
+      },
+      "after": {
+        "sourceId": "w660918285",
+        "sourceNodeIds": [
+          8440717934,
+          8440717935
+        ],
+        "edgeId": "rail:w660918285:15",
+        "dir": 1,
+        "s": 51.21665812065337,
+        "x": -322.26298243934576,
+        "y": 0.24,
+        "z": 416.95951442446784,
+        "heading": -0.4534622212692865
+      },
+      "distanceM": 5.0565179652810155,
+      "sourceGrade": "existing-unsurveyed-flat-local-ground-datum"
+    },
+    {
+      "id": 260,
+      "kind": "tram-v3a",
+      "before": {
+        "sourceId": "w277315765",
+        "edgeId": 161,
+        "dir": -1,
+        "s": 1.230758290207572,
+        "x": -312.6995285560843,
+        "z": 403.11319093957457,
+        "heading": 2.638347040629485
+      },
+      "after": {
+        "sourceId": "w128304860",
+        "sourceNodeIds": [
+          933659662,
+          933659677
+        ],
+        "edgeId": "rail:w128304860:17",
+        "dir": 1,
+        "s": 7.108021771895723,
+        "x": -317.3960682818464,
+        "y": 0.24,
+        "z": 400.74894645177596,
+        "heading": 2.6624582803272983
+      },
+      "distanceM": 5.258054525558613,
+      "sourceGrade": "existing-unsurveyed-flat-local-ground-datum"
+    },
+    {
+      "id": 261,
+      "kind": "tram-imperio",
+      "before": {
+        "sourceId": "w80013062",
+        "edgeId": 74,
+        "dir": 1,
+        "s": 5.297091201872295,
+        "x": -365.5108976067888,
+        "z": 487.4210623827272,
+        "heading": 2.809057026181219
+      },
+      "after": {
+        "sourceId": "w128304860",
+        "sourceNodeIds": [
+          933659685,
+          6570499867
+        ],
+        "edgeId": "rail:w128304860:20",
+        "dir": 1,
+        "s": 0.3031050258971999,
+        "x": -357.59017870765587,
+        "y": 0.24,
+        "z": 489.88937943501514,
+        "heading": 2.809135977410498
+      },
+      "distanceM": 8.296407472496554,
+      "sourceGrade": "existing-unsurveyed-flat-local-ground-datum"
+    },
+    {
+      "id": 262,
+      "kind": "tram-v3a",
+      "before": {
+        "sourceId": "w80013062",
+        "edgeId": 74,
+        "dir": -1,
+        "s": 21.594681352343645,
+        "x": -363.54811195926465,
+        "z": 490.72426779520754,
+        "heading": -0.3191173914693065
+      },
+      "after": {
+        "sourceId": "w660918285",
+        "sourceNodeIds": [
+          8440717932,
+          8440717933
+        ],
+        "edgeId": "rail:w660918285:13",
+        "dir": 1,
+        "s": 51.031361035196014,
+        "x": -355.644469909292,
+        "y": 0.24,
+        "z": 492.9019572232347,
+        "heading": -0.3008442003459858
+      },
+      "distanceM": 8.198163751660303,
+      "sourceGrade": "existing-unsurveyed-flat-local-ground-datum"
+    }
+  ],
+  "unresolvedSourceGrades": [
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        4544537085,
+        2202002156
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        2202002156,
+        4544537025
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        4544537025,
+        1454112669
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        1454112669,
+        2159731258
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        2159731258,
+        6340365321
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        6340365321,
+        1454112672
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        1454112672,
+        6340365313
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        6340365313,
+        2159730241
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        2159730241,
+        4544537086
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        4544537086,
+        2159730242
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        2159730242,
+        2159730251
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        2159730251,
+        4544537073
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        4544537073,
+        6340365323
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        6340365323,
+        1454112676
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        1454112676,
+        6263837338
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        6263837338,
+        2624398760
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        2624398760,
+        6187848825
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        6187848825,
+        2624398745
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        2624398745,
+        2159730243
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        2159730243,
+        2159751777
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        2159751777,
+        6187849515
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        6187849515,
+        6187848813
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        6187848813,
+        6187848862
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        6187848862,
+        6187848878
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        6187848878,
+        6187849493
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w118416425",
+      "sourceNodeIds": [
+        6187849493,
+        6187848830
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w128304859",
+      "sourceNodeIds": [
+        981543142,
+        1418266859
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        6187848807,
+        6187848833
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        6187848833,
+        6187848809
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        6187848809,
+        6187849501
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        6187849501,
+        6187848858
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        6187848858,
+        6187849498
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        6187849498,
+        6187777601
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        6187777601,
+        2159751755
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        2159751755,
+        2159751748
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        2159751748,
+        2159751730
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        2159751730,
+        6263837339
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        6263837339,
+        2159751746
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        2159751746,
+        2624398751
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        2624398751,
+        2159751773
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        2159751773,
+        6340365308
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        6340365308,
+        3908619717
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        3908619717,
+        2159751736
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        2159751736,
+        2159751741
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        2159751741,
+        6340365319
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        6340365319,
+        2159751784
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        2159751784,
+        6187777596
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        6187777596,
+        2159751767
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        2159751767,
+        2159751770
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        2159751770,
+        4544537076
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        4544537076,
+        2159751764
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        2159751764,
+        4544537031
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w205971103",
+      "sourceNodeIds": [
+        4544537031,
+        2159751758
+      ],
+      "reason": "unresolved-source-rail-grade"
+    },
+    {
+      "sourceId": "w660918286",
+      "sourceNodeIds": [
+        6187777607,
+        6187777597
+      ],
+      "reason": "unresolved-source-rail-grade"
+    }
+  ],
+  "checks": [
+    {
+      "id": 257,
+      "sourceId": "w128304860",
+      "dir": 1,
+      "sourceNodeIds": [
+        6187777598,
+        933659727
+      ],
+      "sourcePoseNative": true,
+      "wholeBodyInsideBareNativeMask": true,
+      "sourceForwardMovementM": 0.5000000000000291
+    },
+    {
+      "id": 258,
+      "sourceId": "w660918285",
+      "dir": 1,
+      "sourceNodeIds": [
+        8440717937,
+        8440717938
+      ],
+      "sourcePoseNative": true,
+      "wholeBodyInsideBareNativeMask": true,
+      "sourceForwardMovementM": 0.500000000000026
+    },
+    {
+      "id": 259,
+      "sourceId": "w660918285",
+      "dir": 1,
+      "sourceNodeIds": [
+        8440717934,
+        8440717935
+      ],
+      "sourcePoseNative": true,
+      "wholeBodyInsideBareNativeMask": true,
+      "sourceForwardMovementM": 0.49999999999998596
+    },
+    {
+      "id": 260,
+      "sourceId": "w128304860",
+      "dir": 1,
+      "sourceNodeIds": [
+        933659662,
+        933659677
+      ],
+      "sourcePoseNative": true,
+      "wholeBodyInsideBareNativeMask": true,
+      "sourceForwardMovementM": 0.5000000000000085
+    },
+    {
+      "id": 261,
+      "sourceId": "w128304860",
+      "dir": 1,
+      "sourceNodeIds": [
+        933659685,
+        6570499867
+      ],
+      "sourcePoseNative": true,
+      "wholeBodyInsideBareNativeMask": true,
+      "sourceForwardMovementM": 0.4999999999999845
+    },
+    {
+      "id": 262,
+      "sourceId": "w660918285",
+      "dir": 1,
+      "sourceNodeIds": [
+        8440717932,
+        8440717933
+      ],
+      "sourcePoseNative": true,
+      "wholeBodyInsideBareNativeMask": true,
+      "sourceForwardMovementM": 0.5000000000000361
+    }
+  ],
+  "sourceCrossingPhysicalKeyShared": true,
+  "motorSourceGraphUnchanged": true,
+  "allActorAndTramMeshIdentitiesPreserved": true,
+  "trafficRngDraws": 0,
+  "browserOpened": false,
+  "staticScope": "Empty static world for isolated source/native-pose CPU control; full static/body/ped/native acceptance remains pending."
+}

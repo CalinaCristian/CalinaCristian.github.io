@@ -103,6 +103,7 @@ that chapter of the CV.
   (bonnet to boot).
   Compiled tram sources retain actual way and node identities, directional/access tags, ordered route relations and stop/signal node tags alongside unchanged rendered track coordinates; source metadata and native movement validation are separate checks.
   Trams follow directed mapped rail paths and actual stop positions. Their source assignments and unresolved grade constraints are recorded independently of body-clearance checks; a nearby motor road cannot stand in for a track.
+  Rail access is separate from motor access: a legal tram direction does not make a track drivable by cars.
   NPC route choices respect mapped turn-lane arrows. Turning cars retain their approach lane through the junction, with continuous transitions into narrower exits; ordinary straight lane drops still merge ahead.
 - **Real light and weather.** Sun and moon from each place's real position and local time, street lights,
   headlights, lit windows and shops at night, live weather (Open-Meteo, with a 1991–2020 climate fallback) with rain,

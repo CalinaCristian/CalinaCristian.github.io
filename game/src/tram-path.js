@@ -150,7 +150,7 @@ export function buildTramNetwork(data, { motorNodes = [], resolveGrade = null } 
             const grade = (resolveGrade?.(way, { a, b, index: i - 1, len }) ?? flatTramGrade(way));
             const known = grade?.known === true && [grade.ya, grade.yb].every(Number.isFinite);
             const usable = modeled && !denied && directions.directions.length > 0 && known;
-            const edge = { id: 'rail:' + way.sourceId + ':' + (i - 1), sourceId: way.sourceId, sourceNodeIds: [ids[i - 1], ids[i]], sourceSegment: i - 1, sourceTags: way.tags, a, b, len, dirx: dx / len, dirz: dz / len, nx: -dz / len, nz: dx / len, rail: true, tram: true, tramOnly: true, modeled, usable, railDirections: directions.directions, directionEvidence: directions, grade: known ? grade : { known: false, basis: 'unresolved-source-rail-grade' }, ya: known ? grade.ya : null, yb: known ? grade.yb : null, bridge: way.tags?.bridge != null && !no(way.tags.bridge), tunnel: way.tags?.tunnel != null && !no(way.tags.tunnel), layer: Number(way.tags?.layer || 0), type: 'tram', name: way.tags?.name || '', lanesF: directions.directions.includes(1) ? 1 : 0, lanesB: directions.directions.includes(-1) ? 1 : 0, oneway: !directions.directions.includes(-1), laneW: 0, median: 0, laneCenterShiftM: 0, publicDrive: usable, throughAccess: usable, access: { sourceId: way.sourceId, mode: 'tram', tags: way.tags } };
+            const edge = { id: 'rail:' + way.sourceId + ':' + (i - 1), sourceId: way.sourceId, sourceNodeIds: [ids[i - 1], ids[i]], sourceSegment: i - 1, sourceTags: way.tags, a, b, len, dirx: dx / len, dirz: dz / len, nx: -dz / len, nz: dx / len, rail: true, tram: true, tramOnly: true, modeled, usable, railDirections: directions.directions, directionEvidence: directions, grade: known ? grade : { known: false, basis: 'unresolved-source-rail-grade' }, ya: known ? grade.ya : null, yb: known ? grade.yb : null, bridge: way.tags?.bridge != null && !no(way.tags.bridge), tunnel: way.tags?.tunnel != null && !no(way.tags.tunnel), layer: Number(way.tags?.layer || 0), type: 'tram', name: way.tags?.name || '', lanesF: directions.directions.includes(1) ? 1 : 0, lanesB: directions.directions.includes(-1) ? 1 : 0, oneway: !directions.directions.includes(-1), laneW: 0, median: 0, laneCenterShiftM: 0, publicDrive: false, throughAccess: false, publicTram: usable, throughTram: usable, access: { sourceId: way.sourceId, mode: 'tram', tags: way.tags } };
             const speed = sourceSpeed(way.tags); if (speed != null) edge.maxspeed = speed;
             graph.allEdges.push(edge);
             if (modeled) { report.modeledSegments++; if (!known) report.unresolved.push({ sourceId: way.sourceId, sourceNodeIds: edge.sourceNodeIds, reason: 'unresolved-source-rail-grade' }); }
@@ -164,7 +164,7 @@ export function buildTramNetwork(data, { motorNodes = [], resolveGrade = null } 
         if (Number.isFinite(n.motorNode?.y)) values.push(n.motorNode.y);
         if (n.sourceCoordinateConflict || (values.length && Math.max(...values) - Math.min(...values) > .05)) {
             report.unresolved.push({ sourceNodeId: n.sourceId, reason: 'inconsistent-connected-rail-grade', heights: values });
-            for (const e of n.edges) e.usable = e.publicDrive = e.throughAccess = false;
+            for (const e of n.edges) e.usable = e.publicTram = e.throughTram = false;
         } else if (values.length) n.y = values[0];
     }
     graph.edges = graph.edges.filter(e => e.usable);
@@ -173,7 +173,7 @@ export function buildTramNetwork(data, { motorNodes = [], resolveGrade = null } 
     return graph;
 }
 
-export function canTravelTram(edge, dir) { return edge?.rail === true && edge.usable === true && edge.railDirections.includes(dir); }
+export function canTravelTram(edge, dir) { return edge?.rail === true && edge.usable === true && edge.publicTram === true && edge.throughTram === true && edge.railDirections.includes(dir); }
 
 export function tramContinuations(edge, dir) {
     const node = dir > 0 ? edge.b : edge.a;

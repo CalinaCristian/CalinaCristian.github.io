@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "genericMotorNavigationRejectsRail": true,
+  "ordinaryCarAdmissionRejected": true,
+  "legalTramAdmissionAccepted": true,
+  "reverseTramAdmissionRejected": true,
+  "originalIdsAndArraysPreserved": true,
+  "browserOpened": false
+}

@@ -1,6 +1,6 @@
 # Source tram runtime candidate — ground-path stage
 
-Base runtime: `8ccab8b8f2e207aed8ceaca7fd6485590f1c7be7`. Required source metadata: `6cbf82b61de8267f662bf50239c37ccc1764635c`. Independent original source/off-track audit: `8ee6081d98bea46b45b265e94e67093d48c04b74`. Root owns integration, global docs and the shared elevated rail render/profile hook; this candidate edits only `traffic.js`, a new pure `tram-path.js`, and this proof directory. It does not edit the pure admission planner, motor graph, datasets, rendering, source coordinates, widths, fleet or actor counts.
+Base runtime: `8ccab8b8f2e207aed8ceaca7fd6485590f1c7be7`. Required source metadata: `6cbf82b61de8267f662bf50239c37ccc1764635c`. Independent original source/off-track audit: `8ee6081d98bea46b45b265e94e67093d48c04b74`. Root owns integration, global docs and the shared elevated rail render/profile hook; this candidate edits only `traffic.js`, a new pure `tram-path.js`, the initial adapter’s explicit rail mode gate, and this proof directory. It does not edit the pure admission planner, motor graph, datasets, rendering, source coordinates, widths, fleet or actor counts.
 
 The historic spawn loop still consumes its original RNG sequence and creates every original actor/mesh. Before initial admission, trams are rebound locally to actual source rail segments in their legal directions. The six Grozăvești corrections are5.06–8.34 m, fixing the measured off-track motor-carriageway assignments. Source graph nodes join only by literal OSM node ID; complete external source ways remain retained, while only unchanged rendered-run segments become active paths. Full native body coverage must remain within the district activity mask, and accepted placements/movement must pass the existing native static clearance function. Failed bindings remain explicit and force `initialAdmission.passed=false`; no actor is hidden, deleted or pooled to manufacture a pass.
 
@@ -21,9 +21,16 @@ This stage uses the existing **unsurveyed flat local ground datum**. Tagged brid
 
 Grozăvești bridge sources128304859/660918286 and118416425/205971103, and Romană tunnel sources241374326/920117619 remain explicit. A full body stops before such a leaf; existing out-of-view recovery can use another legal source station. This is not complete elevated transit or whole-world acceptance. The exported `nativeTramGradeResolver` is an **unhooked containment prototype**, tested as a relative modeled deck constraint. It is not used to elevate bodies over the current flat rendered rails. Root's separate source-supported bridge grade/render work is required before enabling those legs. Layer/level values are never converted into metres.
 
+## Mode follow-up and verification
+
+Rail edges explicitly remain unavailable to generic motor navigation (`publicDrive:false`, `throughAccess:false`). Only `canTravelTram` admits their actual source directions; `publicTram`/`throughTram` describe that separate mode. The initial adapter rejects a car on rails, a reverse one-way tram, and any failed road-to-rail binding without actor removal. Runtime also consumes an optional shared `world.tramGrade(way, {a,b,index,len})` callback; until supplied it keeps the original ground-only behavior. Root and the bridge owner must enable matching rail/slab rendering with any elevated profile.
+
+All original stage235 proof bytes are preserved under `historical/235fd676/`, including its original module digests and producer scripts. Historical producers must run from the original235 Git tree (their relative imports are preserved literally). Current outputs below were rerun for this mode follow-up. No browser evidence was relabelled.
+
 ## Verification in this commit
 
 - 13 pure source-path controls: legal direction, no nearby-node joins, full short-leg/body traversal, exact bend reservations, source speed, complete/missing geometry, modeled boundary leaves, source-node physical binding, explicit unresolved and compatible/incompatible modeled grade controls.
+- Explicit mode admission controls reject generic motor routing/car-on-rail/reverse tram while accepting a legal source tram, preserving IDs/arrays. The original13 native adapter controls and25 existing signal/vehicle/pedestrian/shared-lane regressions also pass.
 - Actual `Traffic.bindSourceTrams`, `placeOnLane`, `pathPoint`, `ensureRoute` and `advance` on the immutable263-actor Groz fixture: all263 object identities and six tram mesh identities retained; correct directed tracks; source positions/forward movement; whole bodies inside the bare native activity mask; motor source graph unchanged; zero Traffic RNG calls during binding. **Static collider set is deliberately empty in this CPU fixture**, so it is not native static acceptance.
 - Actual `Traffic.stepVehicle` isolated40-second CPU fixture: starts at .04m/s, serves a mapped stop for150ticks/~5s, resumes and stops with its whole body before the source leaf (maximum front99.601m on a100m path). No lateral source error. This fixture has no peer/static population and does not establish full-scene traffic behavior.
 - Actual native reservation methods: an older tram claim blocks a conflicting motor car; an older motor claim blocks the tram; empty reservations admit the legal path. Exact source identity shares the physical key; original motor adjacency remains intact. Signal timing and the full scene remain separate gates.
@@ -32,6 +39,7 @@ Run from repository root:
 
 ```sh
 node handoffs/fidelity/us-districts/groz-tram-path/test-tram-path.mjs
+node handoffs/fidelity/us-districts/groz-tram-path/test-mode-admission.mjs
 node handoffs/fidelity/us-districts/groz-tram-path/test-native-binding.mjs /workspace/reality-pass/remaining-ro/admission-fixture-groz-c2acc8d/fixture.json /workspace/fidelity-workers/tram-source-metadata/game/data/bucharest-grozavesti.json /tmp/groz-source-binding.json
 node handoffs/fidelity/us-districts/groz-tram-path/test-native-motion.mjs
 node handoffs/fidelity/us-districts/groz-tram-path/test-native-crossing.mjs

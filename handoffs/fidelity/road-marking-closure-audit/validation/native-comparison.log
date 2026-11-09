@@ -1,0 +1,1 @@
+{"passed":true,"source":"bc896279c798e007ffd16dffc5163b331e06d4c3","districts":[{"district":"seatac","degenerate":[],"admission":true,"unknownHeightPolicyFallbacks":39},{"district":"bellevue","degenerate":[],"admission":true,"unknownHeightPolicyFallbacks":11}],"maxRecordedDrawCalls":375,"maxRecordedTriangles":720915}

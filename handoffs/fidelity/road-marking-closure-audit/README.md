@@ -69,3 +69,46 @@ non-affine, source-identity and short-leg controls. This CPU replay is not a
 native candidate acceptance. Matched candidate captures and any unresolved
 visual/collision issues will be recorded separately; no all8/15/37/900 gate
 or driver pass is claimed here.
+
+## Ready source and native proof
+
+Runtime `bc896279c798e007ffd16dffc5163b331e06d4c3` is the reviewed candidate.
+The implementation series is `4e636194` → `bcefbe52` → `bc896279`.
+Nineteen CPU controls, syntax and whitespace checks pass. The final immutable
+native source loaded both districts and closed at 2026-11-09 11:59:10.619 UTC.
+All 226 copied Git/SHA blobs were verified before/after and every served file
+was verified. Page, console and HTTP errors were zero.
+
+The independent native comparison in `validation/native-comparison.json`
+checks all actual ribbon polygons: SeaTac's three zero-area source ribbons
+are repaired, and both districts have zero degenerate source ribbons. Every
+new native bevel pad and its source legs retain centerline coverage; the
+Airport Expressway edge24–28 quarter-metre samples are also covered. Source
+data, all source edge coordinates/IDs, widths/layers and the complete native
+profile reports are identical to baseline. Both districts preserve all 149
+native vehicle IDs and 180 pedestrians and report initial admission/binding
+true. Those flags are recorded diagnostics, not independent full-body proof.
+
+The three final 1440×900 pictures in `final-bc896/` were inspected against the
+same baseline cameras. The corrected join and crossing envelopes are visible;
+the nearby skybridge camera provides the Bellevue width/join control. Exact
+source tags and before/after native polygons for all newly beveled joins are
+included in the comparison report. The exact latest user screenshot location
+could not be independently matched from its description alone.
+
+Final recorded native static frame counters peak at 375 calls / 720,915
+triangles. These are the actual Render3D stats for the requested High views,
+with the ordinary mirror call immediately before `frame(0)`; they are not the
+final all8 budget gate or a hardware FPS result. The affine clipping path
+retains the previous policy for 39 SeaTac and 11 Bellevue non-affine input
+exceptions. Intermediate failed native comparison and original raw geometry
+are kept. Original additional captures remain under
+`/workspace/reality-pass/road-marking-closure-{406a,4e636,bcef}-native/`;
+the full manifests retain their hashes, while the portable package includes
+the three matched before/after views and the intermediate crossing negatives.
+
+Outer inferred guard fragments, closure worksite/prop placement and the wider
+reported Bellevue junction/bulge scene remain separate unresolved scopes.
+Pipera/root own the common boundary-support/closure-decoration follow-up.
+Root's combined foot/a, all8, mobile15, phone37 and long physical acceptance
+remain required on the eventual integrated source.

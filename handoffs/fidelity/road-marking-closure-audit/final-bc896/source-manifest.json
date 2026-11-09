@@ -1,0 +1,1136 @@
+{
+  "commit": "bc896279c798e007ffd16dffc5163b331e06d4c3",
+  "preparedUtc": "2026-11-09T11:56:29.857Z",
+  "files": {
+    "game/assets/wcp/bracket.webp": {
+      "bytes": 27040,
+      "sha256": "59c347a1f035e9826164da7c05b422919b4a692c46558f4bf89469b033e6d08d",
+      "gitBlobSha1": "8d5cde827eeacad746cef487fd8e6985699c932f"
+    },
+    "game/assets/wcp/dinamo-hint.webm": {
+      "bytes": 146249,
+      "sha256": "b33a7533bb1f48856ecf62d249c9fc385ca01d5cd7271b2f87aee0687f6429b6",
+      "gitBlobSha1": "5e583f60f5943ec8cdc512bd9e9f13dd1ce412b8"
+    },
+    "game/assets/wcp/guide.webp": {
+      "bytes": 37316,
+      "sha256": "c8ad3814a9e8901e22950453acd282ffe8f7d5e9cb26d20d481a7f489e2d6c45",
+      "gitBlobSha1": "7afc0cfd6c5ae11422f34ee1c61671513649df13"
+    },
+    "game/assets/wcp/home.webp": {
+      "bytes": 35978,
+      "sha256": "778875a38b2fbd33481be885b7f4aa9a31c3d7e770d85ed598c6b229579e7e84",
+      "gitBlobSha1": "68aea86f7d95c1f2a7207dbeb150c0364692fea5"
+    },
+    "game/assets/wcp/matches.webp": {
+      "bytes": 23704,
+      "sha256": "cc9da202e4c4f90cf0229b08972271e480f2f349d6083bff2cdb9737a3cd977c",
+      "gitBlobSha1": "012797d3ecf2b354161698b1d26785f8374027ea"
+    },
+    "game/assets/wcp/standings.webp": {
+      "bytes": 18638,
+      "sha256": "eb76897673a96901b8462f499171f89ae689056c52c08e60af3ef315549b38e6",
+      "gitBlobSha1": "84076d7cc1a759cc1ae5875f86da52a14bbeb168"
+    },
+    "game/assets/wcp/today.webp": {
+      "bytes": 22006,
+      "sha256": "0131d14a11397aaf69f162e51926362180a445bdc45a07f91503d2e1a6b1a5d9",
+      "gitBlobSha1": "f1dc32893cc1162bc51969b1d8073b82b8400de2"
+    },
+    "game/data/README.md": {
+      "bytes": 34223,
+      "sha256": "ac44e613118892007fcb09af7327b9c1ca96d77dc81ebdbd6f1292e278dee736",
+      "gitBlobSha1": "405892a86f21230e082dc391ef2cbb376738e522"
+    },
+    "game/data/bucharest-floreasca.json": {
+      "bytes": 4427686,
+      "sha256": "e7c961ee4acc9bd0c6850e7fcce9ba170d1899134f10376c2a3b3f8af5695358",
+      "gitBlobSha1": "73ea50c5e1acf269558c6e7432158fa23e376c92"
+    },
+    "game/data/bucharest-grozavesti.json": {
+      "bytes": 5814201,
+      "sha256": "b0341956c088b9cb142a7005831345eda7bf7aae27f18618181ba8fc535f4175",
+      "gitBlobSha1": "1cb15e16488187909481c7679dfae6ceb4dbeac7"
+    },
+    "game/data/bucharest-otopeni.json": {
+      "bytes": 2992804,
+      "sha256": "5e1242d5583db482717545ca0ba99e12b45611c25dcda0c04d1ffe45e084a711",
+      "gitBlobSha1": "9fda71348cd76e086df5427d80445dfa8f8a1b98"
+    },
+    "game/data/bucharest-pipera.json": {
+      "bytes": 4163026,
+      "sha256": "235da718f7401114004e5d036e1e360fd01230fa9ae2509c0c77e52edcba373a",
+      "gitBlobSha1": "2ba366be5933fe2b5fc0d1408e5b7c3a8b879e23"
+    },
+    "game/data/bucharest-romana.json": {
+      "bytes": 21911444,
+      "sha256": "5240414e62b4ba2c3a010a1fbb9f0bec37972886f74f68a1aa1be9542b5aa7c2",
+      "gitBlobSha1": "c2723a3f15a9c526a13955a1f76228f1b9dd527f"
+    },
+    "game/data/bucharest-unirii.json": {
+      "bytes": 25489517,
+      "sha256": "72ab092e065ffb13c3f3caa6f31d7a73130b60ac8df50b100aeacde95e7dc7dd",
+      "gitBlobSha1": "a25a74bc86d6b8b2234b6ba4636c8435d42d11a4"
+    },
+    "game/data/bucharest.json": {
+      "bytes": 2922426,
+      "sha256": "b0e2870767528727b4d57ad4e05a666d440c8fe19620422ebde63c27d0a7b0f5",
+      "gitBlobSha1": "62a3f9e3bf469cdb183d1735264669e7dbf877b0"
+    },
+    "game/data/dialogue.json": {
+      "bytes": 24745,
+      "sha256": "02d45fbe12d81e97e38e6cd0f8d4ea8061e6d1c7475c774b3d6c5a335b70ba66",
+      "gitBlobSha1": "67fd90a1bcd15ed9df787c044f2a0f531c916cea"
+    },
+    "game/data/geo/README.md": {
+      "bytes": 2500,
+      "sha256": "34a88080c9f67b9321dfed5d5c4629b626b1eeb55996f3cfca74f5488aa71503",
+      "gitBlobSha1": "e2a7a2f5a62e37f95a2b08f0aed935b8c4870a50"
+    },
+    "game/data/geo/lights.jpg": {
+      "bytes": 112600,
+      "sha256": "b77448f6a73cbc45ca6a04d861d8c20c96b4ee1d42758e1ba8eabc75a6cebc53",
+      "gitBlobSha1": "5ae0c3b6e3c34c7aed663fe4cb1add38f7e19a13"
+    },
+    "game/data/geo/ne50m.bin": {
+      "bytes": 157166,
+      "sha256": "03e42acf1ec84500ab3a42fbf03d065650509c8301353b6c1e645013443da372",
+      "gitBlobSha1": "d224043eff84bcf2d6562a70a6307483416bcdf9"
+    },
+    "game/data/places.json": {
+      "bytes": 46899,
+      "sha256": "38b7297d798f7d197a64b3123a3542e6b5b516ad1916ee8d0813492852b14127",
+      "gitBlobSha1": "871541d7cce9a7601b5751aea7a9884d5902289f"
+    },
+    "game/data/seattle-bellevue.json": {
+      "bytes": 4993150,
+      "sha256": "ce748b6b9982856655927a590b37b1e951716cff15b7efef1cf9cd5a09f5c8cb",
+      "gitBlobSha1": "5db95ab61a9717c0ef097398eb0f465c7a8f3c2a"
+    },
+    "game/data/seattle-seatac.json": {
+      "bytes": 3809816,
+      "sha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+      "gitBlobSha1": "a9efbb200956b437e8f6fbd9ca3fdf1e4060e582"
+    },
+    "game/data/seattle.json": {
+      "bytes": 3382655,
+      "sha256": "d0676592a69d57c9a60501119a71a4b7f414dca5a45e7417bdd967565b93f88d",
+      "gitBlobSha1": "4b4939825e4492f9d623b4042bc01ead84475805"
+    },
+    "game/data/spots/arcul-de-triumf.json": {
+      "bytes": 1277350,
+      "sha256": "aaf7ad57f0c4f540317f23aa4d2487bc3209fc30da0c1b30fe20675d17db4336",
+      "gitBlobSha1": "cded0a0aaccc1b21b4fc790c86a9c3cd51e3ab39"
+    },
+    "game/data/spots/athenaeum-revolution.json": {
+      "bytes": 4856445,
+      "sha256": "f933d738f1926d0cfe28d1040f39316cc8206996071f2585035448e1726f287b",
+      "gitBlobSha1": "edc0e084eb20476328115c6a2d5ce84da61b8d24"
+    },
+    "game/data/spots/ballard-locks.json": {
+      "bytes": 571461,
+      "sha256": "889041635e10369ba9245550215c3b5242e4b82ac4f9b3e9ab864ebf5748549f",
+      "gitBlobSha1": "1324ae24f6793519b0d25853b90f35d80bb0239e"
+    },
+    "game/data/spots/bel-botanical-garden.json": {
+      "bytes": 554307,
+      "sha256": "d343c70d586496268f86fddce6c601d14244d0f1ea63e47ec605b8372196956c",
+      "gitBlobSha1": "856c0afa4e66fcc0229aef10b165a5f8caf4585e"
+    },
+    "game/data/spots/bel-downtown-park.json": {
+      "bytes": 497269,
+      "sha256": "bcedd2fad5a6bbe599ad9c4b9c47e79439d249d9cc5b5f4fd5816ae3f7c3fdd6",
+      "gitBlobSha1": "0392f073b2ba3038037cc6636f55ad66457d18f0"
+    },
+    "game/data/spots/bel-lincoln-square.json": {
+      "bytes": 601911,
+      "sha256": "a505f6bc29553bac4944bb960f4a50fa65be22cf3b72d287530483322bee6350",
+      "gitBlobSha1": "35b5f2437130bd6c87237df7e59e1135a683158e"
+    },
+    "game/data/spots/bel-meydenbauer.json": {
+      "bytes": 318232,
+      "sha256": "7a82af63ef198a597bb3bf8cb7fecf4d0341706c0fb907354d05a4c280b924cf",
+      "gitBlobSha1": "ab543ff9328c0601c42de03aa28a5d12028ef0d9"
+    },
+    "game/data/spots/buc-herastrau.json": {
+      "bytes": 1361895,
+      "sha256": "604109642e39d08621b90bb923e67b4ea410920ac80651ae18aa53a4c433dddd",
+      "gitBlobSha1": "a74365b1db1023cde0e39003673e7d465c523bb1"
+    },
+    "game/data/spots/buc-old-town.json": {
+      "bytes": 7191524,
+      "sha256": "c302ad89472ee2bfa2bcf2a1864d7bdb042fa85ffd613cbc61daf59b8b8f20e8",
+      "gitBlobSha1": "84dd56813ba62129af54cbc052c7b294e84d9bfc"
+    },
+    "game/data/spots/buc-parliament.json": {
+      "bytes": 2925638,
+      "sha256": "ddd887f137f82a82bb3a07775a4dd726a95a4484c312610fcbecfeda44cedf72",
+      "gitBlobSha1": "a427f7647b78c3bb7db1fb893e9ac4df1c44e2cb"
+    },
+    "game/data/spots/cismigiu.json": {
+      "bytes": 3781023,
+      "sha256": "7f39870051f19fe8fcad96dfa8dea7c8d9a99b855447073a85a7b0dc06277f4e",
+      "gitBlobSha1": "24351a464a5eb1ad4dcb57991a29f6c747367457"
+    },
+    "game/data/spots/fremont-troll.json": {
+      "bytes": 636891,
+      "sha256": "93719cb9de9352f913a06ad61f4677fb82e9c695664639a13486f54e87702631",
+      "gitBlobSha1": "f056a1da837a037b671fad06e9790e266ffd190e"
+    },
+    "game/data/spots/gas-works.json": {
+      "bytes": 247930,
+      "sha256": "b1f8eebe08ed1da4d3e84a147c77f24f4d511847c349eeb5754c7cc4528cc442",
+      "gitBlobSha1": "7059166df8e909b5dd4d9763fe8625e6200906ae"
+    },
+    "game/data/spots/kerry-park.json": {
+      "bytes": 647922,
+      "sha256": "96c18080525d886e0f633044a9645389a8eea60bf1662f6a6acbf3b97bf983c9",
+      "gitBlobSha1": "d97acffbf640ff6545f0214c1831b299f80efbf5"
+    },
+    "game/data/spots/pike-place.json": {
+      "bytes": 694465,
+      "sha256": "484a00735a54b5aa60e07e20567e6a3cbd4142a78945ec463c6c5c9ee236c0d8",
+      "gitBlobSha1": "cfa2b55f65b6aabdb71848cbe4b153111dac662e"
+    },
+    "game/data/spots/pioneer-square.json": {
+      "bytes": 435205,
+      "sha256": "353773e990d392e49891121d11730f3c942819d83a8986cefdea42b3ebe18240",
+      "gitBlobSha1": "873677b069e23922eb154303b493c6849f82ed1d"
+    },
+    "game/data/spots/seattle-center.json": {
+      "bytes": 671239,
+      "sha256": "68daf29e90ea1e0a9dac45b5365d40af5de4bc81b3437d571fd39f2d47cd8f41",
+      "gitBlobSha1": "71469abae40db284739b29e52f0c36764f4d999e"
+    },
+    "game/data/spots/spring-palace.json": {
+      "bytes": 779177,
+      "sha256": "f6a7f974645aa21e1ed9b52af58d2d0151a81efdc6ab1e39e5bf532180765e72",
+      "gitBlobSha1": "104667c8adfee9f2a89d33a96193050002c49895"
+    },
+    "game/data/spots/waterfront.json": {
+      "bytes": 423539,
+      "sha256": "c726b6d58bfa54ff71443f3f0387f5ebd649919bb3d25cc4f3323371a9581ea9",
+      "gitBlobSha1": "a98788b27ac3ca76d3460e67b76118a5a74e05a0"
+    },
+    "game/index.html": {
+      "bytes": 8658,
+      "sha256": "98f4fd9f6b22f622b0dab7f77e445c5933b6aab1460f8c263d3ca33fdb768ed2",
+      "gitBlobSha1": "932e30fa4f4e500b246042078b537c2bfab67912"
+    },
+    "game/src/achievements.js": {
+      "bytes": 40837,
+      "sha256": "2286ba896ff422e2c836455149ba8ca1515fcfbdf0b50b308944f23966398a8c",
+      "gitBlobSha1": "da69a02d38d6a0bc258194d9d6548f3f3a402ece"
+    },
+    "game/src/archetypes.js": {
+      "bytes": 72128,
+      "sha256": "3ac87643083fa98989d05279d8d174bde5932332920fc87796dcf7d976c2ecf3",
+      "gitBlobSha1": "4feb071ca812f9d341982d8cc9aadf6f5ca4244b"
+    },
+    "game/src/audio.js": {
+      "bytes": 7181,
+      "sha256": "11863937c63883facc59e7549bde428e3e660e6e39ab50b3d55f4a6cf1afe611",
+      "gitBlobSha1": "5ae86b431a6e38834bbca3e7b54697cd5eefca8e"
+    },
+    "game/src/basketball.js": {
+      "bytes": 16329,
+      "sha256": "a84a93eb1257da5fb4cb1d931612c48b0ddaf29cfab3d133b99e06178a824795",
+      "gitBlobSha1": "568551b89c170cac2c01b02b32f501d485f1c577"
+    },
+    "game/src/building-aircraft.js": {
+      "bytes": 3148,
+      "sha256": "44ee8c66eee7d1f5aea8d126610791fdf51ee9d2539a3b3eafa83e695e789e4a",
+      "gitBlobSha1": "db5d971578067fed32f1840f0ae5f12204ffcb70"
+    },
+    "game/src/building-canopies.js": {
+      "bytes": 1580,
+      "sha256": "a0566c635e2eb30fa4a305f73391eb17be941d45cf126a7989450b06b3d3a29d",
+      "gitBlobSha1": "cd9533ddca3dcba456db534971b368819a5ed39d"
+    },
+    "game/src/building-detail-visibility.js": {
+      "bytes": 2721,
+      "sha256": "974e03efeb2b1b6d422b45d72ca2f3cd649fae7a18196a98ca80b25cb6c283b6",
+      "gitBlobSha1": "551336822dfc83f98ec8bb4f169c621080c9e1cb"
+    },
+    "game/src/building-parts.js": {
+      "bytes": 14039,
+      "sha256": "0039e752969e9cfc1a0477641a9a5bb7b31eb6c8886843d88d79848362633b30",
+      "gitBlobSha1": "af6336780283509cb0a53b52fa03f1be76a07faf"
+    },
+    "game/src/building-passages.js": {
+      "bytes": 5011,
+      "sha256": "6bd606c4b3a62ffc3af3b4e8b4be65c5880fe7546ab7fc6ad5b521168045fe5d",
+      "gitBlobSha1": "f6ec28fb380f762ef8f99e86efbbab1de3e9be64"
+    },
+    "game/src/building-roofs.js": {
+      "bytes": 18301,
+      "sha256": "a82db31d1197b3953c9f4718dbc44b2972a90e25d9c2c07c683e6ab5386fa8ac",
+      "gitBlobSha1": "37cc889031267d5b981109906595dba0e4253562"
+    },
+    "game/src/buildings.js": {
+      "bytes": 83826,
+      "sha256": "634c8a5149d9de9761c62f445c6318dcb3087b41980b574a5afa6d02dfa7cfe4",
+      "gitBlobSha1": "7d1037bca19ef888abd74f454b829599e1d66c93"
+    },
+    "game/src/canvasText.js": {
+      "bytes": 5398,
+      "sha256": "35983021a8548740d623d83aaa092fa9f95a3f58b454575b8ab4732a47db2714",
+      "gitBlobSha1": "79a3b279714396f086d6ae4eccd996ff7e93c223"
+    },
+    "game/src/cell-frustum.js": {
+      "bytes": 8110,
+      "sha256": "75180d907270939422d304d2eb7d35f76abb6a4657ac36137c72538799b3e07a",
+      "gitBlobSha1": "1b41673da8a2f58a7d9c4319317aed5c7b4fab8a"
+    },
+    "game/src/chapter-waypoint.js": {
+      "bytes": 713,
+      "sha256": "0cba46e17b79cb869de2c5087b925f837dd02954d026e5aaaa55c509c9dac63a",
+      "gitBlobSha1": "d5bce7186333c762fcbe7ff59fae3991851e5398"
+    },
+    "game/src/chapters.js": {
+      "bytes": 17520,
+      "sha256": "ef88ddf04a38291e8694f2b4af6f027afad351f85e33d365a2c39f2a833297ba",
+      "gitBlobSha1": "def4e723d4395af5d7c35deb5238d695301f14b3"
+    },
+    "game/src/cities.js": {
+      "bytes": 31577,
+      "sha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+      "gitBlobSha1": "76a4318566116158a155302c56b17e0ff6daa93c"
+    },
+    "game/src/cockpit-displays.js": {
+      "bytes": 15676,
+      "sha256": "27b748de131baa24e1ea9089e9e836a49e25c32472d92aa35130ef188e5aed53",
+      "gitBlobSha1": "e3f7b65a94ec8c300d7783121ca505da873b4e38"
+    },
+    "game/src/covered-road-models.js": {
+      "bytes": 17972,
+      "sha256": "d18b168e09f4c5327160b3bc7c7a5acca4bb24d9d7e7d705633850a0ba0352d4",
+      "gitBlobSha1": "fef5c3551e0f70d5837d4422c03b4a3d7f56f234"
+    },
+    "game/src/crowd.js": {
+      "bytes": 33301,
+      "sha256": "e674c3ac0b207ae4e8ee0bc083851d02abc93f8df3333694e2cad9bd40a93257",
+      "gitBlobSha1": "3122e1d89fa430a2aa37950804f4e8c0bdbf8c51"
+    },
+    "game/src/data.js": {
+      "bytes": 45403,
+      "sha256": "1ac151b4e8114a5a41fd8f2dfb89e5d9440b9cb09073ef666cd25e8a2a85f02f",
+      "gitBlobSha1": "0e8e30b2ce7d4d407f16b0baea614fce3021b57b"
+    },
+    "game/src/drone-boundary.js": {
+      "bytes": 8205,
+      "sha256": "85aa59ed69fd380d4fbe93be315b47ab8c66f47e0e09da26291321842f3caea4",
+      "gitBlobSha1": "6d85060101d952523ac3333e7ecfa1c9b6c18201"
+    },
+    "game/src/drone.js": {
+      "bytes": 52025,
+      "sha256": "adebeb686c17fb03116d31246161405f517bc80dc58fcc1e1c58d4f85bcb726e",
+      "gitBlobSha1": "58298d396d78398d40f14c8c9dde674204b5a256"
+    },
+    "game/src/explore.js": {
+      "bytes": 34374,
+      "sha256": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993",
+      "gitBlobSha1": "9bcb57d9604a6990dbd9909d92cac392cc80fb63"
+    },
+    "game/src/finale.js": {
+      "bytes": 7899,
+      "sha256": "6dd47d7336285e2ca9d92e553f6f5e64080844aaf9f2883012abfcc7a327e60d",
+      "gitBlobSha1": "1d1d343aeec2b5a63e0189354df765f65cdc1057"
+    },
+    "game/src/flight.js": {
+      "bytes": 14662,
+      "sha256": "e5b5a05691a3abbd684ccbd20e11e5c1370ff71bb0a540d8483045bf42f3b544",
+      "gitBlobSha1": "2d0c4306398bb528a3fb2a55552edd053cdc55f8"
+    },
+    "game/src/football.js": {
+      "bytes": 11197,
+      "sha256": "0fea24f051593185b93c8457c27ec13af2344ba34b442115f3472a662317df7f",
+      "gitBlobSha1": "8e7ae9468ca005b0f6112160a96bdb522aefb75e"
+    },
+    "game/src/geo-ne110.js": {
+      "bytes": 71470,
+      "sha256": "6d9c86444680f5007b90d41e7a5d93a2d1f081dcc556b665fcbcb9cd0ecf8f36",
+      "gitBlobSha1": "4eebb83056b2a0dd7390ffb18ca69b0e187909a3"
+    },
+    "game/src/geobuild.js": {
+      "bytes": 11773,
+      "sha256": "28e535a8934df3d3d249f13180ce04db1b86d47318530e74344a532a2a0fb2d3",
+      "gitBlobSha1": "019256fa43d1b71074e2b329001445da9502b587"
+    },
+    "game/src/globe.js": {
+      "bytes": 49496,
+      "sha256": "6b5eae150fdf803a81f9b3696def2dd8e26d2c846c73b2aeb16c22e6b40d76d6",
+      "gitBlobSha1": "f5c4d3572dbd171149dc15810a79b887746eed03"
+    },
+    "game/src/hud.js": {
+      "bytes": 9532,
+      "sha256": "8ee4cbc9e0aea279a72a0f923e7554cb8115d7fffb9c9820ed08d7e0b39beb18",
+      "gitBlobSha1": "41d6baf38c1f56ad74044d2cbac54570cb97adaf"
+    },
+    "game/src/initial-ordinary-source-span.js": {
+      "bytes": 6773,
+      "sha256": "7c5ffffaba6a7b580345f03bc995d4b864e9b08ae9bf3daf0c422f4418b262d5",
+      "gitBlobSha1": "bf7dab33ea7beb513f9071ba033d1b9ae40f73bd"
+    },
+    "game/src/initial-traffic-admission.js": {
+      "bytes": 15243,
+      "sha256": "9127e5f269894d531a99d21921fc2083e360a256fc57b10c27e0fe9247fd35a8",
+      "gitBlobSha1": "3f185c26a46cc529d19f003755c4f288ab03fe32"
+    },
+    "game/src/initial-vehicle-admission.js": {
+      "bytes": 16785,
+      "sha256": "f1a27dea11a127e4becc9b718d68a2b73dd2e3afc03beaa49c0156ec189e389f",
+      "gitBlobSha1": "39bf42e32d8a455d4bdf5e43b19ff3dfc6bd7c76"
+    },
+    "game/src/input.js": {
+      "bytes": 16982,
+      "sha256": "e14ff4e1be7dbbfaf7cb07395340515e01820ab36cba24a40d60001ff5511d00",
+      "gitBlobSha1": "128fa6a5abd9d67fb14deca595005907ae06a6d0"
+    },
+    "game/src/landmark-cec-source.js": {
+      "bytes": 4423837,
+      "sha256": "4891822203ad126ab75511e2196965848db37cfdfabadef54b13cea4ffbe4356",
+      "gitBlobSha1": "e50eb7da6e467ff49544684f368977e11801412d"
+    },
+    "game/src/landmark-otp-roofs.js": {
+      "bytes": 2635,
+      "sha256": "f071c4b256efe77dae8eaf64e0d4c2a04af9f01b4447686bd2cd91f77950b8a6",
+      "gitBlobSha1": "a3395cde447367a67903ecdb55d1bdfef6a50c9a"
+    },
+    "game/src/landmark-pitch-paint-coverage.js": {
+      "bytes": 61263,
+      "sha256": "db48ecb69657184e42aa165909396f09f0e3185e6f7375968188121770a4fa8c",
+      "gitBlobSha1": "886cd7ef7370d2e3b419fd3ebb5a4a2f6a51d792"
+    },
+    "game/src/landmark-pitch-paint.js": {
+      "bytes": 4017,
+      "sha256": "ebbbe0aeef06a63d5a737452c316a4cd94a0ac6e962354dea089d56bf87c6ed5",
+      "gitBlobSha1": "01fdaa16dd81b9cdae931dc5db4563e1e9c26356"
+    },
+    "game/src/landmark-seatac-aircraft.js": {
+      "bytes": 1077,
+      "sha256": "23bd2be82947f78042858f2632a0f41a76ce30fe606fc3150d6c1ad08e51d1c5",
+      "gitBlobSha1": "16bae504e47599326341b8539b30d64799dbb453"
+    },
+    "game/src/landmark-seatac-structure.js": {
+      "bytes": 13621,
+      "sha256": "babdf7e471ad949ca982a737701280785005a950b18227205bd047d32e418bb5",
+      "gitBlobSha1": "fe63a77908d776da7c667712a226d599b1df1ab8"
+    },
+    "game/src/landmark-source-identities.js": {
+      "bytes": 17931,
+      "sha256": "4f93c8853d3f1ae65badd1940f4f7286bc6538353defb94a0268f7fed699adfc",
+      "gitBlobSha1": "13dbd95f408aa802a88015ec07d6ce67a45c06e6"
+    },
+    "game/src/landmark-source-masses.js": {
+      "bytes": 259389,
+      "sha256": "b5009b0f96ee984cc674793d7170a5c49763fb91d87e168c2847c1218d68e2b9",
+      "gitBlobSha1": "e38acfa1755a65cb72fa7f838ea51f5b0604a362"
+    },
+    "game/src/landmark-us-geometry.js": {
+      "bytes": 1606,
+      "sha256": "5314a5e92a86b9a9612c3de013927a5d281d0c051944562347d39086930848aa",
+      "gitBlobSha1": "8fffbc686a03b4cbcb27490de5c96eeb09b05617"
+    },
+    "game/src/landmark-us-source.js": {
+      "bytes": 52555,
+      "sha256": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888",
+      "gitBlobSha1": "f79850a0a80f6756fb7ad427dab62462c9a617f7"
+    },
+    "game/src/landmark-us-terrain.js": {
+      "bytes": 27790,
+      "sha256": "cfca62d53bfeaf34f736b6ce345045dbbe50337544111fb6b676c4d237042879",
+      "gitBlobSha1": "4bec5dc62d49afd1960f0caa5fd8fb1a177ee2d6"
+    },
+    "game/src/landmarks.js": {
+      "bytes": 360495,
+      "sha256": "fbdc052efa8b3fc889eaece471a3d4405267f70cc1ffe5ecefa938a404c430ec",
+      "gitBlobSha1": "9ff68fbeaaa5d860fd429596c58e061f99dd7708"
+    },
+    "game/src/main.js": {
+      "bytes": 217409,
+      "sha256": "9b5d9c1637e6fe682a1b7d3e5990c8a7bad46a9a2ad09b89e5fafeb7033499e8",
+      "gitBlobSha1": "a2b677b7eca9a50519263d7d4393bab3502e9d87"
+    },
+    "game/src/map-place-actions.js": {
+      "bytes": 856,
+      "sha256": "eb5749a020fed4b6967fa7222a97abc512d304ea8cb9d56022ec58e0afbcaf63",
+      "gitBlobSha1": "8a4fe7be54e3ce8ead50757ac275fef8fc66cdb4"
+    },
+    "game/src/minimap.js": {
+      "bytes": 27506,
+      "sha256": "cca958895b0b56e9c3819fba0d89752458482a37227e49ed2ba52ad5639c691b",
+      "gitBlobSha1": "cc81862dc542fe7b2be5e91a1f8a54c1c69632e0"
+    },
+    "game/src/nav.js": {
+      "bytes": 33276,
+      "sha256": "7d1553ad46fa656ee7773d82bf5ef9b8a2af4bb0fb29d8c0131ed9154bac8617",
+      "gitBlobSha1": "59ee41e7892c736edcaf524c198cae73ecc50ea4"
+    },
+    "game/src/office.js": {
+      "bytes": 55553,
+      "sha256": "a56fed9898f03633930afa6e724421c888d30dd040d5d4d3b1bed9880d359166",
+      "gitBlobSha1": "55c06d23aae9be46ab78226bb6983b3771d57e43"
+    },
+    "game/src/onfoot.js": {
+      "bytes": 10407,
+      "sha256": "870d0294232fb2b1e11af42906da780bd6d8a34604179ca9de657da1d08848f7",
+      "gitBlobSha1": "eeb4ddfd015cad895855424801a24a089f761af6"
+    },
+    "game/src/parking-layout.js": {
+      "bytes": 4374,
+      "sha256": "b5c127c33e1c80e72a6cece698f831949ad637498ed7d7beb1252f30c6b4f0d9",
+      "gitBlobSha1": "d0bc72c01780d4d3b14afd064dff6b6674fb71e6"
+    },
+    "game/src/photo.js": {
+      "bytes": 25243,
+      "sha256": "c8f18e59bab5e264d779dea69bef2668aff5d626e677edefe62869d9b744b13f",
+      "gitBlobSha1": "27a9e8387174d7f1f6abe2ac8d5f39ed4a5cd288"
+    },
+    "game/src/player.js": {
+      "bytes": 36868,
+      "sha256": "543faf7c4dab9ff9f50d2933586965652376b9b2f1f1fa172d550b2030882a2e",
+      "gitBlobSha1": "54d8dff003d6cb075365da1765fdf9f57ef3cde1"
+    },
+    "game/src/progressive-pmrem.js": {
+      "bytes": 3571,
+      "sha256": "4b306f8bb4449be00c9dd654e7da6ba6607fec581d3a4360e9f772e11a2306a1",
+      "gitBlobSha1": "ef04ac9e7acf7f20af8afbbbdfd51f1d937ef288"
+    },
+    "game/src/rail-roadside.js": {
+      "bytes": 10927,
+      "sha256": "2bb1b3ad5fc4827c2dad1479f59669cbdd13cfc48b7fc79af050a73d30515ed3",
+      "gitBlobSha1": "64f9bdf4c6d879a4f75f6fd47e99079c5e091c00"
+    },
+    "game/src/render.js": {
+      "bytes": 102941,
+      "sha256": "2447c64f02a29fb643595a66261badcb5254ff10320cc8f3c6c471fb2a17ae1a",
+      "gitBlobSha1": "3f5a0406aea830d83390c28ea949530ff670a566"
+    },
+    "game/src/road-access.js": {
+      "bytes": 3078,
+      "sha256": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee",
+      "gitBlobSha1": "1f99a36bd638ffa0ff9db7c95791ccef32deb502"
+    },
+    "game/src/road-joins.js": {
+      "bytes": 1077,
+      "sha256": "5836ac682164076ddb8e5ef46b25977b870761f7b69623f8b5df454b67ab5a33",
+      "gitBlobSha1": "9145f71412b34d19a50d6cc3004f1880349b0d0e"
+    },
+    "game/src/road-markings.js": {
+      "bytes": 5564,
+      "sha256": "125cad359f40e3ea0e0d8456f243fcc805065d7583220278836c2e29134732d1",
+      "gitBlobSha1": "46f510c3b0394b4c915688a43670e68fe75fa0c7"
+    },
+    "game/src/road-widths.js": {
+      "bytes": 4790,
+      "sha256": "c965c1368db011832786b39f0809d704c09880749dc161ddd09cd6e3d0d48b7f",
+      "gitBlobSha1": "6f2bf5df35d828828e21440a73748f3ac18a31b1"
+    },
+    "game/src/save.js": {
+      "bytes": 21470,
+      "sha256": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc",
+      "gitBlobSha1": "28412900dc376d32756da72937c77406abb2ef3e"
+    },
+    "game/src/sceneResources.js": {
+      "bytes": 2956,
+      "sha256": "7f1cf9c55cbfbfa9cf9df4438de27a49ece7b765bb34ba478757024183f5c809",
+      "gitBlobSha1": "6306e780bec2c1e113eacabba6f2630ae015f1a0"
+    },
+    "game/src/scenery-bridges.js": {
+      "bytes": 18165,
+      "sha256": "88330b555975decb91ab1ffc79bcbd377d007f83ab20580a043ad0423252a907",
+      "gitBlobSha1": "685a2a7aab1a9b398beb66e9d26d7e965fab5dd6"
+    },
+    "game/src/scenery-source.js": {
+      "bytes": 2817,
+      "sha256": "c00801c1705325e205bd00fbcc223c16391661f58669514516753621e19b6ff2",
+      "gitBlobSha1": "61dc24242cd209248cf1b54b53ad2c672c7db2c6"
+    },
+    "game/src/shared-lanes.js": {
+      "bytes": 10175,
+      "sha256": "0581d1f237c0b371843e3c7f7af0c80cb5b14bf3794148905ec1948c8255b4e9",
+      "gitBlobSha1": "d2cf35401f97cf8ad3065f1418e8f78fcb16b1d7"
+    },
+    "game/src/sidewalk-source.js": {
+      "bytes": 3470,
+      "sha256": "d7a37535e91da36b9e383fd609f969d4205dfd427681328caa6a8adf688c9c82",
+      "gitBlobSha1": "e6536a311a6e956b78a2c6c41b0278c4ae6e6e20"
+    },
+    "game/src/signals.js": {
+      "bytes": 1577,
+      "sha256": "47b7dd7a016a3e48faf9f2348121bd8c1e280d7b07fc7acd27103ab39a29b1ac",
+      "gitBlobSha1": "228871f67d3d1365cbbc3465fdb0003fe6c04c6d"
+    },
+    "game/src/source-tree-centres.js": {
+      "bytes": 642,
+      "sha256": "8eb56bfa815c80da5c2a74866ee04789309b9d0df84dc95f40c1b3bed530277e",
+      "gitBlobSha1": "d3dd0f3f999c413012cd01075d435c7583fb7027"
+    },
+    "game/src/spot-availability.js": {
+      "bytes": 1341,
+      "sha256": "27cdd80e77de286dd0e1aff6caed00976110614634251f031fe40771cb74b059",
+      "gitBlobSha1": "9a8c9dfb4eeb14ccbaaa66c246d63d4a7fdd4e98"
+    },
+    "game/src/spots/README.md": {
+      "bytes": 13981,
+      "sha256": "8aa76828e82bcbc613cc8ed21a50d7bc38bea53eb801df06786f9d7d297452f1",
+      "gitBlobSha1": "b893cdd254e5ae96f2b3a6864510f7e4d2665b33"
+    },
+    "game/src/spots/backdrop.js": {
+      "bytes": 8307,
+      "sha256": "263637b1ec0dd171dd1c3ffc92846c66a0a859c609daf4f8d652a711e982c2c7",
+      "gitBlobSha1": "23be14ebf4b20e2e050810d8e236401335c683c4"
+    },
+    "game/src/spots/bike.js": {
+      "bytes": 10924,
+      "sha256": "0fb51793b9cba6cfbb3454c842b7bce4ffe2e1ac40dc8049313faa51b9fe179b",
+      "gitBlobSha1": "17507f2fd2393ea531b865c9d9b7505472ca4787"
+    },
+    "game/src/spots/buc.js": {
+      "bytes": 57223,
+      "sha256": "a3bc1af2b957edf41099574c79bc05a56fe443b56156ce5d81461daafcde741d",
+      "gitBlobSha1": "a74321c28458005434504b43542e646baf7e6d40"
+    },
+    "game/src/spots/candle-light.js": {
+      "bytes": 4201,
+      "sha256": "779e0a236692496c744e89ce89000f7b41effd7b08a2ee2dc8391daae4248262",
+      "gitBlobSha1": "a8ea32f1ae746bfefabf9e774bfe33579caf4b43"
+    },
+    "game/src/spots/cars.js": {
+      "bytes": 8064,
+      "sha256": "b9f617e5c0b3909a185085c6bd2444e22e91e237198ba9089d26a48d91fa3ece",
+      "gitBlobSha1": "cfe92861e37107fa5d1918896d69230e6a7806a3"
+    },
+    "game/src/spots/chess-opening.js": {
+      "bytes": 3562,
+      "sha256": "b9853f70194c5a93f15eb65aeb8ada26e956c7a2dd89c1ea608673dac94ec0cf",
+      "gitBlobSha1": "d0d2ec59550937f0234b7bdef33c73a5e6386206"
+    },
+    "game/src/spots/coin-drop.js": {
+      "bytes": 2785,
+      "sha256": "f2d113a95f53ec8cc1f28ed45b3467eafee3f11672a211c45e6767b095ae6c7c",
+      "gitBlobSha1": "e484ea9650a853b519b5a9351818b64be119cf86"
+    },
+    "game/src/spots/ground.js": {
+      "bytes": 30736,
+      "sha256": "b9b80a4262b3d802c3e0054794812095dc601a69d7691de8ab0e6b9927065433",
+      "gitBlobSha1": "bb392f4d2fe20d8fa8d9f50f0c9cee5dcaea71ba"
+    },
+    "game/src/spots/index.js": {
+      "bytes": 85580,
+      "sha256": "a9c1b2d8c9b2c3542ef4a1b6d6299cf87432984f0de69c8e26869db1324032ef",
+      "gitBlobSha1": "90fb55e4ad6c9be54aba9c7a4af9f4342d40b32a"
+    },
+    "game/src/spots/kit.js": {
+      "bytes": 25207,
+      "sha256": "382f5353be67766e36183babd4a321dc4e709c709429167fc461968a033cffcc",
+      "gitBlobSha1": "0133ca04ac1e15ab79cf53e269a1e984c21dd488"
+    },
+    "game/src/spots/landmark-colliders.js": {
+      "bytes": 822,
+      "sha256": "3cc9d9a55cde442e481eaf94bacb85ce8477749a141d657a7a5f80f33db7bd70",
+      "gitBlobSha1": "c843b640cf00104d750f98499e9369ee486204f7"
+    },
+    "game/src/spots/osm.js": {
+      "bytes": 64287,
+      "sha256": "c678348f28dba835d35b7e427d3587d57005a8a4f35beecc22eebeb7a8bcfe0d",
+      "gitBlobSha1": "36ad19fddd7bb4385b3239c2f1f3097e0711371f"
+    },
+    "game/src/spots/participation.js": {
+      "bytes": 6078,
+      "sha256": "9b35fb1d85643c2f729dd573bf247b164368b4d1e46d057e3ba651165e96f831",
+      "gitBlobSha1": "84fbc123d99a31e327c5b067e83597618cfe1700"
+    },
+    "game/src/spots/people.js": {
+      "bytes": 41090,
+      "sha256": "ab60f1a4f6d44c537b1727b332eaa9f0c68b1c436cd55cecd7171fbebb323338",
+      "gitBlobSha1": "d346aa71665c4cdb76a0d914f2bc18dfb28d79d0"
+    },
+    "game/src/spots/photo-hunt.js": {
+      "bytes": 6210,
+      "sha256": "a5852148f76272a601e491cd56b1fa524b9a1b04fe697e82b5680e93f3a42462",
+      "gitBlobSha1": "a17c9db34795ccce0d935d21753e1d7a337079a1"
+    },
+    "game/src/spots/props.js": {
+      "bytes": 32444,
+      "sha256": "3511b4e65b284df7a939189893c78f9f2126fde7556a8b8a6f1de027aca902e5",
+      "gitBlobSha1": "0ab0e624f4b694e74f4a628490389c094c2b0ac6"
+    },
+    "game/src/spots/scenes/arcul-de-triumf.js": {
+      "bytes": 11312,
+      "sha256": "eb39b2462fc55dbac23c799c151137e9f703483062f10a75148aa75ac5521925",
+      "gitBlobSha1": "d8d07575535d4208a9d27de484f0204e645a3268"
+    },
+    "game/src/spots/scenes/athenaeum-revolution.js": {
+      "bytes": 16584,
+      "sha256": "3b25c24129a903acabfdfb6259bd7874b7e012d8380a628a5600cf5fe7409c4a",
+      "gitBlobSha1": "2e0a0dc6e281b0eb96f69531cbb00830709d593a"
+    },
+    "game/src/spots/scenes/ballard-locks.js": {
+      "bytes": 17791,
+      "sha256": "a31f33db47739348ea371029eed186667502b37ea94f5b77fce115b11341a116",
+      "gitBlobSha1": "0ea554b78682c3427a883d930d5be9673324cf7a"
+    },
+    "game/src/spots/scenes/bel-botanical-garden.js": {
+      "bytes": 21134,
+      "sha256": "c9f2da2e49026e7df8813fb57bcd01244f79ab2af710051684ebbf18e87e8eda",
+      "gitBlobSha1": "cb86b42f1195e0b9901ebf8ba8f653260bae90fc"
+    },
+    "game/src/spots/scenes/bel-common.js": {
+      "bytes": 22002,
+      "sha256": "4e750a6845b41f25b05c6516ba6bbef0fcc00d0184777ea01be3c010c8610ae3",
+      "gitBlobSha1": "d295efccabb0e7ced0795d25ae07ef393d91cc54"
+    },
+    "game/src/spots/scenes/bel-downtown-park.js": {
+      "bytes": 31147,
+      "sha256": "a0a8731d95eeac3d5752381e26eeb603650285d52486c9886ebc07299225fb75",
+      "gitBlobSha1": "428ff4162e502772b050de688d1a81530bb61618"
+    },
+    "game/src/spots/scenes/bel-lincoln-square.js": {
+      "bytes": 12050,
+      "sha256": "66b77149667fc526c177bdcb9a35e5a80d19a468b482f7c3ef9699196937e46b",
+      "gitBlobSha1": "3dee63401f1880034a63d5fa47083c757b8bab95"
+    },
+    "game/src/spots/scenes/bel-meydenbauer.js": {
+      "bytes": 42751,
+      "sha256": "2b584225b92b6a2afb9fc76ff49bd2401d2d07d900e5ac08458c65e016fdb509",
+      "gitBlobSha1": "529fa76d2668a0a5a94d301077cf59b6dbee3b3d"
+    },
+    "game/src/spots/scenes/buc-herastrau.js": {
+      "bytes": 36672,
+      "sha256": "34016f415429c13de696439ffc23071b168c0d9d0e8278c3a8301aebe9ff0eff",
+      "gitBlobSha1": "58a16063b6f0e21fbbd56b92f446579fdc81bb13"
+    },
+    "game/src/spots/scenes/buc-old-town.js": {
+      "bytes": 61460,
+      "sha256": "937ea499e5fd3116693afb7faa7025acd9ca11829f9eb0a53ce0dd472355c462",
+      "gitBlobSha1": "50b72ca8b598ae8e7763cd78e8ceaedf292706ea"
+    },
+    "game/src/spots/scenes/buc-parliament.js": {
+      "bytes": 43249,
+      "sha256": "3812f35188fe2d5a9ebf199dfc2378ad4751612136ad1210c482ddc46934115f",
+      "gitBlobSha1": "75cd3429a55a021465cae5644daddea1d546beac"
+    },
+    "game/src/spots/scenes/cismigiu.js": {
+      "bytes": 22201,
+      "sha256": "76a8ad5fddba0d399017fb077330841c2240cbc5ae70081a7b978e80b93415f2",
+      "gitBlobSha1": "c917a053871bb972a12f113ed5a51e453c26ae79"
+    },
+    "game/src/spots/scenes/dinamo-hint-tv.js": {
+      "bytes": 3316,
+      "sha256": "c1dbe2057ebb1fedb92a5c72adf409790f08806606b36e6996d0ff1b254ab8d8",
+      "gitBlobSha1": "6a44cb0d4338dc2b6887847e5b6d581cec809979"
+    },
+    "game/src/spots/scenes/fremont-troll.js": {
+      "bytes": 43895,
+      "sha256": "9b6061ea59ad0669b68a41c092d1bf2937be86dd21849cc8de3d649139c61369",
+      "gitBlobSha1": "05f184f448fb95f00c6637b82ddb2ff7e6fcd467"
+    },
+    "game/src/spots/scenes/gas-works.js": {
+      "bytes": 20411,
+      "sha256": "c1252dbf3ed3b000700fc84b60915656857963bc8e500ca808561b110755989a",
+      "gitBlobSha1": "8d96a047420963430987b007035ebca589345400"
+    },
+    "game/src/spots/scenes/kerry-park.js": {
+      "bytes": 11595,
+      "sha256": "83f484862774a061bfa9ff872fd40b45ddb6451e2ca48203af15d22669975901",
+      "gitBlobSha1": "5d9f0339bafcf54e0091f9b323b491ac9095405b"
+    },
+    "game/src/spots/scenes/pike-place.js": {
+      "bytes": 44296,
+      "sha256": "66676a0270e63bee10def35e0130067d64a17c0af0814e291a66a3f7a19c6787",
+      "gitBlobSha1": "8fc4c02623ef6ceaeecb8fd65dfa4f22d1d9dafa"
+    },
+    "game/src/spots/scenes/pioneer-square.js": {
+      "bytes": 19981,
+      "sha256": "eebc54feb03198f589d7598063ec137b0b856fa89547d35cc5d466ed9574e543",
+      "gitBlobSha1": "2381bcd3cf6a1a976fdf162c37ba848dd9062a9e"
+    },
+    "game/src/spots/scenes/sea-common.js": {
+      "bytes": 71323,
+      "sha256": "224610b98e998d2a124f066b9b190b607caaa7e157cd447e7afb9268998b0585",
+      "gitBlobSha1": "4da2b50b1532c1d25448094e2f549fea0429a23b"
+    },
+    "game/src/spots/scenes/seattle-center.js": {
+      "bytes": 42787,
+      "sha256": "93b3a5c52d4558841abd75dc8447dbc200c8b782a421be3a3232ddbcb85b1592",
+      "gitBlobSha1": "a053c5dd2cb15182ff49307f325670a305b53a4d"
+    },
+    "game/src/spots/scenes/spring-palace.js": {
+      "bytes": 17966,
+      "sha256": "a43a9dd6dcd739debfcfd17b8ce96d3d7ea0a782d5a19f07dc0d5246aeee8c88",
+      "gitBlobSha1": "fd6b8788420a711318e5e75348d95dba2701bfa0"
+    },
+    "game/src/spots/scenes/waterfront.js": {
+      "bytes": 14016,
+      "sha256": "fdfaf185454b32efac9e631043f221a0712c36a8f25981953828ced912efc0cf",
+      "gitBlobSha1": "4837a6b8c97b81385be19502daf13f15cc53c522"
+    },
+    "game/src/spots/scenes/wcp-secret-bar.js": {
+      "bytes": 23743,
+      "sha256": "c298b4063de196db9666d55bfbafd3524fb4b40fcf581979ca9d66b5a087f12d",
+      "gitBlobSha1": "6a5ea4680b48d975d5de01e4bb2df47370d71748"
+    },
+    "game/src/spots/sdf.js": {
+      "bytes": 12595,
+      "sha256": "742037ac8d81781aa775dd43f74a6f1e0abc0d6493981538df355cdc6f64cb49",
+      "gitBlobSha1": "50faecef40103dacee66ba97f9ee186601710c88"
+    },
+    "game/src/spots/sound.js": {
+      "bytes": 8786,
+      "sha256": "7e24d4c27e80fb9c9e2190d001c4bc59b44a3e3c4402e06aee6b79b236858817",
+      "gitBlobSha1": "fd351649dd496b2c383ab6c35d67b8ba84f401f2"
+    },
+    "game/src/spots/source-buildings.js": {
+      "bytes": 13757,
+      "sha256": "4d51ef45abbedb9f4b04627cb97c4b388ccd332e1737486005d4a327e2182362",
+      "gitBlobSha1": "8f9b9cedc0b56727ac9c6a9fdf71e248a9ff1351"
+    },
+    "game/src/spots/source-landmark.js": {
+      "bytes": 776,
+      "sha256": "bad4641e649dc25603ad9df16bc0162c2a34d3f727963cc1171dc6d1a0d724fa",
+      "gitBlobSha1": "378c94ba04cdf328705024078c16636ee822164b"
+    },
+    "game/src/spots/stone-skipping.js": {
+      "bytes": 3621,
+      "sha256": "c27ba42cef47f6128eac7d88b428fe198a8e193f3aae7a057f22e73930485d3d",
+      "gitBlobSha1": "4dace1214ba454cb5b7b181712bc16218b10a6fe"
+    },
+    "game/src/spots/tools/apply-part-relations.mjs": {
+      "bytes": 1403,
+      "sha256": "53505918a8aa25e4e13856a9acba5e6391192fd11c0319919dda293a387d6da5",
+      "gitBlobSha1": "2c33fa98a0939ac730fd65335862749ad6caee34"
+    },
+    "game/src/spots/tools/build-data.mjs": {
+      "bytes": 24443,
+      "sha256": "79d287ffce5508323894d993a07045883dd27b8b4dad31b0b33941767b86bed2",
+      "gitBlobSha1": "6e7a1050963c81ef0c42b0c0700b520d728ded73"
+    },
+    "game/src/spots/tools/fetch-buc.mjs": {
+      "bytes": 16328,
+      "sha256": "ecb32a093275eb126c4e79c524cc0e1e9bbbb14e33862287343461115e6500b3",
+      "gitBlobSha1": "12b694801be05103529ea144ceb1a28c5b948fb3"
+    },
+    "game/src/spots/tour.js": {
+      "bytes": 5761,
+      "sha256": "8efaccae3696441afff7a901f93e0db6187c1c6a1aebbcbaa24dcfa2e5b6b9dd",
+      "gitBlobSha1": "4d7a42daa98b91494e0e33812a66db25d564020a"
+    },
+    "game/src/spots/ui.js": {
+      "bytes": 29469,
+      "sha256": "65f78bad07cf6ac65b427928fefb079f988a3cb510ebeef2abd10eef6896fc87",
+      "gitBlobSha1": "53af951944daf6333350ec4ab60478f4c6dfe713"
+    },
+    "game/src/spots/venue-activities.js": {
+      "bytes": 14466,
+      "sha256": "9618aeaa726bcdce18a488a7960323ac695f7c010fe009ca8e8e74b66466344c",
+      "gitBlobSha1": "6a4c8c0d059513383c631f03186eeab78898fe76"
+    },
+    "game/src/spots/walker.js": {
+      "bytes": 9483,
+      "sha256": "d40b53c0c0acd9bc89989354e35ca72588aef507d44671f2e2597024086476bb",
+      "gitBlobSha1": "64aaf7a33f10845e7dd95a9dd13d41285aadafd2"
+    },
+    "game/src/spots/water-route.js": {
+      "bytes": 2468,
+      "sha256": "0c9421c2001c50156c31048e877bd9bcd99e2629d9c84f992bf5dbc18f8a7665",
+      "gitBlobSha1": "2b0748896d144a1d6caad7d26db078f3c509ab90"
+    },
+    "game/src/telemetry-game.js": {
+      "bytes": 13728,
+      "sha256": "bbe9df1036d7fdb06bd666027011d90a0d1c66fa322d32efee19130e933966ef",
+      "gitBlobSha1": "197b8fc8e8b35224996406c385994b3e9f596410"
+    },
+    "game/src/telemetry-health.js": {
+      "bytes": 19518,
+      "sha256": "05805123b81c5aa14649512c551a1a4d3eca76746e95d0c5b63c89362734c0f1",
+      "gitBlobSha1": "f80782e3d741ea167175c9dfe67e2fee845f2b0b"
+    },
+    "game/src/traffic.js": {
+      "bytes": 250909,
+      "sha256": "d6be84871ef506efc27dd03414b0a92a7b0111b575e4d7862a06afde7004d125",
+      "gitBlobSha1": "ef2075d810a08d6a9dcd90f971a23fdf69bf7d9e"
+    },
+    "game/src/tram-body-support.js": {
+      "bytes": 14348,
+      "sha256": "50b3d9042c3ffefb6be204e5bec2196303877ad4112a965b396d04b6c91c5813",
+      "gitBlobSha1": "2e223baca9a5d3f7bbe8d79455ae206a6880c796"
+    },
+    "game/src/tram-clearance.js": {
+      "bytes": 1795,
+      "sha256": "6d778dd69fe40a9a15b822cfa6b162d0d36c8114d30246c6feef75148fa26ac2",
+      "gitBlobSha1": "ccb2f7fc13799a8040f5673dfbadf5a965241f29"
+    },
+    "game/src/tram-grade-models.js": {
+      "bytes": 1967,
+      "sha256": "bc2f44e47e3b1988d18d7f984380193e2c7e1ad179f9461fbccfe60ccfecd461",
+      "gitBlobSha1": "b37c6956418424326c4b53002c945af7ed8a192b"
+    },
+    "game/src/tram-grade.js": {
+      "bytes": 25610,
+      "sha256": "ed1be415cca838bd3be8aabf18bc08b038357ee4eecc36a8c81f69114ec18cde",
+      "gitBlobSha1": "717b8fcbc4d7e621e80266f7468a515cea3ffe44"
+    },
+    "game/src/tram-path.js": {
+      "bytes": 21599,
+      "sha256": "f296931a093085aa8e2d9409e462192316c6f09e7ac649dda207405385851ca4",
+      "gitBlobSha1": "181de7604af669cf5fc9f75566fb7d74fc936294"
+    },
+    "game/src/tram-source-signals.js": {
+      "bytes": 11556,
+      "sha256": "49374a21c5b3be4331221f72fdc0adccfa19c245aed5ae04099fb714fc224390",
+      "gitBlobSha1": "a9874a095699fbaf16f645478428623e412fbd42"
+    },
+    "game/src/tram-trench.js": {
+      "bytes": 6044,
+      "sha256": "755b4ab3acdf101182bcc4eccf9486289f7346b7e6d58fb4c81f92669ad8a018",
+      "gitBlobSha1": "77495991eb26bdfea5bc95f150a532d54322e689"
+    },
+    "game/src/tram-tunnel-grade.js": {
+      "bytes": 12187,
+      "sha256": "29e198ae6f04a3fc97b3fd1db7fe01891f86b44444c2e398afd58f41b67ef2de",
+      "gitBlobSha1": "3e7ddf0b614e377f74fa0f4a57b54b180fb3ff32"
+    },
+    "game/src/transition.js": {
+      "bytes": 12636,
+      "sha256": "35e0f270adb35d2462cf3a153ba4deec243d8537529520684b57198a56cda593",
+      "gitBlobSha1": "5d65847a039f7f725b70397d91258d71128d7e52"
+    },
+    "game/src/trees.js": {
+      "bytes": 19969,
+      "sha256": "2ed3d20166bd5603098c84d82d4268fe771cea8d73c75608ce45f619172dd55c",
+      "gitBlobSha1": "208863ca67287233eaa6eeb05f08b9bfa98272a1"
+    },
+    "game/src/turn-lanes.js": {
+      "bytes": 4090,
+      "sha256": "0911880d096c4efe126fc4f53a7df1559d8f6ee01cb52635afeb939648dece54",
+      "gitBlobSha1": "b1ffc4757367ef75f8f04c7f4c1369c9ac6e9e16"
+    },
+    "game/src/util.js": {
+      "bytes": 11132,
+      "sha256": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5",
+      "gitBlobSha1": "aa71f2d8f078b8490e7b3c2746eb4168435534ad"
+    },
+    "game/src/vehicles.js": {
+      "bytes": 125523,
+      "sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+      "gitBlobSha1": "386822bedb372299ce8cb6fd08357b56134f7e6a"
+    },
+    "game/src/water-batch.js": {
+      "bytes": 5971,
+      "sha256": "cd1a0fb7e59ff1c621eadc77acbd58c61d81cce09c5dbf9b74125268b41b5543",
+      "gitBlobSha1": "b09723b7d3edc1e40e8d79eeb9be611f6044240d"
+    },
+    "game/src/water-channel.js": {
+      "bytes": 1289,
+      "sha256": "b7a645b3beb86c3e74ea681e1a20c39a6675536243342cf1cdff0d8d86e70504",
+      "gitBlobSha1": "9d045335a24fc6fad86f70a87a30726fe395d914"
+    },
+    "game/src/water-lines.js": {
+      "bytes": 2907,
+      "sha256": "c69bea49df53096df5a19642b82ab7e087d8422c0f6824663ea7ba8a4508cc73",
+      "gitBlobSha1": "9f60027b2306e5aa3838459e9a4de9631be2aa76"
+    },
+    "game/src/water-shore.js": {
+      "bytes": 5369,
+      "sha256": "6705b456454df3ac85ada90a96ff66280706ad306de401dea25896b8d379315e",
+      "gitBlobSha1": "c37d4515018fb07d9cbc650aaa2decbadc4dc8ba"
+    },
+    "game/src/water.js": {
+      "bytes": 14399,
+      "sha256": "7a7cea86bdb0dc2cf135b95c9cd7aec81d16e8e48a4bf0b125449d91931df3ae",
+      "gitBlobSha1": "aa68e6924074a142ece1bdb996bbfe28a3a438e0"
+    },
+    "game/src/weather.js": {
+      "bytes": 28407,
+      "sha256": "a2bb0854d3fe3792f94ca9f3b2f2ecbdd9e61b497aca1d3ac5d51d02ec5875b8",
+      "gitBlobSha1": "dbe06b48ffa7e83f2e62f210127658e336cd341f"
+    },
+    "game/src/world.js": {
+      "bytes": 546522,
+      "sha256": "3459920978d9f3f1164b47c8277313bea15defba30e0046307b54718c4618278",
+      "gitBlobSha1": "bbfadb241dc452168b4494193b8baceb652eaf39"
+    },
+    "game/src/worldmap.js": {
+      "bytes": 38053,
+      "sha256": "cda4829131f34395b661cecf73564c08dc980ab10f9464d1c1f1ecd02b7b5f8b",
+      "gitBlobSha1": "5870d680b417f399c217effc7abd3f549906a738"
+    },
+    "game/style.css": {
+      "bytes": 96359,
+      "sha256": "ea4d224e7084a7aa4ecd0a368c5038102397d038bca516f1900a8e770d06185d",
+      "gitBlobSha1": "3afdde1765ca79073bb82012254f1ebcc6d67317"
+    },
+    "game/vendor/addons/CopyShader.js": {
+      "bytes": 571,
+      "sha256": "4e3346db194db56a596cd074e9bdb39fb5eb52040c333e0d29dc4eb1324d3b1d",
+      "gitBlobSha1": "8c3f2cd443cd4c96edc9c2c04dc760f374d954c9"
+    },
+    "game/vendor/addons/EffectComposer.js": {
+      "bytes": 4950,
+      "sha256": "73a2a9557141dff1c29bb5f2d53cb62905855a216b0181cd8dd42d6bc6cec87b",
+      "gitBlobSha1": "390aae6d792304315a68db1c482be292f1688e0b"
+    },
+    "game/vendor/addons/FXAAShader.js": {
+      "bytes": 6638,
+      "sha256": "fd04bb4db3b4895540dd6e6ccef1a9984f0097bef396d27d6fea7b15c66a06ec",
+      "gitBlobSha1": "2e3a8272165911091f19272ee207d605f3bb273c"
+    },
+    "game/vendor/addons/GTAOPass.js": {
+      "bytes": 16566,
+      "sha256": "c0d33b166deb459b3adcbb3b543b7d61763d4ab4fcc778641afbf1305d807ad8",
+      "gitBlobSha1": "48ee521eec10b885372536957de2649348111b88"
+    },
+    "game/vendor/addons/GTAOShader.js": {
+      "bytes": 13223,
+      "sha256": "82b24ca4a9cc99109b93994cb9ad8c23d1109ba94257a3af3335dc9e5111b187",
+      "gitBlobSha1": "a6b44e6752bfccd966044d3b9eba84c296c8a644"
+    },
+    "game/vendor/addons/LuminosityHighPassShader.js": {
+      "bytes": 1498,
+      "sha256": "e40b9e5355f66b6e7720c8b54472259481ab17e36ac24ba36eb871f723d21ee6",
+      "gitBlobSha1": "14f42726fd0930eb2ae4064bd6fe2c97b441fbb6"
+    },
+    "game/vendor/addons/MaskPass.js": {
+      "bytes": 2231,
+      "sha256": "328cf7db0da5d9be83ffe39d54b01d5ac1fddf108cc98182ddbb056f5c8b537f",
+      "gitBlobSha1": "b30811c8d4ca86d4adaa1e8b9050e7d776e138d3"
+    },
+    "game/vendor/addons/OutputPass.js": {
+      "bytes": 2532,
+      "sha256": "88b4010627926dce53480c3a8a230ed71a162e7cae1ce2ac419dfb7900160460",
+      "gitBlobSha1": "4fbb2fd4012f47a619fc5175ddb0927d4dc85da6"
+    },
+    "game/vendor/addons/OutputShader.js": {
+      "bytes": 1490,
+      "sha256": "4944cecd49c0d4d1520a4d927bde8a590fd43f041ee913252b9451855a01d0f0",
+      "gitBlobSha1": "289ac10088f0924fe0d8507d5c74e7f349bc5308"
+    },
+    "game/vendor/addons/Pass.js": {
+      "bytes": 1723,
+      "sha256": "7f988181feafe0831a9895c0e507e07b8128c87f115342e75efb452dd870873a",
+      "gitBlobSha1": "6c82c2911c3b5a027eac134acfaa89a1eb3fd04b"
+    },
+    "game/vendor/addons/PoissonDenoiseShader.js": {
+      "bytes": 6631,
+      "sha256": "9825bdd96780fab7a7a58111377032b666ca38974ad7fee223ab7cbb43cc7235",
+      "gitBlobSha1": "01fdc28ceafebc766a85fb67c807986af7b8c251"
+    },
+    "game/vendor/addons/RenderPass.js": {
+      "bytes": 1958,
+      "sha256": "359f12b05357a8c666baa65bba3ade4265845617ddd7dfd812bde0d4f3dcb2bc",
+      "gitBlobSha1": "7f7dfe9fb19813ac2f12966dba4466f0b141f831"
+    },
+    "game/vendor/addons/SMAAPass.js": {
+      "bytes": 49457,
+      "sha256": "2f4da7e1f78c8d39582e25dee185ab6df18c42d3f55ed5d43de5a89f9c8b0a28",
+      "gitBlobSha1": "089c17089dfc5449c3ee7f023b483a0c31c0a558"
+    },
+    "game/vendor/addons/SMAAShader.js": {
+      "bytes": 14645,
+      "sha256": "ff4de77e79b0c2d214e822da11c72311f6e4c7fd2a4befd7f0f05a7832284081",
+      "gitBlobSha1": "5d50de99464a93a4d900b37c5e2455a3dd8400e7"
+    },
+    "game/vendor/addons/ShaderPass.js": {
+      "bytes": 1593,
+      "sha256": "9cda38094c2cd1cf29ed0fe3cfc1b3229e3ca3758659617eba6fdae4107bc233",
+      "gitBlobSha1": "203dd79b22852bfa03a0f6eaca2d3d45b7c4e05e"
+    },
+    "game/vendor/addons/SimplexNoise.js": {
+      "bytes": 14351,
+      "sha256": "9b8d541b77b0ddc79afaa6a1de8941452c191b8b9006f04e7b8fc422e2b263f7",
+      "gitBlobSha1": "8ba26942ce9051346e875de367eab2ae4e5de324"
+    },
+    "game/vendor/addons/UnrealBloomPass.js": {
+      "bytes": 12409,
+      "sha256": "5d46047298729f4bdc7ccf1d673d091f7d60dd799918908049d1f6c3d4cda02d",
+      "gitBlobSha1": "71e1cce49bacd5ee5007899e5e5b090a2b85c104"
+    },
+    "game/vendor/three.module.min.js": {
+      "bytes": 691648,
+      "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+      "gitBlobSha1": "282d1087068fab752a7e59b65aaa61c8b0a4be8c"
+    },
+    "package.json": {
+      "bytes": 499,
+      "sha256": "41abc48889f79072f50629296b5df72f2d4968922e1870a25d6da86c81e12a84",
+      "gitBlobSha1": "fc0ad6e7028cc414e08d68ae621e4c1884ddbbc5"
+    },
+    "public/background.svg": {
+      "bytes": 1999,
+      "sha256": "b62be6bf4a9c616e5a82d461cd1a79a00e47f90b1fcc1476da83488789b0be0b",
+      "gitBlobSha1": "c6b037120f23bde21eb5e73f898f6dce6f903d02"
+    },
+    "public/background.webp": {
+      "bytes": 27118,
+      "sha256": "ec59893c6fd6c3cf6129822457817d2cf66cd0ca71e17f1e381ef09b15ab97f1",
+      "gitBlobSha1": "7f16dc11e6fd7122277b0890090d8282b7620165"
+    },
+    "public/cv.pdf": {
+      "bytes": 205392,
+      "sha256": "94670855894b5dea153786a80b4629a2736a6a6172e7cfd5a0c055c588069f95",
+      "gitBlobSha1": "c7ba6610077ec11fe54a0a029e3c74132913642b"
+    },
+    "public/favicon.ico": {
+      "bytes": 318,
+      "sha256": "ab7c1d13955157b1860ed96f186d212a02a74a0ebbd59b1bd6bcf06f53589316",
+      "gitBlobSha1": "e35c815a37d4aa32fcdd729989aed2acb1aad3aa"
+    },
+    "public/fonts/Raleway-ExtraLight.ttf": {
+      "bytes": 176344,
+      "sha256": "2620b63bff6f16fb1fa5e28209777cfdfc51a0c8aa1d54ea24a590541e2fd54f",
+      "gitBlobSha1": "7611e96c32829f9fd4181687d89ba9ce47acde10"
+    },
+    "public/icons/dev-to.png": {
+      "bytes": 10145,
+      "sha256": "b6245edf37d450f5e8d56ea57cb61fa003e4c9105edf3644baacf433308224dc",
+      "gitBlobSha1": "531624ebe35a48952b47b11c00477c097ab236ed"
+    },
+    "public/icons/email.png": {
+      "bytes": 13545,
+      "sha256": "6cbee7b4f04e5a6b33b09c3af7e00f7abda84cd46a8b46be89e14b6087a1bfef",
+      "gitBlobSha1": "d2ca616c7c569346fef38fb408867312157178ee"
+    },
+    "public/icons/github.png": {
+      "bytes": 8640,
+      "sha256": "d83ddf4ea98e9d2e77848869cbe5f0ecabb3058ede22c681bbe07b45a9091909",
+      "gitBlobSha1": "9490ffc6d2e158b266f719d58365905c1c5060cb"
+    },
+    "public/icons/linkedin.png": {
+      "bytes": 5823,
+      "sha256": "9eb6ffcfa297dc25aebd90fd7930e9d4ad724d8cd496d4621df28ddc29631d77",
+      "gitBlobSha1": "3fbdd623b4f8d2e8484bff13d4b21504b159f021"
+    },
+    "public/icons/medium.png": {
+      "bytes": 6832,
+      "sha256": "565ae0b0bc03c231de05ddc4868d8049dc21f52d75694506647b4e93f1c77419",
+      "gitBlobSha1": "82687f1198432008c0663a7d2530ccd1fc3946b7"
+    },
+    "public/icons/pdf.png": {
+      "bytes": 11475,
+      "sha256": "22623b4d6ddfb0ac3fa7f9f52798c982d2daa9cf6a0f03c6b7edaac00876c51b",
+      "gitBlobSha1": "ed5b5dfe644074f877f72dc6ed7d71a65380d8a6"
+    },
+    "public/icons/stackoverflow.png": {
+      "bytes": 13366,
+      "sha256": "78407eca2ec4f181093a01cd2bc58d9b3b2a66a89f46ef2ce2ba20806d287bb3",
+      "gitBlobSha1": "4cbf1e5a323bc7511fcb13a7b59cbd407ad1c700"
+    },
+    "public/icons/twitter.png": {
+      "bytes": 4417,
+      "sha256": "33214cc76418a41c0ac283661edac16b9eb2be0dc2aa2c8bfa091ac665f25095",
+      "gitBlobSha1": "e18b45cc632da58b7f70c0c194b4e6c1f8a0d107"
+    },
+    "public/me.jfif": {
+      "bytes": 54774,
+      "sha256": "2c2a06b81a70e371b600cc8d0ef403130ba343100f4230111ada6470868924bf",
+      "gitBlobSha1": "f2becec5b27f52be9aa676e26d861ebeea79d35d"
+    },
+    "public/telemetry.js": {
+      "bytes": 9172,
+      "sha256": "2fccb2a095d527b1ed3ff80043d150afc6a1f2bd78ca8f781c7533432632238a",
+      "gitBlobSha1": "dc83d5074e3bd6b65fe52956eb739dd02ad2c53c"
+    }
+  }
+}

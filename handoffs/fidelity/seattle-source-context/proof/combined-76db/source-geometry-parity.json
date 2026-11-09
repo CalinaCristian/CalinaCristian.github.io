@@ -1,0 +1,107 @@
+{
+  "kernelSourceCommit": "76db0c4afbed5ff7c43c33c3e43efdb15baebb5e",
+  "historicalImplementationCommit": "e57d3a1784494ada51a4d87870b85a6ab1eea498",
+  "historicalCacheSHA256": "742ac4493c9fc863e05ebb2807861ce1b292feaf0e22cb60381ec7e572ed12a4",
+  "currentCacheSHA256": "86426ad9023f354e00617513cb65077aa4066f77cf01d33d39f027b855445f11",
+  "rawSourceSHA256": "19afb36376e615e7075dcf5eb5f8d70e7c95d351b3759848dff271d2c793cea8",
+  "packedPlanBytesIdentical": true,
+  "packedPlanSHA256": "a2bc0963d2dc5f0c9c49f1ccc94f85147a12175b2cefc1c1086b877005b13860",
+  "allShaderInputBytesAndTriangleOrderIdentical": true,
+  "sourceOwnershipIdentical": true,
+  "allPhysicalCollidersIdentical": true,
+  "physicalVolumes": 17278,
+  "allSourceMembersAndHeightBandsIdentical": true,
+  "unresolvedVerticalIdsIdentical": true,
+  "arrays": [
+    {
+      "batch": "f-shop",
+      "indexSHA256": "8361b710051b862a5596e953bb74f23278306735e420579534cb87895941e3a0",
+      "attributes": {
+        "position": "ce46da15ae9ed385f95c9ce7438a328a00e18494e298f7974ba3aa0f45af5d2d",
+        "normal": "a419965725797f343bbd9087e60cf6615c7b92829a247cf3e17d08071185abd1",
+        "color": "1527bb69f51dd4b68ac48f9c0de135a3377945b1a1be9d908b88cd830152ab5b",
+        "uv": "254dd9eb29cd17827d4cdd941be46f96fb9b36fb4f7351285d308a7d54b4da44"
+      }
+    },
+    {
+      "batch": "roofs",
+      "indexSHA256": "d6da7fdb66e7c3df91251a9ef7fc46d726e94df7df894d75d6f7666fd0b4bfa0",
+      "attributes": {
+        "position": "ac5833058cd2b31f2cd4b75d1c6b117a2bd9aab0dc521044eaa6b985ab7e708c",
+        "normal": "f22b7a042839e6ead22993f1e1b408ee4143f5ddf410eaa9589b978948c9373c",
+        "color": "8dcd5c565c98e7d3487ce153970021940a188607e3cb3634cc502e6f7bea101b",
+        "uv": "600a55259ca8664fb64935f5ea3b5621a87cfec558bd93345c3bd84ccba309dd"
+      }
+    },
+    {
+      "batch": "f-apartment",
+      "indexSHA256": "60c481dcd2287a38a7514c6c273b13df5c0aad1ddca56542915803d9f381af85",
+      "attributes": {
+        "position": "6aaac0cd4d6101747696044533582f559c65d02f16e4d2daba459b0067ad5837",
+        "normal": "3dba476232ac8b6f15b35c50389147a47b93815c1cd24b2ec45bc5e65850d6c8",
+        "color": "b525c8a31015c22aac4fd29483661c49a1b1538d37d2d782ee50936bfdc3e62e",
+        "uv": "32c1f84c0132894db006aace36f9b5676a53f870bda5ef1106dc11e1fbeb55df"
+      }
+    },
+    {
+      "batch": "f-office",
+      "indexSHA256": "a0c44603440e6bbd3c41c35be325ac3b5bc1305e029a2da5c0673a44626295a0",
+      "attributes": {
+        "position": "4ad777b41687eb268e2aad975e52f95e70e252abfef2a95066747e474a8c4fcc",
+        "normal": "676ec88ec205cce80e99cd0615c7c961d2002555e67f5745a0e55152f9e9a2a5",
+        "color": "30156d878240f2e128e5239e9594a1ca94051d595a648614b151f39920377c07",
+        "uv": "73e1c32412197c9a05415163b55b5b9177a42e6de685cf3adc02506309087bb8"
+      }
+    },
+    {
+      "batch": "f-brick",
+      "indexSHA256": "eee8b6f9f8ae87114468cd7e0b7c1b6a881f4cb0fb2ce4b52cc3c26797c3702e",
+      "attributes": {
+        "position": "960cdcc0e9d3c7c487c9d890c3561a7650b4dc3f9dc9feda4c1719a928d9f830",
+        "normal": "9ec17268e5642e2448c65bdcfb3daaa8a0830c8284f139803e85d6b237157338",
+        "color": "c198eda6edd8c45e74533324c2720453961b65dc8cfb4843b5260fc8bfb80420",
+        "uv": "bba2fd27cb82d1f6b3beface3db8fe385ac44a18bdba3eacbe147817d24070d1"
+      }
+    },
+    {
+      "batch": "f-industrial",
+      "indexSHA256": "7c05d905afe45e605ce88c98abe5e78510bb3cad137dd30afe1f28d76e43a2e4",
+      "attributes": {
+        "position": "5862959321b5db1a2abb1227663836a461bee0be1cb4b597e72ba1a4943c462b",
+        "normal": "0256abeb830b20ca45491631064053bf5679cb27b82fb4d1bfe77d1161e5ba79",
+        "color": "d13dcaf74cccf0ee7ad44a089b2c77a0c43cff70a60dde0ad7a52dbda7909ce0",
+        "uv": "9fc4a0143d74844651f1d0f029d20afab5fd36f95f623a273e617e7414c046f1"
+      }
+    },
+    {
+      "batch": "f-house",
+      "indexSHA256": "3f0ac7f360caa4cd5f28dba1cdb0cd2945c6d0ab4ebf8b1561b2a4afa404289b",
+      "attributes": {
+        "position": "6388817f4e055820257b10caef1adba351c1b368098f796810438b705eaf1588",
+        "normal": "a9c55e85e5fc3a83a5bfd49b5348e93541e8d3a919235e8a6bbb0cf083d4273e",
+        "color": "0061fa11304b788a1911520a16f0971db020b21cc399d6faeb14a850e983ee04",
+        "uv": "26f79e4b5047917940a7a785dcc8ffc74b7418a9eb12b8c64fd20af6010ab1bc"
+      }
+    },
+    {
+      "batch": "f-parking",
+      "indexSHA256": "baba717f27bece2021f5a1f847a85c792c0e4c58a6fe8fa1305714fd108b312b",
+      "attributes": {
+        "position": "58e25a28ae5daa1dfe09a1d09b4d1a4dc19d9bd33d7140241d1d025c4a016404",
+        "normal": "44748f481899d8fc3c24374f966a5e8cbc2d49f7bd8945c9fab319b4ae54a769",
+        "color": "e6f09d787958e6a8f6edc8f70b18ed64461042db3d93a5307d9777d72d6dee65",
+        "uv": "694dc80369a0a4f4868ad3380475c67eb56aca34d087eabf65246b1cb8b7c880"
+      }
+    }
+  ],
+  "nativeGeometryConsumerHashes": {
+    "game/src/spots/osm.js": "2e89035ddef78ddc15cdb2cc4c507eb4f92e21149728674f4f4d06617cdad8cc",
+    "game/src/spots/source-buildings.js": "4d51ef45abbedb9f4b04627cb97c4b388ccd332e1737486005d4a327e2182362",
+    "game/src/spots/kit.js": "382f5353be67766e36183babd4a321dc4e709c709429167fc461968a033cffcc",
+    "game/src/building-parts.js": "d3844e4f67e0c29a28a7e9880bfcc6f5d9011cd0440e0b2eeba001838751fc5a",
+    "game/src/building-roofs.js": "a82db31d1197b3953c9f4718dbc44b2972a90e25d9c2c07c683e6ab5386fa8ac",
+    "game/src/spots/source-context-data.js": "2a4232db32d748b2ebfff087265ef3b8afe6052a3b0b3aff6638efe8d6f096db",
+    "game/src/spots/context-array-codec.js": "2f0a5c32cacedb5b605341a57a4d6191738028ad4bb3424a013eee75aa373282"
+  },
+  "status": "Fresh exact-kernel CPU rebuild; no new native browser or visual/load/budget acceptance"
+}

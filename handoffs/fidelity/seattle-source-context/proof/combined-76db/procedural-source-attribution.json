@@ -1,0 +1,66 @@
+{
+  "scope": "Read-only exact exported source sections through next exported function; no native execution or claim about other renderer/scene regressions",
+  "sections": {
+    "seaTowers": [
+      {
+        "commit": "dc5339f4da79e6fb84b8f98d9e241aa352e8bdf6",
+        "sectionSHA256": "4d436560f5e5e81ded00de9baa022c8132041a81eb713b84ce31ab317edaea0b"
+      },
+      {
+        "commit": "0b18608b215172ed3283cf062349978084495219",
+        "sectionSHA256": "4d436560f5e5e81ded00de9baa022c8132041a81eb713b84ce31ab317edaea0b"
+      },
+      {
+        "commit": "76db0c4afbed5ff7c43c33c3e43efdb15baebb5e",
+        "sectionSHA256": "4d436560f5e5e81ded00de9baa022c8132041a81eb713b84ce31ab317edaea0b"
+      }
+    ],
+    "seaMidrise": [
+      {
+        "commit": "dc5339f4da79e6fb84b8f98d9e241aa352e8bdf6",
+        "sectionSHA256": "7c0b111fddc4684d2b09e8ad9b381c99324d710f91ca3300f155147bcc19c79e"
+      },
+      {
+        "commit": "0b18608b215172ed3283cf062349978084495219",
+        "sectionSHA256": "7c0b111fddc4684d2b09e8ad9b381c99324d710f91ca3300f155147bcc19c79e"
+      },
+      {
+        "commit": "76db0c4afbed5ff7c43c33c3e43efdb15baebb5e",
+        "sectionSHA256": "7c0b111fddc4684d2b09e8ad9b381c99324d710f91ca3300f155147bcc19c79e"
+      }
+    ],
+    "cityGround": [
+      {
+        "commit": "dc5339f4da79e6fb84b8f98d9e241aa352e8bdf6",
+        "sectionSHA256": "f9d9334b8f43679b04b6902c6628c27b99f25f31b96a32d9a7b0d21a4d328153"
+      },
+      {
+        "commit": "0b18608b215172ed3283cf062349978084495219",
+        "sectionSHA256": "a969ce08b2bc654dfd1f30d7ecc713475b6021bdb1d76dfe70a363d4c03712ec"
+      },
+      {
+        "commit": "76db0c4afbed5ff7c43c33c3e43efdb15baebb5e",
+        "sectionSHA256": "a969ce08b2bc654dfd1f30d7ecc713475b6021bdb1d76dfe70a363d4c03712ec"
+      }
+    ],
+    "cityTrees": [
+      {
+        "commit": "dc5339f4da79e6fb84b8f98d9e241aa352e8bdf6",
+        "sectionSHA256": "a3b06d0fc46d1b5bcb74b63a337b4c2fb5dfe47ac06918099c0d192142cd3167"
+      },
+      {
+        "commit": "0b18608b215172ed3283cf062349978084495219",
+        "sectionSHA256": "a3b06d0fc46d1b5bcb74b63a337b4c2fb5dfe47ac06918099c0d192142cd3167"
+      },
+      {
+        "commit": "76db0c4afbed5ff7c43c33c3e43efdb15baebb5e",
+        "sectionSHA256": "a3b06d0fc46d1b5bcb74b63a337b4c2fb5dfe47ac06918099c0d192142cd3167"
+      }
+    ]
+  },
+  "allSectionsUnchanged": false,
+  "meaning": "The exact sampled seaMidrise/cityTrees/seaTowers wrapper sections are unchanged. cityGround changed between dc533 and0b (simplification and fully submerged terrain omission), then stayed unchanged through76db. Private tower builders, scene callers, source mountains, camera, renderer and shader behavior are outside these section hashes. No claim of whole-scene pre-preview visual parity or absence of regression is made.",
+  "changedSections": [
+    "cityGround"
+  ]
+}

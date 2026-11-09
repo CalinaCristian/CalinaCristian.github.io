@@ -65,12 +65,19 @@ for d in j['districts']:
         assert r['before']['state']==q['state']=='stand' and not q['live']
         stands.append({'id':q['id'],'distanceFromSourceStopM':dist,'sourceStop':stop,'sourceSidewalk':q['stopSourceSidewalk']})
     D={'id':d['id'],'sourceFilesChecked':len(j['sourceFiles']),'initialPopulation':{'vehicles':initial['vehicles'],'people':initial['people']},
+       'constructorVehicleGate':d.get('initialVehicleGate'),
+       'coverage':{'constructorVehicleBodiesRecorded':'initialVehicleGate' in d,'warmupFindingsRecorded':all('warmup' in c for c in d['cases']),
+                   'historicalGap':'Reports without explicit warmup records cover drive issue slices only; they do not establish startup vehicle admission.'},
        'admission':{'stats':init['stats'],'allIdsRetained':sorted(p['id'] for p in actors)==list(range(initial['people'])),
                     'allPrevisible':all(not p['live'] for p in actors),'beforeSpacing':before_spacing,'afterSpacing':after_spacing,
                     'originalStaticContacts':statics,'remainingStaticContacts':final_statics,
                     'remainingWalkingOrVehicleFailures':[{'id':p['id'],'state':p['state'],'freeWalkingBody':p['freeWalkingBody'],'freeVehicleBody':p['freeVehicleBody']} for p in actors if not p['freeWalkingBody'] or not p['freeVehicleBody']],
-                    'standingRepairSourceBindings':stands},'drives':[],'renderFrames':[]}
+                    'standingRepairSourceBindings':stands},'warmups':[],'drives':[],'renderFrames':[]}
     for case in d['cases']:
+        if 'warmup' in case:
+            warm=case['warmup']
+            for clock in ['trafficTime','harnessSim','scenarioTime']:assert abs(warm['after'][clock]-warm['before'][clock]-.5)<1e-8
+            D['warmups'].append({'condition':case['condition'],'result':warm})
         for pop in [case['populationBefore'],case['populationAfter']]:
             assert pop['allVehicleIds']==initial['allVehicleIds'] and pop['pedIds']==initial['pedIds']
         for capture in case['captures']:

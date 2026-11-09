@@ -2,7 +2,24 @@
 // replaced with the snapshot's served URL by the Node runner.
 import {Pedestrians} from '__BASE__game/src/traffic.js';
 import {collideBuildings} from '__BASE__game/src/world.js';
-window.admissionQA={beforeActors:null,repairs:[]};
+import {obbPen,vObb} from '__BASE__game/dev/harness/page/util.js';
+window.admissionQA={beforeActors:null,repairs:[],vehicleConstructorAdmission:null};
+let observedPopulation=null;
+function readVehicles(T) {
+    const edge=e=>e?{id:e.id,sourceId:e.access?.sourceId,access:e.access,name:e.name,type:e.type,layer:e.layer,ya:e.ya,yb:e.yb,
+        a:{id:e.a.id,sourceId:e.a.sourceId,x:e.a.x,z:e.a.z},b:{id:e.b.id,sourceId:e.b.sourceId,x:e.b.x,z:e.b.z}}:null;
+    const actors=T.vehicles.concat(T.pool||[]).map(v=>({id:v.id,kind:v.kind,x:v.x,z:v.z,y:v.y,heading:v.heading,
+        length:v.length,width:v.width,modelHeight:v.mesh.userData.height,inactive:!!v.inactive,parked:!!v.parked,service:!!v.service,
+        edge:edge(v.edge),dir:v.dir,s:v.s,lane:v.lane,laneCur:v.laneCur}));
+    const overlaps=[],unclassifiedModels=actors.filter(v=>!Number.isFinite(v.modelHeight));
+    for(let i=0;i<actors.length;i++)for(let k=i+1;k<actors.length;k++){
+        const a=actors[i],b=actors[k];if(a.inactive||b.inactive||!Number.isFinite(a.modelHeight)||!Number.isFinite(b.modelHeight))continue;
+        const vertical=Math.min(a.y+a.modelHeight,b.y+b.modelHeight)-Math.max(a.y,b.y);if(vertical<=0)continue;
+        if(Math.hypot(a.x-b.x,a.z-b.z)>(a.length+b.length+a.width+b.width)/2)continue;
+        const penetration=obbPen(vObb(a),vObb(b));if(penetration>1e-6)overlaps.push({ids:[a.id,b.id],orientedXZPenetrationM:penetration,actualVerticalIntersectionM:vertical});
+    }
+    return{stage:'After constructor vehicle admission and before pedestrian admission/first visible actor matrix',actors,overlaps,unclassifiedModels};
+}
 function read(p) {
     const W=this.t.world,reach=this.reach(p),y=(W.walkTop?.(p.x,p.z)??.2)+.01,colliders=[];
     const check=c=>{
@@ -25,7 +42,8 @@ function read(p) {
 for(const name of ['admitInitialWalk','admitInitialStand']) {
     const original=Pedestrians.prototype[name];
     Pedestrians.prototype[name]=function(p){
-        if(!admissionQA.beforeActors)admissionQA.beforeActors=this.list.map(q=>read.call(this,q));
+        if(observedPopulation!==this.list){observedPopulation=this.list;window.admissionQA={beforeActors:null,repairs:[],vehicleConstructorAdmission:null};}
+        if(!admissionQA.beforeActors){admissionQA.vehicleConstructorAdmission=readVehicles(this.t);admissionQA.beforeActors=this.list.map(q=>read.call(this,q));}
         const before=read.call(this,p),result=original.call(this,p);
         if(result)admissionQA.repairs.push({method:name,before,after:read.call(this,p)});
         return result;

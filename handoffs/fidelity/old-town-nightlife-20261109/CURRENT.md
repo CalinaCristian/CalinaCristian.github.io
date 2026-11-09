@@ -45,3 +45,8 @@ The parent owns public overview selection, captions, thumbnails, menu completion
 ## Closed source-copy reclamation · 9 November 2026
 
 The owner-authorized narrow cleanup removed only eight verified closed `source-*` snapshot directories, reclaiming1,702,158,336allocated bytes. All captured artifacts/reports/reference files/worktrees and source Git objects remain. Each actual file matched its exact source Git blob and independent SHA256; process cwd/argv scans found no live use immediately before removal. Exact refs, per-file compressed manifests, receipt and restoration instructions are in `source-cleanup-20261109/`. Snapshot paths mentioned above now identify historical capture sources, not currently present source directories. No image, report or capture-source metadata was relabeled.
+
+
+## Additional CPU physical coverage after19b selection
+
+The9-control expanded actual-source regression now covers132upward and132downward native-controller targets, returns to the corrected ground floor and tests closed-side containment at all4gallery heights using actual curved-hole geometry. Maximum descent step.028242m; final ground+.004277m; rail clearances≈.300m. Runtime geometry/controls and every dated native picture are unchanged. Source hashes/scope and the corrected first-gallery-only assertion are retained in carusel-expanded-physical-report.json / carusel-expanded-physical-scope.md. The new small overview package is3unchanged19bframes (<3MB), explicitly staging/live-final-unverified, under game/overview/evidence/carusel-staging-20261109/.

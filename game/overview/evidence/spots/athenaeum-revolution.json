@@ -3,8 +3,8 @@
   "id": "athenaeum-revolution",
   "city": "bucharest",
   "name": "Romanian Athenaeum & Piața Revoluției",
-  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:07.291Z",
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
   "status": "needs_review",
   "sources": [
     {
@@ -66,64 +66,74 @@
       "label": "Memorialul Renașterii",
       "type": "OSM source",
       "url": "https://www.openstreetmap.org/node/1393030628"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Native desktop manually aimed exterior shutters",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-b533317-desktop/results.json"
+    },
+    {
+      "label": "Native touch manually aimed exterior shutters",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-60db281-touch/results.json"
     }
   ],
   "improvements": [
-    "Canonical Athenaeum and Royal Palace models retain source-context buildings, source footprints and shared exact roof geometry.",
-    "The unmodelled interior concert was relabelled as exterior history rather than claiming an actual visit inside."
+    "Current native scene retains 862 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Physical entry; three actual manual garden shutters",
+    "The selected primary activity approach is accepted separately from full-scene comparison."
   ],
   "remainingGaps": [
-    "The actual full-size frontal postcard largely hides the dome behind the pediment. Model/pose proportions need independent matched verification; isolated model records do not resolve this view.",
-    "Exterior history remains a series of passive Next clicks and is not an equivalent participatory concert activity.",
-    "The one-leu collection-box claim is unverified as a current physical collection point; retain the historical campaign only with honest game framing.",
-    "Garden paths, revolution-square memorials and public entries need complete current source/reference comparisons; one phantom finding remains.",
-    "Raw audit findings remain for physical review: zfight 11, phantom 1."
+    "Full dome/portico proportions and square comparison remain separate",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
   ],
   "checks": [
     {
-      "label": "Native scene load",
+      "label": "Current native scene load and warm cache",
       "passed": true,
-      "details": "athenaeum-revolution; actual native controller; 0 thrown JavaScript errors."
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts."
     },
     {
-      "label": "Source solid membership",
+      "label": "Native phone condition controls",
       "passed": true,
-      "details": "808 active source records, 830 physical volumes, 13 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
     },
     {
-      "label": "Validated scene geometry cache",
+      "label": "Selected primary activity entry",
       "passed": true,
-      "details": "Exact source/profile/terrain signature matched."
+      "details": "19.655m actual-controller arrival; no pose writes after entry. Completion of every secondary activity is not inferred."
     },
     {
-      "label": "Native public-path walk",
+      "label": "High-quality selected native views",
       "passed": true,
-      "details": "21.9 m walked toward The 1919 vote; planned endpoint reached using native movement and collision."
-    },
-    {
-      "label": "High scene budgets",
-      "passed": true,
-      "details": "227775 unique geometry triangles; max 729793 rendered triangles / 125 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
-    },
-    {
-      "label": "Raw physical audit",
-      "passed": false,
-      "details": "zfight: 11; phantom: 1"
+      "details": "Maximum 425042 rendered triangles / 153 calls. Software-GL capture is not a hardware FPS benchmark."
     },
     {
       "label": "Full matched scene comparison",
       "passed": false,
-      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
     }
   ],
   "captures": [
     {
       "kind": "arrival",
-      "label": "Romanian Athenaeum & Piața Revoluției — arrival",
-      "image": "assets/spots/athenaeum-revolution/arrival.webp",
-      "sha256": "d47fb01241a5936ae2f0b2241439aece3c8a74afa6997b756ca1b536623802f3",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:30:47.926Z",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/athenaeum-revolution-arrival.webp",
+      "sha256": "1e31e17c3dbad6ecd1dd3f84830527a2b936acb7121a606fbf13e7357db9d54d",
+      "bytes": 29544,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:03:58.093Z",
       "pose": {
         "position": [
           -63.61344211498177,
@@ -146,22 +156,38 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open."
+      ],
+      "metrics": {
+        "triangles": 425042,
+        "drawCalls": 153
+      },
+      "simulationDate": "2026-11-09T00:03:54.066Z"
     },
     {
-      "kind": "public-walk",
-      "label": "Romanian Athenaeum & Piața Revoluției — public walk",
-      "image": "assets/spots/athenaeum-revolution/public-walk.webp",
-      "sha256": "19eb2f23f50096cb598a05278d0713cd334b7dfe9276adc196ed08223ee62666",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:30:51.074Z",
+      "kind": "activity-approach",
+      "label": "Physical approach to the selected activity",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/athenaeum-revolution-approach.webp",
+      "sha256": "7120060f6f9c58f6a44affb0bb45b00e82320aa40e51be43c9274f4163357682",
+      "bytes": 22556,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:04:00.581Z",
       "pose": {
         "position": [
-          -82.1811119783555,
-          1.6356552918979466,
-          -4.394142446761031
+          -79.82821148709651,
+          1.6651157829081449,
+          -4.8647050679336985
         ],
-        "bearing": 237.50873984348962,
+        "bearing": 234.9984292137575,
         "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
@@ -177,23 +203,40 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": true,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Physical arrival at the interaction coordinate does not complete the activity or certify a surveyed legal pedestrian itinerary."
+      ],
+      "metrics": {
+        "triangles": 400958,
+        "drawCalls": 52
+      },
+      "simulationDate": "2026-11-09T00:03:56.554Z"
     },
     {
-      "kind": "postcard",
-      "label": "Romanian Athenaeum & Piața Revoluției — postcard",
-      "image": "assets/spots/athenaeum-revolution/postcard.webp",
-      "sha256": "0abef1135b195e9a0c0a70af626a8bc33adc50a1751ca47246834e46568412ac",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:30:53.474Z",
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/athenaeum-revolution-phone.webp",
+      "sha256": "a87d6a519598c4b85206df762ec5fbadf0b7da0bf9f89663829bc72ab7365da0",
+      "bytes": 5460,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:04:02.187Z",
       "pose": {
         "position": [
-          -72.21742551762745,
-          1.7174466099528327,
-          -28.50611609793468
+          -79.9650558463868,
+          1.6343415309951008,
+          -4.76888002485345
         ],
-        "bearing": 62.12344556265924,
-        "pitch": 12,
+        "bearing": 234.9984292137575,
+        "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
           "lat": 44.44085,
@@ -205,53 +248,39 @@
           "mLon": 79609.98
         },
         "viewport": {
-          "width": 1280,
-          "height": 720
+          "width": 390,
+          "height": 844
         }
-      }
-    },
-    {
-      "kind": "activity-approach",
-      "label": "Romanian Athenaeum & Piața Revoluției — activity approach",
-      "image": "assets/spots/athenaeum-revolution/activity-approach.webp",
-      "sha256": "671fa4c35a7cbd3e05a6bc606cee0bd2a0e73f7696fe66197edb80e449a7451f",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:30:57.438Z",
-      "pose": {
-        "position": [
-          -48.303495676889085,
-          1.6539479921763778,
-          -32.70622093886922
-        ],
-        "bearing": 0,
-        "pitch": -7.000000000000003,
-        "coordinateSystem": "scene-local metres, x east / y up / z south",
-        "origin": {
-          "lat": 44.44085,
-          "lon": 26.09765,
-          "elev": 86.4
-        },
-        "projection": {
-          "mLat": 111120.85,
-          "mLon": 79609.98
-        },
-        "viewport": {
-          "width": 1280,
-          "height": 720
-        }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison."
+      ],
+      "metrics": {
+        "triangles": 397266,
+        "drawCalls": 40
+      },
+      "simulationDate": "2026-11-09T00:04:02.187Z"
     }
   ],
   "perf": {
-    "sceneTriangles": 416570,
-    "uniqueGeometryTriangles": 227775,
-    "geometryObjects": 69,
-    "maxRenderedTriangles": 729793,
-    "maxDrawCalls": 125
+    "triangles": 425042,
+    "drawCalls": 153,
+    "maxRenderedTriangles": 425042,
+    "maxDrawCalls": 153,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
   },
   "sceneId": "athenaeum-revolution",
   "sourceGeometry": {
-    "membershipSHA256": "2ab7d50615df6792a4101004b5e9b4b885c2843a08d799a0692276fc95049f16",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "43618235c703ad00167afeb6c029a4ed4421be5bfb2025b6a1853bc36cc6421f",
     "activeSourceRecords": 808,
     "renderedVolumes": 830,
     "literalHeights": 221,
@@ -313,7 +342,8 @@
       "w1476785348",
       "w1492883155"
     ],
-    "missingMembers": []
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
   },
   "access": {
     "walker": "OnFootController",
@@ -323,40 +353,388 @@
       "y": 0.008137123783364522,
       "heading": -0.8180066186009393
     },
-    "arrivalDry": true,
-    "nearestPlaquePath": {
-      "points": [
-        [
-          -63.61344211498177,
-          -16.219071310558114
-        ],
-        [
-          -82.8,
-          -4
-        ]
-      ],
-      "length": 22.747081288984294,
-      "target": "The 1919 vote"
-    },
+    "primaryActivity": "Frame the Athenaeum",
+    "primaryRouteStatus": "physically-verified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": true,
     "nativeWalk": {
-      "walker": "OnFootController",
       "passed": true,
-      "steps": 260,
-      "walked": 21.883973002983993,
-      "target": "The 1919 vote",
-      "plannedLength": 22.747081288984294,
+      "walked": 19.655456361016526,
+      "steps": 87,
+      "maxStep": 0.23000000000000595,
+      "maxRise": 0.1227968021637986,
       "position": {
-        "x": -82.18048470578019,
-        "z": -4.394541928959709,
-        "y": -0.014475123883439606,
-        "heading": 2.1378757946480507
+        "x": -79.82821148709651,
+        "z": -4.8647050679336985,
+        "y": -0.017163690981578612,
+        "heading": 2.181688980384689
       },
-      "error": null
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
     }
   },
   "rawAudit": {
-    "zfight": 11,
-    "phantom": 1
+    "status": "historical-only",
+    "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "counts": {
+      "zfight": 11,
+      "phantom": 1
+    },
+    "collection": "previous-context-gallery"
   },
-  "review": "Inspected all four GAME context captures and the full-size postcard; the short native plaque walk succeeds but scene and activity fidelity remain open."
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical entry; three actual manual garden shutters Full dome/portico proportions and square comparison remain separate Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "historicalCollections": [
+    {
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "updatedAt": "2026-11-08T19:35:07.291Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Romanian Athenaeum & Piața Revoluției — arrival",
+          "image": "assets/spots/athenaeum-revolution/arrival.webp",
+          "sha256": "d47fb01241a5936ae2f0b2241439aece3c8a74afa6997b756ca1b536623802f3",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:30:47.926Z",
+          "pose": {
+            "position": [
+              -63.61344211498177,
+              1.6581371237833644,
+              -16.219071310558114
+            ],
+            "bearing": 46.86832685960144,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.44085,
+              "lon": 26.09765,
+              "elev": 86.4
+            },
+            "projection": {
+              "mLat": 111120.85,
+              "mLon": 79609.98
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Romanian Athenaeum & Piața Revoluției — public walk",
+          "image": "assets/spots/athenaeum-revolution/public-walk.webp",
+          "sha256": "19eb2f23f50096cb598a05278d0713cd334b7dfe9276adc196ed08223ee62666",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:30:51.074Z",
+          "pose": {
+            "position": [
+              -82.1811119783555,
+              1.6356552918979466,
+              -4.394142446761031
+            ],
+            "bearing": 237.50873984348962,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.44085,
+              "lon": 26.09765,
+              "elev": 86.4
+            },
+            "projection": {
+              "mLat": 111120.85,
+              "mLon": 79609.98
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Romanian Athenaeum & Piața Revoluției — postcard",
+          "image": "assets/spots/athenaeum-revolution/postcard.webp",
+          "sha256": "0abef1135b195e9a0c0a70af626a8bc33adc50a1751ca47246834e46568412ac",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:30:53.474Z",
+          "pose": {
+            "position": [
+              -72.21742551762745,
+              1.7174466099528327,
+              -28.50611609793468
+            ],
+            "bearing": 62.12344556265924,
+            "pitch": 12,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.44085,
+              "lon": 26.09765,
+              "elev": 86.4
+            },
+            "projection": {
+              "mLat": 111120.85,
+              "mLon": 79609.98
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Romanian Athenaeum & Piața Revoluției — activity approach",
+          "image": "assets/spots/athenaeum-revolution/activity-approach.webp",
+          "sha256": "671fa4c35a7cbd3e05a6bc606cee0bd2a0e73f7696fe66197edb80e449a7451f",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:30:57.438Z",
+          "pose": {
+            "position": [
+              -48.303495676889085,
+              1.6539479921763778,
+              -32.70622093886922
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.44085,
+              "lon": 26.09765,
+              "elev": 86.4
+            },
+            "projection": {
+              "mLat": 111120.85,
+              "mLon": 79609.98
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "athenaeum-revolution; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "808 active source records, 830 physical volumes, 13 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "21.9 m walked toward The 1919 vote; planned endpoint reached using native movement and collision."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "227775 unique geometry triangles; max 729793 rendered triangles / 125 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "zfight: 11; phantom: 1"
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 416570,
+        "uniqueGeometryTriangles": 227775,
+        "geometryObjects": 69,
+        "maxRenderedTriangles": 729793,
+        "maxDrawCalls": 125
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "2ab7d50615df6792a4101004b5e9b4b885c2843a08d799a0692276fc95049f16",
+        "activeSourceRecords": 808,
+        "renderedVolumes": 830,
+        "literalHeights": 221,
+        "levelHeightEstimates": 289,
+        "typeHeightEstimates": 298,
+        "heroReplacements": [
+          "w16291602",
+          "w1192148712",
+          "w1493065626",
+          "w1493065627",
+          "w1493065628",
+          "w1493065629",
+          "w1493065630",
+          "w1493111079",
+          "w1493111080",
+          "w1493111081",
+          "w1493111082",
+          "w1493111083",
+          "w1493111084",
+          "w1493112469",
+          "w1493204404",
+          "w1493204405",
+          "w232472401",
+          "w1476782271",
+          "w1476782272",
+          "w1476782274",
+          "w1476790706",
+          "w1476795653",
+          "w1476795658",
+          "w1476812769",
+          "w1477382120",
+          "w1478822229",
+          "w1478822230",
+          "w1478822231",
+          "w1478822232",
+          "w1478822233",
+          "w1478822234",
+          "w1492310375",
+          "w1492310386",
+          "w1492310387",
+          "w1492785691",
+          "w1492785692",
+          "w1492785693",
+          "w1492785694",
+          "w1492785695",
+          "w1492785696",
+          "w1492790103",
+          "w1492847189",
+          "w1492880806",
+          "w1492883156",
+          "w1492883157",
+          "w1494286948",
+          "r19896250",
+          "w224624034",
+          "w995893622",
+          "w1454571061",
+          "w1476782273",
+          "w1476784157",
+          "w1476785348",
+          "w1492883155"
+        ],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": -63.61344211498177,
+          "z": -16.219071310558114,
+          "y": 0.008137123783364522,
+          "heading": -0.8180066186009393
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              -63.61344211498177,
+              -16.219071310558114
+            ],
+            [
+              -82.8,
+              -4
+            ]
+          ],
+          "length": 22.747081288984294,
+          "target": "The 1919 vote"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 260,
+          "walked": 21.883973002983993,
+          "target": "The 1919 vote",
+          "plannedLength": 22.747081288984294,
+          "position": {
+            "x": -82.18048470578019,
+            "z": -4.394541928959709,
+            "y": -0.014475123883439606,
+            "heading": 2.1378757946480507
+          },
+          "error": null
+        }
+      },
+      "rawAudit": {
+        "zfight": 11,
+        "phantom": 1
+      },
+      "improvements": [
+        "Canonical Athenaeum and Royal Palace models retain source-context buildings, source footprints and shared exact roof geometry.",
+        "The unmodelled interior concert was relabelled as exterior history rather than claiming an actual visit inside."
+      ],
+      "remainingGaps": [
+        "The actual full-size frontal postcard largely hides the dome behind the pediment. Model/pose proportions need independent matched verification; isolated model records do not resolve this view.",
+        "Exterior history remains a series of passive Next clicks and is not an equivalent participatory concert activity.",
+        "The one-leu collection-box claim is unverified as a current physical collection point; retain the historical campaign only with honest game framing.",
+        "Garden paths, revolution-square memorials and public entries need complete current source/reference comparisons; one phantom finding remains.",
+        "Raw audit findings remain for physical review: zfight 11, phantom 1."
+      ],
+      "review": "Inspected all four GAME context captures and the full-size postcard; the short native plaque walk succeeds but scene and activity fidelity remain open.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": true,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-09T00:03:58.093Z",
+    "2026-11-09T00:04:02.187Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": true,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The selected activity coordinate is physically reached; this is not completion of every activity.",
+      "cases": [
+        "athenaeum-revolution"
+      ]
+    },
+    {
+      "label": "Native desktop manually aimed exterior shutters",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-b533317-desktop/results.json",
+      "sha256": "dd3821c3d019587410e622095b68e934a256d9f398dbdca557faf38816d44f2e",
+      "sourceCommit": "b533317a289663c8576610d54665f12471ea9744",
+      "passed": true,
+      "scope": "This destination completes its listed manual-look/shutter cases with finite opaque visibility. The overall seven-destination run later stops at Lincoln; final whole-run reload/error assertions were not reached. Nearby initial setup is not the entry route.",
+      "cases": [
+        "athenaeum-revolution"
+      ]
+    },
+    {
+      "label": "Native touch manually aimed exterior shutters",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-60db281-touch/results.json",
+      "sha256": "bc4e7c0baeedf20273c98b949c2881dab343499a48f561b3584029d10887154e",
+      "sourceCommit": "60db2819ecc6d175c71031e1f4cef57bc78a636e",
+      "passed": true,
+      "scope": "This destination completes its listed manual-look/shutter cases with finite opaque visibility. The overall seven-destination run later stops at Lincoln; final whole-run reload/error assertions were not reached. Nearby initial setup is not the entry route.",
+      "cases": [
+        "athenaeum-revolution"
+      ]
+    }
+  ]
 }

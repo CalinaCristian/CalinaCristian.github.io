@@ -3,8 +3,8 @@
   "id": "chihuly",
   "city": "seattle",
   "name": "Chihuly Garden and Glass",
-  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:04.330Z",
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
   "status": "needs_review",
   "sources": [
     {
@@ -66,64 +66,74 @@
       "label": "Exhibition Hall (repurposed 1962-era building) + Bar at Chihuly",
       "type": "OSM source",
       "url": "https://www.openstreetmap.org/way/329416198"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Native desktop Chihuly shutters",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-resume-c0b1b2c-desktop/results.json"
+    },
+    {
+      "label": "Native phone Chihuly shutters",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-side-approach-touch/results.json"
     }
   ],
   "improvements": [
-    "All Seattle Center source polygons and parts remain represented by exact source volumes or explicit model replacements; shared native roofs replace the former overlap/drop heuristics.",
-    "Exact zero-area geometry was removed without deleting valid source faces; thin transparent glass uses one render pass."
+    "Current native scene retains 114 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Physical entry approach; three manual desktop/touch aimed shutters",
+    "The selected primary activity approach is accepted separately from full-scene comparison."
   ],
   "remainingGaps": [
-    "The native plaque endpoint is visually obscured by a tree crown. Placement and sight lines need correction while retaining the tree.",
-    "The shared scene's generic activity-approach capture is the Space Needle entrance, not a Chihuly activity.",
-    "Glasshouse framing, garden beds and artwork placements remain simplified estimates pending complete matched public reference comparisons.",
-    "The existing sculpture-looking handler needs a meaningful input-driven challenge and a complete native cancellation review.",
-    "Raw audit findings remain for physical review: zfight 53, phantom 1, pedBelow 3."
+    "Artwork/Glasshouse matched fidelity and that older partial run's completed reload are not inferred",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
   ],
   "checks": [
     {
-      "label": "Native scene load",
+      "label": "Current native scene load and warm cache",
       "passed": true,
-      "details": "seattle-center; actual native controller; 0 thrown JavaScript errors."
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts."
     },
     {
-      "label": "Source solid membership",
+      "label": "Native phone condition controls",
       "passed": true,
-      "details": "93 active source records, 92 physical volumes, 4 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
     },
     {
-      "label": "Validated scene geometry cache",
+      "label": "Selected primary activity entry",
       "passed": true,
-      "details": "Exact source/profile/terrain signature matched."
+      "details": "52.576m actual-controller arrival; no pose writes after entry. Completion of every secondary activity is not inferred."
     },
     {
-      "label": "Native public-path walk",
+      "label": "High-quality selected native views",
       "passed": true,
-      "details": "2.7 m walked toward The Glasshouse; planned endpoint reached using native movement and collision."
-    },
-    {
-      "label": "High scene budgets",
-      "passed": true,
-      "details": "371210 unique geometry triangles; max 1335332 rendered triangles / 302 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
-    },
-    {
-      "label": "Raw physical audit",
-      "passed": false,
-      "details": "zfight: 53; phantom: 1; pedBelow: 3"
+      "details": "Maximum 1006218 rendered triangles / 273 calls. Software-GL capture is not a hardware FPS benchmark."
     },
     {
       "label": "Full matched scene comparison",
       "passed": false,
-      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
     }
   ],
   "captures": [
     {
       "kind": "arrival",
-      "label": "Chihuly Garden and Glass — arrival",
-      "image": "assets/spots/chihuly/arrival.webp",
-      "sha256": "e6d6aa0a068d45269104c8482ce556b20fd4a6714d80aaaf2ff13de332e3b55c",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:20:42.332Z",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/chihuly-arrival.webp",
+      "sha256": "3809c2d36e1ec70edc910fa982ef2cedebae1d12afad0b651d0d96286b8ff302",
+      "bytes": 38808,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-08T23:57:39.832Z",
       "pose": {
         "position": [
           -73.4,
@@ -146,22 +156,38 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open."
+      ],
+      "metrics": {
+        "triangles": 1006218,
+        "drawCalls": 273
+      },
+      "simulationDate": "2026-11-08T23:57:32.258Z"
     },
     {
-      "kind": "public-walk",
-      "label": "Chihuly Garden and Glass — public walk",
-      "image": "assets/spots/chihuly/public-walk.webp",
-      "sha256": "a70bbb6d9d24ccac792ffd6c2c720514c5b4e4a63ed43f4f76f3181127494e53",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:20:47.292Z",
+      "kind": "activity-approach",
+      "label": "Physical approach to the selected activity",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/chihuly-approach.webp",
+      "sha256": "c1d79f910bc1f6110a3de2b3cb0727e092d7eaaae9f80f0d91b90305fee21603",
+      "bytes": 25674,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-08T23:58:00.645Z",
       "pose": {
         "position": [
-          -71.9000650468546,
-          3.9530655821772998,
-          9.431681652928326
+          -50.64151047372422,
+          3.3186992542449922,
+          -13.00232118227085
         ],
-        "bearing": 32.34744349944208,
+        "bearing": 331.2412645268391,
         "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
@@ -177,23 +203,40 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": true,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Physical arrival at the interaction coordinate does not complete the activity or certify a surveyed legal pedestrian itinerary."
+      ],
+      "metrics": {
+        "triangles": 900509,
+        "drawCalls": 46
+      },
+      "simulationDate": "2026-11-08T23:57:53.048Z"
     },
     {
-      "kind": "postcard",
-      "label": "Chihuly Garden and Glass — postcard",
-      "image": "assets/spots/chihuly/postcard.webp",
-      "sha256": "035a7fb94706f21653d058466eb3b953f6d79f0700143e722b3cb9e66872868f",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:20:55.036Z",
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/chihuly-phone.webp",
+      "sha256": "8717d10fe7fc2cb42cd194151910c503a00aaf494df9e5a571fbf7a62164a3ed",
+      "bytes": 11698,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-08T23:58:18.791Z",
       "pose": {
         "position": [
-          -56.25,
-          3.4664729028567676,
-          -6.199999999999999
+          -50.721886461629076,
+          3.340576072657233,
+          -13.148774308284663
         ],
-        "bearing": 60,
-        "pitch": 38,
+        "bearing": 331.2412645268391,
+        "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
           "lat": 47.6205063,
@@ -205,53 +248,39 @@
           "mLon": 75171.03
         },
         "viewport": {
-          "width": 1280,
-          "height": 720
+          "width": 390,
+          "height": 844
         }
-      }
-    },
-    {
-      "kind": "activity-approach",
-      "label": "Chihuly Garden and Glass — activity approach",
-      "image": "assets/spots/chihuly/activity-approach.webp",
-      "sha256": "7f1eabeb5a1ebcae30a83165ba96612006430d3aa8b3858c2bf9497b3f400bc6",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:20:59.424Z",
-      "pose": {
-        "position": [
-          -0.7,
-          3.15,
-          22.9
-        ],
-        "bearing": 0,
-        "pitch": -7.000000000000003,
-        "coordinateSystem": "scene-local metres, x east / y up / z south",
-        "origin": {
-          "lat": 47.6205063,
-          "lon": -122.3493043,
-          "elev": 40.5
-        },
-        "projection": {
-          "mLat": 111182.94,
-          "mLon": 75171.03
-        },
-        "viewport": {
-          "width": 1280,
-          "height": 720
-        }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison."
+      ],
+      "metrics": {
+        "triangles": 890740,
+        "drawCalls": 44
+      },
+      "simulationDate": "2026-11-08T23:58:18.791Z"
     }
   ],
   "perf": {
-    "sceneTriangles": 1015025,
-    "uniqueGeometryTriangles": 371210,
-    "geometryObjects": 154,
-    "maxRenderedTriangles": 1335332,
-    "maxDrawCalls": 302
+    "triangles": 1006218,
+    "drawCalls": 273,
+    "maxRenderedTriangles": 1006218,
+    "maxDrawCalls": 273,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
   },
   "sceneId": "seattle-center",
   "sourceGeometry": {
-    "membershipSHA256": "aecc84822279658c32334c058655e1f050b07d2b9337079de529e845312d1d4b",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "7b2480c9fb313e29de9758a9df3c26384f41f44501151d3e0502b6c4dfc84ec7",
     "activeSourceRecords": 93,
     "renderedVolumes": 92,
     "literalHeights": 55,
@@ -280,7 +309,8 @@
       "w394956343",
       "w394956344"
     ],
-    "missingMembers": []
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
   },
   "access": {
     "walker": "OnFootController",
@@ -290,41 +320,357 @@
       "y": 2.368821026776569,
       "heading": -1.3962634015954636
     },
-    "arrivalDry": true,
-    "nearestPlaquePath": {
-      "points": [
-        [
-          -73.4,
-          11.8
-        ],
-        [
-          -71.5,
-          8.8
-        ]
-      ],
-      "length": 3.5510561809129437,
-      "target": "The Glasshouse"
-    },
+    "primaryActivity": "Frame the suspended sculpture",
+    "primaryRouteStatus": "physically-verified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": true,
     "nativeWalk": {
-      "walker": "OnFootController",
       "passed": true,
-      "steps": 34,
-      "walked": 2.6739730119277625,
-      "target": "The Glasshouse",
-      "plannedLength": 3.5510561809129437,
+      "walked": 52.57621181225669,
+      "steps": 231,
+      "maxStep": 0.23000000000000326,
+      "maxRise": 0.007956517727226942,
       "position": {
-        "x": -71.90046295326862,
-        "z": 9.432309926213607,
-        "y": 2.3032263100162695,
-        "heading": -0.5645693936681012
+        "x": -50.64151047372422,
+        "z": -13.00232118227085,
+        "y": 1.6880908717376557,
+        "heading": 0.5019346227167475
       },
-      "error": null
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
     }
   },
   "rawAudit": {
-    "zfight": 53,
-    "phantom": 1,
-    "pedBelow": 3
+    "status": "historical-only",
+    "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "counts": {
+      "zfight": 53,
+      "phantom": 1,
+      "pedBelow": 3
+    },
+    "collection": "previous-context-gallery"
   },
-  "review": "Inspected all four GAME context captures; the shared scene's source membership and budget pass does not establish Chihuly scene parity."
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical entry approach; three manual desktop/touch aimed shutters Artwork/Glasshouse matched fidelity and that older partial run's completed reload are not inferred Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "historicalCollections": [
+    {
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "updatedAt": "2026-11-08T19:35:04.330Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Chihuly Garden and Glass — arrival",
+          "image": "assets/spots/chihuly/arrival.webp",
+          "sha256": "e6d6aa0a068d45269104c8482ce556b20fd4a6714d80aaaf2ff13de332e3b55c",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:20:42.332Z",
+          "pose": {
+            "position": [
+              -73.4,
+              4.018821026776569,
+              11.8
+            ],
+            "bearing": 80,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6205063,
+              "lon": -122.3493043,
+              "elev": 40.5
+            },
+            "projection": {
+              "mLat": 111182.94,
+              "mLon": 75171.03
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Chihuly Garden and Glass — public walk",
+          "image": "assets/spots/chihuly/public-walk.webp",
+          "sha256": "a70bbb6d9d24ccac792ffd6c2c720514c5b4e4a63ed43f4f76f3181127494e53",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:20:47.292Z",
+          "pose": {
+            "position": [
+              -71.9000650468546,
+              3.9530655821772998,
+              9.431681652928326
+            ],
+            "bearing": 32.34744349944208,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6205063,
+              "lon": -122.3493043,
+              "elev": 40.5
+            },
+            "projection": {
+              "mLat": 111182.94,
+              "mLon": 75171.03
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Chihuly Garden and Glass — postcard",
+          "image": "assets/spots/chihuly/postcard.webp",
+          "sha256": "035a7fb94706f21653d058466eb3b953f6d79f0700143e722b3cb9e66872868f",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:20:55.036Z",
+          "pose": {
+            "position": [
+              -56.25,
+              3.4664729028567676,
+              -6.199999999999999
+            ],
+            "bearing": 60,
+            "pitch": 38,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6205063,
+              "lon": -122.3493043,
+              "elev": 40.5
+            },
+            "projection": {
+              "mLat": 111182.94,
+              "mLon": 75171.03
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Chihuly Garden and Glass — activity approach",
+          "image": "assets/spots/chihuly/activity-approach.webp",
+          "sha256": "7f1eabeb5a1ebcae30a83165ba96612006430d3aa8b3858c2bf9497b3f400bc6",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:20:59.424Z",
+          "pose": {
+            "position": [
+              -0.7,
+              3.15,
+              22.9
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6205063,
+              "lon": -122.3493043,
+              "elev": 40.5
+            },
+            "projection": {
+              "mLat": 111182.94,
+              "mLon": 75171.03
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "seattle-center; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "93 active source records, 92 physical volumes, 4 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "2.7 m walked toward The Glasshouse; planned endpoint reached using native movement and collision."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "371210 unique geometry triangles; max 1335332 rendered triangles / 302 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "zfight: 53; phantom: 1; pedBelow: 3"
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 1015025,
+        "uniqueGeometryTriangles": 371210,
+        "geometryObjects": 154,
+        "maxRenderedTriangles": 1335332,
+        "maxDrawCalls": 302
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "aecc84822279658c32334c058655e1f050b07d2b9337079de529e845312d1d4b",
+        "activeSourceRecords": 93,
+        "renderedVolumes": 92,
+        "literalHeights": 55,
+        "levelHeightEstimates": 0,
+        "typeHeightEstimates": 38,
+        "heroReplacements": [
+          "w12903132",
+          "w329416207",
+          "w161587742",
+          "w1092469435",
+          "r19745997",
+          "w394254329",
+          "w394254331",
+          "w394254332",
+          "w394254333",
+          "w394254334",
+          "w394254335",
+          "w394254336",
+          "w394254337",
+          "w394254484",
+          "w394254485",
+          "w394254486",
+          "w394254487",
+          "w394254488",
+          "w394956342",
+          "w394956343",
+          "w394956344"
+        ],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": -73.4,
+          "z": 11.8,
+          "y": 2.368821026776569,
+          "heading": -1.3962634015954636
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              -73.4,
+              11.8
+            ],
+            [
+              -71.5,
+              8.8
+            ]
+          ],
+          "length": 3.5510561809129437,
+          "target": "The Glasshouse"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 34,
+          "walked": 2.6739730119277625,
+          "target": "The Glasshouse",
+          "plannedLength": 3.5510561809129437,
+          "position": {
+            "x": -71.90046295326862,
+            "z": 9.432309926213607,
+            "y": 2.3032263100162695,
+            "heading": -0.5645693936681012
+          },
+          "error": null
+        }
+      },
+      "rawAudit": {
+        "zfight": 53,
+        "phantom": 1,
+        "pedBelow": 3
+      },
+      "improvements": [
+        "All Seattle Center source polygons and parts remain represented by exact source volumes or explicit model replacements; shared native roofs replace the former overlap/drop heuristics.",
+        "Exact zero-area geometry was removed without deleting valid source faces; thin transparent glass uses one render pass."
+      ],
+      "remainingGaps": [
+        "The native plaque endpoint is visually obscured by a tree crown. Placement and sight lines need correction while retaining the tree.",
+        "The shared scene's generic activity-approach capture is the Space Needle entrance, not a Chihuly activity.",
+        "Glasshouse framing, garden beds and artwork placements remain simplified estimates pending complete matched public reference comparisons.",
+        "The existing sculpture-looking handler needs a meaningful input-driven challenge and a complete native cancellation review.",
+        "Raw audit findings remain for physical review: zfight 53, phantom 1, pedBelow 3."
+      ],
+      "review": "Inspected all four GAME context captures; the shared scene's source membership and budget pass does not establish Chihuly scene parity.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": true,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-08T23:57:39.832Z",
+    "2026-11-08T23:58:18.791Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": true,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The selected activity coordinate is physically reached; this is not completion of every activity.",
+      "cases": [
+        "chihuly"
+      ]
+    },
+    {
+      "label": "Native desktop Chihuly shutters",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-resume-c0b1b2c-desktop/results.json",
+      "sha256": "54f9fd789daba7c0b44284420f8acff83838b5bd7ba57c34c6df1f985f859965",
+      "sourceCommit": "c0b1b2c1487149d77f0b1a394e678d5a760abc15",
+      "passed": true,
+      "scope": "Three manual-look/shutter subjects complete; the later MoPOP case fails, so final whole-run persistence is not claimed.",
+      "cases": [
+        "chihuly"
+      ]
+    },
+    {
+      "label": "Native phone Chihuly shutters",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-side-approach-touch/results.json",
+      "sha256": "50f01950e469aa2f9a1d3cb043a2bbca5907884c04bc72be54bad75857829828",
+      "sourceCommit": "d5a766b7a961e3d4e7166f9b1387779a81012fc4",
+      "passed": true,
+      "scope": "Three actual phone shutters complete. The later Loupe locator-tap failure makes this a partial run; Chihuly reload is not inferred.",
+      "cases": [
+        "chihuly"
+      ]
+    }
+  ]
 }

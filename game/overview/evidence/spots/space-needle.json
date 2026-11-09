@@ -3,8 +3,8 @@
   "id": "space-needle",
   "city": "seattle",
   "name": "Space Needle & Seattle Center",
-  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:04.451Z",
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
   "status": "needs_review",
   "sources": [
     {
@@ -126,67 +126,79 @@
       "label": "Seattle Center Monorail (1962, ALWEG) + Seattle Center station",
       "type": "OSM source",
       "url": "https://www.openstreetmap.org/way/161609433"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Native phone manual view/tracking and shutter",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-direct-touch-ea89e2c/results.json"
+    },
+    {
+      "label": "Native phone elevator cancellation",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-side-approach-touch/results.json"
     }
   ],
   "improvements": [
-    "The canonical source-based Space Needle model and exact source footprint are integrated into Seattle Center.",
-    "Source parts, courtyards and valid roof surfaces remain represented; single-pass thin glass reduces work without removing geometry."
+    "Current native scene retains 114 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Physical elevator entrance; retained animated ascent, seven phone mode cancellations, manually aimed Loupe shutter and phone persistence",
+    "The selected primary activity approach is accepted separately from full-scene comparison."
   ],
   "remainingGaps": [
-    "Arrival and entrance queues put visitors very close to the camera; one pedestrian/collider finding remains and needs physical correction without dropping visitors.",
-    "The nearby tree canopy partly obscures the upward postcard. Access, sight lines and public plaza boundaries need matched independent scene comparisons.",
-    "The earlier lift work is retained, but this 24-destination context pass does not by itself prove the complete lift/pause/drone/touch sequence.",
-    "Raw audit findings remain for physical review: zfight 53, phantom 1, pedBelow 3, pedCollider 1."
+    "Unsupported stair/deck teleport and lm-needle-360 are retired; full tower/skyline comparison remains separate",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
+    "Unmodelled stair/deck teleport and lm-needle-360 are retired. The animated elevator and manually aimed Loupe remain; no actual stair access is asserted."
   ],
   "checks": [
     {
-      "label": "Native scene load",
+      "label": "Current native scene load and warm cache",
       "passed": true,
-      "details": "seattle-center; actual native controller; 0 thrown JavaScript errors."
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts."
     },
     {
-      "label": "Source solid membership",
+      "label": "Native phone condition controls",
       "passed": true,
-      "details": "93 active source records, 92 physical volumes, 4 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
     },
     {
-      "label": "Validated scene geometry cache",
+      "label": "Selected primary activity entry",
       "passed": true,
-      "details": "Exact source/profile/terrain signature matched."
+      "details": "9.361m actual-controller arrival; no pose writes after entry. Completion of every secondary activity is not inferred."
     },
     {
-      "label": "Native public-path walk",
+      "label": "High-quality selected native views",
       "passed": true,
-      "details": "1.7 m walked toward Original colours; planned endpoint reached using native movement and collision."
-    },
-    {
-      "label": "High scene budgets",
-      "passed": true,
-      "details": "371210 unique geometry triangles; max 1341596 rendered triangles / 264 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
-    },
-    {
-      "label": "Raw physical audit",
-      "passed": false,
-      "details": "zfight: 53; phantom: 1; pedBelow: 3; pedCollider: 1"
+      "details": "Maximum 1014046 rendered triangles / 229 calls. Software-GL capture is not a hardware FPS benchmark."
     },
     {
       "label": "Full matched scene comparison",
       "passed": false,
-      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
     }
   ],
   "captures": [
     {
       "kind": "arrival",
-      "label": "Space Needle & Seattle Center — arrival",
-      "image": "assets/spots/space-needle/arrival.webp",
-      "sha256": "95b23f8ef4220274a3e13c74e15e53966bb9881ce92af2e8193dc765b197ac57",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:21:16.128Z",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/space-needle-arrival.webp",
+      "sha256": "5860bc9c302e4fb40999321f707a55ce9c6be012fd8f1bb5871bad5dbe869dd0",
+      "bytes": 24318,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-08T23:59:25.524Z",
       "pose": {
         "position": [
           0.2,
-          3.15,
+          3.1693960412063036,
           27.669999999999998
         ],
         "bearing": 0,
@@ -205,22 +217,38 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open."
+      ],
+      "metrics": {
+        "triangles": 1014046,
+        "drawCalls": 229
+      },
+      "simulationDate": "2026-11-08T23:59:06.336Z"
     },
     {
-      "kind": "public-walk",
-      "label": "Space Needle & Seattle Center — public walk",
-      "image": "assets/spots/space-needle/public-walk.webp",
-      "sha256": "b96351f3b1ee5901ed9222c09894b303c4d77bf85ec93e023070cd8fac6e5a68",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:21:18.584Z",
+      "kind": "activity-approach",
+      "label": "Physical approach to the selected activity",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/space-needle-approach.webp",
+      "sha256": "f1a8e4c43ec47b5219401faf0e53e2a5db2775f317a9c37b4fc66806920c88e3",
+      "bytes": 27860,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-08T23:59:36.204Z",
       "pose": {
         "position": [
-          0.004276318244813125,
-          3.149881019228278,
-          26.128325233340004
+          -0.7196105033483731,
+          3.1179288123468916,
+          19.1449811194036
         ],
-        "bearing": 25.111381867156922,
+        "bearing": 4.576696409840395,
         "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
@@ -236,23 +264,40 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": true,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Physical arrival at the interaction coordinate does not complete the activity or certify a surveyed legal pedestrian itinerary."
+      ],
+      "metrics": {
+        "triangles": 990911,
+        "drawCalls": 115
+      },
+      "simulationDate": "2026-11-08T23:59:17.025Z"
     },
     {
-      "kind": "postcard",
-      "label": "Space Needle & Seattle Center — postcard",
-      "image": "assets/spots/space-needle/postcard.webp",
-      "sha256": "10bae04647a09073d557e1cb2f80fd2da4c304199cf600815489732133f94381",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:21:19.956Z",
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/space-needle-phone.webp",
+      "sha256": "d6c4b44ec5cc09db3ad41f1261a62c28a8235d44da7eaa0c4d60f41fb204f8af",
+      "bytes": 10102,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-08T23:59:45.460Z",
       "pose": {
         "position": [
-          0.3,
-          2.9809367892146104,
-          56.3
+          -0.706280287164196,
+          3.1441559834443153,
+          18.97845447823183
         ],
-        "bearing": 0,
-        "pitch": 59.99999999999999,
+        "bearing": 4.576696409840395,
+        "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
           "lat": 47.6205063,
@@ -264,53 +309,39 @@
           "mLon": 75171.03
         },
         "viewport": {
-          "width": 1280,
-          "height": 720
+          "width": 390,
+          "height": 844
         }
-      }
-    },
-    {
-      "kind": "activity-approach",
-      "label": "Space Needle & Seattle Center — activity approach",
-      "image": "assets/spots/space-needle/activity-approach.webp",
-      "sha256": "28b416603959a007dab32fcddc0733b8afdf3db28c396737d109f139e4ed2cd6",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:21:22.860Z",
-      "pose": {
-        "position": [
-          -0.7,
-          3.15,
-          22.9
-        ],
-        "bearing": 0,
-        "pitch": -7.000000000000003,
-        "coordinateSystem": "scene-local metres, x east / y up / z south",
-        "origin": {
-          "lat": 47.6205063,
-          "lon": -122.3493043,
-          "elev": 40.5
-        },
-        "projection": {
-          "mLat": 111182.94,
-          "mLon": 75171.03
-        },
-        "viewport": {
-          "width": 1280,
-          "height": 720
-        }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison."
+      ],
+      "metrics": {
+        "triangles": 804545,
+        "drawCalls": 98
+      },
+      "simulationDate": "2026-11-08T23:59:45.461Z"
     }
   ],
   "perf": {
-    "sceneTriangles": 1015025,
-    "uniqueGeometryTriangles": 371210,
-    "geometryObjects": 154,
-    "maxRenderedTriangles": 1341596,
-    "maxDrawCalls": 264
+    "triangles": 1014046,
+    "drawCalls": 229,
+    "maxRenderedTriangles": 1014046,
+    "maxDrawCalls": 229,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
   },
   "sceneId": "seattle-center",
   "sourceGeometry": {
-    "membershipSHA256": "aecc84822279658c32334c058655e1f050b07d2b9337079de529e845312d1d4b",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "7b2480c9fb313e29de9758a9df3c26384f41f44501151d3e0502b6c4dfc84ec7",
     "activeSourceRecords": 93,
     "renderedVolumes": 92,
     "literalHeights": 55,
@@ -339,7 +370,8 @@
       "w394956343",
       "w394956344"
     ],
-    "missingMembers": []
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
   },
   "access": {
     "walker": "OnFootController",
@@ -349,46 +381,362 @@
       "y": 1.5,
       "heading": 0
     },
-    "arrivalDry": true,
-    "nearestPlaquePath": {
-      "points": [
-        [
-          0.2,
-          27.669999999999998
-        ],
-        [
-          -0.5499999999999972,
-          26.25
-        ],
-        [
-          0.30000000000000177,
-          25.5
-        ]
-      ],
-      "length": 2.73947379374735,
-      "target": "Original colours"
-    },
+    "primaryActivity": "Ride the elevator to The Loupe (41 s)",
+    "primaryRouteStatus": "physically-verified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": true,
     "nativeWalk": {
-      "walker": "OnFootController",
       "passed": true,
-      "steps": 24,
-      "walked": 1.6804427413838423,
-      "target": "Original colours",
-      "plannedLength": 2.73947379374735,
+      "walked": 9.361348749366613,
+      "steps": 43,
+      "maxStep": 0.22999999724980608,
+      "maxRise": 0,
       "position": {
-        "x": 0.003964653920820031,
-        "z": 26.12899941780012,
+        "x": -0.7196105033483731,
+        "z": 19.1449811194036,
         "y": 1.5,
-        "heading": -0.43827629330748935
+        "heading": -0.07987842121591854
       },
-      "error": null
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
     }
   },
   "rawAudit": {
-    "zfight": 53,
-    "phantom": 1,
-    "pedBelow": 3,
-    "pedCollider": 1
+    "status": "historical-only",
+    "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "counts": {
+      "zfight": 53,
+      "phantom": 1,
+      "pedBelow": 3,
+      "pedCollider": 1
+    },
+    "collection": "previous-context-gallery"
   },
-  "review": "Inspected all four GAME context captures. Entry and queue placement need further work despite a completed short native plaque walk."
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical elevator entrance; retained animated ascent, seven phone mode cancellations, manually aimed Loupe shutter and phone persistence Unsupported stair/deck teleport and lm-needle-360 are retired; full tower/skyline comparison remains separate Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "historicalCollections": [
+    {
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "updatedAt": "2026-11-08T19:35:04.451Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Space Needle & Seattle Center — arrival",
+          "image": "assets/spots/space-needle/arrival.webp",
+          "sha256": "95b23f8ef4220274a3e13c74e15e53966bb9881ce92af2e8193dc765b197ac57",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:21:16.128Z",
+          "pose": {
+            "position": [
+              0.2,
+              3.15,
+              27.669999999999998
+            ],
+            "bearing": 0,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6205063,
+              "lon": -122.3493043,
+              "elev": 40.5
+            },
+            "projection": {
+              "mLat": 111182.94,
+              "mLon": 75171.03
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Space Needle & Seattle Center — public walk",
+          "image": "assets/spots/space-needle/public-walk.webp",
+          "sha256": "b96351f3b1ee5901ed9222c09894b303c4d77bf85ec93e023070cd8fac6e5a68",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:21:18.584Z",
+          "pose": {
+            "position": [
+              0.004276318244813125,
+              3.149881019228278,
+              26.128325233340004
+            ],
+            "bearing": 25.111381867156922,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6205063,
+              "lon": -122.3493043,
+              "elev": 40.5
+            },
+            "projection": {
+              "mLat": 111182.94,
+              "mLon": 75171.03
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Space Needle & Seattle Center — postcard",
+          "image": "assets/spots/space-needle/postcard.webp",
+          "sha256": "10bae04647a09073d557e1cb2f80fd2da4c304199cf600815489732133f94381",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:21:19.956Z",
+          "pose": {
+            "position": [
+              0.3,
+              2.9809367892146104,
+              56.3
+            ],
+            "bearing": 0,
+            "pitch": 59.99999999999999,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6205063,
+              "lon": -122.3493043,
+              "elev": 40.5
+            },
+            "projection": {
+              "mLat": 111182.94,
+              "mLon": 75171.03
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Space Needle & Seattle Center — activity approach",
+          "image": "assets/spots/space-needle/activity-approach.webp",
+          "sha256": "28b416603959a007dab32fcddc0733b8afdf3db28c396737d109f139e4ed2cd6",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:21:22.860Z",
+          "pose": {
+            "position": [
+              -0.7,
+              3.15,
+              22.9
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6205063,
+              "lon": -122.3493043,
+              "elev": 40.5
+            },
+            "projection": {
+              "mLat": 111182.94,
+              "mLon": 75171.03
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "seattle-center; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "93 active source records, 92 physical volumes, 4 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "1.7 m walked toward Original colours; planned endpoint reached using native movement and collision."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "371210 unique geometry triangles; max 1341596 rendered triangles / 264 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "zfight: 53; phantom: 1; pedBelow: 3; pedCollider: 1"
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 1015025,
+        "uniqueGeometryTriangles": 371210,
+        "geometryObjects": 154,
+        "maxRenderedTriangles": 1341596,
+        "maxDrawCalls": 264
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "aecc84822279658c32334c058655e1f050b07d2b9337079de529e845312d1d4b",
+        "activeSourceRecords": 93,
+        "renderedVolumes": 92,
+        "literalHeights": 55,
+        "levelHeightEstimates": 0,
+        "typeHeightEstimates": 38,
+        "heroReplacements": [
+          "w12903132",
+          "w329416207",
+          "w161587742",
+          "w1092469435",
+          "r19745997",
+          "w394254329",
+          "w394254331",
+          "w394254332",
+          "w394254333",
+          "w394254334",
+          "w394254335",
+          "w394254336",
+          "w394254337",
+          "w394254484",
+          "w394254485",
+          "w394254486",
+          "w394254487",
+          "w394254488",
+          "w394956342",
+          "w394956343",
+          "w394956344"
+        ],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": 0.2,
+          "z": 27.669999999999998,
+          "y": 1.5,
+          "heading": 0
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              0.2,
+              27.669999999999998
+            ],
+            [
+              -0.5499999999999972,
+              26.25
+            ],
+            [
+              0.30000000000000177,
+              25.5
+            ]
+          ],
+          "length": 2.73947379374735,
+          "target": "Original colours"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 24,
+          "walked": 1.6804427413838423,
+          "target": "Original colours",
+          "plannedLength": 2.73947379374735,
+          "position": {
+            "x": 0.003964653920820031,
+            "z": 26.12899941780012,
+            "y": 1.5,
+            "heading": -0.43827629330748935
+          },
+          "error": null
+        }
+      },
+      "rawAudit": {
+        "zfight": 53,
+        "phantom": 1,
+        "pedBelow": 3,
+        "pedCollider": 1
+      },
+      "improvements": [
+        "The canonical source-based Space Needle model and exact source footprint are integrated into Seattle Center.",
+        "Source parts, courtyards and valid roof surfaces remain represented; single-pass thin glass reduces work without removing geometry."
+      ],
+      "remainingGaps": [
+        "Arrival and entrance queues put visitors very close to the camera; one pedestrian/collider finding remains and needs physical correction without dropping visitors.",
+        "The nearby tree canopy partly obscures the upward postcard. Access, sight lines and public plaza boundaries need matched independent scene comparisons.",
+        "The earlier lift work is retained, but this 24-destination context pass does not by itself prove the complete lift/pause/drone/touch sequence.",
+        "Raw audit findings remain for physical review: zfight 53, phantom 1, pedBelow 3, pedCollider 1."
+      ],
+      "review": "Inspected all four GAME context captures. Entry and queue placement need further work despite a completed short native plaque walk.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": true,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-08T23:59:25.524Z",
+    "2026-11-08T23:59:45.460Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": true,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The selected activity coordinate is physically reached; this is not completion of every activity.",
+      "cases": [
+        "space-needle"
+      ]
+    },
+    {
+      "label": "Native phone manual view/tracking and shutter",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-direct-touch-ea89e2c/results.json",
+      "sha256": "353faa22cc8a79cef81b45629b66ef8dea2b565986f9e562bd344cf9756fdbad",
+      "sourceCommit": "ea89e2cfec191c97c8f9513adfa5ddb4928f85b1",
+      "passed": true,
+      "scope": "Actual touch look and unobstructed native shutter events; selected exercise completes and persists. MoPOP retains a missed pass, waits for real animation frames and reacquires the moving train. Initial nearby setup is explicit.",
+      "cases": [
+        "space-needle"
+      ]
+    },
+    {
+      "label": "Native phone elevator cancellation",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-side-approach-touch/results.json",
+      "sha256": "50f01950e469aa2f9a1d3cb043a2bbca5907884c04bc72be54bad75857829828",
+      "sourceCommit": "d5a766b7a961e3d4e7166f9b1387779a81012fc4",
+      "passed": true,
+      "scope": "Seven real host-mode cancellations restore the original floor without an award. A separate animated ascent reaches the Loupe. The later shutter locator failure is retained; successful Loupe controls are separate.",
+      "cases": [
+        "space-needle"
+      ]
+    }
+  ]
 }

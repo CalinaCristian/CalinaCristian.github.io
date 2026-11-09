@@ -1,0 +1,12 @@
+✔ one permanent legend listener routes to the current map with the existing coordinates and event behavior (2.412839ms)
+✔ district disposal preserves the cockpit and cached landmark material, but frees its own maps (8.573353ms)
+✔ fleet and crowd wrappers release instance attributes without disposing cached model attributes (4.168693ms)
+✔ tree templates survive, while instance buffers and the water registry are released (5.772875ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 513.191238

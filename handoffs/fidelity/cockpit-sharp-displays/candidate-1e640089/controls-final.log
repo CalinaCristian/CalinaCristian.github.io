@@ -1,0 +1,13 @@
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(report.environmentSettled)
+
+    at exports.run (/workspace/fidelity-workers/sharp-cockpit-displays/handoffs/fidelity/cockpit-sharp-displays/controls.cjs:85:105)
+    at async /workspace/reality-pass/cockpit-sharp-displays/candidate-1e640089/controls-only.cjs:35:74 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

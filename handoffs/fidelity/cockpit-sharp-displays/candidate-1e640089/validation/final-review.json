@@ -1,0 +1,187 @@
+{
+  "scope": "Review and packaging only; original raw JSON flags/dates/tool hashes and PNG bytes remain unchanged. Native availability is qualified from each original per-case mirror flag. No fresh execution is implied.",
+  "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+  "nativeCases": [
+    {
+      "viewport": "desktop",
+      "quality": "low",
+      "sourceReport": "native/report.json",
+      "mirrorEnabled": true,
+      "mirrorVisible": true,
+      "interpretation": "Enabled mirror stress, including forced Low; normal Low policy is tested separately",
+      "nativeVehicleCount": 312,
+      "nativePedestrianCount": 560
+    },
+    {
+      "viewport": "desktop",
+      "quality": "medium",
+      "sourceReport": "native/report.json",
+      "mirrorEnabled": true,
+      "mirrorVisible": true,
+      "interpretation": "Enabled mirror stress, including forced Low; normal Low policy is tested separately",
+      "nativeVehicleCount": 312,
+      "nativePedestrianCount": 560
+    },
+    {
+      "viewport": "desktop",
+      "quality": "high",
+      "sourceReport": "native/report.json",
+      "mirrorEnabled": true,
+      "mirrorVisible": true,
+      "interpretation": "Enabled mirror stress, including forced Low; normal Low policy is tested separately",
+      "nativeVehicleCount": 312,
+      "nativePedestrianCount": 560
+    },
+    {
+      "viewport": "desktop",
+      "quality": "auto",
+      "sourceReport": "native/report.json",
+      "mirrorEnabled": true,
+      "mirrorVisible": true,
+      "interpretation": "Enabled mirror stress, including forced Low; normal Low policy is tested separately",
+      "nativeVehicleCount": 312,
+      "nativePedestrianCount": 560
+    },
+    {
+      "viewport": "phone-landscape",
+      "quality": "low",
+      "sourceReport": "native/report.json",
+      "mirrorEnabled": false,
+      "mirrorVisible": false,
+      "interpretation": "Mirror hidden by normal Auto Low policy; housing crop and zero-byte equality are not enabled mirror evidence",
+      "nativeVehicleCount": 115,
+      "nativePedestrianCount": 260
+    },
+    {
+      "viewport": "phone-landscape",
+      "quality": "medium",
+      "sourceReport": "native/report.json",
+      "mirrorEnabled": false,
+      "mirrorVisible": false,
+      "interpretation": "Mirror hidden by normal Auto Low policy; housing crop and zero-byte equality are not enabled mirror evidence",
+      "nativeVehicleCount": 115,
+      "nativePedestrianCount": 260
+    },
+    {
+      "viewport": "phone-landscape",
+      "quality": "high",
+      "sourceReport": "native/report.json",
+      "mirrorEnabled": false,
+      "mirrorVisible": false,
+      "interpretation": "Mirror hidden by normal Auto Low policy; housing crop and zero-byte equality are not enabled mirror evidence",
+      "nativeVehicleCount": 115,
+      "nativePedestrianCount": 260
+    },
+    {
+      "viewport": "phone-landscape",
+      "quality": "auto",
+      "sourceReport": "native/report.json",
+      "mirrorEnabled": false,
+      "mirrorVisible": false,
+      "interpretation": "Mirror hidden by normal Auto Low policy; housing crop and zero-byte equality are not enabled mirror evidence",
+      "nativeVehicleCount": 115,
+      "nativePedestrianCount": 260
+    },
+    {
+      "viewport": "phone-portrait",
+      "quality": "low",
+      "sourceReport": "portrait-followup/report.json",
+      "mirrorEnabled": false,
+      "mirrorVisible": false,
+      "interpretation": "Mirror hidden by normal Auto Low policy; housing crop and zero-byte equality are not enabled mirror evidence",
+      "nativeVehicleCount": 115,
+      "nativePedestrianCount": 260
+    },
+    {
+      "viewport": "phone-portrait",
+      "quality": "medium",
+      "sourceReport": "portrait-followup/report.json",
+      "mirrorEnabled": false,
+      "mirrorVisible": false,
+      "interpretation": "Mirror hidden by normal Auto Low policy; housing crop and zero-byte equality are not enabled mirror evidence",
+      "nativeVehicleCount": 115,
+      "nativePedestrianCount": 260
+    },
+    {
+      "viewport": "phone-portrait",
+      "quality": "high",
+      "sourceReport": "portrait-followup/report.json",
+      "mirrorEnabled": false,
+      "mirrorVisible": false,
+      "interpretation": "Mirror hidden by normal Auto Low policy; housing crop and zero-byte equality are not enabled mirror evidence",
+      "nativeVehicleCount": 115,
+      "nativePedestrianCount": 260
+    },
+    {
+      "viewport": "phone-portrait",
+      "quality": "auto",
+      "sourceReport": "portrait-followup/report.json",
+      "mirrorEnabled": false,
+      "mirrorVisible": false,
+      "interpretation": "Mirror hidden by normal Auto Low policy; housing crop and zero-byte equality are not enabled mirror evidence",
+      "nativeVehicleCount": 115,
+      "nativePedestrianCount": 260
+    }
+  ],
+  "servedIdentityChecks": [
+    {
+      "report": "baseline-9242ccf6/native/report.json",
+      "sourceCommit": "9242ccf6cfac05f6117815bea47c0dc2effefa49",
+      "servedFiles": 111,
+      "allServedFilesMatchCopiedGitInventory": true,
+      "complete": true,
+      "browserClosed": true,
+      "failureRetained": null
+    },
+    {
+      "report": "candidate-1e640089/native/report.json",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "servedFiles": 112,
+      "allServedFilesMatchCopiedGitInventory": true,
+      "complete": false,
+      "browserClosed": true,
+      "failureRetained": "AssertionError [ERR_ASSERTION]: cold-key-on allocated Program\n\n83 !== 82\n\n    at exports.run (/workspace/fidelity-workers/sharp-cockpit-displays/handoffs/fidelity/cockpit-sharp-displays/controls.cjs:55:106)\n    at async /workspace/fidelity-workers/sharp-cockpit-displays/handoffs/fidelity/cockpit-sharp-displays/capture-native.cjs:35:75"
+    },
+    {
+      "report": "candidate-1e640089/portrait-followup/report.json",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "servedFiles": 113,
+      "allServedFilesMatchCopiedGitInventory": true,
+      "complete": false,
+      "browserClosed": true,
+      "failureRetained": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(row.targets.every(t=>t.initialized))\n\n    at exports.run (/workspace/fidelity-workers/sharp-cockpit-displays/handoffs/fidelity/cockpit-sharp-displays/controls.cjs:75:50)\n    at async /workspace/reality-pass/cockpit-sharp-displays/candidate-1e640089/capture-portrait-followup.cjs:35:74"
+    },
+    {
+      "report": "candidate-1e640089/controls-final/report.json",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "servedFiles": 113,
+      "allServedFilesMatchCopiedGitInventory": true,
+      "complete": false,
+      "browserClosed": true,
+      "failureRetained": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(report.environmentSettled)\n\n    at exports.run (/workspace/fidelity-workers/sharp-cockpit-displays/handoffs/fidelity/cockpit-sharp-displays/controls.cjs:85:105)\n    at async /workspace/reality-pass/cockpit-sharp-displays/candidate-1e640089/controls-only.cjs:35:74"
+    },
+    {
+      "report": "candidate-1e640089/resource-final/report.json",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "servedFiles": 112,
+      "allServedFilesMatchCopiedGitInventory": true,
+      "complete": true,
+      "browserClosed": true,
+      "failureRetained": null
+    }
+  ],
+  "nativeCaseCount": 12,
+  "mirrorCoverage": {
+    "enabledDesktopStressCases": 4,
+    "hiddenPhoneCases": 8,
+    "normalLowAvailability": "controls-final/controls.json normalLow: mirror hidden; cluster/navigation sharp; outputDPR3, worldDPR1",
+    "focusedPositivePhone": "Separate immutable718b996c report; see README. No old capture is restamped."
+  },
+  "limits": [
+    "Default native chapter populations, not the separate final full624 stress gate.",
+    "SwiftShader browser checks, not hardware FPS or physical phone reading.",
+    "Arnia navigation text is partly occluded by the original native cabin/camera; no camera or physical plane was moved.",
+    "A gradient decrease at desktopHigh/Auto and portraitHigh cluster is retained; edge magnitude is only supporting evidence, not a universal sharpness score.",
+    "Prototype and mixed-control failures remain explicit; final acceptance is scoped to the separate successful checks."
+  ]
+}

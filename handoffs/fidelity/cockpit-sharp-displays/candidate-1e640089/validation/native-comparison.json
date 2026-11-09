@@ -1,0 +1,527 @@
+{
+  "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+  "baselineCommit": "9242ccf6cfac05f6117815bea47c0dc2effefa49",
+  "cases": [
+    {
+      "viewport": "desktop",
+      "quality": "low",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "report": "native/report.json",
+      "cameraMatrixMaximumDifference": 0.0,
+      "physicalPlayerMaximumDifference": 0.0,
+      "worldRatio": 1,
+      "outputRatio": 1,
+      "maxCalls": 303,
+      "maxTriangles": 1050086,
+      "nativePopulation": {
+        "vehicles": 312,
+        "pooled": 179,
+        "pedestrians": 560
+      },
+      "scores": {
+        "screen": {
+          "baselineMeanGradient": 3.947075055154335,
+          "candidateMeanGradient": 3.947075055154335,
+          "ratio": 1.0,
+          "roi": [
+            54,
+            6,
+            189,
+            37
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        },
+        "cluster": {
+          "baselineMeanGradient": 4.522967978853158,
+          "candidateMeanGradient": 4.522967978853158,
+          "ratio": 1.0,
+          "roi": [
+            97,
+            18,
+            146,
+            73
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        }
+      }
+    },
+    {
+      "viewport": "desktop",
+      "quality": "medium",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "report": "native/report.json",
+      "cameraMatrixMaximumDifference": 0.0,
+      "physicalPlayerMaximumDifference": 0.0,
+      "worldRatio": 1,
+      "outputRatio": 1,
+      "maxCalls": 330,
+      "maxTriangles": 1110391,
+      "nativePopulation": {
+        "vehicles": 312,
+        "pooled": 179,
+        "pedestrians": 560
+      },
+      "scores": {
+        "screen": {
+          "baselineMeanGradient": 2.189967157759589,
+          "candidateMeanGradient": 3.947074398033726,
+          "ratio": 1.8023441055032612,
+          "roi": [
+            54,
+            6,
+            189,
+            37
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        },
+        "cluster": {
+          "baselineMeanGradient": 3.9569751666323087,
+          "candidateMeanGradient": 4.522914797034976,
+          "ratio": 1.1430232959698672,
+          "roi": [
+            97,
+            18,
+            146,
+            73
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        }
+      }
+    },
+    {
+      "viewport": "desktop",
+      "quality": "high",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "report": "native/report.json",
+      "cameraMatrixMaximumDifference": 0.0,
+      "physicalPlayerMaximumDifference": 0.0,
+      "worldRatio": 1,
+      "outputRatio": 1,
+      "maxCalls": 339,
+      "maxTriangles": 1115483,
+      "nativePopulation": {
+        "vehicles": 312,
+        "pooled": 179,
+        "pedestrians": 560
+      },
+      "scores": {
+        "screen": {
+          "baselineMeanGradient": 4.147136640061341,
+          "candidateMeanGradient": 3.947142958457414,
+          "ratio": 0.951775478128213,
+          "roi": [
+            54,
+            6,
+            189,
+            37
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        },
+        "cluster": {
+          "baselineMeanGradient": 5.692952812907992,
+          "candidateMeanGradient": 4.522887693173229,
+          "ratio": 0.7944713124827243,
+          "roi": [
+            97,
+            18,
+            146,
+            73
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        }
+      }
+    },
+    {
+      "viewport": "desktop",
+      "quality": "auto",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "report": "native/report.json",
+      "cameraMatrixMaximumDifference": 0.0,
+      "physicalPlayerMaximumDifference": 0.0,
+      "worldRatio": 1,
+      "outputRatio": 1,
+      "maxCalls": 339,
+      "maxTriangles": 1115483,
+      "nativePopulation": {
+        "vehicles": 312,
+        "pooled": 179,
+        "pedestrians": 560
+      },
+      "scores": {
+        "screen": {
+          "baselineMeanGradient": 4.138453562581358,
+          "candidateMeanGradient": 3.9471253707448417,
+          "ratio": 0.9537681916824082,
+          "roi": [
+            54,
+            6,
+            189,
+            37
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        },
+        "cluster": {
+          "baselineMeanGradient": 5.699427595598845,
+          "candidateMeanGradient": 4.522860344688381,
+          "ratio": 0.7935639621391065,
+          "roi": [
+            97,
+            18,
+            146,
+            73
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        }
+      }
+    },
+    {
+      "viewport": "phone-landscape",
+      "quality": "low",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "report": "native/report.json",
+      "cameraMatrixMaximumDifference": 0.0,
+      "physicalPlayerMaximumDifference": 0.0,
+      "worldRatio": 1,
+      "outputRatio": 3,
+      "maxCalls": 247,
+      "maxTriangles": 963754,
+      "nativePopulation": {
+        "vehicles": 115,
+        "pooled": 63,
+        "pedestrians": 260
+      },
+      "scores": {
+        "screen": {
+          "baselineMeanGradient": 1.3249368323108033,
+          "candidateMeanGradient": 2.9368485281334866,
+          "ratio": 2.216595128547654,
+          "roi": [
+            90,
+            10,
+            316,
+            63
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        },
+        "cluster": {
+          "baselineMeanGradient": 2.358002780538679,
+          "candidateMeanGradient": 2.991666354225804,
+          "ratio": 1.2687289340440755,
+          "roi": [
+            163,
+            31,
+            244,
+            125
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        }
+      }
+    },
+    {
+      "viewport": "phone-landscape",
+      "quality": "medium",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "report": "native/report.json",
+      "cameraMatrixMaximumDifference": 0.0,
+      "physicalPlayerMaximumDifference": 0.0,
+      "worldRatio": 1,
+      "outputRatio": 3,
+      "maxCalls": 269,
+      "maxTriangles": 1018526,
+      "nativePopulation": {
+        "vehicles": 115,
+        "pooled": 63,
+        "pedestrians": 260
+      },
+      "scores": {
+        "screen": {
+          "baselineMeanGradient": 0.930585721122628,
+          "candidateMeanGradient": 2.9369272139520746,
+          "ratio": 3.155998579485039,
+          "roi": [
+            90,
+            10,
+            316,
+            63
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        },
+        "cluster": {
+          "baselineMeanGradient": 2.070463716318412,
+          "candidateMeanGradient": 2.9913688179686684,
+          "ratio": 1.4447820526349338,
+          "roi": [
+            163,
+            31,
+            244,
+            125
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        }
+      }
+    },
+    {
+      "viewport": "phone-landscape",
+      "quality": "high",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "report": "native/report.json",
+      "cameraMatrixMaximumDifference": 0.0,
+      "physicalPlayerMaximumDifference": 0.0,
+      "worldRatio": 1.5,
+      "outputRatio": 3,
+      "maxCalls": 278,
+      "maxTriangles": 1023618,
+      "nativePopulation": {
+        "vehicles": 115,
+        "pooled": 63,
+        "pedestrians": 260
+      },
+      "scores": {
+        "screen": {
+          "baselineMeanGradient": 1.511226896486864,
+          "candidateMeanGradient": 2.9369450420443175,
+          "ratio": 1.9434176620809278,
+          "roi": [
+            90,
+            10,
+            316,
+            63
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        },
+        "cluster": {
+          "baselineMeanGradient": 2.592346455199957,
+          "candidateMeanGradient": 2.9911324241970085,
+          "ratio": 1.1538320498007246,
+          "roi": [
+            163,
+            31,
+            244,
+            125
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        }
+      }
+    },
+    {
+      "viewport": "phone-landscape",
+      "quality": "auto",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "report": "native/report.json",
+      "cameraMatrixMaximumDifference": 0.0,
+      "physicalPlayerMaximumDifference": 0.0,
+      "worldRatio": 1,
+      "outputRatio": 3,
+      "maxCalls": 243,
+      "maxTriangles": 962724,
+      "nativePopulation": {
+        "vehicles": 115,
+        "pooled": 63,
+        "pedestrians": 260
+      },
+      "scores": {
+        "screen": {
+          "baselineMeanGradient": 0.9239615271659012,
+          "candidateMeanGradient": 2.937016438898664,
+          "ratio": 3.1787215728640508,
+          "roi": [
+            90,
+            10,
+            316,
+            63
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        },
+        "cluster": {
+          "baselineMeanGradient": 2.070480615283886,
+          "candidateMeanGradient": 2.9909434670552404,
+          "ratio": 1.4445648246965832,
+          "roi": [
+            163,
+            31,
+            244,
+            125
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        }
+      }
+    },
+    {
+      "viewport": "phone-portrait",
+      "quality": "low",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "report": "portrait-followup/report.json",
+      "cameraMatrixMaximumDifference": 0.0,
+      "physicalPlayerMaximumDifference": 0.0,
+      "worldRatio": 1,
+      "outputRatio": 3,
+      "maxCalls": 172,
+      "maxTriangles": 588242,
+      "nativePopulation": {
+        "vehicles": 115,
+        "pooled": 189,
+        "pedestrians": 260
+      },
+      "scores": {
+        "screen": {
+          "baselineMeanGradient": 1.6515075587481083,
+          "candidateMeanGradient": 2.6071691724301274,
+          "ratio": 1.5786601512174967,
+          "roi": [
+            133,
+            17,
+            466,
+            104
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        },
+        "cluster": {
+          "baselineMeanGradient": 1.7195983176520142,
+          "candidateMeanGradient": 2.4359760889610076,
+          "ratio": 1.416595994515251,
+          "roi": [
+            205,
+            55,
+            307,
+            222
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        }
+      }
+    },
+    {
+      "viewport": "phone-portrait",
+      "quality": "medium",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "report": "portrait-followup/report.json",
+      "cameraMatrixMaximumDifference": 0.0,
+      "physicalPlayerMaximumDifference": 0.0,
+      "worldRatio": 1,
+      "outputRatio": 3,
+      "maxCalls": 193,
+      "maxTriangles": 642918,
+      "nativePopulation": {
+        "vehicles": 115,
+        "pooled": 189,
+        "pedestrians": 260
+      },
+      "scores": {
+        "screen": {
+          "baselineMeanGradient": 1.1070811086250258,
+          "candidateMeanGradient": 2.7321238866401396,
+          "ratio": 2.4678624405698573,
+          "roi": [
+            133,
+            17,
+            466,
+            104
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        },
+        "cluster": {
+          "baselineMeanGradient": 1.7586563676962932,
+          "candidateMeanGradient": 2.4360247788509826,
+          "ratio": 1.385162459020912,
+          "roi": [
+            205,
+            55,
+            307,
+            222
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        }
+      }
+    },
+    {
+      "viewport": "phone-portrait",
+      "quality": "high",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "report": "portrait-followup/report.json",
+      "cameraMatrixMaximumDifference": 0.0,
+      "physicalPlayerMaximumDifference": 0.0,
+      "worldRatio": 1.5,
+      "outputRatio": 3,
+      "maxCalls": 202,
+      "maxTriangles": 648010,
+      "nativePopulation": {
+        "vehicles": 115,
+        "pooled": 189,
+        "pedestrians": 260
+      },
+      "scores": {
+        "screen": {
+          "baselineMeanGradient": 1.9461792682096206,
+          "candidateMeanGradient": 2.6783806316272694,
+          "ratio": 1.3762250350612533,
+          "roi": [
+            133,
+            17,
+            466,
+            104
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        },
+        "cluster": {
+          "baselineMeanGradient": 2.589315571809136,
+          "candidateMeanGradient": 2.4360594657535346,
+          "ratio": 0.9408121174088786,
+          "roi": [
+            205,
+            55,
+            307,
+            222
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        }
+      }
+    },
+    {
+      "viewport": "phone-portrait",
+      "quality": "auto",
+      "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+      "report": "portrait-followup/report.json",
+      "cameraMatrixMaximumDifference": 0.0,
+      "physicalPlayerMaximumDifference": 0.0,
+      "worldRatio": 1,
+      "outputRatio": 3,
+      "maxCalls": 168,
+      "maxTriangles": 587212,
+      "nativePopulation": {
+        "vehicles": 115,
+        "pooled": 189,
+        "pedestrians": 260
+      },
+      "scores": {
+        "screen": {
+          "baselineMeanGradient": 1.1068441817146852,
+          "candidateMeanGradient": 2.7359622126745053,
+          "ratio": 2.4718585125830863,
+          "roi": [
+            133,
+            17,
+            466,
+            104
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        },
+        "cluster": {
+          "baselineMeanGradient": 1.758342081256297,
+          "candidateMeanGradient": 2.436313134380242,
+          "ratio": 1.3855740361053916,
+          "roi": [
+            205,
+            55,
+            307,
+            222
+          ],
+          "interpretation": "Unscaled native crop edge contrast in selected text/gauge ROI; supporting numeric observation, not OCR or a physical-device reading test."
+        }
+      }
+    }
+  ],
+  "nativeCameraAndPhysicalBodyMatchAll12": true,
+  "worldQualityRatiosUnchangedAll12": true,
+  "scope": "12native-camera full-mirror STRESS views across two real reports. Normal Low availability is separate; original incomplete mixed-control report flags remain unchanged. Native population defaults and time-dependent pooling were not overridden; actual per-case populations are retained.",
+  "maxCalls": 339,
+  "maxTriangles": 1115483
+}

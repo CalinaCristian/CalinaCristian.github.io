@@ -1,0 +1,35 @@
+{
+  "sourceCommit": "1e6400893716fb5e02112e88346c5b1132e88996",
+  "method": "Same actual native frame before and after display-only pass; physical quad projection masks allow one output pixel of raster edge coverage. Added occluder interior excludes two coarse world texels of its original silhouette.",
+  "rows": [
+    {
+      "label": "clear-native-plane",
+      "changedPixels": 136854,
+      "outsidePhysicalPlanesChangedPixels": 0,
+      "mirrorUnchanged": true,
+      "nativeCallbackUnchanged": true,
+      "fleetUnchanged": true,
+      "cameraUnchanged": true
+    },
+    {
+      "label": "explicit-near-occluder",
+      "changedPixels": 126541,
+      "outsidePhysicalPlanesChangedPixels": 0,
+      "mirrorUnchanged": true,
+      "nativeCallbackUnchanged": true,
+      "fleetUnchanged": true,
+      "cameraUnchanged": true,
+      "occluderInteriorPixels": 8146,
+      "occluderInteriorChangedPixels": 0
+    },
+    {
+      "label": "authored-home-fallback",
+      "changedPixels": 136856,
+      "outsidePhysicalPlanesChangedPixels": 0,
+      "mirrorUnchanged": true,
+      "nativeCallbackUnchanged": true,
+      "fleetUnchanged": true,
+      "cameraUnchanged": true
+    }
+  ]
+}

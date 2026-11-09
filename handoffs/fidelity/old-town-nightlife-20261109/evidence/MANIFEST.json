@@ -1,0 +1,593 @@
+{
+  "version": 1,
+  "scope": "Exact closed-run game PNG/report copies. No provider/reference images or runtime source archives. Historical, failed and interrupted results keep original metadata; see ../CURRENT.md. File timestamps are actual filesystem writes, not invented exposure times.",
+  "directories": [
+    {
+      "directory": "avatar-f7463c16",
+      "originalSource": "f7463c16",
+      "resolvedSourceCommit": "f7463c161bd9208db21cfc01d70bd3e1ee7850a4",
+      "originalCaptureUTC": null,
+      "originalToolScriptSHA256": null,
+      "complete": true,
+      "failure": null
+    },
+    {
+      "directory": "book-bbcb1c90",
+      "originalSource": "bbcb1c90ea27a1c6c7db1f0bf8817a36503195ea",
+      "resolvedSourceCommit": "bbcb1c90ea27a1c6c7db1f0bf8817a36503195ea",
+      "originalCaptureUTC": "2026-11-09T12:56:36.079Z",
+      "originalToolScriptSHA256": "00543f2946fd62c13565dcca3945eacf2638591f716bbd50b647d039a33095d1",
+      "complete": null,
+      "failure": "page.evaluate: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --mute-audio --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-DQGCez --remote-debugging-pipe --no-startup-window\n<launched> pid=548484\n[pid=548484][err] [548484:548484:1109/125636.325575:ERROR:third_party/crashpad/crashpad/util/file/filesystem_posix.cc:63] mkdir : No such file or directory (2)\n[pid=548484][err] chrome_crashpad_handler: --database is required\n[pid=548484][err] Try 'chrome_crashpad_handler --help' for more information.\n[pid=548484][err] Fontconfig error: No writable cache directories\n[pid=548484][err] [548484:548510:1109/125636.378914:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n[pid=548484][err] [548484:548510:1109/125636.379041:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=548484][err] [548484:548510:1109/125636.379079:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n[pid=548484][err] [548484:548510:1109/125636.379100:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n[pid=548484][err] [548484:548510:1109/125636.379117:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n[pid=548484][err] [548484:548510:1109/125636.379126:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=548484][err] [548484:548510:1109/125636.379134:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=548484][err] [548484:548521:1109/125636.390387:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 548524: Read-only file system (30)\n[pid=548484][err] [548484:548510:1109/125636.440670:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=548484][err] [548484:548521:1109/125636.451308:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 548547: Read-only file system (30)\n[pid=548484][err] [548484:548484:1109/125636.497296:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=548484][err] [548484:548484:1109/125636.497418:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=548484][err] [548484:548510:1109/125636.497447:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=548484][err] [548484:548510:1109/125636.497475:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=548484][err] [548484:548484:1109/125636.505347:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=548484][err] [548484:548510:1109/125636.505639:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=548484][err] [548484:548510:1109/125636.509376:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n[pid=548484][err] [548484:548510:1109/125636.509427:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\n[pid=548484][err] [548484:548484:1109/125636.509454:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=548484][err] [548484:548484:1109/125636.509510:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=548484][err] [548484:548510:1109/125636.509569:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=548484][err] [548484:548484:1109/125636.510588:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=548484][err] [548484:548484:1109/125636.511729:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: unknown error type: \n[pid=548484][err] [548484:548484:1109/125636.511752:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=548484][err] [548484:548510:1109/125636.511825:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=548484][err] [548484:548484:1109/125636.514694:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=548484][err] [548484:548510:1109/125636.514803:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are \"tcp\" and on UNIX \"unix\")\n[pid=548484][err] [548484:548484:1109/125636.517339:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: \n[pid=548484][err] \n[pid=548484][err] (process:548484): dconf-CRITICAL **: 12:56:36.549: unable to create directory '/home/agent/.cache/dconf': Read-only file system.  dconf will not work properly.\n[pid=548484][err] \n[pid=548484][err] (process:548484): dconf-CRITICAL **: 12:56:36.550: unable to create directory '/home/agent/.cache/dconf': Read-only file system.  dconf will not work properly.\n[pid=548484][err] \n[pid=548484][err] (process:548484): dconf-CRITICAL **: 12:56:36.550: unable to create directory '/home/agent/.cache/dconf': Read-only file system.  dconf will not work properly.\n[pid=548484][err] [548484:548521:1109/125636.593573:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 548574: Read-only file system (30)\n[pid=548484][err] [548484:548521:1109/125636.630474:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 548585: Read-only file system (30)\n[pid=548484][err] [548484:548521:1109/125636.634873:ERROR:content/browser/zygote_host/zygote_host_impl_linux.cc:312] Failed to adjust OOM score of renderer with pid 548586: Read-only file system (30)\n[pid=548484][err] [548484:548506:1109/125636.669631:ERROR:crypto/nss_util.cc:256] Error initializing NSS with a persistent database (sql:/home/agent/.pki/nssdb): NSS error code: -8126\n[pid=548484][err] [548525:548556:1109/125636.726743:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=548484][err] [548525:548556:1109/125636.727086:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=548484][err] [548524:548524:1109/125637.156328:ERROR:gpu/command_buffer/service/gl_utils.cc:431] [.WebGL-0x994001f1000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels\n[pid=548484][err] [548525:548556:1109/125637.559205:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=548484][err] [548525:548556:1109/125640.024545:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=548484][err] [548525:548556:1109/125648.917308:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=548484][err] [548524:548524:1109/125650.322741:ERROR:gpu/command_buffer/service/gl_utils.cc:431] [.WebGL-0x994001f1000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels\n[pid=548484][err] [548524:548524:1109/125701.806938:ERROR:gpu/command_buffer/service/gl_utils.cc:431] [.WebGL-0x994001f1000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels\n[pid=548484][err] [548525:548556:1109/125713.890738:ERROR:net/socket/ssl_client_socket_impl.cc:949] handshake failed; returned -1, SSL error code 1, net_error -202\n[pid=548484][err] Failed to create secure directory (/home/agent/.config/pulse): Read-only file system\n[pid=548484][err] [548524:548524:1109/125721.768984:ERROR:gpu/command_buffer/service/gl_utils.cc:431] [.WebGL-0x994001f1000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)\n    at go (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:20:56)\n    at /workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:39:7"
+    },
+    {
+      "directory": "core-e395123f",
+      "originalSource": "e395123f",
+      "resolvedSourceCommit": "e395123fa0c7245a43a7de5de23de217f94caf62",
+      "originalCaptureUTC": null,
+      "originalToolScriptSHA256": null,
+      "complete": true,
+      "failure": null
+    },
+    {
+      "directory": "entry-4bbac9d3",
+      "originalSource": "4bbac9d3",
+      "resolvedSourceCommit": "4bbac9d3ff48e4afd585c89f572c52cb836d8304",
+      "originalCaptureUTC": null,
+      "originalToolScriptSHA256": null,
+      "complete": true,
+      "failure": null
+    },
+    {
+      "directory": "full-512cf403",
+      "originalSource": "512cf403b18476c2c38718df48febbfd97c6d573",
+      "resolvedSourceCommit": "512cf403b18476c2c38718df48febbfd97c6d573",
+      "originalCaptureUTC": "2026-11-09T13:32:48.140Z",
+      "originalToolScriptSHA256": "f3314fc6f765bb26fd2106b92a5ff5f8d528cf984c658e2f8de6659d72b988fe",
+      "complete": null,
+      "failure": "Error: native Carusel doorway to central bookshop atrium\n    at check (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:5:133)\n    at go (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:30:235)\n    at async /workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:39:1"
+    },
+    {
+      "directory": "full-731a6659",
+      "originalSource": "731a6659",
+      "resolvedSourceCommit": "731a66591cb4ae4c0c347da5fbbf90c0e8fd077b",
+      "originalCaptureUTC": null,
+      "originalToolScriptSHA256": null,
+      "complete": null,
+      "failure": "Error: native Freddo-street to Carusel front walk\n    at check (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:5:133)\n    at go (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:15:1024)\n    at async /workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:22:1"
+    },
+    {
+      "directory": "full-731a6659-native-replan",
+      "originalSource": "731a6659",
+      "resolvedSourceCommit": "731a66591cb4ae4c0c347da5fbbf90c0e8fd077b",
+      "originalCaptureUTC": null,
+      "originalToolScriptSHA256": null,
+      "complete": null,
+      "failure": "Error: desktop native arrival-to-club walk\n    at check (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:5:133)\n    at go (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:25:235)\n    at async enter (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:27:162)\n    at async /workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:36:1"
+    },
+    {
+      "directory": "full-731a6659-route-search",
+      "originalSource": "731a6659",
+      "resolvedSourceCommit": "731a66591cb4ae4c0c347da5fbbf90c0e8fd077b",
+      "originalCaptureUTC": null,
+      "originalToolScriptSHA256": null,
+      "complete": null,
+      "failure": "Error: native Freddo-street to Carusel front walk\n    at check (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:5:133)\n    at go (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:15:1039)\n    at async /workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:22:1"
+    },
+    {
+      "directory": "full-e9c70ff3",
+      "originalSource": "e9c70ff3",
+      "resolvedSourceCommit": "e9c70ff349647ab168003f8bbf763788567c0036",
+      "originalCaptureUTC": null,
+      "originalToolScriptSHA256": null,
+      "complete": null,
+      "failure": "Error: native crowded-floor walk to club bar\n    at check (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:5:133)\n    at go (/workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:15:1024)\n    at async /workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-full.cjs:25:154"
+    },
+    {
+      "directory": "initial-6e4f75ae",
+      "originalSource": "6e4f75ae",
+      "resolvedSourceCommit": "6e4f75aea55ef85c4c7976f81e4796f1eefda5fe",
+      "originalCaptureUTC": null,
+      "originalToolScriptSHA256": null,
+      "complete": null,
+      "failure": "page.evaluate: TypeError: Failed to execute 'setTargetAtTime' on 'AudioParam': The provided float value is non-finite.\n    at SpotSound.update (http://127.0.0.1:38421/game/src/spots/sound.js:48:112)\n    at SpotSession.update (http://127.0.0.1:38421/game/src/spots/index.js:712:20)\n    at tick (http://127.0.0.1:38421/game/dev/spots.html?id=old-town-lipscani&hour=23&weather=clear&season=summer&q=high&manual=1&audit=0&dev=0:109:13)\n    at Object.step (http://127.0.0.1:38421/game/dev/spots.html?id=old-town-lipscani&hour=23&weather=clear&season=summer&q=high&manual=1&audit=0&dev=0:120:68)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:13)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at /workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-check.cjs:10:46"
+    },
+    {
+      "directory": "inspect-512cf403",
+      "originalSource": "512cf403b18476c2c38718df48febbfd97c6d573",
+      "resolvedSourceCommit": "512cf403b18476c2c38718df48febbfd97c6d573",
+      "originalCaptureUTC": "2026-11-09T13:40:42.122Z",
+      "originalToolScriptSHA256": null,
+      "complete": true,
+      "failure": null
+    },
+    {
+      "directory": "look-31ae6011",
+      "originalSource": "31ae6011",
+      "resolvedSourceCommit": "31ae6011b16c40ae46b6a33dc86205a4479d03d1",
+      "originalCaptureUTC": null,
+      "originalToolScriptSHA256": null,
+      "complete": true,
+      "failure": null
+    },
+    {
+      "directory": "look-bbcb1c90",
+      "originalSource": "bbcb1c90ea27a1c6c7db1f0bf8817a36503195ea",
+      "resolvedSourceCommit": "bbcb1c90ea27a1c6c7db1f0bf8817a36503195ea",
+      "originalCaptureUTC": null,
+      "originalToolScriptSHA256": null,
+      "complete": true,
+      "failure": null
+    },
+    {
+      "directory": "phone-512cf403",
+      "originalSource": "512cf403b18476c2c38718df48febbfd97c6d573",
+      "resolvedSourceCommit": "512cf403b18476c2c38718df48febbfd97c6d573",
+      "originalCaptureUTC": "2026-11-09T13:30:15.410Z",
+      "originalToolScriptSHA256": "f3314fc6f765bb26fd2106b92a5ff5f8d528cf984c658e2f8de6659d72b988fe",
+      "complete": true,
+      "failure": null
+    },
+    {
+      "directory": "phone-7416b177",
+      "originalSource": "7416b177",
+      "resolvedSourceCommit": "7416b177691c6608189327de2360fec6c6fe94a5",
+      "originalCaptureUTC": null,
+      "originalToolScriptSHA256": null,
+      "complete": true,
+      "failure": null
+    }
+  ],
+  "files": [
+    {
+      "file": "avatar-f7463c16/club-night.png",
+      "bytes": 1147760,
+      "sha256": "16f1747457778bee460e4a827a1b89dd003f615e593d62d64d4dc11fd09addcf",
+      "fileModifiedUTC": "2026-11-09T11:26:18.461786+00:00"
+    },
+    {
+      "file": "avatar-f7463c16/dance-start.png",
+      "bytes": 1074604,
+      "sha256": "092c6cc92eae89dcbd26cbfc95ec3c54083bd14e08eb8655646e230aeb9beaa8",
+      "fileModifiedUTC": "2026-11-09T11:26:21.841746+00:00"
+    },
+    {
+      "file": "avatar-f7463c16/night-arrival.png",
+      "bytes": 1189921,
+      "sha256": "e79331722229ad169063e0ce97a4f6bcd20ab1f622480be6a0e1c2d468451074",
+      "fileModifiedUTC": "2026-11-09T11:26:04.517955+00:00"
+    },
+    {
+      "file": "avatar-f7463c16/progress.json",
+      "bytes": 5146,
+      "sha256": "b16f1d0d07db889add6c413439cb85eb38eece0a1199dbac1d2ea4b78db841f0",
+      "fileModifiedUTC": "2026-11-09T11:26:23.365727+00:00"
+    },
+    {
+      "file": "avatar-f7463c16/report.json",
+      "bytes": 5190,
+      "sha256": "3f6036e7f54b761633342047a2a59164846e96dcac1f26c398580bd02bfa5a44",
+      "fileModifiedUTC": "2026-11-09T11:26:23.369727+00:00"
+    },
+    {
+      "file": "book-bbcb1c90/INTERRUPTED.md",
+      "bytes": 391,
+      "sha256": "c31f02ace2ef18bf6c79ee5f58f4d1fb04220c16b10ecdf7e37b5f18a9f6e7cd",
+      "fileModifiedUTC": "2026-11-09T12:59:08.460942+00:00"
+    },
+    {
+      "file": "book-bbcb1c90/desktop-carusel-ground-floor.png",
+      "bytes": 1166992,
+      "sha256": "9ce0cbd3a5a72d25cc81aceb672a3c9e3cfdb048cdc70744d54f09110a1eb5be",
+      "fileModifiedUTC": "2026-11-09T12:57:32.426573+00:00"
+    },
+    {
+      "file": "book-bbcb1c90/desktop-carusel-visible-entrance.png",
+      "bytes": 1156666,
+      "sha256": "d55152f6c7424504621d98729729ee61d7af194fc6487c39b9764a8c73e21bf5",
+      "fileModifiedUTC": "2026-11-09T12:57:27.702624+00:00"
+    },
+    {
+      "file": "book-bbcb1c90/desktop-night-arrival.png",
+      "bytes": 1211248,
+      "sha256": "7efdecfb3a4f0c1d6af7fdb580e3954db4b4f2a4b223a079be25bf3f82891eb0",
+      "fileModifiedUTC": "2026-11-09T12:57:06.314856+00:00"
+    },
+    {
+      "file": "book-bbcb1c90/report.json",
+      "bytes": 161268,
+      "sha256": "4bfd526d03493ebf4443a743e33b00389c7cdd7a52b890e9ddd97b1b57865f34",
+      "fileModifiedUTC": "2026-11-09T12:57:33.190565+00:00"
+    },
+    {
+      "file": "core-e395123f/desktop-avatar-start.png",
+      "bytes": 1049488,
+      "sha256": "872bce860123867386af53491e3f2cc1e318bdacf11605fc58e9d7ba1037ccfe",
+      "fileModifiedUTC": "2026-11-09T11:54:40.946348+00:00"
+    },
+    {
+      "file": "core-e395123f/desktop-day-arrival.png",
+      "bytes": 1162982,
+      "sha256": "412db56f435467f5038b96fff1e50f6df66132573980196e2a022cd70836b2ef",
+      "fileModifiedUTC": "2026-11-09T11:55:28.569748+00:00"
+    },
+    {
+      "file": "core-e395123f/desktop-left-animation.png",
+      "bytes": 1044995,
+      "sha256": "85e29b1bb5b78c7ed872001b29c5e3fc2ba012933022040408bcd43808500f16",
+      "fileModifiedUTC": "2026-11-09T11:54:46.362278+00:00"
+    },
+    {
+      "file": "core-e395123f/desktop-night-arrival.png",
+      "bytes": 1187725,
+      "sha256": "f83b2e80e6d4906bb30922f182208e80b5c7937a874ca46b32552ccb713e1d1f",
+      "fileModifiedUTC": "2026-11-09T11:54:30.962473+00:00"
+    },
+    {
+      "file": "core-e395123f/desktop-shot-animation.png",
+      "bytes": 1058194,
+      "sha256": "4d483dcd0e55e5c31ca0b6709145ac63bd86bcfcc4ebce9799bd7bf4d0bcf3f0",
+      "fileModifiedUTC": "2026-11-09T11:55:07.406005+00:00"
+    },
+    {
+      "file": "core-e395123f/desktop-spin-animation.png",
+      "bytes": 1041377,
+      "sha256": "6828dfece41452fca40723dd1cbcad092eaed35cc441fee813c8207f8351b67d",
+      "fileModifiedUTC": "2026-11-09T11:54:53.310188+00:00"
+    },
+    {
+      "file": "core-e395123f/desktop-visit-edge.png",
+      "bytes": 1152390,
+      "sha256": "b3dfc3dd2bc84e1cd9672d06694a937b59256a3141cdd296318a24aa4f520b32",
+      "fileModifiedUTC": "2026-11-09T11:55:37.053640+00:00"
+    },
+    {
+      "file": "core-e395123f/phone-avatar-start.png",
+      "bytes": 326906,
+      "sha256": "88a5ee243b3293cdb5671e5b2d8eac316a8fa86a0e871dffc7f66cfd87fd579d",
+      "fileModifiedUTC": "2026-11-09T11:56:24.549041+00:00"
+    },
+    {
+      "file": "core-e395123f/phone-left-animation.png",
+      "bytes": 325695,
+      "sha256": "38d30ec357a35b56a69e0bd07802b7bb6bd97d5f5a503e7c9acc69659a19aba7",
+      "fileModifiedUTC": "2026-11-09T11:56:27.057010+00:00"
+    },
+    {
+      "file": "core-e395123f/phone-night-arrival.png",
+      "bytes": 418132,
+      "sha256": "aed530b03d79fb45f78234da1909e084bdcdc5562d161170bfd3fee55e5182c9",
+      "fileModifiedUTC": "2026-11-09T11:56:18.165120+00:00"
+    },
+    {
+      "file": "core-e395123f/phone-spin-animation.png",
+      "bytes": 325671,
+      "sha256": "93df9a1ac4db55b2962eb17be950838b91baeb161a172ba7f7f384c381dcf34b",
+      "fileModifiedUTC": "2026-11-09T11:56:30.484967+00:00"
+    },
+    {
+      "file": "core-e395123f/report.json",
+      "bytes": 104403,
+      "sha256": "e74c1a7f2536e91869935c48095dbd9269350060ca4b22ac2c12e170d2373545",
+      "fileModifiedUTC": "2026-11-09T11:56:32.456943+00:00"
+    },
+    {
+      "file": "entry-4bbac9d3/club-night.png",
+      "bytes": 1152574,
+      "sha256": "07b7494650a3a9d4ca09f0db2912a56e9ddd3be859aef9d5f05fbba1ecdb919a",
+      "fileModifiedUTC": "2026-11-09T11:24:09.255319+00:00"
+    },
+    {
+      "file": "entry-4bbac9d3/dance-start.png",
+      "bytes": 1075086,
+      "sha256": "086f2bc34b47b7f0e5ababe40d2a63d3798dedf9938d50a39058e65bab09b2b2",
+      "fileModifiedUTC": "2026-11-09T11:24:14.903251+00:00"
+    },
+    {
+      "file": "entry-4bbac9d3/night-arrival.png",
+      "bytes": 1189734,
+      "sha256": "8f6a1a9cc8b32cfc582d91f65af4e8c1ce4bb4d0ee205252208a1cc89fb87f5c",
+      "fileModifiedUTC": "2026-11-09T11:23:48.059567+00:00"
+    },
+    {
+      "file": "entry-4bbac9d3/report.json",
+      "bytes": 5013,
+      "sha256": "327561242a9528072087d80472eecad5e7b8074af45fd611daf7e4106e76b523",
+      "fileModifiedUTC": "2026-11-09T11:24:19.703194+00:00"
+    },
+    {
+      "file": "full-512cf403/SCOPE.md",
+      "bytes": 466,
+      "sha256": "f0e95edb35af84b38dfe8ec117b0870d041955b0a0d9e95b7caaed0a49fb4f65",
+      "fileModifiedUTC": "2026-11-09T13:47:51.181848+00:00"
+    },
+    {
+      "file": "full-512cf403/desktop-carusel-ground-floor.png",
+      "bytes": 1170984,
+      "sha256": "0ad7567eaf8d59f07067ccc3b0396822d13441ea4d6bed7a1c1055f0801ac06e",
+      "fileModifiedUTC": "2026-11-09T13:33:48.598978+00:00"
+    },
+    {
+      "file": "full-512cf403/desktop-carusel-visible-entrance.png",
+      "bytes": 1155841,
+      "sha256": "7c0e25c41b89e4c67adc92fbb225b9707961f8ea887dda9358a9f814920fef88",
+      "fileModifiedUTC": "2026-11-09T13:33:43.963027+00:00"
+    },
+    {
+      "file": "full-512cf403/desktop-night-arrival.png",
+      "bytes": 1211135,
+      "sha256": "6a1566c72a156f126cc8efaca367d4ccf8515a76dc7c45fb10e296ad50a3a139",
+      "fileModifiedUTC": "2026-11-09T13:33:23.999231+00:00"
+    },
+    {
+      "file": "full-512cf403/failure.png",
+      "bytes": 1170561,
+      "sha256": "df70e6150ac47882d038bbb9514738861e154f5c458dc22896454aff0fdc0d32",
+      "fileModifiedUTC": "2026-11-09T13:33:52.858934+00:00"
+    },
+    {
+      "file": "full-512cf403/report.json",
+      "bytes": 167664,
+      "sha256": "b9436d41c1e69e57a37ac1addeed1763d3db1debd6593752fc66577c376bf404",
+      "fileModifiedUTC": "2026-11-09T13:33:53.094931+00:00"
+    },
+    {
+      "file": "full-731a6659/desktop-night-arrival.png",
+      "bytes": 1187088,
+      "sha256": "c462e481da0f525736a0ef1ecc9e51d19f73859471a20d46ae09c121c9399b00",
+      "fileModifiedUTC": "2026-11-09T11:43:27.702340+00:00"
+    },
+    {
+      "file": "full-731a6659/failure.png",
+      "bytes": 1187088,
+      "sha256": "c462e481da0f525736a0ef1ecc9e51d19f73859471a20d46ae09c121c9399b00",
+      "fileModifiedUTC": "2026-11-09T11:43:29.826317+00:00"
+    },
+    {
+      "file": "full-731a6659/report.json",
+      "bytes": 8883,
+      "sha256": "9faad23e7f38c495ecbc267444ca19e0285df0209ca304fa97c0026cea342bdd",
+      "fileModifiedUTC": "2026-11-09T11:43:30.250312+00:00"
+    },
+    {
+      "file": "full-731a6659-native-replan/desktop-carusel-ground-floor.png",
+      "bytes": 1085016,
+      "sha256": "6bcd6ec2c2aeaf0bf5eeb0bc7427965f8ebf6e9b2ac9afb33098b1cac681bdd1",
+      "fileModifiedUTC": "2026-11-09T11:48:09.067335+00:00"
+    },
+    {
+      "file": "full-731a6659-native-replan/desktop-carusel-side-door.png",
+      "bytes": 1006921,
+      "sha256": "45915f340a12c0b80a17a4f24d3ae0c5b8682a598157a10da8e1290cd789bdf9",
+      "fileModifiedUTC": "2026-11-09T11:48:14.295279+00:00"
+    },
+    {
+      "file": "full-731a6659-native-replan/desktop-carusel-visible-entrance.png",
+      "bytes": 1197942,
+      "sha256": "ced96b36d9aabc5415833843b45108769cd103f9bd757f2370fc4b71f704b32b",
+      "fileModifiedUTC": "2026-11-09T11:48:04.667381+00:00"
+    },
+    {
+      "file": "full-731a6659-native-replan/desktop-hidden-sports-room.png",
+      "bytes": 1132787,
+      "sha256": "434f0c8d43716244bb0b9dc741aecc474ccfe0159191e760953ff06a8786dffd",
+      "fileModifiedUTC": "2026-11-09T11:48:17.711243+00:00"
+    },
+    {
+      "file": "full-731a6659-native-replan/desktop-night-arrival.png",
+      "bytes": 1187677,
+      "sha256": "12ab71477cc22b8d6e7aaef811795e1ae296c236c201385a6056f6974bf0c8d5",
+      "fileModifiedUTC": "2026-11-09T11:47:40.371640+00:00"
+    },
+    {
+      "file": "full-731a6659-native-replan/failure.png",
+      "bytes": 1131477,
+      "sha256": "b03f011a9452cce6bcacd611ef38f8176621863e2b65a277aef97ca7175f3d48",
+      "fileModifiedUTC": "2026-11-09T11:48:51.858877+00:00"
+    },
+    {
+      "file": "full-731a6659-native-replan/report.json",
+      "bytes": 392037,
+      "sha256": "f9b73e1d1364ea5c5dc413bbc2124fee0c85f8587494d823331e3b53c845d6cc",
+      "fileModifiedUTC": "2026-11-09T11:48:52.018875+00:00"
+    },
+    {
+      "file": "full-731a6659-route-search/desktop-night-arrival.png",
+      "bytes": 1187374,
+      "sha256": "a87e8fb948c696bfe11facaef02a7aeb07153bb16150abd46ae3544e40aa4d86",
+      "fileModifiedUTC": "2026-11-09T11:44:59.113363+00:00"
+    },
+    {
+      "file": "full-731a6659-route-search/failure.png",
+      "bytes": 1191008,
+      "sha256": "0826a61ab0be0a94ebe32874831632dcbfede5f6518e2e8df65f49f79453e87a",
+      "fileModifiedUTC": "2026-11-09T11:45:03.369317+00:00"
+    },
+    {
+      "file": "full-731a6659-route-search/report.json",
+      "bytes": 40363,
+      "sha256": "67f84d1493d73e45f3eb655f35f14d48d050af31a4c2d1bebf3db2e2ba58a9d1",
+      "fileModifiedUTC": "2026-11-09T11:45:03.693314+00:00"
+    },
+    {
+      "file": "full-e9c70ff3/desktop-avatar-start.png",
+      "bytes": 1074088,
+      "sha256": "1a148b0ab1b14d47d4b6ff85e21a017df565bf7597924524b3eb6b6bf158f14d",
+      "fileModifiedUTC": "2026-11-09T11:32:47.509397+00:00"
+    },
+    {
+      "file": "full-e9c70ff3/desktop-left-animation.png",
+      "bytes": 1075085,
+      "sha256": "2f72e4cfa87140649c1cad44adf68c6b3c4cb271bafe884968a823771e66851e",
+      "fileModifiedUTC": "2026-11-09T11:32:50.593364+00:00"
+    },
+    {
+      "file": "full-e9c70ff3/desktop-night-arrival.png",
+      "bytes": 1187724,
+      "sha256": "f539987eac07d2669f0e7b2221179eeb5f8ae08c965fd4629f6fe8dda5dad430",
+      "fileModifiedUTC": "2026-11-09T11:32:42.897447+00:00"
+    },
+    {
+      "file": "full-e9c70ff3/desktop-spin-animation.png",
+      "bytes": 1078553,
+      "sha256": "080771961c10fff8711b0e9b2e38417665b2042444626318bfb0448d2e52aa4c",
+      "fileModifiedUTC": "2026-11-09T11:32:54.257324+00:00"
+    },
+    {
+      "file": "full-e9c70ff3/failure.png",
+      "bytes": 420567,
+      "sha256": "b9001c6237a2236088f14273f504fe8ee89e89845999f3ff1319a2682afdfd59",
+      "fileModifiedUTC": "2026-11-09T11:32:55.985305+00:00"
+    },
+    {
+      "file": "full-e9c70ff3/report.json",
+      "bytes": 33041,
+      "sha256": "5a458b4100e110829deed2fd83ef87365adaf0c38103428c6f1c9dd74d317e71",
+      "fileModifiedUTC": "2026-11-09T11:32:56.153303+00:00"
+    },
+    {
+      "file": "initial-6e4f75ae/failure.png",
+      "bytes": 1082252,
+      "sha256": "e7411f82437a844524c73bcc3a7239a645bb660e517668d5f0a6698445fff9d8",
+      "fileModifiedUTC": "2026-11-09T11:20:40.545999+00:00"
+    },
+    {
+      "file": "initial-6e4f75ae/night-arrival.png",
+      "bytes": 1206785,
+      "sha256": "bbdf5b54737f2c2bde2efe25eacd88bede64b3b9f9e4ea4235bd3741b76a18c0",
+      "fileModifiedUTC": "2026-11-09T11:20:29.138156+00:00"
+    },
+    {
+      "file": "initial-6e4f75ae/report.json",
+      "bytes": 2757,
+      "sha256": "86f550e6e35304c794a3c40bc48236f09fc219d5c94d545bc96b999f4f1f7b32",
+      "fileModifiedUTC": "2026-11-09T11:20:40.549999+00:00"
+    },
+    {
+      "file": "inspect-512cf403/report.json",
+      "bytes": 125306,
+      "sha256": "36d049a2f53efe889fa7cf8dbde98ea589c7b80717da80bf147e271523ef3a5e",
+      "fileModifiedUTC": "2026-11-09T13:40:57.663883+00:00"
+    },
+    {
+      "file": "look-31ae6011/club-night.png",
+      "bytes": 1179654,
+      "sha256": "551abb781f4ede437e063d69e25d811e3565a426ea342cc602c7946e340614e8",
+      "fileModifiedUTC": "2026-11-09T12:25:57.520825+00:00"
+    },
+    {
+      "file": "look-31ae6011/dance-start.png",
+      "bytes": 1125978,
+      "sha256": "679cc23aadae2762e075c2d44e2581149722a196aac0e95921669b66846914fb",
+      "fileModifiedUTC": "2026-11-09T12:26:00.948789+00:00"
+    },
+    {
+      "file": "look-31ae6011/night-arrival.png",
+      "bytes": 1226885,
+      "sha256": "5279f48b00daa64c070ae7a72c90c82d4af8ee88df21c2facb7aa5acae5bcf38",
+      "fileModifiedUTC": "2026-11-09T12:25:42.000992+00:00"
+    },
+    {
+      "file": "look-31ae6011/progress.json",
+      "bytes": 5196,
+      "sha256": "a5a10f5f681c03730e47ddd5da819403e6cb42da59eea0b0db1f1b0384e74f06",
+      "fileModifiedUTC": "2026-11-09T12:26:03.792758+00:00"
+    },
+    {
+      "file": "look-31ae6011/report.json",
+      "bytes": 5240,
+      "sha256": "b7b23cf22d20d0de1468389fcff735c73eb99cd4445ac5b81a71d7e78a7d3146",
+      "fileModifiedUTC": "2026-11-09T12:26:03.796758+00:00"
+    },
+    {
+      "file": "look-bbcb1c90/club-night.png",
+      "bytes": 946108,
+      "sha256": "9d7f35101f6f0b28a6cbc70032a782e2d1d59c9f4b6761887e7ac32d7616b0c0",
+      "fileModifiedUTC": "2026-11-09T12:55:52.795645+00:00"
+    },
+    {
+      "file": "look-bbcb1c90/dance-start.png",
+      "bytes": 917794,
+      "sha256": "ed514b283a4f7682f35fec715bb80a97b6db2dbdef91db745f20b8ea69448624",
+      "fileModifiedUTC": "2026-11-09T12:56:01.207555+00:00"
+    },
+    {
+      "file": "look-bbcb1c90/night-arrival.png",
+      "bytes": 1220078,
+      "sha256": "b50288ca1dbdf550291069e048110f653d092a72ce984f5349041e4318a1f3e8",
+      "fileModifiedUTC": "2026-11-09T12:55:22.347973+00:00"
+    },
+    {
+      "file": "look-bbcb1c90/progress.json",
+      "bytes": 5254,
+      "sha256": "ce2823b77b80b2c0777a3c2016dd7cabac64aa5fe52fecc90dd3516c5fea72c6",
+      "fileModifiedUTC": "2026-11-09T12:56:07.703485+00:00"
+    },
+    {
+      "file": "look-bbcb1c90/report.json",
+      "bytes": 5298,
+      "sha256": "a32ab285c31f2f2be76138fcf062fa3361fb28987227cbc2a38a91004c378512",
+      "fileModifiedUTC": "2026-11-09T12:56:07.707485+00:00"
+    },
+    {
+      "file": "phone-512cf403/phone-avatar-start.png",
+      "bytes": 349801,
+      "sha256": "a4dd2c73966061f19528fafe1137068acc511567db2ff8a43fb800d7f2700b3c",
+      "fileModifiedUTC": "2026-11-09T13:30:57.628602+00:00"
+    },
+    {
+      "file": "phone-512cf403/phone-left-animation.png",
+      "bytes": 348383,
+      "sha256": "a0ec8a173f0bd6ddb19ed5c0a14f5e7f4284aa208ccf86cfb6f6c8f3f88c804d",
+      "fileModifiedUTC": "2026-11-09T13:31:00.576576+00:00"
+    },
+    {
+      "file": "phone-512cf403/phone-night-arrival.png",
+      "bytes": 427122,
+      "sha256": "3502a49e42c5babc2a5374b45908b3a82bdb41aca63270c64d58236c7ccba1b3",
+      "fileModifiedUTC": "2026-11-09T13:30:49.300679+00:00"
+    },
+    {
+      "file": "phone-512cf403/phone-spin-animation.png",
+      "bytes": 351863,
+      "sha256": "e36bd31429d208ac7f2ce4ce76c8d02aa7b417a52e4a20c247c835766c9786c7",
+      "fileModifiedUTC": "2026-11-09T13:31:03.548550+00:00"
+    },
+    {
+      "file": "phone-512cf403/report.json",
+      "bytes": 39710,
+      "sha256": "1b42f45d8b84efedb28df65bcce2f8979abacbe02f4f8ca91ebd0c1f507c9e89",
+      "fileModifiedUTC": "2026-11-09T13:31:05.536531+00:00"
+    },
+    {
+      "file": "phone-7416b177/phone-avatar-start.png",
+      "bytes": 361460,
+      "sha256": "0a50db549e19a06f89ce0096a6bbcc1f6e723d894682ba34ccd89a774a811e4d",
+      "fileModifiedUTC": "2026-11-09T12:00:42.994056+00:00"
+    },
+    {
+      "file": "phone-7416b177/phone-left-animation.png",
+      "bytes": 362123,
+      "sha256": "63355526703f0678e35dec9ddb725a9425d1f6fd3f23b1cb3a1082adb98f46a8",
+      "fileModifiedUTC": "2026-11-09T12:00:44.022044+00:00"
+    },
+    {
+      "file": "phone-7416b177/phone-night-arrival.png",
+      "bytes": 418396,
+      "sha256": "6f820d6e15102b26d6332d5b2c17a9255c1f388417c198fa3dfcfab2db3ea078",
+      "fileModifiedUTC": "2026-11-09T12:00:39.038101+00:00"
+    },
+    {
+      "file": "phone-7416b177/phone-spin-animation.png",
+      "bytes": 359807,
+      "sha256": "22bb589eb22e61564336e9986260a0318c25ae01e9d7b6d848c0b3b99e461dcf",
+      "fileModifiedUTC": "2026-11-09T12:00:46.427081+00:00"
+    },
+    {
+      "file": "phone-7416b177/report.json",
+      "bytes": 28910,
+      "sha256": "5955ab864d057713d4f2db5e28f6fa409978a0eb1dca0845feb8d214008b2cad",
+      "fileModifiedUTC": "2026-11-09T12:00:48.117998+00:00"
+    }
+  ]
+}

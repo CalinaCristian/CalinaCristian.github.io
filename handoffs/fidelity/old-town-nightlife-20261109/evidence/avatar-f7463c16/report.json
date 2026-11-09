@@ -1,0 +1,226 @@
+{
+  "source": "f7463c16",
+  "root": "/tmp/oldtown-runtime-f7463c16",
+  "scope": "Actual source scene in High, unchanged native source/crowd; preliminary rendering and controls. Not a whole-world performance acceptance.",
+  "checks": [
+    {
+      "name": "real Freddo helper built",
+      "ok": true,
+      "detail": {
+        "loadMs": 6084,
+        "people": 281,
+        "entry": {
+          "x": 25.290201761516066,
+          "z": 52.06227436028759,
+          "y": -1.76979795755505
+        },
+        "spawn": {
+          "x": 10011.1125,
+          "z": 8000.2625,
+          "y": -1.71979795755505
+        },
+        "slot": {
+          "x": 10007.912499999999,
+          "z": 7999.9625,
+          "y": -1.71979795755505
+        },
+        "indoor": 54,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 85,
+          "triangles": 701434,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        },
+        "source": {
+          "poi": "n1416523788",
+          "building": "w657568283"
+        },
+        "boundary": true
+      }
+    },
+    {
+      "name": "native E enters source-linked Freddo",
+      "ok": true,
+      "detail": {
+        "visible": true,
+        "p": {
+          "x": 10011.1125,
+          "z": 8000.2625,
+          "y": -1.71979795755505,
+          "heading": 1.5707963267948966
+        },
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 42,
+          "triangles": 210042,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        }
+      }
+    },
+    {
+      "name": "native E starts participatory avatar dance",
+      "ok": true,
+      "detail": {
+        "active": true,
+        "title": "Find your rhythm",
+        "buttons": [
+          {
+            "text": "← Left · A / E",
+            "width": 115.15625,
+            "height": 44
+          },
+          {
+            "text": "Right → · D",
+            "width": 104.921875,
+            "height": 44
+          },
+          {
+            "text": "Spin ↻ · Space",
+            "width": 125.1875,
+            "height": 44
+          },
+          {
+            "text": "Leave",
+            "width": 68.890625,
+            "height": 44
+          }
+        ],
+        "p": {
+          "x": 10007.912499999999,
+          "z": 7999.9625,
+          "y": -1.71979795755505,
+          "heading": 0
+        },
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 41,
+          "triangles": 209946,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        },
+        "avatar": {
+          "visible": true,
+          "parent": "freddo-estimated-interior",
+          "meshes": [
+            {
+              "visible": false,
+              "count": 0,
+              "translation": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "visible": false,
+              "count": 0,
+              "translation": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "projection": [
+            0,
+            -1.766623576587989e-13,
+            0.8589623832757179
+          ],
+          "camera": [
+            10011.1125,
+            0.3302020424449499,
+            8001.0625
+          ]
+        }
+      }
+    },
+    {
+      "name": "wrong move does not progress",
+      "ok": true,
+      "detail": {
+        "moves": 0,
+        "busy": false,
+        "inputs": [
+          {
+            "move": "right",
+            "expected": "left",
+            "beat": 16.987428571428573,
+            "onBeat": true
+          }
+        ],
+        "status": "Next: LEFT · follow the cue"
+      }
+    },
+    {
+      "name": "Escape cancels without award",
+      "ok": true
+    },
+    {
+      "name": "zero runtime exceptions",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "frames": [
+    {
+      "file": "night-arrival.png",
+      "pose": "actual native arrival",
+      "conditions": "23:00 summer clear"
+    },
+    {
+      "file": "club-night.png",
+      "conditions": "23:00 summer clear",
+      "pose": {
+        "x": 10011.1125,
+        "z": 8000.2625,
+        "y": -1.71979795755505,
+        "heading": 1.5707963267948966
+      }
+    },
+    {
+      "file": "dance-start.png",
+      "conditions": "23:00 summer clear",
+      "pose": {
+        "x": 10007.912499999999,
+        "z": 7999.9625,
+        "y": -1.71979795755505,
+        "heading": 0
+      }
+    }
+  ],
+  "fixtureApproach": {
+    "p": {
+      "x": 25.290201761516066,
+      "z": 52.06227436028759,
+      "y": -1.76979795755505,
+      "heading": 1.5707963267948966
+    },
+    "prompt": "EEnter Freddo · music & dancing",
+    "entry": {
+      "x": 25.290201761516066,
+      "z": 52.06227436028759,
+      "y": -1.76979795755505
+    }
+  },
+  "resourceErrors": [],
+  "complete": true
+}

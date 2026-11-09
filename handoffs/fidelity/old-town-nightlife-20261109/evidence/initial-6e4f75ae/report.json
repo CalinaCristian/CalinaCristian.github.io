@@ -1,0 +1,74 @@
+{
+  "source": "6e4f75ae",
+  "root": "/tmp/oldtown-runtime-6e4f75ae",
+  "scope": "Actual source scene in High, unchanged native source/crowd; preliminary rendering and controls. Not a whole-world performance acceptance.",
+  "checks": [
+    {
+      "name": "real Freddo helper built",
+      "ok": true,
+      "detail": {
+        "loadMs": 7269,
+        "people": 281,
+        "entry": {
+          "x": 25.290201761516066,
+          "z": 52.06227436028759,
+          "y": -1.76979795755505
+        },
+        "spawn": {
+          "x": 10011.1125,
+          "z": 8000.2625,
+          "y": -1.71979795755505
+        },
+        "slot": {
+          "x": 10007.912499999999,
+          "z": 7999.9625,
+          "y": -1.71979795755505
+        },
+        "indoor": 54,
+        "stats": {
+          "fps": 0,
+          "frameMs": 0,
+          "drawCalls": 86,
+          "triangles": 604964,
+          "pixelRatio": 1,
+          "shadows": 4096,
+          "post": "full",
+          "quality": "high",
+          "auto": false,
+          "level": 1
+        },
+        "source": {
+          "poi": "n1416523788",
+          "building": "w657568283"
+        },
+        "boundary": true
+      }
+    }
+  ],
+  "errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "frames": [
+    {
+      "file": "night-arrival.png",
+      "pose": "actual native arrival",
+      "conditions": "23:00 summer clear"
+    }
+  ],
+  "fixtureApproach": {
+    "p": {
+      "x": 25.290201761516066,
+      "z": 52.06227436028759,
+      "y": -1.76979795755505,
+      "heading": 1.5707963267948966
+    },
+    "prompt": "EEnter Freddo · music & dancing",
+    "entry": {
+      "x": 25.290201761516066,
+      "z": 52.06227436028759,
+      "y": -1.76979795755505
+    }
+  },
+  "failure": "page.evaluate: TypeError: Failed to execute 'setTargetAtTime' on 'AudioParam': The provided float value is non-finite.\n    at SpotSound.update (http://127.0.0.1:38421/game/src/spots/sound.js:48:112)\n    at SpotSession.update (http://127.0.0.1:38421/game/src/spots/index.js:712:20)\n    at tick (http://127.0.0.1:38421/game/dev/spots.html?id=old-town-lipscani&hour=23&weather=clear&season=summer&q=high&manual=1&audit=0&dev=0:109:13)\n    at Object.step (http://127.0.0.1:38421/game/dev/spots.html?id=old-town-lipscani&hour=23&weather=clear&season=summer&q=high&manual=1&audit=0&dev=0:120:68)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:13)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at /workspace/fidelity-workers/old-town-nightlife/handoffs/fidelity/old-town-nightlife-20261109/native-check.cjs:10:46"
+}

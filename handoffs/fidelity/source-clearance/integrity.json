@@ -1,0 +1,121 @@
+{
+  "timestamp": "2026-11-09T15:53:38.777784+00:00",
+  "scope": "Exact candidate CPU source/proof bytes; not native acceptance",
+  "files": [
+    {
+      "file": "game/dev/source-road-clearance.test.mjs",
+      "bytes": 10502,
+      "sha256": "a2781c1fffb35856db1e0da5b560fc7093ca3896b3314e4fc601988dcb66e6bc"
+    },
+    {
+      "file": "game/src/initial-traffic-admission.js",
+      "bytes": 15740,
+      "sha256": "eafaa325e686e6fc631cd8bf5af4fb8b4fba5e70124925cad81c6eec5b25b6ea"
+    },
+    {
+      "file": "game/src/nav.js",
+      "bytes": 38850,
+      "sha256": "44ea9aea4cc452849eb21dc65f34e4959cc33ad2388c1489dc03065370c04d63"
+    },
+    {
+      "file": "game/src/source-road-clearance.js",
+      "bytes": 6165,
+      "sha256": "d698e90864d0df3086ba71346aa24ac0f7238adf222d133af12260e1683deae3"
+    },
+    {
+      "file": "game/src/source-vehicle-dimensions.js",
+      "bytes": 5413,
+      "sha256": "cb47316096169b91a2031c64b1066c89dcd8eff3c118e6a615754b5c2b4a2413"
+    },
+    {
+      "file": "game/src/traffic.js",
+      "bytes": 253959,
+      "sha256": "962ca29abfda0d1bd0ab2fadfda2705bd9236a0e9876d79c2121217801622529"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/README.md",
+      "bytes": 4615,
+      "sha256": "25d9fbe5e5d1a67ce407aa9995fddccab3710a8ac6f5e67fe06808aafb369261"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/controls-r1.log",
+      "bytes": 588,
+      "sha256": "f00149f61c310f60a609c370ad84c472f2bb684fe86c5cc783ea8a0afbb5e60d"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/controls-r2.log",
+      "bytes": 588,
+      "sha256": "35b8af2cf499bc034b92da596cb8aa178afd61b7ff2a3b97da040f6dde7a394f"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/fixture-provenance.json",
+      "bytes": 431,
+      "sha256": "f07de0cec2fb0cb3e5565360cfc6791123098884a27353150453f506d25f4062"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/lane-drop-chain.log",
+      "bytes": 589,
+      "sha256": "9e74839a0b7e0b36b58f9de620f046cfb97cca7c7ac84c834fdaba4847c0f721"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/literal-catalogue-check.mjs",
+      "bytes": 3582,
+      "sha256": "527e7db65c4993182b4249061f9f900745fc911f54664b8899856a5ed297a3e2"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/literal-catalogue-report.json",
+      "bytes": 252559,
+      "sha256": "664a0d12e5bf2d6b401a815aa9402e559bfca1734871566e72b77793b61beeb2"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/literal-road-limits.json",
+      "bytes": 63985,
+      "sha256": "8117faed00a15921006c6d833eb86c037a656055659402fd79e1c2d49c6952e5"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/motor-turn-restrictions.log",
+      "bytes": 619,
+      "sha256": "045fc43191f4ae5a351039c619dfca9cb3986336d5db4bba17a3702ae44728af"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/motor-turn-routing.log",
+      "bytes": 639,
+      "sha256": "20127c636e6ec374982b7d9e102b447e1d33581e30b391ead11394c1c323010d"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/normal-guard-tolerance.log",
+      "bytes": 583,
+      "sha256": "ba129701e507cd70c6da7ea0f8fcfee5e2b10cf36181e41b55c8bf9373776c1e"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/shared-lanes.log",
+      "bytes": 2304,
+      "sha256": "9b70cee32c523bf2ab2fc5ee550ed2f635bc8dc5fab6133644366bc51b3165aa"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/signals.log",
+      "bytes": 613,
+      "sha256": "35cf30b0baad72ab3a043ba41b1449b4a4dcc4873eb5acd3fda5394d535e224d"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/solid-vehicle-sensing.log",
+      "bytes": 606,
+      "sha256": "aee4eaf7c09a40711c727a2f13d33122f68500ea36636dbf281bbc505ff292c8"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/syntax.json",
+      "bytes": 569,
+      "sha256": "e5fceb4f27f689514942120f125eeab2daad834f3e0883d24c8f28e6a4045beb"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/vehicle-lanes.log",
+      "bytes": 620,
+      "sha256": "ac41a8f8deac237cc2a324bf9812dc27c9c4fc0af1ab7ccb624a62dadd1ff05e"
+    },
+    {
+      "file": "handoffs/fidelity/source-clearance/vehicle-separation.log",
+      "bytes": 601,
+      "sha256": "6e8ce1c68652c8aec8e34b88fe1ccb050957f812e479fb258295f6d252e5e058"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+(node:607207) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/source-turn-restrictions/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/source-turn-restrictions/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual source931 normal tolerance and strict monotonic recovery remain distinct

@@ -1,0 +1,8 @@
+{
+  "fixture": "handoffs/fidelity/pipera-fidelity/basarab-source-domain/restriction-catalogue/literal-road-limits.json",
+  "sourceCommit": "4e52d15fa166fe06df06fd90746698be087bcef2",
+  "sha256": "8117faed00a15921006c6d833eb86c037a656055659402fd79e1c2d49c6952e5",
+  "bytes": 63985,
+  "verifiedAgainstGitBlob": true,
+  "scope": "Copied literal retained core source-way metadata, no source geometry or node-sign completeness claim"
+}

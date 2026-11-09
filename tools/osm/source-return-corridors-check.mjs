@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { compileSourceReturns } from './source-return-corridors.mjs';
 import { resolveRoadAccess } from '../../game/src/road-access.js';
 import { buildCorridor } from './corridors.mjs';
+import { buildMotorTurnRestrictions } from '../../game/src/motor-turn-restrictions.js';
 
 const reports = [];
 function test(name, fn) { fn(); reports.push(name); }
@@ -113,5 +114,74 @@ test('absent review preserves the legacy path without mutation',()=>{
 test('deterministic bounded compilation consumes no random numbers',()=>{
     const random=Math.random;Math.random=()=>{throw Error('RNG used');};
     try {assert.deepEqual(compile(),compile());} finally {Math.random=random;}
+});
+function missingViaFixture() {
+    const f = fixture(), relation = { tags: { type: 'restriction', restriction: 'only_right_turn' }, members: [{ type: 'way', ref: 1, role: 'from' }, { type: 'way', ref: 2, role: 'to' }] };
+    f.relations.set(80, relation);
+    f.review.restrictionCompliance = [{ sourceId: 'r80', basis: 'missing-via-universal-known-transition', fromSourceId: 'w1', toSourceId: 'w2', sharedSourceNodeId: 2, expectedRecord: structuredClone(relation) }];
+    return f;
+}
+test('opted-in malformed missing-via only-right complies at its unique literal source incidence without editing raw', () => {
+    const f = missingViaFixture(), before = JSON.stringify(f.relations.get(80)), out = compileSourceReturns(f), r = out.restrictions.find(r => r.sourceId === 'r80');
+    assert.equal(JSON.stringify(f.relations.get(80)), before); assert.deepEqual(r.members, f.relations.get(80).members);
+    assert.equal(r.reviewValidation.basis, 'missing-via-universal-source-incidence'); assert.equal(r.reviewValidation.sharedSourceNodeId, 2); assert.equal(r.reviewValidation.runtimeStatus, 'unresolved-missing-via');
+    const runtime = buildMotorTurnRestrictions({ roadRestrictions: [r] });
+    assert.ok(runtime.report.unresolved.some(u => u.sourceId === 'r80' && u.reasons.includes('missing-or-ambiguous-via-node')));
+});
+test('known restriction FROM absent from the complete reviewed path proves finite-path irrelevance', () => {
+    const f = missingViaFixture(); f.review.corridors[0].legs = f.review.corridors[0].legs.slice(1);
+    assert.equal(compileSourceReturns(f).restrictions[0].reviewValidation.basis, 'known-from-not-traversed');
+});
+test('unreviewed malformed missing-via relation remains refused', () => {
+    const f = missingViaFixture(); delete f.review.restrictionCompliance;
+    assert.throws(() => compileSourceReturns(f), /unsupported touching motor restriction/);
+});
+test('multiple shared source nodes or repeated incidence never supplies a guessed missing via', () => {
+    for (const repeated of [false, true]) { const f = missingViaFixture(), nodes = repeated ? [1, 2, 5, 2] : [1, 2, 3]; f.ways.get(1).nodes = nodes; f.roads[0].nodes = nodes;
+        assert.throws(() => compileSourceReturns(f), /ambiguous literal shared-node incidence/); }
+});
+test('nearby equal XY with different source node IDs does not repair missing-via topology', () => {
+    const f = missingViaFixture(); f.ways.get(2).nodes = [5, 3]; f.roads[1].nodes = [5, 3]; f.review.corridors[0].legs[1].from = 5;
+    assert.throws(() => compileSourceReturns(f), /disconnected source node identities/);
+});
+test('a real alternate reviewed legal exit cannot evade the exact known TO', () => {
+    const f = missingViaFixture(); f.ways.set(8, structuredClone(f.ways.get(2))); f.roads.push({ ...f.roads[1], id: 8 }); f.review.corridors[0].legs[1].sourceId = 'w8';
+    assert.throws(() => compileSourceReturns(f), /requires its exact known TO/);
+});
+test('changed raw record or wrong pinned shared-node identity needs new review', () => {
+    const f = missingViaFixture(); f.relations.get(80).members[1].ref = 3;
+    assert.throws(() => compileSourceReturns(f), /differs from its literal source pin/);
+    const g = missingViaFixture(); g.review.restrictionCompliance[0].sharedSourceNodeId = 5;
+    assert.throws(() => compileSourceReturns(g), /ambiguous literal shared-node incidence/);
+});
+test('conditional missing-via records remain refused even with an updated source pin', () => {
+    const f = missingViaFixture(); f.relations.get(80).tags['restriction:conditional'] = 'only_right_turn @ (Mo-Fr)'; f.review.restrictionCompliance[0].expectedRecord = structuredClone(f.relations.get(80));
+    assert.throws(() => compileSourceReturns(f), /unsupported reviewed missing-via restriction/);
+});
+test('missing off-path source metrics cannot certify a complete shared-node model', () => {
+    const f = missingViaFixture(); f.ways.get(2).nodes.push(999); f.roads[1].nodes.push(999);
+    assert.throws(() => compileSourceReturns(f), /missing exact source metrics/);
+});
+test('a boundary-ending FROM cannot claim the unobserved mandatory exit', () => {
+    const f = missingViaFixture(); f.review.corridors[0].legs = f.review.corridors[0].legs.slice(0, 1);
+    assert.throws(() => compileSourceReturns(f), /requires its exact known TO/);
+});
+function missingToFixture() {
+    const f = fixture(), relation = { tags: { type: 'restriction', restriction: 'only_right_turn' }, members: [{ type: 'way', ref: 2, role: 'from' }, { type: 'node', ref: 2, role: 'via' }] };
+    f.relations.set(81, relation); f.review.restrictionCompliance = [{ sourceId: 'r81', basis: 'known-from-via-arrival-not-traversed', fromSourceId: 'w2', viaSourceNodeId: 2, expectedRecord: structuredClone(relation) }]; return f;
+}
+test('departing the known VIA along its one-way FROM does not trigger the missing-TO arrival restriction', () => {
+    const f = missingToFixture(), before = JSON.stringify(f.relations.get(81)), r = compileSourceReturns(f).restrictions[0];
+    assert.equal(r.reviewValidation.sourceOneWayDepartsVia, true); assert.equal(r.reviewValidation.reviewedConstrainedArrivals, 0);
+    assert.equal(JSON.stringify(f.relations.get(81)), before); assert.deepEqual(r.members, f.relations.get(81).members);
+    assert.ok(buildMotorTurnRestrictions({ roadRestrictions: [r] }).report.unresolved.some(u => u.sourceId === 'r81' && u.reasons.includes('missing-or-ambiguous-to-way')));
+});
+test('an actual legal arrival from the known FROM into VIA cannot use the missing-TO irrelevance review', () => {
+    const f = missingToFixture(); f.relations.get(81).members[1].ref = 3; f.review.restrictionCompliance[0].viaSourceNodeId = 3; f.review.restrictionCompliance[0].expectedRecord = structuredClone(f.relations.get(81));
+    assert.throws(() => compileSourceReturns(f), /known constrained arrival.*is traversed/);
+});
+test('reversing the source one-way to arrive at VIA stays illegal', () => {
+    const f = missingToFixture(); f.review.corridors[0].legs = [{ sourceId: 'w2', from: 3, to: 2 }];
+    assert.throws(() => compileSourceReturns(f), /illegal literal source direction/);
 });
 console.log(JSON.stringify({passed:reports.length,cases:reports},null,2));

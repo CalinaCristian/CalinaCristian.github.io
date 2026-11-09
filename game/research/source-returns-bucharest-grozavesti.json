@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "scope": "Reviewed finite public source road return corridors from both literal Doina Cornea travel directions to the mapped Lukoil. Domain radius is an explicit gameplay boundary buffer, not a road-width measurement; no source geometry or travel rights are changed. Reviewed Basarab source bridge access additionally retains the literal northern exit/return and southern northbound entry; no source join, direction, or physical dimension is changed.",
+  "scope": "Reviewed finite public source road return corridors from both literal Doina Cornea travel directions to the mapped Lukoil. Domain radius is an explicit gameplay boundary buffer, not a road-width measurement; no source geometry or travel rights are changed. Reviewed Basarab source bridge access additionally retains the literal northern exit/return and southern northbound entry; no source join, direction, or physical dimension is changed. The north main bridge now includes its literal complete433/424 exit, actual Titulescu source junction and finite legal return; no new ramp or absolute source height is invented.",
   "destination": {
     "sourceId": "w256806132",
     "osm": "https://www.openstreetmap.org/way/256806132",
@@ -100,6 +100,16 @@
       "proof": "handoffs/fidelity/pipera-fidelity/groz-lukoil-source-returns/README.md",
       "nativeSource": "ff6b2bff3cfe5b45c5dba9624abbb6672304bfed",
       "limits": "Source topology/access/oneway/turn:lanes/restrictions checked at compilation. Native geometry, driving, all-view and budget gates remain separate."
+    },
+    {
+      "kind": "finite literal north main bridge ground-exit and return review",
+      "baselineRuntimeSource": "1a9da7d80c245cfef5593a01fdd20234e845c108",
+      "baselinePreparedDataSha256": "d223a9189e458e149b5baa694dc6e87a7ab9a44011066ef68a2b3af7a2f7f842",
+      "nativeActualGuideSource": "8b51e6f38b3e217ac7f8a556949694e5ca62ebdb",
+      "nativeActualGuideSha256": "a7caf82640c2745a8deb8af9038a93e23f17f8c3fe5107ffb81df4ad3179cd93",
+      "pathSearchSha256": "b9713e6b6633e156e5f6f78627cd9addd6b65ca1a053b4fbefa3c7588009a3d7",
+      "proof": "handoffs/fidelity/pipera-fidelity/basarab-north-ground-return/README.md",
+      "limits": "The successful native guide covers only the observed main bridge orientation, not the new return. Ground0 is a separately reviewed bridge model constraint, not literal metric OSM. Fresh native graph/source/body/driving/coverage/budget/overview gates remain required."
     }
   ],
   "corridors": [
@@ -1067,6 +1077,544 @@
           "to": 4544537057
         }
       ]
+    },
+    {
+      "id": "basarab-main-north-ground-exit-return",
+      "destinationSourceId": "w1559926378",
+      "radiusM": 40,
+      "radiusSource": "Explicit finite domain envelope, not physical width or grade. Exact original raw XY/node IDs/directions retained.",
+      "scope": "Finite actual directed main bridge exit through the literal Titulescu join and a source-reviewed return to the existing public core; no near join/reversal, grade datum remains a separate MODEL. Review begins at the actually reached northern crown6262162596; the pre-existing428 default-lane/turn-token contradiction remains separately held, not relaxed or rebuilt.",
+      "legs": [
+        {
+          "sourceId": "w668700433",
+          "from": 6262162596,
+          "to": 1330584245
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 1330584245,
+          "to": 3908620612
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 3908620612,
+          "to": 3020483265
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 3020483265,
+          "to": 1330594285
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 1330594285,
+          "to": 2159760176
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 2159760176,
+          "to": 2624398780
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 2624398780,
+          "to": 1330594288
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 1330594288,
+          "to": 3908620654
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 3908620654,
+          "to": 2159763170
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 2159763170,
+          "to": 3908620657
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 3908620657,
+          "to": 2448336874
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 2448336874,
+          "to": 2159763173
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 2159763173,
+          "to": 2448336883
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 2448336883,
+          "to": 2159763169
+        },
+        {
+          "sourceId": "w668700433",
+          "from": 2159763169,
+          "to": 255060348
+        },
+        {
+          "sourceId": "w668700424",
+          "from": 255060348,
+          "to": 14161960361
+        },
+        {
+          "sourceId": "w668700424",
+          "from": 14161960361,
+          "to": 1397135743
+        },
+        {
+          "sourceId": "w125909047",
+          "from": 1397135743,
+          "to": 358518389
+        },
+        {
+          "sourceId": "w668700423",
+          "from": 358518389,
+          "to": 358518409
+        },
+        {
+          "sourceId": "w131484721",
+          "from": 358518409,
+          "to": 11652166081
+        },
+        {
+          "sourceId": "w131484721",
+          "from": 11652166081,
+          "to": 255060349
+        },
+        {
+          "sourceId": "w131484721",
+          "from": 255060349,
+          "to": 255060350
+        },
+        {
+          "sourceId": "w23554680",
+          "from": 255060350,
+          "to": 6262162593
+        },
+        {
+          "sourceId": "w23554680",
+          "from": 6262162593,
+          "to": 6262162594
+        },
+        {
+          "sourceId": "w23554680",
+          "from": 6262162594,
+          "to": 255060448
+        },
+        {
+          "sourceId": "w379391760",
+          "from": 255060448,
+          "to": 6262162585
+        },
+        {
+          "sourceId": "w379391760",
+          "from": 6262162585,
+          "to": 1336468931
+        },
+        {
+          "sourceId": "w379391760",
+          "from": 1336468931,
+          "to": 8378931526
+        },
+        {
+          "sourceId": "w379391760",
+          "from": 8378931526,
+          "to": 6262313721
+        },
+        {
+          "sourceId": "w379391760",
+          "from": 6262313721,
+          "to": 1972639741
+        },
+        {
+          "sourceId": "w205975183",
+          "from": 1972639741,
+          "to": 255713323
+        },
+        {
+          "sourceId": "w1132179482",
+          "from": 255713323,
+          "to": 6262162586
+        },
+        {
+          "sourceId": "w1132179482",
+          "from": 6262162586,
+          "to": 2159763167
+        },
+        {
+          "sourceId": "w882652330",
+          "from": 2159763167,
+          "to": 10556771544
+        },
+        {
+          "sourceId": "w882652330",
+          "from": 10556771544,
+          "to": 2746164023
+        },
+        {
+          "sourceId": "w882652327",
+          "from": 2746164023,
+          "to": 2159763168
+        },
+        {
+          "sourceId": "w882652327",
+          "from": 2159763168,
+          "to": 255060447
+        },
+        {
+          "sourceId": "w132515651",
+          "from": 255060447,
+          "to": 255712652
+        },
+        {
+          "sourceId": "w132515651",
+          "from": 255712652,
+          "to": 1397135737
+        },
+        {
+          "sourceId": "w227396976",
+          "from": 1397135737,
+          "to": 2159760180
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 2159760180,
+          "to": 2159760177
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 2159760177,
+          "to": 3020781742
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 3020781742,
+          "to": 2159760172
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 2159760172,
+          "to": 3908620666
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 3908620666,
+          "to": 2448336882
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 2448336882,
+          "to": 2159760170
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 2159760170,
+          "to": 3908620661
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 3908620661,
+          "to": 1330594286
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 1330594286,
+          "to": 3908620656
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 3908620656,
+          "to": 2159760173
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 2159760173,
+          "to": 2159760178
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 2159760178,
+          "to": 3908620649
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 3908620649,
+          "to": 2448336885
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 2448336885,
+          "to": 3908620645
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 3908620645,
+          "to": 2159760175
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 2159760175,
+          "to": 3908620642
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 3908620642,
+          "to": 1340349396
+        },
+        {
+          "sourceId": "w23770172",
+          "from": 1340349396,
+          "to": 1330584266
+        },
+        {
+          "sourceId": "w1552024282",
+          "from": 1330584266,
+          "to": 2624398739
+        },
+        {
+          "sourceId": "w1552024282",
+          "from": 2624398739,
+          "to": 2624398784
+        },
+        {
+          "sourceId": "w1552024282",
+          "from": 2624398784,
+          "to": 2624398769
+        },
+        {
+          "sourceId": "w1552024282",
+          "from": 2624398769,
+          "to": 3198155704
+        },
+        {
+          "sourceId": "w1552024282",
+          "from": 3198155704,
+          "to": 257542529
+        },
+        {
+          "sourceId": "w1552024282",
+          "from": 257542529,
+          "to": 3908619748
+        },
+        {
+          "sourceId": "w1552024282",
+          "from": 3908619748,
+          "to": 3908619744
+        },
+        {
+          "sourceId": "w1552024282",
+          "from": 3908619744,
+          "to": 981550754
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 981550754,
+          "to": 2624398747
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 2624398747,
+          "to": 2624398740
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 2624398740,
+          "to": 5220968635
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 5220968635,
+          "to": 2624398779
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 2624398779,
+          "to": 5220968636
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 5220968636,
+          "to": 2624398778
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 2624398778,
+          "to": 3908619731
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 3908619731,
+          "to": 2624398752
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 2624398752,
+          "to": 2624398776
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 2624398776,
+          "to": 2624398764
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 2624398764,
+          "to": 2159708696
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 2159708696,
+          "to": 12318869826
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 12318869826,
+          "to": 1340349389
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 1340349389,
+          "to": 1340349390
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 1340349390,
+          "to": 2624398777
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 2624398777,
+          "to": 12318869825
+        },
+        {
+          "sourceId": "w84483589",
+          "from": 12318869825,
+          "to": 2624398775
+        },
+        {
+          "sourceId": "w1559926378",
+          "from": 2624398775,
+          "to": 32933928
+        }
+      ]
+    },
+    {
+      "id": "basarab-titulescu-ground-junction",
+      "destinationSourceId": "w125909047",
+      "radiusM": 40,
+      "radiusSource": "Explicit finite domain envelope, not physical width or grade. Exact original raw XY/node IDs/directions retained.",
+      "scope": "Exact incoming ground-tagged235 and outgoing125 source footprint at1397135743. Unrelated external upstream approaches remain closed; no claim of a separately routed city-wide ground approach.",
+      "legs": [
+        {
+          "sourceId": "w23554631",
+          "from": 1344579108,
+          "to": 12007812262
+        },
+        {
+          "sourceId": "w23554631",
+          "from": 12007812262,
+          "to": 1344579144
+        },
+        {
+          "sourceId": "w23554631",
+          "from": 1344579144,
+          "to": 647897898
+        },
+        {
+          "sourceId": "w23554631",
+          "from": 647897898,
+          "to": 1344579074
+        },
+        {
+          "sourceId": "w23554631",
+          "from": 1344579074,
+          "to": 1344579061
+        },
+        {
+          "sourceId": "w23554631",
+          "from": 1344579061,
+          "to": 1344579132
+        },
+        {
+          "sourceId": "w23554631",
+          "from": 1344579132,
+          "to": 1397135740
+        },
+        {
+          "sourceId": "w23554631",
+          "from": 1397135740,
+          "to": 1397135743
+        },
+        {
+          "sourceId": "w125909047",
+          "from": 1397135743,
+          "to": 358518389
+        }
+      ]
+    }
+  ],
+  "restrictionCompliance": [
+    {
+      "sourceId": "r21068448",
+      "basis": "missing-via-universal-known-transition",
+      "fromSourceId": "w23554631",
+      "toSourceId": "w125909047",
+      "sharedSourceNodeId": 1397135743,
+      "expectedRecord": {
+        "tags": {
+          "restriction": "only_right_turn",
+          "type": "restriction"
+        },
+        "members": [
+          {
+            "type": "way",
+            "ref": 23554631,
+            "role": "from"
+          },
+          {
+            "type": "way",
+            "ref": 125909047,
+            "role": "to"
+          }
+        ]
+      },
+      "scope": "This literal finite review only. FROM absent proves irrelevance; otherwise unique raw shared-node incidence and every reviewed arrival must take exact knownTO. The source relation remains missing VIA/unresolved for runtime Nav.",
+      "evidence": "handoffs/fidelity/pipera-fidelity/basarab-north-ground-return/primary-relation-21068448.xml"
+    },
+    {
+      "sourceId": "r21274119",
+      "basis": "known-from-via-arrival-not-traversed",
+      "fromSourceId": "w23770172",
+      "viaSourceNodeId": 2159760180,
+      "expectedRecord": {
+        "tags": {
+          "restriction": "only_right_turn",
+          "type": "restriction"
+        },
+        "members": [
+          {
+            "type": "way",
+            "ref": 23770172,
+            "role": "from"
+          },
+          {
+            "type": "node",
+            "ref": 2159760180,
+            "role": "via"
+          }
+        ]
+      },
+      "scope": "Only prove that these reviewed legs never ARRIVE into knownVIA from knownFROM. The literal one-way starts/departs VIA; no TO member inferred and general runtime Nav remains unresolved.",
+      "evidence": "handoffs/fidelity/pipera-fidelity/basarab-north-ground-return/primary-relation-21274119.xml"
     }
   ]
 }

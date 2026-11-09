@@ -36,7 +36,7 @@ that chapter of the CV.
   and season live** with `K`, the ☀️ conditions panel, or **Settings → Time, weather & season** from the title or pause menu.
   Choose **Live** time to return to the city's current local clock. Selected conditions
   follow district and story travel, changes of city and Continue (also on phones).
-- **Readable car displays.** The instrument cluster and navigation/home screen retain detailed text on Low, Medium and Auto, including high-DPR phones. World rendering still adapts to the selected graphics level; the physical displays retain their camera placement, wheel/dashboard occlusion and normal driving visibility.
+- **Readable car displays.** The instrument cluster, navigation/home screen and rear-view mirror retain detail on Low, Medium and Auto, including high-DPR phones. World rendering still adapts to the selected graphics level; the physical displays retain their camera placement, wheel/dashboard occlusion and normal driving visibility. The mirror keeps its existing rear camera and image target.
 - **Drone.** On foot (districts and spots), G deploys a drone with its own camera HUD, rotor sound, Cine / Normal / Sport
   speeds, real EU / FAA limits (120 m / 400 ft ceiling, ~800 m range, 10-minute battery with return-home) and photo mode;
   T flies you to the spot under it, G lands it back in your hand. There are hidden interactions to discover with it,

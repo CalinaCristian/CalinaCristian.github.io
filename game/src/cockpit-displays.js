@@ -1,7 +1,7 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { FullScreenQuad } from '../vendor/addons/Pass.js';
 
-// World rendering keeps its adaptive resolution. Only the two physical display
+// World rendering keeps its adaptive resolution. Only the physical display
 // planes are drawn again at output resolution, using the original scene depth.
 // No geometry, camera, input surface or visible hierarchy is moved/reparented.
 const MAX_OUTPUT_PIXELS = 4_000_000;
@@ -71,7 +71,7 @@ export class CockpitDisplays {
     constructor(renderer, composer) {
         this.renderer = renderer;
         this.scene = new THREE.Scene();
-        // This newly created scene contains only two shared display planes.
+        // This newly created scene contains only shared display planes.
         // Native world/mirror Scene hooks must retain their final actor stats;
         // running the global fleet hook on this empty-actor scene would reset
         // those counters. No callback on an existing scene is replaced.
@@ -116,7 +116,7 @@ export class CockpitDisplays {
         this.frameScene = this.frameCamera = null;
         this.bindings = [];
         this.scene.clear();
-        for (const source of [player?.cockpit?.userData.cluster, player?.cockpit?.userData.screen]) {
+        for (const source of [player?.cockpit?.userData.cluster, player?.cockpit?.userData.screen, player?.mirror]) {
             if (!source?.isMesh || !source.material?.isMeshBasicMaterial) continue;
             const uniforms = patchMaterial(source.material);
             const mesh = new THREE.Mesh(source.geometry, source.material);
@@ -233,7 +233,7 @@ export class CockpitDisplays {
             r.autoClear = false;
             r.setRenderTarget(null);
             r.state.buffers.depth.setMask(true);
-            r.clearDepth(); // only the two display planes use this depth attachment;
+            r.clearDepth(); // only the display planes use this depth attachment;
             // physical world/cabin occlusion comes from the saved source depth.
             r.render(this.scene, camera);
         } finally {

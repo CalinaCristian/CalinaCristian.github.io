@@ -45,6 +45,9 @@ export function buildOldTownNightlife(ctx, venueActivities) {
     const colours=['#ffd38d','#6d8fe1','#ffcf83'];
     const ball=new THREE.Mesh(new THREE.IcosahedronGeometry(.28,2),new THREE.MeshStandardMaterial({color:'#b7afa0',metalness:.95,roughness:.12,flatShading:true}));ball.position.set(10000,floor+3.45,8000);room.add(ball);
     for(let i=0;i<3;i++){const light=new THREE.SpotLight(colours[i],65,15,Math.PI*.34,.75,2);light.position.set(9997+i*3,floor+3.8,8000+(i-1)*2);light.target.position.set(10000+(i-1),floor+.9,8000);room.add(light,light.target);}
+    // A small warm ceiling fill keeps the visitor's full dance steps readable.
+    // It stays inside the estimated room and never spills onto the street.
+    const [fillX,fillZ]=Q(18.8,56.7),danceFill=new THREE.PointLight('#ffdfab',24,8,2);danceFill.position.set(fillX,floor+2.8,fillZ);room.add(danceFill);
     const sign=signAtlas([{x:djX,y:floor+2.5,z:djZ+.6,yaw:0,w:3,h:.65,text:'Freddo',bg:'#24231f',fg:'#f5edda',font:q=>`italic 700 ${q}px Georgia, serif`,border:false}],{name:'freddo-room-sign',night:.7});if(sign)room.add(sign);
     const details=freddoRoomDetails(ctx,b,{building,Q,floor,barX,barZ,djX,djZ,front}),staticRoom=b.build('freddo-room',{castShadow:false,matOverrides:details});room.add(staticRoom);
     const random=rng(713), indoor=makeCrowd({max:54,city:'bucharest',season:'summer',rng:random,castShadow:false}), dancers=[];
@@ -54,7 +57,7 @@ export function buildOldTownNightlife(ctx, venueActivities) {
     const aisle=[[22,57],[18.8,56.7],[18.8,59.5],[16,60.8],[12.5,58]],clusters=[[8.6,60.7],[15.2,54.4],[14.5,58.3],[19.5,52.5],[18.5,61.5],[17.3,55.2],[20.5,54.8],[16,51.5]];
     for(let attempt=0;attempt<16000&&dancers.length<54;attempt++){const centre=clusters[attempt%clusters.length],angle=random()*Math.PI*2,radius=.35+Math.sqrt(random())*2.1,x=centre[0]+Math.cos(angle)*radius,z=centre[1]+Math.sin(angle)*radius;
         if(!inPoly(x,z,building.poly) || distPolyline(x,z,[...building.poly,building.poly[0]]).d<.45 ||
-            Math.hypot(x-18.8,z-56.7)<1.2 || distPolyline(x,z,aisle).d<1.05 || Math.hypot(x-22,z-57)<1.4 || Math.hypot(x-13,z-49)<1.45 ||dancers.some(p=>Math.hypot(x+dx-p.x,z+dz-p.z)<.86)||
+            Math.hypot(x-18.8,z-56.7)<1.2 || distPolyline(x,z,aisle).d<1.05 || Math.hypot(x-22,z-57)<1.4 || Math.hypot(x-22,z-57.8)<1.9 || Math.hypot(x-13,z-49)<1.45 ||dancers.some(p=>Math.hypot(x+dx-p.x,z+dz-p.z)<.86)||
             collide(ctx.colliders,x+dx,z+dz,.3,floor+.2))continue;
         dancers.push({x:x+dx,z:z+dz,phase:random()*Math.PI*2,scale:.92+random()*.13,speed:.82+random()*.35,yaw:Math.atan2(centre[0]-x,centre[1]-z),motion:random()});
     }

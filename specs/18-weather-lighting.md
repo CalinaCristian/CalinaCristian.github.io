@@ -98,3 +98,7 @@ Instrumented with a float render target and a non-finite pixel count every 0.5 s
 ### 2026-11-09 — normal-only pass shader correctness
 
 The shared zero-normal guard used vViewPosition in smooth MeshNormalMaterial, although Three r170 declares it only under flat/bump/tangent-normal variants. Native Ultra/GTAO produced undeclared-varying compile errors. `normal-guard.js` preserves the lit face-normal fallback and supplies a dedicated normal-pass view-position varying from the actual projected vertex. It is idempotent, adds no draw calls/geometry, and leaves healthy lit normal calculations unchanged. `tools/normal-guard-check.mjs` reproduces the old native compile failure then checks smooth/flat normal, Lambert, Phong and Standard zero-normal pixels with zero shader/GL errors. Actual full-scene Ultra budgets/visuals remain a separate gate.
+
+### 2026-11-09 — finite source backdrop bounds
+
+setScene caches only source-projection group references; fog culling preserves each effectively visible group's finite geometry/camera-domain far requirement. Hidden groups/ancestors release it and ordinary weather trimming resumes. The original4% projection hysteresis stays. Actual Renderer3D method controls cover visible/hidden/parent-hidden transitions; native public-app elevated/day/weather images and budget gates remain required.

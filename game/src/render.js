@@ -545,6 +545,8 @@ export class Renderer3D {
      */
     setScene(scene, camera, env, o = {}) {
         this.scene = scene; this.camera = camera; this.env = env; this.mph = o.units === 'mph';
+        this._sourceBackdrops = [];
+        scene.traverse(object => { if (Number.isFinite(object.userData?.sourceProjection?.cameraFarM)) this._sourceBackdrops.push(object); });
         camera.layers.enable(1); // layer 1 = seen by the main camera only (rear cabin; the mirror camera stays on layer 0)
         const replace = o.replaceLights !== false;
         if (replace) for (const c of [...scene.children]) if ((c.isDirectionalLight || c.isHemisphereLight || c.isAmbientLight || (c.isLightProbe && c !== this.probe)) && c !== this.sun) scene.remove(c);
@@ -1443,6 +1445,11 @@ export class Renderer3D {
         if (this._farSet === undefined || Math.abs(camera.far - this._farSet) > 0.01) { this._farBase = camera.far; this._farSet = camera.far; }
         let want = this._farBase;
         if (fog?.isFogExp2 && fog.density > 0) want = Math.min(this._farBase, Math.max(220, 5.3 / fog.density)); // 0.5 % left
+        for (const object of this._sourceBackdrops || []) {
+            let visible = true;
+            for (let p = object; p; p = p.parent) if (!p.visible) { visible = false; break; }
+            if (visible) want = Math.max(want, Math.min(this._farBase, object.userData.sourceProjection.cameraFarM));
+        }
         if (Math.abs(want - camera.far) > camera.far * 0.04) { camera.far = want; camera.updateProjectionMatrix(); this._farSet = want; }
     }
 

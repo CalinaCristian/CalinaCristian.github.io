@@ -20,6 +20,8 @@ Returning to the menu calls `Renderer3D.releaseScene()` after disposing the visi
 
 Planner/fallback wall queries interpolate the native segment bands `y0a/y0b/y1a/y1b` at the closest segment point, using the same query-height convention as World. Elevated Carusel rails previously blocked lower-floor planning at every height. Level parity/ground-route/own-level/legacy controls are in `tourist-wall-levels.test.mjs`; actual bookshop access remains a native acceptance gate.
 
+Carusel’s current estimated interior replaces separate oval floor holes with one continuous long hall/stair void, perimeter galleries, supported return stairs/landings, white gallery rails and a source-door threshold above the retained terrain. Preserve the exact outer source ring/door and match floor/void/rail collision to the emitted geometry. These internal levels/dimensions are photo-led game estimates. Phone dance camera fitting uses the actual panel/toast rectangle and avatar points, preserving field of view; actual ground/gallery/day/night/phone captures remain acceptance gates.
+
 Old Town's visit boundary is enforced after native controller movement and crowd push-out, preserving the exact source streets/buildings as surrounding scenery. Freddo hours and the source anchor are recorded in `game/research/old-town-nightlife.md`; the interior layout and music are authored game content. Native dance, shot, hidden sports-room access and mobile checks are separate gates.
 
 

@@ -1,0 +1,7 @@
+page.evaluate: TypeError: Cannot set properties of undefined (setting 'mirrorEnabled')
+    at eval (eval at evaluate (:311:30), <anonymous>:1:332)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at /workspace/fidelity-workers/unirii-pedestrian-recovery/handoffs/fidelity/unirii-pedestrian-recovery/observe-first-publication.cjs:17:12 {
+  log: []
+}

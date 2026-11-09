@@ -1,0 +1,424 @@
+{
+  "source": "2696df66fd0331fc645f7c003cbcca7a5410740b",
+  "toolSHA256": "a3f9baf62a85327863a59ff3a1a87862a5782f798c9e056357bac628d5025979",
+  "scope": "Isolated32px actual Three GPU/material/order/model controls; NOT a full native World/passage/phone/High/Ultra/frame-budget acceptance",
+  "startedAt": "2026-11-09T15:32:48.058Z",
+  "requests": [
+    {
+      "name": "game/vendor/three.module.min.js",
+      "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7"
+    },
+    {
+      "name": "game/src/geobuild.js",
+      "sha256": "28e535a8934df3d3d249f13180ce04db1b86d47318530e74344a532a2a0fb2d3"
+    },
+    {
+      "name": "game/src/underpass-roof.js",
+      "sha256": "d1cc7dabf82d602959959f53bca26be699b62142e29ab0ab44e5b9936cec56b3"
+    },
+    {
+      "name": "game/src/underpass-ground-owner.js",
+      "sha256": "52d8e943ede3199ad485f06e455fa88c7b4d48a5d327f91837b7a73a9fdf37f2"
+    },
+    {
+      "name": "game/src/bridge-profile-geometry.js",
+      "sha256": "65b83df1cf242f632861d405c138f136facbfba5d3786ed4a85abb639f07982e"
+    },
+    {
+      "name": "game/src/tram-trench.js",
+      "sha256": "755b4ab3acdf101182bcc4eccf9486289f7346b7e6d58fb4c81f92669ad8a018"
+    },
+    {
+      "name": "game/src/world.js",
+      "sha256": "f57e216523a2f58a5860d374e27e0c1f328a2265f01af9efa46a493f1b7b75be"
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "complete": true,
+  "result": {
+    "controls": [
+      {
+        "name": "ground-no-mask-positive-control",
+        "centerRGBA": [
+          255,
+          0,
+          0,
+          255
+        ],
+        "actualDrawOrder": [
+          "actual-source-ground-control",
+          "actor-control"
+        ],
+        "actualMaterials": [
+          {
+            "name": "actual-source-ground-control",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": false,
+            "renderOrder": -19.2
+          },
+          {
+            "name": "actor-control",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": true,
+            "renderOrder": 0
+          }
+        ],
+        "glError": 0,
+        "png": {
+          "file": "ground-no-mask-positive-control.png",
+          "bytes": 159,
+          "sha256": "ae1474452f98508102f26f4cb7ab5711c9237f559ca74fd64529204cd80bd1be"
+        }
+      },
+      {
+        "name": "source-grass-with-physical-roof",
+        "centerRGBA": [
+          0,
+          255,
+          0,
+          255
+        ],
+        "actualDrawOrder": [
+          "actual-source-ground-control",
+          "actual-World-depth-only-cover",
+          "actor-control"
+        ],
+        "actualMaterials": [
+          {
+            "name": "actual-source-ground-control",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": false,
+            "renderOrder": -19.2
+          },
+          {
+            "name": "actor-control",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": true,
+            "renderOrder": 0
+          },
+          {
+            "name": "actual-World-depth-only-cover",
+            "transparent": false,
+            "colorWrite": false,
+            "depthWrite": true,
+            "renderOrder": -17.9
+          }
+        ],
+        "glError": 0,
+        "png": {
+          "file": "source-grass-with-physical-roof.png",
+          "bytes": 128,
+          "sha256": "122e3ea59b99180b55d26b77e92feee6b17e5bb0a084c3525b71c60190f745c5"
+        }
+      },
+      {
+        "name": "source-paving-with-physical-roof",
+        "centerRGBA": [
+          0,
+          0,
+          255,
+          255
+        ],
+        "actualDrawOrder": [
+          "actual-source-ground-control",
+          "actual-World-depth-only-cover",
+          "actor-control"
+        ],
+        "actualMaterials": [
+          {
+            "name": "actual-source-ground-control",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": false,
+            "renderOrder": -19.2
+          },
+          {
+            "name": "actor-control",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": true,
+            "renderOrder": 0
+          },
+          {
+            "name": "actual-World-depth-only-cover",
+            "transparent": false,
+            "colorWrite": false,
+            "depthWrite": true,
+            "renderOrder": -17.9
+          }
+        ],
+        "glError": 0,
+        "png": {
+          "file": "source-paving-with-physical-roof.png",
+          "bytes": 132,
+          "sha256": "9fbb2b43b1bf1006212e2c9530e3d8b7c12a7742c40d9cc8d15ba3ac100a2feb"
+        }
+      },
+      {
+        "name": "source-overlying-road-with-physical-roof",
+        "centerRGBA": [
+          0,
+          255,
+          255,
+          255
+        ],
+        "actualDrawOrder": [
+          "actual-World-depth-only-cover",
+          "actor-control",
+          "actual-source-ground-control"
+        ],
+        "actualMaterials": [
+          {
+            "name": "actual-source-ground-control",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": true,
+            "renderOrder": 2
+          },
+          {
+            "name": "actor-control",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": true,
+            "renderOrder": 0
+          },
+          {
+            "name": "actual-World-depth-only-cover",
+            "transparent": false,
+            "colorWrite": false,
+            "depthWrite": true,
+            "renderOrder": -17.9
+          }
+        ],
+        "glError": 0,
+        "png": {
+          "file": "source-overlying-road-with-physical-roof.png",
+          "bytes": 129,
+          "sha256": "0f1d65044860913f541f56e74ef3d3c38e8d2cf2a24e549e839f6879324cae8c"
+        }
+      },
+      {
+        "name": "opaque-mask-transparent-water-failure-control",
+        "centerRGBA": [
+          0,
+          0,
+          0,
+          255
+        ],
+        "actualDrawOrder": [
+          "actual-World-depth-only-cover",
+          "actor-control",
+          "actual-transparent-water-control"
+        ],
+        "actualMaterials": [
+          {
+            "name": "actual-transparent-water-control",
+            "transparent": true,
+            "colorWrite": true,
+            "depthWrite": false,
+            "renderOrder": -18
+          },
+          {
+            "name": "actor-control",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": true,
+            "renderOrder": 0
+          },
+          {
+            "name": "actual-World-depth-only-cover",
+            "transparent": false,
+            "colorWrite": false,
+            "depthWrite": true,
+            "renderOrder": -17.9
+          }
+        ],
+        "glError": 0,
+        "png": {
+          "file": "opaque-mask-transparent-water-failure-control.png",
+          "bytes": 139,
+          "sha256": "74226347265142b57b41e09e8cce2516c105b83e5adc1cb0a863a3d0e2332dc1"
+        }
+      },
+      {
+        "name": "refused-new-mask-water-policy-only",
+        "centerRGBA": [
+          0,
+          0,
+          255,
+          255
+        ],
+        "actualDrawOrder": [
+          "actor-control",
+          "actual-transparent-water-control"
+        ],
+        "actualMaterials": [
+          {
+            "name": "actual-transparent-water-control",
+            "transparent": true,
+            "colorWrite": true,
+            "depthWrite": false,
+            "renderOrder": -18
+          },
+          {
+            "name": "actor-control",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": true,
+            "renderOrder": 0
+          }
+        ],
+        "glError": 0,
+        "png": {
+          "file": "refused-new-mask-water-policy-only.png",
+          "bytes": 132,
+          "sha256": "9fbb2b43b1bf1006212e2c9530e3d8b7c12a7742c40d9cc8d15ba3ac100a2feb"
+        }
+      },
+      {
+        "name": "actual-model-ceiling-from-below",
+        "centerRGBA": [
+          96,
+          96,
+          96,
+          255
+        ],
+        "actualDrawOrder": [
+          "actual-World-depth-only-cover",
+          "actor-control",
+          "actual-model-slab-faces"
+        ],
+        "actualMaterials": [
+          {
+            "name": "actor-control",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": true,
+            "renderOrder": 0
+          },
+          {
+            "name": "actual-World-depth-only-cover",
+            "transparent": false,
+            "colorWrite": false,
+            "depthWrite": true,
+            "renderOrder": -17.9
+          },
+          {
+            "name": "actual-model-slab-faces",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": true,
+            "renderOrder": 0
+          }
+        ],
+        "glError": 0,
+        "png": {
+          "file": "actual-model-ceiling-from-below.png",
+          "bytes": 142,
+          "sha256": "8213ddaca92cd918cdd685dc78597b4ec9738c86c025c0f837e49f5d5919faf3"
+        }
+      },
+      {
+        "name": "actual-model-thickness-from-side",
+        "centerRGBA": [
+          96,
+          96,
+          96,
+          255
+        ],
+        "actualDrawOrder": [
+          "actor-control",
+          "actual-model-slab-faces"
+        ],
+        "actualMaterials": [
+          {
+            "name": "actor-control",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": true,
+            "renderOrder": 0
+          },
+          {
+            "name": "actual-model-slab-faces",
+            "transparent": false,
+            "colorWrite": true,
+            "depthWrite": true,
+            "renderOrder": 0
+          }
+        ],
+        "glError": 0,
+        "png": {
+          "file": "actual-model-thickness-from-side.png",
+          "bytes": 159,
+          "sha256": "2cb3953424af990e37a72b9f6decf83aa0fd5da3c1bad393327957d450087406"
+        }
+      }
+    ],
+    "model": {
+      "estimated": true,
+      "minClearanceM": 5.2,
+      "legalMaxheightM": 3.5
+    },
+    "unknownWater": {
+      "known": false,
+      "reason": "retained-water-topology-unresolved",
+      "bands": [],
+      "waters": [
+        {
+          "id": "raw-water:0",
+          "minY": -4.400000095367432,
+          "maxY": -4.400000095367432,
+          "intersection": [
+            [
+              3.333333333333333,
+              20
+            ],
+            [
+              4,
+              20
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              -3.333333333333333,
+              0
+            ]
+          ]
+        },
+        {
+          "id": "raw-water:1",
+          "minY": -4.400000095367432,
+          "maxY": -4.400000095367432,
+          "intersection": [
+            [
+              -4,
+              0
+            ],
+            [
+              -4,
+              20
+            ],
+            [
+              3.333333333333333,
+              20
+            ],
+            [
+              -3.333333333333333,
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "worldCoverMaterialDeclaration": "const material = new THREE.MeshBasicMaterial({ colorWrite: UNDERPASS_COVER_POLICY.colorWrite, depthWrite: UNDERPASS_COVER_POLICY.depthWrite, depthTest: UNDERPASS_COVER_POLICY.depthTest });",
+    "limits": "Water control proves refusal of a NEW opaque mask only; the full World legacy fallback remains unresolved.32px controls do not replace fresh full-size native pictures/passages or renderer budgets."
+  },
+  "endedAt": "2026-11-09T15:32:50.535Z"
+}

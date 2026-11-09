@@ -1,0 +1,18 @@
+{
+  "source": "2696df66fd0331fc645f7c003cbcca7a5410740b",
+  "scope": "Isolated actual Three32px material/model/order controls, NOT native World/passage/water/high/ultra/budget acceptance.",
+  "controlsPassed": 8,
+  "glShaderPageConsoleErrors": 0,
+  "full32pxImagesInspected": [
+    "ground-no-mask-positive-control",
+    "source-grass-with-physical-roof",
+    "opaque-mask-transparent-water-failure-control",
+    "refused-new-mask-water-policy-only",
+    "actual-model-ceiling-from-below",
+    "actual-model-thickness-from-side"
+  ],
+  "actualTransparentWaterNegative": "Opaque mask rendered before transparent water and blocked it; full World water legacy fallback remains unresolved. Refusal image proves only no NEW mask in the isolated unknown-water policy case.",
+  "archiveFiles": 7,
+  "servedFiles": 7,
+  "browserClosed": true
+}

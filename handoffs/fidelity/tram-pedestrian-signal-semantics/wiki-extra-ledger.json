@@ -1,0 +1,31 @@
+[
+  {
+    "url": "https://wiki.openstreetmap.org/wiki/Tag:railway%3Dtram_crossing",
+    "finalUrl": "https://wiki.openstreetmap.org/wiki/Tag:railway%3Dtram_crossing",
+    "status": 200,
+    "bytes": 80187,
+    "sha256": "9f508a83e076f69efe4129343a7ae62c69c6e6a3acc5ba560e4c414a04702f66",
+    "shortQuotedDefinition": "Pedestrians can cross a tramway here."
+  },
+  {
+    "url": "https://wiki.openstreetmap.org/wiki/Key:railway:signal:main",
+    "finalUrl": "https://wiki.openstreetmap.org/wiki/Key:railway:signal:main",
+    "status": 200,
+    "bytes": 76720,
+    "sha256": "9396eff15c13eb51d6803d919622e8ce6cd4459170612ef6cd6368739f96828d"
+  },
+  {
+    "url": "https://wiki.openstreetmap.org/wiki/Key:traffic_signals",
+    "finalUrl": "https://wiki.openstreetmap.org/wiki/Key:traffic_signals",
+    "status": 200,
+    "bytes": 96098,
+    "sha256": "73995f132f64076da9caffe286bd4bd4f05df718a7d7cd5c25091f79e162f5f2"
+  },
+  {
+    "url": "https://wiki.openstreetmap.org/wiki/Key:crossing:light",
+    "finalUrl": "https://wiki.openstreetmap.org/wiki/Key:crossing:light",
+    "status": 200,
+    "bytes": 73112,
+    "sha256": "2ccb6ecb7075820e1ce32225b4f4816fe7096933bdd9e5ffe249e39efa356ca5"
+  }
+]

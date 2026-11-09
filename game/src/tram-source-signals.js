@@ -5,25 +5,52 @@ const controlled = tags => tags?.highway === 'traffic_signals' || tags?.crossing
 const roadSource = edge => edge.access?.sourceId ?? edge.sourceId;
 const PARALLEL = Math.cos(Math.PI / 9); // same conservative axis rule as signals.js
 const incoming = (edge, node) => edge.b === node ? edge.railDirections?.includes(1) : edge.a === node && edge.railDirections?.includes(-1);
+const vehicleHead = tags => tags?.railway === 'signal' || Object.keys(tags || {}).some(k => k.startsWith('railway:signal')) || String(tags?.traffic_signals || '').split(';').some(v => /^tram(?:_|$)/.test(v.trim()));
+
+function completePedestrianContext(crossing, node, data, motorBySource) {
+    const refs = (crossing.nodeIds || []).map(id), points = crossing.points;
+    if (crossing.tags?.highway !== 'footway' || !refs.includes(id(node.sourceId)) || !Array.isArray(points) || points.length !== refs.length * 2 || !points.every(Number.isInteger) || crossing.missingNodeIds?.length || !(data.q > 0) || !Number.isFinite(data.q)) return false;
+    let x = 0, z = 0; const decoded = new Map();
+    for (let i = 0; i < refs.length; i++) { x += points[i * 2]; z += points[i * 2 + 1]; decoded.set(refs[i], { x: x / data.q, z: z / data.q }); }
+    const near = (a, b) => a && b && [a.x, a.z, b.x, b.z].every(Number.isFinite) && Math.hypot(a.x - b.x, a.z - b.z) <= Math.SQRT2 / (2 * data.q) + 1e-5;
+    if (!near(node, decoded.get(id(node.sourceId)))) return false;
+    return crossing.roadIncidences?.some(i => {
+        const motors = motorBySource.get(id(i.nodeId));
+        return refs.includes(id(i.nodeId)) && motors?.length === 1 && near(motors[0], decoded.get(id(i.nodeId))) && motors[0].edges.some(e => roadSource(e) === i.sourceId && (e.a === motors[0] || e.b === motors[0]));
+    }) === true;
+}
 
 /** Read-only plan; callers apply associations only before actor admission.
  * Every candidate starts with identical raw IDs on ONE complete crossing way.
  * The existing world controller must contain the exact mapped road approach. */
 export function buildTramSourceSignals(data, network, world) {
-    const result = { passed: true, associations: [], bindings: [], unresolved: [], uncontrolled: [] };
+    const result = { passed: true, associations: [], bindings: [], unresolved: [], uncontrolled: [], pedestrianControlled: [] };
     const fail = item => { result.passed = false; result.unresolved.push(item); };
     const motorBySource = new Map();
     const motors = world.graph?.nodes instanceof Map ? [...world.graph.nodes.values()] : Object.values(world.graph?.nodes || {});
     for (const node of motors) if (node.sourceId != null) {
         const key = id(node.sourceId), list = motorBySource.get(key) || []; list.push(node); motorBySource.set(key, list);
     }
-    const wanted = new Map();
+    const wanted = new Map(), pedestrianNodes = new Set(), vehicleHeadNodes = new Set();
+    for (const node of network.nodes || []) if (vehicleHead(node.tags) || vehicleHead(data.tramSourceNodeTags?.[id(node.sourceId)])) vehicleHeadNodes.add(id(node.sourceId));
+    for (const crossing of data.tramSourceCrossings || []) for (const railId of crossing.railNodeIds || []) if (vehicleHead(crossing.nodeTags?.[id(railId)]) || vehicleHead(crossing.tags)) vehicleHeadNodes.add(id(railId));
     for (const crossing of data.tramSourceCrossings || []) {
         const refs = new Set((crossing.nodeIds || []).map(id));
         for (const railId of crossing.railNodeIds || []) {
             const node = network.bySourceNode.get(id(railId));
             if (!node?.edges.length) continue; // retained unmodeled source is not a live approach
             if (!controlled(crossing.nodeTags?.[id(railId)])) { result.uncontrolled.push({ crossingSourceId: crossing.sourceId, railSourceNodeId: railId }); continue; }
+            const rawTags = crossing.nodeTags[id(railId)];
+            // railway=tram_crossing describes pedestrians crossing the tracks;
+            // crossing signalization does not establish a tram vehicle head.
+            // Preserve that literal control without inventing vehicle red,
+            // priority, timing, head locations or a nearby motor controller.
+            if (node.tags?.railway === 'tram_crossing' && rawTags.railway === 'tram_crossing' && controlled(node.tags) && !vehicleHeadNodes.has(id(railId)) && completePedestrianContext(crossing, node, data, motorBySource)) {
+                pedestrianNodes.add(node);
+                result.pedestrianControlled.push({ sourceId: crossing.sourceId, railSourceNodeId: railId, nodeIds: [...crossing.nodeIds], tags: { ...rawTags }, crossingTags: { ...crossing.tags }, roadIncidences: crossing.roadIncidences.map(i => ({ ...i })),
+                    evidence: { classification: 'literal signalized pedestrian tram crossing', documentation: 'https://wiki.openstreetmap.org/wiki/Tag:railway%3Dtram_crossing' }, vehicleControl: 'not mapped', pedestrianHeadRendering: 'not verified' });
+                continue;
+            }
             let request = wanted.get(node); if (!request) wanted.set(node, request = { candidates: [], errors: [], crossings: [] });
             request.crossings.push(crossing.sourceId);
             if (!refs.has(id(railId)) || crossing.points == null || crossing.missingNodeIds?.length || crossing.points.length !== crossing.nodeIds.length * 2 || !crossing.points.every(Number.isInteger)) {
@@ -68,7 +95,7 @@ export function buildTramSourceSignals(data, network, world) {
     }
     // A controlled live source node cannot silently become green just because
     // the footway context field is absent or a literal link was not retained.
-    for (const node of network.nodes || []) if (node.edges.length && controlled(node.tags) && !node.motorNode && !wanted.has(node)) {
+    for (const node of network.nodes || []) if (node.edges.length && controlled(node.tags) && !node.motorNode && !wanted.has(node) && !pedestrianNodes.has(node)) {
         fail({ railSourceNodeId: node.sourceId, reason: 'missing-controlled-source-crossing-context' });
     }
     for (const [node, request] of wanted) {

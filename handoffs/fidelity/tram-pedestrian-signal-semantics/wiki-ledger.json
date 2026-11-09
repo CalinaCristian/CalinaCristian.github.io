@@ -1,0 +1,44 @@
+{
+  "fetchedUtc": "2026-11-09T07:41:30.274886+00:00",
+  "records": [
+    {
+      "url": "https://wiki.openstreetmap.org/wiki/Tag:railway%3Dcrossing",
+      "finalUrl": "https://wiki.openstreetmap.org/wiki/Tag:railway%3Dcrossing",
+      "status": 200,
+      "sha256": "ae93369af65a1b712c452ad0088e9786453dc6408ebf7fa15a7639286f514f5e",
+      "bytes": 77867,
+      "shortQuotedDefinition": "Marks the spot where pedestrians can cross a railway."
+    },
+    {
+      "url": "https://wiki.openstreetmap.org/wiki/Key:crossing:signals",
+      "finalUrl": "https://wiki.openstreetmap.org/wiki/Key:crossing:signals",
+      "status": 200,
+      "sha256": "262dd48ce510943b73a1798ecd0fafbef310767cbabc50b5e4fc8192a399d038",
+      "bytes": 87723,
+      "shortQuotedDefinition": "The crossing:signals=* key indicates whether a pedestrian, bicycle, or equestrian crossing is controlled by a traffic signal."
+    },
+    {
+      "url": "https://wiki.openstreetmap.org/wiki/Tag:crossing%3Dtraffic_signals",
+      "finalUrl": "https://wiki.openstreetmap.org/wiki/Tag:crossing%3Dtraffic_signals",
+      "status": 200,
+      "sha256": "d68baa29164b7afc103a374a58952348e869bf60f1b2e7d7f94853c49b6303c8",
+      "bytes": 87267,
+      "shortQuotedDefinition": "Traffic light controlled pedestrian crossings."
+    },
+    {
+      "url": "https://wiki.openstreetmap.org/wiki/Tag:railway%3Dsignal",
+      "finalUrl": "https://wiki.openstreetmap.org/wiki/Tag:railway%3Dsignal",
+      "status": 200,
+      "sha256": "69b2f0222bd4474a16809604730e9b39415779d12cc07d10dc33db2b909d60d3",
+      "bytes": 179388,
+      "shortQuotedDefinition": "A railway signal"
+    },
+    {
+      "url": "https://wiki.openstreetmap.org/wiki/Tag:railway%3Dlevel_crossing",
+      "finalUrl": "https://wiki.openstreetmap.org/wiki/Tag:railway%3Dlevel_crossing",
+      "status": 200,
+      "sha256": "2b5498bc9dc3dc8917830e8704ad08a2a387d6005fc6c2fa01266cc5bbb73ab6",
+      "bytes": 80309
+    }
+  ]
+}

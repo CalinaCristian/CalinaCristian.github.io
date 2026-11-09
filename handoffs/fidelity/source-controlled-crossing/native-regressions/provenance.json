@@ -1,0 +1,14 @@
+[
+  {
+    "sourceBase": "81c78e35167ef871d8e48f49be8e29118a1a2ec2",
+    "sourcePath": "handoffs/fidelity/us-districts/groz-tram-path/test-native-motion.mjs",
+    "retainedPath": "handoffs/fidelity/source-controlled-crossing/native-regressions/test-native-motion.mjs",
+    "sha256": "5bc025629d580166c9cc6ceffc894f6bd2bc75a42ceac270c502d041b873deb2"
+  },
+  {
+    "sourceBase": "81c78e35167ef871d8e48f49be8e29118a1a2ec2",
+    "sourcePath": "handoffs/fidelity/us-districts/groz-tram-path/test-native-crossing.mjs",
+    "retainedPath": "handoffs/fidelity/source-controlled-crossing/native-regressions/test-native-crossing.mjs",
+    "sha256": "cf319584f62d8c1a111c3d123a99ec3b3eefe22d04fef72f99f6235bc87b0825"
+  }
+]

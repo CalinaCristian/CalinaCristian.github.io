@@ -1,0 +1,15 @@
+(node:415835) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/source-controlled-crossing/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/source-controlled-crossing/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "olderTramClaimStopsMotor": true,
+  "olderMotorClaimStopsTram": true,
+  "noClaimAllowsLegalPath": true,
+  "sourceCrossingPhysicalKeyShared": true,
+  "railReservationKeepsLiteralNode": true,
+  "motorTopologyUnchanged": true,
+  "browserOpened": false,
+  "scope": "Isolated actual Traffic reservation/priority methods with source-equal crossing node; no full-world or signal-timing acceptance claim."
+}

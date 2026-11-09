@@ -13,7 +13,7 @@ if (fs.existsSync(out) && fs.readdirSync(out).length) throw Error('Use a new emp
 fs.mkdirSync(out, { recursive: true });
 const hash = b => crypto.createHash('sha256').update(b).digest('hex');
 const blob = b => crypto.createHash('sha1').update(Buffer.from(`blob ${b.length}\0`)).update(b).digest('hex');
-const tree = new Map(cp.execFileSync('git', ['ls-tree', '-rz', '--full-tree', sourceCommit], { cwd: repo }).toString().split('\0').filter(Boolean).map(s => {
+const tree = new Map(cp.execFileSync('git', ['ls-tree', '-rz', '--full-tree', sourceCommit], { cwd: repo, maxBuffer: 64 * 1024 * 1024 }).toString().split('\0').filter(Boolean).map(s => {
     const [meta, name] = s.split('\t'); return [name, meta.split(' ')[2]];
 }));
 const files = [];

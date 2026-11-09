@@ -9,6 +9,7 @@ import { Input } from './input.js';
 import { Audio } from './audio.js';
 import { HUD } from './hud.js';
 import * as MINIMAP from './minimap.js';
+import { mapPlaceActions } from './map-place-actions.js';
 const { MiniMap } = MINIMAP;
 /** the map category toggles shared with minimap.js' legend (MAP_FILTER; spec 12 Request) — own defaults until it is exported */
 // shared place-category filter (spec 12 Requests, note 81): `game.mapFilter` / minimap.js MAP_FILTER, keys cv landmark spot fuel shop park transit
@@ -1485,7 +1486,7 @@ class Game {
         for (const gr of groups) {
             const isOpen = open[gr.name] ?? (OPEN.has(gr.name) && (!gr.cat || MINIMAP.filterOn?.(gr.cat) !== false)), cb = gr.cat && fkey(gr.cat) in F ? `<input type="checkbox" data-filter="${gr.cat}" title="Show on the map"${F[fkey(gr.cat)] ? ' checked' : ''}>` : '';
             html += `<details class="nav-group" data-group="${gr.name}"${isOpen ? ' open' : ''}><summary><span>${gr.name}</span><small>${gr.rows.length}${isOpen ? '' : ' ›'}</small>${cb}</summary>`;
-            for (const i of gr.rows) { const it = items[i]; html += `<div class="nav-item"><span>${it.icon} ${it.label} <small>${dist(it.x, it.z)}${it.walk ? ` · walk the last ${fmtDist(it.walk, this.city.units)}` : ''}</small></span><button data-nav="${i}" title="Set a route and mark this destination">Mark</button><button class="ft" data-ft="${i}" title="Fast travel (skip the drive)">Fast travel</button></div>`; }
+            for (const i of gr.rows) { const it = items[i]; html += `<div class="nav-item"><span class="nav-place-name">${it.icon} ${it.label} <small>${dist(it.x, it.z)}${it.walk ? ` · walk the last ${fmtDist(it.walk, this.city.units)}` : ''}</small></span>${mapPlaceActions(i, it.label)}</div>`; }
             html += '</details>';
         }
         html += '<div class="nav-item active"><span>☀️ Time, weather &amp; season</span><button data-cond="1">Open</button></div>'; // (everyone; districts: the world-map hub, explore.js)

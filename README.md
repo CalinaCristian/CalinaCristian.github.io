@@ -31,7 +31,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
 - **One mode: the story, and the world map to go anywhere.** The chapters are the spine. The **World map** hub (🌍,
   pause menu, or "World map" on the title screen) has București / Seattle / Bellevue / World tabs, a high-detail globe
   with the real Otopeni → Sea-Tac great-circle route, and a "Here" tab to mark a destination and set a navigation route.
-  Selecting a map pin or search result keeps you in place; hold `F` for 1.2 seconds or choose **Fast travel** to move.
+  Selecting a map pin or search result keeps you in place; hold `F` for 1.2 seconds or choose **Fast travel** to move. The local place list uses pin and lightning icon buttons for marking and fast travel, leaving room for readable place names.
   Remote marks retain the destination without drawing a local route across unloaded areas. Travelling to
   another district or a tourist spot leaves the story for free roam (no objective); a **📖 Resume story · Chapter N**
   chip brings the objective, navigation and chapter cards back where you left them. Change the **time of day, weather

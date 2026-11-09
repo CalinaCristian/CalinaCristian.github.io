@@ -124,6 +124,10 @@ body.no-minimap .bottom-left { display: none; }
 .nav-item.active { outline: 2px solid #3b82f6; }
 .nav-item button.ft { background: #7c3aed; padding: 5px 7px; }
 .nav-item button.ft:hover { background: #8b5cf6; }
+.nav-item button.nav-action { display: inline-flex; flex: 0 0 32px; align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; }
+.nav-item .nav-action svg { width: 17px; height: 17px; pointer-events: none; }
+.nav-item .nav-place-name { white-space: normal; overflow-wrap: anywhere; line-height: 1.35; }
+body.touch #navlist .nav-item button.nav-action { flex-basis: 44px; width: 44px; height: 44px; padding: 0; }
 .small-btn { background: rgba(255,255,255,.12); margin-left: 10px; }
 .map-hint { margin-top: 12px; color: var(--muted); font-size: 13px; }
 @media (max-width: 900px) { .map-row { flex-direction: column; } #navpanel { width: auto; max-height: 42vh; } }

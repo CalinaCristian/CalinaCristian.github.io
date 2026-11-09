@@ -1,0 +1,57 @@
+diff --git a/game/src/main.js b/game/src/main.js
+index d4d93058..a1e18c8f 100644
+--- a/game/src/main.js
++++ b/game/src/main.js
+@@ -423,8 +423,11 @@ class Game {
+             this.setupScreen();
+         } else { scene.add(this.player.rig); this.player.scene = scene; }
+         this.player.world = world; this.player.traffic = this.traffic; this.player.bounds = world.bounds;
+-        this.traffic.setPlayer(this.player);
+         this.placeSpawn(city, world);
++        // Admit the replacement crowd around the new pose before its first render.
++        // The previous world's eye/vehicle pose is invalid in this world.
++        this.traffic.setPlayer(this.player);
++        this.traffic.clearForPlayer?.(this.player) ?? this.traffic.clearAround(this.player.x, this.player.z, 14);
+         // renderer: scene, lighting, real-time sun, street lamps, weather
+         this.attachWorldRender();
+         this.r3d.onNightLights = (on) => { this.nightLights = on; this.traffic?.setNightLights(on || !!this._fogLights); };
+@@ -1815,22 +1818,26 @@ class Game {
+     /** buttons for a list of SPOTS entries grouped Bucharest / Seattle / Bellevue (whatever SPOTS holds) */
+     spotGroupsHtml(list, { heading = 'h4', button = null } = {}) {
+         const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+-        const groups = [['București', (s) => s.city === 'bucharest'], ['Seattle', (s) => s.city === 'seattle' && s.area !== 'bellevue'], ['Bellevue', (s) => s.area === 'bellevue'],
+-            ['More', (s) => s.city !== 'bucharest' && s.city !== 'seattle']];
++        const ordinary = s => s.menuTier !== 'recommended' && s.menuTier !== 'parks';
++        const groups = [['Recommended', s => s.menuTier === 'recommended'],
++            ['București', s => ordinary(s) && s.city === 'bucharest'], ['Seattle', s => ordinary(s) && s.city === 'seattle' && s.area !== 'bellevue'], ['Bellevue', s => ordinary(s) && s.area === 'bellevue'],
++            ['More', s => ordinary(s) && s.city !== 'bucharest' && s.city !== 'seattle'], ['Quieter parks & gardens', s => s.menuTier === 'parks']];
+         const done = this.spotsMod?.spotProgress?.()?.postcards || {};
+         let html = '';
+         for (const [label, f] of groups) {
+             const items = list.filter(f); if (!items.length) continue;
+-            html += `<${heading} class="spot-group">📷 Tourist spots · ${label}</${heading}>`;
++            if (label === 'Quieter parks & gardens') html += '<details class="spot-parks"><summary>🌳 Quieter parks & gardens</summary>';
++            else html += `<${heading} class="spot-group">📷 ${label}</${heading}>`;
+             if (button) html += items.map(s => `<div class="nav-item"><span>${done[s.id] ? '✓ ' : ''}${esc(s.name)}</span><button data-spot="${esc(s.id)}" title="${esc(s.blurb)}">${button}</button></div>`).join('');
+             else html += `<div class="chs">${items.map(s => `<button data-spot="${esc(s.id)}" title="${esc(s.blurb)}">${done[s.id] ? '✓ ' : ''}${esc(s.name)}</button>`).join('')}</div>`;
++            if (label === 'Quieter parks & gardens') html += '</details>';
+         }
+         return html;
+     }
+     /** main menu: "Bonus: Tourist spots" (always available, R15.4 default) */
+     renderMenuSpots() {
+         const list = this.spotsMod?.SPOTS;
+-        if (!list?.length) { $('#spot-select')?.remove(); return; } // review-gated (spots/index.js READY): the title menu shows the entry only once a spot is ready
++        if (!list?.length) { $('#spot-select')?.remove(); return; }
+         let box = $('#spot-select');
+         if (!box) { const anchor = $('#chapter-select') || $('#start')?.parentElement; if (!anchor) return; box = document.createElement('details'); box.id = 'spot-select'; anchor.insertAdjacentElement('afterend', box); }
+         const open = box.open;
+@@ -1838,7 +1845,7 @@ class Game {
+         box.open = open;
+         if (!document.getElementById('spot-select-css')) {
+             const st = document.createElement('style'); st.id = 'spot-select-css';
+-            st.textContent = '#spot-select{margin-top:10px;text-align:left}#spot-select summary{cursor:pointer;font-weight:600;padding:6px 0}#spot-select summary small{font-weight:400;opacity:.7}#spot-select h4{margin:8px 0 6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8}#spot-select .chs{display:flex;flex-wrap:wrap;gap:6px}#spot-select button{min-height:36px;padding:4px 10px;border-radius:8px;border:1px solid rgba(148,163,184,.35);background:rgba(30,41,59,.85);color:#e2e8f0;font:13px system-ui,sans-serif;cursor:pointer;text-align:left}'; // (body.in-spot HUD / touch-pad rules live in style.css)
++            st.textContent = '#spot-select{margin-top:10px;text-align:left}#spot-select summary{cursor:pointer;font-weight:600;padding:6px 0}#spot-select summary small{font-weight:400;opacity:.7}#spot-select h4{margin:8px 0 6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#94a3b8}#spot-select .chs{display:flex;flex-wrap:wrap;gap:6px}#spot-select button{min-height:44px;padding:4px 10px;border-radius:8px;border:1px solid rgba(148,163,184,.35);background:rgba(30,41,59,.85);color:#e2e8f0;font:13px system-ui,sans-serif;cursor:pointer;text-align:left}'; // (body.in-spot HUD / touch-pad rules live in style.css)
+             document.head.appendChild(st);
+         }
+         box.onclick = (e) => { const b = e.target.closest('[data-spot]'); if (b) this.enterSpot(b.dataset.spot); };

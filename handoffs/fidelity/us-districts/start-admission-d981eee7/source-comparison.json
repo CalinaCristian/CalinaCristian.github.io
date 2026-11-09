@@ -1,0 +1,158 @@
+{
+  "sourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
+  "historicalWorkerSource": "3ca210ac24a8fa83a5db84d6ebf65bae3146ebd8",
+  "historicalWorkerBase": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "versions": {
+    "09766dc7a870657b76e3114c15a12f55e5c373cb": {
+      "game/src/main.js": {
+        "sha256": "6183dfb0110fd7139f8b825838798667d225a7cddeb78f8b395bc21701dae84c",
+        "bytes": 216678
+      },
+      "game/src/traffic.js": {
+        "sha256": "d2090be8a2f94b8431af00994f0764ee38637c9ccfe44d99392ec54551d8645c",
+        "bytes": 217730
+      },
+      "game/src/world.js": {
+        "sha256": "1154543c41891ef05eb94b56ad904f9f06a81f41dabac439d577b018a0f8beb2",
+        "bytes": 524409
+      },
+      "game/src/nav.js": {
+        "sha256": "7d1553ad46fa656ee7773d82bf5ef9b8a2af4bb0fb29d8c0131ed9154bac8617",
+        "bytes": 33276
+      },
+      "game/src/vehicles.js": {
+        "sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+        "bytes": 125523
+      },
+      "game/src/cities.js": {
+        "sha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+        "bytes": 31577
+      },
+      "game/src/shared-lanes.js": {
+        "sha256": "0581d1f237c0b371843e3c7f7af0c80cb5b14bf3794148905ec1948c8255b4e9",
+        "bytes": 10175
+      },
+      "game/src/road-access.js": {
+        "sha256": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee",
+        "bytes": 3078
+      },
+      "game/src/player.js": {
+        "sha256": "543faf7c4dab9ff9f50d2933586965652376b9b2f1f1fa172d550b2030882a2e",
+        "bytes": 36868
+      },
+      "game/dev/harness/page/core.js": {
+        "sha256": "c0e1336eda00011b670eee528e16a98c15848d4dabead9d3c2d9118a263c0774",
+        "bytes": 50091
+      },
+      "game/dev/harness/page/util.js": {
+        "sha256": "87dcb3416d4cb022502f1c6e37044eb65dc69df623df12a5ebd8bbc31b775b56",
+        "bytes": 9375
+      },
+      "game/data/bucharest-unirii.json": {
+        "sha256": "9797d9f5b1a4f2593528ce6c8c4ad04ec38fb953c9770bf32f6d7d5c7c54f26c",
+        "bytes": 25461225
+      }
+    },
+    "3ca210ac24a8fa83a5db84d6ebf65bae3146ebd8": {
+      "game/src/main.js": {
+        "sha256": "6183dfb0110fd7139f8b825838798667d225a7cddeb78f8b395bc21701dae84c",
+        "bytes": 216678
+      },
+      "game/src/traffic.js": {
+        "sha256": "f686b2a42f66acb423f522e147ead9cd7484cebe995a49d37e6e82c723ab82a3",
+        "bytes": 227195
+      },
+      "game/src/world.js": {
+        "sha256": "1154543c41891ef05eb94b56ad904f9f06a81f41dabac439d577b018a0f8beb2",
+        "bytes": 524409
+      },
+      "game/src/nav.js": {
+        "sha256": "7d1553ad46fa656ee7773d82bf5ef9b8a2af4bb0fb29d8c0131ed9154bac8617",
+        "bytes": 33276
+      },
+      "game/src/vehicles.js": {
+        "sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+        "bytes": 125523
+      },
+      "game/src/cities.js": {
+        "sha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+        "bytes": 31577
+      },
+      "game/src/shared-lanes.js": {
+        "sha256": "0581d1f237c0b371843e3c7f7af0c80cb5b14bf3794148905ec1948c8255b4e9",
+        "bytes": 10175
+      },
+      "game/src/road-access.js": {
+        "sha256": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee",
+        "bytes": 3078
+      },
+      "game/src/player.js": {
+        "sha256": "543faf7c4dab9ff9f50d2933586965652376b9b2f1f1fa172d550b2030882a2e",
+        "bytes": 36868
+      },
+      "game/dev/harness/page/core.js": {
+        "sha256": "8f9d3c3336b7dcad7f44060e765d4bfe50790d6c87e92f9ddf7175135d88c904",
+        "bytes": 50377
+      },
+      "game/dev/harness/page/util.js": {
+        "sha256": "87dcb3416d4cb022502f1c6e37044eb65dc69df623df12a5ebd8bbc31b775b56",
+        "bytes": 9375
+      },
+      "game/data/bucharest-unirii.json": {
+        "sha256": "9797d9f5b1a4f2593528ce6c8c4ad04ec38fb953c9770bf32f6d7d5c7c54f26c",
+        "bytes": 25461225
+      }
+    },
+    "d981eee75d254faf7efd993bba18c9b4226db4e7": {
+      "game/src/main.js": {
+        "sha256": "684844108de63b868c5a105c979c8bc19f51bcefc6635a6151fc39d1b61b0f38",
+        "bytes": 217317
+      },
+      "game/src/traffic.js": {
+        "sha256": "f686b2a42f66acb423f522e147ead9cd7484cebe995a49d37e6e82c723ab82a3",
+        "bytes": 227195
+      },
+      "game/src/world.js": {
+        "sha256": "eff89252875041058d439b8837ca34e3d1838bd07fefdbf7d9486280ede7d94e",
+        "bytes": 526999
+      },
+      "game/src/nav.js": {
+        "sha256": "7d1553ad46fa656ee7773d82bf5ef9b8a2af4bb0fb29d8c0131ed9154bac8617",
+        "bytes": 33276
+      },
+      "game/src/vehicles.js": {
+        "sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+        "bytes": 125523
+      },
+      "game/src/cities.js": {
+        "sha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+        "bytes": 31577
+      },
+      "game/src/shared-lanes.js": {
+        "sha256": "0581d1f237c0b371843e3c7f7af0c80cb5b14bf3794148905ec1948c8255b4e9",
+        "bytes": 10175
+      },
+      "game/src/road-access.js": {
+        "sha256": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee",
+        "bytes": 3078
+      },
+      "game/src/player.js": {
+        "sha256": "543faf7c4dab9ff9f50d2933586965652376b9b2f1f1fa172d550b2030882a2e",
+        "bytes": 36868
+      },
+      "game/dev/harness/page/core.js": {
+        "sha256": "8f9d3c3336b7dcad7f44060e765d4bfe50790d6c87e92f9ddf7175135d88c904",
+        "bytes": 50377
+      },
+      "game/dev/harness/page/util.js": {
+        "sha256": "87dcb3416d4cb022502f1c6e37044eb65dc69df623df12a5ebd8bbc31b775b56",
+        "bytes": 9375
+      },
+      "game/data/bucharest-unirii.json": {
+        "sha256": "9797d9f5b1a4f2593528ce6c8c4ad04ec38fb953c9770bf32f6d7d5c7c54f26c",
+        "bytes": 25461225
+      }
+    }
+  },
+  "scope": "Source byte identity comparison, not a new baseline native run. RO3ca traffic/nav/vehicle/cities/access/shared-lane/data inputs are unchanged in d981; changed main/world and other modules are independently listed in patches. Pair lifecycle excludes the post-constructor main clear calls as these two origins."
+}

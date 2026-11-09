@@ -97,7 +97,7 @@ Colliders use the `world.js` formats (polygon `{x,z,r,poly}`, oriented box `{x,z
            ctx.interactables.push({ x, z, r, label, use(session) })     // E actions (fun)
            ctx.crowdCfg = { personas, walkers, paths: ctx.footLines(), groups: [...] }
            ctx.sound(kind, x, z, radius, gain); ctx.onUpdate(fn); ctx.onNight(fn)
-           ctx.spawns['<id>'] = { x, z, heading }
+           ctx.spawns['<id>'] = { x, z, heading, pitch: 0 } // optional finite pitch in radians, clamped to native ±1.3
        },
    };
    ```

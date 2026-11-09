@@ -71,6 +71,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   Reused landmark collisions preserve their exact polygons, courtyard holes and raised volume bands in tourist scenes.
   Narrow desktop windows keep the keyboard-help footer above the lower HUD; touch screens use their dedicated action buttons.
   Tourist entry applies its actual near/far projection, including any source-backed scene far requirement; the earlier far/projection assignments had been swallowed by a comment. Visible source-backed terrain retains its finite complete geometry bound during weather culling; hidden terrain releases that far-plane floor. Actual elevated and weather visuals remain separate scene checks.
+  Tourist spawns can also declare a bounded initial look angle, so a tall landmark can be framed from its actual public approach; ordinary mouse/touch look remains available.
   Source-backed tourist activities can declare a narrow drone launch/approach area outside their original scene focus. The same 150 m flight margin applies; this does not open an entire park or lake.
   Disposing a tourist water material removes it from shared environment updates, so later travel does not retain retired water materials.
   Dinamo pitch paint uses filtered alpha coverage at its real 12 cm width, keeping lines continuous from higher drone views.

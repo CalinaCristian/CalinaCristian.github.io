@@ -8,6 +8,8 @@ Opening a participatory modal no longer ends the tour. The owning flow captures 
 
 Spot maps accept named or custom waypoints through pointer/touch and keyboard list selection. A persistent HUD shows direction/distance and a blue validated walking route; guide routing remains gold. Unreachable points are explicitly marked without a false safe-route line. Clear removes the pin/route, and shared-scene teleport clears it. Optional visit boundaries constrain both the walker and guide/waypoint planning; concave focus exits cannot become A* shortcuts. Native DOM fixtures cover map selection, inverse projection, clear and keyboard focus, plus a concave path control. These do not substitute for the seven actual scene walkthroughs.
 
+Scene spawn metadata accepts an optional finite `pitch` in radians, clamped to the native walker range ±1.3 on ordinary entry and a shared-scene spawn switch. Absent pitch retains the existing controller behavior. This is a public starting view, not a capture-only camera override; scene acceptance must use it as shipped.
+
 Old Town's visit boundary is enforced after native controller movement and crowd push-out, preserving the exact source streets/buildings as surrounding scenery. Freddo hours and the source anchor are recorded in `game/research/old-town-nightlife.md`; the interior layout and music are authored game content. Native dance, shot, hidden sports-room access and mobile checks are separate gates.
 
 

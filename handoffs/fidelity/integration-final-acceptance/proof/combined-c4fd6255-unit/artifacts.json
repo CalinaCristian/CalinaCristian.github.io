@@ -1,0 +1,46 @@
+{
+  "source-manifest.json.gz": {
+    "bytes": 970544,
+    "sha256": "1020c01cc529e79304dc296cf1ec1edb24298a5cbbd642c4b430602626a96a49"
+  },
+  "summary.json": {
+    "bytes": 1182,
+    "sha256": "ceda5808c8dd6c0c4d56a6ebfba018790d09e6ea9572364ceaff90ba3fb64cfa"
+  },
+  "unit-tests.log": {
+    "bytes": 20746,
+    "sha256": "64dcb0434466bf06248a6177b1c427e50ce492663cef69eb9be2e67e761db2a9"
+  },
+  "unit-source-postcheck.json": {
+    "bytes": 116,
+    "sha256": "1aea476198a45228080f2810adee329001aa7ea8ce840fdda4c7b5f304641a47"
+  },
+  "car-screen/result.json": {
+    "bytes": 1321,
+    "sha256": "7aee0f9ebda3fab0ed2655d7cc8c37b096c13ae061f7557e6212012238c2ad60"
+  },
+  "car-screen/partial-top.png": {
+    "bytes": 18895,
+    "sha256": "fafa5860413fe738835abc303685a1f70b828a4fb3a9fdd958ce16432b0da550"
+  },
+  "car-screen/outside-top.png": {
+    "bytes": 18311,
+    "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30"
+  },
+  "car-screen/outside-bottom.png": {
+    "bytes": 18311,
+    "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30"
+  },
+  "car-screen/inside.png": {
+    "bytes": 19192,
+    "sha256": "5118e2aa7bca70c6b1a34e8d2a6943b84e6c307f38c2d70e9f7d845ffdcdc673"
+  },
+  "car-screen/native-top-overflow.png": {
+    "bytes": 18311,
+    "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30"
+  },
+  "car-screen/empty.png": {
+    "bytes": 18311,
+    "sha256": "538d9c36b30f3bee1f7333be22bbfb2e76c6b98cc3e9af1552ec935b511fdb30"
+  }
+}

@@ -1,0 +1,209 @@
+(node:356426) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: physical walking capacity, carried clearance, preserved failed placement, congestion routing, continuous recovery and measured-motion gait/camera visibility
+✔ game/dev/crowd-flow.test.mjs (1640.104023ms)
+(node:356427) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/dev/harness/page/core.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual player nose, rendered turning body, clear parallel body and other-level sensing
+✔ game/dev/harness-body-sensing.test.mjs (1369.936318ms)
+(node:356428) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/dev/harness/page/core.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: real blocked vehicle intent, existing passing/watchdog, red/target stop and pedestrian controls
+✔ game/dev/harness-vehicle-wait.test.mjs (2589.202665ms)
+CarScreen POI clip controls passed; pictures and pixel counts: /tmp/car-screen-poi-sZMY78
+✔ game/dev/harness/car-screen-poi.test.mjs (4795.469817ms)
+(node:356457) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/chapter-waypoint.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+SeaTac manual arrival, actual waypoint, verified route, free roam and chapter guards: 9 passed
+✔ game/dev/harness/chapter-waypoint.test.mjs (1322.852076ms)
+(node:356465) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ back-wall desktop uses the sign front, fits both dimensions and restores the camera (25.736964ms)
+✔ Rosetti side-wall uses the sign front, fits both dimensions and restores the camera (5.068301ms)
+✔ portrait width uses the sign front, fits both dimensions and restores the camera (4.420942ms)
+✔ tall portrait sign uses the sign front, fits both dimensions and restores the camera (3.714537ms)
+✔ the former Rosetti forward-wall pose cannot face the actual side-wall sign (0.967265ms)
+✔ missing sign fails explicitly without changing the camera (1.656117ms)
+✔ portrait framing stays inside the opposite actual room boundary (6.029765ms)
+✔ an actual room partition selects a closer clear view without hiding it (18.610216ms)
+(node:356528) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/dev/harness/page/util.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ an opening stays clear while its posts and ceiling remain solid at the same source building (7.503545ms)
+✔ above-ground openings carry the body height without accepting an entire building (5.525143ms)
+✔ actual roof height and source underside bound point and body checks (0.563175ms)
+✔ courtyard holes retain their boundary distance and ordinary walls stay audited (0.582843ms)
+(node:356570) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/landmark-cec-source.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"sourceVolumes":162,"newRelationOuters":7,"rawHoles":5,"literalHeights":153,"estimatedTotals":9,"modelColliders":162,"modelTriangles":24156,"duplicateRoofTriangles":0,"maximumHeight":37.5,"uncertainProfiles":56}
+✔ game/dev/harness/landmark-cec-source.test.mjs (4513.226993ms)
+(node:356623) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/minimap.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ one permanent legend listener routes to the current map with the existing coordinates and event behavior (3.639297ms)
+(node:356632) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ district disposal preserves the cockpit and cached landmark material, but frees its own maps (6.4495ms)
+✔ fleet and crowd wrappers release instance attributes without disposing cached model attributes (4.29228ms)
+✔ tree templates survive, while instance buffers and the water registry are released (3.470196ms)
+(node:356642) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/source-tree-centres.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Source-bank, coarse-cell, exact-water, exact-duplicate and legacy controls passed.
+✔ game/dev/harness/source-tree-centres.test.mjs (1730.886906ms)
+(node:356649) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/spot-availability.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Menu favorites, actual registry identities, available-city/postcard targets, unavailable activities and legacy retired-save controls passed.
+✔ game/dev/harness/spot-availability.test.mjs (1828.553538ms)
+(node:356657) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/telemetry-health.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ reload breadcrumbs reject stale, malformed and future records without requiring working storage (3.851899ms)
+✔ frame percentiles expose real stalls rather than averaging smoothed FPS values (2.370734ms)
+✔ diagnostic wrappers preserve values and the original sync/async exception when observers fail (4.987328ms)
+✔ DNT prevents initialization and capture (13.419013ms)
+✔ GPC prevents initialization and capture (7.312233ms)
+✔ DNT with forced diagnostics prevents initialization and capture (1.501505ms)
+✔ GPC with forced diagnostics prevents initialization and capture (3.585253ms)
+✔ explicit disabled tracking prevents initialization and capture (6.538594ms)
+(node:356673) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/nav.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "checks": 31,
+  "realSplai": {
+    "physicalComponents": 2,
+    "directedSourceEdges": 26,
+    "verifiedRuns": 2,
+    "captureSamples": 12,
+    "originalFarthestPairStillUnreachable": true
+  }
+}
+✔ game/dev/harness/visual/street-sweeps.test.mjs (1649.684061ms)
+(node:356681) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/water-lines.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Unmapped stubs, exact boundary crossings, holes, adjacent areas, collinear banks, zero-length and actual Bellevue canal controls passed.
+✔ game/dev/harness/water-lines.test.mjs (1825.720737ms)
+(node:356687) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ QA controller paths and placements use measured forward, reverse and shared lane centres (2.013017ms)
+✔ unequal direction counts place every lane inside measured extents, including reverse lanes on the canonical right (0.920871ms)
+✔ long-body path and junction reservation preserve physical centres across reversed prepared edge ordering (4.811003ms)
+✔ asymmetric shared lane has one physical path for both graph directions and shifted player occupancy blocks entry (1.445939ms)
+✔ tram median paths shift in both travel directions without moving the source centreline (0.468408ms)
+(node:356698) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: literal short-edge lookahead, committed bus155, legal pre-line wait and smooth travel-based merge
+✔ game/dev/lane-drop-chain.test.mjs (2526.187256ms)
+(node:356705) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual source931 normal tolerance and strict monotonic recovery remain distinct
+✔ game/dev/normal-guard-tolerance.test.mjs (839.735186ms)
+(node:356713) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: initial corner admission, live-pose protection, full actors/RNG, stopped crossing, monotonic escape, turning body and other-level controls
+✔ game/dev/pedestrian-admission.test.mjs (3683.212977ms)
+(node:356720) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual pedestrian head-on/following progress, native cell crossing, partial recovery/third body, shared static correction and facade clearance
+✔ game/dev/pedestrian-motion.test.mjs (2349.042419ms)
+(node:356736) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/shared-lanes.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ one physical centre is shared by both legal graph directions; ordinary lane offsets stay unchanged (3.883878ms)
+✔ continuous sections preserve direction across reversed OSM edge ordering (1.120992ms)
+✔ opposite arrivals cannot both reserve an empty section (1.229112ms)
+✔ opposite waiting blocks new followers, then receives priority only after the rear clears (0.712693ms)
+✔ occupied sections do not expire after a long wait or admit an opposite spawn (0.888692ms)
+✔ player body occupancy blocks the opposite entry; a deck above does not (0.378195ms)
+✔ cancelled or stationary uncommitted requests release without expiring real occupancy (0.715968ms)
+✔ legacy graphs create no controls or placement restrictions (0.690666ms)
+✔ wider side entry does not split a narrow corridor: {} (1.375194ms)
+✔ wider side entry does not split a narrow corridor: {"publicDrive":false} (0.411339ms)
+✔ wider side entry does not split a narrow corridor: {"throughAccess":false} (0.159063ms)
+✔ a narrow fork reserves the whole component, including requests with the same local edge sign (0.322969ms)
+✔ cycles and blind ends admit one body through its exit or U-turn (1.406983ms)
+✔ opposing queues close the admitted batch while its first claim is still approaching (0.214963ms)
+✔ front-only commitment and asymmetric player front/rear keep an opposite entry closed (1.548905ms)
+✔ tail lifetime follows successful relocation generation, never a failed respawn flag (1.186779ms)
+✔ compatible through traffic can form a same-direction platoon until an opposite request arrives (0.392179ms)
+✔ turning exits leave a full fleet body envelope beyond the opposing queue mouth (1.228385ms)
+(node:356747) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/signals.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: signal cycles/conflicts/clearance, queue release, cockpit/props, visible recycling, walking recoveries and stable detours
+✔ game/dev/signals.test.mjs (1796.810922ms)
+(node:356754) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual stepVehicle always sees solid bodies, rendered extents, no RNG and camera/mirror recovery gates
+✔ game/dev/solid-vehicle-sensing.test.mjs (1665.172478ms)
+(node:356763) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/dev/harness/page/scenarios.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: source-controller signal/crossing time budget; strict unsignalised deadline; controller deduplication and 90s cap
+✔ game/dev/spawn-budget.test.mjs (1730.963081ms)
+(node:356771) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: native 593/609 proposal, cross-cell rollback/third body, recovery membership, sparse refresh and clear-boundary controls
+✔ game/dev/vehicle-cell-boundary.test.mjs (1377.296065ms)
+(node:356778) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: stopped lane/bypass holds, moving steering distance budget, long-body clearance, residual stop and visible/failed recovery holds
+✔ game/dev/vehicle-lanes.test.mjs (1565.740676ms)
+(node:356784) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/drivecv-root-acceptance-c4fd6255/source/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /tmp/drivecv-root-acceptance-c4fd6255/source/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual short-edge body, back-out, new third contact, turn, pedestrian/player, height and timed-ghost controls
+✔ game/dev/vehicle-separation.test.mjs (1398.157829ms)
+ℹ tests 67
+ℹ suites 0
+ℹ pass 67
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13978.813284

@@ -27,6 +27,7 @@ import { buildTramTunnelGrades } from './tram-tunnel-grade.js';
 import { buildTramTrenchCutter, uncoveredTramTrenchWall } from './tram-trench.js';
 import { sourceSidewalkSides, sidewalkWidth } from './sidewalk-source.js';
 import { emittedTramClearance } from './tram-clearance.js';
+import { bridgeJunctionSlab } from './bridge-junction.js';
 import { buildRailRoadsideClearance } from './rail-roadside.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
 import { roadMiter, needsRoadBevelPad } from './road-joins.js';
@@ -1528,6 +1529,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const tramGrades = buildTramGrades(data, { coreEdges: edges, extraGrades: tunnelGrades.grades, extraReport: tunnelGrades.report }), tramDecks = [];
     const tramPropEnvelope = (data.trams || []).length ? emittedTramClearance(makeVehicle, city.id) : null;
     const railRoadside = buildRailRoadsideClearance(tramGrades, tramPropEnvelope), railRoadsideCaps = [];
+    const bridgeJunctionDecks = [], bridgeJunctionAudit = { sourceForks: [], unresolved: [], undersideTriangles: 0, fasciaTriangles: 0 };
     /** height of junction n's pad at (x, z): the profile of the nearest approach there (n.y on flat junctions) */
     const padHeightAt = (n, x, z) => { let best = null, bd = Infinity; for (const e of n.edges) { if (e.virtual) continue; const d = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z).d; if (d < bd) { bd = d; best = e; } } return best ? yAlong(best, x, z) : n.y; };
 
@@ -2597,7 +2599,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     // junction pads
     for (const [n, o] of padCorners) {
-        const c = cellOf(n.x, n.z);
+        const c = cellOf(n.x, n.z), bridgePadRoadStart = c.pad.ic;
         const ly = Math.max(0, Math.min(...n.edges.map(layerY)));
         if (o.side.length >= 3) { // (sloped like the pad: a flat sidewalk hull would poke through a pad on a grade)
             const hull = convexHull(o.side), road = convexHull(o.road), mb = c.ground;
@@ -2631,6 +2633,24 @@ export async function buildWorld(city, renderer, opts = {}) {
             hull.forEach(([x, z], k) => mb.v(x, Y.road + ly + hs[k], z, 0, 1, 0, x * u, z * u, col));
             for (let k = 1; k < hull.length - 1; k++) mb.triUp(base, base + k, base + k + 1);
             ribbons.push({ node: n, poly: hull, hs });
+        }
+        const sourceForkEdges = n.edges.filter(e => !e.virtual);
+        if (n.sourceId > 0 && sourceForkEdges.length >= 3 && sourceForkEdges.every(e => e.bridge && !e.tunnel && Math.min(e.ya, e.yb) > .3)) {
+            const triangles = (mb, start) => { const result = []; for (let i = start; i < mb.ic; i += 3) result.push([0, 1, 2].map(k => Array.from(mb.p.subarray(mb.i[i + k] * 3, mb.i[i + k] * 3 + 3)))); return result; };
+            const topTriangles = triangles(c.pad, bridgePadRoadStart);
+            const poly = convexHull(o.road); // exact existing road pad; no invented outer sidewalk slab
+            const slab = bridgeJunctionSlab({ node: n, poly, topTriangles, edges: sourceForkEdges,
+                mouths: sourceForkEdges.map(e => asphaltCorners(e, widthSide)),
+                sourceIds: sourceForkEdges.map(e => data.roadSourceGeometry?.[e.road]?.sourceId || e.access?.sourceId),
+                bottomHeightAt: (x, z) => { const y = padHeightAt(n, x, z); return Y.road + y - Math.min(1.1, Math.max(.05, y)); } });
+            if (slab.known) {
+                for (const tri of slab.underside) c.solid.face3(...tri, rgb('#55524d'), [0, -1, 0]);
+                for (const face of slab.fascia) c.solid.face4(...face.vertices, rgb('#a9a69e'), face.outward);
+                sceneryDeckGrid.insert(slab.deck.x - slab.deck.r, slab.deck.z - slab.deck.r, slab.deck.x + slab.deck.r, slab.deck.z + slab.deck.r, slab.deck);
+                bridgeJunctionDecks.push(slab.deck);
+                bridgeJunctionAudit.sourceForks.push({ sourceNodeId: n.sourceId, sourceIds: slab.deck.sourceIds, poly, topTriangles, bottomTriangles: slab.underside, fascia: slab.fascia });
+                bridgeJunctionAudit.undersideTriangles += slab.underside.length; bridgeJunctionAudit.fasciaTriangles += slab.fascia.length * 2;
+            } else bridgeJunctionAudit.unresolved.push({ sourceNodeId: n.sourceId, reason: slab.reason });
         }
     }
     // ---- ribbon index: is (x, z) (± r) on a carriageway / junction pad? (tunnel ribbons do not block the surface)
@@ -3750,7 +3770,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const palette = PALETTES[country], roofCols = ROOF_COL[country];
     const collision = [];
     const propColl = []; // small circles for street furniture (trees, posts, shelters…)
-    propColl.push(...tramDecks);
+    propColl.push(...tramDecks, ...bridgeJunctionDecks);
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)
     const addPropColl = (x, z, r, kind = 'prop') => propColl.push({ x, z, r, hw: r, hd: r, angle: 0, poly: null, h: 3, prop: true, kind });
     propColl.push(...sportsColl); // (pitch / court fences, dugouts, goal and hoop posts)
@@ -6012,6 +6032,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     stats.waterLines = waterLineAudit;
     stats.tramGrades = tramGrades.report;
     stats.railRoadside = railRoadside.report;
+    stats.bridgeJunctions = bridgeJunctionAudit;
     stats.tramTrench = tramTrench.report;
     stats.tramPropEnvelope = tramPropEnvelope;
     stats.coveredRoadModels = coveredRoadModels.report;

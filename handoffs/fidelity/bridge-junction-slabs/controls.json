@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "source": "8e4fb0a6",
+  "nativeProfileEqualityEdges": 1540,
+  "nodes": [
+    {
+      "sourceNodeId": 984551993,
+      "sourceIds": [
+        "w458458361",
+        "w1535667121",
+        "w128304850"
+      ],
+      "closedAreaM2": 44.34753266403585,
+      "undersideTriangles": 3,
+      "fasciaTriangles": 4
+    },
+    {
+      "sourceNodeId": 981550754,
+      "sourceIds": [
+        "w84483589",
+        "w1552024281",
+        "w1552024282"
+      ],
+      "closedAreaM2": 57.46772031163492,
+      "undersideTriangles": 2,
+      "fasciaTriangles": 4
+    },
+    {
+      "sourceNodeId": 6307136271,
+      "sourceIds": [
+        "w119235186",
+        "w1535667121",
+        "w1535667122"
+      ],
+      "closedAreaM2": 43.74403117944148,
+      "undersideTriangles": 3,
+      "fasciaTriangles": 4
+    },
+    {
+      "sourceNodeId": 2624398781,
+      "sourceIds": [
+        "w668700432",
+        "w84482671",
+        "w1535667122"
+      ],
+      "closedAreaM2": 58.29665631282257,
+      "undersideTriangles": 3,
+      "fasciaTriangles": 4
+    }
+  ],
+  "scope": "CPU exact native hull/skin/depth/mouth/Float32 replay only; fresh native render and driven seam checks pending"
+}

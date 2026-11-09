@@ -1,0 +1,1416 @@
+{
+  "source": "8e4fb0a6",
+  "nativeInputSHA256": "d9d54a9f834e5725e62a833c77c3f5380a4b6c802eddbea06dafcc17aa2f4dbf",
+  "scope": "Exact native8e4 pad asphalt hulls/heights and source bridge edges. Full1540edge profiles/XY/widths equal ff6; no height extrapolation. Test mouths conservatively use native asphalt footprints, smaller than full structural mouths. Runtime captures every exact road+sidewalk pad skin.",
+  "fullProfileEqualityEdges": 1540,
+  "nodes": [
+    {
+      "node": {
+        "id": 249,
+        "sourceId": 984551993,
+        "x": 367.3284263070837,
+        "z": -702.7987679999255,
+        "y": 6.5865898778516225,
+        "edgeIds": []
+      },
+      "edges": [
+        {
+          "id": 853,
+          "road": 50,
+          "sourceId": "w458458361",
+          "access": {
+            "sourceId": "w458458361",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "bridge": "yes",
+              "foot": "no",
+              "layer": "2",
+              "oneway": "yes"
+            }
+          },
+          "bridge": true,
+          "tunnel": false,
+          "layer": 2,
+          "type": "primary",
+          "name": "Pasajul Basarab",
+          "len": 6.900905509738931,
+          "dirx": 0.7958381484806217,
+          "dirz": -0.6055094065519842,
+          "nx": 0.6055094065519842,
+          "nz": 0.7958381484806217,
+          "wL": 3.5,
+          "wR": 3.5,
+          "sidewalk": 0.8,
+          "sidewalkLeftM": 0.8,
+          "sidewalkRightM": 0.8,
+          "sidewalkSource": {
+            "rightM": 0.8,
+            "leftM": 0.8,
+            "explicit": false,
+            "sourceId": "w458458361",
+            "sourceForward": null,
+            "basis": "unchanged inferred fallback; source side tags absent"
+          },
+          "roadWidthSource": null,
+          "ya": 6.588073034061426,
+          "yb": 6.5865898778516225,
+          "a": {
+            "id": 248,
+            "sourceId": 14111297000,
+            "x": 361.83642244337335,
+            "z": -698.6202048000522,
+            "y": 6.588073034061426,
+            "edgeIds": []
+          },
+          "b": {
+            "id": 249,
+            "sourceId": 984551993,
+            "x": 367.3284263070837,
+            "z": -702.7987679999255,
+            "y": 6.5865898778516225,
+            "edgeIds": []
+          },
+          "over": null,
+          "oneway": true,
+          "core": false,
+          "insideA": true,
+          "insideB": true,
+          "insideMid": true
+        },
+        {
+          "id": 1137,
+          "road": 241,
+          "sourceId": "w1535667121",
+          "access": {
+            "sourceId": "w1535667121",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "bridge": "yes",
+              "foot": "no",
+              "layer": "2",
+              "oneway": "yes"
+            }
+          },
+          "bridge": true,
+          "tunnel": false,
+          "layer": 2,
+          "type": "primary",
+          "name": "Pasajul Basarab",
+          "len": 3.9694313029850057,
+          "dirx": 0.8169296514977223,
+          "dirz": -0.5767373271289192,
+          "nx": 0.5767373271289192,
+          "nz": 0.8169296514977223,
+          "wL": 3.5,
+          "wR": 3.5,
+          "sidewalk": 0.8,
+          "sidewalkLeftM": 0.8,
+          "sidewalkRightM": 0.8,
+          "sidewalkSource": {
+            "rightM": 0.8,
+            "leftM": 0.8,
+            "explicit": false,
+            "sourceId": "w1535667121",
+            "sourceForward": null,
+            "basis": "unchanged inferred fallback; source side tags absent"
+          },
+          "roadWidthSource": null,
+          "ya": 6.5865898778516225,
+          "yb": 6.509914375217135,
+          "a": {
+            "id": 249,
+            "sourceId": 984551993,
+            "x": 367.3284263070837,
+            "z": -702.7987679999255,
+            "y": 6.5865898778516225,
+            "edgeIds": []
+          },
+          "b": {
+            "id": 872,
+            "sourceId": 6307136271,
+            "x": 370.5711724380754,
+            "z": -705.088087199831,
+            "y": 6.509914375217135,
+            "edgeIds": []
+          },
+          "over": null,
+          "oneway": true,
+          "core": false,
+          "insideA": true,
+          "insideB": true,
+          "insideMid": true
+        },
+        {
+          "id": 1419,
+          "road": 179,
+          "sourceId": "w128304850",
+          "access": {
+            "sourceId": "w128304850",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "bridge": "yes",
+              "foot": "no",
+              "layer": "2",
+              "oneway": "yes"
+            }
+          },
+          "bridge": true,
+          "tunnel": false,
+          "layer": 2,
+          "type": "primary",
+          "name": "Pasajul Basarab",
+          "len": 9.47573973898543,
+          "dirx": 0.602791562444537,
+          "dirz": -0.7978986979846966,
+          "nx": 0.7978986979846966,
+          "nz": 0.602791562444537,
+          "wL": 3.5,
+          "wR": 3.5,
+          "sidewalk": 0.8,
+          "sidewalkLeftM": 0.8,
+          "sidewalkRightM": 0.8,
+          "sidewalkSource": {
+            "rightM": 0.8,
+            "leftM": 0.8,
+            "explicit": false,
+            "sourceId": "w128304850",
+            "sourceForward": null,
+            "basis": "unchanged inferred fallback; source side tags absent"
+          },
+          "roadWidthSource": null,
+          "ya": 6.588351971738371,
+          "yb": 6.5865898778516225,
+          "a": {
+            "id": 1394,
+            "x": 361.6165303445029,
+            "z": -695.2380875997472,
+            "y": 6.588351971738371,
+            "edgeIds": []
+          },
+          "b": {
+            "id": 249,
+            "sourceId": 984551993,
+            "x": 367.3284263070837,
+            "z": -702.7987679999255,
+            "y": 6.5865898778516225,
+            "edgeIds": []
+          },
+          "over": null,
+          "oneway": true,
+          "core": false,
+          "insideA": true,
+          "insideB": true,
+          "insideMid": true
+        }
+      ],
+      "poly": [
+        [
+          362.0049298096614,
+          -701.8073624109094
+        ],
+        [
+          362.6469152344993,
+          -703.8232238019368
+        ],
+        [
+          366.6825708220094,
+          -706.8107548678497
+        ],
+        [
+          370.8927533100505,
+          -700.8471684119163
+        ],
+        [
+          367.8295903049497,
+          -697.4069840050641
+        ]
+      ],
+      "heights": [
+        6.587629444032906,
+        6.587257298146034,
+        6.552085901666103,
+        6.552085901666103,
+        6.587333711656807
+      ],
+      "topTriangles": [
+        [
+          [
+            362.0049298096614,
+            6.827629444032906,
+            -701.8073624109094
+          ],
+          [
+            362.6469152344993,
+            6.827257298146034,
+            -703.8232238019368
+          ],
+          [
+            366.6825708220094,
+            6.792085901666103,
+            -706.8107548678497
+          ]
+        ],
+        [
+          [
+            362.0049298096614,
+            6.827629444032906,
+            -701.8073624109094
+          ],
+          [
+            366.6825708220094,
+            6.792085901666103,
+            -706.8107548678497
+          ],
+          [
+            370.8927533100505,
+            6.792085901666103,
+            -700.8471684119163
+          ]
+        ],
+        [
+          [
+            362.0049298096614,
+            6.827629444032906,
+            -701.8073624109094
+          ],
+          [
+            370.8927533100505,
+            6.792085901666103,
+            -700.8471684119163
+          ],
+          [
+            367.8295903049497,
+            6.827333711656808,
+            -697.4069840050641
+          ]
+        ]
+      ],
+      "mouths": [
+        [
+          [
+            364.0474169422631,
+            -695.7160694574378
+          ],
+          [
+            367.06713390232875,
+            -698.0136053180283
+          ],
+          [
+            362.6469152344993,
+            -703.8232238019368
+          ],
+          [
+            359.6254279444836,
+            -701.5243401426666
+          ]
+        ],
+        [
+          [
+            370.8927533100505,
+            -700.8471684119163
+          ],
+          [
+            371.2170279231497,
+            -701.0761003319068
+          ],
+          [
+            367.0068454351086,
+            -707.0396867878402
+          ],
+          [
+            366.6825708220094,
+            -706.8107548678497
+          ]
+        ],
+        [
+          [
+            364.52886059214705,
+            -693.0378983968246
+          ],
+          [
+            367.8295903049497,
+            -697.4069840050641
+          ],
+          [
+            362.0049298096614,
+            -701.8073624109094
+          ],
+          [
+            358.70420009685876,
+            -697.4382768026699
+          ]
+        ]
+      ],
+      "sourceIds": [
+        "w458458361",
+        "w1535667121",
+        "w128304850"
+      ]
+    },
+    {
+      "node": {
+        "id": 778,
+        "sourceId": 981550754,
+        "x": 456.25755978519373,
+        "z": -782.0692236000397,
+        "y": 6.525219419398822,
+        "edgeIds": []
+      },
+      "edges": [
+        {
+          "id": 1009,
+          "road": 167,
+          "sourceId": "w84483589",
+          "access": {
+            "sourceId": "w84483589",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "bridge": "yes",
+              "foot": "no",
+              "layer": "2",
+              "oneway": "yes"
+            }
+          },
+          "bridge": true,
+          "tunnel": false,
+          "layer": 2,
+          "type": "primary_link",
+          "name": "Exit \u2192 Giule\u0219ti",
+          "len": 7.518909237606836,
+          "dirx": -0.9798907961784227,
+          "dirz": 0.19953452724983872,
+          "nx": -0.19953452724983872,
+          "nz": -0.9798907961784227,
+          "wL": 1.75,
+          "wR": 1.75,
+          "sidewalk": 0.8,
+          "sidewalkLeftM": 0.8,
+          "sidewalkRightM": 0.8,
+          "sidewalkSource": {
+            "rightM": 0.8,
+            "leftM": 0.8,
+            "explicit": false,
+            "sourceId": "w84483589",
+            "sourceForward": null,
+            "basis": "unchanged inferred fallback; source side tags absent"
+          },
+          "roadWidthSource": null,
+          "ya": 6.525219419398822,
+          "yb": 6.527714088757009,
+          "a": {
+            "id": 778,
+            "sourceId": 981550754,
+            "x": 456.25755978519373,
+            "z": -782.0692236000397,
+            "y": 6.525219419398822,
+            "edgeIds": []
+          },
+          "b": {
+            "id": 1325,
+            "x": 448.88984982596185,
+            "z": -780.5689415998793,
+            "y": 6.527714088757009,
+            "edgeIds": []
+          },
+          "over": null,
+          "oneway": true,
+          "core": false,
+          "insideA": true,
+          "insideB": true,
+          "insideMid": true
+        },
+        {
+          "id": 1141,
+          "road": 243,
+          "sourceId": "w1552024281",
+          "access": {
+            "sourceId": "w1552024281",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": "access",
+            "value": "yes",
+            "reason": "OSM access=yes",
+            "conditionalUnresolved": false,
+            "tags": {
+              "access": "yes",
+              "bridge": "yes",
+              "foot": "no",
+              "layer": "2",
+              "oneway": "yes"
+            }
+          },
+          "bridge": true,
+          "tunnel": false,
+          "layer": 2,
+          "type": "primary",
+          "name": "Pasajul Basarab",
+          "len": 8.605119832231399,
+          "dirx": -0.8571243643582274,
+          "dirz": 0.5151095262402983,
+          "nx": -0.5151095262402983,
+          "nz": -0.8571243643582274,
+          "wL": 3.5,
+          "wR": 3.5,
+          "sidewalk": 0.8,
+          "sidewalkLeftM": 0.8,
+          "sidewalkRightM": 0.8,
+          "sidewalkSource": {
+            "rightM": 0.8,
+            "leftM": 0.8,
+            "explicit": false,
+            "sourceId": "w1552024281",
+            "sourceForward": null,
+            "basis": "unchanged inferred fallback; source side tags absent"
+          },
+          "roadWidthSource": null,
+          "ya": 6.525219419398822,
+          "yb": 6.524202704959307,
+          "a": {
+            "id": 778,
+            "sourceId": 981550754,
+            "x": 456.25755978519373,
+            "z": -782.0692236000397,
+            "y": 6.525219419398822,
+            "edgeIds": []
+          },
+          "b": {
+            "id": 1480,
+            "x": 448.881901918766,
+            "z": -777.636644400018,
+            "y": 6.524202704959307,
+            "edgeIds": []
+          },
+          "over": null,
+          "oneway": true,
+          "core": false,
+          "insideA": true,
+          "insideB": true,
+          "insideMid": true
+        },
+        {
+          "id": 1539,
+          "road": 244,
+          "sourceId": "w1552024282",
+          "access": {
+            "sourceId": "w1552024282",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": "access",
+            "value": "yes",
+            "reason": "OSM access=yes",
+            "conditionalUnresolved": false,
+            "tags": {
+              "access": "yes",
+              "bridge": "yes",
+              "foot": "no",
+              "layer": "2",
+              "oneway": "yes"
+            }
+          },
+          "bridge": true,
+          "tunnel": false,
+          "layer": 2,
+          "type": "primary",
+          "name": "Pasajul Basarab",
+          "len": 9.578873925351218,
+          "dirx": -0.8557737848543606,
+          "dirz": 0.5173501997255269,
+          "nx": -0.5173501997255269,
+          "nz": -0.8557737848543606,
+          "wL": 3.5,
+          "wR": 3.5,
+          "sidewalk": 0.8,
+          "sidewalkLeftM": 0.8,
+          "sidewalkRightM": 0.8,
+          "sidewalkSource": {
+            "rightM": 0.8,
+            "leftM": 0.8,
+            "explicit": false,
+            "sourceId": "w1552024282",
+            "sourceForward": null,
+            "basis": "unchanged inferred fallback; source side tags absent"
+          },
+          "roadWidthSource": null,
+          "ya": 6.576914428790401,
+          "yb": 6.525219419398822,
+          "a": {
+            "id": 1514,
+            "x": 464.4549089789343,
+            "z": -787.0248559384657,
+            "y": 6.576914428790401,
+            "edgeIds": []
+          },
+          "b": {
+            "id": 778,
+            "sourceId": 981550754,
+            "x": 456.25755978519373,
+            "z": -782.0692236000397,
+            "y": 6.525219419398822,
+            "edgeIds": []
+          },
+          "over": null,
+          "oneway": true,
+          "core": false,
+          "insideA": true,
+          "insideB": true,
+          "insideMid": true
+        }
+      ],
+      "poly": [
+        [
+          451.0583639745241,
+          -783.2030668899374
+        ],
+        [
+          457.79232669561304,
+          -787.2621987136602
+        ],
+        [
+          461.56898315360934,
+          -781.0150500842233
+        ],
+        [
+          454.81866351607835,
+          -776.9460590301223
+        ]
+      ],
+      "heights": [
+        6.526834687783675,
+        6.546806511908627,
+        6.546806511908627,
+        6.52476189790104
+      ],
+      "topTriangles": [
+        [
+          [
+            451.0583639745241,
+            6.766834687783676,
+            -783.2030668899374
+          ],
+          [
+            457.79232669561304,
+            6.786806511908627,
+            -787.2621987136602
+          ],
+          [
+            461.56898315360934,
+            6.786806511908627,
+            -781.0150500842233
+          ]
+        ],
+        [
+          [
+            451.0583639745241,
+            6.766834687783676,
+            -783.2030668899374
+          ],
+          [
+            461.56898315360934,
+            6.786806511908627,
+            -781.0150500842233
+          ],
+          [
+            454.81866351607835,
+            6.764761897901041,
+            -776.9460590301223
+          ]
+        ]
+      ],
+      "mouths": [
+        [
+          [
+            452.5629747017647,
+            -783.2558892127065
+          ],
+          [
+            448.51073422418716,
+            -782.4307341126183
+          ],
+          [
+            449.26896542773653,
+            -778.7071490871402
+          ],
+          [
+            453.32120590531406,
+            -779.5323041872284
+          ]
+        ],
+        [
+          [
+            451.0583639745241,
+            -783.2030668899374
+          ],
+          [
+            447.0017521479889,
+            -780.7651483299255
+          ],
+          [
+            450.7620516895431,
+            -774.5081404701104
+          ],
+          [
+            454.81866351607835,
+            -776.9460590301223
+          ]
+        ],
+        [
+          [
+            462.5665807499362,
+            -790.1484302531842
+          ],
+          [
+            457.79232669561304,
+            -787.2621987136602
+          ],
+          [
+            461.56898315360934,
+            -781.0150500842233
+          ],
+          [
+            466.3432372079325,
+            -783.9012816237473
+          ]
+        ]
+      ],
+      "sourceIds": [
+        "w84483589",
+        "w1552024281",
+        "w1552024282"
+      ]
+    },
+    {
+      "node": {
+        "id": 872,
+        "sourceId": 6307136271,
+        "x": 370.5711724380754,
+        "z": -705.088087199831,
+        "y": 6.509914375217135,
+        "edgeIds": []
+      },
+      "edges": [
+        {
+          "id": 1063,
+          "road": 176,
+          "sourceId": "w119235186",
+          "access": {
+            "sourceId": "w119235186",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "bridge": "yes",
+              "foot": "no",
+              "layer": "2",
+              "oneway": "yes"
+            }
+          },
+          "bridge": true,
+          "tunnel": false,
+          "layer": 2,
+          "type": "primary_link",
+          "name": "Bretea",
+          "len": 10.746352533615662,
+          "dirx": 0.9651664452944607,
+          "dirz": -0.26163664284204297,
+          "nx": 0.26163664284204297,
+          "nz": 0.9651664452944607,
+          "wL": 1.75,
+          "wR": 1.75,
+          "sidewalk": 0.8,
+          "sidewalkLeftM": 0.8,
+          "sidewalkRightM": 0.8,
+          "sidewalkSource": {
+            "rightM": 0.8,
+            "leftM": 0.8,
+            "explicit": false,
+            "sourceId": "w119235186",
+            "sourceForward": null,
+            "basis": "unchanged inferred fallback; source side tags absent"
+          },
+          "roadWidthSource": null,
+          "ya": 6.509914375217135,
+          "yb": 6.509914375217135,
+          "a": {
+            "id": 872,
+            "sourceId": 6307136271,
+            "x": 370.5711724380754,
+            "z": -705.088087199831,
+            "y": 6.509914375217135,
+            "edgeIds": []
+          },
+          "b": {
+            "id": 873,
+            "sourceId": 2624398767,
+            "x": 380.94319131282634,
+            "z": -707.8997267995233,
+            "y": 6.509914375217135,
+            "edgeIds": []
+          },
+          "over": null,
+          "oneway": true,
+          "core": false,
+          "insideA": true,
+          "insideB": true,
+          "insideMid": true
+        },
+        {
+          "id": 1137,
+          "road": 241,
+          "sourceId": "w1535667121",
+          "access": {
+            "sourceId": "w1535667121",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "bridge": "yes",
+              "foot": "no",
+              "layer": "2",
+              "oneway": "yes"
+            }
+          },
+          "bridge": true,
+          "tunnel": false,
+          "layer": 2,
+          "type": "primary",
+          "name": "Pasajul Basarab",
+          "len": 3.9694313029850057,
+          "dirx": 0.8169296514977223,
+          "dirz": -0.5767373271289192,
+          "nx": 0.5767373271289192,
+          "nz": 0.8169296514977223,
+          "wL": 3.5,
+          "wR": 3.5,
+          "sidewalk": 0.8,
+          "sidewalkLeftM": 0.8,
+          "sidewalkRightM": 0.8,
+          "sidewalkSource": {
+            "rightM": 0.8,
+            "leftM": 0.8,
+            "explicit": false,
+            "sourceId": "w1535667121",
+            "sourceForward": null,
+            "basis": "unchanged inferred fallback; source side tags absent"
+          },
+          "roadWidthSource": null,
+          "ya": 6.5865898778516225,
+          "yb": 6.509914375217135,
+          "a": {
+            "id": 249,
+            "sourceId": 984551993,
+            "x": 367.3284263070837,
+            "z": -702.7987679999255,
+            "y": 6.5865898778516225,
+            "edgeIds": []
+          },
+          "b": {
+            "id": 872,
+            "sourceId": 6307136271,
+            "x": 370.5711724380754,
+            "z": -705.088087199831,
+            "y": 6.509914375217135,
+            "edgeIds": []
+          },
+          "over": null,
+          "oneway": true,
+          "core": false,
+          "insideA": true,
+          "insideB": true,
+          "insideMid": true
+        },
+        {
+          "id": 1138,
+          "road": 242,
+          "sourceId": "w1535667122",
+          "access": {
+            "sourceId": "w1535667122",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "bridge": "yes",
+              "foot": "no",
+              "layer": "2",
+              "oneway": "yes"
+            }
+          },
+          "bridge": true,
+          "tunnel": false,
+          "layer": 2,
+          "type": "primary",
+          "name": "Pasajul Basarab",
+          "len": 9.766422190270907,
+          "dirx": 0.8119391507138088,
+          "dirz": -0.5837420796363229,
+          "nx": 0.5837420796363229,
+          "nz": 0.8119391507138088,
+          "wL": 3.5,
+          "wR": 3.5,
+          "sidewalk": 0.8,
+          "sidewalkLeftM": 0.8,
+          "sidewalkRightM": 0.8,
+          "sidewalkSource": {
+            "rightM": 0.8,
+            "leftM": 0.8,
+            "explicit": false,
+            "sourceId": "w1535667122",
+            "sourceForward": null,
+            "basis": "unchanged inferred fallback; source side tags absent"
+          },
+          "roadWidthSource": null,
+          "ya": 6.509914375217135,
+          "yb": 6.509914375217135,
+          "a": {
+            "id": 872,
+            "sourceId": 6307136271,
+            "x": 370.5711724380754,
+            "z": -705.088087199831,
+            "y": 6.509914375217135,
+            "edgeIds": []
+          },
+          "b": {
+            "id": 1473,
+            "x": 378.50091297675647,
+            "z": -710.789158799786,
+            "y": 6.509914375217135,
+            "edgeIds": []
+          },
+          "over": null,
+          "oneway": true,
+          "core": false,
+          "insideA": true,
+          "insideB": true,
+          "insideMid": true
+        }
+      ],
+      "poly": [
+        [
+          367.0068454351086,
+          -707.0396867878402
+        ],
+        [
+          371.6882704502581,
+          -710.3866334184817
+        ],
+        [
+          373.93472859785334,
+          -707.9684500172585
+        ],
+        [
+          375.9495876316032,
+          -704.4594776182709
+        ],
+        [
+          371.2170279231497,
+          -701.0761003319068
+        ]
+      ],
+      "heights": [
+        6.544418351402655,
+        6.509914375217135,
+        6.509914375217135,
+        6.509914375217135,
+        6.544418351402655
+      ],
+      "topTriangles": [
+        [
+          [
+            367.0068454351086,
+            6.784418351402655,
+            -707.0396867878402
+          ],
+          [
+            371.6882704502581,
+            6.749914375217135,
+            -710.3866334184817
+          ],
+          [
+            373.93472859785334,
+            6.749914375217135,
+            -707.9684500172585
+          ]
+        ],
+        [
+          [
+            367.0068454351086,
+            6.784418351402655,
+            -707.0396867878402
+          ],
+          [
+            373.93472859785334,
+            6.749914375217135,
+            -707.9684500172585
+          ],
+          [
+            375.9495876316032,
+            6.749914375217135,
+            -704.4594776182709
+          ]
+        ],
+        [
+          [
+            367.0068454351086,
+            6.784418351402655,
+            -707.0396867878402
+          ],
+          [
+            375.9495876316032,
+            6.749914375217135,
+            -704.4594776182709
+          ],
+          [
+            371.2170279231497,
+            6.784418351402655,
+            -701.0761003319068
+          ]
+        ]
+      ],
+      "mouths": [
+        [
+          [
+            374.9289478406531,
+            -704.3008175251397
+          ],
+          [
+            381.3816381997994,
+            -706.0500083005725
+          ],
+          [
+            380.5047444258533,
+            -709.749445298474
+          ],
+          [
+            373.93472859785334,
+            -707.9684500172585
+          ]
+        ],
+        [
+          [
+            370.8927533100505,
+            -700.8471684119163
+          ],
+          [
+            371.2170279231497,
+            -701.0761003319068
+          ],
+          [
+            367.0068454351086,
+            -707.0396867878402
+          ],
+          [
+            366.6825708220094,
+            -706.8107548678497
+          ]
+        ],
+        [
+          [
+            375.9495876316032,
+            -704.4594776182709
+          ],
+          [
+            380.63157156742903,
+            -707.8255808996806
+          ],
+          [
+            376.3702543860839,
+            -713.7527366998914
+          ],
+          [
+            371.6882704502581,
+            -710.3866334184817
+          ]
+        ]
+      ],
+      "sourceIds": [
+        "w119235186",
+        "w1535667121",
+        "w1535667122"
+      ]
+    },
+    {
+      "node": {
+        "id": 775,
+        "sourceId": 2624398781,
+        "x": 446.07629068282085,
+        "z": -757.3979195999472,
+        "y": 6.486208667084095,
+        "edgeIds": []
+      },
+      "edges": [
+        {
+          "id": 1121,
+          "road": 232,
+          "sourceId": "w668700432",
+          "access": {
+            "sourceId": "w668700432",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "bridge": "yes",
+              "foot": "no",
+              "layer": "2",
+              "oneway": "yes"
+            }
+          },
+          "bridge": true,
+          "tunnel": false,
+          "layer": 2,
+          "type": "primary",
+          "name": "Pasajul Basarab",
+          "len": 8.961309627002821,
+          "dirx": 0.8499588454580478,
+          "dirz": -0.5268490875266109,
+          "nx": 0.5268490875266109,
+          "nz": 0.8499588454580478,
+          "wL": 3.5,
+          "wR": 3.5,
+          "sidewalk": 0.8,
+          "sidewalkLeftM": 0.8,
+          "sidewalkRightM": 0.8,
+          "sidewalkSource": {
+            "rightM": 0.8,
+            "leftM": 0.8,
+            "explicit": false,
+            "sourceId": "w668700432",
+            "sourceForward": null,
+            "basis": "unchanged inferred fallback; source side tags absent"
+          },
+          "roadWidthSource": null,
+          "ya": 6.486208667084095,
+          "yb": 7.181606294139514,
+          "a": {
+            "id": 775,
+            "sourceId": 2624398781,
+            "x": 446.07629068282085,
+            "z": -757.3979195999472,
+            "y": 6.486208667084095,
+            "edgeIds": []
+          },
+          "b": {
+            "id": 1448,
+            "x": 453.6930350671803,
+            "z": -762.119177399977,
+            "y": 7.181606294139514,
+            "edgeIds": []
+          },
+          "over": null,
+          "oneway": true,
+          "core": false,
+          "insideA": true,
+          "insideB": true,
+          "insideMid": true
+        },
+        {
+          "id": 1349,
+          "road": 165,
+          "sourceId": "w84482671",
+          "access": {
+            "sourceId": "w84482671",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "bridge": "yes",
+              "foot": "no",
+              "layer": "2",
+              "oneway": "yes"
+            }
+          },
+          "bridge": true,
+          "tunnel": false,
+          "layer": 2,
+          "type": "primary_link",
+          "name": "Bretea",
+          "len": 8.482162187323667,
+          "dirx": 0.6919850535141162,
+          "dirz": -0.7219118268272555,
+          "nx": 0.7219118268272555,
+          "nz": 0.6919850535141162,
+          "wL": 1.75,
+          "wR": 1.75,
+          "sidewalk": 0.8,
+          "sidewalkLeftM": 0.8,
+          "sidewalkRightM": 0.8,
+          "sidewalkSource": {
+            "rightM": 0.8,
+            "leftM": 0.8,
+            "explicit": false,
+            "sourceId": "w84482671",
+            "sourceForward": null,
+            "basis": "unchanged inferred fallback; source side tags absent"
+          },
+          "roadWidthSource": null,
+          "ya": 6.486257553300892,
+          "yb": 6.486208667084095,
+          "a": {
+            "id": 1324,
+            "x": 440.2067612277103,
+            "z": -751.2745463998513,
+            "y": 6.486257553300892,
+            "edgeIds": []
+          },
+          "b": {
+            "id": 775,
+            "sourceId": 2624398781,
+            "x": 446.07629068282085,
+            "z": -757.3979195999472,
+            "y": 6.486208667084095,
+            "edgeIds": []
+          },
+          "over": null,
+          "oneway": true,
+          "core": false,
+          "insideA": true,
+          "insideB": true,
+          "insideMid": true
+        },
+        {
+          "id": 1504,
+          "road": 242,
+          "sourceId": "w1535667122",
+          "access": {
+            "sourceId": "w1535667122",
+            "publicDrive": true,
+            "throughAccess": true,
+            "key": null,
+            "value": null,
+            "reason": "OSM road class default; no motorcar restriction mapped",
+            "conditionalUnresolved": false,
+            "tags": {
+              "bridge": "yes",
+              "foot": "no",
+              "layer": "2",
+              "oneway": "yes"
+            }
+          },
+          "bridge": true,
+          "tunnel": false,
+          "layer": 2,
+          "type": "primary",
+          "name": "Pasajul Basarab",
+          "len": 8.448417696056273,
+          "dirx": 0.849973852938517,
+          "dirz": -0.5268248753816132,
+          "nx": 0.5268248753816132,
+          "nz": 0.849973852938517,
+          "wL": 3.5,
+          "wR": 3.5,
+          "sidewalk": 0.8,
+          "sidewalkLeftM": 0.8,
+          "sidewalkRightM": 0.8,
+          "sidewalkSource": {
+            "rightM": 0.8,
+            "leftM": 0.8,
+            "explicit": false,
+            "sourceId": "w1535667122",
+            "sourceForward": null,
+            "basis": "unchanged inferred fallback; source side tags absent"
+          },
+          "roadWidthSource": null,
+          "ya": 6.486069543269382,
+          "yb": 6.486208667084095,
+          "a": {
+            "id": 1479,
+            "x": 438.8953565424699,
+            "z": -752.9470830000505,
+            "y": 6.486069543269382,
+            "edgeIds": []
+          },
+          "b": {
+            "id": 775,
+            "sourceId": 2624398781,
+            "x": 446.07629068282085,
+            "z": -757.3979195999472,
+            "y": 6.486208667084095,
+            "edgeIds": []
+          },
+          "over": null,
+          "oneway": true,
+          "core": false,
+          "insideA": true,
+          "insideB": true,
+          "insideMid": true
+        }
+      ],
+      "poly": [
+        [
+          440.92195952452005,
+          -758.4974476932192
+        ],
+        [
+          447.5531268951809,
+          -762.6076657359755
+        ],
+        [
+          451.39912523412517,
+          -756.4029661641317
+        ],
+        [
+          444.76778111480587,
+          -752.292638566768
+        ],
+        [
+          442.0633699570493,
+          -755.9571732615808
+        ]
+      ],
+      "heights": [
+        6.486146061367474,
+        6.796608667084096,
+        6.796608667084095,
+        6.486235127103598,
+        6.486139999525847
+      ],
+      "topTriangles": [
+        [
+          [
+            440.92195952452005,
+            6.726146061367475,
+            -758.4974476932192
+          ],
+          [
+            447.5531268951809,
+            7.036608667084097,
+            -762.6076657359755
+          ],
+          [
+            451.39912523412517,
+            7.036608667084095,
+            -756.4029661641317
+          ]
+        ],
+        [
+          [
+            440.92195952452005,
+            6.726146061367475,
+            -758.4974476932192
+          ],
+          [
+            451.39912523412517,
+            7.036608667084095,
+            -756.4029661641317
+          ],
+          [
+            444.76778111480587,
+            6.726235127103598,
+            -752.292638566768
+          ]
+        ],
+        [
+          [
+            440.92195952452005,
+            6.726146061367475,
+            -758.4974476932192
+          ],
+          [
+            444.76778111480587,
+            6.726235127103598,
+            -752.292638566768
+          ],
+          [
+            442.0633699570493,
+            6.726139999525847,
+            -755.9571732615808
+          ]
+        ]
+      ],
+      "mouths": [
+        [
+          [
+            451.39912523412517,
+            -756.4029661641317
+          ],
+          [
+            455.6160342366524,
+            -759.0168276140552
+          ],
+          [
+            451.77003589770817,
+            -765.2215271858989
+          ],
+          [
+            447.5531268951809,
+            -762.6076657359755
+          ]
+        ],
+        [
+          [
+            441.5783936986821,
+            -749.9597747981744
+          ],
+          [
+            444.8066348989929,
+            -753.3276300582271
+          ],
+          [
+            442.0633699570493,
+            -755.9571732615808
+          ],
+          [
+            438.83512875673847,
+            -752.5893180015281
+          ]
+        ],
+        [
+          [
+            440.81826733761284,
+            -749.8446784368249
+          ],
+          [
+            444.76778111480587,
+            -752.292638566768
+          ],
+          [
+            440.92195952452005,
+            -758.4974476932192
+          ],
+          [
+            436.972445747327,
+            -756.0494875632761
+          ]
+        ]
+      ],
+      "sourceIds": [
+        "w668700432",
+        "w84482671",
+        "w1535667122"
+      ]
+    }
+  ]
+}

@@ -88,10 +88,10 @@ export function buildOldTownNightlife(ctx, venueActivities) {
             cancel:stopDance,complete(_s){stopDance(_s);bucActivity(_s,'old-town-lipscani','freddo-dance','🪩 On the dance floor','Eight complete dance moves at Freddo.');}});
     };
     const visible=s=>room.visible && !activityBlocked(s);
-    ctx.interactables.push({x:entry.x,z:entry.z,y:entry.y,r:2.1,source:poi.id,building:building.id,
-        label:()=>nightlifeHours(localHour).open?'Enter Freddo · music & dancing':'Freddo · opens at 10:00',
+    ctx.interactables.push({x:entry.x,z:entry.z,y:entry.y,r:2.1,source:poi.id,building:building.id,tourActivityIds:['freddo-dance','freddo-shot'],tourAvailable:()=>nightlifeHours(localHour).open,
+        label:()=>nightlifeHours(localHour).open?'Enter Freddo · dance or pour a shot':'Freddo · opens at 10:00',
         cond:()=>!room.visible,
-        use(s){if(!nightlifeHours(localHour).open){s.ui.toast('Freddo is closed','Published opening hours: 10:00–05:00. Try a late evening visit.');return;}lastSession=s;returnPose={...s.position,heading:s.ctl.heading};s.endTour?.();room.visible=true;
+        use(s){if(!nightlifeHours(localHour).open){s.ui.toast('Freddo is closed','Published opening hours: 10:00–05:00. Try a late evening visit.');return;}lastSession=s;returnPose={...s.position,heading:s.ctl.heading};room.visible=true;
             if(s.map && !mapUpdate){mapUpdate=s.map.update;s.map.update=function(dt,p){return mapUpdate.call(this,dt,room.visible?{...entry,heading:p.heading}:p);};}
             s.ctl.enter(spawn.x,spawn.z,Math.PI/2,spawn.y);s.ui.toast('Freddo · Smârdan 24','Interior layout is an estimate. DJs nightly; published closing time 05:00.');s.returnFocus?.();}});
     ctx.interactables.push({hidden:true,x:spawn.x,z:spawn.z,y:floor,r:1.25,label:'Return to Smârdan',cond:visible,use:leave},

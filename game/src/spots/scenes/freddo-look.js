@@ -22,7 +22,7 @@ export function oldTownGlazing(ctx,plan){
         const grad=g.createLinearGradient(0,y+44,0,y+256);grad.addColorStop(0,'#25343a');grad.addColorStop(.4,row%2?'#403c31':'#4c4636');grad.addColorStop(1,'#181e20');g.fillStyle=grad;g.fillRect(x+19,y+45,218,211);
         g.fillStyle='#c4af84';for(let j=0;j<8;j++)if(random()>.35)g.fillRect(x+24+j*25,y+172,9+random()*9,22+random()*35);
         g.fillStyle='#a18b66';g.fillRect(x+20,y+212,216,4);g.fillStyle='#171c1d';g.fillRect(x+122,y+45,7,211);g.fillStyle='rgba(176,198,201,.16)';g.beginPath();g.moveTo(x+25,y+45);g.lineTo(x+72,y+45);g.lineTo(x+210,y+256);g.lineTo(x+167,y+256);g.fill();}
-    const map=canvasTexture(c,{repeat:true}),mat=new THREE.MeshStandardMaterial({map,emissiveMap:map,emissive:new THREE.Color('#f2d5a0'),emissiveIntensity:.12,roughness:.5});mat.name='old-town-neutral-shop-glazing';
+    const map=canvasTexture(c,{repeat:true}),mat=new THREE.MeshStandardMaterial({map,vertexColors:true,emissiveMap:map,emissive:new THREE.Color('#f2d5a0'),emissiveIntensity:.12,roughness:.5});mat.name='old-town-neutral-shop-glazing';
     ctx.extras.buildings.group.traverse(o=>{if(o.isMesh&&o.material?.name==='facade-bucshop')o.material=mat;});
     if(!plan)return;
     const record=sourceRecord(plan.building,0,ctx.ground),y=record.datum;plan.baseY=y;
@@ -37,7 +37,7 @@ export function oldTownGlazing(ctx,plan){
 }
 
 export function freddoRoomDetails(ctx,b,{building,Q,floor,barX,barZ,djX,djZ,front}){
-    const gold=new THREE.MeshStandardMaterial({color:'#b99555',roughness:.32,metalness:.72}),glow=new THREE.MeshStandardMaterial({color:'#e3bd76',emissive:'#ffc66d',emissiveIntensity:.65,roughness:.38}),mirror=new THREE.MeshStandardMaterial({color:'#7d6a4c',roughness:.18,metalness:.88});
+    const gold=new THREE.MeshStandardMaterial({color:'#b99555',roughness:.32,metalness:.72}),glow=new THREE.MeshStandardMaterial({color:'#e3bd76',emissive:'#ffc66d',emissiveIntensity:.65,roughness:.38}),mirror=new THREE.MeshStandardMaterial({color:'#7d6a4c',roughness:.18,metalness:.88}),ceiling=new THREE.MeshStandardMaterial({color:'#141713',roughness:.95,metalness:0}),duct=new THREE.MeshStandardMaterial({color:'#4c514a',roughness:.6,metalness:.55});
     const p=polyArea(building.poly)>0?building.poly:[...building.poly].reverse();
     for(let i=0;i<p.length;i++){const a=p[i],z=p[(i+1)%p.length],L=Math.hypot(z[0]-a[0],z[1]-a[1]),ux=(z[0]-a[0])/L,uz=(z[1]-a[1])/L,nx=-uz,nz=ux;
         const V=(u,h,d=.055)=>{const [x,zz]=Q(a[0]+ux*u+nx*d,a[1]+uz*u+nz*d);return[x,floor+h,zz];};
@@ -47,11 +47,12 @@ export function freddoRoomDetails(ctx,b,{building,Q,floor,barX,barZ,djX,djZ,fron
             b.rod(V(u,1.35,.07),V(e,2.9,.07),.009,'#edc079','freddoGlow',4);b.rod(V(u,2.85,.075),V(e,2,.075),.008,'#edc079','freddoGlow',4);}
     }
     for(const z of [50,54,58,62]){const xs=[];for(let i=0;i<p.length;i++){const a=p[i],c=p[(i+1)%p.length];if((a[1]>z)!==(c[1]>z))xs.push(a[0]+(c[0]-a[0])*(z-a[1])/(c[1]-a[1]));}xs.sort((a,b)=>a-b);if(xs.length<2)continue;const A=Q(xs[0]+.1,z),B=Q(xs.at(-1)-.1,z);b.rod([A[0],floor+4.02,A[1]],[B[0],floor+4.02,B[1]],.075,'#1e211f','metal',6);}
-    for(const x of [10,18]){const A=Q(x,51),B=Q(x,60);b.rod([A[0],floor+3.78,A[1]],[B[0],floor+3.78,B[1]],.13,'#55534b','freddoGold',10);}
+    for(const x of [10,18]){const A=Q(x,51),B=Q(x,60);b.rod([A[0],floor+3.78,A[1]],[B[0],floor+3.78,B[1]],.13,'#55534b','freddoDuct',10);}
+    for(const x of [11.5,16.5])for(let j=0;j<11;j++){const z=49.9+j*1.18;if(!inPoly(x,z,p))continue;const [px,pz]=Q(x,z);b.sphere(px,floor+3.55-.08*Math.sin(j*.7),pz,.025,.035,.025,'#f2cc85','freddoGlow',6,4);if(j){const [ax,az]=Q(x,z-1.18);b.rod([ax,floor+3.65,az],[px,floor+3.65,pz],.006,'#272a24','metal',3);}}
     for(let i=0;i<15;i++){const x=13.4+(i%5)*.22,z=53.5+Math.floor(i/5)*.22,h=.58+(i*7%6)*.12,[px,pz]=Q(x,z);b.cyl(px,floor+4.05-h,pz,.055,h,'#b69450','freddoGold',8);b.cyl(px,floor+4.05-h-.025,pz,.051,.025,'#f2c57c','freddoGlow',8);}
     for(const [x,z] of [[8.2,56],[8.6,61],[20.5,50.4]])if(inPoly(x,z,p)){const [px,pz]=Q(x,z);b.cyl(px,floor,pz,.055,1.03,'#252725','metal',8);b.cyl(px,floor+1.03,pz,.46,.055,'#6f4d30','wood',16);ctx.circle(px,pz,.46,1.1,{y:floor});}
     for(const h of [1.5,2.15]){b.box(barX-.15,floor+h,barZ,.3,.055,5.5,'#302a21','wood',.25);for(let i=0;i<16;i++){const z=barZ-2.45+i*.32;b.cyl(barX-.16,floor+h+.05,z,.036,.22,['#64522c','#454c34','#836643','#343f40'][i%4],'glass',6);b.cyl(barX-.16,floor+h+.27,z,.018,.065,'#b69f63','metal',6);}}
     for(let i=0;i<15;i++)b.box(djX-1.8+i*.25,floor,djZ+.53,.075,1.18,.045,'#775230','wood');
     for(const [x,z]of[[7.5,54],[8,61],[19.8,48.5]])for(let i=0;i<12;i++){const a=i*2.4,r=.12+(i%3)*.1,[px,pz]=Q(x+Math.cos(a)*r,z+Math.sin(a)*r);b.sphere(px,floor+3.3-(i%5)*.1,pz,.14,.08,.2,['#294a37','#345941','#46684a'][i%3],'paint',5,4);}
-    return{freddoGold:gold,freddoGlow:glow,freddoMirror:mirror};
+    return{freddoGold:gold,freddoGlow:glow,freddoMirror:mirror,freddoCeiling:ceiling,freddoDuct:duct};
 }

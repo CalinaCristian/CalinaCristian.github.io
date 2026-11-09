@@ -24,6 +24,7 @@ import { onActivityCancel } from '../participation.js';
 import { buildOldTownNightlife, OLD_TOWN_FOCUS, nightlifeHours } from './old-town-nightlife.js';
 import { walkBoundary, markVisitExits } from '../walk-boundary.js';
 import {freddoFrontagePlan,oldTownGlazing} from './freddo-look.js';
+import {caruselBooks} from './carusel-look.js';
 
 function simplify(pts, tol) { if (pts.length < 4) return pts; const dist = (p, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz) || 1; return Math.abs((p[0] - a[0]) * dz - (p[1] - a[1]) * dx) / L; }; let md = 0, mi = 0; for (let i = 1; i < pts.length - 1; i++) { const dd = dist(pts[i], pts[0], pts[pts.length - 1]); if (dd > md) { md = dd; mi = i; } } if (md <= tol) return [pts[0], pts[pts.length - 1]]; return [...simplify(pts.slice(0, mi + 1), tol).slice(0, -1), ...simplify(pts.slice(mi), tol)]; }
 const simplifyRing = (p, tol) => { const s2 = simplify([...p, p[0]], tol); s2.pop(); return s2.length >= 3 ? s2 : p; };
@@ -228,28 +229,37 @@ function buildCarusel(ctx) {
     const along = Math.atan2(oc.ux, oc.uz); // long axis direction
     const ell = (k, rxK = 1) => { const pts = []; for (let i = 0; i < 48; i++) { const a = i / 48 * Math.PI * 2, wob = 1 + 0.07 * Math.sin(a * 5 + k * 1.3), rx = (3.1 - k * 0.1) * wob * rxK, rz = (8.2 - k * 0.35) * wob * rxK; const lx = Math.cos(a) * rx, lz = Math.sin(a) * rz; pts.push([ecx + lx * Math.cos(along) + lz * Math.sin(along), ecz - lx * Math.sin(along) + lz * Math.cos(along)]); } return pts; };
     const iw = new GeoBatch(), WHITE = '#f6f5f1';
-    const shelf = (() => { const c = canvas(256, 256), q = c.getContext('2d'); q.fillStyle = '#f2f0ea'; q.fillRect(0, 0, 256, 256); const r = rng(5); for (let row = 0; row < 4; row++) { const y = row * 64; q.fillStyle = '#e6e3db'; q.fillRect(0, y + 56, 256, 8); for (let xx = 2; xx < 254;) { const w = 3 + r() * 6, h = 34 + r() * 18; q.fillStyle = `hsl(${r() * 360},${30 + r() * 40}%,${30 + r() * 40}%)`; q.fillRect(xx, y + 56 - h, w, h); xx += w + 0.6; } } const t = canvasTexture(c, { repeat: true }); const m = new THREE.MeshStandardMaterial({ map: t, roughness: 0.85, emissive: new THREE.Color('#ffffff'), emissiveMap: t, emissiveIntensity: 0.22 }); return m; })();
+    const shelf=caruselBooks();
     const shelves = new GeoBatch();
     for (let k = 0; k < LV.length; k++) {
         const ly = y0 + LV[k];
         if (k > 0) { // slab with the atrium hole (white, slightly self-lit so the interior reads bright)
             const sh = new THREE.Shape(innerP.map(([a, c]) => new THREE.Vector2(a, -c))); sh.holes.push(new THREE.Path(ell(k).map(([a, c]) => new THREE.Vector2(a, -c))));sh.holes.push(new THREE.Path(stairWell.map(([a,c])=>new THREE.Vector2(a,-c))));
-            const sg = new THREE.ExtrudeGeometry(sh, { depth: 0.38, bevelEnabled: false, curveSegments: 4 }); sg.rotateX(-Math.PI / 2); sg.translate(0, ly - 0.38, 0);
-            iw.add(sg, 'paint', null, WHITE, { emissive: '#ffffff', emissiveIntensity: 0.28, roughness: 0.5 }); sg.dispose();
+            const sg = new THREE.ExtrudeGeometry(sh, { depth: 0.2, bevelEnabled: false, curveSegments: 4 }); sg.rotateX(-Math.PI / 2); sg.translate(0, ly - 0.2, 0);
+            iw.add(sg, 'paint', null, WHITE, { emissive: '#ffffff', emissiveIntensity: 0.08, roughness: 0.58 }); sg.dispose();
             // undulating balustrade round the hole + walk surface + wall collider at this level
-            const e = ell(k), pos = [], idx = [];
-            // ExtrudeGeometry already owns the slab's vertical hole wall.
-            // Start the railing above the slab to avoid a duplicate coplanar skirt.
-            for (let i = 0; i <= e.length; i++) { const [a, c] = e[i % e.length], hh = 1.05 + 0.12 * Math.sin(i / e.length * Math.PI * 10 + k); pos.push(a, ly + .003, c, a, ly + hh, c); if (i) { const j = (i - 1) * 2; idx.push(j, j + 1, j + 2, j + 1, j + 3, j + 2); } }
-            const bg = new THREE.BufferGeometry(); bg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); bg.setIndex(idx); bg.computeVertexNormals();
-            iw.add(bg, 'paint', null, '#fbfaf7', { emissive: '#ffffff', emissiveIntensity: 0.35, roughness: 0.4, side: THREE.DoubleSide }); bg.dispose();
-            for (let i = 0; i < e.length; i++) { const [a, c] = e[i], [a2, c2] = e[(i + 1) % e.length]; wallSeg(ctx, a, c, a2, c2, ly - 0.2, ly + 1.1); }
+            const e=ell(k),railColour=k===2?'#242a27':WHITE;
+            // Open, fine white rails instead of a metre-high solid opaque band.
+            for(let i=0;i<e.length;i++){const a=e[i],c=e[(i+1)%e.length],L=Math.hypot(c[0]-a[0],c[1]-a[1]),h0=1.03+.1*Math.sin(i/e.length*Math.PI*10+k),h1=1.03+.1*Math.sin((i+1)/e.length*Math.PI*10+k);
+                iw.rod([a[0],ly+h0,a[1]],[c[0],ly+h1,c[1]],.026,railColour,'paint',6);iw.rod([a[0],ly+.09,a[1]],[c[0],ly+.09,c[1]],.014,railColour,'paint',5);
+                const n=Math.max(1,Math.ceil(L/.23));for(let j=0;j<n;j++){const t=j/n,x=a[0]+(c[0]-a[0])*t,z=a[1]+(c[1]-a[1])*t; iw.rod([x,ly+.08,z],[x,ly+h0+(h1-h0)*t,z],.011,railColour,'paint',5);}
+                wallSeg(ctx,a[0],a[1],c[0],c[1],ly-.2,ly+1.1);
+            }
             const holeE = ell(k);
             g.surfaces.push({ kind: 'carusel', x: oc.cx, z: oc.cz, r: oc.len / 2 + 2, bottom: ly - 0.6, contains: (px, pz) => inPoly(px, pz, innerP) && !inPoly(px, pz, holeE) && !inPoly(px,pz,stairWell), top: () => ly });
         }
-        // shelves along the long walls (not across the front)
-        for (let i = 0; i < innerP.length; i++) { const [ax, az] = innerP[i], [bx, bz] = innerP[(i + 1) % innerP.length], L = Math.hypot(bx - ax, bz - az); if (L < 6) continue; const mx = (ax + bx) / 2, mz = (az + bz) / 2; if (Math.hypot(mx - fx, mz - fzz) < 3) continue; const a = Math.atan2(bx - ax, bz - az); shelves.box(mx, ly, mz, 0.4, 3.1, L - 0.8, '#ffffff', 'shelf', a); }
+        // White bookcase joinery, six shelves, bindings at0.03–0.08m scale.
+        for(let i=0;i<innerP.length;i++){const [ax,az]=innerP[i],[bx,bz]=innerP[(i+1)%innerP.length],L=Math.hypot(bx-ax,bz-az);if(L<6)continue;const mx=(ax+bx)/2,mz=(az+bz)/2;if(Math.hypot(mx-fx,mz-fzz)<3)continue;
+            const a=Math.atan2(bx-ax,bz-az),ux=(bx-ax)/L,uz=(bz-az)/L,nx=-uz,nz=ux,margin=.35,w=L-margin*2,P=(u,y)=>[ax+ux*u+nx*.225,y,az+uz*u+nz*.225];
+            iw.box(mx,ly,mz,.4,3.12,L-.65,WHITE,'paint',a);
+            shelves.quad(P(margin,ly+.12),P(L-margin,ly+.12),P(L-margin,ly+2.96),P(margin,ly+2.96),'#ffffff','shelf',[0,0,w/1.4,0,w/1.4,1,0,1]);
+            for(let j=0;j<=6;j++)iw.box(mx+nx*.015,ly+.1+j*2.86/6,mz+nz*.015,.43,.035,L-.65,WHITE,'paint',a);
+            for(let u=margin;u<L-margin;u+=1.4)iw.box(ax+ux*u,ly,az+uz*u,.43,3.12,.035,WHITE,'paint',a);
+        }
     }
+    // Slender gallery supports; their positions are reconstruction estimates.
+    for(const t of [-5.5,0,4.2])for(const side of [-1,1]){const x=oc.cx+oc.ux*t-oc.uz*side*4.45,z=oc.cz+oc.uz*t+oc.ux*side*4.45;
+        iw.cyl(x,y0,z,.2,16.1,WHITE,'paint',16);iw.cyl(x,y0,z,.23,.18,WHITE,'paint',16);for(const h of LV.slice(1)){iw.cyl(x,y0+h-.35,z,.24,.2,WHITE,'paint',16);iw.cyl(x,y0+h-.15,z,.31,.1,WHITE,'paint',16);iw.box(x,y0+h-.05,z,.64,.08,.64,WHITE,'paint');for(let j=0;j<8;j++){const a=j*Math.PI/4;iw.sphere(x+Math.cos(a)*.235,y0+h-.22,z+Math.sin(a)*.235,.07,.1,.07,WHITE,'paint',5,4);}}ctx.circle(x,z,.23,16.1,{y:y0});}
     // ground floor tables of books + the white stair
     const r = rng(8);
     for (let i = 0; i < 6; i++) { const t = (i + 0.5) / 6 - 0.5, px = oc.cx + oc.ux * t * oc.len * 0.6, pz = oc.cz + oc.uz * t * oc.len * 0.6; iw.box(px + (r() - 0.5), y0, pz, 1.3, 0.8, 0.8, '#d8d2c4', 'wood', along); ctx.box(px, pz, 0.7, 0.45, along, { prop: true, h: 0.8 }); }
@@ -270,7 +280,7 @@ function buildCarusel(ctx) {
     }
     // walls (enter through the shop door): wall colliders round the outline with a door gap on the front
     ringWalls(ctx, p, y0 - 1, y0 + H + 6, [{ x: fx, z: fzz, w: 2.3 }]);
-    ctx.extras.caruselFloor = () => ctx.painter.poly(innerP, '#ebe8e1', 'slab');
+    ctx.extras.caruselFloor = () => ctx.painter.poly(innerP, '#9b8062', 'wood');
     ctx.add(iw.build('carusel-interior', { castShadow: false }));
     ctx.add(shelves.build('carusel-shelves', { castShadow: false, matOverrides: { shelf } }));
     const shell=b.build('carusel', { matOverrides: { [fac.key]: fac.mat } });
@@ -469,7 +479,7 @@ export default {
         ctx.painter.custom((x, T, k, isMask) => { if (isMask) return; for (const w of d.ways) { if (w.k !== 'pedestrian') continue; x.strokeStyle = 'rgba(205,200,190,0.55)'; x.lineWidth = Math.max(1, 0.9 * k); x.beginPath(); w.pts.forEach(([a, c], i) => { const [px, py] = T(a, c); if (i) x.lineTo(px, py); else x.moveTo(px, py); }); x.stroke(); } });
         // terraces + shop signs from OSM (bars, restaurants, cafés, shops along the pedestrian lanes)
         const inside = (x, z) => Object.values(d.spots).some((s) => inPoly(x, z, s.extent.polygon));
-        const TR = oldTownTerraces(ctx, { inside, seed: 3, prioritySources: ['n1416523788', 'n7613023091', 'n10775260925'] });
+        const TR = oldTownTerraces(ctx, { inside, seed: 3, prioritySources: ['n1416523788', 'n7613023091', 'n10775260925'],canopies:{n1416523788:{colour:'#30382f',glass:true}} });
         TR.signs=TR.signs.filter(s=>s.source!=='n1416523788');
         ctx.extras.sourceFrontages = { signs: TR.signs, terraces: TR.terraces };
         ctx.add(TR.group); ctx.lampPoints.push(...TR.lamps.filter((_, i) => i % 2 === 0));

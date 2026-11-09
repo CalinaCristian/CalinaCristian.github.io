@@ -1,0 +1,14 @@
+{
+  "against": "Exact C2 second-load Groz PRE-admission snapshot, after prior UN native publication +warm",
+  "prePublicationReportSha256": "5b5ee899bd1662c70a37e56b0a0caa6fae62bc4e225c0adbf52d5434766f934e",
+  "fixtureSha256": "8f6cb9e27941445c0d8515a79a1fb715797f6b86ab2af2e1952473aa8cf8ee9c",
+  "preActors": 263,
+  "fixtureActors": 263,
+  "sameIds": true,
+  "differences": [],
+  "passed": true,
+  "nativeGraphNodes": 768,
+  "nativeGraphEdges": 801,
+  "providers": 263,
+  "candidates": 30459
+}

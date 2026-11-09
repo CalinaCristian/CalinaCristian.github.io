@@ -1,0 +1,5 @@
+LOAD unirii
+DISTRICT {"district":"unirii","initialPassed":true,"constructorActors":484,"publicVehicles":624,"people":560,"repairs":11,"unresolved":0,"positiveFirstBodyPairs":0,"warmIssues":0}
+LOAD grozavesti
+STOP {"district":"grozavesti","failures":[{"stage":"beforeAttach","type":"unresolved-initial-admission"},{"stage":"beforeAttach","type":"true-height-vehicle-body-contact"},{"stage":"publicBeforeWarm","type":"unresolved-initial-admission"},{"stage":"publicBeforeWarm","type":"true-height-vehicle-body-contact"},{"stage":"firstWorld","type":"unresolved-initial-admission"},{"stage":"firstWorld","type":"true-height-vehicle-body-contact"},{"stage":"firstMain","type":"unresolved-initial-admission"},{"stage":"firstMain","type":"true-height-vehicle-body-contact"}],"admission":false}
+COMPLETE {"sourceCommit":"c2acc8d59cab1ca5f8da4f1f44bbdc5706f56f76","passedAllEight":false,"districts":2,"failures":8,"errors":0,"consoleErrors":0,"failedRequests":0}

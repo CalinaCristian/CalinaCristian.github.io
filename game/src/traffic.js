@@ -63,7 +63,7 @@ export function medianOf(e) {
 export function laneOffset(edge, lane, dir = 1) { return (edge.sharedLane ? 0 : medianOf(edge) / 2 + (edge.laneW ?? 3.3) * (lane + 0.5)) + dir * (edge.laneCenterShiftM || 0); }
 const tramBaseOffset = e => Math.max(1.45, medianOf(e) / 4);
 const tramOffset = (e, dir = 1) => e.rail ? 0 : tramBaseOffset(e) + dir * (e.laneCenterShiftM || 0);
-const layerOf = (e) => (e.bridge ? 1 : 0) + (e.tunnel ? -1 : 0) + (e.layer | 0);
+const layerOf = (e) => e.modelLayer ?? ((e.bridge ? 1 : 0) + (e.tunnel ? -1 : 0) + (e.layer | 0));
 const isJunction = (n) => n.edges.length >= 3 || n.hasLight;
 /** a road cut at the district boundary (closure at its map-end node, spec R10.9): never routed into, never spawned on */
 const closedEdge = (e) => e.rail ? !e.usable : !!(e.a.mapEnd || e.b.mapEnd || !ambientTrafficAccess(e));

@@ -98,7 +98,16 @@
       "label": "Inside the open parking decks",
       "gameSourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
       "staticCamera": false,
-      "controllerExercised": true
+      "controllerExercised": true,
+      "exercise": {
+        "sourceRoadId": "w344201644",
+        "explicitSourceEdgeStartFixture": true,
+        "distanceM": 81,
+        "physicalSimulationSeconds": 13.5,
+        "result": "arrived",
+        "resets": 0,
+        "midRoutePlacements": 0
+      }
     },
     {
       "id": "garage-helix-residual",
@@ -189,7 +198,16 @@
       "label": "Garage helix after the separator correction",
       "gameSourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
       "staticCamera": false,
-      "controllerExercised": true
+      "controllerExercised": true,
+      "exercise": {
+        "sourceRoadId": "w430434890",
+        "explicitSourceEdgeStartFixture": true,
+        "distanceM": 38,
+        "physicalSimulationSeconds": 7.3,
+        "result": "arrived",
+        "resets": 0,
+        "midRoutePlacements": 0
+      }
     },
     {
       "id": "covered-departures-lane-1",
@@ -280,7 +298,16 @@
       "label": "The covered Departures Drive approach",
       "gameSourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
       "staticCamera": false,
-      "controllerExercised": true
+      "controllerExercised": true,
+      "exercise": {
+        "sourceRoadId": "w37017723",
+        "explicitSourceEdgeStartFixture": true,
+        "distanceM": 106,
+        "physicalSimulationSeconds": 23.5,
+        "result": "arrived",
+        "resets": 0,
+        "midRoutePlacements": 0
+      }
     }
   ],
   "nativeRouteResults": [

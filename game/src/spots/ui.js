@@ -31,6 +31,7 @@ const CSS = `
 #spot-ui .sp-plaque .sp-src a{color:#ffd98a}
 #spot-ui .sp-plaque button{margin-top:12px;font:600 14px system-ui;background:#a8894f;color:#1d160a;border:0;border-radius:8px;padding:8px 16px;cursor:pointer}
 #spot-ui .sp-toasts{position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:8px;align-items:flex-end;max-width:min(340px,calc(100vw - 24px))}
+#spot-ui>.sp-toasts{top:var(--sp-toast-top,12px);max-height:calc(100% - var(--sp-toast-top,12px) - 12px);overflow:hidden}
 #spot-ui :is(.sp-participation,.sp-venue) .sp-toasts{position:static;max-width:none;align-items:stretch}
 #spot-ui :is(.sp-participation,.sp-venue) .sp-toasts:not(:empty){margin-top:8px}
 #spot-ui .sp-toast{background:rgba(15,18,22,.78);border-left:3px solid #fbbf24;border-radius:8px;padding:8px 12px;transform:translateX(30px);opacity:0;transition:all .3s}
@@ -97,6 +98,16 @@ export class SpotUI {
         this.bubbles = new BubbleLayer(this.$('.sp-bubbles'));
         this._prompt = null;
         if (document.body.classList.contains('touch')) this.$('.sp-mini b').textContent = 'Map';
+        const card=this.$('.sp-card'),toasts=this.$('.sp-toasts');
+        this._layoutToasts=()=>{
+            if(toasts.parentElement!==el)return;
+            const c=card.getBoundingClientRect(),t=toasts.getBoundingClientRect(),o=el.getBoundingClientRect();
+            const overlap=c.height>0&&c.right+8>t.left&&c.left-8<t.right;
+            el.style.setProperty('--sp-toast-top',`${overlap?Math.max(12,Math.ceil(c.bottom-o.top)+8):12}px`);
+        };
+        this._toastLayoutObserver=new ResizeObserver(this._layoutToasts);
+        this._toastLayoutObserver.observe(card);this._toastLayoutObserver.observe(toasts);
+        window.addEventListener('resize',this._layoutToasts);this._layoutToasts();
     }
     setTitle(name, sub) { this.$('.sp-card b').textContent = name; this.$('.sp-card span').textContent = sub || ''; }
     setHelp(t) { this.$('.sp-help').textContent = t || ''; }
@@ -108,7 +119,7 @@ export class SpotUI {
         const toasts = this.$('.sp-toasts');
         if (toasts) (active ? panel || this.$('.sp-participation,.sp-venue') || this.el : this.el).append(toasts);
         this.el.classList.toggle('sp-participating', active);
-        if (!active) { this.el.style.removeProperty('--sp-activity-top'); return; }
+        if (!active) { this.el.style.removeProperty('--sp-activity-top'); this._layoutToasts(); return; }
         const card = this.$('.sp-card'), measure = () => {
             const bottom = card.getBoundingClientRect().bottom - this.el.getBoundingClientRect().top;
             this.el.style.setProperty('--sp-activity-top', `${Math.max(12, Math.ceil(bottom) + 8)}px`);
@@ -126,7 +137,7 @@ export class SpotUI {
     toast(title, body = '') {
         const t = document.createElement('div'); t.className = 'sp-toast'; t.innerHTML = `<b></b><span></span>`;
         t.querySelector('b').textContent = title; t.querySelector('span').textContent = document.body.classList.contains('touch') ? body.replace(/Press E\b/gi, 'Tap Use') : body;
-        this.$('.sp-toasts').appendChild(t); requestAnimationFrame(() => t.classList.add('show'));
+        this.$('.sp-toasts').appendChild(t); this._layoutToasts(); requestAnimationFrame(() => t.classList.add('show'));
         setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 4200);
     }
     get panelOpen() { return this.$('.sp-panel').classList.contains('show'); }
@@ -218,7 +229,7 @@ export class SpotUI {
     }
 
     update(camera) { this.bubbles.update(camera); }
-    dispose() { this.setActivityActive(false); this.closePanel(); this.el.remove(); }
+    dispose() { this.setActivityActive(false); this.closePanel(); this._toastLayoutObserver.disconnect();this._toastLayoutObserver=null;window.removeEventListener('resize',this._layoutToasts);this.el.remove(); }
 }
 /** map marker kinds: [kind, icon, legend name] */
 export const MAP_KINDS = [['hero', '⭐', 'Landmark'], ['plaque', '📜', 'Plaque'], ['postcard', '📷', 'Postcard photo'], ['activity', '🎯', 'Activity'], ['bike', '🚲', 'Bikes'], ['entrance', '🚪', 'Entrance'], ['view', '👁', 'Viewpoint'], ['guide', '🚩', 'Tour guide'], ['waypoint', '📍', 'Waypoint'], ['you', '➤', 'You']];

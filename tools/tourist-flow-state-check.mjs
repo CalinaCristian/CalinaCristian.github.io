@@ -30,6 +30,13 @@ try{
  });
  const stages=[];
  const check=async(name,fn)=>{const result=await page.evaluate(fn);assert.equal(result,true,name);stages.push(name);};
+ await page.evaluate(()=>{fixture.s.ui.setTitle('Old Town · clubs, Carusel & a hidden bar','Bucharest, Romania · walk-only bonus');fixture.s.ui.toast('Find the public doorway','The bookshop interior is visible through its real front windows.');});
+ for(const[width,height]of[[390,844],[650,390],[1280,720]]){
+  await page.setViewportSize({width,height});
+  await page.waitForFunction(()=>{const c=document.querySelector('.sp-card').getBoundingClientRect(),t=document.querySelector('#spot-ui>.sp-toasts').getBoundingClientRect();return c.right+7<=t.left||t.right+7<=c.left||t.top>=c.bottom+7;});
+  await check(`Normal arrival notifications clear the actual title/tour card at ${width}x${height}`,()=>{const c=document.querySelector('.sp-card').getBoundingClientRect(),t=document.querySelector('#spot-ui>.sp-toasts').getBoundingClientRect();return c.right+7<=t.left||t.right+7<=c.left||t.top>=c.bottom+7;});
+  await page.screenshot({path:path.join(out,`normal-toast-${width}x${height}.png`)});
+ }
  await check('Current activity completion excludes chess and retains combined Glasshouse progress',async()=>{
   const [{Progression,activeAchievements},{activityAvailable},{ACHIEVEMENTS}]=await Promise.all([import('/game/src/achievements.js'),import('/game/src/spot-availability.js'),import('/game/src/data.js')]);
   const p=Object.create(Progression.prototype),unlocked=new Set();
@@ -120,7 +127,8 @@ try{
  await check('Finishing an activity restores host controls without leaving an inert toolbar',()=>['explore-bar','touch','pause-btn'].every(id=>{const e=document.getElementById(id);return !e.inert&&getComputedStyle(e).visibility==='visible';})&&!document.body.classList.contains('ui-activity'));
  await check('Leaving restores the same notification region for later messages',()=>{
   const ui=fixture.s.ui,region=ui.$('.sp-toasts');if(!region||region.parentElement!==ui.el||!region.querySelector('.sp-toast'))return false;
-  ui.toast('Walk resumed','The notification region survives activity removal.');return region.querySelectorAll('.sp-toast').length===2;
+  const before=region.querySelectorAll('.sp-toast').length;
+  ui.toast('Walk resumed','The notification region survives activity removal.');return region.querySelectorAll('.sp-toast').length===before+1;
  });
  await page.evaluate(async()=>{
   const f=fixture,{createVenueActivities}=await import('/game/src/spots/venue-activities.js');
@@ -136,6 +144,7 @@ try{
  }
  await page.locator('.sp-venue [data-cancel]').click();await page.evaluate(()=>fixture.syncHost());
  await check('Venue cancellation restores the shared notification region and launchers',()=>!fixture.venue.active&&!document.body.classList.contains('ui-activity')&&fixture.s.ui.$('.sp-toasts').parentElement===fixture.s.ui.el&&!document.getElementById('touch').inert);
+ await check('UI disposal releases the normal notification observer',()=>{fixture.s.ui.dispose();return fixture.s.ui._toastLayoutObserver===null&&!document.getElementById('spot-ui');});
  assert.deepEqual(errors,[]);
  const report={passed:true,scope:'Actual native DOM/Input/SpotSession/modal-flow state with explicit synthetic stops, flat ground and stub route provider. No physical access, scene beauty, or hardware FPS claim.',checks:stages,errors};
  await writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report));

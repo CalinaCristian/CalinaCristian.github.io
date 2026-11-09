@@ -3,8 +3,8 @@
   "id": "kerry-park",
   "city": "seattle",
   "name": "Kerry Park viewpoint",
-  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:04.554Z",
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
   "status": "needs_review",
   "sources": [
     {
@@ -91,63 +91,74 @@
       "label": "Stairs down to Bayview-Kinnear Park",
       "type": "OSM source",
       "url": "https://www.openstreetmap.org/way/50329131"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Native phone manual view/tracking and shutter",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-direct-touch-ea89e2c/results.json"
+    },
+    {
+      "label": "Native desktop manual view/tracking and shutter",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-side-approach-desktop/results.json"
     }
   ],
   "improvements": [
-    "Source footprints, thin building-part strips and courtyard holes are preserved, including the residential context around the viewpoint.",
-    "Literal source heights and explicit estimates use the shared roof profiles instead of shrinking and jittering neighbouring buildings."
+    "Current native scene retains 134 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Physical approach; actual dusk/night Needle aim and explicit native shutter, persistence",
+    "The selected primary activity approach is accepted separately from full-scene comparison."
   ],
   "remainingGaps": [
-    "The skyline, Mount Rainier visibility and nearby residential heights need matched independent viewpoints; most nearby height values are still type estimates.",
-    "The activity approach is close to crowds and trees and has not had a full native touch-flow review.",
-    "Two remaining degenerate meshes require identification and repair; the scene is not a clean physical-audit pass.",
-    "Raw audit findings remain for physical review: badGeometry 2, zfight 21."
+    "Full skyline/Rainier/source-height comparison remains open",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
   ],
   "checks": [
     {
-      "label": "Native scene load",
+      "label": "Current native scene load and warm cache",
       "passed": true,
-      "details": "kerry-park; actual native controller; 0 thrown JavaScript errors."
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts."
     },
     {
-      "label": "Source solid membership",
+      "label": "Native phone condition controls",
       "passed": true,
-      "details": "134 active source records, 134 physical volumes, 0 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
     },
     {
-      "label": "Validated scene geometry cache",
+      "label": "Selected primary activity entry",
       "passed": true,
-      "details": "Exact source/profile/terrain signature matched."
+      "details": "10.621m actual-controller arrival; no pose writes after entry. Completion of every secondary activity is not inferred."
     },
     {
-      "label": "Native public-path walk",
+      "label": "High-quality selected native views",
       "passed": true,
-      "details": "12.4 m walked toward Changing Form; planned endpoint reached using native movement and collision."
-    },
-    {
-      "label": "High scene budgets",
-      "passed": true,
-      "details": "283638 unique geometry triangles; max 922148 rendered triangles / 150 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
-    },
-    {
-      "label": "Raw physical audit",
-      "passed": false,
-      "details": "badGeometry: 2; zfight: 21"
+      "details": "Maximum 707488 rendered triangles / 178 calls. Software-GL capture is not a hardware FPS benchmark."
     },
     {
       "label": "Full matched scene comparison",
       "passed": false,
-      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
     }
   ],
   "captures": [
     {
       "kind": "arrival",
-      "label": "Kerry Park viewpoint — arrival",
-      "image": "assets/spots/kerry-park/arrival.webp",
-      "sha256": "e5b78596246e89ff0a8397f52098c75e0aba7b651c09e7b60603fe6bd67d9a23",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:22:02.263Z",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/kerry-park-arrival.webp",
+      "sha256": "9751296cdb5d300740b57a88d6f7f9c2172911e0f250ebc2813b825ce8051771",
+      "bytes": 28508,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:01:06.373Z",
       "pose": {
         "position": [
           2,
@@ -170,22 +181,38 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open."
+      ],
+      "metrics": {
+        "triangles": 707488,
+        "drawCalls": 178
+      },
+      "simulationDate": "2026-11-09T00:01:02.105Z"
     },
     {
-      "kind": "public-walk",
-      "label": "Kerry Park viewpoint — public walk",
-      "image": "assets/spots/kerry-park/public-walk.webp",
-      "sha256": "82815413a96f9f6066d54ed724ec69fce1f0ece46f0d54fccdc7769e52f1c8d2",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:22:10.019Z",
+      "kind": "activity-approach",
+      "label": "Physical approach to the selected activity",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/kerry-park-approach.webp",
+      "sha256": "8321a7923b3ddbda7be942346ebe80c27b6d3151739bd4451d53bc4a93ef322a",
+      "bytes": 37680,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:01:12.974Z",
       "pose": {
         "position": [
-          13.952585629571143,
-          1.800177573008715,
-          2.4096614880060274
+          12.498804390458432,
+          1.829816631779466,
+          6.168767849000202
         ],
-        "bearing": 57.67578232751532,
+        "bearing": 95.9204871518574,
         "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
@@ -201,23 +228,40 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": true,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Physical arrival at the interaction coordinate does not complete the activity or certify a surveyed legal pedestrian itinerary."
+      ],
+      "metrics": {
+        "triangles": 695022,
+        "drawCalls": 74
+      },
+      "simulationDate": "2026-11-09T00:01:08.700Z"
     },
     {
-      "kind": "postcard",
-      "label": "Kerry Park viewpoint — postcard",
-      "image": "assets/spots/kerry-park/postcard.webp",
-      "sha256": "244e02bc36493d00f7482379940df0e2f237445fc40359039a156385386a7849",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:22:15.903Z",
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/kerry-park-phone.webp",
+      "sha256": "2ba21970da0bf626d08c8147d41bfe4396608065e78742284c7c876be2b33738",
+      "bytes": 15222,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:01:17.885Z",
       "pose": {
         "position": [
-          12.8,
-          1.7999999999999998,
-          4.4
+          12.664972512072326,
+          1.8065106689734898,
+          6.1860007196886295
         ],
-        "bearing": 143,
-        "pitch": 1,
+        "bearing": 95.9204871518574,
+        "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
           "lat": 47.6295,
@@ -229,60 +273,47 @@
           "mLon": 75158.14
         },
         "viewport": {
-          "width": 1280,
-          "height": 720
+          "width": 390,
+          "height": 844
         }
-      }
-    },
-    {
-      "kind": "activity-approach",
-      "label": "Kerry Park viewpoint — activity approach",
-      "image": "assets/spots/kerry-park/activity-approach.webp",
-      "sha256": "83b9404c48d93a34fbc678cfddc81ded0804293183e53f3e281296554da19bdb",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:22:21.871Z",
-      "pose": {
-        "position": [
-          9.4,
-          1.7999999999999998,
-          4
-        ],
-        "bearing": 0,
-        "pitch": -7.000000000000003,
-        "coordinateSystem": "scene-local metres, x east / y up / z south",
-        "origin": {
-          "lat": 47.6295,
-          "lon": -122.3601,
-          "elev": 103
-        },
-        "projection": {
-          "mLat": 111183.11,
-          "mLon": 75158.14
-        },
-        "viewport": {
-          "width": 1280,
-          "height": 720
-        }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison."
+      ],
+      "metrics": {
+        "triangles": 662151,
+        "drawCalls": 43
+      },
+      "simulationDate": "2026-11-09T00:01:17.886Z"
     }
   ],
   "perf": {
-    "sceneTriangles": 695751,
-    "uniqueGeometryTriangles": 283638,
-    "geometryObjects": 104,
-    "maxRenderedTriangles": 922148,
-    "maxDrawCalls": 150
+    "triangles": 707488,
+    "drawCalls": 178,
+    "maxRenderedTriangles": 707488,
+    "maxDrawCalls": 178,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
   },
   "sceneId": "kerry-park",
   "sourceGeometry": {
-    "membershipSHA256": "61ff245672770e3a9189d64a9e3b82763e5f4e0c4cf7caa5049e4d7ead1249ce",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "2528b6ddc46f56a0a350e113692f01ba8898e0ce64940571f19981b61dda1c54",
     "activeSourceRecords": 134,
     "renderedVolumes": 134,
     "literalHeights": 5,
     "levelHeightEstimates": 0,
     "typeHeightEstimates": 129,
     "heroReplacements": [],
-    "missingMembers": []
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
   },
   "access": {
     "walker": "OnFootController",
@@ -292,44 +323,336 @@
       "y": 0.15,
       "heading": -2.4609142453120048
     },
-    "arrivalDry": true,
-    "nearestPlaquePath": {
-      "points": [
-        [
-          2,
-          4.5
-        ],
-        [
-          11.75,
-          4.25
-        ],
-        [
-          14.6,
-          2
-        ]
-      ],
-      "length": 13.384320132638642,
-      "target": "Changing Form"
-    },
+    "primaryActivity": "Frame the city lights at dusk",
+    "primaryRouteStatus": "physically-verified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": true,
     "nativeWalk": {
-      "walker": "OnFootController",
       "passed": true,
-      "steps": 149,
-      "walked": 12.352724508207361,
-      "target": "Changing Form",
-      "plannedLength": 13.384320132638642,
+      "walked": 10.621188397370517,
+      "steps": 51,
+      "maxStep": 0.33131308779458013,
+      "maxRise": 0,
       "position": {
-        "x": 13.95195719499541,
-        "z": 2.4100591397313287,
+        "x": 12.498804390458432,
+        "z": 6.168767849000202,
         "y": 0.15,
-        "heading": -1.0066323002787005
+        "heading": -1.67412832091683
       },
-      "error": null
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
     }
   },
   "rawAudit": {
-    "badGeometry": 2,
-    "zfight": 21
+    "status": "historical-only",
+    "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "counts": {
+      "badGeometry": 2,
+      "zfight": 21
+    },
+    "collection": "previous-context-gallery"
   },
-  "review": "Inspected all four GAME context views; the lawn, benches, rail and skyline are visible, with unresolved source and physical details retained."
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical approach; actual dusk/night Needle aim and explicit native shutter, persistence Full skyline/Rainier/source-height comparison remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "historicalCollections": [
+    {
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "updatedAt": "2026-11-08T19:35:04.554Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Kerry Park viewpoint — arrival",
+          "image": "assets/spots/kerry-park/arrival.webp",
+          "sha256": "e5b78596246e89ff0a8397f52098c75e0aba7b651c09e7b60603fe6bd67d9a23",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:22:02.263Z",
+          "pose": {
+            "position": [
+              2,
+              1.7999999999999998,
+              4.5
+            ],
+            "bearing": 141,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6295,
+              "lon": -122.3601,
+              "elev": 103
+            },
+            "projection": {
+              "mLat": 111183.11,
+              "mLon": 75158.14
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Kerry Park viewpoint — public walk",
+          "image": "assets/spots/kerry-park/public-walk.webp",
+          "sha256": "82815413a96f9f6066d54ed724ec69fce1f0ece46f0d54fccdc7769e52f1c8d2",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:22:10.019Z",
+          "pose": {
+            "position": [
+              13.952585629571143,
+              1.800177573008715,
+              2.4096614880060274
+            ],
+            "bearing": 57.67578232751532,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6295,
+              "lon": -122.3601,
+              "elev": 103
+            },
+            "projection": {
+              "mLat": 111183.11,
+              "mLon": 75158.14
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Kerry Park viewpoint — postcard",
+          "image": "assets/spots/kerry-park/postcard.webp",
+          "sha256": "244e02bc36493d00f7482379940df0e2f237445fc40359039a156385386a7849",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:22:15.903Z",
+          "pose": {
+            "position": [
+              12.8,
+              1.7999999999999998,
+              4.4
+            ],
+            "bearing": 143,
+            "pitch": 1,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6295,
+              "lon": -122.3601,
+              "elev": 103
+            },
+            "projection": {
+              "mLat": 111183.11,
+              "mLon": 75158.14
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Kerry Park viewpoint — activity approach",
+          "image": "assets/spots/kerry-park/activity-approach.webp",
+          "sha256": "83b9404c48d93a34fbc678cfddc81ded0804293183e53f3e281296554da19bdb",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:22:21.871Z",
+          "pose": {
+            "position": [
+              9.4,
+              1.7999999999999998,
+              4
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6295,
+              "lon": -122.3601,
+              "elev": 103
+            },
+            "projection": {
+              "mLat": 111183.11,
+              "mLon": 75158.14
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "kerry-park; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "134 active source records, 134 physical volumes, 0 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "12.4 m walked toward Changing Form; planned endpoint reached using native movement and collision."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "283638 unique geometry triangles; max 922148 rendered triangles / 150 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "badGeometry: 2; zfight: 21"
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 695751,
+        "uniqueGeometryTriangles": 283638,
+        "geometryObjects": 104,
+        "maxRenderedTriangles": 922148,
+        "maxDrawCalls": 150
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "61ff245672770e3a9189d64a9e3b82763e5f4e0c4cf7caa5049e4d7ead1249ce",
+        "activeSourceRecords": 134,
+        "renderedVolumes": 134,
+        "literalHeights": 5,
+        "levelHeightEstimates": 0,
+        "typeHeightEstimates": 129,
+        "heroReplacements": [],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": 2,
+          "z": 4.5,
+          "y": 0.15,
+          "heading": -2.4609142453120048
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              2,
+              4.5
+            ],
+            [
+              11.75,
+              4.25
+            ],
+            [
+              14.6,
+              2
+            ]
+          ],
+          "length": 13.384320132638642,
+          "target": "Changing Form"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 149,
+          "walked": 12.352724508207361,
+          "target": "Changing Form",
+          "plannedLength": 13.384320132638642,
+          "position": {
+            "x": 13.95195719499541,
+            "z": 2.4100591397313287,
+            "y": 0.15,
+            "heading": -1.0066323002787005
+          },
+          "error": null
+        }
+      },
+      "rawAudit": {
+        "badGeometry": 2,
+        "zfight": 21
+      },
+      "improvements": [
+        "Source footprints, thin building-part strips and courtyard holes are preserved, including the residential context around the viewpoint.",
+        "Literal source heights and explicit estimates use the shared roof profiles instead of shrinking and jittering neighbouring buildings."
+      ],
+      "remainingGaps": [
+        "The skyline, Mount Rainier visibility and nearby residential heights need matched independent viewpoints; most nearby height values are still type estimates.",
+        "The activity approach is close to crowds and trees and has not had a full native touch-flow review.",
+        "Two remaining degenerate meshes require identification and repair; the scene is not a clean physical-audit pass.",
+        "Raw audit findings remain for physical review: badGeometry 2, zfight 21."
+      ],
+      "review": "Inspected all four GAME context views; the lawn, benches, rail and skyline are visible, with unresolved source and physical details retained.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": true,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-09T00:01:06.373Z",
+    "2026-11-09T00:01:17.885Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": true,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The selected activity coordinate is physically reached; this is not completion of every activity.",
+      "cases": [
+        "kerry-park"
+      ]
+    },
+    {
+      "label": "Native phone manual view/tracking and shutter",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-direct-touch-ea89e2c/results.json",
+      "sha256": "353faa22cc8a79cef81b45629b66ef8dea2b565986f9e562bd344cf9756fdbad",
+      "sourceCommit": "ea89e2cfec191c97c8f9513adfa5ddb4928f85b1",
+      "passed": true,
+      "scope": "Actual touch look and unobstructed native shutter events; selected exercise completes and persists. MoPOP retains a missed pass, waits for real animation frames and reacquires the moving train. Initial nearby setup is explicit.",
+      "cases": [
+        "kerry-park"
+      ]
+    },
+    {
+      "label": "Native desktop manual view/tracking and shutter",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-side-approach-desktop/results.json",
+      "sha256": "203a72051fbe1df0572be0003351b7de55cc819cf5d990eb0588c2eb166072a9",
+      "sourceCommit": "d5a766b7a961e3d4e7166f9b1387779a81012fc4",
+      "passed": true,
+      "scope": "Actual manual look, visible target and explicit shutter; completion persists. MoPOP uses the mapped pedestrian edge before retained volumes occlude the car; Kerry requires real dusk/night.",
+      "cases": [
+        "kerry-park"
+      ]
+    }
+  ]
 }

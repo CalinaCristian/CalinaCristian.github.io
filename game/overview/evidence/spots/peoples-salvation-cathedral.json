@@ -3,8 +3,8 @@
   "id": "peoples-salvation-cathedral",
   "city": "bucharest",
   "name": "People's Salvation Cathedral",
-  "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
-  "updatedAt": "2026-11-08T20:18:29.825Z",
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
   "status": "needs_review",
   "sources": [
     {
@@ -31,71 +31,74 @@
       "label": "Romanian Patriarchate cathedral",
       "type": "Official reference",
       "url": "https://catedralaneamului.ro/"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Native desktop forecourt candle",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/desktop/results.json"
+    },
+    {
+      "label": "Native touch forecourt candle",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/touch/results.json"
     }
   ],
   "improvements": [
-    "The piazza follows OSM pedestrian multipolygon relation 16698908 with the church inner ring; six mapped walls retain their real gaps and western building w1223607029 remains present.",
-    "Arrival, all five game plaques, the candle exercise and the close portal postcard now lie on the mapped public forecourt, outside the church footprint and source buildings.",
-    "The unverified fixed candle pavilion, racks and colliders are removed. A temporary handheld holder explicitly presents virtual outdoor practice and fades away.",
-    "Early-closing a spot map or plaque now clears its delayed keyboard handler, preventing later E/Enter/Escape interactions from being swallowed."
+    "Current native scene retains 828 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Physical forecourt entry; native desktop/touch two-stage virtual candle, host cancellation and reload",
+    "The selected primary activity approach is accepted separately from full-scene comparison."
   ],
   "remainingGaps": [
-    "The postcard is a close public-forecourt view of the portal and part of the bell tower; a wide, fully matched cathedral silhouette and current independent entry/access comparison remain open.",
-    "Real candle-rack placement and interior access are unverified and unavailable; the two-phase exercise is explicitly virtual outdoor practice.",
-    "Street boundary fences/gates, source plaza ground finish and nearby-building facades still require current source/reference comparison.",
-    "The available May 2025 comparison predates completion; it is not a complete post-consecration matched scene comparison.",
-    "Raw audit findings remain for physical review: badGeometry 4, zfight 55, pedBelow 6."
+    "Full current silhouette/facade/interior comparison remains open",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
   ],
   "checks": [
     {
-      "label": "Native scene load",
+      "label": "Current native scene load and warm cache",
       "passed": true,
-      "details": "buc-parliament; actual native controller; 0 thrown JavaScript errors."
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts."
     },
     {
-      "label": "Source solid membership",
+      "label": "Native phone condition controls",
       "passed": true,
-      "details": "800 active source records, 809 physical volumes, 15 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
     },
     {
-      "label": "Validated scene geometry cache",
+      "label": "Selected primary activity entry",
       "passed": true,
-      "details": "Exact source/profile/terrain signature matched."
+      "details": "5.625m actual-controller arrival; no pose writes after entry. Completion of every secondary activity is not inferred."
     },
     {
-      "label": "Native public-path walk",
+      "label": "High-quality selected native views",
       "passed": true,
-      "details": "4.6 m walked toward The piazza; planned endpoint reached using native movement and collision."
-    },
-    {
-      "label": "High scene budgets",
-      "passed": true,
-      "details": "473409 unique geometry triangles; max 871683 rendered triangles / 244 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
-    },
-    {
-      "label": "Raw physical audit",
-      "passed": false,
-      "details": "badGeometry: 4; zfight: 55; pedBelow: 6"
+      "details": "Maximum 681225 rendered triangles / 359 calls. Software-GL capture is not a hardware FPS benchmark."
     },
     {
       "label": "Full matched scene comparison",
       "passed": false,
-      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
     },
     {
-      "label": "Participatory activity controls",
-      "passed": true,
-      "details": "Frozen392ac28 native desktop and actual touch-stick/look walks reach the plaque and virtual candle. Both pass 44px controls, no idle award, Leave and8 mode cancellations including actual drone, incomplete reload locked, and completed lighting/placement persisted after reload using the correct existing lm-cathedral-dome ID."
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
     }
   ],
   "captures": [
     {
       "kind": "arrival",
-      "label": "People's Salvation Cathedral — arrival",
-      "image": "assets/spots/peoples-salvation-cathedral/arrival.webp",
-      "sha256": "29b44fd607e10c6919d05035ef7e4eafe99ab0a395fa087bfae253380960c9ed",
-      "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
-      "capturedAt": "2026-11-08T20:17:32.763Z",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/peoples-salvation-cathedral-arrival.webp",
+      "sha256": "b715845e90bfa92263087308b34f693eb58bea3d680d341d938ec31330d43de9",
+      "bytes": 16598,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-08T23:51:25.786Z",
       "pose": {
         "position": [
           -732,
@@ -118,22 +121,38 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open."
+      ],
+      "metrics": {
+        "triangles": 681225,
+        "drawCalls": 359
+      },
+      "simulationDate": "2026-11-08T23:51:19.756Z"
     },
     {
-      "kind": "public-walk",
-      "label": "People's Salvation Cathedral — public walk",
-      "image": "assets/spots/peoples-salvation-cathedral/public-walk.webp",
-      "sha256": "57cb31dfde03baace862947ffd7b923803b7a850df326445079a4808064191f9",
-      "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
-      "capturedAt": "2026-11-08T20:17:39.131Z",
+      "kind": "activity-approach",
+      "label": "Physical approach to the selected activity",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/peoples-salvation-cathedral-approach.webp",
+      "sha256": "c447f7bd30a2c4ca028e7335367a82277215088c9cd8230742f4690b5da2a274",
+      "bytes": 15844,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-08T23:51:31.521Z",
       "pose": {
         "position": [
-          -731.2482268731022,
-          15.649928914507198,
-          173.6985820431116
+          -726.3134795710666,
+          15.619320228492127,
+          169.94775340482224
         ],
-        "bearing": 170.90972307917764,
+        "bearing": 99.4623222080225,
         "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
@@ -149,23 +168,40 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": true,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Physical arrival at the interaction coordinate does not complete the activity or certify a surveyed legal pedestrian itinerary."
+      ],
+      "metrics": {
+        "triangles": 656257,
+        "drawCalls": 165
+      },
+      "simulationDate": "2026-11-08T23:51:25.526Z"
     },
     {
-      "kind": "postcard",
-      "label": "People's Salvation Cathedral — postcard",
-      "image": "assets/spots/peoples-salvation-cathedral/postcard.webp",
-      "sha256": "3370ce37183509f76143b37cfa370cc6667230a78fe84c931b84a8e510b1b628",
-      "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
-      "capturedAt": "2026-11-08T20:17:46.931Z",
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/peoples-salvation-cathedral-phone.webp",
+      "sha256": "4c742b6a4d946e7dcebdae1179bafbdbfdb29fced73650ac41536964a1e06149",
+      "bytes": 4196,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-08T23:51:37.039Z",
       "pose": {
         "position": [
-          -731,
-          15.65,
-          165
+          -726.1486936419693,
+          15.643709491057503,
+          169.97521772633846
         ],
-        "bearing": 85,
-        "pitch": 28,
+        "bearing": 99.4623222080225,
+        "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
           "lat": 44.42735,
@@ -177,53 +213,39 @@
           "mLon": 79628.31
         },
         "viewport": {
-          "width": 1280,
-          "height": 720
+          "width": 390,
+          "height": 844
         }
-      }
-    },
-    {
-      "kind": "activity-approach",
-      "label": "People's Salvation Cathedral — activity approach",
-      "image": "assets/spots/peoples-salvation-cathedral/activity-approach.webp",
-      "sha256": "41b95685d899e921eb997365f1eef28d7fcf4aaa3a691b8c9d0b71d2d2d3f0ec",
-      "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
-      "capturedAt": "2026-11-08T20:17:55.106Z",
-      "pose": {
-        "position": [
-          -726,
-          15.65,
-          174
-        ],
-        "bearing": 0,
-        "pitch": -7.000000000000003,
-        "coordinateSystem": "scene-local metres, x east / y up / z south",
-        "origin": {
-          "lat": 44.42735,
-          "lon": 26.0905,
-          "elev": 70.8
-        },
-        "projection": {
-          "mLat": 111120.59,
-          "mLon": 79628.31
-        },
-        "viewport": {
-          "width": 1280,
-          "height": 720
-        }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison."
+      ],
+      "metrics": {
+        "triangles": 645289,
+        "drawCalls": 93
+      },
+      "simulationDate": "2026-11-08T23:51:37.039Z"
     }
   ],
   "perf": {
-    "sceneTriangles": 679472,
-    "uniqueGeometryTriangles": 473409,
-    "geometryObjects": 118,
-    "maxRenderedTriangles": 871683,
-    "maxDrawCalls": 244
+    "triangles": 681225,
+    "drawCalls": 359,
+    "maxRenderedTriangles": 681225,
+    "maxDrawCalls": 359,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
   },
   "sceneId": "buc-parliament",
   "sourceGeometry": {
-    "membershipSHA256": "a979d7a34930de88ff35af4556077c541ee827b11dcd5f8dcd51c52b11235fc0",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "678acd862590ba9eb09dcc4e8e57fcf9d03490f93baf389eceba605af4403634",
     "activeSourceRecords": 800,
     "renderedVolumes": 809,
     "literalHeights": 112,
@@ -259,7 +281,8 @@
       "w41474365",
       "w207162869"
     ],
-    "missingMembers": []
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
   },
   "access": {
     "walker": "OnFootController",
@@ -269,43 +292,373 @@
       "y": 14,
       "heading": -1.4835298641951802
     },
-    "arrivalDry": true,
-    "nearestPlaquePath": {
-      "points": [
-        [
-          -732,
-          169
-        ],
-        [
-          -731.2,
-          174
-        ]
-      ],
-      "length": 5.063595560468857,
-      "target": "The piazza"
-    },
+    "primaryActivity": "Light and place a virtual candle",
+    "primaryRouteStatus": "physically-verified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": true,
     "nativeWalk": {
-      "walker": "OnFootController",
       "passed": true,
-      "steps": 57,
-      "stepLimit": 273,
-      "waypointTolerance": 0.45,
-      "walked": 4.6289730029843845,
-      "target": "The piazza",
-      "plannedLength": 5.063595560468857,
+      "walked": 5.6254571624018705,
+      "steps": 26,
+      "maxStep": 0.22999948012423063,
+      "maxRise": 0,
       "position": {
-        "x": -731.248344367156,
-        "z": 173.6978477052751,
+        "x": -726.3134795710666,
+        "z": 169.94775340482224,
         "y": 14,
-        "heading": -2.9829373914033916
+        "heading": -1.735945004209469
       },
-      "error": null
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
     }
   },
   "rawAudit": {
-    "badGeometry": 4,
-    "zfight": 55,
-    "pedBelow": 6
+    "status": "historical-only",
+    "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
+    "counts": {
+      "badGeometry": 4,
+      "zfight": 55,
+      "pedBelow": 6
+    },
+    "collection": "previous-context-gallery"
   },
-  "review": "Inspected all four refreshed GAME context views plus desktop/touch candle animation captures. Source forecourt access and the invented pavilion are corrected; full matched scene fidelity, real interior access and raw physical warnings remain open."
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical forecourt entry; native desktop/touch two-stage virtual candle, host cancellation and reload Full current silhouette/facade/interior comparison remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "historicalCollections": [
+    {
+      "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
+      "updatedAt": "2026-11-08T20:18:29.825Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "People's Salvation Cathedral — arrival",
+          "image": "assets/spots/peoples-salvation-cathedral/arrival.webp",
+          "sha256": "29b44fd607e10c6919d05035ef7e4eafe99ab0a395fa087bfae253380960c9ed",
+          "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
+          "capturedAt": "2026-11-08T20:17:32.763Z",
+          "pose": {
+            "position": [
+              -732,
+              15.65,
+              169
+            ],
+            "bearing": 85,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.42735,
+              "lon": 26.0905,
+              "elev": 70.8
+            },
+            "projection": {
+              "mLat": 111120.59,
+              "mLon": 79628.31
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "People's Salvation Cathedral — public walk",
+          "image": "assets/spots/peoples-salvation-cathedral/public-walk.webp",
+          "sha256": "57cb31dfde03baace862947ffd7b923803b7a850df326445079a4808064191f9",
+          "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
+          "capturedAt": "2026-11-08T20:17:39.131Z",
+          "pose": {
+            "position": [
+              -731.2482268731022,
+              15.649928914507198,
+              173.6985820431116
+            ],
+            "bearing": 170.90972307917764,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.42735,
+              "lon": 26.0905,
+              "elev": 70.8
+            },
+            "projection": {
+              "mLat": 111120.59,
+              "mLon": 79628.31
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "People's Salvation Cathedral — postcard",
+          "image": "assets/spots/peoples-salvation-cathedral/postcard.webp",
+          "sha256": "3370ce37183509f76143b37cfa370cc6667230a78fe84c931b84a8e510b1b628",
+          "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
+          "capturedAt": "2026-11-08T20:17:46.931Z",
+          "pose": {
+            "position": [
+              -731,
+              15.65,
+              165
+            ],
+            "bearing": 85,
+            "pitch": 28,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.42735,
+              "lon": 26.0905,
+              "elev": 70.8
+            },
+            "projection": {
+              "mLat": 111120.59,
+              "mLon": 79628.31
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "People's Salvation Cathedral — activity approach",
+          "image": "assets/spots/peoples-salvation-cathedral/activity-approach.webp",
+          "sha256": "41b95685d899e921eb997365f1eef28d7fcf4aaa3a691b8c9d0b71d2d2d3f0ec",
+          "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
+          "capturedAt": "2026-11-08T20:17:55.106Z",
+          "pose": {
+            "position": [
+              -726,
+              15.65,
+              174
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.42735,
+              "lon": 26.0905,
+              "elev": 70.8
+            },
+            "projection": {
+              "mLat": 111120.59,
+              "mLon": 79628.31
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "buc-parliament; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "800 active source records, 809 physical volumes, 15 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "4.6 m walked toward The piazza; planned endpoint reached using native movement and collision."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "473409 unique geometry triangles; max 871683 rendered triangles / 244 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "badGeometry: 4; zfight: 55; pedBelow: 6"
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        },
+        {
+          "label": "Participatory activity controls",
+          "passed": true,
+          "details": "Frozen392ac28 native desktop and actual touch-stick/look walks reach the plaque and virtual candle. Both pass 44px controls, no idle award, Leave and8 mode cancellations including actual drone, incomplete reload locked, and completed lighting/placement persisted after reload using the correct existing lm-cathedral-dome ID."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 679472,
+        "uniqueGeometryTriangles": 473409,
+        "geometryObjects": 118,
+        "maxRenderedTriangles": 871683,
+        "maxDrawCalls": 244
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "a979d7a34930de88ff35af4556077c541ee827b11dcd5f8dcd51c52b11235fc0",
+        "activeSourceRecords": 800,
+        "renderedVolumes": 809,
+        "literalHeights": 112,
+        "levelHeightEstimates": 111,
+        "typeHeightEstimates": 577,
+        "heroReplacements": [
+          "w232332568",
+          "w1282739666",
+          "w1282739667",
+          "w1282747245",
+          "w1282747246",
+          "w1282747247",
+          "w1282747248",
+          "w1282747249",
+          "w1282747250",
+          "w1282747251",
+          "w1282747252",
+          "w1282747253",
+          "w1282747254",
+          "w1283287480",
+          "w1283287481",
+          "w1283287482",
+          "w1283287483",
+          "w1283287484",
+          "w1283287485",
+          "w1283287486",
+          "w1283287487",
+          "w1283287488",
+          "w1283287489",
+          "w232360843",
+          "w283976783",
+          "r2230391",
+          "w41474365",
+          "w207162869"
+        ],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": -732,
+          "z": 169,
+          "y": 14,
+          "heading": -1.4835298641951802
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              -732,
+              169
+            ],
+            [
+              -731.2,
+              174
+            ]
+          ],
+          "length": 5.063595560468857,
+          "target": "The piazza"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 57,
+          "stepLimit": 273,
+          "waypointTolerance": 0.45,
+          "walked": 4.6289730029843845,
+          "target": "The piazza",
+          "plannedLength": 5.063595560468857,
+          "position": {
+            "x": -731.248344367156,
+            "z": 173.6978477052751,
+            "y": 14,
+            "heading": -2.9829373914033916
+          },
+          "error": null
+        }
+      },
+      "rawAudit": {
+        "badGeometry": 4,
+        "zfight": 55,
+        "pedBelow": 6
+      },
+      "improvements": [
+        "The piazza follows OSM pedestrian multipolygon relation 16698908 with the church inner ring; six mapped walls retain their real gaps and western building w1223607029 remains present.",
+        "Arrival, all five game plaques, the candle exercise and the close portal postcard now lie on the mapped public forecourt, outside the church footprint and source buildings.",
+        "The unverified fixed candle pavilion, racks and colliders are removed. A temporary handheld holder explicitly presents virtual outdoor practice and fades away.",
+        "Early-closing a spot map or plaque now clears its delayed keyboard handler, preventing later E/Enter/Escape interactions from being swallowed."
+      ],
+      "remainingGaps": [
+        "The postcard is a close public-forecourt view of the portal and part of the bell tower; a wide, fully matched cathedral silhouette and current independent entry/access comparison remain open.",
+        "Real candle-rack placement and interior access are unverified and unavailable; the two-phase exercise is explicitly virtual outdoor practice.",
+        "Street boundary fences/gates, source plaza ground finish and nearby-building facades still require current source/reference comparison.",
+        "The available May 2025 comparison predates completion; it is not a complete post-consecration matched scene comparison.",
+        "Raw audit findings remain for physical review: badGeometry 4, zfight 55, pedBelow 6."
+      ],
+      "review": "Inspected all four refreshed GAME context views plus desktop/touch candle animation captures. Source forecourt access and the invented pavilion are corrected; full matched scene fidelity, real interior access and raw physical warnings remain open.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": true,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-08T23:51:25.786Z",
+    "2026-11-08T23:51:37.039Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": true,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The selected activity coordinate is physically reached; this is not completion of every activity.",
+      "cases": [
+        "peoples-salvation-cathedral"
+      ]
+    },
+    {
+      "label": "Native desktop forecourt candle",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/desktop/results.json",
+      "sha256": "8c64e8bc7b875bfd10c3e8f1277c1afe50a58f6ecdbb3671c28e50e81dc1eba3",
+      "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
+      "passed": true,
+      "scope": "Actual public forecourt movement, two-stage handheld candle, 44 px controls, eight mode cancellations and completed/incomplete reload checks. Virtual practice; no verified real rack/interior.",
+      "cases": [
+        "peoples-salvation-cathedral"
+      ]
+    },
+    {
+      "label": "Native touch forecourt candle",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/touch/results.json",
+      "sha256": "20234bd4b5dc4cff3d3c7ceb62773b62176aeaba4b4bab761d380164ef238cea",
+      "sourceCommit": "392ac281ffea1d5c72c2f3e0d8916b3af51c1593",
+      "passed": true,
+      "scope": "Actual public forecourt movement, two-stage handheld candle, 44 px controls, eight mode cancellations and completed/incomplete reload checks. Virtual practice; no verified real rack/interior.",
+      "cases": [
+        "peoples-salvation-cathedral"
+      ]
+    }
+  ]
 }

@@ -3,8 +3,8 @@
   "id": "spring-palace",
   "city": "bucharest",
   "name": "Spring Palace (Ceaușescu Mansion)",
-  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:07.359Z",
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
   "status": "needs_review",
   "sources": [
     {
@@ -41,62 +41,74 @@
       "label": "Palatul Primăverii (Bd. Primăverii 50)",
       "type": "OSM source",
       "url": "https://www.openstreetmap.org/way/38236017"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Native desktop manually aimed exterior shutters",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-b533317-desktop/results.json"
+    },
+    {
+      "label": "Native touch manually aimed exterior shutters",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-60db281-touch/results.json"
     }
   ],
   "improvements": [
-    "The canonical mansion remains in its source footprint with exact source-context geometry and shared roof profiles.",
-    "The unverified indoor narrated visit was relabelled as exterior history; private interior access is unavailable."
+    "Current native scene retains 325 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Physical exterior approach; three manually aimed outside-gate shutters",
+    "The selected primary activity approach is accepted separately from full-scene comparison."
   ],
   "remainingGaps": [
-    "The exterior history still consists of passive Next clicks and needs a meaningful outdoor input-driven challenge.",
-    "Boundary gate access, garden/public paths and peacock placement need independent matched official/source comparison.",
-    "A clean raw audit and completed short plaque walk do not establish legitimate interior or whole-property access."
+    "No interior visit; complete facade/garden comparison remains open",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
   ],
   "checks": [
     {
-      "label": "Native scene load",
+      "label": "Current native scene load and warm cache",
       "passed": true,
-      "details": "spring-palace; actual native controller; 0 thrown JavaScript errors."
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts."
     },
     {
-      "label": "Source solid membership",
+      "label": "Native phone condition controls",
       "passed": true,
-      "details": "323 active source records, 323 physical volumes, 0 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
     },
     {
-      "label": "Validated scene geometry cache",
+      "label": "Selected primary activity entry",
       "passed": true,
-      "details": "Exact source/profile/terrain signature matched."
+      "details": "0.000m actual-controller arrival; no pose writes after entry. Completion of every secondary activity is not inferred."
     },
     {
-      "label": "Native public-path walk",
+      "label": "High-quality selected native views",
       "passed": true,
-      "details": "11.7 m walked toward Gold taps, mosaic pool; planned endpoint reached using native movement and collision."
-    },
-    {
-      "label": "High scene budgets",
-      "passed": true,
-      "details": "92132 unique geometry triangles; max 535960 rendered triangles / 209 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
-    },
-    {
-      "label": "Raw physical audit",
-      "passed": true,
-      "details": "No raw audit warnings in this scene pass."
+      "details": "Maximum 320920 rendered triangles / 222 calls. Software-GL capture is not a hardware FPS benchmark."
     },
     {
       "label": "Full matched scene comparison",
       "passed": false,
-      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
     }
   ],
   "captures": [
     {
       "kind": "arrival",
-      "label": "Spring Palace (Ceaușescu Mansion) — arrival",
-      "image": "assets/spots/spring-palace/arrival.webp",
-      "sha256": "0b1853b767ace1ebda827b340441df8afb08efd4fa60f3b67bf817f27fe4a728",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:31:11.970Z",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/spring-palace-arrival.webp",
+      "sha256": "7ef030ba83556977a3ac9d0f31d1d265a0931fa1a8032a678655613ce3265d01",
+      "bytes": 28410,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:04:19.958Z",
       "pose": {
         "position": [
           -23.18625,
@@ -119,22 +131,38 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open."
+      ],
+      "metrics": {
+        "triangles": 320920,
+        "drawCalls": 222
+      },
+      "simulationDate": "2026-11-09T00:04:19.145Z"
     },
     {
-      "kind": "public-walk",
-      "label": "Spring Palace (Ceaușescu Mansion) — public walk",
-      "image": "assets/spots/spring-palace/public-walk.webp",
-      "sha256": "8cd1aae3b238078b0cc34cac1327a9d9540a3907f1cc8049e20ee8969a1f366d",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:31:14.054Z",
+      "kind": "activity-approach",
+      "label": "Physical approach to the selected activity",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/spring-palace-approach.webp",
+      "sha256": "8ecd8c004e1ef2a8c89d6d61b858690b74570a544ad8a2a1d68965dd11702c5d",
+      "bytes": 28486,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:04:22.233Z",
       "pose": {
         "position": [
-          -16.880563384465535,
-          1.6753315567246527,
-          -59.5480632078302
+          -23.18625,
+          1.6739673164680018,
+          -69.525
         ],
-        "bearing": 146.50466654661471,
+        "bearing": 142.59723699402593,
         "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
@@ -150,23 +178,40 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": true,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Physical arrival at the interaction coordinate does not complete the activity or certify a surveyed legal pedestrian itinerary."
+      ],
+      "metrics": {
+        "triangles": 308247,
+        "drawCalls": 125
+      },
+      "simulationDate": "2026-11-09T00:04:21.421Z"
     },
     {
-      "kind": "postcard",
-      "label": "Spring Palace (Ceaușescu Mansion) — postcard",
-      "image": "assets/spots/spring-palace/postcard.webp",
-      "sha256": "eb7df3b0e04dcb5a709da1a702733f449b86a687445cde189d9222521401b261",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:31:16.302Z",
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/spring-palace-phone.webp",
+      "sha256": "fec845c6a09d8bc21be2bd634056d8d31135fa23082b82cc25941ae5af9c9157",
+      "bytes": 7396,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:04:23.526Z",
       "pose": {
         "position": [
-          30,
-          1.663298569207429,
-          -35
+          -23.18625,
+          1.6739673164680018,
+          -69.525
         ],
-        "bearing": 268.50778203495156,
-        "pitch": 8.000000000000002,
+        "bearing": 142.59723699402593,
+        "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
           "lat": 44.4685,
@@ -178,53 +223,39 @@
           "mLon": 79572.43
         },
         "viewport": {
-          "width": 1280,
-          "height": 720
+          "width": 390,
+          "height": 844
         }
-      }
-    },
-    {
-      "kind": "activity-approach",
-      "label": "Spring Palace (Ceaușescu Mansion) — activity approach",
-      "image": "assets/spots/spring-palace/activity-approach.webp",
-      "sha256": "c89ea14008f280aa98aa63dfa76b2a4fdfa798286f8e50a036556e4400e47353",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:31:18.042Z",
-      "pose": {
-        "position": [
-          -1.66771582481441,
-          1.663298569207429,
-          -10.82641023205574
-        ],
-        "bearing": 0,
-        "pitch": -7.000000000000003,
-        "coordinateSystem": "scene-local metres, x east / y up / z south",
-        "origin": {
-          "lat": 44.4685,
-          "lon": 26.09235,
-          "elev": 86.9
-        },
-        "projection": {
-          "mLat": 111121.39,
-          "mLon": 79572.43
-        },
-        "viewport": {
-          "width": 1280,
-          "height": 720
-        }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison."
+      ],
+      "metrics": {
+        "triangles": 306753,
+        "drawCalls": 86
+      },
+      "simulationDate": "2026-11-09T00:04:23.528Z"
     }
   ],
   "perf": {
-    "sceneTriangles": 303873,
-    "uniqueGeometryTriangles": 92132,
-    "geometryObjects": 130,
-    "maxRenderedTriangles": 535960,
-    "maxDrawCalls": 209
+    "triangles": 320920,
+    "drawCalls": 222,
+    "maxRenderedTriangles": 320920,
+    "maxDrawCalls": 222,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
   },
   "sceneId": "spring-palace",
   "sourceGeometry": {
-    "membershipSHA256": "879bada6bfaaba88b6dedc07fbea339218017ae99e6c3f28a209d8db033b97d1",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "e260872d23ca6c226f57bf3cc584eac4ee71f887201cb561ec1d95e1752be89f",
     "activeSourceRecords": 323,
     "renderedVolumes": 323,
     "literalHeights": 1,
@@ -234,7 +265,8 @@
       "w549676146",
       "w549676153"
     ],
-    "missingMembers": []
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
   },
   "access": {
     "walker": "OnFootController",
@@ -244,37 +276,328 @@
       "y": 0.023967316468001855,
       "heading": -2.488791289792414
     },
-    "arrivalDry": true,
-    "nearestPlaquePath": {
-      "points": [
-        [
-          -23.18625,
-          -69.525
-        ],
-        [
-          -16.48369854563477,
-          -58.94835972397359
-        ]
-      ],
-      "length": 12.521562024239532,
-      "target": "Gold taps, mosaic pool"
-    },
+    "primaryActivity": "Frame the Spring Palace entrance",
+    "primaryRouteStatus": "physically-verified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": true,
     "nativeWalk": {
-      "walker": "OnFootController",
       "passed": true,
-      "steps": 141,
-      "walked": 11.690606149733593,
-      "target": "Gold taps, mosaic pool",
-      "plannedLength": 12.521562024239532,
+      "walked": 0,
+      "steps": 0,
+      "maxStep": 0,
+      "maxRise": 0,
       "position": {
-        "x": -16.88097379732793,
-        "z": -59.54868338376748,
-        "y": 0.025380912097611494,
-        "heading": -2.556988800774817
+        "x": -23.18625,
+        "z": -69.525,
+        "y": 0.023967316468001855,
+        "heading": -2.488791289792414
       },
-      "error": null
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
     }
   },
-  "rawAudit": {},
-  "review": "Inspected all four GAME context captures. Mansion, gate and lawn are visible; interior and full site parity remain unverified."
+  "rawAudit": {
+    "status": "historical-only",
+    "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "counts": {},
+    "collection": "previous-context-gallery"
+  },
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical exterior approach; three manually aimed outside-gate shutters No interior visit; complete facade/garden comparison remains open Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "historicalCollections": [
+    {
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "updatedAt": "2026-11-08T19:35:07.359Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Spring Palace (Ceaușescu Mansion) — arrival",
+          "image": "assets/spots/spring-palace/arrival.webp",
+          "sha256": "0b1853b767ace1ebda827b340441df8afb08efd4fa60f3b67bf817f27fe4a728",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:31:11.970Z",
+          "pose": {
+            "position": [
+              -23.18625,
+              1.6739673164680018,
+              -69.525
+            ],
+            "bearing": 142.59723699402593,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.4685,
+              "lon": 26.09235,
+              "elev": 86.9
+            },
+            "projection": {
+              "mLat": 111121.39,
+              "mLon": 79572.43
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Spring Palace (Ceaușescu Mansion) — public walk",
+          "image": "assets/spots/spring-palace/public-walk.webp",
+          "sha256": "8cd1aae3b238078b0cc34cac1327a9d9540a3907f1cc8049e20ee8969a1f366d",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:31:14.054Z",
+          "pose": {
+            "position": [
+              -16.880563384465535,
+              1.6753315567246527,
+              -59.5480632078302
+            ],
+            "bearing": 146.50466654661471,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.4685,
+              "lon": 26.09235,
+              "elev": 86.9
+            },
+            "projection": {
+              "mLat": 111121.39,
+              "mLon": 79572.43
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Spring Palace (Ceaușescu Mansion) — postcard",
+          "image": "assets/spots/spring-palace/postcard.webp",
+          "sha256": "eb7df3b0e04dcb5a709da1a702733f449b86a687445cde189d9222521401b261",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:31:16.302Z",
+          "pose": {
+            "position": [
+              30,
+              1.663298569207429,
+              -35
+            ],
+            "bearing": 268.50778203495156,
+            "pitch": 8.000000000000002,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.4685,
+              "lon": 26.09235,
+              "elev": 86.9
+            },
+            "projection": {
+              "mLat": 111121.39,
+              "mLon": 79572.43
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Spring Palace (Ceaușescu Mansion) — activity approach",
+          "image": "assets/spots/spring-palace/activity-approach.webp",
+          "sha256": "c89ea14008f280aa98aa63dfa76b2a4fdfa798286f8e50a036556e4400e47353",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:31:18.042Z",
+          "pose": {
+            "position": [
+              -1.66771582481441,
+              1.663298569207429,
+              -10.82641023205574
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.4685,
+              "lon": 26.09235,
+              "elev": 86.9
+            },
+            "projection": {
+              "mLat": 111121.39,
+              "mLon": 79572.43
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "spring-palace; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "323 active source records, 323 physical volumes, 0 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "11.7 m walked toward Gold taps, mosaic pool; planned endpoint reached using native movement and collision."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "92132 unique geometry triangles; max 535960 rendered triangles / 209 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": true,
+          "details": "No raw audit warnings in this scene pass."
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 303873,
+        "uniqueGeometryTriangles": 92132,
+        "geometryObjects": 130,
+        "maxRenderedTriangles": 535960,
+        "maxDrawCalls": 209
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "879bada6bfaaba88b6dedc07fbea339218017ae99e6c3f28a209d8db033b97d1",
+        "activeSourceRecords": 323,
+        "renderedVolumes": 323,
+        "literalHeights": 1,
+        "levelHeightEstimates": 18,
+        "typeHeightEstimates": 304,
+        "heroReplacements": [
+          "w549676146",
+          "w549676153"
+        ],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": -23.18625,
+          "z": -69.525,
+          "y": 0.023967316468001855,
+          "heading": -2.488791289792414
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              -23.18625,
+              -69.525
+            ],
+            [
+              -16.48369854563477,
+              -58.94835972397359
+            ]
+          ],
+          "length": 12.521562024239532,
+          "target": "Gold taps, mosaic pool"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 141,
+          "walked": 11.690606149733593,
+          "target": "Gold taps, mosaic pool",
+          "plannedLength": 12.521562024239532,
+          "position": {
+            "x": -16.88097379732793,
+            "z": -59.54868338376748,
+            "y": 0.025380912097611494,
+            "heading": -2.556988800774817
+          },
+          "error": null
+        }
+      },
+      "rawAudit": {},
+      "improvements": [
+        "The canonical mansion remains in its source footprint with exact source-context geometry and shared roof profiles.",
+        "The unverified indoor narrated visit was relabelled as exterior history; private interior access is unavailable."
+      ],
+      "remainingGaps": [
+        "The exterior history still consists of passive Next clicks and needs a meaningful outdoor input-driven challenge.",
+        "Boundary gate access, garden/public paths and peacock placement need independent matched official/source comparison.",
+        "A clean raw audit and completed short plaque walk do not establish legitimate interior or whole-property access."
+      ],
+      "review": "Inspected all four GAME context captures. Mansion, gate and lawn are visible; interior and full site parity remain unverified.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": true,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-09T00:04:19.958Z",
+    "2026-11-09T00:04:23.526Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": true,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The selected activity coordinate is physically reached; this is not completion of every activity.",
+      "cases": [
+        "spring-palace"
+      ]
+    },
+    {
+      "label": "Native desktop manually aimed exterior shutters",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-b533317-desktop/results.json",
+      "sha256": "dd3821c3d019587410e622095b68e934a256d9f398dbdca557faf38816d44f2e",
+      "sourceCommit": "b533317a289663c8576610d54665f12471ea9744",
+      "passed": true,
+      "scope": "This destination completes its listed manual-look/shutter cases with finite opaque visibility. The overall seven-destination run later stops at Lincoln; final whole-run reload/error assertions were not reached. Nearby initial setup is not the entry route.",
+      "cases": [
+        "spring-palace"
+      ]
+    },
+    {
+      "label": "Native touch manually aimed exterior shutters",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-60db281-touch/results.json",
+      "sha256": "bc4e7c0baeedf20273c98b949c2881dab343499a48f561b3584029d10887154e",
+      "sourceCommit": "60db2819ecc6d175c71031e1f4cef57bc78a636e",
+      "passed": true,
+      "scope": "This destination completes its listed manual-look/shutter cases with finite opaque visibility. The overall seven-destination run later stops at Lincoln; final whole-run reload/error assertions were not reached. Nearby initial setup is not the entry route.",
+      "cases": [
+        "spring-palace"
+      ]
+    }
+  ]
 }

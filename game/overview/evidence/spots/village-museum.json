@@ -3,8 +3,8 @@
   "id": "village-museum",
   "city": "bucharest",
   "name": "Dimitrie Gusti National Village Museum",
-  "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-  "updatedAt": "2026-11-08T19:35:07.048Z",
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
   "status": "needs_review",
   "sources": [
     {
@@ -31,64 +31,64 @@
       "label": "Palatul Elisabeta (backdrop, inaccessible)",
       "type": "OSM source",
       "url": "https://www.openstreetmap.org/way/102780052"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
     }
   ],
   "improvements": [
-    "The former fabricated farmhouse interior was replaced by visits to five actual source household porches, with separate stamps rather than a fake interior teleport.",
-    "Valid source buildings, roofs, courtyard holes and uncovered parts remain represented through exact source geometry."
+    "Current native scene retains 411 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Five distinct mapped-household virtual passport implementation; final scene/cache/phone checks",
+    "Current phone conditions and scene budgets pass; the selected primary activity entry remains unverified."
   ],
   "remainingGaps": [
-    "Household roof/material details and the Dragomirești church proportions remain simplified estimates requiring independent source/reference comparison.",
-    "The native plaque endpoint has visitors in front of the text; crowd sight lines require review while retaining visitor counts.",
-    "A complete actual touch-joystick five-porch passport route, interruption and persistence flow remains unverified.",
-    "The shared scene's activity approach is a household porch and does not establish Herăstrău boat/bike access.",
-    "Raw audit findings remain for physical review: zfight 4."
+    "Full five-household actual entry walk and completion/persistence remain unverified; no farmhouse interior claim",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
   ],
   "checks": [
     {
-      "label": "Native scene load",
+      "label": "Current native scene load and warm cache",
       "passed": true,
-      "details": "buc-herastrau; actual native controller; 0 thrown JavaScript errors."
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts."
     },
     {
-      "label": "Source solid membership",
+      "label": "Native phone condition controls",
       "passed": true,
-      "details": "311 active source records, 323 physical volumes, 4 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
     },
     {
-      "label": "Validated scene geometry cache",
-      "passed": true,
-      "details": "Exact source/profile/terrain signature matched."
-    },
-    {
-      "label": "Native public-path walk",
-      "passed": true,
-      "details": "84.6 m walked toward Opened 1936; planned endpoint reached using native movement and collision."
-    },
-    {
-      "label": "High scene budgets",
-      "passed": true,
-      "details": "434514 unique geometry triangles; max 1209520 rendered triangles / 190 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
-    },
-    {
-      "label": "Raw physical audit",
+      "label": "Selected primary activity entry",
       "passed": false,
-      "details": "zfight: 4"
+      "details": "The generic planner returned no path to the selected activity. Native activity access remains unverified; ordinary scene entry still loads."
+    },
+    {
+      "label": "High-quality selected native views",
+      "passed": true,
+      "details": "Maximum 676123 rendered triangles / 195 calls. Software-GL capture is not a hardware FPS benchmark."
     },
     {
       "label": "Full matched scene comparison",
       "passed": false,
-      "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
     }
   ],
   "captures": [
     {
       "kind": "arrival",
-      "label": "Dimitrie Gusti National Village Museum — arrival",
-      "image": "assets/spots/village-museum/arrival.webp",
-      "sha256": "938b22be1f0e8e0fae7e8dd77b5059aceacd00163da0d03e8223ec474f99d342",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:30:04.183Z",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/village-museum-arrival.webp",
+      "sha256": "974f2f6f3cb717aed4a835b3240b07ee69d9a914f4a5bcd953f88ca36c8e026f",
+      "bytes": 26720,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:05:12.992Z",
       "pose": {
         "position": [
           -159.1,
@@ -111,22 +111,39 @@
           "width": 1280,
           "height": 720
         }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "The selected primary activity route returned no planner path; this is an arrival view, not successful activity access."
+      ],
+      "metrics": {
+        "triangles": 676123,
+        "drawCalls": 195
+      },
+      "simulationDate": "2026-11-09T00:05:10.951Z"
     },
     {
-      "kind": "public-walk",
-      "label": "Dimitrie Gusti National Village Museum — public walk",
-      "image": "assets/spots/village-museum/public-walk.webp",
-      "sha256": "a112b3a3d21f7e23523512bdcd2f999c397ec5135b313b15b605ca472c616d3a",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:30:07.303Z",
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/village-museum-phone.webp",
+      "sha256": "ab0cfacf7e2a6a563d9538aac3ad837f08b130eedc90bc04afd90f50402f4eab",
+      "bytes": 10556,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:05:17.413Z",
       "pose": {
         "position": [
-          -92.14052496961921,
-          0.9674174976199817,
-          -34.9721278156862
+          -159.1,
+          6.942971316446888,
+          16.7
         ],
-        "bearing": 65.58681308684402,
+        "bearing": 40,
         "pitch": 0,
         "coordinateSystem": "scene-local metres, x east / y up / z south",
         "origin": {
@@ -139,90 +156,47 @@
           "mLon": 79569.03
         },
         "viewport": {
-          "width": 1280,
-          "height": 720
+          "width": 390,
+          "height": 844
         }
-      }
-    },
-    {
-      "kind": "postcard",
-      "label": "Dimitrie Gusti National Village Museum — postcard",
-      "image": "assets/spots/village-museum/postcard.webp",
-      "sha256": "27626e88489fc7af745ef07d431f8d3ac6fd3bfff7ef888181b584a692daa2f4",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:30:09.347Z",
-      "pose": {
-        "position": [
-          -90.26053515493962,
-          0.5772627129708672,
-          -38.69041483703681
-        ],
-        "bearing": 50.58193848683749,
-        "pitch": 32,
-        "coordinateSystem": "scene-local metres, x east / y up / z south",
-        "origin": {
-          "lat": 44.471,
-          "lon": 26.08,
-          "elev": 84.2
-        },
-        "projection": {
-          "mLat": 111121.44,
-          "mLon": 79569.03
-        },
-        "viewport": {
-          "width": 1280,
-          "height": 720
-        }
-      }
-    },
-    {
-      "kind": "activity-approach",
-      "label": "Dimitrie Gusti National Village Museum — activity approach",
-      "image": "assets/spots/village-museum/activity-approach.webp",
-      "sha256": "68e71ade58963f7244a67669dc975e8574e83394e127a8e2ec6b3fea225c6960",
-      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
-      "capturedAt": "2026-11-08T19:30:12.179Z",
-      "pose": {
-        "position": [
-          -232.96733720218984,
-          4.8414409009882995,
-          -85.11229316900793
-        ],
-        "bearing": 0,
-        "pitch": -7.000000000000003,
-        "coordinateSystem": "scene-local metres, x east / y up / z south",
-        "origin": {
-          "lat": 44.471,
-          "lon": 26.08,
-          "elev": 84.2
-        },
-        "projection": {
-          "mLat": 111121.44,
-          "mLon": 79569.03
-        },
-        "viewport": {
-          "width": 1280,
-          "height": 720
-        }
-      }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison.",
+        "The selected primary activity route returned no planner path; this is an arrival view, not successful activity access."
+      ],
+      "metrics": {
+        "triangles": 661826,
+        "drawCalls": 91
+      },
+      "simulationDate": "2026-11-09T00:05:17.413Z"
     }
   ],
   "perf": {
-    "sceneTriangles": 692359,
-    "uniqueGeometryTriangles": 434514,
-    "geometryObjects": 81,
-    "maxRenderedTriangles": 1209520,
-    "maxDrawCalls": 190
+    "triangles": 676123,
+    "drawCalls": 195,
+    "maxRenderedTriangles": 676123,
+    "maxDrawCalls": 195,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
   },
   "sceneId": "buc-herastrau",
   "sourceGeometry": {
-    "membershipSHA256": "1de29ccd025d2ec8612cc6693a2c7e103904943da13a1a5dd7ffcc9f92f90c3e",
-    "activeSourceRecords": 311,
-    "renderedVolumes": 323,
-    "literalHeights": 80,
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "0087c38fc36fa4325c777c34bf2543c802fc33267c93a99585077e4a1c8102e7",
+    "activeSourceRecords": 288,
+    "renderedVolumes": 301,
+    "literalHeights": 58,
     "levelHeightEstimates": 38,
-    "typeHeightEstimates": 193,
+    "typeHeightEstimates": 192,
     "heroReplacements": [
+      "w217851530",
       "w277782344",
       "w277782364",
       "w277782393",
@@ -322,9 +296,32 @@
       "w277782620",
       "w809899143",
       "w1185637199",
-      "w1185637200"
+      "w1185637200",
+      "w1190798203",
+      "w1191615159",
+      "w1191615160",
+      "w1191615161",
+      "w1191615162",
+      "w1191615163",
+      "w1191615164",
+      "w1191615165",
+      "w1191615166",
+      "w1191615167",
+      "w1191615168",
+      "w1191615169",
+      "w1191615170",
+      "w1191615171",
+      "w1191615172",
+      "w1191615177",
+      "w1191615178",
+      "w1191615179",
+      "w1191615180",
+      "w1479986586",
+      "w1479986587",
+      "w1479986591"
     ],
-    "missingMembers": []
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
   },
   "access": {
     "walker": "OnFootController",
@@ -334,43 +331,409 @@
       "y": 5.292971316446889,
       "heading": -0.6981317007977318
     },
-    "arrivalDry": true,
-    "nearestPlaquePath": {
-      "points": [
-        [
-          -159.1,
-          16.7
-        ],
-        [
-          -96.85,
-          -33.023549801218294
-        ],
-        [
-          -91.4764501987817,
-          -35.273549801218294
-        ]
-      ],
-      "length": 85.49675437568528,
-      "target": "Opened 1936"
-    },
+    "primaryActivity": "Record a virtual passport visit: Gospodărie din Goicea Mică, Dolj",
+    "primaryRouteStatus": "unverified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": false,
     "nativeWalk": {
-      "walker": "OnFootController",
+      "passed": false,
+      "walked": null,
+      "steps": null,
+      "maxStep": null,
+      "maxRise": null,
+      "position": null,
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
       "passed": true,
-      "steps": 999,
-      "walked": 84.61153623806243,
-      "target": "Opened 1936",
-      "plannedLength": 85.49675437568528,
-      "position": {
-        "x": -92.14120215426249,
-        "z": -34.971820443160226,
-        "y": -0.6827234248877737,
-        "heading": -1.1447058342555336
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
       },
-      "error": null
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
     }
   },
   "rawAudit": {
-    "zfight": 4
+    "status": "historical-only",
+    "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "counts": {
+      "zfight": 4
+    },
+    "collection": "previous-context-gallery"
   },
-  "review": "Inspected all four GAME context views. The native 84 m plaque approach completes; full household/interior accuracy is not claimed."
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Five distinct mapped-household virtual passport implementation; final scene/cache/phone checks Full five-household actual entry walk and completion/persistence remain unverified; no farmhouse interior claim Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "historicalCollections": [
+    {
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "updatedAt": "2026-11-08T19:35:07.048Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Dimitrie Gusti National Village Museum — arrival",
+          "image": "assets/spots/village-museum/arrival.webp",
+          "sha256": "938b22be1f0e8e0fae7e8dd77b5059aceacd00163da0d03e8223ec474f99d342",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:30:04.183Z",
+          "pose": {
+            "position": [
+              -159.1,
+              6.942971316446888,
+              16.7
+            ],
+            "bearing": 40,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.471,
+              "lon": 26.08,
+              "elev": 84.2
+            },
+            "projection": {
+              "mLat": 111121.44,
+              "mLon": 79569.03
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Dimitrie Gusti National Village Museum — public walk",
+          "image": "assets/spots/village-museum/public-walk.webp",
+          "sha256": "a112b3a3d21f7e23523512bdcd2f999c397ec5135b313b15b605ca472c616d3a",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:30:07.303Z",
+          "pose": {
+            "position": [
+              -92.14052496961921,
+              0.9674174976199817,
+              -34.9721278156862
+            ],
+            "bearing": 65.58681308684402,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.471,
+              "lon": 26.08,
+              "elev": 84.2
+            },
+            "projection": {
+              "mLat": 111121.44,
+              "mLon": 79569.03
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Dimitrie Gusti National Village Museum — postcard",
+          "image": "assets/spots/village-museum/postcard.webp",
+          "sha256": "27626e88489fc7af745ef07d431f8d3ac6fd3bfff7ef888181b584a692daa2f4",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:30:09.347Z",
+          "pose": {
+            "position": [
+              -90.26053515493962,
+              0.5772627129708672,
+              -38.69041483703681
+            ],
+            "bearing": 50.58193848683749,
+            "pitch": 32,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.471,
+              "lon": 26.08,
+              "elev": 84.2
+            },
+            "projection": {
+              "mLat": 111121.44,
+              "mLon": 79569.03
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Dimitrie Gusti National Village Museum — activity approach",
+          "image": "assets/spots/village-museum/activity-approach.webp",
+          "sha256": "68e71ade58963f7244a67669dc975e8574e83394e127a8e2ec6b3fea225c6960",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:30:12.179Z",
+          "pose": {
+            "position": [
+              -232.96733720218984,
+              4.8414409009882995,
+              -85.11229316900793
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 44.471,
+              "lon": 26.08,
+              "elev": 84.2
+            },
+            "projection": {
+              "mLat": 111121.44,
+              "mLon": 79569.03
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "buc-herastrau; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "311 active source records, 323 physical volumes, 4 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "84.6 m walked toward Opened 1936; planned endpoint reached using native movement and collision."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "434514 unique geometry triangles; max 1209520 rendered triangles / 190 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "zfight: 4"
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 692359,
+        "uniqueGeometryTriangles": 434514,
+        "geometryObjects": 81,
+        "maxRenderedTriangles": 1209520,
+        "maxDrawCalls": 190
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "1de29ccd025d2ec8612cc6693a2c7e103904943da13a1a5dd7ffcc9f92f90c3e",
+        "activeSourceRecords": 311,
+        "renderedVolumes": 323,
+        "literalHeights": 80,
+        "levelHeightEstimates": 38,
+        "typeHeightEstimates": 193,
+        "heroReplacements": [
+          "w277782344",
+          "w277782364",
+          "w277782393",
+          "w277782394",
+          "w277782396",
+          "w277782399",
+          "w277782402",
+          "w277782403",
+          "w277782408",
+          "w277782420",
+          "w277782423",
+          "w277782425",
+          "w277782431",
+          "w277782432",
+          "w277782435",
+          "w277782436",
+          "w277782440",
+          "w277782447",
+          "w277782449",
+          "w277782451",
+          "w277782460",
+          "w277782471",
+          "w277782472",
+          "w277782477",
+          "w277782478",
+          "w277782479",
+          "w277782482",
+          "w277782487",
+          "w277782489",
+          "w277782493",
+          "w277782497",
+          "w277782504",
+          "w277782505",
+          "w277782507",
+          "w277782508",
+          "w277782512",
+          "w277782516",
+          "w277782519",
+          "w277782527",
+          "w277782528",
+          "w277782532",
+          "w277782535",
+          "w277782536",
+          "w277782540",
+          "w277782543",
+          "w277782545",
+          "w277782546",
+          "w277782554",
+          "w277782562",
+          "w277782564",
+          "w277782574",
+          "w277782575",
+          "w277782579",
+          "w277782586",
+          "w277782588",
+          "w277782593",
+          "w277782599",
+          "w277782617",
+          "w277782619",
+          "w277782621",
+          "w277782627",
+          "w277782656",
+          "w277782682",
+          "w525462864",
+          "w525462865",
+          "w525462869",
+          "w525462874",
+          "w525462875",
+          "w525582172",
+          "w537327573",
+          "w537327575",
+          "w537327576",
+          "w537327577",
+          "w537327578",
+          "w537327579",
+          "w537327580",
+          "w540022651",
+          "w540022654",
+          "w540022660",
+          "w927366473",
+          "w931832289",
+          "w932551763",
+          "w1028783720",
+          "w1028783721",
+          "w1028783722",
+          "w1185637192",
+          "w1185637193",
+          "w1185637194",
+          "w1185637195",
+          "w1185637196",
+          "w1185637197",
+          "w1185637198",
+          "w1185637201",
+          "w1480204939",
+          "w277782433",
+          "w277782552",
+          "w277782620",
+          "w809899143",
+          "w1185637199",
+          "w1185637200"
+        ],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": -159.1,
+          "z": 16.7,
+          "y": 5.292971316446889,
+          "heading": -0.6981317007977318
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              -159.1,
+              16.7
+            ],
+            [
+              -96.85,
+              -33.023549801218294
+            ],
+            [
+              -91.4764501987817,
+              -35.273549801218294
+            ]
+          ],
+          "length": 85.49675437568528,
+          "target": "Opened 1936"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 999,
+          "walked": 84.61153623806243,
+          "target": "Opened 1936",
+          "plannedLength": 85.49675437568528,
+          "position": {
+            "x": -92.14120215426249,
+            "z": -34.971820443160226,
+            "y": -0.6827234248877737,
+            "heading": -1.1447058342555336
+          },
+          "error": null
+        }
+      },
+      "rawAudit": {
+        "zfight": 4
+      },
+      "improvements": [
+        "The former fabricated farmhouse interior was replaced by visits to five actual source household porches, with separate stamps rather than a fake interior teleport.",
+        "Valid source buildings, roofs, courtyard holes and uncovered parts remain represented through exact source geometry."
+      ],
+      "remainingGaps": [
+        "Household roof/material details and the Dragomirești church proportions remain simplified estimates requiring independent source/reference comparison.",
+        "The native plaque endpoint has visitors in front of the text; crowd sight lines require review while retaining visitor counts.",
+        "A complete actual touch-joystick five-porch passport route, interruption and persistence flow remains unverified.",
+        "The shared scene's activity approach is a household porch and does not establish Herăstrău boat/bike access.",
+        "Raw audit findings remain for physical review: zfight 4."
+      ],
+      "review": "Inspected all four GAME context views. The native 84 m plaque approach completes; full household/interior accuracy is not claimed.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": false,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-09T00:05:12.992Z",
+    "2026-11-09T00:05:17.413Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": false,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The generic selected activity route returned no planner path; it is not accepted by this report.",
+      "cases": [
+        "village-museum"
+      ]
+    }
+  ]
 }

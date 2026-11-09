@@ -22,8 +22,8 @@
     },
     {
       "file": "install-observer.cjs",
-      "bytes": 16169,
-      "sha256": "882cafd248d69aac358936794e06a1d3ef464fc84613787992579a1b0b944cef"
+      "bytes": 16425,
+      "sha256": "f7c341800069001a30deda2752df9d9719f1cf095f87e4c31a0c4ede1005d51d"
     },
     {
       "file": "preparation/controls-final.json",
@@ -307,8 +307,8 @@
     },
     {
       "file": "runner.cjs",
-      "bytes": 10527,
-      "sha256": "493aa0e89be6b12e9744ef4843653368262ad8dad086f445dc306240b6f75d8f"
+      "bytes": 15804,
+      "sha256": "92ebbd8497602b2176fd4ea64125130b6485da5315ce5dcc55d94eda7099550e"
     },
     {
       "file": "transport-diagnostic-54c/decode-geometry.cjs",

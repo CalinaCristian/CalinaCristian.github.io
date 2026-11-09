@@ -32,6 +32,16 @@
       "id": "upb-official-tour",
       "url": "https://turvirtual.upb.ro/",
       "identity": "Official university tour credits Zafiu Andrei; public project metadata identifies Rectorat cupola scene5fbfeaa526b7495fa9272e9e."
+    },
+    {
+      "id": "uipath-workspace-2023",
+      "url": "https://www.workspaces.ro/en/projects/uipath-2023",
+      "identity": "Primary designer states UiPath/Bucharest,1000sqm,completionAugust2023,design/build and Aeron chairs; exact building/floor not stated."
+    },
+    {
+      "id": "luxoft-noblesse",
+      "url": "https://noblesse-group.com/proiect/proiect-de-amenajare-office-luxoft/",
+      "identity": "Designer names Luxoft client but not Hermes/address, completion or as-built photo status."
     }
   ],
   "privatelyInspectedAssets": [
@@ -183,6 +193,61 @@
       "sourcePageId": "upb-official-tour",
       "identity": "Actual Rectorat cupola interior cube face, named in public university scene metadata; no photographic date established.",
       "usage": "Private comparison only; no reused pixels or measured room geometry."
+    },
+    {
+      "name": "uipath-workspaces-1.jpg",
+      "url": "https://www.workspaces.ro/sites/default/files/styles/large/public/fields/projects/gallery_img/proiect-uipath-2023_photos_01.jpg?itok=gDbKrWFg",
+      "status": 200,
+      "bytes": 41047,
+      "sha256": "ca8ddcaf8af35ff4ffb9fefbc5daa12acd7442abd24a064c80624ab22d54d1a2",
+      "fetchedUTC": "2026-11-09T16:55:46.640090+00:00",
+      "sourcePageId": "uipath-workspace-2023",
+      "review": "Actual interior photography privately inspected; primary company/city identity confirmed, building/floor unresolved.",
+      "usage": "No reused image pixels; research candidate only, no UiPath runtime change."
+    },
+    {
+      "name": "uipath-workspaces-2.jpg",
+      "url": "https://www.workspaces.ro/sites/default/files/styles/large/public/fields/projects/gallery_img/proiect-uipath-2023_photos_14.jpg?itok=OnZXChP3",
+      "status": 200,
+      "bytes": 42720,
+      "sha256": "91604ca64e57170a34159baca80c6dbbbc12d7fb680d488fa13be22613f1aa76",
+      "fetchedUTC": "2026-11-09T16:55:46.438468+00:00",
+      "sourcePageId": "uipath-workspace-2023",
+      "review": "Actual interior photography privately inspected; primary company/city identity confirmed, building/floor unresolved.",
+      "usage": "No reused image pixels; research candidate only, no UiPath runtime change."
+    },
+    {
+      "name": "uipath-workspaces-3.jpg",
+      "url": "https://www.workspaces.ro/sites/default/files/styles/large/public/fields/projects/gallery_img/proiect-uipath-2023_photos_38.jpg?itok=XZv5l7OX",
+      "status": 200,
+      "bytes": 32301,
+      "sha256": "47b614bfdebe60292bae29cd46d9731774dd2c0a265eb725757785dae0322208",
+      "fetchedUTC": "2026-11-09T16:55:46.639085+00:00",
+      "sourcePageId": "uipath-workspace-2023",
+      "review": "Actual interior photography privately inspected; primary company/city identity confirmed, building/floor unresolved.",
+      "usage": "No reused image pixels; research candidate only, no UiPath runtime change."
+    },
+    {
+      "name": "luxoft-noblesse-1.jpg",
+      "url": "https://noblesse-group.com/wp-content/uploads/2019/01/PROIECT-DE-AMENAJARE-OFFICE-LUXOFT-Noblesse-design-interior-1.jpg",
+      "status": 200,
+      "bytes": 343925,
+      "sha256": "e0732e3206374da50dadc359526f13fb2401c2f4fa4a6d4d6915314e9eff2266",
+      "fetchedUTC": "2026-11-09T16:56:29.606756+00:00",
+      "sourcePageId": "luxoft-noblesse",
+      "review": "Design imagery visually resembles CGI; no authenticated as-built photograph/building/floor status. Rejected as Hermes interior proof.",
+      "usage": "Private research only, no runtime use or source artwork copying."
+    },
+    {
+      "name": "luxoft-noblesse-3.jpg",
+      "url": "https://noblesse-group.com/wp-content/uploads/2019/01/PROIECT-DE-AMENAJARE-OFFICE-LUXOFT-Noblesse-design-interior-3.jpg",
+      "status": 200,
+      "bytes": 411923,
+      "sha256": "043ef1cce2a389ad86cfd3c2cda4ff9473f5e38f8ac40beaeac34b793522f17a",
+      "fetchedUTC": "2026-11-09T16:56:29.077262+00:00",
+      "sourcePageId": "luxoft-noblesse",
+      "review": "Design imagery visually resembles CGI; no authenticated as-built photograph/building/floor status. Rejected as Hermes interior proof.",
+      "usage": "Private research only, no runtime use or source artwork copying."
     }
   ],
   "implementations": {
@@ -231,8 +296,23 @@
     "rosetti": "Actual self-hosted PROEDUS classrooms privately reviewed, source-led runtime implemented. Acquisition date/floor/2009appearance remain unknown.",
     "upb": "Official tour credits Zafiu Andrei. Rectorat scene606eb2b87fdee03ebe1053e3 was privately inspected and rejected as aerial exterior. Separate Rectorat cupola5fbfeaa526b7495fa9272e9e supplies authenticated interior faces; selected ground-hall runtime implemented. Date, dimensions, exact floor/facade and whole-atrium reconstruction remain unknown/unclaimed.",
     "gts": "OPC Foundation supports Global Intelligence address; GTS Telecom and Global Technical Systems/Hermes evidence is not interchangeable and is rejected for interiors. No authenticated interior.",
-    "luxoft": "Official location is Hermes; generic careers images are Bra\u0219ov/Library exteriors. Noblesse project/photo/era/building authentication remains open.",
-    "uipath-buc": "1722 portfolio is CGI/designed proposal, not verified as-built; no authored-photo status inferred.",
+    "luxoft": "Official location is Hermes; careers photographs were rejected as other-city/building exteriors. Privately inspected Noblesse Luxoft imagery appears rendered design imagery and lacks authenticated Hermes/address/as-built/date identity; rejected as current building interior proof. Runtime unchanged.",
+    "uipath-buc": "1722portfolio remains CGI/design evidence. Newly verified WorkspaceStudio2023 primary project supplies actual Bucharest UiPath interior photography (1000sqm,completionAugust2023), but exact Landmark building/block/floor and CV-era fit are unresolved; runtime remains unchanged.",
     "uipath-bel": "JPC/Cleary O\u2019Farrell photographs show historical Plaza Center immersion lab. No current Lincoln Square interior established."
+  },
+  "runtimeCoverage": {
+    "photoLedCandidates": [
+      "arnia",
+      "db",
+      "rosetti",
+      "upb"
+    ],
+    "unverifiedLegacyRoomInterpretations": [
+      "gts",
+      "luxoft",
+      "uipath-buc",
+      "uipath-bel"
+    ],
+    "acceptance": "No new native rendered comparison or live-window evidence yet.4of8rooms have stronger source-led geometry candidates; all8legacy topics/window runs construct in CPU checks. This is not a claim of8completed verified interiors."
   }
 }

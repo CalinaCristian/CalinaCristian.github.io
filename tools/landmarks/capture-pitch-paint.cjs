@@ -104,7 +104,11 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
           if(pitch){const center=source.localToWorld(new THREE.Vector3(...pitch.center)),start=source.localToWorld(new THREE.Vector3(pitch.center[0]-pitch.axis[0]*45,1.7,pitch.center[2]-pitch.axis[1]*45));
             views.push({id:lm.id+'-football',label:'Dinamo pitch and goals at walking height',kind:'sports',x:start.x,z:start.z,y:1.7,target:[center.x,1.7,center.z],fov:85});
             const above=source.localToWorld(new THREE.Vector3(pitch.center[0]-pitch.axis[1]*60,70,pitch.center[2]+pitch.axis[0]*60));
-            views.push({id:lm.id+'-football-drone',label:'Dinamo modeled pitch, goals and markings from a close elevated static camera',kind:'sports',x:above.x,z:above.z,y:above.y,target:[center.x,center.y,center.z],fov:80});}
+            views.push({id:lm.id+'-football-drone',label:'Dinamo modeled pitch, goals and markings from a close elevated static camera',kind:'sports',x:above.x,z:above.z,y:above.y,target:[center.x,center.y,center.z],fov:80});
+            for(const [tag,u,v,y]of [['lower',0,40,35],['oblique',-55,55,45]]){
+              const pt=source.localToWorld(new THREE.Vector3(pitch.center[0]+pitch.axis[0]*u-pitch.axis[1]*v,y,pitch.center[2]+pitch.axis[1]*u+pitch.axis[0]*v));
+              views.push({id:lm.id+'-football-drone-'+tag,label:'Dinamo unchanged physical paint at a native '+tag+' camera',kind:'sports',x:pt.x,z:pt.z,y:pt.y,target:[center.x,center.y,center.z],fov:80});
+            }}
           const courts=source.userData.basketballCourt?.courts;
           if(courts)for(const [i,court]of courts.entries()){
             const center=source.localToWorld(new THREE.Vector3(...court.center)),rim=court.hoops[0]?.rim;if(!rim)continue;
@@ -178,7 +182,7 @@ const mime={'.html':'text/html','.js':'text/javascript','.json':'application/jso
       write('progress.json',{captured:results.length,total:views.length,last:view.id});console.log('capture',results.length+'/'+views.length,view.id);
     }
     write('world-stats.json',await page.evaluate(()=>game.world.stats));
-    write('manifest.json',{schemaVersion:1,captureType:'game-perspective-context',comparisonCompatible:false,gameSourceCommit:commit,captureTool:{name:'capture-context.cjs',sha256:captureToolSha256},district,season,weather,time,quality:'high',traffic:true,mirror:false,scope:'Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.',loaded,pageErrors:errors,consoleErrors,validationFailures,items:results});
+    write('manifest.json',{schemaVersion:1,captureType:'game-perspective-context',comparisonCompatible:false,gameSourceCommit:commit,captureTool:{name:'capture-pitch-paint.cjs',sha256:captureToolSha256},district,season,weather,time,quality:'high',traffic:true,mirror:false,scope:'Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.',loaded,pageErrors:errors,consoleErrors,validationFailures,items:results});
     if(errors.length||consoleErrors.length||validationFailures.length)process.exitCode=1;
     batch.push({condition:phase.name,frames:results.length,pageErrors:errors,consoleErrors,validationFailures});
     await page.close();

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "aerial-r05-c07",
+    "label": "Row 5 \u00b7 Column 7",
+    "row": 5,
+    "column": 7,
+    "lat": 44.43082478853975,
+    "lon": 26.110572431585258,
+    "x": 125.00000000007468,
+    "z": -125.00000000007185,
+    "h": 216.50635094610968,
+    "size": 250,
+    "fov": 60,
+    "heading": 0,
+    "pitch": -90,
+    "square": true,
+    "scope": "core-touches",
+    "sourceRingMinDistanceM": -130,
+    "boundsXZ": [
+      0,
+      -250,
+      250,
+      0
+    ],
+    "coverageType": "core-touches",
+    "orientation": "north-up",
+    "places": [],
+    "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705"
+  }
+]

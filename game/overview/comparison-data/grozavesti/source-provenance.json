@@ -1,5 +1,9 @@
 {
   "gameSourceCommit": null,
+  "priorCurrentSourceProvenance": {
+    "path": "historical/full-before-07cc3d6b-5978c6d9/source-provenance.json",
+    "sha256": "43e84b081d124446b36e3b96a5765492de66d492c4e94e3a465f5bfd5813a183"
+  },
   "sourceSnapshots": [
     {
       "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
@@ -23,7 +27,35 @@
       "sourceProvenance": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/source-provenance.json",
       "sourceProvenanceSha256": "f05664c4657ca87bf793d3d9ff188af55049ec4cb6790cf10c6b45efb39b5bc1",
       "frames": 26
+    },
+    {
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "treeSha256": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+      "manifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "manifestSha256": "5fa1d9da0824024c7008aa5393e7f1d520e7d0516f855043efad5b88a660f438",
+      "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
+      "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
+      "frames": 1
     }
   ],
-  "note": "Original source inventories and fresh immutable retake inputs remain attached to their actual captures."
+  "sourceCaptureManifests": [
+    {
+      "path": "historical/full-before-07cc3d6b-5978c6d9/manifest.json",
+      "sha256": "5978c6d95b290767b7cd5a1f4fe4316e301e8f7159646e9ed6583417b675e182",
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 26,
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
+      },
+      "frames": 100,
+      "note": "Previous complete current manifest with actual per-frame source dates; its original raw capture ledger is also archived."
+    },
+    {
+      "path": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "sha256": "5fa1d9da0824024c7008aa5393e7f1d520e7d0516f855043efad5b88a660f438",
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "frames": 1
+    }
+  ],
+  "note": "Prior raw source inventories remain immutable in their archives; the new subset carries its actual07cc source tree."
 }

@@ -1,0 +1,30 @@
+{
+  "frames": 2,
+  "sourceFilesVerified": 9318,
+  "scopeCounts": {
+    "core-touches": 2
+  },
+  "failures": [],
+  "imageMetrics": [
+    {
+      "id": "aerial-r04-c06",
+      "rgbStddev": [
+        37.26099732915231,
+        32.19366886574879,
+        36.37711950521376
+      ],
+      "sha256": "3b66046909e3febbcf72807b330eaa86cc04032b2ca778a8aed0b41f760717d4"
+    },
+    {
+      "id": "aerial-r05-c06",
+      "rgbStddev": [
+        41.605035251301686,
+        35.889790172605835,
+        41.48447202823277
+      ],
+      "sha256": "f80a26d53491f87c32cbdeef2412be96532a4efaa920483b362f41e8c12d3414"
+    }
+  ],
+  "movedUnusedFirstAttemptFrames": [],
+  "manifestSha256": "c18ff6ae5f4813a1b56dd6a7eea2e8a803651ec6fc2bb1c49186bc371aa34cd9"
+}

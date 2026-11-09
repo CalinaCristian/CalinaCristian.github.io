@@ -1,0 +1,54 @@
+{
+  "sourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+  "district": "pipera",
+  "reviewedIds": [
+    "aerial-r04-c06",
+    "aerial-r05-c06"
+  ],
+  "visuallyInspected": true,
+  "realWorldParityAccepted": false,
+  "referenceImageryPublished": false,
+  "referenceProvider": "Esri World Imagery",
+  "referenceAcquisitionDate": null,
+  "privateComparisonManifestSha256": "4d20b1456649b19a75fc7a83bc8d9dee6d63d09c956bf1bbbc97b7fa8ed140e6",
+  "reviewMethod": "All actual original/retake/reference triplets viewed across the complete private sheets; SeaTac r09-c05/r10-c05 and Bellevue r04-c05 additionally viewed at full1920x672 size. Reference pixels remain private.",
+  "scope": "Only the29-mask aerial geometry snapshot, no new parity/native-controller/driving/hardware-FPS acceptance. Moving traffic is hidden; no later release source is substituted.",
+  "items": [
+    {
+      "id": "aerial-r04-c06",
+      "originalGameSha256": "c11129c475ba988df572dbede8dc3c7f20ec036cab2bbc8dd3108fbd97b6c082",
+      "retakeGameSha256": "3b66046909e3febbcf72807b330eaa86cc04032b2ca778a8aed0b41f760717d4",
+      "gameSha256": "3b66046909e3febbcf72807b330eaa86cc04032b2ca778a8aed0b41f760717d4",
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "originalSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "referenceCropSha256": "bf9fa7349bdfa7c2a3d6bee0f71edb9476a6323077cfaac795d461dd08f6afc0",
+      "referenceCoverageFraction": 1.0,
+      "referenceManifestSha256": "9150c38e70aed32365b0aafb48dc87bda98ef91c7e357d06048a6f90ee2fe986",
+      "referenceMethod": "Existing private georeferenced mosaic crop; exact original ground bounds checked.",
+      "tripletSha256": "2a01df092a3fd63d638b4613d9f4b4e06c25fceb97693c8484fe7440494ce9dc",
+      "reviewSheet": "comparison-01.jpg",
+      "reviewSheetSha256": "bf5e00d1cdff1ed16139101db8e5564521d963528496f3f4e79c90db414349d4",
+      "reviewedAt": "2026-11-09T02:11:54.819598+00:00",
+      "status": "reviewed_with_gaps",
+      "observations": "Exact existing technical aerial pose recaptured from the integrated structural/separator source. Conservative changed-bound coverage does not mean every change is visible from above; roofs/occlusion can conceal ground separators and under-deck structure. Native body/route clearance is separate recorded evidence, not inferred from this picture. The exact source building/road context is retained. Facade/roof-plant detail, parcel materials, canopy and dated construction/occupancy mismatch remain explicit limitations. "
+    },
+    {
+      "id": "aerial-r05-c06",
+      "originalGameSha256": "9a841d9a786046a71cca0d6f52c6173584b7f7d4d6358166ed31d17477d18995",
+      "retakeGameSha256": "f80a26d53491f87c32cbdeef2412be96532a4efaa920483b362f41e8c12d3414",
+      "gameSha256": "f80a26d53491f87c32cbdeef2412be96532a4efaa920483b362f41e8c12d3414",
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "originalSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "referenceCropSha256": "0e49db793c155af2ab2fbd8f77c2ed1556561ecec75988098ad46dacb7430c13",
+      "referenceCoverageFraction": 1.0,
+      "referenceManifestSha256": "9150c38e70aed32365b0aafb48dc87bda98ef91c7e357d06048a6f90ee2fe986",
+      "referenceMethod": "Existing private georeferenced mosaic crop; exact original ground bounds checked.",
+      "tripletSha256": "04b52779e67f26aae95b5d38280dd283bc98481c86782018b0175fca10df27ed",
+      "reviewSheet": "comparison-01.jpg",
+      "reviewSheetSha256": "bf5e00d1cdff1ed16139101db8e5564521d963528496f3f4e79c90db414349d4",
+      "reviewedAt": "2026-11-09T02:11:54.820077+00:00",
+      "status": "reviewed_with_gaps",
+      "observations": "Exact existing technical aerial pose recaptured from the integrated structural/separator source. Conservative changed-bound coverage does not mean every change is visible from above; roofs/occlusion can conceal ground separators and under-deck structure. Native body/route clearance is separate recorded evidence, not inferred from this picture. The exact source building/road context is retained. Facade/roof-plant detail, parcel materials, canopy and dated construction/occupancy mismatch remain explicit limitations. "
+    }
+  ]
+}

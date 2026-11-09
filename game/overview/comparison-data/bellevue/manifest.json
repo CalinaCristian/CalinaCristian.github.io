@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "Bellevue aerial comparisons",
-  "generatedDate": "2026-11-08",
-  "generatedAt": "2026-11-08T23:25:13.529Z",
+  "generatedDate": "2026-11-09",
+  "generatedAt": "2026-11-09T02:03:49.037Z",
   "defaultTile": "aerial-r04-c09",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -11,24 +11,116 @@
     "core-touches": 14,
     "outside-ring": 4
   },
-  "publishedBaseline": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
-  "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
+  "publishedBaseline": null,
+  "gameSourceCommit": null,
   "capture": {
     "type": "mixed-source-atlas",
+    "source": null,
     "frameCounts": 82,
-    "originalFullCapture": {
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
-      "manifest": "historical/c78a5f4/capture-manifest.json",
-      "frames": 82
+    "sourceSnapshots": [
+      {
+        "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+        "treeSha256": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+        "manifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+        "manifestSha256": "350f0e645203323bc4c5a3258612774a2ba53d302bf5d94bdb42174a29eeceb3",
+        "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
+        "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
+        "frames": 5
+      }
+    ],
+    "sourceCaptureManifests": [
+      {
+        "path": "historical/c78a5f4/capture-manifest.json",
+        "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+        "frames": 78
+      },
+      {
+        "path": "retakes/338300a9/manifest.json",
+        "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
+        "sha256": "a2036091fa5b218f7a4d562120b5329e6904de3fee658d9442e20c8922108eed",
+        "frames": 4
+      },
+      {
+        "path": "historical/full-before-07cc3d6b-ff026d44/manifest.json",
+        "sha256": "ff026d4487d7cc831cb8b8a8b4b5980e30acf83fba4f1e4f4131155548299b3b",
+        "sourceCounts": {
+          "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 78,
+          "338300a95a79a2cabf3d7256ff745c6a1bac0372": 4
+        },
+        "frames": 82,
+        "note": "Previous complete current manifest with actual per-frame source dates; its original raw capture ledger is also archived."
+      },
+      {
+        "path": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+        "sha256": "350f0e645203323bc4c5a3258612774a2ba53d302bf5d94bdb42174a29eeceb3",
+        "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+        "frames": 5
+      }
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "mirror": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "latestRetakeCapture": {
+      "startedAt": "2026-11-09T02:03:19.851Z",
+      "endedAt": "2026-11-09T02:03:49.037Z",
+      "elapsedSeconds": 29.186,
+      "source": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+      "captureToolSha256": "82a44ab184afd4f5d9c032642d3d513a594993c3c7301af8029c6976dd26458b",
+      "sourceDatasetSha256": "60506e422b1a0c8edbccc5fbbb7800015bd39e7f8c3767d49d262e4c9c2c6e38",
+      "loaded": {
+        "key": "seattle-bellevue",
+        "city": "seattle",
+        "district": "bellevue",
+        "ms": 9118,
+        "edges": 917,
+        "ribbons": 1131
+      },
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedRequests": [],
+      "traffic": false,
+      "quality": "high",
+      "weather": "clear",
+      "season": "summer",
+      "time": "day",
+      "mirror": false,
+      "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+      "frameCounts": 5,
+      "coverageClaim": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim.",
+      "scopeCounts": {
+        "core-touches": 5
+      },
+      "validation": {
+        "framesVerified": 5,
+        "sourceFilesVerified": 9318,
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "failures": []
+      },
+      "perfMaxima": {
+        "triangles": 337511,
+        "drawCalls": 100,
+        "note": "World-only high-quality top-down captures, moving traffic hidden, mirror excluded. Separate maxima need not occur in one frame; not a driving frame-budget acceptance test."
+      }
     },
-    "targetedRetakeCapture": {
-      "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
-      "manifest": "retakes/338300a9/manifest.json",
-      "frames": 4,
-      "startedAt": "2026-11-08T23:57:03.244Z",
-      "endedAt": "2026-11-08T23:58:55.076Z"
+    "note": "Current per-frame source/date is authoritative; prior and fresh raw capture reports remain separate. Technical aerials remove fog/extend depth; native perspective/controller acceptance is separate.",
+    "perfMaxima": {
+      "triangles": 349724,
+      "drawCalls": 105,
+      "note": "Separate static no-traffic/no-mirror atlas maxima, not hardware FPS or native driving-budget acceptance."
     },
-    "note": "Per-frame SHA and capturedAt are authoritative. Original and retake capture metadata remain immutable."
+    "validation": {
+      "framesVerified": 82,
+      "failures": [],
+      "mixedSourceProvenancePreserved": true
+    }
   },
   "locations": [
     {
@@ -1645,13 +1737,16 @@
         -500,
         -500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "coverageType": "core-touches",
+      "orientation": "north-up",
+      "places": [],
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 93,
-        "triangles": 291749,
-        "renderMs": 5.800000004470348,
+        "triangles": 246017,
+        "renderMs": 101,
         "quality": "high"
       },
       "traffic": {
@@ -1667,28 +1762,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:19:57.425Z",
+      "capturedAt": "2026-11-09T02:03:31.848Z",
       "gamePath": "images/aerial-r03-c04.jpg",
       "image": "images/aerial-r03-c04.jpg",
       "thumbnail": "thumbs/aerial-r03-c04.jpg",
-      "sha256": "9de5dc18cc162c96df017ead15ff489dbb0d7924dcf86f3d8d1c1c9ea01c2a32",
+      "sha256": "64246f974c18276720091b24a96e40f9209e5fc3a0066c1f84c93d36e192685d",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5184,
+      "captureWallMs": 5713,
       "dataset": "atlas",
-      "thumbnailSha256": "aec2a22e266f379f7290d0fedd4b509958585ea89a7dace945edb3acfc98a962",
-      "captureType": "source-snapshot",
+      "thumbnailSha256": "37f271bfa2eed6d22360b10ed979d94e3cb13de14401ac13eb452be3eaef2e24",
+      "captureType": "game-topdown",
       "boundsWgs84": [
         47.61899915415902,
         -122.20499433180454,
         47.62124873123852,
         -122.20166288786969
       ],
-      "coverageType": "core-touches",
-      "orientation": "north-up",
-      "places": [],
-      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
     },
     {
       "id": "aerial-r03-c05",
@@ -1713,13 +1806,16 @@
         -250,
         -500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "coverageType": "core-touches",
+      "orientation": "north-up",
+      "places": [],
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 88,
-        "triangles": 277398,
-        "renderMs": 6.600000001490116,
+        "triangles": 227582,
+        "renderMs": 4.5,
         "quality": "high"
       },
       "traffic": {
@@ -1735,28 +1831,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:20:02.610Z",
+      "capturedAt": "2026-11-09T02:03:37.562Z",
       "gamePath": "images/aerial-r03-c05.jpg",
       "image": "images/aerial-r03-c05.jpg",
       "thumbnail": "thumbs/aerial-r03-c05.jpg",
-      "sha256": "a79b5a445e0a04d72673e2ec0718cd1692b6eb8fd3cf97126458048e64ba1fb5",
+      "sha256": "aac4710f0ae6191e062858ed09c85400a2745ce72d4de9225f8607742a4b216a",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7046,
+      "captureWallMs": 2138,
       "dataset": "atlas",
-      "thumbnailSha256": "879edca08ca924d4b98d21d2d8c7be4970cb1baa724a354e13811f01c8c6837e",
-      "captureType": "source-snapshot",
+      "thumbnailSha256": "25a1bf7697460589cb2819556ce49c58ce62ef6532ff3b9cf6d48935f7559111",
+      "captureType": "game-topdown",
       "boundsWgs84": [
         47.61899915415902,
         -122.20166288786969,
         47.62124873123852,
         -122.19833144393485
       ],
-      "coverageType": "core-touches",
-      "orientation": "north-up",
-      "places": [],
-      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
     },
     {
       "id": "aerial-r03-c06",
@@ -2461,13 +2555,16 @@
         -500,
         -250
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "coverageType": "core-touches",
+      "orientation": "north-up",
+      "places": [],
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 92,
-        "triangles": 216738,
-        "renderMs": 11.5,
+        "triangles": 173353,
+        "renderMs": 4.600000001490116,
         "quality": "high"
       },
       "traffic": {
@@ -2483,28 +2580,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:21:19.659Z",
+      "capturedAt": "2026-11-09T02:03:39.701Z",
       "gamePath": "images/aerial-r04-c04.jpg",
       "image": "images/aerial-r04-c04.jpg",
       "thumbnail": "thumbs/aerial-r04-c04.jpg",
-      "sha256": "b7443bc219ac788df86c653aee1874d06ed33079fb64142a646788cf0538c1ca",
+      "sha256": "b66f8457b89cd14e492679ce88984e4722673929f88073855139d3e91661c2bb",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7006,
+      "captureWallMs": 2876,
       "dataset": "atlas",
-      "thumbnailSha256": "12e4688a08861aad1254e4be4e964514512aaba000b7192a8717fcc4084ff2b0",
-      "captureType": "source-snapshot",
+      "thumbnailSha256": "e93d55cd70b65279b0eb74a083009d8729f751d2ef2f1b43e19c97f9222f2239",
+      "captureType": "game-topdown",
       "boundsWgs84": [
         47.61674957707951,
         -122.20499433180454,
         47.61899915415902,
         -122.20166288786969
       ],
-      "coverageType": "core-touches",
-      "orientation": "north-up",
-      "places": [],
-      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
     },
     {
       "id": "aerial-r04-c05",
@@ -2529,13 +2624,18 @@
         -250,
         -250
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "coverageType": "core-touches",
+      "orientation": "north-up",
+      "places": [
+        "lincoln-source-anchor"
+      ],
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 100,
-        "triangles": 275255,
-        "renderMs": 10.399999998509884,
+        "triangles": 232128,
+        "renderMs": 6.200000002980232,
         "quality": "high"
       },
       "traffic": {
@@ -2551,30 +2651,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:21:26.666Z",
+      "capturedAt": "2026-11-09T02:03:42.578Z",
       "gamePath": "images/aerial-r04-c05.jpg",
       "image": "images/aerial-r04-c05.jpg",
       "thumbnail": "thumbs/aerial-r04-c05.jpg",
-      "sha256": "43b757d5b179f5b789743c99afa375bfac9b6c50b02bbd0995f5cdef64cffefc",
+      "sha256": "a96a8159a2f766b9b42daf56005efec22625c2b32aa58f3c7ebd14b0c5261c1f",
       "width": 640,
       "height": 640,
-      "captureWallMs": 7913,
+      "captureWallMs": 2632,
       "dataset": "atlas",
-      "thumbnailSha256": "11bf7a56d71063f865810625e2cfd3b886fe4cca2d39bf96b3b098fdacca62e3",
-      "captureType": "source-snapshot",
+      "thumbnailSha256": "ebed6a4426798a566dbbebe54a269be967ecea714c2295c9d18deb98c82f6af4",
+      "captureType": "game-topdown",
       "boundsWgs84": [
         47.61674957707951,
         -122.20166288786969,
         47.61899915415902,
         -122.19833144393485
       ],
-      "coverageType": "core-touches",
-      "orientation": "north-up",
-      "places": [
-        "lincoln-source-anchor"
-      ],
-      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
     },
     {
       "id": "aerial-r04-c06",
@@ -2737,13 +2833,16 @@
         500,
         -250
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "coverageType": "core-touches",
+      "orientation": "north-up",
+      "places": [],
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 98,
-        "triangles": 374358,
-        "renderMs": 21.299999997019768,
+        "triangles": 337511,
+        "renderMs": 5.899999998509884,
         "quality": "high"
       },
       "traffic": {
@@ -2759,28 +2858,26 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:21:44.175Z",
+      "capturedAt": "2026-11-09T02:03:45.211Z",
       "gamePath": "images/aerial-r04-c08.jpg",
       "image": "images/aerial-r04-c08.jpg",
       "thumbnail": "thumbs/aerial-r04-c08.jpg",
-      "sha256": "2a87a0dc2a4896819e999f503a3912dbaf6b7a0f5d4b945c091193e0b37c3fbe",
+      "sha256": "2773f8694d551db96b8c81fe4455136e43acc88422a3be2071b4f086ac339bc9",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5687,
+      "captureWallMs": 3825,
       "dataset": "atlas",
-      "thumbnailSha256": "c02bf1f916f5c7538c34485ddcb19a690ec860dd05d05da2f9ca38a22b94f156",
-      "captureType": "source-snapshot",
+      "thumbnailSha256": "cbb4c9e6994bb5e77068320fe1c5a10c9cd8057ac56e36aa455bdb068947a26f",
+      "captureType": "game-topdown",
       "boundsWgs84": [
         47.61674957707951,
         -122.19166855606514,
         47.61899915415902,
         -122.1883371121303
       ],
-      "coverageType": "core-touches",
-      "orientation": "north-up",
-      "places": [],
-      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
-      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
+      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
     },
     {
       "id": "aerial-r04-c09",
@@ -5801,6 +5898,7 @@
     "streetWalkPairsReviewed": 426,
     "atlasSourceCommit": [
       "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "338300a95a79a2cabf3d7256ff745c6a1bac0372"
     ],
     "streetWalkSourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
@@ -6441,7 +6539,7 @@
     },
     "streetWalkLabel": "Before source-grade and render integration \u00b7 4198996",
     "streetWalkSourceNote": "These426 GAME frames are completed historical4198996 evidence, with22unresolved camera altitude comparisons. They are retained separately from the currentc78a5f4 aerial/native source and never relabelled as that newer runtime.",
-    "atlasSourceNote": "Complete 82-frame atlas: 78 original c78a5f4 frames plus 4 canal retakes at 338300a9. Per-frame source/date retained. Full original atlas remains in historical collections. Technical north-up captures exclude moving traffic/mirror and temporarily remove fog/extend depth; native normal-perspective checks are separate.",
+    "atlasSourceNote": "Current source counts: 73 on c78a5f4c, 5 on 07cc3d6b, 4 on 338300a9. Earlier source-specific review blocks remain historical to their recorded revisions; the new structural subset has its own linked review.",
     "visualAcceptance": "Every frame reviewed; the four canal retakes resolve the broad fallback ribbon finding. Unknown source heights, detailed materials, occupancy, imagery date and the 0.46633m untagged waterway boundary continuation remain unresolved; no full-scene parity claim.",
     "openMaterialFindings": [
       {
@@ -6452,18 +6550,36 @@
       }
     ],
     "acceptanceNote": "Complete capture/review coverage with the targeted canal correction. Source height, roof, terrain, facade, occupancy, date and sparse outer-detail limits remain. Native control evidence is separate.",
-    "targetedRetakeReview": "retakes/338300a9/paired-review.json"
+    "targetedRetakeReview": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+    "structureRetakeReview": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+    "structureRetakeSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+    "structureRetakesReviewed": 5,
+    "currentAtlasSourceCounts": {
+      "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 73,
+      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 5,
+      "338300a95a79a2cabf3d7256ff745c6a1bac0372": 4
+    },
+    "priorCompleteReview": {
+      "manifest": "historical/full-before-07cc3d6b-ff026d44/manifest.json",
+      "sha256": "ff026d4487d7cc831cb8b8a8b4b5980e30acf83fba4f1e4f4131155548299b3b",
+      "note": "Every earlier review/source-specific finding is preserved verbatim in the complete prior collection."
+    },
+    "status": "Complete retained earlier review coverage plus 5 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
+    "realWorldParityAccepted": false,
+    "priorTargetedRetakeReview": "retakes/338300a9/paired-review.json",
+    "structureRetakeReviewedAt": "2026-11-09T02:11:54.817511+00:00"
   },
-  "reviewNote": "Every atlas frame and available Street View comparison pair was visually inspected. Source coverage does not assert photographic identity; unresolved vertical data, panorama altitude, imagery date and estimated dimensions remain explicit.",
+  "reviewNote": "Complete retained earlier review coverage plus 5 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
   "comparisonSourceCommits": {
     "atlas": [
       "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "338300a95a79a2cabf3d7256ff745c6a1bac0372"
     ],
     "streetWalk": "4198996ab142e3496c9224478eb8cd1aced676fb"
   },
   "collectionNotes": {
-    "atlas": "Complete 82-frame atlas: 78 original c78a5f4 frames plus 4 canal retakes at 338300a9. Per-frame source/date retained. Full original atlas remains in historical collections. Technical north-up captures exclude moving traffic/mirror and temporarily remove fog/extend depth; native normal-perspective checks are separate.",
+    "atlas": "Current complete mixed-source atlas: 73 frames on c78a5f4c, 5 frames on 07cc3d6b, 4 frames on 338300a9. Actual per-frame source/date retained; only the conservative structure/separator subset is fresh 07cc3d6b. Full prior current collection archived. Technical aerial settings and separate native limitations remain.",
     "streetWalk": "Immutable source 4198996. Every available comparison pose, game image only. Reference imagery remains outside git; official reference URLs and dates are retained. Camera season follows reference metadata month. These426 GAME frames are completed historical4198996 evidence, with22unresolved camera altitude comparisons. They are retained separately from the currentc78a5f4 aerial/native source and never relabelled as that newer runtime."
   },
   "aerial": {
@@ -6475,13 +6591,13 @@
     "extent": "250 m ground-plane square, north-up; elevated roofs project larger under the perspective camera."
   },
   "atlasSourceCounts": {
-    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 78,
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 73,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 5,
     "338300a95a79a2cabf3d7256ff745c6a1bac0372": 4
   },
   "sourceCaptureManifest": {
-    "path": "historical/c78a5f4/capture-manifest.json",
-    "sha256": "b63f1d4561f5ec822573824a891ce9a2454a71c2246b712cd6b230e7327c02cc",
-    "note": "Original full atlas ledger; four replacements have their own ledger in sourceCaptureManifests."
+    "path": "capture-manifest.json",
+    "note": "Derived current mixed-source ledger; all exact original and retake capture ledgers remain separately retained."
   },
   "visualAcceptance": "Every frame reviewed; the four canal retakes resolve the broad fallback ribbon finding. Unknown source heights, detailed materials, occupancy, imagery date and the 0.46633m untagged waterway boundary continuation remain unresolved; no full-scene parity claim.",
   "openMaterialFindings": [
@@ -6510,6 +6626,19 @@
       "frames": 82,
       "generatedAt": "2026-11-08T23:25:13.529Z",
       "note": "All original images, thumbnails, raw capture ledger and source-file provenance are preserved unchanged."
+    },
+    {
+      "manifest": "historical/full-before-07cc3d6b-ff026d44/manifest.json",
+      "label": "Full prior current atlas before structural/separator retakes 07cc3d6b",
+      "frames": 82,
+      "generatedAt": "2026-11-08T23:25:13.529Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 78,
+        "338300a95a79a2cabf3d7256ff745c6a1bac0372": 4
+      },
+      "captureType": "mixed-source-survey",
+      "note": "Entire prior current collection and its GAME images/thumbnails, review, street/context and provenance files are byte-identical. Earlier histories retain their stable paths."
     }
   ],
   "sourceCaptureManifests": [
@@ -6523,6 +6652,22 @@
       "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
       "sha256": "a2036091fa5b218f7a4d562120b5329e6904de3fee658d9442e20c8922108eed",
       "frames": 4
+    },
+    {
+      "path": "historical/full-before-07cc3d6b-ff026d44/manifest.json",
+      "sha256": "ff026d4487d7cc831cb8b8a8b4b5980e30acf83fba4f1e4f4131155548299b3b",
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 78,
+        "338300a95a79a2cabf3d7256ff745c6a1bac0372": 4
+      },
+      "frames": 82,
+      "note": "Previous complete current manifest with actual per-frame source dates; its original raw capture ledger is also archived."
+    },
+    {
+      "path": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "sha256": "350f0e645203323bc4c5a3258612774a2ba53d302bf5d94bdb42174a29eeceb3",
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "frames": 5
     }
   ],
   "resolvedMaterialFindings": [
@@ -6539,5 +6684,22 @@
       ],
       "classification": "Broad duplicate fallback river ribbon removed; narrow source water polygon retained."
     }
-  ]
+  ],
+  "sourceSnapshots": [
+    {
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "treeSha256": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+      "manifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "manifestSha256": "350f0e645203323bc4c5a3258612774a2ba53d302bf5d94bdb42174a29eeceb3",
+      "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
+      "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
+      "frames": 5
+    }
+  ],
+  "sourceCompatibility": {
+    "method": "Only the conservative changed rendered-structure/separator mask is replaced. All other current items, source/date/pose metadata and pixels are unchanged. Moving traffic/mirrors are hidden in technical atlas captures. This does not relabel evidence as a later release or assert photographic parity.",
+    "mask": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/recapture-mask.json",
+    "maskSha256": "b5a7430ed5e472de79b3af9100fdb876f27f410addaf0c4040a5d618b019072a",
+    "unchangedDistrictDataSha256": "60506e422b1a0c8edbccc5fbbb7800015bd39e7f8c3767d49d262e4c9c2c6e38"
+  }
 }

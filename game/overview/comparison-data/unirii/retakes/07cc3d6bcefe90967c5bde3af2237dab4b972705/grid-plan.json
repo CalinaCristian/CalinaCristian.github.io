@@ -1,0 +1,17 @@
+{
+  "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+  "city": "bucharest",
+  "district": "unirii",
+  "grid": {
+    "x0": -1500,
+    "z0": -1250,
+    "columns": 12,
+    "rows": 10,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "core-touches": 1
+  },
+  "locations": [],
+  "coverage": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim."
+}

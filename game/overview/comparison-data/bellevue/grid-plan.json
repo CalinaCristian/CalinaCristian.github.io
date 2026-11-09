@@ -1,5 +1,5 @@
 {
-  "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "gameSourceCommit": null,
   "city": "seattle",
   "district": "bellevue",
   "grid": {
@@ -98,7 +98,7 @@
     },
     {
       "id": "sonic-source-anchor",
-      "label": "Bellevue skyline — City Center",
+      "label": "Bellevue skyline \u2014 City Center",
       "lat": 47.6148782,
       "lon": -122.1968365,
       "kind": "district-anchor",
@@ -175,5 +175,10 @@
       "tileId": "aerial-r05-c04"
     }
   ],
-  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score."
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "sourceCounts": {
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 73,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 5,
+    "338300a95a79a2cabf3d7256ff745c6a1bac0372": 4
+  }
 }

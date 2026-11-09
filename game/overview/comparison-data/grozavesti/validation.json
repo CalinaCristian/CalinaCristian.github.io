@@ -1,16 +1,17 @@
 {
   "district": "grozavesti",
   "frames": 100,
-  "retakesReviewed": 26,
-  "untouchedItemsAndBytesPreserved": 74,
+  "retakesReviewed": 1,
+  "untouchedItemsAndBytesPreserved": 99,
   "archivedFullFrames": 100,
-  "archivedManifestSha256": "5978bf1b7cb34de16980571ce85235e784050e450322e7117387c75ef2d5ee1d",
+  "archivedManifestSha256": "5978c6d95b290767b7cd5a1f4fe4316e301e8f7159646e9ed6583417b675e182",
   "atlasSourceCounts": {
     "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
-    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 26,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 25,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
     "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
   },
   "allGroundPosesPreserved": true,
-  "perspectiveCollectionsUnchanged": true,
+  "streetWalkAndPerspectiveMetadataUnchanged": true,
   "failures": []
 }

@@ -1,0 +1,48 @@
+{
+  "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+  "city": "bucharest",
+  "district": "unirii",
+  "grid": {
+    "x0": -1500,
+    "z0": -1250,
+    "columns": 12,
+    "rows": 10,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 11,
+    "core-touches": 6
+  },
+  "locations": [
+    {
+      "id": "unirii-start",
+      "label": "Unirii chapter start",
+      "lat": 44.426927,
+      "lon": 26.100981,
+      "source": "game/src/cities.js:CHAPTERS.gts.start",
+      "kind": "chapter-start",
+      "tileId": "aerial-r07-c04"
+    },
+    {
+      "id": "fountains",
+      "label": "Pia\u021ba Unirii fountains",
+      "lat": 44.4268,
+      "lon": 26.1025,
+      "source": "game/src/landmarks.js:ANCHOR.fountains; mapped water and fountain records",
+      "kind": "landmark",
+      "tileId": "aerial-r07-c04"
+    },
+    {
+      "id": "unirea",
+      "label": "Unirea Shopping Center",
+      "lat": 44.4280154,
+      "lon": 26.1048886,
+      "source": "game/src/landmarks.js:ANCHOR.unirea; OSM w23492027",
+      "osm": "way/23492027",
+      "kind": "landmark",
+      "tileId": "aerial-r06-c05"
+    }
+  ],
+  "coverage": "Targeted 17-frame water overlap retake only, using original full-survey poses. Not a new whole-district acceptance result.",
+  "posePlanSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99"
+}

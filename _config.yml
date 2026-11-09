@@ -29,3 +29,4 @@ exclude:
   - handoffs/fidelity/game-preview-ff6b2bff
   - handoffs/fidelity/history-unsigned-20261109
   - handoffs/fidelity/game-preview-publication-20261109
+  - handoffs/fidelity/native-final-qa

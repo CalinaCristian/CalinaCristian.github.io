@@ -98,6 +98,7 @@ import { CITIES as GAME_CITIES } from '../../game/src/cities.js';
 import { compileSourceReturns } from './source-return-corridors.mjs';
 import { preserveReviewedSourceContext, retainedSourceLevelEstimate } from './source-return-context.mjs';
 import { snapshotRoadRestrictionSources, roadRestrictionCatalogue } from './road-restrictions.mjs';
+import { snapshotPublicTransportSources, publicTransportCatalogue } from './public-transport-sources.mjs';
 import { LANDMARKS } from '../../game/src/landmarks.js';
 import { speciesFromOSM } from '../../game/src/trees.js';
 import { resolveResearchSource } from './research-source.mjs';
@@ -292,6 +293,7 @@ function buildCity(cityId, did = null) {
     log(cityId, files.length, 'tiles');
     const osm = parseFiles(files);
     const rawRoadRestrictions = ds ? snapshotRoadRestrictionSources(osm) : null;
+    const rawPublicTransport = ds ? snapshotPublicTransportSources(osm) : null;
     const { nodes: N, ntags, ways: W, rels: R } = osm;
     log(`parsed nodes=${N.size} ways=${W.size} rels=${R.size}`);
     const P = makeProj(C);
@@ -2039,6 +2041,7 @@ function buildCity(cityId, did = null) {
     if (ds) {
         const sourceFiles = files.map(file => ({ file: path.basename(file), sha256: createHash('sha256').update(fs.readFileSync(file)).digest('hex') }));
         Object.assign(doc, roadRestrictionCatalogue(doc, rawRoadRestrictions, sourceFiles, did));
+        Object.assign(doc, publicTransportCatalogue(doc, rawPublicTransport, sourceFiles, { poiSourceIds: pois.map(p => p.osm) }));
         if (sourceContextReview) {
             const surveyFile = path.join(REPO, 'game', 'research', `trees-${cityId}-${did}.json`);
             preserveReviewedSourceContext(doc, sourceContextReview, fs.existsSync(surveyFile) ? fs.readFileSync(surveyFile) : null);

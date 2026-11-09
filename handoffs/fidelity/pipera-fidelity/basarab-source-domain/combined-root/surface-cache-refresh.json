@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "baseSource": "167663dc",
+  "freshGeometryInput": "208fdc5e",
+  "changedFields": [
+    "buildingUnions",
+    "buildingGeometryPoints"
+  ],
+  "sourceRecords": 2932,
+  "cacheVersion": 2,
+  "cachedSurfaces": 886,
+  "allOtherValuesIdentical": true,
+  "roadRestrictionsRetained": 33,
+  "beforeSHA256": "053f75636671ca5fb0e44db38070bd806572697a54c6127e55834b9d86521a75",
+  "afterSHA256": "08ac34e86de4a4f382801ce4300a6264b149e684f146f1428d5bd91d85e9467d"
+}

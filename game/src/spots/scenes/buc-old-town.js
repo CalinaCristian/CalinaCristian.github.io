@@ -223,6 +223,8 @@ function buildCarusel(ctx) {
     b.sphere(fx - nx * 0.3, y0 + H + 8.3, fzz - nz * 0.3, 0.45, 0.6, 0.45, '#efe9dc', 'stone', 10, 8);
     const roofP = grow(p, -0.3), oc = o;
     b.add(new THREE.CylinderGeometry(Math.SQRT1_2 * 0.7, Math.SQRT1_2, 1, 4, 1).rotateY(Math.PI / 4), 'darkglass', M(oc.cx, y0 + H + 2.3, oc.cz, 0, -oc.angle, 0, oc.len - 0.6, 4.6, oc.wid - 0.6), '#3b4148');
+    const roofPoint=(u,v,y)=>[oc.cx+oc.ux*u+oc.uz*v,y,oc.cz+oc.uz*u-oc.ux*v];
+    for(const su of [-1,1])for(const sv of [-1,1])b.rod(roofPoint(su*(oc.len-.6)/2,sv*(oc.wid-.6)/2,y0+H+.02),roofPoint(su*(oc.len-.6)*.35,sv*(oc.wid-.6)*.35,y0+H+4.62),.03,'#59605a','metal',5);
     void roofP;
     // ---- interior: levels, atrium, balustrades, shelves
     const LV = [0, 4.6, 8.4, 12.2, 16.0], stair={x:oc.cx-oc.ux*oc.len*.38,z:oc.cz-oc.uz*oc.len*.38}, stairWell=Array.from({length:32},(_,i)=>[stair.x+Math.cos(i/32*Math.PI*2)*2.45,stair.z+Math.sin(i/32*Math.PI*2)*2.45]), innerP = grow(p, -0.35), ecx = oc.cx + (fx - oc.cx) * 0.08, ecz = oc.cz + (fzz - oc.cz) * 0.08;
@@ -283,10 +285,14 @@ function buildCarusel(ctx) {
     ctx.extras.caruselFloor = () => ctx.painter.poly(innerP, '#9b8062', 'wood');
     ctx.add(iw.build('carusel-interior', { castShadow: false }));
     ctx.add(shelves.build('carusel-shelves', { castShadow: false, matOverrides: { shelf } }));
-    const shell=b.build('carusel', { matOverrides: { [fac.key]: fac.mat } });
+    const roofGlass=new THREE.MeshStandardMaterial({color:'#b9ced0',transparent:true,opacity:.2,roughness:.16,metalness:.06,depthWrite:false,side:THREE.DoubleSide});roofGlass.name='carusel-skylight-glass';
+    const shell=b.build('carusel', { matOverrides: { [fac.key]: fac.mat,darkglass:roofGlass } });
     // The same estimated shell encloses the modeled interior. Its real walls
     // and roof must remain visible from the galleries as well as the street.
-    const insideMaterials=new Map();shell.traverse(o=>{if(!o.isMesh)return;const inward=m=>{if(!insideMaterials.has(m)){const copy=m.clone();copy.side=THREE.DoubleSide;insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);
+    const insideMaterials=new Map();shell.traverse(o=>{if(!o.isMesh)return;const inward=m=>{if(m===roofGlass)return m;if(!insideMaterials.has(m)){const copy=m.clone();copy.side=THREE.DoubleSide;insideMaterials.set(m,copy);}return insideMaterials.get(m);};o.material=Array.isArray(o.material)?o.material.map(inward):inward(o.material);});ctx.add(shell);
+    // The inward clones own their material programs; their cached facade maps
+    // remain shared. Generic scene disposal must not discard those shared maps.
+    (ctx.extras.sceneCleanups||=[]).push(()=>{for(const m of insideMaterials.values())m.dispose();});
     // Upper-storey fixtures must not become tall outdoor lamps whose pooled
     // ground spill shines through every gallery and burns out the shop floor.
     // One bounded reading light supplements the self-lit estimated interior.

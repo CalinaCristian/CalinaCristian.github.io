@@ -1,0 +1,4 @@
+PUBLIC {"district":"grozavesti","population":{"active":517,"pool":0,"peds":560,"constructorCount":377},"preflightPassed":false,"boundary":{"sourceSupports":1930,"triangles":4116,"bodyRadiusM":3.53643888678993,"addedMaskCells":144,"oldMaskCells":2058,"clippedClosureSections":7,"removedClosureSections":0,"closureBundles":85,"clippedDecorationPolygons":939,"rejectedDiscreteProps":82,"unresolved":[],"basis":"Finite whole-body support of kept literal source core roads/pads; no passive scenery, OUT or mapped barrier edits"}}
+FRAME native-start-warm {"calls":334,"triangles":914730}
+FRAME native-start-sample {"calls":334,"triangles":914730}
+BODY {"rows":1736,"positive":0}

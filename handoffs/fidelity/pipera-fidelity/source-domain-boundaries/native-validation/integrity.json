@@ -1,0 +1,242 @@
+{
+  "policy": "Every raw report/negative preserved losslessly; real source commits/dates retained. No reference imagery.",
+  "rawRoot": "/workspace/reality-pass/source-domain-boundaries",
+  "files": {
+    "native-fd31352e/native-start-sample.png": {
+      "bytes": 1147352,
+      "sha256": "308ccb008e6e1806246013c412231918a63b9cb54b5936877de729be922dcd61"
+    },
+    "native-fd31352e/native-start-warm.png": {
+      "bytes": 1157214,
+      "sha256": "daf3e5f99287e5b7b5ddfea8039fffe64f185ca97912a44aec6efff3c43feda7"
+    },
+    "native-fd31352e/report.json.gz": {
+      "bytes": 51311,
+      "sha256": "35540fccf58ac027905d3378ec9f6c80199d8501b7d5b007d12deae9acf67177",
+      "rawBytes": 789217,
+      "rawSha256": "32db7a531cfcb37514880f0593c0c3ca294ec3616db9a09f29f2dc0602820e12"
+    },
+    "native-fd31352e/native.log": {
+      "bytes": 6362,
+      "sha256": "150f8a605b1fce8e5b54d7ce3ab9edd82b3efb9423f92c3513dbfa60127a44b7"
+    },
+    "native-fd31352e-r2/native-main-bridge.json.gz": {
+      "bytes": 60322,
+      "sha256": "b8cc1aa4e4c11a478102d914b429673104ef35c0688138bc660711bcd40349f3",
+      "rawBytes": 622921,
+      "rawSha256": "6ed22dadb08bb577a62502b478ebe44a56ed17f6681e26e12a1c4cae42b7e1d5"
+    },
+    "native-fd31352e-r2/native-start-sample.png": {
+      "bytes": 1146407,
+      "sha256": "b905c541025925915801f344e5fd1ce0ebbad5e2f661a0b2f0c4c617ad86f86e"
+    },
+    "native-fd31352e-r2/native-start-warm.png": {
+      "bytes": 1156785,
+      "sha256": "1db3541ae7f88110ad5f931b6114b572aad88154d92a1c5c2ca9e968e5f2bac4"
+    },
+    "native-fd31352e-r2/report.json.gz": {
+      "bytes": 56963,
+      "sha256": "836c81a1c63c24bc8b00ff42161cee1bb4b4977fc37a3ccd2ebef58dd4616e13",
+      "rawBytes": 866334,
+      "rawSha256": "f9f3c61c02de53a41492dddcff64afcf7f3650341749e27e16690f48a0f413d2"
+    },
+    "native-fd31352e-r2/native.log": {
+      "bytes": 673,
+      "sha256": "94b8f13a4fdb4a24d6724ebfa92ecdad8d7d46e12e5343cdcc792ebb51de4e1f"
+    },
+    "native-fd31352e-otopeni/native-driven-endpoint.png": {
+      "bytes": 1158749,
+      "sha256": "ac78b2f528f1e9455f481b98689cd556c18d4eccced8e0732eaf5f6da5478df7"
+    },
+    "native-fd31352e-otopeni/native-start-sample.png": {
+      "bytes": 1125966,
+      "sha256": "10c3fda9f4dd17e9358fccd0d28bc58ba0dc0de00434a78032a6936bd3317390"
+    },
+    "native-fd31352e-otopeni/native-start-warm.png": {
+      "bytes": 1140444,
+      "sha256": "1a760833a7755ea58bce2146a1c1673d460c6c7a160cbdc763ab13644bbecd2c"
+    },
+    "native-fd31352e-otopeni/report.json.gz": {
+      "bytes": 53757,
+      "sha256": "fc87dc78965262e14abf96e9785e6434acd4a15acc10e8006e944f1820219e2c",
+      "rawBytes": 882981,
+      "rawSha256": "f0a3b9f42e885f996ecc4002d6d2668a87639e5e4f4eb2fbfb3cc92fcd6dce2a"
+    },
+    "native-fd31352e-otopeni/native.log": {
+      "bytes": 1852,
+      "sha256": "96340f4dbc2384dc24a849b4f6adc600ace22ee50510441c691766aa0ccc2eeb"
+    },
+    "closures-fd31352e/bellevue-103rd-closure.png": {
+      "bytes": 1097068,
+      "sha256": "ef6d66e64cef60f34d278da117a56498fd1292cfe3f5f8b32475708deb42173b"
+    },
+    "closures-fd31352e/bellevue-avenue-square-closure.png": {
+      "bytes": 1138478,
+      "sha256": "b542dacdd92fa5c88923fb276efe3992cec4ddb5aa346ee1d689e785c6f05a47"
+    },
+    "closures-fd31352e/bellevue-closure-edge-0.png": {
+      "bytes": 1174735,
+      "sha256": "ef710d82abb7affa2677a504ec9c437a5b6956445740f5ae05019bf6016da17f"
+    },
+    "closures-fd31352e/bellevue-closure-facts.json.gz": {
+      "bytes": 15905,
+      "sha256": "d6893c55082fe917a8ba00fdc187b84b6ee616271f7843202f096a71063533e7",
+      "rawBytes": 67640,
+      "rawSha256": "9d10ad6eb2b867329e330c3c4c3e69ba372aa5ad904667dd39a314b373d37f4c"
+    },
+    "closures-fd31352e/grozavesti-closure-edge-7.png": {
+      "bytes": 1204301,
+      "sha256": "47845c653f9ab10e94ba7c9b8ba01bb5543587ac2a51d97e364b80cec2a46166"
+    },
+    "closures-fd31352e/grozavesti-closure-facts.json.gz": {
+      "bytes": 29298,
+      "sha256": "fb595896086ba76a27722cb7217600d45e31848340df17186d16f4d4dc348b98",
+      "rawBytes": 115930,
+      "rawSha256": "da858c677aa75fbdf1caf45f44c0c35b7bfa36d26f8aa68232855766f7462145"
+    },
+    "closures-fd31352e/grozavesti-old-x640-boundary.png": {
+      "bytes": 1286062,
+      "sha256": "2a3055cde9861d302e991439f303ce0103ce8e5afa940daf4075702abd90210e"
+    },
+    "closures-fd31352e/otopeni-closure-edge-0.png": {
+      "bytes": 1132491,
+      "sha256": "2abbfab64e054ef914c93ff6fbd6093c9630e99ab5be20e45e1e3842c0d3a7be"
+    },
+    "closures-fd31352e/otopeni-closure-edge-27.png": {
+      "bytes": 1164157,
+      "sha256": "407c85df37c4773b444ee9f126f7567b9cf207c22ef9f4deae2b30067199a061"
+    },
+    "closures-fd31352e/otopeni-closure-edge-3.png": {
+      "bytes": 1151948,
+      "sha256": "0600aa53a447e8ff3c2fdb4561d9fbc7a0386604b8b2c1ed37a238456fb14b0b"
+    },
+    "closures-fd31352e/otopeni-closure-facts.json.gz": {
+      "bytes": 9532,
+      "sha256": "7365eb3aa0d08eeeeb1db97b604945bdb3bc4ea85c73977a8e6275b8697e751c",
+      "rawBytes": 43506,
+      "rawSha256": "3266a03a39eb785b38df589b00c02309b254b39f9288ca8f150419eb2a9fa78b"
+    },
+    "closures-fd31352e/report.json.gz": {
+      "bytes": 13266,
+      "sha256": "4eac507ecc8827799aa231e0bf406f9e3e618901a38de4e98a67b508c0de0ba4",
+      "rawBytes": 39189,
+      "rawSha256": "d630fd1fb824f19c612660c8c309d55e325f28d5ade8b0f24eb3b8b51133706c"
+    },
+    "closures-fd31352e/seatac-closure-edge-792.png": {
+      "bytes": 1173004,
+      "sha256": "9f0917cf79174c1c33c6cf679aedffe2129797c08c2354493dbbd5a006b1fd63"
+    },
+    "closures-fd31352e/seatac-closure-facts.json.gz": {
+      "bytes": 11860,
+      "sha256": "cd95b80d9327b3e50fceef249b9e88bf91f3e1607f3218ae73773461c1f0eb84",
+      "rawBytes": 57051,
+      "rawSha256": "b7fb4d6089c0b816b0d748d9b5943ab7814c49d36ba11e90908f69a0c3e68946"
+    },
+    "closures-fd31352e/native.log": {
+      "bytes": 104,
+      "sha256": "d43fa22468ee9ecc708ec0f3275e661220bf9b25d043aafbddcc3a8dfde163b2"
+    },
+    "closures-a119e372/bellevue-103rd-closure.png": {
+      "bytes": 1102076,
+      "sha256": "de23c3ea9947a648b986024e8e350f07ed2e91e13308774c6a5051954b9b2931"
+    },
+    "closures-a119e372/bellevue-avenue-square-closure.png": {
+      "bytes": 1138789,
+      "sha256": "b23b149b8eb5a5e788fab16ce1b8ef6f1c187cd18751d24274ebc74c26ca8b4e"
+    },
+    "closures-a119e372/bellevue-closure-edge-0.png": {
+      "bytes": 1175950,
+      "sha256": "cf3f7d22aa700fe6eb7cabf17988a206a69cba7cc34bf83af45c1da776db04ea"
+    },
+    "closures-a119e372/bellevue-closure-facts.json.gz": {
+      "bytes": 15903,
+      "sha256": "e090d24f01178b51e5bd88297da6f08602cf4c7cb70b20400d4fcdbd6d6551f5",
+      "rawBytes": 67641,
+      "rawSha256": "aeb09b70716ec8772187214629157c3cf5579a2465d3a9ea992c7a177ebff08c"
+    },
+    "closures-a119e372/grozavesti-closure-edge-7.png": {
+      "bytes": 1203757,
+      "sha256": "7b4881c03f15ad6590d092d2b6b4cd1fdaf2ee9607e94ee6d686765f8c9a3608"
+    },
+    "closures-a119e372/grozavesti-closure-facts.json.gz": {
+      "bytes": 29299,
+      "sha256": "17435e26513da61d81ba6ecc987e75b8c3d6c12e8e78f1548c8b3c8b9a73c353",
+      "rawBytes": 115931,
+      "rawSha256": "55d6255fd609a0c3b8545390484aaf2da37e6e885f0e1efa3f21c41c180996d3"
+    },
+    "closures-a119e372/grozavesti-old-x640-boundary.png": {
+      "bytes": 1281058,
+      "sha256": "d56a698670ae06850489ceb569992c8109cba38f31588426aebc8793ef8e2670"
+    },
+    "closures-a119e372/otopeni-closure-edge-0.png": {
+      "bytes": 1134890,
+      "sha256": "aa2db93278dd0402aeb46e41397d5d98911f1b0fe4fe9b6c4eedf084004fc77d"
+    },
+    "closures-a119e372/otopeni-closure-edge-27.png": {
+      "bytes": 1166412,
+      "sha256": "404aa0bdaafda269fa4d0229630414dc92cfb50668944994a78af8546c77ded6"
+    },
+    "closures-a119e372/otopeni-closure-edge-3.png": {
+      "bytes": 1152254,
+      "sha256": "a7e50cdefa2ffb298bf615b9ba34487ed6b5544d2f654d88e9f7ae2fad009fba"
+    },
+    "closures-a119e372/otopeni-closure-facts.json.gz": {
+      "bytes": 9534,
+      "sha256": "ec58a47ef0b1719f589696f4f2b12130d7cb88c7bfa76f745549aab1d78678c5",
+      "rawBytes": 43506,
+      "rawSha256": "c7fe1b5d80746a714e52e83cfe15f0da3825c2738b439667260193b5699f19af"
+    },
+    "closures-a119e372/report.json.gz": {
+      "bytes": 13257,
+      "sha256": "346c46fcc3e552b708d7ea8daac78fd7bf9d71c720cd6df706d27018dd51ec02",
+      "rawBytes": 39189,
+      "rawSha256": "870bdb62610d8dd412a7d08d7aef17445fa290cc61edf0dccb577f81417649c8"
+    },
+    "closures-a119e372/seatac-closure-edge-792.png": {
+      "bytes": 1171915,
+      "sha256": "5653645d17369cc3f9d73b35a4ec40f4ffca71d03578db4beac347d4d6185ec4"
+    },
+    "closures-a119e372/seatac-closure-facts.json.gz": {
+      "bytes": 11857,
+      "sha256": "8793e87d9be99ef5ab03781475068fd5a1446b0597117e8bf93fc33de88f9d98",
+      "rawBytes": 57051,
+      "rawSha256": "659c2fbab9674c3f367f3f7030aa3beb7abe27770853f34e4a779934110e2416"
+    },
+    "closures-a119e372/native.log": {
+      "bytes": 104,
+      "sha256": "d43fa22468ee9ecc708ec0f3275e661220bf9b25d043aafbddcc3a8dfde163b2"
+    },
+    "source-manifest-fd31352e.json": {
+      "bytes": 50636,
+      "sha256": "f962b8c821933a15436d5d2b7ca694f7e7e4f90b595b2d544ebf040816fe6366"
+    },
+    "source-manifest-a119e372.json": {
+      "bytes": 50636,
+      "sha256": "5dd2b9f23f833eb21970d9f4d541e25c4d1aa551ea224013c9d3e3f87545def4"
+    },
+    "executed-tools/fd31352ef2b0bdcaa562af5e56339a2157a46a48/native.cjs": {
+      "bytes": 14477,
+      "sha256": "f54544ddba76d094945b0fbd308d4d9c21829f7adee6643f505a3726cdd1d1ce"
+    },
+    "executed-tools/fd31352ef2b0bdcaa562af5e56339a2157a46a48/scan-main-bridge.cjs": {
+      "bytes": 4519,
+      "sha256": "273c07bfa4257ea7460b183909e8c1c80c70720dcd83895cafb807387cf7d28d"
+    },
+    "executed-tools/2e9bd8ace7b49d330fafaa32e71bd937f3df4206/native.cjs": {
+      "bytes": 15521,
+      "sha256": "71fd2678200916f604c9a4f99031231c3a6175abec6290f8397604c99dbf6d3a"
+    },
+    "executed-tools/2e9bd8ace7b49d330fafaa32e71bd937f3df4206/scan-main-bridge.cjs": {
+      "bytes": 5092,
+      "sha256": "c8ea8aa993cf4f4b2e3132d798fe94b8d7a713df29de70ffb33b2b0942f00b15"
+    },
+    "executed-tools/58a06f820e0f9fc8d8902bda130f2030eb10d26b/native-closures.cjs": {
+      "bytes": 7502,
+      "sha256": "4235c81050123b513dbc5356eee3662cfffa7bc091523a7c39a24c9f3072a9ab"
+    },
+    "native-summary.json": {
+      "bytes": 18363,
+      "sha256": "02add6cba7e3e623ab8778e6502e66a2656f41267486aa7050d9202d81ecf8b5"
+    }
+  }
+}

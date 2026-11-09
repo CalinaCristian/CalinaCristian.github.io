@@ -58,4 +58,38 @@ any recovery reset or pedestrian push policy; such an attempt is a failure, not 
 
 No camera, FOV, far, source, actor, mesh, shader, index, population or clock/date replacement is used. Complete warm frame
 work and all actual failures remain. The scan locates the start by literal source node4544537057, never an old generated
-node index. Native and driven results will be published separately after executing the exact committed candidate.
+node index.
+
+The committed native package is `native-validation/`; `native-summary.json` indexes exact scopes and the retained
+negatives, while `integrity.json` covers every raw report, log, source ledger and game image. Run `python3 verify-native.py`
+from this directory to verify all52 portable files and both234-file source manifests against their actual Git trees/blobs.
+`package-native.py` documents the lossless collection from the original retained external outputs.
+
+Runtime **fd31352ef2b0bdcaa562af5e56339a2157a46a48** produced the fresh native body/drive/render observations:
+
+- Groz: all1736 literal northbound bridge poses have0static positives/height errors, including the exact old x640 positive
+  pose at station1119.8076633697528/lane1 (now edge1290, literalw668700431 unchanged). Player, cache, actors and time remain
+  unchanged. All61 actual Doina Cornea edge midpoints route to the real Lukoilw256806132. Full native517active/0pool/560peds
+  preserve all377 constructor identities. **Driving is stopped before simulation**: native rail binding rejects tram376,
+  `no-local-source-legal-static-clear-rail-placement`/78candidates. This remains an open physical gate, not a route pass.
+- Otopeni: actual public start to the first160m native airport route arrives after151m/12.4s,0contacts/resets/attempted resets,
+  full243active/0pool/560peds and all229 constructor identities retained. One low CPU-update warning47.4ms is preserved;
+  software-renderer timing is not hardware FPS. No error-level runtime/console/HTTP findings.
+- Groz complete native High/full-mirror warm frames each334calls/914730triangles. First raw431/927403 reconciles exactly
+  with directly recorded pre-draw97calls/12673triangles, whose97 individual setup draw rows are retained in the corrected
+  replay. Otopeni complete frames303/647433 at start and270/569550 after driving also reconcile. The earlier Groz attempt
+  has the raw carry but did not persist its individual setup rows; its incomplete scope is retained verbatim.
+
+The inspected sign-only follow-up **a119e3727db7de739dce805f07f7ae05702cc648** prevents partial generated sign text: each
+post/plate/letter quad and arrow board is admitted as a whole against other actual source support. Fresh static native
+exports in Groz/Otopeni/Bellevue/SeaTac retain byte-equivalent physical closure walls, boundary outline and closure metadata
+againstfd313 (91/39/65/56sections). Nine unique full-size static images were inspected, including oldx640, Bellevue103rd,
+AvenueSquare, Otopeni boundary streets and SeaTac792. Explicit camera views are separate from native cockpit budgets and
+driving. The first camera tool renders the same SeaTac camera three times for three split physical sections; original
+reports are unmodified and only the final hash-matching record is indexed as one image. The reproduction tool now captures
+that camera once. No reference-provider imagery is included.
+
+All native source files before/after and served responses are pinned to their real commits. The physical/drive/budget
+observations remain labelledfd313; the sign follow-up is not substituted into them. Latest-root paint/Ultra, complete Groz
+driving, global physics/final23 budgets and published overview refresh remain integration gates. Ordinary source fields,
+generated cohorts and invalid tram376 are not hidden, thinned, re-seeded, teleported or waived to obtain these results.

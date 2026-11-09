@@ -1,0 +1,15 @@
+{
+  "portableFiles": 52,
+  "sourceLedgers": [
+    {
+      "commit": "fd31352ef2b0bdcaa562af5e56339a2157a46a48",
+      "files": 234
+    },
+    {
+      "commit": "a119e3727db7de739dce805f07f7ae05702cc648",
+      "files": 234
+    }
+  ],
+  "uniqueGitSourceBlobs": 235,
+  "passed": true
+}

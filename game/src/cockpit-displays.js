@@ -136,6 +136,9 @@ export class CockpitDisplays {
         this.frameScene = this.active ? scene : null; this.frameCamera = this.active ? camera : null;
         const ratio = displayPixelRatio(worldRatio, globalThis.devicePixelRatio, width, height, this.active);
         if (this.renderer.getPixelRatio() !== ratio) this.renderer.setPixelRatio(ratio);
+        // gl.clear(DEPTH_BUFFER_BIT) respects the depth-write mask. The depth
+        // copy quad writes color only; do not let its state suppress a clear.
+        this.renderer.state.buffers.depth.setMask(true);
         this.stats = { active: this.active, worldPixelRatio: worldRatio, outputPixelRatio: ratio,
             outputPixels: this.renderer.domElement.width * this.renderer.domElement.height,
             worldPixels: this.savedDepth.width * this.savedDepth.height,
@@ -169,7 +172,10 @@ export class CockpitDisplays {
                 mesh.visible = visibleInScene(source, this.frameScene, this.frameCamera);
                 mesh.matrix.copy(source.matrixWorld); uniforms.uDisplayPass.value = 2;
             }
-            r.autoClear = true; r.setClearColor(0xffffff, 1);
+            r.autoClear = true;
+            r.setClearColor(r.capabilities.reverseDepthBuffer ? 0x000000 : 0xffffff,
+                r.capabilities.reverseDepthBuffer ? 0 : 1);
+            r.state.buffers.depth.setMask(true);
             r.setRenderTarget(this.planeDepth); r.render(this.scene, this.frameCamera);
         } finally {
             for (const b of this.bindings) b.uniforms.uDisplayPass.value = 0;
@@ -217,6 +223,7 @@ export class CockpitDisplays {
             }
             r.autoClear = false;
             r.setRenderTarget(null);
+            r.state.buffers.depth.setMask(true);
             r.clearDepth(); // only the two display planes use this depth attachment;
             // physical world/cabin occlusion comes from the saved source depth.
             r.render(this.scene, camera);

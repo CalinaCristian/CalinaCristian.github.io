@@ -1,0 +1,9 @@
+# Fresh984 tram490 rejection: independent actual geometry proof
+
+Exact runtime984ded5ad3f07b78e61cee1bb3bbc43a813fa914. All input raw/gzip hashes are retained in geometry-witnesses.json; original source, canonical scene and native constructor/candidate files remain immutable in Bridge proof storage. No browser/runtime changes were made by this audit.
+
+Native494 actors include Imperio490; only one of103 projected candidates is within the native36m local limit. Its source w128304860:12 n933659698→12329244826 dir+1/s120.5877802049 is inside-source and has a known flat native grade. Native conservative cover first rejects sign collider30374.
+
+Independent exact Float32 decoding proves eight actual post/floor intersections: solid -1,0 native triangles1687–1694 against actual Imperio primary floor triangle787 atY0.5400000119. This is not only the r.1 collision proxy. The entire inferred unit matches12 post triangles1687–1698 and4 front/back plates224–227 in signs -1,0. Analytic source generation uniquely matches road87/e254/w80013062, along40.2709734603=len46.7709734603−retract4−2.5, side−1, offset4.25m. It is the inferred one-way EXIT no-entry unit on the absent source-left sidewalk: raw sidewalk=right, native widths L0/R3.5, but old placement used scalar3.5. Exactpostheight.15..2.45,width/depth.07; plates.75×.75 atcentreY2.15 withfront/backoffsets.06/.04.
+
+The preview is a rejected source candidate, not an admitted/evolving tram collision or physical publication pass. Source roads/rail/actors/raw data are retained. The proposed fix is narrow complete inferred-unit emission refusal using actual same-model/source rail envelope and actual part bands, before atlas/mesh/collider allocation; retain the clear right no-entry unit. Fresh native constructor/source/body acceptance remains required.

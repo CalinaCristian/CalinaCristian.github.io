@@ -1,0 +1,135 @@
+{
+  "scope": "CPU actual source mountain geometry/normal bytes and all emitted vertex rays at three native camera-height fixtures; fresh public-app rendering/budget remains required",
+  "base": "4787d7d7b6deaac7855a990f530d1ccff4917997",
+  "sourceFileSHA256": "b17e4249f7e9323baeaf276d4f1f667af2763fef587b7a9b103b3c38b0130f0d",
+  "results": [
+    {
+      "id": "rainier",
+      "geometryAndNormalsSHA256": "89c38fe36a74613e4aa6db465c9709e9ffd34c8bedba2d0d3ba8fe0a3b58a771",
+      "sourceBuffersUnchanged": true,
+      "groundEyeTransformUnchanged": true,
+      "finiteFarBoundM": 10666.705970949115,
+      "tests": [
+        {
+          "eye": [
+            0,
+            1.65,
+            0
+          ],
+          "vertices": 13824,
+          "maxRayError": 1.2865337223225055e-12,
+          "maxDistanceM": 10300.982720619937,
+          "minOriginalDistanceM": 5678.219058134614,
+          "maxOriginalDistanceM": 10300.40785499137,
+          "peak": {
+            "x": 3686.1021785523476,
+            "y": 355.6485827209719,
+            "z": 7082.082336273076,
+            "horizontalDistanceM": 7983.936340457599
+          }
+        },
+        {
+          "eye": [
+            15,
+            154.1,
+            8
+          ],
+          "vertices": 13824,
+          "maxRayError": 1.875186763209818e-12,
+          "maxDistanceM": 10299.668507807251,
+          "minOriginalDistanceM": 5678.219058134614,
+          "maxOriginalDistanceM": 10300.40785499137,
+          "peak": {
+            "x": 3686.1021785523476,
+            "y": 355.6485827209719,
+            "z": 7082.082336273076,
+            "horizontalDistanceM": 7983.936340457599
+          }
+        },
+        {
+          "eye": [
+            -200,
+            -10,
+            100
+          ],
+          "vertices": 13824,
+          "maxRayError": 1.8750252136283673e-12,
+          "maxDistanceM": 10301.81864622713,
+          "minOriginalDistanceM": 5678.219058134614,
+          "maxOriginalDistanceM": 10300.40785499137,
+          "peak": {
+            "x": 3686.1021785523476,
+            "y": 355.6485827209719,
+            "z": 7082.082336273076,
+            "horizontalDistanceM": 7983.936340457599
+          }
+        }
+      ],
+      "fogHidden": true
+    },
+    {
+      "id": "olympics",
+      "geometryAndNormalsSHA256": "8808763499cbacc3709f09410cca44c2b16dd964c308fdf7d289f3097d3f87b5",
+      "sourceBuffersUnchanged": true,
+      "groundEyeTransformUnchanged": true,
+      "finiteFarBoundM": 17531.50213687354,
+      "tests": [
+        {
+          "eye": [
+            0,
+            1.65,
+            0
+          ],
+          "vertices": 18720,
+          "maxRayError": 2.0338905713759738e-12,
+          "maxDistanceM": 16727.642306255984,
+          "minOriginalDistanceM": 5527.024304134372,
+          "maxOriginalDistanceM": 16727.493882791237,
+          "peak": {
+            "x": -13438.354769199976,
+            "y": 273.6689298193201,
+            "z": -2623.710706600496,
+            "horizontalDistanceM": 13692.086647944127
+          }
+        },
+        {
+          "eye": [
+            15,
+            154.1,
+            8
+          ],
+          "vertices": 18720,
+          "maxRayError": 2.0344862341713998e-12,
+          "maxDistanceM": 16729.800914807474,
+          "minOriginalDistanceM": 5527.024304134372,
+          "maxOriginalDistanceM": 16727.493882791237,
+          "peak": {
+            "x": -13438.354769199976,
+            "y": 273.6689298193201,
+            "z": -2623.710706600496,
+            "horizontalDistanceM": 13692.086647944127
+          }
+        },
+        {
+          "eye": [
+            -200,
+            -10,
+            100
+          ],
+          "vertices": 18720,
+          "maxRayError": 2.0338905713759738e-12,
+          "maxDistanceM": 16709.157878502163,
+          "minOriginalDistanceM": 5527.024304134372,
+          "maxOriginalDistanceM": 16727.493882791237,
+          "peak": {
+            "x": -13438.354769199976,
+            "y": 273.6689298193201,
+            "z": -2623.710706600496,
+            "horizontalDistanceM": 13692.086647944127
+          }
+        }
+      ],
+      "fogHidden": true
+    }
+  ]
+}

@@ -17,6 +17,7 @@ R13.11 Respect source directional turn-lane roles at the actual source-way termi
 R13.12 Separate source rail-mode eligibility from motor access. Initial admission rejects a car on a rail edge, a wrong rail direction or an unbound tram; source-aware relocation and respawn obey the same mode gate. Rail grade callbacks supply the same modeled profile used by rendered tracks/support, with absent callbacks retaining explicit ground-stage limitations.
 R13.13 Rail spawn spans and terminal-source stops retain the existing physical crossing-pad radius plus1.5m beyond the whole vehicle body. A source-connected shared motor crossing does not permit a tram bumper at its centre. Preserve ordinary-car placement margins and actual rail geometry/directions.
 R13.14 Existing compiled flag8 denotes a mapped controlled pedestrian crossing, so it enables an actual signal controller at that source node. Do not redirect its standalone controller to a nearby junction. Literal crossing-footway source context may associate parallel rail approaches with that same synthetic controller, retaining separate routing nodes and explicit missing/ambiguous evidence.
+R13.15 Select the closest source-legal track before grade admission and retain its connected source component. A level-only underground source is unresolved without an explicit grade model; rejecting it must not reassign its tram to a farther modeled surface track.
 
 ## Acceptance
 - [ ] Harness: vehicle-overlap ≤ 5, ped-in-vehicle 0, vehicle-overlaps-player 0, scenario i passes.

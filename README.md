@@ -102,7 +102,7 @@ that chapter of the CV.
   stations), mapped speed/red-light cameras, turn-by-turn navigation on the car's screen and fast travel. The car collides with its whole visible body
   (bonnet to boot).
   Compiled tram sources retain actual way and node identities, directional/access tags, ordered route relations and stop/signal node tags alongside unchanged rendered track coordinates; source metadata and native movement validation are separate checks.
-  Trams follow directed mapped rail paths and actual stop positions. Their source assignments and unresolved grade constraints are recorded independently of body-clearance checks; a nearby motor road cannot stand in for a track.
+  Trams follow directed mapped rail paths and actual stop positions. Their source assignments and unresolved grade constraints are recorded independently of body-clearance checks; a nearby motor road cannot stand in for a track. Binding checks the closest source track before grade admission, so an unresolved underground track cannot silently become a farther surface track.
   Rail access is separate from motor access: a legal tram direction does not make a track drivable by cars.
   Initial rail placement and source-boundary stops keep the whole tram clear of mapped crossing pads.
   NPC route choices respect mapped turn-lane arrows. Turning cars retain their approach lane through the junction, with continuous transitions into narrower exits; ordinary straight lane drops still merge ahead.

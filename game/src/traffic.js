@@ -10,7 +10,7 @@ import { collideBuildings } from './world.js';
 import { SharedLaneGate } from './shared-lanes.js';
 import { ambientTrafficAccess } from './road-access.js';
 import { admitInitialTraffic, previewInitialTrafficPose, initialTrafficStaticClearance, initialBodyCover } from './initial-traffic-admission.js';
-import { buildTramNetwork, canTravelTram, tramContinuations, sampleTramPath, tramSpan, tramPathPolyline, projectTramStations } from './tram-path.js';
+import { buildTramNetwork, canTravelTram, tramContinuations, sampleTramPath, tramSpan, tramPathPolyline, nearestTramSource, projectTramStations } from './tram-path.js';
 import { buildTurnLaneRules, laneTurnAllowed, preservesTurnLane } from './turn-lanes.js';
 
 // ============================================================================
@@ -236,7 +236,9 @@ export class Traffic {
         summary.source = this.tramNetwork.report;
         for (const v of actors) {
             const before = { sourceId: v.edge.access?.sourceId, edgeId: v.edge.id, dir: v.dir, s: v.s, x: v.x, z: v.z, heading: v.heading };
-            const candidates = projectTramStations(this.tramNetwork, v.x, v.z, v.heading, v.length);
+            const nearest = nearestTramSource(this.tramNetwork, v.x, v.z, v.heading), choice = nearest ? { sourceId: nearest.e.sourceId, sourceNodeIds: nearest.e.sourceNodeIds, dir: nearest.dir, distanceM: nearest.distance, grade: nearest.e.grade.basis, directionKnown: nearest.directionKnown } : null;
+            if (!nearest || !nearest.directionKnown || !canTravelTram(nearest.e, nearest.dir)) { summary.passed = false; summary.unresolved.push({ id: v.id, before, sourceChoice: choice, reason: 'nearest-source-track-grade-or-direction-unresolved' }); continue; }
+            const candidates = projectTramStations(this.tramNetwork, v.x, v.z, v.heading, v.length, { anchorEdge: nearest.e });
             let accepted = null;
             for (const p of candidates) {
                 // Rebinding is local to the original actor, never a far-away
@@ -252,7 +254,7 @@ export class Traffic {
             const { p, plan } = accepted;
             for (const key of ['edge', 'dir', 's', 'lane', 'laneCur', 'latExtraCur', 'lateralExtra', 'latBlend', 'route', 'hist']) v[key] = plan[key];
             v.layer = layerOf(v.edge); this.placeOnLane(v, true, 0);
-            summary.bindings.push({ id: v.id, kind: v.kind, before, after: { sourceId: v.edge.sourceId, sourceNodeIds: v.edge.sourceNodeIds, edgeId: v.edge.id, dir: v.dir, s: v.s, x: v.x, y: v.y, z: v.z, heading: v.heading }, distanceM: p.distance, sourceGrade: v.edge.grade.basis });
+            summary.bindings.push({ id: v.id, kind: v.kind, before, sourceChoice: choice, after: { sourceId: v.edge.sourceId, sourceNodeIds: v.edge.sourceNodeIds, edgeId: v.edge.id, dir: v.dir, s: v.s, x: v.x, y: v.y, z: v.z, heading: v.heading }, distanceM: p.distance, sourceGrade: v.edge.grade.basis });
         }
         this.grid.build(this.vehicles);
         return summary;

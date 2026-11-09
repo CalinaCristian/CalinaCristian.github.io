@@ -1,0 +1,71 @@
+{
+  "parentSourceCommit": "26fc461e6573a4f9bebd819cb381e1b90e41712c",
+  "scope": "Source-choice guard + historical6cb Romana native input CPU mapping + cached Groz crossing context; no current native/static acceptance",
+  "files": [
+    {
+      "path": "game/src/tram-path.js",
+      "bytes": 21567,
+      "sha256": "235e9d35ef44bea17e0a323b845b15a02a1be03e02431435264f812886c38b56"
+    },
+    {
+      "path": "game/src/traffic.js",
+      "bytes": 245975,
+      "sha256": "7355f504cdee91fa5d251d08552e7995450b12b124c4765b47842ae4e6613482"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/source-choice/README.md",
+      "bytes": 3885,
+      "sha256": "f65df7e74769f4d97cc7c3a2f1919207bd2326bc0c8e0e3a68426ccd84373b24"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/source-choice/audit-romana.mjs",
+      "bytes": 4835,
+      "sha256": "e0b25050d156be7a1859feef8c88cc6cbe2a12a0e9408d4e09be83eddad23283"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/source-choice/audit-source-context.py",
+      "bytes": 4774,
+      "sha256": "193aae12a5bcd659f530f198a52c37dac75f0d7caa6d750f59c9f1f6a660da93"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/source-choice/controls.json",
+      "bytes": 726,
+      "sha256": "bef2303d62817a4bcffd274672a5426bbef2f01005af54d284ecb609d97d61f7"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/source-choice/crossing-context.json",
+      "bytes": 5548,
+      "sha256": "5b96d9f297748a6aa9a68f194f39a69e63700d9a15a95ba891ce50be108dfed1"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/source-choice/groz263-binding-cpu.json",
+      "bytes": 17546,
+      "sha256": "0fa48f380f69033e41c1e4ed30fd3a562e115dd06244a2556a5fce28467c5349"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/source-choice/native-crossing-cpu.json",
+      "bytes": 422,
+      "sha256": "6067e7f5f752254e8ae49a02f88e3d4e039985af0636388f6a9366fb55ab3e2e"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/source-choice/native-motion-cpu.json",
+      "bytes": 590,
+      "sha256": "071e12ed7ccb153a7e8022d141320fc6264d1e839afc6e03455aeded8eb8d815"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/source-choice/pure13.json",
+      "bytes": 1650,
+      "sha256": "c878eb0ca3ad3e08404c0dc009699e12273552fed4cb7fb896d6504fc626612f"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/source-choice/romana-native-actor-findings.json",
+      "bytes": 78027,
+      "sha256": "bbcad74155ef723e8f163e0ef4e74d710a9619ceb2272af60db1d027e0c2b181"
+    },
+    {
+      "path": "handoffs/fidelity/us-districts/groz-tram-path/source-choice/test.mjs",
+      "bytes": 3977,
+      "sha256": "a9804fa1c807347d941c698e050f10ee6dbf974bfe688928cda40f767c63163c"
+    }
+  ]
+}

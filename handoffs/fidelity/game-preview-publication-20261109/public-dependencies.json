@@ -1,0 +1,871 @@
+{
+  "sourceCommit": "24ceb55e546862babe36af849613cff221bb357e",
+  "scope": "Read-only static source/metadata dependency audit; no browser/network reference pixels. Source-archive payload totals exclude generated Markdown/theme output.",
+  "checkedCodeFiles": 146,
+  "dynamicDataFilesRetained": 35,
+  "checkedLocalReferences": 9707,
+  "uniqueLocalTargets": 9350,
+  "excludedActualTargets": [],
+  "unresolvedLiteralTargets": [],
+  "comparisonCounts": {
+    "currentManifests": 8,
+    "current-image": 865,
+    "current-thumbnail": 865,
+    "historicalManifests": 20,
+    "historical-image": 2159,
+    "historical-thumbnail": 2159,
+    "perspectiveManifests": 10,
+    "perspective-image": 132,
+    "perspective-thumbnail": 129,
+    "street-walkManifests": 2,
+    "street-walk-image": 1188,
+    "street-walk-thumbnail": 1188
+  },
+  "evidenceRecords": 85,
+  "nativeProofReportTargets": [
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json",
+    "handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json",
+    "handoffs/fidelity/tourist-context-activities/proof/market-shore-final/input-fixed-f056/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-resume-c0b1b2c-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-side-approach-touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-direct-touch-ea89e2c/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-side-approach-touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/corrected-followups/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json",
+    "handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-direct-touch-ea89e2c/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-side-approach-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-direct-touch-ea89e2c/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/seattle-side-approach-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json",
+    "handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json",
+    "handoffs/fidelity/tourist-context-activities/proof/retained-queue/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-b533317-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-60db281-touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json",
+    "handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json",
+    "handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/lincoln-crowd-touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/lincoln-front-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/coin-5508fc3-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/continuous-walking/walking-ea89e2c-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-b533317-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-60db281-touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/continuous-walking/palace-sidewalk-f0de4e4-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/cathedral-forecourt/touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/corrected-followups/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-b533317-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-60db281-touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/carusel-stairs/desktop.json",
+    "handoffs/fidelity/tourist-context-activities/proof/carusel-stairs/touch.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-b533317-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-60db281-touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-b533317-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-60db281-touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-864d706-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-2565355-touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/park-participation/bike-f07-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/park-participation/bike-f07-touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/marina-flight/marina-flight-physical-f2e1824/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-b533317-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/outdoor-60db281-touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json",
+    "handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json",
+    "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-864d706-desktop/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-2565355-touch/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/market-shore-final/input-fixed-f056/results.json",
+    "handoffs/fidelity/tourist-context-activities/proof/market-shore-final/pier-clearance-472/results.json"
+  ],
+  "candidates": [
+    {
+      "path": "handoffs/fidelity/pipera-fidelity",
+      "files": 0,
+      "bytes": 0,
+      "actualConsumerReferences": []
+    },
+    {
+      "path": "handoffs/fidelity/original-districts-refresh",
+      "files": 0,
+      "bytes": 0,
+      "actualConsumerReferences": []
+    },
+    {
+      "path": "handoffs/fidelity/integration-final-acceptance",
+      "files": 0,
+      "bytes": 0,
+      "actualConsumerReferences": []
+    },
+    {
+      "path": "handoffs/fidelity/us-districts",
+      "files": 0,
+      "bytes": 0,
+      "actualConsumerReferences": []
+    }
+  ],
+  "candidateRawProvenanceOnlyStrings": [
+    {
+      "file": "game/overview/evidence/spots/fremont-troll.json",
+      "field": "historicalCollections.0.access.nativeWalk.proof",
+      "value": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/fremont-troll/native-public-walk.json"
+    },
+    {
+      "file": "game/overview/evidence/spots/mopop.json",
+      "field": "historicalCollections.0.access.nativeWalk.proof",
+      "value": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/mopop/native-public-walk.json"
+    },
+    {
+      "file": "game/overview/comparison-data/seatac/manifest.json",
+      "field": "review.atlasReview.additionalFindings.0.source",
+      "value": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-ordering/seatac-s160-reachability.json"
+    },
+    {
+      "file": "game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/manifest.json",
+      "field": "review.atlasReview.additionalFindings.0.source",
+      "value": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-ordering/seatac-s160-reachability.json"
+    }
+  ],
+  "removedBytes": 0,
+  "removedFiles": 0,
+  "remainingSourcePayloadBytes": 865051790,
+  "remainingSourcePayloadFiles": 14383,
+  "remainingSourcePayloadMiB": 824.9776744842529,
+  "markdownInputFiles": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 12232,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 473,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "game/FEEDBACK.md",
+      "bytes": 58778,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "game/data/README.md",
+      "bytes": 33196,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "game/data/geo/README.md",
+      "bytes": 2500,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "game/overview/comparison-data/README.md",
+      "bytes": 4821,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "game/src/spots/README.md",
+      "bytes": 13981,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/CONDITIONS-ACCESS.md",
+      "bytes": 4429,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/FACADE-RENDERING.md",
+      "bytes": 7577,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/FIDELITY-GOAL.md",
+      "bytes": 18264,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/MOBILE-TRANSITION-CRASH.md",
+      "bytes": 9146,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/ORCHESTRATOR-PROMPT.md",
+      "bytes": 6470,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/RESUME.md",
+      "bytes": 56899,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/ROSETTI-BASKETBALL.md",
+      "bytes": 6167,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/TELEMETRY-REVIEW.md",
+      "bytes": 5926,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/ase-landmark/README.md",
+      "bytes": 3737,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/building-geometry/HANDOFF.md",
+      "bytes": 12017,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/cockpit-native-pose/README.md",
+      "bytes": 1093,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/combined-native-budget/README.md",
+      "bytes": 7422,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/combined-native-budget/candidate-54c04442/README.md",
+      "bytes": 2459,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/combined-native-budget/candidate-c4fd6255/README.md",
+      "bytes": 4483,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/combined-native-budget/diagnostic-d981eee7/README.md",
+      "bytes": 5130,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/combined-render-budget/HANDOFF.md",
+      "bytes": 9595,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/comparisons/HANDOFF.md",
+      "bytes": 12424,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/d-grozavesti-roads/HANDOFF.md",
+      "bytes": 8389,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/d-grozavesti-roads/proof/logic-after.md",
+      "bytes": 1656,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/d-grozavesti/HANDOFF.md",
+      "bytes": 11301,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/d-grozavesti/generic-canopy.md",
+      "bytes": 3680,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/d-otopeni/road-width-inputs.md",
+      "bytes": 2932,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/d-unirii/atlas-4198996/HANDOFF.md",
+      "bytes": 2284,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/d-unirii/native-portico/HANDOFF.md",
+      "bytes": 1613,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/dinamo-playability/HANDOFF.md",
+      "bytes": 4672,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/drone-controls/HANDOFF.md",
+      "bytes": 8757,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/drone-controls/logic.md",
+      "bytes": 1422,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/final-physical-soak/README.md",
+      "bytes": 6347,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/final-physical-soak/preparation-controls-06d471c4/README.md",
+      "bytes": 2605,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/final-physical-soak/tour-availability-fcb60/README.md",
+      "bytes": 2559,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/floreasca-comparisons/README.md",
+      "bytes": 3032,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/game-overview/README.md",
+      "bytes": 5576,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/integrated-cpu-checks/README.md",
+      "bytes": 1043,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/integration-asymmetric-consumers/HANDOFF.md",
+      "bytes": 4441,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/integration-bridge-clearance/HANDOFF.md",
+      "bytes": 2571,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/integration-groz-seams/HANDOFF.md",
+      "bytes": 5828,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/integration-groz-seams/proof/mandatory-foot-a.md",
+      "bytes": 1421,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/integration-groz-seams/proof/visual-incomplete.md",
+      "bytes": 44202,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/HANDOFF.md",
+      "bytes": 4881,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/integration-office-sign/HANDOFF.md",
+      "bytes": 2132,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/integration-otopeni-grade/HANDOFF.md",
+      "bytes": 5196,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/integration-passage-audits/HANDOFF.md",
+      "bytes": 2362,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/integration-pipera-retaining/README.md",
+      "bytes": 4261,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/inventory/HANDOFF.md",
+      "bytes": 3245,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/inventory/README.md",
+      "bytes": 5723,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/landmark-scope-audit/README.md",
+      "bytes": 17213,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/landmark-scope-audit/WORDING-CORRECTION.md",
+      "bytes": 3180,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/landmark-scope-audit/landmarks.md",
+      "bytes": 21021,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/landmark-scope-audit/tourist-destinations.md",
+      "bytes": 3721,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/lipscani-activities/HANDOFF.md",
+      "bytes": 10485,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/locations-audit/HANDOFF.md",
+      "bytes": 9722,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/map-waypoints.md",
+      "bytes": 4273,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/native-roof-profiles/HANDOFF.md",
+      "bytes": 9283,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/original-pitch-paint/README.md",
+      "bytes": 4197,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/overview-browser-check/README.md",
+      "bytes": 992,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/overview-current-acceptance/README.md",
+      "bytes": 2606,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/overview-expanded-80f183/FOLLOWUP.md",
+      "bytes": 726,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/overview-expanded-80f183/README.md",
+      "bytes": 3567,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/overview-expanded-cbf885a7/README.md",
+      "bytes": 5011,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/atlas-final/HANDOFF.md",
+      "bytes": 6530,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/HANDOFF.md",
+      "bytes": 4647,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/native-final/attribution-proof/HANDOFF.md",
+      "bytes": 3308,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/native-final/matrix-proof/HANDOFF.md",
+      "bytes": 3483,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/nav-poi-clip/HANDOFF.md",
+      "bytes": 1995,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/qa-coverage-fix.md",
+      "bytes": 1802,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-band-checker.md",
+      "bytes": 1032,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/HANDOFF.md",
+      "bytes": 2605,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/REVIEWED-NONCROWNS.md",
+      "bytes": 3188,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/HANDOFF.md",
+      "bytes": 5231,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/root-baseline-acceptance/README.md",
+      "bytes": 994,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/root-baseline-acceptance/foot-a-4378317/latest.md",
+      "bytes": 1658,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/root-integration/README.md",
+      "bytes": 970,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/root-public-activities-924aaa0/README.md",
+      "bytes": 1077,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/secret-bar-hint/HANDOFF.md",
+      "bytes": 4857,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/shared-lane-qa/CONTRACT.md",
+      "bytes": 3362,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/shared-lane-qa/RESULTS.md",
+      "bytes": 3432,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/signals-collisions/HANDOFF.md",
+      "bytes": 24517,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/structure-atlas-07cc/README.md",
+      "bytes": 6312,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/telemetry-v2/HANDOFF.md",
+      "bytes": 2320,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-buc-portfolio/HANDOFF.md",
+      "bytes": 15756,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/ACTIVITY-AUDIT-RESUME.md",
+      "bytes": 5811,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/ACTIVITY-SOURCES.md",
+      "bytes": 4483,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/CATHEDRAL-FORECOURT.md",
+      "bytes": 2931,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/CEC-NATIVE-COLLISION.md",
+      "bytes": 754,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/CONTEXT-24.md",
+      "bytes": 3587,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/FINAL-ACTIVITY-GATES.md",
+      "bytes": 7326,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/HANDOFF.md",
+      "bytes": 2053,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/MENU-CURATION.md",
+      "bytes": 2995,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/PARK-PARTICIPATION-PROOF.md",
+      "bytes": 1744,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/PIONEER-PARTICIPATION.md",
+      "bytes": 1607,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/PUBLIC-EVIDENCE-PROMOTION.md",
+      "bytes": 3430,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/ROUND-3.md",
+      "bytes": 4003,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/physical-carusel/README.md",
+      "bytes": 1235,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cache-19-final/README.md",
+      "bytes": 1800,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/continuous-walking/README.md",
+      "bytes": 2390,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/README.md",
+      "bytes": 3329,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/lincoln-crowd-touch/README.md",
+      "bytes": 1256,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/marina-flight/README.md",
+      "bytes": 2164,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/market-shore-final/README.md",
+      "bytes": 5120,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/README.md",
+      "bytes": 2676,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/retained-queue/README.md",
+      "bytes": 1194,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/README.md",
+      "bytes": 2985,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/REVIEW.md",
+      "bytes": 8496,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/round-1-logic.md",
+      "bytes": 1419,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/round-2-activities.md",
+      "bytes": 3348,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-journey/HANDOFF.md",
+      "bytes": 6516,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/tourist-us-portfolio/README.md",
+      "bytes": 9911,
+      "frontMatter": false,
+      "blacklist": true
+    },
+    {
+      "path": "handoffs/fidelity/tourist-us-portfolio/scene-briefs.md",
+      "bytes": 5708,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/us-landmarks/ACCEPTANCE.md",
+      "bytes": 4914,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/us-landmarks/PATCH-NOTES.md",
+      "bytes": 4673,
+      "frontMatter": false,
+      "blacklist": false
+    },
+    {
+      "path": "handoffs/fidelity/water-ribbon-overlap/unirii/README.md",
+      "bytes": 1335,
+      "frontMatter": false,
+      "blacklist": true
+    }
+  ],
+  "threeDirectoryExclusions": {
+    "removedBytes": 0,
+    "removedFiles": 0,
+    "remainingSourcePayloadBytes": 865051790
+  }
+}

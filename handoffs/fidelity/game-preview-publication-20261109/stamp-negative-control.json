@@ -1,0 +1,10 @@
+{
+  "negativeControl": "Existing wrong-runtime source commit rejected before any output changed",
+  "exitCode": 1,
+  "unchangedOutputs": [
+    "index.html",
+    "game/index.html",
+    "game/release.json"
+  ],
+  "failureClass": "Commit runtime before stamping"
+}

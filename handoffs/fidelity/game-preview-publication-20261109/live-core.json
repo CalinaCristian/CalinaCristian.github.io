@@ -1,0 +1,51 @@
+[
+  {
+    "path": "game/release.json",
+    "status": 200,
+    "sha256": "626d53ca4913800402205126f3795d0ad76f308c8f7f5121ce68da7e729d317a",
+    "expected": "626d53ca4913800402205126f3795d0ad76f308c8f7f5121ce68da7e729d317a",
+    "matches": true
+  },
+  {
+    "path": "game/index.html",
+    "status": 200,
+    "sha256": "98f4fd9f6b22f622b0dab7f77e445c5933b6aab1460f8c263d3ca33fdb768ed2",
+    "expected": "98f4fd9f6b22f622b0dab7f77e445c5933b6aab1460f8c263d3ca33fdb768ed2",
+    "matches": true
+  },
+  {
+    "path": "index.html",
+    "status": 200,
+    "sha256": "81eaac69b7d536aeaf3f7f08fff33e676b1bfe65adc30e051f66512ff2cb279c",
+    "expected": "81eaac69b7d536aeaf3f7f08fff33e676b1bfe65adc30e051f66512ff2cb279c",
+    "matches": true
+  },
+  {
+    "path": "game/overview/index.html",
+    "status": 200,
+    "sha256": "52a5f80cfd823ed8bc9164c59c2eb2e1a4467e43eb33909ee4a0652f2a1f823a",
+    "expected": "52a5f80cfd823ed8bc9164c59c2eb2e1a4467e43eb33909ee4a0652f2a1f823a",
+    "matches": true
+  },
+  {
+    "path": "game/overview/inventory.json",
+    "status": 200,
+    "sha256": "0b8f29c411fd0defe90c9c5f61c37623d16f0e468554b4018bee3b8242e0bc20",
+    "expected": "0b8f29c411fd0defe90c9c5f61c37623d16f0e468554b4018bee3b8242e0bc20",
+    "matches": true
+  },
+  {
+    "path": "game/overview/perspective-viewer.js",
+    "status": 200,
+    "sha256": "46ac4cb52747b5ae6c39c9645c2b17cd739de8c236522c1031137234d8042304",
+    "expected": "46ac4cb52747b5ae6c39c9645c2b17cd739de8c236522c1031137234d8042304",
+    "matches": true
+  },
+  {
+    "path": "game/overview/landmark-evidence.js",
+    "status": 200,
+    "sha256": "fa16ee87e1b1fb0b92f55e0163a2c652bfff424fe7ae89e915f64b6ceca49f29",
+    "expected": "fa16ee87e1b1fb0b92f55e0163a2c652bfff424fe7ae89e915f64b6ceca49f29",
+    "matches": true
+  }
+]

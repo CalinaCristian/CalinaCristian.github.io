@@ -1,0 +1,1418 @@
+{
+  "sourceCommit": "24ceb55e546862babe36af849613cff221bb357e",
+  "method": "Git tracked blob sizes and Jekyll3.10 EntryFilter/configuration rules; source payload prediction, not a rendered Jekyll build. No Jekyll/Ruby installed.",
+  "allFiles": 17015,
+  "allBytes": 1544786683,
+  "publishedFiles": 14383,
+  "publishedBytes": 865051790,
+  "excludedFiles": 2632,
+  "excludedBytes": 679734893,
+  "largestPublishedDirectories": {
+    "1": [
+      {
+        "path": "game",
+        "files": 12963,
+        "bytes": 726249011,
+        "MiB": 692.605
+      },
+      {
+        "path": "handoffs",
+        "files": 1398,
+        "bytes": 138219212,
+        "MiB": 131.816
+      },
+      {
+        "path": "public",
+        "files": 15,
+        "bytes": 549360,
+        "MiB": 0.524
+      },
+      {
+        "path": "AGENTS.md",
+        "files": 1,
+        "bytes": 12232,
+        "MiB": 0.012
+      },
+      {
+        "path": "canvas.js",
+        "files": 1,
+        "bytes": 7390,
+        "MiB": 0.007
+      },
+      {
+        "path": "index.css",
+        "files": 1,
+        "bytes": 6034,
+        "MiB": 0.006
+      },
+      {
+        "path": "index.js",
+        "files": 1,
+        "bytes": 4462,
+        "MiB": 0.004
+      },
+      {
+        "path": "index.html",
+        "files": 1,
+        "bytes": 3598,
+        "MiB": 0.003
+      },
+      {
+        "path": "CLAUDE.md",
+        "files": 1,
+        "bytes": 473,
+        "MiB": 0.0
+      },
+      {
+        "path": "CNAME",
+        "files": 1,
+        "bytes": 18,
+        "MiB": 0.0
+      }
+    ],
+    "2": [
+      {
+        "path": "game/overview",
+        "files": 12757,
+        "bytes": 607210339,
+        "MiB": 579.081
+      },
+      {
+        "path": "handoffs/fidelity",
+        "files": 1398,
+        "bytes": 138219212,
+        "MiB": 131.816
+      },
+      {
+        "path": "game/data",
+        "files": 35,
+        "bytes": 108744774,
+        "MiB": 103.707
+      },
+      {
+        "path": "game/src",
+        "files": 142,
+        "bytes": 8946415,
+        "MiB": 8.532
+      },
+      {
+        "path": "game/vendor",
+        "files": 18,
+        "bytes": 844114,
+        "MiB": 0.805
+      },
+      {
+        "path": "game/assets",
+        "files": 7,
+        "bytes": 310931,
+        "MiB": 0.297
+      },
+      {
+        "path": "public/cv.pdf",
+        "files": 1,
+        "bytes": 205392,
+        "MiB": 0.196
+      },
+      {
+        "path": "public/fonts",
+        "files": 1,
+        "bytes": 176344,
+        "MiB": 0.168
+      },
+      {
+        "path": "game/style.css",
+        "files": 1,
+        "bytes": 95921,
+        "MiB": 0.091
+      },
+      {
+        "path": "public/icons",
+        "files": 8,
+        "bytes": 74243,
+        "MiB": 0.071
+      },
+      {
+        "path": "game/FEEDBACK.md",
+        "files": 1,
+        "bytes": 58778,
+        "MiB": 0.056
+      },
+      {
+        "path": "public/me.jfif",
+        "files": 1,
+        "bytes": 54774,
+        "MiB": 0.052
+      },
+      {
+        "path": "game/release.json",
+        "files": 1,
+        "bytes": 29081,
+        "MiB": 0.028
+      },
+      {
+        "path": "public/background.webp",
+        "files": 1,
+        "bytes": 27118,
+        "MiB": 0.026
+      },
+      {
+        "path": "AGENTS.md",
+        "files": 1,
+        "bytes": 12232,
+        "MiB": 0.012
+      }
+    ],
+    "3": [
+      {
+        "path": "game/overview/comparison-data",
+        "files": 12294,
+        "bytes": 590866803,
+        "MiB": 563.494
+      },
+      {
+        "path": "handoffs/fidelity/combined-native-budget",
+        "files": 72,
+        "bytes": 35085291,
+        "MiB": 33.46
+      },
+      {
+        "path": "game/data/spots",
+        "files": 19,
+        "bytes": 28473423,
+        "MiB": 27.154
+      },
+      {
+        "path": "game/data/bucharest-unirii.json",
+        "files": 1,
+        "bytes": 25489517,
+        "MiB": 24.309
+      },
+      {
+        "path": "game/data/bucharest-romana.json",
+        "files": 1,
+        "bytes": 21911444,
+        "MiB": 20.896
+      },
+      {
+        "path": "handoffs/fidelity/d-grozavesti",
+        "files": 240,
+        "bytes": 15586518,
+        "MiB": 14.864
+      },
+      {
+        "path": "handoffs/fidelity/tourist-context-activities",
+        "files": 360,
+        "bytes": 14674343,
+        "MiB": 13.995
+      },
+      {
+        "path": "game/overview/assets",
+        "files": 368,
+        "bytes": 14267707,
+        "MiB": 13.607
+      },
+      {
+        "path": "handoffs/fidelity/remaining-ro-districts",
+        "files": 126,
+        "bytes": 14231121,
+        "MiB": 13.572
+      },
+      {
+        "path": "handoffs/fidelity/d-grozavesti-roads",
+        "files": 44,
+        "bytes": 9353732,
+        "MiB": 8.92
+      },
+      {
+        "path": "handoffs/fidelity/d-unirii",
+        "files": 21,
+        "bytes": 7639436,
+        "MiB": 7.286
+      },
+      {
+        "path": "game/data/bucharest-grozavesti.json",
+        "files": 1,
+        "bytes": 5814201,
+        "MiB": 5.545
+      },
+      {
+        "path": "game/data/seattle-bellevue.json",
+        "files": 1,
+        "bytes": 4980670,
+        "MiB": 4.75
+      },
+      {
+        "path": "handoffs/fidelity/root-baseline-acceptance",
+        "files": 16,
+        "bytes": 4960460,
+        "MiB": 4.731
+      },
+      {
+        "path": "handoffs/fidelity/drone-controls",
+        "files": 16,
+        "bytes": 4759122,
+        "MiB": 4.539
+      }
+    ],
+    "4": [
+      {
+        "path": "game/overview/comparison-data/seatac",
+        "files": 3679,
+        "bytes": 100576135,
+        "MiB": 95.917
+      },
+      {
+        "path": "game/overview/comparison-data/grozavesti",
+        "files": 1463,
+        "bytes": 98712844,
+        "MiB": 94.14
+      },
+      {
+        "path": "game/overview/comparison-data/unirii",
+        "files": 1093,
+        "bytes": 85827282,
+        "MiB": 81.851
+      },
+      {
+        "path": "game/overview/comparison-data/floreasca",
+        "files": 1199,
+        "bytes": 80527635,
+        "MiB": 76.797
+      },
+      {
+        "path": "game/overview/comparison-data/bellevue",
+        "files": 2268,
+        "bytes": 67087690,
+        "MiB": 63.98
+      },
+      {
+        "path": "game/overview/comparison-data/romana",
+        "files": 1023,
+        "bytes": 58637795,
+        "MiB": 55.921
+      },
+      {
+        "path": "game/overview/comparison-data/pipera",
+        "files": 871,
+        "bytes": 56505546,
+        "MiB": 53.888
+      },
+      {
+        "path": "game/overview/comparison-data/otopeni",
+        "files": 696,
+        "bytes": 42986082,
+        "MiB": 40.995
+      },
+      {
+        "path": "game/data/bucharest-unirii.json",
+        "files": 1,
+        "bytes": 25489517,
+        "MiB": 24.309
+      },
+      {
+        "path": "game/data/bucharest-romana.json",
+        "files": 1,
+        "bytes": 21911444,
+        "MiB": 20.896
+      },
+      {
+        "path": "handoffs/fidelity/combined-native-budget/candidate-c4fd6255",
+        "files": 22,
+        "bytes": 16191853,
+        "MiB": 15.442
+      },
+      {
+        "path": "handoffs/fidelity/combined-native-budget/diagnostic-d981eee7",
+        "files": 23,
+        "bytes": 16157060,
+        "MiB": 15.409
+      },
+      {
+        "path": "handoffs/fidelity/d-grozavesti/game-proof-10d9b98",
+        "files": 219,
+        "bytes": 14335749,
+        "MiB": 13.672
+      },
+      {
+        "path": "handoffs/fidelity/tourist-context-activities/proof",
+        "files": 329,
+        "bytes": 14139026,
+        "MiB": 13.484
+      },
+      {
+        "path": "handoffs/fidelity/remaining-ro-districts/native-final",
+        "files": 65,
+        "bytes": 9870163,
+        "MiB": 9.413
+      }
+    ]
+  },
+  "exclusions": [
+    {
+      "reason": "explicit:README.md",
+      "files": 1,
+      "bytes": 31963
+    },
+    {
+      "reason": "explicit:game/dev",
+      "files": 135,
+      "bytes": 1733862
+    },
+    {
+      "reason": "explicit:game/research",
+      "files": 179,
+      "bytes": 40250021
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/archive-reachability",
+      "files": 2,
+      "bytes": 23552
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/cockpit-sharp-displays",
+      "files": 265,
+      "bytes": 105862737
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/game-preview-ff6b2bff",
+      "files": 16,
+      "bytes": 283810
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/history-unsigned-20261109",
+      "files": 5,
+      "bytes": 636478
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/independent-rail-body-observer",
+      "files": 24,
+      "bytes": 394744
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/integration-final-acceptance",
+      "files": 284,
+      "bytes": 45718706
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/native-rail-world-export",
+      "files": 93,
+      "bytes": 112820707
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/original-districts-refresh",
+      "files": 491,
+      "bytes": 77900318
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/overview-bellevue-103rd",
+      "files": 12,
+      "bytes": 758571
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/overview-preview-release",
+      "files": 16,
+      "bytes": 549147
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/pipera-fidelity",
+      "files": 317,
+      "bytes": 117260891
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/root-acceptance-archive",
+      "files": 11,
+      "bytes": 203274
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/source-controlled-crossing",
+      "files": 20,
+      "bytes": 104246
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/tram-native-support-6cb",
+      "files": 18,
+      "bytes": 11080735
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/tram-pedestrian-signal-semantics",
+      "files": 12,
+      "bytes": 128364
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/tram-romana-constructor-6cb",
+      "files": 16,
+      "bytes": 7489949
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/tram-source-metadata",
+      "files": 15,
+      "bytes": 96265
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/unirii-pedestrian-recovery",
+      "files": 173,
+      "bytes": 109895740
+    },
+    {
+      "reason": "explicit:handoffs/fidelity/us-districts",
+      "files": 402,
+      "bytes": 44934816
+    },
+    {
+      "reason": "explicit:package.json",
+      "files": 1,
+      "bytes": 499
+    },
+    {
+      "reason": "explicit:specs",
+      "files": 19,
+      "bytes": 611224
+    },
+    {
+      "reason": "explicit:tools",
+      "files": 100,
+      "bytes": 958581
+    },
+    {
+      "reason": "special-leading-character",
+      "files": 5,
+      "bytes": 5693
+    }
+  ],
+  "publishedMarkdownFiles": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 12232,
+      "object": "eebfb63258da20ee4cf686359e7c719b442e038e",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 473,
+      "object": "dcd5c61bd0b8af2e0d87155cf6b5331d6da0c487",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/FEEDBACK.md",
+      "bytes": 58778,
+      "object": "189a5980a6e64250757b9dd999f3e4d67062c13c",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/data/README.md",
+      "bytes": 33196,
+      "object": "793b6abbc26b164b1a19557d1a9a7cd8205bccab",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/data/geo/README.md",
+      "bytes": 2500,
+      "object": "e2a7a2f5a62e37f95a2b08f0aed935b8c4870a50",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/overview/comparison-data/README.md",
+      "bytes": 4821,
+      "object": "624e9903aa21b5073f6137e283af6ddc03ad7c52",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/src/spots/README.md",
+      "bytes": 13981,
+      "object": "b893cdd254e5ae96f2b3a6864510f7e4d2665b33",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/CONDITIONS-ACCESS.md",
+      "bytes": 4429,
+      "object": "cb93d6762ee9182329244297b0e30d288d462224",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/FACADE-RENDERING.md",
+      "bytes": 7577,
+      "object": "411fb4be2ac4eaf7219dd6e03ec38514a025b963",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/FIDELITY-GOAL.md",
+      "bytes": 18264,
+      "object": "7260dcb271e1f06e2324cf481b764564cacfbfc3",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/MOBILE-TRANSITION-CRASH.md",
+      "bytes": 9146,
+      "object": "af02c351ef74fb70be445e787049abb70b346467",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/ORCHESTRATOR-PROMPT.md",
+      "bytes": 6470,
+      "object": "d7bc5b331269d793a6ed52635d79f0ef485215a0",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/RESUME.md",
+      "bytes": 56899,
+      "object": "b28beefaa6ee285e775ccc51b7d8731ea5c4ee1e",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/ROSETTI-BASKETBALL.md",
+      "bytes": 6167,
+      "object": "a06ada9160bfb6dbd73490808355755bd055e7ab",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/TELEMETRY-REVIEW.md",
+      "bytes": 5926,
+      "object": "3753fd0f6dc60e495ead0c9dd8c00f66e23d4116",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/ase-landmark/README.md",
+      "bytes": 3737,
+      "object": "39d8f3b67dedbf28040775c1b1778815bd2dee4c",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/building-geometry/HANDOFF.md",
+      "bytes": 12017,
+      "object": "70adc5d9d6bdffd1d6d280f4971f592f50689c0d",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/cockpit-native-pose/README.md",
+      "bytes": 1093,
+      "object": "bb9bd21543f05e84639cce13a4b59d1166b49ab4",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/combined-native-budget/README.md",
+      "bytes": 7422,
+      "object": "b4bf3854f4b5548c44218309d07c19f4a7ed251c",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/combined-native-budget/candidate-54c04442/README.md",
+      "bytes": 2459,
+      "object": "02f4e720c5399febcd20dca8a341c8139b4247fb",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/combined-native-budget/candidate-c4fd6255/README.md",
+      "bytes": 4483,
+      "object": "0de76deddff15625ed848dfe2f90a1e9c010024e",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/combined-native-budget/diagnostic-d981eee7/README.md",
+      "bytes": 5130,
+      "object": "687fdf4bf94f51ef75b4dc86257617c987718f1c",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/combined-render-budget/HANDOFF.md",
+      "bytes": 9595,
+      "object": "67512c8a23df86ba96de6860f4620723c60b3fb5",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/comparisons/HANDOFF.md",
+      "bytes": 12424,
+      "object": "d856e78974ddd1e9020f5c26bdd7d4a330b54270",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/d-grozavesti-roads/HANDOFF.md",
+      "bytes": 8389,
+      "object": "9a80dbc1155fe6fd791d0e1a9fcbe7ce321c739a",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/d-grozavesti-roads/proof/logic-after.md",
+      "bytes": 1656,
+      "object": "4bd470a63b7e245fe1de427cfdd35c3fc12e2624",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/d-grozavesti/HANDOFF.md",
+      "bytes": 11301,
+      "object": "a5497883927b9909fa08425be0d16019567277ae",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/d-grozavesti/generic-canopy.md",
+      "bytes": 3680,
+      "object": "ff5125e66515bebafc9d59a6824edc9200b32b40",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/d-otopeni/road-width-inputs.md",
+      "bytes": 2932,
+      "object": "0a8707b5a24e5245c2d6b9fa8103cd67064a4b75",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/d-unirii/atlas-4198996/HANDOFF.md",
+      "bytes": 2284,
+      "object": "a0ada30f7030f4222e1b78f2249097e63038bc92",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/d-unirii/native-portico/HANDOFF.md",
+      "bytes": 1613,
+      "object": "e372f668792563b551b77dc70281269adc396fb0",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/dinamo-playability/HANDOFF.md",
+      "bytes": 4672,
+      "object": "26fdba440d1016eb60a6105c279ca99134a65212",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/drone-controls/HANDOFF.md",
+      "bytes": 8757,
+      "object": "2bce3db4f8d6ee77486308621e802bba31f0dc68",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/drone-controls/logic.md",
+      "bytes": 1422,
+      "object": "80a0950f3d098ab6f5e11fe78edee9917a02047d",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/final-physical-soak/README.md",
+      "bytes": 6347,
+      "object": "3fdf56ab68010e1b517e3ff49e05fde8257d6bbd",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/final-physical-soak/preparation-controls-06d471c4/README.md",
+      "bytes": 2605,
+      "object": "4d76be8451c7e19516ee84b6e0fe1cb36672adc3",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/final-physical-soak/tour-availability-fcb60/README.md",
+      "bytes": 2559,
+      "object": "5f95f1ad61724bcf44627dbfc8d3a66eaa5bde00",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/floreasca-comparisons/README.md",
+      "bytes": 3032,
+      "object": "6797d5444b0c7ede61090b6b52cdac27f1b9f6b7",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/game-overview/README.md",
+      "bytes": 5576,
+      "object": "3560bc9c76db6188f022f098e96b34680c3acc1a",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/integrated-cpu-checks/README.md",
+      "bytes": 1043,
+      "object": "b7cf6c39b65a71eb0609db8a17a2ecf0dace6803",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/integration-asymmetric-consumers/HANDOFF.md",
+      "bytes": 4441,
+      "object": "4521de47b06ed34073a8e83ba054704895830c63",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/integration-bridge-clearance/HANDOFF.md",
+      "bytes": 2571,
+      "object": "d302fee636ce48df21ffb915932b7f12e5ddf593",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/integration-groz-seams/HANDOFF.md",
+      "bytes": 5828,
+      "object": "7729ab3f5d171d64736bf7d7689c46a3f268ae0d",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/integration-groz-seams/proof/mandatory-foot-a.md",
+      "bytes": 1421,
+      "object": "f242c1b53e86cec60418320a96887ee89bffe062",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/integration-groz-seams/proof/visual-incomplete.md",
+      "bytes": 44202,
+      "object": "9db441fc41c833cfab5725ac049cf03dde2e8ec4",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/integration-native-controls/HANDOFF.md",
+      "bytes": 4881,
+      "object": "04719c280cd81b4f1fabafc720f7f61de5d14f85",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/integration-office-sign/HANDOFF.md",
+      "bytes": 2132,
+      "object": "1e29fb79b7c969876076db66929000b9b8b363d3",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/integration-otopeni-grade/HANDOFF.md",
+      "bytes": 5196,
+      "object": "053f1df1a59004bfb5ca8f3df2c1957bdbfffc6c",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/integration-passage-audits/HANDOFF.md",
+      "bytes": 2362,
+      "object": "38482084339e3e60a318af422427d5eb1a314df4",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/integration-pipera-retaining/README.md",
+      "bytes": 4261,
+      "object": "e9833400b22969528f99ab6444cda94b75e7503b",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/inventory/HANDOFF.md",
+      "bytes": 3245,
+      "object": "28327b299fc9fc43db4d163c782a8c2902687be8",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/inventory/README.md",
+      "bytes": 5723,
+      "object": "fc4c1e8139758ddd8d35f6815bc9d8af53a5a5a9",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/landmark-scope-audit/README.md",
+      "bytes": 17213,
+      "object": "3e0090e057e0e4e90de2aa241663fcff7d78b117",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/landmark-scope-audit/WORDING-CORRECTION.md",
+      "bytes": 3180,
+      "object": "e2063fc9c1547bc03289e19d79f257768ee8e65c",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/landmark-scope-audit/landmarks.md",
+      "bytes": 21021,
+      "object": "b1426698f244d5adabd375b310df9e6a0132c90a",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/landmark-scope-audit/tourist-destinations.md",
+      "bytes": 3721,
+      "object": "89b9f644bf15990e62a7b47f95ce8d6e25621d23",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/lipscani-activities/HANDOFF.md",
+      "bytes": 10485,
+      "object": "b6bccbd92bcb6087aac16fe2249a76ea2a770c25",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/locations-audit/HANDOFF.md",
+      "bytes": 9722,
+      "object": "1ad83adab4d23661dcfe809779595d39d6fbfbff",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/map-waypoints.md",
+      "bytes": 4273,
+      "object": "112b787ef185230d4f09e6563c6e047c299cfb26",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/native-roof-profiles/HANDOFF.md",
+      "bytes": 9283,
+      "object": "7727ff0f18711abfc0d918e42ff50e4d32596fdd",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/original-pitch-paint/README.md",
+      "bytes": 4197,
+      "object": "854b5a759ac6e72f941b0d9d9147a0e55db85544",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/overview-browser-check/README.md",
+      "bytes": 992,
+      "object": "d6f0b8acf7b0f469bfe9cea5a72bc339e516ca45",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/overview-current-acceptance/README.md",
+      "bytes": 2606,
+      "object": "9c7d533a927b59f40fdc7bcb7cdabefe783a59e4",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/overview-expanded-80f183/FOLLOWUP.md",
+      "bytes": 726,
+      "object": "14b3a7f1783b9419f696b837073c6c8a341ca4c9",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/overview-expanded-80f183/README.md",
+      "bytes": 3567,
+      "object": "154b73d863fa57fe24d41d80d71faf6a7f02189e",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/overview-expanded-cbf885a7/README.md",
+      "bytes": 5011,
+      "object": "38ed0cb55131cc2df120963f03044b6b05e42bcf",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/atlas-final/HANDOFF.md",
+      "bytes": 6530,
+      "object": "da25502a64b6d3cf4b371104ec1592e494301d84",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/HANDOFF.md",
+      "bytes": 4647,
+      "object": "fce7f143f48ec5aa1d32a687051e3ae36103a741",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/native-final/attribution-proof/HANDOFF.md",
+      "bytes": 3308,
+      "object": "62ec944eebf9fada05f706f82910a446e6a1767a",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/native-final/matrix-proof/HANDOFF.md",
+      "bytes": 3483,
+      "object": "6385ec4b1fb240bd9c8ec24cdddce51ce675d425",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/nav-poi-clip/HANDOFF.md",
+      "bytes": 1995,
+      "object": "5f3c285c77c98934f70454c2293ef06c9beded91",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/qa-coverage-fix.md",
+      "bytes": 1802,
+      "object": "ad8bb5dd778227060f2e3a030e775046b87bd69b",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-band-checker.md",
+      "bytes": 1032,
+      "object": "02525b90632d77bf6f5ed79d4444d9a825bf6c56",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/HANDOFF.md",
+      "bytes": 2605,
+      "object": "e251c0dfc79205439e66fd7536d4734685a87506",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/REVIEWED-NONCROWNS.md",
+      "bytes": 3188,
+      "object": "59df8d914a5c81b929327fea2f5815f389c6bcdb",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/HANDOFF.md",
+      "bytes": 5231,
+      "object": "1eef0f8400f8a043c429ecba7e2187e4a4d40e7b",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/root-baseline-acceptance/README.md",
+      "bytes": 994,
+      "object": "ebd7bbdad40a29975c2782191006cdef5f9defdc",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/root-baseline-acceptance/foot-a-4378317/latest.md",
+      "bytes": 1658,
+      "object": "e38df2bf7e0f875feb3f23e8aeee1e575a124477",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/root-integration/README.md",
+      "bytes": 970,
+      "object": "5e748b9af67a6c24be3392c1a192e7e694382fa1",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/root-public-activities-924aaa0/README.md",
+      "bytes": 1077,
+      "object": "e669ca6e74378176479ea863090a3ffa6f9c05c5",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/secret-bar-hint/HANDOFF.md",
+      "bytes": 4857,
+      "object": "6b119abab3938caca37594e6dfdf0b120e0d8dca",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/shared-lane-qa/CONTRACT.md",
+      "bytes": 3362,
+      "object": "59d3a57ba04f5130b2b74ca31538328c6fc54195",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/shared-lane-qa/RESULTS.md",
+      "bytes": 3432,
+      "object": "8ff1ca00fedaa21af5e0da50bbfee7f7836f2fa2",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/signals-collisions/HANDOFF.md",
+      "bytes": 24517,
+      "object": "a5423a422ea2770397be5d051216ba3e6fc8739e",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/structure-atlas-07cc/README.md",
+      "bytes": 6312,
+      "object": "4c4f77cd6c8c4a9d1501825620feaffffaba32bf",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/telemetry-v2/HANDOFF.md",
+      "bytes": 2320,
+      "object": "40ed16766f1ab10d68488812787678e7721f6399",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-buc-portfolio/HANDOFF.md",
+      "bytes": 15756,
+      "object": "331b4a74a350fd7fc510d706a68eff5863837456",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/ACTIVITY-AUDIT-RESUME.md",
+      "bytes": 5811,
+      "object": "159e92b0585c3640e71423a5a8e8d48daeef7910",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/ACTIVITY-SOURCES.md",
+      "bytes": 4483,
+      "object": "6718504e01816f23f07e7f8b361517ce031456d2",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/CATHEDRAL-FORECOURT.md",
+      "bytes": 2931,
+      "object": "72be1af305cc2599a7d4c9c08c5481b3544f911c",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/CEC-NATIVE-COLLISION.md",
+      "bytes": 754,
+      "object": "3684736ca7caeaafb8cb192ed97e9e62eb138720",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/CONTEXT-24.md",
+      "bytes": 3587,
+      "object": "49994f1bfabdc4e9c5a1aaa4834b7a441d38edcb",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/FINAL-ACTIVITY-GATES.md",
+      "bytes": 7326,
+      "object": "99ea36e93b12fccd27a3085013f9ee2e3a18c018",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/HANDOFF.md",
+      "bytes": 2053,
+      "object": "b2a4fe50ff60d278397eacab6c542f7c2066d5ed",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/MENU-CURATION.md",
+      "bytes": 2995,
+      "object": "9a4015d40d8ee84a0c36ff3e13eff25921c02d32",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/PARK-PARTICIPATION-PROOF.md",
+      "bytes": 1744,
+      "object": "19226f9ee1522f9c268f9bd82398e9369fd70321",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/PIONEER-PARTICIPATION.md",
+      "bytes": 1607,
+      "object": "f8ac53c97ffc73486e9f5021ca93267155430b9d",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/PUBLIC-EVIDENCE-PROMOTION.md",
+      "bytes": 3430,
+      "object": "a340d0c90e1398ac0b2227160ef483e6045fd970",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/ROUND-3.md",
+      "bytes": 4003,
+      "object": "a3a42e05c6c9ba6df218cd492cf7cfaeee2b779d",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/physical-carusel/README.md",
+      "bytes": 1235,
+      "object": "4cf7884bcd1265429c48b23b67796f54a12c33a6",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/cache-19-final/README.md",
+      "bytes": 1800,
+      "object": "4d903b5276c74fcb238c810e04e4cf2a7cdc0586",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/continuous-walking/README.md",
+      "bytes": 2390,
+      "object": "65cee165c01a72f35c0073b96a90324dc9b25603",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/README.md",
+      "bytes": 3329,
+      "object": "38ed677ad6261ab3a55a4347d526b82502f8b668",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/lincoln-crowd-touch/README.md",
+      "bytes": 1256,
+      "object": "d17eae84b7270e0ad5f27c5c1f7afbf88f2d6977",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/marina-flight/README.md",
+      "bytes": 2164,
+      "object": "ffaf790af81f53e1d55e28c862f520ec1abc195e",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/market-shore-final/README.md",
+      "bytes": 5120,
+      "object": "bb1e2ea1ce56a7f046ad07e3dcf017a90b56062c",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/README.md",
+      "bytes": 2676,
+      "object": "6f4fa1b6d838e64f781e09fd40d1c0c6cf4c06a4",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/retained-queue/README.md",
+      "bytes": 1194,
+      "object": "fc66d52ee4f76d72c470e160604aa00848e1c09f",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/README.md",
+      "bytes": 2985,
+      "object": "025c7380bdb80c03d26f65478276f2533d0004a4",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/proof/visit-gallery-aabd/REVIEW.md",
+      "bytes": 8496,
+      "object": "a7b2a77d790f4e9838fb2c7a4cebd2329ea2e14e",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/round-1-logic.md",
+      "bytes": 1419,
+      "object": "14a1efd3f6af0fd9fd3766109783317adc379da8",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-context-activities/round-2-activities.md",
+      "bytes": 3348,
+      "object": "807eec062494e0816b0bb9a2a5b71d592ada1c43",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-journey/HANDOFF.md",
+      "bytes": 6516,
+      "object": "62de2fcf9849678b2fe367ae99363f639ab0655a",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-us-portfolio/README.md",
+      "bytes": 9911,
+      "object": "a71794ed1ce29b9ea347b963b41575b2bbdcffce",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/tourist-us-portfolio/scene-briefs.md",
+      "bytes": 5708,
+      "object": "0c2f8017d26df62ad248213a1411bb87adabed1f",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/us-landmarks/ACCEPTANCE.md",
+      "bytes": 4914,
+      "object": "fd7e7008c74f82cd6cea46e2bca8a5448d232484",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/us-landmarks/PATCH-NOTES.md",
+      "bytes": 4673,
+      "object": "d71d8bb76e1d2ca48a4b5e400a356507e43d3cc7",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/water-ribbon-overlap/unirii/README.md",
+      "bytes": 1335,
+      "object": "1641aa994c579c11ca9091a7bb062d7e75230521",
+      "mode": "100644",
+      "excludedReason": null
+    }
+  ],
+  "over100MiB": [],
+  "largestFiles": [
+    {
+      "path": "game/data/bucharest-unirii.json",
+      "bytes": 25489517,
+      "object": "a25a74bc86d6b8b2234b6ba4636c8435d42d11a4",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/data/bucharest-romana.json",
+      "bytes": 21911444,
+      "object": "c2723a3f15a9c526a13955a1f76228f1b9dd527f",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/data/spots/buc-old-town.json",
+      "bytes": 7191524,
+      "object": "84dd56813ba62129af54cbc052c7b294e84d9bfc",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/data/bucharest-grozavesti.json",
+      "bytes": 5814201,
+      "object": "1cb15e16488187909481c7679dfae6ceb4dbeac7",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/data/seattle-bellevue.json",
+      "bytes": 4980670,
+      "object": "49941e0b175ee09e0cb632e9a3514bf7cfb9b829",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/data/spots/athenaeum-revolution.json",
+      "bytes": 4856445,
+      "object": "edc0e084eb20476328115c6a2d5ce84da61b8d24",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/data/bucharest-floreasca.json",
+      "bytes": 4427686,
+      "object": "73ea50c5e1acf269558c6e7432158fa23e376c92",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/src/landmark-cec-source.js",
+      "bytes": 4423837,
+      "object": "e50eb7da6e467ff49544684f368977e11801412d",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/data/bucharest-pipera.json",
+      "bytes": 4163026,
+      "object": "2ba366be5933fe2b5fc0d1408e5b7c3a8b879e23",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "handoffs/fidelity/d-unirii/raw-source-footprints.json",
+      "bytes": 3928139,
+      "object": "9ff867ff4af3802492b651e4c6ce0fa02347cc7c",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/data/seattle-seatac.json",
+      "bytes": 3809816,
+      "object": "a9efbb200956b437e8f6fbd9ca3fdf1e4060e582",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/data/spots/cismigiu.json",
+      "bytes": 3781023,
+      "object": "24351a464a5eb1ad4dcb57991a29f6c747367457",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/data/seattle.json",
+      "bytes": 3382655,
+      "object": "4b4939825e4492f9d623b4042bc01ead84475805",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/boundary-source.json",
+      "bytes": 3000211,
+      "object": "7657c08b16affb1cff7184d5138d06c91a2c326a",
+      "mode": "100644",
+      "excludedReason": null
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/historical/full-before-07cc3d6b-2215e3c4/boundary-source.json",
+      "bytes": 3000211,
+      "object": "7657c08b16affb1cff7184d5138d06c91a2c326a",
+      "mode": "100644",
+      "excludedReason": null
+    }
+  ]
+}

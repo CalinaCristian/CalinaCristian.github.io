@@ -1,0 +1,54 @@
+{
+  "project": 338182,
+  "dashboard": 1094323,
+  "capturedAt": "2026-11-09T09:23:05.397506+00:00",
+  "managed": [
+    {
+      "key": "load-outcomes",
+      "insightId": 7197433,
+      "definitionMatches": true,
+      "dashboardMembership": true
+    },
+    {
+      "key": "load-latency",
+      "insightId": 7197434,
+      "definitionMatches": true,
+      "dashboardMembership": true
+    },
+    {
+      "key": "frames-budget",
+      "insightId": 7197435,
+      "definitionMatches": true,
+      "dashboardMembership": true
+    },
+    {
+      "key": "actions",
+      "insightId": 7197436,
+      "definitionMatches": true,
+      "dashboardMembership": true
+    },
+    {
+      "key": "releases-resources",
+      "insightId": 7197437,
+      "definitionMatches": true,
+      "dashboardMembership": true
+    },
+    {
+      "key": "recovery-errors",
+      "insightId": 7197438,
+      "definitionMatches": true,
+      "dashboardMembership": true
+    },
+    {
+      "key": "activities",
+      "insightId": 7197440,
+      "definitionMatches": true,
+      "dashboardMembership": true
+    }
+  ],
+  "pinned": true,
+  "starterPinned": false,
+  "queriesAllValidated": true,
+  "v2Rows": 0,
+  "limitation": "No v2 production samples yet; no synthetic events sent. This checks definitions, not physical-device health."
+}

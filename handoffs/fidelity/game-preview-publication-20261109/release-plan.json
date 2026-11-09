@@ -1,0 +1,13 @@
+{
+  "parentMaster": "dc5339f4da79e6fb84b8f98d9e241aa352e8bdf6",
+  "integrationSource": "4519f5fb4e67b4a2cf255e6493805b47246b0df2",
+  "codeCommit": "0b18608b215172ed3283cf062349978084495219",
+  "codeTree": "06f08fc52aba7ca5c6c9ea23101e191fcee3cb4e",
+  "published": true,
+  "candidateCommit": "24ceb55e546862babe36af849613cff221bb357e",
+  "candidateTree": "d6b2a774fe5bad5b8797d03b17bcb320eee9dafb",
+  "integrationFinal": "c005473b86191bfa21bccd460069d1ca594674e1",
+  "releaseId": "game-a2158b8f987b2378",
+  "liveContentMatches": true,
+  "pagesBuild": "built"
+}

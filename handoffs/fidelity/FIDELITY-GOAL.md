@@ -4,6 +4,10 @@ Owner-authorized scope (2026-11-08): reference comparisons for the game, remaini
 
 The native `/goal` control is not exposed to this session. This file is the tracked goal, not a claim that an external background goal was registered. Root monitors live workers through integration and acceptance.
 
+## Latest live preview · 2026-11-09
+
+Master24ceb55e is LIVE, curated source0b18608b, releasegame-a2158b8f987b2378; all203live runtime hashes match andPagesbuilt. All115mastercommitsunsigned/no signaturebadges; originalsignedhistory/capture sourcesarchived. Root7bd additionallyhasBVcoveredstreet candidate+TrafficmodelLayer0hook (notyetlive). US ONEbrowsernativeBV/affectedretakes; Bridge+ROoffline actualG259road/deck+underlay conflicts andR490inferredsidewalkcontact; do nothideactualroadtriangles. QA toolingfinal15/37/headlights,noactivebrowser. Currentff6preview proof71Node/foot0H0M/3constructorpreflight is scoped, NOTfinalphysicalacceptance. Overview9129images/8/61/24selectors/34reports/390px/cachePASS. SevenPostHogdefinitions/queryreadbacksPASS,0v2rows. See `game-preview-publication-20261109/`.
+
 ## Current integration checkpoint · 9 November 2026
 
 Master/origin e354a500 separately publishes the standalone overview preview, source galleries and public evidence; its live HTML/CSS/inventory and eight district images are verified. The game runtime remains at df9b2e2c. Game changes stay on fix/dinamo-and-ambasador pending combined gates and curated release. Eight source-audited datasets retain24,198 source body records; every district has its own complete aerial gallery. Current865 survey frames preserve actual per-frame sources/dates. All affected fallback-water views were retaken:47 original-district frames (including two Dinamo paint views),17 Unirii,35 Pipera and4 Bellevue. Full prior collections are retained separately.

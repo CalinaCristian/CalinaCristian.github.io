@@ -7,3 +7,9 @@ exclude:
   - tools
   - package.json
   - README.md
+  # Large internal diagnostics remain in Git, outside the published site.
+  # Public native activity proofs under tourist-context-activities stay available.
+  - handoffs/fidelity/pipera-fidelity
+  - handoffs/fidelity/original-districts-refresh
+  - handoffs/fidelity/integration-final-acceptance
+  - handoffs/fidelity/us-districts

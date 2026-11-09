@@ -196,6 +196,7 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
   `python3 tools/fidelity/archive-evidence.py` checks that published capture revisions remain available; its explicit
   `--write-tag=<name>` mode preserves task/capture history under one immutable archive tag before branch cleanup.
   Capture commits and imagery limits are labelled; live aerials are cached in the browser for 15 minutes across reloads.
+  GitHub Pages keeps large internal diagnostic folders in Git without deploying them. Public comparison histories, game images and linked native activity evidence remain available.
   The former separate comparison page is removed without a redirect.
   Street-walk comparisons use official Google panoramas by default (`--pano-provider=any` permits public uploads);
   unambiguous mapped underpass/bridge grades determine the comparison camera's height. Overlapping road levels are

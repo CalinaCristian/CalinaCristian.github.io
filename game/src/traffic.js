@@ -9,7 +9,8 @@ import { assignSignalPhases, signalState } from './signals.js';
 import { collideBuildings } from './world.js';
 import { SharedLaneGate } from './shared-lanes.js';
 import { ambientTrafficAccess } from './road-access.js';
-import { admitInitialTraffic } from './initial-traffic-admission.js';
+import { admitInitialTraffic, previewInitialTrafficPose, initialTrafficStaticClearance, initialBodyCover } from './initial-traffic-admission.js';
+import { buildTramNetwork, canTravelTram, tramContinuations, sampleTramPath, tramSpan, tramPathPolyline, projectTramStations } from './tram-path.js';
 
 // ============================================================================
 //  TRAFFIC — vehicles + pedestrians on the road graph.
@@ -49,7 +50,7 @@ export function medianOf(e) {
 /** lateral offset (to the right of travel) of lane `lane` (0 = innermost) */
 export function laneOffset(edge, lane, dir = 1) { return (edge.sharedLane ? 0 : medianOf(edge) / 2 + (edge.laneW ?? 3.3) * (lane + 0.5)) + dir * (edge.laneCenterShiftM || 0); }
 const tramBaseOffset = e => Math.max(1.45, medianOf(e) / 4);
-const tramOffset = (e, dir = 1) => tramBaseOffset(e) + dir * (e.laneCenterShiftM || 0); // two 2.4 m trams side by side never touch
+const tramOffset = (e, dir = 1) => e.rail ? 0 : tramBaseOffset(e) + dir * (e.laneCenterShiftM || 0);
 const layerOf = (e) => (e.bridge ? 1 : 0) + (e.tunnel ? -1 : 0) + (e.layer | 0);
 const isJunction = (n) => n.edges.length >= 3 || n.hasLight;
 /** a road cut at the district boundary (closure at its map-end node, spec R10.9): never routed into, never spawned on */
@@ -197,7 +198,11 @@ export class Traffic {
         this.setupTransit();
         this.buildBusStops();
         this.spawnAll();
+        // Keep the historic constructor fleet/RNG draws, then assign each tram
+        // its real directed rail source before any actor becomes visible.
+        this.initialTramBinding = this.bindSourceTrams();
         this.initialAdmission = admitInitialTraffic(this);
+        if (!this.initialTramBinding.passed) this.initialAdmission.passed = false;
         this.base = { moving: this.vehicles.filter(v => this.cls(v) === 'moving').length, parked: this.vehicles.filter(v => v.parked).length };
         this.peds = new Pedestrians(this, opts.maxPeds ?? (this.buc ? 250 : 60));
         if (opts.hour != null) this.setHour(opts.hour, true);
@@ -205,6 +210,50 @@ export class Traffic {
 
     // ------------------------------------------------------------------ traffic by hour
     cls(v) { return v.service ? 'fixed' : v.parked ? 'parked' : (v.tram || v.isPolice) ? 'fixed' : 'moving'; }
+
+    /** Derived physical crossing ownership; motor routing nodes/edges stay intact. */
+    isJunction(node) { return isJunction(node) || this.tramMotorCrossings?.has(node) || !!node.motorNode; }
+    boxController(node) { const physical = node.motorNode || node; return physical.lightCluster || physical; }
+
+    railBodyInside(body) {
+        const inside = this.world.district?.inside;
+        if (!inside) return true;
+        for (const p of initialBodyCover(body)) {
+            if (!inside(p.x, p.z) || !inside(p.x + p.radius, p.z) || !inside(p.x - p.radius, p.z) || !inside(p.x, p.z + p.radius) || !inside(p.x, p.z - p.radius)) return false;
+        }
+        return true;
+    }
+
+    bindSourceTrams() {
+        const actors = this.vehicles.filter(v => v.tram), summary = { passed: true, bindings: [], unresolved: [], rngDraws: 0 };
+        if (!actors.length) return summary;
+        this.tramNetwork = buildTramNetwork(this.world.data, { motorNodes: nodeList(this.world.graph) });
+        this.tramIndex = new EdgeIndex(this.tramNetwork.edges);
+        this.tramMotorCrossings = new Set(this.tramNetwork.nodes.filter(n => n.edges.length && n.motorNode).map(n => n.motorNode));
+        summary.source = this.tramNetwork.report;
+        for (const v of actors) {
+            const before = { sourceId: v.edge.access?.sourceId, edgeId: v.edge.id, dir: v.dir, s: v.s, x: v.x, z: v.z, heading: v.heading };
+            const candidates = projectTramStations(this.tramNetwork, v.x, v.z, v.heading, v.length);
+            let accepted = null;
+            for (const p of candidates) {
+                // Rebinding is local to the original actor, never a far-away
+                // fleet redistribution to make an admission count look clean.
+                if (p.distance > Math.max(v.length, (v.edge.wL || 0) + (v.edge.wR || 0))) break;
+                const plan = { ...v, edge: p.e, dir: p.dir, s: p.s, lane: 0, laneCur: 0, latExtraCur: 0, lateralExtra: 0, latBlend: 0, route: [], hist: [] };
+                const pose = previewInitialTrafficPose(this, plan, p.s), body = { ...plan, ...pose };
+                if (!this.railBodyInside(body)) continue;
+                const physical = initialTrafficStaticClearance(this.world, body); if (!physical.valid) continue;
+                accepted = { p, plan, pose }; break;
+            }
+            if (!accepted) { summary.passed = false; summary.unresolved.push({ id: v.id, before, reason: 'no-local-source-legal-static-clear-rail-placement', candidateCount: candidates.length }); continue; }
+            const { p, plan } = accepted;
+            for (const key of ['edge', 'dir', 's', 'lane', 'laneCur', 'latExtraCur', 'lateralExtra', 'latBlend', 'route', 'hist']) v[key] = plan[key];
+            v.layer = layerOf(v.edge); this.placeOnLane(v, true, 0);
+            summary.bindings.push({ id: v.id, kind: v.kind, before, after: { sourceId: v.edge.sourceId, sourceNodeIds: v.edge.sourceNodeIds, edgeId: v.edge.id, dir: v.dir, s: v.s, x: v.x, y: v.y, z: v.z, heading: v.heading }, distanceM: p.distance, sourceGrade: v.edge.grade.basis });
+        }
+        this.grid.build(this.vehicles);
+        return summary;
+    }
     /** {density, parked, aggression, band} for a local hour: world.trafficProfile(hour) when present, else the table */
     profileAt(h) {
         let r = null;
@@ -612,6 +661,7 @@ export class Traffic {
     }
     /** a freshly placed vehicle must not be on top of / just in front of the player, nor overlap another vehicle */
     spawnClear(v) {
+        if (v.edge.rail && (!this.railBodyInside(v) || !initialTrafficStaticClearance(this.world, v).valid)) return false;
         if (!this.sharedLanes.canPlace(v.edge, v.dir, this._bulk || this.vehicles, v)) return false;
         const P = this.player;
         if (P) {
@@ -636,10 +686,14 @@ export class Traffic {
         if (ok && this._recent) for (const o of this._recent) check(o);
         return ok;
     }
-    noteRelocated(v) { v._moveGeneration = (v._moveGeneration || 0) + 1; if (this._bulk) { this._bulk.push(v); return; } const r = this._recent || (this._recent = []); r.push(v); if (r.length > 32) r.shift(); }
+    noteRelocated(v) { if (v.edge.rail) { v.servedRailStop = null; v.servedRailStopOdo = null; v.dwell = 0; } v._moveGeneration = (v._moveGeneration || 0) + 1; if (this._bulk) { this._bulk.push(v); return; } const r = this._recent || (this._recent = []); r.push(v); if (r.length > 32) r.shift(); }
 
     /** world position for a vehicle's lane state */
     laneTarget(v, out) {
+        if (v.edge.rail) {
+            const p = sampleTramPath(v); if (!p) throw new Error('Unresolved native rail pose ' + v.id);
+            Object.assign(out, p, { rx: -p.fz, rz: p.fx }); return out;
+        }
         const e = v.edge;
         const fx = e.dirx * v.dir, fz = e.dirz * v.dir;
         const rx = e.nx * v.dir, rz = e.nz * v.dir;
@@ -675,6 +729,10 @@ export class Traffic {
      * point to the exit lane point (as the junction claims draw it), so a long body never pivots across a box.
      */
     pathPoint(v, off, out) {
+        if (v.edge.rail) {
+            const p = sampleTramPath(v, off); if (!p) throw new Error('Unresolved native rail body span ' + v.id);
+            Object.assign(out, p); return out;
+        }
         const S = v.s + off, seq = [{ e: v.edge, dir: v.dir, s0: 0 }];
         let end = v.edge.len;
         for (let k = 0; end < S + 8 && k < v.route.length; k++) { const r = v.route[k]; if (r.uturn) break; seq.push({ e: r.e, dir: r.dir, s0: end }); end += r.e.len; }
@@ -696,6 +754,7 @@ export class Traffic {
     /** centre positions [lo, hi] a vehicle of length L may take on (e, dir) when placed: long ones keep the whole body
      *  off the junction pads (no bus / tram spawned across a junction mouth); null = the edge is too short for it */
     sSpan(e, dir, L, long) {
+        if (e.rail) return tramSpan(e, dir, L);
         if (!long) return [Math.min(4, e.len / 2), Math.max(e.len / 2, e.len - 4)];
         const a = dir > 0 ? e.a : e.b, b = dir > 0 ? e.b : e.a;
         const lo = Math.max(0.5, L / 2 - this.runTo(a, e, L)), hi = Math.min(e.len - 0.5, e.len - L / 2 + this.runTo(b, e, L));
@@ -705,7 +764,7 @@ export class Traffic {
     runTo(n, e, cap) {
         let d = 0;
         for (let k = 0; k < 8 && d < cap; k++) {
-            if (isJunction(n)) return d - (n.radius ?? 6) - 1.5;
+            if (this.isJunction(n)) return d - (n.radius ?? 6) - 1.5;
             if (n.edges.length !== 2) return d - 1;
             const g = n.edges[0] === e ? n.edges[1] : n.edges[0];
             d += g.len; n = g.a === n ? g.b : g.a; e = g;
@@ -756,10 +815,12 @@ export class Traffic {
             v.heading = angleLerp(v.heading, tgt, 1 - Math.exp(-10 * steerDt));
         }
         const e = v.edge;
-        if (e.a.y !== undefined && e.b.y !== undefined) { const tt = clamp(v.dir > 0 ? v.s / e.len : 1 - v.s / e.len, 0, 1); v.y = e.a.y + (e.b.y - e.a.y) * tt + 0.24; }
+        if (e.rail) { const p = sampleTramPath(v); if (!p) throw new Error('Unresolved native rail grade'); v.y = p.y + .24; }
+        else if (e.a.y !== undefined && e.b.y !== undefined) { const tt = clamp(v.dir > 0 ? v.s / e.len : 1 - v.s / e.len, 0, 1); v.y = e.a.y + (e.b.y - e.a.y) * tt + 0.24; }
         v.mesh.position.set(v.x, v.y, v.z);
         // pitch with the ramp (bridges / tunnels)
-        const slope = e.a.y !== undefined && e.b.y !== undefined ? (e.b.y - e.a.y) / Math.max(1, e.len) * v.dir : 0;
+        const railF = e.rail ? sampleTramPath(v, v.length * .36) : null, railR = e.rail ? sampleTramPath(v, -v.length * .36) : null;
+        const slope = e.rail ? (railF.y - railR.y) / Math.max(1e-6, Math.hypot(railF.x - railR.x, railF.z - railR.z)) : e.a.y !== undefined && e.b.y !== undefined ? (e.b.y - e.a.y) / Math.max(1, e.len) * v.dir : 0;
         v.mesh.rotation.set(Math.atan(slope), v.heading, 0, 'YXZ');
     }
 
@@ -791,11 +852,11 @@ export class Traffic {
     }
     get bubble() { return 650; }
     /** edges around the player, cached (refreshed when the player moved 80 m or every 2 s) */
-    nearEdges(r) {
+    nearEdges(r, rail = false) {
         const P = this.player; const c = this._ne || (this._ne = {});
-        const k = 'r' + r; let e = c[k];
+        const k = (rail ? 'rail-r' : 'r') + r; let e = c[k];
         if (!e || Math.hypot(e.x - P.x, e.z - P.z) > 80 || this.time - e.t > 2) {
-            e = c[k] = { x: P.x, z: P.z, t: this.time, list: this.index.near(P.x, P.z, r, []).filter(ed => ed.len >= 8) };
+            e = c[k] = { x: P.x, z: P.z, t: this.time, list: (rail ? this.tramIndex : this.index).near(P.x, P.z, r, []).filter(ed => ed.len >= 8) };
         }
         return e.list;
     }
@@ -834,7 +895,7 @@ export class Traffic {
     /** move vehicle v onto a random edge whose midpoint is rMin..rMax from the player. returns success */
     relocate(v, rMin, rMax, hidden) {
         const P = this.player; if (!P || (hidden && v.mesh.visible !== false && this.inView(v))) return false;
-        const cands = this.nearEdges(rMax <= this.bubble ? this.bubble : rMax);
+        const cands = this.nearEdges(rMax <= this.bubble ? this.bubble : rMax, !!v.edge.rail);
         if (!cands.length) return false;
         const save = this.savePose(v);
         for (let tries = 0; tries < 60; tries++) {
@@ -885,6 +946,11 @@ export class Traffic {
 
     // ------------------------------------------------------------------ routing
     chooseNext(e, dir, v) {
+        if (e.rail) {
+            const choices = tramContinuations(e, dir);
+            choices.sort((a, b) => Number(b.e.sourceId === e.sourceId) - Number(a.e.sourceId === e.sourceId) || (b.e.dirx * b.dir * e.dirx * dir + b.e.dirz * b.dir * e.dirz * dir) - (a.e.dirx * a.dir * e.dirx * dir + a.e.dirz * a.dir * e.dirz * dir) || String(a.e.id).localeCompare(String(b.e.id)));
+            return choices[0] || null;
+        }
         const node = dir > 0 ? e.b : e.a;
         const fx = e.dirx * dir, fz = e.dirz * dir;
         let best = null, total = 0;
@@ -941,7 +1007,7 @@ export class Traffic {
             return;
         }
         (v._sh || (v._sh = [])).push(nx);
-        if (v.hist) { v.hist.push({ e, dir: odir }); if (v.hist.length > 6) v.hist.shift(); }
+        if (v.hist) { v.hist.push({ e, dir: odir }); if (v.hist.length > (e.rail ? 256 : 6)) v.hist.shift(); }
         const oldLat = v.tram ? tramOffset(e, v.dir) : laneOffset(e, v.laneCur, v.dir) + v.latExtraCur + (v.latBlend || 0) * Math.max(0, 1 - v.s / 12);
         this.sharedLanes.advance(v, e, odir, nx.e, nx.dir, odir > 0 ? e.b : e.a);
         v.s -= e.len;
@@ -968,7 +1034,7 @@ export class Traffic {
         const original = this.savePose(v);
         v._resp = true; v.latBlend = 0;
         if (this.large && this.relocate(v, 300, this.bubble, hidden)) return true;
-        const edges = this.world.graph.edges; const P = this.player;
+        const edges = v.edge.rail ? this.tramNetwork.edges : this.world.graph.edges; const P = this.player;
         for (let tries = 0; tries < 30; tries++) {
             const e = edges[Math.floor(this.rng() * edges.length)];
             if (v.tram && !e.tram) continue;
@@ -1061,10 +1127,11 @@ export class Traffic {
         v._f = this._frame; v._s0 = v.s; v._odo0 = v.odo; v._x0 = v.x; v._z0 = v.z; v._h0 = v.heading; v._e0 = v.edge;
         v._lc0 = v.laneCur; v._le0 = v.latExtraCur; v._fx0 = v.fx; v._fz0 = v.fz; v._rx0 = v.rx; v._rz0 = v.rz; v._tr0 = v.transition;
         v._d0 = v.dir; v._ln0 = v.lane; v._ly0 = v.layer; v._y0 = v.y; v._lb0 = v.latBlend || 0; v._resp = false; if (v._sh) v._sh.length = 0; v._hl0 = v.hist ? v.hist.length : 0;
+        if (v.edge.rail) v._railHist0 = v.hist?.slice();
         { const P0 = this.player; v._pp0 = P0 && Math.abs(P0.x - v.x) < 16 && Math.abs(P0.z - v.z) < 16 && Math.abs((P0.y ?? 0.24) - v.y) < 2.5 ? vpPen(v, P0) : undefined; }
         this.ensureRoute(v);
         const e = v.edge, L = e.len, half = v.length / 2;
-        const lim = v.tram ? 11 : edgeSpeed(e);
+        const lim = v.tram ? (e.rail ? Math.min(11, edgeSpeed(e)) : 11) : edgeSpeed(e);
         let desired = lim * (v.tram ? 1 : v.desiredMul) * (this.weatherMul ?? 1); // rain / snow: everyone drives slower
         // congestion hotspot: crawl, with stop-and-go waves (queues build behind the ones that stop)
         if (this.jamMax > 0.01) { if (((this._frame + v.id) & 7) === 0) v.jam = this.jamAt(v.x, v.z); } else v.jam = 0;
@@ -1083,7 +1150,7 @@ export class Traffic {
         const toEntry = L - v.s - half - endRad; // front bumper → edge of the junction box ahead
         const nearEnd = toEntry < 12;
         // already committed to (inside) a junction box: clear it instead of stopping in it
-        const inJunction = (isJunction(endNode) && toEntry < -0.5) || (isJunction(startNode) && v.s - half < (startNode.radius ?? 6) - 0.5);
+        const inJunction = (this.isJunction(endNode) && toEntry < -0.5) || (this.isJunction(startNode) && v.s - half < (startNode.radius ?? 6) - 0.5);
         // scan axes: the lane direction on a straight, the body (as drawn) while turning through a box / blending lanes
         const useH = inJunction || v.transition > 0 || Math.abs(v.latBlend || 0) > 0.3;
         const fx = useH ? -Math.sin(v.heading) : v.fx, fz = useH ? -Math.cos(v.heading) : v.fz, rx = -fz, rz = fx;
@@ -1160,6 +1227,22 @@ export class Traffic {
             const node = curDir > 0 ? curE.b : curE.a;
             const nxt = v.route[k + 1];
             const rad = node.radius ?? 6;
+            if (curE.rail && !nxt) {
+                // The whole body stops before an unresolved grade/source or
+                // activity-boundary leaf. No extension onto unmodeled rails.
+                if (D - .1 < stopD) { stopD = Math.max(0, D - .1); stopWhy = 'rail-source-boundary'; }
+            }
+            if (curE.rail && (node.tags?.railway === 'tram_stop' || node.tags?.public_transport === 'stop_position') &&
+                !(v.servedRailStop === node.sourceId && v.odo - (v.servedRailStopOdo || 0) < v.length + 5)) {
+                const centerDistance = D + half;
+                if (centerDistance >= -.5) {
+                    if (centerDistance < .6 && v.speed < .5) {
+                        v.dwell += dt; // gameplay dwell estimate; source fixes location only
+                        if (v.dwell > 5) { v.servedRailStop = node.sourceId; v.servedRailStopOdo = v.odo; v.dwell = 0; }
+                        else if (0 < stopD) { stopD = 0; stopWhy = 'rail-stop'; }
+                    } else if (centerDistance < stopD) { stopD = Math.max(0, centerDistance); stopWhy = 'rail-stop'; }
+                }
+            }
             if (nxt?.e.sharedLane && this.sharedLanes.entry(curE, curDir)?.group !== this.sharedLanes.entry(nxt.e, nxt.dir)?.group) {
                 const entryDistance = D - rad - this.sharedLanes.mouthClearance(curE, curDir, nxt.e);
                 if (entryDistance < Math.max(12, v.speed * v.speed / 9 + 3) && D - rad - 1.6 > -.5 && !this.sharedLanes.canEnter(v, nxt.e, nxt.dir)) {
@@ -1168,7 +1251,7 @@ export class Traffic {
                 }
             }
             if (node.hasLight && !v.isPolice) {
-                const controller = node.lightCluster || node;
+                const controller = this.boxController(node);
                 const committed = this.boxes.get(controller)?.some(r => r.v === v && this.inBox(r, controller) && r.entered);
                 // A turn/short link within one controller is one movement. Its entry
                 // signal governs; once admitted the car clears all of the split box.
@@ -1178,7 +1261,7 @@ export class Traffic {
                 if (d > -0.5 && (st === 'red' || (st === 'yellow' && d > v.speed * 1.1))) {
                     // A separate downstream controller must be clear before entering
                     // a link too short to hold the car. Waiting never grants red entry.
-                    if (k >= 0 && prevNode && isJunction(prevNode) && curE.len - (prevNode.radius ?? 6) - rad < v.length + 4) {
+                    if (k >= 0 && prevNode && this.isJunction(prevNode) && curE.len - (prevNode.radius ?? 6) - rad < v.length + 4) {
                         const dPrev = prevD - (prevNode.radius ?? 6) - 1.6;
                         if (dPrev > -0.5) d = dPrev;
                         else d = Infinity;
@@ -1196,14 +1279,14 @@ export class Traffic {
             }
             if (nxt && nxt.e.roundabout && !curE.roundabout && this.roundaboutBusy(node, v)) { if (D - rad - 1 < stopD) { stopD = D - rad - 1; stopWhy = 'rbt'; } break; }
             // don't block the box: if the queue beyond the junction leaves no room for us, wait at the line
-            if (k === -1 && isJunction(node) && D - rad > 0.5 && leader && leader !== 'ped' && !leaderCross && leaderSpeed < 2) {
+            if (k === -1 && this.isJunction(node) && D - rad > 0.5 && leader && leader !== 'ped' && !leaderCross && leaderSpeed < 2) {
                 const entry = D - rad;
                 if (gap > entry - 0.5 && gap < entry + 2 * rad + v.length + 1.5) { const _d = entry - 0.5; if (_d < stopD) { stopD = _d; stopWhy = 'box-full'; } }
             }
             if (v.bus) { const bs = this.busStopAhead(v, curE, curDir, D, k === -1); if (bs < stopD) { stopD = bs; stopWhy = 'busstop'; } }
             // junction box reservation: a car about to enter the box claims its path across the pad (entry lane point →
             // exit lane point); a car whose path would cross / merge with a claimed one waits at the line
-            if (k === -1 && nxt && isJunction(node) && !inJunction && !nxt.uturn) {
+            if (k === -1 && nxt && this.isJunction(node) && !inJunction && !nxt.uturn) {
                 const reach = Math.max(9, v.speed * v.speed / 9 + 3);
                 if (D - rad < reach) {
                     const res = this.boxCheck(v, curE, curDir, nxt, node, rad);
@@ -1231,13 +1314,13 @@ export class Traffic {
                 const vTurn = ang > 2.6 ? 2.5 : Math.max(4.5, desired - (desired - 5) * clamp((ang - 0.22) / 1.35, 0, 1));
                 vCap = Math.min(vCap, Math.sqrt(vTurn * vTurn + 2 * 2.6 * Math.max(0, D)));
             }
-            const ns = (v.tram ? 11 : edgeSpeed(nxt.e) * v.desiredMul);
+            const ns = (v.tram ? (nxt.e.rail ? Math.min(11, edgeSpeed(nxt.e)) : 11) : edgeSpeed(nxt.e) * v.desiredMul);
             if (ns < desired) vCap = Math.min(vCap, Math.sqrt(ns * ns + 2 * 2 * Math.max(0, D)));
             prevNode = node; prevD = D;
             D += nxt.e.len; curE = nxt.e; curDir = nxt.dir;
         }
         // trams: stops every few hundred metres
-        if (v.tram) {
+        if (v.tram && !e.rail) {
             let d = v.nextStopOdo - v.odo;
             if (d > 0.8 && d < 60) {
                 // the stop must hold the whole tram off the junction pads (never dwelling across a junction mouth)
@@ -1261,7 +1344,9 @@ export class Traffic {
         const accel = v.tram ? 1.2 : v.bus || v.kind === 'truck' ? 1.6 : (this.buc ? 3.0 : 2.4);
         if (target > v.speed) v.speed = Math.min(target, v.speed + accel * dt);
         else v.speed = Math.max(target, v.speed - (leader === P && gap < 3 ? 14 : 8.5) * dt);
-        if (v.speed < 0.05) v.speed = 0;
+        // At 30Hz a tram's first 1.2m/s² step is .04m/s. Do not erase
+        // that positive acceleration on every source-rail tick from rest.
+        if (v.speed < 0.05 && (!e.rail || target < 0.05)) v.speed = 0;
         v.gap = gap; v.leader = leader; v.leaderCross = leaderCross; v.stopD = stopD; v.stopWhy = stopWhy;
 
         // ---------------- stuck / honking ----------------
@@ -1336,6 +1421,10 @@ export class Traffic {
         v.annoyed = Math.max(0, v.annoyed - dt);
         v.bubbleCd -= dt;
         this.placeOnLane(v, false, dt);
+        if (v.edge.rail && (!this.railBodyInside(v) || !initialTrafficStaticClearance(this.world, v).valid)) {
+            this.revert(v); v.speed = 0; v.zeroWhy = 'rail-source-domain-or-static';
+            this.stats.railSourceBlocked = (this.stats.railSourceBlocked || 0) + 1;
+        }
         if (v._pp0 !== undefined) {
             const pen = vpPen(v, P);
             // this step would push into the player (box as drawn): undo it, whatever edge it reached, and wait
@@ -1381,6 +1470,13 @@ export class Traffic {
 
     /** path across the junction pad for v going (curE,curDir) → nxt: entry lane point → exit lane point */
     boxPath(v, curE, curDir, nxt, rad) {
+        if (curE.rail) {
+            const sIn = Math.max(0, curE.len - rad), sOut = Math.min(nxt.e.len, rad), index = v.route.findIndex(r => r.e === nxt.e && r.dir === nxt.dir);
+            const virtual = { ...v, edge: curE, dir: curDir, s: sIn, route: index < 0 ? [nxt] : v.route.slice(index) };
+            const segments = tramPathPolyline(virtual, -v.length / 2, curE.len - sIn + sOut + v.length / 2);
+            if (!segments?.length) throw new Error('Unresolved source rail reservation ' + v.id);
+            return { ...segments[0], p1x: segments.at(-1).p1x, p1z: segments.at(-1).p1z, inE: curE, outE: nxt.e, outDir: nxt.dir, lane: 0, laneIn: 0, railSegments: segments };
+        }
         const nl = Math.max(1, lanesDir(nxt.e, nxt.dir)), lane = Math.min(v.lane, nl - 1);
         const latIn = v.tram ? tramOffset(curE, curDir) : laneOffset(curE, v.lane, curDir), latOut = v.tram ? tramOffset(nxt.e, nxt.dir) : laneOffset(nxt.e, lane, nxt.dir);
         const sIn = Math.max(0, curE.len - rad), sOut = Math.min(nxt.e.len, rad);
@@ -1394,7 +1490,7 @@ export class Traffic {
     /** 'wait' when the path conflicts with a reservation of another car still in / entering the box, else the path */
     boxCheck(v, curE, curDir, nxt, node, rad) {
         const path = this.reservationPath(v, curE, curDir, nxt, node, rad);
-        const key = node.lightCluster || node;
+        const key = this.boxController(node);
         const list = this.boxes.get(key); if (!list) return path;
         // first come, first served: only claims older than ours count (no two cars ever wait for each other)
         let mine = Infinity; for (const r of list) if (r.v === v) mine = r.t0;
@@ -1409,7 +1505,7 @@ export class Traffic {
         return path;
     }
     boxClaim(v, node, path) {
-        const key = node.lightCluster || node;
+        const key = this.boxController(node);
         let list = this.boxes.get(key); if (!list) this.boxes.set(key, list = []);
         if (!path.segments) path = this.reservationPath(v, v.edge, v.dir, v.route[0], node, node.radius ?? 6);
         for (const r of list) if (r.v === v) { if (!r.entered) { const t0 = r.t0; Object.assign(r, path); r.t0 = t0; } r.t = this.time; return; }
@@ -1418,7 +1514,7 @@ export class Traffic {
     /** Reserve every pad and connecting lane through this controller, including turns. */
     reservationPath(v, curE, curDir, nxt, node, rad) {
         const path = this.boxPath(v, curE, curDir, nxt, rad);
-        path.segments = [{ ...path }]; path.internalEdges = new Set(); path.entryRad = rad; path.exitRad = rad;
+        path.segments = path.railSegments || [{ ...path }]; path.internalEdges = new Set(); path.entryRad = rad; path.exitRad = rad;
         path.phase = this.world.nodeLight?.[node.id]?.approaches.find(a => a.edge === curE)?.phase;
         const cl = node.lightCluster;
         let step = nxt, i = 0, exitIndex = 0;
@@ -1468,6 +1564,7 @@ export class Traffic {
         if (v._sh && v._sh.length) { while (v._sh.length) v.route.unshift(v._sh.pop()); }
         if (v.hist && v.hist.length > v._hl0) v.hist.length = v._hl0;
         v.edge = v._e0; v.dir = v._d0; v.lane = v._ln0; v.layer = v._ly0; v.y = v._y0; v.latBlend = v._lb0;
+        if (v._railHist0 && v.edge.rail) v.hist = v._railHist0.slice();
         v.s = v._s0; v.odo = v._odo0; v.x = v._x0; v.z = v._z0; v.heading = v._h0; v.laneCur = v._lc0; v.latExtraCur = v._le0;
         v.fx = v._fx0; v.fz = v._fz0; v.rx = v._rx0; v.rz = v._rz0; v.transition = v._tr0;
         v.mesh.position.set(v.x, v.y, v.z); v.mesh.rotation.y = v.heading;
@@ -1663,6 +1760,7 @@ export class Traffic {
     }
     /** a vehicle has been touching the player for a while: back it off a few metres, or move it out of view */
     nudge(v) {
+        if (v.edge.rail) return this.nudgeRail(v);
         const P = this.player;
         if (this.inView(v)) {
             // In view, only separate actual player contact, along the body's axis
@@ -1687,6 +1785,22 @@ export class Traffic {
         }
         v.nudges = 0;
         if (!(this.large && this.relocate(v, 250, this.bubble, true))) this.respawn(v);
+    }
+    /** A recovery on rails still samples the source path; it cannot translate
+     * along a turning body's chord and leave the track. Existing pace and
+     * visibility limits remain, and every accepted pose must separate. */
+    nudgeRail(v) {
+        const P = this.player; if (!P) return;
+        const visible = this.inView(v), beforePen = vpPen(v, P);
+        if (visible && beforePen < -.15) return;
+        const hx = -Math.sin(v.heading), hz = -Math.cos(v.heading), forward = (P.x - v.x) * hx + (P.z - v.z) * hz;
+        const sign = forward > 0 ? -1 : 1, distance = visible ? Math.min(beforePen + .2, .8 * (this._dt || 1 / 30)) * sign : 3.5 * sign;
+        const span = this.sSpan(v.edge, v.dir, v.length, true), s = v.s + distance;
+        if (!span || s < span[0] || s > span[1]) { if (!visible) this.respawn(v); return; }
+        const saved = this.savePose(v); v.s = s; this.placeOnLane(v, true, 0);
+        if (vpPen(v, P) >= beforePen || this.overlapsAny(v) || !this.railBodyInside(v) || !initialTrafficStaticClearance(this.world, v).valid) { this.restorePose(v, saved); if (!visible) this.respawn(v); return; }
+        v.odo += distance; v.speed = 0; v.touchT = 3.01;
+        this.refreshVehicleCell(v, saved.x, saved.z);
     }
     /**
      * Player-blocked watchdog (round-5 QA, Bellevue finale): while the player drives and has crawled < 1 m/s for > 12 s,
@@ -1986,7 +2100,7 @@ export class Traffic {
         }
         for (const n of nodes) {
             const d = Math.hypot(x - n.x, z - n.z), rad = n.radius ?? 6;
-            if (isJunction(n) && n.edges.length >= 3 && d < rad + 0.3) R.add('junction');
+            if (this.isJunction(n) && n.edges.length >= 3 && d < rad + 0.3) R.add('junction');
             if ((n.zebra || n.crossing) && n.edges.length <= 2 && d < 14) for (const g of n.edges) { // (marked crossing: 0–3 m past the node, carriageway-wide)
                 const sg = g.a === n ? 1 : -1, al = ((x - n.x) * g.dirx + (z - n.z) * g.dirz) * sg, la = Math.abs((x - n.x) * g.nx + (z - n.z) * g.nz);
                 if (al > -2.5 && al < 5 && la < roadSideWidth(g, roadLateral(g, x, z)) + 0.3) R.add('zebra');

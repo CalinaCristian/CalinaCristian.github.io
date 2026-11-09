@@ -1,0 +1,5008 @@
+{
+  "gateScope": "Only continuous native completion at the actual production objective. Static road finding replays remain diagnostic; a clear point does not establish full body/road clearance.",
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "inputHashes": {
+    "game/data/seattle-seatac.json": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+    "game/src/main.js": "6183dfb0110fd7139f8b825838798667d225a7cddeb78f8b395bc21701dae84c",
+    "game/src/world.js": "1154543c41891ef05eb94b56ad904f9f06a81f41dabac439d577b018a0f8beb2",
+    "game/src/cities.js": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+    "game/src/chapter-waypoint.js": "0cba46e17b79cb869de2c5087b925f837dd02954d026e5aaaa55c509c9dac63a",
+    "game/dev/harness/page/core.js": "c0e1336eda00011b670eee528e16a98c15848d4dabead9d3c2d9118a263c0774",
+    "game/dev/harness/page/util.js": "87dcb3416d4cb022502f1c6e37044eb65dc69df623df12a5ebd8bbc31b775b56"
+  },
+  "captureToolSha256": "3a22bdfda13078a0f2c3d4524648522d0a37ee984c96d919f170e965c6a0bc53",
+  "startedAt": "2026-11-08T23:45:48.054Z",
+  "errors": [],
+  "consoleErrors": [],
+  "captures": [
+    {
+      "id": "native-chapter-start",
+      "image": "native-chapter-start.jpg",
+      "sha256": "a261ed6a07b020030237bad26482cc72ba2b18f9b974366f7679e3aedb918854",
+      "capturedAt": "2026-11-08T23:47:21.221Z",
+      "state": "drive",
+      "objective": {
+        "x": -1149.644183850554,
+        "z": -444.5535381487944,
+        "waypoint": true,
+        "label": "Airport Expressway north (SR-518 / I-405)"
+      },
+      "player": {
+        "x": -1214.6511924328763,
+        "z": 769.8435659719954,
+        "y": 0.24
+      },
+      "vehicles": 149,
+      "pedestrians": 180,
+      "perf": {
+        "drawCalls": 216,
+        "triangles": 560256
+      },
+      "fogEnabled": true,
+      "cameraFar": 5000
+    }
+  ],
+  "loaded": {
+    "key": "seattle-seatac",
+    "city": "seattle",
+    "district": "seatac",
+    "ms": 38722,
+    "edges": 2428,
+    "ribbons": 4412
+  },
+  "rawFindingsReportSha256": "7893466d29296e0e7c3456b35cb0dce7100581f962d12db34a04082377f1ddfd",
+  "roadFindingReplay": [
+    {
+      "rawId": 3,
+      "rawType": "object-in-road",
+      "edge": 395,
+      "road": 77,
+      "sourceRoadId": "w344201644",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1189.7964885208987,
+        "z": 718.1369750114272,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 4,
+      "rawType": "object-in-road",
+      "edge": 396,
+      "road": 77,
+      "sourceRoadId": "w344201644",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1208.1889874619799,
+        "z": 718.3169075326,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 5,
+      "rawType": "object-in-road",
+      "edge": 397,
+      "road": 77,
+      "sourceRoadId": "w344201644",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1210.1154410286529,
+        "z": 718.8595807134126,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 6,
+      "rawType": "object-in-road",
+      "edge": 398,
+      "road": 77,
+      "sourceRoadId": "w344201644",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1211.7093611664025,
+        "z": 719.8571821189272,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 7,
+      "rawType": "object-in-road",
+      "edge": 399,
+      "road": 77,
+      "sourceRoadId": "w344201644",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1212.825690329239,
+        "z": 721.0521543593688,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 8,
+      "rawType": "object-in-road",
+      "edge": 403,
+      "road": 77,
+      "sourceRoadId": "w344201644",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1212.3732720940238,
+        "z": 726.057182012162,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 9,
+      "rawType": "object-in-road",
+      "edge": 404,
+      "road": 77,
+      "sourceRoadId": "w344201644",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1209.8887457661315,
+        "z": 729.0820564046193,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 10,
+      "rawType": "object-in-road",
+      "edge": 405,
+      "road": 77,
+      "sourceRoadId": "w344201644",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1200.3077725952542,
+        "z": 738.4042920679475,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 11,
+      "rawType": "object-in-road",
+      "edge": 394,
+      "road": 77,
+      "sourceRoadId": "w344201644",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1069.5359202153456,
+        "z": 717.3105707447579,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 12,
+      "rawType": "object-in-road",
+      "edge": 406,
+      "road": 77,
+      "sourceRoadId": "w344201644",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1181.7063719510456,
+        "z": 738.5848045673496,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 13,
+      "rawType": "object-in-road",
+      "edge": 665,
+      "road": 147,
+      "sourceRoadId": "w430427477",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1066.470386964156,
+        "z": 753.9486506848697,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 14,
+      "rawType": "object-in-road",
+      "edge": 666,
+      "road": 147,
+      "sourceRoadId": "w430427477",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1169.6894372595689,
+        "z": 753.5989527419479,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 15,
+      "rawType": "object-in-road",
+      "edge": 667,
+      "road": 147,
+      "sourceRoadId": "w430427477",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1176.5429541021958,
+        "z": 753.6852325821018,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 16,
+      "rawType": "object-in-road",
+      "edge": 668,
+      "road": 147,
+      "sourceRoadId": "w430427477",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1178.1284360536954,
+        "z": 753.9783605301703,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 17,
+      "rawType": "object-in-road",
+      "edge": 669,
+      "road": 147,
+      "sourceRoadId": "w430427477",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1179.737955790003,
+        "z": 754.8711303373581,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 18,
+      "rawType": "object-in-road",
+      "edge": 670,
+      "road": 147,
+      "sourceRoadId": "w430427477",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1180.620104232245,
+        "z": 756.4315967602408,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 19,
+      "rawType": "object-in-road",
+      "edge": 671,
+      "road": 147,
+      "sourceRoadId": "w430427477",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1180.5407592374597,
+        "z": 758.1175125701504,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 20,
+      "rawType": "object-in-road",
+      "edge": 672,
+      "road": 147,
+      "sourceRoadId": "w430427477",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1179.492620066174,
+        "z": 759.8323738618303,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 21,
+      "rawType": "object-in-road",
+      "edge": 1105,
+      "road": 273,
+      "sourceRoadId": "w722071152",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1162.1886917910424,
+        "z": 780.3435682438613,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 22,
+      "rawType": "object-in-road",
+      "edge": 1114,
+      "road": 281,
+      "sourceRoadId": "w722071160",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1159.4246580431004,
+        "z": 776.654339099904,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 23,
+      "rawType": "object-under-elevated-road",
+      "edge": 95,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1187.1500856078305,
+        "z": 814.3138103480162,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 24,
+      "rawType": "object-under-elevated-road",
+      "edge": 96,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1171.1458839925413,
+        "z": 830.6724539185188,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 25,
+      "rawType": "object-under-elevated-road",
+      "edge": 2348,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1195.0636718684782,
+        "z": 806.2265438330309,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 26,
+      "rawType": "object-under-elevated-road",
+      "edge": 2349,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1192.1558566356302,
+        "z": 809.1981204735137,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 27,
+      "rawType": "object-under-elevated-road",
+      "edge": 2350,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1181.8153636914858,
+        "z": 819.7666871480415,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 28,
+      "rawType": "object-under-elevated-road",
+      "edge": 2351,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1176.4806417751413,
+        "z": 825.2195639480666,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 29,
+      "rawType": "object-under-elevated-road",
+      "edge": 2352,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1165.3099340878523,
+        "z": 836.6374640185408,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 30,
+      "rawType": "object-under-elevated-road",
+      "edge": 2353,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1159.4739841831633,
+        "z": 842.6024741185627,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 31,
+      "rawType": "object-under-elevated-road",
+      "edge": 2354,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1153.6380342784746,
+        "z": 848.5674842185846,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 32,
+      "rawType": "object-in-road",
+      "edge": 721,
+      "road": 151,
+      "sourceRoadId": "w430442190",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "asphalt"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1187.9576630550812,
+        "z": 700.2893349225628,
+        "roadY": 0.23326024883884963
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 33,
+      "rawType": "object-in-road",
+      "edge": 449,
+      "road": 84,
+      "sourceRoadId": "w344201652",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1032.9648586174487,
+        "z": 789.653967198566,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 34,
+      "rawType": "object-in-road",
+      "edge": 450,
+      "road": 84,
+      "sourceRoadId": "w344201652",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1134.5995022218788,
+        "z": 790.2262202119833,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 35,
+      "rawType": "object-in-road",
+      "edge": 451,
+      "road": 84,
+      "sourceRoadId": "w344201652",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1146.478783742051,
+        "z": 795.2670799906084,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 36,
+      "rawType": "object-in-road",
+      "edge": 1115,
+      "road": 281,
+      "sourceRoadId": "w722071160",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1147.0181666795672,
+        "z": 776.4638985728872,
+        "roadY": 0.2359109988404811
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 37,
+      "rawType": "object-in-road",
+      "edge": 452,
+      "road": 85,
+      "sourceRoadId": "w344201653",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -992.9132282238623,
+        "z": 827.993678878847,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 38,
+      "rawType": "object-in-road",
+      "edge": 453,
+      "road": 85,
+      "sourceRoadId": "w344201653",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1109.0627491324874,
+        "z": 831.9290684860603,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 39,
+      "rawType": "object-in-road",
+      "edge": 1106,
+      "road": 274,
+      "sourceRoadId": "w722071153",
+      "sourceTags": {
+        "highway": "service",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1125.2699678141414,
+        "z": 815.930459470471,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 40,
+      "rawType": "object-in-road",
+      "edge": 1113,
+      "road": 280,
+      "sourceRoadId": "w722071159",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1122.4797617962831,
+        "z": 812.2763063371184,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 41,
+      "rawType": "object-under-elevated-road",
+      "edge": 97,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1147.801883780077,
+        "z": 854.5325679661807,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 42,
+      "rawType": "object-under-elevated-road",
+      "edge": 2355,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1141.8338204658874,
+        "z": 860.6314921262278,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 43,
+      "rawType": "object-under-elevated-road",
+      "edge": 2356,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1135.8657571516974,
+        "z": 866.7304162862749,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 44,
+      "rawType": "object-under-elevated-road",
+      "edge": 2357,
+      "road": 13,
+      "sourceRoadId": "w37017723",
+      "sourceTags": {
+        "bicycle": "yes",
+        "bridge": "yes",
+        "fixme": "verify bicycle=yes",
+        "highway": "secondary",
+        "lanes": "2",
+        "layer": "2",
+        "maxspeed": "20 mph",
+        "maxweight:signed": "no",
+        "name": "Departures Drive",
+        "oneway": "yes",
+        "turn:lanes": "through|through"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1129.8976938375076,
+        "z": 872.8293404463219,
+        "roadY": 11.24
+      },
+      "level": "under",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 7,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seatac",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 19.62,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 45,
+      "rawType": "object-in-road",
+      "edge": 414,
+      "road": 79,
+      "sourceRoadId": "w344201646",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1066.8795494759142,
+        "z": 722.6592187619996,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 46,
+      "rawType": "object-in-road",
+      "edge": 460,
+      "road": 89,
+      "sourceRoadId": "w364221562",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1056.8935161060958,
+        "z": 734.113039905935,
+        "roadY": 0.17926449935368177
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 47,
+      "rawType": "object-in-road",
+      "edge": 461,
+      "road": 89,
+      "sourceRoadId": "w364221562",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1054.570802564619,
+        "z": 736.8119078114875,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 48,
+      "rawType": "object-in-road",
+      "edge": 462,
+      "road": 89,
+      "sourceRoadId": "w364221562",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1051.8415463166384,
+        "z": 738.4120113745265,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 49,
+      "rawType": "object-in-road",
+      "edge": 476,
+      "road": 89,
+      "sourceRoadId": "w364221562",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1047.12750849828,
+        "z": 717.4268181467568,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 50,
+      "rawType": "object-in-road",
+      "edge": 1539,
+      "road": 446,
+      "sourceRoadId": "w1444470941",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1066.923125312923,
+        "z": 742.43114342908,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 51,
+      "rawType": "object-in-road",
+      "edge": 1540,
+      "road": 446,
+      "sourceRoadId": "w1444470941",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1066.7404200271287,
+        "z": 749.0135910707446,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 52,
+      "rawType": "object-in-road",
+      "edge": 1541,
+      "road": 446,
+      "sourceRoadId": "w1444470941",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1065.3400123790545,
+        "z": 754.196702417751,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 53,
+      "rawType": "object-in-road",
+      "edge": 1542,
+      "road": 446,
+      "sourceRoadId": "w1444470941",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1059.9022894095558,
+        "z": 759.2458972975015,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 54,
+      "rawType": "object-in-road",
+      "edge": 1543,
+      "road": 446,
+      "sourceRoadId": "w1444470941",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1053.7722250167228,
+        "z": 764.9425547638751,
+        "roadY": 0.2130709304866812
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 55,
+      "rawType": "object-in-road",
+      "edge": 1112,
+      "road": 279,
+      "sourceRoadId": "w722071158",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1091.9670618835746,
+        "z": 847.3829735485258,
+        "roadY": 0.23948757020298303
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 56,
+      "rawType": "object-in-road",
+      "edge": 454,
+      "road": 86,
+      "sourceRoadId": "w344201654",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -956.6330438655691,
+        "z": 864.8056975672554,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 57,
+      "rawType": "object-in-road",
+      "edge": 1107,
+      "road": 275,
+      "sourceRoadId": "w722071154",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1054.0860835571375,
+        "z": 889.4111946896907,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 58,
+      "rawType": "object-in-road",
+      "edge": 1110,
+      "road": 277,
+      "sourceRoadId": "w722071156",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "name": "3rd Floor TNC Pickup Road",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1076.0941441153834,
+        "z": 865.8286573530032,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 59,
+      "rawType": "object-in-road",
+      "edge": 1111,
+      "road": 278,
+      "sourceRoadId": "w722071157",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1051.4692023357354,
+        "z": 885.8585156293902,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 60,
+      "rawType": "object-in-road",
+      "edge": 437,
+      "road": 83,
+      "sourceRoadId": "w344201650",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1024.963872153839,
+        "z": 792.0697417036622,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 61,
+      "rawType": "object-in-road",
+      "edge": 438,
+      "road": 83,
+      "sourceRoadId": "w344201650",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1023.4360898107376,
+        "z": 795.0118888743428,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 62,
+      "rawType": "object-in-road",
+      "edge": 448,
+      "road": 84,
+      "sourceRoadId": "w344201652",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1030.668251528839,
+        "z": 789.1019701115661,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 63,
+      "rawType": "object-in-road",
+      "edge": 678,
+      "road": 149,
+      "sourceRoadId": "w430434890",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1012.2082726958782,
+        "z": 792.6586655986018,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 64,
+      "rawType": "object-in-road",
+      "edge": 679,
+      "road": 149,
+      "sourceRoadId": "w430434890",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1009.9663126412054,
+        "z": 793.8992047424347,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 65,
+      "rawType": "object-in-road",
+      "edge": 680,
+      "road": 149,
+      "sourceRoadId": "w430434890",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1006.5685717741441,
+        "z": 794.6671709563097,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 66,
+      "rawType": "object-in-road",
+      "edge": 681,
+      "road": 149,
+      "sourceRoadId": "w430434890",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1003.1033821662775,
+        "z": 794.3286578651112,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 67,
+      "rawType": "object-in-road",
+      "edge": 682,
+      "road": 149,
+      "sourceRoadId": "w430434890",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -999.9225156562986,
+        "z": 792.9125730716502,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 68,
+      "rawType": "object-in-road",
+      "edge": 688,
+      "road": 149,
+      "sourceRoadId": "w430434890",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -999.4051693934126,
+        "z": 775.0487361601363,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 69,
+      "rawType": "object-in-road",
+      "edge": 689,
+      "road": 149,
+      "sourceRoadId": "w430434890",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1002.717088556909,
+        "z": 773.3871445791885,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 70,
+      "rawType": "object-in-road",
+      "edge": 690,
+      "road": 149,
+      "sourceRoadId": "w430434890",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1006.3891329142112,
+        "z": 772.9271744117334,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 71,
+      "rawType": "object-in-road",
+      "edge": 691,
+      "road": 149,
+      "sourceRoadId": "w430434890",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1010.0155528050451,
+        "z": 773.7214501993205,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 72,
+      "rawType": "object-in-road",
+      "edge": 692,
+      "road": 149,
+      "sourceRoadId": "w430434890",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1013.1508051121161,
+        "z": 775.6850583838165,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 73,
+      "rawType": "object-in-road",
+      "edge": 693,
+      "road": 149,
+      "sourceRoadId": "w430434890",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1015.5489437370618,
+        "z": 778.2465861118434,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 74,
+      "rawType": "object-in-road",
+      "edge": 694,
+      "road": 149,
+      "sourceRoadId": "w430434890",
+      "sourceTags": {
+        "highway": "service",
+        "oneway": "yes"
+      },
+      "publicDrive": true,
+      "throughAccess": true,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1023.7730281565017,
+        "z": 788.696008271193,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 75,
+      "rawType": "object-in-road",
+      "edge": 1544,
+      "road": 446,
+      "sourceRoadId": "w1444470941",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1033.5344381774541,
+        "z": 785.0703122810014,
+        "roadY": 0.12849067805306952
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 76,
+      "rawType": "object-in-road",
+      "edge": 1545,
+      "road": 446,
+      "sourceRoadId": "w1444470941",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1030.9851000806914,
+        "z": 787.9524315312785,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 77,
+      "rawType": "object-in-road",
+      "edge": 439,
+      "road": 83,
+      "sourceRoadId": "w344201650",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1014.3295268648158,
+        "z": 804.6422942119565,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 78,
+      "rawType": "object-in-road",
+      "edge": 440,
+      "road": 83,
+      "sourceRoadId": "w344201650",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1004.0257707530808,
+        "z": 815.3300923979139,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 6,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 79,
+      "rawType": "object-in-road",
+      "edge": 455,
+      "road": 87,
+      "sourceRoadId": "w344201655",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -924.8916145807817,
+        "z": 902.2996614322111,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 80,
+      "rawType": "object-in-road",
+      "edge": 456,
+      "road": 87,
+      "sourceRoadId": "w344201655",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1035.2850176270426,
+        "z": 907.258794169902,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    },
+    {
+      "rawId": 81,
+      "rawType": "object-in-road",
+      "edge": 457,
+      "road": 87,
+      "sourceRoadId": "w344201655",
+      "sourceTags": {
+        "highway": "service",
+        "layer": "2",
+        "oneway": "yes",
+        "service": "parking_aisle",
+        "surface": "concrete"
+      },
+      "publicDrive": true,
+      "throughAccess": false,
+      "drivable": true,
+      "actualPoint": {
+        "x": -1021.2380770530767,
+        "z": 920.4133269412181,
+        "roadY": 0.24
+      },
+      "level": "same",
+      "rawDepthMeaning": "For solid landmark hits depth is a positive lane-sample count, not penetration metres (core.js ribbonHits).",
+      "roadWidthM": 3,
+      "widthSource": null,
+      "bodies": [
+        {
+          "kind": "landmark",
+          "sourceId": null,
+          "landmark": "seagarage",
+          "nativeBlocksRoad": true,
+          "minimumM": 0.12,
+          "maximumM": 22.57,
+          "keys": [
+            "x",
+            "z",
+            "hw",
+            "hd",
+            "angle",
+            "r",
+            "h",
+            "y0",
+            "y1",
+            "landmark",
+            "kind"
+          ]
+        }
+      ],
+      "status": "unresolved source road-body overlap; do not claim clearance"
+    }
+  ],
+  "chapter": {
+    "declaredCoordinate": {
+      "x": -1146.4884494855091,
+      "z": -444.52799999975366
+    },
+    "actualProductionObjective": {
+      "x": -1149.644183850554,
+      "z": -444.5535381487944,
+      "waypoint": true,
+      "label": "Airport Expressway north (SR-518 / I-405)"
+    },
+    "declaredToProductionOffsetM": 3.1558376985805476,
+    "start": {
+      "x": -1214.6511924328763,
+      "z": 769.8435659719954,
+      "y": 0.24
+    },
+    "routeLengthM": 1951.5804139570323,
+    "routeHasVirtual": false,
+    "routeSourceLegs": [
+      {
+        "sourceId": "w124272605",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w124272605",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w1119615395",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w1119615395",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w1119615395",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w428003811",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w428003811",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w428003811",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w428003811",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w428003811",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6329486",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6329486",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w952961192",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w369422790",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w369422790",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w369422790",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w369422790",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w369422790",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w369422790",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w369422790",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928842",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928842",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928842",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928842",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928842",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928842",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928842",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928842",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928842",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928842",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928843",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928843",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928843",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928831",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928831",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w31928831",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w256231543",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w256231543",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w256231543",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w68522640",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w68522640",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w68522640",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w68522640",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w583844172",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w1165458667",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w1165458667",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w1165458667",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w23609851",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w23609851",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w23609851",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w23609851",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w23609851",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w23609851",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w23609851",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w23609851",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w23609851",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w23609851",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w23609851",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w23609851",
+        "layer": 1,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      },
+      {
+        "sourceId": "w6429441",
+        "layer": 0,
+        "dir": 1,
+        "drivable": true,
+        "publicDrive": true,
+        "throughAccess": true,
+        "virtual": false
+      }
+    ],
+    "result": {
+      "ok": false,
+      "reason": "timeout",
+      "t": 420,
+      "dist": 294,
+      "resets": 11,
+      "remaining": 1712
+    },
+    "completionEvents": [],
+    "placementsDuringTraversal": [
+      {
+        "before": {
+          "x": -1043.139773653382,
+          "z": 925.6693154735766
+        },
+        "requested": {
+          "x": -1047.7596019384728,
+          "z": 930.9079793880511
+        }
+      },
+      {
+        "before": {
+          "x": -1042.3304283700604,
+          "z": 933.1791113098968
+        },
+        "requested": {
+          "x": -1047.0857619498697,
+          "z": 931.5022196542327
+        }
+      },
+      {
+        "before": {
+          "x": -1043.022460522558,
+          "z": 933.4684139261357
+        },
+        "requested": {
+          "x": -1047.0857619498697,
+          "z": 931.5022196542327
+        }
+      },
+      {
+        "before": {
+          "x": -1043.022460522558,
+          "z": 933.4684139261357
+        },
+        "requested": {
+          "x": -1047.0857619498697,
+          "z": 931.5022196542327
+        }
+      },
+      {
+        "before": {
+          "x": -1043.022460522558,
+          "z": 933.4684139261357
+        },
+        "requested": {
+          "x": -1047.0857619498697,
+          "z": 931.5022196542327
+        }
+      },
+      {
+        "before": {
+          "x": -1043.022460522558,
+          "z": 933.4684139261357
+        },
+        "requested": {
+          "x": -1047.0857619498697,
+          "z": 931.5022196542327
+        }
+      },
+      {
+        "before": {
+          "x": -1043.0218131500503,
+          "z": 933.4685840151823
+        },
+        "requested": {
+          "x": -1047.0857619498697,
+          "z": 931.5022196542327
+        }
+      },
+      {
+        "before": {
+          "x": -1043.0218131500503,
+          "z": 933.4685840151823
+        },
+        "requested": {
+          "x": -1047.0857619498697,
+          "z": 931.5022196542327
+        }
+      },
+      {
+        "before": {
+          "x": -1043.0218131500503,
+          "z": 933.4685840151823
+        },
+        "requested": {
+          "x": -1047.0857619498697,
+          "z": 931.5022196542327
+        }
+      },
+      {
+        "before": {
+          "x": -1043.0218131500503,
+          "z": 933.4685840151823
+        },
+        "requested": {
+          "x": -1047.0857619498697,
+          "z": 931.5022196542327
+        }
+      },
+      {
+        "before": {
+          "x": -1043.0218131500503,
+          "z": 933.4685840151823
+        },
+        "requested": {
+          "x": -1047.0857619498697,
+          "z": 931.5022196542327
+        }
+      }
+    ],
+    "chapterDone": false,
+    "state": "drive",
+    "completedAtActualObjective": false,
+    "continuousCompletion": false,
+    "note": "The game projects the declared coordinate to its actual road objective. The unchanged30m production gate is checked against that real objective. Native completion opens the card before the tighter16m driveTo arrival; its unmodified result is retained."
+  },
+  "failure": "page.screenshot: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n"
+}

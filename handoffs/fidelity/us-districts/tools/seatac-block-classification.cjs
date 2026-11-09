@@ -1,0 +1,78 @@
+// Bounded, source-edge-aware native capsule classification and first-recovery diagnosis.
+// No runtime geometry, access, traffic or source attributes are changed.
+'use strict';
+const fs=require('fs'),path=require('path'),http=require('http'),crypto=require('crypto');
+const {execFileSync}=require('child_process'),{chromium}=require('playwright');
+const root=path.resolve(process.argv[2]),out=path.resolve(process.argv[3]),sha=process.argv[4],rawPath=process.argv[5];
+if(!/^[0-9a-f]{40}$/.test(sha||'')||!rawPath)throw Error('Immutable SHA and original native report required');
+const hash=b=>crypto.createHash('sha256').update(b).digest('hex'),inputs={};
+for(const file of ['game/data/seattle-seatac.json','game/src/main.js','game/src/world.js','game/src/cities.js','game/src/player.js','game/src/drone-boundary.js','game/src/chapter-waypoint.js','game/dev/harness/page/core.js','game/dev/harness/page/util.js']){
+ const b=fs.readFileSync(path.join(root,file));if(!b.equals(execFileSync('git',['show',sha+':'+file],{maxBuffer:32*1024*1024})))throw Error('Source mismatch: '+file);inputs[file]=hash(b);
+}
+const raw=JSON.parse(fs.readFileSync(rawPath));if(raw.sourceCommit!==sha)throw Error('Raw findings source differs');
+fs.mkdirSync(out,{recursive:true});
+const report={sourceCommit:sha,inputHashes:inputs,rawReportSha256:hash(fs.readFileSync(rawPath)),captureToolSha256:hash(fs.readFileSync(__filename)),startedAt:new Date().toISOString(),errors:[],consoleErrors:[],scope:'Reproduce every original road-ribbon point; test the unmodified production capsule at that point and every legal lane on its exact source edge. Heights use that edge plus its actual interpolated height. Core/150m domain checks do not establish car graph reachability. First native helper recovery is intercepted before any placement; this is a diagnostic stop, not a completed chapter.'};
+const write=()=>fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');
+const mime={'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.jpg':'image/jpeg','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml'};
+const server=http.createServer((req,res)=>{const f=path.resolve(root,'.'+decodeURIComponent(req.url.split('?')[0]));if(!f.startsWith(root+path.sep)){res.writeHead(403).end();return;}fs.readFile(f,(e,b)=>{res.writeHead(e?404:200,{'content-type':mime[path.extname(f)]||'application/octet-stream','cache-control':'no-store'});res.end(e?'missing':b);});});
+(async()=>{
+ await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
+ const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--mute-audio','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist']});
+ try{
+  const page=await browser.newPage({viewport:{width:960,height:540}});page.setDefaultTimeout(120000);page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.consoleErrors.push(m.text());});
+  await page.route('**/api.open-meteo.com/**',r=>r.fulfill({json:{error:true}}));
+  await page.goto(base+'/game/index.html?weather=clear&season=summer&notrack',{waitUntil:'domcontentloaded',timeout:90000});await page.waitForFunction(()=>window.game);
+  await page.addScriptTag({url:base+'/game/dev/harness/visual/page/visual.js',type:'module'});await page.waitForFunction(()=>window.vqa);
+  report.loaded=await page.evaluate(()=>vqa.loadGroup('seattle-seatac',{quality:'high',time:'day',weather:'clear',pr:1,far:0,traffic:true}));
+  await page.evaluate(async()=>{await game.enterChapter(game.chapters.findIndex(c=>c.city==='seattle'&&c.district==='seatac'));game.hud.closePanel?.();game.clock.trafficHour=12;game.traffic.setHour(12,true);});
+  await page.addScriptTag({url:base+'/game/dev/harness/page/index.js',type:'module'});await page.waitForFunction(()=>window.harness);await page.evaluate(()=>{harness.H.noShots=true;});
+  report.classification=await page.evaluate(async rows=>{
+   const {ribbonHits,hitLevel}=await import('/game/dev/harness/page/core.js'),{lampSet,laneOff,lanesDir,distPointSeg}=await import('/game/dev/harness/page/util.js'),{collideBuildings}=await import('/game/src/world.js'),{createFlightBoundary,FLIGHT_GRACE}=await import('/game/src/drone-boundary.js');
+   const g=game,W=g.world,P=g.player,lamps=lampSet(W),boundary=createFlightBoundary(W.district.flightBoundary),segments=W.district.flightBoundary.segments;
+   // Ask production collide() to construct its own cached sample list on a noninteractive clone.
+   const proto=Object.create(P);proto.world={buildings:[]};proto.traffic=null;proto.collide(0);const samples=proto._colS.map(s=>s.slice()),bodyRadius=Math.max(...samples.map(([o,l,r])=>Math.hypot(o,l)+r));
+   const bodies=[],bodyIds=new Map();
+   function bodyId(c){if(bodyIds.has(c))return bodyIds.get(c);const id=bodies.length;bodyIds.set(c,id);const b={id};for(const [k,v]of Object.entries(c))if(v===null||['string','number','boolean'].includes(typeof v))b[k]=v;for(const k of ['poly','holes','passageSolids'])if(c[k])b[k]=c[k];bodies.push(b);return id;}
+   function bodyAt(x,z,heading,y){const actor=Object.create(P);actor.x=x;actor.z=z;actor.heading=heading;actor.surfY=y;const fx=actor.fx,fz=actor.fz,lx=-fz,lz=fx,hits=[];
+    for(let i=0;i<samples.length;i++){const[o,l,r]=samples[i],px=x+fx*o+lx*l,pz=z+fz*o+lz*l;W.buildings.query(px,pz,3,c=>{if(!actor.atLevel(c))return;const dx=px-c.x,dz=pz-c.z,rr=(c.r??0)+r;if(dx*dx+dz*dz>rr*rr)return;const hit=collideBuildings([c],px,pz,r,y);if(hit&&Math.hypot(hit.px,hit.pz)>=1e-5)hits.push({sample:i,body:bodyId(c),correctionM:Math.hypot(hit.px,hit.pz),vector:[hit.px,hit.pz]});});}
+    return{contacts:hits,bodyIds:[...new Set(hits.map(h=>h.body))]};
+   }
+   function reach(x,z){const f=boundary.sample(x,z),inside=W.district.inside(x,z),edgeDistance=Math.min(...segments.map(s=>distPointSeg(x,z,s.ax,s.az,s.bx,s.bz).d));return{insidePlayableMask:inside,distanceFromFlightDomainM:f.distance,productionFlightGraceM:FLIGHT_GRACE,centreAllowedByProductionFlightBoundary:f.distance<=FLIGHT_GRACE,entireCapsuleConservativelyInsideCore:inside&&edgeDistance>=bodyRadius,entireCapsuleConservativelyWithinFlightBoundary:f.distance+bodyRadius<=FLIGHT_GRACE,nearestDomainSegmentM:edgeDistance};}
+   function surface(e,x,z){const t=Math.max(0,Math.min(1,((x-e.a.x)*e.dirx+(z-e.a.z)*e.dirz)/e.len)),expected=.24+(e.ya??0)+((e.yb??0)-(e.ya??0))*t;return{expectedSourceEdgeFootY:expected,nativeHintedRoadHeight:W.roadHeight(x,z,{edge:e,y:expected}),t};}
+   const findings=[];
+   for(const r of rows.filter(r=>r.type==='object-in-road'||r.type==='object-under-elevated-road')){
+    const e=W.allEdges.find(e=>e.id===r.data.edge);if(!e){findings.push({rawId:r.id,status:'source-edge-absent'});continue;}
+    const hit=ribbonHits(e,W,lamps).sort((a,b)=>Math.hypot(a.x-r.x,a.z-r.z)-Math.hypot(b.x-r.x,b.z-r.z))[0];
+    if(!hit||Math.hypot(hit.x-r.x,hit.z-r.z)>.3){findings.push({rawId:r.id,status:'exact-sample-not-reproduced'});continue;}
+    const source=W.data.roadSourceGeometry?.[e.road],sf=surface(e,hit.x,hit.z),s=Math.max(0,Math.min(e.len,(hit.x-e.a.x)*e.dirx+(hit.z-e.a.z)*e.dirz)),lanes=[];
+    for(const dir of [1,-1])for(let lane=0;lane<lanesDir(e,dir);lane++){
+     const off=dir*laneOff(e,lane,dir),heading=Math.atan2(-e.dirx*dir,-e.dirz*dir),x=e.a.x+e.dirx*s+e.nx*off,z=e.a.z+e.dirz*s+e.nz*off,y=surface(e,x,z);let blocked=0,total=0,maxCorrection=0,firstBlocked=null;const allBodies=new Set();
+     // Bounded longitudinal scan of the exact source edge; endpoint junctions retain their own mixed context.
+     for(let q=0;q<=Math.ceil(e.len);q++){const ss=Math.min(e.len,q),xx=e.a.x+e.dirx*ss+e.nx*off,zz=e.a.z+e.dirz*ss+e.nz*off,yy=surface(e,xx,zz),contacts=bodyAt(xx,zz,heading,yy.expectedSourceEdgeFootY);total++;if(contacts.contacts.length){blocked++;if(!firstBlocked)firstBlocked={s:ss,x:xx,z:zz,footY:yy.expectedSourceEdgeFootY,contacts:contacts.contacts};for(const c of contacts.contacts){allBodies.add(c.body);maxCorrection=Math.max(maxCorrection,c.correctionM);}}}
+     lanes.push({dir,lane,legalDirection:true,heading,offsetM:off,atOriginalLongitudinalStation:{x,z,...y,...reach(x,z),...bodyAt(x,z,heading,y.expectedSourceEdgeFootY)},longitudinalScan:{stepM:1,poses:total,blockedPoses:blocked,clearPoses:total-blocked,maxSingleSampleCorrectionM:maxCorrection,bodyIds:[...allBodies],firstBlocked}});
+    }
+    const pointDirections=[1,-1].filter(dir=>lanesDir(e,dir)>0).map(dir=>({dir,...bodyAt(hit.x,hit.z,Math.atan2(-e.dirx*dir,-e.dirz*dir),sf.expectedSourceEdgeFootY)}));
+    const nativeFields={};for(const[k,v]of Object.entries(e))if(v===null||['string','number','boolean'].includes(typeof v))nativeFields[k]=v;
+    const blockedLaneStations=lanes.filter(l=>l.atOriginalLongitudinalStation.contacts.length).length;
+    findings.push({rawId:r.id,rawType:r.type,rawSeverity:r.severity,rawDepth:r.data.depth,rawDepthMeaning:'For solid landmark hits this is positive ribbon sample count, not penetration metres.',sourceRoadId:source?.sourceId??e.access?.sourceId??null,sourceTags:source?.tags??null,sourceRoadIndex:e.road,sourceEdgeId:e.id,sourceEndpoints:{a:{x:e.a.x,z:e.a.z},b:{x:e.b.x,z:e.b.z}},edgeFields:nativeFields,access:e.access,rawPoint:{x:r.x,z:r.z},exactReproducedPoint:{x:hit.x,z:hit.z,...sf,...reach(hit.x,hit.z),oldLevelClassification:hitLevel(e,hit),pointDirections},legalLanes:lanes,blockedLegalLaneStations:blockedLaneStations,status:blockedLaneStations?'CONFIRMED native capsule contact on a legal source lane at the original longitudinal station; unresolved actual road/body/height conflict':'Original point is not a legal-lane capsule conflict at this station; longitudinal scan retained separately, no whole-road clearance claim'});
+   }
+   return{method:{capsuleSource:'Actual Player.collide cached _colS, Player.atLevel and exported collideBuildings, without a position-changing solve.',footHeight:'0.24 + exact source edge endpoint interpolation; native roadHeight receives both edge and that height hint. Source layer is an ordinal, not metres.',boundary:'Actual world.district.inside and createFlightBoundary with 150m grace; conservative whole-capsule radius. Not a native car graph reachability proof.',longitudinalScan:'Every legal lane, <=1m spacing, exact source edge only. It is a bounded static diagnostic, not a continuous steering traversal.'},playerExtent:{front:P.front,rear:P.rear,width:P.width,length:P.length},capsuleSamples:samples,conservativeRadiusM:bodyRadius,wallsInBuildings:P.wallsInBuildings(),findings,bodies};
+  },raw.issues);write();
+  report.firstRecovery=await page.evaluate(async()=>{
+   const g=game,H=harness.H,P=g.player,W=g.world,{collideBuildings}=await import('/game/src/world.js'),{createFlightBoundary}=await import('/game/src/drone-boundary.js');H.begin('native-seatac-first-recovery-diagnostic');
+   const target={...g.objective},start={x:P.x,z:P.z,y:P.y,surfY:P.surfY,heading:P.heading},route=g.nav.compute(P.x,P.z,target.x,target.z,P.heading),reset=H.resetCar,run=H.run,place=P.place;let stopped=null,placements=0;
+   function source(e){return e?{id:e.id,sourceId:e.access?.sourceId,road:e.road,layer:e.layer,ya:e.ya,yb:e.yb,access:e.access}:null;}
+   function state(why){const fields={};for(const[k,v]of Object.entries(H.ap||{}))if(v===null||['number','boolean','string'].includes(typeof v))fields[k]=v;const contacts=[];for(const[o,l,r]of P._colS||[]){const x=P.x+P.fx*o-P.fz*l,z=P.z+P.fz*o+P.fx*l;W.buildings.query(x,z,3,c=>{if(!P.atLevel(c))return;const hit=collideBuildings([c],x,z,r,P.surfY??.24);if(hit&&Math.hypot(hit.px,hit.pz)>=1e-5)contacts.push({kind:c.kind,sourceId:c.sourceId??null,id:c.id??null,x:c.x,z:c.z,base:c.base??c.y,minH:c.minH,h:c.h,correctionM:Math.hypot(hit.px,hit.pz)});});}
+    const nearby=g.traffic.near(P.x,P.z,35).map(v=>({id:v.id,kind:v.kind,parked:!!v.parked,x:v.x,z:v.z,y:v.y,speed:v.speed,heading:v.heading,length:v.length,width:v.width,sameLevel:Math.abs((v.y??.24)-(P.surfY??.24))<=2,nativePlayerSat:P.satVehicle(v),aheadM:(v.x-P.x)*P.fx+(v.z-P.z)*P.fz,lateralM:(v.x-P.x)*-P.fz+(v.z-P.z)*P.fx,sourceEdge:source(v.e||v.edge),wait:v.wait,stuck:v.stuck,stopReason:v.stopReason}));
+    const boundary=createFlightBoundary(W.district.flightBoundary);return{why,simulatedAtS:H.scT,player:{x:P.x,z:P.z,surfY:P.surfY,y:P.y,heading:P.heading,speed:P.speed,supportEdge:source(P.supportEdge),insideCore:W.district.inside(P.x,P.z),distanceFromFlightDomainM:boundary.sample(P.x,P.z).distance},autopilot:fields,leaderInfo:H.ap?.leaderInfo,routeLeg:source(H.ap?.path?.legOf?.[H.ap?.pi]?.e),nativeStaticCapsuleContacts:contacts,nearbyVehicles:nearby,lastCollider:P.debug?.lastCollider,lastColliderSource:P.debug?.lastCollider?.ref?{sourceId:P.debug.lastCollider.ref.sourceId??null,kind:P.debug.lastCollider.ref.kind??null}:null,recentContacts:P.debug?.hits?.slice(-12),harnessIssues:harness.issues,harnessNotes:H.log?.slice?.(-30)};
+   }
+   H.resetCar=function(why){if(!stopped)stopped=state(why);H.setControls(0,0,true);};
+   H.run=function(seconds,until){return run.call(H,seconds,()=>!!stopped||!!until?.());};P.place=function(...args){placements++;return place.apply(this,args);};
+   let result;try{result=await H.driveTo(target.x,target.z,{label:'actual native objective, stop before first recovery',timeout:100,arriveR:16,stop:false});}finally{H.resetCar=reset;H.run=run;P.place=place;}
+   return{target,start,routeLengthM:route?.total,sourceLegs:route?.legs.map(l=>({dir:l.dir,...source(l.e)})),result,diagnosticStopBeforeAnyRecoveryPlacement:!!stopped,placements,stopped,final:stopped??state('bounded timeout or native arrival'),chapterDone:g.chapterDone,vehicles:g.traffic.vehicles.length,pedestrians:g.traffic.peds?.list?.length??null};
+  });write();
+  const capture=await page.evaluate(()=>{const g=game,H=harness.H,S=vqa.S;H._renderNow=true;S.renderNow=true;try{g.drawFrame({mirror:true});g.renderer.info.reset();g.drawFrame({mirror:true});return{url:g.renderer.domElement.toDataURL('image/jpeg',.88),perf:{triangles:g.r3d.stats.triangles,drawCalls:g.r3d.stats.drawCalls},state:g.state};}finally{H._renderNow=false;S.renderNow=false;}});
+  const b=Buffer.from(capture.url.split(',')[1],'base64');fs.writeFileSync(path.join(out,'first-recovery-native-canvas.jpg'),b);delete capture.url;report.capture={image:'first-recovery-native-canvas.jpg',sha256:hash(b),capturedAt:new Date().toISOString(),transport:'Native WebGL canvas, preserving actual camera and native UI state separately in metadata',...capture};
+  report.endedAt=new Date().toISOString();write();
+ }finally{await browser.close();await new Promise(r=>server.close(r));}
+})().catch(e=>{report.failure=e.stack;write();console.error(e);server.close();process.exitCode=1;});

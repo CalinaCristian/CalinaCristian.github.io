@@ -1,0 +1,330 @@
+{
+  "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "reviewedAt": "2026-11-09T00:17:24.569544+00:00",
+  "referenceImagesTracked": false,
+  "images": [
+    {
+      "image": "original-controls/images/seatac-chapter-spawn.jpg",
+      "sha256": "097423bfc371cf9d40db07acab108836baef23f1d3d9355fb8237dfd2ebd5e8a",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native world/cockpit frame; full traffic and mirror. Scene detail remains simplified."
+    },
+    {
+      "image": "original-controls/images/seatac-after-first-150m.jpg",
+      "sha256": "25732468de0f23f220b5c1edae0a23e0ec532819f2e0e29b2b181105349d4a70",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native world/cockpit frame; full traffic and mirror. Scene detail remains simplified."
+    },
+    {
+      "image": "original-controls/images/seatac-after-legal-route-ramp.jpg",
+      "sha256": "84cae03604f99b163db7b9d9fe927c1e3c48d8e728acf07ec93ee8b026543870",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native world/cockpit frame; full traffic and mirror. Scene detail remains simplified."
+    },
+    {
+      "image": "original-controls/images/seatac-departure-deck.jpg",
+      "sha256": "568b69a4698c7c4c436ea79ec993346125123717eb11a5ccc615a4c055fbbe1f",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native world/cockpit frame; full traffic and mirror. Scene detail remains simplified."
+    },
+    {
+      "image": "original-controls/images/seatac-actual-drone-view.jpg",
+      "sha256": "1e17e636f349312ead55d2c2241634c693d6b1ee5582d531c2b7f5cf566c91bc",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native world/cockpit frame; full traffic and mirror. Scene detail remains simplified."
+    },
+    {
+      "image": "original-controls/images/seatac-terminal-high-traffic-mirror.jpg",
+      "sha256": "5cdbcbf5d702a9fbd9db9543ddca4363026761128230fa16b184260d6777df28",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native world/cockpit frame; full traffic and mirror. Scene detail remains simplified."
+    },
+    {
+      "image": "original-controls/images/seatac-expressway-high-traffic-mirror.jpg",
+      "sha256": "9ef746c48a57bfbf886a972cfca507c5894ef55dfb7e56edf8f86af3506e8f91",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native world/cockpit frame; full traffic and mirror. Scene detail remains simplified."
+    },
+    {
+      "image": "original-controls/images/seatac-airport-approach-high-traffic-mirror.jpg",
+      "sha256": "7502be159d5e883f725e7e3f07041c93b2b88577073c9c13d6dbda52825f95e6",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native world/cockpit frame; full traffic and mirror. Scene detail remains simplified."
+    },
+    {
+      "image": "original-controls/images/seatac-full-native-chapter-objective.jpg",
+      "sha256": "29e87073757021b08fdc02d5d6dad2c0fad6dd12287766379f7ad36f48ddd6f3",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native chapter completion card. Raw helper compared the declared point; production snapped-objective correction is recorded separately."
+    },
+    {
+      "image": "original-controls/images/bellevue-chapter-spawn.jpg",
+      "sha256": "602a0a3202a4452527287ad08d1ddff544a8f69d3e0d90727ac7fd4e66a93b3f",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native world/cockpit frame; full traffic and mirror. Scene detail remains simplified."
+    },
+    {
+      "image": "original-controls/images/bellevue-after-first-150m.jpg",
+      "sha256": "b73fda27a0207570c72c87f82ac9e0bbb04ae5bbc532fd7d9e12650ebce4c5a7",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native world/cockpit frame; full traffic and mirror. Scene detail remains simplified."
+    },
+    {
+      "image": "original-controls/images/bellevue-after-foot-office.jpg",
+      "sha256": "0cd2c3e9d7278b6a3a07bd57380f3e34f36545534aeb71b44d312c68511ea8d9",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": false,
+      "finding": "Story Complete DOM overlay covers this original world capture. Retained failed visual attempt; later native-close replay supplies world views."
+    },
+    {
+      "image": "original-controls/images/bellevue-actual-drone-view.jpg",
+      "sha256": "1251bfc5f598a088cd899ddf0a19d9009f18f5269dc278d7e4a82d315bff40c5",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": false,
+      "finding": "Story Complete DOM overlay covers this original world capture. Retained failed visual attempt; later native-close replay supplies world views."
+    },
+    {
+      "image": "original-controls/images/bellevue-lincoln-high-traffic-mirror.jpg",
+      "sha256": "a3be03992d4a29a1f73b3a6c86f0edf0b22a1670ed612d704e58df3756d0a2fb",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": false,
+      "finding": "Story Complete DOM overlay covers this original world capture. Retained failed visual attempt; later native-close replay supplies world views."
+    },
+    {
+      "image": "original-controls/images/bellevue-office-towers-high-traffic-mirror.jpg",
+      "sha256": "727c11f6f7b45db80312d16052a352b1d71134127195e4d33c0c87d78a775ebd",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": false,
+      "finding": "Story Complete DOM overlay covers this original world capture. Retained failed visual attempt; later native-close replay supplies world views."
+    },
+    {
+      "image": "original-controls/images/bellevue-downtown-park-high-traffic-mirror.jpg",
+      "sha256": "cec3fd74804f1446e2067d2ab55b2a90d953921deba32e1d0d5fa948506db81d",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": false,
+      "finding": "Story Complete DOM overlay covers this original world capture. Retained failed visual attempt; later native-close replay supplies world views."
+    },
+    {
+      "image": "native-drone-edge/seatac-outward110m.jpg",
+      "sha256": "d9feb756b7360f1a1fa227405c333a08a18146cefe41d65ec58b58c01e7a3e00",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": false,
+      "finding": "Original blank world frame: missing harness draw gate, zero geometry; retained failed attempt."
+    },
+    {
+      "image": "native-drone-edge/seatac-inward110m.jpg",
+      "sha256": "d9feb756b7360f1a1fa227405c333a08a18146cefe41d65ec58b58c01e7a3e00",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": false,
+      "finding": "Original blank world frame: missing harness draw gate, zero geometry; retained failed attempt."
+    },
+    {
+      "image": "native-drone-edge/seatac-outward12m.jpg",
+      "sha256": "b7f87462f890da96d788549a97e108694c25163d824263f2b473e68dbf060849",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": false,
+      "finding": "Original blank world frame: missing harness draw gate, zero geometry; retained failed attempt."
+    },
+    {
+      "image": "native-drone-edge/bellevue-outward110m.jpg",
+      "sha256": "b7f87462f890da96d788549a97e108694c25163d824263f2b473e68dbf060849",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": false,
+      "finding": "Original blank world frame: missing harness draw gate, zero geometry; retained failed attempt."
+    },
+    {
+      "image": "native-drone-edge/bellevue-inward110m.jpg",
+      "sha256": "b7f87462f890da96d788549a97e108694c25163d824263f2b473e68dbf060849",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": false,
+      "finding": "Original blank world frame: missing harness draw gate, zero geometry; retained failed attempt."
+    },
+    {
+      "image": "native-drone-edge/bellevue-outward12m.jpg",
+      "sha256": "f21cc2ae369ef2ec8f5077f6126edda69c134785a3c34d6e93f9a062c502326e",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": false,
+      "finding": "Original blank world frame: missing harness draw gate, zero geometry; retained failed attempt."
+    },
+    {
+      "image": "native-drone-edge-render-replay/seatac-outward110m.jpg",
+      "sha256": "5ae43e40e5d58ce4c3ab5713c68bb8886b262c2ea23a2fb5fa15ce3363b7480b",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual controlled native edge-flight frame. High requested110m achieved121.9m; low requested12m achieved0.6m. Initial open-sky foot placement is a fixture; trace uses native flight."
+    },
+    {
+      "image": "native-drone-edge-render-replay/seatac-inward110m.jpg",
+      "sha256": "553c1deb7a73131f3ce71192f478eec8b16636f50ddab3bfadc37dd502393618",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual controlled native edge-flight frame. High requested110m achieved121.9m; low requested12m achieved0.6m. Initial open-sky foot placement is a fixture; trace uses native flight."
+    },
+    {
+      "image": "native-drone-edge-render-replay/seatac-outward12m.jpg",
+      "sha256": "996bc74654ad06a2783371e5b0cb3a976226a2567b0ea2f599446dcdfbc2cc59",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual controlled native edge-flight frame. High requested110m achieved121.9m; low requested12m achieved0.6m. Initial open-sky foot placement is a fixture; trace uses native flight."
+    },
+    {
+      "image": "native-drone-edge-render-replay/bellevue-outward110m.jpg",
+      "sha256": "45f53779972323afed9241f3831c7dafeeb0c65731c61370234425319c4a2fab",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual controlled native edge-flight frame. High requested110m achieved121.9m; low requested12m achieved0.6m. Initial open-sky foot placement is a fixture; trace uses native flight."
+    },
+    {
+      "image": "native-drone-edge-render-replay/bellevue-inward110m.jpg",
+      "sha256": "1369651fa7ecd2af3600a7966a152093f36a753e014e526554312d0d27c00701",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual controlled native edge-flight frame. High requested110m achieved121.9m; low requested12m achieved0.6m. Initial open-sky foot placement is a fixture; trace uses native flight."
+    },
+    {
+      "image": "native-drone-edge-render-replay/bellevue-outward12m.jpg",
+      "sha256": "c5175b0ee486c5ca1c522c7acdd486443c891ee0b804ac9bc4be7e40c33f0110",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual controlled native edge-flight frame. High requested110m achieved121.9m; low requested12m achieved0.6m. Initial open-sky foot placement is a fixture; trace uses native flight."
+    },
+    {
+      "image": "chapter-focused/native-chapter-start.jpg",
+      "sha256": "a261ed6a07b020030237bad26482cc72ba2b18f9b974366f7679e3aedb918854",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Focused fresh-state start frame; traversal later failed and this is not a completed route."
+    },
+    {
+      "image": "seatac-block-classification/first-recovery-native-canvas.jpg",
+      "sha256": "6225ecf7f554c49b402ec9c825798612e590d11f48e2b35a6a952ca7a8a3c11d",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual first no-progress point before any recovery placement. Visible stopped NPC queue; native static capsule contacts and player SAT overlaps empty."
+    },
+    {
+      "image": "bellevue-native-close-replay/images/bellevue-chapter-spawn.jpg",
+      "sha256": "ae991daa26f23d7315aa77df0f0022c4532118af17897c8463f922a5197635b9",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native control world frame after real Story Complete Close-button interaction; no DOM finale remains. Full native traffic/mirror budgets retained."
+    },
+    {
+      "image": "bellevue-native-close-replay/images/bellevue-after-first-150m.jpg",
+      "sha256": "88cd8418814a1b09ac675335fb81941521033d8147f049f26ea0f2dac2ce5323",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native control world frame after real Story Complete Close-button interaction; no DOM finale remains. Full native traffic/mirror budgets retained."
+    },
+    {
+      "image": "bellevue-native-close-replay/images/bellevue-after-foot-office.jpg",
+      "sha256": "274bd0380121770eca3790b568aed5d459c2d3cabee2a1ac263986b421b880b0",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native control world frame after real Story Complete Close-button interaction; no DOM finale remains. Full native traffic/mirror budgets retained."
+    },
+    {
+      "image": "bellevue-native-close-replay/images/bellevue-actual-drone-view.jpg",
+      "sha256": "1058af184a42f12047453a6a4c4935daabd754d7fc0af8690976e32795628fb0",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native control world frame after real Story Complete Close-button interaction; no DOM finale remains. Full native traffic/mirror budgets retained."
+    },
+    {
+      "image": "bellevue-native-close-replay/images/bellevue-lincoln-high-traffic-mirror.jpg",
+      "sha256": "7f4323e4c96876010f66539d8d14bbff3ddbde5138d1e46ee5a237433584d548",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native control world frame after real Story Complete Close-button interaction; no DOM finale remains. Full native traffic/mirror budgets retained."
+    },
+    {
+      "image": "bellevue-native-close-replay/images/bellevue-office-towers-high-traffic-mirror.jpg",
+      "sha256": "ebec9a9a8eabc34ddfd84fd770318beae3773fd4f34fcf401e1f6d8ca9cb3bee",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native control world frame after real Story Complete Close-button interaction; no DOM finale remains. Full native traffic/mirror budgets retained. Camera is close behind an intentional game-boundary DETOUR sign; useful for budget/control evidence, unsuitable for unobstructed facade comparison."
+    },
+    {
+      "image": "bellevue-native-close-replay/images/bellevue-downtown-park-high-traffic-mirror.jpg",
+      "sha256": "aba2293c46391250636403ed05bc50cc59bc32341cf426c57966e1855633da98",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Actual native control world frame after real Story Complete Close-button interaction; no DOM finale remains. Full native traffic/mirror budgets retained."
+    },
+    {
+      "image": "native-parking-canopy/seatac-measured-parking.jpg",
+      "sha256": "633f3d533dbf5f7d12d06fcf508a523f3a1eda92dbf2e9011f871af5742ffee7",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Technical overhead parking GAME fixture; no native drone control claim. Exact lot/whole car footprint/support/body/raised-sidewalk exclusion counts are retained, with occupancy and support dimensions explicitly estimated."
+    },
+    {
+      "image": "native-parking-canopy/bellevue-measured-parking.jpg",
+      "sha256": "e625e5999c8390a1670af8c46d86165b81b3396910b614ca0a627a80a114e227",
+      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "visuallyInspected": true,
+      "worldVisible": true,
+      "finding": "Technical overhead parking GAME fixture; no native drone control claim. Exact lot/whole car footprint/support/body/raised-sidewalk exclusion counts are retained, with occupancy and support dimensions explicitly estimated."
+    }
+  ],
+  "overallAcceptance": false,
+  "openMaterialFindings": [
+    "All79 SeaTac exact road findings have confirmed native car-capsule contacts on at least one legal lane at the same source longitudinal station; all whole capsules conservatively inside the playable core.",
+    "Fresh SeaTac first recovery is a retained MEDIUM no-progress behind NPC traffic; no static capsule contact at that first stop. Later recovery causes are not all classified.",
+    "Source height/floor datums, detailed facade/material, terrain, occupancy and date differences remain unresolved."
+  ],
+  "captureFailures": [
+    "Original six edge-flight images have zero rendered world geometry; superseded for visual use by an explicitly sourced replay.",
+    "Original Bellevue completion overlay obscures later world captures; actual native Close-button replay is separate.",
+    "Focused fresh chapter attempt did not complete, performed11 recoveries and later timed out taking the ending DOM screenshot; raw partial report remains."
+  ]
+}

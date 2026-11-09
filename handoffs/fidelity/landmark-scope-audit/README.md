@@ -1,5 +1,7 @@
 # Landmark and tourist scope audit
 
+Follow-up: the demonstrated stale implementation wording is corrected by the [metadata-only public-record update](WORDING-CORRECTION.md). The audit below remains pinned to its original source and records what it found then.
+
 **Yes: landmarks and tourist destinations were included, through targeted rebuilds, source/geometry corrections, refreshed model studies and native scene/activity checks. This was not61 new architectural models or a full-parity sign-off.**
 
 Read-only audit pinned to ROOT `7067c24490ce12c69cfd0816e3d5d8d2228a6fe2`, compared with local production master `58129abe74a93be2ef52d3c3bf40682768531bc3`. This audit changes only this handoff directory. It runs no browser and makes no new visual or gameplay acceptance claim. Relevant landmark/tourist production files and records are unchanged from the initial evidence pin `e1bab010` through this final pin.

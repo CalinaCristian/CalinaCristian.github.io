@@ -1,0 +1,114 @@
+{
+  "assessment.json": {
+    "bytes": 5822,
+    "sha256": "a075ba0e0137d954378224eb998c6f0501bd2116095896e04df52b0f2d04e49f"
+  },
+  "inspection-campus-cf-ck.png": {
+    "bytes": 566909,
+    "sha256": "5638e9594a19c984290bdf058a489644c445f3d4080e2e07a394c00f0bf3d11a"
+  },
+  "executed-canonical-index.cjs": {
+    "bytes": 3756,
+    "sha256": "060bf3d4ff5917386fd96eb46487ea24db61ebf76901f6fed33f84f7c385acf0"
+  },
+  "README.md": {
+    "bytes": 2428,
+    "sha256": "45b5e99919954a3a246d8b43bc5ea9765c24c406baa0a2a58144dac0582f7fd5"
+  },
+  "executed-native-building-camera-motion.cjs": {
+    "bytes": 10442,
+    "sha256": "8751840f8d08bbd3e60a2842b75eaa86d0f45458350192e7f5728b1a5fd0b3f5"
+  },
+  "seam-audit.json": {
+    "bytes": 73675,
+    "sha256": "de13c8d8f8a63c0e33ca1a62f06c9385fd34d2adfc8ff644daed08995052d58b"
+  },
+  "inspection-belvedere-relation.png": {
+    "bytes": 619594,
+    "sha256": "da8084baf46b968e14f638293ec38ae883262cdb9bc4e4ee8cbb518268f24787"
+  },
+  "normal-shader-attribution.json": {
+    "bytes": 12532,
+    "sha256": "1364e8d58d6c036a7d6598e91d12caa6d207c37a366ab7c21920e1ec4cb658b7"
+  },
+  "final-607f/after-607f-high-campus-cf-ck-0.png": {
+    "bytes": 1620394,
+    "sha256": "28e440f639a0baaa00601580c0f7fa48994eb7a892594498b6de49a42ba9b027"
+  },
+  "final-607f/after-607f-high-belvedere-relation-0.png": {
+    "bytes": 1483464,
+    "sha256": "8c1bf896722a9756c43e7435c52cd741b45994ad7c443b2fe406c43bb5aefdc9"
+  },
+  "final-607f/after-607f-high-campus-cf-ck-2.png": {
+    "bytes": 1620556,
+    "sha256": "014aa14404efaa509ebff59caebe22a76ab7efdadcf847e85246c1b8911ad9b7"
+  },
+  "final-607f/after-607f-high-campus-cf-ck-1.png": {
+    "bytes": 1620527,
+    "sha256": "a569c40f43f0f1e9ca1b4b541e1a1debecd9cd2ede462fd2f10f144c696752c3"
+  },
+  "final-607f/after-607f-high-belvedere-relation-2.png": {
+    "bytes": 1484007,
+    "sha256": "b4af1144232f98a74350618a8a944b9e10605a90522f652edd3f15eedfbb72e1"
+  },
+  "final-607f/report.json": {
+    "bytes": 261895,
+    "sha256": "809037c2c365d43d59faceb6d96af507387e16916d3e38adcb4c2a98b7ded6b5"
+  },
+  "final-607f/after-607f-high-belvedere-relation-1.png": {
+    "bytes": 1483782,
+    "sha256": "bf213b8008fe4249eb9c208779e5838aef3deb552d5eed3019bd7ed13c4ad641"
+  },
+  "pair-406a-17cf/after-17cf-high-belvedere-relation-1.png": {
+    "bytes": 1483234,
+    "sha256": "673186f8d8a38ef073633f1ca42c0297271d2ddf05adc996ce891cdd78ffaa9e"
+  },
+  "pair-406a-17cf/after-17cf-high-belvedere-relation-0.png": {
+    "bytes": 1482877,
+    "sha256": "fc8a4494f888340f861c4f4d4da87a4ff5228e675547120ca93609ba33b65b92"
+  },
+  "pair-406a-17cf/after-17cf-high-belvedere-relation-2.png": {
+    "bytes": 1483946,
+    "sha256": "ba3a98504404da8bfed92a82c0d83bad5c95fc83a3e3ab865b70a7febb1a3928"
+  },
+  "pair-406a-17cf/before-406a-high-campus-cf-ck-0.png": {
+    "bytes": 1621934,
+    "sha256": "bcbee3ee35db9ede86bcff158f24e0c2e2d8e583942b367df5d689f31b2e8e77"
+  },
+  "pair-406a-17cf/after-17cf-high-campus-cf-ck-0.png": {
+    "bytes": 1621095,
+    "sha256": "0e55933c9de29462efd739151190d44e4a3b09894c5e47bafdc07cc6e2f7dd0c"
+  },
+  "pair-406a-17cf/before-406a-high-belvedere-relation-1.png": {
+    "bytes": 1495327,
+    "sha256": "70aec4acae60e08cef9bba4ab7f93da524fc708a2e4e691a3cdae220a8c878f1"
+  },
+  "pair-406a-17cf/before-406a-high-campus-cf-ck-1.png": {
+    "bytes": 1622293,
+    "sha256": "5f73d27a73113bb893ee34b3e5757165670eb23e00b7ce2e9d8789ee9be7eca4"
+  },
+  "pair-406a-17cf/after-17cf-high-campus-cf-ck-2.png": {
+    "bytes": 1620247,
+    "sha256": "9fb09bf8f5bd7ee44845bcc54a7e05acfb7a02188212a5459dc82a0de86fedd1"
+  },
+  "pair-406a-17cf/before-406a-high-belvedere-relation-2.png": {
+    "bytes": 1486656,
+    "sha256": "17e9efcf6176433c6f6852e464e896bb1fbd8419ecd464142684a6936ec0cf44"
+  },
+  "pair-406a-17cf/after-17cf-high-campus-cf-ck-1.png": {
+    "bytes": 1620562,
+    "sha256": "c16af752023b9a64035bf47ae7d51ec6f271d3024b01c7d019379427caf3d997"
+  },
+  "pair-406a-17cf/report.json": {
+    "bytes": 460996,
+    "sha256": "4c6d3688651e2f8a76c827b8ce06a3335ca65b0ace695cedbda26aac5590fe19"
+  },
+  "pair-406a-17cf/before-406a-high-belvedere-relation-0.png": {
+    "bytes": 1491642,
+    "sha256": "2c231c2824f412c355956fe74ae13b4ab7704ca94e7a612d0292c2c099db73bb"
+  },
+  "pair-406a-17cf/before-406a-high-campus-cf-ck-2.png": {
+    "bytes": 1621813,
+    "sha256": "ab348528b7c8a8cee7b7e81d95513f4af0acac5e4794197d4cd9ff70ff25b027"
+  }
+}

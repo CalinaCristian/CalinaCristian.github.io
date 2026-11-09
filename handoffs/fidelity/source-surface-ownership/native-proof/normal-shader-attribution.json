@@ -1,0 +1,68 @@
+{
+  "scope": "Read-only exact source + actual native error attribution, not a GLSL-driver compile/pass test. No renderer, material, feature, clock, camera or source changes applied.",
+  "passed": true,
+  "controls": [
+    "actual global patch introduces derivative reference into smooth normal path",
+    "native smooth MeshNormalMaterial has no enabling flat/bump/tangent-normal macro",
+    "native normal vertex/fragment declare view varying only behind exact feature guard",
+    "native normal fragment consumes patched shared normal chunk",
+    "native GTAO creates unchanged smooth normal material and renders it as scene override",
+    "FLAT_SHADED negative control has native view-position declaration",
+    "USE_BUMPMAP negative control has native view-position declaration",
+    "USE_NORMALMAP_TANGENTSPACE negative control has native view-position declaration",
+    "unapplied narrow proposal supplies the actual native view position in BOTH stages",
+    "actual captured errors identify MeshNormalMaterial and undeclared view varying"
+  ],
+  "inputs": {
+    "renderSha256": "2447c64f02a29fb643595a66261badcb5254ff10320cc8f3c6c471fb2a17ae1a",
+    "gtaoSha256": "c0d33b166deb459b3adcbb3b543b7d61763d4ab4fcc778641afbf1305d807ad8",
+    "nativeReport": "/workspace/reality-pass/remaining-ro/skytower-csg-f076/native-pair/report.json"
+  },
+  "actualInjectedSnippet": "    const C = THREE.ShaderChunk;\n    // zero-length vertex normals (degenerate triangles in generated geometry) made normalize() return NaN, which the\n    // bloom pass then smeared into a black screen-aligned block (feedback note 28): fall back to the face normal\n    C.normal_fragment_begin = C.normal_fragment_begin.replace('vec3 normal = normalize( vNormal );',\n        'vec3 normal = dot( vNormal, vNormal ) > 1e-12 ? normalize( vNormal ) : normalize( cross( dFdx( vViewPosition ), dFdy( vViewPosition ) ) + 1e-9 );');\n",
+  "nativeMaterial": {
+    "type": "MeshNormalMaterial",
+    "flatShading": false,
+    "bumpMap": null,
+    "normalMap": null
+  },
+  "cause": "Global smooth normal fallback references vViewPosition, but native smooth MeshNormalMaterial removes BOTH declaration and assignment behind false flat/bump/tangent-map guards. GLSL checks both ternary arms even when normal is nonzero. Ultra GTAO uses this exact default scene override; High tier has ao:false. Three program errors per captured Sky source are real; program variant attribution beyond the native error logs remains unrecorded.",
+  "nativeErrors": [
+    {
+      "source": "09ed0d1d2baa0843787bdbe5fdc058b334346804",
+      "label": "before-09ed",
+      "error": "THREE.WebGLProgram: Shader Error 0 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: MeshNormalMaterial\n\nProgram Info Log: Fragment shader is not compiled.\n\nFRAGMENT\n\nERROR: 0:299: 'vViewPosition' : undeclared identifier\nERROR: 0:299: 'vViewPosition' : undeclared identifier\nERROR: 0:299: 'cross' : no matching overloaded function found\nERROR: 0:299: '?:' : mismatching ternary operator operand types 'highp 3-component vector of float and 'const mediump float'\nERROR: 0:299: '=' : dimension mismatch\nERROR: 0:299: '=' : cannot convert from 'const mediump float' to 'highp 3-component vector of float'\n\n  294: #ifdef FLAT_SHADED\n  295: \tvec3 fdx = dFdx( vViewPosition );\n  296: \tvec3 fdy = dFdy( vViewPosition );\n  297: \tvec3 normal = normalize( cross( fdx, fdy ) );\n  298: #else\n> 299: \tvec3 normal = dot( vNormal, vNormal ) > 1e-12 ? normalize( vNormal ) : normalize( cross( dFdx( vViewPosition ), dFdy( vViewPosition ) ) + 1e-9 );\n  300: \t#ifdef DOUBLE_SIDED\n  301: \t\tnormal *= faceDirection;\n  302: \t#endif\n  303: #endif\n  304: #if defined( USE_NORMALMAP_TANGENTSPACE ) || defined( USE_CLEARCOAT_NORMALMAP ) || defined( USE_ANISOTROPY )\n  305: \t#ifdef USE_TANGENT"
+    },
+    {
+      "source": "09ed0d1d2baa0843787bdbe5fdc058b334346804",
+      "label": "before-09ed",
+      "error": "THREE.WebGLProgram: Shader Error 1282 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: MeshNormalMaterial\n\nProgram Info Log: Fragment shader is not compiled.\n\nFRAGMENT\n\nERROR: 0:300: 'vViewPosition' : undeclared identifier\nERROR: 0:300: 'vViewPosition' : undeclared identifier\nERROR: 0:300: 'cross' : no matching overloaded function found\nERROR: 0:300: '?:' : mismatching ternary operator operand types 'highp 3-component vector of float and 'const mediump float'\nERROR: 0:300: '=' : dimension mismatch\nERROR: 0:300: '=' : cannot convert from 'const mediump float' to 'highp 3-component vector of float'\n\n  295: #ifdef FLAT_SHADED\n  296: \tvec3 fdx = dFdx( vViewPosition );\n  297: \tvec3 fdy = dFdy( vViewPosition );\n  298: \tvec3 normal = normalize( cross( fdx, fdy ) );\n  299: #else\n> 300: \tvec3 normal = dot( vNormal, vNormal ) > 1e-12 ? normalize( vNormal ) : normalize( cross( dFdx( vViewPosition ), dFdy( vViewPosition ) ) + 1e-9 );\n  301: \t#ifdef DOUBLE_SIDED\n  302: \t\tnormal *= faceDirection;\n  303: \t#endif\n  304: #endif\n  305: #if defined( USE_NORMALMAP_TANGENTSPACE ) || defined( USE_CLEARCOAT_NORMALMAP ) || defined( USE_ANISOTROPY )\n  306: \t#ifdef USE_TANGENT"
+    },
+    {
+      "source": "09ed0d1d2baa0843787bdbe5fdc058b334346804",
+      "label": "before-09ed",
+      "error": "THREE.WebGLProgram: Shader Error 1282 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: MeshNormalMaterial\n\nProgram Info Log: Fragment shader is not compiled.\n\nFRAGMENT\n\nERROR: 0:299: 'vViewPosition' : undeclared identifier\nERROR: 0:299: 'vViewPosition' : undeclared identifier\nERROR: 0:299: 'cross' : no matching overloaded function found\nERROR: 0:299: '?:' : mismatching ternary operator operand types 'highp 3-component vector of float and 'const mediump float'\nERROR: 0:299: '=' : dimension mismatch\nERROR: 0:299: '=' : cannot convert from 'const mediump float' to 'highp 3-component vector of float'\n\n  294: #ifdef FLAT_SHADED\n  295: \tvec3 fdx = dFdx( vViewPosition );\n  296: \tvec3 fdy = dFdy( vViewPosition );\n  297: \tvec3 normal = normalize( cross( fdx, fdy ) );\n  298: #else\n> 299: \tvec3 normal = dot( vNormal, vNormal ) > 1e-12 ? normalize( vNormal ) : normalize( cross( dFdx( vViewPosition ), dFdy( vViewPosition ) ) + 1e-9 );\n  300: \t#ifdef DOUBLE_SIDED\n  301: \t\tnormal *= faceDirection;\n  302: \t#endif\n  303: #endif\n  304: #if defined( USE_NORMALMAP_TANGENTSPACE ) || defined( USE_CLEARCOAT_NORMALMAP ) || defined( USE_ANISOTROPY )\n  305: \t#ifdef USE_TANGENT"
+    },
+    {
+      "source": "f076b9df5ecd03ebce83fbe44e812c772cb49c9a",
+      "label": "after-f076",
+      "error": "THREE.WebGLProgram: Shader Error 0 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: MeshNormalMaterial\n\nProgram Info Log: Fragment shader is not compiled.\n\nFRAGMENT\n\nERROR: 0:299: 'vViewPosition' : undeclared identifier\nERROR: 0:299: 'vViewPosition' : undeclared identifier\nERROR: 0:299: 'cross' : no matching overloaded function found\nERROR: 0:299: '?:' : mismatching ternary operator operand types 'highp 3-component vector of float and 'const mediump float'\nERROR: 0:299: '=' : dimension mismatch\nERROR: 0:299: '=' : cannot convert from 'const mediump float' to 'highp 3-component vector of float'\n\n  294: #ifdef FLAT_SHADED\n  295: \tvec3 fdx = dFdx( vViewPosition );\n  296: \tvec3 fdy = dFdy( vViewPosition );\n  297: \tvec3 normal = normalize( cross( fdx, fdy ) );\n  298: #else\n> 299: \tvec3 normal = dot( vNormal, vNormal ) > 1e-12 ? normalize( vNormal ) : normalize( cross( dFdx( vViewPosition ), dFdy( vViewPosition ) ) + 1e-9 );\n  300: \t#ifdef DOUBLE_SIDED\n  301: \t\tnormal *= faceDirection;\n  302: \t#endif\n  303: #endif\n  304: #if defined( USE_NORMALMAP_TANGENTSPACE ) || defined( USE_CLEARCOAT_NORMALMAP ) || defined( USE_ANISOTROPY )\n  305: \t#ifdef USE_TANGENT"
+    },
+    {
+      "source": "f076b9df5ecd03ebce83fbe44e812c772cb49c9a",
+      "label": "after-f076",
+      "error": "THREE.WebGLProgram: Shader Error 1282 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: MeshNormalMaterial\n\nProgram Info Log: Fragment shader is not compiled.\n\nFRAGMENT\n\nERROR: 0:300: 'vViewPosition' : undeclared identifier\nERROR: 0:300: 'vViewPosition' : undeclared identifier\nERROR: 0:300: 'cross' : no matching overloaded function found\nERROR: 0:300: '?:' : mismatching ternary operator operand types 'highp 3-component vector of float and 'const mediump float'\nERROR: 0:300: '=' : dimension mismatch\nERROR: 0:300: '=' : cannot convert from 'const mediump float' to 'highp 3-component vector of float'\n\n  295: #ifdef FLAT_SHADED\n  296: \tvec3 fdx = dFdx( vViewPosition );\n  297: \tvec3 fdy = dFdy( vViewPosition );\n  298: \tvec3 normal = normalize( cross( fdx, fdy ) );\n  299: #else\n> 300: \tvec3 normal = dot( vNormal, vNormal ) > 1e-12 ? normalize( vNormal ) : normalize( cross( dFdx( vViewPosition ), dFdy( vViewPosition ) ) + 1e-9 );\n  301: \t#ifdef DOUBLE_SIDED\n  302: \t\tnormal *= faceDirection;\n  303: \t#endif\n  304: #endif\n  305: #if defined( USE_NORMALMAP_TANGENTSPACE ) || defined( USE_CLEARCOAT_NORMALMAP ) || defined( USE_ANISOTROPY )\n  306: \t#ifdef USE_TANGENT"
+    },
+    {
+      "source": "f076b9df5ecd03ebce83fbe44e812c772cb49c9a",
+      "label": "after-f076",
+      "error": "THREE.WebGLProgram: Shader Error 1282 - VALIDATE_STATUS false\n\nMaterial Name: \nMaterial Type: MeshNormalMaterial\n\nProgram Info Log: Fragment shader is not compiled.\n\nFRAGMENT\n\nERROR: 0:299: 'vViewPosition' : undeclared identifier\nERROR: 0:299: 'vViewPosition' : undeclared identifier\nERROR: 0:299: 'cross' : no matching overloaded function found\nERROR: 0:299: '?:' : mismatching ternary operator operand types 'highp 3-component vector of float and 'const mediump float'\nERROR: 0:299: '=' : dimension mismatch\nERROR: 0:299: '=' : cannot convert from 'const mediump float' to 'highp 3-component vector of float'\n\n  294: #ifdef FLAT_SHADED\n  295: \tvec3 fdx = dFdx( vViewPosition );\n  296: \tvec3 fdy = dFdy( vViewPosition );\n  297: \tvec3 normal = normalize( cross( fdx, fdy ) );\n  298: #else\n> 299: \tvec3 normal = dot( vNormal, vNormal ) > 1e-12 ? normalize( vNormal ) : normalize( cross( dFdx( vViewPosition ), dFdy( vViewPosition ) ) + 1e-9 );\n  300: \t#ifdef DOUBLE_SIDED\n  301: \t\tnormal *= faceDirection;\n  302: \t#endif\n  303: #endif\n  304: #if defined( USE_NORMALMAP_TANGENTSPACE ) || defined( USE_CLEARCOAT_NORMALMAP ) || defined( USE_ANISOTROPY )\n  305: \t#ifdef USE_TANGENT"
+    }
+  ],
+  "unappliedProposal": {
+    "scope": "Renderer owner may make MeshNormalMaterial view-position declaration and assignment unconditional in native ShaderLib.normal only, preserving genuine derivative face-normal fallback. No fallback constant, AO disabling, offset, source change or vendor file mutation is proposed. Actual native Ultra/GTAO compile and budget must then rerun.",
+    "vertexShader": "#define NORMAL\nvarying vec3 vViewPosition;\n#include <common>\n#include <batching_pars_vertex>\n#include <uv_pars_vertex>\n#include <displacementmap_pars_vertex>\n#include <normal_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <batching_vertex>\n\t#include <beginnormal_vertex>\n\t#include <morphinstance_vertex>\n\t#include <morphnormal_vertex>\n\t#include <skinbase_vertex>\n\t#include <skinnormal_vertex>\n\t#include <defaultnormal_vertex>\n\t#include <normal_vertex>\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <displacementmap_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\nvViewPosition = - mvPosition.xyz;\n}",
+    "fragmentShader": "#define NORMAL\nuniform float opacity;\nvarying vec3 vViewPosition;\n#include <packing>\n#include <uv_pars_fragment>\n#include <normal_pars_fragment>\n#include <bumpmap_pars_fragment>\n#include <normalmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\tvec4 diffuseColor = vec4( 0.0, 0.0, 0.0, opacity );\n\t#include <clipping_planes_fragment>\n\t#include <logdepthbuf_fragment>\n\t#include <normal_fragment_begin>\n\t#include <normal_fragment_maps>\n\tgl_FragColor = vec4( packNormalToRGB( normal ), diffuseColor.a );\n\t#ifdef OPAQUE\n\t\tgl_FragColor.a = 1.0;\n\t#endif\n}"
+  },
+  "browserOpened": false,
+  "productionChanged": false
+}

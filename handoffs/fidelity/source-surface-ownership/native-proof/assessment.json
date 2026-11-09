@@ -1,0 +1,190 @@
+{
+  "scope": "Matched actual native High camera-only scoped visual/geometry correction on unchanged406aGroz source +v2cache; no full-district/all-rail/wholepath/foot-a/physical/publication acceptance",
+  "runtimeCandidate": "607f8c3c35a3083d27224acb97612ca1c772ef6d",
+  "runtimeHookBase": "17cfb79c61e6a8e8db7630d0dd90eca49ea5662f",
+  "baseline": "406a53f1f1f1397a1667ea1bc77df78289a5667a",
+  "nativeCompleted": true,
+  "browserClosedUtc": "2026-11-09T11:47:59.170Z",
+  "targetedVisualCorrection": true,
+  "allFlickerResolved": false,
+  "imagesInspected": 18,
+  "matchedCameraArraysExact": true,
+  "counts": {
+    "activeVehicles": 166,
+    "nativePool": 94,
+    "pedestrians": 560,
+    "allIDsRetained": true
+  },
+  "initialAdmission": {
+    "baseline": false,
+    "final": false,
+    "classified": false,
+    "gap": "Both native noon cohorts fail existing admission; visual observer retained boolean only, unresolved detail not captured. No physical/admission pass."
+  },
+  "worldBuildMs": [
+    18014,
+    38075,
+    16144
+  ],
+  "buildTimingLimit": "Shared softwareGL context, source-order/cache/load effects; not hardwareFPS or a general loading-time guarantee.17cfduplicate-querydraft retained aspartialdiagnostic.",
+  "maxActualRenderCalls": [
+    126,
+    126
+  ],
+  "maxActualRenderTriangles": [
+    511077,
+    509523
+  ],
+  "runtimeCache": {
+    "applied": 730,
+    "rejected": [
+      {
+        "source": "w28240552",
+        "reason": "inactive-or-unsupported-source"
+      },
+      {
+        "source": "w1217713450",
+        "reason": "inactive-or-unsupported-source"
+      },
+      {
+        "source": "w1217715300",
+        "reason": "inactive-or-unsupported-source"
+      }
+    ],
+    "unknownDetailNeighbours": [
+      {
+        "owner": "w779735510",
+        "reason": "unknown-complete-neighbour-source-roof",
+        "i": 94,
+        "sourceId": "w455456965"
+      },
+      {
+        "owner": "w28240583",
+        "reason": "unknown-complete-neighbour-source-roof",
+        "i": 247,
+        "sourceId": "w28240571"
+      },
+      {
+        "owner": "w153449944",
+        "reason": "unknown-complete-neighbour-source-roof",
+        "i": 269,
+        "sourceId": "w153449949"
+      },
+      {
+        "owner": "w153449954",
+        "reason": "unknown-complete-neighbour-source-roof",
+        "i": 269,
+        "sourceId": "w153449949"
+      },
+      {
+        "owner": "w313404927",
+        "reason": "unknown-complete-neighbour-source-roof",
+        "i": 247,
+        "sourceId": "w28240571"
+      },
+      {
+        "owner": "w1217766911",
+        "reason": "unknown-complete-neighbour-source-roof",
+        "i": 247,
+        "sourceId": "w28240571"
+      },
+      {
+        "owner": "w339805817",
+        "reason": "unknown-complete-neighbour-source-roof",
+        "i": 531,
+        "sourceId": "w156820755"
+      },
+      {
+        "owner": "w156821831",
+        "reason": "unknown-complete-neighbour-source-roof",
+        "i": 531,
+        "sourceId": "w156820755"
+      },
+      {
+        "owner": "w247015071",
+        "reason": "unknown-complete-neighbour-source-roof",
+        "i": 2385,
+        "sourceId": "w1559923422"
+      }
+    ]
+  },
+  "canonicalCapturedMeshesPerSource": [
+    58,
+    58,
+    58
+  ],
+  "allCanonicalRestorationsPassed": true,
+  "geometryParityDraftFinalIgnoringIndexRenumbering": true,
+  "nativeSeams": [
+    {
+      "label": "before-406a",
+      "source": "406a53f1f1f1397a1667ea1bc77df78289a5667a",
+      "scopes": {
+        "campus-cf-ck-roof-seam": {
+          "recordedTriangles": 24,
+          "positiveSameFacingPairs": 16,
+          "totalPairIntersectionM2": 12.396499762930034
+        },
+        "belvedere-shared-source-wall": {
+          "recordedTriangles": 4,
+          "positiveSameFacingPairs": 3,
+          "totalPairIntersectionM2": 958.7571205491297
+        }
+      }
+    },
+    {
+      "label": "after-17cf",
+      "source": "17cfb79c61e6a8e8db7630d0dd90eca49ea5662f",
+      "scopes": {
+        "campus-cf-ck-roof-seam": {
+          "recordedTriangles": 27,
+          "positiveSameFacingPairs": 9,
+          "totalPairIntersectionM2": 0.1026866575848544
+        },
+        "belvedere-shared-source-wall": {
+          "recordedTriangles": 2,
+          "positiveSameFacingPairs": 0,
+          "totalPairIntersectionM2": 0
+        }
+      }
+    },
+    {
+      "label": "after-607f",
+      "source": "607f8c3c35a3083d27224acb97612ca1c772ef6d",
+      "scopes": {
+        "campus-cf-ck-roof-seam": {
+          "recordedTriangles": 27,
+          "positiveSameFacingPairs": 9,
+          "totalPairIntersectionM2": 0.1026866575848544
+        },
+        "belvedere-shared-source-wall": {
+          "recordedTriangles": 2,
+          "positiveSameFacingPairs": 0,
+          "totalPairIntersectionM2": 0
+        }
+      }
+    }
+  ],
+  "remaining": "Campus9positivecornerpairs total0.1026866576m\u00b2 retained:7inferred-detailpairs outside physical source union(~0.1020116142m\u00b2),2actualroof/detail microcontacts(~0.0006750434m\u00b2). Do not dismiss or call all roof seams/flicker resolved. Source of microcontacts not conclusively isolated; native vertices retained. SkyTowerf076failed separately.",
+  "errors": {
+    "before-406a": {
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "sourceErrors": 0,
+      "httpErrors": 0
+    },
+    "after-17cf": {
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "sourceErrors": 0,
+      "httpErrors": 0
+    },
+    "after-607f": {
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "sourceErrors": 0,
+      "httpErrors": 0
+    }
+  },
+  "shaderAttribution": "10read-onlyCPUcontrols+6actualMeshNormalMaterialerrorlogs prove injectednormalfallback references varying absent from defaultsmoothnormalshader. Rootrendererowner owns proposed narrow actualviewposition varying fix; no renderer edits made."
+}

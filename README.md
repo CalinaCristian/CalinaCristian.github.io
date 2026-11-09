@@ -19,6 +19,8 @@ Bucharest (2009) through Politehnica and every office I worked in, a flight from
 drive to UiPath's office at Lincoln Square in **Bellevue**. Each office is a walkable interior whose screens hold
 that chapter of the CV.
 
+An interim fidelity/gameplay update is available for testing; the complete all-district, mobile, traffic-soak and render-budget acceptance is still in progress. The [technical overview](https://cristiancalina.com/game/overview/) keeps dated source-linked comparisons and explicit remaining gaps.
+
 ## What's in it
 - **Story — 10 chapters in real places.** Each chapter is played in a compact district rebuilt at **real 1:1 scale**
   from OpenStreetMap (Floreasca, Grozăvești, Unirii, Pipera, Romană & Victoriei, Otopeni, SeaTac, downtown Bellevue),

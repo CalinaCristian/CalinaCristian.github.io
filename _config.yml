@@ -24,3 +24,7 @@ exclude:
   - handoffs/fidelity/native-rail-world-export
   - handoffs/fidelity/independent-rail-body-observer
   - handoffs/fidelity/archive-reachability
+  - handoffs/fidelity/overview-bellevue-103rd
+  - handoffs/fidelity/tram-pedestrian-signal-semantics
+  - handoffs/fidelity/game-preview-ff6b2bff
+  - handoffs/fidelity/history-unsigned-20261109

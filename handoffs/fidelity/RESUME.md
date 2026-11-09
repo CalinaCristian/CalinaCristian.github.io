@@ -1,6 +1,10 @@
 # Active fidelity task recovery
 
-The owner authorizes autonomous completion, separate worker branches, tested integration to master, logical commits, and deletion of this effort's branches at the end. Author: CalinaCristian <cristycalina@gmail.com>. Root owns global docs, overview catalog/inventory, final integration/release and branch cleanup. Never force-push master. Do not publish environment configuration.
+The owner authorizes autonomous completion, separate worker branches, tested integration to master, logical commits, and deletion of this effort's branches at the end. Author: CalinaCristian <cristycalina@gmail.com>. Root owns global docs, overview catalog/inventory, final integration/release and branch cleanup. Never force-push master except the owner-authorized one-time signature-removal rewrite documented in `history-unsigned-20261109/`. Do not publish environment configuration.
+
+## Latest · 2026-11-09 · unsigned history and playable preview
+
+Owner clarified no verification labels, explicitly all master history. Completed archived metadata-only rewrite9f6→dc5339f4; all113 API readback unsigned, tree unchanged. Historical capture SHAs kept unchanged/reachable by remote archive tag. Future curated releases must parent unsigned master directly, never merge staging ancestry back into master (it contains archived signatures). Root ff6 runtime:71Node PASS, foot/a0HIGH0MEDIUM, native Groz/Rom/Unirii constructor/admissionPASS. Preview publication being assembled; full-goal gates remain open. Bellevue covered-street candidatec41 ready but deliberately separate from this already-tested ff6 preview.
 
 ## Critical recovery rules
 

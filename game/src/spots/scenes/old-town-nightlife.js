@@ -81,8 +81,10 @@ export function buildOldTownNightlife(ctx, venueActivities) {
         return flow.begin(s,{title:'Find your rhythm',help:'Follow LEFT / RIGHT / SPIN on a gold pulse. A / D / Space, or tap the matching move.',action:'← Left · A / E',cameraRide:true,
             started(_s,r){r.moves=0;r.stepT=0;r.elapsed=0;r.inputs=[];r.sequence=sequence;dancing=true;avatar.object.visible=true;
                 avatar.set(0,{x:slot.x,y:floor,z:slot.z,yaw:Math.atan2(spawn.x-slot.x,spawn.z-slot.z),phase:0,amp:0,pose:'stand',scale:1,prop:null});
-                danceCamera={parent:s.camera.parent,position:s.camera.position.clone(),quaternion:s.camera.quaternion.clone()};ctx.scene.add(s.camera);s.camera.position.set(spawn.x,floor+2.05,spawn.z+.8);s.camera.lookAt(slot.x,floor+1,slot.z);
-                const nav=r.ui.querySelector('nav');for(const [move,label] of [['right','Right → · D'],['spin','Spin ↻ · Space']]){const button=document.createElement('button');button.type='button';button.textContent=label;button.dataset.move=move;button.onclick=()=>attempt(move,r);nav.insertBefore(button,nav.querySelector('[data-leave]'));}
+                const compact=document.body.classList.contains('touch')||s.camera.aspect<.75;
+                if(compact){r.ui.querySelector('[data-help]').textContent='Match LEFT, RIGHT or SPIN on a gold pulse.';r.button.textContent='← Left';}
+                danceCamera={parent:s.camera.parent,position:s.camera.position.clone(),quaternion:s.camera.quaternion.clone()};ctx.scene.add(s.camera);s.camera.position.set(spawn.x,floor+2.05,spawn.z+.8);s.camera.lookAt(slot.x,floor+(compact?1.4:1),slot.z);
+                const nav=r.ui.querySelector('nav');for(const [move,label] of [['right',compact?'Right →':'Right → · D'],['spin',compact?'Spin ↻':'Spin ↻ · Space']]){const button=document.createElement('button');button.type='button';button.textContent=label;button.dataset.move=move;button.onclick=()=>attempt(move,r);nav.insertBefore(button,nav.querySelector('[data-leave]'));}
                 r.status.textContent='Next: LEFT · find the pulse';r.pulse=document.createElement('div');r.pulse.style.cssText='height:7px;border-radius:5px;margin:8px 0;background:#665f4e';r.ui.querySelector('nav').before(r.pulse);},
             actioned(_s,r){attempt('left',r);},
             key(e,r){if(!['KeyA','KeyD','Space'].includes(e.code))return false;if(e.type==='keydown'&&!e.repeat)attempt(e.code==='KeyA'?'left':e.code==='KeyD'?'right':'spin',r);return true;},

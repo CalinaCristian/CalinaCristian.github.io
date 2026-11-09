@@ -66,6 +66,7 @@ export const ACTIVITIES = [
     ['bel-meydenbauer', 'pier-end', 'Walk to the end of the pier'], ['bel-meydenbauer', 'kayak', 'Kayak on Meydenbauer Bay'], ['bel-downtown-park', 'loop', 'Walk the park loop'],
     ['bel-botanical-garden', 'bridge', 'Cross the suspension bridge'], ['bel-lincoln-square', 'badge-in', 'Frame Lincoln Square'],
     ['space-needle', 'lm-chihuly-glasshouse', 'Explore the Glasshouse details'],
+    ['arcul-de-triumf', 'arcul-race', 'Win the island race'], ['arcul-de-triumf', 'arcul-baguette', 'Catch the baguette three times'],
 ].map(([spot, id, title]) => ({ spot, id, title }));
 /**
  * READY retains historical side-by-side review records. MENU_AVAILABLE separately

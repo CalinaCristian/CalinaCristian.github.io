@@ -50,8 +50,16 @@ export function buildOldTownNightlife(ctx, venueActivities) {
     room.add(b.build('freddo-room',{castShadow:false}));
     const random=rng(713), indoor=makeCrowd({max:54,city:'bucharest',season:'summer',rng:random,castShadow:false}), dancers=[];
     indoor.object.name='freddo-disco-crowd';room.add(indoor.object);
-    // A clear doorway, bar approach and player dance slot remain available.
-    for(let z=50.5;z<62;z+=1.28)for(let x=9.7;x<21.5;x+=1.22){if(dancers.length>=54 || !inPoly(x,z,building.poly) || Math.hypot(x-18.8,z-56.7)<1.7 || Math.abs(x-11)<1.4 || Math.hypot(x-22,z-57)<2)continue;dancers.push({x:x+dx,z:z+dz,phase:random()*Math.PI*2,scale:.92+random()*.13});}
+    // Preserve all54 guests while leaving a continuous estimated circulation
+    // aisle from the doorway through the dance slot to the bar's public side.
+    const aisle=[[22,57],[18.8,56.7],[12.5,58]];
+    for(let z=49.8;z<64;z+=1.1)for(let x=6.5;x<23;x+=1.05){
+        if(dancers.length>=54 || !inPoly(x,z,building.poly) || distPolyline(x,z,[...building.poly,building.poly[0]]).d<.45 ||
+            Math.hypot(x-18.8,z-56.7)<1.7 || distPolyline(x,z,aisle).d<.75 || Math.hypot(x-22,z-57)<1.7 || Math.hypot(x-13,z-49)<1.45 ||
+            collide(ctx.colliders,x+dx,z+dz,.3,floor+.2))continue;
+        dancers.push({x:x+dx,z:z+dz,phase:random()*Math.PI*2,scale:.92+random()*.13});
+    }
+    if(dancers.length!==54)throw new Error('Freddo circulation must preserve all54 virtual guests');
     indoor.count=dancers.length;for(let i=0;i<dancers.length;i++){const outfit=dressFor('bucharest','summer',null,random);outfit.flags=0;indoor.dress(i,outfit);}
     const flow=activityFlow(ctx), music=clubMusic(), slot={x:18.8+dx,z:56.7+dz,y:floor}, spawn={x:22+dx,z:57+dz,y:floor};
     let lastSession=null,returnPose=null,mapUpdate=null,dancing=false, disposed=false, localHour=23, clockT=0,danceCamera=null;

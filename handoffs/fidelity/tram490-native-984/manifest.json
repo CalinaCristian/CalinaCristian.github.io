@@ -1,0 +1,26 @@
+{
+  "source": "984ded5ad3f07b78e61cee1bb3bbc43a813fa914",
+  "scope": "Independent candidate rejection geometry/source-unit attribution only",
+  "files": {
+    "geometry-witnesses.json": {
+      "bytes": 72690,
+      "sha256": "b1ee4fbbd80a4c075c3e7af998470e2e8deb9c94c278f30c2e4297d7a20c3e7a"
+    },
+    "README.md": {
+      "bytes": 1829,
+      "sha256": "dec10674e483ae29fd48f8194d6f10ddd8c1d1b6beb4cfee6897f84767c8457a"
+    },
+    "tools/audit-490.mjs": {
+      "bytes": 7783,
+      "sha256": "be683faab0677eeec97cbcc5b3d9bff3d893d050c36d4466bacaf0e974506558"
+    },
+    "tools/native-raw-decoder.cjs": {
+      "bytes": 5819,
+      "sha256": "01084af43c317f1fecb002c50e4c808a320ab7ede83dbcd03f1200777ae77411"
+    },
+    "tools/contact-kernel.mjs": {
+      "bytes": 4098,
+      "sha256": "8f625bcf060f25f5d0c2696a82676309a77c56e55293950d9a1ccc010f3bdd30"
+    }
+  }
+}

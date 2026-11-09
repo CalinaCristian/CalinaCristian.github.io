@@ -1506,6 +1506,11 @@ export class Traffic {
      */
     overlapGuard() {
         const f = this._frame, dt = this._dt || 1 / 30, P = this.player;
+        // stepVehicle may cross a hash-cell boundary. The following checks
+        // compare the proposed rendered bodies, so index those positions now.
+        // Otherwise Grid.query rejects a moved body in its old bucket and the
+        // other car can advance through it before that body's own rollback.
+        this.grid.build?.(this.vehicles);
         const seen = this._ogSeen || (this._ogSeen = new Set()); seen.clear();
         for (const v of this.vehicles) {
             if (v.inactive) continue;

@@ -1,0 +1,1541 @@
+{
+  "source": "067c507db0f35614aa21c3b04a49f9b4f214d81a",
+  "frame": 3297,
+  "dt": 0.03333333333333333,
+  "guard": {
+    "trafficTime": 109.89999999999633,
+    "frame": 3297,
+    "beforeGuard": {
+      "actors": [
+        {
+          "id": 593,
+          "kind": "hatch",
+          "x": 68.25087376006825,
+          "z": -58.17987920464303,
+          "y": 0.24,
+          "heading": -10.599291376440249,
+          "fx": -0.8686918314867339,
+          "fz": 0.4953529064295714,
+          "s": 0.8084365587908378,
+          "dir": -1,
+          "lane": 0,
+          "laneCur": 0,
+          "speed": 0.30000000000000004,
+          "ghost": 0,
+          "revT": 5.266666666666658,
+          "ovT": 0,
+          "stopWhy": null,
+          "stopD": null,
+          "still": 0,
+          "stuck": 0,
+          "transition": -3.469446951953614e-16,
+          "latBlend": 0,
+          "latExtraCur": 0,
+          "lateralExtra": 0,
+          "parked": false,
+          "inactive": false,
+          "_moveGeneration": 2,
+          "_resp": false,
+          "_f": 3297,
+          "_x0": 68.26130827621643,
+          "_z0": -58.18325127711456,
+          "_h0": -10.610786650108913,
+          "_s0": 0.7984365587908377,
+          "_y0": 0.24,
+          "length": 4.28,
+          "width": 1.79,
+          "height": 1.46,
+          "edge": {
+            "id": 839,
+            "name": "",
+            "len": 4.172894059238732,
+            "type": "service",
+            "lanesF": 1,
+            "lanesB": 1,
+            "wL": 3,
+            "wR": 3,
+            "sharedLane": false,
+            "oneway": false,
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "access": {
+              "sourceId": "w1394494015",
+              "publicDrive": true,
+              "throughAccess": true,
+              "key": null,
+              "value": null,
+              "reason": "OSM road class default; no motorcar restriction mapped",
+              "conditionalUnresolved": false,
+              "tags": {}
+            },
+            "a": {
+              "id": 856,
+              "sourceId": 12909016968,
+              "x": 64.34302194669245,
+              "z": -57.2329800000048,
+              "radius": 3.5
+            },
+            "b": {
+              "id": 857,
+              "sourceId": 12909016967,
+              "x": 67.96798092961265,
+              "z": -59.3000352004714,
+              "radius": 3.5
+            }
+          },
+          "hist": [
+            {
+              "edge": 839,
+              "dir": 1
+            },
+            {
+              "edge": 839,
+              "dir": -1
+            },
+            {
+              "edge": 839,
+              "dir": 1
+            },
+            {
+              "edge": 839,
+              "dir": -1
+            },
+            {
+              "edge": 839,
+              "dir": 1
+            },
+            {
+              "edge": 839,
+              "dir": 1
+            }
+          ],
+          "route": [
+            {
+              "edge": 839,
+              "dir": 1,
+              "uturn": true
+            },
+            {
+              "edge": 840,
+              "dir": 1
+            },
+            {
+              "edge": 840,
+              "dir": -1,
+              "uturn": true
+            },
+            {
+              "edge": 840,
+              "dir": 1,
+              "uturn": true
+            },
+            {
+              "edge": 840,
+              "dir": -1,
+              "uturn": true
+            }
+          ]
+        },
+        {
+          "id": 609,
+          "kind": "compact-sedan",
+          "x": 64.00143246858421,
+          "z": -58.519414549858936,
+          "y": 0.24,
+          "heading": 3.987944213205289,
+          "fx": 0.8686918314867339,
+          "fz": -0.4953529064295714,
+          "s": 0.2741414670168614,
+          "dir": 1,
+          "lane": 0,
+          "laneCur": 0,
+          "speed": 0.1,
+          "ghost": 0,
+          "revT": 0.49999999999999994,
+          "ovT": 0,
+          "stopWhy": null,
+          "stopD": null,
+          "still": 2.8666666666666663,
+          "stuck": 2.8666666666666663,
+          "transition": -3.469446951953614e-16,
+          "latBlend": 0,
+          "latExtraCur": 0,
+          "lateralExtra": 0,
+          "parked": false,
+          "inactive": false,
+          "_moveGeneration": 3,
+          "_resp": false,
+          "_f": 3297,
+          "_x0": 63.997784173075296,
+          "_z0": -58.519188605196035,
+          "_h0": 3.974434282988852,
+          "_s0": 0.270808133683528,
+          "_y0": 0.24,
+          "length": 4.36,
+          "width": 1.73,
+          "height": 1.52,
+          "edge": {
+            "id": 839,
+            "name": "",
+            "len": 4.172894059238732,
+            "type": "service",
+            "lanesF": 1,
+            "lanesB": 1,
+            "wL": 3,
+            "wR": 3,
+            "sharedLane": false,
+            "oneway": false,
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "access": {
+              "sourceId": "w1394494015",
+              "publicDrive": true,
+              "throughAccess": true,
+              "key": null,
+              "value": null,
+              "reason": "OSM road class default; no motorcar restriction mapped",
+              "conditionalUnresolved": false,
+              "tags": {}
+            },
+            "a": {
+              "id": 856,
+              "sourceId": 12909016968,
+              "x": 64.34302194669245,
+              "z": -57.2329800000048,
+              "radius": 3.5
+            },
+            "b": {
+              "id": 857,
+              "sourceId": 12909016967,
+              "x": 67.96798092961265,
+              "z": -59.3000352004714,
+              "radius": 3.5
+            }
+          },
+          "hist": [
+            {
+              "edge": 840,
+              "dir": -1
+            },
+            {
+              "edge": 839,
+              "dir": -1
+            }
+          ],
+          "route": [
+            {
+              "edge": 840,
+              "dir": 1
+            },
+            {
+              "edge": 840,
+              "dir": -1,
+              "uturn": true
+            },
+            {
+              "edge": 840,
+              "dir": 1,
+              "uturn": true
+            },
+            {
+              "edge": 840,
+              "dir": -1,
+              "uturn": true
+            },
+            {
+              "edge": 840,
+              "dir": 1,
+              "uturn": true
+            }
+          ]
+        }
+      ],
+      "penetrationM": 0.07815981179023401
+    },
+    "afterGuard": {
+      "actors": [
+        {
+          "id": 593,
+          "kind": "hatch",
+          "x": 68.25087376006825,
+          "z": -58.17987920464303,
+          "y": 0.24,
+          "heading": -10.599291376440249,
+          "fx": -0.8686918314867339,
+          "fz": 0.4953529064295714,
+          "s": 0.8084365587908378,
+          "dir": -1,
+          "lane": 0,
+          "laneCur": 0,
+          "speed": 0.30000000000000004,
+          "ghost": 0,
+          "revT": 5.249999999999991,
+          "ovT": 0,
+          "stopWhy": null,
+          "stopD": null,
+          "still": 0,
+          "stuck": 0,
+          "transition": -3.469446951953614e-16,
+          "latBlend": 0,
+          "latExtraCur": 0,
+          "lateralExtra": 0,
+          "parked": false,
+          "inactive": false,
+          "_moveGeneration": 2,
+          "_resp": false,
+          "_f": 3297,
+          "_x0": 68.26130827621643,
+          "_z0": -58.18325127711456,
+          "_h0": -10.610786650108913,
+          "_s0": 0.7984365587908377,
+          "_y0": 0.24,
+          "length": 4.28,
+          "width": 1.79,
+          "height": 1.46,
+          "edge": {
+            "id": 839,
+            "name": "",
+            "len": 4.172894059238732,
+            "type": "service",
+            "lanesF": 1,
+            "lanesB": 1,
+            "wL": 3,
+            "wR": 3,
+            "sharedLane": false,
+            "oneway": false,
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "access": {
+              "sourceId": "w1394494015",
+              "publicDrive": true,
+              "throughAccess": true,
+              "key": null,
+              "value": null,
+              "reason": "OSM road class default; no motorcar restriction mapped",
+              "conditionalUnresolved": false,
+              "tags": {}
+            },
+            "a": {
+              "id": 856,
+              "sourceId": 12909016968,
+              "x": 64.34302194669245,
+              "z": -57.2329800000048,
+              "radius": 3.5
+            },
+            "b": {
+              "id": 857,
+              "sourceId": 12909016967,
+              "x": 67.96798092961265,
+              "z": -59.3000352004714,
+              "radius": 3.5
+            }
+          },
+          "hist": [
+            {
+              "edge": 839,
+              "dir": 1
+            },
+            {
+              "edge": 839,
+              "dir": -1
+            },
+            {
+              "edge": 839,
+              "dir": 1
+            },
+            {
+              "edge": 839,
+              "dir": -1
+            },
+            {
+              "edge": 839,
+              "dir": 1
+            },
+            {
+              "edge": 839,
+              "dir": 1
+            }
+          ],
+          "route": [
+            {
+              "edge": 839,
+              "dir": 1,
+              "uturn": true
+            },
+            {
+              "edge": 840,
+              "dir": 1
+            },
+            {
+              "edge": 840,
+              "dir": -1,
+              "uturn": true
+            },
+            {
+              "edge": 840,
+              "dir": 1,
+              "uturn": true
+            },
+            {
+              "edge": 840,
+              "dir": -1,
+              "uturn": true
+            }
+          ]
+        },
+        {
+          "id": 609,
+          "kind": "compact-sedan",
+          "x": 63.997784173075296,
+          "z": -58.519188605196035,
+          "y": 0.24,
+          "heading": 3.974434282988852,
+          "fx": 0.8686918314867339,
+          "fz": -0.4953529064295714,
+          "s": 0.270808133683528,
+          "dir": 1,
+          "lane": 0,
+          "laneCur": 0,
+          "speed": 0,
+          "ghost": 0,
+          "revT": 0.5333333333333333,
+          "ovT": 0,
+          "stopWhy": null,
+          "stopD": null,
+          "still": 2.8666666666666663,
+          "stuck": 2.8666666666666663,
+          "transition": -3.469446951953614e-16,
+          "latBlend": 0,
+          "latExtraCur": 0,
+          "lateralExtra": 0,
+          "parked": false,
+          "inactive": false,
+          "_moveGeneration": 3,
+          "_resp": false,
+          "_f": 3297,
+          "_x0": 63.997784173075296,
+          "_z0": -58.519188605196035,
+          "_h0": 3.974434282988852,
+          "_s0": 0.270808133683528,
+          "_y0": 0.24,
+          "length": 4.36,
+          "width": 1.73,
+          "height": 1.52,
+          "edge": {
+            "id": 839,
+            "name": "",
+            "len": 4.172894059238732,
+            "type": "service",
+            "lanesF": 1,
+            "lanesB": 1,
+            "wL": 3,
+            "wR": 3,
+            "sharedLane": false,
+            "oneway": false,
+            "layer": 0,
+            "ya": 0,
+            "yb": 0,
+            "access": {
+              "sourceId": "w1394494015",
+              "publicDrive": true,
+              "throughAccess": true,
+              "key": null,
+              "value": null,
+              "reason": "OSM road class default; no motorcar restriction mapped",
+              "conditionalUnresolved": false,
+              "tags": {}
+            },
+            "a": {
+              "id": 856,
+              "sourceId": 12909016968,
+              "x": 64.34302194669245,
+              "z": -57.2329800000048,
+              "radius": 3.5
+            },
+            "b": {
+              "id": 857,
+              "sourceId": 12909016967,
+              "x": 67.96798092961265,
+              "z": -59.3000352004714,
+              "radius": 3.5
+            }
+          },
+          "hist": [
+            {
+              "edge": 840,
+              "dir": -1
+            },
+            {
+              "edge": 839,
+              "dir": -1
+            }
+          ],
+          "route": [
+            {
+              "edge": 840,
+              "dir": 1
+            },
+            {
+              "edge": 840,
+              "dir": -1,
+              "uturn": true
+            },
+            {
+              "edge": 840,
+              "dir": 1,
+              "uturn": true
+            },
+            {
+              "edge": 840,
+              "dir": -1,
+              "uturn": true
+            },
+            {
+              "edge": 840,
+              "dir": 1,
+              "uturn": true
+            }
+          ]
+        }
+      ],
+      "penetrationM": 0.05311506548638034
+    }
+  },
+  "step": {
+    "before": {
+      "trafficTime": 109.866666666663,
+      "frame": 3296,
+      "actors": [
+        {
+          "id": 593,
+          "kind": "hatch",
+          "x": 68.26130827621643,
+          "z": -58.18325127711456,
+          "y": 0.24,
+          "heading": -10.610786650108913,
+          "fx": -0.8686918314867339,
+          "fz": 0.4953529064295714,
+          "speed": 0.2,
+          "layer": 0,
+          "ghost": 0,
+          "inactive": false,
+          "generation": 2,
+          "respawned": false,
+          "transition": -3.469446951953614e-16,
+          "latBlend": 0,
+          "laneCur": 0,
+          "latExtraCur": 0,
+          "lateralExtra": 0,
+          "parked": false,
+          "history": [
+            {
+              "edge": 839,
+              "dir": 1
+            },
+            {
+              "edge": 839,
+              "dir": -1
+            },
+            {
+              "edge": 839,
+              "dir": 1
+            },
+            {
+              "edge": 839,
+              "dir": -1
+            },
+            {
+              "edge": 839,
+              "dir": 1
+            },
+            {
+              "edge": 839,
+              "dir": 1
+            }
+          ],
+          "edge": {
+            "id": 839,
+            "road": 215,
+            "access": {
+              "sourceId": "w1394494015",
+              "publicDrive": true,
+              "throughAccess": true,
+              "key": null,
+              "value": null,
+              "reason": "OSM road class default; no motorcar restriction mapped",
+              "conditionalUnresolved": false,
+              "tags": {}
+            },
+            "name": "",
+            "type": "service",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "ya": 0,
+            "yb": 0,
+            "sharedLane": false,
+            "a": {
+              "id": 856,
+              "sourceId": 12909016968,
+              "x": 64.34302194669245,
+              "z": -57.2329800000048,
+              "radius": 3.5
+            },
+            "b": {
+              "id": 857,
+              "sourceId": 12909016967,
+              "x": 67.96798092961265,
+              "z": -59.3000352004714,
+              "radius": 3.5
+            },
+            "len": 4.172894059238732,
+            "wL": 3,
+            "wR": 3,
+            "halfW": 3,
+            "lanesF": 1,
+            "lanesB": 1
+          },
+          "s": 0.7984365587908377,
+          "dir": -1,
+          "lane": 0,
+          "length": 4.28,
+          "width": 1.79,
+          "modelHeight": 1.46,
+          "verticalInterval": [
+            0.24,
+            1.7
+          ],
+          "meshPosition": [
+            68.26130827621643,
+            0.24,
+            -58.18325127711456
+          ],
+          "meshRotation": [
+            0,
+            -10.610786650108913,
+            0,
+            "YXZ"
+          ],
+          "stopWhy": null,
+          "still": 2.333333333333335,
+          "route": [
+            {
+              "edge": {
+                "id": 839,
+                "road": 215,
+                "access": {
+                  "sourceId": "w1394494015",
+                  "publicDrive": true,
+                  "throughAccess": true,
+                  "key": null,
+                  "value": null,
+                  "reason": "OSM road class default; no motorcar restriction mapped",
+                  "conditionalUnresolved": false,
+                  "tags": {}
+                },
+                "name": "",
+                "type": "service",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "ya": 0,
+                "yb": 0,
+                "sharedLane": false,
+                "a": {
+                  "id": 856,
+                  "sourceId": 12909016968,
+                  "x": 64.34302194669245,
+                  "z": -57.2329800000048,
+                  "radius": 3.5
+                },
+                "b": {
+                  "id": 857,
+                  "sourceId": 12909016967,
+                  "x": 67.96798092961265,
+                  "z": -59.3000352004714,
+                  "radius": 3.5
+                },
+                "len": 4.172894059238732,
+                "wL": 3,
+                "wR": 3,
+                "halfW": 3,
+                "lanesF": 1,
+                "lanesB": 1
+              },
+              "dir": 1,
+              "uturn": true
+            },
+            {
+              "edge": {
+                "id": 840,
+                "road": 215,
+                "access": {
+                  "sourceId": "w1394494015",
+                  "publicDrive": true,
+                  "throughAccess": true,
+                  "key": null,
+                  "value": null,
+                  "reason": "OSM road class default; no motorcar restriction mapped",
+                  "conditionalUnresolved": false,
+                  "tags": {}
+                },
+                "name": "",
+                "type": "service",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "ya": 0,
+                "yb": 0,
+                "sharedLane": false,
+                "a": {
+                  "id": 857,
+                  "sourceId": 12909016967,
+                  "x": 67.96798092961265,
+                  "z": -59.3000352004714,
+                  "radius": 3.5
+                },
+                "b": {
+                  "id": 858,
+                  "sourceId": 12909016966,
+                  "x": 82.3644737323164,
+                  "z": -75.48085440004834,
+                  "radius": 3.5
+                },
+                "len": 21.65820664292634,
+                "wL": 3,
+                "wR": 3,
+                "halfW": 3,
+                "lanesF": 1,
+                "lanesB": 1
+              },
+              "dir": 1
+            },
+            {
+              "edge": {
+                "id": 840,
+                "road": 215,
+                "access": {
+                  "sourceId": "w1394494015",
+                  "publicDrive": true,
+                  "throughAccess": true,
+                  "key": null,
+                  "value": null,
+                  "reason": "OSM road class default; no motorcar restriction mapped",
+                  "conditionalUnresolved": false,
+                  "tags": {}
+                },
+                "name": "",
+                "type": "service",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "ya": 0,
+                "yb": 0,
+                "sharedLane": false,
+                "a": {
+                  "id": 857,
+                  "sourceId": 12909016967,
+                  "x": 67.96798092961265,
+                  "z": -59.3000352004714,
+                  "radius": 3.5
+                },
+                "b": {
+                  "id": 858,
+                  "sourceId": 12909016966,
+                  "x": 82.3644737323164,
+                  "z": -75.48085440004834,
+                  "radius": 3.5
+                },
+                "len": 21.65820664292634,
+                "wL": 3,
+                "wR": 3,
+                "halfW": 3,
+                "lanesF": 1,
+                "lanesB": 1
+              },
+              "dir": -1,
+              "uturn": true
+            }
+          ],
+          "renderedBody": {
+            "x": 68.26130827621643,
+            "z": -58.18325127711456,
+            "fx": -0.9268781664682182,
+            "fz": 0.3753623110069976,
+            "length": 4.28,
+            "width": 1.79
+          }
+        },
+        {
+          "id": 609,
+          "kind": "compact-sedan",
+          "x": 63.997784173075296,
+          "z": -58.519188605196035,
+          "y": 0.24,
+          "heading": 3.974434282988852,
+          "fx": 0.8686918314867339,
+          "fz": -0.4953529064295714,
+          "speed": 0,
+          "layer": 0,
+          "ghost": 0,
+          "inactive": false,
+          "generation": 3,
+          "respawned": false,
+          "transition": -3.469446951953614e-16,
+          "latBlend": 0,
+          "laneCur": 0,
+          "latExtraCur": 0,
+          "lateralExtra": 0,
+          "parked": false,
+          "history": [
+            {
+              "edge": 840,
+              "dir": -1
+            },
+            {
+              "edge": 839,
+              "dir": -1
+            }
+          ],
+          "edge": {
+            "id": 839,
+            "road": 215,
+            "access": {
+              "sourceId": "w1394494015",
+              "publicDrive": true,
+              "throughAccess": true,
+              "key": null,
+              "value": null,
+              "reason": "OSM road class default; no motorcar restriction mapped",
+              "conditionalUnresolved": false,
+              "tags": {}
+            },
+            "name": "",
+            "type": "service",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "ya": 0,
+            "yb": 0,
+            "sharedLane": false,
+            "a": {
+              "id": 856,
+              "sourceId": 12909016968,
+              "x": 64.34302194669245,
+              "z": -57.2329800000048,
+              "radius": 3.5
+            },
+            "b": {
+              "id": 857,
+              "sourceId": 12909016967,
+              "x": 67.96798092961265,
+              "z": -59.3000352004714,
+              "radius": 3.5
+            },
+            "len": 4.172894059238732,
+            "wL": 3,
+            "wR": 3,
+            "halfW": 3,
+            "lanesF": 1,
+            "lanesB": 1
+          },
+          "s": 0.270808133683528,
+          "dir": 1,
+          "lane": 0,
+          "length": 4.36,
+          "width": 1.73,
+          "modelHeight": 1.52,
+          "verticalInterval": [
+            0.24,
+            1.76
+          ],
+          "meshPosition": [
+            63.997784173075296,
+            0.24,
+            -58.519188605196035
+          ],
+          "meshRotation": [
+            0,
+            3.974434282988852,
+            0,
+            "YXZ"
+          ],
+          "stopWhy": null,
+          "still": 2.833333333333333,
+          "route": [
+            {
+              "edge": {
+                "id": 840,
+                "road": 215,
+                "access": {
+                  "sourceId": "w1394494015",
+                  "publicDrive": true,
+                  "throughAccess": true,
+                  "key": null,
+                  "value": null,
+                  "reason": "OSM road class default; no motorcar restriction mapped",
+                  "conditionalUnresolved": false,
+                  "tags": {}
+                },
+                "name": "",
+                "type": "service",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "ya": 0,
+                "yb": 0,
+                "sharedLane": false,
+                "a": {
+                  "id": 857,
+                  "sourceId": 12909016967,
+                  "x": 67.96798092961265,
+                  "z": -59.3000352004714,
+                  "radius": 3.5
+                },
+                "b": {
+                  "id": 858,
+                  "sourceId": 12909016966,
+                  "x": 82.3644737323164,
+                  "z": -75.48085440004834,
+                  "radius": 3.5
+                },
+                "len": 21.65820664292634,
+                "wL": 3,
+                "wR": 3,
+                "halfW": 3,
+                "lanesF": 1,
+                "lanesB": 1
+              },
+              "dir": 1
+            },
+            {
+              "edge": {
+                "id": 840,
+                "road": 215,
+                "access": {
+                  "sourceId": "w1394494015",
+                  "publicDrive": true,
+                  "throughAccess": true,
+                  "key": null,
+                  "value": null,
+                  "reason": "OSM road class default; no motorcar restriction mapped",
+                  "conditionalUnresolved": false,
+                  "tags": {}
+                },
+                "name": "",
+                "type": "service",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "ya": 0,
+                "yb": 0,
+                "sharedLane": false,
+                "a": {
+                  "id": 857,
+                  "sourceId": 12909016967,
+                  "x": 67.96798092961265,
+                  "z": -59.3000352004714,
+                  "radius": 3.5
+                },
+                "b": {
+                  "id": 858,
+                  "sourceId": 12909016966,
+                  "x": 82.3644737323164,
+                  "z": -75.48085440004834,
+                  "radius": 3.5
+                },
+                "len": 21.65820664292634,
+                "wL": 3,
+                "wR": 3,
+                "halfW": 3,
+                "lanesF": 1,
+                "lanesB": 1
+              },
+              "dir": -1,
+              "uturn": true
+            },
+            {
+              "edge": {
+                "id": 840,
+                "road": 215,
+                "access": {
+                  "sourceId": "w1394494015",
+                  "publicDrive": true,
+                  "throughAccess": true,
+                  "key": null,
+                  "value": null,
+                  "reason": "OSM road class default; no motorcar restriction mapped",
+                  "conditionalUnresolved": false,
+                  "tags": {}
+                },
+                "name": "",
+                "type": "service",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "ya": 0,
+                "yb": 0,
+                "sharedLane": false,
+                "a": {
+                  "id": 857,
+                  "sourceId": 12909016967,
+                  "x": 67.96798092961265,
+                  "z": -59.3000352004714,
+                  "radius": 3.5
+                },
+                "b": {
+                  "id": 858,
+                  "sourceId": 12909016966,
+                  "x": 82.3644737323164,
+                  "z": -75.48085440004834,
+                  "radius": 3.5
+                },
+                "len": 21.65820664292634,
+                "wL": 3,
+                "wR": 3,
+                "halfW": 3,
+                "lanesF": 1,
+                "lanesB": 1
+              },
+              "dir": 1,
+              "uturn": true
+            }
+          ],
+          "renderedBody": {
+            "x": 63.997784173075296,
+            "z": -58.519188605196035,
+            "fx": 0.7398461359861916,
+            "fz": 0.6727761106536867,
+            "length": 4.36,
+            "width": 1.73
+          }
+        }
+      ],
+      "overlap": {
+        "orientedXZPenetrationM": 0.03835135963413849,
+        "verticalOverlapM": 1.46,
+        "sameEdge": true,
+        "sameLayer": true
+      }
+    },
+    "after": {
+      "trafficTime": 109.89999999999633,
+      "frame": 3297,
+      "actors": [
+        {
+          "id": 593,
+          "kind": "hatch",
+          "x": 68.25087376006825,
+          "z": -58.17987920464303,
+          "y": 0.24,
+          "heading": -10.599291376440249,
+          "fx": -0.8686918314867339,
+          "fz": 0.4953529064295714,
+          "speed": 0.30000000000000004,
+          "layer": 0,
+          "ghost": 0,
+          "inactive": false,
+          "generation": 2,
+          "respawned": false,
+          "transition": -3.469446951953614e-16,
+          "latBlend": 0,
+          "laneCur": 0,
+          "latExtraCur": 0,
+          "lateralExtra": 0,
+          "parked": false,
+          "history": [
+            {
+              "edge": 839,
+              "dir": 1
+            },
+            {
+              "edge": 839,
+              "dir": -1
+            },
+            {
+              "edge": 839,
+              "dir": 1
+            },
+            {
+              "edge": 839,
+              "dir": -1
+            },
+            {
+              "edge": 839,
+              "dir": 1
+            },
+            {
+              "edge": 839,
+              "dir": 1
+            }
+          ],
+          "edge": {
+            "id": 839,
+            "road": 215,
+            "access": {
+              "sourceId": "w1394494015",
+              "publicDrive": true,
+              "throughAccess": true,
+              "key": null,
+              "value": null,
+              "reason": "OSM road class default; no motorcar restriction mapped",
+              "conditionalUnresolved": false,
+              "tags": {}
+            },
+            "name": "",
+            "type": "service",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "ya": 0,
+            "yb": 0,
+            "sharedLane": false,
+            "a": {
+              "id": 856,
+              "sourceId": 12909016968,
+              "x": 64.34302194669245,
+              "z": -57.2329800000048,
+              "radius": 3.5
+            },
+            "b": {
+              "id": 857,
+              "sourceId": 12909016967,
+              "x": 67.96798092961265,
+              "z": -59.3000352004714,
+              "radius": 3.5
+            },
+            "len": 4.172894059238732,
+            "wL": 3,
+            "wR": 3,
+            "halfW": 3,
+            "lanesF": 1,
+            "lanesB": 1
+          },
+          "s": 0.8084365587908378,
+          "dir": -1,
+          "lane": 0,
+          "length": 4.28,
+          "width": 1.79,
+          "modelHeight": 1.46,
+          "verticalInterval": [
+            0.24,
+            1.7
+          ],
+          "meshPosition": [
+            68.25087376006825,
+            0.24,
+            -58.17987920464303
+          ],
+          "meshRotation": [
+            0,
+            -10.599291376440249,
+            0,
+            "YXZ"
+          ],
+          "stopWhy": null,
+          "still": 0,
+          "route": [
+            {
+              "edge": {
+                "id": 839,
+                "road": 215,
+                "access": {
+                  "sourceId": "w1394494015",
+                  "publicDrive": true,
+                  "throughAccess": true,
+                  "key": null,
+                  "value": null,
+                  "reason": "OSM road class default; no motorcar restriction mapped",
+                  "conditionalUnresolved": false,
+                  "tags": {}
+                },
+                "name": "",
+                "type": "service",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "ya": 0,
+                "yb": 0,
+                "sharedLane": false,
+                "a": {
+                  "id": 856,
+                  "sourceId": 12909016968,
+                  "x": 64.34302194669245,
+                  "z": -57.2329800000048,
+                  "radius": 3.5
+                },
+                "b": {
+                  "id": 857,
+                  "sourceId": 12909016967,
+                  "x": 67.96798092961265,
+                  "z": -59.3000352004714,
+                  "radius": 3.5
+                },
+                "len": 4.172894059238732,
+                "wL": 3,
+                "wR": 3,
+                "halfW": 3,
+                "lanesF": 1,
+                "lanesB": 1
+              },
+              "dir": 1,
+              "uturn": true
+            },
+            {
+              "edge": {
+                "id": 840,
+                "road": 215,
+                "access": {
+                  "sourceId": "w1394494015",
+                  "publicDrive": true,
+                  "throughAccess": true,
+                  "key": null,
+                  "value": null,
+                  "reason": "OSM road class default; no motorcar restriction mapped",
+                  "conditionalUnresolved": false,
+                  "tags": {}
+                },
+                "name": "",
+                "type": "service",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "ya": 0,
+                "yb": 0,
+                "sharedLane": false,
+                "a": {
+                  "id": 857,
+                  "sourceId": 12909016967,
+                  "x": 67.96798092961265,
+                  "z": -59.3000352004714,
+                  "radius": 3.5
+                },
+                "b": {
+                  "id": 858,
+                  "sourceId": 12909016966,
+                  "x": 82.3644737323164,
+                  "z": -75.48085440004834,
+                  "radius": 3.5
+                },
+                "len": 21.65820664292634,
+                "wL": 3,
+                "wR": 3,
+                "halfW": 3,
+                "lanesF": 1,
+                "lanesB": 1
+              },
+              "dir": 1
+            },
+            {
+              "edge": {
+                "id": 840,
+                "road": 215,
+                "access": {
+                  "sourceId": "w1394494015",
+                  "publicDrive": true,
+                  "throughAccess": true,
+                  "key": null,
+                  "value": null,
+                  "reason": "OSM road class default; no motorcar restriction mapped",
+                  "conditionalUnresolved": false,
+                  "tags": {}
+                },
+                "name": "",
+                "type": "service",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "ya": 0,
+                "yb": 0,
+                "sharedLane": false,
+                "a": {
+                  "id": 857,
+                  "sourceId": 12909016967,
+                  "x": 67.96798092961265,
+                  "z": -59.3000352004714,
+                  "radius": 3.5
+                },
+                "b": {
+                  "id": 858,
+                  "sourceId": 12909016966,
+                  "x": 82.3644737323164,
+                  "z": -75.48085440004834,
+                  "radius": 3.5
+                },
+                "len": 21.65820664292634,
+                "wL": 3,
+                "wR": 3,
+                "halfW": 3,
+                "lanesF": 1,
+                "lanesB": 1
+              },
+              "dir": -1,
+              "uturn": true
+            }
+          ],
+          "renderedBody": {
+            "x": 68.25087376006825,
+            "z": -58.17987920464303,
+            "fx": -0.9225021302306002,
+            "fz": 0.3859919943729463,
+            "length": 4.28,
+            "width": 1.79
+          }
+        },
+        {
+          "id": 609,
+          "kind": "compact-sedan",
+          "x": 63.997784173075296,
+          "z": -58.519188605196035,
+          "y": 0.24,
+          "heading": 3.974434282988852,
+          "fx": 0.8686918314867339,
+          "fz": -0.4953529064295714,
+          "speed": 0,
+          "layer": 0,
+          "ghost": 0,
+          "inactive": false,
+          "generation": 3,
+          "respawned": false,
+          "transition": -3.469446951953614e-16,
+          "latBlend": 0,
+          "laneCur": 0,
+          "latExtraCur": 0,
+          "lateralExtra": 0,
+          "parked": false,
+          "history": [
+            {
+              "edge": 840,
+              "dir": -1
+            },
+            {
+              "edge": 839,
+              "dir": -1
+            }
+          ],
+          "edge": {
+            "id": 839,
+            "road": 215,
+            "access": {
+              "sourceId": "w1394494015",
+              "publicDrive": true,
+              "throughAccess": true,
+              "key": null,
+              "value": null,
+              "reason": "OSM road class default; no motorcar restriction mapped",
+              "conditionalUnresolved": false,
+              "tags": {}
+            },
+            "name": "",
+            "type": "service",
+            "layer": 0,
+            "bridge": false,
+            "tunnel": false,
+            "ya": 0,
+            "yb": 0,
+            "sharedLane": false,
+            "a": {
+              "id": 856,
+              "sourceId": 12909016968,
+              "x": 64.34302194669245,
+              "z": -57.2329800000048,
+              "radius": 3.5
+            },
+            "b": {
+              "id": 857,
+              "sourceId": 12909016967,
+              "x": 67.96798092961265,
+              "z": -59.3000352004714,
+              "radius": 3.5
+            },
+            "len": 4.172894059238732,
+            "wL": 3,
+            "wR": 3,
+            "halfW": 3,
+            "lanesF": 1,
+            "lanesB": 1
+          },
+          "s": 0.270808133683528,
+          "dir": 1,
+          "lane": 0,
+          "length": 4.36,
+          "width": 1.73,
+          "modelHeight": 1.52,
+          "verticalInterval": [
+            0.24,
+            1.76
+          ],
+          "meshPosition": [
+            63.997784173075296,
+            0.24,
+            -58.519188605196035
+          ],
+          "meshRotation": [
+            0,
+            3.974434282988852,
+            0,
+            "YXZ"
+          ],
+          "stopWhy": null,
+          "still": 2.8666666666666663,
+          "route": [
+            {
+              "edge": {
+                "id": 840,
+                "road": 215,
+                "access": {
+                  "sourceId": "w1394494015",
+                  "publicDrive": true,
+                  "throughAccess": true,
+                  "key": null,
+                  "value": null,
+                  "reason": "OSM road class default; no motorcar restriction mapped",
+                  "conditionalUnresolved": false,
+                  "tags": {}
+                },
+                "name": "",
+                "type": "service",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "ya": 0,
+                "yb": 0,
+                "sharedLane": false,
+                "a": {
+                  "id": 857,
+                  "sourceId": 12909016967,
+                  "x": 67.96798092961265,
+                  "z": -59.3000352004714,
+                  "radius": 3.5
+                },
+                "b": {
+                  "id": 858,
+                  "sourceId": 12909016966,
+                  "x": 82.3644737323164,
+                  "z": -75.48085440004834,
+                  "radius": 3.5
+                },
+                "len": 21.65820664292634,
+                "wL": 3,
+                "wR": 3,
+                "halfW": 3,
+                "lanesF": 1,
+                "lanesB": 1
+              },
+              "dir": 1
+            },
+            {
+              "edge": {
+                "id": 840,
+                "road": 215,
+                "access": {
+                  "sourceId": "w1394494015",
+                  "publicDrive": true,
+                  "throughAccess": true,
+                  "key": null,
+                  "value": null,
+                  "reason": "OSM road class default; no motorcar restriction mapped",
+                  "conditionalUnresolved": false,
+                  "tags": {}
+                },
+                "name": "",
+                "type": "service",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "ya": 0,
+                "yb": 0,
+                "sharedLane": false,
+                "a": {
+                  "id": 857,
+                  "sourceId": 12909016967,
+                  "x": 67.96798092961265,
+                  "z": -59.3000352004714,
+                  "radius": 3.5
+                },
+                "b": {
+                  "id": 858,
+                  "sourceId": 12909016966,
+                  "x": 82.3644737323164,
+                  "z": -75.48085440004834,
+                  "radius": 3.5
+                },
+                "len": 21.65820664292634,
+                "wL": 3,
+                "wR": 3,
+                "halfW": 3,
+                "lanesF": 1,
+                "lanesB": 1
+              },
+              "dir": -1,
+              "uturn": true
+            },
+            {
+              "edge": {
+                "id": 840,
+                "road": 215,
+                "access": {
+                  "sourceId": "w1394494015",
+                  "publicDrive": true,
+                  "throughAccess": true,
+                  "key": null,
+                  "value": null,
+                  "reason": "OSM road class default; no motorcar restriction mapped",
+                  "conditionalUnresolved": false,
+                  "tags": {}
+                },
+                "name": "",
+                "type": "service",
+                "layer": 0,
+                "bridge": false,
+                "tunnel": false,
+                "ya": 0,
+                "yb": 0,
+                "sharedLane": false,
+                "a": {
+                  "id": 857,
+                  "sourceId": 12909016967,
+                  "x": 67.96798092961265,
+                  "z": -59.3000352004714,
+                  "radius": 3.5
+                },
+                "b": {
+                  "id": 858,
+                  "sourceId": 12909016966,
+                  "x": 82.3644737323164,
+                  "z": -75.48085440004834,
+                  "radius": 3.5
+                },
+                "len": 21.65820664292634,
+                "wL": 3,
+                "wR": 3,
+                "halfW": 3,
+                "lanesF": 1,
+                "lanesB": 1
+              },
+              "dir": 1,
+              "uturn": true
+            }
+          ],
+          "renderedBody": {
+            "x": 63.997784173075296,
+            "z": -58.519188605196035,
+            "fx": 0.7398461359861916,
+            "fz": 0.6727761106536867,
+            "length": 4.36,
+            "width": 1.73
+          }
+        }
+      ],
+      "overlap": {
+        "orientedXZPenetrationM": 0.05311506548638034,
+        "verticalOverlapM": 1.46,
+        "sameEdge": true,
+        "sameLayer": true
+      }
+    }
+  }
+}

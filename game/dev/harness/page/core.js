@@ -334,6 +334,7 @@ export class Harness {
             }
         }
         // obstacles on the path (vehicles, pedestrians)
+        const plannedVt = vt; // road/turn/light/target intent before a vehicle makes us wait
         const obs = this.obstacleAhead(path, bs, 55);
         ap.gap = obs.gap; ap.leader = obs.what; ap.leaderInfo = obs.info;
         if (obs.gap < Infinity) {
@@ -348,7 +349,7 @@ export class Harness {
         else throttle = v < vt ? 0.35 : 0;
         if (throttle < 0 && v < 0.6) throttle = 0; // never reverse by accident
         // ---------- stuck handling
-        const wantsGo = vt > 2;
+        const wantsGo = vt > 2 || (obs.info?.id != null && plannedVt > 2);
         if (wantsGo && av < 0.5) {
             if (obs.gap < 9) { ap.waitT += dt; ap.stallT = 0; }
             else { ap.stallT += dt; }

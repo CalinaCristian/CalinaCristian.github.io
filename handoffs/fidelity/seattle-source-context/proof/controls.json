@@ -1,0 +1,13 @@
+{
+  "syntheticControlsPassed": 18,
+  "unchangedFineDemSamples": 6561,
+  "sourceLayerDoesNotSupplyMetres": true,
+  "literalFeetPriority": true,
+  "sourceHolesAndClosedOrder": true,
+  "noInputMutation": true,
+  "actualSource": {
+    "sampledOriginalPixels": 961,
+    "maxErrorM": 2.2009061240169103e-10,
+    "totalOriginalFloat32Pixels": 263169
+  }
+}

@@ -52,6 +52,17 @@ export class Ground {
     /** raw terrain (Catmull-Rom over the research elevation grid, clamped outside) */
     raw(x, z) {
         const t = this.t;
+        // Optional measured surround for a small close-up DEM. Keep every
+        // original query inside that DEM unchanged; blend only outside its
+        // edge over one original sample interval, then use the actual surround.
+        const surround=this.sourceTerrain;
+        if(surround){
+            const cx=clamp(x,t.x0,t.x0+(t.nx-1)*t.d),cz=clamp(z,t.z0,t.z0+(t.nz-1)*t.d);
+            if(cx!==x||cz!==z){const far=surround.heightAt(x,z);if(Number.isFinite(far)){
+                const u=clamp(Math.hypot(x-cx,z-cz)/(surround.transitionM||t.d),0,1),blend=u*u*(3-2*u);
+                return this.raw(cx,cz)*(1-blend)+far*blend;
+            }}
+        }
         const fx = clamp((x - t.x0) / t.d, 0, t.nx - 1.0001), fz = clamp((z - t.z0) / t.d, 0, t.nz - 1.0001);
         const i = Math.floor(fx), j = Math.floor(fz), u = fx - i, v = fz - j;
         const H = (ii, jj) => t.h[clamp(jj, 0, t.nz - 1) * t.nx + clamp(ii, 0, t.nx - 1)];

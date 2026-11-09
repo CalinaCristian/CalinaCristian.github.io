@@ -1,0 +1,52 @@
+{
+  "status": "Preparatory source pipeline and CPU controls; no runtime caller/scene wiring/native quality acceptance yet",
+  "baseSource": "144eb1248af4eb52d9682388881cdf792b5a8c03",
+  "sourceInputSHA256": "c42dd57e73136616611f695f73b8c31a7288c84240d25cadfe56c5c4d13aae6f",
+  "sourceInputs": "13 immutable cached OSM map/full-relation files; original XML and GeoTIFF outside Git",
+  "prototypeCounts": {
+    "buildings": 17028,
+    "ways": 28798,
+    "areas": 1568,
+    "trees": 5808,
+    "coastlines": 32,
+    "relations": 125,
+    "unresolvedSourceClosure": 11
+  },
+  "buildingAuthority": {
+    "literalHeight": 797,
+    "sourceLevelsEstimate": 2205,
+    "dimensionUnknownTypeEstimate": 14026
+  },
+  "sourceFootprintsValidated": 17028,
+  "sourcePlanTrial": {
+    "seconds": 18.071,
+    "bytes": 76807166,
+    "renderedVolumes": 17285,
+    "issues": 0,
+    "cacheFileSHA256": "1bacbe9f02cb5b5e6357319bd8a243acff61ef8dca0a50db38a73a29af3cef14",
+    "scope": "Production house/roof policy trial against actual USGS numeric terrain; runtime cache integration pending"
+  },
+  "terrain": {
+    "format": "float32-le-base64",
+    "nx": 513,
+    "nz": 513,
+    "westPixelCentre": -122.4298538011696,
+    "northPixelCentre": 47.6973538011696,
+    "lonStep": 0.0002923976608187245,
+    "latStep": 0.0002923976608187245,
+    "pixelInterpretation": "Actual GeoTIFF PixelIsArea cell centres; service adjusted bbox to preserve pixel aspect.",
+    "verticalUnits": "metres",
+    "verticalDatum": "USGS3DEP bare-earth service; no local datum conversion applied",
+    "sourceServicePublishedThrough": "2026-10-26",
+    "sourceURL": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/exportImage?bbox=-122.43,47.57,-122.28,47.675&bboxSR=4326&imageSR=4326&size=513,513&format=tiff&pixelType=F32&interpolation=RSP_BilinearInterpolation&f=image",
+    "sourceSHA256": "d73a02413448ebd073b9b7cb383e5cb88394b4771a3022db55feeaaa15d75715",
+    "retrievedAt": "2026-11-09T12:21:58.983731+00:00"
+  },
+  "sourceCompilerSHA256": "a2031facf55a171cfe30ecf6df2693a0ac8e0e3768cd9e978e6ec9aeba30a8af",
+  "decoderSHA256": "23074c18e88c23ac7bfe40f1950b29bddb476252a44e4d080b15542bc0b0b5b3",
+  "notes": [
+    "Prototype area count precedes final additional literal pier/bridge-area retention; final data rebuild required.",
+    "No data-only graphics claim. Literal dimensions and unknown estimates remain distinct.",
+    "Source plan cache remains external during development; no 76MB uncompressed asset committed."
+  ]
+}

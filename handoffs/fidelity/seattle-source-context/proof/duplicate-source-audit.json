@@ -1,0 +1,10 @@
+{
+  "scope": "Independent XML element geometry/order/raw-tag comparison across all cached map/full-relation files",
+  "counts": {
+    "node": 277034,
+    "way": 49939,
+    "relation": 1232
+  },
+  "conflicts": [],
+  "passed": true
+}

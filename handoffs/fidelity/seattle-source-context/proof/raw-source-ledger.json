@@ -1,0 +1,106 @@
+[
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/seattle-context-0-0.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.375000000,47.596000000,-122.353333333,47.608250000",
+    "retrievedAt": "2026-11-09T12:10:41.990208+00:00",
+    "bytes": 195145,
+    "sha256": "7083e7a95f4251bea5539770a33c10e88960ed7a8318e48e968660febc63a958",
+    "cached": false
+  },
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/seattle-context-0-1.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.353333333,47.596000000,-122.331666667,47.608250000",
+    "retrievedAt": "2026-11-09T12:10:42.003886+00:00",
+    "bytes": 6917409,
+    "sha256": "ac259289c1800b0de1f48e3d12cc7aa9dbc3d1be00d15d02d82aedf741afbb18",
+    "cached": false
+  },
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/seattle-context-0-2.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.331666667,47.596000000,-122.310000000,47.608250000",
+    "retrievedAt": "2026-11-09T12:10:43.209512+00:00",
+    "bytes": 12579543,
+    "sha256": "b29a33f3d40b40114ddd0091afc1f3961587afa2c0a88b8cbf0a0fd06f759319",
+    "cached": false
+  },
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/seattle-context-1-0.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.375000000,47.608250000,-122.353333333,47.620500000",
+    "retrievedAt": "2026-11-09T12:10:45.527486+00:00",
+    "bytes": 2469950,
+    "sha256": "7babd3baf16365aa4e3feb39c64ee7e51c3955f9d49214dbef3080b6d9d6ee54",
+    "cached": false
+  },
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/seattle-context-1-1.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.353333333,47.608250000,-122.331666667,47.620500000",
+    "retrievedAt": "2026-11-09T12:10:47.731476+00:00",
+    "bytes": 12407802,
+    "sha256": "df723b91d64d363ca82403156ed0972784a0ab468cca0d26851ff7afbe186173",
+    "cached": false
+  },
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/seattle-context-1-2.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.331666667,47.608250000,-122.310000000,47.620500000",
+    "retrievedAt": "2026-11-09T12:10:48.255574+00:00",
+    "bytes": 12550150,
+    "sha256": "7ce750beeb4f04d248ba950276d961f0c52eaed873ec4a57f6dcca058dd1e5e2",
+    "cached": false
+  },
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/seattle-context-2-0.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.375000000,47.620500000,-122.353333333,47.632750000",
+    "retrievedAt": "2026-11-09T12:10:52.779411+00:00",
+    "bytes": 8273379,
+    "sha256": "3068c3a4a839f3f4f8667a1c647965159709523c813031619c4d9d0d68884e2c",
+    "cached": false
+  },
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/seattle-context-2-1.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.353333333,47.620500000,-122.331666667,47.632750000",
+    "retrievedAt": "2026-11-09T12:10:53.684607+00:00",
+    "bytes": 9481846,
+    "sha256": "dc4dac684be6c32ca28721e189a1a5f1db9200017fce53a7e00a52292a40df7f",
+    "cached": false
+  },
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/seattle-context-2-2.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.331666667,47.620500000,-122.310000000,47.632750000",
+    "retrievedAt": "2026-11-09T12:10:56.221113+00:00",
+    "bytes": 9820259,
+    "sha256": "6c653e148e8ae1d3191f24ef0a3cb88d72e143acb20adf6da36395ee4d676c17",
+    "cached": false
+  },
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/seattle-context-3-0.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.375000000,47.632750000,-122.353333333,47.645000000",
+    "retrievedAt": "2026-11-09T12:10:57.681253+00:00",
+    "bytes": 11644901,
+    "sha256": "9568d64908828fb2b1caf7134900dd397d37a4db27a67d6e19d17256f0cef7cd",
+    "cached": false
+  },
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/seattle-context-3-1.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.353333333,47.632750000,-122.331666667,47.645000000",
+    "retrievedAt": "2026-11-09T12:10:59.218093+00:00",
+    "bytes": 6165865,
+    "sha256": "e8d0c37aab859b7c4750bda60d7f2f814951da568344176cc2376bfee14c7442",
+    "cached": false
+  },
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/seattle-context-3-2.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.331666667,47.632750000,-122.310000000,47.645000000",
+    "retrievedAt": "2026-11-09T12:11:00.118873+00:00",
+    "bytes": 7612720,
+    "sha256": "a7dbb879928ca1353c1c4aea8b0c9c1db87c7430f96e9137e9db9dc29b85e2de",
+    "cached": false
+  },
+  {
+    "file": "/workspace/reality-pass/seattle-source-context/tiles/relation-2793813-full.osm",
+    "url": "https://api.openstreetmap.org/api/0.6/relation/2793813/full",
+    "retrievedAt": "2026-11-09T12:16:48.231129+00:00",
+    "bytes": 142026,
+    "sha256": "9ce33efeebccf285588119411d7eaaeba51333e32fddbbce2dafe0ffd79e6705",
+    "purpose": "Complete literal Lake Union multipolygon members/holes; no fabricated coast closure"
+  }
+]

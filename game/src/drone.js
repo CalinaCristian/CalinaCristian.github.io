@@ -10,7 +10,7 @@
 // ============================================================================
 import * as THREE from '../vendor/three.module.min.js';
 import { collideBuildings } from './world.js';
-import { createFlightBoundary, polygonFlightSource, FLIGHT_GRACE } from './drone-boundary.js';
+import { createFlightBoundary, spotFlightSource, FLIGHT_GRACE } from './drone-boundary.js';
 import { makeCrowd, dressFor, seasonOf, CROWD_FLAGS } from './crowd.js';
 
 const flightBoundaries = new WeakMap();
@@ -175,7 +175,7 @@ export class Drone {
         const g = this.g;
         if (g.state === 'spot' && g.spot?.ctl && g.spot.spot) {
             const s = g.spot, sp = s.spot;
-            return { kind: 'spot', scene: sp.scene, walker: s.ctl, session: s, colliders: sp.colliders, boundary: flightBoundary(sp, polygonFlightSource((sp.data?.members || []).map(id => sp.data.spots?.[id]?.extent?.polygon).filter(p => p?.length >= 3))), units: sp.units === 'mph' ? 'imperial' : 'metric',
+            return { kind: 'spot', scene: sp.scene, walker: s.ctl, session: s, colliders: sp.colliders, boundary: flightBoundary(sp, spotFlightSource(sp)), units: sp.units === 'mph' ? 'imperial' : 'metric',
                 groundAt: (x, z, y) => { try { const h = sp.groundAt(x, z, y); return Number.isFinite(h) ? h : sp.ground?.heightAt?.(x, z) ?? 0; } catch { return 0; } } };
         }
         if (g.state === 'foot' && g.foot?.active && g.world) {

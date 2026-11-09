@@ -54,21 +54,61 @@ export function sceneryBridgeProfiles(data, profiles, coreEdges = []) {
         }
         pieces.push(piece);
     }
-    // Extend a ramp only along actual source-connected plain continuations or links, up to 300m.
-    for (const p of pieces.filter(p => p.bridge)) for (const start of [p.nodes[0], p.nodes.at(-1)]) {
-        const queue = [[start, 0]], seen = new Set();
+    // A named, nearly straight pair of same-class approach carriageways can fork at a bridge mouth.
+    // Unlike a transverse cross-street, both branches point away from the actual bridge segment.
+    const bridgeFork = (n, incoming) => {
+        if (!incoming.piece.bridge || n.links.length < 3) return null;
+        const branches = n.links.filter(e => e !== incoming && e.piece.type === incoming.piece.type);
+        const extra = n.links.filter(e => e !== incoming && !branches.includes(e));
+        // Source ramp links are admitted by the existing continuation policy, independent of iteration order.
+        if (branches.length !== 2 || extra.some(e => !/_link$/.test(e.piece.type))) return null;
+        const name = branches[0]?.piece.tags.name;
+        if (!name || branches.some(e => e.piece.bridge || e.piece.type !== incoming.piece.type || e.piece.tags.name !== name || layerOf(e.piece.tags, false) !== 0 || (e.piece.tags.tunnel && e.piece.tags.tunnel !== 'no'))) return null;
+        const outward = e => { const p = (e.a === n ? e.b : e.a).p; return [(p[0] - n.p[0]) / e.len, (p[1] - n.p[1]) / e.len]; };
+        const bridge = outward(incoming), directions = branches.map(outward);
+        if (directions.some(v => v[0] * bridge[0] + v[1] * bridge[1] > -Math.cos(Math.PI / 6)) || directions[0][0] * directions[1][0] + directions[0][1] * directions[1][1] < Math.cos(Math.PI / 6)) return null;
+        return { name, branches, directions, bridge };
+    };
+    const continuationEvidence = new Map();
+    const sourceBuildingVertices = new Map();
+    for (const [index, ring] of Object.entries(data.buildingFootprints || {})) for (const p of ring) {
+        const key = p[0].toFixed(4) + ',' + p[1].toFixed(4);
+        if (!sourceBuildingVertices.has(key)) sourceBuildingVertices.set(key, data.buildingIds?.[index]);
+    }
+    const buildingEntry = (n, incoming, e) => {
+        if (!incoming.piece.bridge || layerOf(incoming.piece.tags, true) <= 0 || e.piece.type !== 'service' || e.piece.tags.name || e.piece.tags.layer !== undefined || e.piece.edges.length !== 1 || e.len > 30) return null;
+        const end = e.a === n ? e.b : e.a;
+        if (end.links.length !== 1 || !(end.sourceNode > 0)) return null;
+        return sourceBuildingVertices.get(end.p[0].toFixed(4) + ',' + end.p[1].toFixed(4)) || null;
+    };
+    // Extend a ramp only along actual source-connected continuations or links, up to 300m.
+    for (const p of pieces.filter(p => p.bridge)) for (const start of p.nodes.filter((n, i) => i === 0 || i === p.nodes.length - 1 || n.links.some(e => !e.piece.bridge))) {
+        const queue = [[start, 0, p.edges.find(e => e.a === start || e.b === start)]], seen = new Set();
         while (queue.length) {
-            const [n, travelled] = queue.shift(); if (seen.has(n) || travelled > 300) continue; seen.add(n);
+            const [n, travelled, incoming] = queue.shift(); if (seen.has(n) || travelled > 300 || !incoming) continue; seen.add(n);
+            const fork = bridgeFork(n, incoming);
             for (const e of n.links) {
                 if (e.piece.bridge || e.eligible) continue;
-                const sameName = p.tags.name && p.tags.name === e.piece.tags.name;
+                const sameName = e.piece.tags.name && (p.tags.name === e.piece.tags.name || incoming.piece.tags.name === e.piece.tags.name);
+                const sameWay = e.piece.source.sourceId === incoming.piece.source.sourceId;
                 const plain = n.links.length <= 2 && (!e.piece.tags.name || sameName) && e.piece.type === p.type;
-                if (!/_link$/.test(e.piece.type) && !(sameName && n.links.length <= 2) && !plain) continue;
+                const forkBranch = fork?.branches.includes(e);
+                const elevated = e.piece.type === incoming.piece.type && layerOf(e.piece.tags, false) > 0 && layerOf(e.piece.tags, false) === layerOf(incoming.piece.tags, incoming.piece.bridge);
+                const sourceBuildingId = buildingEntry(n, incoming, e);
+                if (!/_link$/.test(e.piece.type) && !sameWay && !forkBranch && !elevated && !sourceBuildingId && !(sameName && n.links.length <= 2) && !plain) continue;
+                if ((sameWay && n.links.length > 2) || forkBranch || elevated || sourceBuildingId) continuationEvidence.set(n.key + ':' + e.piece.source.sourceId, {
+                    kind: sourceBuildingId ? 'short mapped bridge-to-source-building entry; floor elevation unknown' : elevated ? 'same positive source layer continuation; elevation estimated' : forkBranch ? 'source bridge mouth with named parallel approach fork' : 'same source way through merge',
+                    sourceNodeId: n.sourceNode, x: n.p[0], z: n.p[1], nodeDegree: n.links.length,
+                    incomingSourceId: incoming.piece.source.sourceId, approachSourceId: e.piece.source.sourceId,
+                    ...(sourceBuildingId ? { sourceBuildingId } : {}),
+                    ...(forkBranch ? { approachName: fork.name, bridgeOutward: fork.bridge, approachOutward: fork.directions } : {}),
+                });
                 e.eligible = true;
-                queue.push([e.a === n ? e.b : e.a, travelled + e.len]);
+                queue.push([e.a === n ? e.b : e.a, travelled + e.len, e]);
             }
         }
     }
+    stats.continuations = [...continuationEvidence.values()];
     // A bridge over a real lower road needs an estimated clearance. River/rail-only bridges stay at grade.
     for (const e of originalEdges.filter(e => e.piece.bridge)) {
         const upper = layerOf(e.piece.tags, true), candidates = [];
@@ -84,10 +124,10 @@ export function sceneryBridgeProfiles(data, profiles, coreEdges = []) {
             if (f.edge && [e.a, e.b].some(n => n === f.edge.a || n === f.edge.b)) continue;
             if (f.sourceNodeIds && [e.a, e.b].some(n => n.sourceNode > 0 && f.sourceNodeIds.includes(n.sourceNode))) continue;
             const top = (1 - q.s) * f.y0 + q.s * f.y1;
-            e.cross.push({ ...q, need: top + CLEARANCE + THICKNESS, lowerSourceId: f.id, halfSpan: (f.halfW + Math.max(e.piece.profile.leftM, e.piece.profile.rightM)) / Math.max(.1, q.sine) });
+            e.cross.push({ ...q, need: top + CLEARANCE + THICKNESS, lowerInitialY: top, lowerEdge: f.edge, lowerSourceId: f.id, halfSpan: (f.halfW + Math.max(e.piece.profile.leftM, e.piece.profile.rightM)) / Math.max(.1, q.sine) });
         }
     }
-    const graphNodes = [...nodes.values()], links = [], targets = new Map(), caps = new Map();
+    const graphNodes = [...nodes.values()], links = [], targets = new Map(), caps = new Map(), crossingTargets = [];
     for (const n of graphNodes) n.adj = [];
     for (const e of originalEdges.filter(e => e.eligible)) {
         const fractions = new Set([0, 1]);
@@ -103,7 +143,7 @@ export function sceneryBridgeProfiles(data, profiles, coreEdges = []) {
         });
         e.renderNodes = ns;
         const fs = [...fractions].sort((a, b) => a - b);
-        for (let i = 0; i < ns.length; i++) for (const c of e.cross) if (Math.abs(fs[i] - c.t) * e.len <= c.halfSpan + EPS) targets.set(ns[i], Math.max(targets.get(ns[i]) || 0, c.need));
+        for (let i = 0; i < ns.length; i++) for (const c of e.cross) if (Math.abs(fs[i] - c.t) * e.len <= c.halfSpan + EPS) { targets.set(ns[i], Math.max(targets.get(ns[i]) || 0, c.need)); crossingTargets.push({ node: ns[i], crossing: c }); }
         for (let i = 1; i < ns.length; i++) {
             const link = { a: ns[i - 1], b: ns[i], cost: distance(ns[i - 1].p, ns[i].p) * (e.piece.bridge ? DECK_GRADE : GRADE) };
             link.a.adj.push(link); link.b.adj.push(link); links.push(link);
@@ -126,8 +166,35 @@ export function sceneryBridgeProfiles(data, profiles, coreEdges = []) {
         }
         return values;
     };
-    const low = cone(targets, false), high = cone(caps, true);
-    for (const n of graphNodes) n.y = n.coreY ?? Math.max(0, Math.min(low.get(n) ?? 0, high.get(n) ?? Infinity));
+    const high = cone(caps, true), crossings = [...new Set(crossingTargets.map(q => q.crossing))];
+    const lowerY = c => {
+        const e = c.lowerEdge;
+        if (!e?.renderNodes) return c.lowerInitialY;
+        const point = [e.a.p[0] + (e.b.p[0] - e.a.p[0]) * c.s, e.a.p[1] + (e.b.p[1] - e.a.p[1]) * c.s];
+        for (let i = 1; i < e.renderNodes.length; i++) {
+            const a = e.renderNodes[i - 1], b = e.renderNodes[i], q = project(point, a.p, b.p);
+            if (q.t >= -EPS && q.t <= 1 + EPS && q.d < EPS) return (a.y ?? 0) + ((b.y ?? 0) - (a.y ?? 0)) * Math.max(0, Math.min(1, q.t));
+        }
+        return c.lowerInitialY;
+    };
+    let initialHeights, converged = false, iterations = 0;
+    for (; iterations < 64; iterations++) {
+        const low = cone(targets, false);
+        for (const n of graphNodes) n.y = n.coreY ?? Math.max(0, Math.min(low.get(n) ?? 0, high.get(n) ?? Infinity));
+        if (!initialHeights) initialHeights = graphNodes.map(n => n.y);
+        let change = 0;
+        for (const c of crossings) { const need = lowerY(c) + CLEARANCE + THICKNESS; change = Math.max(change, Math.abs(need - c.need)); c.need = need; }
+        if (change < 1e-7) { converged = true; break; }
+        targets.clear();
+        for (const q of crossingTargets) targets.set(q.node, Math.max(targets.get(q.node) ?? -Infinity, q.crossing.need));
+        for (const n of graphNodes) if (n.coreY !== null) targets.set(n, n.coreY);
+    }
+    // An impossible source/grade cycle must remain a diagnostic, never an unchecked ever-rising deck.
+    if (!converged) {
+        graphNodes.forEach((n, i) => { n.y = initialHeights[i]; });
+        for (const c of crossings) c.need = lowerY(c) + CLEARANCE + THICKNESS;
+    }
+    stats.ordering = { converged, iterations: Math.min(64, iterations + 1), policy: 'Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets.' };
     for (const p of pieces) if (p.edges.some(e => e.eligible)) {
         const points = [], heights = [];
         for (const e of p.edges) {

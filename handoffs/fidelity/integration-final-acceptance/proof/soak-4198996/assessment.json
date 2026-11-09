@@ -1,0 +1,51 @@
+{
+  "sourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
+  "physical900Complete": true,
+  "finalReleaseAcceptance": false,
+  "scope": "Exact before-source physical evolution and full high+mirror complete-frame budget; superseded by final renderer/tree freeze.",
+  "wallDurationSeconds": 1633.912,
+  "summary": {
+    "maxCalls": 373,
+    "maxTriangles": 1402964,
+    "physicalSimSeconds": 899.9999999998388
+  },
+  "population": {
+    "people": 560,
+    "vehicles": 631,
+    "maxVehicles": 480,
+    "moving": 618,
+    "parked": 9,
+    "police": 2,
+    "trams": 2,
+    "pool": 0
+  },
+  "refreshCoverage": [
+    {
+      "trigger": "sun",
+      "frames": 35,
+      "publicationComplete": true,
+      "lastFade": 0.06666666666666667
+    },
+    {
+      "trigger": "cloud",
+      "frames": 35,
+      "publicationComplete": true,
+      "lastFade": 0.06666666666666667
+    }
+  ],
+  "limit": "Final cloud reflection blend did not reach 1 in this runner; final renderer proof must include complete fade. Cumulative pedestrian path includes permitted hidden recycling; not a physical distance claim. Software GL timings are not hardware FPS.",
+  "images": {
+    "minute-0.png": {
+      "originalPngSha256": "1694f47b184ffa292578dd9d64a59c38336e42d4ce9e9b4eb383528b44213105",
+      "derivedGameOnlyJpeg": "minute-0.jpg"
+    },
+    "minute-15.png": {
+      "originalPngSha256": "0c917033a9c701496d31c22defa8c6b035765ede26bc9fc7afa31ac1178b5823",
+      "derivedGameOnlyJpeg": "minute-15.jpg"
+    },
+    "evolved-final.png": {
+      "originalPngSha256": "c282a6b5d3c90f80bd9e07cd3351367908b871a282fb1a7a608d9e3975e69707",
+      "derivedGameOnlyJpeg": "evolved-final.jpg"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "checks": 1182,
+  "controls": "All source bridge pieces emitted; exact same-source core ties; no layer-to-metre conversion; no input mutation or invented XY joins; real crossing/ramp grades; actual sloped deck underside/top/side collision and QA agreement; positive actual-building control",
+  "districts": [
+    {
+      "district": "bucharest-floreasca",
+      "bridgePieces": 3,
+      "estimatedApproaches": 0,
+      "crossings": 0,
+      "unresolved": 0
+    },
+    {
+      "district": "bucharest-grozavesti",
+      "bridgePieces": 21,
+      "estimatedApproaches": 4,
+      "crossings": 16,
+      "unresolved": 0
+    },
+    {
+      "district": "bucharest-otopeni",
+      "bridgePieces": 7,
+      "estimatedApproaches": 2,
+      "crossings": 8,
+      "unresolved": 0
+    },
+    {
+      "district": "bucharest-pipera",
+      "bridgePieces": 12,
+      "estimatedApproaches": 2,
+      "crossings": 3,
+      "unresolved": 0
+    },
+    {
+      "district": "bucharest-romana",
+      "bridgePieces": 0,
+      "estimatedApproaches": 0,
+      "crossings": 0,
+      "unresolved": 0
+    },
+    {
+      "district": "bucharest-unirii",
+      "bridgePieces": 3,
+      "estimatedApproaches": 0,
+      "crossings": 0,
+      "unresolved": 0
+    },
+    {
+      "district": "seattle-bellevue",
+      "bridgePieces": 38,
+      "estimatedApproaches": 37,
+      "crossings": 42,
+      "unresolved": 0
+    },
+    {
+      "district": "seattle-seatac",
+      "bridgePieces": 13,
+      "estimatedApproaches": 18,
+      "crossings": 21,
+      "unresolved": 14
+    }
+  ]
+}

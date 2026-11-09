@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "referenceImageryPublished": false,
+  "images": [
+    {
+      "proof": "literal-tags",
+      "image": "literal-tags/mapped-lake-after.webp",
+      "kind": "game-only native render",
+      "sha256": "7cce32b035b47b7025753aa33366e7aac6f726cae49c1d6977d8895c37a64b28",
+      "rawPngSha256": "fa5becf9b8948d287626845fac57bc81200b2d7fc7bae47b22a0d90572af22cd",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "literal-tags",
+      "image": "literal-tags/mapped-lake-before.webp",
+      "kind": "game-only native render",
+      "sha256": "5d77f1c835e0d750bfd582df7f252748133845355b1c51bf0863cc7c82fac095",
+      "rawPngSha256": "a65eb2aadffbb94fe342405238102d7f1ecfee4dec2f37280f92373a8b01bc08",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "literal-tags",
+      "image": "literal-tags/nearby-road-after.webp",
+      "kind": "game-only native render",
+      "sha256": "05fda3f6e12cb997ef899f5412efb5fab19214db6aea709d9767544c77078114",
+      "rawPngSha256": "46834d321a2afe2b6e183e6fc00c68f986734e3a9f8d4036077cf4f09c9fdac5",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "literal-tags",
+      "image": "literal-tags/nearby-road-before.webp",
+      "kind": "game-only native render",
+      "sha256": "530bc01c942093ffa19470cf1b3a54e7c435bf4b9271e6a30b48858e09169113",
+      "rawPngSha256": "dac998460e73b62dadf2f5140d9ac04abde967f5adc9c0cab6fdcca825cab528",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "literal-tags",
+      "image": "literal-tags/shore-context-after.webp",
+      "kind": "game-only native render",
+      "sha256": "cab27245e7c6c9dadd20828dde984e04070f093251e6ad4ad3dd7b488d973764",
+      "rawPngSha256": "f725ff20feaeb24614260b36529813ba7a679c4ff623573428e29c1292b5f26f",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "literal-tags",
+      "image": "literal-tags/shore-context-before.webp",
+      "kind": "game-only native render",
+      "sha256": "2eec90bd19018a7e346efb3c57b03575650fb04698e28e86d0365cac24370f38",
+      "rawPngSha256": "0ae6102849864501ff100729d946a3dbae837a835dc0a8d6cfc1cef924926c35",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "group-order",
+      "image": "group-order/bucharest-pipera-lake-interior-after.webp",
+      "kind": "game-only native render",
+      "sha256": "b2d0e431086f514e36959afc55fad1a7555bad379a5b2eff415eb0c12f2c652b",
+      "rawPngSha256": "5f83f67d70c1020bbedc639b723c77cf57525b9503eb7041910f9154ae0a0ffe",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "group-order",
+      "image": "group-order/bucharest-pipera-lake-interior-before.webp",
+      "kind": "game-only native render",
+      "sha256": "6cfa18807c796d335edc05c848048858e1bde03fef038a0a096d382d7cc42626",
+      "rawPngSha256": "6511a20b1c8313921a040f56870e578f0cc244304eedbdaf6ef9d6a50320d075",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "group-order",
+      "image": "group-order/bucharest-pipera-mapped-dry-island-after.webp",
+      "kind": "game-only native render",
+      "sha256": "0abe884199109a8cc408c61a6e76edb725fa5bcbe5e49a34700ebe9cce80b613",
+      "rawPngSha256": "a3ae7a9b217649078c6dfeb73e316cc97205a944404a6868093d3a1b99f5a897",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "group-order",
+      "image": "group-order/bucharest-pipera-mapped-dry-island-before.webp",
+      "kind": "game-only native render",
+      "sha256": "548317720fe08158db6006c89ec99430818dc0cf0ef32fa71a94ba9a42a7fdce",
+      "rawPngSha256": "de764ae2312205b9314f72df3489c39e6f0af7d10ba66840659aba00d6a82973",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "group-order",
+      "image": "group-order/bucharest-pipera-shore-and-road-after.webp",
+      "kind": "game-only native render",
+      "sha256": "049d7ea7155d387203fda8b7953f395bd1e93b1c111b31fbb3333290229691e1",
+      "rawPngSha256": "c7fcf65d96f6ca55e4db07b0af5c56c8b4f231c8a2a6c088c39f01c54fcdd575",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "group-order",
+      "image": "group-order/bucharest-pipera-shore-and-road-before.webp",
+      "kind": "game-only native render",
+      "sha256": "69ca5248f6336034d4e716f7ab978f341470428987b15e51023cf2179b9a059e",
+      "rawPngSha256": "56b33825bef4ffb4faf055f840246a2e2c7ee4edd9e76edbc0567ce5917cfdba",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "group-order",
+      "image": "group-order/seattle-bellevue-lake-interior-after.webp",
+      "kind": "game-only native render",
+      "sha256": "98a16136b030c546ed83aef3fd3af6af3d64c3172d7485195e79c60d37f595b3",
+      "rawPngSha256": "5113f035b511152230f27487815850cefdbfb85228886d468c00414627609ae3",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "group-order",
+      "image": "group-order/seattle-bellevue-lake-interior-before.webp",
+      "kind": "game-only native render",
+      "sha256": "157682e1647749b96bb779d9530f9af05d2d86db7ecff5ee4042d1952c22ccc2",
+      "rawPngSha256": "f5136ab434ddd239a6f0e02d294bdf44ea408f8658308c5a0488644d30c28924",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "group-order",
+      "image": "group-order/seattle-bellevue-mapped-dry-island-after.webp",
+      "kind": "game-only native render",
+      "sha256": "81dd01f85fd999f2c21b52fade4b026e7035bfe9657fcdae13044568fe34e28c",
+      "rawPngSha256": "7c75360bb286b5fa9a93212b963293615d17fddd28c58cf3b51f59b401659321",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "group-order",
+      "image": "group-order/seattle-bellevue-mapped-dry-island-before.webp",
+      "kind": "game-only native render",
+      "sha256": "a6965cf3d7d261dca91881f86092498b8643fed5fdb33e141fec4c599933c536",
+      "rawPngSha256": "e8341c65b14be47799369db2caf0aab308f1eed9a2065586adabf26b079d3c10",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/bucharest-pipera-lake-interior-after.webp",
+      "kind": "game-only native render",
+      "sha256": "2f24d8a7eec790a7492ce6d9a33057938a95da8c16f4fb33774453974b1fe25f",
+      "rawPngSha256": "a129f10dc398e4bb01398b8e2d65c3ceae35bcfa10fdeaab04206cba63de20c6",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/bucharest-pipera-lake-interior-before.webp",
+      "kind": "game-only native render",
+      "sha256": "f8ccc2af790d2fe1575ddf59b14b79a8ab5a4539f6650fb25d5812ea43269cd2",
+      "rawPngSha256": "d7629a1db419f38bde2a40ef76923843866c4704eed20d2a260b5b393213ccad",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/bucharest-pipera-mapped-dry-island-after.webp",
+      "kind": "game-only native render",
+      "sha256": "4f557c3996f8c7423c1d60007aeb886110151f579fc43b8eeec0a52205009768",
+      "rawPngSha256": "526b5af7dc3267d52d38767e5ac4e9308808335432a0770fa3dc4f2cfb9f7c95",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/bucharest-pipera-mapped-dry-island-before.webp",
+      "kind": "game-only native render",
+      "sha256": "ab846c00f78de94e26c58e7b094488dca0a64e54bd90b3538f63fd68b14202f7",
+      "rawPngSha256": "ad71620b441dd98c6bc9b1005b97473a6f1ead65254badd504992a2958f98a0f",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/bucharest-pipera-shore-and-peninsula-after.webp",
+      "kind": "game-only native render",
+      "sha256": "15f278e4b44aacba999495dcaad6469f5a8a043a3897e8f8216db052ee7b26fd",
+      "rawPngSha256": "0f67028e2ffdd0c2bbc51125131d18615ac6356be17545ad13c1eab0546fc091",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/bucharest-pipera-shore-and-peninsula-before.webp",
+      "kind": "game-only native render",
+      "sha256": "9fff93090fe9dc7b24d77c9c8f1cc777f84a50d75bd5338b73327677462918b7",
+      "rawPngSha256": "23f5cc6cf6ec7f4f22f60937c8b37dac1670efaf8cb683993fd068b58696d994",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/bucharest-pipera-source-road-positive-after.webp",
+      "kind": "game-only native render",
+      "sha256": "a4953ea23946db848154e5d5f44ca14e12ae17ba25d405f810f944b57cb57351",
+      "rawPngSha256": "0549b1b53401150cf1b2153b0169f2321d1bf62ebf7a704d896e766d4cb504a6",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/bucharest-pipera-source-road-positive-before.webp",
+      "kind": "game-only native render",
+      "sha256": "a4953ea23946db848154e5d5f44ca14e12ae17ba25d405f810f944b57cb57351",
+      "rawPngSha256": "0549b1b53401150cf1b2153b0169f2321d1bf62ebf7a704d896e766d4cb504a6",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/seattle-bellevue-lake-interior-after.webp",
+      "kind": "game-only native render",
+      "sha256": "fd5251363b4c1ae8d800dc4134e0999ec9a11b87ab46c1a16de82d39c10af04c",
+      "rawPngSha256": "97144a7e8966755c1031681065a6e209ff6a2283e7d418348b3c7aad6e20f9d3",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/seattle-bellevue-lake-interior-before.webp",
+      "kind": "game-only native render",
+      "sha256": "48eaf70d418b5a308e12730c54d7bc8c7ba3ce6899d28789f76dc6cc54ce2cc2",
+      "rawPngSha256": "2dd72be5693a231b492333ade200f1032cab25d645cf53392da3f60f23f5f87b",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/seattle-bellevue-mapped-dry-island-after.webp",
+      "kind": "game-only native render",
+      "sha256": "09a54794f1b2b8cd78b61d551f6e29b8b0355a5aa70264d1162cdb3436dbffc3",
+      "rawPngSha256": "30ede9adf8d91a6dd294c9b53b8aeb719df37a17d92164a7494e38e17795cb25",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/seattle-bellevue-mapped-dry-island-before.webp",
+      "kind": "game-only native render",
+      "sha256": "e05e6d36309583b2d3748cc95922fd4c53ecd6ed17eb6bda0ecfdc831213bce5",
+      "rawPngSha256": "00912934b59498d8b544f0d30034993fd70387dc1fdfc81ee996dff5cc23421b",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/seattle-bellevue-source-road-positive-after.webp",
+      "kind": "game-only native render",
+      "sha256": "e8a4bd74edc285f1c6721e33957c615b8fad6f5357c3167333f3d94f48fd68be",
+      "rawPngSha256": "cf4b0b51225e16df35dc82383d68db94684b2cf4ab3a730e6b3ab8ee1862e8d5",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "source-foam",
+      "image": "source-foam/seattle-bellevue-source-road-positive-before.webp",
+      "kind": "game-only native render",
+      "sha256": "1d780019b7b49578d2c32739085e83ad4be8845eb3a4607bc538a08c0b27851a",
+      "rawPngSha256": "8dab719c5f3b4a3dcbf71ca79bd0d0322f862e1a1c38e016605a85027f52cd80",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "proof": "exact-batch",
+      "image": "exact-batch/after-db-6.webp",
+      "kind": "game-only native render",
+      "sha256": "ddcf51fc2d8418dc37471dc85fca1903276f26db65117f9274eb883b9298d828",
+      "rawPngSha256": "faf3f29022462060f83c063f5a64698144f22f6bd5dca0a6cfe46d29a587f5d0",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "proof": "exact-batch",
+      "image": "exact-batch/after-db-8.webp",
+      "kind": "game-only native render",
+      "sha256": "8d937dcd44f2391ae7880ba7fee311cd59f594fcddc4cbecf6794526f2fa74fe",
+      "rawPngSha256": "12410088d3d45c304e9d19bb09aebbe5f67ca9998f1a6dc07469dd8501f2cae8",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "proof": "exact-batch",
+      "image": "exact-batch/after-sweep-strada-barbu-v-c-rescu-run-2-5.webp",
+      "kind": "game-only native render",
+      "sha256": "6952ef2c4be82bfd5a0a98e243c121eae5501d94b5e9f4cc4c5fbabaea41c17a",
+      "rawPngSha256": "224c54a143846a935b06f6090c803f7f5404ab40c603e4123f65e1d303fc1d44",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "proof": "exact-batch",
+      "image": "exact-batch/before-db-6.webp",
+      "kind": "game-only native render",
+      "sha256": "ddcf51fc2d8418dc37471dc85fca1903276f26db65117f9274eb883b9298d828",
+      "rawPngSha256": "faf3f29022462060f83c063f5a64698144f22f6bd5dca0a6cfe46d29a587f5d0",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "proof": "exact-batch",
+      "image": "exact-batch/before-db-8.webp",
+      "kind": "game-only native render",
+      "sha256": "8d937dcd44f2391ae7880ba7fee311cd59f594fcddc4cbecf6794526f2fa74fe",
+      "rawPngSha256": "12410088d3d45c304e9d19bb09aebbe5f67ca9998f1a6dc07469dd8501f2cae8",
+      "width": 640,
+      "height": 360
+    },
+    {
+      "proof": "exact-batch",
+      "image": "exact-batch/before-sweep-strada-barbu-v-c-rescu-run-2-5.webp",
+      "kind": "game-only native render",
+      "sha256": "6952ef2c4be82bfd5a0a98e243c121eae5501d94b5e9f4cc4c5fbabaea41c17a",
+      "rawPngSha256": "224c54a143846a935b06f6090c803f7f5404ab40c603e4123f65e1d303fc1d44",
+      "width": 640,
+      "height": 360
+    }
+  ]
+}

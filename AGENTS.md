@@ -4,6 +4,7 @@
 the next agent needs, add it here (short, imperative) or in the relevant spec, and link it from here.
 
 ## The repo in one minute
+- Continuing the long fidelity task: read `handoffs/fidelity/RESUME.md` and `FIDELITY-GOAL.md` before assuming a release or restarting jobs. Environment handovers can end agent sessions while Node/Chromium jobs survive; Node may have process name `MainThread`. Check saved progress and argv/PIDs before starting duplicate browsers.
 - Static CV site (`index.html`) + **Drive My CV**, a first-person 3D game in `game/` (Three.js, vanilla ES modules, **no build
   step**). Deployed by **GitHub Pages from `master`** → https://cristiancalina.com/game/. Work on your feature branch; nothing is
   live until it is merged into master, and merging is the owner's call (ask, never merge on your own).

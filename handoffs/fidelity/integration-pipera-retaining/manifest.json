@@ -1,0 +1,37 @@
+{
+  "baseCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "candidateWorldSha256": "2a18db44c2d1d9614a86685486612be59b8938fc0901b7cab5ad1f1b52b3e647",
+  "piperaDataSha256": "def0b7515341ac654650799a5f819a2a7a80c627e865c06845c41688c7f2cbb9",
+  "nativeSourceContextCommit": "080b18547fe16cdee7d0817df024d1a60eec6dbc",
+  "nativeWorldOverride": "/workspace/reality-pass/pipera/retaining-native-final-candidate-0775/world.js",
+  "files": {
+    "blocksLane-before.txt": {
+      "bytes": 3312,
+      "sha256": "c9e67d510ab1ca6106d50c764e06ae9e8e763884524cbd96c6de7af2703983dc"
+    },
+    "cpu-proposed.json": {
+      "bytes": 16357,
+      "sha256": "f6eaf6d44b05b84db28017f81c59f49bdf2721ed3d618dc42b94dd1a574d4ce2"
+    },
+    "native-before.json": {
+      "bytes": 407916,
+      "sha256": "c3c1f3fbdf217d5bb383a3795485411fde4c7e8c6e9104caa2e9f187985e83e0"
+    },
+    "native-candidate1-incomplete.json.gz": {
+      "bytes": 30596,
+      "sha256": "fd83621db2d15d01f6cfb38e6f97fe558b973ac2bbf470a681fd817313404ec2"
+    },
+    "native-final-connected-driving.json.gz": {
+      "bytes": 24946,
+      "sha256": "46bcabb3cedd4053fe59fff9aabf84620d715908a1c808ffdf7eae8bac679a3e"
+    },
+    "native-final-wall-source-dump.json.gz": {
+      "bytes": 27138,
+      "sha256": "55c42cc7158e093be0b7a6a4f3050bcee8007535116e6e0c5cb3ee5c8857505c"
+    },
+    "source-before.json": {
+      "bytes": 239,
+      "sha256": "f44ecbaa43d9b72bcf5569b7b147f9ce1e65e80db569c45e75c09f79611e3bc3"
+    }
+  }
+}

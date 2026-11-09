@@ -1,0 +1,2112 @@
+{
+  "sourceCommit": "223ae70a179fb8c5654f30792555f965b0edbc62",
+  "githubPagesVersion": 232,
+  "jekyllVersion": "3.10.0",
+  "theme": "jekyll-theme-primer0.6.0",
+  "scope": "Default GitHub Pages plugins/layout plus this exact simple exclude-only config; no _posts/frontmatter/sitemap/feed/custom plugins. File counts predict static copy + generated Markdown HTML + one compiled theme stylesheet. Actual built byte count is deliberately null.",
+  "scenarios": [
+    {
+      "label": "Current config",
+      "excludedDirectories": [],
+      "eligibleTrackedInputFiles": 15226,
+      "eligibleTrackedInputBytes": 1050755925,
+      "generatedMarkdownPages": 174,
+      "defaultThemeOutputAssets": 1,
+      "predictedOutputFileCount": 15401,
+      "builtOutputBytes": null,
+      "builtOutputBytesReason": "Not built: Ruby/Jekyll absent. Original Markdown retained by default; generated HTML/theme CSS adds bytes and depends on Jekyll/Kramdown/layout/build metadata.",
+      "generatedPages": [
+        {
+          "source": "AGENTS.md",
+          "output": "AGENTS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "CLAUDE.md",
+          "output": "CLAUDE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "game/FEEDBACK.md",
+          "output": "game/FEEDBACK.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "game/data/README.md",
+          "output": "game/data/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "game/data/geo/README.md",
+          "output": "game/data/geo/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "game/overview/comparison-data/README.md",
+          "output": "game/overview/comparison-data/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "game/src/spots/README.md",
+          "output": "game/src/spots/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/CONDITIONS-ACCESS.md",
+          "output": "handoffs/fidelity/CONDITIONS-ACCESS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/FACADE-RENDERING.md",
+          "output": "handoffs/fidelity/FACADE-RENDERING.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/FIDELITY-GOAL.md",
+          "output": "handoffs/fidelity/FIDELITY-GOAL.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/MOBILE-TRANSITION-CRASH.md",
+          "output": "handoffs/fidelity/MOBILE-TRANSITION-CRASH.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/ORCHESTRATOR-PROMPT.md",
+          "output": "handoffs/fidelity/ORCHESTRATOR-PROMPT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/RESUME.md",
+          "output": "handoffs/fidelity/RESUME.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/ROSETTI-BASKETBALL.md",
+          "output": "handoffs/fidelity/ROSETTI-BASKETBALL.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/TELEMETRY-REVIEW.md",
+          "output": "handoffs/fidelity/TELEMETRY-REVIEW.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/ase-landmark/README.md",
+          "output": "handoffs/fidelity/ase-landmark/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/building-geometry/HANDOFF.md",
+          "output": "handoffs/fidelity/building-geometry/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/cockpit-native-pose/README.md",
+          "output": "handoffs/fidelity/cockpit-native-pose/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/combined-native-budget/README.md",
+          "output": "handoffs/fidelity/combined-native-budget/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/combined-render-budget/HANDOFF.md",
+          "output": "handoffs/fidelity/combined-render-budget/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/comparisons/HANDOFF.md",
+          "output": "handoffs/fidelity/comparisons/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-grozavesti-roads/HANDOFF.md",
+          "output": "handoffs/fidelity/d-grozavesti-roads/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-grozavesti-roads/proof/logic-after.md",
+          "output": "handoffs/fidelity/d-grozavesti-roads/proof/logic-after.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-grozavesti/HANDOFF.md",
+          "output": "handoffs/fidelity/d-grozavesti/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-grozavesti/generic-canopy.md",
+          "output": "handoffs/fidelity/d-grozavesti/generic-canopy.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-otopeni/road-width-inputs.md",
+          "output": "handoffs/fidelity/d-otopeni/road-width-inputs.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-unirii/atlas-4198996/HANDOFF.md",
+          "output": "handoffs/fidelity/d-unirii/atlas-4198996/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-unirii/native-portico/HANDOFF.md",
+          "output": "handoffs/fidelity/d-unirii/native-portico/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/dinamo-playability/HANDOFF.md",
+          "output": "handoffs/fidelity/dinamo-playability/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/drone-controls/HANDOFF.md",
+          "output": "handoffs/fidelity/drone-controls/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/drone-controls/logic.md",
+          "output": "handoffs/fidelity/drone-controls/logic.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/final-physical-soak/README.md",
+          "output": "handoffs/fidelity/final-physical-soak/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/final-physical-soak/tour-availability-fcb60/README.md",
+          "output": "handoffs/fidelity/final-physical-soak/tour-availability-fcb60/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/floreasca-comparisons/README.md",
+          "output": "handoffs/fidelity/floreasca-comparisons/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/game-overview/README.md",
+          "output": "handoffs/fidelity/game-overview/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/integrated-cpu-checks/README.md",
+          "output": "handoffs/fidelity/integrated-cpu-checks/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/integration-asymmetric-consumers/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-asymmetric-consumers/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-bridge-clearance/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-bridge-clearance/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-final-acceptance/CONSOLE-GATES.md",
+          "output": "handoffs/fidelity/integration-final-acceptance/CONSOLE-GATES.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-final-acceptance/CURRENT.md",
+          "output": "handoffs/fidelity/integration-final-acceptance/CURRENT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-final-acceptance/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-final-acceptance/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-final-acceptance/classification/keyboard-e12-cold-frame/REVIEW.md",
+          "output": "handoffs/fidelity/integration-final-acceptance/classification/keyboard-e12-cold-frame/REVIEW.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-final-acceptance/proof/default-spawn-fcb60c84/REVIEW.md",
+          "output": "handoffs/fidelity/integration-final-acceptance/proof/default-spawn-fcb60c84/REVIEW.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-final-acceptance/proof/headlights-e12abd00/REVIEW.md",
+          "output": "handoffs/fidelity/integration-final-acceptance/proof/headlights-e12abd00/REVIEW.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-final-acceptance/proof/menu-d53da8ff/REVIEW.md",
+          "output": "handoffs/fidelity/integration-final-acceptance/proof/menu-d53da8ff/REVIEW.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-final-acceptance/proof/menu-disclosure-e12abd00/REVIEW.md",
+          "output": "handoffs/fidelity/integration-final-acceptance/proof/menu-disclosure-e12abd00/REVIEW.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-final-acceptance/proof/phone-c78a5f4/REVIEW.md",
+          "output": "handoffs/fidelity/integration-final-acceptance/proof/phone-c78a5f4/REVIEW.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-final-acceptance/proof/soak-c78a5f4/REVIEW.md",
+          "output": "handoffs/fidelity/integration-final-acceptance/proof/soak-c78a5f4/REVIEW.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-final-acceptance/queue/README.md",
+          "output": "handoffs/fidelity/integration-final-acceptance/queue/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/integration-groz-seams/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-groz-seams/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-groz-seams/proof/mandatory-foot-a.md",
+          "output": "handoffs/fidelity/integration-groz-seams/proof/mandatory-foot-a.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-groz-seams/proof/visual-incomplete.md",
+          "output": "handoffs/fidelity/integration-groz-seams/proof/visual-incomplete.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-native-controls/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-native-controls/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-office-sign/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-office-sign/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-otopeni-grade/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-otopeni-grade/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-passage-audits/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-passage-audits/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-pipera-retaining/README.md",
+          "output": "handoffs/fidelity/integration-pipera-retaining/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/inventory/HANDOFF.md",
+          "output": "handoffs/fidelity/inventory/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/inventory/README.md",
+          "output": "handoffs/fidelity/inventory/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/landmark-scope-audit/README.md",
+          "output": "handoffs/fidelity/landmark-scope-audit/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/landmark-scope-audit/WORDING-CORRECTION.md",
+          "output": "handoffs/fidelity/landmark-scope-audit/WORDING-CORRECTION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/landmark-scope-audit/landmarks.md",
+          "output": "handoffs/fidelity/landmark-scope-audit/landmarks.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/landmark-scope-audit/tourist-destinations.md",
+          "output": "handoffs/fidelity/landmark-scope-audit/tourist-destinations.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/lipscani-activities/HANDOFF.md",
+          "output": "handoffs/fidelity/lipscani-activities/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/locations-audit/HANDOFF.md",
+          "output": "handoffs/fidelity/locations-audit/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/map-waypoints.md",
+          "output": "handoffs/fidelity/map-waypoints.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/native-roof-profiles/HANDOFF.md",
+          "output": "handoffs/fidelity/native-roof-profiles/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/delivery/floreasca/REPRODUCE.md",
+          "output": "handoffs/fidelity/original-districts-refresh/delivery/floreasca/REPRODUCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/delivery/grozavesti/REPRODUCE.md",
+          "output": "handoffs/fidelity/original-districts-refresh/delivery/grozavesti/REPRODUCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/delivery/romana/REPRODUCE.md",
+          "output": "handoffs/fidelity/original-districts-refresh/delivery/romana/REPRODUCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/gallery-0775/CONTEXT-RUNNING.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/gallery-0775/CONTEXT-RUNNING.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/gallery-0775/README.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/gallery-0775/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/mandatory-95df/README.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/mandatory-95df/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/mandatory-95df/latest.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/mandatory-95df/latest.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/rebuild-03c/floreasca/REPRODUCE.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/rebuild-03c/floreasca/REPRODUCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/rebuild-03c/grozavesti/REPRODUCE.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/rebuild-03c/grozavesti/REPRODUCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/rebuild-03c/romana/REPRODUCE.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/rebuild-03c/romana/REPRODUCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/rebuild-5519/floreasca/REPRODUCE.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/rebuild-5519/floreasca/REPRODUCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/rebuild-5519/grozavesti/REPRODUCE.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/rebuild-5519/grozavesti/REPRODUCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/rebuild-5519/romana/REPRODUCE.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/rebuild-5519/romana/REPRODUCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/rebuild-efad/floreasca/REPRODUCE.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/rebuild-efad/floreasca/REPRODUCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/rebuild-efad/romana/REPRODUCE.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/rebuild-efad/romana/REPRODUCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/README.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-continuation/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-four-arm/README.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-four-arm/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-ordering/README.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-ordering/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-ordering/native-143dca/README.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridge-ordering/native-143dca/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/HANDOFF.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/README.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/scenery-bridges/native-bf32/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/scenery-source-runtime/README.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/scenery-source-runtime/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/street-sweep-planner/README.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/street-sweep-planner/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/README.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/tourist-public-context/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/visual-before-419/README.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/visual-before-419/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/visual-before-419/visual.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/visual-before-419/visual.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-districts-refresh/proof/water-overlap-bbaffc/README.md",
+          "output": "handoffs/fidelity/original-districts-refresh/proof/water-overlap-bbaffc/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/original-pitch-paint/README.md",
+          "output": "handoffs/fidelity/original-pitch-paint/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/overview-browser-check/README.md",
+          "output": "handoffs/fidelity/overview-browser-check/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/overview-current-acceptance/README.md",
+          "output": "handoffs/fidelity/overview-current-acceptance/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/pipera-fidelity/atlas-c78a5f4/README.md",
+          "output": "handoffs/fidelity/pipera-fidelity/atlas-c78a5f4/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/pipera-fidelity/cell-frustum/README.md",
+          "output": "handoffs/fidelity/pipera-fidelity/cell-frustum/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/pipera-fidelity/delivery.md",
+          "output": "handoffs/fidelity/pipera-fidelity/delivery.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/pipera-fidelity/generic-source-policy.md",
+          "output": "handoffs/fidelity/pipera-fidelity/generic-source-policy.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/pipera-fidelity/passage-prerequisite.md",
+          "output": "handoffs/fidelity/pipera-fidelity/passage-prerequisite.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/pipera-fidelity/static-layer-frustum/README.md",
+          "output": "handoffs/fidelity/pipera-fidelity/static-layer-frustum/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/pipera-fidelity/water-render/README.md",
+          "output": "handoffs/fidelity/pipera-fidelity/water-render/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/README.md",
+          "output": "handoffs/fidelity/pipera-fidelity/water-render/shallow-tint/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/pipera-fidelity/water-retakes-bc9a3ff3/README.md",
+          "output": "handoffs/fidelity/pipera-fidelity/water-retakes-bc9a3ff3/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/atlas-final/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/atlas-final/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/native-final/attribution-proof/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/native-final/attribution-proof/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/native-final/matrix-proof/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/native-final/matrix-proof/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/nav-poi-clip/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/nav-poi-clip/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/qa-coverage-fix.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/qa-coverage-fix.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/source-band-checker.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/source-band-checker.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/REVIEWED-NONCROWNS.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/REVIEWED-NONCROWNS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/root-baseline-acceptance/README.md",
+          "output": "handoffs/fidelity/root-baseline-acceptance/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/root-baseline-acceptance/foot-a-4378317/latest.md",
+          "output": "handoffs/fidelity/root-baseline-acceptance/foot-a-4378317/latest.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/root-integration/README.md",
+          "output": "handoffs/fidelity/root-integration/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/root-public-activities-924aaa0/README.md",
+          "output": "handoffs/fidelity/root-public-activities-924aaa0/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/secret-bar-hint/HANDOFF.md",
+          "output": "handoffs/fidelity/secret-bar-hint/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/shared-lane-qa/CONTRACT.md",
+          "output": "handoffs/fidelity/shared-lane-qa/CONTRACT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/shared-lane-qa/RESULTS.md",
+          "output": "handoffs/fidelity/shared-lane-qa/RESULTS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/signals-collisions/HANDOFF.md",
+          "output": "handoffs/fidelity/signals-collisions/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/structure-atlas-07cc/README.md",
+          "output": "handoffs/fidelity/structure-atlas-07cc/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/telemetry-v2/HANDOFF.md",
+          "output": "handoffs/fidelity/telemetry-v2/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-buc-portfolio/HANDOFF.md",
+          "output": "handoffs/fidelity/tourist-buc-portfolio/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/ACTIVITY-AUDIT-RESUME.md",
+          "output": "handoffs/fidelity/tourist-context-activities/ACTIVITY-AUDIT-RESUME.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/ACTIVITY-SOURCES.md",
+          "output": "handoffs/fidelity/tourist-context-activities/ACTIVITY-SOURCES.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/CATHEDRAL-FORECOURT.md",
+          "output": "handoffs/fidelity/tourist-context-activities/CATHEDRAL-FORECOURT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/CEC-NATIVE-COLLISION.md",
+          "output": "handoffs/fidelity/tourist-context-activities/CEC-NATIVE-COLLISION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/CONTEXT-24.md",
+          "output": "handoffs/fidelity/tourist-context-activities/CONTEXT-24.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/FINAL-ACTIVITY-GATES.md",
+          "output": "handoffs/fidelity/tourist-context-activities/FINAL-ACTIVITY-GATES.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/HANDOFF.md",
+          "output": "handoffs/fidelity/tourist-context-activities/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/MENU-CURATION.md",
+          "output": "handoffs/fidelity/tourist-context-activities/MENU-CURATION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/PARK-PARTICIPATION-PROOF.md",
+          "output": "handoffs/fidelity/tourist-context-activities/PARK-PARTICIPATION-PROOF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/PIONEER-PARTICIPATION.md",
+          "output": "handoffs/fidelity/tourist-context-activities/PIONEER-PARTICIPATION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/PUBLIC-EVIDENCE-PROMOTION.md",
+          "output": "handoffs/fidelity/tourist-context-activities/PUBLIC-EVIDENCE-PROMOTION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/ROUND-3.md",
+          "output": "handoffs/fidelity/tourist-context-activities/ROUND-3.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/physical-carusel/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/physical-carusel/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/cache-19-final/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/cache-19-final/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/continuous-walking/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/continuous-walking/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/lincoln-crowd-touch/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/lincoln-crowd-touch/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/marina-flight/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/marina-flight/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/market-shore-final/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/market-shore-final/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/retained-queue/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/retained-queue/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/round-1-logic.md",
+          "output": "handoffs/fidelity/tourist-context-activities/round-1-logic.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/round-2-activities.md",
+          "output": "handoffs/fidelity/tourist-context-activities/round-2-activities.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-journey/HANDOFF.md",
+          "output": "handoffs/fidelity/tourist-journey/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-us-portfolio/README.md",
+          "output": "handoffs/fidelity/tourist-us-portfolio/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-us-portfolio/scene-briefs.md",
+          "output": "handoffs/fidelity/tourist-us-portfolio/scene-briefs.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/CHAPTER-WAYPOINT.md",
+          "output": "handoffs/fidelity/us-districts/CHAPTER-WAYPOINT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/FINALIZATION-CHECKPOINT.md",
+          "output": "handoffs/fidelity/us-districts/FINALIZATION-CHECKPOINT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/PARKING-LAYOUT.md",
+          "output": "handoffs/fidelity/us-districts/PARKING-LAYOUT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/RELATION-PARTS.md",
+          "output": "handoffs/fidelity/us-districts/RELATION-PARTS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/RESEARCH-SOURCE-IDENTITY.md",
+          "output": "handoffs/fidelity/us-districts/RESEARCH-SOURCE-IDENTITY.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/REVIEWED-ROOF-SHAPES.md",
+          "output": "handoffs/fidelity/us-districts/REVIEWED-ROOF-SHAPES.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/ROAD-ACCESS.md",
+          "output": "handoffs/fidelity/us-districts/ROAD-ACCESS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/ROAD-GEOMETRY.md",
+          "output": "handoffs/fidelity/us-districts/ROAD-GEOMETRY.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/ROOF-COLOUR.md",
+          "output": "handoffs/fidelity/us-districts/ROOF-COLOUR.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/SEATAC-AIRCRAFT.md",
+          "output": "handoffs/fidelity/us-districts/SEATAC-AIRCRAFT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/SEATAC-FACADE.md",
+          "output": "handoffs/fidelity/us-districts/SEATAC-FACADE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/bellevue/SOURCE-AUDIT.md",
+          "output": "handoffs/fidelity/us-districts/bellevue/SOURCE-AUDIT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/native-c78a5f4/README.md",
+          "output": "handoffs/fidelity/us-districts/native-c78a5f4/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/seatac/SOURCE-AUDIT.md",
+          "output": "handoffs/fidelity/us-districts/seatac/SOURCE-AUDIT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/seatac/structure-2b2b970/README.md",
+          "output": "handoffs/fidelity/us-districts/seatac/structure-2b2b970/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/seatac/structure-e606214/README.md",
+          "output": "handoffs/fidelity/us-districts/seatac/structure-e606214/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/tools/README.md",
+          "output": "handoffs/fidelity/us-districts/tools/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/us-landmarks/ACCEPTANCE.md",
+          "output": "handoffs/fidelity/us-landmarks/ACCEPTANCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-landmarks/PATCH-NOTES.md",
+          "output": "handoffs/fidelity/us-landmarks/PATCH-NOTES.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/water-ribbon-overlap/unirii/README.md",
+          "output": "handoffs/fidelity/water-ribbon-overlap/unirii/index.html",
+          "plugin": "jekyll-readme-index"
+        }
+      ]
+    },
+    {
+      "label": "Three directory exclusions",
+      "excludedDirectories": [
+        "handoffs/fidelity/pipera-fidelity",
+        "handoffs/fidelity/original-districts-refresh",
+        "handoffs/fidelity/integration-final-acceptance"
+      ],
+      "eligibleTrackedInputFiles": 14319,
+      "eligibleTrackedInputBytes": 831571107,
+      "generatedMarkdownPages": 127,
+      "defaultThemeOutputAssets": 1,
+      "predictedOutputFileCount": 14447,
+      "builtOutputBytes": null,
+      "builtOutputBytesReason": "Not built: Ruby/Jekyll absent. Original Markdown retained by default; generated HTML/theme CSS adds bytes and depends on Jekyll/Kramdown/layout/build metadata.",
+      "generatedPages": [
+        {
+          "source": "AGENTS.md",
+          "output": "AGENTS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "CLAUDE.md",
+          "output": "CLAUDE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "game/FEEDBACK.md",
+          "output": "game/FEEDBACK.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "game/data/README.md",
+          "output": "game/data/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "game/data/geo/README.md",
+          "output": "game/data/geo/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "game/overview/comparison-data/README.md",
+          "output": "game/overview/comparison-data/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "game/src/spots/README.md",
+          "output": "game/src/spots/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/CONDITIONS-ACCESS.md",
+          "output": "handoffs/fidelity/CONDITIONS-ACCESS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/FACADE-RENDERING.md",
+          "output": "handoffs/fidelity/FACADE-RENDERING.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/FIDELITY-GOAL.md",
+          "output": "handoffs/fidelity/FIDELITY-GOAL.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/MOBILE-TRANSITION-CRASH.md",
+          "output": "handoffs/fidelity/MOBILE-TRANSITION-CRASH.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/ORCHESTRATOR-PROMPT.md",
+          "output": "handoffs/fidelity/ORCHESTRATOR-PROMPT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/RESUME.md",
+          "output": "handoffs/fidelity/RESUME.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/ROSETTI-BASKETBALL.md",
+          "output": "handoffs/fidelity/ROSETTI-BASKETBALL.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/TELEMETRY-REVIEW.md",
+          "output": "handoffs/fidelity/TELEMETRY-REVIEW.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/ase-landmark/README.md",
+          "output": "handoffs/fidelity/ase-landmark/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/building-geometry/HANDOFF.md",
+          "output": "handoffs/fidelity/building-geometry/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/cockpit-native-pose/README.md",
+          "output": "handoffs/fidelity/cockpit-native-pose/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/combined-native-budget/README.md",
+          "output": "handoffs/fidelity/combined-native-budget/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/combined-render-budget/HANDOFF.md",
+          "output": "handoffs/fidelity/combined-render-budget/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/comparisons/HANDOFF.md",
+          "output": "handoffs/fidelity/comparisons/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-grozavesti-roads/HANDOFF.md",
+          "output": "handoffs/fidelity/d-grozavesti-roads/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-grozavesti-roads/proof/logic-after.md",
+          "output": "handoffs/fidelity/d-grozavesti-roads/proof/logic-after.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-grozavesti/HANDOFF.md",
+          "output": "handoffs/fidelity/d-grozavesti/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-grozavesti/generic-canopy.md",
+          "output": "handoffs/fidelity/d-grozavesti/generic-canopy.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-otopeni/road-width-inputs.md",
+          "output": "handoffs/fidelity/d-otopeni/road-width-inputs.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-unirii/atlas-4198996/HANDOFF.md",
+          "output": "handoffs/fidelity/d-unirii/atlas-4198996/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-unirii/native-portico/HANDOFF.md",
+          "output": "handoffs/fidelity/d-unirii/native-portico/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/dinamo-playability/HANDOFF.md",
+          "output": "handoffs/fidelity/dinamo-playability/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/drone-controls/HANDOFF.md",
+          "output": "handoffs/fidelity/drone-controls/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/drone-controls/logic.md",
+          "output": "handoffs/fidelity/drone-controls/logic.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/final-physical-soak/README.md",
+          "output": "handoffs/fidelity/final-physical-soak/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/final-physical-soak/tour-availability-fcb60/README.md",
+          "output": "handoffs/fidelity/final-physical-soak/tour-availability-fcb60/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/floreasca-comparisons/README.md",
+          "output": "handoffs/fidelity/floreasca-comparisons/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/game-overview/README.md",
+          "output": "handoffs/fidelity/game-overview/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/integrated-cpu-checks/README.md",
+          "output": "handoffs/fidelity/integrated-cpu-checks/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/integration-asymmetric-consumers/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-asymmetric-consumers/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-bridge-clearance/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-bridge-clearance/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-groz-seams/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-groz-seams/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-groz-seams/proof/mandatory-foot-a.md",
+          "output": "handoffs/fidelity/integration-groz-seams/proof/mandatory-foot-a.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-groz-seams/proof/visual-incomplete.md",
+          "output": "handoffs/fidelity/integration-groz-seams/proof/visual-incomplete.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-native-controls/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-native-controls/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-office-sign/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-office-sign/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-otopeni-grade/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-otopeni-grade/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-passage-audits/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-passage-audits/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-pipera-retaining/README.md",
+          "output": "handoffs/fidelity/integration-pipera-retaining/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/inventory/HANDOFF.md",
+          "output": "handoffs/fidelity/inventory/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/inventory/README.md",
+          "output": "handoffs/fidelity/inventory/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/landmark-scope-audit/README.md",
+          "output": "handoffs/fidelity/landmark-scope-audit/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/landmark-scope-audit/WORDING-CORRECTION.md",
+          "output": "handoffs/fidelity/landmark-scope-audit/WORDING-CORRECTION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/landmark-scope-audit/landmarks.md",
+          "output": "handoffs/fidelity/landmark-scope-audit/landmarks.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/landmark-scope-audit/tourist-destinations.md",
+          "output": "handoffs/fidelity/landmark-scope-audit/tourist-destinations.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/lipscani-activities/HANDOFF.md",
+          "output": "handoffs/fidelity/lipscani-activities/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/locations-audit/HANDOFF.md",
+          "output": "handoffs/fidelity/locations-audit/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/map-waypoints.md",
+          "output": "handoffs/fidelity/map-waypoints.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/native-roof-profiles/HANDOFF.md",
+          "output": "handoffs/fidelity/native-roof-profiles/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-pitch-paint/README.md",
+          "output": "handoffs/fidelity/original-pitch-paint/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/overview-browser-check/README.md",
+          "output": "handoffs/fidelity/overview-browser-check/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/overview-current-acceptance/README.md",
+          "output": "handoffs/fidelity/overview-current-acceptance/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/atlas-final/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/atlas-final/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/native-final/attribution-proof/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/native-final/attribution-proof/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/native-final/matrix-proof/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/native-final/matrix-proof/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/nav-poi-clip/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/nav-poi-clip/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/qa-coverage-fix.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/qa-coverage-fix.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/source-band-checker.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/source-band-checker.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/REVIEWED-NONCROWNS.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/REVIEWED-NONCROWNS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/root-baseline-acceptance/README.md",
+          "output": "handoffs/fidelity/root-baseline-acceptance/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/root-baseline-acceptance/foot-a-4378317/latest.md",
+          "output": "handoffs/fidelity/root-baseline-acceptance/foot-a-4378317/latest.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/root-integration/README.md",
+          "output": "handoffs/fidelity/root-integration/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/root-public-activities-924aaa0/README.md",
+          "output": "handoffs/fidelity/root-public-activities-924aaa0/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/secret-bar-hint/HANDOFF.md",
+          "output": "handoffs/fidelity/secret-bar-hint/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/shared-lane-qa/CONTRACT.md",
+          "output": "handoffs/fidelity/shared-lane-qa/CONTRACT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/shared-lane-qa/RESULTS.md",
+          "output": "handoffs/fidelity/shared-lane-qa/RESULTS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/signals-collisions/HANDOFF.md",
+          "output": "handoffs/fidelity/signals-collisions/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/structure-atlas-07cc/README.md",
+          "output": "handoffs/fidelity/structure-atlas-07cc/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/telemetry-v2/HANDOFF.md",
+          "output": "handoffs/fidelity/telemetry-v2/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-buc-portfolio/HANDOFF.md",
+          "output": "handoffs/fidelity/tourist-buc-portfolio/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/ACTIVITY-AUDIT-RESUME.md",
+          "output": "handoffs/fidelity/tourist-context-activities/ACTIVITY-AUDIT-RESUME.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/ACTIVITY-SOURCES.md",
+          "output": "handoffs/fidelity/tourist-context-activities/ACTIVITY-SOURCES.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/CATHEDRAL-FORECOURT.md",
+          "output": "handoffs/fidelity/tourist-context-activities/CATHEDRAL-FORECOURT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/CEC-NATIVE-COLLISION.md",
+          "output": "handoffs/fidelity/tourist-context-activities/CEC-NATIVE-COLLISION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/CONTEXT-24.md",
+          "output": "handoffs/fidelity/tourist-context-activities/CONTEXT-24.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/FINAL-ACTIVITY-GATES.md",
+          "output": "handoffs/fidelity/tourist-context-activities/FINAL-ACTIVITY-GATES.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/HANDOFF.md",
+          "output": "handoffs/fidelity/tourist-context-activities/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/MENU-CURATION.md",
+          "output": "handoffs/fidelity/tourist-context-activities/MENU-CURATION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/PARK-PARTICIPATION-PROOF.md",
+          "output": "handoffs/fidelity/tourist-context-activities/PARK-PARTICIPATION-PROOF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/PIONEER-PARTICIPATION.md",
+          "output": "handoffs/fidelity/tourist-context-activities/PIONEER-PARTICIPATION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/PUBLIC-EVIDENCE-PROMOTION.md",
+          "output": "handoffs/fidelity/tourist-context-activities/PUBLIC-EVIDENCE-PROMOTION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/ROUND-3.md",
+          "output": "handoffs/fidelity/tourist-context-activities/ROUND-3.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/physical-carusel/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/physical-carusel/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/cache-19-final/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/cache-19-final/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/continuous-walking/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/continuous-walking/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/lincoln-crowd-touch/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/lincoln-crowd-touch/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/marina-flight/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/marina-flight/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/market-shore-final/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/market-shore-final/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/retained-queue/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/retained-queue/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/round-1-logic.md",
+          "output": "handoffs/fidelity/tourist-context-activities/round-1-logic.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/round-2-activities.md",
+          "output": "handoffs/fidelity/tourist-context-activities/round-2-activities.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-journey/HANDOFF.md",
+          "output": "handoffs/fidelity/tourist-journey/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-us-portfolio/README.md",
+          "output": "handoffs/fidelity/tourist-us-portfolio/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-us-portfolio/scene-briefs.md",
+          "output": "handoffs/fidelity/tourist-us-portfolio/scene-briefs.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/CHAPTER-WAYPOINT.md",
+          "output": "handoffs/fidelity/us-districts/CHAPTER-WAYPOINT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/FINALIZATION-CHECKPOINT.md",
+          "output": "handoffs/fidelity/us-districts/FINALIZATION-CHECKPOINT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/PARKING-LAYOUT.md",
+          "output": "handoffs/fidelity/us-districts/PARKING-LAYOUT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/RELATION-PARTS.md",
+          "output": "handoffs/fidelity/us-districts/RELATION-PARTS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/RESEARCH-SOURCE-IDENTITY.md",
+          "output": "handoffs/fidelity/us-districts/RESEARCH-SOURCE-IDENTITY.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/REVIEWED-ROOF-SHAPES.md",
+          "output": "handoffs/fidelity/us-districts/REVIEWED-ROOF-SHAPES.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/ROAD-ACCESS.md",
+          "output": "handoffs/fidelity/us-districts/ROAD-ACCESS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/ROAD-GEOMETRY.md",
+          "output": "handoffs/fidelity/us-districts/ROAD-GEOMETRY.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/ROOF-COLOUR.md",
+          "output": "handoffs/fidelity/us-districts/ROOF-COLOUR.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/SEATAC-AIRCRAFT.md",
+          "output": "handoffs/fidelity/us-districts/SEATAC-AIRCRAFT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/SEATAC-FACADE.md",
+          "output": "handoffs/fidelity/us-districts/SEATAC-FACADE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/bellevue/SOURCE-AUDIT.md",
+          "output": "handoffs/fidelity/us-districts/bellevue/SOURCE-AUDIT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/native-c78a5f4/README.md",
+          "output": "handoffs/fidelity/us-districts/native-c78a5f4/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/seatac/SOURCE-AUDIT.md",
+          "output": "handoffs/fidelity/us-districts/seatac/SOURCE-AUDIT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/seatac/structure-2b2b970/README.md",
+          "output": "handoffs/fidelity/us-districts/seatac/structure-2b2b970/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/seatac/structure-e606214/README.md",
+          "output": "handoffs/fidelity/us-districts/seatac/structure-e606214/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/us-districts/tools/README.md",
+          "output": "handoffs/fidelity/us-districts/tools/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/us-landmarks/ACCEPTANCE.md",
+          "output": "handoffs/fidelity/us-landmarks/ACCEPTANCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-landmarks/PATCH-NOTES.md",
+          "output": "handoffs/fidelity/us-landmarks/PATCH-NOTES.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/water-ribbon-overlap/unirii/README.md",
+          "output": "handoffs/fidelity/water-ribbon-overlap/unirii/index.html",
+          "plugin": "jekyll-readme-index"
+        }
+      ]
+    },
+    {
+      "label": "Four directory exclusions",
+      "excludedDirectories": [
+        "handoffs/fidelity/pipera-fidelity",
+        "handoffs/fidelity/original-districts-refresh",
+        "handoffs/fidelity/integration-final-acceptance",
+        "handoffs/fidelity/us-districts"
+      ],
+      "eligibleTrackedInputFiles": 14115,
+      "eligibleTrackedInputBytes": 812908107,
+      "generatedMarkdownPages": 110,
+      "defaultThemeOutputAssets": 1,
+      "predictedOutputFileCount": 14226,
+      "builtOutputBytes": null,
+      "builtOutputBytesReason": "Not built: Ruby/Jekyll absent. Original Markdown retained by default; generated HTML/theme CSS adds bytes and depends on Jekyll/Kramdown/layout/build metadata.",
+      "generatedPages": [
+        {
+          "source": "AGENTS.md",
+          "output": "AGENTS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "CLAUDE.md",
+          "output": "CLAUDE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "game/FEEDBACK.md",
+          "output": "game/FEEDBACK.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "game/data/README.md",
+          "output": "game/data/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "game/data/geo/README.md",
+          "output": "game/data/geo/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "game/overview/comparison-data/README.md",
+          "output": "game/overview/comparison-data/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "game/src/spots/README.md",
+          "output": "game/src/spots/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/CONDITIONS-ACCESS.md",
+          "output": "handoffs/fidelity/CONDITIONS-ACCESS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/FACADE-RENDERING.md",
+          "output": "handoffs/fidelity/FACADE-RENDERING.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/FIDELITY-GOAL.md",
+          "output": "handoffs/fidelity/FIDELITY-GOAL.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/MOBILE-TRANSITION-CRASH.md",
+          "output": "handoffs/fidelity/MOBILE-TRANSITION-CRASH.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/ORCHESTRATOR-PROMPT.md",
+          "output": "handoffs/fidelity/ORCHESTRATOR-PROMPT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/RESUME.md",
+          "output": "handoffs/fidelity/RESUME.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/ROSETTI-BASKETBALL.md",
+          "output": "handoffs/fidelity/ROSETTI-BASKETBALL.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/TELEMETRY-REVIEW.md",
+          "output": "handoffs/fidelity/TELEMETRY-REVIEW.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/ase-landmark/README.md",
+          "output": "handoffs/fidelity/ase-landmark/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/building-geometry/HANDOFF.md",
+          "output": "handoffs/fidelity/building-geometry/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/cockpit-native-pose/README.md",
+          "output": "handoffs/fidelity/cockpit-native-pose/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/combined-native-budget/README.md",
+          "output": "handoffs/fidelity/combined-native-budget/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/combined-render-budget/HANDOFF.md",
+          "output": "handoffs/fidelity/combined-render-budget/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/comparisons/HANDOFF.md",
+          "output": "handoffs/fidelity/comparisons/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-grozavesti-roads/HANDOFF.md",
+          "output": "handoffs/fidelity/d-grozavesti-roads/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-grozavesti-roads/proof/logic-after.md",
+          "output": "handoffs/fidelity/d-grozavesti-roads/proof/logic-after.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-grozavesti/HANDOFF.md",
+          "output": "handoffs/fidelity/d-grozavesti/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-grozavesti/generic-canopy.md",
+          "output": "handoffs/fidelity/d-grozavesti/generic-canopy.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-otopeni/road-width-inputs.md",
+          "output": "handoffs/fidelity/d-otopeni/road-width-inputs.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-unirii/atlas-4198996/HANDOFF.md",
+          "output": "handoffs/fidelity/d-unirii/atlas-4198996/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/d-unirii/native-portico/HANDOFF.md",
+          "output": "handoffs/fidelity/d-unirii/native-portico/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/dinamo-playability/HANDOFF.md",
+          "output": "handoffs/fidelity/dinamo-playability/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/drone-controls/HANDOFF.md",
+          "output": "handoffs/fidelity/drone-controls/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/drone-controls/logic.md",
+          "output": "handoffs/fidelity/drone-controls/logic.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/final-physical-soak/README.md",
+          "output": "handoffs/fidelity/final-physical-soak/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/final-physical-soak/tour-availability-fcb60/README.md",
+          "output": "handoffs/fidelity/final-physical-soak/tour-availability-fcb60/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/floreasca-comparisons/README.md",
+          "output": "handoffs/fidelity/floreasca-comparisons/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/game-overview/README.md",
+          "output": "handoffs/fidelity/game-overview/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/integrated-cpu-checks/README.md",
+          "output": "handoffs/fidelity/integrated-cpu-checks/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/integration-asymmetric-consumers/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-asymmetric-consumers/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-bridge-clearance/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-bridge-clearance/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-groz-seams/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-groz-seams/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-groz-seams/proof/mandatory-foot-a.md",
+          "output": "handoffs/fidelity/integration-groz-seams/proof/mandatory-foot-a.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-groz-seams/proof/visual-incomplete.md",
+          "output": "handoffs/fidelity/integration-groz-seams/proof/visual-incomplete.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-native-controls/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-native-controls/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-office-sign/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-office-sign/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-otopeni-grade/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-otopeni-grade/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-passage-audits/HANDOFF.md",
+          "output": "handoffs/fidelity/integration-passage-audits/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/integration-pipera-retaining/README.md",
+          "output": "handoffs/fidelity/integration-pipera-retaining/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/inventory/HANDOFF.md",
+          "output": "handoffs/fidelity/inventory/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/inventory/README.md",
+          "output": "handoffs/fidelity/inventory/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/landmark-scope-audit/README.md",
+          "output": "handoffs/fidelity/landmark-scope-audit/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/landmark-scope-audit/WORDING-CORRECTION.md",
+          "output": "handoffs/fidelity/landmark-scope-audit/WORDING-CORRECTION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/landmark-scope-audit/landmarks.md",
+          "output": "handoffs/fidelity/landmark-scope-audit/landmarks.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/landmark-scope-audit/tourist-destinations.md",
+          "output": "handoffs/fidelity/landmark-scope-audit/tourist-destinations.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/lipscani-activities/HANDOFF.md",
+          "output": "handoffs/fidelity/lipscani-activities/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/locations-audit/HANDOFF.md",
+          "output": "handoffs/fidelity/locations-audit/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/map-waypoints.md",
+          "output": "handoffs/fidelity/map-waypoints.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/native-roof-profiles/HANDOFF.md",
+          "output": "handoffs/fidelity/native-roof-profiles/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/original-pitch-paint/README.md",
+          "output": "handoffs/fidelity/original-pitch-paint/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/overview-browser-check/README.md",
+          "output": "handoffs/fidelity/overview-browser-check/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/overview-current-acceptance/README.md",
+          "output": "handoffs/fidelity/overview-current-acceptance/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/atlas-final/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/atlas-final/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/cec-source-masses/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/native-final/attribution-proof/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/native-final/attribution-proof/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/native-final/matrix-proof/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/native-final/matrix-proof/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/nav-poi-clip/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/nav-poi-clip/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/qa-coverage-fix.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/qa-coverage-fix.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/source-band-checker.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/source-band-checker.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/REVIEWED-NONCROWNS.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/source-tree-centres/REVIEWED-NONCROWNS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/HANDOFF.md",
+          "output": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/root-baseline-acceptance/README.md",
+          "output": "handoffs/fidelity/root-baseline-acceptance/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/root-baseline-acceptance/foot-a-4378317/latest.md",
+          "output": "handoffs/fidelity/root-baseline-acceptance/foot-a-4378317/latest.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/root-integration/README.md",
+          "output": "handoffs/fidelity/root-integration/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/root-public-activities-924aaa0/README.md",
+          "output": "handoffs/fidelity/root-public-activities-924aaa0/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/secret-bar-hint/HANDOFF.md",
+          "output": "handoffs/fidelity/secret-bar-hint/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/shared-lane-qa/CONTRACT.md",
+          "output": "handoffs/fidelity/shared-lane-qa/CONTRACT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/shared-lane-qa/RESULTS.md",
+          "output": "handoffs/fidelity/shared-lane-qa/RESULTS.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/signals-collisions/HANDOFF.md",
+          "output": "handoffs/fidelity/signals-collisions/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/structure-atlas-07cc/README.md",
+          "output": "handoffs/fidelity/structure-atlas-07cc/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/telemetry-v2/HANDOFF.md",
+          "output": "handoffs/fidelity/telemetry-v2/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-buc-portfolio/HANDOFF.md",
+          "output": "handoffs/fidelity/tourist-buc-portfolio/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/ACTIVITY-AUDIT-RESUME.md",
+          "output": "handoffs/fidelity/tourist-context-activities/ACTIVITY-AUDIT-RESUME.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/ACTIVITY-SOURCES.md",
+          "output": "handoffs/fidelity/tourist-context-activities/ACTIVITY-SOURCES.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/CATHEDRAL-FORECOURT.md",
+          "output": "handoffs/fidelity/tourist-context-activities/CATHEDRAL-FORECOURT.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/CEC-NATIVE-COLLISION.md",
+          "output": "handoffs/fidelity/tourist-context-activities/CEC-NATIVE-COLLISION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/CONTEXT-24.md",
+          "output": "handoffs/fidelity/tourist-context-activities/CONTEXT-24.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/FINAL-ACTIVITY-GATES.md",
+          "output": "handoffs/fidelity/tourist-context-activities/FINAL-ACTIVITY-GATES.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/HANDOFF.md",
+          "output": "handoffs/fidelity/tourist-context-activities/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/MENU-CURATION.md",
+          "output": "handoffs/fidelity/tourist-context-activities/MENU-CURATION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/PARK-PARTICIPATION-PROOF.md",
+          "output": "handoffs/fidelity/tourist-context-activities/PARK-PARTICIPATION-PROOF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/PIONEER-PARTICIPATION.md",
+          "output": "handoffs/fidelity/tourist-context-activities/PIONEER-PARTICIPATION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/PUBLIC-EVIDENCE-PROMOTION.md",
+          "output": "handoffs/fidelity/tourist-context-activities/PUBLIC-EVIDENCE-PROMOTION.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/ROUND-3.md",
+          "output": "handoffs/fidelity/tourist-context-activities/ROUND-3.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/physical-carusel/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/physical-carusel/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/cache-19-final/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/cache-19-final/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/continuous-walking/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/continuous-walking/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/lincoln-crowd-touch/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/lincoln-crowd-touch/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/marina-flight/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/marina-flight/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/market-shore-final/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/market-shore-final/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/outdoor-recovered/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/retained-queue/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/retained-queue/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/README.md",
+          "output": "handoffs/fidelity/tourist-context-activities/proof/seattle-manual/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/round-1-logic.md",
+          "output": "handoffs/fidelity/tourist-context-activities/round-1-logic.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-context-activities/round-2-activities.md",
+          "output": "handoffs/fidelity/tourist-context-activities/round-2-activities.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-journey/HANDOFF.md",
+          "output": "handoffs/fidelity/tourist-journey/HANDOFF.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-us-portfolio/README.md",
+          "output": "handoffs/fidelity/tourist-us-portfolio/index.html",
+          "plugin": "jekyll-readme-index"
+        },
+        {
+          "source": "handoffs/fidelity/tourist-us-portfolio/scene-briefs.md",
+          "output": "handoffs/fidelity/tourist-us-portfolio/scene-briefs.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-landmarks/ACCEPTANCE.md",
+          "output": "handoffs/fidelity/us-landmarks/ACCEPTANCE.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/us-landmarks/PATCH-NOTES.md",
+          "output": "handoffs/fidelity/us-landmarks/PATCH-NOTES.html",
+          "plugin": "jekyll-optional-front-matter"
+        },
+        {
+          "source": "handoffs/fidelity/water-ribbon-overlap/unirii/README.md",
+          "output": "handoffs/fidelity/water-ribbon-overlap/unirii/index.html",
+          "plugin": "jekyll-readme-index"
+        }
+      ]
+    }
+  ]
+}

@@ -193,13 +193,14 @@ export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MOD
             const groundLevel = breaks.every(t => Math.abs(heightAt(t)) < 1e-8) && breaks.slice(1).every((t, k) => Math.abs(heightAt((t + breaks[k]) / 2)) < 1e-8);
             const halfWidthM = Math.max(gauge / 2000, 1.2) + .5;
             corridors.push({ a, b, sourceId: source.sourceId, sourceNodeIds: source.nodeIds.slice(i - 1, i + 1), gaugeM: gauge / 1000,
-                heightAt, groundLevel, halfWidthM, maxGrade: grade.maxGrade || 0,
+                heightAt, groundLevel, sourceBridgeModelId:grade.sourceBridgeModelId, halfWidthM, maxGrade: grade.maxGrade || 0,
                 x0: Math.min(a[0], b[0]) - halfWidthM, x1: Math.max(a[0], b[0]) + halfWidthM, z0: Math.min(a[1], b[1]) - halfWidthM, z1: Math.max(a[1], b[1]) + halfWidthM });
         }
     }
-    const excludesInferredObstacle = (a, b, { inferred = false, y0a, y1a, y0b = y0a, y1b = y1a, radiusM = .35, kind = 'inferred', sourceId = null, bodyEnvelope = null } = {}) => {
+    const excludesInferredObstacle = (a, b, { inferred = false, y0a, y1a, y0b = y0a, y1b = y1a, radiusM = .35, kind = 'inferred', sourceId = null, bodyEnvelope = null, sourceBridgeModelId = null } = {}) => {
         if (!inferred) return false;
         for (const c of corridors) {
+            if(sourceBridgeModelId&&c.sourceBridgeModelId!==sourceBridgeModelId)continue;
             if (Math.max(a[0], b[0]) < c.x0 - radiusM || Math.min(a[0], b[0]) > c.x1 + radiusM || Math.max(a[1], b[1]) < c.z0 - radiusM || Math.min(a[1], b[1]) > c.z1 + radiusM) continue;
             const halfWidthM = bodyEnvelope ? Math.max(c.gaugeM / 2, bodyEnvelope.halfWidthM) : c.halfWidthM;
             const q = closestSegments(a, b, c.a, c.b); if (q.distance > halfWidthM + radiusM) continue;

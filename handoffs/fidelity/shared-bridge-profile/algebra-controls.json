@@ -6,11 +6,11 @@
     "sourceDataCommit": "c7185127d31c4f1d14cadcf8cbe0ed2f2e44d46d",
     "sourceDataSha256": "fa12eda6365d369c79222ed8af0a068f5173899d71698a7f94cd70682dac4685"
   },
-  "changedRoadEdges": 143,
+  "changedRoadEdges": 145,
   "changedRailLegs": 28,
   "piecesChecked": 450,
   "maximumGrade": 0.08000000000056323,
-  "maxPolynomialError": 1.3677770027697989e-10,
+  "maxPolynomialError": 1.4566481354449934e-10,
   "maxRegionAreaError": 1.1641532182693481e-10,
   "model": {
     "modelId": "basarab-shared-fork",
@@ -29,7 +29,10 @@
       "w668894712": "auxiliary",
       "w84477811": "auxiliary",
       "w128304850": "auxiliary",
-      "w118284448": "exit"
+      "w118284448": "exit",
+      "w668676695": "approachIn",
+      "w84482712": "approachOut",
+      "w668679788": "approachOut"
     },
     "oldProfiles": [
       {
@@ -187,6 +190,12 @@
         "sourceId": "w84482671",
         "ya": 6.485759899574993,
         "yb": 6.486257553300892
+      },
+      {
+        "edgeId": 1008,
+        "sourceId": "w84482712",
+        "ya": 0,
+        "yb": 0
       },
       {
         "edgeId": 1009,
@@ -354,6 +363,12 @@
         "edgeId": 1104,
         "sourceId": "w668676694",
         "ya": 0.8882892375565121,
+        "yb": 0
+      },
+      {
+        "edgeId": 1105,
+        "sourceId": "w668676695",
+        "ya": 0,
         "yb": 0
       },
       {
@@ -893,21 +908,51 @@
     ],
     "feasibility": {
       "forkHeightM": 7.5,
-      "requestedConservativeHeadroomFloorM": 7.13,
-      "maximumSourceGroundGradeHeightM": 7.56576914640898,
+      "splitterModelHeightM": 1.4,
+      "splitterSourceNode": 6261926625,
+      "outerSourceGroundNodes": [
+        6261926624,
+        3208556810
+      ],
       "groundTrunkLengthM": 49.99220430584646,
+      "groundTrunkRisingLengthM": 45.9680850708827,
+      "groundEaseM": 20,
       "internalSourceNode": 981547574,
-      "internalHeightM": 3.9964535897275186,
+      "internalHeightM": 4.277446805670616,
       "sharedRadialRadiusM": 7.106388133774589,
-      "sharedRadialRiseM": 0.5655882959617694,
-      "branchStartsM": {
-        "branchA": 7.106388133774597,
-        "branchB": 7.106408400568014
+      "branchRadialEndsM": {
+        "branchA": 48.97681232512586,
+        "branchB": 48.4967638757127
       },
-      "branchRemainingM": {
-        "branchA": 43.44186235948589,
-        "branchB": 43.27930705915813
+      "approachFlatReservesM": {
+        "trunk": [
+          4.024119234963753,
+          0
+        ],
+        "approachIn": [
+          0,
+          22.677298413657972
+        ],
+        "approachOut": [
+          22.6718326792033,
+          48.80233048169084
+        ]
       },
+      "approachLengthsM": [
+        27.923328467188178,
+        27.923328467188178
+      ],
+      "approachCommonField": {
+        "sourceMaster": "w668676695",
+        "flatStartM": 4.221135719021682,
+        "zeroSectionM": 32.14446418620986,
+        "nativeZeroSourceNode": 6261963477,
+        "outerFlatGroundContinuation": 3208556810
+      },
+      "approachPeakGrades": [
+        0.07520593408008804,
+        0.07520593408008804
+      ],
       "flatMergeM": {
         "auxiliary": 26.901496326576932,
         "branchA": 14.031659531005303,
@@ -916,857 +961,29 @@
         "exit": 34.12980179975776
       },
       "preferredEaseM": 20,
-      "chosenShortRampEaseM": 2.207090533093464,
-      "junctionEaseM": 0.07306886850494308,
-      "shortCrossingConstraints": [
-        {
-          "upperEdge": 1064,
-          "upperSource": "w119235186",
-          "lowerEdge": 637,
-          "lowerSource": "w139758830",
-          "point": [
-            384.2424568776348,
-            -706.7852647593813
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.5
-        },
-        {
-          "upperEdge": 1064,
-          "upperSource": "w119235186",
-          "lowerEdge": 637,
-          "lowerSource": "w139758830",
-          "point": [
-            389.67788190914115,
-            -707.8913839930339
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.197249234875688
-        },
-        {
-          "upperEdge": 1064,
-          "upperSource": "w119235186",
-          "lowerEdge": 637,
-          "lowerSource": "w139758830",
-          "point": [
-            389.1402729443918,
-            -711.3356718450638
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.1972492348756685
-        },
-        {
-          "upperEdge": 1065,
-          "upperSource": "w119235186",
-          "lowerEdge": 637,
-          "lowerSource": "w139758830",
-          "point": [
-            389.67788190914115,
-            -707.8913839930339
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.197249234875688
-        },
-        {
-          "upperEdge": 1065,
-          "upperSource": "w119235186",
-          "lowerEdge": 637,
-          "lowerSource": "w139758830",
-          "point": [
-            394.28936383147544,
-            -708.395639023861
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.854883513050981
-        },
-        {
-          "upperEdge": 1065,
-          "upperSource": "w119235186",
-          "lowerEdge": 637,
-          "lowerSource": "w139758830",
-          "point": [
-            394.07944553013857,
-            -711.8935473755365
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.854883513051014
-        },
-        {
-          "upperEdge": 1065,
-          "upperSource": "w119235186",
-          "lowerEdge": 637,
-          "lowerSource": "w139758830",
-          "point": [
-            389.1619733469529,
-            -711.3558330075554
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.195498209926945
-        },
-        {
-          "upperEdge": 1065,
-          "upperSource": "w119235186",
-          "lowerEdge": 637,
-          "lowerSource": "w139758830",
-          "point": [
-            389.1402729443918,
-            -711.3356718450638
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.1972492348756685
-        },
-        {
-          "upperEdge": 1066,
-          "upperSource": "w119235186",
-          "lowerEdge": 637,
-          "lowerSource": "w139758830",
-          "point": [
-            394.28936383147544,
-            -708.395639023861
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.854883513050981
-        },
-        {
-          "upperEdge": 1066,
-          "upperSource": "w119235186",
-          "lowerEdge": 637,
-          "lowerSource": "w139758830",
-          "point": [
-            400.9635068265755,
-            -708.4688323809949
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.3749050344754075
-        },
-        {
-          "upperEdge": 1066,
-          "upperSource": "w119235186",
-          "lowerEdge": 637,
-          "lowerSource": "w139758830",
-          "point": [
-            397.8304825017551,
-            -711.934683891324
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.587607820637242
-        },
-        {
-          "upperEdge": 1066,
-          "upperSource": "w119235186",
-          "lowerEdge": 637,
-          "lowerSource": "w139758830",
-          "point": [
-            394.07944553013857,
-            -711.8935473755365
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.854883513051014
-        },
-        {
-          "upperEdge": 1066,
-          "upperSource": "w119235186",
-          "lowerEdge": 638,
-          "lowerSource": "w139758830",
-          "point": [
-            400.96350682657544,
-            -708.4688323809949
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.374905034475412
-        },
-        {
-          "upperEdge": 1066,
-          "upperSource": "w119235186",
-          "lowerEdge": 638,
-          "lowerSource": "w139758830",
-          "point": [
-            401.50366164358644,
-            -708.4747560995095
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.329407894992032
-        },
-        {
-          "upperEdge": 1066,
-          "upperSource": "w119235186",
-          "lowerEdge": 638,
-          "lowerSource": "w139758830",
-          "point": [
-            402.17945440728784,
-            -709.0691037077579
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.277238435162582
-        },
-        {
-          "upperEdge": 1066,
-          "upperSource": "w119235186",
-          "lowerEdge": 638,
-          "lowerSource": "w139758830",
-          "point": [
-            402.45950789445885,
-            -711.9854490470899
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.277238435162605
-        },
-        {
-          "upperEdge": 1066,
-          "upperSource": "w119235186",
-          "lowerEdge": 638,
-          "lowerSource": "w139758830",
-          "point": [
-            397.8304825017551,
-            -711.934683891324
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.587607820637242
-        },
-        {
-          "upperEdge": 1067,
-          "upperSource": "w119235186",
-          "lowerEdge": 638,
-          "lowerSource": "w139758830",
-          "point": [
-            404.92098876836593,
-            -711.4802339801705
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.098203090762857
-        },
-        {
-          "upperEdge": 1067,
-          "upperSource": "w119235186",
-          "lowerEdge": 638,
-          "lowerSource": "w139758830",
-          "point": [
-            402.45950789445885,
-            -711.9854490470899
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.277238435162605
-        },
-        {
-          "upperEdge": 1067,
-          "upperSource": "w119235186",
-          "lowerEdge": 638,
-          "lowerSource": "w139758830",
-          "point": [
-            402.17945440728784,
-            -709.0691037077579
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.277238435162582
-        },
-        {
-          "upperEdge": 1000,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            428.3317416882733,
-            -705.8006285747022
-          ],
-          "minimumM": 4.671258037054316,
-          "modelM": 4.712121047861088
-        },
-        {
-          "upperEdge": 1000,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            427.7665634663148,
-            -707.3472865645235
-          ],
-          "minimumM": 4.799040931385607,
-          "modelM": 4.829911057846443
-        },
-        {
-          "upperEdge": 1000,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            426.45498382539176,
-            -706.9541751093425
-          ],
-          "minimumM": 4.805321142507295,
-          "modelM": 4.829911057846464
-        },
-        {
-          "upperEdge": 1001,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            427.7665634663148,
-            -707.3472865645235
-          ],
-          "minimumM": 4.815122460738773,
-          "modelM": 4.829911057846443
-        },
-        {
-          "upperEdge": 1001,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            426.6138167499597,
-            -712.2252044034465
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.205657510344387
-        },
-        {
-          "upperEdge": 1001,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            423.14462769844715,
-            -711.6868851956481
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.2056575103443565
-        },
-        {
-          "upperEdge": 1001,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            423.89056905501224,
-            -708.5303889780882
-          ],
-          "minimumM": 4.973644351520988,
-          "modelM": 4.973649382107041
-        },
-        {
-          "upperEdge": 1001,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            426.45498382539176,
-            -706.9541751093425
-          ],
-          "minimumM": 4.808842249617128,
-          "modelM": 4.829911057846464
-        },
-        {
-          "upperEdge": 1002,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            426.6138167499597,
-            -712.2252044034465
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.205657510344387
-        },
-        {
-          "upperEdge": 1002,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            426.16998310608693,
-            -718.0673343470248
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.640947741960867
-        },
-        {
-          "upperEdge": 1002,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            422.6665041089711,
-            -717.9803696517524
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.6409477419608685
-        },
-        {
-          "upperEdge": 1002,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            423.14462769844715,
-            -711.6868851956481
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.2056575103443565
-        },
-        {
-          "upperEdge": 1003,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            426.16998310608693,
-            -718.0673343470248
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.640947741960867
-        },
-        {
-          "upperEdge": 1003,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            426.20573876388573,
-            -719.4322121255627
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.7558931050194815
-        },
-        {
-          "upperEdge": 1003,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            423.5125543718964,
-            -721.0875739875164
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.852195742559053
-        },
-        {
-          "upperEdge": 1003,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            422.713847102454,
-            -719.7875633590518
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.752983322942819
-        },
-        {
-          "upperEdge": 1003,
-          "upperSource": "w84482671",
-          "lowerEdge": 767,
-          "lowerSource": "w668678760",
-          "point": [
-            422.6665041089711,
-            -717.9803696517524
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.6409477419608685
-        },
-        {
-          "upperEdge": 1003,
-          "upperSource": "w84482671",
-          "lowerEdge": 768,
-          "lowerSource": "w668678760",
-          "point": [
-            423.5125543718964,
-            -721.0875739875164
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.852195742559053
-        },
-        {
-          "upperEdge": 1003,
-          "upperSource": "w84482671",
-          "lowerEdge": 768,
-          "lowerSource": "w668678760",
-          "point": [
-            422.76001046395606,
-            -721.5497277317878
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.879076866125597
-        },
-        {
-          "upperEdge": 1003,
-          "upperSource": "w84482671",
-          "lowerEdge": 768,
-          "lowerSource": "w668678760",
-          "point": [
-            422.713847102454,
-            -719.7875633590518
-          ],
-          "minimumM": 5.2,
-          "modelM": 5.752983322942819
-        },
-        {
-          "upperEdge": 1004,
-          "upperSource": "w84482671",
-          "lowerEdge": 782,
-          "lowerSource": "w906667150",
-          "point": [
-            424.8455285308872,
-            -730.9930512955145
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.553666477013446
-        },
-        {
-          "upperEdge": 1004,
-          "upperSource": "w84482671",
-          "lowerEdge": 782,
-          "lowerSource": "w906667150",
-          "point": [
-            424.22935455314246,
-            -731.1935624812703
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.5536664770134525
-        },
-        {
-          "upperEdge": 1004,
-          "upperSource": "w84482671",
-          "lowerEdge": 782,
-          "lowerSource": "w906667150",
-          "point": [
-            424.04583728309706,
-            -730.2869977400178
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.487503175744848
-        },
-        {
-          "upperEdge": 1004,
-          "upperSource": "w84482671",
-          "lowerEdge": 782,
-          "lowerSource": "w906667150",
-          "point": [
-            424.940698673706,
-            -730.8530756723418
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.5462026269989835
-        },
-        {
-          "upperEdge": 1004,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            425.04404009744576,
-            -730.9284529985489
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.55366647701345
-        },
-        {
-          "upperEdge": 1004,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            424.8455285308872,
-            -730.9930512955145
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.553666477013446
-        },
-        {
-          "upperEdge": 1004,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            424.940698673706,
-            -730.8530756723418
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.5462026269989835
-        },
-        {
-          "upperEdge": 1005,
-          "upperSource": "w84482671",
-          "lowerEdge": 782,
-          "lowerSource": "w906667150",
-          "point": [
-            424.4224870276411,
-            -731.6152579696977
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.581378755151716
-        },
-        {
-          "upperEdge": 1005,
-          "upperSource": "w84482671",
-          "lowerEdge": 782,
-          "lowerSource": "w906667150",
-          "point": [
-            424.22935455314246,
-            -731.1935624812703
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.5536664770134525
-        },
-        {
-          "upperEdge": 1005,
-          "upperSource": "w84482671",
-          "lowerEdge": 782,
-          "lowerSource": "w906667150",
-          "point": [
-            424.8455285308872,
-            -730.9930512955145
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.553666477013446
-        },
-        {
-          "upperEdge": 1005,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            429.41906063076317,
-            -734.1195968590506
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.896924960664853
-        },
-        {
-          "upperEdge": 1005,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            431.10077629978076,
-            -737.7915423062537
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.185821556949168
-        },
-        {
-          "upperEdge": 1005,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            428.0679902539278,
-            -739.5750392936994
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.1858215569491435
-        },
-        {
-          "upperEdge": 1005,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            424.4224870276411,
-            -731.6152579696977
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.581378755151716
-        },
-        {
-          "upperEdge": 1005,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            424.8455285308872,
-            -730.9930512955145
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.553666477013446
-        },
-        {
-          "upperEdge": 1005,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            425.04404009744576,
-            -730.9284529985489
-          ],
-          "minimumM": 5.2,
-          "modelM": 6.55366647701345
-        },
-        {
-          "upperEdge": 1006,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            431.10077629978076,
-            -737.7915423062537
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.185821556949168
-        },
-        {
-          "upperEdge": 1006,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            435.67971088005294,
-            -744.0227551059025
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.5
-        },
-        {
-          "upperEdge": 1006,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            433.56014039034375,
-            -745.804355786692
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.5
-        },
-        {
-          "upperEdge": 1006,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            431.58903507440635,
-            -744.3666298195898
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.5
-        },
-        {
-          "upperEdge": 1006,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            428.0679902539278,
-            -739.5750392936994
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.1858215569491435
-        },
-        {
-          "upperEdge": 1007,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            435.67971088005294,
-            -744.0227551059025
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.5
-        },
-        {
-          "upperEdge": 1007,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            441.47010692465796,
-            -750.0635725562015
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.5
-        },
-        {
-          "upperEdge": 1007,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            440.5753390579879,
-            -750.9212479219336
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.5
-        },
-        {
-          "upperEdge": 1007,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            433.56014039034375,
-            -745.804355786692
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.5
-        },
-        {
-          "upperEdge": 1349,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            441.47010692465796,
-            -750.0635725562015
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.5
-        },
-        {
-          "upperEdge": 1349,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            441.8359367062711,
-            -750.4452236404425
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.5
-        },
-        {
-          "upperEdge": 1349,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            441.17153345714337,
-            -751.3561126458914
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.5
-        },
-        {
-          "upperEdge": 1349,
-          "upperSource": "w84482671",
-          "lowerEdge": 783,
-          "lowerSource": "w906667150",
-          "point": [
-            440.5753390579879,
-            -750.9212479219336
-          ],
-          "minimumM": 5.2,
-          "modelM": 7.5
-        }
-      ],
       "actualStageEaseM": {
         "trunk": [
-          0.07306886850494308,
+          20,
           0
         ],
-        "radial": [
+        "branchA": [
           0,
-          0.07306886850494308
+          17.37240499722511
         ],
-        "branchA": 2.207090533093464,
-        "branchB": 2.207090533093464,
+        "branchB": [
+          0,
+          16.413268195297615
+        ],
+        "approachIn": 9.307776155729393,
+        "approachOut": 9.307776155729393,
         "loop": 14.90461007583086,
         "exit": 20,
         "auxiliaryBridge": 20
       },
-      "peakGrade": 0.08,
+      "peakGrade": 0.08000000000000002,
       "zoneM": [
         360.7030509621029,
-        505.4635540413758
+        509.48698687085096
       ],
       "south": {
         "s": 251.17867574218133,
@@ -1802,7 +1019,7 @@
       },
       "transitionPeakGrades": [
         0.03909549763851528,
-        0.05307719937128068
+        0.05652614271944178
       ],
       "exitAnchor": {
         "nodeId": 1418267160,

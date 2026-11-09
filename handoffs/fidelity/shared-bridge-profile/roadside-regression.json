@@ -1,0 +1,226 @@
+{
+  "passed": true,
+  "nativeReplays": [
+    {
+      "capTriangles": 10,
+      "actorId": 259,
+      "nativeBefore": 375,
+      "compiledAfter": 0,
+      "primitives": [
+        {
+          "mesh": "ground 0,0",
+          "triangle": 3378,
+          "edge": 1255,
+          "output": 8
+        },
+        {
+          "mesh": "ground 0,0",
+          "triangle": 3379,
+          "edge": 1255,
+          "output": 8
+        },
+        {
+          "mesh": "solid 0,0",
+          "triangle": 4087,
+          "edge": 1255,
+          "output": 1
+        },
+        {
+          "mesh": "solid 0,0",
+          "triangle": 4088,
+          "edge": 1255,
+          "output": 2
+        },
+        {
+          "mesh": "solid 0,0",
+          "triangle": 4089,
+          "edge": 1255,
+          "output": 8
+        },
+        {
+          "mesh": "solid 0,0",
+          "triangle": 4090,
+          "edge": 1255,
+          "output": 8
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6651,
+          "edge": 1256,
+          "output": 6
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6652,
+          "edge": 1256,
+          "output": 9
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6669,
+          "edge": 1256,
+          "output": 2
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6670,
+          "edge": 1256,
+          "output": 1
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6673,
+          "edge": 1256,
+          "output": 1
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6674,
+          "edge": 1256,
+          "output": 1
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6675,
+          "edge": 1256,
+          "output": 1
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6676,
+          "edge": 1256,
+          "output": 2
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6678,
+          "edge": 1257,
+          "output": 10
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6691,
+          "edge": 1257,
+          "output": 0
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6692,
+          "edge": 1257,
+          "output": 0
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6693,
+          "edge": 1257,
+          "output": 0
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6694,
+          "edge": 1257,
+          "output": 0
+        },
+        {
+          "mesh": "road -1,0",
+          "triangle": 150,
+          "edge": 1256,
+          "output": 10
+        },
+        {
+          "mesh": "road -1,0",
+          "triangle": 151,
+          "edge": 1256,
+          "output": 10
+        },
+        {
+          "mesh": "road -1,0",
+          "triangle": 153,
+          "edge": 1257,
+          "output": 8
+        },
+        {
+          "mesh": "solid -1,0",
+          "triangle": 592,
+          "edge": 1256,
+          "output": 1
+        },
+        {
+          "mesh": "solid -1,0",
+          "triangle": 593,
+          "edge": 1256,
+          "output": 0
+        },
+        {
+          "mesh": "solid -1,0",
+          "triangle": 595,
+          "edge": 1256,
+          "output": 10
+        },
+        {
+          "mesh": "solid -1,0",
+          "triangle": 599,
+          "edge": 1257,
+          "output": 3
+        }
+      ],
+      "sourceCorridors": 153
+    },
+    {
+      "capTriangles": 0,
+      "actorId": 490,
+      "nativeBefore": 114,
+      "compiledAfter": 0,
+      "primitives": [
+        {
+          "mesh": "ground 0,-1",
+          "triangle": 7781,
+          "edge": 677,
+          "output": 5
+        },
+        {
+          "mesh": "ground 0,-1",
+          "triangle": 7782,
+          "edge": 677,
+          "output": 5
+        },
+        {
+          "mesh": "ground 0,-1",
+          "triangle": 7783,
+          "edge": 677,
+          "output": 5
+        },
+        {
+          "mesh": "ground 0,-1",
+          "triangle": 7813,
+          "edge": 677,
+          "output": 5
+        },
+        {
+          "mesh": "ground 0,-1",
+          "triangle": 7814,
+          "edge": 677,
+          "output": 5
+        },
+        {
+          "mesh": "ground 0,-1",
+          "triangle": 7815,
+          "edge": 677,
+          "output": 5
+        }
+      ],
+      "sourceCorridors": 23
+    }
+  ],
+  "controls": [
+    "lane-pavement",
+    "literal-dimensions",
+    "vertical-separation",
+    "unknown-grade",
+    "near-miss",
+    "flush-paving-and-query",
+    "mitred-lane-pavement",
+    "primitive-range-prefix",
+    "calculated-float32-outward-rounding"
+  ]
+}

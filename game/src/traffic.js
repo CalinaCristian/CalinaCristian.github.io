@@ -843,12 +843,18 @@ export class Traffic {
         }
         const e = v.edge;
         if (e.rail) { const p = sampleTramPath(v); if (!p) throw new Error('Unresolved native rail grade'); v.y = p.y + .24; }
+        else if (e.sourceBridgeGrade?.known) { v.y=e.sourceBridgeGrade.heightAtWorld(v.x,v.z)+.24; }
         else if (e.a.y !== undefined && e.b.y !== undefined) { const tt = clamp(v.dir > 0 ? v.s / e.len : 1 - v.s / e.len, 0, 1); v.y = e.a.y + (e.b.y - e.a.y) * tt + 0.24; }
         v.mesh.position.set(v.x, v.y, v.z);
         // pitch with the ramp (bridges / tunnels)
         const railF = e.rail ? sampleTramPath(v, v.length * .36) : null, railR = e.rail ? sampleTramPath(v, -v.length * .36) : null;
         const slope = e.rail ? (railF.y - railR.y) / Math.max(1e-6, Math.hypot(railF.x - railR.x, railF.z - railR.z)) : e.a.y !== undefined && e.b.y !== undefined ? (e.b.y - e.a.y) / Math.max(1, e.len) * v.dir : 0;
         let pitch = Math.atan(slope);
+        if(!e.rail&&e.sourceBridgeGrade?.known){
+            const d=v.length*.36,F=this.pathPoint(v,d,this._pf||(this._pf={})),R=this.pathPoint(v,-d,this._pr||(this._pr={}));
+            const height=p=>this.world?.roadHeight?this.world.roadHeight(p.x,p.z,{y:v.y,edge:e})-.24:e.sourceBridgeGrade.heightAtWorld(p.x,p.z);
+            pitch=Math.atan((height(F)-height(R))/Math.max(1e-6,Math.hypot(F.x-R.x,F.z-R.z)));
+        }
         if (e.rail) {
             const support = fitTramBodySupport(v, { samplePath: sampleTramPath, supportAt: this.world?.tramDeckSupportAt, nativePitch: pitch });
             if (!support.known) throw new Error('Unresolved native tram body support: ' + support.reason);

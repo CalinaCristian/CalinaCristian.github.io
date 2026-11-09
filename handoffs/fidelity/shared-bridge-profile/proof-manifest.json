@@ -1,0 +1,47 @@
+{
+  "status": "CPU controls passed; native candidate only",
+  "nativeAccepted": false,
+  "date": "2026-11-09",
+  "modulePins": {
+    "world.js": "9d1f151e7da8891330153f43fe3dfd9acbed04a629b35583aaeff604c9451d60",
+    "traffic.js": "fa0bce51149f9cae479c6735787bd80a19c0ebd7a5535765fb3fdad7ef921eea",
+    "tram-grade.js": "2129fa2c5037c0d4b21bfbb7d881084868d7b0f7a55aad0ef8e4c73fbc782ffa",
+    "tram-body-support.js": "f78a8df825d19b269e7d642a83e792d0bd0f614cb9e42537d049f7383ca26976",
+    "shared-bridge-profile.js": "2d3ac8d4955759137f8698d0e2fba81547174408f56bb25992b7c90db33f1dbe",
+    "shared-bridge-models.js": "f3dcd036006873cf332580309037bc5f2c00bd48ab5e2d3b3591e14c3f12f653",
+    "bridge-profile-geometry.js": "65b83df1cf242f632861d405c138f136facbfba5d3786ed4a85abb639f07982e",
+    "bridge-pad-profile.js": "fc41d864ea1adeb0f24569114f0d0206ea99ab201e85283e5f00349f74d2a74c",
+    "bridge-surface-mesh.js": "d0c2cfa68425c369901f15295db198b10196828f849971b56b515804fc4f9107",
+    "bridge-junction.js": "f5db8b54b8c05ff42e2816140cb6bee36b84d09148c25b7cb8a41a02a0e361e1",
+    "vehicles.js": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df"
+  },
+  "proofFiles": {
+    "source-fixture.json.gz": "92990482640d455e03fea7033b55ebd6f661270477f5f3c9139eda76e7a334cb",
+    "roadside-regression.json": "d195f97e5ef44c34235e28f3fb92db78022527bfc4670384ef8fc87768146ca5",
+    "pad-regression.json": "711b080ff35f1ddd5c2bba4bf5ba515895227dc9ce6a311dbb5989242ecb5edf",
+    "fascia-replay.mjs": "2aca945cdd63e5ad613e326c48ea9501daadf2e0d54cc681ad50ed329345d20a",
+    "surface-controls.json": "306455b2028210de99621119fd0650fc480e997f6ae427760efed4f2a134d496",
+    "tram-support-sweep.json.gz": "2e4413035d26b512bbd94594236bb78c5c7ee7216d8fce4630627ec882e5cca9",
+    "pad-ground-replay.json.gz": "aeac7801edb5f8498ba19d7c40eb790bc9da5c075f252c9040125c36425cf5b1",
+    "fascia-original.json.gz": "2e03773d87b6aad3c527b947fcbf85f80ae603fb3c65b4298fa143e954e886d5",
+    "negative-ground-zero-six-metre-ease.json.gz": "5d74c578c469ed1881128fe62d8f340cad683a49bf3c9c3db47e414973feb549",
+    "replay-geometry.mjs": "b2895861e4a8893bc96de17a7dc4304ff1bdddedf0155d281935c7e1f43cf26b",
+    "pad-ground-replay.mjs": "f2d7b4722b17c798e80c84bdde8c7817d076930c2d001318fd533636be3e2a30",
+    "negative-ground-zero-short-ease.json.gz": "364909be069f39cc5fade80718472b2e2b068dde8af438153f6db4ffa6dfba3a",
+    "ground-headroom.json.gz": "5b294e6e9620b885a977a0f3ad6ef8724b0f6395276896bfb224b7c786354931",
+    "algebra-controls.json": "e5f5c0e58fa6babb3195d2b8ad6f13d10f567e0f85d5dbb3a1e5303ff6c965aa",
+    "ground-headroom-check.mjs": "ccee22f1392d3f974954bfb1b0d32058cd8c834e32086f3e37996a39f7a3afb4",
+    "legacy-support-controls.json": "fee3a6b738fdb4ef8c18ccfda26379ed25a85551284a53b39d285c93bb56de7d",
+    "fascia-candidate.json.gz": "e280c6a679a86a047d2c5f14c4e4436ce17bc3b403c0c7e3617c3c6531798691",
+    "tram-support-sweep.mjs": "8cfbca6242bdd11a772101835398a7eecf99e37b46a220cf1abd73f2ac1f9275"
+  },
+  "sourceFixtureSha256": "92990482640d455e03fea7033b55ebd6f661270477f5f3c9139eda76e7a334cb",
+  "requiredNativeGates": [
+    "combined exact-source constructor and original actor/source/RNG preservation",
+    "complete canonical emitted static/road/rail/body/query clearance, including separate tram376",
+    "actual uninterrupted approach/deck/exit/return driving with pad/structural seam contact diagnostics",
+    "full-size spawn, four Basarab forks, inner/outer approaches, underside, cockpit side and mirror views",
+    "1.5M triangles/400 draw calls; no FPS claim from CPU timings"
+  ],
+  "inputScope": "Native8e4 source/miter/pad fixture plus literal c718 road/tram source metadata; root later data/geometry still requires fresh native reconstruction."
+}

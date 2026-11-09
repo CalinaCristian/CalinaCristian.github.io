@@ -29,7 +29,7 @@ export function sceneryBridgeProfiles(data, profiles, coreEdges = []) {
     const coreTie = (point, sourceId) => {
         for (const e of byCoreSource.get(sourceId) || []) {
             const q = project(point, [e.a.x, e.a.z], [e.b.x, e.b.z]);
-            if (q.d < EPS && q.t >= -EPS && q.t <= 1 + EPS) return e.ya + (e.yb - e.ya) * Math.max(0, Math.min(1, q.t));
+            if (q.d < EPS && q.t >= -EPS && q.t <= 1 + EPS) return e.sourceBridgeGrade?.known ? e.sourceBridgeGrade.heightAtWorld(...point) : e.ya + (e.yb - e.ya) * Math.max(0, Math.min(1, q.t));
         }
         return null;
     };

@@ -44,7 +44,7 @@ function nearbyPieces(supportAt, points, modelIds) {
 function catalogueHash(pieces) {
     return hashString(pieces.map(p => {
         const x = p.poly.reduce((s, q) => s + q[0], 0) / p.poly.length, z = p.poly.reduce((s, q) => s + q[1], 0) / p.poly.length;
-        return p.id + ':' + JSON.stringify([p.poly, p.top, p.band(x, z, 0)]);
+        return p.id + ':' + JSON.stringify([p.poly, p.top, p.band(x, z, 0), p.topProfile || null]);
     }).sort().join('|'));
 }
 

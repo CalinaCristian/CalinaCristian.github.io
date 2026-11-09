@@ -1,3 +1,6 @@
+import { sharedBridgePadSurface } from './bridge-pad-profile.js';
+import { compileSharedBridgeProfile } from './shared-bridge-profile.js';
+import { displaceBridgeSurface } from './bridge-surface-mesh.js';
 import * as THREE from '../vendor/three.module.min.js';
 import { makeRng, distPointSeg, pointInPolygon, clamp, makeCanvasTexture, landmarkHelpers } from './util.js';
 import { makeTextures, emitFacadeSlab } from './buildings.js';
@@ -27,7 +30,7 @@ import { buildTramTunnelGrades } from './tram-tunnel-grade.js';
 import { buildTramTrenchCutter, uncoveredTramTrenchWall } from './tram-trench.js';
 import { sourceSidewalkSides, sidewalkWidth } from './sidewalk-source.js';
 import { emittedTramClearance } from './tram-clearance.js';
-import { bridgeJunctionSlab } from './bridge-junction.js';
+import { bridgeJunctionSlab, inferredBridgeFasciaUpstand } from './bridge-junction.js';
 import { buildRailRoadsideClearance } from './rail-roadside.js';
 import { buildCoveredRoadModels } from './covered-road-models.js';
 import { roadMiter, needsRoadBevelPad } from './road-joins.js';
@@ -1523,15 +1526,25 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const e of edges) if (e.seg !== undefined) e.sidewalk = seg.get(e.seg);
         }
     }
-    const yAlong = (e, x, z) => { const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.ya + (e.yb - e.ya) * t; };
+    const sharedBridgeProfile = compileSharedBridgeProfile(data, { coreEdges: edges,
+        lanePolygon: e => asphaltCorners(e, (f, sd) => sd > 0 ? f.wR : f.wL),
+        padLanePolygon: (n, incident) => convexHull(incident.flatMap(e => [corner(e,n,1,e.wR,(f,sd)=>sd>0?f.wR:f.wL),corner(e,n,-1,e.wL,(f,sd)=>sd>0?f.wR:f.wL)])),
+        padSurfacePolygon:(n,incident)=>convexHull(incident.flatMap(e=>[corner(e,n,1,e.wR+shoulderOf(e),(f,sd)=>(sd>0?f.wR:f.wL)+shoulderOf(f)),corner(e,n,-1,e.wL+shoulderOf(e),(f,sd)=>(sd>0?f.wR:f.wL)+shoulderOf(f))])) });
+    if (sharedBridgeProfile.known) {
+        for (const e of edges) { const grade=sharedBridgeProfile.roadGrades.get(e.id); if(!grade)continue;e.sourceBridgeGrade=grade;e.a.y=grade.ya;e.b.y=grade.yb; }
+        for (const e of edges) {e.ya=e.a.y;e.yb=e.b.y;}
+    }
+    const sharedBridgeMeshAudit={inputTriangles:0,outputTriangles:0,maxLeafControlErrorM:0,depthLimit:0};
+    if(profileStats)profileStats.sharedBridge=sharedBridgeProfile.report;
+    const yAlong = (e, x, z) => { if(e.sourceBridgeGrade?.known)return e.sourceBridgeGrade.heightAtWorld(x,z); const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.ya + (e.yb - e.ya) * t; };
     coveredRoadModels.validateProfile(edges);
     const tunnelGrades = buildTramTunnelGrades(data, { coreEdges: edges });
-    const tramGrades = buildTramGrades(data, { coreEdges: edges, extraGrades: tunnelGrades.grades, extraReport: tunnelGrades.report }), tramDecks = [];
+    const tramGrades = buildTramGrades(data, { coreEdges: edges, extraGrades: tunnelGrades.grades, extraReport: tunnelGrades.report, sharedProfile: sharedBridgeProfile }), tramDecks = [];
     const tramPropEnvelope = (data.trams || []).length ? emittedTramClearance(makeVehicle, city.id) : null;
     const railRoadside = buildRailRoadsideClearance(tramGrades, tramPropEnvelope), railRoadsideCaps = [];
     const bridgeJunctionDecks = [], bridgeJunctionAudit = { sourceForks: [], unresolved: [], undersideTriangles: 0, fasciaTriangles: 0 };
     /** height of junction n's pad at (x, z): the profile of the nearest approach there (n.y on flat junctions) */
-    const padHeightAt = (n, x, z) => { let best = null, bd = Infinity; for (const e of n.edges) { if (e.virtual) continue; const d = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z).d; if (d < bd) { bd = d; best = e; } } return best ? yAlong(best, x, z) : n.y; };
+    const padHeightAt = (n, x, z) => { const shared=sharedBridgeProfile.known&&sharedBridgeProfile.padHeightAt(n,x,z);if(shared!==false&&shared!=null)return shared; let best = null, bd = Infinity; for (const e of n.edges) { if (e.virtual) continue; const d = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z).d; if (d < bd) { bd = d; best = e; } } return best ? yAlong(best, x, z) : n.y; };
 
     // ---- traffic lights: move stop-line signals onto the junction they control, then cluster
     for (const n of nodeArr) {
@@ -1987,6 +2000,12 @@ export async function buildWorld(city, renderer, opts = {}) {
     const widthAsphalt = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e);
     const widthSide = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + sidewalkWidth(e, s);
     const widthKerb = (e, s) => (s > 0 ? e.wR : e.wL) + shoulderOf(e) + 0.28;
+    const sharedPadSurfaces=new Map();
+    if(sharedBridgeProfile.known)for(const n of nodeArr){
+        if(!n.pad||!n.edges.some(e=>e.sourceBridgeGrade?.known))continue;
+        const es=n.edges.filter(e=>!e.virtual),hull=convexHull(es.flatMap(e=>[corner(e,n,1,widthAsphalt(e,1),widthAsphalt),corner(e,n,-1,widthAsphalt(e,-1),widthAsphalt)])),surface=sharedBridgePadSurface(n,hull,es,(e,p)=>yAlong(e,...p));
+        if(surface){sharedPadSurfaces.set(n.id,surface);sharedBridgeProfile.bindPadSurface(n,surface);}
+    }
     const padCorners = new Map(); // node -> {road:[], side:[]}
     const pushPad = (n, kind, p) => { let o = padCorners.get(n); if (!o) padCorners.set(n, o = { road: [], side: [], y: 0 }); o[kind].push(p); };
     const markingStations = buildMarkingStations(edges, e => data.roadSourceGeometry?.[e.road]?.sourceId || e.access?.sourceId);
@@ -2034,7 +2053,13 @@ export async function buildWorld(city, renderer, opts = {}) {
     };
     const ribbons = []; // carriageway polygons (asphalt incl. shoulder) of every edge + junction pads → definitive clearance checks
     const dash = US ? [3, 9] : [3, 5];
-    const displace = (mb, from, fn) => { for (let i = from; i < mb.vc; i++) mb.p[i * 3 + 1] += fn(mb.p[i * 3], mb.p[i * 3 + 2]); };
+    const displace = (mb, from, fn, edge=null, fromIndex=null) => {
+        if(edge?.sourceBridgeGrade?.known){
+            if(fromIndex===null){fromIndex=mb.ic;for(let k=0;k<mb.ic;k+=3)if(mb.i[k]>=from||mb.i[k+1]>=from||mb.i[k+2]>=from){fromIndex=k;break;}}
+            const a=displaceBridgeSurface(mb,from,fromIndex,fn);sharedBridgeMeshAudit.inputTriangles+=a.inputTriangles;sharedBridgeMeshAudit.outputTriangles+=a.outputTriangles;sharedBridgeMeshAudit.maxLeafControlErrorM=Math.max(sharedBridgeMeshAudit.maxLeafControlErrorM,a.maxLeafControlErrorM);sharedBridgeMeshAudit.depthLimit+=a.depthLimit;return;
+        }
+        for (let i = from; i < mb.vc; i++) mb.p[i * 3 + 1] += fn(mb.p[i * 3], mb.p[i * 3 + 2]);
+    };
     const raised = [];
     const convexRing = (r) => { let sg = 0; for (let i = 0; i < r.length; i++) { const a = r[i], b2 = r[(i + 1) % r.length], c2 = r[(i + 2) % r.length]; const cr = (b2[0] - a[0]) * (c2[1] - b2[1]) - (b2[1] - a[1]) * (c2[0] - b2[0]); if (Math.abs(cr) < 1e-6) continue; const t = cr > 0 ? 1 : -1; if (sg && t !== sg) return false; sg = t; } return true; };
     /** the outline offset inward by d (mitred), shrinking d until it is a clean polygon: { p, d } or null */
@@ -2140,7 +2165,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         const mx = (e.a.x + e.b.x) / 2, mz = (e.a.z + e.b.z) / 2;
         const c = cellOf(mx, mz);
         const v0g = c.ground.vc, v0m = c.marks.vc, v0s = c.solid.vc, v0p = c.road.vc;
-        const i0g = c.ground.ic, i0s = c.solid.ic, i0p = c.road.ic;
+        const i0g = c.ground.ic, i0s = c.solid.ic, i0p = c.road.ic, i0m = c.marks.ic;
         const elevated = Math.abs(e.ya) > 0.01 || Math.abs(e.yb) > 0.01;
         if (elevated) raised.push(e);
         const ly = layerY(e);
@@ -2161,9 +2186,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             for (const sd of [1, -1]) {
                 let clear = true;
                 for (const t of [0.1, 0.3, 0.5, 0.7, 0.9]) {
-                    const px = e.a.x + (e.b.x - e.a.x) * t + e.nx * wE(e, sd) * sd, pz = e.a.z + (e.b.z - e.a.z) * t + e.nz * wE(e, sd) * sd, py = e.ya + (e.yb - e.ya) * t;
+                    const px = e.a.x + (e.b.x - e.a.x) * t + e.nx * wE(e, sd) * sd, pz = e.a.z + (e.b.z - e.a.z) * t + e.nz * wE(e, sd) * sd, py = yAlong(e,px,pz);
                     edgesInBox(px - 1, pz - 1, px + 1, pz + 1, (f) => { if (!clear || f === e || f.virtual) return; const q = distPointSeg(px, pz, f.a.x, f.a.z, f.b.x, f.b.z);
-                        if (q.d < Math.max(f.wL, f.wR) + shoulderOf(f) && Math.abs(f.ya + (f.yb - f.ya) * q.t - py) > 0.05) clear = false; });
+                        if (q.d < Math.max(f.wL, f.wR) + shoulderOf(f) && Math.abs(yAlong(f,px,pz) - py) > 0.05) clear = false; });
                     if (!clear) break;
                 }
                 if (!clear) continue;
@@ -2411,9 +2436,9 @@ export async function buildWorld(city, renderer, opts = {}) {
                     for (const sd of (resLamp ? [((e.road * 7) % 2) ? 1 : -1] : e.oneway && e.lanesF <= 1 ? [1] : [1, -1])) {
                         if (e.sidewalkSource.explicit && sidewalkWidth(e, sd) <= .3 && !e.bridge) continue;
                         const w = (sd > 0 ? e.wR : e.wL) + shoulderOf(e);
-                        const yl = e.ya + (e.yb - e.ya) * s / e.len;
+                        const yl = yAlong(e,e.a.x+e.dirx*s,e.a.z+e.dirz*s);
                         const sw = sidewalkWidth(e, sd), o = e.bridge || Math.abs(yl) > 0.3 ? w + 0.35 : sw >= 1.2 ? w + Math.max(0.55, sw - 0.45) : w + 1.0; // (on ramps / in trenches: on the deck edge, inside the walls)
-                        lampSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, Math.atan2(e.nz * sd, -e.nx * sd), e.ya + (e.yb - e.ya) * s / e.len, hh, e, sd]);
+                        lampSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, Math.atan2(e.nz * sd, -e.nx * sd), yAlong(e,e.a.x+e.dirx*s+e.nx*o*sd,e.a.z+e.dirz*s+e.nz*o*sd), hh, e, sd]);
                     }
                 }
             }
@@ -2447,7 +2472,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 else if (e.cycleTrack && sidewalkWidth(e, sd) >= 2.2) { const o = w + shoulderOf(e), sw = sidewalkWidth(e, sd); band(c.marks, e, s0b, s1b, sd * (o + sw - 1.7), sd * (o + sw - 0.3), raisedEdge(e, sd) ? Y.road + Y.kerb + 0.006 : yS + 0.01, shadeRgb(bc, 1.1)); }
             }
         }
-        if (elevated) { const f = (x, z) => yAlong(e, x, z); displace(c.ground, v0g, f); displace(c.road, v0p, f); displace(c.marks, v0m, f); displace(c.solid, v0s, f); }
+        if (elevated) { const f = (x, z) => yAlong(e, x, z); displace(c.ground, v0g, f, e, i0g); displace(c.road, v0p, f, e, i0p); displace(c.marks, v0m, f, e, i0m); displace(c.solid, v0s, f, e, i0s); }
         railRoadside.apply(c.ground, i0g, e); railRoadside.apply(c.road, i0p, e); railRoadside.apply(c.solid, i0s, e);
     }
     // ---- turn arrows (OSM turn:lanes) painted in each lane 9 m before the junction a way ends at (R11.3)
@@ -2484,7 +2509,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const lat = (e.laneCenterShiftM || 0) + (dirSign > 0 ? med2 + e.laneW * (j + 0.5) : -(Math.max(0, med2) + e.laneW * (j + 0.5)));
                     if (k && k !== 'none') arrow(mb, e, sStop, lat, dirSign, k.split(';'), Y.road + Y.mark + 0.003);
                 });
-                if (Math.abs(e.ya) > 0.01 || Math.abs(e.yb) > 0.01) displace(c.marks, v0, (x, z) => yAlong(e, x, z));
+                if (Math.abs(e.ya) > 0.01 || Math.abs(e.yb) > 0.01) displace(c.marks, v0, (x, z) => yAlong(e, x, z), e);
             }
         }
     }
@@ -2493,7 +2518,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     for (const e of edges) e.lidded = !!e.tunnel && !e.coveredRoadModel && !e.virtual && Math.max(e.ya, e.yb) < -4.5;
     for (const e of raised) {
         const c = cellOf((e.a.x + e.b.x) / 2, (e.a.z + e.b.z) / 2);
-        const sb = c.solid, roadsideSolidStart = sb.ic;
+        const sb = c.solid, roadsideSolidStart = sb.ic, roadsideSolidVertexStart = sb.vc;
         const conc = rgb('#a9a69e'), dark = rgb('#55524d');
         const wr = widthSide(e, 1), wl = widthSide(e, -1);
         const P = (s2, o, y) => [e.a.x + e.dirx * s2 + e.nx * o, y, e.a.z + e.dirz * s2 + e.nz * o];
@@ -2504,22 +2529,26 @@ export async function buildWorld(city, renderer, opts = {}) {
         if (up && e.bridge) {
             // deck fascia + underside + piers
             // (the fascia / underside thins to nothing where the deck meets the ground: no slab through the street)
-            const dA = yA - Math.min(1.1, Math.max(0.05, e.ya)), dB = yB - Math.min(1.1, Math.max(0.05, e.yb));
-            for (const [o, sgn] of [[wr, 1], [-wl, -1]]) sb.face4(Pm(0, o, dA), Pm(1, o, dB), Pm(1, o, yB + 0.05), Pm(0, o, yA + 0.05), conc, [e.nx * sgn, 0, e.nz * sgn]);
+            const shared=!!e.sourceBridgeGrade?.known,topA=shared?Y.road:yA,topB=shared?Y.road:yB;
+            const dA = shared?Y.road-1.1:yA - Math.min(1.1, Math.max(0.05, e.ya)), dB = shared?Y.road-1.1:yB - Math.min(1.1, Math.max(0.05, e.yb));
+            for (const [o, sgn] of [[wr, 1], [-wl, -1]]) {const A=Pm(0,o,0),B=Pm(1,o,0),lip=inferredBridgeFasciaUpstand(e,[A[0],A[2]],[B[0],B[2]],{grades:tramGrades,envelope:tramPropEnvelope});sb.face4(Pm(0, o, dA), Pm(1, o, dB), Pm(1, o, topB + lip), Pm(0, o, topA + lip), conc, [e.nx * sgn, 0, e.nz * sgn]);}
             sb.face4(Pm(0, wr, dA), Pm(1, wr, dB), Pm(1, -wl, dB), Pm(0, -wl, dA), dark, [0, -1, 0]);
             const hw = Math.max(wr, wl);
             for (let s2 = (e.id * 13) % 24 + 6; s2 < e.len - 3; s2 += 26) {
-                const y = e.ya + (e.yb - e.ya) * s2 / e.len + Y.road - 1.1; if (y < 1.2) continue;
+                const y = yAlong(e,e.a.x+e.dirx*s2,e.a.z+e.dirz*s2) + Y.road - 1.1; if (y < 1.2) continue;
                 const cols = hw > 7 ? [-hw * 0.55, hw * 0.55] : [0];
                 for (const o of cols) { const q = P(s2, o, 0); pierSpots.push({ sb, x: q[0], z: q[2], y, ang: Math.atan2(e.dirx, e.dirz), e, col: conc }); }
             }
+            if(shared)displace(sb,roadsideSolidVertexStart,(x,z)=>yAlong(e,x,z),e,roadsideSolidStart);
             railRoadside.apply(sb, roadsideSolidStart, e);
             const outer = [Pm(0, wr, 0), Pm(1, wr, 0), Pm(1, -wl, 0), Pm(0, -wl, 0)].map(p => [p[0], p[2]]);
             const bottomAt = (x, z) => { const y = yAlong(e, x, z); return y + Y.road - Math.min(1.1, Math.max(.05, y)); };
             railRoadsideCaps.push(...railRoadside.caps(sb, e, outer, bottomAt, (x, z) => yAlong(e, x, z) + Y.road, conc));
         } else if (up) {
             // ramp on an embankment: retaining walls down to the ground
-            for (const [o, sgn] of [[wr, 1], [-wl, -1]]) sb.face4(Pm(0, o, 0), Pm(1, o, 0), Pm(1, o, Math.max(0, yB)), Pm(0, o, Math.max(0, yA)), conc, [e.nx * sgn, 0, e.nz * sgn]);
+            const shared=!!e.sourceBridgeGrade?.known,topA=shared?Y.road:Math.max(0,yA),topB=shared?Y.road:Math.max(0,yB);
+            for (const [o, sgn] of [[wr, 1], [-wl, -1]]) sb.face4(Pm(0, o, 0), Pm(1, o, 0), Pm(1, o, topB), Pm(0, o, topA), conc, [e.nx * sgn, 0, e.nz * sgn]);
+            if(shared)displace(sb,roadsideSolidVertexStart,(x,z,y)=>yAlong(e,x,z)*clamp(y/Y.road,0,1),e,roadsideSolidStart);
         }
         if (down) {
             // trench / tunnel walls facing the road, from the road up to street level
@@ -2630,19 +2659,22 @@ export async function buildWorld(city, renderer, opts = {}) {
             // across the Bellevue 13B loop / NE 8th lanes); flat junctions are unchanged
             const hull = convexHull(o.road), col = padAsphalt(n), mb = c.pad, u = 0.15, base = mb.vc;
             const hs = hull.map(([x, z]) => padHeightAt(n, x, z));
-            hull.forEach(([x, z], k) => mb.v(x, Y.road + ly + hs[k], z, 0, 1, 0, x * u, z * u, col));
-            for (let k = 1; k < hull.length - 1; k++) mb.triUp(base, base + k, base + k + 1);
+            const shared=sharedPadSurfaces.get(n.id);
+            if(shared)for(const tri of shared.topTriangles)mb.face3(...tri,col,[0,1,0],-1,tri.map(p=>[p[0]*u,p[2]*u]));
+            else {hull.forEach(([x, z], k) => mb.v(x, Y.road + ly + hs[k], z, 0, 1, 0, x * u, z * u, col));
+            for (let k = 1; k < hull.length - 1; k++) mb.triUp(base, base + k, base + k + 1);}
             ribbons.push({ node: n, poly: hull, hs });
         }
         const sourceForkEdges = n.edges.filter(e => !e.virtual);
-        if (n.sourceId > 0 && sourceForkEdges.length >= 3 && sourceForkEdges.every(e => e.bridge && !e.tunnel && Math.min(e.ya, e.yb) > .3)) {
+        const modeledEmbankment=sourceForkEdges.length>=3&&sourceForkEdges.every(e=>!e.bridge&&!e.tunnel&&e.sourceBridgeGrade?.known&&Math.min(e.ya,e.yb)>.3);
+        if (n.sourceId > 0 && sourceForkEdges.length >= 3 && (modeledEmbankment||sourceForkEdges.every(e => e.bridge && !e.tunnel && Math.min(e.ya, e.yb) > .3))) {
             const triangles = (mb, start) => { const result = []; for (let i = start; i < mb.ic; i += 3) result.push([0, 1, 2].map(k => Array.from(mb.p.subarray(mb.i[i + k] * 3, mb.i[i + k] * 3 + 3)))); return result; };
             const topTriangles = triangles(c.pad, bridgePadRoadStart);
             const poly = convexHull(o.road); // exact existing road pad; no invented outer sidewalk slab
-            const slab = bridgeJunctionSlab({ node: n, poly, topTriangles, edges: sourceForkEdges,
+            const slab = bridgeJunctionSlab({ node: n, poly, topTriangles, edges: sourceForkEdges,supportKind:modeledEmbankment?'modeled-embankment':'bridge',
                 mouths: sourceForkEdges.map(e => asphaltCorners(e, widthSide)),
                 sourceIds: sourceForkEdges.map(e => data.roadSourceGeometry?.[e.road]?.sourceId || e.access?.sourceId),
-                bottomHeightAt: (x, z) => { const y = padHeightAt(n, x, z); return Y.road + y - Math.min(1.1, Math.max(.05, y)); } });
+                bottomHeightAt: (x, z) => { if(modeledEmbankment)return 0;const y = padHeightAt(n, x, z); return Y.road + y - Math.min(1.1, Math.max(.05, y)); } });
             if (slab.known) {
                 for (const tri of slab.underside) c.solid.face3(...tri, rgb('#55524d'), [0, -1, 0]);
                 for (const face of slab.fascia) c.solid.face4(...face.vertices, rgb('#a9a69e'), face.outward);
@@ -2716,7 +2748,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const q = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z); if (q.t <= 0 || q.t >= 1) return;
             const side = ((x - q.cx) * e.nx + (z - q.cz) * e.nz) >= 0 ? 1 : -1, wa = widthAsphalt(e, side);
             if (!raisedEdge(e, side) || q.d < wa + 0.02 || q.d > wa + sidewalkWidth(e, side) + SIDE_BACK + tol) return;
-            top = railRoadside.surface(e, x, z, Y.road + Y.kerb + e.a.y + (e.b.y - e.a.y) * q.t);
+            top = railRoadside.surface(e, x, z, Y.road + Y.kerb + yAlong(e,x,z));
         });
         if (top !== null && onRibbon(x, z, 0, RIB_ONLY)) return null;
         return top;
@@ -2743,13 +2775,13 @@ export async function buildWorld(city, renderer, opts = {}) {
     {
         const wallGrid = [];
         const surfaceAt = (x, z, own) => { // heights of the other ribbons under (x, z)
-            const hs = []; ribGrid.each(x, z, x, z, (rb) => { if (rb.e === own || (rb.e && (rb.e.a === own.a || rb.e.b === own.b || rb.e.a === own.b || rb.e.b === own.a)) || (rb.node && (rb.node === own.a || rb.node === own.b))) return; if (x < rb.x0 || x > rb.x1 || z < rb.z0 || z > rb.z1 || !pointInPolygon(x, z, rb.poly)) return; const h = rb.e ? rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1) : padHeightAt(rb.node, x, z); hs.push(h); hs.tol = Math.max(hs.tol || 0, rb.e && Math.abs(rb.e.dirx * own.dirx + rb.e.dirz * own.dirz) > 0.85 ? 0 : 1); (hs.items || (hs.items = [])).push([h, rb.e && Math.abs(rb.e.dirx * own.dirx + rb.e.dirz * own.dirz) > 0.85]); }); return hs; };
+            const hs = []; ribGrid.each(x, z, x, z, (rb) => { if (rb.e === own || (rb.e && (rb.e.a === own.a || rb.e.b === own.b || rb.e.a === own.b || rb.e.b === own.a)) || (rb.node && (rb.node === own.a || rb.node === own.b))) return; if (x < rb.x0 || x > rb.x1 || z < rb.z0 || z > rb.z1 || !pointInPolygon(x, z, rb.poly)) return; const h = rb.e ? yAlong(rb.e,x,z) : padHeightAt(rb.node, x, z); hs.push(h); hs.tol = Math.max(hs.tol || 0, rb.e && Math.abs(rb.e.dirx * own.dirx + rb.e.dirz * own.dirz) > 0.85 ? 0 : 1); (hs.items || (hs.items = [])).push([h, rb.e && Math.abs(rb.e.dirx * own.dirx + rb.e.dirz * own.dirz) > 0.85]); }); return hs; };
         const add = (e, s, off, kind, tFrom, tTo) => {
             // sub-divide into ~6 m pieces so the wall can be cut where it would cross another carriageway (junction mouths)
-            const yAtT = (t) => Y.road + e.ya + (e.yb - e.ya) * t;
+            const yAtT = (t) => Y.road + yAlong(e,e.a.x+e.dirx*e.len*t+e.nx*off*s,e.a.z+e.dirz*e.len*t+e.nz*off*s);
             // trench walls reach street level (cars up there must not fall in) — except under a tunnel's roof
             const range = (y) => kind === 'rail' ? [y > 2.6 ? y - 2.2 : -1.5, y + 1.1] : kind === 'embank' ? [-1.5, y + 1.1] : kind === 'trench' ? [y - 1.5, (e.lidded || (e.tunnel && y < -4.2)) ? Math.min(1.0, y + 4.6) : 1.0] : [y - 1.0, y + 0.85];
-            const n = Math.max(1, Math.ceil((tTo - tFrom) * e.len / 3));
+            const n = Math.max(1, Math.ceil((tTo - tFrom) * e.len / (e.sourceBridgeGrade?.known?1.5:3)));
             let last = null;
             for (let k = 0; k < n; k++) {
                 const t0 = tFrom + (tTo - tFrom) * k / n, t1 = tFrom + (tTo - tFrom) * (k + 1) / n;
@@ -2767,7 +2799,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (open) { last = null; continue; }
                 const ra = range(yAtT(t0)), rbb = range(yAtT(t1));
                 if (kind === 'rail' && tramGrades.excludesInferredObstacle([ax, az], [bx, bz], { inferred: true, y0a: ra[0], y1a: ra[1], y0b: rbb[0], y1b: rbb[1], kind: 'bridge-guard-collision', sourceId: data.roadSourceGeometry?.[e.road]?.sourceId })) { last = null; continue; }
-                if (last && Math.hypot(bx - last.ax, bz - last.az) < 24) { // extend the previous piece (the band is linear along the edge)
+                if (!e.sourceBridgeGrade?.known && last && Math.hypot(bx - last.ax, bz - last.az) < 24) { // extend the previous piece (the band is linear along the edge)
                     Object.assign(last, { bx, bz, y0b: rbb[0], y1b: rbb[1], x: (last.ax + bx) / 2, z: (last.az + bz) / 2, r: Math.hypot(bx - last.ax, bz - last.az) / 2 + 0.3, yr: (last.y0a + rbb[0]) / 2 + 0 * ym });
                     last.yr = undefined; continue;
                 }
@@ -2783,10 +2815,11 @@ export async function buildWorld(city, renderer, opts = {}) {
             const plainMw = /^(motorway|trunk)$/.test(e.type) && !e.a.pad && !e.b.pad && e.a.edges.length === 2 && e.b.edges.length === 2 && !e.bridge && !e.tunnel;
             // portion of [t0, t1] where the profile is beyond a threshold
             const sub = (pred, thr) => {
-                const f = (t) => yA + (yB - yA) * t;
+                const f = (t) => e.sourceBridgeGrade?.known?e.sourceBridgeGrade.heightAt(t):yA + (yB - yA) * t;
                 if (pred(f(t0), thr) && pred(f(t1), thr)) return [t0, t1];
                 if (!pred(f(t0), thr) && !pred(f(t1), thr)) return null;
-                const tc = clamp((thr - yA) / ((yB - yA) || 1e-9), t0, t1);
+                let tc = clamp((thr - yA) / ((yB - yA) || 1e-9), t0, t1);
+                if(e.sourceBridgeGrade?.known){let lo=t0,hi=t1;for(let i=0;i<50;i++){const t=(lo+hi)/2;if((f(t)<thr)===(f(t0)<thr))lo=t;else hi=t;}tc=(lo+hi)/2;}
                 return pred(f(t0), thr) ? [t0, tc] : [tc, t1];
             };
             for (const s of [1, -1]) {
@@ -2846,14 +2879,14 @@ export async function buildWorld(city, renderer, opts = {}) {
                 // standing in its lanes is always cut (the wall across 'Exit → Westfield Southcenter', QA round 2)
                 const sib = distId && rb.e && w.edge && ((/_link$/.test(rb.e.type) && /_link$/.test(w.edge.type)) || rb.e.bridge || w.edge.bridge) && (rb.e.a === w.edge.a || rb.e.a === w.edge.b || rb.e.b === w.edge.a || rb.e.b === w.edge.b);
                 if (sib) { const n = (rb.e.a === w.edge.a || rb.e.a === w.edge.b) ? rb.e.a : rb.e.b;
-                    const hS = Y.road + rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1), own = (y0 + y1) / 2;
+                    const hS = Y.road + yAlong(rb.e,x,z), own = (y0 + y1) / 2;
                     if (Math.hypot(x - n.x, z - n.z) < ((rb.e.bridge || w.edge.bridge) ? 40 : 15) && Math.abs(hS - own) < 1.6 && polyDist(x, z, rb.poly) > 0.5) { hit = true; return; } } // (a deck leaving its street at a split: no barrier in the street's lane — play-test note 12)
                 // narrow separation barriers: only where the lane continues on both sides (a lane merely ending at the line keeps it)
                 if (!pointInPolygon(x + w.nx * 0.9, z + w.nz * 0.9, rb.poly) || !pointInPolygon(x - w.nx * 0.9, z - w.nz * 0.9, rb.poly)) return;
                 // and a car pushed through the gap would really land on a surface at this level (same test as roadHeight)
                 let cont = false; surfacesAt(x - w.nx * 0.6, z - w.nz * 0.6, (hh) => { if (hh + 2 > y0 && hh < y1) cont = true; }, null, false, w.edge);
                 if (!cont) return;
-                const h = Y.road + (rb.e ? rb.e.a.y + (rb.e.b.y - rb.e.a.y) * clamp(((x - rb.e.a.x) * rb.e.dirx + (z - rb.e.a.z) * rb.e.dirz) / rb.e.len, 0, 1) : padHeightAt(rb.node, x, z));
+                const h = Y.road + (rb.e ? yAlong(rb.e,x,z) : padHeightAt(rb.node, x, z));
                 if (h + 2 > y0 && h < y1) hit = true; // full native driving body, as in the exact-junction branch above
             });
             return hit;
@@ -2903,13 +2936,17 @@ export async function buildWorld(city, renderer, opts = {}) {
                     if (!run) return;
                     const { ta, tb } = run; run = null;
                     const P2 = (t) => [e.a.x + e.dirx * e.len * t + e.nx * off * s, e.a.z + e.dirz * e.len * t + e.nz * off * s];
-                    const [ax, az] = P2(ta), [bx, bz] = P2(tb); const ya = Y.road + e.ya + (e.yb - e.ya) * ta, yb = Y.road + e.ya + (e.yb - e.ya) * tb;
+                    const pieces=e.sourceBridgeGrade?.known?Math.max(1,Math.ceil((tb-ta)*e.len/1.5)):1;
+                    for(let piece=0;piece<pieces;piece++){
+                        const aT=ta+(tb-ta)*piece/pieces,bT=ta+(tb-ta)*(piece+1)/pieces;
+                    const [ax, az] = P2(aT), [bx, bz] = P2(bT); const ya = Y.road + yAlong(e,ax,az), yb = Y.road + yAlong(e,bx,bz);
                     const w = { wall: true, inferred: true, ax, az, bx, bz, y0a: ya - 0.45, y1a: ya + 0.45, y0b: yb - 0.45, y1b: yb + 0.45, nx: -e.nx * s, nz: -e.nz * s, kind: 'barrier', edge: e, x: (ax + bx) / 2, z: (az + bz) / 2, r: Math.hypot(bx - ax, bz - az) / 2 + 0.3, hw: 0, hd: 0, angle: 0, poly: null, h: 1 };
                     walls.push(w); wg.insert(Math.min(ax, bx), Math.min(az, bz), Math.max(ax, bx), Math.max(az, bz), w);
+                    }
                 };
                 for (let t = t0; t <= t1 + 1e-6; t += step) {
                     const tt = Math.min(t, t1);
-                    const own = Y.road + e.ya + (e.yb - e.ya) * tt;
+                    const own = Y.road + yAlong(e,e.a.x+e.dirx*e.len*tt,e.a.z+e.dirz*e.len*tt);
                     const x = e.a.x + e.dirx * e.len * tt + e.nx * (off + 0.6) * s, z = e.a.z + e.dirz * e.len * tt + e.nz * (off + 0.6) * s;
                     const ix = e.a.x + e.dirx * e.len * tt + e.nx * (s > 0 ? e.wR : e.wL) * 0.5 * s, iz = e.a.z + e.dirz * e.len * tt + e.nz * (s > 0 ? e.wR : e.wL) * 0.5 * s;
                     const bad = Math.abs(land(x, z, own) - own) > 0.45 && !blocked(ix, iz, x, z, own);
@@ -3074,7 +3111,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                             supportPieceId: tramSupportPieceId(data.tramSources[run].sourceId, grade.sourceSegment, piece, grade.modelId),
                             sourceNodeIds: data.tramSources[run].nodeIds.slice(i, i + 2), sourceTags: data.tramSources[run].tags,
                             estimated: true, elevationSource: grade.basis, sourceAnchorIds: grade.sourceAnchorIds, modelId: grade.modelId,
-                            supportA: a, supportB: b, supportTop: top, topProfile: piece.topProfile,
+                            supportA: a, supportB: b, supportTop: top, topProfile: piece.topProfile, sourceBridgeModelId:grade.sourceBridgeModelId,
                             y0: Math.min(...bottom.map(p => p[1])), y1: Math.max(...top.map(p => p[1])), h: Math.max(...top.map(p => p[1])),
                             roofHeightAt: (px, pz, radius) => band(px, pz, radius).top, minHeightAt: (px, pz, radius) => band(px, pz, radius).bottom };
                         sceneryDeckGrid.insert(x - deck.r, z - deck.r, x + deck.r, z + deck.r, deck); tramDecks.push(deck);
@@ -3118,8 +3155,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                     (supported ? c.road : c.ground).face4(...ballast, ballastCol, [0, 1, 0], -1, ballast.map(p => [p[0] * .3, p[2] * .3]));
                     for (const offset of [-.72, .72]) {
                         const hw = .045, yy = Y.road + Y.mark + .006;
-                        c.marks.face4([a[0] + nx * (offset + hw), yy + y0, a[1] + nz * (offset + hw)], [b[0] + nx * (offset + hw), yy + y1, b[1] + nz * (offset + hw)],
-                            [b[0] + nx * (offset - hw), yy + y1, b[1] + nz * (offset - hw)], [a[0] + nx * (offset - hw), yy + y0, a[1] + nz * (offset - hw)], railCol, [0, 1, 0], -1, [[0, 0], [0, 0], [0, 0], [0, 0]]);
+                        c.marks.face4([a[0] + nx * (offset + hw), yy + (grade.heightAtWorld?.(a[0]+nx*(offset+hw),a[1]+nz*(offset+hw))??y0), a[1] + nz * (offset + hw)], [b[0] + nx * (offset + hw), yy + (grade.heightAtWorld?.(b[0]+nx*(offset+hw),b[1]+nz*(offset+hw))??y1), b[1] + nz * (offset + hw)],
+                            [b[0] + nx * (offset - hw), yy + (grade.heightAtWorld?.(b[0]+nx*(offset-hw),b[1]+nz*(offset-hw))??y1), b[1] + nz * (offset - hw)], [a[0] + nx * (offset - hw), yy + (grade.heightAtWorld?.(a[0]+nx*(offset-hw),a[1]+nz*(offset-hw))??y0), a[1] + nz * (offset - hw)], railCol, [0, 1, 0], -1, [[0, 0], [0, 0], [0, 0], [0, 0]]);
                     }
                     tramGrades.report.renderedTriangles += 6;
                 }
@@ -6056,7 +6093,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             const lim = (side > 0 ? e.wR : e.wL) + shoulderOf(e) + (carriagewayOnly ? 0 : sidewalkWidth(e, side) + (raisedEdge(e, side) ? SIDE_BACK : 0.05)) + (e === prefer ? 1.5 : 0);
             if (q.d > lim) return;
             if ((q.t <= 0 || q.t >= 1) && Math.hypot(x - (q.t <= 0 ? e.a.x : e.b.x), z - (q.t <= 0 ? e.a.z : e.b.z)) > (q.t <= 0 ? e.a : e.b).radius + (carriagewayOnly ? 0 : 1)) return;
-            const h = Y.road + e.a.y + (e.b.y - e.a.y) * q.t;
+            const h = Y.road + yAlong(e,x,z);
             if (!carriagewayOnly && q.t > 0 && q.t < 1 && raisedEdge(e, side) && q.d > widthAsphalt(e, side) + 0.02 && !onRibbon(x, z, 0, RIB_ONLY)) { const sh = railRoadside.surface(e, x, z, h + Y.kerb); if (sh !== null) cb(sh, sh > h + .01); return; } // source-rail flush paving follows rendered height
             let adjusted = railRoadside.surface(e, x, z, h);
             if (adjusted === null && !carriagewayOnly) adjusted = railRoadside.surface(e, x, z, h + Y.side - Y.road);
@@ -6068,7 +6105,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         camera: null, // optional: set to the main camera for distance culling (auto-detected otherwise)
         group, graph, buildings: allColl, pois, lights, nodeLight, bounds, nearestEdge, edgesInBox, isWater, isPark, waterMesh, sky,
         districts, areas, landmarks, trams, stats, data, spawn, city, allEdges,
-        tramGrade: tramGrades.resolveGrade, tramDecks, tramDeckSupportAt, sidewalkWidth,
+        tramGrade: tramGrades.resolveGrade, tramDecks, tramDeckSupportAt, sidewalkWidth, sourceBridgeProfile:sharedBridgeProfile.report, sourceBridgeMeshAudit:sharedBridgeMeshAudit,
         /** placed trees {x, z, species, con, kind} (read-only; QA detectors) */
         treeSpots: treeList,
         /** chapters: the loaded district {id, name, label, bbox, center, landmarks, congestion, areaKm2, ends:[{x,z,node,edge}] (road-closed
@@ -6087,7 +6124,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 if (e.tunnel || e.layer < 0 || e.virtual) continue; // virtual U-turn connectors have no carriageway
                 for (let t = 0.1; t < 0.95; t += 0.2) for (const o of [0, e.wR * 0.7, -e.wL * 0.7]) {
                     const x = e.a.x + (e.b.x - e.a.x) * t + e.nx * o, z = e.a.z + (e.b.z - e.a.z) * t + e.nz * o;
-                    const roadY = Y.road + e.ya + (e.yb - e.ya) * t;
+                    const roadY = Y.road + yAlong(e,x,z);
                     let hit = null; allColl.query(x, z, 0.5, (c) => { if (!hit && buildingBlocksRoad(c, x, z, roadY)) hit = c; });
                     if (hit) { blocked.push({ edge: e.id, name: e.name, x: Math.round(x), z: Math.round(z) }); t = 2; break; }
                 }
@@ -6164,12 +6201,12 @@ export async function buildWorld(city, renderer, opts = {}) {
                         const x = b.ax + (b.bx - b.ax) * t, z = b.az + (b.bz - b.az) * t;
                         if (blocksLane(b, x, z, t)) { const rb = onRibbon(x, z, 0, (r) => r.e !== b.edge); out.walls.push({ kind: b.kind, road: b.edge?.name || b.sourceId || b.kind, x: R(x), z: R(z), other: rb?.e ? rb.e.name : 'junction' }); break; }
                         continue;
-                        const yw = Y.road + b.edge.ya + (b.edge.yb - b.edge.ya) * clamp(((x - b.edge.a.x) * b.edge.dirx + (z - b.edge.a.z) * b.edge.dirz) / b.edge.len, 0, 1); // its road's level here
+                        const yw = Y.road + yAlong(b.edge,x,z); // its road's level here
                         // (a wall between two parallel carriageways at different levels is a separation / median wall: fine)
                         const wl = Math.hypot(b.bx - b.ax, b.bz - b.az) || 1, wdx = (b.bx - b.ax) / wl, wdz = (b.bz - b.az) / wl;
                         const rb = onRibbon(x, z, 0.05, (r) => {
                             if (r.e === b.edge || r.node === b.edge.a || r.node === b.edge.b || (r.e && (r.e.a === b.edge.a || r.e.b === b.edge.b || r.e.a === b.edge.b || r.e.b === b.edge.a))) return false;
-                            const dh = Math.abs((r.e ? r.e.a.y + (r.e.b.y - r.e.a.y) * clamp(((x - r.e.a.x) * r.e.dirx + (z - r.e.a.z) * r.e.dirz) / r.e.len, 0, 1) : r.node.y) + Y.road - yw);
+                            const dh = Math.abs((r.e ? yAlong(r.e,x,z) : r.node.y) + Y.road - yw);
                             const parallel = r.e && Math.abs(r.e.dirx * wdx + r.e.dirz * wdz) > 0.85;
                             return dh < 0.3 || (dh < 0.45 && !parallel);
                         });
@@ -6204,7 +6241,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 let found = false;
                 for (let t0i = t0; t0i <= t1 + 1e-6 && !found; t0i += Math.max(0.02, 1.5 / e.len)) {
                     const t = Math.min(t0i, t1);
-                    const own = Y.road + e.ya + (e.yb - e.ya) * t;
+                    const own = Y.road + yAlong(e,e.a.x+e.dirx*e.len*t,e.a.z+e.dirz*e.len*t);
                     for (const s of [1, -1]) {
                         const off = (e.bridge ? widthAsphalt(e, s) + 0.3 : widthSide(e, s)) + 0.6;
                         const x = e.a.x + e.dirx * e.len * t + e.nx * off * s, z = e.a.z + e.dirz * e.len * t + e.nz * off * s;

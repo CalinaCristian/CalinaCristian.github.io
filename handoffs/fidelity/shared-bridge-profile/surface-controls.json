@@ -1,0 +1,73 @@
+{
+  "passed": true,
+  "padCount": 8,
+  "maxNodeError": 0.0000015867114075973632,
+  "maxAreaError": 0.0002482989220879972,
+  "padRows": [
+    {
+      "sourceNodeId": 984551993,
+      "hullAreaM2": 44.34753266401822,
+      "triangles": 8,
+      "sourceModelHeightM": 7.5
+    },
+    {
+      "sourceNodeId": 984552354,
+      "hullAreaM2": 61.096540781727526,
+      "triangles": 9,
+      "sourceModelHeightM": 7.5
+    },
+    {
+      "sourceNodeId": 981547574,
+      "hullAreaM2": 48.052163310931064,
+      "triangles": 8,
+      "sourceModelHeightM": 4.277446805670616
+    },
+    {
+      "sourceNodeId": 2624398781,
+      "hullAreaM2": 58.296656312799314,
+      "triangles": 8,
+      "sourceModelHeightM": 7.5
+    },
+    {
+      "sourceNodeId": 6261926625,
+      "hullAreaM2": 46.94753877443145,
+      "triangles": 9,
+      "sourceModelHeightM": 1.4
+    },
+    {
+      "sourceNodeId": 981550754,
+      "hullAreaM2": 57.46772031165892,
+      "triangles": 7,
+      "sourceModelHeightM": 7.5
+    },
+    {
+      "sourceNodeId": 6261926624,
+      "hullAreaM2": 2.6360389132169075,
+      "triangles": 8,
+      "sourceModelHeightM": 0
+    },
+    {
+      "sourceNodeId": 6307136271,
+      "hullAreaM2": 43.744031179419835,
+      "triangles": 8,
+      "sourceModelHeightM": 7.5
+    }
+  ],
+  "inputTriangles": 290,
+  "outputTriangles": 3117,
+  "maxControlErrorM": 0.0019968297846695293,
+  "depthLimit": 0,
+  "legacyOrdinaryPose": {
+    "x": 432.4506703613409,
+    "y": 0.24,
+    "z": -709.4313545499678,
+    "heading": 1.0196753966040772,
+    "pitch": 0
+  },
+  "lipResults": [
+    0.05,
+    0
+  ],
+  "structuralErrorM": 2.3300400453507564e-7,
+  "scope": "Exact source pad/miter fixture, Float32 mesh/query fan and bounded sampled chord controls; actual ordinary Traffic2D reader. Fresh native constructor/fullworld/drive/images remain required."
+}

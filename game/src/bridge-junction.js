@@ -39,9 +39,10 @@ const maxSlope = triangles => triangles.reduce((m, [a, b, c]) => {
     const nx = u[1] * v[2] - u[2] * v[1], ny = u[2] * v[0] - u[0] * v[2], nz = u[0] * v[1] - u[1] * v[0];
     return Math.abs(ny) > EPS ? Math.max(m, Math.hypot(nx, nz) / Math.abs(ny)) : m;
 }, 0);
-export function bridgeJunctionSlab({ node, poly, topTriangles, edges, mouths, sourceIds, bottomHeightAt }) {
+export function bridgeJunctionSlab({ node, poly, topTriangles, edges, mouths, sourceIds, bottomHeightAt, supportKind = 'bridge' }) {
     const fail = reason => ({ known: false, reason, sourceNodeId: node?.sourceId });
-    if (!node || !(node.sourceId > 0) || edges.length < 3 || edges.some(e => e.virtual || !e.bridge || e.tunnel || Math.min(e.ya, e.yb) <= .3)) return fail('not-an-elevated-bridge-only-source-fork');
+    const embankment=supportKind==='modeled-embankment',modelIds=new Set(edges.map(e=>e.sourceBridgeGrade?.modelId));
+    if (!node || !(node.sourceId > 0) || edges.length < 3 || edges.some(e => e.virtual || e.tunnel || Math.min(e.ya, e.yb) <= .3 || (embankment ? e.bridge || !e.sourceBridgeGrade?.known : !e.bridge)) || (embankment&&(modelIds.size!==1||modelIds.has(undefined)))) return fail('not-an-elevated-bridge-only-source-fork');
     if (poly.length < 3 || !topTriangles.length || !topTriangles.flat(2).every(Number.isFinite)) return fail('invalid-native-pad-skin');
     const sign = orientation(poly); if (!sign) return fail('degenerate-native-pad-hull');
     // Reuse each existing road/sidewalk skin's exact XY tessellation. A separate
@@ -62,10 +63,20 @@ export function bridgeJunctionSlab({ node, poly, topTriangles, edges, mouths, so
     const x = poly.reduce((s, p) => s + p[0], 0) / poly.length, z = poly.reduce((s, p) => s + p[1], 0) / poly.length;
     const lower = underside.flat().map(p => p[1]), upper = topTriangles.flat().map(p => p[1]), topSlope = maxSlope(topTriangles), bottomSlope = maxSlope(underside);
     const deck = { x, z, r: Math.max(...poly.map(p => Math.hypot(p[0] - x, p[1] - z))), poly, holes: [], roadDeck: true, bridgeJunction: true,
-        kind: 'source-bridge-junction-slab', sourceNodeId: node.sourceId, sourceIds: [...new Set(sourceIds)], estimated: true, y0: Math.min(...lower), y1: Math.max(...upper), h: Math.max(...upper),
+        kind: embankment?'source-junction-embankment':'source-bridge-junction-slab', embankment, sourceNodeId: node.sourceId, sourceIds: [...new Set(sourceIds)], estimated: true, y0: Math.min(...lower), y1: Math.max(...upper), h: Math.max(...upper),
         roofHeightAt: (px, pz, radius = 0) => { const y = heightOn(topTriangles, px, pz, true); return y === null ? null : y + Math.max(0, radius) * topSlope; },
         minHeightAt: (px, pz, radius = 0) => { const y = heightOn(underside, px, pz, false); return y === null ? null : y - Math.max(0, radius) * bottomSlope; },
         topTriangles, bottomTriangles: underside,
-        elevationSource: 'Unchanged exact native source-fork pad skins; adjacent bridge fascia depth is an explicit estimate, not surveyed' };
+        elevationSource: embankment?'MODEL source-junction embankment to ground under the exact existing road hull; not surveyed':'Exact native source-fork pad skins; adjacent bridge fascia depth is an explicit estimate, not surveyed' };
     return { known: true, underside, fascia, deck, sourceNodeId: node.sourceId };
+}
+
+/** A default5cm fascia lip is an inferred ornament. Retain the full slab and
+ * finish that lip at its running surface where an admitted same-model actual
+ * rail fleet corridor occupies it. Literal/reviewed side dimensions win. */
+export function inferredBridgeFasciaUpstand(edge,a,b,{grades,envelope,defaultM=.05,roadBaseM=.24}={}){
+ const g=edge.sourceBridgeGrade;
+ if(!g?.known||!envelope||!grades?.excludesInferredObstacle||edge.roadWidthSource||edge.sidewalkSource?.explicit)return defaultM;
+ const ya=roadBaseM+g.heightAtWorld(...a),yb=roadBaseM+g.heightAtWorld(...b);
+ return grades.excludesInferredObstacle(a,b,{inferred:true,y0a:ya,y1a:ya+defaultM,y0b:yb,y1b:yb+defaultM,radiusM:0,bodyEnvelope:envelope,sourceBridgeModelId:g.modelId,kind:'shared-bridge-inferred-fascia-upstand',sourceId:edge.access?.sourceId||g.sourceId})?0:defaultM;
 }

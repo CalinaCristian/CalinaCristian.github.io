@@ -155,7 +155,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   whole-body driving and render checks remain separate acceptance gates for this rebuilt coverage.
   Synthetic district limits share the whole car's finite road/junction support, including retained bridges. Physical
   closure walls and their decoration consume the same finalized cross-sections; mapped source barriers stay intact.
-  Grozăvești also retains a hashed raw turn-restriction catalogue for the separate GPS/traffic reader; malformed and
+  All eight source districts retain their own hashed raw turn-restriction catalogue for the separate GPS/traffic reader; malformed and
   conditional records remain explicit. This metadata addition changes no geometry or current driving permission.
 - **Floreasca, rebuilt street by street against reality.** Every real building footprint in the playable area and in a
   600 m ring around it (real streets too — no empty belt or lonely boxes past the closures); roof shapes and colours,

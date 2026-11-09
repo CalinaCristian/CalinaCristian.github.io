@@ -1,0 +1,55 @@
+{
+  "authorization": "Root explicitly authorized removal ONLY of these four previously certified CLOSED/reconstructible QA SOURCE copies after preserving all producer/per-file ledgers and raw evidence. No worktree, branch or raw report deletion authorized.",
+  "preservationCommit": "32a1b492",
+  "startedUtc": "2026-11-09T07:16:34.727452+00:00",
+  "freeBefore": 2057682944,
+  "actions": [
+    {
+      "path": "/workspace/integration-qa-evidence/default-spawn-fcb60c84-source",
+      "sourceCommit": "fcb60c84a7909ceacd682ffb1ab26133c18ac22a",
+      "filesReverified": 9317,
+      "producerManifestSha256": "0f4d05bfd0968ee3ac3ae6d48d96fa8016cc206a326e5bd756580d68636a0ce1",
+      "removedUtc": "2026-11-09T07:16:38.214784+00:00",
+      "rawEvidenceDirectoriesRetained": [
+        "/workspace/integration-qa-evidence/default-spawn-fcb60c84-native"
+      ],
+      "removed": true
+    },
+    {
+      "path": "/workspace/integration-qa-evidence/menu-d53da8ff-source",
+      "sourceCommit": "d53da8ffb633bdceeafa8302e3e818e42f69c69b",
+      "filesReverified": 10002,
+      "producerManifestSha256": "8ca06479215e804d2ace051c9a87e1255a7637ff28d68775dc58a8fb4dbdb1eb",
+      "removedUtc": "2026-11-09T07:16:43.144395+00:00",
+      "rawEvidenceDirectoriesRetained": [
+        "/workspace/integration-qa-evidence/menu-d53da8ff-native-r2",
+        "/workspace/integration-qa-evidence/menu-d53da8ff-native"
+      ],
+      "removed": true
+    },
+    {
+      "path": "/workspace/integration-qa-evidence/menu-headlights-e12abd00-source",
+      "sourceCommit": "e12abd000b5488ea0adf291731a9ee7cee7b77df",
+      "filesReverified": 9315,
+      "producerManifestSha256": "8b722ae054978590763227cb2c6d6f2e9d753e0e4d700ece9cb4a84cb2097e0e",
+      "removedUtc": "2026-11-09T07:16:45.752889+00:00",
+      "rawEvidenceDirectoriesRetained": [],
+      "removed": true
+    },
+    {
+      "path": "/workspace/integration-qa-evidence/transitions-c4fd6255-source",
+      "sourceCommit": "c4fd6255f928101e27874f37776ed5be8d805827",
+      "filesReverified": 13195,
+      "producerManifestSha256": "b78a61fdab1e302e7fc8767b69c7e9ec00141fbb8ec2d37134bfc31e86ed5b7d",
+      "removedUtc": "2026-11-09T07:16:49.502651+00:00",
+      "rawEvidenceDirectoriesRetained": [
+        "/workspace/integration-qa-evidence/transitions-c4fd6255-native"
+      ],
+      "removed": true
+    }
+  ],
+  "endedUtc": "2026-11-09T07:16:49.932575+00:00",
+  "freeAfter": 4866224128,
+  "freeDeltaBytes": 2808541184,
+  "allSixProducerAndPerFileLedgersRetained": true
+}

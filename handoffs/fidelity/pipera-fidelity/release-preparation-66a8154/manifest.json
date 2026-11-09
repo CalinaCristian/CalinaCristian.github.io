@@ -3,8 +3,13 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 9589,
-      "sha256": "b6369353c891ba3540ea775fa304f948f050e0b0071d8bdf778395529d64eec3"
+      "bytes": 10229,
+      "sha256": "2ecc607cd3452ff183919f44541263ad869fa8fd0edb9243ae058404db6755eb"
+    },
+    {
+      "path": "authorized-source-cleanup-receipt.json",
+      "bytes": 2509,
+      "sha256": "2f683df03778b3d66664699741a62fb396fe7bf94093ea631c00c322b76f3e23"
     },
     {
       "path": "branch-ownership.json",

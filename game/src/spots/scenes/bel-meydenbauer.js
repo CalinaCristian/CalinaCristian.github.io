@@ -130,7 +130,7 @@ export default {
         const arcL = polylineLength(arc), Q = (s) => alongPolyline(arc, clamp(s, 0, arcL));
         const root = Q(0), rootY = Math.max(DECK + 0.05, g.heightAt(root.x, root.z) + 0.02);
         const deckY = (s) => lerp(rootY, DECK, smooth(0, 16, s));
-        const b = new GeoBatch(), W = 4.4, step = 1.5, ns = Math.ceil(arcL / step);
+        const b = new GeoBatch(), W = 4.4, step = 1.5, ns = Math.ceil(arcL / step), deckQuads = [];
         const L = [], R = [], Lh = [], Rh = [];
         for (let i = 0; i <= ns; i++) {
             const s = Math.min(arcL, i * step), a = Q(s), a2 = Q(Math.min(arcL, s + 0.5)), a1 = Q(Math.max(0, s - 0.5));
@@ -142,6 +142,7 @@ export default {
             if (i * step > arcL - 1.8) continue; // the round tip disc covers the last metres
             const tint = i % 2 ? '#b8b6af' : '#c1bfb8', l0 = L[i], l1 = L[i + 1], r0 = R[i], r1 = R[i + 1];
             b.quad(r0, r1, l1, l0, tint, 'concrete');                                                                       // deck panel
+            deckQuads.push([r0, r1, l1, l0]);
             const dn = (p) => [p[0], p[1] - 0.42, p[2]];
             b.quad(dn(l0), l0, l1, dn(l1), '#8e8c86', 'concrete'); b.quad(dn(r1), r1, r0, dn(r0), '#8e8c86', 'concrete');  // fascia
             const fl = (p, q, t) => [lerp(p[0], q[0], t), p[1] - 0.42, lerp(p[2], q[2], t)], wl = (p) => [p[0], LAKE_Y - 0.25, p[2]];
@@ -259,7 +260,30 @@ export default {
         for (const [x, z, a] of [[-18, -26, 0.3], [8, -14, 1.1], [-26, -33, 2.1]]) { const y = g.heightAt(x, z); fb.rod([x - Math.cos(a) * 2.2, y + 0.25, z - Math.sin(a) * 2.2], [x + Math.cos(a) * 2.2, y + 0.3, z + Math.sin(a) * 2.2], 0.28, '#8d7a64', 'wood', 8, 0.24); ctx.box(x, z, 2.2, 0.3, -a, { prop: true, h: 0.55 }); }
         // ---------------------------------------------------------------- rockeries (OSM retaining walls) + boulders along the promenade
         const rk = new GeoBatch();
-        for (const a of d.areas) if (a.barrier === 'retaining_wall') { boulderWall(rk, a.poly, (x, z) => g.heightAt(x, z) - 0.25, { h: 1.6, seed: a.poly.length * 13 }); for (let i = 1; i < a.poly.length; i++) { const [ax, az] = a.poly[i - 1], [qx, qz] = a.poly[i]; ctx.collider({ wall: true, ax, az, bx: qx, bz: qz, y0a: g.heightAt(ax, az) - 3, y1a: g.heightAt(ax, az) + 0.9, y0b: g.heightAt(qx, qz) - 3, y1b: g.heightAt(qx, qz) + 0.9, nx: 0, nz: 1, intended: true }); } } // boulder rockery (low, rendered)
+        // The layer-1 public pier crosses w1496390046. Its guessed rockery
+        // height must stay beneath the actual rendered deck, rather than
+        // sealing that source access with an invented full-height wall.
+        const hasRaisedPier = d.ways.some(w => w.id === 'w687934817' && String(w.layer) === '1');
+        const deckTopAt = (x, z) => {
+            for (const q of deckQuads) for (const [a, b, c] of [[q[0], q[1], q[2]], [q[0], q[2], q[3]]]) {
+                const den = (b[2] - c[2]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[2] - c[2]); if (Math.abs(den) < 1e-9) continue;
+                const u = ((b[2] - c[2]) * (x - c[0]) + (c[0] - b[0]) * (z - c[2])) / den, v = ((c[2] - a[2]) * (x - c[0]) + (a[0] - c[0]) * (z - c[2])) / den;
+                if (u >= -1e-6 && v >= -1e-6 && u + v <= 1 + 1e-6) return u * a[1] + v * b[1] + (1 - u - v) * c[1];
+            }
+            return null;
+        };
+        for (const a of d.areas) if (a.barrier === 'retaining_wall') {
+            const support = (x, z) => hasRaisedPier && a.id === 'w1496390046' ? deckTopAt(x, z) : null;
+            const cap = (x, z) => { const deck = support(x, z); return deck === null ? g.heightAt(x, z) + .9 : Math.min(g.heightAt(x, z) + .9, deck - .12); };
+            boulderWall(rk, a.poly, (x, z) => { const deck = support(x, z), base = g.heightAt(x, z) - .25; return deck === null ? base : Math.min(base, deck - 1.4); }, { h: 1.6, seed: a.poly.length * 13 });
+            for (let i = 1; i < a.poly.length; i++) {
+                const A = a.poly[i - 1], B = a.poly[i], n = hasRaisedPier && a.id === 'w1496390046' ? Math.ceil(Math.hypot(B[0] - A[0], B[1] - A[1]) / .35) : 1;
+                for (let j = 0; j < n; j++) {
+                    const ax = lerp(A[0], B[0], j / n), az = lerp(A[1], B[1], j / n), qx = lerp(A[0], B[0], (j + 1) / n), qz = lerp(A[1], B[1], (j + 1) / n);
+                    ctx.collider({ wall: true, ax, az, bx: qx, bz: qz, y0a: g.heightAt(ax, az) - 3, y1a: cap(ax, az), y0b: g.heightAt(qx, qz) - 3, y1b: cap(qx, qz), nx: 0, nz: 1, intended: true });
+                }
+            }
+        } // mapped boulder rockery, including its portions beneath the pier
         for (const pts of prom.slice(0, 1)) { const Lp = polylineLength(pts); for (let s = 4; s < Lp; s += 7 + r() * 6) { const p = alongPolyline(pts, s), p2 = alongPolyline(pts, Math.min(Lp, s + 1)), tx = p2.x - p.x, tz = p2.z - p.z, tl = Math.hypot(tx, tz) || 1, side = r() < 0.5 ? 1 : -1, x = p.x + tz / tl * 3.1 * side, z = p.z - tx / tl * 3.1 * side; if (sdf(x, z) > -1) continue; boulderWall(rk, [[x - 0.5, z], [x + 0.6, z + 0.2]], (px, pz) => g.heightAt(px, pz) - 0.2, { h: 0.9, seed: s | 0 }); ctx.circle(x, z, 0.7, 0.8); } }
         ctx.add(rk.build('rockeries')); ctx.add(fb.build('beach-furniture'));
         // ---------------------------------------------------------------- playground (OSM w688639344): climbing tower, slide, swings

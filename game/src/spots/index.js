@@ -17,7 +17,7 @@ import { Crowd } from './people.js';
 import { SpotUI, SpotMap, plaqueMesh } from './ui.js';
 import { SpotSound } from './sound.js';
 import { colliderIndex, LocalWalker, collide } from './walker.js';
-import { findWalkPath, pathLength, walkHeight, walkSegment, withMovingBodies } from './tour.js';
+import { findWalkPath, pathLength, walkHeight, walkSegment, withMovingBodies, walkingLevelGround } from './tour.js';
 import { countTris, disposeTree, headingFromBearing, inPoly, polyBox, DEG, rng, distPolyline } from './kit.js';
 
 // ---------------------------------------------------------------------------- registry (Seattle 10 + Bellevue 4; Bucharest added by its builder)
@@ -390,7 +390,13 @@ export class SpotSession {
             const ch = S.challenges.find((c) => c.id === mid), ext = d.extent?.polygon?.length ? polyBox(d.extent.polygon) : null;
             // the spot itself (its extent centre, else the postcard stand / spawn) — not ch.view, the point the postcard
             // looks AT (Kerry Park: downtown, 1.2 km away — the tour walked you into the city; after round 6)
-            const hx = ext ? (ext.x0 + ext.x1) / 2 : ch?.x ?? d.spawn?.x ?? 0, hz = ext ? (ext.z0 + ext.z1) / 2 : ch?.z ?? d.spawn?.z ?? 0;
+            let hx = ext ? (ext.x0 + ext.x1) / 2 : ch?.x ?? d.spawn?.x ?? 0, hz = ext ? (ext.z0 + ext.z1) / 2 : ch?.z ?? d.spawn?.z ?? 0;
+            const boundary = S.ctx.extras.walkBoundary;
+            if (boundary && !boundary.inside(hx, hz)) {
+                const arrival = S.spawns?.[mid] || d.spawn;
+                if (!arrival || !boundary.inside(arrival.x, arrival.z)) continue;
+                hx = arrival.x; hz = arrival.z;
+            }
             out.push({ kind: 'hero', id: mid, x: hx, z: hz, label: e.name, blurb: e.blurb, done: !!this._seen?.has('hero:' + mid) }); }
         const entrances = Object.entries(S.spawns || {}).filter(([k]) => k === S.id || spotById(k)?.available);
         for (const [k, sp] of entrances) if (entrances.length > 1) out.push({ kind: 'entrance', x: sp.x, z: sp.z, label: 'Entrance: ' + (spotById(k)?.name || k), done: true, noTour: true });
@@ -405,7 +411,10 @@ export class SpotSession {
         for (const a of acts) { const m = pre(a.full);
             if (m && count[m[1]] >= 3) { a.group = groupName(m[1]); a.name = m[2]; a.label = shortLabel(m[2]); }
             else { a.name = a.full; a.label = shortLabel(a.full.split(' — ')[0]); } out.push(a); }
-        for (const o of out) { if (!o.name) o.name = o.label; o.short = o.short || shortLabel(o.label); }
+        for (const o of out) {
+            if (!o.name) o.name = o.label; o.short = o.short || shortLabel(o.label);
+            o.floorY = S.ground.groundAt(o.x, o.z, o.interaction?.y ?? S.ground.heightAt(o.x, o.z) + 1.2);
+        }
         return out;
     }
     _initMap() {
@@ -468,24 +477,34 @@ export class SpotSession {
         const bodies=[...(this.spot.crowd?.obstacles((ax+bx)/2,(az+bz)/2,range)||[]),...(this.spot.ctx.extras.obstacles?.()||[])];
         return withMovingBodies(this.spot.colliders,bodies,this.guide);
     }
-    _navigationGround() {
-        const g=this.spot.ground,boundary=this.spot.ctx.extras.walkBoundary;
+    _navigationGround(x = this.ctl?.x, z = this.ctl?.z, y = this.ctl?.y) {
+        const g=walkingLevelGround(this.spot.ground,x,z,y),boundary=this.spot.ctx.extras.walkBoundary;
         if(!boundary)return g;
         const view=Object.create(g);view.walkInside=(x,z)=>boundary.inside(x,z);return view;
     }
-    _navPath(ax, az, bx, bz, opts = {}) { return findWalkPath(this._navigationGround(), this._navColliders(ax,az,bx,bz), ax, az, bx, bz, opts); }
+    _navPath(ax, az, bx, bz, opts = {}) {
+        const ground = this._navigationGround(ax, az, opts.startY ?? this.ctl?.y);
+        if (Number.isFinite(opts.targetY)) {
+            const endY = ground.groundAt(bx, bz, ground.heightAt(bx, bz) + 1.2);
+            if (!Number.isFinite(endY) || Math.abs(endY - opts.targetY) > .55) return null;
+        }
+        return findWalkPath(ground, this._navColliders(ax,az,bx,bz), ax, az, bx, bz, opts);
+    }
     setWaypoint(target) {
         if(!Number.isFinite(target?.x)||!Number.isFinite(target?.z))return{message:'Choose a point on the map.'};
-        this.waypoint={x:target.x,z:target.z,label:target.name||target.label||'Custom waypoint',radius:target.interaction?Math.max(.4,(target.interaction.r||2)-.4):1.5};
+        const p=this.position,ground=this._navigationGround(p.x,p.z,this.ctl?.y ?? p.y);
+        let floorY=target.floorY ?? ground.groundAt(target.x,target.z,this.ctl?.y ?? p.y);
+        if(!Number.isFinite(floorY))floorY=this.spot.ground.groundAt(target.x,target.z,this.spot.ground.heightAt(target.x,target.z)+1.2);
+        this.waypoint={x:target.x,z:target.z,floorY,label:target.name||target.label||'Custom waypoint',radius:target.interaction?Math.max(.4,(target.interaction.r||2)-.4):1.5};
         this._waypointFrom=null;this._updateWaypoint(true);
-        return{message:`Waypoint: ${this.waypoint.label}. ${this._waypointPath?'Follow the blue route.':'No walking route from your current level; choose another point or approach.'}`};
+        return{message:`Waypoint: ${this.waypoint.label}. ${this._waypointPath?'Follow the blue route.':'No walking route on this level. Use the stairs or choose another approach.'}`};
     }
     clearWaypoint(){this.waypoint=null;this._waypointPath=null;this.map?.setWaypoint(null);this.ui.setWaypoint(null);}
     _updateWaypoint(force=false){
-        const w=this.waypoint;if(!w)return;const p=this.position,d=Math.hypot(w.x-p.x,w.z-p.z),arrived=d<=w.radius+1;
-        if(force||!this._waypointFrom||Math.hypot(p.x-this._waypointFrom.x,p.z-this._waypointFrom.z)>3){
-            this._waypointFrom={x:p.x,z:p.z};
-            this._waypointPath=arrived?null:this._navPath(p.x,p.z,w.x,w.z,{radius:w.radius,maxLength:600});
+        const w=this.waypoint;if(!w)return;const p=this.position,y=this.ctl?.y ?? p.y,d=Math.hypot(w.x-p.x,w.z-p.z),arrived=d<=w.radius+1&&Number.isFinite(w.floorY)&&Math.abs(y-w.floorY)<=.75;
+        if(force||!this._waypointFrom||Math.hypot(p.x-this._waypointFrom.x,p.z-this._waypointFrom.z)>3||Math.abs(y-this._waypointFrom.y)>.55){
+            this._waypointFrom={x:p.x,z:p.z,y};
+            this._waypointPath=arrived?null:this._navPath(p.x,p.z,w.x,w.z,{radius:w.radius,maxLength:600,startY:y,targetY:w.floorY});
             this.map?.setWaypoint(w,this._waypointPath);
         }
         const turn=Math.atan2(-(w.x-p.x),-(w.z-p.z))-(this.ctl.heading||0),direction=['↑','↖','←','↙','↓','↘','→','↗'][(Math.round(turn/(Math.PI/4))%8+8)%8];
@@ -504,15 +523,15 @@ export class SpotSession {
             return !it || ((!it.cond || it.cond(this)) && (!it.tourAvailable || it.tourAvailable(this)) && Math.abs((it.y ?? this.ctl.y) - this.ctl.y) < 3);
         };
         const objs = this.objectives().filter((m) => !m.noTour && m.kind !== 'entrance' && near(m));
-        const stops = []; let x = this.guide.x, z = this.guide.z, walked = 0;
+        const stops = []; let x = this.guide.x, z = this.guide.z, y = this.guide.y, walked = 0;
         const addNearest = (pool) => {
             // A detour counts against the budget before the stop enters the itinerary.
             for (const m of pool.sort((a, b) => Math.hypot(a.x - x, a.z - z) - Math.hypot(b.x - x, b.z - z))) {
                 const radius = m.interaction ? Math.min(1.5, Math.max(0.4, (m.interaction.r || 2) - 0.4)) : m.kind === 'postcard' ? Math.min(2, (m.challenge.r || 8) - 0.4) : 1.5;
-                const path = this._navPath(x, z, m.x, m.z, { radius, maxLength: 180 - walked });
+                const path = this._navPath(x, z, m.x, m.z, { radius, maxLength: 180 - walked, startY: y, targetY: m.floorY });
                 if (!path) continue;
                 const end = path.at(-1); m.tx = end[0]; m.tz = end[1]; m.path = path; m.radius = radius;
-                m.done = false; stops.push(m); walked += pathLength(path); x = m.tx; z = m.tz; return true;
+                m.done = false; stops.push(m); walked += pathLength(path); x = m.tx; z = m.tz; y = this.spot.ground.groundAt(x,z,y); return true;
             }
             return false;
         };
@@ -562,7 +581,7 @@ export class SpotSession {
         const T = this.tour; if (!T) return;
         T.stops[T.i].done = !T.stops[T.i].skipped; T.i++; T.said = false; T.t = 0; T.wait = 0;
         if (T.i >= T.stops.length) return this._finishTour();
-        const st = T.stops[T.i], path = this._navPath(this.guide.x, this.guide.z, st.x, st.z, { radius: st.radius, maxLength: Math.max(0, 180 - (T.travelled || 0)) });
+        const st = T.stops[T.i], path = this._navPath(this.guide.x, this.guide.z, st.x, st.z, { radius: st.radius, maxLength: Math.max(0, 180 - (T.travelled || 0)), startY: this.guide.y, targetY: st.floorY });
         if (!path) { T.narr = 'The next stop is blocked. You can skip it or end the tour.'; T.state = 'blocked'; this.guide.speed = 0; }
         else { st.path = path; st.wi = 1; [st.tx, st.tz] = path.at(-1); T.state = 'walk'; T.narr = 'Follow the flag to the next stop.'; }
         this._tourUI(); this._routeLine(); this._refreshMarkers();
@@ -571,7 +590,7 @@ export class SpotSession {
     _routeLine() {
         if (this._route) { this.spot.scene.remove(this._route); this._route.geometry.dispose(); this._route.material.dispose(); this._route = null; }
         const T = this.tour, st = T?.stops[T.i]; if (!st || T.state === 'done' || T.state === 'blocked') { this.map?.setRoute(null); return; }
-        const a = this.guide, g = this.spot.ground, pos = [];
+        const a = this.guide, g = this._navigationGround(a.x,a.z,a.y), pos = [];
         // the remaining route of this leg (guide → waypoints → stop), dashed on the ground
         const route = [[a.x, a.z], ...(st.path && st.path.length > 1 ? st.path.slice(st.wi ?? 1) : [[st.tx, st.tz]])];
         for (let r = 1; r < route.length; r++) { const [px, pz] = route[r - 1], [qx, qz] = route[r], L = Math.hypot(qx - px, qz - pz), n = Math.max(1, Math.floor(L / 1.6)), nx = -(qz - pz) / (L || 1), nz = (qx - px) / (L || 1);
@@ -601,7 +620,7 @@ export class SpotSession {
                 if (wp) while (st.wi < wp.length - 1 && Math.hypot(wp[st.wi][0] - G.x, wp[st.wi][1] - G.z) < 0.35) st.wi++;
                 const tgx = wp ? wp[st.wi][0] : st.tx, tgz = wp ? wp[st.wi][1] : st.tz, dT = Math.hypot(tgx - G.x, tgz - G.z) || 1;
                 let dx = (tgx - G.x) / dT, dz = (tgz - G.z) / dT; const step = Math.min(v * dt, dT);
-                const cols = this._navColliders(G.x,G.z,G.x,G.z,12), ground = this._navigationGround(); let nx = G.x, nz = G.z, moved = false;
+                const cols = this._navColliders(G.x,G.z,G.x,G.z,12), ground = this._navigationGround(G.x,G.z,G.y); let nx = G.x, nz = G.z, moved = false;
                 for (const turn of [0, 0.7, -0.7, 1.4, -1.4]) {
                     const c = Math.cos(turn), s2 = Math.sin(turn), ex = dx * c - dz * s2, ez = dx * s2 + dz * c, tx = G.x + ex * step, tz = G.z + ez * step;
                     if (walkSegment(ground, cols, [G.x, G.z], [tx, tz])) { nx = tx; nz = tz; dx = ex; dz = ez; moved = true; break; }
@@ -614,7 +633,7 @@ export class SpotSession {
                 } else st.blockedFor = (st.blockedFor || 0) + dt;
                 if(T.travelled>180){T.state='blocked';T.narr='This short walk has reached its distance budget. You can end the tour and keep exploring freely.';G.speed=0;this._tourUI();this._routeLine();return;}
                 if(st.blockedFor>1){
-                    const replanned=this._navPath(G.x,G.z,st.x,st.z,{radius:st.radius,maxLength:180-T.travelled});st.blockedFor=0;
+                    const replanned=this._navPath(G.x,G.z,st.x,st.z,{radius:st.radius,maxLength:180-T.travelled,startY:G.y,targetY:st.floorY});st.blockedFor=0;
                     if(replanned){st.path=replanned;st.wi=1;st.progressWaypoint=null;st.bestRemaining=Infinity;[st.tx,st.tz]=replanned.at(-1);this._routeLine();}
                     else{T.state='blocked';T.narr='The public route is currently blocked. You can skip this stop or end the tour.';G.speed=0;this._tourUI();this._routeLine();return;}
                 }

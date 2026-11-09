@@ -1,0 +1,27 @@
+{
+  "scope": "CPU actual source footprint + gallery/floor/rail/native-body controls; no public-street, browser, lighting or complete-scene acceptance claim",
+  "passed": true,
+  "checks": [
+    "source outer footprint is unchanged and every gallery has one contiguous internal void",
+    "full timber floor closes the source-boundary seam, including the front threshold",
+    "gallery solids remain walkable while their central void contains no phantom floor",
+    "actual first-gallery navigation cannot cross the atrium on its lower floor",
+    "rails block their own gallery but leave the ground below open",
+    "all stair risers and landings have matching closed walk surfaces and modest rises",
+    "actual native body climbs the entire modeled stair without snapping or passing a closed rail"
+  ],
+  "floorY": -0.18015839147726062,
+  "levels": [
+    0,
+    3.1,
+    6.6,
+    10,
+    13.6
+  ],
+  "treads": 80,
+  "pathPoints": 132,
+  "railSegments": 560,
+  "triangles": 110306,
+  "meshes": 8,
+  "maxStep": 0.02825473509701648
+}

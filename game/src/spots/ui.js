@@ -168,7 +168,7 @@ export class SpotUI {
         if (!el) { el = document.createElement('div'); el.className = 'sp-waypoint'; this.$('.sp-card').append(el); }
         if (!t) { el.replaceChildren(); el.hidden = true; return; }
         el.hidden = false;
-        el.innerHTML = `<span>📍 ${esc(t.direction || '')} ${esc(t.label)} · ${Math.round(t.distance)} m${t.arrived ? ' · Arrived' : t.routed ? ' · Follow the blue route' : ' · No walking route from here'}</span><button type="button" aria-label="Clear waypoint">Clear</button>`;
+        el.innerHTML = `<span>📍 ${esc(t.direction || '')} ${esc(t.label)} · ${Math.round(t.distance)} m${t.arrived ? ' · Arrived' : t.routed ? ' · Follow the blue route' : ' · No walking route on this level'}</span><button type="button" aria-label="Clear waypoint">Clear</button>`;
         el.querySelector('button').onclick = t.clear;
     }
     /**

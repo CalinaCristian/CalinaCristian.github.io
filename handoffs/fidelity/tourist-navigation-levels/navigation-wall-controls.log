@@ -1,0 +1,23 @@
+(node:602716) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/spots/ground.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ raised gallery route goes around its actual void, while ground route stays below (36.507107ms)
+✔ same-floor custom waypoint routes, another floor is neither routed nor arrived (84.093434ms)
+✔ guide planning uses its own ground floor while player is on a gallery (2.158919ms)
+✔ a real concave Old Town extent never puts its primary marker outside the visit (478.187035ms)
+(node:602717) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/spots/walker.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ tourist wall queries agree with native collision across an interpolated vertical band (5.231192ms)
+✔ an elevated gallery rail leaves the ground route open and still blocks its own floor (2.645204ms)
+✔ legacy walls without bands retain their collision instead of creating new passages (0.633873ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1176.678148

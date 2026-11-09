@@ -1,6 +1,22 @@
 // Short guided walks use the same clearance for planning, smoothing and movement.
 import { collide, colliderIndex } from './walker.js';
 
+/** A planar walking route may remain on an actual raised floor, but cannot
+ * silently switch to the terrain below its void. Inter-storey routing needs a
+ * separate connected-surface graph; refuse it instead of drawing a false path.
+ * Ordinary ground/terrain routes retain their existing height queries. */
+export function walkingLevelGround(ground, x, z, feetY) {
+    if (![x, z, feetY].every(Number.isFinite)) return ground;
+    const base = ground.heightAt(x, z), lower = ground.groundAt(x, z, base + 1.2);
+    if (Number.isFinite(lower) && Math.abs(lower - feetY) <= .55) return ground;
+    const view = Object.create(ground);
+    view.groundAt = (px, pz) => {
+        const top = ground.groundAt(px, pz, feetY);
+        return Number.isFinite(top) && Math.abs(top - feetY) <= .55 ? top : NaN;
+    };
+    return view;
+}
+
 /** Read-only overlay of the actual pedestrian/vehicle body dimensions. Static
  * collider objects keep their original index; rebuilding an index over shared
  * objects would make its query stamps interfere with the native walker. */

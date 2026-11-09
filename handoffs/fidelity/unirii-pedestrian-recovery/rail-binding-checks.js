@@ -38,6 +38,10 @@ function sourceDenied(t) {
     const value = t.tram ?? t.vehicle ?? t.access;
     return value != null && !['yes', 'designated', 'permissive'].includes(value);
 }
+export function independentRailDirections(data,sourceId){
+    const ways=new Map((data?.tramSourceWays||[]).map(w=>[wayId(w.sourceId),w])),way=ways.get(wayId(sourceId));
+    return way?sourceDirections(way,ways,data.tramRoutes||[]):[];
+}
 function inRing(x, z, ring) {
     let inside = false;
     for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
@@ -75,7 +79,7 @@ function gradeHeight(way, a, b, t, ribbons, halfWidth) {
  * Publication checks initial source assignment; motion permits legal advances.
  * Source coverage gaps stay distinct from an individually legal actor pose.
  */
-export function auditRailBinding(S, { stage = 'publication', toleranceM = 1e-5, toleranceRad = 1e-5, requireFinalModes = false } = {}) {
+export function auditRailBinding(S, { stage = 'publication', toleranceM = 1e-5, toleranceRad = 1e-5, requireFinalModes = false, sourceGradeAt = null, bodyAudit = null } = {}) {
     const issues = [], coverageGaps = [], checks = [], binding = S.binding, actors = S.actors || [], expectedIds = S.constructorTramIds || [];
     const fail = (type, fields = {}) => issues.push({ type, ...fields });
     if (!binding || typeof binding.passed !== 'boolean') fail('missing-initial-tram-binding');
@@ -120,6 +124,7 @@ export function auditRailBinding(S, { stage = 'publication', toleranceM = 1e-5, 
         for (let j = 1; j < nodes.length; j++) pairs.set(id(nodes[j - 1]) + '>' + id(nodes[j]), [points[j - 1], points[j]]);
     }
     const cache = new Map();
+    const height = (source,a,b,t,width) => sourceGradeAt ? sourceGradeAt(source,a,b,t) : gradeHeight(source,a,b,t,S.ribbons,width);
     function legal(e) {
         if (!e) return null;
         if (cache.has(id(e.id))) return cache.get(id(e.id));
@@ -134,7 +139,7 @@ export function auditRailBinding(S, { stage = 'publication', toleranceM = 1e-5, 
             const a = points[segment], b = points[segment + 1], selected = coverage.get(source.sourceId)?.get(id(nodes[segment]) + '>' + id(nodes[segment + 1]));
             if (!selected || Math.hypot(e.a.x - a[0], e.a.z - a[1], e.b.x - b[0], e.b.z - b[1]) > toleranceM || selected.some((p, i) => Math.hypot(p[0] - [a, b][i][0], p[1] - [a, b][i][1]) > toleranceM)) reason = 'source-track-coordinate-or-rendered-run-mismatch';
             else {
-                const ga = gradeHeight(source, a, b, 0, S.ribbons, e.grade?.bodyHalfWidthM || 1.2), gb = gradeHeight(source, a, b, 1, S.ribbons, e.grade?.bodyHalfWidthM || 1.2);
+                const ga = height(source, a, b, 0, e.grade?.bodyHalfWidthM || 1.2), gb = height(source, a, b, 1, e.grade?.bodyHalfWidthM || 1.2);
                 if (!e.grade?.known || !ga || !gb || ![e.ya, e.yb, e.grade.ya, e.grade.yb].every(finite) || Math.max(Math.abs(e.ya - ga.y), Math.abs(e.yb - gb.y), Math.abs(e.grade.ya - ga.y), Math.abs(e.grade.yb - gb.y)) > toleranceM) reason = 'unsupported-or-wrong-native-source-rail-grade';
             }
         }
@@ -147,7 +152,7 @@ export function auditRailBinding(S, { stage = 'publication', toleranceM = 1e-5, 
             const check = legal(edge); if (!check || check.invalid || !check.directions.includes(dir)) return null;
             const length = Math.hypot(check.b[0] - check.a[0], check.b[1] - check.a[1]); if (!(length > 0)) return null;
             if (station >= -1e-8 && station <= length + 1e-8) {
-                const t = dir > 0 ? station / length : 1 - station / length, grade = gradeHeight(check.source, check.a, check.b, t, S.ribbons, v.width / 2);
+                const t = dir > 0 ? station / length : 1 - station / length, grade = height(check.source, check.a, check.b, t, v.width / 2);
                 if (!grade || !edge.grade?.known) return null;
                 return { x: check.a[0] + (check.b[0] - check.a[0]) * t, z: check.a[1] + (check.b[1] - check.a[1]) * t, y: grade.y, edgeId: edge.id, dir, station, grade };
             }
@@ -175,6 +180,11 @@ export function auditRailBinding(S, { stage = 'publication', toleranceM = 1e-5, 
         const centre = sample(v, 0), front = sample(v, v.length * .36), rear = sample(v, -v.length * .36);
         if (!centre || !front || !rear) { fail('unresolved-source-connected-body-span-or-grade', { id: v.id }); continue; }
         row.expected = { x: centre.x, y: centre.y + .24, z: centre.z, heading: Math.atan2(-(front.x - rear.x), -(front.z - rear.z)), pitch: Math.atan2(front.y - rear.y, Math.hypot(front.x - rear.x, front.z - rear.z)) };
+        if(bodyAudit){
+            row.body=bodyAudit(v,{samplePath:off=>sample(v,off),expectedHeading:row.expected.heading});
+            if(!row.body?.passed)fail('independent-emitted-rail-body-or-support-clearance-failed',{id:v.id,issues:row.body?.issues,coverageGaps:row.body?.coverageGaps,witnesses:row.body?.witnesses});
+            if(row.body?.rigidPose){row.expected.sourceCentreGradeY=centre.y;row.expected.y=row.body.rigidPose.expectedY;row.expected.pitch=row.body.rigidPose.expectedPitch;}
+        }
         row.errors = { centreM: Math.hypot(v.x - row.expected.x, v.y - row.expected.y, v.z - row.expected.z), headingRad: Math.abs(wrap(v.heading - row.expected.heading)), pitchRad: Math.abs(wrap(v.pitch - row.expected.pitch)) };
         if (row.errors.centreM > toleranceM || row.errors.headingRad > toleranceRad || row.errors.pitchRad > toleranceRad) fail('tram-off-source-centre-or-axle-pose', { id: v.id, errors: row.errors, expected: row.expected });
         const stop = v.stop?.servedSourceNodeId;
@@ -188,5 +198,5 @@ export function auditRailBinding(S, { stage = 'publication', toleranceM = 1e-5, 
         }
     }
     if (binding?.source?.unresolved?.length) coverageGaps.push(...binding.source.unresolved.map(x => ({ type: 'unresolved-native-source-rail-coverage', ...x })));
-    return { passed: !issues.length && !coverageGaps.length, stage, issues, coverageGaps, checks, bindingPassed: binding?.passed === true, constructorTramIds: expectedIds, sourceCoverageResolved: !coverageGaps.length, scope: 'Independent source tags/ordered nodes/geometry/grade/axle pose; native physical/static/publication/stop/crossing gates remain separate' };
+    return { passed: !issues.length && !coverageGaps.length, stage, issues, coverageGaps, checks, bindingPassed: binding?.passed === true, constructorTramIds: expectedIds, sourceCoverageResolved: !coverageGaps.length, actualBodyAudited:!!bodyAudit, scope: bodyAudit?'Independent source/mode/XY/heading plus emitted rigid body/profile/solid witnesses; native evolving publication/stop/signal gates remain separate':'Historical source tags/ordered nodes/geometry/relative grade/axle pose only; actual support/body/static/publication/stop/crossing gates remain separate' };
 }

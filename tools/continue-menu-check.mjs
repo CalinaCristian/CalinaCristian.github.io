@@ -14,7 +14,7 @@ await mkdir(out,{recursive:true});
 const server=createServer((req,res)=>{
     let file=decodeURIComponent(new URL(req.url,'http://localhost').pathname).replace(/^\//,'');
     if(file.endsWith('/'))file+='index.html';
-    if(!file.startsWith('game/')||file.includes('..')){res.statusCode=404;res.end();return;}
+    if(!(file.startsWith('game/')||file.startsWith('public/'))||file.includes('..')){res.statusCode=404;res.end();return;}
     try{
         if(!cache.has(file)){
             const b=execFileSync('git',['show',`${source}:${file}`],{cwd:root,maxBuffer:32*1024*1024,stdio:['ignore','pipe','ignore']});

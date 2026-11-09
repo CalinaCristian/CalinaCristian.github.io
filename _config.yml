@@ -13,3 +13,4 @@ exclude:
   - handoffs/fidelity/original-districts-refresh
   - handoffs/fidelity/integration-final-acceptance
   - handoffs/fidelity/us-districts
+  - handoffs/fidelity/unirii-pedestrian-recovery

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "baseline-9242ccf6",
+    "sourceCommit": "9242ccf6cfac05f6117815bea47c0dc2effefa49",
+    "checkedAt": "2026-11-09T05:14:43.937061+00:00",
+    "copiedFilesVerified": 338,
+    "allServedResponsesVerified": true,
+    "changedFiles": []
+  },
+  {
+    "name": "candidate-51195e02",
+    "sourceCommit": "51195e029b91cda789bb470e40753f05a85a9ba0",
+    "checkedAt": "2026-11-09T05:14:44.812102+00:00",
+    "copiedFilesVerified": 339,
+    "allServedResponsesVerified": true,
+    "changedFiles": []
+  },
+  {
+    "name": "candidate-15fda875",
+    "sourceCommit": "15fda8751813b6ad3919963af9975f8764b09a23",
+    "checkedAt": "2026-11-09T05:14:45.413308+00:00",
+    "copiedFilesVerified": 339,
+    "allServedResponsesVerified": true,
+    "changedFiles": []
+  },
+  {
+    "name": "candidate-depth-mask",
+    "sourceCommit": "2f0b911e81f1fade3133bc48120855458be5a443",
+    "checkedAt": "2026-11-09T05:14:46.182275+00:00",
+    "copiedFilesVerified": 339,
+    "allServedResponsesVerified": true,
+    "changedFiles": []
+  },
+  {
+    "name": "candidate-standard-depth",
+    "sourceCommit": "14c5d9fa78a3502bad1896cdbab87cb6354ef194",
+    "checkedAt": "2026-11-09T05:14:47.146167+00:00",
+    "copiedFilesVerified": 339,
+    "allServedResponsesVerified": true,
+    "changedFiles": []
+  }
+]

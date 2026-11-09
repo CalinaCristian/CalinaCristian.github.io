@@ -1,0 +1,1229 @@
+{
+  "sourceCommit": "51195e029b91cda789bb470e40753f05a85a9ba0",
+  "toolSha256": "292acf941d36d40977d81b65e4750993fbfbfa8c15182e53739669d9d3b8b4c9",
+  "startedAt": "2026-11-09T04:21:21.561Z",
+  "scope": "Native chapter camera, bodies, full traffic, mirror and requested quality setting. Harness owns simulation only; no renderFrame/far/FOV/pixel-ratio/population overrides. Weather choice is clear summer/day. Software GL is not hardware FPS.",
+  "cases": [
+    {
+      "id": "phone-landscape",
+      "quality": "medium",
+      "frames": [
+        {
+          "preFrameCarry": {
+            "calls": 97,
+            "triangles": 12673
+          },
+          "stats": {
+            "fps": 0,
+            "frameMs": 0,
+            "drawCalls": 267,
+            "triangles": 1018522,
+            "pixelRatio": 1,
+            "shadows": 2048,
+            "post": "lite",
+            "quality": "medium",
+            "auto": false,
+            "level": 3
+          },
+          "resources": {
+            "geometries": 234,
+            "textures": 23,
+            "programs": 40
+          },
+          "contextLost": false
+        },
+        {
+          "preFrameCarry": {
+            "calls": 0,
+            "triangles": 0
+          },
+          "stats": {
+            "fps": 0,
+            "frameMs": 0,
+            "drawCalls": 262,
+            "triangles": 1018462,
+            "pixelRatio": 1,
+            "shadows": 2048,
+            "post": "lite",
+            "quality": "medium",
+            "auto": false,
+            "level": 3
+          },
+          "resources": {
+            "geometries": 234,
+            "textures": 23,
+            "programs": 43
+          },
+          "contextLost": false
+        },
+        {
+          "preFrameCarry": {
+            "calls": 0,
+            "triangles": 0
+          },
+          "stats": {
+            "fps": 0,
+            "frameMs": 0,
+            "drawCalls": 266,
+            "triangles": 1018510,
+            "pixelRatio": 1,
+            "shadows": 2048,
+            "post": "lite",
+            "quality": "medium",
+            "auto": false,
+            "level": 3
+          },
+          "resources": {
+            "geometries": 237,
+            "textures": 23,
+            "programs": 43
+          },
+          "contextLost": false
+        }
+      ],
+      "viewport": {
+        "width": 844,
+        "height": 390,
+        "dpr": 3
+      },
+      "canvas": {
+        "width": 2532,
+        "height": 1170,
+        "pixelRatio": 3
+      },
+      "camera": {
+        "fov": 71.46275084615455,
+        "aspect": 2.164102564102564,
+        "near": 0.2,
+        "far": 5000,
+        "matrix": [
+          0.9443968818756341,
+          0,
+          -0.3288077394216562,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0.3288077394216562,
+          0,
+          0.9443968818756341,
+          0,
+          635.9192569354622,
+          1.6,
+          710.2220267572201,
+          1
+        ],
+        "projection": [
+          0.642317219915902,
+          0,
+          0,
+          0,
+          0,
+          1.3900403425872339,
+          0,
+          0,
+          0,
+          0,
+          -1.000080003200128,
+          -1,
+          0,
+          0,
+          -0.40001600064002557,
+          0
+        ],
+        "layers": 7
+      },
+      "player": {
+        "x": 636.3505394827646,
+        "y": 0.24,
+        "z": 710.5483630322376,
+        "heading": 0.3350408401110723,
+        "speed": 0,
+        "length": 5.779999999999999,
+        "width": 1.8,
+        "front": 3.42,
+        "rear": 2.36
+      },
+      "displays": {
+        "cluster": {
+          "rect": {
+            "points": [
+              {
+                "x": 356.43374277930917,
+                "y": 324.21710070906596,
+                "z": 0.4136559451007617
+              },
+              {
+                "x": 360.0513593568636,
+                "y": 271.05891294390227,
+                "z": 0.4460118776178693
+              },
+              {
+                "x": 487.566257220634,
+                "y": 324.21710070908756,
+                "z": 0.413655945100664
+              },
+              {
+                "x": 483.9486406431462,
+                "y": 271.05891294391427,
+                "z": 0.4460118776177821
+              }
+            ],
+            "x": 356.43374277930917,
+            "y": 271.05891294390227,
+            "right": 487.566257220634,
+            "bottom": 324.21710070908756
+          },
+          "texture": {
+            "width": 512,
+            "height": 200,
+            "minFilter": 1008,
+            "magFilter": 1006,
+            "generateMipmaps": true,
+            "anisotropy": 4,
+            "colorSpace": "srgb"
+          }
+        },
+        "screen": {
+          "rect": {
+            "points": [
+              {
+                "x": 471.76975743094727,
+                "y": 347.34350042560413,
+                "z": 0.4426405584909193
+              },
+              {
+                "x": 468.0139215845211,
+                "y": 264.5113616786305,
+                "z": 0.48470729051253814
+              },
+              {
+                "x": 600.1982161802753,
+                "y": 347.34350042565245,
+                "z": 0.44264055849074274
+              },
+              {
+                "x": 586.7506270691366,
+                "y": 264.5113616786407,
+                "z": 0.4847072905124626
+              }
+            ],
+            "x": 468.0139215845211,
+            "y": 264.5113616786305,
+            "right": 600.1982161802753,
+            "bottom": 347.34350042565245
+          },
+          "texture": {
+            "width": 512,
+            "height": 320,
+            "minFilter": 1008,
+            "magFilter": 1006,
+            "generateMipmaps": true,
+            "anisotropy": 4,
+            "colorSpace": "srgb"
+          },
+          "home": {
+            "width": 512,
+            "height": 320,
+            "minFilter": 1008,
+            "magFilter": 1006,
+            "generateMipmaps": true,
+            "anisotropy": 4,
+            "colorSpace": "srgb"
+          }
+        }
+      },
+      "population": {
+        "vehicles": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          174,
+          175,
+          176,
+          177,
+          168,
+          169,
+          170,
+          171,
+          172,
+          173,
+          104
+        ],
+        "pooled": [
+          167,
+          166,
+          165,
+          164,
+          163,
+          162,
+          161,
+          160,
+          159,
+          158,
+          157,
+          156,
+          155,
+          154,
+          153,
+          152,
+          151,
+          150,
+          149,
+          148,
+          147,
+          146,
+          145,
+          144,
+          143,
+          142,
+          141,
+          140,
+          139,
+          138,
+          137,
+          136,
+          135,
+          134,
+          133,
+          132,
+          131,
+          130,
+          129,
+          128,
+          127,
+          126,
+          125,
+          124,
+          123,
+          122,
+          121,
+          120,
+          119,
+          118,
+          117,
+          116,
+          115,
+          114,
+          113,
+          112,
+          111,
+          110,
+          109,
+          108,
+          107,
+          106,
+          105
+        ],
+        "pedestrians": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          153,
+          154,
+          155,
+          156,
+          157,
+          158,
+          159,
+          160,
+          161,
+          162,
+          163,
+          164,
+          165,
+          166,
+          167,
+          168,
+          169,
+          170,
+          171,
+          172,
+          173,
+          174,
+          175,
+          176,
+          177,
+          178,
+          179,
+          180,
+          181,
+          182,
+          183,
+          184,
+          185,
+          186,
+          187,
+          188,
+          189,
+          190,
+          191,
+          192,
+          193,
+          194,
+          195,
+          196,
+          197,
+          198,
+          199,
+          200,
+          201,
+          202,
+          203,
+          204,
+          205,
+          206,
+          207,
+          208,
+          209,
+          210,
+          211,
+          212,
+          213,
+          214,
+          215,
+          216,
+          217,
+          218,
+          219,
+          220,
+          221,
+          222,
+          223,
+          224,
+          225,
+          226,
+          227,
+          228,
+          229,
+          230,
+          231,
+          232,
+          233,
+          234,
+          235,
+          236,
+          237,
+          238,
+          239,
+          240,
+          241,
+          242,
+          243,
+          244,
+          245,
+          246,
+          247,
+          248,
+          249,
+          250,
+          251,
+          252,
+          253,
+          254,
+          255,
+          256,
+          257,
+          258,
+          259
+        ],
+        "target": {
+          "moving": 105,
+          "parked": 8
+        }
+      },
+      "mirror": {
+        "enabled": false,
+        "visible": false,
+        "layers": 1,
+        "width": 384,
+        "height": 128
+      },
+      "sharpDisplayStats": {
+        "active": true,
+        "worldPixelRatio": 1,
+        "outputPixelRatio": 3,
+        "outputPixels": 2962440,
+        "worldPixels": 329160,
+        "drawCalls": 3,
+        "triangles": 5
+      },
+      "depthProbe": {
+        "worldMatrixMaxDifference": 0,
+        "modelViewMaxDifference": 0,
+        "samples": 1749,
+        "min": 0.000004405018478093048,
+        "p10": 0.0000046080039524110106,
+        "median": 0.000005408134814977039,
+        "p90": 0.000006148661032767677,
+        "max": 0.000006351646507196662,
+        "sourceModelView": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0.9612616959383189,
+          -0.2756373558169992,
+          0,
+          0,
+          0.27563735581699916,
+          0.9612616959383191,
+          0,
+          0.30175987704700447,
+          -0.30117834788314224,
+          -0.7468819045678856,
+          1
+        ],
+        "overlayModelView": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0.9612616959383189,
+          -0.2756373558169992,
+          0,
+          0,
+          0.27563735581699916,
+          0.9612616959383191,
+          0,
+          0.30175987704700447,
+          -0.30117834788314224,
+          -0.7468819045678856,
+          1
+        ],
+        "points": [
+          {
+            "x": 471.7697580494005,
+            "y": 347.34349916912583,
+            "z": 0.7213202795644506
+          },
+          {
+            "x": 468.0139222577107,
+            "y": 264.5113627526605,
+            "z": 0.7423536449835093
+          },
+          {
+            "x": 600.1982153008544,
+            "y": 347.34349916912583,
+            "z": 0.7213202795644506
+          },
+          {
+            "x": 586.7506266190313,
+            "y": 264.5113627526605,
+            "z": 0.7423536449835093
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "httpFailures": [],
+  "served": [
+    {
+      "path": "game/index.html",
+      "sha256": "49bb71b10d7cd803ae6e2d5031317119e63581660b7b2353d8b4654d2c52014b"
+    },
+    {
+      "path": "game/src/telemetry-game.js",
+      "sha256": "bbe9df1036d7fdb06bd666027011d90a0d1c66fa322d32efee19130e933966ef"
+    },
+    {
+      "path": "game/style.css",
+      "sha256": "a2d300ff344f6936e1bd0451e28d4567480abc9d7803761103b5c5d4b347e51d"
+    },
+    {
+      "path": "game/src/main.js",
+      "sha256": "684844108de63b868c5a105c979c8bc19f51bcefc6635a6151fc39d1b61b0f38"
+    },
+    {
+      "path": "public/telemetry.js",
+      "sha256": "2fccb2a095d527b1ed3ff80043d150afc6a1f2bd78ca8f781c7533432632238a"
+    },
+    {
+      "path": "game/src/telemetry-health.js",
+      "sha256": "05805123b81c5aa14649512c551a1a4d3eca76746e95d0c5b63c89362734c0f1"
+    },
+    {
+      "path": "game/vendor/three.module.min.js",
+      "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7"
+    },
+    {
+      "path": "game/src/cities.js",
+      "sha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac"
+    },
+    {
+      "path": "game/src/chapters.js",
+      "sha256": "ef88ddf04a38291e8694f2b4af6f027afad351f85e33d365a2c39f2a833297ba"
+    },
+    {
+      "path": "game/src/data.js",
+      "sha256": "1ac151b4e8114a5a41fd8f2dfb89e5d9440b9cb09073ef666cd25e8a2a85f02f"
+    },
+    {
+      "path": "game/src/traffic.js",
+      "sha256": "63efd8681e374baa876f8c56682ddfef59d95a00ee3fb0706cfc31867c965b9c"
+    },
+    {
+      "path": "game/src/world.js",
+      "sha256": "eff89252875041058d439b8837ca34e3d1838bd07fefdbf7d9486280ede7d94e"
+    },
+    {
+      "path": "game/src/player.js",
+      "sha256": "543faf7c4dab9ff9f50d2933586965652376b9b2f1f1fa172d550b2030882a2e"
+    },
+    {
+      "path": "game/src/input.js",
+      "sha256": "e14ff4e1be7dbbfaf7cb07395340515e01820ab36cba24a40d60001ff5511d00"
+    },
+    {
+      "path": "game/src/audio.js",
+      "sha256": "11863937c63883facc59e7549bde428e3e660e6e39ab50b3d55f4a6cf1afe611"
+    },
+    {
+      "path": "game/src/office.js",
+      "sha256": "a56fed9898f03633930afa6e724421c888d30dd040d5d4d3b1bed9880d359166"
+    },
+    {
+      "path": "game/src/minimap.js",
+      "sha256": "cca958895b0b56e9c3819fba0d89752458482a37227e49ed2ba52ad5639c691b"
+    },
+    {
+      "path": "game/src/hud.js",
+      "sha256": "8ee4cbc9e0aea279a72a0f923e7554cb8115d7fffb9c9820ed08d7e0b39beb18"
+    },
+    {
+      "path": "game/src/flight.js",
+      "sha256": "e5b5a05691a3abbd684ccbd20e11e5c1370ff71bb0a540d8483045bf42f3b544"
+    },
+    {
+      "path": "game/src/nav.js",
+      "sha256": "7d1553ad46fa656ee7773d82bf5ef9b8a2af4bb0fb29d8c0131ed9154bac8617"
+    },
+    {
+      "path": "game/src/util.js",
+      "sha256": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5"
+    },
+    {
+      "path": "game/src/sceneResources.js",
+      "sha256": "7f1cf9c55cbfbfa9cf9df4438de27a49ece7b765bb34ba478757024183f5c809"
+    },
+    {
+      "path": "game/src/photo.js",
+      "sha256": "c8f18e59bab5e264d779dea69bef2668aff5d626e677edefe62869d9b744b13f"
+    },
+    {
+      "path": "game/src/render.js",
+      "sha256": "0aff91bdde63c3967f05c88770209829de2f799f7f35df685e748edbf8b6c8fb"
+    },
+    {
+      "path": "game/src/onfoot.js",
+      "sha256": "870d0294232fb2b1e11af42906da780bd6d8a34604179ca9de657da1d08848f7"
+    },
+    {
+      "path": "game/src/vehicles.js",
+      "sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df"
+    },
+    {
+      "path": "game/src/crowd.js",
+      "sha256": "e674c3ac0b207ae4e8ee0bc083851d02abc93f8df3333694e2cad9bd40a93257"
+    },
+    {
+      "path": "game/src/finale.js",
+      "sha256": "6dd47d7336285e2ca9d92e553f6f5e64080844aaf9f2883012abfcc7a327e60d"
+    },
+    {
+      "path": "game/src/achievements.js",
+      "sha256": "2286ba896ff422e2c836455149ba8ca1515fcfbdf0b50b308944f23966398a8c"
+    },
+    {
+      "path": "game/src/transition.js",
+      "sha256": "35e0f270adb35d2462cf3a153ba4deec243d8537529520684b57198a56cda593"
+    },
+    {
+      "path": "game/src/save.js",
+      "sha256": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc"
+    },
+    {
+      "path": "game/src/basketball.js",
+      "sha256": "a84a93eb1257da5fb4cb1d931612c48b0ddaf29cfab3d133b99e06178a824795"
+    },
+    {
+      "path": "game/src/chapter-waypoint.js",
+      "sha256": "0cba46e17b79cb869de2c5087b925f837dd02954d026e5aaaa55c509c9dac63a"
+    },
+    {
+      "path": "game/src/explore.js",
+      "sha256": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993"
+    },
+    {
+      "path": "game/src/football.js",
+      "sha256": "0fea24f051593185b93c8457c27ec13af2344ba34b442115f3472a662317df7f"
+    },
+    {
+      "path": "game/src/signals.js",
+      "sha256": "47b7dd7a016a3e48faf9f2348121bd8c1e280d7b07fc7acd27103ab39a29b1ac"
+    },
+    {
+      "path": "game/src/shared-lanes.js",
+      "sha256": "0581d1f237c0b371843e3c7f7af0c80cb5b14bf3794148905ec1948c8255b4e9"
+    },
+    {
+      "path": "game/src/road-access.js",
+      "sha256": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee"
+    },
+    {
+      "path": "game/src/initial-traffic-admission.js",
+      "sha256": "02318f04433105efdef00333f68f4e307be9ae9ef08a5f44bf1fad8a3445617c"
+    },
+    {
+      "path": "game/src/canvasText.js",
+      "sha256": "35983021a8548740d623d83aaa092fa9f95a3f58b454575b8ab4732a47db2714"
+    },
+    {
+      "path": "game/src/geo-ne110.js",
+      "sha256": "6d9c86444680f5007b90d41e7a5d93a2d1f081dcc556b665fcbcb9cd0ecf8f36"
+    },
+    {
+      "path": "game/vendor/addons/RenderPass.js",
+      "sha256": "359f12b05357a8c666baa65bba3ade4265845617ddd7dfd812bde0d4f3dcb2bc"
+    },
+    {
+      "path": "game/vendor/addons/EffectComposer.js",
+      "sha256": "73a2a9557141dff1c29bb5f2d53cb62905855a216b0181cd8dd42d6bc6cec87b"
+    },
+    {
+      "path": "game/vendor/addons/ShaderPass.js",
+      "sha256": "9cda38094c2cd1cf29ed0fe3cfc1b3229e3ca3758659617eba6fdae4107bc233"
+    },
+    {
+      "path": "game/src/water.js",
+      "sha256": "7a7cea86bdb0dc2cf135b95c9cd7aec81d16e8e48a4bf0b125449d91931df3ae"
+    },
+    {
+      "path": "game/vendor/addons/UnrealBloomPass.js",
+      "sha256": "5d46047298729f4bdc7ccf1d673d091f7d60dd799918908049d1f6c3d4cda02d"
+    },
+    {
+      "path": "game/vendor/addons/OutputPass.js",
+      "sha256": "88b4010627926dce53480c3a8a230ed71a162e7cae1ce2ac419dfb7900160460"
+    },
+    {
+      "path": "game/vendor/addons/SMAAPass.js",
+      "sha256": "2f4da7e1f78c8d39582e25dee185ab6df18c42d3f55ed5d43de5a89f9c8b0a28"
+    },
+    {
+      "path": "game/vendor/addons/FXAAShader.js",
+      "sha256": "fd04bb4db3b4895540dd6e6ccef1a9984f0097bef396d27d6fea7b15c66a06ec"
+    },
+    {
+      "path": "game/vendor/addons/Pass.js",
+      "sha256": "7f988181feafe0831a9895c0e507e07b8128c87f115342e75efb452dd870873a"
+    },
+    {
+      "path": "game/src/progressive-pmrem.js",
+      "sha256": "4b306f8bb4449be00c9dd654e7da6ba6607fec581d3a4360e9f772e11a2306a1"
+    },
+    {
+      "path": "game/src/cockpit-displays.js",
+      "sha256": "776e5cde716fc61804580deb3e843b0e0db03ce4f5f91ed7862badfd020cd7ea"
+    },
+    {
+      "path": "game/src/weather.js",
+      "sha256": "a2bb0854d3fe3792f94ca9f3b2f2ecbdd9e61b497aca1d3ac5d51d02ec5875b8"
+    },
+    {
+      "path": "game/src/buildings.js",
+      "sha256": "634c8a5149d9de9761c62f445c6318dcb3087b41980b574a5afa6d02dfa7cfe4"
+    },
+    {
+      "path": "game/src/building-parts.js",
+      "sha256": "0039e752969e9cfc1a0477641a9a5bb7b31eb6c8886843d88d79848362633b30"
+    },
+    {
+      "path": "game/src/building-roofs.js",
+      "sha256": "a82db31d1197b3953c9f4718dbc44b2972a90e25d9c2c07c683e6ab5386fa8ac"
+    },
+    {
+      "path": "game/src/source-tree-centres.js",
+      "sha256": "8eb56bfa815c80da5c2a74866ee04789309b9d0df84dc95f40c1b3bed530277e"
+    },
+    {
+      "path": "game/src/building-canopies.js",
+      "sha256": "a0566c635e2eb30fa4a305f73391eb17be941d45cf126a7989450b06b3d3a29d"
+    },
+    {
+      "path": "game/src/geobuild.js",
+      "sha256": "28e535a8934df3d3d249f13180ce04db1b86d47318530e74344a532a2a0fb2d3"
+    },
+    {
+      "path": "game/src/trees.js",
+      "sha256": "2ed3d20166bd5603098c84d82d4268fe771cea8d73c75608ce45f619172dd55c"
+    },
+    {
+      "path": "game/src/building-aircraft.js",
+      "sha256": "44ee8c66eee7d1f5aea8d126610791fdf51ee9d2539a3b3eafa83e695e789e4a"
+    },
+    {
+      "path": "game/src/parking-layout.js",
+      "sha256": "b5c127c33e1c80e72a6cece698f831949ad637498ed7d7beb1252f30c6b4f0d9"
+    },
+    {
+      "path": "game/src/building-passages.js",
+      "sha256": "6bd606c4b3a62ffc3af3b4e8b4be65c5880fe7546ab7fc6ad5b521168045fe5d"
+    },
+    {
+      "path": "game/src/scenery-source.js",
+      "sha256": "c00801c1705325e205bd00fbcc223c16391661f58669514516753621e19b6ff2"
+    },
+    {
+      "path": "game/src/scenery-bridges.js",
+      "sha256": "88330b555975decb91ab1ffc79bcbd377d007f83ab20580a043ad0423252a907"
+    },
+    {
+      "path": "game/src/water-batch.js",
+      "sha256": "cd1a0fb7e59ff1c621eadc77acbd58c61d81cce09c5dbf9b74125268b41b5543"
+    },
+    {
+      "path": "game/src/cell-frustum.js",
+      "sha256": "75180d907270939422d304d2eb7d35f76abb6a4657ac36137c72538799b3e07a"
+    },
+    {
+      "path": "game/src/water-lines.js",
+      "sha256": "c69bea49df53096df5a19642b82ab7e087d8422c0f6824663ea7ba8a4508cc73"
+    },
+    {
+      "path": "game/src/water-channel.js",
+      "sha256": "b7a645b3beb86c3e74ea681e1a20c39a6675536243342cf1cdff0d8d86e70504"
+    },
+    {
+      "path": "game/src/worldmap.js",
+      "sha256": "cda4829131f34395b661cecf73564c08dc980ab10f9464d1c1f1ecd02b7b5f8b"
+    },
+    {
+      "path": "game/src/spot-availability.js",
+      "sha256": "27cdd80e77de286dd0e1aff6caed00976110614634251f031fe40771cb74b059"
+    },
+    {
+      "path": "game/src/drone.js",
+      "sha256": "adebeb686c17fb03116d31246161405f517bc80dc58fcc1e1c58d4f85bcb726e"
+    },
+    {
+      "path": "game/src/initial-vehicle-admission.js",
+      "sha256": "c5d2dc16a6f98e161945f903d819ba9e6564fc12a1b1264e9893aff9f64b28e9"
+    },
+    {
+      "path": "game/vendor/addons/CopyShader.js",
+      "sha256": "4e3346db194db56a596cd074e9bdb39fb5eb52040c333e0d29dc4eb1324d3b1d"
+    },
+    {
+      "path": "game/vendor/addons/MaskPass.js",
+      "sha256": "328cf7db0da5d9be83ffe39d54b01d5ac1fddf108cc98182ddbb056f5c8b537f"
+    },
+    {
+      "path": "game/src/water-shore.js",
+      "sha256": "6705b456454df3ac85ada90a96ff66280706ad306de401dea25896b8d379315e"
+    },
+    {
+      "path": "game/vendor/addons/OutputShader.js",
+      "sha256": "4944cecd49c0d4d1520a4d927bde8a590fd43f041ee913252b9451855a01d0f0"
+    },
+    {
+      "path": "game/vendor/addons/SMAAShader.js",
+      "sha256": "ff4de77e79b0c2d214e822da11c72311f6e4c7fd2a4befd7f0f05a7832284081"
+    },
+    {
+      "path": "game/vendor/addons/LuminosityHighPassShader.js",
+      "sha256": "e40b9e5355f66b6e7720c8b54472259481ab17e36ac24ba36eb871f723d21ee6"
+    },
+    {
+      "path": "game/src/road-widths.js",
+      "sha256": "c965c1368db011832786b39f0809d704c09880749dc161ddd09cd6e3d0d48b7f"
+    },
+    {
+      "path": "game/src/drone-boundary.js",
+      "sha256": "85aa59ed69fd380d4fbe93be315b47ab8c66f47e0e09da26291321842f3caea4"
+    },
+    {
+      "path": "game/src/spots/index.js",
+      "sha256": "a9c1b2d8c9b2c3542ef4a1b6d6299cf87432984f0de69c8e26869db1324032ef"
+    },
+    {
+      "path": "game/src/spots/ground.js",
+      "sha256": "b9b80a4262b3d802c3e0054794812095dc601a69d7691de8ab0e6b9927065433"
+    },
+    {
+      "path": "game/src/spots/people.js",
+      "sha256": "ab60f1a4f6d44c537b1727b332eaa9f0c68b1c436cd55cecd7171fbebb323338"
+    },
+    {
+      "path": "game/src/spots/ui.js",
+      "sha256": "65f78bad07cf6ac65b427928fefb079f988a3cb510ebeef2abd10eef6896fc87"
+    },
+    {
+      "path": "game/src/spots/sound.js",
+      "sha256": "7e24d4c27e80fb9c9e2190d001c4bc59b44a3e3c4402e06aee6b79b236858817"
+    },
+    {
+      "path": "game/src/spots/osm.js",
+      "sha256": "c678348f28dba835d35b7e427d3587d57005a8a4f35beecc22eebeb7a8bcfe0d"
+    },
+    {
+      "path": "game/src/spots/walker.js",
+      "sha256": "d40b53c0c0acd9bc89989354e35ca72588aef507d44671f2e2597024086476bb"
+    },
+    {
+      "path": "game/src/spots/tour.js",
+      "sha256": "8efaccae3696441afff7a901f93e0db6187c1c6a1aebbcbaa24dcfa2e5b6b9dd"
+    },
+    {
+      "path": "game/src/spots/kit.js",
+      "sha256": "382f5353be67766e36183babd4a321dc4e709c709429167fc461968a033cffcc"
+    },
+    {
+      "path": "game/dev/harness/page/index.js",
+      "sha256": "0fe1ff25b943df58a0ef9c22222d73cc6728d941082f95b4133bc9b20bbe302f"
+    },
+    {
+      "path": "game/src/spots/source-buildings.js",
+      "sha256": "4d51ef45abbedb9f4b04627cb97c4b388ccd332e1737486005d4a327e2182362"
+    },
+    {
+      "path": "game/dev/harness/page/office-talk.js",
+      "sha256": "deefe3d39991c9b98dea65a66ad4c52874ea1996947b26b3be591c4f8a33050b"
+    },
+    {
+      "path": "game/dev/harness/page/util.js",
+      "sha256": "87dcb3416d4cb022502f1c6e37044eb65dc69df623df12a5ebd8bbc31b775b56"
+    },
+    {
+      "path": "game/dev/harness/page/audit.js",
+      "sha256": "ca1157dac91cae577b2a9c77b66330835f704ef2f95280a4e3c3847b62607c4e"
+    },
+    {
+      "path": "game/dev/harness/page/core.js",
+      "sha256": "8f9d3c3336b7dcad7f44060e765d4bfe50790d6c87e92f9ddf7175135d88c904"
+    },
+    {
+      "path": "game/dev/harness/page/scenarios.js",
+      "sha256": "9ffa57188a1015cdfa32afb0482f5b2e920efbd857e74aa5e488c8f14fd07e1f"
+    },
+    {
+      "path": "game/data/bucharest-romana.json",
+      "sha256": "c9c3c8878a30cf229ac50d0ec9acef5e4ad358589e368dbe5923f3cd46eddc68"
+    },
+    {
+      "path": "game/src/landmarks.js",
+      "sha256": "fbdc052efa8b3fc889eaece471a3d4405267f70cc1ffe5ecefa938a404c430ec"
+    },
+    {
+      "path": "game/src/landmark-source-identities.js",
+      "sha256": "4f93c8853d3f1ae65badd1940f4f7286bc6538353defb94a0268f7fed699adfc"
+    },
+    {
+      "path": "game/src/landmark-source-masses.js",
+      "sha256": "b5009b0f96ee984cc674793d7170a5c49763fb91d87e168c2847c1218d68e2b9"
+    },
+    {
+      "path": "game/src/landmark-otp-roofs.js",
+      "sha256": "f071c4b256efe77dae8eaf64e0d4c2a04af9f01b4447686bd2cd91f77950b8a6"
+    },
+    {
+      "path": "game/src/landmark-seatac-aircraft.js",
+      "sha256": "23bd2be82947f78042858f2632a0f41a76ce30fe606fc3150d6c1ad08e51d1c5"
+    },
+    {
+      "path": "game/src/landmark-seatac-structure.js",
+      "sha256": "babdf7e471ad949ca982a737701280785005a950b18227205bd047d32e418bb5"
+    },
+    {
+      "path": "game/src/landmark-us-source.js",
+      "sha256": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888"
+    },
+    {
+      "path": "game/src/landmark-us-terrain.js",
+      "sha256": "cfca62d53bfeaf34f736b6ce345045dbbe50337544111fb6b676c4d237042879"
+    },
+    {
+      "path": "game/src/landmark-us-geometry.js",
+      "sha256": "5314a5e92a86b9a9612c3de013927a5d281d0c051944562347d39086930848aa"
+    },
+    {
+      "path": "game/src/landmark-pitch-paint.js",
+      "sha256": "ebbbe0aeef06a63d5a737452c316a4cd94a0ac6e962354dea089d56bf87c6ed5"
+    },
+    {
+      "path": "game/src/landmark-cec-source.js",
+      "sha256": "4891822203ad126ab75511e2196965848db37cfdfabadef54b13cea4ffbe4356"
+    },
+    {
+      "path": "game/src/landmark-pitch-paint-coverage.js",
+      "sha256": "db48ecb69657184e42aa165909396f09f0e3185e6f7375968188121770a4fa8c"
+    },
+    {
+      "path": "game/src/archetypes.js",
+      "sha256": "3ac87643083fa98989d05279d8d174bde5932332920fc87796dcf7d976c2ecf3"
+    },
+    {
+      "path": "game/data/places.json",
+      "sha256": "38b7297d798f7d197a64b3123a3542e6b5b516ad1916ee8d0813492852b14127"
+    }
+  ],
+  "complete": true,
+  "browserClosed": true,
+  "endedAt": "2026-11-09T04:22:19.318Z"
+}

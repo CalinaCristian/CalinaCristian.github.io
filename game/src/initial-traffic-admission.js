@@ -5,6 +5,7 @@ import { ambientTrafficAccess } from './road-access.js';
 import { collideBuildings } from './world.js';
 import { planInitialVehicleAdmission, ordinaryVehicleStations, vehicleVerticalInterval, initialVehicleConflict } from './initial-vehicle-admission.js';
 import { canTravelTram } from './tram-path.js';
+import { validateTramSupportCertificate } from './tram-body-support.js';
 
 const longBody = v => !!(v.long || v.bus || v.tram || v.length >= 8.5);
 const bodyPose = v => ({ x: v.x, y: v.y, z: v.z, heading: v.heading, s: v.s });
@@ -18,7 +19,7 @@ export function previewInitialTrafficPose(T, v, s) {
         position: { set() {} }, rotation: { set(x, _y, z, order) { if (order !== 'YXZ') throw new Error('Unknown native vehicle rotation order'); pitch = x; roll = z; } } };
     const candidate = { ...v, s, mesh, route: v.route?.slice() || [], hist: v.hist?.slice() };
     T.placeOnLane(candidate, true, 0);
-    return { ...bodyPose(candidate), pitch, roll };
+    return { ...bodyPose(candidate), pitch, roll, ...(candidate.edge?.rail ? { railSupport: candidate.railSupport } : {}) };
 }
 
 function* rangeStations(origin, lo, hi, spacingM, limit) {
@@ -73,11 +74,23 @@ export function initialTrafficStaticClearance(world, body, { cellM = 0.75 } = {}
     const interval = vehicleVerticalInterval(body);
     if (!interval.known) return { valid: false, reason: 'unknown-model-vertical-interval', interval };
     if (!world?.buildings) return { valid: false, reason: 'missing-native-static-collider-set' };
-    let samples = 0, hit = null;
+    let samples = 0, hit = null, railCertificate = null;
     for (const sample of initialBodyCover(body, cellM)) {
         samples++;
         const check = c => {
             if (hit) return;
+            if (body.edge?.rail && c.railDeck && c.modelId && body.railSupport?.modelIds?.includes(c.modelId)) {
+                // The global Y interval below conservatively spans a pitched
+                // body's low rear and high front at every disc. For its own
+                // identified slab only, recheck the complete actual emitted
+                // triangle envelope at this fresh pose/catalogue instead.
+                railCertificate ??= validateTramSupportCertificate(body, world.tramDeckSupportAt);
+                const b = railCertificate.bounds, outsideActualBounds = b && c.poly?.length &&
+                    (Math.max(...c.poly.map(p => p[0])) < b.x0 || Math.min(...c.poly.map(p => p[0])) > b.x1 || Math.max(...c.poly.map(p => p[1])) < b.z0 || Math.min(...c.poly.map(p => p[1])) > b.z1);
+                if (railCertificate.valid && c.supportPieceId && (railCertificate.pieceIds.includes(c.supportPieceId) || outsideActualBounds)) return;
+                hit = { kind: c.kind || 'source-tram-deck', sourceId: c.sourceId || null, edgeId: null, reason: c.supportPieceId ? railCertificate.reason : 'missing-native-tram-support-piece-id', exactRailDeck: railCertificate };
+                return;
+            }
             const band = colliderBand(c, sample.x, sample.z, sample.radius); if (!band) return;
             const lo = Math.max(interval.min, band.min), hi = Math.min(interval.max, band.max);
             if (!(hi > lo)) return;

@@ -13,6 +13,7 @@ import { admitInitialTraffic, previewInitialTrafficPose, initialTrafficStaticCle
 import { buildTramNetwork, canTravelTram, tramContinuations, sampleTramPath, tramSpan, tramPathPolyline, nearestTramSource, projectTramStations } from './tram-path.js';
 import { buildTurnLaneRules, laneTurnAllowed, preservesTurnLane } from './turn-lanes.js';
 import { buildTramSourceSignals, tramSourceSignalState } from './tram-source-signals.js';
+import { fitTramBodySupport } from './tram-body-support.js';
 
 // ============================================================================
 //  TRAFFIC — vehicles + pedestrians on the road graph.
@@ -838,7 +839,14 @@ export class Traffic {
         // pitch with the ramp (bridges / tunnels)
         const railF = e.rail ? sampleTramPath(v, v.length * .36) : null, railR = e.rail ? sampleTramPath(v, -v.length * .36) : null;
         const slope = e.rail ? (railF.y - railR.y) / Math.max(1e-6, Math.hypot(railF.x - railR.x, railF.z - railR.z)) : e.a.y !== undefined && e.b.y !== undefined ? (e.b.y - e.a.y) / Math.max(1, e.len) * v.dir : 0;
-        v.mesh.rotation.set(Math.atan(slope), v.heading, 0, 'YXZ');
+        let pitch = Math.atan(slope);
+        if (e.rail) {
+            const support = fitTramBodySupport(v, { samplePath: sampleTramPath, supportAt: this.world?.tramDeckSupportAt, nativePitch: pitch });
+            if (!support.known) throw new Error('Unresolved native tram body support: ' + support.reason);
+            v.railSupport = support; v.y = support.y; pitch = support.pitch;
+            v.mesh.position.set(v.x, v.y, v.z);
+        }
+        v.mesh.rotation.set(pitch, v.heading, 0, 'YXZ');
     }
 
     /** big (OSM) worlds: keep the simulation in a bubble around the player */

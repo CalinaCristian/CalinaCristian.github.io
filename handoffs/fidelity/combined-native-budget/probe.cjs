@@ -158,7 +158,7 @@ let browser;
     report.drive = await page.evaluate(async () => {
         const S = BUDGET, H = harness.H, start = S.pose(), simStart = H.simT;
         const result = await H.driveTo(S.target.x, S.target.z, { label: 'first150m', arriveR: 9, timeout: 120, speedMul: .7, stop: false });
-        return { start, target: S.target, result, final: S.pose(), simSeconds: H.simT - simStart, trace: S.trace, contacts: S.contacts, issues: H.issues, scope: 'Native driving from public start with ordinary navigation/input. No direct placement, traffic clearing, camera or population edits.' };
+        return { start, target: S.target, result, final: S.pose(), simSeconds: H.simT - simStart, trace: S.trace, contacts: S.contacts, issues: H.issues, resetFree: result.resets === 0, scope: result.resets ? 'Native public-start route with harness recovery resets through the production reset API (or its documented fallback). This is not reset-free movement proof; any reset-induced placement or traffic clearing must remain part of this failed drive scope.' : 'Native driving from public start with ordinary navigation/input. No extra placement, traffic clearing, camera or population edits.' };
     }); save(); console.log('DRIVE', JSON.stringify(report.drive.result));
     if (!report.drive.result.ok || report.drive.result.resets) report.failures.push({ kind: 'native-drive', result: report.drive.result });
     const native = await frame('native-first150m', 'native-driven-endpoint', true);

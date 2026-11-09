@@ -1,0 +1,26 @@
+LOADED 624 560
+FRAME chapter-start-warm 254 1162678
+FRAME chapter-start 254 1162678
+DRIVE {"ok":true,"reason":"arrived","t":82.1,"dist":155,"resets":2,"remaining":9}
+FRAME native-first150m 323 1410391
+FRAME summer-forward-warm 331 1411447
+FRAME summer-forward 326 1411387
+FRAME summer-left-warm 302 1418001
+FRAME summer-left 303 1418013
+FRAME summer-back-warm 240 1217024
+FRAME summer-back 244 1217072
+FRAME summer-right-warm 215 1067781
+FRAME summer-right 215 1067781
+FRAME summer-reflection-warm 325 1410415
+FRAME summer-reflection-sample 325 1410415
+FRAME winter-forward-warm 321 1383855
+FRAME winter-forward 319 1380041
+FRAME winter-left-warm 290 1384700
+FRAME winter-left 290 1384700
+FRAME winter-back-warm 232 1183771
+FRAME winter-back 232 1183771
+FRAME winter-right-warm 206 1035476
+FRAME winter-right 209 1036472
+FRAME winter-reflection-warm 319 1379106
+FRAME winter-reflection-sample 319 1379106
+COMPLETE {"sourceCommit":"d981eee75d254faf7efd993bba18c9b4226db4e7","maxima":{"calls":331,"triangles":1418013,"rawNativeStats":{"calls":351,"triangles":1418013},"scope":"All recorded complete frames including warm frames, main, mirror, actual true shadows, native reflection work and post processing. Raw native stats, observed prior carry and unframed setup are retained separately; separate maxima may occur in different frames."},"rawCounterAlerts":0,"failures":1,"errors":0,"consoleErrors":0,"failedRequests":0}

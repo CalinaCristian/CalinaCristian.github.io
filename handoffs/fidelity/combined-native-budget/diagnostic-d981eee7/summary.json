@@ -1,0 +1,1428 @@
+{
+  "status": "DIAGNOSTIC_RENDER_BUDGET_PASS__NATIVE_DRIVE_FAILED__NOT_FINAL_ACCEPTANCE",
+  "sourceCommit": "d981eee75d254faf7efd993bba18c9b4226db4e7",
+  "startedAt": "2026-11-09T02:38:34.098Z",
+  "endedAt": "2026-11-09T02:42:58.213Z",
+  "nodeExit": 1,
+  "renderFrames": 23,
+  "measuredMaxima": {
+    "calls": 331,
+    "triangles": 1418013,
+    "rawNativeStats": {
+      "calls": 351,
+      "triangles": 1418013
+    },
+    "scope": "All recorded complete frames including warm frames, main, mirror, actual true shadows, native reflection work and post processing. Raw native stats, observed prior carry and unframed setup are retained separately; separate maxima may occur in different frames."
+  },
+  "allActualWarmAndReflectionWorkIncluded": true,
+  "rawCounterReconciliations": 23,
+  "rawCounterAlerts": [],
+  "nativeSetup": {
+    "preObservationCounters": {
+      "frame": 0,
+      "calls": 0,
+      "triangles": 0,
+      "points": 0,
+      "lines": 0
+    },
+    "postLoadCounters": {
+      "frame": 67,
+      "calls": 97,
+      "triangles": 12673,
+      "points": 0,
+      "lines": 0
+    },
+    "measured": {
+      "calls": 97,
+      "triangles": 12673
+    },
+    "passes": {
+      "reflection": {
+        "calls": 12,
+        "triangles": 144
+      },
+      "other": {
+        "calls": 43,
+        "triangles": 12025
+      },
+      "reflection-blur": {
+        "calls": 42,
+        "triangles": 504
+      }
+    },
+    "counterAgreement": true
+  },
+  "firstWarmFrame": {
+    "label": "chapter-start-warm",
+    "preDrawCounters": {
+      "frame": 67,
+      "calls": 97,
+      "triangles": 12673,
+      "points": 0,
+      "lines": 0
+    },
+    "postDrawCounters": {
+      "frame": 87,
+      "calls": 0,
+      "triangles": 0,
+      "points": 0,
+      "lines": 0
+    },
+    "nativeRawStats": {
+      "calls": 351,
+      "triangles": 1175351
+    },
+    "logical": {
+      "calls": 254,
+      "triangles": 1162678
+    },
+    "passes": {
+      "mirror": {
+        "calls": 54,
+        "triangles": 195417
+      },
+      "true-shadow": {
+        "calls": 28,
+        "triangles": 190581
+      },
+      "main": {
+        "calls": 154,
+        "triangles": 776662
+      },
+      "other": {
+        "calls": 18,
+        "triangles": 18
+      }
+    }
+  },
+  "peakFrame": {
+    "label": "summer-left",
+    "logical": {
+      "calls": 303,
+      "triangles": 1418013
+    },
+    "passes": {
+      "mirror": {
+        "calls": 48,
+        "triangles": 170394
+      },
+      "reflection": {
+        "calls": 8,
+        "triangles": 1056
+      },
+      "true-shadow": {
+        "calls": 28,
+        "triangles": 193545
+      },
+      "main": {
+        "calls": 201,
+        "triangles": 1053000
+      },
+      "other": {
+        "calls": 18,
+        "triangles": 18
+      }
+    },
+    "camera": {
+      "id": 23,
+      "type": "PerspectiveCamera",
+      "fov": 73.53166879612151,
+      "near": 0.2,
+      "far": 5000,
+      "position": [
+        -581.05631481093,
+        1.5984054348103802,
+        420.81897623282873
+      ],
+      "quaternion": [
+        0.0007855957170713995,
+        -0.08572049574201804,
+        0.00016330401790637592,
+        0.9963189011460687
+      ]
+    }
+  },
+  "nativePopulation": {
+    "vehicles": 624,
+    "pedestrians": 560,
+    "allOriginalIdsAndObjects": true,
+    "npcStateUnchangedThroughDrawOnlyQa": true
+  },
+  "nativeSettings": {
+    "quality": "high via publicUI",
+    "width": 1280,
+    "height": 720,
+    "pixelRatio": 1,
+    "near": 0.2,
+    "far": 5000,
+    "mirrorFar": 150,
+    "endpointFov": 73.53166879612151,
+    "fovAssignedByObserver": false
+  },
+  "source": {
+    "archiveFilesVerified": 13181,
+    "servedUniqueFiles": 109,
+    "allArchiveFilesMatchPinnedGitTree": true,
+    "unchangedAfterRun": true,
+    "sourceOverrides": []
+  },
+  "errors": {
+    "page": 0,
+    "console": 0,
+    "requests": 0
+  },
+  "movement": {
+    "accepted": false,
+    "driveResult": {
+      "ok": true,
+      "reason": "arrived",
+      "t": 82.1,
+      "dist": 155,
+      "resets": 2,
+      "remaining": 9
+    },
+    "hotspot": {
+      "historical": {
+        "x": -580.1437011509073,
+        "z": 417.816191281258,
+        "heading": 4.536395961418271
+      },
+      "actual": {
+        "x": -580.8361345509895,
+        "z": 421.31311808598304,
+        "y": 0.24,
+        "heading": 4.543160968232141,
+        "speed": 3.9823578678020732
+      },
+      "distanceFromHistorical": 3.564822729274749,
+      "note": "Actual native endpoint is authoritative; it is not teleported to the historical pose."
+    },
+    "contactsRecorded": 0,
+    "issues": [
+      {
+        "id": 1,
+        "type": "vehicle-overlap",
+        "severity": "medium",
+        "scenario": "combined-native-first150m",
+        "city": "bucharest",
+        "t": 0.4,
+        "msg": "hatch 229 and estate 423 overlap by 2.93 m for 1 s",
+        "x": -648.9,
+        "z": 394.2,
+        "lat": 44.426153,
+        "lon": 26.100837,
+        "street": "Strada Bibescu Vod\u0103",
+        "edge": 157,
+        "count": 1,
+        "data": {
+          "a": 229,
+          "b": 423,
+          "pen": 2.93,
+          "speeds": [
+            0,
+            0.1
+          ],
+          "parked": [
+            false,
+            false
+          ],
+          "sameEdge": false,
+          "nearJunction": true
+        }
+      },
+      {
+        "id": 2,
+        "type": "vehicle-overlap",
+        "severity": "medium",
+        "scenario": "combined-native-first150m",
+        "city": "bucharest",
+        "t": 0.4,
+        "msg": "hatch 323 and hatch 461 overlap by 1.01 m for 1 s",
+        "x": -708.4,
+        "z": 324.2,
+        "lat": 44.426782,
+        "lon": 26.100089,
+        "street": "Bulevardul Regina Maria",
+        "edge": 129,
+        "count": 1,
+        "data": {
+          "a": 323,
+          "b": 461,
+          "pen": 1.01,
+          "speeds": [
+            0,
+            1.3
+          ],
+          "parked": [
+            false,
+            false
+          ],
+          "sameEdge": false,
+          "nearJunction": true
+        }
+      },
+      {
+        "id": 3,
+        "type": "perf-traffic-update",
+        "severity": "low",
+        "scenario": "combined-native-first150m",
+        "city": "bucharest",
+        "t": 2,
+        "msg": "traffic.update averaging 115.6 ms (> 8 ms budget) on this machine",
+        "x": -635.2,
+        "z": 330.2,
+        "lat": 44.426729,
+        "lon": 26.101009,
+        "street": "Pia\u021ba Unirii",
+        "edge": 123,
+        "count": 3,
+        "data": {
+          "updateMs": 115.6,
+          "vehicles": 624
+        },
+        "lastScenario": "combined-native-first150m"
+      },
+      {
+        "id": 4,
+        "type": "ped-blocks-lane",
+        "severity": "medium",
+        "scenario": "combined-native-first150m",
+        "city": "bucharest",
+        "t": 24.8,
+        "msg": "pedestrian(s) standing in the driving lane of Pia\u021ba Unirii for 8 s (autopilot then pushes through)",
+        "x": -637.5,
+        "z": 372.8,
+        "lat": 44.426346,
+        "lon": 26.100981,
+        "street": "Pia\u021ba Unirii",
+        "edge": 123,
+        "count": 1,
+        "data": {}
+      },
+      {
+        "id": 5,
+        "type": "ped-stuck-crossing",
+        "severity": "low",
+        "scenario": "combined-native-first150m",
+        "city": "bucharest",
+        "t": 30.7,
+        "msg": "pedestrian 5 has been crossing for > 30 s",
+        "x": -501.6,
+        "z": 419.5,
+        "lat": 44.425925,
+        "lon": 26.10269,
+        "street": "Pia\u021ba Unirii",
+        "edge": 688,
+        "count": 1,
+        "data": {}
+      },
+      {
+        "id": 6,
+        "type": "autopilot-no-progress",
+        "severity": "medium",
+        "scenario": "combined-native-first150m",
+        "city": "bucharest",
+        "t": 37.8,
+        "msg": "no progress toward first150m for 30 s",
+        "x": -637.5,
+        "z": 372.8,
+        "lat": 44.426346,
+        "lon": 26.100981,
+        "street": "Pia\u021ba Unirii",
+        "edge": 123,
+        "count": 1,
+        "data": {}
+      },
+      {
+        "id": 7,
+        "type": "ped-stuck-crossing",
+        "severity": "low",
+        "scenario": "combined-native-first150m",
+        "city": "bucharest",
+        "t": 53.5,
+        "msg": "pedestrian 252 has been crossing for > 30 s",
+        "x": -649.3,
+        "z": 324.7,
+        "lat": 44.426778,
+        "lon": 26.100833,
+        "street": "Bulevardul Unirii",
+        "edge": 151,
+        "count": 1,
+        "data": {}
+      },
+      {
+        "id": 8,
+        "type": "traffic-blockage",
+        "severity": "medium",
+        "scenario": "combined-native-first150m",
+        "city": "bucharest",
+        "t": 54.9,
+        "msg": "autopilot blocked behind compact-sedan for 18 s (needed R reset)",
+        "x": -645.1,
+        "z": 374.6,
+        "lat": 44.426329,
+        "lon": 26.100885,
+        "street": "Pia\u021ba Unirii",
+        "edge": 123,
+        "count": 1,
+        "data": {
+          "leader": {
+            "id": 87,
+            "kind": "compact-sedan",
+            "parked": false,
+            "speed": 0
+          }
+        }
+      }
+    ],
+    "scopeCorrection": "The raw observer describes intended input-only driving, but its reported2 harness recovery resets invoke production resetToRoad or documented fallback; reset-induced placement/traffic clearing is part of the failed drive. Do not read raw static method text as reset-free movement. Future observer metadata explicitly reports this distinction."
+  },
+  "finalInvariants": {
+    "npcStateUnchangedThroughOrientationQa": true,
+    "headingRestored": true,
+    "rigRestored": true,
+    "cameraFovNearFarUnchanged": true
+  },
+  "reflectionControls": [
+    {
+      "season": "summer",
+      "requested": true,
+      "pending": true,
+      "method": "One explicit render-only QA request through the unchanged native progressive reflection builder.",
+      "environment": {
+        "pending": true,
+        "scene": 1522,
+        "fade": 1,
+        "rendererTime": 0.21666666666666667,
+        "sunElevation": 12.819519914099878,
+        "season": "summer",
+        "clock": {
+          "date": "2026-11-09T06:33:11.728Z",
+          "hours": 8.55
+        }
+      }
+    },
+    {
+      "season": "winter",
+      "requested": false,
+      "pending": true,
+      "method": "Existing native progressive reflection job; no explicit request.",
+      "environment": {
+        "pending": true,
+        "scene": 1522,
+        "fade": 1,
+        "rendererTime": 1.2166666666666668,
+        "sunElevation": 12.93271331562411,
+        "season": "winter",
+        "clock": {
+          "date": "2026-11-09T06:33:11.728Z",
+          "hours": 8.55
+        }
+      }
+    }
+  ],
+  "frameLedger": [
+    {
+      "label": "chapter-start-warm",
+      "scope": "native-public-start",
+      "logical": {
+        "calls": 254,
+        "triangles": 1162678
+      },
+      "nativeRawStats": {
+        "calls": 351,
+        "triangles": 1175351
+      },
+      "preDrawCounters": {
+        "frame": 67,
+        "calls": 97,
+        "triangles": 12673,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 54,
+          "triangles": 195417
+        },
+        "true-shadow": {
+          "calls": 28,
+          "triangles": 190581
+        },
+        "main": {
+          "calls": 154,
+          "triangles": 776662
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": false
+    },
+    {
+      "label": "chapter-start",
+      "scope": "native-public-start",
+      "logical": {
+        "calls": 254,
+        "triangles": 1162678
+      },
+      "nativeRawStats": {
+        "calls": 254,
+        "triangles": 1162678
+      },
+      "preDrawCounters": {
+        "frame": 87,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 54,
+          "triangles": 195417
+        },
+        "true-shadow": {
+          "calls": 28,
+          "triangles": 190581
+        },
+        "main": {
+          "calls": 154,
+          "triangles": 776662
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": false
+    },
+    {
+      "label": "native-first150m",
+      "scope": "native-driven-endpoint",
+      "logical": {
+        "calls": 323,
+        "triangles": 1410391
+      },
+      "nativeRawStats": {
+        "calls": 323,
+        "triangles": 1410391
+      },
+      "preDrawCounters": {
+        "frame": 107,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 53,
+          "triangles": 209776
+        },
+        "true-shadow": {
+          "calls": 28,
+          "triangles": 197968
+        },
+        "main": {
+          "calls": 224,
+          "triangles": 1002629
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": false
+    },
+    {
+      "label": "summer-forward-warm",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 331,
+        "triangles": 1411447
+      },
+      "nativeRawStats": {
+        "calls": 331,
+        "triangles": 1411447
+      },
+      "preDrawCounters": {
+        "frame": 127,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 53,
+          "triangles": 209776
+        },
+        "reflection": {
+          "calls": 8,
+          "triangles": 1056
+        },
+        "true-shadow": {
+          "calls": 28,
+          "triangles": 197968
+        },
+        "main": {
+          "calls": 224,
+          "triangles": 1002629
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "summer-forward",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 326,
+        "triangles": 1411387
+      },
+      "nativeRawStats": {
+        "calls": 326,
+        "triangles": 1411387
+      },
+      "preDrawCounters": {
+        "frame": 149,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 53,
+          "triangles": 209776
+        },
+        "reflection": {
+          "calls": 3,
+          "triangles": 996
+        },
+        "true-shadow": {
+          "calls": 28,
+          "triangles": 197968
+        },
+        "main": {
+          "calls": 224,
+          "triangles": 1002629
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "summer-left-warm",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 302,
+        "triangles": 1418001
+      },
+      "nativeRawStats": {
+        "calls": 302,
+        "triangles": 1418001
+      },
+      "preDrawCounters": {
+        "frame": 171,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 48,
+          "triangles": 170394
+        },
+        "reflection": {
+          "calls": 7,
+          "triangles": 1044
+        },
+        "true-shadow": {
+          "calls": 28,
+          "triangles": 193545
+        },
+        "main": {
+          "calls": 201,
+          "triangles": 1053000
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "summer-left",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 303,
+        "triangles": 1418013
+      },
+      "nativeRawStats": {
+        "calls": 303,
+        "triangles": 1418013
+      },
+      "preDrawCounters": {
+        "frame": 193,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 48,
+          "triangles": 170394
+        },
+        "reflection": {
+          "calls": 8,
+          "triangles": 1056
+        },
+        "true-shadow": {
+          "calls": 28,
+          "triangles": 193545
+        },
+        "main": {
+          "calls": 201,
+          "triangles": 1053000
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "summer-back-warm",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 240,
+        "triangles": 1217024
+      },
+      "nativeRawStats": {
+        "calls": 240,
+        "triangles": 1217024
+      },
+      "preDrawCounters": {
+        "frame": 215,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 64,
+          "triangles": 211688
+        },
+        "reflection": {
+          "calls": 3,
+          "triangles": 996
+        },
+        "true-shadow": {
+          "calls": 25,
+          "triangles": 200041
+        },
+        "main": {
+          "calls": 130,
+          "triangles": 804281
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "summer-back",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 244,
+        "triangles": 1217072
+      },
+      "nativeRawStats": {
+        "calls": 244,
+        "triangles": 1217072
+      },
+      "preDrawCounters": {
+        "frame": 237,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 64,
+          "triangles": 211688
+        },
+        "reflection": {
+          "calls": 7,
+          "triangles": 1044
+        },
+        "true-shadow": {
+          "calls": 25,
+          "triangles": 200041
+        },
+        "main": {
+          "calls": 130,
+          "triangles": 804281
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "summer-right-warm",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 215,
+        "triangles": 1067781
+      },
+      "nativeRawStats": {
+        "calls": 215,
+        "triangles": 1067781
+      },
+      "preDrawCounters": {
+        "frame": 259,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 40,
+          "triangles": 201602
+        },
+        "reflection-blur": {
+          "calls": 2,
+          "triangles": 24
+        },
+        "true-shadow": {
+          "calls": 25,
+          "triangles": 187305
+        },
+        "main": {
+          "calls": 130,
+          "triangles": 678832
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "summer-right",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 215,
+        "triangles": 1067781
+      },
+      "nativeRawStats": {
+        "calls": 215,
+        "triangles": 1067781
+      },
+      "preDrawCounters": {
+        "frame": 281,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 40,
+          "triangles": 201602
+        },
+        "reflection-blur": {
+          "calls": 2,
+          "triangles": 24
+        },
+        "true-shadow": {
+          "calls": 25,
+          "triangles": 187305
+        },
+        "main": {
+          "calls": 130,
+          "triangles": 678832
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "summer-reflection-warm",
+      "scope": "native-progressive-reflection",
+      "logical": {
+        "calls": 325,
+        "triangles": 1410415
+      },
+      "nativeRawStats": {
+        "calls": 325,
+        "triangles": 1410415
+      },
+      "preDrawCounters": {
+        "frame": 303,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 53,
+          "triangles": 209776
+        },
+        "reflection-blur": {
+          "calls": 2,
+          "triangles": 24
+        },
+        "true-shadow": {
+          "calls": 28,
+          "triangles": 197968
+        },
+        "main": {
+          "calls": 224,
+          "triangles": 1002629
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "summer-reflection-sample",
+      "scope": "native-progressive-reflection",
+      "logical": {
+        "calls": 325,
+        "triangles": 1410415
+      },
+      "nativeRawStats": {
+        "calls": 325,
+        "triangles": 1410415
+      },
+      "preDrawCounters": {
+        "frame": 325,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 53,
+          "triangles": 209776
+        },
+        "reflection-blur": {
+          "calls": 2,
+          "triangles": 24
+        },
+        "true-shadow": {
+          "calls": 28,
+          "triangles": 197968
+        },
+        "main": {
+          "calls": 224,
+          "triangles": 1002629
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "winter-forward-warm",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 321,
+        "triangles": 1383855
+      },
+      "nativeRawStats": {
+        "calls": 321,
+        "triangles": 1383855
+      },
+      "preDrawCounters": {
+        "frame": 347,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 53,
+          "triangles": 209776
+        },
+        "reflection-blur": {
+          "calls": 2,
+          "triangles": 24
+        },
+        "true-shadow": {
+          "calls": 24,
+          "triangles": 171408
+        },
+        "main": {
+          "calls": 224,
+          "triangles": 1002629
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "winter-forward",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 319,
+        "triangles": 1380041
+      },
+      "nativeRawStats": {
+        "calls": 319,
+        "triangles": 1380041
+      },
+      "preDrawCounters": {
+        "frame": 369,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 53,
+          "triangles": 209776
+        },
+        "reflection-blur": {
+          "calls": 2,
+          "triangles": 24
+        },
+        "true-shadow": {
+          "calls": 23,
+          "triangles": 169501
+        },
+        "main": {
+          "calls": 223,
+          "triangles": 1000722
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "winter-left-warm",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 290,
+        "triangles": 1384700
+      },
+      "nativeRawStats": {
+        "calls": 290,
+        "triangles": 1384700
+      },
+      "preDrawCounters": {
+        "frame": 391,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 47,
+          "triangles": 168487
+        },
+        "reflection-blur": {
+          "calls": 2,
+          "triangles": 24
+        },
+        "true-shadow": {
+          "calls": 23,
+          "triangles": 165078
+        },
+        "main": {
+          "calls": 200,
+          "triangles": 1051093
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "winter-left",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 290,
+        "triangles": 1384700
+      },
+      "nativeRawStats": {
+        "calls": 290,
+        "triangles": 1384700
+      },
+      "preDrawCounters": {
+        "frame": 413,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 47,
+          "triangles": 168487
+        },
+        "reflection-blur": {
+          "calls": 2,
+          "triangles": 24
+        },
+        "true-shadow": {
+          "calls": 23,
+          "triangles": 165078
+        },
+        "main": {
+          "calls": 200,
+          "triangles": 1051093
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "winter-back-warm",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 232,
+        "triangles": 1183771
+      },
+      "nativeRawStats": {
+        "calls": 232,
+        "triangles": 1183771
+      },
+      "preDrawCounters": {
+        "frame": 435,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 63,
+          "triangles": 209781
+        },
+        "reflection-blur": {
+          "calls": 2,
+          "triangles": 24
+        },
+        "true-shadow": {
+          "calls": 20,
+          "triangles": 171574
+        },
+        "main": {
+          "calls": 129,
+          "triangles": 802374
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "winter-back",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 232,
+        "triangles": 1183771
+      },
+      "nativeRawStats": {
+        "calls": 232,
+        "triangles": 1183771
+      },
+      "preDrawCounters": {
+        "frame": 457,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 63,
+          "triangles": 209781
+        },
+        "reflection-blur": {
+          "calls": 2,
+          "triangles": 24
+        },
+        "true-shadow": {
+          "calls": 20,
+          "triangles": 171574
+        },
+        "main": {
+          "calls": 129,
+          "triangles": 802374
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "winter-right-warm",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 206,
+        "triangles": 1035476
+      },
+      "nativeRawStats": {
+        "calls": 206,
+        "triangles": 1035476
+      },
+      "preDrawCounters": {
+        "frame": 479,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 39,
+          "triangles": 199695
+        },
+        "true-shadow": {
+          "calls": 20,
+          "triangles": 158838
+        },
+        "main": {
+          "calls": 129,
+          "triangles": 676925
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "winter-right",
+      "scope": "stationary-orientation-qa",
+      "logical": {
+        "calls": 209,
+        "triangles": 1036472
+      },
+      "nativeRawStats": {
+        "calls": 209,
+        "triangles": 1036472
+      },
+      "preDrawCounters": {
+        "frame": 499,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 39,
+          "triangles": 199695
+        },
+        "reflection": {
+          "calls": 3,
+          "triangles": 996
+        },
+        "true-shadow": {
+          "calls": 20,
+          "triangles": 158838
+        },
+        "main": {
+          "calls": 129,
+          "triangles": 676925
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "winter-reflection-warm",
+      "scope": "native-progressive-reflection",
+      "logical": {
+        "calls": 319,
+        "triangles": 1379106
+      },
+      "nativeRawStats": {
+        "calls": 319,
+        "triangles": 1379106
+      },
+      "preDrawCounters": {
+        "frame": 521,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 52,
+          "triangles": 207869
+        },
+        "reflection": {
+          "calls": 3,
+          "triangles": 996
+        },
+        "true-shadow": {
+          "calls": 23,
+          "triangles": 169501
+        },
+        "main": {
+          "calls": 223,
+          "triangles": 1000722
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    },
+    {
+      "label": "winter-reflection-sample",
+      "scope": "native-progressive-reflection",
+      "logical": {
+        "calls": 319,
+        "triangles": 1379106
+      },
+      "nativeRawStats": {
+        "calls": 319,
+        "triangles": 1379106
+      },
+      "preDrawCounters": {
+        "frame": 543,
+        "calls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0
+      },
+      "passes": {
+        "mirror": {
+          "calls": 52,
+          "triangles": 207869
+        },
+        "reflection": {
+          "calls": 3,
+          "triangles": 996
+        },
+        "true-shadow": {
+          "calls": 23,
+          "triangles": 169501
+        },
+        "main": {
+          "calls": 223,
+          "triangles": 1000722
+        },
+        "other": {
+          "calls": 18,
+          "triangles": 18
+        }
+      },
+      "pendingReflectionBefore": true
+    }
+  ],
+  "imagesInspected": [
+    {
+      "file": "chapter-start.png",
+      "sha256": "17b4953634f7b6204ecd3ef5b713405572dd022dc87a235d684572a860b2fd41"
+    },
+    {
+      "file": "native-first150m.png",
+      "sha256": "fd185cf22fd9030a08f3caec25d856b8c65be75ce736cefa4e3f2a87c830992a"
+    },
+    {
+      "file": "summer-forward.png",
+      "sha256": "71ecb525e5868b717b916f1b341bdf2ddeeba7e67a42f6f48f34f18a1611c089"
+    },
+    {
+      "file": "summer-left.png",
+      "sha256": "7b56451682d5108bbc5925ac0266eeba30719f0b9f0f23def5819a6448866e9d"
+    },
+    {
+      "file": "summer-back.png",
+      "sha256": "6e0c936fb6f57843cde61107ba91393d41b284e5706a003057c430b448ce71aa"
+    },
+    {
+      "file": "summer-right.png",
+      "sha256": "6ce73d4cef35537cf58b485f270377ee4841e4a844033440447f8291ad9b65bb"
+    },
+    {
+      "file": "summer-reflection-sample.png",
+      "sha256": "8179aa5052ef1d6c85af61531cfc0ae2f43ed626a933247089e2e82d01a00d07"
+    },
+    {
+      "file": "winter-forward.png",
+      "sha256": "f37263ca5f0c778e57404dbf1b899e7a9b1fea2fd4f8632768b6895a41b1abae"
+    },
+    {
+      "file": "winter-left.png",
+      "sha256": "480a59993d1b1f65e39439b57d0ed050374fedf41cb6a18095bf7bafdc89375e"
+    },
+    {
+      "file": "winter-back.png",
+      "sha256": "6332e12282954e0fa126905633d5b447ad8705813f34f691b0e911d52f4c77fb"
+    },
+    {
+      "file": "winter-right.png",
+      "sha256": "91b77f867369fd6f4a2916bbd09955d302bddae761618a955e66d42b463f94bf"
+    },
+    {
+      "file": "winter-reflection-sample.png",
+      "sha256": "a5059686a6e79076fe39ba517d9ce548aa4590593e3f50d57853518a0da0c061"
+    }
+  ],
+  "physicalAcceptance": "NOT ACCEPTED: RO moving-pedestrian contacts remain under correction; the2-reset native drive fails movement acceptance. This is not the historical75.399FOV route or final actor state. Await actual final immutable source and reset-free rerun.",
+  "renderingResponse": "No measured frame budget failure; no new optimizer/runtime change proposed."
+}

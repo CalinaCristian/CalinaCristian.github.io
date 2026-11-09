@@ -1,0 +1,14 @@
+{
+  "captureToolSha256": "d7fec1b398b7f1c17124b815bb1f727b4bfe3e98d976d95a00328a96d26f51f9",
+  "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+  "verifiedAt": "2026-11-09T01:35:29.283Z",
+  "inputHashes": {
+    "game/src/landmarks.js": "41ff84c1c18f291b9fd7f98c5fcf47a91e964bbf10d1ac1dc0c28295ee034121",
+    "game/src/landmark-seatac-structure.js": "babdf7e471ad949ca982a737701280785005a950b18227205bd047d32e418bb5",
+    "game/src/landmark-seatac-aircraft.js": "23bd2be82947f78042858f2632a0f41a76ce30fe606fc3150d6c1ad08e51d1c5",
+    "game/src/landmark-us-source.js": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888",
+    "game/src/landmark-us-geometry.js": "5314a5e92a86b9a9612c3de013927a5d281d0c051944562347d39086930848aa",
+    "game/src/landmark-us-terrain.js": "cfca62d53bfeaf34f736b6ce345045dbbe50337544111fb6b676c4d237042879",
+    "game/dev/landmarks.html": "4637a3856f22273cfc668348e7d0764abbbafae628a66d01fdb94583854201c8"
+  }
+}

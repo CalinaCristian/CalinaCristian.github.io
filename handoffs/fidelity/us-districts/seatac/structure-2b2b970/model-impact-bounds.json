@@ -1,0 +1,162 @@
+{
+  "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+  "coordinateFrame": "Actual native world metres; x east,z south,y up. Models use the actual district projection and0.12m authored base.",
+  "purpose": "Conservative source-bound atlas retake masks. Per-frame old source/date remains unchanged; no historical relabel. Supply wall deltas separately and allow shadow/camera margins.",
+  "models": [
+    {
+      "id": "seagarage",
+      "wholeRenderedModelBounds": {
+        "min": [
+          -1257.8810806027332,
+          0.12,
+          563.2514486073575
+        ],
+        "max": [
+          -913.9834060421863,
+          24.669999237060548,
+          929.851439452084
+        ]
+      },
+      "wholeRenderedModelXZ": [
+        -1257.8810806027332,
+        563.2514486073575,
+        -913.9834060421863,
+        929.851439452084
+      ],
+      "sourceIds": [
+        "r15763840",
+        "w37017724",
+        "w37017725",
+        "w37017726",
+        "w37017727",
+        "w37017728",
+        "w37017729"
+      ],
+      "normalWorldBaseY": 0.12,
+      "conservativeChangedStructuralBoundsXZ": [
+        -1257.8810806027332,
+        563.2514486073575,
+        -913.9834060421863,
+        929.851439452084
+      ],
+      "modifiedVerticalBandM": [
+        0.12,
+        24.669999237060548
+      ],
+      "sourceSkybridgeBounds": [
+        {
+          "sourceId": "w37017724",
+          "boundsXZ": [
+            -1163.7333816281239,
+            576.3014364003262,
+            -1133.2333816281237,
+            607.2014364003262
+          ],
+          "garageFloorModelM": 7.85,
+          "terminalFloorModelM": 7.14,
+          "profile": "Explicit constrained estimate, not surveyed."
+        },
+        {
+          "sourceId": "w37017725",
+          "boundsXZ": [
+            -1209.8333816281238,
+            622.1014364003263,
+            -1179.6333816281237,
+            653.1014364003262
+          ],
+          "garageFloorModelM": 7.85,
+          "terminalFloorModelM": 7.15,
+          "profile": "Explicit constrained estimate, not surveyed."
+        },
+        {
+          "sourceId": "w37017726",
+          "boundsXZ": [
+            -1259.933381628124,
+            674.9014364003262,
+            -1222.2333816281237,
+            697.0014364003262
+          ],
+          "garageFloorModelM": 7.85,
+          "terminalFloorModelM": 7.16,
+          "profile": "Explicit constrained estimate, not surveyed."
+        },
+        {
+          "sourceId": "w37017727",
+          "boundsXZ": [
+            -1259.8333816281238,
+            721.3014364003262,
+            -1222.4333816281237,
+            743.6014364003262
+          ],
+          "garageFloorModelM": 7.85,
+          "terminalFloorModelM": 7.17,
+          "profile": "Explicit constrained estimate, not surveyed."
+        },
+        {
+          "sourceId": "w37017728",
+          "boundsXZ": [
+            -1211.7333816281239,
+            764.9014364003262,
+            -1181.0333816281236,
+            796.6014364003262
+          ],
+          "garageFloorModelM": 7.85,
+          "terminalFloorModelM": 7.18,
+          "profile": "Explicit constrained estimate, not surveyed."
+        },
+        {
+          "sourceId": "w37017729",
+          "boundsXZ": [
+            -1130.3333816281238,
+            849.4014364003262,
+            -1097.9333816281237,
+            887.7014364003262
+          ],
+          "garageFloorModelM": 7.85,
+          "terminalFloorModelM": 7.07,
+          "profile": "Explicit constrained estimate, not surveyed."
+        }
+      ]
+    },
+    {
+      "id": "seatac",
+      "wholeRenderedModelBounds": {
+        "min": [
+          -1567.2778000590647,
+          0.12,
+          332.34971242497295
+        ],
+        "max": [
+          -862.6438117713694,
+          36.62,
+          1360.6211350992207
+        ]
+      },
+      "wholeRenderedModelXZ": [
+        -1567.2778000590647,
+        332.34971242497295,
+        -862.6438117713694,
+        1360.6211350992207
+      ],
+      "sourceIds": [
+        "w23772634",
+        "w23772637",
+        "w734002404",
+        "w869951038"
+      ],
+      "normalWorldBaseY": 0.12,
+      "modifiedMainTerminalSourceId": "w23772634",
+      "conservativeChangedStructuralBoundsXZ": [
+        -1454.3247814374336,
+        382.31083674179104,
+        -924.5655756906883,
+        1284.5016880006633
+      ],
+      "modifiedVerticalBandM": [
+        0.12,
+        17.12
+      ],
+      "reason": "Complete main-terminal source roof projection, expanded0.5m for external window faces. IAF/SouthSatellite/4airframes are unchanged; full model bounds are also supplied conservatively."
+    }
+  ]
+}

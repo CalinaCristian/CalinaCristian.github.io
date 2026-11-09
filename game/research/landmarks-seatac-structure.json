@@ -272,13 +272,13 @@
   "uncertainties": [
     "OSM building:levels=7 is retained. Current official parking pages name Levels1\u20138; the roof/level counting and any historical changes are not resolved by replacing the OSM tag.",
     "49 garage findings have source layer2 but actual runtime footY0.13\u20130.24m;17 are layer0. At least one source way is named3rdFloorTNC Pickup Road. No layer-to-metres conversion is supported.",
-    "Existing model garage skybridge floor9.15m and runtime Departures11m are estimates; the old garage comment stating Departures<=3.8m is stale.",
+    "Historical c78 skybridge floor9.15m and Departures11m were model estimates, with a stale comment claiming Departures<=3.8m. Final2b profiles replace that bridge datum through explicit estimated relative connections; unchanged native road footY11.24m remains an estimate, not a surveyed height.",
     "Absolute road/deck elevation for each garage floor and mapped helix transition, including Level3 TNC and the actual main-road tie points",
     "Garage slab/beam soffit bands and a georeferenced interior/exterior column plan at the affected road mouths",
     "Terminal covered-curb footprint, facade/column line and canopy soffit above the actual Departures road profile"
   ],
   "retainedFailures": "All79 originalc78 capsule contacts remain immutable in handoffs/fidelity/us-districts/native-c78a5f4; candidate native positive/negative checks are independent.",
-  "acceptance": "Combined candidate pending native all79,3actualsourcecar routes, skybridge2.2m pedestrian-headroom/solid/road-separation controls and inspected images. The originalc78 and firste606failedglass proof remain unchanged.",
+  "acceptance": "At actual2b2b970836c58516fb11b6bd98ec18b936b33f65: all79 original capsule stations clear,11 native solid/head/above/below controls pass,215 full-span2.2m bridge queries clear,3actual source-car routes finish with0contacts/resets/placements, and all8 collider/source comparisons pass. The static fixture report retains one missing-static-resource404 from the game-only archive; later complete game+public routes have0page/console/HTTP errors. Reports/images/source bounds live under handoffs/fidelity/us-districts/seatac/structure-2b2b970. These are scoped fixtures/native traversals, not measured whole-world parity. Originalc78 and firste606failedglass proof remain unchanged.",
   "skybridgeStructure": {
     "baselineSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
     "method": "Exact native high-quality source-edge endpoint profile, total deckwidth asphalt+sidewalk, existing1.1m road underside, full7.3m bridge roof width sampled every0.2% of each exact sourcefootway;0.15m separation estimate. No source road is moved or assigned height from layer.",
@@ -420,7 +420,7 @@
   "terminalBridgeEntries": {
     "basis": "Exact mapped public source footway spans clipped inside the unchanged terminal source polygon. Only their estimated entry-storey bands are open; complete source solids remain below/above. No corridor extends beyond a source way endpoint.",
     "clearInteriorM": 2.3,
-    "clearanceTests": "Full native2.2m-body queries planned at<=1m along every mapped span, with real floor/roof/side negatives. These are explicit query fixtures, not a claim of elevated walking/navigation support."
+    "clearanceTests": "All215 full native2.2m-body queries at<=1m along every mapped span pass on actual2b2b970, with separate real floor/roof/post/above/below negatives. These are explicit query fixtures, not elevated walking/navigation support."
   },
-  "generatedSeparatorCorrection": "Existing final narrow-separator continuation and road-height gates now use the complete2m driving-body interval, matching the prior exact-junction branch. No source barrier, road join, width or geometry exemption is invented. All8native collider/source deltas must be recorded."
+  "generatedSeparatorCorrection": "Existing final narrow-separator continuation and road-height gates now use the complete2m driving-body interval, matching the prior exact-junction branch. No source barrier, road join, width or geometry exemption is invented. All8native collider/source deltas must be recorded. All8 exact native collider/source deltas are now recorded under handoffs/fidelity/us-districts/seatac/structure-2b2b970/all8-generated-separator-deltas.json; unchanged road and non-generated collision hashes remain explicit."
 }

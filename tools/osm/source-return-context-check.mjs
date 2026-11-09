@@ -53,6 +53,15 @@ test('a prior fallback style cannot replace an unchanged literal height',()=>{
     assert.deepEqual(retainedSourceInferredBuildingModel(f.review,f.source),{style:'eclectic'});
     f.source.tags.height='25';assert.equal(retainedSourceInferredBuildingModel(f.review,f.source),null);
 });
+test('reviewed fallback roof is retained only while source and measured roof remain unknown',()=>{
+    const f=modelFixture();delete f.source.tags['roof:shape'];delete f.review.inferredBuildingModels[0].sourceTags['roof:shape'];
+    const record=f.review.inferredBuildingModels[0];record.roof='gabled';
+    assert.deepEqual(retainedSourceInferredBuildingModel(f.review,f.source),{style:'eclectic',wallHeightM:12.8,roof:'gabled'});
+    assert.deepEqual(retainedSourceInferredBuildingModel(f.review,{...f.source,roofKnown:true}),{style:'eclectic',wallHeightM:12.8},'current aerial or researched roof wins');
+    f.source.tags['roof:shape']='flat';assert.equal(retainedSourceInferredBuildingModel(f.review,f.source),null,'new literal roof invalidates unchanged-evidence model');
+    record.sourceTags['roof:shape']='flat';assert.deepEqual(retainedSourceInferredBuildingModel(f.review,f.source),{style:'eclectic',wallHeightM:12.8},'even a matching literal roof cannot be replaced by a fallback');
+    record.roof='unknown-shape';assert.throws(()=>retainedSourceInferredBuildingModel(f.review,f.source),/invalid prior inferred building model/);
+});
 test('malformed, duplicate and unpinned prior building models fail explicitly',()=>{
     for(const mutate of [f=>{f.review.inferredBuildingModels[0].wallHeightM=Infinity;},
         f=>{f.review.inferredBuildingModels[0].sourceRingLL.pop();},

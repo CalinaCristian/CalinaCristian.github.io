@@ -21,6 +21,7 @@ export function retainedSourceInferredBuildingModel(review, source) {
         /^w[1-9]\d*$/.test(r.sourceId || '') && r.sourceTags && typeof r.sourceTags === 'object' && !Array.isArray(r.sourceTags) &&
         ringOK(r.sourceRingLL) && Array.isArray(r.sourceHolesLL) && r.sourceHolesLL.every(ringOK) &&
         ['plain', 'house', 'shop', 'bloc', 'eclectic', 'interwar', 'civic', 'glass', 'church'].includes(r.style) &&
+        (r.roof == null || ['flat', 'pyramid', 'gabled', 'dome', 'hipped', 'skillion', 'mansard'].includes(r.roof)) &&
         (r.wallHeightM == null || (Number.isFinite(r.wallHeightM) && r.wallHeightM > 0 && r.wallHeightM <= 320 &&
             !['height','building:levels','min_height','building:min_level'].some(k => r.sourceTags[k] != null))),
     'invalid prior inferred building model');
@@ -28,7 +29,8 @@ export function retainedSourceInferredBuildingModel(review, source) {
     if ((r.wallHeightM != null && Number.isFinite(source.heightM)) || tags.__hRes ||
         !same(publicTags(raw), publicTags(r.sourceTags)) || !same(publicTags(tags), publicTags(r.modelInputTags || r.sourceTags)) ||
         !same(source.sourceRingLL, r.sourceRingLL) || !same(source.sourceHolesLL || [], r.sourceHolesLL)) return null;
-    return { style: r.style, ...(r.wallHeightM != null ? {wallHeightM:r.wallHeightM} : {}) };
+    return { style: r.style, ...(r.wallHeightM != null ? {wallHeightM:r.wallHeightM} : {}),
+        ...(r.roof != null && !source.roofKnown && !tags['roof:shape'] ? {roof:r.roof} : {}) };
 }
 
 // A domain promotion can enable a shop band, which otherwise adds a metre to
@@ -65,6 +67,7 @@ export function preserveReviewedSourceContext(doc, review, surveyBytes) {
         const index = doc.buildingIds.indexOf(r.sourceId), row = doc.buildings[index];
         require(index >= 0 && row, 'reviewed prior inferred-building source absent');
         return { sourceId: r.sourceId, priorStyle: r.style, actualStyle: doc.styles[row[0]], priorWallHeightM: r.wallHeightM,
+            ...(r.roof != null ? {priorRoof:r.roof, actualRoof:doc.roofs[row[3]]} : {}),
             actualWallHeightM: doc.buildingRoofProfiles?.[index]?.eavesM ?? doc.buildingDimensions?.[index]?.[0] ?? row[1] / 10,
             basis: 'prior fallback MODEL; identical raw tags/outer/inner rings required; source/research annotations win' };
     });

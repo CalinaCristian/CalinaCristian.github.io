@@ -1312,8 +1312,11 @@ function buildCity(cityId, did = null) {
         }
         if (/glass/.test(t['building:material'] || '') && !['church', 'house'].includes(style)) style = 'glass';
         const retainedInferredModel = retainedSourceInferredBuildingModel(sourceContextReview,
-            { sourceId: t.__id, tags: t, sourceRingLL: lls, sourceHolesLL: rb.holesLL || [], heightM: h });
-        if (retainedInferredModel) style = retainedInferredModel.style;
+            { sourceId: t.__id, tags: t, sourceRingLL: lls, sourceHolesLL: rb.holesLL || [], heightM: h, roofKnown: measuredRoof });
+        if (retainedInferredModel) {
+            style = retainedInferredModel.style;
+            if (retainedInferredModel.roof != null) roof = ROOFS.indexOf(retainedInferredModel.roof);
+        }
         // Reality passes need evidence of a trading ground floor: a boulevard, embassy, museum or school is not a
         // shop. Named business POIs assigned to the footprint also enable the band below, after POI matching.
         const mappedTrading = (shop && !/^(no|vacant|disused)$/.test(shop)) ||
@@ -1437,6 +1440,9 @@ function buildCity(cityId, did = null) {
         const aircraft = t.historic === 'aircraft' || t.aeroway === 'aircraft' ? { classificationSource: 'OSM historic=aircraft / aeroway=aircraft', sourceId: t.__id, name: t.name || '', dimensionsSource: parseMeasure((t.__originalDimensions || t).height) > 0 ? 'OSM height' : 'estimate', dimensionNote: 'The mapped outline is the aircraft planform. Fuselage, fin and clearance within its source outline are authored estimates; this object is not a building roof.' } : null;
         const rec = { style, h, canopy, aircraft, sourceIssues, minH: literalMinimum > 0 ? minH : Math.max(0, Math.min(minH, h - (sourcePart || canopy ? 0.01 : 1))), roof, name, brand, flags, ring, holes, sourceRing: lls.slice(0, -1).map(([a, c]) => P(a, c)), sourceFootprint: footprintKey(lls, rb.holesLL || []), c: c2, area: Math.abs(polyArea(ring)), t, levels: isFinite(levels) ? Math.round(levels) : 0, colour, roofColour, la, lo,
             hSrc: parseMeasure((t.__originalDimensions || t).height) > 0 ? 0 : t.__hRes === 1 ? 1 : t.__hRes === 2 ? 2 : (levels > 0) ? 0 : 2 };
+        // This was validated against immutable raw/effective tags and all source
+        // rings. A newly matched shop name cannot trigger a second height guess.
+        rec.retainedInferredModel = retainedInferredModel;
         let x0 = Infinity, z0 = Infinity, x1 = -Infinity, z1 = -Infinity; for (const [x, z] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
         bGrid.insertBox(x0, z0, x1, z1, rec);
         buildings.push(rec);
@@ -1721,6 +1727,7 @@ function buildCity(cityId, did = null) {
         const US = country === 'US';
         const villa = (b) => !US && b.la > 44.447 && b.la < 44.48 && b.lo > 26.07 && b.lo < 26.103;
         for (const b of buildings) {
+            if (b.retainedInferredModel) continue;
             const name = finalName(b);
             if (b.levels > 0 || b.style === 'church' || b.style === 'glass' || b.minH > 0 || /^(bl(oc)?\.?\s|bloc\b|block\b)/i.test(name)) continue;
             const named = INST.test(name);

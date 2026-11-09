@@ -164,3 +164,5 @@ The work is planned spec-first in [`specs/`](specs/) (requirements, contracts, o
 ## Technical overview and comparisons
 
 Browse [the game overview](https://cristiancalina.com/game/overview/) for the architecture, simulation, controls and spec-driven AI development, plus inline comparisons for eight districts, 61 landmark entries and 24 tourist destinations. This guide previews the ongoing fidelity work; each capture retains its actual source and date. The game update is still being tested.
+
+Overview upkeep is part of every affected change: update the published text, controls, records, links, comparisons and pictures, recapture changed game views with honest source/date metadata, retain labelled history, and verify desktop/mobile and live delivery. The mandatory rule is shared through AGENTS.md and CLAUDE.md.

@@ -1,0 +1,13 @@
+{
+  "passed": 8,
+  "cases": [
+    "exact prior water rings/name/source identity and measured crown survive",
+    "current source water wins over prior context, without duplicates",
+    "already present measured crown is not counted twice",
+    "current source-tree disagreement fails rather than substituting crown metadata",
+    "survey hash and exact source crown/index are mandatory",
+    "old packed geometry cannot silently move or resize a measured source crown",
+    "projection mismatch cannot move retained context",
+    "absent context preserves legacy compilation"
+  ]
+}

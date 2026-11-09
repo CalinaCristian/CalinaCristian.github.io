@@ -1,0 +1,110 @@
+{
+  "scope": "Independent old-to-rebuilt source retention. Synthetic negative boundary cuts may be replaced; all literal positive source nodes, original physical building footprints/courtyards/dimensions, source-road metadata and measured crown records must survive. Native World acceptance remains separate.",
+  "oldSourceCommit": "406a53f1f1f1397a1667ea1bc77df78289a5667a",
+  "oldDataSha256": "b0341956c088b9cb142a7005831345eda7bf7aae27f18618181ba8fc535f4175",
+  "candidateDataSha256": "fa12eda6365d369c79222ed8af0a068f5173899d71698a7f94cd70682dac4685",
+  "positiveNodes": {
+    "old": 1045,
+    "new": 1185,
+    "missing": [],
+    "moved": []
+  },
+  "sourceBuildings": {
+    "old": 2416,
+    "new": 2559,
+    "missingExactFootprintOrHoles": [],
+    "changedDimensions": [],
+    "changedStyleRoofOrLevels": []
+  },
+  "sourceRoadMetadata": {
+    "old": 250,
+    "new": 303,
+    "missingOrChanged": [],
+    "changedPhysicalProfiles": []
+  },
+  "trees": {
+    "old": 17002,
+    "new": 19289,
+    "missingOrChanged": [],
+    "retention": {
+      "policy": "all-measured",
+      "inputCrowns": 44645,
+      "retained": 19238,
+      "rejectedGeometryOrDuplicate": 2940,
+      "outsideSurveyDistrict": 22467,
+      "thinned": 0
+    }
+  },
+  "areas": {
+    "old": 453,
+    "new": 526,
+    "missingSourceIds": [],
+    "carriedWater": [
+      {
+        "sourceId": "r1130828",
+        "unchangedRings": true
+      },
+      {
+        "sourceId": "w174991904",
+        "unchangedRings": true
+      },
+      {
+        "sourceId": "w983903953",
+        "unchangedRings": true
+      },
+      {
+        "sourceId": "w117140697",
+        "unchangedRings": true
+      }
+    ]
+  },
+  "mask": {
+    "oldInsideCells": 1698,
+    "newInsideCells": 2058,
+    "removedOldInsideCells": 0,
+    "addedInsideCells": 360,
+    "cellM": 20
+  },
+  "roadSourceNodeTags": {
+    "2342152612": {
+      "level": "-1"
+    },
+    "2644247956": {
+      "level": "-1"
+    },
+    "2644249162": {
+      "level": "-1w"
+    },
+    "8780483091": {
+      "level": "-1"
+    },
+    "8780483093": {
+      "level": "-1"
+    },
+    "8780483095": {
+      "level": "-1"
+    },
+    "12140907463": {
+      "level": "-2"
+    },
+    "12163380260": {
+      "level": "-2"
+    },
+    "12163380262": {
+      "level": "-2"
+    },
+    "10839993800": {
+      "level": "-1"
+    }
+  },
+  "roadSourceNodeTagCoverage": {
+    "keys": [
+      "ele",
+      "incline",
+      "level"
+    ],
+    "sourceNodeCount": 5414,
+    "missingSourceNodes": [],
+    "scope": "All literal original nodes of retained roadSourceGeometry and scenerySourceGeometry, before clipping; no values inferred."
+  }
+}

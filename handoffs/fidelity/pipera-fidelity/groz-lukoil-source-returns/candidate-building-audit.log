@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/fidelity-workers/ordinary-source-span/tools/osm/building-audit.py", line 432, in <module>
+    main()
+  File "/workspace/fidelity-workers/ordinary-source-span/tools/osm/building-audit.py", line 278, in main
+    for ev, el in ET.iterparse(f, events=('end',)):
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/xml/etree/ElementTree.py", line 1228, in iterparse
+    source = open(source, "rb")
+             ^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/reality-pass/grozavesti/tiles/*.xml'

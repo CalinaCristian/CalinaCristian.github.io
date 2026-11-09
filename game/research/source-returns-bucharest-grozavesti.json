@@ -1,0 +1,838 @@
+{
+  "schema": 1,
+  "scope": "Reviewed finite public source road return corridors from both literal Doina Cornea travel directions to the mapped Lukoil. Domain radius is an explicit gameplay boundary buffer, not a road-width measurement; no source geometry or travel rights are changed.",
+  "destination": {
+    "sourceId": "w256806132",
+    "osm": "https://www.openstreetmap.org/way/256806132",
+    "name": "Lukoil",
+    "address": "Șoseaua Orhideelor 4",
+    "requiredTags": {
+      "amenity": "fuel",
+      "brand": "Lukoil"
+    }
+  },
+  "envelope": {
+    "playerFrontM": 3.42,
+    "playerRearM": 2.36,
+    "playerHalfWidthM": 0.9,
+    "maxShoulderM": 1.2,
+    "maskCellM": 20
+  },
+  "evidence": [
+    {
+      "kind": "cached OSM API 0.6 source tiles",
+      "boundsLL": [
+        44.425,
+        26.029,
+        44.465,
+        26.093
+      ],
+      "files": [
+        {
+          "file": "buc_44.4250_26.0290_44.4350_26.0450.xml",
+          "sha256": "5f6dfc4175e595a80a0207927b135fcdda0ea79cfecdea841b089c91ba0c3343"
+        },
+        {
+          "file": "buc_44.4250_26.0450_44.4350_26.0610.xml",
+          "sha256": "57639f0f940a2ca42f873e5e171b938cf43980f28fede6a30d29ce246b957fa7"
+        },
+        {
+          "file": "buc_44.4250_26.0610_44.4350_26.0770.xml",
+          "sha256": "1de258735272aa12e444747c50a36372a0337d0bb16821337ba865d5ad600feb"
+        },
+        {
+          "file": "buc_44.4250_26.0770_44.4350_26.0930.xml",
+          "sha256": "1dafbd501669a59407348a2028a6190dbeb129a85c30181bb86e79b05c8a5fb1"
+        },
+        {
+          "file": "buc_44.4350_26.0290_44.4450_26.0450.xml",
+          "sha256": "1b3433692876dc385b2960f34d06d3f55c96f0c507f9207a9bb449ec7c0b3bcf"
+        },
+        {
+          "file": "buc_44.4350_26.0450_44.4450_26.0610.xml",
+          "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689"
+        },
+        {
+          "file": "buc_44.4350_26.0610_44.4450_26.0770.xml",
+          "sha256": "5c526f202084ffa605d5b78bb15b923b10dee7bca10bf65d9438152a465e0624"
+        },
+        {
+          "file": "buc_44.4350_26.0770_44.4450_26.0930.xml",
+          "sha256": "14b1a756654b49a7d62517cddc711bc20056e4684a0a1f10c6a41ee9e6462069"
+        },
+        {
+          "file": "buc_44.4450_26.0290_44.4550_26.0450.xml",
+          "sha256": "57a0c0e0a2c75f2e0f999b8fa8c5733d669c5bd244490fcd409b1c747593c55f"
+        },
+        {
+          "file": "buc_44.4450_26.0450_44.4550_26.0610.xml",
+          "sha256": "1336a618c3f735263833078499794446ed5f9b8776aeefe914aaaa2eb5ec7732"
+        },
+        {
+          "file": "buc_44.4450_26.0610_44.4550_26.0770.xml",
+          "sha256": "1b4248039697685242b9df55183002daee53d1ca728571020f64d9fa4fdb9f2e"
+        },
+        {
+          "file": "buc_44.4450_26.0770_44.4550_26.0930.xml",
+          "sha256": "ee2946108a6f27a83e7b71f558950182e12af5eb1de7b7815b5ec03369a3af6e"
+        },
+        {
+          "file": "buc_44.4550_26.0290_44.4650_26.0450.xml",
+          "sha256": "2d4083c18438e61eebab62d3b67f5a07337d69c2aa84bb8b4d8bb143d2437b85"
+        },
+        {
+          "file": "buc_44.4550_26.0450_44.4650_26.0610.xml",
+          "sha256": "5b4a8f65b7fd6866738854193f910b82c100e3c6ed1effedb800a83f6ed1fd50"
+        },
+        {
+          "file": "buc_44.4550_26.0610_44.4650_26.0770.xml",
+          "sha256": "052b27afee4aef69c907c144db2c38791acddfd572c917584f2136a709698996"
+        },
+        {
+          "file": "buc_44.4550_26.0770_44.4650_26.0930.xml",
+          "sha256": "990ea50aa95587d1a134729a994a2f08db3e64618164a473a852ff298ac1af96"
+        }
+      ]
+    },
+    {
+      "kind": "source directed return-path and mask certificate",
+      "rawRouteSha256": "01a5c7c7f9c51acedf5bb0c0ee93cceab1d8c215b29eae2d2f0636cfd86c8365",
+      "proof": "handoffs/fidelity/pipera-fidelity/groz-lukoil-source-returns/README.md",
+      "nativeSource": "ff6b2bff3cfe5b45c5dba9624abbb6672304bfed",
+      "limits": "Source topology/access/oneway/turn:lanes/restrictions checked at compilation. Native geometry, driving, all-view and budget gates remain separate."
+    }
+  ],
+  "corridors": [
+    {
+      "id": "northbound-Doina-lukoil",
+      "destinationSourceId": "w256806132",
+      "radiusM": 40,
+      "radiusSource": "Explicit finite domain model; must contain source-priority road/sidewalk/shoulder, cockpit corner and a full 20m-mask half diagonal. It is not an asphalt width or a physical clearance waiver.",
+      "legs": [
+        {
+          "sourceId": "w277315765",
+          "from": 6570499865,
+          "to": 2290460622
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 2290460622,
+          "to": 2290460561
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 2290460561,
+          "to": 2197439636
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 2197439636,
+          "to": 2517400446
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 2517400446,
+          "to": 286838434
+        },
+        {
+          "sourceId": "w106797416",
+          "from": 286838434,
+          "to": 304485448
+        },
+        {
+          "sourceId": "w106797416",
+          "from": 304485448,
+          "to": 6234008741
+        },
+        {
+          "sourceId": "w106797416",
+          "from": 6234008741,
+          "to": 2159714535
+        },
+        {
+          "sourceId": "w106797416",
+          "from": 2159714535,
+          "to": 4544523819
+        },
+        {
+          "sourceId": "w106797416",
+          "from": 4544523819,
+          "to": 6234340430
+        },
+        {
+          "sourceId": "w106797416",
+          "from": 6234340430,
+          "to": 4544523820
+        },
+        {
+          "sourceId": "w241717664",
+          "from": 4544523820,
+          "to": 1340349371
+        },
+        {
+          "sourceId": "w241717664",
+          "from": 1340349371,
+          "to": 1433124668
+        },
+        {
+          "sourceId": "w241717664",
+          "from": 1433124668,
+          "to": 981520486
+        },
+        {
+          "sourceId": "w314447341",
+          "from": 981520486,
+          "to": 1418266857
+        },
+        {
+          "sourceId": "w128304855",
+          "from": 1418266857,
+          "to": 1418266879
+        },
+        {
+          "sourceId": "w128304854",
+          "from": 1418266879,
+          "to": 981520528
+        },
+        {
+          "sourceId": "w665700250",
+          "from": 981520528,
+          "to": 6233585073
+        },
+        {
+          "sourceId": "w665700250",
+          "from": 6233585073,
+          "to": 6233585074
+        },
+        {
+          "sourceId": "w665700250",
+          "from": 6233585074,
+          "to": 32934941
+        },
+        {
+          "sourceId": "w12803020",
+          "from": 32934941,
+          "to": 6233987447
+        },
+        {
+          "sourceId": "w12803020",
+          "from": 6233987447,
+          "to": 3908701982
+        },
+        {
+          "sourceId": "w12803020",
+          "from": 3908701982,
+          "to": 7733754405
+        },
+        {
+          "sourceId": "w12803020",
+          "from": 7733754405,
+          "to": 7733754391
+        },
+        {
+          "sourceId": "w12803020",
+          "from": 7733754391,
+          "to": 2723644930
+        },
+        {
+          "sourceId": "w12803020",
+          "from": 2723644930,
+          "to": 249659931
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 249659931,
+          "to": 13376893574
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 13376893574,
+          "to": 249659916
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 249659916,
+          "to": 249659917
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 249659917,
+          "to": 5339318785
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 5339318785,
+          "to": 12323812232
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 12323812232,
+          "to": 7476801812
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 7476801812,
+          "to": 257544650
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 257544650,
+          "to": 7733754408
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 7733754408,
+          "to": 12023240176
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 12023240176,
+          "to": 6294573557
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 6294573557,
+          "to": 249659921
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 249659921,
+          "to": 2495091622
+        },
+        {
+          "sourceId": "w118284445",
+          "from": 2495091622,
+          "to": 3653645089
+        },
+        {
+          "sourceId": "w118284445",
+          "from": 3653645089,
+          "to": 12676962691
+        },
+        {
+          "sourceId": "w118284445",
+          "from": 12676962691,
+          "to": 3001224269
+        }
+      ]
+    },
+    {
+      "id": "southbound-Doina-lukoil",
+      "destinationSourceId": "w256806132",
+      "radiusM": 40,
+      "radiusSource": "Explicit finite domain model; must contain source-priority road/sidewalk/shoulder, cockpit corner and a full 20m-mask half diagonal. It is not an asphalt width or a physical clearance waiver.",
+      "legs": [
+        {
+          "sourceId": "w80013062",
+          "from": 6809278847,
+          "to": 6570499869
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 6570499869,
+          "to": 32934948
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 32934948,
+          "to": 13391410485
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 13391410485,
+          "to": 6228053258
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 6228053258,
+          "to": 5653372932
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 5653372932,
+          "to": 32934952
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 32934952,
+          "to": 1885339424
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 1885339424,
+          "to": 6570499861
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 6570499861,
+          "to": 933659675
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 933659675,
+          "to": 9510256286
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 9510256286,
+          "to": 14070391976
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 14070391976,
+          "to": 6570499862
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 6570499862,
+          "to": 14070391977
+        },
+        {
+          "sourceId": "w80013062",
+          "from": 14070391977,
+          "to": 32934955
+        },
+        {
+          "sourceId": "w666764179",
+          "from": 32934955,
+          "to": 286840446
+        },
+        {
+          "sourceId": "w666764179",
+          "from": 286840446,
+          "to": 6909034253
+        },
+        {
+          "sourceId": "w666764179",
+          "from": 6909034253,
+          "to": 10771546249
+        },
+        {
+          "sourceId": "w666764179",
+          "from": 10771546249,
+          "to": 305921408
+        },
+        {
+          "sourceId": "w723716273",
+          "from": 305921408,
+          "to": 6242754209
+        },
+        {
+          "sourceId": "w723716273",
+          "from": 6242754209,
+          "to": 7782120384
+        },
+        {
+          "sourceId": "w723716273",
+          "from": 7782120384,
+          "to": 3067743133
+        },
+        {
+          "sourceId": "w723716273",
+          "from": 3067743133,
+          "to": 11508798559
+        },
+        {
+          "sourceId": "w723716273",
+          "from": 11508798559,
+          "to": 2534596685
+        },
+        {
+          "sourceId": "w198528544",
+          "from": 2534596685,
+          "to": 9208585671
+        },
+        {
+          "sourceId": "w198528544",
+          "from": 9208585671,
+          "to": 10765838516
+        },
+        {
+          "sourceId": "w198528544",
+          "from": 10765838516,
+          "to": 10765838518
+        },
+        {
+          "sourceId": "w198528544",
+          "from": 10765838518,
+          "to": 6294573554
+        },
+        {
+          "sourceId": "w198528544",
+          "from": 6294573554,
+          "to": 10765838532
+        },
+        {
+          "sourceId": "w198528544",
+          "from": 10765838532,
+          "to": 2534596679
+        },
+        {
+          "sourceId": "w324602398",
+          "from": 2534596679,
+          "to": 2290455880
+        },
+        {
+          "sourceId": "w32133401",
+          "from": 2290455880,
+          "to": 14184962887
+        },
+        {
+          "sourceId": "w32133401",
+          "from": 14184962887,
+          "to": 11521746898
+        },
+        {
+          "sourceId": "w32133401",
+          "from": 11521746898,
+          "to": 6294573555
+        },
+        {
+          "sourceId": "w32133401",
+          "from": 6294573555,
+          "to": 1725252743
+        },
+        {
+          "sourceId": "w32133401",
+          "from": 1725252743,
+          "to": 6525526792
+        },
+        {
+          "sourceId": "w1282776541",
+          "from": 6525526792,
+          "to": 11786828823
+        },
+        {
+          "sourceId": "w1282776541",
+          "from": 11786828823,
+          "to": 2534596677
+        },
+        {
+          "sourceId": "w723716277",
+          "from": 2534596677,
+          "to": 8767595419
+        },
+        {
+          "sourceId": "w723716277",
+          "from": 8767595419,
+          "to": 286840531
+        },
+        {
+          "sourceId": "w723716277",
+          "from": 286840531,
+          "to": 286840067
+        },
+        {
+          "sourceId": "w241717659",
+          "from": 286840067,
+          "to": 6937009014
+        },
+        {
+          "sourceId": "w241717659",
+          "from": 6937009014,
+          "to": 8828056676
+        },
+        {
+          "sourceId": "w241717659",
+          "from": 8828056676,
+          "to": 933659723
+        },
+        {
+          "sourceId": "w198350034",
+          "from": 933659723,
+          "to": 933659667
+        },
+        {
+          "sourceId": "w723716274",
+          "from": 933659667,
+          "to": 6909034254
+        },
+        {
+          "sourceId": "w723716274",
+          "from": 6909034254,
+          "to": 3719807257
+        },
+        {
+          "sourceId": "w241717662",
+          "from": 3719807257,
+          "to": 2644228768
+        },
+        {
+          "sourceId": "w241717662",
+          "from": 2644228768,
+          "to": 933659683
+        },
+        {
+          "sourceId": "w241717662",
+          "from": 933659683,
+          "to": 14070391978
+        },
+        {
+          "sourceId": "w241717662",
+          "from": 14070391978,
+          "to": 2290460631
+        },
+        {
+          "sourceId": "w241717662",
+          "from": 2290460631,
+          "to": 14070391979
+        },
+        {
+          "sourceId": "w241717662",
+          "from": 14070391979,
+          "to": 933659706
+        },
+        {
+          "sourceId": "w241717662",
+          "from": 933659706,
+          "to": 6570499860
+        },
+        {
+          "sourceId": "w241717662",
+          "from": 6570499860,
+          "to": 2250235064
+        },
+        {
+          "sourceId": "w241717662",
+          "from": 2250235064,
+          "to": 6570499870
+        },
+        {
+          "sourceId": "w241717662",
+          "from": 6570499870,
+          "to": 933659664
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 933659664,
+          "to": 13391410484
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 13391410484,
+          "to": 2818581483
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 2818581483,
+          "to": 13391410486
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 13391410486,
+          "to": 933659720
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 933659720,
+          "to": 6570499865
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 6570499865,
+          "to": 2290460622
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 2290460622,
+          "to": 2290460561
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 2290460561,
+          "to": 2197439636
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 2197439636,
+          "to": 2517400446
+        },
+        {
+          "sourceId": "w277315765",
+          "from": 2517400446,
+          "to": 286838434
+        },
+        {
+          "sourceId": "w106797416",
+          "from": 286838434,
+          "to": 304485448
+        },
+        {
+          "sourceId": "w106797416",
+          "from": 304485448,
+          "to": 6234008741
+        },
+        {
+          "sourceId": "w106797416",
+          "from": 6234008741,
+          "to": 2159714535
+        },
+        {
+          "sourceId": "w106797416",
+          "from": 2159714535,
+          "to": 4544523819
+        },
+        {
+          "sourceId": "w106797416",
+          "from": 4544523819,
+          "to": 6234340430
+        },
+        {
+          "sourceId": "w106797416",
+          "from": 6234340430,
+          "to": 4544523820
+        },
+        {
+          "sourceId": "w241717664",
+          "from": 4544523820,
+          "to": 1340349371
+        },
+        {
+          "sourceId": "w241717664",
+          "from": 1340349371,
+          "to": 1433124668
+        },
+        {
+          "sourceId": "w241717664",
+          "from": 1433124668,
+          "to": 981520486
+        },
+        {
+          "sourceId": "w314447341",
+          "from": 981520486,
+          "to": 1418266857
+        },
+        {
+          "sourceId": "w128304855",
+          "from": 1418266857,
+          "to": 1418266879
+        },
+        {
+          "sourceId": "w128304854",
+          "from": 1418266879,
+          "to": 981520528
+        },
+        {
+          "sourceId": "w665700250",
+          "from": 981520528,
+          "to": 6233585073
+        },
+        {
+          "sourceId": "w665700250",
+          "from": 6233585073,
+          "to": 6233585074
+        },
+        {
+          "sourceId": "w665700250",
+          "from": 6233585074,
+          "to": 32934941
+        },
+        {
+          "sourceId": "w12803020",
+          "from": 32934941,
+          "to": 6233987447
+        },
+        {
+          "sourceId": "w12803020",
+          "from": 6233987447,
+          "to": 3908701982
+        },
+        {
+          "sourceId": "w12803020",
+          "from": 3908701982,
+          "to": 7733754405
+        },
+        {
+          "sourceId": "w12803020",
+          "from": 7733754405,
+          "to": 7733754391
+        },
+        {
+          "sourceId": "w12803020",
+          "from": 7733754391,
+          "to": 2723644930
+        },
+        {
+          "sourceId": "w12803020",
+          "from": 2723644930,
+          "to": 249659931
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 249659931,
+          "to": 13376893574
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 13376893574,
+          "to": 249659916
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 249659916,
+          "to": 249659917
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 249659917,
+          "to": 5339318785
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 5339318785,
+          "to": 12323812232
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 12323812232,
+          "to": 7476801812
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 7476801812,
+          "to": 257544650
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 257544650,
+          "to": 7733754408
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 7733754408,
+          "to": 12023240176
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 12023240176,
+          "to": 6294573557
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 6294573557,
+          "to": 249659921
+        },
+        {
+          "sourceId": "w23123472",
+          "from": 249659921,
+          "to": 2495091622
+        },
+        {
+          "sourceId": "w118284445",
+          "from": 2495091622,
+          "to": 3653645089
+        },
+        {
+          "sourceId": "w118284445",
+          "from": 3653645089,
+          "to": 12676962691
+        },
+        {
+          "sourceId": "w118284445",
+          "from": 12676962691,
+          "to": 3001224269
+        }
+      ]
+    }
+  ]
+}

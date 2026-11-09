@@ -100,6 +100,22 @@ Washington) are completed with `/api/0.6/relation/<id>/full`, cached in `tools/o
 
 Data © OpenStreetMap contributors, ODbL.
 
+Reviewed finite source return paths live in `game/research/source-returns-<city>-<district>.json`.
+`source-return-corridors.mjs` validates literal consecutive source nodes, directed public through access, available source
+turn choices and touching motor restrictions before adding their bounded pieces to the district core. A source split or
+merge with one legal outgoing continuation retains that literal course; a locally straight tangent after an already
+mapped turn does not create a new turn choice. Unknown via-way/conditional restrictions stop compilation. The explicit
+domain radius must contain the source-priority width, sidewalks, shoulder, cockpit corner and mask-cell half diagonal;
+it is not a changed road width. The normal builder then regenerates complete roads, mask/ends and the new600m context.
+`--source-returns none` is available only for a labelled unchanged-mask comparison.
+
+Optional `source-context-<city>-<district>.json` retains explicitly reviewed accepted context omitted from a bounded raw
+tile set. Original source identity, projection, water rings and names are preserved; current source water records win.
+Measured crowns require the exact original survey SHA/index/value and packed-geometry agreement. Broad road filters
+cannot silently delete an already retained measured crown; resulting source conflicts remain unresolved for native QA.
+Run `node tools/osm/source-return-corridors-check.mjs` and `node tools/osm/source-return-context-check.mjs`, then independently
+audit the rebuilt roads/buildings and test the actual native World boundaries, source-body clearance, routes and budget.
+
 District source roads retain physical restricted roads and service aisles. `roadAccess` resolves the OSM motorcar hierarchy independently of physical geometry; restricted rows never enter the public runtime graph, and destination/customer streets are available only for selected endpoints. Raw conditional/HOV/reversible restrictions remain explicit and unresolved. `node tools/osm/road-access-check.mjs` verifies precedence, endpoint routing and an isolated builder fixture, including a private elevated trunk, a specifically public service road, parking/customer access, a footway and a runway.
 
 ## District reality data (2026-11-08)

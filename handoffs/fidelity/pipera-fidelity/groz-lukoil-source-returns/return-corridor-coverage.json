@@ -1,0 +1,133 @@
+{
+  "scope": "CPU exact source route geometry versus archived ff6 analytic core and RLE cell union. No runtime edits, no accepted legal/driven route. Positive-node native coordinate match is exact; path restriction/grade/body/World acceptance remain separate.",
+  "nativeWorldRawSha256": "df9d2deec0eeec4e508a3b8164ad3120f26307ae17fae5fdf35cadc52c18a2ea",
+  "routeCertificateSha256": "22682de6eba70e98057c9ff4e30a2e5e468a89f51d968f7dfa90734f2845b406",
+  "method": "Each continuous maximum lies within reported interval because both fields are 1-Lipschitz and every source segment has samples no more than 0.25m apart. Scenery+core coverage uses collinear interval union of exact prepared source geometry.",
+  "cachedTileRectangleLL": [
+    44.425,
+    26.029,
+    44.465,
+    26.093
+  ],
+  "cachedTileCount": 16,
+  "measuredCanopyRectangleLL": [
+    44.428,
+    26.038,
+    44.458,
+    26.079
+  ],
+  "treeRetention": {
+    "policy": "all-measured",
+    "inputCrowns": 44645,
+    "retained": 17001,
+    "rejectedGeometryOrDuplicate": 2655,
+    "outsideSurveyDistrict": 24989,
+    "thinned": 0
+  },
+  "routes": [
+    {
+      "label": "northbound-Doina-e164",
+      "lengthM": 1500.0967089275339,
+      "samples": 6058,
+      "maxSampleSpacingM": 0.2499796221402788,
+      "analyticCoreExcursionM": {
+        "lower": 165.8019301025867,
+        "upper": 165.92691991365686,
+        "witnessXZ": [
+          -182.324990793116,
+          -320.40466919980565
+        ]
+      },
+      "distanceOutsideCurrentMaskM": {
+        "lower": 139.29812626407076,
+        "upper": 139.4231160751409,
+        "witnessXZ": [
+          -179.31425591041113,
+          -331.8893338209913
+        ]
+      },
+      "entireSourceCentrelineWithinOld600mDetailRing": true,
+      "remainingOld600mRingMarginM": 434.07308008634317,
+      "currentPreparedSourceRoadCoverage": {
+        "wholeLegs": 41,
+        "totalLegs": 41,
+        "missingOrPartial": []
+      },
+      "boundsXZ": [
+        -273.04240338755267,
+        -546.024855599816,
+        133.56458022135175,
+        348.38770679990705
+      ],
+      "centrelinePlus600mBoundingBoxLL": [
+        44.432666115009184,
+        26.048215442893166,
+        44.45151228499082,
+        26.068429657106833
+      ],
+      "reviewed40mDomainPlus600mBoundingBoxLL": [
+        44.43230618267646,
+        26.04771216575271,
+        44.45187221732354,
+        26.06893293424729
+      ],
+      "reviewed40mDomainPlus600mWithinCachedTilesAndCanopySurvey": true,
+      "fullNew600mRingWithinCachedRawTileRectangle": true,
+      "fullNew600mRingWithinMeasuredCanopySurveyRectangle": true,
+      "maxNativeOnSourceRoadHalfWidthM": 7,
+      "new600mRingExistingDetailStatus": "Not certified: the new route is inside the old source ring, but its own 600m neighbourhood extends outside the old ring. Rebuild source coverage; do not claim scenery donors provide driving profiles."
+    },
+    {
+      "label": "southbound-Doina-e66",
+      "lengthM": 3258.137467670023,
+      "samples": 13185,
+      "maxSampleSpacingM": 0.2499796221402788,
+      "analyticCoreExcursionM": {
+        "lower": 394.2807641607536,
+        "upper": 394.40575397182374,
+        "witnessXZ": [
+          -838.2101353105637,
+          761.9098788005581
+        ]
+      },
+      "distanceOutsideCurrentMaskM": {
+        "lower": 358.6870739019973,
+        "upper": 358.8120637130674,
+        "witnessXZ": [
+          -838.2101353105637,
+          761.9098788005581
+        ]
+      },
+      "entireSourceCentrelineWithinOld600mDetailRing": true,
+      "remainingOld600mRingMarginM": 205.59424602817623,
+      "currentPreparedSourceRoadCoverage": {
+        "wholeLegs": 102,
+        "totalLegs": 102,
+        "missingOrPartial": []
+      },
+      "boundsXZ": [
+        -838.5201036906781,
+        -546.024855599816,
+        133.56458022135175,
+        761.9098788005581
+      ],
+      "centrelinePlus600mBoundingBoxLL": [
+        44.42894511500918,
+        26.041100642893166,
+        44.45151228499082,
+        26.068429657106833
+      ],
+      "reviewed40mDomainPlus600mBoundingBoxLL": [
+        44.42858518267646,
+        26.04059736575271,
+        44.45187221732354,
+        26.06893293424729
+      ],
+      "reviewed40mDomainPlus600mWithinCachedTilesAndCanopySurvey": true,
+      "fullNew600mRingWithinCachedRawTileRectangle": true,
+      "fullNew600mRingWithinMeasuredCanopySurveyRectangle": true,
+      "maxNativeOnSourceRoadHalfWidthM": 7,
+      "new600mRingExistingDetailStatus": "Not certified: the new route is inside the old source ring, but its own 600m neighbourhood extends outside the old ring. Rebuild source coverage; do not claim scenery donors provide driving profiles."
+    }
+  ]
+}

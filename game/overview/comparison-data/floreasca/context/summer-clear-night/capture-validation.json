@@ -1,0 +1,126 @@
+{
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "district": "floreasca",
+  "condition": {
+    "season": "summer",
+    "weather": "clear",
+    "time": "night"
+  },
+  "frames": 10,
+  "sheets": 2,
+  "failures": [],
+  "metrics": [
+    {
+      "id": "dinamo-street",
+      "sha256": "2c14126a13d2265b1e8a294849f72adfd41c242ee7a31b6ce3c56de72b0ffdd5",
+      "rgbStddev": [
+        44.74196430569573,
+        36.581569811777364,
+        29.586008707969796
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": true
+    },
+    {
+      "id": "dinamo-football",
+      "sha256": "2412cdbfcdd837280bca58491f37c311c5c12fa2c42d10250e47f2ce9e5a1a75",
+      "rgbStddev": [
+        36.96211304856212,
+        31.049241712955528,
+        28.910097669643648
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "rosetti-street",
+      "sha256": "dec493d13e93c9ceedee522b4144dd25c3a5a93729fe403718310d61eca14faf",
+      "rgbStddev": [
+        62.26162643709197,
+        51.289239564830154,
+        38.68683922093209
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": true
+    },
+    {
+      "id": "rosetti-basketball-0",
+      "sha256": "84c59a3314d85661e0ea287675f8e4c6cf5bc7a6169a8a0421d5f206a1be60c1",
+      "rgbStddev": [
+        55.799302883843964,
+        26.915291420134867,
+        22.776758395365082
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "rosetti-basketball-1",
+      "sha256": "290e8126ef9d8a5872116e40014694249e7cd648c425a48a58730980afb035eb",
+      "rgbStddev": [
+        54.95240415096852,
+        21.404204028494444,
+        17.128446512167816
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-west",
+      "sha256": "51fa8ae85284716432f7ebe28e5a6d1921646746404f795a00cf1f1de4b59263",
+      "rgbStddev": [
+        38.89318321316753,
+        28.442950045979284,
+        22.26027496634191
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-east",
+      "sha256": "1d9fa9955ceab77d0a93a3b8b7f45397302781d685c2a2e871db3a14f2088507",
+      "rgbStddev": [
+        33.576038047364044,
+        25.253144734172288,
+        20.421051284325387
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-north",
+      "sha256": "80f8fd806b2d2d074910610be0c05b13cc4cc2e8de7daa6d6a08a1bcf9929d58",
+      "rgbStddev": [
+        32.95743989679044,
+        24.70187585684794,
+        19.943326157500998
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "drone-edge-south",
+      "sha256": "dd42b2940a0b48916aeb1014cb5ff5d8273d225ce24b91bec298fcb951818704",
+      "rgbStddev": [
+        41.28263214181545,
+        30.200886923721896,
+        23.322896330368902
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    },
+    {
+      "id": "chapter-rosetti-street",
+      "sha256": "515e5ccfc1222b70be72f00443f76dfcace4e65e2f839c68b3cefa54227755c4",
+      "rgbStddev": [
+        40.67478373005197,
+        33.42103928003636,
+        27.137189047355694
+      ],
+      "conditionsReadBack": true,
+      "cameraBodyValidated": false
+    }
+  ],
+  "rawSourceContactHits": 62,
+  "note": "Capture integrity checks only. Sheets require actual human/model visual review; raw contacts and source/visual gaps are not dismissed by this result. No controller, complete scene-clearance or driving/mirror budget pass claimed."
+}

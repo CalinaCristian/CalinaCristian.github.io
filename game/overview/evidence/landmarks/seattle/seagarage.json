@@ -1,0 +1,538 @@
+{
+  "schemaVersion": 1,
+  "id": "seagarage",
+  "city": "seattle",
+  "name": "Sea-Tac parking garage + skybridges",
+  "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+  "status": "in-progress",
+  "coordinates": {
+    "lat": 47.4432823,
+    "lon": -122.2992416
+  },
+  "sourceIds": [
+    "r15763840",
+    "w37017724",
+    "w37017725",
+    "w37017726",
+    "w37017727",
+    "w37017728",
+    "w37017729"
+  ],
+  "replacementScope": "Only the explicit source IDs represent authored replacement. Empty scope means context geometry only; never remove neighbours by radius, name or centroid.",
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/relation/15763840",
+      "label": "OSM r15763840 · version 10 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/37017724",
+      "label": "OSM w37017724 · version 8 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/37017725",
+      "label": "OSM w37017725 · version 8 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/37017726",
+      "label": "OSM w37017726 · version 7 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/37017727",
+      "label": "OSM w37017727 · version 8 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/37017728",
+      "label": "OSM w37017728 · version 7 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/37017729",
+      "label": "OSM w37017729 · version 7 · full source tags retained in research ledger",
+      "type": "osm"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox=-13614732.87650734%2C6014288.000369366%2C-13613845.722123744%2C6015175.154752962&bboxSR=3857&imageSR=3857&size=640%2C640&format=jpg&f=image",
+      "label": "Independent georeferenced Esri aerial · privately viewed · acquisition date unknown · image not published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13",
+      "label": "Accepted production explicit-ID source replacement; implementation scope only (2c73f3d9)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://www.portseattle.org/sites/default/files/styles/image_16x9_/public/2018-02/Sea-Tac%20Airport%20parking%20garage.jpg?itok=mn-bhbxb",
+      "label": "Official Port of Seattle garage/ground-transport source; retrieved2026-11-09. Level relationships/garage entrance limit and qualitative structural type; no surveyed dimensions.",
+      "type": "official"
+    },
+    {
+      "url": "https://www.portseattle.org/sea/parking/airport-parking-garage-map",
+      "label": "Official Port of Seattle garage/ground-transport source; retrieved2026-11-09. Level relationships/garage entrance limit and qualitative structural type; no surveyed dimensions.",
+      "type": "official"
+    },
+    {
+      "url": "https://www.portseattle.org/sea/parking/parking-information",
+      "label": "Official Port of Seattle garage/ground-transport source; retrieved2026-11-09. Level relationships/garage entrance limit and qualitative structural type; no surveyed dimensions.",
+      "type": "official"
+    },
+    {
+      "url": "https://www.portseattle.org/sites/default/files/2026-11/Ground%20Transportation%20Map10302026_55039474.pdf",
+      "label": "Official Port of Seattle garage/ground-transport source; retrieved2026-11-09. Level relationships/garage entrance limit and qualitative structural type; no surveyed dimensions.",
+      "type": "official"
+    },
+    {
+      "url": "https://commons.wikimedia.org/wiki/File:Departures_Drive_(7105121083).jpg",
+      "label": "Independent Departures Drive photograph; acquisition2012, inspected2026-11-09; qualitative covered-road structure only, no surveyed dimensions.",
+      "type": "independent"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/tree/42f5a5f5/handoffs/fidelity/us-districts/seatac/structure-2b2b970",
+      "label": "Actual2b source-bound native/static gates, failed attempts, inspected game images and exact geometry-change bounds",
+      "type": "implementation"
+    }
+  ],
+  "improvements": [
+    "Retained the exact164-vertex source outer ring and all eight real inner lightwells through rendered geometry and physical collision, with unchanged roof21.35m/complete24.55m roof-core envelope.",
+    "Represented the source open multi-storey parking type with eight physical deck surfaces, slab/spandrel/post collision and mapped entry-storey mouths, preserving true solids above/below.",
+    "Connected all six exact mapped source skybridges through explicitly estimated gentle sloped profiles: garage Level4 walking datum7.85m, terminal ends7.07–7.18m,2.3m clear interiors and full floor/roof bands below the unchanged upper drive.",
+    "Retained all source road/node identities, widths, layers, legal directions and complete geometric extent; resolved the former generated helix guard through the existing narrow continuation/body-height gate."
+  ],
+  "remainingGaps": [
+    "OSM building:levels=7 remains unchanged; official pages name Levels1–8. The roof/level convention and historical changes remain unresolved. Eight model surfaces over seven intervals use estimated datums0/2.6/5.2/7.8/11.1875/14.575/17.9625/21.35m, with lower2.6m/upper3.3875m intervals; these are relative model constraints, never layer-to-metres conversion.",
+    "Garage slab0.35m, lower spandrel0.35m/upper0.8m, exterior post9.5m pitch/0.7×0.3m, unmeasured roof parapet/stair cores and six bridge profile/roof/floor dimensions remain estimates. Interior column positions and absolute road/deck/helix-to-floor alignment remain unknown; no interior columns are invented.",
+    "The official6ft10in/2.0828m limit is a garage entrance vehicle limit, not a surveyed soffit or a terminal-wide clearance. All model intervals retain at least that full-vehicle headroom, but measured per-lane beam/soffit profiles remain unavailable.",
+    "Six exact bridge XY paths use estimated garage Level4/terminal relative connections,2.3m clear interior/0.2mroof/0.25mfloor and gentle1.96–2.15% slopes. Their world2.2m headroom queries and car separation pass; elevated native on-foot walking/navigation is not asserted.",
+    "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+    "Shared explicit-ID replacement is implemented (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). New studies and scoped native clearance gates do not establish complete district placement, traffic/mirror budgets or night/weather/seasonal parity. Context-only/no-replacement-ID models do not replace neighbours."
+  ],
+  "checks": [
+    {
+      "label": "Historical Bucharest foot,a regression",
+      "passed": true,
+      "details": "Historical branch evidence only. Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models. The statement about subsequent US-only changes belongs to that recorded branch stage; it does not describe all later integrated ROOT changes or constitute a new root regression."
+    },
+    {
+      "label": "Exact source identity and bounded structural correction",
+      "passed": true,
+      "details": "All224 US source checks and all61 model geometry checks pass. Exact source XY/footprints/holes/envelopes, data, road profiles/widths/deck tops/access/layers and59OTHER landmark collision arrays are retained. The shared explicit-ID replacement policy remains implemented (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). Physical member/floor/soffit datums remain explicit estimates, not surveyed source measurements."
+    },
+    {
+      "label": "Native original79 conflicts, solid controls and full bridge headroom",
+      "passed": true,
+      "details": "Actual2b2b970: all79 original source-lane station capsules clear;11 real solid/post/slab/head/above/below controls pass;215 full-world2.2m body queries along six complete mapped bridge spans clear. Static report retains one missing-static-resource404 from the game-only archive, with zero page errors. Explicit query fixtures do not establish elevated walking/navigation or all-road reachability."
+    },
+    {
+      "label": "Three actual source-road approaches and full-body glass separation",
+      "passed": true,
+      "details": "Same actual2b runtime in complete game+public bundle:81mgarage aisle,38mhelix including former separator edge688,106mDepartures lane1, all0contacts/resets/during-run placements and0page/console/HTTP errors. Starts are explicit source fixtures with standard14m NPC clearance relocation; subsequent traversal uses native controls with full149vehicles/180pedestrians/high/mirror/fog. Exact camera/condition records and inspected world images are in the proof collection. Final rendered glass has0full3D overlaps with199actual traced car poses; full12ft lower-Arrivals vehicle has>3.22m extra margin by geometric query."
+    },
+    {
+      "label": "Eight-district generated-wall isolation",
+      "passed": true,
+      "details": "All eight native road-profile arrays and all non-generated colliders outside these two models are byte-identical to c78. Full2m continuation gates clip rendered/physical generated separators together:820→805pieces in five districts; every changed wall/source/physical+rendered bound recorded. Fourteen unchanged high/low separators each pass inside/below/above native collision queries. Actual mapped barriers remain byte-identical; no additional on-foot traversal is inferred."
+    },
+    {
+      "label": "Six actual isolated model studies and immutable history",
+      "passed": true,
+      "details": "All six new front/top/oblique640px model studies and three normal native world views were visually inspected. New lossless WebPs are RGB-identical to original PNGs, with exact source/camera/date/producer/image hashes. All six previous capture objects/assets remain unchanged in historicalCollections. Studio imagery does not establish matched reference or seasonal parity."
+    },
+    {
+      "label": "Complete measured visual parity",
+      "passed": false,
+      "details": "Unknown measured datums/member details/columns, wider terrain/source-height context and night/weather/seasonal comparisons remain open. Other lanes own final integrated traffic/regression/performance gates. No100%parity claim."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Isolated structural model study · front elevation",
+      "image": "assets/landmarks/seagarage/source-2b2b970/front.webp",
+      "kind": "front",
+      "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+      "sha256": "4cf161c27c7e95f3a1d80d5f99941fa3d8e8ffdacd55fd6614760d77168f26cd",
+      "capturedAt": "2026-11-09T01:35:36.378Z",
+      "width": 640,
+      "height": 640,
+      "pose": {
+        "position": [
+          -570.0232973117969,
+          9.819999694824219,
+          7.629394429082414e-06
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          0,
+          -0.7071067811865476,
+          0,
+          0.7071067811865475
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          -13.848861694335938,
+          9.819999694824219,
+          7.62939453125e-06
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      },
+      "originalPngSha256": "9054724d0c3bb9e860649a7797b106bb29dfaad2aa8b5f6e970607415fe27600",
+      "captureToolSha256": "d7fec1b398b7f1c17124b815bb1f727b4bfe3e98d976d95a00328a96d26f51f9",
+      "scope": "Game-only isolated model studio; exact model camera, no native world/controller/solar-condition comparison."
+    },
+    {
+      "id": "top",
+      "label": "Isolated structural model study · orthographic north-up plan",
+      "image": "assets/landmarks/seagarage/source-2b2b970/top.webp",
+      "kind": "top",
+      "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+      "sha256": "fa49c9845f2070ead6a5dcd980d905a5bfcdd470b93a883b9c7be914d37ed969",
+      "capturedAt": "2026-11-09T01:35:37.294Z",
+      "width": 640,
+      "height": 640,
+      "pose": {
+        "position": [
+          -13.848861694335938,
+          453.80598861694335,
+          7.62939453125e-06
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "quaternion": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "projection": "orthographic",
+        "groundSquareM": 429.2559893798828,
+        "orientation": "north-up",
+        "target": [
+          -13.848861694335938,
+          0,
+          7.62939453125e-06
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      },
+      "originalPngSha256": "2051fdc2135262b4ff6e25b4423fe1672f8bd06fec7067a618b252f7de5377e0",
+      "captureToolSha256": "d7fec1b398b7f1c17124b815bb1f727b4bfe3e98d976d95a00328a96d26f51f9",
+      "scope": "Game-only isolated model studio; exact model camera, no native world/controller/solar-condition comparison."
+    },
+    {
+      "id": "oblique",
+      "label": "Isolated structural model study · oblique overview",
+      "image": "assets/landmarks/seagarage/source-2b2b970/oblique.webp",
+      "kind": "oblique",
+      "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+      "sha256": "61d096b6c6766b04a9ec0a984116695efceae3846aae5b5ec8558b0d2d1842ce",
+      "capturedAt": "2026-11-09T01:35:38.411Z",
+      "width": 640,
+      "height": 640,
+      "pose": {
+        "position": [
+          272.8741244571802,
+          253.63082485121848,
+          409.4828687888292
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "quaternion": [
+          -0.21453963361642958,
+          0.2929987293442745,
+          0.0676440866458011,
+          0.929273247087327
+        ],
+        "projection": "perspective",
+        "fov": 45,
+        "target": [
+          -13.848861694335938,
+          9.819999694824219,
+          7.62939453125e-06
+        ],
+        "frame": "isolated landmark model, +x east / +z south, metres"
+      },
+      "originalPngSha256": "b30477ead4d4ade239ea8e647369bf12a60944dfad753d60bf4fe15193330fb5",
+      "captureToolSha256": "d7fec1b398b7f1c17124b815bb1f727b4bfe3e98d976d95a00328a96d26f51f9",
+      "scope": "Game-only isolated model studio; exact model camera, no native world/controller/solar-condition comparison."
+    }
+  ],
+  "perf": {
+    "triangles": 17668,
+    "drawCalls": 3,
+    "sourceCommit": "2b2b970836c58516fb11b6bd98ec18b936b33f65",
+    "note": "Actual isolated viewer frame, includes ground/shadow rendering. Three native approach poses peak at729915triangles/208calls with traffic/mirror/high; neither metric is whole-district/current-root performance or hardware FPS."
+  },
+  "historicalImplementationNotes": [
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "remainingGaps[3]",
+      "priorValue": "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy.",
+      "replacementScope": "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings.",
+      "acceptedImplementationCommits": [
+        "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "checks[0]",
+      "priorValue": {
+        "label": "Bucharest foot,a regression",
+        "passed": true,
+        "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+      },
+      "replacementScope": "Historical branch evidence only. Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models. The statement about subsequent US-only changes belongs to that recorded branch stage; it does not describe all later integrated ROOT changes or constitute a new root regression.",
+      "acceptedImplementationCommits": [],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "supersededAt": "2026-11-09",
+      "field": "checks[1]",
+      "priorValue": {
+        "label": "Current source identity and topology review",
+        "passed": true,
+        "details": "All 24 US registry entries checked; 7 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+      },
+      "replacementScope": "All 24 US registry entries checked; 7 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates. Production explicit-ID replacement is now implemented by 2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13; this records implementation, not a new integrated placement, clearance or performance pass.",
+      "acceptedImplementationCommits": [
+        "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance.",
+  "historicalCollections": [
+    {
+      "id": "studies-72732045",
+      "label": "Previous three isolated model studies before structural correction",
+      "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+      "priorRecordSnapshotCommit": "0b392db4805662376d35e84cdd322dd36e56af37",
+      "updatedAt": "2026-11-08T17:08:40.271Z",
+      "captures": [
+        {
+          "id": "front",
+          "label": "Isolated model study · front elevation",
+          "image": "assets/landmarks/seagarage/front.webp",
+          "kind": "front",
+          "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "sha256": "6a804a6ae09c722b4175aacd885237a5d69610d1e53f9e6e43cee0ec0fcb8fe7",
+          "capturedAt": "2026-11-08T17:08:36.688Z",
+          "pose": {
+            "position": [
+              -570.0232973117969,
+              9.819999694824219,
+              7.629394429082414e-06
+            ],
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "quaternion": [
+              0,
+              -0.7071067811865476,
+              0,
+              0.7071067811865475
+            ],
+            "projection": "perspective",
+            "fov": 45,
+            "target": [
+              -13.848861694335938,
+              9.819999694824219,
+              7.62939453125e-06
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres"
+          }
+        },
+        {
+          "id": "top",
+          "label": "Isolated model study · orthographic north-up plan",
+          "image": "assets/landmarks/seagarage/top.webp",
+          "kind": "top",
+          "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "sha256": "767b5573a6755d2108d86364a069468a397369d2599d68bf92a0dba78ee2b71f",
+          "capturedAt": "2026-11-08T17:08:38.499Z",
+          "pose": {
+            "position": [
+              -13.848861694335938,
+              453.80598861694335,
+              7.62939453125e-06
+            ],
+            "up": [
+              0,
+              0,
+              -1
+            ],
+            "quaternion": [
+              -0.7071067811865475,
+              0,
+              0,
+              0.7071067811865476
+            ],
+            "projection": "orthographic",
+            "groundSquareM": 429.2559893798828,
+            "orientation": "north-up",
+            "target": [
+              -13.848861694335938,
+              0,
+              7.62939453125e-06
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres"
+          }
+        },
+        {
+          "id": "oblique",
+          "label": "Isolated model study · oblique overview",
+          "image": "assets/landmarks/seagarage/oblique.webp",
+          "kind": "oblique",
+          "sourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "sha256": "46f93732f205823b00acc801b2d8b45df4a985ffcf33e2b581eff516acfc8e42",
+          "capturedAt": "2026-11-08T17:08:40.271Z",
+          "pose": {
+            "position": [
+              272.8741244571802,
+              253.63082485121848,
+              409.4828687888292
+            ],
+            "up": [
+              0,
+              1,
+              0
+            ],
+            "quaternion": [
+              -0.21453963361642958,
+              0.2929987293442745,
+              0.0676440866458011,
+              0.929273247087327
+            ],
+            "projection": "perspective",
+            "fov": 45,
+            "target": [
+              -13.848861694335938,
+              9.819999694824219,
+              7.62939453125e-06
+            ],
+            "frame": "isolated landmark model, +x east / +z south, metres"
+          }
+        }
+      ],
+      "status": "in-progress",
+      "improvements": [
+        "Refreshed the complete multipolygon outer ring and all eight real inner lightwells in both mesh geometry and exact polygon collision.",
+        "Retained six separately declared terminal skybridge identities while preserving neighbouring airport volumes.",
+        "Collision probes verify eight open court centres and a solid deck control."
+      ],
+      "remainingGaps": [
+        "Seven source levels are converted using an estimated 3.05 m floor height; roof parapet, stair towers and precast bands remain estimates.",
+        "Individual skybridge endpoint geometry and vertical road/terminal connections retain previous measured approximations.",
+        "These are isolated front/top/oblique model studies, not matched street-eye Street View/aerial comparisons. They do not establish full-world, night, weather or seasonal parity.",
+        "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings."
+      ],
+      "checks": [
+        {
+          "label": "Historical Bucharest foot,a regression",
+          "passed": true,
+          "details": "Historical branch evidence only. Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models. The statement about subsequent US-only changes belongs to that recorded branch stage; it does not describe all later integrated ROOT changes or constitute a new root regression."
+        },
+        {
+          "label": "Current source identity and topology review",
+          "passed": true,
+          "details": "All 24 US registry entries checked; 7 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates. Production explicit-ID replacement is now implemented by 2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13; this records implementation, not a new integrated placement, clearance or performance pass. The existing eight-lightwell controls do not certify under-deck roadway or terminal body clearance; those physical gates remain separate and are not marked fixed here."
+        },
+        {
+          "label": "Independent visual and actual model review",
+          "passed": true,
+          "details": "Actual front, top and oblique game renders inspected against source plans and independently viewed aerial context; only game renders are published. Height/facade limits and source conflicts are listed."
+        },
+        {
+          "label": "Geometry and meaningful collision checks",
+          "passed": true,
+          "details": "All61 shared geometry invariants and the US source-scope/total-height/court/pitch/portal/bridge-clearance regression checks pass. No FPS claim is inferred from geometry counts."
+        },
+        {
+          "label": "Immutable game-only capture provenance",
+          "passed": true,
+          "details": "Each lossless WebP is RGB pixel-verified against its actual game screenshot and carries its own source commit, camera pose and SHA256."
+        },
+        {
+          "label": "Complete measured visual parity",
+          "passed": false,
+          "details": "Unmeasured sections, simplified details and world integration remain open as listed; no 100% parity claim."
+        }
+      ],
+      "perf": {
+        "triangles": 5406,
+        "drawCalls": 3,
+        "note": "Isolated viewer frame includes ground and shadow rendering; this is neither a whole-world budget measurement nor hardware FPS."
+      },
+      "historicalImplementationNotes": [
+        {
+          "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+          "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "supersededAt": "2026-11-09",
+          "field": "remainingGaps[3]",
+          "priorValue": "Integrated source-only replacement and rebuilt district performance are separate acceptance checks; the capture branch predates that shared world policy.",
+          "replacementScope": "The shared explicit-ID source-replacement implementation is integrated in production (2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13). These studies retain their actual capture-era source and do not establish current district placement, road/body clearance, traffic/mirror budgets or seasonal parity. Registry entries outside a district list and context-only models with no replacement IDs do not replace neighbouring buildings.",
+          "acceptedImplementationCommits": [
+            "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+          ],
+          "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+        },
+        {
+          "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+          "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "supersededAt": "2026-11-09",
+          "field": "checks[0]",
+          "priorValue": {
+            "label": "Bucharest foot,a regression",
+            "passed": true,
+            "details": "Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models."
+          },
+          "replacementScope": "Historical branch evidence only. Frozen 9239a5cc04963ae1d8172d0b324a9416f35abc3a source: 0 high, 0 medium, 2 low findings for shared software-GL timing only. Subsequent source changes are confined to US models. The statement about subsequent US-only changes belongs to that recorded branch stage; it does not describe all later integrated ROOT changes or constitute a new root regression.",
+          "acceptedImplementationCommits": [],
+          "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+        },
+        {
+          "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+          "priorCaptureRecordSourceCommit": "727320456f352da453cb2be15c92dad575012cb1",
+          "supersededAt": "2026-11-09",
+          "field": "checks[1]",
+          "priorValue": {
+            "label": "Current source identity and topology review",
+            "passed": true,
+            "details": "All 24 US registry entries checked; 7 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates."
+          },
+          "replacementScope": "All 24 US registry entries checked; 7 explicit replacement identities for this model. Raw source versions/tags/coordinates retained. OSM geometry takes precedence over estimates. Production explicit-ID replacement is now implemented by 2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13; this records implementation, not a new integrated placement, clearance or performance pass.",
+          "acceptedImplementationCommits": [
+            "2c73f3d986a4e52d85f5520ca6cb3d4b732f0d13"
+          ],
+          "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+        }
+      ],
+      "implementationNotesUpdatedAt": "2026-11-09",
+      "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+    }
+  ],
+  "updatedAt": "2026-11-09"
+}

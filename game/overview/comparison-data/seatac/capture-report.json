@@ -1,0 +1,97 @@
+{
+  "type": "mixed-source-atlas",
+  "source": null,
+  "frameCounts": 139,
+  "sourceSnapshots": [
+    {
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "treeSha256": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+      "manifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "manifestSha256": "bb73a1278b01f0e1dfd3dd3b0f2c1a5bff3d92a73dbf757fd2285e92f32c3a57",
+      "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
+      "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
+      "frames": 20
+    }
+  ],
+  "sourceCaptureManifests": [
+    {
+      "path": "historical/full-before-07cc3d6b-2215e3c4/manifest.json",
+      "sha256": "2215e3c4de5505606f7ee78c4fd2519d25b586852ff55a7910f11fbf9a7f9991",
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 139
+      },
+      "frames": 139,
+      "note": "Previous complete current manifest with actual per-frame source dates; its original raw capture ledger is also archived."
+    },
+    {
+      "path": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "sha256": "bb73a1278b01f0e1dfd3dd3b0f2c1a5bff3d92a73dbf757fd2285e92f32c3a57",
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "frames": 20
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "mirror": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "latestRetakeCapture": {
+    "startedAt": "2026-11-09T02:02:13.402Z",
+    "endedAt": "2026-11-09T02:03:19.439Z",
+    "elapsedSeconds": 66.036,
+    "source": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+    "captureToolSha256": "82a44ab184afd4f5d9c032642d3d513a594993c3c7301af8029c6976dd26458b",
+    "sourceDatasetSha256": "3c36cd6dc569eb172936f730464d263943380354c8bc444c254f9de6f62c6171",
+    "loaded": {
+      "key": "seattle-seatac",
+      "city": "seattle",
+      "district": "seatac",
+      "ms": 11752,
+      "edges": 2428,
+      "ribbons": 4412
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+    "frameCounts": 20,
+    "coverageClaim": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim.",
+    "scopeCounts": {
+      "core-touches": 20
+    },
+    "validation": {
+      "framesVerified": 20,
+      "sourceFilesVerified": 9318,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "failedRequests": 0,
+      "failures": []
+    },
+    "perfMaxima": {
+      "triangles": 387161,
+      "drawCalls": 115,
+      "note": "World-only high-quality top-down captures, moving traffic hidden, mirror excluded. Separate maxima need not occur in one frame; not a driving frame-budget acceptance test."
+    }
+  },
+  "note": "Current per-frame source/date is authoritative; prior and fresh raw capture reports remain separate. Technical aerials remove fog/extend depth; native perspective/controller acceptance is separate.",
+  "perfMaxima": {
+    "triangles": 419777,
+    "drawCalls": 115,
+    "note": "Separate static no-traffic/no-mirror atlas maxima, not hardware FPS or native driving-budget acceptance."
+  },
+  "validation": {
+    "framesVerified": 139,
+    "failures": [],
+    "mixedSourceProvenancePreserved": true
+  }
+}

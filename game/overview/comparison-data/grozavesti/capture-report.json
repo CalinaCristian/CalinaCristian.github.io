@@ -1,0 +1,122 @@
+{
+  "type": "mixed-source-atlas",
+  "source": null,
+  "frameCounts": 100,
+  "sourceSnapshots": [
+    {
+      "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
+      "treeSha256": "397f0afa1691f0edf844186d2336a0218d9d055765677789a89aa8a8b6a5c7de",
+      "manifest": "provenance/4378317f3fcdccc886d6c7c1ed092ee15d95db8a/manifest.json",
+      "manifestSha256": "fed96a2d9376961fe566b752e869f2cdf9337aa870a87b2f2eba5eef03008dda",
+      "frames": 100
+    },
+    {
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "treeSha256": "66f9f028f585068faa58be093124c55da842e4a17da3e2142c0cc629b708b3f3",
+      "manifest": "provenance/0775fdaf15442a46c3fe98f4e6875c9c09046a99/manifest.json",
+      "manifestSha256": "2ec17090452c2a61241a46b0c585667fe3f8389f3c5b455db091210c31b5a92a",
+      "frames": 19
+    },
+    {
+      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "treeSha256": "6b2317f5651c21e5f38c7feda7cee8ae04f4e539883a777a183138e439f998a7",
+      "manifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
+      "manifestSha256": "3d058be0be137130ceb6d41058b25bfa81e8563a8cd9c251205c8405b72b7b1e",
+      "sourceProvenance": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/source-provenance.json",
+      "sourceProvenanceSha256": "f05664c4657ca87bf793d3d9ff188af55049ec4cb6790cf10c6b45efb39b5bc1",
+      "frames": 26
+    },
+    {
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "treeSha256": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+      "manifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "manifestSha256": "5fa1d9da0824024c7008aa5393e7f1d520e7d0516f855043efad5b88a660f438",
+      "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
+      "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
+      "frames": 1
+    }
+  ],
+  "sourceCaptureManifests": [
+    {
+      "path": "historical/full-before-07cc3d6b-5978c6d9/manifest.json",
+      "sha256": "5978c6d95b290767b7cd5a1f4fe4316e301e8f7159646e9ed6583417b675e182",
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 26,
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
+      },
+      "frames": 100,
+      "note": "Previous complete current manifest with actual per-frame source dates; its original raw capture ledger is also archived."
+    },
+    {
+      "path": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "sha256": "5fa1d9da0824024c7008aa5393e7f1d520e7d0516f855043efad5b88a660f438",
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "frames": 1
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "mirror": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "latestRetakeCapture": {
+    "startedAt": "2026-11-09T02:03:49.394Z",
+    "endedAt": "2026-11-09T02:04:12.623Z",
+    "elapsedSeconds": 23.228,
+    "source": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+    "captureToolSha256": "82a44ab184afd4f5d9c032642d3d513a594993c3c7301af8029c6976dd26458b",
+    "sourceDatasetSha256": "1acea9d80dcf07527fae98446d8edc05edb1a75677b72ee0c88e95241f394f03",
+    "loaded": {
+      "key": "bucharest-grozavesti",
+      "city": "bucharest",
+      "district": "grozavesti",
+      "ms": 10124,
+      "edges": 801,
+      "ribbons": 1714
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+    "frameCounts": 1,
+    "coverageClaim": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim.",
+    "scopeCounts": {
+      "core-touches": 1
+    },
+    "validation": {
+      "framesVerified": 1,
+      "sourceFilesVerified": 9318,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "failedRequests": 0,
+      "failures": []
+    },
+    "perfMaxima": {
+      "triangles": 422411,
+      "drawCalls": 109,
+      "note": "World-only high-quality top-down captures, moving traffic hidden, mirror excluded. Separate maxima need not occur in one frame; not a driving frame-budget acceptance test."
+    }
+  },
+  "note": "Current per-frame source/date is authoritative; prior and fresh raw capture reports remain separate. Technical aerials remove fog/extend depth; native perspective/controller acceptance is separate.",
+  "perfMaxima": {
+    "triangles": 711417,
+    "drawCalls": 117,
+    "note": "Separate static no-traffic/no-mirror atlas maxima, not hardware FPS or native driving-budget acceptance."
+  },
+  "validation": {
+    "framesVerified": 100,
+    "failures": [],
+    "mixedSourceProvenancePreserved": true
+  }
+}

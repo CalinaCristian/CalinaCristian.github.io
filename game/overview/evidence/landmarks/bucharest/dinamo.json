@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "id": "dinamo",
+  "city": "bucharest",
+  "name": "Stadionul Dinamo",
+  "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4551306,
+    "lon": 26.1023192
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/28212482",
+      "label": "OpenStreetMap w28212482 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/427813551",
+      "label": "OpenStreetMap w427813551 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/860001496",
+      "label": "OpenStreetMap w860001496 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {}
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Stadionul_Dinamo",
+      "label": "Independent historical and architectural reference",
+      "type": "independent"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/b203c38abf3651dd3d472c491238ad36089a633a",
+      "label": "Accepted source-book/topology sync; recorded 456 checks across 33 models (b203c38a)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/b203c38abf3651dd3d472c491238ad36089a633a/handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json",
+      "label": "Existing recorded source-book/topology result; not a new execution",
+      "type": "validation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/5fe9d0c296361f14a02cf7b0cf746a7dddf0f9ff",
+      "label": "Accepted exact 12 cm Dinamo coverage/mip filtering; no line widening (5fe9d0c2)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/5d6c0f342cb62f0e4a86465ad4a65ceb9b5c27b8",
+      "label": "Accepted original floodlit paint semantics and isolated-study capture support (5d6c0f34)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/29f4533895e1abba65f342ebffed735791c1e301/handoffs/fidelity/original-pitch-paint/proof/final-d5795e20/review-summary.json",
+      "label": "Existing d5795e20 six native world controls and three isolated-study review",
+      "type": "validation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/29f4533895e1abba65f342ebffed735791c1e301/handoffs/fidelity/original-districts-refresh/proof/water-overlap-bbaffc/floreasca-publication-validation.json",
+      "label": "Existing bbaffc0d exact-pose atlas retakes, including both affected Dinamo squares",
+      "type": "validation"
+    }
+  ],
+  "sourceIds": [
+    "w28212482",
+    "w427813551",
+    "w860001496"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-09",
+  "improvements": [
+    "Refreshed the full mapped stadium and stand outlines.",
+    "Retained the open bowl and specialized stand collision instead of filling the playing field.",
+    "Replaced the existing 57 twelve-centimetre paint strips with exact polygon-union coverage and mip filtering, preserving their original footprints, football metadata and all non-paint geometry."
+  ],
+  "remainingGaps": [
+    "Stand heights, roof geometry and 49.5 m floodlights remain estimates; no source building heights are mapped.",
+    "Stadium redevelopment/current operational state needs date-specific confirmation.",
+    "Source-stamped native Floreasca placement/paint views and two exact-pose atlas tiles are now recorded. They retain raw scene-contact diagnostics and do not establish complete neighbour/terrain clearance, every tourist-scene placement or whole-district parity."
+  ],
+  "checks": [
+    {
+      "label": "Historical source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "Historical source-boundary evidence: tools/landmarks/bucharest-source-check.mjs: 0 authored source rings; explicit replacement IDs match the source ledger. The earlier run across 33 models recorded 306 checks. The later accepted source-book update b203c38abf3651dd3d472c491238ad36089a633a records 456 checks across 33 models, including this entry, in handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json. This wording update cites that existing proof; no tests were rerun and no images were recaptured."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": false,
+      "details": "Requested outdoor panorama did not reliably provide a matched visible exterior (wrong nearby view, indoor imagery, occlusion or unavailable coverage); this is not treated as an exterior pass."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "The original source-era paired Romană sample/Arnia timeout remains historical evidence, not a complete budget pass. Later recorded Floreasca paint/placement controls and two atlas tiles establish the narrow visible-paint correction only; full traffic/mirror/controller and all-scene clearance acceptance remain separate. No new render or test was run for this wording correction."
+    },
+    {
+      "label": "Native pitch-paint filtering and model compatibility",
+      "passed": true,
+      "details": "Source d5795e20c85e8122a62fc503f33a182d05eceaf0: all61 finite/triangle checks and753 focused compatibility/resource checks pass. Same70.12m summer/day and winter/snow/day plus lower/oblique controls show continuous centreline, full centre circle and both sets of boxes. Winter remains low contrast under native fog/snow; camera near0.2 and weather-native far5000/2167.689m preserved. No full district, driving, mirrors or real-world parity pass is inferred."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/dinamo/front.webp",
+      "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "sha256": "068d67395b0e68271393c53b4c66e86aef53a59043f2a897146cc85fb0ea52f6",
+      "capturedAt": "2026-11-09T00:14:23.679Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=street&az=0",
+        "anchor": {
+          "lat": 44.4551306,
+          "lon": 26.1023192,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            -0.5211715698242188,
+            1.3,
+            245.16899673461918
+          ],
+          "quaternion": [
+            0.044081880444842785,
+            0,
+            0,
+            0.9990279214398599
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 4744.310339355469,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -83.16758728027344,
+            0,
+            -111.20306396484375
+          ],
+          "max": [
+            82.125244140625,
+            49.5,
+            127.11002349853516
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight GAME-only development viewer; no adjacent district buildings. Native model study, not a georeferenced aerial or Street View comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "North-up orthographic model study",
+      "kind": "top",
+      "image": "assets/landmarks/dinamo/top.webp",
+      "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "sha256": "7ced74321d7f7c8ef8e793539fd7218b3720711df3785baa158282829239b168",
+      "capturedAt": "2026-11-09T00:14:28.051Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4551306,
+          "lon": 26.1023192,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "orthographic",
+          "position": [
+            -0.5211715698242188,
+            329.94318145751953,
+            7.953479766845703
+          ],
+          "quaternion": [
+            -0.7071067811865475,
+            0,
+            0,
+            0.7071067811865476
+          ],
+          "fov": 45,
+          "near": 0.6598863629150391,
+          "far": 6598.863629150391,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -186.96212097167967,
+          "right": 186.96212097167967,
+          "top": 140.22159072875976,
+          "bottom": -140.22159072875976,
+          "zoom": 1,
+          "groundSquareM": 373.92424194335933,
+          "groundWidthM": 373.92424194335933,
+          "groundDepthM": 280.44318145751953,
+          "orientation": "north-up"
+        },
+        "bounds": {
+          "min": [
+            -83.16758728027344,
+            0,
+            -111.20306396484375
+          ],
+          "max": [
+            82.125244140625,
+            49.5,
+            127.11002349853516
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight GAME-only development viewer; no adjacent district buildings. Native model study, not a georeferenced aerial or Street View comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/dinamo/oblique.webp",
+      "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "sha256": "4ac68a5fd9dc5081555a6214c73da43c1f2b7cc3f5e6b57e20b7ca5da59bebd0",
+      "capturedAt": "2026-11-09T00:14:31.382Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=oblique&az=35&el=28",
+        "anchor": {
+          "lat": 44.4551306,
+          "lon": 26.1023192,
+          "rotation": 0
+        },
+        "camera": {
+          "projection": "perspective",
+          "position": [
+            183.11547528152096,
+            190.0324763386706,
+            270.21379093239995
+          ],
+          "quaternion": [
+            -0.230725012590546,
+            0.2917735521254029,
+            0.07274731703388737,
+            0.9253874813879795
+          ],
+          "fov": 45,
+          "near": 0.7252088937123015,
+          "far": 7252.088937123015,
+          "viewport": [
+            960,
+            720
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ]
+        },
+        "bounds": {
+          "min": [
+            -83.16758728027344,
+            0,
+            -111.20306396484375
+          ],
+          "max": [
+            82.125244140625,
+            49.5,
+            127.11002349853516
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight GAME-only development viewer; no adjacent district buildings. Native model study, not a georeferenced aerial or Street View comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 17549,
+    "modelTriangles": 17547,
+    "drawCalls": 5,
+    "paintTextureMipBytes": 2796202,
+    "note": "Isolated development viewer actual render, including its2 ground triangles; excludes district world, traffic and mirrors. Paint adds1 main draw and no shadow draw."
+  },
+  "historicalImplementationNotes": [
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "supersededAt": "2026-11-09",
+      "field": "checks[0]",
+      "priorValue": {
+        "label": "Full source boundary and replacement-identity checks",
+        "passed": true,
+        "details": "tools/landmarks/bucharest-source-check.mjs: 0 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+      },
+      "replacementScope": "Historical source-boundary evidence: tools/landmarks/bucharest-source-check.mjs: 0 authored source rings; explicit replacement IDs match the source ledger. The earlier run across 33 models recorded 306 checks. The later accepted source-book update b203c38abf3651dd3d472c491238ad36089a633a records 456 checks across 33 models, including this entry, in handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json. This wording update cites that existing proof; no tests were rerun and no images were recaptured.",
+      "acceptedImplementationCommits": [
+        "b203c38abf3651dd3d472c491238ad36089a633a"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "supersededAt": "2026-11-09",
+      "field": "remainingGaps[2]",
+      "priorValue": "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity.",
+      "replacementScope": "Source-stamped native Floreasca placement/paint views and two exact-pose atlas tiles are now recorded. They retain raw scene-contact diagnostics and do not establish complete neighbour/terrain clearance, every tourist-scene placement or whole-district parity.",
+      "acceptedImplementationCommits": [
+        "5fe9d0c296361f14a02cf7b0cf746a7dddf0f9ff",
+        "5d6c0f342cb62f0e4a86465ad4a65ceb9b5c27b8"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    },
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "supersededAt": "2026-11-09",
+      "field": "checks[5]",
+      "priorValue": {
+        "label": "Complete district / traffic / mirror budget",
+        "passed": false,
+        "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+      },
+      "replacementScope": "The original source-era paired Romană sample/Arnia timeout remains historical evidence, not a complete budget pass. Later recorded Floreasca paint/placement controls and two atlas tiles establish the narrow visible-paint correction only; full traffic/mirror/controller and all-scene clearance acceptance remain separate. No new render or test was run for this wording correction.",
+      "acceptedImplementationCommits": [
+        "5fe9d0c296361f14a02cf7b0cf746a7dddf0f9ff",
+        "5d6c0f342cb62f0e4a86465ad4a65ceb9b5c27b8"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+}

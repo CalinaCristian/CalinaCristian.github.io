@@ -1,0 +1,170 @@
+{
+  "sourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+  "reviewedIds": [
+    "aerial-r04-c02",
+    "aerial-r04-c03",
+    "aerial-r05-c02",
+    "aerial-r05-c03",
+    "aerial-r05-c04",
+    "aerial-r06-c02",
+    "aerial-r06-c03",
+    "aerial-r06-c04",
+    "aerial-r06-c05",
+    "aerial-r07-c04",
+    "aerial-r07-c05",
+    "aerial-r07-c06",
+    "aerial-r07-c07",
+    "aerial-r08-c06",
+    "aerial-r08-c07",
+    "aerial-r09-c07",
+    "aerial-r10-c07"
+  ],
+  "visuallyInspected": true,
+  "items": [
+    {
+      "id": "aerial-r04-c02",
+      "originalGameSha256": "0002cfb0b9a6c871c18d208991401d037eb8def1494352e7517b45142e870f12",
+      "retakeGameSha256": "f42db2ecfcd29e6368f12cf8d3cac5b0536d9fe7287c315c597e1fee6aea18b3",
+      "referenceSha256": "4a81c584291cf9dc498f954a3b972ea3f1354abd54a0722d6903df6fddc3d446",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r04-c03",
+      "originalGameSha256": "5d2e0aeb2dde8cf4efa8a72b5cce3033bc7115a667b6d5fd8bed77b9714e4325",
+      "retakeGameSha256": "eca2f642510f045f38e28a6e42b5cebb97101d2ced845aa7051033b5b174b3ce",
+      "referenceSha256": "a8f1467bd0780223de7c13bb4ecb5c96bac312635ba579f4921b0b591c318e06",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r05-c02",
+      "originalGameSha256": "c6b4c2737a9ce845e4abb62a3df751a587f9980917e762b4d5ee6560e840a2c2",
+      "retakeGameSha256": "7574274d9983bb162986ab532f52d22359f3307b6c09b87ff087427fb75b6e59",
+      "referenceSha256": "53c6b1448ef64f8845e0ded7931d731740080f6a8b9f96578edf2377108e773c",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r05-c03",
+      "originalGameSha256": "ce48cac44d80d2a2b6205c980ba74b2e41f8a3fbc74c8ff08b5876f49edd071e",
+      "retakeGameSha256": "a263acd92df4abf3971ef4103b3686f2d051ace1a9a2d851eff8b45495a4e972",
+      "referenceSha256": "5b92d9992852c2cb51a893f8a2c435c212066cc9080e76f6eb92409dfbe0ad40",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r05-c04",
+      "originalGameSha256": "fbc2090f21d0d06dc53e3fa757a1b1c97065b1046acb474c7c801d00a7af64be",
+      "retakeGameSha256": "a1b6c002f538e8406d7b25693121368d5f8edc54a7351ba48b4e8f84f8a545bb",
+      "referenceSha256": "c4bf1aa1c50559a453ab3f54ba726e793ac0e0661f07e36a85ddc3e0ada7a9c5",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r06-c02",
+      "originalGameSha256": "6f4900df5d2f65579a4ddd3016d8f6dc5034cc692571bff4e8a6eff87dbbcb4b",
+      "retakeGameSha256": "38f6481c00bf7c478a10b8d56d3f64d816a745d341f3cecb4457dc233e727d97",
+      "referenceSha256": "13f226baa3478a2f36d2ef8a756be96c77834e03f1c6bc19ae0669027a669262",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r06-c03",
+      "originalGameSha256": "552c7c4852c85c9c4402c8abc36816a476c6be748a08ecbdcf2ad2ff95100002",
+      "retakeGameSha256": "d03712f5d0579ccf6c00a21af6acab47406285c9d21cbfe20d5a1022e03e841c",
+      "referenceSha256": "b88e645414d2d29bdbbe30129804fde5e849d3bf1fe1599bc79e0522209ef927",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r06-c04",
+      "originalGameSha256": "8079b0779a9a70bef5fdceb969f31f471b04d4947fe539c73093465ff4467e8d",
+      "retakeGameSha256": "bff2d0129a0e058957b444aa08cb8a1976c6d09085ede42f83e2c6b7e1a916a6",
+      "referenceSha256": "9b40a3297f8c2ab9d864806238e0d776044d384276c0dba61bb6480d1ce96cd8",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r06-c05",
+      "originalGameSha256": "5def97fbf605fcdb9316103a64b30c021c361caa087b148f143efe743c3d6e30",
+      "retakeGameSha256": "c9fc80fb7c899677d704801cc64a5d920780324d98aba1e3bd2745cf215f4bf3",
+      "referenceSha256": "7dd4f7fce909f31659491c426e1428053c5a58e1e5fd5360d9bf3929cb1005db",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r07-c04",
+      "originalGameSha256": "1f2a0ed411ff1eb20cfe480472780359374df990f527deda690cfe12667bec18",
+      "retakeGameSha256": "ead3767d4ee647e8067865db5bb5217ea635619f4f85fb8f4a39f18b3d185046",
+      "referenceSha256": "8eb202169c134396a637f47ec3ddcbcac788d685dccac8f2090ca7b39e0a7f13",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r07-c05",
+      "originalGameSha256": "1e32823a3ebf152dca4580ee754136d7047621a2b3e5aa7319da935c2c205391",
+      "retakeGameSha256": "1d08716e9f591a63a08b6c69dea880b9c220641d06c178a26459bfdd2715aa3f",
+      "referenceSha256": "6340aba0f1830457d964999bdb427efacfbb234138fbc71cdda888d785f5dba1",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r07-c06",
+      "originalGameSha256": "30b8af6500b897765e6fc0879580e364e5f11b66fba711c5334accab82e56a1a",
+      "retakeGameSha256": "e0d8b21988ebc4b51a95bacf0b621718a6eaafe78c7159c75c54b4c694d9ff6b",
+      "referenceSha256": "680af79d2ce08a54d7d9f749471074696fe1c45a0843323f64e437cf11151baf",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r07-c07",
+      "originalGameSha256": "def499dd058c68e9ab8329f02ae0a0da2ed1ec17002b30624ee5ea22fe03d30c",
+      "retakeGameSha256": "059964f9aad2fafcb5b4fbf44060c60c387bc662784e50bbfed08ef3e1ac053e",
+      "referenceSha256": "04af21ffde61e2129826b5ef61ea530cc8aa72bb30805771d370656f8ddb0c40",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r08-c06",
+      "originalGameSha256": "7e1b0803635c612069a914525af2106c72f0c1294cee48886434b0087dab698e",
+      "retakeGameSha256": "88f54c20516a5499546e277def0830aaba96038f89d8b404fcb9c14c86708d04",
+      "referenceSha256": "f0a3654c99cf2a3f9ace38664ce4b493a47d69793049c53d94e7ef745f0261b7",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r08-c07",
+      "originalGameSha256": "1b20193bbb06ac2da5dd40ca500f59d187809dd027425ecfe12a5f2aac74df4d",
+      "retakeGameSha256": "287e192de346e86ca1f7732ec283c0690e4ee69925761e9ddfd21d45999ef6f5",
+      "referenceSha256": "4ff7812891d05acb723c73a93af02e547eb7dd69ebec45f07e1d07c5d54bef31",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r09-c07",
+      "originalGameSha256": "06d72383ce68bc2209833948f7ef06ae7a3b99fdfda8aaf0d306252f24252e14",
+      "retakeGameSha256": "6dbc67c2311de829c69ca11c9f29fae62e2297f0fb4dcd15ee11c6f2e664bb57",
+      "referenceSha256": "aec88b73466b870aeb97f553a3a3710451b5224ad7b56a307c36fac95613c2b5",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    },
+    {
+      "id": "aerial-r10-c07",
+      "originalGameSha256": "4f4e678836c030508c1ccf8f264560c4e6b035a808a9b78273ee34f81ebeee01",
+      "retakeGameSha256": "cbe4d926ca5caedbb56724465f9904f3a842f8d46238393ed720719f91f951aa",
+      "referenceSha256": "cb01e08e012fdd3a14d7e821c9aa3e4808318a1e548acb2148b836f2bc965273",
+      "referenceAvailable": true,
+      "finding": "Water polygon remains continuous. No newly missing body, road or courtyard observed. Retake passes scoped capture integrity, not whole-tile fidelity."
+    }
+  ],
+  "referenceImagesCommitted": false,
+  "reviewedAt": "2026-11-09",
+  "privateSheetsInspected": 5,
+  "scope": "All17actual before/current/private-Esri pairs inspected. Exact source water polygons remain; overlapping estimated fallback ribbons are clipped. Capture completeness is not photographic parity.",
+  "remainingGaps": [
+    "Estimated facade details, building heights, source roof profiles and vegetation differ from real views; source polygons alone do not establish full visual parity.",
+    "OSM water/river bank polygons and unknown independent imagery acquisition dates remain explicit; this correction does not claim a new surveyed riverbank.",
+    "World-only high top-down frames hide moving traffic/mirrors and use technical camera/fog bounds; native movement and budgets have separate tests."
+  ]
+}

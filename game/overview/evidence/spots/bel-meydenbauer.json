@@ -1,0 +1,691 @@
+{
+  "schemaVersion": 1,
+  "id": "bel-meydenbauer",
+  "city": "seattle",
+  "name": "Meydenbauer Bay Park",
+  "sourceCommit": "472aadfebc80988559fb10bdfb9ac3a2562d9b71",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Meydenbauer_Bay_Park"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikivoyage.org/wiki/Bellevue"
+    },
+    {
+      "label": "City of Bellevue — Meydenbauer Bay Park",
+      "type": "Official reference",
+      "url": "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-beach-park"
+    },
+    {
+      "label": "Mapped public pier",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/819169611"
+    },
+    {
+      "label": "City park public launch information",
+      "type": "Official source",
+      "url": "https://bellevuewa.gov/city-government/departments/parks/parks-and-trails/parks/meydenbauer-bay-park"
+    },
+    {
+      "label": "Current kayak operator",
+      "type": "Official source",
+      "url": "https://www.bestkayakrentals.com/"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Native desktop explicit paddle strokes",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-864d706-desktop/results.json"
+    },
+    {
+      "label": "Native touch explicit paddle strokes",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-2565355-touch/results.json"
+    },
+    {
+      "label": "Native phone three-release stone practice",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/market-shore-final/input-fixed-f056/results.json"
+    },
+    {
+      "label": "Actual entry-to-terminal-disc traversal",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/market-shore-final/pier-clearance-472/results.json"
+    }
+  ],
+  "improvements": [
+    "Current native scene retains 65 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Actual 192.589 m entry-to-terminal-disc walk and real award; earlier native kayak strokes; actual phone three-release stone practice",
+    "The selected primary activity approach is accepted separately from full-scene comparison.",
+    "The mapped retaining wall w1496390046 keeps its footprint and rocks; its unsupported estimated cap beneath the existing raised public pier is constrained below the rendered deck triangles. The native entry-to-terminal traversal verifies the crossing."
+  ],
+  "remainingGaps": [
+    "Generic tour planner still rejects the route; actual terminal traversal does not prove kayak reload or full bay fidelity",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage.",
+    "Virtual boating practice does not confirm real staffed rental hardware, current operator hours or operating dates; distant shore/context fidelity remains incomplete.",
+    "Retaining-wall height and pier grade remain model estimates; the physical clearance correction is not an independent real-world height survey."
+  ],
+  "checks": [
+    {
+      "label": "Current native scene load and warm cache",
+      "passed": true,
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts. Native warm-cache follow-up for this changed scene also passes on472aadf with identical cache/data objects."
+    },
+    {
+      "label": "Native phone condition controls",
+      "passed": true,
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
+    },
+    {
+      "label": "Selected primary activity entry",
+      "passed": true,
+      "details": "192.589m actual-controller arrival; no pose writes after entry. Completion of every secondary activity is not inferred."
+    },
+    {
+      "label": "High-quality selected native views",
+      "passed": true,
+      "details": "Maximum 616428 rendered triangles / 143 calls. Software-GL capture is not a hardware FPS benchmark."
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Actual entry at corrected pier source",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/market-shore-final/pier-clearance-472/pier-public-arrival.webp",
+      "sha256": "413fcce3890640a6e21836943813a12e73234f24696d0a220fc43ca13ad10f3c",
+      "bytes": 9552,
+      "sourceCommit": "472aadfebc80988559fb10bdfb9ac3a2562d9b71",
+      "capturedAt": "2026-11-09T00:26:52.451Z",
+      "pose": {
+        "position": [
+          22,
+          4.650899735713793,
+          -21
+        ],
+        "bearing": 188.63255494203824,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6106,
+          "lon": -122.2108,
+          "elev": 5.7
+        },
+        "projection": {
+          "mLat": 111182.74,
+          "mLon": 75185.23
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Native runner setup; not repeated in this capture record",
+      "controllerExercised": false,
+      "limitations": [
+        "Final terminal view faces retained visitors/post; not an unobstructed postcard.",
+        "Physical route uses documented production-controller input; no pose writes after entry."
+      ],
+      "metrics": {
+        "triangles": 616428,
+        "drawCalls": 143
+      }
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Actual terminal-disc arrival after192.589m",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/market-shore-final/pier-clearance-472/pier-public-end.webp",
+      "sha256": "60eae65d0ed734d1390dcd8dca398479709ef0b7c2d6598a2e62724ba319dc9e",
+      "bytes": 13816,
+      "sourceCommit": "472aadfebc80988559fb10bdfb9ac3a2562d9b71",
+      "capturedAt": "2026-11-09T00:26:55.657Z",
+      "pose": {
+        "position": [
+          -58.48390108289136,
+          1.7012508571659783,
+          44.40590881434615
+        ],
+        "bearing": 314.05863242599736,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6106,
+          "lon": -122.2108,
+          "elev": 5.7
+        },
+        "projection": {
+          "mLat": 111182.74,
+          "mLon": 75185.23
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Native runner setup; not repeated in this capture record",
+      "controllerExercised": true,
+      "limitations": [
+        "Final terminal view faces retained visitors/post; not an unobstructed postcard.",
+        "Physical route uses documented production-controller input; no pose writes after entry."
+      ],
+      "metrics": {
+        "triangles": 465733,
+        "drawCalls": 39
+      }
+    },
+    {
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/bel-meydenbauer-phone.webp",
+      "sha256": "cbe41d2264bcd8fd65c9e63f5107e80ec8f0579f7d22746a1d08b45a082cfbbb",
+      "bytes": 7128,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:05:29.663Z",
+      "pose": {
+        "position": [
+          22,
+          4.650899735713793,
+          -21
+        ],
+        "bearing": 188.63255494203824,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6106,
+          "lon": -122.2108,
+          "elev": 5.7
+        },
+        "projection": {
+          "mLat": 111182.74,
+          "mLon": 75185.23
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison.",
+        "This phone-control view predates the pier-wall correction; corrected physical terminal views retain their separate472aadf source."
+      ],
+      "metrics": {
+        "triangles": 603731,
+        "drawCalls": 44
+      },
+      "simulationDate": "2026-11-09T00:05:29.664Z"
+    }
+  ],
+  "perf": {
+    "triangles": 616428,
+    "drawCalls": 143,
+    "maxRenderedTriangles": 616428,
+    "maxDrawCalls": 143,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
+  },
+  "sceneId": "bel-meydenbauer",
+  "sourceGeometry": {
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "973bc8cbfcde0790f144c672c71285d2efef3f048e919fd96589f49a98bcc6a5",
+    "activeSourceRecords": 61,
+    "renderedVolumes": 61,
+    "literalHeights": 14,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 47,
+    "heroReplacements": [
+      "w688203355",
+      "w819159071",
+      "w698374975",
+      "w819159076"
+    ],
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 22,
+      "z": -21,
+      "y": 3.000899735713793,
+      "heading": 2.9909261469919177
+    },
+    "primaryActivity": "Walk to the end of the crescent pier",
+    "primaryRouteStatus": "physically-verified",
+    "sourceCommit": "472aadfebc80988559fb10bdfb9ac3a2562d9b71",
+    "genericPlannerFoundPath": false,
+    "nativeWalk": {
+      "passed": true,
+      "walked": 192.58899113746955,
+      "steps": 843,
+      "maxStep": 0.3509995108819214,
+      "maxRise": 0.5531258804535124,
+      "position": {
+        "x": -58.48390108289136,
+        "z": 44.40590881434615,
+        "y": 0.06999999999999995,
+        "heading": 0.8018281270353058
+      },
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+    }
+  },
+  "rawAudit": {
+    "status": "historical-only",
+    "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "counts": {
+      "zfight": 28
+    },
+    "collection": "previous-context-gallery"
+  },
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Actual 192.589 m entry-to-terminal-disc walk and real award; earlier native kayak strokes; actual phone three-release stone practice Generic tour planner still rejects the route; actual terminal traversal does not prove kayak reload or full bay fidelity Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "historicalCollections": [
+    {
+      "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+      "updatedAt": "2026-11-08T21:13:31.868629+00:00",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Meydenbauer Bay Park — arrival",
+          "image": "assets/spots/bel-meydenbauer/arrival.webp",
+          "sha256": "050346fb376e6c6916401f9f1935a95a2b2bc2dfb2b0f9aa9670aeaba2d0a0f5",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:26:45.205Z",
+          "pose": {
+            "position": [
+              22,
+              4.650899735713793,
+              -21
+            ],
+            "bearing": 188.63255494203824,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6106,
+              "lon": -122.2108,
+              "elev": 5.7
+            },
+            "projection": {
+              "mLat": 111182.74,
+              "mLon": 75185.23
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Meydenbauer Bay Park — public walk",
+          "image": "assets/spots/bel-meydenbauer/public-walk.webp",
+          "sha256": "bf22be25ded8707a5b654e85a57915a6c210c297d4e58ef387dffa9114ffe122",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:26:52.525Z",
+          "pose": {
+            "position": [
+              33.626750924340406,
+              2.285101769949373,
+              15.349133079022645
+            ],
+            "bearing": 162.2624373683973,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6106,
+              "lon": -122.2108,
+              "elev": 5.7
+            },
+            "projection": {
+              "mLat": 111182.74,
+              "mLon": 75185.23
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Meydenbauer Bay Park — postcard",
+          "image": "assets/spots/bel-meydenbauer/postcard.webp",
+          "sha256": "3ee339817c57b6cb29c66ae9e0f09ca94b55a1210cf82cb3d3e2030c934d3c64",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:26:58.501Z",
+          "pose": {
+            "position": [
+              44.09012130325257,
+              1.9118533669243232,
+              28.351514994392115
+            ],
+            "bearing": 248.08461040089054,
+            "pitch": 1.0000000000000002,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6106,
+              "lon": -122.2108,
+              "elev": 5.7
+            },
+            "projection": {
+              "mLat": 111182.74,
+              "mLon": 75185.23
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Meydenbauer Bay Park — activity approach",
+          "image": "assets/spots/bel-meydenbauer/activity-approach.webp",
+          "sha256": "3be0535c0d5c46ca942a754dfb89d4a63f0f777e6ff43ce2a58697f5c08d5992",
+          "sourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+          "capturedAt": "2026-11-08T19:27:04.809Z",
+          "pose": {
+            "position": [
+              -60.66936977772769,
+              1.7199999999999998,
+              46.29294254819657
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6106,
+              "lon": -122.2108,
+              "elev": 5.7
+            },
+            "projection": {
+              "mLat": 111182.74,
+              "mLon": 75185.23
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity",
+          "label": "Actual touch paddling after explicit stroke input",
+          "image": "assets/spots/bel-meydenbauer/paddling-touch.webp",
+          "sha256": "224b9585bb99fa6fe69c42ae45d373c1a33021e25ad94811708b3492d16ad3bd",
+          "sourceCommit": "25653554feab401720cee0eee56f8f6b7e94f5a3",
+          "capturedAt": "2026-11-08T21:13:31.868629+00:00",
+          "pose": {
+            "position": [
+              57.706316067504886,
+              0.41766670239339715,
+              48.76553229839436
+            ],
+            "bearing": 0,
+            "pitch": -6.875493541569878
+          }
+        },
+        {
+          "kind": "activity",
+          "label": "Actual desktop paddling after explicit stroke input",
+          "image": "assets/spots/bel-meydenbauer/paddling-desktop.webp",
+          "sha256": "2e39ff70d1e0e2f16af087ac712702b02f3797a5978bad6556614d5be1693540",
+          "sourceCommit": "864d706b23a7e78446f891f85dc488ad341470cc",
+          "capturedAt": "2026-11-08T21:13:31.868629+00:00",
+          "pose": {
+            "position": [
+              57.706316067504886,
+              0.41766670239339715,
+              48.76553229839436
+            ],
+            "bearing": 0,
+            "pitch": -6.875493541569878
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "bel-meydenbauer; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "61 active source records, 61 physical volumes, 0 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "38.0 m walked toward First park; planned endpoint reached using native movement and collision."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "371071 unique geometry triangles; max 1015078 rendered triangles / 155 calls across the captured foot views. Software-GL captures are not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "zfight: 28"
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        },
+        {
+          "label": "Actual desktop and touch paddling",
+          "passed": true,
+          "details": "Sources864d706/2565355: 21 explicit strokes complete the round trip; idle/early Leave does not award; Esc/map/photo/pause/conditions/travel/visibility cancel without completing. Accepted drone deployment cancellation passes at Meydenbauer; Herastrau deployment is rejected at its bank. Initial test pose beside mapped launch, not a long arrival-route claim."
+        },
+        {
+          "label": "Boat completion reload persistence",
+          "passed": false,
+          "details": "Activity completion was observed in the actual host; this focused boat test has not yet reloaded its completed save."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 603224,
+        "uniqueGeometryTriangles": 371071,
+        "geometryObjects": 114,
+        "maxRenderedTriangles": 1015078,
+        "maxDrawCalls": 155
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "b651846c05a59cc920995e3bd35a5ab137397c09874e47c8480d16f82d1bd7ac",
+        "activeSourceRecords": 61,
+        "renderedVolumes": 61,
+        "literalHeights": 14,
+        "levelHeightEstimates": 0,
+        "typeHeightEstimates": 47,
+        "heroReplacements": [
+          "w688203355",
+          "w819159071",
+          "w698374975",
+          "w819159076"
+        ],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": 22,
+          "z": -21,
+          "y": 3.000899735713793,
+          "heading": 2.9909261469919177
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              22,
+              -21
+            ],
+            [
+              33.844788599687455,
+              16.03079217097396
+            ]
+          ],
+          "length": 38.87902501068092,
+          "target": "First park"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 450,
+          "walked": 38.033973002984574,
+          "target": "First park",
+          "plannedLength": 38.87902501068092,
+          "position": {
+            "x": 33.626524357232796,
+            "z": 15.34842475405728,
+            "y": 0.6349855474646342,
+            "heading": -2.832013784389615
+          },
+          "error": null
+        }
+      },
+      "rawAudit": {
+        "zfight": 28
+      },
+      "improvements": [
+        "Source buildings, lake outline and pier context retain explicit geometry membership; exact roof profiles preserve valid surrounding volumes.",
+        "The native short shore-plaque approach completes within the captured high-quality budgets.",
+        "The mapped public launch now runs an input-driven paddling course with visible oars/paddle, progress, no idle award and restoration to the same shore pose after cancellation. Shared sky-only water reflections replace the false reflected lighting boxes.",
+        "The course avoids the swimming enclosure, crescent pier and full visible moored hull OBBs; every existing boat remains rendered and collision-bearing."
+      ],
+      "remainingGaps": [
+        "Kayaking still follows an automatic camera loop and lacks the required input-driven paddling and complete cancellation contract.",
+        "The May 15–September 30 rental dates are unverified and must not be presented as confirmed operating dates.",
+        "Stone skipping still produces a message without a visible stone trajectory or player challenge.",
+        "Pier rail/deck joins, pavilion details, hillside buildings and boathouse placement need matched official/aerial comparisons; remaining pier z-fighting needs physical repair.",
+        "Raw audit findings remain for physical review: zfight 28.",
+        "Official rental operation is seasonal; the operator reports closed for the2026 season. The virtual public-launch challenge does not assert a current staffed rental, exact hardware or opening schedule. Continuous arrival from the main spawn remains unproved."
+      ],
+      "review": "Inspected all four GAME context views. Native shore access and source preservation pass; the kayak and stone activities remain material unfinished work.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": true,
+  "captureSourceCommits": [
+    "472aadfebc80988559fb10bdfb9ac3a2562d9b71",
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-09T00:05:29.663Z",
+    "2026-11-09T00:26:55.657Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": false,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The generic selected activity route returned no planner path; it is not accepted by this report.",
+      "cases": [
+        "bel-meydenbauer"
+      ]
+    },
+    {
+      "label": "Native desktop explicit paddle strokes",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-864d706-desktop/results.json",
+      "sha256": "16e8eff49a7d21d040d971898ddb0c2f1fd1d7df7d42dabb12a2550afc9848c3",
+      "sourceCommit": "864d706b23a7e78446f891f85dc488ad341470cc",
+      "passed": true,
+      "scope": "Actual explicit strokes complete the selected short course; idle/early Leave do not award and mode cancellation restores shore. Nearby launch setup is not the park-entry route. Completed boat reload remains unverified.",
+      "cases": [
+        "bel-meydenbauer"
+      ]
+    },
+    {
+      "label": "Native touch explicit paddle strokes",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/park-participation/rides-2565355-touch/results.json",
+      "sha256": "7eaaf12534112ce1652efda9547986efc0bb2a5a64531fde533cd90254e4a58a",
+      "sourceCommit": "25653554feab401720cee0eee56f8f6b7e94f5a3",
+      "passed": true,
+      "scope": "Actual explicit strokes complete the selected short course; idle/early Leave do not award and mode cancellation restores shore. Nearby launch setup is not the park-entry route. Completed boat reload remains unverified.",
+      "cases": [
+        "bel-meydenbauer"
+      ]
+    },
+    {
+      "label": "Native phone three-release stone practice",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/market-shore-final/input-fixed-f056/results.json",
+      "sha256": "9d10e18e056e9dd97032a8046d23c959f0dd982ba524f6eed2e506cc84153f56",
+      "sourceCommit": "f056a5e1da18a554af52a147391188d90ddf39b5",
+      "passed": true,
+      "scope": "Only the named cases pass: real native inputs, negative early/idle/cancel behavior and finite completion. The separate pier planner in this raw run fails and is not accepted. Nearby initial setup is explicit.",
+      "cases": [
+        "stone-native-release-cancellation-and-three-flights"
+      ]
+    },
+    {
+      "label": "Actual entry-to-terminal-disc traversal",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/market-shore-final/pier-clearance-472/results.json",
+      "sha256": "358ffd6d0696cab78ac0cbff6d157d564f6b8d883b40e4752bc659d4f3e63d57",
+      "sourceCommit": "472aadfebc80988559fb10bdfb9ac3a2562d9b71",
+      "passed": true,
+      "scope": "192.589 m with the production controller, no pose writes, all34visitors/65buildings/1469colliders retained and actual terminal achievement. Source retaining-wall cap is corrected beneath the existing raised deck. No completed reload or full thumbstick route claim.",
+      "cases": [
+        "pier-actual-arrival-source-centreline-and-terminal-award"
+      ]
+    }
+  ]
+}

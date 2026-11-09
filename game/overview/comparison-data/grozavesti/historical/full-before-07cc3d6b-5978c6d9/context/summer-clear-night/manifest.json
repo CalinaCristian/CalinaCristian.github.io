@@ -1,0 +1,1140 @@
+{
+  "schemaVersion": 1,
+  "captureType": "game-perspective-context",
+  "comparisonCompatible": false,
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "captureTool": {
+    "name": "capture-context.cjs",
+    "sha256": "ffb66fa0602b1590ff23e1222a19c4795e74a11c840b6b72fcb14e0e26ec0324"
+  },
+  "district": "grozavesti",
+  "season": "summer",
+  "weather": "clear",
+  "time": "night",
+  "quality": "high",
+  "traffic": true,
+  "mirror": false,
+  "scope": "Game-only static cameras in the complete running district. Outward envelope poses do not exercise the drone controller. Counts are per camera and are separate from full driving/mirror budget acceptance.",
+  "loaded": {
+    "key": "bucharest-grozavesti",
+    "city": "bucharest",
+    "district": "grozavesti",
+    "ms": 40242,
+    "edges": 801,
+    "ribbons": 1714
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "items": [
+    {
+      "id": "politehnica-street",
+      "label": "Politehnica public perimeter at night \u00b7 trees obscure the campus building",
+      "kind": "street",
+      "landmark": "politehnica",
+      "sourceEdge": 71,
+      "sourceRoadId": "w80013062",
+      "x": -342.7879185057439,
+      "z": 434.00620530469496,
+      "y": 1.7,
+      "absoluteY": 1.94,
+      "target": [
+        -611.1405632746976,
+        7.704400335693359,
+        306.156820675842
+      ],
+      "fov": 85,
+      "cameraBodyValidation": {
+        "method": "Production collideBuildings at actual public source-road centre and its exact native roadHeight, before capture; no offset toward or through the source facade",
+        "radiusM": 0.25,
+        "footY": 0.29,
+        "heightM": 1.7,
+        "clear": true
+      },
+      "cameraY": 1.94,
+      "groundY": 0.24,
+      "heading": 295.47420630452166,
+      "pitch": 1.1109586763084274,
+      "aspect": 1.5,
+      "pose": {
+        "x": -342.7879185057439,
+        "y": 1.94,
+        "z": 434.00620530469496,
+        "heading": 295.47420630452166,
+        "pitch": 1.1109586763084274,
+        "fov": 85,
+        "aspect": 1.5,
+        "quaternion": [
+          0.008197990226133491,
+          0.5337797828707418,
+          -0.005175126912100596,
+          0.8455679478410708
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "night",
+        "rendererClockOverride": "night",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\ud83c\udf19",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794179851707,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": -28
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 132,
+        "triangles": 519832,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": -360.90894857549563,
+          "z": 464.43911051842576,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -360.5888475148407,
+          "z": 463.599983609426,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -356.3322627578154,
+          "z": 481.0597528242036,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -324.87135420684854,
+          "z": 441.6723125605527,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w277315765"
+        },
+        {
+          "x": -347.81977924733746,
+          "z": 469.3421718659857,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717662"
+        },
+        {
+          "x": -331.01432312756356,
+          "z": 400.2636429805294,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -324.0043178783938,
+          "z": 408.7428433252345,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -365.84397988555764,
+          "z": 477.37601725830467,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -335.80514952242777,
+          "z": 431.2071260266384,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -348.57162429053363,
+          "z": 460.7156760017448,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -302.0250667779536,
+          "z": 397.779338767289,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w277315765"
+        },
+        {
+          "x": -335.7552345941639,
+          "z": 440.783857016639,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717662"
+        },
+        {
+          "x": -323.0909390575758,
+          "z": 415.28906578932157,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w277315765"
+        },
+        {
+          "x": -348.5120867118341,
+          "z": 471.2970495649471,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717662"
+        },
+        {
+          "x": -350.886004707776,
+          "z": 466.78269396724795,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -344.1132104815415,
+          "z": 424.93038254787285,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        },
+        {
+          "x": -340.2397844300141,
+          "z": 450.7525485363945,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717662"
+        },
+        {
+          "x": -350.3118018061303,
+          "z": 476.37892876277107,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w241717662"
+        },
+        {
+          "x": -318.6730336066449,
+          "z": 398.99809461782644,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w80013062"
+        }
+      ],
+      "vehiclesWithin60m": 6,
+      "lat": 44.43729467835273,
+      "lon": 26.05488706691479,
+      "image": "images/politehnica-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:18:49.382Z",
+      "sha256": "27e318a38439da6dfdc44f394005176f5b3e69a270b2713e2f915584eeaa1c08",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "night",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/politehnica-street.jpg",
+      "thumb": "thumbs/politehnica-street.jpg",
+      "thumbnailSha256": "89d6568107971d37fec225deacd09778840af46cf7336a1c7a1c746a1b4ede1a",
+      "reviewNote": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity."
+    },
+    {
+      "id": "drone-edge-west",
+      "label": "Outward west view at 149 m from actual flight-domain boundary",
+      "kind": "drone-edge",
+      "boundaryPoint": [
+        -760,
+        300
+      ],
+      "boundarySource": "runtime playable source mask and declared landmark flight areas",
+      "x": -909,
+      "z": 300,
+      "y": 120,
+      "target": [
+        -1129,
+        25,
+        300
+      ],
+      "fov": 75,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraY": 120,
+      "groundY": 0,
+      "heading": 270,
+      "pitch": -23.355564859286012,
+      "aspect": 1.5,
+      "pose": {
+        "x": -909,
+        "y": 120,
+        "z": 300,
+        "heading": 270,
+        "pitch": -23.355564859286012,
+        "fov": 75,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.14312376328182674,
+          0.6924706408101701,
+          0.14312376328182674,
+          0.6924706408101701
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "night",
+        "rendererClockOverride": "night",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\ud83c\udf19",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794179851707,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": -28
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 88,
+        "triangles": 280407,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 149,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.43850050750459,
+      "lon": 26.047763026983144,
+      "image": "images/drone-edge-west.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:19:04.919Z",
+      "sha256": "f5a1e7fa945900e003c07f286d4c64704901342d43423df64ebc65afe51b6bac",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "night",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/drone-edge-west.jpg",
+      "thumb": "thumbs/drone-edge-west.jpg",
+      "thumbnailSha256": "f7c93cab35ac8fdeb99e3393f8afc5b3b5102551a0f5bfd2c615f82e8e37ad80",
+      "reviewNote": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity."
+    },
+    {
+      "id": "drone-edge-east",
+      "label": "Outward east view at 149 m from actual flight-domain boundary",
+      "kind": "drone-edge",
+      "boundaryPoint": [
+        660,
+        -820
+      ],
+      "boundarySource": "runtime playable source mask and declared landmark flight areas",
+      "x": 809,
+      "z": -820,
+      "y": 120,
+      "target": [
+        1029,
+        25,
+        -820
+      ],
+      "fov": 75,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraY": 120,
+      "groundY": 0,
+      "heading": 90,
+      "pitch": -23.355564859286012,
+      "aspect": 1.5,
+      "pose": {
+        "x": 809,
+        "y": 120,
+        "z": -820,
+        "heading": 90,
+        "pitch": -23.355564859286012,
+        "fov": 75,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.14312376328182674,
+          -0.6924706408101701,
+          -0.14312376328182674,
+          0.6924706408101701
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "night",
+        "rendererClockOverride": "night",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\ud83c\udf19",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794179851707,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": -28
+      },
+      "perf": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 86,
+        "triangles": 365411,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 149,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.44857861282079,
+      "lon": 26.069378780165717,
+      "image": "images/drone-edge-east.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:19:25.703Z",
+      "sha256": "9390efba7c057e368b91dfa4e4660926d775ed4d041519f561d4af5d6650b7bb",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "night",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/drone-edge-east.jpg",
+      "thumb": "thumbs/drone-edge-east.jpg",
+      "thumbnailSha256": "4a426102f1a294d0f1e052adb157f35c93c33b5f4adafa1e5653da5740aec2f8",
+      "reviewNote": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity."
+    },
+    {
+      "id": "drone-edge-north",
+      "label": "Outward north view at 149 m from actual flight-domain boundary",
+      "kind": "drone-edge",
+      "boundaryPoint": [
+        500,
+        -980
+      ],
+      "boundarySource": "runtime playable source mask and declared landmark flight areas",
+      "x": 500,
+      "z": -1129,
+      "y": 120,
+      "target": [
+        500,
+        25,
+        -1349
+      ],
+      "fov": 75,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraY": 120,
+      "groundY": 0,
+      "heading": 0,
+      "pitch": -23.355564859286012,
+      "aspect": 1.5,
+      "pose": {
+        "x": 500,
+        "y": 120,
+        "z": -1129,
+        "heading": 0,
+        "pitch": -23.355564859286012,
+        "fov": 75,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.2024075671310358,
+          0,
+          0,
+          0.9793013717789305
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "night",
+        "rendererClockOverride": "night",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\ud83c\udf19",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794179851707,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": -28
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 75,
+        "triangles": 327534,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 149,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.45135909009107,
+      "lon": 26.065490964255698,
+      "image": "images/drone-edge-north.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:19:41.575Z",
+      "sha256": "e0ad2ba3ce782fe810683f7fce796b12d899c6ca9a9115d32790c6395d2ff978",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "night",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/drone-edge-north.jpg",
+      "thumb": "thumbs/drone-edge-north.jpg",
+      "thumbnailSha256": "65b0dc4e420147c86151dbfcb1142686f4ae6e2de5535ee82aee6987388799f2",
+      "reviewNote": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity."
+    },
+    {
+      "id": "drone-edge-south",
+      "label": "Outward south view at 149 m from actual flight-domain boundary",
+      "kind": "drone-edge",
+      "boundaryPoint": [
+        -300,
+        580
+      ],
+      "boundarySource": "runtime playable source mask and declared landmark flight areas",
+      "x": -300,
+      "z": 729,
+      "y": 120,
+      "target": [
+        -300,
+        25,
+        949
+      ],
+      "fov": 75,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "cameraY": 120,
+      "groundY": 0,
+      "heading": 180,
+      "pitch": -23.355564859286012,
+      "aspect": 1.5,
+      "pose": {
+        "x": -300,
+        "y": 120,
+        "z": 729,
+        "heading": 180,
+        "pitch": -23.355564859286012,
+        "fov": 75,
+        "aspect": 1.5,
+        "quaternion": [
+          0,
+          0.9793013717789306,
+          0.20240756713103578,
+          0
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "night",
+        "rendererClockOverride": "night",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\ud83c\udf19",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794179851707,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": -28
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 89,
+        "triangles": 285027,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": false,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 149,
+      "pedestriansWithin60m": [],
+      "vehiclesWithin60m": 0,
+      "lat": 44.43464023323615,
+      "lon": 26.055425421446582,
+      "image": "images/drone-edge-south.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:19:54.058Z",
+      "sha256": "44837f4433c95fb82b84b5d0acf652c93dc58e6b938b3d6af03cce14caa05103",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "night",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/drone-edge-south.jpg",
+      "thumb": "thumbs/drone-edge-south.jpg",
+      "thumbnailSha256": "38aa3eeeb651197badaa4baf3a0c9795bd199b2b3b104ce187b24a9d71068fee",
+      "reviewNote": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity."
+    },
+    {
+      "id": "chapter-upb-street",
+      "chapterId": "upb",
+      "label": "upb actual chapter start street view",
+      "kind": "street",
+      "x": 492.77024538696793,
+      "z": -810.1522799997306,
+      "y": 1.7,
+      "target": [
+        448.62286574402157,
+        1.7,
+        -786.678701860436
+      ],
+      "fov": 80,
+      "cameraY": 2.07,
+      "groundY": 0.37,
+      "heading": 242,
+      "pitch": -0.42398102944275934,
+      "aspect": 1.5,
+      "pose": {
+        "x": 492.77024538696793,
+        "y": 2.07,
+        "z": -810.1522799997306,
+        "heading": 242,
+        "pitch": -0.42398102944275934,
+        "fov": 80,
+        "aspect": 1.5,
+        "quaternion": [
+          -0.001905601746215678,
+          0.8571614336128192,
+          0.003171453887758071,
+          0.5150345496071496
+        ]
+      },
+      "observedConditions": {
+        "gameClockOverride": "night",
+        "rendererClockOverride": "night",
+        "seasonOverride": "summer",
+        "weatherOverride": "clear",
+        "weather": {
+          "source": "override",
+          "code": 0,
+          "kind": "clear",
+          "label": "Clear sky",
+          "icon": "\ud83c\udf19",
+          "tempC": 22,
+          "precipMm": 0,
+          "snowCm": 0,
+          "snowfallCm": 0,
+          "windKmh": 8,
+          "windDir": 270,
+          "visibilityM": 19500,
+          "cloud": 0.1,
+          "season": "summer",
+          "updatedAt": 1794179851707,
+          "climate": null
+        },
+        "season": {
+          "season": "summer",
+          "blossom": 0,
+          "autumn": 0,
+          "bare": 0,
+          "brown": 0,
+          "fresh": 0,
+          "doy": 195
+        },
+        "sunElevation": -28
+      },
+      "perf": {
+        "fps": 12,
+        "frameMs": 0,
+        "drawCalls": 226,
+        "triangles": 867660,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full",
+        "quality": "high",
+        "auto": false,
+        "level": 1
+      },
+      "inPlayable": true,
+      "inFlightEnvelope": true,
+      "distanceFromFlightDomainM": 0,
+      "pedestriansWithin60m": [
+        {
+          "x": 493.11810085670425,
+          "z": -766.4304235538713,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 458.6697715454387,
+          "z": -769.6749816739361,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 453.287142914493,
+          "z": -777.0619999047791,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 491.7251736903816,
+          "z": -767.4180112976361,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 459.41094032008976,
+          "z": -770.292437148667,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 454.731148234672,
+          "z": -777.0247027282476,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 491.83655663676666,
+          "z": -766.8284404034642,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 456.1210652015042,
+          "z": -771.1591893461496,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 454.46252954751145,
+          "z": -779.7488310539748,
+          "state": "stand",
+          "onRoad": false,
+          "sourceRoadId": null
+        },
+        {
+          "x": 455.4031440724081,
+          "z": -800.9349759420436,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 489.0632631044914,
+          "z": -783.0914627141385,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 497.72660427159553,
+          "z": -788.4227610038351,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 446.7441056051873,
+          "z": -784.6381658628469,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 460.4482777345632,
+          "z": -765.1453745117792,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 507.82324332076837,
+          "z": -829.901934495,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 526.829208623681,
+          "z": -806.332094344779,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 524.4689779661636,
+          "z": -792.9030004973224,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 511.71342934430265,
+          "z": -797.0300564052391,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 440.9120065142964,
+          "z": -781.4764136741439,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 460.16738878212203,
+          "z": -765.6419083304127,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 478.3701685405761,
+          "z": -801.7835833442135,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 520.8452370377413,
+          "z": -802.6496424054682,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 512.2949082130124,
+          "z": -797.3878903215597,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 498.4635844252206,
+          "z": -812.6775128298922,
+          "state": "legs",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 517.3221437870204,
+          "z": -823.6236464534795,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 476.5446907700782,
+          "z": -812.3964292716565,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 498.04501431840094,
+          "z": -776.642064966209,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w106797419"
+        },
+        {
+          "x": 437.1338031135244,
+          "z": -791.0306296916291,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 462.65939197221655,
+          "z": -793.2663099873841,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 538.4144961257957,
+          "z": -835.8756707645331,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        },
+        {
+          "x": 531.6919769785845,
+          "z": -843.7666898505236,
+          "state": "walk",
+          "onRoad": false,
+          "sourceRoadId": "w139788054"
+        }
+      ],
+      "vehiclesWithin60m": 3,
+      "lat": 44.44849,
+      "lon": 26.0654,
+      "image": "images/chapter-upb-street.jpg",
+      "width": 960,
+      "height": 640,
+      "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+      "capturedAt": "2026-11-08T23:20:20.094Z",
+      "sha256": "bd8d3c7fd7445073e2c9898329fd398dca7078642e2e64fa3b7173203439a74a",
+      "captureType": "game-perspective-context",
+      "comparisonCompatible": false,
+      "staticCamera": true,
+      "controllerExercised": false,
+      "condition": {
+        "season": "summer",
+        "weather": "clear",
+        "time": "night",
+        "quality": "high",
+        "traffic": true,
+        "mirror": false
+      },
+      "thumbnail": "thumbs/chapter-upb-street.jpg",
+      "thumb": "thumbs/chapter-upb-street.jpg",
+      "thumbnailSha256": "96fcf09139ad6ff36890bec6230e6dd93ea5f832347afca9837824f9b9d751d5",
+      "reviewNote": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity."
+    }
+  ],
+  "review": {
+    "district": "grozavesti",
+    "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+    "imagesReviewed": 6,
+    "status": "All6 actual GAME night perspective views reviewed with explicit source/visibility gaps. Capture coverage complete; real-world parity remains incomplete.",
+    "captureCoverageAccepted": true,
+    "realWorldParityAccepted": false,
+    "comparisonScope": "GAME-only static perspectives; paired north-up atlas separate. Actual renderer conditions retained for every frame.",
+    "rawSourceContactHits": 59,
+    "sourceContactNote": "Raw source-road/building queries remain attached as unresolved diagnostics, not an all-scene clearance pass.",
+    "entries": [
+      {
+        "id": "politehnica-street",
+        "sha256": "27e318a38439da6dfdc44f394005176f5b3e69a270b2713e2f915584eeaa1c08",
+        "reviewedAt": "2026-11-08T23:21:10.813902+00:00",
+        "reviewSheetSha256": "f63ea71806223565b2d10d0f11712ea4ce191431eeeecbf7d9f9dd643460e82c",
+        "status": "reviewed_with_gaps",
+        "observations": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity.",
+        "displayLabel": "Politehnica public perimeter at night \u00b7 trees obscure the campus building"
+      },
+      {
+        "id": "drone-edge-west",
+        "sha256": "f5a1e7fa945900e003c07f286d4c64704901342d43423df64ebc65afe51b6bac",
+        "reviewedAt": "2026-11-08T23:21:10.813921+00:00",
+        "reviewSheetSha256": "f63ea71806223565b2d10d0f11712ea4ce191431eeeecbf7d9f9dd643460e82c",
+        "status": "reviewed_with_gaps",
+        "observations": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity."
+      },
+      {
+        "id": "drone-edge-east",
+        "sha256": "9390efba7c057e368b91dfa4e4660926d775ed4d041519f561d4af5d6650b7bb",
+        "reviewedAt": "2026-11-08T23:21:10.813925+00:00",
+        "reviewSheetSha256": "f63ea71806223565b2d10d0f11712ea4ce191431eeeecbf7d9f9dd643460e82c",
+        "status": "reviewed_with_gaps",
+        "observations": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity."
+      },
+      {
+        "id": "drone-edge-north",
+        "sha256": "e0ad2ba3ce782fe810683f7fce796b12d899c6ca9a9115d32790c6395d2ff978",
+        "reviewedAt": "2026-11-08T23:21:10.813928+00:00",
+        "reviewSheetSha256": "f63ea71806223565b2d10d0f11712ea4ce191431eeeecbf7d9f9dd643460e82c",
+        "status": "reviewed_with_gaps",
+        "observations": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity."
+      },
+      {
+        "id": "drone-edge-south",
+        "sha256": "44837f4433c95fb82b84b5d0acf652c93dc58e6b938b3d6af03cce14caa05103",
+        "reviewedAt": "2026-11-08T23:21:10.813931+00:00",
+        "reviewSheetSha256": "f63ea71806223565b2d10d0f11712ea4ce191431eeeecbf7d9f9dd643460e82c",
+        "status": "reviewed_with_gaps",
+        "observations": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity."
+      },
+      {
+        "id": "chapter-upb-street",
+        "sha256": "bd8d3c7fd7445073e2c9898329fd398dca7078642e2e64fa3b7173203439a74a",
+        "reviewedAt": "2026-11-08T23:21:10.813934+00:00",
+        "reviewSheetSha256": "f63ea71806223565b2d10d0f11712ea4ce191431eeeecbf7d9f9dd643460e82c",
+        "status": "reviewed_with_gaps",
+        "observations": "Actual renderer readback is summer/clear/night. Politehnica public-perimeter view remains obscured by mapped trees; the campus building is not clearly visible. Four outward views retain sparse generic distant buildings/rail yards and unmeasured night lighting. The actual UPB chapter-start street beneath the bridge is visible. Static cameras do not exercise controls or certify source/clearance parity."
+      }
+    ]
+  },
+  "generatedAt": "2026-11-08T23:20:20.094Z",
+  "sourceCaptureManifest": "capture-manifest.json",
+  "sourceProvenance": {
+    "manifest": "source-provenance.json",
+    "sha256": "b816bb415585065c5b22b707a296e5daa543125943142049e5ec15ad7a3a0429",
+    "filesVerified": 1647
+  },
+  "captureValidation": "capture-validation.json",
+  "runtimeIntegrity": "runtime-integrity.json",
+  "sourceContactProbe": "source-contact-probe.json"
+}

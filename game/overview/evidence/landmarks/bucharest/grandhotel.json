@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 1,
+  "id": "grandhotel",
+  "city": "bucharest",
+  "name": "Grand Hotel Bucharest (ex-InterContinental)",
+  "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+  "status": "reviewed-with-gaps",
+  "coordinates": {
+    "lat": 44.4372925,
+    "lon": 26.1022881
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/1111645542",
+      "label": "OpenStreetMap w1111645542 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:levels": "24",
+        "height": "87"
+      }
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/23781503",
+      "label": "OpenStreetMap w23781503 (retrieved 2026-11-08)",
+      "type": "osm",
+      "facts": {
+        "building:levels": "24",
+        "building:part": "yes",
+        "height": "90"
+      }
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Grand_Hotel_Bucharest",
+      "label": "Independent historical and architectural reference",
+      "type": "independent"
+    },
+    {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "type": "aerial"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/commit/b203c38abf3651dd3d472c491238ad36089a633a",
+      "label": "Accepted source-book/topology sync; recorded 456 checks across 33 models (b203c38a)",
+      "type": "implementation"
+    },
+    {
+      "url": "https://github.com/CalinaCristian/CalinaCristian.github.io/blob/b203c38abf3651dd3d472c491238ad36089a633a/handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json",
+      "label": "Existing recorded source-book/topology result; not a new execution",
+      "type": "validation"
+    }
+  ],
+  "sourceIds": [
+    "w1019802601",
+    "w1019802602",
+    "w1111645542",
+    "w1188648894",
+    "w23781503",
+    "w937332760"
+  ],
+  "sourceLedger": "../../../../research/landmark-source-bucharest.json",
+  "reviewedAt": "2026-11-08",
+  "improvements": [
+    "Refreshed the complete podium source outline and exact replacement identities.",
+    "Retained the concave balcony tower silhouette and separated ground collision."
+  ],
+  "remainingGaps": [
+    "Tower outline is still a previously simplified source ring and the crown reaches 90.5 m versus the mapped 90 m part.",
+    "Detailed podium parts, balcony depth and floor spacing remain approximate.",
+    "Neighbour overlap, terrain support and tourist-scene context need the separate district/scene pass; isolated model pictures do not establish complete parity."
+  ],
+  "checks": [
+    {
+      "label": "Historical source boundary and replacement-identity checks",
+      "passed": true,
+      "details": "Historical source-boundary evidence: tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. The earlier run across 33 models recorded 306 checks. The later accepted source-book update b203c38abf3651dd3d472c491238ad36089a633a records 456 checks across 33 models, including this entry, in handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json. This wording update cites that existing proof; no tests were rerun and no images were recaptured."
+    },
+    {
+      "label": "Finite geometry and collision regression",
+      "passed": true,
+      "details": "tools/landmarks/geometry-check.mjs: all 61 models pass finite geometry, normals and triangle accounting; dedicated concave courtyard, roof and height-band checks pass."
+    },
+    {
+      "label": "Mandatory foot / driving regression",
+      "passed": true,
+      "details": "Immutable production ef21d14: npm run harness -- --scenario=foot,a --city=bucharest completed 0 high / 0 medium / 1 low (software-GL FPS only). Both scenario screenshots inspected."
+    },
+    {
+      "label": "Published game studies inspected",
+      "passed": true,
+      "details": "Front, top and oblique game-only studies inspected against source outlines and available independent reference photographs. Remaining shape discrepancies are listed explicitly."
+    },
+    {
+      "label": "Matched exterior Street View comparison",
+      "passed": false,
+      "details": "Requested outdoor panorama did not reliably provide a matched visible exterior (wrong nearby view, indoor imagery, occlusion or unavailable coverage); this is not treated as an exterior pass."
+    },
+    {
+      "label": "Complete district / traffic / mirror budget",
+      "passed": false,
+      "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    }
+  ],
+  "captures": [
+    {
+      "id": "front",
+      "label": "Street-height model study",
+      "kind": "front",
+      "image": "assets/landmarks/grandhotel/front.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "a1effedd2850622fdd5b4a53628f81b7160b0a82734ab62ee625553b03d09dfa",
+      "capturedAt": "2026-11-08T17:05:46.725724Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=grandhotel&clean=1&fountains=on&view=street&az=-159.00151772675477",
+        "anchor": {
+          "lat": 44.4372925,
+          "lon": 26.1022881,
+          "rotation": -2.7751
+        },
+        "camera": {
+          "position": [
+            -51.85391148474861,
+            1.3,
+            -135.16316632796855
+          ],
+          "quaternion": [
+            -0.024220445262019472,
+            0.974533064779981,
+            -0.13069148862351368,
+            -0.18060567677461517
+          ],
+          "fov": 62,
+          "near": 0.3,
+          "far": 2886.95,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -37.03159680768188,
+            0,
+            -40.38785054402719
+          ],
+          "max": [
+            36.77566959187922,
+            90.5,
+            39.584259581563344
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "top",
+      "label": "Top model study (perspective)",
+      "kind": "top",
+      "image": "assets/landmarks/grandhotel/top.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "cbe5853c0797631e8ebc144e93ca8412d66ec670a7465887c7a17003c9ab6715",
+      "capturedAt": "2026-11-08T17:05:51.517020Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=grandhotel&clean=1&fountains=on&view=top&az=0",
+        "anchor": {
+          "lat": 44.4372925,
+          "lon": 26.1022881,
+          "rotation": -2.7751
+        },
+        "camera": {
+          "position": [
+            -0.12796360790132866,
+            233.9089970775393,
+            -0.16788640618469702
+          ],
+          "quaternion": [
+            -0.7067531394223399,
+            0,
+            0,
+            0.7074602461740636
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 4678.182280641732,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -37.03159680768188,
+            0,
+            -40.38785054402719
+          ],
+          "max": [
+            36.77566959187922,
+            90.5,
+            39.584259581563344
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    },
+    {
+      "id": "oblique",
+      "label": "Oblique model study",
+      "kind": "oblique",
+      "image": "assets/landmarks/grandhotel/oblique.webp",
+      "sourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "sha256": "21db62145fcb0c8a403174726a6c82213da7422b30f94e0fb6150a468c3d67dd",
+      "capturedAt": "2026-11-08T17:05:56.376958Z",
+      "pose": {
+        "viewerRoute": "/game/dev/landmarks.html?id=grandhotel&clean=1&fountains=on&view=oblique&az=-124.00151772675477&el=28",
+        "anchor": {
+          "lat": 44.4372925,
+          "lon": 26.1022881,
+          "rotation": -2.7751
+        },
+        "camera": {
+          "position": [
+            -117.28547112681494,
+            111.34118402051755,
+            -79.4300475582861
+          ],
+          "quaternion": [
+            0.11357262127131494,
+            0.8567263090939207,
+            0.21360585962959677,
+            -0.45551490396667743
+          ],
+          "fov": 45,
+          "near": 0.5,
+          "far": 3201.0962953590756,
+          "viewport": [
+            960,
+            720
+          ]
+        },
+        "bounds": {
+          "min": [
+            -37.03159680768188,
+            0,
+            -40.38785054402719
+          ],
+          "max": [
+            36.77566959187922,
+            90.5,
+            39.584259581563344
+          ]
+        },
+        "isolatedModel": true,
+        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+      }
+    }
+  ],
+  "perf": {
+    "triangles": 5317,
+    "drawCalls": 3,
+    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+  },
+  "historicalImplementationNotes": [
+    {
+      "priorRecordSnapshotCommit": "29f4533895e1abba65f342ebffed735791c1e301",
+      "priorCaptureRecordSourceCommit": "ef21d14a3aa2e43186d2fc3246f26ccb82d4ac07",
+      "supersededAt": "2026-11-09",
+      "field": "checks[0]",
+      "priorValue": {
+        "label": "Full source boundary and replacement-identity checks",
+        "passed": true,
+        "details": "tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. Entire 33-model check passes 306 checks."
+      },
+      "replacementScope": "Historical source-boundary evidence: tools/landmarks/bucharest-source-check.mjs: 1 authored source rings; explicit replacement IDs match the source ledger. The earlier run across 33 models recorded 306 checks. The later accepted source-book update b203c38abf3651dd3d472c491238ad36089a633a records 456 checks across 33 models, including this entry, in handoffs/fidelity/remaining-ro-districts/cec-source-masses/shared-source-ledger-proof.json. This wording update cites that existing proof; no tests were rerun and no images were recaptured.",
+      "acceptedImplementationCommits": [
+        "b203c38abf3651dd3d472c491238ad36089a633a"
+      ],
+      "note": "Preserved capture-era implementation wording. This metadata correction does not change capture objects, dates, source SHAs or parity acceptance."
+    }
+  ],
+  "implementationNotesUpdatedAt": "2026-11-09",
+  "implementationNotesScope": "Metadata-only correction of accepted implementation/recorded-proof status. Original study source SHAs/dates/capture objects remain authoritative; no new test execution, recapture or parity acceptance."
+}

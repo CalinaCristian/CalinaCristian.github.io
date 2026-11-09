@@ -1,0 +1,785 @@
+{
+  "schemaVersion": 1,
+  "id": "waterfront",
+  "city": "seattle",
+  "name": "Waterfront: Great Wheel & Pier 57",
+  "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+  "updatedAt": "2026-11-09T00:40:27.595321Z",
+  "status": "needs_review",
+  "sources": [
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Seattle_Great_Wheel"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Pier_57_(Seattle)"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Seattle_Aquarium"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://en.wikipedia.org/wiki/Overlook_Walk"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_Ferris_Wheel.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_Washington1.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_ticket_booth.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_-_Overlook_Walk_01.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_-_Overlook_Walk_and_skyline_01.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Downtown_Seattle_Waterfront_from_Overlook_Walk_July_2025_-_01.jpg"
+    },
+    {
+      "label": "Existing spot dossier reference",
+      "type": "Public reference",
+      "url": "https://commons.wikimedia.org/wiki/File:Seattle_Aquarium_booth_on_Overlook_Walk_01.jpg"
+    },
+    {
+      "label": "Seattle Great Wheel (2012)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/1809238334"
+    },
+    {
+      "label": "Pier 57 / Miners Landing (1902)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/166910699"
+    },
+    {
+      "label": "Seattle Aquarium (1977, Piers 59/60) + Ocean Pavilion (Aug 2024)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/relation/16051213"
+    },
+    {
+      "label": "Seattle Aquarium (1977, Piers 59/60) + Ocean Pavilion (Aug 2024)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1256939021"
+    },
+    {
+      "label": "Overlook Walk (2024)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/way/1256939020"
+    },
+    {
+      "label": "Waterfront Fountain (James FitzGerald & Margaret Tomkins)",
+      "type": "OSM source",
+      "url": "https://www.openstreetmap.org/node/13025976571"
+    },
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json"
+    },
+    {
+      "label": "Historical native desktop action controls",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json"
+    },
+    {
+      "label": "Historical native touch action controls",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json"
+    },
+    {
+      "label": "Actual guide and follower around the retained queue",
+      "type": "Native GAME proof; scope recorded separately",
+      "url": "https://cristiancalina.com/handoffs/fidelity/tourist-context-activities/proof/retained-queue/results.json"
+    }
+  ],
+  "improvements": [
+    "Current native scene retains 92 source building records and validates the source geometry cache; no membership count establishes architectural parity.",
+    "Physical ride-coordinate approach; actual guide/follower 156 m path around retained queue; earlier three-turn ride controls/cancellation",
+    "The selected primary activity approach is accepted separately from full-scene comparison."
+  ],
+  "remainingGaps": [
+    "Final approach facing is close to a wall; no postcard completion is inferred from arrival",
+    "Complete matched independent scene, entry and architectural/reference comparison remains open; source membership and cache hits are not visual parity.",
+    "Route/controller proof does not certify every secondary activity, completed-save persistence or full phone-thumbstick coverage."
+  ],
+  "checks": [
+    {
+      "label": "Current native scene load and warm cache",
+      "passed": true,
+      "details": "93b0d86: actual destination load, validated cache hit, zero page errors and retained source/crowd/collider counts."
+    },
+    {
+      "label": "Native phone condition controls",
+      "passed": true,
+      "details": "Actual390×844 touch selections choose rain/winter/golden and return to day/clear/summer. Existing condition-dialog targets are40px; scene activity controls have separate44px proofs."
+    },
+    {
+      "label": "Selected primary activity entry",
+      "passed": true,
+      "details": "86.745m actual-controller arrival; no pose writes after entry. Completion of every secondary activity is not inferred."
+    },
+    {
+      "label": "High-quality selected native views",
+      "passed": true,
+      "details": "Maximum 347485 rendered triangles / 180 calls. Software-GL capture is not a hardware FPS benchmark."
+    },
+    {
+      "label": "Full matched scene comparison",
+      "passed": false,
+      "details": "Independent full-scene/entry/material/height comparison remains open. Historical visual READY and current21-entry menu availability are separate gates."
+    },
+    {
+      "label": "Current exhaustive physical audit",
+      "passed": null,
+      "details": "The earlier audit is preserved with its original source in historicalCollections. These new native views/routes are not a rerun of every detector."
+    }
+  ],
+  "captures": [
+    {
+      "kind": "arrival",
+      "label": "Actual destination arrival",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/waterfront-arrival.webp",
+      "sha256": "5d2d9b3c0d5ca5df52bfca3808ab87dfd5557c8aacd8f8a491231f2344fa5d71",
+      "bytes": 22590,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:01:30.713Z",
+      "pose": {
+        "position": [
+          6,
+          5.05,
+          -6
+        ],
+        "bearing": 214.99999999999997,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6069,
+          "lon": -122.3416,
+          "elev": 0
+        },
+        "projection": {
+          "mLat": 111182.67,
+          "mLon": 75190.53
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open."
+      ],
+      "metrics": {
+        "triangles": 347485,
+        "drawCalls": 180
+      },
+      "simulationDate": "2026-11-09T00:01:29.174Z"
+    },
+    {
+      "kind": "activity-approach",
+      "label": "Physical approach to the selected activity",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/waterfront-approach.webp",
+      "sha256": "e7e0e4f8fbb178a0477e595a7811ab9decac44d4b6e518510f90dbed501a84d9",
+      "bytes": 5628,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:01:35.808Z",
+      "pose": {
+        "position": [
+          -44.052964822635005,
+          5.095203827281148,
+          62.162143850567254
+        ],
+        "bearing": 259.73369129587184,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6069,
+          "lon": -122.3416,
+          "elev": 0
+        },
+        "projection": {
+          "mLat": 111182.67,
+          "mLon": 75190.53
+        },
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": true,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Physical arrival at the interaction coordinate does not complete the activity or certify a surveyed legal pedestrian itinerary.",
+        "Facing is very close to a wall; not a useful postcard composition."
+      ],
+      "metrics": {
+        "triangles": 337279,
+        "drawCalls": 43
+      },
+      "simulationDate": "2026-11-09T00:01:34.267Z"
+    },
+    {
+      "kind": "phone",
+      "label": "Phone view after native condition controls",
+      "image": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/waterfront-phone.webp",
+      "sha256": "9cf1bdbe3411ac6f40aabd4c13160323d568663bd3c50f346eb1d5158f032cf2",
+      "bytes": 1884,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "capturedAt": "2026-11-09T00:01:38.985Z",
+      "pose": {
+        "position": [
+          -44.21734952292325,
+          5.126178978596002,
+          62.19191779195478
+        ],
+        "bearing": 259.73369129587184,
+        "pitch": 0,
+        "coordinateSystem": "scene-local metres, x east / y up / z south",
+        "origin": {
+          "lat": 47.6069,
+          "lon": -122.3416,
+          "elev": 0
+        },
+        "projection": {
+          "mLat": 111182.67,
+          "mLon": 75190.53
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "conditions": {
+        "tod": "day",
+        "weather": "clear",
+        "season": "summer"
+      },
+      "conditionsProvenance": "Actual per-frame selectedConditions snapshot",
+      "controllerExercised": false,
+      "limitations": [
+        "GAME view; complete matched independent scene/reference comparison remains open.",
+        "Captured after returning to day/clear/summer. Rain/winter/golden buttons were exercised before reset; this is not a rain/winter appearance comparison.",
+        "Facing is very close to a wall; not a useful postcard composition."
+      ],
+      "metrics": {
+        "triangles": 328344,
+        "drawCalls": 43
+      },
+      "simulationDate": "2026-11-09T00:01:38.985Z"
+    }
+  ],
+  "perf": {
+    "triangles": 347485,
+    "drawCalls": 180,
+    "maxRenderedTriangles": 347485,
+    "maxDrawCalls": 180,
+    "note": "Maximum across the selected source-stamped native views; not a full-world traffic budget or hardware FPS result."
+  },
+  "sceneId": "waterfront",
+  "sourceGeometry": {
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "membershipSHA256": "4dd7a2c9c99e1cf17d71c6780d47bafe14dbef629708ddd6f064cd7157b40b79",
+    "activeSourceRecords": 92,
+    "renderedVolumes": 90,
+    "literalHeights": 50,
+    "levelHeightEstimates": 0,
+    "typeHeightEstimates": 42,
+    "heroReplacements": [],
+    "cacheHit": true,
+    "scope": "Committed source arrays and actual native consumer/cache counters; not a new independent architectural survey."
+  },
+  "access": {
+    "walker": "OnFootController",
+    "arrival": {
+      "x": 6,
+      "z": -6,
+      "y": 3.4,
+      "heading": -3.7524578917878086
+    },
+    "primaryActivity": "Ride the Seattle Great Wheel (3 turns, ≈ 4½ min)",
+    "primaryRouteStatus": "physically-verified",
+    "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+    "genericPlannerFoundPath": true,
+    "nativeWalk": {
+      "passed": true,
+      "walked": 86.7454198383994,
+      "steps": 379,
+      "maxStep": 0.23000000000000412,
+      "maxRise": 0.08000000000000007,
+      "position": {
+        "x": -44.052964822635005,
+        "z": 62.162143850567254,
+        "y": 3.48,
+        "heading": 1.7499772157080855
+      },
+      "method": "Documented production-controller auto running/heading input; no pose writes after actual destination entry.",
+      "scope": "Selected primary activity access, not every secondary activity or a legal-route survey."
+    },
+    "phoneConditionControls": {
+      "passed": true,
+      "selected": {
+        "tod": "golden",
+        "weather": "rain",
+        "season": "winter"
+      },
+      "nativeInput": "Actual unobstructed CDP touch-start/end",
+      "minimumTargetPixels": 40,
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+    }
+  },
+  "rawAudit": {
+    "status": "historical-only",
+    "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+    "counts": {
+      "zfight": 45,
+      "pedBelow": 6,
+      "pedSunk": 6
+    },
+    "collection": "previous-context-gallery"
+  },
+  "review": "Inspected current native GAME arrival/approach/phone views and linked scoped activity proof. Physical ride-coordinate approach; actual guide/follower 156 m path around retained queue; earlier three-turn ride controls/cancellation Final approach facing is close to a wall; no postcard completion is inferred from arrival Older context images and audits retain their original source/date in collapsed history. No blanket scene parity or secondary-activity acceptance.",
+  "publicPathProof": {
+    "sourceCommit": "b84de823e769c2bb02c3b4c6a4c422b14980748f",
+    "priorSourceCommit": "94ef22859007a724356e7c3ecf270f2488ae0b49",
+    "membershipUnchanged": true,
+    "proofDirectory": "handoffs/fidelity/remaining-ro-districts/tourist-public-paths",
+    "runtimeSourceChanged": false,
+    "allSceneBodiesRetained": true
+  },
+  "historicalCollections": [
+    {
+      "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+      "updatedAt": "2026-11-08T20:12:56.732Z",
+      "status": "needs_review",
+      "captures": [
+        {
+          "kind": "arrival",
+          "label": "Waterfront: Great Wheel & Pier 57 — arrival",
+          "image": "assets/spots/waterfront/arrival.webp",
+          "sha256": "e86e8cdbc8681689b2e72d1a418322178025335be38761567b71c7948537fdbd",
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "capturedAt": "2026-11-08T20:09:05.587Z",
+          "placement": "Posed native ground camera; separate actual walking proof recorded",
+          "pose": {
+            "position": [
+              6,
+              5.05,
+              -6
+            ],
+            "bearing": 214.99999999999997,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6069,
+              "lon": -122.3416,
+              "elev": 0
+            },
+            "projection": {
+              "mLat": 111182.67,
+              "mLon": 75190.53
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "public-walk",
+          "label": "Waterfront: Great Wheel & Pier 57 — public walk",
+          "image": "assets/spots/waterfront/public-walk.webp",
+          "sha256": "5593786385c6abe3d982e8425133031839d8453e340a459c714c9ee0e1f3a2c6",
+          "sourceCommit": "b84de823e769c2bb02c3b4c6a4c422b14980748f",
+          "capturedAt": "2026-11-08T20:06:21.089Z",
+          "placement": "Actual native walk endpoint; no XYZ writes during the walk",
+          "pose": {
+            "position": [
+              18.533918678953032,
+              6.4153364508643635,
+              65.11752410740594
+            ],
+            "bearing": 62.73533219862344,
+            "pitch": 0,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6069,
+              "lon": -122.3416,
+              "elev": 0
+            },
+            "projection": {
+              "mLat": 111182.67,
+              "mLon": 75190.53
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "postcard",
+          "label": "Waterfront: Great Wheel & Pier 57 — postcard",
+          "image": "assets/spots/waterfront/postcard.webp",
+          "sha256": "6910d3f990af87098150bfdeaa731e4c98e8ae3524f17afc8dc480fc28efeb74",
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "capturedAt": "2026-11-08T20:09:12.675Z",
+          "placement": "Posed native ground camera; separate actual walking proof recorded",
+          "pose": {
+            "position": [
+              0,
+              5.05,
+              0
+            ],
+            "bearing": 214.99999999999997,
+            "pitch": 15.000000000000002,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6069,
+              "lon": -122.3416,
+              "elev": 0
+            },
+            "projection": {
+              "mLat": 111182.67,
+              "mLon": 75190.53
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        },
+        {
+          "kind": "activity-approach",
+          "label": "Waterfront: Great Wheel & Pier 57 — activity approach",
+          "image": "assets/spots/waterfront/activity-approach.webp",
+          "sha256": "68e18dec4bcf0d6b66e7881ec4dbf6a9eb88e534d934ac3cec77986d93f0643b",
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "capturedAt": "2026-11-08T20:09:18.231Z",
+          "placement": "Posed native ground camera; separate actual walking proof recorded",
+          "pose": {
+            "position": [
+              -44.400000000000006,
+              5.13,
+              66.225
+            ],
+            "bearing": 0,
+            "pitch": -7.000000000000003,
+            "coordinateSystem": "scene-local metres, x east / y up / z south",
+            "origin": {
+              "lat": 47.6069,
+              "lon": -122.3416,
+              "elev": 0
+            },
+            "projection": {
+              "mLat": 111182.67,
+              "mLon": 75190.53
+            },
+            "viewport": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "label": "Native scene load",
+          "passed": true,
+          "details": "waterfront; actual native controller; 0 thrown JavaScript errors."
+        },
+        {
+          "label": "Source solid membership",
+          "passed": true,
+          "details": "92 active source records, 90 physical volumes, 10 explicit assemblies. Missing members: none. Source polygons remain in the dataset; declared scene-model replacements are reported separately."
+        },
+        {
+          "label": "Validated scene geometry cache",
+          "passed": true,
+          "details": "Exact source/profile/terrain signature matched."
+        },
+        {
+          "label": "Native public-path walk",
+          "passed": true,
+          "details": "160.0m actual native walking to Pier 57 around the retained ticket queue, then 86.5m back to Over the water. The static plan still hits people after 78.4m; this is preserved as a guided-planner limitation."
+        },
+        {
+          "label": "High scene budgets",
+          "passed": true,
+          "details": "278846 unique geometry triangles; max 517706 rendered triangles/203 calls across context and actual public walks. Software GL is not a hardware frame-rate benchmark."
+        },
+        {
+          "label": "Raw physical audit",
+          "passed": false,
+          "details": "zfight 45, pedBelow 6, pedSunk 6. Raw counts retain both initial context and post-walk observations; see explicit proof scopes."
+        },
+        {
+          "label": "Full matched scene comparison",
+          "passed": false,
+          "details": "OSM geometry and public reference links are recorded. Complete, matched, independent scene/entry/access comparisons remain open; a model study does not establish scene parity."
+        },
+        {
+          "label": "Participatory activity controls",
+          "passed": true,
+          "details": "Desktop and touch action tests cover the complete three-turn wheel animation, no early completion, Leave and pose restoration; proof/actions-desktop.json and proof/actions-touch.json."
+        }
+      ],
+      "perf": {
+        "sceneTriangles": 361236,
+        "uniqueGeometryTriangles": 278846,
+        "geometryObjects": 128,
+        "maxRenderedTriangles": 517706,
+        "maxDrawCalls": 203
+      },
+      "sourceGeometry": {
+        "membershipSHA256": "dd26114dfa78a9f347824cbfd4bdcee88d317621ca081f2a9cccb7396b5206e1",
+        "activeSourceRecords": 92,
+        "renderedVolumes": 90,
+        "literalHeights": 50,
+        "levelHeightEstimates": 0,
+        "typeHeightEstimates": 42,
+        "heroReplacements": [],
+        "missingMembers": []
+      },
+      "access": {
+        "walker": "OnFootController",
+        "arrival": {
+          "x": 6,
+          "z": -6,
+          "y": 3.4,
+          "heading": -3.7524578917878086
+        },
+        "arrivalDry": true,
+        "nearestPlaquePath": {
+          "points": [
+            [
+              6,
+              -6
+            ],
+            [
+              -36.75,
+              60.75
+            ],
+            [
+              -47.25,
+              68.25
+            ],
+            [
+              -47.25,
+              69.75
+            ],
+            [
+              9.75,
+              69.75
+            ],
+            [
+              18.705342302750967,
+              65.02917960675006
+            ]
+          ],
+          "length": 160.79310645915,
+          "target": "Pier 57"
+        },
+        "nativeWalk": {
+          "walker": "OnFootController",
+          "passed": true,
+          "steps": 1886,
+          "walked": 160.03919774285012,
+          "target": "Pier 57",
+          "plannedLength": 160.79310645915,
+          "position": {
+            "x": 18.533918678953032,
+            "z": 65.11752410740594,
+            "y": 4.765198317646825,
+            "heading": -1.0949381041983923
+          },
+          "error": null,
+          "waypointTolerance": 0.35,
+          "stepLimit": 2598,
+          "plannerMaxLength": 450,
+          "readOnlyCrowdObstacles": true,
+          "proof": "../../../../handoffs/fidelity/remaining-ro-districts/tourist-public-paths/waterfront-native-targets.json"
+        },
+        "captureProvenance": {
+          "sourceCommit": "5dc97921ccbb3411463c5f95972a0b3b7ca71fa0",
+          "servedFrom": "Immutable git archive of the stated source commit",
+          "captureWorktreeDirty": true,
+          "dirtyReason": "Only untracked generated tools/aerial/__pycache__ existed in the capture metadata worktree; served archive contains tracked source only."
+        },
+        "staticPlannerAttempt": {
+          "walker": "OnFootController",
+          "arrival": {
+            "x": 6,
+            "z": -6,
+            "y": 3.4,
+            "heading": -3.7524578917878086
+          },
+          "arrivalDry": true,
+          "nearestPlaquePath": {
+            "points": [
+              [
+                6,
+                -6
+              ],
+              [
+                -42.75,
+                65.25
+              ],
+              [
+                -47.25,
+                68.25
+              ],
+              [
+                -47.25,
+                69.75
+              ],
+              [
+                9.75,
+                69.75
+              ],
+              [
+                18.705342302750967,
+                65.02917960675006
+              ]
+            ],
+            "length": 160.36326317725,
+            "target": "Pier 57"
+          },
+          "nativeWalk": {
+            "walker": "OnFootController",
+            "passed": false,
+            "steps": 962,
+            "stepLimit": 2491,
+            "waypointTolerance": 0.45,
+            "walked": 78.3731246948697,
+            "target": "Pier 57",
+            "plannedLength": 160.36326317725,
+            "position": {
+              "x": -38.10427769360571,
+              "z": 58.68435784464927,
+              "y": 3.4,
+              "heading": 2.525812550009504
+            },
+            "error": "Native walker blocked on planned public path"
+          }
+        }
+      },
+      "rawAudit": {
+        "zfight": 45,
+        "pedBelow": 6,
+        "pedSunk": 6
+      },
+      "improvements": [
+        "The Great Wheel ride now requires three full visible turns before completion; early departure does not award it and cancellation restores the saved shore pose.",
+        "All source buildings remain represented through exact geometry, including pier context previously affected by blanket exclusions.",
+        "Actual native walking reaches Pier 57 around the complete retained ticket queue; source geometry and all people remain unchanged."
+      ],
+      "remainingGaps": [
+        "The static guided planner ignores crowd bodies and still hits the ticket queue after 78.4m. A read-only crowd-aware test plan proves the public scene route is accessible, without changing runtime navigation.",
+        "The posed activity-approach image still faces the brick ticket frontage at close range; it is not proof of the walking approach.",
+        "The broader Ocean Pavilion/Overlook route was not established by this bounded walk; the sidecar planner returned no route from the crowded board endpoint, not an actual failed native walk.",
+        "Six visitors remain below or sunk into the local deck surface; pier deck seams also require physical z-fighting repair.",
+        "Promenade, Miners Landing frontages, pier outlines and Overlook Walk need complete matched current references; the captured scene remains simplified.",
+        "Raw audit findings remain for physical review: zfight 45, pedBelow 6, pedSunk 6."
+      ],
+      "review": "All four refreshed GAME context views and actual Pier 57 walk inspected. Physical public access passes around the queue; the guided-planner limitation and raw crowd/deck findings remain explicit.",
+      "id": "previous-context-gallery",
+      "label": "Earlier scene/context and activity captures — original source and dates retained"
+    }
+  ],
+  "sceneFreeze": "09766dc7a870657b76e3114c15a12f55e5c373cb",
+  "menuAvailable": true,
+  "captureSourceCommits": [
+    "93b0d8649e7c3a1217ae5b009f124347c41da6a8"
+  ],
+  "captureRange": [
+    "2026-11-09T00:01:30.713Z",
+    "2026-11-09T00:01:38.985Z"
+  ],
+  "nativeProofs": [
+    {
+      "label": "Current native scene, phone conditions and selected activity approach",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/final-24-integrated/initial/results.json",
+      "sha256": "dd04e187ab376b886488c5ac9ae4c45e81c29cf5d39ffa8b5ab254d1b49480e3",
+      "sourceCommit": "93b0d8649e7c3a1217ae5b009f124347c41da6a8",
+      "passed": true,
+      "scope": "All current load/cache/phone-condition/retained-count checks pass. The selected activity coordinate is physically reached; this is not completion of every activity.",
+      "cases": [
+        "waterfront"
+      ]
+    },
+    {
+      "label": "Historical native desktop action controls",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/actions-production-desktop.json",
+      "sha256": "9010ef09825df780e858b57cc28a7f8b733eb794f0984bc8c9816f01a9fd9eed",
+      "sourceCommit": null,
+      "passed": null,
+      "scope": "Original historical report omits its source SHA. It records real animated actions, negative idle/Leave cases and completion; touch Troll movement still used keyboard. This is not a current-source or full-entry certificate.",
+      "provenance": "historical-source-unrecorded",
+      "cases": [
+        "waterfront"
+      ]
+    },
+    {
+      "label": "Historical native touch action controls",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/actions-production-touch.json",
+      "sha256": "d714a91af57d54c287fd9357c6e753f377c093645a4e60db59d7f7203241ef48",
+      "sourceCommit": null,
+      "passed": null,
+      "scope": "Original historical report omits its source SHA. It records real animated actions, negative idle/Leave cases and completion; touch Troll movement still used keyboard. This is not a current-source or full-entry certificate.",
+      "provenance": "historical-source-unrecorded",
+      "cases": [
+        "waterfront"
+      ]
+    },
+    {
+      "label": "Actual guide and follower around the retained queue",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/retained-queue/results.json",
+      "sha256": "07df60551694f855550f14837af2256c27359020d7d736f19838d2ed883f2424",
+      "sourceCommit": "f0de4e44c77aa6ebeeb1f2fd10aeddd2f1237478",
+      "passed": true,
+      "scope": "Actual guide and production-controller follower traverse 156 m with all visitors and colliders retained. This proves the physical plaque arrival, not full tour/postcard completion.",
+      "cases": [
+        "waterfront"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,277 @@
+{
+  "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+  "gameSourceCommits": [
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58"
+  ],
+  "atlasSourceCounts": {
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 98,
+    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
+  },
+  "framesReviewed": 133,
+  "freshFramesReviewed": 35,
+  "retainedEarlierReviewedFrames": 98,
+  "complete": true,
+  "status": "35 targeted Pipera water views reviewed as original/retake/reference triplets. The complete 133-view atlas contains 35 bc9a3ff3 retakes and 98 original c78a5f4 views with their earlier full-atlas review. This documents capture and review coverage with model limits; it does not establish full visual parity or driving performance.",
+  "reviewedAt": "2026-11-09T00:45:41.469364+00:00",
+  "method": "35 replacements manually reviewed as original/retake/reference triplets; 98 original frames retain their completed c78a5f4 full-atlas review. Exact per-frame source/date, all image hashes and both immutable served-source inventories verified.",
+  "originalFullAtlasReview": {
+    "path": "historical/c78a5f4/review.json",
+    "sha256": "acb1b605aa93ce51fcfe8c65d4868bf365438b004f93238eaaa6287b1718f053",
+    "framesInOriginalReview": 133,
+    "framesRetainedHere": 98
+  },
+  "targetedRetakeReview": "retakes/bc9a3ff3/paired-review.json",
+  "findings": [
+    {
+      "ids": [
+        "aerial-r01-c06",
+        "aerial-r01-c07",
+        "aerial-r01-c08",
+        "aerial-r01-c09",
+        "aerial-r01-c10",
+        "aerial-r01-c11"
+      ],
+      "status": "scope-limit",
+      "finding": "Boundary tiles include land beyond the600m source ring. The aerial continues into dense city and rail context where the game has deliberately sparse outer context; coverage does not extend the source-detail guarantee to the whole tile."
+    },
+    {
+      "ids": [
+        "aerial-r02-c07",
+        "aerial-r02-c08",
+        "aerial-r03-c07",
+        "aerial-r03-c08"
+      ],
+      "status": "reference-date-unknown",
+      "finding": "Some source-backed completed structures and paved areas occupy reference construction/excavation zones. Retain source geometry and the unknown aerial acquisition date; the reference alone cannot date the discrepancy."
+    },
+    {
+      "ids": [
+        "aerial-r02-c11",
+        "aerial-r02-c12",
+        "aerial-r02-c14",
+        "aerial-r02-c15"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Industrial/rail sidings, excavation texture, temporary stockpiles and fine yard equipment are simplified or absent. Actual source building identities remain separately audited."
+    },
+    {
+      "ids": [
+        "aerial-r02-c13",
+        "aerial-r03-c13"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Large source nursery/greenhouse bodies are present, while repetitive glass/panel/grid roof detail and yard ground texture remain simplified."
+    },
+    {
+      "ids": [
+        "aerial-r03-c14",
+        "aerial-r03-c15",
+        "aerial-r03-c16"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Canopy survey retains crown locations, but scrub, saplings and ground cover remain coarse; this is not a one-to-one vegetation replica."
+    },
+    {
+      "ids": [
+        "aerial-r04-c07",
+        "aerial-r04-c08",
+        "aerial-r04-c09",
+        "aerial-r04-c10",
+        "aerial-r04-c11",
+        "aerial-r04-c12"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Office source bodies and mapped openings are present. Roof plant, photovoltaic arrays, glass atrium articulation and literal facade detail remain approximate or absent; perspective roof displacement remains visible."
+    },
+    {
+      "ids": [
+        "aerial-r04-c14",
+        "aerial-r04-c15",
+        "aerial-r04-c16",
+        "aerial-r05-c01"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Mapped meadow/canopy extents are present, but scrub density, paths, fine court covers and minor land-use texture remain generalized."
+    },
+    {
+      "ids": [
+        "aerial-r05-c06",
+        "aerial-r05-c07",
+        "aerial-r05-c10",
+        "aerial-r05-c11",
+        "aerial-r05-c12"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Tall office and retail roofs have large perspective displacement in this216.5m camera. Rooftop technical equipment, mall skylight/panel detail and fine facade articulation are not a literal replica."
+    },
+    {
+      "ids": [
+        "aerial-r05-c09"
+      ],
+      "status": "source-control-observed",
+      "finding": "The museum aircraft source planforms are visible in their source layout. All23source identities/planforms are audited separately; vertical dimensions remain recorded estimates."
+    },
+    {
+      "ids": [
+        "aerial-r05-c14",
+        "aerial-r05-c16"
+      ],
+      "status": "source-control-observed",
+      "finding": "Source overpass alignment and the river crossing remain present; comparison is top-down only and does not establish driving clearance or traffic behavior."
+    },
+    {
+      "ids": [
+        "aerial-r06-c01",
+        "aerial-r06-c02",
+        "aerial-r06-c03",
+        "aerial-r06-c04",
+        "aerial-r06-c05"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Source lake/shore shapes are present, with simplified banks and docks. Blue water differs from the dark green reference appearance; colour, season and acquisition date are not a physical bathymetry or water-quality measurement."
+    },
+    {
+      "ids": [
+        "aerial-r06-c05"
+      ],
+      "status": "reference-date-unknown",
+      "finding": "The reference shows white covers over some sports courts; the game retains mapped open courts. Temporary/seasonal cover state is not resolved from an undated aerial."
+    },
+    {
+      "ids": [
+        "aerial-r06-c06",
+        "aerial-r06-c07",
+        "aerial-r06-c08",
+        "aerial-r06-c09",
+        "aerial-r06-c10",
+        "aerial-r06-c11",
+        "aerial-r06-c12"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Office roof plant, fine podium/courtyard surfaces and active construction detail remain simplified. Source road/building contradictions on w27750597/w176791388 and w176792203 remain separately unresolved; this atlas does not close them."
+    },
+    {
+      "ids": [
+        "aerial-r06-c14",
+        "aerial-r06-c15",
+        "aerial-r06-c16",
+        "aerial-r07-c01",
+        "aerial-r07-c02",
+        "aerial-r07-c03",
+        "aerial-r07-c04",
+        "aerial-r07-c05",
+        "aerial-r07-c06",
+        "aerial-r07-c07",
+        "aerial-r07-c08",
+        "aerial-r07-c09",
+        "aerial-r07-c10",
+        "aerial-r07-c11",
+        "aerial-r07-c12"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Lake edges, islands and separately mapped ponds remain present. Fine shoreline walls, shore paths, piers, yard detail and water appearance are simplified; undated aerials do not resolve seasonal bank/vegetation or construction changes."
+    },
+    {
+      "ids": [
+        "aerial-r07-c13",
+        "aerial-r07-c14",
+        "aerial-r07-c15",
+        "aerial-r07-c16",
+        "aerial-r08-c03",
+        "aerial-r08-c04",
+        "aerial-r08-c05",
+        "aerial-r08-c06"
+      ],
+      "status": "scope-and-detail-limit",
+      "finding": "Source lake/bridge and shoreline settlement remain present. Outer ring boundary tiles can include large areas beyond the detailed source footprint; small docks, bank paths, courtyard detail and dense garden vegetation remain simplified."
+    },
+    {
+      "ids": [
+        "aerial-r08-c07",
+        "aerial-r08-c08",
+        "aerial-r08-c09",
+        "aerial-r08-c10",
+        "aerial-r08-c11",
+        "aerial-r08-c12",
+        "aerial-r08-c13",
+        "aerial-r08-c14",
+        "aerial-r08-c15",
+        "aerial-r08-c16",
+        "aerial-r09-c10",
+        "aerial-r09-c11",
+        "aerial-r09-c12",
+        "aerial-r09-c13",
+        "aerial-r09-c14",
+        "aerial-r09-c15"
+      ],
+      "status": "remaining-detail-gap",
+      "finding": "Source shoreline, small residential/office bodies, mapped sports/pool areas and road bends are visible. Roof tile/panel texture, private garden/terrace details, bank structures and occupancy remain generalized; ground beyond the600m source ring is sparse. No completeness claim is made for temporary court covers or untagged structures seen only in the reference."
+    },
+    {
+      "ids": [
+        "aerial-r09-c16",
+        "aerial-r10-c11",
+        "aerial-r10-c12",
+        "aerial-r10-c13",
+        "aerial-r10-c14",
+        "aerial-r10-c15",
+        "aerial-r11-c12",
+        "aerial-r11-c13",
+        "aerial-r11-c14",
+        "context-northwest",
+        "context-northeast",
+        "context-southwest",
+        "context-southeast"
+      ],
+      "status": "scope-and-detail-limit",
+      "finding": "Southern ring and four distant context tiles retain source-backed water and small bodies. Bank structures, parking/occupancy, small garden/cemetery detail and dense vegetation are simplified. The four outside-ring views deliberately contain sparse distant context and do not claim600m-detail fidelity."
+    }
+  ],
+  "targetedRemainingGaps": [
+    {
+      "ids": [
+        "aerial-r08-c04",
+        "aerial-r08-c05",
+        "aerial-r08-c06",
+        "aerial-r08-c11"
+      ],
+      "finding": "Source ground, bank/yard polygons and material boundaries remain generalized relative to the aerial. Fine docks, quay details, gardens and ground texture are not reproduced."
+    },
+    {
+      "ids": [
+        "aerial-r06-c14",
+        "aerial-r06-c15",
+        "aerial-r06-c16",
+        "aerial-r07-c11",
+        "aerial-r10-c12",
+        "aerial-r11-c12",
+        "aerial-r11-c13"
+      ],
+      "finding": "Tree crowns/scrub and source-limit boundary areas remain generalized. Reference seasonal/date differences are unknown."
+    },
+    {
+      "ids": [
+        "aerial-r07-c09",
+        "aerial-r07-c10",
+        "aerial-r08-c08",
+        "aerial-r08-c09",
+        "aerial-r08-c10"
+      ],
+      "finding": "Buildings, courtyard/pool/roof equipment, parking occupancy and terrace details retain the original model limits. Water color is stylized and is not a bathymetry or water-quality claim."
+    }
+  ],
+  "scopeCounts": {
+    "ring-touches": 91,
+    "core-touches": 38,
+    "outside-ring": 4
+  },
+  "reference": {
+    "referenceProvider": "Esri World Imagery",
+    "referenceSourceUrl": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+    "referenceAccessDate": "2026-11-08",
+    "referenceAcquisitionDate": null,
+    "referenceManifestSha256": "9150c38e70aed32365b0aafb48dc87bda98ef91c7e357d06048a6f90ee2fe986",
+    "mosaicSha256": "fe16afc036f230efe87e004955fc8b7b1c80af053a104de6fd69d9cac6512751"
+  }
+}

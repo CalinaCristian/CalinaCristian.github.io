@@ -1,0 +1,37 @@
+{
+  "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+  "city": "seattle",
+  "district": "bellevue",
+  "grid": {
+    "x0": -1500,
+    "z0": -1250,
+    "columns": 12,
+    "rows": 8,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "core-touches": 5
+  },
+  "locations": [
+    {
+      "id": "lincoln-source-anchor",
+      "label": "Lincoln Square North",
+      "lat": 47.6168559,
+      "lon": -122.2010316,
+      "kind": "district-anchor",
+      "sourceIds": [
+        "w604028609",
+        "w161929514",
+        "w1364249504"
+      ],
+      "sourceUrls": [
+        "https://www.openstreetmap.org/way/604028609",
+        "https://www.openstreetmap.org/way/161929514",
+        "https://www.openstreetmap.org/way/1364249504"
+      ],
+      "source": "game/research/us-landmarks-source.json; source footprint anchor, not a claim of public entrance",
+      "tileId": "aerial-r04-c05"
+    }
+  ],
+  "coverage": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim."
+}

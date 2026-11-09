@@ -1,0 +1,3076 @@
+{
+  "parkingClearance": {
+    "candidates": 750,
+    "retained": 665,
+    "outsideSourceLot": 38,
+    "raisedSidewalk": 46,
+    "buildingBody": 1,
+    "canopySupport": 0,
+    "measuredLots": []
+  },
+  "phases": [
+    [
+      "Loading OpenStreetMap data…",
+      326
+    ],
+    [
+      "Building the road network…",
+      4412
+    ],
+    [
+      "Parks, rivers and lakes…",
+      222
+    ],
+    [
+      "Paving the streets…",
+      2447
+    ],
+    [
+      "Raising the buildings…",
+      2989
+    ],
+    [
+      "Opening the shops…",
+      61
+    ],
+    [
+      "Planting trees…",
+      1319
+    ],
+    [
+      "Finishing…",
+      5558
+    ]
+  ],
+  "railways": {
+    "sourceWays": 110,
+    "renderedWays": 107,
+    "renderedMetres": 20780,
+    "ties": 29736,
+    "unresolved": [
+      {
+        "source": "w277295268",
+        "reason": "unknown-gauge-or-vertical-placement"
+      }
+    ]
+  },
+  "network": {
+    "scc": 727,
+    "mainNodes": 769,
+    "nodesOutside": 732,
+    "edgesOff": 739,
+    "weakComponents": 13,
+    "laneAligned": 54
+  },
+  "edges": 1540,
+  "walls": 1487,
+  "wallPiecesCut": 2120,
+  "piers": 19,
+  "furniture": 4,
+  "roadSigns": 79,
+  "roofAds": 0,
+  "roofAdList": [],
+  "backdrop": 3089,
+  "sceneryStreets": 944,
+  "kerbParked": 48,
+  "marksDropped": [
+    {
+      "name": "Bretea",
+      "type": "secondary_link",
+      "id": 558,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": 284,
+      "z": -754,
+      "len": 26,
+      "cover": 1,
+      "out": 0
+    },
+    {
+      "name": "Bretea",
+      "type": "secondary_link",
+      "id": 569,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": 276,
+      "z": -696,
+      "len": 11,
+      "cover": 1,
+      "out": 0
+    },
+    {
+      "name": "Calea Giulești",
+      "type": "secondary",
+      "id": 706,
+      "lanes": [
+        4,
+        0
+      ],
+      "oneway": true,
+      "x": 361,
+      "z": -684,
+      "len": 5,
+      "cover": 0.9,
+      "out": 0.02
+    },
+    {
+      "name": "Calea Giulești",
+      "type": "secondary",
+      "id": 653,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": 369,
+      "z": -745,
+      "len": 8,
+      "cover": 0.9,
+      "out": 0
+    },
+    {
+      "name": "Bretea",
+      "type": "primary_link",
+      "id": 1443,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": 744,
+      "z": -985,
+      "len": 9,
+      "cover": 0.9,
+      "out": 0
+    },
+    {
+      "name": "Șoseaua Orhideelor",
+      "type": "secondary",
+      "id": 526,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 312,
+      "z": -711,
+      "len": 9,
+      "cover": 0.88,
+      "out": 0
+    },
+    {
+      "name": "Bulevardul Regiei",
+      "type": "tertiary",
+      "id": 505,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 38,
+      "z": -608,
+      "len": 12,
+      "cover": 0.86,
+      "out": 0.01
+    },
+    {
+      "name": "Bulevardul Doina Cornea",
+      "type": "secondary",
+      "id": 82,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 97,
+      "z": -52,
+      "len": 12,
+      "cover": 0.81,
+      "out": 0.02
+    },
+    {
+      "name": "Pasajul Basarab",
+      "type": "primary",
+      "id": 1279,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 352,
+      "z": -722,
+      "len": 10,
+      "cover": 0.82,
+      "out": 0
+    },
+    {
+      "name": "Bretea",
+      "type": "primary_link",
+      "id": 1063,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": 376,
+      "z": -706,
+      "len": 11,
+      "cover": 0.82,
+      "out": 0
+    },
+    {
+      "name": "Calea Giulești",
+      "type": "secondary",
+      "id": 575,
+      "lanes": [
+        4,
+        0
+      ],
+      "oneway": true,
+      "x": 299,
+      "z": -735,
+      "len": 17,
+      "cover": 0.74,
+      "out": 0.04
+    },
+    {
+      "name": "Bretea",
+      "type": "secondary_link",
+      "id": 714,
+      "lanes": [
+        1,
+        0
+      ],
+      "oneway": true,
+      "x": 440,
+      "z": -705,
+      "len": 11,
+      "cover": 0.77,
+      "out": 0
+    },
+    {
+      "name": "Bulevardul Doina Cornea",
+      "type": "secondary",
+      "id": 136,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 71,
+      "z": -97,
+      "len": 47,
+      "cover": 0.74,
+      "out": 0
+    },
+    {
+      "name": "Șoseaua Grozăvești",
+      "type": "secondary",
+      "id": 193,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": 81,
+      "z": -141,
+      "len": 20,
+      "cover": 0,
+      "out": 0.74
+    },
+    {
+      "name": "Calea Giulești",
+      "type": "secondary",
+      "id": 577,
+      "lanes": [
+        4,
+        0
+      ],
+      "oneway": true,
+      "x": 309,
+      "z": -720,
+      "len": 8,
+      "cover": 0.64,
+      "out": 0.03
+    },
+    {
+      "name": "Șoseaua Orhideelor",
+      "type": "secondary",
+      "id": 216,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 119,
+      "z": -344,
+      "len": 16,
+      "cover": 0.58,
+      "out": 0.01
+    },
+    {
+      "name": "Bulevardul Regiei",
+      "type": "tertiary",
+      "id": 508,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 77,
+      "z": -619,
+      "len": 16,
+      "cover": 0.58,
+      "out": 0
+    },
+    {
+      "name": "Șoseaua Orhideelor",
+      "type": "secondary",
+      "id": 372,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 210,
+      "z": -489,
+      "len": 17,
+      "cover": 0.05,
+      "out": 0.46
+    },
+    {
+      "name": "Splaiul Independenței",
+      "type": "secondary",
+      "id": 208,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": 193,
+      "z": -221,
+      "len": 46,
+      "cover": 0.42,
+      "out": 0.08
+    },
+    {
+      "name": "Bulevardul Doina Cornea",
+      "type": "secondary",
+      "id": 84,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 9,
+      "z": 10,
+      "len": 122,
+      "cover": 0.01,
+      "out": 0.49
+    },
+    {
+      "name": "Șoseaua Orhideelor",
+      "type": "secondary",
+      "id": 647,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 371,
+      "z": -750,
+      "len": 13,
+      "cover": 0.42,
+      "out": 0.03
+    },
+    {
+      "name": "Șoseaua Orhideelor",
+      "type": "secondary",
+      "id": 607,
+      "lanes": [
+        4,
+        0
+      ],
+      "oneway": true,
+      "x": 316,
+      "z": -720,
+      "len": 11,
+      "cover": 0.39,
+      "out": 0.02
+    },
+    {
+      "name": "Șoseaua Orhideelor",
+      "type": "secondary",
+      "id": 483,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 92,
+      "z": -620,
+      "len": 9,
+      "cover": 0.37,
+      "out": 0.02
+    },
+    {
+      "name": "Șoseaua Orhideelor",
+      "type": "secondary",
+      "id": 601,
+      "lanes": [
+        4,
+        0
+      ],
+      "oneway": true,
+      "x": 359,
+      "z": -744,
+      "len": 14,
+      "cover": 0.37,
+      "out": 0.01
+    },
+    {
+      "name": "Calea Plevnei",
+      "type": "secondary",
+      "id": 767,
+      "lanes": [
+        3,
+        0
+      ],
+      "oneway": true,
+      "x": 432,
+      "z": -708,
+      "len": 28,
+      "cover": 0.19,
+      "out": 0.18
+    },
+    {
+      "name": "Șoseaua Orhideelor",
+      "type": "secondary",
+      "id": 490,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 308,
+      "z": -715,
+      "len": 8,
+      "cover": 0.23,
+      "out": 0.14
+    },
+    {
+      "name": "Bulevardul Regiei",
+      "type": "tertiary",
+      "id": 506,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 55,
+      "z": -613,
+      "len": 22,
+      "cover": 0.35,
+      "out": 0
+    },
+    {
+      "name": "Șoseaua Orhideelor",
+      "type": "secondary",
+      "id": 363,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 154,
+      "z": -309,
+      "len": 32,
+      "cover": 0.33,
+      "out": 0.01
+    },
+    {
+      "name": "Șoseaua Orhideelor",
+      "type": "secondary",
+      "id": 215,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 117,
+      "z": -361,
+      "len": 17,
+      "cover": 0.3,
+      "out": 0.03
+    },
+    {
+      "name": "Bulevardul Doina Cornea",
+      "type": "secondary",
+      "id": 138,
+      "lanes": [
+        2,
+        0
+      ],
+      "oneway": true,
+      "x": 58,
+      "z": -50,
+      "len": 14,
+      "cover": 0,
+      "out": 0.3
+    }
+  ],
+  "raisedSidewalk": {
+    "pieces": 7249,
+    "corners": 191,
+    "joins": 165,
+    "skipped": [
+      {
+        "x": 104,
+        "z": -243,
+        "why": "self-crossing"
+      },
+      {
+        "x": 104,
+        "z": -243,
+        "why": "covered"
+      },
+      {
+        "x": 104,
+        "z": -243,
+        "why": "covered"
+      },
+      {
+        "x": 104,
+        "z": -243,
+        "why": "covered"
+      },
+      {
+        "x": 104,
+        "z": -243,
+        "why": "covered"
+      },
+      {
+        "x": 104,
+        "z": -243,
+        "why": "median"
+      },
+      {
+        "x": 104,
+        "z": -243,
+        "why": "covered"
+      },
+      {
+        "x": 79,
+        "z": -250,
+        "why": "covered"
+      },
+      {
+        "x": 79,
+        "z": -250,
+        "why": "covered"
+      },
+      {
+        "x": 79,
+        "z": -250,
+        "why": "covered"
+      },
+      {
+        "x": 79,
+        "z": -250,
+        "why": "covered"
+      },
+      {
+        "x": 79,
+        "z": -250,
+        "why": "median"
+      },
+      {
+        "x": 31,
+        "z": -263,
+        "why": "covered"
+      },
+      {
+        "x": 31,
+        "z": -263,
+        "why": "median"
+      },
+      {
+        "x": 31,
+        "z": -263,
+        "why": "covered"
+      },
+      {
+        "x": 31,
+        "z": -263,
+        "why": "covered"
+      },
+      {
+        "x": 31,
+        "z": -263,
+        "why": "median"
+      },
+      {
+        "x": 31,
+        "z": -263,
+        "why": "covered"
+      },
+      {
+        "x": 26,
+        "z": -264,
+        "why": "covered"
+      },
+      {
+        "x": 26,
+        "z": -264,
+        "why": "median"
+      },
+      {
+        "x": 26,
+        "z": -264,
+        "why": "covered"
+      },
+      {
+        "x": 26,
+        "z": -264,
+        "why": "covered"
+      },
+      {
+        "x": 26,
+        "z": -264,
+        "why": "median"
+      },
+      {
+        "x": 26,
+        "z": -264,
+        "why": "covered"
+      },
+      {
+        "x": -21,
+        "z": -277,
+        "why": "covered"
+      },
+      {
+        "x": -21,
+        "z": -277,
+        "why": "median"
+      },
+      {
+        "x": -21,
+        "z": -277,
+        "why": "self-crossing"
+      },
+      {
+        "x": -21,
+        "z": -277,
+        "why": "covered"
+      },
+      {
+        "x": -21,
+        "z": -277,
+        "why": "median"
+      },
+      {
+        "x": -21,
+        "z": -277,
+        "why": "covered"
+      },
+      {
+        "x": -7,
+        "z": -446,
+        "why": "self-crossing"
+      },
+      {
+        "x": -7,
+        "z": -446,
+        "why": "median"
+      },
+      {
+        "x": -7,
+        "z": -446,
+        "why": "self-crossing"
+      },
+      {
+        "x": -7,
+        "z": -446,
+        "why": "covered"
+      },
+      {
+        "x": -7,
+        "z": -446,
+        "why": "median"
+      },
+      {
+        "x": -7,
+        "z": -446,
+        "why": "covered"
+      },
+      {
+        "x": 14,
+        "z": -451,
+        "why": "median"
+      },
+      {
+        "x": 14,
+        "z": -451,
+        "why": "covered"
+      },
+      {
+        "x": 14,
+        "z": -451,
+        "why": "self-crossing"
+      },
+      {
+        "x": 14,
+        "z": -451,
+        "why": "median"
+      },
+      {
+        "x": 14,
+        "z": -451,
+        "why": "self-crossing"
+      },
+      {
+        "x": 14,
+        "z": -451,
+        "why": "covered"
+      },
+      {
+        "x": 30,
+        "z": -455,
+        "why": "median"
+      },
+      {
+        "x": 30,
+        "z": -455,
+        "why": "covered"
+      },
+      {
+        "x": 30,
+        "z": -455,
+        "why": "self-crossing"
+      },
+      {
+        "x": 30,
+        "z": -455,
+        "why": "median"
+      },
+      {
+        "x": 30,
+        "z": -455,
+        "why": "self-crossing"
+      },
+      {
+        "x": 30,
+        "z": -455,
+        "why": "covered"
+      },
+      {
+        "x": 99,
+        "z": -476,
+        "why": "covered"
+      },
+      {
+        "x": 99,
+        "z": -476,
+        "why": "median"
+      },
+      {
+        "x": 99,
+        "z": -476,
+        "why": "covered"
+      },
+      {
+        "x": 99,
+        "z": -476,
+        "why": "median"
+      },
+      {
+        "x": 99,
+        "z": -476,
+        "why": "self-crossing"
+      },
+      {
+        "x": 99,
+        "z": -476,
+        "why": "median"
+      },
+      {
+        "x": 99,
+        "z": -476,
+        "why": "covered"
+      },
+      {
+        "x": 99,
+        "z": -476,
+        "why": "median"
+      },
+      {
+        "x": 105,
+        "z": -478,
+        "why": "self-crossing"
+      },
+      {
+        "x": 105,
+        "z": -478,
+        "why": "covered"
+      },
+      {
+        "x": 105,
+        "z": -478,
+        "why": "median"
+      },
+      {
+        "x": 105,
+        "z": -478,
+        "why": "covered"
+      }
+    ]
+  },
+  "greenQuads": 29722,
+  "fenceM": 58,
+  "bollards": 1244,
+  "pitchesDressed": 48,
+  "fuel": [
+    {
+      "name": "OMV",
+      "x": -207,
+      "z": 318,
+      "canopy": true,
+      "source": "w239359996",
+      "sourceFootprint": true,
+      "topM": 5.2,
+      "clearanceM": 4.8,
+      "topSource": "estimate",
+      "clearanceSource": "estimate",
+      "supports": 6,
+      "supportSource": "estimate"
+    },
+    {
+      "name": "Lukoil",
+      "x": 113,
+      "z": -574,
+      "canopy": false,
+      "sourceFootprint": false,
+      "reason": "No reviewed mapped canopy at this source POI; canopy/pumps/pylon dimensions and fuel grades are unknown"
+    }
+  ],
+  "buildingRoofProfiles": {
+    "supplied": 2416,
+    "applied": 2416,
+    "rejected": [],
+    "uncertain": [
+      {
+        "source": "w225611016",
+        "issues": [
+          "unsupported roof:shape=saltbox"
+        ]
+      },
+      {
+        "source": "w225611017",
+        "issues": [
+          "unsupported roof:shape=quadruple_saltbox"
+        ]
+      },
+      {
+        "source": "w225611028",
+        "issues": [
+          "unsupported roof:shape=half-hipped"
+        ]
+      },
+      {
+        "source": "w225611030",
+        "issues": [
+          "unsupported roof:shape=saltbox"
+        ]
+      },
+      {
+        "source": "w225611031",
+        "issues": [
+          "unsupported roof:shape=saltbox"
+        ]
+      },
+      {
+        "source": "w1559344855",
+        "issues": [
+          "total height absent or estimated below source minimum; positive body above source minimum is estimated"
+        ]
+      },
+      {
+        "source": "w81623835",
+        "issues": [
+          "unsupported roof:shape=many"
+        ]
+      },
+      {
+        "source": "w570330518",
+        "issues": [
+          "flat roof with positive roof:height"
+        ]
+      },
+      {
+        "source": "w620596471",
+        "issues": [
+          "flat roof with positive roof:height"
+        ]
+      },
+      {
+        "source": "w678037221",
+        "issues": [
+          "unsupported roof:shape=cone"
+        ]
+      },
+      {
+        "source": "w1331434735",
+        "issues": [
+          "total height absent or estimated below source minimum; positive body above source minimum is estimated"
+        ]
+      }
+    ],
+    "surfacesApplied": 546,
+    "surfacesRejected": [
+      "w1217713450"
+    ],
+    "canopies": {
+      "native": [
+        {
+          "sourceId": "w239359996",
+          "shape": "flat",
+          "totalM": 5.2,
+          "eavesM": 5.2,
+          "minimumM": 4.8
+        }
+      ],
+      "legacyFlat": []
+    }
+  },
+  "profile": {
+    "merge": {
+      "goreBefore": 4,
+      "goreAfter": 1,
+      "goreCross": [
+        7,
+        7
+      ],
+      "deck": {
+        "chains": 2,
+        "targets": 617,
+        "ground": 823,
+        "raised": 571,
+        "maxY": 11
+      },
+      "final": {
+        "ramps": 22,
+        "liveDecks": 2,
+        "ground": 860,
+        "lowered": 151,
+        "raised": 63,
+        "overheadCaps": 3,
+        "maxY": 11
+      },
+      "tunnelApproach": {
+        "constraints": 0,
+        "turningPads": 0,
+        "lowered": 0,
+        "maxDrop": 0,
+        "kept": true
+      },
+      "gore": {
+        "lowered": 509,
+        "rounds": 14,
+        "left": 332,
+        "maxDrop": 4.5
+      }
+    },
+    "crossings": 80,
+    "overlaps": 488,
+    "clearanceViolations": 4,
+    "overlapSteps": 11,
+    "gradeResidual": 0,
+    "hardNodes": 614,
+    "nanAt": null
+  },
+  "buildingPassages": [
+    {
+      "sourceId": "w452377554",
+      "sourceRoadId": "w779735525",
+      "reason": "mapped-passage-clearance-incompatible-with-source-body",
+      "bodyTopM": 3.2,
+      "clearanceM": 3.1,
+      "accepted": false
+    },
+    {
+      "source": "w455456965",
+      "road": "w779735524",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w455456965",
+      "road": "w779735524",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w28240571",
+      "road": "w710632021",
+      "accepted": true,
+      "clearanceM": 3.7,
+      "ceilingM": 3.9400000000000004,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:legal maxheight plus0.2m",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w153449949",
+      "road": "w687431783",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w156820755",
+      "road": "w572138995",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 2.8,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    },
+    {
+      "source": "w1559923422",
+      "road": "w1559923420",
+      "accepted": true,
+      "clearanceM": 3.1,
+      "ceilingM": 3.34,
+      "widthM": 6,
+      "clearanceSource": "estimate:3.1m motor-vehicle passage clearance",
+      "widthSource": "estimate:source lane count and class lane width"
+    }
+  ],
+  "treesOSM": 16958,
+  "treesRows": 0,
+  "heightFixes": 0,
+  "heightFixSamples": [],
+  "buildingsShrunk": 0,
+  "buildingClearance": [
+    {
+      "source": "w105581534",
+      "before": 478.0930323399989,
+      "after": 478.0930323399989,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w105586880",
+      "before": 192.3734883149998,
+      "after": 192.3734883149998,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w413703564",
+      "before": 123.86676893000049,
+      "after": 123.86676893000049,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w813671397",
+      "before": 86.08715782000218,
+      "after": 86.08715782000218,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w256806132",
+      "before": 205.12519760999203,
+      "after": 205.12519760999203,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w1331395972",
+      "before": 384.1460264249763,
+      "after": 384.1460264249763,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    },
+    {
+      "source": "w1559923422",
+      "before": 285.50467946501885,
+      "after": 285.50467946501885,
+      "conflict": true,
+      "resolution": "source-footprint-preserved"
+    }
+  ],
+  "buildingsDropped": 0,
+  "buildingsCovered": [
+    {
+      "outline": "r21310465",
+      "part": "w858882317",
+      "type": "government_office",
+      "levels": 7,
+      "name": "",
+      "sign": false
+    },
+    {
+      "outline": "r18184857",
+      "part": "w620563443",
+      "type": "train_station",
+      "levels": 1,
+      "name": "Gara de Nord",
+      "sign": false
+    },
+    {
+      "outline": "r18184858",
+      "part": "w1326314034",
+      "type": "public",
+      "levels": 5,
+      "name": "",
+      "sign": false
+    },
+    {
+      "outline": "r18184858",
+      "part": "w621443822",
+      "type": "public",
+      "levels": 3,
+      "name": "",
+      "sign": false
+    }
+  ],
+  "buildingAssemblies": [
+    {
+      "mode": "parts",
+      "outline": "r21310465",
+      "parts": [
+        "w858882315"
+      ],
+      "residualArea": 0,
+      "residualHeight": 11.6,
+      "residualHeightSource": "adjacent-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "parts",
+      "outline": "r21310465",
+      "parts": [
+        "w858882316"
+      ],
+      "residualArea": 0,
+      "residualHeight": 11.6,
+      "residualHeightSource": "adjacent-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "parts",
+      "outline": "r21310465",
+      "parts": [
+        "w858882314"
+      ],
+      "residualArea": 0,
+      "residualHeight": 11.6,
+      "residualHeightSource": "adjacent-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "r18184857",
+      "parts": [
+        "w620563443"
+      ],
+      "residualArea": 0,
+      "residualHeight": 3,
+      "residualHeightSource": "lowest-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "parts",
+      "outline": "r18184858",
+      "parts": [
+        "w570331926"
+      ],
+      "residualArea": 0,
+      "residualHeight": 8,
+      "residualHeightSource": "adjacent-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w244033697",
+      "parts": [
+        "w1319614200"
+      ],
+      "residualArea": 0,
+      "residualHeight": 14,
+      "residualHeightSource": "parent-height",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w452377551",
+      "parts": [
+        "w1556371735",
+        "w1556371736"
+      ],
+      "residualArea": 0,
+      "residualHeight": 21.6,
+      "residualHeightSource": "lowest-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w452377556",
+      "parts": [
+        "w1217824301",
+        "w1556371738",
+        "w1556371751"
+      ],
+      "residualArea": 0,
+      "residualHeight": 4,
+      "residualHeightSource": "lowest-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w1501541319",
+      "parts": [
+        "w1501541320"
+      ],
+      "residualArea": 0,
+      "residualHeight": 10,
+      "residualHeightSource": "parent-height",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "parts",
+      "outline": "w915636715",
+      "parts": [
+        "w1185313196",
+        "w1185313197",
+        "w1455947200"
+      ],
+      "residualArea": 0.004446432343684137,
+      "residualHeight": 5.8,
+      "residualHeightSource": "adjacent-ground-part",
+      "residualHeights": [
+        5.8
+      ],
+      "cells": 2
+    },
+    {
+      "mode": "parts",
+      "outline": "w1217960368",
+      "parts": [
+        "w1217766912",
+        "w1217960369"
+      ],
+      "residualArea": 0,
+      "residualHeight": 8.7,
+      "residualHeightSource": "adjacent-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "parts",
+      "outline": "w1217960370",
+      "parts": [
+        "w44786439",
+        "w1217960371"
+      ],
+      "residualArea": 0,
+      "residualHeight": 11.6,
+      "residualHeightSource": "adjacent-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "parts",
+      "outline": "w1559344858",
+      "parts": [
+        "w661134294",
+        "w740780913",
+        "w925541090"
+      ],
+      "residualArea": 0,
+      "residualHeight": 64,
+      "residualHeightSource": "adjacent-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w23557062",
+      "parts": [
+        "w1185174945",
+        "w1185174946",
+        "w1185174947",
+        "w1185174948",
+        "w1185174949"
+      ],
+      "residualArea": 0,
+      "residualHeight": 8,
+      "residualHeightSource": "parent-height",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "parts",
+      "outline": "w314067059",
+      "parts": [
+        "w1182682081",
+        "w1182682082",
+        "w1182682083",
+        "w1182764570"
+      ],
+      "residualArea": 0,
+      "residualHeight": 2.5,
+      "residualHeightSource": "adjacent-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w153452101",
+      "parts": [
+        "w1331408022"
+      ],
+      "residualArea": 0,
+      "residualHeight": 10,
+      "residualHeightSource": "parent-height",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w79134335",
+      "parts": [
+        "w621440628"
+      ],
+      "residualArea": 0,
+      "residualHeight": 14,
+      "residualHeightSource": "parent-height",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w243438246",
+      "parts": [
+        "w1558562973",
+        "w1558562975"
+      ],
+      "residualArea": 0,
+      "residualHeight": 14,
+      "residualHeightSource": "parent-height",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w423683661",
+      "parts": [
+        "w1331395972",
+        "w1331395973"
+      ],
+      "residualArea": 0,
+      "residualHeight": 12,
+      "residualHeightSource": "parent-height",
+      "residualHeights": [],
+      "cells": 0
+    },
+    {
+      "mode": "union",
+      "outline": "w1097527674",
+      "parts": [
+        "w1331395961",
+        "w1331395962",
+        "w1331395963",
+        "w1331395964",
+        "w1331395966"
+      ],
+      "residualArea": 0,
+      "residualHeight": 20,
+      "residualHeightSource": "lowest-ground-part",
+      "residualHeights": [],
+      "cells": 0
+    }
+  ],
+  "buildingAssembliesRejected": [],
+  "buildingUnions": [
+    {
+      "source": "r18184857",
+      "neighbours": 5
+    },
+    {
+      "source": "r18184857",
+      "neighbours": 6
+    },
+    {
+      "source": "w244033697",
+      "neighbours": 1
+    },
+    {
+      "source": "w452377551",
+      "neighbours": 2
+    },
+    {
+      "source": "w452377556",
+      "neighbours": 3
+    },
+    {
+      "source": "w858882314",
+      "neighbours": 2
+    },
+    {
+      "source": "w858882315",
+      "neighbours": 2
+    },
+    {
+      "source": "w858882316",
+      "neighbours": 2
+    },
+    {
+      "source": "w858882317",
+      "neighbours": 2
+    },
+    {
+      "source": "w1185313187",
+      "neighbours": 1
+    },
+    {
+      "source": "w1217824301",
+      "neighbours": 1
+    },
+    {
+      "source": "w1319614200",
+      "neighbours": 1
+    },
+    {
+      "source": "w1455947190",
+      "neighbours": 2
+    },
+    {
+      "source": "w1455947193",
+      "neighbours": 3
+    },
+    {
+      "source": "w1455947195",
+      "neighbours": 5
+    },
+    {
+      "source": "w1501541319",
+      "neighbours": 1
+    },
+    {
+      "source": "w1501541320",
+      "neighbours": 1
+    },
+    {
+      "source": "w1556371735",
+      "neighbours": 1
+    },
+    {
+      "source": "w1556371736",
+      "neighbours": 1
+    },
+    {
+      "source": "w1556371738",
+      "neighbours": 1
+    },
+    {
+      "source": "w1556371751",
+      "neighbours": 1
+    },
+    {
+      "source": "w1185313196",
+      "neighbours": 1
+    },
+    {
+      "source": "w1185313197",
+      "neighbours": 1
+    },
+    {
+      "source": "w1185313201",
+      "neighbours": 1
+    },
+    {
+      "source": "w1455947184",
+      "neighbours": 4
+    },
+    {
+      "source": "w1455947185",
+      "neighbours": 2
+    },
+    {
+      "source": "w1455947186",
+      "neighbours": 1
+    },
+    {
+      "source": "w1455947187",
+      "neighbours": 2
+    },
+    {
+      "source": "w1455947188",
+      "neighbours": 2
+    },
+    {
+      "source": "w1455947191",
+      "neighbours": 1
+    },
+    {
+      "source": "w1455947192",
+      "neighbours": 2
+    },
+    {
+      "source": "w1455947194",
+      "neighbours": 2
+    },
+    {
+      "source": "w1455947196",
+      "neighbours": 2
+    },
+    {
+      "source": "w1455947197",
+      "neighbours": 1
+    },
+    {
+      "source": "w1455947198",
+      "neighbours": 1
+    },
+    {
+      "source": "w1455947199",
+      "neighbours": 1
+    },
+    {
+      "source": "w1455947200",
+      "neighbours": 4
+    },
+    {
+      "source": "w1455947201",
+      "neighbours": 5
+    },
+    {
+      "source": "w1455947202",
+      "neighbours": 8
+    },
+    {
+      "source": "w28240552",
+      "neighbours": 2
+    },
+    {
+      "source": "w44786439",
+      "neighbours": 4
+    },
+    {
+      "source": "w661134294",
+      "neighbours": 1
+    },
+    {
+      "source": "w711868355",
+      "neighbours": 2
+    },
+    {
+      "source": "w740780913",
+      "neighbours": 2
+    },
+    {
+      "source": "w925541090",
+      "neighbours": 3
+    },
+    {
+      "source": "w1217713450",
+      "neighbours": 3
+    },
+    {
+      "source": "w1217713451",
+      "neighbours": 2
+    },
+    {
+      "source": "w1217715300",
+      "neighbours": 1
+    },
+    {
+      "source": "w1217766912",
+      "neighbours": 2
+    },
+    {
+      "source": "w1217766913",
+      "neighbours": 2
+    },
+    {
+      "source": "w1217960369",
+      "neighbours": 2
+    },
+    {
+      "source": "w1217960371",
+      "neighbours": 1
+    },
+    {
+      "source": "w1217990192",
+      "neighbours": 2
+    },
+    {
+      "source": "w1559344855",
+      "neighbours": 2
+    },
+    {
+      "source": "w23557062",
+      "neighbours": 5
+    },
+    {
+      "source": "w1182682080",
+      "neighbours": 2
+    },
+    {
+      "source": "w1182682081",
+      "neighbours": 4
+    },
+    {
+      "source": "w1182682082",
+      "neighbours": 3
+    },
+    {
+      "source": "w1182682083",
+      "neighbours": 2
+    },
+    {
+      "source": "w1182764570",
+      "neighbours": 1
+    },
+    {
+      "source": "w1185174945",
+      "neighbours": 2
+    },
+    {
+      "source": "w1185174946",
+      "neighbours": 2
+    },
+    {
+      "source": "w153452101",
+      "neighbours": 1
+    },
+    {
+      "source": "w1331408022",
+      "neighbours": 1
+    },
+    {
+      "source": "w79134335",
+      "neighbours": 1
+    },
+    {
+      "source": "w243438246",
+      "neighbours": 3
+    },
+    {
+      "source": "w423683661",
+      "neighbours": 2
+    },
+    {
+      "source": "w529355541",
+      "neighbours": 1
+    },
+    {
+      "source": "w570330518",
+      "neighbours": 6
+    },
+    {
+      "source": "w570331926",
+      "neighbours": 1
+    },
+    {
+      "source": "w620563443",
+      "neighbours": 2
+    },
+    {
+      "source": "w620595692",
+      "neighbours": 4
+    },
+    {
+      "source": "w620596471",
+      "neighbours": 5
+    },
+    {
+      "source": "w620638546",
+      "neighbours": 3
+    },
+    {
+      "source": "w621440628",
+      "neighbours": 1
+    },
+    {
+      "source": "w621443822",
+      "neighbours": 2
+    },
+    {
+      "source": "w1097527674",
+      "neighbours": 7
+    },
+    {
+      "source": "w1185174947",
+      "neighbours": 1
+    },
+    {
+      "source": "w1185174948",
+      "neighbours": 2
+    },
+    {
+      "source": "w1185174949",
+      "neighbours": 2
+    },
+    {
+      "source": "w1326314034",
+      "neighbours": 4
+    },
+    {
+      "source": "w1331395960",
+      "neighbours": 3
+    },
+    {
+      "source": "w1331395961",
+      "neighbours": 1
+    },
+    {
+      "source": "w1331395962",
+      "neighbours": 4
+    },
+    {
+      "source": "w1331395963",
+      "neighbours": 3
+    },
+    {
+      "source": "w1331395964",
+      "neighbours": 5
+    },
+    {
+      "source": "w1331395965",
+      "neighbours": 1
+    },
+    {
+      "source": "w1331395966",
+      "neighbours": 2
+    },
+    {
+      "source": "w1331395972",
+      "neighbours": 2
+    },
+    {
+      "source": "w1331395973",
+      "neighbours": 2
+    },
+    {
+      "source": "w1558562973",
+      "neighbours": 1
+    },
+    {
+      "source": "w1558562974",
+      "neighbours": 2
+    },
+    {
+      "source": "w1558562975",
+      "neighbours": 2
+    },
+    {
+      "source": "w1558562976",
+      "neighbours": 1
+    },
+    {
+      "source": "w915636715",
+      "neighbours": 2
+    },
+    {
+      "source": "w915636715",
+      "neighbours": 2
+    }
+  ],
+  "buildingUnionsRejected": [],
+  "landmarkSourceReplacements": [
+    {
+      "landmark": "cathedral",
+      "declared": [
+        "w1282739666",
+        "w1282739667",
+        "w1282747245",
+        "w1282747246",
+        "w1282747247",
+        "w1282747248",
+        "w1282747249",
+        "w1282747250",
+        "w1282747251",
+        "w1282747252",
+        "w1282747253",
+        "w1282747254",
+        "w1283287480",
+        "w1283287481",
+        "w1283287482",
+        "w1283287483",
+        "w1283287484",
+        "w1283287485",
+        "w1283287486",
+        "w1283287487",
+        "w1283287488",
+        "w1283287489",
+        "w232332568"
+      ],
+      "replaced": [],
+      "unmatched": [
+        "w1282739666",
+        "w1282739667",
+        "w1282747245",
+        "w1282747246",
+        "w1282747247",
+        "w1282747248",
+        "w1282747249",
+        "w1282747250",
+        "w1282747251",
+        "w1282747252",
+        "w1282747253",
+        "w1282747254",
+        "w1283287480",
+        "w1283287481",
+        "w1283287482",
+        "w1283287483",
+        "w1283287484",
+        "w1283287485",
+        "w1283287486",
+        "w1283287487",
+        "w1283287488",
+        "w1283287489",
+        "w232332568"
+      ]
+    },
+    {
+      "landmark": "politehnica",
+      "declared": [
+        "w28240552",
+        "w1217715300"
+      ],
+      "replaced": [
+        "w28240552",
+        "w1217715300"
+      ],
+      "unmatched": []
+    }
+  ],
+  "landmarkBoxesTrimmed": 1,
+  "landmarkBoxesDropped": 0,
+  "lampsMovedToKerb": 0,
+  "lampsInWater": 0,
+  "shoreTris": 67162,
+  "vacantUnits": 1,
+  "channelM": 28653,
+  "unitSigns": 18,
+  "unitSignSpots": [
+    [
+      52,
+      -385,
+      3
+    ],
+    [
+      42,
+      -418,
+      3
+    ],
+    [
+      -709,
+      297,
+      3
+    ],
+    [
+      30,
+      -289,
+      3
+    ],
+    [
+      -83,
+      -32,
+      3
+    ],
+    [
+      33,
+      -308,
+      3
+    ],
+    [
+      97,
+      -392,
+      3
+    ],
+    [
+      229,
+      -319,
+      3
+    ],
+    [
+      233,
+      -332,
+      3
+    ],
+    [
+      238,
+      -295,
+      3
+    ],
+    [
+      231,
+      -324,
+      3
+    ],
+    [
+      236,
+      -346,
+      3
+    ],
+    [
+      238,
+      -354,
+      3
+    ],
+    [
+      63,
+      -440,
+      3
+    ],
+    [
+      5,
+      -465,
+      3
+    ],
+    [
+      19,
+      -585,
+      3
+    ],
+    [
+      226,
+      -760,
+      3
+    ],
+    [
+      216,
+      -757,
+      3
+    ]
+  ],
+  "crossings": 80,
+  "corridorKm2": 0.56,
+  "nodes": 768,
+  "buildings": 2403,
+  "pois": 74,
+  "trees": 17008,
+  "parked": 665,
+  "lights": 16,
+  "lamps": 133,
+  "osmLamps": 0,
+  "cells": 350,
+  "triangles": 3051270,
+  "meshes": 528,
+  "signPages": 1,
+  "buildMs": 17337,
+  "scenerySource": {
+    "precisePieces": 944,
+    "literalWidthPieces": 1,
+    "reviewedWidthPieces": 0,
+    "estimatedWidthPieces": 943,
+    "fallbackPieces": 0,
+    "resolvedWidths": [
+      {
+        "piece": 452,
+        "sourceId": "w23608760",
+        "widthM": 10,
+        "leftM": 5,
+        "rightM": 5,
+        "widthSource": "OSM width",
+        "rawWidth": "10"
+      }
+    ],
+    "issues": [],
+    "bridges": {
+      "policy": "MODEL estimate: exact source connectivity; final core ties; 5.2m road clearance, 0.4m slab, 8% approaches / 2.8% decks; river/rail-only bridges at grade",
+      "bridgePieces": 21,
+      "approachPieces": 9,
+      "coreTies": 358,
+      "crossings": 16,
+      "unresolved": [],
+      "pieces": [
+        {
+          "piece": 269,
+          "sourceId": "w32070436",
+          "bridge": false,
+          "minDisplacementM": 1.8734798084140727,
+          "maxDisplacementM": 5.332140950579351,
+          "coreTies": 3,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 6,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 306,
+          "sourceId": "w314448326",
+          "bridge": true,
+          "minDisplacementM": 5.332140950579351,
+          "maxDisplacementM": 5.5,
+          "coreTies": 2,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 9,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 307,
+          "sourceId": "w314448375",
+          "bridge": false,
+          "minDisplacementM": 4.118354670423637,
+          "maxDisplacementM": 5.5,
+          "coreTies": 2,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 2,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 314,
+          "sourceId": "w458458362",
+          "bridge": true,
+          "minDisplacementM": 5.5,
+          "maxDisplacementM": 5.5,
+          "coreTies": 3,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 4,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 566,
+          "sourceId": "w4902882",
+          "bridge": true,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 4.039186126625442,
+          "coreTies": 0,
+          "renderedSegments": 28,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 567,
+          "sourceId": "w4902884",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 2.5394643063253457,
+          "coreTies": 0,
+          "renderedSegments": 8,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 568,
+          "sourceId": "w4902932",
+          "bridge": true,
+          "minDisplacementM": 5.168578258305246,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 5,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 603,
+          "sourceId": "w178029195",
+          "bridge": true,
+          "minDisplacementM": 5.168578258305246,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 6,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 605,
+          "sourceId": "w178029200",
+          "bridge": true,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 0,
+          "coreTies": 0,
+          "renderedSegments": 12,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 613,
+          "sourceId": "w205951224",
+          "bridge": true,
+          "minDisplacementM": 2.5394643063253457,
+          "maxDisplacementM": 5.168578258305246,
+          "coreTies": 0,
+          "renderedSegments": 12,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 614,
+          "sourceId": "w205951233",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 2.5394643063253457,
+          "coreTies": 0,
+          "renderedSegments": 11,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 697,
+          "sourceId": "w23770172",
+          "bridge": true,
+          "minDisplacementM": 11,
+          "maxDisplacementM": 11,
+          "coreTies": 19,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 63,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 706,
+          "sourceId": "w118284444",
+          "bridge": true,
+          "minDisplacementM": 11,
+          "maxDisplacementM": 11,
+          "coreTies": 20,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 56,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 726,
+          "sourceId": "w205952829",
+          "bridge": true,
+          "minDisplacementM": 4.215672052408293,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 8,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 727,
+          "sourceId": "w205952831",
+          "bridge": true,
+          "minDisplacementM": 3.5644024767408067,
+          "maxDisplacementM": 4.215672052408293,
+          "coreTies": 0,
+          "renderedSegments": 6,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 728,
+          "sourceId": "w205952833",
+          "bridge": true,
+          "minDisplacementM": 2.230502540286888,
+          "maxDisplacementM": 4.215672052408293,
+          "coreTies": 0,
+          "renderedSegments": 8,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 729,
+          "sourceId": "w205952834",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 2.230502540286888,
+          "coreTies": 0,
+          "renderedSegments": 10,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 730,
+          "sourceId": "w205952836",
+          "bridge": false,
+          "minDisplacementM": 0,
+          "maxDisplacementM": 2.230502540286888,
+          "coreTies": 0,
+          "renderedSegments": 8,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 741,
+          "sourceId": "w205971101",
+          "bridge": false,
+          "minDisplacementM": 7.2956813537811085,
+          "maxDisplacementM": 11,
+          "coreTies": 4,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 6,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 759,
+          "sourceId": "w227396976",
+          "bridge": false,
+          "minDisplacementM": 8.113726207991823,
+          "maxDisplacementM": 11,
+          "coreTies": 2,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 4,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 788,
+          "sourceId": "w295756128",
+          "bridge": true,
+          "minDisplacementM": 11,
+          "maxDisplacementM": 11,
+          "coreTies": 11,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 54,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 845,
+          "sourceId": "w668700424",
+          "bridge": false,
+          "minDisplacementM": 9.031939262024322,
+          "maxDisplacementM": 11,
+          "coreTies": 3,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 3,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 846,
+          "sourceId": "w668700428",
+          "bridge": true,
+          "minDisplacementM": 11,
+          "maxDisplacementM": 11,
+          "coreTies": 2,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 3,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 847,
+          "sourceId": "w668700429",
+          "bridge": true,
+          "minDisplacementM": 11,
+          "maxDisplacementM": 11,
+          "coreTies": 2,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 2,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 848,
+          "sourceId": "w668700430",
+          "bridge": true,
+          "minDisplacementM": 11,
+          "maxDisplacementM": 11,
+          "coreTies": 2,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 2,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 849,
+          "sourceId": "w668700431",
+          "bridge": true,
+          "minDisplacementM": 11,
+          "maxDisplacementM": 11,
+          "coreTies": 6,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 41,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 850,
+          "sourceId": "w668700433",
+          "bridge": true,
+          "minDisplacementM": 11,
+          "maxDisplacementM": 11,
+          "coreTies": 16,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 61,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 906,
+          "sourceId": "w1552024282",
+          "bridge": true,
+          "minDisplacementM": 11,
+          "maxDisplacementM": 11,
+          "coreTies": 5,
+          "renderedSegments": 0,
+          "alreadyRenderedCoreSegments": 38,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 942,
+          "sourceId": "w723136626",
+          "bridge": true,
+          "minDisplacementM": 2.797266463855036,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 36,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        },
+        {
+          "piece": 943,
+          "sourceId": "w723136627",
+          "bridge": true,
+          "minDisplacementM": 4.039186126625442,
+          "maxDisplacementM": 5.6000000000000005,
+          "coreTies": 0,
+          "renderedSegments": 6,
+          "alreadyRenderedCoreSegments": 0,
+          "elevationSource": "MODEL estimate; source topology and final exact core ties"
+        }
+      ],
+      "continuations": [],
+      "ordering": {
+        "converged": true,
+        "iterations": 1,
+        "policy": "Crossing clearance uses the solved actual lower source profile; source layers provide ordering only, never metres. Nonconvergence retains the first constrained profile and open targets."
+      }
+    }
+  },
+  "waterShore": [
+    {
+      "mesh": "water 0,0",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "w277289890",
+        "w277289891",
+        "w277289892",
+        "w472490197",
+        "w1185313200",
+        "w1454825558",
+        "w174991904",
+        "w170930341",
+        "w277289893",
+        "w277289896",
+        "w277295265",
+        "w678275985",
+        "w133955992",
+        "w188259407",
+        "w12507317",
+        "w983903953",
+        "w117140697"
+      ],
+      "sourceSegments": 1240,
+      "vertices": 4554,
+      "faces": 1518,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water -1,0",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "w277289890",
+        "w277289891",
+        "w277289892",
+        "w472490197",
+        "w1185313200",
+        "w1454825558",
+        "w174991904",
+        "w170930341",
+        "w277289893",
+        "w277289896",
+        "w277295265",
+        "w678275985",
+        "w133955992",
+        "w188259407",
+        "w12507317",
+        "w983903953",
+        "w117140697"
+      ],
+      "sourceSegments": 1240,
+      "vertices": 10620,
+      "faces": 3540,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water -2,-1",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "w277289890",
+        "w277289891",
+        "w277289892",
+        "w472490197",
+        "w1185313200",
+        "w1454825558",
+        "w174991904",
+        "w170930341",
+        "w277289893",
+        "w277289896",
+        "w277295265",
+        "w678275985",
+        "w133955992",
+        "w188259407",
+        "w12507317",
+        "w983903953",
+        "w117140697"
+      ],
+      "sourceSegments": 1240,
+      "vertices": 162,
+      "faces": 54,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water 1,0",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "w277289890",
+        "w277289891",
+        "w277289892",
+        "w472490197",
+        "w1185313200",
+        "w1454825558",
+        "w174991904",
+        "w170930341",
+        "w277289893",
+        "w277289896",
+        "w277295265",
+        "w678275985",
+        "w133955992",
+        "w188259407",
+        "w12507317",
+        "w983903953",
+        "w117140697"
+      ],
+      "sourceSegments": 1240,
+      "vertices": 6144,
+      "faces": 2048,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 0,
+      "coarseFoamOmittedFaceRanges": [],
+      "fallbackBySource": {},
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    },
+    {
+      "mesh": "water-big",
+      "method": "bounded distance to exact prepared source outer and inner shoreline rings",
+      "sourceIds": [
+        "r1130828",
+        "w277289890",
+        "w277289891",
+        "w277289892",
+        "w472490197",
+        "w1185313200",
+        "w1454825558",
+        "w174991904",
+        "w170930341",
+        "w277289893",
+        "w277289896",
+        "w277295265",
+        "w678275985",
+        "w133955992",
+        "w188259407",
+        "w12507317",
+        "w983903953",
+        "w117140697"
+      ],
+      "sourceSegments": 1240,
+      "vertices": 180006,
+      "faces": 60002,
+      "maxDistanceM": 30,
+      "coarseFoamOmittedFaces": 897,
+      "coarseFoamOmittedFaceRanges": [
+        [
+          58895,
+          65
+        ],
+        [
+          58961,
+          2
+        ],
+        [
+          58964,
+          4
+        ],
+        [
+          58969,
+          2
+        ],
+        [
+          58973,
+          1
+        ],
+        [
+          58977,
+          2
+        ],
+        [
+          58981,
+          1
+        ],
+        [
+          58989,
+          2
+        ],
+        [
+          58993,
+          4
+        ],
+        [
+          58998,
+          1
+        ],
+        [
+          59000,
+          6
+        ],
+        [
+          59015,
+          149
+        ],
+        [
+          59165,
+          20
+        ],
+        [
+          59187,
+          1
+        ],
+        [
+          59189,
+          6
+        ],
+        [
+          59196,
+          3
+        ],
+        [
+          59200,
+          4
+        ],
+        [
+          59211,
+          3
+        ],
+        [
+          59215,
+          2
+        ],
+        [
+          59224,
+          5
+        ],
+        [
+          59230,
+          2
+        ],
+        [
+          59233,
+          1
+        ],
+        [
+          59235,
+          3
+        ],
+        [
+          59239,
+          1
+        ],
+        [
+          59244,
+          5
+        ],
+        [
+          59250,
+          1
+        ],
+        [
+          59256,
+          2
+        ],
+        [
+          59260,
+          2
+        ],
+        [
+          59266,
+          1
+        ],
+        [
+          59270,
+          1
+        ],
+        [
+          59273,
+          100
+        ],
+        [
+          59374,
+          1
+        ],
+        [
+          59376,
+          18
+        ],
+        [
+          59395,
+          11
+        ],
+        [
+          59411,
+          2
+        ],
+        [
+          59414,
+          2
+        ],
+        [
+          59418,
+          1
+        ],
+        [
+          59420,
+          4
+        ],
+        [
+          59425,
+          4
+        ],
+        [
+          59431,
+          2
+        ],
+        [
+          59435,
+          2
+        ],
+        [
+          59438,
+          1
+        ],
+        [
+          59441,
+          2
+        ],
+        [
+          59444,
+          1
+        ],
+        [
+          59448,
+          4
+        ],
+        [
+          59456,
+          2
+        ],
+        [
+          59460,
+          2
+        ],
+        [
+          59463,
+          27
+        ],
+        [
+          59491,
+          7
+        ],
+        [
+          59500,
+          1
+        ],
+        [
+          59508,
+          2
+        ],
+        [
+          59511,
+          1
+        ],
+        [
+          59514,
+          40
+        ],
+        [
+          59555,
+          10
+        ],
+        [
+          59566,
+          2
+        ],
+        [
+          59569,
+          14
+        ],
+        [
+          59584,
+          4
+        ],
+        [
+          59590,
+          1
+        ],
+        [
+          59597,
+          5
+        ],
+        [
+          59607,
+          1
+        ],
+        [
+          59611,
+          3
+        ],
+        [
+          59615,
+          1
+        ],
+        [
+          59617,
+          181
+        ],
+        [
+          59799,
+          24
+        ],
+        [
+          59824,
+          15
+        ],
+        [
+          59840,
+          11
+        ],
+        [
+          59852,
+          3
+        ],
+        [
+          59856,
+          19
+        ],
+        [
+          59876,
+          12
+        ],
+        [
+          59890,
+          1
+        ],
+        [
+          59892,
+          1
+        ],
+        [
+          59895,
+          4
+        ],
+        [
+          59907,
+          1
+        ],
+        [
+          59915,
+          2
+        ],
+        [
+          59922,
+          5
+        ],
+        [
+          59928,
+          1
+        ],
+        [
+          59931,
+          3
+        ],
+        [
+          59941,
+          2
+        ],
+        [
+          59946,
+          4
+        ],
+        [
+          59951,
+          2
+        ],
+        [
+          59954,
+          1
+        ],
+        [
+          59956,
+          1
+        ],
+        [
+          59962,
+          1
+        ],
+        [
+          59964,
+          1
+        ],
+        [
+          59966,
+          2
+        ],
+        [
+          59970,
+          1
+        ],
+        [
+          59972,
+          1
+        ],
+        [
+          59975,
+          5
+        ],
+        [
+          59982,
+          2
+        ],
+        [
+          59986,
+          1
+        ],
+        [
+          59989,
+          4
+        ],
+        [
+          59995,
+          4
+        ],
+        [
+          60000,
+          2
+        ]
+      ],
+      "fallbackBySource": {
+        "w117140697": 91,
+        "w983903953": 211,
+        "w12507317": 159,
+        "w170930341": 38,
+        "w174991904": 83,
+        "r1130828": 315
+      },
+      "indexedUnreliableFaces": 0,
+      "sourceIssues": [],
+      "fallback": "Only coarse faces whose source centroid is interior but whose shoreline-only samples would interpolate false foam omit inferred foam. True vertex shore distances remain exact; other faces retain foam."
+    }
+  ],
+  "waterChannels": [
+    {
+      "sourceId": "r1130828",
+      "name": "Lacul Herăstrău",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w277289890",
+      "name": "Bazin apa Cotroceni",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w277289891",
+      "name": "Bazin apa Cotroceni",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w277289892",
+      "name": "Bazin apa Cotroceni",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w472490197",
+      "name": "",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w1185313200",
+      "name": "",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w1454825558",
+      "name": "",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w174991904",
+      "name": "",
+      "channel": true,
+      "source": "legacy unnamed shape estimate; no absolute source water height",
+      "surfaceM": -4.4,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w170930341",
+      "name": "Dâmbovița",
+      "channel": true,
+      "source": "explicit mapped Dâmbovița name; vertical profile remains a model estimate",
+      "surfaceM": -4.4,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w277289893",
+      "name": "Bazin apa Cotroceni",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w277289896",
+      "name": "Bazin apa Cotroceni",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w277295265",
+      "name": "Bazin apa Cotroceni",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w678275985",
+      "name": "Bazin apa Cotroceni",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w133955992",
+      "name": "",
+      "channel": true,
+      "source": "legacy unnamed shape estimate; no absolute source water height",
+      "surfaceM": -4.4,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w188259407",
+      "name": "",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w12507317",
+      "name": "Lacul Morii",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w983903953",
+      "name": "Lacul Floreasca",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    },
+    {
+      "sourceId": "w117140697",
+      "name": "Lacul Tei",
+      "channel": false,
+      "source": "standard flat-water model estimate",
+      "surfaceM": 0.11,
+      "surfaceSource": "model estimate"
+    }
+  ],
+  "waterLines": [
+    {
+      "lineIndex": 0,
+      "sourceId": "prepared-line:0",
+      "kind": "river",
+      "preparedWidthM": 30,
+      "widthSource": "legacy prepared width; raw provenance unavailable",
+      "sourceLengthM": 3517.9976405517223,
+      "coveredByMappedWaterM": 3233.284643167763,
+      "renderedFallbackM": 284.7129973839592,
+      "unresolvedBoundaryM": 0,
+      "mappedSources": [
+        "w12507317",
+        "w170930341"
+      ]
+    }
+  ]
+}

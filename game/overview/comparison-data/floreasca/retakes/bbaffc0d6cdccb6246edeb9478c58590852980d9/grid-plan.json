@@ -1,0 +1,41 @@
+{
+  "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+  "city": "bucharest",
+  "district": "floreasca",
+  "grid": {
+    "x0": -1000,
+    "z0": -1250,
+    "columns": 8,
+    "rows": 13,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 14,
+    "core-touches": 5,
+    "outside-ring": 2
+  },
+  "locations": [
+    {
+      "id": "rosetti-start",
+      "label": "rosetti chapter start",
+      "kind": "chapter-start",
+      "lat": 44.4556,
+      "lon": 26.10071,
+      "tileId": "aerial-r09-c04"
+    },
+    {
+      "id": "dinamo",
+      "label": "Stadionul Dinamo",
+      "kind": "landmark",
+      "lat": 44.4551306,
+      "lon": 26.1023192,
+      "source": "Actual immutable landmark source anchor; not a radius-based replacement.",
+      "tileId": "aerial-r10-c04"
+    }
+  ],
+  "coverage": "Targeted unchanged-ground-pose subset for removed overlapping estimated water ribbons and exact Dinamo paint footprint. Full original atlas is retained separately; this is capture scope, not a fidelity score.",
+  "sourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 25,
+    "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 65
+  }
+}

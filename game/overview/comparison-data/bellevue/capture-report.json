@@ -1,0 +1,109 @@
+{
+  "type": "mixed-source-atlas",
+  "source": null,
+  "frameCounts": 82,
+  "sourceSnapshots": [
+    {
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "treeSha256": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+      "manifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "manifestSha256": "350f0e645203323bc4c5a3258612774a2ba53d302bf5d94bdb42174a29eeceb3",
+      "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
+      "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
+      "frames": 5
+    }
+  ],
+  "sourceCaptureManifests": [
+    {
+      "path": "historical/c78a5f4/capture-manifest.json",
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "frames": 78
+    },
+    {
+      "path": "retakes/338300a9/manifest.json",
+      "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
+      "sha256": "a2036091fa5b218f7a4d562120b5329e6904de3fee658d9442e20c8922108eed",
+      "frames": 4
+    },
+    {
+      "path": "historical/full-before-07cc3d6b-ff026d44/manifest.json",
+      "sha256": "ff026d4487d7cc831cb8b8a8b4b5980e30acf83fba4f1e4f4131155548299b3b",
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 78,
+        "338300a95a79a2cabf3d7256ff745c6a1bac0372": 4
+      },
+      "frames": 82,
+      "note": "Previous complete current manifest with actual per-frame source dates; its original raw capture ledger is also archived."
+    },
+    {
+      "path": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "sha256": "350f0e645203323bc4c5a3258612774a2ba53d302bf5d94bdb42174a29eeceb3",
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "frames": 5
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "mirror": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "latestRetakeCapture": {
+    "startedAt": "2026-11-09T02:03:19.851Z",
+    "endedAt": "2026-11-09T02:03:49.037Z",
+    "elapsedSeconds": 29.186,
+    "source": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+    "captureToolSha256": "82a44ab184afd4f5d9c032642d3d513a594993c3c7301af8029c6976dd26458b",
+    "sourceDatasetSha256": "60506e422b1a0c8edbccc5fbbb7800015bd39e7f8c3767d49d262e4c9c2c6e38",
+    "loaded": {
+      "key": "seattle-bellevue",
+      "city": "seattle",
+      "district": "bellevue",
+      "ms": 9118,
+      "edges": 917,
+      "ribbons": 1131
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+    "frameCounts": 5,
+    "coverageClaim": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim.",
+    "scopeCounts": {
+      "core-touches": 5
+    },
+    "validation": {
+      "framesVerified": 5,
+      "sourceFilesVerified": 9318,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "failedRequests": 0,
+      "failures": []
+    },
+    "perfMaxima": {
+      "triangles": 337511,
+      "drawCalls": 100,
+      "note": "World-only high-quality top-down captures, moving traffic hidden, mirror excluded. Separate maxima need not occur in one frame; not a driving frame-budget acceptance test."
+    }
+  },
+  "note": "Current per-frame source/date is authoritative; prior and fresh raw capture reports remain separate. Technical aerials remove fog/extend depth; native perspective/controller acceptance is separate.",
+  "perfMaxima": {
+    "triangles": 349724,
+    "drawCalls": 105,
+    "note": "Separate static no-traffic/no-mirror atlas maxima, not hardware FPS or native driving-budget acceptance."
+  },
+  "validation": {
+    "framesVerified": 82,
+    "failures": [],
+    "mixedSourceProvenancePreserved": true
+  }
+}

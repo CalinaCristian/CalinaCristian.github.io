@@ -1,0 +1,27 @@
+(node:572661) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/arcul-race/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/arcul-race/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ mapped course and circular road retain their literal points/directions (29.663916ms)
+✔ literal27 source masses retain every polygon and tagged vertical interval (14.117928ms)
+✔ public-foot exceptions require both literal permissions and never open motor roads (84.780196ms)
+✔ real emitted monument has its .01m public floor, not a1.3m passage plinth (80.670167ms)
+✔ flagpole source31/27 heights retain its geographic point and leave the public floor clear (25.387767ms)
+✔ whole readable game plaques clear every course leg, preserving all5posts (6.690648ms)
+✔ entire source course clears native27-part body collision and actual carriageways (57.354257ms)
+✔ continuous fast running beats two actually progressing opponents (9.853757ms)
+✔ walking slowly loses to the opponents rather than receiving a timed award (15.665857ms)
+✔ idle cannot win and actual blocker admission prevents ghost rival progress (1.608909ms)
+✔ teleport/checkpoint shortcut and cancellation do not win (2.58376ms)
+✔ start requires the real start area and leaving the course fails (3.996341ms)
+✔ baguette requires three timed catches and completed visible catch animations (1.218559ms)
+✔ early/late misses reset the streak and recovery needs another deliberate input (0.272587ms)
+✔ cancelling after third catch before its animation ends never completes (0.407976ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1524.413864

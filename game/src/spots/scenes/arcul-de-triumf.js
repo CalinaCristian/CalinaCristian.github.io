@@ -1,12 +1,13 @@
 // Arcul de Triumf: literal source roads/paved walks and the low public passage.
 // Races, blue course markers and the baguette are explicitly authored game play.
 import { photoHunt } from '../photo-hunt.js';
-import { GeoBatch, offsetPolyline } from '../kit.js';
-import { bucBackdrop, placeLandmark, flagpole } from '../buc.js';
+import { GeoBatch, offsetPolyline, inPoly } from '../kit.js';
+import { bucBackdrop, placeLandmark } from '../buc.js';
 import { roadWidth } from '../osm.js';
 import { addTraffic } from '../cars.js';
 import { ARC_SOURCE_PARTS } from '../../landmark-arcul-source.js';
-import { arcRaceCourse, arcRoundabout, arcActiveCarriageway } from './arcul-layout.js';
+import { collideBuildings } from '../../world.js';
+import { arcRaceCourse, arcRoundabout, arcActiveCarriageway, arcPlaquePlacements } from './arcul-layout.js';
 import { createArcActivities } from './arcul-activities.js';
 
 const INSCRIPTIONS = [
@@ -45,8 +46,9 @@ export default {
         ctx.trees=ctx.trees.filter(t=>sourceTrees.has(Math.round(t.x*10)+','+Math.round(t.z*10))||(!onRoad(t.x,t.z,.2)&&Math.hypot(t.x-AR.x,t.z-AR.z)>27));
         const edge=new GeoBatch();for(let i=1;i<island.length;i++)edge.rod([island[i-1][0],floor+.07,island[i-1][1]],[island[i][0],floor+.07,island[i][1]],.08,'#bbb7ad','stone',4);
         ctx.add(edge.build('source-roundabout-inner-kerb'));
-        const fp=d.furniture.flagpole?.[0];let flag=null;
-        if(fp){flag=flagpole(fp[0],g.heightAt(fp[0],fp[1]),fp[1],14,'ro',{yaw:Math.PI*.8});ctx.add(flag.group);ctx.circle(fp[0],fp[1],.2,14);}
+        // The mapped mast belongs to the monument roof: literal source node
+        //11056553808 has min_height27/height31. The hero owns that same record;
+        // no second14m pole or collider is invented on the public ground.
         const way=id=>d.ways.find(w=>w.id===id)?.pts||[];
         // Same28 ambient cars, source-legal directions. The old reverse copy
         // of one-way Kiseleff is replaced by another lane on the actual way.
@@ -56,8 +58,9 @@ export default {
         const credits=[null,null,'Architect Petre Antonescu; sculptors Ion Jalea, Constantin Baraschi, Mac Constantinescu, Dimitrie Paciurea (1935–36).','Medallions of King Ferdinand and Queen Maria restored after 1989.',null];
         // Game interpretation plaques sit beside the mapped walks, outside the
         // actual race centreline and carriageway; they claim no surveyed signs.
-        sp.plaques.forEach((pl,i)=>{const at=course.at(22+i*28),dx=at.x-AR.x,dz=at.z-AR.z,L=Math.hypot(dx,dz)||1,x=at.x+dx/L*1.2,z=at.z+dz/L*1.2;
-            ctx.plaque(pl,x,z,Math.atan2(AR.x-x,AR.z-z)+Math.PI,{style:'bronze',credit:credits[i],y:floor});});
+        const plaqueSites=arcPlaquePlacements(course,AR,sp.plaques.length,{inside:(x,z)=>inPoly(x,z,island),activeRoad:onRoad,
+            blocked:(x,z,r)=>!!collideBuildings(ctx.colliders,x,z,r,floor+.2)});
+        sp.plaques.forEach((pl,i)=>{const p=plaqueSites[i];ctx.plaque(pl,p.x,p.z,p.yaw,{style:'bronze',credit:credits[i],y:floor});});
         const c=Math.cos(AR.lm.rotation),sn=Math.sin(AR.lm.rotation),local=(u,v)=>({x:AR.x+u*c+v*sn,z:AR.z-u*sn+v*c});
         const faces={south:local(0,-6.2),north:local(0,6.2),east:local(15.8,0),west:local(-15.8,0)},read=new Set();
         for(const ins of INSCRIPTIONS){const p=faces[ins.face];ctx.interactables.push({...p,y:floor,r:2.3,label:`Read the inscription (${ins.face} face)`,use:s=>{read.add(ins.face);s.ui.toast(ins.ro,`${ins.en} (${read.size}/4 faces read)`);}});}
@@ -69,7 +72,7 @@ export default {
         // Actual north-apron path arrival. Both activities are reachable without
         // crossing the roundabout. The optional pitch is a normal entry pose.
         const start=course.at(course.length-1.2),dx=AR.x-start.x,dz=AR.z-start.z;
-        ctx.spawns['arcul-de-triumf']={x:start.x,z:start.z,heading:Math.atan2(-dx,-dz),pitch:.35};
+        ctx.spawns['arcul-de-triumf']={x:start.x,z:start.z,heading:Math.atan2(-dx,-dz),pitch:.5};
         const photo=way('w1571030032')[0];
         if(photo){const bearing=(Math.atan2(AR.x-photo[0],photo[1]-AR.z)*180/Math.PI+360)%360;ctx.challenge('arcul-de-triumf',{view:[AR.x,AR.z],x:photo[0],z:photo[1],heading:bearing,pitch:11,r:8,tol:20});}
         ctx.crowdCfg={personas:{local_young:3,local_elder:1.5,tourist_de:1.5,tourist_it:1.5,kid:.6,local_parent:1},walkers:26,paths:ctx.footLines(),groups:[
@@ -77,9 +80,8 @@ export default {
             {x:-45,z:-121,r:1,n:3,act:'photo',look:[AR.x,AR.z],personas:['tourist_it','tourist_de']},
             {x:AR.x+6,z:AR.z-8,r:.2,n:1,act:'watch',look:[AR.x,AR.z],personas:['guard']}]};
         ctx.extras.arcSource={courseSources:course.sourceWays,courseLengthM:course.length,publicApronConnectors:course.publicApronConnectors,
-            circularSourceWays:roundabout.sourceWays,sourceParts:ARC_SOURCE_PARTS.map(p=>p.id),sourceTrees:d.trees.length,
+            circularSourceWays:roundabout.sourceWays,sourceParts:ARC_SOURCE_PARTS.map(p=>p.id),sourceTrees:d.trees.length,plaqueSites,
             sourcePathNote:'Short transverse game-course connectors cross clear public apron; no new OSM way or paving footprint is added.'};
         ctx.sound('traffic',AR.x,AR.z,120,1.2);ctx.sound('wind',AR.x,AR.z,60,.4);ctx.sound('birds',60,-160,90,.5);
-        if(flag)ctx.onUpdate((dt,s)=>flag.update(s.t,s.r3d.weather?.windKmh??12));
     },
 };

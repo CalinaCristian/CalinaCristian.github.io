@@ -1,0 +1,34 @@
+{
+  "sourceCommit": "0a4cce8e745cf6e8f3f5cec14ab39c48196f37fc",
+  "scope": "Finished first-public-load probe;16realstatic course failures retained. NOT a course/gameplay success.",
+  "files": {
+    "native-entry-0.png": {
+      "bytes": 1087154,
+      "sha256": "e6325ac4507ec9a5660b09ea04aae91d258bdeb94e2ee6fdc8595cf84a834d9f"
+    },
+    "native-entry-1.png": {
+      "bytes": 1087987,
+      "sha256": "c1af6601ff3f71d2423067ee96c17bc79b71299a6a6b7453db0a29b0875de849"
+    },
+    "native-static-course.json.gz": {
+      "bytes": 23989,
+      "sha256": "34f0e261830ec13d2c689344818867ca22cb4e1dd1be4d3522186780c9194caf",
+      "rawBytes": 288250,
+      "rawSha256": "7216e165c3156df4e776922cdfac3cd09388bc8492a7179ec4badd4c85292155"
+    },
+    "report.json.gz": {
+      "bytes": 28589,
+      "sha256": "760ee317853840f6145e6e13bbd1772656cea39d4e380d92b0729a9ebd7eb79f",
+      "rawBytes": 412308,
+      "rawSha256": "ec963849a3bcb79c29bf88155059603dba3f51098e0d0b48360987716ffb764a"
+    },
+    "native.log": {
+      "bytes": 265,
+      "sha256": "08fe8e5e785707b5c31e9b3af45130ad5ada2484a5b571f6b50303cb41880ed0"
+    },
+    "source-manifest.json": {
+      "bytes": 53915,
+      "sha256": "4c841bc94260377574e55a04100c634b8fc281900524504ec7cac9f59af7bbf9"
+    }
+  }
+}

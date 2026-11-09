@@ -1,0 +1,31 @@
+{
+  "fetchedUtc": "2026-11-09T14:03:59.701648+00:00",
+  "tags": {
+    "country": "RO",
+    "flag:name": "Romania",
+    "flag:type": "national",
+    "flag:wikidata": "Q130811",
+    "height": "31",
+    "lit": "yes",
+    "man_made": "flagpole",
+    "min_height": "27",
+    "subject": "Romania",
+    "subject:wikidata": "Q218"
+  },
+  "runtime": {
+    "id": "n11056553808",
+    "lat": 44.4671919,
+    "lon": 26.0781228,
+    "minimumM": 27,
+    "heightM": 31,
+    "point": [
+      0.25,
+      0.29
+    ],
+    "sourceVersion": 2,
+    "sourceModifiedUtc": "2023-07-23T16:01:04Z",
+    "sourceUrl": "https://api.openstreetmap.org/api/0.6/node/11056553808",
+    "sourceSha256": "06db6ee7a175db02372d8c6eb927ce454df781250e597629dad641339c12ea48"
+  },
+  "policy": "Raw geographic source point retained; model point uses the existing inverse-yaw cm projection. Source27\u219231 roof support, never a ground14m duplicate."
+}

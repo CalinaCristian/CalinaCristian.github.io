@@ -11,6 +11,7 @@ import { SharedLaneGate } from './shared-lanes.js';
 import { ambientTrafficAccess } from './road-access.js';
 import { admitInitialTraffic, previewInitialTrafficPose, initialTrafficStaticClearance, initialBodyCover } from './initial-traffic-admission.js';
 import { buildTramNetwork, canTravelTram, tramContinuations, sampleTramPath, tramSpan, tramPathPolyline, projectTramStations } from './tram-path.js';
+import { buildTurnLaneRules, laneTurnAllowed, preservesTurnLane } from './turn-lanes.js';
 
 // ============================================================================
 //  TRAFFIC — vehicles + pedestrians on the road graph.
@@ -170,6 +171,7 @@ class Grid {
 export class Traffic {
     constructor(world, city, scene, opts = {}) {
         this.world = world; this.city = city; this.scene = scene;
+        this.turnLaneRules = buildTurnLaneRules(world.data, world.graph.edges);
         this.buc = city.id === 'bucharest';
         this.rng = makeRng(this.buc ? 99 : 7);
         this.vehicles = [];
@@ -706,20 +708,20 @@ export class Traffic {
     }
 
     /** lateral offset of v's lane on edge e (dir): the current edge as laneTarget, others at the same lane index */
-    latOn(v, e, dir) {
+    latOn(v, e, dir, laneCur) {
         if (v.tram) return tramOffset(e, dir);
         if (e === v.edge) return laneOffset(e, v.laneCur, dir) + v.latExtraCur + (v.latBlend || 0) * Math.max(0, 1 - v.s / 12);
-        return laneOffset(e, clamp(v.laneCur, 0, (lanesDir(e, dir) || 1) - 1), dir) + v.latExtraCur;
+        return laneOffset(e, laneCur ?? clamp(v.laneCur, 0, (lanesDir(e, dir) || 1) - 1), dir) + v.latExtraCur;
     }
     /** the edge v drove before (e, dir): its history, else the only other edge at a 2-way node (null: unknown) */
     prevLink(v, e, dir, hi) {
         const st = dir > 0 ? e.a : e.b, H = v.hist;
-        if (H && hi >= 0 && hi < H.length) { const h = H[hi]; if (h.e !== e && (h.dir > 0 ? h.e.b : h.e.a) === st) return { e: h.e, dir: h.dir, hi: hi - 1 }; }
+        if (H && hi >= 0 && hi < H.length) { const h = H[hi]; if (h.e !== e && (h.dir > 0 ? h.e.b : h.e.a) === st) return { e: h.e, dir: h.dir, lat: h.lat, hi: hi - 1 }; }
         if (st.edges.length === 2) { const g = st.edges[0] === e ? st.edges[1] : st.edges[0]; if (g && g !== e) return { e: g, dir: g.b === st ? 1 : -1, hi: -1 }; }
         return null;
     }
     lanePt(v, c, s, out) {
-        const e = c.e, st = c.dir > 0 ? e.a : e.b, lat = this.latOn(v, e, c.dir);
+        const e = c.e, st = c.dir > 0 ? e.a : e.b, lat = c.lat ?? this.latOn(v, e, c.dir, c.laneCur);
         out.x = st.x + e.dirx * c.dir * s + e.nx * c.dir * lat; out.z = st.z + e.dirz * c.dir * s + e.nz * c.dir * lat;
         return out;
     }
@@ -734,10 +736,10 @@ export class Traffic {
             Object.assign(out, p); return out;
         }
         const S = v.s + off, seq = [{ e: v.edge, dir: v.dir, s0: 0 }];
-        let end = v.edge.len;
-        for (let k = 0; end < S + 8 && k < v.route.length; k++) { const r = v.route[k]; if (r.uturn) break; seq.push({ e: r.e, dir: r.dir, s0: end }); end += r.e.len; }
+        let end = v.edge.len, laneCur = v.laneCur;
+        for (let k = 0; end < S + 8 && k < v.route.length; k++) { const r = v.route[k]; if (r.uturn) break; laneCur = clamp(laneCur, 0, (lanesDir(r.e, r.dir) || 1) - 1); seq.push({ e: r.e, dir: r.dir, s0: end, laneCur }); end += r.e.len; }
         let s0 = 0, e = v.edge, dir = v.dir, hi = (v.hist?.length ?? 0) - 1;
-        for (let k = 0; s0 > S - 8 && k < 6; k++) { const p = this.prevLink(v, e, dir, hi); if (!p) break; s0 -= p.e.len; seq.unshift({ e: p.e, dir: p.dir, s0 }); e = p.e; dir = p.dir; hi = p.hi; }
+        for (let k = 0; s0 > S - 8 && k < 6; k++) { const p = this.prevLink(v, e, dir, hi); if (!p) break; s0 -= p.e.len; seq.unshift({ e: p.e, dir: p.dir, s0, lat: p.lat }); e = p.e; dir = p.dir; hi = p.hi; }
         let i = 0; while (i < seq.length - 1 && S >= seq[i + 1].s0) i++;
         const c = seq[i], A = this._pa || (this._pa = {}), B = this._pb || (this._pb = {});
         const pad = (a, b) => {
@@ -945,7 +947,25 @@ export class Traffic {
     }
 
     // ------------------------------------------------------------------ routing
-    chooseNext(e, dir, v) {
+    turnLaneAllows(e, dir, lane, next, v) {
+        return v?.tram || laneTurnAllowed(this.turnLaneRules, e, dir, lane, next?.e, next?.dir);
+    }
+    keepsTurnLane(e, dir, next) {
+        return !!next && !next.uturn && preservesTurnLane(this.turnLaneRules, e, dir, next.e, next.dir);
+    }
+    laneOnNext(v, lane, e, dir) {
+        return v.bus ? Math.max(0, lanesDir(e, dir) - 1) : clamp(lane, 0, this.carLaneMax(e, dir, v));
+    }
+    routeLaneAt(v, edge, dir) {
+        let lane = v.lane;
+        if (edge === v.edge && dir === v.dir) return lane;
+        for (const r of v.route) {
+            lane = this.laneOnNext(v, lane, r.e, r.dir);
+            if (r.e === edge && r.dir === dir) return lane;
+        }
+        return lane;
+    }
+    chooseNext(e, dir, v, lane = v.lane) {
         if (e.rail) {
             const choices = tramContinuations(e, dir);
             choices.sort((a, b) => Number(b.e.sourceId === e.sourceId) - Number(a.e.sourceId === e.sourceId) || (b.e.dirx * b.dir * e.dirx * dir + b.e.dirz * b.dir * e.dirz * dir) - (a.e.dirx * a.dir * e.dirx * dir + a.e.dirz * a.dir * e.dirz * dir) || String(a.e.id).localeCompare(String(b.e.id)));
@@ -961,6 +981,7 @@ export class Traffic {
             if (!canTravel(n, nd) || !ambientTrafficAccess(n)) continue;
             if (v.tram && !n.tram) continue;
             if (!v.tram && n.tram && n.tramOnly) continue;
+            if (!this.turnLaneAllows(e, dir, lane, { e: n, dir: nd }, v)) continue;
             if (n.type === 'service' && !v.isPolice && this.rng() < 0.8) continue;
             if ((nd > 0 ? n.b : n.a).mapEnd) continue; // toward a district-edge closure: turn off before it
             if (n.main === false && e.main !== false && !v.tram) continue; // never drive into a one-way trap
@@ -977,7 +998,7 @@ export class Traffic {
         if (!cands.length) {
             // (long vehicles never U-turn on the carriageway — an 18 m bus turning on the spot stands broadside across the
             //  road: the route ends here and the vehicle is respawned elsewhere when it reaches the end)
-            if (canTravel(e, -dir) && !e.roundabout && !v.long) return { e, dir: -dir, uturn: true };
+            if (canTravel(e, -dir) && !e.roundabout && !v.long && this.turnLaneAllows(e, dir, lane, { e, dir: -dir }, v)) return { e, dir: -dir, uturn: true };
             return null;
         }
         let r = this.rng() * total;
@@ -987,13 +1008,20 @@ export class Traffic {
     }
     ensureRoute(v) {
         const R = v.route;
+        let lane = v.lane, from = v.edge, dir = v.dir;
+        for (let i = 0; i < R.length; i++) {
+            const next = R[i];
+            if (!this.turnLaneAllows(from, dir, lane, next, v)) { R.length = i; break; }
+            lane = this.laneOnNext(v, lane, next.e, next.dir); from = next.e; dir = next.dir;
+        }
         let dist = v.edge.len - v.s;
         for (const r of R) dist += r.e.len;
         let last = R.length ? R[R.length - 1] : { e: v.edge, dir: v.dir };
         while ((dist < 140 || R.length < 2) && R.length < 24) {
-            const nx = this.chooseNext(last.e, last.dir, v);
+            const nx = this.chooseNext(last.e, last.dir, v, lane);
             if (!nx) break;
             R.push(nx); dist += nx.e.len; last = nx;
+            lane = this.laneOnNext(v, lane, nx.e, nx.dir);
             if (nx.uturn) break;
         }
     }
@@ -1007,8 +1035,8 @@ export class Traffic {
             return;
         }
         (v._sh || (v._sh = [])).push(nx);
-        if (v.hist) { v.hist.push({ e, dir: odir }); if (v.hist.length > (e.rail ? 256 : 6)) v.hist.shift(); }
         const oldLat = v.tram ? tramOffset(e, v.dir) : laneOffset(e, v.laneCur, v.dir) + v.latExtraCur + (v.latBlend || 0) * Math.max(0, 1 - v.s / 12);
+        if (v.hist) { v.hist.push({ e, dir: odir, lat: oldLat }); if (v.hist.length > (e.rail ? 256 : 6)) v.hist.shift(); }
         this.sharedLanes.advance(v, e, odir, nx.e, nx.dir, odir > 0 ? e.b : e.a);
         v.s -= e.len;
         if (v.s < 0) v.s = 0;
@@ -1297,7 +1325,7 @@ export class Traffic {
             }
             // lane drop ahead (next edge has fewer lanes): merge before the end of this edge, or wait at the end
             // instead of being squeezed sideways onto a car in the remaining lane
-            if (nxt && !v.tram && !nxt.uturn && D < 60) {
+            if (nxt && !v.tram && !nxt.uturn && D < 60 && !this.keepsTurnLane(curE, curDir, nxt)) {
                 const nl = Math.max(1, lanesDir(nxt.e, nxt.dir));
                 if (v.lane > nl - 1) {
                     // wait for a gap before the line; already at / past it (or waited long): merge on the move,
@@ -1412,6 +1440,7 @@ export class Traffic {
             }
         }
         this.steerLane(v, dt);
+        if (!this.turnLaneAllows(v.edge, v.dir, v.lane, v.route[0], v)) this.ensureRoute(v);
 
         // ---------------- move ----------------
         v.s += v.speed * dt; v.odo += v.speed * dt;
@@ -1454,10 +1483,11 @@ export class Traffic {
      * merge before the last metre of a lane exists. No graph record is joined. */
     laneDropMax(v, look) {
         let maxLane = Math.max(0, lanesDir(v.edge, v.dir) - 1), distance = v.edge.len - v.s - v.length / 2;
+        let e = v.edge, dir = v.dir;
         for (const next of v.route) {
-            if (distance >= look || next.uturn) break;
+            if (distance >= look || next.uturn || this.keepsTurnLane(e, dir, next)) break;
             maxLane = Math.min(maxLane, Math.max(0, lanesDir(next.e, next.dir) - 1));
-            distance += next.e.len;
+            distance += next.e.len; e = next.e; dir = next.dir;
         }
         return maxLane;
     }
@@ -1477,15 +1507,15 @@ export class Traffic {
             if (!segments?.length) throw new Error('Unresolved source rail reservation ' + v.id);
             return { ...segments[0], p1x: segments.at(-1).p1x, p1z: segments.at(-1).p1z, inE: curE, outE: nxt.e, outDir: nxt.dir, lane: 0, laneIn: 0, railSegments: segments };
         }
-        const nl = Math.max(1, lanesDir(nxt.e, nxt.dir)), lane = Math.min(v.lane, nl - 1);
-        const latIn = v.tram ? tramOffset(curE, curDir) : laneOffset(curE, v.lane, curDir), latOut = v.tram ? tramOffset(nxt.e, nxt.dir) : laneOffset(nxt.e, lane, nxt.dir);
+        const laneIn = this.routeLaneAt(v, curE, curDir), lane = this.laneOnNext(v, laneIn, nxt.e, nxt.dir);
+        const latIn = v.tram ? tramOffset(curE, curDir) : laneOffset(curE, laneIn, curDir), latOut = v.tram ? tramOffset(nxt.e, nxt.dir) : laneOffset(nxt.e, lane, nxt.dir);
         const sIn = Math.max(0, curE.len - rad), sOut = Math.min(nxt.e.len, rad);
         const st = curDir > 0 ? curE.a : curE.b, fx = curE.dirx * curDir, fz = curE.dirz * curDir;
         const st2 = nxt.dir > 0 ? nxt.e.a : nxt.e.b, gx = nxt.e.dirx * nxt.dir, gz = nxt.e.dirz * nxt.dir;
         // the body extends half a length beyond both ends of the chord
         const p0x = st.x + fx * sIn + curE.nx * curDir * latIn - fx * v.length * 0.5, p0z = st.z + fz * sIn + curE.nz * curDir * latIn - fz * v.length * 0.5;
         const p1x = st2.x + gx * sOut + nxt.e.nx * nxt.dir * latOut + gx * v.length * 0.5, p1z = st2.z + gz * sOut + nxt.e.nz * nxt.dir * latOut + gz * v.length * 0.5;
-        return { p0x, p0z, p1x, p1z, inE: curE, outE: nxt.e, outDir: nxt.dir, lane, laneIn: v.lane };
+        return { p0x, p0z, p1x, p1z, inE: curE, outE: nxt.e, outDir: nxt.dir, lane, laneIn };
     }
     /** 'wait' when the path conflicts with a reservation of another car still in / entering the box, else the path */
     boxCheck(v, curE, curDir, nxt, node, rad) {

@@ -1,0 +1,91 @@
+{
+  "baseCommit": "f320b747436ad98d6ac6624ce587d5666178e4df",
+  "nativeCounterexampleSource": "46211271218d6d6b170cb821ec11518ed47a9213",
+  "runtime": [
+    {
+      "path": "game/src/traffic.js",
+      "sha256": "efbdc7385b7c39ef7e88f077780dc56b3406c35c90e5f269d36b75b5017d6ef3"
+    },
+    {
+      "path": "game/src/turn-lanes.js",
+      "sha256": "0911880d096c4efe126fc4f53a7df1559d8f6ee01cb52635afeb939648dece54"
+    }
+  ],
+  "focusedControls": 15,
+  "nodeRegressionCases": 38,
+  "syntaxPass": true,
+  "noBrowser": true,
+  "sourceDataEdited": false,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 5175,
+      "sha256": "74d1afca21b3843f1b285b9b61ff54f1555d4858326c68b39f436340bb6fb022"
+    },
+    {
+      "path": "analyze.cjs",
+      "bytes": 2788,
+      "sha256": "6819a253992ccc976ed6917fa08c3ed7d2ba2d5b59c3a1d107b6eb20de58414b"
+    },
+    {
+      "path": "attribution.json",
+      "bytes": 93009,
+      "sha256": "1bb59b4032dc8e00b312629883e118c0b251f1e3d5ec83b7e74ce12d20cf3429"
+    },
+    {
+      "path": "controls/final/report.json",
+      "bytes": 5344,
+      "sha256": "8b6f30b67f7e02fef04f9983cc01f64522a0c82a7f078e9e48fab6ee038377ea"
+    },
+    {
+      "path": "controls/final-source-terminal/report.json",
+      "bytes": 5497,
+      "sha256": "5c80f0beacf51f66c107d69f05812b44cc051a0e54fb8163ba844df0f16ec482"
+    },
+    {
+      "path": "controls/node-regressions-current.log",
+      "bytes": 17782,
+      "sha256": "520c8ac8830e0a3d1da2a853eb9a6c2e8129742f1d67a3a0090ca3375cc72ff2"
+    },
+    {
+      "path": "controls/node-regressions.log",
+      "bytes": 17790,
+      "sha256": "1fde697d498a28f8877a46fff5b9cca38036bb8562c0cab1f091e2186f4eda42"
+    },
+    {
+      "path": "extract.cjs",
+      "bytes": 3573,
+      "sha256": "1ea72e340efc3e960eb750d5c91668755fb3ee1082d7bea90bfc94b1ebe84f1d"
+    },
+    {
+      "path": "fixtures/4621127/fixture.json.gz",
+      "bytes": 609498,
+      "sha256": "3da9fa785b1a39f7f1504a91bbb2c1f44d49b680c716f9e4116a1ebd0b0972fd"
+    },
+    {
+      "path": "fixtures/4621127/manifest.json",
+      "bytes": 1720,
+      "sha256": "38bbc2a7eb92a3a3120b1681f3156d935270ca25ab6a94fe4709e03a9a07b110"
+    },
+    {
+      "path": "fixtures/4621127/nav.js.gz",
+      "bytes": 10520,
+      "sha256": "af21b8aaa79a31ccf577721ee8f4cd908373ca8a82a3f3115fa5192bd35bdfdc"
+    },
+    {
+      "path": "fixtures/4621127/traffic.js.gz",
+      "bytes": 69900,
+      "sha256": "f7417e213dc30c84f278d47b7b4cf8f6d2292f07c6c192eb5f4b8b53c64f644a"
+    },
+    {
+      "path": "fixtures/4621127/util.js.gz",
+      "bytes": 3726,
+      "sha256": "02d507c1aa292c2c599df41a463bde6663adabd0a0e628ef18f0ea836ce1a25e"
+    },
+    {
+      "path": "turn-lanes.test.mjs",
+      "bytes": 15606,
+      "sha256": "442afd8f349d2ccaa94f190592ed1235c5afdeb6e252e5be439cd846ae7200ce"
+    }
+  ]
+}

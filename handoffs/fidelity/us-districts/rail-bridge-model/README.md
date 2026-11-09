@@ -1,46 +1,31 @@
-# Shared source tram grade candidate — physical gate OPEN
+# Shared source tram grade candidate
 
-Base `a294fff1`; isolated branch `fidelity/rail-bridge-model`. Root authorized the helper and narrow `world.js` hooks. US owns Traffic/tram-path integration (`world.tramGrade` callback); global README/specs remain root-owned. No browser was started in this lane.
+Base `a294fff1`; isolated branch `fidelity/rail-bridge-model`. Root authorized the shared helper, source-backed estimated slabs and narrow `world.js` hooks. US owns Traffic/tram-path/body fitting. Global docs remain root-owned. No browser was started in this lane. Native regenerated geometry, whole-body clearance and final performance acceptance remain open.
 
-The candidate computes source-connected grade once and shares it between rendering, Traffic and passive physical deck bands. Source data arrays/IDs/XY are untouched. Source relative layers restrict reviewed associations; they are never converted into metres. A literal `ele`/`incline`, changed layer/structure, missing ground anchor, incompatible station profile or impossible smooth ramp refuses the model.
+The resolver shares displacement between rendering, Traffic and passive physical support. Original source arrays, IDs and XY remain unchanged. Relative layer/level tags never become metres. Changed literal source elevation/incline, changed structure tags, missing source joins, incompatible station profile or infeasible smooth ramp refuse the model.
 
 ## Explicit MODEL assumptions
 
-- Lower Grozăvești tracks `w128304859`/`w660918286`: zero displacement, verified against exact lower motor sources `w128304847`/`w128304855`. The source bridge identity is `w902056192`. Never use the upper Basarab deck above them.
-- Basarab central tracks `w118416425`/`w205971103`: an independent rail deck rises from an estimated6m southern bridge entry toward the verified modeled cable-station11m profile. Original stop nodes5865238769/1775175278 each bracket `w668700429` and `w23770172`, both actually11m in the immutable native export. The independently varying intermediate motor profiles are not averaged across the central tracks.
-- Preserve existing flat ground branches at source-node forks6187776680/981543139 (`w660918283`/`w660918281`), supported by the connected explicit ground reference nodes6233585073/6233585074 on `w665700250`. The forks' zero datum is a preserved local MODEL choice, not an OSM metre tag. Raising those branches toforce a flat11m bridge was rejected.
-- South source-connected ramps are95.464m/96.730m in native quantized XY; north ramps167.857m/172.511m to source nodes6262162593/6262162594 on actually rendered flat ground scenery source `w23554680`. Quadratic20m derivative eases at each end keep the approaches C1 and below8%. The source bridge's6→11m smoothstep ends with zero derivative at the cable station. Bridge maximum grade is0.861%; maximum approach grade7.951%.
-- Deck half-width1.7m and thickness0.4m are explicit visual/physical estimates along unchanged mapped rail centre lines. They are not new OSM footprints. Original ballast base0.2m, rail heads0.276m and actor base0.24m remain distinct offsets over the shared displacement. The passive slab band exactly evaluates that displacement; rendered chords differ by at most1.087mm in the CPU sample control.
+- Lower Grozăvești `w128304859`/`w660918286`: zero displacement, matching exact lower motor sources `w128304847`/`w128304855`; source bridge identity `w902056192`. Upper Basarab never supplies this lower slab.
+- Basarab `w118416425`/`w205971103`: independent rail viaduct. Stop nodes5865238769/1775175278 each bracket actual native `w668700429`/`w23770172`, both11m. Existing intermediate motor heights remain unchanged.
+- Existing flat source rail forks6187776680/981543139 remain zero, preserving branches `w660918283`/`w660918281`. Connected source ground references6233585073/6233585074 on `w665700250` justify that retained MODEL datum; no455m branch bridge is invented. South source ramps95.464/96.730m rise to estimated6m. The bridge then rises6→11m over100m and stays level through the verified cable station. North167.857/172.511m ramps return to nodes6262162593/6262162594 on actual flat source `w23554680`.
+- Quadratic20m derivative eases are C1. Maximum approach7.951%, bridge rise6.25%, cap8%. This early rise replaces the retained failed slow-rise candidate after actual motor-deck clearance constraints were tested.
+- Slab half-width1.7m/thickness0.4m are explicit estimates along mapped rail centres, not OSM footprint claims. Ballast base0.2m, rail head0.276m and actor base0.24m remain distinct offsets over the same displacement. Lower water datum−4.4m is an existing native MODEL, not a hydrological survey.
 
-`world.js` adds the profile resolver, regrades the existing track runs without changing their XY/membership, batches the estimated slabs with existing cell solids, and registers matching passive deck polygons in the existing deck grid/collision list. Existing roads retain their geometry/heights. Mitered source-path offsets join adjacent slab pieces at source vertices and source-way boundaries. Per-world stats expose every model assumption/unresolved model plus deck-piece/triangle work.
+## Render and physical support
 
-## What passes
+Slabs use existing cell solid batches and passive deck grids. Original rail membership/XY are preserved. Source path miters join at actual source vertices/way boundaries. Shared renderer/support pieces have deterministic IDs from model/sourceway/originalsegment/t0/t1. Each exports actual top vertices and exact piecewise quadratic `topProfile` coefficients for independent continuous-height replay. `world.tramDeckSupportAt(x,z,{modelId})` and `.inBox(...)` require the same model and never select a motor/upper deck.
 
-`controls-metric-guard.json` is a CPU replay of QA's exact6cb native export (`a1dcca3b1a573028b7f659787b2c7db34dd874b0a28b6697d34593be6f417bb3`):211/211 modeled segments admitted, all54 source bridge segments known, zero shared-source-node grade seams,66,066 finite height samples, maximum slope0.0795084 and maximum render-chord error0.00108666m. Changed literal source elevation, incompatible station and non-ground north-source controls reject. Native data and edge inputs remain byte-equivalent after the helper. Syntax checks pass.
+Only generated inferred bridge guards/quay parapets are omitted where they conflict with a known source rail and its modeled fleet corridor. Mapped barrier records remain untouched. Independent source-gauge certificate `e77ca387` proves native inferred guard faces648/649 lie between the actual1435mm running rails of `w205971103`, with≥0.319m margin in precise raw source coordinates. Height overlap is verified. Existing roads/widths/heights are unchanged.
 
-This is source/model consistency, not native motion/render/support/budget acceptance.
+## CPU checks and retained failures
 
-## Blocking physical counterexample
+`controls-stable-support-ids.json` replays QA's immutable6cb export:211/211 segments admitted,54 bridge segments known, zero source-node seams,66,066 finite samples, maximum slope0.0795084, render chord error≤0.00108666m,444 support pieces with unique original-source IDs. Serialized quadratic heights agree with continuous bands within1e-8. Negative source/station/ground controls refuse; mapped/outer/upper barrier controls remain. Source inputs remain byte-equivalent.
 
-The independent central grade intersects existing native motor-carriageway geometry. This remains a material OPEN gate; do not label the candidate ready.
-
-`actual-body-intersections-metric-guard.json` uses actual native `Traffic.ensureRoute/placeOnLane`, both literal emitted tram meshes (27m V3A and36m Imperio,2.4m wide, full pantograph to5.79m), and their actual pitch/heading/parent transform. Triangle/triangle intersection against QA's immutable emitted `road`/`solid` context finds at least30 contacts in each of four retained poses:
-
-- Reverse source `w205971103`, segment20, t0.843137: source centre(582.5765,−854.8569), floor10.456688m. Native `w1552024282` road surface is11.24m. V3A body triangle0 crosses actual road triangle95 in `road 1,-2` at(570.5866,11.24,−848.9034).
-- Segment27, t0.818182: source centre(359.7727,−723.0455), floor8.405737m. Native `w1552024280` surface is9.892549m. The actual body also intersects `solid 0,-2` underside/fascia triangle12109.
-
-The preceding unledgered first replay remains unchanged as `actual-body-intersections.json`; the new replay records all consumed source hashes. Both are positive physical counterexamples, not full-scene negative tests. QA's dump excludes circles/non-polygon props and some non-context meshes.
-
-Pipera's independent source-width audit confirms two mapped motor lanes without literal width/placement on the relevant right-side road sources. Shrinking or shifting those roads tohide the contacts is unsupported. Root/Pipera are resolving the common physical support/profile conflict; existing motor heights have not been rewritten here. The verified lower river water datum is itself a−4.4m MODEL estimate, not hydrological survey data. A complete native before/after render, support/clearance replay, actual moving trams and full400-call/1.5M-triangle counts remain pending.
+Failed evidence is retained: `actual-body-intersections*.json` show old slow-rise motor-deck conflicts; `actual-body-100m-rise-*.json` show corrected road height but old inferred guards/quays; `actual-body-own-slab-counterexample.json` demonstrates a36m rigid body entering its curved slab by0.398m under centre anchoring. US's separate actual-mesh support fit addresses that issue. Old native triangles can establish positive failures, but cannot accept regenerated meshes or omitted props. Literal coverage-end body spans remain unknown rather than extrapolated.
 
 ## Reproduce
 
-```sh
-node tools/osm/tram-grade-check.mjs /workspace/integration-qa-evidence/groz-support-6cb-native/native-support.json
-node handoffs/fidelity/us-districts/rail-bridge-model/actual-body-check.mjs \
-  /workspace/integration-qa-evidence/groz-support-6cb-native/native-support.json \
-  /workspace/fidelity-workers/remaining-us-districts \
-  /workspace/fidelity-workers/rail-bridge-model /tmp/actual-tram-body-check.json
-```
+Run `node tools/osm/tram-grade-check.mjs /workspace/integration-qa-evidence/groz-support-6cb-native/native-support.json`. Actual-body replay takes nativeJSON/runtimeRoot/gradeRoot/outputJSON, with optional `--sweep`; the runtime must contain US's current actual-mesh support fit.
 
-QA's portable native source proof is commit `fabe253236781261dde4b706a0b9be809ecf96aa`, `handoffs/fidelity/tram-native-support-6cb/`. Source/engineering research is separately retained on `fidelity/rail-bridge-grade` (`ac8e96c1`, `e559642e`); it contains no published reference imagery.
+QA portable source proof: `fabe2532`, `handoffs/fidelity/tram-native-support-6cb/`. Separate source/engineering research: `ac8e96c1`, `e559642e` on `fidelity/rail-bridge-grade`. No reference images are published. Final native render/support/clearance/initial-pose/all-eight-mode and400-call/1.5M-triangle gates remain pending.

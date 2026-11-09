@@ -1,10 +1,29 @@
-import { decodeTramPoints } from './tram-path.js';
+import { decodeTramPoints, flatTramGrade } from './tram-path.js';
 import { TRAM_BRIDGE_MODELS } from './tram-grade-models.js';
 
 const key = (id, index) => id + ':' + index;
 const no = v => v == null || /^(no|false|0)$/.test(String(v));
 const groundTags = t => no(t.bridge) && no(t.tunnel) && (t.layer == null || Number(t.layer) === 0) && (t.level == null || Number(t.level) === 0) && t.ele == null && t.incline == null;
 const distance = (a, b) => Math.hypot(b[0] - a[0], b[1] - a[1]);
+
+function closestSegments(a, b, c, d) {
+    const dx = b[0] - a[0], dz = b[1] - a[1], ux = d[0] - c[0], uz = d[1] - c[1], den = dx * uz - dz * ux;
+    if (Math.abs(den) > 1e-10) {
+        const x = c[0] - a[0], z = c[1] - a[1], t = (x * uz - z * ux) / den, u = (x * dz - z * dx) / den;
+        if (t >= 0 && t <= 1 && u >= 0 && u <= 1) return { t, u, distance: 0 };
+    }
+    let best = null;
+    const project = (p, q, r) => { const x = r[0] - q[0], z = r[1] - q[1]; return Math.max(0, Math.min(1, ((p[0] - q[0]) * x + (p[1] - q[1]) * z) / (x * x + z * z || 1))); };
+    for (const t of [0, 1]) {
+        const p = [a[0] + dx * t, a[1] + dz * t], u = project(p, c, d), dist = distance(p, [c[0] + ux * u, c[1] + uz * u]);
+        if (!best || dist < best.distance) best = { t, u, distance: dist };
+    }
+    for (const u of [0, 1]) {
+        const p = [c[0] + ux * u, c[1] + uz * u], t = project(p, a, b), dist = distance(p, [a[0] + dx * t, a[1] + dz * t]);
+        if (!best || dist < best.distance) best = { t, u, distance: dist };
+    }
+    return best;
+}
 
 /** C1 quadratic/linear/quadratic ramp. The explicit cap is a MODEL choice. */
 export function smoothTramRamp(length, height, { maxGrade = .08, easeM = 20 } = {}) {
@@ -18,7 +37,8 @@ export function smoothTramRamp(length, height, { maxGrade = .08, easeM = 20 } = 
 function orderedPath(ways, definition) {
     const points = [], ids = [], legs = [], station = new Map(); let total = 0;
     for (const [id, dir] of definition.ways) {
-        const way = ways.get(id); if (!way) return null;
+        const way = ways.get(id); if (!way || way.metricNodeDatum || way.tags?.ele != null || way.tags?.incline != null || !no(way.tags?.tunnel)) return null;
+        if (no(way.tags?.bridge) && !groundTags(way.tags || {})) return null;
         const indexes = way.nodeIds.map((_, i) => i); if (dir < 0) indexes.reverse();
         if (ids.length && (ids.at(-1) !== way.nodeIds[indexes[0]] || distance(points.at(-1), way.xy[indexes[0]]) > 1e-6)) return null;
         for (let k = 0; k < indexes.length; k++) {
@@ -58,11 +78,19 @@ function stationSection(point, normal, edges) {
 
 /** Returns one displacement resolver for renderer and Traffic. Registry entries
  * select reviewed structures; source node IDs alone create path connections. */
-export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MODELS } = {}) {
-    const report = { estimated: true, models: [], unresolved: [], renderedDeckPieces: 0, renderedTriangles: 0 }, grades = new Map(), ways = new Map();
+export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MODELS, extraGrades = null, extraReport = null } = {}) {
+    const report = { estimated: true, models: [...(extraReport?.models || [])], unresolved: [...(extraReport?.unresolved || [])], renderedDeckPieces: 0, renderedTriangles: 0,
+        inferredObstacleExclusions: { count: 0, byKind: {}, samples: [], policy: 'Only inferred emission candidates; actual source rails and emitted fleet clearance, compatible absolute model height. Mapped barriers are untouched.' } }, grades = new Map(), ways = new Map();
+    for (const [id, grade] of extraGrades || []) {
+        if (grade.known && (![grade.ya, grade.yb].every(Number.isFinite) || !(grade.deckHalfWidthM > 0) || !(grade.thicknessM > 0))) {
+            report.unresolved.push({ sourceSegment: id, reason: 'invalid-additional-source-grade' }); continue;
+        }
+        grades.set(id, grade.known ? { ...grade, sourceSegment: Number(id.slice(id.lastIndexOf(':') + 1)), breaks: grade.breaks || [], heightAt: grade.heightAt || (t => grade.ya + (grade.yb - grade.ya) * Math.max(0, Math.min(1, t))) } : grade);
+    }
     for (const source of data.tramSourceWays || []) {
         const xy = decodeTramPoints(source.points, data.q || 10);
-        if (xy?.length === source.nodeIds?.length) ways.set(source.sourceId, { ...source, xy });
+        const metricNodeDatum = source.nodeIds?.some(n => { const tags = data.tramSourceNodeTags?.[n]; return tags?.ele != null || tags?.incline != null; });
+        if (xy?.length === source.nodeIds?.length) ways.set(source.sourceId, { ...source, xy, metricNodeDatum });
     }
     const edges = coreEdges.map(e => ({ ...e, sourceId: data.roadSourceGeometry?.[e.road]?.sourceId || e.access?.sourceId || e.sourceId }));
     const sourceGround = (node, road) => {
@@ -78,7 +106,7 @@ export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MOD
     const addLeg = (model, way, index, at, breaks = [], extra = {}) => {
         const a = way.xy[index], b = way.xy[index + 1], len = distance(a, b);
         const heightAt = t => at(Math.max(0, Math.min(1, t)));
-        const grade = { known: true, ya: heightAt(0), yb: heightAt(1), heightAt, estimated: true, basis: model.basis, modelId: model.id,
+        const grade = { known: true, ya: heightAt(0), yb: heightAt(1), heightAt, sourceSegment: index, estimated: true, basis: model.basis, modelId: model.id,
             sourceDeckIds: [way.sourceId], sourceAnchorIds: extra.sourceAnchorIds || [], provenance: extra.provenance || [],
             deckHalfWidthM: model.deckHalfWidthM, thicknessM: model.thicknessM, bridge: !no(way.tags?.bridge), breaks, ...extra };
         if (![grade.ya, grade.yb].every(Number.isFinite) || !(len > 0)) return;
@@ -87,7 +115,7 @@ export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MOD
     for (const model of models) {
         if (!model.bridgeWays.some(id => (data.tramSources || []).some(r => r.sourceId === id))) continue;
         const fail = reason => report.unresolved.push({ modelId: model.id, sourceIds: model.bridgeWays, reason });
-        if (model.bridgeWays.some(id => { const t = ways.get(id)?.tags; return !t || no(t.bridge) || !no(t.tunnel) || Number(t.layer) !== model.sourceLayer || t.ele != null || t.incline != null; })) { fail('missing-or-changed-source-bridge'); continue; }
+        if (model.bridgeWays.some(id => { const way = ways.get(id), t = way?.tags; return !t || way.metricNodeDatum || no(t.bridge) || !no(t.tunnel) || Number(t.layer) !== model.sourceLayer || t.ele != null || t.incline != null; })) { fail('missing-or-changed-source-bridge'); continue; }
         if (model.kind === 'level') {
             const support = model.roadSources.map(id => edges.filter(e => e.sourceId === id && e.bridge && !e.tunnel));
             if (support.some(es => !es.length) || support.flat().some(e => Math.abs(e.ya) > 1e-8 || Math.abs(e.yb) > 1e-8)) { fail('lower-source-road-profile-not-confirmed-zero'); continue; }
@@ -117,19 +145,19 @@ export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MOD
                 : sourceGround(def.southGround, def.southRoad);
             const anchors = [southAnchor, sourceGround(def.northGround, def.northRoad)], station = path.station.get(model.stationNodes[k]);
             const entry = model.bridgeEntryHeightM ?? height, up = smoothTramRamp(lo - south, entry, model), down = smoothTramRamp(north - hi, height, model);
-            const deckPeak = 1.5 * Math.abs(height - entry) / (station - lo);
-            if (anchors.some(a => !a) || !up || !down || !(south < lo && lo < station && station < hi && hi < north) || deckPeak > (model.maxDeckGrade ?? model.maxGrade)) { invalid = true; break; }
+            const rise = smoothTramRamp(Math.min(model.bridgeRiseLengthM ?? station - lo, station - lo), height - entry, { ...model, maxGrade: model.maxDeckGrade ?? model.maxGrade });
+            const deckPeak = rise?.peakGrade;
+            if (anchors.some(a => !a) || !up || !down || !rise || !(south < lo && lo < station && station < hi && hi < north)) { invalid = true; break; }
             const at = s => {
                 if (s < lo) return up.at(s - south);
                 if (s > hi) return height - down.at(s - hi);
-                const t = Math.max(0, Math.min(1, (s - lo) / (station - lo)));
-                return entry + (height - entry) * t * t * (3 - 2 * t);
+                return entry + rise.at(s - lo);
             };
-            prepared.push({ path, at, anchors, up, down, lo, hi, south, north, station, entry, deckPeak });
+            prepared.push({ path, at, anchors, up, down, rise, lo, hi, south, north, station, entry, deckPeak });
         }
         if (invalid) { fail('source-ground-anchor-or-smooth-grade-cap-unresolved'); continue; }
         for (const p of prepared) for (const leg of p.path.legs) {
-            const breaks = [p.south, p.lo, p.station, p.hi, p.north, ...p.up.breaks.map(s => p.south + s), ...p.down.breaks.map(s => p.hi + s)].map(s => (s - leg.s0) / (leg.s1 - leg.s0)).filter(t => t > 0 && t < 1);
+            const breaks = [p.south, p.lo, p.station, p.hi, p.north, ...p.up.breaks.map(s => p.south + s), ...p.rise.breaks.map(s => p.lo + s), ...p.down.breaks.map(s => p.hi + s)].map(s => (s - leg.s0) / (leg.s1 - leg.s0)).filter(t => t > 0 && t < 1);
             addLeg(model, ways.get(leg.sourceId), leg.index, t => p.at(leg.s0 + (leg.s1 - leg.s0) * t), breaks,
                 { sourceAnchorIds: p.anchors.map(a => a.nodeId).concat(model.stationNodes), provenance: model.evidence,
                     maxGrade: model.maxGrade, pathStationAt: t => leg.s0 + (leg.s1 - leg.s0) * t,
@@ -138,16 +166,130 @@ export function buildTramGrades(data, { coreEdges = [], models = TRAM_BRIDGE_MOD
         }
         report.models.push({ id: model.id, heightM: height, basis: model.basis, stationEvidence,
             paths: prepared.map(p => ({ southGround: p.anchors[0], northGround: p.anchors[1], southApproachM: p.up.length, northApproachM: p.down.length,
-                southEaseM: p.up.easeM, northEaseM: p.down.easeM, bridgeEntryHeightM: p.entry, deckPeakGrade: p.deckPeak,
-                maxGrade: Math.max(p.up.peakGrade, p.down.peakGrade), bridgeIntervalM: [p.lo, p.hi], groundIntervalM: [p.south, p.north] })) });
+                southEaseM: p.up.easeM, northEaseM: p.down.easeM, bridgeEntryHeightM: p.entry, bridgeRiseLengthM: p.rise.length, deckPeakGrade: p.deckPeak,
+                maxGrade: Math.max(p.up.peakGrade, p.down.peakGrade, p.rise.peakGrade), bridgeIntervalM: [p.lo, p.hi], groundIntervalM: [p.south, p.north] })) });
     }
     const resolveGrade = (way, leg) => grades.get(key(way.sourceId, leg.index)) || null;
     const forRun = (run, segment) => {
         const source = data.tramSources?.[run], way = ways.get(source?.sourceId); if (!way) return null;
         const a = source.nodeIds[segment], b = source.nodeIds[segment + 1], index = way.nodeIds.findIndex((n, i) => n === a && way.nodeIds[i + 1] === b);
-        return index >= 0 ? grades.get(key(way.sourceId, index)) || null : null;
+        const grade = index >= 0 ? grades.get(key(way.sourceId, index)) : null;
+        return grade?.known ? grade : null;
     };
-    return { resolveGrade, forRun, report, grades };
+    const corridors = [];
+    for (const [run, source] of (data.tramSources || []).entries()) {
+        const way = ways.get(source.sourceId), points = decodeTramPoints(data.trams?.[run], data.q || 10), tags = way?.tags || {}, gauge = Number(tags.gauge);
+        if (!points || points.length !== source.nodeIds.length || tags.railway !== 'tram' || tags.disused === 'yes' || tags.construction || !(gauge > 0)) continue;
+        for (let i = 1; i < points.length; i++) {
+            const grade = forRun(run, i - 1) || ((tags.level == null || Number(tags.level) === 0) ? flatTramGrade(way) : null);
+            if (!grade?.known) continue;
+            const a = points[i - 1], b = points[i];
+            const halfWidthM = Math.max(gauge / 2000, 1.2) + .5;
+            corridors.push({ a, b, sourceId: source.sourceId, sourceNodeIds: source.nodeIds.slice(i - 1, i + 1), gaugeM: gauge / 1000,
+                heightAt: grade.heightAt || (t => grade.ya + (grade.yb - grade.ya) * t), halfWidthM,
+                x0: Math.min(a[0], b[0]) - halfWidthM, x1: Math.max(a[0], b[0]) + halfWidthM, z0: Math.min(a[1], b[1]) - halfWidthM, z1: Math.max(a[1], b[1]) + halfWidthM });
+        }
+    }
+    const excludesInferredObstacle = (a, b, { inferred = false, y0a, y1a, y0b = y0a, y1b = y1a, radiusM = .35, kind = 'inferred', sourceId = null } = {}) => {
+        if (!inferred) return false;
+        for (const c of corridors) {
+            if (Math.max(a[0], b[0]) < c.x0 - radiusM || Math.min(a[0], b[0]) > c.x1 + radiusM || Math.max(a[1], b[1]) < c.z0 - radiusM || Math.min(a[1], b[1]) > c.z1 + radiusM) continue;
+            const q = closestSegments(a, b, c.a, c.b); if (q.distance > c.halfWidthM + radiusM) continue;
+            const base = .24 + c.heightAt(q.u), low = y0a + (y0b - y0a) * q.t, high = y1a + (y1b - y1a) * q.t;
+            // Literal fleet envelope at the8% cap: the36m low body can reach
+            //1.44m below its anchor; its5.79m pantograph is only4.3m off centre,
+            //so the true upper pitch reach is<.35m, not another1.44m.
+            if (![base, low, high].every(Number.isFinite) || base - 1.44 > high || base + 5.79 + .35 < low) continue;
+            const stats = report.inferredObstacleExclusions; stats.count++; stats.byKind[kind] = (stats.byKind[kind] || 0) + 1;
+            if (stats.samples.length < 200) stats.samples.push({ kind, inferredRoadSourceId: sourceId, railSourceId: c.sourceId, railSourceNodeIds: c.sourceNodeIds,
+                a, b, closestDistanceM: q.distance, literalGaugeHalfM: c.gaugeM / 2, vehicleCorridorHalfM: c.halfWidthM, railBaseY: base, obstacleBandM: [low, high] });
+            return true;
+        }
+        return false;
+    };
+    const support = buildTramDeckSupport(data, { forRun });
+    return { resolveGrade, forRun, report, grades, corridors, excludesInferredObstacle, support };
+}
+
+/** Render-only subdivisions preserve every original source segment/vertex.
+ * This same geometry catalogue supplies CPU and native physical support. */
+export function tramGradeRenderPieces(a, b, grade, baseM = .2) {
+    const dx = b[0] - a[0], dz = b[1] - a[1], len = Math.hypot(dx, dz); if (len < .05) return [];
+    const nx = -dz / len, nz = dx / len, fractions = new Set([0, 1, ...grade.breaks, ...(grade.roof?.intervals || []).flat()]);
+    const step = Math.abs(grade.ya - grade.yb) > 1e-8 || grade.breaks.length ? 1.5 : 10;
+    for (let k = 1, count = Math.ceil(len / step); k < count; k++) fractions.add(k / count);
+    const ts = [...fractions].sort((a, b) => a - b), pieces = [];
+    for (let i = 1; i < ts.length; i++) {
+        const t0 = ts[i - 1], t1 = ts[i]; if ((t1 - t0) * len < 1e-6) continue;
+        const p = [a[0] + dx * t0, a[1] + dz * t0], q = [a[0] + dx * t1, a[1] + dz * t1], y0 = grade.heightAt(t0), y1 = grade.heightAt(t1);
+        const n0 = t0 === 0 && grade.aOffset ? grade.aOffset : [nx, nz], n1 = t1 === 1 && grade.bOffset ? grade.bOffset : [nx, nz];
+        const quad = (width, h0, h1) => [[p[0] + n0[0] * width, h0, p[1] + n0[1] * width], [q[0] + n1[0] * width, h1, q[1] + n1[1] * width], [q[0] - n1[0] * width, h1, q[1] - n1[1] * width], [p[0] - n0[0] * width, h0, p[1] - n0[1] * width]];
+        const local = { ...grade, heightAt: t => grade.heightAt(t0 + (t1 - t0) * Math.max(0, Math.min(1, t))) };
+        const h0 = baseM + y0, h1 = baseM + y1, hm = baseM + local.heightAt(.5);
+        // All reviewed ramps are piecewise quadratic, with every derivative
+        // break included above. Export coefficients for an independent replay.
+        const topProfile = { basis: 'quadratic-local-u', coefficients: [2 * (h0 + h1 - 2 * hm), 4 * hm - 3 * h0 - h1, h0],
+            parameter: 'clamped projection onto piece a→b', domain: [0, 1], thicknessM: grade.thicknessM };
+        pieces.push({ a: p, b: q, t0, t1, y0, y1, nx, nz, quad, top: quad(grade.deckHalfWidthM, baseM + y0, baseM + y1),
+            topProfile,
+            roof: grade.roof?.known && grade.roof.intervals.some(([lo, hi]) => (t0 + t1) / 2 >= lo && (t0 + t1) / 2 <= hi) ? grade.roof : null,
+            supported: grade.bridge || grade.tunnel || Math.max(Math.abs(y0), Math.abs(y1), Math.abs(grade.heightAt((t0 + t1) / 2))) > 1e-8, band: tramDeckBand(p, q, local, baseM) });
+    }
+    return pieces;
+}
+
+/** Shared renderer/support identity uses original source segment and exact
+ * deterministic subdivision parameters, independently of catalogue order. */
+export function tramSupportPieceId(sourceId, sourceSegment, piece, modelId) {
+    return `${modelId}:${sourceId}:${sourceSegment}:${piece.t0.toPrecision(17)}:${piece.t1.toPrecision(17)}`;
+}
+
+function pointInRing(x, z, poly) {
+    let inside = false;
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+        const a = poly[j], b = poly[i];
+        if ((a[1] > z) !== (b[1] > z) && x < (b[0] - a[0]) * (z - a[1]) / (b[1] - a[1]) + a[0]) inside = !inside;
+    }
+    return inside;
+}
+
+export function buildTramDeckSupport(data, grades) {
+    const pieces = [], cells = new Map(), size = 16;
+    for (const [run, delta] of (data.trams || []).entries()) {
+        const points = decodeTramPoints(delta, data.q || 10); if (!points) continue;
+        for (let i = 1; i < points.length; i++) {
+            const grade = grades.forRun(run, i - 1); if (!grade) continue;
+            for (const piece of tramGradeRenderPieces(points[i - 1], points[i], grade)) {
+                if (!piece.supported) continue;
+                const sourceId = data.tramSources[run].sourceId, poly = piece.top.map(p => [p[0], p[2]]), p = { ...piece, poly, modelId: grade.modelId, sourceId, sourceSegment: grade.sourceSegment,
+                    id: tramSupportPieceId(sourceId, grade.sourceSegment, piece, grade.modelId) };
+                pieces.push(p);
+                for (let x = Math.floor(Math.min(...poly.map(v => v[0])) / size); x <= Math.floor(Math.max(...poly.map(v => v[0])) / size); x++) for (let z = Math.floor(Math.min(...poly.map(v => v[1])) / size); z <= Math.floor(Math.max(...poly.map(v => v[1])) / size); z++) {
+                    const key = x + ',' + z; if (!cells.has(key)) cells.set(key, []); cells.get(key).push(p);
+                }
+            }
+        }
+    }
+    const at = (x, z, { modelId } = {}) => {
+        if (!modelId) return null;
+        let top = -Infinity, bottom = Infinity; const sourceIds = new Set(), pieceIds = new Set();
+        for (const p of cells.get(Math.floor(x / size) + ',' + Math.floor(z / size)) || []) {
+            if (p.modelId !== modelId || !pointInRing(x, z, p.poly)) continue;
+            const band = p.band(x, z, 0); top = Math.max(top, band.top); bottom = Math.min(bottom, band.bottom); sourceIds.add(p.sourceId); pieceIds.add(p.id);
+        }
+        return sourceIds.size ? { top, bottom, modelId, sourceIds: [...sourceIds], supportPieceIds: [...pieceIds], estimated: true, deckBaseM: .2, actorBaseM: .24,
+            basis: 'exact containing source rail slab; no motor-road or upper-deck selection' } : null;
+    };
+    const inBox = (x0, z0, x1, z1, { modelId } = {}) => {
+        if (!modelId) return [];
+        const found = new Set();
+        for (let x = Math.floor(x0 / size); x <= Math.floor(x1 / size); x++) for (let z = Math.floor(z0 / size); z <= Math.floor(z1 / size); z++) for (const p of cells.get(x + ',' + z) || []) {
+            if (p.modelId === modelId && Math.max(...p.poly.map(v => v[0])) >= x0 && Math.min(...p.poly.map(v => v[0])) <= x1 && Math.max(...p.poly.map(v => v[1])) >= z0 && Math.min(...p.poly.map(v => v[1])) <= z1) found.add(p);
+        }
+        return [...found];
+    };
+    at.inBox = inBox;
+    return { pieces, at, inBox };
 }
 
 /** Conservative physical band uses the same exact continuous displacement. */

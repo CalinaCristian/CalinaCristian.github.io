@@ -20,7 +20,7 @@ import { batchWaterChunks } from './water-batch.js';
 import { cullMergedCells } from './cell-frustum.js';
 import { waterChannelDecision } from './water-channel.js';
 import { uncoveredWaterLine } from './water-lines.js';
-import { buildTramGrades, tramDeckBand } from './tram-grade.js';
+import { buildTramGrades, tramGradeRenderPieces, tramSupportPieceId } from './tram-grade.js';
 
 // ============================================================================
 //  WORLD — builds the 3D city from OpenStreetMap data (game/data/<city>.json,
@@ -1507,6 +1507,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     const yAlong = (e, x, z) => { const t = clamp(((x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz) / e.len, 0, 1); return e.ya + (e.yb - e.ya) * t; };
+    const tramGrades = buildTramGrades(data, { coreEdges: edges }), tramDecks = [];
     /** height of junction n's pad at (x, z): the profile of the nearest approach there (n.y on flat junctions) */
     const padHeightAt = (n, x, z) => { let best = null, bd = Infinity; for (const e of n.edges) { if (e.virtual) continue; const d = distPointSeg(x, z, e.a.x, e.a.z, e.b.x, e.b.z).d; if (d < bd) { bd = d; best = e; } } return best ? yAlong(best, x, z) : n.y; };
 
@@ -2314,6 +2315,8 @@ export async function buildWorld(city, renderer, opts = {}) {
                     const A = [pa[0] + (pb[0] - pa[0]) * j / k, pa[1] + (pb[1] - pa[1]) * j / k], B = [pa[0] + (pb[0] - pa[0]) * (j + 1) / k, pa[1] + (pb[1] - pa[1]) * (j + 1) / k];
                     const mx = (A[0] + B[0]) / 2, mz = (A[1] + B[1]) / 2;
                     if (coveredByOther(mx, mz, e, yAlong(e, mx, mz), 0.1)) continue;
+                    if (tramGrades.excludesInferredObstacle(A, B, { inferred: true, y0a: Y.road + yAlong(e, ...A), y1a: Y.road + yAlong(e, ...A) + 1.1,
+                        y0b: Y.road + yAlong(e, ...B), y1b: Y.road + yAlong(e, ...B) + 1.1, kind: 'bridge-guard-visual', sourceId: data.roadSourceGeometry?.[e.road]?.sourceId })) continue;
                     c.solid.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, e.nx * s, e.nz * s, rgb('#9aa3ad'));
                     c.solid.wall(A[0], A[1], B[0], B[1], yR, yR + 1.1, -e.nx * s, -e.nz * s, rgb('#8a939d'));
                     c.solid.flatQuad(A[0], A[1], B[0], B[1], B[0] + e.nx * s * 0.3, B[1] + e.nz * s * 0.3, A[0] + e.nx * s * 0.3, A[1] + e.nz * s * 0.3, yR + 1.1, rgb('#b0b8c0'), 0, -1);
@@ -2674,6 +2677,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 }
                 if (open) { last = null; continue; }
                 const ra = range(yAtT(t0)), rbb = range(yAtT(t1));
+                if (kind === 'rail' && tramGrades.excludesInferredObstacle([ax, az], [bx, bz], { inferred: true, y0a: ra[0], y1a: ra[1], y0b: rbb[0], y1b: rbb[1], kind: 'bridge-guard-collision', sourceId: data.roadSourceGeometry?.[e.road]?.sourceId })) { last = null; continue; }
                 if (last && Math.hypot(bx - last.ax, bz - last.az) < 24) { // extend the previous piece (the band is linear along the edge)
                     Object.assign(last, { bx, bz, y0b: rbb[0], y1b: rbb[1], x: (last.ax + bx) / 2, z: (last.az + bz) / 2, r: Math.hypot(bx - last.ax, bz - last.az) / 2 + 0.3, yr: (last.y0a + rbb[0]) / 2 + 0 * ym });
                     last.yr = undefined; continue;
@@ -2909,7 +2913,6 @@ export async function buildWorld(city, renderer, opts = {}) {
     }
     // The same source grade resolver is later exposed to Traffic. Heights are
     // explicit model profiles, independent of motor routing and source layers.
-    const tramGrades = buildTramGrades(data, { coreEdges: edges }), tramDecks = [];
     // tram tracks
     for (const [run, pl] of trams.entries()) {
         for (let i = 0; i < pl.length - 1; i++) {
@@ -2919,38 +2922,31 @@ export async function buildWorld(city, renderer, opts = {}) {
             if (grade) {
                 // Flat decks need only bounded pieces for cells; smooth ramp
                 // chords stay within2mm of the exact shared continuous profile.
-                const fractions = new Set([0, 1, ...grade.breaks]);
-                const step = Math.abs(grade.ya - grade.yb) > 1e-8 || grade.breaks.length ? 1.5 : 10;
-                for (let k = 1, count = Math.ceil(L / step); k < count; k++) fractions.add(k / count);
-                const ts = [...fractions].sort((a, b) => a - b);
-                for (let j = 1; j < ts.length; j++) {
-                    const t0 = ts[j - 1], t1 = ts[j], a = [ax + (bx - ax) * t0, az + (bz - az) * t0], b = [ax + (bx - ax) * t1, az + (bz - az) * t1];
-                    if ((t1 - t0) * L < 1e-6) continue;
-                    const y0 = grade.heightAt(t0), y1 = grade.heightAt(t1), c = cellOf((a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
-                    const n0 = t0 === 0 && grade.aOffset ? grade.aOffset : [nx, nz], n1 = t1 === 1 && grade.bOffset ? grade.bOffset : [nx, nz];
-                    const quad = (width, top0, top1, miter = true) => { const u = miter ? n0 : [nx, nz], v = miter ? n1 : [nx, nz]; return [[a[0] + u[0] * width, top0, a[1] + u[1] * width], [b[0] + v[0] * width, top1, b[1] + v[1] * width], [b[0] - v[0] * width, top1, b[1] - v[1] * width], [a[0] - u[0] * width, top0, a[1] - u[1] * width]]; };
-                    const supported = grade.bridge || Math.max(y0, y1, grade.heightAt((t0 + t1) / 2)) > 1e-8;
-                    const top = quad(grade.deckHalfWidthM, Y.ballast + y0, Y.ballast + y1);
+                for (const piece of tramGradeRenderPieces([ax, az], [bx, bz], grade, Y.ballast)) {
+                    const { a, b, t0, t1, y0, y1, quad, supported, top, band } = piece, c = cellOf((a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
                     if (supported) {
                         const bottom = top.map(p => [p[0], p[1] - grade.thicknessM, p[2]]), slab = rgb('#96938b');
                         c.solid.face4(...top, slab, [0, 1, 0]);
                         c.solid.face4(...bottom.slice().reverse(), rgb('#55524d'), [0, -1, 0]);
                         for (const [n, k] of [[0, 1], [2, 3]]) c.solid.face4(bottom[n], bottom[k], top[k], top[n], slab, n === 0 ? [nx, 0, nz] : [-nx, 0, -nz]);
-                        const local = { ...grade, heightAt: t => grade.heightAt(t0 + (t1 - t0) * Math.max(0, Math.min(1, t))) };
-                        const band = tramDeckBand(a, b, local, Y.ballast), poly = top.map(p => [p[0], p[2]]), x = (a[0] + b[0]) / 2, z = (a[1] + b[1]) / 2;
+                        const poly = top.map(p => [p[0], p[2]]), x = (a[0] + b[0]) / 2, z = (a[1] + b[1]) / 2;
                         const deck = { x, z, r: Math.max(...poly.map(p => Math.hypot(p[0] - x, p[1] - z))), poly, holes: [], roadDeck: true, railDeck: true,
-                            kind: 'source-tram-deck', sourceId: data.tramSources[run].sourceId, sourceNodeIds: data.tramSources[run].nodeIds.slice(i, i + 2), sourceTags: data.tramSources[run].tags,
+                            kind: 'source-tram-deck', sourceId: data.tramSources[run].sourceId, sourceSegment: grade.sourceSegment,
+                            supportPieceId: tramSupportPieceId(data.tramSources[run].sourceId, grade.sourceSegment, piece, grade.modelId),
+                            sourceNodeIds: data.tramSources[run].nodeIds.slice(i, i + 2), sourceTags: data.tramSources[run].tags,
                             estimated: true, elevationSource: grade.basis, sourceAnchorIds: grade.sourceAnchorIds, modelId: grade.modelId,
+                            supportA: a, supportB: b, supportTop: top, topProfile: piece.topProfile,
                             y0: Math.min(...bottom.map(p => p[1])), y1: Math.max(...top.map(p => p[1])), h: Math.max(...top.map(p => p[1])),
                             roofHeightAt: (px, pz, radius) => band(px, pz, radius).top, minHeightAt: (px, pz, radius) => band(px, pz, radius).bottom };
                         sceneryDeckGrid.insert(x - deck.r, z - deck.r, x + deck.r, z + deck.r, deck); tramDecks.push(deck);
                         tramGrades.report.renderedDeckPieces++; tramGrades.report.renderedTriangles += 8;
                     }
-                    (supported ? c.road : c.ground).face4(...quad(1.4, Y.ballast + y0 + (supported ? .001 : 0), Y.ballast + y1 + (supported ? .001 : 0)), ballastCol, [0, 1, 0]);
+                    const ballast = quad(1.4, Y.ballast + y0 + (supported ? .001 : 0), Y.ballast + y1 + (supported ? .001 : 0));
+                    (supported ? c.road : c.ground).face4(...ballast, ballastCol, [0, 1, 0], -1, ballast.map(p => [p[0] * .3, p[2] * .3]));
                     for (const offset of [-.72, .72]) {
                         const hw = .045, yy = Y.road + Y.mark + .006;
                         c.marks.face4([a[0] + nx * (offset + hw), yy + y0, a[1] + nz * (offset + hw)], [b[0] + nx * (offset + hw), yy + y1, b[1] + nz * (offset + hw)],
-                            [b[0] + nx * (offset - hw), yy + y1, b[1] + nz * (offset - hw)], [a[0] + nx * (offset - hw), yy + y0, a[1] + nz * (offset - hw)], railCol, [0, 1, 0]);
+                            [b[0] + nx * (offset - hw), yy + y1, b[1] + nz * (offset - hw)], [a[0] + nx * (offset - hw), yy + y0, a[1] + nz * (offset - hw)], railCol, [0, 1, 0], -1, [[0, 0], [0, 0], [0, 0], [0, 0]]);
                     }
                     tramGrades.report.renderedTriangles += 6;
                 }
@@ -2964,6 +2960,9 @@ export async function buildWorld(city, renderer, opts = {}) {
             }
         }
     }
+    /** Exact containing new rail slabs only. The slab/ballast base is0.2m;
+     * Traffic's native actor base remains0.24m above the same displacement. */
+    const tramDeckSupportAt = tramGrades.support.at;
 
     // -----------------------------------------------------------------------
     //  BUILDINGS (+ CV POIs, landmarks)
@@ -4706,6 +4705,7 @@ export async function buildWorld(city, renderer, opts = {}) {
                 const t0 = i / n * L, t1 = (i + 1) / n * L, P = (t, o, y) => [ax + ux * t + nx * o, y, az + uz * t + nz * o];
                 const mx = ax + ux * (t0 + t1) / 2, mz = az + uz * (t0 + t1) / 2;
                 if (onRibbon(mx, mz, 1.0) || onRibbon(mx + nx * 3, mz + nz * 3, 0.5)) continue; // a bridge / street over the channel
+                if (tramGrades.excludesInferredObstacle([ax + ux * t0, az + uz * t0], [ax + ux * t1, az + uz * t1], { inferred: true, y0a: 0, y1a: 1.15, radiusM: .15, kind: 'channel-quay-inferred' })) continue;
                 const sb = cellOf(mx, mz).solid, o1 = CHAN.slope, o2 = CHAN.slope + CHAN.bankW, toW = [nx, 0.4, nz];
                 sb.face4(P(t0, 0, 0.02), P(t1, 0, 0.02), P(t1, o1, CHAN.bank), P(t0, o1, CHAN.bank), conc, toW);            // quay wall (battered)
                 sb.face4(P(t0, o1, CHAN.bank), P(t1, o1, CHAN.bank), P(t1, o2, CHAN.bank), P(t0, o2, CHAN.bank), bankC, [0, 1, 0]); // service bank
@@ -5804,7 +5804,7 @@ export async function buildWorld(city, renderer, opts = {}) {
         camera: null, // optional: set to the main camera for distance culling (auto-detected otherwise)
         group, graph, buildings: allColl, pois, lights, nodeLight, bounds, nearestEdge, edgesInBox, isWater, isPark, waterMesh, sky,
         districts, areas, landmarks, trams, stats, data, spawn, city, allEdges,
-        tramGrade: tramGrades.resolveGrade, tramDecks,
+        tramGrade: tramGrades.resolveGrade, tramDecks, tramDeckSupportAt,
         /** placed trees {x, z, species, con, kind} (read-only; QA detectors) */
         treeSpots: treeList,
         /** chapters: the loaded district {id, name, label, bbox, center, landmarks, congestion, areaKm2, ends:[{x,z,node,edge}] (road-closed

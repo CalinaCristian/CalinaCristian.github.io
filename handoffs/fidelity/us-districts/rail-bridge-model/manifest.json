@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "base": "a294fff1",
+  "classification": "candidate-physical-counterexample-open-not-ready",
+  "sourceFilesSha256": {
+    "game/src/world.js": "feab33c9f6de65703e07bfeb7b23164f0b579e097d7843811862f49bf4c6d9f5",
+    "game/src/tram-grade.js": "aa3b3a59251bd3aa383b975640c38187bcae87e13daec3a91e148433d05c6098",
+    "game/src/tram-grade-models.js": "69968c75a84cec611e11752a52559d2098d86a0681d499947e093d25c3267b17",
+    "tools/osm/tram-grade-check.mjs": "30b21f42185179500b9617a61ea0595dffce98e2ed987924c22ee97fa43e13e3"
+  },
+  "proofFilesSha256": {
+    "README.md": "2b1eb1dc78748533676ffe9bfe03d08856a3e2a2a99f90a30d99604f6d8831db",
+    "actual-body-check.mjs": "bfa1c9c5b006c4c13791383ac4f490a6c1e7a41ff9e5486160860f858a94f6df",
+    "actual-body-intersections-metric-guard.json": "40b16206d21dc6c73d2576597a197a46ec796fc0828be4b9082d32c6fcfecf4c",
+    "actual-body-intersections.json": "cab0735d78cd798426d2898bc40fbab6961a46c2e67296a3999f1b3a4087e52f",
+    "controls-metric-guard.json": "569a9deafb8eb9c28f25f41dfaa7bcfc311a293da4909a2c4e7a5d51ba931ed5",
+    "controls.json": "569a9deafb8eb9c28f25f41dfaa7bcfc311a293da4909a2c4e7a5d51ba931ed5",
+    "cpu-native-model.json": "03ad8c05cd5c8eb8c0d4232917e8ea79ed47589105d5a9ae966a8d3968b2a64c"
+  },
+  "nativeSourceCommit": "6cbf82b61de8267f662bf50239c37ccc1764635c",
+  "nativeExportSha256": "a1dcca3b1a573028b7f659787b2c7db34dd874b0a28b6697d34593be6f417bb3",
+  "nativeProofCommit": "fabe253236781261dde4b706a0b9be809ecf96aa",
+  "browserStarted": false,
+  "wholeDistrictAcceptance": false,
+  "currentBlocker": "four actual native emitted-tram/road-solid triangle intersection poses"
+}

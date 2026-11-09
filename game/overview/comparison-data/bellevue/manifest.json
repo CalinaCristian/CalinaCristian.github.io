@@ -11,53 +11,24 @@
     "core-touches": 14,
     "outside-ring": 4
   },
-  "publishedBaseline": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
-  "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+  "publishedBaseline": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
+  "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
   "capture": {
-    "startedAt": "2026-11-08T23:16:29.077Z",
-    "endedAt": "2026-11-08T23:25:13.529Z",
-    "elapsedSeconds": 524.431,
-    "source": "cdfc8fb1e4646b8a9f1ff117bfec7899881391b357a62d4bd1a3118093c5dcda",
-    "captureToolSha256": "16a1e573ce8cd5a87661b6891c328d27bfe189e9e2c8356c014a0740fab2bfc2",
-    "sourceDatasetSha256": "24c27cbd160167836c254a1b6eafbeeb569df9744faf936d52892a9747a9fe46",
-    "loaded": {
-      "key": "seattle-bellevue",
-      "city": "seattle",
-      "district": "bellevue",
-      "ms": 27992,
-      "edges": 917,
-      "ribbons": 1131
-    },
-    "pageErrors": [],
-    "consoleErrors": [],
-    "failedRequests": [],
-    "traffic": false,
-    "quality": "high",
-    "weather": "clear",
-    "season": "summer",
-    "time": "day",
-    "mirror": false,
-    "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+    "type": "mixed-source-atlas",
     "frameCounts": 82,
-    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
-    "scopeCounts": {
-      "ring-touches": 64,
-      "core-touches": 14,
-      "outside-ring": 4
+    "originalFullCapture": {
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "manifest": "historical/c78a5f4/capture-manifest.json",
+      "frames": 82
     },
-    "validation": {
-      "framesVerified": 82,
-      "sourceFilesVerified": 2503,
-      "pageErrors": 0,
-      "consoleErrors": 0,
-      "failedRequests": 0,
-      "failures": []
+    "targetedRetakeCapture": {
+      "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
+      "manifest": "retakes/338300a9/manifest.json",
+      "frames": 4,
+      "startedAt": "2026-11-08T23:57:03.244Z",
+      "endedAt": "2026-11-08T23:58:55.076Z"
     },
-    "perfMaxima": {
-      "triangles": 374358,
-      "drawCalls": 105,
-      "note": "World-only high-quality top-down captures, moving traffic hidden, mirror excluded. Separate maxima need not occur in one frame; not a driving frame-budget acceptance test."
-    }
+    "note": "Per-frame SHA and capturedAt are authoritative. Original and retake capture metadata remain immutable."
   },
   "locations": [
     {
@@ -287,7 +258,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c04",
@@ -353,7 +326,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c05",
@@ -419,7 +394,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c06",
@@ -485,7 +462,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c07",
@@ -551,7 +530,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c08",
@@ -617,7 +598,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c09",
@@ -683,7 +666,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r01-c10",
@@ -749,7 +734,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c02",
@@ -815,7 +802,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c03",
@@ -881,7 +870,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c04",
@@ -947,7 +938,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c05",
@@ -1013,7 +1006,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c06",
@@ -1079,7 +1074,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c07",
@@ -1145,7 +1142,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c08",
@@ -1211,7 +1210,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c09",
@@ -1277,7 +1278,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c10",
@@ -1343,7 +1346,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r02-c11",
@@ -1409,7 +1414,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c01",
@@ -1475,7 +1482,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c02",
@@ -1541,7 +1550,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c03",
@@ -1607,7 +1618,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c04",
@@ -1673,7 +1686,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c05",
@@ -1739,7 +1754,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c06",
@@ -1805,7 +1822,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c07",
@@ -1871,7 +1890,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c08",
@@ -1937,7 +1958,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c09",
@@ -2003,7 +2026,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c10",
@@ -2069,7 +2094,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c11",
@@ -2135,7 +2162,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r03-c12",
@@ -2201,7 +2230,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c01",
@@ -2267,7 +2298,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c02",
@@ -2333,7 +2366,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c03",
@@ -2399,7 +2434,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c04",
@@ -2465,7 +2502,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c05",
@@ -2533,7 +2572,9 @@
       "orientation": "north-up",
       "places": [
         "lincoln-source-anchor"
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c06",
@@ -2599,7 +2640,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c07",
@@ -2667,7 +2710,9 @@
       "orientation": "north-up",
       "places": [
         "plazacenter-source-anchor"
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c08",
@@ -2733,7 +2778,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c09",
@@ -2801,7 +2848,9 @@
       "orientation": "north-up",
       "places": [
         "bellevue-chapter-start"
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c10",
@@ -2867,7 +2916,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c11",
@@ -2933,7 +2984,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r04-c12",
@@ -2999,7 +3052,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c01",
@@ -3065,7 +3120,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c02",
@@ -3131,7 +3188,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c03",
@@ -3197,7 +3256,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c04",
@@ -3265,7 +3326,9 @@
       "orientation": "north-up",
       "places": [
         "bellevuesq-source-anchor"
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c05",
@@ -3334,7 +3397,9 @@
       "places": [
         "onelincoln-source-anchor",
         "lincolnsouth-source-anchor"
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c06",
@@ -3402,7 +3467,9 @@
       "orientation": "north-up",
       "places": [
         "sonic-source-anchor"
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c07",
@@ -3470,7 +3537,9 @@
       "orientation": "north-up",
       "places": [
         "bellevue600-source-anchor"
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c08",
@@ -3536,7 +3605,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c09",
@@ -3602,7 +3673,9 @@
       ],
       "coverageType": "core-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c10",
@@ -3668,7 +3741,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c11",
@@ -3734,7 +3809,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r05-c12",
@@ -3800,7 +3877,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c02",
@@ -3866,7 +3945,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c03",
@@ -3891,13 +3972,13 @@
         -750,
         250
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 103,
-        "triangles": 238306,
-        "renderMs": 3.600000001490116,
+        "triangles": 235236,
+        "renderMs": 235.5,
         "quality": "high"
       },
       "traffic": {
@@ -3913,16 +3994,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:23:21.019Z",
+      "capturedAt": "2026-11-08T23:57:53.409Z",
       "gamePath": "images/aerial-r06-c03.jpg",
       "image": "images/aerial-r06-c03.jpg",
       "thumbnail": "thumbs/aerial-r06-c03.jpg",
-      "sha256": "e275f0486752842e98802b6e003922e4dfb17cb42f4d4db25e10a09385318a86",
+      "sha256": "4ac3a53d8461785834cdc67b6fbef4fdf81f8410cd09d469ba3d13abda2f679b",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5623,
+      "captureWallMs": 34365,
       "dataset": "atlas",
-      "thumbnailSha256": "448dc4bb814a2f231a2fb9b64cce7f3a83105771f7e3917b1e0b1ae1e90c8330",
+      "thumbnailSha256": "ab34c224108504a0b3df9cc8f1247cc8a3e8c23f846f833a9fcb88c617343b0e",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.61225042292049,
@@ -3932,7 +4013,10 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "posePlanSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "sourceNote": "Targeted canal retake 338300a9. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/338300a9/manifest.json"
     },
     {
       "id": "aerial-r06-c04",
@@ -3957,13 +4041,13 @@
         -500,
         250
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 102,
-        "triangles": 255413,
-        "renderMs": 6.399999998509884,
+        "triangles": 252343,
+        "renderMs": 77.80000000447035,
         "quality": "high"
       },
       "traffic": {
@@ -3979,16 +4063,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:23:26.642Z",
+      "capturedAt": "2026-11-08T23:58:27.775Z",
       "gamePath": "images/aerial-r06-c04.jpg",
       "image": "images/aerial-r06-c04.jpg",
       "thumbnail": "thumbs/aerial-r06-c04.jpg",
-      "sha256": "79e323727853a21035393a71302b1dec8a157a36642a7ed566d8540b4ae3065c",
+      "sha256": "5dfde29454955ce0e66b1775294b75fcf6791946cc8a1a3e7333b36dabc5296d",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5054,
+      "captureWallMs": 13633,
       "dataset": "atlas",
-      "thumbnailSha256": "827f0bf03496f96ab5b1292697d81ab0e960a6a1be5c1f53e92893bfc1d1f9d7",
+      "thumbnailSha256": "897318b90e5cbdf00a808c6399674ba5a7f2b6cc69ec1d26a4c33f0a6c132360",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.61225042292049,
@@ -3998,7 +4082,10 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "posePlanSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "sourceNote": "Targeted canal retake 338300a9. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/338300a9/manifest.json"
     },
     {
       "id": "aerial-r06-c05",
@@ -4064,7 +4151,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c06",
@@ -4132,7 +4221,9 @@
       "orientation": "north-up",
       "places": [
         "bellevuetowers-source-anchor"
-      ]
+      ],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c07",
@@ -4198,7 +4289,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c08",
@@ -4264,7 +4357,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c09",
@@ -4330,7 +4425,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c10",
@@ -4396,7 +4493,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r06-c11",
@@ -4462,7 +4561,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c02",
@@ -4528,7 +4629,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c03",
@@ -4553,13 +4656,13 @@
         -750,
         500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 83,
-        "triangles": 176752,
-        "renderMs": 6.399999998509884,
+        "triangles": 173682,
+        "renderMs": 76.60000000149012,
         "quality": "high"
       },
       "traffic": {
@@ -4575,16 +4678,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:24:15.417Z",
+      "capturedAt": "2026-11-08T23:58:41.409Z",
       "gamePath": "images/aerial-r07-c03.jpg",
       "image": "images/aerial-r07-c03.jpg",
       "thumbnail": "thumbs/aerial-r07-c03.jpg",
-      "sha256": "af8d3505db7ba1d15b992ec469d83e95147fd559c101211d883edf3dc7a62f32",
+      "sha256": "5d36bac4d1f87914beab18788287c5780dd97becd3edc1edf3e5c4efed5891c9",
       "width": 640,
       "height": 640,
-      "captureWallMs": 5578,
+      "captureWallMs": 6884,
       "dataset": "atlas",
-      "thumbnailSha256": "b88c084fd23d74dc3dae0dc22b53a1dee2bef201c2d9a8d6e18c40e4fe293f12",
+      "thumbnailSha256": "d8a15c8578004c24ab359af837e2dfea43dcad3e6bd66ef5fd64c70e389d8427",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.61000084584098,
@@ -4594,7 +4697,10 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "posePlanSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "sourceNote": "Targeted canal retake 338300a9. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/338300a9/manifest.json"
     },
     {
       "id": "aerial-r07-c04",
@@ -4619,13 +4725,13 @@
         -500,
         500
       ],
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 90,
-        "triangles": 183499,
-        "renderMs": 2.899999998509884,
+        "triangles": 180429,
+        "renderMs": 59.80000000447035,
         "quality": "high"
       },
       "traffic": {
@@ -4641,16 +4747,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-08T23:24:20.995Z",
+      "capturedAt": "2026-11-08T23:58:48.293Z",
       "gamePath": "images/aerial-r07-c04.jpg",
       "image": "images/aerial-r07-c04.jpg",
       "thumbnail": "thumbs/aerial-r07-c04.jpg",
-      "sha256": "c03899d4aa13f791898d30e4e3b73b7640bce457a19ee5a0d716ebf1dd9c6341",
+      "sha256": "cc16388b452edad67d248b496e985118543d16a805688da5e44a3de369612a56",
       "width": 640,
       "height": 640,
-      "captureWallMs": 4220,
+      "captureWallMs": 6783,
       "dataset": "atlas",
-      "thumbnailSha256": "9911242bd87c0beeb8273114d5e452a4ddef1ba6b6bee18b0dc7a79a504d9967",
+      "thumbnailSha256": "8d7b8b68f4b689fd6f2ece8f3ed2654ff13022e32f90e90828e47e9f1d675941",
       "captureType": "source-snapshot",
       "boundsWgs84": [
         47.61000084584098,
@@ -4660,7 +4766,10 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "posePlanSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "sourceNote": "Targeted canal retake 338300a9. Original full c78a5f4 atlas is archived separately.",
+      "sourceCaptureManifest": "retakes/338300a9/manifest.json"
     },
     {
       "id": "aerial-r07-c05",
@@ -4726,7 +4835,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c06",
@@ -4792,7 +4903,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c07",
@@ -4858,7 +4971,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c08",
@@ -4924,7 +5039,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c09",
@@ -4990,7 +5107,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c10",
@@ -5056,7 +5175,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r07-c11",
@@ -5122,7 +5243,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c03",
@@ -5188,7 +5311,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c04",
@@ -5254,7 +5379,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c05",
@@ -5320,7 +5447,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "aerial-r08-c06",
@@ -5386,7 +5515,9 @@
       ],
       "coverageType": "ring-touches",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "context-northwest",
@@ -5452,7 +5583,9 @@
       ],
       "coverageType": "outside-ring",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "context-northeast",
@@ -5518,7 +5651,9 @@
       ],
       "coverageType": "outside-ring",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "context-southwest",
@@ -5584,7 +5719,9 @@
       ],
       "coverageType": "outside-ring",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     },
     {
       "id": "context-southeast",
@@ -5650,17 +5787,22 @@
       ],
       "coverageType": "outside-ring",
       "orientation": "north-up",
-      "places": []
+      "places": [],
+      "sourceNote": "Original c78a5f4 frame; not recaptured at the targeted canal revision.",
+      "sourceCaptureManifest": "historical/c78a5f4/capture-manifest.json"
     }
   ],
   "locationId": "bellevue",
-  "captureType": "source-snapshot",
+  "captureType": "mixed-source-survey",
   "description": "Complete exact source core and 600 m ring survey with separate distant context cells.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
   "review": {
     "atlasFramesReviewed": 82,
     "streetWalkPairsReviewed": 426,
-    "atlasSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+    "atlasSourceCommit": [
+      "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "338300a95a79a2cabf3d7256ff745c6a1bac0372"
+    ],
     "streetWalkSourceCommit": "4198996ab142e3496c9224478eb8cd1aced676fb",
     "atlasReview": {
       "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
@@ -6299,36 +6441,29 @@
     },
     "streetWalkLabel": "Before source-grade and render integration \u00b7 4198996",
     "streetWalkSourceNote": "These426 GAME frames are completed historical4198996 evidence, with22unresolved camera altitude comparisons. They are retained separately from the currentc78a5f4 aerial/native source and never relabelled as that newer runtime.",
-    "atlasSourceNote": "Retained fullc78a5f4 capture: Downtown Park canal blue-pad geometry is an OPEN material finding (aerial-r06-c04 andr07-c04). Shared-owner correction/fresh subset proof is pending; this collection is not full-scene visual acceptance.",
-    "visualAcceptance": "Complete82-frame inspection; current-c78canal material finding remains open, so full-scene visual acceptance is not claimed.",
+    "atlasSourceNote": "Complete 82-frame atlas: 78 original c78a5f4 frames plus 4 canal retakes at 338300a9. Per-frame source/date retained. Full original atlas remains in historical collections. Technical north-up captures exclude moving traffic/mirror and temporarily remove fog/extend depth; native normal-perspective checks are separate.",
+    "visualAcceptance": "Every frame reviewed; the four canal retakes resolve the broad fallback ribbon finding. Unknown source heights, detailed materials, occupancy, imagery date and the 0.46633m untagged waterway boundary continuation remain unresolved; no full-scene parity claim.",
     "openMaterialFindings": [
       {
-        "id": "downtown-park-canal-blue-pads",
-        "viewId": "aerial-r06-c04",
-        "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
-        "gameImageSha256": "79e323727853a21035393a71302b1dec8a157a36642a7ed566d8540b4ae3065c",
-        "primarySourceWaterId": "w1326469169",
-        "adjacentSourceWaterIds": [
-          "w842753013",
-          "w1326469168"
-        ],
-        "classification": "Visible generated water geometry/band issue pending shared-owner diagnosis; exact original capture retained",
-        "resolutionOwner": "root",
-        "visualAccepted": false,
-        "additionalViewIds": [
-          "aerial-r07-c04"
-        ]
+        "id": "waterway-boundary-unknown",
+        "unresolvedBoundaryM": 0.46633,
+        "sourceRoadId": "w1326469175",
+        "classification": "Raw OSM has only waterway=river; no measured width, tunnel, covered, culvert or layer. This short continuation remains explicit; no dimension or tunnel attribute is invented."
       }
     ],
-    "acceptanceNote": "Capture/inspection coverage is complete. Source-height/roof/terrain/occupancy/date and sparse outer-detail limits remain, in addition to the explicit open canal material finding. Native current controls are separate evidence."
+    "acceptanceNote": "Complete capture/review coverage with the targeted canal correction. Source height, roof, terrain, facade, occupancy, date and sparse outer-detail limits remain. Native control evidence is separate.",
+    "targetedRetakeReview": "retakes/338300a9/paired-review.json"
   },
   "reviewNote": "Every atlas frame and available Street View comparison pair was visually inspected. Source coverage does not assert photographic identity; unresolved vertical data, panorama altitude, imagery date and estimated dimensions remain explicit.",
   "comparisonSourceCommits": {
-    "atlas": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+    "atlas": [
+      "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "338300a95a79a2cabf3d7256ff745c6a1bac0372"
+    ],
     "streetWalk": "4198996ab142e3496c9224478eb8cd1aced676fb"
   },
   "collectionNotes": {
-    "atlas": "Immutable source c78a5f4. High quality, clear day, summer; moving traffic and mirror excluded. Technical north-up atlas temporarily removes fog and extends camera depth; actual player drone/drive checks are separate. Retained fullc78a5f4 capture: Downtown Park canal blue-pad geometry is an OPEN material finding (aerial-r06-c04 andr07-c04). Shared-owner correction/fresh subset proof is pending; this collection is not full-scene visual acceptance.",
+    "atlas": "Complete 82-frame atlas: 78 original c78a5f4 frames plus 4 canal retakes at 338300a9. Per-frame source/date retained. Full original atlas remains in historical collections. Technical north-up captures exclude moving traffic/mirror and temporarily remove fog/extend depth; native normal-perspective checks are separate.",
     "streetWalk": "Immutable source 4198996. Every available comparison pose, game image only. Reference imagery remains outside git; official reference URLs and dates are retained. Camera season follows reference metadata month. These426 GAME frames are completed historical4198996 evidence, with22unresolved camera altitude comparisons. They are retained separately from the currentc78a5f4 aerial/native source and never relabelled as that newer runtime."
   },
   "aerial": {
@@ -6340,31 +6475,21 @@
     "extent": "250 m ground-plane square, north-up; elevated roofs project larger under the perspective camera."
   },
   "atlasSourceCounts": {
-    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 82
+    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 78,
+    "338300a95a79a2cabf3d7256ff745c6a1bac0372": 4
   },
   "sourceCaptureManifest": {
-    "path": "capture-manifest.json",
+    "path": "historical/c78a5f4/capture-manifest.json",
     "sha256": "b63f1d4561f5ec822573824a891ce9a2454a71c2246b712cd6b230e7327c02cc",
-    "note": "Immutable validated capture ledger before presentation labels."
+    "note": "Original full atlas ledger; four replacements have their own ledger in sourceCaptureManifests."
   },
-  "visualAcceptance": "Complete82-frame inspection; current-c78canal material finding remains open, so full-scene visual acceptance is not claimed.",
+  "visualAcceptance": "Every frame reviewed; the four canal retakes resolve the broad fallback ribbon finding. Unknown source heights, detailed materials, occupancy, imagery date and the 0.46633m untagged waterway boundary continuation remain unresolved; no full-scene parity claim.",
   "openMaterialFindings": [
     {
-      "id": "downtown-park-canal-blue-pads",
-      "viewId": "aerial-r06-c04",
-      "sourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
-      "gameImageSha256": "79e323727853a21035393a71302b1dec8a157a36642a7ed566d8540b4ae3065c",
-      "primarySourceWaterId": "w1326469169",
-      "adjacentSourceWaterIds": [
-        "w842753013",
-        "w1326469168"
-      ],
-      "classification": "Visible generated water geometry/band issue pending shared-owner diagnosis; exact original capture retained",
-      "resolutionOwner": "root",
-      "visualAccepted": false,
-      "additionalViewIds": [
-        "aerial-r07-c04"
-      ]
+      "id": "waterway-boundary-unknown",
+      "unresolvedBoundaryM": 0.46633,
+      "sourceRoadId": "w1326469175",
+      "classification": "Raw OSM has only waterway=river; no measured width, tunnel, covered, culvert or layer. This short continuation remains explicit; no dimension or tunnel attribute is invented."
     }
   ],
   "streetWalk": {
@@ -6376,5 +6501,43 @@
     "uniquePanoramas": 131,
     "cameraLevelAmbiguities": 22,
     "referenceImagesTracked": false
-  }
+  },
+  "historicalCollections": [
+    {
+      "label": "Full atlas before canal fallback correction",
+      "manifest": "historical/c78a5f4/manifest.json",
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "frames": 82,
+      "generatedAt": "2026-11-08T23:25:13.529Z",
+      "note": "All original images, thumbnails, raw capture ledger and source-file provenance are preserved unchanged."
+    }
+  ],
+  "sourceCaptureManifests": [
+    {
+      "path": "historical/c78a5f4/capture-manifest.json",
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "frames": 78
+    },
+    {
+      "path": "retakes/338300a9/manifest.json",
+      "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
+      "sha256": "a2036091fa5b218f7a4d562120b5329e6904de3fee658d9442e20c8922108eed",
+      "frames": 4
+    }
+  ],
+  "resolvedMaterialFindings": [
+    {
+      "id": "downtown-park-canal-blue-pads",
+      "originalSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "resolutionSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
+      "review": "retakes/338300a9/paired-review.json",
+      "retakeIds": [
+        "aerial-r06-c03",
+        "aerial-r06-c04",
+        "aerial-r07-c03",
+        "aerial-r07-c04"
+      ],
+      "classification": "Broad duplicate fallback river ribbon removed; narrow source water polygon retained."
+    }
+  ]
 }

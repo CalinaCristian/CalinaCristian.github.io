@@ -76,3 +76,7 @@ python handoffs/fidelity/pipera-fidelity/release-preparation-66a8154/plan-curati
 ```
 
 No tag or deletion flag belongs in this read-only preparation. Final reset-free 23-frame native budget work remains held until root supplies the actual FINAL source.
+
+## Authorized source-copy reclamation after preparation
+
+Root explicitly authorized removal of the four previously certified closed QA source copies only. Each copy was reverified against its original Git tree and preserved producer/per-file ledgers immediately before removal; no active process or held consumer used it. `authorized-source-cleanup-receipt.json` records exact paths, checks and observed recovery of 2,808,541,184 bytes. All raw reports, captures, six producer/per-file ledgers, worktrees, branches and other source copies remain. The receipt is a narrow later action; the original66 inventory remains dated and unchanged.

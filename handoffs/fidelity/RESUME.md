@@ -8,7 +8,19 @@ Environment reattachment has ended model-agent sessions twice while OS jobs and 
 
 Managed browser runtime: NODE_PATH=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules and NODE_OPTIONS=--require=/workspace/.environment/drive-my-cv/use-system-chromium.cjs; /usr/bin/chromium, muted. Playwright's downloaded browser is absent. Software GL timings do not prove hardware FPS.
 
-## Current checkpoint · 2026-11-09 02:00 UTC
+## Current checkpoint · 2026-11-09 02:31 UTC
+
+ROOT80f18372804cc083359260d06c1c950319feb7b4 includes all29 final structural retakes (Original080d→a189 aliases4760/ef80), full552-frame prior archives, untouched523 items/source metadata, and three native SeaTac source2b perspectives attached after the retake publication. Inventory regenerated and committed. Original now runs expanded overview-current-check on an exact80f immutable archive: every street/context image+thumb plus all previous selectors/assets/cache/layout. No need duplicate this browser. Retake proof in structure-atlas-07cc/ has0errors; real-world architectural limits retained. Root freshfetch still0new mastercommits(df9b).
+
+RO3ca210ac24a8fa83a5db84d6ebf65bae3146ebd8 vehicle/routes matrix COMPLETE:5approaches0contacts/resets/issues, source-bound16frames/624vehicles560peds,0browser/errors. Fixed actual stale vehicle Grid memberships and three-body rollback query omission; admission173walkers+19standers corrected before visibility, no RNG/cardinality loss. Not yet ROOTintegrated: final owned files are traffic.js + harness/page/core.js; eight named test modules and three fixtures. ROOT both runtime files still match09766dc baseline. Native3ca budgets before R4 still fail, so final combined perf probe remains required.
+
+NEW live pedestrian blocker:3ca finalframes have up to97XYpeer proxies, centres down to.015m; multiple literal same-edge walkers at.03–.07m. RO owns one short read-only actualbody/height/pose/duration/frustum attribution replay, then bounded causal correction if true. Do NOT claim no live pedestrian contact or launch FINAL900/freeze until resolved. Grid is stale after walker movement; unconstrained movement/separation speed/postclearance are hypotheses, not proven cause yet.
+
+US read-only packaging audit: currenttracked1043MiB; predictedJekyll eligible1002MiB (1,050,755,925B) is too close to1GiB and above decimal1GB. Handoffs330MB. US preparing safe explicit exclusions of large unreferenced report directories while preserving all public comparison/history pictures and actual tourist native-proof links. No evidence deletion. ROOT will apply minimal config change after audit. Existing exclusions dev/research/specs/tools preserved.
+
+Archive tool dry at80f:58capture sources/55archive parents/0missing. Final annotated evidence tag still NOT created/pushed. Final source freeze, foot/a, QA15loads/telemetry, Pipera native budget, Tourist new900physical, curated master/stamp/deploy/cleanup all pending. Ten story chapters still map to8distinct districts, identical origin/master mapping; no district removed.
+
+## Previous checkpoint · 2026-11-09 02:00 UTC
 
 ROOT is fix/dinamo-and-ambasador at 07cc3d6bcefe90967c5bde3af2237dab4b972705; master/origin df9b2e2c, latest fetch0unseencommits. Remote backup through9ab726f5. Root clean before this note. User authorizes finish/master/clean logical history/delete owned branches; no environment publication. Read FIDELITY-GOAL for complete scope; its detailed current section predates some items below.
 

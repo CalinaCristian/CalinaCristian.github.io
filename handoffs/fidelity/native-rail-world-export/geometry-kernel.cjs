@@ -51,6 +51,8 @@ module.exports = function geometryKernel() {
         if (seen.has(value)) return { $ref: seen.get(value) }; seen.set(value, path);
         if (value.isObject3D) return { $object3D: value.uuid, name: value.name, type: value.type };
         if (value.isBufferGeometry) return { $geometry: geometry(value) };
+        if (value.a && value.b && Number.isFinite(value.len) && Array.isArray(value.a.edges) && Array.isArray(value.b.edges)) return { $nativeEdgeRef: { id: value.id, road: value.road ?? null, sourceId: value.sourceId ?? value.access?.sourceId ?? null, a: value.a.id, b: value.b.id } };
+        if (Array.isArray(value.edges) && value.id != null && Number.isFinite(value.x) && Number.isFinite(value.z)) return { $nativeNodeRef: { id: value.id, sourceId: value.sourceId ?? null, x: value.x, y: value.y ?? null, z: value.z, edgeIds: value.edges.map(e => e.id) } };
         if (ArrayBuffer.isView(value)) return { $typed: typed(value) };
         if (value instanceof Map) return { $map: [...value].map(([k, v], i) => [safe(k, seen, path + '.key' + i), safe(v, seen, path + '.value' + i)]) };
         if (value instanceof Set) return { $set: [...value].map((v, i) => safe(v, seen, path + '.' + i)) };

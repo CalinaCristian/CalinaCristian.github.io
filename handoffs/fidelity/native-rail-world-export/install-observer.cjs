@@ -50,6 +50,18 @@ module.exports = async function installRailObserver() {
     }
     function capture(T, phase) {
         K.nextEpoch(); lastTraffic = new WeakRef(T);
+        const railSignalStates = (T.tramNetwork?.nodes || []).flatMap(n => (n.edges || []).map(e => {
+            const signal = n.sourceSignal, motorNode = signal?.node || n.motorNode, motorEdge = signal?.edge,
+                approach = motorNode && motorEdge ? T.world.nodeLight?.[motorNode.id]?.approaches.find(a => a.edge === motorEdge) : null;
+            const row = { railSourceNodeId: n.sourceId, railNodeId: n.id, railEdgeId: e.id, motorNodeId: motorNode?.id ?? null, motorEdgeId: motorEdge?.id ?? null,
+                trafficTime: T.time, cycle: T.cycle, phase: signal?.phase ?? null, controllerIdentity: controller(T.boxController?.(n) || n.lightCluster || n)?.identity,
+                sourceDirections: K.safe(e.directions), atRailEnd: e.a === n ? 'a' : 'b', publicTram: e.publicTram, throughTram: e.throughTram,
+                actualRendererApproachState: approach?.state ?? null, actualRendererApproachPhase: approach?.phase ?? null,
+                scope: 'Direct native query at observed undriven time; renderer approach state is separately retained and may lag. No red-stop/green-resume challenge is implied.' };
+            try { row.railState = T.lightState(n, e); row.motorState = motorNode && motorEdge ? T.lightState(motorNode, motorEdge) : null; }
+            catch (error) { row.queryError = String(error.stack || error); }
+            return row;
+        }));
         const claims = [...T.boxes || []].map(([n, entries]) => ({ node: nodeRef(n), keyIdentity: controller(n), entries: entries.map(c => ({ ...scalar(c), vehicleId: c.v?.id ?? c.vehicle?.id ?? null,
             inEdge: edgeRef(c.inE), outEdge: edgeRef(c.outE), segments: (c.segments || []).map(s => ({ ...scalar(s), inEdgeId: s.inE?.id ?? null, outEdgeId: s.outE?.id ?? null })),
             internalEdgeIds: [...c.internalEdges || []].map(e => e.id), clearEdgeIds: [...c.clearEdges || []].map(e => e.id) })) }));
@@ -57,7 +69,8 @@ module.exports = async function installRailObserver() {
         snapshots.push({ phase, nativeTime: T.time, nativeFrame: T._frame ?? null, performanceMs: performance.now(), district: T.world.district.id, maxVehicles: T.maxVehicles, large: T.large,
             profile: K.safe(T.profile), base: K.safe(T.base), counts: K.safe(T.counts), target: K.safe(T.target), initialTramBinding: K.safe(T.initialTramBinding), initialAdmission: K.safe(T.initialAdmission),
             active: T.vehicles.map(actor), pool: T.pool.map(actor), pedestrians: T.peds ? T.peds.list.map(p => ({ ...scalar(p), line: p.line ? { ...scalar(p.line), edgeId: p.line.edge?.id ?? p.line.e?.id ?? null } : null })) : null,
-            claims, phaseControllers: phases, tramNetwork: T.tramNetwork ? { report: K.safe(T.tramNetwork.report), nodes: T.tramNetwork.nodes.map(nodeRef), edges: T.tramNetwork.edges.map(edgeRef) } : null });
+            claims, phaseControllers: phases, railSignalStates, tramMotorCrossings: [...T.tramMotorCrossings || []].map(n => n.id), tramMotorCrossingNodes: [...T.tramMotorCrossings || []].map(nodeRef),
+            tramNetwork: T.tramNetwork ? { report: K.safe(T.tramNetwork.report), nodes: T.tramNetwork.nodes.map(nodeRef), edges: T.tramNetwork.edges.map(edgeRef) } : null });
     }
     function observe(T, phase) { try { capture(T, phase); } catch (e) { errors.push({ phase, error: String(e.stack || e) }); } }
     Traffic.prototype.spawnAll = function (...args) { const r = oldSpawn.apply(this, args); observe(this, 'after-original-spawnAll-before-binding'); return r; };
@@ -85,7 +98,7 @@ module.exports = async function installRailObserver() {
     window.__railObserver = {
         reset() { K = window.__railKernelFactory(); snapshots = []; errors = []; lastTraffic = null; controllers = new WeakMap(); controllerSerial = 0; },
         snapshot(phase) { const T = g.traffic || lastTraffic?.deref(); if (T) observe(T, phase); },
-        facts() { return { snapshots, observerErrors: errors, geometryCatalog: K.geometries, scope: 'Exact native observer records, including raw producer diagnostics; not self-certified physical acceptance.' }; },
+        facts({ includeGeometryCatalog = false } = {}) { return { snapshots, observerErrors: errors, ...(includeGeometryCatalog ? { geometryCatalog: K.geometries } : {}), scope: 'Exact native observer records, including raw producer diagnostics; not self-certified physical acceptance.' }; },
         world() {
             const w = g.world, T = g.traffic || lastTraffic?.deref(); if (!w) return { unknown: 'native world unavailable after failed load' };
             const ids = new Set([...(w.tramDecks || []).map(c => c.modelId), ...(T?.tramNetwork?.edges || []).map(e => e.grade?.modelId)].filter(Boolean)), pieces = [], seen = new Set();

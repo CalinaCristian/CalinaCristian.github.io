@@ -153,7 +153,7 @@ An interim fidelity/gameplay update is available for testing; the complete all-d
   Civic buildings keep their identity, apartment blocks retain their upper floors, and the Louis Blanc office uses its
   published eight above-ground storeys. The full district has local Street View and aerial comparison reports. Complex
   roofs, detailed historic facades, canopy shape and covered footbridges still need further modelling.
-- **Performance.** Adaptive quality tiers, instanced traffic/crowds/parked cars and view-range culling target at most
+- **Performance.** Ultra’s normal-only ambient-occlusion pass uses a finite face-normal fallback with its own declared view-position varying, so smooth normal materials compile without the previous missing-varying shader error. This is a shader correctness fix, not a hardware FPS claim. Adaptive quality tiers, instanced traffic/crowds/parked cars and view-range culling target at most
   1.5 million triangles / 400 draw calls per district frame including traffic and the mirror. The overview records
   measured checks and remaining limits; software-rendered test timing is not phone performance.
   The instrument cluster and navigation/media screen stay sharp at every graphics tier. Their physical surfaces are redrawn after world antialiasing at bounded display resolution, preserving dashboard occlusion and normal controls. The mirror receives the same protection when enabled; Low retains its existing mirror policy.

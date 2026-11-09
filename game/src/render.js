@@ -1,4 +1,5 @@
 import * as THREE from '../vendor/three.module.min.js';
+import { installNormalGuard } from './normal-guard.js';
 import { EffectComposer } from '../vendor/addons/EffectComposer.js';
 import { RenderPass } from '../vendor/addons/RenderPass.js';
 import { ShaderPass } from '../vendor/addons/ShaderPass.js';
@@ -70,10 +71,8 @@ const OVERRIDES = { day: { el: 48, az: 200 }, sunset: { el: 3, az: 290 }, dusk: 
 const FOG_H = 1100;
 {
     const C = THREE.ShaderChunk;
-    // zero-length vertex normals (degenerate triangles in generated geometry) made normalize() return NaN, which the
-    // bloom pass then smeared into a black screen-aligned block (feedback note 28): fall back to the face normal
-    C.normal_fragment_begin = C.normal_fragment_begin.replace('vec3 normal = normalize( vNormal );',
-        'vec3 normal = dot( vNormal, vNormal ) > 1e-12 ? normalize( vNormal ) : normalize( cross( dFdx( vViewPosition ), dFdy( vViewPosition ) ) + 1e-9 );');
+    // Keep the face-normal fallback valid in Ultra's smooth normal-only pass too.
+    installNormalGuard(THREE);
     C.fog_pars_vertex = `#ifdef USE_FOG
         varying float vFogDepth;
         #ifdef FOG_EXP2

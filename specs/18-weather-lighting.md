@@ -94,3 +94,7 @@ Instrumented with a float render target and a non-finite pixel count every 0.5 s
 
 
 - 2026-11-08 root tourist conditions integration: actual cross-city probe reproduced h14.25/storm/winter becoming04:15/overcast in Seattle. Entering a tourist scene now reapplies the selected local hour in its timezone and passes explicit weather/season; returning to the retained district reapplies its local timezone. Tourist K and pause Settings expose conditions, cancel unfinished activities and freeze scene progress while the panel is open. Setters refresh the scene clock at its own coordinates. Syntax passes; native travel/live/season/weather/pause regression is assigned before acceptance.
+
+### 2026-11-09 — normal-only pass shader correctness
+
+The shared zero-normal guard used vViewPosition in smooth MeshNormalMaterial, although Three r170 declares it only under flat/bump/tangent-normal variants. Native Ultra/GTAO produced undeclared-varying compile errors. `normal-guard.js` preserves the lit face-normal fallback and supplies a dedicated normal-pass view-position varying from the actual projected vertex. It is idempotent, adds no draw calls/geometry, and leaves healthy lit normal calculations unchanged. `tools/normal-guard-check.mjs` reproduces the old native compile failure then checks smooth/flat normal, Lambert, Phong and Standard zero-normal pixels with zero shader/GL errors. Actual full-scene Ultra budgets/visuals remain a separate gate.

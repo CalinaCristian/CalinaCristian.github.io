@@ -150,8 +150,10 @@ function materials() {
     MATS.nb = nb;
     // Filtered coverage preserves subpixel field paint. This cache owns the alpha
     // texture; sceneResources retains landmark materials/textures between worlds.
-    const paint = new THREE.MeshLambertMaterial({ color: '#f7f7f2', alphaMap: makeDinamoPaintTexture(), transparent: true, depthWrite: false,
-        polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+    const paint = fl.clone();
+    paint.onBeforeCompile = fl.onBeforeCompile; paint.customProgramCacheKey = () => 'landmark-pitch-paint';
+    paint.alphaMap = makeDinamoPaintTexture(); paint.transparent = true; paint.depthWrite = false;
+    paint.polygonOffset = true; paint.polygonOffsetFactor = paint.polygonOffsetUnits = -1;
     paint.name = 'landmark-pitch-paint'; paint.userData.shared = true;
     MATS.paint = paint;
     return MATS;

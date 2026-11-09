@@ -40,6 +40,8 @@ assert.equal(current.triangles, old.triangles - 114 + 2); assert.equal(extra.geo
 const p = extra.geometry.attributes.position.array, cross = new THREE.Vector3().fromArray(p, 3).sub(new THREE.Vector3().fromArray(p)).cross(new THREE.Vector3().fromArray(p, 6).sub(new THREE.Vector3().fromArray(p)));
 assert(cross.y > 0); assert.equal(extra.castShadow, false); assert.equal(extra.receiveShadow, true); checks += 3;
 assert(landmarkSurfaceMaterials().includes(material)); assert.equal(material.depthWrite, false); assert(material.transparent); checks += 3;
+for (const key of ['nightEmissive', 'nightGlow', 'dayGlow', 'floodlit']) { assert.equal(material.userData[key], oldM.material.userData[key]); checks++; }
+assert.equal(material.emissive.getHex(), oldM.material.emissive.getHex()); assert.equal(material.vertexColors, true); checks += 2;
 assert.equal(texture.format, THREE.RGFormat); assert.equal(texture.minFilter, THREE.LinearMipmapLinearFilter); assert(texture.generateMipmaps); checks += 3;
 assert.equal(texture.image.data.length, DINAMO_PAINT.width * DINAMO_PAINT.height * 2); checks++;
 let mipBytes = 0; for (let n = 1024; n >= 1; n /= 2) mipBytes += n * n * 2;

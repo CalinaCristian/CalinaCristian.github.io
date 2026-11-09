@@ -54,6 +54,8 @@ export function makeDinamoPaintMesh(W, scale, material) {
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
     geometry.setAttribute('normal', new THREE.Float32BufferAttribute([0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0], 3));
+    const paint = new THREE.Color('#f7f7f2');
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(Array.from({ length: 4 }, () => paint.toArray()).flat(), 3));
     geometry.setAttribute('uv', new THREE.Float32BufferAttribute([0, 0, 1, 0, 1, 1, 0, 1], 2));
     // (u,v) frame has negative x/z determinant; this winding faces upward.
     geometry.setIndex([0, 1, 2, 0, 2, 3]); geometry.computeBoundingBox(); geometry.computeBoundingSphere();

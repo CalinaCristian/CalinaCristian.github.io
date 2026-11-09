@@ -1,7 +1,7 @@
 {
   "passed": true,
   "baseline": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
-  "checks": 747,
+  "checks": 753,
   "unchangedOtherModels": 60,
   "exactNonPaintGeometry": true,
   "exactFootballMetadataAndCollision": true,

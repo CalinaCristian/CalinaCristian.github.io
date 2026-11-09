@@ -1,23 +1,48 @@
 {
-  "type": "mixed-source-inventory-index",
-  "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
-  "atlasSourceCounts": {
-    "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 98,
-    "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
+  "gameSourceCommit": null,
+  "priorCurrentSourceProvenance": {
+    "path": "historical/full-before-07cc3d6b-4b598272/source-provenance.json",
+    "sha256": "4a7296dc03fde108fd2f275c166a5fb50268a9928bd8ebdd0f8bd7c90e62a2c1"
   },
-  "inventories": [
+  "sourceSnapshots": [
     {
-      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
-      "path": "historical/c78a5f4/source-provenance.json",
-      "sha256": "bedee6790e941fd84d4a7409c4a34d9744e7ffb6077b35a24e8722e52aee2850",
-      "filesVerified": 2580
-    },
-    {
-      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
-      "path": "retakes/bc9a3ff3/source-provenance.json",
-      "sha256": "8903d3205876f09e9a2f7f8eb380658ac4bf83e8c48e797db425039e7c60db3b",
-      "filesVerified": 8211
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "treeSha256": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+      "manifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "manifestSha256": "c18ff6ae5f4813a1b56dd6a7eea2e8a803651ec6fc2bb1c49186bc371aa34cd9",
+      "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
+      "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
+      "frames": 2
     }
   ],
-  "note": "Per-frame source SHA and capturedAt are authoritative. Original immutable source inventories and source-file hashes remain at the recorded paths."
+  "sourceCaptureManifests": [
+    {
+      "path": "historical/c78a5f4/capture-manifest.json",
+      "gameSourceCommit": "c78a5f4c522723fb2f4e640999e3ac5d164fc724",
+      "frames": 98
+    },
+    {
+      "path": "retakes/bc9a3ff3/manifest.json",
+      "gameSourceCommit": "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58",
+      "sha256": "85245cb4df7a9b626117254380c15baea205bfb7496cb0373f2b499c5ebdbb13",
+      "frames": 35
+    },
+    {
+      "path": "historical/full-before-07cc3d6b-4b598272/manifest.json",
+      "sha256": "4b5982724681558afaa65ead6bf82086a55cf7c6ccef1c02973c24ca3525592f",
+      "sourceCounts": {
+        "c78a5f4c522723fb2f4e640999e3ac5d164fc724": 98,
+        "bc9a3ff3058799a4ec9ac450f3efbdc050b79c58": 35
+      },
+      "frames": 133,
+      "note": "Previous complete current manifest with actual per-frame source dates; its original raw capture ledger is also archived."
+    },
+    {
+      "path": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "sha256": "c18ff6ae5f4813a1b56dd6a7eea2e8a803651ec6fc2bb1c49186bc371aa34cd9",
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "frames": 2
+    }
+  ],
+  "note": "Prior raw source inventories remain immutable in their archives; the new subset carries its actual07cc source tree."
 }

@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "title": "Unirii aerial comparisons",
+  "generatedDate": "2026-11-09",
+  "generatedAt": "2026-11-09T02:04:57.176Z",
+  "defaultTile": "aerial-r05-c07",
+  "tileMetres": 250,
+  "orientation": "north-up",
+  "atlasScopeCounts": {
+    "core-touches": 1
+  },
+  "publishedBaseline": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+  "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+  "capture": {
+    "startedAt": "2026-11-09T02:04:37.487Z",
+    "endedAt": "2026-11-09T02:04:57.176Z",
+    "elapsedSeconds": 19.689,
+    "source": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+    "captureToolSha256": "82a44ab184afd4f5d9c032642d3d513a594993c3c7301af8029c6976dd26458b",
+    "sourceDatasetSha256": "9797d9f5b1a4f2593528ce6c8c4ad04ec38fb953c9770bf32f6d7d5c7c54f26c",
+    "loaded": {
+      "key": "bucharest-unirii",
+      "city": "bucharest",
+      "district": "unirii",
+      "ms": 9295,
+      "edges": 1054,
+      "ribbons": 1263
+    },
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "mirror": false,
+    "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+    "frameCounts": 1,
+    "coverageClaim": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim.",
+    "scopeCounts": {
+      "core-touches": 1
+    },
+    "validation": {
+      "framesVerified": 1,
+      "sourceFilesVerified": 9318,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "failedRequests": 0,
+      "failures": []
+    },
+    "perfMaxima": {
+      "triangles": 570043,
+      "drawCalls": 132,
+      "note": "World-only high-quality top-down captures, moving traffic hidden, mirror excluded. Separate maxima need not occur in one frame; not a driving frame-budget acceptance test."
+    }
+  },
+  "locations": [],
+  "coverage": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim.",
+  "boundarySource": "boundary-source.json",
+  "items": [
+    {
+      "id": "aerial-r05-c07",
+      "label": "Row 5 \u00b7 Column 7",
+      "row": 5,
+      "column": 7,
+      "lat": 44.43082478853975,
+      "lon": 26.110572431585258,
+      "x": 125.00000000007468,
+      "z": -125.00000000007185,
+      "h": 216.50635094610968,
+      "size": 250,
+      "fov": 60,
+      "heading": 0,
+      "pitch": -90,
+      "square": true,
+      "scope": "core-touches",
+      "sourceRingMinDistanceM": -130,
+      "boundsXZ": [
+        0,
+        -250,
+        250,
+        0
+      ],
+      "coverageType": "core-touches",
+      "orientation": "north-up",
+      "places": [],
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "cameraBaseY": 0,
+      "cameraY": 216.50635094610968,
+      "perf": {
+        "drawCalls": 132,
+        "triangles": 570043,
+        "renderMs": 43.20000000298023,
+        "quality": "high"
+      },
+      "traffic": {
+        "enabled": false,
+        "visible": false,
+        "vehicleCount": 305
+      },
+      "renderer": {
+        "width": 640,
+        "height": 640,
+        "pixelRatio": 1
+      },
+      "season": "summer",
+      "weather": "clear",
+      "time": "day",
+      "capturedAt": "2026-11-09T02:04:49.865Z",
+      "gamePath": "images/aerial-r05-c07.jpg",
+      "image": "images/aerial-r05-c07.jpg",
+      "thumbnail": "thumbs/aerial-r05-c07.jpg",
+      "sha256": "1b1fe3f32835cba83a3b059f6c758ab50b3ff79bab0ca0251017aabd77962651",
+      "width": 640,
+      "height": 640,
+      "captureWallMs": 7311,
+      "dataset": "atlas",
+      "thumbnailSha256": "071902812f855fe61fe1e379a2a0d2bfc744acba1928a2810155610f93cbba2b",
+      "captureType": "game-topdown",
+      "boundsWgs84": [
+        44.4297,
+        26.109,
+        44.43194957707951,
+        26.11214486317051
+      ]
+    }
+  ]
+}

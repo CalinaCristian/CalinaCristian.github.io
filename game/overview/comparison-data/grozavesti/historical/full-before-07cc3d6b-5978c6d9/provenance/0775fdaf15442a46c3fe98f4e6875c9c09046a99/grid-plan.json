@@ -1,0 +1,17 @@
+{
+  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "city": "bucharest",
+  "district": "grozavesti",
+  "grid": {
+    "x0": -1500,
+    "z0": -1750,
+    "columns": 11,
+    "rows": 12,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "water-recapture": 19
+  },
+  "locations": [],
+  "coverage": "Conservative source-water render recapture subset; merge with original frozen dry frames to retain the complete district atlas."
+}

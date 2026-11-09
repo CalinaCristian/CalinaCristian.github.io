@@ -1,5 +1,5 @@
 {
-  "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99",
+  "gameSourceCommit": null,
   "city": "bucharest",
   "district": "unirii",
   "grid": {
@@ -26,7 +26,7 @@
     },
     {
       "id": "fountains",
-      "label": "Piața Unirii fountains",
+      "label": "Pia\u021ba Unirii fountains",
       "lat": 44.4268,
       "lon": 26.1025,
       "source": "game/src/landmarks.js:ANCHOR.fountains; mapped water and fountain records",
@@ -82,5 +82,10 @@
       "tileId": "context-cathedral"
     }
   ],
-  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score."
+  "coverage": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
+  "sourceCounts": {
+    "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 80,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 17,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1
+  }
 }

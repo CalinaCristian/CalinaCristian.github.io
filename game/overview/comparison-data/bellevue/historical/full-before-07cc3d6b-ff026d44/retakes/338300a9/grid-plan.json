@@ -1,0 +1,23 @@
+{
+  "gameSourceCommit": "338300a95a79a2cabf3d7256ff745c6a1bac0372",
+  "city": "seattle",
+  "district": "bellevue",
+  "grid": {
+    "x0": -1500,
+    "z0": -1250,
+    "columns": 12,
+    "rows": 8,
+    "sizeMetres": 250
+  },
+  "counts": {
+    "ring-touches": 4
+  },
+  "locations": [],
+  "coverage": "Targeted four canal-intersection retakes only; original full82 c78 collection retained separately.",
+  "captureSubset": [
+    "aerial-r06-c03",
+    "aerial-r06-c04",
+    "aerial-r07-c03",
+    "aerial-r07-c04"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "startedAt": "2026-11-08T23:57:03.244Z",
+  "endedAt": "2026-11-08T23:58:55.076Z",
+  "elapsedSeconds": 111.831,
+  "source": "c50e846ce0bde0217133a21d995d4ef84eac5a21bc2fe5474359aaf0622aacec",
+  "captureToolSha256": "16a1e573ce8cd5a87661b6891c328d27bfe189e9e2c8356c014a0740fab2bfc2",
+  "sourceDatasetSha256": "60506e422b1a0c8edbccc5fbbb7800015bd39e7f8c3767d49d262e4c9c2c6e38",
+  "loaded": {
+    "key": "seattle-bellevue",
+    "city": "seattle",
+    "district": "bellevue",
+    "ms": 30553,
+    "edges": 917,
+    "ribbons": 1131
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "traffic": false,
+  "quality": "high",
+  "weather": "clear",
+  "season": "summer",
+  "time": "day",
+  "mirror": false,
+  "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+  "frameCounts": 4,
+  "coverageClaim": "Targeted four canal-intersection retakes only; original full82 c78 collection retained separately.",
+  "scopeCounts": {
+    "ring-touches": 4
+  }
+}

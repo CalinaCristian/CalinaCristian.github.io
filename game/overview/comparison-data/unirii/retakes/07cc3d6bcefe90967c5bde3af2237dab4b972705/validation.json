@@ -1,0 +1,21 @@
+{
+  "frames": 1,
+  "sourceFilesVerified": 9318,
+  "scopeCounts": {
+    "core-touches": 1
+  },
+  "failures": [],
+  "imageMetrics": [
+    {
+      "id": "aerial-r05-c07",
+      "rgbStddev": [
+        41.83229427655668,
+        36.21289457805766,
+        39.764004750792445
+      ],
+      "sha256": "1b1fe3f32835cba83a3b059f6c758ab50b3ff79bab0ca0251017aabd77962651"
+    }
+  ],
+  "movedUnusedFirstAttemptFrames": [],
+  "manifestSha256": "59b2f9f28e88cef042e91dad2bcc190f987a72aa754442ea5b4b0f8c57dbc9b0"
+}

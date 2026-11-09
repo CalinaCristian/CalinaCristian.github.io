@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "title": "Grozavesti aerial comparisons",
   "generatedDate": "2026-11-09",
-  "generatedAt": "2026-11-09T00:39:29.681Z",
+  "generatedAt": "2026-11-09T02:04:12.623Z",
   "defaultTile": "aerial-r04-c08",
   "tileMetres": 250,
   "orientation": "north-up",
@@ -14,44 +14,9 @@
   "publishedBaseline": null,
   "gameSourceCommit": null,
   "capture": {
-    "startedAt": "2026-11-08T21:54:04.466Z",
-    "endedAt": "2026-11-09T00:39:29.681Z",
-    "elapsedSeconds": 728.711,
+    "type": "mixed-source-atlas",
     "source": null,
-    "loaded": {
-      "key": "bucharest-grozavesti",
-      "city": "bucharest",
-      "district": "grozavesti",
-      "ms": 32506,
-      "edges": 801,
-      "ribbons": 1714
-    },
-    "pageErrors": [],
-    "consoleErrors": [],
-    "failedRequests": [],
-    "traffic": false,
-    "quality": "high",
-    "weather": "clear",
-    "season": "summer",
-    "time": "day",
-    "mirror": false,
     "frameCounts": 100,
-    "coverageClaim": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score.",
-    "scopeCounts": {
-      "ring-touches": 72,
-      "core-touches": 23,
-      "outside-ring": 5
-    },
-    "validation": {
-      "framesVerified": 100,
-      "failures": [],
-      "mixedSourceProvenancePreserved": true
-    },
-    "perfMaxima": {
-      "triangles": 711417,
-      "drawCalls": 117,
-      "note": "Separate static north-up atlas maxima; traffic/mirrors disabled. No hardware FPS, controller or driving-budget claim."
-    },
     "sourceSnapshots": [
       {
         "gameSourceCommit": "4378317f3fcdccc886d6c7c1ed092ee15d95db8a",
@@ -75,8 +40,100 @@
         "sourceProvenance": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/source-provenance.json",
         "sourceProvenanceSha256": "f05664c4657ca87bf793d3d9ff188af55049ec4cb6790cf10c6b45efb39b5bc1",
         "frames": 26
+      },
+      {
+        "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+        "treeSha256": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+        "manifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+        "manifestSha256": "5fa1d9da0824024c7008aa5393e7f1d520e7d0516f855043efad5b88a660f438",
+        "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
+        "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
+        "frames": 1
       }
-    ]
+    ],
+    "sourceCaptureManifests": [
+      {
+        "path": "historical/full-before-07cc3d6b-5978c6d9/manifest.json",
+        "sha256": "5978c6d95b290767b7cd5a1f4fe4316e301e8f7159646e9ed6583417b675e182",
+        "sourceCounts": {
+          "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
+          "bbaffc0d6cdccb6246edeb9478c58590852980d9": 26,
+          "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
+        },
+        "frames": 100,
+        "note": "Previous complete current manifest with actual per-frame source dates; its original raw capture ledger is also archived."
+      },
+      {
+        "path": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+        "sha256": "5fa1d9da0824024c7008aa5393e7f1d520e7d0516f855043efad5b88a660f438",
+        "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+        "frames": 1
+      }
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "traffic": false,
+    "mirror": false,
+    "quality": "high",
+    "weather": "clear",
+    "season": "summer",
+    "time": "day",
+    "latestRetakeCapture": {
+      "startedAt": "2026-11-09T02:03:49.394Z",
+      "endedAt": "2026-11-09T02:04:12.623Z",
+      "elapsedSeconds": 23.228,
+      "source": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+      "captureToolSha256": "82a44ab184afd4f5d9c032642d3d513a594993c3c7301af8029c6976dd26458b",
+      "sourceDatasetSha256": "1acea9d80dcf07527fae98446d8edc05edb1a75677b72ee0c88e95241f394f03",
+      "loaded": {
+        "key": "bucharest-grozavesti",
+        "city": "bucharest",
+        "district": "grozavesti",
+        "ms": 10124,
+        "edges": 801,
+        "ribbons": 1714
+      },
+      "pageErrors": [],
+      "consoleErrors": [],
+      "failedRequests": [],
+      "traffic": false,
+      "quality": "high",
+      "weather": "clear",
+      "season": "summer",
+      "time": "day",
+      "mirror": false,
+      "captureMethod": "Native WebGL canvas copied after two settled frames; actual source RGB pixel equivalence controls retained.",
+      "frameCounts": 1,
+      "coverageClaim": "Exact original-pose technical aerial subset selected conservatively from changed structural model and rendered generated-separator bounds. This is capture coverage, not a photographic-parity claim.",
+      "scopeCounts": {
+        "core-touches": 1
+      },
+      "validation": {
+        "framesVerified": 1,
+        "sourceFilesVerified": 9318,
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "failures": []
+      },
+      "perfMaxima": {
+        "triangles": 422411,
+        "drawCalls": 109,
+        "note": "World-only high-quality top-down captures, moving traffic hidden, mirror excluded. Separate maxima need not occur in one frame; not a driving frame-budget acceptance test."
+      }
+    },
+    "note": "Current per-frame source/date is authoritative; prior and fresh raw capture reports remain separate. Technical aerials remove fog/extend depth; native perspective/controller acceptance is separate.",
+    "perfMaxima": {
+      "triangles": 711417,
+      "drawCalls": 117,
+      "note": "Separate static no-traffic/no-mirror atlas maxima, not hardware FPS or native driving-budget acceptance."
+    },
+    "validation": {
+      "framesVerified": 100,
+      "failures": [],
+      "mixedSourceProvenancePreserved": true
+    }
   },
   "locations": [
     {
@@ -2670,13 +2727,13 @@
         250,
         -250
       ],
-      "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
       "cameraBaseY": 0,
       "cameraY": 216.50635094610968,
       "perf": {
         "drawCalls": 109,
-        "triangles": 508280,
-        "renderMs": 8.299999997019768,
+        "triangles": 422411,
+        "renderMs": 1513,
         "quality": "high"
       },
       "traffic": {
@@ -2692,16 +2749,16 @@
       "season": "summer",
       "weather": "clear",
       "time": "day",
-      "capturedAt": "2026-11-09T00:38:26.853Z",
+      "capturedAt": "2026-11-09T02:04:02.584Z",
       "gamePath": "images/aerial-r06-c07.jpg",
       "image": "images/aerial-r06-c07.jpg",
       "thumbnail": "thumbs/aerial-r06-c07.jpg",
-      "sha256": "595b3dcf5a4a0da65add4e365d92f9ded2154be6edc07069f05954a334b14cf7",
+      "sha256": "3fb6eb7a1846857f16ac07bdd50f4d24fd3f6eee67b62b157ba9e95dea9c8621",
       "width": 640,
       "height": 640,
-      "captureWallMs": 3869,
+      "captureWallMs": 10038,
       "dataset": "atlas",
-      "thumbnailSha256": "b5222afc64e5bc15e4fad573a9097a65712508f22a224edb6dd716d31196dfea",
+      "thumbnailSha256": "8ad9850d48d59cbc11e5b6809b59a398c09642e49dcd2d580b5fcb359e6bc90c",
       "captureType": "game-topdown",
       "boundsWgs84": [
         44.44344957707951,
@@ -2709,8 +2766,9 @@
         44.44569915415902,
         26.06234548212785
       ],
-      "sourceCaptureManifest": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/manifest.json",
-      "sourceNote": "Exact-pose scoped retake; full prior mixed atlas archived byte-identically."
+      "sourceCaptureManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "reviewSourceManifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+      "sourceNote": "Exact original-pose structural/separator retake; original complete prior collection is archived byte-identically. Capture source is 07cc3d6b and capturedAt is the actual retake time; this frame is not relabelled as a later release."
     },
     {
       "id": "aerial-r06-c08",
@@ -6465,7 +6523,8 @@
   ],
   "atlasSourceCounts": {
     "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
-    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 26,
+    "bbaffc0d6cdccb6246edeb9478c58590852980d9": 25,
+    "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
     "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
   },
   "sourceSnapshots": [
@@ -6491,17 +6550,29 @@
       "sourceProvenance": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/source-provenance.json",
       "sourceProvenanceSha256": "f05664c4657ca87bf793d3d9ff188af55049ec4cb6790cf10c6b45efb39b5bc1",
       "frames": 26
+    },
+    {
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "treeSha256": "eff615eb1aa556c04972ad5725a7dc979c58b0e58e3a5b9d2d10b8f8b9d56f9c",
+      "manifest": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "manifestSha256": "5fa1d9da0824024c7008aa5393e7f1d520e7d0516f855043efad5b88a660f438",
+      "sourceProvenance": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/source-provenance.json",
+      "sourceProvenanceSha256": "2dbf8cccf115f2480bceb9900813fc92bff9e09747d189106613557df19422c3",
+      "frames": 1
     }
   ],
   "sourceCompatibility": {
-    "method": "Only reviewed impacted source-water/paint squares replaced at their exact existing poses. Every other item, image byte, date and source SHA is retained; no full-scene pixel-equivalence or fidelity claim.",
-    "retakeMask": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/recapture-mask.json",
-    "retakeMaskSha256": "47135ff7784d66f259938282412f4b4722b0d666c2b6e30b8368e157a2814f77",
+    "method": "Only the conservative changed rendered-structure/separator mask is replaced. All other current items, source/date/pose metadata and pixels are unchanged. Moving traffic/mirrors are hidden in technical atlas captures. This does not relabel evidence as a later release or assert photographic parity.",
+    "mask": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/recapture-mask.json",
+    "maskSha256": "c837f2f559960547ce5cfb0214f3fd21914c32a39c9ef16b03f75fc87b5b3033",
     "unchangedDistrictDataSha256": "1acea9d80dcf07527fae98446d8edc05edb1a75677b72ee0c88e95241f394f03"
   },
   "locationId": "grozavesti",
   "captureType": "branch-source-snapshot",
-  "sourceCaptureManifest": "capture-manifest.json",
+  "sourceCaptureManifest": {
+    "path": "capture-manifest.json",
+    "note": "Derived current mixed-source ledger; all exact original and retake capture ledgers remain separately retained."
+  },
   "aerial": {
     "provider": "Esri World Imagery",
     "endpoint": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export",
@@ -6512,17 +6583,18 @@
   },
   "description": "Complete atlas of the playable area and exact 600 m scenery ring, preserving the actual source revision of every frame, with separately labelled distant context.",
   "coverageNote": "Every 250 m grid cell intersecting the runtime playable mask or exact analytic 600 m ring is included. This describes capture coverage only; it is not a fidelity score. Boundary cells also contain land outside the ring.",
-  "reviewNote": "Complete prior review retained with 26 fresh exact-pose water/paint pairs inspected; all geometry, source-height, facade, canopy, occupancy and unknown-date limits remain.",
+  "reviewNote": "Complete retained earlier review coverage plus 1 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
   "review": {
     "district": "grozavesti",
     "gameSourceCommit": null,
     "sourceCounts": {
       "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
-      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 26,
+      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 25,
+      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
       "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
     },
     "framesReviewed": 100,
-    "status": "Complete prior review retained with 26 fresh exact-pose water/paint pairs inspected; all geometry, source-height, facade, canopy, occupancy and unknown-date limits remain.",
+    "status": "Complete retained earlier review coverage plus 1 fresh exact-pose structural/separator pairs inspected; genuine source-height, materials, context and imagery-date limits remain.",
     "comparisonMethod": "Private georeferenced Esri crop at each exact250m north-up ground square; actual source/image/sheet hashes retained per frame. Roof parallax and unknown reference acquisition are not source measurements. Reference imagery is not published.",
     "referenceAcquisitionDate": null,
     "captureCoverageAccepted": true,
@@ -7254,17 +7326,21 @@
       },
       {
         "id": "aerial-r06-c07",
-        "originalGameSha256": "64d8146110dc291392eec23bb337eefa8edea61d0451400803f2a5b541caec0b",
-        "retakeGameSha256": "595b3dcf5a4a0da65add4e365d92f9ded2154be6edc07069f05954a334b14cf7",
-        "gameSha256": "595b3dcf5a4a0da65add4e365d92f9ded2154be6edc07069f05954a334b14cf7",
-        "gameSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
-        "pairSha256": "aecc97a926964235d1f65174c0e233a293f8ca463a1e7cdecf8e00a18f514e57",
-        "reviewSheet": "comparison-02.jpg",
-        "reviewSheetSha256": "11defd85ff91d0f0f5643f2ac97eb126202e3746a3f7d3ad1ca6036c3c10c220",
+        "originalGameSha256": "595b3dcf5a4a0da65add4e365d92f9ded2154be6edc07069f05954a334b14cf7",
+        "retakeGameSha256": "3fb6eb7a1846857f16ac07bdd50f4d24fd3f6eee67b62b157ba9e95dea9c8621",
+        "gameSha256": "3fb6eb7a1846857f16ac07bdd50f4d24fd3f6eee67b62b157ba9e95dea9c8621",
+        "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+        "originalSourceCommit": "bbaffc0d6cdccb6246edeb9478c58590852980d9",
+        "referenceCropSha256": "ad49aa551e9217868b0d4140523036d9a98b5c9722b6f0b20e40dfb7ec708474",
         "referenceCoverageFraction": 1.0,
-        "reviewedAt": "2026-11-09T00:40:32.254468+00:00",
+        "referenceManifestSha256": "fbb3235a1c7ed6f98965040fa7221d4381a53e965b89a966e89f2bba499a9d86",
+        "referenceMethod": "Same native existing private Esri mosaics and exact ground-to-pixel transform; purple marks uncovered reference.",
+        "tripletSha256": "8a4b4a585d12bfb1361d170fc16b745e9c6aabe940dc91fcdc5aeb876afa4a96",
+        "reviewSheet": "comparison-01.jpg",
+        "reviewSheetSha256": "a652466695f65ff83fb15baf8ad1cd2335499dd17ce63cc32367804ea6eae574",
+        "reviewedAt": "2026-11-09T02:11:54.818451+00:00",
         "status": "reviewed_with_gaps",
-        "observations": "Conservative source-water mask tile reviewed against the actual aerial. This masked tile chiefly shows surrounding district context; it does not itself establish a visible ribbon correction. Canopy shape/density, source-height estimates, facade/roof detail, parking occupancy and sparse outer scenery remain approximate."
+        "observations": "Exact existing technical aerial pose recaptured from the integrated structural/separator source. Conservative changed-bound coverage does not mean every change is visible from above; roofs/occlusion can conceal ground separators and under-deck structure. Native body/route clearance is separate recorded evidence, not inferred from this picture. The generated separator/flyover context is retained at its original source coordinates. Roof projection, coarse building materials/roof equipment, canopy appearance and parking occupancy remain gaps. "
       },
       {
         "id": "aerial-r06-c08",
@@ -8308,10 +8384,26 @@
         "observations": "Four distant context frames: generic blocks and cathedral surroundings remain visibly incomplete. Cathedral placement is retained but this does not establish contextual parity."
       }
     ],
-    "targetedRetakeReview": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/paired-review.json"
+    "targetedRetakeReview": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+    "structureRetakeReview": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/paired-review.json",
+    "structureRetakeSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+    "structureRetakesReviewed": 1,
+    "currentAtlasSourceCounts": {
+      "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
+      "bbaffc0d6cdccb6246edeb9478c58590852980d9": 25,
+      "07cc3d6bcefe90967c5bde3af2237dab4b972705": 1,
+      "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
+    },
+    "priorCompleteReview": {
+      "manifest": "historical/full-before-07cc3d6b-5978c6d9/manifest.json",
+      "sha256": "5978c6d95b290767b7cd5a1f4fe4316e301e8f7159646e9ed6583417b675e182",
+      "note": "Every earlier review/source-specific finding is preserved verbatim in the complete prior collection."
+    },
+    "priorTargetedRetakeReview": "retakes/bbaffc0d6cdccb6246edeb9478c58590852980d9/paired-review.json",
+    "structureRetakeReviewedAt": "2026-11-09T02:11:54.818451+00:00"
   },
   "collectionNotes": {
-    "atlas": "Complete mixed atlas; per-frame source SHA and capturedAt are authoritative. Only the recorded impacted subset is fresh. Full prior current collection is archived. Technical north-up capture removes fog and extends depth as recorded by the atlas tool; native perspective controls are separate."
+    "atlas": "Current complete mixed-source atlas: 69 frames on 4378317f, 25 frames on bbaffc0d, 1 frames on 07cc3d6b, 5 frames on 0775fdaf. Actual per-frame source/date retained; only the conservative structure/separator subset is fresh 07cc3d6b. Full prior current collection archived. Technical aerial settings and separate native limitations remain."
   },
   "historicalCollections": [
     {
@@ -8347,6 +8439,20 @@
       },
       "captureType": "mixed-source-survey",
       "note": "Full previous current collection: original metadata, dates, image/thumbnail bytes and per-frame source identities preserved."
+    },
+    {
+      "manifest": "historical/full-before-07cc3d6b-5978c6d9/manifest.json",
+      "label": "Full prior current atlas before structural/separator retakes 07cc3d6b",
+      "frames": 100,
+      "generatedAt": "2026-11-09T00:39:29.681Z",
+      "gameSourceCommit": null,
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 26,
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
+      },
+      "captureType": "branch-source-snapshot",
+      "note": "Entire prior current collection and its GAME images/thumbnails, review, street/context and provenance files are byte-identical. Earlier histories retain their stable paths."
     }
   ],
   "perspectiveCollections": [
@@ -8373,6 +8479,25 @@
       "comparisonCompatible": false,
       "frames": 6,
       "gameSourceCommit": "0775fdaf15442a46c3fe98f4e6875c9c09046a99"
+    }
+  ],
+  "sourceCaptureManifests": [
+    {
+      "path": "historical/full-before-07cc3d6b-5978c6d9/manifest.json",
+      "sha256": "5978c6d95b290767b7cd5a1f4fe4316e301e8f7159646e9ed6583417b675e182",
+      "sourceCounts": {
+        "4378317f3fcdccc886d6c7c1ed092ee15d95db8a": 69,
+        "bbaffc0d6cdccb6246edeb9478c58590852980d9": 26,
+        "0775fdaf15442a46c3fe98f4e6875c9c09046a99": 5
+      },
+      "frames": 100,
+      "note": "Previous complete current manifest with actual per-frame source dates; its original raw capture ledger is also archived."
+    },
+    {
+      "path": "retakes/07cc3d6bcefe90967c5bde3af2237dab4b972705/manifest.json",
+      "sha256": "5fa1d9da0824024c7008aa5393e7f1d520e7d0516f855043efad5b88a660f438",
+      "gameSourceCommit": "07cc3d6bcefe90967c5bde3af2237dab4b972705",
+      "frames": 1
     }
   ]
 }

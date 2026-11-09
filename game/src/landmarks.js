@@ -9,6 +9,7 @@ import { footprintCells } from './building-parts.js';
 import { US_FOOTPRINTS as U, US_SOURCE_TAGS as UT } from './landmark-us-source.js';
 import { emitUSLandmarkTerrain } from './landmark-us-terrain.js';
 import { sourceProfile, sourceSlope, sourceSurfaceText } from './landmark-us-geometry.js';
+import { makeDinamoPaintTexture, makeDinamoPaintMesh } from './landmark-pitch-paint.js';
 
 // ============================================================================
 //  Drive My CV — procedural models of the real landmarks of Bucharest and
@@ -95,7 +96,7 @@ const P = {
 let MATS = null;
 /** (2026-11-08, owner: "account for weather?") the matte landmark material: the renderer gives its up-facing surfaces (roofs,
  *  stands, courts, the stadium pitch) the same snow / wet look as the streets */
-export function landmarkSurfaceMaterials() { const M = materials(); return [M.m, M.fl, M.nb].filter(Boolean); }
+export function landmarkSurfaceMaterials() { const M = materials(); return [M.m, M.fl, M.nb, M.paint].filter(Boolean); }
 function materials() {
     if (MATS) return MATS;
     MATS = {
@@ -147,6 +148,12 @@ function materials() {
     const nb = new THREE.MeshLambertMaterial({ vertexColors: true, emissive: new THREE.Color('#3f7fff'), emissiveIntensity: 0 });
     nb.name = 'landmark-nightlight'; nb.userData.nightEmissive = 2.2; nb.userData.nightGlow = 2.2; nb.userData.dayGlow = 0;
     MATS.nb = nb;
+    // Filtered coverage preserves subpixel field paint. This cache owns the alpha
+    // texture; sceneResources retains landmark materials/textures between worlds.
+    const paint = new THREE.MeshLambertMaterial({ color: '#f7f7f2', alphaMap: makeDinamoPaintTexture(), transparent: true, depthWrite: false,
+        polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+    paint.name = 'landmark-pitch-paint'; paint.userData.shared = true;
+    MATS.paint = paint;
     return MATS;
 }
 
@@ -3237,11 +3244,10 @@ function bDinamo(b) {
     for (let k = 0; k <= 8; k++) { const r = RI + k * 1.22; b.prism(poly(capsule(r + 0.05, 4)), 0.16, 0.2, '#f4f1ec', { holes: [poly(capsule(r - 0.05, 4))], top: true }); }
     b.prism(poly(capsule(RI)), 0, 0.15, TRACK, { holes: [pitchRect] });                     // the D zones (jumps, throws)
     for (let i = 0; i < 18; i++) { const u0 = -PL - PM + i * (2 * PL + 2 * PM) / 18, u1 = u0 + (2 * PL + 2 * PM) / 18; b.prism([W(u0, -PW - PM), W(u1, -PW - PM), W(u1, PW + PM), W(u0, PW + PM)], 0, 0.16, i % 2 ? GRASS : GRASS2); }
-    // Flat paint stays 2 cm above the grass for stable depth at native drone distances; it adds no kerb or collider.
-    const line = (u0, v0, u1, v1, w = 0.12) => { const L = Math.hypot(u1 - u0, v1 - v0), nu = -(v1 - v0) / L * w / 2, nv = (u1 - u0) / L * w / 2; b.cap([W(u0 + nu, v0 + nv), W(u1 + nu, v1 + nv), W(u1 - nu, v1 - nv), W(u0 - nu, v0 - nv)], 0.18, '#f7f7f2'); };
-    line(-PL, -PW, PL, -PW); line(-PL, PW, PL, PW); line(-PL, -PW, -PL, PW); line(PL, -PW, PL, PW); line(0, -PW, 0, PW);
-    for (const s of [-1, 1]) { const g = s * PL; line(g, -20.16, g - s * 16.5, -20.16); line(g - s * 16.5, -20.16, g - s * 16.5, 20.16); line(g - s * 16.5, 20.16, g, 20.16);
-        line(g, -9.16, g - s * 5.5, -9.16); line(g - s * 5.5, -9.16, g - s * 5.5, 9.16); line(g - s * 5.5, 9.16, g, 9.16);
+    // One alpha-coverage quad, with mips, replaces the exact same 57 paint strips.
+    // Grass, pitch activity metadata, goals and colliders remain authored geometry.
+    b.extras.push(makeDinamoPaintMesh(W, b.hs, materials().paint));
+    for (const s of [-1, 1]) { const g = s * PL;
         // goals: posts + crossbar (white), net frame
         for (const v of [-3.66, 3.66]) { const [x, z] = W(g + s * 0.06, v); b.cyl(x, 0.16, z, 0.06, 0.06, 2.44, '#ffffff', 6); }
         // crossbar and net run across the pitch (along v; owner screenshot: they ran along it), the net as a see-through mesh
@@ -3251,7 +3257,6 @@ function bDinamo(b) {
         for (let y = 0.4; y < 2.4; y += 0.3) { const [mx, mz] = W(g + s * 1.6, 0); b.box(mx, y, mz, 0.025, 0.025, 7.3, '#e4e4e4', { ry: ryV }); }
         for (const v of [-3.66, 3.66]) for (let t = 0.3; t < 1.6; t += 0.3) { const [mx, mz] = W(g + s * (0.06 + t), v); b.box(mx, 0.16, mz, 0.025, 2.2 + (2.44 - 2.2) * (1 - t / 1.6), 0.025, '#e4e4e4'); } // side nets
         for (const v of [-3.66, 3.66]) { const [ax0, az0] = W(g + s * 0.06, v), [ax1, az1] = W(g + s * 1.6, v); b.strut([ax0, 2.44, az0], [ax1, 2.36, az1], 0.04, 0.04, '#e4e4e4'); } }
-    { const n = 40; for (let i = 0; i < n; i++) { const a0 = i / n * Math.PI * 2, a1 = (i + 1) / n * Math.PI * 2; line(Math.cos(a0) * 9.15, Math.sin(a0) * 9.15, Math.cos(a1) * 9.15, Math.sin(a1) * 9.15); } }
     // ---- the bowl: terraces from the apron's outer edge up to the OSM outline, profile by sector
     const inner = capsule(RA + 2.5, 3.2);
     // The open bowl is also a playable ground. World clips only artificial

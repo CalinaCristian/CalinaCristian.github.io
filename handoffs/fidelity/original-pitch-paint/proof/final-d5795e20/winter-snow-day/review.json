@@ -1,0 +1,37 @@
+{
+  "district": "floreasca",
+  "gameSourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+  "imagesReviewed": 3,
+  "status": "All actual GAME images reviewed for the narrow pitch-paint sampling correction.",
+  "captureCoverageAccepted": true,
+  "realWorldParityAccepted": false,
+  "pitchVisibilityAccepted": true,
+  "publicPromotionHeld": false,
+  "rawSourceContactHits": 62,
+  "entries": [
+    {
+      "id": "dinamo-football-drone",
+      "sha256": "5701a0f6b16cd302fa0b27af6465808ecea4f326a6f9d3462c6cdd2752cf3ae1",
+      "reviewedAt": "2026-11-09T00:14:31.922125+00:00",
+      "status": "reviewed_paint_visible_with_context_gaps",
+      "observations": "Continuous halfway line, complete 40-chord centre circle, both penalty and goal boxes, and perimeter. Native 12 cm coverage filtering; no camera/render-distance override. Native winter snow and fog keep contrast low; the paint remains continuous at the same pose and in lower/oblique controls.",
+      "displayLabel": "Dinamo filtered physical pitch markings \u00b7 winter snow/fog \u00b7 same 70.12 m pose"
+    },
+    {
+      "id": "dinamo-football-drone-lower",
+      "sha256": "2822b2c308c4036443cc5c018dd76f4287b2276758ade059f3624baba2b47e04",
+      "reviewedAt": "2026-11-09T00:14:31.922136+00:00",
+      "status": "reviewed_paint_visible_with_context_gaps",
+      "observations": "Continuous halfway line, complete 40-chord centre circle, both penalty and goal boxes, and perimeter. Native 12 cm coverage filtering; no camera/render-distance override. Native winter snow and fog keep contrast low; the paint remains continuous at the same pose and in lower/oblique controls.",
+      "displayLabel": "Dinamo filtered physical pitch markings \u00b7 winter snow/fog \u00b7 lower control"
+    },
+    {
+      "id": "dinamo-football-drone-oblique",
+      "sha256": "ef74da228772ee097182d3b50506bd80237ac9914b6b3acb554cc0eac3caec67",
+      "reviewedAt": "2026-11-09T00:14:31.922139+00:00",
+      "status": "reviewed_paint_visible_with_context_gaps",
+      "observations": "Continuous halfway line, complete 40-chord centre circle, both penalty and goal boxes, and perimeter. Native 12 cm coverage filtering; no camera/render-distance override. Native winter snow and fog keep contrast low; the paint remains continuous at the same pose and in lower/oblique controls.",
+      "displayLabel": "Dinamo filtered physical pitch markings \u00b7 winter snow/fog \u00b7 oblique control"
+    }
+  ]
+}

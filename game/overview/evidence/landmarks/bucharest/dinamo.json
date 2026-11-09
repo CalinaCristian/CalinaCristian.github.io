@@ -3,7 +3,7 @@
   "id": "dinamo",
   "city": "bucharest",
   "name": "Stadionul Dinamo",
-  "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
+  "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
   "status": "reviewed-with-gaps",
   "coordinates": {
     "lat": 44.4551306,
@@ -35,7 +35,7 @@
     },
     {
       "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
-      "label": "Esri World Imagery — private outline/roof comparison; no imagery published",
+      "label": "Esri World Imagery \u2014 private outline/roof comparison; no imagery published",
       "type": "aerial"
     }
   ],
@@ -45,10 +45,11 @@
     "w860001496"
   ],
   "sourceLedger": "../../../../research/landmark-source-bucharest.json",
-  "reviewedAt": "2026-11-08",
+  "reviewedAt": "2026-11-09",
   "improvements": [
     "Refreshed the full mapped stadium and stand outlines.",
-    "Retained the open bowl and specialized stand collision instead of filling the playing field."
+    "Retained the open bowl and specialized stand collision instead of filling the playing field.",
+    "Replaced the existing 57 twelve-centimetre paint strips with exact polygon-union coverage and mip filtering, preserving their original footprints, football metadata and all non-paint geometry."
   ],
   "remainingGaps": [
     "Stand heights, roof geometry and 49.5 m floodlights remain estimates; no source building heights are mapped.",
@@ -85,6 +86,11 @@
       "label": "Complete district / traffic / mirror budget",
       "passed": false,
       "details": "These are isolated model studies. Paired Romana samples had unchanged findings and world-only peak1.13M triangles/296 calls, with an Arnia capture timeout; traffic and mirror budget and all tourist-scene placements require the district lanes."
+    },
+    {
+      "label": "Native pitch-paint filtering and model compatibility",
+      "passed": true,
+      "details": "Source d5795e20c85e8122a62fc503f33a182d05eceaf0: all61 finite/triangle checks and753 focused compatibility/resource checks pass. Same70.12m summer/day and winter/snow/day plus lower/oblique controls show continuous centreline, full centre circle and both sets of boxes. Winter remains low contrast under native fog/snow; camera near0.2 and weather-native far5000/2167.689m preserved. No full district, driving, mirrors or real-world parity pass is inferred."
     }
   ],
   "captures": [
@@ -93,9 +99,9 @@
       "label": "Street-height model study",
       "kind": "front",
       "image": "assets/landmarks/dinamo/front.webp",
-      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "sha256": "a280d7e86aa16632238bf9baa9b33f47ef7072267862d9fb0c1e18e4b2ca949d",
-      "capturedAt": "2026-11-08T16:51:09.122778Z",
+      "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "sha256": "068d67395b0e68271393c53b4c66e86aef53a59043f2a897146cc85fb0ea52f6",
+      "capturedAt": "2026-11-09T00:14:23.679Z",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=street&az=0",
         "anchor": {
@@ -104,23 +110,29 @@
           "rotation": 0
         },
         "camera": {
+          "projection": "perspective",
           "position": [
             -0.5211715698242188,
             1.3,
-            223.60394973754885
+            245.16899673461918
           ],
           "quaternion": [
-            0.04846045675333164,
+            0.044081880444842785,
             0,
             0,
-            0.9988251018728247
+            0.9990279214398599
           ],
           "fov": 62,
           "near": 0.3,
-          "far": 4313.0093994140625,
+          "far": 4744.310339355469,
           "viewport": [
             960,
             720
+          ],
+          "up": [
+            0,
+            1,
+            0
           ]
         },
         "bounds": {
@@ -136,17 +148,17 @@
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Static daylight GAME-only development viewer; no adjacent district buildings. Native model study, not a georeferenced aerial or Street View comparison."
       }
     },
     {
       "id": "top",
-      "label": "Top model study (perspective)",
+      "label": "North-up orthographic model study",
       "kind": "top",
       "image": "assets/landmarks/dinamo/top.webp",
-      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "sha256": "97b36040494f9ab04a1999bbb004c5eefb6fde1eee10b5935df145816474d162",
-      "capturedAt": "2026-11-08T16:51:15.334706Z",
+      "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "sha256": "7ced74321d7f7c8ef8e793539fd7218b3720711df3785baa158282829239b168",
+      "capturedAt": "2026-11-09T00:14:28.051Z",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=top&az=0",
         "anchor": {
@@ -155,24 +167,39 @@
           "rotation": 0
         },
         "camera": {
+          "projection": "orthographic",
           "position": [
             -0.5211715698242188,
-            374.3933971863344,
-            8.327873288829869
+            329.94318145751953,
+            7.953479766845703
           ],
           "quaternion": [
-            -0.7067531394223399,
+            -0.7071067811865475,
             0,
             0,
-            0.7074602461740636
+            0.7071067811865476
           ],
           "fov": 45,
-          "near": 0.7487871687662221,
-          "far": 7487.87168766222,
+          "near": 0.6598863629150391,
+          "far": 6598.863629150391,
           "viewport": [
             960,
             720
-          ]
+          ],
+          "up": [
+            0,
+            0,
+            -1
+          ],
+          "left": -186.96212097167967,
+          "right": 186.96212097167967,
+          "top": 140.22159072875976,
+          "bottom": -140.22159072875976,
+          "zoom": 1,
+          "groundSquareM": 373.92424194335933,
+          "groundWidthM": 373.92424194335933,
+          "groundDepthM": 280.44318145751953,
+          "orientation": "north-up"
         },
         "bounds": {
           "min": [
@@ -187,7 +214,7 @@
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Static daylight GAME-only development viewer; no adjacent district buildings. Native model study, not a georeferenced aerial or Street View comparison."
       }
     },
     {
@@ -195,9 +222,9 @@
       "label": "Oblique model study",
       "kind": "oblique",
       "image": "assets/landmarks/dinamo/oblique.webp",
-      "sourceCommit": "5b92547699c6053b28050955d619232e18422958",
-      "sha256": "c6c92a84308e347a2ebea57fbbde649a6f084bf36884ed9be2c25a1bb9ae56f7",
-      "capturedAt": "2026-11-08T16:51:27.010563Z",
+      "sourceCommit": "d5795e20c85e8122a62fc503f33a182d05eceaf0",
+      "sha256": "4ac68a5fd9dc5081555a6214c73da43c1f2b7cc3f5e6b57e20b7ca5da59bebd0",
+      "capturedAt": "2026-11-09T00:14:31.382Z",
       "pose": {
         "viewerRoute": "/game/dev/landmarks.html?id=dinamo&clean=1&fountains=on&view=oblique&az=35&el=28",
         "anchor": {
@@ -206,6 +233,7 @@
           "rotation": 0
         },
         "camera": {
+          "projection": "perspective",
           "position": [
             183.11547528152096,
             190.0324763386706,
@@ -223,6 +251,11 @@
           "viewport": [
             960,
             720
+          ],
+          "up": [
+            0,
+            1,
+            0
           ]
         },
         "bounds": {
@@ -238,13 +271,15 @@
           ]
         },
         "isolatedModel": true,
-        "note": "Static daylight game-only development viewer; no adjacent district buildings. Perspective top study is not an aerial-matched comparison."
+        "note": "Static daylight GAME-only development viewer; no adjacent district buildings. Native model study, not a georeferenced aerial or Street View comparison."
       }
     }
   ],
   "perf": {
-    "triangles": 17659,
-    "drawCalls": 4,
-    "note": "Isolated development viewer render, including its ground/shadow work; excludes district world, traffic and mirrors."
+    "triangles": 17549,
+    "modelTriangles": 17547,
+    "drawCalls": 5,
+    "paintTextureMipBytes": 2796202,
+    "note": "Isolated development viewer actual render, including its2 ground triangles; excludes district world, traffic and mirrors. Paint adds1 main draw and no shadow draw."
   }
 }

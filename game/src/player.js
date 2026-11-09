@@ -70,6 +70,9 @@ export class Player {
             this.surfY = GROUND_Y + (edge.sourceBridgeGrade?.known ? edge.sourceBridgeGrade.heightAtWorld(x, z) : edge.ya + (edge.yb - edge.ya) * t); this.supportEdge = edge;
         } else if (this.world) { this._placeHeading = heading; const s0 = this.surfaceAt(x, z, null); this._placeHeading = undefined; this.surfY = s0.h; this.supportEdge = s0.edge; }
         this.updateRig(0);
+        // Build immutable cockpit triangle/part caches while placement is
+        // already loading/relocating the car, before the first bridge probe.
+        playerBodySampler(this);
     }
     /**
      * Mouse / touch look. dx, dy = pointer movement (px) since the last frame; held = the look gesture is active

@@ -1,0 +1,156 @@
+[
+  {
+    "name": "103rd_ground_join",
+    "url": "https://epqs.nationalmap.gov/v1/json?x=-122.2030495&y=47.61849&units=Meters&wkid=4326&includeDate=true",
+    "response": {
+      "location": {
+        "x": -122.2030495,
+        "y": 47.61849,
+        "spatialReference": {
+          "wkid": 4326,
+          "latestWkid": 4326
+        }
+      },
+      "locationId": 0,
+      "value": "43.756507874",
+      "rasterId": 103728,
+      "resolution": 1,
+      "attributes": {
+        "AcquisitionDate": "6/5/2021"
+      }
+    },
+    "sha256": "7bfded077f2f0caf09e8c2582cfb1fa7a57398883cbe6324682154dda4b75047"
+  },
+  {
+    "name": "103rd_e454_a",
+    "url": "https://epqs.nationalmap.gov/v1/json?x=-122.2030492&y=47.6185102&units=Meters&wkid=4326&includeDate=true",
+    "response": {
+      "location": {
+        "x": -122.2030492,
+        "y": 47.6185102,
+        "spatialReference": {
+          "wkid": 4326,
+          "latestWkid": 4326
+        }
+      },
+      "locationId": 0,
+      "value": "43.758342743",
+      "rasterId": 103728,
+      "resolution": 1,
+      "attributes": {
+        "AcquisitionDate": "6/5/2021"
+      }
+    },
+    "sha256": "b15c2136e8a75938e86debf0846406a77da3edaca7e464d2914773c990da3862"
+  },
+  {
+    "name": "103rd_e454_b",
+    "url": "https://epqs.nationalmap.gov/v1/json?x=-122.2030499&y=47.6185787&units=Meters&wkid=4326&includeDate=true",
+    "response": {
+      "location": {
+        "x": -122.2030499,
+        "y": 47.6185787,
+        "spatialReference": {
+          "wkid": 4326,
+          "latestWkid": 4326
+        }
+      },
+      "locationId": 0,
+      "value": "54.813602448",
+      "rasterId": 103728,
+      "resolution": 1,
+      "attributes": {
+        "AcquisitionDate": "6/5/2021"
+      }
+    },
+    "sha256": "a85ed5eb942b73a0e334bf2d926b4235ddf47962d4ac95319cb2d36c67533a94"
+  },
+  {
+    "name": "covered_west_portal",
+    "url": "https://epqs.nationalmap.gov/v1/json?x=-122.2029247&y=47.618487&units=Meters&wkid=4326&includeDate=true",
+    "response": {
+      "location": {
+        "x": -122.2029247,
+        "y": 47.618487,
+        "spatialReference": {
+          "wkid": 4326,
+          "latestWkid": 4326
+        }
+      },
+      "locationId": 0,
+      "value": "43.763130188",
+      "rasterId": 103728,
+      "resolution": 1,
+      "attributes": {
+        "AcquisitionDate": "6/5/2021"
+      }
+    },
+    "sha256": "c4179e4c02d6656664317b24d7282d82a1376e3c472d2491efe03b9d62be2094"
+  },
+  {
+    "name": "covered_first_seed",
+    "url": "https://epqs.nationalmap.gov/v1/json?x=-122.2029095&y=47.6184952&units=Meters&wkid=4326&includeDate=true",
+    "response": {
+      "location": {
+        "x": -122.2029095,
+        "y": 47.6184952,
+        "spatialReference": {
+          "wkid": 4326,
+          "latestWkid": 4326
+        }
+      },
+      "locationId": 0,
+      "value": "43.754745483",
+      "rasterId": 103728,
+      "resolution": 1,
+      "attributes": {
+        "AcquisitionDate": "6/5/2021"
+      }
+    },
+    "sha256": "72176fd9adb2c956fb12eac3fdbe614a14a3edc05148d6805f53a3ffbbc4d591"
+  },
+  {
+    "name": "covered_east_portal",
+    "url": "https://epqs.nationalmap.gov/v1/json?x=-122.2019056&y=47.6184591&units=Meters&wkid=4326&includeDate=true",
+    "response": {
+      "location": {
+        "x": -122.2019056,
+        "y": 47.6184591,
+        "spatialReference": {
+          "wkid": 4326,
+          "latestWkid": 4326
+        }
+      },
+      "locationId": 0,
+      "value": "52.632595062",
+      "rasterId": 103728,
+      "resolution": 1,
+      "attributes": {
+        "AcquisitionDate": "6/5/2021"
+      }
+    },
+    "sha256": "fa81796190586c32a16a771a8931a701cd818ed3c1416789db89b813330f861c"
+  },
+  {
+    "name": "east_ground_join",
+    "url": "https://epqs.nationalmap.gov/v1/json?x=-122.2017752&y=47.6184612&units=Meters&wkid=4326&includeDate=true",
+    "response": {
+      "location": {
+        "x": -122.2017752,
+        "y": 47.6184612,
+        "spatialReference": {
+          "wkid": 4326,
+          "latestWkid": 4326
+        }
+      },
+      "locationId": 0,
+      "value": "52.552120209",
+      "rasterId": 103728,
+      "resolution": 1,
+      "attributes": {
+        "AcquisitionDate": "6/5/2021"
+      }
+    },
+    "sha256": "a48cdd2ae829dd0765e041950e7eebd6481cbf941cd240ab7a75efd8b69e2694"
+  }
+]

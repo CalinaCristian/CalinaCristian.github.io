@@ -1,5 +1,5 @@
 {
-  "scope": "Current explicit MODEL proposal after source overhead-road clearance control; not surveyed/current native acceptance",
+  "scope": "Current explicit MODEL after actual emitted-body outerwall and source overhead-road clearance controls; not surveyed/current native acceptance",
   "descriptor": {
     "id": "victoria-tram-underpass",
     "depthM": 7.6,
@@ -7,7 +7,7 @@
     "easeM": 20,
     "stationHalfPlateauM": 30,
     "tunnelRampInsetM": 15,
-    "deckHalfWidthM": 1.7,
+    "deckHalfWidthM": 2.8,
     "thicknessM": 0.35,
     "roofBottomM": -0.3,
     "roofTopM": 0,
@@ -70,7 +70,7 @@
         "basis": "MODEL independent Victoria tram underpass; literal source-node ground joins and underground stops; depth, ramps and roof extent estimated, not surveyed",
         "depthM": 7.6,
         "maxGradeCap": 0.08,
-        "deckHalfWidthM": 1.7,
+        "deckHalfWidthM": 2.8,
         "thicknessM": 0.35,
         "roof": {
           "bottomM": -0.3,

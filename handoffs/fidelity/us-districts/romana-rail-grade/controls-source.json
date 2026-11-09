@@ -16,7 +16,7 @@
         "basis": "MODEL independent Victoria tram underpass; literal source-node ground joins and underground stops; depth, ramps and roof extent estimated, not surveyed",
         "depthM": 7.6,
         "maxGradeCap": 0.08,
-        "deckHalfWidthM": 1.7,
+        "deckHalfWidthM": 2.8,
         "thicknessM": 0.35,
         "roof": {
           "bottomM": -0.3,

@@ -5,7 +5,7 @@ import { decodeTramPoints } from './tram-path.js';
 // surveyed portal locations; only the conservative station section is roofed.
 export const ROMANA_TRAM_TUNNEL_MODEL = {
     id: 'victoria-tram-underpass', depthM: 7.6, maxGrade: .08, easeM: 20,
-    stationHalfPlateauM: 30, tunnelRampInsetM: 15, deckHalfWidthM: 1.7, thicknessM: .35,
+    stationHalfPlateauM: 30, tunnelRampInsetM: 15, deckHalfWidthM: 2.8, thicknessM: .35,
     roofBottomM: -.3, roofTopM: 0,
     basis: 'MODEL independent Victoria tram underpass; literal source-node ground joins and underground stops; depth, ramps and roof extent estimated, not surveyed',
     paths: [

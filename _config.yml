@@ -44,3 +44,8 @@ exclude:
   - handoffs/fidelity/cv-interiors-photo-led-20261109
   - handoffs/fidelity/cv-window-bindings-20261109
   - handoffs/fidelity/old-town-nightlife-20261109/source-cleanup-20261109
+
+  # Closed internal native/controller diagnostics; public viewer assets stay under game/overview.
+  - handoffs/fidelity/combined-native-budget
+  - handoffs/fidelity/backgammon-result-confirmation-20261109
+  - handoffs/fidelity/staging-pages-headroom-20261109

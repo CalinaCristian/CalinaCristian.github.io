@@ -1,0 +1,61 @@
+{
+  "sourceCommit": "38f640384ecbc4d06eabff9ab05cd7a2f79eb1f4",
+  "scope": "Tracked blob/path-exclusion payload prediction, not a rendered Jekyll build or deployed release. Config change measured in working tree. No original/raw/Git file deleted.",
+  "excludedInternalScopes": [
+    "handoffs/fidelity/combined-native-budget",
+    "handoffs/fidelity/backgammon-result-confirmation-20261109",
+    "handoffs/fidelity/staging-pages-headroom-20261109"
+  ],
+  "excludedScopeBytes": {
+    "handoffs/fidelity/combined-native-budget": 35085291,
+    "handoffs/fidelity/backgammon-result-confirmation-20261109": 37328,
+    "handoffs/fidelity/staging-pages-headroom-20261109": 0
+  },
+  "publicTextFilesChecked": 663,
+  "directReferencesToExcludedScopes": [],
+  "publicScanManifestSha256": "86a7e62c8e47e52fb2609ebc83926e4c7119105efd1a7856be082d20f5b41820",
+  "predictedIncludedFiles": 14837,
+  "predictedIncludedBytes": 928626084,
+  "largestGroups": [
+    [
+      "game/overview/comparison-data",
+      590866803
+    ],
+    [
+      "game/data/spots",
+      56842886
+    ],
+    [
+      "game/data/bucharest-unirii.json",
+      33593010
+    ],
+    [
+      "game/data/bucharest-romana.json",
+      21921196
+    ],
+    [
+      "handoffs/fidelity/cismigiu-backgammon",
+      21812797
+    ],
+    [
+      "game/overview/assets",
+      17579007
+    ],
+    [
+      "handoffs/fidelity/d-grozavesti",
+      15586518
+    ],
+    [
+      "handoffs/fidelity/tourist-context-activities",
+      14674343
+    ],
+    [
+      "handoffs/fidelity/remaining-ro-districts",
+      14231121
+    ],
+    [
+      "game/data/bucharest-grozavesti.json",
+      10618180
+    ]
+  ]
+}

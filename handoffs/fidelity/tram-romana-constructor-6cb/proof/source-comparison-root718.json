@@ -1,0 +1,271 @@
+{
+  "sourceCommit": "6cbf82b61de8267f662bf50239c37ccc1764635c",
+  "rootComparisonCommit": "718b996c54819feb632c0b62682923b38f7abe2d",
+  "checkedAtUtc": "2026-11-09T06:22:21.235246+00:00",
+  "files": [
+    {
+      "path": "game/src/world.js",
+      "sourceSha256": "eff89252875041058d439b8837ca34e3d1838bd07fefdbf7d9486280ede7d94e",
+      "root718Sha256": "eff89252875041058d439b8837ca34e3d1838bd07fefdbf7d9486280ede7d94e",
+      "byteIdentical": true
+    },
+    {
+      "path": "game/data/bucharest-romana.json",
+      "sourceSha256": "7ac05b291e4f691936b844a7fae4763a047353e8ba8a33c84e29315e6b3bfb1a",
+      "root718Sha256": "7ac05b291e4f691936b844a7fae4763a047353e8ba8a33c84e29315e6b3bfb1a",
+      "byteIdentical": true
+    },
+    {
+      "path": "game/src/cities.js",
+      "sourceSha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+      "root718Sha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+      "byteIdentical": true
+    },
+    {
+      "path": "game/src/vehicles.js",
+      "sourceSha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+      "root718Sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+      "byteIdentical": true
+    },
+    {
+      "path": "game/src/util.js",
+      "sourceSha256": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5",
+      "root718Sha256": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5",
+      "byteIdentical": true
+    },
+    {
+      "path": "game/src/data.js",
+      "sourceSha256": "1ac151b4e8114a5a41fd8f2dfb89e5d9440b9cb09073ef666cd25e8a2a85f02f",
+      "root718Sha256": "1ac151b4e8114a5a41fd8f2dfb89e5d9440b9cb09073ef666cd25e8a2a85f02f",
+      "byteIdentical": true
+    },
+    {
+      "path": "game/src/nav.js",
+      "sourceSha256": "7d1553ad46fa656ee7773d82bf5ef9b8a2af4bb0fb29d8c0131ed9154bac8617",
+      "root718Sha256": "7d1553ad46fa656ee7773d82bf5ef9b8a2af4bb0fb29d8c0131ed9154bac8617",
+      "byteIdentical": true
+    },
+    {
+      "path": "game/src/road-access.js",
+      "sourceSha256": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee",
+      "root718Sha256": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee",
+      "byteIdentical": true
+    },
+    {
+      "path": "game/src/shared-lanes.js",
+      "sourceSha256": "0581d1f237c0b371843e3c7f7af0c80cb5b14bf3794148905ec1948c8255b4e9",
+      "root718Sha256": "0581d1f237c0b371843e3c7f7af0c80cb5b14bf3794148905ec1948c8255b4e9",
+      "byteIdentical": true
+    },
+    {
+      "path": "game/src/main.js",
+      "sourceSha256": "684844108de63b868c5a105c979c8bc19f51bcefc6635a6151fc39d1b61b0f38",
+      "root718Sha256": "25947725439f8d729d984a9dac4798f2324ea5735054732340ef226c2154ecc1",
+      "byteIdentical": false
+    },
+    {
+      "path": "game/src/traffic.js",
+      "sourceSha256": "df6375812ccf977de9a088d448e7b25e54c67cf28ae5c8c48d56d4e1486d7201",
+      "root718Sha256": "df76adba5049aa47d20b1a67fae3a913a72cb9da1f32655a0b00df1ab0ddd471",
+      "byteIdentical": false
+    },
+    {
+      "path": "game/src/initial-traffic-admission.js",
+      "sourceSha256": "9de5fc5acfd852297bfb641bc631f78231f31bd873455877b20337d04be29ed5",
+      "root718Sha256": "d72392a0b124f131794e2026b498d6d9fd4ad4fc10e79236f51bc442e013b069",
+      "byteIdentical": false
+    },
+    {
+      "path": "game/src/initial-vehicle-admission.js",
+      "sourceSha256": "7d3a81bebbcaeaabed1f964843f1d958534e5ca312ae9ccc433725355edc2ba0",
+      "root718Sha256": "f1a27dea11a127e4becc9b718d68a2b73dd2e3afc03beaa49c0156ec189e389f",
+      "byteIdentical": false
+    },
+    {
+      "path": "game/src/render.js",
+      "sourceSha256": "c886535e571144de5fd007294350b2b803138125d68f61f9a5992ca298fba587",
+      "root718Sha256": "2447c64f02a29fb643595a66261badcb5254ff10320cc8f3c6c471fb2a17ae1a",
+      "byteIdentical": false
+    }
+  ],
+  "methods": [
+    {
+      "path": "game/src/traffic.js",
+      "method": "constructor",
+      "sourceSha256": "afc1b5c18c684ac6f7d25b906883187c4fda652fc010d3e5314045ef533e8483",
+      "root718Sha256": "afc1b5c18c684ac6f7d25b906883187c4fda652fc010d3e5314045ef533e8483",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "spawnAll",
+      "sourceSha256": "aa0d857ce8e16b527de1311a1a791ca76c42ca794fa9c176c4789693b76a8f77",
+      "root718Sha256": "aa0d857ce8e16b527de1311a1a791ca76c42ca794fa9c176c4789693b76a8f77",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "spawn",
+      "sourceSha256": "702db18523ff9c4afdd9b5846465269502204ee441db12d2e61768d7397ab45d",
+      "root718Sha256": "702db18523ff9c4afdd9b5846465269502204ee441db12d2e61768d7397ab45d",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "setupTransit",
+      "sourceSha256": "0fb1119bc0e3b0ce4ae1025219ca93124e3dbd7df404c31beafb837bb2250253",
+      "root718Sha256": "0fb1119bc0e3b0ce4ae1025219ca93124e3dbd7df404c31beafb837bb2250253",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "buildBusStops",
+      "sourceSha256": "26001487e9b7772c6673d2acd42187501e0064312c52ee070e119a35ded347d9",
+      "root718Sha256": "26001487e9b7772c6673d2acd42187501e0064312c52ee070e119a35ded347d9",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "carKind",
+      "sourceSha256": "abed13c2fb681de3c8d50849fa7cd3408d8b801043f748fcd04419ceac20133e",
+      "root718Sha256": "abed13c2fb681de3c8d50849fa7cd3408d8b801043f748fcd04419ceac20133e",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "carLaneMax",
+      "sourceSha256": "f106f42a4a5cac6500c615a6f2fd06a225a087d7f2033bd18f2b53d88f7142f2",
+      "root718Sha256": "f106f42a4a5cac6500c615a6f2fd06a225a087d7f2033bd18f2b53d88f7142f2",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "kindLength",
+      "sourceSha256": "1b056b1c0275bfa3ca28e83a59da76f937401c9ad1077325014219e899087d05",
+      "root718Sha256": "1b056b1c0275bfa3ca28e83a59da76f937401c9ad1077325014219e899087d05",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "laneTarget",
+      "sourceSha256": "a40a43d0f2857b8d3e309f3149559cc4145ce01edddc3e557ae0f60108a9d1c5",
+      "root718Sha256": "a024fcf10d5c51af2f5d0832af6dc86c519712804e0c5a9beff216676be1d594",
+      "textIdentical": false
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "latOn",
+      "sourceSha256": "4e5bb9c92b2570df499f3f5090bc4379196b71d1fa760dfb270ad30d47e9d732",
+      "root718Sha256": "13e5902abc13b088456e9e19c76d078b2ed64cba916b8ff14f7b06ac7b931629",
+      "textIdentical": false
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "prevLink",
+      "sourceSha256": "f658c9811774253c251468b593686e20a2ae0f493f91180f97fb716655a14af6",
+      "root718Sha256": "0fa0de34016e3bbf28027bb5f2909c52f029192566a0629ae473134cf9a57038",
+      "textIdentical": false
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "lanePt",
+      "sourceSha256": "a45a439703e60e919d7048137fe56158cc91123a55381e38cb0dcca40104b1b2",
+      "root718Sha256": "80dc435e634830809da6b73cebcf9ec503cc14d63fb2aa201c0b9be3f3d63d50",
+      "textIdentical": false
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "pathPoint",
+      "sourceSha256": "bdf9bed2b7c986b9d4bca5b4f9c006f72bccb18c92e6e745f5119e204422beed",
+      "root718Sha256": "40a69ce2da287c2429f3cfb9dbe5302d424fe0da98b7902ea94330908205d95e",
+      "textIdentical": false
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "sSpan",
+      "sourceSha256": "965d04b8f31505fa80d6b1fcdc9d02459d14ec0c44a31d41652203474288bf6d",
+      "root718Sha256": "7d13758904a759182ccc3c1126e51878bf473dacfd77053e19b07f1bd4fa06c7",
+      "textIdentical": false
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "runTo",
+      "sourceSha256": "ceea2f59b1fb39226b7f4615f4149f7f80c74d8e488be12cfd6ad0b6a1751601",
+      "root718Sha256": "8c32cdaa2cc8c5b438f7a9de76c9cb8b14a22c77dabde0b741b7461e1d962a55",
+      "textIdentical": false
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "placeOnLane",
+      "sourceSha256": "ef337e2a084ab59c2b373cc84924b5819f76f18e4dd4daef2571b479e8da814d",
+      "root718Sha256": "96b49a1218b3b8cbd36560d5c2850610c8555cb9977137ee31d55f89978fa7d8",
+      "textIdentical": false
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "setHour",
+      "sourceSha256": "d955e736c6929a3e39914b57e6490496976a94373a89b170d497838344eb98e1",
+      "root718Sha256": "d955e736c6929a3e39914b57e6490496976a94373a89b170d497838344eb98e1",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "profileAt",
+      "sourceSha256": "f8664228e9a472dcf3b2cc26c28802d0ae3119013b6217c2c18c1f3bcc45137b",
+      "root718Sha256": "f8664228e9a472dcf3b2cc26c28802d0ae3119013b6217c2c18c1f3bcc45137b",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/traffic.js",
+      "method": "rebalance",
+      "sourceSha256": "2bcbc424860b0f07138eadf5f32b08c77ecd08397cd75932caf2d0aafd61cf2f",
+      "root718Sha256": "2bcbc424860b0f07138eadf5f32b08c77ecd08397cd75932caf2d0aafd61cf2f",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/main.js",
+      "method": "loadCity",
+      "sourceSha256": "37bb97cabb3baecc8a99e540cf73193d241703b0249d5b7e191dc1c1f4607e3d",
+      "root718Sha256": "37bb97cabb3baecc8a99e540cf73193d241703b0249d5b7e191dc1c1f4607e3d",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/main.js",
+      "method": "startFreeRoam",
+      "sourceSha256": "99ae0891c462951e93092e57ce577ee2ce346d00069c7b39720f0e657477f1a3",
+      "root718Sha256": "99ae0891c462951e93092e57ce577ee2ce346d00069c7b39720f0e657477f1a3",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/main.js",
+      "method": "placeSpawn",
+      "sourceSha256": "a4309fbb41038fe43c92aa9436b66086bb71bff14567b31611d448236f7f8b33",
+      "root718Sha256": "a4309fbb41038fe43c92aa9436b66086bb71bff14567b31611d448236f7f8b33",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/main.js",
+      "method": "attachWorldRender",
+      "sourceSha256": "45315033249556d8dd6596edebd0b0d75decac86671a71e9581b1e3155d4feff",
+      "root718Sha256": "45315033249556d8dd6596edebd0b0d75decac86671a71e9581b1e3155d4feff",
+      "textIdentical": true
+    },
+    {
+      "path": "game/src/main.js",
+      "method": "enterRoam",
+      "sourceSha256": "8516cb2d6b22323682a426c1d928cd60237c00e4f84eeb3db8f355f1a0b0e032",
+      "root718Sha256": "8516cb2d6b22323682a426c1d928cd60237c00e4f84eeb3db8f355f1a0b0e032",
+      "textIdentical": true
+    }
+  ],
+  "scopedInterpretation": [
+    "World/Romana dataset/cities/vehicles/util RNG/transit data/nav/access/shared lane modules are byte-identical.",
+    "Public loadCity method (High desktop480/maxPeds560 option branch), startFreeRoam/placeSpawn/attachWorldRender/enterRoam and historic spawnAll/spawn/setupTransit/buildBusStops/fleet-choice methods are text-identical.",
+    "Traffic constructor differs: root builds pure turn-lane lookup before RNG initialization and adds source tram binding after spawnAll, before initial admission. This observer pins the immediate postspawnAll6cb stage before admission; later stages remain historical.",
+    "Root rail branches in laneTarget/sSpan/placeOnLane/closedEdge do not execute for historic motor edges lacking e.rail. runTo now uses Traffic.isJunction; before binding its new tramMotorCrossings map is absent and original motor nodes lack motorNode.",
+    "Root pathPoint/prevLink/latOn/lanePt also retain lane history for later movement. Fresh spawn has empty route/hist; this is a scoped static comparison, not a native observation of current root.",
+    "Initial-admission/rail mode and render/display modules differ and are not claimed equivalent. Full current merged rail constructor/publication and movement acceptance require a separate actual immutable freeze."
+  ],
+  "pass": true,
+  "passScope": "Explicit static source/options/RNG-method comparison and historical-source labeling, not full runtime equivalence."
+}

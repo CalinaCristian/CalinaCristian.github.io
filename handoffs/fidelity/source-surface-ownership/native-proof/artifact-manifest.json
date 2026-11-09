@@ -1,7 +1,7 @@
 {
   "assessment.json": {
-    "bytes": 5822,
-    "sha256": "a075ba0e0137d954378224eb998c6f0501bd2116095896e04df52b0f2d04e49f"
+    "bytes": 5977,
+    "sha256": "72618ca3d6c40ae7742133deab2eb67abc9d5ade3abfb4c4f2816fb9f91376ec"
   },
   "inspection-campus-cf-ck.png": {
     "bytes": 566909,
@@ -12,8 +12,8 @@
     "sha256": "060bf3d4ff5917386fd96eb46487ea24db61ebf76901f6fed33f84f7c385acf0"
   },
   "README.md": {
-    "bytes": 2428,
-    "sha256": "45b5e99919954a3a246d8b43bc5ea9765c24c406baa0a2a58144dac0582f7fd5"
+    "bytes": 2526,
+    "sha256": "5455ca7f3a1632b981831291f1be880e8a1c449de53df81578066c6fc726022f"
   },
   "executed-native-building-camera-motion.cjs": {
     "bytes": 10442,

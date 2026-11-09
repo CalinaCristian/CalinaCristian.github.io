@@ -42,6 +42,7 @@ export function refreshBuildingSurfaces(data) {
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
     const args=Object.fromEntries(process.argv.slice(2).map((a,i,x)=>a.startsWith('--')?[a.slice(2),x[i+1]]:[]).filter(p=>p.length));
     if(!args.in||!args.out||args.in===args.out)throw Error('Use --in prepared.json --out NEW.json');
+    if(fs.existsSync(args.out))throw Error('Refuse overwrite: '+args.out);
     const original=JSON.parse(fs.readFileSync(args.in,'utf8')),result=refreshBuildingSurfaces(original);
     fs.writeFileSync(args.out,JSON.stringify(result));
     console.log(JSON.stringify({sourceRecords:original.buildings.length,version:result.buildingUnions.version,sources:result.buildingUnions.sources.length,surfaces:result.buildingUnions.surfaces.length,changedFields:['buildingUnions','buildingGeometryPoints'],output:args.out}));

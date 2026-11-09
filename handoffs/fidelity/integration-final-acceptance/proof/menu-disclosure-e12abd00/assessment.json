@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "e12abd000b5488ea0adf291731a9ee7cee7b77df",
+  "checks": 9,
+  "passed": 9,
+  "scope": "Small native desktop/390px park disclosure CSS readback only: 44px, actual open/close, painted visibility.",
+  "complete": true,
+  "browserExceptions": 0,
+  "consoleErrors": 0,
+  "inspectedImages": [
+    "desktop-parks-open.png",
+    "desktop-parks-closed.png",
+    "phone-parks-open.png",
+    "phone-parks-closed.png"
+  ]
+}

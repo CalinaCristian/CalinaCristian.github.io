@@ -1,0 +1,33 @@
+PASS pre-registry completion already uses 21 spots/postcards and excludes unavailable activities
+PASS desktop runtime registry scope
+PASS desktop post-registry inactive activities remain excluded
+PASS desktop unique menu count
+PASS desktop Recommended first is Troll/cathedral/Old Town
+PASS desktop three unverified destinations absent
+FAIL desktop parks collapsed by default
+PASS desktop every scrolled destination has a reachable 44px target
+FAIL desktop native park close hides its destinations
+PASS desktop native achievement cards use current city/postcard/tour targets
+PASS legacy all24 visits/postcards/tours count exactly the same available scope as current21
+PASS legacy retired/unknown unlocks and all24 saved records remain stored
+PASS desktop current catalogue/live-activity fixture reaches exactly100%
+PASS one actual active achievement missing stays99%
+PASS real unlock of last current active entry reaches100%
+PASS phone runtime registry scope
+PASS phone post-registry inactive activities remain excluded
+PASS phone unique menu count
+PASS phone Recommended first is Troll/cathedral/Old Town
+PASS phone three unverified destinations absent
+FAIL phone parks collapsed by default
+PASS phone every scrolled destination has a reachable 44px target
+FAIL phone native park close hides its destinations
+PASS phone native achievement cards use current city/postcard/tour targets
+PASS phone current catalogue/live-activity fixture reaches exactly100%
+PASS phone native recommended button opens the actual Seattle Troll session
+PASS developer runtime registry scope
+PASS developer unique menu count
+PASS developer Recommended first is Troll/cathedral/Old Town
+FAIL developer parks collapsed by default
+PASS developer every scrolled destination has a reachable 44px target
+FAIL developer native park close hides its destinations
+PASS no browser exceptions or console errors

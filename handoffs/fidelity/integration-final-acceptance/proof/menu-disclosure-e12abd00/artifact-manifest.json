@@ -1,0 +1,50 @@
+{
+  "REVIEW.md": {
+    "sha256": "b18181c000025d221b5b147692d233d3b2afd9f943ad2b1c9e7da333048cf2b0",
+    "bytes": 751
+  },
+  "assessment.json": {
+    "sha256": "495bb6294bd51554824e56a08da5589b7b29e854e5439dafc096c7ccfa2c1752",
+    "bytes": 431
+  },
+  "desktop-parks-closed.png": {
+    "sha256": "ad61e773209e986435adb9da6245b06bf45eeee4bc5c34d83ded2804e30adc4c",
+    "bytes": 257632
+  },
+  "desktop-parks-open.png": {
+    "sha256": "6f09a30daa1258d5a6b343c32cf8ed1ebbc00c125649d6ae17119196c041149e",
+    "bytes": 265537
+  },
+  "integration-browser-bounds.cjs": {
+    "sha256": "ac3c71f6f441f4cccae1cdf3063a0921c445b7eec84363f1d612d23c9f68ef29",
+    "bytes": 1529
+  },
+  "launch.json": {
+    "sha256": "b001a02e0ac500af36fe2d805a0efbe518db03475a6d56980b78e1431e94c3cf",
+    "bytes": 378
+  },
+  "phone-parks-closed.png": {
+    "sha256": "ac542fe669e79b521526cabd7fe01ee5541c01b168cea671327630585b2ce83e",
+    "bytes": 77043
+  },
+  "phone-parks-open.png": {
+    "sha256": "e6b6f06c884eb6f60d57d6e0fe9fc40e9bf6efa6a13448a7c3fa2708638c0703",
+    "bytes": 75199
+  },
+  "report.json.gz": {
+    "sha256": "865907541148dcfc1c44fe1851be233411fe98d015792115ff1b78db990e8cb9",
+    "bytes": 531
+  },
+  "runner.cjs": {
+    "sha256": "e254b177df42c74fe2f93ef1f584df0d8c294b13ad6e1c0cfb45ce2069e1f796",
+    "bytes": 4604
+  },
+  "runner.log": {
+    "sha256": "f25fb870c9e2c3375f26cee681aba13305d24be7b234436d1a68512a66dfad86",
+    "bytes": 443
+  },
+  "source-manifest.json": {
+    "sha256": "8b722ae054978590763227cb2c6d6f2e9d753e0e4d700ece9cb4a84cb2097e0e",
+    "bytes": 30224
+  }
+}

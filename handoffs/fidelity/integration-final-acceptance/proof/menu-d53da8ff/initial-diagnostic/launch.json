@@ -1,0 +1,10 @@
+{
+  "pid": 303865,
+  "sourceCommit": "d53da8ffb633bdceeafa8302e3e818e42f69c69b",
+  "toolCommit": "4d994400",
+  "sourceRoot": "/workspace/integration-qa-evidence/menu-d53da8ff-source",
+  "out": "/workspace/integration-qa-evidence/menu-d53da8ff-native",
+  "startedUtc": "2026-11-09T00:50:09.279776+00:00",
+  "runnerSha256": "a380ecb8330de0cfb769b6a70d2c54775b723d0bf90e9cfbc65a025aea7a788c",
+  "scope": "Actual desktop/390px menu controls,21current/24developer scope, legacy saved progress/current live catalogue completion fixtures, one native recommended route."
+}

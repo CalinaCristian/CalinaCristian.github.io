@@ -1,0 +1,12 @@
+{
+  "sourceCommit": "322ddcc639b219a34589006a0e1b493c214b65b1",
+  "acceptedSha256": "7d69db01e1c26c838cf8d0cdc61afbde0d13e366c63a9eb22be02402a79955fb",
+  "baselineRebuildSha256": "e64570b955630c37220c443d84f1d7c1081700639a45a539f3a7e8c67ab7b438",
+  "onlyChangedFields": [
+    "buildingGeometryPoints",
+    "buildingRoofGeometryPoints",
+    "buildingRoofSurfaces",
+    "buildingUnions"
+  ],
+  "allOtherJsonValuesEqual": true
+}

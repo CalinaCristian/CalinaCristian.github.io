@@ -1,0 +1,2911 @@
+{
+  "schema": 1,
+  "scope": "CPU compiled topology and exact public Navigator on source-node graph. SCC matches production algorithm; no virtual connector is ever a driving edge. World structural geometry, actor publication, real body clearance, runtime budgets and driven acceptance remain separate.",
+  "datasets": [
+    {
+      "label": "accepted",
+      "file": "/workspace/reality-pass/basarab-source-domain/accepted-322ddcc6.json",
+      "counts": {
+        "nodes": 1299,
+        "edges": 1324
+      },
+      "scc": {
+        "components": 404,
+        "mainNodes": 894,
+        "mainEdges": 927,
+        "profileMainExtra": 6,
+        "nativeProfileMainNodes": 900,
+        "nativeProfileMainEdges": 933
+      },
+      "sources": [
+        {
+          "sourceId": "w458458361",
+          "segments": 29,
+          "drivable": 0,
+          "gate": "reviewed access"
+        },
+        {
+          "sourceId": "w668676694",
+          "segments": 1,
+          "drivable": 0,
+          "gate": "reviewed access"
+        },
+        {
+          "sourceId": "w668676697",
+          "segments": 1,
+          "drivable": 0,
+          "gate": "reviewed access"
+        },
+        {
+          "sourceId": "w84482671",
+          "segments": 9,
+          "drivable": 0,
+          "gate": "HELD: reverse-ramp return corridor is outside this two-corridor change"
+        },
+        {
+          "sourceId": "w139758829",
+          "segments": 9,
+          "drivable": 9,
+          "gate": "reviewed access"
+        },
+        {
+          "sourceId": "w84483724",
+          "segments": 0,
+          "drivable": 0,
+          "gate": "reviewed access"
+        }
+      ],
+      "required": [
+        {
+          "id": "northbound-Doina-lukoil",
+          "legs": 41,
+          "missing": [],
+          "offMask": [],
+          "maxDomainEnvelopeM": 27.628574510520878
+        },
+        {
+          "id": "southbound-Doina-lukoil",
+          "legs": 102,
+          "missing": [],
+          "offMask": [],
+          "maxDomainEnvelopeM": 28.128574510520878
+        }
+      ],
+      "routes": [
+        {
+          "from": 981567012,
+          "to": 6261926624,
+          "found": false,
+          "restrictionViolations": []
+        },
+        {
+          "from": 981567012,
+          "to": 4544537057,
+          "found": false,
+          "restrictionViolations": []
+        },
+        {
+          "from": 4544537057,
+          "to": 981567012,
+          "found": true,
+          "metres": 1516.6077234553732,
+          "legs": [
+            {
+              "sourceId": "w242364260",
+              "from": -2000000044,
+              "to": 8769891984,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w242364260",
+              "from": 8769891984,
+              "to": 6234392878,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w242364260",
+              "from": 6234392878,
+              "to": 6234260296,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w242364260",
+              "from": 6234260296,
+              "to": 4544523820,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w241717664",
+              "from": 4544523820,
+              "to": 1340349371,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w241717664",
+              "from": 1340349371,
+              "to": 1433124668,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w241717664",
+              "from": 1433124668,
+              "to": 981520486,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w314447341",
+              "from": 981520486,
+              "to": 1418266857,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304855",
+              "from": 1418266857,
+              "to": 1418266879,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304854",
+              "from": 1418266879,
+              "to": 981520528,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665700250",
+              "from": 981520528,
+              "to": 6233585073,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665700250",
+              "from": 6233585073,
+              "to": 6233585074,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665700250",
+              "from": 6233585074,
+              "to": 32934941,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w12803020",
+              "from": 32934941,
+              "to": 6233987447,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w12803020",
+              "from": 6233987447,
+              "to": 3908701982,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w12803020",
+              "from": 3908701982,
+              "to": 7733754405,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w12803020",
+              "from": 7733754405,
+              "to": 7733754391,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w12803020",
+              "from": 7733754391,
+              "to": 2723644930,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w12803020",
+              "from": 2723644930,
+              "to": 249659931,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w23123472",
+              "from": 249659931,
+              "to": 13376893574,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w23123472",
+              "from": 13376893574,
+              "to": 249659916,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w23123472",
+              "from": 249659916,
+              "to": 249659917,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w23123472",
+              "from": 249659917,
+              "to": 5339318785,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w23123472",
+              "from": 5339318785,
+              "to": 12323812232,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w23123472",
+              "from": 12323812232,
+              "to": 7476801812,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w23123472",
+              "from": 7476801812,
+              "to": 257544650,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w23123472",
+              "from": 257544650,
+              "to": 7733754408,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w23123472",
+              "from": 7733754408,
+              "to": 12023240176,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w23123472",
+              "from": 12023240176,
+              "to": 6294573557,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w23123472",
+              "from": 6294573557,
+              "to": 249659921,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w23123472",
+              "from": 249659921,
+              "to": 2495091622,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w118284445",
+              "from": 2495091622,
+              "to": 3653645089,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w118284445",
+              "from": 3653645089,
+              "to": 12676962691,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w118284445",
+              "from": 12676962691,
+              "to": 3001224269,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w118284445",
+              "from": 3001224269,
+              "to": 3488474488,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w118284445",
+              "from": 3488474488,
+              "to": 12319159705,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w118284445",
+              "from": 12319159705,
+              "to": 6340365317,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w118284445",
+              "from": 6340365317,
+              "to": 255078912,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w118284445",
+              "from": 255078912,
+              "to": 255078913,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360811525",
+              "from": 255078913,
+              "to": 3001224276,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360811525",
+              "from": 3001224276,
+              "to": 14181586263,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360811525",
+              "from": 14181586263,
+              "to": 3653645093,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360811525",
+              "from": 3653645093,
+              "to": 14181586265,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360811525",
+              "from": 14181586265,
+              "to": 2230801633,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360811525",
+              "from": 2230801633,
+              "to": 14181586266,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360811525",
+              "from": 14181586266,
+              "to": 6263837332,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360811525",
+              "from": 6263837332,
+              "to": 981579827,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 981579827,
+              "to": 8407738661,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 8407738661,
+              "to": 8407738662,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 8407738662,
+              "to": 8407738659,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 8407738659,
+              "to": 8407738663,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 8407738663,
+              "to": 6262920765,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 6262920765,
+              "to": 981549067,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 981549067,
+              "to": 8769891980,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 8769891980,
+              "to": 1228161142,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 1228161142,
+              "to": 1418267164,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 1418267164,
+              "to": 4232376549,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 4232376549,
+              "to": 981562925,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 981562925,
+              "to": 3208556808,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 3208556808,
+              "to": 984553357,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 984553357,
+              "to": 981567012,
+              "dir": 1,
+              "virtual": false
+            }
+          ],
+          "restrictionViolations": []
+        },
+        {
+          "from": 981567012,
+          "to": 981547574,
+          "found": false,
+          "restrictionViolations": []
+        }
+      ]
+    },
+    {
+      "label": "candidate",
+      "file": "game/data/bucharest-grozavesti.json",
+      "counts": {
+        "nodes": 1418,
+        "edges": 1465
+      },
+      "scc": {
+        "components": 345,
+        "mainNodes": 1074,
+        "mainEdges": 1121,
+        "profileMainExtra": 106,
+        "nativeProfileMainNodes": 1180,
+        "nativeProfileMainEdges": 1227
+      },
+      "sources": [
+        {
+          "sourceId": "w458458361",
+          "segments": 29,
+          "drivable": 29,
+          "gate": "reviewed access"
+        },
+        {
+          "sourceId": "w668676694",
+          "segments": 1,
+          "drivable": 1,
+          "gate": "reviewed access"
+        },
+        {
+          "sourceId": "w668676697",
+          "segments": 1,
+          "drivable": 1,
+          "gate": "reviewed access"
+        },
+        {
+          "sourceId": "w84482671",
+          "segments": 9,
+          "drivable": 0,
+          "gate": "HELD: reverse-ramp return corridor is outside this two-corridor change"
+        },
+        {
+          "sourceId": "w139758829",
+          "segments": 12,
+          "drivable": 12,
+          "gate": "reviewed access"
+        },
+        {
+          "sourceId": "w84483724",
+          "segments": 3,
+          "drivable": 3,
+          "gate": "reviewed access"
+        }
+      ],
+      "required": [
+        {
+          "id": "northbound-Doina-lukoil",
+          "legs": 41,
+          "missing": [],
+          "offMask": [],
+          "maxDomainEnvelopeM": 27.628574510520878
+        },
+        {
+          "id": "southbound-Doina-lukoil",
+          "legs": 102,
+          "missing": [],
+          "offMask": [],
+          "maxDomainEnvelopeM": 28.128574510520878
+        },
+        {
+          "id": "basarab-north-source-exit-return",
+          "legs": 26,
+          "missing": [],
+          "offMask": [],
+          "maxDomainEnvelopeM": 36.12857451052088
+        },
+        {
+          "id": "basarab-south-source-entry",
+          "legs": 18,
+          "missing": [],
+          "offMask": [],
+          "maxDomainEnvelopeM": 28.128574510520878
+        }
+      ],
+      "routes": [
+        {
+          "from": 981567012,
+          "to": 6261926624,
+          "found": true,
+          "metres": 358.1445772361566,
+          "legs": [
+            {
+              "sourceId": "w139758829",
+              "from": 984553357,
+              "to": 981567012,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 981567012,
+              "to": 14178097931,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 14178097931,
+              "to": 14178097930,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 14178097930,
+              "to": 14178097934,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 14178097934,
+              "to": 3208556810,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679789",
+              "from": 3208556810,
+              "to": 2295201758,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668676693",
+              "from": 2295201758,
+              "to": 6261926623,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679784",
+              "from": 6261926623,
+              "to": 14178097945,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679784",
+              "from": 14178097945,
+              "to": 6261963476,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679784",
+              "from": 6261963476,
+              "to": 981549744,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84483724",
+              "from": 981549744,
+              "to": 6261963475,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84483724",
+              "from": 6261963475,
+              "to": 6261926626,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84483724",
+              "from": 6261926626,
+              "to": 6261926624,
+              "dir": 1,
+              "virtual": false
+            }
+          ],
+          "restrictionViolations": [
+            {
+              "restriction": "r21387141",
+              "kind": "only_straight_on",
+              "via": 981549744,
+              "incoming": {
+                "sourceId": "w668679784",
+                "from": 6261963476,
+                "to": 981549744,
+                "dir": 1,
+                "virtual": false
+              },
+              "outgoing": {
+                "sourceId": "w84483724",
+                "from": 981549744,
+                "to": 6261963475,
+                "dir": 1,
+                "virtual": false
+              },
+              "rawMembers": [
+                {
+                  "type": "way",
+                  "ref": 668679784,
+                  "role": "from"
+                },
+                {
+                  "type": "node",
+                  "ref": 981549744,
+                  "role": "via"
+                },
+                {
+                  "type": "way",
+                  "ref": 50586387,
+                  "role": "to"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "from": 981567012,
+          "to": 4544537057,
+          "found": true,
+          "metres": 2977.1967506026826,
+          "legs": [
+            {
+              "sourceId": "w139758829",
+              "from": 984553357,
+              "to": 981567012,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 981567012,
+              "to": 14178097931,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 14178097931,
+              "to": 14178097930,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 14178097930,
+              "to": 14178097934,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 14178097934,
+              "to": 3208556810,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679789",
+              "from": 3208556810,
+              "to": 2295201758,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668676693",
+              "from": 2295201758,
+              "to": 6261926623,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679784",
+              "from": 6261926623,
+              "to": 14178097945,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679784",
+              "from": 14178097945,
+              "to": 6261963476,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679784",
+              "from": 6261963476,
+              "to": 981549744,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84483724",
+              "from": 981549744,
+              "to": 6261963475,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84483724",
+              "from": 6261963475,
+              "to": 6261926626,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84483724",
+              "from": 6261926626,
+              "to": 6261926624,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668676696",
+              "from": 6261926624,
+              "to": 981563579,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w373297791",
+              "from": 981563579,
+              "to": 3204837341,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668678760",
+              "from": 3204837341,
+              "to": 6262920764,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668678760",
+              "from": 6262920764,
+              "to": 3204761562,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668678760",
+              "from": 3204761562,
+              "to": 981554511,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 981554511,
+              "to": 8407738658,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 8407738658,
+              "to": 8407738656,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 8407738656,
+              "to": 8407738657,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 8407738657,
+              "to": 8407738654,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 8407738654,
+              "to": 14189436074,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 14189436074,
+              "to": 981551477,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 981551477,
+              "to": 8407738653,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 8407738653,
+              "to": 8407738645,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 8407738645,
+              "to": 8407738655,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 8407738655,
+              "to": 6187849503,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 6187849503,
+              "to": 3208556812,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 3208556812,
+              "to": 6263837333,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 6263837333,
+              "to": 981556145,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 981556145,
+              "to": 6263837342,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 6263837342,
+              "to": 255079328,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 255079328,
+              "to": 2448336871,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 2448336871,
+              "to": 14181586264,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 14181586264,
+              "to": 1418267162,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 1418267162,
+              "to": 2517400436,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 2517400436,
+              "to": 3488474492,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 3488474492,
+              "to": 32934934,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w34172374",
+              "from": 32934934,
+              "to": 255078825,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 255078825,
+              "to": 3653552428,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 3653552428,
+              "to": 6340365339,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 6340365339,
+              "to": 1418267103,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 1418267103,
+              "to": 392012432,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 392012432,
+              "to": 2517400431,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 2517400431,
+              "to": 9837792189,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 9837792189,
+              "to": 3653645083,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 3653645083,
+              "to": 249659921,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w678256588",
+              "from": 249659921,
+              "to": 14185647326,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w678256588",
+              "from": 14185647326,
+              "to": 14185647327,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w678256588",
+              "from": 14185647327,
+              "to": 7733754406,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w678256588",
+              "from": 7733754406,
+              "to": 14180731870,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w678256588",
+              "from": 14180731870,
+              "to": 255078822,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w256807105",
+              "from": 255078822,
+              "to": 7733749973,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w256807105",
+              "from": 7733749973,
+              "to": 11978952525,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w256807105",
+              "from": 11978952525,
+              "to": 3908701979,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w256807105",
+              "from": 3908701979,
+              "to": 304809417,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w256807105",
+              "from": 304809417,
+              "to": 3908701977,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w256807105",
+              "from": 3908701977,
+              "to": 32934941,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84488633",
+              "from": 32934941,
+              "to": 1418266880,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304847",
+              "from": 1418266880,
+              "to": 1418266862,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304848",
+              "from": 1418266862,
+              "to": 32934991,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w314447339",
+              "from": 32934991,
+              "to": 1433124669,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w314447339",
+              "from": 1433124669,
+              "to": 6233585070,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896757",
+              "from": 6233585070,
+              "to": 2517400447,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896757",
+              "from": 2517400447,
+              "to": 2159714546,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w26195494",
+              "from": 2159714546,
+              "to": 6233585069,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w26195494",
+              "from": 6233585069,
+              "to": 2159714528,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w26195494",
+              "from": 2159714528,
+              "to": 2159714537,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w26195494",
+              "from": 2159714537,
+              "to": 6233585068,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w26195494",
+              "from": 6233585068,
+              "to": 2159714535,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w26195494",
+              "from": 2159714535,
+              "to": 6233585067,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w26195494",
+              "from": 6233585067,
+              "to": 2159714542,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896755",
+              "from": 2159714542,
+              "to": 6234008738,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896755",
+              "from": 6234008738,
+              "to": 6570499863,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896755",
+              "from": 6570499863,
+              "to": 2230785037,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896756",
+              "from": 2230785037,
+              "to": 1418266846,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896756",
+              "from": 1418266846,
+              "to": 1418266844,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896756",
+              "from": 1418266844,
+              "to": 1418266841,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896756",
+              "from": 1418266841,
+              "to": 1418266838,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896756",
+              "from": 1418266838,
+              "to": 1340349366,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896756",
+              "from": 1340349366,
+              "to": 8769891985,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896756",
+              "from": 8769891985,
+              "to": 1418266836,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665896756",
+              "from": 1418266836,
+              "to": 3908695017,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w242364261",
+              "from": 3908695017,
+              "to": 4365246612,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w242364261",
+              "from": 4365246612,
+              "to": 286838366,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w905217311",
+              "from": 286838366,
+              "to": 1341209751,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w905217311",
+              "from": 1341209751,
+              "to": 10771546247,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w905217311",
+              "from": 10771546247,
+              "to": 286837205,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665933051",
+              "from": 286837205,
+              "to": 286836527,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w239653290",
+              "from": 286836527,
+              "to": 286837118,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w28050353",
+              "from": 286837118,
+              "to": 286836866,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w302798182",
+              "from": 286836866,
+              "to": 1341209718,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w302798182",
+              "from": 1341209718,
+              "to": 286837968,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665933058",
+              "from": 286837968,
+              "to": 4365246377,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665933058",
+              "from": 4365246377,
+              "to": 981599610,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w32070436",
+              "from": 981599610,
+              "to": 14161960362,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w32070436",
+              "from": 14161960362,
+              "to": 2159714520,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w314448326",
+              "from": 2159714520,
+              "to": 1340349368,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w314448326",
+              "from": 1340349368,
+              "to": 4544537057,
+              "dir": 1,
+              "virtual": false
+            }
+          ],
+          "restrictionViolations": [
+            {
+              "restriction": "r21387141",
+              "kind": "only_straight_on",
+              "via": 981549744,
+              "incoming": {
+                "sourceId": "w668679784",
+                "from": 6261963476,
+                "to": 981549744,
+                "dir": 1,
+                "virtual": false
+              },
+              "outgoing": {
+                "sourceId": "w84483724",
+                "from": 981549744,
+                "to": 6261963475,
+                "dir": 1,
+                "virtual": false
+              },
+              "rawMembers": [
+                {
+                  "type": "way",
+                  "ref": 668679784,
+                  "role": "from"
+                },
+                {
+                  "type": "node",
+                  "ref": 981549744,
+                  "role": "via"
+                },
+                {
+                  "type": "way",
+                  "ref": 50586387,
+                  "role": "to"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "from": 4544537057,
+          "to": 981567012,
+          "found": true,
+          "metres": 1704.9446276915255,
+          "legs": [
+            {
+              "sourceId": "w314448326",
+              "from": 1340349368,
+              "to": 4544537057,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 4544537057,
+              "to": 3020483238,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 3020483238,
+              "to": 981599636,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 981599636,
+              "to": 360020968,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 360020968,
+              "to": 3908695022,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 3908695022,
+              "to": 2159714524,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 2159714524,
+              "to": 3020483254,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 3020483254,
+              "to": 3020481724,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 3020481724,
+              "to": 6340365328,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 6340365328,
+              "to": 3020483258,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 3020483258,
+              "to": 984551312,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 984551312,
+              "to": 984551313,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 984551313,
+              "to": 6340365314,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 6340365314,
+              "to": 2159714526,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 2159714526,
+              "to": 3020481731,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 3020481731,
+              "to": 1340349373,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 1340349373,
+              "to": 3020481729,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 3020481729,
+              "to": 2159714531,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 2159714531,
+              "to": 3020481732,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 3020481732,
+              "to": 3020483235,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 3020483235,
+              "to": 2159714540,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 2159714540,
+              "to": 1340349378,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 1340349378,
+              "to": 3020481706,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 3020481706,
+              "to": 2159714539,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 2159714539,
+              "to": 3020483245,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 3020483245,
+              "to": 1340349380,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 1340349380,
+              "to": 2159730254,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 2159730254,
+              "to": 981525568,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 981525568,
+              "to": 14111297000,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w458458361",
+              "from": 14111297000,
+              "to": 984551993,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w1535667121",
+              "from": 984551993,
+              "to": 6307136271,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 6307136271,
+              "to": 2624398767,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 2624398767,
+              "to": 2624398749,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 2624398749,
+              "to": 5220968641,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 5220968641,
+              "to": 2624398766,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 2624398766,
+              "to": 2624398744,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 2624398744,
+              "to": 2624398782,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 2624398782,
+              "to": 5220968642,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 5220968642,
+              "to": 981547574,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668676697",
+              "from": 981547574,
+              "to": 3020483247,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668676694",
+              "from": 3020483247,
+              "to": 6261926625,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84482712",
+              "from": 6261926625,
+              "to": 6261963477,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679788",
+              "from": 6261963477,
+              "to": 3208556810,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679789",
+              "from": 3208556810,
+              "to": 2295201758,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668676693",
+              "from": 2295201758,
+              "to": 6261926623,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679784",
+              "from": 6261926623,
+              "to": 14178097945,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679784",
+              "from": 14178097945,
+              "to": 6261963476,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679784",
+              "from": 6261963476,
+              "to": 981549744,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84483724",
+              "from": 981549744,
+              "to": 6261963475,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84483724",
+              "from": 6261963475,
+              "to": 6261926626,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84483724",
+              "from": 6261926626,
+              "to": 6261926624,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668676696",
+              "from": 6261926624,
+              "to": 981563579,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w373297791",
+              "from": 981563579,
+              "to": 3204837341,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668678760",
+              "from": 3204837341,
+              "to": 6262920764,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668678760",
+              "from": 6262920764,
+              "to": 3204761562,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668678760",
+              "from": 3204761562,
+              "to": 981554511,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 981554511,
+              "to": 8407738658,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 8407738658,
+              "to": 8407738656,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 8407738656,
+              "to": 8407738657,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 8407738657,
+              "to": 8407738654,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 8407738654,
+              "to": 14189436074,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 14189436074,
+              "to": 981551477,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 981551477,
+              "to": 8407738653,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 8407738653,
+              "to": 8407738645,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 8407738645,
+              "to": 8407738655,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 8407738655,
+              "to": 6187849503,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 6187849503,
+              "to": 3208556812,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 3208556812,
+              "to": 6263837333,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 6263837333,
+              "to": 981556145,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 981556145,
+              "to": 981579827,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 981579827,
+              "to": 8407738661,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 8407738661,
+              "to": 8407738662,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 8407738662,
+              "to": 8407738659,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 8407738659,
+              "to": 8407738663,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 8407738663,
+              "to": 6262920765,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382931",
+              "from": 6262920765,
+              "to": 981549067,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 981549067,
+              "to": 8769891980,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 8769891980,
+              "to": 1228161142,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 1228161142,
+              "to": 1418267164,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 1418267164,
+              "to": 4232376549,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 4232376549,
+              "to": 981562925,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 981562925,
+              "to": 3208556808,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 3208556808,
+              "to": 984553357,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 984553357,
+              "to": 981567012,
+              "dir": 1,
+              "virtual": false
+            }
+          ],
+          "restrictionViolations": [
+            {
+              "restriction": "r21387141",
+              "kind": "only_straight_on",
+              "via": 981549744,
+              "incoming": {
+                "sourceId": "w668679784",
+                "from": 6261963476,
+                "to": 981549744,
+                "dir": 1,
+                "virtual": false
+              },
+              "outgoing": {
+                "sourceId": "w84483724",
+                "from": 981549744,
+                "to": 6261963475,
+                "dir": 1,
+                "virtual": false
+              },
+              "rawMembers": [
+                {
+                  "type": "way",
+                  "ref": 668679784,
+                  "role": "from"
+                },
+                {
+                  "type": "node",
+                  "ref": 981549744,
+                  "role": "via"
+                },
+                {
+                  "type": "way",
+                  "ref": 50586387,
+                  "role": "to"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "from": 981567012,
+          "to": 981547574,
+          "found": true,
+          "metres": 1989.1223188323256,
+          "legs": [
+            {
+              "sourceId": "w139758829",
+              "from": 984553357,
+              "to": 981567012,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 981567012,
+              "to": 14178097931,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 14178097931,
+              "to": 14178097930,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 14178097930,
+              "to": 14178097934,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w139758829",
+              "from": 14178097934,
+              "to": 3208556810,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679789",
+              "from": 3208556810,
+              "to": 2295201758,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668676693",
+              "from": 2295201758,
+              "to": 6261926623,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679784",
+              "from": 6261926623,
+              "to": 14178097945,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679784",
+              "from": 14178097945,
+              "to": 6261963476,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668679784",
+              "from": 6261963476,
+              "to": 981549744,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84483724",
+              "from": 981549744,
+              "to": 6261963475,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84483724",
+              "from": 6261963475,
+              "to": 6261926626,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84483724",
+              "from": 6261926626,
+              "to": 6261926624,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668676696",
+              "from": 6261926624,
+              "to": 981563579,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w373297791",
+              "from": 981563579,
+              "to": 3204837341,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668678760",
+              "from": 3204837341,
+              "to": 6262920764,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668678760",
+              "from": 6262920764,
+              "to": 3204761562,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668678760",
+              "from": 3204761562,
+              "to": 981554511,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 981554511,
+              "to": 8407738658,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 8407738658,
+              "to": 8407738656,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 8407738656,
+              "to": 8407738657,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 8407738657,
+              "to": 8407738654,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 8407738654,
+              "to": 14189436074,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w153967941",
+              "from": 14189436074,
+              "to": 981551477,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 981551477,
+              "to": 8407738653,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 8407738653,
+              "to": 8407738645,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 8407738645,
+              "to": 8407738655,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 8407738655,
+              "to": 6187849503,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 6187849503,
+              "to": 3208556812,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 3208556812,
+              "to": 6263837333,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w106797418",
+              "from": 6263837333,
+              "to": 981556145,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 981556145,
+              "to": 6263837342,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 6263837342,
+              "to": 255079328,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 255079328,
+              "to": 2448336871,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 2448336871,
+              "to": 14181586264,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 14181586264,
+              "to": 1418267162,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 1418267162,
+              "to": 2517400436,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 2517400436,
+              "to": 3488474492,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w295382943",
+              "from": 3488474492,
+              "to": 32934934,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w34172374",
+              "from": 32934934,
+              "to": 255078825,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 255078825,
+              "to": 3653552428,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 3653552428,
+              "to": 6340365339,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 6340365339,
+              "to": 1418267103,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 1418267103,
+              "to": 392012432,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 392012432,
+              "to": 2517400431,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 2517400431,
+              "to": 9837792189,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 9837792189,
+              "to": 3653645083,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w360805311",
+              "from": 3653645083,
+              "to": 249659921,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w678256588",
+              "from": 249659921,
+              "to": 14185647326,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w678256588",
+              "from": 14185647326,
+              "to": 14185647327,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w678256588",
+              "from": 14185647327,
+              "to": 7733754406,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w678256588",
+              "from": 7733754406,
+              "to": 14180731870,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w678256588",
+              "from": 14180731870,
+              "to": 255078822,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w256807105",
+              "from": 255078822,
+              "to": 7733749973,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w256807105",
+              "from": 7733749973,
+              "to": 11978952525,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w256807105",
+              "from": 11978952525,
+              "to": 3908701979,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w256807105",
+              "from": 3908701979,
+              "to": 304809417,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w256807105",
+              "from": 304809417,
+              "to": 3908701977,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w256807105",
+              "from": 3908701977,
+              "to": 32934941,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84488633",
+              "from": 32934941,
+              "to": 1418266880,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304847",
+              "from": 1418266880,
+              "to": 1418266862,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304848",
+              "from": 1418266862,
+              "to": 32934991,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665933043",
+              "from": 32934991,
+              "to": 13455628567,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665933043",
+              "from": 13455628567,
+              "to": 13455628566,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w665933043",
+              "from": 13455628566,
+              "to": 981520486,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w314447341",
+              "from": 981520486,
+              "to": 1418266857,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304855",
+              "from": 1418266857,
+              "to": 1418266879,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304854",
+              "from": 1418266879,
+              "to": 981520528,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w237815654",
+              "from": 981520528,
+              "to": 3908701981,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w237815654",
+              "from": 3908701981,
+              "to": 2517400449,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w237815654",
+              "from": 2517400449,
+              "to": 6263877278,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w237815654",
+              "from": 6263877278,
+              "to": 981520594,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668894721",
+              "from": 981520594,
+              "to": 6263935469,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668894718",
+              "from": 6263935469,
+              "to": 6263935468,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668894715",
+              "from": 6263935468,
+              "to": 6263935467,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w668894712",
+              "from": 6263935467,
+              "to": 6263935466,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84477811",
+              "from": 6263935466,
+              "to": 3020519289,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84477811",
+              "from": 3020519289,
+              "to": 6340365316,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w84477811",
+              "from": 6340365316,
+              "to": 1418266949,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 1418266949,
+              "to": 981525566,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 981525566,
+              "to": 2159714533,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 2159714533,
+              "to": 6340365315,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 6340365315,
+              "to": 3020481707,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 3020481707,
+              "to": 2159714544,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 2159714544,
+              "to": 3020481701,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 3020481701,
+              "to": 1340349375,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 1340349375,
+              "to": 2230801631,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 2230801631,
+              "to": 3020483260,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 3020483260,
+              "to": 1340349377,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 1340349377,
+              "to": 3020483261,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 3020483261,
+              "to": 2159730249,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 2159730249,
+              "to": 1340349379,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 1340349379,
+              "to": 6273078063,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 6273078063,
+              "to": 2159730253,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w128304850",
+              "from": 2159730253,
+              "to": 984551993,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w1535667121",
+              "from": 984551993,
+              "to": 6307136271,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 6307136271,
+              "to": 2624398767,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 2624398767,
+              "to": 2624398749,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 2624398749,
+              "to": 5220968641,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 5220968641,
+              "to": 2624398766,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 2624398766,
+              "to": 2624398744,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 2624398744,
+              "to": 2624398782,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 2624398782,
+              "to": 5220968642,
+              "dir": 1,
+              "virtual": false
+            },
+            {
+              "sourceId": "w119235186",
+              "from": 5220968642,
+              "to": 981547574,
+              "dir": 1,
+              "virtual": false
+            }
+          ],
+          "restrictionViolations": [
+            {
+              "restriction": "r21387141",
+              "kind": "only_straight_on",
+              "via": 981549744,
+              "incoming": {
+                "sourceId": "w668679784",
+                "from": 6261963476,
+                "to": 981549744,
+                "dir": 1,
+                "virtual": false
+              },
+              "outgoing": {
+                "sourceId": "w84483724",
+                "from": 981549744,
+                "to": 6261963475,
+                "dir": 1,
+                "virtual": false
+              },
+              "rawMembers": [
+                {
+                  "type": "way",
+                  "ref": 668679784,
+                  "role": "from"
+                },
+                {
+                  "type": "node",
+                  "ref": 981549744,
+                  "role": "via"
+                },
+                {
+                  "type": "way",
+                  "ref": 50586387,
+                  "role": "to"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "topologyPassed": true,
+  "runtimeRestrictionGatePassed": false
+}

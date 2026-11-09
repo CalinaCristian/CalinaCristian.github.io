@@ -1,0 +1,27 @@
+{
+  "passed": 22,
+  "cases": [
+    "literal joined source legs retain exact XY/IDs/order and form one finite selection",
+    "reviewed source pieces extend only finite common corridor geometry",
+    "nearby equal coordinates with different source node identities do not join",
+    "skipped shape vertex is never a new direct segment",
+    "mapped one-way is preserved",
+    "oneway=-1 uses normalized legal direction without moving raw nodes",
+    "private road cannot become a public through return corridor",
+    "destination road cannot become a public through return corridor",
+    "conditional road cannot become a public through return corridor",
+    "only-straight restriction is retained and rejects wrong literal transition",
+    "touching conditional/via-way restrictions remain unresolved, never guessed",
+    "missing-from only-straight is obeyed universally without inventing the absent member",
+    "incomplete only-straight does not excuse a different exit or an unobserved boundary",
+    "incomplete conditional, via-way, unknown exit and ambiguous exits stay rejected",
+    "terminal source turn lanes require an actually permitted lane",
+    "source split after an already curved turn retains its sole legal continuation",
+    "terminal turn rule is not repeated at an internal source shape point",
+    "immediate reverse leg is rejected even on a legal two-way source",
+    "source-priority wide pavement cannot be narrowed to fit domain radius",
+    "literal destination remains a real source fuel record",
+    "absent review preserves the legacy path without mutation",
+    "deterministic bounded compilation consumes no random numbers"
+  ]
+}

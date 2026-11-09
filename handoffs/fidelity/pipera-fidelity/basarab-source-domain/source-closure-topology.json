@@ -1,0 +1,123 @@
+{
+  "accepted": [
+    {
+      "sourceNodeId": 981567012,
+      "present": true,
+      "dataMapEnd": false,
+      "incident": [
+        {
+          "sourceId": "w84788740",
+          "from": 14178097918,
+          "to": 981567012,
+          "lengthM": 4.181969578505198
+        },
+        {
+          "sourceId": "w139758829",
+          "from": 984553357,
+          "to": 981567012,
+          "lengthM": 41.4133317291001
+        },
+        {
+          "sourceId": "w139758829",
+          "from": 981567012,
+          "to": -2000000094,
+          "lengthM": 1.568090613122893
+        }
+      ]
+    },
+    {
+      "sourceNodeId": 6261963477,
+      "present": true,
+      "dataMapEnd": false,
+      "incident": [
+        {
+          "sourceId": "w84482712",
+          "from": 6261926625,
+          "to": 6261963477,
+          "lengthM": 32.52960866710732
+        },
+        {
+          "sourceId": "w668679788",
+          "from": 6261963477,
+          "to": -2000000109,
+          "lengthM": 0.0
+        }
+      ]
+    },
+    {
+      "sourceNodeId": 3208556810,
+      "present": false
+    }
+  ],
+  "candidate": [
+    {
+      "sourceNodeId": 981567012,
+      "present": true,
+      "dataMapEnd": false,
+      "incident": [
+        {
+          "sourceId": "w84788740",
+          "from": 14178097918,
+          "to": 981567012,
+          "lengthM": 4.181969578505198
+        },
+        {
+          "sourceId": "w139758829",
+          "from": 984553357,
+          "to": 981567012,
+          "lengthM": 41.4133317291001
+        },
+        {
+          "sourceId": "w139758829",
+          "from": 981567012,
+          "to": 14178097931,
+          "lengthM": 6.361372749291623
+        }
+      ]
+    },
+    {
+      "sourceNodeId": 6261963477,
+      "present": true,
+      "dataMapEnd": false,
+      "incident": [
+        {
+          "sourceId": "w84482712",
+          "from": 6261926625,
+          "to": 6261963477,
+          "lengthM": 32.52960866710732
+        },
+        {
+          "sourceId": "w668679788",
+          "from": 6261963477,
+          "to": 3208556810,
+          "lengthM": 48.80233048169084
+        }
+      ]
+    },
+    {
+      "sourceNodeId": 3208556810,
+      "present": true,
+      "dataMapEnd": false,
+      "incident": [
+        {
+          "sourceId": "w139758829",
+          "from": 14178097934,
+          "to": 3208556810,
+          "lengthM": 3.6590563714160087
+        },
+        {
+          "sourceId": "w668679788",
+          "from": 6261963477,
+          "to": 3208556810,
+          "lengthM": 48.80233048169084
+        },
+        {
+          "sourceId": "w668679789",
+          "from": 3208556810,
+          "to": 2295201758,
+          "lengthM": 10.411286427036117
+        }
+      ]
+    }
+  ]
+}

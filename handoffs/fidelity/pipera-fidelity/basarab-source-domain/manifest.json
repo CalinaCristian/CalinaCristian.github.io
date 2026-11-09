@@ -1,0 +1,239 @@
+{
+  "schema": 1,
+  "createdUTC": "2026-11-09T14:49:22.381153+00:00",
+  "runtimeSourceCommit": "7330a2ab46e6e0938a3ca7ab046a036d5b9c6f2b",
+  "baseSourceCommit": "322ddcc639b219a34589006a0e1b493c214b65b1",
+  "candidateDataSha256": "194a31ae1bbf01a26e69dfc2e9940aabbeaee6f8eef5eac2f42619e31a8d475f",
+  "nativeInput": {
+    "sourceCommit": "b006000f7bae6e6c64103b9548438082026c14eb",
+    "path": "/workspace/integration-qa-evidence/basarab-shared-b006000f-native/native-world.json.gz",
+    "gzipSha256": "aaea544db6ad5de5a84e79d54e8a59f7fd68230a62062363e53d211497528cc0",
+    "rawSha256": "12f0332da7e190f8146671f8766817559d746d1df506a4839e21935056388c88",
+    "sourceArchive": "/workspace/reality-pass/basarab-shared-native/source-b006000f",
+    "dataJsonValuesExactlyEqualAccepted": true,
+    "portableGraphMatchesRawReplay": true
+  },
+  "sourceEvidence": {
+    "tilesDirectory": "/workspace/reality-pass/grozavesti/tiles",
+    "rawTileFiles": [
+      {
+        "file": "buc_44.4250_26.0290_44.4350_26.0450.xml",
+        "sha256": "5f6dfc4175e595a80a0207927b135fcdda0ea79cfecdea841b089c91ba0c3343"
+      },
+      {
+        "file": "buc_44.4250_26.0450_44.4350_26.0610.xml",
+        "sha256": "57639f0f940a2ca42f873e5e171b938cf43980f28fede6a30d29ce246b957fa7"
+      },
+      {
+        "file": "buc_44.4250_26.0610_44.4350_26.0770.xml",
+        "sha256": "1de258735272aa12e444747c50a36372a0337d0bb16821337ba865d5ad600feb"
+      },
+      {
+        "file": "buc_44.4250_26.0770_44.4350_26.0930.xml",
+        "sha256": "1dafbd501669a59407348a2028a6190dbeb129a85c30181bb86e79b05c8a5fb1"
+      },
+      {
+        "file": "buc_44.4350_26.0290_44.4450_26.0450.xml",
+        "sha256": "1b3433692876dc385b2960f34d06d3f55c96f0c507f9207a9bb449ec7c0b3bcf"
+      },
+      {
+        "file": "buc_44.4350_26.0450_44.4450_26.0610.xml",
+        "sha256": "b551c1271968460aabf3ac5587deb96aecd71113375fe4a7dee57e4f90331689"
+      },
+      {
+        "file": "buc_44.4350_26.0610_44.4450_26.0770.xml",
+        "sha256": "5c526f202084ffa605d5b78bb15b923b10dee7bca10bf65d9438152a465e0624"
+      },
+      {
+        "file": "buc_44.4350_26.0770_44.4450_26.0930.xml",
+        "sha256": "14b1a756654b49a7d62517cddc711bc20056e4684a0a1f10c6a41ee9e6462069"
+      },
+      {
+        "file": "buc_44.4450_26.0290_44.4550_26.0450.xml",
+        "sha256": "57a0c0e0a2c75f2e0f999b8fa8c5733d669c5bd244490fcd409b1c747593c55f"
+      },
+      {
+        "file": "buc_44.4450_26.0450_44.4550_26.0610.xml",
+        "sha256": "1336a618c3f735263833078499794446ed5f9b8776aeefe914aaaa2eb5ec7732"
+      },
+      {
+        "file": "buc_44.4450_26.0610_44.4550_26.0770.xml",
+        "sha256": "1b4248039697685242b9df55183002daee53d1ca728571020f64d9fa4fdb9f2e"
+      },
+      {
+        "file": "buc_44.4450_26.0770_44.4550_26.0930.xml",
+        "sha256": "ee2946108a6f27a83e7b71f558950182e12af5eb1de7b7815b5ec03369a3af6e"
+      },
+      {
+        "file": "buc_44.4550_26.0290_44.4650_26.0450.xml",
+        "sha256": "2d4083c18438e61eebab62d3b67f5a07337d69c2aa84bb8b4d8bb143d2437b85"
+      },
+      {
+        "file": "buc_44.4550_26.0450_44.4650_26.0610.xml",
+        "sha256": "5b4a8f65b7fd6866738854193f910b82c100e3c6ed1effedb800a83f6ed1fd50"
+      },
+      {
+        "file": "buc_44.4550_26.0610_44.4650_26.0770.xml",
+        "sha256": "052b27afee4aef69c907c144db2c38791acddfd572c917584f2136a709698996"
+      },
+      {
+        "file": "buc_44.4550_26.0770_44.4650_26.0930.xml",
+        "sha256": "990ea50aa95587d1a134729a994a2f08db3e64618164a473a852ff298ac1af96"
+      }
+    ],
+    "surveyFile": "game/research/trees-bucharest-grozavesti.json",
+    "surveySha256": "5221f4b82bf2008a46d0ee9e08d3ceca8ad5aa6185b64f8405d4acd31dddc6f0",
+    "officialRelationURL": "https://api.openstreetmap.org/api/0.6/relation/21068490",
+    "officialReadbackSha256": "a3b2a75752c3c8f0129523fa78da5dc347aadefe12285a289889837106dd9f88"
+  },
+  "heldExternalFiles": [
+    {
+      "path": "/workspace/reality-pass/basarab-source-domain/accepted-322ddcc6.json",
+      "bytes": 7214248,
+      "sha256": "7d69db01e1c26c838cf8d0cdc61afbde0d13e366c63a9eb22be02402a79955fb"
+    },
+    {
+      "path": "/workspace/reality-pass/basarab-source-domain/baseline-rebuilt-322ddcc6.json",
+      "bytes": 7177139,
+      "sha256": "e64570b955630c37220c443d84f1d7c1081700639a45a539f3a7e8c67ab7b438"
+    },
+    {
+      "path": "/workspace/reality-pass/basarab-source-domain/pre-retention-candidate.json",
+      "bytes": 8500258,
+      "sha256": "58018e6df3f92e990ff14907a7daa2c2fd28c23296a6a10ad7132f64bcf71600"
+    },
+    {
+      "path": "/workspace/reality-pass/basarab-source-domain/north-only-candidate.json",
+      "bytes": 7681483,
+      "sha256": "35d9414092f46d8c424d62186314c8b3746ca802570afc0f2307317dc48a192e"
+    },
+    {
+      "path": "/workspace/reality-pass/basarab-source-domain/proposed-source-review.json",
+      "bytes": 26496,
+      "sha256": "0a35e59de988a8983dea37b7dd15618efaf7952db3441bc87aa44c35fc9cbb81"
+    }
+  ],
+  "gates": {
+    "sourcePreservation": true,
+    "reviewedLegsAndMask": true,
+    "sourceRingAudit": true,
+    "nativeConstructor": "PENDING",
+    "nativeNormalDriveAndBody": "PENDING",
+    "nativeRenderBudget": "PENDING",
+    "nativeCoverageImages": "PENDING",
+    "navigatorSourceRestrictions": "FAIL: preserved r21387141 prohibited exit",
+    "reverseRamp": "HELD: w84482671 remains outside mainSCC"
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 8001,
+      "sha256": "bc7f793798cf01476fec64b0c42d8392351de993f01d4df0d53d8c440bc0cd62"
+    },
+    {
+      "path": "audit.mjs",
+      "bytes": 6781,
+      "sha256": "e85fbdf93d10ad2588b59b1c844721f59b37d102ad565d4609af8ba92670739c"
+    },
+    {
+      "path": "baseline-build.log",
+      "bytes": 2371,
+      "sha256": "d318904e8e3c3318e80cf4da93ff01a272780dfa27d3b3aa2bee152da20ebd4d"
+    },
+    {
+      "path": "baseline-parity.json",
+      "bytes": 426,
+      "sha256": "8d1ce6ae666d3e50d10875a14e02b2673b8a075d83e126223b40429016a698dd"
+    },
+    {
+      "path": "candidate-preservation-audit.json",
+      "bytes": 2620,
+      "sha256": "c18148fb8d25380375e60958a9bd2a1893a260bc288b42e5a34504cde28ed07c"
+    },
+    {
+      "path": "check-data.mjs",
+      "bytes": 7036,
+      "sha256": "ef424ca648390027ffb191c97161c7fe200d40eb5ab0f8a52af7454883d95a00"
+    },
+    {
+      "path": "check-retention.py",
+      "bytes": 5486,
+      "sha256": "815ba92bf2e216ba853dd67b1e5fd9e6a62a591e5322403b22df5631445314b1"
+    },
+    {
+      "path": "compiled-domain-check-final.json",
+      "bytes": 78610,
+      "sha256": "7da5e3a406f2dec242c5db90e022ae08f6143df05822d6ea2ae80ec77fb4d00b"
+    },
+    {
+      "path": "context-controls-final.json",
+      "bytes": 760,
+      "sha256": "ec4681882acb040b762620f61edaa3ad83311f4d921de975a5e8bac62cf0f5e1"
+    },
+    {
+      "path": "final-candidate-build.log",
+      "bytes": 2374,
+      "sha256": "08ba9a565fcbf19da8b6b2feeb06814920aa37a91d0bbbc4787c352e42a09c3f"
+    },
+    {
+      "path": "helper-controls-final.json",
+      "bytes": 1664,
+      "sha256": "275b02827b6e1cf00bf15186c4511584fdf5e507c88f9e8ac4fd606ba257eb57"
+    },
+    {
+      "path": "native-b006-graph.json.gz",
+      "bytes": 285405,
+      "sha256": "600171fbddd7ef86b3e105f248bd70369cfc2f2f1e7f351e44ea0c792841abf9"
+    },
+    {
+      "path": "native-preparation.json",
+      "bytes": 1324,
+      "sha256": "b35e74af188d337937dd79718cf6aec2d6a1af9383815b6dac63f9683bc1f503"
+    },
+    {
+      "path": "native-source-manifest.json",
+      "bytes": 52431,
+      "sha256": "4e7b79a63e8b04235beb5dffb186403b5120360205c020226c57c595a453198b"
+    },
+    {
+      "path": "pre-retention-negative.log",
+      "bytes": 20294,
+      "sha256": "1afb955cfeb01245f24e60922ef49a5c88ddf8b21ac9ad536c03c1a3cd95c6b9"
+    },
+    {
+      "path": "raw-path-search.json.gz",
+      "bytes": 15685,
+      "sha256": "38a60c219d626dce5682c8ed234974561e87a474355089e5a81c858e187ec635"
+    },
+    {
+      "path": "rejected-south-missing-from-build.log",
+      "bytes": 1796,
+      "sha256": "33bf9996780ee963ae41d8eb6c8d9ed7213ad453d3757545d75aa4399f73073a"
+    },
+    {
+      "path": "relation-21068490-current.xml",
+      "bytes": 624,
+      "sha256": "a3b2a75752c3c8f0129523fa78da5dc347aadefe12285a289889837106dd9f88"
+    },
+    {
+      "path": "reviewed-raw-source.osm",
+      "bytes": 32029,
+      "sha256": "f6c3e678678728c7370b6d74c9a9430806a913196b1abd357085535cc1560a62"
+    },
+    {
+      "path": "source-audit-final.json",
+      "bytes": 1170,
+      "sha256": "aa430a76a990b95d0af81b01f539d5ab0b2fe3f590c462f6925521f84c26002a"
+    },
+    {
+      "path": "source-closure-topology.json",
+      "bytes": 2714,
+      "sha256": "d1fafed1b1652aa3cdc4581311211115bcbaf35f0af385e609c34852f8d4e982"
+    },
+    {
+      "path": "source-domain-map.png",
+      "bytes": 245688,
+      "sha256": "c7f5e270c5f142ae8c12f4152798677371ea51754f45f8197f2d16f63b59a2ba"
+    }
+  ]
+}

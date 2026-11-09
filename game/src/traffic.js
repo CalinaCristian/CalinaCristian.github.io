@@ -2374,6 +2374,24 @@ export class Pedestrians {
             Math.hypot(o.x - x, o.z - z) < radius + this.reach(o) + (o.state === 'stand' ? 0.02 : 0.35));
         if (this.freeWalkPoint(p.x, p.z, radius) && this.freeVehiclePoint(p.x, p.z, vehicleRadius) && peersClear(p.x, p.z)) return false;
         const stop = this.stops[p.i % this.stops.length], sx = stop?.x ?? stop?.doorX, sz = stop?.z ?? stop?.doorZ;
+        // The traffic graph need not contain a road beside a mapped stop
+        // platform. First clear a small contact within its existing waiting
+        // area and ground level, without requiring a distant road's slot.
+        if (Number.isFinite(sx) && Number.isFinite(sz)) {
+            const local = [], top = this.t.world.walkTop?.(p.x, p.z) ?? 0.2;
+            for (let dx = -1.44; dx <= 1.44; dx += 0.12) for (let dz = -1.44; dz <= 1.44; dz += 0.12) {
+                const distance = Math.hypot(dx, dz), x = p.x + dx, z = p.z + dz;
+                if (distance > 1.5 || Math.hypot(x - sx, z - sz) > 8 || Math.abs((this.t.world.walkTop?.(x, z) ?? 0.2) - top) > 0.2) continue;
+                local.push({ x, z, distance });
+            }
+            local.sort((a, b) => a.distance - b.distance);
+            for (const c of local) {
+                if (!this.freeWalkPoint(c.x, c.z, radius) || !this.freeVehiclePoint(c.x, c.z, vehicleRadius) || !peersClear(c.x, c.z)) continue;
+                p.x = c.x; p.z = c.z;
+                this.stats.initialStandRepairs = (this.stats.initialStandRepairs || 0) + 1;
+                return true;
+            }
+        }
         const near = Number.isFinite(sx) && Number.isFinite(sz) ? this.t.index.nearest(sx, sz, 12, e => this.ok(e)) : null;
         if (near) {
             const root = near.edge, lat = (sx - root.a.x) * root.nx + (sz - root.a.z) * root.nz, stopSide = lat >= 0 ? 1 : -1;

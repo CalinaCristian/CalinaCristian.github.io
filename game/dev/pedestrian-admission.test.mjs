@@ -71,6 +71,14 @@ const underRoof={i:0,x:10,z:4.375,state:'stand',heading:0};roof.list=[underRoof]
 roof.t.world.buildings=[{x:10,z:4.375,r:2,hw:2,hd:1,angle:0,prop:true,minH:3,h:3.2,kind:'shelter-roof'}];
 assert.equal(roof.admitInitialStand(underRoof),false,'the native height-aware collider permits open air under an overhead shelter');
 assert.deepEqual([underRoof.x,underRoof.z],[10,4.375]);
+const platform=walkers([stopEdge]);platform.stops=[{x:100,z:100}];platform.crowd.reach=()=>.38;
+const atPlatform={i:0,x:100,z:100,state:'stand',heading:0};platform.list=[atPlatform];
+platform.t.world.buildings=[{x:101.1,z:100,r:.75,hw:.75,hd:.75,angle:0,prop:true,kind:'busstop',h:3}];
+assert.equal(platform.freeWalkPoint(100,100,.3),true,'native body is clear at the source platform');
+assert.equal(platform.freeWalkPoint(100,100,.38),false,'the carried bag contacts the stop pole');
+assert.equal(platform.admitInitialStand(atPlatform),true,'a stop platform can clear a small carried contact without a nearby traffic-graph road');
+assert.ok(Math.hypot(atPlatform.x-100,atPlatform.z-100)<=1.5);
+assert.equal(platform.freeWalkPoint(atPlatform.x,atPlatform.z,.38),true);
 
 // Reproduce a committed crossing already blocked for three seconds by a stopped
 // sedan. The native update must keep prospective body rejection while its

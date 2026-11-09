@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-11-09T00:24:17.871813+00:00",
-  "testedRuntimeSha256": "a259a047e4989b6a08ccabb2f230c4e6c7b81329659aa5476f855431985c3a62",
+  "recordedAt": "2026-11-09T00:27:45.646676+00:00",
+  "testedRuntimeSha256": "525c598df3397da590e89242c83fcb65a6cd81db3dd567ce84b7d6359a21b27d",
   "checks": [
     {
       "command": "node --input-type=module --check < game/src/traffic.js",

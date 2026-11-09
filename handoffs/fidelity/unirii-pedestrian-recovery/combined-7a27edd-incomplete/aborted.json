@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-09T00:27:12.178622+00:00",
+  "sourceCommit": "7a27eddb9b939bddd4cdff120c3773f4d2f2661a",
+  "reason": "Initial admission clears all true body/static/peer contacts; one carried pole contact and one carried bag/peer pair remain. Preserve failed initial candidate and use bounded same-level local stop clearance.",
+  "terminatedOwnedNodePids": [
+    291862
+  ]
+}

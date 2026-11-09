@@ -75,6 +75,11 @@ export class CockpitDisplays {
     constructor(renderer, composer) {
         this.renderer = renderer;
         this.scene = new THREE.Scene();
+        // This newly created scene contains only two shared display planes.
+        // Native world/mirror Scene hooks must retain their final actor stats;
+        // running the global fleet hook on this empty-actor scene would reset
+        // those counters. No callback on an existing scene is replaced.
+        this.scene.onBeforeRender = THREE.Object3D.prototype.onBeforeRender;
         this.bindings = [];
         this.active = false;
         this.stats = { active: false, drawCalls: 0, triangles: 0 };

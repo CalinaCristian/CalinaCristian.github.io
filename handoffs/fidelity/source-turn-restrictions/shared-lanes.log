@@ -1,0 +1,30 @@
+(node:594984) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/source-turn-restrictions/game/src/shared-lanes.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/source-turn-restrictions/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ one physical centre is shared by both legal graph directions; ordinary lane offsets stay unchanged (5.320658ms)
+✔ continuous sections preserve direction across reversed OSM edge ordering (0.418536ms)
+✔ opposite arrivals cannot both reserve an empty section (2.149839ms)
+✔ opposite waiting blocks new followers, then receives priority only after the rear clears (0.530362ms)
+✔ occupied sections do not expire after a long wait or admit an opposite spawn (0.451239ms)
+✔ player body occupancy blocks the opposite entry; a deck above does not (0.353327ms)
+✔ cancelled or stationary uncommitted requests release without expiring real occupancy (1.269234ms)
+✔ legacy graphs create no controls or placement restrictions (1.701459ms)
+✔ wider side entry does not split a narrow corridor: {} (0.806381ms)
+✔ wider side entry does not split a narrow corridor: {"publicDrive":false} (0.375293ms)
+✔ wider side entry does not split a narrow corridor: {"throughAccess":false} (2.159566ms)
+✔ a narrow fork reserves the whole component, including requests with the same local edge sign (0.331855ms)
+✔ cycles and blind ends admit one body through its exit or U-turn (1.188056ms)
+✔ opposing queues close the admitted batch while its first claim is still approaching (0.199501ms)
+✔ front-only commitment and asymmetric player front/rear keep an opposite entry closed (0.376162ms)
+✔ tail lifetime follows successful relocation generation, never a failed respawn flag (0.859951ms)
+✔ compatible through traffic can form a same-direction platoon until an opposite request arrives (0.243935ms)
+✔ turning exits leave a full fleet body envelope beyond the opposing queue mouth (1.434404ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 32.82417

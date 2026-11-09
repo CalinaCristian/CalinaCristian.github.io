@@ -1,0 +1,191 @@
+{
+  "source": "0024fdd3e5722ad72bcf6acdb614022cd323a981",
+  "scope": "Raw metadata reader only; no native/source-body acceptance",
+  "passed": true,
+  "rows": [
+    {
+      "dataFile": "game/data/bucharest-floreasca.json",
+      "records": 19,
+      "accepted": 19,
+      "unresolved": []
+    },
+    {
+      "dataFile": "game/data/bucharest-grozavesti.json",
+      "records": 33,
+      "accepted": 28,
+      "unresolved": [
+        {
+          "sourceId": "r21068448",
+          "reasons": [
+            "missing-or-ambiguous-via-node"
+          ]
+        },
+        {
+          "sourceId": "r21068490",
+          "reasons": [
+            "missing-or-ambiguous-from-way"
+          ]
+        },
+        {
+          "sourceId": "r21068491",
+          "reasons": [
+            "missing-or-ambiguous-from-way"
+          ]
+        },
+        {
+          "sourceId": "r21274117",
+          "reasons": [
+            "missing-or-ambiguous-from-way"
+          ]
+        },
+        {
+          "sourceId": "r21274119",
+          "reasons": [
+            "missing-or-ambiguous-to-way"
+          ]
+        }
+      ]
+    },
+    {
+      "dataFile": "game/data/bucharest-otopeni.json",
+      "records": 0,
+      "accepted": 0,
+      "unresolved": []
+    },
+    {
+      "dataFile": "game/data/bucharest-pipera.json",
+      "records": 29,
+      "accepted": 26,
+      "unresolved": [
+        {
+          "sourceId": "r15005032",
+          "reasons": [
+            "missing-or-ambiguous-to-way",
+            "missing-or-ambiguous-via-node"
+          ]
+        },
+        {
+          "sourceId": "r15422410",
+          "reasons": [
+            "missing-or-ambiguous-via-node"
+          ]
+        },
+        {
+          "sourceId": "r21503257",
+          "reasons": [
+            "via-way-sequence-unresolved",
+            "missing-or-ambiguous-via-node"
+          ]
+        }
+      ]
+    },
+    {
+      "dataFile": "game/data/bucharest-romana.json",
+      "records": 30,
+      "accepted": 30,
+      "unresolved": []
+    },
+    {
+      "dataFile": "game/data/bucharest-unirii.json",
+      "records": 26,
+      "accepted": 26,
+      "unresolved": []
+    },
+    {
+      "dataFile": "game/data/seattle-bellevue.json",
+      "records": 38,
+      "accepted": 27,
+      "unresolved": [
+        {
+          "sourceId": "r7435930",
+          "reasons": [
+            "missing-or-ambiguous-via-node"
+          ]
+        },
+        {
+          "sourceId": "r8192473",
+          "reasons": [
+            "via-way-sequence-unresolved",
+            "missing-or-ambiguous-via-node"
+          ]
+        },
+        {
+          "sourceId": "r11208868",
+          "reasons": [
+            "via-way-sequence-unresolved",
+            "missing-or-ambiguous-via-node"
+          ]
+        },
+        {
+          "sourceId": "r11208869",
+          "reasons": [
+            "via-way-sequence-unresolved",
+            "missing-or-ambiguous-via-node"
+          ]
+        },
+        {
+          "sourceId": "r11208870",
+          "reasons": [
+            "via-way-sequence-unresolved",
+            "missing-or-ambiguous-via-node"
+          ]
+        },
+        {
+          "sourceId": "r13036306",
+          "reasons": [
+            "via-way-sequence-unresolved",
+            "missing-or-ambiguous-via-node"
+          ]
+        },
+        {
+          "sourceId": "r13036307",
+          "reasons": [
+            "missing-or-ambiguous-from-way"
+          ]
+        },
+        {
+          "sourceId": "r14254126",
+          "reasons": [
+            "via-way-sequence-unresolved",
+            "missing-or-ambiguous-via-node"
+          ]
+        },
+        {
+          "sourceId": "r14254129",
+          "reasons": [
+            "via-way-sequence-unresolved",
+            "missing-or-ambiguous-via-node"
+          ]
+        },
+        {
+          "sourceId": "r14368184",
+          "reasons": [
+            "via-way-sequence-unresolved",
+            "missing-or-ambiguous-via-node"
+          ]
+        },
+        {
+          "sourceId": "r14583354",
+          "reasons": [
+            "via-way-sequence-unresolved",
+            "missing-or-ambiguous-via-node"
+          ]
+        }
+      ]
+    },
+    {
+      "dataFile": "game/data/seattle-seatac.json",
+      "records": 21,
+      "accepted": 20,
+      "unresolved": [
+        {
+          "sourceId": "r13036370",
+          "reasons": [
+            "via-way-sequence-unresolved",
+            "missing-or-ambiguous-via-node"
+          ]
+        }
+      ]
+    }
+  ]
+}

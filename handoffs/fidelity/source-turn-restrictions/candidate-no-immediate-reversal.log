@@ -1,0 +1,217 @@
+(node:591597) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/fidelity-workers/source-turn-restrictions/game/src/nav.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/fidelity-workers/source-turn-restrictions/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[
+  {
+    "label": "accepted",
+    "file": "/workspace/reality-pass/basarab-source-domain/accepted-322ddcc6.json",
+    "counts": {
+      "nodes": 1299,
+      "edges": 1324
+    },
+    "scc": {
+      "components": 404,
+      "mainNodes": 894,
+      "mainEdges": 927,
+      "profileMainExtra": 6,
+      "nativeProfileMainNodes": 900,
+      "nativeProfileMainEdges": 933
+    },
+    "sources": [
+      {
+        "sourceId": "w458458361",
+        "segments": 29,
+        "drivable": 0,
+        "gate": "reviewed access"
+      },
+      {
+        "sourceId": "w668676694",
+        "segments": 1,
+        "drivable": 0,
+        "gate": "reviewed access"
+      },
+      {
+        "sourceId": "w668676697",
+        "segments": 1,
+        "drivable": 0,
+        "gate": "reviewed access"
+      },
+      {
+        "sourceId": "w84482671",
+        "segments": 9,
+        "drivable": 0,
+        "gate": "HELD: reverse-ramp return corridor is outside this two-corridor change"
+      },
+      {
+        "sourceId": "w139758829",
+        "segments": 9,
+        "drivable": 9,
+        "gate": "reviewed access"
+      },
+      {
+        "sourceId": "w84483724",
+        "segments": 0,
+        "drivable": 0,
+        "gate": "reviewed access"
+      }
+    ],
+    "required": [
+      {
+        "id": "northbound-Doina-lukoil",
+        "legs": 41,
+        "missing": [],
+        "offMask": [],
+        "maxDomainEnvelopeM": 27.628574510520878
+      },
+      {
+        "id": "southbound-Doina-lukoil",
+        "legs": 102,
+        "missing": [],
+        "offMask": [],
+        "maxDomainEnvelopeM": 28.128574510520878
+      }
+    ],
+    "routes": [
+      {
+        "from": 981567012,
+        "to": 6261926624,
+        "found": false,
+        "restrictionViolations": []
+      },
+      {
+        "from": 981567012,
+        "to": 4544537057,
+        "found": false,
+        "restrictionViolations": []
+      },
+      {
+        "from": 4544537057,
+        "to": 981567012,
+        "found": true,
+        "metres": 1516.6077234553732,
+        "restrictionViolations": []
+      },
+      {
+        "from": 981567012,
+        "to": 981547574,
+        "found": false,
+        "restrictionViolations": []
+      }
+    ]
+  },
+  {
+    "label": "candidate",
+    "file": "/workspace/reality-pass/basarab-source-domain/with-road-restrictions.json",
+    "counts": {
+      "nodes": 1418,
+      "edges": 1465
+    },
+    "scc": {
+      "components": 345,
+      "mainNodes": 1074,
+      "mainEdges": 1121,
+      "profileMainExtra": 106,
+      "nativeProfileMainNodes": 1180,
+      "nativeProfileMainEdges": 1227
+    },
+    "sources": [
+      {
+        "sourceId": "w458458361",
+        "segments": 29,
+        "drivable": 29,
+        "gate": "reviewed access"
+      },
+      {
+        "sourceId": "w668676694",
+        "segments": 1,
+        "drivable": 1,
+        "gate": "reviewed access"
+      },
+      {
+        "sourceId": "w668676697",
+        "segments": 1,
+        "drivable": 1,
+        "gate": "reviewed access"
+      },
+      {
+        "sourceId": "w84482671",
+        "segments": 9,
+        "drivable": 0,
+        "gate": "HELD: reverse-ramp return corridor is outside this two-corridor change"
+      },
+      {
+        "sourceId": "w139758829",
+        "segments": 12,
+        "drivable": 12,
+        "gate": "reviewed access"
+      },
+      {
+        "sourceId": "w84483724",
+        "segments": 3,
+        "drivable": 3,
+        "gate": "reviewed access"
+      }
+    ],
+    "required": [
+      {
+        "id": "northbound-Doina-lukoil",
+        "legs": 41,
+        "missing": [],
+        "offMask": [],
+        "maxDomainEnvelopeM": 27.628574510520878
+      },
+      {
+        "id": "southbound-Doina-lukoil",
+        "legs": 102,
+        "missing": [],
+        "offMask": [],
+        "maxDomainEnvelopeM": 28.128574510520878
+      },
+      {
+        "id": "basarab-north-source-exit-return",
+        "legs": 26,
+        "missing": [],
+        "offMask": [],
+        "maxDomainEnvelopeM": 36.12857451052088
+      },
+      {
+        "id": "basarab-south-source-entry",
+        "legs": 18,
+        "missing": [],
+        "offMask": [],
+        "maxDomainEnvelopeM": 28.128574510520878
+      }
+    ],
+    "routes": [
+      {
+        "from": 981567012,
+        "to": 6261926624,
+        "found": true,
+        "metres": 804.8530269488746,
+        "restrictionViolations": []
+      },
+      {
+        "from": 981567012,
+        "to": 4544537057,
+        "found": true,
+        "metres": 3423.9052003154006,
+        "restrictionViolations": []
+      },
+      {
+        "from": 4544537057,
+        "to": 981567012,
+        "found": true,
+        "metres": 2151.653077404244,
+        "restrictionViolations": []
+      },
+      {
+        "from": 981567012,
+        "to": 981547574,
+        "found": true,
+        "metres": 2435.8307685450427,
+        "restrictionViolations": []
+      }
+    ]
+  }
+]

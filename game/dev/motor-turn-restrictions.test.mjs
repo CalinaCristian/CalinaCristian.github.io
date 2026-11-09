@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {buildMotorTurnRestrictions as build,motorTurnAllowed as allowed,motorRestrictionMode} from '../src/motor-turn-restrictions.js';
+import {buildMotorTurnRestrictions as build,motorTurnAllowed as allowed,motorRestrictionMode,hasExplicitMotorUTurn} from '../src/motor-turn-restrictions.js';
 const n=(id,x,z)=>({sourceId:id,x,z,edges:[]}),a=n(10,0,0),v=n(20,10,0),b=n(30,20,0),c=n(40,10,10);
 const edge=(id,a,b,way)=>{const e={id,a,b,access:{sourceId:'w'+way},lanesF:1,lanesB:1};a.edges.push(e);b.edges.push(e);return e;};
 const incoming=edge(0,a,v,1),straight=edge(1,v,b,2),turn=edge(2,v,c,3),continuation=edge(3,v,b,1);
@@ -11,12 +11,14 @@ const raw={roadRestrictions:[relation()]},snapshot=JSON.stringify(raw),p=build(r
 check(allowed(p,incoming,1,straight,1),'literal allowed exit');check(!allowed(p,incoming,1,turn,1),'literal prohibited only exit');
 check(allowed(p,turn,-1,incoming,-1),'another incoming way is unrestricted');check(allowed(p,straight,1,incoming,-1)===false,'disconnected transition is not invented');
 check(JSON.stringify(raw)===snapshot,'compile/query preserve raw tags/member order');
+const random=Math.random;try{Math.random=()=>{throw Error('Pure source policy cannot draw RNG');};const noRandom=build(raw,[incoming,straight,turn]);check(!allowed(noRandom,incoming,1,turn,1),'source compilation and decisions consume no RNG');}finally{Math.random=random;}
 const no=policy(relation({restriction:'no_right_turn'}));check(!allowed(no,incoming,1,straight,1),'no_ excludes exact to-way');check(allowed(no,incoming,1,turn,1),'no_ permits other source exits');
 const except=policy(relation({except:'bus; bicycle'}));check(allowed(except,incoming,1,turn,1,{mode:'bus'}),'explicit bus exception');check(!allowed(except,incoming,1,turn,1),'bicycle exception is not a private-car permission');
 const psv=policy(relation({except:'psv'}));check(allowed(psv,incoming,1,turn,1,{mode:'taxi'}),'taxi native mode is a PSV');check(allowed(psv,incoming,1,turn,1,{mode:'bus'}),'bus native mode is a PSV');
 const modes=policy(relation({'restriction:motorcar':'no_left_turn','restriction:bus':'only_right_turn'}));check(!allowed(modes,incoming,1,straight,1),'motorcar specific overrides generic only rule');check(allowed(modes,incoming,1,turn,1),'motorcar no rule permits unrelated exit');check(!allowed(modes,incoming,1,turn,1,{mode:'bus'}),'bus specific rule retains exact source target');
 const reverseMembers=[{type:'way',ref:1,role:'from'},{type:'node',ref:20,role:'via'},{type:'way',ref:1,role:'to'}],uturn=policy(relation({restriction:'no_u_turn'},reverseMembers));
 check(!allowed(uturn,incoming,1,incoming,-1),'same-way immediate reversal prohibited');check(allowed(uturn,incoming,1,continuation,1),'same-way continuation is not a U-turn');
+const onlyU=policy(relation({restriction:'only_u_turn'},reverseMembers));check(allowed(onlyU,incoming,1,incoming,-1)&&hasExplicitMotorUTurn(onlyU,incoming,1),'literal only_u_turn permits its required reverse movement');check(!allowed(onlyU,incoming,1,continuation,1),'only_u_turn does not become same-way through permission');
 const missing=policy(relation({},reverseMembers.filter(m=>m.role!=='from')));check(missing.report.unresolved[0].reasons.includes('missing-or-ambiguous-from-way'),'missing from is named unknown');check(allowed(missing,incoming,1,turn,1),'missing from never becomes universal only law');
 for(const [tags,members,reason]of [[{'restriction:conditional':'no_right_turn @ (Mo-Fr)'},null,'conditional-restriction-unresolved'],[{},reverseMembers.map(m=>m.role==='via'?{...m,type:'way'}:m),'via-way-sequence-unresolved'],[{restriction:'invented'},null,'unsupported-restriction-value']])check(policy(relation(tags,members)).report.unresolved[0].reasons.includes(reason),reason);
 const conflict=build({roadRestrictions:[relation()],district:{sourceReturns:{restrictions:[relation({restriction:'no_left_turn'})]}}},[]);check(conflict.report.accepted===0&&conflict.report.unresolved[0].reasons.includes('conflicting-duplicate-relation'),'conflicting full/fallback snapshots are explicit');

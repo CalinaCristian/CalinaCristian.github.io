@@ -1,0 +1,38 @@
+[
+  {
+    "test": "motor-turn-restrictions",
+    "exitCode": 0
+  },
+  {
+    "test": "motor-turn-routing",
+    "exitCode": 0
+  },
+  {
+    "test": "lane-drop-chain",
+    "exitCode": 0
+  },
+  {
+    "test": "vehicle-lanes",
+    "exitCode": 0
+  },
+  {
+    "test": "solid-vehicle-sensing",
+    "exitCode": 0
+  },
+  {
+    "test": "signals",
+    "exitCode": 0
+  },
+  {
+    "test": "shared-lanes",
+    "exitCode": 0
+  },
+  {
+    "test": "normal-guard-tolerance",
+    "exitCode": 0
+  },
+  {
+    "test": "vehicle-separation",
+    "exitCode": 0
+  }
+]

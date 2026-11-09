@@ -4,6 +4,7 @@
 // ============================================================================
 import { distPointSeg, clamp } from './util.js';
 import { endpointAccessEdges } from './road-access.js';
+import { buildMotorTurnRestrictions, motorTurnAllowed, hasExplicitMotorUTurn } from './motor-turn-restrictions.js';
 
 // ---------- edge contract helpers (work with both the hand-made and the OSM graph) ----------
 /** lanes available when travelling the edge in `dir` (+1 = a→b, -1 = b→a). 0 = not allowed. */
@@ -116,6 +117,7 @@ export class Navigator {
         this.nodes = nodeList(world.graph);
         this.index = new EdgeIndex(world.graph.edges.filter(e => !e.virtual && e.publicDrive !== false));
         this.nid = new Map(); this.nodes.forEach((n, i) => this.nid.set(n, i));
+        this.motorTurnRestrictions = buildMotorTurnRestrictions(world.data, world.graph.edges);
         this.markMainComponent();
         this.route = null; this.dest = null; this.offTimer = 0; this.progress = 0; this.segIdx = 0;
     }
@@ -181,6 +183,7 @@ export class Navigator {
         const s = this.preferStreet(fx, fz, (fy != null && this.index.nearest(fx, fz, 60, level)) || this.index.nearest(fx, fz, 400, main) || this.index.nearest(fx, fz), (e) => level(e), 3);
         const g = this.preferStreet(tx, tz, this.index.nearest(tx, tz, 600, main) || this.index.nearest(tx, tz), main, 3);
         if (!s || !g) return null;
+        if (!W && this.motorTurnRestrictions.modeCounts[this.motorMode || 'motorcar']) return this.computeMotorTurns(s, g, tx, tz, heading);
         const N = this.nodes.length, GOAL = N;
         const dist = new Float64Array(N + 1).fill(Infinity);
         const prevE = new Array(N + 1), prevN = new Int32Array(N + 1).fill(-2);
@@ -264,6 +267,66 @@ export class Navigator {
             if (this.world.data?.roadGeometryPolicy !== 'source' && dd < 120 && route.total > dd * 1.6) return { points: [[fx, fz], [tx, tz]], cum: [0, dd], total: dd, steps: [{ at: dd, type: 'arrive', name: '', x: tx, z: tz }], legs: [legs[0]] };
         }
         return route;
+    }
+
+    /** A node can have a cheaper forbidden arrival and a different legal one.
+     * Retain its actual incoming directed edge instead of discarding that state. */
+    computeMotorTurns(s, g, tx, tz, heading) {
+        const states = [null], dist = [Infinity], previous = [-2], stateByEdge = new Map(), heap = new Heap(), GOAL = 0;
+        const se = s.edge, ge = g.edge, endpointAccess = endpointAccessEdges(se, ge);
+        const mode = this.motorMode || 'motorcar', policy = this.motorTurnRestrictions;
+        const turnAllowed = (a, ad, b, bd) => !(a === b && ad === -bd && !hasExplicitMotorUTurn(policy,a,ad,{mode})) && motorTurnAllowed(policy, a, ad, b, bd, {mode});
+        const h = n => Math.hypot(n.x - tx, n.z - tz) / 36;
+        const stateFor = (e, dir) => {
+            let pair = stateByEdge.get(e); if (!pair) stateByEdge.set(e, pair = {});
+            if (pair[dir] !== undefined) return pair[dir];
+            const i = states.length; pair[dir] = i;
+            states.push({e, dir, node:dir > 0 ? e.b : e.a}); dist.push(Infinity); previous.push(-2); return i;
+        };
+        const hx = heading === null ? 0 : -Math.sin(heading), hz = heading === null ? 0 : -Math.cos(heading), startOpts = [];
+        for (const dir of [1,-1]) {
+            if (!canTravel(se, dir)) continue;
+            const node = dir > 0 ? se.b : se.a; if (!this.nid.has(node)) continue;
+            const along = dir > 0 ? (1 - s.t) * se.len : s.t * se.len;
+            const against = heading !== null && se.dirx * dir * hx + se.dirz * dir * hz < -.3;
+            const cost = along / edgeSpeed(se) + (against ? 25 : 0), i = stateFor(se, dir);
+            startOpts.push({dir,along,cost});
+            if (cost < dist[i]) {dist[i] = cost; previous[i] = -1; heap.push(cost + h(node), i);}
+        }
+        let direct = null, goalLeg = null;
+        if (ge === se) for (const o of startOpts) {
+            if (o.dir > 0 ? g.t >= s.t : g.t <= s.t) direct = {dir:o.dir,cost:Math.abs(g.t-s.t)*se.len/edgeSpeed(se) + o.cost-o.along/edgeSpeed(se)};
+        }
+        const goalCost = new Map();
+        for (const dir of [1,-1]) if (canTravel(ge,dir)) {
+            const node = dir > 0 ? ge.a : ge.b, along = (dir > 0 ? g.t : 1-g.t) * ge.len;
+            goalCost.set(node, {dir,along,cost:along/edgeSpeed(ge)});
+        }
+        if (direct) {dist[GOAL] = direct.cost; previous[GOAL] = -3;}
+        let found = !!direct, iterations = 0;
+        while (heap.size && iterations++ < 400000) {
+            const u = heap.pop(); if (u === GOAL) {found = true; break;}
+            const state = states[u], node = state.node, du = dist[u], gc = goalCost.get(node);
+            // Ending exactly at this source node takes no imaginary exit.
+            if (gc && (gc.along <= 1e-8 || turnAllowed(state.e,state.dir,ge,gc.dir)) && du+gc.cost < dist[GOAL]) {
+                dist[GOAL] = du+gc.cost; previous[GOAL] = u; goalLeg = gc.along > 1e-8 ? {e:ge,dir:gc.dir} : null; heap.push(dist[GOAL],GOAL);
+            }
+            for (const e of node.edges) {
+                const dir = e.a === node ? 1 : -1, other = dir > 0 ? e.b : e.a;
+                if (!canTravel(e,dir) || !this.nid.has(other) || e.throughAccess === false && !endpointAccess.has(e) || !turnAllowed(state.e,state.dir,e,dir)) continue;
+                const turnPen = state.e === e ? 40 : node.edges.length >= 3 && (state.e.name||'') !== (e.name||'') ? 7 : 0;
+                const svc = e.type === 'service' && state.e.type !== 'service' ? SERVICE_ENTRY : 0;
+                const cost = du + e.len/edgeSpeed(e)*(TYPE_COST[e.type]||1) + turnPen + svc, i = stateFor(e,dir);
+                if (cost < dist[i]) {dist[i] = cost; previous[i] = u; heap.push(cost+h(other),i);}
+            }
+        }
+        if (!found || dist[GOAL] === Infinity) return null;
+        if (previous[GOAL] === -3) return this.buildRoute([[s.cx,s.cz],[g.cx,g.cz]],[{e:se,dir:direct.dir}]);
+        const chain = []; for (let u = previous[GOAL]; u >= 0; u = previous[u]) chain.push(states[u]); chain.reverse();
+        const points = [[s.cx,s.cz]], legs = [];
+        for (const state of chain) {legs.push({e:state.e,dir:state.dir}); points.push([state.node.x,state.node.z]);}
+        if (goalLeg) {legs.push(goalLeg); points.push([g.cx,g.cz]);}
+        return this.buildRoute(points,legs);
     }
 
     buildRoute(points, legs) {

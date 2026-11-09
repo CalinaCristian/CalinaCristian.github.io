@@ -12,6 +12,7 @@ import { ambientTrafficAccess } from './road-access.js';
 import { admitInitialTraffic, previewInitialTrafficPose, initialTrafficStaticClearance, initialBodyCover } from './initial-traffic-admission.js';
 import { buildTramNetwork, canTravelTram, tramContinuations, sampleTramPath, tramSpan, tramPathPolyline, nearestTramSource, projectTramStations } from './tram-path.js';
 import { buildTurnLaneRules, laneTurnAllowed, preservesTurnLane } from './turn-lanes.js';
+import { buildMotorTurnRestrictions, motorTurnAllowed, motorRestrictionMode } from './motor-turn-restrictions.js';
 import { buildTramSourceSignals, tramSourceSignalState } from './tram-source-signals.js';
 import { fitTramBodySupport } from './tram-body-support.js';
 
@@ -184,6 +185,7 @@ export class Traffic {
     constructor(world, city, scene, opts = {}) {
         this.world = world; this.city = city; this.scene = scene;
         this.turnLaneRules = buildTurnLaneRules(world.data, world.graph.edges);
+        this.motorTurnRestrictions = buildMotorTurnRestrictions(world.data, world.graph.edges);
         this.buc = city.id === 'bucharest';
         this.rng = makeRng(this.buc ? 99 : 7);
         this.vehicles = [];
@@ -215,8 +217,10 @@ export class Traffic {
         // Keep the historic constructor fleet/RNG draws, then assign each tram
         // its real directed rail source before any actor becomes visible.
         this.initialTramBinding = this.bindSourceTrams();
+        this.initialMotorTurnAudit = this.auditMotorRouteTurns();
         this.initialAdmission = admitInitialTraffic(this);
         if (!this.initialTramBinding.passed) this.initialAdmission.passed = false;
+        if (!this.initialMotorTurnAudit.passed) this.initialAdmission.passed = false;
         this.base = { moving: this.vehicles.filter(v => this.cls(v) === 'moving').length, parked: this.vehicles.filter(v => v.parked).length };
         this.peds = new Pedestrians(this, opts.maxPeds ?? (this.buc ? 250 : 60));
         if (opts.hour != null) this.setHour(opts.hour, true);
@@ -986,7 +990,27 @@ export class Traffic {
 
     // ------------------------------------------------------------------ routing
     turnLaneAllows(e, dir, lane, next, v) {
-        return v?.tram || laneTurnAllowed(this.turnLaneRules, e, dir, lane, next?.e, next?.dir);
+        return v?.tram || laneTurnAllowed(this.turnLaneRules, e, dir, lane, next?.e, next?.dir) &&
+            (!next || motorTurnAllowed(this.motorTurnRestrictions,e,dir,next.e,next.dir,{mode:motorRestrictionMode(v)}));
+    }
+    /** Constructor planning normally has no motor routes: spawnAll consumes no
+     * route-choice RNG. Still expose any invalid supplied/bound future turn,
+     * especially one whose pad/body span could already influence publication. */
+    auditMotorRouteTurns() {
+        const invalid = []; let vehicles = 0, transitions = 0;
+        for (const v of this.vehicles) {
+            if (v.tram || v.edge?.rail) continue; vehicles++;
+            let e = v.edge, dir = v.dir, distance = e.len - v.s;
+            for (let i = 0; i < v.route.length; i++) {
+                const next = v.route[i]; transitions++;
+                if (!motorTurnAllowed(this.motorTurnRestrictions,e,dir,next.e,next.dir,{mode:motorRestrictionMode(v)})) {
+                    const node = dir > 0 ? e.b : e.a, blend = Math.min(Math.max(node.radius??0,3),e.len*.45);
+                    invalid.push({vehicleId:v.id,index:i,fromSourceId:e.access?.sourceId??e.sourceId,toSourceId:next.e.access?.sourceId??next.e.sourceId,viaSourceId:node.sourceId,distanceToViaM:distance,bodyPadMayInfluencePose:distance <= v.length/2+blend});
+                }
+                distance += next.e.len; e = next.e; dir = next.dir;
+            }
+        }
+        return {passed:invalid.length===0,vehicles,transitions,invalid,rngDraws:0,scope:'Declared motor-route source turns only; full emitted body/grade/static clearance remains a separate admission gate. Invalid futures are revalidated before physical motion; no actor hiding or constructor RNG reroll.'};
     }
     keepsTurnLane(e, dir, next) {
         return !!next && !next.uturn && preservesTurnLane(this.turnLaneRules, e, dir, next.e, next.dir);

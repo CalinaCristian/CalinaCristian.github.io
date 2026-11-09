@@ -77,7 +77,10 @@ export function buildMotorTurnRestrictions(data, edges = []) {
         rules.push(rule); let list = byVia.get(viaNode); if (!list) byVia.set(viaNode,list=[]); list.push(rule);
         if (!incoming.has(fromWay+'/'+viaNode) || !outgoing.has(toWay+'/'+viaNode)) missingRuntimeIncidence.push({sourceId:dto.sourceId,incomingPresent:incoming.has(fromWay+'/'+viaNode),outgoingPresent:outgoing.has(toWay+'/'+viaNode)});
     }
-    return {rules,byVia,report:{catalogueScope:data?.roadRestrictionCoverage?.scope || 'reviewed source-return restriction subset only',records:records.size,accepted:rules.length,unresolved,modeOnly,missingRuntimeIncidence}};
+    const atNode = new WeakMap(), edgeSources = new WeakMap();
+    for (const e of edges) {edgeSources.set(e,wayOf(e)); for (const node of [e.a,e.b]) if (node) atNode.set(node,byVia.get(viaOf(node)) || null);}
+    const modeCounts = Object.fromEntries(Object.keys(MODES).map(mode => [mode,rules.filter(r=>r.modeRules[mode]).length]));
+    return {rules,byVia,atNode,edgeSources,modeCounts,report:{catalogueScope:data?.roadRestrictionCoverage?.scope || 'reviewed source-return restriction subset only',records:records.size,accepted:rules.length,unresolved,modeOnly,missingRuntimeIncidence}};
 }
 
 /** The actual graph node/direction establishes incidence. Missing native source
@@ -86,8 +89,9 @@ export function motorTurnAllowed(policy, incoming, inDir, outgoing, outDir, {mod
     if (!policy?.rules?.length || incoming?.rail || outgoing?.rail) return true;
     const node = inDir > 0 ? incoming?.b : incoming?.a, start = outDir > 0 ? outgoing?.a : outgoing?.b;
     if (!node || node !== start) return false;
-    const list = policy.byVia.get(viaOf(node)); if (!list) return true;
-    const fromWay = wayOf(incoming), toWay = wayOf(outgoing); if (!fromWay || !toWay) return true;
+    const list = policy.atNode?.has(node) ? policy.atNode.get(node) : policy.byVia.get(viaOf(node)); if (!list) return true;
+    const source = e => policy.edgeSources?.has(e) ? policy.edgeSources.get(e) : wayOf(e);
+    const fromWay = source(incoming), toWay = source(outgoing); if (!fromWay || !toWay) return true;
     for (const rule of list) {
         if (rule.fromWay !== fromWay) continue;
         const kind = Object.hasOwn(rule.modeRules,mode) ? rule.modeRules[mode] : rule.modeRules.motor_vehicle; if (!kind) continue;
@@ -96,6 +100,15 @@ export function motorTurnAllowed(policy, incoming, inDir, outgoing, outDir, {mod
         if (kind.startsWith('only_') ? !target : target) return false;
     }
     return true;
+}
+
+/** Edge-aware routing must not gain an unsigned backtrack shortcut that the
+ * legacy node search could never improve. A literal only_u_turn is distinct. */
+export function hasExplicitMotorUTurn(policy, incoming, inDir, {mode='motorcar'} = {}) {
+    const node = inDir > 0 ? incoming?.b : incoming?.a, way = policy?.edgeSources?.has(incoming) ? policy.edgeSources.get(incoming) : wayOf(incoming);
+    const list = node && policy?.atNode?.has(node) ? policy.atNode.get(node) : policy?.byVia?.get(viaOf(node));
+    return !!list?.some(rule => rule.fromWay === way && rule.toWay === way &&
+        (Object.hasOwn(rule.modeRules,mode) ? rule.modeRules[mode] : rule.modeRules.motor_vehicle) === 'only_u_turn');
 }
 
 /** Model names do not supply gross mass, emergency duty or delivery permission. */

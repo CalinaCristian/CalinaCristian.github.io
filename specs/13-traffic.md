@@ -119,3 +119,7 @@ R13.20 Preserve signalized `railway=tram_crossing` pedestrian semantics separate
 ### Future lane context · 2026-11-09
 
 Lane-drop lookahead carries the planned lane with native `laneOnNext` and the fractional lane with the same destination-lane clamp as actual handoff. Evaluate each future leg using that inherited state; do not reuse the current wider-road index after a turn or merge. Preserve current-edge unfinished-merge waits, genuine future drops, red queues, claims, source directions, body guards and fleet admission. Exact native395 van244 replay reproduces the old false stop; fresh native traffic/route validation remains a gate.
+
+### Literal motor turn relations · 2026-11-09
+
+`motor-turn-restrictions.js` compiles retained raw node-via no_/only_ motor relations with source identity, mode/except precedence and explicit unsupported diagnostics. `Navigator` uses incoming-edge A* and checks partial-goal joins; no immediate same-leg reversal may evade a source restriction without explicit source U-turn permission. NPC choice, fallback and future suffix revalidation consume the same policy before motion. Ordinary constructor spawn/route RNG methods remain unchanged; an explicit audit exposes invalid declared turns rather than hiding actors. Full catalogues contain196 raw records across eight districts (176 supported/20 named unknown). Root helpers/tests establish exact-source routing behavior, not native whole-body, full-journey or source-clearance acceptance. Vehicle maxheight/width remains a separate pending consumer.

@@ -54,6 +54,8 @@ for (const spot of spots) {
     }
     for (const proof of record.nativeProofs || []) {
         if (!evidenceReport(proof.report) || !existsSync(resolve(root,'game/overview',proof.report))) throw new Error(`Unsafe/missing native proof in ${recordPath}`);
+        const proofBytes = readFileSync(resolve(root,'game/overview',proof.report));
+        if (createHash('sha256').update(proofBytes).digest('hex') !== proof.sha256) throw new Error(`Native proof hash mismatch: ${proof.report}`);
         const explicitlyUnknown = proof.sourceCommit === null && proof.passed === null && proof.provenance === 'historical-source-unrecorded';
         if (!explicitlyUnknown && !/^[a-f0-9]{40}$/.test(proof.sourceCommit || '')) throw new Error(`Missing native proof source in ${recordPath}`);
     }

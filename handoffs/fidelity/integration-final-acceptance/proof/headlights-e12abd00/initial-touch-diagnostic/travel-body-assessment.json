@@ -1,0 +1,49 @@
+{
+  "sourceCommit": "e12abd000b5488ea0adf291731a9ee7cee7b77df",
+  "method": "Offline SAT using retained native poses and vehicle dimensions, exact cockpit extent front3.42/rear2.36/width1.8 from unchanged e12 source. Positive means overlap. Independent of native ray result; no synthetic browser mutation.",
+  "rows": [
+    {
+      "phase": "direct-load",
+      "vehicleId": 160,
+      "bodySATPenetrationM": 1.7649999999999972,
+      "playerBody": {
+        "x": -249.88940802511337,
+        "z": 979.9863995152294,
+        "fx": -0.031008380464435124,
+        "fz": -0.9995191245498871,
+        "length": 5.779999999999999,
+        "width": 1.8
+      },
+      "vehicleBody": {
+        "x": -249.88988733794716,
+        "z": 979.9709494228081,
+        "fx": -0.031008380464435124,
+        "fz": -0.9995191245498871,
+        "length": 4.36,
+        "width": 1.73
+      }
+    },
+    {
+      "phase": "after-two-native-drive-ticks",
+      "vehicleId": 160,
+      "bodySATPenetrationM": -0.010000000000003784,
+      "playerBody": {
+        "x": -248.1152615790373,
+        "z": 979.931359639905,
+        "fx": -0.031008380464435124,
+        "fz": -0.9995191245498871,
+        "length": 5.779999999999999,
+        "width": 1.8
+      },
+      "vehicleBody": {
+        "x": -249.8901974217518,
+        "z": 979.9609542315626,
+        "fx": -0.03100838046443534,
+        "fz": -0.9995191245498871,
+        "length": 4.36,
+        "width": 1.73
+      }
+    }
+  ],
+  "twoTickPlayerDisplacementM": 1.7750000000000103
+}

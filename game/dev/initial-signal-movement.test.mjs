@@ -44,5 +44,7 @@ assert.equal(path.outE,edges.get(1102),'reservation ends beyond the last linked 
 t.syncSignalOccupancy();assert.deepEqual(cl.occupiedPhases,[-1]);
 for(let phase=0;phase<4;phase++)assert.equal(signalState(cl,phase,phase*11+1,11),'red','unknown occupied phase holds all new conflicting greens');
 assert.equal(t.inBox(path,cl),true,'the initial inside body retains its finite clearance reservation');
+assert.ok(Number.isFinite(t.laneDropStop(v,2,9.1,7.5,2)),'an uncommitted wide approach still stops before an unfinished lane drop');
+assert.equal(t.laneDropStop(v,2,9.1,7.5,2,true),Infinity,'a committed internal movement can finish its travel-bounded merge; native body guards still apply');
 v.odo=path.clearOdo;t.syncSignalOccupancy();t.pruneBoxes();assert.deepEqual(cl.occupiedPhases,[]);assert.equal(t.boxes.size,0);
 console.log('PASS: actual Basarab194 literal internal ownership; unknown phase, source/direction/turn/branch/length/relocation refusals; linked rear clearance and phase hold');

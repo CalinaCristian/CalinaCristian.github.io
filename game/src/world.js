@@ -1,3 +1,4 @@
+import { nonShopWindowBands } from './facade-window-bands.js';
 import { sourceTransitShelterDecision } from './source-transit-shelter.js';
 import { projectCoveredWater, prepareFinalWaterGeometry, prepareSmallWaterGroups, consumePreparedSmallWater, waterOwnerSurface, landmarkWaterSurfaces, combineUnderpassWaterOwners } from './final-water-topology.js';
 import { buildUnderpassOwnerIndex } from './underpass-ground-owner.js';
@@ -4091,7 +4092,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                         if(split>face.y0)mb.wall(a[0],a[1],p[0],p[1],face.y0,split,nx,nz,distId?mixRgb(wallCol,[255,255,255],.45):rgb('#ffffff'),(perim+L*face.t0)/16,(perim+L*face.t1)/16,(face.y0-y0)/(yShop-y0),(split-y0)/(yShop-y0),TILE.shop+(b.i%2)*8);
                         const lower=Math.max(face.y0,yShop);
                         if(face.y1>lower)mb.wall(a[0],a[1],p[0],p[1],lower,face.y1,nx,nz,wallCol,u0+(u1-u0)*face.t0,u0+(u1-u0)*face.t1,(lower-yShop)/(floorH*gr),(face.y1-yShop)/(floorH*gr),tile);
-                    } else mb.wall(a[0], a[1], p[0], p[1], face.y0, face.y1, nx, nz, wallCol, u0 + (u1 - u0) * face.t0, u0 + (u1 - u0) * face.t1, (face.y0 - (b.sourceSurface&&!b.assembly&&shop?yShop:y0)) / (floorH * gr), (face.y1 - (b.sourceSurface&&!b.assembly&&shop?yShop:y0)) / (floorH * gr), tile);
+                    } else if (b.sourceSurface && !b.assembly && shop) {
+                        for (const band of nonShopWindowBands(face.y0,face.y1,y0,yShop,floorH,gr))
+                            mb.wall(a[0],a[1],p[0],p[1],band.y0,band.y1,nx,nz,wallCol,u0+(u1-u0)*face.t0,u0+(u1-u0)*face.t1,band.v0,band.v1,tile);
+                    } else mb.wall(a[0],a[1],p[0],p[1],face.y0,face.y1,nx,nz,wallCol,u0+(u1-u0)*face.t0,u0+(u1-u0)*face.t1,(face.y0-y0)/(floorH*gr),(face.y1-y0)/(floorH*gr),tile);
                 }
                 if(b.sourceSurface&&!b.assembly)perim += L;
                 continue;
@@ -4119,7 +4123,10 @@ export async function buildWorld(city, renderer, opts = {}) {
                         }
                     }
                 }
-            } else mb.wall(ax, az, bx, bz, y0, wallTop, nx, nz, wallCol, u0, u1, shop ? (y0 - yShop) / (floorH * gr) : 0, (wallTop - (shop ? yShop : y0)) / (floorH * gr), tile);
+            } else if (shop) {
+                for (const band of nonShopWindowBands(y0,wallTop,y0,yShop,floorH,gr))
+                    mb.wall(ax,az,bx,bz,band.y0,band.y1,nx,nz,wallCol,u0,u1,band.v0,band.v1,tile);
+            } else mb.wall(ax,az,bx,bz,y0,wallTop,nx,nz,wallCol,u0,u1,0,(wallTop-y0)/(floorH*gr),tile);
             if (!shop && L > 2 && b.style !== 'glass' && b.style !== 'house' && wallTop > 6) mb.wall(ax + nx * 0.04, az + nz * 0.04, bx + nx * 0.04, bz + nz * 0.04, y0, y0 + 0.9, nx, nz, shadeRgb(wallCol, 0.68)); // darker plinth
             wallTris += shop ? 4 : 2;
             perim += L;

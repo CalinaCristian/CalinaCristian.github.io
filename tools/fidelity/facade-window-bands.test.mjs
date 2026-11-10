@@ -1,0 +1,4 @@
+import{test}from'node:test';import assert from'node:assert/strict';import{nonShopWindowBands as bands}from'../../game/src/facade-window-bands.js';
+test('shop-backed residential ground row starts whole and upper rows retain their datum',()=>{const b=bands(.18,16.38,.18,4.38,3,2);assert.deepEqual(b,[{y0:.18,y1:4.38,v0:0,v1:.5},{y0:4.38,y1:16.38,v0:0,v1:2}]);assert.ok((.18-4.38)/6<0,'previous mapping began in a negative partial row')});
+test('source-clipped walls keep continuous UV phase and exact coverage on both sides of the datum',()=>{const b=bands(2,9,0,4,3,1);assert.deepEqual(b,[{y0:2,y1:4,v0:.5,v1:1},{y0:4,y1:9,v0:0,v1:5/3}]);assert.equal(b.reduce((s,x)=>s+x.y1-x.y0,0),7);assert.deepEqual(bands(7,10,0,4,3),[{y0:7,y1:10,v0:1,v1:2}])});
+test('a cropped lower-only source surface remains a crop of the full ground row',()=>{assert.deepEqual(bands(1,3,0,4,3),[{y0:1,y1:3,v0:.25,v1:.75}]);assert.deepEqual(bands(4,4,0,4,3),[])});

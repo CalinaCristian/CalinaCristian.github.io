@@ -2451,7 +2451,8 @@ const CLOTHES_S = ['#1f2937', '#334155', '#0f766e', '#1d4ed8', '#4b5563', '#7c2d
 export class Pedestrians {
     constructor(traffic, count) {
         this.t = traffic; this.rng = makeRng(traffic.buc ? 321 : 654);
-        this.list = []; this.grid = new Grid(8, 11);
+        this.list = []; this.grid = new Grid(8, 11, true);
+        this._movedPeers = new Set();
         this.stats = { pushes: 0 };
         this.crossCount = new Map();
         const edges = traffic.world.graph.edges.filter(e => this.ok(e));
@@ -2983,13 +2984,13 @@ export class Pedestrians {
         const fromA = g.a === node; const s = fromA ? d : g.len - d; const o = this.off(g, side) * side;
         return { x: g.a.x + g.dirx * s + g.nx * o, z: g.a.z + g.dirz * s + g.nz * o, s };
     }
-    buildGrid() { this.grid.build(this.list); this._peerGridDirty = false; }
+    buildGrid() { this.grid.build(this.list); this._peerGridDirty = false; (this._movedPeers ||= new Set()).clear(); }
     ensurePeerGrid(force = false) {
-        if (force || this._peerGridDirty) { this.grid.build?.(this.list); this._peerGridDirty = false; }
+        if (force || this._peerGridDirty) this.buildGrid();
     }
     notePeerMove(p, oldX, oldZ) {
         const c = this.grid.cell;
-        if (c && (Math.floor(p.x / c) !== Math.floor(oldX / c) || Math.floor(p.z / c) !== Math.floor(oldZ / c))) this._peerGridDirty = true;
+        if (c && (Math.floor(p.x / c) !== Math.floor(oldX / c) || Math.floor(p.z / c) !== Math.floor(oldZ / c))) { this._peerGridDirty = true; (this._movedPeers ||= new Set()).add(p); }
     }
     /** Normal movement and corrections may not enter another person's body.
      * An existing contact may still take a small, monotonically outward step. */
@@ -2998,17 +2999,22 @@ export class Pedestrians {
         const W = this.t.world;let y;
         const check = q => {
             if (!clear || q === p || q.hidden || q.state === 'down') return;
-            const d = Math.hypot(x - q.x, z - q.z); if (d >= 2 * PED_R - 1e-6) return;
+            const dx=x-q.x,dz=z-q.z,limit=2*PED_R-1e-6;
+            if(Math.abs(dx)>=limit||Math.abs(dz)>=limit)return;
+            const d = Math.hypot(dx,dz); if (d >= limit) return;
             if(y===undefined){const top=W.walkTop?.(x,z);y=top==null?.2:top+.01;}
             const qt = W.walkTop?.(q.x, q.z), qy = qt == null ? 0.2 : qt + 0.01;
             if (y + 1.75 * (p.scale || 1) <= qy || qy + 1.75 * (q.scale || 1) <= y) return;
             if (d <= Math.hypot(oldX - q.x, oldZ - q.z) + 1e-6) clear = false;
         };
-        // A correction can cross a cell while a separation query is in flight.
-        // Keep that query's chains stable; scan the full population until the
-        // next safe refresh between actors, rather than miss a moved body.
-        if (this._peerGridDirty || !this.grid.items) { for (const q of this.list) check(q); }
-        else this.grid.query(x, z, 2 * PED_R + 0.2, check);
+        // Keep the in-flight chains stable. Their recorded cells plus every
+        // actor that crossed a cell form a conservative union of ALL bodies.
+        // Exact body/height tests still decide; no population scan per contact.
+        if (!this.grid.items || (this._peerGridDirty && !this.grid.fixed)) { for (const q of this.list) check(q); }
+        else {
+            this.grid.query(x, z, 2 * PED_R + 0.2, check);
+            if(this._peerGridDirty)for(const q of this._movedPeers)check(q);
+        }
         return clear;
     }
     staticWalkClear(p,x,z,oldX,oldZ) {

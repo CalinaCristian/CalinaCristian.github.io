@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-d4c54bc944e67ace",
-  "sourceCommit": "5e268382052521827fc6eade2748ec51cc62000a",
-  "fingerprint": "d4c54bc944e67ace1eefb7e1eb3fc143efb7bcdd0d117d8068005dd4c71e3e90",
+  "releaseId": "game-ae151cd51522d241",
+  "sourceCommit": "f7eddfbe2b704f253ef3d7674c02459d57cf6d04",
+  "fingerprint": "ae151cd51522d2415a2b46f979615c6d74d17e477884e679cce958bd2144e3ac",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -187,6 +187,10 @@
     {
       "path": "game/src/audio.js",
       "sha256": "11863937c63883facc59e7549bde428e3e660e6e39ab50b3d55f4a6cf1afe611"
+    },
+    {
+      "path": "game/src/backdrop-source-owner.js",
+      "sha256": "28566da17373e4715ed22361f8f6672c896d1f4d3298e5ed88603474de6aa094"
     },
     {
       "path": "game/src/basketball.js",
@@ -418,7 +422,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "322010a764d0b380d3ca183a5a41359c4852be9b202d6503c55de3dc366e4b21"
+      "sha256": "b2ff4e01aeb85b4e40824a6d26c470b2585d2e253870e7ab73de41e94c2fedcb"
     },
     {
       "path": "game/src/main.js",
@@ -1002,7 +1006,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "3be9a353e185711140dc8e7b55bcb2079569a8e386cc3f66836d02f83df0ee53"
+      "sha256": "3b3fd5c5ca7c2589c1869bef4dc49adc1acbe1c3fde6b13b636d239fd84d0e42"
     },
     {
       "path": "game/src/worldmap.js",

@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "5e268382052521827fc6eade2748ec51cc62000a",
+  "sourceSha": "f7eddfbe2b704f253ef3d7674c02459d57cf6d04",
   "reviewedOn": "2026-11-10",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -3444,7 +3444,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "61c3adceecc048a1d2e4c666aa0c7775ffc970b8c7b9ce8e9f1fe25faad0cb2d"
+      "sha256": "9b498a5e63aa2cb8e66ec2c39fcc1edeec9ad9fe1eb89f1d2b85ef6ce9e2c664"
     },
     {
       "path": "specs/README.md",
@@ -3460,11 +3460,11 @@
     },
     {
       "path": "specs/STATUS.md",
-      "sha256": "86d867656ea0bcc834cba04420e7b83877793a1558e8b7a90e434370031a1735"
+      "sha256": "92ee8af6ab013b55f23d725e40b81e1fcac9b341a60c05c8c03f6a2a10416958"
     },
     {
       "path": "specs/12-buildings-streetscape.md",
-      "sha256": "31d8323941d7410c63e53428d7ff64a3b27fa1daf63ae9219d2ab4a3e0ea8cc9"
+      "sha256": "59ff36b4819002d28f2ea8971f01ae8f9d5a05fb2e1186ee92b47935168064fe"
     },
     {
       "path": "specs/13-traffic.md",
@@ -3484,7 +3484,7 @@
     },
     {
       "path": "game/index.html",
-      "sha256": "d9d1762a17df677bab79aa2bd6212d800dd8a089f69ae99fc7cbe8626584026f"
+      "sha256": "18c127e5220066321d8e28a01d8ff458f44b723e9ce9bb9e7728e25d8b6fe8d0"
     },
     {
       "path": "game/data/README.md",
@@ -3504,7 +3504,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "3be9a353e185711140dc8e7b55bcb2079569a8e386cc3f66836d02f83df0ee53"
+      "sha256": "3b3fd5c5ca7c2589c1869bef4dc49adc1acbe1c3fde6b13b636d239fd84d0e42"
     },
     {
       "path": "game/src/cities.js",
@@ -3524,7 +3524,7 @@
     },
     {
       "path": "game/src/landmarks.js",
-      "sha256": "322010a764d0b380d3ca183a5a41359c4852be9b202d6503c55de3dc366e4b21"
+      "sha256": "b2ff4e01aeb85b4e40824a6d26c470b2585d2e253870e7ab73de41e94c2fedcb"
     },
     {
       "path": "game/src/render.js",
@@ -5828,7 +5828,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/skytower.json",
-      "sha256": "a5b87dbb397fa2e48f9dc3aac2a7d3dfbb942b3b8654d8434e1985a06910c83d"
+      "sha256": "d1c1909bde893850fb0701e0f286b008cd0e07366a602b210ae386fa571e7841"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/thelandmark.json",
@@ -6064,7 +6064,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "a39b192a9cf3f4698e252bf895cd2756a182360348cf11ca0bb7db297c084107"
+      "sha256": "23595453302d59a31034c433153bebc6ab714aeed477e542d5773fe7a91aa8ff"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6076,7 +6076,7 @@
     },
     {
       "path": "game/overview/overview.js",
-      "sha256": "0a02a024eb4b7bb19f838a0806949e2e3fcb97a8ee45d03088911e46276a878a"
+      "sha256": "0c29f0b74b2e37a793707725fa051bf3961206f4f3d03158d81e77a1b1a37ce5"
     },
     {
       "path": "game/overview/perspective-viewer.js",
@@ -6097,6 +6097,14 @@
     {
       "path": "game/overview/fix-white-ground/summary.json",
       "sha256": "ba1c72c12a462bcc74cdf78e20121450b1deaf6b5bbe4771dc3cbda4b78a19e6"
+    },
+    {
+      "path": "game/src/backdrop-source-owner.js",
+      "sha256": "28566da17373e4715ed22361f8f6672c896d1f4d3298e5ed88603474de6aa094"
+    },
+    {
+      "path": "game/overview/fix-skytower/summary.json",
+      "sha256": "87681db148e41a246feef390d951d99ceeecb659aab5f59e6bbcdd2955ddc046"
     }
   ],
   "stagingEvidence": [
@@ -6198,5 +6206,10 @@
     "runtimeSource": "a4afabcc2f07d095b5793cca56d7f7a04b5cc1a8",
     "summary": "fix-white-ground/summary.json",
     "scope": "Fixed appearance and independent lowered-water controls; other owner reports remain open."
+  },
+  "skytowerFixEvidence": {
+    "runtimeSource": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
+    "summary": "fix-skytower/summary.json",
+    "scope": "Partitioned source facade and exact coarse owner; matched district appearance controls. Existing Arnia route and other reports remain open."
   }
 }

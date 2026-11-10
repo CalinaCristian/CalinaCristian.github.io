@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-10",
+  "status": "staged-not-published; complete reported-location and route acceptance remains open",
+  "liveSource": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+  "safeNativeStays": 60,
+  "unresolvedNativeStays": 0,
+  "treePixelProof": {
+    "source": "81464a886e894d2cfee465bddceda7e5685ea6e4",
+    "scope": "One read-only observer reference capture. Full existing far tree instances vs production camera selection, same native scene/camera/actors/time. Initial summer-river full/control differed while the renderer warmed; comparison uses the warmed repeat. No hardware FPS or driven-route claim.",
+    "pairs": [
+      {
+        "condition": "summer-river",
+        "firstControlChangedPixels": 589052,
+        "comparisonChangedPixels": 0,
+        "comparisonBBox": null,
+        "cameraExactlyEqual": true,
+        "sourceInstances": 47972,
+        "selectedInstances": 13482,
+        "resources": {
+          "geometry": 170,
+          "textures": 40
+        }
+      },
+      {
+        "condition": "summer-station",
+        "firstControlChangedPixels": 0,
+        "comparisonChangedPixels": 0,
+        "comparisonBBox": null,
+        "cameraExactlyEqual": true,
+        "sourceInstances": 47972,
+        "selectedInstances": 6228,
+        "resources": {
+          "geometry": 187,
+          "textures": 40
+        }
+      },
+      {
+        "condition": "summer-reverse",
+        "firstControlChangedPixels": 0,
+        "comparisonChangedPixels": 0,
+        "comparisonBBox": null,
+        "cameraExactlyEqual": true,
+        "sourceInstances": 47972,
+        "selectedInstances": 12694,
+        "resources": {
+          "geometry": 250,
+          "textures": 40
+        }
+      },
+      {
+        "condition": "winter-river",
+        "firstControlChangedPixels": 0,
+        "comparisonChangedPixels": 0,
+        "comparisonBBox": null,
+        "cameraExactlyEqual": true,
+        "sourceInstances": 47972,
+        "selectedInstances": 13482,
+        "resources": {
+          "geometry": 250,
+          "textures": 40
+        }
+      },
+      {
+        "condition": "winter-station",
+        "firstControlChangedPixels": 0,
+        "comparisonChangedPixels": 0,
+        "comparisonBBox": null,
+        "cameraExactlyEqual": true,
+        "sourceInstances": 47972,
+        "selectedInstances": 6228,
+        "resources": {
+          "geometry": 250,
+          "textures": 40
+        }
+      },
+      {
+        "condition": "winter-reverse",
+        "firstControlChangedPixels": 0,
+        "comparisonChangedPixels": 0,
+        "comparisonBBox": null,
+        "cameraExactlyEqual": true,
+        "sourceInstances": 47972,
+        "selectedInstances": 12694,
+        "resources": {
+          "geometry": 250,
+          "textures": 40
+        }
+      }
+    ]
+  },
+  "frames": [
+    {
+      "source": "81464a886e894d2cfee465bddceda7e5685ea6e4",
+      "capture": "/workspace/integration-qa-evidence/basarab-20261110/render-r9/deck-tree.png",
+      "sha256": "db33410cc9ba576438deb034a93e57ac5e6462be1ec038f40ab9afba189ed8cf",
+      "pose": {
+        "eye": [
+          721.687,
+          12.6,
+          -964.056
+        ],
+        "bearing": 59.891,
+        "pitch": 0.169,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:18.479Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "performance": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 269,
+        "triangles": 511766,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full+ao",
+        "quality": "ultra",
+        "auto": false,
+        "level": 0,
+        "trafficUpdateMs": 12.19,
+        "vehicles": 311,
+        "pedestrians": 560
+      }
+    },
+    {
+      "source": "81464a886e894d2cfee465bddceda7e5685ea6e4",
+      "capture": "/workspace/integration-qa-evidence/basarab-20261110/render-r9/river-arch.png",
+      "sha256": "ca0ecd441ad97eebce36e8e01586a4043ac7ea1a0c56545380b70b986abff55f",
+      "pose": {
+        "eye": [
+          10,
+          30,
+          -210
+        ],
+        "bearing": 79.948,
+        "pitch": -7.936,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:30.277Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "performance": {
+        "fps": 0.17,
+        "frameMs": 11374.2,
+        "drawCalls": 387,
+        "triangles": 1600810,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full+ao",
+        "quality": "ultra",
+        "auto": false,
+        "level": 0,
+        "trafficUpdateMs": 25.031,
+        "vehicles": 311,
+        "pedestrians": 560
+      }
+    },
+    {
+      "source": "81464a886e894d2cfee465bddceda7e5685ea6e4",
+      "capture": "/workspace/integration-qa-evidence/basarab-20261110/render-r9/station-context.png",
+      "sha256": "f63941d7cd0c0ed7b3eb6f51839caf787b27336609da6a1edecda92f23a4bbcd",
+      "pose": {
+        "eye": [
+          670,
+          44,
+          -1050
+        ],
+        "bearing": 126.019,
+        "pitch": -15.862,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:42.853Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "performance": {
+        "fps": 0.24,
+        "frameMs": 12261.5,
+        "drawCalls": 334,
+        "triangles": 886801,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full+ao",
+        "quality": "ultra",
+        "auto": false,
+        "level": 0,
+        "trafficUpdateMs": 32.12,
+        "vehicles": 311,
+        "pedestrians": 560
+      }
+    },
+    {
+      "source": "c08512c3b501b04ab5a81432ac01f14902466a84",
+      "capture": "/workspace/integration-qa-evidence/basarab-20261110/render-r10/deck-tree.png",
+      "sha256": "637fdf3bd01f4ae7ae3c3e13c3d132ba811e84b5809d724d6e683838093d35c2",
+      "pose": {
+        "eye": [
+          721.687,
+          12.6,
+          -964.056
+        ],
+        "bearing": 59.891,
+        "pitch": 0.169,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:21.214Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "performance": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 269,
+        "triangles": 462577,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full+ao",
+        "quality": "ultra",
+        "auto": false,
+        "level": 0,
+        "trafficUpdateMs": 23.76,
+        "vehicles": 311,
+        "pedestrians": 560
+      }
+    },
+    {
+      "source": "c08512c3b501b04ab5a81432ac01f14902466a84",
+      "capture": "/workspace/integration-qa-evidence/basarab-20261110/render-r10/river-arch.png",
+      "sha256": "83ba47139c2b0c6ebd63c70448b2e2e229189c4d6acf9e4b48e2d3a14fa63afb",
+      "pose": {
+        "eye": [
+          10,
+          30,
+          -210
+        ],
+        "bearing": 79.951,
+        "pitch": -7.94,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:31.759Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "performance": {
+        "fps": 0.2,
+        "frameMs": 10041.8,
+        "drawCalls": 387,
+        "triangles": 1493494,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full+ao",
+        "quality": "ultra",
+        "auto": false,
+        "level": 0,
+        "trafficUpdateMs": 34.243,
+        "vehicles": 311,
+        "pedestrians": 560
+      }
+    },
+    {
+      "source": "c08512c3b501b04ab5a81432ac01f14902466a84",
+      "capture": "/workspace/integration-qa-evidence/basarab-20261110/render-r10/station-context.png",
+      "sha256": "137ee76d61642c71024f710d70ee1a66d79df98c310f8f160f0666408889482e",
+      "pose": {
+        "eye": [
+          670,
+          44,
+          -1050
+        ],
+        "bearing": 126.027,
+        "pitch": -15.851,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:43.996Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "performance": {
+        "fps": 0.24,
+        "frameMs": 11899.8,
+        "drawCalls": 334,
+        "triangles": 802395,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full+ao",
+        "quality": "ultra",
+        "auto": false,
+        "level": 0,
+        "trafficUpdateMs": 40.111,
+        "vehicles": 311,
+        "pedestrians": 560
+      }
+    }
+  ],
+  "bodyFixture": {
+    "source": "81464a886e894d2cfee465bddceda7e5685ea6e4",
+    "poses": 13785,
+    "modelTriangleTests": 31192624,
+    "contacts": 0,
+    "scope": "Literal source tangent-pose screen, not native connected-route certification"
+  },
+  "sourceLimits": [
+    "Anchor positions/spacing and structural sections remain explicit estimates.",
+    "No provider reference imagery in Git/public.",
+    "First A/A tree frame warmed differently; all six comparisons use the warmed repeat.",
+    "Static/water culling native pixel control, physical journeys, original eight poses, source piers/underside/white-ground/road shimmer and evolving mirror/mobile budgets remain open."
+  ]
+}

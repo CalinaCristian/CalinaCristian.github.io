@@ -158,21 +158,22 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
  // station/northeast arm is the shorter backspan.132m is inferred from the
  // analysis source's302m overall structural length minus the170m main span;
  // builder340m refers to a different overall scope. End setback is estimated.
- const mainSpanSW=170,backspanNE=132,anchorEndSetback=6;
- report.cableSpanBasis={mainSpanSWM:mainSpanSW,backspanNEM:backspanNE,anchorEndSetbackM:anchorEndSetback,backspanEstimated:true};
+ const mainSpanSW=170,backspanNE=132,anchorEndSetback=6,anchorStations=new Map();
+ report.cableSpanBasis={mainSpanSWM:mainSpanSW,backspanNEM:backspanNE,anchorEndSetbackM:anchorEndSetback,backspanEstimated:true,maxAnchorAdjustmentSWM:9,maxAnchorAdjustmentNEM:3,minAnchorSeparationM:3};
  for(const sign of [-1,1]){
   const c=at(towerS,nc+sign*legOffset,.2);cellOf(c[0],c[2]).solid.box(c[0],.2,c[2],3,79.8,3,Math.atan2(u[0],u[1]),rgb('#d8d8d0'));
   const poly=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([v,w])=>[c[0]+u[0]*v*1.5+n[0]*w*1.5,c[2]+u[1]*v*1.5+n[1]*w*1.5]);
   colliders.push({x:c[0],z:c[2],r:Math.SQRT2*1.5,poly,holes:[],h:80,y0:.2,y1:80,prop:true,kind:'basarab-pylon',estimated:true});
   for(const dir of [-1,1])for(let i=0;i<15;i++){
    const fraction=(i+1)/15,span=dir>0?backspanNE:mainSpanSW,plannedS=towerS+dir*(18+fraction*(span-18-anchorEndSetback)),tower=at(towerS,nc+sign*legOffset,42+fraction*35);let chosen=null,lastFailure='native-road/tram-catalogue-missing';
-   // Anchor stations are estimates. Search at most5m along the main arm and
-   //3m on the shorter backspan, with complete source clearance still required.
-   // The last half-metre admits a supported outer band beside the mapped fork;
-   // it never changes the carriageway, rail path or structural collision rule.
-   const shifts=[0];for(let d=.5;d<=(dir<0?5:3);d+=.5)shifts.push(-d,d);
+   // Anchor stations are estimates. The native source fork interrupts the
+   // median, so a bounded9m search can use its supported outer band instead.
+   // Keep anchors separate and ordered; never change a carriageway or track.
+   const shifts=[0];for(let d=.5;d<=(dir<0?9:3);d+=.5)shifts.push(-d,d);
    if(roads.length&&tramHalfWidth>0&&supportAt)for(const shift of shifts){
-    const anchorS=plannedS+shift,raw=at(anchorS,nc,0),centre=[raw[0],raw[2]],base=deck,normal=n,localCentre=deckSectionCentre(centre,normal,base,roads),desired=localCentre+sign*legOffset,free=anchorFreeIntervals(centre,normal,base,roads,trams).filter(r=>sign>0?r.hi>localCentre+.3:r.lo<localCentre-.3),distance=r=>Math.max(r.lo-desired,0,desired-r.hi);free.sort((a,b)=>distance(a)-distance(b));
+    const anchorS=plannedS+shift,previous=anchorStations.get(sign+','+dir);
+    if(previous!==undefined&&(anchorS-previous)*dir<3)continue;
+    const raw=at(anchorS,nc,0),centre=[raw[0],raw[2]],base=deck,normal=n,localCentre=deckSectionCentre(centre,normal,base,roads),desired=localCentre+sign*legOffset,free=anchorFreeIntervals(centre,normal,base,roads,trams).filter(r=>sign>0?r.hi>localCentre+.3:r.lo<localCentre-.3),distance=r=>Math.max(r.lo-desired,0,desired-r.hi);free.sort((a,b)=>distance(a)-distance(b));
     if(!free.length){lastFailure={kind:'no-source-clear-deck-band',centre,base};continue;}
     for(const range of free){const offsets=[Math.max(range.lo+.15,Math.min(range.hi-.15,desired)),(range.lo+range.hi)/2,range.lo+.2,range.hi-.2];for(let v=range.lo+.15;v<range.hi-.15;v+=.25)offsets.push(v);offsets.sort((a,b)=>Math.abs(a-desired)-Math.abs(b-desired));for(const offset of offsets){
      if((offset-localCentre)*sign<.15)continue;
@@ -184,6 +185,7 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
     if(chosen)break;
    }
    if(!chosen){report.anchorUnresolved.push({sign,direction:dir,index:i,plannedS,reason:lastFailure});continue;}
+   anchorStations.set(sign+','+dir,chosen.anchorS);
    bridgeBeam(cellOf,tower,chosen.anchor,.11,'#b4c3c9',colliders,'basarab-stay');report.emittedStays++;report.anchors.push({sign,direction:dir,index:i,...chosen});
   }
  }

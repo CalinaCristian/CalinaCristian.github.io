@@ -467,8 +467,14 @@ export function createOfficeWindowBinding(world, office) {
         if (j === index) continue;
         const p = world.data.buildingFootprints?.[j];
         if (!p?.length) continue;
-        const dims = world.data.buildingDimensions?.[j];
-        if (dims && (dims[0] < floor + frame.ll.y || dims[1] > floor + frame.ul.y)) continue;
+        // Precision dimensions are sparse overrides, not the only height record.
+        // A lower podium must not block an upper-floor outlook just because its
+        // unchanged decimetre source row has no precision override.
+        const dims = world.data.buildingDimensions?.[j], row = world.data.buildings?.[j],
+          top = dims?.[0] ?? (Number.isFinite(row?.[1]) ? row[1] / 10 : NaN),
+          bottom = dims?.[1] ?? (Number.isFinite(row?.[2]) ? row[2] / 10 : NaN);
+        if (Number.isFinite(top) && Number.isFinite(bottom) &&
+          (modelFloor + top < floor + frame.ll.y || modelFloor + bottom > floor + frame.ul.y)) continue;
         if (
           strip.some((q) => inRing(q, p, true)) ||
           p.some((q) => inRing(q, strip, true)) ||

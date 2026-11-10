@@ -1,0 +1,14 @@
+{
+  "scope": "Committed-tree source packaging estimate, not a rendered Jekyll build.",
+  "base": "76c9fe2b05f56ea32c96ac06d6faea84717d4126",
+  "commit": "57e6581c60b2350c9bf92c8dbca4a05dcc0e9a6e",
+  "before": {
+    "bytes": 839842894,
+    "files": 14343
+  },
+  "after": {
+    "bytes": 476664211,
+    "files": 6971
+  },
+  "reductionBytes": 363178683
+}

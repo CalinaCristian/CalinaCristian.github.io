@@ -1,0 +1,13 @@
+{
+  "source": "bca047a1cf0d377807df1e278e16dcc9f2269196",
+  "scope": "Filesystem/SHA-preserving public dependency checks and source packaging estimate; no Jekyll build claim. Includes current source tree, whose staged game assets differ from master.",
+  "districtManifests": 8,
+  "imageReferencesChecked": 5533,
+  "distinctLocalTargets": 4716,
+  "missingOrExcluded": [],
+  "sourceBytesWithPreviousExclusions": 1074246514,
+  "sourceBytesWithLatestExclusions": 625372299,
+  "sourceBytesRemoved": 448874215,
+  "estimatedFiles": 7538,
+  "passed": true
+}

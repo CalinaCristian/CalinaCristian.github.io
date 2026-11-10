@@ -1,0 +1,1963 @@
+{
+  "commit": "4c57f810c2f7de5b1c3245e6a440d8df8ea58bdb",
+  "releaseId": "game-89b21c8b4c45670c",
+  "sourceCommit": "5c483867b507a04208eb5370b4365964ab316708",
+  "checkedAt": "2026-11-10T05:34:54.854381+00:00",
+  "scope": "All271 release-stamped files, retained gzip game data, release metadata and core unchanged overview assets; normalized HTML excludes the documented release/source meta lines.",
+  "checks": [
+    {
+      "path": "canvas.js",
+      "passed": true,
+      "bytes": 7390,
+      "sha256": "dc3c21b04b93fb6b57196d77a39a5a3cf433dafbf8ec26578ba0425cd1a38c13",
+      "curlCode": 0
+    },
+    {
+      "path": "game/assets/wcp/bracket.webp",
+      "passed": true,
+      "bytes": 27040,
+      "sha256": "59c347a1f035e9826164da7c05b422919b4a692c46558f4bf89469b033e6d08d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/assets/wcp/dinamo-hint.webm",
+      "passed": true,
+      "bytes": 146249,
+      "sha256": "b33a7533bb1f48856ecf62d249c9fc385ca01d5cd7271b2f87aee0687f6429b6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/assets/wcp/guide.webp",
+      "passed": true,
+      "bytes": 37316,
+      "sha256": "c8ad3814a9e8901e22950453acd282ffe8f7d5e9cb26d20d481a7f489e2d6c45",
+      "curlCode": 0
+    },
+    {
+      "path": "game/assets/wcp/home.webp",
+      "passed": true,
+      "bytes": 35978,
+      "sha256": "778875a38b2fbd33481be885b7f4aa9a31c3d7e770d85ed598c6b229579e7e84",
+      "curlCode": 0
+    },
+    {
+      "path": "game/assets/wcp/matches.webp",
+      "passed": true,
+      "bytes": 23704,
+      "sha256": "cc9da202e4c4f90cf0229b08972271e480f2f349d6083bff2cdb9737a3cd977c",
+      "curlCode": 0
+    },
+    {
+      "path": "game/assets/wcp/standings.webp",
+      "passed": true,
+      "bytes": 18638,
+      "sha256": "eb76897673a96901b8462f499171f89ae689056c52c08e60af3ef315549b38e6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/assets/wcp/today.webp",
+      "passed": true,
+      "bytes": 22006,
+      "sha256": "0131d14a11397aaf69f162e51926362180a445bdc45a07f91503d2e1a6b1a5d9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/bucharest-floreasca.json",
+      "passed": true,
+      "bytes": 4437499,
+      "sha256": "a188f2f5b856965191935b5433b756080c711154e8ab00ff8e2f5b28ca77097b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/bucharest-grozavesti.json",
+      "passed": true,
+      "bytes": 10618180,
+      "sha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/bucharest-otopeni.json",
+      "passed": true,
+      "bytes": 2994338,
+      "sha256": "eea0a6023fd5053b3564f4d5da8a6de96b8f420038ff91cfc9c8d749e5501229",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/bucharest-pipera.json",
+      "passed": true,
+      "bytes": 4172013,
+      "sha256": "873c974d4c532d9acf08bdbcbc3bbc2fa271bd018b7874a08efc99f4971dd8de",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/bucharest-romana.json",
+      "passed": true,
+      "bytes": 21921196,
+      "sha256": "af976b05482ce0663264cadeb2d1a0d1dd3a67a05cc7b07b1c592ddfa7fa2e6d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/bucharest-unirii.json",
+      "passed": true,
+      "bytes": 33593010,
+      "sha256": "e94dc563fc82efe0f6dac21e7e20ac8e34ea5a7e20eb38bf97e829abebe9657d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/bucharest.json",
+      "passed": true,
+      "bytes": 2922426,
+      "sha256": "b0e2870767528727b4d57ad4e05a666d440c8fe19620422ebde63c27d0a7b0f5",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/dialogue.json",
+      "passed": true,
+      "bytes": 24745,
+      "sha256": "02d45fbe12d81e97e38e6cd0f8d4ea8061e6d1c7475c774b3d6c5a335b70ba66",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/geo/lights.jpg",
+      "passed": true,
+      "bytes": 112600,
+      "sha256": "b77448f6a73cbc45ca6a04d861d8c20c96b4ee1d42758e1ba8eabc75a6cebc53",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/geo/ne50m.bin",
+      "passed": true,
+      "bytes": 157166,
+      "sha256": "03e42acf1ec84500ab3a42fbf03d065650509c8301353b6c1e645013443da372",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/places.json",
+      "passed": true,
+      "bytes": 46899,
+      "sha256": "38b7297d798f7d197a64b3123a3542e6b5b516ad1916ee8d0813492852b14127",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/seattle-bellevue.json",
+      "passed": true,
+      "bytes": 5004574,
+      "sha256": "b6e30458ac8d9f32cf6c1437047fa9f8fb01370997e9ecee1bfc6482d970c2f9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/seattle-seatac.json",
+      "passed": true,
+      "bytes": 3816077,
+      "sha256": "f9ee586426661b53b50a7147e525b2a7b8a2534ff1015fae5bc900c25ead144c",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/seattle.json",
+      "passed": true,
+      "bytes": 3382655,
+      "sha256": "d0676592a69d57c9a60501119a71a4b7f414dca5a45e7417bdd967565b93f88d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/arcul-de-triumf.json",
+      "passed": true,
+      "bytes": 1277452,
+      "sha256": "8caa472caf22455e972685bc3a48e25d169f6aa147af990782fe86e87e43f398",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/athenaeum-revolution.json",
+      "passed": true,
+      "bytes": 4856445,
+      "sha256": "f933d738f1926d0cfe28d1040f39316cc8206996071f2585035448e1726f287b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/ballard-locks.json",
+      "passed": true,
+      "bytes": 571461,
+      "sha256": "889041635e10369ba9245550215c3b5242e4b82ac4f9b3e9ab864ebf5748549f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/bel-botanical-garden.json",
+      "passed": true,
+      "bytes": 554307,
+      "sha256": "d343c70d586496268f86fddce6c601d14244d0f1ea63e47ec605b8372196956c",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/bel-downtown-park.json",
+      "passed": true,
+      "bytes": 497269,
+      "sha256": "bcedd2fad5a6bbe599ad9c4b9c47e79439d249d9cc5b5f4fd5816ae3f7c3fdd6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/bel-lincoln-square.json",
+      "passed": true,
+      "bytes": 601911,
+      "sha256": "a505f6bc29553bac4944bb960f4a50fa65be22cf3b72d287530483322bee6350",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/bel-meydenbauer.json",
+      "passed": true,
+      "bytes": 318232,
+      "sha256": "7a82af63ef198a597bb3bf8cb7fecf4d0341706c0fb907354d05a4c280b924cf",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/buc-herastrau.json",
+      "passed": true,
+      "bytes": 1361895,
+      "sha256": "604109642e39d08621b90bb923e67b4ea410920ac80651ae18aa53a4c433dddd",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/buc-old-town.json",
+      "passed": true,
+      "bytes": 7192811,
+      "sha256": "ef781d87819df761930ccf4a88cd97b4183b036d22c2a9ebc446b06d7da4417d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/buc-parliament.json",
+      "passed": true,
+      "bytes": 2925638,
+      "sha256": "ddd887f137f82a82bb3a07775a4dd726a95a4484c312610fcbecfeda44cedf72",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/cismigiu.json",
+      "passed": true,
+      "bytes": 3781023,
+      "sha256": "7f39870051f19fe8fcad96dfa8dea7c8d9a99b855447073a85a7b0dc06277f4e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/fremont-troll.json",
+      "passed": true,
+      "bytes": 636891,
+      "sha256": "93719cb9de9352f913a06ad61f4677fb82e9c695664639a13486f54e87702631",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/gas-works.json",
+      "passed": true,
+      "bytes": 247930,
+      "sha256": "b1f8eebe08ed1da4d3e84a147c77f24f4d511847c349eeb5754c7cc4528cc442",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/kerry-park.json",
+      "passed": true,
+      "bytes": 647922,
+      "sha256": "96c18080525d886e0f633044a9645389a8eea60bf1662f6a6acbf3b97bf983c9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/pike-place.json",
+      "passed": true,
+      "bytes": 694465,
+      "sha256": "484a00735a54b5aa60e07e20567e6a3cbd4142a78945ec463c6c5c9ee236c0d8",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/pioneer-square.json",
+      "passed": true,
+      "bytes": 435205,
+      "sha256": "353773e990d392e49891121d11730f3c942819d83a8986cefdea42b3ebe18240",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/seattle-center.json",
+      "passed": true,
+      "bytes": 671239,
+      "sha256": "68daf29e90ea1e0a9dac45b5365d40af5de4bc81b3437d571fd39f2d47cd8f41",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/seattle-context-manifest.json",
+      "passed": true,
+      "bytes": 96468,
+      "sha256": "45f852cb04a915be3b1cbf18f23673842d58543e21969addd451610372c7e14c",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/spring-palace.json",
+      "passed": true,
+      "bytes": 779177,
+      "sha256": "f6a7f974645aa21e1ed9b52af58d2d0151a81efdc6ab1e39e5bf532180765e72",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/waterfront.json",
+      "passed": true,
+      "bytes": 423539,
+      "sha256": "c726b6d58bfa54ff71443f3f0387f5ebd649919bb3d25cc4f3323371a9581ea9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/index.html",
+      "passed": true,
+      "bytes": 8658,
+      "sha256": "49bb71b10d7cd803ae6e2d5031317119e63581660b7b2353d8b4654d2c52014b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/achievements.js",
+      "passed": true,
+      "bytes": 40873,
+      "sha256": "c4a293f388c1b8f7387b915095ccc91d21e282e2fe0183b9a6295577b214ec1c",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/archetypes.js",
+      "passed": true,
+      "bytes": 72128,
+      "sha256": "3ac87643083fa98989d05279d8d174bde5932332920fc87796dcf7d976c2ecf3",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/audio.js",
+      "passed": true,
+      "bytes": 7181,
+      "sha256": "11863937c63883facc59e7549bde428e3e660e6e39ab50b3d55f4a6cf1afe611",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/basketball.js",
+      "passed": true,
+      "bytes": 16329,
+      "sha256": "a84a93eb1257da5fb4cb1d931612c48b0ddaf29cfab3d133b99e06178a824795",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/bridge-junction.js",
+      "passed": true,
+      "bytes": 6579,
+      "sha256": "f5db8b54b8c05ff42e2816140cb6bee36b84d09148c25b7cb8a41a02a0e361e1",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/bridge-pad-profile.js",
+      "passed": true,
+      "bytes": 3418,
+      "sha256": "fc41d864ea1adeb0f24569114f0d0206ea99ab201e85283e5f00349f74d2a74c",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/bridge-profile-geometry.js",
+      "passed": true,
+      "bytes": 7754,
+      "sha256": "65b83df1cf242f632861d405c138f136facbfba5d3786ed4a85abb639f07982e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/bridge-surface-mesh.js",
+      "passed": true,
+      "bytes": 2914,
+      "sha256": "bd70267f78fa36e1b47f2f5d77ecd1c8b88a8e4541eac958009c4e9a439b9d93",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/building-aircraft.js",
+      "passed": true,
+      "bytes": 3148,
+      "sha256": "44ee8c66eee7d1f5aea8d126610791fdf51ee9d2539a3b3eafa83e695e789e4a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/building-canopies.js",
+      "passed": true,
+      "bytes": 1580,
+      "sha256": "a0566c635e2eb30fa4a305f73391eb17be941d45cf126a7989450b06b3d3a29d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/building-detail-range.js",
+      "passed": true,
+      "bytes": 1435,
+      "sha256": "9b666987443fec1f7e9d720ab0e240f513a1e50031f3b44b6a0a7abcd790c1d0",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/building-detail-visibility.js",
+      "passed": true,
+      "bytes": 2721,
+      "sha256": "974e03efeb2b1b6d422b45d72ca2f3cd649fae7a18196a98ca80b25cb6c283b6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/building-parts.js",
+      "passed": true,
+      "bytes": 16412,
+      "sha256": "d3844e4f67e0c29a28a7e9880bfcc6f5d9011cd0440e0b2eeba001838751fc5a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/building-passages.js",
+      "passed": true,
+      "bytes": 5011,
+      "sha256": "6bd606c4b3a62ffc3af3b4e8b4be65c5880fe7546ab7fc6ad5b521168045fe5d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/building-roofs.js",
+      "passed": true,
+      "bytes": 18301,
+      "sha256": "a82db31d1197b3953c9f4718dbc44b2972a90e25d9c2c07c683e6ab5386fa8ac",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/building-surface-cache.js",
+      "passed": true,
+      "bytes": 4824,
+      "sha256": "6223c96eea1a7e2a48b359d331e257346ed9b5cbabbbadc874145d00ac933367",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/buildings.js",
+      "passed": true,
+      "bytes": 83826,
+      "sha256": "634c8a5149d9de9761c62f445c6318dcb3087b41980b574a5afa6d02dfa7cfe4",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/canvasText.js",
+      "passed": true,
+      "bytes": 5398,
+      "sha256": "35983021a8548740d623d83aaa092fa9f95a3f58b454575b8ab4732a47db2714",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/cell-frustum.js",
+      "passed": true,
+      "bytes": 8110,
+      "sha256": "75180d907270939422d304d2eb7d35f76abb6a4657ac36137c72538799b3e07a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/chapter-waypoint.js",
+      "passed": true,
+      "bytes": 713,
+      "sha256": "0cba46e17b79cb869de2c5087b925f837dd02954d026e5aaaa55c509c9dac63a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/chapters.js",
+      "passed": true,
+      "bytes": 17520,
+      "sha256": "ef88ddf04a38291e8694f2b4af6f027afad351f85e33d365a2c39f2a833297ba",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/cities.js",
+      "passed": true,
+      "bytes": 31577,
+      "sha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/cockpit-displays.js",
+      "passed": true,
+      "bytes": 15676,
+      "sha256": "27b748de131baa24e1ea9089e9e836a49e25c32472d92aa35130ef188e5aed53",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/covered-road-models.js",
+      "passed": true,
+      "bytes": 19120,
+      "sha256": "3a3c35cb068fd7aa97c078429f03cf834077002bf3b3268fb88db40a1f60c925",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/crowd.js",
+      "passed": true,
+      "bytes": 33301,
+      "sha256": "e674c3ac0b207ae4e8ee0bc083851d02abc93f8df3333694e2cad9bd40a93257",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/data.js",
+      "passed": true,
+      "bytes": 46559,
+      "sha256": "c1906c932e7d7de283466cf1195e2f988186055dc0776655b588ef4fb39aa579",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/district-boundary.js",
+      "passed": true,
+      "bytes": 13948,
+      "sha256": "05060b5902c564254c52e7636ee32500408680885a7ca6705a420a3a616a76e2",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/drone-boundary.js",
+      "passed": true,
+      "bytes": 8205,
+      "sha256": "85aa59ed69fd380d4fbe93be315b47ab8c66f47e0e09da26291321842f3caea4",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/drone.js",
+      "passed": true,
+      "bytes": 52025,
+      "sha256": "adebeb686c17fb03116d31246161405f517bc80dc58fcc1e1c58d4f85bcb726e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/explore.js",
+      "passed": true,
+      "bytes": 34374,
+      "sha256": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/final-water-topology.js",
+      "passed": true,
+      "bytes": 6219,
+      "sha256": "f293186ad02f941f2822214ea494d5bed1af8bf7a092c6090f26638b0b02a9e9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/finale.js",
+      "passed": true,
+      "bytes": 7899,
+      "sha256": "6dd47d7336285e2ca9d92e553f6f5e64080844aaf9f2883012abfcc7a327e60d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/flight.js",
+      "passed": true,
+      "bytes": 14662,
+      "sha256": "e5b5a05691a3abbd684ccbd20e11e5c1370ff71bb0a540d8483045bf42f3b544",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/football.js",
+      "passed": true,
+      "bytes": 11197,
+      "sha256": "0fea24f051593185b93c8457c27ec13af2344ba34b442115f3472a662317df7f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/generated-parapet-ownership.js",
+      "passed": true,
+      "bytes": 10125,
+      "sha256": "ed75fc65c6859907697ec51c8ddceca4871525e388e02db0706d4f82eb077a2a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/geo-ne110.js",
+      "passed": true,
+      "bytes": 71470,
+      "sha256": "6d9c86444680f5007b90d41e7a5d93a2d1f081dcc556b665fcbcb9cd0ecf8f36",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/geobuild.js",
+      "passed": true,
+      "bytes": 11773,
+      "sha256": "28e535a8934df3d3d249f13180ce04db1b86d47318530e74344a532a2a0fb2d3",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/globe.js",
+      "passed": true,
+      "bytes": 49496,
+      "sha256": "6b5eae150fdf803a81f9b3696def2dd8e26d2c846c73b2aeb16c22e6b40d76d6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/hud.js",
+      "passed": true,
+      "bytes": 9812,
+      "sha256": "258a6108ab898ac05801bea8aac7cdb015d312975abb20766251a382ae838c0b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/inferred-road-sign.js",
+      "passed": true,
+      "bytes": 1886,
+      "sha256": "2391bfb08e32f6bc871f50bf4483acdf6d684f927cc00eeb3592ad2934eac2ce",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/initial-ordinary-source-span.js",
+      "passed": true,
+      "bytes": 6773,
+      "sha256": "7c5ffffaba6a7b580345f03bc995d4b864e9b08ae9bf3daf0c422f4418b262d5",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/initial-parking-behavior.js",
+      "passed": true,
+      "bytes": 10115,
+      "sha256": "d97430424a10c19918e1a9d0cce3ecb00704de49473bf59f23f333beab21a82a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/initial-parking-support.js",
+      "passed": true,
+      "bytes": 6585,
+      "sha256": "5ea1c2f7a2aecc549138998683db6f6befad1fa04b1dc67b914beeeb0204d635",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/initial-traffic-admission.js",
+      "passed": true,
+      "bytes": 15740,
+      "sha256": "eafaa325e686e6fc631cd8bf5af4fb8b4fba5e70124925cad81c6eec5b25b6ea",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/initial-vehicle-admission.js",
+      "passed": true,
+      "bytes": 16785,
+      "sha256": "f1a27dea11a127e4becc9b718d68a2b73dd2e3afc03beaa49c0156ec189e389f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/input.js",
+      "passed": true,
+      "bytes": 16990,
+      "sha256": "8be7e47e6416e63208a84250eab6f866d432fa73ecd23519c7adbea939f07e4f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmark-arcul-source.js",
+      "passed": true,
+      "bytes": 8498,
+      "sha256": "b28578073b825692dbf98f1e1efa4d05fff98252e2be27e130f579adfff46cf6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmark-cec-source.js",
+      "passed": true,
+      "bytes": 4423837,
+      "sha256": "4891822203ad126ab75511e2196965848db37cfdfabadef54b13cea4ffbe4356",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmark-otp-roofs.js",
+      "passed": true,
+      "bytes": 2635,
+      "sha256": "f071c4b256efe77dae8eaf64e0d4c2a04af9f01b4447686bd2cd91f77950b8a6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmark-pitch-paint-coverage.js",
+      "passed": true,
+      "bytes": 61263,
+      "sha256": "db48ecb69657184e42aa165909396f09f0e3185e6f7375968188121770a4fa8c",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmark-pitch-paint.js",
+      "passed": true,
+      "bytes": 4017,
+      "sha256": "ebbbe0aeef06a63d5a737452c316a4cd94a0ac6e962354dea089d56bf87c6ed5",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmark-seatac-aircraft.js",
+      "passed": true,
+      "bytes": 1077,
+      "sha256": "23bd2be82947f78042858f2632a0f41a76ce30fe606fc3150d6c1ad08e51d1c5",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmark-seatac-structure.js",
+      "passed": true,
+      "bytes": 13621,
+      "sha256": "babdf7e471ad949ca982a737701280785005a950b18227205bd047d32e418bb5",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmark-source-identities.js",
+      "passed": true,
+      "bytes": 17931,
+      "sha256": "4f93c8853d3f1ae65badd1940f4f7286bc6538353defb94a0268f7fed699adfc",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmark-source-masses.js",
+      "passed": true,
+      "bytes": 259389,
+      "sha256": "b5009b0f96ee984cc674793d7170a5c49763fb91d87e168c2847c1218d68e2b9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmark-us-geometry.js",
+      "passed": true,
+      "bytes": 1606,
+      "sha256": "5314a5e92a86b9a9612c3de013927a5d281d0c051944562347d39086930848aa",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmark-us-source.js",
+      "passed": true,
+      "bytes": 52555,
+      "sha256": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmark-us-terrain.js",
+      "passed": true,
+      "bytes": 27790,
+      "sha256": "cfca62d53bfeaf34f736b6ce345045dbbe50337544111fb6b676c4d237042879",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/landmarks.js",
+      "passed": true,
+      "bytes": 360681,
+      "sha256": "322010a764d0b380d3ca183a5a41359c4852be9b202d6503c55de3dc366e4b21",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/main.js",
+      "passed": true,
+      "bytes": 222238,
+      "sha256": "d8bfbe745dd90d56470d7b0aaaae097602173cb638f41ee8f174f0dd1d883914",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/map-place-actions.js",
+      "passed": true,
+      "bytes": 856,
+      "sha256": "eb5749a020fed4b6967fa7222a97abc512d304ea8cb9d56022ec58e0afbcaf63",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/minimap.js",
+      "passed": true,
+      "bytes": 27506,
+      "sha256": "cca958895b0b56e9c3819fba0d89752458482a37227e49ed2ba52ad5639c691b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/modal-controls.js",
+      "passed": true,
+      "bytes": 1380,
+      "sha256": "6e7609fb6156f6936b05b66f719419d67a4497cfde9a7525bcb9379d2f2bc2e4",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/motor-turn-restrictions.js",
+      "passed": true,
+      "bytes": 9481,
+      "sha256": "7f7b113b6f68db6721e9889280e42d1116619e2edf20fd969069095a79f22445",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/nav.js",
+      "passed": true,
+      "bytes": 38850,
+      "sha256": "44ea9aea4cc452849eb21dc65f34e4959cc33ad2388c1489dc03065370c04d63",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/normal-guard.js",
+      "passed": true,
+      "bytes": 1079,
+      "sha256": "d19da7e2b7731c5a3a1add94aeb17780654fa7da58b1eefbe8842470aca12a94",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/office-bubble-scope.js",
+      "passed": true,
+      "bytes": 1491,
+      "sha256": "d059974cc92a5784ec42314dd3d57b013f8963b792201cc0a0e38c85f059a228",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/office-interior-details.js",
+      "passed": true,
+      "bytes": 16325,
+      "sha256": "1ba4c8a675d1891bd2c0bef20a3b0a6bd8a878a45e912152d34fb3168bcb15e8",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/office-resources.js",
+      "passed": true,
+      "bytes": 1775,
+      "sha256": "fb7b7deb9ecf5946e6ee5a7444c75edacfb57eabf2e441d40a32e01604d727dc",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/office-window-binding.js",
+      "passed": true,
+      "bytes": 18363,
+      "sha256": "0546ab4130edc5bfff0f50e6b026f6ca16bafa59bad3475ef04cf0223b0192b0",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/office-window-math.js",
+      "passed": true,
+      "bytes": 2793,
+      "sha256": "98af1db1e701e664151edfd61cc4aff185e4837e27b92f6868e8724e3481aa67",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/office-window-service.js",
+      "passed": true,
+      "bytes": 7367,
+      "sha256": "0aa60fdaddd7617f72274fa198b17fca6cd0abd448540a58ca772c9ecca1315f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/office-window-structural-plane.js",
+      "passed": true,
+      "bytes": 4903,
+      "sha256": "40e7f9e227a153e2882f2fbffc076d5d70427ed4138e83dab297cd0eb725c587",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/office-window-target.js",
+      "passed": true,
+      "bytes": 5314,
+      "sha256": "a695dd98d081cd12d7e60179659ab901444b36b3be56f1a83b48d6e93142ba0b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/office.js",
+      "passed": true,
+      "bytes": 50168,
+      "sha256": "c2a47fe446a970aab51310ff4476dff9f04e4fd8142416f7d68e91d3b2566e07",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/onfoot.js",
+      "passed": true,
+      "bytes": 10407,
+      "sha256": "870d0294232fb2b1e11af42906da780bd6d8a34604179ca9de657da1d08848f7",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/parking-layout.js",
+      "passed": true,
+      "bytes": 4374,
+      "sha256": "b5c127c33e1c80e72a6cece698f831949ad637498ed7d7beb1252f30c6b4f0d9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/pedestrian-relocation-peers.js",
+      "passed": true,
+      "bytes": 3651,
+      "sha256": "84cc52b4666e5ed6b3a9cc4d45889f35ffdbc23095f58307a47f24179c2a5af7",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/photo.js",
+      "passed": true,
+      "bytes": 25243,
+      "sha256": "c8f18e59bab5e264d779dea69bef2668aff5d626e677edefe62869d9b744b13f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/player-body-interval.js",
+      "passed": true,
+      "bytes": 7050,
+      "sha256": "948155dc5584abe4e20880155f038a08c551454b7ea5e0b8a131abbb2c357e9e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/player.js",
+      "passed": true,
+      "bytes": 37955,
+      "sha256": "23be3729f855cfe708745f4ceb7eb86a2a8c86f970f07ab10b376fa103e2dea8",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/progressive-pmrem.js",
+      "passed": true,
+      "bytes": 3571,
+      "sha256": "4b306f8bb4449be00c9dd654e7da6ba6607fec581d3a4360e9f772e11a2306a1",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/rail-roadside.js",
+      "passed": true,
+      "bytes": 10927,
+      "sha256": "2bb1b3ad5fc4827c2dad1479f59669cbdd13cfc48b7fc79af050a73d30515ed3",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/render.js",
+      "passed": true,
+      "bytes": 104711,
+      "sha256": "43c33b24a3e530219d777bc9603e31e4275a3a19562102675bf8380939d0e679",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/road-access.js",
+      "passed": true,
+      "bytes": 3078,
+      "sha256": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/road-joins.js",
+      "passed": true,
+      "bytes": 1077,
+      "sha256": "5836ac682164076ddb8e5ef46b25977b870761f7b69623f8b5df454b67ab5a33",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/road-markings.js",
+      "passed": true,
+      "bytes": 5564,
+      "sha256": "125cad359f40e3ea0e0d8456f243fcc805065d7583220278836c2e29134732d1",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/road-widths.js",
+      "passed": true,
+      "bytes": 4790,
+      "sha256": "c965c1368db011832786b39f0809d704c09880749dc161ddd09cd6e3d0d48b7f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/save.js",
+      "passed": true,
+      "bytes": 21470,
+      "sha256": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/sceneResources.js",
+      "passed": true,
+      "bytes": 2956,
+      "sha256": "7f1cf9c55cbfbfa9cf9df4438de27a49ece7b765bb34ba478757024183f5c809",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/scenery-bridges.js",
+      "passed": true,
+      "bytes": 18240,
+      "sha256": "21f292275d0e4d991db1b290d774d0653fda472dc66fb704b136388f7ac501aa",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/scenery-source.js",
+      "passed": true,
+      "bytes": 2817,
+      "sha256": "c00801c1705325e205bd00fbcc223c16391661f58669514516753621e19b6ff2",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/shared-bridge-models.js",
+      "passed": true,
+      "bytes": 29215,
+      "sha256": "f3dcd036006873cf332580309037bc5f2c00bd48ab5e2d3b3591e14c3f12f653",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/shared-bridge-profile.js",
+      "passed": true,
+      "bytes": 29681,
+      "sha256": "02287b60713933284be944d3ae8a93f548fecf8d8900d389cbb02f37000406a1",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/shared-lanes.js",
+      "passed": true,
+      "bytes": 10175,
+      "sha256": "0581d1f237c0b371843e3c7f7af0c80cb5b14bf3794148905ec1948c8255b4e9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/sidewalk-source.js",
+      "passed": true,
+      "bytes": 3470,
+      "sha256": "d7a37535e91da36b9e383fd609f969d4205dfd427681328caa6a8adf688c9c82",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/signals.js",
+      "passed": true,
+      "bytes": 1577,
+      "sha256": "47b7dd7a016a3e48faf9f2348121bd8c1e280d7b07fc7acd27103ab39a29b1ac",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/situational-dialogue-context.js",
+      "passed": true,
+      "bytes": 4962,
+      "sha256": "371fcd223dfb38ae3ebc3252baaa5263447d923ddd34193ea971a83adfb7e0a1",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/situational-dialogue-library.js",
+      "passed": true,
+      "bytes": 31247,
+      "sha256": "2342a347b8604f56aec72abcb37bfab201fb47158cb9c3d6790d198ee9f9d153",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/situational-dialogue-traffic.js",
+      "passed": true,
+      "bytes": 5834,
+      "sha256": "9554e71d40c60019d614db914a6abc0c61eff3ffc516d5d90f7df6c1b6158866",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/situational-dialogue.js",
+      "passed": true,
+      "bytes": 11637,
+      "sha256": "b2e4ddd6042c8f59d6c6b665a4e6e07b9b309eef3aa5cb209ff05cb5cc53b520",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/source-bridge-descent-models.js",
+      "passed": true,
+      "bytes": 3064,
+      "sha256": "e4412e8ed1fbcca038692b53ebdd1c36e074df26eb470fa1a11a3575ea05681c",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/source-bridge-descents.js",
+      "passed": true,
+      "bytes": 9589,
+      "sha256": "b70c61e65b75fac4bec3d8330da5dc82e6a558eba09c50097dd43ba9594aed32",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/source-canopy-road-models.js",
+      "passed": true,
+      "bytes": 7417,
+      "sha256": "7eba6ebbaa448f52362a71161a37c83f87df6a715f3a27d4606081251af72c62",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/source-road-clearance.js",
+      "passed": true,
+      "bytes": 6165,
+      "sha256": "d698e90864d0df3086ba71346aa24ac0f7238adf222d133af12260e1683deae3",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/source-transit-shelter.js",
+      "passed": true,
+      "bytes": 4703,
+      "sha256": "bb9e91306ba74d3184c975fc0b3842eb82bca07ab0886f56ddde114bc722764b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/source-tree-centres.js",
+      "passed": true,
+      "bytes": 642,
+      "sha256": "8eb56bfa815c80da5c2a74866ee04789309b9d0df84dc95f40c1b3bed530277e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/source-vehicle-dimensions.js",
+      "passed": true,
+      "bytes": 5413,
+      "sha256": "cb47316096169b91a2031c64b1066c89dcd8eff3c118e6a615754b5c2b4a2413",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spot-availability.js",
+      "passed": true,
+      "bytes": 1313,
+      "sha256": "5b52e40244e56ccb65a309ad82f57986e8b40fcbb49a2148237ea0795481281e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/backdrop.js",
+      "passed": true,
+      "bytes": 8307,
+      "sha256": "263637b1ec0dd171dd1c3ffc92846c66a0a859c609daf4f8d652a711e982c2c7",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/backgammon-engine.js",
+      "passed": true,
+      "bytes": 8179,
+      "sha256": "2fe6d657d3df1c37a80eb2b9e73f3eaca5967be48301ed4fbd2f8bb3c4fea485",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/backgammon-game.js",
+      "passed": true,
+      "bytes": 22263,
+      "sha256": "605d372ca5749fcdfa01ced22cd322cf3c4fcaa22f69fbc368513b2eeda9cce0",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/baguette-game.js",
+      "passed": true,
+      "bytes": 1209,
+      "sha256": "62165fc9f69dc756e0636261d61c075a74904a66759303a5c8939a970ae3ab3b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/bike.js",
+      "passed": true,
+      "bytes": 10924,
+      "sha256": "0fb51793b9cba6cfbb3454c842b7bce4ffe2e1ac40dc8049313faa51b9fe179b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/buc.js",
+      "passed": true,
+      "bytes": 57635,
+      "sha256": "50dba1078b737473b3004362f414fba691a0749598298718f807c301bb4dbf4e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/candle-light.js",
+      "passed": true,
+      "bytes": 4201,
+      "sha256": "779e0a236692496c744e89ce89000f7b41effd7b08a2ee2dc8391daae4248262",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/cars.js",
+      "passed": true,
+      "bytes": 8064,
+      "sha256": "b9f617e5c0b3909a185085c6bd2444e22e91e237198ba9089d26a48d91fa3ece",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/chess-opening.js",
+      "passed": true,
+      "bytes": 3562,
+      "sha256": "b9853f70194c5a93f15eb65aeb8ada26e956c7a2dd89c1ea608673dac94ec0cf",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/club-music.js",
+      "passed": true,
+      "bytes": 4650,
+      "sha256": "2cb670d0edba256ec4f96394b492e5bd70e9f9159cf58e0e62e90e57afd941a6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/coin-drop.js",
+      "passed": true,
+      "bytes": 2785,
+      "sha256": "f2d113a95f53ec8cc1f28ed45b3467eafee3f11672a211c45e6767b095ae6c7c",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/context-array-codec.js",
+      "passed": true,
+      "bytes": 5459,
+      "sha256": "2f0a5c32cacedb5b605341a57a4d6191738028ad4bb3424a013eee75aa373282",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/dance-camera.js",
+      "passed": true,
+      "bytes": 2176,
+      "sha256": "3f1da643c88e464ab1ac2f92538eaf70c9b2eec33dff13985b4625eb99ef0046",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/ground.js",
+      "passed": true,
+      "bytes": 33919,
+      "sha256": "f269ad5471ffaa0098620bcd8a6056c604a9b89d22fb7fbd24bfd9c7ac6b1489",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/index.js",
+      "passed": true,
+      "bytes": 92151,
+      "sha256": "d19b92e3d01b7968ad61b2c5e9c611aafd03fa8699bbb0170f6c7b29138aa410",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/kit.js",
+      "passed": true,
+      "bytes": 25207,
+      "sha256": "382f5353be67766e36183babd4a321dc4e709c709429167fc461968a033cffcc",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/landmark-colliders.js",
+      "passed": true,
+      "bytes": 822,
+      "sha256": "3cc9d9a55cde442e481eaf94bacb85ce8477749a141d657a7a5f80f33db7bd70",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/official-hagi-tv.js",
+      "passed": true,
+      "bytes": 6701,
+      "sha256": "d000fb0953480de783d90384534ea5756907db7cda6aaad7c2f5f44bd0b30bea",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/osm.js",
+      "passed": true,
+      "bytes": 66292,
+      "sha256": "6578c0627324db7ae12e42f3d3b612b65575ddd0387da6dc25b649ac091d4360",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/participation.js",
+      "passed": true,
+      "bytes": 6360,
+      "sha256": "36a048e11c39b4e7983bf0015e505ef72c33d30dd257bcfe429306e54d00172b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/people.js",
+      "passed": true,
+      "bytes": 41090,
+      "sha256": "ab60f1a4f6d44c537b1727b332eaa9f0c68b1c436cd55cecd7171fbebb323338",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/photo-hunt.js",
+      "passed": true,
+      "bytes": 6210,
+      "sha256": "a5852148f76272a601e491cd56b1fa524b9a1b04fe697e82b5680e93f3a42462",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/props.js",
+      "passed": true,
+      "bytes": 32444,
+      "sha256": "3511b4e65b284df7a939189893c78f9f2126fde7556a8b8a6f1de027aca902e5",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/race-course.js",
+      "passed": true,
+      "bytes": 4743,
+      "sha256": "c294211c427582a02c79a6e3cd084f7e9caaf1741fc2929d8b2cb5be5a47e103",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/arcul-activities.js",
+      "passed": true,
+      "bytes": 10068,
+      "sha256": "7bba64029d16f31f9efebafc82c2b7227d2f2e90145cb433adecd6afd6b362a0",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/arcul-de-triumf.js",
+      "passed": true,
+      "bytes": 8457,
+      "sha256": "bfdd71886588da018f25b01dd4a0c34871c6fdf8fa4bf0ade503be1c244630cc",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/arcul-layout.js",
+      "passed": true,
+      "bytes": 3919,
+      "sha256": "a84b56c71418acbe1539cfc3e88f79d4c5e7ed8f7858c936811187beef19d93f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/athenaeum-revolution.js",
+      "passed": true,
+      "bytes": 16584,
+      "sha256": "3b25c24129a903acabfdfb6259bd7874b7e012d8380a628a5600cf5fe7409c4a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/ballard-locks.js",
+      "passed": true,
+      "bytes": 17791,
+      "sha256": "a31f33db47739348ea371029eed186667502b37ea94f5b77fce115b11341a116",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/bel-botanical-garden.js",
+      "passed": true,
+      "bytes": 21134,
+      "sha256": "c9f2da2e49026e7df8813fb57bcd01244f79ab2af710051684ebbf18e87e8eda",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/bel-common.js",
+      "passed": true,
+      "bytes": 22002,
+      "sha256": "4e750a6845b41f25b05c6516ba6bbef0fcc00d0184777ea01be3c010c8610ae3",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/bel-downtown-park.js",
+      "passed": true,
+      "bytes": 31147,
+      "sha256": "a0a8731d95eeac3d5752381e26eeb603650285d52486c9886ebc07299225fb75",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/bel-lincoln-square.js",
+      "passed": true,
+      "bytes": 12050,
+      "sha256": "66b77149667fc526c177bdcb9a35e5a80d19a468b482f7c3ef9699196937e46b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/bel-meydenbauer.js",
+      "passed": true,
+      "bytes": 42751,
+      "sha256": "2b584225b92b6a2afb9fc76ff49bd2401d2d07d900e5ac08458c65e016fdb509",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/buc-herastrau.js",
+      "passed": true,
+      "bytes": 36672,
+      "sha256": "34016f415429c13de696439ffc23071b168c0d9d0e8278c3a8301aebe9ff0eff",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/buc-old-town.js",
+      "passed": true,
+      "bytes": 63834,
+      "sha256": "274d6f1dc7857849aded643cd129f60059becad0ae74293b9d439694af169d9f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/buc-parliament.js",
+      "passed": true,
+      "bytes": 43249,
+      "sha256": "3812f35188fe2d5a9ebf199dfc2378ad4751612136ad1210c482ddc46934115f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/carusel-interior.js",
+      "passed": true,
+      "bytes": 13035,
+      "sha256": "88e2ed96c4356903cbf0b7aad4c47f4747a9cf098a6f15cc1fc93d515dc3d403",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/carusel-look.js",
+      "passed": true,
+      "bytes": 2151,
+      "sha256": "26445d1b4a59b9fbbf1ff105e32e933287ad8e34a711c620d1aa22303fefc0f2",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/cismigiu.js",
+      "passed": true,
+      "bytes": 22445,
+      "sha256": "5139163f56c8a2d782ff816b52e65dd121a24758013ed75a853024a8aa85c6eb",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/dinamo-hint-tv.js",
+      "passed": true,
+      "bytes": 3316,
+      "sha256": "c1dbe2057ebb1fedb92a5c72adf409790f08806606b36e6996d0ff1b254ab8d8",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/freddo-look.js",
+      "passed": true,
+      "bytes": 7456,
+      "sha256": "4c3ea0e41285114724edbc6b9c3dfccdb7e080930e2327c0c38ed3a482e16962",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/fremont-troll.js",
+      "passed": true,
+      "bytes": 43895,
+      "sha256": "9b6061ea59ad0669b68a41c092d1bf2937be86dd21849cc8de3d649139c61369",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/gas-works.js",
+      "passed": true,
+      "bytes": 20411,
+      "sha256": "c1252dbf3ed3b000700fc84b60915656857963bc8e500ca808561b110755989a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/kerry-park.js",
+      "passed": true,
+      "bytes": 11595,
+      "sha256": "83f484862774a061bfa9ff872fd40b45ddb6451e2ca48203af15d22669975901",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/old-town-nightlife.js",
+      "passed": true,
+      "bytes": 18030,
+      "sha256": "c0b2d11516793f321d4559161ef6edb9d33779b29d921342173f6e2121c76c53",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/pike-place.js",
+      "passed": true,
+      "bytes": 44896,
+      "sha256": "ffc4583796810a4c9434700ee3d70e128af0e3af59adcf9b3534d3a312e1492f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/pioneer-square.js",
+      "passed": true,
+      "bytes": 19981,
+      "sha256": "eebc54feb03198f589d7598063ec137b0b856fa89547d35cc5d466ed9574e543",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/sea-common.js",
+      "passed": true,
+      "bytes": 71323,
+      "sha256": "224610b98e998d2a124f066b9b190b607caaa7e157cd447e7afb9268998b0585",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/seattle-center.js",
+      "passed": true,
+      "bytes": 34433,
+      "sha256": "b5c65503eba4dd62b5054474ce172df3055966643f2af150e2a77129e0c6c300",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/spring-palace.js",
+      "passed": true,
+      "bytes": 17966,
+      "sha256": "a43a9dd6dcd739debfcfd17b8ce96d3d7ea0a782d5a19f07dc0d5246aeee8c88",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/waterfront.js",
+      "passed": true,
+      "bytes": 14016,
+      "sha256": "fdfaf185454b32efac9e631043f221a0712c36a8f25981953828ced912efc0cf",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/scenes/wcp-secret-bar.js",
+      "passed": true,
+      "bytes": 23970,
+      "sha256": "6a3252afe89e2238e5b3b4c4ffc6d2a8fcf050b1d79de90c5a5aff22751211ea",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/sdf.js",
+      "passed": true,
+      "bytes": 12595,
+      "sha256": "742037ac8d81781aa775dd43f74a6f1e0abc0d6493981538df355cdc6f64cb49",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/sound.js",
+      "passed": true,
+      "bytes": 8786,
+      "sha256": "7e24d4c27e80fb9c9e2190d001c4bc59b44a3e3c4402e06aee6b79b236858817",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/source-buildings.js",
+      "passed": true,
+      "bytes": 13757,
+      "sha256": "4d51ef45abbedb9f4b04627cb97c4b388ccd332e1737486005d4a327e2182362",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/source-coast-water.js",
+      "passed": true,
+      "bytes": 4903,
+      "sha256": "5187c160d1da6b87e232dc87c3ff45089226f26b224dc998a2e146103aea641e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/source-context-data.js",
+      "passed": true,
+      "bytes": 4405,
+      "sha256": "2a4232db32d748b2ebfff087265ef3b8afe6052a3b0b3aff6638efe8d6f096db",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/source-context-landscape.js",
+      "passed": true,
+      "bytes": 5019,
+      "sha256": "c3f151045bd39e9584351a43ba23c7b820efc40b00d253c59bc4a6cbe86f7945",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/source-context-surface.js",
+      "passed": true,
+      "bytes": 8311,
+      "sha256": "8c6bc6d0081bf6031f8bc32f363a2f0857d6483429b54f7a7b64baf71d160386",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/source-context.js",
+      "passed": true,
+      "bytes": 10439,
+      "sha256": "3fc95de32279908e3be9f951ce6baecf48ab54d5f4d62c6c7819c779bea51807",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/source-landmark.js",
+      "passed": true,
+      "bytes": 3081,
+      "sha256": "b17e4249f7e9323baeaf276d4f1f667af2763fef587b7a9b103b3c38b0130f0d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/source-water-faces.js",
+      "passed": true,
+      "bytes": 5036,
+      "sha256": "d0e283399213d8d737a6e9d2cb210b4cb02019d7b764b574514da421c076a1ff",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/stone-skipping.js",
+      "passed": true,
+      "bytes": 3621,
+      "sha256": "c27ba42cef47f6128eac7d88b428fe198a8e193f3aae7a057f22e73930485d3d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/tour.js",
+      "passed": true,
+      "bytes": 6690,
+      "sha256": "9f09737433667fce25e2564a2dea60bd3da42a1a8e037c5f515b5a79d4f005a9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/ui.js",
+      "passed": true,
+      "bytes": 35995,
+      "sha256": "0f8e4ead8159e36322f472840766186b23b54cc38af926baa130ba7e65abefad",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/venue-activities.js",
+      "passed": true,
+      "bytes": 14712,
+      "sha256": "5a3855d79e5de418a518537f23af2cc442d08a1d1901281a777e022b4649f869",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/walk-boundary.js",
+      "passed": true,
+      "bytes": 2503,
+      "sha256": "366b002f0970c273dd128fa34472826e8b43a5fc93b194ad5c1e527d180707de",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/walker.js",
+      "passed": true,
+      "bytes": 9796,
+      "sha256": "7cf12e74580b4b9dcc06c85afb0a3fc3865640199f4b37dab28f59b3d920d9bd",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/spots/water-route.js",
+      "passed": true,
+      "bytes": 2468,
+      "sha256": "0c9421c2001c50156c31048e877bd9bcd99e2629d9c84f992bf5dbc18f8a7665",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/telemetry-game.js",
+      "passed": true,
+      "bytes": 13728,
+      "sha256": "bbe9df1036d7fdb06bd666027011d90a0d1c66fa322d32efee19130e933966ef",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/telemetry-health.js",
+      "passed": true,
+      "bytes": 19518,
+      "sha256": "05805123b81c5aa14649512c551a1a4d3eca76746e95d0c5b63c89362734c0f1",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/traffic.js",
+      "passed": true,
+      "bytes": 257927,
+      "sha256": "3a8f2bbede6ac9fc64c82c10ad7725c12a88762008874291e03302ecb5c7ed72",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/tram-body-support.js",
+      "passed": true,
+      "bytes": 14678,
+      "sha256": "f78a8df825d19b269e7d642a83e792d0bd0f614cb9e42537d049f7383ca26976",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/tram-clearance.js",
+      "passed": true,
+      "bytes": 1795,
+      "sha256": "6d778dd69fe40a9a15b822cfa6b162d0d36c8114d30246c6feef75148fa26ac2",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/tram-grade-models.js",
+      "passed": true,
+      "bytes": 1967,
+      "sha256": "bc2f44e47e3b1988d18d7f984380193e2c7e1ad179f9461fbccfe60ccfecd461",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/tram-grade.js",
+      "passed": true,
+      "bytes": 27498,
+      "sha256": "2129fa2c5037c0d4b21bfbb7d881084868d7b0f7a55aad0ef8e4c73fbc782ffa",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/tram-path.js",
+      "passed": true,
+      "bytes": 21599,
+      "sha256": "f296931a093085aa8e2d9409e462192316c6f09e7ac649dda207405385851ca4",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/tram-source-signals.js",
+      "passed": true,
+      "bytes": 11556,
+      "sha256": "49374a21c5b3be4331221f72fdc0adccfa19c245aed5ae04099fb714fc224390",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/tram-trench.js",
+      "passed": true,
+      "bytes": 6044,
+      "sha256": "755b4ab3acdf101182bcc4eccf9486289f7346b7e6d58fb4c81f92669ad8a018",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/tram-tunnel-grade.js",
+      "passed": true,
+      "bytes": 12187,
+      "sha256": "29e198ae6f04a3fc97b3fd1db7fe01891f86b44444c2e398afd58f41b67ef2de",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/transition.js",
+      "passed": true,
+      "bytes": 12636,
+      "sha256": "35e0f270adb35d2462cf3a153ba4deec243d8537529520684b57198a56cda593",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/trees.js",
+      "passed": true,
+      "bytes": 20602,
+      "sha256": "9ffa650f45cf498f1acfd244d4cc0c9f9c1621b9f8b6a10fd8db6164e83fb70c",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/turn-lanes.js",
+      "passed": true,
+      "bytes": 4090,
+      "sha256": "0911880d096c4efe126fc4f53a7df1559d8f6ee01cb52635afeb939648dece54",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/underpass-ground-owner.js",
+      "passed": true,
+      "bytes": 4811,
+      "sha256": "52d8e943ede3199ad485f06e455fa88c7b4d48a5d327f91837b7a73a9fdf37f2",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/underpass-roof.js",
+      "passed": true,
+      "bytes": 9375,
+      "sha256": "d1cc7dabf82d602959959f53bca26be699b62142e29ab0ab44e5b9936cec56b3",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/util.js",
+      "passed": true,
+      "bytes": 11132,
+      "sha256": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/vehicles.js",
+      "passed": true,
+      "bytes": 125523,
+      "sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/water-batch.js",
+      "passed": true,
+      "bytes": 5971,
+      "sha256": "cd1a0fb7e59ff1c621eadc77acbd58c61d81cce09c5dbf9b74125268b41b5543",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/water-channel.js",
+      "passed": true,
+      "bytes": 1289,
+      "sha256": "b7a645b3beb86c3e74ea681e1a20c39a6675536243342cf1cdff0d8d86e70504",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/water-lines.js",
+      "passed": true,
+      "bytes": 2907,
+      "sha256": "c69bea49df53096df5a19642b82ab7e087d8422c0f6824663ea7ba8a4508cc73",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/water-shore.js",
+      "passed": true,
+      "bytes": 5369,
+      "sha256": "6705b456454df3ac85ada90a96ff66280706ad306de401dea25896b8d379315e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/water.js",
+      "passed": true,
+      "bytes": 14399,
+      "sha256": "7a7cea86bdb0dc2cf135b95c9cd7aec81d16e8e48a4bf0b125449d91931df3ae",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/weather.js",
+      "passed": true,
+      "bytes": 28407,
+      "sha256": "a2bb0854d3fe3792f94ca9f3b2f2ecbdd9e61b497aca1d3ac5d51d02ec5875b8",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/world.js",
+      "passed": true,
+      "bytes": 570126,
+      "sha256": "f4a8e10a452d385b84fe4042df3f5147374f31561c8804ab154dde09ed177a1e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/src/worldmap.js",
+      "passed": true,
+      "bytes": 38053,
+      "sha256": "cda4829131f34395b661cecf73564c08dc980ab10f9464d1c1f1ecd02b7b5f8b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/style.css",
+      "passed": true,
+      "bytes": 96554,
+      "sha256": "70d097dd5090960f2c3e03ce8357bcdb177f078fcab54ee8a50ad5c8cdd9abe4",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/CopyShader.js",
+      "passed": true,
+      "bytes": 571,
+      "sha256": "4e3346db194db56a596cd074e9bdb39fb5eb52040c333e0d29dc4eb1324d3b1d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/EffectComposer.js",
+      "passed": true,
+      "bytes": 4950,
+      "sha256": "73a2a9557141dff1c29bb5f2d53cb62905855a216b0181cd8dd42d6bc6cec87b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/FXAAShader.js",
+      "passed": true,
+      "bytes": 6638,
+      "sha256": "fd04bb4db3b4895540dd6e6ccef1a9984f0097bef396d27d6fea7b15c66a06ec",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/GTAOPass.js",
+      "passed": true,
+      "bytes": 16566,
+      "sha256": "c0d33b166deb459b3adcbb3b543b7d61763d4ab4fcc778641afbf1305d807ad8",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/GTAOShader.js",
+      "passed": true,
+      "bytes": 13223,
+      "sha256": "82b24ca4a9cc99109b93994cb9ad8c23d1109ba94257a3af3335dc9e5111b187",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/LuminosityHighPassShader.js",
+      "passed": true,
+      "bytes": 1498,
+      "sha256": "e40b9e5355f66b6e7720c8b54472259481ab17e36ac24ba36eb871f723d21ee6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/MaskPass.js",
+      "passed": true,
+      "bytes": 2231,
+      "sha256": "328cf7db0da5d9be83ffe39d54b01d5ac1fddf108cc98182ddbb056f5c8b537f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/OutputPass.js",
+      "passed": true,
+      "bytes": 2532,
+      "sha256": "88b4010627926dce53480c3a8a230ed71a162e7cae1ce2ac419dfb7900160460",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/OutputShader.js",
+      "passed": true,
+      "bytes": 1490,
+      "sha256": "4944cecd49c0d4d1520a4d927bde8a590fd43f041ee913252b9451855a01d0f0",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/Pass.js",
+      "passed": true,
+      "bytes": 1723,
+      "sha256": "7f988181feafe0831a9895c0e507e07b8128c87f115342e75efb452dd870873a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/PoissonDenoiseShader.js",
+      "passed": true,
+      "bytes": 6631,
+      "sha256": "9825bdd96780fab7a7a58111377032b666ca38974ad7fee223ab7cbb43cc7235",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/RenderPass.js",
+      "passed": true,
+      "bytes": 1958,
+      "sha256": "359f12b05357a8c666baa65bba3ade4265845617ddd7dfd812bde0d4f3dcb2bc",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/SMAAPass.js",
+      "passed": true,
+      "bytes": 49457,
+      "sha256": "2f4da7e1f78c8d39582e25dee185ab6df18c42d3f55ed5d43de5a89f9c8b0a28",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/SMAAShader.js",
+      "passed": true,
+      "bytes": 14645,
+      "sha256": "ff4de77e79b0c2d214e822da11c72311f6e4c7fd2a4befd7f0f05a7832284081",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/ShaderPass.js",
+      "passed": true,
+      "bytes": 1593,
+      "sha256": "9cda38094c2cd1cf29ed0fe3cfc1b3229e3ca3758659617eba6fdae4107bc233",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/SimplexNoise.js",
+      "passed": true,
+      "bytes": 14351,
+      "sha256": "9b8d541b77b0ddc79afaa6a1de8941452c191b8b9006f04e7b8fc422e2b263f7",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/addons/UnrealBloomPass.js",
+      "passed": true,
+      "bytes": 12409,
+      "sha256": "5d46047298729f4bdc7ccf1d673d091f7d60dd799918908049d1f6c3d4cda02d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/vendor/three.module.min.js",
+      "passed": true,
+      "bytes": 691648,
+      "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+      "curlCode": 0
+    },
+    {
+      "path": "index.css",
+      "passed": true,
+      "bytes": 6034,
+      "sha256": "4af81317fff2f2d305a4fe1cda9cada01b0f4643cd9d161b31d95c8ae8d3167c",
+      "curlCode": 0
+    },
+    {
+      "path": "index.html",
+      "passed": true,
+      "bytes": 3598,
+      "sha256": "d9db2fef9f08d1d34c52e1393376b9fb94db5cf2f8eb354ed1ac7c6f04b4270c",
+      "curlCode": 0
+    },
+    {
+      "path": "index.js",
+      "passed": true,
+      "bytes": 4462,
+      "sha256": "2fb4ac92ed57022c175f2c50a8ff1e3c7f02d029b92d99e208588af0ad5c3fb0",
+      "curlCode": 0
+    },
+    {
+      "path": "public/telemetry.js",
+      "passed": true,
+      "bytes": 9172,
+      "sha256": "2fccb2a095d527b1ed3ff80043d150afc6a1f2bd78ca8f781c7533432632238a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/release.json",
+      "passed": true,
+      "bytes": 39130,
+      "sha256": "9e45a6137b97c8f3eb632b6afd4510ad88dc9fcafbd39a5eee5f248d909619fb",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/index.html",
+      "passed": true,
+      "bytes": 69854,
+      "sha256": "b8fdf5db8e82094888b10ce44d2c4ba1043b9425b9f324573817692011868017",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence-picker.js",
+      "passed": true,
+      "bytes": 6771,
+      "sha256": "bcbdce232300fd8b91f1d376ef664eba9fe8f5901df29c4d75c459576f5ed29b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/landmark-evidence.js",
+      "passed": true,
+      "bytes": 12895,
+      "sha256": "c15a99db023e3631065e1b4f7b47652482d5962182632a184ba195daf223a50a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/style.css",
+      "passed": true,
+      "bytes": 30026,
+      "sha256": "60e1781517fd8bd5311ddfb01bebe9ae96789fd218026fbf221908e5d401f9f6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/inventory.json",
+      "passed": true,
+      "bytes": 218384,
+      "sha256": "f87cf015d71b1ba5c10070d9c13a6d8d9ceebfe049cf6c9ab561dac52934729b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/seattle-context-render.bin.gz",
+      "passed": true,
+      "bytes": 23887661,
+      "sha256": "7af4d78ceec697587d90c7604a94225d79e18ba8b368318d386ef1777a4d2e28",
+      "curlCode": 0
+    },
+    {
+      "path": "game/data/spots/seattle-context.json.gz",
+      "passed": true,
+      "bytes": 4383945,
+      "sha256": "8793003010552f72b13c305aded8af6e6caa6ba72e8a247822de87b75a4af7c6",
+      "curlCode": 0
+    }
+  ],
+  "passed": true
+}

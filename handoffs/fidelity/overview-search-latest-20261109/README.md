@@ -1,0 +1,7 @@
+# Latest-only overview · 9 November 2026 Pacific
+
+Public master57e6581c deployed successfully (Pages42760784680).44real desktop/phone checks pass: accent-insensitive search, city filters, alphabetical sorting, keyboard selection/Escape, centred caret, explicit range chips, seven current visits, latest Carusel captures, all8current surveys and no historical asset requests. All served source hashes stayed unchanged. External aerial pixels were intercepted for layout only; no photographic parity is claimed.
+
+Live verification reads back112public files and primary visit images,8,770,535bytes, with exact expected hashes. Current dependency audit checks5,533image references/4,716distinctlocal targets with0missing/excluded. Historical district archives account for364,273,055bytes. Committed-source deployment estimate839,842,894bytes/14,343files→476,664,211bytes/6,971files (not a local Jekyll build). Original archive files and provenance remain in Git; no source image/date was relabelled. Current per-frame ledgers point to their original Git revision when the local archive is excluded.
+
+The latest Carusel19bwalkthrough now belongs to OldTown's main visit gallery; the older gallery and standalone placement are gone. Pike's latest public-menu High arrival comes fromc4b8, with the still-failing Ultra budget and unfinished activity/roof/facade review explicit in its manifest. The165code tests and new game runtime are separate from this website delivery check.

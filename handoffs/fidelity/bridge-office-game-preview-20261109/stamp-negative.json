@@ -1,0 +1,5 @@
+{
+  "wrongSourceRejected": true,
+  "outputHashesUnchanged": true,
+  "message": "Error: Commit game/data/bucharest-floreasca.json before stamping the release."
+}

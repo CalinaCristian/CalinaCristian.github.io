@@ -1,0 +1,291 @@
+{
+  "source": "bca047a1cf0d377807df1e278e16dcc9f2269196",
+  "started": "2026-11-10T05:06:43.485Z",
+  "scope": "Real overview search/city/keyboard/selection/phone checks and current-survey delivery. External aerial pixels are intercepted; game/reference fidelity and hardware performance are not tested here.",
+  "checks": [
+    {
+      "name": "All61 available 1280",
+      "pass": true
+    },
+    {
+      "name": "Alphabetical order 1280",
+      "pass": true
+    },
+    {
+      "name": "City filter bucharest 1280",
+      "pass": true,
+      "details": 37
+    },
+    {
+      "name": "City filter seattle 1280",
+      "pass": true,
+      "details": 16
+    },
+    {
+      "name": "City filter bellevue 1280",
+      "pass": true,
+      "details": 12
+    },
+    {
+      "name": "Accent-insensitive AND search 1280",
+      "pass": true
+    },
+    {
+      "name": "Enter selects and closes 1280",
+      "pass": true
+    },
+    {
+      "name": "TNB range chips include explicit districts 1280",
+      "pass": true,
+      "details": [
+        "Distant backdrop · Grozăvești · about 2.9 km",
+        "Nearby scenery · Unirii · about 327 m",
+        "Nearby scenery · Romană & Victoriei · about 391 m",
+        "Distant backdrop · Floreasca · about 1.9 km",
+        "Distant backdrop · Pipera · about 4.2 km"
+      ]
+    },
+    {
+      "name": "No-results state 1280",
+      "pass": true
+    },
+    {
+      "name": "Escape restores trigger focus 1280",
+      "pass": true
+    },
+    {
+      "name": "Caret centred inside trigger 1280",
+      "pass": true,
+      "details": {
+        "dy": 0.0078125,
+        "inside": true,
+        "height": 71.453125
+      }
+    },
+    {
+      "name": "Seven current visits only 1280",
+      "pass": true
+    },
+    {
+      "name": "Latest Carusel images decode 1280",
+      "pass": true
+    },
+    {
+      "name": "Latest Carusel capture source retained 1280",
+      "pass": true
+    },
+    {
+      "name": "No historical gallery headings 1280",
+      "pass": true
+    },
+    {
+      "name": "No horizontal overflow 1280",
+      "pass": true
+    },
+    {
+      "name": "All61 available 390",
+      "pass": true
+    },
+    {
+      "name": "Alphabetical order 390",
+      "pass": true
+    },
+    {
+      "name": "City filter bucharest 390",
+      "pass": true,
+      "details": 37
+    },
+    {
+      "name": "City filter seattle 390",
+      "pass": true,
+      "details": 16
+    },
+    {
+      "name": "City filter bellevue 390",
+      "pass": true,
+      "details": 12
+    },
+    {
+      "name": "Accent-insensitive AND search 390",
+      "pass": true
+    },
+    {
+      "name": "Enter selects and closes 390",
+      "pass": true
+    },
+    {
+      "name": "TNB range chips include explicit districts 390",
+      "pass": true,
+      "details": [
+        "Distant backdrop · Grozăvești · about 2.9 km",
+        "Nearby scenery · Unirii · about 327 m",
+        "Nearby scenery · Romană & Victoriei · about 391 m",
+        "Distant backdrop · Floreasca · about 1.9 km",
+        "Distant backdrop · Pipera · about 4.2 km"
+      ]
+    },
+    {
+      "name": "No-results state 390",
+      "pass": true
+    },
+    {
+      "name": "Escape restores trigger focus 390",
+      "pass": true
+    },
+    {
+      "name": "Caret centred inside trigger 390",
+      "pass": true,
+      "details": {
+        "dy": 0,
+        "inside": true,
+        "height": 68.90625
+      }
+    },
+    {
+      "name": "Seven current visits only 390",
+      "pass": true
+    },
+    {
+      "name": "Latest Carusel images decode 390",
+      "pass": true
+    },
+    {
+      "name": "Latest Carusel capture source retained 390",
+      "pass": true
+    },
+    {
+      "name": "No historical gallery headings 390",
+      "pass": true
+    },
+    {
+      "name": "No horizontal overflow 390",
+      "pass": true
+    },
+    {
+      "name": "Only current survey ",
+      "pass": true
+    },
+    {
+      "name": "Only current survey romana",
+      "pass": true
+    },
+    {
+      "name": "Only current survey floreasca",
+      "pass": true
+    },
+    {
+      "name": "Only current survey grozavesti",
+      "pass": true
+    },
+    {
+      "name": "Only current survey unirii",
+      "pass": true
+    },
+    {
+      "name": "Only current survey otopeni",
+      "pass": true
+    },
+    {
+      "name": "Only current survey pipera",
+      "pass": true
+    },
+    {
+      "name": "Only current survey seatac",
+      "pass": true
+    },
+    {
+      "name": "Only current survey bellevue",
+      "pass": true
+    },
+    {
+      "name": "No historical resources requested",
+      "pass": true
+    },
+    {
+      "name": "No local errors",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "All served source unchanged",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "served": {
+    "/game/overview/index.html": "b8fdf5db8e82094888b10ce44d2c4ba1043b9425b9f324573817692011868017",
+    "/game/overview/style.css": "60e1781517fd8bd5311ddfb01bebe9ae96789fd218026fbf221908e5d401f9f6",
+    "/game/overview/comparison-viewer.css": "de7ac8da561f88b142f880ddd8a6c404fd6c5de3c518b421dc74c4263fbbbecc",
+    "/game/overview/overview.js": "1970190534542319e23e940ab791132a6ab01f632386dbe87c90e87f64941cc6",
+    "/game/overview/landmark-ranges.js": "da81850cf9e015ca46bc6fc4701f51ff2b11fbfe0dbdadb61b9ec3def8949731",
+    "/game/overview/comparison-viewer.js": "ee43aa20c31675651c411c3d1812588d7e673c0d44abf452bbac6209095d662b",
+    "/game/overview/perspective-viewer.js": "46ac4cb52747b5ae6c39c9645c2b17cd739de8c236522c1031137234d8042304",
+    "/game/overview/inventory.json": "f87cf015d71b1ba5c10070d9c13a6d8d9ceebfe049cf6c9ab561dac52934729b",
+    "/game/overview/comparison-data/catalog.json": "ded169e522ad97e829cb16f99dd2bfdf8087237415d3100e4db3ec7084aa7f17",
+    "/game/overview/landmark-evidence.js": "c15a99db023e3631065e1b4f7b47652482d5962182632a184ba195daf223a50a",
+    "/game/overview/comparison-data/romana/manifest.json": "301037e12de863a172670e4c11548bdff924f2a706cda54ca8dee10db56c6813",
+    "/game/overview/comparison-data/floreasca/manifest.json": "f1b362365cb98b0ce85531285b4e678b68ed665981fd955e6c66279113d5f84e",
+    "/game/overview/comparison-data/grozavesti/manifest.json": "1cbf07336a74294d7ad4da187de17b8b79ded844aa32ac19b73255391c4c6379",
+    "/game/overview/comparison-data/unirii/manifest.json": "dbfdabcf4b3dcffc7c829f775c7ad4918fcfe42b1ce47f1e5d65d811885fe7a2",
+    "/game/overview/comparison-data/pipera/manifest.json": "e5db4a9f3e47e8d75ed78e69f6d72bbbc7a62c4799064e63d7db26d231282c93",
+    "/game/overview/comparison-data/otopeni/manifest.json": "4759c0fc4acf65be9e6081f01e06ad28c2ea78c32238d3d36e02c9f656a692e9",
+    "/game/overview/comparison-data/seatac/manifest.json": "eeebd3b892320d4fab08ba780d5a7aa9b2224143799b52234c0bb43df9f17af6",
+    "/game/overview/comparison-data/bellevue/manifest.json": "6aaff5ca88a1bb0ecaf5825d95783230fd2eef539a241c2e9ea5bf0bfc666c63",
+    "/game/overview/evidence-paths.js": "96a4bcc90847fb6d13ae761509878549167501c6ba6f7f30896d996ba25e4745",
+    "/game/overview/evidence-picker.js": "bcbdce232300fd8b91f1d376ef664eba9fe8f5901df29c4d75c459576f5ed29b",
+    "/game/overview/comparison-data/romana/images/aerial-r10-c09.jpg": "e4e657aed2b23ddb2fc5f31f7b6144ad91a4f477a918554739f603fe958fd8b4",
+    "/game/overview/evidence/landmarks/bucharest/parliament.json": "5f5e2c25062751dea6069932a3d783e7ab6872f2b37e2354e973cf14b9fdb2af",
+    "/game/overview/evidence/spots/old-town-lipscani.json": "357cb914f2b0bdd730f91b0a6b8cb60c8df5542ed5ed577bcc4783e786aaecc2",
+    "/game/overview/assets/landmarks/parliament/front.webp": "9ff34f6479fbe4cb5076c33f37cce6b195457336fbaaa671d7d3807096866b24",
+    "/game/overview/assets/landmarks/parliament/top.webp": "8f861b1c7eb0810497f561f1ed14064f98b373ef8591074fca563b0705b7a3a3",
+    "/game/overview/assets/landmarks/parliament/oblique.webp": "d5a903e92bb88e63b71e1d2b7b9281f2e4e3af4b9f1690f45fcf1ba0aef925af",
+    "/game/overview/evidence/landmarks/bucharest/tnb.json": "48be1e713c6dd4529e8a131bb8bfc7636ed081565b0c34abac775fdea19cb7f6",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r03-c04.jpg": "7a03185df84e7bce7748b78af2d597a99d11b838d0d491a0f5445e1d73f0aa82",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r04-c04.jpg": "0d4038fe41a8cd8c3179bc2bcad3867f9afad69484c73f11f037f4db5494fbfb",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r04-c03.jpg": "167552254763def004ff86305fc7ac89db173384a3b99afbd28fc1944b9e37e4",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r04-c05.jpg": "e7a3ceeac8df1f1361b10fc77436fc211f1e2de11f4338d8dfaf9321a8d74319",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r05-c04.jpg": "ee2a1ef31b10d6a4bd96cf337d96131ca1344356d0671c7f605a26fc42bc4133",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r05-c05.jpg": "2ef679fae0aeb1121f83ec6e09744df953fdeda92e2eef16e09e09a700ad09d7",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r05-c06.jpg": "56aee4896a0d01bb48ab7ce8767a6ff1960f8a7d7a26f1795ba19c4dbc968e32",
+    "/game/overview/assets/landmarks/tnb/front.webp": "ca905aa9e7a9cec0341c8ed1320f7079bd1aa3cb73c7ea3a58ef364765a698ee",
+    "/game/overview/assets/landmarks/tnb/top.webp": "f0af3754003a18b99477ef9f12563b8a61572fe45d36989a8089a31ac82f97ff",
+    "/game/overview/assets/landmarks/tnb/oblique.webp": "580c1a0178ed81f03b2d536355c88c07e31d8e58200d62538271588b45241001",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r06-c04.jpg": "65dca2e3c56cb32bdced7270c5c913593f472d292aeb0af7ce26588aad31ecd1",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r05-c07.jpg": "dc3d3bbaac9d3cd63e35661bb692837b1c0aaa22c50a341023b26c42fd5e6099",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r06-c06.jpg": "6e56afcd8e46d1344fd9c40845dfb23ef3b5ed1b16890523f4abcb14ca0d5961",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r06-c05.jpg": "5e17bab000d0aec1c707ffa44309a063e76056cb8dab772f1e22c69d3a348b01",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r05-c08.jpg": "c524ebc3c24f995b9279d9c2d50d7a83de5fc24f96e322c75683778ae3d7ece0",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r06-c07.jpg": "612a8d2652899deaa2a36b59b1437218f9e30dee245c0f1c34baae9d3e923520",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r06-c08.jpg": "15c1b40de3b84f0648562fabb62813d4ee10c3089e98a586a8239c173acfe180",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r07-c05.jpg": "3c32e1d9c4d42f3d2de3ab8105ffaab1ad487fa05aa98bf37cec0a02c99018a8",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r07-c06.jpg": "bc366ab50988599a18ed298f54346f9f5f837146e4b018a0bf0b0f8c1e45ae34",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r07-c07.jpg": "a294debb0099676ade0ff8ae48199abc74dea18d1dfb8d704ecc93511d3e2b8a",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r07-c08.jpg": "4812cdbb546749c4dddbd43374f4d330a9a1ac0314c905a103c9e0f5553728a1",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r08-c06.jpg": "18cf822235b0da0578e9bd4d0414014b73bb3cbeba8676bc9a7e588faf376ba6",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r08-c07.jpg": "dbd2bb1793908eca1e7b0fc81d085fb09cdd8e0635101763b01930aaf6f64bcd",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r08-c08.jpg": "83364dbbf2066e450ecd105052a67ad51746116672cb685a15b1de63e25da591",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r08-c09.jpg": "53c4866d375593cf5d8101e1e4758f225260aa29a0062d0468595640f4d0735b",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r09-c08.jpg": "f7ef0e66ba95df80ce56f72bb737b2521006e93b5855b0a83f526a6eb4fb1417",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r09-c09.jpg": "8684d62590cb00e9590b09aed9cdd91a023fa3ce9e845e71a087eda8c3501812",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r10-c08.jpg": "664a5db32bdb1282943734db169546defb70d13b51d9a73f5900752f6faff7d7",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r10-c09.jpg": "8fed10aef99aa48329337577efd45357c34c4063aab90ee729a29bf20b25ac51",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r10-c10.jpg": "8522985c59db8e7bff4f3767ddbcc6c58704c267d2d4fe6b43495e2ea0b2fba9",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r11-c08.jpg": "71f3c6c11a939e20aa515e579344bb949c063e615e443c7f353862814d21f1ee",
+    "/game/overview/evidence/carusel-staging-20261109/phone-carusel-ground-interior.png": "0c5e112d08d70634a8a1784b9f552578186741c95951234ebeeffdbc59785e19",
+    "/game/overview/evidence/carusel-staging-20261109/carusel-public-entry-night.png": "88afd58fadc93f8a468bac6c7e27f4b4ce56cb621375aad1ba30782597d03e4d",
+    "/game/overview/evidence/carusel-staging-20261109/carusel-first-gallery-day.png": "6fa69197d17522ffec0b67a8cea09ffa359f594c21a2cb36f570a0f7a3f13481",
+    "/game/overview/evidence/spots/pike-place.json": "0448c2f702e417efea6f881634bff254b8039d1ee69be8cb503d7d78bfd77d7e",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r11-c09.jpg": "3f52acb7fd6e2ba4aace2fd0a00d68c700c435ccf0735a95e6be6877c69646e8",
+    "/game/overview/comparison-data/romana/thumbs/aerial-r11-c10.jpg": "d7ad90c2b142f92443fc371960ce06876b4346a072c44e65e357813cc1ec7ecd",
+    "/game/overview/comparison-data/floreasca/images/aerial-r09-c04.jpg": "6529bb0b16cf9a608009701a94158c8567833ae6b1ef76618f176e60c327a3e6",
+    "/game/overview/comparison-data/grozavesti/images/aerial-r04-c08.jpg": "3a510379fe42862e0d204eaf97865308166d3e346fdd5c12bbedbbe3b55568b2",
+    "/game/overview/comparison-data/unirii/images/aerial-r07-c04.jpg": "ead3767d4ee647e8067865db5bb5217ea635619f4f85fb8f4a39f18b3d185046",
+    "/game/overview/comparison-data/otopeni/images/aerial-r11-c04.jpg": "445f2996c277323da36c49e560418388347210312d4702457ff0879eda9c5eb1",
+    "/game/overview/comparison-data/pipera/images/aerial-r08-c13.jpg": "98b3d7b3cf3b1522d23b228d2c6895c46500962767cc79b27fcfd4703bebc4f3",
+    "/game/overview/comparison-data/seatac/images/aerial-r09-c05.jpg": "7be8e36213558f19fcfdce4353cdef5425decc67328847e2fa47220257bd659a",
+    "/game/overview/comparison-data/bellevue/images/aerial-r04-c09.jpg": "0fd87a19fe4d578239a21ccee6506320139756d237e0dc700af642358a215906"
+  },
+  "servedHashesUnchanged": true,
+  "passed": true,
+  "finished": "2026-11-10T05:06:57.779Z"
+}

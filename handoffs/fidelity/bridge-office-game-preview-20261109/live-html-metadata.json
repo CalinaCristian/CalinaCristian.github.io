@@ -1,0 +1,12 @@
+[
+  {
+    "path": "index.html",
+    "releaseMatches": true,
+    "sourceMatches": true
+  },
+  {
+    "path": "game/index.html",
+    "releaseMatches": true,
+    "sourceMatches": true
+  }
+]

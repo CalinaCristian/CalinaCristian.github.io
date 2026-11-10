@@ -1,0 +1,792 @@
+{
+  "commit": "57e6581c60b2350c9bf92c8dbca4a05dcc0e9a6e",
+  "checkedAt": "2026-11-10T05:21:09.699384+00:00",
+  "scope": "Exact live bytes for changed public overview files, all primary current-visit images and core UI dependencies.",
+  "checks": [
+    {
+      "path": "game/overview/assets/spots/arcul-de-triumf/visit-aabd/phone-ui-touch.jpg",
+      "passed": true,
+      "bytes": 50280,
+      "sha256": "edde39f588016dc106a86ba2ee4f801f9995f949c8935ed90ae18c7dc223acbb",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/assets/spots/arcul-de-triumf/visit-aabd/scene.webp",
+      "passed": true,
+      "bytes": 42222,
+      "sha256": "bd80427a68639691d7e6c5775ed7afe90edaf4dd1fde7d64da888f0d185f494f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/assets/spots/bel-downtown-park/visit-aabd/phone-ui-touch.jpg",
+      "passed": true,
+      "bytes": 46280,
+      "sha256": "264b19996739bea588c86e8110e85e9dc60bcc06aefaeba758d4155f8c409e41",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/assets/spots/bel-downtown-park/visit-aabd/scene.webp",
+      "passed": true,
+      "bytes": 43562,
+      "sha256": "94bcd32fb2919e33bf7696a77fd84a1323d97c96f3fbbb345a816d6f40494346",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/assets/spots/bel-meydenbauer/visit-aabd/phone-ui-touch.jpg",
+      "passed": true,
+      "bytes": 50584,
+      "sha256": "885432136fcfd168f6a293b4cce21702e4c934aa3fc05fb47bf4fcbed7c6b369",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/assets/spots/bel-meydenbauer/visit-aabd/scene.webp",
+      "passed": true,
+      "bytes": 51984,
+      "sha256": "68a795ce8fd76be5d76e7904f6f475d5c1617a0109bd94345e441bded6231517",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/assets/spots/cismigiu/visit-aabd/phone-ui-touch.jpg",
+      "passed": true,
+      "bytes": 44834,
+      "sha256": "f84fefa7d61e47af8bd896caad29f30b350c92569079bcac08fcd88109214b50",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/assets/spots/cismigiu/visit-aabd/scene.webp",
+      "passed": true,
+      "bytes": 48042,
+      "sha256": "60b4602a7d80506f2c318889c79b5e303ee8af4a92c2a4578074ef0b32f168e5",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/assets/spots/pike-place/latest-c4b8b9d7/manifest.json",
+      "passed": true,
+      "bytes": 1952,
+      "sha256": "d331028ebc7da1d1636318ba35752f40b62972ef7b99ca31d67c8a5bb3e25d89",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/assets/spots/pike-place/latest-c4b8b9d7/pike-arrival.png",
+      "passed": true,
+      "bytes": 1680723,
+      "sha256": "0b8a7f89add804010112184a08ba1eb7ab8588b4a0bd74e6a34a80a3fabfda09",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/assets/spots/space-needle/visit-aabd/phone-ui-touch.jpg",
+      "passed": true,
+      "bytes": 47520,
+      "sha256": "16e4c9bf67b7f81b83b37a61263d2c3d759a71f97140edd73a14dd0f622f674e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/assets/spots/space-needle/visit-aabd/scene.webp",
+      "passed": true,
+      "bytes": 19812,
+      "sha256": "a49fc6642f8309dafa85012281445d8afdfd173d311228b41c30f43818b516a2",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/comparison-data/bellevue/manifest.json",
+      "passed": true,
+      "bytes": 227548,
+      "sha256": "6aaff5ca88a1bb0ecaf5825d95783230fd2eef539a241c2e9ea5bf0bfc666c63",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/comparison-data/floreasca/manifest.json",
+      "passed": true,
+      "bytes": 255754,
+      "sha256": "f1b362365cb98b0ce85531285b4e678b68ed665981fd955e6c66279113d5f84e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/comparison-data/grozavesti/manifest.json",
+      "passed": true,
+      "bytes": 296424,
+      "sha256": "1cbf07336a74294d7ad4da187de17b8b79ded844aa32ac19b73255391c4c6379",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/comparison-data/otopeni/manifest.json",
+      "passed": true,
+      "bytes": 201578,
+      "sha256": "4759c0fc4acf65be9e6081f01e06ad28c2ea78c32238d3d36e02c9f656a692e9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/comparison-data/pipera/manifest.json",
+      "passed": true,
+      "bytes": 312349,
+      "sha256": "e5db4a9f3e47e8d75ed78e69f6d72bbbc7a62c4799064e63d7db26d231282c93",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/comparison-data/romana/manifest.json",
+      "passed": true,
+      "bytes": 328150,
+      "sha256": "301037e12de863a172670e4c11548bdff924f2a706cda54ca8dee10db56c6813",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/comparison-data/seatac/manifest.json",
+      "passed": true,
+      "bytes": 392929,
+      "sha256": "eeebd3b892320d4fab08ba780d5a7aa9b2224143799b52234c0bb43df9f17af6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/comparison-data/unirii/manifest.json",
+      "passed": true,
+      "bytes": 224103,
+      "sha256": "dbfdabcf4b3dcffc7c829f775c7ad4918fcfe42b1ce47f1e5d65d811885fe7a2",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/comparison-viewer.js",
+      "passed": true,
+      "bytes": 33085,
+      "sha256": "ee43aa20c31675651c411c3d1812588d7e673c0d44abf452bbac6209095d662b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence-paths.js",
+      "passed": true,
+      "bytes": 1372,
+      "sha256": "96a4bcc90847fb6d13ae761509878549167501c6ba6f7f30896d996ba25e4745",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence-picker.js",
+      "passed": true,
+      "bytes": 6771,
+      "sha256": "bcbdce232300fd8b91f1d376ef664eba9fe8f5901df29c4d75c459576f5ed29b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/carusel-staging-20261109/carusel-first-gallery-day.png",
+      "passed": true,
+      "bytes": 1302634,
+      "sha256": "6fa69197d17522ffec0b67a8cea09ffa359f594c21a2cb36f570a0f7a3f13481",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/carusel-staging-20261109/carusel-public-entry-night.png",
+      "passed": true,
+      "bytes": 1169600,
+      "sha256": "88afd58fadc93f8a468bac6c7e27f4b4ce56cb621375aad1ba30782597d03e4d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/carusel-staging-20261109/phone-carusel-ground-interior.png",
+      "passed": true,
+      "bytes": 442134,
+      "sha256": "0c5e112d08d70634a8a1784b9f552578186741c95951234ebeeffdbc59785e19",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/ambasador.json",
+      "passed": true,
+      "bytes": 9608,
+      "sha256": "81661c0cc1f61cfcfabdbf8aa813e03dbe7d47376b964c2936fedc90823fdea5",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/arcul.json",
+      "passed": true,
+      "bytes": 9899,
+      "sha256": "72005cb6f7289790b3c2c8bb0849d244889806e3763ed0dd442e5a543846c12d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/aro.json",
+      "passed": true,
+      "bytes": 9325,
+      "sha256": "8e91ce26b64f782a20594af8dc01b4b999553f76c2639ea177851403d1264d99",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/ase.json",
+      "passed": true,
+      "bytes": 10616,
+      "sha256": "7c1a07e52c8ca5583045779b2cc9223889048895b834fbe830a3f4b847506528",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/ateneu.json",
+      "passed": true,
+      "bytes": 10097,
+      "sha256": "18b6827e5ee163981688fadfe32db9a9f3f28b747d6f4300539f885e61ad5d4a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/aviatorilor.json",
+      "passed": true,
+      "bytes": 9167,
+      "sha256": "f4fd94c85fec6e863aa5caeddd3ec8b98ac12559eb621dcaf20d8204a9a7b10a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/baneasasc.json",
+      "passed": true,
+      "bytes": 9479,
+      "sha256": "fada5a4471a15cee27e375557e17992bb79acf100e51fd9dcb5ba2e8cf354696",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/baneasaterm.json",
+      "passed": true,
+      "bytes": 9759,
+      "sha256": "b6afaef6e4bfd5fd18dbb6b6719d0b90aa980dc188e7b6e6b7f2e259ae23eb74",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/casapresei.json",
+      "passed": true,
+      "bytes": 10278,
+      "sha256": "68e69fbfeebc5435539efd23e482988deb9d674f720d8204e9336824f27e2ba9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/cec.json",
+      "passed": true,
+      "bytes": 16520,
+      "sha256": "5e6cea0e12b67e37354ceb7bf559e2d663be3807ce0a557c8d4936ae6246a296",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/dinamo.json",
+      "passed": true,
+      "bytes": 12866,
+      "sha256": "e493bf89e45e9f992a2e69173c40e8cd5b9d42766c3e86ba1457192cb97e5bdc",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/europehouse.json",
+      "passed": true,
+      "bytes": 9237,
+      "sha256": "1152f9d86bfe1a969a59cad792bd75a4ff0ca9b7215acc11963c0f0d9feacd0d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/fountains.json",
+      "passed": true,
+      "bytes": 9581,
+      "sha256": "f10d5007b8453c28f504df5e7a59c222ad207122951c8d43fdda01a8955dd970",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/gara.json",
+      "passed": true,
+      "bytes": 9881,
+      "sha256": "bc984304e6c91314ae0ef5d8275db53e0703c26c0c30494195ea883a89717a3e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/globalworth.json",
+      "passed": true,
+      "bytes": 9355,
+      "sha256": "9a67ed0d32b28798ee24808ca2ca3d28c55bae30442c5e1eb814dcbc31bf97f0",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/grandhotel.json",
+      "passed": true,
+      "bytes": 9918,
+      "sha256": "97c5eced33d9dd6365d35652365a796be01aa895ff47dc1de5f50ea0055f9545",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/gts.json",
+      "passed": true,
+      "bytes": 9375,
+      "sha256": "0706f34bcda68c01c4282ac6d90acd9ea4d0bb6805a0a8125d9d842b6c15ce1a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/halatraian.json",
+      "passed": true,
+      "bytes": 9411,
+      "sha256": "2ffbb916a3f6e1ca28648ef6ca18f1a2cf136c0e4b8c6e9b7c422487b6a343f9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/marriott.json",
+      "passed": true,
+      "bytes": 10983,
+      "sha256": "7793c69462252f6fe3afe0fd685169ea91fc7dc59e40aca78d73edb495f97ac3",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/mnir.json",
+      "passed": true,
+      "bytes": 10748,
+      "sha256": "9476a281e15fe85d212bcde5a0a28325585f22c495b56541e6469e6480e642db",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/opera.json",
+      "passed": true,
+      "bytes": 9425,
+      "sha256": "c9d1e72da58bfc6c4ef6a74fe7786bb6d694790a137c0b2d498f8ccc8e9b6c22",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/otp.json",
+      "passed": true,
+      "bytes": 13991,
+      "sha256": "5fb058d81cb22ae58887f544cc1b853dd5474ec02e639fcfa47e0062d2e85dc7",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/parliament.json",
+      "passed": true,
+      "bytes": 9515,
+      "sha256": "5f5e2c25062751dea6069932a3d783e7ab6872f2b37e2354e973cf14b9fdb2af",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/politehnica.json",
+      "passed": true,
+      "bytes": 8550,
+      "sha256": "56541914d42985903af93cde40e620d5f4557468289496448c0969a9849094e8",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/promenada.json",
+      "passed": true,
+      "bytes": 9621,
+      "sha256": "e418c7274df944fc1a1a42290ec556d723bdad4a7a6a3b7ee54d13a3fc8bf7ca",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/romexpo.json",
+      "passed": true,
+      "bytes": 9516,
+      "sha256": "d5d8a5d3918456793f4b64c4eba07052a85b7d5d434ff68a5600e4d7c001886e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/rosetti.json",
+      "passed": true,
+      "bytes": 9821,
+      "sha256": "0e967a197321531f59b09095cc2609fcf2ed13f57a6be9cc0bcea31322524b4a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/thelandmark.json",
+      "passed": true,
+      "bytes": 9570,
+      "sha256": "fc8c54f2a18ef8f48d04d201514aaed34c1dde4f4a1569b41ba0319b9d52da8c",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/tnb.json",
+      "passed": true,
+      "bytes": 9510,
+      "sha256": "48be1e713c6dd4529e8a131bb8bfc7636ed081565b0c34abac775fdea19cb7f6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/unirea.json",
+      "passed": true,
+      "bytes": 9519,
+      "sha256": "d1a433d88f6d994367fa088416071fe38b3f6f69704d805da3b56ca97f4832d7",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/univ.json",
+      "passed": true,
+      "bytes": 9740,
+      "sha256": "b340bdfe34cd9bbda102d3cc2cd332e6c770c93383ba85c7447cbeb904cfee12",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/bucharest/victoria.json",
+      "passed": true,
+      "bytes": 11315,
+      "sha256": "38e4530fef2a856e8bea7f06f5b4ed8c70b5d0a4ad917bd0f79178375b394aaf",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/bellevue600.json",
+      "passed": true,
+      "bytes": 9086,
+      "sha256": "2ac49074bac05f55b8ebfe1e724dafda971042a89f58123bc025b9273c6e9ed9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/bellevuesq.json",
+      "passed": true,
+      "bytes": 8033,
+      "sha256": "fbb295746082d682b2a4f792a2c2282f5fe9791a274d328798087111d4f67e61",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/bellevuetowers.json",
+      "passed": true,
+      "bytes": 8315,
+      "sha256": "5429857676ce99c0d3ee70defdecf3034d31114945a96ac98eedd81315228026",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/columbia.json",
+      "passed": true,
+      "bytes": 9349,
+      "sha256": "e7408c8ee4a9b5e7b5d6c4b4367bfd2f7b3a61bca9fe07fa7e8a202d773a3ae1",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/greatwheel.json",
+      "passed": true,
+      "bytes": 7977,
+      "sha256": "c4a1911e69eb388fc7ff779e7ab6ef1e50902837feea8b49d62081e266898f95",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/lincoln.json",
+      "passed": true,
+      "bytes": 8655,
+      "sha256": "8067e69f7929b946a81130fb25c0478b6b0c1ee4efa96d51b45ed67226d72239",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/lincolnsouth.json",
+      "passed": true,
+      "bytes": 8414,
+      "sha256": "aac42c9ea9d38c1fbc8d9651fefd1e2bdcca4c4969815e6cb838ae7bcc631511",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/lumen.json",
+      "passed": true,
+      "bytes": 9861,
+      "sha256": "039e8d10fd4b0de45bd13fdb879806312fcff5fa6ae0d18689c2695aecb0f509",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/mtbaker.json",
+      "passed": true,
+      "bytes": 8915,
+      "sha256": "c68595fd68fe7fa0dad9ef8aca60c83571faf7a74b42cb7ba7fb67ca97b148dc",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/murrowe.json",
+      "passed": true,
+      "bytes": 8136,
+      "sha256": "2d3e1cf354ef25d71fddcd3d6396b26e4f28f205d2bfe1e06938b6542cece830",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/murroww.json",
+      "passed": true,
+      "bytes": 8134,
+      "sha256": "daceebe3e8e953616545914d1ccc2eaf11e57bd8b42b2fa755f672314148afff",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/olympics.json",
+      "passed": true,
+      "bytes": 8262,
+      "sha256": "52b750afcf29d62f026e6881d3c8c81062532bf164669c0215ae6fdc7f65a0b1",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/onelincoln.json",
+      "passed": true,
+      "bytes": 8421,
+      "sha256": "b8a5c0c4a2e3a86cb1009f7186115d96d3b9a59d68be975178e379d3e347cf51",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/plazacenter.json",
+      "passed": true,
+      "bytes": 8001,
+      "sha256": "383a0509d4146984293bc8ad5cdaa463d3951a9b85b4f8cd8befe782ca3e9a3b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/rainier.json",
+      "passed": true,
+      "bytes": 8180,
+      "sha256": "1019ea14f29a1a4c8ca584db9674697c7864f552e3efed64aa4f9c6482733fa4",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/seagarage.json",
+      "passed": true,
+      "bytes": 15751,
+      "sha256": "f763a4f4cd418d7cbd710299748425cb73d8af8eafb77e008e994985eb85ea9f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/sealink.json",
+      "passed": true,
+      "bytes": 8376,
+      "sha256": "ea65291bb1f5a260930f73d20c6a2068c47454702e59a67578a1081064f191c7",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/seatac.json",
+      "passed": true,
+      "bytes": 15923,
+      "sha256": "4d9cd6f61abc37ca216b4f4315be6332170ae069afd2508a189700615d7b280d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/seatower.json",
+      "passed": true,
+      "bytes": 8324,
+      "sha256": "da4aba5de8960b9629a46d52ce04d30827e8389657b5af6f1fd982c04f47aca8",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/smith.json",
+      "passed": true,
+      "bytes": 8586,
+      "sha256": "d101a8c5610008d8343dbe8e414400dcd0ffef888673a3fd49c6f83b8a737ca5",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/sonic.json",
+      "passed": true,
+      "bytes": 8296,
+      "sha256": "0bcbef39e01af290519d8f34a3e92c6808dcb43a47de833c6d05c75d3e914115",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/spaceneedle.json",
+      "passed": true,
+      "bytes": 11115,
+      "sha256": "9df0fecdabc778f603db6545184822c34e0b54a10a31ed2711277089820ff0f4",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/spheres.json",
+      "passed": true,
+      "bytes": 8695,
+      "sha256": "7a2b2d733b1e88931175411ad296b485ceb8633c15efa4b50ff292f4c6948046",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/landmarks/seattle/tmobile.json",
+      "passed": true,
+      "bytes": 11374,
+      "sha256": "0b9e35cbf47b7996dac60dd582aa061448a1fc39afda12501a8aa80cf9022191",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/arcul-de-triumf.json",
+      "passed": true,
+      "bytes": 21493,
+      "sha256": "370f58fb7cb63023c76622ee2e8d7684510ef9b8eb68a62c917a90248f4e211d",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/athenaeum-revolution.json",
+      "passed": true,
+      "bytes": 23782,
+      "sha256": "90c01e013a8829b6a5b98022a5e412e370d853699189dfec2a5903f5596c7f0b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/ballard-locks.json",
+      "passed": true,
+      "bytes": 22771,
+      "sha256": "f4bbdb4f6673afa907e9ccb315876bd7953e31ec777f4e2dba1049a85888f98b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/bel-botanical-garden.json",
+      "passed": true,
+      "bytes": 20238,
+      "sha256": "0e6701edf047dbd4e90f35500a4c8b4263d8817d4e1c62f152acd72dd57f2cf9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/bel-downtown-park.json",
+      "passed": true,
+      "bytes": 20051,
+      "sha256": "1de34eacdea0b18243a2bbd7855a2223f574e183d69aed20484170fa2624803c",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/bel-lincoln-square.json",
+      "passed": true,
+      "bytes": 24794,
+      "sha256": "61618a4acd74f7b43cafed72723d3b355a6ad19c45fd7dab9e6cbec8937f7669",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/bel-meydenbauer.json",
+      "passed": true,
+      "bytes": 24307,
+      "sha256": "3d9a26f100ca7aed1e7f9a62272f1cf61e1e4886d9ceefb221bfec19540adb3f",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/chihuly.json",
+      "passed": true,
+      "bytes": 22411,
+      "sha256": "ab5ebe8292c2e5f0da4674db120be2e6946ac5f68f088bad2b6373ebd9957687",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/cismigiu.json",
+      "passed": true,
+      "bytes": 21575,
+      "sha256": "d12302417cffe9adb042f568c7f43993a079a6aefd55f5bf7cd1d4a002a65a16",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/fremont-troll.json",
+      "passed": true,
+      "bytes": 22998,
+      "sha256": "a6dcf3d133cff979fee95f642fe045de93e1df8338277c3f029d41f906fff8d9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/gas-works.json",
+      "passed": true,
+      "bytes": 21054,
+      "sha256": "6d6eb52ec8307a4dfff591769355f77061d53051180794ec7534c8642c1bafe6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/herastrau-park.json",
+      "passed": true,
+      "bytes": 24865,
+      "sha256": "2bd461edac965c8b16bafb1860735b16c836491c2bd2cc411f81d9d7c827cef5",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/kerry-park.json",
+      "passed": true,
+      "bytes": 22657,
+      "sha256": "9ffc5b4c6740a9939fbb09b49c22a4bc36a706b6dd8c422bd40186c6bb99f769",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/mopop.json",
+      "passed": true,
+      "bytes": 23974,
+      "sha256": "b54f6032d86c26048613395db0617c5209f599087a2403073c97f13e1a918478",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/old-town-lipscani.json",
+      "passed": true,
+      "bytes": 24228,
+      "sha256": "357cb914f2b0bdd730f91b0a6b8cb60c8df5542ed5ed577bcc4783e786aaecc2",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/palace-parliament.json",
+      "passed": true,
+      "bytes": 24098,
+      "sha256": "46f2e4778351dee1246bbc45cca5e92260cae4a236f55120cdb3b2e7c0dbcd43",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/peoples-salvation-cathedral.json",
+      "passed": true,
+      "bytes": 23447,
+      "sha256": "9d8cc317629559036ac7074a5fe0d87bf23d9cf247ca64e80cb70da133352de2",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/pike-place.json",
+      "passed": true,
+      "bytes": 27969,
+      "sha256": "0448c2f702e417efea6f881634bff254b8039d1ee69be8cb503d7d78bfd77d7e",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/pioneer-square.json",
+      "passed": true,
+      "bytes": 23735,
+      "sha256": "3c6f59992839536f6f7a584c6dd399db9c8ef87291df046850626101044fb1e4",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/space-needle.json",
+      "passed": true,
+      "bytes": 24754,
+      "sha256": "9a188938869043d8d6b24bcdc5ba6770898ab2f7af050894410ecbc74498b8a9",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/spring-palace.json",
+      "passed": true,
+      "bytes": 21173,
+      "sha256": "77fa6be8793a0debcc7539c4206288314cfd41e90dbd9ed88fae4707b8b5e6cf",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/stavropoleos-cec.json",
+      "passed": true,
+      "bytes": 23673,
+      "sha256": "9af9da77df1886689ecc7b78ab043dfbc2c285d69521ad8c5676334365832286",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/village-museum.json",
+      "passed": true,
+      "bytes": 20439,
+      "sha256": "c8d1d600b8d0fec0eb95cf9f56f2c3c68f6a9e349438cd893e23128a94f227d7",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/evidence/spots/waterfront.json",
+      "passed": true,
+      "bytes": 24125,
+      "sha256": "970dfd18d855e894185178d07b8761c3eac128905d08cf41dea2748822ccc258",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/index.html",
+      "passed": true,
+      "bytes": 69854,
+      "sha256": "b8fdf5db8e82094888b10ce44d2c4ba1043b9425b9f324573817692011868017",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/inventory.json",
+      "passed": true,
+      "bytes": 218384,
+      "sha256": "f87cf015d71b1ba5c10070d9c13a6d8d9ceebfe049cf6c9ab561dac52934729b",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/landmark-evidence.js",
+      "passed": true,
+      "bytes": 12895,
+      "sha256": "c15a99db023e3631065e1b4f7b47652482d5962182632a184ba195daf223a50a",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/landmark-ranges.js",
+      "passed": true,
+      "bytes": 600,
+      "sha256": "da81850cf9e015ca46bc6fc4701f51ff2b11fbfe0dbdadb61b9ec3def8949731",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/overview.js",
+      "passed": true,
+      "bytes": 11564,
+      "sha256": "1970190534542319e23e940ab791132a6ab01f632386dbe87c90e87f64941cc6",
+      "curlCode": 0
+    },
+    {
+      "path": "game/overview/style.css",
+      "passed": true,
+      "bytes": 30026,
+      "sha256": "60e1781517fd8bd5311ddfb01bebe9ae96789fd218026fbf221908e5d401f9f6",
+      "curlCode": 0
+    }
+  ],
+  "passed": true
+}

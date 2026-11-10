@@ -2778,18 +2778,18 @@ ${['menu', 'drive', 'foot', 'spot'].includes(this.state) ? '<button class="btn" 
         if (this.freeRoam) { // free roam (R10.10): the CV content, no story progress
             if (o.read.size === 0) this.hud.toast('💬 Nobody asked', 'Walk up to your host and press E to talk.');
             else this.hud.toast(`${stop.icon} ${stop.short}`, 'Free roam: keep going (M → world map: districts and tourist spots).');
-        } else if (this.ch) { // chapters: reading a screen of this chapter's office completes it
-            if (o.read.size > 0 && !this.visited.has(stop.id)) { this.visited.add(stop.id); if (stop.poiRef) stop.poiRef.visited = true; this.audio.chime(); }
-            if (o.read.size > 0 && this.ch.stop === stop.id && !this.chapterDone) { const id = this.chapter; queueMicrotask(() => this.completeChapter(id)); }
-            else if (o.read.size === 0) this.hud.toast('💬 Nobody asked', 'Walk up to your host and press E to talk.');
-        } else if (o.read.size > 0 && !this.visited.has(stop.id)) {
+        } else if (this.ch) { // The linear chapter completes only after its final Continue action.
+            if (o.conversationComplete && !this.visited.has(stop.id)) { this.visited.add(stop.id); if (stop.poiRef) stop.poiRef.visited = true; this.audio.chime(); }
+            if (o.conversationComplete && this.ch.stop === stop.id && !this.chapterDone) { const id = this.chapter; queueMicrotask(() => this.completeChapter(id)); }
+            else if (!o.conversationComplete) this.hud.toast('Chapter paused', 'Hear the full story from your host to continue this chapter.');
+        } else if (o.conversationComplete && !this.visited.has(stop.id)) {
             this.visited.add(stop.id); if (stop.poiRef) stop.poiRef.visited = true;
             this.audio.chime();
             this.hud.toast('✅ ' + stop.short + ' unlocked', `${this.visited.size}/${STOPS.length} chapters of the CV discovered`);
             this.updateObjective();
             if (stop.id === 'uipath-bel') setTimeout(() => this.finale(), 1200);
             else if (this.objective) setTimeout(() => this.hud.toast('⏩ Hold F to fast-travel to the next stop', `${this.objectivePlain} · or drive there yourself`, 'intro'), 1600);
-        } else if (o.read.size === 0) this.hud.toast('💬 Nobody asked', 'Walk up to your host and press E to talk.');
+        } else if (!o.conversationComplete) this.hud.toast('Chapter paused', 'Hear the full story from your host to continue this chapter.');
         this.input.flush();
         this.player.speed = 0;
         this.returnFocus();

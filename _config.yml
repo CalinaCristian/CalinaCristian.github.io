@@ -71,3 +71,5 @@ exclude:
   - game/overview/comparison-data/unirii/historical
   - game/overview/comparison-data/pipera/historical
   - game/overview/comparison-data/bellevue/historical
+
+  - handoffs/fidelity/inspection-cpu-20261110

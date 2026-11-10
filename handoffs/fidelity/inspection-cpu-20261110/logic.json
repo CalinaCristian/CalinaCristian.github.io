@@ -1,0 +1,151 @@
+{
+ "generated": "2026-11-10T08:28:00.420Z",
+ "durationSec": 135,
+ "args": {
+  "scenario": "foot,a",
+  "city": "bucharest",
+  "audit": false,
+  "headed": false,
+  "verbose": false,
+  "port": 8123,
+  "width": 640,
+  "height": 360,
+  "traffic": "full",
+  "dt": 0.03333333333333333,
+  "shots": 30,
+  "timeout": 240
+ },
+ "perf": {
+  "msPerFrame": 3389,
+  "fps": 0.3,
+  "quality": "low",
+  "drawCalls": 108,
+  "triangles": 297696,
+  "w": 640,
+  "h": 360
+ },
+ "summary": {
+  "dynamic": {
+   "high": 0,
+   "medium": 0,
+   "low": 1,
+   "byType": {
+    "perf-fps": 1
+   }
+  },
+  "audit": {}
+ },
+ "scenarios": [
+  {
+   "id": "foot",
+   "title": "On foot: get out, walk ~120 m on the sidewalk to an office, walk in, read, walk out, back to the car, drive away",
+   "city": "bucharest",
+   "wallMs": 17416,
+   "simSec": 64.5,
+   "newIssues": 0,
+   "stepMs": {
+    "autopilot": 0.13,
+    "game": 5.81,
+    "checks": 0.28,
+    "steps": 303,
+    "shotsMs": 7695,
+    "yieldMs": 197,
+    "auditMs": 0
+   },
+   "result": {
+    "stop": "rosetti",
+    "exited": true,
+    "exitDist": 1.5,
+    "shotOut": "shots/082545-bucharest-foot-out.jpg",
+    "walkSec": 27.6,
+    "walked": 119.3,
+    "doorDist": 2.9,
+    "office": true,
+    "leftOnFoot": true,
+    "backIn": true,
+    "drive": {
+     "ok": true,
+     "reason": "arrived",
+     "t": 8.7,
+     "dist": 86,
+     "resets": 0,
+     "remaining": 15
+    }
+   },
+   "error": null
+  },
+  {
+   "id": "a",
+   "title": "Spawn sanity",
+   "city": "bucharest",
+   "wallMs": 10150,
+   "simSec": 15.8,
+   "newIssues": 0,
+   "stepMs": {
+    "autopilot": 0.15,
+    "game": 6.97,
+    "checks": 0.6,
+    "steps": 475,
+    "shotsMs": 5055,
+    "yieldMs": 46,
+    "auditMs": 25
+   },
+   "result": {
+    "spawn": {
+     "x": -2378,
+     "z": -1263.8,
+     "lat": 44.443045,
+     "lon": 26.059767,
+     "street": "Splaiul Independenței",
+     "edge": 4418
+    },
+    "resetVisited": [
+     "rosetti"
+    ],
+    "problems": [],
+    "navline": "⬅Turn left onto Podul Grozăvești in 60 m",
+    "street": "Splaiul Independenței",
+    "shot": "shots/082545-bucharest-scenario-a-spawn.jpg",
+    "driveBudget": {
+     "timeout": 88,
+     "driving": 40,
+     "signalCycle": 55,
+     "crossing": 10,
+     "signals": [
+      {
+       "node": 4156,
+       "phases": 5,
+       "seconds": 55
+      }
+     ]
+    },
+    "drive": {
+     "ok": true,
+     "reason": "arrived",
+     "t": 14.7,
+     "dist": 137,
+     "resets": 0,
+     "remaining": 15
+    },
+    "objectsInRoad": 0
+   },
+   "error": null
+  }
+ ],
+ "issues": [
+  {
+   "type": "perf-fps",
+   "severity": "low",
+   "msg": "0.3 fps (3389 ms/frame, 108 draw calls, 297696 tris) at quality low 640×360 in software GL — not representative of real GPUs",
+   "scenario": "end",
+   "city": "bucharest",
+   "count": 1
+  }
+ ],
+ "audit": {},
+ "logTail": [
+  "[foot t=0.0] begin",
+  "[a t=0.0] begin",
+  "[a t=1.1] spawn drive deadline 88s: driving 40s + one signal cycle 55s + crossing 10s, capped at 90s"
+ ]
+}

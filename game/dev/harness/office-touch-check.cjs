@@ -11,7 +11,7 @@ fs.mkdirSync(out, { recursive: true });
         fs.readFile(file, (error, body) => { res.writeHead(error ? 404 : 200, { 'content-type': { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json' }[path.extname(file)] || 'application/octet-stream' }); res.end(error ? 'missing' : body); });
     });
     await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-    const browser = await chromium.launch({ headless: true, args: ['--mute-audio', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+    const browser = await chromium.launch({ executablePath:process.env.CHROMIUM_PATH,headless: true, args: ['--mute-audio', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
     const report = { root, viewports: [], errors: [] };
     try {
         for (const [width, height] of [[390, 844], [844, 390], [440, 756], [956, 352]]) {
@@ -20,10 +20,10 @@ fs.mkdirSync(out, { recursive: true });
             const page = await context.newPage(); page.on('pageerror', e => report.errors.push(e.message));
             await page.addInitScript(() => { window.requestAnimationFrame = () => 0; });
             await page.goto(`http://127.0.0.1:${server.address().port}/game/`, { waitUntil: 'domcontentloaded', timeout: 60000 });
-            await page.waitForFunction(() => window.game?.achievements, null, { timeout: 90000 });
+            await page.waitForFunction(() => window.game?.achievements, null, { polling:100,timeout: 90000 });
             // A genuine menu touch is the positive control; leave its rendered panel in the DOM after closing.
             await page.locator('#achv-menu').tap();
-            await page.waitForFunction(() => game.achievements.isOpen);
+            await page.waitForFunction(() => game.achievements.isOpen,null,{polling:100});
             await page.locator('#achv-panel .achv-x').tap();
             const result = { width, height, offices: [] };
             const ids = await page.evaluate(async () => (await import('./src/data.js')).STOPS.map(s => s.id));
@@ -39,7 +39,7 @@ fs.mkdirSync(out, { recursive: true });
                 for (let step = 0; step < 16; step++) {
                     const next = await page.evaluate(() => {
                         const buttons = [...document.querySelectorAll('#panel .dlg-opts button')], button = buttons.find(b => !b.classList.contains('bye'));
-                        if (!button || game.office.read.size === game.office.stations.length && game.office.part[game.office.cur] !== 1) return null;
+                        if (!button || !game.office.talking) return null;
                         button.scrollIntoView({ block: 'nearest' });
                         const r = button.getBoundingClientRect(), points = [];
                         for (const fx of [.1, .5, .9]) for (const fy of [.25, .5, .75]) {
@@ -50,12 +50,11 @@ fs.mkdirSync(out, { recursive: true });
                     });
                     if (!next) break;
                     office.blocked.push(...next.blocked); await page.touchscreen.tap(next.point.x, next.point.y); office.taps++;
-                    if (await page.evaluate(() => game.achievements.isOpen)) { office.openedAchievements = true; break; }
+                    if (await page.evaluate(() => game.achievements.isOpen,null,{polling:100})) { office.openedAchievements = true; break; }
                 }
-                office.completed = await page.evaluate(() => game.office.read.size === game.office.stations.length);
+                office.completed = await page.evaluate(() => game.office.conversationComplete && game.office.read.size === game.office.stations.length);
                 if (result.offices.length === 0 || office.openedAchievements) await page.screenshot({ path: path.join(out, `${width}x${height}-${id}.png`) });
                 if (!office.openedAchievements) {
-                    await page.locator('#panel .dlg-opts .bye').tap();
                     office.closed = await page.evaluate(() => !game.hud.panelOpen && !game.office.talking && !game.achievements.isOpen);
                 }
                 result.offices.push(office);

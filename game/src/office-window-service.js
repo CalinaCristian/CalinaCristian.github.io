@@ -127,7 +127,7 @@ export function createOfficeWindowService({
     },
     get label() {
       return active
-        ? 'Live street view'
+        ? `Live district view${binding.floorAssignment?' · floor '+binding.floorAssignment.floor:''}`
         : 'Window view unavailable';
     },
     prepare(dt) {

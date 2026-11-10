@@ -12,11 +12,12 @@ const counts=[];
 for(const [kind,places] of [['visit',visits],['district',districts]])for(const place of places){
  const day=[...selected.values()].filter(({c})=>c.kind===kind&&c.place===place&&c.condition.id===ids[0]);
  assert(day.length>=4,place+': fewer than four views');
- const relative=kind==='visit'?`assets/spots/${place}/ground-4c57f810`:`comparison-data/${place}/context/ground-4c57f810`;
+ const cohort='ground-'+day[0].c.sourceCommit.slice(0,8);
+ const relative=kind==='visit'?`assets/spots/${place}/${cohort}`:`comparison-data/${place}/context/${cohort}`;
  const dest=path.join(root,'game/overview',relative),sources=new Set(),records=[];
  const conditionSets=ids.map(id=>({id,label:id.split('-').map(v=>v[0].toUpperCase()+v.slice(1)).join(' · '),season:id.split('-')[0],period:id.split('-')[1],weather:id.startsWith('winter')?'snow':'clear',hour:id.endsWith('night')?23:12,captures:day.map(({c:base})=>{
    const entry=selected.get([kind,place,id,base.id].join('/'));assert(entry,place+': missing '+id+'/'+base.id);const{c,report}=entry;
-   assert(c.cameraBodyClear);assert(Math.abs(c.pose.heightAboveSupport-1.65)<.04);assert(c.condition.quality==='high');assert(id.endsWith('night')?c.condition.sunElevation< -3:c.condition.sunElevation>3);
+   assert(c.cameraBodyClear);assert(Math.hypot(c.pose.eye[0]-c.pose.x,c.pose.eye[2]-c.pose.z)<.05,place+': displaced camera '+c.id);for(let i=0;i<3;i++)assert(Math.abs(c.pose.eye[i]-base.pose.eye[i])<.05,place+': unmatched actual eye '+c.id);assert(Math.abs(c.pose.heightAboveSupport-1.65)<.04);assert(c.condition.quality==='high');assert(id.endsWith('night')?c.condition.sunElevation< -3:c.condition.sunElevation>3);
    for(const field of ['x','z','floor','bearing','pitch','fov'])assert(Math.abs(c.pose[field]-base.pose[field])<.05,place+': unmatched '+field+' '+c.id);
    const bytes=fs.readFileSync(path.join(report.dir,c.file));assert.equal(sha(bytes),c.sha256);sources.add(c.sourceCommit);
    const target=path.join(dest,id,c.id+'.jpg');fs.mkdirSync(path.dirname(target),{recursive:true});if(!fs.existsSync(target))fs.linkSync(path.join(report.dir,c.file),target);else assert.equal(sha(fs.readFileSync(target)),c.sha256,'Old output needs a new directory: '+target);
@@ -33,7 +34,7 @@ for(const [kind,places] of [['visit',visits],['district',districts]])for(const p
   record.visitorGallery={...gallery,captures:conditionSets[0].captures,report:relative+'/manifest.json',reportSha256:sha(fs.readFileSync(path.join(dest,'manifest.json')))};write(recordPath,record);
  }else{
   const recordPath=path.join(root,'game/overview/comparison-data',place,'manifest.json'),record=read(recordPath);
-  record.groundConditions={manifest:'context/ground-4c57f810/manifest.json',gameSourceCommit:gallery.sourceCommit,conditionCount:4,viewpointCount:day.length};write(recordPath,record);
+  record.groundConditions={manifest:`context/${cohort}/manifest.json`,gameSourceCommit:gallery.sourceCommit,conditionCount:4,viewpointCount:day.length};write(recordPath,record);
  }
  counts.push({kind,place,viewpoints:day.length,conditions:4,captures:records.length,source:gallery.sourceCommit});
 }

@@ -168,31 +168,12 @@ const THEMES = {
 };
 const DEFAULT_THEME = THEMES.gts;
 
-// questions per CV station title (the answers are the station's own lines / chips: CV content only)
-function questionFor(title) {
-    const t = title.toLowerCase();
-    if (/^high school/.test(t)) return 'What did he study here?';
-    if (/first code/.test(t)) return 'Where did he write his first code?';
-    if (/^degree/.test(t)) return 'What did he graduate in?';
-    if (/hackathon trophy/.test(t)) return 'I heard there was a trophy?';
-    if (/^the job/.test(t)) return 'What did he work on here?';
-    if (/learned here/.test(t)) return 'What did he learn here?';
-    if (/^stack/.test(t)) return 'Which technologies did he use?';
-    if (/teaching/.test(t)) return 'Did he teach or interview people?';
-    if (/^hackathons/.test(t)) return 'Any hackathons?';
-    if (/side quest|freelanc/.test(t)) return 'Did he do anything on the side?';
-    if (/^then/.test(t)) return 'Why did he move on?';
-    if (/off the clock/.test(t)) return 'What does he do off the clock?';
-    if (/client/.test(t)) return `Tell me about the ${title.replace(/ — .*/, '')}.`;
-    if (/engineer|principal|senior/.test(t)) return `What did he do as ${title.replace(/\s*\(.*\)/, '')}?`;
-    return `Tell me about "${title}".`;
-}
 const PERSONA = {
-    teacher: { hi: ['Good morning! Come in, sit wherever you like.', 'You are asking about Cristian? One of ours.'], more: 'And there is more…', bye: 'Good luck — and do your homework!', lead: ['Well,', 'Let me think.', 'Ah, yes.'] },
-    professor: { hi: ['Welcome to the Rectorat.', 'Cristian? Yes, I remember the class.'], more: 'Since you ask…', bye: 'Good day. Mind the stairs.', lead: ['Indeed.', 'Let me see.', 'Well.'] },
-    lead: { hi: ['Hey, welcome!', 'You want to know about Cristian? Grab a coffee.'], more: 'Oh, and also…', bye: 'Cool, see you around!', lead: ['So,', 'Right,', 'Okay so,'] },
-    manager: { hi: ['Hi, welcome in.', 'Happy to tell you about Cristian.'], more: 'There is more to it:', bye: 'Thanks for stopping by!', lead: ['Sure.', 'Good question.', 'Right.'] },
-    host: { hi: ['Welcome!'], more: 'Also:', bye: 'Have a good flight!', lead: ['Sure.'] },
+    teacher: { hi: ['Good morning! Come in, sit wherever you like.', 'You are asking about Cristian? One of ours.'], bye: 'Good luck — and do your homework!', lead: ['Well,', 'Let me think.', 'Ah, yes.'] },
+    professor: { hi: ['Welcome to the Rectorat.', 'Cristian? Yes, I remember the class.'], bye: 'Good day. Mind the stairs.', lead: ['Indeed.', 'Let me see.', 'Well.'] },
+    lead: { hi: ['Hey, welcome!', 'You want to know about Cristian? Grab a coffee.'], bye: 'Cool, see you around!', lead: ['So,', 'Right,', 'Okay so,'] },
+    manager: { hi: ['Hi, welcome in.', 'Happy to tell you about Cristian.'], bye: 'Thanks for stopping by!', lead: ['Sure.', 'Good question.', 'Right.'] },
+    host: { hi: ['Welcome!'], bye: 'Have a good flight!', lead: ['Sure.'] },
 };
 /** small flat portrait (256×256) for the dialogue panel */
 function portraitURL(look, persona) {
@@ -211,10 +192,10 @@ function portraitURL(look, persona) {
 const esc = (s) => String(s).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
 
 /**
- * Walkable CV-stop interior with an in-character NPC (note 37): walk up to them, E (or tap) to talk; questions A–D
- * (keys 1–4 / A–D, mouse, touch), answers are the CV lines of that stop only; "Thanks, bye" (Esc / D) ends the talk.
- * Compatible with the old screen API: `read` (Set of answered topic indices), `done`, `stations[]` ({data, x, z, index}),
- * `exitZ`. Every answer dispatches `window` event `cv-answer` {stop, index, title, part} and calls `onAnswer(detail)`.
+ * Walkable CV-stop interior with a linear host story. E starts/resumes; Enter, Space or Continue
+ * advances every CV section in source order. Esc pauses; the final Continue finishes the chapter visit.
+ * Compatible with the old screen API: `read` (Set of fully presented story-section indices), `done`, `stations[]` ({data, x, z, index}),
+ * `exitZ`. Each fully presented section dispatches `window` event `cv-answer` {stop, index, title, part} and calls `onAnswer(detail)`.
  */
 export class Office {
     constructor(renderer, camera, stop, hud, input, audio) {
@@ -223,7 +204,7 @@ export class Office {
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color('#1a1d24');
         this.done = false;
-        this.read = new Set();
+        this.read = new Set(); this.part = {}; this.conversationComplete = false;
         this.onAnswer = null;
         this.x = 0; this.z = 0; this.heading = 0; this.pitch = 0; this.vel = 0; this.vx = 0; this.vz = 0;
         this.jumpY = 0; this.vy = 0;
@@ -369,19 +350,18 @@ export class Office {
         const atExit = this.z > this.exitZ - 1.2 && Math.abs(this.x) < 1.6;
         const N = this.stations.length;
         if (panel) this.hud.prompt(null);
-        else if (near) { this.hud.prompt(`<kbd>E</kbd> Talk to the ${n.title.toLowerCase()} ${this.read.size ? `<small>(${this.read.size}/${N} answers heard)</small>` : ''}`); if (inp.take('KeyE')) { inp.releaseLock(); this.talk(); } }
-        else if (atExit) { this.hud.prompt(`<kbd>E</kbd> Leave ${this.stop.short} ${this.read.size < N ? `<small>(${N - this.read.size} questions left)</small>` : '✓'}`); if (inp.take('KeyE')) this.done = true; }
+        else if (near) { this.hud.prompt(`<kbd>E</kbd> Talk to the ${n.title.toLowerCase()} ${this.read.size ? `<small>(${this.read.size}/${N} story sections)</small>` : ''}`); if (inp.take('KeyE')) { inp.releaseLock(); this.talk(); } }
+        else if (atExit) { this.hud.prompt(`<kbd>E</kbd> Leave ${this.stop.short} ${!this.conversationComplete ? `<small>(Story paused · finish it to continue)</small>` : '✓'}`); if (inp.take('KeyE')) this.done = true; }
         else this.hud.prompt(null);
         if (inp.take('Escape') && !panel) this.done = true;
         const touch = document.body.classList.contains('touch');
         const lookHint = touch ? 'drag to look' : inp.lookMode === 'lock' ? (inp.locked ? 'mouse look · Esc frees the cursor' : 'click to look around') : 'A/D turn';
-        this.hud.setHint(`${this.read.size}/${N} answers heard · walk to the ${n.title.toLowerCase()} and press E · W/S walk · ${lookHint} · Esc leave${this.windowViewLabel ? ` · ${this.windowViewLabel()}` : ''}`);
+        this.hud.setHint(`${this.read.size}/${N} story sections · walk to the ${n.title.toLowerCase()} and press E · W/S walk · ${lookHint} · Esc leave${this.windowViewLabel ? ` · ${this.windowViewLabel()}` : ''}`);
     }
 
     // ---------------------------------------------------------------------------------------------------------------
     //  dialogue
     // ---------------------------------------------------------------------------------------------------------------
-    /** open the conversation (also the harness entry point: `o.open(o.stations[i])` asks topic i directly) */
     /** where the camera goes for the conversation: 2.2 m in front of the NPC on the player's side, clear of furniture */
     convFrame() {
         const n = this.npc; let dx = this.x - n.x, dz = this.z - n.z; let l = Math.hypot(dx, dz); if (l < 0.01) { dx = 0; dz = 1; l = 1; }
@@ -399,50 +379,51 @@ export class Office {
         // landscape: turn right so the NPC stands left of the (right-aligned) dialogue box; portrait: centred, above the box
         return { x: best.x, z: best.z, heading: look - (portrait ? 0 : 0.36), pitch: portrait ? -0.3 : -0.12, snap: true };
     }
-    talk(first = null) {
+    talk() {
         this.frame = this.convFrame();
-        this.talking = true; this.part = {}; this.audio.blip?.(660, 0.06, 0.06);
+        this.talking = true; this.audio.blip?.(660, 0.06, 0.06);
         const P = PERSONA[this.npc.persona] || PERSONA.manager, s = this.stop;
         this.hud.panel('<div class="dlg"></div>', { closable: false });
         this._keyH = (e) => this.onKey(e); window.addEventListener('keydown', this._keyH, true);
-        // the greeting introduces him with the first topic, so even a short chat counts (answer events fire)
+        // The host tells the chapter in source order; paused talks resume at the first unfinished section.
         this.greet = `${esc(P.hi[0])} ${esc(P.hi[1] || '')} He was here ${esc(s.period.replace(' – ', ' to '))} — ${esc(s.role)}.`;
-        this.answer(first != null ? first : ([...Array(this.stations.length).keys()].find(i => !this.read.has(i)) ?? 0), 0, true);
+        this.answer([...Array(this.stations.length).keys()].find(i => !this.read.has(i)) ?? (this.conversationComplete ? 0 : this.stations.length - 1), 0, true);
     }
-    open(st) { if (!this.talking) this.talk(st.index); else this.answer(st.index, 0); }
+    // Legacy callers may start/resume the story, but cannot choose a topic.
+    open() { if (!this.talking) this.talk(); else this.advance(); }
     options() {
-        const opts = [], N = this.stations.length;
-        if (this.cur != null && this.part[this.cur] === 1) opts.push({ label: (PERSONA[this.npc.persona] || PERSONA.manager).more.replace(/…|:$/, '') + ' — tell me more', act: () => this.answer(this.cur, 1) });
-        // (after round 6) linear: every topic has to be heard anyway, so the talk walks through them in order — one "next"
-        // question; the others come back as "ask again" only once everything has been heard
-        const next = [...Array(N).keys()].find((i) => !this.read.has(i));
-        if (next != null) opts.push({ label: '→ ' + questionFor(this.stations[next].data.title), act: () => this.answer(next, 0) });
-        else for (let i = 0; i < N && opts.length < 3; i++) if (i !== this.cur) opts.push({ label: '↺ ' + questionFor(this.stations[i].data.title), act: () => this.answer(i, 0), again: true });
-        opts.push({ label: 'Thanks, bye', act: () => this.endTalk(true), bye: true });
-        return opts;
+        const final = this.cur === this.stations.length - 1 && this.part[this.cur] === 2;
+        return [{ label: final ? 'Finish chapter →' : 'Continue →', act: () => this.advance() }];
+    }
+    advance() {
+        if (!this.talking) return;
+        if (this.part[this.cur] === 1) this.answer(this.cur, 1);
+        else if (this.cur + 1 < this.stations.length) this.answer(this.cur + 1, 0);
+        else { this.conversationComplete = true; this.endTalk(true); this.done = true; }
     }
     show(text, sub = '') {
         const el = this.hud.el?.panel?.querySelector('.dlg') || document.querySelector('#panel .dlg'); if (!el) return;
         const N = this.stations.length, s = this.stop;
         this.opts = this.options();
-        el.innerHTML = `<div class="dlg-head"><img class="dlg-portrait" alt="" src="${this.portrait}"><div><div class="dlg-name">${esc(this.npc.title)}</div><div class="dlg-where" style="color:${s.color}">${s.icon || ''} ${esc(s.company)} · ${esc(s.period)}</div></div><div class="dlg-count">${this.read.size}/${N}</div></div>`
+        el.innerHTML = `<div class="dlg-head"><img class="dlg-portrait" alt="" src="${this.portrait}"><div><div class="dlg-name">${esc(this.npc.title)}</div><div class="dlg-where" style="color:${s.color}">${s.icon || ''} ${esc(s.company)} · ${esc(s.period)}</div></div><div class="dlg-count">Story ${this.cur + 1}/${N}</div></div>`
             + `<div class="dlg-text">${text}</div>${sub ? `<div class="dlg-sub">${sub}</div>` : ''}`
-            + `<ol class="dlg-opts">${this.opts.map((o, i) => `<li><button data-opt="${i}" class="${o.bye ? 'bye' : ''}${o.again ? ' again' : ''}"><kbd>${'ABCD'[i]}</kbd>${esc(o.label)}</button></li>`).join('')}</ol>`;
+            + `<div class="dlg-opts dlg-linear"><button data-opt="0"><kbd>↵</kbd>${esc(this.opts[0].label)}</button></div><div class="dlg-help">Enter / Space or tap Continue · Esc pauses the story</div>`;
         el.querySelectorAll('[data-opt]').forEach(b => b.addEventListener('click', (e) => { e.preventDefault(); this.pick(+b.dataset.opt); }));
     }
     pick(i) { const o = this.opts?.[i]; if (o) { this.audio.blip?.(880, 0.03, 0.04); o.act(); } }
     onKey(e) {
         if (!this.talking) return;
-        const k = e.code, map = { Digit1: 0, Digit2: 1, Digit3: 2, Digit4: 3, Numpad1: 0, Numpad2: 1, Numpad3: 2, Numpad4: 3, KeyA: 0, KeyB: 1, KeyC: 2, KeyD: 3 };
-        if (k in map) { e.preventDefault(); e.stopPropagation(); this.pick(Math.min(map[k], this.opts.length - 1 === map[k] ? map[k] : map[k])); }
-        else if (k === 'Escape') { e.preventDefault(); e.stopPropagation(); this.endTalk(true); }
+        if (e.code === 'Enter' || e.code === 'NumpadEnter' || e.code === 'Space') {
+            e.preventDefault(); e.stopPropagation(); if (!e.repeat) this.pick(0);
+        } else if (e.code === 'Escape') { e.preventDefault(); e.stopPropagation(); this.endTalk(true); }
     }
+
     answer(i, part, greet = false) {
         const st = this.stations[i]; if (!st) return;
         const d = st.data, P = PERSONA[this.npc.persona] || PERSONA.manager;
         this.cur = i;
         let body;
-        if (d.chips) body = `${P.lead[i % P.lead.length]} he worked with ${d.chips.slice(0, -1).map(esc).join(', ')}${d.chips.length > 1 ? ' and ' : ''}${esc(d.chips[d.chips.length - 1])}.`;
+        if (d.chips) { this.part[i] = 2; body = `${P.lead[i % P.lead.length]} he worked with ${d.chips.slice(0, -1).map(esc).join(', ')}${d.chips.length > 1 ? ' and ' : ''}${esc(d.chips[d.chips.length - 1])}.`; }
         else {
             const lines = d.lines || [], cut = lines.length > 2 ? 2 : lines.length;
             const show = part === 0 ? lines.slice(0, cut) : lines.slice(cut);
@@ -450,11 +431,13 @@ export class Office {
             this.part[i] = part === 0 && lines.length > cut ? 1 : 2;
         }
         const first = !this.read.has(i);
-        this.read.add(i);
+        if (this.part[i] === 2) this.read.add(i);
         const detail = { stop: this.stop.id, index: i, title: d.title, part, first };
-        try { this.onAnswer?.(detail); } catch { /* ignore */ }
-        try { window.dispatchEvent(new CustomEvent('cv-answer', { detail })); } catch { /* ignore */ }
-        this.show(`${greet ? `<p class="dlg-greet">${this.greet}</p>` : ''}<b class="dlg-q">${esc(questionFor(d.title))}</b>${body}`, this.read.size === this.stations.length && first ? '✓ You have heard everything about this stop.' : '');
+        if (this.part[i] === 2) {
+            try { this.onAnswer?.(detail); } catch { /* ignore */ }
+            try { window.dispatchEvent(new CustomEvent('cv-answer', { detail })); } catch { /* ignore */ }
+        }
+        this.show(`${greet ? `<p class="dlg-greet">${this.greet}</p>` : ''}<b class="dlg-q">${esc(d.title)}</b>${body}`, this.cur === this.stations.length - 1 && this.part[this.cur] === 2 ? 'The chapter story is complete. Finish to continue your journey.' : '');
     }
     endTalk(close) {
         if (!this.talking) return;

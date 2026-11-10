@@ -1,11 +1,10 @@
-// office-talk-all (cockpit-ui, round 5 note 37; gameplay's `office-talk` covers one stop): at every CV stop walk up to the NPC, E opens the conversation, answer every
-// question with the keyboard (A / 1 alternating, real keydown events), check the answer count, the `cv-answer` events,
+// office-talk-all (cockpit-ui, round 5 note 37; gameplay's `office-talk` covers one stop): at every CV stop walk up to the NPC, E opens the conversation, continue the full story with the keyboard (Enter / Space alternating, real keydown events), check the answer count, the `cv-answer` events,
 // that the dialogue fits the viewport, "Thanks, bye" (click) closes it, then leave by the exit. Registered by index.js.
 import { SCENARIOS } from './scenarios.js';
 
 SCENARIOS.push({
     id: 'office-talk-all', group: 'office', city: 'bucharest',
-    title: 'Office conversation at every CV stop: E at the NPC, every question via A / 1, cv-answer events, Thanks bye, leave',
+    title: 'Office conversation at every CV stop: E at the NPC, linear story via Enter / Space, complete cv-answer sections and finish exit',
     async run(H) {
         const g = H.g; const { STOPS } = await import('../../../src/data.js');
         const res = { stops: [] }; const events = []; const on = (e) => events.push(e.detail); addEventListener('cv-answer', on);
@@ -23,16 +22,17 @@ SCENARIOS.push({
                     r.open = g.hud.panelOpen; r.first = o.read.size;
                     if (!r.open) H.issue('office-talk-open', 'high', `${stop.id}: E next to the ${o.npc.title} did not open the conversation`, {}, { shot: true, key: 'otopen:' + stop.id });
                     let guard = 0;
-                    while (r.open && o.read.size < o.stations.length && guard++ < 16) { key(guard % 2 ? 'Digit1' : 'KeyA'); await H.run(0.05); }
+                    while (r.open && o.talking && guard++ < 32) { key(guard % 2 ? 'Enter' : 'Space'); await H.run(0.05); }
                     r.read = o.read.size; r.topics = o.stations.length;
-                    if (r.read < r.topics) H.issue('office-talk-incomplete', 'high', `${stop.id}: only ${r.read}/${r.topics} answers reachable with A / 1`, {}, { key: 'otinc:' + stop.id });
+                    if (r.read < r.topics) H.issue('office-talk-incomplete', 'high', `${stop.id}: only ${r.read}/${r.topics} story sections reachable with Continue`, {}, { key: 'otinc:' + stop.id });
                     const box = document.querySelector('#panel .dlg')?.getBoundingClientRect();
                     if (box && (box.left < -1 || box.right > innerWidth + 1 || box.top < -1 || box.bottom > innerHeight + 1)) H.issue('office-talk-offscreen', 'medium', `${stop.id}: dialogue box off-screen (${Math.round(box.left)},${Math.round(box.top)}–${Math.round(box.right)},${Math.round(box.bottom)})`, {}, { key: 'otoff:' + stop.id });
                     if (!H._otShot) { H._otShot = true; r.shot = await H.shot(`office-talk-${stop.id}`); }
-                    document.querySelector('#panel .dlg-opts button.bye')?.click(); await H.run(0.2);
+                    await H.run(0.2);
                     r.closed = !g.hud.panelOpen && !o.talking;
-                    if (!r.closed) { H.issue('office-talk-bye', 'high', `${stop.id}: "Thanks, bye" did not close the conversation`, {}, { key: 'otbye:' + stop.id }); g.hud.closePanel(); await H.run(0.2); }
+                    if (!r.closed) { H.issue('office-talk-bye', 'high', `${stop.id}: Final Continue did not finish the conversation`, {}, { key: 'otbye:' + stop.id }); g.hud.closePanel(); await H.run(0.2); }
                 }
+                if (g.state !== 'office') {r.left=true;res.stops.push(r);continue;}
                 if (!stop.poiRef) { // this stop's building is not in the loaded district (leaveOffice needs its door): close directly
                     o.dispose(); g.office = null; document.querySelector('#hud')?.classList.remove('in-office'); g.state = 'drive'; r.left = 'direct'; res.stops.push(r); continue;
                 }

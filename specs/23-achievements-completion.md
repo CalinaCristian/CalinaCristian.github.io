@@ -115,3 +115,7 @@ R23.8 **Dinamo drone football secret** (owner, 2026-11-08): a football starts on
 ### Fidelity integration: retired unsupported activities
 
 Remove `lm-needle-360` (`space-needle:deck`) and `lm-bbg-plants` (`bel-botanical-garden:plants`) from the active catalogue. The unmodelled deck stair teleport and invented botanical label-count award were removed from scene participation. Keep the animated Needle elevator/Loupe and the physical garden bridge. Existing saved unlock/activity keys remain historical data: completion and the all-activities award enumerate the current catalogue, so retired keys add neither a requirement nor progress. Current catalogue contains 114 entries. Active activity requirements and city/postcard/tour targets follow the current menu availability; cycling activates on first use. Preserve old earned keys without counting unavailable or retired entries toward progress.
+
+## Current linear office story · 10 November 2026
+
+The owner supersedes the earlier A–D conversation design: E starts/resumes the teacher/professor/manager’s fixed CV sequence; Enter, Space or a single Continue button advances it. Follow-up lines are included in order. Esc pauses; leaving early does not complete a chapter. The final Continue finishes the visit and advances the story. CV completion uses fully presented sections and preserves the existing stop/topic achievement keys and previous earned progress. Dated progress logs above describe their original historical implementations.

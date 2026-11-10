@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "reviewedUTC": "2026-11-09",
+  "reviewedUTC": "2026-11-10",
   "scope": "Research binding candidates for8retained CV rooms, not an integrated portal or verification of actual room/floor/window. Source-based static geometry is exact to retained arrays, not surveyed reality. No provider pixels.",
   "sourceCommit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
   "attribution": "Building footprint facts derived from OpenStreetMap contributors, ODbL1.0; official/design source pages retain their own copyrights. No provider images shipped.",
   "coordinateContract": {
     "xz": "District source metres, x east/z south; registry anchor yaw describes authored model only.",
-    "vertical": "Null until root samples actual live source facade/ground geometry; room H/W/D and prepared generic heights are not external-world floor elevations.",
+    "vertical": "Numbered floors follow ownerFloorUpdate; metre offsets use explicit retained-model datums or prepared height/levels estimates. These are not surveyed heights.",
     "candidates": "Every nonzero outer and retained courtyard edge is a geometric candidate, including short edges; no edge/window/floor selected. Actual emitted facade can have offsets/cornices/podiums.",
     "portalMath": "Root must supply actual outer source-facade plane/corners in the existing live world and map actual Office.windowPane aperture/head motion into it. Clip near just outside that plane; math removes no source geometry.",
     "oneWorld": "Render current existing district/time/weather/season/actors with same world. No panorama, proxy district, secondary simulation or actor thinning."
   },
   "fallbackPolicy": {
     "selectionOwner": "Root integration; no automatic fallback selection in this ledger/helper",
-    "candidate": "Explicitly declared estimated ground-facade live district view only after confirming retained source identity and actual emitted facade plane. It does not claim to be the real office window.",
-    "label": "Live district view · room floor/viewpoint not verified",
+    "candidate": "Use owner-assigned numbered floors with explicitly estimated metre conversion, retaining full source/geometry compatibility. Never silently substitute a ground-floor view.",
+    "label": "Live district view \u00b7 floor N; exact height and bearing estimated",
     "unknownsRemainNull": true,
     "blockedIdentity": "Do not select a current-office view from a known mismatched building (UiPath-Bucharest A/B) until resolved; retain exact district context separately if root chooses a visibly declared illustrative view.",
-    "userClarification": "Numbered floor + building/block + window side/landmark direction + approximate era; floor alone does not determine facade bearing.",
+    "userClarification": "Numbered floors now supplied for7rooms; Luxoft, exact window sides and source building conflicts remain unresolved.",
     "preservation": "No window removal, facade hiding, world reconstruction, object relocation or weather/time substitution to improve view."
   },
   "primaryPages": [
@@ -231,7 +231,7 @@
       ],
       "evidence": "Official university tour names Rectorat cupola; privately inspected hall supports brick, terrazzo, timber galleries and concrete fins. Aerial Rectorat scene is not interior evidence.",
       "gaps": [
-        "Source room-to-exterior window relation, numbered room floor, world elevation and facade bearing are unproven.",
+        "Source room-to-exterior window relation, world elevation and facade bearing are unproven.",
         "Estimated18x22x7m room and authored CV trophy placement are not survey/building facts."
       ],
       "anchor": {
@@ -428,7 +428,7 @@
             "tags": {
               "building": "university",
               "building:levels": "5",
-              "name": "Rectorat Universitatea Politehnica din București"
+              "name": "Rectorat Universitatea Politehnica din Bucure\u0219ti"
             },
             "source": "https://api.openstreetmap.org/api/0.6/way/28240552",
             "fetchedUTC": "2026-11-09T17:54:43.686601+00:00",
@@ -441,7 +441,7 @@
             "minHeightM": 0.0,
             "levels": 5,
             "heightSourceCode": 0,
-            "name": "Rectorat Universitatea Politehnica din București",
+            "name": "Rectorat Universitatea Politehnica din Bucure\u0219ti",
             "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
           }
         },
@@ -1254,7 +1254,12 @@
         "sourceApertureWorldCorners": null,
         "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
       },
-      "fallbackSelection": null
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 1,
+        "basis": "owner-provided",
+        "date": "2026-11-10"
+      }
     },
     {
       "id": "luxoft",
@@ -1416,13 +1421,13 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "București",
+              "addr:city": "Bucure\u0219ti",
               "addr:housenumber": "5-7",
               "addr:postcode": "020337",
               "addr:street": "Bulevardul Dimitrie Pompeiu",
               "building": "commercial",
               "building:levels": "9",
-              "name": "Clădirea A"
+              "name": "Cl\u0103direa A"
             },
             "source": "game/research/landmark-source-bucharest-pipera.json",
             "model": "hermes"
@@ -1432,7 +1437,7 @@
             "minHeightM": 0.0,
             "levels": 9,
             "heightSourceCode": 2,
-            "name": "Clădirea A",
+            "name": "Cl\u0103direa A",
             "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
           }
         },
@@ -1541,7 +1546,7 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "București",
+              "addr:city": "Bucure\u0219ti",
               "addr:street": "Bulevardul Dimitrie Pompeiu",
               "building": "yes"
             },
@@ -1796,14 +1801,14 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "București",
+              "addr:city": "Bucure\u0219ti",
               "addr:housenumber": "5-7",
               "addr:postcode": "020337",
               "addr:street": "Bulevardul Dimitrie Pompeiu",
               "building": "commercial",
               "building:levels": "9",
               "building:levels:underground": "4",
-              "name": "Clădirea B+C",
+              "name": "Cl\u0103direa B+C",
               "smoking": "outside",
               "type": "multipolygon"
             },
@@ -2091,7 +2096,12 @@
         "sourceApertureWorldCorners": null,
         "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
       },
-      "fallbackSelection": null
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 6,
+        "basis": "owner-provided",
+        "date": "2026-11-10"
+      }
     },
     {
       "id": "arnia",
@@ -2417,11 +2427,11 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "București",
+              "addr:city": "Bucure\u0219ti",
               "addr:housenumber": "51 - 53",
               "addr:postcode": "010661",
-              "addr:postcode:source": "Date de la Poșta Română, publicate sub Licența pentru Guvernare Deschisă v1.0 la http://date.gov.ro/organization/posta-romana",
-              "addr:street": "Bulevardul Lascăr Catargiu",
+              "addr:postcode:source": "Date de la Po\u0219ta Rom\u00e2n\u0103, publicate sub Licen\u021ba pentru Guvernare Deschis\u0103 v1.0 la http://date.gov.ro/organization/posta-romana",
+              "addr:street": "Bulevardul Lasc\u0103r Catargiu",
               "building": "office",
               "building:levels": "14",
               "check_date": "2026-06-15",
@@ -2450,7 +2460,12 @@
         "sourceApertureWorldCorners": null,
         "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
       },
-      "fallbackSelection": null
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 6,
+        "basis": "owner-authorized assumption",
+        "date": "2026-11-10"
+      }
     },
     {
       "id": "gts",
@@ -2686,10 +2701,10 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "București",
+              "addr:city": "Bucure\u0219ti",
               "addr:housenumber": "101",
               "addr:postcode": "030613",
-              "addr:street": "Calea Călărașilor",
+              "addr:street": "Calea C\u0103l\u0103ra\u0219ilor",
               "building": "apartments",
               "building:levels": "1",
               "heritage": "2",
@@ -2718,7 +2733,12 @@
         "sourceApertureWorldCorners": null,
         "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
       },
-      "fallbackSelection": null
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 2,
+        "basis": "owner-provided",
+        "date": "2026-11-10"
+      }
     },
     {
       "id": "rosetti",
@@ -2748,7 +2768,7 @@
       ],
       "evidence": "PROEDUS self-hosted virtual tour names L.T.C.A.Rosetti and two classrooms. Private blue/yellow classroom faces support desks/chairs/lockers/materials, not georeferenced exterior windows.",
       "gaps": [
-        "Classroom source part, numbered floor, capture date,2009appearance and geographic heading unknown.",
+        "Classroom source part, capture date,2009appearance and geographic heading unknown.",
         "Viewer pano yaw is not surveyed north."
       ],
       "anchor": {
@@ -2964,7 +2984,7 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "București",
+              "addr:city": "Bucure\u0219ti",
               "addr:housenumber": "11",
               "addr:street": "Strada General Giuseppe Garibaldi",
               "building": "school",
@@ -3230,7 +3250,12 @@
         "sourceApertureWorldCorners": null,
         "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
       },
-      "fallbackSelection": null
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 2,
+        "basis": "owner-authorized assumption",
+        "date": "2026-11-10"
+      }
     },
     {
       "id": "db",
@@ -3425,7 +3450,7 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "București",
+              "addr:city": "Bucure\u0219ti",
               "addr:country": "RO",
               "building": "office",
               "name": "BOB Tower",
@@ -3454,7 +3479,12 @@
         "sourceApertureWorldCorners": null,
         "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
       },
-      "fallbackSelection": null
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 6,
+        "basis": "owner-authorized assumption",
+        "date": "2026-11-10"
+      }
     },
     {
       "id": "uipath-bel",
@@ -4825,7 +4855,12 @@
         "sourceApertureWorldCorners": null,
         "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
       },
-      "fallbackSelection": null
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 6,
+        "basis": "owner-provided",
+        "date": "2026-11-10"
+      }
     }
   ],
   "historicalEvidence": {
@@ -5194,7 +5229,7 @@
       "editedAt": "2022-05-07T13:03:15Z",
       "tags": {
         "addr:housenumber": "37",
-        "addr:street": "Strada Căderea Bastiliei",
+        "addr:street": "Strada C\u0103derea Bastiliei",
         "building": "office",
         "building:levels": "5",
         "roof:levels": "1"
@@ -5269,7 +5304,7 @@
       "tags": {
         "building": "university",
         "building:levels": "5",
-        "name": "Rectorat Universitatea Politehnica din București"
+        "name": "Rectorat Universitatea Politehnica din Bucure\u0219ti"
       },
       "nodeIds": [
         "310173225",
@@ -5498,5 +5533,21 @@
     "cpuMathAndResourceControls": "See unique handoff; not browser/GPU proof.",
     "nativePortalVisual": "PENDING root integration and coordinated native run",
     "actualOfficeFloorAndView": "UNKNOWN for all8current room bindings"
+  },
+  "ownerFloorUpdate": {
+    "date": "2026-11-10",
+    "source": "Owner instructions in the development conversation",
+    "provided": {
+      "gts": 2,
+      "upb": 1,
+      "uipath-buc": 6,
+      "uipath-bel": 6
+    },
+    "authorizedAssumptions": {
+      "arnia": 6,
+      "db": 6,
+      "rosetti": 2
+    },
+    "interpretation": "UiPath floor6 is applied to both UiPath chapters. Floor index is above ground. Metre heights and facade bearings are not supplied by this instruction."
   }
 }

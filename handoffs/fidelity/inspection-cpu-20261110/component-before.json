@@ -1,0 +1,1716 @@
+{
+  "sourceCommit": "4c57f810c2f7de5b1c3245e6a440d8df8ea58bdb",
+  "scope": "Native production traffic/pedestrian component with all admitted actors, paused renderer, fixed public Grozavesti spawn, explicit 1/30 s simulation steps. CPU attribution only, not elapsed physical-play soak or hardware FPS.",
+  "started": "2026-11-10T06:49:13.233Z",
+  "phases": [
+    {
+      "simSeconds": 9.999999999999975,
+      "frames": 300,
+      "medianMs": 41.69999999925494,
+      "p95Ms": 61.29999999701977,
+      "maxMs": 130.89999999850988,
+      "vehicles": 311,
+      "pool": 183,
+      "peds": 560,
+      "pedStates": {
+        "stand": 18,
+        "walk": 456,
+        "legs": 81,
+        "wait": 5
+      },
+      "stats": {
+        "updateMs": 38.80878154271976,
+        "pedObstacles": 28167,
+        "lastMs": 45.399999998509884,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 1,
+        "pedObstacleWorst": null,
+        "railSourceBlocked": 217,
+        "pedGuard": 8,
+        "guard": 469,
+        "separate": 1
+      },
+      "pedStats": {
+        "pushes": 11,
+        "obsPush": 519,
+        "initialWalkRepairs": 133,
+        "initialStandRepairs": 4,
+        "initialStandUnresolved": 1,
+        "peerBlocked": 28970,
+        "replans": 5
+      }
+    },
+    {
+      "simSeconds": 20.000000000000153,
+      "frames": 600,
+      "medianMs": 49.099999997764826,
+      "p95Ms": 94.89999999850988,
+      "maxMs": 440.5,
+      "vehicles": 311,
+      "pool": 183,
+      "peds": 560,
+      "pedStates": {
+        "stand": 18,
+        "legs": 137,
+        "walk": 405
+      },
+      "stats": {
+        "updateMs": 46.599570745387986,
+        "pedObstacles": 28167,
+        "lastMs": 43,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 1,
+        "pedObstacleWorst": null,
+        "railSourceBlocked": 679,
+        "pedGuard": 11,
+        "guard": 1225,
+        "separate": 9,
+        "parkingBubbles": 2
+      },
+      "pedStats": {
+        "pushes": 44,
+        "obsPush": 1228,
+        "initialWalkRepairs": 133,
+        "initialStandRepairs": 4,
+        "initialStandUnresolved": 1,
+        "peerBlocked": 80227,
+        "replans": 109
+      }
+    },
+    {
+      "simSeconds": 30.00000000000065,
+      "frames": 900,
+      "medianMs": 42.19999999925494,
+      "p95Ms": 88.29999999701977,
+      "maxMs": 137.80000000074506,
+      "vehicles": 311,
+      "pool": 183,
+      "peds": 560,
+      "pedStates": {
+        "stand": 18,
+        "legs": 107,
+        "walk": 435
+      },
+      "stats": {
+        "updateMs": 76.0874002146052,
+        "pedObstacles": 28167,
+        "lastMs": 44.5,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 1,
+        "pedObstacleWorst": null,
+        "railSourceBlocked": 1457,
+        "pedGuard": 12,
+        "guard": 2125,
+        "separate": 18,
+        "parkingBubbles": 5
+      },
+      "pedStats": {
+        "pushes": 44,
+        "obsPush": 1908,
+        "initialWalkRepairs": 133,
+        "initialStandRepairs": 4,
+        "initialStandUnresolved": 1,
+        "peerBlocked": 152526,
+        "replans": 190
+      }
+    },
+    {
+      "simSeconds": 40.00000000000029,
+      "frames": 1200,
+      "medianMs": 41.69999999925494,
+      "p95Ms": 61.20000000298023,
+      "maxMs": 117.60000000149012,
+      "vehicles": 311,
+      "pool": 183,
+      "peds": 560,
+      "pedStates": {
+        "stand": 18,
+        "legs": 138,
+        "walk": 404
+      },
+      "stats": {
+        "updateMs": 45.05025753131232,
+        "pedObstacles": 28167,
+        "lastMs": 66.59999999776483,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 1,
+        "pedObstacleWorst": null,
+        "railSourceBlocked": 2559,
+        "pedGuard": 12,
+        "guard": 2710,
+        "separate": 24,
+        "parkingBubbles": 5
+      },
+      "pedStats": {
+        "pushes": 44,
+        "obsPush": 2245,
+        "initialWalkRepairs": 133,
+        "initialStandRepairs": 4,
+        "initialStandUnresolved": 1,
+        "peerBlocked": 223555,
+        "replans": 399
+      }
+    },
+    {
+      "simSeconds": 49.99999999999972,
+      "frames": 1500,
+      "medianMs": 44.30000000074506,
+      "p95Ms": 82,
+      "maxMs": 112.60000000149012,
+      "vehicles": 311,
+      "pool": 183,
+      "peds": 560,
+      "pedStates": {
+        "stand": 18,
+        "legs": 192,
+        "walk": 349,
+        "wait": 1
+      },
+      "stats": {
+        "updateMs": 49.96279475597066,
+        "pedObstacles": 28167,
+        "lastMs": 45.5,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 1,
+        "pedObstacleWorst": null,
+        "railSourceBlocked": 3745,
+        "pedGuard": 14,
+        "guard": 3582,
+        "separate": 28,
+        "parkingBubbles": 6
+      },
+      "pedStats": {
+        "pushes": 48,
+        "obsPush": 2486,
+        "initialWalkRepairs": 133,
+        "initialStandRepairs": 4,
+        "initialStandUnresolved": 1,
+        "peerBlocked": 302858,
+        "replans": 645
+      }
+    },
+    {
+      "simSeconds": 59.999999999999154,
+      "frames": 1800,
+      "medianMs": 46.099999997764826,
+      "p95Ms": 89.90000000223517,
+      "maxMs": 273.69999999925494,
+      "vehicles": 311,
+      "pool": 183,
+      "peds": 560,
+      "pedStates": {
+        "stand": 18,
+        "legs": 145,
+        "walk": 395,
+        "wait": 2
+      },
+      "stats": {
+        "updateMs": 54.60481046811863,
+        "pedObstacles": 28167,
+        "lastMs": 38.69999999925494,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 1,
+        "pedObstacleWorst": null,
+        "railSourceBlocked": 4923,
+        "pedGuard": 14,
+        "guard": 4930,
+        "separate": 29,
+        "parkingBubbles": 13,
+        "deadlocks": 1
+      },
+      "pedStats": {
+        "pushes": 48,
+        "obsPush": 2862,
+        "initialWalkRepairs": 133,
+        "initialStandRepairs": 4,
+        "initialStandUnresolved": 1,
+        "peerBlocked": 388933,
+        "replans": 781
+      }
+    },
+    {
+      "simSeconds": 69.9999999999986,
+      "frames": 2100,
+      "medianMs": 44.599999997764826,
+      "p95Ms": 88.80000000074506,
+      "maxMs": 149.90000000223517,
+      "vehicles": 311,
+      "pool": 183,
+      "peds": 560,
+      "pedStates": {
+        "stand": 18,
+        "legs": 170,
+        "walk": 371,
+        "wait": 1
+      },
+      "stats": {
+        "updateMs": 47.09408046371128,
+        "pedObstacles": 28167,
+        "lastMs": 38.100000001490116,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 1,
+        "pedObstacleWorst": null,
+        "railSourceBlocked": 6096,
+        "pedGuard": 14,
+        "guard": 5832,
+        "separate": 29,
+        "parkingBubbles": 13,
+        "deadlocks": 1
+      },
+      "pedStats": {
+        "pushes": 48,
+        "obsPush": 3008,
+        "initialWalkRepairs": 133,
+        "initialStandRepairs": 4,
+        "initialStandUnresolved": 1,
+        "peerBlocked": 485365,
+        "replans": 1086
+      }
+    },
+    {
+      "simSeconds": 79.99999999999802,
+      "frames": 2400,
+      "medianMs": 47.5,
+      "p95Ms": 70.19999999925494,
+      "maxMs": 252.40000000223517,
+      "vehicles": 311,
+      "pool": 183,
+      "peds": 560,
+      "pedStates": {
+        "stand": 18,
+        "legs": 228,
+        "walk": 313,
+        "wait": 1
+      },
+      "stats": {
+        "updateMs": 59.228998678857764,
+        "pedObstacles": 28167,
+        "lastMs": 45.399999998509884,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 1,
+        "pedObstacleWorst": null,
+        "railSourceBlocked": 7275,
+        "pedGuard": 14,
+        "guard": 7269,
+        "separate": 44,
+        "parkingBubbles": 13,
+        "deadlocks": 1
+      },
+      "pedStats": {
+        "pushes": 48,
+        "obsPush": 3331,
+        "initialWalkRepairs": 133,
+        "initialStandRepairs": 4,
+        "initialStandUnresolved": 1,
+        "peerBlocked": 586290,
+        "replans": 1422
+      }
+    },
+    {
+      "simSeconds": 89.99999999999746,
+      "frames": 2700,
+      "medianMs": 46.30000000074506,
+      "p95Ms": 95,
+      "maxMs": 649.4000000022352,
+      "vehicles": 311,
+      "pool": 183,
+      "peds": 560,
+      "pedStates": {
+        "stand": 18,
+        "legs": 176,
+        "walk": 364,
+        "wait": 2
+      },
+      "stats": {
+        "updateMs": 44.09791431548873,
+        "pedObstacles": 28167,
+        "lastMs": 40.5,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 1,
+        "pedObstacleWorst": null,
+        "railSourceBlocked": 8447,
+        "pedGuard": 14,
+        "guard": 8627,
+        "separate": 75,
+        "parkingBubbles": 15,
+        "deadlocks": 2
+      },
+      "pedStats": {
+        "pushes": 48,
+        "obsPush": 3381,
+        "initialWalkRepairs": 133,
+        "initialStandRepairs": 4,
+        "initialStandUnresolved": 1,
+        "peerBlocked": 696572,
+        "replans": 1643
+      }
+    },
+    {
+      "simSeconds": 99.99999999999689,
+      "frames": 3000,
+      "medianMs": 49.80000000074506,
+      "p95Ms": 89.30000000074506,
+      "maxMs": 259.9000000022352,
+      "vehicles": 311,
+      "pool": 183,
+      "peds": 560,
+      "pedStates": {
+        "stand": 18,
+        "legs": 199,
+        "walk": 341,
+        "wait": 2
+      },
+      "stats": {
+        "updateMs": 52.16966531170389,
+        "pedObstacles": 28167,
+        "lastMs": 82.89999999850988,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 1,
+        "pedObstacleWorst": null,
+        "railSourceBlocked": 9629,
+        "pedGuard": 14,
+        "guard": 9393,
+        "separate": 123,
+        "parkingBubbles": 18,
+        "deadlocks": 3
+      },
+      "pedStats": {
+        "pushes": 48,
+        "obsPush": 3521,
+        "initialWalkRepairs": 133,
+        "initialStandRepairs": 4,
+        "initialStandUnresolved": 1,
+        "peerBlocked": 806288,
+        "replans": 2026
+      }
+    },
+    {
+      "simSeconds": 109.99999999999632,
+      "frames": 3300,
+      "medianMs": 49.80000000074506,
+      "p95Ms": 68,
+      "maxMs": 505.80000000074506,
+      "vehicles": 311,
+      "pool": 183,
+      "peds": 560,
+      "pedStates": {
+        "stand": 18,
+        "legs": 225,
+        "walk": 315,
+        "wait": 2
+      },
+      "stats": {
+        "updateMs": 102.19139911930462,
+        "pedObstacles": 28167,
+        "lastMs": 57.400000002235174,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 1,
+        "pedObstacleWorst": null,
+        "railSourceBlocked": 10805,
+        "pedGuard": 18,
+        "guard": 9991,
+        "separate": 123,
+        "parkingBubbles": 20,
+        "deadlocks": 3
+      },
+      "pedStats": {
+        "pushes": 57,
+        "obsPush": 3686,
+        "initialWalkRepairs": 133,
+        "initialStandRepairs": 4,
+        "initialStandUnresolved": 1,
+        "peerBlocked": 916883,
+        "replans": 2366
+      }
+    },
+    {
+      "simSeconds": 119.99999999999575,
+      "frames": 3600,
+      "medianMs": 46.70000000298023,
+      "p95Ms": 90.90000000223517,
+      "maxMs": 542.3999999985099,
+      "vehicles": 311,
+      "pool": 183,
+      "peds": 560,
+      "pedStates": {
+        "stand": 18,
+        "legs": 170,
+        "walk": 371,
+        "wait": 1
+      },
+      "stats": {
+        "updateMs": 47.56103235219423,
+        "pedObstacles": 28167,
+        "lastMs": 44.600000001490116,
+        "pedObstacleOverlaps": 0,
+        "pedObstacleMax": 1,
+        "pedObstacleWorst": null,
+        "railSourceBlocked": 11984,
+        "pedGuard": 27,
+        "guard": 10624,
+        "separate": 124,
+        "parkingBubbles": 24,
+        "deadlocks": 4
+      },
+      "pedStats": {
+        "pushes": 109,
+        "obsPush": 4110,
+        "initialWalkRepairs": 133,
+        "initialStandRepairs": 4,
+        "initialStandUnresolved": 1,
+        "peerBlocked": 1021506,
+        "replans": 2623
+      }
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "served": [
+    {
+      "path": "game/index.html",
+      "sha256": "0996b4b7521305020446f03dd04c38bc49d8a2f2ebde18687c84150b958248c4",
+      "bytes": 8658
+    },
+    {
+      "path": "game/style.css",
+      "sha256": "70d097dd5090960f2c3e03ce8357bcdb177f078fcab54ee8a50ad5c8cdd9abe4",
+      "bytes": 96554
+    },
+    {
+      "path": "game/src/telemetry-game.js",
+      "sha256": "bbe9df1036d7fdb06bd666027011d90a0d1c66fa322d32efee19130e933966ef",
+      "bytes": 13728
+    },
+    {
+      "path": "game/src/main.js",
+      "sha256": "d8bfbe745dd90d56470d7b0aaaae097602173cb638f41ee8f174f0dd1d883914",
+      "bytes": 222238
+    },
+    {
+      "path": "public/telemetry.js",
+      "sha256": "2fccb2a095d527b1ed3ff80043d150afc6a1f2bd78ca8f781c7533432632238a",
+      "bytes": 9172
+    },
+    {
+      "path": "game/src/telemetry-health.js",
+      "sha256": "05805123b81c5aa14649512c551a1a4d3eca76746e95d0c5b63c89362734c0f1",
+      "bytes": 19518
+    },
+    {
+      "path": "game/vendor/three.module.min.js",
+      "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7",
+      "bytes": 691648
+    },
+    {
+      "path": "game/src/cities.js",
+      "sha256": "54b5d54d502edc87b3cbe19a2970fb82f392fd3cc41803a2ee84ec1c202966ac",
+      "bytes": 31577
+    },
+    {
+      "path": "game/src/player.js",
+      "sha256": "23be3729f855cfe708745f4ceb7eb86a2a8c86f970f07ab10b376fa103e2dea8",
+      "bytes": 37955
+    },
+    {
+      "path": "game/src/chapters.js",
+      "sha256": "ef88ddf04a38291e8694f2b4af6f027afad351f85e33d365a2c39f2a833297ba",
+      "bytes": 17520
+    },
+    {
+      "path": "game/src/traffic.js",
+      "sha256": "3a8f2bbede6ac9fc64c82c10ad7725c12a88762008874291e03302ecb5c7ed72",
+      "bytes": 257927
+    },
+    {
+      "path": "game/src/data.js",
+      "sha256": "c1906c932e7d7de283466cf1195e2f988186055dc0776655b588ef4fb39aa579",
+      "bytes": 46559
+    },
+    {
+      "path": "game/src/audio.js",
+      "sha256": "11863937c63883facc59e7549bde428e3e660e6e39ab50b3d55f4a6cf1afe611",
+      "bytes": 7181
+    },
+    {
+      "path": "game/src/hud.js",
+      "sha256": "258a6108ab898ac05801bea8aac7cdb015d312975abb20766251a382ae838c0b",
+      "bytes": 9812
+    },
+    {
+      "path": "game/src/minimap.js",
+      "sha256": "cca958895b0b56e9c3819fba0d89752458482a37227e49ed2ba52ad5639c691b",
+      "bytes": 27506
+    },
+    {
+      "path": "game/src/input.js",
+      "sha256": "8be7e47e6416e63208a84250eab6f866d432fa73ecd23519c7adbea939f07e4f",
+      "bytes": 16990
+    },
+    {
+      "path": "game/src/world.js",
+      "sha256": "f4a8e10a452d385b84fe4042df3f5147374f31561c8804ab154dde09ed177a1e",
+      "bytes": 570126
+    },
+    {
+      "path": "game/src/office.js",
+      "sha256": "c2a47fe446a970aab51310ff4476dff9f04e4fd8142416f7d68e91d3b2566e07",
+      "bytes": 50168
+    },
+    {
+      "path": "game/src/office-window-service.js",
+      "sha256": "0aa60fdaddd7617f72274fa198b17fca6cd0abd448540a58ca772c9ecca1315f",
+      "bytes": 7367
+    },
+    {
+      "path": "game/src/office-bubble-scope.js",
+      "sha256": "d059974cc92a5784ec42314dd3d57b013f8963b792201cc0a0e38c85f059a228",
+      "bytes": 1491
+    },
+    {
+      "path": "game/src/modal-controls.js",
+      "sha256": "6e7609fb6156f6936b05b66f719419d67a4497cfde9a7525bcb9379d2f2bc2e4",
+      "bytes": 1380
+    },
+    {
+      "path": "game/src/map-place-actions.js",
+      "sha256": "eb5749a020fed4b6967fa7222a97abc512d304ea8cb9d56022ec58e0afbcaf63",
+      "bytes": 856
+    },
+    {
+      "path": "game/src/nav.js",
+      "sha256": "44ea9aea4cc452849eb21dc65f34e4959cc33ad2388c1489dc03065370c04d63",
+      "bytes": 38850
+    },
+    {
+      "path": "game/src/util.js",
+      "sha256": "0a9dfc801adefd4dbf6f8485451404d92494dd9292fe0e310c9eb457f78afeb5",
+      "bytes": 11132
+    },
+    {
+      "path": "game/src/render.js",
+      "sha256": "43c33b24a3e530219d777bc9603e31e4275a3a19562102675bf8380939d0e679",
+      "bytes": 104711
+    },
+    {
+      "path": "game/src/sceneResources.js",
+      "sha256": "7f1cf9c55cbfbfa9cf9df4438de27a49ece7b765bb34ba478757024183f5c809",
+      "bytes": 2956
+    },
+    {
+      "path": "game/src/photo.js",
+      "sha256": "c8f18e59bab5e264d779dea69bef2668aff5d626e677edefe62869d9b744b13f",
+      "bytes": 25243
+    },
+    {
+      "path": "game/src/flight.js",
+      "sha256": "e5b5a05691a3abbd684ccbd20e11e5c1370ff71bb0a540d8483045bf42f3b544",
+      "bytes": 14662
+    },
+    {
+      "path": "game/src/onfoot.js",
+      "sha256": "870d0294232fb2b1e11af42906da780bd6d8a34604179ca9de657da1d08848f7",
+      "bytes": 10407
+    },
+    {
+      "path": "game/src/vehicles.js",
+      "sha256": "73700e9368a66f3e0dec08735f1b1c1a5bb2f57290746b31d4be28ad025bc6df",
+      "bytes": 125523
+    },
+    {
+      "path": "game/src/crowd.js",
+      "sha256": "e674c3ac0b207ae4e8ee0bc083851d02abc93f8df3333694e2cad9bd40a93257",
+      "bytes": 33301
+    },
+    {
+      "path": "game/src/achievements.js",
+      "sha256": "c4a293f388c1b8f7387b915095ccc91d21e282e2fe0183b9a6295577b214ec1c",
+      "bytes": 40873
+    },
+    {
+      "path": "game/src/finale.js",
+      "sha256": "6dd47d7336285e2ca9d92e553f6f5e64080844aaf9f2883012abfcc7a327e60d",
+      "bytes": 7899
+    },
+    {
+      "path": "game/src/save.js",
+      "sha256": "66ece4bff34ce8a3bafcc29ad74dd7a7792ceb80d0406890f27982ad052640dc",
+      "bytes": 21470
+    },
+    {
+      "path": "game/src/football.js",
+      "sha256": "0fea24f051593185b93c8457c27ec13af2344ba34b442115f3472a662317df7f",
+      "bytes": 11197
+    },
+    {
+      "path": "game/src/basketball.js",
+      "sha256": "a84a93eb1257da5fb4cb1d931612c48b0ddaf29cfab3d133b99e06178a824795",
+      "bytes": 16329
+    },
+    {
+      "path": "game/src/explore.js",
+      "sha256": "2f8abf2e4b3e14f1002f0088322b9e59e713f1865bba60644d200030cf653993",
+      "bytes": 34374
+    },
+    {
+      "path": "game/src/transition.js",
+      "sha256": "35e0f270adb35d2462cf3a153ba4deec243d8537529520684b57198a56cda593",
+      "bytes": 12636
+    },
+    {
+      "path": "game/src/player-body-interval.js",
+      "sha256": "948155dc5584abe4e20880155f038a08c551454b7ea5e0b8a131abbb2c357e9e",
+      "bytes": 7050
+    },
+    {
+      "path": "game/src/situational-dialogue-traffic.js",
+      "sha256": "9554e71d40c60019d614db914a6abc0c61eff3ffc516d5d90f7df6c1b6158866",
+      "bytes": 5834
+    },
+    {
+      "path": "game/src/signals.js",
+      "sha256": "47b7dd7a016a3e48faf9f2348121bd8c1e280d7b07fc7acd27103ab39a29b1ac",
+      "bytes": 1577
+    },
+    {
+      "path": "game/src/shared-lanes.js",
+      "sha256": "0581d1f237c0b371843e3c7f7af0c80cb5b14bf3794148905ec1948c8255b4e9",
+      "bytes": 10175
+    },
+    {
+      "path": "game/src/chapter-waypoint.js",
+      "sha256": "0cba46e17b79cb869de2c5087b925f837dd02954d026e5aaaa55c509c9dac63a",
+      "bytes": 713
+    },
+    {
+      "path": "game/src/initial-traffic-admission.js",
+      "sha256": "eafaa325e686e6fc631cd8bf5af4fb8b4fba5e70124925cad81c6eec5b25b6ea",
+      "bytes": 15740
+    },
+    {
+      "path": "game/src/tram-path.js",
+      "sha256": "f296931a093085aa8e2d9409e462192316c6f09e7ac649dda207405385851ca4",
+      "bytes": 21599
+    },
+    {
+      "path": "game/src/turn-lanes.js",
+      "sha256": "0911880d096c4efe126fc4f53a7df1559d8f6ee01cb52635afeb939648dece54",
+      "bytes": 4090
+    },
+    {
+      "path": "game/src/road-access.js",
+      "sha256": "258dde26c230058ef2578fe259e7780aafdee863fcb5dfbcdc8f08f71ce070ee",
+      "bytes": 3078
+    },
+    {
+      "path": "game/src/pedestrian-relocation-peers.js",
+      "sha256": "84cc52b4666e5ed6b3a9cc4d45889f35ffdbc23095f58307a47f24179c2a5af7",
+      "bytes": 3651
+    },
+    {
+      "path": "game/src/initial-parking-behavior.js",
+      "sha256": "d97430424a10c19918e1a9d0cce3ecb00704de49473bf59f23f333beab21a82a",
+      "bytes": 10115
+    },
+    {
+      "path": "game/src/tram-source-signals.js",
+      "sha256": "49374a21c5b3be4331221f72fdc0adccfa19c245aed5ae04099fb714fc224390",
+      "bytes": 11556
+    },
+    {
+      "path": "game/src/tram-body-support.js",
+      "sha256": "f78a8df825d19b269e7d642a83e792d0bd0f614cb9e42537d049f7383ca26976",
+      "bytes": 14678
+    },
+    {
+      "path": "game/src/motor-turn-restrictions.js",
+      "sha256": "7f7b113b6f68db6721e9889280e42d1116619e2edf20fd969069095a79f22445",
+      "bytes": 9481
+    },
+    {
+      "path": "game/src/source-road-clearance.js",
+      "sha256": "d698e90864d0df3086ba71346aa24ac0f7238adf222d133af12260e1683deae3",
+      "bytes": 6165
+    },
+    {
+      "path": "game/src/canvasText.js",
+      "sha256": "35983021a8548740d623d83aaa092fa9f95a3f58b454575b8ab4732a47db2714",
+      "bytes": 5398
+    },
+    {
+      "path": "game/src/source-transit-shelter.js",
+      "sha256": "bb9e91306ba74d3184c975fc0b3842eb82bca07ab0886f56ddde114bc722764b",
+      "bytes": 4703
+    },
+    {
+      "path": "game/src/office-interior-details.js",
+      "sha256": "1ba4c8a675d1891bd2c0bef20a3b0a6bd8a878a45e912152d34fb3168bcb15e8",
+      "bytes": 16325
+    },
+    {
+      "path": "game/src/office-resources.js",
+      "sha256": "fb7b7deb9ecf5946e6ee5a7444c75edacfb57eabf2e441d40a32e01604d727dc",
+      "bytes": 1775
+    },
+    {
+      "path": "game/src/office-window-math.js",
+      "sha256": "98af1db1e701e664151edfd61cc4aff185e4837e27b92f6868e8724e3481aa67",
+      "bytes": 2793
+    },
+    {
+      "path": "game/src/office-window-target.js",
+      "sha256": "a695dd98d081cd12d7e60179659ab901444b36b3be56f1a83b48d6e93142ba0b",
+      "bytes": 5314
+    },
+    {
+      "path": "game/src/office-window-binding.js",
+      "sha256": "0546ab4130edc5bfff0f50e6b026f6ca16bafa59bad3475ef04cf0223b0192b0",
+      "bytes": 18363
+    },
+    {
+      "path": "game/src/final-water-topology.js",
+      "sha256": "f293186ad02f941f2822214ea494d5bed1af8bf7a092c6090f26638b0b02a9e9",
+      "bytes": 6219
+    },
+    {
+      "path": "game/src/underpass-ground-owner.js",
+      "sha256": "52d8e943ede3199ad485f06e455fa88c7b4d48a5d327f91837b7a73a9fdf37f2",
+      "bytes": 4811
+    },
+    {
+      "path": "game/src/underpass-roof.js",
+      "sha256": "d1cc7dabf82d602959959f53bca26be699b62142e29ab0ab44e5b9936cec56b3",
+      "bytes": 9375
+    },
+    {
+      "path": "game/src/bridge-pad-profile.js",
+      "sha256": "fc41d864ea1adeb0f24569114f0d0206ea99ab201e85283e5f00349f74d2a74c",
+      "bytes": 3418
+    },
+    {
+      "path": "game/src/shared-bridge-profile.js",
+      "sha256": "02287b60713933284be944d3ae8a93f548fecf8d8900d389cbb02f37000406a1",
+      "bytes": 29681
+    },
+    {
+      "path": "game/src/generated-parapet-ownership.js",
+      "sha256": "ed75fc65c6859907697ec51c8ddceca4871525e388e02db0706d4f82eb077a2a",
+      "bytes": 10125
+    },
+    {
+      "path": "game/src/source-bridge-descents.js",
+      "sha256": "b70c61e65b75fac4bec3d8330da5dc82e6a558eba09c50097dd43ba9594aed32",
+      "bytes": 9589
+    },
+    {
+      "path": "game/src/bridge-surface-mesh.js",
+      "sha256": "bd70267f78fa36e1b47f2f5d77ecd1c8b88a8e4541eac958009c4e9a439b9d93",
+      "bytes": 2914
+    },
+    {
+      "path": "game/src/buildings.js",
+      "sha256": "634c8a5149d9de9761c62f445c6318dcb3087b41980b574a5afa6d02dfa7cfe4",
+      "bytes": 83826
+    },
+    {
+      "path": "game/src/building-parts.js",
+      "sha256": "d3844e4f67e0c29a28a7e9880bfcc6f5d9011cd0440e0b2eeba001838751fc5a",
+      "bytes": 16412
+    },
+    {
+      "path": "game/src/building-roofs.js",
+      "sha256": "a82db31d1197b3953c9f4718dbc44b2972a90e25d9c2c07c683e6ab5386fa8ac",
+      "bytes": 18301
+    },
+    {
+      "path": "game/src/building-detail-range.js",
+      "sha256": "9b666987443fec1f7e9d720ab0e240f513a1e50031f3b44b6a0a7abcd790c1d0",
+      "bytes": 1435
+    },
+    {
+      "path": "game/src/source-tree-centres.js",
+      "sha256": "8eb56bfa815c80da5c2a74866ee04789309b9d0df84dc95f40c1b3bed530277e",
+      "bytes": 642
+    },
+    {
+      "path": "game/src/building-canopies.js",
+      "sha256": "a0566c635e2eb30fa4a305f73391eb17be941d45cf126a7989450b06b3d3a29d",
+      "bytes": 1580
+    },
+    {
+      "path": "game/src/geobuild.js",
+      "sha256": "28e535a8934df3d3d249f13180ce04db1b86d47318530e74344a532a2a0fb2d3",
+      "bytes": 11773
+    },
+    {
+      "path": "game/src/trees.js",
+      "sha256": "9ffa650f45cf498f1acfd244d4cc0c9f9c1621b9f8b6a10fd8db6164e83fb70c",
+      "bytes": 20602
+    },
+    {
+      "path": "game/src/building-surface-cache.js",
+      "sha256": "6223c96eea1a7e2a48b359d331e257346ed9b5cbabbbadc874145d00ac933367",
+      "bytes": 4824
+    },
+    {
+      "path": "game/src/building-aircraft.js",
+      "sha256": "44ee8c66eee7d1f5aea8d126610791fdf51ee9d2539a3b3eafa83e695e789e4a",
+      "bytes": 3148
+    },
+    {
+      "path": "game/src/parking-layout.js",
+      "sha256": "b5c127c33e1c80e72a6cece698f831949ad637498ed7d7beb1252f30c6b4f0d9",
+      "bytes": 4374
+    },
+    {
+      "path": "game/src/building-passages.js",
+      "sha256": "6bd606c4b3a62ffc3af3b4e8b4be65c5880fe7546ab7fc6ad5b521168045fe5d",
+      "bytes": 5011
+    },
+    {
+      "path": "game/src/scenery-source.js",
+      "sha256": "c00801c1705325e205bd00fbcc223c16391661f58669514516753621e19b6ff2",
+      "bytes": 2817
+    },
+    {
+      "path": "game/src/scenery-bridges.js",
+      "sha256": "21f292275d0e4d991db1b290d774d0653fda472dc66fb704b136388f7ac501aa",
+      "bytes": 18240
+    },
+    {
+      "path": "game/src/water-batch.js",
+      "sha256": "cd1a0fb7e59ff1c621eadc77acbd58c61d81cce09c5dbf9b74125268b41b5543",
+      "bytes": 5971
+    },
+    {
+      "path": "game/src/cell-frustum.js",
+      "sha256": "75180d907270939422d304d2eb7d35f76abb6a4657ac36137c72538799b3e07a",
+      "bytes": 8110
+    },
+    {
+      "path": "game/src/water-channel.js",
+      "sha256": "b7a645b3beb86c3e74ea681e1a20c39a6675536243342cf1cdff0d8d86e70504",
+      "bytes": 1289
+    },
+    {
+      "path": "game/src/water-lines.js",
+      "sha256": "c69bea49df53096df5a19642b82ab7e087d8422c0f6824663ea7ba8a4508cc73",
+      "bytes": 2907
+    },
+    {
+      "path": "game/src/tram-grade.js",
+      "sha256": "2129fa2c5037c0d4b21bfbb7d881084868d7b0f7a55aad0ef8e4c73fbc782ffa",
+      "bytes": 27498
+    },
+    {
+      "path": "game/src/tram-tunnel-grade.js",
+      "sha256": "29e198ae6f04a3fc97b3fd1db7fe01891f86b44444c2e398afd58f41b67ef2de",
+      "bytes": 12187
+    },
+    {
+      "path": "game/src/sidewalk-source.js",
+      "sha256": "d7a37535e91da36b9e383fd609f969d4205dfd427681328caa6a8adf688c9c82",
+      "bytes": 3470
+    },
+    {
+      "path": "game/src/tram-clearance.js",
+      "sha256": "6d778dd69fe40a9a15b822cfa6b162d0d36c8114d30246c6feef75148fa26ac2",
+      "bytes": 1795
+    },
+    {
+      "path": "game/src/inferred-road-sign.js",
+      "sha256": "2391bfb08e32f6bc871f50bf4483acdf6d684f927cc00eeb3592ad2934eac2ce",
+      "bytes": 1886
+    },
+    {
+      "path": "game/src/bridge-junction.js",
+      "sha256": "f5db8b54b8c05ff42e2816140cb6bee36b84d09148c25b7cb8a41a02a0e361e1",
+      "bytes": 6579
+    },
+    {
+      "path": "game/src/rail-roadside.js",
+      "sha256": "2bb1b3ad5fc4827c2dad1479f59669cbdd13cfc48b7fc79af050a73d30515ed3",
+      "bytes": 10927
+    },
+    {
+      "path": "game/src/tram-trench.js",
+      "sha256": "755b4ab3acdf101182bcc4eccf9486289f7346b7e6d58fb4c81f92669ad8a018",
+      "bytes": 6044
+    },
+    {
+      "path": "game/src/covered-road-models.js",
+      "sha256": "3a3c35cb068fd7aa97c078429f03cf834077002bf3b3268fb88db40a1f60c925",
+      "bytes": 19120
+    },
+    {
+      "path": "game/src/road-joins.js",
+      "sha256": "5836ac682164076ddb8e5ef46b25977b870761f7b69623f8b5df454b67ab5a33",
+      "bytes": 1077
+    },
+    {
+      "path": "game/src/road-markings.js",
+      "sha256": "125cad359f40e3ea0e0d8456f243fcc805065d7583220278836c2e29134732d1",
+      "bytes": 5564
+    },
+    {
+      "path": "game/src/district-boundary.js",
+      "sha256": "05060b5902c564254c52e7636ee32500408680885a7ca6705a420a3a616a76e2",
+      "bytes": 13948
+    },
+    {
+      "path": "game/src/source-vehicle-dimensions.js",
+      "sha256": "cb47316096169b91a2031c64b1066c89dcd8eff3c118e6a615754b5c2b4a2413",
+      "bytes": 5413
+    },
+    {
+      "path": "game/vendor/addons/EffectComposer.js",
+      "sha256": "73a2a9557141dff1c29bb5f2d53cb62905855a216b0181cd8dd42d6bc6cec87b",
+      "bytes": 4950
+    },
+    {
+      "path": "game/vendor/addons/RenderPass.js",
+      "sha256": "359f12b05357a8c666baa65bba3ade4265845617ddd7dfd812bde0d4f3dcb2bc",
+      "bytes": 1958
+    },
+    {
+      "path": "game/vendor/addons/ShaderPass.js",
+      "sha256": "9cda38094c2cd1cf29ed0fe3cfc1b3229e3ca3758659617eba6fdae4107bc233",
+      "bytes": 1593
+    },
+    {
+      "path": "game/vendor/addons/UnrealBloomPass.js",
+      "sha256": "5d46047298729f4bdc7ccf1d673d091f7d60dd799918908049d1f6c3d4cda02d",
+      "bytes": 12409
+    },
+    {
+      "path": "game/src/normal-guard.js",
+      "sha256": "d19da7e2b7731c5a3a1add94aeb17780654fa7da58b1eefbe8842470aca12a94",
+      "bytes": 1079
+    },
+    {
+      "path": "game/vendor/addons/SMAAPass.js",
+      "sha256": "2f4da7e1f78c8d39582e25dee185ab6df18c42d3f55ed5d43de5a89f9c8b0a28",
+      "bytes": 49457
+    },
+    {
+      "path": "game/vendor/addons/FXAAShader.js",
+      "sha256": "fd04bb4db3b4895540dd6e6ccef1a9984f0097bef396d27d6fea7b15c66a06ec",
+      "bytes": 6638
+    },
+    {
+      "path": "game/vendor/addons/Pass.js",
+      "sha256": "7f988181feafe0831a9895c0e507e07b8128c87f115342e75efb452dd870873a",
+      "bytes": 1723
+    },
+    {
+      "path": "game/src/weather.js",
+      "sha256": "a2bb0854d3fe3792f94ca9f3b2f2ecbdd9e61b497aca1d3ac5d51d02ec5875b8",
+      "bytes": 28407
+    },
+    {
+      "path": "game/src/water.js",
+      "sha256": "7a7cea86bdb0dc2cf135b95c9cd7aec81d16e8e48a4bf0b125449d91931df3ae",
+      "bytes": 14399
+    },
+    {
+      "path": "game/vendor/addons/OutputPass.js",
+      "sha256": "88b4010627926dce53480c3a8a230ed71a162e7cae1ce2ac419dfb7900160460",
+      "bytes": 2532
+    },
+    {
+      "path": "game/src/progressive-pmrem.js",
+      "sha256": "4b306f8bb4449be00c9dd654e7da6ba6607fec581d3a4360e9f772e11a2306a1",
+      "bytes": 3571
+    },
+    {
+      "path": "game/src/cockpit-displays.js",
+      "sha256": "27b748de131baa24e1ea9089e9e836a49e25c32472d92aa35130ef188e5aed53",
+      "bytes": 15676
+    },
+    {
+      "path": "game/src/geo-ne110.js",
+      "sha256": "6d9c86444680f5007b90d41e7a5d93a2d1f081dcc556b665fcbcb9cd0ecf8f36",
+      "bytes": 71470
+    },
+    {
+      "path": "game/src/spot-availability.js",
+      "sha256": "5b52e40244e56ccb65a309ad82f57986e8b40fcbb49a2148237ea0795481281e",
+      "bytes": 1313
+    },
+    {
+      "path": "game/src/worldmap.js",
+      "sha256": "cda4829131f34395b661cecf73564c08dc980ab10f9464d1c1f1ecd02b7b5f8b",
+      "bytes": 38053
+    },
+    {
+      "path": "game/src/situational-dialogue.js",
+      "sha256": "b2e4ddd6042c8f59d6c6b665a4e6e07b9b309eef3aa5cb209ff05cb5cc53b520",
+      "bytes": 11637
+    },
+    {
+      "path": "game/src/situational-dialogue-context.js",
+      "sha256": "371fcd223dfb38ae3ebc3252baaa5263447d923ddd34193ea971a83adfb7e0a1",
+      "bytes": 4962
+    },
+    {
+      "path": "game/src/initial-vehicle-admission.js",
+      "sha256": "f1a27dea11a127e4becc9b718d68a2b73dd2e3afc03beaa49c0156ec189e389f",
+      "bytes": 16785
+    },
+    {
+      "path": "game/src/initial-ordinary-source-span.js",
+      "sha256": "7c5ffffaba6a7b580345f03bc995d4b864e9b08ae9bf3daf0c422f4418b262d5",
+      "bytes": 6773
+    },
+    {
+      "path": "game/src/initial-parking-support.js",
+      "sha256": "5ea1c2f7a2aecc549138998683db6f6befad1fa04b1dc67b914beeeb0204d635",
+      "bytes": 6585
+    },
+    {
+      "path": "game/src/drone.js",
+      "sha256": "adebeb686c17fb03116d31246161405f517bc80dc58fcc1e1c58d4f85bcb726e",
+      "bytes": 52025
+    },
+    {
+      "path": "game/src/bridge-profile-geometry.js",
+      "sha256": "65b83df1cf242f632861d405c138f136facbfba5d3786ed4a85abb639f07982e",
+      "bytes": 7754
+    },
+    {
+      "path": "game/src/spots/kit.js",
+      "sha256": "382f5353be67766e36183babd4a321dc4e709c709429167fc461968a033cffcc",
+      "bytes": 25207
+    },
+    {
+      "path": "game/src/office-window-structural-plane.js",
+      "sha256": "40e7f9e227a153e2882f2fbffc076d5d70427ed4138e83dab297cd0eb725c587",
+      "bytes": 4903
+    },
+    {
+      "path": "game/src/shared-bridge-models.js",
+      "sha256": "f3dcd036006873cf332580309037bc5f2c00bd48ab5e2d3b3591e14c3f12f653",
+      "bytes": 29215
+    },
+    {
+      "path": "game/src/source-bridge-descent-models.js",
+      "sha256": "e4412e8ed1fbcca038692b53ebdd1c36e074df26eb470fa1a11a3575ea05681c",
+      "bytes": 3064
+    },
+    {
+      "path": "game/src/building-detail-visibility.js",
+      "sha256": "974e03efeb2b1b6d422b45d72ca2f3cd649fae7a18196a98ca80b25cb6c283b6",
+      "bytes": 2721
+    },
+    {
+      "path": "game/src/road-widths.js",
+      "sha256": "c965c1368db011832786b39f0809d704c09880749dc161ddd09cd6e3d0d48b7f",
+      "bytes": 4790
+    },
+    {
+      "path": "game/src/tram-grade-models.js",
+      "sha256": "bc2f44e47e3b1988d18d7f984380193e2c7e1ad179f9461fbccfe60ccfecd461",
+      "bytes": 1967
+    },
+    {
+      "path": "game/src/source-canopy-road-models.js",
+      "sha256": "7eba6ebbaa448f52362a71161a37c83f87df6a715f3a27d4606081251af72c62",
+      "bytes": 7417
+    },
+    {
+      "path": "game/vendor/addons/CopyShader.js",
+      "sha256": "4e3346db194db56a596cd074e9bdb39fb5eb52040c333e0d29dc4eb1324d3b1d",
+      "bytes": 571
+    },
+    {
+      "path": "game/vendor/addons/MaskPass.js",
+      "sha256": "328cf7db0da5d9be83ffe39d54b01d5ac1fddf108cc98182ddbb056f5c8b537f",
+      "bytes": 2231
+    },
+    {
+      "path": "game/vendor/addons/LuminosityHighPassShader.js",
+      "sha256": "e40b9e5355f66b6e7720c8b54472259481ab17e36ac24ba36eb871f723d21ee6",
+      "bytes": 1498
+    },
+    {
+      "path": "game/vendor/addons/SMAAShader.js",
+      "sha256": "ff4de77e79b0c2d214e822da11c72311f6e4c7fd2a4befd7f0f05a7832284081",
+      "bytes": 14645
+    },
+    {
+      "path": "game/src/water-shore.js",
+      "sha256": "6705b456454df3ac85ada90a96ff66280706ad306de401dea25896b8d379315e",
+      "bytes": 5369
+    },
+    {
+      "path": "game/vendor/addons/OutputShader.js",
+      "sha256": "4944cecd49c0d4d1520a4d927bde8a590fd43f041ee913252b9451855a01d0f0",
+      "bytes": 1490
+    },
+    {
+      "path": "game/src/drone-boundary.js",
+      "sha256": "85aa59ed69fd380d4fbe93be315b47ab8c66f47e0e09da26291321842f3caea4",
+      "bytes": 8205
+    },
+    {
+      "path": "game/src/situational-dialogue-library.js",
+      "sha256": "2342a347b8604f56aec72abcb37bfab201fb47158cb9c3d6790d198ee9f9d153",
+      "bytes": 31247
+    },
+    {
+      "path": "game/src/spots/index.js",
+      "sha256": "d19b92e3d01b7968ad61b2c5e9c611aafd03fa8699bbb0170f6c7b29138aa410",
+      "bytes": 92151
+    },
+    {
+      "path": "game/src/spots/ground.js",
+      "sha256": "f269ad5471ffaa0098620bcd8a6056c604a9b89d22fb7fbd24bfd9c7ac6b1489",
+      "bytes": 33919
+    },
+    {
+      "path": "game/src/spots/osm.js",
+      "sha256": "6578c0627324db7ae12e42f3d3b612b65575ddd0387da6dc25b649ac091d4360",
+      "bytes": 66292
+    },
+    {
+      "path": "game/src/spots/tour.js",
+      "sha256": "9f09737433667fce25e2564a2dea60bd3da42a1a8e037c5f515b5a79d4f005a9",
+      "bytes": 6690
+    },
+    {
+      "path": "game/src/spots/people.js",
+      "sha256": "ab60f1a4f6d44c537b1727b332eaa9f0c68b1c436cd55cecd7171fbebb323338",
+      "bytes": 41090
+    },
+    {
+      "path": "game/src/spots/ui.js",
+      "sha256": "0f8e4ead8159e36322f472840766186b23b54cc38af926baa130ba7e65abefad",
+      "bytes": 35995
+    },
+    {
+      "path": "game/src/spots/sound.js",
+      "sha256": "7e24d4c27e80fb9c9e2190d001c4bc59b44a3e3c4402e06aee6b79b236858817",
+      "bytes": 8786
+    },
+    {
+      "path": "game/src/spots/walker.js",
+      "sha256": "7cf12e74580b4b9dcc06c85afb0a3fc3865640199f4b37dab28f59b3d920d9bd",
+      "bytes": 9796
+    },
+    {
+      "path": "game/src/spots/source-buildings.js",
+      "sha256": "4d51ef45abbedb9f4b04627cb97c4b388ccd332e1737486005d4a327e2182362",
+      "bytes": 13757
+    },
+    {
+      "path": "game/data/bucharest-grozavesti.json",
+      "sha256": "649ff6069e2a2be96bde0a6a90ff41a63cb22850f4b0147334b3c04eb99ea093",
+      "bytes": 10618180
+    },
+    {
+      "path": "game/src/landmarks.js",
+      "sha256": "322010a764d0b380d3ca183a5a41359c4852be9b202d6503c55de3dc366e4b21",
+      "bytes": 360681
+    },
+    {
+      "path": "game/src/landmark-source-identities.js",
+      "sha256": "4f93c8853d3f1ae65badd1940f4f7286bc6538353defb94a0268f7fed699adfc",
+      "bytes": 17931
+    },
+    {
+      "path": "game/src/landmark-source-masses.js",
+      "sha256": "b5009b0f96ee984cc674793d7170a5c49763fb91d87e168c2847c1218d68e2b9",
+      "bytes": 259389
+    },
+    {
+      "path": "game/src/landmark-us-source.js",
+      "sha256": "6d4fbf9b8d6a0e2f8ac37bf20602a53844e3f18268a1578d01e7dde647f9b888",
+      "bytes": 52555
+    },
+    {
+      "path": "game/src/landmark-otp-roofs.js",
+      "sha256": "f071c4b256efe77dae8eaf64e0d4c2a04af9f01b4447686bd2cd91f77950b8a6",
+      "bytes": 2635
+    },
+    {
+      "path": "game/src/landmark-us-geometry.js",
+      "sha256": "5314a5e92a86b9a9612c3de013927a5d281d0c051944562347d39086930848aa",
+      "bytes": 1606
+    },
+    {
+      "path": "game/src/landmark-us-terrain.js",
+      "sha256": "cfca62d53bfeaf34f736b6ce345045dbbe50337544111fb6b676c4d237042879",
+      "bytes": 27790
+    },
+    {
+      "path": "game/src/landmark-cec-source.js",
+      "sha256": "4891822203ad126ab75511e2196965848db37cfdfabadef54b13cea4ffbe4356",
+      "bytes": 4423837
+    },
+    {
+      "path": "game/src/landmark-arcul-source.js",
+      "sha256": "b28578073b825692dbf98f1e1efa4d05fff98252e2be27e130f579adfff46cf6",
+      "bytes": 8498
+    },
+    {
+      "path": "game/src/landmark-pitch-paint.js",
+      "sha256": "ebbbe0aeef06a63d5a737452c316a4cd94a0ac6e962354dea089d56bf87c6ed5",
+      "bytes": 4017
+    },
+    {
+      "path": "game/src/landmark-seatac-aircraft.js",
+      "sha256": "23bd2be82947f78042858f2632a0f41a76ce30fe606fc3150d6c1ad08e51d1c5",
+      "bytes": 1077
+    },
+    {
+      "path": "game/src/landmark-seatac-structure.js",
+      "sha256": "babdf7e471ad949ca982a737701280785005a950b18227205bd047d32e418bb5",
+      "bytes": 13621
+    },
+    {
+      "path": "game/src/landmark-pitch-paint-coverage.js",
+      "sha256": "db48ecb69657184e42aa165909396f09f0e3185e6f7375968188121770a4fa8c",
+      "bytes": 61263
+    },
+    {
+      "path": "game/src/archetypes.js",
+      "sha256": "3ac87643083fa98989d05279d8d174bde5932332920fc87796dcf7d976c2ecf3",
+      "bytes": 72128
+    },
+    {
+      "path": "game/data/places.json",
+      "sha256": "38b7297d798f7d197a64b3123a3542e6b5b516ad1916ee8d0813492852b14127",
+      "bytes": 46899
+    }
+  ],
+  "profile": {
+    "sampledElapsedUs": 184788401,
+    "samples": 282797,
+    "topGameSelf": [
+      {
+        "function": "",
+        "file": "world.js",
+        "line": 6117,
+        "selfUs": 19018158,
+        "inclusiveUs": 38974160
+      },
+      {
+        "function": "query",
+        "file": "traffic.js",
+        "line": 168,
+        "selfUs": 16358474,
+        "inclusiveUs": 53285915
+      },
+      {
+        "function": "near",
+        "file": "nav.js",
+        "line": 75,
+        "selfUs": 10850102,
+        "inclusiveUs": 10861871
+      },
+      {
+        "function": "heightAt",
+        "file": "building-roofs.js",
+        "line": 163,
+        "selfUs": 9514467,
+        "inclusiveUs": 9514467
+      },
+      {
+        "function": "raisedTop",
+        "file": "world.js",
+        "line": 2808,
+        "selfUs": 6441515,
+        "inclusiveUs": 21383475
+      },
+      {
+        "function": "roadAt",
+        "file": "traffic.js",
+        "line": 3093,
+        "selfUs": 6349181,
+        "inclusiveUs": 17465843
+      },
+      {
+        "function": "stepVehicle",
+        "file": "traffic.js",
+        "line": 1237,
+        "selfUs": 5979295,
+        "inclusiveUs": 50607637
+      },
+      {
+        "function": "visit",
+        "file": "pedestrian-relocation-peers.js",
+        "line": 22,
+        "selfUs": 5925120,
+        "inclusiveUs": 7137116
+      },
+      {
+        "function": "check",
+        "file": "traffic.js",
+        "line": 2992,
+        "selfUs": 5324851,
+        "inclusiveUs": 8487909
+      },
+      {
+        "function": "surface",
+        "file": "rail-roadside.js",
+        "line": 132,
+        "selfUs": 4490322,
+        "inclusiveUs": 4490322
+      },
+      {
+        "function": "check",
+        "file": "initial-traffic-admission.js",
+        "line": 83,
+        "selfUs": 4423937,
+        "inclusiveUs": 14334827
+      },
+      {
+        "function": "colliderBand",
+        "file": "initial-traffic-admission.js",
+        "line": 59,
+        "selfUs": 4226466,
+        "inclusiveUs": 8308144
+      },
+      {
+        "function": "update",
+        "file": "traffic.js",
+        "line": 1180,
+        "selfUs": 3911092,
+        "inclusiveUs": 177167301
+      },
+      {
+        "function": "update",
+        "file": "traffic.js",
+        "line": 3189,
+        "selfUs": 3243236,
+        "inclusiveUs": 101772025
+      },
+      {
+        "function": "clearWalkStep",
+        "file": "traffic.js",
+        "line": 2744,
+        "selfUs": 3142489,
+        "inclusiveUs": 22355296
+      },
+      {
+        "function": "each",
+        "file": "world.js",
+        "line": 218,
+        "selfUs": 3136736,
+        "inclusiveUs": 46462457
+      },
+      {
+        "function": "raisedEdge",
+        "file": "world.js",
+        "line": 2174,
+        "selfUs": 3040408,
+        "inclusiveUs": 3046997
+      },
+      {
+        "function": "onRibbon",
+        "file": "world.js",
+        "line": 2766,
+        "selfUs": 3014424,
+        "inclusiveUs": 4506444
+      },
+      {
+        "function": "peerCorrectionClear",
+        "file": "traffic.js",
+        "line": 3033,
+        "selfUs": 2861059,
+        "inclusiveUs": 22198953
+      },
+      {
+        "function": "obsClamp",
+        "file": "traffic.js",
+        "line": 2845,
+        "selfUs": 2711424,
+        "inclusiveUs": 5016405
+      },
+      {
+        "function": "locate",
+        "file": "bridge-profile-geometry.js",
+        "line": 80,
+        "selfUs": 2703238,
+        "inclusiveUs": 2879237
+      },
+      {
+        "function": "distPointSeg",
+        "file": "util.js",
+        "line": 34,
+        "selfUs": 2476130,
+        "inclusiveUs": 2505717
+      },
+      {
+        "function": "pointInPolygon",
+        "file": "util.js",
+        "line": 43,
+        "selfUs": 1982405,
+        "inclusiveUs": 1982405
+      },
+      {
+        "function": "relocationPeerQuery",
+        "file": "pedestrian-relocation-peers.js",
+        "line": 4,
+        "selfUs": 1888347,
+        "inclusiveUs": 1994154
+      },
+      {
+        "function": "",
+        "file": "traffic.js",
+        "line": 3389,
+        "selfUs": 1687515,
+        "inclusiveUs": 29076491
+      },
+      {
+        "function": "test",
+        "file": "world.js",
+        "line": 6500,
+        "selfUs": 1645234,
+        "inclusiveUs": 3174010
+      },
+      {
+        "function": "peerClearStep",
+        "file": "traffic.js",
+        "line": 2989,
+        "selfUs": 1580523,
+        "inclusiveUs": 28905941
+      },
+      {
+        "function": "placeWalk",
+        "file": "traffic.js",
+        "line": 2960,
+        "selfUs": 1578028,
+        "inclusiveUs": 3026497
+      },
+      {
+        "function": "turnLaneAllows",
+        "file": "traffic.js",
+        "line": 1013,
+        "selfUs": 1457247,
+        "inclusiveUs": 4431984
+      },
+      {
+        "function": "guardPeerStep",
+        "file": "traffic.js",
+        "line": 3008,
+        "selfUs": 1341641,
+        "inclusiveUs": 52055857
+      },
+      {
+        "function": "writeMatrices",
+        "file": "traffic.js",
+        "line": 3606,
+        "selfUs": 1244480,
+        "inclusiveUs": 2380020
+      },
+      {
+        "function": "avoidVehicles",
+        "file": "traffic.js",
+        "line": 3126,
+        "selfUs": 1224715,
+        "inclusiveUs": 3357231
+      },
+      {
+        "function": "placeOnLane",
+        "file": "traffic.js",
+        "line": 827,
+        "selfUs": 1079774,
+        "inclusiveUs": 8234909
+      },
+      {
+        "function": "motorTurnAllowed",
+        "file": "motor-turn-restrictions.js",
+        "line": 88,
+        "selfUs": 1017981,
+        "inclusiveUs": 1063938
+      },
+      {
+        "function": "freeWalkPoint",
+        "file": "traffic.js",
+        "line": 2603,
+        "selfUs": 980615,
+        "inclusiveUs": 7073587
+      }
+    ],
+    "topTrafficInclusive": [
+      {
+        "function": "update",
+        "file": "traffic.js",
+        "line": 1180,
+        "selfUs": 3911092,
+        "inclusiveUs": 177167301
+      },
+      {
+        "function": "update",
+        "file": "traffic.js",
+        "line": 3189,
+        "selfUs": 3243236,
+        "inclusiveUs": 101772025
+      },
+      {
+        "function": "query",
+        "file": "traffic.js",
+        "line": 168,
+        "selfUs": 16358474,
+        "inclusiveUs": 53285915
+      },
+      {
+        "function": "guardPeerStep",
+        "file": "traffic.js",
+        "line": 3008,
+        "selfUs": 1341641,
+        "inclusiveUs": 52055857
+      },
+      {
+        "function": "stepVehicle",
+        "file": "traffic.js",
+        "line": 1237,
+        "selfUs": 5979295,
+        "inclusiveUs": 50607637
+      },
+      {
+        "function": "separate",
+        "file": "traffic.js",
+        "line": 3380,
+        "selfUs": 945521,
+        "inclusiveUs": 32740598
+      },
+      {
+        "function": "",
+        "file": "traffic.js",
+        "line": 3389,
+        "selfUs": 1687515,
+        "inclusiveUs": 29076491
+      },
+      {
+        "function": "peerClearStep",
+        "file": "traffic.js",
+        "line": 2989,
+        "selfUs": 1580523,
+        "inclusiveUs": 28905941
+      },
+      {
+        "function": "sepPush",
+        "file": "traffic.js",
+        "line": 3463,
+        "selfUs": 546534,
+        "inclusiveUs": 27260222
+      },
+      {
+        "function": "clearWalkStep",
+        "file": "traffic.js",
+        "line": 2744,
+        "selfUs": 3142489,
+        "inclusiveUs": 22355296
+      },
+      {
+        "function": "peerCorrectionClear",
+        "file": "traffic.js",
+        "line": 3033,
+        "selfUs": 2861059,
+        "inclusiveUs": 22198953
+      },
+      {
+        "function": "relocate",
+        "file": "traffic.js",
+        "line": 2528,
+        "selfUs": 642335,
+        "inclusiveUs": 18235272
+      },
+      {
+        "function": "recycle",
+        "file": "traffic.js",
+        "line": 998,
+        "selfUs": 6004,
+        "inclusiveUs": 18216860
+      },
+      {
+        "function": "recycle",
+        "file": "traffic.js",
+        "line": 2579,
+        "selfUs": 165160,
+        "inclusiveUs": 18209117
+      },
+      {
+        "function": "roadAt",
+        "file": "traffic.js",
+        "line": 3093,
+        "selfUs": 6349181,
+        "inclusiveUs": 17465843
+      },
+      {
+        "function": "admit",
+        "file": "traffic.js",
+        "line": 2641,
+        "selfUs": 63212,
+        "inclusiveUs": 12489297
+      },
+      {
+        "function": "depth",
+        "file": "traffic.js",
+        "line": 3035,
+        "selfUs": 438149,
+        "inclusiveUs": 10415141
+      },
+      {
+        "function": "check",
+        "file": "traffic.js",
+        "line": 2992,
+        "selfUs": 5324851,
+        "inclusiveUs": 8487909
+      },
+      {
+        "function": "placeOnLane",
+        "file": "traffic.js",
+        "line": 827,
+        "selfUs": 1079774,
+        "inclusiveUs": 8234909
+      },
+      {
+        "function": "spaceLoad",
+        "file": "traffic.js",
+        "line": 2625,
+        "selfUs": 206483,
+        "inclusiveUs": 7702576
+      },
+      {
+        "function": "freeWalkPoint",
+        "file": "traffic.js",
+        "line": 2603,
+        "selfUs": 980615,
+        "inclusiveUs": 7073587
+      },
+      {
+        "function": "clearObstacles",
+        "file": "traffic.js",
+        "line": 2855,
+        "selfUs": 133457,
+        "inclusiveUs": 5351658
+      },
+      {
+        "function": "ensureRoute",
+        "file": "traffic.js",
+        "line": 1093,
+        "selfUs": 654220,
+        "inclusiveUs": 5152265
+      },
+      {
+        "function": "obsClamp",
+        "file": "traffic.js",
+        "line": 2845,
+        "selfUs": 2711424,
+        "inclusiveUs": 5016405
+      },
+      {
+        "function": "height",
+        "file": "traffic.js",
+        "line": 880,
+        "selfUs": 15371,
+        "inclusiveUs": 4679960
+      }
+    ]
+  },
+  "complete": true,
+  "closed": "2026-11-10T06:52:55.493Z",
+  "executedToolSHA256": "3199f4d3b644caff7af52ef025874348cc5ad39ec358b9c861c1ba2a531faef7"
+}

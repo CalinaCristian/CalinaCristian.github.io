@@ -38,3 +38,7 @@ The runtime candidate now validates the complete unchanged unit-scale room eye e
 
 
 The separate structural-plane follow-up certifies GTS against its actual unchanged main-prism triangles, rather than averaging the wall into a parallel source-edge plane. Its full structural aperture projects onto the literal edge and the eye envelope fits both source and emitted contours. Exterior mailbox, gate and trim remain visible ahead of the wall plane and do not choose its clipping offset. This is a fourth CPU-compatible estimated view, with the actual GTS office floor/window still unknown. Native pixels and the other four room bindings remain open; the earlier three-room reports retain their original source/checkpoint.
+
+## Owner floor assignments · 10 November 2026
+
+GTS: floor2. Arnia: assumed floor6. Deutsche Bank: assumed floor6. UiPath: floor6, applied to both chapters. Politehnica: floor1. Rosetti: assumed floor2. Luxoft remains unspecified. These owner instructions supersede earlier unknown-floor/ground-view descriptions, while dated historical proof retains its original source. Metre elevations, window bearings, source-building identity conflicts and complete-aperture compatibility still require evidence; a numbered floor does not authorize relocating a real building or clipping unrelated geometry.

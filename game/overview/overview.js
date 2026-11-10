@@ -1,4 +1,5 @@
 'use strict';
+import {clearHighlights, highlightMatches} from './search-highlights.js';
 import {landmarkRangeSummary} from './landmark-ranges.js';
 
 const $ = s => document.querySelector(s);
@@ -19,7 +20,7 @@ function compareLink(location,label,{lat,lon,targetLabel,scope='core'}={}) {
   return `<a href="?${esc(params.toString())}#comparisons" data-compare-location="${esc(location)}" data-compare-scope="${esc(scope)}"${extra}>${esc(label)}</a>`;
 }
 let viewer, landmarkEvidence, spotEvidence;
-const contextReady = import('./perspective-viewer.js').then(({mountPerspectiveViewer}) => mountPerspectiveViewer($('#perspective-viewer'),{onLocation:id=>comparisonReady.then(control=>control?.setLocation(id))})).catch(() => null);
+const contextReady = import('./perspective-viewer.js?v=20261110-ground-conditions').then(({mountPerspectiveViewer}) => mountPerspectiveViewer($('#perspective-viewer'),{onLocation:id=>comparisonReady.then(control=>control?.setLocation(id))})).catch(() => null);
 const comparisonReady=import('./comparison-viewer.js').then(async ({mountComparisonViewer})=>{
   viewer=await mountComparisonViewer($('#comparison-viewer'),{baseURL:new URL('./comparison-data/',import.meta.url),onLocation:id=>contextReady.then(control=>control?.show(id))});
   return viewer;
@@ -49,7 +50,7 @@ async function initInventory() {
     $('#landmark-table').innerHTML=table('61 catalogue entries · 60 distinct builders',['Landmark / ID','Staging district use','Model / comparison evidence'],inventory.landmarks.map(lm=>{const ds=districtFor(lm);const supported=ds.filter(d=>hasComparison(d.id));return `<tr id="landmark-${esc(lm.id)}"><th scope="row">${esc(lm.name)}<small>${esc(lm.id)}</small><span class="range-chip">${esc(landmarkRangeSummary(lm))}</span></th><td>${ds.length?ds.map(d=>`${esc(d.name)}${d.scenery.includes(lm.id)?' · scenery only':''}`).join('<br>'):'<span class="tag pending">Outside current district lists</span>'}<small>${lm.city==='bucharest'?'Bucharest':'Seattle / Bellevue'}</small></td><td><a href="?landmark=${encodeURIComponent(lm.id)}#landmark-evidence" data-landmark-evidence="${esc(lm.id)}">Dedicated evidence ↓</a><br>${sourceLink('game/src/landmarks.js',lm.builder)} · ${sourceLink('game/dev/landmarks.html','Model viewer source')}<small>${supported.length?supported.map(d=>compareLink(d.id,`${d.name} survey ↓`,{lat:lm.lat,lon:lm.lon,targetLabel:lm.name})).join('<br>'):'Reality comparison: not published'}${supported.length?'<br>Nearest survey tile; no dedicated landmark pair.':''}</small></td></tr>`;}));
     $('#spot-table').innerHTML=table(`${inventory.counts.menuAvailable} selected visits`,['Destination','Scene / sharing','Availability'],inventory.spots.filter(s=>s.menuAvailable).map(s=>`<tr><th scope="row">${esc(s.name)}<small>${esc(s.area==='bellevue'?'Bellevue':s.city==='bucharest'?'Bucharest':'Seattle')} · ${esc(s.id)}</small></th><td>${sourceLink('game/src/spots/index.js',s.scene)}<small>${inventory.spots.filter(x=>x.scene===s.scene).length} destination(s) in scene</small></td><td><span class="tag ${s.menuAvailable?'sourced':'pending'}">${s.menuAvailable?(s.menuTier==='recommended'?'Recommended':s.menuTier==='park'?'Quieter park':'In menu'):'Developer only'}</span><small><a href="?spot=${encodeURIComponent(s.id)}#spot-evidence" data-spot-evidence="${esc(s.id)}">Dedicated evidence ↓</a></small></td></tr>`));
     $('#source-index').innerHTML=inventory.sources.map(s=>`<li>${sourceLink(s.path)}</li>`).join('');
-    const {mountLandmarkEvidence,mountSpotEvidence}=await import('./landmark-evidence.js?v=20261109-search-latest');
+    const {mountLandmarkEvidence,mountSpotEvidence}=await import('./landmark-evidence.js?v=20261110-ground-conditions');
     landmarkEvidence=mountLandmarkEvidence($('#landmark-evidence-viewer'),inventory);
     spotEvidence=mountSpotEvidence($('#spot-evidence-viewer'),inventory);
     applySearch();
@@ -62,10 +63,14 @@ async function initInventory() {
 }
 const sections=[...document.querySelectorAll('section[data-search]')];
 let beforeSearch=null;
+const searchChanges=new MutationObserver(()=>{if($('#search').value.trim())applySearch();});
+const observeSearchContent=()=>sections.forEach(section=>searchChanges.observe(section,{childList:true,subtree:true,characterData:true}));
 function applySearch(){
+  searchChanges.disconnect();
+  clearHighlights(sections);
   const query=normal($('#search').value.trim());
   const terms=query.split(/\s+/).filter(Boolean);
-  if(terms.length && !beforeSearch) beforeSearch=new Map([...document.querySelectorAll('.content details')].map(d=>[d,d.open]));
+  if(terms.length){beforeSearch??=new Map();for(const d of document.querySelectorAll('.content details'))if(!beforeSearch.has(d))beforeSearch.set(d,d.open);}
   let matches=0;
   for(const section of sections){
     const hit=!terms.length || terms.every(t=>normal(section.textContent).includes(t));
@@ -76,8 +81,10 @@ function applySearch(){
   if(!terms.length && beforeSearch){for(const[d,open]of beforeSearch)d.open=open;beforeSearch=null;}
   $('#no-results').hidden=matches!==0;
   $('#clear-search').hidden=!terms.length;
-  $('#search-status').textContent=terms.length?`${matches} of ${sections.length} sections match. Matching detail panels are open.`:'';
+  const occurrences=terms.length?highlightMatches(sections.filter(section=>!section.classList.contains('search-hidden')),terms):0;
+  $('#search-status').textContent=terms.length?`${occurrences} highlighted ${occurrences===1?'match':'matches'} in ${matches} of ${sections.length} sections. Matching detail panels are open.`:'';
   $('#toc').querySelectorAll('a').forEach(a=>{a.hidden=!!terms.length && $(`${a.hash}`)?.classList.contains('search-hidden');});
+  observeSearchContent();
 }
 document.addEventListener('click',event=>{
   const link=event.target.closest('a[data-landmark-evidence],a[data-spot-evidence]');
@@ -96,4 +103,5 @@ window.addEventListener('hashchange',revealHash);
 document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#landmark-"]');if(a)setTimeout(revealHash,0);});
 const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){document.querySelectorAll('#toc a').forEach(a=>a.classList.toggle('active',a.hash===`#${entry.target.id}`));}},{rootMargin:'-8% 0px -65% 0px'});
 sections.forEach(s=>observer.observe(s));
-initInventory().then(revealHash);
+observeSearchContent();
+initInventory().then(()=>{applySearch();revealHash();});

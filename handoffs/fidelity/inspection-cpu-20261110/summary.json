@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "releaseSource": "374374011f92d588238ed7d1aa8dd3d3845fa392",
+  "runtimeCommit": "dc93023fa589ae865fe281ef2af74e481632101c",
+  "release": "game-6ed33383c1ff3d9c",
+  "nativeControlsSource": "dc93023fa589ae865fe281ef2af74e481632101c",
+  "nativeControlsComplete": true,
+  "nativeControlCount": 8,
+  "errors": [],
+  "cpu": {
+    "beforeSource": "4c57f810c2f7de5b1c3245e6a440d8df8ea58bdb",
+    "afterSource": "ff436a3eb7743afa9e8cfe79774028bc8f9cfec9",
+    "simulationSeconds": 120,
+    "nativeStepHz": 30,
+    "activeVehicles": 311,
+    "pooledVehicles": 183,
+    "pedestrians": 560,
+    "beforeMedianOfSegmentMediansMs": 46.19999999925494,
+    "afterMedianOfSegmentMediansMs": 35.34999999962747,
+    "scope": "Native production traffic/pedestrian component with all admitted actors, paused renderer, fixed public Grozavesti spawn, explicit 1/30 s simulation steps. CPU attribution only, not elapsed physical-play soak or hardware FPS.",
+    "remaining": "Long update spikes remain. No hardware FPS, physical play soak or blanket Ultra acceptance."
+  },
+  "sourceEquivalence": {
+    "game/src/traffic.js": "2032708ea9d15a416312c33b32c452cc5265020018c07708c00a53bbfe81c695",
+    "game/src/nav.js": "e6610c76bd5482d24acb50380dc65318c543021fec4e48629ca7762127386ffe",
+    "game/src/world.js": "c450a37d7b5e886f20c8cd21f8f658c90738aa591aafe51c87718c0bfb0f3c06",
+    "game/src/render.js": "43c33b24a3e530219d777bc9603e31e4275a3a19562102675bf8380939d0e679",
+    "game/src/pedestrian-relocation-peers.js": "84cc52b4666e5ed6b3a9cc4d45889f35ffdbc23095f58307a47f24179c2a5af7"
+  },
+  "proofs": {
+    "native-controls.json": {
+      "sha256": "6d27b36bf9cfaed2bf15a34b82190a49f224a94bac9fc4c355651a00f99b3a18",
+      "gitPath": "handoffs/fidelity/inspection-cpu-20261110/native-controls.json"
+    },
+    "logic.json": {
+      "sha256": "9900c9b2dbf5c5885f96f2e8439e0400bb115033d7c9e2ee21d25bea7be9d16c",
+      "gitPath": "handoffs/fidelity/inspection-cpu-20261110/logic.json"
+    },
+    "component-before.json": {
+      "sha256": "eb044854be28d8d1a6c1df24541c6b787beaa0e00ea85d56f36471d9273b1de6",
+      "gitPath": "handoffs/fidelity/inspection-cpu-20261110/component-before.json"
+    },
+    "component-after.json": {
+      "sha256": "e87a69e6dd6747eee5058a4d232ee31a4c2e8e79cf55e96dc3b47fc021035f87",
+      "gitPath": "handoffs/fidelity/inspection-cpu-20261110/component-after.json"
+    }
+  },
+  "images": [
+    {
+      "image": "native-grass-depth-negative.png",
+      "sha256": "ceeb469a4e7357026febb1317dad1051f24951d2eb518018753a6c32006150ff",
+      "source": "dc93023fa589ae865fe281ef2af74e481632101c"
+    },
+    {
+      "image": "groz-inspection.png",
+      "sha256": "867364eb56d35fcab847f5f6f34c74e23636b760ba9f589e5deb9a3a9a77916a",
+      "source": "dc93023fa589ae865fe281ef2af74e481632101c"
+    },
+    {
+      "image": "native-grass-depth-positive.png",
+      "sha256": "c84cfb7f045f473d56a5e6c60b8295583b0d5616545f1ce460a61ad38209ce38",
+      "source": "dc93023fa589ae865fe281ef2af74e481632101c"
+    },
+    {
+      "image": "inspection-phone.png",
+      "sha256": "23805e8670fb8c106e1b60e97544a90657f1e82cb51c97ece3b9d8d0e0d262c4",
+      "source": "dc93023fa589ae865fe281ef2af74e481632101c"
+    }
+  ]
+}

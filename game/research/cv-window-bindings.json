@@ -13,8 +13,8 @@
   },
   "fallbackPolicy": {
     "selectionOwner": "Root integration; no automatic fallback selection in this ledger/helper",
-    "candidate": "Use owner-assigned numbered floors with explicitly estimated metre conversion, retaining full source/geometry compatibility. Never silently substitute a ground-floor view.",
-    "label": "Live district view \u00b7 floor N; exact height and bearing estimated",
+    "candidate": "Owner-assigned floor outlook from the retained source polygon/holes, full room fit and emitted height envelope. Same-owner skin at most 1.2 m; foreign volumes reject. Facade coverage is independent and no real architectural aperture is certified. No ground-floor fallback.",
+    "label": "Live district view · floor N; exact height and bearing estimated",
     "unknownsRemainNull": true,
     "blockedIdentity": "Do not select a current-office view from a known mismatched building (UiPath-Bucharest A/B) until resolved; retain exact district context separately if root chooses a visibly declared illustrative view.",
     "userClarification": "Numbered floors now supplied for7rooms; Luxoft, exact window sides and source building conflicts remain unresolved.",
@@ -428,7 +428,7 @@
             "tags": {
               "building": "university",
               "building:levels": "5",
-              "name": "Rectorat Universitatea Politehnica din Bucure\u0219ti"
+              "name": "Rectorat Universitatea Politehnica din București"
             },
             "source": "https://api.openstreetmap.org/api/0.6/way/28240552",
             "fetchedUTC": "2026-11-09T17:54:43.686601+00:00",
@@ -441,7 +441,7 @@
             "minHeightM": 0.0,
             "levels": 5,
             "heightSourceCode": 0,
-            "name": "Rectorat Universitatea Politehnica din Bucure\u0219ti",
+            "name": "Rectorat Universitatea Politehnica din București",
             "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
           }
         },
@@ -1421,13 +1421,13 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "Bucure\u0219ti",
+              "addr:city": "București",
               "addr:housenumber": "5-7",
               "addr:postcode": "020337",
               "addr:street": "Bulevardul Dimitrie Pompeiu",
               "building": "commercial",
               "building:levels": "9",
-              "name": "Cl\u0103direa A"
+              "name": "Clădirea A"
             },
             "source": "game/research/landmark-source-bucharest-pipera.json",
             "model": "hermes"
@@ -1437,7 +1437,7 @@
             "minHeightM": 0.0,
             "levels": 9,
             "heightSourceCode": 2,
-            "name": "Cl\u0103direa A",
+            "name": "Clădirea A",
             "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
           }
         },
@@ -1546,7 +1546,7 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "Bucure\u0219ti",
+              "addr:city": "București",
               "addr:street": "Bulevardul Dimitrie Pompeiu",
               "building": "yes"
             },
@@ -1801,14 +1801,14 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "Bucure\u0219ti",
+              "addr:city": "București",
               "addr:housenumber": "5-7",
               "addr:postcode": "020337",
               "addr:street": "Bulevardul Dimitrie Pompeiu",
               "building": "commercial",
               "building:levels": "9",
               "building:levels:underground": "4",
-              "name": "Cl\u0103direa B+C",
+              "name": "Clădirea B+C",
               "smoking": "outside",
               "type": "multipolygon"
             },
@@ -2427,11 +2427,11 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "Bucure\u0219ti",
+              "addr:city": "București",
               "addr:housenumber": "51 - 53",
               "addr:postcode": "010661",
-              "addr:postcode:source": "Date de la Po\u0219ta Rom\u00e2n\u0103, publicate sub Licen\u021ba pentru Guvernare Deschis\u0103 v1.0 la http://date.gov.ro/organization/posta-romana",
-              "addr:street": "Bulevardul Lasc\u0103r Catargiu",
+              "addr:postcode:source": "Date de la Poșta Română, publicate sub Licența pentru Guvernare Deschisă v1.0 la http://date.gov.ro/organization/posta-romana",
+              "addr:street": "Bulevardul Lascăr Catargiu",
               "building": "office",
               "building:levels": "14",
               "check_date": "2026-06-15",
@@ -2701,10 +2701,10 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "Bucure\u0219ti",
+              "addr:city": "București",
               "addr:housenumber": "101",
               "addr:postcode": "030613",
-              "addr:street": "Calea C\u0103l\u0103ra\u0219ilor",
+              "addr:street": "Calea Călărașilor",
               "building": "apartments",
               "building:levels": "1",
               "heritage": "2",
@@ -2984,7 +2984,7 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "Bucure\u0219ti",
+              "addr:city": "București",
               "addr:housenumber": "11",
               "addr:street": "Strada General Giuseppe Garibaldi",
               "building": "school",
@@ -3450,7 +3450,7 @@
           "selectedFacadeEdge": null,
           "sourceTagsEvidence": {
             "tags": {
-              "addr:city": "Bucure\u0219ti",
+              "addr:city": "București",
               "addr:country": "RO",
               "building": "office",
               "name": "BOB Tower",
@@ -5229,7 +5229,7 @@
       "editedAt": "2022-05-07T13:03:15Z",
       "tags": {
         "addr:housenumber": "37",
-        "addr:street": "Strada C\u0103derea Bastiliei",
+        "addr:street": "Strada Căderea Bastiliei",
         "building": "office",
         "building:levels": "5",
         "roof:levels": "1"
@@ -5304,7 +5304,7 @@
       "tags": {
         "building": "university",
         "building:levels": "5",
-        "name": "Rectorat Universitatea Politehnica din Bucure\u0219ti"
+        "name": "Rectorat Universitatea Politehnica din București"
       },
       "nodeIds": [
         "310173225",

@@ -351,3 +351,5 @@ The overview guide search highlights accent-insensitive matches in the original 
 Portrait touch layouts keep Map and Menu at the top and movement/current interaction at the bottom. Menu contains weather, drone, camera, car exit and story controls; the mini-map stays visible and collapsible. Roaming banners, duplicate launchers and older simultaneous toasts are reduced. A conversation has one Continue action and a separate close button to pause.
 
 The portrait World map wraps its city tabs into two rows, keeping Bellevue and World visible alongside the current district, Bucharest and Seattle.
+
+Office outlooks now follow the owner-assigned floors within their retained source buildings. Full-room/source-polygon, emitted height and foreign-volume checks remain required; virtual wide panes may use up to 1.2 m of the same owner’s exterior skin. Exact window position, bearing and floor spacing remain estimates, and no real architectural window is certified. Known source identity conflicts and missing floor data remain unavailable.

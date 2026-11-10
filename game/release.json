@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-7156facc8d740fbd",
-  "sourceCommit": "2010b1697aa84f9164894f29e94dc05d1833c8ae",
-  "fingerprint": "7156facc8d740fbd8e45ba951c991d8183d10dc04199a4cd74b1d6bd888376d7",
+  "releaseId": "game-471508886d4ff5a1",
+  "sourceCommit": "8abd2e910a5ba23ae23ad7de7aa4f9d60dbf50fb",
+  "fingerprint": "471508886d4ff5a19e5cc64202befd811ca0ef861fff7a27fdce1bb513ad22a9",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -462,7 +462,7 @@
     },
     {
       "path": "game/src/office-window-binding.js",
-      "sha256": "54377e7138247f00076a208ea1b89dc22880ccca5f2e37d74b61f520c93ef58e"
+      "sha256": "632bb9a5da6b890b659e77b363bc52c6b7c1041cd4185ed44c0b93c9063a4260"
     },
     {
       "path": "game/src/office-window-math.js",

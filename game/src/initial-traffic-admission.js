@@ -8,6 +8,7 @@ import { planInitialVehicleAdmission, ordinaryVehicleStations, vehicleVerticalIn
 import { canTravelTram } from './tram-path.js';
 import { validateTramSupportCertificate } from './tram-body-support.js';
 import { ordinarySourceSpan, ordinarySourceBodyPlacement } from './initial-ordinary-source-span.js';
+import {separatedVehicleStaticProjection} from './vehicle-static-projection.js';
 
 const longBody = v => !!(v.long || v.bus || v.tram || v.length >= 8.5);
 const bodyPose = v => ({ x: v.x, y: v.y, z: v.z, heading: v.heading, s: v.s });
@@ -77,11 +78,11 @@ export function initialTrafficStaticClearance(world, body, { cellM = 0.75 } = {}
     const interval = vehicleVerticalInterval(body);
     if (!interval.known) return { valid: false, reason: 'unknown-model-vertical-interval', interval };
     if (!world?.buildings) return { valid: false, reason: 'missing-native-static-collider-set' };
-    let samples = 0, hit = null, railCertificate = null;
+    let samples = 0, hit = null, railCertificate = null,separated=null,witnesses=null;
     for (const sample of initialBodyCover(body, cellM)) {
         samples++;
         const check = c => {
-            if (hit) return;
+            if (hit||separated?.has(c)) return;
             if (body.edge?.rail && c.railDeck && c.modelId && body.railSupport?.modelIds?.includes(c.modelId)) {
                 // The global Y interval below conservatively spans a pitched
                 // body's low rear and high front at every disc. For its own
@@ -104,12 +105,20 @@ export function initialTrafficStaticClearance(world, body, { cellM = 0.75 } = {}
                 if (support !== null && body.y >= support - 1e-4) return;
             }
             const y = lo + Math.min(1e-5, (hi - lo) / 2);
-            if (collideBuildings([c], sample.x, sample.z, sample.radius, y, hi - y)) hit = { kind: c.kind || (c.wall ? 'wall' : c.prop ? 'prop' : 'body'), sourceId: c.sourceId || c.osmId || c.edge?.access?.sourceId || null, edgeId: c.edge?.id ?? null, sample, interval, colliderBand: band };
+            if(collideBuildings([c],sample.x,sample.z,sample.radius,y,hi-y)){
+                const proof=body.edge?.rail?separatedVehicleStaticProjection(body,c):null;
+                if(proof?.separated){
+                    (separated||(separated=new Set())).add(c);
+                    if((witnesses?.length||0)<8)(witnesses||(witnesses=[])).push({kind:c.kind,sourceId:c.sourceId||c.edge?.access?.sourceId||null,...proof});
+                    return;
+                }
+                hit={kind:c.kind||(c.wall?'wall':c.prop?'prop':'body'),sourceId:c.sourceId||c.osmId||c.edge?.access?.sourceId||null,edgeId:c.edge?.id??null,sample,interval,colliderBand:band};
+            }
         };
         if (world.buildings.query) world.buildings.query(sample.x, sample.z, sample.radius + 2, check); else for (const c of world.buildings) check(c);
         if (hit) return { valid: false, reason: 'native-full-body-static-contact', samples, hit };
     }
-    return { valid: true, samples, interval, scope: 'Conservative disc cover of native body rectangle and actual emitted vertical interval; accepted candidate only' };
+    return { valid: true, samples, interval,...(separated?{separatedCoverContacts:separated.size,separationWitnesses:witnesses}:{}), scope: 'Conservative disc cover of native body rectangle and actual emitted vertical interval; accepted candidate only' };
 }
 
 /** Optional existing crowd: native pedestrian radius .3m. Without an explicit

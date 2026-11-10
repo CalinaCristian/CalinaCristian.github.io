@@ -1,0 +1,207 @@
+{
+  "source": "e16ec1691cc9d59414f4f4b020fd7502457a89a4",
+  "scope": "Read-only emitted native tram pose and collider witnesses. Barrier halfwidth is recorded from exact native emitter .15m/.3m constants; proposed World metadata will use those same values. Source objects untouched.",
+  "rows": [
+    {
+      "id": 492,
+      "kind": "tram-v3a",
+      "source": "w205968329",
+      "pose": {
+        "x": 280.6312341708547,
+        "y": 0.24,
+        "z": -785.0945502664828,
+        "s": 17.923487942858667,
+        "heading": -2.714336680760504,
+        "pitch": 0,
+        "roll": 0
+      },
+      "length": 27,
+      "width": 2.4,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "objects": [
+        {
+          "kind": "bollard",
+          "x": 273.83243172813224,
+          "z": -796.4605787729041,
+          "r": 0.1,
+          "hw": 0.1,
+          "hd": 0.1,
+          "angle": 0,
+          "prop": true,
+          "h": 3,
+          "poly": null
+        }
+      ],
+      "original": {
+        "valid": false,
+        "reason": "native-full-body-static-contact",
+        "samples": 4,
+        "hit": {
+          "kind": "bollard",
+          "sourceId": null,
+          "edgeId": null,
+          "sample": {
+            "x": 274.37346656472783,
+            "z": -796.6667570390784,
+            "radius": 0.4802344178074637,
+            "along": -13.125,
+            "across": 0.9000000000000001
+          },
+          "interval": {
+            "min": 0.2482737924531102,
+            "max": 6.029999961853028,
+            "known": true,
+            "source": "emitted-model-vertices-YXZ"
+          },
+          "colliderBand": {
+            "min": 0,
+            "max": 3,
+            "source": "native-explicit-base-top-passage-roof-band"
+          }
+        }
+      }
+    },
+    {
+      "id": 493,
+      "kind": "tram-imperio",
+      "source": "w205971103",
+      "pose": {
+        "x": 343.11442895683405,
+        "y": 7.746766355907309,
+        "z": -711.1549506538832,
+        "s": 16.51554692497569,
+        "heading": 2.2170037889266094,
+        "pitch": 0.0004107818334448121,
+        "roll": 0
+      },
+      "length": 36,
+      "width": 2.4,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "objects": [
+        {
+          "kind": "barrier",
+          "x": 327.73705176167624,
+          "z": -701.0259519861318,
+          "r": 0.6562500000000102,
+          "hw": 0,
+          "hd": 0,
+          "angle": 0,
+          "wall": true,
+          "ax": 328.0294159339438,
+          "az": -701.2295134099681,
+          "bx": 327.44468758940866,
+          "bz": -700.8223905622954,
+          "nx": -0.5714004879617092,
+          "nz": -0.8206713607511356,
+          "h": 1,
+          "y0a": 7.317185656745351,
+          "y0b": 7.3244474875768875,
+          "y1a": 8.21718565674535,
+          "y1b": 8.224447487576887,
+          "inferred": true,
+          "poly": null,
+          "renderHalfWidthM": 0.15
+        }
+      ],
+      "original": {
+        "valid": false,
+        "reason": "native-full-body-static-contact",
+        "samples": 192,
+        "hit": {
+          "kind": "barrier",
+          "sourceId": "w1552024280",
+          "edgeId": 589,
+          "sample": {
+            "x": 328.5011536506237,
+            "z": -701.2603657800797,
+            "radius": 0.4802344178074637,
+            "along": 17.625,
+            "across": 0.9000000000000001
+          },
+          "interval": {
+            "min": 7.7482731610303865,
+            "max": 13.538530650600542,
+            "known": true,
+            "source": "emitted-model-vertices-YXZ"
+          },
+          "colliderBand": {
+            "min": 7.017185656745351,
+            "max": 8.21718565674535,
+            "source": "native-wall-band-with-native-base-margin"
+          }
+        }
+      }
+    },
+    {
+      "id": 491,
+      "kind": "tram-imperio",
+      "source": "w660918283",
+      "pose": {
+        "x": 315.6905393458968,
+        "y": 0.24,
+        "z": -679.4819058848228,
+        "s": 8.278634924633835,
+        "heading": -0.8528394765359655,
+        "pitch": 0,
+        "roll": 0
+      },
+      "length": 36,
+      "width": 2.4,
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "objects": [
+        {
+          "kind": "tree",
+          "x": 329.1,
+          "z": -691.9,
+          "r": 0.21279999999999993,
+          "hw": 0.21279999999999993,
+          "hd": 0.21279999999999993,
+          "angle": 0,
+          "prop": true,
+          "h": 3,
+          "poly": null
+        }
+      ],
+      "original": {
+        "valid": false,
+        "reason": "native-full-body-static-contact",
+        "samples": 190,
+        "hit": {
+          "kind": "tree",
+          "sourceId": null,
+          "edgeId": null,
+          "sample": {
+            "x": 328.7674782560517,
+            "z": -691.3024089934083,
+            "radius": 0.4802344178074637,
+            "along": 17.625,
+            "across": -0.30000000000000004
+          },
+          "interval": {
+            "min": 0.2482737924531102,
+            "max": 6.029999961853028,
+            "known": true,
+            "source": "emitted-model-vertices-YXZ"
+          },
+          "colliderBand": {
+            "min": 0,
+            "max": 3,
+            "source": "native-explicit-base-top-passage-roof-band"
+          }
+        }
+      }
+    }
+  ]
+}

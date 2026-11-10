@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "report": 49,
+  "status": "Verified targeted roof-window fix",
+  "scope": "Church facade window rows below the eaves. Original reported position/bearing/FOV; supplemental pitch -4 degrees to show the facade because the reported +26.915 points above it. The original literal-pitch captures are retained privately. No source geometry, dimensions, roof or collision changes.",
+  "captures": [
+    {
+      "file": "before.png",
+      "source": "9d681f454817179848868b9661a1eae49fe137d5",
+      "capturedAt": "2026-11-10T23:18:15.099Z",
+      "sha256": "2840aa1f19833e72b57c68011cbe8878d4e2346705ce0c3e94470c44dbe4d240",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "eye": [
+          336.024,
+          17.344,
+          -17.314
+        ],
+        "bearing": 15.597,
+        "pitch": -3.89,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:01.410Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "high",
+      "vehicles": 309,
+      "pedestrians": 560,
+      "observerSHA256": "ea643c5fefe7550ce5f768d1cc165b29759b8b8a0b59b0712365e07f1e7f6419",
+      "scope": "Production game and native UI in a desktop browser. Paused automatic RAF, explicit native frames and setup poses; no physical-phone or normal-route claim."
+    },
+    {
+      "file": "after.png",
+      "source": "3cc387ba6ffcd8829e8d7463553c343d71c81e75",
+      "capturedAt": "2026-11-10T23:18:37.595Z",
+      "sha256": "2447248afa4b17e28892e12d43b85ec22882dd21beefc6a2f460552d9015ac72",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "eye": [
+          336.024,
+          17.344,
+          -17.314
+        ],
+        "bearing": 15.602,
+        "pitch": -3.86,
+        "fov": 70
+      },
+      "conditions": {
+        "date": "2026-11-11T10:31:29.700Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "quality": "high",
+      "vehicles": 309,
+      "pedestrians": 560,
+      "observerSHA256": "ea643c5fefe7550ce5f768d1cc165b29759b8b8a0b59b0712365e07f1e7f6419",
+      "scope": "Production game and native UI in a desktop browser. Paused automatic RAF, explicit native frames and setup poses; no physical-phone or normal-route claim."
+    }
+  ],
+  "regression": {
+    "footA": {
+      "high": 0,
+      "medium": 0,
+      "low": 1,
+      "lowScope": "Software-renderer FPS, not hardware performance"
+    },
+    "visual": {
+      "baseline": "9d681f454817179848868b9661a1eae49fe137d5",
+      "candidate": "3cc387ba6ffcd8829e8d7463553c343d71c81e75",
+      "scope": "Paired original Roman\u0103 visual harness; sampled 29/29 poses but required Arnia route is missing in BOTH. Not district visual acceptance. Mandatory foot/a passed separately with 0 high / 0 medium.",
+      "coverageIdentical": true,
+      "findings": {
+        "baseline": {
+          "counts": {
+            "high": 10,
+            "low": 110,
+            "medium": 16
+          },
+          "peakCalls": 285,
+          "peakTriangles": 1081211,
+          "quality": "medium"
+        },
+        "candidate": {
+          "counts": {
+            "high": 10,
+            "low": 110,
+            "medium": 16
+          },
+          "peakCalls": 285,
+          "peakTriangles": 1081211,
+          "quality": "medium"
+        }
+      },
+      "differences": [
+        {
+          "id": 126,
+          "before": {
+            "id": 126,
+            "type": "zfight",
+            "severity": "medium",
+            "city": "bucharest",
+            "group": "bucharest-romana",
+            "msg": "flicker: 4 screen blocks change between two renders 1 mm apart (coplanar surfaces fighting)",
+            "x": -178.7,
+            "z": -283.8,
+            "lat": 44.450854,
+            "lon": 26.088951,
+            "street": "Bulevardul Lasc\u0103r Catargiu",
+            "count": 1,
+            "data": {
+              "route": "sweep-bulevardul-lasc-r-catargiu-run-18",
+              "sample": 19,
+              "blocks": 4,
+              "frac": 0.0019,
+              "surfaces": []
+            },
+            "box": [
+              24,
+              312,
+              72,
+              648
+            ],
+            "crop": "issues/bucharest-romana-sweep-bulevardul-lasc-r-catargiu-run-18-19-zfight.jpg",
+            "frame": "frames/bucharest-romana-sweep-bulevardul-lasc-r-catargiu-run-18-0019.jpg",
+            "seen": "sweep-bulevardul-lasc-r-catargiu-run-16 #17 (9 m, forward sheet 1)"
+          },
+          "after": {
+            "id": 126,
+            "type": "zfight",
+            "severity": "medium",
+            "city": "bucharest",
+            "group": "bucharest-romana",
+            "msg": "flicker: 5 screen blocks change between two renders 1 mm apart (coplanar surfaces fighting)",
+            "x": -178.7,
+            "z": -283.8,
+            "lat": 44.450854,
+            "lon": 26.088951,
+            "street": "Bulevardul Lasc\u0103r Catargiu",
+            "count": 1,
+            "data": {
+              "route": "sweep-bulevardul-lasc-r-catargiu-run-18",
+              "sample": 19,
+              "blocks": 5,
+              "frac": 0.0018,
+              "surfaces": []
+            },
+            "box": [
+              24,
+              312,
+              72,
+              648
+            ],
+            "crop": "issues/bucharest-romana-sweep-bulevardul-lasc-r-catargiu-run-18-19-zfight.jpg",
+            "frame": "frames/bucharest-romana-sweep-bulevardul-lasc-r-catargiu-run-18-0019.jpg",
+            "seen": "sweep-bulevardul-lasc-r-catargiu-run-16 #17 (9 m, forward sheet 1)"
+          }
+        }
+      ],
+      "review": "Same issue identities, positions and severities. One pre-existing flicker sample changes 4 to 5 blocks while total affected fraction falls 0.0019 to 0.0018; no new issue. Original candidate sheet run18 looks and before/after roof-window images visually inspected. Remaining source-road/office/route defects remain open."
+    }
+  }
+}

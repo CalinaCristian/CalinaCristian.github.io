@@ -21,10 +21,11 @@
       "usage": "Private comparison only; no provider pixels in the game or overview."
     }
   ],
-  "geometry": "Existing five-point authored line retained from the prepared park layout. Its exact end points and 2.4 m drop remain estimates. Official width is 73.152 m; retained modeled line is not claimed to be a new survey.",
+  "geometry": "Use the unchanged mapped weir w1389890023 and missing catch-basin polygon w842753013, alongside upper pool w1326469168 and reflecting pool w1326469177. The retained 2.4 m vertical drop remains an estimate, not a survey.",
   "pending": [
     "Native full-size four-condition appearance review",
     "Ordinary approach, event triggers, cancellation/completion/awards/persistence",
     "Full scene architecture/skyline and physical review"
-  ]
+  ],
+  "rejectedFirstCandidate": "First native summer-day view exposed grass below the water: the old scene omitted mapped catch basin w842753013. Rejected appearance source35a899a0 remains in raw evidence; no acceptance claim."
 }

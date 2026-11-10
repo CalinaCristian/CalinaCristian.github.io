@@ -60,13 +60,14 @@ export default {
         const level = (a) => { const b = branch(a); if (!b) return null; let n = 0; for (const s of W[b.dir]) if (s < b.s) n++; return TOP - n * STEP; };
         const bankY = (a) => (level(a) ?? POOL_Y + 0.05) + 0.45; // the SW sector (reflecting pool) promenade sits just above the pool
         // ---------------------------------------------------------------- terrain: meadow graded to the banks, canal bed, lower basin
-        const pool = area('w1326469177') || [], upper = area('w1326469168') || [], lowerPlaza = way('w1326475313') || [];
+        const pool = area('w1326469177') || [], upper = area('w1326469168') || [], catchBasin = area('w842753013') || [], lowerPlaza = way('w1326475313') || [];
         const pb = polyBox(pool.length ? pool : [[0, 0], [1, 1]]);
         g.mod((x, z, h) => {
             const dx = x - C.x, dz = z - C.z, rr = Math.hypot(dx, dz); if (rr > R + 40) return h;
             const a = Math.atan2(dz, dx), lv = level(a), by = bankY(a);
             if (x > pb.x0 - 2 && x < pb.x1 + 2 && z > pb.z0 - 2 && z < pb.z1 + 2 && inPoly(x, z, pool)) return POOL_Y - 0.55;
             if (upper.length && inPoly(x, z, upper)) return UPPER_Y - 0.5;
+            if (catchBasin.length && inPoly(x, z, catchBasin)) return POOL_Y - .55;
             if (lv !== null && Math.abs(rr - R) < HW) return lv - 0.55;                                    // canal bed
             if (Math.abs(rr - R) < HW + 1.0) return by;                                                    // coping
             const k = rr < R ? smooth(R - 30, R - HW - 1, rr) : smooth(R + 26, R + HW + 1, rr);              // meadow / promenade graded to the bank level
@@ -93,6 +94,7 @@ export default {
         const spillM = nightLit('#d8ecf0', 0.05, { base: '#eaf4f6', name: 'weir-spill', roughness: 0.2 });
         for (const c of cuts) { const lv = level(c + 0.002) ?? TOP, lv2 = level(c - 0.002) ?? TOP, hi = Math.max(lv, lv2), x = C.x + Math.cos(c) * R, z = C.z + Math.sin(c) * R; wb.box(x, hi - 0.25, z, 2 * HW + 0.2, 0.3, 0.35, '#8f7d76', 'stone', -c); const sp2 = new THREE.Mesh(new THREE.BoxGeometry(2 * HW, Math.max(0.06, Math.abs(lv - lv2)) + 0.04, 0.08), spillM); sp2.position.set(x, (lv + lv2) / 2, z); sp2.rotation.y = -c; ctx.add(sp2); }
         if (upper.length) waterPoly(ctx, upper, UPPER_Y, { deep: '#2a4744', shallow: '#4d6a62', cell: 1.5, foam: 0, name: 'upper-pool' });
+        if (catchBasin.length) waterPoly(ctx, catchBasin, POOL_Y, {deep:'#263e32',shallow:'#53684b',cell:.5,ripple:.3,wave:.12,foam:0,name:'waterfall-catch-basin'});
         if (pool.length) waterPoly(ctx, pool, POOL_Y, { deep: '#1f3a3b', shallow: '#3f5c55', cell: 2, ripple: 0.4, wave: 0.2, envIntensity: 1.4, foam: 0, name: 'reflecting-pool' });
         // granite coping both sides of the canal + around the pools
         const COP = '#b8a197';
@@ -101,11 +103,12 @@ export default {
         // walls: no walking into the water (canal edges, pools)
         for (let i = 0; i < 180; i++) { const a0 = i / 180 * TAU, a1 = (i + 1) / 180 * TAU; if (level((a0 + a1) / 2) === null) continue; for (const rr of [R - HW, R + HW]) ctx.collider({ wall: true, ax: C.x + Math.cos(a0) * rr, az: C.z + Math.sin(a0) * rr, bx: C.x + Math.cos(a1) * rr, bz: C.z + Math.sin(a1) * rr, y0a: -9, y1a: bankY(a0) + 0.3, y0b: -9, y1b: bankY(a1) + 0.3, nx: 0, nz: 1, intended: true }); } // canal edge (granite coping, water below)
         g.waterY = null;
-        for (const poly of [pool, upper]) if (poly.length) ctx.poly(poly, { h: 0.6, intended: true });
+        for (const poly of [pool, upper, catchBasin]) if (poly.length) ctx.poly(poly, { h: 0.6, intended: true });
         // canal footbridges (OSM bridge=yes footways across the ring): flat granite slabs at bank level
         for (const w of d.ways) { if (w.bridge !== 'yes' || w.k !== 'footway' || w.pts.length < 2) continue; const [p0, p1] = [w.pts[0], w.pts[w.pts.length - 1]], mx = (p0[0] + p1[0]) / 2, mz = (p0[1] + p1[1]) / 2; if (Math.abs(Math.hypot(mx - C.x, mz - C.z) - R) > 8) continue; const a = ang(mx, mz), y = bankY(a) + 0.02, L2 = Math.max(7, Math.hypot(p1[0] - p0[0], p1[1] - p0[1])); wb.box(mx, y - 0.35, mz, 3.2, 0.35, L2, '#c8b8ae', 'stone', Math.atan2(p1[0] - p0[0], p1[1] - p0[1])); g.addBox(mx, mz, 1.6, L2 / 2, -Math.atan2(p1[0] - p0[0], p1[1] - p0[1]), y - 2, y); }
         // ---------------------------------------------------------------- the 240-ft waterfall (upper pool → reflecting pool)
-        const wfLine = [[-156, 121.2], [-146, 121.2], [-128, 121.2], [-98, 120.6], [-87, 120.4]];
+        const sourceWeir=way('w1389890023'),wfLine=sourceWeir?.length?sourceWeir.map(p=>[...p]):[];
+        if(wfLine.length<2)throw Error('Mapped Downtown Park waterfall crest is missing');
         for (let i = 1; i < wfLine.length; i++) {
             const [ax, az] = wfLine[i - 1], [qx, qz] = wfLine[i], Lq = Math.hypot(qx - ax, qz - az), yaw = Math.atan2(qx - ax, qz - az) + Math.PI / 2;
             wb.box((ax + qx) / 2, POOL_Y - .5, (az + qz) / 2 - .3, Lq + .1, UPPER_Y - POOL_Y + .4, .6, '#766d59', 'stone', yaw);

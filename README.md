@@ -375,3 +375,5 @@ Bellevue Downtown Park’s cascade candidate now follows an official City of Bel
 Horn refinement candidate: softer, pressure-like attack/release and shaped dual 400/500 Hz tones replace the sharp sawtooth blast. Nearby horns mix at reduced gain with distance filtering; NPC pitch varies narrowly instead of the former broad coordinate-dependent range. Engine and other sound levels are unchanged.
 
 Near-window clarity candidate: capture only the visible window subsection and apply its inverse UV crop to the unchanged pane. This removes enlargement of a small patch of the full-window texture. Reusable128px growth buckets are capped by the selected quality (Ultra4M/High2M/Medium1M/Low0.5M pixels), with no new world or actor simulation. Native near-glass/High/Ultra acceptance is pending.
+
+Cascade source correction: restore mapped catch basin w842753013 and use the exact retained weir w1389890023 instead of the authored approximation. The missing basin caused grass under the falling water. The prepared OSM polygons and IDs remain unchanged.

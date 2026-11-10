@@ -340,3 +340,5 @@ An interaction may declare `tourPrimary:true`. When a scene declares primary exp
 ## Downtown cascade candidate · 10 November 2026
 
 Keep the retained plan line/upper and lower datums; drop is an explicit 2.4 m estimate, while the official city page supports the 240-foot-wide feature. Reference the city’s actual park photograph privately: a wet brown/grey retaining wall remains visible through thin falling streams, with a narrow impact line. `falling-water.js` emits two lit transparent meshes with seeded procedural textures; no emissive white sheet, flat white pavement-like foam band or full-height opaque spray curtain. It owns no physical surface or source data. Keep geometry/work bounded, record native render costs and inspect ground-level summer/winter/day/night before publishing changed images.
+
+Cascade correction after the first native rejection: exact source weir w1389890023 and catch basin w842753013 must be rendered/terrain-carved at the retained lower datum and excluded from walking. Preserve the source polygons; the original authored five-point crest and omitted basin are superseded.

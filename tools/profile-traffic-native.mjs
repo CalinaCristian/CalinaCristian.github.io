@@ -53,7 +53,9 @@ try{
  const cdp=await page.context().newCDPSession(page);await cdp.send('Profiler.enable');await cdp.send('Profiler.setSamplingInterval',{interval:500});
  if(component){
   await cdp.send('Profiler.start');
-  for(let batch=0;batch<12;batch++){
+  const batches=Number(process.argv.find(a=>a.startsWith('--batches='))?.split('=')[1]||12);
+  if(!Number.isInteger(batches)||batches<1||batches>120)throw Error('Expected 1–120 batches');
+  for(let batch=0;batch<batches;batch++){
    const data=await page.evaluate(()=>{const g=game,t=g.traffic,durations=[];for(let i=0;i<300;i++){const start=performance.now();t.update(1/30);g.hud.update(1/30,g.camera,g.city.id);durations.push(performance.now()-start);}durations.sort((a,b)=>a-b);return {simSeconds:t.time,frames:t._frame,medianMs:durations[150],p95Ms:durations[285],maxMs:durations[299],vehicles:t.vehicles.length,pool:t.pool.length,peds:t.peds.list.length,pedStates:t.peds.list.reduce((o,p)=>(o[p.state]=(o[p.state]||0)+1,o),{}),stats:{...t.stats},pedStats:{...t.peds.stats}};});
    report.phases.push(data);await save();console.log(JSON.stringify(data));
   }

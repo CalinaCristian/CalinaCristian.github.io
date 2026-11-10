@@ -67,7 +67,9 @@ if(baseline){const Old=(await import(pathToFileURL(path.resolve(baseline,'game/s
 const native=JSON.parse(fs.readFileSync(new URL('./fixtures/unirii-peer-cell-86-199.json',import.meta.url))),n=scene();
 n.C.list=native.actors.map((p,i)=>({...p,i:p.id,x:native.indexed[i].x,z:native.indexed[i].z,live:true,scale:p.scale||1}));n.C.buildGrid();
 n.C.list.forEach((p,i)=>Object.assign(p,{x:native.actors[i].x,z:native.actors[i].z}));
+n.C.grid.fixed=false; // retained negative control: legacy queries read the moved cell from the body
 let seen=false;n.C.grid.query(n.C.list[0].x,n.C.list[0].z,1.1,p=>{if(p.i===199)seen=true;});assert.equal(seen,false,'the actual old-cell hash omits native199');
+n.C.grid.fixed=true; // production queries retain the indexed cell until a safe rebuild
 n.C.list.forEach((p,i)=>n.C.notePeerMove(p,native.indexed[i].x,native.indexed[i].z));
 assert.equal(n.C.peerClearStep(n.C.list[0],n.C.list[0].x,n.C.list[0].z,native.indexed[0].x,native.indexed[0].z),false,'dirty membership cannot admit a worsening native contact');
 n.C.ensurePeerGrid();seen=false;n.C.grid.query(n.C.list[0].x,n.C.list[0].z,1.1,p=>{if(p.i===199)seen=true;});assert.equal(seen,true);
@@ -115,3 +117,22 @@ const w=run(wall.C,240);assert.ok(w.minimum>=.6-1e-6);
 assert.ok(wall.C.list.every(p=>!collideBuildings([slab],p.x,p.z,.3,.14)),'passing remains outside the source facade');
 assert.ok(wall.C.list[0].x>13&&wall.C.list[1].x<10,'one blocked passing side does not create permanent gridlock');
 console.log('PASS: actual pedestrian head-on/following progress, native cell crossing, partial recovery/third body, shared static correction and facade clearance');
+
+// Broad-phase union versus an independent complete population scan, with
+// multiple cell crossings during an outstanding query and mixed heights.
+const moving=scene(),random=(()=>{let x=441;return()=>((x=Math.imul(x,1664525)+1013904223>>>0)/4294967296)})();
+moving.C.list=Array.from({length:560},(_,i)=>({...moving.person(i,random()*160),z:random()*40,state:i%7?'walk':'stand'}));
+moving.C.t.world.walkTop=(x,z)=>x>80&&z>20?5:.13;
+const scan=Object.create(Pedestrians.prototype);Object.assign(scan,{list:moving.C.list,t:moving.C.t,grid:{items:null},_peerGridDirty:true});
+for(let frame=0;frame<40;frame++){
+ moving.C.buildGrid();
+ for(let i=0;i<100;i++){
+  const q=moving.C.list[Math.floor(random()*560)],ox=q.x,oz=q.z;
+  q.x+=random()*24-12;q.z+=random()*24-12;moving.C.notePeerMove(q,ox,oz);
+ }
+ for(let i=0;i<100;i++){
+  const p=moving.C.list[Math.floor(random()*560)],ox=p.x,oz=p.z,x=ox+random()*1.4-.7,z=oz+random()*1.4-.7;
+  assert.equal(moving.C.peerClearStep(p,x,z,ox,oz),scan.peerClearStep(p,x,z,ox,oz),'all560-body query parity, including movers that entered from an unqueried cell');
+ }
+}
+console.log('PASS: 4000 exact moving-grid/full-population contact decisions');

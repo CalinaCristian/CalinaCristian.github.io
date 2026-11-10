@@ -381,3 +381,5 @@ Cascade source correction: restore mapped catch basin w842753013 and use the exa
 Facade correction candidates from owner coordinates: Sky Tower now partitions its coloured glazing into one exterior skin instead of placing coplanar strips over a full prism. Generic block balconies gain return guards at both ends, including upper sides for enclosed variants; their floor/soffit and facade-end bounds remain intact. Native camera acceptance and budget checks are pending.
 
 Ultra crowd shading candidate: the AO normal pass now uses the same outfit visibility and skeletal poses as the visible crowd. Hidden umbrellas/phones/guitars previously entered the generic override in their rest pose and could leave ghost-like shapes around people. Materials and render state restore after the pass; native A/B acceptance remains pending.
+
+Traffic CPU work is being optimized without reducing actors: conservative moving-peer queries retain every body, and static sidewalk heights use a bounded exact-coordinate cache. Sustained hardware performance and Basarab’s full route remain under validation.

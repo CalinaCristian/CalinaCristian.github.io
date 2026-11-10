@@ -1,0 +1,622 @@
+{
+  "scope": "Basarab white fallback-ground patches only. Exact immutable Git source, fixed appearance cameras and native frames. This does not certify full bridge travel, general performance, other reports or hardware FPS. Embedded diagnostic release labels predate final stamping; the immutable served-source manifests identify the tested bytes.",
+  "runtimeSource": "a4afabcc2f07d095b5793cca56d7f7a04b5cc1a8",
+  "baselineSource": "3c79ace0e36847095d7844f1d4e038fb3d8025fb",
+  "captures": [
+    {
+      "file": "before.png",
+      "source": "3c79ace0e36847095d7844f1d4e038fb3d8025fb",
+      "capturedAt": "2026-11-10T19:29:39.047Z",
+      "sha256": "b347443c18f5421596be437304e8eda9a58fa711b249428d44d38593dbe9a962",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "eye": [
+          115.1,
+          1.6,
+          -276.71
+        ],
+        "bearing": 190.762,
+        "pitch": 0,
+        "fov": 72
+      },
+      "position": {
+        "x": 114.889,
+        "y": 0.24,
+        "z": -277.208
+      },
+      "conditions": {
+        "date": "2026-11-11T10:32:07.495Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "performance": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 400,
+        "triangles": 815417,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full+ao",
+        "quality": "ultra",
+        "auto": false,
+        "level": 0,
+        "trafficUpdateMs": 17.91,
+        "vehicles": 311,
+        "pedestrians": 560
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "file": "after.png",
+      "source": "a4afabcc2f07d095b5793cca56d7f7a04b5cc1a8",
+      "capturedAt": "2026-11-10T19:29:40.002Z",
+      "sha256": "f46fed2923633fe64ab00f72c7a10732aea26d7287dabeb895077fa49850cd70",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "eye": [
+          115.1,
+          1.6,
+          -276.71
+        ],
+        "bearing": 190.762,
+        "pitch": 0,
+        "fov": 72
+      },
+      "position": {
+        "x": 114.889,
+        "y": 0.24,
+        "z": -277.208
+      },
+      "conditions": {
+        "date": "2026-11-11T10:32:09.600Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "performance": {
+        "fps": 0,
+        "frameMs": 0,
+        "drawCalls": 400,
+        "triangles": 817103,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full+ao",
+        "quality": "ultra",
+        "auto": false,
+        "level": 0,
+        "trafficUpdateMs": 10.55,
+        "vehicles": 311,
+        "pedestrians": 560
+      },
+      "bytesUnmodified": true
+    },
+    {
+      "file": "river.png",
+      "source": "a4afabcc2f07d095b5793cca56d7f7a04b5cc1a8",
+      "capturedAt": "2026-11-10T19:30:00.029Z",
+      "sha256": "3036b920e73f97c3f2fd0db12d830b33182962216abff3c041c276d5d39cf664",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "camera": {
+        "eye": [
+          115,
+          5,
+          -222
+        ],
+        "bearing": 89.891,
+        "pitch": -39.831,
+        "fov": 70
+      },
+      "position": {
+        "x": 115,
+        "y": 5,
+        "z": -222
+      },
+      "conditions": {
+        "date": "2026-11-11T10:32:40.571Z",
+        "timeZone": "Europe/Bucharest",
+        "weather": "partly",
+        "season": "autumn"
+      },
+      "performance": {
+        "fps": 0.07,
+        "frameMs": 28924.2,
+        "drawCalls": 354,
+        "triangles": 673808,
+        "pixelRatio": 1,
+        "shadows": 4096,
+        "post": "full+ao",
+        "quality": "ultra",
+        "auto": false,
+        "level": 0,
+        "trafficUpdateMs": 63.361,
+        "vehicles": 311,
+        "pedestrians": 560
+      },
+      "bytesUnmodified": true
+    }
+  ],
+  "groundRayControls": {
+    "baseline": {
+      "depthWrite": false,
+      "rows": [
+        {
+          "point": [
+            114.6,
+            -257.45
+          ],
+          "fallbackHits": [
+            [
+              114.6,
+              -0.3,
+              -257.45
+            ]
+          ],
+          "waterHits": []
+        },
+        {
+          "point": [
+            115,
+            -222
+          ],
+          "fallbackHits": [
+            [
+              115,
+              -0.30000000000000354,
+              -222
+            ]
+          ],
+          "waterHits": [
+            [
+              115,
+              -4.400000095367432,
+              -222
+            ]
+          ]
+        },
+        {
+          "point": [
+            110,
+            -215
+          ],
+          "fallbackHits": [
+            [
+              110,
+              -0.30000000000000354,
+              -215
+            ]
+          ],
+          "waterHits": [
+            [
+              110,
+              -4.400000095367432,
+              -215
+            ]
+          ]
+        },
+        {
+          "point": [
+            130,
+            -240
+          ],
+          "fallbackHits": [
+            [
+              130,
+              -0.30000000000000354,
+              -240
+            ]
+          ],
+          "waterHits": []
+        }
+      ]
+    },
+    "candidate": {
+      "fallback": {
+        "known": true,
+        "datum": -0.3,
+        "sourceTriangles": 229433,
+        "apertures": 2363,
+        "byKind": {
+          "final-water": 1542,
+          "road-floor": 821
+        },
+        "reason": null,
+        "leafSize": 64,
+        "nodes": 6971,
+        "leaves": 3486,
+        "triangles": 13512
+      },
+      "depthWrite": true,
+      "rows": [
+        {
+          "point": [
+            114.6,
+            -257.45
+          ],
+          "fallbackHits": [
+            [
+              114.6,
+              -0.30000001192092896,
+              -257.45
+            ]
+          ],
+          "waterHits": []
+        },
+        {
+          "point": [
+            115,
+            -222
+          ],
+          "fallbackHits": [],
+          "waterHits": [
+            [
+              115,
+              -4.400000095367432,
+              -222
+            ]
+          ]
+        },
+        {
+          "point": [
+            110,
+            -215
+          ],
+          "fallbackHits": [],
+          "waterHits": [
+            [
+              110,
+              -4.400000095367432,
+              -215
+            ]
+          ]
+        },
+        {
+          "point": [
+            130,
+            -240
+          ],
+          "fallbackHits": [
+            [
+              130,
+              -0.30000001192092896,
+              -240
+            ]
+          ],
+          "waterHits": []
+        }
+      ]
+    }
+  },
+  "constructors": {
+    "source": "a4afabcc2f07d095b5793cca56d7f7a04b5cc1a8",
+    "scope": "Eight production World constructors using immutable source on port8135; Canvas2D and source-floor apertures only, no renderer/traffic/route/FPS acceptance.",
+    "started": "2026-11-10T19:33:30.915Z",
+    "districts": [
+      {
+        "city": "bucharest",
+        "district": "grozavesti",
+        "elapsedMs": 29086.69999999553,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 229433,
+          "apertures": 2363,
+          "byKind": {
+            "final-water": 1542,
+            "road-floor": 821
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 6971,
+          "leaves": 3486,
+          "triangles": 13512
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 4111
+      },
+      {
+        "city": "bucharest",
+        "district": "unirii",
+        "elapsedMs": 33656.70000000298,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 224957,
+          "apertures": 60190,
+          "byKind": {
+            "road-floor": 393,
+            "final-water": 59797
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 6223,
+          "leaves": 3112,
+          "triangles": 42167
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 7072
+      },
+      {
+        "city": "bucharest",
+        "district": "romana",
+        "elapsedMs": 18794.30000000447,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 176855,
+          "apertures": 3511,
+          "byKind": {
+            "tram-floor": 1042,
+            "road-floor": 2313,
+            "final-water": 156
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 7067,
+          "leaves": 3534,
+          "triangles": 19752
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 5682
+      },
+      {
+        "city": "bucharest",
+        "district": "floreasca",
+        "elapsedMs": 7435.5,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 188742,
+          "apertures": 156,
+          "byKind": {
+            "final-water": 156
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 7033,
+          "leaves": 3517,
+          "triangles": 9857
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 3366
+      },
+      {
+        "city": "bucharest",
+        "district": "pipera",
+        "elapsedMs": 12756.69999999553,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 249525,
+          "apertures": 1467,
+          "byKind": {
+            "road-floor": 1467
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 73,
+          "leaves": 37,
+          "triangles": 3387
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 2283
+      },
+      {
+        "city": "bucharest",
+        "district": "otopeni",
+        "elapsedMs": 7423.5999999940395,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 75137,
+          "apertures": 1375,
+          "byKind": {
+            "road-floor": 1375
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 67,
+          "leaves": 34,
+          "triangles": 2451
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 1208
+      },
+      {
+        "city": "seattle",
+        "district": "seatac",
+        "elapsedMs": 17825.30000000447,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 320275,
+          "apertures": 3334,
+          "byKind": {
+            "road-floor": 3334
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 221,
+          "leaves": 111,
+          "triangles": 8890
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 1858
+      },
+      {
+        "city": "seattle",
+        "district": "bellevue",
+        "elapsedMs": 5842.80000000447,
+        "fallback": {
+          "known": true,
+          "datum": -0.3,
+          "sourceTriangles": 124202,
+          "apertures": 636,
+          "byKind": {
+            "road-floor": 636
+          },
+          "reason": null,
+          "leafSize": 64,
+          "nodes": 83,
+          "leaves": 42,
+          "triangles": 1521
+        },
+        "depthWrite": true,
+        "sourceGroundKnown": true,
+        "sourceBuildings": 1197
+      }
+    ],
+    "errors": [],
+    "passed": true,
+    "finished": "2026-11-10T19:35:58.409Z"
+  },
+  "logic": {
+    "generated": "2026-11-10T19:35:38.207Z",
+    "args": {
+      "scenario": "foot,a",
+      "city": "bucharest",
+      "audit": false,
+      "headed": false,
+      "verbose": false,
+      "port": 8135,
+      "width": 640,
+      "height": 360,
+      "traffic": "full",
+      "dt": 0.03333333333333333,
+      "shots": 30,
+      "timeout": 240
+    },
+    "summary": {
+      "dynamic": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "byType": {
+          "perf-fps": 1
+        }
+      },
+      "audit": {}
+    },
+    "scenarios": [
+      {
+        "id": "foot",
+        "title": "On foot: get out, walk ~120 m on the sidewalk to an office, walk in, read, walk out, back to the car, drive away",
+        "city": "bucharest",
+        "wallMs": 21125,
+        "simSec": 64.5,
+        "newIssues": 0,
+        "stepMs": {
+          "autopilot": 0.16,
+          "game": 6.48,
+          "checks": 0.28,
+          "steps": 303,
+          "shotsMs": 6809,
+          "yieldMs": 287,
+          "auditMs": 0
+        },
+        "result": {
+          "stop": "rosetti",
+          "exited": true,
+          "exitDist": 1.5,
+          "shotOut": "shots/193330-bucharest-foot-out.jpg",
+          "walkSec": 27.6,
+          "walked": 119.3,
+          "doorDist": 2.9,
+          "office": true,
+          "leftOnFoot": true,
+          "backIn": true,
+          "drive": {
+            "ok": true,
+            "reason": "arrived",
+            "t": 8.7,
+            "dist": 86,
+            "resets": 0,
+            "remaining": 15
+          }
+        },
+        "error": null
+      },
+      {
+        "id": "a",
+        "title": "Spawn sanity",
+        "city": "bucharest",
+        "wallMs": 9358,
+        "simSec": 15.8,
+        "newIssues": 0,
+        "stepMs": {
+          "autopilot": 0.14,
+          "game": 7.68,
+          "checks": 0.52,
+          "steps": 475,
+          "shotsMs": 4144,
+          "yieldMs": 82,
+          "auditMs": 52
+        },
+        "result": {
+          "spawn": {
+            "x": -2378,
+            "z": -1263.8,
+            "lat": 44.443045,
+            "lon": 26.059767,
+            "street": "Splaiul Independen\u021bei",
+            "edge": 4418
+          },
+          "problems": [],
+          "navline": "\u2b05Turn left onto Podul Groz\u0103ve\u0219ti in 60 m",
+          "street": "Splaiul Independen\u021bei",
+          "shot": "shots/193330-bucharest-scenario-a-spawn.jpg",
+          "driveBudget": {
+            "timeout": 88,
+            "driving": 40,
+            "signalCycle": 55,
+            "crossing": 10,
+            "signals": [
+              {
+                "node": 4156,
+                "phases": 5,
+                "seconds": 55
+              }
+            ]
+          },
+          "drive": {
+            "ok": true,
+            "reason": "arrived",
+            "t": 14.7,
+            "dist": 137,
+            "resets": 0,
+            "remaining": 15
+          },
+          "objectsInRoad": 0
+        },
+        "error": null
+      }
+    ],
+    "issues": [
+      {
+        "type": "perf-fps",
+        "severity": "low",
+        "msg": "0.5 fps (1948 ms/frame, 108 draw calls, 299054 tris) at quality low 640\u00d7360 in software GL \u2014 not representative of real GPUs",
+        "scenario": "end",
+        "city": "bucharest",
+        "count": 1
+      }
+    ]
+  },
+  "visualReview": "Original 1280x800 images inspected: white rectangles removed at supplied driver camera; the lowered river remains blue and open. Dry ground retained at both independent ray points. Both cohorts retain 311 vehicles and 560 pedestrians."
+}

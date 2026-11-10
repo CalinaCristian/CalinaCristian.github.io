@@ -359,3 +359,5 @@ The overview highlights accent-insensitive guide search matches and supplies fou
 Office outlook ownership checks read sparse precise dimensions or retained source-row heights. Lower podiums therefore do not block upper-floor views merely because they lack a precision override; same-height foreign volumes still reject.
 
 Overview landmark range chips retain the separately sourced intended staging rollout; they do not assert that all of those models are included in this runtime. The live district inventory and original range provenance remain separate.
+
+Basarab’s white fallback-ground patches are corrected without capping lowered roads, trams or the river. The fallback plane now has exact openings from complete final source-floor triangles before depth writes are enabled; incomplete or refused inputs keep the previous explicit unknown fallback. Original before/after and lowered-river controls are linked in the [overview](game/overview/index.html#white-ground-fix). This isolated visual fix does not complete the other reported bridge, road or traffic work.

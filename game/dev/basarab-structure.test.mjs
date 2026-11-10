@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';import zlib from 'node:zlib';
 import {compileSharedBridgeProfile} from '../src/shared-bridge-profile.js';
 import {buildTramGrades} from '../src/tram-grade.js';
-import {buildBasarabStructure} from '../src/basarab-structure.js';
+import {buildBasarabStructure,bridgePrismCollider} from '../src/basarab-structure.js';
+import {collideBuildings} from '../src/world.js';
 import {BASARAB_PLATFORMS} from '../src/basarab-source.js';
 import {MeshBuilder} from '../src/geobuild.js';
 import {clipConvex,polygonArea} from '../src/bridge-profile-geometry.js';
@@ -33,4 +34,13 @@ for(const c of pylons){
 // per leg. Keep that regression visible independently of constructor placement.
 const axis=[pylons[1].x-pylons[0].x,pylons[1].z-pylons[0].z],spacing=Math.hypot(...axis),oldOffset=result.report.superstructure.roofWidthM/2+1.8;
 for(let i=0;i<2;i++){const c=pylons[i],sign=i?1:-1,delta=oldOffset-spacing/2,poly=c.poly.map(p=>[p[0]+sign*axis[0]/spacing*delta,p[1]+sign*axis[1]/spacing*delta]);assert(E.some(e=>f.lanes[e.id]&&polygonArea(clipConvex(poly,f.lanes[e.id]))>8),'negative control detects the original obstructing pylon');}
+const q=Math.SQRT1_2,sloping=bridgePrismCollider([0,12,0],[[q,q,0],[-q,q,0],[0,0,1]],[10,.5,.5],'test-sloped-arch');
+assert.equal(collideBuildings([sloping],0,0,.3,.24,2),null,'cars pass below a sloped member instead of hitting its full vertical AABB');
+assert(collideBuildings([sloping],0,0,.3,11.8,.4),'a drone touching the same member collides');
+assert.equal(collideBuildings([sloping],0,0,.3,14,1),null,'the space above the member is clear');
+assert(Math.abs(sloping.roofHeightAt(0,0)-12-.5/q)<1e-7,'vertical solid intersection has the actual sloped upper face');
+assert.equal(sloping.roofHeightAt(20,0),null,'a finite member does not create an infinite roof plane');
+const glazing=result.colliders.filter(c=>c.kind==='basarab-station-glazing');assert.equal(glazing.length,240,'every visible station glass pane has its own finite physical shell');
+for(const c of glazing){const bottom=c.minHeightAt(c.x,c.z),top=c.roofHeightAt(c.x,c.z);assert(top>bottom&&top-bottom<.4);assert(collideBuildings([c],c.x,c.z,.15,(top+bottom)/2,.1),'native collision detects the pane at its actual height');assert.equal(collideBuildings([c],c.x,c.z,.15,bottom-3,1),null,'native collision leaves the space below the pane clear');}
+assert(result.colliders.some(c=>c.kind==='basarab-river-arch'));assert.equal(result.colliders.filter(c=>c.kind==='basarab-stay').length,60);
 console.log(JSON.stringify({passed:true,platforms:result.report.sourcePlatforms,gapPieces:result.report.gapPieces,triangles:cell.solid.ic/3,scope:'Geometry/compiler fixture only; native route, eyes and full physical clearance remain unaccepted.'}));

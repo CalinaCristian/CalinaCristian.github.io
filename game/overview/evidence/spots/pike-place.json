@@ -1804,7 +1804,7 @@
   "nativeProofs": [
     {
       "label": "Fresh native ground correction and retained blocked Gum Wall route",
-      "report": "../../handoffs/fidelity/seattle-visit-source/proof-d91aadd8/native-report.json",
+      "report": "../../handoffs/fidelity/tourist-context-activities/proof/pike-ground-d91aadd8/native-report.json",
       "sha256": "95ffb6084d0679aac0d3ebd91d2cf6e0e3a23cda133d7f958c531c6cf9837824",
       "sourceCommit": "d91aadd883ef130bd4da015bec3cb9e2eb4e26fc",
       "passed": false,
@@ -2104,7 +2104,7 @@
     "reports": [
       {
         "label": "Native before/after ground and walking report",
-        "report": "../../handoffs/fidelity/seattle-visit-source/proof-d91aadd8/native-report.json"
+        "report": "../../handoffs/fidelity/tourist-context-activities/proof/pike-ground-d91aadd8/native-report.json"
       }
     ]
   },

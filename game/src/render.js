@@ -13,6 +13,7 @@ import { setVehicleEnvMap, setVehicleSnow } from './vehicles.js';
 import { setWaterEnv, tickWater } from './water.js';
 import { progressivePMREM, supportsProgressivePMREM } from './progressive-pmrem.js';
 import { CockpitDisplays, displayPixelRatio } from './cockpit-displays.js';
+import { lampViewCoverage } from './lamp-view-coverage.js';
 
 // ============================================================================
 //  Renderer3D — WebGL renderer + sky + sun/shadows + post-processing + weather
@@ -1069,7 +1070,7 @@ export class Renderer3D {
      *    stable ordering (look-ahead distance, tie-break by lamp id), ≤ LAMP_MAX_NEW new lights per selection;
      *    each light fades in/out over LAMP_FADE_S and its intensity also falls off continuously with distance.
      */
-    _updateLamps(cam, dt) {
+    _updateLamps(cam, dt, camera = this.camera) {
         if (!(this._nightK > 0) || !this.lamps || !this.lamps.length) {
             if (this._lampSlots.length && this._lampSlots[0].lamp !== -2) { // day: release every light once, then idle
                 for (const sl of this._lampSlots) { if (sl.lamp >= 0 && this._lampReal) this._lampReal[sl.lamp] = 0; sl.lamp = -1; sl.w = 0; sl.target = 0; sl.light.intensity = 0; }
@@ -1078,15 +1079,20 @@ export class Renderer3D {
             return;
         }
         if (this._lampSlots.length && this._lampSlots[0].lamp === -2) this._lampSlots[0].lamp = -1;
-        const p = this.player, cx = p ? p.x : cam.x, cz = p ? p.z : cam.z;
+        const p = this.player;
+        camera.getWorldDirection(this._tmp.v);
+        const view = lampViewCoverage(cam, this._tmp.v, p?.y ?? 0);
+        const cx = view.aerial ? view.x : p ? p.x : cam.x, cz = view.aerial ? view.z : p ? p.z : cam.z;
+        this._lampView = {x:cx,z:cz,range:view.range,aerial:view.aerial};
         const L = this.lamps, sm = THREE.MathUtils.smoothstep;
         // ---- candidate scan
         this._lampT -= dt;
         const moved = (cx - this._lampAt.x) ** 2 + (cz - this._lampAt.z) ** 2;
         const D = this._discs, m = this._tmp.m;
-        if (this._lampT <= 0 || moved > 64) {
+        if (this._lampT <= 0 || moved > 64 || Math.abs(view.range - (this._lampRange ?? 0)) > 4) {
             this._lampT = 0.25; this._lampAt.set(cx, 0, cz);
-            const R = LAMP_RANGE + 12, R2 = R * R, near = [];
+            this._lampRange = view.range;
+            const R = view.range + 12, R2 = R * R, near = [];
             for (let i = 0; i < L.length; i += 4) {
                 const dx = L[i] - cx, dz = L[i + 1] - cz, d2 = dx * dx + dz * dz;
                 if (d2 < R2) near.push({ d2, i });
@@ -1095,7 +1101,7 @@ export class Renderer3D {
             const n = Math.min(near.length, MAX_DISCS), list = this._lampNear = new Int32Array(n);
             for (let k = 0; k < n; k++) list[k] = near[k].i;
             // more candidates than discs: fade the far end out before the cut-off so the last discs never pop
-            this._discFarT = near.length > MAX_DISCS ? Math.min(LAMP_RANGE, Math.sqrt(near[MAX_DISCS].d2) - 10) : LAMP_RANGE;
+            this._discFarT = near.length > MAX_DISCS ? Math.min(view.range, Math.sqrt(near[MAX_DISCS].d2) - 10) : view.range;
             for (let k = 0; k < n; k++) {
                 const i = list[k], r = (L[i + 2] - L[i + 3]) * (1.1 + 0.6 * (this._lampDens?.[i / 4] ?? 1)); // tighter pools where lamps are dense
                 m.makeScale(r, 1, r).setPosition(L[i], L[i + 3] + 0.22, L[i + 1]);
@@ -1109,7 +1115,7 @@ export class Renderer3D {
         const slots = this._lampSlots, lk = this._lampK || 0;
         if (slots.length && lk > 0) {
             this._lampAssignT -= dt;
-            if (this._lampAssignT <= 0) { this._lampAssignT = LAMP_ASSIGN_DT; this._assignLampLights(cx, cz); }
+            if (this._lampAssignT <= 0) { this._lampAssignT = LAMP_ASSIGN_DT; this._assignLampLights(cx, cz, view.aerial); }
         } else if (slots.length) for (const sl of slots) { sl.target = 0; }
         // ---- real lights: fade + distance falloff (every frame)
         for (const sl of slots) {
@@ -1135,8 +1141,8 @@ export class Renderer3D {
         if (D.instanceColor) D.instanceColor.needsUpdate = true;
         D.visible = list.length > 0;
     }
-    _assignLampLights(cx, cz) {
-        const L = this.lamps, p = this.player, slots = this._lampSlots, list = this._lampNear;
+    _assignLampLights(cx, cz, aerial = false) {
+        const L = this.lamps, p = aerial ? null : this.player, slots = this._lampSlots, list = this._lampNear;
         const sp = p ? Math.abs(p.speed || 0) : 0, la = THREE.MathUtils.clamp(10 + sp * 0.9, 10, 32);
         const ax = p ? cx + p.fx * la : cx, az = p ? cz + p.fz * la : cz;
         const owner = new Map(); for (const sl of slots) if (sl.lamp >= 0) owner.set(sl.lamp, sl);
@@ -1394,7 +1400,7 @@ export class Renderer3D {
         this._stepEnvFade(dt);
         this._updateNight(dt);
         this._updateSun(T.cam);
-        this._updateLamps(T.cam, dt);
+        this._updateLamps(T.cam, dt, camera);
         // weather + cockpit
         const p = cockpit ? this.player : null;
         if (p) {

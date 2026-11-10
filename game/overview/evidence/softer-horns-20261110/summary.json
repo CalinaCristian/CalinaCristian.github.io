@@ -1,0 +1,436 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-10T21:59:44.522137+00:00",
+  "sourceCommit": "37904eb57ddde163fc0da097393713362310a400",
+  "baselineSourceCommit": "139ab165f728c2077ef65cf7deab6dfb78514265",
+  "scope": "Chromium native WebAudio rendering and original keyboard/touch/NPC submission paths. Isolated audio samples have no engine/ambience and retain default master gain0.6. Software device emulation; no physical speaker-quality or all-scene acceptance claim.",
+  "assets": [
+    {
+      "file": "baseline-near.wav",
+      "sha256": "0a71f08444c69a1f404acde777cc2544e6887779e4535866138cce50fe37eeed",
+      "bytes": 288044,
+      "source": "139ab165f728c2077ef65cf7deab6dfb78514265",
+      "scope": "Exact isolated WebAudio output, unnormalized stereo Float32 converted to signed16bit PCM; no source horn/volume adjustment.",
+      "path": "assets/audio/horn-20261110/baseline-near.wav"
+    },
+    {
+      "file": "candidate-near.wav",
+      "sha256": "457b8f505c1b7ed29bb9e6c33db333a58175128b49f5006b503f5845baff42c6",
+      "bytes": 288044,
+      "source": "37904eb57ddde163fc0da097393713362310a400",
+      "scope": "Exact isolated WebAudio output, unnormalized stereo Float32 converted to signed16bit PCM; no source horn/volume adjustment.",
+      "path": "assets/audio/horn-20261110/candidate-near.wav"
+    }
+  ],
+  "waveform": {
+    "nearRMSRatio": 0.47032366441760187,
+    "baselineNear": {
+      "name": "baseline-near",
+      "dist": 0,
+      "pan": 0,
+      "count": 1,
+      "volume": 1,
+      "muted": false,
+      "pitch": 1,
+      "dur": 0.45,
+      "sampleRate": 48000,
+      "length": 72000,
+      "voices": null,
+      "peak": 0.22857938706874847,
+      "overRange": 0,
+      "leftRMS": 0.052159247526536584,
+      "rightRMS": 0.052159247526536584,
+      "attackFirst10ms": 0.0007038152499068674,
+      "hold": 0.1029692781253143,
+      "tail": 0,
+      "tones": {
+        "hz400": 0.08258758076611082,
+        "hz500": 0.08392201388072432
+      },
+      "created": {
+        "gain": 1,
+        "panner": 1,
+        "oscillator": 2,
+        "filter": 2
+      },
+      "disconnected": {}
+    },
+    "candidateNear": {
+      "name": "candidate-near",
+      "dist": 0,
+      "pan": 0,
+      "count": 1,
+      "volume": 1,
+      "muted": false,
+      "pitch": 1,
+      "dur": 0.45,
+      "sampleRate": 48000,
+      "length": 72000,
+      "voices": 1,
+      "peak": 0.14512565732002258,
+      "overRange": 0,
+      "leftRMS": 0.024531728429945422,
+      "rightRMS": 0.024531728429945422,
+      "attackFirst10ms": 9.918962901858554e-05,
+      "hold": 0.05277000027170311,
+      "tail": 0,
+      "tones": {
+        "hz400": 0.042593363543160165,
+        "hz500": 0.04363304801894549
+      },
+      "created": {
+        "gain": 1,
+        "panner": 1,
+        "oscillator": 2,
+        "filter": 2
+      },
+      "disconnected": {
+        "oscillator": 2,
+        "filter": 2,
+        "gain": 1,
+        "panner": 1
+      }
+    },
+    "baselineSix": {
+      "name": "baseline-six",
+      "dist": 0,
+      "pan": 0,
+      "count": 6,
+      "volume": 1,
+      "muted": false,
+      "pitch": 1,
+      "dur": 0.45,
+      "sampleRate": 48000,
+      "length": 72000,
+      "voices": null,
+      "peak": 1.3714762926101685,
+      "overRange": 4282,
+      "leftRMS": 0.3129554849335523,
+      "rightRMS": 0.3129554849335523,
+      "attackFirst10ms": 0.004222891515938354,
+      "hold": 0.6178156685106511,
+      "tail": 0,
+      "tones": {
+        "hz400": 0.4955254844994281,
+        "hz500": 0.5035320832354593
+      },
+      "created": {
+        "gain": 6,
+        "panner": 6,
+        "oscillator": 12,
+        "filter": 12
+      },
+      "disconnected": {}
+    },
+    "candidateSix": {
+      "name": "candidate-six",
+      "dist": 0,
+      "pan": 0,
+      "count": 6,
+      "volume": 1,
+      "muted": false,
+      "pitch": 1,
+      "dur": 0.45,
+      "sampleRate": 48000,
+      "length": 72000,
+      "voices": 6,
+      "peak": 0.5956987142562866,
+      "overRange": 0,
+      "leftRMS": 0.10077052821219806,
+      "rightRMS": 0.10077052821219806,
+      "attackFirst10ms": 0.000555402950773628,
+      "hold": 0.21660553259465345,
+      "tail": 0,
+      "tones": {
+        "hz400": 0.17483339295997669,
+        "hz500": 0.17910099598619147
+      },
+      "created": {
+        "gain": 6,
+        "panner": 6,
+        "oscillator": 12,
+        "filter": 12
+      },
+      "disconnected": {
+        "oscillator": 12,
+        "filter": 12,
+        "gain": 6,
+        "panner": 6
+      }
+    },
+    "volumePanDistanceMuteCleanup": {
+      "quieter": true,
+      "lowerPeak": true,
+      "coherentSixNoClip": true,
+      "distance": true,
+      "panLeft": true,
+      "panRight": true,
+      "volume": true,
+      "muted": true,
+      "tones": true,
+      "cleanup": true,
+      "tail": true
+    },
+    "voiceCap": {
+      "scope": "The original exact-bit equality failed while both six/twelve schedules created exactly12oscillators. Repeat controls quantify Float32 summation variation. Original negative retained; application code unchanged. Error tolerance1e-6fullscale is below a16bit PCM quantum, and the cap/created count remain exact.",
+      "six": {
+        "voices": 6,
+        "oscillators": 12
+      },
+      "twelve": {
+        "voices": 6,
+        "oscillators": 12
+      },
+      "sixRepeat": {
+        "voices": 6,
+        "oscillators": 12
+      },
+      "sixVsTwelve": {
+        "max": 1.1920928955078125e-07,
+        "rms": 7.568555608947643e-09,
+        "changed": 7498
+      },
+      "sixVsRepeat": {
+        "max": 1.1920928955078125e-07,
+        "rms": 7.912958460598933e-09,
+        "changed": 7864
+      },
+      "passed": true
+    }
+  },
+  "native": {
+    "keyboard": {
+      "source": "37904eb57ddde163fc0da097393713362310a400",
+      "mode": "drive",
+      "honksDelta": 1,
+      "audio": {
+        "enabled": true,
+        "state": "running",
+        "muted": false
+      },
+      "oscillators": [
+        {
+          "type": "sine",
+          "frequency": 660
+        },
+        {
+          "type": "custom",
+          "frequency": 400
+        },
+        {
+          "type": "custom",
+          "frequency": 500
+        },
+        {
+          "type": "sine",
+          "frequency": 880
+        },
+        {
+          "type": "sine",
+          "frequency": 1320
+        }
+      ],
+      "actors": {
+        "vehicles": 311,
+        "peds": 560
+      },
+      "scope": "Trusted native H keyboard event followed by original game.loop. WebAudio oscillator factory forwards calls unchanged."
+    },
+    "npc": {
+      "source": "37904eb57ddde163fc0da097393713362310a400",
+      "vehicle": {
+        "id": 125,
+        "kind": "hatch",
+        "x": 484.0365008103796,
+        "z": -800.9076607815281,
+        "distance": 8.803769418417136
+      },
+      "oscillators": [
+        {
+          "type": "custom",
+          "frequency": 422.8033752441406
+        },
+        {
+          "type": "custom",
+          "frequency": 528.5042114257812
+        }
+      ],
+      "playerHonks": 1,
+      "audioState": "running",
+      "scope": "Original Traffic.honk\u2192Main.vehicleHonk\u2192Audio.horn submission from an unchanged native actor; this explicitly invokes the existing NPC event, not a spontaneous soak."
+    },
+    "touch": {
+      "source": "37904eb57ddde163fc0da097393713362310a400",
+      "scope": "Trusted tap on the actual visible Horn button, original game.loop, WebAudio factory forwarding probe. No app method patch.",
+      "mode": "drive",
+      "touch": true,
+      "honksDelta": 1,
+      "audio": {
+        "enabled": true,
+        "state": "running",
+        "muted": false
+      },
+      "oscillators": [
+        {
+          "type": "sine",
+          "frequency": 660
+        },
+        {
+          "type": "sine",
+          "frequency": 880
+        },
+        {
+          "type": "custom",
+          "frequency": 400
+        },
+        {
+          "type": "custom",
+          "frequency": 500
+        },
+        {
+          "type": "sine",
+          "frequency": 1320
+        }
+      ],
+      "button": {
+        "label": "Horn",
+        "width": 46,
+        "height": 46,
+        "visible": true
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "overflow": false
+      },
+      "actors": {
+        "vehicles": 112,
+        "peds": 260
+      }
+    },
+    "npcPitch": {
+      "scope": "Actual frozen Main.vehicleHonk method over isolated synthetic positions/host, including negative x. Native runtime method unchanged; no live actor/source mutation.",
+      "count": 801,
+      "minPitch": 0.9400000011517545,
+      "maxPitch": 1.0599999988482456,
+      "passed": true
+    }
+  },
+  "logic": {
+    "scenarios": [
+      {
+        "id": "foot",
+        "title": "On foot: get out, walk ~120 m on the sidewalk to an office, walk in, read, walk out, back to the car, drive away",
+        "city": "bucharest",
+        "wallMs": 28691,
+        "simSec": 64.5,
+        "newIssues": 0,
+        "stepMs": {
+          "autopilot": 0.1,
+          "game": 5.44,
+          "checks": 0.28,
+          "steps": 303,
+          "shotsMs": 19295,
+          "yieldMs": 190,
+          "auditMs": 0
+        },
+        "result": {
+          "stop": "rosetti",
+          "exited": true,
+          "exitDist": 1.5,
+          "shotOut": "shots/215453-bucharest-foot-out.jpg",
+          "walkSec": 27.6,
+          "walked": 119.3,
+          "doorDist": 2.9,
+          "office": true,
+          "leftOnFoot": true,
+          "backIn": true,
+          "drive": {
+            "ok": true,
+            "reason": "arrived",
+            "t": 8.7,
+            "dist": 86,
+            "resets": 0,
+            "remaining": 15
+          }
+        },
+        "error": null
+      },
+      {
+        "id": "a",
+        "title": "Spawn sanity",
+        "city": "bucharest",
+        "wallMs": 6768,
+        "simSec": 15.8,
+        "newIssues": 0,
+        "stepMs": {
+          "autopilot": 0.09,
+          "game": 5.43,
+          "checks": 0.35,
+          "steps": 475,
+          "shotsMs": 3053,
+          "yieldMs": 76,
+          "auditMs": 31
+        },
+        "result": {
+          "spawn": {
+            "x": -2378,
+            "z": -1263.8,
+            "lat": 44.443045,
+            "lon": 26.059767,
+            "street": "Splaiul Independen\u021bei",
+            "edge": 4418
+          },
+          "problems": [],
+          "navline": "\u2b05Turn left onto Podul Groz\u0103ve\u0219ti in 60 m",
+          "street": "Splaiul Independen\u021bei",
+          "shot": "shots/215453-bucharest-scenario-a-spawn.jpg",
+          "driveBudget": {
+            "timeout": 88,
+            "driving": 40,
+            "signalCycle": 55,
+            "crossing": 10,
+            "signals": [
+              {
+                "node": 4156,
+                "phases": 5,
+                "seconds": 55
+              }
+            ]
+          },
+          "drive": {
+            "ok": true,
+            "reason": "arrived",
+            "t": 14.7,
+            "dist": 137,
+            "resets": 0,
+            "remaining": 15
+          },
+          "objectsInRoad": 0
+        },
+        "error": null
+      }
+    ],
+    "summary": {
+      "dynamic": {
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "byType": {
+          "perf-fps": 1
+        }
+      },
+      "audit": {}
+    },
+    "perf": {
+      "msPerFrame": 1169,
+      "fps": 0.9,
+      "quality": "low",
+      "drawCalls": 108,
+      "triangles": 299054,
+      "w": 640,
+      "h": 360
+    }
+  },
+  "remaining": "The full owner-report programme, Basarab structural/queue work and the other outstanding work remain open."
+}

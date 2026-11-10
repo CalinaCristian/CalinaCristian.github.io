@@ -2107,7 +2107,8 @@
         "report": "../../handoffs/fidelity/tourist-context-activities/proof/pike-ground-d91aadd8/native-report.json",
         "sha256": "95ffb6084d0679aac0d3ebd91d2cf6e0e3a23cda133d7f958c531c6cf9837824"
       }
-    ]
+    ],
+    "reportSha256": "298a2d16f54d3e3a6bc136e75b807d10f76ec90fb57a8fb25c5d7b4be43cf1e8"
   },
   "implementationNotesUpdatedAt": "2026-11-09T11:56:18.007Z"
 }

@@ -11,5 +11,7 @@ export function evidenceAsset(value, { kind, id } = {}) {
     return kind !== 'landmark' && value.startsWith(proofRoot) && safeTail.test(value.slice(proofRoot.length)) ? value : null;
 }
 export function evidenceReport(value) {
-    return typeof value === 'string' && value.startsWith(proofRoot) && /^[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*\.json$/.test(value.slice(proofRoot.length)) ? value : null;
+    if (typeof value !== 'string') return null;
+    if (/^assets\/(?:landmarks|spots)\/[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*\.json$/.test(value)) return value;
+    return value.startsWith(proofRoot) && /^[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*\.json$/.test(value.slice(proofRoot.length)) ? value : null;
 }

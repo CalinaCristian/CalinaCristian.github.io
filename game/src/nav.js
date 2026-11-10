@@ -82,7 +82,7 @@ export class EdgeIndex {
             const arr = this.map.get(this.key(ix, iz)); if (!arr) continue;
             for (const e of arr) if (!seen.has(e)) { seen.add(e); out.push(e); }
         }
-        if(cache.size>=256)cache.delete(cache.keys().next().value);cache.set(key,out.slice());
+        const keys=this._nearKeys||(this._nearKeys=new Array(256)),next=this._nearNext||0;if(keys[next]!==undefined)cache.delete(keys[next]);keys[next]=key;this._nearNext=(next+1)&255;cache.set(key,out.slice());
         return out;
     }
 }

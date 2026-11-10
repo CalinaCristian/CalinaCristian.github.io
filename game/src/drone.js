@@ -156,7 +156,7 @@ const HUD_HTML = `
   <div class="dr-acts"><button data-dr="gohere" title="Go here: walk-teleport to the ground under the drone, then land (T)">⇩ Go here</button><button data-dr="rth" title="Return home (H)">⌂ Home</button><button data-dr="photo" title="Photo (P)">📷</button><button data-dr="land" class="dr-exit" title="Fly back and land in your hand (G / X)">✕ Land</button></div>
 </div>
 <div class="dr-stick" aria-hidden="true"><i></i></div>
-<div class="dr-help">Mouse look · W/S follow view · A/D strafe · look up/down + W to climb/descend · Shift boost · 1/2/3 or wheel speed · N minimap · T go here · H home (hold land) · G/X land · P photo · Esc pause</div>`;
+<div class="dr-help">Mouse look · W/S follow view · A/D strafe · look up/down + W to climb/descend · Shift boost · 1/2/3 or wheel speed · N minimap · T go here · H home (hold land) · G/X land · P photo · Esc pause${inspectionEnabled()?' · F8 copy location · Places: districts / visits':''}</div>`;
 
 export class Drone {
     constructor(game, { onEvent = null, onGoHere = null } = {}) {

@@ -110,7 +110,7 @@ const INIT = () => {
 
 async function openGame() {
     const { chromium } = require('playwright');
-    if (!browser) browser = await chromium.launch({ headless: !args.headed, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--autoplay-policy=no-user-gesture-required', '--mute-audio'] });
+    if (!browser) browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, headless: !args.headed, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--autoplay-policy=no-user-gesture-required', '--mute-audio'] });
     if (page) await page.close().catch(() => { });
     const ctx = await browser.newContext({ viewport: { width: args.width, height: args.height }, deviceScaleFactor: 1 });
     // never hit the live weather API from automated runs (quota + determinism): answer with an error so the game uses climate data

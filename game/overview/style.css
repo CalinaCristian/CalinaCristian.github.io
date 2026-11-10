@@ -10,6 +10,14 @@
   --mono:ui-monospace,SFMono-Regular,Consolas,monospace;
   --sans:Inter,"Segoe UI",Arial,"DejaVu Sans",sans-serif
 }
+.batch-evidence{margin:2rem 0;padding:1rem;border:1px solid var(--line);border-radius:12px}
+.batch-captures{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.batch-captures figure{margin:0;min-width:0}
+.batch-captures figure:last-child{grid-column:1/-1}
+.batch-captures img{display:block;width:100%;height:auto;background:var(--dark)}
+.batch-captures figcaption{padding:.7rem 0;line-height:1.5}
+.batch-evidence code{overflow-wrap:anywhere}
+@media(max-width:680px){.batch-captures{grid-template-columns:1fr}}
 * {
   box-sizing:border-box
 }

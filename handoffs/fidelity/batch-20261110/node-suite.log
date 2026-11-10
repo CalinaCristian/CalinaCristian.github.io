@@ -1,0 +1,2691 @@
+(node:2997) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/bridge-junction.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "source": "8e4fb0a6",
+  "nativeProfileEqualityEdges": 1540,
+  "nodes": [
+    {
+      "sourceNodeId": 984551993,
+      "sourceIds": [
+        "w458458361",
+        "w1535667121",
+        "w128304850"
+      ],
+      "closedAreaM2": 44.34753266403585,
+      "undersideTriangles": 3,
+      "fasciaTriangles": 4
+    },
+    {
+      "sourceNodeId": 981550754,
+      "sourceIds": [
+        "w84483589",
+        "w1552024281",
+        "w1552024282"
+      ],
+      "closedAreaM2": 57.46772031163492,
+      "undersideTriangles": 2,
+      "fasciaTriangles": 4
+    },
+    {
+      "sourceNodeId": 6307136271,
+      "sourceIds": [
+        "w119235186",
+        "w1535667121",
+        "w1535667122"
+      ],
+      "closedAreaM2": 43.74403117944148,
+      "undersideTriangles": 3,
+      "fasciaTriangles": 4
+    },
+    {
+      "sourceNodeId": 2624398781,
+      "sourceIds": [
+        "w668700432",
+        "w84482671",
+        "w1535667122"
+      ],
+      "closedAreaM2": 58.29665631282257,
+      "undersideTriangles": 3,
+      "fasciaTriangles": 4
+    }
+  ],
+  "scope": "CPU exact native hull/skin/depth/mouth/Float32 replay only; fresh native render and driven seam checks pending"
+}
+✔ game/dev/bridge-junction.test.mjs (197.139346ms)
+(node:2998) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/shared-bridge-profile.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "padCount": 8,
+  "maxNodeError": 0.0000015867114075973632,
+  "maxAreaError": 0.0002482989220879972,
+  "padRows": [
+    {
+      "sourceNodeId": 984551993,
+      "hullAreaM2": 44.34753266401822,
+      "triangles": 8,
+      "sourceModelHeightM": 7.5
+    },
+    {
+      "sourceNodeId": 984552354,
+      "hullAreaM2": 61.096540781727526,
+      "triangles": 9,
+      "sourceModelHeightM": 7.5
+    },
+    {
+      "sourceNodeId": 981547574,
+      "hullAreaM2": 48.052163310931064,
+      "triangles": 8,
+      "sourceModelHeightM": 4.277446805670616
+    },
+    {
+      "sourceNodeId": 2624398781,
+      "hullAreaM2": 58.296656312799314,
+      "triangles": 8,
+      "sourceModelHeightM": 7.5
+    },
+    {
+      "sourceNodeId": 6261926625,
+      "hullAreaM2": 46.94753877443145,
+      "triangles": 9,
+      "sourceModelHeightM": 1.4
+    },
+    {
+      "sourceNodeId": 981550754,
+      "hullAreaM2": 57.46772031165892,
+      "triangles": 7,
+      "sourceModelHeightM": 7.5
+    },
+    {
+      "sourceNodeId": 6261926624,
+      "hullAreaM2": 2.6360389132169075,
+      "triangles": 8,
+      "sourceModelHeightM": 0
+    },
+    {
+      "sourceNodeId": 6307136271,
+      "hullAreaM2": 43.744031179419835,
+      "triangles": 8,
+      "sourceModelHeightM": 7.5
+    }
+  ],
+  "inputTriangles": 290,
+  "outputTriangles": 3117,
+  "maxControlErrorM": 0.001996857892649473,
+  "depthLimit": 0,
+  "legacyOrdinaryPose": {
+    "x": 432.4506703613409,
+    "y": 0.24,
+    "z": -709.4313545499678,
+    "heading": 1.0196753966040772,
+    "pitch": 0
+  },
+  "lipResults": [
+    0.05,
+    0
+  ],
+  "structuralErrorM": 2.3300400453507564e-7,
+  "scope": "Exact source pad/miter fixture, Float32 mesh/query fan and bounded sampled chord controls; actual ordinary Traffic2D reader. Fresh native constructor/fullworld/drive/images remain required."
+}
+✔ game/dev/bridge-surface.test.mjs (2112.772343ms)
+(node:2999) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/player.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ the source-clipped ground closure cannot soften an unrelated11m deck collision (2.330225ms)
+✔ the original early bridge-warning witness is on a different physical level (0.301043ms)
+✔ raised and sunken closures retain their actual vertical bands and horizontal bounds (0.606906ms)
+(node:3005) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: physical walking capacity, carried clearance, preserved failed placement, congestion routing, continuous recovery and measured-motion gait/camera visibility
+✔ game/dev/crowd-flow.test.mjs (296.003905ms)
+(node:3025) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/generated-parapet-ownership.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: continuous union subtraction leaves no positive-area owned interior
+    at file:///workspace/CalinaCristian.github.io/game/dev/generated-parapet-ownership.test.mjs:14:122
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async node:internal/modules/esm/loader:647:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.22.1
+✖ game/dev/generated-parapet-ownership.test.mjs (1004.241135ms)
+(node:3032) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/dev/harness/page/core.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual player nose, rendered turning body, clear parallel body and other-level sensing
+✔ game/dev/harness-body-sensing.test.mjs (76.221548ms)
+(node:3038) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: exact214 pre-contact braking/old acceleration, actual SAT positive, rendered orientation, adjacent/behind/emitted-height negatives, native curved lane-change progress
+✔ game/dev/harness-current-body.test.mjs (408.583182ms)
+(node:3045) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/dev/harness/page/core.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: real blocked vehicle intent, existing passing/watchdog, red/target stop and pedestrian controls
+✔ game/dev/harness-vehicle-wait.test.mjs (119.114227ms)
+(node:3053) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ mapped course and circular road retain their literal points/directions (32.348198ms)
+✔ literal27 source masses retain every polygon and tagged vertical interval (4.266267ms)
+✔ public-foot exceptions require both literal permissions and never open motor roads (83.685064ms)
+✔ real emitted monument has its .01m public floor, not a1.3m passage plinth (97.600372ms)
+✔ flagpole source31/27 heights retain its geographic point and leave the public floor clear (23.559693ms)
+✔ whole readable game plaques clear every course leg, preserving all5posts (20.46173ms)
+✔ entire source course clears native27-part body collision and actual carriageways (43.89241ms)
+✔ continuous fast running beats two actually progressing opponents (13.337364ms)
+✔ walking slowly loses to the opponents rather than receiving a timed award (8.580795ms)
+✔ idle cannot win and actual blocker admission prevents ghost rival progress (1.676895ms)
+✔ teleport/checkpoint shortcut and cancellation do not win (1.571855ms)
+✔ start requires the real start area and leaving the course fails (1.616637ms)
+✔ baguette requires three timed catches and completed visible catch animations (0.597403ms)
+✔ early/late misses reset the streak and recovery needs another deliberate input (0.256382ms)
+✔ cancelling after third catch before its animation ends never completes (0.3381ms)
+(node:3060) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"passed":true,"nativeCampusRangePairs":4,"controls":["source-index-and-all-attribute-prefixes","new-UV-colour-normal-tile-interpolation","no-op-native-indices-unchanged","actual-native-duplicate-query-geometry-parity"],"browserOpened":false}
+✔ game/dev/harness/building-detail-range.test.mjs (233.149832ms)
+(node:3067) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"passed":true,"nativeCampusPairs":[{"detail":122,"roof":766,"clippedAreaM2":3.073646658100188},{"detail":123,"roof":766,"clippedAreaM2":3.0737878032959998},{"detail":162,"roof":753,"clippedAreaM2":3.072585457436632},{"detail":163,"roof":753,"clippedAreaM2":3.0737874367636264}],"controls":["literal-retained","source-equal-plane-priority","stable-source-order","real-height-separation","elevated-air","courtyard","attribute-interpolation","missing-source-retained","self-excluded","input-immutable","pitched-roof-real-air"],"browserOpened":false}
+✔ game/dev/harness/building-detail-visibility.test.mjs (132.723692ms)
+(node:3075) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/building-parts.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"passed":true,"controls":10,"checks":["actual canonical relation/member wall gains one complete height-interval owner without deleting volumes","literal member height authority can own the complete shared exterior over an estimated aggregate","ordinary records need no building:part tag to resolve identical coplanar skins","a true adjacent party wall is interior to the union and both exterior surfaces remain elsewhere","a courtyard is open air to another body rather than an enclosing-solid fill","outer and courtyard inner walls both receive explicit independently directed visibility bands","an elevated source body preserves air below and its actual underside","hole boundaries split only the neighboring part of a face","source total height does not replace an explicitly supplied eaves/body bound","geometry packing preserves additional courtyard bands alongside legacy roof and underside arrays"],"nativeTriangleAreaM2":479.3785602745649,"browserOpened":false,"compilerOrWorldHooked":false}
+✔ game/dev/harness/building-source-surfaces.test.mjs (163.982213ms)
+(node:3086) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/building-surface-cache.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"passed":true,"controls":9,"checks":["ordinary source body uses literal authority independently of source index or assembly flags","height provenance changes invalidate cache even when geometry is unchanged","changed footprint and inactive landmark replacement reject participating cached surfaces","malformed cached bands, cap coordinates and missing v2 authority remain explicit rejections","passage, aircraft and open canopy bodies cannot silently become full solid occluders","courtyard island does not touch its enclosing empty source outline","touching a true courtyard boundary produces validated directed hole wall bands","authority ranks explicit metres, research, literal source levels, then estimates","actual Groz cache refresh preserves every source field and old assembly point index"],"browserOpened":false}
+✔ game/dev/harness/building-surface-cache.test.mjs (4007.084997ms)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     npx playwright install                                 ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+    at /workspace/CalinaCristian.github.io/game/dev/harness/car-screen-poi.test.mjs:25:28 {
+  log: [],
+  name: 'Error'
+}
+
+Node.js v24.22.1
+✖ game/dev/harness/car-screen-poi.test.mjs (972.328807ms)
+(node:3106) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/chapter-waypoint.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+SeaTac manual arrival, actual waypoint, verified route, free roam and chapter guards: 9 passed
+✔ game/dev/harness/chapter-waypoint.test.mjs (69.141022ms)
+(node:3113) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/district-boundary.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "scope": "Exact8e4 native source road/pad support plus original mask and all1736 read-only native body-scan poses. Offline replay of proposed boundary helper; not a fresh native app or driven acceptance. No source geometry/travel rights altered.",
+  "nativeSource": "8e4fb0a63cf672d2adf42d6c71d93435b9ff5f2b",
+  "fixtureRawSha256": "8255c08a76decef5413246b36e7280177b7a32b05a65f2bdeb63770f7a530a4c",
+  "nativeProfileRawSha256": "d10b97e01e9be83b4a7ad00cdbb64d66048f74368aa32c88a721917f9f2f3191",
+  "nativeScanRawSha256": "b7ddf79e3f5b0df9fae1cd5acaf415ece6e46d6019412be45bb0ea528b87e2da",
+  "scanRows": 1736,
+  "oldPositiveRows": 6,
+  "newPositiveRows": 0,
+  "oldWalls": 196,
+  "newWalls": 300,
+  "exactUnrelatedOldWallsRetained": 183,
+  "unrelatedControl": {
+    "ax": -760,
+    "az": 260,
+    "bx": -760,
+    "bz": 340,
+    "nx": 1,
+    "nz": 0,
+    "wall": true,
+    "kind": "boundary",
+    "y0a": -40,
+    "y1a": 80,
+    "y0b": -40,
+    "y1b": 80,
+    "x": -760,
+    "z": 300,
+    "r": 40.3
+  },
+  "body": {
+    "front": 3.42,
+    "rear": 2.36,
+    "width": 1.8,
+    "samples": [
+      [
+        2.52,
+        0,
+        0.9
+      ],
+      [
+        1.5250000000000001,
+        0,
+        0.9
+      ],
+      [
+        0.5300000000000002,
+        0,
+        0.9
+      ],
+      [
+        -0.4649999999999994,
+        0,
+        0.9
+      ],
+      [
+        -1.4599999999999995,
+        0,
+        0.9
+      ],
+      [
+        3.07,
+        0.41500000000000004,
+        0.35
+      ],
+      [
+        3.07,
+        -0.41500000000000004,
+        0.35
+      ],
+      [
+        -2.01,
+        0.55,
+        0.35
+      ],
+      [
+        -2.01,
+        -0.55,
+        0.35
+      ]
+    ]
+  },
+  "helperReport": {
+    "sourceSupports": 1714,
+    "triangles": 3650,
+    "bodyRadiusM": 3.53643888678993,
+    "addedMaskCells": 144,
+    "oldMaskCells": 1698,
+    "clippedClosureSections": 0,
+    "removedClosureSections": 0,
+    "closureBundles": 0,
+    "clippedDecorationPolygons": 0,
+    "rejectedDiscreteProps": 0,
+    "unresolved": [],
+    "basis": "Finite whole-body support of kept literal source core roads/pads; no passive scenery, OUT or mapped barrier edits"
+  },
+  "buildMs": 130.10724300000004,
+  "newPositive": [],
+  "nativeGate": "OPEN: this is CPU replay of actual old native data, not a fresh native World/draw or driven trip"
+}
+✔ exact old native six-row wall failure reproduces with current native collision function (3.321744ms)
+✔ all1736 actual source/lane poses with full native nine-disc body clear regenerated mask walls (0.736328ms)
+✔ x640 source continuation is admitted with body margin and unrelated exterior walls remain (5.688335ms)
+(node:3124) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/district-boundary.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ mask decoder verifies complete RLE and preserves source occupancy (2.325398ms)
+✔ finite source-road support extends the whole body domain and leaves unrelated exterior closed (2.776875ms)
+✔ cell/road intersection keeps narrow diagonal support even when cell centre misses it (0.679888ms)
+✔ no selected source support creates no extension or substitute connection (0.210938ms)
+✔ physical segment subtraction splits only actual compatible-level source crossing (0.944772ms)
+✔ own legitimate closed-road cross-section remains closed (0.435799ms)
+✔ primitive polygon subtraction preserves geometry/attributes outside source road (1.487589ms)
+✔ other-level pavement/decorations remain untouched (0.829765ms)
+✔ graded actual support is clipped at its true height intervals (2.114553ms)
+✔ discrete prop clearance tests the complete radius at the actual level (0.562101ms)
+✔ normalized physical and visible sections share immutable exact spans (0.752443ms)
+✔ coplanar street-bundle overlaps are emitted once with one worksite primary (0.703163ms)
+✔ unrelated boundary and other-level local closure remain (0.394492ms)
+✔ source support and graph identity are not modified and no RNG is used (0.792904ms)
+✔ invalid primitive heights fail rather than removing another road blindly (0.285158ms)
+✔ render clipping retains the complete existing source prefix and interpolated closure attributes (2.157351ms)
+✔ barrier normalization does not reserve an invented two-metre volume below an elevated closure (0.400846ms)
+(node:3130) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ retiring a real fountain releases its animation registry entry and preserves the other scene (364.54785ms)
+(node:3137) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ back-wall desktop uses the sign front, fits both dimensions and restores the camera (16.22522ms)
+✔ Rosetti side-wall uses the sign front, fits both dimensions and restores the camera (5.812036ms)
+✔ portrait width uses the sign front, fits both dimensions and restores the camera (2.434958ms)
+✔ tall portrait sign uses the sign front, fits both dimensions and restores the camera (1.684553ms)
+✔ the former Rosetti forward-wall pose cannot face the actual side-wall sign (0.37858ms)
+✔ missing sign fails explicitly without changing the camera (1.064487ms)
+✔ portrait framing stays inside the opposite actual room boundary (2.40091ms)
+✔ an actual room partition selects a closer clear view without hiding it (7.267439ms)
+(node:3145) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/dev/harness/page/util.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ an opening stays clear while its posts and ceiling remain solid at the same source building (4.060552ms)
+✔ above-ground openings carry the body height without accepting an entire building (0.495216ms)
+✔ actual roof height and source underside bound point and body checks (0.404279ms)
+✔ courtyard holes retain their boundary distance and ordinary walls stay audited (0.842588ms)
+(node:3156) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/landmark-cec-source.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"sourceVolumes":162,"newRelationOuters":7,"rawHoles":5,"literalHeights":153,"estimatedTotals":9,"modelColliders":162,"modelTriangles":24156,"duplicateRoofTriangles":0,"maximumHeight":37.5,"uncertainProfiles":56}
+✔ game/dev/harness/landmark-cec-source.test.mjs (1671.683811ms)
+(node:3162) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/minimap.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ one permanent legend listener routes to the current map with the existing coordinates and event behavior (3.985173ms)
+(node:3170) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ renderer scene release drops retired walker, scenery and pass references while retaining shared lights (7.704628ms)
+✔ district disposal preserves the cockpit and cached landmark material, but frees its own maps (2.23718ms)
+✔ fleet and crowd wrappers release instance attributes without disposing cached model attributes (2.951646ms)
+✔ tree templates survive, while instance buffers and the water registry are released (2.690424ms)
+(node:3177) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/source-tree-centres.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Source-bank, coarse-cell, exact-water, exact-duplicate and legacy controls passed.
+✔ game/dev/harness/source-tree-centres.test.mjs (105.24483ms)
+(node:3184) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/spot-availability.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Menu favorites, actual registry identities, available-city/postcard targets, unavailable activities and legacy retired-save controls passed.
+✔ game/dev/harness/spot-availability.test.mjs (112.967ms)
+(node:3191) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/telemetry-health.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ reload breadcrumbs reject stale, malformed and future records without requiring working storage (2.832547ms)
+✔ frame percentiles expose real stalls rather than averaging smoothed FPS values (1.746786ms)
+✔ diagnostic wrappers preserve values and the original sync/async exception when observers fail (1.944477ms)
+✔ DNT prevents initialization and capture (5.754475ms)
+✔ GPC prevents initialization and capture (1.022716ms)
+✔ DNT with forced diagnostics prevents initialization and capture (3.487855ms)
+✔ GPC with forced diagnostics prevents initialization and capture (1.695014ms)
+✔ explicit disabled tracking prevents initialization and capture (1.531387ms)
+(node:3205) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/spots/index.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ a reachable208.72m activity leads the short itinerary instead of a nearby sign (5.59647ms)
+✔ blocked and unavailable activities never produce a hero/plaque-only fallback (240.569383ms)
+(node:3211) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/spots/index.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ actual phone-arrival coordinates expose the reached table instead of the closer guide (0.880922ms)
+✔ arrival priority preserves actual reach, vertical range and enabled conditions (0.359463ms)
+✔ ordinary nearest interactions and unrelated physical targets retain their behavior (0.315251ms)
+(node:3219) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/spots/ground.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ raised gallery route goes around its actual void, while ground route stays below (16.849001ms)
+✔ same-floor custom waypoint routes, another floor is neither routed nor arrived (10.127422ms)
+✔ guide planning uses its own ground floor while player is on a gallery (8.807357ms)
+✔ a real concave Old Town extent never puts its primary marker outside the visit (150.796181ms)
+(node:3226) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/spots/walker.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ tourist wall queries agree with native collision across an interpolated vertical band (4.158858ms)
+✔ an elevated gallery rail leaves the ground route open and still blocks its own floor (2.357411ms)
+✔ legacy walls without bands retain their collision instead of creating new passages (0.389539ms)
+(node:3233) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/nav.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "checks": 31,
+  "realSplai": {
+    "physicalComponents": 2,
+    "directedSourceEdges": 26,
+    "verifiedRuns": 2,
+    "captureSamples": 12,
+    "originalFarthestPairStillUnreachable": true
+  }
+}
+✔ game/dev/harness/visual/street-sweeps.test.mjs (221.932753ms)
+(node:3240) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/water-lines.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Unmapped stubs, exact boundary crossings, holes, adjacent areas, collinear banks, zero-length and actual Bellevue canal controls passed.
+✔ game/dev/harness/water-lines.test.mjs (259.514448ms)
+(node:3241) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/inferred-road-sign.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"passed":true,"checks":26,"sourceCommit":"984ded5ad3f07b78e61cee1bb3bbc43a813fa914","actualNativeContactsBefore":8,"emittedContactsAfter":0,"actualRightUnitExact":true,"legacyExact":true,"scope":"Actual native Float32 source-unit reproduction and production placement/helper CPU controls; no fresh native World/constructor/drive/budget acceptance"}
+✔ game/dev/inferred-road-sign.test.mjs (327.795618ms)
+(node:3252) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"passed":true,"checks":44,"baselineSHA256":"b76ade370d5f0f89bae39fea6ed04d3fbd473b7e319cb706258fd4eef077ba6d","nativeFixture":"be12cd87cf988a097c7c54011f0b816694119db7","actors":18,"attemptedSlots":5,"admitted":0,"refused":5,"laterTrams":4,"scope":"CPU native methods/actual emitted models; source be12 negative retained; new full native cohort and drive remain pending"}
+✔ game/dev/initial-parking-behavior.test.mjs (754.476896ms)
+(node:3261) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ QA controller paths and placements use measured forward, reverse and shared lane centres (5.011211ms)
+✔ unequal direction counts place every lane inside measured extents, including reverse lanes on the canonical right (1.069112ms)
+✔ long-body path and junction reservation preserve physical centres across reversed prepared edge ordering (3.73303ms)
+✔ asymmetric shared lane has one physical path for both graph directions and shifted player occupancy blocks entry (1.594111ms)
+✔ tram median paths shift in both travel directions without moving the source centreline (0.464363ms)
+(node:3268) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: literal short-edge lookahead, committed bus155, legal pre-line wait and smooth travel-based merge
+✔ game/dev/lane-drop-chain.test.mjs (284.375151ms)
+(node:3275) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: exact244 legacy false-stop reproduction; projected ordinary/bus lanes; true drop, unfinished/blocked merge, red queue, source/route preservation and committed-body controls
+✔ game/dev/lane-drop-projection.test.mjs (282.14591ms)
+(node:3282) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/motor-turn-restrictions.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS 29 pure source/mode/exception/direction/U-turn/malformed/catalogue controls; no RNG or graph/data/actor mutation
+✔ game/dev/motor-turn-restrictions.test.mjs (100.525884ms)
+(node:3288) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/nav.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS incoming-edge A*, final partial/via endpoint, same-edge/walking/legacy, no backtrack shortcut, NPC choice/fallback/suffix and constructor audit controls
+✔ game/dev/motor-turn-routing.test.mjs (327.915928ms)
+(node:3296) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual source931 normal tolerance and strict monotonic recovery remain distinct
+✔ game/dev/normal-guard-tolerance.test.mjs (344.06714ms)
+(node:3303) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ a temporary jump outside the window envelope recovers without replacing the live world (5.396104ms)
+✔ walking past a window retains a bounded render target capacity (6.701239ms)
+✔ office speech keeps shared HUD panel state and expires only its own visit (2.393972ms)
+(node:3310) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: initial corner admission, live-pose protection, full actors/RNG, stopped crossing, monotonic escape, turning body and other-level controls
+✔ game/dev/pedestrian-admission.test.mjs (731.33563ms)
+(node:3317) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual pedestrian head-on/following progress, native cell crossing, partial recovery/third body, shared static correction and facade clearance
+✔ game/dev/pedestrian-motion.test.mjs (623.856381ms)
+(node:3324) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ rotated sidewalk loads retain remote reservations, hidden rules and duplicate rows (3.523093ms)
+✔ spatial bounds preserve exact corridor and carried-body boundary predicates (92.58459ms)
+✔ actual relocation choices, failures and RNG sequence agree with full scans at560 people (172.218932ms)
+(node:3330) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: native87/325 forward separation, unchanged comfort refusal, preview isolation, front/side/turn/overlap/grade/carried controls
+✔ game/dev/pedestrian-side-yield.test.mjs (419.275644ms)
+(node:3338) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual 560 constructor IDs/styles/RNG, source cells/admission, live recovery, narrow widths, crossing endpoints and parking side legality
+✔ game/dev/pedestrian-source-sides.test.mjs (904.630457ms)
+(node:3344) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"passed":true,"source":"b006000f7bae6e6c64103b9548438082026c14eb","actualCockpitParts":16,"intervalParitySamples":81,"maxIntervalParityErrorM":2.930988785010413e-14,"bodyIntervalCpu":{"warmMovingMedianMs":7.213044000000082,"warmMovingP95Ms":14.048790000000054,"coldMs":17.045057999999926,"scope":"Node CPU actual native cockpit, every collision probe, no FPS claim"},"legacyNativePadPushM":0.41308772444470676,"candidatePadPushM":0,"unknownBodyPushM":0.41308772444470676,"actualOverheadControlPushM":0.4093287749736659,"scope":"Actual native Player methods and emitted cockpit/source pad fixture; pre-collide candidate reconstruction. Fresh native continuous drive still required."}
+✔ game/dev/player-bridge-height.test.mjs (2044.401883ms)
+(node:3351) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/geobuild.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "nativeReplays": [
+    {
+      "capTriangles": 10,
+      "actorId": 259,
+      "nativeBefore": 375,
+      "compiledAfter": 0,
+      "primitives": [
+        {
+          "mesh": "ground 0,0",
+          "triangle": 3378,
+          "edge": 1255,
+          "output": 8
+        },
+        {
+          "mesh": "ground 0,0",
+          "triangle": 3379,
+          "edge": 1255,
+          "output": 8
+        },
+        {
+          "mesh": "solid 0,0",
+          "triangle": 4087,
+          "edge": 1255,
+          "output": 1
+        },
+        {
+          "mesh": "solid 0,0",
+          "triangle": 4088,
+          "edge": 1255,
+          "output": 2
+        },
+        {
+          "mesh": "solid 0,0",
+          "triangle": 4089,
+          "edge": 1255,
+          "output": 8
+        },
+        {
+          "mesh": "solid 0,0",
+          "triangle": 4090,
+          "edge": 1255,
+          "output": 8
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6651,
+          "edge": 1256,
+          "output": 6
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6652,
+          "edge": 1256,
+          "output": 9
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6669,
+          "edge": 1256,
+          "output": 2
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6670,
+          "edge": 1256,
+          "output": 1
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6673,
+          "edge": 1256,
+          "output": 1
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6674,
+          "edge": 1256,
+          "output": 1
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6675,
+          "edge": 1256,
+          "output": 1
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6676,
+          "edge": 1256,
+          "output": 2
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6678,
+          "edge": 1257,
+          "output": 10
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6691,
+          "edge": 1257,
+          "output": 0
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6692,
+          "edge": 1257,
+          "output": 0
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6693,
+          "edge": 1257,
+          "output": 0
+        },
+        {
+          "mesh": "ground -1,0",
+          "triangle": 6694,
+          "edge": 1257,
+          "output": 0
+        },
+        {
+          "mesh": "road -1,0",
+          "triangle": 150,
+          "edge": 1256,
+          "output": 10
+        },
+        {
+          "mesh": "road -1,0",
+          "triangle": 151,
+          "edge": 1256,
+          "output": 10
+        },
+        {
+          "mesh": "road -1,0",
+          "triangle": 153,
+          "edge": 1257,
+          "output": 8
+        },
+        {
+          "mesh": "solid -1,0",
+          "triangle": 592,
+          "edge": 1256,
+          "output": 1
+        },
+        {
+          "mesh": "solid -1,0",
+          "triangle": 593,
+          "edge": 1256,
+          "output": 0
+        },
+        {
+          "mesh": "solid -1,0",
+          "triangle": 595,
+          "edge": 1256,
+          "output": 10
+        },
+        {
+          "mesh": "solid -1,0",
+          "triangle": 599,
+          "edge": 1257,
+          "output": 3
+        }
+      ],
+      "sourceCorridors": 153
+    },
+    {
+      "capTriangles": 0,
+      "actorId": 490,
+      "nativeBefore": 114,
+      "compiledAfter": 0,
+      "primitives": [
+        {
+          "mesh": "ground 0,-1",
+          "triangle": 7781,
+          "edge": 677,
+          "output": 5
+        },
+        {
+          "mesh": "ground 0,-1",
+          "triangle": 7782,
+          "edge": 677,
+          "output": 5
+        },
+        {
+          "mesh": "ground 0,-1",
+          "triangle": 7783,
+          "edge": 677,
+          "output": 5
+        },
+        {
+          "mesh": "ground 0,-1",
+          "triangle": 7813,
+          "edge": 677,
+          "output": 5
+        },
+        {
+          "mesh": "ground 0,-1",
+          "triangle": 7814,
+          "edge": 677,
+          "output": 5
+        },
+        {
+          "mesh": "ground 0,-1",
+          "triangle": 7815,
+          "edge": 677,
+          "output": 5
+        }
+      ],
+      "sourceCorridors": 23
+    }
+  ],
+  "controls": [
+    "lane-pavement",
+    "literal-dimensions",
+    "vertical-separation",
+    "unknown-grade",
+    "near-miss",
+    "flush-paving-and-query",
+    "mitred-lane-pavement",
+    "primitive-range-prefix",
+    "calculated-float32-outward-rounding"
+  ]
+}
+✔ game/dev/rail-roadside.test.mjs (364.843453ms)
+(node:3359) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ foreground stalls measure actual cadence while the existing effects clamp stays unchanged (9.111974ms)
+✔ explicit simulation dt cannot turn a slow frame into60fps or a false100ms diagnostic (0.950129ms)
+✔ visible60Hz intervals remain60fps and hidden-tab gaps are not foreground samples (2.307627ms)
+✔ environment-only portal update does not draw, simulate actors or rewrite the off-axis projection (1.218199ms)
+✔ pure weather far-limit query preserves a caller-owned off-axis frustum (0.702183ms)
+(node:3366) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/shared-bridge-profile.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "source": {
+    "nativeCommit": "8e4fb0a6",
+    "nativeProfileSha256": "d9d54a9f834e5725e62a833c77c3f5380a4b6c802eddbea06dafcc17aa2f4dbf",
+    "sourceDataCommit": "c7185127d31c4f1d14cadcf8cbe0ed2f2e44d46d",
+    "sourceDataSha256": "fa12eda6365d369c79222ed8af0a068f5173899d71698a7f94cd70682dac4685"
+  },
+  "changedRoadEdges": 145,
+  "changedRailLegs": 28,
+  "piecesChecked": 450,
+  "maximumGrade": 0.08000000000056323,
+  "maxPolynomialError": 1.4566481354449934e-10,
+  "maxRegionAreaError": 1.1641532182693481e-10,
+  "model": {
+    "modelId": "basarab-shared-fork",
+    "estimated": true,
+    "active": true,
+    "known": true,
+    "basis": "MODEL reviewed Basarab road/tram fork: unchanged source chains; common cable-station anchor and source ground joins; all heights/width defaults explicitly estimated, not surveyed or source layer arithmetic",
+    "unresolved": [],
+    "sourceRoles": {
+      "w668676694": "trunk",
+      "w668676697": "trunk",
+      "w119235186": "branchA",
+      "w84482671": "branchB",
+      "w84483589": "loop",
+      "w1559926378": "loop",
+      "w668894712": "auxiliary",
+      "w84477811": "auxiliary",
+      "w128304850": "auxiliary",
+      "w118284448": "exit",
+      "w668676695": "approachIn",
+      "w84482712": "approachOut",
+      "w668679788": "approachOut"
+    },
+    "oldProfiles": [
+      {
+        "edgeId": 846,
+        "sourceId": "w458458361",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 847,
+        "sourceId": "w458458361",
+        "ya": 10.553098395376873,
+        "yb": 9.929951366006213
+      },
+      {
+        "edgeId": 848,
+        "sourceId": "w458458361",
+        "ya": 9.306804336635553,
+        "yb": 8.30968346471493
+      },
+      {
+        "edgeId": 849,
+        "sourceId": "w458458361",
+        "ya": 8.30968346471493,
+        "yb": 7.746958485199207
+      },
+      {
+        "edgeId": 850,
+        "sourceId": "w458458361",
+        "ya": 6.621508526167765,
+        "yb": 6.621508526167765
+      },
+      {
+        "edgeId": 851,
+        "sourceId": "w458458361",
+        "ya": 6.6082403130289,
+        "yb": 6.594604503809656
+      },
+      {
+        "edgeId": 852,
+        "sourceId": "w458458361",
+        "ya": 6.588073034061426,
+        "yb": 6.588073034061426
+      },
+      {
+        "edgeId": 853,
+        "sourceId": "w458458361",
+        "ya": 6.588073034061426,
+        "yb": 6.5865898778516225
+      },
+      {
+        "edgeId": 915,
+        "sourceId": "w1552024280",
+        "ya": 9.62155128419002,
+        "yb": 9.662548150502188
+      },
+      {
+        "edgeId": 916,
+        "sourceId": "w1552024280",
+        "ya": 9.772763985634972,
+        "yb": 9.774363294899224
+      },
+      {
+        "edgeId": 917,
+        "sourceId": "w1552024280",
+        "ya": 9.78694059841717,
+        "yb": 9.814029705077566
+      },
+      {
+        "edgeId": 918,
+        "sourceId": "w1552024280",
+        "ya": 9.814029705077566,
+        "yb": 9.814029705077566
+      },
+      {
+        "edgeId": 919,
+        "sourceId": "w1552024280",
+        "ya": 9.82873571861105,
+        "yb": 10.48900231381006
+      },
+      {
+        "edgeId": 920,
+        "sourceId": "w1552024280",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 921,
+        "sourceId": "w1552024280",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 922,
+        "sourceId": "w1552024280",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 923,
+        "sourceId": "w1552024280",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 999,
+        "sourceId": "w84482671",
+        "ya": 3.8793950541336852,
+        "yb": 4.429718637268749
+      },
+      {
+        "edgeId": 1000,
+        "sourceId": "w84482671",
+        "ya": 4.429718637268749,
+        "yb": 4.807081696062213
+      },
+      {
+        "edgeId": 1001,
+        "sourceId": "w84482671",
+        "ya": 4.807081696062213,
+        "yb": 5.214705137480267
+      },
+      {
+        "edgeId": 1002,
+        "sourceId": "w84482671",
+        "ya": 5.214705137480267,
+        "yb": 5.2
+      },
+      {
+        "edgeId": 1003,
+        "sourceId": "w84482671",
+        "ya": 5.2,
+        "yb": 5.269657985156585
+      },
+      {
+        "edgeId": 1004,
+        "sourceId": "w84482671",
+        "ya": 5.269657985156585,
+        "yb": 5.788785139614995
+      },
+      {
+        "edgeId": 1005,
+        "sourceId": "w84482671",
+        "ya": 5.788785139614995,
+        "yb": 6.474570001934441
+      },
+      {
+        "edgeId": 1006,
+        "sourceId": "w84482671",
+        "ya": 6.474570001934441,
+        "yb": 6.485759899574993
+      },
+      {
+        "edgeId": 1007,
+        "sourceId": "w84482671",
+        "ya": 6.485759899574993,
+        "yb": 6.486257553300892
+      },
+      {
+        "edgeId": 1008,
+        "sourceId": "w84482712",
+        "ya": 0,
+        "yb": 0
+      },
+      {
+        "edgeId": 1009,
+        "sourceId": "w84483589",
+        "ya": 6.525219419398822,
+        "yb": 6.527714088757009
+      },
+      {
+        "edgeId": 1010,
+        "sourceId": "w84483589",
+        "ya": 6.515209293768979,
+        "yb": 6.516157991783617
+      },
+      {
+        "edgeId": 1011,
+        "sourceId": "w84483589",
+        "ya": 6.5,
+        "yb": 6.5
+      },
+      {
+        "edgeId": 1012,
+        "sourceId": "w84483589",
+        "ya": 6.5,
+        "yb": 6.5
+      },
+      {
+        "edgeId": 1013,
+        "sourceId": "w84483589",
+        "ya": 6.5,
+        "yb": 6.348160428494442
+      },
+      {
+        "edgeId": 1014,
+        "sourceId": "w84483589",
+        "ya": 6.348160428494442,
+        "yb": 5.794598993502376
+      },
+      {
+        "edgeId": 1015,
+        "sourceId": "w84483589",
+        "ya": 5.794598993502376,
+        "yb": 5.2
+      },
+      {
+        "edgeId": 1045,
+        "sourceId": "w118284448",
+        "ya": 9.62155128419002,
+        "yb": 9.62155128419002
+      },
+      {
+        "edgeId": 1046,
+        "sourceId": "w118284448",
+        "ya": 9.768038448040906,
+        "yb": 9.787459239887518
+      },
+      {
+        "edgeId": 1047,
+        "sourceId": "w118284448",
+        "ya": 9.787459239887518,
+        "yb": 9.806301707121047
+      },
+      {
+        "edgeId": 1048,
+        "sourceId": "w118284448",
+        "ya": 9.806301707121047,
+        "yb": 9.806301707121047
+      },
+      {
+        "edgeId": 1049,
+        "sourceId": "w118284448",
+        "ya": 9.81976639835535,
+        "yb": 9.827131472930224
+      },
+      {
+        "edgeId": 1050,
+        "sourceId": "w118284448",
+        "ya": 10.867013007599285,
+        "yb": 11
+      },
+      {
+        "edgeId": 1063,
+        "sourceId": "w119235186",
+        "ya": 6.509914375217135,
+        "yb": 6.509914375217135
+      },
+      {
+        "edgeId": 1064,
+        "sourceId": "w119235186",
+        "ya": 6.509914375217135,
+        "yb": 6.498280004164669
+      },
+      {
+        "edgeId": 1065,
+        "sourceId": "w119235186",
+        "ya": 6.498280004164669,
+        "yb": 6.125399228736377
+      },
+      {
+        "edgeId": 1066,
+        "sourceId": "w119235186",
+        "ya": 6.125399228736377,
+        "yb": 5.49626865042555
+      },
+      {
+        "edgeId": 1067,
+        "sourceId": "w119235186",
+        "ya": 5.49626865042555,
+        "yb": 5.2
+      },
+      {
+        "edgeId": 1068,
+        "sourceId": "w119235186",
+        "ya": 5.2,
+        "yb": 4.685190542284276
+      },
+      {
+        "edgeId": 1069,
+        "sourceId": "w119235186",
+        "ya": 4.685190542284276,
+        "yb": 4.07343363110077
+      },
+      {
+        "edgeId": 1070,
+        "sourceId": "w119235186",
+        "ya": 4.07343363110077,
+        "yb": 3.8793950541336852
+      },
+      {
+        "edgeId": 1081,
+        "sourceId": "w128304850",
+        "ya": 11,
+        "yb": 10.945785562366297
+      },
+      {
+        "edgeId": 1082,
+        "sourceId": "w128304850",
+        "ya": 9.885757456698126,
+        "yb": 9.128776367364168
+      },
+      {
+        "edgeId": 1083,
+        "sourceId": "w128304850",
+        "ya": 8.37179527803021,
+        "yb": 7.788366360742727
+      },
+      {
+        "edgeId": 1084,
+        "sourceId": "w128304850",
+        "ya": 6.621508526167765,
+        "yb": 6.621508526167765
+      },
+      {
+        "edgeId": 1085,
+        "sourceId": "w128304850",
+        "ya": 6.613003478450831,
+        "yb": 6.613003478450831
+      },
+      {
+        "edgeId": 1086,
+        "sourceId": "w128304850",
+        "ya": 6.600723141854399,
+        "yb": 6.588073034061426
+      },
+      {
+        "edgeId": 1104,
+        "sourceId": "w668676694",
+        "ya": 0.8882892375565121,
+        "yb": 0
+      },
+      {
+        "edgeId": 1105,
+        "sourceId": "w668676695",
+        "ya": 0,
+        "yb": 0
+      },
+      {
+        "edgeId": 1107,
+        "sourceId": "w668676697",
+        "ya": 3.8793950541336852,
+        "yb": 3.131618599989392
+      },
+      {
+        "edgeId": 1113,
+        "sourceId": "w668700431",
+        "ya": 10.658594429416608,
+        "yb": 11
+      },
+      {
+        "edgeId": 1121,
+        "sourceId": "w668700432",
+        "ya": 6.486208667084095,
+        "yb": 7.181606294139514
+      },
+      {
+        "edgeId": 1137,
+        "sourceId": "w1535667121",
+        "ya": 6.5865898778516225,
+        "yb": 6.509914375217135
+      },
+      {
+        "edgeId": 1138,
+        "sourceId": "w1535667122",
+        "ya": 6.509914375217135,
+        "yb": 6.509914375217135
+      },
+      {
+        "edgeId": 1139,
+        "sourceId": "w1535667122",
+        "ya": 6.5,
+        "yb": 6.485759899574993
+      },
+      {
+        "edgeId": 1140,
+        "sourceId": "w1535667122",
+        "ya": 6.485759899574993,
+        "yb": 6.486069543269382
+      },
+      {
+        "edgeId": 1141,
+        "sourceId": "w1552024281",
+        "ya": 6.525219419398822,
+        "yb": 6.524202704959307
+      },
+      {
+        "edgeId": 1142,
+        "sourceId": "w1552024281",
+        "ya": 6.5,
+        "yb": 7.095743930837668
+      },
+      {
+        "edgeId": 1143,
+        "sourceId": "w1552024281",
+        "ya": 7.095743930837668,
+        "yb": 7.847767554229229
+      },
+      {
+        "edgeId": 1144,
+        "sourceId": "w1552024281",
+        "ya": 9.351814801012349,
+        "yb": 9.62155128419002
+      },
+      {
+        "edgeId": 1231,
+        "sourceId": "w458458361",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1232,
+        "sourceId": "w458458361",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1233,
+        "sourceId": "w458458361",
+        "ya": 11,
+        "yb": 10.553098395376873
+      },
+      {
+        "edgeId": 1234,
+        "sourceId": "w458458361",
+        "ya": 9.929951366006213,
+        "yb": 9.306804336635553
+      },
+      {
+        "edgeId": 1235,
+        "sourceId": "w458458361",
+        "ya": 7.746958485199207,
+        "yb": 7.184233505683486
+      },
+      {
+        "edgeId": 1236,
+        "sourceId": "w458458361",
+        "ya": 7.184233505683486,
+        "yb": 6.621508526167765
+      },
+      {
+        "edgeId": 1237,
+        "sourceId": "w458458361",
+        "ya": 6.621508526167765,
+        "yb": 6.6082403130289
+      },
+      {
+        "edgeId": 1238,
+        "sourceId": "w458458361",
+        "ya": 6.6082403130289,
+        "yb": 6.6082403130289
+      },
+      {
+        "edgeId": 1239,
+        "sourceId": "w458458361",
+        "ya": 6.594604503809656,
+        "yb": 6.594604503809656
+      },
+      {
+        "edgeId": 1240,
+        "sourceId": "w458458361",
+        "ya": 6.594604503809656,
+        "yb": 6.588073034061426
+      },
+      {
+        "edgeId": 1279,
+        "sourceId": "w1552024280",
+        "ya": 9.662548150502188,
+        "yb": 9.772763985634972
+      },
+      {
+        "edgeId": 1280,
+        "sourceId": "w1552024280",
+        "ya": 9.774363294899224,
+        "yb": 9.78694059841717
+      },
+      {
+        "edgeId": 1281,
+        "sourceId": "w1552024280",
+        "ya": 9.814029705077566,
+        "yb": 9.82873571861105
+      },
+      {
+        "edgeId": 1282,
+        "sourceId": "w1552024280",
+        "ya": 10.48900231381006,
+        "yb": 11
+      },
+      {
+        "edgeId": 1283,
+        "sourceId": "w1552024280",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1284,
+        "sourceId": "w1552024280",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1285,
+        "sourceId": "w1552024280",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1286,
+        "sourceId": "w1552024280",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1287,
+        "sourceId": "w1552024280",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1349,
+        "sourceId": "w84482671",
+        "ya": 6.486257553300892,
+        "yb": 6.486208667084095
+      },
+      {
+        "edgeId": 1350,
+        "sourceId": "w84483589",
+        "ya": 6.527714088757009,
+        "yb": 6.515209293768979
+      },
+      {
+        "edgeId": 1351,
+        "sourceId": "w84483589",
+        "ya": 6.516157991783617,
+        "yb": 6.511420374938965
+      },
+      {
+        "edgeId": 1352,
+        "sourceId": "w84483589",
+        "ya": 6.511420374938965,
+        "yb": 6.5
+      },
+      {
+        "edgeId": 1353,
+        "sourceId": "w84483589",
+        "ya": 6.5,
+        "yb": 6.5
+      },
+      {
+        "edgeId": 1372,
+        "sourceId": "w118284448",
+        "ya": 9.62155128419002,
+        "yb": 9.768038448040906
+      },
+      {
+        "edgeId": 1373,
+        "sourceId": "w118284448",
+        "ya": 9.806301707121047,
+        "yb": 9.82557242281058
+      },
+      {
+        "edgeId": 1374,
+        "sourceId": "w118284448",
+        "ya": 9.82557242281058,
+        "yb": 9.81976639835535
+      },
+      {
+        "edgeId": 1375,
+        "sourceId": "w118284448",
+        "ya": 9.827131472930224,
+        "yb": 10.347072240264755
+      },
+      {
+        "edgeId": 1376,
+        "sourceId": "w118284448",
+        "ya": 10.347072240264755,
+        "yb": 10.867013007599285
+      },
+      {
+        "edgeId": 1377,
+        "sourceId": "w118284448",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1378,
+        "sourceId": "w118284448",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1410,
+        "sourceId": "w128304850",
+        "ya": 10.945785562366297,
+        "yb": 10.415771509532211
+      },
+      {
+        "edgeId": 1411,
+        "sourceId": "w128304850",
+        "ya": 10.415771509532211,
+        "yb": 9.885757456698126
+      },
+      {
+        "edgeId": 1412,
+        "sourceId": "w128304850",
+        "ya": 9.128776367364168,
+        "yb": 8.37179527803021
+      },
+      {
+        "edgeId": 1413,
+        "sourceId": "w128304850",
+        "ya": 7.788366360742727,
+        "yb": 7.204937443455246
+      },
+      {
+        "edgeId": 1414,
+        "sourceId": "w128304850",
+        "ya": 7.204937443455246,
+        "yb": 6.621508526167765
+      },
+      {
+        "edgeId": 1415,
+        "sourceId": "w128304850",
+        "ya": 6.621508526167765,
+        "yb": 6.613003478450831
+      },
+      {
+        "edgeId": 1416,
+        "sourceId": "w128304850",
+        "ya": 6.613003478450831,
+        "yb": 6.600723141854399
+      },
+      {
+        "edgeId": 1417,
+        "sourceId": "w128304850",
+        "ya": 6.600723141854399,
+        "yb": 6.600723141854399
+      },
+      {
+        "edgeId": 1418,
+        "sourceId": "w128304850",
+        "ya": 6.588073034061426,
+        "yb": 6.588351971738371
+      },
+      {
+        "edgeId": 1419,
+        "sourceId": "w128304850",
+        "ya": 6.588351971738371,
+        "yb": 6.5865898778516225
+      },
+      {
+        "edgeId": 1444,
+        "sourceId": "w668676697",
+        "ya": 3.131618599989392,
+        "yb": 2.3838421458450987
+      },
+      {
+        "edgeId": 1445,
+        "sourceId": "w668676697",
+        "ya": 2.3838421458450987,
+        "yb": 1.6360656917008054
+      },
+      {
+        "edgeId": 1446,
+        "sourceId": "w668676697",
+        "ya": 1.6360656917008054,
+        "yb": 0.8882892375565121
+      },
+      {
+        "edgeId": 1450,
+        "sourceId": "w668700431",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1451,
+        "sourceId": "w668700431",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1452,
+        "sourceId": "w668700431",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1453,
+        "sourceId": "w668700431",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1454,
+        "sourceId": "w668700431",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1473,
+        "sourceId": "w668700432",
+        "ya": 7.181606294139514,
+        "yb": 7.877003921194933
+      },
+      {
+        "edgeId": 1474,
+        "sourceId": "w668700432",
+        "ya": 7.877003921194933,
+        "yb": 8.572401548250351
+      },
+      {
+        "edgeId": 1475,
+        "sourceId": "w668700432",
+        "ya": 8.572401548250351,
+        "yb": 9.26779917530577
+      },
+      {
+        "edgeId": 1476,
+        "sourceId": "w668700432",
+        "ya": 9.26779917530577,
+        "yb": 9.963196802361189
+      },
+      {
+        "edgeId": 1477,
+        "sourceId": "w668700432",
+        "ya": 9.963196802361189,
+        "yb": 10.658594429416608
+      },
+      {
+        "edgeId": 1498,
+        "sourceId": "w1535667122",
+        "ya": 6.509914375217135,
+        "yb": 6.509914375217135
+      },
+      {
+        "edgeId": 1499,
+        "sourceId": "w1535667122",
+        "ya": 6.509914375217135,
+        "yb": 7.2677887371821575
+      },
+      {
+        "edgeId": 1500,
+        "sourceId": "w1535667122",
+        "ya": 7.2677887371821575,
+        "yb": 7.997769752778035
+      },
+      {
+        "edgeId": 1501,
+        "sourceId": "w1535667122",
+        "ya": 7.997769752778035,
+        "yb": 7.239895390813013
+      },
+      {
+        "edgeId": 1502,
+        "sourceId": "w1535667122",
+        "ya": 7.239895390813013,
+        "yb": 6.5
+      },
+      {
+        "edgeId": 1503,
+        "sourceId": "w1535667122",
+        "ya": 6.5,
+        "yb": 6.5
+      },
+      {
+        "edgeId": 1504,
+        "sourceId": "w1535667122",
+        "ya": 6.486069543269382,
+        "yb": 6.486208667084095
+      },
+      {
+        "edgeId": 1505,
+        "sourceId": "w1552024281",
+        "ya": 6.524202704959307,
+        "yb": 6.515209293768979
+      },
+      {
+        "edgeId": 1506,
+        "sourceId": "w1552024281",
+        "ya": 6.515209293768979,
+        "yb": 6.515209293768979
+      },
+      {
+        "edgeId": 1507,
+        "sourceId": "w1552024281",
+        "ya": 6.515209293768979,
+        "yb": 6.5
+      },
+      {
+        "edgeId": 1508,
+        "sourceId": "w1552024281",
+        "ya": 6.5,
+        "yb": 6.5
+      },
+      {
+        "edgeId": 1509,
+        "sourceId": "w1552024281",
+        "ya": 6.5,
+        "yb": 6.5
+      },
+      {
+        "edgeId": 1510,
+        "sourceId": "w1552024281",
+        "ya": 6.5,
+        "yb": 6.5
+      },
+      {
+        "edgeId": 1511,
+        "sourceId": "w1552024281",
+        "ya": 7.847767554229229,
+        "yb": 8.599791177620789
+      },
+      {
+        "edgeId": 1512,
+        "sourceId": "w1552024281",
+        "ya": 8.599791177620789,
+        "yb": 9.351814801012349
+      },
+      {
+        "edgeId": 1531,
+        "sourceId": "w1552024282",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1532,
+        "sourceId": "w1552024282",
+        "ya": 11,
+        "yb": 11
+      },
+      {
+        "edgeId": 1533,
+        "sourceId": "w1552024282",
+        "ya": 11,
+        "yb": 10.293517511826675
+      },
+      {
+        "edgeId": 1534,
+        "sourceId": "w1552024282",
+        "ya": 10.293517511826675,
+        "yb": 9.55019689521942
+      },
+      {
+        "edgeId": 1535,
+        "sourceId": "w1552024282",
+        "ya": 9.55019689521942,
+        "yb": 8.806876278612165
+      },
+      {
+        "edgeId": 1536,
+        "sourceId": "w1552024282",
+        "ya": 8.806876278612165,
+        "yb": 8.06355566200491
+      },
+      {
+        "edgeId": 1537,
+        "sourceId": "w1552024282",
+        "ya": 8.06355566200491,
+        "yb": 7.320235045397656
+      },
+      {
+        "edgeId": 1538,
+        "sourceId": "w1552024282",
+        "ya": 7.320235045397656,
+        "yb": 6.576914428790401
+      },
+      {
+        "edgeId": 1539,
+        "sourceId": "w1552024282",
+        "ya": 6.576914428790401,
+        "yb": 6.525219419398822
+      }
+    ],
+    "feasibility": {
+      "forkHeightM": 7.5,
+      "splitterModelHeightM": 1.4,
+      "splitterSourceNode": 6261926625,
+      "outerSourceGroundNodes": [
+        6261926624,
+        3208556810
+      ],
+      "groundTrunkLengthM": 49.99220430584646,
+      "groundTrunkRisingLengthM": 45.9680850708827,
+      "groundEaseM": 20,
+      "internalSourceNode": 981547574,
+      "internalHeightM": 4.277446805670616,
+      "sharedRadialRadiusM": 7.106388133774589,
+      "branchRadialEndsM": {
+        "branchA": 48.97681232512586,
+        "branchB": 48.4967638757127
+      },
+      "approachFlatReservesM": {
+        "trunk": [
+          4.024119234963753,
+          0
+        ],
+        "approachIn": [
+          0,
+          22.677298413657972
+        ],
+        "approachOut": [
+          22.6718326792033,
+          48.80233048169084
+        ]
+      },
+      "approachLengthsM": [
+        27.923328467188178,
+        27.923328467188178
+      ],
+      "approachCommonField": {
+        "sourceMaster": "w668676695",
+        "flatStartM": 4.221135719021682,
+        "zeroSectionM": 32.14446418620986,
+        "nativeZeroSourceNode": 6261963477,
+        "outerFlatGroundContinuation": 3208556810
+      },
+      "approachPeakGrades": [
+        0.07520593408008804,
+        0.07520593408008804
+      ],
+      "flatMergeM": {
+        "auxiliary": 26.901496326576932,
+        "branchA": 14.031659531005303,
+        "branchB": 19.495009721321793,
+        "loop": 35.24639942329627,
+        "exit": 34.12980179975776
+      },
+      "preferredEaseM": 20,
+      "actualStageEaseM": {
+        "trunk": [
+          20,
+          0
+        ],
+        "branchA": [
+          0,
+          17.37240499722511
+        ],
+        "branchB": [
+          0,
+          16.413268195297615
+        ],
+        "approachIn": 9.307776155729393,
+        "approachOut": 9.307776155729393,
+        "loop": 14.90461007583086,
+        "exit": 20,
+        "auxiliaryBridge": 20
+      },
+      "peakGrade": 0.08000000000000002,
+      "zoneM": [
+        360.7030509621029,
+        509.48698687085096
+      ],
+      "south": {
+        "s": 251.17867574218133,
+        "nodeId": 2159730242,
+        "point": [
+          262,
+          -617.9
+        ],
+        "sourceRoads": [
+          "w458458361",
+          "w1552024280"
+        ],
+        "edgeIds": [
+          1231,
+          1287
+        ]
+      },
+      "north": {
+        "s": 591.4052397644134,
+        "nodeId": 6187848862,
+        "point": [
+          534.3,
+          -819.2
+        ],
+        "sourceRoads": [
+          "w668700431",
+          "w1552024282"
+        ],
+        "edgeIds": [
+          1454,
+          1531
+        ]
+      },
+      "transitionPeakGrades": [
+        0.03909549763851528,
+        0.05652614271944178
+      ],
+      "exitAnchor": {
+        "nodeId": 1418267160,
+        "stationM": 103.51215918667673,
+        "peakGrade": 0.07087551476283158
+      },
+      "loopAnchor": {
+        "nodeId": 3908619731,
+        "stationM": 79.96022965078885
+      },
+      "auxiliaryAnchor": {
+        "nodeId": 1340349377,
+        "stationM": 298.2098670719714
+      }
+    },
+    "stationEvidence": [
+      {
+        "nodeId": 5865238769,
+        "point": [
+          765.8,
+          -977.3
+        ],
+        "hits": [
+          {
+            "sourceId": "w668700429",
+            "edgeId": 1448,
+            "modelY": 11
+          },
+          {
+            "sourceId": "w23770172",
+            "edgeId": 1345,
+            "modelY": 11
+          }
+        ]
+      },
+      {
+        "nodeId": 1775175278,
+        "point": [
+          763.7,
+          -980.1
+        ],
+        "hits": [
+          {
+            "sourceId": "w668700429",
+            "edgeId": 1448,
+            "modelY": 11
+          },
+          {
+            "sourceId": "w23770172",
+            "edgeId": 1345,
+            "modelY": 11
+          }
+        ]
+      }
+    ]
+  },
+  "scope": "Exact immutable native lane/pad/source fixture and continuous support algebra only; no new native render/drive or all-fleet physical acceptance."
+}
+{"nativeSource":"00c603358ac547b898cb8ad18f3d7ed9b229c10c","maxWitnessChordErrorM":3.118888836084466e-8,"legacyCentreSamples":14645,"maxLegacyCentreErrorM":0,"scope":"Native failed-leaf source-point replay only; fresh native emission/drive still required"}
+✔ game/dev/shared-bridge-profile.test.mjs (12059.782293ms)
+(node:3373) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/shared-lanes.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ one physical centre is shared by both legal graph directions; ordinary lane offsets stay unchanged (3.155066ms)
+✔ continuous sections preserve direction across reversed OSM edge ordering (16.413577ms)
+✔ opposite arrivals cannot both reserve an empty section (1.218918ms)
+✔ opposite waiting blocks new followers, then receives priority only after the rear clears (0.678147ms)
+✔ occupied sections do not expire after a long wait or admit an opposite spawn (0.98274ms)
+✔ player body occupancy blocks the opposite entry; a deck above does not (0.430717ms)
+✔ cancelled or stationary uncommitted requests release without expiring real occupancy (0.496479ms)
+✔ legacy graphs create no controls or placement restrictions (0.189965ms)
+✔ wider side entry does not split a narrow corridor: {} (0.517803ms)
+✔ wider side entry does not split a narrow corridor: {"publicDrive":false} (0.270818ms)
+✔ wider side entry does not split a narrow corridor: {"throughAccess":false} (0.17136ms)
+✔ a narrow fork reserves the whole component, including requests with the same local edge sign (0.40649ms)
+✔ cycles and blind ends admit one body through its exit or U-turn (0.485001ms)
+✔ opposing queues close the admitted batch while its first claim is still approaching (0.158678ms)
+✔ front-only commitment and asymmetric player front/rear keep an opposite entry closed (0.677723ms)
+✔ tail lifetime follows successful relocation generation, never a failed respawn flag (0.232516ms)
+✔ compatible through traffic can form a same-direction platoon until an opposite request arrives (0.886241ms)
+✔ turning exits leave a full fleet body envelope beyond the opposing queue mouth (0.727359ms)
+(node:3380) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/signals.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: signal cycles/conflicts/clearance, queue release, cockpit/props, visible recycling, walking recoveries and stable detours
+✔ game/dev/signals.test.mjs (514.253116ms)
+(node:3387) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual stepVehicle always sees solid bodies, rendered extents, no RNG and camera/mirror recovery gates
+✔ game/dev/solid-vehicle-sensing.test.mjs (482.092363ms)
+(node:3394) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/source-bridge-descents.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "source": "3f8f86be7835bc541f2323bd5f5178e29e81be7e",
+  "scope": "Actual native433+424 source/profile input plus explicitly prospective literal-source ground joins and default widths. Native ground-junction mesh/drive still pending.",
+  "changedNativeEdges": 37,
+  "maxGrade": 0.04505766111994962,
+  "maxSurfaceGradient": 0.05067356213119678,
+  "maxPolynomialError": 1.4676038162519944e-10,
+  "maxRegionAreaError": 3.4924596548080444e-10,
+  "report": {
+    "modelId": "basarab-north-titulescu-descent",
+    "estimated": true,
+    "basis": "MODEL finite northern Basarab descent: retained11m crown, literal433+424 chain and at-grade Titulescu source joins. Heights are estimates, not surveyed elevations or layer-to-metres conversion.",
+    "active": true,
+    "known": true,
+    "unresolved": [],
+    "oldProfiles": [
+      {
+        "edgeId": 1516,
+        "sourceId": "w668700424",
+        "ya": 11,
+        "yb": 10.276222449438295,
+        "newYa": 0,
+        "newYb": 0
+      },
+      {
+        "edgeId": 1517,
+        "sourceId": "w668700424",
+        "ya": 10.276222449438295,
+        "yb": 9.031939262024322,
+        "newYa": 0,
+        "newYb": 0
+      },
+      {
+        "edgeId": 1530,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 11,
+        "newYb": 10.898767376932895
+      },
+      {
+        "edgeId": 1531,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 10.169143865871899,
+        "newYb": 9.602835324466355
+      },
+      {
+        "edgeId": 1532,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 9.602835324466355,
+        "newYb": 9.282696816665574
+      },
+      {
+        "edgeId": 1533,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 8.962558308864786,
+        "newYb": 8.608958292707161
+      },
+      {
+        "edgeId": 1534,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 8.255358276549526,
+        "newYb": 7.91026788301086
+      },
+      {
+        "edgeId": 1535,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 7.5651774894721875,
+        "newYb": 7.206237149720222
+      },
+      {
+        "edgeId": 1536,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 6.488356470216298,
+        "newYb": 6.139190812716939
+      },
+      {
+        "edgeId": 1537,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 5.09169384021887,
+        "newYb": 4.501717687566158
+      },
+      {
+        "edgeId": 1538,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 4.501717687566158,
+        "newYb": 3.975792310894475
+      },
+      {
+        "edgeId": 1539,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 3.975792310894475,
+        "newYb": 3.46138080686901
+      },
+      {
+        "edgeId": 1540,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 3.46138080686901,
+        "newYb": 2.8940087226072624
+      },
+      {
+        "edgeId": 1541,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 2.8940087226072624,
+        "newYb": 2.551367338460569
+      },
+      {
+        "edgeId": 1542,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 1.8660845701671693,
+        "newYb": 1.5342006880915857
+      },
+      {
+        "edgeId": 1543,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 0.8704329239404025,
+        "newYb": 0.43032913544222495
+      },
+      {
+        "edgeId": 1544,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 0,
+        "newYb": 0
+      },
+      {
+        "edgeId": 1791,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 10.898767376932895,
+        "newYb": 10.595069507731582
+      },
+      {
+        "edgeId": 1792,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 10.59506950773158,
+        "newYb": 10.169143865871899
+      },
+      {
+        "edgeId": 1793,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 9.282696816665572,
+        "newYb": 8.962558308864786
+      },
+      {
+        "edgeId": 1794,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 8.608958292707158,
+        "newYb": 8.255358276549526
+      },
+      {
+        "edgeId": 1795,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 7.910267883010858,
+        "newYb": 7.5651774894721875
+      },
+      {
+        "edgeId": 1796,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 7.206237149720222,
+        "newYb": 6.84729680996827
+      },
+      {
+        "edgeId": 1797,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 6.847296809968264,
+        "newYb": 6.488356470216298
+      },
+      {
+        "edgeId": 1798,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 6.139190812716939,
+        "newYb": 5.7900251552175845
+      },
+      {
+        "edgeId": 1799,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 5.790025155217584,
+        "newYb": 5.440859497718229
+      },
+      {
+        "edgeId": 1800,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 5.440859497718227,
+        "newYb": 5.09169384021887
+      },
+      {
+        "edgeId": 1801,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 2.551367338460567,
+        "newYb": 2.2087259543138664
+      },
+      {
+        "edgeId": 1802,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 2.2087259543138664,
+        "newYb": 1.866084570167171
+      },
+      {
+        "edgeId": 1803,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 1.534200688091584,
+        "newYb": 1.2023168060159897
+      },
+      {
+        "edgeId": 1804,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 1.2023168060159897,
+        "newYb": 0.8704329239404061
+      },
+      {
+        "edgeId": 1805,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 0.4303291354422232,
+        "newYb": 0.10758228386055535
+      },
+      {
+        "edgeId": 1806,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 0.10758228386055535,
+        "newYb": 0
+      },
+      {
+        "edgeId": 1807,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 0,
+        "newYb": 0
+      },
+      {
+        "edgeId": 1808,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 0,
+        "newYb": 0
+      },
+      {
+        "edgeId": 1809,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 0,
+        "newYb": 0
+      },
+      {
+        "edgeId": 1810,
+        "sourceId": "w668700433",
+        "ya": 11,
+        "yb": 11,
+        "newYa": 0,
+        "newYb": 0
+      }
+    ],
+    "crown": {
+      "sourceNodeId": 6262162596,
+      "heightM": 11
+    },
+    "ground": {
+      "sourceNodeId": 1397135743,
+      "heightM": 0,
+      "oldHeightM": 9.031939262024322,
+      "sourceJoins": [
+        "w23554631",
+        "w125909047"
+      ]
+    },
+    "groundJoinProfiles": [
+      {
+        "edgeId": 900015,
+        "sourceId": "w23554631",
+        "oldYa": 0,
+        "oldYb": 9.031939262024322,
+        "newYa": 0,
+        "newYb": 0
+      },
+      {
+        "edgeId": 900017,
+        "sourceId": "w125909047",
+        "oldYa": 9.031939262024322,
+        "oldYb": 0,
+        "newYa": 0,
+        "newYb": 0
+      }
+    ],
+    "pathLengthM": 337.1513880123831,
+    "incidentGroundReserveM": 9.606994884479548,
+    "flatGroundReserveM": 73.01976363136026,
+    "rampLengthM": 264.13162438102285,
+    "modelRampFinishSourceNode": 2159763169,
+    "rampFinishBasis": "MODEL ramp timing constrained by actual primary vehicle corridor; existing source vertex is a parameter boundary, not a surveyed ground anchor",
+    "peakGrade": 0.04505766111985558,
+    "easeM": 20,
+    "groundLaneOverlaps": [
+      {
+        "descentEdgeId": 1517,
+        "groundEdgeId": 900015,
+        "poly": [
+          [
+            1005.6272837652546,
+            -1196.4050662979091
+          ],
+          [
+            1011.4106686294087,
+            -1200.8320254950322
+          ],
+          [
+            1011.7602763188291,
+            -1201.4853444941662
+          ],
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ],
+          [
+            1006.3380160401551,
+            -1206.1888847060275
+          ],
+          [
+            1002.1097294184494,
+            -1198.287399506078
+          ]
+        ]
+      },
+      {
+        "descentEdgeId": 1517,
+        "groundEdgeId": 900017,
+        "poly": [
+          [
+            1011.6780575542081,
+            -1201.0367014568874
+          ],
+          [
+            1011.9464410205139,
+            -1201.2421387021038
+          ],
+          [
+            1009.4239518609638,
+            -1204.5375215994243
+          ]
+        ]
+      }
+    ],
+    "earlierGradeSeparatedFootprints": [
+      {
+        "descentEdgeId": 1516,
+        "groundEdgeId": 900012,
+        "poly": [
+          [
+            991.8057746576998,
+            -1185.827617888732
+          ],
+          [
+            998.4347774398084,
+            -1190.8997295812542
+          ],
+          [
+            997.3032002946774,
+            -1192.3488826090459
+          ],
+          [
+            990.7383489619727,
+            -1187.2226912498136
+          ]
+        ]
+      },
+      {
+        "descentEdgeId": 1516,
+        "groundEdgeId": 900014,
+        "poly": [
+          [
+            998.1329934236421,
+            -1190.6688227182876
+          ],
+          [
+            999.2132241527496,
+            -1191.495349888636
+          ],
+          [
+            997.8964959711137,
+            -1193.2162494485203
+          ],
+          [
+            996.7434619964486,
+            -1191.800519210967
+          ]
+        ]
+      },
+      {
+        "descentEdgeId": 1517,
+        "groundEdgeId": 900014,
+        "poly": [
+          [
+            999.2138937120199,
+            -1191.4958623027057
+          ],
+          [
+            1005.5509758768243,
+            -1196.3466555373539
+          ],
+          [
+            1002.4818509831904,
+            -1198.8462880103923
+          ],
+          [
+            997.8967575338811,
+            -1193.2165706032538
+          ]
+        ]
+      },
+      {
+        "descentEdgeId": 1544,
+        "groundEdgeId": 900010,
+        "poly": [
+          [
+            953.8289849251784,
+            -1158.257340977733
+          ],
+          [
+            956.1428671506519,
+            -1159.9145279702955
+          ],
+          [
+            955.9947559477231,
+            -1160.0895988270213
+          ]
+        ]
+      },
+      {
+        "descentEdgeId": 1544,
+        "groundEdgeId": 900012,
+        "poly": [
+          [
+            956.2472033769242,
+            -1159.9892528785592
+          ],
+          [
+            960.8781948057203,
+            -1163.3059380036627
+          ],
+          [
+            960.6024512822929,
+            -1163.6909507032021
+          ],
+          [
+            956.101249454523,
+            -1160.1761686089412
+          ]
+        ]
+      },
+      {
+        "descentEdgeId": 1798,
+        "groundEdgeId": 900002,
+        "poly": [
+          [
+            861.6214202023148,
+            -1056.732213512815
+          ],
+          [
+            861.8275847699324,
+            -1057.0565868503386
+          ],
+          [
+            861.754685275411,
+            -1057.1029201676274
+          ],
+          [
+            861.5369732654157,
+            -1056.7911914327628
+          ]
+        ]
+      },
+      {
+        "descentEdgeId": 1799,
+        "groundEdgeId": 900002,
+        "poly": [
+          [
+            861.8275847699324,
+            -1057.0565868503386
+          ],
+          [
+            862.8924656056372,
+            -1058.7320394013473
+          ],
+          [
+            861.754685275411,
+            -1057.1029201676274
+          ]
+        ]
+      },
+      {
+        "descentEdgeId": 1807,
+        "groundEdgeId": 900012,
+        "poly": [
+          [
+            960.8781948057203,
+            -1163.3059380036627
+          ],
+          [
+            968.6274043097648,
+            -1168.855870083769
+          ],
+          [
+            968.121508535627,
+            -1169.5622377085292
+          ],
+          [
+            960.6024512822929,
+            -1163.6909507032021
+          ]
+        ]
+      },
+      {
+        "descentEdgeId": 1808,
+        "groundEdgeId": 900012,
+        "poly": [
+          [
+            968.6274043097648,
+            -1168.855870083769
+          ],
+          [
+            976.3766138138093,
+            -1174.4058021638757
+          ],
+          [
+            975.640565788961,
+            -1175.4335247138565
+          ],
+          [
+            968.121508535627,
+            -1169.5622377085292
+          ]
+        ]
+      },
+      {
+        "descentEdgeId": 1809,
+        "groundEdgeId": 900012,
+        "poly": [
+          [
+            976.3766138138093,
+            -1174.4058021638757
+          ],
+          [
+            984.1258233178537,
+            -1179.955734243982
+          ],
+          [
+            983.1596230422949,
+            -1181.3048117191836
+          ],
+          [
+            975.640565788961,
+            -1175.4335247138565
+          ]
+        ]
+      },
+      {
+        "descentEdgeId": 1810,
+        "groundEdgeId": 900012,
+        "poly": [
+          [
+            984.1258233178537,
+            -1179.955734243982
+          ],
+          [
+            991.8750328218981,
+            -1185.5056663240887
+          ],
+          [
+            990.678680295629,
+            -1187.176098724511
+          ],
+          [
+            983.1596230422949,
+            -1181.3048117191836
+          ]
+        ]
+      }
+    ],
+    "nativePhysicalGatePending": true
+  }
+}
+✔ game/dev/source-bridge-descents.test.mjs (534.196012ms)
+(node:3401) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/covered-road-models.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"passed":true,"checks":19,"sourceRoad":"w79870041","sourceCanopy":"w670595374","wholeSourceCoveredM":14.143320580354333,"sourceLengthM":14.143320580354333,"physicalOpeningM":4.56,"legalMaxheightM":4.25,"roofAndSourceUnchanged":true,"rngDraws":0}
+✔ game/dev/source-canopy-road-models.test.mjs (8764.05192ms)
+(node:3408) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS 48 actual-model/source-unit/mode/unknown/GPS/NPC/untouched-initial-admission controls
+✔ game/dev/source-road-clearance.test.mjs (497.825078ms)
+(node:3415) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/dev/harness/page/scenarios.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: source-controller signal/crossing time budget; strict unsignalised deadline; controller deduplication and 90s cap
+✔ game/dev/spawn-budget.test.mjs (196.744984ms)
+(node:3422) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/underpass-roof.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": 19,
+  "tests": [
+    "all 15 actual native inverted-roof witnesses become positive slabs; literal 3.5m remains separate",
+    "all 112 true Pasaj road profiles and legal tags remain exact",
+    "actual native mitred portal beam and underside share exact Float32 endpoints",
+    "each proposed native slab is closed at roof, sides and buried endpoint height steps",
+    "cap-to-native-clearance transition is split at the true kink, not interpolated above the slab",
+    "partly covered literal tunnel retains an open ramp and closes only its old covered interval",
+    "ordinary surface, source canopy, elevated bridge and open ramp get no roof",
+    "literal height above available opening stays unresolved; roof is not lifted",
+    "missing and non-metric legal tags stay explicit, never become measured clearance",
+    "literal physical opening wins over the generic estimate when the positive slab can contain it",
+    "malformed source profiles and nonpositive slab inputs are refused",
+    "earth roof occluder preserves source color and blocks later underground bodies only inside its covered footprint",
+    "roof collider follows actual Float32 slab planes and permits the literal 3.5m body below",
+    "roof top follows actual native grass/pave bands without lifting or recoloring their vertices",
+    "source-ground coverage gaps use the unchanged native base-plane datum and stay explicit",
+    "the sunken road cannot become its own overhead earth owner",
+    "lower transparent water remains unresolved regardless of opaque renderOrder; no guessed top shift",
+    "malformed native surface data is reported instead of becoming a clearance certificate",
+    "actual World final graph renumber refreshes roof source-edge provenance"
+  ],
+  "historicalNativeSource": "395071c21079fb14c25af194a9903a5ae5d87b26",
+  "currentNativeVisualAcceptance": false
+}
+✔ game/dev/underpass-roof.test.mjs (276.611167ms)
+(node:3423) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/vendor/three.module.min.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: native 593/609 proposal, cross-cell rollback/third body, recovery membership, sparse refresh and clear-boundary controls
+✔ game/dev/vehicle-cell-boundary.test.mjs (569.517959ms)
+(node:3436) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: stopped lane/bypass holds, moving steering distance budget, long-body clearance, residual stop and visible/failed recovery holds
+✔ game/dev/vehicle-lanes.test.mjs (381.167399ms)
+(node:3443) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/CalinaCristian.github.io/game/src/traffic.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/CalinaCristian.github.io/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: actual short-edge body, back-out, new third contact, turn, pedestrian/player, height and timed-ghost controls
+✔ game/dev/vehicle-separation.test.mjs (316.534205ms)
+ℹ tests 152
+ℹ suites 0
+ℹ pass 150
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18311.616041
+
+✖ failing tests:
+
+test at game/dev/generated-parapet-ownership.test.mjs:1:1
+✖ game/dev/generated-parapet-ownership.test.mjs (1004.241135ms)
+  'test failed'
+
+test at game/dev/harness/car-screen-poi.test.mjs:1:1
+✖ game/dev/harness/car-screen-poi.test.mjs (972.328807ms)
+  'test failed'

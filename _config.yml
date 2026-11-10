@@ -56,3 +56,8 @@ exclude:
   - handoffs/fidelity/overview-carusel-progress-publication
   - handoffs/fidelity/tram490-native-984
   - handoffs/fidelity/inferred-road-sign-native-984
+
+  - handoffs/fidelity/live-office-windows
+  - handoffs/fidelity/situational-dialogue-20261109
+  - handoffs/fidelity/situational-dialogue-integration-20261109
+  - handoffs/fidelity/batch-20261110

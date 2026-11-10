@@ -4945,5 +4945,15 @@
       "path": "game/overview/style.css",
       "sha256": "539b8dd21c122f00bd6339622d2ad2ea3c8d807df3f426828703daed3e5a46a8"
     }
+  ],
+  "stagingEvidence": [
+    {
+      "id": "road-office-batch-20261110",
+      "sourceSha": "277d7723b77efec2efad4c3a59a7e68fca9edea6",
+      "capturedOn": "2026-11-10",
+      "manifest": "evidence/road-office-batch-20261110/manifest.json",
+      "frames": 3,
+      "scope": "Bridge, covered tunnel and live office-window checkpoints; incomplete final acceptance."
+    }
   ]
 }

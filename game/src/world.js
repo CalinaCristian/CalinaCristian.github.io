@@ -30,6 +30,7 @@ import { scenerySourceProfile } from './scenery-source.js';
 import { sceneryBridgeProfiles, sceneryDeckBand } from './scenery-bridges.js';
 import { batchWaterChunks } from './water-batch.js';
 import { cullMergedCells } from './cell-frustum.js';
+import {fallbackGroundApertures,buildFallbackGround} from './fallback-ground.js';
 import { waterChannelDecision } from './water-channel.js';
 import { uncoveredWaterLine } from './water-lines.js';
 import { buildTramGrades, tramGradeRenderPieces, tramSupportPieceId } from './tram-grade.js';
@@ -5819,6 +5820,12 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
     }
     const cellsGroup = new THREE.Group(); cellsGroup.name = 'cells'; group.add(cellsGroup);
+    const fallbackApertures=fallbackGroundApertures();
+    for(const piece of tramGrades.support.pieces)if(!piece.roof&&piece.top){
+        const top=piece.top.map(p=>p.map(Math.fround));
+        fallbackApertures.addTriangle([top[0],top[1],top[2]],'tram-floor');
+        fallbackApertures.addTriangle([top[0],top[2],top[3]],'tram-floor');
+    }
     let tris = underpassCover.ic / 3;
     // Destination guides are gameplay markers, including at doors reached from a sidewalk.
     // Keep their exact paint/material while batching them separately from physical carriageway markings.
@@ -5868,6 +5875,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const addSuper = (o, mat, cast, name) => {
         cx = o.I * o.K + o.K / 2 - 0.5; cz = o.J * o.K + o.K / 2 - 0.5; // (addMesh centres at (cx + 0.5) · CELL)
         const m = addMesh(o.mb, mat, cast, `${name} ${o.I},${o.J}`); if (!m) return null;
+        if(['ground','road','pad'].includes(o.layer))fallbackApertures.addGeometry(m.geometry,'road-floor');
         if (o.parts) cullMergedCells(m, o.parts, { blockTriangles: o.layer === 'ground' || o.layer === 'grass' ? 64 : 0 });
         const extra = CELL * (o.K - 1) * 0.71; m.userData.cull = (m.userData.cull || cullR) + extra;
         return m;
@@ -5886,7 +5894,7 @@ export async function buildWorld(city, renderer, opts = {}) {
             case 'road': { const m = addSuper(o, roadMat, false, 'road'); if (m) m.renderOrder = 2; break; }
             case 'pad': { const m = addSuper(o, padMat, false, 'junction'); if (m) m.renderOrder = 3; break; }
             case 'marks': { const m = addSuper(o, marksMat, false, 'marks'); if (m) m.renderOrder = 4; break; }
-            case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) { m.renderOrder = -18; shoreFoam(m, preparedSmallWater?.get(o.I + ',' + o.J)); } break; }
+            case 'water': { const m = addSuper(o, waterMat, false, 'water'); if (m) { m.renderOrder = -18; shoreFoam(m, preparedSmallWater?.get(o.I + ',' + o.J)); fallbackApertures.addGeometry(m.geometry,'final-water'); } break; }
             case 'solid': addSuper(o, solidMat, true, 'solid'); break;
             case 'detail': { const m = addSuper(o, solidMat, false, 'detail'); if (m) { m.userData.cull = 110 + CELL * 0.71; m.layers.set(2); } break; } // (main view only) // near LOD only // (2026-11-08: no shadow pass — pickets, wires, nets: the frame budget)
             case 'signs': addSuper(o, signMats[o.page], false, 'signs'); break;
@@ -6006,6 +6014,9 @@ export async function buildWorld(city, renderer, opts = {}) {
         waterMesh.renderOrder = 0;
         for (const mesh of waterMesh.children) mesh.renderOrder = -18.1;
     }
+    // Read the complete final retained water before its first view selection.
+    if(waterMesh?.isGroup)for(const m of waterMesh.children)fallbackApertures.addGeometry(m.geometry,'final-water');
+    else if(waterMesh?.geometry)fallbackApertures.addGeometry(waterMesh.geometry,'final-water');
     if (waterMesh?.isGroup) batchWaterChunks(waterMesh);
     // distance culling: cells beyond the fog are hidden (three.js only frustum-culls, and the camera far plane is 5 km).
     // The viewer is world.camera if set, else the widest perspective camera found in the scene.
@@ -6048,16 +6059,22 @@ export async function buildWorld(city, renderer, opts = {}) {
     const W = bounds.maxX - bounds.minX, H = bounds.maxZ - bounds.minZ;
     // (the plane reaches 30 km past the map: its edge was visible at ~3 km on clear days with render's 15–20 km visibility)
     const GPAD = 60000;
-    const groundGeo = new THREE.PlaneGeometry(W + GPAD, H + GPAD, 1, 1);
-    groundGeo.rotateX(-Math.PI / 2);
-    const uv = groundGeo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * (W + GPAD) / 12, uv.getY(i) * (H + GPAD) / 12);
-    const groundPlaneMat = new THREE.MeshLambertMaterial({ color: new THREE.Color(env.ground).multiplyScalar(0.72), map: noise, depthWrite: false }); groundPlaneMat.name = 'groundPlane';
+    const fallback=buildFallbackGround(fallbackApertures,{x0:bounds.minX-GPAD/2,x1:bounds.maxX+GPAD/2,z0:bounds.minZ-GPAD/2,z1:bounds.maxZ+GPAD/2});
+    fallbackApertures.cuts.length=0;
+    let groundGeo=fallback.geometry;
+    if(!groundGeo){
+        groundGeo=new THREE.PlaneGeometry(W+GPAD,H+GPAD,1,1);groundGeo.rotateX(-Math.PI/2);
+        const uv=groundGeo.attributes.uv;for(let i=0;i<uv.count;i++)uv.setXY(i,uv.getX(i)*(W+GPAD)/12,uv.getY(i)*(H+GPAD)/12);
+    }
+    const groundPlaneMat = new THREE.MeshLambertMaterial({ color: new THREE.Color(env.ground).multiplyScalar(0.72), map: noise, depthWrite: fallback.report.known }); groundPlaneMat.name = 'groundPlane';
     const ground = new THREE.Mesh(groundGeo, groundPlaneMat);
     vegetation.grassMaterials.push(grassMat);
     vegetation.groundMaterials.push(groundPlaneMat, areaMat, paveMat);
     vegetation.roofMaterials.push(roofMat);
     vegetation.sportMaterials = [sportMat, ...landmarkSurfaceMats];
-    ground.position.set((bounds.minX + bounds.maxX) / 2, -0.3, (bounds.minZ + bounds.maxZ) / 2);
+    if(!fallback.report.known)ground.position.set((bounds.minX + bounds.maxX) / 2, -0.3, (bounds.minZ + bounds.maxZ) / 2);
+    else cullMergedCells(ground,fallback.parts,{blockTriangles:64});
+    ground.userData.fallbackGround=fallback.report;
     ground.renderOrder = -20; // far horizon filler only; the city's ground is per cell
     ground.receiveShadow = true; ground.name = 'ground';
     group.add(ground);
@@ -6158,6 +6175,7 @@ export async function buildWorld(city, renderer, opts = {}) {
     const stats = { parkingClearance, phases, railways: railStats, network: sccInfo, edges: edges.length, walls: walls.length, wallPiecesCut: wallCut, piers: pierColl.length, furniture: furnCount, roadSigns: signCount, roofAds, roofAdList, backdrop: backdropCount, sceneryStreets, kerbParked, marksDropped: edges.filter(e => (e._mkAll || 0) > 4 && ((e._mkDrop || 0) + (e._mkOut || 0)) / e._mkAll > 0.2).sort((p, q) => ((q._mkDrop || 0) + (q._mkOut || 0)) / q._mkAll - ((p._mkDrop || 0) + (p._mkOut || 0)) / p._mkAll).slice(0, 30).map(e => ({ name: e.name, type: e.type, id: e.id, lanes: [e.lanesF, e.lanesB], oneway: e.oneway, x: Math.round((e.a.x + e.b.x) / 2), z: Math.round((e.a.z + e.b.z) / 2), len: Math.round(e.len), cover: +((e._mkDrop || 0) / e._mkAll).toFixed(2), out: +((e._mkOut || 0) / e._mkAll).toFixed(2) })), raisedSidewalk: { pieces: raisedPieces, corners: cornerPolys.length, joins: sideJoins.size, skipped: cornerSkips }, greenQuads, fenceM: Math.round(fenceM), bollards, pitchesDressed, fuel: fuelLog,
         buildingRoofProfiles: roofProfileAudit, profile: profileStats, buildingPassages: buildingPassageAudit, treesOSM, treesRows, heightFixes: heightFixes.length, heightFixSamples: heightFixes.slice(0, 30), buildingsShrunk: bShrunk, buildingClearance: clearanceAudit, buildingsDropped: bDropped, buildingsCovered: coveredOutlines, buildingAssemblies: assemblyAudit, buildingAssembliesRejected: assemblyRejected, buildingUnions: physicalUnionAudit, buildingUnionsRejected: physicalUnionRejected, inferredBuildingDetails: inferredDetailAudit, landmarkSourceReplacements, landmarkBoxesTrimmed: lmTrim, landmarkBoxesDropped: lmDrop, lampsMovedToKerb: lampsMoved, lampsInWater: lampsWet, shoreTris: Math.round(shoreTris), vacantUnits, channelM: Math.round(channelM), unitSigns, unitSignSpots: signedSpots.slice(0, 40).map(q => q.map(v => Math.round(v))), crossings: crossings.length, corridorKm2: data.corridor?.areaKm2, nodes: Object.keys(nodes).length, buildings: collision.length, pois: pois.length, trees: treeCount, parked, lights: lights.length, lamps: lamps.length, osmLamps: lamps.filter(l => l.osm).length, cells: cells.size, triangles: Math.round(tris), meshes: cellsGroup.children.length, signPages: signTex.length, buildMs: Math.round(performance.now() - t0) };
     stats.scenerySource = scenerySourceAudit;
+    stats.fallbackGround=fallback.report;
     stats.districtBoundary = boundarySupport.report;
     stats.transitShelters = { schema: 1, records: transitShelterAudit, withheldUnknown: transitShelterAudit.filter(r => r.status === 'unknown-shelter-geometry').length, literalNo: transitShelterAudit.filter(r => r.status === 'literal-no-shelter').length, legacyUnreviewed: transitShelterAudit.filter(r => r.status === 'legacy-unreviewed').length, limits: 'Inferred generic-unit decisions only; no real shelter absence, mapped geometry removal or constructor/route clearance acceptance.' };
     stats.waterShore = waterShoreAudit;

@@ -1,6 +1,6 @@
 {
   "releaseId": "game-ae151cd51522d241",
-  "sourceCommit": "f7eddfbe2b704f253ef3d7674c02459d57cf6d04",
+  "sourceCommit": "e8b6ff4d74f78e1897c4da8a02668320f5f1b31d",
   "fingerprint": "ae151cd51522d2415a2b46f979615c6d74d17e477884e679cce958bd2144e3ac",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [

@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "f7eddfbe2b704f253ef3d7674c02459d57cf6d04",
+  "sourceSha": "e8b6ff4d74f78e1897c4da8a02668320f5f1b31d",
   "reviewedOn": "2026-11-10",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -3464,7 +3464,7 @@
     },
     {
       "path": "specs/12-buildings-streetscape.md",
-      "sha256": "59ff36b4819002d28f2ea8971f01ae8f9d5a05fb2e1186ee92b47935168064fe"
+      "sha256": "938e47cfaabc5a2bb052be4743773ac01f22cca5508b7d76fcdf422f1742c91b"
     },
     {
       "path": "specs/13-traffic.md",
@@ -3484,7 +3484,7 @@
     },
     {
       "path": "game/index.html",
-      "sha256": "18c127e5220066321d8e28a01d8ff458f44b723e9ce9bb9e7728e25d8b6fe8d0"
+      "sha256": "040df10ad9a8675a7ea2a152987a4441b451ffde0739366796550d2b2bf736d8"
     },
     {
       "path": "game/data/README.md",
@@ -5828,7 +5828,7 @@
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/skytower.json",
-      "sha256": "d1c1909bde893850fb0701e0f286b008cd0e07366a602b210ae386fa571e7841"
+      "sha256": "70e628917443bb0a603c570db7347dce1d67be8228cc5d09b0d32e6d224eef4b"
     },
     {
       "path": "game/overview/evidence/landmarks/bucharest/thelandmark.json",
@@ -6064,7 +6064,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "23595453302d59a31034c433153bebc6ab714aeed477e542d5773fe7a91aa8ff"
+      "sha256": "104b41bae726582b1dcc1f53b8cb54b1a4022cfa4e8947477772a9af9cd0cdda"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6103,7 +6103,7 @@
       "sha256": "28566da17373e4715ed22361f8f6672c896d1f4d3298e5ed88603474de6aa094"
     },
     {
-      "path": "game/overview/fix-skytower/summary.json",
+      "path": "game/overview/assets/landmarks/skytower/native-20261110/summary.json",
       "sha256": "87681db148e41a246feef390d951d99ceeecb659aab5f59e6bbcdd2955ddc046"
     }
   ],
@@ -6209,7 +6209,7 @@
   },
   "skytowerFixEvidence": {
     "runtimeSource": "a8fedd35fb9c9e58039e4b2a5b600cdfe16aea2e",
-    "summary": "fix-skytower/summary.json",
+    "summary": "assets/landmarks/skytower/native-20261110/summary.json",
     "scope": "Partitioned source facade and exact coarse owner; matched district appearance controls. Existing Arnia route and other reports remain open."
   }
 }

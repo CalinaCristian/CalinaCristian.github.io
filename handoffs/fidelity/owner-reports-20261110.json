@@ -55,7 +55,11 @@
           "pedestrians": 560
         }
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Staged candidate",
+        "deliveryNote": "Facade partition fix exists; both native scene views and render budgets still need acceptance."
+      }
     },
     {
       "id": "bus-shelter",
@@ -111,7 +115,11 @@
           "pedestrians": 560
         }
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "road-flicker",
@@ -167,7 +175,11 @@
           "pedestrians": 560
         }
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "ground-windows",
@@ -223,7 +235,11 @@
           "pedestrians": 560
         }
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "open-balcony-ends",
@@ -279,7 +295,11 @@
           "pedestrians": 560
         }
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Staged candidate",
+        "deliveryNote": "Shared balcony end caps/returns exist; reported views remain unverified."
+      }
     },
     {
       "id": "pedestrians-parked-car",
@@ -329,7 +349,11 @@
           "pedestrians": 560
         }
       },
-      "image": "Owner image in conversation; no attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Shared fix in progress",
+        "deliveryNote": "Pedestrian/car recovery fixes are under test. This specific reported location has not been verified."
+      }
     },
     {
       "id": "pedestrians-closure",
@@ -379,7 +403,11 @@
           "pedestrians": 560
         }
       },
-      "image": "Owner image in conversation; no attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Shared fix in progress",
+        "deliveryNote": "Pedestrian/car recovery fixes are under test. This specific reported location has not been verified."
+      }
     },
     {
       "id": "pedestrians-car-pileup",
@@ -429,7 +457,11 @@
           "pedestrians": 560
         }
       },
-      "image": "Owner image in conversation; no attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Shared fix in progress",
+        "deliveryNote": "Pedestrian/car recovery fixes are under test. This specific reported location has not been verified."
+      }
     },
     {
       "id": "pedestrians-next-closure",
@@ -479,7 +511,11 @@
           "pedestrians": 560
         }
       },
-      "image": "Owner image in conversation; no attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Shared fix in progress",
+        "deliveryNote": "Pedestrian/car recovery fixes are under test. This specific reported location has not been verified."
+      }
     },
     {
       "id": "courtyard-roof-query",
@@ -529,7 +565,11 @@
           "pedestrians": 560
         }
       },
-      "image": "Owner image in conversation; no attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "basarab-white-ground",
@@ -595,7 +635,9 @@
         "candidate": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
         "previousCandidate": "2bbf755f67bbfa710bb28ccd46cea552f5f3739d",
         "evidence": "BASARAB-20261110.md",
-        "scope": "R15 combined native-preview model/support-cache/proven source-prop separation batch is staged; fresh ordinary-source drive in progress. R11 white-ground native/rivers and R10sixty-stay/body/pixel controls retain their scoped passes. Full routes, piers/parapets/undersides/shimmer, original driver/north/evolving budgets, overview and publication remain open."
+        "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
+        "deliveryStatus": "Local check passed; unreleased",
+        "deliveryNote": "Ground cutout/depth candidate removes the patches in native controls. A narrow release and affected overview capture are still required."
       }
     },
     {
@@ -662,7 +704,9 @@
         "candidate": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
-        "scope": "R15 combined native-preview model/support-cache/proven source-prop separation batch is staged; fresh ordinary-source drive in progress. R11 white-ground native/rivers and R10sixty-stay/body/pixel controls retain their scoped passes. Full routes, piers/parapets/undersides/shimmer, original driver/north/evolving budgets, overview and publication remain open."
+        "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
     {
@@ -729,7 +773,9 @@
         "candidate": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
-        "scope": "R15 combined native-preview model/support-cache/proven source-prop separation batch is staged; fresh ordinary-source drive in progress. R11 white-ground native/rivers and R10sixty-stay/body/pixel controls retain their scoped passes. Full routes, piers/parapets/undersides/shimmer, original driver/north/evolving budgets, overview and publication remain open."
+        "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
     {
@@ -796,7 +842,9 @@
         "candidate": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
-        "scope": "R15 combined native-preview model/support-cache/proven source-prop separation batch is staged; fresh ordinary-source drive in progress. R11 white-ground native/rivers and R10sixty-stay/body/pixel controls retain their scoped passes. Full routes, piers/parapets/undersides/shimmer, original driver/north/evolving budgets, overview and publication remain open."
+        "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
     {
@@ -863,7 +911,9 @@
         "candidate": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
-        "scope": "R15 combined native-preview model/support-cache/proven source-prop separation batch is staged; fresh ordinary-source drive in progress. R11 white-ground native/rivers and R10sixty-stay/body/pixel controls retain their scoped passes. Full routes, piers/parapets/undersides/shimmer, original driver/north/evolving budgets, overview and publication remain open."
+        "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
     {
@@ -930,7 +980,9 @@
         "candidate": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
-        "scope": "R15 combined native-preview model/support-cache/proven source-prop separation batch is staged; fresh ordinary-source drive in progress. R11 white-ground native/rivers and R10sixty-stay/body/pixel controls retain their scoped passes. Full routes, piers/parapets/undersides/shimmer, original driver/north/evolving budgets, overview and publication remain open."
+        "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
       }
     },
     {
@@ -997,7 +1049,9 @@
         "candidate": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
-        "scope": "R15 combined native-preview model/support-cache/proven source-prop separation batch is staged; fresh ordinary-source drive in progress. R11 white-ground native/rivers and R10sixty-stay/body/pixel controls retain their scoped passes. Full routes, piers/parapets/undersides/shimmer, original driver/north/evolving budgets, overview and publication remain open."
+        "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
+        "deliveryStatus": "Staged candidate",
+        "deliveryNote": "Centre-support/platform geometry exists; full bridge/tram journey and final visuals remain open."
       }
     },
     {
@@ -1064,7 +1118,9 @@
         "candidate": "8a6099a39ab3fbc847496ba0f1eaa8ad63f81c43",
         "previousCandidate": "c08512c3b501b04ab5a81432ac01f14902466a84",
         "evidence": "BASARAB-20261110.md",
-        "scope": "R15 combined native-preview model/support-cache/proven source-prop separation batch is staged; fresh ordinary-source drive in progress. R11 white-ground native/rivers and R10sixty-stay/body/pixel controls retain their scoped passes. Full routes, piers/parapets/undersides/shimmer, original driver/north/evolving budgets, overview and publication remain open."
+        "scope": "R18 native drive reached255.49m/570.92m and then stalled at235.13simsec. White-ground and support controls retain their local scope. Peer-aware physical escape and allocation work is staged in root; no completed full route, geometry/budget, overview or publication acceptance.",
+        "deliveryStatus": "In progress",
+        "deliveryNote": "CPU and movement fixes have scoped tests. The evolving population, full approach, visual frame budget and sustained performance still fail or remain open."
       }
     },
     {
@@ -1126,7 +1182,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "upb-sign-occluded",
@@ -1187,7 +1247,11 @@
         "visit": null,
         "office": "upb"
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-protrusion",
@@ -1248,7 +1312,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-buildings-on-road",
@@ -1309,7 +1377,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-tree-facade",
@@ -1370,14 +1442,22 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "gts-manager-desk",
       "ownerNote": "Manager body intersects desk and monitor. Screenshot only; no exact camera supplied.",
       "status": "reported-not-yet-accepted",
       "scene": "gts",
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-ground-facade-flicker",
@@ -1438,7 +1518,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-junction-overlap",
@@ -1499,7 +1583,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-overlapping-signs",
@@ -1560,7 +1648,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-fountains-off",
@@ -1621,7 +1713,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-tree-fountain",
@@ -1682,7 +1778,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-fountain-road",
@@ -1743,7 +1843,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "parliament-detail",
@@ -1804,7 +1908,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-cut-zebra",
@@ -1865,7 +1973,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-missing-markings-west",
@@ -1926,7 +2038,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-missing-markings-east",
@@ -1987,7 +2103,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-frontage-road",
@@ -2048,7 +2168,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-sign-overlap-east",
@@ -2109,7 +2233,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "unirii-jammed-turn",
@@ -2170,7 +2298,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Shared fix in progress",
+        "deliveryNote": "Pedestrian/car recovery fixes are under test. This specific reported location has not been verified."
+      }
     },
     {
       "id": "unirii-parked-car-pileup",
@@ -2231,7 +2363,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Shared fix in progress",
+        "deliveryNote": "Pedestrian/car recovery fixes are under test. This specific reported location has not been verified."
+      }
     },
     {
       "id": "pipera-closure-crowds",
@@ -2292,7 +2428,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Shared fix in progress",
+        "deliveryNote": "Pedestrian/car recovery fixes are under test. This specific reported location has not been verified."
+      }
     },
     {
       "id": "pipera-podium-overlap",
@@ -2353,7 +2493,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "pipera-corner-flicker",
@@ -2414,7 +2558,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "pipera-long-facade-flicker",
@@ -2475,7 +2623,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "pipera-skytower-flicker",
@@ -2536,7 +2688,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Staged candidate",
+        "deliveryNote": "Same facade partition candidate as Floreasca; this reported Pipera view remains unverified."
+      }
     },
     {
       "id": "pipera-broken-ramp-ribbons",
@@ -2597,7 +2753,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "pipera-crossing-walls",
@@ -2658,7 +2818,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "pipera-long-street-spikes",
@@ -2719,7 +2883,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "romana-broken-crossing",
@@ -2780,7 +2948,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "romana-parking-markings",
@@ -2841,7 +3013,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "romana-window-eaves",
@@ -2902,7 +3078,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "romana-building-road",
@@ -2963,7 +3143,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "romana-floating-upper-part",
@@ -3024,14 +3208,22 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "luxoft-unfinished",
       "ownerNote": "Owner asks whether Luxoft is unfinished; screenshot shows generic interior and opaque windows. Confirmed still unfinished and outlook unavailable pending floor.",
       "scene": "luxoft",
       "status": "reported-not-yet-accepted",
-      "image": "Owner screenshot in conversation; no exact pose supplied."
+      "image": "Owner screenshot in conversation; no exact pose supplied.",
+      "work": {
+        "deliveryStatus": "Unfinished",
+        "deliveryNote": "Interior and geographically correct window view remain incomplete; assigned floor is unresolved."
+      }
     },
     {
       "id": "otopeni-road-median-object",
@@ -3092,7 +3284,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "otopeni-road-median-repeat",
@@ -3153,7 +3349,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "otopeni-floating-roof",
@@ -3214,7 +3414,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "otopeni-terminal-overlap",
@@ -3275,7 +3479,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "seatac-disconnected-skybridge",
@@ -3336,7 +3544,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "seatac-disconnected-repeat",
@@ -3397,7 +3609,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "seatac-helix-car",
@@ -3458,7 +3674,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "seatac-helix-connector",
@@ -3519,7 +3739,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "seatac-floating-sign",
@@ -3580,7 +3804,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "seatac-terminal-road-block",
@@ -3641,7 +3869,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "seatac-ramp-edges",
@@ -3702,7 +3934,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "seatac-missing-road-car",
@@ -3763,7 +3999,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "seatac-junction-markings",
@@ -3824,7 +4064,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "night-drone-road-lighting",
@@ -3834,7 +4078,9 @@
       "work": {
         "candidate": "1816a467546c3b387a2c99e33f31eb861a6ef127",
         "evidence": "NIGHT-DRONE-20261110.md",
-        "scope": "Elevated viewed-ground coverage only; apron floodlight/source coverage and original screenshot context remain unresolved. Not published."
+        "scope": "Elevated viewed-ground coverage only; apron floodlight/source coverage and original screenshot context remain unresolved. Not published.",
+        "deliveryStatus": "Staged candidate",
+        "deliveryNote": "Active-camera lamp-selection candidate exists; the reported airport night view and apron coverage are not accepted."
       }
     },
     {
@@ -3896,7 +4142,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Shared fix in progress",
+        "deliveryNote": "Pedestrian/car recovery fixes are under test. This specific reported location has not been verified."
+      }
     },
     {
       "id": "bellevue-bridge-margins",
@@ -3957,7 +4207,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "bellevue-junction-paint",
@@ -4018,7 +4272,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "bellevue-street-paint-gap",
@@ -4079,7 +4337,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     },
     {
       "id": "bellevue-square-assembly",
@@ -4140,7 +4402,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner screenshot/report in conversation."
+      "image": "Owner screenshot/report in conversation.",
+      "work": {
+        "deliveryStatus": "Open — no verified fix",
+        "deliveryNote": "A completed fix for this supplied report is not available. No acceptance or release is claimed."
+      }
     }
   ],
   "scope": "Exact reported camera/geographic fields and selected performance metadata transcribed from owner reports; this is not a native reproduction or acceptance receipt."

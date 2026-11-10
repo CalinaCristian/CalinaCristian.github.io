@@ -20,6 +20,10 @@ Shared files touched by several roles (`main.js` hooks for new modules) go throu
 
 ## Contracts (keep in sync; update here first)
 
+- A marked local pedestrian escape may use a tight corridor beside a vehicle: every sampled segment and actual step must clear the person's current body/carried-item radius plus0.05m. An existing closer contact may only separate. Only those escape legs use this body margin; ordinary walking retains its0.7m comfort rule. Keep the unchanged contact push, peer, solid/water and vehicle-step guards, full-fleet reach and bounded walking pace.
+
+- Local pedestrian escape planning applies the existing full-population `peerClearStep` predicate to each bounded segment and shortcut, including source floor separation and monotonic relief of an existing contact. Actual movement keeps the same guard. A static/vehicle-clear goal cannot authorize a route through the surrounding crowd; actors, source sidewalks and personal-space thresholds are preserved.
+
 - A locally replanned walking arrival carries its target sidewalk offset in `next.arriveWalkOff`. Apply that binding only when reaching the target, before ordinary source placement; do not reuse the departing physical offset as the destination. Other route/next bindings retain their behavior.
 
 - A crossing or visible recovery walk already returning to a kerb may request a local escape route to a reachable existing sidewalk after six seconds without physical progress. Its first steps may leave an existing vehicle comfort margin only with nondecreasing body clearance; they never enter a new body contact, water, solid or absent sidewalk. Normal crossing admission/peer/body guards and walking pace remain. An active crossing never becomes a successful arrival because its return was blocked.

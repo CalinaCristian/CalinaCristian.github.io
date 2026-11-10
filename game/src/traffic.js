@@ -2777,45 +2777,45 @@ export class Pedestrians {
         });
         return clear;
     }
-    /** Leave an existing stopped-body comfort margin without taking a step
-     * deeper into any body. The normal vehicle guard still checks actual motion. */
-    separatingVehiclePoint(from, x, z, reach = undefined) {
+    /** A marked escape uses a physically clear corridor rather than reserving
+     * the ordinary comfort margin. Existing body contacts may only separate. */
+    vehicleEscapePointClear(from, x, z, reach = undefined) {
         const T = this.t, G = T.grid;
         if (!G?.items || !G.query) return false;
         if (reach === undefined) {
             reach = 0;
             for (const v of T.vehicles || G.items) if (Number.isFinite(v.length) && Number.isFinite(v.width)) reach = Math.max(reach, Math.hypot(v.length, v.width) / 2);
         }
-        let clear = true, margin = false;
-        G.query((from.x + x) / 2, (from.z + z) / 2, Math.hypot(x - from.x, z - from.z) / 2 + reach + PED_R + .45, v => {
+        const radius = Math.max(PED_R, from.radius ?? PED_R), minimum = radius + .05;
+        if (!Number.isFinite(radius)) return false;
+        let clear = true;
+        G.query((from.x + x) / 2, (from.z + z) / 2, Math.hypot(x - from.x, z - from.z) / 2 + reach + minimum, v => {
             if (!clear || v.inactive || !streetLevel(v)) return;
             const fx = -Math.sin(v.heading), fz = -Math.cos(v.heading);
             const distance = (x, z) => { const dx = x - v.x, dz = z - v.z; return Math.max(Math.abs(dx * fx + dz * fz) - v.length / 2, Math.abs(-dx * fz + dz * fx) - v.width / 2); };
             const before = distance(from.x, from.z), after = distance(x, z);
-            if (after < PED_R + .45) {
-                margin = true;
-                if (after < before - 1e-6 || (before >= PED_R && after < PED_R) || (before < PED_R && after <= before)) clear = false;
-            }
+            if (after < minimum && (after < before - 1e-6 || before >= minimum || (before < radius && after <= before))) clear = false;
         });
-        return clear && margin;
+        return clear;
     }
     clearWalkStep(x, z, escaping, escapeFrom = null, escapeReach = undefined) {
         const W = this.t.world;
         return (escaping || !this.roadAt(x, z, PED_R)) && !this.inWater(x, z) && !collideBuildings(W.buildings || [], x, z, PED_R, (W.walkTop?.(x, z) ?? 0.2) + 0.01) &&
-            (this.freeVehiclePoint(x, z) || (!!escapeFrom && this.separatingVehiclePoint(escapeFrom, x, z, escapeReach)));
+            (escapeFrom ? this.vehicleEscapePointClear(escapeFrom, x, z, escapeReach) : this.freeVehiclePoint(x, z));
     }
-    clearWalkSegment(a, b, escaping, vehicleEscape = false) {
+    clearWalkSegment(a, b, escaping, vehicleEscape = false, person = null) {
         const n = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.z - a.z) / 0.3));
         let previous = a;
         for (let k = 1; k <= n; k++) {
             const point = { x: a.x + (b.x - a.x) * k / n, z: a.z + (b.z - a.z) * k / n };
-            if (!this.clearWalkStep(point.x, point.z, escaping, vehicleEscape ? previous : null, vehicleEscape?.reach)) return false;
+            if (!this.clearWalkStep(point.x, point.z, escaping, vehicleEscape ? { ...previous, radius: vehicleEscape.radius ?? PED_R } : null, vehicleEscape?.reach)) return false;
+            if (person && !this.peerClearStep(person, point.x, point.z, previous.x, previous.z)) return false;
             previous = point;
         }
         return true;
     }
     /** A local walking detour for a blocked recovery, including the corners of
-     * parked cars. Every segment uses the same vehicle clearance as walking. */
+     * parked cars. Every segment keeps its current vehicle and peer clearance. */
     escapeRoute(p, goals, escaping, vehicleEscape = false) {
         if(this._escapeFrame!==this._fr){this._escapeFrame=this._fr;this._escapeSearches=0;}
         if(this._escapeSearches>=1)return null;this._escapeSearches++;
@@ -2825,25 +2825,25 @@ export class Pedestrians {
         first.score = heuristic(first);
         for (let attempts = 0; open.length && attempts < 900; attempts++) {
             open.sort((a, b) => b.score - a.score); const q = open.pop();
-            for (const goal of goals) if (Math.hypot(q.x - goal.x, q.z - goal.z) < 1 && this.clearWalkSegment(q, goal, escaping, vehicleEscape)) {
+            for (const goal of goals) if (Math.hypot(q.x - goal.x, q.z - goal.z) < 1 && this.clearWalkSegment(q, goal, escaping, vehicleEscape, p)) {
                 const path = [goal]; for (let a = q; a.prev; a = a.prev) path.push({ x: a.x, z: a.z }); path.reverse();
                 // Remove redundant grid steps only when the entire shortcut is clear.
                 const legs = []; let from = p;
-                for (let i = 0; i < path.length;) { let j = i; while (j + 1 < path.length && this.clearWalkSegment(from, path[j + 1], escaping, vehicleEscape)) j++; legs.push(path[j]); from = path[j]; i = j + 1; }
+                for (let i = 0; i < path.length;) { let j = i; while (j + 1 < path.length && this.clearWalkSegment(from, path[j + 1], escaping, vehicleEscape, p)) j++; legs.push(path[j]); from = path[j]; i = j + 1; }
                 return { goal, legs };
             }
             for (let di = -1; di <= 1; di++) for (let dj = -1; dj <= 1; dj++) {
                 if (!di && !dj) continue;
                 const i = q.i + di, j = q.j + dj; if (Math.abs(i) > extent || Math.abs(j) > extent) continue;
                 const x = p.x + i * stride, z = p.z + j * stride, cost = q.cost + Math.hypot(di, dj) * stride * (this.roadAt(x, z) ? 1.8 : 1), old = seen.get(key(i, j));
-                if ((old && old.cost <= cost) || !this.clearWalkSegment(q, { x, z }, escaping, vehicleEscape)) continue;
+                if ((old && old.cost <= cost) || !this.clearWalkSegment(q, { x, z }, escaping, vehicleEscape, p)) continue;
                 const next = { i, j, x, z, cost, score: cost + heuristic({ x, z }), prev: q }; seen.set(key(i, j), next); open.push(next);
             }
         }
         return null;
     }
     replanWalk(p, { blockedReturn = false } = {}) {
-        const vehicleEscape = blockedReturn && p.state === 'legs' && (p.recovery || (p.legs?.[0]?.cross && p.legs[0].back)) ? { reach: 0 } : null;
+        const vehicleEscape = blockedReturn && p.state === 'legs' && (p.recovery || (p.legs?.[0]?.cross && p.legs[0].back)) ? { reach: 0, radius: Math.max(PED_R, this.reach(p)) } : null;
         if (vehicleEscape) for (const v of this.t.vehicles || this.t.grid?.items || [])
             if (Number.isFinite(v.length) && Number.isFinite(v.width)) vehicleEscape.reach = Math.max(vehicleEscape.reach, Math.hypot(v.length, v.width) / 2);
         if ((p.onRoad && !p.recovery && !p.legs?.[0]?.escape && !vehicleEscape) || p.agent || p.react || p.talkT > 0) return false;
@@ -2860,7 +2860,7 @@ export class Pedestrians {
                     const s = clamp(along + shift, 0, e.len), u = this.off(e, side), x = e.a.x + e.dirx * s + e.nx * u * side, z = e.a.z + e.dirz * s + e.nz * u * side, d = Math.hypot(x - p.x, z - p.z);
                     if (!this.freeWalkPoint(x, z) || !this.freeVehiclePoint(x, z)) continue;
                     const goal = { e, side, x, z, s }; goals.push(goal);
-                    if (d < bd && this.clearWalkSegment(p, goal, escaping, vehicleEscape)) { best = goal; bd = d; }
+                    if (d < bd && this.clearWalkSegment(p, goal, escaping, vehicleEscape, p)) { best = goal; bd = d; }
                 }
             }
         }
@@ -3111,7 +3111,7 @@ export class Pedestrians {
                     const e = p.e, u = ((x - e.a.x) * e.nx + (z - e.a.z) * e.nz) * p.side, w = roadSideWidth(e, p.side);
                     if (u < w + PED_R + 0.05 || u > w + this.width(e, p.side) - PED_R - 0.05) continue;
                 }
-                const physical = correction ? this.peerCorrectionClear(p, x, z, oldX, oldZ) : this.clearWalkStep(x, z, !!(p.onRoad || p.recovery), p.legs?.[0]?.vehicleEscape ? { x: oldX, z: oldZ } : null);
+                const physical = correction ? this.peerCorrectionClear(p, x, z, oldX, oldZ) : this.clearWalkStep(x, z, !!(p.onRoad || p.recovery), p.legs?.[0]?.vehicleEscape ? { x: oldX, z: oldZ, radius: Math.max(PED_R, this.reach(p)) } : null);
                 if (!physical || !this.peerClearStep(p, x, z, oldX, oldZ)) continue;
                 p.x = x; p.z = z; p.heading = Math.atan2(oldX - x, oldZ - z); p.passT = 1.2;
                 break;
@@ -3227,7 +3227,7 @@ export class Pedestrians {
      */
     avoidVehicles(p, ox, oz, moved) {
         if(!moved&&p._vehicleClearFrame===this._fr&&p._vehicleClearX===p.x&&p._vehicleClearZ===p.z)return false;
-        const R = 0.3, M = 0.4; let blocked = false;
+        const escape = !!p.legs?.[0]?.vehicleEscape, R = escape ? Math.max(PED_R, this.reach(p)) : PED_R, M = escape ? .05 : .4; let blocked = false;
         if (p.vehiclePushFrame !== this._fr) { p.vehiclePushFrame = this._fr; p.vehiclePushLeft = 1.45 * (this._stepDt || 1 / 30); }
         const T = this.t; if (!T.grid.items) return false;
         // the box as drawn (mesh heading lags the lane direction in turns: a turning bus sweeps the corner)

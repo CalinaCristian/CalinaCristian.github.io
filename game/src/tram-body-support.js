@@ -24,7 +24,6 @@ function geometryInfo(geometry) {
 }
 
 const bounds = p => ({ x0: Math.min(...p.map(q => q[0])), x1: Math.max(...p.map(q => q[0])), z0: Math.min(...p.map(q => q[2])), z1: Math.max(...p.map(q => q[2])) });
-const overlaps = (a, b) => a.x0 <= b.x1 && a.x1 >= b.x0 && a.z0 <= b.z1 && a.z1 >= b.z0;
 const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
 function worldPoints(vehicle, geometry, y, pitch, roll = 0) {
     const scale = vehicle.mesh.scale || { x: 1, y: 1, z: 1 }, cp = Math.cos(pitch), sp = Math.sin(pitch), ch = Math.cos(vehicle.heading), sh = Math.sin(vehicle.heading), cr = Math.cos(roll), sr = Math.sin(roll);
@@ -104,9 +103,12 @@ export function minimumTramSupportLift(points, indices, pieces) {
         return piece.regions.map(region=>({piece:{...piece,band:region.band},top,poly:clipConvex(poly,region.poly),bounds:bounds(top),maxTop:Math.max(maxTop,region.maxTop)})).filter(e=>polygonArea(e.poly)>1e-10);
     }));
     for (let i = 0; i < indices.length; i += 3) {
-        const triangle = [points[indices[i]], points[indices[i + 1]], points[indices[i + 2]]], box = bounds(triangle), minY = Math.min(...triangle.map(p => p[1]));
+        const A = points[indices[i]], B = points[indices[i + 1]], C = points[indices[i + 2]];
+        const x0 = Math.min(A[0], B[0], C[0]), x1 = Math.max(A[0], B[0], C[0]), z0 = Math.min(A[2], B[2], C[2]), z1 = Math.max(A[2], B[2], C[2]), minY = Math.min(A[1], B[1], C[1]);
+        let triangle;
         for (const entry of catalogue) {
-            if (minY > entry.maxTop || !overlaps(box, entry.bounds)) continue;
+            if (minY > entry.maxTop || !(x0 <= entry.bounds.x1 && x1 >= entry.bounds.x0 && z0 <= entry.bounds.z1 && z1 >= entry.bounds.z0)) continue;
+            triangle ||= [A, B, C];
             const clipped = clipTriangle(triangle, entry.poly); if (!clipped.length) continue;
             const [a, b, c] = entry.top, den = (b[2] - c[2]) * (a[0] - c[0]) + (c[0] - b[0]) * (a[2] - c[2]);
             for (let j = 0; j < clipped.length; j++) {

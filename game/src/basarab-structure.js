@@ -3,6 +3,7 @@ import { MeshBuilder, rgb } from './geobuild.js';
 import { decodeTramPoints } from './tram-path.js';
 import { BASARAB_PLATFORMS } from './basarab-source.js';
 import { convexHull } from './bridge-profile-geometry.js';
+import { cableClearance,anchorFreeIntervals,deckSectionCentre } from './basarab-anchor-clearance.js';
 
 const railIds=['w118416425','w205971103'];
 const mix=(a,b,t)=>a.map((x,i)=>x+(b[i]-x)*t);
@@ -83,7 +84,7 @@ export function basarabEdge(data,e){return data.city==='bucharest'&&data.distric
 /** Real literal platform outlines and a bounded centre support gap. The same
  * source height field already carries the two tracks. No invented broad deck
  * polygon, coordinate snapping, lane edits or source-record deletion. */
-export function buildBasarabStructure(data,grades,cellOf,group,edges=[]){
+export function buildBasarabStructure(data,grades,cellOf,group,edges=[],{roadRegions=[],tramEnvelope=null,supportAt=null}={}){
  const report={active:false,sourcePlatforms:[],gapPieces:0,unresolved:[],estimated:true},pieces=[],colliders=[];
  if(data.city!=='bucharest'||data.district?.id!=='grozavesti')return{report,pieces,colliders};
  const [line,paired]=railIds.map(id=>sourceLine(data,id,grades));if(!line||!paired)return{report,pieces,colliders};report.active=true;
@@ -105,8 +106,15 @@ export function buildBasarabStructure(data,grades,cellOf,group,edges=[]){
   const hs=platform.points.map(p=>height(nearest(line,p)));if(hs.some(h=>h===null)||Math.max(...hs)-Math.min(...hs)>.5){report.unresolved.push({sourceId:platform.sourceId,reason:'platform-compatible-source-grade-missing'});continue;}
   const piece=support(platform.points,hs.map(h=>h+.18),.35,platform.sourceId,'basarab-platform');drawSupport(piece,cellOf);pieces.push(piece);report.sourcePlatforms.push(platform.sourceId);
  }
- const structure=drawSuperstructure(BASARAB_PLATFORMS,line,paired,cellOf,group,roadLine(data,'w458458361',edges),roadLine(data,'w1552024280',edges));
+ const tramRegions=[];
+ if(tramEnvelope)for(const c of grades.corridors){
+  const L=distance(c.a,c.b);if(L<1e-8)continue;const nx=-(c.b[1]-c.a[1])/L,nz=(c.b[0]-c.a[0])/L,w=tramEnvelope.halfWidthM,poly=[[c.a[0]+nx*w,c.a[1]+nz*w],[c.b[0]+nx*w,c.b[1]+nz*w],[c.b[0]-nx*w,c.b[1]-nz*w],[c.a[0]-nx*w,c.a[1]-nz*w]],hs=[0,.5,1].map(t=>.24+c.heightAt(t)),guard=(c.maxGrade||0)*L/4;
+  tramRegions.push({id:c.sourceId,poly,minY:Math.min(...hs)-guard+tramEnvelope.tiltedMinY,maxY:Math.max(...hs)+guard+tramEnvelope.tiltedMaxY,x0:Math.min(...poly.map(p=>p[0])),x1:Math.max(...poly.map(p=>p[0])),z0:Math.min(...poly.map(p=>p[1])),z1:Math.max(...poly.map(p=>p[1]))});
+ }
+ const deckSupportAt=(x,z,base)=>{let top=supportAt?.(x,z,base)??null;for(const p of pieces){const h=p.roofHeightAt(x,z);if(h!==null&&Math.abs(h-base)<.3&&(top===null||Math.abs(h-base)<Math.abs(top-base)))top=h;}return top;};
+ const structure=drawSuperstructure(BASARAB_PLATFORMS,line,paired,cellOf,group,roadLine(data,'w458458361',edges),roadLine(data,'w1552024280',edges),roadRegions,tramRegions,tramEnvelope?.halfWidthM,deckSupportAt);
  colliders.push(...structure.colliders);report.superstructure=structure.report;
+ report.unresolved.push(...structure.report.anchorUnresolved);
  return {report,pieces,colliders};
 }
 
@@ -122,17 +130,17 @@ export function drawBasarabGuard(w,cellOf){
 /** Completed bridge form from the builder's description/photos. Untagged
  * placement and member sections are estimates, listed in the source ledger.
  * The 2006 proposal's different span sizes are deliberately not used. */
-function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPair){
+function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPair,roads,trams,tramHalfWidth,supportAt){
  const pts=platforms.flatMap(p=>p.points),a=platforms[0].points[0],b=platforms[0].points[4],L=distance(a,b),u=[(b[0]-a[0])/L,(b[1]-a[1])/L],n=[-u[1],u[0]],ss=p=>(p[0]-a[0])*u[0]+(p[1]-a[1])*u[1],ns=p=>(p[0]-a[0])*n[0]+(p[1]-a[1])*n[1];
  const s0=Math.min(...pts.map(ss)),s1=Math.max(...pts.map(ss)),n0=Math.min(...pts.map(ns)),n1=Math.max(...pts.map(ns)),nc=(n0+n1)/2,half=(n1-n0)/2+.25;
  const at=(s,t,y)=>[a[0]+u[0]*s+n[0]*t,y,a[1]+u[1]*s+n[1]*t];
  const deck=height(nearest(line,[(a[0]+b[0])/2,(a[1]+b[1])/2]));
- const colliders=[],report={estimated:true,pylonHeightM:80,stays:60,archSpanM:120,roofLengthM:s1-s0,roofWidthM:2*half,sourcePlatforms:platforms.map(p=>p.sourceId),placementBasis:'Station frame from literal platform boundaries; pylon/arch anchor offsets and structural sections estimated, not surveyed'};
+ const colliders=[],report={estimated:true,pylonHeightM:80,stays:60,emittedStays:0,anchors:[],anchorUnresolved:[],protectedRoadRegions:roads.length,archSpanM:120,roofLengthM:s1-s0,roofWidthM:2*half,sourcePlatforms:platforms.map(p=>p.sourceId),placementBasis:'Station frame from literal platform boundaries; pylon/arch anchor offsets and structural sections estimated, not surveyed'};
  if(deck===null)return {colliders,report:{...report,unresolved:'station-height-missing'}};
  // Transparent station barrel, open at both ends, with white steel hoops.
  // It is an elevated canopy, not a semicylinder ending at platform level.
  // Eaves/rise remain explicit visual estimates; the original6.65m crown is kept.
- const roofEaves=3.2,roofRise=3.45;
+ const roofEaves=3.8,roofRise=2.85;
  report.roofEavesAboveDeckM=roofEaves;report.roofCrownAboveDeckM=roofEaves+roofRise;
  const glass=new MeshBuilder(),bands=12,ribs=Math.ceil((s1-s0)/5),roof=(s,k)=>{const theta=k/bands*Math.PI;return at(s,nc-Math.cos(theta)*half,deck+roofEaves+Math.sin(theta)*roofRise);};
  for(let i=0;i<=ribs;i++)for(let j=0;j<bands;j++)bridgeBeam(cellOf,roof(s0+(s1-s0)*i/ribs,j),roof(s0+(s1-s0)*i/ribs,j+1),.105,'#dce6e7',colliders);
@@ -146,14 +154,33 @@ function drawSuperstructure(platforms,line,paired,cellOf,group,riverLine,riverPa
  // estimate; using the wider station roof as its span put both legs in lanes.
  const towerS=s0-30,legOffset=7;
  report.pylonLegCentreSpacingM=legOffset*2;
+ // The completed main span crosses the railway southwest of the pylon. The
+ // station/northeast arm is the shorter backspan.132m is inferred from the
+ // analysis source's302m overall structural length minus the170m main span;
+ // builder340m refers to a different overall scope. End setback is estimated.
+ const mainSpanSW=170,backspanNE=132,anchorEndSetback=6;
+ report.cableSpanBasis={mainSpanSWM:mainSpanSW,backspanNEM:backspanNE,anchorEndSetbackM:anchorEndSetback,backspanEstimated:true};
  for(const sign of [-1,1]){
   const c=at(towerS,nc+sign*legOffset,.2);cellOf(c[0],c[2]).solid.box(c[0],.2,c[2],3,79.8,3,Math.atan2(u[0],u[1]),rgb('#d8d8d0'));
   const poly=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([v,w])=>[c[0]+u[0]*v*1.5+n[0]*w*1.5,c[2]+u[1]*v*1.5+n[1]*w*1.5]);
   colliders.push({x:c[0],z:c[2],r:Math.SQRT2*1.5,poly,holes:[],h:80,y0:.2,y1:80,prop:true,kind:'basarab-pylon',estimated:true});
   for(const dir of [-1,1])for(let i=0;i<15;i++){
-   const fraction=(i+1)/15,anchorS=towerS+dir*(18+fraction*(dir>0?152:92)),raw=at(anchorS,nc,0),q=nearest(line,[raw[0],raw[2]]),mate=nearest(paired,q.p),centre=mix(q.p,mate.p,.5),orientation=q.dx*u[0]+q.dz*u[1]>=0?1:-1,nx=-q.dz*orientation,nz=q.dx*orientation;
-   const anchor=[centre[0]+nx*sign*legOffset,(height(q)+height(mate))/2+.4,centre[1]+nz*sign*legOffset];
-   bridgeBeam(cellOf,at(towerS,nc+sign*legOffset,42+fraction*35),anchor,.11,'#b4c3c9',colliders,'basarab-stay');
+   const fraction=(i+1)/15,span=dir>0?backspanNE:mainSpanSW,plannedS=towerS+dir*(18+fraction*(span-18-anchorEndSetback)),tower=at(towerS,nc+sign*legOffset,42+fraction*35);let chosen=null,lastFailure='native-road/tram-catalogue-missing';
+   const shifts=[0];for(let d=.5;d<=(dir<0?4.5:3);d+=.5)shifts.push(-d,d);
+   if(roads.length&&tramHalfWidth>0&&supportAt)for(const shift of shifts){
+    const anchorS=plannedS+shift,raw=at(anchorS,nc,0),centre=[raw[0],raw[2]],base=deck,normal=n,localCentre=deckSectionCentre(centre,normal,base,roads),desired=localCentre+sign*legOffset,free=anchorFreeIntervals(centre,normal,base,roads,trams).filter(r=>sign>0?r.hi>localCentre+.3:r.lo<localCentre-.3),distance=r=>Math.max(r.lo-desired,0,desired-r.hi);free.sort((a,b)=>distance(a)-distance(b));
+    if(!free.length){lastFailure={kind:'no-source-clear-deck-band',centre,base};continue;}
+    for(const range of free){const offsets=[Math.max(range.lo+.15,Math.min(range.hi-.15,desired)),(range.lo+range.hi)/2,range.lo+.2,range.hi-.2];for(let v=range.lo+.15;v<range.hi-.15;v+=.25)offsets.push(v);offsets.sort((a,b)=>Math.abs(a-desired)-Math.abs(b-desired));for(const offset of offsets){
+     if((offset-localCentre)*sign<.15)continue;
+     const x=centre[0]+normal[0]*offset,z=centre[1]+normal[1]*offset,ground=supportAt(x,z,base);
+     if(ground===null){lastFailure={kind:'native-deck-support-missing',x,z,base,offset};continue;}
+     const anchor=[x,ground+.4,z],clearance=cableClearance(tower,anchor,roads,trams);
+     if(!clearance.clear){lastFailure=clearance;continue;}chosen={anchor,anchorS,plannedS,offset,range};break;
+    }if(chosen)break;}
+    if(chosen)break;
+   }
+   if(!chosen){report.anchorUnresolved.push({sign,direction:dir,index:i,plannedS,reason:lastFailure});continue;}
+   bridgeBeam(cellOf,tower,chosen.anchor,.11,'#b4c3c9',colliders,'basarab-stay');report.emittedStays++;report.anchors.push({sign,direction:dir,index:i,...chosen});
   }
  }
  for(const y of [58,67,76])bridgeBeam(cellOf,at(towerS,nc-legOffset,y),at(towerS,nc+legOffset,y),1,'#d7d9d3',colliders);

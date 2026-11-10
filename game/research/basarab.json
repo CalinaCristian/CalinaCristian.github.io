@@ -200,7 +200,7 @@
     "Pylon longitudinal placement,14m leg-centre spacing and3m square section; photo-informed central H-frame, not surveyed",
     "Arch rise and rib sections",
     "Barrier member sections and post spacing",
-    "Station canopy eaves3.2m/crown6.65m above the shared deck and rib spacing; visual estimates, not surveyed"
+    "Station canopy eaves3.8m/crown6.65m above the shared deck and rib spacing; visual estimates, not surveyed"
   ],
   "privateReferencePolicy": "Builder photographs retained outside repository for visual review. No reference-provider pixels published.",
   "canopySourcePolicy": "Literal OSM covered platforms take priority over measured canopy classification at the same centre. Record excluded survey indices/centres/radii; retain mapped/unknown source conflicts. Keep all inputs and retained instance/RNG values unchanged."

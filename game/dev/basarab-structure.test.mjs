@@ -20,15 +20,25 @@ const nativeData=JSON.parse(fs.readFileSync(new URL('../data/bucharest-grozavest
 const gradeData={...f.data,trams:nativeData.trams,tramSources:nativeData.tramSources};
 const grades=buildTramGrades(gradeData,{coreEdges:E,sharedProfile:profile});
 assert(grades.corridors.some(c=>c.sourceId==='w118416425'&&c.a[0]>700),'clearance includes the complete station rail run');
+const envelope=emittedTramClearance(makeVehicle,'bucharest');
+const roadHeight=(e,x,z)=>{if(e.sourceBridgeGrade?.known)return.24+e.sourceBridgeGrade.heightAtWorld(x,z);const t=Math.max(0,Math.min(1,((x-e.a.x)*(e.b.x-e.a.x)+(z-e.a.z)*(e.b.z-e.a.z))/e.len**2));return.24+e.ya+(e.yb-e.ya)*t;};
+const region=(poly,id,heights)=>({id,poly,minY:Math.min(...heights),maxY:Math.max(...heights),x0:Math.min(...poly.map(p=>p[0])),x1:Math.max(...poly.map(p=>p[0])),z0:Math.min(...poly.map(p=>p[1])),z1:Math.max(...poly.map(p=>p[1]))});
+const roadRegions=E.filter(e=>f.lanes[e.id]).map(e=>{const poly=f.lanes[e.id];return region(poly,'edge:'+e.id,poly.map(p=>roadHeight(e,...p)));}).filter(r=>r.maxY>1);
+for(const[id,poly]of Object.entries(f.roadPads||{})){
+ const inc=E.filter(e=>e.a.id===Number(id)||e.b.id===Number(id));if(!inc.length)continue;
+ const ys=poly.map(([x,z])=>{let best=null,d=Infinity;for(const e of inc){const t=Math.max(0,Math.min(1,((x-e.a.x)*(e.b.x-e.a.x)+(z-e.a.z)*(e.b.z-e.a.z))/e.len**2)),q=Math.hypot(x-e.a.x-(e.b.x-e.a.x)*t,z-e.a.z-(e.b.z-e.a.z)*t);if(q<d){d=q;best=e;}}return roadHeight(best,x,z);});
+ const r=region(poly,'pad:'+id,ys);if(r.maxY>1)roadRegions.push(r);
+}
 // Fixtures retain their native source dataset, including its actual district.
-const cell={solid:new MeshBuilder()},input={...f.data,city:'bucharest',district:{id:'grozavesti'}},before=JSON.stringify(f.data),result=buildBasarabStructure(input,grades,()=>cell,null,E);
+const supportAt=(x,z,base)=>{let top=null;for(const e of E){const t=((x-e.a.x)*e.dirx+(z-e.a.z)*e.dirz)/e.len;if(t<0||t>1)continue;const lat=(x-e.a.x)*e.nx+(z-e.a.z)*e.nz,side=lat>=0?1:-1,shoulder=e.roadWidthSource&&(e.roadWidthSource.source==='OSM width'||e.roadWidthSource.review)?0:/motorway|trunk/.test(e.type)?e.type.endsWith('_link')?.6:1.2:.15,limit=(side>0?e.wR:e.wL)+shoulder+((side>0?e.sidewalkRightM:e.sidewalkLeftM)??e.sidewalk??0);if(Math.abs(lat)>limit)continue;const h=roadHeight(e,x,z);if(Math.abs(h-base)<.3)top=h;}return top;};
+const cell={solid:new MeshBuilder()},input={...f.data,city:'bucharest',district:{id:'grozavesti'}},before=JSON.stringify(f.data),result=buildBasarabStructure(input,grades,()=>cell,null,E,{roadRegions,tramEnvelope:envelope,supportAt});
 assert.equal(JSON.stringify(f.data),before,'all source records remain exact');assert(result.report.active);assert.equal(result.report.sourcePlatforms.length,2);assert(result.report.gapPieces>0);
 for(const piece of result.pieces){assert(piece.triangles.length>0);for(const tri of piece.triangles){const x=tri.reduce((s,p)=>s+p[0],0)/3,z=tri.reduce((s,p)=>s+p[2],0)/3,y=tri.reduce((s,p)=>s+p[1],0)/3;assert(Math.abs(piece.roofHeightAt(x,z)-y)<1e-6,'support height is the actual rendered triangle plane');}}
 for(const p of BASARAB_PLATFORMS){const piece=result.pieces.find(q=>q.sourceId===p.sourceId);assert.deepEqual(piece.poly,p.points.map(q=>q.map(Math.fround)),'literal platform outline preserved');}
 assert.deepEqual(result.report.superstructure.riverSourceIds,['w458458361','w1552024280']);assert.equal(result.report.superstructure.stays,60);assert.equal(result.report.superstructure.pylonHeightM,80);assert.equal(result.report.superstructure.archSpanM,120);
 // Replay the native lane/pad polygons and full emitted tram envelope. Merely
 // admitting the initial actor placements missed pylons blocking future routes.
-const pylons=result.colliders.filter(c=>c.kind==='basarab-pylon'),envelope=emittedTramClearance(makeVehicle,'bucharest');
+const pylons=result.colliders.filter(c=>c.kind==='basarab-pylon');
 assert.equal(pylons.length,2);
 for(const c of pylons){
  for(const e of E){const lane=f.lanes[e.id];if(lane)assert(polygonArea(clipConvex(c.poly,lane))<1e-6,'pylon clears the complete native lane polygon '+e.id);}
@@ -47,7 +57,9 @@ assert(Math.abs(sloping.roofHeightAt(0,0)-12-.5/q)<1e-7,'vertical solid intersec
 assert.equal(sloping.roofHeightAt(20,0),null,'a finite member does not create an infinite roof plane');
 const glazing=result.colliders.filter(c=>c.kind==='basarab-station-glazing');assert.equal(glazing.length,240,'every visible station glass pane has its own finite physical shell');
 for(const c of glazing){const bottom=c.minHeightAt(c.x,c.z),top=c.roofHeightAt(c.x,c.z);assert(top>bottom&&top-bottom<.4);assert(collideBuildings([c],c.x,c.z,.15,(top+bottom)/2,.1),'native collision detects the pane at its actual height');assert.equal(collideBuildings([c],c.x,c.z,.15,bottom-3,1),null,'native collision leaves the space below the pane clear');}
-assert(result.colliders.some(c=>c.kind==='basarab-river-arch'));assert.equal(result.colliders.filter(c=>c.kind==='basarab-stay').length,60);
+assert(result.colliders.some(c=>c.kind==='basarab-river-arch'));
+assert.equal(result.colliders.filter(c=>c.kind==='basarab-stay').length,result.report.superstructure.emittedStays);
+assert.equal(result.report.superstructure.emittedStays+result.report.superstructure.anchorUnresolved.length,60,'all source stays are either safely emitted or explicitly unresolved; full acceptance separately requires60/0');
 let stationTramChecks=0;
 for(const c of grades.corridors.filter(c=>['w118416425','w205971103'].includes(c.sourceId))){for(const t of[0,.25,.5,.75,1]){
  const x=c.a[0]+(c.b[0]-c.a[0])*t,z=c.a[1]+(c.b[1]-c.a[1])*t;if(x<690||x>840||z< -1040||z> -900)continue;
@@ -55,4 +67,4 @@ for(const c of grades.corridors.filter(c=>['w118416425','w205971103'].includes(c
  assert.equal(hit,null,'the station roof/stays leave the complete pitched native tram envelope clear at '+[x,z]);stationTramChecks++;
 }}
 assert(stationTramChecks>30,'the physical review exercises the entire literal station tram runs');
-console.log(JSON.stringify({passed:true,platforms:result.report.sourcePlatforms,gapPieces:result.report.gapPieces,triangles:cell.solid.ic/3,scope:'Geometry/compiler fixture only; native route, eyes and full physical clearance remain unaccepted.'}));
+console.log(JSON.stringify({passed:true,platforms:result.report.sourcePlatforms,gapPieces:result.report.gapPieces,emittedStays:result.report.superstructure.emittedStays,unresolvedAnchors:result.report.superstructure.anchorUnresolved,triangles:cell.solid.ic/3,scope:'Safety/compiler fixture only;60safe stays/0unresolved, native routes, eyes and full physical clearance remain separate acceptance requirements.'}));

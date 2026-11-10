@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {MeshBuilder,rgb} from '../src/geobuild.js';
+import {raisedRoadTriangles,segmentPolygonBand,cableClearance,anchorFreeIntervals,deckSectionCentre} from '../src/basarab-anchor-clearance.js';
+const poly=[[0,-2],[10,-2],[10,2],[0,2]],road={id:'road',poly,minY:11,maxY:11,x0:0,x1:10,z0:-2,z1:2};
+assert.deepEqual(segmentPolygonBand([-5,0],[15,0],poly),[.25,.75]);assert.deepEqual(segmentPolygonBand([-5,0],[15,0],poly.slice().reverse()),[.25,.75]);assert.equal(segmentPolygonBand([-5,3],[15,3],poly),null);
+assert(segmentPolygonBand([-5,2.05],[15,2.05],poly,.08),'finite member expansion catches the edge');
+assert.equal(cableClearance([-5,13,0],[15,13,0],[road]).clear,false,'both endpoints clear does not hide a crossing cable');
+assert.equal(cableClearance([-5,20,0],[15,20,0],[road]).clear,true,'high cable leaves the whole motor envelope clear');
+assert.equal(cableClearance([-5,5,0],[15,5,0],[road]).clear,true,'space beneath the road is a separate band');
+assert.equal(cableClearance([-100,0,0],[20,30,0],[road]).clear,true,'height is tested only over the actual polygon intersection');
+const left={...road,id:'left',poly:[[-12,-10],[-8,-10],[-8,10],[-12,10]],x0:-12,x1:-8,z0:-10,z1:10},right={...left,id:'right',poly:[[8,-10],[12,-10],[12,10],[8,10]],x0:8,x1:12};
+const free=anchorFreeIntervals([0,0],[1,0],11,[left,right],[]);assert(free.some(r=>r.lo<0&&r.hi>0&&r.lo> -8&&r.hi<8));assert(!anchorFreeIntervals([9,0],[1,0],11,[left,right],[]).some(r=>r.lo<0&&r.hi>0),'a source carriageway through the proposed centre cannot be relabelled median');assert.equal(deckSectionCentre([9,0],[1,0],11,[left,right]),-9,'the reference follows the actual motor-deck section instead of a diverging rail');
+const cell={i:0,j:0,road:new MeshBuilder(),pad:new MeshBuilder()};cell.road.face4([0,11,0],[10,12,0],[10,12,3],[0,11,3],rgb('#555555'),[0,1,0]);cell.pad.face4([0,.24,10],[2,.24,10],[2,.24,12],[0,.24,12],rgb('#555555'),[0,1,0]);
+const before=Array.from(cell.road.p),regions=raisedRoadTriangles([cell]);assert.equal(regions.length,2);assert(regions.every(r=>r.minY===11&&r.maxY===12));assert.deepEqual(Array.from(cell.road.p),before,'compiled protection never changes the emitted source surface');
+console.log('Finite cable/polygon/height, road-median refusal and actual emitted-triangle controls pass');

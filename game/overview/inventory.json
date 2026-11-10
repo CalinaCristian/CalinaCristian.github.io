@@ -9,7 +9,7 @@
     "seatac",
     "bellevue"
   ],
-  "sourceSha": "f4c6b58a7c593de7a0dd98f3d7a36e5a2b872dfd",
+  "sourceSha": "7496e6bfa9e4fd700bfdde6fd1a184d15663b0e9",
   "reviewedOn": "2026-11-10",
   "repository": "https://github.com/CalinaCristian/CalinaCristian.github.io",
   "counts": {
@@ -4383,6 +4383,10 @@
       "sha256": "435b0a91d8faa8ec7a97be1fdc8b448783187d3901541bfd4182f746081b18d7"
     },
     {
+      "path": "game/overview/assets/validation/office-floor-8abd/summary.json",
+      "sha256": "18ed7f7d3032f16efa9460575f4e84ff11914e972ed72c96479d7c286099c28f"
+    },
+    {
       "path": "game/overview/comparison-data/bellevue/boundary-source.json",
       "sha256": "0caae36707217d6f29d54b276cc3de80ba918d9fe8030ab257cd546b82fd1ac8"
     },
@@ -6060,7 +6064,7 @@
     },
     {
       "path": "game/overview/index.html",
-      "sha256": "44b5c93e5d7b1226fbdf17d137c9d6a6ad450cbca8688aac74669defd3b737bb"
+      "sha256": "55f4b2f35492cc25fea2ffc572f6fc6e72073b97274a52dae67eeeb06378f05a"
     },
     {
       "path": "game/overview/landmark-evidence.js",
@@ -6072,7 +6076,7 @@
     },
     {
       "path": "game/overview/overview.js",
-      "sha256": "e7c190453790d5ff521e3446b7cc440fa75c309c10b5663de2e27a3ce202b546"
+      "sha256": "5e7b85b68860351264d135a21177a0cd3fc6ea1b8aa3609efc43c78eae3093e9"
     },
     {
       "path": "game/overview/perspective-viewer.js",

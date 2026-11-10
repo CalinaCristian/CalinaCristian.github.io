@@ -590,7 +590,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "candidate": "b3f91bb289e76d9fc3fae96b3f117444b9b644b6",
+        "scope": "Second source-led prototype reviewed at three native poses. Arch now anchored to literal paired roads; pylons clear road/tram corridors. Canopy/cable clearance, source canopy/deck conflict, road shimmer and continuous journeys remain open. Not published."
+      }
     },
     {
       "id": "basarab-underside-gaps",
@@ -651,7 +655,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "candidate": "b3f91bb289e76d9fc3fae96b3f117444b9b644b6",
+        "scope": "Second source-led prototype reviewed at three native poses. Arch now anchored to literal paired roads; pylons clear road/tram corridors. Canopy/cable clearance, source canopy/deck conflict, road shimmer and continuous journeys remain open. Not published."
+      }
     },
     {
       "id": "basarab-ramp-missing-chunks",
@@ -712,7 +720,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "candidate": "b3f91bb289e76d9fc3fae96b3f117444b9b644b6",
+        "scope": "Second source-led prototype reviewed at three native poses. Arch now anchored to literal paired roads; pylons clear road/tram corridors. Canopy/cable clearance, source canopy/deck conflict, road shimmer and continuous journeys remain open. Not published."
+      }
     },
     {
       "id": "basarab-ramp-parapets",
@@ -773,7 +785,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "candidate": "b3f91bb289e76d9fc3fae96b3f117444b9b644b6",
+        "scope": "Second source-led prototype reviewed at three native poses. Arch now anchored to literal paired roads; pylons clear road/tram corridors. Canopy/cable clearance, source canopy/deck conflict, road shimmer and continuous journeys remain open. Not published."
+      }
     },
     {
       "id": "basarab-upper-parapets",
@@ -834,7 +850,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "candidate": "b3f91bb289e76d9fc3fae96b3f117444b9b644b6",
+        "scope": "Second source-led prototype reviewed at three native poses. Arch now anchored to literal paired roads; pylons clear road/tram corridors. Canopy/cable clearance, source canopy/deck conflict, road shimmer and continuous journeys remain open. Not published."
+      }
     },
     {
       "id": "basarab-deck-tree",
@@ -895,7 +915,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "candidate": "b3f91bb289e76d9fc3fae96b3f117444b9b644b6",
+        "scope": "Second source-led prototype reviewed at three native poses. Arch now anchored to literal paired roads; pylons clear road/tram corridors. Canopy/cable clearance, source canopy/deck conflict, road shimmer and continuous journeys remain open. Not published."
+      }
     },
     {
       "id": "basarab-tram-deck-slot",
@@ -956,7 +980,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "candidate": "b3f91bb289e76d9fc3fae96b3f117444b9b644b6",
+        "scope": "Second source-led prototype reviewed at three native poses. Arch now anchored to literal paired roads; pylons clear road/tram corridors. Canopy/cable clearance, source canopy/deck conflict, road shimmer and continuous journeys remain open. Not published."
+      }
     },
     {
       "id": "basarab-north-approach",
@@ -1017,7 +1045,11 @@
         "visit": null,
         "office": null
       },
-      "image": "Owner image in conversation; no local attachment pixels copied or fabricated."
+      "image": "Owner image in conversation; no local attachment pixels copied or fabricated.",
+      "work": {
+        "candidate": "b3f91bb289e76d9fc3fae96b3f117444b9b644b6",
+        "scope": "Second source-led prototype reviewed at three native poses. Arch now anchored to literal paired roads; pylons clear road/tram corridors. Canopy/cable clearance, source canopy/deck conflict, road shimmer and continuous journeys remain open. Not published."
+      }
     },
     {
       "id": "upb-building-overlap",
@@ -3782,7 +3814,12 @@
       "id": "night-drone-road-lighting",
       "ownerNote": "Night drone view does not show the road-lighting fix. Airport screenshot only; no exact simultaneous inspection report supplied. Check active-camera lamp selection, altitude fade and ground/flight parity.",
       "status": "reported-not-yet-accepted",
-      "image": "Owner screenshot in conversation."
+      "image": "Owner screenshot in conversation.",
+      "work": {
+        "candidate": "1816a467546c3b387a2c99e33f31eb861a6ef127",
+        "evidence": "NIGHT-DRONE-20261110.md",
+        "scope": "Elevated viewed-ground coverage only; apron floodlight/source coverage and original screenshot context remain unresolved. Not published."
+      }
     },
     {
       "id": "bellevue-closure-crowds",

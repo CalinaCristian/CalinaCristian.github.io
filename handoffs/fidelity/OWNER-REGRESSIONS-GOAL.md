@@ -1,6 +1,6 @@
 # Finish every reported item and the remaining fidelity work
 
-Owner instruction,10November2026: “track everything, goal is to finish all the reported items + work you had to finish anyway”. This goal adds every new report to the existing scope. It does not replace or close earlier requests. Basarab’s source-led reconstruction and sustained CPU/crowd performance remain immediate priorities.
+Owner instruction, 10 November 2026: “track everything, goal is to finish all the reported items + work you had to finish anyway”. This goal adds every new report to the existing scope. It does not replace or close earlier requests. Basarab’s source-led reconstruction and sustained CPU/crowd performance remain immediate priorities.
 
 The exact report register is [owner-reports-20261110.json](owner-reports-20261110.json). Original owner screenshots remain in the conversation; no screenshot pixels or source evidence are fabricated. Every record currently remains reported/not yet accepted, including ones with a staged candidate. Only complete, tested, published fixes may be closed. Grouping related causes never drops individual reported locations.
 
@@ -18,11 +18,13 @@ Work to finish:
 - Portrait HUD/maps/menus/controls and inspection/F8/Places/unrestricted drone in all relevant scenes; clear accent-insensitive guide search highlighting. Preserve already-shipped features and verify new regressions.
 - Seven source-led tourist visits, especially realistic Bellevue cascade with actual basin/weir/setting; all offices source-led; full real-rule backgammon with camera zoom onto the actual table and native mouse/keyboard/touch play.
 - Every tourist event/activity through its ordinary approach, trigger, cancellation, completion, award and persisted reload. No scene-load or artificial success substitute. Full conditions/desktop/mobile checks.
-- Complete affected overview prose, inventories, selectors and latest original ground/detail images across all8districts/7visits in summer/winter day/night. Preserve exact per-capture sources/dates/cameras. Source-provider imagery remains comparison-only. Test delivered desktop/portrait galleries and live bytes after publication.
+- Complete affected overview prose, inventories, selectors and latest original ground/detail images across all 8 districts / 7 visits in summer/winter day/night. Preserve exact per-capture sources/dates/cameras. Source-provider imagery remains comparison-only. Test delivered desktop/portrait galleries and live bytes after publication.
 - Finish previous open acceptance/integration/lifecycle/frame-budget/source gaps listed in the linked goals. Curate tested deltas onto current master; never merge unrelated staging wholesale. Owner already authorized tested publication in the fidelity goal.
 
 Acceptance for each item: reproduce its real supplied pose/condition or ordinary interaction; identify the source/cause; implement a shared fix where appropriate; run meaningful physical/logic/performance and native full-size visual checks; retest every related reported location; update affected overview evidence; publish and verify delivered bytes. A candidate commit, lower screenshot cost or passing synthetic fixture alone is not closure.
 
-Performance ideas and measured limits: [PERFORMANCE-20261110.md](PERFORMANCE-20261110.md). Quiet sequential180s comparison retains311vehicles/560pedestrians: median batch38.85→32.50ms(~16.3%); this is fixed-spawn component CPU, not hardwareFPS or complete driven-route acceptance.
+Performance ideas and measured limits: [PERFORMANCE-20261110.md](PERFORMANCE-20261110.md). Quiet sequential 180 s comparison retains 311 vehicles / 560 pedestrians: median batch38.85→32.50ms(~16.3%); this is fixed-spawn component CPU, not hardwareFPS or complete driven-route acceptance.
 
 Current register: 71 records. Further owner reports are appended as they arrive.
+
+Night-lighting candidate evidence and the remaining airport/apron gap: [NIGHT-DRONE-20261110.md](NIGHT-DRONE-20261110.md).

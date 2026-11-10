@@ -645,7 +645,7 @@ export const SCENARIOS = [
                 if (res.office) {
                     const o = g.office, st = o.stations?.[0];
                     if (st) { o.x = st.x * 0.45; o.z = st.z; await H.run(0.2); H.press('KeyE'); await H.run(0.2); g.hud.closePanel(); await H.run(0.3); }
-                    o.x = 0; o.z = o.exitZ ?? 14; await H.run(0.2); H.press('KeyE'); await H.run(0.6, () => g.state !== 'office');
+                    if(g.state==='office'){o.x = 0; o.z = o.exitZ ?? 14; await H.run(0.2); H.press('KeyE'); await H.run(0.6, () => g.state !== 'office');}
                     await sleep(0); if (g.state === 'card') { const chm = await import('../../../src/chapters.js'); chm.closeChapterCard('free'); await sleep(50); }
                     res.leftOnFoot = g.state === 'foot';
                     if (!res.leftOnFoot) H.issue('foot-office-exit', 'high', `walked into ${stop.id} but left it in state ${g.state} (expected on foot)`, {}, { key: 'foot-office' });
@@ -925,23 +925,23 @@ SCENARIOS.push({
     },
 });
 SCENARIOS.push({
-    id: 'office-talk', group: 'r5', title: 'Office conversation (note 37): E at the host opens the talk, every topic can be asked (A–D), "Thanks, bye" closes it, leave at the exit', city: 'bucharest',
+    id: 'office-talk', group: 'r5', title: 'Linear office story: E starts, Continue presents every section and final Continue finishes the visit', city: 'bucharest',
     async run(H) {
         const g = H.g; await prep(H); const stop = (g.stops || []).find(s => s.poiRef); if (!stop) return { skipped: true };
         g.enterOffice(stop); await H.run(0.3);
         const o = g.office, res = { stop: stop.id, stations: o.stations?.length };
         const st = o.stations?.[0]; if (st) { o.x = st.x * 0.45; o.z = st.z; } await H.run(0.2);
         H.press('KeyE'); await H.run(0.3); res.talkOpen = g.hud.panelOpen;
-        for (let k = 0; k < 20 && o.read.size < (o.stations?.length || 0); k++) {
+        for (let k = 0; k < 32 && o.talking; k++) {
             const b = [...document.querySelectorAll('#panel .dlg-opts button')].find(x => !x.classList.contains('bye') && !x.classList.contains('again')) || document.querySelector('#panel .dlg-opts button:not(.bye)');
             if (!b) break; b.click(); await H.run(0.3);
         }
         res.read = o.read.size;
-        document.querySelector('#panel .dlg-opts button.bye')?.click(); await H.run(0.3); res.closed = !g.hud.panelOpen;
-        o.x = 0; o.z = o.exitZ ?? 14; await H.run(0.2); H.press('KeyE'); await H.run(0.6, () => g.state !== 'office');
+        await H.run(0.3); res.closed = !g.hud.panelOpen;
+        if(g.state==='office'){o.x = 0; o.z = o.exitZ ?? 14; await H.run(0.2); H.press('KeyE'); await H.run(0.6, () => g.state !== 'office');}
         await sleep(0); if (g.state === 'card') { const chm = await import('../../../src/chapters.js'); chm.closeChapterCard('free'); await sleep(50); }
         res.left = g.state !== 'office'; res.focus = document.activeElement === g.canvas;
-        const bad = []; if (!res.talkOpen) bad.push('E did not open the talk'); if (res.read < res.stations) bad.push(`heard ${res.read}/${res.stations}`); if (!res.closed) bad.push('bye did not close'); if (!res.left) bad.push('could not leave');
+        const bad = []; if (!res.talkOpen) bad.push('E did not open the talk'); if (res.read < res.stations) bad.push(`heard ${res.read}/${res.stations}`); if (!res.closed) bad.push('final Continue did not finish'); if (!res.left) bad.push('could not leave');
         if (bad.length) H.issue('office-talk', 'high', `office ${stop.id}: ${bad.join(', ')}`, {}, { shot: true, key: 'otalk' });
         return res;
     },

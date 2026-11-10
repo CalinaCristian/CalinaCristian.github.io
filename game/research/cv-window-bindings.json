@@ -1,0 +1,5553 @@
+{
+  "schemaVersion": 1,
+  "reviewedUTC": "2026-11-10",
+  "scope": "Research binding candidates for8retained CV rooms, not an integrated portal or verification of actual room/floor/window. Source-based static geometry is exact to retained arrays, not surveyed reality. No provider pixels.",
+  "sourceCommit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+  "attribution": "Building footprint facts derived from OpenStreetMap contributors, ODbL1.0; official/design source pages retain their own copyrights. No provider images shipped.",
+  "coordinateContract": {
+    "xz": "District source metres, x east/z south; registry anchor yaw describes authored model only.",
+    "vertical": "Numbered floors follow ownerFloorUpdate; metre offsets use explicit retained-model datums or prepared height/levels estimates. These are not surveyed heights.",
+    "candidates": "Every nonzero outer and retained courtyard edge is a geometric candidate, including short edges; no edge/window/floor selected. Actual emitted facade can have offsets/cornices/podiums.",
+    "portalMath": "Root must supply actual outer source-facade plane/corners in the existing live world and map actual Office.windowPane aperture/head motion into it. Clip near just outside that plane; math removes no source geometry.",
+    "oneWorld": "Render current existing district/time/weather/season/actors with same world. No panorama, proxy district, secondary simulation or actor thinning."
+  },
+  "fallbackPolicy": {
+    "selectionOwner": "Root integration; no automatic fallback selection in this ledger/helper",
+    "candidate": "Use owner-assigned numbered floors with explicitly estimated metre conversion, retaining full source/geometry compatibility. Never silently substitute a ground-floor view.",
+    "label": "Live district view \u00b7 floor N; exact height and bearing estimated",
+    "unknownsRemainNull": true,
+    "blockedIdentity": "Do not select a current-office view from a known mismatched building (UiPath-Bucharest A/B) until resolved; retain exact district context separately if root chooses a visibly declared illustrative view.",
+    "userClarification": "Numbered floors now supplied for7rooms; Luxoft, exact window sides and source building conflicts remain unresolved.",
+    "preservation": "No window removal, facade hiding, world reconstruction, object relocation or weather/time substitution to improve view."
+  },
+  "primaryPages": [
+    {
+      "id": "uipath-offices",
+      "url": "https://www.uipath.com/about-us/offices",
+      "resolved": "https://www.uipath.com/about-us/offices",
+      "fetchedUTC": "2026-11-09T15:10:29.908766+00:00",
+      "status": 200,
+      "sha256": "d6dabfeaf3cfd1415346576c553d36ebaa451fedddecc1411a1b14cfef7dc8c3",
+      "bytes": 416470
+    },
+    {
+      "id": "geekwire-uipath-move",
+      "url": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/",
+      "resolved": "https://www.geekwire.com/2025/uipath-hires-former-f5-executive-as-cmo-relocates-bellevue-offices-to-lincoln-square/",
+      "fetchedUTC": "2026-11-09T15:11:46.523207+00:00",
+      "status": 200,
+      "sha256": "7197baed3c99aabf5790bf75692e531cdd152156c7fb3755845c6e0bab06f10b",
+      "bytes": 151370
+    },
+    {
+      "id": "uipath-bellevue-design",
+      "url": "https://www.jpcarchitects.com/techgaming/uipath-immersion-lab/",
+      "resolved": "https://www.jpcarchitects.com/techgaming/uipath-immersion-lab/",
+      "fetchedUTC": "2026-11-09T15:10:29.919055+00:00",
+      "status": 200,
+      "sha256": "0ed516ca398a28d355da62a5f972864409254d71d9e8f9d6c89583136d89e5f1",
+      "bytes": 204303
+    },
+    {
+      "id": "arnia-building",
+      "url": "https://www.arnia.com/arnia-brand-new-building/",
+      "resolved": "https://www.arnia.com/arnia-brand-new-building/",
+      "fetchedUTC": "2026-11-09T15:10:30.551865+00:00",
+      "status": 200,
+      "sha256": "c9ff98937d360de129057735619137f03294dd970054b146f7d877ac2b2d2c99",
+      "bytes": 569002
+    },
+    {
+      "id": "arnia-design",
+      "url": "https://www.uar-bna.ro/2021/proiecte/162/",
+      "resolved": "https://www.uar-bna.ro/2021/proiecte/162/",
+      "fetchedUTC": "2026-11-09T15:10:28.135174+00:00",
+      "status": 200,
+      "sha256": "c7d78f006b1406de06acf24d6abfc221037b65a60fb5ff0a9c2fdc68113fafdd",
+      "bytes": 17377
+    },
+    {
+      "id": "db-careers-romania",
+      "url": "https://careers.db.com/explore-the-bank/locations/emea/romania?language_id=1",
+      "resolved": "https://careers.db.com/explore-the-bank/locations/emea/romania?language_id=1",
+      "fetchedUTC": "2026-11-09T15:10:30.255093+00:00",
+      "status": 200,
+      "sha256": "f05471510592afed0eed146d1dd58bc1d721c11f5cbeb0e040b26f747eb616a2",
+      "bytes": 141084
+    },
+    {
+      "id": "db-company-night",
+      "url": "https://www.noapteacompaniilor.ro/bucuresti/dbglobaltechnology-2024/",
+      "resolved": "https://www.noapteacompaniilor.ro/bucuresti/dbglobaltechnology-2024/",
+      "fetchedUTC": "2026-11-09T15:11:46.524484+00:00",
+      "status": 200,
+      "sha256": "8c45b6793aa10306ddbc40765dee0b4ab1eb05a33a139a811a7585078e06910b",
+      "bytes": 135440
+    },
+    {
+      "id": "luxoft-global",
+      "url": "https://www.luxoft.com/global-presence",
+      "resolved": "https://www.luxoft.com/global-presence",
+      "fetchedUTC": "2026-11-09T15:11:47.028378+00:00",
+      "status": 200,
+      "sha256": "aa52149186e5a7a1bb01e2ef165d966d3b7a09a0845aa5c68af002c7d9b8c188",
+      "bytes": 109876
+    },
+    {
+      "id": "gts-opc",
+      "url": "https://opcfoundation.org/members/view/4363",
+      "resolved": "https://opcfoundation.org/members/view/4363",
+      "fetchedUTC": "2026-11-09T15:14:01.280716+00:00",
+      "status": 200,
+      "sha256": "2585c0662806d2335c926bbaa178c620a7bd8e05d0462dbc2d63c11a84fabd21",
+      "bytes": 65089
+    },
+    {
+      "id": "rosetti-tour",
+      "url": "https://tours.toe.hubproedus.ro/0050/index.htm",
+      "resolved": "https://tours.toe.hubproedus.ro/0050/index.htm",
+      "fetchedUTC": "2026-11-09T15:10:28.127819+00:00",
+      "status": 200,
+      "sha256": "5d52e84008612656d2fa189b35baf1a9e0d4c1cf269a2f77be2a0c20970a61a0",
+      "bytes": 13292
+    },
+    {
+      "id": "upb-tour",
+      "url": "https://turvirtual.upb.ro/",
+      "resolved": "https://turvirtual.upb.ro/",
+      "fetchedUTC": "2026-11-09T15:10:28.130207+00:00",
+      "status": 200,
+      "sha256": "28efc6b43ac773e6638487bbc60bd565687cd45f914215927951652bd7d826f1",
+      "bytes": 4840
+    }
+  ],
+  "sourceInputs": {
+    "game/research/cv-buildings.json": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "f2848f52e89e88a180ce68e002ec3170e4241d63",
+      "sha256": "a4a0ca7808e7dcf7cac31f9cab968b054ecc8e92095c16ff0bd823f6b1b49f14",
+      "bytes": 12988
+    },
+    "game/research/cv-interiors.json": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "4e379a9f6a8c1c4e55b0511804451920b0f9d377",
+      "sha256": "9cdec0703423247887d76383a575d5483b78db71adb4bab16f2f32f2e06a5901",
+      "bytes": 17557
+    },
+    "handoffs/fidelity/cv-interior-source-research/checkpoint-ledger.json": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "f5ac6c700b0a13adea24d0bb2208245197488d0c",
+      "sha256": "fdc2fa9cad198bd1e1a65130835d0cb192e2be5c9708c2a9661f8a2a8d6de124",
+      "bytes": 31166
+    },
+    "game/src/landmarks.js": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "75e54e011c57fd0087747975a2c28a1f2ca8b139",
+      "sha256": "322010a764d0b380d3ca183a5a41359c4852be9b202d6503c55de3dc366e4b21",
+      "bytes": 360681
+    },
+    "game/src/world.js": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "c3789d2d7cf030b4d442af3f9a60e1f5916e8b03",
+      "sha256": "f57e216523a2f58a5860d374e27e0c1f328a2265f01af9efa46a493f1b7b75be",
+      "bytes": 565206
+    },
+    "game/research/landmark-source-bucharest.json": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "0aeaef2aaa4b4145a12d4d55920f2e05a7348151",
+      "sha256": "a6b1076617658270af77915b4267f5b00dd1763b9e5fee1411ef46133bcbc6c0",
+      "bytes": 368699
+    },
+    "game/research/landmark-source-bucharest-pipera.json": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "4977d314d6e7391bbff431f48f4aca89ff5d1c23",
+      "sha256": "3755054bf5e14a50514ce012e065da130fa91f74cea94d96cd7862cb34123021",
+      "bytes": 13697
+    },
+    "game/research/seattle-bellevue.json": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "6948d13f4fc0a74f2472ced8a1a60968439937e8",
+      "sha256": "9fcfc3d83aec28bccf9e3b904df4a9350d8377c1519a4e699640da262e0fd2c3",
+      "bytes": 1252636
+    },
+    "game/data/bucharest-grozavesti.json": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "f591c91e4ee07181ccbb50672697e99cd16e4784",
+      "sha256": "d223a9189e458e149b5baa694dc6e87a7ab9a44011066ef68a2b3af7a2f7f842",
+      "bytes": 8546809
+    },
+    "game/data/bucharest-pipera.json": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "3bc73879f8275b7b262729180f937a1f51df0661",
+      "sha256": "873c974d4c532d9acf08bdbcbc3bbc2fa271bd018b7874a08efc99f4971dd8de",
+      "bytes": 4172013
+    },
+    "game/data/bucharest-romana.json": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "124cbe34013b4531b77332568c96556b62c4bfb8",
+      "sha256": "af976b05482ce0663264cadeb2d1a0d1dd3a67a05cc7b07b1c592ddfa7fa2e6d",
+      "bytes": 21921196
+    },
+    "game/data/bucharest-unirii.json": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "a4c7e4afae4da4a6246ab9f8e0e2da0ef0940ebe",
+      "sha256": "e94dc563fc82efe0f6dac21e7e20ac8e34ea5a7e20eb38bf97e829abebe9657d",
+      "bytes": 33593010
+    },
+    "game/data/bucharest-floreasca.json": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "763245006ac510ef9c2c750623d8e03640e98777",
+      "sha256": "a188f2f5b856965191935b5433b756080c711154e8ab00ff8e2f5b28ca77097b",
+      "bytes": 4437499
+    },
+    "game/data/seattle-bellevue.json": {
+      "commit": "79e1e4fd602f1434aa5aa4d10fa8a234bce298dc",
+      "gitBlob": "b3ca3533fdc249175e4c06b94095a0d61870cdbd",
+      "sha256": "b6e30458ac8d9f32cf6c1437047fa9f8fb01370997e9ecee1bfc6482d970c2f9",
+      "bytes": 5004574
+    }
+  },
+  "rooms": [
+    {
+      "id": "upb",
+      "city": "bucharest",
+      "district": "grozavesti",
+      "landmark": "politehnica",
+      "status": "building-confirmed-view-unknown",
+      "sources": [
+        "upb-tour"
+      ],
+      "storeys": [
+        {
+          "sourceId": "w28240552",
+          "value": 5,
+          "basis": "OSM building:levels; does not locate the cupola room within this building"
+        },
+        {
+          "sourceId": "w1217715300",
+          "value": 7,
+          "basis": "OSM building:part=roof, roof:shape=dome, min_level=6, building:levels=7; not seven walkable interior floors"
+        }
+      ],
+      "evidence": "Official university tour names Rectorat cupola; privately inspected hall supports brick, terrazzo, timber galleries and concrete fins. Aerial Rectorat scene is not interior evidence.",
+      "gaps": [
+        "Source room-to-exterior window relation, world elevation and facade bearing are unproven.",
+        "Estimated18x22x7m room and authored CV trophy placement are not survey/building facts."
+      ],
+      "anchor": {
+        "lat": 44.438429,
+        "lon": 26.0515105,
+        "registryYawRadians": 0,
+        "districtXZ": [
+          -611.1543228877347,
+          307.9467720003049
+        ],
+        "meaning": "Authored landmark origin; NOT a room/window/door/floor position."
+      },
+      "districtSource": {
+        "path": "game/data/bucharest-grozavesti.json",
+        "projection": {
+          "lat0": 44.4412,
+          "lon0": 26.0592,
+          "scale": 1,
+          "mPerLat": 111132,
+          "mPerLon": 79479.07183661079,
+          "compress": null
+        },
+        "geometryUnit": "source metres; x east, z south; no city rescaling",
+        "groundDatumY": null
+      },
+      "bindings": [
+        {
+          "sourceId": "w28240552",
+          "role": "rectorate-main-building",
+          "districtBuildingIndex": 535,
+          "outerRingXZ": [
+            [
+              -627.7496,
+              279.0636
+            ],
+            [
+              -582.4385,
+              290.688
+            ],
+            [
+              -588.924,
+              316.4373
+            ],
+            [
+              -594.0584,
+              336.8411
+            ],
+            [
+              -639.8781,
+              324.7388
+            ],
+            [
+              -634.6563,
+              304.1461
+            ],
+            [
+              -630.0386,
+              287.4096
+            ]
+          ],
+          "outerRingSHA256": "964fbb23257264e94f4655c28cf55a92edf8bb19e482e781d0ccb9e71f288eda",
+          "holeRingsXZ": [],
+          "signedAreaM2": 2238.414744935,
+          "boundsXZ": [
+            -639.8781,
+            279.0636,
+            -582.4385,
+            336.8411
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                -627.7496,
+                279.0636
+              ],
+              "bXZ": [
+                -582.4385,
+                290.688
+              ],
+              "lengthM": 46.778440104,
+              "outwardXZ": [
+                0.248499094329,
+                -0.968632128374
+              ],
+              "outwardCompassBearingDegrees": 14.388714084
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                -582.4385,
+                290.688
+              ],
+              "bXZ": [
+                -588.924,
+                316.4373
+              ],
+              "lengthM": 26.553496206,
+              "outwardXZ": [
+                0.969714112245,
+                0.244242790094
+              ],
+              "outwardCompassBearingDegrees": 104.137089404
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                -588.924,
+                316.4373
+              ],
+              "bXZ": [
+                -594.0584,
+                336.8411
+              ],
+              "lengthM": 21.039893484,
+              "outwardXZ": [
+                0.969767266927,
+                0.244031653678
+              ],
+              "outwardCompassBearingDegrees": 104.124614702
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                -594.0584,
+                336.8411
+              ],
+              "bXZ": [
+                -639.8781,
+                324.7388
+              ],
+              "lengthM": 47.391038957,
+              "outwardXZ": [
+                -0.255371063105,
+                0.966843120743
+              ],
+              "outwardCompassBearingDegrees": 194.795573488
+            },
+            {
+              "edgeIndex": 4,
+              "aXZ": [
+                -639.8781,
+                324.7388
+              ],
+              "bXZ": [
+                -634.6563,
+                304.1461
+              ],
+              "lengthM": 21.244446063,
+              "outwardXZ": [
+                -0.969321578863,
+                -0.245796006376
+              ],
+              "outwardCompassBearingDegrees": 284.2288801
+            },
+            {
+              "edgeIndex": 5,
+              "aXZ": [
+                -634.6563,
+                304.1461
+              ],
+              "bXZ": [
+                -630.0386,
+                287.4096
+              ],
+              "lengthM": 17.361842804,
+              "outwardXZ": [
+                -0.963981772513,
+                -0.265968310635
+              ],
+              "outwardCompassBearingDegrees": 285.424497907
+            },
+            {
+              "edgeIndex": 6,
+              "aXZ": [
+                -630.0386,
+                287.4096
+              ],
+              "bXZ": [
+                -627.7496,
+                279.0636
+              ],
+              "lengthM": 8.65420343,
+              "outwardXZ": [
+                -0.96438685177,
+                -0.264495746909
+              ],
+              "outwardCompassBearingDegrees": 285.336992158
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "building": "university",
+              "building:levels": "5",
+              "name": "Rectorat Universitatea Politehnica din Bucure\u0219ti"
+            },
+            "source": "https://api.openstreetmap.org/api/0.6/way/28240552",
+            "fetchedUTC": "2026-11-09T17:54:43.686601+00:00",
+            "rawSHA256": "444ca25869a7f45b5e3a0462e72bc177a8a00c90245459c30d3a0588cf6b1beb",
+            "version": "13",
+            "editedAt": "2023-10-24T16:37:42Z"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 14.5,
+            "minHeightM": 0.0,
+            "levels": 5,
+            "heightSourceCode": 0,
+            "name": "Rectorat Universitatea Politehnica din Bucure\u0219ti",
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        },
+        {
+          "sourceId": "w1217715300",
+          "role": "overlapping-source-dome-part-not-a-separate-verified-office-floor",
+          "districtBuildingIndex": 787,
+          "outerRingXZ": [
+            [
+              -619.285,
+              290.2546
+            ],
+            [
+              -615.8754,
+              288.9988
+            ],
+            [
+              -612.2909,
+              288.3431
+            ],
+            [
+              -608.6507,
+              288.3209
+            ],
+            [
+              -605.0662,
+              288.9321
+            ],
+            [
+              -601.6327,
+              290.1545
+            ],
+            [
+              -598.4695,
+              291.9549
+            ],
+            [
+              -595.6718,
+              294.2775
+            ],
+            [
+              -593.3113,
+              297.0447
+            ],
+            [
+              -591.4753,
+              300.1786
+            ],
+            [
+              -590.2116,
+              303.5904
+            ],
+            [
+              -589.5519,
+              307.1688
+            ],
+            [
+              -589.536,
+              310.8029
+            ],
+            [
+              -590.1401,
+              314.3813
+            ],
+            [
+              -591.372,
+              317.8042
+            ],
+            [
+              -593.1682,
+              320.9603
+            ],
+            [
+              -595.4969,
+              323.7609
+            ],
+            [
+              -598.2708,
+              326.1169
+            ],
+            [
+              -601.4102,
+              327.9505
+            ],
+            [
+              -604.8198,
+              329.2063
+            ],
+            [
+              -608.4043,
+              329.862
+            ],
+            [
+              -612.0445,
+              329.8842
+            ],
+            [
+              -615.6369,
+              329.273
+            ],
+            [
+              -619.0625,
+              328.0506
+            ],
+            [
+              -622.2258,
+              326.2502
+            ],
+            [
+              -625.0314,
+              323.9387
+            ],
+            [
+              -627.3839,
+              321.1604
+            ],
+            [
+              -629.2199,
+              318.0264
+            ],
+            [
+              -630.4916,
+              314.6147
+            ],
+            [
+              -631.1433,
+              311.0474
+            ],
+            [
+              -631.1672,
+              307.4133
+            ],
+            [
+              -630.5552,
+              303.8238
+            ],
+            [
+              -629.3312,
+              300.4009
+            ],
+            [
+              -627.527,
+              297.2448
+            ],
+            [
+              -625.2062,
+              294.4442
+            ],
+            [
+              -622.4245,
+              292.0993
+            ]
+          ],
+          "outerRingSHA256": "08dd18bcdee61b6a316695bac6df2a5f26d8bff2a89f2257f467f6540bb3ae66",
+          "holeRingsXZ": [],
+          "signedAreaM2": 1361.06055387,
+          "boundsXZ": [
+            -631.1672,
+            288.3209,
+            -589.536,
+            329.8842
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                -619.285,
+                290.2546
+              ],
+              "bXZ": [
+                -615.8754,
+                288.9988
+              ],
+              "lengthM": 3.633511497,
+              "outwardXZ": [
+                -0.345616079922,
+                -0.938376004222
+              ],
+              "outwardCompassBearingDegrees": 339.780591895
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                -615.8754,
+                288.9988
+              ],
+              "bXZ": [
+                -612.2909,
+                288.3431
+              ],
+              "lengthM": 3.643978971,
+              "outwardXZ": [
+                -0.179940665203,
+                -0.983677465944
+              ],
+              "outwardCompassBearingDegrees": 349.633696258
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                -612.2909,
+                288.3431
+              ],
+              "bXZ": [
+                -608.6507,
+                288.3209
+              ],
+              "lengthM": 3.640267693,
+              "outwardXZ": [
+                -0.006098452606,
+                -0.999981404265
+              ],
+              "outwardCompassBearingDegrees": 359.650582238
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                -608.6507,
+                288.3209
+              ],
+              "bXZ": [
+                -605.0662,
+                288.9321
+              ],
+              "lengthM": 3.636235098,
+              "outwardXZ": [
+                0.168085941497,
+                -0.985772345053
+              ],
+              "outwardCompassBearingDegrees": 9.676550259
+            },
+            {
+              "edgeIndex": 4,
+              "aXZ": [
+                -605.0662,
+                288.9321
+              ],
+              "bXZ": [
+                -601.6327,
+                290.1545
+              ],
+              "lengthM": 3.644610269,
+              "outwardXZ": [
+                0.335399373297,
+                -0.942076037479
+              ],
+              "outwardCompassBearingDegrees": 19.596825452
+            },
+            {
+              "edgeIndex": 5,
+              "aXZ": [
+                -601.6327,
+                290.1545
+              ],
+              "bXZ": [
+                -598.4695,
+                291.9549
+              ],
+              "lengthM": 3.639680535,
+              "outwardXZ": [
+                0.494658798341,
+                -0.869087264447
+              ],
+              "outwardCompassBearingDegrees": 29.647253632
+            },
+            {
+              "edgeIndex": 6,
+              "aXZ": [
+                -598.4695,
+                291.9549
+              ],
+              "bXZ": [
+                -595.6718,
+                294.2775
+              ],
+              "lengthM": 3.636151269,
+              "outwardXZ": [
+                0.638752303815,
+                -0.769412434505
+              ],
+              "outwardCompassBearingDegrees": 39.698844733
+            },
+            {
+              "edgeIndex": 7,
+              "aXZ": [
+                -595.6718,
+                294.2775
+              ],
+              "bXZ": [
+                -593.3113,
+                297.0447
+              ],
+              "lengthM": 3.63721818,
+              "outwardXZ": [
+                0.760801212065,
+                -0.648984988826
+              ],
+              "outwardCompassBearingDegrees": 49.534881974
+            },
+            {
+              "edgeIndex": 8,
+              "aXZ": [
+                -593.3113,
+                297.0447
+              ],
+              "bXZ": [
+                -591.4753,
+                300.1786
+              ],
+              "lengthM": 3.632110297,
+              "outwardXZ": [
+                0.862831726927,
+                -0.505491257104
+              ],
+              "outwardCompassBearingDegrees": 59.636031465
+            },
+            {
+              "edgeIndex": 9,
+              "aXZ": [
+                -591.4753,
+                300.1786
+              ],
+              "bXZ": [
+                -590.2116,
+                303.5904
+              ],
+              "lengthM": 3.638312374,
+              "outwardXZ": [
+                0.937742461171,
+                -0.347331364143
+              ],
+              "outwardCompassBearingDegrees": 69.675823971
+            },
+            {
+              "edgeIndex": 10,
+              "aXZ": [
+                -590.2116,
+                303.5904
+              ],
+              "bXZ": [
+                -589.5519,
+                307.1688
+              ],
+              "lengthM": 3.638701781,
+              "outwardXZ": [
+                0.983427666105,
+                -0.181300925366
+              ],
+              "outwardCompassBearingDegrees": 79.554455802
+            },
+            {
+              "edgeIndex": 11,
+              "aXZ": [
+                -589.5519,
+                307.1688
+              ],
+              "bXZ": [
+                -589.536,
+                310.8029
+              ],
+              "lengthM": 3.634134783,
+              "outwardXZ": [
+                0.999990428847,
+                -0.004375181701
+              ],
+              "outwardCompassBearingDegrees": 89.749319754
+            },
+            {
+              "edgeIndex": 12,
+              "aXZ": [
+                -589.536,
+                310.8029
+              ],
+              "bXZ": [
+                -590.1401,
+                314.3813
+              ],
+              "lengthM": 3.629033393,
+              "outwardXZ": [
+                0.986047691532,
+                0.166463059036
+              ],
+              "outwardCompassBearingDegrees": 99.582237094
+            },
+            {
+              "edgeIndex": 13,
+              "aXZ": [
+                -590.1401,
+                314.3813
+              ],
+              "bXZ": [
+                -591.372,
+                317.8042
+              ],
+              "lengthM": 3.637832049,
+              "outwardXZ": [
+                0.9409175447,
+                0.338635754277
+              ],
+              "outwardCompassBearingDegrees": 109.793778633
+            },
+            {
+              "edgeIndex": 14,
+              "aXZ": [
+                -591.372,
+                317.8042
+              ],
+              "bXZ": [
+                -593.1682,
+                320.9603
+              ],
+              "lengthM": 3.631432452,
+              "outwardXZ": [
+                0.86910607374,
+                0.494625750025
+              ],
+              "outwardCompassBearingDegrees": 119.6450749
+            },
+            {
+              "edgeIndex": 15,
+              "aXZ": [
+                -593.1682,
+                320.9603
+              ],
+              "bXZ": [
+                -595.4969,
+                323.7609
+              ],
+              "lengthM": 3.642280062,
+              "outwardXZ": [
+                0.768913963872,
+                0.639352262968
+              ],
+              "outwardCompassBearingDegrees": 129.743536322
+            },
+            {
+              "edgeIndex": 16,
+              "aXZ": [
+                -595.4969,
+                323.7609
+              ],
+              "bXZ": [
+                -598.2708,
+                326.1169
+              ],
+              "lengthM": 3.639403414,
+              "outwardXZ": [
+                0.647358847585,
+                0.762185359642
+              ],
+              "outwardCompassBearingDegrees": 139.657234982
+            },
+            {
+              "edgeIndex": 17,
+              "aXZ": [
+                -598.2708,
+                326.1169
+              ],
+              "bXZ": [
+                -601.4102,
+                327.9505
+              ],
+              "lengthM": 3.635645929,
+              "outwardXZ": [
+                0.504339541276,
+                0.863505429691
+              ],
+              "outwardCompassBearingDegrees": 149.712480548
+            },
+            {
+              "edgeIndex": 18,
+              "aXZ": [
+                -601.4102,
+                327.9505
+              ],
+              "bXZ": [
+                -604.8198,
+                329.2063
+              ],
+              "lengthM": 3.633511497,
+              "outwardXZ": [
+                0.345616079922,
+                0.938376004222
+              ],
+              "outwardCompassBearingDegrees": 159.780591895
+            },
+            {
+              "edgeIndex": 19,
+              "aXZ": [
+                -604.8198,
+                329.2063
+              ],
+              "bXZ": [
+                -608.4043,
+                329.862
+              ],
+              "lengthM": 3.643978971,
+              "outwardXZ": [
+                0.179940665203,
+                0.983677465944
+              ],
+              "outwardCompassBearingDegrees": 169.633696258
+            },
+            {
+              "edgeIndex": 20,
+              "aXZ": [
+                -608.4043,
+                329.862
+              ],
+              "bXZ": [
+                -612.0445,
+                329.8842
+              ],
+              "lengthM": 3.640267693,
+              "outwardXZ": [
+                0.006098452606,
+                0.999981404265
+              ],
+              "outwardCompassBearingDegrees": 179.650582238
+            },
+            {
+              "edgeIndex": 21,
+              "aXZ": [
+                -612.0445,
+                329.8842
+              ],
+              "bXZ": [
+                -615.6369,
+                329.273
+              ],
+              "lengthM": 3.644022942,
+              "outwardXZ": [
+                -0.167726715712,
+                0.985833529982
+              ],
+              "outwardCompassBearingDegrees": 189.655671724
+            },
+            {
+              "edgeIndex": 22,
+              "aXZ": [
+                -615.6369,
+                329.273
+              ],
+              "bXZ": [
+                -619.0625,
+                328.0506
+              ],
+              "lengthM": 3.637168833,
+              "outwardXZ": [
+                -0.336085580877,
+                0.941831451124
+              ],
+              "outwardCompassBearingDegrees": 199.638565077
+            },
+            {
+              "edgeIndex": 23,
+              "aXZ": [
+                -619.0625,
+                328.0506
+              ],
+              "bXZ": [
+                -622.2258,
+                326.2502
+              ],
+              "lengthM": 3.639767444,
+              "outwardXZ": [
+                -0.494646987055,
+                0.869093986976
+              ],
+              "outwardCompassBearingDegrees": 209.64647496
+            },
+            {
+              "edgeIndex": 24,
+              "aXZ": [
+                -622.2258,
+                326.2502
+              ],
+              "bXZ": [
+                -625.0314,
+                323.9387
+              ],
+              "lengthM": 3.635164867,
+              "outwardXZ": [
+                -0.635872122612,
+                0.771794430976
+              ],
+              "outwardCompassBearingDegrees": 219.484698224
+            },
+            {
+              "edgeIndex": 25,
+              "aXZ": [
+                -625.0314,
+                323.9387
+              ],
+              "bXZ": [
+                -627.3839,
+                321.1604
+              ],
+              "lengthM": 3.640495453,
+              "outwardXZ": [
+                -0.763165353787,
+                0.646203251911
+              ],
+              "outwardCompassBearingDegrees": 229.744048778
+            },
+            {
+              "edgeIndex": 26,
+              "aXZ": [
+                -627.3839,
+                321.1604
+              ],
+              "bXZ": [
+                -629.2199,
+                318.0264
+              ],
+              "lengthM": 3.632196581,
+              "outwardXZ": [
+                -0.862838761744,
+                0.505479249062
+              ],
+              "outwardCompassBearingDegrees": 239.636828848
+            },
+            {
+              "edgeIndex": 27,
+              "aXZ": [
+                -629.2199,
+                318.0264
+              ],
+              "bXZ": [
+                -630.4916,
+                314.6147
+              ],
+              "lengthM": 3.641005051,
+              "outwardXZ": [
+                -0.937021496096,
+                0.349271693462
+              ],
+              "outwardCompassBearingDegrees": 249.55722489
+            },
+            {
+              "edgeIndex": 28,
+              "aXZ": [
+                -630.4916,
+                314.6147
+              ],
+              "bXZ": [
+                -631.1433,
+                311.0474
+              ],
+              "lengthM": 3.626340053,
+              "outwardXZ": [
+                -0.983719107381,
+                0.179712875923
+              ],
+              "outwardCompassBearingDegrees": 259.646963908
+            },
+            {
+              "edgeIndex": 29,
+              "aXZ": [
+                -631.1433,
+                311.0474
+              ],
+              "bXZ": [
+                -631.1672,
+                307.4133
+              ],
+              "lengthM": 3.634178589,
+              "outwardXZ": [
+                -0.999978374908,
+                0.00657645171
+              ],
+              "outwardCompassBearingDegrees": 269.623194357
+            },
+            {
+              "edgeIndex": 30,
+              "aXZ": [
+                -631.1672,
+                307.4133
+              ],
+              "bXZ": [
+                -630.5552,
+                303.8238
+              ],
+              "lengthM": 3.641298429,
+              "outwardXZ": [
+                -0.985774736639,
+                -0.168071914981
+              ],
+              "outwardCompassBearingDegrees": 279.675735001
+            },
+            {
+              "edgeIndex": 31,
+              "aXZ": [
+                -630.5552,
+                303.8238
+              ],
+              "bXZ": [
+                -629.3312,
+                300.4009
+              ],
+              "lengthM": 3.635164427,
+              "outwardXZ": [
+                -0.941608025967,
+                -0.336711041451
+              ],
+              "outwardCompassBearingDegrees": 289.676619127
+            },
+            {
+              "edgeIndex": 32,
+              "aXZ": [
+                -629.3312,
+                300.4009
+              ],
+              "bXZ": [
+                -627.527,
+                297.2448
+              ],
+              "lengthM": 3.635396106,
+              "outwardXZ": [
+                -0.868158491586,
+                -0.49628704747
+              ],
+              "outwardCompassBearingDegrees": 299.754655564
+            },
+            {
+              "edgeIndex": 33,
+              "aXZ": [
+                -627.527,
+                297.2448
+              ],
+              "bXZ": [
+                -625.2062,
+                294.4442
+              ],
+              "lengthM": 3.637234251,
+              "outwardXZ": [
+                -0.769980651885,
+                -0.638067234484
+              ],
+              "outwardCompassBearingDegrees": 309.647848559
+            },
+            {
+              "edgeIndex": 34,
+              "aXZ": [
+                -625.2062,
+                294.4442
+              ],
+              "bXZ": [
+                -622.4245,
+                292.0993
+              ],
+              "lengthM": 3.638187859,
+              "outwardXZ": [
+                -0.644524167153,
+                -0.764583937809
+              ],
+              "outwardCompassBearingDegrees": 319.869991472
+            },
+            {
+              "edgeIndex": 35,
+              "aXZ": [
+                -622.4245,
+                292.0993
+              ],
+              "bXZ": [
+                -619.285,
+                290.2546
+              ],
+              "lengthM": 3.641342931,
+              "outwardXZ": [
+                -0.506598811217,
+                -0.862181909154
+              ],
+              "outwardCompassBearingDegrees": 329.56245736
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "building:levels": "7",
+              "building:part": "roof",
+              "layer": "1",
+              "min_level": "6",
+              "roof:levels": "1",
+              "roof:shape": "dome"
+            },
+            "source": "https://api.openstreetmap.org/api/0.6/way/1217715300",
+            "fetchedUTC": "2026-11-09T17:54:43.697630+00:00",
+            "rawSHA256": "fc040dd0e56f9b7b13cf7526d1b8df9df71c4c50a2f7982215c52dff29c63192",
+            "version": "3",
+            "editedAt": "2023-11-06T16:34:12Z"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 22.9,
+            "minHeightM": 0.0,
+            "levels": 7,
+            "heightSourceCode": 0,
+            "name": null,
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        }
+      ],
+      "actualRoom": {
+        "numberedFloor": null,
+        "floorBaseWorldY": null,
+        "windowOutwardBearingDegrees": null,
+        "sourceId": null,
+        "facadeEdgeIndex": null,
+        "sourceApertureWorldCorners": null,
+        "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
+      },
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 1,
+        "basis": "owner-provided",
+        "date": "2026-11-10"
+      }
+    },
+    {
+      "id": "luxoft",
+      "city": "bucharest",
+      "district": "pipera",
+      "landmark": "hermes",
+      "status": "campus-confirmed-tenant-block-unknown",
+      "sources": [
+        "luxoft-global"
+      ],
+      "storeys": [
+        {
+          "sourceId": "w533147567",
+          "value": 9,
+          "basis": "OSM building:levels"
+        },
+        {
+          "sourceId": "r6774709",
+          "value": 9,
+          "basis": "Retained raw OSM building:levels; relation names Cladirea B+C"
+        },
+        {
+          "sourceId": "w231123137",
+          "value": null,
+          "basis": "No level/height tag in retained primary source; prepared height is an estimate"
+        }
+      ],
+      "evidence": "Luxoft official presence supports Hermes5-7Pompeiu but also names NovoE6. Campus part identity does not establish the CV office block. Noblesse Luxoft design images do not establish as-built Hermes occupancy/layout.",
+      "gaps": [
+        "HBC2 in older notes cannot be silently equated to CladireaA.",
+        "Numbered floor, room, heading and source-facade aperture unknown."
+      ],
+      "anchor": {
+        "lat": 44.4810862,
+        "lon": 26.1140757,
+        "registryYawRadians": -1.1519,
+        "districtXZ": [
+          85.438839824038,
+          -120.7115784003496
+        ],
+        "meaning": "Authored landmark origin; NOT a room/window/door/floor position."
+      },
+      "districtSource": {
+        "path": "game/data/bucharest-pipera.json",
+        "projection": {
+          "lat0": 44.48,
+          "lon0": 26.113,
+          "scale": 1,
+          "mPerLat": 111132,
+          "mPerLon": 79426.27110155247,
+          "compress": null
+        },
+        "geometryUnit": "source metres; x east, z south; no city rescaling",
+        "groundDatumY": null
+      },
+      "bindings": [
+        {
+          "sourceId": "w533147567",
+          "role": "campus-Cladirea-A-tenant-block-unconfirmed",
+          "districtBuildingIndex": 1069,
+          "outerRingXZ": [
+            [
+              35.6942,
+              -92.184
+            ],
+            [
+              97.5116,
+              -119.0557
+            ],
+            [
+              120.8709,
+              -65.5012
+            ],
+            [
+              59.0614,
+              -38.6295
+            ]
+          ],
+          "outerRingSHA256": "ac86bf33735328e633bccc3752a7350cc26a85184dc5063734c25090822e0564",
+          "holeRingsXZ": [],
+          "signedAreaM2": 3938.19865305,
+          "boundsXZ": [
+            35.6942,
+            -119.0557,
+            120.8709,
+            -38.6295
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                35.6942,
+                -92.184
+              ],
+              "bXZ": [
+                97.5116,
+                -119.0557
+              ],
+              "lengthM": 67.405335127,
+              "outwardXZ": [
+                -0.398658354701,
+                -0.917099512718
+              ],
+              "outwardCompassBearingDegrees": 336.505667492
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                97.5116,
+                -119.0557
+              ],
+              "bXZ": [
+                120.8709,
+                -65.5012
+              ],
+              "lengthM": 58.42723138,
+              "outwardXZ": [
+                0.916601706688,
+                -0.399801589914
+              ],
+              "outwardCompassBearingDegrees": 66.434224507
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                120.8709,
+                -65.5012
+              ],
+              "bXZ": [
+                59.0614,
+                -38.6295
+              ],
+              "lengthM": 67.398090115,
+              "outwardXZ": [
+                0.398701208805,
+                0.917080883073
+              ],
+              "outwardCompassBearingDegrees": 156.502990155
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                59.0614,
+                -38.6295
+              ],
+              "bXZ": [
+                35.6942,
+                -92.184
+              ],
+              "lengthM": 58.430390261,
+              "outwardXZ": [
+                -0.916552153092,
+                0.399915179336
+              ],
+              "outwardCompassBearingDegrees": 246.427123963
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "addr:city": "Bucure\u0219ti",
+              "addr:housenumber": "5-7",
+              "addr:postcode": "020337",
+              "addr:street": "Bulevardul Dimitrie Pompeiu",
+              "building": "commercial",
+              "building:levels": "9",
+              "name": "Cl\u0103direa A"
+            },
+            "source": "game/research/landmark-source-bucharest-pipera.json",
+            "model": "hermes"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 36.0,
+            "minHeightM": 0.0,
+            "levels": 9,
+            "heightSourceCode": 2,
+            "name": "Cl\u0103direa A",
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        },
+        {
+          "sourceId": "w231123137",
+          "role": "campus-smaller-source-way",
+          "districtBuildingIndex": 1025,
+          "outerRingXZ": [
+            [
+              106.3279,
+              -124.7901
+            ],
+            [
+              140.0047,
+              -139.6929
+            ],
+            [
+              155.7311,
+              -104.264
+            ],
+            [
+              122.0544,
+              -89.3612
+            ]
+          ],
+          "outerRingSHA256": "4b521e70a415b204b9fb696eb4c59ebbe9bb5bd6c20c98c51d8d9094fbda7afc",
+          "holeRingsXZ": [],
+          "signedAreaM2": 1427.498347135,
+          "boundsXZ": [
+            106.3279,
+            -139.6929,
+            155.7311,
+            -89.3612
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                106.3279,
+                -124.7901
+              ],
+              "bXZ": [
+                140.0047,
+                -139.6929
+              ],
+              "lengthM": 36.826896504,
+              "outwardXZ": [
+                -0.404671623594,
+                -0.914462069775
+              ],
+              "outwardCompassBearingDegrees": 336.129448975
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                140.0047,
+                -139.6929
+              ],
+              "bXZ": [
+                155.7311,
+                -104.264
+              ],
+              "lengthM": 38.762438161,
+              "outwardXZ": [
+                0.914000813185,
+                -0.405712353149
+              ],
+              "outwardCompassBearingDegrees": 66.064225442
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                155.7311,
+                -104.264
+              ],
+              "bXZ": [
+                122.0544,
+                -89.3612
+              ],
+              "lengthM": 36.826805057,
+              "outwardXZ": [
+                0.404672628451,
+                0.914461625101
+              ],
+              "outwardCompassBearingDegrees": 156.129386016
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                122.0544,
+                -89.3612
+              ],
+              "bXZ": [
+                106.3279,
+                -124.7901
+              ],
+              "lengthM": 38.762478732,
+              "outwardXZ": [
+                -0.913999856532,
+                0.405714508318
+              ],
+              "outwardCompassBearingDegrees": 246.064090341
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "addr:city": "Bucure\u0219ti",
+              "addr:street": "Bulevardul Dimitrie Pompeiu",
+              "building": "yes"
+            },
+            "source": "game/research/landmark-source-bucharest-pipera.json",
+            "model": "hermes"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 28.0,
+            "minHeightM": 0.0,
+            "levels": null,
+            "heightSourceCode": 2,
+            "name": null,
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        },
+        {
+          "sourceId": "r6774709",
+          "role": "campus-Cladirea-B-plus-C-relation",
+          "districtBuildingIndex": 5,
+          "outerRingXZ": [
+            [
+              31.2384,
+              -101.019
+            ],
+            [
+              18.0377,
+              -130.6246
+            ],
+            [
+              6.64,
+              -156.5072
+            ],
+            [
+              102.3805,
+              -198.5151
+            ],
+            [
+              127.8128,
+              -144.5161
+            ],
+            [
+              96.9318,
+              -130.6023
+            ]
+          ],
+          "outerRingSHA256": "d71ce0179f5c9bf7fc41b0c6d8cac479db68b5bd0faddca8b5211d624586d9b6",
+          "holeRingsXZ": [
+            [
+              [
+                95.1368,
+                -156.2071
+              ],
+              [
+                87.8137,
+                -173.1659
+              ],
+              [
+                35.4082,
+                -150.6394
+              ],
+              [
+                42.7869,
+                -133.5251
+              ]
+            ]
+          ],
+          "signedAreaM2": 6335.831546855,
+          "boundsXZ": [
+            6.64,
+            -198.5151,
+            127.8128,
+            -101.019
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                31.2384,
+                -101.019
+              ],
+              "bXZ": [
+                18.0377,
+                -130.6246
+              ],
+              "lengthM": 32.415274669,
+              "outwardXZ": [
+                -0.913322509297,
+                0.407237024363
+              ],
+              "outwardCompassBearingDegrees": 245.968613238
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                18.0377,
+                -130.6246
+              ],
+              "bXZ": [
+                6.64,
+                -156.5072
+              ],
+              "lengthM": 28.281028059,
+              "outwardXZ": [
+                -0.915193038471,
+                0.403015759413
+              ],
+              "outwardCompassBearingDegrees": 246.233155956
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                6.64,
+                -156.5072
+              ],
+              "bXZ": [
+                102.3805,
+                -198.5151
+              ],
+              "lengthM": 104.550978009,
+              "outwardXZ": [
+                -0.401793467645,
+                -0.915730314753
+              ],
+              "outwardCompassBearingDegrees": 336.309655225
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                102.3805,
+                -198.5151
+              ],
+              "bXZ": [
+                127.8128,
+                -144.5161
+              ],
+              "lengthM": 59.688306093,
+              "outwardXZ": [
+                0.904683070007,
+                -0.426085135675
+              ],
+              "outwardCompassBearingDegrees": 64.78063169
+            },
+            {
+              "edgeIndex": 4,
+              "aXZ": [
+                127.8128,
+                -144.5161
+              ],
+              "bXZ": [
+                96.9318,
+                -130.6023
+              ],
+              "lengthM": 33.870783744,
+              "outwardXZ": [
+                0.410790612497,
+                0.911729714709
+              ],
+              "outwardCompassBearingDegrees": 155.745490478
+            },
+            {
+              "edgeIndex": 5,
+              "aXZ": [
+                96.9318,
+                -130.6023
+              ],
+              "bXZ": [
+                31.2384,
+                -101.019
+              ],
+              "lengthM": 72.047168178,
+              "outwardXZ": [
+                0.410610170367,
+                0.911810993568
+              ],
+              "outwardCompassBearingDegrees": 155.756829487
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [
+            {
+              "holeIndex": 0,
+              "edgeIndex": 0,
+              "aXZ": [
+                95.1368,
+                -156.2071
+              ],
+              "bXZ": [
+                87.8137,
+                -173.1659
+              ],
+              "lengthM": 18.472376432,
+              "outwardXZ": [
+                -0.918062711764,
+                0.396435186718
+              ],
+              "outwardCompassBearingDegrees": 246.644486914
+            },
+            {
+              "holeIndex": 0,
+              "edgeIndex": 1,
+              "aXZ": [
+                87.8137,
+                -173.1659
+              ],
+              "bXZ": [
+                35.4082,
+                -150.6394
+              ],
+              "lengthM": 57.041911193,
+              "outwardXZ": [
+                0.394911382334,
+                0.918719217228
+              ],
+              "outwardCompassBearingDegrees": 156.73955268
+            },
+            {
+              "holeIndex": 0,
+              "edgeIndex": 2,
+              "aXZ": [
+                35.4082,
+                -150.6394
+              ],
+              "bXZ": [
+                42.7869,
+                -133.5251
+              ],
+              "lengthM": 18.637179995,
+              "outwardXZ": [
+                0.918288067414,
+                -0.395912901084
+              ],
+              "outwardCompassBearingDegrees": 66.677078467
+            },
+            {
+              "holeIndex": 0,
+              "edgeIndex": 3,
+              "aXZ": [
+                42.7869,
+                -133.5251
+              ],
+              "bXZ": [
+                95.1368,
+                -156.2071
+              ],
+              "lengthM": 57.052477194,
+              "outwardXZ": [
+                -0.397563806436,
+                -0.91757453093
+              ],
+              "outwardCompassBearingDegrees": 336.574031667
+            }
+          ],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "addr:city": "Bucure\u0219ti",
+              "addr:housenumber": "5-7",
+              "addr:postcode": "020337",
+              "addr:street": "Bulevardul Dimitrie Pompeiu",
+              "building": "commercial",
+              "building:levels": "9",
+              "building:levels:underground": "4",
+              "name": "Cl\u0103direa B+C",
+              "smoking": "outside",
+              "type": "multipolygon"
+            },
+            "source": "district.buildingSourceTags[sourceId]"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 32.4,
+            "minHeightM": 0.0,
+            "levels": 9,
+            "heightSourceCode": 0,
+            "name": "Innovative Solutions",
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        }
+      ],
+      "actualRoom": {
+        "numberedFloor": null,
+        "floorBaseWorldY": null,
+        "windowOutwardBearingDegrees": null,
+        "sourceId": null,
+        "facadeEdgeIndex": null,
+        "sourceApertureWorldCorners": null,
+        "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
+      },
+      "fallbackSelection": null
+    },
+    {
+      "id": "uipath-buc",
+      "city": "bucharest",
+      "district": "romana",
+      "landmark": "thelandmark",
+      "status": "blocked-conflicting-block",
+      "sources": [
+        "uipath-offices"
+      ],
+      "storeys": [
+        {
+          "sourceId": "w546500235",
+          "value": 7,
+          "basis": "Retained primary OSM CorpB building:levels; not official current BuildingA"
+        }
+      ],
+      "evidence": "UiPath current official address specifies4VasileAlecsandri and11ConstantinDaniel,BuildingA. Retained authored landmark is primary-source TheLandmarkCorpB. WorkspaceStudio2023 UiPath photographs identify Bucharest but not this building or floor.",
+      "gaps": [
+        "BuildingA-to-retained-source-footprint correspondence unproven: do not bind current office to CorpB or neighboring CorpC.",
+        "Older5th/6th-floor note lacks current primary support.",
+        "Do not confuse an Austin5thStreet or Istanbul6thfloor occurrence on the global office page with Bucharest."
+      ],
+      "anchor": {
+        "lat": 44.450012,
+        "lon": 26.0946079,
+        "registryYawRadians": 0,
+        "districtXZ": [
+          270.82381109815816,
+          -190.2579839997461
+        ],
+        "meaning": "Authored landmark origin; NOT a room/window/door/floor position."
+      },
+      "districtSource": {
+        "path": "game/data/bucharest-romana.json",
+        "projection": {
+          "lat0": 44.4483,
+          "lon0": 26.0912,
+          "scale": 1,
+          "mPerLat": 111132,
+          "mPerLon": 79469.4125702712,
+          "compress": null
+        },
+        "geometryUnit": "source metres; x east, z south; no city rescaling",
+        "groundDatumY": null
+      },
+      "bindings": [
+        {
+          "sourceId": "w546500235",
+          "role": "retained-Corp-B-not-verified-official-Building-A",
+          "districtBuildingIndex": 4108,
+          "outerRingXZ": [
+            [
+              290.1428,
+              -209.4727
+            ],
+            [
+              251.8386,
+              -209.7839
+            ],
+            [
+              251.5127,
+              -170.8988
+            ],
+            [
+              263.4252,
+              -170.8099
+            ],
+            [
+              272.6278,
+              -170.7321
+            ],
+            [
+              272.7708,
+              -188.1131
+            ],
+            [
+              289.968,
+              -187.9798
+            ],
+            [
+              290.0316,
+              -195.9368
+            ]
+          ],
+          "outerRingSHA256": "4cad22334d0eabf10ed3c3c0e297119d10ab9a41e54c7009d074de7a6b370ea3",
+          "holeRingsXZ": [],
+          "signedAreaM2": -1190.55776803,
+          "boundsXZ": [
+            251.5127,
+            -209.7839,
+            290.1428,
+            -170.7321
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                290.1428,
+                -209.4727
+              ],
+              "bXZ": [
+                251.8386,
+                -209.7839
+              ],
+              "lengthM": 38.305464141,
+              "outwardXZ": [
+                0.008124167321,
+                -0.999966998408
+              ],
+              "outwardCompassBearingDegrees": 0.46548562
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                251.8386,
+                -209.7839
+              ],
+              "bXZ": [
+                251.5127,
+                -170.8988
+              ],
+              "lengthM": 38.886465677,
+              "outwardXZ": [
+                -0.999964880413,
+                -0.008380807932
+              ],
+              "outwardCompassBearingDegrees": 270.480190545
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                251.5127,
+                -170.8988
+              ],
+              "bXZ": [
+                263.4252,
+                -170.8099
+              ],
+              "lengthM": 11.912831715,
+              "outwardXZ": [
+                -0.007462541412,
+                0.99997215485
+              ],
+              "outwardCompassBearingDegrees": 180.427576096
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                263.4252,
+                -170.8099
+              ],
+              "bXZ": [
+                272.6278,
+                -170.7321
+              ],
+              "lengthM": 9.20292886,
+              "outwardXZ": [
+                -0.008453830426,
+                0.999964265737
+              ],
+              "outwardCompassBearingDegrees": 180.484374574
+            },
+            {
+              "edgeIndex": 4,
+              "aXZ": [
+                272.6278,
+                -170.7321
+              ],
+              "bXZ": [
+                272.7708,
+                -188.1131
+              ],
+              "lengthM": 17.381588247,
+              "outwardXZ": [
+                0.999966156871,
+                0.008227096279
+              ],
+              "outwardCompassBearingDegrees": 90.471383212
+            },
+            {
+              "edgeIndex": 5,
+              "aXZ": [
+                272.7708,
+                -188.1131
+              ],
+              "bXZ": [
+                289.968,
+                -187.9798
+              ],
+              "lengthM": 17.197716614,
+              "outwardXZ": [
+                -0.007751028988,
+                0.999969960324
+              ],
+              "outwardCompassBearingDegrees": 180.444105695
+            },
+            {
+              "edgeIndex": 6,
+              "aXZ": [
+                289.968,
+                -187.9798
+              ],
+              "bXZ": [
+                290.0316,
+                -195.9368
+              ],
+              "lengthM": 7.957254172,
+              "outwardXZ": [
+                0.999968057808,
+                0.007992706859
+              ],
+              "outwardCompassBearingDegrees": 90.457953246
+            },
+            {
+              "edgeIndex": 7,
+              "aXZ": [
+                290.0316,
+                -195.9368
+              ],
+              "bXZ": [
+                290.1428,
+                -209.4727
+              ],
+              "lengthM": 13.536356757,
+              "outwardXZ": [
+                0.999966257029,
+                0.00821491351
+              ],
+              "outwardCompassBearingDegrees": 90.470685167
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "building": "office",
+              "building:levels": "7",
+              "name": "The Landmark Corp B"
+            },
+            "source": "game/research/landmark-source-bucharest.json",
+            "model": "thelandmark"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 26.0,
+            "minHeightM": 0.0,
+            "levels": 7,
+            "heightSourceCode": 1,
+            "name": "Friddi",
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        }
+      ],
+      "actualRoom": {
+        "numberedFloor": null,
+        "floorBaseWorldY": null,
+        "windowOutwardBearingDegrees": null,
+        "sourceId": null,
+        "facadeEdgeIndex": null,
+        "sourceApertureWorldCorners": null,
+        "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
+      },
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 6,
+        "basis": "owner-provided",
+        "date": "2026-11-10"
+      }
+    },
+    {
+      "id": "arnia",
+      "city": "bucharest",
+      "district": "romana",
+      "landmark": "europehouse",
+      "status": "building-confirmed-floor-and-view-unknown",
+      "sources": [
+        "arnia-building",
+        "arnia-design"
+      ],
+      "storeys": [
+        {
+          "sourceId": "w246115249",
+          "value": 14,
+          "basis": "OSM building:levels in retained primary source"
+        },
+        {
+          "sourceId": "w246115249",
+          "value": 11,
+          "basis": "Older owner/letting description GF+10 from cv-buildings; conflicts with OSM counting; unresolved"
+        }
+      ],
+      "evidence": "Arnia primary article and TECTO/UAR-BNA project identify EuropeHouse. Private photographs/plan support timber/herringbone floor, exposed services, brick and teal joinery. They do not prove numbered office floor, measured dimensions or facade orientation.",
+      "gaps": [
+        "OSM14 versus ownerGF+10 storey counts unresolved; portal vertical coordinate cannot be derived from this discrepancy.",
+        "Room-to-right-window bearing and measured source aperture unknown."
+      ],
+      "anchor": {
+        "lat": 44.4511557,
+        "lon": 26.087697,
+        "registryYawRadians": 0,
+        "districtXZ": [
+          -278.38135223382153,
+          -317.3596523997551
+        ],
+        "meaning": "Authored landmark origin; NOT a room/window/door/floor position."
+      },
+      "districtSource": {
+        "path": "game/data/bucharest-romana.json",
+        "projection": {
+          "lat0": 44.4483,
+          "lon0": 26.0912,
+          "scale": 1,
+          "mPerLat": 111132,
+          "mPerLon": 79469.4125702712,
+          "compress": null
+        },
+        "geometryUnit": "source metres; x east, z south; no city rescaling",
+        "groundDatumY": null
+      },
+      "bindings": [
+        {
+          "sourceId": "w246115249",
+          "role": "Europe-House",
+          "districtBuildingIndex": 2286,
+          "outerRingXZ": [
+            [
+              -313.03,
+              -340.7974
+            ],
+            [
+              -309.4698,
+              -338.1636
+            ],
+            [
+              -314.6512,
+              -330.451
+            ],
+            [
+              -285.621,
+              -309.5248
+            ],
+            [
+              -288.625,
+              -304.2238
+            ],
+            [
+              -263.7828,
+              -288.3542
+            ],
+            [
+              -253.9763,
+              -286.2205
+            ],
+            [
+              -246.2996,
+              -286.2205
+            ],
+            [
+              -242.1115,
+              -287.643
+            ],
+            [
+              -249.6214,
+              -293.4107
+            ],
+            [
+              -242.6599,
+              -302.4124
+            ],
+            [
+              -308.095,
+              -348.4988
+            ]
+          ],
+          "outerRingSHA256": "ac4d82e0745b80690ef3ce48a906275ef50def51b9e6990cc31dc20e41c39c0c",
+          "holeRingsXZ": [],
+          "signedAreaM2": -1684.39170319,
+          "boundsXZ": [
+            -314.6512,
+            -348.4988,
+            -242.1115,
+            -286.2205
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                -313.03,
+                -340.7974
+              ],
+              "bXZ": [
+                -309.4698,
+                -338.1636
+              ],
+              "lengthM": 4.428535478,
+              "outwardXZ": [
+                -0.594733860229,
+                0.803922655171
+              ],
+              "outwardCompassBearingDegrees": 216.493661924
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                -309.4698,
+                -338.1636
+              ],
+              "bXZ": [
+                -314.6512,
+                -330.451
+              ],
+              "lengthM": 9.291453316,
+              "outwardXZ": [
+                -0.830074665163,
+                -0.557652266431
+              ],
+              "outwardCompassBearingDegrees": 303.893591316
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                -314.6512,
+                -330.451
+              ],
+              "bXZ": [
+                -285.621,
+                -309.5248
+              ],
+              "lengthM": 35.786287297,
+              "outwardXZ": [
+                -0.584754708599,
+                0.811210164366
+              ],
+              "outwardCompassBearingDegrees": 215.785663189
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                -285.621,
+                -309.5248
+              ],
+              "bXZ": [
+                -288.625,
+                -304.2238
+              ],
+              "lengthM": 6.092997374,
+              "outwardXZ": [
+                -0.870015146008,
+                -0.493024995022
+              ],
+              "outwardCompassBearingDegrees": 299.539600389
+            },
+            {
+              "edgeIndex": 4,
+              "aXZ": [
+                -288.625,
+                -304.2238
+              ],
+              "bXZ": [
+                -263.7828,
+                -288.3542
+              ],
+              "lengthM": 29.478451537,
+              "outwardXZ": [
+                -0.538345780485,
+                0.842724047737
+              ],
+              "outwardCompassBearingDegrees": 212.571099804
+            },
+            {
+              "edgeIndex": 5,
+              "aXZ": [
+                -263.7828,
+                -288.3542
+              ],
+              "bXZ": [
+                -253.9763,
+                -286.2205
+              ],
+              "lengthM": 10.035941308,
+              "outwardXZ": [
+                -0.212605866704,
+                0.97713803807
+              ],
+              "outwardCompassBearingDegrees": 192.275106557
+            },
+            {
+              "edgeIndex": 6,
+              "aXZ": [
+                -253.9763,
+                -286.2205
+              ],
+              "bXZ": [
+                -246.2996,
+                -286.2205
+              ],
+              "lengthM": 7.6767,
+              "outwardXZ": [
+                -0.0,
+                1.0
+              ],
+              "outwardCompassBearingDegrees": 180.0
+            },
+            {
+              "edgeIndex": 7,
+              "aXZ": [
+                -246.2996,
+                -286.2205
+              ],
+              "bXZ": [
+                -242.1115,
+                -287.643
+              ],
+              "lengthM": 4.423085785,
+              "outwardXZ": [
+                0.321608051302,
+                0.946872885523
+              ],
+              "outwardCompassBearingDegrees": 161.23979908
+            },
+            {
+              "edgeIndex": 8,
+              "aXZ": [
+                -242.1115,
+                -287.643
+              ],
+              "bXZ": [
+                -249.6214,
+                -293.4107
+              ],
+              "lengthM": 9.469158426,
+              "outwardXZ": [
+                0.60910375985,
+                -0.793090543215
+              ],
+              "outwardCompassBearingDegrees": 37.524727143
+            },
+            {
+              "edgeIndex": 9,
+              "aXZ": [
+                -249.6214,
+                -293.4107
+              ],
+              "bXZ": [
+                -242.6599,
+                -302.4124
+              ],
+              "lengthM": 11.379502851,
+              "outwardXZ": [
+                0.791045102561,
+                0.611757832573
+              ],
+              "outwardCompassBearingDegrees": 127.716714519
+            },
+            {
+              "edgeIndex": 10,
+              "aXZ": [
+                -242.6599,
+                -302.4124
+              ],
+              "bXZ": [
+                -308.095,
+                -348.4988
+              ],
+              "lengthM": 80.035670654,
+              "outwardXZ": [
+                0.575823250104,
+                -0.817574207421
+              ],
+              "outwardCompassBearingDegrees": 35.157305309
+            },
+            {
+              "edgeIndex": 11,
+              "aXZ": [
+                -308.095,
+                -348.4988
+              ],
+              "bXZ": [
+                -313.03,
+                -340.7974
+              ],
+              "lengthM": 9.146900402,
+              "outwardXZ": [
+                -0.841968280152,
+                -0.539527029183
+              ],
+              "outwardCompassBearingDegrees": 302.651447477
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "addr:city": "Bucure\u0219ti",
+              "addr:housenumber": "51 - 53",
+              "addr:postcode": "010661",
+              "addr:postcode:source": "Date de la Po\u0219ta Rom\u00e2n\u0103, publicate sub Licen\u021ba pentru Guvernare Deschis\u0103 v1.0 la http://date.gov.ro/organization/posta-romana",
+              "addr:street": "Bulevardul Lasc\u0103r Catargiu",
+              "building": "office",
+              "building:levels": "14",
+              "check_date": "2026-06-15",
+              "name": "Europe House",
+              "office": "company"
+            },
+            "source": "game/research/landmark-source-bucharest.json",
+            "model": "europehouse"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 45.0,
+            "minHeightM": 0.0,
+            "levels": 14,
+            "heightSourceCode": 1,
+            "name": "Orange Romania Europe House",
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        }
+      ],
+      "actualRoom": {
+        "numberedFloor": null,
+        "floorBaseWorldY": null,
+        "windowOutwardBearingDegrees": null,
+        "sourceId": null,
+        "facadeEdgeIndex": null,
+        "sourceApertureWorldCorners": null,
+        "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
+      },
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 6,
+        "basis": "owner-authorized assumption",
+        "date": "2026-11-10"
+      }
+    },
+    {
+      "id": "gts",
+      "city": "bucharest",
+      "district": "unirii",
+      "landmark": "gts",
+      "status": "historical-CV-address-view-unknown",
+      "sources": [
+        "gts-opc"
+      ],
+      "storeys": [
+        {
+          "sourceId": "w245117704",
+          "value": 1,
+          "basis": "OSM building:levels; mansard is separately roof form, not a proven CV-room floor"
+        }
+      ],
+      "evidence": "OPC member entry identifies GlobalIntelligence at101Calarasilor.2023/2013 Commons reference photographs support cream historic facade, arched windows and west courtyard entrance; do not establish which room/floor the CV office occupied. GTS Telecom and GlobalTechnicalSystems are distinct identity matches and rejected.",
+      "gaps": [
+        "Exact CV-era tenant occupancy dates and room location unproven.",
+        "One-storey source tag does not place the current authored room or window."
+      ],
+      "anchor": {
+        "lat": 44.433369,
+        "lon": 26.1176015,
+        "registryYawRadians": 0,
+        "districtXZ": [
+          683.7737870963466,
+          -407.74330800023813
+        ],
+        "meaning": "Authored landmark origin; NOT a room/window/door/floor position."
+      },
+      "districtSource": {
+        "path": "game/data/bucharest-unirii.json",
+        "projection": {
+          "lat0": 44.4297,
+          "lon0": 26.109,
+          "scale": 1,
+          "mPerLat": 111132,
+          "mPerLon": 79494.71453776045,
+          "compress": null
+        },
+        "geometryUnit": "source metres; x east, z south; no city rescaling",
+        "groundDatumY": null
+      },
+      "bindings": [
+        {
+          "sourceId": "w245117704",
+          "role": "Calea-Calarasilor101-historic-house",
+          "districtBuildingIndex": 5032,
+          "outerRingXZ": [
+            [
+              690.5547,
+              -425.2244
+            ],
+            [
+              687.5498,
+              -425.5578
+            ],
+            [
+              687.7167,
+              -427.0469
+            ],
+            [
+              685.308,
+              -427.3137
+            ],
+            [
+              685.5147,
+              -429.1362
+            ],
+            [
+              681.3412,
+              -430.8477
+            ],
+            [
+              676.9929,
+              -401.6533
+            ],
+            [
+              687.2159,
+              -400.6531
+            ]
+          ],
+          "outerRingSHA256": "cf9aafe078b0deef0973f5bc9e015aefee75d885ea5dfbd499bb69c33724033e",
+          "holeRingsXZ": [],
+          "signedAreaM2": -272.387335995,
+          "boundsXZ": [
+            676.9929,
+            -430.8477,
+            690.5547,
+            -400.6531
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                690.5547,
+                -425.2244
+              ],
+              "bXZ": [
+                687.5498,
+                -425.5578
+              ],
+              "lengthM": 3.023339142,
+              "outwardXZ": [
+                0.110275422073,
+                -0.993901067152
+              ],
+              "outwardCompassBearingDegrees": 6.331192683
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                687.5498,
+                -425.5578
+              ],
+              "bXZ": [
+                687.7167,
+                -427.0469
+              ],
+              "lengthM": 1.498423979,
+              "outwardXZ": [
+                0.993777476301,
+                0.111383695383
+              ],
+              "outwardCompassBearingDegrees": 96.395085687
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                687.7167,
+                -427.0469
+              ],
+              "bXZ": [
+                685.308,
+                -427.3137
+              ],
+              "lengthM": 2.423431024,
+              "outwardXZ": [
+                0.11009184801,
+                -0.993921417921
+              ],
+              "outwardCompassBearingDegrees": 6.32061023
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                685.308,
+                -427.3137
+              ],
+              "bXZ": [
+                685.5147,
+                -429.1362
+              ],
+              "lengthM": 1.834184053,
+              "outwardXZ": [
+                0.993629836163,
+                0.112693161665
+              ],
+              "outwardCompassBearingDegrees": 96.470587956
+            },
+            {
+              "edgeIndex": 4,
+              "aXZ": [
+                685.5147,
+                -429.1362
+              ],
+              "bXZ": [
+                681.3412,
+                -430.8477
+              ],
+              "lengthM": 4.51080198,
+              "outwardXZ": [
+                0.379422552288,
+                -0.925223501007
+              ],
+              "outwardCompassBearingDegrees": 22.297918808
+            },
+            {
+              "edgeIndex": 5,
+              "aXZ": [
+                681.3412,
+                -430.8477
+              ],
+              "bXZ": [
+                676.9929,
+                -401.6533
+              ],
+              "lengthM": 29.516448029,
+              "outwardXZ": [
+                -0.989089201089,
+                -0.147317861408
+              ],
+              "outwardCompassBearingDegrees": 278.471524542
+            },
+            {
+              "edgeIndex": 6,
+              "aXZ": [
+                676.9929,
+                -401.6533
+              ],
+              "bXZ": [
+                687.2159,
+                -400.6531
+              ],
+              "lengthM": 10.271812354,
+              "outwardXZ": [
+                -0.097373274113,
+                0.995247931668
+              ],
+              "outwardCompassBearingDegrees": 185.587931863
+            },
+            {
+              "edgeIndex": 7,
+              "aXZ": [
+                687.2159,
+                -400.6531
+              ],
+              "bXZ": [
+                690.5547,
+                -425.2244
+              ],
+              "lengthM": 24.797104047,
+              "outwardXZ": [
+                0.990893934759,
+                0.134644755034
+              ],
+              "outwardCompassBearingDegrees": 97.738078302
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "addr:city": "Bucure\u0219ti",
+              "addr:housenumber": "101",
+              "addr:postcode": "030613",
+              "addr:street": "Calea C\u0103l\u0103ra\u0219ilor",
+              "building": "apartments",
+              "building:levels": "1",
+              "heritage": "2",
+              "heritage:operator": "lmi",
+              "ref:RO:lmi": "B-II-m-B-18379"
+            },
+            "source": "game/research/landmark-source-bucharest.json",
+            "model": "gts"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 5.5,
+            "minHeightM": 0.0,
+            "levels": 1,
+            "heightSourceCode": 1,
+            "name": null,
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        }
+      ],
+      "actualRoom": {
+        "numberedFloor": null,
+        "floorBaseWorldY": null,
+        "windowOutwardBearingDegrees": null,
+        "sourceId": null,
+        "facadeEdgeIndex": null,
+        "sourceApertureWorldCorners": null,
+        "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
+      },
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 2,
+        "basis": "owner-provided",
+        "date": "2026-11-10"
+      }
+    },
+    {
+      "id": "rosetti",
+      "city": "bucharest",
+      "district": "floreasca",
+      "landmark": "rosetti",
+      "status": "school-confirmed-classroom-block-and-view-unknown",
+      "sources": [
+        "rosetti-tour"
+      ],
+      "storeys": [
+        {
+          "sourceId": "w28240279",
+          "value": 3,
+          "basis": "OSM building:levels on main school"
+        },
+        {
+          "sourceId": "w544207404",
+          "value": null,
+          "basis": "Primary building=yes only; prepared height does not establish floors"
+        },
+        {
+          "sourceId": "w545176891",
+          "value": null,
+          "basis": "Primary building=yes only; prepared height does not establish floors"
+        }
+      ],
+      "evidence": "PROEDUS self-hosted virtual tour names L.T.C.A.Rosetti and two classrooms. Private blue/yellow classroom faces support desks/chairs/lockers/materials, not georeferenced exterior windows.",
+      "gaps": [
+        "Classroom source part, capture date,2009appearance and geographic heading unknown.",
+        "Viewer pano yaw is not surveyed north."
+      ],
+      "anchor": {
+        "lat": 44.4671565,
+        "lon": 26.106133,
+        "registryYawRadians": 0,
+        "districtXZ": [
+          185.35102833140857,
+          -306.3353580004251
+        ],
+        "meaning": "Authored landmark origin; NOT a room/window/door/floor position."
+      },
+      "districtSource": {
+        "path": "game/data/bucharest-floreasca.json",
+        "projection": {
+          "lat0": 44.4644,
+          "lon0": 26.1038,
+          "scale": 1,
+          "mPerLat": 111132,
+          "mPerLon": 79447.5046426907,
+          "compress": null
+        },
+        "geometryUnit": "source metres; x east, z south; no city rescaling",
+        "groundDatumY": null
+      },
+      "bindings": [
+        {
+          "sourceId": "w28240279",
+          "role": "school-main-source-building",
+          "districtBuildingIndex": 2804,
+          "outerRingXZ": [
+            [
+              168.9769,
+              -335.3519
+            ],
+            [
+              211.7912,
+              -324.761
+            ],
+            [
+              200.017,
+              -277.3299
+            ],
+            [
+              158.9109,
+              -287.4985
+            ],
+            [
+              161.7313,
+              -298.8339
+            ],
+            [
+              190.4118,
+              -291.7437
+            ],
+            [
+              196.5452,
+              -316.4373
+            ],
+            [
+              166.1486,
+              -323.9609
+            ]
+          ],
+          "outerRingSHA256": "813590cbf5bad4ca0d1c819f476be248cfae3ce5545a407dcb8e469836f5d01b",
+          "holeRingsXZ": [],
+          "signedAreaM2": 1338.008467865,
+          "boundsXZ": [
+            158.9109,
+            -335.3519,
+            211.7912,
+            -277.3299
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                168.9769,
+                -335.3519
+              ],
+              "bXZ": [
+                211.7912,
+                -324.761
+              ],
+              "lengthM": 44.104778055,
+              "outwardXZ": [
+                0.24013044543,
+                -0.970740629199
+              ],
+              "outwardCompassBearingDegrees": 13.894239482
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                211.7912,
+                -324.761
+              ],
+              "bXZ": [
+                200.017,
+                -277.3299
+              ],
+              "lengthM": 48.870656153,
+              "outwardXZ": [
+                0.970543547671,
+                0.240925760503
+              ],
+              "outwardCompassBearingDegrees": 103.941185926
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                200.017,
+                -277.3299
+              ],
+              "bXZ": [
+                158.9109,
+                -287.4985
+              ],
+              "lengthM": 42.345151826,
+              "outwardXZ": [
+                -0.240136109129,
+                0.970739228162
+              ],
+              "outwardCompassBearingDegrees": 193.89457377
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                158.9109,
+                -287.4985
+              ],
+              "bXZ": [
+                161.7313,
+                -298.8339
+              ],
+              "lengthM": 11.681008061,
+              "outwardXZ": [
+                -0.970412822323,
+                -0.241451763862
+              ],
+              "outwardCompassBearingDegrees": 283.972240485
+            },
+            {
+              "edgeIndex": 4,
+              "aXZ": [
+                161.7313,
+                -298.8339
+              ],
+              "bXZ": [
+                190.4118,
+                -291.7437
+              ],
+              "lengthM": 29.543899815,
+              "outwardXZ": [
+                0.239988628595,
+                -0.970775699194
+              ],
+              "outwardCompassBearingDegrees": 13.885869214
+            },
+            {
+              "edgeIndex": 5,
+              "aXZ": [
+                190.4118,
+                -291.7437
+              ],
+              "bXZ": [
+                196.5452,
+                -316.4373
+              ],
+              "lengthM": 25.443908436,
+              "outwardXZ": [
+                -0.970511274308,
+                -0.241055733058
+              ],
+              "outwardCompassBearingDegrees": 283.948858949
+            },
+            {
+              "edgeIndex": 6,
+              "aXZ": [
+                196.5452,
+                -316.4373
+              ],
+              "bXZ": [
+                166.1486,
+                -323.9609
+              ],
+              "lengthM": 31.313860326,
+              "outwardXZ": [
+                -0.240264212769,
+                0.970707529621
+              ],
+              "outwardCompassBearingDegrees": 193.902134933
+            },
+            {
+              "edgeIndex": 7,
+              "aXZ": [
+                166.1486,
+                -323.9609
+              ],
+              "bXZ": [
+                168.9769,
+                -335.3519
+              ],
+              "lengthM": 11.736871895,
+              "outwardXZ": [
+                -0.970531168907,
+                -0.240975621545
+              ],
+              "outwardCompassBearingDegrees": 283.944129479
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "addr:city": "Bucure\u0219ti",
+              "addr:housenumber": "11",
+              "addr:street": "Strada General Giuseppe Garibaldi",
+              "building": "school",
+              "building:levels": "3"
+            },
+            "source": "game/research/landmark-source-bucharest.json",
+            "model": "rosetti"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 11.0,
+            "minHeightM": 0.0,
+            "levels": 3,
+            "heightSourceCode": 1,
+            "name": null,
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        },
+        {
+          "sourceId": "w544207404",
+          "role": "school-auxiliary-source-way",
+          "districtBuildingIndex": 2962,
+          "outerRingXZ": [
+            [
+              140.5665,
+              -338.2525
+            ],
+            [
+              134.6317,
+              -311.8697
+            ],
+            [
+              148.0504,
+              -308.8581
+            ],
+            [
+              153.9852,
+              -335.2408
+            ]
+          ],
+          "outerRingSHA256": "a3bba9e718d923a32dadd5423a4df9f86a7db91d78c5e9ccf162007141635921",
+          "holeRingsXZ": [],
+          "signedAreaM2": -371.895747845,
+          "boundsXZ": [
+            134.6317,
+            -338.2525,
+            153.9852,
+            -308.8581
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                140.5665,
+                -338.2525
+              ],
+              "bXZ": [
+                134.6317,
+                -311.8697
+              ],
+              "lengthM": 27.04207808,
+              "outwardXZ": [
+                -0.975620287836,
+                -0.219465382152
+              ],
+              "outwardCompassBearingDegrees": 282.677634266
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                134.6317,
+                -311.8697
+              ],
+              "bXZ": [
+                148.0504,
+                -308.8581
+              ],
+              "lengthM": 13.752499564,
+              "outwardXZ": [
+                -0.218985645922,
+                0.9757280804
+              ],
+              "outwardCompassBearingDegrees": 192.649462095
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                148.0504,
+                -308.8581
+              ],
+              "bXZ": [
+                153.9852,
+                -335.2408
+              ],
+              "lengthM": 27.041980518,
+              "outwardXZ": [
+                0.975620109723,
+                0.219466173939
+              ],
+              "outwardCompassBearingDegrees": 102.677680766
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                153.9852,
+                -335.2408
+              ],
+              "bXZ": [
+                140.5665,
+                -338.2525
+              ],
+              "lengthM": 13.752521463,
+              "outwardXZ": [
+                0.218992568613,
+                -0.975726526693
+              ],
+              "outwardCompassBearingDegrees": 12.649868603
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "building": "yes"
+            },
+            "source": "game/research/landmark-source-bucharest.json",
+            "model": "rosetti"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 11.6,
+            "minHeightM": 0.0,
+            "levels": null,
+            "heightSourceCode": 2,
+            "name": null,
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        },
+        {
+          "sourceId": "w545176891",
+          "role": "school-auxiliary-source-way",
+          "districtBuildingIndex": 2990,
+          "outerRingXZ": [
+            [
+              162.8197,
+              -387.8396
+            ],
+            [
+              208.3511,
+              -377.5599
+            ],
+            [
+              201.2723,
+              -346.3207
+            ],
+            [
+              155.7489,
+              -356.6004
+            ]
+          ],
+          "outerRingSHA256": "7bd08be8dbd29f32b52808c604474e76098bf876734e704913da6157e14053a8",
+          "holeRingsXZ": [],
+          "signedAreaM2": 1494.96637564,
+          "boundsXZ": [
+            155.7489,
+            -387.8396,
+            208.3511,
+            -346.3207
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                162.8197,
+                -387.8396
+              ],
+              "bXZ": [
+                208.3511,
+                -377.5599
+              ],
+              "lengthM": 46.677410147,
+              "outwardXZ": [
+                0.220228585253,
+                -0.975448291934
+              ],
+              "outwardCompassBearingDegrees": 12.722459256
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                208.3511,
+                -377.5599
+              ],
+              "bXZ": [
+                201.2723,
+                -346.3207
+              ],
+              "lengthM": 32.031188334,
+              "outwardXZ": [
+                0.975274462951,
+                0.220997108387
+              ],
+              "outwardCompassBearingDegrees": 102.767604708
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                201.2723,
+                -346.3207
+              ],
+              "bXZ": [
+                155.7489,
+                -356.6004
+              ],
+              "lengthM": 46.669606594,
+              "outwardXZ": [
+                -0.220265409336,
+                0.975439977369
+              ],
+              "outwardCompassBearingDegrees": 192.724622234
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                155.7489,
+                -356.6004
+              ],
+              "bXZ": [
+                162.8197,
+                -387.8396
+              ],
+              "lengthM": 32.029421307,
+              "outwardXZ": [
+                -0.975328267729,
+                -0.220759530188
+              ],
+              "outwardCompassBearingDegrees": 282.753647762
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "building": "yes"
+            },
+            "source": "game/research/landmark-source-bucharest.json",
+            "model": "rosetti"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 14.5,
+            "minHeightM": 0.0,
+            "levels": null,
+            "heightSourceCode": 2,
+            "name": "Liceul Teoretic C.A. Rosetti",
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        }
+      ],
+      "actualRoom": {
+        "numberedFloor": null,
+        "floorBaseWorldY": null,
+        "windowOutwardBearingDegrees": null,
+        "sourceId": null,
+        "facadeEdgeIndex": null,
+        "sourceApertureWorldCorners": null,
+        "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
+      },
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 2,
+        "basis": "owner-authorized assumption",
+        "date": "2026-11-10"
+      }
+    },
+    {
+      "id": "db",
+      "city": "bucharest",
+      "district": "pipera",
+      "landmark": "bob",
+      "status": "building-confirmed-floor-and-view-unknown",
+      "sources": [
+        "db-careers-romania",
+        "db-company-night"
+      ],
+      "storeys": [
+        {
+          "sourceId": "w55450549",
+          "value": 7,
+          "basis": "Older Globalworth owner sheet GF+6 as retained in cv-buildings; raw OSM source has no building:levels"
+        }
+      ],
+      "evidence": "DB primary careers photographs and public company-night entry support BOBTower6APompeiu,EntranceA. EducationPlaza photograph supports open timber/grey room, stage and concrete/round service elements. DoorA is an entrance, not floorA.",
+      "gaps": [
+        "Raw OSM has neither height nor level tag; prepared28m is not measured height.",
+        "Estimated room height3.8m and source-derived layout do not establish office floor or facade bearing."
+      ],
+      "anchor": {
+        "lat": 44.479608,
+        "lon": 26.1147802,
+        "registryYawRadians": 0,
+        "districtXZ": [
+          141.39464781489627,
+          43.56374399977213
+        ],
+        "meaning": "Authored landmark origin; NOT a room/window/door/floor position."
+      },
+      "districtSource": {
+        "path": "game/data/bucharest-pipera.json",
+        "projection": {
+          "lat0": 44.48,
+          "lon0": 26.113,
+          "scale": 1,
+          "mPerLat": 111132,
+          "mPerLon": 79426.27110155247,
+          "compress": null
+        },
+        "geometryUnit": "source metres; x east, z south; no city rescaling",
+        "groundDatumY": null
+      },
+      "bindings": [
+        {
+          "sourceId": "w55450549",
+          "role": "BOB-Tower",
+          "districtBuildingIndex": 1000,
+          "outerRingXZ": [
+            [
+              69.085,
+              40.2298
+            ],
+            [
+              95.3592,
+              99.3298
+            ],
+            [
+              213.6964,
+              46.8644
+            ],
+            [
+              187.4301,
+              -12.2023
+            ],
+            [
+              130.4656,
+              13.0358
+            ],
+            [
+              129.1551,
+              13.6137
+            ]
+          ],
+          "outerRingSHA256": "4f5959a3c0de948083b45eda394041ee8fcd2953abed4ce2348afa11bfad1954",
+          "holeRingsXZ": [],
+          "signedAreaM2": -8369.89774974,
+          "boundsXZ": [
+            69.085,
+            -12.2023,
+            213.6964,
+            99.3298
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                69.085,
+                40.2298
+              ],
+              "bXZ": [
+                95.3592,
+                99.3298
+              ],
+              "lengthM": 64.677226175,
+              "outwardXZ": [
+                -0.913768315302,
+                0.406235727071
+              ],
+              "outwardCompassBearingDegrees": 246.031412637
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                95.3592,
+                99.3298
+              ],
+              "bXZ": [
+                213.6964,
+                46.8644
+              ],
+              "lengthM": 129.44617067,
+              "outwardXZ": [
+                0.405306697978,
+                0.914180770184
+              ],
+              "outwardCompassBearingDegrees": 156.08965216
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                213.6964,
+                46.8644
+              ],
+              "bXZ": [
+                187.4301,
+                -12.2023
+              ],
+              "lengthM": 64.643588735,
+              "outwardXZ": [
+                0.913728664444,
+                -0.4063249042
+              ],
+              "outwardCompassBearingDegrees": 66.025820865
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                187.4301,
+                -12.2023
+              ],
+              "bXZ": [
+                130.4656,
+                13.0358
+              ],
+              "lengthM": 62.305023488,
+              "outwardXZ": [
+                -0.405073276392,
+                -0.914284223179
+              ],
+              "outwardCompassBearingDegrees": 336.104280903
+            },
+            {
+              "edgeIndex": 4,
+              "aXZ": [
+                130.4656,
+                13.0358
+              ],
+              "bXZ": [
+                129.1551,
+                13.6137
+              ],
+              "lengthM": 1.432263474,
+              "outwardXZ": [
+                -0.403487214708,
+                -0.914985282705
+              ],
+              "outwardCompassBearingDegrees": 336.203637085
+            },
+            {
+              "edgeIndex": 5,
+              "aXZ": [
+                129.1551,
+                13.6137
+              ],
+              "bXZ": [
+                69.085,
+                40.2298
+              ],
+              "lengthM": 65.702615574,
+              "outwardXZ": [
+                -0.405099549959,
+                -0.914272582233
+              ],
+              "outwardCompassBearingDegrees": 336.102634397
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "addr:city": "Bucure\u0219ti",
+              "addr:country": "RO",
+              "building": "office",
+              "name": "BOB Tower",
+              "office": "company",
+              "wheelchair": "yes"
+            },
+            "source": "game/research/landmark-source-bucharest-pipera.json",
+            "model": "bob"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 28.0,
+            "minHeightM": 0.0,
+            "levels": 7,
+            "heightSourceCode": 2,
+            "name": "Banca Transilvania",
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        }
+      ],
+      "actualRoom": {
+        "numberedFloor": null,
+        "floorBaseWorldY": null,
+        "windowOutwardBearingDegrees": null,
+        "sourceId": null,
+        "facadeEdgeIndex": null,
+        "sourceApertureWorldCorners": null,
+        "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
+      },
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 6,
+        "basis": "owner-authorized assumption",
+        "date": "2026-11-10"
+      }
+    },
+    {
+      "id": "uipath-bel",
+      "city": "seattle",
+      "district": "bellevue",
+      "landmark": "lincoln",
+      "status": "current-building-confirmed-floor-and-view-unknown",
+      "sources": [
+        "uipath-offices",
+        "geekwire-uipath-move",
+        "uipath-bellevue-design"
+      ],
+      "storeys": [
+        {
+          "sourceId": "w604028609",
+          "value": 28,
+          "basis": "OSM building:levels; tall-building research126m/28storeys"
+        },
+        {
+          "sourceId": "w161929514",
+          "value": 3,
+          "basis": "OSM building:levels; retail podium, not UiPath-office floor"
+        },
+        {
+          "sourceId": "w1364249504",
+          "value": null,
+          "basis": "Covered bridge source, not numbered office floor"
+        }
+      ],
+      "evidence": "UiPath current official address is LincolnSquareNorth700BellevueWayNE,Suite2000. GeekWire2025 confirms two floors but no numbered floors. JPC ImmersionLab states FOURTHfloor at historical PlazaCenter, not current Lincoln. Retained north office tower is separate from Westin/OneLincoln hotel-residential tower.",
+      "gaps": [
+        "Suite2000 is an address field, not verified floor20; adjacent floor unproven.",
+        "JPC historical4thfloor layout/photographs cannot be relabeled current Lincoln.",
+        "Facade bearing and actual current office-window aperture unknown."
+      ],
+      "anchor": {
+        "lat": 47.6168559,
+        "lon": -122.2010316,
+        "registryYawRadians": 0,
+        "districtXZ": [
+          -452.62655757968133,
+          -261.8158787997495
+        ],
+        "meaning": "Authored landmark origin; NOT a room/window/door/floor position."
+      },
+      "districtSource": {
+        "path": "game/data/seattle-bellevue.json",
+        "projection": {
+          "lat0": 47.6145,
+          "lon0": -122.195,
+          "scale": 1,
+          "mPerLat": 111132,
+          "mPerLon": 75042.53557591343,
+          "compress": null
+        },
+        "geometryUnit": "source metres; x east, z south; no city rescaling",
+        "groundDatumY": null
+      },
+      "bindings": [
+        {
+          "sourceId": "w604028609",
+          "role": "Lincoln-Square-North-office-tower",
+          "districtBuildingIndex": 795,
+          "outerRingXZ": [
+            [
+              -481.8931,
+              -308.1913
+            ],
+            [
+              -484.6172,
+              -287.8097
+            ],
+            [
+              -486.5233,
+              -287.7763
+            ],
+            [
+              -488.3243,
+              -270.7509
+            ],
+            [
+              -487.0411,
+              -270.7064
+            ],
+            [
+              -486.6358,
+              -254.7368
+            ],
+            [
+              -473.9461,
+              -252.4475
+            ],
+            [
+              -442.3532,
+              -255.6592
+            ],
+            [
+              -443.3513,
+              -305.224
+            ],
+            [
+              -465.804,
+              -304.4683
+            ],
+            [
+              -465.744,
+              -303.057
+            ],
+            [
+              -470.209,
+              -302.9125
+            ],
+            [
+              -470.5242,
+              -308.4691
+            ]
+          ],
+          "outerRingSHA256": "10c3648f54da18a8aa5a909ee81c162ffe0771e9629062afcc808ad4e82cb59e",
+          "holeRingsXZ": [],
+          "signedAreaM2": -2225.986701475,
+          "boundsXZ": [
+            -488.3243,
+            -308.4691,
+            -442.3532,
+            -252.4475
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                -481.8931,
+                -308.1913
+              ],
+              "bXZ": [
+                -484.6172,
+                -287.8097
+              ],
+              "lengthM": 20.562838796,
+              "outwardXZ": [
+                -0.991186100408,
+                -0.132476844611
+              ],
+              "outwardCompassBearingDegrees": 277.612743234
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                -484.6172,
+                -287.8097
+              ],
+              "bXZ": [
+                -486.5233,
+                -287.7763
+              ],
+              "lengthM": 1.906392606,
+              "outwardXZ": [
+                -0.017520000805,
+                -0.999846513007
+              ],
+              "outwardCompassBearingDegrees": 358.996126536
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                -486.5233,
+                -287.7763
+              ],
+              "bXZ": [
+                -488.3243,
+                -270.7509
+              ],
+              "lengthM": 17.120392699,
+              "outwardXZ": [
+                -0.994451488325,
+                -0.105196185139
+              ],
+              "outwardCompassBearingDegrees": 276.038469739
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                -488.3243,
+                -270.7509
+              ],
+              "bXZ": [
+                -487.0411,
+                -270.7064
+              ],
+              "lengthM": 1.283971374,
+              "outwardXZ": [
+                -0.034658093546,
+                0.999399227812
+              ],
+              "outwardCompassBearingDegrees": 181.986160245
+            },
+            {
+              "edgeIndex": 4,
+              "aXZ": [
+                -487.0411,
+                -270.7064
+              ],
+              "bXZ": [
+                -486.6358,
+                -254.7368
+              ],
+              "lengthM": 15.974742322,
+              "outwardXZ": [
+                -0.999678096725,
+                0.02537130126
+              ],
+              "outwardCompassBearingDegrees": 268.546175517
+            },
+            {
+              "edgeIndex": 5,
+              "aXZ": [
+                -486.6358,
+                -254.7368
+              ],
+              "bXZ": [
+                -473.9461,
+                -252.4475
+              ],
+              "lengthM": 12.894548483,
+              "outwardXZ": [
+                -0.177540144428,
+                0.984113559055
+              ],
+              "outwardCompassBearingDegrees": 190.22651284
+            },
+            {
+              "edgeIndex": 6,
+              "aXZ": [
+                -473.9461,
+                -252.4475
+              ],
+              "bXZ": [
+                -442.3532,
+                -255.6592
+              ],
+              "lengthM": 31.755729362,
+              "outwardXZ": [
+                0.101137654985,
+                0.994872441444
+              ],
+              "outwardCompassBearingDegrees": 174.195314536
+            },
+            {
+              "edgeIndex": 7,
+              "aXZ": [
+                -442.3532,
+                -255.6592
+              ],
+              "bXZ": [
+                -443.3513,
+                -305.224
+              ],
+              "lengthM": 49.574848488,
+              "outwardXZ": [
+                0.999797306725,
+                -0.02013319315
+              ],
+              "outwardCompassBearingDegrees": 88.846375059
+            },
+            {
+              "edgeIndex": 8,
+              "aXZ": [
+                -443.3513,
+                -305.224
+              ],
+              "bXZ": [
+                -465.804,
+                -304.4683
+              ],
+              "lengthM": 22.465413857,
+              "outwardXZ": [
+                -0.033638374294,
+                -0.999434069749
+              ],
+              "outwardCompassBearingDegrees": 358.072299462
+            },
+            {
+              "edgeIndex": 9,
+              "aXZ": [
+                -465.804,
+                -304.4683
+              ],
+              "bXZ": [
+                -465.744,
+                -303.057
+              ],
+              "lengthM": 1.412574844,
+              "outwardXZ": [
+                -0.999097503371,
+                0.042475625453
+              ],
+              "outwardCompassBearingDegrees": 267.565593537
+            },
+            {
+              "edgeIndex": 10,
+              "aXZ": [
+                -465.744,
+                -303.057
+              ],
+              "bXZ": [
+                -470.209,
+                -302.9125
+              ],
+              "lengthM": 4.467337602,
+              "outwardXZ": [
+                -0.032345887612,
+                -0.999476734874
+              ],
+              "outwardCompassBearingDegrees": 358.146393835
+            },
+            {
+              "edgeIndex": 11,
+              "aXZ": [
+                -470.209,
+                -302.9125
+              ],
+              "bXZ": [
+                -470.5242,
+                -308.4691
+              ],
+              "lengthM": 5.565532733,
+              "outwardXZ": [
+                0.998394990517,
+                -0.056634290935
+              ],
+              "outwardCompassBearingDegrees": 86.753357003
+            },
+            {
+              "edgeIndex": 12,
+              "aXZ": [
+                -470.5242,
+                -308.4691
+              ],
+              "bXZ": [
+                -481.8931,
+                -308.1913
+              ],
+              "lengthM": 11.372293526,
+              "outwardXZ": [
+                -0.024427790169,
+                -0.999701597012
+              ],
+              "outwardCompassBearingDegrees": 358.600251488
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "building:levels": "28",
+              "building:part": "yes",
+              "height": "126",
+              "name": "Lincoln Square North"
+            },
+            "source": "https://api.openstreetmap.org/api/0.6/way/604028609",
+            "fetchedUTC": "2026-11-09T17:54:43.709855+00:00",
+            "rawSHA256": "69cdb141164dd23593873c222d402554aa44abcca784631cfd16afee76b20116",
+            "version": "4",
+            "editedAt": "2020-09-26T15:59:39Z"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 126.0,
+            "minHeightM": 0.0,
+            "levels": 28,
+            "heightSourceCode": 0,
+            "name": "Lincoln Square North",
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        },
+        {
+          "sourceId": "w161929514",
+          "role": "retail-podium-not-office-floor",
+          "districtBuildingIndex": 567,
+          "outerRingXZ": [
+            [
+              -481.8931,
+              -308.1913
+            ],
+            [
+              -481.9082,
+              -309.2692
+            ],
+            [
+              -465.699,
+              -309.6249
+            ],
+            [
+              -465.669,
+              -307.6912
+            ],
+            [
+              -453.2869,
+              -308.0357
+            ],
+            [
+              -453.1894,
+              -305.0351
+            ],
+            [
+              -443.3513,
+              -305.224
+            ],
+            [
+              -443.3513,
+              -307.0577
+            ],
+            [
+              -442.1506,
+              -307.0577
+            ],
+            [
+              -437.1828,
+              -307.1466
+            ],
+            [
+              -399.8191,
+              -307.8245
+            ],
+            [
+              -399.5565,
+              -269.584
+            ],
+            [
+              -395.8719,
+              -269.6285
+            ],
+            [
+              -395.7893,
+              -262.8716
+            ],
+            [
+              -399.1062,
+              -262.8605
+            ],
+            [
+              -398.3783,
+              -208.5725
+            ],
+            [
+              -397.5603,
+              -208.5725
+            ],
+            [
+              -397.2452,
+              -191.2137
+            ],
+            [
+              -399.8566,
+              -191.2026
+            ],
+            [
+              -461.309,
+              -190.9137
+            ],
+            [
+              -486.996,
+              -190.5692
+            ],
+            [
+              -487.7315,
+              -246.5686
+            ],
+            [
+              -486.891,
+              -246.5686
+            ],
+            [
+              -488.0091,
+              -249.9803
+            ],
+            [
+              -489.4649,
+              -255.3369
+            ],
+            [
+              -487.3637,
+              -256.3037
+            ],
+            [
+              -488.7821,
+              -261.338
+            ],
+            [
+              -489.4799,
+              -270.6731
+            ],
+            [
+              -489.3149,
+              -280.4083
+            ],
+            [
+              -488.8196,
+              -290.5102
+            ],
+            [
+              -487.4313,
+              -299.134
+            ],
+            [
+              -486.133,
+              -303.0236
+            ],
+            [
+              -484.257,
+              -306.6354
+            ],
+            [
+              -483.1464,
+              -308.1801
+            ]
+          ],
+          "outerRingSHA256": "f6829f1a43bed02d5124b191f4d6c907e93671c8ff6b92e433a299c5f731083e",
+          "holeRingsXZ": [],
+          "signedAreaM2": 10404.391881915,
+          "boundsXZ": [
+            -489.4799,
+            -309.6249,
+            -395.7893,
+            -190.5692
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                -481.8931,
+                -308.1913
+              ],
+              "bXZ": [
+                -481.9082,
+                -309.2692
+              ],
+              "lengthM": 1.078005761,
+              "outwardXZ": [
+                -0.999901892312,
+                0.014007346297
+              ],
+              "outwardCompassBearingDegrees": 269.197411928
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                -481.9082,
+                -309.2692
+              ],
+              "bXZ": [
+                -465.699,
+                -309.6249
+              ],
+              "lengthM": 16.213102329,
+              "outwardXZ": [
+                -0.021939046136,
+                -0.999759310162
+              ],
+              "outwardCompassBearingDegrees": 358.74288439
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                -465.699,
+                -309.6249
+              ],
+              "bXZ": [
+                -465.669,
+                -307.6912
+              ],
+              "lengthM": 1.9339327,
+              "outwardXZ": [
+                0.999879674984,
+                -0.015512432254
+              ],
+              "outwardCompassBearingDegrees": 89.111167452
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                -465.669,
+                -307.6912
+              ],
+              "bXZ": [
+                -453.2869,
+                -308.0357
+              ],
+              "lengthM": 12.386891485,
+              "outwardXZ": [
+                -0.027811658835,
+                -0.999613181002
+              ],
+              "outwardCompassBearingDegrees": 358.406303832
+            },
+            {
+              "edgeIndex": 4,
+              "aXZ": [
+                -453.2869,
+                -308.0357
+              ],
+              "bXZ": [
+                -453.1894,
+                -305.0351
+              ],
+              "lengthM": 3.00218364,
+              "outwardXZ": [
+                0.999472503859,
+                -0.032476361103
+              ],
+              "outwardCompassBearingDegrees": 88.138914325
+            },
+            {
+              "edgeIndex": 5,
+              "aXZ": [
+                -453.1894,
+                -305.0351
+              ],
+              "bXZ": [
+                -443.3513,
+                -305.224
+              ],
+              "lengthM": 9.839913354,
+              "outwardXZ": [
+                -0.019197323513,
+                -0.999815714404
+              ],
+              "outwardCompassBearingDegrees": 358.900006813
+            },
+            {
+              "edgeIndex": 6,
+              "aXZ": [
+                -443.3513,
+                -305.224
+              ],
+              "bXZ": [
+                -443.3513,
+                -307.0577
+              ],
+              "lengthM": 1.8337,
+              "outwardXZ": [
+                -1.0,
+                -0.0
+              ],
+              "outwardCompassBearingDegrees": 270.0
+            },
+            {
+              "edgeIndex": 7,
+              "aXZ": [
+                -443.3513,
+                -307.0577
+              ],
+              "bXZ": [
+                -442.1506,
+                -307.0577
+              ],
+              "lengthM": 1.2007,
+              "outwardXZ": [
+                0.0,
+                -1.0
+              ],
+              "outwardCompassBearingDegrees": 0.0
+            },
+            {
+              "edgeIndex": 8,
+              "aXZ": [
+                -442.1506,
+                -307.0577
+              ],
+              "bXZ": [
+                -437.1828,
+                -307.1466
+              ],
+              "lengthM": 4.96859538,
+              "outwardXZ": [
+                -0.017892380683,
+                -0.999839918544
+              ],
+              "outwardCompassBearingDegrees": 358.974787395
+            },
+            {
+              "edgeIndex": 9,
+              "aXZ": [
+                -437.1828,
+                -307.1466
+              ],
+              "bXZ": [
+                -399.8191,
+                -307.8245
+              ],
+              "lengthM": 37.369849158,
+              "outwardXZ": [
+                -0.01814029265,
+                -0.999835451353
+              ],
+              "outwardCompassBearingDegrees": 358.96058078
+            },
+            {
+              "edgeIndex": 10,
+              "aXZ": [
+                -399.8191,
+                -307.8245
+              ],
+              "bXZ": [
+                -399.5565,
+                -269.584
+              ],
+              "lengthM": 38.241401635,
+              "outwardXZ": [
+                0.999976422543,
+                -0.006866903115
+              ],
+              "outwardCompassBearingDegrees": 89.606552341
+            },
+            {
+              "edgeIndex": 11,
+              "aXZ": [
+                -399.5565,
+                -269.584
+              ],
+              "bXZ": [
+                -395.8719,
+                -269.6285
+              ],
+              "lengthM": 3.68486871,
+              "outwardXZ": [
+                -0.012076413979,
+                -0.999927077454
+              ],
+              "outwardCompassBearingDegrees": 359.308055628
+            },
+            {
+              "edgeIndex": 12,
+              "aXZ": [
+                -395.8719,
+                -269.6285
+              ],
+              "bXZ": [
+                -395.7893,
+                -262.8716
+              ],
+              "lengthM": 6.757404855,
+              "outwardXZ": [
+                0.999925288674,
+                -0.012223627528
+              ],
+              "outwardCompassBearingDegrees": 89.29962029
+            },
+            {
+              "edgeIndex": 13,
+              "aXZ": [
+                -395.7893,
+                -262.8716
+              ],
+              "bXZ": [
+                -399.1062,
+                -262.8605
+              ],
+              "lengthM": 3.316918573,
+              "outwardXZ": [
+                0.003346479498,
+                0.999994400522
+              ],
+              "outwardCompassBearingDegrees": 179.808260491
+            },
+            {
+              "edgeIndex": 14,
+              "aXZ": [
+                -399.1062,
+                -262.8605
+              ],
+              "bXZ": [
+                -398.3783,
+                -208.5725
+              ],
+              "lengthM": 54.292879666,
+              "outwardXZ": [
+                0.999910123282,
+                -0.01340691458
+              ],
+              "outwardCompassBearingDegrees": 89.231817364
+            },
+            {
+              "edgeIndex": 15,
+              "aXZ": [
+                -398.3783,
+                -208.5725
+              ],
+              "bXZ": [
+                -397.5603,
+                -208.5725
+              ],
+              "lengthM": 0.818,
+              "outwardXZ": [
+                0.0,
+                -1.0
+              ],
+              "outwardCompassBearingDegrees": 0.0
+            },
+            {
+              "edgeIndex": 16,
+              "aXZ": [
+                -397.5603,
+                -208.5725
+              ],
+              "bXZ": [
+                -397.2452,
+                -191.2137
+              ],
+              "lengthM": 17.36165964,
+              "outwardXZ": [
+                0.999835289949,
+                -0.018149186572
+              ],
+              "outwardCompassBearingDegrees": 88.960071112
+            },
+            {
+              "edgeIndex": 17,
+              "aXZ": [
+                -397.2452,
+                -191.2137
+              ],
+              "bXZ": [
+                -399.8566,
+                -191.2026
+              ],
+              "lengthM": 2.611423591,
+              "outwardXZ": [
+                0.004250555153,
+                0.99999096635
+              ],
+              "outwardCompassBearingDegrees": 179.756460396
+            },
+            {
+              "edgeIndex": 18,
+              "aXZ": [
+                -399.8566,
+                -191.2026
+              ],
+              "bXZ": [
+                -461.309,
+                -190.9137
+              ],
+              "lengthM": 61.453079085,
+              "outwardXZ": [
+                0.004701147677,
+                0.999988949544
+              ],
+              "outwardCompassBearingDegrees": 179.730643087
+            },
+            {
+              "edgeIndex": 19,
+              "aXZ": [
+                -461.309,
+                -190.9137
+              ],
+              "bXZ": [
+                -486.996,
+                -190.5692
+              ],
+              "lengthM": 25.689310019,
+              "outwardXZ": [
+                0.013410247288,
+                0.999910078591
+              ],
+              "outwardCompassBearingDegrees": 179.231626397
+            },
+            {
+              "edgeIndex": 20,
+              "aXZ": [
+                -486.996,
+                -190.5692
+              ],
+              "bXZ": [
+                -487.7315,
+                -246.5686
+              ],
+              "lengthM": 56.004229846,
+              "outwardXZ": [
+                -0.999913759269,
+                0.013132936602
+              ],
+              "outwardCompassBearingDegrees": 269.247516528
+            },
+            {
+              "edgeIndex": 21,
+              "aXZ": [
+                -487.7315,
+                -246.5686
+              ],
+              "bXZ": [
+                -486.891,
+                -246.5686
+              ],
+              "lengthM": 0.8405,
+              "outwardXZ": [
+                0.0,
+                -1.0
+              ],
+              "outwardCompassBearingDegrees": 0.0
+            },
+            {
+              "edgeIndex": 22,
+              "aXZ": [
+                -486.891,
+                -246.5686
+              ],
+              "bXZ": [
+                -488.0091,
+                -249.9803
+              ],
+              "lengthM": 3.590242958,
+              "outwardXZ": [
+                -0.950269950969,
+                0.311427391675
+              ],
+              "outwardCompassBearingDegrees": 251.854727191
+            },
+            {
+              "edgeIndex": 23,
+              "aXZ": [
+                -488.0091,
+                -249.9803
+              ],
+              "bXZ": [
+                -489.4649,
+                -255.3369
+              ],
+              "lengthM": 5.550902377,
+              "outwardXZ": [
+                -0.964996253962,
+                0.262263664735
+              ],
+              "outwardCompassBearingDegrees": 254.795577502
+            },
+            {
+              "edgeIndex": 24,
+              "aXZ": [
+                -489.4649,
+                -255.3369
+              ],
+              "bXZ": [
+                -487.3637,
+                -256.3037
+              ],
+              "lengthM": 2.312951292,
+              "outwardXZ": [
+                -0.417994102716,
+                -0.908449739994
+              ],
+              "outwardCompassBearingDegrees": 335.291988564
+            },
+            {
+              "edgeIndex": 25,
+              "aXZ": [
+                -487.3637,
+                -256.3037
+              ],
+              "bXZ": [
+                -488.7821,
+                -261.338
+              ],
+              "lengthM": 5.230299709,
+              "outwardXZ": [
+                -0.962526103612,
+                0.271189048202
+              ],
+              "outwardCompassBearingDegrees": 254.264965604
+            },
+            {
+              "edgeIndex": 26,
+              "aXZ": [
+                -488.7821,
+                -261.338
+              ],
+              "bXZ": [
+                -489.4799,
+                -270.6731
+              ],
+              "lengthM": 9.361143993,
+              "outwardXZ": [
+                -0.997217862196,
+                0.0745421714
+              ],
+              "outwardCompassBearingDegrees": 265.725082978
+            },
+            {
+              "edgeIndex": 27,
+              "aXZ": [
+                -489.4799,
+                -270.6731
+              ],
+              "bXZ": [
+                -489.3149,
+                -280.4083
+              ],
+              "lengthM": 9.736598176,
+              "outwardXZ": [
+                -0.999856399953,
+                -0.01694637049
+              ],
+              "outwardCompassBearingDegrees": 270.971001986
+            },
+            {
+              "edgeIndex": 28,
+              "aXZ": [
+                -489.3149,
+                -280.4083
+              ],
+              "bXZ": [
+                -488.8196,
+                -290.5102
+              ],
+              "lengthM": 10.114035085,
+              "outwardXZ": [
+                -0.998800173732,
+                -0.048971552485
+              ],
+              "outwardCompassBearingDegrees": 272.806985995
+            },
+            {
+              "edgeIndex": 29,
+              "aXZ": [
+                -488.8196,
+                -290.5102
+              ],
+              "bXZ": [
+                -487.4313,
+                -299.134
+              ],
+              "lengthM": 8.734832759,
+              "outwardXZ": [
+                -0.987288507726,
+                -0.158938360731
+              ],
+              "outwardCompassBearingDegrees": 279.145280264
+            },
+            {
+              "edgeIndex": 30,
+              "aXZ": [
+                -487.4313,
+                -299.134
+              ],
+              "bXZ": [
+                -486.133,
+                -303.0236
+              ],
+              "lengthM": 4.100557407,
+              "outwardXZ": [
+                -0.948553968088,
+                -0.316615491765
+              ],
+              "outwardCompassBearingDegrees": 288.458367137
+            },
+            {
+              "edgeIndex": 31,
+              "aXZ": [
+                -486.133,
+                -303.0236
+              ],
+              "bXZ": [
+                -484.257,
+                -306.6354
+              ],
+              "lengthM": 4.069947818,
+              "outwardXZ": [
+                -0.887431525329,
+                -0.460939570717
+              ],
+              "outwardCompassBearingDegrees": 297.447752917
+            },
+            {
+              "edgeIndex": 32,
+              "aXZ": [
+                -484.257,
+                -306.6354
+              ],
+              "bXZ": [
+                -483.1464,
+                -308.1801
+              ],
+              "lengthM": 1.90250636,
+              "outwardXZ": [
+                -0.811928954585,
+                -0.583756261385
+              ],
+              "outwardCompassBearingDegrees": 305.715174094
+            },
+            {
+              "edgeIndex": 33,
+              "aXZ": [
+                -483.1464,
+                -308.1801
+              ],
+              "bXZ": [
+                -481.8931,
+                -308.1913
+              ],
+              "lengthM": 1.253350043,
+              "outwardXZ": [
+                -0.008936051077,
+                -0.999960072698
+              ],
+              "outwardCompassBearingDegrees": 359.487995173
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "addr:housenumber": "10455",
+              "addr:state": "WA",
+              "addr:street": "Northeast 8th Street",
+              "building": "retail",
+              "building:levels": "3",
+              "layer": "1",
+              "name": "Lincoln Square",
+              "wikidata": "Q6551018"
+            },
+            "source": "https://api.openstreetmap.org/api/0.6/way/161929514",
+            "fetchedUTC": "2026-11-09T17:54:43.721683+00:00",
+            "rawSHA256": "2642560ca4a9c36e15df262ec08244c75c8a80091c235c9b13ae201b9f25afdf",
+            "version": "16",
+            "editedAt": "2026-02-06T12:35:05Z"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 10.6,
+            "minHeightM": 0.0,
+            "levels": 3,
+            "heightSourceCode": 0,
+            "name": "Earls",
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        },
+        {
+          "sourceId": "w1364249504",
+          "role": "NE8th-covered-skybridge-not-office-floor",
+          "districtBuildingIndex": 1174,
+          "outerRingXZ": [
+            [
+              -414.655,
+              -358.2896
+            ],
+            [
+              -430.1363,
+              -334.9074
+            ],
+            [
+              -443.3513,
+              -307.0577
+            ],
+            [
+              -442.1506,
+              -307.0577
+            ],
+            [
+              -437.1828,
+              -307.1466
+            ],
+            [
+              -423.6977,
+              -334.7629
+            ],
+            [
+              -416.5536,
+              -345.9095
+            ],
+            [
+              -414.64,
+              -348.5989
+            ],
+            [
+              -414.655,
+              -355.878
+            ]
+          ],
+          "outerRingSHA256": "24a184bffb19b292b254aa8dfd052cd421f4789945a8db63b52839b09576727f",
+          "holeRingsXZ": [],
+          "signedAreaM2": -294.548709125,
+          "boundsXZ": [
+            -443.3513,
+            -358.2896,
+            -414.64,
+            -307.0577
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                -414.655,
+                -358.2896
+              ],
+              "bXZ": [
+                -430.1363,
+                -334.9074
+              ],
+              "lengthM": 28.042787424,
+              "outwardXZ": [
+                -0.833804416306,
+                -0.552059956298
+              ],
+              "outwardCompassBearingDegrees": 303.508449673
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                -430.1363,
+                -334.9074
+              ],
+              "bXZ": [
+                -443.3513,
+                -307.0577
+              ],
+              "lengthM": 30.825995768,
+              "outwardXZ": [
+                -0.903448511756,
+                -0.42869661371
+              ],
+              "outwardCompassBearingDegrees": 295.384872378
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                -443.3513,
+                -307.0577
+              ],
+              "bXZ": [
+                -442.1506,
+                -307.0577
+              ],
+              "lengthM": 1.2007,
+              "outwardXZ": [
+                -0.0,
+                1.0
+              ],
+              "outwardCompassBearingDegrees": 180.0
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                -442.1506,
+                -307.0577
+              ],
+              "bXZ": [
+                -437.1828,
+                -307.1466
+              ],
+              "lengthM": 4.96859538,
+              "outwardXZ": [
+                0.017892380683,
+                0.999839918544
+              ],
+              "outwardCompassBearingDegrees": 178.974787395
+            },
+            {
+              "edgeIndex": 4,
+              "aXZ": [
+                -437.1828,
+                -307.1466
+              ],
+              "bXZ": [
+                -423.6977,
+                -334.7629
+              ],
+              "lengthM": 30.732848025,
+              "outwardXZ": [
+                0.89859228074,
+                0.438784586096
+              ],
+              "outwardCompassBearingDegrees": 116.026358637
+            },
+            {
+              "edgeIndex": 5,
+              "aXZ": [
+                -423.6977,
+                -334.7629
+              ],
+              "bXZ": [
+                -416.5536,
+                -345.9095
+              ],
+              "lengthM": 13.239518736,
+              "outwardXZ": [
+                0.841918820614,
+                0.539604206336
+              ],
+              "outwardCompassBearingDegrees": 122.656699521
+            },
+            {
+              "edgeIndex": 6,
+              "aXZ": [
+                -416.5536,
+                -345.9095
+              ],
+              "bXZ": [
+                -414.64,
+                -348.5989
+              ],
+              "lengthM": 3.300717698,
+              "outwardXZ": [
+                0.814792492512,
+                0.579752700852
+              ],
+              "outwardCompassBearingDegrees": 125.433150815
+            },
+            {
+              "edgeIndex": 7,
+              "aXZ": [
+                -414.64,
+                -348.5989
+              ],
+              "bXZ": [
+                -414.655,
+                -355.878
+              ],
+              "lengthM": 7.279115455,
+              "outwardXZ": [
+                0.999997876776,
+                -0.002060689941
+              ],
+              "outwardCompassBearingDegrees": 89.88193108
+            },
+            {
+              "edgeIndex": 8,
+              "aXZ": [
+                -414.655,
+                -355.878
+              ],
+              "bXZ": [
+                -414.655,
+                -358.2896
+              ],
+              "lengthM": 2.4116,
+              "outwardXZ": [
+                1.0,
+                0.0
+              ],
+              "outwardCompassBearingDegrees": 90.0
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "building": "bridge",
+              "layer": "1"
+            },
+            "source": "https://api.openstreetmap.org/api/0.6/way/1364249504",
+            "fetchedUTC": "2026-11-09T17:54:43.727521+00:00",
+            "rawSHA256": "97d866d1624a98d89f653fd4674a8dcde548e72cb82ea3ab2e89829572b4ed41",
+            "version": "1",
+            "editedAt": "2025-03-03T11:57:19Z"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 4.2,
+            "minHeightM": 0.0,
+            "levels": null,
+            "heightSourceCode": 2,
+            "name": null,
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        }
+      ],
+      "actualRoom": {
+        "numberedFloor": null,
+        "floorBaseWorldY": null,
+        "windowOutwardBearingDegrees": null,
+        "sourceId": null,
+        "facadeEdgeIndex": null,
+        "sourceApertureWorldCorners": null,
+        "status": "UNKNOWN: user clarification and exterior-to-room evidence pending"
+      },
+      "fallbackSelection": null,
+      "ownerFloor": {
+        "floor": 6,
+        "basis": "owner-provided",
+        "date": "2026-11-10"
+      }
+    }
+  ],
+  "historicalEvidence": {
+    "uipathBellevuePlaza": {
+      "sourcePageIds": [
+        "uipath-bellevue-design",
+        "geekwire-uipath-move"
+      ],
+      "actualRoomFloor": 4,
+      "actualRoomBearingDegrees": null,
+      "currentRoomBinding": false,
+      "note": "JPC explicitly states4thfloor at PlazaCenter; historical proof only. Do not transfer floor/layout to LincolnSquareNorth.",
+      "bindings": [
+        {
+          "sourceId": "w33725899",
+          "role": "HISTORICAL-Plaza-Center-not-current-Lincoln",
+          "districtBuildingIndex": 180,
+          "outerRingXZ": [
+            [
+              89.5257,
+              -348.0654
+            ],
+            [
+              87.5671,
+              -348.0654
+            ],
+            [
+              87.5446,
+              -346.0762
+            ],
+            [
+              83.9951,
+              -346.1206
+            ],
+            [
+              58.5932,
+              -346.4318
+            ],
+            [
+              56.3419,
+              -346.454
+            ],
+            [
+              56.4245,
+              -348.1766
+            ],
+            [
+              54.4133,
+              -348.1877
+            ],
+            [
+              54.8036,
+              -403.8315
+            ],
+            [
+              56.6121,
+              -403.8203
+            ],
+            [
+              56.5596,
+              -405.6763
+            ],
+            [
+              87.9348,
+              -405.5985
+            ],
+            [
+              87.8673,
+              -403.7648
+            ],
+            [
+              89.8484,
+              -403.7759
+            ]
+          ],
+          "outerRingSHA256": "493b6da21fd887a9a058864e4717454cc1529ee746d9ae36ace8dd18d30e9edc",
+          "holeRingsXZ": [],
+          "signedAreaM2": 2068.462530925,
+          "boundsXZ": [
+            54.4133,
+            -405.6763,
+            89.8484,
+            -346.0762
+          ],
+          "facadeEdgeCandidates": [
+            {
+              "edgeIndex": 0,
+              "aXZ": [
+                89.5257,
+                -348.0654
+              ],
+              "bXZ": [
+                87.5671,
+                -348.0654
+              ],
+              "lengthM": 1.9586,
+              "outwardXZ": [
+                0.0,
+                1.0
+              ],
+              "outwardCompassBearingDegrees": 180.0
+            },
+            {
+              "edgeIndex": 1,
+              "aXZ": [
+                87.5671,
+                -348.0654
+              ],
+              "bXZ": [
+                87.5446,
+                -346.0762
+              ],
+              "lengthM": 1.989327246,
+              "outwardXZ": [
+                0.999936035874,
+                0.011310356328
+              ],
+              "outwardCompassBearingDegrees": 90.6480495
+            },
+            {
+              "edgeIndex": 2,
+              "aXZ": [
+                87.5446,
+                -346.0762
+              ],
+              "bXZ": [
+                83.9951,
+                -346.1206
+              ],
+              "lengthM": 3.549777685,
+              "outwardXZ": [
+                -0.012507825544,
+                0.99992177409
+              ],
+              "outwardCompassBearingDegrees": 180.716664302
+            },
+            {
+              "edgeIndex": 3,
+              "aXZ": [
+                83.9951,
+                -346.1206
+              ],
+              "bXZ": [
+                58.5932,
+                -346.4318
+              ],
+              "lengthM": 25.403806192,
+              "outwardXZ": [
+                -0.01225013282,
+                0.999924964308
+              ],
+              "outwardCompassBearingDegrees": 180.701898465
+            },
+            {
+              "edgeIndex": 4,
+              "aXZ": [
+                58.5932,
+                -346.4318
+              ],
+              "bXZ": [
+                56.3419,
+                -346.454
+              ],
+              "lengthM": 2.251409454,
+              "outwardXZ": [
+                -0.009860489819,
+                0.999951384189
+              ],
+              "outwardCompassBearingDegrees": 180.564973606
+            },
+            {
+              "edgeIndex": 5,
+              "aXZ": [
+                56.3419,
+                -346.454
+              ],
+              "bXZ": [
+                56.4245,
+                -348.1766
+              ],
+              "lengthM": 1.72457923,
+              "outwardXZ": [
+                -0.998852340439,
+                -0.047895740927
+              ],
+              "outwardCompassBearingDegrees": 272.745274105
+            },
+            {
+              "edgeIndex": 6,
+              "aXZ": [
+                56.4245,
+                -348.1766
+              ],
+              "bXZ": [
+                54.4133,
+                -348.1877
+              ],
+              "lengthM": 2.011230631,
+              "outwardXZ": [
+                -0.005519009024,
+                0.999984770154
+              ],
+              "outwardCompassBearingDegrees": 180.316217529
+            },
+            {
+              "edgeIndex": 7,
+              "aXZ": [
+                54.4133,
+                -348.1877
+              ],
+              "bXZ": [
+                54.8036,
+                -403.8315
+              ],
+              "lengthM": 55.645168816,
+              "outwardXZ": [
+                -0.999975400996,
+                -0.007014086008
+              ],
+              "outwardCompassBearingDegrees": 270.401880821
+            },
+            {
+              "edgeIndex": 8,
+              "aXZ": [
+                54.8036,
+                -403.8315
+              ],
+              "bXZ": [
+                56.6121,
+                -403.8203
+              ],
+              "lengthM": 1.80853468,
+              "outwardXZ": [
+                0.00619285885,
+                -0.999980824066
+              ],
+              "outwardCompassBearingDegrees": 0.354826943
+            },
+            {
+              "edgeIndex": 9,
+              "aXZ": [
+                56.6121,
+                -403.8203
+              ],
+              "bXZ": [
+                56.5596,
+                -405.6763
+              ],
+              "lengthM": 1.856742376,
+              "outwardXZ": [
+                -0.999600172978,
+                0.028275328169
+              ],
+              "outwardCompassBearingDegrees": 268.379727083
+            },
+            {
+              "edgeIndex": 10,
+              "aXZ": [
+                56.5596,
+                -405.6763
+              ],
+              "bXZ": [
+                87.9348,
+                -405.5985
+              ],
+              "lengthM": 31.375296459,
+              "outwardXZ": [
+                0.002479657845,
+                -0.999996925644
+              ],
+              "outwardCompassBearingDegrees": 0.142074075
+            },
+            {
+              "edgeIndex": 11,
+              "aXZ": [
+                87.9348,
+                -405.5985
+              ],
+              "bXZ": [
+                87.8673,
+                -403.7648
+              ],
+              "lengthM": 1.834941945,
+              "outwardXZ": [
+                0.999323169548,
+                0.036785904971
+              ],
+              "outwardCompassBearingDegrees": 92.108152743
+            },
+            {
+              "edgeIndex": 12,
+              "aXZ": [
+                87.8673,
+                -403.7648
+              ],
+              "bXZ": [
+                89.8484,
+                -403.7759
+              ],
+              "lengthM": 1.981131096,
+              "outwardXZ": [
+                -0.005602859913,
+                -0.999984303857
+              ],
+              "outwardCompassBearingDegrees": 359.678978094
+            },
+            {
+              "edgeIndex": 13,
+              "aXZ": [
+                89.8484,
+                -403.7759
+              ],
+              "bXZ": [
+                89.5257,
+                -348.0654
+              ],
+              "lengthM": 55.711434603,
+              "outwardXZ": [
+                0.999983224213,
+                0.005792347698
+              ],
+              "outwardCompassBearingDegrees": 90.331878932
+            }
+          ],
+          "courtyardFacadeEdgeCandidates": [],
+          "selectedFacadeEdge": null,
+          "sourceTagsEvidence": {
+            "tags": {
+              "addr:city": "Bellevue",
+              "addr:country": "US",
+              "addr:housename": "Plaza Center",
+              "addr:housenumber": "10900",
+              "addr:postcode": "98004",
+              "addr:state": "WA",
+              "addr:street": "Northeast 8th Street",
+              "building": "office",
+              "building:levels": "16",
+              "name": "Plaza Center"
+            },
+            "source": "https://api.openstreetmap.org/api/0.6/way/33725899",
+            "fetchedUTC": "2026-11-09T17:54:43.719304+00:00",
+            "rawSHA256": "25d0f18dcd7915dde8ff3454756d8b84fa30c2b1804d8fdf077a6a892c31cb0e",
+            "version": "11",
+            "editedAt": "2022-06-29T20:58:40Z"
+          },
+          "preparedRuntimeOnly": {
+            "heightM": 68.0,
+            "minHeightM": 0.0,
+            "levels": 16,
+            "heightSourceCode": 1,
+            "name": "U.S. Bank",
+            "note": "Prepared district cache values; may include research/estimates/POI names. Authored landmark emitted geometry may differ. Not a measured office elevation, window aperture or tenant-floor fact."
+          }
+        }
+      ]
+    }
+  },
+  "sourceIdentityLookups": [
+    {
+      "id": "w546500233",
+      "url": "https://api.openstreetmap.org/api/0.6/way/546500233",
+      "status": 200,
+      "fetchedUTC": "2026-11-09T17:47:02.172559+00:00",
+      "sha256": "278122ecf4782c407cc133e0888bc6a8b08d1bb82153d38e0a2152abae1eab4b",
+      "version": "5",
+      "editedAt": "2022-05-07T13:03:15Z",
+      "tags": {
+        "addr:housenumber": "37",
+        "addr:street": "Strada C\u0103derea Bastiliei",
+        "building": "office",
+        "building:levels": "5",
+        "roof:levels": "1"
+      },
+      "nodeIds": [
+        "5281357974",
+        "5281358336",
+        "5281357989",
+        "5281358347",
+        "5281357974"
+      ]
+    },
+    {
+      "id": "w546500234",
+      "url": "https://api.openstreetmap.org/api/0.6/way/546500234",
+      "status": 200,
+      "fetchedUTC": "2026-11-09T17:47:02.098848+00:00",
+      "sha256": "4445ca08bdf6689156a779e42515ebb37ad5187e2add5e2c0427837e13ed2e77",
+      "version": "1",
+      "editedAt": "2017-12-13T06:23:26Z",
+      "tags": {
+        "building": "yes"
+      },
+      "nodeIds": [
+        "5281358364",
+        "5281358373",
+        "5281357968",
+        "5281357992",
+        "5281358364"
+      ]
+    },
+    {
+      "id": "w583612401",
+      "url": "https://api.openstreetmap.org/api/0.6/way/583612401",
+      "status": 200,
+      "fetchedUTC": "2026-11-09T17:47:02.075775+00:00",
+      "sha256": "84e9653cc33c595607da3434acbad0cfee07f45d05d6bb51681c9266bf40012b",
+      "version": "4",
+      "editedAt": "2026-04-05T15:14:16Z",
+      "tags": {
+        "building": "office",
+        "building:levels": "7",
+        "name": "The Landmark Corp C"
+      },
+      "nodeIds": [
+        "5579587452",
+        "5579587454",
+        "5579587456",
+        "5579587458",
+        "5579587459",
+        "5579587461",
+        "5579587463",
+        "5579587466",
+        "5579587468",
+        "5579587469",
+        "5579587471",
+        "5579587473",
+        "5579587452"
+      ]
+    }
+  ],
+  "additionalPrimaryTagLookups": [
+    {
+      "id": "w28240552",
+      "url": "https://api.openstreetmap.org/api/0.6/way/28240552",
+      "fetchedUTC": "2026-11-09T17:54:43.686601+00:00",
+      "status": 200,
+      "sha256": "444ca25869a7f45b5e3a0462e72bc177a8a00c90245459c30d3a0588cf6b1beb",
+      "bytes": 775,
+      "version": "13",
+      "editedAt": "2023-10-24T16:37:42Z",
+      "tags": {
+        "building": "university",
+        "building:levels": "5",
+        "name": "Rectorat Universitatea Politehnica din Bucure\u0219ti"
+      },
+      "nodeIds": [
+        "310173225",
+        "310173226",
+        "11284402661",
+        "310173227",
+        "310173228",
+        "11283023494",
+        "11283023493",
+        "310173225"
+      ]
+    },
+    {
+      "id": "w1217715300",
+      "url": "https://api.openstreetmap.org/api/0.6/way/1217715300",
+      "fetchedUTC": "2026-11-09T17:54:43.697630+00:00",
+      "status": 200,
+      "sha256": "fc040dd0e56f9b7b13cf7526d1b8df9df71c4c50a2f7982215c52dff29c63192",
+      "bytes": 1588,
+      "version": "3",
+      "editedAt": "2023-11-06T16:34:12Z",
+      "tags": {
+        "building:levels": "7",
+        "building:part": "roof",
+        "layer": "1",
+        "min_level": "6",
+        "roof:levels": "1",
+        "roof:shape": "dome"
+      },
+      "nodeIds": [
+        "11283029621",
+        "11283029620",
+        "11283029619",
+        "11283029618",
+        "11283029617",
+        "11283029616",
+        "11283029615",
+        "11283029614",
+        "11283029613",
+        "11283029612",
+        "11283029611",
+        "11283029610",
+        "11283029609",
+        "11283029608",
+        "11283029607",
+        "11283029606",
+        "11283029605",
+        "11283029604",
+        "11283029603",
+        "11283029602",
+        "11283029601",
+        "11283029600",
+        "11283029599",
+        "11283029598",
+        "11283029597",
+        "11283029596",
+        "11283029595",
+        "11283029594",
+        "11283029593",
+        "11283029592",
+        "11283029591",
+        "11283029590",
+        "11283029589",
+        "11283029588",
+        "11283029587",
+        "11283029586",
+        "11283029621"
+      ]
+    },
+    {
+      "id": "w604028609",
+      "url": "https://api.openstreetmap.org/api/0.6/way/604028609",
+      "fetchedUTC": "2026-11-09T17:54:43.709855+00:00",
+      "status": 200,
+      "sha256": "69cdb141164dd23593873c222d402554aa44abcca784631cfd16afee76b20116",
+      "bytes": 927,
+      "version": "4",
+      "editedAt": "2020-09-26T15:59:39Z",
+      "tags": {
+        "building:levels": "28",
+        "building:part": "yes",
+        "height": "126",
+        "name": "Lincoln Square North"
+      },
+      "nodeIds": [
+        "1738808319",
+        "7945526071",
+        "7945526070",
+        "7945526069",
+        "7945526068",
+        "7945526065",
+        "7944989297",
+        "5732417906",
+        "5732417905",
+        "7945526064",
+        "7945526063",
+        "7945526062",
+        "7945526061",
+        "1738808319"
+      ]
+    },
+    {
+      "id": "w33725899",
+      "url": "https://api.openstreetmap.org/api/0.6/way/33725899",
+      "fetchedUTC": "2026-11-09T17:54:43.719304+00:00",
+      "status": 200,
+      "sha256": "25d0f18dcd7915dde8ff3454756d8b84fa30c2b1804d8fdf077a6a892c31cb0e",
+      "bytes": 1183,
+      "version": "11",
+      "editedAt": "2022-06-29T20:58:40Z",
+      "tags": {
+        "addr:city": "Bellevue",
+        "addr:country": "US",
+        "addr:housename": "Plaza Center",
+        "addr:housenumber": "10900",
+        "addr:postcode": "98004",
+        "addr:state": "WA",
+        "addr:street": "Northeast 8th Street",
+        "building": "office",
+        "building:levels": "16",
+        "name": "Plaza Center"
+      },
+      "nodeIds": [
+        "385630076",
+        "7820533011",
+        "5017220938",
+        "7820533016",
+        "7820533026",
+        "5017220939",
+        "1457391098",
+        "385630079",
+        "5017220941",
+        "5017220942",
+        "385630081",
+        "385630084",
+        "7820533012",
+        "5017220943",
+        "385630076"
+      ]
+    },
+    {
+      "id": "w161929514",
+      "url": "https://api.openstreetmap.org/api/0.6/way/161929514",
+      "fetchedUTC": "2026-11-09T17:54:43.721683+00:00",
+      "status": 200,
+      "sha256": "2642560ca4a9c36e15df262ec08244c75c8a80091c235c9b13ae201b9f25afdf",
+      "bytes": 1608,
+      "version": "16",
+      "editedAt": "2026-02-06T12:35:05Z",
+      "tags": {
+        "addr:housenumber": "10455",
+        "addr:state": "WA",
+        "addr:street": "Northeast 8th Street",
+        "building": "retail",
+        "building:levels": "3",
+        "layer": "1",
+        "name": "Lincoln Square",
+        "wikidata": "Q6551018"
+      },
+      "nodeIds": [
+        "1738808319",
+        "7945526053",
+        "5732417910",
+        "5732417911",
+        "7945526052",
+        "7945526051",
+        "5732417905",
+        "7944989296",
+        "557240506",
+        "12633132381",
+        "1738808320",
+        "7944989295",
+        "7944989294",
+        "7944989293",
+        "7944989292",
+        "7944989291",
+        "7944989290",
+        "13529035505",
+        "13529035506",
+        "3348355397",
+        "1738808303",
+        "7945526066",
+        "7945526067",
+        "1738808310",
+        "7944989298",
+        "7945526072",
+        "7945526076",
+        "7945526077",
+        "7945526078",
+        "7944989300",
+        "7944989299",
+        "7945526075",
+        "7945526074",
+        "7945526073",
+        "1738808319"
+      ]
+    },
+    {
+      "id": "w1364249504",
+      "url": "https://api.openstreetmap.org/api/0.6/way/1364249504",
+      "fetchedUTC": "2026-11-09T17:54:43.727521+00:00",
+      "status": 200,
+      "sha256": "97d866d1624a98d89f653fd4674a8dcde548e72cb82ea3ab2e89829572b4ed41",
+      "bytes": 754,
+      "version": "1",
+      "editedAt": "2025-03-03T11:57:19Z",
+      "tags": {
+        "building": "bridge",
+        "layer": "1"
+      },
+      "nodeIds": [
+        "12633132383",
+        "12633132382",
+        "7944989296",
+        "557240506",
+        "12633132381",
+        "12633132380",
+        "12633132379",
+        "12633132378",
+        "557240135",
+        "12633132383"
+      ]
+    }
+  ],
+  "acceptance": {
+    "cpuMathAndResourceControls": "See unique handoff; not browser/GPU proof.",
+    "nativePortalVisual": "PENDING root integration and coordinated native run",
+    "actualOfficeFloorAndView": "UNKNOWN for all8current room bindings"
+  },
+  "ownerFloorUpdate": {
+    "date": "2026-11-10",
+    "source": "Owner instructions in the development conversation",
+    "provided": {
+      "gts": 2,
+      "upb": 1,
+      "uipath-buc": 6,
+      "uipath-bel": 6
+    },
+    "authorizedAssumptions": {
+      "arnia": 6,
+      "db": 6,
+      "rosetti": 2
+    },
+    "interpretation": "UiPath floor6 is applied to both UiPath chapters. Floor index is above ground. Metre heights and facade bearings are not supplied by this instruction."
+  }
+}

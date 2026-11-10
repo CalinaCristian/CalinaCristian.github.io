@@ -92,8 +92,7 @@ Pitfalls found the hard way (each one shipped a visible bug)
   is the total top, not a wall height to which another roof is added. Keep unsupported roof shapes and estimated rises
   explicit. Window tiles must end on a whole storey, including above shopfronts; parapets remain plain.
 - Fine wires / pickets / nets: thin two-sided strips in `c.detail` (no shadow pass), never boxes: the frame budget.
-- Flat ground layers (`area` / `grass` / `pave` / `sport`) write no depth and draw in mesh order, so a later cell's lawn paints
-  over anything crossing a cell border: markings over a ground go in a layer drawn after it (`c.sport` for pitches).
+- Flat opaque ground layers (`area` / `grass` / `pave` / `sport`) preserve mesh painter order with AlwaysDepth and final depth writes. This closes lower-level cars showing through grass. Markings over ground still belong in a later layer (`c.sport` for pitches); verify native positive/negative depth controls when changing this policy.
 - Do not call a `const` helper from code that runs earlier in `buildWorld` (signs run inside the building loop): use a
   function declaration (hoisted) or define it first — `clearPortal` once broke the boot.
 

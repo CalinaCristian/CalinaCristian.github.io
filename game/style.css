@@ -954,3 +954,5 @@ body.touch #spot-ui button.sp-mini { padding: 0; color: inherit; font: inherit; 
 @media(max-width:600px) and (orientation:portrait){#basketball-controls{top:26%}}
 @media(max-height:500px){#basketball-controls{top:auto;bottom:76px;width:280px;padding:5px 9px;font-size:12px}#basketball-controls .basketball-help{margin-bottom:3px}}
 /* end Rosetti basketball */
+
+.dlg-opts.dlg-linear{grid-template-columns:1fr}.dlg-linear button{justify-content:center;background:#183d59;border-color:#83b4d9;min-height:48px}.dlg-help{font:12px/1.5 system-ui,sans-serif;color:#b7c7d7;margin-top:10px;text-align:center}

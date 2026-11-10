@@ -24,7 +24,7 @@ const CHAPTERS_KEY = 'dmcv:chapters';   // chapters.js (read-only here; cleared 
 /** completion weights (sum 100) — the one table */
 export const WEIGHTS = [
     { key: 'story', label: 'Story chapters', icon: '📖', weight: 40 },
-    { key: 'cv', label: 'CV answers heard', icon: '💬', weight: 10 }, // (offices are conversations since note 37)
+    { key: 'cv', label: 'CV story sections', icon: '💬', weight: 10 }, // (offices are conversations since note 37)
     { key: 'spots', label: 'Tourist spots visited', icon: '🏛️', weight: 15 },
     { key: 'postcards', label: 'Postcards', icon: '💌', weight: 10 },
     { key: 'achievements', label: 'Achievements', icon: '🏆', weight: 25 },
@@ -353,7 +353,7 @@ export class Progression {
             if (g.spot) this.wrapSession(g.spot);
             if (g.spotId === 'fremont-troll' && g.r3d?.nightLights) this.unlock('troll-night');
         }
-        // ---- offices: answers heard (also via the cv-answer event; `read` = answered topic indices)
+        // ---- offices: completed story sections (stable cv-answer event and persisted topic keys)
         if (st === 'office' && g.office?.stop && g.office.read) {
             let added = false;
             for (const i of g.office.read) added = this.addTo('screens', `${g.office.stop.id}:${i}`) || added;

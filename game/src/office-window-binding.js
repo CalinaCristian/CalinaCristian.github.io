@@ -1,7 +1,8 @@
 import * as THREE from '../vendor/three.module.min.js';
+import { OFFICE_FLOORS, officeFloorElevation } from './office-floors.js';
 import { structuralOwnerPlanes } from './office-window-structural-plane.js';
 
-// Reviewed identities, not cached building indices or claims of actual office floors.
+// Reviewed identities and owner floor assignments; exact metre heights/bearings remain estimates.
 export const OFFICE_WINDOW_SOURCES = Object.freeze({
   rosetti: { landmark: 'rosetti', ids: ['w28240279'], skin: 0.15 },
   upb: {
@@ -15,7 +16,7 @@ export const OFFICE_WINDOW_SOURCES = Object.freeze({
     structuralBand: {
       baseM: 0,
       topM: 5.6,
-      basis: 'Unchanged bGTS main source-owner prism, modeled0–5.6m; actual office floor unknown'
+      basis: 'Unchanged bGTS main source-owner prism, modeled0–5.6m; owner specifies floor2, higher aperture must fit actual emitted geometry'
     }
   },
   luxoft: {
@@ -239,7 +240,7 @@ export function emittedFacade(owner, { center, right, outward, width, y0, y1, ma
 }
 export function createOfficeWindowBinding(world, office) {
   const policy = OFFICE_WINDOW_SOURCES[office.stop.id],
-    hold = (reason) => ({ known: false, reason });
+    hold = (reason) => ({ known: false, reason, floorAssignment: OFFICE_FLOORS[office.stop.id] || null });
   if (!policy) return hold('No reviewed source identity');
   if (policy.hold) return hold(policy.hold);
   if (world.data?.proj?.scale !== 1 || world.data?.proj?.compress)
@@ -254,7 +255,7 @@ export function createOfficeWindowBinding(world, office) {
     audit = world.stats?.landmarkSourceReplacements?.find((l) => l.landmark === policy.landmark);
   if (!owner || !audit) return hold('Source replacement ownership unavailable');
   owner.updateWorldMatrix(true, true);
-  const floor = new THREE.Vector3().setFromMatrixPosition(owner.matrixWorld).y,
+  const modelFloor = new THREE.Vector3().setFromMatrixPosition(owner.matrixWorld).y,
     candidates = [],
     diagnostics = [];
   for (const sourceId of policy.ids) {
@@ -263,6 +264,9 @@ export function createOfficeWindowBinding(world, office) {
       ring = world.data.buildingFootprints?.[index],
       holes = world.data.buildingHoleFootprints?.[index] || [];
     if (!ring?.length) continue;
+    const floorAssignment=officeFloorElevation(office.stop.id,world.data,index);
+    if(OFFICE_FLOORS[office.stop.id]&&!floorAssignment){diagnostics.push({sourceId,reason:'numbered-floor-metre-conversion-unavailable'});continue;}
+    const floor=modelFloor+(floorAssignment?.offsetM||0);
     const signed = ring.reduce((s, a, i) => {
       const b = ring[(i + 1) % ring.length];
       return s + a[0] * b[1] - b[0] * a[1];
@@ -288,7 +292,7 @@ export function createOfficeWindowBinding(world, office) {
       let structuralPlane = null;
       if (policy.structuralBand) {
         const result = structuralOwnerPlanes(owner, {
-          floor,
+          floor: modelFloor,
           band: policy.structuralBand,
           width: frame.width,
           height: frame.height,
@@ -489,7 +493,9 @@ export function createOfficeWindowBinding(world, office) {
         skinOffsetM: facade.offsetM,
         facadeEvidence: facade,
         floorModelY: floor,
-        actualOfficeFloor: null,
+        actualOfficeFloor: floorAssignment?.floor ?? null,
+        floorAssignment,
+        modelBaseY: modelFloor,
         bearingKnown: false,
         ring,
         holes,

@@ -32,6 +32,19 @@ const red=fixture({turn:false,red:true});red.v.s=15;red.t.stepVehicle(red.v,1/30
 const bus=fixture({bus:true});bus.t.stepVehicle(bus.v,1/30);assert.equal(bus.v.stopWhy,null,'native bus rightmost-lane projection also removes repeated drops');
 const future=fixture({planned:0});future.one.lanesF=future.one.lanesB=2;future.t.stepVehicle(future.v,1/30);assert.equal(future.v.stopWhy,'lanedrop2','a genuine future two-to-one drop still sees unfinished fractional steering on its two-lane approach');
 const T=Traffic.prototype;
+// An already admitted bus can have its integer future lane projected back to
+// the right edge of a short four-lane shape leg before a two-lane exit. Both
+// the integer and fractional tests must let that same movement finish.
+for(const entered of [false,true]) {
+ const q=fixture({planned:1,physical:1,bus:true,turn:false});q.v.s=q.e.len-8;
+ q.one.lanesF=q.one.lanesB=4;q.two.lanesF=q.two.lanesB=2;
+ const cl={};q.one.a.lightCluster=cl;q.one.b.lightCluster=cl;
+ q.t.boxController=n=>n.lightCluster||n;
+ const r={v:q.v,entered,generation:0,inE:q.e,entryRad:7.5,internalEdges:new Set([q.one]),clearOdo:1e6,t0:0};if(entered)q.t.boxes.set(cl,[r]);
+ q.t.stepVehicle(q.v,1/30);
+ assert.equal(q.v.stopWhy,entered?null:'lanedrop','only an actually entered movement avoids the repeated integer bus-lane stop');
+ if(entered)assert.ok(q.v.speed>0,'an admitted bus gets a real forward step for its bounded steering');
+}
 assert.equal(T.laneDropStop({laneCur:1},1,7,4,1),1.5,'current physical unfinished merge still stops');
 assert.equal(T.laneDropStop({laneCur:1},1,7,4,0),Infinity,'future lane projection does not reuse the old fractional index');
 assert.equal(T.laneDropStop({laneCur:1},1,-5.420880099136436,4,1),Infinity,'committed body clearance remains unchanged');

@@ -1439,12 +1439,12 @@ export class Traffic {
             // instead of being squeezed sideways onto a car in the remaining lane
             if (nxt && !v.tram && !nxt.uturn && D < 60 && !this.keepsTurnLane(curE, curDir, nxt)) {
                 const nl = Math.max(1, lanesDir(nxt.e, nxt.dir));
-                if (curLane > nl - 1) {
+                const clearing = this.boxes.get(node.lightCluster)?.some(r => r.v === v && r.entered && this.inBox(r,node.lightCluster));
+                if (!clearing && curLane > nl - 1) {
                     // wait for a gap before the line; already at / past it (or waited long): merge on the move,
                     // car-following and the junction claim keep it off the others (a stop inside the box locks the junction)
                     if (D - rad - 1.5 > -0.5 && v.stuck < 3) { const _d = D - rad - 1.5; if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop'; } }
-                } else {
-                    const clearing = this.boxes.get(node.lightCluster)?.some(r => r.v === v && r.entered && this.inBox(r,node.lightCluster));
+                } else if (!clearing) {
                     const _d = this.laneDropStop(v, nl, D, rad, curLaneCur, clearing);
                     if (_d < stopD) { stopD = _d; stopWhy = 'lanedrop2'; }
                 }

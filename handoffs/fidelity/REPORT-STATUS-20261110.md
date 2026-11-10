@@ -1,17 +1,17 @@
 # Full owner-report delivery status · 10 November 2026
 
-**Delivered and closed from this 71-report batch: 6 / 71. Basarab white ground, both SkyTower reports, Otopeni reports53/54 and Romană roof-window report49 are live; the other65reports remain open.**
+**Delivered and closed from this 71-report batch: 8 / 71. Basarab white ground, both SkyTower reports, Otopeni reports53/54, Romană roof-window report49 and Pipera facade reports41/42 are live; the other63reports remain open.**
 
 This is a delivery ledger. A staged candidate is code awaiting acceptance; it is not a completed fix. All original reports and supplied poses remain in [the exact register](owner-reports-20261110.json).
 
-Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integration.** [Current ownership](WORK-PACK-OWNERSHIP-20261110.md). Codex has resumed packC with immutable native reproductions at the reported Romană/Otopeni cameras. Reports49/53 have since passed targeted review and live delivery. Night lighting and Pipera facade candidates remain under review.
+Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integration.** [Current ownership](WORK-PACK-OWNERSHIP-20261110.md). Codex has resumed packC with immutable native reproductions at the reported Romană/Otopeni cameras. Reports49/53 have since passed targeted review and live delivery. Pipera facade repairs are now live. Floreasca ground-window/balcony candidates and night lighting remain under review.
 
 | Current implementation state | Reports |
 | --- | ---: |
+| Delivered — verified live | 8 |
+| Open — no verified fix | 50 |
 | Staged candidate | 3 |
-| Open — no verified fix | 52 |
 | Shared fix in progress | 8 |
-| Delivered — verified live | 6 |
 | In progress | 1 |
 | Unfinished | 1 |
 
@@ -57,8 +57,8 @@ Owner clarified the split: **Claude owns A/B only; Codex owns C–N and integrat
 | 38 | Unirii | Pedestrians collect around parked car at corner | **Shared fix in progress** | Pedestrian/car recovery fixes are under test. This specific reported location has not been verified. |
 | 39 | Pipera | Lots of stuck people around road closures | **Shared fix in progress** | Pedestrian/car recovery fixes are under test. This specific reported location has not been verified. |
 | 40 | Pipera | Buildings overlap or appear to intersect around podiums | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 41 | Pipera | Curtain wall corner flickers | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
-| 42 | Pipera | Long office facade flickers | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
+| 41 | Pipera | Curtain wall corner flickers | **Delivered — verified live** | Native High/Ultra and geometry checks pass; paired sweep retains existing92issues. Master54ab3d3e,321live-file checks. [Original comparison](https://cristiancalina.com/game/overview/#pipera-facade-fix). |
+| 42 | Pipera | Long office facade flickers | **Delivered — verified live** | Native High/Ultra and geometry checks pass; paired sweep retains existing92issues. Master54ab3d3e,321live-file checks. [Original comparison](https://cristiancalina.com/game/overview/#pipera-facade-fix). |
 | 43 | Pipera | Sky Tower coplanar blue facade patches repeat in Pipera scene | **Delivered — verified live** | Same source skin fix; the supplied bearing points across the mall, so an explicitly supplemental tower-facing pair from the reported area is published with actual cameras.295live-file checks pass. |
 | 44 | Pipera | Ramp or pavement ribbons contain spikes and broken guards | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |
 | 45 | Pipera | Walls and barriers cross streets beneath bridge | **Open — no verified fix** | A completed fix for this supplied report is not available. No acceptance or release is claimed. |

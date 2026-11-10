@@ -796,11 +796,11 @@ export function seaBackdrop(ctx, o = {}) {
     });
     return out;
 }
-const ACT_IDS = { 'lm-needle-up': 'elevator', 'lm-needle-loupe': 'loupe', 'lm-great-wheel': 'great-wheel', 'lm-pike-fish': 'fish', 'lm-gum-wall': 'gum-wall', 'lm-pike-rachel': 'rachel', 'lm-troll-climb': 'climb', 'lm-gasworks-kite': 'kite', 'lm-locks-lockage': 'lockage', 'lm-kerry-blue-hour': 'blue-hour' };
+const ACT_IDS = { 'lm-needle-up': 'elevator', 'lm-needle-loupe': 'loupe', 'lm-needle-loop': 'glass-circuit', 'lm-great-wheel': 'great-wheel', 'lm-pike-fish': 'fish', 'lm-pike-shift': 'fish-shift', 'lm-gum-wall': 'gum-wall', 'lm-pike-rachel': 'rachel', 'lm-troll-climb': 'climb', 'lm-gasworks-kite': 'kite', 'lm-locks-lockage': 'lockage', 'lm-kerry-blue-hour': 'blue-hour' };
 /** the activities the spots-sea scenes ship (for spots/index.js ACTIVITIES, contract 01 *Activities*) */
 export const SEA_ACTIVITIES = [
-    { spot: 'space-needle', id: 'elevator', title: 'Ride the elevator up (41 s)' }, { spot: 'space-needle', id: 'loupe', title: 'Look down through The Loupe' },
-    { spot: 'waterfront', id: 'great-wheel', title: 'Ride the Great Wheel' }, { spot: 'pike-place', id: 'fish', title: 'Catch a flying fish' }, { spot: 'pike-place', id: 'gum-wall', title: 'Add gum to the Gum Wall' },
+    { spot: 'space-needle', id: 'elevator', title: 'Ride the elevator up (41 s)' }, { spot: 'space-needle', id: 'glass-circuit', title: 'Walk the Loupe glass-floor circuit' },
+    { spot: 'waterfront', id: 'great-wheel', title: 'Ride the Great Wheel' }, { spot: 'pike-place', id: 'fish-shift', title: 'Fishmonger shift · three catches and returns' }, { spot: 'pike-place', id: 'gum-wall', title: 'Add gum to the Gum Wall' },
     { spot: 'pike-place', id: 'rachel', title: 'Feed Rachel a coin' }, { spot: 'fremont-troll', id: 'climb', title: 'Climb the Troll' }, { spot: 'gas-works', id: 'kite', title: 'Fly a kite on Kite Hill' },
     { spot: 'ballard-locks', id: 'lockage', title: 'Observe a lockage' }, { spot: 'kerry-park', id: 'blue-hour', title: 'Blue hour over Seattle' },
     { spot: 'chihuly', id: 'lm-chihuly-glasshouse', title: 'Under the Glasshouse' }, { spot: 'mopop', id: 'lm-mopop-monorail', title: 'Monorail through the guitar' },

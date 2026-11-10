@@ -454,7 +454,7 @@ export class Crowd {
             if (p.hidden && cr) { cr.hide(i); continue; }
             const legacy = !cr;
             if (cr) { // crowd.js idle poses + hand-held props (sit / phone / photo / wave / flag / guitar / talk)
-                let pose = 'stand', prop = null; const q = p.pose || ({ photo: 'photo', perform: 'perform', guide: 'flag', sit: 'sit', talk: 'talk' })[p.act] || (L.prop === 'flag' ? 'flag' : null);
+                let pose = 'stand', prop = null; const q = p.pose || ({ photo: 'photo', perform: 'perform', guide: 'flag', sit: 'sit', talk: 'talk', throw: 'throw', catch: 'catch' })[p.act] || (L.prop === 'flag' ? 'flag' : null);
                 if (walking) { pose = 'walk'; if (p.driven && L.prop === 'flag') prop = 'flag'; }
                 else if (q === 'sit') pose = 'sit';
                 else if (q === 'photo') { pose = 'photo'; prop = L.prop === 'camera' ? 'camera' : 'phone'; }
@@ -462,9 +462,11 @@ export class Crowd {
                 else if (q === 'flag') { pose = 'flag'; prop = 'flag'; }
                 else if (q === 'perform' || L.prop === 'guitar') { pose = 'guitar'; prop = 'guitar'; }
                 else if (q === 'talk') pose = 'talk';
+                else if (q === 'throw' || q === 'catch') pose = q;
                 else if (L.prop === 'phone' && i % 3 === 0) { pose = 'phone'; prop = 'phone'; }
                 if (walking && L.prop === 'phone' && i % 5 === 0) prop = 'phone';
-                cr.set(i, { x: p.x, y: p.y, z: p.z, yaw: p.yaw + Math.PI, phase: p.phase, amp: walking ? clamp(p.speed / 1.4, 0.2, 1) : 0, scale: s, pose, prop });
+                const handling=pose==='throw'||pose==='catch';
+                cr.set(i, { x: p.x, y: p.y, z: p.z, yaw: p.yaw + Math.PI, phase: handling ? 0 : p.phase, amp: handling ? clamp(p.throwProgress||0,0,1) : walking ? clamp(p.speed / 1.4, 0.2, 1) : 0, scale: s, pose, prop });
                 if (this._legacyHidden) continue;
             }
             const sw = walking ? Math.sin(p.phase) * clamp(p.speed / 1.4, 0, 1.2) : 0;
@@ -495,7 +497,8 @@ export class Crowd {
             else if (pose === 'talk') { aR = -0.6 + Math.sin(tt * 0.6) * 0.25; aL = -0.25 + Math.sin(tt * 0.5 + 1) * 0.15; }
             else if (pose === 'flag') { aR = -2.9; zR = 0.05; }
             else if (pose === 'perform') { aR = -0.9 + Math.sin(tt * 1.4) * 0.25; aL = -1.2; zL = 0.5; zR = -0.25; }
-            else if (pose === 'throw') { const k = Math.sin(this.t * 2.2 + i); aR = -1.2 - k * 1.4; aL = -1.2 - k * 1.4; }
+            else if (pose === 'throw') { if(Number.isFinite(p.throwProgress))aR=aL=-(1.15+.55*Math.sin(Math.min(1,p.throwProgress*4)*Math.PI));else{const k = Math.sin(this.t * 2.2 + i); aR = -1.2 - k * 1.4; aL = -1.2 - k * 1.4;} }
+            else if (pose === 'catch') { aR = aL = -1.25; }
             else if (pose === 'stumble') { aR = -1.0; aL = -1.0; zR = 0.6; zL = -0.6; }
             else if (L.prop === 'phone' && !walking && (i % 3 === 0)) { aR = -1.1; zR = -0.25; }
             else if (L.prop === 'cup' && (i % 2 === 0)) { aR = -1.3; zR = -0.15; }

@@ -18,7 +18,7 @@ const P = { SKIN: 0, TOP: 1, BOTTOM: 2, SHOES: 3, HAIR: 4, COAT: 5, HAT: 6, UMBR
 const HIP_Y = 0.9, KNEE_Y = 0.5, SHOULDER_Y = 1.43, ELBOW_Y = 1.15;
 export const CROWD_FLAGS = { coat: 1, umbrella: 2, hat: 4, bag: 8, worker: 16, shortSleeves: 32, phone: 64, camera: 128, flag: 256, guitar: 512, fan: 1024 };
 /** idle poses (crowd.set(i, { pose })): shader-driven, 'walk' = the walk cycle (amp), others hold / loop on their own */
-export const CROWD_POSES = { walk: 0, stand: 0, sit: 1, phone: 2, photo: 3, wave: 4, point: 5, flag: 6, talk: 7, guitar: 8, umbrella: 9, cheer: 10 };
+export const CROWD_POSES = { walk: 0, stand: 0, sit: 1, phone: 2, photo: 3, wave: 4, point: 5, flag: 6, talk: 7, guitar: 8, umbrella: 9, cheer: 10, throw: 11, catch: 12 };
 /** hand-held props (crowd.set(i, { prop })) → flag bits */
 const PROP_BITS = { phone: 64, camera: 128, flag: 256, guitar: 512 };
 const PROP_MASK = 64 | 128 | 256 | 512;
@@ -155,6 +155,10 @@ const GLSL_HEAD = `
         if (cIs(pose, 6.0) > 0.5 && R > 0.5) { pitch = 2.75 + sin(t * 0.9) * 0.08; roll = 0.12; elbow = 0.1; yaw = 0.0; } // guide flag held up
         if (cIs(pose, 7.0) > 0.5) { pitch = 0.3 + sin(t * 2.1 + side) * 0.18; roll = 0.0; elbow = 1.2 + sin(t * 3.3 + side * 1.7) * 0.35; yaw = 0.3; } // talk
         if (cIs(pose, 8.0) > 0.5) { if (R > 0.5) { pitch = 0.4; roll = 0.0; elbow = 1.2 + sin(t * 9.0) * 0.12; yaw = 0.75; } else { pitch = 1.0; roll = 0.0; elbow = 0.6; yaw = 0.2; } } // guitar
+        // Activity-driven progress uses amp, with phase zero; it freezes with
+        // the simulation and shares the exact pose in the shadow material.
+        if (cIs(pose, 11.0) > 0.5) { pitch = 1.15 + 0.55 * sin(min(1.0, aAnim.y * 4.0) * 3.14159265); roll = 0.08; elbow = 0.3; yaw = 0.0; }
+        if (cIs(pose, 12.0) > 0.5) { pitch = 1.25; roll = 0.08; elbow = 0.3; yaw = 0.0; }
     }
     void legJoints(float side, out float hip, out float knee) {
         float pose = aAnim.w, fl = aAnim.z, sw = sin(aAnim.x) * aAnim.y, coat = flagOn(fl, 1.0);

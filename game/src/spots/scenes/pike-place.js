@@ -11,14 +11,16 @@
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, canvas, canvasTexture, inPoly, clamp, smooth, headingFromBearing, offsetPolyline, alongPolyline, polylineLength, distPolyline, lerp, polyBox } from '../kit.js';
 import { meshSDF, sdEllipsoid, sdCapsule, sdSphere, smin, smax, noise3 } from '../sdf.js';
-import { neonSign, signBoard, latticeFrame, clockFace, canopy, stall, fishMesh, totemPole, railing } from '../props.js';
+import { neonSign, signBoard, latticeFrame, clockFace, stall, fishMesh, totemPole, railing } from '../props.js';
 import { addTraffic } from '../cars.js';
 import { buildingStyle, wallGeometry, facadeMaterial, facadeStyle } from '../osm.js';
 import { seaActivity, seaWheel, seaBackdrop, signAtlas } from './sea-common.js';
 import { coinDrop } from '../coin-drop.js';
-import { activityBlocked, onActivityCancel } from '../participation.js';
+import { activityBlocked, onActivityCancel, activityFlow } from '../participation.js';
+import { createMarketFishShift, fishFlightPoint } from '../market-fish-shift.js';
 import {prepareSourceContext,addSourceContext} from '../source-context.js';
 import {prepareRegionalTerrain,addRegionalTerrain} from '../source-regional-terrain.js';
+import {pikeHeroProfile,pikeRoofSignMount,addPikeRoof,addPikeHistoricFacade,buildPikeArcadeCanopy} from '../pike-market-hero.js';
 
 // ---------------------------------------------------------------------------- street profile (OSM centrelines, research elevations)
 const PIKE_PLACE = [[-50, 33], [-60, 25], [-76, 10], [-91, -3], [-95, -6], [-103, -14], [-126, -34], [-141, -48], [-148, -53], [-151, -56], [-172, -75], [-179, -81], [-263, -155], [-270, -161]];
@@ -162,14 +164,14 @@ function buildSigns(ctx, roofY) {
     fm.rotation.y = Math.atan2(-fmP.tz, fmP.tx); // face east (out of the arcade toward Pike Place)
     // MEET THE PRODUCER — teal billboard with bulbs on the roof across Pike Place (north-east side of the junction)
     const mp = signBoard('MEET THE PRODUCER', 13, 1.7, { bg: '#2e7f78', fg: '#eef4ee', bulbs: true, glow: 0.12, night: 1.6, font: (s) => `700 ${s}px Georgia, serif` });
-    const mpP = alongPolyline(PIKE_PLACE, 26); mp.position.set(mpP.x - mpP.tz * -6.5, profileY(26) + 13.4, mpP.z + mpP.tx * -6.5); mp.rotation.y = Math.atan2(-mpP.tz, mpP.tx); grp.add(mp);
-    { const [x, z] = [mp.position.x, mp.position.z]; b.box(x - Math.cos(mp.rotation.y) * 5, profileY(26) + 11.0, z + Math.sin(mp.rotation.y) * 5, 0.15, 1.6, 0.15, '#222', 'metal'); b.box(x + Math.cos(mp.rotation.y) * 5, profileY(26) + 11.0, z - Math.sin(mp.rotation.y) * 5, 0.15, 1.6, 0.15, '#222', 'metal'); }
+    const leland=ctx.data.buildings.find(b=>b.id==='w1271653800'),owner=ctx.extras.pikeHeroModels.find(b=>b.sourceId===leland.id),mount=pikeRoofSignMount(leland);mp.position.set(mount.x,owner.roofY+.2+1.7/2,mount.z);mp.rotation.y=mount.yaw;grp.add(mp);ctx.extras.pikeProducerSign={...mount,roofY:owner.roofY,signBottomY:owner.roofY+.2};
+    {const[x,z]=[mount.x,mount.z],rx=Math.cos(mount.yaw),rz=-Math.sin(mount.yaw);for(const side of[-1,1])b.box(x+rx*5*side,owner.roofY,z+rz*5*side,.15,.2,.15,'#222','metal');}
     // PIKE PLACE FISH board over the fish counter (under the arcade at the corner)
     const pf = signBoard('PIKE PLACE FISH', 5.6, 0.85, { bg: '#efe6cc', fg: '#2b2b2b', font: (s) => `700 ${s}px Georgia, "Times New Roman", serif`, glow: 0.05, night: 0.5 });
     const fp = alongPolyline(PIKE_PLACE, 9.6); pf.position.set(fp.x - fp.tz * -3.4, profileY(9.6) + 3.1, fp.z + fp.tx * -3.4); pf.rotation.y = Math.atan2(-fp.tz, fp.tx); grp.add(pf);
-    // LA SALLE HOTEL vertical blade on the building south of the sign
-    const ls = signBoard('LA SALLE HOTEL', 4.2, 0.7, { bg: '#1d2a2a', fg: '#f3efe2', font: (s) => `700 ${s}px Georgia, serif`, glow: 0.1, night: 1.4 });
-    ls.position.set(SIGN.x - 9.5, roofY - 1.2, SIGN.z + 9.0); ls.rotation.set(0, yaw + Math.PI / 2, Math.PI / 2); grp.add(ls);
+    // The old inferred La Salle blade stood off any identified host facade.
+    // Retain source buildings; withhold that guessed sign unit until its actual
+    // building/face is identified rather than floating it above the low arcade.
     grp.add(b.build('sign-frames'));
     ctx.add(grp);
     return grp;
@@ -180,8 +182,7 @@ function buildArcade(ctx, names = []) {
     const g = ctx.ground, b = new GeoBatch(), r = rng(31);
     const front = offsetPolyline(PIKE_PLACE.slice(0, 9), -4.6); // canopy edge line (west side), from the sign corner to Pine St
     const yS = (x, z) => ppAt(x, z).y;
-    const lamps = [];
-    canopy(b, front, 4.4, yS, { h: 3.5, every: 6, roof: '#3d5a47', col: '#2f4a3b', side: -1, lamps });
+    const structure=buildPikeArcadeCanopy(ctx,front,yS),lamps=structure.lamps;ctx.extras.pikeArcadeStructure=structure;
     // stalls under the canopy: fish at the corner, then produce / flowers / crafts
     const L = polylineLength(front); let k = 0;
     const boardItems = [];
@@ -209,54 +210,57 @@ function buildArcade(ctx, names = []) {
 
 // ---------------------------------------------------------------------------- flying fish
 function buildFishThrow(ctx) {
-    const fishLine = ctx.data.spots['pike-place'].dialogue.lines.filter((l) => l.p === 'fishmonger');
-    const fish = fishMesh(); fish.visible = false; ctx.add(fish);
-    const p0 = alongPolyline(PIKE_PLACE, 9.6);
-    const yS = profileY(9.6);
-    const front = { x: p0.x - p0.tz * -1.2, z: p0.z + p0.tx * -1.2 };    // monger in front of the counter (street side)
-    const back = { x: p0.x - p0.tz * -5.6, z: p0.z + p0.tx * -5.6 };     // catcher behind the counter
-    let t = -1, from = null, to = null, dur = 1.1, next = 4, toPlayer = false, caught = false, catchWindow = 0;
-    const cancelPlayerThrow = () => {
-        if (!toPlayer) return;
-        t = -1; catchWindow = 0; toPlayer = false; fish.visible = false; next = 5;
+    const fishLine=ctx.data.spots['pike-place'].dialogue.lines.filter(l=>l.p==='fishmonger');
+    const fish=fishMesh();fish.visible=false;ctx.add(fish);
+    const handBatch=new GeoBatch();
+    for(const side of[-1,1]){handBatch.rod([side*.38,-.8,-.25],[side*.24,-.45,-.65],.07,'#29483d','fabric',6);handBatch.sphere(side*.24,-.43,-.65,.075,.045,.10,'#d7b48c','skin');}
+    const heldHands=handBatch.build('visitor-holding-salmon');heldHands.visible=false;heldHands.userData.noFloor=true;ctx.add(heldHands);
+    const p0=alongPolyline(PIKE_PLACE,9.6),yS=profileY(9.6);
+    const front={x:p0.x-p0.tz*-1.2,z:p0.z+p0.tx*-1.2},back={x:p0.x-p0.tz*-5.6,z:p0.z+p0.tx*-5.6};
+    const mongers=[{...front,y:ctx.ground.heightAt(front.x,front.z)+1.5},{...back,y:ctx.ground.heightAt(back.x,back.z)+1.6}],shift=createMarketFishShift(),flow=activityFlow(ctx),poseLease=new Map();
+    let ambient=-1,next=4;
+    const hands=s=>s.camera.localToWorld(new THREE.Vector3(.12,-.38,-.65));
+    const place=(p,spin=0)=>{fish.visible=!!p;if(p){fish.position.set(p.x,p.y,p.z);fish.rotation.set(.1,spin,.22);}};
+    const call=(s,text)=>s.ui.bubbles.say({...front,y:yS+2.2},text,'','friendly');
+    const finish=()=>{for(const[p,saved]of poseLease){if(saved.pose===undefined)delete p.pose;else p.pose=saved.pose;if(saved.throwProgress===undefined)delete p.throwProgress;else p.throwProgress=saved.throwProgress;}poseLease.clear();shift.cancel();fish.visible=false;heldHands.visible=false;ambient=-1;next=5;};
+    onActivityCancel(ctx,()=>{if(shift.phase!=='idle'){flow.cancel('mode');finish();}});
+    const status=r=>{
+        const labels={ready:'Ready for the next salmon',incoming:'Catch as it reaches your hands',holding:'Caught! Throw it back across the counter',returning:'Returning to the fishmonger…',missed:'Missed it. Try the same delivery again'};
+        r.status.textContent=`${shift.delivered}/${shift.total} deliveries · ${labels[shift.phase]||''}`;
+        r.button.textContent=shift.phase==='holding'?'Throw back (E)':shift.phase==='incoming'?'Catch (E)':shift.phase==='missed'?'Try again (E)':'Ready (E)';
+        r.busy=shift.phase==='returning';r.progress.value=shift.phase==='incoming'?shift.progress:shift.delivered/shift.total;
     };
-    // Pause/conditions stop scene updates. Clear the unfinished player throw
-    // before the host freezes the scene, just as the shared activity flows do.
-    onActivityCancel(ctx, cancelPlayerThrow);
-    const throwFish = (a, bb, toP = false) => { from = a; to = bb; t = 0; dur = toP ? 1.25 : 1.05; fish.visible = true; toPlayer = toP; caught = false; };
-    ctx.onUpdate((dt, s, pl) => {
-        if (toPlayer && activityBlocked(s)) { cancelPlayerThrow(); return; }
-        next -= dt;
-        if (t < 0 && next <= 0) {
-            next = 5 + Math.random() * 6;
-            throwFish({ ...front, y: yS + 1.5 }, { ...back, y: yS + 1.6 });
-            const c = s.spot.crowd, m = c?.peds.find((p) => p.persona === 'fishmonger' && Math.hypot(p.x - front.x, p.z - front.z) < 2.5);
-            if (m && fishLine.length) { const l = fishLine[Math.floor(Math.random() * fishLine.length)]; s.ui.bubbles.say(c._headRef(m), l.text, '', ''); }
-            s.sound.play('calls', 1);
-        }
-        if (t >= 0) {
-            t += dt / dur;
-            const k = Math.min(1, t), x = lerp(from.x, to.x, k), z = lerp(from.z, to.z, k), y = lerp(from.y, to.y, k) + Math.sin(Math.PI * k) * 2.4;
-            fish.position.set(x, y, z); fish.lookAt(to.x, y + (k < 0.5 ? 0.6 : -0.6), to.z); fish.rotateZ(t * 9);
-            if (toPlayer) { catchWindow = k > 0.72 ? 0.45 : 0; if (pl && k > 0.72) { to.x = pl.x; to.z = pl.z; to.y = pl.y + 1.3; } }
-            if (t >= 1) {
-                if (toPlayer && !caught) { s.ui.toast('🐟 Butterfingers!', 'Press E as the fish arrives to catch it.'); s.sound.play('splat'); }
-                fish.visible = false; t = -1;
-            }
-        }
+    ctx.extras.pikeFishShift={debug:()=>shift.debug()};
+    ctx.onUpdate((dt,s)=>{
+        if(shift.phase!=='idle')return;
+        next-=dt;
+        if(ambient<0&&next<=0){ambient=0;next=5+Math.random()*6;const crowd=s.spot.crowd,m=crowd?.peds.find(p=>p.persona==='fishmonger'&&Math.hypot(p.x-front.x,p.z-front.z)<2.5);if(m&&fishLine.length)crowd&&s.ui.bubbles.say(crowd._headRef(m),fishLine[Math.floor(Math.random()*fishLine.length)].text,'','');s.sound.play('calls',1);}
+        if(ambient>=0){ambient+=dt/1.05;place(fishFlightPoint(mongers[0],mongers[1],ambient,2.4),ambient*9);if(ambient>=1){ambient=-1;fish.visible=false;}}
     });
-    ctx.interactables.push({
-        kind: 'fish', x: front.x + (front.x - back.x) * 0.5, z: front.z + (front.z - back.z) * 0.5, r: 4.5,
-        label: (s) => (t >= 0 && toPlayer ? 'Catch!' : 'Ask the fishmongers to throw you a salmon'),
-        use: (s) => {
-            if (activityBlocked(s)) return;
-            if (t >= 0 && toPlayer) {
-                if (catchWindow > 0 && !caught) { caught = true; fish.visible = false; t = -1; s.ui.toast('🐟 Caught it!', 'Flying fish since 1986 — up to 10,000 people watch on a summer day.'); s.sound.play('catch'); s.progress.fish = (s.progress.fish || 0) + 1; seaActivity(s, 'lm-pike-fish', 'pike-place'); }
-                return;
-            }
-            const p = s.ctl.position;
-            throwFish({ ...front, y: yS + 1.5 }, { x: p.x, z: p.z, y: p.y + 1.3 }, true);
-            s.ui.bubbles.say({ x: front.x, z: front.z, y: yS + 2.2 }, 'One salmon flying to our visitor!', '', 'friendly'); s.sound.play('calls');
+    ctx.interactables.push({kind:'fish',tourActivityIds:['fish-shift'],x:front.x+(front.x-back.x)*.5,z:front.z+(front.z-back.z)*.5,r:4.5,
+        label:()=>flow.active?'Fish delivery in progress':'Join the fishmongers · three catches and returns',
+        use(s){
+            if(activityBlocked(s)||flow.active)return;
+            flow.begin(s,{title:'Pike Place · fishmonger shift',help:'Complete three deliveries. Press E or tap Catch as the salmon reaches your hands, then throw it back. A miss gives you another try. Leave cancels the unfinished shift.',action:'Ready (E)',focus:{...front,y:yS+1.6},
+                started(s,r){shift.begin();ambient=-1;fish.visible=false;for(const m of mongers){const p=s.spot.crowd?.peds.find(p=>p.persona==='fishmonger'&&Math.hypot(p.x-m.x,p.z-m.z)<2.5);if(p&&!poseLease.has(p))poseLease.set(p,{pose:p.pose,throwProgress:p.throwProgress});}call(s,'Three salmon. Catch, then send each one back!');status(r);},
+                actioned(s,r){
+                    const h=hands(s),m=mongers[shift.delivered%2];
+                    if(shift.phase==='holding'){shift.returnTo(h,m);s.sound.play('calls');}
+                    else if(shift.phase==='incoming'){if(shift.catch(h))s.sound.play('catch');else s.ui.toast('Watch the salmon','Catch when it reaches your hands.');}
+                    else if(shift.request(m,h))s.sound.play('calls');
+                    status(r);
+                },
+                update(dt,s,r){
+                    const event=shift.tick(dt,hands(s));place(shift.point,shift.phase==='holding'?Math.PI/2:shift.progress*9);
+                    const m=mongers[shift.delivered%2];for(const[p,saved]of poseLease){p.pose=Math.hypot(p.x-m.x,p.z-m.z)<2.5?(shift.phase==='incoming'?'throw':shift.phase==='returning'?'catch':'stand'):(saved.pose||'stand');p.throwProgress=shift.progress;}
+                    heldHands.visible=shift.phase==='holding';if(heldHands.visible){s.camera.getWorldPosition(heldHands.position);s.camera.getWorldQuaternion(heldHands.quaternion);}status(r);
+                    if(event==='missed'){s.sound.play('splat');call(s,'No worries. Same salmon, another try!');}
+                    if(event==='delivered'){s.sound.play('catch');call(s,['One delivered! Two more to go.','Two delivered! Last salmon.'][shift.delivered-1]);}
+                    if(event==='complete')flow.complete();
+                },
+                cancel:finish,
+                complete(s){finish();s.progress.fish=(s.progress.fish||0)+3;seaActivity(s,'lm-pike-shift','pike-place','🐟 Fishmonger shift complete','Three catches, three returns. You earned your place behind the counter.');},
+            });
         },
     });
     return { front, back };
@@ -391,20 +395,24 @@ export default {
         // hero arcade replacing the Main Arcade footprints: storeys drop down the bluff to the west (below street level),
         // an open market floor at street level (stalls under the canopy, dark hall behind), cream stucco + green trim above
         {
-            const bb = new GeoBatch();
+            const bb = new GeoBatch(),heroReport=[];
             const mains = d.buildings.filter((b) => ctx.skipBuildings.has(b.id));
             for (const m of mains) {
                 let top = -1e9; for (const [x, z] of m.poly) top = Math.max(top, ppAt(x, z).y);
-                const hh = m.id === 'w1271653800' ? 14.5 : 10.8, bottom = Math.min(...m.poly.map(([x, z]) => g.base(x, z))) - 2;
-                const up = wallGeometry(m.poly, top + 3.9, top + hh, facadeStyle('apartment'), top + 3.9, m.id === 'w1271653800' ? '#efe6cf' : '#e3d9c0'); bb.add(up, 'f-apartment', null, up.userData.col);
-                if (top - 0.15 > bottom) { const low = wallGeometry(m.poly, bottom, top - 0.15, facadeStyle('apartment'), bottom, '#c9bfa6'); bb.add(low, 'f-apartment', null, low.userData.col); }
+                const profile=pikeHeroProfile(m),hh=profile.heightM,marketCeiling=Math.min(3.9,hh-.2),bottom=Math.min(...m.poly.map(([x,z])=>g.base(x,z)))-2;
+                const upper=addPikeHistoricFacade(bb,m.poly,top+Math.max(marketCeiling,profile.minHeightM),top+hh,{sourceId:m.id,leland:profile.role==='leland-upper-storeys'});
+                for(const hole of m.holes||[])addPikeHistoricFacade(bb,hole,top+Math.max(marketCeiling,profile.minHeightM),top+hh,{sourceId:m.id,hole:true});
+                if(profile.minHeightM===0&&top-.15>bottom){const low=wallGeometry(m.poly,bottom,top-.15,facadeStyle('brick'),bottom,'#c3b29b');bb.add(low,'f-brick',null,low.userData.col);}
                 // the market-floor storey is enclosed except on the Pike Place / Pike St fronts (no see-through to the bay, note 49)
                 for (let i = 0; i < m.poly.length; i++) { const [ax, az] = m.poly[i], [bx, bz] = m.poly[(i + 1) % m.poly.length], mx = (ax + bx) / 2, mz = (az + bz) / 2;
+                    if(profile.minHeightM>marketCeiling)continue;
                     if (Math.hypot(bx - ax, bz - az) < 0.5 || distPolyline(mx, mz, PIKE_PLACE).d < 7 || distPolyline(mx, mz, PIKE_ST).d < 8) continue;
-                    bb.quad([ax, top - 0.2, az], [bx, top - 0.2, bz], [bx, top + 3.95, bz], [ax, top + 3.95, az], '#d9cfb6', 'concrete'); const L = Math.hypot(bx - ax, bz - az), ox = (bz - az) / L * 0.08, oz = -(bx - ax) / L * 0.08; bb.quad([bx + ox, top - 0.2, bz + oz], [ax + ox, top - 0.2, az + oz], [ax + ox, top + 3.95, az + oz], [bx + ox, top + 3.95, bz + oz], '#3a332c', 'concrete'); }
-                bb.flat(m.poly, top + hh, '#77736c', 'roofs');
-                bb.prism(m.poly, top + 3.75, top + 3.9, '#3b3631', 'concrete', { bottom: true, noTop: true }); // ceiling of the market floor
-                if (m.id === 'w231357660') ctx.extras.signRoof = top + hh;
+                    bb.quad([ax,top+profile.minHeightM-.2,az],[bx,top+profile.minHeightM-.2,bz],[bx,top+marketCeiling+.05,bz],[ax,top+marketCeiling+.05,az],'#d9cfb6','concrete');const L=Math.hypot(bx-ax,bz-az),ox=(bz-az)/L*.08,oz=-(bx-ax)/L*.08;bb.quad([bx+ox,top+profile.minHeightM-.2,bz+oz],[ax+ox,top+profile.minHeightM-.2,az+oz],[ax+ox,top+marketCeiling+.05,az+oz],[bx+ox,top+marketCeiling+.05,bz+oz],'#3a332c','concrete');}
+                addPikeRoof(bb,m,top+hh);
+                if(profile.minHeightM<=marketCeiling-.15)addPikeRoof(bb,m,top+marketCeiling-.15,'#3b3631',true);
+                else if(profile.minHeightM>0)addPikeRoof(bb,m,top+profile.minHeightM,'#3b3631',true);
+                if(m.id==='w231357660')ctx.extras.signRoof=top+hh;
+                heroReport.push({sourceId:m.id,profile,datumY:top,roofY:top+hh,oldEstimatedHeightM:m.id==='w1271653800'?14.5:10.8,footprint:m.poly,holes:m.holes||[],upperWindows:upper.windows});
             }
             // dark market hall wall behind the stalls (and its collider)
             const backLine = offsetPolyline(PIKE_PLACE.slice(0, 10), -11.5);
@@ -414,10 +422,8 @@ export default {
                 { const L = Math.hypot(bx - ax, bz - az) || 1, ox = (bz - az) / L * 0.08, oz = -(bx - ax) / L * 0.08; bb.quad([bx + ox, yb - 0.2, bz + oz], [ax + ox, ya - 0.2, az + oz], [ax + ox, ya + 3.9, az + oz], [bx + ox, yb + 3.9, bz + oz], '#2e2924', 'concrete'); }
                 ctx.collider({ wall: true, ax, az, bx, bz, y0a: ya - 3, y1a: ya + 4, y0b: yb - 3, y1b: yb + 4, nx: 0, nz: 1 });
             }
-            // green cornice / trim band above the canopy along the arcade front
-            const trim = offsetPolyline(PIKE_PLACE.slice(0, 9), -5.0);
-            for (let i = 1; i < trim.length; i++) { const [ax, az] = trim[i - 1], [bx, bz] = trim[i], ya = ppAt(ax, az).y, yb = ppAt(bx, bz).y; bb.quad([ax, ya + 3.9, az], [bx, yb + 3.9, bz], [bx, yb + 4.5, bz], [ax, ya + 4.5, az], '#2f5a44', 'paint'); { const L = Math.hypot(bx - ax, bz - az) || 1, ox = (bz - az) / L * 0.06, oz = -(bx - ax) / L * 0.06; bb.quad([bx + ox, yb + 3.9, bz + oz], [ax + ox, ya + 3.9, az + oz], [ax + ox, ya + 4.5, az + oz], [bx + ox, yb + 4.5, bz + oz], '#2f5a44', 'paint'); } }
-            ctx.add(bb.build('main-arcade', { matOverrides: { 'f-brick': facadeMaterial('brick'), 'f-apartment': facadeMaterial('apartment') } }));
+            const glass=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.24,metalness:.22,envMapIntensity:.8,side:THREE.DoubleSide});glass.name='pike-market-sash-glass';
+            ctx.extras.pikeHeroModels=heroReport;ctx.add(bb.build('main-arcade',{matOverrides:{'f-brick':facadeMaterial('brick'),'market-glass':glass}}));
         }
         const stallNames = buildStorefronts(ctx);
         buildArcade(ctx, stallNames);

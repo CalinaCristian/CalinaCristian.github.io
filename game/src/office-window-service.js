@@ -127,8 +127,8 @@ export function createOfficeWindowService({
     },
     get label() {
       return active
-        ? 'Estimated ground-level live view · actual office floor unverified'
-        : 'Live window unavailable · ' + (reason || 'source view unresolved');
+        ? 'Live street view'
+        : 'Window view unavailable';
     },
     prepare(dt) {
       if (disposed) throw Error('Office window service is disposed');

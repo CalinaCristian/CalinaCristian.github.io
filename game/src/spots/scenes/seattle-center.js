@@ -14,6 +14,7 @@ import { seaNeedle, seaBackdrop, seaActivity } from './sea-common.js';
 import { addTraffic } from '../cars.js';
 import { photoHunt } from '../photo-hunt.js';
 import { activityFlow } from '../participation.js';
+import { createGlassCircuit } from '../glass-circuit.js';
 import { facadeMaterial } from '../osm.js';
 import {prepareSourceContext,addSourceContext} from '../source-context.js';
 import {prepareRegionalTerrain,addRegionalTerrain} from '../source-regional-terrain.js';
@@ -123,13 +124,27 @@ function buildNeedle(ctx) {
         });
     };
     ctx.interactables.push({ kind: 'activity', x: door.x, z: door.z, y, r: 3, label: 'Ride the elevator to The Loupe (41 s)', cond: s => s.spot.entry.id === 'space-needle' && !ride && Math.abs(s.ctl.position.y - y) < 1.2, use: s => startRide(s, true) });
-    // On the Loupe, manually frame the downward view through the glass.
-    const onLevel = (s, yy) => Math.abs(s.ctl.position.y - yy) < 1.2;
-    ctx.extras.loupeLook = photoHunt(ctx, { x: NEEDLE.x, z: NEEDLE.z + 17.6, y: LOUPE_Y, r: 3.2, spot: 'space-needle',
-        cond: s => !ride && onLevel(s, LOUPE_Y), title: 'Look down through the glass floor',
-        unavailable: 'The floor below you rotates at its real slow speed.',
-        targets: [{ label: 'The view beneath the revolving glass', x: NEEDLE.x + 1, z: NEEDLE.z + 18.1, y: LOUPE_Y - .04, radius: .18, minDistance: .6, maxDistance: 5, surfaceTolerance: .15, holdSeconds: .75 }],
-        onDone: s => done(s, 'lm-needle-loupe', '👀 Through The Loupe', 'You aimed down through the revolving glass and captured the view. The floor turns once every 45 minutes.') });
+    // An authored walking circuit uses the actual supported Loupe ring instead of another photo task.
+    const onLevel=(s,yy)=>Math.abs(s.ctl.position.y-yy)<1.2;
+    const circuitMarker=new THREE.Mesh(new THREE.TorusGeometry(.38,.035,6,28),new THREE.MeshBasicMaterial({color:'#56d6ee',transparent:true,opacity:.9,depthWrite:false}));
+    circuitMarker.rotation.x=-Math.PI/2;circuitMarker.visible=false;circuitMarker.userData.noFloor=true;circuitMarker.name='virtual-glass-circuit-checkpoint';ctx.add(circuitMarker);
+    const circuitPoints=Array.from({length:97},(_,i)=>{const a=Math.PI/2+i/96*Math.PI*2;return new THREE.Vector3(NEEDLE.x+Math.cos(a)*17.6,LOUPE_Y+.035,NEEDLE.z+Math.sin(a)*17.6);});
+    const circuitLine=new THREE.Line(new THREE.BufferGeometry().setFromPoints(circuitPoints),new THREE.LineDashedMaterial({color:'#56d6ee',dashSize:.45,gapSize:.5,transparent:true,opacity:.65,depthWrite:false}));
+    circuitLine.computeLineDistances();circuitLine.visible=false;circuitLine.userData.noFloor=true;circuitLine.name='virtual-glass-circuit-route';ctx.add(circuitLine);
+    let glassCircuit=null;ctx.extras.glassCircuit={debug:()=>glassCircuit?.snapshot()||null};
+    ctx.interactables.push({kind:'activity',tourActivityIds:['glass-circuit'],x:NEEDLE.x,z:NEEDLE.z+17.6,y:LOUPE_Y,r:2,
+        label:'Glass-floor circuit · walk a full lap above Seattle',cond:s=>!ride&&onLevel(s,LOUPE_Y),
+        use(s){const circuit=createGlassCircuit({x:NEEDLE.x,z:NEEDLE.z,y:LOUPE_Y});
+            flow.begin(s,{title:'The Loupe · glass-floor circuit',lockWalker:false,action:'Start walking (E)',help:'Walk the blue ring through four checkpoints and return here. WASD or touch to move. Look down through the glass or out at Seattle as you go. Leave cancels the unfinished circuit.',
+                actioned(s,r){if(circuit.begin(s.position)){r.button.hidden=true;circuitLine.visible=true;}},
+                update(dt,s,r){const before=circuit.snapshot();if(before.state==='running')circuit.tick(dt,s.position);const q=circuit.snapshot();glassCircuit=circuit;r.progress.value=q.progress;r.status.textContent=q.state==='ready'?'Start at this marker, then follow the blue ring.':`Checkpoint ${q.checkpoints}/4 · ${Math.round(q.progress*100)}% · ${Math.round(q.elapsed)}s`;
+                    circuitMarker.visible=q.state==='running';circuitMarker.position.set(q.target.x,LOUPE_Y+.045,q.target.z);
+                    if(q.state==='complete')flow.complete();else if(q.state==='failed'){s.ui.toast('Circuit paused',q.reason);flow.cancel('course');}},
+                cancel(){circuit.cancel();circuitLine.visible=circuitMarker.visible=false;glassCircuit=null;},
+                complete(s){circuitLine.visible=circuitMarker.visible=false;glassCircuit=null;done(s,'lm-needle-loop','🗼 Full circle above Seattle','You walked the complete glass-floor circuit and all four checkpoints.');},
+            });
+        },
+    });
     // No stair access is advertised: the retained model has no walkable stairs
     // between these levels. The former instant deck-visit award is retired.
     ctx.interactables.push({ kind: 'ride', x: NEEDLE.x + Math.cos(cab.a) * 16.4, z: NEEDLE.z + Math.sin(cab.a) * 16.4, y: LOUPE_Y, r: 3, label: 'Ride the elevator back down', cond: s => s.spot.entry.id === 'space-needle' && !ride && onLevel(s, LOUPE_Y), use: s => startRide(s, false) });

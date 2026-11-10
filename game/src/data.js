@@ -342,8 +342,10 @@ export const ACHIEVEMENTS = [
     // the panel and the %); others show up once fired / listed in spotsMod.ACTIVITIES. Titles + facts:
     // game/research/activities.json (achievement ids / titles) and the scene toasts.
     { id: 'lm-needle-up', cat: 'landmarks', activity: 'space-needle:elevator', live: true, icon: '🛗', title: '520 feet in 41 seconds', desc: 'Rode the Space Needle elevator up to the observation level.' },
-    { id: 'lm-needle-loupe', cat: 'landmarks', activity: 'space-needle:loupe', live: true, icon: '🗼', title: 'Stand on the Loupe', desc: 'Stood on the Loupe, the revolving glass floor of the Space Needle (2018).' },
-    { id: 'lm-pike-fish', cat: 'landmarks', activity: 'pike-place:fish', live: true, icon: '🐟', title: 'Catch!', desc: 'Caught a fish thrown at Pike Place Fish Market.' },
+    { id: 'lm-needle-loupe', cat: 'landmarks', activity: 'space-needle:loupe', live: false, icon: '🗼', title: 'Stand on the Loupe (earlier activity)', desc: 'Completed the earlier Loupe viewpoint activity.' },
+    { id: 'lm-needle-loop', cat: 'landmarks', activity: 'space-needle:glass-circuit', live: true, icon: '🗼', title: 'Full circle above Seattle', desc: 'Walked the entire Loupe glass-floor circuit through all four checkpoints.' },
+    { id: 'lm-pike-fish', cat: 'landmarks', activity: 'pike-place:fish', live: false, icon: '🐟', title: 'Catch! (earlier activity)', desc: 'Caught a fish in the earlier Pike Place activity.' },
+    { id: 'lm-pike-shift', cat: 'landmarks', activity: 'pike-place:fish-shift', live: true, icon: '🐟', title: 'Fishmonger for a day', desc: 'Caught and returned three salmon to the Pike Place fishmongers.' },
     { id: 'lm-gum-wall', cat: 'landmarks', activity: 'pike-place:gum-wall', live: true, icon: '🍬', title: 'Part of the wall', desc: 'Added your gum to the Gum Wall in Post Alley.' },
     { id: 'lm-pike-rachel', cat: 'landmarks', activity: 'pike-place:rachel', live: true, icon: '🐷', title: 'Fed Rachel', desc: 'Dropped a coin in Rachel, the bronze piggy bank whose donations fund the Market\'s social services.' },
     { id: 'lm-great-wheel', cat: 'landmarks', activity: 'waterfront:great-wheel', live: true, icon: '🎡', title: 'Three times round', desc: 'Rode the Seattle Great Wheel: three revolutions over Elliott Bay.' },

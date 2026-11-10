@@ -3,6 +3,7 @@ import { cachedPointHeight } from './point-height-cache.js';
 import { basarabEdge, buildBasarabStructure, drawBasarabGuard } from './basarab-structure.js';
 import { coveredPlatformCanopies } from './covered-platform-canopies.js';
 import { BASARAB_PLATFORMS } from './basarab-source.js';
+import { raisedRoadTriangles } from './basarab-anchor-clearance.js';
 import { projectCoveredWater, prepareFinalWaterGeometry, prepareSmallWaterGroups, consumePreparedSmallWater, waterOwnerSurface, landmarkWaterSurfaces, combineUnderpassWaterOwners } from './final-water-topology.js';
 import { buildUnderpassOwnerIndex } from './underpass-ground-owner.js';
 import { underpassRoofModel, underpassRoofFaces, underpassRoofCollider, UNDERPASS_COVER_POLICY } from './underpass-roof.js';
@@ -3898,7 +3899,8 @@ export async function buildWorld(city, renderer, opts = {}) {
     const collision = [];
     const propColl = []; // small circles for street furniture (trees, posts, shelters…)
     propColl.push(...tramDecks, ...bridgeJunctionDecks);
-    const basarabStructure=buildBasarabStructure(data,tramGrades,cellOf,group,edges);
+    const basarabRoadRegions=city.id==='bucharest'&&distId==='grozavesti'?raisedRoadTriangles(cells.values()):[];
+    const basarabStructure=buildBasarabStructure(data,tramGrades,cellOf,group,edges,{roadRegions:basarabRoadRegions,tramEnvelope:tramPropEnvelope,supportAt:(x,z,base)=>{let top=null;surfacesAt(x,z,h=>{if(Math.abs(h-base)<.3&&(top===null||Math.abs(h-base)<Math.abs(top-base)))top=h;});return top;}});
     propColl.push(...basarabStructure.colliders);
     for(const piece of basarabStructure.pieces){propColl.push(piece);tramDecks.push(piece);sceneryDeckGrid.insert(piece.x-piece.r,piece.z-piece.r,piece.x+piece.r,piece.z+piece.r,piece);}
     const treeClear = []; // (after round 6) {x, z, r}: no trees here (fuel forecourts)

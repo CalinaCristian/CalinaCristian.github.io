@@ -4392,6 +4392,13 @@ export async function buildWorld(city, renderer, opts = {}) {
                             if (h <= 40) { // taller blocks retain the existing far silhouette in addDetail
                                 emitFacadeSlab(db, { ax, az, ux, uz, nx, nz, length:L }, s2, yb - 0.1, bayW * 0.9, 0.12, 1.1, neutral); // floor incl. soffit / side edges
                                 emitFacadeSlab(db, { ax, az, ux, uz, nx, nz, length:L }, s2, yb + 0.02, bayW * 0.9, 0.95, 1.1, front, { back: 1.02, soffit: false }); // thin parapet plate
+                                // Balcony guards return to the facade at both ends;
+                                // capping only the thin front plate left these sides open.
+                                const left=Math.max(0,s2-bayW*.45),right=Math.min(L,s2+bayW*.45);
+                                if(right-left>.16)for(const end of [left+.04,right-.04]) {
+                                    emitFacadeSlab(db,{ax,az,ux,uz,nx,nz,length:L},end,yb+.02,.08,.95,1.02,front,{soffit:false});
+                                    if(t!=='open')emitFacadeSlab(db,{ax,az,ux,uz,nx,nz,length:L},end,yb+.97,.08,floorH-1.15,1.02,t==='glazed'?rgb('#71879a'):shadeRgb(front,.92),{soffit:false});
+                                }
                                 if (t === 'glazed') slab(s2, yb + 0.97, bayW * 0.88, floorH - 1.15, 1.02, rgb('#71879a'));     // glazed upper part
                                 else if (t === 'clad') slab(s2, yb + 0.97, bayW * 0.88, floorH - 1.15, 1.04, shadeRgb(front, 0.92));
                             }

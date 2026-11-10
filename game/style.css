@@ -995,3 +995,10 @@ body.touch #spot-ui button.sp-mini { padding: 0; color: inherit; font: inherit; 
  body.touch.playing #touch [data-btn=act]{height:auto;min-height:48px;font-size:0}
  body.touch.playing #touch [data-btn=act]::after{content:attr(data-prompt-label);font:600 12px/1.35 system-ui}
 }
+
+body.touch #touch :is([data-btn=map],[data-btn=jump],[data-btn=horn],[data-btn=lookback]){font:600 12px/1.25 system-ui}
+@media (max-width:700px) and (orientation:portrait){
+ body.touch #spot-ui .sp-card{padding-right:58px}
+ body.touch #spot-ui.sp-tour-active:not(.sp-participating) .sp-card>span,body.touch #spot-ui.sp-tour-active:not(.sp-participating) .sp-chal,body.touch #spot-ui.sp-tour-active .sp-dots{display:none}
+ body.touch #spot-ui.sp-tour-active:not(.sp-participating) .sp-narr{max-height:3em;overflow:auto;pointer-events:auto;touch-action:pan-y}
+}

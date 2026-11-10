@@ -60,6 +60,36 @@ R11.8 Pending: GTS door reachable on Calea Călărașilor; Lukoil Barbu Văcăre
 
 The inferred roadside compiler preserves each complete mitred lane footprint and all literal/reviewed widths. Only generated outside-lane shoulder, sidewalk-underlay and structural-margin geometry can yield to a known flat source rail's emitted fleet corridor at compatible model heights. It closes newly cut bridge margins and shares those caps with collision. Inferred raised crossing paving is lowered to the shared ground surface, retaining paving and matching walking/surface queries. Separately mapped footways/areas/props, source XY/directions and motor/rail grades remain unchanged. Non-convex protected lanes and mapped dimensions stay unresolved/retained instead of being clipped. See the architecture contract and `game/dev/rail-roadside.test.mjs`; a contact replay is not a native visual or full-path pass.
 
+## Bridge bents, slab slot and crown clearance (2026-11-10, owner reports 12-17: in progress)
+
+Piers are a MODEL estimate: OSM carries no pier positions. `game/src/bridge-bents.js` plans them once per district over whole
+deck chains (short source edges joined through their mutual straightest continuation), replacing the per-edge hash that left
+Pasajul Basarab with 15 piers on about 3.5 km of elevated deck. One crosshead (1.6 x 1.3 m) about every 30 m carries every
+parallel slab of a structure at one level (both carriageways and the elevated tram slabs between them, with bearing
+pedestals where a slab sits higher); 1.4 m columns stand only on free ground: never on a lower carriageway, sidewalk or pad,
+a tram or heavy-rail track, water, a building or a mapped tree. A frame may stand up to 9 m outside the deck edges and span
+at most 26 m, so it straddles a street running under the viaduct. A bent with no legal column site, or whose crosshead would
+leave less than 4.7 m over a road or 5.2 m over rails, is omitted: the river crossing and the rail-yard crossing keep an open
+span and receive no invented supports. The arch and cable-stayed structures that really carry those spans are not modelled
+here. Decks lower than a crosshead frame get a wall pier on entirely free ground, or nothing below 1.2 m, where the thinning
+fascia already meets the ground. Columns and wall piers share the existing level-aware `pier` collider.
+
+The open slot between the parallel slabs of one structure is closed with a top and soffit between slab edges at one level and
+at most 6 m apart; overlapping slabs, slabs at different levels (a diverging ramp) and edges facing open air are left alone.
+The infill is registered as a passive walking surface (`bridge-slot-infill`); it is not a lane and does not change traffic.
+
+A tree crown may no longer occupy an elevated deck or tram slab, including aerial-measured crowns, which previously skipped
+the narrowing rule. The crown is narrowed to the deck edge; a trunk too close for that keeps its position as a tree that stays
+below the soffit; only a tree that fits neither way is dropped, and each such physical exclusion is listed in
+`world.stats.treeDeckClearance.excluded`. Mapped positions and source records are unchanged. Inferred trees keep off the new
+columns; columns keep off mapped trees.
+
+Controls: `node --test game/dev/bridge-bents.test.mjs` (planner rules on synthetic decks) and
+`node game/dev/harness/bridge-bents-check.cjs . <out> <city> <district>` (built-world facts: columns on free ground,
+crosshead clearance, collider count, slot infill). Neither is a visual or driving acceptance. Still open for reports 12-17:
+ramp guards and upper parapets, railings on the tram-only viaduct, the remaining lower-ramp pieces, the arch/cable structures,
+full both-direction journeys with tram/bus clearance, and budget measurements.
+
 ## Structural bridge pads (2026-11-09)
 
 Bridge-edge retraction at a source fork leaves a real junction pad whose existing road pavement must have a continuous underside. Reuse its complete serialized road-pad skin/XY tessellation and modeled adjacent depth; close only the exterior boundary after removing connected structural road-mouth intervals. Share the exact derived slab triangles with passive collision/height queries. Do not create cross-lane cap walls or alter source/grade/route data to hide gaps. The first patch excludes speculative outer sidewalk slab width. Its low current deck over source rail w660927514 remains a recorded profile/headroom blocker until the separate profile model and fresh native checks resolve it.
